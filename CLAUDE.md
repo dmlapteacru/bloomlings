@@ -56,7 +56,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   their padlocks before L40; the lotus iris 44–47: the splash opening on Level 1, then the win's Next closing, closed
   on "Level 13" and opening) to PNG in `playtest/preview/out/` (gitignored) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
-  from the asset slot registry.
+  from the asset slot registry. `DOTNET_TieredCompilation=0 dotnet run -c Release --project playtest/preview -- --perf`
+  runs only the frame-time harness (`Perf.cs`, `playtest/README.md`): a journey through the screens with the APK's
+  picture cache, printing per screen its slowest frame and what its pictures cost (`--perf-store <dir>` twice for a later
+  launch). The kit's pictures render big ones row band by row band on several cores (`UiRaster.Rows`, byte-identical to
+  one thread); the full playtest keeps them in a 64 MiB cache and on disk between launches (`PictureStore`).
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
   after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI

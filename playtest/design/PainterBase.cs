@@ -426,9 +426,14 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// How many bytes of pictures a painter keeps (<see cref="PictureCache{T}"/>): past it, the least recently used
-        /// pictures not drawn in the last two frames are dropped and render again on demand.
+        /// pictures not drawn in the last two frames are dropped and render again on demand. Since the volume look (spec 005
+        /// FR-044 to FR-048) a screen is mostly pictures: a page's wooden frame alone is about 8.5 MiB on a 1080 × 2340 phone,
+        /// a screen's pictures 6 to 20 MiB, and a journey through every screen (<c>playtest/preview -- --perf</c>) about
+        /// 56 MiB. The budget holds that, so going back to a screen draws it from the cache instead of rendering it again
+        /// (12 MiB, the budget before, dropped Home's pictures on every page and rendered them again on the way back). The
+        /// bitmaps live in native memory, beside the hero frames' (<see cref="HeroFrameCacheBytes"/>).
         /// </summary>
-        protected const long PictureCacheBytes = 12L * 1024 * 1024;
+        protected const long PictureCacheBytes = 64L * 1024 * 1024;
 
         /// <summary>
         /// How many bytes of decoded hero frames a painter keeps (<see cref="HeroFrameStore"/>): a frame is held as its

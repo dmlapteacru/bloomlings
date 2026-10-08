@@ -34,6 +34,14 @@ namespace Bloomlings.Playtest.Droid
             // A lawn rendered on a worker thread asks for the frame that shows it.
             _painter.Redraw = PostInvalidate;
 
+            // The made pictures stay on disk for the next launches of this build (spec 005 FR-044 to FR-048 made most of a
+            // screen pictures): a screen seen before opens without making them again.
+            string? build = BuildFingerprint(context);
+            if (build != null && context.CacheDir != null)
+            {
+                AndroidPainter.OpenStore(context.CacheDir.AbsolutePath, build);
+            }
+
             // The screen's density turns touch.slop and touch.swipe (dp) into pixels (160 dp to the inch).
             _painter.Dpi = (context.Resources?.DisplayMetrics?.Density ?? 0f) * 160f;
         }
@@ -69,8 +77,11 @@ namespace Bloomlings.Playtest.Droid
             float dt = _lastFrame == 0 ? 0f : Math.Min(0.1f, (now - _lastFrame) / 1000f);
             _lastFrame = now;
             _painter.Now = now / 1000f;
+            long start = System.Diagnostics.Stopwatch.GetTimestamp();
+            PaintStats.Counts before = PaintStats.Snapshot();
             _painter.Begin(canvas, Width, Height, new Client.UI.Design.Insets(_insetTop, _insetBottom));
             _app.Draw(_painter, dt);
+            LogSlowFrame(start, before);
             if (_app.NeedsFrames || _painter.Springing || _painter.Finger.HasValue)
             {
                 if (_app.Calm && !_painter.Springing && !_painter.Finger.HasValue)
@@ -88,6 +99,48 @@ namespace Bloomlings.Playtest.Droid
             {
                 _lastFrame = 0;
             }
+        }
+
+        /// <summary>
+        /// This install of this build (its version and install time; every new APK has another), naming the folder of the
+        /// pictures it made: pictures made by other code are never shown. Null (logged) when the package cannot say.
+        /// </summary>
+        private static string? BuildFingerprint(Context context)
+        {
+            try
+            {
+#pragma warning disable CA1422, CS0618 // GetPackageInfo(string, int) and VersionCode, for Android 8 and later alike.
+                Android.Content.PM.PackageInfo? info = context.PackageManager?.GetPackageInfo(context.PackageName!, 0);
+                return info == null ? null : info.VersionCode + "-" + info.LastUpdateTime;
+#pragma warning restore CA1422, CS0618
+            }
+            catch (Exception e)
+            {
+                Android.Util.Log.Warn("Bloomlings", "No build fingerprint, pictures are not kept: " + e.Message);
+                return null;
+            }
+        }
+
+        /// <summary>How long a frame's drawing may take on the UI thread before it is logged (two display frames).</summary>
+        private const double SlowFrameMs = 34.0;
+
+        /// <summary>
+        /// Logs a frame whose drawing took longer than <see cref="SlowFrameMs"/> (<c>adb logcat -s Bloomlings</c>): its time,
+        /// and how much of it went to making pictures, masks and backdrops (<see cref="PaintStats"/>), so a stutter on a
+        /// phone says whether pictures caused it.
+        /// </summary>
+        private void LogSlowFrame(long start, PaintStats.Counts before)
+        {
+            double ms = PaintStats.Ms(System.Diagnostics.Stopwatch.GetTimestamp() - start);
+            if (ms < SlowFrameMs)
+            {
+                return;
+            }
+
+            PaintStats.Counts spent = PaintStats.Snapshot() - before;
+            Android.Util.Log.Info(
+                "Bloomlings",
+                $"slow frame on {_app.Screen}: {ms:0} ms, {spent.Rasters} pictures made in {spent.RasterMilliseconds:0} ms ({spent.RasterBytes / 1024} KiB), {spent.Loads} read back in {spent.LoadMilliseconds:0} ms, {spent.Masks} masks, {spent.Backdrops} backdrops, {spent.Milliseconds:0} ms on pictures in all");
         }
 
         /// <summary>

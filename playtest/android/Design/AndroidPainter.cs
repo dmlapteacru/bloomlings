@@ -244,10 +244,11 @@ namespace Bloomlings.Playtest.Droid
                     MaskKind.Skin => ShapeLibrary.SkinPattern(key),
                     _ => sdf!,
                 };
+                long start = System.Diagnostics.Stopwatch.GetTimestamp();
                 byte[] mask = ShapeRaster.Mask(shape, size, topDown: true);
-                bitmap = Bitmap.CreateBitmap(size, size, Bitmap.Config.Alpha8!)!;
-                bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(mask));
+                bitmap = ToBitmap(mask, size, size, Bitmap.Config.Alpha8!);
                 Masks[(kind, key, size)] = bitmap;
+                PaintStats.Masked(start);
             }
 
             _source.Set(0, 0, size, size);
@@ -317,8 +318,7 @@ namespace Bloomlings.Playtest.Droid
                 _text.SetStyle(Paint.Style.FillAndStroke);
                 _text.StrokeWidth = stroke;
                 _text.Color = ToColor(Faded(DesignTokens.Colors.GardenShadow.WithAlpha(look.ShadowAlpha), Alpha));
-                using var blur = new BlurMaskFilter(Math.Max(1f, 0.06f * size), BlurMaskFilter.Blur.Normal!);
-                _text.SetMaskFilter(blur);
+                _text.SetMaskFilter(Blur(Math.Max(1f, 0.06f * size)));
                 _canvas.DrawText(shown, left, baseline + ((look.ExtrudeEm + 0.05f) * size), _text);
                 _text.SetMaskFilter(null);
             }
@@ -343,11 +343,63 @@ namespace Bloomlings.Playtest.Droid
 
             _text.SetStyle(Paint.Style.Fill);
             _text.Color = ToColor(Faded(look.FillTop, Alpha));
+
+            // The fill's gradient runs from 0 down to the letters' height, kept per colors and height (as the rounded
+            // boxes' gradients), and the letters are drawn moved up by its top: no shader is made for every label.
             float top = baseline - (size * 0.7f);
-            using var shader = new LinearGradient(0f, top, 0f, baseline, new int[] { ToColor(Faded(look.FillTop, Alpha)).ToArgb(), ToColor(Faded(look.FillBottom, Alpha)).ToArgb() }, new[] { 0.3f, 1f }, Shader.TileMode.Clamp!);
-            _text.SetShader(shader);
-            _canvas.DrawText(shown, left, baseline, _text);
+            _text.SetShader(TextGradient(ToColor(Faded(look.FillTop, Alpha)).ToArgb(), ToColor(Faded(look.FillBottom, Alpha)).ToArgb(), baseline - top));
+            _canvas.Save();
+            _canvas.Translate(0f, top);
+            _canvas.DrawText(shown, left, baseline - top, _text);
+            _canvas.Restore();
             _text.SetShader(null);
+        }
+
+        private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> TextGradients = new Dictionary<(int, int, float), LinearGradient>();
+        private static readonly Dictionary<float, BlurMaskFilter> Blurs = new Dictionary<float, BlurMaskFilter>();
+
+        /// <summary>A label fill's gradient from 0 to <paramref name="height"/> (30% of it in the top color), kept; all are made again past the limit.</summary>
+        private static LinearGradient TextGradient(int top, int bottom, float height)
+        {
+            if (!TextGradients.TryGetValue((top, bottom, height), out LinearGradient? shader))
+            {
+                if (TextGradients.Count >= GradientCacheLimit)
+                {
+                    foreach (LinearGradient old in TextGradients.Values)
+                    {
+                        old.Dispose();
+                    }
+
+                    TextGradients.Clear();
+                }
+
+                shader = new LinearGradient(0f, 0f, 0f, height, new[] { top, bottom }, new[] { 0.3f, 1f }, Shader.TileMode.Clamp!);
+                TextGradients[(top, bottom, height)] = shader;
+            }
+
+            return shader;
+        }
+
+        /// <summary>A label shadow's blur of <paramref name="radius"/> px, kept per radius (a few type sizes).</summary>
+        private static BlurMaskFilter Blur(float radius)
+        {
+            if (!Blurs.TryGetValue(radius, out BlurMaskFilter? blur))
+            {
+                if (Blurs.Count >= GradientCacheLimit)
+                {
+                    foreach (BlurMaskFilter old in Blurs.Values)
+                    {
+                        old.Dispose();
+                    }
+
+                    Blurs.Clear();
+                }
+
+                blur = new BlurMaskFilter(radius, BlurMaskFilter.Blur.Normal!);
+                Blurs[radius] = blur;
+            }
+
+            return blur;
         }
 
         /// <summary>
@@ -364,6 +416,7 @@ namespace Bloomlings.Playtest.Droid
             string key = cacheKey + "@" + w + "x" + h;
             if (!Backdrops.TryGetValue(key, out Bitmap? bitmap))
             {
+                long start = System.Diagnostics.Stopwatch.GetTimestamp();
                 byte[]? rgba = BackdropRaster.IsLawn(scene) ? RenderedAside(key, w, h, colors, scene) : BackdropRaster.Render(w, h, colors, scene);
                 if (rgba == null)
                 {
@@ -371,9 +424,9 @@ namespace Bloomlings.Playtest.Droid
                     return;
                 }
 
-                bitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
-                bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(rgba));
+                bitmap = ToBitmap(rgba, w, h, Bitmap.Config.Argb8888!);
                 Backdrops[key] = bitmap;
+                PaintStats.Backdropped(start);
             }
 
             _source.Set(0, 0, w, h);
@@ -420,22 +473,102 @@ namespace Bloomlings.Playtest.Droid
             int h = PictureSize(box.Height);
             if (!Pictures.TryGet(key, w, h, out Bitmap bitmap))
             {
-                byte[] rgba = render(w, h);
-                if (rgba.Length != w * h * 4)
+                long start = System.Diagnostics.Stopwatch.GetTimestamp();
+                int bytes = w * h * 4;
+                if (s_store != null && ReadStored(key, w, h, bytes))
                 {
-                    throw new ArgumentException("Picture " + UiRaster.CacheKey(key, w, h) + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
+                    // Made in an earlier launch of this build: its premultiplied bytes, read back.
+                    bitmap = ToBitmap(s_read, bytes, w, h, Bitmap.Config.Argb8888!);
+                    Pictures.Add(key, w, h, bitmap, bytes);
+                    PaintStats.Loaded(start);
                 }
+                else
+                {
+                    byte[] rgba = render(w, h);
+                    if (rgba.Length != bytes)
+                    {
+                        throw new ArgumentException("Picture " + UiRaster.CacheKey(key, w, h) + " rendered " + rgba.Length + " bytes, expected " + bytes + ".");
+                    }
 
-                // ARGB_8888 holds premultiplied RGBA bytes; UiRaster renders straight alpha.
-                Premultiply(rgba);
-                bitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
-                bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(rgba));
-                // Dropped bitmaps are disposed, not recycled: a hardware canvas may still hold a recent frame's draws of them.
-                Pictures.Add(key, w, h, bitmap, rgba.Length);
+                    // ARGB_8888 holds premultiplied RGBA bytes; UiRaster renders straight alpha.
+                    Premultiply(rgba);
+                    bitmap = ToBitmap(rgba, bytes, w, h, Bitmap.Config.Argb8888!);
+                    // Dropped bitmaps are disposed, not recycled: a hardware canvas may still hold a recent frame's draws of them.
+                    Pictures.Add(key, w, h, bitmap, bytes);
+                    PaintStats.Rastered(key, w, h, start);
+
+                    // Kept for the next launches; the array is the store's from here.
+                    s_store?.Write(key, w, h, rgba, bytes);
+                }
             }
 
             _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
+        }
+
+        /// <summary>
+        /// How many bytes of made pictures the APK keeps on disk between launches (<see cref="PictureStore"/>): a few
+        /// journeys through the screens and their level sizes.
+        /// </summary>
+        private const long StoreBytes = 160L * 1024 * 1024;
+
+        private static PictureStore? s_store;
+        private static byte[] s_read = Array.Empty<byte>();
+
+        /// <summary>
+        /// Keeps the made pictures on disk between launches (<see cref="PictureStore"/>) in <paramref name="cacheFolder"/>'s
+        /// <c>pictures</c> folder, one folder per build (<paramref name="fingerprint"/>): a screen seen in an earlier launch
+        /// opens without making its pictures again. Called once by the view; without it pictures are only made.
+        /// </summary>
+        public static void OpenStore(string cacheFolder, string fingerprint)
+        {
+            if (s_store != null)
+            {
+                return;
+            }
+
+            s_store = new PictureStore(System.IO.Path.Combine(cacheFolder, "pictures"), fingerprint, StoreBytes)
+            {
+                Failed = message => Android.Util.Log.Warn("Bloomlings", message),
+            };
+        }
+
+        /// <summary>Reads a stored picture's bytes into <see cref="s_read"/>; false when it is not stored.</summary>
+        private static bool ReadStored(string key, int w, int h, int bytes)
+        {
+            if (s_read.Length < bytes)
+            {
+                s_read = new byte[bytes];
+            }
+
+            return s_store!.TryRead(key, w, h, 4, s_read);
+        }
+
+        // One direct buffer the made pictures' pixels go through to their bitmaps, grown to the largest so far: no Java array
+        // is made and copied twice for each picture (ByteBuffer.Wrap of a managed array), and none is left for the Java heap.
+        private static Java.Nio.ByteBuffer? s_upload;
+        private static IntPtr s_uploadAddress;
+        private static int s_uploadBytes;
+
+        /// <summary>A bitmap of <paramref name="config"/> holding <paramref name="pixels"/> (its rows from the top, as the bitmap stores them).</summary>
+        private static Bitmap ToBitmap(byte[] pixels, int width, int height, Bitmap.Config config) => ToBitmap(pixels, pixels.Length, width, height, config);
+
+        /// <summary>A bitmap of <paramref name="config"/> holding the first <paramref name="bytes"/> of <paramref name="pixels"/>.</summary>
+        private static Bitmap ToBitmap(byte[] pixels, int bytes, int width, int height, Bitmap.Config config)
+        {
+            Bitmap bitmap = Bitmap.CreateBitmap(width, height, config)!;
+            if (s_upload == null || s_uploadBytes < bytes)
+            {
+                s_upload?.Dispose();
+                s_upload = Java.Nio.ByteBuffer.AllocateDirect(bytes)!;
+                s_uploadAddress = Android.Runtime.JNIEnv.GetDirectBufferAddress(s_upload.Handle);
+                s_uploadBytes = bytes;
+            }
+
+            System.Runtime.InteropServices.Marshal.Copy(pixels, 0, s_uploadAddress, bytes);
+            s_upload.Rewind();
+            bitmap.CopyPixelsFromBuffer(s_upload);
+            return bitmap;
         }
 
         /// <summary>Straight to premultiplied alpha, in place.</summary>

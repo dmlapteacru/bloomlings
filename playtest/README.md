@@ -89,7 +89,10 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   outlined count at the bottom right corner) and cream Waiting Slots (the tile, the count below it); cream booster tiles with green count
   badges; Petals as a pink lotus.
   Material pictures (planks, frames, stones, pedestal, candy tiles) come from the kit's `UiRaster` through
-  `IPainter.Picture`, cached by key and size; `BoardLayout` places the board. The Bloomlings are the generated character
+  `IPainter.Picture`, cached by key and size (64 MiB of bitmaps; a big picture's rows render on several cores), and the
+  full playtest keeps them on disk between launches of the same APK (`PictureStore`, the cache folder's `pictures/`), so a
+  screen seen before opens without making them again; a frame slower than 34 ms is logged with what its pictures cost
+  (`adb logcat -s Bloomlings`). `BoardLayout` places the board. The Bloomlings are the generated character
   art of spec 004 (`specs/004-character-art/`), embedded from
   `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: 2D characters whose shape is the variant symbol, as
   walkers and on the Bloomlings sheet; 3D heroes on the splash, Home, the win and milestone cards and the leaderboard
@@ -149,6 +152,13 @@ slot registry.
 `-- --before <sheet.png>` also writes `before-after.jpg`, that older sheet above the new one (the spec 003 review).
 `-- --sounds` only writes every synthesized clip (the cues and the clearing sounds, spec 005 FR-042) as a WAV file and
 `schedule.json`, what a pod of eight tiles plays in each clearing style at 1× and 3×, to `playtest/preview/out/sounds/`.
+`-c Release -- --perf` only runs the frame-time harness (`Perf.cs`): a journey through the screens at 60 frames a second
+(Home, its cards, the Store's tabs, the pages, a level played to its win, the iris, a big board, a jam) with the APK's
+picture cache and sizes, which prints per screen its slowest frame, the pictures made and their milliseconds, cache drops,
+draws and allocations, and the heaviest pictures (`--csv <file>` every frame, `--perf-store <dir>` keeps the pictures as
+the APK does between launches: run it twice to see a later launch, `--perf-serial` one thread). Run it with
+`DOTNET_TieredCompilation=0`, as the APK's Mono compiles each method optimized at once. The normal run also checks that
+the kit's animations draw the pictures of their first frame and that the picture store gives back what it kept.
 
 Both APKs play the Unity client's synthesized sounds (`ToneSynth`, linked) through a SoundPool and its haptic patterns
 on the vibrator (`PlaytestSound`), as the client's `FeedbackPolicy` decides: each clearing style's act sounds and its

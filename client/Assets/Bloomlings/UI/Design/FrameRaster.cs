@@ -62,7 +62,7 @@ namespace Bloomlings.Client.UI.Design
             Check(size, size);
             var pixels = new byte[size * size * 4];
             float pixel = 1f / size;
-            for (int py = 0; py < size; py++)
+            Rows(size, size, py =>
             {
                 float v = ((py + 0.5f) / size) - 0.5f;
                 for (int px = 0; px < size; px++)
@@ -90,7 +90,7 @@ namespace Bloomlings.Client.UI.Design
 
                     paint.Write(pixels, ((py * size) + px) * 4);
                 }
-            }
+            });
 
             return pixels;
         }

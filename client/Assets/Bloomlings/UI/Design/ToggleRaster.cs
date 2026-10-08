@@ -179,9 +179,15 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     var c = new Color(set.Face.Mix(set.Top, 0.25f));
-                    (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, h, radius));
-                    (float nx, float ny, float nz) = BevelNormal(-gx, -gy, 1f - Clamp01(-body / bevel));
-                    Shade(ref c, set.Face, nx, ny, nz, 0.4f, 0.5f, 0f);
+                    float tilt = 1f - Clamp01(-body / bevel);
+                    if (tilt > 0f)
+                    {
+                        // Only the bevel is lit: on the flat bottom the light changes nothing (Shade of a flat normal).
+                        (float gx, float gy) = RoundRectGradient(x, y, 0f, 0f, w, h, radius);
+                        (float nx, float ny, float nz) = BevelNormal(-gx, -gy, tilt);
+                        Shade(ref c, set.Face, nx, ny, nz, 0.4f, 0.5f, 0f);
+                    }
+
                     c.Mix(C.GardenShadow, 0.18f * Clamp01(1f - (y / (h * 0.45f))) * Clamp01(1f - (-body / (h * 0.35f))));
                     mark?.Invoke(ref c, x, y);
                     c.Mix(set.Lip, 0.75f * Clamp01(0.5f - (-body - line)));

@@ -3,6 +3,11 @@
 // [--shape 19.5x9] (one screen shape only, for a quick look; the checks then cover that shape alone)
 // [--before <sheet.png>] (also writes before-after.jpg: that sheet above the new one, spec 003 FR-029)
 // [--sounds] (only writes the synthesized clips as WAV files and a listening schedule to <out>/sounds, spec 005 FR-042)
+// [--perf] [--csv <file>] (only runs the frame-time harness, Perf.cs: a journey through the screens at 60 fps with the
+// APK's picture cache, per screen ms a frame, C# picture rasters and cache misses; --csv also writes every frame;
+// --perf-serial renders the pictures' rows on one thread, --perf-draw really draws the frames, --perf-verbose prints each,
+// --perf-store <dir> keeps the made pictures there as the APK does between launches: run twice to see a later launch,
+// --perf-allocs lists what the level's frames allocate by type)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +28,8 @@ string? before = null;
 HashSet<int>? only = null;
 bool sounds = false;
 string? shape = null;
+bool perf = false;
+string? csv = null;
 for (int i = 0; i < args.Length; i++)
 {
     if (args[i] == "--out" && i + 1 < args.Length)
@@ -49,6 +56,40 @@ for (int i = 0; i < args.Length; i++)
     {
         shape = args[++i];
     }
+    else if (args[i] == "--perf")
+    {
+        perf = true;
+    }
+    else if (args[i] == "--perf-verbose")
+    {
+        perf = true;
+        Perf.Verbose = true;
+    }
+    else if (args[i] == "--perf-draw")
+    {
+        perf = true;
+        Perf.Draw = true;
+    }
+    else if (args[i] == "--perf-store" && i + 1 < args.Length)
+    {
+        perf = true;
+        Perf.StoreFolder = Path.GetFullPath(args[++i]);
+    }
+    else if (args[i] == "--perf-allocs")
+    {
+        perf = true;
+        Perf.Allocations = true;
+    }
+    else if (args[i] == "--perf-serial")
+    {
+        // The pictures' rows on one thread (UiRaster.ParallelRows off): their whole work, steadier on a busy machine.
+        perf = true;
+        UiRaster.ParallelRows = false;
+    }
+    else if (args[i] == "--csv" && i + 1 < args.Length)
+    {
+        csv = Path.GetFullPath(args[++i]);
+    }
 }
 
 if (sounds)
@@ -68,6 +109,12 @@ var shapes = new (string Name, float Width, float Height, Insets Insets)[]
 if (shape != null)
 {
     shapes = shapes.Where(s => s.Name == shape).ToArray();
+}
+
+if (perf)
+{
+    // The frame-time harness: one journey through the screens on one shape (19.5x9 unless --shape says another).
+    return Perf.Run(content, shape != null ? shapes[0] : shapes[1], csv);
 }
 
 var usedSlots = new HashSet<string>(StringComparer.Ordinal);
@@ -125,6 +172,9 @@ Console.WriteLine($"frames: {sheetImages.Count}, images in {outDir}");
 (int heroDecoded, long heroBytes) = SkiaPainter.HeroFrameStats;
 Console.WriteLine($"hero frames: {heroDecoded} decoded on first use, {heroBytes / (1024.0 * 1024.0):0.0} MB held");
 problems.AddRange(HeroFrameCheck.Run());
+
+// Animations draw the pictures their first frame made, and the APK's picture store gives back what it kept (PictureChecks).
+problems.AddRange(PictureChecks.Run());
 Console.WriteLine($"slots used by the playtest screens: {usedSlots.Count} of {AssetSlots.All.Count}");
 if (only == null)
 {

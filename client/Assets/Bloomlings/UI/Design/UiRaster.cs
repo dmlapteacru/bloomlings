@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Client.UI.Design
@@ -89,7 +90,7 @@ namespace Bloomlings.Client.UI.Design
             float lip = height * Math.Max(0f, lipShare);
             float nail = Math.Max(1.4f, height * 0.035f);
             float nailInset = Math.Max(r * 0.7f, height * 0.3f);
-            for (int py = 0; py < height; py++)
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
                 for (int px = 0; px < width; px++)
@@ -126,7 +127,7 @@ namespace Bloomlings.Client.UI.Design
                     c.Mix(wood.Line, Clamp01(0.5f + inner));
                     Put(pixels, width, px, py, c, cover);
                 }
-            }
+            });
 
             return pixels;
         }
@@ -150,7 +151,7 @@ namespace Bloomlings.Client.UI.Design
             float lip = b * 0.4f;
             float shadow = Math.Max(2f, b * 0.7f);
             Rgba shade = C.GardenShadow;
-            for (int py = 0; py < height; py++)
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
                 for (int px = 0; px < width; px++)
@@ -188,7 +189,7 @@ namespace Bloomlings.Client.UI.Design
                         }
                     }
                 }
-            }
+            });
 
             return pixels;
         }
@@ -307,7 +308,7 @@ namespace Bloomlings.Client.UI.Design
             Rgba lit = C.StoneTop.Lighten(0.7f);
             Rgba deep = C.StoneLip.Darken(0.08f);
             Rgba joint = C.StoneLip.Darken(0.22f);
-            for (int py = 0; py < height; py++)
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
                 for (int px = 0; px < width; px++)
@@ -391,7 +392,7 @@ namespace Bloomlings.Client.UI.Design
 
                     Put(pixels, width, px, py, c, cover);
                 }
-            }
+            });
 
             return pixels;
         }
@@ -1130,6 +1131,7 @@ namespace Bloomlings.Client.UI.Design
             public float G;
             public float B;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public Color(Rgba c)
             {
                 R = c.R;
@@ -1138,6 +1140,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             /// <summary>Blends toward <paramref name="c"/> by <paramref name="t"/> times its alpha.</summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void Mix(Rgba c, float t)
             {
                 t = Clamp01(t) * (c.A / 255f);
@@ -1162,6 +1165,7 @@ namespace Bloomlings.Client.UI.Design
             public Rgba ToRgba() => new Rgba(Byte(R), Byte(G), Byte(B));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void Put(byte[] pixels, int width, int px, int py, Color c, float alpha)
         {
             int i = ((py * width) + px) * 4;
@@ -1171,6 +1175,7 @@ namespace Bloomlings.Client.UI.Design
             pixels[i + 3] = Byte(Clamp01(alpha) * 255f);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static byte Byte(float v) => (byte)Math.Max(0, Math.Min(255, (int)Math.Round(v)));
 
         /// <summary>
@@ -1252,6 +1257,49 @@ namespace Bloomlings.Client.UI.Design
             }
         }
 
+        // ---- Rows on several threads ----
+
+        /// <summary>How many pixels a picture needs before <see cref="Rows"/> renders its rows on several threads.</summary>
+        public const int ParallelPixels = 32 * 1024;
+
+        /// <summary>
+        /// Whether a big picture's rows render on several threads at once (<see cref="Rows"/>): on by default. A row's pixels
+        /// depend only on their place and the picture's arguments, so the bytes are the same either way (the tests render
+        /// both ways); only the wait for a big picture gets shorter, the frame that asked for it still waits for all of it.
+        /// </summary>
+        public static bool ParallelRows { get; set; } = true;
+
+        /// <summary>
+        /// Runs <paramref name="row"/> for every row of a <paramref name="width"/> × <paramref name="height"/> picture: in
+        /// order on this thread for a small picture, else in bands spread over the processor's cores (this thread takes
+        /// some), returning when every row is done. Each row must write only its own pixels and read nothing another row
+        /// writes.
+        /// </summary>
+        private static void Rows(int width, int height, Action<int> row)
+        {
+            int threads = Environment.ProcessorCount;
+            if (!ParallelRows || threads < 2 || height < 2 || (long)width * height < ParallelPixels)
+            {
+                for (int py = 0; py < height; py++)
+                {
+                    row(py);
+                }
+
+                return;
+            }
+
+            // A few bands a core, so a slow core (a phone's little ones) holds up less.
+            int bands = Math.Min(height, threads * 4);
+            System.Threading.Tasks.Parallel.For(0, bands, band =>
+            {
+                int end = (int)((long)(band + 1) * height / bands);
+                for (int py = (int)((long)band * height / bands); py < end; py++)
+                {
+                    row(py);
+                }
+            });
+        }
+
         private static void Check(int width, int height)
         {
             if (width < 1 || height < 1)
@@ -1265,6 +1313,7 @@ namespace Bloomlings.Client.UI.Design
         // ---- Distances and noise ----
 
         /// <summary>The signed distance (pixels, negative inside) to a rounded rectangle from (l, t) to (r, b).</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float RoundRect(float x, float y, float l, float t, float r, float b, float radius)
         {
             float hx = (r - l) / 2f;
@@ -1276,9 +1325,11 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>The coverage of a pixel at signed distance <paramref name="d"/> (pixels): a one-pixel anti-aliased edge.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Coverage(float d) => Clamp01(0.5f - d);
 
         /// <summary>How far outside a shape a point is, 0 to 1 over <paramref name="soft"/> pixels.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Outside(float d, float soft) => Clamp01(0.5f + (d / soft));
 
         private static float Ellipse(float x, float y, float rx, float ry) => (Length(x / rx, y / ry) - 1f) * Math.Min(rx, ry);
@@ -1291,15 +1342,20 @@ namespace Bloomlings.Client.UI.Design
             return Length(px - (ax + (t * dx)), py - (ay + (t * dy)));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Length(float x, float y) => (float)Math.Sqrt((x * x) + (y * y));
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Clamp(float v, float min, float max) => Math.Max(min, Math.Min(max, v));
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Clamp01(float v) => v < 0f ? 0f : v > 1f ? 1f : v;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Smooth(float t) => t * t * (3f - (2f * t));
 
         /// <summary>A deterministic hash of two integers and a seed, in 0–1 (no floating-point trigonometry).</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Hash(int x, int y, int seed)
         {
             unchecked
@@ -1312,6 +1368,7 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>Value noise in 0–1: hashed lattice values, smoothly interpolated.</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static float Noise(float x, float y, int seed)
         {
             int ix = Floor(x);
@@ -1325,6 +1382,7 @@ namespace Bloomlings.Client.UI.Design
             return a + ((b - a) * fx) + ((c - a) * fy) + ((a - b - c + d) * fx * fy);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Floor(float v)
         {
             int i = (int)v;

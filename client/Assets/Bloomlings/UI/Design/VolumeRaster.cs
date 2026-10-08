@@ -13,6 +13,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The highlight's half vector (the light and the viewer straight above).</summary>
         private static readonly (float X, float Y, float Z) VolumeHalf = Normalized(VolumeLight.X, VolumeLight.Y, VolumeLight.Z + 1f);
 
+        /// <summary>The highlight's strength on a flat top, which <see cref="Shade"/> measures the gloss above (after <see cref="VolumeHalf"/>, which it reads).</summary>
+        private static readonly float VolumeBaseline = (float)Math.Pow(VolumeHalf.Z, 24);
+
+        /// <summary>The range of the highlight above <see cref="VolumeBaseline"/>.</summary>
+        private static readonly float VolumeGlossRange = Math.Max(0.01f, 1f - VolumeBaseline);
+
         /// <summary>A board tile's clear margin round its body, as a share of its side: the ground shows between the cubes.</summary>
         public const float CubeMargin = 0.035f;
 
@@ -49,11 +55,14 @@ namespace Bloomlings.Client.UI.Design
                 // The top: lighter at its top, a little deeper at its bottom, then the bevel's light and shade.
                 float t = Clamp01((y - m) / Math.Max(1f, topBottom - m));
                 c = new Color(col.Lighten(0.12f).Mix(col.Darken(0.04f), t));
-                (float gx, float gy) = Gradient(x, y, (px, py) => RoundRect(px, py, m, m, s - m, topBottom, r));
-                float e = Clamp01(-top / bevel);
-                float tilt = 1f - e;
-                (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
-                Shade(ref c, col, nx, ny, nz, 1.25f, 0.7f, 0.75f);
+                float tilt = 1f - Clamp01(-top / bevel);
+                if (tilt > 0f)
+                {
+                    // Only the bevel is lit: on the flat top (no tilt) the light changes nothing (Shade of a flat normal).
+                    (float gx, float gy) = RoundRectGradient(x, y, m, m, s - m, topBottom, r);
+                    (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
+                    Shade(ref c, col, nx, ny, nz, 1.25f, 0.7f, 0.75f);
+                }
 
                 // A cushion: the top's middle a little lighter.
                 float dome = EllipseDistance(x - (s / 2f), y - ((m + topBottom) * 0.46f), s * 0.3f, s * 0.26f);
@@ -133,7 +142,11 @@ namespace Bloomlings.Client.UI.Design
             float line = Math.Max(1f, s * 0.016f);
             Box face = RaisedFaceBox(new Box(0f, 0f, w, h), rimShare);
             float faceRadius = Math.Max(0f, radius - rim);
-            for (int py = 0; py < height; py++)
+            Rgba topLight = C.WoodMid.Lighten(0.12f);
+            Rgba topEdge = C.WoodEdge.Darken(0.12f);
+            Rgba sideWood = C.WoodEdge.Darken(0.06f);
+            Rgba faceShadow = C.WoodLine.Darken(0.25f);
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
                 for (int px = 0; px < width; px++)
@@ -150,29 +163,33 @@ namespace Bloomlings.Client.UI.Design
                     Color c = Laminate(x, y, s);
                     if (top < 0.5f)
                     {
-                        // The border rounds over at the outside and into the opening; flat on its middle.
+                        // The border rounds over at the outside and into the opening; flat on its middle, where the light
+                        // changes nothing (Shade of a flat normal).
                         float q = Clamp01(-top / Math.Max(1f, rim * 1.15f));
-                        (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float f = q < 0.4f ? (float)Math.Cos(q / 0.4f * Math.PI / 2f) : q > 0.75f ? -(float)Math.Cos((1f - Math.Min(1f, q)) / 0.25f * Math.PI / 2f) : 0f;
-                        (float nx, float ny, float nz) = (gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))));
-                        Shade(ref c, C.WoodGrain, nx, ny, nz, 0.45f, 0.45f, 0.18f);
+                        if (f != 0f)
+                        {
+                            (float gx, float gy) = RoundRectGradient(x, y, 0f, 0f, w, topBottom, radius);
+                            (float nx, float ny, float nz) = (gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))));
+                            Shade(ref c, C.WoodGrain, nx, ny, nz, 0.45f, 0.45f, 0.18f);
+                        }
 
                         // The top of the frame catches the light (the reference's (249, 215, 168) above, deeper below).
-                        c.Mix(C.WoodMid.Lighten(0.12f), 0.6f * Clamp01(1f - (y / (h * 0.3f))));
-                        c.Mix(C.WoodEdge.Darken(0.12f), Clamp01(top + 0.5f) * 0.5f);
+                        c.Mix(topLight, 0.6f * Clamp01(1f - (y / (h * 0.3f))));
+                        c.Mix(topEdge, Clamp01(top + 0.5f) * 0.5f);
                     }
                     else
                     {
                         // The plate's front side: the turned edge's wood, a little deeper downward.
                         float t = Clamp01((y - (topBottom - radius)) / Math.Max(1f, h - (topBottom - radius)));
-                        c.Mix(C.WoodEdge.Darken(0.06f), 0.45f + (0.25f * t));
+                        c.Mix(sideWood, 0.45f + (0.25f * t));
                     }
 
                     // The opening: a dark groove round the face and the face's soft shadow below it.
                     float hole = RoundRect(x, y, face.Left, face.Top, face.Right, face.Bottom, faceRadius);
                     c.Mix(C.WoodLine, 0.22f * Clamp01(1f - (Math.Abs(hole - (s * 0.006f)) / Math.Max(1f, s * 0.012f))));
                     float shadow = RoundRect(x, y - (s * 0.03f), face.Left + (s * 0.01f), face.Top, face.Right - (s * 0.01f), face.Bottom, faceRadius);
-                    c.Mix(C.WoodLine.Darken(0.25f), 0.16f * (1f - Smooth(Clamp01((shadow + (s * 0.005f)) / (s * 0.04f)))));
+                    c.Mix(faceShadow, 0.16f * (1f - Smooth(Clamp01((shadow + (s * 0.005f)) / (s * 0.04f)))));
 
                     // Deeper wood: toward the grain's color, more so on the lower side, and a deeper outline.
                     c.Mix(C.WoodGrain, PlateDepth * (0.45f + (0.45f * Clamp01((y / h) - 0.4f))));
@@ -180,7 +197,7 @@ namespace Bloomlings.Client.UI.Design
                     c = new Color(Vivid(c.ToRgba(), PlateVivid));
                     Put(pixels, width, px, py, c, cover);
                 }
-            }
+            });
 
             return pixels;
         }
@@ -305,7 +322,13 @@ namespace Bloomlings.Client.UI.Design
             var band = new Box(w * 0.03f, topBottom * 0.04f, w * 0.97f, topBottom * 0.46f);
             float shineY = Math.Max(1.5f, topBottom * 0.07f);
             float shineWidth = Math.Max(1f, topBottom * 0.025f);
-            for (int py = 0; py < height; py++)
+
+            // The set's colors, mixed once instead of for every pixel.
+            Rgba faceBase = set.Face.Mix(set.Lip, 0.12f);
+            Rgba grainInk = set.Lip.Darken(0.1f);
+            Rgba glossLight = set.Top.Lighten(0.35f);
+            Rgba edgeDark = set.Lip.Darken(0.15f);
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
                 for (int px = 0; px < width; px++)
@@ -323,23 +346,28 @@ namespace Bloomlings.Client.UI.Design
                     if (top < 0.5f)
                     {
                         float lit = Clamp01(1f - ((x / w * 0.5f) + (y / topBottom * 0.8f)));
-                        c = new Color(set.Face.Mix(set.Lip, 0.12f).Mix(set.Top, 0.25f * lit));
+                        c = new Color(faceBase.Mix(set.Top, 0.25f * lit));
                         c.Mix(set.Lip, 0.35f * deepen * Clamp01((y / topBottom) - 0.35f));
                         if (cream)
                         {
-                            c.Mix(set.Lip.Darken(0.1f), FaceGrain(x, y, s));
+                            c.Mix(grainInk, FaceGrain(x, y, s));
                         }
-                        (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float tilt = 1f - Clamp01(-top / bevel);
-                        (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
-                        Shade(ref c, set.Face, nx, ny, nz, 0.35f, 0.2f, 0.15f);
+                        if (tilt > 0f)
+                        {
+                            // Only the bevel is lit: on the flat top the light changes nothing (Shade of a flat normal).
+                            (float gx, float gy) = RoundRectGradient(x, y, 0f, 0f, w, topBottom, radius);
+                            (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
+                            Shade(ref c, set.Face, nx, ny, nz, 0.35f, 0.2f, 0.15f);
+                        }
+
                         if (gloss)
                         {
                             // The reference's smooth gloss: the lightened top fading down from the top edge, and a thin white
                             // shine along the straight part of the top edge.
                             float fade = Clamp01(1f - ((y - band.Top) / band.Height));
                             float inBand = Coverage(RoundRect(x, y, band.Left, band.Top, band.Right, band.Bottom, Math.Min(topRadius, band.Height / 2f)) + (s * 0.02f));
-                            c.Mix(set.Top.Lighten(0.35f), 0.35f * fade * fade * inBand);
+                            c.Mix(glossLight, 0.35f * fade * fade * inBand);
                             float straight = Clamp01((x - (topRadius * 0.6f)) / Math.Max(1f, s * 0.05f)) * Clamp01((w - (topRadius * 0.6f) - x) / Math.Max(1f, s * 0.05f));
                             c.Mix(Rgba.White, 0.55f * straight * Clamp01(1f - (Math.Abs(y - shineY) / shineWidth)));
                         }
@@ -352,7 +380,7 @@ namespace Bloomlings.Client.UI.Design
                         c = new Color(set.Face.Mix(set.Lip, 0.45f + (0.3f * t)));
                     }
 
-                    c.Mix(set.Lip.Darken(0.15f), 0.3f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
+                    c.Mix(edgeDark, 0.3f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
                     if (cream)
                     {
                         c.Mix(set.Lip, FaceWarmth * 0.4f);
@@ -360,7 +388,7 @@ namespace Bloomlings.Client.UI.Design
                     }
                     Put(pixels, width, px, py, c, cover);
                 }
-            }
+            });
 
             return pixels;
         }
@@ -373,20 +401,25 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         private static Color Laminate(float x, float y, float s)
         {
-            var c = new Color(C.WoodEdge.Mix(C.WoodMid, 0.25f).Mix(C.WoodGrain, 0.08f));
+            var c = new Color(LaminateBase);
 
             // Long streaks along the board: slow across the button, quick down it.
             float streak = Fbm(x / (s * 0.7f), y / (s * 0.045f), 23, 3);
-            c.Mix(C.WoodMid.Lighten(0.12f), 0.7f * Smooth(Clamp01((streak - 0.5f) / 0.3f)));
+            c.Mix(LaminateLight, 0.7f * Smooth(Clamp01((streak - 0.5f) / 0.3f)));
             c.Mix(C.WoodGrain, 0.45f * Smooth(Clamp01((0.42f - streak) / 0.3f)));
 
             // Fine grain lines across the button, wavering a little.
             float wave = Fbm(x / (s * 0.9f), y / (s * 0.1f), 29, 2);
             float lines = (float)Math.Abs(Math.Sin(((y / (s * 0.016f)) + (wave * 3.5f)) * Math.PI));
             float fine = (float)Math.Pow(1f - lines, 5);
-            c.Mix(C.WoodGrain.Darken(0.1f), 0.5f * fine * (0.4f + (0.6f * Fbm(x / (s * 0.25f), y / (s * 0.05f), 31, 2))));
+            c.Mix(LaminateGrain, 0.5f * fine * (0.4f + (0.6f * Fbm(x / (s * 0.25f), y / (s * 0.05f), 31, 2))));
             return c;
         }
+
+        // The laminate's colors, mixed once instead of for every pixel.
+        private static readonly Rgba LaminateBase = C.WoodEdge.Mix(C.WoodMid, 0.25f).Mix(C.WoodGrain, 0.08f);
+        private static readonly Rgba LaminateLight = C.WoodMid.Lighten(0.12f);
+        private static readonly Rgba LaminateGrain = C.WoodGrain.Darken(0.1f);
 
         /// <summary>The faint grain of a raised face's cream, across the button like the plate's (alpha 0–1 of <c>cream.lip</c>).</summary>
         private static float FaceGrain(float x, float y, float s)
@@ -460,9 +493,15 @@ namespace Bloomlings.Client.UI.Design
                     {
                         float t = Clamp01((y - (cy - (box / 2f))) / box);
                         var c = new Color(color.Lighten(0.12f).Mix(color.Darken(0.08f), t));
-                        (float gx, float gy) = Gradient(x, y, d);
-                        (float nx, float ny, float nz) = BevelNormal(gx, gy, 1f - Clamp01(-ds / bevel));
-                        Shade(ref c, color, nx, ny, nz, 0.6f, 0.45f, 0.22f);
+                        float tilt = 1f - Clamp01(-ds / bevel);
+                        if (tilt > 0f)
+                        {
+                            // Only the bevel is lit: on the glyph's flat middle the light changes nothing.
+                            (float gx, float gy) = Gradient(x, y, d);
+                            (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
+                            Shade(ref c, color, nx, ny, nz, 0.6f, 0.45f, 0.22f);
+                        }
+
                         paint.Over(cover, c.ToRgba());
                     }
 
@@ -500,9 +539,20 @@ namespace Bloomlings.Client.UI.Design
             }
 
             float half = (nx * VolumeHalf.X) + (ny * VolumeHalf.Y) + (nz * VolumeHalf.Z);
-            float baseline = (float)Math.Pow(VolumeHalf.Z, 24);
-            float spec = Clamp01(((float)Math.Pow(Math.Max(0f, half), 24) - baseline) / Math.Max(0.01f, 1f - baseline));
+            float spec = Clamp01(((float)Math.Pow(Math.Max(0f, half), 24) - VolumeBaseline) / VolumeGlossRange);
             c.Mix(Rgba.White, spec * gloss);
+        }
+
+        /// <summary>
+        /// The outward unit gradient of <see cref="RoundRect"/> at (x, y) by central differences: <see cref="Gradient"/> of
+        /// that distance, the same numbers without a delegate made for every pixel.
+        /// </summary>
+        private static (float X, float Y) RoundRectGradient(float x, float y, float l, float t, float r, float b, float radius)
+        {
+            float gx = RoundRect(x + 0.75f, y, l, t, r, b, radius) - RoundRect(x - 0.75f, y, l, t, r, b, radius);
+            float gy = RoundRect(x, y + 0.75f, l, t, r, b, radius) - RoundRect(x, y - 0.75f, l, t, r, b, radius);
+            float g = Length(gx, gy);
+            return g < 1e-5f ? (0f, 0f) : (gx / g, gy / g);
         }
 
         /// <summary>The outward unit gradient of a signed distance at (x, y), by central differences.</summary>
