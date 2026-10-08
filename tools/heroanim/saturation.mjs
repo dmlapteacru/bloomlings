@@ -1,5 +1,6 @@
-// The backgrounds' saturation (spec 005 FR-031; the owner chose 70% after trying 60%, 80% and 70% on 2026-10-04): every
-// owner background's mean saturation brought to 70% of the animated heroes' mean, the heroes being 100%. The UI, the
+// The backgrounds' saturation (spec 005 FR-031). From 2026-10-04 (the owner chose 70% after trying 60%, 80% and 70%)
+// every owner background's mean saturation was brought to 70% of the animated heroes' mean, the heroes being 100%; since
+// 2026-10-08 the owner keeps the backgrounds' colors as delivered (`ladder.background` null): the script only measures. The UI, the
 // heroes, the characters and the board's pieces stay as they are. A picture's saturation is scaled in HSL with its
 // lightness and hue kept (each channel moved toward the pixel's (max + min) / 2). A picture already at or under its
 // share stays as it is, so a second run changes nothing. The Home layers are one scene: layers.mjs scales them together
@@ -15,8 +16,11 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
 const art = path.join(repo, 'client', 'Assets', 'Bloomlings', 'Art');
 
-/** The backgrounds' share of the heroes' mean saturation (spec 005 FR-031). */
-export const ladder = { background: 0.7 };
+/**
+ * The backgrounds' share of the heroes' mean saturation (spec 005 FR-031): null keeps the owner's colors as delivered
+ * (since 2026-10-08; it was 0.7).
+ */
+export const ladder = { background: null };
 
 /** The backgrounds (the Home layers are layers.mjs's), relative to the Art folder. */
 export const pictures = {
@@ -69,8 +73,9 @@ export function heroesMean() {
   return means.reduce((a, b) => a + b, 0) / means.length;
 }
 
-/** The factor that brings a picture of mean saturation `mean` to `share` of the heroes' `heroes`: at most 1. */
+/** The factor that brings a picture of mean saturation `mean` to `share` of the heroes' `heroes`: at most 1; 1 without a share. */
 export function sceneFactor(mean, share, heroes) {
+  if (share == null) return 1;
   return mean > 0 ? Math.min(1, (share * heroes) / mean) : 1;
 }
 

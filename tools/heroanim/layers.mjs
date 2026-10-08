@@ -3,7 +3,8 @@
 // back layer (it is drawn again over Bloom, who stands behind it), one soft shadow cut out of the shadow sheet, the
 // opaque garden blurred by `gardenBlur` (none since 2026-10-08: the owner's garden comes blurred; spec 005 FR-036) and
 // re-encoded as JPEG (quality 90); every layer's saturation scaled by one factor, the one that brings the
-// garden to the background's share of the heroes' (saturation.mjs, spec 005 FR-031), so the scene keeps its balance.
+// garden to the background's share of the heroes' (saturation.mjs, spec 005 FR-031), so the scene keeps its balance
+// (none since 2026-10-08: the owner keeps the colors as delivered).
 // Writes the pictures into the Backgrounds folder, their boxes into client/Assets/Bloomlings/UI/Design/HomeLayersData.cs
 // and the hashes into layers.json.
 // Usage: node layers.mjs <folder with 01_home_bg_back.png … 04_home_soft_shadow.png> (the owner's 05_home_petals_overlay.png

@@ -12,7 +12,7 @@ cd tools/heroanim
 npm ci                               # three 0.160.0, playwright-core 1.56.1, pngjs, jpeg-js
 node bake.mjs                        # all four heroes, about 6 minutes; --only <family> re-bakes one
 node layers.mjs <folder>             # the owner's Home layers (01_home_bg_back.png … 04_home_soft_shadow.png)
-node saturation.mjs                  # the other backgrounds at 70% of the heroes' saturation
+node saturation.mjs                  # measures the backgrounds' saturation (no muting since 2026-10-08)
 node check.mjs                       # must pass before committing hero frames or Home layers (no npm packages needed)
 ```
 
@@ -22,7 +22,7 @@ node check.mjs                       # must pass before committing hero frames o
 | `models/heroes.glb` | the owner's four heroes in one Blender file (`SOURCE.md`); `heroes.json` `mesh` picks each one, `breathe` adds a breath an idle lacks and `synth` makes stand-in clips for a hero delivered without any (Twig, for now); the bake still reads Meshy FBX and single `.glb` files |
 | `bake.mjs`, `page.html`, `serve.mjs`, `png8.mjs`, `post.mjs` | the renderer (three.js in headless Chromium), the fit and crop, the palette PNG writer, the Home set's finish (`heroes.json` `home`: sharpening, contrast, saturation; the owner's Home tuning of 2026-10-05) |
 | `layers.mjs` | the Home layers: crops, the lotus cut-out, the shadow, the JPEG garden (blurred by `gardenBlur`: 0 since 2026-10-08, the owner's garden comes blurred), the scene's saturation (`saturation.mjs`'s share) |
-| `saturation.mjs` | the backgrounds' saturation (spec 005 FR-031): each owner background to 70% of the animated heroes' mean, lightness and hue kept; idempotent; `saturation.json` holds the last run's measurements |
+| `saturation.mjs` | the backgrounds' saturation (spec 005 FR-031): since 2026-10-08 the owner keeps their colors as delivered (`ladder.background` null), so it measures each owner background against the animated heroes' mean and changes nothing; from 2026-10-04 it brought each to 70% of that mean, lightness and hue kept; `saturation.json` holds the last run's measurements |
 | `check.mjs` | hashes of every output against `manifest.json` and `layers.json`, the generated kit files, the models and `heroes.json` |
 | `manifest.json`, `layers.json` | what the last bake and the last layer run wrote |
 
