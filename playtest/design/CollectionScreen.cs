@@ -60,8 +60,8 @@ namespace Bloomlings.Playtest.Design
 
             // The bottom menu, the Collection in its medallion (FR-030); the header last, as on the other pages. Its back
             // leaves a picture's detail for the grid, then the page for Home.
-            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Collection), look, app.Navigate);
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.PageHeader(p, r.Header, PlaytestText.T("collection.title"), app.CollectionBack, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
             string? toast = app.HomeToastText;
@@ -145,8 +145,8 @@ namespace Bloomlings.Playtest.Design
             float radius = r.PanelRadius(p.Scale);
             Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.LockedNotice(p, r.Notice, NavPlace.Collection, app.UnlockLevel(NavPlace.Collection));
-            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Collection), look, app.Navigate);
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.PageHeader(p, r.Header, PlaytestText.T("collection.title"), app.CollectionBack, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
             string? toast = app.HomeToastText;

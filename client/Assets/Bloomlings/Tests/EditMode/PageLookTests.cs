@@ -89,7 +89,11 @@ namespace Bloomlings.Client.Tests
                 Assert.That(bottom ? box.Contains(box.CenterX, 2000f - (box.Height * 0.2f)) && box.Bottom > 2000f - box.Height : box.Contains(box.CenterX, panel.Top), Is.True, corner + " at its edge");
                 Assert.That(CardLook.Mirrored(corner), Is.EqualTo(right));
                 Assert.That(CardLook.Turned(corner), Is.EqualTo(bottom));
-                Assert.That(box.Width, Is.EqualTo(CardLook.PageFlowerUnits).Within(1e-3));
+                Assert.That(box.Width, Is.EqualTo(bottom ? CardLook.PageFootFlowerUnits : CardLook.PageFlowerUnits).Within(1e-3));
+                if (!bottom)
+                {
+                    Assert.That(Math.Abs(box.CenterX - (right ? panel.Right : panel.Left)), Is.LessThan(box.Width * 0.15f), corner + " near its corner, clear of the content");
+                }
             }
         }
 

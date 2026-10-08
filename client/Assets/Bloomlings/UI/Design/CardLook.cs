@@ -96,8 +96,11 @@ namespace Bloomlings.Client.UI.Design
             return new Box(face.Left, face.Top, face.Right, face.Bottom - (Math.Min(tile.Width, tile.Height) * UiRaster.FaceSide));
         }
 
-        /// <summary>The flowers over the pages' frame corners (spec 005 FR-047), their side in reference units.</summary>
-        public const float PageFlowerUnits = 200f;
+        /// <summary>The flowers over the pages' frame top corners (spec 005 FR-047), their side in reference units.</summary>
+        public const float PageFlowerUnits = 170f;
+
+        /// <summary>The flowers on the bottom menu's ends under a page's frame (spec 005 FR-047), their side in reference units.</summary>
+        public const float PageFootFlowerUnits = 150f;
 
         /// <summary>
         /// The owner's flowers (<c>flowers</c>, pictures.md D6) over a corner of <paramref name="target"/> (spec 005 FR-047, the
@@ -121,21 +124,24 @@ namespace Bloomlings.Client.UI.Design
         public static bool Turned(Corner corner) => corner == Corner.BottomLeft || corner == Corner.BottomRight;
 
         /// <summary>
-        /// The flowers over a page's frame (spec 005 FR-047): its top corners on <paramref name="panel"/> and its bottom ones
-        /// at <paramref name="bottom"/>, where the frame goes under the bottom menu (the panel's own bottom on a page without
-        /// one), <see cref="PageFlowerUnits"/> each.
+        /// The flowers over a page's frame (spec 005 FR-047, the owner's references of 2026-10-08), clear of the page's
+        /// content: over its top corners (<see cref="PageFlowerUnits"/>, their middles 12% of a side inside the corners) and
+        /// on the bottom menu's top edge where the frame goes under it at <paramref name="bottom"/> (the panel's own bottom on
+        /// a page without one; <see cref="PageFootFlowerUnits"/>, their middles 20% of a side in from the frame's sides and
+        /// 15% below the edge). Hosts draw them after the bottom menu.
         /// </summary>
         public static IReadOnlyList<(Corner Corner, Box Box)> PageFlowers(Box panel, float bottom, float unit)
         {
             float side = PageFlowerUnits * unit;
+            float foot = PageFootFlowerUnits * unit;
             var frame = new Box(panel.Left, panel.Top, panel.Right, bottom);
-            // The bottom ones a little higher, above the bottom menu's edge.
+            float footY = bottom + (foot * 0.15f);
             return new[]
             {
-                (Corner.TopLeft, CornerBox(frame, Corner.TopLeft, side, 0.26f)),
-                (Corner.TopRight, CornerBox(frame, Corner.TopRight, side, 0.26f)),
-                (Corner.BottomLeft, CornerBox(frame, Corner.BottomLeft, side, 0.4f)),
-                (Corner.BottomRight, CornerBox(frame, Corner.BottomRight, side, 0.4f)),
+                (Corner.TopLeft, CornerBox(frame, Corner.TopLeft, side, 0.12f)),
+                (Corner.TopRight, CornerBox(frame, Corner.TopRight, side, 0.12f)),
+                (Corner.BottomLeft, Box.FromCenter(frame.Left + (foot * 0.2f), footY, foot, foot)),
+                (Corner.BottomRight, Box.FromCenter(frame.Right - (foot * 0.2f), footY, foot, foot)),
             };
         }
 

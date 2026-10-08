@@ -107,9 +107,6 @@ namespace Bloomlings.Client.UI.Screens
             screen._notice = UiKit.LockedNotice("Locked", root);
             screen._notice.gameObject.SetActive(false);
 
-            // The flowers over the frame's corners, over the page's content (spec 005 FR-047).
-            screen._flowers = UiKit.PageFlowers(root);
-
             // The bottom menu over the panel's foot, the Collection in its medallion (FR-030).
             if (onNav != null)
             {
@@ -122,6 +119,9 @@ namespace Bloomlings.Client.UI.Screens
                     }
                 });
             }
+
+            // The flowers over the frame's corners and the bottom menu's ends (spec 005 FR-047), over the page and the menu.
+            screen._flowers = UiKit.PageFlowers(root);
 
             // The header last, as on the other pages; its back leaves a picture's detail for the grid, then the page.
             screen._header = UiKit.PageHeader(root, Loc.T("collection.title"), screen.Back, petals != null, onStore);

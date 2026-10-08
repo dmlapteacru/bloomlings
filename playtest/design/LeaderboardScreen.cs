@@ -91,8 +91,8 @@ namespace Bloomlings.Playtest.Design
             Kit.SecondaryButton(p, r.Refresh, PlaytestText.T("leaderboard.refresh"), () => app.HomeToast(PlaytestText.T("leaderboard.offline_empty")), "ui.restart");
 
             // The bottom menu, the Leaderboard in its medallion (FR-030); the header last, as on the other pages.
-            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Leaderboard), look, app.Navigate);
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.PageHeader(p, r.Header, PlaytestText.T("leaderboard.title"), app.CloseLeaderboard, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
             string? toast = app.HomeToastText;
@@ -119,8 +119,8 @@ namespace Bloomlings.Playtest.Design
             float radius = r.PanelRadius(p.Scale);
             Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.LockedNotice(p, r.Notice, NavPlace.Leaderboard, app.UnlockLevel(NavPlace.Leaderboard));
-            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Leaderboard), look, app.Navigate);
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.PageHeader(p, r.Header, PlaytestText.T("leaderboard.title"), app.CloseLeaderboard, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
             string? toast = app.HomeToastText;

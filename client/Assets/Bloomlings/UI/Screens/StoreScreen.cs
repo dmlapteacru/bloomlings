@@ -149,9 +149,6 @@ namespace Bloomlings.Client.UI.Screens
             screen._notice = UiKit.LockedNotice("Locked", root);
             screen._notice.gameObject.SetActive(false);
 
-            // The flowers over the frame's corners, over the page's content (spec 005 FR-047).
-            screen._flowers = UiKit.PageFlowers(root);
-
             // The bottom menu over the panel's foot, the Shop in its medallion (FR-030).
             if (onNav != null)
             {
@@ -164,6 +161,9 @@ namespace Bloomlings.Client.UI.Screens
                     }
                 });
             }
+
+            // The flowers over the frame's corners and the bottom menu's ends (spec 005 FR-047), over the page and the menu.
+            screen._flowers = UiKit.PageFlowers(root);
 
             // The header last, as on the Wardrobe; the pill shows the balance only (Petal packs are rows of the Shop).
             screen._header = UiKit.PageHeader(root, Loc.T("store.title"), screen.Hide, petals: true);
