@@ -656,8 +656,15 @@ namespace Bloomlings.Client.Art
             Picture("ui.card.frame/" + Share(radiusShare), width, height, (w, h) => UiRaster.CardFrame(w, h, radiusShare * w));
 
         /// <summary>A raised cream slab of a popup's row (spec 005 FR-045), its corners <paramref name="radiusShare"/> of its height, its front side 6% of it.</summary>
-        public static Sprite RaisedRow(int width, int height, float radiusShare) =>
-            Picture("ui.row.raised/" + Share(radiusShare), width, height, (w, h) => UiRaster.RaisedRow(w, h, radiusShare * h));
+        public static Sprite RaisedRow(int width, int height, float radiusShare) => RaisedRow(width, height, radiusShare, GardenLook.RowCream);
+
+        /// <summary>The plate of a tile in a thin wooden rim (spec 005 FR-047; <see cref="UiRaster.ButtonPlate(int, int, float, float)"/> with <see cref="GardenLook.TileRimShare"/>).</summary>
+        public static Sprite TilePlate(int width, int height, float radiusShare) =>
+            Picture("ui.tile.plate/" + Share(radiusShare), width, height, (w, h) => UiRaster.ButtonPlate(w, h, radiusShare, GardenLook.TileRimShare));
+
+        /// <summary>A raised row in <paramref name="set"/> (spec 005 FR-047; <see cref="UiRaster.RaisedRow(int, int, float, ColorSet)"/>): the Leaderboard's own row in <see cref="GardenLook.RowYou"/>.</summary>
+        public static Sprite RaisedRow(int width, int height, float radiusShare, ColorSet set) =>
+            Picture("ui.row.raised/" + set.Name + "/" + Share(radiusShare), width, height, (w, h) => UiRaster.RaisedRow(w, h, radiusShare * h, set));
 
         /// <summary>
         /// A glyph a little raised on its cream face (spec 005 FR-044, <see cref="UiRaster.RaisedGlyph(int, string, Rgba)"/>):

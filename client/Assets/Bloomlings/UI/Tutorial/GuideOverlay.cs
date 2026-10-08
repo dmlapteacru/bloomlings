@@ -257,10 +257,10 @@ namespace Bloomlings.Client.UI.Tutorial
             }
         }
 
-        /// <summary>The bubble's icon for a booster's steps: its icon on a cream face.</summary>
+        /// <summary>The bubble's icon for a booster's steps: its icon on a cream face raised on its wooden plate (spec 005 FR-047).</summary>
         public static Action<RectTransform> BoosterIcon(string boosterId) => slot =>
         {
-            GardenButton face = UiKit.IconFace("Face", slot, GardenLook.White, b => b.Height * 0.26f);
+            GardenButton face = UiKit.RaisedButton("Face", slot, GardenLook.White, 0.26f, raycast: false, square: true);
             UiFactory.Stretch((RectTransform)face.transform);
             Image icon = UiKit.BoosterIcon("Booster", face.Content, boosterId);
             UiFactory.Place(icon.rectTransform, 0.15f, 0.15f, 0.85f, 0.85f);

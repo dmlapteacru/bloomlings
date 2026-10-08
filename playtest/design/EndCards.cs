@@ -270,7 +270,7 @@ namespace Bloomlings.Playtest.Design
             {
                 float tile = p.U(170f);
                 Box tileBox = Box.FromCenter(r.Body.CenterX, y + (tile / 2f), tile, tile);
-                Box face = Kit.IconFace(p, tileBox, GardenLook.White, tile * 0.26f, 0f);
+                Box face = Kit.RaisedButton(p, tileBox, GardenLook.White, 0.26f, 0f);
                 Kit.BoosterIcon(p, booster, Box.FromCenter(face.CenterX, face.CenterY, tile * 0.7f, tile * 0.7f));
                 y += p.U(iconUnits);
             }
@@ -670,7 +670,7 @@ namespace Bloomlings.Playtest.Design
         {
             float tile = Math.Min(area.Width, area.Height);
             Box tileBox = Box.FromCenter(area.CenterX, area.CenterY, tile, tile);
-            Box face = Kit.IconFace(p, tileBox, GardenLook.White, tile * 0.26f, 0f);
+            Box face = Kit.RaisedButton(p, tileBox, GardenLook.White, 0.26f, 0f);
             Kit.BoosterIcon(p, IdOf(kind), Box.FromCenter(face.CenterX, face.CenterY, face.Width * 0.86f, face.Width * 0.86f));
             Kit.CountBadge(p, tileBox.Right - (tile * 0.1f), tileBox.Bottom - (tile * 0.1f), tile * 0.34f, NumberText.Plus(1));
         }
@@ -690,14 +690,14 @@ namespace Bloomlings.Playtest.Design
             float panelHeight = Math.Min(area.Height, tile + (pillHeight * 0.7f) + (2f * pad));
             float panelWidth = Math.Min(area.Width, (n * tile) + ((n - 1) * gap) + (2f * pad));
             Box panel = Box.FromCenter(area.CenterX, area.CenterY, panelWidth, panelHeight);
-            Kit.Paper(p, panel, Math.Max(p.U(DesignTokens.Radius.CardMin), panel.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, panel);
             float top = panel.Top + ((panel.Height - tile - (pillHeight * 0.7f)) / 2f);
             float left = panel.CenterX - (((n * tile) + ((n - 1) * gap)) / 2f);
             for (int i = 0; i < items.Count; i++)
             {
                 (Action<Box> icon, string amount) = items[i];
                 Box tileBox = new Box(left + (i * (tile + gap)), top, left + (i * (tile + gap)) + tile, top + tile);
-                Box face = Kit.IconFace(p, tileBox, GardenLook.White, tile * 0.26f, 0f);
+                Box face = Kit.RaisedButton(p, tileBox, GardenLook.White, 0.26f, 0f);
                 icon(Box.FromCenter(face.CenterX, face.CenterY, face.Width * 0.92f, face.Width * 0.92f));
                 float pillWidth = Math.Min(tile + gap, Math.Max(tile * 0.9f, p.MeasureText(amount, T.Count, pillHeight * 0.56f / p.U(T.Count.Size)) + (pillHeight * 1.1f)));
                 Kit.CostPill(p, Box.FromCenter(tileBox.CenterX, tileBox.Bottom + (pillHeight * 0.2f), pillWidth, pillHeight), Cost.Charges(0), amount);

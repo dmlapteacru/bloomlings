@@ -1,5 +1,6 @@
 // Renders the full playtest's designed screens for each design board frame, checks them, and writes the asset inventory.
 // See the project file. Usage: dotnet run --project playtest/preview [-- --out <dir>] [--inventory] [--frames 7,8,9]
+// [--shape 19.5x9] (one screen shape only, for a quick look; the checks then cover that shape alone)
 // [--before <sheet.png>] (also writes before-after.jpg: that sheet above the new one, spec 003 FR-029)
 // [--sounds] (only writes the synthesized clips as WAV files and a listening schedule to <out>/sounds, spec 005 FR-042)
 using System;
@@ -21,6 +22,7 @@ bool inventory = false;
 string? before = null;
 HashSet<int>? only = null;
 bool sounds = false;
+string? shape = null;
 for (int i = 0; i < args.Length; i++)
 {
     if (args[i] == "--out" && i + 1 < args.Length)
@@ -43,6 +45,10 @@ for (int i = 0; i < args.Length; i++)
     {
         sounds = true;
     }
+    else if (args[i] == "--shape" && i + 1 < args.Length)
+    {
+        shape = args[++i];
+    }
 }
 
 if (sounds)
@@ -59,6 +65,10 @@ var shapes = new (string Name, float Width, float Height, Insets Insets)[]
     ("19.5x9", 1080, 2340, new Insets(110, 63)),
     ("21x9", 1080, 2520, new Insets(120, 66)),
 };
+if (shape != null)
+{
+    shapes = shapes.Where(s => s.Name == shape).ToArray();
+}
 
 var usedSlots = new HashSet<string>(StringComparer.Ordinal);
 var problems = new List<string>();

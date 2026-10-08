@@ -49,7 +49,7 @@ namespace Bloomlings.Playtest.Design
 
             // The parchment panel, its bottom corners below the screen's edge (the Store page's).
             float radius = r.PanelRadius(p.Scale);
-            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
 
             // The rows fill the rows' box: the placeholder ranks, the gap and the player's own row. They grow their letters
             // with them (sized for a RowTypeShare row).
@@ -78,6 +78,10 @@ namespace Bloomlings.Playtest.Design
             Kit.AvatarPicture(p, own.Portrait, app.Meta.Profile.Avatar);
             p.TextLeft(PlaytestText.T("leaderboard.you"), own.Name.Left, you.CenterY, T.ButtonSecondary, C.InkBrown, own.Name.Width, grow, TextLook.Plain(C.InkBrown));
             p.Text(NumberText.Group(app.Meta.Progression.HighestCompletedLevel), own.Score.CenterX, you.CenterY, T.Count, C.InkBrown, own.Score.Width, grow, TextLook.Plain(C.InkBrown));
+            // The flowers over the own row's top corners (spec 005 FR-047, the owner's references of 2026-10-08).
+            float flowers = you.Height * YouFlowerShare;
+            Kit.CornerFlowers(p, CardLook.CornerBox(you, Corner.TopLeft, flowers), Corner.TopLeft);
+            Kit.CornerFlowers(p, CardLook.CornerBox(you, Corner.TopRight, flowers), Corner.TopRight);
 
             // The ranks are a list that scrolls: a drag over them never taps (spec 005 FR-041).
             p.Scroll(r.Rows);
@@ -87,6 +91,7 @@ namespace Bloomlings.Playtest.Design
             Kit.SecondaryButton(p, r.Refresh, PlaytestText.T("leaderboard.refresh"), () => app.HomeToast(PlaytestText.T("leaderboard.offline_empty")), "ui.restart");
 
             // The bottom menu, the Leaderboard in its medallion (FR-030); the header last, as on the other pages.
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Leaderboard), look, app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("leaderboard.title"), app.CloseLeaderboard, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
@@ -96,6 +101,9 @@ namespace Bloomlings.Playtest.Design
                 Kit.Toast(p, new Box(r.Safe.Left, r.Panel.Top, r.Safe.Right, r.Rows.Bottom), toast);
             }
         }
+
+        /// <summary>The flowers over the own row's corners, as a share of its height.</summary>
+        public const float YouFlowerShare = 0.62f;
 
         /// <summary>
         /// The locked Leaderboard page (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
@@ -109,8 +117,9 @@ namespace Bloomlings.Playtest.Design
             LockedPageRegions r = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);
             DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
             float radius = r.PanelRadius(p.Scale);
-            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.LockedNotice(p, r.Notice, NavPlace.Leaderboard, app.UnlockLevel(NavPlace.Leaderboard));
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Leaderboard), look, app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("leaderboard.title"), app.CloseLeaderboard, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 

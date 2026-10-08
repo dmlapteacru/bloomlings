@@ -573,15 +573,20 @@ namespace Bloomlings.Client.UI
         /// The leaves and white flower over a main button's corners (FR-011a): never a touch target, laid out from the
         /// button's height (<see cref="GardenLook.DecorationBoxes"/>), and off when the decoration switch is off.
         /// </summary>
-        public static void Decoration(GardenButton button)
+        public static void Decoration(GardenButton button) => Decoration(button.transform);
+
+        /// <summary>The leaves and white flower over any element's corners, laid out from its own rect (spec 005 FR-047: the Store's price buttons).</summary>
+        public static void Decoration(Transform element)
         {
             if (!DesignTokens.Garden.Decorations)
             {
                 return;
             }
 
-            (Image topLeft, Image bottomRight) = DecorationImages(button.transform);
-            var layout = button.gameObject.AddComponent<DecorationLayout>();
+            (Image topLeft, Image bottomRight) = DecorationImages(element);
+            topLeft.raycastTarget = false;
+            bottomRight.raycastTarget = false;
+            var layout = element.gameObject.AddComponent<DecorationLayout>();
             layout.TopLeft = topLeft.rectTransform;
             layout.BottomRight = bottomRight.rectTransform;
         }
@@ -842,12 +847,14 @@ namespace Bloomlings.Client.UI
         /// A button raised on its wooden plate (spec 005 FR-044, FR-045, the playtest's <c>Kit.RaisedButton</c>; the owner,
         /// 2026-10-08: "every button the new ones, even Play"): the plate, its corners <paramref name="radiusShare"/> of the
         /// rect's shorter side, and the face raised on it in <paramref name="set"/>, with the smooth gloss when
-        /// <paramref name="gloss"/>, sunk by a press. Children go into <see cref="GardenButton.Content"/>.
+        /// <paramref name="gloss"/>, sunk by a press; <paramref name="square"/> keeps the largest centered square of the rect
+        /// (the tiles and the "+"; spec 005 FR-047). Children go into <see cref="GardenButton.Content"/>.
         /// </summary>
-        public static GardenButton RaisedButton(string name, Transform parent, ColorSet set, float radiusShare, bool gloss = false, bool raycast = true)
+        public static GardenButton RaisedButton(string name, Transform parent, ColorSet set, float radiusShare, bool gloss = false, bool raycast = true, bool square = false)
         {
             GardenButton view = NewButton(name, parent, set, raycast);
-            RaisedFace(view, BoxLayout.On(view.Body), b => b, radiusShare, gloss);
+            Func<Box, Box> outer = b => square ? Box.FromCenter(b.CenterX, b.CenterY, Mathf.Min(b.Width, b.Height), Mathf.Min(b.Width, b.Height)) : b;
+            RaisedFace(view, BoxLayout.On(view.Body), outer, radiusShare, gloss);
             return view;
         }
 
@@ -952,10 +959,13 @@ namespace Bloomlings.Client.UI
             return sign.Label;
         }
 
-        /// <summary>A small sticker badge on a plate: HARD in red or SUPER HARD in purple (frames 8 and 9, FR-014).</summary>
+        /// <summary>
+        /// A small badge: HARD in red or SUPER HARD in purple (frames 8 and 9, FR-014), since spec 005 FR-047 a glossy pill
+        /// raised on its wooden plate as the buttons (<see cref="RaisedButton"/>; the playtest's <c>Kit.Badge</c>).
+        /// </summary>
         public static TextMeshProUGUI Badge(string name, Transform parent, string text, ColorSet set, out GardenButton badge)
         {
-            badge = Garden(name, parent, set, 50f, raycast: false);
+            badge = RaisedButton(name, parent, set, 0.5f, gloss: true, raycast: false);
             TextMeshProUGUI label = GardenLabel(badge, text, DesignTokens.Type.Badge);
             UiFactory.Place(label.rectTransform, 0.08f, 0.04f, 0.92f, 0.96f);
             return label;
@@ -1057,8 +1067,8 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4; <see cref="PetalsPillParts"/>, the playtest's
-        /// <c>Kit.PetalsPill</c>): a cream raised pill (a soft shadow, the <c>cream.lip</c> band, the cream face and a
-        /// <c>cream.line</c> outline) that fits its content inside the element's box (placed by <paramref name="align"/>:
+        /// <c>Kit.PetalsPill</c>): a cream pill raised on its wooden plate as the buttons (spec 005 FR-047,
+        /// <see cref="RaisedPlate(BoxLayout, Transform, Func{Box, Box}, float)"/> and the raised face) that fits its content inside the element's box (placed by <paramref name="align"/>:
         /// 1 keeps its right end on the box's, 0.5 centers it), the lotus inside its left end, the grouped balance in
         /// <c>ink.brown</c> left-aligned right after the lotus, so a short amount never floats in the middle, and the round
         /// green "+" over its right end (to the Store, once unlocked; FR-013). The pill is the touch target when
@@ -1071,21 +1081,22 @@ namespace Bloomlings.Client.UI
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<PetalsPill>();
             view.Align = align;
-            SoftShadow(layout, b => view.Parts(b).Pill, b => b.Height / 2f, 0.2f, 0.08f);
-            Image lip = RoundRect("Lip", root, UiTheme.Of(C.CreamLip), raycast: onPlus != null);
-            Image face = RoundGradient("Face", root, C.CreamTop, C.CreamFace);
-            Image line = RoundRing("Line", root, UiTheme.Of(C.CreamLine), null, b => Mathf.Max(Units(2f), b.Height * 0.04f));
+            // The pill raised on its wooden plate as the buttons (spec 005 FR-047); a clear image over it takes the taps.
+            Image lip = RoundRect("Hit", root, Color.clear, raycast: onPlus != null);
             layout.Add(lip.rectTransform, b => view.Parts(b).Pill);
-            layout.Add(face.rectTransform, b => view.Parts(b).Face);
-            layout.Add(line.rectTransform, b => view.Parts(b).Pill);
+            RaisedPlate(layout, root, b => view.Parts(b).Pill, 0.5f);
+            Image face = UiFactory.CreateImage("Face", root, null, Color.white);
+            face.raycastTarget = false;
+            PictureFit.On(face, (w, h) => ProceduralSprites.ButtonFace(GardenLook.Cream, w, h, 0.5f, false));
+            layout.Add(face.rectTransform, b => UiRaster.RaisedFaceBox(view.Parts(b).Pill));
             Image icon = PetalIcon("Petal", root);
             layout.Add(icon.rectTransform, b => view.Parts(b).Lotus);
             TextMeshProUGUI balance = KitLabel("Balance", root, "0", DesignTokens.Type.Count, TextLook.Plain(C.InkBrown));
             balance.alignment = TextAlignmentOptions.Left;
             view.Balance = balance;
-            GardenButton plus = IconFace("Plus", root, GardenLook.Green, b => b.Height / 2f, square: true);
+            GardenButton plus = RaisedButton("Plus", root, GardenLook.Green, 0.5f, gloss: true, raycast: false, square: true);
             Image glyph = GardenGlyph(plus, plus.Content, "ui.plus");
-            BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.6f, plus.IconSide * 0.6f));
+            BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.65f, plus.IconSide * 0.65f));
             view.Plus = plus.gameObject;
             layout.Add((RectTransform)plus.transform, b => view.Parts(b).Plus);
             // The amount starts right after the lotus (left-aligned, so it never floats in the pill's middle, even while
@@ -1307,48 +1318,140 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A list row (Store, Leaderboard, Settings; spec 005 §3.5): a cream rounded panel (radius 25% of its height) with a
-        /// <c>cream.line</c> outline and a lip; the player's own row is raised and green-tinted. Children go into the
-        /// returned root.
+        /// A list row (Store, Leaderboard, Settings; spec 005 §3.5, the playtest's <c>Kit.Row</c>): since the owner's mockup
+        /// of 2026-10-08 (FR-045) a cream slab raised like the buttons' faces without their plate (<see cref="RaisedRow"/>);
+        /// the player's own row is the same slab in <see cref="GardenLook.RowYou"/>'s green tint (FR-047). Children go into
+        /// the returned root.
         /// </summary>
         public static Image Row(string name, Transform parent, bool highlighted)
         {
             Image root = UiFactory.CreateImage(name, parent, null, Color.clear);
             BoxLayout layout = BoxLayout.On(root.rectTransform);
-            if (!highlighted)
+            RaisedRow(layout, root.transform, set: highlighted ? GardenLook.RowYou : null);
+            if (highlighted)
             {
-                RaisedRow(layout, root.transform);
-                return root;
+                // The references' green rim round the player's own row (the playtest's Kit.YouRimShare).
+                Image rim = RoundRing("Rim", root.transform, UiTheme.Of(GardenLook.Green.Face), b => b.Height * DesignTokens.Radius.Row, b => b.Height * YouRimShare);
+                layout.Add(rim.rectTransform, b => b);
             }
 
-            float R(Box b) => b.Height * DesignTokens.Radius.Row;
-            float line = Units(DesignTokens.Garden.OutlineWidth);
-            Rgba lipColor = highlighted ? GardenLook.Green.Lip.Mix(C.CreamLip, 0.4f) : C.CreamLip;
-            Image lip = RoundRect("Lip", root.transform, UiTheme.Of(lipColor), R);
-            Image face = highlighted
-                ? RoundGradient("Panel", root.transform, C.SurfaceRowHighlight.Lighten(0.4f), C.SurfaceRowHighlight, R)
-                : RoundGradient("Panel", root.transform, C.CreamTop, C.CreamFace, R);
-            Image outline = RoundRing("Line", root.transform, UiTheme.Of(highlighted ? GardenLook.Green.Lip : C.CreamLine), R, _ => line);
-            layout.Add(lip.rectTransform, b => b.Offset(0f, Units(highlighted ? 6f : 4f)));
-            layout.Add(face.rectTransform, b => b);
-            layout.Add(outline.rectTransform, b => b);
             return root;
         }
 
         /// <summary>
-        /// A cream slab raised like a button's face without its plate (spec 005 FR-045, the playtest's <c>Kit.RaisedRow</c>):
-        /// a soft shadow and <see cref="ProceduralSprites.RaisedRow"/> filling the layout's rect, its corners
-        /// <c>radius.row</c> of its height (<paramref name="radiusShare"/>; 0.5 for the pills).
+        /// A slab raised like a button's face without its plate (spec 005 FR-045, FR-047, the playtest's
+        /// <c>Kit.RaisedRow</c>: the rows, the pills, the cards' bodies, the stats): a soft shadow and
+        /// <see cref="ProceduralSprites.RaisedRow(int, int, float, ColorSet)"/> in <paramref name="set"/> (the light, even
+        /// <see cref="GardenLook.RowCream"/> by default) filling <paramref name="box"/> of the layout's rect (all of it by
+        /// default), its corners <c>radius.row</c> of its height (<paramref name="radiusShare"/>; 0.5 for the pills).
         /// </summary>
-        public static Image RaisedRow(BoxLayout layout, Transform parent, float? radiusShare = null)
+        public static Image RaisedRow(BoxLayout layout, Transform parent, float? radiusShare = null, ColorSet? set = null, Func<Box, Box>? box = null)
         {
             float share = Mathf.Min(0.5f, radiusShare ?? DesignTokens.Radius.Row);
-            SoftShadow(layout, b => b, b => b.Height * share, 0.16f, 0.05f);
+            ColorSet colors = set ?? GardenLook.RowCream;
+            Func<Box, Box> at = box ?? (b => b);
+            SoftShadow(layout, at, b => b.Height * share, 0.16f, 0.05f);
             Image slab = UiFactory.CreateImage("Slab", parent, null, Color.white);
             slab.raycastTarget = false;
-            PictureFit.On(slab, (w, h) => ProceduralSprites.RaisedRow(w, h, share));
-            layout.Add(slab.rectTransform, b => b);
+            PictureFit.On(slab, (w, h) => ProceduralSprites.RaisedRow(w, h, share, colors));
+            layout.Add(slab.rectTransform, at);
             return slab;
+        }
+
+        /// <summary>The green rim round the player's own row, as a share of its height (the playtest's <c>Kit.YouRimShare</c>).</summary>
+        public const float YouRimShare = 0.045f;
+
+        /// <summary>A raised row's front side under its top, as a share of its height (the playtest's <c>Kit.RaisedRowSide</c>).</summary>
+        public const float RaisedRowSide = 0.06f;
+
+        /// <summary>
+        /// A tile in a thin wooden rim (spec 005 FR-047, the playtest's <c>Kit.FramedTile</c>; the profile's stats and
+        /// achievements, the outfit cards, the Collection's frames): a soft shadow, the buttons' plate with its border
+        /// <see cref="GardenLook.TileRimShare"/> of the shorter side and the face raised on it in <paramref name="set"/> (the
+        /// rows' light cream by default), its corners <paramref name="radiusShare"/> of the shorter side, filling
+        /// <paramref name="box"/> of the layout's rect (all of it by default). The face's top is <see cref="CardLook.TileTop"/>.
+        /// </summary>
+        public static Image FramedTile(BoxLayout layout, Transform parent, float radiusShare, Func<Box, Box>? box = null, ColorSet? set = null)
+        {
+            ColorSet colors = set ?? GardenLook.RowCream;
+            Func<Box, Box> at = box ?? (b => b);
+            SoftShadow(layout, at, b => Mathf.Min(b.Width, b.Height) * radiusShare, 0.2f, 0.05f);
+            Image plate = UiFactory.CreateImage("Plate", parent, null, Color.white);
+            plate.raycastTarget = false;
+            PictureFit.On(plate, (w, h) => ProceduralSprites.TilePlate(w, h, radiusShare));
+            layout.Add(plate.rectTransform, at);
+            Image face = UiFactory.CreateImage("Face", parent, null, Color.white);
+            face.raycastTarget = false;
+            PictureFit.On(face, (w, h) => ProceduralSprites.ButtonFace(colors, w, h, radiusShare, false));
+            layout.Add(face.rectTransform, b => UiRaster.RaisedFaceBox(at(b), GardenLook.TileRimShare));
+            return face;
+        }
+
+        /// <summary>A framed tile as an element (<see cref="FramedTile(BoxLayout, Transform, float, Func{Box, Box}?, ColorSet?)"/> filling a clear root); children go into the returned root, after the tile.</summary>
+        public static Image Tile(string name, Transform parent, float radiusShare, bool raycast = false)
+        {
+            Image root = UiFactory.CreateImage(name, parent, null, Color.clear, raycast);
+            FramedTile(BoxLayout.On(root.rectTransform), root.transform, radiusShare);
+            return root;
+        }
+
+        /// <summary>
+        /// The owner's flowers (pictures.md D6) for a corner (spec 005 FR-047, the playtest's <c>Kit.CornerFlowers</c>;
+        /// place it on <see cref="CardLook.CornerBox"/>): mirrored on the right corners, turned upside down on the bottom
+        /// ones; the drawn cluster while the picture is missing. Never a touch target, hidden with the decoration switch.
+        /// </summary>
+        public static Image CornerFlowers(string name, Transform parent, Corner corner)
+        {
+            Image image = UiFactory.CreateImage(name, parent, null, Color.white);
+            image.raycastTarget = false;
+            bool mirror = CardLook.Mirrored(corner);
+            bool turn = CardLook.Turned(corner);
+            Sprite? picture = OwnerArt.Decor(OwnerPictures.Flowers);
+            if (picture != null)
+            {
+                OwnerArt.Show(image, picture, mirror, turn);
+            }
+            else
+            {
+                PictureFit.On(image, (w, h) => ProceduralSprites.FlowerCluster(mirror, Mathf.Min(w, h)), square: true);
+                image.rectTransform.localScale = new Vector3(1f, turn ? -1f : 1f, 1f);
+            }
+
+            image.gameObject.SetActive(DesignTokens.Garden.Decorations);
+            return image;
+        }
+
+        /// <summary>The four flowers over a page's frame corners (spec 005 FR-047), in <see cref="CardLook.PageFlowers"/>'s order; place them with <see cref="PlacePageFlowers"/>.</summary>
+        public static Image[] PageFlowers(Transform parent) => new[]
+        {
+            CornerFlowers("FlowersTopLeft", parent, Corner.TopLeft),
+            CornerFlowers("FlowersTopRight", parent, Corner.TopRight),
+            CornerFlowers("FlowersBottomLeft", parent, Corner.BottomLeft),
+            CornerFlowers("FlowersBottomRight", parent, Corner.BottomRight),
+        };
+
+        /// <summary>Places a page's flowers (<see cref="PageFlowers"/>) on its <paramref name="panel"/> in screen pixels, the bottom ones at <paramref name="bottom"/>.</summary>
+        public static void PlacePageFlowers(Image[] flowers, Box panel, float bottom)
+        {
+            (float w, float h, Insets _) = ScreenFrame();
+            IReadOnlyList<(Corner Corner, Box Box)> boxes = CardLook.PageFlowers(panel, bottom, DesignTokens.ScaleFor(w, h));
+            for (int i = 0; i < flowers.Length && i < boxes.Count; i++)
+            {
+                PlaceScreen(flowers[i].rectTransform, boxes[i].Box);
+            }
+        }
+
+        /// <summary>
+        /// A raised slab as an element (spec 005 FR-047: the profile's stats and achievement tiles, the name card, the
+        /// teaser pill; the playtest's <c>Kit.RaisedRow</c> where it had a well or parchment): a clear root holding
+        /// <see cref="RaisedRow"/>, its corners <paramref name="radiusShare"/> of its height. Children go into the returned
+        /// root, after the slab.
+        /// </summary>
+        public static Image Slab(string name, Transform parent, float? radiusShare = null, ColorSet? set = null, bool raycast = false)
+        {
+            Image root = UiFactory.CreateImage(name, parent, null, Color.clear, raycast);
+            RaisedRow(BoxLayout.On(root.rectTransform), root.transform, radiusShare, set);
+            return root;
         }
 
         /// <summary>
@@ -1375,8 +1478,10 @@ namespace Bloomlings.Client.UI
             Well(name, parent, UiTheme.Of(C.ParchmentWell), radiusUnits, raycast);
 
         /// <summary>
-        /// Tabs (Store, Wardrobe; FR-016, spec 005): the selected one a glossy green button on a cream plate with a white
-        /// label, the others parchment wells with brown labels.
+        /// Tabs (Store, Wardrobe, the profile's edit card; FR-016, spec 005, the playtest's <c>Kit.Tabs</c>): since FR-047
+        /// every tab a pill raised on its wooden plate as the buttons (<see cref="RaisedButton"/>), the selected one green and
+        /// glossy with a white label, the others light wood (<see cref="GardenLook.Tan"/>) with brown labels, sinking when
+        /// pressed.
         /// </summary>
         public static TabsView Tabs(string name, Transform parent, string[] labels, Action<int> onSelect)
         {
@@ -1388,25 +1493,18 @@ namespace Bloomlings.Client.UI
                 RectTransform cell = UiFactory.Place(UiFactory.CreateRect("Tab" + i, root), i / (float)labels.Length, 0f, (i + 1) / (float)labels.Length, 1f);
                 cell.offsetMin = new Vector2(Units(8f), 0f);
                 cell.offsetMax = new Vector2(-Units(8f), 0f);
-                GardenButton on = Garden("On", cell, GardenLook.Green, 100f, gloss: true);
+                GardenButton on = RaisedButton("On", cell, GardenLook.Green, 0.5f, gloss: true);
                 UiFactory.Stretch((RectTransform)on.transform);
                 TextMeshProUGUI onLabel = KitLabel("Label", on.Content, labels[i], DesignTokens.Type.ButtonSecondary, TextLook.OnColor(GardenLook.Green));
                 on.Track(onLabel, DesignTokens.Type.ButtonSecondary, TextLook.OnColor);
-                BoxLayout.On(on.Content).Watch(onLabel).Then(f => KitText.Place(onLabel, DesignTokens.Type.ButtonSecondary, f.CenterX, f.CenterY, Units(DesignTokens.Type.ButtonSecondary.Size), f.Width * 0.86f));
+                BoxLayout.On(on.Content).Watch(onLabel).Then(f => KitText.Place(onLabel, DesignTokens.Type.ButtonSecondary, f.CenterX, f.CenterY, Units(DesignTokens.Type.ButtonSecondary.Size), f.Width * 1.1f));
                 Clickable(on, () => onSelect(index));
 
-                Image off = Well("Off", cell, raycast: true);
-                Inset(off.rectTransform, Units(6f), Units(8f) - Units(2f), Units(6f), Units(8f) + Units(2f));
-                TextMeshProUGUI offLabel = KitLabel("Label", off.transform, labels[i], DesignTokens.Type.ButtonSecondary, TextLook.Plain(C.InkBrown));
-                BoxLayout.On(off.rectTransform).Watch(offLabel).Then(b => KitText.Place(offLabel, DesignTokens.Type.ButtonSecondary, b.CenterX, b.CenterY + Units(3f), Units(DesignTokens.Type.ButtonSecondary.Size), b.Width * 0.86f));
-                var offButton = off.gameObject.AddComponent<Button>();
-                offButton.transition = Selectable.Transition.None;
-                offButton.targetGraphic = off;
-                offButton.onClick.AddListener(() =>
-                {
-                    GameFeedback.Current?.Play(SoundCue.Click);
-                    onSelect(index);
-                });
+                GardenButton off = RaisedButton("Off", cell, GardenLook.Tan, 0.5f);
+                UiFactory.Stretch((RectTransform)off.transform);
+                TextMeshProUGUI offLabel = KitLabel("Label", off.Content, labels[i], DesignTokens.Type.ButtonSecondary, TextLook.Plain(C.InkBrown));
+                BoxLayout.On(off.Content).Watch(offLabel).Then(f => KitText.Place(offLabel, DesignTokens.Type.ButtonSecondary, f.CenterX, f.CenterY, Units(DesignTokens.Type.ButtonSecondary.Size), f.Width * 1.1f));
+                Clickable(off, () => onSelect(index));
                 view.Add(on.gameObject, off.gameObject);
             }
 

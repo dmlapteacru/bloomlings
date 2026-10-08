@@ -138,12 +138,13 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            // On Home: the plate's soft shadow and the cream cushion, then a layer for the pictures' shadows, under them all.
+            // On Home: the plate's soft shadow and the cream face raised on its wooden plate (spec 005 FR-047), then a layer for
+            // the pictures' shadows, under them all.
             if (_plated)
             {
                 _plateShadow = UiFactory.CreateImage("PlateShadow", _root, null, Color.white);
                 _plateShadow.raycastTarget = false;
-                _plate = UiKit.IconFace("Plate", _root, GardenLook.White, b => HomePromo.PlateRadius(b), square: false);
+                _plate = UiKit.RaisedButton("Plate", _root, GardenLook.White, HomePromo.PlateRadiusShare, raycast: false);
                 _shadowLayer = UiFactory.CreateRect("Shadows", _root);
             }
 

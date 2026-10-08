@@ -119,10 +119,11 @@ namespace Bloomlings.Client.UI.Screens
             hud.BoosterArea = UiFactory.CreateRect("BoosterArea", root);
             hud.TrayArea = UiFactory.CreateRect("TrayArea", root);
 
-            // A short message over the board's lower edge (a refused tap, a hint): a parchment pill with brown text.
-            hud._toastPill = UiKit.Paper("Toast", root, b => b.Height / 2f, DesignTokens.Garden.OutlineWidth, 5f, raycast: false);
+            // A short message over the board's lower edge (a refused tap, a hint): a cream pill raised like the rows (spec 005
+            // FR-047) with brown text.
+            hud._toastPill = UiKit.Slab("Toast", root, 0.5f);
             hud._toast = UiKit.KitLabel("Text", hud._toastPill.transform, string.Empty, DesignTokens.Type.Body, TextLook.Plain(C.InkBrown));
-            BoxLayout.On(hud._toastPill.rectTransform).Watch(hud._toast).Then(b => KitText.Place(hud._toast, DesignTokens.Type.Body, b.CenterX, b.CenterY, UiKit.Units(DesignTokens.Type.Body.Size), b.Width - UiKit.Units(40f)));
+            BoxLayout.On(hud._toastPill.rectTransform).Watch(hud._toast).Then(b => KitText.Place(hud._toast, DesignTokens.Type.Body, b.CenterX, b.CenterY - (b.Height * UiKit.RaisedRowSide * 0.5f), UiKit.Units(DesignTokens.Type.Body.Size), b.Width - UiKit.Units(40f)));
             hud._toastPill.gameObject.SetActive(false);
             hud.Layout(hasBadge: false, hasBoosters: true);
             return hud;

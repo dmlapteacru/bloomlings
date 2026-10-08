@@ -32,7 +32,7 @@ namespace Bloomlings.Client.UI.Screens
     /// popups."; spec 005 FR-030, contracts/look.md §6.8), every element placed from
     /// <see cref="ScreenLayout.ReferenceLeaderboard"/>, as the playtest's <c>LeaderboardScreen</c>: over the Wardrobe's
     /// garden, the page header on one line (<see cref="UiKit.PageHeader"/>: the back button, the wooden "Leaderboard" banner
-    /// with ivy, the Petals pill, whose "+" opens the Store page over it once the Store is open); a parchment panel to the
+    /// with ivy, the Petals pill, whose "+" opens the Store page over it once the Store is open); a wooden-framed cream panel (spec 005 FR-047) to the
     /// bottom of the screen with cream rows (the player's raised and green), outlined medals, portraits on cream discs,
     /// brown names and scores, as many lines as the page fits around the player's own row, the offline line and the cream
     /// Refresh with ⟳; and the bottom menu over the panel's foot, the Leaderboard in its medallion. It lies over Home; its
@@ -50,6 +50,7 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _root = null!;
         private PageHeaderView _header = null!;
         private Image _panel = null!;
+        private Image[] _flowers = null!;
         private RectTransform _list = null!;
         private TextMeshProUGUI _status = null!;
         private RectTransform _refresh = null!;
@@ -88,8 +89,8 @@ namespace Bloomlings.Client.UI.Screens
             Transform root = shade.transform;
             BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
 
-            // The parchment panel (a card's radius), the rows' area, the offline line and Refresh.
-            screen._panel = UiKit.Paper("Panel", root, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
+            // The pages' wooden frame round its cream panel (spec 005 FR-047, the popups' card frame), the rows' area, the offline line and Refresh.
+            screen._panel = UiKit.CardFrame("Panel", root, raycast: false);
             screen._list = UiFactory.CreateRect("Rows", root);
 
             // The ranks are a list that scrolls: a drag on the page never taps (spec 005 FR-041).
@@ -101,6 +102,9 @@ namespace Bloomlings.Client.UI.Screens
             // The locked notice in the rows' place, shown only before the Leaderboard unlocks (FR-030).
             screen._notice = UiKit.LockedNotice("Locked", root);
             screen._notice.gameObject.SetActive(false);
+
+            // The flowers over the frame's corners, over the page's content (spec 005 FR-047).
+            screen._flowers = UiKit.PageFlowers(root);
 
             // The bottom menu over the panel's foot, the Leaderboard in its medallion (FR-030).
             if (onNav != null)
@@ -201,6 +205,7 @@ namespace Bloomlings.Client.UI.Screens
             _header.Place(r.Header);
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _list.gameObject.SetActive(false);
             _status.gameObject.SetActive(false);
             _refresh.gameObject.SetActive(false);
@@ -244,6 +249,7 @@ namespace Bloomlings.Client.UI.Screens
             // The panel runs to the bottom of the screen: its bottom corners go past the edge.
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _notice.gameObject.SetActive(false);
             _list.gameObject.SetActive(true);
             UiKit.PlaceScreen(_list, r.Rows);
@@ -319,7 +325,20 @@ namespace Bloomlings.Client.UI.Screens
             TextMeshProUGUI score = UiKit.Label("Score", row, NumberText.Group(entry.Level), T.Count, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
             Grow(score, T.Count, grow);
             UiKit.PlaceBox(score.rectTransform, parts.Score, line);
+            if (entry.IsPlayer)
+            {
+                // The flowers over the own row's top corners (spec 005 FR-047, the playtest's YouFlowerShare).
+                float flowers = line.Height * YouFlowerShare;
+                foreach (Corner corner in new[] { Corner.TopLeft, Corner.TopRight })
+                {
+                    Image image = UiKit.CornerFlowers("Flowers" + corner, row, corner);
+                    UiKit.PlaceBox(image.rectTransform, CardLook.CornerBox(line, corner, flowers), line);
+                }
+            }
         }
+
+        /// <summary>The flowers over the own row's corners, as a share of its height (the playtest's <c>LeaderboardScreen.YouFlowerShare</c>).</summary>
+        private const float YouFlowerShare = 0.62f;
 
         /// <summary>
         /// A portrait on a cream rounded square (the avatar's shape, <see cref="AvatarLook.Radius"/>; the owner, 2026-10-06;

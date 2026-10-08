@@ -40,9 +40,9 @@ namespace Bloomlings.Client.UI.Design
         /// A drawn profile frame (<see cref="ProfileFrameStyle"/>) in a square picture of side <paramref name="size"/>, its
         /// band centered on the framed disc's edge (<see cref="AvatarLook.FrameEdge"/> of the side from the middle):
         /// <list type="bullet">
-        /// <item><description><see cref="ProfileFrameStyle.WoodRing"/> (Wooden Frame): a rounded band of honey wood
-        /// (<c>wood.light</c> to <c>wood.mid</c>), its grain running round it with two carved lines, lit from the upper
-        /// left, its <c>wood.line</c> outline, and four brass nails (<c>medal.gold</c>) at its corners;</description></item>
+        /// <item><description><see cref="ProfileFrameStyle.WoodRing"/> (Wooden Frame): a rounded band in the icon buttons'
+        /// plate laminate (spec 005 FR-047), lit from the upper left, in the plate's <c>wood.line</c> outline, and four brass
+        /// nails (<c>medal.gold</c>) at its corners;</description></item>
         /// <item><description><see cref="ProfileFrameStyle.LeafRing"/> (Leaf Frame): a green vine (<c>garden.leaf_3</c>)
         /// round the disc with twenty almond leaves in the three garden greens, all turning one way, out and in by
         /// turns;</description></item>
@@ -97,6 +97,12 @@ namespace Bloomlings.Client.UI.Design
 
         // ---- The wooden ring ----
 
+        /// <summary>
+        /// The Wooden Frame (spec 005 FR-047; the owner, 2026-10-08: "the base frame must become the same wood"): a band in
+        /// the icon buttons' plate laminate (<see cref="RaisedPlate"/>, its grain across the picture as on a button), rounding
+        /// over at both edges and flat on its middle, lit from the upper left, its top catching the light, deeper lower down,
+        /// in the plate's outline and saturation (<see cref="Finish"/>), with four brass nails at its corners.
+        /// </summary>
         private static void PaintWoodRing(ref NavPaint paint, float u, float v, float pixel)
         {
             float edge = AvatarLook.FrameEdge;
@@ -107,34 +113,20 @@ namespace Bloomlings.Client.UI.Design
             float mid = (inner + outer) / 2f;
             float half = (outer - inner) / 2f;
             float d = Math.Abs(dist - mid) - half;
-            float line = FrameLine(pixel);
             float cover = Cover(d, pixel);
             if (cover > 0f)
             {
-                float angle = FrameAngle(u, v);
-                float light = BandLight(u, v, dist, mid, half);
-                var c = new Color(C.WoodMid.Mix(C.WoodLight, Clamp01(0.5f - (v / outer * 0.5f))));
-                c.Mix(C.WoodEdge, 0.38f);
+                // The plate's wood at the plate's scale: a band as wide as a button's rim of IconRimShare.
+                float band = (outer - inner) / pixel;
+                Color c = Laminate(u / pixel, v / pixel, band / GardenLook.IconRimShare);
 
-                // Turned grain: streaks running round the ring (noise across it, warped a little), two carved lines
-                // with a light edge beside each.
-                float warp = Fbm(u * 7f, v * 7f, 31, 2);
-                float streak = Fbm((dist * 150f) + (warp * 2.2f), 0.5f, 37, 3);
-                c.Mix(C.WoodGrain, 0.6f * Clamp01((streak - 0.46f) * 2.6f));
-                c.Mix(C.WoodLight, 0.3f * Clamp01((0.36f - streak) * 3f));
-                for (int k = 0; k < 2; k++)
-                {
-                    float at = k == 0 ? inner + (half * 0.42f) : outer - (half * 0.42f);
-                    float wobble = 0.0025f * (float)Math.Sin((angle * 3f) + (k * 1.7f));
-                    c.Mix(C.WoodLine, 0.45f * Cover(Math.Abs(dist - at - wobble) - (line * 0.35f), pixel));
-                    c.Mix(C.WoodLight, 0.5f * Cover(Math.Abs(dist - at - wobble - (line * 0.9f)) - (line * 0.3f), pixel));
-                }
-
-                // The round band lit from the upper left, its outline.
-                c.Mix(C.WoodLight, 0.7f * Clamp01((light - 0.7f) * 3.2f));
-                c.Mix(C.WoodGrain, 0.55f * Clamp01((0.58f - light) * 2.2f));
-                c.Mix(C.WoodLine, 0.3f * Clamp01((0.3f - light) * 2.5f));
-                c.Mix(C.WoodLine, Clamp01(0.5f + ((d + (line * 1.3f)) / pixel)));
+                // Across the band: rounding over at the outside, flat on its middle, rounding down at the inside.
+                float q = Clamp01((outer - dist) / (outer - inner));
+                float f = q < 0.4f ? (float)Math.Cos(q / 0.4f * Math.PI / 2f) : q > 0.75f ? -(float)Math.Cos((1f - q) / 0.25f * Math.PI / 2f) : 0f;
+                (float gx, float gy) = FrameNormal(u, v);
+                Shade(ref c, C.WoodGrain, gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))), 0.45f, 0.45f, 0.18f);
+                c.Mix(C.WoodMid.Lighten(0.12f), 0.6f * Clamp01(1f - ((v + 0.5f) / 0.3f)));
+                Finish(ref c, v + 0.5f, d / pixel, Math.Max(1f, 0.012f / pixel));
                 paint.Over(cover, c.ToRgba());
             }
 

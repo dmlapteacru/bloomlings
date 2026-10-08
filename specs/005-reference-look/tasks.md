@@ -878,3 +878,23 @@ and contracts/look.md §3.6, §6.10.
 - [X] T200 The owner's review (2026-10-08): the rows in the lighter row cream, evenly (`GardenLook.RowCream`,
   `UiRaster.RaisedRow`), the card's body clear of the frame (`ScreenLayout.Card`), and the finished picture of the win and
   the Collection in soft cubes (FR-046: `BoardPainter.Picture`, `WinPictureView`, `BoardPictures.PictureTile`).
+
+- [X] T201 Kit (FR-047): `UiRaster.RaisedRow(w, h, r, set)`, `RaisedPlate`/`RaisedFaceBox`/`ButtonPlate` with a rim share,
+  the Wooden Frame in the plate laminate (`FrameRaster.PaintWoodRing`); `GardenLook.RowYou`, `Tan`, `TileRimShare`;
+  `CardLook` corners, page flowers, title sign and tile top; `AvatarLook.Wooden`; the slot `ui.tile.framed` and the restated
+  rows, tabs, pills, tiles, cards, frames and decoration.
+- [X] T202 Playtest: the pages in the card frame with their flowers, `Kit.Row` (own row's rim), `Kit.Tabs`, `Kit.CostPill`
+  (slab or button), `Kit.PetalsPill`, `Kit.Badge`, `Kit.Toast`, `Kit.FramedTile`, `Kit.CornerFlowers`, `Kit.PageFlowers`,
+  `BoosterBezel`, the outfit cards, the Collection's frames, the parchment pill, Home's promo plates, the win's rewards,
+  the guides' icons, the Store's tiles and prices, the profile's stats, achievements, signs and avatar flowers, the
+  Leaderboard's own row, the Wardrobe's name card flowers.
+- [X] T203 Unity: the same in `UiKit` (`RaisedButton(square)`, `RaisedRow(set, box)`, `Slab`, `FramedTile`, `Tile`,
+  `CornerFlowers`, `PageFlowers`, `Decoration(Transform)`, `Row`, `Tabs`, `PetalsPill`, `Badge`, `CostPill(button)`,
+  `BoosterBezel`, `RewardPlate`, `RewardTile`, `DropTile`, `DoubleOffer`), `BoosterTileView`, `OutfitCardView`, the Store,
+  Leaderboard, Collection, profile and Wardrobe screens, `HomePromoView`, `GameplayHud`'s toast, `GuideOverlay`,
+  `DailyChallengeScreen`; `ProceduralSprites.RaisedRow(w, h, share, set)`, `TilePlate`.
+- [X] T204 Tests (`PageLookTests`): the own row's green, the tan tab face, the framed tile's thin rim, the Wooden Frame's
+  laminate, the page flowers' corners and flips, the title sign and the wooden frames.
+- [X] T205 Docs: spec Session 2026-10-08 (the audit and the references) and FR-047, contracts/look.md §6.19 and §6.20, the
+  inventory, CLAUDE.md.
+- [ ] T206 Devices: the pages, the rows, the tiles and the flowers on a phone in both APKs; the owner's verdict.

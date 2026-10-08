@@ -114,18 +114,24 @@ namespace Bloomlings.Client.UI.Design
         /// opening a dark groove and the soft shadow the raised face casts, downward (<see cref="RaisedFace"/> goes over it,
         /// in <see cref="RaisedFaceBox"/>).
         /// </summary>
-        public static byte[] RaisedPlate(int width, int height, float radius)
+        public static byte[] RaisedPlate(int width, int height, float radius) => RaisedPlate(width, height, radius, GardenLook.IconRimShare);
+
+        /// <summary>
+        /// <see cref="RaisedPlate(int, int, float)"/> with its border <paramref name="rimShare"/> of the shorter side (spec 005
+        /// FR-047: the tiles' thin rim, <see cref="GardenLook.TileRimShare"/>).
+        /// </summary>
+        public static byte[] RaisedPlate(int width, int height, float radius, float rimShare)
         {
             Check(width, height);
             var pixels = new byte[width * height * 4];
             float w = width;
             float h = height;
             float s = Math.Min(w, h);
-            float rim = s * GardenLook.IconRimShare;
+            float rim = s * rimShare;
             float side = s * PlateSide;
             float topBottom = h - side;
             float line = Math.Max(1f, s * 0.016f);
-            Box face = RaisedFaceBox(new Box(0f, 0f, w, h));
+            Box face = RaisedFaceBox(new Box(0f, 0f, w, h), rimShare);
             float faceRadius = Math.Max(0f, radius - rim);
             for (int py = 0; py < height; py++)
             {
@@ -192,6 +198,9 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static byte[] ButtonPlate(int width, int height, float radiusShare) => RaisedPlate(width, height, Math.Min(width, height) * radiusShare);
 
+        /// <summary>The plate of a tile in a thin wooden rim of <paramref name="rimShare"/> (spec 005 FR-047, <see cref="GardenLook.TileRimShare"/>).</summary>
+        public static byte[] ButtonPlate(int width, int height, float radiusShare, float rimShare) => RaisedPlate(width, height, Math.Min(width, height) * radiusShare, rimShare);
+
         /// <summary>
         /// The raised face of an icon button or the speed pill whose face box (<see cref="RaisedFaceBox"/>) is
         /// <paramref name="width"/> × <paramref name="height"/> px: <see cref="RaisedFace"/> with the corners and the front
@@ -220,10 +229,13 @@ namespace Bloomlings.Client.UI.Design
         /// The box of the raised face on a plate filling <paramref name="box"/>: inside the border at the top and sides, and a
         /// little over the border at the bottom, standing on the plate's top.
         /// </summary>
-        public static Box RaisedFaceBox(Box box)
+        public static Box RaisedFaceBox(Box box) => RaisedFaceBox(box, GardenLook.IconRimShare);
+
+        /// <summary>The raised face's box on a plate whose border is <paramref name="rimShare"/> of its shorter side (spec 005 FR-047).</summary>
+        public static Box RaisedFaceBox(Box box, float rimShare)
         {
             float s = Math.Min(box.Width, box.Height);
-            float rim = s * GardenLook.IconRimShare;
+            float rim = s * rimShare;
             return new Box(box.Left + (rim * FaceInsetX), box.Top + (rim * FaceInsetTop), box.Right - (rim * FaceInsetX), box.Bottom - (s * PlateSide) - (rim * FaceInsetBottom));
         }
 
@@ -267,7 +279,14 @@ namespace Bloomlings.Client.UI.Design
         /// toward its lower edge), filling <paramref name="width"/> × <paramref name="height"/>, its corners
         /// <paramref name="radius"/>, its front side 6% of its height.
         /// </summary>
-        public static byte[] RaisedRow(int width, int height, float radius) => RaisedFace(width, height, radius, height * 0.06f, GardenLook.RowCream, false, 0.25f);
+        public static byte[] RaisedRow(int width, int height, float radius) => RaisedRow(width, height, radius, GardenLook.RowCream);
+
+        /// <summary>
+        /// A raised row in <paramref name="set"/> (spec 005 FR-047: the Leaderboard's own row in <see cref="GardenLook.RowYou"/>;
+        /// the pages' slabs, the pills and the cards' bodies in <see cref="GardenLook.RowCream"/>): as
+        /// <see cref="RaisedRow(int, int, float)"/>, evenly colored along its length.
+        /// </summary>
+        public static byte[] RaisedRow(int width, int height, float radius, ColorSet set) => RaisedFace(width, height, radius, height * 0.06f, set, false, 0.25f);
 
         private static byte[] RaisedFace(int width, int height, float radius, float sidePixels, ColorSet set, bool gloss, float deepen)
         {

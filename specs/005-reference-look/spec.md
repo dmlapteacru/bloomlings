@@ -734,6 +734,37 @@ without its rim. And on the win page the board must look as in the gameplay, vol
 - Q: The win's board? → A: The finished picture (the win, the Collection) draws each cell as the board's soft cube
   (FR-046): the playtest's `BoardPainter.Picture`, Unity's `WinPictureView` and `BoardPictures.Finished` (`PictureTile`).
 
+### Session 2026-10-08 (the owner's audit request and page references)
+
+The owner: "Я надеюсь ты все строки и везде так поменял, во всех скринах где есть строки (например лидерборд). Везде где
+есть кнопки с обводкой, ты применил тоже самое что и у новых кнопок. Все страницы, ты добавил этот деревянный бордер,
+обводку как у кнопок. К профилю, на главной, в странице профиля, фрейм должен замениться базовый на такой же деревянный. Все
+что подлежит таким заменам, должно быть заменено." ("I hope you changed every row everywhere, on every screen with rows,
+the Leaderboard for one; every button with a rim the same as the new buttons; every page with this wooden border, as the
+buttons' rim; the profile's base frame, on Home and on the profile page, the same wood. Everything subject to such
+replacements must be replaced.") Then, with six references of the Leaderboard, the Store's Shop and Cosmetics, the
+Wardrobe, the profile and its edit card: "Не вижу чтоб на рендерах в страницах бордер у контента был деревянный и тд."
+("I don't see the content's border on the pages wooden, and so on.") Decided from the references without a question
+(FR-047):
+- Q: The pages? → A: The Store, Leaderboard, Collection and profile pages sit in the popups' wooden frame (FR-045's
+  `UiRaster.CardFrame`) with the owner's flowers over its four corners, the bottom ones above the bottom menu. The
+  Wardrobe keeps its lighter panel under the family tabs, as its reference.
+- Q: The rows? → A: Every row, pill and card body is the raised slab: the Leaderboard's own row the same slab green-tinted
+  (`GardenLook.RowYou`) in a green rim with flowers over its top corners; the cost pills, toasts, Home's teaser and the
+  profile card too.
+- Q: The rimmed buttons? → A: All on the plate: the tabs (the selected green, the others light wood, `GardenLook.Tan`, as
+  the references' "Shop", "Animations", "Frame"), the booster tiles and their "+", the Store's tiles and prices (with the
+  main buttons' leaves), the Petals pill and its "+", the HARD badge, Home's promo plates, the win's rewards, the guides'
+  icons and the Daily Challenge's sun.
+- Q: The tiles? → A: The profile's stats and achievements, the outfit cards and the Collection's frames are cream tiles in a
+  thin wooden rim (`GardenLook.TileRimShare`, 4.5% of the shorter side), the stats and achievements with flowers over two
+  corners; "Achievements" and the profile's Level plaque on wooden signs with flowers.
+- Q: The base frame? → A: The avatar's border without a frame is the plate since FR-044; the Wooden Frame becomes the
+  same laminate, and on the profile page both carry flowers over two corners, as the reference's avatar.
+- Q: What stays? → A: The family tabs keep their folder look joined to the panel and the Wardrobe's name card its tab (with
+  flowers at its ends), as their references; the toggles, the wells of the jam's slots, the tray and the name field, and
+  the guides' parchment bubbles stay. The references' leaves at every row's ends wait for a leaves-only picture.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1369,6 +1400,19 @@ inventory.
   finished picture on the win and in the Collection MUST draw each target cell as the board's soft cube (FR-044,
   `TileStyle.Board`, the owner's field icon on the top's middle) in both builds (the playtest's `BoardPainter.Picture`,
   Unity's `WinPictureView` and `BoardPictures.Finished`); stones and grass stay. Presentation only.
+
+- **FR-047** *(the owner's audit request and page references of 2026-10-08: every row, every rimmed button, every page's
+  wooden border, the base frame, "everything subject to such replacements")*: The Store, Leaderboard, Collection and
+  profile pages MUST sit in the wooden card frame (`Kit.CardFrame` / `UiKit.CardFrame`) with the owner's flowers over its
+  corners (`CardLook.PageFlowers`, `Kit.PageFlowers` / `UiKit.PageFlowers`). Every row, cost pill, toast and pill MUST be the
+  raised slab (`UiRaster.RaisedRow(w, h, r, set)`; the own row `GardenLook.RowYou` with its green rim). Every tab, booster
+  tile, Store tile and price, the Petals pill and every "+", the HARD badge, Home's promo plates, the win's rewards, the
+  guides' icons and the Daily Challenge's sun MUST be raised on the plate (`Kit.RaisedButton` / `UiKit.RaisedButton`), the
+  unselected tabs in `GardenLook.Tan`. The profile's stats and achievements, the outfit cards and the Collection's frames
+  MUST be tiles in a thin wooden rim (`Kit.FramedTile` / `UiKit.FramedTile`, `GardenLook.TileRimShare`). The Wooden Frame
+  MUST be the plate's laminate (`UiRaster.ProfileFrame`), and the profile page's wooden frames carry flowers over two
+  corners (`AvatarLook.Wooden`). Both builds (contracts/look.md §6.20). Presentation only: layouts, rules and tap outcomes
+  stay.
 
 ### Key Entities
 

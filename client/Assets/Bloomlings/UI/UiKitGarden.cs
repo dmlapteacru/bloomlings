@@ -284,23 +284,35 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A cost pill (§3.4; jam choices, booster tiles, the Store): a cream pill (a soft shadow, the <c>cream.lip</c>
-        /// below, the <c>cream.top</c> to <c>parchment.bottom</c> face and a <c>cream.line</c> outline) holding the lotus and
-        /// a brown price, a green ▶ square and "Free", or "×N" charges, centered as a group; with
-        /// <see cref="CostPillView.SetChargeIcon"/> the charges show in bigger digits after the booster's icon (80% of the
-        /// pill's height).
+        /// A cost pill (§3.4; jam choices, booster tiles, the Store; the playtest's <c>Kit.CostPill</c>): since spec 005
+        /// FR-047 a cream pill raised like the rows (<see cref="RaisedRow"/>), or, as a <paramref name="button"/> (the Store's
+        /// prices), raised on its wooden plate as the buttons, holding the lotus and a brown price, a green ▶ square and
+        /// "Free", or "×N" charges, centered as a group on its top; with <see cref="CostPillView.SetChargeIcon"/> the charges
+        /// show in bigger digits after the booster's icon (80% of the pill's height).
         /// </summary>
-        public static CostPillView CostPill(string name, Transform parent, Cost cost)
+        public static CostPillView CostPill(string name, Transform parent, Cost cost, bool button = false)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<CostPillView>();
-            SoftShadow(layout, b => b, b => b.Height / 2f, 0.2f, 0.12f);
-            Image lip = RoundRect("Lip", root, UiTheme.Of(C.CreamLip));
-            Image face = RoundGradient("Face", root, C.CreamTop, C.ParchmentBottom);
-            Image line = RoundRing("Line", root, UiTheme.Of(C.CreamLine), null, b => Mathf.Max(Units(2f), b.Height * 0.05f));
-            layout.Add(lip.rectTransform, b => b.Offset(0f, b.Height * 0.07f));
-            layout.Add(face.rectTransform, b => b);
-            layout.Add(line.rectTransform, b => b);
+            Func<Box, Box> top;
+            if (button)
+            {
+                RaisedPlate(layout, root, b => b, 0.5f);
+                Image face = UiFactory.CreateImage("Face", root, null, Color.white);
+                face.raycastTarget = false;
+                PictureFit.On(face, (w, h) => ProceduralSprites.ButtonFace(GardenLook.Cream, w, h, 0.5f, false));
+                layout.Add(face.rectTransform, UiRaster.RaisedFaceBox);
+                top = b =>
+                {
+                    Box f = UiRaster.RaisedFaceBox(b);
+                    return new Box(f.Left, f.Top, f.Right, f.Bottom - (b.Height * UiRaster.FaceSide));
+                };
+            }
+            else
+            {
+                RaisedRow(layout, root, 0.5f);
+                top = b => new Box(b.Left, b.Top, b.Right, b.Bottom - (b.Height * RaisedRowSide));
+            }
 
             Image lotus = PetalIcon("Lotus", root);
 
@@ -324,8 +336,9 @@ namespace Bloomlings.Client.UI
 
             TextMeshProUGUI label = KitLabel("Amount", root, string.Empty, T.Count, TextLook.Plain(C.InkBrown));
             view.Init(label, lotus, free.gameObject, charge, layout);
-            layout.Watch(label).Then(b =>
+            layout.Watch(label).Then(whole =>
             {
+                Box b = top(whole);
                 float h = b.Height;
                 bool charges = view.ShowsChargeIcon;
                 float icon = view.Cost.Kind == CostKind.Petals ? h * 0.86f : view.Cost.Kind == CostKind.Free ? h * 0.6f : charges ? h * 0.8f : 0f;
@@ -448,9 +461,9 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A booster tile (§3.7; the booster bar): a cream squircle (radius 26%) in a cream-white bezel with the
-        /// booster's colored icon at 62%, and the green count badge over its bottom-right corner, or the cost pill under it
-        /// and a small green "+" when no charges are left. A selected tile is raised with the pulsing golden glow; a
+        /// A booster tile (§3.7; the booster bar): a cream squircle (radius 26%) raised on its wooden plate (spec 005 FR-047)
+        /// with the booster's colored icon, and the green count badge over its bottom-right corner, or the cost pill under
+        /// it and a small green "+" raised on its plate when no charges are left. A selected tile is raised with the pulsing golden glow; a
         /// disabled one is greyed at 55% (spec 003 FR-031). Set it with <see cref="BoosterTileView.Show"/>.
         /// </summary>
         public static BoosterTileView BoosterTile(string name, Transform parent, string boosterId, Action? onPress)
@@ -628,8 +641,8 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// An outfit card (§4.6, <c>ui.card.outfit</c>; the Wardrobe and the Store's cosmetics; the playtest's
-        /// <c>Kit.OutfitCard</c>): a raised cream card (radius 11% of its width, a <c>cream.lip</c> of 3.5%, a thin
-        /// <c>cream.line</c> outline) with a beige picture well (64% of the face tall, which <see cref="OutfitCardView.Picture"/>
+        /// <c>Kit.OutfitCard</c>): a cream card raised like the rows (spec 005 FR-047, radius 11% of its width) with a beige
+        /// picture well (64% of the face tall, which <see cref="OutfitCardView.Picture"/>
         /// fills and clips: put the hero wearing the item there) and the item's name below it. The worn one
         /// (<see cref="OutfitCardView.Show"/>) has a green-tinted well with a green border and the check badge on its corner.
         /// A <paramref name="cost"/> adds the cost pill on the card's bottom edge (the Store); the rect then holds the card
@@ -1306,10 +1319,7 @@ namespace Bloomlings.Client.UI
         private Image _badgeDisc = null!;
         private TextMeshProUGUI _badge = null!;
         private CostPillView _cost = null!;
-        private GameObject _plus = null!;
-        private Image _plusLine = null!;
-        private Image _plusFace = null!;
-        private Image _plusGlyph = null!;
+        private GardenButton _plus = null!;
         private string _boosterId = string.Empty;
         private float _radius;
         private readonly float[] _haloRadii = new float[3];
@@ -1341,19 +1351,21 @@ namespace Bloomlings.Client.UI
 
             _ring = UiKit.RoundRing("Ring", _glow, UiTheme.Of(C.GardenGlow), _ => _radius + (Side() * 0.035f), _ => Side() * 0.035f);
 
-            // The cream face in its cream-white bezel (the playtest's Kit.BoosterBezel, UiKitGameplay.cs).
-            Face = UiKit.BoosterBezel("Tile", root, b => Mathf.Min(b.Width, b.Height) * 0.26f, raycast: true);
+            // The cream face raised on its wooden plate (the playtest's Kit.BoosterBezel, UiKitGameplay.cs; spec 005 FR-047).
+            Face = UiKit.BoosterBezel("Tile", root, 0.26f, raycast: true);
             Face.TileSquash = true;
             _icon = UiKit.BoosterIcon("Icon", Face.Content, boosterId);
-            // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile (the playtest's 0.74).
-            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, Face.IconSide * 0.74f, Face.IconSide * 0.74f));
+            // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile (the playtest's
+            // 0.74 of the tile; IconSide is the face's share of it).
+            float IconBox() => Face.IconSide * 0.74f / GardenLook.IconRimFaceShare;
+            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, IconBox(), IconBox()));
 
             _badge = UiKit.CountBadge("Count", root, out _badgeDisc);
             _cost = UiKit.CostPill("Cost", root, Cost.Petals(0));
-            _plus = UiFactory.Stretch(UiFactory.CreateRect("Plus", root)).gameObject;
-            _plusLine = UiKit.RoundRect("Line", _plus.transform, UiTheme.Of(GardenLook.Green.Line));
-            _plusFace = UiKit.RoundRect("Face", _plus.transform, UiTheme.Of(GardenLook.Green.Face));
-            _plusGlyph = UiKit.ShapeImage("Glyph", _plus.transform, "ui.plus", Rgba.White);
+            // The small green "+" raised on its plate (spec 005 FR-047).
+            _plus = UiKit.RaisedButton("Plus", root, GardenLook.Green, 0.5f, gloss: true, raycast: false, square: true);
+            Image plusGlyph = UiKit.ShapeImage("Glyph", _plus.Content, "ui.plus", Rgba.White);
+            BoxLayout.On(_plus.Content).Add(plusGlyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, f.Width * 0.86f, f.Width * 0.86f));
 
             Button = Face.gameObject.AddComponent<Button>();
             Button.transition = Selectable.Transition.None;
@@ -1379,7 +1391,7 @@ namespace Bloomlings.Client.UI
             _badgeDisc.gameObject.SetActive(state.ShowsCharges);
             _badge.text = state.Charges.ToString(CultureInfo.InvariantCulture);
             _cost.gameObject.SetActive(!state.ShowsCharges);
-            _plus.SetActive(!state.ShowsCharges);
+            _plus.gameObject.SetActive(!state.ShowsCharges);
             if (!state.ShowsCharges)
             {
                 _cost.SetCost(Cost.Petals(state.Price));
@@ -1416,13 +1428,8 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_badgeDisc.rectTransform, Box.FromCenter(tile.Right - (badge * 0.55f), tile.Bottom - (badge * 0.55f), badge * 1.26f, badge * 1.26f));
             float pill = s * 0.3f;
             BoxLayout.Place((RectTransform)_cost.transform, Box.FromCenter(tile.CenterX, tile.Bottom + (pill * 0.12f), s * 0.86f, pill));
-            float plus = s * 0.3f;
-            float px = tile.Right - (plus * 0.3f);
-            float py = tile.Top + (plus * 0.3f);
-            float edge = Mathf.Max(UiKit.Units(1f), s * 0.012f);
-            BoxLayout.Place(_plusLine.rectTransform, Box.FromCenter(px, py + (plus * 0.07f), plus + (2f * edge), plus + (2f * edge)));
-            BoxLayout.Place(_plusFace.rectTransform, Box.FromCenter(px, py, plus, plus));
-            BoxLayout.Place(_plusGlyph.rectTransform, Box.FromCenter(px, py, plus * 0.62f, plus * 0.62f));
+            float plus = s * 0.34f;
+            BoxLayout.Place((RectTransform)_plus.transform, Box.FromCenter(tile.Right - (plus * 0.3f), tile.Top + (plus * 0.3f), plus, plus));
         }
 
         private void Update()
@@ -1805,6 +1812,9 @@ namespace Bloomlings.Client.UI
         /// <summary>The cost pill's height over the card's (§4.6).</summary>
         public const float PillShare = 0.2f;
 
+        /// <summary>The card's corners in its rim, as a share of its shorter side (the playtest's <c>Kit.OutfitRadiusShare</c>).</summary>
+        public const float RadiusShare = 0.11f;
+
         private BoxLayout _layout = null!;
         private Image _well = null!;
         private Image _wellLine = null!;
@@ -1832,11 +1842,11 @@ namespace Bloomlings.Client.UI
         public static Box CardBox(Box box, bool pillRoom) =>
             pillRoom ? new Box(box.Left, box.Top, box.Right, box.Top + (box.Height / (1f + (0.6f * PillShare)))) : box;
 
-        /// <summary>The well in the rect: inset 7.5% of the card's width, 64% of the face tall.</summary>
+        /// <summary>The well in the rect: inset 5.5% of the card's width, 64% of the face tall.</summary>
         public static Box WellBox(Box box, bool pillRoom)
         {
             Box face = FaceBox(box, pillRoom);
-            float pad = face.Width * 0.075f;
+            float pad = CardBox(box, pillRoom).Width * 0.055f;
             return new Box(face.Left + pad, face.Top + pad, face.Right - pad, face.Top + pad + (face.Height * 0.64f));
         }
 
@@ -1850,7 +1860,7 @@ namespace Bloomlings.Client.UI
         private static Box FaceBox(Box box, bool pillRoom)
         {
             Box card = CardBox(box, pillRoom);
-            return new Box(card.Left, card.Top, card.Right, card.Bottom - (card.Width * 0.035f));
+            return CardLook.TileTop(card);
         }
 
         internal void Build(BoxLayout layout, string label, Cost? cost, bool pillRoom, bool faded)
@@ -1859,10 +1869,8 @@ namespace Bloomlings.Client.UI
             _pillRoom = pillRoom;
             Transform root = layout.transform;
             Box Card(Box b) => CardBox(b, _pillRoom);
-            UiKit.SoftShadow(layout, Card, b => b.Width * 0.11f, 0.18f, 0.035f);
-            Image lip = UiKit.RoundRect("Lip", root, UiTheme.Of(C.CreamLip), _ => _radius);
-            Image face = UiKit.RoundGradient("Face", root, C.CreamTop, C.CreamFace, _ => _radius);
-            Image line = UiKit.RoundRing("Line", root, UiTheme.Of(C.CreamLine), _ => _radius, _ => _line);
+            // The card in a thin wooden rim (spec 005 FR-047, the playtest's Kit.FramedTile), its corners 11% of its shorter side.
+            UiKit.FramedTile(layout, root, RadiusShare, Card);
             _well = UiKit.RoundGradient("Well", root, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell, _ => _wellRadius);
             _well.gameObject.AddComponent<Mask>();
             Image shade = UiKit.RoundRect("Shade", _well.transform, Color.white, _ => _wellRadius);
@@ -1882,17 +1890,14 @@ namespace Bloomlings.Client.UI
                 return Box.FromCenter(w.Right - (badge * 0.42f), w.Bottom - (badge * 0.42f), badge, badge);
             });
 
-            layout.Add(lip.rectTransform, b =>
+            layout.Then(b =>
             {
                 Box card = Card(b);
                 _radius = card.Width * 0.11f;
                 _line = Mathf.Max(UiKit.Units(1f), card.Width * 0.011f);
                 _wellRadius = _radius * 0.7f;
                 _border = Worn ? Mathf.Max(UiKit.Units(4f), card.Width * 0.022f) : _line;
-                return card;
             });
-            layout.Add(face.rectTransform, b => FaceBox(b, _pillRoom));
-            layout.Add(line.rectTransform, Card);
             layout.Add(_well.rectTransform, b => WellBox(b, _pillRoom));
             layout.Add(_wellLine.rectTransform, b => WellBox(b, _pillRoom));
             if (cost.HasValue)
@@ -1918,7 +1923,7 @@ namespace Bloomlings.Client.UI
                 float bottom = _pillRoom ? FaceBox(b, _pillRoom).Bottom - ((b.Height - card.Height) * 0.5f) : FaceBox(b, _pillRoom).Bottom;
                 float size = Mathf.Min(UiKit.Units(T.ButtonSecondary.Size), (bottom - top) * 0.62f);
                 KitText.Place(_label, T.ButtonSecondary, card.CenterX, (top + bottom) / 2f, size, card.Width * 0.88f);
-                foreach (Image image in new[] { lip, face, line, _well, shade, _wellLine })
+                foreach (Image image in new[] { _well, shade, _wellLine })
                 {
                     image.GetComponent<RoundShape>().Apply();
                 }

@@ -60,7 +60,7 @@ namespace Bloomlings.Client.UI.Screens
     /// A full-screen page since the owner's note of 2026-10-04 (spec 005 FR-029; contracts/look.md §6.6), every element
     /// placed from <see cref="ScreenLayout.ReferenceStore"/>, as the playtest's <c>StoreScreen</c>: over the Wardrobe's
     /// garden, the Wardrobe's page header on one line (<see cref="UiKit.PageHeader"/>: the back button, the wooden "Store"
-    /// banner with ivy, the Petals pill); a parchment panel to the bottom of the screen with the green and parchment tabs,
+    /// banner with ivy, the Petals pill); a wooden-framed cream panel (spec 005 FR-047) to the bottom of the screen with the raised tabs,
     /// the offline line, and cream rows with the booster's tile and count badge, the name and a cost pill with the lotus (a
     /// tap on the row buys), growing to fill a taller page, a page of them at a time between cream page arrows; and the
     /// cosmetics in the reference Wardrobe's look: the four family tabs with their heroes over a lighter panel, outfit
@@ -98,6 +98,7 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _root = null!;
         private PageHeaderView _header = null!;
         private Image _panel = null!;
+        private Image[] _flowers = null!;
         private RectTransform _tabsBox = null!;
         private TabsView? _tabs;
         private TextMeshProUGUI _status = null!;
@@ -136,8 +137,8 @@ namespace Bloomlings.Client.UI.Screens
             Transform root = shade.transform;
             BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
 
-            // The parchment panel (a card's radius), the tabs, the offline line and the list's area.
-            screen._panel = UiKit.Paper("Panel", root, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
+            // The pages' wooden frame round its cream panel (spec 005 FR-047, the popups' card frame), the tabs, the offline line and the list's area.
+            screen._panel = UiKit.CardFrame("Panel", root, raycast: false);
             // The selected tab is a glossy green button on a plate, the other a parchment well (spec 005 §3.5).
             // They are built for the tabs a visit shows (SetTabs).
             screen._tabsBox = UiFactory.CreateRect("Tabs", root);
@@ -147,6 +148,9 @@ namespace Bloomlings.Client.UI.Screens
             // The locked notice in the list's place, shown only before the Store unlocks (FR-030).
             screen._notice = UiKit.LockedNotice("Locked", root);
             screen._notice.gameObject.SetActive(false);
+
+            // The flowers over the frame's corners, over the page's content (spec 005 FR-047).
+            screen._flowers = UiKit.PageFlowers(root);
 
             // The bottom menu over the panel's foot, the Shop in its medallion (FR-030).
             if (onNav != null)
@@ -232,6 +236,7 @@ namespace Bloomlings.Client.UI.Screens
             _header.Place(r.Header);
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _tabsBox.gameObject.SetActive(false);
             _status.gameObject.SetActive(false);
             _list.gameObject.SetActive(false);
@@ -352,6 +357,7 @@ namespace Bloomlings.Client.UI.Screens
             // The panel runs to the bottom of the screen: its bottom corners go past the edge.
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _tabsBox.gameObject.SetActive(tabs);
             UiKit.PlaceScreen(_tabsBox, r.Tabs);
             _status.gameObject.SetActive(!storeAvailable);
@@ -468,12 +474,11 @@ namespace Bloomlings.Client.UI.Screens
                 row.gameObject.AddComponent<CanvasGroup>().alpha = 0.5f;
             }
 
-            // The item's tile: the booster tile's cream squircle in its cream-white bezel (§3.7), 0.8 of the row tall (0.12 W
-            // on the smallest row, as the reference's booster boxes), its icon 74% of it as on a booster box.
+            // The item's tile: the booster tile's cream squircle raised on its wooden plate (§3.7, spec 005 FR-047), 0.8 of the
+            // row tall (0.12 W on the smallest row, as the reference's booster boxes), its icon 74% of it as on a booster box.
             float size = line.Height * 0.8f;
             Box tile = Box.FromCenter(line.Left + (line.Height * 0.14f) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
-            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, GardenLook.BoosterRim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
-            GardenButton face = UiKit.IconFace("Tile", row.transform, set, b => Mathf.Min(b.Width, b.Height) * 0.26f, square: true);
+            GardenButton face = UiKit.RaisedButton("Tile", row.transform, GardenLook.Cream, 0.26f, raycast: false, square: true);
             UiKit.PlaceBox((RectTransform)face.transform, tile, line);
             if (item.BoosterId != null)
             {
@@ -505,9 +510,9 @@ namespace Bloomlings.Client.UI.Screens
             float titleLeft = tile.Right + (size * 0.22f);
             // At most 42% of the row, and never under the price pill (its width estimated as the pill's layout below
             // does before it is measured: a 4-digit booster price since 2026-10-05).
-            float pillH = line.Height * 0.56f;
+            float pillH = line.Height * 0.7f;
             string priceText = unavailable ? string.Empty : petals ? NumberText.Group(item.PetalPrice!.Value) : item.PriceText;
-            float pillLeft = line.Right - (line.Height * 0.14f) - ((pillH * 0.56f * 0.6f * Mathf.Max(1, priceText.Length)) + (pillH * (petals ? 1.9f : 1f)));
+            float pillLeft = line.Right - (line.Height * 0.14f) - ((pillH * 0.45f * 0.6f * Mathf.Max(1, priceText.Length)) + (pillH * (petals ? 1.75f : 0.9f)));
             float titleRight = unavailable ? titleLeft + (line.Width * 0.42f) : Mathf.Min(titleLeft + (line.Width * 0.42f), pillLeft - (line.Height * 0.12f));
             UiKit.PlaceBox(title.rectTransform, new Box(titleLeft, line.Top, titleRight, line.Bottom), line);
 
@@ -520,8 +525,10 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            // The price at the row's right end, as wide as its text: the lotus and the Petals, or the store's price.
-            CostPillView pill = UiKit.CostPill("Price", row.transform, petals ? Cost.Petals(item.PetalPrice!.Value) : Cost.Charges(0));
+            // The price at the row's right end, as wide as its text, raised on its plate as a button (spec 005 FR-047): the
+            // lotus and the Petals, or the store's price.
+            CostPillView pill = UiKit.CostPill("Price", row.transform, petals ? Cost.Petals(item.PetalPrice!.Value) : Cost.Charges(0), button: true);
+            UiKit.Decoration(pill.transform);
             TextMeshProUGUI amount = pill.GetComponentInChildren<TextMeshProUGUI>();
             if (!petals)
             {
@@ -535,10 +542,10 @@ namespace Bloomlings.Client.UI.Screens
 
             BoxLayout.On(row.rectTransform).Watch(amount).Add((RectTransform)pill.transform, b =>
             {
-                float h = b.Height * 0.56f;
-                float measured = KitText.Measure(amount, h * 0.56f);
-                float text = measured > 0f ? measured : h * 0.56f * 0.6f * Mathf.Max(1, amount.text.Length);
-                float width = text + (h * (petals ? 1.9f : 1f));
+                float h = b.Height * 0.7f;
+                float measured = KitText.Measure(amount, h * 0.45f);
+                float text = measured > 0f ? measured : h * 0.45f * 0.6f * Mathf.Max(1, amount.text.Length);
+                float width = text + (h * (petals ? 1.75f : 0.9f));
                 float right = b.Right - (b.Height * 0.14f);
                 return new Box(right - width, b.CenterY - (h / 2f), right, b.CenterY + (h / 2f));
             });

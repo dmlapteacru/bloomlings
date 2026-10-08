@@ -63,6 +63,7 @@ namespace Bloomlings.Client.UI.Screens
         private Button _previous = null!;
         private Button _next = null!;
         private Image _nameCard = null!;
+        private Image[] _nameFlowers = null!;
         private RectTransform _nameTab = null!;
         private TextMeshProUGUI _name = null!;
         private TextMeshProUGUI _role = null!;
@@ -123,6 +124,8 @@ namespace Bloomlings.Client.UI.Screens
             // the family below it.
             screen._nameCard = UiKit.Paper("NameCard", root, b => b.Height * 0.16f, DesignTokens.Garden.FrameWidth, 8f, raycast: false);
             (screen._nameTab, screen._name) = NameTab(root);
+            // The flowers at the card's ends (spec 005 FR-047, the playtest's Kit.NameCard).
+            screen._nameFlowers = new[] { UiKit.CornerFlowers("NameFlowersLeft", root, Corner.BottomLeft), UiKit.CornerFlowers("NameFlowersRight", root, Corner.BottomRight) };
             screen._role = UiKit.Label("Role", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             screen._about = UiKit.Label("About", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             screen._about.textWrappingMode = TextWrappingModes.Normal;
@@ -259,6 +262,10 @@ namespace Bloomlings.Client.UI.Screens
             _previous.gameObject.SetActive(shown);
             _next.gameObject.SetActive(shown);
             _nameCard.gameObject.SetActive(shown);
+            foreach (Image flower in _nameFlowers)
+            {
+                flower.gameObject.SetActive(shown && DesignTokens.Garden.Decorations);
+            }
             _nameTab.gameObject.SetActive(shown);
             _role.gameObject.SetActive(shown);
             _about.gameObject.SetActive(shown);
@@ -349,6 +356,9 @@ namespace Bloomlings.Client.UI.Screens
         /// <c>parchment.bottom</c> face, a <c>cream.line</c> outline) rising over the name card's top edge, with the name in
         /// <c>type.title</c>.
         /// </summary>
+        /// <summary>The flowers at the name card's ends, as a share of its body's height (the playtest's <c>Kit.NameCardFlowerShare</c>).</summary>
+        private const float NameCardFlowerShare = 0.5f;
+
         private static (RectTransform Tab, TextMeshProUGUI Name) NameTab(Transform parent)
         {
             (RectTransform tab, BoxLayout layout) = UiKit.Element("NameTab", parent);
@@ -472,7 +482,12 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen((RectTransform)_next.transform, Touch(r.Next));
 
             // The name card's parchment starts a little under its tab's top, so the tab rises over its edge.
-            UiKit.PlaceScreen(_nameCard.rectTransform, new Box(r.NameCard.Left, r.NameTab.Top + (r.NameTab.Height * 0.36f), r.NameCard.Right, r.NameCard.Bottom));
+            var nameBody = new Box(r.NameCard.Left, r.NameTab.Top + (r.NameTab.Height * 0.36f), r.NameCard.Right, r.NameCard.Bottom);
+            UiKit.PlaceScreen(_nameCard.rectTransform, nameBody);
+            float flowers = nameBody.Height * NameCardFlowerShare;
+            var ends = new Box(nameBody.Left, nameBody.Top, nameBody.Right, nameBody.Top + (nameBody.Height * 0.72f));
+            UiKit.PlaceScreen(_nameFlowers[0].rectTransform, CardLook.CornerBox(ends, Corner.BottomLeft, flowers));
+            UiKit.PlaceScreen(_nameFlowers[1].rectTransform, CardLook.CornerBox(ends, Corner.BottomRight, flowers));
             UiKit.PlaceScreen(_nameTab, r.NameTab);
             UiKit.PlaceScreen(_role.rectTransform, r.Role);
             UiKit.PlaceScreen(_about.rectTransform, r.About);

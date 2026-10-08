@@ -120,7 +120,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// An outfit card (§4.6, <c>ui.card.outfit</c>; the reference Wardrobe): a cream card with a beige picture well,
+        /// An outfit card (§4.6, <c>ui.card.outfit</c>; the reference Wardrobe): since spec 005 FR-047 a cream card in a thin
+        /// wooden rim (<see cref="Kit.FramedTile"/>) with a beige picture well,
         /// which <paramref name="picture"/> fills (the hero wearing the item), and the item's name below it. The worn one
         /// (<paramref name="worn"/>) has a green-tinted well with a green border and the check badge. A
         /// <paramref name="cost"/> adds the cost pill on the card's bottom edge (the Store); <paramref name="box"/> then
@@ -139,15 +140,11 @@ namespace Bloomlings.Playtest.Design
             Squash(p, card, depth, tile: true);
             float w = card.Width;
             float radius = w * 0.11f;
-            float lip = w * 0.035f;
             float line = Math.Max(1f, w * 0.011f);
-            SoftShadow(p, card, radius, 0.18f, 0.035f);
-            p.FillRound(card, radius, C.CreamLip);
-            var face = new Box(card.Left, card.Top, card.Right, card.Bottom - lip);
-            p.FillRoundGradient(face, radius, C.CreamTop, C.CreamFace);
-            p.StrokeRound(card.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine);
+            // The card in a thin wooden rim (spec 005 FR-047, the owner's references of 2026-10-08).
+            Box face = FramedTile(p, card, OutfitRadiusShare);
 
-            float pad = w * 0.075f;
+            float pad = w * 0.055f;
             var well = new Box(face.Left + pad, face.Top + pad, face.Right - pad, face.Top + pad + (face.Height * 0.64f));
             float wellRadius = radius * 0.7f;
             if (worn)
@@ -201,6 +198,9 @@ namespace Bloomlings.Playtest.Design
                 p.Hit(Touch(p, box), action);
             }
         }
+
+        /// <summary>An outfit card's corners in its rim, as a share of its shorter side (spec 005 FR-047).</summary>
+        public const float OutfitRadiusShare = 0.11f;
 
         /// <summary>
         /// A cream ‹ or › button (§4.6: the Wardrobe's arrows; the Store's pages): the icon buttons' rounded square in its
@@ -284,25 +284,29 @@ namespace Bloomlings.Playtest.Design
 
             float scale = Math.Min(tab.Height * 0.62f, tab.Width * 0.13f) / p.U(T.Title.Size);
             p.Text(name, tab.CenterX, tab.CenterY + (tab.Height * 0.04f), T.Title, C.InkTitle, tab.Width * 0.86f, scale, TextLook.Plain(C.InkTitle));
+
+            // The flowers at the card's ends (spec 005 FR-047, the owner's references of 2026-10-08).
+            float flowers = body.Height * NameCardFlowerShare;
+            var ends = new Box(body.Left, body.Top, body.Right, body.Top + (body.Height * 0.72f));
+            CornerFlowers(p, CardLook.CornerBox(ends, Corner.BottomLeft, flowers), Corner.BottomLeft);
+            CornerFlowers(p, CardLook.CornerBox(ends, Corner.BottomRight, flowers), Corner.BottomRight);
         }
 
+        /// <summary>The flowers at the Wardrobe name card's ends, as a share of its body's height.</summary>
+        public const float NameCardFlowerShare = 0.5f;
+
         /// <summary>
-        /// A picture frame (the Collection, <c>collection.frame</c>): a raised cream frame with a lip and a soft shadow
-        /// around a beige well. Returns the well, where the picture goes.
+        /// A picture frame (the Collection, <c>collection.frame</c>): since spec 005 FR-047 a cream tile in a thin wooden rim
+        /// (<see cref="Kit.FramedTile"/>) around a beige well. Returns the well, where the picture goes.
         /// </summary>
         public static Box PictureFrame(IPainter p, Box box)
         {
             p.Mark("collection.frame");
             float w = Math.Min(box.Width, box.Height);
             float radius = w * 0.1f;
-            float lip = w * 0.035f;
             float line = Math.Max(1f, w * 0.01f);
-            SoftShadow(p, box, radius, 0.2f, 0.035f);
-            p.FillRound(box, radius, C.CreamLip);
-            var face = new Box(box.Left, box.Top, box.Right, box.Bottom - lip);
-            p.FillRoundGradient(face, radius, C.CreamTop, C.CreamFace);
-            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine);
-            Box well = face.Inset(w * 0.07f);
+            Box face = FramedTile(p, box, 0.1f);
+            Box well = face.Inset(w * 0.06f);
             float wellRadius = radius * 0.6f;
             p.FillRoundGradient(well, wellRadius, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell);
             p.PushClip(well);
@@ -313,10 +317,10 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A parchment pill (Home's milestone teaser and rank rows; spec 005 §3.5): the parchment surface with a soft
-        /// shadow, rounded to a pill.
+        /// A cream pill (Home's milestone teaser and rank rows; spec 005 §3.5): since FR-047 raised like the rows
+        /// (<see cref="Kit.RaisedRow(IPainter, Box, float, ColorSet?)"/>), rounded to a pill.
         /// </summary>
-        public static void ParchmentPill(IPainter p, Box box) => Paper(p, box, box.Height / 2f, DesignTokens.Garden.OutlineWidth, 5f);
+        public static void ParchmentPill(IPainter p, Box box) => RaisedRow(p, box, box.Height / 2f);
 
         /// <summary>
         /// The lotus fountain on the drawn Home stage (<c>ui.fountain</c>; the reference's Home diorama, until the owner's

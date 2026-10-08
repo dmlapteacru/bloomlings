@@ -45,8 +45,8 @@ namespace Bloomlings.Client.UI.Screens
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
             float y = body.Top + (10f * u);
 
-            // The sun on a cream disc (ui.sun), as on Home's Daily Challenge card.
-            GardenButton disc = UiKit.IconFace("Sun", card.Body, GardenLook.White, b => Mathf.Min(b.Width, b.Height) / 2f, square: true);
+            // The sun on a cream face raised on its wooden plate (ui.sun; spec 005 FR-047), as Home's Daily Challenge button.
+            GardenButton disc = UiKit.RaisedButton("Sun", card.Body, GardenLook.White, GardenLook.IconRadiusShare, raycast: false, square: true);
             UiKit.PlaceBox((RectTransform)disc.transform, Box.FromCenter(body.CenterX, y + (SunUnits * u / 2f), SunUnits * u, SunUnits * u), body);
             Image sun = UiKit.OutlinedIcon("Glyph", disc.Content, "ui.sun", C.GardenFlowerCenter, C.GardenFlowerCenterLine);
             BoxLayout.On(disc.Content).Add(sun.rectTransform, f => f.Inset(-f.Width * 0.06f));

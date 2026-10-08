@@ -150,100 +150,14 @@ namespace Bloomlings.Client.UI
                 square: true);
 
         /// <summary>
-        /// A booster tile's body (§3.7, <c>booster.tile</c>; the playtest's <c>Kit.BoosterBezel</c>): a cream face set in a
-        /// cream-white bezel with a faint silver tint (<see cref="GardenLook.BoosterRim"/>, light at the top, 6.5% of the
-        /// tile), a cream lip along its bottom (<see cref="GardenLook.BoosterLip"/>, 8.5%), a lighter middle feathered into
-        /// the face, a faint shade inside the face's top edge and a light edge where the face meets the bezel, a soft tan
-        /// outline (<see cref="GardenLook.BoosterLine"/>) and a soft shadow. The square is the largest in the rect, its
-        /// corners <paramref name="radius"/> of it. It presses like the kit's faces (the face sinks into the lip and
-        /// darkens); a disabled tile keeps its bezel and turns its face grey. Children go into
-        /// <see cref="GardenButton.Content"/>: the face inside the bezel; <see cref="GardenButton.IconSide"/> is the tile's side.
+        /// A booster tile's body (§3.7, <c>booster.tile</c>; the playtest's <c>Kit.BoosterBezel</c>): since spec 005 FR-047
+        /// (the owner, 2026-10-08: "every button with a rim as the new ones") a cream face raised on its wooden plate as the
+        /// buttons (<see cref="RaisedButton"/>), the largest square in the rect, its corners <paramref name="radiusShare"/> of
+        /// it, sinking when pressed; a disabled tile's face is grey (<see cref="ColorSet.Disabled"/>). Children go into
+        /// <see cref="GardenButton.Content"/>.
         /// </summary>
-        internal static GardenButton BoosterBezel(string name, Transform parent, Func<Box, float> radius, bool raycast)
-        {
-            Rgba rim = GardenLook.BoosterRim;
-            var set = new ColorSet("set.booster.bezel", rim.Lighten(0.22f), rim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
-            GardenButton view = NewButton(name, parent, set, raycast);
-            view.GreyWhenDisabled = false;
-            bool Enabled() => view.Button == null || view.Button.interactable;
-            BoxLayout layout = BoxLayout.On(view.Body);
-            Box Square(Box b) => Box.FromCenter(b.CenterX, b.CenterY, Mathf.Min(b.Width, b.Height), Mathf.Min(b.Width, b.Height));
-            float side = 0f;
-            float R() => Mathf.Min(radius(new Box(0f, 0f, side, side)), side / 2f);
-            SoftShadow(layout, Square, b => Mathf.Min(radius(Square(b)), Mathf.Min(b.Width, b.Height) / 2f), 0.22f, 0.06f);
-
-            RectTransform face = UiFactory.CreateRect("Face", view.Body);
-            Image lip = RoundRect("Lip", face, Color.white, _ => R());
-            UiFactory.Stretch(lip.rectTransform);
-            RectTransform topBox = UiFactory.Stretch(UiFactory.CreateRect("TopBox", face));
-            Image top = RoundRect("Bezel", topBox, Color.white, b => Mathf.Min(R(), b.Height / 2f));
-            UiFactory.Stretch(top.rectTransform);
-            Gradient(top, Color.white, Color.white);
-            BoxLayout topLayout = BoxLayout.On(topBox);
-            float bezel = 0f;
-            float InnerRadius(Box b) => Mathf.Max(0f, Mathf.Min(R(), b.Height / 2f) - bezel);
-
-            // The cream face inside the bezel, grey when disabled.
-            float innerRadius = 0f;
-            Image inner = RoundRect("Inner", topBox, Color.white, _ => innerRadius);
-            Gradient(inner, Color.white, Color.white);
-            view.AddExtra(inner, (s, d) =>
-            {
-                Rgba f = Enabled() ? C.CreamFace : C.CreamFace.Grey().Lighten(0.25f);
-                return (f.Darken(0.02f + d), f.Darken(d));
-            });
-            topLayout.Add(inner.rectTransform, b =>
-            {
-                innerRadius = InnerRadius(b);
-                return b.Inset(bezel);
-            });
-
-            // A lighter middle, feathered in, as on the reference's cream tiles.
-            var domeRadii = new float[3];
-            for (int k = 0; k < 3; k++)
-            {
-                int step = k;
-                Image dome = RoundRect("Dome" + step, topBox, Color.white, _ => domeRadii[step]);
-                Gradient(dome, Color.white, Color.clear);
-                view.AddExtra(dome, (s, d) =>
-                {
-                    Rgba middle = Enabled() ? C.CreamTop : C.CreamTop.Grey().Lighten(0.3f);
-                    return (middle.Darken(d).WithAlpha(0.35f), middle.WithAlpha(0f));
-                });
-                topLayout.Add(dome.rectTransform, b =>
-                {
-                    float inset = side * (0.1f + (0.05f * step));
-                    domeRadii[step] = Mathf.Max(0f, InnerRadius(b) - inset);
-                    return b.Inset(bezel + inset);
-                });
-            }
-
-            // The face lies a little below the bezel: a faint shade inside its top edge and a light edge around it.
-            Image shade = RoundRect("Shade", topBox, Color.white, _ => innerRadius);
-            Gradient(shade, UiTheme.Of(C.GardenShadow.WithAlpha(0.08f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
-            shade.GetComponent<VerticalGradient>().Stop = 0.14f;
-            topLayout.Add(shade.rectTransform, b => b.Inset(bezel));
-            float edge = 0f;
-            Image light = RoundRing("Edge", topBox, UiTheme.Of(C.CreamTop.WithAlpha(0.9f)), _ => innerRadius + (edge / 2f), _ => edge);
-            topLayout.Add(light.rectTransform, b => b.Inset(bezel - (edge / 2f)));
-            topLayout.Then(_ => ApplyShapes(inner, shade, light, top));
-
-            Image line = RoundRing("Line", face, Color.white, _ => R(), _ => Mathf.Max(Units(2f), side * 0.018f));
-            UiFactory.Stretch(line.rectTransform);
-            RectTransform content = UiFactory.Stretch(UiFactory.CreateRect("Content", face));
-            view.BuildFace(line, lip, topBox, top, null, content, topLayout);
-            layout.Then(box =>
-            {
-                Box f = Square(box);
-                side = f.Width;
-                bezel = side * 0.065f;
-                edge = Mathf.Max(1f / Mathf.Max(0.0001f, PixelsPerUnit), side * 0.014f);
-                BoxLayout.Place(face, f);
-                float lipHeight = side * 0.085f;
-                view.SetGeometry(Mathf.Max(Units(2f), side * 0.018f), lipHeight, lipHeight * 0.7f, R(), bezel, side);
-            });
-            return view;
-        }
+        internal static GardenButton BoosterBezel(string name, Transform parent, float radiusShare, bool raycast) =>
+            RaisedButton(name, parent, GardenLook.Cream, radiusShare, raycast: raycast, square: true);
 
         private static void ApplyShapes(params Image[] images)
         {

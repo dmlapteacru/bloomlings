@@ -22,7 +22,7 @@ namespace Bloomlings.Client.UI.Screens
     /// <see cref="ScreenLayout.ReferenceCollection"/>, as the playtest's <c>CollectionScreen</c> (frames 6 and 20): over the
     /// Wardrobe's garden, the page header on one line (<see cref="UiKit.PageHeader"/>: the back button, the wooden
     /// "Collection" banner with ivy, the Petals pill, whose "+" opens the Store page over it once the Store is open); a
-    /// parchment panel to the bottom of the screen with the count in soft brown, the pictures in raised cream frames
+    /// wooden-framed cream panel (spec 005 FR-047) to the bottom of the screen with the count in soft brown, the pictures in raised cream frames
     /// (<c>collection.frame</c>) three to a row, as large as fit, as many rows as the page holds, and "n / m" between the
     /// cream page arrows when they take more than one page; and the bottom menu over the panel's foot, the Collection in its
     /// medallion. A tap on a picture shows its detail on the page (<c>collection.detail_frame</c>): the picture large, its
@@ -40,6 +40,7 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _root = null!;
         private PageHeaderView _header = null!;
         private Image _panel = null!;
+        private Image[] _flowers = null!;
         private TextMeshProUGUI _count = null!;
         private RectTransform _grid = null!;
         private TextMeshProUGUI _page = null!;
@@ -80,8 +81,8 @@ namespace Bloomlings.Client.UI.Screens
             Transform root = shade.transform;
             BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
 
-            // The parchment panel (a card's radius), the count, the grid's area and the footer between the page arrows.
-            screen._panel = UiKit.Paper("Panel", root, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
+            // The pages' wooden frame round its cream panel (spec 005 FR-047, the popups' card frame), the count, the grid's area and the footer between the page arrows.
+            screen._panel = UiKit.CardFrame("Panel", root, raycast: false);
             screen._count = UiKit.Label("Count", root, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
             screen._grid = UiFactory.CreateRect("Pictures", root);
             screen._page = UiKit.Label("Page", root, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
@@ -105,6 +106,9 @@ namespace Bloomlings.Client.UI.Screens
             // The locked notice in the grid's place, shown only before the first picture (FR-030).
             screen._notice = UiKit.LockedNotice("Locked", root);
             screen._notice.gameObject.SetActive(false);
+
+            // The flowers over the frame's corners, over the page's content (spec 005 FR-047).
+            screen._flowers = UiKit.PageFlowers(root);
 
             // The bottom menu over the panel's foot, the Collection in its medallion (FR-030).
             if (onNav != null)
@@ -160,6 +164,7 @@ namespace Bloomlings.Client.UI.Screens
             _header.Place(r.Header);
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             SetGrid(false);
             _notice.gameObject.SetActive(true);
             UiKit.PlaceScreen((RectTransform)_notice.transform, r.Notice);
@@ -220,6 +225,7 @@ namespace Bloomlings.Client.UI.Screens
             // The panel runs to the bottom of the screen: its bottom corners go past the edge.
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _notice.gameObject.SetActive(false);
             UiKit.PlaceScreen(_count.rectTransform, r.Count);
             UiKit.PlaceScreen(_grid, r.Area);
@@ -352,8 +358,8 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// A finished picture in its frame (the playtest's <c>Kit.PictureFrame</c>, <c>collection.frame</c>): a raised cream
-        /// frame with a lip and a soft shadow around a beige well with a shadow along its top, and the picture inside the
+        /// A finished picture in its frame (the playtest's <c>Kit.PictureFrame</c>, <c>collection.frame</c>): a cream tile in a
+        /// thin wooden rim (spec 005 FR-047) around a beige well with a shadow along its top, and the picture inside the
         /// well keeping its own proportions. With <paramref name="onTap"/> the frame squashes like a tile and opens it.
         /// </summary>
         private static RectTransform Frame(string name, Transform parent, Texture2D? texture, Action? onTap)
@@ -365,13 +371,10 @@ namespace Bloomlings.Client.UI.Screens
             float line = 0f;
             float wellRadius = 0f;
             float Side(Box b) => Mathf.Min(b.Width, b.Height);
-            Box Face(Box b) => new Box(b.Left, b.Top, b.Right, b.Bottom - (Side(b) * 0.035f));
-            Box Well(Box b) => Face(b).Inset(Side(b) * 0.07f);
+            Box Well(Box b) => CardLook.TileTop(b).Inset(Side(b) * 0.06f);
 
-            UiKit.SoftShadow(layout, b => b, b => Side(b) * 0.1f, 0.2f, 0.035f);
-            Image lip = UiKit.RoundRect("Lip", root, UiTheme.Of(C.CreamLip), _ => r);
-            Image face = UiKit.RoundGradient("Face", root, C.CreamTop, C.CreamFace, _ => r);
-            Image outline = UiKit.RoundRing("Line", root, UiTheme.Of(C.CreamLine), _ => r, _ => line);
+            // The frame: a tile in a thin wooden rim (spec 005 FR-047, the playtest's Kit.PictureFrame), its corners 10% of its side.
+            UiKit.FramedTile(layout, root, 0.1f);
             Image well = UiKit.RoundGradient("Well", root, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell, _ => wellRadius);
             Image shade = UiKit.RoundRect("Shade", root, Color.white, _ => wellRadius);
             UiKit.Gradient(shade, UiTheme.Of(C.GardenShadow.WithAlpha(0.12f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
@@ -379,22 +382,19 @@ namespace Bloomlings.Client.UI.Screens
             Image wellLine = UiKit.RoundRing("WellLine", root, UiTheme.Of(C.ParchmentEdge.Darken(0.08f)), _ => wellRadius, _ => line);
             RectTransform area = UiFactory.CreateRect("Area", root);
 
-            layout.Add(lip.rectTransform, b =>
+            layout.Then(b =>
             {
                 r = Side(b) * 0.1f;
                 line = Mathf.Max(UiKit.Units(1f), Side(b) * 0.01f);
                 wellRadius = r * 0.6f;
-                return b;
             });
-            layout.Add(face.rectTransform, Face);
-            layout.Add(outline.rectTransform, b => b);
             layout.Add(well.rectTransform, Well);
             layout.Add(shade.rectTransform, Well);
             layout.Add(wellLine.rectTransform, Well);
             layout.Add(area, b => Well(b).Inset(Well(b).Width * 0.04f));
             layout.Then(_ =>
             {
-                foreach (Image image in new[] { lip, face, outline, well, shade, wellLine })
+                foreach (Image image in new[] { well, shade, wellLine })
                 {
                     image.GetComponent<RoundShape>().Apply();
                 }

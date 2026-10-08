@@ -36,7 +36,7 @@ namespace Bloomlings.Playtest.Design
             ReferenceProfileRegions r = ScreenLayout.ReferenceProfile(p.Width, p.Height, p.Insets);
             DesignApp.DrawBackdrop(p, BackdropScene.Home, meta.CurrentLevel, OwnerPictures.Wardrobe);
             float radius = r.PanelRadius(p.Scale);
-            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             float grow = r.Card.Width / (0.88f * r.W);
             bool covered = app.Overlays.Count > 0;
 
@@ -44,12 +44,20 @@ namespace Bloomlings.Playtest.Design
             Kit.Row(p, r.Card, false);
             ProfileLook decor = meta.Wardrobe.Profile;
             Kit.Avatar(p, r.Avatar, profile.Avatar, decor.Frame, decor.Badge, covered ? null : () => app.OpenProfileEdit(ProfileTab.Avatar), HomeScreen.OutfitsOf(app)?.Invoke(profile.Avatar.Family));
+            if (AvatarLook.Wooden(decor.Frame?.Shape))
+            {
+                // The wooden frames (the base rim and the Wooden Frame, the buttons' wood) with the references' flowers over
+                // two corners (spec 005 FR-047).
+                float flowers = r.Avatar.Width * AvatarLook.FlowerShare;
+                Kit.CornerFlowers(p, CardLook.CornerBox(r.Avatar, Corner.TopLeft, flowers), Corner.TopLeft);
+                Kit.CornerFlowers(p, CardLook.CornerBox(r.Avatar, Corner.BottomRight, flowers), Corner.BottomRight);
+            }
             p.TextLeft(NameOf(profile), r.Name.Left, r.Name.CenterY, T.Title, C.InkTitle, r.Name.Width, grow, TextLook.Plain(C.InkTitle));
             p.Mark("ui.edit");
             Kit.RoundButton(p, r.Edit.CenterX, r.Edit.CenterY, r.Edit.Width, "ui.edit", covered ? null : () => app.OpenProfileEdit(ProfileTab.Name));
             p.TextLeft(PlaytestText.F("profile.id", profile.ShortId), r.Id.Left, r.Id.CenterY, T.Body, C.InkBrownSoft, r.Id.Width, grow);
             p.TextLeft(PlaytestText.F("profile.joined", profile.JoinedMonth), r.Joined.Left, r.Joined.CenterY, T.Body, C.InkBrownSoft, r.Joined.Width, grow);
-            Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(meta.CurrentLevel)), T.LevelPill);
+            Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(meta.CurrentLevel)), T.LevelPill, SignDecor.Flowers);
 
             // The stats.
             (string Label, long Value)[] stats =
@@ -61,7 +69,10 @@ namespace Bloomlings.Playtest.Design
             for (int i = 0; i < stats.Length; i++)
             {
                 Box cell = r.Stats[i];
-                Kit.Well(p, cell, cell.Height * 0.22f);
+                Kit.FramedTile(p, cell, 0.22f);
+                float flowers = cell.Height * TileFlowerShare;
+                Kit.CornerFlowers(p, CardLook.CornerBox(cell, Corner.TopLeft, flowers), Corner.TopLeft);
+                Kit.CornerFlowers(p, CardLook.CornerBox(cell, Corner.BottomRight, flowers), Corner.BottomRight);
                 Box value = ReferenceProfileRegions.StatValue(cell);
                 p.Text(NumberText.Group(stats[i].Value), value.CenterX, value.CenterY, T.LevelPill, C.InkBrown, value.Width * 0.9f, grow, TextLook.Plain(C.InkBrown));
                 Box label = ReferenceProfileRegions.StatLabel(cell);
@@ -69,7 +80,8 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The Achievements: bronze, silver and gold for what the save counts (Achievements).
-            p.Text(PlaytestText.T("profile.achievements"), r.AchievementsTitle.CenterX, r.AchievementsTitle.CenterY, T.Title, C.InkTitle, r.AchievementsTitle.Width, grow, TextLook.Plain(C.InkTitle));
+            string title = PlaytestText.T("profile.achievements");
+            Kit.WoodSign(p, CardLook.TitleSign(r.AchievementsTitle, p.MeasureText(title, T.Title, grow)), title, T.Title, SignDecor.Flowers);
             IReadOnlyList<AchievementState> achievements = Achievements.Of(stats[0].Value, stats[1].Value, Achievements.Count(meta.Save, Achievements.DailyCounter));
             for (int i = 0; i < r.Achievements.Count && i < achievements.Count; i++)
             {
@@ -78,6 +90,7 @@ namespace Bloomlings.Playtest.Design
 
             p.Text(PlaytestText.T("profile.achievements_note"), r.AchievementsNote.CenterX, r.AchievementsNote.CenterY, T.Caption, C.InkBrownSoft, r.AchievementsNote.Width, grow);
 
+            Kit.PageFlowers(p, r.Panel, r.Panel.Bottom);
             Kit.PageHeader(p, r.Header, PlaytestText.T("profile.title"), app.CloseProfile, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
             string? toast = app.HomeToastText;
             if (toast != null && !covered)
@@ -86,8 +99,12 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
+        /// <summary>The flowers over a stat's or an achievement's tile corners, as a share of its height (spec 005 FR-047).</summary>
+        public const float TileFlowerShare = 0.42f;
+
         /// <summary>
-        /// An achievement's tile (<c>ui.achievement</c>): a parchment well holding the trophy in its tier's medal color
+        /// An achievement's tile (<c>ui.achievement</c>): a cream tile in a thin wooden rim with flowers over two corners
+        /// (spec 005 FR-047) holding the trophy in its tier's medal color
         /// (faded under the padlock badge before the bronze tier) and the count toward the next tier ("37/50"; the count
         /// alone with the check badge once gold), the name under it.
         /// </summary>
@@ -95,7 +112,10 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("ui.achievement");
             Box well = ReferenceProfileRegions.AchievementWell(tile);
-            Kit.Well(p, well, well.Width * 0.24f);
+            Kit.FramedTile(p, well, 0.24f);
+            float flowers = well.Height * TileFlowerShare;
+            Kit.CornerFlowers(p, CardLook.CornerBox(well, Corner.BottomLeft, flowers), Corner.BottomLeft);
+            Kit.CornerFlowers(p, CardLook.CornerBox(well, Corner.TopRight, flowers), Corner.TopRight);
             Box trophy = ReferenceProfileRegions.AchievementTrophy(well);
             Rgba? medal = AchievementLook.TierColor(state.Tier);
             if (medal.HasValue)

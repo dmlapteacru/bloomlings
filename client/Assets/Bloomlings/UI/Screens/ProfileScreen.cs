@@ -40,7 +40,7 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>
     /// The profile page (spec 005 FR-037; the playtest's <c>ProfileScreen</c>), every element placed from
     /// <see cref="ScreenLayout.ReferenceProfile"/>: over the Wardrobe's garden, the page header (back, the wooden "Profile"
-    /// banner, the Petals pill whose "+" opens the Store once it is open) and the parchment panel; on it the player's card
+    /// banner, the Petals pill whose "+" opens the Store once it is open) and the wooden-framed cream panel (spec 005 FR-047); on it the player's card
     /// (the round avatar in its frame and badge, a tap opening the edit card on Avatar; the name with the pencil, opening it
     /// on Name; the short ID; "Playing since 10/2026"; the wooden "Level N" plaque), three stat cells (levels won,
     /// pictures, milestones) and the Achievements (Green Thumb, Picture Keeper, Daily Gardener: bronze, silver, gold). It
@@ -52,6 +52,7 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _root = null!;
         private PageHeaderView _header = null!;
         private Image _panel = null!;
+        private Image[] _flowers = null!;
         private Image _card = null!;
         private ProfileAvatar _avatar = null!;
         private RectTransform _avatarButton = null!;
@@ -63,7 +64,8 @@ namespace Bloomlings.Client.UI.Screens
         private readonly Image[] _stats = new Image[3];
         private readonly TextMeshProUGUI[] _statValues = new TextMeshProUGUI[3];
         private readonly TextMeshProUGUI[] _statLabels = new TextMeshProUGUI[3];
-        private TextMeshProUGUI _title = null!;
+        private WoodSignView _title = null!;
+        private Image[] _avatarFlowers = null!;
         private readonly RectTransform[] _tiles = new RectTransform[ReferenceProfileRegions.AchievementCount];
         private readonly TextMeshProUGUI[] _tileLabels = new TextMeshProUGUI[ReferenceProfileRegions.AchievementCount];
         private readonly (Image Trophy, TextMeshProUGUI Count, GameObject Lock, GameObject Check)[] _tileParts = new (Image, TextMeshProUGUI, GameObject, GameObject)[ReferenceProfileRegions.AchievementCount];
@@ -118,7 +120,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._navLook = navLook;
             Transform root = shade.transform;
             BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
-            screen._panel = UiKit.Paper("Panel", root, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
+            screen._panel = UiKit.CardFrame("Panel", root, raycast: false);
 
             // The player's card.
             screen._card = UiKit.Row("Card", root, false);
@@ -126,29 +128,35 @@ namespace Bloomlings.Client.UI.Screens
             Image avatarHit = UiFactory.CreateImage("AvatarButton", root, null, Color.clear, raycast: true);
             UiKit.TapTarget(avatarHit, () => screen._editCard.Show(ProfileTab.Avatar), press: true);
             screen._avatarButton = avatarHit.rectTransform;
+            // The wooden frames (the base rim, the Wooden Frame) with the references' flowers over two corners (spec 005 FR-047).
+            screen._avatarFlowers = new[] { UiKit.CornerFlowers("AvatarFlowersTopLeft", root, Corner.TopLeft), UiKit.CornerFlowers("AvatarFlowersBottomRight", root, Corner.BottomRight) };
             screen._name = UiKit.Label("Name", root, string.Empty, T.Title, UiTheme.Of(C.InkTitle), TextAlignmentOptions.Left, TextLook.Plain(C.InkTitle));
             screen._edit = (RectTransform)UiKit.RoundIconButton("Edit", root, "ui.edit", () => screen._editCard.Show(ProfileTab.Name)).transform;
             screen._id = UiKit.Label("Id", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), TextAlignmentOptions.Left);
             screen._joined = UiKit.Label("Joined", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), TextAlignmentOptions.Left);
-            screen._plaque = UiKit.WoodSign("Level", root, Loc.F("common.level", 1), T.LevelPill);
+            screen._plaque = UiKit.WoodSign("Level", root, Loc.F("common.level", 1), T.LevelPill, SignDecor.Flowers);
 
             // The stat cells.
             string[] labels = { Loc.T("profile.stat_levels"), Loc.T("profile.stat_pictures"), Loc.T("profile.stat_milestones") };
             for (int i = 0; i < 3; i++)
             {
-                screen._stats[i] = UiKit.Well("Stat" + i, root);
+                // A tile in a thin wooden rim with flowers over two corners (spec 005 FR-047).
+                screen._stats[i] = UiKit.Tile("Stat" + i, root, 0.22f);
                 screen._statValues[i] = UiKit.Label("Value", screen._stats[i].transform, "0", T.LevelPill, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
                 screen._statLabels[i] = UiKit.Label("Label", screen._stats[i].transform, labels[i], T.Caption, UiTheme.Of(C.InkBrownSoft));
+                TileFlowers(screen._stats[i].rectTransform, Corner.TopLeft, Corner.BottomRight);
             }
 
-            // The Achievements (Achievements): each a well with the trophy in its tier's medal color and the count toward
-            // the next tier, the padlock before bronze and the check at gold, the name under it.
-            screen._title = UiKit.Label("Achievements", root, Loc.T("profile.achievements"), T.Title, UiTheme.Of(C.InkTitle), look: TextLook.Plain(C.InkTitle));
+            // The Achievements (Achievements) under their wooden sign with flowers: each a cream tile in a thin wooden rim with
+            // flowers over two corners (spec 005 FR-047) with the trophy in its tier's medal color and the count toward the
+            // next tier, the padlock before bronze and the check at gold, the name under it.
+            screen._title = UiKit.WoodSign("Achievements", root, Loc.T("profile.achievements"), T.Title, SignDecor.Flowers);
             Box Badge(Box b) => Box.FromCenter(b.Right - (b.Width * 0.14f), b.Bottom - (b.Height * 0.14f), b.Width * 0.3f, b.Width * 0.3f);
             for (int i = 0; i < screen._tiles.Length; i++)
             {
                 RectTransform tile = UiFactory.CreateRect("Achievement" + i, root);
-                Image well = UiKit.Well("Well", tile);
+                Image well = UiKit.Tile("Well", tile, 0.24f);
+                TileFlowers(well.rectTransform, Corner.BottomLeft, Corner.TopRight);
                 Image trophy = UiKit.ShapeImage("Trophy", well.transform, "ui.trophy", C.InkBrownSoft.WithAlpha(0.35f));
                 TextMeshProUGUI count = UiKit.Label("Count", well.transform, string.Empty, T.Caption, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
                 RectTransform badge = UiKit.LockBadge("Lock", well.transform);
@@ -170,6 +178,9 @@ namespace Bloomlings.Client.UI.Screens
             screen._note = UiKit.Label("Note", root, Loc.T("profile.achievements_note"), T.Caption, UiTheme.Of(C.InkBrownSoft));
 
             // The header last, as on the other pages; the edit card over everything.
+            // The flowers over the frame's corners, over the page's content (spec 005 FR-047).
+            screen._flowers = UiKit.PageFlowers(root);
+
             screen._header = UiKit.PageHeader(root, Loc.T("profile.title"), screen.Hide, petals != null, onStore);
             screen._editCard = ProfileEditCard.Create(root, profile, wardrobe, wardrobeLevel, () =>
             {
@@ -195,6 +206,20 @@ namespace Bloomlings.Client.UI.Screens
             _root.SetActive(false);
         }
 
+        /// <summary>The flowers over two corners of a stat's or an achievement's tile (the playtest's <c>ProfileScreen.TileFlowerShare</c>).</summary>
+        private static void TileFlowers(RectTransform tile, Corner first, Corner second)
+        {
+            BoxLayout layout = BoxLayout.On(tile);
+            foreach (Corner corner in new[] { first, second })
+            {
+                Image image = UiKit.CornerFlowers("Flowers" + corner, tile, corner);
+                layout.Add(image.rectTransform, b => CardLook.CornerBox(b, corner, b.Height * TileFlowerShare));
+            }
+        }
+
+        /// <summary>The flowers over a tile's corners, as a share of its height.</summary>
+        private const float TileFlowerShare = 0.42f;
+
         /// <summary>The name the page shows: the chosen one, else "Gardener 4821".</summary>
         public static string NameOf(ProfileService profile) => profile.Name ?? Loc.F("profile.default_name", profile.DefaultNumber);
 
@@ -202,6 +227,11 @@ namespace Bloomlings.Client.UI.Screens
         {
             AvatarItem avatar = _profile.Avatar;
             _avatar.Show(_wardrobe.Profile with { Marker = null }, _wardrobe.IsAvailable ? _outfitOf?.Invoke(avatar.Family) : null, avatar);
+            bool wooden = DesignTokens.Garden.Decorations && AvatarLook.Wooden(_wardrobe.Profile.Frame?.Shape);
+            foreach (Image image in _avatarFlowers)
+            {
+                image.gameObject.SetActive(wooden);
+            }
             _name.text = NameOf(_profile);
             _id.text = Loc.F("profile.id", _profile.ShortId);
             _joined.text = Loc.F("profile.joined", _profile.JoinedMonth);
@@ -247,9 +277,13 @@ namespace Bloomlings.Client.UI.Screens
             _header.Place(r.Header);
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            UiKit.PlacePageFlowers(_flowers, r.Panel, r.Panel.Bottom);
             UiKit.PlaceScreen(_card.rectTransform, r.Card);
             UiKit.PlaceScreen(_avatar.Rect, r.Avatar);
             UiKit.PlaceScreen(_avatarButton, r.Avatar);
+            float flowers = r.Avatar.Width * AvatarLook.FlowerShare;
+            UiKit.PlaceScreen(_avatarFlowers[0].rectTransform, CardLook.CornerBox(r.Avatar, Corner.TopLeft, flowers));
+            UiKit.PlaceScreen(_avatarFlowers[1].rectTransform, CardLook.CornerBox(r.Avatar, Corner.BottomRight, flowers));
             UiKit.PlaceScreen(_name.rectTransform, r.Name);
             UiKit.PlaceScreen(_edit, r.Edit);
             UiKit.PlaceScreen(_id.rectTransform, r.Id);
@@ -263,7 +297,9 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.PlaceBox(_statLabels[i].rectTransform, ReferenceProfileRegions.StatLabel(cell), cell);
             }
 
-            UiKit.PlaceScreen(_title.rectTransform, r.AchievementsTitle);
+            // The sign as wide as its title and the flowers' room (the playtest's CardLook.TitleSign).
+            float titleWidth = KitText.Measure(_title.Label, UiKit.Units(T.Title.Size)) * UiKit.PixelsPerUnit;
+            UiKit.PlaceScreen((RectTransform)_title.transform, CardLook.TitleSign(r.AchievementsTitle, titleWidth > 0f ? titleWidth : r.AchievementsTitle.Width * 0.4f));
             for (int i = 0; i < _tiles.Length; i++)
             {
                 UiKit.PlaceScreen(_tiles[i], r.Achievements[i]);

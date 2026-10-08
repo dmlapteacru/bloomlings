@@ -74,12 +74,13 @@ namespace Bloomlings.Client.Tests
             Box card = OutfitCardView.CardBox(box, pillRoom: true);
             Assert.That(card.Height, Is.EqualTo(400f / (1f + (0.6f * OutfitCardView.PillShare))).Within(0.01f));
             Assert.That(OutfitCardView.CardBox(box, pillRoom: false), Is.EqualTo(box));
+            // The well on the face's top in the card's thin wooden rim (spec 005 FR-047), 5.5% of the card's width in.
             Box well = OutfitCardView.WellBox(box, pillRoom: false);
-            Assert.That(well.Left, Is.EqualTo(300f * 0.075f).Within(0.01f));
-            Assert.That(well.Width, Is.EqualTo(300f * 0.85f).Within(0.01f));
-            float face = 400f - (300f * 0.035f);
-            Assert.That(well.Height, Is.EqualTo(face * 0.64f).Within(0.01f), "the well is 64% of the face");
-            Assert.That(well.Bottom, Is.LessThan(face), "the name has room below the well");
+            Box face = CardLook.TileTop(box);
+            Assert.That(well.Left, Is.EqualTo(face.Left + (300f * 0.055f)).Within(0.01f));
+            Assert.That(well.Width, Is.EqualTo(face.Width - (2f * 300f * 0.055f)).Within(0.01f));
+            Assert.That(well.Height, Is.EqualTo(face.Height * 0.64f).Within(0.01f), "the well is 64% of the face");
+            Assert.That(well.Bottom, Is.LessThan(face.Bottom), "the name has room below the well");
         }
     }
 }

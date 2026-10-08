@@ -260,7 +260,19 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `UiRaster.ButtonPlate(w, h, share)`, `ButtonFace(w, h, set, share, gloss)`: 0.5 for the pills, 0.22 for the choices,
   the colored faces glossy). The rows take the lighter `GardenLook.RowCream` (`UiRaster.RaisedRow`), the card's body keeps
   clear of the frame (`ScreenLayout.Card`), and the finished picture on the win and in the Collection is drawn in the soft
-  cubes too (FR-046). The booster tiles, tabs and cost pills keep their own look; the pages' panels stay parchment.
+  cubes too (FR-046). Since FR-047 (below) the booster tiles, tabs, cost pills and the pages follow too.
+- Every row, rimmed button, page and frame in that look (spec 005 FR-047, the owner's audit request and page references
+  of 2026-10-08; recipe in `contracts/look.md` §6.20): the Store, Leaderboard, Collection and profile pages sit in the card
+  frame with the owner's flowers over its corners (`CardLook.PageFlowers`, `Kit.PageFlowers` / `UiKit.PageFlowers`, the
+  bottom ones above the bottom menu); every row, cost pill, toast and pill is the raised slab (`UiRaster.RaisedRow(w, h, r,
+  set)`, the own row `GardenLook.RowYou` in a green rim with flowers); the tabs (others in `GardenLook.Tan`), booster tiles
+  and every "+", the Store's tiles and prices, the Petals pill, the HARD badge, Home's promo plates, the win's rewards, the
+  guides' icons and the Daily Challenge's sun stand on the plate (`Kit.RaisedButton` / `UiKit.RaisedButton`, `square:` in
+  Unity); the profile's stats and achievements, the outfit cards and the Collection's frames are tiles in a thin wooden rim
+  (`Kit.FramedTile` / `UiKit.FramedTile`, `GardenLook.TileRimShare`, `CardLook.TileTop`) with `Kit.CornerFlowers` /
+  `UiKit.CornerFlowers`; the Wooden Frame is the plate's laminate, and the profile page puts flowers on the wooden frames
+  (`AvatarLook.Wooden`). The family tabs keep their folder look and the Wardrobe its lighter panel and tabbed name card, as
+  their references; toggles, wells and the guides' bubbles stay. The preview takes `--shape 19.5x9` for a quick look.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

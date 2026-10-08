@@ -602,13 +602,16 @@ namespace Bloomlings.Playtest.Design
             WoodSign(p, box, text, T.LevelPill, SignDecor.Ivy, superHard ? C.BadgeSuperHard.Darken(0.35f) : (Rgba?)null);
         }
 
-        /// <summary>The HARD or SUPER HARD badge under the level label (frames 8 and 9): a sticker pill on a plate (FR-014).</summary>
+        /// <summary>
+        /// The HARD or SUPER HARD badge under the level label (frames 8 and 9; FR-014): since spec 005 FR-047 a glossy pill
+        /// raised on its wooden plate, as the buttons (<see cref="RaisedButton"/>).
+        /// </summary>
         public static void Badge(IPainter p, Box box, string text, Rgba color, string slotId)
         {
             p.Mark(slotId);
             ColorSet set = ColorSet.From(slotId, color);
-            Box f = GardenButton(p, box, set, box.Height / 2f, 0f);
-            p.Text(text, f.CenterX, f.CenterY, T.Badge, C.TextOnColor, f.Width * 0.86f, look: TextLook.OnColor(set));
+            Box f = RaisedButton(p, box, set, 0.5f, 0f, gloss: true);
+            p.Text(text, f.CenterX, f.CenterY, T.Badge, C.TextOnColor, f.Width * 0.9f, look: TextLook.OnColor(set));
         }
 
         /// <summary>
@@ -657,22 +660,30 @@ namespace Bloomlings.Playtest.Design
         public static void PriceTag(IPainter p, Box box, int price) => CostPill(p, box, Cost.Petals(price));
 
         /// <summary>
-        /// A cost pill (spec 005 §3.4; jam choices, booster tiles, the Store): a cream pill with a <c>cream.line</c> outline
-        /// and a soft shadow holding the lotus and a brown price, a green ▶ square and "Free", or "×N" charges in big
-        /// digits after <paramref name="chargeIcon"/> (the booster's icon, at 80% of the pill's height) when given.
-        /// <paramref name="text"/> replaces the amount's text next to the same icon (the win's reward pill: the lotus and
-        /// "+N" counting up).
+        /// A cost pill (spec 005 §3.4; jam choices, booster tiles, the Store): since spec 005 FR-047 a cream pill raised like
+        /// the rows (<see cref="RaisedRow(IPainter, Box, float, ColorSet?)"/>), or, as a <paramref name="button"/> (the Store's
+        /// prices), raised on its wooden plate as the buttons (<see cref="RaisedButton"/>),
+        /// holding the lotus and a brown price, a green ▶ square and "Free", or "×N" charges in big digits after
+        /// <paramref name="chargeIcon"/> (the booster's icon, at 80% of the pill's height) when given. <paramref name="text"/>
+        /// replaces the amount's text next to the same icon (the win's reward pill: the lotus and "+N" counting up).
         /// </summary>
-        public static void CostPill(IPainter p, Box box, Cost cost, string? text = null, IReadOnlyList<IconPart>? chargeIcon = null)
+        public static void CostPill(IPainter p, Box box, Cost cost, string? text = null, IReadOnlyList<IconPart>? chargeIcon = null, bool button = false)
         {
             p.Mark("ui.pill.cost");
+            float line = Math.Max(p.U(2f), box.Height * 0.05f);
+            if (button)
+            {
+                RaisedButton(p, box, GardenLook.Cream, 0.5f, 0f);
+                Box face = UiRaster.RaisedFaceBox(box);
+                box = new Box(face.Left, face.Top, face.Right, face.Bottom - (box.Height * UiRaster.FaceSide));
+            }
+            else
+            {
+                RaisedRow(p, box, box.Height / 2f);
+                box = new Box(box.Left, box.Top, box.Right, box.Bottom - (box.Height * RaisedRowSide));
+            }
+
             float h = box.Height;
-            float r = h / 2f;
-            float line = Math.Max(p.U(2f), h * 0.05f);
-            SoftShadow(p, box, r, 0.2f, 0.12f);
-            p.FillRound(box.Offset(0f, h * 0.07f), r, C.CreamLip);
-            p.FillRoundGradient(box, r, C.CreamTop, C.ParchmentBottom);
-            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
 
             // Charges ("×2") get bigger digits, as large as the reference's prices look next to their icons.
             bool charges = cost.Kind == CostKind.Charges && text == null;
@@ -763,11 +774,11 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4; <see cref="PetalsPillParts"/>): a cream raised pill
-        /// that fits its content inside <paramref name="box"/> (placed by <paramref name="align"/>: 1 keeps its right end on
+        /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4; <see cref="PetalsPillParts"/>): a cream pill raised on
+        /// its wooden plate as the buttons (spec 005 FR-047, <see cref="RaisedButton"/>) that fits its content inside <paramref name="box"/> (placed by <paramref name="align"/>: 1 keeps its right end on
         /// the box's, 0.5 centers it), the lotus inside its left end, the balance in <c>ink.brown</c> left-aligned right
-        /// after the lotus, so a short amount never floats in the middle, and the round green "+" over its right end
-        /// (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>). No
+        /// after the lotus, so a short amount never floats in the middle, and the round green "+" raised on its plate over its
+        /// right end (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>). No
         /// decoration anywhere (the owner, 2026-10-06: "remove all the decoration from this chip everywhere"; Home's pill had
         /// the main buttons' leaves and flower since 2026-10-04). Returns the parts as drawn.
         /// </summary>
@@ -780,13 +791,7 @@ namespace Bloomlings.Playtest.Design
             float measured = Math.Max(p.MeasureText(PetalsPillParts.WidthText(amount), s, scale), p.MeasureText(amount, s, scale));
             PetalsPillParts parts = PetalsPillParts.Fit(box, measured, onPlus != null, align);
             Box pill = parts.Pill;
-            float h = pill.Height;
-            float r = h / 2f;
-            float line = Math.Max(p.U(2f), h * 0.04f);
-            SoftShadow(p, pill, r, 0.2f, 0.08f);
-            p.FillRound(pill, r, C.CreamLip);
-            p.FillRoundGradient(parts.Face, Math.Min(r, parts.Face.Height / 2f), C.CreamTop, C.CreamFace);
-            p.StrokeRound(pill.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
+            RaisedButton(p, pill, GardenLook.Cream, 0.5f, 0f);
             Petal(p, parts.Lotus);
             p.TextLeft(amount, parts.Amount.Left, parts.Amount.CenterY, s, C.InkBrown, parts.Amount.Width + 1f, scale, TextLook.Plain(C.InkBrown));
             if (onPlus != null)
@@ -794,8 +799,8 @@ namespace Bloomlings.Playtest.Design
                 Box plus = parts.Plus;
                 float depth = Press(p, Touch(p, pill), true);
                 Squash(p, plus, depth);
-                Box f = IconFace(p, plus, GardenLook.Green, plus.Width / 2f, depth);
-                float g = plus.Width * 0.6f;
+                Box f = RaisedButton(p, plus, GardenLook.Green, 0.5f, depth, gloss: true);
+                float g = f.Width * 0.82f;
                 Glyph(p, "ui.plus", Box.FromCenter(f.CenterX, f.CenterY, g, g), GardenLook.Green);
                 p.PopTransform();
                 p.Hit(Touch(p, pill), onPlus);
@@ -929,37 +934,95 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A list row (Settings, Store, Leaderboard; spec 005 §3.5): since the owner's mockup of 2026-10-08 (FR-045) a cream
-        /// slab raised like the buttons' faces without their plate (<see cref="RaisedRow"/>); the player's own row is raised
-        /// and green-tinted.
+        /// slab raised like the buttons' faces without their plate (<see cref="RaisedRow(IPainter, Box, float, ColorSet?)"/>);
+        /// the player's own row is the same slab in <see cref="GardenLook.RowYou"/>'s green tint (FR-047).
         /// </summary>
         public static void Row(IPainter p, Box box, bool highlighted)
         {
             p.Mark("ui.row");
-            if (!highlighted)
-            {
-                RaisedRow(p, box, box.Height * DesignTokens.Radius.Row);
-                return;
-            }
-
             float radius = box.Height * DesignTokens.Radius.Row;
-            float line = p.U(DesignTokens.Garden.OutlineWidth);
-            p.FillRound(box.Offset(0f, p.U(6f)), radius, GardenLook.Green.Lip.Mix(C.CreamLip, 0.4f));
-            p.FillRoundGradient(box, radius, C.SurfaceRowHighlight.Lighten(0.4f), C.SurfaceRowHighlight);
-            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, GardenLook.Green.Lip);
+            RaisedRow(p, box, radius, highlighted ? GardenLook.RowYou : null);
+            if (highlighted)
+            {
+                // The references' green rim round the player's own row.
+                float line = box.Height * YouRimShare;
+                p.StrokeRound(box.Inset(line / 2f), Math.Max(0f, Math.Min(radius, box.Height / 2f) - (line / 2f)), line, GardenLook.Green.Face);
+            }
         }
 
+        /// <summary>The green rim round the player's own row, as a share of its height (spec 005 FR-047).</summary>
+        public const float YouRimShare = 0.045f;
+
+        /// <summary>A raised row's front side under its top, as a share of its height (<see cref="UiRaster.RaisedRow(int, int, float)"/>).</summary>
+        public const float RaisedRowSide = 0.06f;
+
         /// <summary>
-        /// A cream slab raised like a button's face without its plate (spec 005 FR-045: the popups' rows, the dev row's
-        /// pills): a soft shadow and <see cref="UiRaster.RaisedRow"/> (the light, even row cream) filling
-        /// <paramref name="box"/>, its front side 6% of its height, its corners <paramref name="radius"/>.
+        /// A slab raised like a button's face without its plate (spec 005 FR-045, FR-047: the rows, the pills, the cards'
+        /// bodies, the stats): a soft shadow and <see cref="UiRaster.RaisedRow(int, int, float, ColorSet)"/> in
+        /// <paramref name="set"/> (the light, even <see cref="GardenLook.RowCream"/> by default) filling
+        /// <paramref name="box"/>, its front side <see cref="RaisedRowSide"/> of its height, its corners <paramref name="radius"/>.
         /// </summary>
-        public static void RaisedRow(IPainter p, Box box, float radius)
+        public static void RaisedRow(IPainter p, Box box, float radius, ColorSet? set = null)
         {
             p.Mark("ui.row.raised");
+            ColorSet colors = set ?? GardenLook.RowCream;
             float r = Math.Min(radius, box.Height / 2f);
             SoftShadow(p, box, r, 0.16f, 0.05f);
             float share = r / Math.Max(1f, box.Height);
-            p.Picture("ui.row.raised/" + Share(share), box, (w, h) => UiRaster.RaisedRow(w, h, share * h));
+            p.Picture("ui.row.raised/" + colors.Name + "/" + Share(share), box, (w, h) => UiRaster.RaisedRow(w, h, share * h, colors));
+        }
+
+        /// <summary>
+        /// A tile in a thin wooden rim (spec 005 FR-047, the owner's references of 2026-10-08: the profile's stats and
+        /// achievements, the outfit cards, the Collection's frames): a soft shadow, the buttons' plate with its border
+        /// <see cref="GardenLook.TileRimShare"/> of the shorter side (<see cref="UiRaster.ButtonPlate(int, int, float, float)"/>)
+        /// and the face raised on it in <paramref name="set"/> (the rows' light cream by default), its corners
+        /// <paramref name="radiusShare"/> of the shorter side, sunk by <paramref name="depth"/>. Returns the face's top.
+        /// </summary>
+        public static Box FramedTile(IPainter p, Box box, float radiusShare, float depth = 0f, ColorSet? set = null)
+        {
+            p.Mark("ui.tile.framed");
+            ColorSet colors = set ?? GardenLook.RowCream;
+            float side = Math.Min(box.Width, box.Height);
+            SoftShadow(p, box, side * radiusShare, 0.2f, 0.05f);
+            p.Picture("ui.tile.plate/" + Share(radiusShare), box, (w, h) => UiRaster.ButtonPlate(w, h, radiusShare, GardenLook.TileRimShare));
+            Box face = UiRaster.RaisedFaceBox(box, GardenLook.TileRimShare).Offset(0f, UiRaster.RaisedFaceSink(side, depth));
+            p.Picture("ui.button.face/" + colors.Name + "/" + Share(radiusShare), face, (w, h) => UiRaster.ButtonFace(w, h, colors, radiusShare, false));
+            return new Box(face.Left, face.Top, face.Right, face.Bottom - (side * UiRaster.FaceSide));
+        }
+
+        /// <summary>
+        /// The owner's flowers (pictures.md D6) over a corner (spec 005 FR-047, <see cref="CardLook.CornerBox"/>): mirrored on
+        /// the right corners, turned upside down on the bottom ones; the drawn cluster while the picture is missing. Never a
+        /// touch target, off with the decoration switch.
+        /// </summary>
+        public static void CornerFlowers(IPainter p, Box box, Corner corner)
+        {
+            if (!DesignTokens.Garden.Decorations)
+            {
+                return;
+            }
+
+            p.Mark("ui.deco.garden");
+            bool mirror = CardLook.Mirrored(corner);
+            bool turn = CardLook.Turned(corner);
+            if (OwnerPicture(p, PainterBase.DecorPrefix + OwnerPictures.Flowers, box, mirror, turn))
+            {
+                return;
+            }
+
+            p.PushSquash(1f, turn ? -1f : 1f, box.CenterX, box.CenterY);
+            FlowerCluster(p, box, flipped: mirror);
+            p.PopTransform();
+        }
+
+        /// <summary>The flowers over a page's frame corners (spec 005 FR-047, <see cref="CardLook.PageFlowers"/>), the bottom ones at <paramref name="bottom"/>.</summary>
+        public static void PageFlowers(IPainter p, Box panel, float bottom)
+        {
+            foreach ((Corner corner, Box box) in CardLook.PageFlowers(panel, bottom, p.U(1f)))
+            {
+                CornerFlowers(p, box, corner);
+            }
         }
 
         /// <summary>
@@ -978,8 +1041,9 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Tabs in a row (FR-016, spec 005): the selected one is a glossy green button on a cream plate with a white label,
-        /// the others are parchment wells with brown labels.
+        /// Tabs in a row (FR-016, spec 005): since FR-047 every tab is a pill raised on its wooden plate as the buttons
+        /// (<see cref="RaisedButton"/>), the selected one green and glossy with a white label, the others light wood
+        /// (<see cref="GardenLook.Tan"/>, the owner's references of 2026-10-08) with brown labels, sinking when pressed.
         /// </summary>
         public static void Tabs(IPainter p, Box box, IReadOnlyList<string> labels, int selected, Action<int> onSelect)
         {
@@ -991,15 +1055,13 @@ namespace Bloomlings.Playtest.Design
                 Box cell = cells[i];
                 if (i == selected)
                 {
-                    Box face = GardenButton(p, cell, GardenLook.Green, cell.Height / 2f, 0f, gloss: true);
-                    p.Text(labels[i], face.CenterX, face.CenterY, T.ButtonSecondary, C.TextOnColor, face.Width * 0.86f, look: TextLook.OnColor(GardenLook.Green));
+                    Box face = RaisedButton(p, cell, GardenLook.Green, 0.5f, 0f, gloss: true);
+                    p.Text(labels[i], face.CenterX, face.CenterY, T.ButtonSecondary, C.TextOnColor, face.Width * 0.96f, look: TextLook.OnColor(GardenLook.Green));
                 }
                 else
                 {
-                    float depth = Press(p, cell, true);
-                    Box well = cell.Inset(p.U(6f), p.U(8f)).Offset(0f, p.U(2f) + (p.U(2f) * depth));
-                    Well(p, well, well.Height / 2f);
-                    p.Text(labels[i], well.CenterX, well.CenterY + p.U(3f), T.ButtonSecondary, C.InkBrown, well.Width * 0.86f, look: TextLook.Plain(C.InkBrown));
+                    Box face = RaisedButton(p, cell, GardenLook.Tan, 0.5f, Press(p, cell, true));
+                    p.Text(labels[i], face.CenterX, face.CenterY, T.ButtonSecondary, C.InkBrown, face.Width * 0.96f, look: TextLook.Plain(C.InkBrown));
                 }
 
                 p.Hit(Touch(p, cells[i]), () => onSelect(index));
@@ -1041,14 +1103,14 @@ namespace Bloomlings.Playtest.Design
             p.Hit(Touch(p, box), action);
         }
 
-        /// <summary>A short message over the board (a refused tap, a hint): a parchment pill with brown text.</summary>
+        /// <summary>A short message over the board (a refused tap, a hint): a cream pill raised like the rows (spec 005 FR-047) with brown text.</summary>
         public static void Toast(IPainter p, Box area, string message)
         {
             float h = p.U(96f);
             float w = Math.Min(area.Width, p.MeasureText(message, T.Body) + p.U(80f));
             Box box = Box.FromCenter(area.CenterX, area.Bottom - (h / 2f) - p.U(16f), w, h);
-            Paper(p, box, h / 2f, DesignTokens.Garden.OutlineWidth, 5f);
-            p.Text(message, box.CenterX, box.CenterY, T.Body, C.InkBrown, box.Width - p.U(40f));
+            RaisedRow(p, box, h / 2f);
+            p.Text(message, box.CenterX, box.CenterY - (h * RaisedRowSide * 0.5f), T.Body, C.InkBrown, box.Width - p.U(40f));
         }
 
         /// <summary>A box grown to the minimum touch size around its center (FR-027).</summary>

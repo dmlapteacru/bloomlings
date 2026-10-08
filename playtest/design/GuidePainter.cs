@@ -210,7 +210,7 @@ namespace Bloomlings.Playtest.Design
             bool hasIcon = false;
             if (booster != null)
             {
-                Box face = Kit.IconFace(p, iconBox, GardenLook.White, iconSide * 0.26f, 0f);
+                Box face = Kit.RaisedButton(p, iconBox, GardenLook.White, 0.26f, 0f);
                 Kit.BoosterIcon(p, booster, Box.FromCenter(face.CenterX, face.CenterY, iconSide * 0.7f, iconSide * 0.7f));
                 hasIcon = true;
             }

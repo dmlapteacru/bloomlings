@@ -19,11 +19,11 @@ namespace Bloomlings.Client.UI
     public static partial class UiKit
     {
         /// <summary>
-        /// A parchment pill (Home's milestone teaser and rank rows; spec 005 §3.5, the playtest's <c>Kit.ParchmentPill</c>):
-        /// the parchment surface rounded to a pill over a soft shadow. Children drawn on it go into the returned root.
+        /// A cream pill (Home's milestone teaser and rank rows; spec 005 §3.5, the playtest's <c>Kit.ParchmentPill</c>): since
+        /// FR-047 a slab raised like the rows (<see cref="Slab"/>), rounded to a pill. Children drawn on it go into the
+        /// returned root.
         /// </summary>
-        public static Image ParchmentPill(string name, Transform parent, bool raycast = false) =>
-            Paper(name, parent, b => b.Height / 2f, DesignTokens.Garden.OutlineWidth, 5f, raycast);
+        public static Image ParchmentPill(string name, Transform parent, bool raycast = false) => Slab(name, parent, 0.5f, raycast: raycast);
 
         /// <summary>
         /// A glyph in a saturated color over its darker outline, as the reference's icons (the pink gift, the gold trophy,

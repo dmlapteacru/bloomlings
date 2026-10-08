@@ -46,7 +46,7 @@ namespace Bloomlings.Playtest.Design
 
             // The parchment panel, its bottom corners below the screen's edge (the Store page's).
             float radius = r.PanelRadius(p.Scale);
-            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
 
             IReadOnlyList<CollectionEntry> entries = app.Meta.Collection.Entries;
             if (app.CollectionDetail >= 0 && app.CollectionDetail < entries.Count)
@@ -60,6 +60,7 @@ namespace Bloomlings.Playtest.Design
 
             // The bottom menu, the Collection in its medallion (FR-030); the header last, as on the other pages. Its back
             // leaves a picture's detail for the grid, then the page for Home.
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Collection), look, app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("collection.title"), app.CollectionBack, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
@@ -142,8 +143,9 @@ namespace Bloomlings.Playtest.Design
             LockedPageRegions r = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);
             DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
             float radius = r.PanelRadius(p.Scale);
-            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.LockedNotice(p, r.Notice, NavPlace.Collection, app.UnlockLevel(NavPlace.Collection));
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Collection), look, app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("collection.title"), app.CollectionBack, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 

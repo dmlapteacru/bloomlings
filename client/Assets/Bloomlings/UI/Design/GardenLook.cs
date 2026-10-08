@@ -196,6 +196,25 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static readonly ColorSet RowCream = new ColorSet("set.row", C.CreamFace.Mix(C.CreamTop, 0.5f), C.CreamTop, C.CreamLip.Mix(C.CreamFace, 0.35f), C.CreamLine);
 
+        /// <summary>
+        /// The unselected tabs (spec 005 FR-047, the owner's references of 2026-10-08: "Shop", "Animations", "Frame" in light
+        /// wood): a face of <c>wood.mid</c> toward <c>wood.light</c> raised on its plate, brown letters.
+        /// </summary>
+        public static readonly ColorSet Tan = new ColorSet("set.tan", C.WoodMid.Mix(C.WoodLight, 0.4f), C.WoodLight, C.WoodEdge, C.WoodLine);
+
+        /// <summary>
+        /// The tiles and cards in a thin wooden rim (spec 005 FR-047, the owner's references of 2026-10-08: the profile's
+        /// stats and achievements, the outfit cards, the Collection's frames): the rim as a share of the tile's shorter side.
+        /// </summary>
+        public const float TileRimShare = 0.045f;
+
+        /// <summary>
+        /// The player's own row (the Leaderboard's "You"; spec 005 FR-047, the owner, 2026-10-08: "every row in the new
+        /// raised style"): the raised row in <c>surface.row_highlight</c>, lighter on its top, its front side the green set's
+        /// lip toward the cream lip.
+        /// </summary>
+        public static readonly ColorSet RowYou = new ColorSet("set.row.you", C.SurfaceRowHighlight, C.SurfaceRowHighlight.Lighten(0.45f), C.ButtonPrimaryEdge.Mix(C.CreamLip, 0.55f), C.ButtonPrimaryEdge);
+
         /// <summary>The jam's blue choices (Return, Bloom Burst; spec 005 §1.3). The gameplay level pill becomes a wooden sign.</summary>
         public static readonly ColorSet Blue = new ColorSet("set.blue", C.ButtonBlue, C.ButtonBlue.Lighten(0.3f), C.ButtonBlue.Darken(0.25f), C.ButtonBlue.Darken(0.42f));
 

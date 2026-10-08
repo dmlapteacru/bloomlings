@@ -74,7 +74,7 @@ namespace Bloomlings.Playtest.Design
 
             // The parchment panel, its bottom corners below the screen's edge.
             float radius = r.PanelRadius(p.Scale);
-            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.Tabs(p, r.Tabs, tabs.ConvertAll(PlaytestText.T).ToArray(), tab, i =>
             {
                 app.StoreTab = i;
@@ -97,6 +97,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The bottom menu, the Shop in its medallion (FR-030); the header last, as on the Wardrobe.
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Shop), look, app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, () => app.HomeToast(PlaytestText.T("store.offline")));
 
@@ -119,8 +120,9 @@ namespace Bloomlings.Playtest.Design
             LockedPageRegions r = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);
             DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
             float radius = r.PanelRadius(p.Scale);
-            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.LockedNotice(p, r.Notice, NavPlace.Shop, app.UnlockLevel(NavPlace.Shop));
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Shop), look, app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, null);
         }
@@ -242,25 +244,28 @@ namespace Bloomlings.Playtest.Design
         {
             float size = line.Height * 0.8f;
             Box box = Box.FromCenter(line.Left + (line.Height * 0.14f) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
-            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, GardenLook.BoosterRim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
-            Kit.IconFace(p, box, set, size * 0.26f, 0f);
+            Kit.RaisedButton(p, box, GardenLook.Cream, 0.26f, 0f);
             return box;
         }
 
-        /// <summary>Where a row's price pill goes: at its right end, as wide as the lotus and the grouped price.</summary>
+        /// <summary>Where a row's price button goes (spec 005 FR-047: raised on its plate): at its right end, as wide as the lotus and the grouped price on its face.</summary>
         private static Box PriceBox(IPainter p, Box line, int price)
         {
-            float h = line.Height * 0.56f;
-            float w = p.MeasureText(NumberText.Group(price), T.Count, (h * 0.56f) / p.U(T.Count.Size)) + (h * 1.9f);
+            float h = line.Height * 0.7f;
+            float w = p.MeasureText(NumberText.Group(price), T.Count, (h * 0.45f) / p.U(T.Count.Size)) + (h * 1.75f);
             return new Box(line.Right - (line.Height * 0.14f) - w, line.CenterY - (h / 2f), line.Right - (line.Height * 0.14f), line.CenterY + (h / 2f));
         }
 
-        /// <summary>A price as a cost pill with the lotus at a row's right end; the whole row takes the tap.</summary>
+        /// <summary>
+        /// A price as a cost pill raised on its plate (a button) with the lotus at a row's right end, the main buttons' leaves
+        /// and flower over its corners (spec 005 FR-047, the owner's references of 2026-10-08); the whole row takes the tap.
+        /// </summary>
         private static void Price(IPainter p, Box line, int price, Action? buy)
         {
             Box pill = PriceBox(p, line, price);
             p.PushAlpha(buy != null ? 1f : 0.45f);
-            Kit.CostPill(p, pill, Cost.Petals(price));
+            Kit.CostPill(p, pill, Cost.Petals(price), button: true);
+            Kit.Decoration(p, pill);
             p.PopAlpha();
             if (buy != null)
             {

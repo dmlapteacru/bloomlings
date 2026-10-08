@@ -119,47 +119,49 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// The reward plate on the win's pedestal (§6.3, <c>ui.pill.reward</c>): the cream domed cushion of the round
-        /// buttons (<see cref="IconFace"/>, radius 30% of its height, a soft shadow, the lip and the outline) holding the
-        /// lotus (62% of its height) and the brown "+N" in <c>type.reward</c> at half its height, centered as a group, as
-        /// the reference's "+50". Without the lotus the text stands alone. Never a touch target.
+        /// The reward plate on the win's pedestal (§6.3, <c>ui.pill.reward</c>; the playtest's <c>EndCards.RewardPill</c>):
+        /// since spec 005 FR-047 a cream pill raised like the rows (<see cref="Slab"/>) holding the lotus (86% of its top's
+        /// height) and the brown "+N" in <c>type.reward</c>, centered as a group, as the reference's "+50". Without the lotus
+        /// the text stands alone. Never a touch target.
         /// </summary>
         public static RewardPlateView RewardPlate(string name, Transform parent)
         {
-            GardenButton face = IconFace(name, parent, GardenLook.White, b => b.Height * 0.3f, square: false);
-            Image lotus = PetalIcon("Lotus", face.Content);
-            TextMeshProUGUI label = KitLabel("Amount", face.Content, string.Empty, T.Reward, TextLook.Plain(C.InkBrown));
-            var view = face.gameObject.AddComponent<RewardPlateView>();
-            BoxLayout content = BoxLayout.On(face.Content).Watch(label);
-            view.Init(face, lotus, label, content);
-            content.Then(f =>
+            Image root = Slab(name, parent, 0.5f);
+            Image lotus = PetalIcon("Lotus", root.transform);
+            TextMeshProUGUI label = KitLabel("Amount", root.transform, string.Empty, T.Reward, TextLook.Plain(C.InkBrown));
+            var view = root.gameObject.AddComponent<RewardPlateView>();
+            BoxLayout content = BoxLayout.On(root.rectTransform).Watch(label);
+            view.Init(root, lotus, label, content);
+            content.Then(b =>
             {
-                // The face's content box is inset by 9% of the shorter side; the group fills it as the reference's.
-                float h = f.Height / 0.82f;
+                // On the slab's top, the group as the playtest's Kit.CostPill lays it.
+                var f = new Box(b.Left, b.Top, b.Right, b.Bottom - (b.Height * RaisedRowSide));
+                float h = f.Height;
                 bool hasLotus = lotus.gameObject.activeSelf;
-                float icon = hasLotus ? h * 0.62f : 0f;
-                float gap = hasLotus ? h * 0.1f : 0f;
-                float size = h * 0.5f;
+                float icon = hasLotus ? h * 0.86f : 0f;
+                float gap = hasLotus ? h * 0.16f : 0f;
+                float size = h * 0.56f;
                 float measured = KitText.Measure(label, size);
-                float room = Mathf.Max(1f, f.Width - icon - gap);
+                float room = Mathf.Max(1f, f.Width - icon - gap - (h * 0.5f));
                 float textWidth = Mathf.Min(measured > 0f ? measured : room, room);
                 float start = f.CenterX - ((icon + gap + textWidth) / 2f);
                 BoxLayout.Place(lotus.rectTransform, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon));
-                KitText.Place(label, T.Reward, start + icon + gap + (textWidth / 2f), f.CenterY + (h * 0.02f), size, textWidth + 1f);
+                KitText.Place(label, T.Reward, start + icon + gap + (textWidth / 2f), f.CenterY, size, textWidth + 1f);
             });
             return view;
         }
 
         /// <summary>
         /// A reward on a cream tile (the milestone's rewards, the win's dropped booster; §4.4): <paramref name="icon"/> on
-        /// the cream squircle face (radius 26%) filling the largest square at the rect's top, and <paramref name="amount"/>
+        /// the cream squircle face (radius 26%) raised on its wooden plate (spec 005 FR-047) filling the largest square at
+        /// the rect's top, and <paramref name="amount"/>
         /// in a cream pill (36% of the tile tall) over the tile's bottom edge. The rect should be about 1.25 times as tall as
         /// wide. Never a touch target.
         /// </summary>
         public static RectTransform RewardTile(string name, Transform parent, Image icon, string amount)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
-            GardenButton face = IconFace("Tile", root, GardenLook.White, b => b.Height * 0.26f, square: true);
+            GardenButton face = RaisedButton("Tile", root, GardenLook.White, 0.26f, raycast: false, square: true);
             icon.transform.SetParent(face.Content, false);
             icon.raycastTarget = false;
             UiFactory.Place(icon.rectTransform, 0.02f, 0.02f, 0.98f, 0.98f);
@@ -183,14 +185,15 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A dropped booster beside the win's reward plate (§6.3, the booster bar's language, §3.7): <paramref name="icon"/>
-        /// on the cream squircle face (radius 26%) filling 90% of the largest square in the rect, and
+        /// on the cream squircle face (radius 26%) raised on its wooden plate (spec 005 FR-047) filling 90% of the largest
+        /// square in the rect, and
         /// <paramref name="amount"/> ("+1") on the green count badge (42% of the tile) over its bottom-right corner. Never a
         /// touch target.
         /// </summary>
         public static RectTransform DropTile(string name, Transform parent, Image icon, string amount)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
-            GardenButton face = IconFace("Tile", root, GardenLook.White, b => b.Height * 0.26f, square: true);
+            GardenButton face = RaisedButton("Tile", root, GardenLook.White, 0.26f, raycast: false, square: true);
             icon.transform.SetParent(face.Content, false);
             icon.raycastTarget = false;
             UiFactory.Place(icon.rectTransform, 0.02f, 0.02f, 0.98f, 0.98f);
@@ -213,12 +216,12 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// The ×2 reward offer beside the win's reward plate (§6.3, a rewarded ad, spec 001 FR-052): a cream squircle
-        /// button (radius 30%) with the brown <c>ui.ad</c> glyph (60% of its content's height) in its upper half and "×2"
+        /// button (radius 30%) raised on its wooden plate (spec 005 FR-047) with the brown <c>ui.ad</c> glyph (60% of its content's height) in its upper half and "×2"
         /// below it in <c>type.count</c> <c>ink.brown</c>. Not interactable, it fades to 55%.
         /// </summary>
         public static Button DoubleOffer(string name, Transform parent, Action onClick)
         {
-            GardenButton view = IconFace(name, parent, GardenLook.White, b => Mathf.Min(b.Width, b.Height) * 0.3f, square: false, raycast: true);
+            GardenButton view = RaisedButton(name, parent, GardenLook.White, 0.3f);
             view.GreyWhenDisabled = false;
             view.FadeWhenDisabled = true;
             Image glyph = GardenGlyph(view, view.Content, "ui.ad");
@@ -308,8 +311,8 @@ namespace Bloomlings.Client.UI
     {
         private BoxLayout _content = null!;
 
-        /// <summary>The cushion (it never takes taps).</summary>
-        public GardenButton Face { get; private set; } = null!;
+        /// <summary>The raised slab (it never takes taps).</summary>
+        public Image Body { get; private set; } = null!;
 
         /// <summary>The lotus before the amount.</summary>
         public Image Lotus { get; private set; } = null!;
@@ -317,9 +320,9 @@ namespace Bloomlings.Client.UI
         /// <summary>The amount ("+50"); the plate re-centers it when it changes.</summary>
         public TextMeshProUGUI Label { get; private set; } = null!;
 
-        internal void Init(GardenButton face, Image lotus, TextMeshProUGUI label, BoxLayout content)
+        internal void Init(Image body, Image lotus, TextMeshProUGUI label, BoxLayout content)
         {
-            Face = face;
+            Body = body;
             Lotus = lotus;
             Label = label;
             _content = content;

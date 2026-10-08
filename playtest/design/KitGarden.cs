@@ -701,9 +701,10 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A booster tile (§3.7; the booster bar, <c>booster.tile</c>): a cream squircle (radius 26%) set in a cream-white
-        /// bezel with the booster's colored icon (about two thirds of the tile), and the count badge over its lower right
-        /// corner, or the cost pill under it and a small green "+" when no charges are left. A selected tile is raised with
+        /// A booster tile (§3.7; the booster bar, <c>booster.tile</c>): a cream squircle (radius 26%) raised on its wooden
+        /// plate (spec 005 FR-047, <see cref="BoosterBezel"/>) with the booster's colored icon (about two thirds of the tile),
+        /// and the count badge over its lower right corner, or the cost pill under it and a small green "+" raised on its
+        /// plate when no charges are left. A selected tile is raised with
         /// the pulsing golden glow; a disabled one is greyed (spec 003 FR-031).
         /// </summary>
         public static void BoosterTile(IPainter p, Box box, string boosterId, BoosterTileState state, Action? action)
@@ -744,12 +745,10 @@ namespace Bloomlings.Playtest.Design
             {
                 float pill = s * 0.3f;
                 CostPill(p, Box.FromCenter(tile.CenterX, tile.Bottom + (pill * 0.12f), s * 0.86f, pill), Cost.Petals(state.Price));
-                float plus = s * 0.3f;
-                float px = tile.Right - (plus * 0.3f);
-                float py = tile.Top + (plus * 0.3f);
-                p.FillCircle(px, py + (plus * 0.07f), (plus / 2f) + Math.Max(1f, s * 0.012f), GardenLook.Green.Line);
-                p.FillCircle(px, py, plus / 2f, GardenLook.Green.Face);
-                p.Shape("ui.plus", Box.FromCenter(px, py, plus * 0.62f, plus * 0.62f), Rgba.White);
+                float plus = s * 0.34f;
+                Box plusBox = Box.FromCenter(tile.Right - (plus * 0.3f), tile.Top + (plus * 0.3f), plus, plus);
+                Box plusFace = RaisedButton(p, plusBox, GardenLook.Green, 0.5f, 0f, gloss: true);
+                p.Shape("ui.plus", Box.FromCenter(plusFace.CenterX, plusFace.CenterY, plusFace.Width * 0.86f, plusFace.Width * 0.86f), Rgba.White);
             }
 
             p.PopAlpha();
@@ -760,52 +759,16 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A booster tile's body (§3.7): a cream face set in a cream-white bezel with a faint silver tint
-        /// (<see cref="GardenLook.BoosterRim"/>, light at the top), a cream lip along its bottom
-        /// (<see cref="GardenLook.BoosterLip"/>), a light edge where the face meets the bezel, a soft tan outline
-        /// (<see cref="GardenLook.BoosterLine"/>) and a soft shadow; the face sinks into the lip by the press
-        /// <paramref name="depth"/>. A disabled tile's face is grey. Returns the face.
+        /// A booster tile's body (§3.7; since spec 005 FR-047, the owner, 2026-10-08: "every button with a rim as the new
+        /// ones"): a cream face raised on its wooden plate as the buttons (<see cref="Kit.RaisedButton"/>, its corners
+        /// <paramref name="radius"/>), sinking by the press <paramref name="depth"/>; a disabled tile's face is grey
+        /// (<see cref="ColorSet.Disabled"/>). Returns the face's content box.
         /// </summary>
         private static Box BoosterBezel(IPainter p, Box box, float radius, float depth, bool disabled)
         {
             p.Mark("booster.tile");
-            float s = Math.Min(box.Width, box.Height);
-            float lip = s * 0.085f;
-            float bezel = s * 0.065f;
-            float line = Math.Max(p.U(2f), s * 0.018f);
-            float shift = lip * 0.7f * Math.Max(-0.25f, Math.Min(1f, depth));
-            float dark = 0.08f * Math.Max(0f, Math.Min(1f, depth));
-            float r = Math.Min(radius, s / 2f);
-            Rgba rim = GardenLook.BoosterRim;
-            Rgba face = disabled ? C.CreamFace.Grey().Lighten(0.25f) : C.CreamFace;
-            Rgba middle = disabled ? C.CreamTop.Grey().Lighten(0.3f) : C.CreamTop;
-
-            SoftShadow(p, box, r, 0.22f, 0.06f);
-            var whole = new Box(box.Left, box.Top + Math.Max(0f, shift), box.Right, box.Bottom);
-            p.FillRound(whole, r, GardenLook.BoosterLip.Darken(dark));
-            var top = new Box(box.Left, box.Top + shift, box.Right, box.Bottom - lip + shift);
-            float topRadius = Math.Min(r, top.Height / 2f);
-            p.FillRoundGradient(top, topRadius, rim.Lighten(0.62f).Darken(dark), rim.Lighten(0.22f).Darken(dark));
-
-            Box inner = top.Inset(bezel);
-            float innerRadius = Math.Max(0f, topRadius - bezel);
-            p.FillRoundGradient(inner, innerRadius, face.Darken(0.02f + dark), face.Darken(dark));
-            for (int k = 0; k < 3; k++)
-            {
-                // A lighter middle, feathered in, as on the reference's cream tiles.
-                float inset = s * (0.1f + (0.05f * k));
-                p.FillRoundGradient(inner.Inset(inset), Math.Max(0f, innerRadius - inset), middle.Darken(dark).WithAlpha(0.35f), middle.WithAlpha(0f));
-            }
-
-            // The face lies a little below the bezel: a faint shade inside its top edge and a light edge around it.
-            p.PushClip(inner);
-            p.FillRoundGradient(new Box(inner.Left, inner.Top, inner.Right, inner.Top + (inner.Height * 0.14f)), innerRadius, C.GardenShadow.WithAlpha(0.08f), C.GardenShadow.WithAlpha(0f));
-            p.PopClip();
-            p.StrokeRound(inner, innerRadius, Math.Max(1f, s * 0.014f), C.CreamTop.WithAlpha(0.9f));
-
-            var outline = new Box(box.Left, Math.Min(top.Top, whole.Top), box.Right, box.Bottom);
-            p.StrokeRound(outline.Inset(line / 2f), Math.Min(r, outline.Height / 2f) - (line / 2f), line, GardenLook.BoosterLine);
-            return inner;
+            float share = radius / Math.Max(1f, Math.Min(box.Width, box.Height));
+            return RaisedButton(p, box, disabled ? GardenLook.Cream.Disabled() : GardenLook.Cream, share, depth);
         }
 
         /// <summary>

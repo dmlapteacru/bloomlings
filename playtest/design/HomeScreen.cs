@@ -262,8 +262,9 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The cream plate a promo scene stands on (spec 005 FR-036, <see cref="HomePromo.PlateBox"/>): its soft shadow, then
-        /// the round buttons' cushion, pressing with the scene.
+        /// The plate a promo scene stands on (spec 005 FR-036, <see cref="HomePromo.PlateBox"/>): its soft shadow, then since
+        /// FR-047 the cream face raised on its wooden plate as the buttons (<see cref="Kit.RaisedButton"/>), pressing with the
+        /// scene.
         /// </summary>
         private static void Plate(IPainter p, Box scene, float w, float depth)
         {
@@ -271,7 +272,7 @@ namespace Bloomlings.Playtest.Design
             Box plate = HomePromo.PlateBox(scene);
             (Box shadow, float pad, float blur) = HomePromo.PlateShadowOf(plate, w);
             p.Picture(HomePromo.PlateShadowKey, shadow, (pw, ph) => HomePromo.PlateShadow(pw, ph, shadow, plate, pad, blur));
-            Kit.IconFace(p, plate, GardenLook.White, HomePromo.PlateRadius(plate), depth);
+            Kit.RaisedButton(p, plate, GardenLook.White, HomePromo.PlateRadiusShare, depth);
         }
 
         /// <summary>Whether every picture of a promo scene is embedded (<see cref="HomePromo.Pictures"/>).</summary>

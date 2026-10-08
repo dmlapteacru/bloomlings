@@ -657,7 +657,8 @@ namespace Bloomlings.Playtest.Preview
                 // Level 15 with 1240 Petals and Drop's sailor avatar bought: Home's avatar opens the page, which shows it in
                 // the card with the default name, the ID, the joining month, the Level plaque, the stats and the
                 // achievements on their way to bronze. The Wardrobe is still closed, yet the card's Frame tab lists the five
-                // free frames (the owner, 2026-10-06): the Flower Wreath is picked and saved, and the page shows it.
+                // free frames (the owner, 2026-10-06): the Wooden Frame, the buttons' wood since spec 005 FR-047, is picked and
+                // saved, and the page shows it with the references' flowers over two corners.
                 DesignApp app = Progressed(App(data), content, 14);
                 CloseAll(app);
                 Expect(app.Meta.Profile.TryBuy("avatar.drop_sailor_sticker"), "an avatar for 300 Petals");
@@ -674,11 +675,11 @@ namespace Bloomlings.Playtest.Preview
                 ProfileEditor editor = app.ProfileEditor!;
                 Expect(editor.Tab == ProfileTab.Frame && !editor.ProfileItemsOpen && !editor.IsLocked(Client.Meta.Wardrobe.CosmeticKind.Frame), "the Frame tab is open before the Wardrobe");
                 Expect(editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 5 && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the five free frames, each drawn");
-                Tap(p, edit.Cell(2));
+                Tap(p, edit.Cell(0));
                 Run(app, p, 0.1f);
-                Expect(editor.FrameId == "frame.flower_wreath", "the Flower Wreath picked");
+                Expect(editor.FrameId == "frame.wood_ring", "the Wooden Frame picked");
                 Tap(p, edit.Button);
-                Expect(!app.IsOpen(Overlay.ProfileEdit) && app.Meta.Wardrobe.Profile.Frame?.Id == "frame.flower_wreath", "Save shows it on the profile at Level 15");
+                Expect(!app.IsOpen(Overlay.ProfileEdit) && app.Meta.Wardrobe.Profile.Frame?.Id == "frame.wood_ring", "Save shows it on the profile at Level 15");
                 Run(app, p, 0.4f);
                 ProfileService profile = app.Meta.Profile;
                 Expect(Shows(p, PlaytestText.F("profile.default_name", profile.DefaultNumber)), "the default name");
@@ -688,7 +689,7 @@ namespace Bloomlings.Playtest.Preview
                 long won = Achievements.Count(app.Meta.Save, Achievements.LevelsCounter);
                 Expect(Shows(p, PlaytestText.F("profile.achievement_progress", won, 50)), "Green Thumb's count toward bronze");
                 Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && p.Slots.Contains("ui.achievement"), "the avatar picture and the achievement tiles");
-                Expect(p.Slots.Contains("cosmetic.frame.flower_wreath"), "the page's avatar in the Flower Wreath");
+                Expect(p.Slots.Contains("cosmetic.frame.wood_ring") && p.Slots.Contains("ui.deco.garden"), "the page's avatar in the Wooden Frame, with its flowers");
             });
             yield return new Fixture(40, "profile-edit", "Extra: profile edit card, avatars (spec 005 FR-037)", (p, data) =>
             {
@@ -1432,7 +1433,7 @@ namespace Bloomlings.Playtest.Preview
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, 1);
             Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
             Box sheet = safe.Inset(p.U(24f));
-            Kit.Paper(p, sheet, p.U(48f), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, sheet);
             Kit.WoodSign(p, Box.FromCenter(sheet.CenterX, sheet.Top + p.U(84f), p.U(470f), p.U(104f)), "Bloomlings", T.Title, SignDecor.Ivy);
             var body = new Box(sheet.Left + p.U(36f), sheet.Top + p.U(170f), sheet.Right - p.U(36f), sheet.Bottom - p.U(30f));
 
@@ -1483,7 +1484,7 @@ namespace Bloomlings.Playtest.Preview
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, 1);
             Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
             Box sheet = safe.Inset(p.U(20f));
-            Kit.Paper(p, sheet, p.U(48f), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.CardFrame(p, sheet);
             Box body = sheet.Inset(p.U(44f), p.U(34f));
             float[] heights = { 70f, 150f, 330f, 150f, 170f, 140f, 220f, 230f, 250f };
             float gap = Math.Max(0f, (body.Height - p.U(heights.Sum())) / (heights.Length - 1));
