@@ -11,10 +11,10 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// The owner's layered Home in Unity (spec 005 FR-028, pictures.md B1; <see cref="HomeLayers"/>, the playtest's Home
-    /// stage) over the garden the backdrop already draws (<c>home</c>, <c>bg.home</c>), back to front: the fountain's back
-    /// (<c>bg.home.fountain_back</c>), Drop and Bloom each on their soft shadow (<c>bg.home.shadow</c>), the lotus again
-    /// (<c>bg.home.lotus</c>, so Bloom stands behind it), Sprig and Twig on their shadows, the fountain's front stones and
-    /// flowers (<c>bg.home.fountain_front</c>, over the heroes' feet); the screen's UI goes over it. Every layer lies at
+    /// stage) over the garden the backdrop already draws (<c>home</c>, <c>bg.home</c>), back to front: the fountain's basin
+    /// (<c>bg.home.fountain_back</c>), Drop and Bloom each on their soft shadow (<c>bg.home.shadow</c>), the lotus on the
+    /// basin's pedestal (<c>bg.home.lotus</c>, so Bloom stands behind it), Sprig and Twig on their shadows, the fountain's
+    /// front bushes in the corners (<c>bg.home.fountain_front</c>); the screen's UI goes over it. Every layer lies at
     /// <see cref="HomeLayers.Place"/> in the picture cover-fitted over the screen (<see cref="HomeLayers.Cover"/>, the
     /// backdrop's own fit), so the heroes stay on the fountain on every screen shape. The heroes are the owner's animated
     /// ones (<see cref="HeroMotionView"/>, slots <c>char.hero3d.motion.{family}</c>), each idling from its own phase and

@@ -348,9 +348,9 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The owner's layered Home over the backdrop's garden (spec 005 FR-028, <see cref="HomeLayers"/>), every layer in
-        /// the backdrop's own cover box, back to front: the fountain's back; Drop and Bloom, each on its soft shadow; the
-        /// lotus again (Bloom stands behind it); Sprig and Twig on their shadows; the fountain's front stones and flowers
-        /// over the heroes' feet. Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
+        /// the backdrop's own cover box, back to front: the fountain's basin; Drop and Bloom, each on its soft shadow; the
+        /// lotus on the basin's pedestal (Bloom stands behind it); Sprig and Twig on their shadows; the fountain's front
+        /// bushes in the corners. Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
         /// still picture while its frames are missing, in <paramref name="outfitOf"/>'s outfit; the heroes and their shadows
         /// fade in with <paramref name="heroAlpha"/> and the heroes rise by <paramref name="heroRise"/> (the splash).
         /// Returns whether a hero moves.

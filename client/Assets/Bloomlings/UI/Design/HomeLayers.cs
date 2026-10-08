@@ -30,11 +30,12 @@ namespace Bloomlings.Client.UI.Design
 
     /// <summary>
     /// The owner's layered Home (spec 005 FR-028, pictures.md B1; <c>bloomlings_home_assets.zip</c>, prepared by
-    /// <c>tools/heroanim/layers.mjs</c>, boxes in <c>HomeLayersData.cs</c>), back to front: the garden (<see cref="Back"/>,
-    /// the <c>home</c> picture every Home backdrop already draws), the fountain's back (<see cref="FountainBack"/>), the
-    /// heroes at the back with their shadows (Drop, Bloom), the lotus again (<see cref="Lotus"/>, so Bloom stands behind
-    /// it), the heroes in front with their shadows (Sprig, Twig), the fountain's front stones and flowers
-    /// (<see cref="FountainFront"/>, over the heroes' feet), then the UI. The
+    /// <c>tools/heroanim/layers.mjs</c>, boxes in <c>HomeLayersData.cs</c>; since 2026-10-08 the fountain is the owner's
+    /// three pictures of that day, fitted by hand and recorded in <c>layers.json</c>), back to front: the garden
+    /// (<see cref="Back"/>, the <c>home</c> picture every Home backdrop already draws), the fountain's basin
+    /// (<see cref="FountainBack"/>), the heroes at the back with their shadows (Drop, Bloom), the lotus on the basin's
+    /// pedestal (<see cref="Lotus"/>, so Bloom stands behind it), the heroes in front with their shadows (Sprig, Twig), the
+    /// fountain's front bushes (<see cref="FountainFront"/>, in the corners), then the UI. The
     /// layers over the garden share one box over the screen (<see cref="Stage"/>: the backdrop's own cover fit,
     /// <see cref="Cover"/>, drawn at <see cref="StageScale"/>), so the heroes stay on the fountain on every screen shape.
     /// Engine-free.
@@ -111,11 +112,12 @@ namespace Bloomlings.Client.UI.Design
         /// wider than the Meshy one did, so it stands a little smaller and further in, inside a 21:9 screen. The owner's
         /// Heroes.glb (2026-10-04) gives Bloom a wide crown of petals: Bloom stands a little smaller and Drop further right
         /// and a little taller, so Drop's face shows beside the petals. Since the owner's tuning of 2026-10-05 Twig stands a
-        /// little further right, so more of Drop shows beside it.
+        /// little further right, so more of Drop shows beside it. On the owner's fountain of 2026-10-08 (a smaller lotus on the
+        /// basin's pedestal) Bloom stands a little lower, so its feet stay behind the lotus's petals.
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
-            Family.Bloom => (0.5f, 0.49f, 0.40f),
+            Family.Bloom => (0.5f, 0.505f, 0.40f),
             Family.Drop => (0.735f, 0.532f, 0.36f),
             Family.Sprig => (0.235f, 0.56f, 0.40f),
             _ => (0.85f, 0.568f, 0.31f),

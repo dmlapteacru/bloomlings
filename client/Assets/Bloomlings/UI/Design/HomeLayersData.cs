@@ -15,14 +15,14 @@ namespace Bloomlings.Client.UI.Design
         /// <summary><c>home.jpg</c> (from <c>01_home_bg_back.png</c>): its box in the picture.</summary>
         public static readonly PictureBox Back = new PictureBox("home", 0, 0, 852, 1846);
 
-        /// <summary><c>home-fountain-back.png</c> (from <c>02_home_fountain_back.png</c>): its box in the picture.</summary>
-        public static readonly PictureBox FountainBack = new PictureBox("home-fountain-back", 0, 700, 852, 540);
+        /// <summary><c>home-fountain-back.png</c> (from <c>the owner's fountain basin of 2026-10-08</c>): its box in the picture.</summary>
+        public static readonly PictureBox FountainBack = new PictureBox("home-fountain-back", 24, 827, 804, 413);
 
-        /// <summary><c>home-fountain-front.png</c> (from <c>03_home_fountain_front.png</c>): its box in the picture.</summary>
-        public static readonly PictureBox FountainFront = new PictureBox("home-fountain-front", 0, 987, 852, 342);
+        /// <summary><c>home-fountain-front.png</c> (from <c>the owner's front bushes of 2026-10-08, x0.82 to the corners</c>): its box in the picture.</summary>
+        public static readonly PictureBox FountainFront = new PictureBox("home-fountain-front", 0, 1043, 852, 250);
 
-        /// <summary><c>home-lotus.png</c> (from <c>02_home_fountain_back.png (the lotus)</c>): its box in the picture.</summary>
-        public static readonly PictureBox Lotus = new PictureBox("home-lotus", 294, 835, 269, 159);
+        /// <summary><c>home-lotus.png</c> (from <c>the owner's lotus of 2026-10-08, x0.72 on the pedestal</c>): its box in the picture.</summary>
+        public static readonly PictureBox Lotus = new PictureBox("home-lotus", 278, 871, 296, 217);
 
         /// <summary><c>home-shadow.png</c> (from <c>04_home_soft_shadow.png (the front left shadow)</c>): its box in the picture.</summary>
         public static readonly PictureBox Shadow = new PictureBox("home-shadow", 0, 918, 410, 175);

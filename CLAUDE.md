@@ -209,7 +209,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   and 3 s clap, Bloom and Drop with a 4 s idle and a 1.5 s jump (Drop's breath added by the bake), and Twig, delivered
   without clips, with the bake's stand-ins (a 3 s idle, a 1.5 s hop, the win's 3 s jumps) until its own come, in
   `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in
-  `Art/Backgrounds/Resources/Backgrounds/`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
+  `Art/Backgrounds/Resources/Backgrounds/`; since 2026-10-08 the fountain is the owner's three pictures of that day, the
+  basin, the lotus at 0.72 on its pedestal and the front bushes at 0.82 in the corners, fitted by hand and recorded in
+  `tools/heroanim/layers.json`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
   place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the
   reference (idling, taking turns to react, reacting to a tap); the win and the milestone show the level's celebrant,
   Twig and Sprig by turns (`CharacterArt.CelebrantOf`; Sprig alternates its celebrate and clap, `HeroMotion.WinClip`),

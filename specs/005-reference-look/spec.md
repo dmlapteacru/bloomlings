@@ -790,10 +790,15 @@ by side in the game's screens.
   (`saturation.mjs` `ladder.background` null), the restyled backgrounds and Home's layers keep their colors, and the two
   Home layers not restyled yet (the fountain's back and the shadow) had the ×0.738 of 2026-10-04 undone.
 - Q: Home's garden? → A: The owner's new picture, already blurred: no blur pass (`layers.mjs` `gardenBlur` 0, FR-036).
-- Q: Home's fountain? → A: The original one (the owner, after seeing a restyled back, new front stones and a shadow in
-  place: "the basin already has its lotus; no point laying another on top"). Its back with the painted lotus, its
-  shadow, and `home-lotus.png` as the cut-out of that same lotus, drawn again only over Bloom so Bloom stands behind it;
-  the restyled front stones of the first archive stay.
+- Q: Home's fountain? → A: First the original one (the owner, after seeing a restyled back, new front stones and a
+  shadow in place: "the basin already has its lotus; no point laying another on top"), with the restyled front stones of
+  the first archive. Seen on the phone, the two styles did not match ("the fountain on Home is wrong in the end"), so the
+  owner sent a new fountain in three pictures on one 1448 × 1086 canvas: the basin with a pedestal in its pool and no
+  lotus, the lotus alone, and two front bushes. Of three trial renders the owner chose "C": the lotus at 0.72 standing
+  on the pedestal (`home-lotus.png`, drawn over Bloom, who stands behind it), the two bushes at 0.82 toward the outer
+  corners so the basin's sides and both waterfalls show (`home-fountain-front.png`), the basin as delivered
+  (`home-fountain-back.png`); Bloom stands a little lower (its feet at 0.505) so they stay behind the lotus; the shadow
+  stays. `layers.json` records the pictures' hashes and the fitting.
 
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 

@@ -1,8 +1,9 @@
 {
  "inputs": {
   "01_home_bg_back.png": "bbcc62502d5a2b0dfb2671ae8f9d0baeeba12b13f1d74439b08184b2b453c0f8",
-  "02_home_fountain_back.png": "f617241da585f02a7746439664e70a158039a61ef43e7bb72c0e558591e00645",
-  "03_home_fountain_front.png": "c6a04ac7705fcb1b1b03b70730f0500263ed8d90f9f70f78f00d736c77f17767",
+  "fountain basin (the owner's chat picture of 2026-10-08, 1448 x 1086)": "812e892037442319e7716d9ae75e6035ecf871ce04bb0a96f119ee3b0f571188",
+  "lotus (the owner's chat picture of 2026-10-08, 1448 x 1086)": "00f21b2d476d6a7f6e4da4aa925532ed61a421766d4f6c082be1fa365b07d53b",
+  "front bushes (the owner's chat picture of 2026-10-08, 1448 x 1086)": "4279554796a217a6327e637c94f4c60ad9363bf9976057f86d21342e86886e13",
   "04_home_soft_shadow.png": "842696d90d0b83b6f8dd3b578691e469436df4a22224c65034833c72f308130f"
  },
  "saturation": {
@@ -12,7 +13,7 @@
   "note": "colors as delivered since 2026-10-08 (spec 005 FR-031 as changed by the owner); it was x0.738 to 70% of the heroes"
  },
  "data": "client/Assets/Bloomlings/UI/Design/HomeLayersData.cs",
- "dataSha256": "b19fee65371991f2836cccbe46294b6527cccffc6ab1202a6bebf3610d9f2c48",
+ "dataSha256": "da5fcd86542addb8008c15f23c45eeb193afb4b7872e610aad23701f05467fe9",
  "outputs": [
   {
    "name": "home.jpg",
@@ -29,38 +30,38 @@
   {
    "name": "home-fountain-back.png",
    "box": {
-    "x": 0,
-    "y": 700,
-    "w": 852,
-    "h": 540
+    "x": 24,
+    "y": 827,
+    "w": 804,
+    "h": 413
    },
-   "from": "02_home_fountain_back.png (its colors as delivered since 2026-10-08: the x0.738 of 2026-10-04 undone)",
-   "sha256": "55c2a20919ea72b4736fa277abd1b72366ae72978f9b0d887001f15d045f3d0a",
-   "bytes": 757006
+   "from": "the owner's fountain basin of 2026-10-08 (no lotus, a pedestal in the pool; one 1448 x 1086 canvas with the lotus and the front bushes), scaled to 852 px wide (x0.588, Lanczos over premultiplied alpha), the canvas's top at y 674, alpha under 6 / 255 cleared, colors as delivered",
+   "sha256": "56e3304e87baac5136b39d1c28d66447ee0d9baada471a1b6c05f96f922b4a4e",
+   "bytes": 435269
   },
   {
    "name": "home-fountain-front.png",
    "box": {
     "x": 0,
-    "y": 987,
+    "y": 1043,
     "w": 852,
-    "h": 342
+    "h": 250
    },
-   "from": "bloomlings_01_backgrounds_restyled.zip home_layers/home-fountain-back.png (the restyled front stones, 2026-10-08)",
-   "sha256": "1963dc0870a72db22c9e5cae252ddefc2acbc2574a70e6a3ccc3d2758fb4cd88",
-   "bytes": 367386
+   "from": "the owner's front bushes of 2026-10-08 (the same canvas): each of the two bushes x0.82 toward its outer bottom corner, so the basin's sides and waterfalls show (the owner's choice C), then the canvas's scale",
+   "sha256": "52872791e5fd48f8d376c1817697f3848d80f7dc12be522057441979ac91e024",
+   "bytes": 203156
   },
   {
    "name": "home-lotus.png",
    "box": {
-    "x": 294,
-    "y": 835,
-    "w": 269,
-    "h": 159
+    "x": 278,
+    "y": 871,
+    "w": 296,
+    "h": 217
    },
-   "from": "02_home_fountain_back.png (the lotus; the basin's own lotus again since 2026-10-08, its colors as delivered: the x0.738 of 2026-10-04 undone)",
-   "sha256": "ac1dbcc4da648d11b0a74b83dc829c6a445887f4da479c70b2637a370bfced8e",
-   "bytes": 79005
+   "from": "the owner's lotus of 2026-10-08 (the same canvas), trimmed, x0.72 of the canvas's scale, centered where the owner drew it and standing on the basin's pedestal (its leaves end at the pedestal's front edge, canvas y 705)",
+   "sha256": "502c6f37b40da5cb750fea36e5c0f245c40e3315702f0722cca041f417bdf6c3",
+   "bytes": 83037
   },
   {
    "name": "home-shadow.png",

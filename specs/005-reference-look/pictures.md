@@ -96,14 +96,15 @@ their boxes in `HomeLayersData.cs`, source record `tools/heroanim/SOURCE.md`):
 | File | Layer | Slot |
 |---|---|---|
 | `home.jpg` | the garden: sky, arches, flowers and paving, without the fountain (852 × 1846, JPEG) | `bg.home` |
-| `home-fountain-back.png` | the lotus fountain's basin, rim and lotus, behind the heroes | `bg.home.fountain_back` |
-| `home-lotus.png` | the lotus, cut out of the fountain's back, drawn again over Bloom, who stands behind it | `bg.home.lotus` |
-| `home-fountain-front.png` | the fountain's front stones and flowers, over the heroes' feet | `bg.home.fountain_front` |
+| `home-fountain-back.png` | the fountain's basin, its pool, pedestal, waterfalls and the bushes behind it, behind the heroes (since 2026-10-08 the owner's basin without a lotus) | `bg.home.fountain_back` |
+| `home-lotus.png` | the lotus on the basin's pedestal, drawn over Bloom, who stands behind it (since 2026-10-08 the owner's lotus picture, at 0.72; it was cut out of the fountain's back) | `bg.home.lotus` |
+| `home-fountain-front.png` | the fountain's front bushes in the corners, before the heroes (since 2026-10-08 the owner's two bushes at 0.82 toward the corners) | `bg.home.fountain_front` |
 | `home-shadow.png` | one soft shadow (the sheet's front left one), drawn under every hero | `bg.home.shadow` |
 | `home-petals.png` | removed on 2026-10-06 with Home's falling petals (the owner's `05_home_petals_overlay.png` is not used) | — |
 
 To change them, send the five full-size layers again (the garden opaque, the others transparent, in the same order),
-then run `node layers.mjs <folder>` and `node check.mjs` in `tools/heroanim`. Without the fountain layers Home shows the
+then run `node layers.mjs <folder>` and `node check.mjs` in `tools/heroanim`; the fountain of 2026-10-08 (three pictures on
+their own canvas) was fitted by hand, its boxes and hashes recorded in `HomeLayersData.cs` and `layers.json`. Without the fountain layers Home shows the
 garden alone, with no heroes.
 
 ## C. Logo
@@ -268,8 +269,11 @@ garden, B2–B5, B7, B8) and the bottom menu's icons D9–D13. What is still ope
 On 2026-10-08 the owner restyled what the session had sent them (record `tools/artgen/models/owner-pictures.md`):
 B2–B5, B7 and B8, Home's front stones (B1's `home-fountain-front.png`), the eight detailed
 variant icons, the eight field icons, the leaves D5–D7, the booster icons D1–D4 and the currency lotus, each in its
-file's place. The owner kept the original fountain's back (`home-fountain-back.png`, its lotus painted in the basin) and the
-shadow, so `home-lotus.png` stays the cut-out of that lotus (a restyled lotus and a restyled back were set aside). Home's
+file's place. Home's fountain is the owner's new one of the same day, sent in the chat as three pictures on one
+1448 × 1086 canvas (the basin with a pedestal and no lotus, the lotus, the front bushes; it replaced the original back
+and lotus the owner had kept first, and the restyled front stones): the basin as `home-fountain-back.png`, the lotus at
+0.72 on the pedestal as `home-lotus.png`, the bushes at 0.82 in the corners as `home-fountain-front.png` (the owner's
+choice "C"); the shadow stays. Home's
 garden (`home.jpg`) is the owner's new picture of the same day, already blurred (no blur pass since). The archive's two extra decorations (`extra-floral-vine.png`, `extra-flower-cluster.png`) have no
 slot yet and are not in the game.
 
