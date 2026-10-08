@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2677
+    "score": 2666
   },
   "entries": [
     {
@@ -51,82 +51,82 @@
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 8,
       "id": "p02",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p03",
-      "variantId": "dew"
-    },
-    {
-      "count": 5,
-      "id": "p04",
-      "variantId": "dew"
-    },
-    {
-      "count": 5,
-      "id": "p05",
       "variantId": "moss"
     },
     {
       "count": 5,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
       "id": "p06",
       "variantId": "moss"
     },
     {
       "count": 6,
       "id": "p07",
-      "variantId": "moss"
-    },
-    {
-      "count": 6,
-      "id": "p08",
-      "variantId": "moss"
-    },
-    {
-      "count": 5,
-      "id": "p09",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
       "count": 7,
-      "id": "p10",
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p09",
       "variantId": "dew"
     },
     {
       "count": 5,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
       "id": "p11",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p12",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p13",
       "variantId": "moss"
     },
     {
       "count": 6,
       "id": "p14",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
       "count": 6,
       "id": "p15",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p16",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 5,
       "id": "p17",
       "variantId": "dew"
     },
@@ -136,22 +136,22 @@
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 7,
       "id": "p19",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p20",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p21",
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p22",
       "variantId": "dew"
     },
@@ -166,22 +166,22 @@
       "variantId": "dew"
     },
     {
-      "count": 9,
-      "id": "p25",
-      "variantId": "dew"
-    },
-    {
       "count": 5,
-      "id": "p26",
+      "id": "p25",
       "variantId": "wood"
     },
     {
       "count": 6,
-      "id": "p27",
+      "id": "p26",
       "variantId": "wood"
     },
     {
       "count": 9,
+      "id": "p27",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
       "id": "p28",
       "variantId": "wood"
     },
@@ -191,14 +191,14 @@
       "variantId": "wood"
     },
     {
-      "count": 5,
+      "count": 8,
       "id": "p30",
       "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p31",
-      "variantId": "wood"
+      "variantId": "acorn"
     },
     {
       "count": 7,
@@ -206,7 +206,7 @@
       "variantId": "acorn"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p33",
       "variantId": "acorn"
     },
@@ -216,9 +216,9 @@
       "variantId": "acorn"
     },
     {
-      "count": 8,
+      "count": 5,
       "id": "p35",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
       "count": 5,
@@ -268,11 +268,8 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26", "p31", "p36"],
-      ["p02", "p07", "p12", "p17", "p22", "p27", "p32", "p37"],
-      ["p03", "p08", "p13", "p18", "p23", "p28", "p33", "p38"],
-      ["p04", "p09", "p14", "p19", "p24", "p29", "p34", "p39"],
-      ["p05", "p10", "p15", "p20", "p25", "p30", "p35"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23", "p25", "p27", "p29", "p31", "p33", "p35", "p37", "p39"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24", "p26", "p28", "p30", "p32", "p34", "p36", "p38"]
     ]
   }
 }

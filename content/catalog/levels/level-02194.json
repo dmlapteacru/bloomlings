@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1644
+    "score": 1793
   },
   "entries": [
     {
@@ -18,38 +18,28 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p14",
+        "id": "p06",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "bows": "violet_bud",
-    "cloud": "water",
+    "bows": "flower",
+    "cloud": "dew",
     "far_hill": "leaf",
     "hill": "leaf",
-    "kite": "violet_bud",
+    "kite": "berry",
     "panel": "acorn",
-    "sky": "dew",
-    "string": "wood"
+    "sky": "water",
+    "string": "acorn"
   },
   "mechanics": ["chest", "locked_pod", "mystery_tile"],
   "overlays": {
     "cells": [
       {
-        "keyId": "k1",
-        "x": 11,
-        "y": 1
-      },
-      {
         "mystery": true,
-        "x": 15,
-        "y": 7
-      },
-      {
-        "stone": true,
-        "x": 5,
-        "y": 8
+        "x": 2,
+        "y": 5
       },
       {
         "hole": true,
@@ -58,91 +48,101 @@
       },
       {
         "stone": true,
-        "x": 7,
+        "x": 10,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 6,
         "y": 9
       },
       {
+        "keyId": "k1",
+        "x": 15,
+        "y": 14
+      },
+      {
         "mystery": true,
-        "x": 9,
-        "y": 15
+        "x": 6,
+        "y": 16
       }
     ]
   },
   "picture": {
-    "id": "kite_02",
+    "id": "kite_09",
     "version": 1
   },
   "pods": [
     {
       "count": 16,
       "id": "p01",
-      "variantId": "dew"
-    },
-    {
-      "count": 24,
-      "id": "p02",
-      "variantId": "leaf"
-    },
-    {
-      "count": 23,
-      "id": "p03",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
       "count": 10,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
       "id": "p04",
       "variantId": "water"
     },
     {
-      "count": 26,
+      "count": 17,
       "id": "p05",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 7,
       "id": "p06",
-      "variantId": "dew"
+      "lockKeyId": "k1",
+      "variantId": "flower"
     },
     {
       "count": 16,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "berry"
     },
     {
-      "count": 16,
+      "count": 17,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 18,
+      "count": 19,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 16,
       "id": "p10",
-      "variantId": "acorn"
-    },
-    {
-      "count": 15,
-      "id": "p11",
-      "variantId": "dew"
-    },
-    {
-      "count": 16,
-      "id": "p12",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 18,
-      "id": "p13",
-      "variantId": "dew"
+      "id": "p11",
+      "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 26,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 24,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
       "id": "p14",
-      "lockKeyId": "k1",
-      "variantId": "wood"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
@@ -165,11 +165,11 @@
       "effect": {
         "cells": [
           {
-            "x": 5,
+            "x": 10,
             "y": 8
           },
           {
-            "x": 7,
+            "x": 6,
             "y": 9
           }
         ],

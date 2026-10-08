@@ -1,19 +1,14 @@
 {
-  "boardLook": "peek",
+  "boardLook": "icons",
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1994
+    "score": 2220
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 3,
-      "y": 0
-    },
-    {
-      "side": "bottom",
-      "x": 10,
+      "x": 1,
       "y": 0
     }
   ],
@@ -23,89 +18,79 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p27",
-        "kind": "pod"
+        "id": "door1",
+        "kind": "special"
       }
     }
   ],
   "mapping": {
-    "bellows": "wood",
-    "black": "wood",
-    "buttons": "water",
-    "case": "flower",
-    "floor": "leaf",
-    "fold": "leaf",
-    "keys": "dew",
-    "notes": "leaf",
-    "wall": "dew"
+    "beach": "moss",
+    "bucket": "water",
+    "castle": "wood",
+    "flag": "flower",
+    "gate": "acorn",
+    "pole": "flower",
+    "sea": "dew",
+    "sky": "dew",
+    "sun": "acorn"
   },
-  "mechanics": ["fountain", "locked_pod"],
+  "mechanics": ["key"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 2,
-        "y": 0
+        "x": 10,
+        "y": 7
       },
       {
         "hole": true,
-        "x": 5,
-        "y": 10
-      },
-      {
-        "stone": true,
-        "x": 4,
-        "y": 12
-      },
-      {
-        "stone": true,
-        "x": 6,
-        "y": 12
+        "x": 10,
+        "y": 11
       }
     ]
   },
   "picture": {
-    "id": "accordion_02",
+    "id": "sandcastle_05",
     "version": 1
   },
   "pods": [
     {
-      "count": 7,
+      "count": 16,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 9,
+      "count": 19,
       "id": "p02",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 5,
+      "count": 16,
       "id": "p03",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 12,
       "id": "p04",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
-      "count": 9,
+      "count": 19,
       "id": "p05",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 19,
       "id": "p06",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 17,
       "id": "p07",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 18,
       "id": "p08",
       "variantId": "wood"
     },
@@ -115,119 +100,73 @@
       "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 21,
       "id": "p10",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 19,
       "id": "p11",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 20,
       "id": "p12",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 12,
       "id": "p13",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 11,
       "id": "p14",
       "variantId": "dew"
     },
     {
-      "count": 10,
+      "count": 21,
       "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 19,
       "id": "p16",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 20,
       "id": "p17",
       "variantId": "dew"
     },
     {
-      "count": 10,
+      "count": 12,
       "id": "p18",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p19",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 12,
       "id": "p20",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 6,
+      "count": 13,
       "id": "p21",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p22",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p23",
-      "variantId": "flower"
-    },
-    {
-      "count": 8,
-      "id": "p24",
-      "variantId": "flower"
-    },
-    {
-      "count": 10,
-      "id": "p25",
-      "variantId": "flower"
-    },
-    {
-      "count": 8,
-      "id": "p26",
-      "variantId": "flower"
-    },
-    {
-      "count": 5,
-      "id": "p27",
-      "lockKeyId": "k1",
-      "variantId": "leaf"
-    },
-    {
-      "count": 6,
-      "id": "p28",
-      "variantId": "leaf"
-    },
-    {
-      "count": 5,
-      "id": "p29",
-      "variantId": "leaf"
-    },
-    {
-      "count": 8,
-      "id": "p30",
-      "variantId": "leaf"
-    },
-    {
-      "count": 5,
-      "id": "p31",
       "variantId": "water"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "2089441623856818503",
+  "seed": "17574796806563903948",
   "slots": {
     "count": 5
   },
@@ -235,40 +174,28 @@
     {
       "cells": [
         {
-          "x": 5,
-          "y": 10
+          "x": 10,
+          "y": 11
         }
       ],
       "condition": {
-        "count": 2,
-        "kind": "clear_count_adjacent",
-        "variantId": "wood"
+        "keyId": "k1",
+        "kind": "key"
       },
       "effect": {
-        "cells": [
-          {
-            "x": 4,
-            "y": 12
-          },
-          {
-            "x": 6,
-            "y": 12
-          }
-        ],
-        "kind": "remove_stones"
+        "kind": "open_cells"
       },
-      "id": "fountain",
-      "type": "fountain"
+      "id": "door1",
+      "type": "gate"
     }
   ],
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13", "p19", "p25", "p31"],
-      ["p02", "p08", "p14", "p20", "p26"],
-      ["p03", "p09", "p15", "p21", "p27"],
-      ["p04", "p10", "p16", "p22", "p28"],
-      ["p05", "p11", "p17", "p23", "p29"],
-      ["p06", "p12", "p18", "p24", "p30"]
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17", "p22"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
     ]
   }
 }

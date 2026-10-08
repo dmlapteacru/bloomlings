@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2033
+    "score": 2100
   },
   "entries": [
     {
@@ -29,105 +29,111 @@
     }
   ],
   "mapping": {
-    "background": "leaf",
-    "cookie": "acorn",
-    "heart": "dew",
-    "mug": "flower",
-    "pattern": "moss",
-    "steam": "water",
-    "table": "acorn",
-    "tea": "acorn"
+    "box": "leaf",
+    "box2": "flower",
+    "box2_side": "flower",
+    "box_side": "leaf",
+    "box_top": "moss",
+    "frame": "water",
+    "orange": "wood",
+    "panes": "water",
+    "stalk": "wood",
+    "straw": "berry",
+    "table": "flower",
+    "wall": "water"
   },
   "mechanics": ["connected_pair", "key", "stone"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 13,
-        "y": 9
+        "x": 0,
+        "y": 7
       },
       {
         "hole": true,
-        "x": 9,
+        "x": 8,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 15,
         "y": 10
       },
       {
         "stone": true,
-        "x": 8,
-        "y": 11
-      },
-      {
-        "stone": true,
         "x": 1,
-        "y": 13
+        "y": 15
       },
       {
         "stone": true,
-        "x": 5,
-        "y": 14
+        "x": 9,
+        "y": 15
       }
     ]
   },
   "picture": {
-    "id": "mug_07",
+    "id": "juice_box_06",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 9,
+      "count": 8,
       "id": "p01",
-      "variantId": "acorn"
+      "variantId": "flower"
     },
     {
-      "count": 10,
+      "count": 6,
       "id": "p02",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 8,
       "id": "p03",
-      "variantId": "acorn"
+      "variantId": "flower"
     },
     {
-      "count": 10,
+      "count": 8,
       "id": "p04",
-      "variantId": "acorn"
+      "variantId": "flower"
     },
     {
       "count": 6,
       "id": "p05",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
+      "connectedGroupId": "c1",
       "count": 8,
       "id": "p06",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
-      "count": 6,
+      "connectedGroupId": "c1",
+      "count": 7,
       "id": "p07",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
-      "count": 6,
+      "count": 9,
       "id": "p08",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p09",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
       "count": 8,
       "id": "p10",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
       "count": 6,
       "id": "p11",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 6,
@@ -135,89 +141,87 @@
       "variantId": "leaf"
     },
     {
-      "count": 11,
-      "id": "p13",
-      "variantId": "leaf"
-    },
-    {
-      "count": 5,
-      "id": "p14",
-      "variantId": "leaf"
-    },
-    {
       "count": 8,
-      "id": "p15",
-      "variantId": "leaf"
+      "id": "p13",
+      "variantId": "water"
     },
     {
       "count": 12,
-      "id": "p16",
-      "variantId": "leaf"
+      "id": "p14",
+      "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 6,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
       "id": "p17",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 8,
       "id": "p18",
-      "variantId": "leaf"
-    },
-    {
-      "count": 7,
-      "id": "p19",
-      "variantId": "flower"
-    },
-    {
-      "count": 7,
-      "id": "p20",
-      "variantId": "flower"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 6,
-      "id": "p21",
-      "variantId": "flower"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 7,
-      "id": "p22",
-      "variantId": "flower"
-    },
-    {
-      "count": 6,
-      "id": "p23",
-      "variantId": "flower"
-    },
-    {
-      "count": 8,
-      "id": "p24",
-      "variantId": "flower"
-    },
-    {
-      "count": 12,
-      "id": "p25",
-      "variantId": "flower"
-    },
-    {
-      "count": 12,
-      "id": "p26",
       "variantId": "water"
     },
     {
       "count": 11,
-      "id": "p27",
-      "variantId": "dew"
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p21",
+      "variantId": "water"
     },
     {
       "count": 7,
-      "id": "p28",
-      "variantId": "acorn"
+      "id": "p22",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p23",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p24",
+      "variantId": "leaf"
     },
     {
       "count": 5,
+      "id": "p25",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p26",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p27",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p28",
+      "variantId": "berry"
+    },
+    {
+      "count": 6,
       "id": "p29",
       "variantId": "moss"
     }
@@ -231,8 +235,8 @@
     {
       "cells": [
         {
-          "x": 9,
-          "y": 10
+          "x": 8,
+          "y": 8
         }
       ],
       "condition": {
@@ -248,11 +252,10 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26"],
-      ["p02", "p07", "p12", "p17", "p22", "p27"],
-      ["p03", "p08", "p13", "p18", "p23", "p28"],
-      ["p04", "p09", "p14", "p19", "p24", "p29"],
-      ["p05", "p10", "p15", "p20", "p25"]
+      ["p01", "p05", "p09", "p13", "p17", "p21", "p25", "p29"],
+      ["p02", "p06", "p10", "p14", "p18", "p22", "p26"],
+      ["p03", "p07", "p11", "p15", "p19", "p23", "p27"],
+      ["p04", "p08", "p12", "p16", "p20", "p24", "p28"]
     ]
   }
 }

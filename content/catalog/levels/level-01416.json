@@ -3,125 +3,174 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1493
+    "score": 1854
   },
   "entries": [
     {
-      "side": "bottom",
-      "x": 7,
-      "y": 0
+      "side": "left",
+      "x": 0,
+      "y": 5
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 1416,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
   "mapping": {
-    "canopy": "dew",
-    "cloud": "dew",
-    "fuselage": "flower",
-    "hills": "leaf",
+    "bows": "violet_bud",
+    "cloud": "water",
+    "far_hill": "leaf",
+    "hill": "leaf",
+    "kite": "berry",
+    "panel": "wood",
     "sky": "dew",
-    "sun": "acorn",
-    "tips": "acorn",
-    "wing": "violet_bud"
+    "string": "wood"
   },
-  "mechanics": ["mystery_tile"],
+  "mechanics": ["locked_slot"],
   "overlays": {
     "cells": [
       {
-        "mystery": true,
-        "x": 9,
-        "y": 2
-      },
-      {
-        "mystery": true,
-        "x": 10,
-        "y": 10
+        "keyId": "k1",
+        "x": 0,
+        "y": 8
       }
     ]
   },
   "picture": {
-    "id": "glider_03",
+    "id": "kite_09",
     "version": 1
   },
   "pods": [
     {
-      "count": 12,
+      "count": 8,
       "id": "p01",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 11,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 20,
+      "count": 10,
       "id": "p03",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 18,
+      "count": 17,
       "id": "p04",
       "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 10,
       "id": "p05",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 16,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 10,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 14,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 17,
+      "count": 9,
       "id": "p09",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 8,
       "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 24,
+      "count": 10,
       "id": "p11",
-      "variantId": "flower"
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "leaf"
     },
     {
       "count": 10,
-      "id": "p12",
-      "variantId": "acorn"
+      "id": "p15",
+      "variantId": "dew"
     },
     {
-      "count": 6,
-      "id": "p13",
+      "count": 9,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p17",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p18",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p19",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p20",
+      "variantId": "berry"
+    },
+    {
+      "count": 7,
+      "id": "p21",
       "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "8000606402935852176",
+  "seed": "9241151101675276484",
   "slots": {
-    "count": 5
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11"],
-      ["p02", "p07", "p12"],
-      ["p03", "p08", "p13"],
-      ["p04", "p09"],
-      ["p05", "p10"]
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
     ]
   }
 }

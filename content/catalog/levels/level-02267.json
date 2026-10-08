@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1698
+    "score": 1681
   },
   "entries": [
     {
@@ -15,129 +15,129 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2267,
   "mapping": {
-    "blossom": "flower",
-    "body": "flower",
-    "grass": "moss",
-    "leaf": "leaf",
-    "shell": "acorn",
-    "sky": "dew",
-    "spiral": "acorn",
-    "sun": "vine"
+    "banana": "acorn",
+    "eye": "dew",
+    "face": "acorn",
+    "flowers": "violet_bud",
+    "gorilla": "flower",
+    "grass": "leaf",
+    "leaves": "leaf",
+    "sky": "dew"
   },
   "mechanics": ["chest"],
   "overlays": {
     "cells": [
       {
         "hole": true,
-        "x": 8,
-        "y": 10
+        "x": 7,
+        "y": 14
       },
       {
         "stone": true,
-        "x": 6,
-        "y": 11
+        "x": 9,
+        "y": 15
       },
       {
         "stone": true,
         "x": 8,
-        "y": 12
+        "y": 16
       }
     ]
   },
   "picture": {
-    "id": "snail_10",
+    "id": "gorilla_04",
     "version": 1
   },
   "pods": [
     {
-      "count": 5,
+      "count": 15,
       "id": "p01",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p02",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p03",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p04",
-      "variantId": "dew"
-    },
-    {
-      "count": 13,
-      "id": "p05",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 11,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
       "id": "p06",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 13,
+      "count": 10,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 13,
+      "count": 10,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 12,
       "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 11,
-      "id": "p10",
-      "variantId": "flower"
-    },
-    {
-      "count": 12,
+      "count": 14,
       "id": "p11",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 15,
       "id": "p12",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 13,
       "id": "p13",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 16,
       "id": "p14",
-      "variantId": "acorn"
+      "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 9,
       "id": "p15",
-      "variantId": "acorn"
+      "variantId": "leaf"
     },
     {
-      "count": 20,
+      "count": 9,
       "id": "p16",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 22,
+      "count": 18,
       "id": "p17",
-      "variantId": "moss"
+      "variantId": "acorn"
     },
     {
       "count": 5,
       "id": "p18",
-      "variantId": "vine"
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",
@@ -149,23 +149,23 @@
     {
       "cells": [
         {
-          "x": 8,
-          "y": 10
+          "x": 7,
+          "y": 14
         }
       ],
       "condition": {
-        "count": 3,
+        "count": 4,
         "kind": "clear_count_adjacent"
       },
       "effect": {
         "cells": [
           {
-            "x": 6,
-            "y": 11
+            "x": 9,
+            "y": 15
           },
           {
             "x": 8,
-            "y": 12
+            "y": 16
           }
         ],
         "kind": "remove_stones"

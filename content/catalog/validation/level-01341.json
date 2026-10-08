@@ -1,18 +1,18 @@
 {
   "checks": ["accounting", "board", "losable", "picture-approved", "solvable"],
-  "definitionHash": "837506495bda000b1ed68cdffa925b28a6372e87290c21e3a0867cf0db04ff20",
+  "definitionHash": "1e51cea86d9a6a080c4b3076f011a8255719bfc00f09b0300795f24122f9975c",
   "definitionVersion": 1,
-  "jamWitness": ["tap:p01", "tap:p03", "tap:p02", "tap:p05", "tap:p07", "tap:p09", "tap:p11", "tap:p13", "tap:p15", "tap:p17", "tap:p04", "tap:p06", "tap:p08", "tap:p10"],
+  "jamWitness": ["tap:p01", "tap:p04", "tap:p07", "tap:p10", "tap:p13"],
   "levelNumber": 1341,
   "metrics": {
-    "branchingX1000": 1513,
+    "branchingX1000": 2081,
     "connectedCommitments": 0,
     "crossVariantLayers": 0,
-    "deadEndDepth": 14,
+    "deadEndDepth": 5,
     "dependencyDepth": 3,
     "estimatedDurationMs": 83700,
-    "meanBufferX1000": 2081,
-    "peakBuffer": 4,
+    "meanBufferX1000": 1729,
+    "peakBuffer": 5,
     "podCount": 37,
     "siblingPairs": 2,
     "specialLoad": 0,
@@ -21,9 +21,9 @@
     "variantCount": 6
   },
   "nodeBudget": 700000,
-  "nodesUsed": 4119,
+  "nodesUsed": 50,
   "playerInfoFair": null,
   "result": "solvable",
-  "solutionTrace": ["tap:p01", "tap:p03", "tap:p05", "tap:p07", "tap:p09", "tap:p11", "tap:p13", "tap:p15", "tap:p17", "tap:p19", "tap:p21", "tap:p23", "tap:p25", "tap:p27", "tap:p29", "tap:p31", "tap:p33", "tap:p35", "tap:p37", "tap:p02", "tap:p04", "tap:p06", "tap:p08", "tap:p10", "tap:p12", "tap:p14", "tap:p16", "tap:p18", "tap:p20", "tap:p22", "tap:p24", "tap:p26", "tap:p28", "tap:p30", "tap:p32", "tap:p34", "tap:p36"],
+  "solutionTrace": ["tap:p01", "tap:p04", "tap:p07", "tap:p03", "tap:p06", "tap:p10", "tap:p13", "tap:p16", "tap:p19", "tap:p22", "tap:p25", "tap:p28", "tap:p31", "tap:p34", "tap:p37", "tap:p09", "tap:p12", "tap:p15", "tap:p18", "tap:p21", "tap:p24", "tap:p27", "tap:p30", "tap:p33", "tap:p36", "tap:p02", "tap:p05", "tap:p08", "tap:p11", "tap:p14", "tap:p17", "tap:p20", "tap:p23", "tap:p26", "tap:p29", "tap:p32", "tap:p35"],
   "solverVersion": "solver-1.0.0"
 }

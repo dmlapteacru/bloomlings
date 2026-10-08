@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3676
+    "score": 3425
   },
   "entries": [
     {
@@ -192,17 +192,17 @@
   },
   "pods": [
     {
-      "count": 11,
+      "count": 9,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "berry"
     },
     {
-      "count": 5,
+      "count": 11,
       "id": "p02",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p03",
       "variantId": "dew"
     },
@@ -212,39 +212,39 @@
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 12,
       "id": "p05",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p08",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 7,
       "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 10,
+      "count": 9,
       "id": "p11",
-      "variantId": "dew"
+      "variantId": "violet_bud"
     },
     {
       "count": 5,
@@ -252,34 +252,34 @@
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p13",
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 12,
       "id": "p14",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
       "count": 9,
       "id": "p15",
-      "variantId": "violet_bud"
+      "variantId": "leaf"
     },
     {
       "count": 10,
       "id": "p16",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 5,
       "id": "p17",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p18",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
       "count": 8,
@@ -289,7 +289,7 @@
     {
       "count": 9,
       "id": "p20",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     },
     {
       "count": 10,
@@ -297,54 +297,54 @@
       "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 7,
       "id": "p22",
       "variantId": "leaf"
     },
     {
-      "count": 6,
+      "count": 8,
       "id": "p23",
-      "variantId": "wood"
-    },
-    {
-      "count": 7,
-      "id": "p24",
-      "variantId": "wood"
-    },
-    {
-      "count": 7,
-      "id": "p25",
-      "variantId": "wood"
-    },
-    {
-      "count": 7,
-      "id": "p26",
-      "variantId": "wood"
-    },
-    {
-      "count": 12,
-      "id": "p27",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p28",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
       "count": 11,
+      "id": "p24",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p25",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p26",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p27",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p28",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
       "id": "p29",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 7,
       "id": "p30",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 7,
       "id": "p31",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
       "count": 12,
@@ -352,12 +352,12 @@
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 12,
       "id": "p33",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 12,
       "id": "p34",
       "variantId": "dew"
     },
@@ -367,54 +367,54 @@
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p36",
-      "variantId": "violet_bud"
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p37",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p38",
+      "variantId": "dew"
     },
     {
       "count": 11,
-      "id": "p37",
+      "id": "p39",
       "variantId": "violet_bud"
     },
     {
       "count": 10,
-      "id": "p38",
+      "id": "p40",
       "variantId": "violet_bud"
     },
     {
       "count": 9,
-      "id": "p39",
-      "variantId": "vine"
-    },
-    {
-      "count": 7,
-      "id": "p40",
-      "variantId": "vine"
-    },
-    {
-      "count": 8,
       "id": "p41",
       "variantId": "vine"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p42",
       "variantId": "vine"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p43",
-      "variantId": "berry"
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p44",
+      "variantId": "vine"
     },
     {
       "count": 12,
-      "id": "p44",
-      "variantId": "berry"
-    },
-    {
-      "count": 8,
       "id": "p45",
-      "variantId": "wood"
+      "variantId": "berry"
     },
     {
       "count": 5,
@@ -429,12 +429,8 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13", "p19", "p25", "p31", "p37", "p43"],
-      ["p02", "p08", "p14", "p20", "p26", "p32", "p38", "p44"],
-      ["p03", "p09", "p15", "p21", "p27", "p33", "p39", "p45"],
-      ["p04", "p10", "p16", "p22", "p28", "p34", "p40", "p46"],
-      ["p05", "p11", "p17", "p23", "p29", "p35", "p41"],
-      ["p06", "p12", "p18", "p24", "p30", "p36", "p42"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23", "p25", "p27", "p29", "p31", "p33", "p35", "p37", "p39", "p41", "p43", "p45"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24", "p26", "p28", "p30", "p32", "p34", "p36", "p38", "p40", "p42", "p44", "p46"]
     ]
   }
 }

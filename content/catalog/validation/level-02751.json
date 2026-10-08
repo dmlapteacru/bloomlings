@@ -1,29 +1,29 @@
 {
   "checks": ["accounting", "board", "losable", "picture-approved", "solvable"],
-  "definitionHash": "224a424668ebe4cd4b284b53313b79a038a3915ee9c043f83f055c0c4ff5ba49",
+  "definitionHash": "ca10f8685b1f6bd0e6968f8ebb434408cd2b57c2740d52082289126dd38b8167",
   "definitionVersion": 1,
-  "jamWitness": ["tap:p01", "tap:p04", "tap:p07", "tap:p10", "tap:p13", "tap:p16", "tap:p19", "tap:p22", "tap:p25"],
+  "jamWitness": ["tap:p03", "tap:p06", "tap:p09", "tap:p12"],
   "levelNumber": 2751,
   "metrics": {
-    "branchingX1000": 2131,
+    "branchingX1000": 2157,
     "connectedCommitments": 0,
     "crossVariantLayers": 0,
-    "deadEndDepth": 9,
+    "deadEndDepth": 4,
     "dependencyDepth": 5,
     "estimatedDurationMs": 99120,
-    "meanBufferX1000": 1105,
+    "meanBufferX1000": 1131,
     "peakBuffer": 2,
     "podCount": 38,
-    "siblingPairs": 1,
+    "siblingPairs": 2,
     "specialLoad": 2,
     "totalWork": 351,
     "unsafeChoicePermille": 0,
-    "variantCount": 5
+    "variantCount": 6
   },
   "nodeBudget": 700000,
-  "nodesUsed": 47,
+  "nodesUsed": 42,
   "playerInfoFair": null,
   "result": "solvable",
-  "solutionTrace": ["tap:p01", "tap:p04", "tap:p07", "tap:p10", "tap:p13", "tap:p02", "tap:p05", "tap:p08", "tap:p16", "tap:p11", "tap:p19", "tap:p22", "tap:p25", "tap:p28", "tap:p31", "tap:p34", "tap:p37", "tap:p14", "tap:p17", "tap:p20", "tap:p23", "tap:p26", "tap:p29", "tap:p32", "tap:p35", "tap:p38", "tap:p03", "tap:p06", "tap:p09", "tap:p12", "tap:p15", "tap:p18", "tap:p21", "tap:p24", "tap:p27", "tap:p30", "tap:p33", "tap:p36"],
+  "solutionTrace": ["tap:p01", "tap:p04", "tap:p07", "tap:p10", "tap:p13", "tap:p16", "tap:p19", "tap:p22", "tap:p25", "tap:p28", "tap:p31", "tap:p02", "tap:p05", "tap:p08", "tap:p11", "tap:p14", "tap:p34", "tap:p37", "tap:p17", "tap:p20", "tap:p23", "tap:p26", "tap:p29", "tap:p32", "tap:p35", "tap:p38", "tap:p03", "tap:p06", "tap:p09", "tap:p12", "tap:p15", "tap:p18", "tap:p21", "tap:p24", "tap:p27", "tap:p30", "tap:p33", "tap:p36"],
   "solverVersion": "solver-1.0.0"
 }

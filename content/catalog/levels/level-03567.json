@@ -3,141 +3,137 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1804
+    "score": 1751
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 13,
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
       "y": 0
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 3567,
-  "locks": [
-    {
-      "keyId": "k1",
-      "target": {
-        "id": "door1",
-        "kind": "special"
-      }
-    }
-  ],
   "mapping": {
-    "flame_core": "acorn",
-    "flames": "wood",
+    "branch": "leaf",
+    "bushes": "leaf",
+    "face": "acorn",
+    "flowers": "flower",
     "grass": "leaf",
-    "logs": "violet_bud",
-    "marshmallow": "flower",
+    "leaves": "leaf",
     "sky": "dew",
-    "stick": "leaf",
-    "toasted": "acorn",
-    "white": "flower"
+    "sloth": "wood",
+    "stripes": "violet_bud",
+    "sun": "acorn"
   },
-  "mechanics": ["gate", "key"],
+  "mechanics": ["fountain"],
   "overlays": {
     "cells": [
       {
-        "keyId": "k1",
-        "x": 0,
-        "y": 0
-      },
-      {
-        "hole": true,
-        "x": 8,
-        "y": 8
-      },
-      {
         "hole": true,
         "x": 7,
-        "y": 9
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 11
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 11
       }
     ]
   },
   "picture": {
-    "id": "marshmallow_01",
-    "mirror": "horizontal",
+    "id": "sloth_01",
     "version": 1
   },
   "pods": [
     {
       "count": 17,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 16,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 18,
       "id": "p03",
       "variantId": "leaf"
     },
     {
       "count": 17,
       "id": "p04",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 17,
+      "count": 15,
       "id": "p05",
       "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 13,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 26,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 27,
       "id": "p08",
       "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 27,
       "id": "p09",
       "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 13,
       "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 15,
-      "id": "p11",
-      "variantId": "flower"
-    },
-    {
-      "count": 19,
-      "id": "p12",
       "variantId": "wood"
     },
     {
-      "count": 15,
+      "count": 16,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
       "id": "p13",
       "variantId": "acorn"
     },
     {
-      "count": 12,
+      "count": 5,
       "id": "p14",
-      "variantId": "violet_bud"
+      "variantId": "flower"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p15",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "14869218528123239908",
+  "seed": "15512154855674513182",
   "slots": {
     "count": 5
   },
@@ -146,42 +142,39 @@
       "cells": [
         {
           "x": 7,
-          "y": 9
-        }
-      ],
-      "condition": {
-        "keyId": "k1",
-        "kind": "key"
-      },
-      "effect": {
-        "kind": "open_cells"
-      },
-      "id": "door1",
-      "type": "gate"
-    },
-    {
-      "cells": [
-        {
-          "x": 8,
-          "y": 8
+          "y": 10
         }
       ],
       "condition": {
         "count": 2,
-        "kind": "clear_count_adjacent"
+        "kind": "clear_count_adjacent",
+        "variantId": "dew"
       },
       "effect": {
-        "kind": "open_cells"
+        "cells": [
+          {
+            "x": 6,
+            "y": 11
+          },
+          {
+            "x": 8,
+            "y": 11
+          }
+        ],
+        "kind": "remove_stones"
       },
-      "id": "gate",
-      "type": "gate"
+      "id": "fountain",
+      "type": "fountain"
     }
   ],
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10", "p13"],
-      ["p02", "p05", "p08", "p11", "p14"],
-      ["p03", "p06", "p09", "p12", "p15"]
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
     ]
   }
 }

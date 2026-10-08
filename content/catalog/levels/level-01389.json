@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1605
+    "score": 1821
   },
   "entries": [
     {
@@ -34,35 +34,35 @@
     "cells": [
       {
         "stone": true,
-        "x": 12,
-        "y": 9
+        "x": 6,
+        "y": 5
       },
       {
         "stone": true,
-        "x": 2,
-        "y": 14
-      },
-      {
-        "stone": true,
-        "x": 10,
-        "y": 15
+        "x": 1,
+        "y": 7
       },
       {
         "stone": true,
         "x": 13,
-        "y": 15
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 0,
+        "y": 13
       }
     ]
   },
   "picture": {
-    "id": "playground_slide_09",
+    "id": "playground_slide_08",
     "version": 1
   },
   "pods": [
     {
-      "count": 6,
+      "count": 15,
       "id": "p01",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
       "count": 15,
@@ -70,9 +70,9 @@
       "variantId": "leaf"
     },
     {
-      "count": 15,
+      "count": 12,
       "id": "p03",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
       "count": 21,
@@ -80,29 +80,29 @@
       "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 12,
       "id": "p05",
       "variantId": "dew"
     },
     {
-      "count": 21,
+      "count": 12,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 21,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 11,
       "id": "p08",
       "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 13,
       "id": "p09",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
       "count": 15,
@@ -110,19 +110,19 @@
       "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 15,
       "id": "p11",
-      "variantId": "wood"
+      "variantId": "violet_bud"
     },
     {
-      "count": 13,
+      "count": 24,
       "id": "p12",
       "variantId": "wood"
     },
     {
-      "count": 11,
+      "count": 6,
       "id": "p13",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 6,

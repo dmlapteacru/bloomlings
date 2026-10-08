@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1760
+    "score": 1770
   },
   "entries": [
     {
@@ -29,7 +29,7 @@
     "wall": "water"
   },
   "picture": {
-    "id": "music_box_09",
+    "id": "music_box_08",
     "mirror": "horizontal",
     "version": 1
   },
@@ -75,42 +75,42 @@
       "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 13,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 12,
       "id": "p10",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 13,
       "id": "p11",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 8,
       "id": "p12",
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 6,
       "id": "p13",
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 13,
       "id": "p14",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 13,
       "id": "p15",
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p16",
       "variantId": "water"
     },
@@ -120,12 +120,12 @@
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 14,
       "id": "p18",
-      "variantId": "berry"
+      "variantId": "water"
     },
     {
-      "count": 6,
+      "count": 14,
       "id": "p19",
       "variantId": "berry"
     },

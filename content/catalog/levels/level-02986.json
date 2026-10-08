@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1547
+    "score": 1629
   },
   "entries": [
     {
@@ -15,77 +15,77 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2986,
   "mapping": {
-    "blossom": "berry",
-    "body": "violet_bud",
+    "apple": "berry",
+    "face": "acorn",
     "grass": "leaf",
-    "leaf": "moss",
-    "shell": "wood",
-    "sky": "dew",
-    "spiral": "wood",
-    "sun": "dew"
+    "leaf": "leaf",
+    "nose": "flower",
+    "sky": "water",
+    "spikes": "wood",
+    "sun": "wood"
   },
   "picture": {
-    "id": "snail_12",
+    "id": "hedgehog_12",
     "version": 1
   },
   "pods": [
     {
-      "count": 14,
+      "count": 26,
       "id": "p01",
       "variantId": "leaf"
     },
     {
       "count": 5,
       "id": "p02",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
-      "count": 14,
+      "count": 24,
       "id": "p03",
-      "variantId": "leaf"
-    },
-    {
-      "count": 14,
-      "id": "p04",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 23,
-      "id": "p05",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p06",
-      "variantId": "dew"
-    },
-    {
-      "count": 14,
-      "id": "p07",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
       "count": 25,
-      "id": "p08",
-      "variantId": "dew"
+      "id": "p04",
+      "variantId": "wood"
     },
     {
-      "count": 26,
-      "id": "p09",
-      "variantId": "dew"
+      "count": 44,
+      "id": "p05",
+      "variantId": "water"
     },
     {
       "count": 22,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
       "id": "p10",
-      "variantId": "wood"
+      "variantId": "flower"
     },
     {
-      "count": 23,
+      "count": 5,
       "id": "p11",
-      "variantId": "wood"
+      "variantId": "leaf"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p12",
       "variantId": "berry"
     }
@@ -97,8 +97,10 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11"],
-      ["p02", "p04", "p06", "p08", "p10", "p12"]
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
     ]
   }
 }

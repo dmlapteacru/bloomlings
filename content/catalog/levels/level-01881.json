@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1662
+    "score": 1726
   },
   "entries": [
     {
@@ -24,115 +24,115 @@
     }
   ],
   "mapping": {
-    "body": "violet_bud",
-    "cloud": "leaf",
-    "grass": "moss",
-    "mast": "wood",
-    "skid": "flower",
+    "bush": "moss",
+    "chute": "wood",
+    "cloud": "dew",
+    "frame": "violet_bud",
+    "grass": "leaf",
+    "roof": "violet_bud",
     "sky": "water",
-    "tail": "wood",
-    "window": "water"
+    "sun": "wood"
   },
   "mechanics": ["key", "mystery_tile"],
   "overlays": {
     "cells": [
       {
-        "mystery": true,
-        "x": 2,
-        "y": 4
+        "keyId": "k1",
+        "x": 6,
+        "y": 3
       },
       {
-        "keyId": "k1",
-        "x": 12,
+        "hole": true,
+        "x": 7,
         "y": 6
       },
       {
         "mystery": true,
-        "x": 0,
-        "y": 9
+        "x": 1,
+        "y": 11
       },
       {
-        "hole": true,
-        "x": 5,
-        "y": 9
+        "mystery": true,
+        "x": 4,
+        "y": 13
       }
     ]
   },
   "picture": {
-    "id": "helicopter_01",
+    "id": "playground_slide_01",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 15,
+      "count": 14,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 15,
+      "count": 12,
       "id": "p02",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 17,
+      "count": 14,
       "id": "p03",
       "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 19,
       "id": "p04",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 18,
+      "count": 20,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 16,
+      "count": 13,
       "id": "p06",
       "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 12,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 23,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 12,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 13,
       "id": "p10",
       "variantId": "water"
     },
     {
       "count": 25,
       "id": "p11",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 23,
       "id": "p12",
       "variantId": "wood"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p13",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 10,
+      "count": 5,
       "id": "p14",
-      "variantId": "leaf"
+      "variantId": "moss"
     }
   ],
   "rewardProfile": "standard",
@@ -144,8 +144,8 @@
     {
       "cells": [
         {
-          "x": 5,
-          "y": 9
+          "x": 7,
+          "y": 6
         }
       ],
       "condition": {

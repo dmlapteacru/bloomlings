@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2615
+    "score": 2614
   },
   "entries": [
     {
@@ -68,22 +68,22 @@
       "variantId": "moss"
     },
     {
-      "count": 10,
+      "count": 8,
       "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p03",
       "variantId": "dew"
     },
     {
       "count": 6,
-      "id": "p03",
-      "variantId": "moss"
-    },
-    {
-      "count": 10,
       "id": "p04",
       "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 10,
       "id": "p05",
       "variantId": "moss"
     },
@@ -93,14 +93,14 @@
       "variantId": "moss"
     },
     {
-      "count": 11,
+      "count": 6,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 11,
       "id": "p08",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
       "count": 10,
@@ -138,17 +138,17 @@
       "variantId": "acorn"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p16",
       "variantId": "acorn"
     },
     {
-      "count": 6,
+      "count": 12,
       "id": "p17",
       "variantId": "acorn"
     },
     {
-      "count": 12,
+      "count": 6,
       "id": "p18",
       "variantId": "acorn"
     },
@@ -263,8 +263,9 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23", "p25", "p27", "p29", "p31", "p33"],
-      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24", "p26", "p28", "p30", "p32", "p34"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33"]
     ]
   }
 }

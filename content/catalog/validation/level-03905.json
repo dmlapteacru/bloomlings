@@ -1,22 +1,22 @@
 {
   "checks": ["accounting", "board", "losable", "picture-approved", "solvable"],
-  "definitionHash": "378019eb9652e21831cbf4fda471431a71c48c9e31bed3c0688ea9a957b6202a",
+  "definitionHash": "9c37d265f8c91b87136f912e955c9202e1c4185921a37b1768caf28f094f3d27",
   "definitionVersion": 1,
   "jamWitness": ["tap:p05", "tap:p11", "tap:p17", "tap:p23"],
   "levelNumber": 3905,
   "metrics": {
-    "branchingX1000": 4000,
+    "branchingX1000": 3875,
     "connectedCommitments": 0,
     "crossVariantLayers": 0,
     "deadEndDepth": 4,
     "dependencyDepth": 3,
-    "estimatedDurationMs": 102840,
-    "meanBufferX1000": 1343,
+    "estimatedDurationMs": 99120,
+    "meanBufferX1000": 1125,
     "peakBuffer": 2,
     "podCount": 32,
     "siblingPairs": 2,
     "specialLoad": 2,
-    "totalWork": 457,
+    "totalWork": 426,
     "unsafeChoicePermille": 0,
     "variantCount": 6
   },
@@ -24,6 +24,6 @@
   "nodesUsed": 36,
   "playerInfoFair": null,
   "result": "solvable",
-  "solutionTrace": ["tap:p01", "tap:p07", "tap:p13", "tap:p19", "tap:p02", "tap:p08", "tap:p14", "tap:p25", "tap:p20", "tap:p26", "tap:p32", "tap:p03", "tap:p09", "tap:p15", "tap:p21", "tap:p27", "tap:p04", "tap:p10", "tap:p16", "tap:p31", "tap:p22", "tap:p28", "tap:p05", "tap:p11", "tap:p17", "tap:p23", "tap:p29", "tap:p06", "tap:p12", "tap:p18", "tap:p24", "tap:p30"],
+  "solutionTrace": ["tap:p01", "tap:p07", "tap:p13", "tap:p19", "tap:p25", "tap:p02", "tap:p08", "tap:p14", "tap:p20", "tap:p26", "tap:p32", "tap:p03", "tap:p09", "tap:p15", "tap:p31", "tap:p21", "tap:p27", "tap:p04", "tap:p10", "tap:p16", "tap:p22", "tap:p28", "tap:p05", "tap:p11", "tap:p17", "tap:p23", "tap:p29", "tap:p06", "tap:p12", "tap:p18", "tap:p24", "tap:p30"],
   "solverVersion": "solver-1.0.0"
 }

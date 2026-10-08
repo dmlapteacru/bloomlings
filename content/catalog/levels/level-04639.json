@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1747
+    "score": 1724
   },
   "entries": [
     {
@@ -29,108 +29,106 @@
     }
   ],
   "mapping": {
-    "blanket": "dew",
-    "cloud": "water",
-    "cup": "acorn",
-    "hill": "water",
-    "nori": "moss",
-    "plate": "acorn",
-    "plum": "flower",
-    "rice": "dew",
-    "sky": "flower",
-    "steam": "flower",
-    "tea": "leaf"
+    "bone": "water",
+    "dog": "acorn",
+    "ears": "wood",
+    "grass": "moss",
+    "muzzle": "acorn",
+    "nose": "violet_bud",
+    "sky": "water",
+    "sun": "acorn",
+    "tongue": "berry"
   },
   "mechanics": ["locked_slot"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 4,
+        "x": 13,
         "y": 0
       }
     ]
   },
   "picture": {
-    "id": "rice_ball_04",
+    "id": "dog_08",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 20,
+      "count": 16,
       "id": "p01",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p02",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p03",
-      "variantId": "acorn"
-    },
-    {
-      "count": 13,
-      "id": "p04",
-      "variantId": "flower"
-    },
-    {
-      "count": 11,
-      "id": "p05",
-      "variantId": "flower"
-    },
-    {
-      "count": 11,
-      "id": "p06",
-      "variantId": "flower"
+      "variantId": "moss"
     },
     {
       "count": 14,
-      "id": "p07",
-      "variantId": "flower"
-    },
-    {
-      "count": 23,
-      "id": "p08",
-      "variantId": "flower"
+      "id": "p02",
+      "variantId": "moss"
     },
     {
       "count": 24,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
       "id": "p09",
-      "variantId": "flower"
+      "variantId": "acorn"
     },
     {
       "count": 18,
       "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 21,
-      "id": "p11",
-      "variantId": "dew"
-    },
-    {
-      "count": 15,
-      "id": "p12",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 16,
-      "id": "p13",
-      "variantId": "moss"
+      "id": "p11",
+      "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 17,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
       "id": "p14",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     },
     {
       "count": 5,
       "id": "p15",
-      "variantId": "flower"
+      "variantId": "berry"
     }
   ],
   "rewardProfile": "standard",
@@ -144,11 +142,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11"],
-      ["p02", "p07", "p12"],
-      ["p03", "p08", "p13"],
-      ["p04", "p09", "p14"],
-      ["p05", "p10", "p15"]
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12", "p15"]
     ]
   }
 }

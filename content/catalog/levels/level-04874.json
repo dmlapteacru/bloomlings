@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2612
+    "score": 2470
   },
   "entries": [
     {
@@ -15,229 +15,219 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 4874,
   "mapping": {
-    "body": "acorn",
+    "body": "vine",
     "flower": "flower",
     "flower_center": "acorn",
     "grass": "leaf",
     "leaf": "leaf",
     "sky": "water",
     "stripe": "wood",
-    "wing": "dew"
+    "wing": "water"
   },
   "mechanics": ["layered_tile"],
   "overlays": {
     "cells": [
       {
-        "layersBelow": ["water"],
-        "x": 2,
+        "layersBelow": ["water", "leaf"],
+        "x": 1,
         "y": 0
       },
       {
-        "layersBelow": ["flower"],
-        "x": 4,
+        "layersBelow": ["acorn"],
+        "x": 11,
         "y": 0
+      },
+      {
+        "layersBelow": ["vine"],
+        "x": 1,
+        "y": 1
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 5,
+        "y": 2
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 7,
+        "y": 2
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 0,
+        "y": 4
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 2,
+        "y": 4
+      },
+      {
+        "layersBelow": ["vine"],
+        "x": 9,
+        "y": 4
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 7,
+        "y": 5
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 11,
+        "y": 5
+      },
+      {
+        "layersBelow": ["water", "vine"],
+        "x": 1,
+        "y": 6
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 5,
+        "y": 6
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 13,
+        "y": 7
+      },
+      {
+        "layersBelow": ["acorn", "water"],
+        "x": 0,
+        "y": 8
+      },
+      {
+        "layersBelow": ["flower", "wood"],
+        "x": 6,
+        "y": 8
+      },
+      {
+        "layersBelow": ["acorn", "flower"],
+        "x": 8,
+        "y": 8
       },
       {
         "layersBelow": ["flower", "leaf"],
         "x": 9,
-        "y": 0
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 2,
-        "y": 1
-      },
-      {
-        "layersBelow": ["acorn"],
-        "x": 1,
-        "y": 3
-      },
-      {
-        "layersBelow": ["wood", "flower"],
-        "x": 3,
-        "y": 3
-      },
-      {
-        "layersBelow": ["leaf"],
-        "x": 2,
-        "y": 4
-      },
-      {
-        "layersBelow": ["dew"],
-        "x": 4,
-        "y": 4
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 0,
-        "y": 5
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 3,
-        "y": 5
-      },
-      {
-        "layersBelow": ["leaf"],
-        "x": 13,
-        "y": 5
-      },
-      {
-        "layersBelow": ["wood"],
-        "x": 1,
-        "y": 6
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 3,
-        "y": 6
+        "y": 8
       },
       {
         "layersBelow": ["water"],
         "x": 7,
-        "y": 7
+        "y": 9
       },
       {
-        "layersBelow": ["dew", "wood"],
-        "x": 5,
-        "y": 8
-      },
-      {
-        "layersBelow": ["dew", "wood"],
-        "x": 7,
-        "y": 8
-      },
-      {
-        "layersBelow": ["flower"],
+        "layersBelow": ["flower", "wood"],
         "x": 2,
         "y": 10
       },
       {
-        "layersBelow": ["water"],
-        "x": 5,
-        "y": 11
-      },
-      {
-        "layersBelow": ["wood", "dew"],
+        "layersBelow": ["flower", "vine"],
         "x": 8,
-        "y": 11
+        "y": 10
       },
       {
-        "layersBelow": ["leaf", "acorn"],
-        "x": 5,
+        "layersBelow": ["vine"],
+        "x": 3,
         "y": 12
       },
       {
-        "layersBelow": ["wood"],
-        "x": 7,
+        "layersBelow": ["acorn"],
+        "x": 12,
         "y": 13
       },
       {
-        "layersBelow": ["flower", "dew"],
-        "x": 2,
+        "layersBelow": ["flower", "wood"],
+        "x": 8,
         "y": 14
       },
       {
-        "layersBelow": ["flower"],
-        "x": 6,
-        "y": 14
-      },
-      {
-        "layersBelow": ["dew", "leaf"],
-        "x": 13,
-        "y": 14
-      },
-      {
-        "layersBelow": ["flower"],
-        "x": 6,
+        "layersBelow": ["vine", "flower"],
+        "x": 8,
         "y": 15
       }
     ]
   },
   "picture": {
-    "id": "bee_05",
+    "id": "bee_09",
     "version": 1
   },
   "pods": [
     {
-      "count": 13,
+      "count": 14,
       "id": "p01",
       "variantId": "leaf"
     },
     {
-      "count": 16,
+      "count": 17,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 24,
+      "count": 21,
       "id": "p03",
       "variantId": "water"
     },
     {
-      "count": 14,
+      "count": 20,
       "id": "p04",
       "variantId": "water"
     },
     {
-      "count": 13,
-      "id": "p05",
-      "variantId": "water"
-    },
-    {
       "count": 11,
-      "id": "p06",
-      "variantId": "water"
+      "id": "p05",
+      "variantId": "flower"
     },
     {
-      "count": 14,
+      "count": 27,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 19,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 18,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 18,
       "id": "p09",
       "variantId": "water"
     },
     {
       "count": 18,
       "id": "p10",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 14,
       "id": "p11",
-      "variantId": "wood"
+      "variantId": "vine"
     },
     {
-      "count": 15,
+      "count": 9,
       "id": "p12",
-      "variantId": "wood"
-    },
-    {
-      "count": 17,
-      "id": "p13",
-      "variantId": "dew"
-    },
-    {
-      "count": 15,
-      "id": "p14",
       "variantId": "acorn"
     },
     {
       "count": 9,
-      "id": "p15",
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p14",
       "variantId": "leaf"
     },
     {
       "count": 5,
-      "id": "p16",
-      "variantId": "water"
+      "id": "p15",
+      "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
@@ -247,12 +237,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13"],
-      ["p02", "p08", "p14"],
-      ["p03", "p09", "p15"],
-      ["p04", "p10", "p16"],
-      ["p05", "p11"],
-      ["p06", "p12"]
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12", "p15"]
     ]
   }
 }

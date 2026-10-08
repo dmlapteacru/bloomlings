@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1990
+    "score": 1649
   },
   "entries": [
     {
@@ -18,116 +18,115 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p11",
+        "id": "p09",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "flag": "flower",
-    "gate": "wood",
-    "grass": "moss",
-    "hills": "leaf",
-    "keep": "wood",
-    "pole": "wood",
-    "roof": "flower",
-    "sky": "dew",
-    "tower": "wood",
-    "window": "water"
+    "board": "acorn",
+    "frame": "acorn",
+    "inside": "water",
+    "leaf": "leaf",
+    "panes": "water",
+    "radish": "violet_bud",
+    "table": "leaf",
+    "tail": "flower",
+    "wall": "water"
   },
   "mechanics": ["connected_pair", "gate", "locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 7,
-        "y": 4
+        "x": 6,
+        "y": 0
       },
       {
         "hole": true,
-        "x": 7,
-        "y": 11
+        "x": 8,
+        "y": 8
       }
     ]
   },
   "picture": {
-    "id": "castle_03",
+    "id": "radish_04",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 17,
-      "id": "p01",
-      "variantId": "moss"
-    },
-    {
-      "count": 15,
-      "id": "p02",
-      "variantId": "wood"
-    },
-    {
-      "connectedGroupId": "c1",
       "count": 14,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
       "id": "p03",
-      "variantId": "wood"
+      "variantId": "acorn"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 29,
+      "count": 13,
       "id": "p04",
-      "variantId": "wood"
-    },
-    {
-      "count": 29,
-      "id": "p05",
-      "variantId": "wood"
-    },
-    {
-      "count": 27,
-      "id": "p06",
-      "variantId": "wood"
-    },
-    {
-      "count": 16,
-      "id": "p07",
-      "variantId": "dew"
-    },
-    {
-      "count": 16,
-      "id": "p08",
-      "variantId": "dew"
-    },
-    {
-      "count": 16,
-      "id": "p09",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
       "count": 19,
-      "id": "p10",
-      "variantId": "dew"
+      "id": "p05",
+      "variantId": "water"
     },
     {
-      "count": 17,
-      "id": "p11",
+      "count": 21,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 20,
+      "id": "p09",
       "lockKeyId": "k1",
-      "variantId": "flower"
+      "variantId": "violet_bud"
     },
     {
-      "count": 5,
+      "count": 18,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 9,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 20,
       "id": "p12",
       "variantId": "leaf"
     },
     {
-      "count": 5,
+      "count": 10,
       "id": "p13",
       "variantId": "water"
     },
     {
-      "count": 5,
+      "connectedGroupId": "c1",
+      "count": 8,
       "id": "p14",
-      "variantId": "wood"
+      "variantId": "flower"
     }
   ],
   "rewardProfile": "standard",
@@ -139,12 +138,12 @@
     {
       "cells": [
         {
-          "x": 7,
-          "y": 11
+          "x": 8,
+          "y": 8
         }
       ],
       "condition": {
-        "count": 3,
+        "count": 2,
         "kind": "clear_count_adjacent"
       },
       "effect": {
@@ -156,12 +155,11 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13"],
-      ["p02", "p08", "p14"],
-      ["p03", "p09"],
-      ["p04", "p10"],
-      ["p05", "p11"],
-      ["p06", "p12"]
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10"]
     ]
   }
 }

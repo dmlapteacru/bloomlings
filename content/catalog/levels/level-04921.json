@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2017
+    "score": 1717
   },
   "entries": [
     {
@@ -15,156 +15,154 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 4921,
   "mapping": {
-    "anemone": "leaf",
-    "clownfish": "acorn",
-    "coral": "flower",
-    "eye": "dew",
-    "fish": "wood",
-    "sand": "acorn",
-    "stripes": "violet_bud",
-    "tips": "leaf",
-    "water": "dew"
+    "background": "water",
+    "grape": "violet_bud",
+    "grape2": "berry",
+    "leaf": "moss",
+    "stalk": "acorn",
+    "table": "acorn",
+    "vine": "moss"
   },
   "mechanics": ["gate", "stone"],
   "overlays": {
     "cells": [
       {
         "stone": true,
-        "x": 12,
-        "y": 7
+        "x": 17,
+        "y": 3
       },
       {
         "stone": true,
-        "x": 5,
-        "y": 8
+        "x": 17,
+        "y": 4
+      },
+      {
+        "stone": true,
+        "x": 14,
+        "y": 7
       },
       {
         "hole": true,
         "x": 9,
-        "y": 10
+        "y": 16
       },
       {
         "stone": true,
-        "x": 0,
-        "y": 11
-      },
-      {
-        "stone": true,
-        "x": 15,
-        "y": 18
+        "x": 8,
+        "y": 20
       }
     ]
   },
   "picture": {
-    "id": "clownfish_05",
+    "id": "grapes_12",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 13,
+      "count": 18,
       "id": "p01",
       "variantId": "acorn"
     },
     {
-      "count": 14,
+      "count": 18,
       "id": "p02",
       "variantId": "acorn"
     },
     {
-      "count": 12,
+      "count": 20,
       "id": "p03",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 11,
       "id": "p04",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 12,
       "id": "p05",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 14,
+      "count": 20,
       "id": "p06",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 21,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 26,
+      "count": 21,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 25,
+      "count": 20,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 22,
       "id": "p10",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 21,
       "id": "p11",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 10,
       "id": "p12",
-      "variantId": "dew"
-    },
-    {
-      "count": 24,
-      "id": "p13",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
       "count": 13,
-      "id": "p14",
-      "variantId": "dew"
+      "id": "p13",
+      "variantId": "moss"
     },
     {
-      "count": 14,
-      "id": "p15",
-      "variantId": "dew"
+      "count": 12,
+      "id": "p14",
+      "variantId": "violet_bud"
     },
     {
       "count": 15,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
       "id": "p16",
-      "variantId": "acorn"
+      "variantId": "violet_bud"
     },
     {
       "count": 15,
       "id": "p17",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p18",
       "variantId": "violet_bud"
     },
     {
-      "count": 12,
-      "id": "p19",
-      "variantId": "flower"
+      "count": 21,
+      "id": "p18",
+      "variantId": "berry"
     },
     {
-      "count": 5,
+      "count": 23,
+      "id": "p19",
+      "variantId": "berry"
+    },
+    {
+      "count": 10,
       "id": "p20",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 5,
       "id": "p21",
-      "variantId": "wood"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
@@ -177,11 +175,11 @@
       "cells": [
         {
           "x": 9,
-          "y": 10
+          "y": 16
         }
       ],
       "condition": {
-        "count": 4,
+        "count": 2,
         "kind": "clear_count_adjacent"
       },
       "effect": {
@@ -193,11 +191,10 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21"],
-      ["p02", "p07", "p12", "p17"],
-      ["p03", "p08", "p13", "p18"],
-      ["p04", "p09", "p14", "p19"],
-      ["p05", "p10", "p15", "p20"]
+      ["p01", "p05", "p09", "p13", "p17", "p21"],
+      ["p02", "p06", "p10", "p14", "p18"],
+      ["p03", "p07", "p11", "p15", "p19"],
+      ["p04", "p08", "p12", "p16", "p20"]
     ]
   }
 }

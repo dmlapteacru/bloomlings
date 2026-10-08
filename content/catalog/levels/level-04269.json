@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2513
+    "score": 2547
   },
   "entries": [
     {
@@ -15,285 +15,286 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 4269,
   "mapping": {
-    "bubble": "water",
-    "eye": "violet_bud",
-    "fin": "berry",
-    "fish": "vine",
-    "sand": "wood",
-    "stripe": "water",
-    "water": "water",
-    "weed": "leaf"
+    "belly": "wood",
+    "branch": "moss",
+    "eye": "water",
+    "leaves": "leaf",
+    "moon": "water",
+    "night": "violet_bud",
+    "owl": "wood",
+    "pupil": "violet_bud",
+    "stars": "vine"
   },
   "mechanics": ["fountain"],
   "overlays": {
     "cells": [
       {
         "stone": true,
-        "x": 7,
-        "y": 7
-      },
-      {
-        "hole": true,
-        "x": 9,
-        "y": 8
+        "x": 2,
+        "y": 9
       },
       {
         "stone": true,
-        "x": 7,
-        "y": 9
+        "x": 2,
+        "y": 10
+      },
+      {
+        "hole": true,
+        "x": 3,
+        "y": 11
       }
     ]
   },
   "picture": {
-    "id": "fish_14",
+    "id": "owl_12",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 10,
+      "count": 6,
       "id": "p01",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p02",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "count": 10,
+      "count": 7,
       "id": "p03",
       "variantId": "wood"
     },
     {
-      "count": 9,
+      "count": 5,
       "id": "p04",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "count": 10,
+      "count": 8,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p06",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
       "count": 6,
       "id": "p07",
-      "variantId": "water"
-    },
-    {
-      "count": 5,
-      "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p09",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
       "count": 7,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
       "id": "p10",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 10,
+      "count": 5,
       "id": "p12",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 7,
       "id": "p13",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
       "count": 6,
       "id": "p14",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 5,
       "id": "p15",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 8,
       "id": "p16",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 7,
       "id": "p17",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 5,
       "id": "p18",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p19",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 11,
       "id": "p20",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 11,
+      "count": 5,
       "id": "p21",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 7,
       "id": "p22",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 11,
       "id": "p23",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 10,
       "id": "p24",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 5,
+      "count": 8,
       "id": "p25",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 8,
+      "count": 11,
       "id": "p26",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p27",
-      "variantId": "water"
-    },
-    {
-      "count": 5,
-      "id": "p28",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
       "count": 8,
-      "id": "p29",
-      "variantId": "water"
+      "id": "p28",
+      "variantId": "violet_bud"
     },
     {
       "count": 11,
-      "id": "p30",
-      "variantId": "water"
+      "id": "p29",
+      "variantId": "violet_bud"
     },
     {
-      "count": 12,
+      "count": 8,
+      "id": "p30",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
       "id": "p31",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
       "count": 10,
       "id": "p32",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 8,
       "id": "p33",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 5,
+      "count": 10,
       "id": "p34",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
       "count": 8,
       "id": "p35",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p36",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p37",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p38",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p39",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p40",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p41",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p42",
       "variantId": "water"
     },
     {
       "count": 6,
-      "id": "p36",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p37",
-      "variantId": "water"
-    },
-    {
-      "count": 12,
-      "id": "p38",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p39",
-      "variantId": "vine"
-    },
-    {
-      "count": 9,
-      "id": "p40",
-      "variantId": "vine"
-    },
-    {
-      "count": 8,
-      "id": "p41",
-      "variantId": "vine"
-    },
-    {
-      "count": 11,
-      "id": "p42",
-      "variantId": "vine"
-    },
-    {
-      "count": 7,
       "id": "p43",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 7,
       "id": "p44",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 8,
       "id": "p45",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
       "count": 8,
       "id": "p46",
-      "variantId": "berry"
+      "variantId": "wood"
     },
     {
       "count": 8,
       "id": "p47",
-      "variantId": "berry"
+      "variantId": "leaf"
     },
     {
-      "count": 7,
+      "count": 10,
       "id": "p48",
       "variantId": "violet_bud"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p49",
-      "variantId": "violet_bud"
+      "variantId": "vine"
     }
   ],
   "rewardProfile": "standard",
@@ -305,24 +306,24 @@
     {
       "cells": [
         {
-          "x": 9,
-          "y": 8
+          "x": 3,
+          "y": 11
         }
       ],
       "condition": {
-        "count": 3,
+        "count": 2,
         "kind": "clear_count_adjacent",
-        "variantId": "water"
+        "variantId": "violet_bud"
       },
       "effect": {
         "cells": [
           {
-            "x": 7,
-            "y": 7
+            "x": 2,
+            "y": 9
           },
           {
-            "x": 7,
-            "y": 9
+            "x": 2,
+            "y": 10
           }
         ],
         "kind": "remove_stones"

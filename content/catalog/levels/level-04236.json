@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1683
+    "score": 2062
   },
   "entries": [
     {
@@ -24,23 +24,22 @@
     }
   ],
   "mapping": {
-    "bubbles": "water",
-    "coral": "flower",
-    "eye": "leaf",
-    "fins": "acorn",
-    "puffer": "vine",
-    "pupil": "flower",
-    "sand": "acorn",
-    "water": "water",
-    "weed": "leaf"
+    "eyes": "wood",
+    "potato": "wood",
+    "rim": "moss",
+    "sack": "leaf",
+    "shelf": "flower",
+    "table": "flower",
+    "wall": "dew",
+    "wall_dots": "water"
   },
   "mechanics": ["chest", "locked_slot"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 4,
-        "y": 4
+        "x": 14,
+        "y": 0
       },
       {
         "stone": true,
@@ -54,76 +53,76 @@
       },
       {
         "stone": true,
-        "x": 2,
-        "y": 11
+        "x": 1,
+        "y": 10
       }
     ]
   },
   "picture": {
-    "id": "pufferfish_06",
+    "id": "potato_04",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 14,
+      "count": 6,
       "id": "p01",
-      "variantId": "acorn"
-    },
-    {
-      "count": 16,
-      "id": "p02",
-      "variantId": "acorn"
-    },
-    {
-      "count": 9,
-      "id": "p03",
       "variantId": "water"
-    },
-    {
-      "count": 30,
-      "id": "p04",
-      "variantId": "vine"
-    },
-    {
-      "count": 24,
-      "id": "p05",
-      "variantId": "leaf"
     },
     {
       "count": 18,
-      "id": "p06",
-      "variantId": "vine"
+      "id": "p02",
+      "variantId": "dew"
     },
     {
-      "count": 19,
-      "id": "p07",
-      "variantId": "water"
+      "count": 15,
+      "id": "p03",
+      "variantId": "dew"
     },
     {
-      "count": 20,
-      "id": "p08",
-      "variantId": "water"
+      "count": 18,
+      "id": "p04",
+      "variantId": "dew"
     },
     {
-      "count": 17,
-      "id": "p09",
-      "variantId": "water"
-    },
-    {
-      "count": 20,
-      "id": "p10",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p11",
+      "count": 14,
+      "id": "p05",
       "variantId": "flower"
     },
     {
-      "count": 8,
+      "count": 14,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 22,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 26,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 22,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 22,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
       "id": "p12",
-      "variantId": "acorn"
+      "variantId": "flower"
     }
   ],
   "rewardProfile": "standard",
@@ -154,8 +153,8 @@
             "y": 8
           },
           {
-            "x": 2,
-            "y": 11
+            "x": 1,
+            "y": 10
           }
         ],
         "kind": "remove_stones"
@@ -166,10 +165,8 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09"],
-      ["p02", "p06", "p10"],
-      ["p03", "p07", "p11"],
-      ["p04", "p08", "p12"]
+      ["p01", "p03", "p05", "p07", "p09", "p11"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
     ]
   }
 }

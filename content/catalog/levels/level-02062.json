@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1598
+    "score": 1662
   },
   "entries": [
     {
@@ -24,135 +24,135 @@
     }
   ],
   "mapping": {
-    "band": "vine",
-    "crown": "vine",
-    "cushion": "flower",
-    "floor": "moss",
-    "ruby": "flower",
-    "sapphire": "water",
-    "sparkle": "moss",
-    "tassel": "wood",
-    "wall": "water"
+    "blueberry": "water",
+    "butter": "moss",
+    "edge": "acorn",
+    "pancake": "acorn",
+    "plate": "violet_bud",
+    "strawberry": "berry",
+    "syrup": "acorn",
+    "table": "moss",
+    "wall": "dew"
   },
   "mechanics": ["connected_pair", "key", "stone"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 11,
-        "y": 1
+        "x": 13,
+        "y": 2
       },
       {
         "stone": true,
-        "x": 15,
-        "y": 3
+        "x": 2,
+        "y": 4
       },
       {
         "stone": true,
-        "x": 15,
-        "y": 9
+        "x": 0,
+        "y": 7
       },
       {
         "hole": true,
-        "x": 7,
+        "x": 8,
         "y": 10
       },
       {
         "stone": true,
-        "x": 9,
-        "y": 12
+        "x": 12,
+        "y": 13
       },
       {
         "stone": true,
-        "x": 13,
+        "x": 15,
         "y": 14
       }
     ]
   },
   "picture": {
-    "id": "crown_06",
+    "id": "pancakes_09",
     "version": 1
   },
   "pods": [
     {
-      "count": 18,
+      "count": 15,
       "id": "p01",
       "variantId": "moss"
     },
     {
-      "count": 13,
+      "count": 5,
       "id": "p02",
-      "variantId": "flower"
+      "variantId": "berry"
     },
     {
-      "count": 14,
+      "count": 17,
       "id": "p03",
-      "variantId": "flower"
+      "variantId": "moss"
     },
     {
-      "count": 13,
+      "count": 10,
       "id": "p04",
-      "variantId": "flower"
+      "variantId": "violet_bud"
     },
     {
       "count": 12,
       "id": "p05",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 14,
       "id": "p06",
-      "variantId": "vine"
+      "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 14,
       "id": "p07",
-      "variantId": "vine"
-    },
-    {
-      "count": 11,
-      "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p09",
-      "variantId": "water"
-    },
-    {
-      "count": 19,
-      "id": "p10",
-      "variantId": "water"
-    },
-    {
-      "count": 21,
-      "id": "p11",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p12",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
       "count": 12,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 21,
       "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 19,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p15",
       "variantId": "water"
     },
     {
-      "count": 10,
-      "id": "p14",
-      "variantId": "wood"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 8,
-      "id": "p15",
-      "variantId": "flower"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 6,
+      "count": 5,
       "id": "p16",
       "variantId": "moss"
     }
@@ -166,7 +166,7 @@
     {
       "cells": [
         {
-          "x": 7,
+          "x": 8,
           "y": 10
         }
       ],

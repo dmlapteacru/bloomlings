@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1665
+    "score": 1652
   },
   "entries": [
     {
@@ -24,47 +24,47 @@
     "cloud": "water",
     "crown": "flower",
     "hedge": "moss",
-    "pane": "water",
+    "pane": "dew",
     "pavement": "acorn",
-    "sign": "vine",
+    "sign": "acorn",
     "sky": "dew",
     "tree": "moss",
-    "trunk": "acorn"
+    "trunk": "wood"
   },
   "picture": {
-    "id": "phone_booth_07",
+    "id": "phone_booth_01",
     "version": 1
   },
   "pods": [
     {
-      "count": 18,
+      "count": 29,
       "id": "p01",
       "variantId": "acorn"
     },
     {
-      "count": 18,
+      "count": 26,
       "id": "p02",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 28,
       "id": "p03",
       "variantId": "dew"
     },
     {
-      "count": 25,
+      "count": 26,
       "id": "p04",
       "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 26,
       "id": "p05",
       "variantId": "dew"
     },
     {
-      "count": 24,
+      "count": 16,
       "id": "p06",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 17,
@@ -72,34 +72,34 @@
       "variantId": "flower"
     },
     {
-      "count": 16,
+      "count": 33,
       "id": "p08",
       "variantId": "flower"
     },
     {
-      "count": 18,
+      "count": 29,
       "id": "p09",
-      "variantId": "flower"
+      "variantId": "moss"
     },
     {
       "count": 16,
       "id": "p10",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 7,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
-      "count": 29,
+      "count": 6,
       "id": "p12",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
       "count": 5,
       "id": "p13",
-      "variantId": "vine"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
@@ -109,11 +109,10 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11"],
-      ["p02", "p07", "p12"],
-      ["p03", "p08", "p13"],
-      ["p04", "p09"],
-      ["p05", "p10"]
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
     ]
   }
 }

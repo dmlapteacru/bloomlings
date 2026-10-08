@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1796
+    "score": 1839
   },
   "entries": [
     {
@@ -15,138 +15,139 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2841,
   "mapping": {
-    "bows": "flower",
-    "cloud": "water",
-    "far_hill": "leaf",
-    "hill": "leaf",
-    "kite": "berry",
-    "panel": "wood",
-    "sky": "water",
-    "string": "acorn"
+    "bush": "leaf",
+    "cloud": "dew",
+    "field": "leaf",
+    "hoops": "water",
+    "legs": "violet_bud",
+    "roof": "berry",
+    "sky": "dew",
+    "sun": "acorn",
+    "tank": "acorn"
   },
   "mechanics": ["connected_pair"],
   "picture": {
-    "id": "kite_09",
+    "id": "water_tower_09",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 12,
+      "count": 9,
       "id": "p01",
       "variantId": "leaf"
     },
     {
-      "count": 13,
+      "count": 8,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 13,
+      "count": 8,
       "id": "p03",
       "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 10,
       "id": "p04",
       "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 10,
+      "count": 9,
       "id": "p06",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 14,
       "id": "p07",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 14,
       "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p09",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p10",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p11",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p12",
-      "variantId": "water"
-    },
-    {
-      "count": 18,
-      "id": "p13",
-      "variantId": "water"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 8,
-      "id": "p14",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p15",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p16",
-      "variantId": "water"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 9,
-      "id": "p17",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p18",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p19",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
       "count": 7,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 14,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "violet_bud"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 8,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p18",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p19",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
       "id": "p20",
-      "variantId": "flower"
+      "variantId": "acorn"
     },
     {
-      "count": 16,
+      "count": 12,
       "id": "p21",
-      "variantId": "wood"
-    },
-    {
-      "count": 16,
-      "id": "p22",
       "variantId": "berry"
     },
     {
-      "count": 5,
+      "count": 7,
+      "id": "p22",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
       "id": "p23",
-      "variantId": "acorn"
+      "variantId": "water"
     }
   ],
   "rewardProfile": "standard",

@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3210
+    "score": 3306
   },
   "entries": [
     {
@@ -18,7 +18,7 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p38",
+        "id": "p02",
         "kind": "pod"
       }
     }
@@ -230,22 +230,23 @@
   },
   "pods": [
     {
-      "count": 6,
+      "count": 7,
       "id": "p01",
-      "variantId": "acorn"
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p02",
+      "lockKeyId": "k1",
+      "variantId": "violet_bud"
     },
     {
       "count": 7,
-      "id": "p02",
-      "variantId": "water"
+      "id": "p03",
+      "variantId": "dew"
     },
     {
       "count": 9,
-      "id": "p03",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
       "id": "p04",
       "variantId": "water"
     },
@@ -255,69 +256,69 @@
       "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p06",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 6,
+      "count": 9,
       "id": "p10",
       "variantId": "water"
     },
     {
-      "count": 9,
-      "id": "p11",
-      "variantId": "water"
-    },
-    {
       "count": 5,
-      "id": "p12",
+      "id": "p11",
       "variantId": "acorn"
     },
     {
       "count": 8,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
       "id": "p13",
       "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p14",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
       "count": 6,
       "id": "p15",
-      "variantId": "acorn"
+      "variantId": "violet_bud"
     },
     {
       "count": 7,
       "id": "p16",
-      "variantId": "acorn"
+      "variantId": "violet_bud"
     },
     {
       "count": 6,
       "id": "p17",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p18",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
       "count": 6,
@@ -335,7 +336,7 @@
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p22",
       "variantId": "dew"
     },
@@ -345,17 +346,17 @@
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p24",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p25",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p26",
       "variantId": "dew"
     },
@@ -370,12 +371,12 @@
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p29",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p30",
       "variantId": "dew"
     },
@@ -385,24 +386,24 @@
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 9,
       "id": "p32",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
       "count": 7,
       "id": "p33",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 5,
       "id": "p34",
       "variantId": "leaf"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p35",
-      "variantId": "leaf"
+      "variantId": "acorn"
     },
     {
       "count": 8,
@@ -417,8 +418,7 @@
     {
       "count": 6,
       "id": "p38",
-      "lockKeyId": "k1",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
       "count": 7,
@@ -452,12 +452,9 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13", "p19", "p25", "p31", "p37"],
-      ["p02", "p08", "p14", "p20", "p26", "p32", "p38"],
-      ["p03", "p09", "p15", "p21", "p27", "p33", "p39"],
-      ["p04", "p10", "p16", "p22", "p28", "p34"],
-      ["p05", "p11", "p17", "p23", "p29", "p35"],
-      ["p06", "p12", "p18", "p24", "p30", "p36"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36", "p39"]
     ]
   }
 }

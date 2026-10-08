@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2413
+    "score": 2538
   },
   "entries": [
     {
@@ -44,29 +44,29 @@
       "variantId": "flower"
     },
     {
-      "count": 6,
-      "id": "p03",
-      "variantId": "water"
-    },
-    {
-      "count": 9,
-      "id": "p04",
-      "variantId": "wood"
-    },
-    {
-      "count": 7,
-      "id": "p05",
-      "variantId": "wood"
-    },
-    {
       "count": 5,
-      "id": "p06",
+      "id": "p03",
       "variantId": "violet_bud"
     },
     {
       "count": 7,
-      "id": "p07",
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p06",
       "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "violet_bud"
     },
     {
       "count": 7,
@@ -74,9 +74,9 @@
       "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p09",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 5,
@@ -84,9 +84,9 @@
       "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 5,
@@ -94,7 +94,7 @@
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p13",
       "variantId": "water"
     },
@@ -104,9 +104,9 @@
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p15",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
       "count": 5,
@@ -119,27 +119,27 @@
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p18",
       "variantId": "violet_bud"
     },
     {
-      "count": 6,
+      "count": 8,
       "id": "p19",
       "variantId": "violet_bud"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p20",
       "variantId": "violet_bud"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p21",
       "variantId": "violet_bud"
     },
     {
-      "count": 8,
+      "count": 5,
       "id": "p22",
       "variantId": "violet_bud"
     },
@@ -154,37 +154,37 @@
       "variantId": "violet_bud"
     },
     {
-      "count": 5,
+      "count": 8,
       "id": "p25",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p26",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
       "count": 6,
       "id": "p27",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 6,
-      "id": "p28",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
-      "id": "p29",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
-      "id": "p30",
       "variantId": "water"
     },
     {
       "count": 5,
+      "id": "p28",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p29",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p30",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
       "id": "p31",
       "variantId": "water"
     },
@@ -204,17 +204,17 @@
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p35",
       "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 8,
       "id": "p36",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p37",
       "variantId": "moss"
     }
@@ -226,8 +226,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23", "p25", "p27", "p29", "p31", "p33", "p35", "p37"],
-      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24", "p26", "p28", "p30", "p32", "p34", "p36"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36"]
     ]
   }
 }

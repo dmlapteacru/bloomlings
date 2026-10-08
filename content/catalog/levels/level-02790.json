@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1668
+    "score": 1624
   },
   "entries": [
     {
@@ -22,16 +22,16 @@
   "mapping": {
     "belly": "acorn",
     "bunny": "acorn",
-    "carrot": "wood",
+    "carrot": "acorn",
     "carrot_top": "moss",
     "eye": "dew",
-    "flowers": "violet_bud",
+    "flowers": "berry",
     "grass": "leaf",
-    "inner_ear": "violet_bud",
+    "inner_ear": "flower",
     "sky": "dew"
   },
   "picture": {
-    "id": "rabbit_04",
+    "id": "rabbit_06",
     "mirror": "horizontal",
     "version": 1
   },
@@ -42,59 +42,59 @@
       "variantId": "leaf"
     },
     {
-      "count": 26,
+      "count": 22,
       "id": "p02",
       "variantId": "dew"
     },
     {
-      "count": 26,
+      "count": 23,
       "id": "p03",
       "variantId": "dew"
     },
     {
-      "count": 26,
+      "count": 23,
       "id": "p04",
       "variantId": "dew"
     },
     {
-      "count": 28,
+      "count": 25,
       "id": "p05",
       "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 17,
       "id": "p06",
       "variantId": "acorn"
     },
     {
-      "count": 14,
+      "count": 16,
       "id": "p07",
       "variantId": "acorn"
     },
     {
-      "count": 16,
+      "count": 18,
       "id": "p08",
       "variantId": "acorn"
     },
     {
-      "count": 14,
+      "count": 16,
       "id": "p09",
       "variantId": "acorn"
     },
     {
-      "count": 17,
+      "count": 10,
       "id": "p10",
-      "variantId": "violet_bud"
+      "variantId": "flower"
     },
     {
-      "count": 12,
+      "count": 11,
       "id": "p11",
       "variantId": "dew"
     },
     {
       "count": 7,
       "id": "p12",
-      "variantId": "wood"
+      "variantId": "berry"
     },
     {
       "count": 5,

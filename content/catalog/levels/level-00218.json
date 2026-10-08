@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3274
+    "score": 3114
   },
   "entries": [
     {
@@ -211,67 +211,67 @@
       "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p03",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p04",
       "variantId": "moss"
     },
     {
-      "count": 11,
-      "id": "p05",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p06",
-      "variantId": "moss"
-    },
-    {
       "count": 10,
-      "id": "p07",
+      "id": "p05",
       "variantId": "moss"
     },
     {
       "count": 12,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
       "id": "p08",
       "variantId": "acorn"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p09",
       "variantId": "acorn"
     },
     {
-      "count": 10,
-      "id": "p10",
-      "variantId": "acorn"
-    },
-    {
-      "count": 8,
-      "id": "p11",
-      "variantId": "wood"
-    },
-    {
-      "count": 10,
-      "id": "p12",
-      "variantId": "acorn"
-    },
-    {
-      "count": 11,
-      "id": "p13",
-      "variantId": "acorn"
-    },
-    {
       "count": 7,
-      "id": "p14",
+      "id": "p10",
       "variantId": "dew"
     },
     {
       "count": 6,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
       "id": "p15",
       "variantId": "dew"
     },
@@ -286,49 +286,49 @@
       "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 7,
       "id": "p18",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 7,
       "id": "p19",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 7,
       "id": "p20",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p21",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p22",
       "variantId": "flower"
     },
     {
       "count": 10,
-      "id": "p23",
+      "id": "p21",
       "variantId": "flower"
     },
     {
+      "count": 8,
+      "id": "p22",
+      "variantId": "wood"
+    },
+    {
       "count": 6,
-      "id": "p24",
+      "id": "p23",
       "variantId": "wood"
     },
     {
       "count": 11,
-      "id": "p25",
+      "id": "p24",
       "variantId": "water"
     },
     {
       "count": 10,
-      "id": "p26",
+      "id": "p25",
       "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p26",
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
@@ -338,11 +338,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26"],
-      ["p02", "p07", "p12", "p17", "p22"],
-      ["p03", "p08", "p13", "p18", "p23"],
-      ["p04", "p09", "p14", "p19", "p24"],
-      ["p05", "p10", "p15", "p20", "p25"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24"]
     ]
   }
 }

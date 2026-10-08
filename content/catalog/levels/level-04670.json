@@ -3,160 +3,129 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1640
+    "score": 1600
   },
   "entries": [
     {
-      "side": "bottom",
-      "x": 1,
-      "y": 0
+      "side": "left",
+      "x": 0,
+      "y": 5
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 4670,
   "mapping": {
-    "flag": "violet_bud",
-    "hull": "wood",
-    "jib": "berry",
-    "mast": "wood",
-    "sail": "violet_bud",
-    "sea": "water",
-    "sky": "water",
-    "stripe": "moss",
-    "sun": "acorn"
+    "canopy": "leaf",
+    "grass": "leaf",
+    "lilies": "flower",
+    "pond": "water",
+    "reeds": "wood",
+    "sky": "dew",
+    "sun": "flower",
+    "trunk": "acorn"
   },
-  "mechanics": ["environment_2", "gate"],
+  "mechanics": ["stone"],
   "overlays": {
     "cells": [
       {
-        "hole": true,
-        "x": 11,
-        "y": 7
+        "stone": true,
+        "x": 1,
+        "y": 4
       },
       {
-        "hole": true,
-        "x": 12,
+        "stone": true,
+        "x": 11,
         "y": 8
+      },
+      {
+        "stone": true,
+        "x": 13,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 15
       }
     ]
   },
   "picture": {
-    "id": "sailboat_14",
-    "mirror": "horizontal",
+    "id": "willow_tree_01",
     "version": 1
   },
   "pods": [
     {
-      "count": 9,
+      "count": 10,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
-      "count": 5,
+      "count": 19,
       "id": "p02",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 20,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 21,
       "id": "p04",
-      "variantId": "berry"
+      "variantId": "leaf"
     },
     {
-      "count": 18,
+      "count": 7,
       "id": "p05",
       "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 18,
       "id": "p06",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 21,
       "id": "p07",
-      "variantId": "water"
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 22,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
+      "id": "p10",
+      "variantId": "leaf"
     },
     {
       "count": 16,
-      "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 15,
-      "id": "p09",
-      "variantId": "water"
-    },
-    {
-      "count": 31,
-      "id": "p10",
-      "variantId": "water"
-    },
-    {
-      "count": 15,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 23,
+      "count": 9,
       "id": "p12",
-      "variantId": "violet_bud"
+      "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "1335752759940332036",
+  "seed": "10781444884361218629",
   "slots": {
     "count": 5
   },
-  "specials": [
-    {
-      "cells": [
-        {
-          "x": 12,
-          "y": 8
-        }
-      ],
-      "condition": {
-        "count": 3,
-        "kind": "clear_count_adjacent"
-      },
-      "effect": {
-        "kind": "open_cells"
-      },
-      "id": "gate",
-      "type": "gate"
-    },
-    {
-      "cells": [
-        {
-          "x": 11,
-          "y": 7
-        }
-      ],
-      "condition": {
-        "count": 2,
-        "kind": "clear_count_adjacent",
-        "variantId": "water"
-      },
-      "effect": {
-        "kind": "open_cells"
-      },
-      "id": "bridge",
-      "type": "bridge"
-    }
-  ],
   "tray": {
     "stacks": [
-      ["p01", "p07"],
-      ["p02", "p08"],
-      ["p03", "p09"],
-      ["p04", "p10"],
-      ["p05", "p11"],
-      ["p06", "p12"]
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
     ]
   }
 }

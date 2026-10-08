@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3291
+    "score": 3258
   },
   "entries": [
     {
@@ -244,35 +244,35 @@
     {
       "count": 10,
       "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p08",
       "variantId": "wood"
     },
     {
       "count": 10,
-      "id": "p07",
+      "id": "p09",
       "variantId": "wood"
     },
     {
       "count": 9,
-      "id": "p08",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "count": 5,
       "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p11",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p12",
       "variantId": "dew"
     },
@@ -282,57 +282,57 @@
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p14",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 8,
       "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p16",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 5,
       "id": "p17",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p18",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p19",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p20",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p21",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p22",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p23",
       "variantId": "flower"
     },
     {
-      "count": 10,
+      "count": 5,
       "id": "p24",
       "variantId": "flower"
     },
@@ -414,11 +414,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26", "p31", "p36"],
-      ["p02", "p07", "p12", "p17", "p22", "p27", "p32", "p37"],
-      ["p03", "p08", "p13", "p18", "p23", "p28", "p33", "p38"],
-      ["p04", "p09", "p14", "p19", "p24", "p29", "p34"],
-      ["p05", "p10", "p15", "p20", "p25", "p30", "p35"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36"]
     ]
   }
 }

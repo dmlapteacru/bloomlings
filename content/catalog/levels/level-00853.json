@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3182
+    "score": 3119
   },
   "entries": [
     {
@@ -18,7 +18,7 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p14",
+        "id": "p11",
         "kind": "pod"
       }
     }
@@ -197,32 +197,32 @@
   },
   "pods": [
     {
-      "count": 18,
+      "count": 19,
       "id": "p01",
-      "variantId": "water"
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p03",
+      "variantId": "dew"
     },
     {
       "count": 10,
-      "id": "p02",
+      "id": "p04",
       "variantId": "moss"
     },
     {
       "count": 15,
-      "id": "p03",
+      "id": "p05",
       "variantId": "leaf"
     },
     {
-      "count": 5,
-      "id": "p04",
-      "variantId": "flower"
-    },
-    {
       "count": 9,
-      "id": "p05",
-      "variantId": "flower"
-    },
-    {
-      "count": 21,
       "id": "p06",
       "variantId": "flower"
     },
@@ -237,9 +237,9 @@
       "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 21,
       "id": "p09",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
       "count": 18,
@@ -247,30 +247,30 @@
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 20,
       "id": "p11",
-      "variantId": "dew"
-    },
-    {
-      "count": 20,
-      "id": "p12",
-      "variantId": "dew"
-    },
-    {
-      "count": 19,
-      "id": "p13",
-      "variantId": "dew"
-    },
-    {
-      "count": 20,
-      "id": "p14",
       "lockKeyId": "k1",
       "variantId": "acorn"
     },
     {
       "count": 18,
-      "id": "p15",
+      "id": "p12",
       "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "flower"
     }
   ],
   "rewardProfile": "standard",
@@ -280,11 +280,8 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11"],
-      ["p02", "p07", "p12"],
-      ["p03", "p08", "p13"],
-      ["p04", "p09", "p14"],
-      ["p05", "p10", "p15"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
     ]
   }
 }

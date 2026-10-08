@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1589
+    "score": 1758
   },
   "entries": [
     {
@@ -15,105 +15,106 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2084,
   "mapping": {
-    "bows": "violet_bud",
-    "cloud": "water",
-    "far_hill": "leaf",
-    "hill": "leaf",
-    "kite": "flower",
-    "panel": "wood",
-    "sky": "water",
-    "string": "wood"
+    "door": "wood",
+    "flag": "flower",
+    "meadow": "leaf",
+    "moon": "water",
+    "night": "water",
+    "pine": "leaf",
+    "pole": "wood",
+    "stars": "acorn",
+    "tent": "flower"
   },
   "picture": {
-    "id": "kite_05",
+    "id": "tent_05",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 23,
+      "count": 18,
       "id": "p01",
       "variantId": "leaf"
     },
     {
-      "count": 23,
+      "count": 19,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 17,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 13,
+      "count": 18,
       "id": "p04",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 24,
+      "count": 23,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 23,
       "id": "p06",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 12,
+      "count": 21,
       "id": "p07",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 14,
+      "count": 19,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 13,
+      "count": 22,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 13,
+      "count": 20,
       "id": "p10",
       "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 21,
       "id": "p11",
       "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 20,
       "id": "p12",
       "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 21,
       "id": "p13",
       "variantId": "water"
     },
     {
-      "count": 13,
-      "id": "p14",
-      "variantId": "wood"
-    },
-    {
-      "count": 12,
-      "id": "p15",
-      "variantId": "wood"
-    },
-    {
       "count": 19,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
       "id": "p16",
       "variantId": "flower"
     },
     {
-      "count": 11,
+      "count": 5,
       "id": "p17",
-      "variantId": "violet_bud"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
@@ -123,10 +124,8 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13", "p17"],
-      ["p02", "p06", "p10", "p14"],
-      ["p03", "p07", "p11", "p15"],
-      ["p04", "p08", "p12", "p16"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16"]
     ]
   }
 }

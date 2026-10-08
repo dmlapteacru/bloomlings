@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1829
+    "score": 1822
   },
   "entries": [
     {
@@ -18,138 +18,140 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p26",
+        "id": "p24",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "background": "leaf",
-    "cookie": "wood",
-    "heart": "water",
-    "mug": "berry",
-    "pattern": "moss",
-    "steam": "water",
-    "table": "wood",
-    "tea": "wood"
+    "bush": "leaf",
+    "chimney": "wood",
+    "door": "flower",
+    "lawn": "leaf",
+    "path": "wood",
+    "roof": "berry",
+    "sky": "dew",
+    "sun": "wood",
+    "wall": "wood",
+    "window": "dew"
   },
   "mechanics": ["locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 11,
-        "y": 12
+        "x": 6,
+        "y": 1
       }
     ]
   },
   "picture": {
-    "id": "mug_10",
+    "id": "house_09",
     "version": 1
   },
   "pods": [
     {
-      "count": 5,
+      "count": 8,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 11,
+      "count": 7,
       "id": "p02",
-      "variantId": "wood"
+      "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p03",
       "variantId": "wood"
     },
     {
       "count": 7,
       "id": "p04",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
-      "count": 10,
+      "count": 5,
       "id": "p05",
       "variantId": "wood"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p06",
       "variantId": "wood"
     },
     {
-      "count": 11,
+      "count": 8,
       "id": "p07",
-      "variantId": "leaf"
-    },
-    {
-      "count": 9,
-      "id": "p08",
-      "variantId": "leaf"
-    },
-    {
-      "count": 10,
-      "id": "p09",
-      "variantId": "leaf"
-    },
-    {
-      "count": 10,
-      "id": "p10",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
       "count": 6,
-      "id": "p11",
-      "variantId": "leaf"
-    },
-    {
-      "count": 10,
-      "id": "p12",
-      "variantId": "leaf"
-    },
-    {
-      "count": 7,
-      "id": "p13",
-      "variantId": "leaf"
+      "id": "p08",
+      "variantId": "wood"
     },
     {
       "count": 12,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
       "id": "p14",
-      "variantId": "berry"
+      "variantId": "dew"
     },
     {
       "count": 7,
       "id": "p15",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p16",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 11,
       "id": "p17",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 12,
       "id": "p18",
-      "variantId": "berry"
+      "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 10,
       "id": "p19",
       "variantId": "berry"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p20",
       "variantId": "berry"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p21",
       "variantId": "berry"
     },
@@ -159,25 +161,25 @@
       "variantId": "berry"
     },
     {
-      "count": 6,
-      "id": "p23",
-      "variantId": "berry"
-    },
-    {
       "count": 11,
-      "id": "p24",
-      "variantId": "water"
-    },
-    {
-      "count": 12,
-      "id": "p25",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p26",
-      "lockKeyId": "k1",
+      "id": "p23",
       "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p24",
+      "lockKeyId": "k1",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p25",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p26",
+      "variantId": "flower"
     }
   ],
   "rewardProfile": "standard",

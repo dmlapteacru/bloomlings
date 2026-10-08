@@ -1,229 +1,200 @@
 {
-  "boardLook": "icons",
+  "boardLook": "peek",
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2281
+    "score": 1634
   },
   "entries": [
     {
-      "side": "bottom",
-      "x": 16,
-      "y": 0
+      "side": "right",
+      "x": 15,
+      "y": 5
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 3765,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p18",
+        "kind": "pod"
+      }
+    }
+  ],
   "mapping": {
-    "can": "moss",
-    "drops": "dew",
-    "flower_center": "acorn",
-    "flowers": "violet_bud",
-    "grass": "moss",
-    "handle": "acorn",
-    "sky": "water"
+    "background": "flower",
+    "leaf": "moss",
+    "pear": "leaf",
+    "plate": "water",
+    "stalk": "acorn",
+    "table": "acorn"
   },
-  "mechanics": ["layered_tile"],
+  "mechanics": ["environment_2", "locked_pod", "mystery_tile"],
   "overlays": {
     "cells": [
       {
-        "layersBelow": ["acorn", "water"],
-        "x": 14,
-        "y": 1
-      },
-      {
-        "layersBelow": ["moss"],
-        "x": 5,
+        "keyId": "k1",
+        "x": 6,
         "y": 3
       },
       {
-        "layersBelow": ["dew"],
-        "x": 8,
-        "y": 4
+        "mystery": true,
+        "x": 15,
+        "y": 6
       },
       {
-        "layersBelow": ["violet_bud"],
-        "x": 10,
-        "y": 5
-      },
-      {
-        "layersBelow": ["moss", "dew"],
-        "x": 0,
-        "y": 7
-      },
-      {
-        "layersBelow": ["dew"],
-        "x": 0,
-        "y": 8
-      },
-      {
-        "layersBelow": ["violet_bud"],
-        "x": 5,
-        "y": 8
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 7,
-        "y": 9
-      },
-      {
-        "layersBelow": ["moss"],
-        "x": 17,
-        "y": 9
-      },
-      {
-        "layersBelow": ["violet_bud"],
-        "x": 7,
-        "y": 11
-      },
-      {
-        "layersBelow": ["moss"],
-        "x": 9,
-        "y": 12
-      },
-      {
-        "layersBelow": ["acorn"],
-        "x": 1,
-        "y": 15
-      },
-      {
-        "layersBelow": ["dew"],
-        "x": 5,
-        "y": 17
-      },
-      {
-        "layersBelow": ["moss"],
+        "hole": true,
         "x": 13,
-        "y": 17
-      },
-      {
-        "layersBelow": ["acorn"],
-        "x": 14,
-        "y": 17
-      },
-      {
-        "layersBelow": ["dew"],
-        "x": 16,
-        "y": 17
-      },
-      {
-        "layersBelow": ["dew", "moss"],
-        "x": 14,
-        "y": 18
-      },
-      {
-        "layersBelow": ["acorn", "dew"],
-        "x": 9,
-        "y": 20
-      },
-      {
-        "layersBelow": ["moss"],
-        "x": 12,
-        "y": 20
+        "y": 7
       }
     ]
   },
   "picture": {
-    "id": "watering_can_09",
+    "id": "pear_07",
+    "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 25,
+      "count": 16,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
       "count": 18,
       "id": "p02",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 33,
+      "count": 10,
       "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p06",
       "variantId": "acorn"
     },
     {
-      "count": 26,
-      "id": "p04",
-      "variantId": "moss"
-    },
-    {
-      "count": 25,
-      "id": "p05",
-      "variantId": "moss"
-    },
-    {
-      "count": 21,
-      "id": "p06",
-      "variantId": "water"
-    },
-    {
-      "count": 24,
+      "count": 19,
       "id": "p07",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 17,
+      "count": 11,
       "id": "p08",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 19,
+      "count": 9,
       "id": "p09",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 19,
+      "count": 11,
       "id": "p10",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 19,
+      "count": 11,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 19,
+      "count": 11,
       "id": "p12",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 17,
+      "count": 10,
       "id": "p13",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 23,
+      "count": 9,
       "id": "p14",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
-      "count": 15,
+      "count": 16,
       "id": "p15",
-      "variantId": "dew"
-    },
-    {
-      "count": 13,
-      "id": "p16",
       "variantId": "water"
     },
     {
       "count": 10,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
       "id": "p17",
-      "variantId": "violet_bud"
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "lockKeyId": "k1",
+      "variantId": "moss"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "3522238046709401637",
+  "seed": "6126025029076264588",
   "slots": {
     "count": 5
   },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 13,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 13,
+            "y": 6
+          },
+          {
+            "x": 12,
+            "y": 7
+          },
+          {
+            "x": 14,
+            "y": 7
+          },
+          {
+            "x": 13,
+            "y": 5
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
   "tray": {
     "stacks": [
       ["p01", "p04", "p07", "p10", "p13", "p16"],
       ["p02", "p05", "p08", "p11", "p14", "p17"],
-      ["p03", "p06", "p09", "p12", "p15"]
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
     ]
   }
 }

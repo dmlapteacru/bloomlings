@@ -3,108 +3,122 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1661
+    "score": 1643
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 8,
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
       "y": 0
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 3370,
   "mapping": {
-    "ball": "wood",
-    "cloud": "dew",
-    "court": "leaf",
-    "frame": "berry",
-    "grip": "wood",
-    "hedge": "leaf",
-    "line": "dew",
-    "seam": "violet_bud",
+    "body": "vine",
+    "cloud": "leaf",
+    "grass": "leaf",
+    "mast": "acorn",
+    "skid": "violet_bud",
     "sky": "water",
-    "strings": "wood"
+    "tail": "acorn",
+    "window": "dew"
   },
   "picture": {
-    "id": "tennis_racket_08",
-    "mirror": "horizontal",
+    "id": "helicopter_07",
     "version": 1
   },
   "pods": [
     {
-      "count": 10,
+      "count": 15,
       "id": "p01",
-      "variantId": "wood"
-    },
-    {
-      "count": 26,
-      "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 29,
+      "count": 12,
+      "id": "p02",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
       "id": "p03",
       "variantId": "leaf"
     },
     {
-      "count": 17,
+      "count": 16,
       "id": "p04",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 33,
+      "count": 14,
       "id": "p05",
       "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 14,
       "id": "p06",
       "variantId": "water"
     },
     {
-      "count": 18,
+      "count": 16,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 18,
+      "count": 13,
       "id": "p08",
-      "variantId": "berry"
+      "variantId": "water"
     },
     {
-      "count": 18,
+      "count": 15,
       "id": "p09",
-      "variantId": "berry"
+      "variantId": "water"
     },
     {
-      "count": 30,
+      "count": 16,
       "id": "p10",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 15,
       "id": "p11",
       "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 27,
       "id": "p12",
-      "variantId": "violet_bud"
+      "variantId": "vine"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "dew"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "3781875218553008717",
+  "seed": "17457330311125241638",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11"],
-      ["p02", "p07", "p12"],
-      ["p03", "p08"],
-      ["p04", "p09"],
-      ["p05", "p10"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
     ]
   }
 }

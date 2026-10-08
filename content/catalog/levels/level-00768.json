@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2333
+    "score": 2452
   },
   "entries": [
     {
@@ -34,7 +34,7 @@
   },
   "pods": [
     {
-      "count": 12,
+      "count": 14,
       "id": "p01",
       "variantId": "dew"
     },
@@ -44,9 +44,9 @@
       "variantId": "flower"
     },
     {
-      "count": 13,
+      "count": 11,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
       "count": 15,
@@ -54,29 +54,29 @@
       "variantId": "leaf"
     },
     {
-      "count": 11,
+      "count": 15,
       "id": "p05",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 15,
       "id": "p06",
-      "variantId": "flower"
+      "variantId": "leaf"
     },
     {
-      "count": 13,
+      "count": 11,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 13,
       "id": "p08",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 12,
       "id": "p09",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
       "count": 11,
@@ -89,29 +89,29 @@
       "variantId": "dew"
     },
     {
-      "count": 14,
+      "count": 12,
       "id": "p12",
       "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 13,
       "id": "p13",
       "variantId": "dew"
     },
     {
-      "count": 12,
-      "id": "p14",
-      "variantId": "dew"
-    },
-    {
       "count": 15,
-      "id": "p15",
+      "id": "p14",
       "variantId": "acorn"
     },
     {
       "count": 16,
-      "id": "p16",
+      "id": "p15",
       "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p16",
+      "variantId": "wood"
     },
     {
       "count": 8,
@@ -126,8 +126,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17"],
-      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16"]
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15"]
     ]
   }
 }

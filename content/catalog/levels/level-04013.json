@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1871
+    "score": 1781
   },
   "entries": [
     {
@@ -24,144 +24,142 @@
     }
   ],
   "mapping": {
-    "black": "flower",
-    "bottle": "leaf",
-    "bowl": "acorn",
-    "leaf": "moss",
-    "olive": "moss",
-    "pimento": "flower",
-    "shelf": "acorn",
-    "table": "flower",
-    "twig": "acorn",
-    "wall": "dew",
-    "wall_dots": "water"
+    "body": "violet_bud",
+    "drum": "wood",
+    "ground": "leaf",
+    "hub": "dew",
+    "sky": "water",
+    "stripe": "moss",
+    "sun": "violet_bud",
+    "tyre": "wood",
+    "window": "dew"
   },
   "mechanics": ["connected_pair", "key"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 2,
-        "y": 0
+        "x": 10,
+        "y": 2
       },
       {
         "hole": true,
-        "x": 8,
-        "y": 8
+        "x": 6,
+        "y": 10
       }
     ]
   },
   "picture": {
-    "id": "olives_01",
+    "id": "cement_mixer_01",
     "version": 1
   },
   "pods": [
     {
-      "connectedGroupId": "c1",
-      "count": 6,
+      "count": 12,
       "id": "p01",
-      "variantId": "flower"
-    },
-    {
-      "count": 9,
-      "id": "p02",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p03",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p04",
-      "variantId": "flower"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 8,
-      "id": "p05",
-      "variantId": "flower"
+      "variantId": "leaf"
     },
     {
       "count": 7,
-      "id": "p06",
-      "variantId": "flower"
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "leaf"
     },
     {
       "count": 13,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 12,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 14,
+      "count": 11,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 11,
       "id": "p10",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 12,
+      "connectedGroupId": "c1",
+      "count": 11,
       "id": "p11",
-      "variantId": "dew"
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "water"
     },
     {
       "count": 13,
-      "id": "p12",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
       "id": "p13",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
+      "connectedGroupId": "c1",
       "count": 8,
       "id": "p14",
-      "variantId": "dew"
+      "variantId": "violet_bud"
     },
     {
       "count": 7,
       "id": "p15",
-      "variantId": "dew"
+      "variantId": "violet_bud"
     },
     {
-      "count": 12,
+      "count": 8,
       "id": "p16",
-      "variantId": "leaf"
-    },
-    {
-      "count": 14,
-      "id": "p17",
-      "variantId": "leaf"
-    },
-    {
-      "count": 12,
-      "id": "p18",
-      "variantId": "moss"
-    },
-    {
-      "count": 13,
-      "id": "p19",
-      "variantId": "moss"
+      "variantId": "violet_bud"
     },
     {
       "count": 10,
-      "id": "p20",
-      "variantId": "acorn"
+      "id": "p17",
+      "variantId": "violet_bud"
     },
     {
-      "count": 6,
+      "count": 10,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p19",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
       "id": "p21",
-      "variantId": "water"
+      "variantId": "moss"
     }
   ],
   "rewardProfile": "standard",
@@ -173,8 +171,8 @@
     {
       "cells": [
         {
-          "x": 8,
-          "y": 8
+          "x": 6,
+          "y": 10
         }
       ],
       "condition": {

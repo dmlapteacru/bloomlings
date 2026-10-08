@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1726
+    "score": 1715
   },
   "entries": [
     {
@@ -18,137 +18,138 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p04",
+        "id": "p05",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "beach": "moss",
-    "bucket": "berry",
-    "castle": "acorn",
-    "flag": "violet_bud",
-    "gate": "wood",
-    "pole": "violet_bud",
-    "sea": "dew",
-    "sky": "dew",
-    "sun": "wood"
+    "candy": "flower",
+    "flags": "berry",
+    "flags2": "wood",
+    "grape": "flower",
+    "grape_tufts": "flower",
+    "grass": "moss",
+    "sky": "water",
+    "stick": "wood",
+    "string": "wood",
+    "tufts": "flower"
   },
   "mechanics": ["fountain", "locked_pod", "stone"],
   "overlays": {
     "cells": [
       {
-        "hole": true,
-        "x": 10,
-        "y": 9
-      },
-      {
         "stone": true,
-        "x": 12,
-        "y": 9
-      },
-      {
-        "stone": true,
-        "x": 11,
-        "y": 10
-      },
-      {
-        "stone": true,
-        "x": 11,
-        "y": 11
-      },
-      {
-        "keyId": "k1",
-        "x": 15,
-        "y": 11
-      },
-      {
-        "stone": true,
-        "x": 1,
-        "y": 14
+        "x": 8,
+        "y": 5
       },
       {
         "stone": true,
         "x": 9,
+        "y": 5
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 0,
+        "y": 11
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 14
+      },
+      {
+        "keyId": "k1",
+        "x": 0,
         "y": 16
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 17
       }
     ]
   },
   "picture": {
-    "id": "sandcastle_09",
+    "id": "cotton_candy_09",
     "version": 1
   },
   "pods": [
     {
-      "count": 27,
+      "count": 28,
       "id": "p01",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p02",
       "variantId": "wood"
     },
     {
-      "count": 25,
+      "count": 19,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
       "id": "p03",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
       "count": 5,
       "id": "p04",
-      "lockKeyId": "k1",
-      "variantId": "berry"
+      "variantId": "wood"
     },
     {
-      "count": 14,
+      "count": 16,
       "id": "p05",
-      "variantId": "dew"
+      "lockKeyId": "k1",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p10",
+      "variantId": "flower"
     },
     {
       "count": 15,
-      "id": "p06",
-      "variantId": "acorn"
-    },
-    {
-      "count": 27,
-      "id": "p07",
-      "variantId": "dew"
-    },
-    {
-      "count": 16,
-      "id": "p08",
-      "variantId": "acorn"
-    },
-    {
-      "count": 14,
-      "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "count": 26,
-      "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 16,
       "id": "p11",
-      "variantId": "acorn"
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p12",
+      "variantId": "flower"
     },
     {
       "count": 13,
-      "id": "p12",
-      "variantId": "acorn"
-    },
-    {
-      "count": 25,
       "id": "p13",
       "variantId": "moss"
     },
     {
-      "count": 10,
+      "count": 9,
       "id": "p14",
-      "variantId": "violet_bud"
+      "variantId": "berry"
     }
   ],
   "rewardProfile": "standard",
@@ -160,28 +161,24 @@
     {
       "cells": [
         {
-          "x": 10,
-          "y": 9
+          "x": 8,
+          "y": 7
         }
       ],
       "condition": {
         "count": 3,
         "kind": "clear_count_adjacent",
-        "variantId": "dew"
+        "variantId": "flower"
       },
       "effect": {
         "cells": [
           {
-            "x": 12,
-            "y": 9
+            "x": 8,
+            "y": 5
           },
           {
-            "x": 11,
-            "y": 10
-          },
-          {
-            "x": 11,
-            "y": 11
+            "x": 9,
+            "y": 5
           }
         ],
         "kind": "remove_stones"
@@ -192,12 +189,9 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13"],
-      ["p02", "p08", "p14"],
-      ["p03", "p09"],
-      ["p04", "p10"],
-      ["p05", "p11"],
-      ["p06", "p12"]
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12"]
     ]
   }
 }

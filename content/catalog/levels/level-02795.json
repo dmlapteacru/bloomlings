@@ -1,160 +1,152 @@
 {
-  "boardLook": "peek",
+  "boardLook": "icons",
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1998
+    "score": 1758
   },
   "entries": [
     {
-      "side": "right",
-      "x": 15,
-      "y": 5
+      "side": "bottom",
+      "x": 1,
+      "y": 0
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2795,
   "mapping": {
-    "bun": "acorn",
-    "cap": "leaf",
-    "ketchup": "violet_bud",
-    "mustard": "vine",
-    "plate": "leaf",
-    "sausage": "violet_bud",
-    "shelf": "leaf",
-    "table": "wood",
-    "wall": "dew",
-    "wall_dots": "dew"
+    "bush": "moss",
+    "chute": "acorn",
+    "cloud": "water",
+    "frame": "violet_bud",
+    "grass": "leaf",
+    "rim": "wood",
+    "roof": "violet_bud",
+    "sky": "water",
+    "sun": "acorn"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 15,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 1,
+        "y": 15
+      }
+    ]
   },
   "picture": {
-    "id": "hot_dog_07",
+    "id": "playground_slide_05",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 15,
+      "count": 24,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 8,
+      "count": 24,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 10,
+      "count": 24,
       "id": "p03",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 23,
       "id": "p04",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 25,
       "id": "p05",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 24,
       "id": "p06",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 25,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 23,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 25,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 23,
       "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 26,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p14",
       "variantId": "acorn"
     },
     {
-      "count": 9,
-      "id": "p11",
-      "variantId": "dew"
-    },
-    {
-      "count": 9,
-      "id": "p12",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
-      "id": "p13",
-      "variantId": "dew"
-    },
-    {
-      "count": 10,
-      "id": "p14",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
+      "count": 15,
       "id": "p15",
       "variantId": "acorn"
     },
     {
-      "count": 14,
+      "count": 19,
       "id": "p16",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p17",
-      "variantId": "violet_bud"
+      "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p18",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 8,
-      "id": "p19",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 8,
-      "id": "p20",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 15,
-      "id": "p21",
-      "variantId": "vine"
-    },
-    {
-      "count": 14,
-      "id": "p22",
       "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "2978414464739036169",
+  "seed": "16611784261909598141",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21"],
-      ["p02", "p07", "p12", "p17", "p22"],
-      ["p03", "p08", "p13", "p18"],
-      ["p04", "p09", "p14", "p19"],
-      ["p05", "p10", "p15", "p20"]
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
     ]
   }
 }

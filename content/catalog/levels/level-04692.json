@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1733
+    "score": 1766
   },
   "entries": [
     {
@@ -23,15 +23,15 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p20",
+        "id": "p19",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
     "bubbles": "flower",
-    "gems": "flower",
-    "gold": "vine",
+    "gems": "berry",
+    "gold": "acorn",
     "lock": "water",
     "sand": "moss",
     "water": "water",
@@ -43,13 +43,8 @@
     "cells": [
       {
         "keyId": "k1",
-        "x": 13,
-        "y": 0
-      },
-      {
-        "hole": true,
-        "x": 11,
-        "y": 9
+        "x": 5,
+        "y": 1
       },
       {
         "stone": true,
@@ -57,39 +52,44 @@
         "y": 10
       },
       {
+        "hole": true,
+        "x": 8,
+        "y": 11
+      },
+      {
         "stone": true,
-        "x": 13,
-        "y": 10
+        "x": 7,
+        "y": 12
       }
     ]
   },
   "picture": {
-    "id": "treasure_chest_06",
+    "id": "treasure_chest_08",
     "version": 1
   },
   "pods": [
     {
-      "count": 7,
+      "count": 17,
       "id": "p01",
       "variantId": "moss"
     },
     {
       "count": 10,
       "id": "p02",
-      "variantId": "moss"
+      "variantId": "acorn"
     },
     {
-      "count": 9,
+      "count": 12,
       "id": "p03",
       "variantId": "acorn"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p04",
       "variantId": "acorn"
     },
     {
-      "count": 9,
+      "count": 12,
       "id": "p05",
       "variantId": "acorn"
     },
@@ -101,17 +101,17 @@
     {
       "count": 12,
       "id": "p07",
-      "variantId": "vine"
+      "variantId": "acorn"
     },
     {
-      "count": 15,
+      "count": 12,
       "id": "p08",
-      "variantId": "vine"
+      "variantId": "acorn"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p09",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 9,
@@ -129,45 +129,45 @@
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p13",
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p14",
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p15",
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p16",
       "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 13,
       "id": "p17",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p18",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
       "count": 10,
-      "id": "p19",
+      "id": "p18",
       "variantId": "moss"
     },
     {
-      "count": 10,
-      "id": "p20",
+      "count": 5,
+      "id": "p19",
       "lockKeyId": "k1",
       "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "berry"
     }
   ],
   "rewardProfile": "standard",
@@ -179,14 +179,14 @@
     {
       "cells": [
         {
-          "x": 11,
-          "y": 9
+          "x": 8,
+          "y": 11
         }
       ],
       "condition": {
         "count": 2,
         "kind": "clear_count_adjacent",
-        "variantId": "vine"
+        "variantId": "water"
       },
       "effect": {
         "cells": [
@@ -195,8 +195,8 @@
             "y": 10
           },
           {
-            "x": 13,
-            "y": 10
+            "x": 7,
+            "y": 12
           }
         ],
         "kind": "remove_stones"
@@ -207,8 +207,11 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19"],
-      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20"]
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
     ]
   }
 }

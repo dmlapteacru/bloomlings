@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1861
+    "score": 2033
   },
   "entries": [
     {
@@ -30,62 +30,60 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p20",
+        "id": "p16",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "body": "vine",
-    "cones": "moss",
-    "drum": "wood",
-    "ground": "moss",
-    "hub": "dew",
-    "sky": "dew",
-    "stripe": "berry",
-    "sun": "flower",
-    "tyre": "wood",
-    "window": "dew"
+    "bubbles": "violet_bud",
+    "gems": "berry",
+    "gold": "vine",
+    "lock": "dew",
+    "sand": "leaf",
+    "water": "dew",
+    "weed": "leaf",
+    "wood": "wood"
   },
   "mechanics": ["locked_pod", "locked_slot"],
   "overlays": {
     "cells": [
       {
         "keyId": "k2",
-        "x": 11,
-        "y": 2
+        "x": 7,
+        "y": 3
       },
       {
         "keyId": "k1",
-        "x": 3,
-        "y": 3
+        "x": 10,
+        "y": 8
       }
     ]
   },
   "picture": {
-    "id": "cement_mixer_10",
+    "id": "treasure_chest_10",
     "version": 1
   },
   "pods": [
     {
-      "count": 14,
+      "count": 16,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 17,
       "id": "p02",
-      "variantId": "moss"
-    },
-    {
-      "count": 12,
-      "id": "p03",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
       "count": 15,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
       "id": "p04",
-      "variantId": "moss"
+      "variantId": "wood"
     },
     {
       "count": 13,
@@ -93,22 +91,22 @@
       "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 16,
       "id": "p06",
       "variantId": "wood"
     },
     {
-      "count": 24,
+      "count": 21,
       "id": "p07",
-      "variantId": "wood"
+      "variantId": "vine"
+    },
+    {
+      "count": 20,
+      "id": "p08",
+      "variantId": "vine"
     },
     {
       "count": 16,
-      "id": "p08",
-      "variantId": "dew"
-    },
-    {
-      "count": 19,
       "id": "p09",
       "variantId": "dew"
     },
@@ -118,55 +116,55 @@
       "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 16,
       "id": "p11",
       "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 18,
       "id": "p12",
       "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 16,
       "id": "p13",
       "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 16,
       "id": "p14",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 16,
       "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 15,
-      "id": "p16",
-      "variantId": "vine"
-    },
-    {
-      "count": 16,
-      "id": "p17",
-      "variantId": "vine"
-    },
-    {
       "count": 18,
-      "id": "p18",
-      "variantId": "berry"
+      "id": "p16",
+      "lockKeyId": "k1",
+      "variantId": "dew"
     },
     {
-      "count": 14,
-      "id": "p19",
+      "count": 21,
+      "id": "p17",
       "variantId": "wood"
     },
     {
       "count": 7,
+      "id": "p18",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "berry"
+    },
+    {
+      "count": 5,
       "id": "p20",
-      "lockKeyId": "k1",
-      "variantId": "flower"
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",

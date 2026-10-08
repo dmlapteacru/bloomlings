@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1689
+    "score": 1600
   },
   "entries": [
     {
@@ -15,82 +15,82 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 3955,
   "mapping": {
-    "beak": "acorn",
-    "bird": "flower",
-    "blossom": "violet_bud",
-    "branch": "wood",
-    "leaves": "moss",
+    "bow": "leaf",
+    "cloud": "dew",
+    "flowers": "wood",
+    "grass": "leaf",
     "sky": "dew",
-    "sun": "acorn",
-    "wing": "violet_bud"
+    "stick": "water",
+    "swirl": "flower",
+    "swirl2": "vine"
   },
   "mechanics": ["connected_pair"],
   "picture": {
-    "id": "bird_08",
+    "id": "lollipop_07",
     "version": 1
   },
   "pods": [
     {
-      "count": 18,
+      "count": 7,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 15,
+      "count": 19,
       "id": "p02",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 14,
+      "connectedGroupId": "c1",
+      "count": 27,
       "id": "p03",
       "variantId": "dew"
     },
     {
-      "count": 27,
+      "count": 28,
       "id": "p04",
       "variantId": "dew"
     },
     {
-      "count": 27,
+      "connectedGroupId": "c1",
+      "count": 29,
       "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 28,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "vine"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "vine"
+    },
+    {
+      "count": 16,
+      "id": "p09",
       "variantId": "flower"
     },
     {
-      "count": 16,
-      "id": "p06",
-      "variantId": "wood"
-    },
-    {
-      "count": 12,
-      "id": "p07",
-      "variantId": "moss"
-    },
-    {
-      "count": 19,
-      "id": "p08",
-      "variantId": "dew"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 20,
-      "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 20,
+      "count": 15,
       "id": "p10",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 16,
+      "count": 8,
       "id": "p11",
-      "variantId": "violet_bud"
+      "variantId": "leaf"
     },
     {
-      "count": 10,
+      "count": 6,
       "id": "p12",
-      "variantId": "acorn"
+      "variantId": "water"
     }
   ],
   "rewardProfile": "standard",

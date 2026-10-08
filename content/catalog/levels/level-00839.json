@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2088
+    "score": 1873
   },
   "entries": [
     {
@@ -15,145 +15,146 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 839,
   "mapping": {
-    "crease": "flower",
-    "frame": "moss",
-    "leaf": "leaf",
-    "panes": "dew",
-    "plate": "dew",
-    "plum": "berry",
-    "stalk": "acorn",
-    "table": "acorn",
-    "wall": "dew"
+    "bolt": "vine",
+    "bush": "leaf",
+    "cloud": "dew",
+    "flowers": "violet_bud",
+    "grass": "leaf",
+    "puddle": "water",
+    "rain": "dew",
+    "shade": "water",
+    "sky": "flower",
+    "sun": "vine"
   },
   "mechanics": ["chest"],
   "overlays": {
     "cells": [
       {
-        "hole": true,
-        "x": 12,
+        "stone": true,
+        "x": 6,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 4,
         "y": 8
       },
       {
-        "stone": true,
-        "x": 14,
-        "y": 9
-      },
-      {
-        "stone": true,
-        "x": 12,
-        "y": 10
+        "hole": true,
+        "x": 6,
+        "y": 8
       }
     ]
   },
   "picture": {
-    "id": "plum_06",
+    "id": "rain_cloud_07",
     "version": 1
   },
   "pods": [
     {
-      "count": 13,
+      "count": 14,
       "id": "p01",
-      "variantId": "berry"
+      "variantId": "leaf"
     },
     {
-      "count": 5,
+      "count": 11,
       "id": "p02",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p03",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
       "count": 15,
-      "id": "p04",
-      "variantId": "berry"
+      "id": "p03",
+      "variantId": "leaf"
     },
     {
-      "count": 5,
+      "count": 13,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
       "id": "p05",
       "variantId": "flower"
     },
     {
-      "count": 11,
+      "count": 15,
       "id": "p06",
-      "variantId": "acorn"
+      "variantId": "flower"
     },
     {
-      "count": 11,
+      "count": 9,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 10,
+      "count": 7,
       "id": "p08",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
-      "count": 13,
+      "count": 9,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "flower"
     },
     {
       "count": 14,
-      "id": "p10",
-      "variantId": "dew"
+      "id": "p11",
+      "variantId": "flower"
     },
     {
-      "count": 11,
-      "id": "p11",
-      "variantId": "dew"
+      "count": 9,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "flower"
     },
     {
       "count": 13,
-      "id": "p12",
+      "id": "p16",
       "variantId": "dew"
     },
     {
       "count": 12,
-      "id": "p13",
+      "id": "p17",
       "variantId": "dew"
     },
     {
-      "count": 14,
-      "id": "p14",
+      "count": 10,
+      "id": "p18",
       "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p19",
+      "variantId": "vine"
     },
     {
       "count": 13,
-      "id": "p15",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
-      "id": "p16",
-      "variantId": "berry"
-    },
-    {
-      "count": 8,
-      "id": "p17",
-      "variantId": "berry"
-    },
-    {
-      "count": 16,
-      "id": "p18",
-      "variantId": "berry"
-    },
-    {
-      "count": 9,
-      "id": "p19",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
       "id": "p20",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 5,
       "id": "p21",
-      "variantId": "dew"
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",
@@ -165,7 +166,7 @@
     {
       "cells": [
         {
-          "x": 12,
+          "x": 6,
           "y": 8
         }
       ],
@@ -176,12 +177,12 @@
       "effect": {
         "cells": [
           {
-            "x": 14,
-            "y": 9
+            "x": 6,
+            "y": 5
           },
           {
-            "x": 12,
-            "y": 10
+            "x": 4,
+            "y": 8
           }
         ],
         "kind": "remove_stones"

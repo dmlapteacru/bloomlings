@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1978
+    "score": 1835
   },
   "entries": [
     {
@@ -24,14 +24,13 @@
     }
   ],
   "mapping": {
-    "ant": "berry",
-    "anthill": "acorn",
-    "flowers": "flower",
-    "grass": "moss",
-    "leaf": "moss",
-    "legs": "flower",
+    "cactus": "leaf",
+    "flower": "berry",
+    "mesa": "violet_bud",
+    "rib": "leaf",
+    "rock": "acorn",
+    "sand": "acorn",
     "sky": "dew",
-    "stem": "acorn",
     "sun": "vine"
   },
   "mechanics": ["fountain", "key"],
@@ -39,120 +38,120 @@
     "cells": [
       {
         "keyId": "k1",
-        "x": 17,
-        "y": 1
-      },
-      {
-        "stone": true,
-        "x": 10,
-        "y": 7
+        "x": 2,
+        "y": 4
       },
       {
         "hole": true,
-        "x": 9,
-        "y": 8
-      },
-      {
-        "hole": true,
-        "x": 10,
+        "x": 11,
         "y": 9
       },
       {
         "stone": true,
-        "x": 12,
+        "x": 11,
         "y": 10
+      },
+      {
+        "hole": true,
+        "x": 13,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 15,
+        "y": 11
       }
     ]
   },
   "picture": {
-    "id": "ant_10",
+    "id": "cactus_15",
     "version": 1
   },
   "pods": [
     {
-      "count": 29,
+      "count": 23,
       "id": "p01",
-      "variantId": "moss"
-    },
-    {
-      "count": 27,
-      "id": "p02",
-      "variantId": "moss"
-    },
-    {
-      "count": 24,
-      "id": "p03",
-      "variantId": "dew"
-    },
-    {
-      "count": 14,
-      "id": "p04",
-      "variantId": "flower"
-    },
-    {
-      "count": 16,
-      "id": "p05",
-      "variantId": "flower"
-    },
-    {
-      "count": 28,
-      "id": "p06",
-      "variantId": "berry"
-    },
-    {
-      "count": 20,
-      "id": "p07",
-      "variantId": "dew"
-    },
-    {
-      "count": 21,
-      "id": "p08",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
       "count": 19,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 25,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 24,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
       "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "count": 22,
-      "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 21,
-      "id": "p11",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
       "count": 20,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 26,
       "id": "p12",
       "variantId": "dew"
     },
     {
-      "count": 21,
+      "count": 25,
       "id": "p13",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 25,
       "id": "p14",
       "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 26,
       "id": "p15",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 14,
       "id": "p16",
-      "variantId": "vine"
+      "variantId": "berry"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p17",
-      "variantId": "moss"
+      "variantId": "vine"
     }
   ],
   "rewardProfile": "standard",
@@ -164,8 +163,8 @@
     {
       "cells": [
         {
-          "x": 9,
-          "y": 8
+          "x": 11,
+          "y": 9
         }
       ],
       "condition": {
@@ -181,8 +180,8 @@
     {
       "cells": [
         {
-          "x": 10,
-          "y": 9
+          "x": 13,
+          "y": 10
         }
       ],
       "condition": {
@@ -193,12 +192,12 @@
       "effect": {
         "cells": [
           {
-            "x": 10,
-            "y": 7
+            "x": 11,
+            "y": 10
           },
           {
-            "x": 12,
-            "y": 10
+            "x": 15,
+            "y": 11
           }
         ],
         "kind": "remove_stones"
@@ -209,9 +208,11 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10", "p13", "p16"],
-      ["p02", "p05", "p08", "p11", "p14", "p17"],
-      ["p03", "p06", "p09", "p12", "p15"]
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
     ]
   }
 }

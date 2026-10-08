@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1929
+    "score": 1866
   },
   "entries": [
     {
@@ -15,124 +15,126 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 4426,
   "mapping": {
-    "background": "water",
-    "grape": "violet_bud",
-    "grape2": "berry",
-    "leaf": "moss",
-    "stalk": "wood",
-    "table": "wood",
-    "vine": "leaf"
+    "fence": "water",
+    "flowers": "violet_bud",
+    "grass": "leaf",
+    "pumpkin": "acorn",
+    "rib": "wood",
+    "sky": "water",
+    "stem": "moss",
+    "sun": "violet_bud",
+    "vine": "moss"
   },
   "mechanics": ["fountain"],
   "overlays": {
     "cells": [
       {
         "stone": true,
-        "x": 6,
-        "y": 16
+        "x": 7,
+        "y": 15
       },
       {
         "hole": true,
-        "x": 9,
-        "y": 16
+        "x": 10,
+        "y": 15
       },
       {
         "stone": true,
-        "x": 10,
-        "y": 17
+        "x": 12,
+        "y": 16
       }
     ]
   },
   "picture": {
-    "id": "grapes_12",
+    "id": "pumpkin_08",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 36,
+      "count": 24,
       "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 26,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 29,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p10",
       "variantId": "wood"
     },
     {
-      "count": 20,
-      "id": "p02",
+      "count": 16,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 26,
+      "id": "p12",
       "variantId": "water"
     },
     {
-      "count": 23,
-      "id": "p03",
-      "variantId": "water"
-    },
-    {
-      "count": 20,
-      "id": "p04",
-      "variantId": "water"
-    },
-    {
-      "count": 22,
-      "id": "p05",
-      "variantId": "water"
-    },
-    {
-      "count": 22,
-      "id": "p06",
-      "variantId": "water"
-    },
-    {
-      "count": 21,
-      "id": "p07",
-      "variantId": "water"
-    },
-    {
-      "count": 21,
-      "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 21,
-      "id": "p09",
+      "count": 29,
+      "id": "p13",
       "variantId": "water"
     },
     {
       "count": 27,
-      "id": "p10",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 29,
-      "id": "p11",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 22,
-      "id": "p12",
-      "variantId": "berry"
-    },
-    {
-      "count": 22,
-      "id": "p13",
-      "variantId": "berry"
-    },
-    {
-      "count": 14,
       "id": "p14",
-      "variantId": "moss"
-    },
-    {
-      "count": 9,
-      "id": "p15",
-      "variantId": "leaf"
-    },
-    {
-      "count": 10,
-      "id": "p16",
       "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 26,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p16",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 19,
       "id": "p17",
-      "variantId": "wood"
+      "variantId": "moss"
     }
   ],
   "rewardProfile": "standard",
@@ -144,24 +146,24 @@
     {
       "cells": [
         {
-          "x": 9,
-          "y": 16
+          "x": 10,
+          "y": 15
         }
       ],
       "condition": {
         "count": 2,
         "kind": "clear_count_adjacent",
-        "variantId": "wood"
+        "variantId": "moss"
       },
       "effect": {
         "cells": [
           {
-            "x": 6,
-            "y": 16
+            "x": 7,
+            "y": 15
           },
           {
-            "x": 10,
-            "y": 17
+            "x": 12,
+            "y": 16
           }
         ],
         "kind": "remove_stones"

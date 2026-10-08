@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2139
+    "score": 2025
   },
   "entries": [
     {
@@ -24,135 +24,136 @@
     }
   ],
   "mapping": {
-    "belly": "flower",
-    "bubbles": "dew",
-    "eye": "wood",
-    "fish": "moss",
-    "sand": "wood",
-    "shark": "violet_bud",
-    "water": "water",
-    "weed": "moss"
+    "aurora": "leaf",
+    "aurora2": "leaf",
+    "fish": "flower",
+    "ice": "water",
+    "moon": "wood",
+    "sea": "water",
+    "sky": "violet_bud",
+    "stars": "wood",
+    "under": "dew"
   },
   "mechanics": ["environment_2", "gate", "key"],
   "overlays": {
     "cells": [
       {
-        "hole": true,
-        "x": 9,
-        "y": 8
+        "keyId": "k1",
+        "x": 15,
+        "y": 7
       },
       {
         "hole": true,
-        "x": 7,
+        "x": 11,
+        "y": 10
+      },
+      {
+        "hole": true,
+        "x": 13,
         "y": 10
       },
       {
         "hole": true,
         "x": 10,
-        "y": 10
-      },
-      {
-        "keyId": "k1",
-        "x": 13,
-        "y": 20
+        "y": 11
       }
     ]
   },
   "picture": {
-    "id": "shark_05",
+    "id": "iceberg_05",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 23,
+      "count": 16,
       "id": "p01",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 21,
+      "count": 25,
       "id": "p02",
-      "variantId": "wood"
+      "variantId": "violet_bud"
     },
     {
-      "count": 23,
+      "count": 16,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 16,
       "id": "p04",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 21,
+      "count": 17,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 21,
+      "count": 26,
       "id": "p06",
       "variantId": "violet_bud"
     },
     {
-      "count": 23,
+      "count": 27,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 27,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 21,
+      "count": 15,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 16,
       "id": "p10",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 13,
       "id": "p11",
       "variantId": "water"
     },
     {
-      "count": 22,
+      "count": 15,
       "id": "p12",
       "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 25,
       "id": "p13",
-      "variantId": "moss"
+      "variantId": "violet_bud"
     },
     {
-      "count": 20,
+      "count": 23,
       "id": "p14",
       "variantId": "violet_bud"
     },
     {
-      "count": 12,
+      "count": 22,
       "id": "p15",
-      "variantId": "wood"
+      "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 23,
       "id": "p16",
-      "variantId": "wood"
+      "variantId": "leaf"
     },
     {
-      "count": 13,
+      "count": 17,
       "id": "p17",
-      "variantId": "flower"
+      "variantId": "wood"
     },
     {
       "count": 5,
       "id": "p18",
-      "variantId": "dew"
+      "variantId": "flower"
     }
   ],
   "rewardProfile": "standard",
@@ -164,8 +165,8 @@
     {
       "cells": [
         {
-          "x": 9,
-          "y": 8
+          "x": 10,
+          "y": 11
         }
       ],
       "condition": {
@@ -181,12 +182,12 @@
     {
       "cells": [
         {
-          "x": 7,
+          "x": 13,
           "y": 10
         }
       ],
       "condition": {
-        "count": 2,
+        "count": 3,
         "kind": "clear_count_adjacent"
       },
       "effect": {
@@ -198,36 +199,20 @@
     {
       "cells": [
         {
-          "x": 10,
+          "x": 11,
           "y": 10
         }
       ],
       "condition": {
-        "kind": "clear_region",
-        "regionCells": [
-          {
-            "x": 10,
-            "y": 9
-          },
-          {
-            "x": 11,
-            "y": 10
-          },
-          {
-            "x": 10,
-            "y": 11
-          },
-          {
-            "x": 10,
-            "y": 8
-          }
-        ]
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "violet_bud"
       },
       "effect": {
         "kind": "open_cells"
       },
-      "id": "statue",
-      "type": "statue"
+      "id": "bridge",
+      "type": "bridge"
     }
   ],
   "tray": {

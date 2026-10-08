@@ -1,6 +1,6 @@
 {
   "checks": ["accounting", "board", "losable", "picture-approved", "player-info-fair", "solvable"],
-  "definitionHash": "02c5fc759f7d290acc509b10d0bbe21cd4a90e9c5e95e9b32bf40b5964e4d9d2",
+  "definitionHash": "74513632698253da47804f3e6372765c3015799eba4debb2d9a59a15956a385d",
   "definitionVersion": 1,
   "jamWitness": ["tap:p03", "tap:p07", "tap:p04", "tap:p08", "tap:p12"],
   "levelNumber": 4089,
@@ -10,13 +10,13 @@
     "crossVariantLayers": 0,
     "deadEndDepth": 5,
     "dependencyDepth": 4,
-    "estimatedDurationMs": 51480,
+    "estimatedDurationMs": 49800,
     "meanBufferX1000": 1058,
     "peakBuffer": 2,
     "podCount": 18,
     "siblingPairs": 2,
     "specialLoad": 0,
-    "totalWork": 204,
+    "totalWork": 190,
     "unsafeChoicePermille": 0,
     "variantCount": 6
   },

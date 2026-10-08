@@ -1,6 +1,6 @@
 {
   "checks": ["accounting", "board", "losable", "picture-approved", "solvable"],
-  "definitionHash": "223fd234e1045f087ea8bdf8019a62232833575423e9787310a776f9b66dc2ed",
+  "definitionHash": "103bb187838921b1c5815e92fed7297da6862cb57d438374b331057b6b8876f1",
   "definitionVersion": 1,
   "jamWitness": ["tap:p02", "tap:p05", "tap:p08", "tap:p11", "tap:p14"],
   "levelNumber": 778,
@@ -10,15 +10,15 @@
     "crossVariantLayers": 0,
     "deadEndDepth": 5,
     "dependencyDepth": 4,
-    "estimatedDurationMs": 74400,
-    "meanBufferX1000": 1125,
+    "estimatedDurationMs": 74520,
+    "meanBufferX1000": 1250,
     "peakBuffer": 2,
     "podCount": 32,
-    "siblingPairs": 0,
+    "siblingPairs": 1,
     "specialLoad": 2,
-    "totalWork": 220,
+    "totalWork": 221,
     "unsafeChoicePermille": 0,
-    "variantCount": 4
+    "variantCount": 5
   },
   "nodeBudget": 600000,
   "nodesUsed": 37,

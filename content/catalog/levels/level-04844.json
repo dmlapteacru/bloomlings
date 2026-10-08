@@ -1,305 +1,160 @@
 {
-  "boardLook": "icons",
+  "boardLook": "peek",
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2296
+    "score": 1547
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 4,
-      "y": 0
-    },
-    {
-      "side": "bottom",
-      "x": 14,
+      "x": 7,
       "y": 0
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 4844,
-  "locks": [
-    {
-      "keyId": "k1",
-      "target": {
-        "id": "p41",
-        "kind": "pod"
-      }
-    }
-  ],
   "mapping": {
-    "bell": "acorn",
-    "face": "water",
-    "frame": "flower",
-    "hands": "acorn",
-    "marks": "flower",
-    "ring": "water",
-    "table": "moss",
-    "wall": "moss"
+    "body": "flower",
+    "cross": "acorn",
+    "hills": "moss",
+    "hub": "moss",
+    "light": "acorn",
+    "road": "moss",
+    "sky": "dew",
+    "sun": "wood",
+    "tyre": "wood",
+    "window": "dew"
   },
-  "mechanics": ["locked_pod"],
+  "mechanics": ["gate", "mystery_tile"],
   "overlays": {
     "cells": [
       {
-        "keyId": "k1",
-        "x": 1,
-        "y": 8
+        "hole": true,
+        "x": 3,
+        "y": 10
+      },
+      {
+        "mystery": true,
+        "x": 4,
+        "y": 17
       }
     ]
   },
   "picture": {
-    "id": "alarm_clock_05",
+    "id": "ambulance_01",
     "version": 1
   },
   "pods": [
     {
-      "count": 8,
+      "count": 19,
       "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p02",
       "variantId": "moss"
     },
     {
-      "count": 9,
-      "id": "p02",
-      "variantId": "flower"
-    },
-    {
-      "count": 6,
+      "count": 15,
       "id": "p03",
       "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 15,
       "id": "p04",
       "variantId": "moss"
     },
     {
-      "count": 9,
+      "count": 18,
       "id": "p05",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
-      "count": 7,
+      "count": 13,
       "id": "p06",
       "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 18,
       "id": "p07",
-      "variantId": "moss"
-    },
-    {
-      "count": 9,
-      "id": "p08",
-      "variantId": "acorn"
-    },
-    {
-      "count": 7,
-      "id": "p09",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p10",
-      "variantId": "moss"
-    },
-    {
-      "count": 7,
-      "id": "p11",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p12",
-      "variantId": "moss"
-    },
-    {
-      "count": 7,
-      "id": "p13",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p14",
       "variantId": "flower"
     },
     {
-      "count": 7,
-      "id": "p15",
-      "variantId": "moss"
+      "count": 16,
+      "id": "p08",
+      "variantId": "flower"
     },
     {
-      "count": 6,
-      "id": "p16",
-      "variantId": "moss"
+      "count": 15,
+      "id": "p09",
+      "variantId": "flower"
     },
     {
-      "count": 7,
-      "id": "p17",
-      "variantId": "moss"
+      "count": 19,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "wood"
     },
     {
       "count": 10,
-      "id": "p18",
-      "variantId": "flower"
-    },
-    {
-      "count": 8,
-      "id": "p19",
-      "variantId": "moss"
+      "id": "p15",
+      "variantId": "acorn"
     },
     {
       "count": 5,
-      "id": "p20",
+      "id": "p16",
       "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p21",
-      "variantId": "moss"
-    },
-    {
-      "count": 13,
-      "id": "p22",
-      "variantId": "moss"
-    },
-    {
-      "count": 6,
-      "id": "p23",
-      "variantId": "moss"
-    },
-    {
-      "count": 11,
-      "id": "p24",
-      "variantId": "flower"
-    },
-    {
-      "count": 8,
-      "id": "p25",
-      "variantId": "moss"
-    },
-    {
-      "count": 13,
-      "id": "p26",
-      "variantId": "moss"
-    },
-    {
-      "count": 7,
-      "id": "p27",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p28",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p29",
-      "variantId": "moss"
-    },
-    {
-      "count": 7,
-      "id": "p30",
-      "variantId": "moss"
-    },
-    {
-      "count": 6,
-      "id": "p31",
-      "variantId": "moss"
-    },
-    {
-      "count": 9,
-      "id": "p32",
-      "variantId": "moss"
-    },
-    {
-      "count": 6,
-      "id": "p33",
-      "variantId": "moss"
-    },
-    {
-      "count": 9,
-      "id": "p34",
-      "variantId": "moss"
-    },
-    {
-      "count": 13,
-      "id": "p35",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p36",
-      "variantId": "flower"
-    },
-    {
-      "count": 9,
-      "id": "p37",
-      "variantId": "flower"
-    },
-    {
-      "count": 9,
-      "id": "p38",
-      "variantId": "flower"
-    },
-    {
-      "count": 11,
-      "id": "p39",
-      "variantId": "flower"
-    },
-    {
-      "count": 12,
-      "id": "p40",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p41",
-      "lockKeyId": "k1",
-      "variantId": "water"
-    },
-    {
-      "count": 13,
-      "id": "p42",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p43",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
-      "id": "p44",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p45",
-      "variantId": "acorn"
-    },
-    {
-      "count": 7,
-      "id": "p46",
-      "variantId": "acorn"
-    },
-    {
-      "count": 9,
-      "id": "p47",
-      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "12435325503609722095",
+  "seed": "16612021165968079990",
   "slots": {
     "count": 5
   },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 3,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37", "p40", "p43", "p46"],
-      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38", "p41", "p44", "p47"],
-      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36", "p39", "p42", "p45"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16"]
     ]
   }
 }

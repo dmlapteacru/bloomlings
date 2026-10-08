@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2064
+    "score": 2195
   },
   "entries": [
     {
@@ -15,15 +15,14 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2469,
   "mapping": {
-    "cone": "water",
-    "flags": "flower",
-    "flags2": "acorn",
-    "grape": "violet_bud",
-    "grape_tufts": "flower",
-    "grass": "leaf",
-    "sky": "dew",
-    "stick": "acorn",
-    "string": "acorn"
+    "brain": "leaf",
+    "bubbles": "dew",
+    "coral": "berry",
+    "fan": "violet_bud",
+    "fish": "vine",
+    "sand": "wood",
+    "water": "dew",
+    "weed": "leaf"
   },
   "mechanics": ["stone"],
   "overlays": {
@@ -31,164 +30,164 @@
       {
         "stone": true,
         "x": 4,
-        "y": 3
-      },
-      {
-        "stone": true,
-        "x": 3,
         "y": 7
       },
       {
         "stone": true,
-        "x": 1,
+        "x": 16,
         "y": 11
       },
       {
         "stone": true,
-        "x": 15,
-        "y": 11
+        "x": 1,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 17
       }
     ]
   },
   "picture": {
-    "id": "cotton_candy_05",
+    "id": "coral_reef_10",
     "version": 1
   },
   "pods": [
     {
-      "count": 12,
+      "count": 17,
       "id": "p01",
       "variantId": "leaf"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p02",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 6,
+      "count": 10,
       "id": "p03",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 17,
       "id": "p04",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 14,
+      "count": 11,
       "id": "p05",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 9,
       "id": "p06",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 9,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 10,
       "id": "p08",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 10,
       "id": "p09",
       "variantId": "dew"
     },
     {
-      "count": 14,
+      "count": 9,
       "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 14,
+      "count": 9,
       "id": "p11",
       "variantId": "dew"
     },
     {
-      "count": 13,
+      "count": 11,
       "id": "p12",
-      "variantId": "acorn"
-    },
-    {
-      "count": 13,
-      "id": "p13",
-      "variantId": "acorn"
-    },
-    {
-      "count": 13,
-      "id": "p14",
-      "variantId": "flower"
-    },
-    {
-      "count": 13,
-      "id": "p15",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
       "count": 11,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
       "id": "p16",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
-      "count": 14,
+      "count": 11,
       "id": "p17",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 9,
       "id": "p18",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 9,
       "id": "p19",
       "variantId": "dew"
     },
     {
-      "count": 14,
+      "count": 9,
       "id": "p20",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 10,
       "id": "p21",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 11,
       "id": "p22",
       "variantId": "dew"
     },
     {
-      "count": 8,
-      "id": "p23",
-      "variantId": "dew"
-    },
-    {
       "count": 14,
+      "id": "p23",
+      "variantId": "vine"
+    },
+    {
+      "count": 12,
       "id": "p24",
-      "variantId": "flower"
+      "variantId": "vine"
     },
     {
-      "count": 7,
+      "count": 18,
       "id": "p25",
-      "variantId": "leaf"
+      "variantId": "berry"
     },
     {
-      "count": 8,
+      "count": 17,
       "id": "p26",
-      "variantId": "leaf"
+      "variantId": "berry"
     },
     {
-      "count": 7,
+      "count": 9,
       "id": "p27",
-      "variantId": "water"
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",

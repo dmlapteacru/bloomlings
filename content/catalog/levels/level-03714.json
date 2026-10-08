@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1551
+    "score": 1475
   },
   "entries": [
     {
@@ -15,79 +15,82 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 3714,
   "mapping": {
-    "can": "leaf",
-    "drops": "dew",
-    "flower_center": "vine",
-    "flowers": "flower",
-    "grass": "leaf",
-    "handle": "wood",
-    "sky": "water"
+    "canoe": "berry",
+    "head": "acorn",
+    "jacket": "leaf",
+    "lake": "dew",
+    "paddle": "acorn",
+    "pads": "moss",
+    "rim": "acorn",
+    "shore": "moss",
+    "sky": "dew",
+    "sun": "flower"
   },
   "picture": {
-    "id": "watering_can_11",
+    "id": "canoe_09",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 31,
+      "count": 18,
       "id": "p01",
-      "variantId": "leaf"
-    },
-    {
-      "count": 25,
-      "id": "p02",
-      "variantId": "water"
-    },
-    {
-      "count": 22,
-      "id": "p03",
-      "variantId": "leaf"
-    },
-    {
-      "count": 14,
-      "id": "p04",
-      "variantId": "wood"
-    },
-    {
-      "count": 23,
-      "id": "p05",
-      "variantId": "water"
-    },
-    {
-      "count": 23,
-      "id": "p06",
-      "variantId": "water"
-    },
-    {
-      "count": 24,
-      "id": "p07",
-      "variantId": "water"
-    },
-    {
-      "count": 5,
-      "id": "p08",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
       "count": 19,
-      "id": "p09",
-      "variantId": "leaf"
+      "id": "p02",
+      "variantId": "dew"
     },
     {
-      "count": 10,
-      "id": "p10",
-      "variantId": "water"
+      "count": 11,
+      "id": "p03",
+      "variantId": "moss"
     },
     {
       "count": 6,
-      "id": "p11",
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p06",
+      "variantId": "berry"
+    },
+    {
+      "count": 35,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p08",
       "variantId": "dew"
     },
     {
       "count": 5,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 23,
       "id": "p12",
-      "variantId": "vine"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
@@ -97,8 +100,12 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11"],
-      ["p02", "p04", "p06", "p08", "p10", "p12"]
+      ["p01", "p07"],
+      ["p02", "p08"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
     ]
   }
 }

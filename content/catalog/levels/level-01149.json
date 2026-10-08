@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2484
+    "score": 2614
   },
   "entries": [
     {
@@ -18,7 +18,7 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p30",
+        "id": "p31",
         "kind": "pod"
       }
     }
@@ -90,17 +90,17 @@
       "variantId": "violet_bud"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p09",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p10",
       "variantId": "violet_bud"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p11",
       "variantId": "violet_bud"
     },
@@ -115,22 +115,22 @@
       "variantId": "violet_bud"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p14",
-      "variantId": "violet_bud"
+      "variantId": "leaf"
     },
     {
       "count": 5,
       "id": "p15",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p16",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     },
     {
-      "count": 8,
+      "count": 5,
       "id": "p17",
       "variantId": "leaf"
     },
@@ -140,32 +140,32 @@
       "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p19",
-      "variantId": "wood"
+      "variantId": "leaf"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p20",
       "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p21",
       "variantId": "wood"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p22",
       "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p23",
       "variantId": "wood"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p24",
       "variantId": "wood"
     },
@@ -175,43 +175,43 @@
       "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p26",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p27",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p28",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p29",
       "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p30",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p31",
       "lockKeyId": "k1",
       "variantId": "dew"
     },
     {
       "count": 7,
-      "id": "p31",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
       "id": "p32",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 8,
       "id": "p33",
       "variantId": "dew"
     },
@@ -238,11 +238,8 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26", "p31", "p36"],
-      ["p02", "p07", "p12", "p17", "p22", "p27", "p32"],
-      ["p03", "p08", "p13", "p18", "p23", "p28", "p33"],
-      ["p04", "p09", "p14", "p19", "p24", "p29", "p34"],
-      ["p05", "p10", "p15", "p20", "p25", "p30", "p35"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23", "p25", "p27", "p29", "p31", "p33", "p35"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24", "p26", "p28", "p30", "p32", "p34", "p36"]
     ]
   }
 }

@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1577
+    "score": 1578
   },
   "entries": [
     {
@@ -15,98 +15,99 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 66,
   "mapping": {
-    "background": "dew",
-    "berry": "flower",
-    "blossom": "flower",
-    "cloth": "moss",
-    "leaves": "moss",
-    "plate": "wood",
-    "seed": "vine"
+    "door": "wood",
+    "meadow": "moss",
+    "moon": "dew",
+    "night": "dew",
+    "pine": "moss",
+    "pole": "wood",
+    "stars": "vine",
+    "tent": "flower"
   },
   "picture": {
-    "id": "strawberry_11",
+    "id": "tent_06",
     "version": 1
   },
   "pods": [
     {
-      "count": 22,
+      "count": 15,
       "id": "p01",
       "variantId": "moss"
     },
     {
-      "count": 13,
+      "count": 6,
       "id": "p02",
-      "variantId": "wood"
+      "variantId": "vine"
     },
     {
-      "count": 13,
+      "count": 18,
       "id": "p03",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "count": 12,
+      "count": 17,
       "id": "p04",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 14,
+      "count": 15,
       "id": "p05",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 13,
+      "count": 22,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 12,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 26,
+      "count": 12,
       "id": "p08",
       "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 22,
       "id": "p09",
       "variantId": "dew"
     },
     {
-      "count": 13,
+      "count": 11,
       "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 13,
       "id": "p11",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 23,
       "id": "p12",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 22,
       "id": "p13",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 17,
       "id": "p14",
       "variantId": "flower"
     },
     {
-      "count": 17,
+      "count": 20,
       "id": "p15",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
-      "count": 10,
+      "count": 15,
       "id": "p16",
-      "variantId": "vine"
+      "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",

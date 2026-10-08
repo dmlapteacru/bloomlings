@@ -3,185 +3,243 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2647
+    "score": 2923
   },
   "entries": [
     {
-      "side": "left",
-      "x": 0,
-      "y": 5
+      "side": "bottom",
+      "x": 1,
+      "y": 0
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2891,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p17",
+        "kind": "pod"
+      }
+    }
+  ],
   "mapping": {
-    "bus": "acorn",
-    "door": "dew",
-    "road": "leaf",
-    "sky": "water",
-    "stripe": "berry",
-    "sun": "violet_bud",
-    "wheel": "acorn",
-    "window": "water"
+    "crown": "leaf",
+    "crown2": "leaf",
+    "dots": "violet_bud",
+    "fruit": "acorn",
+    "plate": "dew",
+    "scales": "acorn",
+    "table": "violet_bud",
+    "wall": "water"
   },
-  "mechanics": ["layered_tile", "mystery_tile"],
+  "mechanics": ["gate", "layered_tile", "locked_pod"],
   "overlays": {
     "cells": [
       {
-        "layersBelow": ["dew"],
+        "layersBelow": ["acorn"],
         "x": 1,
         "y": 0
       },
       {
-        "layersBelow": ["dew"],
-        "x": 10,
+        "layersBelow": ["leaf"],
+        "x": 2,
         "y": 0
       },
       {
-        "layersBelow": ["acorn"],
+        "layersBelow": ["violet_bud", "acorn"],
+        "x": 7,
+        "y": 1
+      },
+      {
+        "layersBelow": ["water", "violet_bud"],
+        "x": 13,
+        "y": 1
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 5,
+        "y": 2
+      },
+      {
+        "keyId": "k1",
         "x": 0,
-        "y": 2
+        "y": 3
       },
       {
-        "layersBelow": ["berry", "dew"],
-        "x": 4,
-        "y": 2
-      },
-      {
-        "layersBelow": ["dew"],
-        "x": 9,
-        "y": 2
-      },
-      {
-        "layersBelow": ["berry", "water"],
-        "x": 11,
-        "y": 2
-      },
-      {
-        "mystery": true,
+        "layersBelow": ["acorn"],
         "x": 2,
         "y": 3
       },
       {
-        "mystery": true,
-        "x": 5,
-        "y": 3
-      },
-      {
-        "layersBelow": ["acorn", "dew"],
-        "x": 6,
-        "y": 3
-      },
-      {
-        "layersBelow": ["leaf", "dew"],
-        "x": 7,
-        "y": 3
-      },
-      {
-        "layersBelow": ["violet_bud"],
+        "layersBelow": ["leaf", "violet_bud"],
         "x": 13,
         "y": 3
       },
       {
-        "layersBelow": ["berry"],
+        "layersBelow": ["leaf"],
+        "x": 3,
+        "y": 4
+      },
+      {
+        "layersBelow": ["dew"],
         "x": 0,
-        "y": 4
-      },
-      {
-        "layersBelow": ["dew", "berry"],
-        "x": 12,
-        "y": 4
-      },
-      {
-        "layersBelow": ["acorn", "water"],
-        "x": 1,
         "y": 5
       },
       {
+        "layersBelow": ["leaf", "acorn"],
+        "x": 8,
+        "y": 5
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 8,
+        "y": 6
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 9,
+        "y": 6
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 12,
+        "y": 6
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 3,
+        "y": 7
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 13,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 3,
+        "y": 8
+      },
+      {
         "layersBelow": ["leaf"],
-        "x": 4,
-        "y": 6
-      },
-      {
-        "layersBelow": ["acorn"],
-        "x": 6,
-        "y": 6
-      },
-      {
-        "mystery": true,
-        "x": 0,
+        "x": 5,
         "y": 8
       },
       {
         "layersBelow": ["violet_bud"],
-        "x": 5,
+        "x": 10,
         "y": 8
       },
       {
-        "layersBelow": ["acorn", "violet_bud"],
-        "x": 5,
+        "layersBelow": ["acorn"],
+        "x": 3,
         "y": 9
       },
       {
-        "layersBelow": ["water"],
-        "x": 10,
+        "layersBelow": ["leaf"],
+        "x": 6,
         "y": 9
       },
       {
-        "layersBelow": ["berry"],
-        "x": 0,
-        "y": 10
+        "layersBelow": ["violet_bud"],
+        "x": 11,
+        "y": 9
       },
       {
-        "layersBelow": ["water"],
+        "layersBelow": ["violet_bud"],
+        "x": 13,
+        "y": 9
+      },
+      {
+        "layersBelow": ["dew"],
         "x": 3,
         "y": 10
       },
       {
-        "layersBelow": ["dew"],
-        "x": 7,
-        "y": 13
+        "layersBelow": ["acorn", "water"],
+        "x": 5,
+        "y": 10
       },
       {
-        "layersBelow": ["berry"],
-        "x": 10,
-        "y": 14
+        "layersBelow": ["acorn", "violet_bud"],
+        "x": 12,
+        "y": 10
+      },
+      {
+        "layersBelow": ["dew", "acorn"],
+        "x": 9,
+        "y": 11
       },
       {
         "layersBelow": ["violet_bud"],
-        "x": 2,
-        "y": 15
+        "x": 11,
+        "y": 11
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 5,
+        "y": 12
       },
       {
         "layersBelow": ["acorn"],
-        "x": 5,
+        "x": 8,
+        "y": 12
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 12,
+        "y": 13
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 7,
+        "y": 14
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 11,
+        "y": 14
+      },
+      {
+        "layersBelow": ["leaf", "dew"],
+        "x": 12,
+        "y": 14
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 1,
         "y": 15
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 9,
+        "y": 16
       }
     ]
   },
   "picture": {
-    "id": "bus_09",
-    "mirror": "horizontal",
+    "id": "pineapple_04",
     "version": 1
   },
   "pods": [
     {
-      "count": 6,
+      "count": 5,
       "id": "p01",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 12,
+      "count": 11,
       "id": "p02",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
-      "count": 7,
+      "count": 14,
       "id": "p03",
       "variantId": "acorn"
     },
     {
-      "count": 10,
+      "count": 12,
       "id": "p04",
       "variantId": "acorn"
     },
@@ -191,27 +249,27 @@
       "variantId": "acorn"
     },
     {
-      "count": 7,
+      "count": 17,
       "id": "p06",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p07",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 9,
       "id": "p08",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 19,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 11,
       "id": "p10",
       "variantId": "water"
     },
@@ -221,66 +279,75 @@
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 13,
       "id": "p12",
-      "variantId": "water"
-    },
-    {
-      "count": 17,
-      "id": "p13",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p14",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p15",
-      "variantId": "water"
-    },
-    {
-      "count": 15,
-      "id": "p16",
-      "variantId": "berry"
-    },
-    {
-      "count": 16,
-      "id": "p17",
-      "variantId": "leaf"
-    },
-    {
-      "count": 14,
-      "id": "p18",
-      "variantId": "leaf"
-    },
-    {
-      "count": 9,
-      "id": "p19",
       "variantId": "violet_bud"
     },
     {
-      "count": 8,
-      "id": "p20",
+      "count": 18,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p14",
       "variantId": "dew"
     },
     {
+      "count": 13,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p17",
+      "lockKeyId": "k1",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p18",
+      "variantId": "violet_bud"
+    },
+    {
       "count": 5,
-      "id": "p21",
-      "variantId": "acorn"
+      "id": "p19",
+      "variantId": "leaf"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "8344259423179439418",
+  "seed": "4055892628330146202",
   "slots": {
     "count": 5
   },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 3,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
-      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
-      ["p03", "p06", "p09", "p12", "p15", "p18", "p21"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18"]
     ]
   }
 }

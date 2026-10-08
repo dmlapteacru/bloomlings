@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3434
+    "score": 3174
   },
   "entries": [
     {
@@ -236,14 +236,14 @@
       "variantId": "wood"
     },
     {
-      "count": 14,
+      "count": 16,
       "id": "p02",
       "variantId": "wood"
     },
     {
-      "count": 16,
+      "count": 15,
       "id": "p03",
-      "variantId": "violet_bud"
+      "variantId": "leaf"
     },
     {
       "count": 18,
@@ -256,19 +256,19 @@
       "variantId": "leaf"
     },
     {
-      "count": 16,
+      "count": 14,
       "id": "p06",
-      "variantId": "leaf"
+      "variantId": "wood"
     },
     {
-      "count": 15,
+      "count": 25,
       "id": "p07",
-      "variantId": "leaf"
+      "variantId": "acorn"
     },
     {
-      "count": 18,
+      "count": 16,
       "id": "p08",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     },
     {
       "count": 15,
@@ -276,7 +276,7 @@
       "variantId": "leaf"
     },
     {
-      "count": 18,
+      "count": 16,
       "id": "p10",
       "variantId": "leaf"
     },
@@ -286,39 +286,39 @@
       "variantId": "leaf"
     },
     {
-      "count": 16,
+      "count": 18,
       "id": "p12",
       "variantId": "leaf"
     },
     {
-      "count": 19,
+      "count": 18,
       "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 25,
-      "id": "p14",
-      "variantId": "acorn"
-    },
-    {
       "count": 14,
-      "id": "p15",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 17,
       "id": "p16",
       "variantId": "violet_bud"
     },
     {
-      "count": 20,
+      "count": 17,
       "id": "p17",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 16,
+      "count": 20,
       "id": "p18",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
       "count": 5,
@@ -338,12 +338,8 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13", "p19"],
-      ["p02", "p08", "p14", "p20"],
-      ["p03", "p09", "p15"],
-      ["p04", "p10", "p16"],
-      ["p05", "p11", "p17"],
-      ["p06", "p12", "p18"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20"]
     ]
   }
 }

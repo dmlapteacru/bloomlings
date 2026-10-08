@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2038
+    "score": 1975
   },
   "entries": [
     {
@@ -30,171 +30,172 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p23",
+        "id": "p21",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "fence": "wood",
+    "canopy": "leaf",
+    "duck": "wood",
     "grass": "leaf",
-    "mud": "wood",
-    "nostril": "wood",
-    "pig": "flower",
+    "lilies": "flower",
+    "pond": "water",
+    "reeds": "wood",
     "sky": "water",
-    "snout": "flower",
-    "sun": "vine"
+    "sun": "flower",
+    "trunk": "wood"
   },
   "mechanics": ["locked_pod", "locked_slot"],
   "overlays": {
     "cells": [
       {
         "keyId": "k2",
-        "x": 5,
-        "y": 0
+        "x": 2,
+        "y": 1
       },
       {
         "keyId": "k1",
-        "x": 9,
-        "y": 2
+        "x": 14,
+        "y": 16
       }
     ]
   },
   "picture": {
-    "id": "pig_08",
+    "id": "willow_tree_05",
     "version": 1
   },
   "pods": [
     {
-      "count": 14,
+      "count": 10,
       "id": "p01",
       "variantId": "leaf"
     },
     {
-      "count": 17,
+      "count": 9,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 10,
-      "id": "p03",
-      "variantId": "wood"
-    },
-    {
-      "count": 10,
-      "id": "p04",
-      "variantId": "wood"
-    },
-    {
       "count": 11,
-      "id": "p05",
-      "variantId": "wood"
+      "id": "p03",
+      "variantId": "leaf"
     },
     {
       "count": 9,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
       "id": "p06",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 15,
       "id": "p07",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 15,
       "id": "p08",
-      "variantId": "flower"
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p09",
+      "variantId": "water"
     },
     {
       "count": 16,
-      "id": "p09",
-      "variantId": "flower"
-    },
-    {
-      "count": 17,
       "id": "p10",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 14,
       "id": "p11",
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 15,
       "id": "p12",
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 11,
       "id": "p13",
-      "variantId": "water"
-    },
-    {
-      "count": 12,
-      "id": "p14",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
       "count": 11,
-      "id": "p15",
-      "variantId": "water"
+      "id": "p14",
+      "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 10,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
       "id": "p16",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
       "count": 10,
       "id": "p17",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p18",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p19",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p20",
-      "variantId": "water"
-    },
-    {
-      "count": 20,
-      "id": "p21",
-      "variantId": "water"
-    },
-    {
-      "count": 10,
-      "id": "p22",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p23",
-      "lockKeyId": "k1",
-      "variantId": "water"
-    },
-    {
-      "count": 9,
-      "id": "p24",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
       "count": 12,
-      "id": "p25",
-      "variantId": "water"
+      "id": "p18",
+      "variantId": "leaf"
     },
     {
-      "count": 5,
+      "count": 11,
+      "id": "p19",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p20",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p21",
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p22",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p23",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p24",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p25",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
       "id": "p26",
-      "variantId": "vine"
+      "variantId": "water"
     }
   ],
   "rewardProfile": "standard",

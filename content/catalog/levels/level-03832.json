@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1645
+    "score": 1773
   },
   "entries": [
     {
@@ -18,99 +18,97 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p05",
+        "id": "p12",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "booth": "flower",
-    "cloud": "dew",
-    "crown": "violet_bud",
-    "hedge": "leaf",
-    "pane": "dew",
-    "pavement": "wood",
-    "sign": "wood",
-    "sky": "dew",
-    "tree": "leaf",
-    "trunk": "wood"
+    "bubbles": "flower",
+    "gems": "flower",
+    "gold": "wood",
+    "lock": "water",
+    "sand": "leaf",
+    "water": "dew",
+    "weed": "moss",
+    "wood": "wood"
   },
   "mechanics": ["locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 6,
-        "y": 10
+        "x": 1,
+        "y": 14
       }
     ]
   },
   "picture": {
-    "id": "phone_booth_03",
+    "id": "treasure_chest_02",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 13,
+      "count": 11,
       "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p02",
       "variantId": "dew"
     },
     {
-      "count": 26,
-      "id": "p02",
-      "variantId": "leaf"
-    },
-    {
-      "count": 16,
+      "count": 21,
       "id": "p03",
       "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 21,
       "id": "p04",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 23,
       "id": "p05",
-      "lockKeyId": "k1",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 17,
-      "id": "p06",
       "variantId": "dew"
-    },
-    {
-      "count": 17,
-      "id": "p07",
-      "variantId": "dew"
-    },
-    {
-      "count": 22,
-      "id": "p08",
-      "variantId": "flower"
-    },
-    {
-      "count": 24,
-      "id": "p09",
-      "variantId": "flower"
     },
     {
       "count": 19,
-      "id": "p10",
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 20,
+      "id": "p07",
       "variantId": "wood"
     },
     {
       "count": 21,
-      "id": "p11",
+      "id": "p08",
       "variantId": "wood"
     },
     {
-      "count": 13,
+      "count": 20,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
       "id": "p12",
-      "variantId": "dew"
+      "lockKeyId": "k1",
+      "variantId": "water"
     }
   ],
   "rewardProfile": "standard",

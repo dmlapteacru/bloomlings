@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2597
+    "score": 2318
   },
   "entries": [
     {
@@ -31,24 +31,26 @@
   },
   "pods": [
     {
-      "count": 6,
+      "count": 9,
       "id": "p01",
       "variantId": "water"
     },
     {
+      "connectedGroupId": "c1",
       "count": 9,
       "id": "p02",
       "variantId": "water"
     },
     {
+      "connectedGroupId": "c1",
       "count": 8,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
       "count": 8,
       "id": "p04",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 8,
@@ -68,22 +70,22 @@
     {
       "count": 8,
       "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 8,
-      "id": "p09",
       "variantId": "leaf"
     },
     {
       "count": 9,
-      "id": "p10",
+      "id": "p09",
       "variantId": "leaf"
     },
     {
       "count": 8,
-      "id": "p11",
+      "id": "p10",
       "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "acorn"
     },
     {
       "count": 9,
@@ -96,22 +98,22 @@
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p14",
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p15",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 9,
       "id": "p16",
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p17",
       "variantId": "water"
     },
@@ -121,13 +123,11 @@
       "variantId": "water"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 9,
+      "count": 8,
       "id": "p19",
       "variantId": "water"
     },
     {
-      "connectedGroupId": "c1",
       "count": 9,
       "id": "p20",
       "variantId": "water"
@@ -148,9 +148,9 @@
       "variantId": "flower"
     },
     {
-      "count": 12,
+      "count": 9,
       "id": "p24",
-      "variantId": "acorn"
+      "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
@@ -160,8 +160,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23"],
-      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24"]
     ]
   }
 }

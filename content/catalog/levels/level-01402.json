@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2012
+    "score": 1881
   },
   "entries": [
     {
@@ -24,164 +24,162 @@
     }
   ],
   "mapping": {
-    "beak": "wood",
-    "branch": "wood",
-    "eye": "violet_bud",
-    "ferns": "moss",
-    "flowers": "violet_bud",
-    "leaves": "moss",
-    "parrot": "flower",
-    "sky": "dew",
-    "tail": "wood",
-    "wing": "dew"
+    "background": "dew",
+    "dough": "wood",
+    "icing": "flower",
+    "plate": "leaf",
+    "sprinkle_blue": "dew",
+    "sprinkle_gold": "vine",
+    "sprinkle_green": "leaf",
+    "table": "flower"
   },
   "mechanics": ["connected_pair", "fountain", "key"],
   "overlays": {
     "cells": [
       {
-        "hole": true,
-        "x": 7,
-        "y": 6
-      },
-      {
-        "stone": true,
-        "x": 3,
-        "y": 7
-      },
-      {
-        "hole": true,
-        "x": 6,
-        "y": 7
-      },
-      {
         "keyId": "k1",
-        "x": 4,
-        "y": 8
+        "x": 11,
+        "y": 2
+      },
+      {
+        "hole": true,
+        "x": 14,
+        "y": 9
+      },
+      {
+        "hole": true,
+        "x": 13,
+        "y": 10
       },
       {
         "stone": true,
-        "x": 5,
-        "y": 8
+        "x": 13,
+        "y": 12
+      },
+      {
+        "stone": true,
+        "x": 13,
+        "y": 13
       }
     ]
   },
   "picture": {
-    "id": "parrot_03",
+    "id": "donut_07",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 7,
+      "count": 11,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
       "connectedGroupId": "c1",
-      "count": 9,
+      "count": 13,
       "id": "p02",
-      "variantId": "moss"
+      "variantId": "flower"
     },
     {
       "connectedGroupId": "c1",
-      "count": 7,
+      "count": 14,
       "id": "p03",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 8,
+      "count": 12,
       "id": "p04",
-      "variantId": "moss"
+      "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 15,
       "id": "p05",
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 13,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 13,
       "id": "p07",
       "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 13,
       "id": "p08",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 15,
       "id": "p09",
       "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 13,
       "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 13,
       "id": "p11",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 14,
       "id": "p12",
       "variantId": "dew"
     },
     {
-      "count": 15,
-      "id": "p13",
-      "variantId": "dew"
-    },
-    {
-      "count": 15,
-      "id": "p14",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p15",
-      "variantId": "dew"
-    },
-    {
       "count": 10,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
       "id": "p16",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 14,
+      "count": 16,
       "id": "p17",
-      "variantId": "wood"
+      "variantId": "flower"
     },
     {
-      "count": 14,
+      "count": 8,
       "id": "p18",
-      "variantId": "wood"
+      "variantId": "flower"
     },
     {
-      "count": 15,
+      "count": 11,
       "id": "p19",
       "variantId": "flower"
     },
     {
-      "count": 14,
+      "count": 10,
       "id": "p20",
-      "variantId": "flower"
+      "variantId": "wood"
     },
     {
-      "count": 15,
+      "count": 9,
       "id": "p21",
-      "variantId": "moss"
+      "variantId": "vine"
     },
     {
-      "count": 11,
+      "count": 5,
       "id": "p22",
-      "variantId": "violet_bud"
+      "variantId": "leaf"
     }
   ],
   "rewardProfile": "standard",
@@ -193,8 +191,8 @@
     {
       "cells": [
         {
-          "x": 7,
-          "y": 6
+          "x": 14,
+          "y": 9
         }
       ],
       "condition": {
@@ -210,24 +208,24 @@
     {
       "cells": [
         {
-          "x": 6,
-          "y": 7
+          "x": 13,
+          "y": 10
         }
       ],
       "condition": {
-        "count": 2,
+        "count": 3,
         "kind": "clear_count_adjacent",
-        "variantId": "flower"
+        "variantId": "dew"
       },
       "effect": {
         "cells": [
           {
-            "x": 3,
-            "y": 7
+            "x": 13,
+            "y": 12
           },
           {
-            "x": 5,
-            "y": 8
+            "x": 13,
+            "y": 13
           }
         ],
         "kind": "remove_stones"

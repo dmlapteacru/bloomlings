@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2274
+    "score": 1955
   },
   "entries": [
     {
@@ -24,153 +24,152 @@
     }
   ],
   "mapping": {
-    "branch": "moss",
-    "bushes": "moss",
-    "face": "acorn",
-    "flowers": "flower",
-    "grass": "moss",
+    "beak": "acorn",
+    "bird": "flower",
+    "blossom": "flower",
+    "branch": "acorn",
+    "eye": "dew",
     "leaves": "leaf",
-    "sky": "dew",
-    "sloth": "acorn",
-    "stripes": "flower",
-    "sun": "wood"
+    "sky": "water",
+    "sun": "acorn",
+    "wing": "flower"
   },
   "mechanics": ["locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 5,
-        "y": 15
+        "x": 16,
+        "y": 8
       }
     ]
   },
   "picture": {
-    "id": "sloth_05",
+    "id": "bird_10",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 19,
+      "count": 21,
       "id": "p01",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 21,
+      "count": 12,
       "id": "p02",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 12,
       "id": "p03",
-      "variantId": "dew"
-    },
-    {
-      "count": 21,
-      "id": "p04",
-      "variantId": "moss"
-    },
-    {
-      "count": 21,
-      "id": "p05",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
       "count": 23,
-      "id": "p06",
-      "variantId": "moss"
+      "id": "p04",
+      "variantId": "water"
     },
     {
-      "count": 15,
-      "id": "p07",
-      "variantId": "dew"
+      "count": 11,
+      "id": "p05",
+      "variantId": "water"
     },
     {
       "count": 18,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 20,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
-      "count": 16,
+      "count": 17,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 18,
       "id": "p10",
       "variantId": "acorn"
     },
     {
-      "count": 17,
+      "count": 16,
       "id": "p11",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 17,
+      "count": 18,
       "id": "p12",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 15,
       "id": "p13",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 18,
+      "count": 17,
       "id": "p14",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 18,
       "id": "p15",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 20,
       "id": "p16",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 20,
       "id": "p17",
-      "variantId": "moss"
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p19",
+      "variantId": "water"
     },
     {
       "count": 19,
-      "id": "p18",
-      "variantId": "leaf"
-    },
-    {
-      "count": 15,
-      "id": "p19",
-      "variantId": "dew"
-    },
-    {
-      "count": 16,
       "id": "p20",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 14,
+      "count": 20,
       "id": "p21",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 11,
       "id": "p22",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
-      "count": 16,
+      "count": 6,
       "id": "p23",
       "variantId": "flower"
     },
     {
-      "count": 12,
+      "count": 5,
       "id": "p24",
       "lockKeyId": "k1",
-      "variantId": "wood"
+      "variantId": "dew"
     }
   ],
   "rewardProfile": "standard",

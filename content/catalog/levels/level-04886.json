@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1515
+    "score": 1637
   },
   "entries": [
     {
@@ -26,12 +26,12 @@
   "mapping": {
     "barn": "flower",
     "beam": "dew",
-    "door": "acorn",
+    "door": "wood",
     "grass": "moss",
-    "hay": "acorn",
-    "loft": "acorn",
+    "hay": "vine",
+    "loft": "wood",
     "sky": "dew",
-    "trim": "acorn"
+    "trim": "wood"
   },
   "mechanics": ["key"],
   "overlays": {
@@ -43,13 +43,13 @@
       },
       {
         "hole": true,
-        "x": 8,
+        "x": 6,
         "y": 13
       }
     ]
   },
   "picture": {
-    "id": "barn_03",
+    "id": "barn_07",
     "version": 1
   },
   "pods": [
@@ -64,74 +64,74 @@
       "variantId": "moss"
     },
     {
-      "count": 12,
-      "id": "p03",
-      "variantId": "acorn"
-    },
-    {
       "count": 16,
-      "id": "p04",
-      "variantId": "dew"
+      "id": "p03",
+      "variantId": "flower"
     },
     {
       "count": 17,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
       "id": "p05",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 9,
       "id": "p06",
-      "variantId": "dew"
-    },
-    {
-      "count": 9,
-      "id": "p07",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 8,
-      "id": "p08",
-      "variantId": "dew"
+      "id": "p07",
+      "variantId": "flower"
     },
     {
       "count": 10,
-      "id": "p09",
-      "variantId": "dew"
+      "id": "p08",
+      "variantId": "flower"
     },
     {
       "count": 15,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
       "id": "p10",
-      "variantId": "flower"
+      "variantId": "wood"
     },
     {
       "count": 9,
       "id": "p11",
-      "variantId": "flower"
+      "variantId": "wood"
     },
     {
-      "count": 9,
+      "count": 15,
       "id": "p12",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
       "count": 18,
       "id": "p13",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
       "count": 18,
       "id": "p14",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 18,
       "id": "p15",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 15,
+      "count": 6,
       "id": "p16",
-      "variantId": "acorn"
+      "variantId": "vine"
     }
   ],
   "rewardProfile": "standard",
@@ -143,7 +143,7 @@
     {
       "cells": [
         {
-          "x": 8,
+          "x": 6,
           "y": 13
         }
       ],

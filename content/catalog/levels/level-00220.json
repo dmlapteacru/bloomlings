@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2698
+    "score": 2685
   },
   "entries": [
     {
@@ -164,7 +164,6 @@
       "variantId": "water"
     },
     {
-      "connectedGroupId": "c1",
       "count": 17,
       "id": "p02",
       "variantId": "water"
@@ -175,7 +174,6 @@
       "variantId": "water"
     },
     {
-      "connectedGroupId": "c1",
       "count": 19,
       "id": "p04",
       "variantId": "water"
@@ -191,11 +189,13 @@
       "variantId": "berry"
     },
     {
+      "connectedGroupId": "c1",
       "count": 12,
       "id": "p07",
       "variantId": "violet_bud"
     },
     {
+      "connectedGroupId": "c1",
       "count": 10,
       "id": "p08",
       "variantId": "violet_bud"
@@ -267,12 +267,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13", "p19"],
-      ["p02", "p08", "p14"],
-      ["p03", "p09", "p15"],
-      ["p04", "p10", "p16"],
-      ["p05", "p11", "p17"],
-      ["p06", "p12", "p18"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
     ]
   }
 }

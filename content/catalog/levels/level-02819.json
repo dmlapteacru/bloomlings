@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1630
+    "score": 1634
   },
   "entries": [
     {
@@ -15,90 +15,89 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 2819,
   "mapping": {
-    "apple": "flower",
-    "face": "wood",
+    "body": "acorn",
+    "flower": "wood",
     "grass": "moss",
-    "leaf": "leaf",
-    "nose": "flower",
+    "lower_wing": "violet_bud",
     "sky": "dew",
-    "spikes": "wood",
-    "sun": "acorn"
+    "spot": "dew",
+    "wing": "flower"
   },
   "mechanics": ["environment_2"],
   "overlays": {
     "cells": [
       {
         "hole": true,
-        "x": 4,
-        "y": 9
+        "x": 7,
+        "y": 4
       }
     ]
   },
   "picture": {
-    "id": "hedgehog_07",
+    "id": "butterfly_07",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 26,
+      "count": 16,
       "id": "p01",
       "variantId": "moss"
     },
     {
-      "count": 17,
+      "count": 14,
       "id": "p02",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "count": 16,
+      "count": 24,
       "id": "p03",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 25,
       "id": "p04",
-      "variantId": "wood"
-    },
-    {
-      "count": 17,
-      "id": "p05",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
       "count": 23,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 24,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 18,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
-      "count": 23,
+      "count": 16,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 22,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p10",
+      "variantId": "violet_bud"
     },
     {
       "count": 10,
-      "id": "p10",
-      "variantId": "flower"
-    },
-    {
-      "count": 5,
       "id": "p11",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
       "count": 5,
       "id": "p12",
-      "variantId": "acorn"
+      "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
@@ -110,28 +109,32 @@
     {
       "cells": [
         {
-          "x": 4,
-          "y": 9
+          "x": 7,
+          "y": 4
         }
       ],
       "condition": {
         "kind": "clear_region",
         "regionCells": [
           {
-            "x": 4,
-            "y": 8
+            "x": 7,
+            "y": 3
           },
           {
-            "x": 3,
-            "y": 9
+            "x": 6,
+            "y": 4
           },
           {
-            "x": 4,
-            "y": 10
+            "x": 8,
+            "y": 4
           },
           {
-            "x": 4,
-            "y": 7
+            "x": 7,
+            "y": 5
+          },
+          {
+            "x": 8,
+            "y": 3
           }
         ]
       },

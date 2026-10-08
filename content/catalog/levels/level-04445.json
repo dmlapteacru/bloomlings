@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 2065
+    "score": 1839
   },
   "entries": [
     {
@@ -15,126 +15,126 @@
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 4445,
   "mapping": {
-    "beak": "violet_bud",
-    "chick": "wood",
-    "eye_white": "leaf",
-    "flowers": "flower",
+    "booth": "flower",
+    "cabin": "acorn",
+    "cabin2": "water",
+    "cabin3": "leaf",
+    "cloud": "water",
+    "frame": "acorn",
     "grass": "leaf",
-    "shell": "water",
-    "sky": "water",
-    "sun": "flower",
-    "wing": "acorn"
+    "rim": "violet_bud",
+    "sky": "water"
   },
   "picture": {
-    "id": "chick_05",
+    "id": "ferris_wheel_05",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 13,
+      "count": 14,
       "id": "p01",
       "variantId": "leaf"
     },
     {
-      "count": 13,
+      "count": 15,
       "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 24,
+      "count": 20,
       "id": "p03",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 14,
+      "count": 19,
       "id": "p04",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 20,
       "id": "p05",
       "variantId": "water"
     },
     {
-      "count": 13,
+      "count": 18,
       "id": "p06",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 17,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 24,
+      "count": 20,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 13,
+      "count": 18,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 13,
+      "count": 21,
       "id": "p10",
       "variantId": "water"
     },
     {
-      "count": 25,
+      "count": 15,
       "id": "p11",
-      "variantId": "water"
-    },
-    {
-      "count": 24,
-      "id": "p12",
-      "variantId": "water"
-    },
-    {
-      "count": 13,
-      "id": "p13",
-      "variantId": "water"
-    },
-    {
-      "count": 13,
-      "id": "p14",
-      "variantId": "water"
-    },
-    {
-      "count": 25,
-      "id": "p15",
-      "variantId": "water"
-    },
-    {
-      "count": 23,
-      "id": "p16",
-      "variantId": "flower"
-    },
-    {
-      "count": 23,
-      "id": "p17",
-      "variantId": "wood"
-    },
-    {
-      "count": 25,
-      "id": "p18",
-      "variantId": "wood"
-    },
-    {
-      "count": 8,
-      "id": "p19",
-      "variantId": "leaf"
-    },
-    {
-      "count": 6,
-      "id": "p20",
       "variantId": "violet_bud"
     },
     {
-      "count": 6,
-      "id": "p21",
+      "count": 14,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 27,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p14",
       "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p15",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p21",
+      "variantId": "flower"
     }
   ],
   "rewardProfile": "standard",

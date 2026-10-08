@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1807
+    "score": 1912
   },
   "entries": [
     {
@@ -24,133 +24,130 @@
     }
   ],
   "mapping": {
-    "band": "acorn",
-    "beam": "acorn",
-    "door": "moss",
-    "grass": "leaf",
-    "light": "acorn",
-    "rock": "acorn",
-    "roof": "flower",
-    "sea": "water",
-    "sky": "dew",
-    "tower": "flower"
+    "leaf": "moss",
+    "sky": "water",
+    "soil": "acorn",
+    "stem": "leaf",
+    "sun": "acorn",
+    "tulip": "berry",
+    "tulip2": "violet_bud"
   },
   "mechanics": ["connected_pair", "key", "mystery_tile"],
   "overlays": {
     "cells": [
       {
         "mystery": true,
-        "x": 1,
-        "y": 1
+        "x": 0,
+        "y": 0
       },
       {
         "mystery": true,
-        "x": 14,
-        "y": 6
-      },
-      {
-        "mystery": true,
-        "x": 11,
-        "y": 7
+        "x": 15,
+        "y": 0
       },
       {
         "hole": true,
-        "x": 5,
+        "x": 7,
         "y": 9
+      },
+      {
+        "mystery": true,
+        "x": 3,
+        "y": 13
       },
       {
         "keyId": "k1",
         "x": 4,
-        "y": 17
+        "y": 13
       }
     ]
   },
   "picture": {
-    "id": "lighthouse_03",
+    "id": "tulip_bed_13",
     "version": 1
   },
   "pods": [
     {
-      "count": 14,
+      "count": 19,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
       "count": 16,
       "id": "p02",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 22,
+      "count": 10,
       "id": "p03",
-      "variantId": "acorn"
+      "variantId": "berry"
     },
     {
-      "count": 16,
+      "count": 15,
       "id": "p04",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 17,
       "id": "p05",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 16,
       "id": "p06",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 16,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
       "count": 8,
       "id": "p08",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p10",
+      "variantId": "water"
     },
     {
       "count": 15,
-      "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "count": 16,
-      "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 27,
       "id": "p11",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
       "connectedGroupId": "c1",
       "count": 17,
       "id": "p12",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
-      "count": 16,
+      "count": 17,
       "id": "p13",
-      "variantId": "flower"
-    },
-    {
-      "count": 14,
-      "id": "p14",
       "variantId": "water"
     },
     {
       "connectedGroupId": "c1",
-      "count": 17,
-      "id": "p15",
-      "variantId": "water"
+      "count": 13,
+      "id": "p14",
+      "variantId": "leaf"
     },
     {
-      "count": 5,
+      "count": 29,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
       "id": "p16",
-      "variantId": "moss"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
@@ -162,7 +159,7 @@
     {
       "cells": [
         {
-          "x": 5,
+          "x": 7,
           "y": 9
         }
       ],
