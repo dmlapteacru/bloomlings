@@ -43,9 +43,10 @@ namespace Bloomlings.Client.UI.Screens
             Rect = root;
             _layout = BoxLayout.On(root);
 
-            // The default border: the wood rim, hidden while a frame takes its place (the playtest's order).
+            // The default border: the icon buttons' wooden plate (spec 005 FR-044), hidden while a frame takes its place (the
+            // playtest's order).
             _rim = UiFactory.Stretch(UiFactory.CreateRect("Rim", root));
-            UiKit.IconRim(BoxLayout.On(_rim), _rim, AvatarLook.Rim);
+            UiKit.RaisedPlate(BoxLayout.On(_rim), _rim, AvatarLook.Rim);
 
             // The picture's wood line, the green middle while the picture is missing, and the picture in a rounded mask.
             Image ring = Disc("Ring", root, C.WoodLine);

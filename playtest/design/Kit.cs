@@ -161,41 +161,31 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A glyph on a garden face (FR-010): light with a dark line under it on colored faces, dark on cream and white.
+        /// A glyph on a garden face (FR-010): light with a dark line under it on colored faces; on cream and white a brown
+        /// glyph a little raised (spec 005 FR-044, <see cref="RaisedGlyph"/>).
         /// </summary>
         public static void Glyph(IPainter p, string shapeId, Box box, ColorSet set)
         {
             Rgba glyph = GardenLook.GlyphOn(set);
-            if (UiRaster.VolumeLook && !GardenLook.LabelOn(set).Volumetric)
+            if (!GardenLook.LabelOn(set).Volumetric)
             {
                 RaisedGlyph(p, shapeId, box, glyph);
                 return;
             }
 
-            if (GardenLook.LabelOn(set).Volumetric)
-            {
-                p.Shape(shapeId, box.Offset(0f, box.Height * 0.06f), set.Line);
-            }
-            else
-            {
-                // A brown glyph on cream: a thin cream halo all around it, as on the reference's cream buttons.
-                GlyphHalo(p, shapeId, box);
-            }
-
+            p.Shape(shapeId, box.Offset(0f, box.Height * 0.06f), set.Line);
             p.Shape(shapeId, box, glyph);
         }
 
-        /// <summary>A glyph a little raised on its button (the owner's volume proposal, <see cref="UiRaster.RaisedGlyph"/>).</summary>
+        /// <summary>
+        /// A glyph a little raised on its cream face (spec 005 FR-044, the owner, 2026-10-08: "even the icons on the buttons
+        /// look a little volumetric"): <see cref="UiRaster.RaisedGlyph"/> in its picture box round the glyph's
+        /// <paramref name="box"/> (<see cref="UiRaster.RaisedGlyphBox"/>).
+        /// </summary>
         public static void RaisedGlyph(IPainter p, string shapeId, Box box, Rgba color)
         {
+            p.Mark("ui.glyph.raised");
             p.Picture("ui.glyph.raised/" + shapeId + "/" + color.Hex, UiRaster.RaisedGlyphBox(box), (w, h) => UiRaster.RaisedGlyph(Math.Min(w, h), shapeId, color));
-        }
-
-        /// <summary>The thin <c>cream.top</c> halo around a brown glyph on cream (the shape grown by 0.06 shape units).</summary>
-        private static void GlyphHalo(IPainter p, string shapeId, Box box)
-        {
-            Func<float, float, float> sdf = ShapeLibrary.Get(shapeId);
-            p.ShapeOf(shapeId + "/halo", (x, y) => sdf(x, y) - 0.06f, box, C.CreamTop);
         }
 
         /// <summary>
@@ -494,47 +484,33 @@ namespace Bloomlings.Playtest.Design
         };
 
         /// <summary>
-        /// The light wood rim of an icon button, the speed pill and the profile avatar (spec 005 §3.3; the owner,
-        /// 2026-10-06: a bigger border like Play's): a soft shadow and Play's light plank (<c>ui.button.rim</c>) as a rounded
-        /// rectangle of <paramref name="radius"/> filling <paramref name="box"/>, with a deeper outline and lip than Play's
-        /// (<see cref="GardenLook.IconRimOutline"/>, <see cref="GardenLook.IconRimLip"/>). Returns the box inside the rim
-        /// (<see cref="GardenLook.IconRimFace"/>).
-        /// </summary>
-        public static Box IconRim(IPainter p, Box box, float radius)
-        {
-            p.Mark("ui.button.rim");
-            SoftShadow(p, box, radius, 0.24f, 0.07f);
-            WoodPlank(p, box, radius / Math.Max(1f, box.Height), 3, outlineShare: GardenLook.IconRimOutline, lipShare: GardenLook.IconRimLip);
-            return GardenLook.IconRimFace(box);
-        }
-
-        /// <summary>
-        /// An icon button's rim and cushion: the wood rim (<see cref="IconRim"/>) round the rounded square of
-        /// <see cref="GardenLook.IconRadius"/>, and the cushion (<see cref="IconFace"/>) inside it, its corners following
-        /// the rim's. Returns the cushion's content box.
+        /// An icon button's plate and raised face (spec 005 FR-044, the owner, 2026-10-08: "the rim is volumetric and the
+        /// button seems to come a little out of it, as if laid on a volumetric plane"; contracts/look.md §6.18): a soft
+        /// shadow, the wooden plate of <see cref="GardenLook.IconRadius"/> whose border rounds over
+        /// (<see cref="UiRaster.RaisedPlate"/>), and the cream face raised on it (<see cref="UiRaster.RaisedFace"/> in
+        /// <see cref="UiRaster.RaisedFaceBox"/>), which a press sinks by up to 3% of the button. Returns the face's content
+        /// box (<see cref="UiRaster.RaisedFaceContent"/>), moved with the press.
         /// </summary>
         public static Box RimmedIconFace(IPainter p, Box box, ColorSet set, float depth)
         {
-            float radius = GardenLook.IconRadius(box);
-            if (!UiRaster.VolumeLook)
-            {
-                Box inside = IconRim(p, box, radius);
-                return IconFace(p, inside, set, Math.Max(0f, radius - (inside.Left - box.Left)), depth);
-            }
-
-            // The owner's volume proposal (2026-10-08, off until approved): a wooden plate whose border rounds over, and the
-            // face raised on it, casting its shadow on the plate (UiRaster.RaisedPlate, RaisedFace); a press sinks the face.
-            p.Mark("ui.button.rim");
-            SoftShadow(p, box, radius, 0.24f, 0.07f);
-            p.Picture("ui.button.plate/" + radius.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) + "/" + (box.Width / Math.Max(1f, box.Height)).ToString("0.000", System.Globalization.CultureInfo.InvariantCulture), box, (w, h) => UiRaster.RaisedPlate(w, h, radius * w / Math.Max(1f, box.Width)));
-            Box face = UiRaster.RaisedFaceBox(box);
+            RaisedPlate(p, box);
             float side = Math.Min(box.Width, box.Height);
-            float sink = side * 0.03f * Math.Max(-0.25f, Math.Min(1f, depth));
-            face = face.Offset(0f, sink);
-            float faceRadius = Math.Max(0f, radius - (face.Left - box.Left));
-            float faceSide = side * UiRaster.FaceSide;
-            p.Picture("ui.button.face/" + set.Name + "/" + (face.Width / Math.Max(1f, face.Height)).ToString("0.000", System.Globalization.CultureInfo.InvariantCulture), face, (w, h) => UiRaster.RaisedFace(w, h, faceRadius * w / Math.Max(1f, face.Width), faceSide * h / Math.Max(1f, face.Height), set));
+            Box face = UiRaster.RaisedFaceBox(box).Offset(0f, UiRaster.RaisedFaceSink(side, depth));
+            p.Mark("ui.button.face.raised");
+            p.Picture("ui.button.face/" + set.Name, face, (w, h) => UiRaster.ButtonFace(w, h, set));
             return UiRaster.RaisedFaceContent(face, side);
+        }
+
+        /// <summary>
+        /// The wooden plate of an icon button and the speed pill (<see cref="RimmedIconFace"/>) and the profile avatar's
+        /// border (<c>ui.button.rim</c>, spec 005 FR-044): a soft shadow and <see cref="UiRaster.ButtonPlate"/> filling
+        /// <paramref name="box"/>, its corners <see cref="GardenLook.IconRadius"/>.
+        /// </summary>
+        public static void RaisedPlate(IPainter p, Box box)
+        {
+            p.Mark("ui.button.rim");
+            SoftShadow(p, box, GardenLook.IconRadius(box), 0.24f, 0.07f);
+            p.Picture("ui.button.plate", box, UiRaster.ButtonPlate);
         }
 
         /// <summary>
@@ -611,15 +587,7 @@ namespace Bloomlings.Playtest.Design
             IconPart glyph = on ? GardenLook.FastGlyphOn : GardenLook.FastGlyph;
             float side = box.Height * GardenLook.SpeedGlyphShare * GardenLook.IconRimGlyph;
             Box fast = Box.FromCenter(f.CenterX, f.CenterY, side, side);
-            if (UiRaster.VolumeLook)
-            {
-                RaisedGlyph(p, glyph.ShapeId, fast, glyph.Fill);
-            }
-            else
-            {
-                GlyphHalo(p, glyph.ShapeId, fast);
-                p.Shape(glyph.ShapeId, fast, glyph.Fill);
-            }
+            RaisedGlyph(p, glyph.ShapeId, fast, glyph.Fill);
 
             p.PopTransform();
             if (action != null)

@@ -5,14 +5,7 @@ namespace Bloomlings.Client.UI.Design
 {
     public static partial class UiRaster
     {
-        // ---- Volume: soft cubes and raised buttons (the owner's request of 2026-10-08) ----
-
-        /// <summary>
-        /// Whether the board tiles are soft cubes (<see cref="Cube"/>) and the icon buttons raised faces on wooden plates
-        /// (<see cref="RaisedPlate"/>, <see cref="RaisedFace"/>): the owner's volume proposal of 2026-10-08, rendered for
-        /// review (the preview's <c>--volume</c>) and off in both builds until the owner approves it.
-        /// </summary>
-        public static bool VolumeLook { get; set; }
+        // ---- Volume: soft cubes and raised buttons (spec 005 FR-044, the owner, 2026-10-08; contracts/look.md §6.18) ----
 
         /// <summary>The light that shapes the volumes: from the upper left, a little toward the viewer.</summary>
         private static readonly (float X, float Y, float Z) VolumeLight = Normalized(-0.45f, -0.75f, 1.1f);
@@ -28,7 +21,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The soft cube of a board tile (the owner, 2026-10-08: "volumetric like cubes, but not cubes: the top must feel like
-        /// the top of a cube"): a rounded square top (radius 17% of the side) whose edges round down over a bevel of 13% of
+        /// the top of a cube"): a rounded square top (radius 17% of the side) whose edges round down over a bevel of 12% of
         /// the side, lit from the upper left (lighter where the bevel faces the light, deeper where it turns away, a soft
         /// highlight along the top left edge and a short white gloss dash in its corner), over a front face of
         /// <see cref="CubeSide"/> in the color darkened, all inside a clear margin of <see cref="CubeMargin"/>, with a
@@ -90,17 +83,20 @@ namespace Bloomlings.Client.UI.Design
             return (c, cover);
         }
 
-        /// <summary>How much more saturated the plate's wood is drawn (<see cref="Vivid"/>; the owner, 2026-10-08: "the color is still pale").</summary>
-        public static float PlateVivid { get; set; } = 1.25f;
+        // The plate's and the face's color: the owner's pick of 2026-10-08 ("between 5a and 6a" on the review sheet, after
+        // "the color is still pale"), half way between the more saturated wood (5a) and the deeper honey wood (6a).
+
+        /// <summary>How much more saturated the plate's wood is drawn (<see cref="Vivid"/>).</summary>
+        public const float PlateVivid = 1.425f;
 
         /// <summary>How much deeper the plate's wood is (toward <c>wood.grain</c>), its lower side and outline included, 0–1.</summary>
-        public static float PlateDepth { get; set; }
+        public const float PlateDepth = 0.475f;
 
         /// <summary>How much more saturated a raised face's cream is drawn (<see cref="Vivid"/>).</summary>
-        public static float FaceVivid { get; set; } = 1.15f;
+        public const float FaceVivid = 1.25f;
 
         /// <summary>How much warmer a raised face's cream is (toward <c>cream.lip</c>), 0–1.</summary>
-        public static float FaceWarmth { get; set; }
+        public const float FaceWarmth = 0.35f;
 
         /// <summary>The thickness of an icon button's wooden plate under its top, as a share of the button's shorter side.</summary>
         public const float PlateSide = 0.035f;
@@ -184,6 +180,31 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
+        /// The wooden plate of an icon button, the speed pill or the profile avatar's border at <paramref name="width"/> ×
+        /// <paramref name="height"/> px: <see cref="RaisedPlate"/> with the icon buttons' corners
+        /// (<see cref="GardenLook.IconRadiusShare"/> of the shorter side), so the picture depends only on its size.
+        /// </summary>
+        public static byte[] ButtonPlate(int width, int height) => RaisedPlate(width, height, Math.Min(width, height) * GardenLook.IconRadiusShare);
+
+        /// <summary>
+        /// The raised face of an icon button or the speed pill whose face box (<see cref="RaisedFaceBox"/>) is
+        /// <paramref name="width"/> × <paramref name="height"/> px: <see cref="RaisedFace"/> with the corners and the front
+        /// side of a button of the side this face box gives back (<see cref="ButtonSideOfFace"/>), so the picture depends only
+        /// on its size and <paramref name="set"/>.
+        /// </summary>
+        public static byte[] ButtonFace(int width, int height, ColorSet set)
+        {
+            float side = ButtonSideOfFace(width, height);
+            float radius = Math.Max(0f, side * (GardenLook.IconRadiusShare - (GardenLook.IconRimShare * FaceInsetX)));
+            return RaisedFace(width, height, radius, side * FaceSide, set);
+        }
+
+        // The raised face's insets in the plate, as shares of the border (GardenLook.IconRimShare of the shorter side).
+        private const float FaceInsetX = 1.15f;
+        private const float FaceInsetTop = 1.1f;
+        private const float FaceInsetBottom = 0.85f;
+
+        /// <summary>
         /// The box of the raised face on a plate filling <paramref name="box"/>: inside the border at the top and sides, and a
         /// little over the border at the bottom, standing on the plate's top.
         /// </summary>
@@ -191,8 +212,25 @@ namespace Bloomlings.Client.UI.Design
         {
             float s = Math.Min(box.Width, box.Height);
             float rim = s * GardenLook.IconRimShare;
-            return new Box(box.Left + (rim * 1.15f), box.Top + (rim * 1.1f), box.Right - (rim * 1.15f), box.Bottom - (s * PlateSide) - (rim * 0.85f));
+            return new Box(box.Left + (rim * FaceInsetX), box.Top + (rim * FaceInsetTop), box.Right - (rim * FaceInsetX), box.Bottom - (s * PlateSide) - (rim * FaceInsetBottom));
         }
+
+        /// <summary>
+        /// The shorter side of the button whose raised face box (<see cref="RaisedFaceBox"/>) is <paramref name="faceWidth"/>
+        /// × <paramref name="faceHeight"/>.
+        /// </summary>
+        public static float ButtonSideOfFace(float faceWidth, float faceHeight)
+        {
+            float across = 2f * GardenLook.IconRimShare * FaceInsetX;
+            float down = (GardenLook.IconRimShare * (FaceInsetTop + FaceInsetBottom)) + PlateSide;
+
+            // A button at least as wide as tall: its side is its height.
+            float byHeight = faceHeight / (1f - down);
+            return faceWidth + (across * byHeight) >= byHeight ? byHeight : faceWidth / (1f - across);
+        }
+
+        /// <summary>How far a press sinks a raised face (<paramref name="depth"/> from <see cref="GardenLook.PressDepth"/>): up to 3% of the button's shorter side, a quarter of that up on the spring-back.</summary>
+        public static float RaisedFaceSink(float buttonSide, float depth) => buttonSide * 0.03f * Math.Max(-0.25f, Math.Min(1f, depth));
 
         /// <summary>The content box of a raised face in <paramref name="face"/> (its top less 9% all round).</summary>
         public static Box RaisedFaceContent(Box face, float buttonSide)
@@ -292,34 +330,46 @@ namespace Bloomlings.Client.UI.Design
             return (0.12f * Smooth(Clamp01((0.45f - streak) / 0.3f))) + (0.1f * lines);
         }
 
-        /// <summary>The share of a raised glyph's picture its glyph box takes (the rest holds its shadow).</summary>
-        public const float GlyphPictureShare = 0.86f;
+        /// <summary>The share of a raised glyph's picture its glyph box takes (the margin round it holds its shadow).</summary>
+        public const float GlyphPictureShare = 0.8f;
 
-        /// <summary>The picture box of a raised glyph whose shape fills <paramref name="glyph"/>, a little lower for its shadow.</summary>
+        /// <summary>How much larger a raised glyph's picture is than its glyph box (Unity scales the glyph's image by it).</summary>
+        public const float GlyphPictureScale = 1f / GlyphPictureShare;
+
+        /// <summary>The picture box of a raised glyph whose shape fills <paramref name="glyph"/>: the same middle, <see cref="GlyphPictureScale"/> larger.</summary>
         public static Box RaisedGlyphBox(Box glyph)
         {
-            float side = Math.Max(glyph.Width, glyph.Height) / GlyphPictureShare;
-            return Box.FromCenter(glyph.CenterX, glyph.CenterY + (side * 0.02f), side, side);
+            float side = Math.Max(glyph.Width, glyph.Height) * GlyphPictureScale;
+            return Box.FromCenter(glyph.CenterX, glyph.CenterY, side, side);
         }
 
         /// <summary>
-        /// A button's glyph, a little raised (the owner, 2026-10-08: "even the icons on the buttons look a little
-        /// volumetric"): the shape <paramref name="shapeId"/> in <paramref name="color"/>, filling
-        /// <see cref="GlyphPictureShare"/> of a square picture of side <paramref name="size"/> (as the painters fit a
-        /// shape, <see cref="ShapeRaster.Margin"/>), its edge rounding over a bevel of 4.5% of the glyph, lit from the upper
-        /// left (lighter there, deeper at the lower right, a soft gloss), over a soft shadow below it and a thin light
-        /// emboss line under its lower edge, as if pressed into the cream.
+        /// A button's glyph, a little raised (spec 005 FR-044; the owner, 2026-10-08: "even the icons on the buttons look a
+        /// little volumetric"): the shape <paramref name="shapeId"/> in <paramref name="color"/>, filling
+        /// <see cref="GlyphPictureShare"/> of a square picture of side <paramref name="size"/> about its middle (as the
+        /// painters fit a shape, <see cref="ShapeRaster.Margin"/>), its edge rounding over a bevel of 4.5% of the glyph, lit
+        /// from the upper left (lighter there, deeper at the lower right, a soft gloss), over a soft shadow below it and a
+        /// thin light emboss line under its lower edge, as if pressed into the cream.
         /// </summary>
-        public static byte[] RaisedGlyph(int size, string shapeId, Rgba color)
+        public static byte[] RaisedGlyph(int size, string shapeId, Rgba color) => RaisedGlyph(size, ShapeLibrary.Get(shapeId), color);
+
+        /// <summary>The raised › of the page and Wardrobe arrows, or the ‹ when not <paramref name="next"/> (<c>ui.chevron</c> mirrored).</summary>
+        public static byte[] RaisedChevron(int size, bool next, Rgba color)
+        {
+            Func<float, float, float> chevron = ShapeLibrary.Get("ui.chevron");
+            return RaisedGlyph(size, next ? chevron : (x, y) => chevron(-x, y), color);
+        }
+
+        /// <summary>A raised glyph (<see cref="RaisedGlyph(int, string, Rgba)"/>) of the shape <paramref name="sdf"/> (shape units, y up): the ‹ is the › mirrored, its light still from the upper left.</summary>
+        public static byte[] RaisedGlyph(int size, Func<float, float, float> sdf, Rgba color)
         {
             Check(size, size);
             var pixels = new byte[size * size * 4];
-            Func<float, float, float> sdf = ShapeLibrary.Get(shapeId);
             float s = size;
             float box = s * GlyphPictureShare;
             float unit = box / 2f / ShapeRaster.Margin;
             float cx = s / 2f;
-            float cy = (s / 2f) - (s * 0.02f);
+            float cy = s / 2f;
             float bevel = Math.Max(1f, box * 0.045f);
             float shadowDrop = box * 0.035f;
             Func<float, float, float> d = (px, py) => sdf((px - cx) / unit, -(py - cy) / unit) * unit;

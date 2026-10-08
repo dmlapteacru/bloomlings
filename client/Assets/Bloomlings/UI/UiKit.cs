@@ -542,24 +542,30 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static Image GardenGlyph(GardenButton button, Transform parent, string shapeId)
         {
-            Image glyph = UiFactory.CreateImage("Glyph", parent, ProceduralSprites.Shape(shapeId), UiTheme.Of(GardenLook.GlyphOn(button.Set)));
-            glyph.preserveAspect = true;
-            if (GardenLook.LabelOn(button.Set).Volumetric)
+            if (!GardenLook.LabelOn(button.Set).Volumetric)
             {
-                var line = glyph.gameObject.AddComponent<Shadow>();
-                line.effectColor = UiTheme.Of(button.Set.Line);
-                line.useGraphicAlpha = true;
-                EffectFit.On(line, new Vector2(0f, -0.06f));
-            }
-            else
-            {
-                // The shape grown by 0.06 shape units: about 2.8% of the glyph's box on every side.
-                var halo = glyph.gameObject.AddComponent<Outline>();
-                halo.effectColor = UiTheme.Of(C.CreamTop);
-                halo.useGraphicAlpha = true;
-                EffectFit.On(halo, new Vector2(0.025f, -0.025f));
+                return RaisedGlyph(parent, ProceduralSprites.RaisedGlyph(shapeId, GardenLook.GlyphOn(button.Set)));
             }
 
+            Image glyph = UiFactory.CreateImage("Glyph", parent, ProceduralSprites.Shape(shapeId), UiTheme.Of(GardenLook.GlyphOn(button.Set)));
+            glyph.preserveAspect = true;
+            var line = glyph.gameObject.AddComponent<Shadow>();
+            line.effectColor = UiTheme.Of(button.Set.Line);
+            line.useGraphicAlpha = true;
+            EffectFit.On(line, new Vector2(0f, -0.06f));
+            return glyph;
+        }
+
+        /// <summary>
+        /// A glyph a little raised on its cream face (spec 005 FR-044, the playtest's <c>Kit.RaisedGlyph</c>): the raised
+        /// picture (<see cref="ProceduralSprites.RaisedGlyph"/>, <see cref="ProceduralSprites.RaisedChevron"/>) shown
+        /// <see cref="UiRaster.GlyphPictureScale"/> larger than the glyph box its caller places it in, about its middle.
+        /// </summary>
+        public static Image RaisedGlyph(Transform parent, Sprite picture)
+        {
+            Image glyph = UiFactory.CreateImage("Glyph", parent, picture, Color.white);
+            glyph.preserveAspect = true;
+            glyph.rectTransform.localScale = Vector3.one * UiRaster.GlyphPictureScale;
             return glyph;
         }
 
@@ -767,13 +773,13 @@ namespace Bloomlings.Client.UI
             GardenButton view = NewButton(name, parent, set, raycast);
             BoxLayout layout = BoxLayout.On(view.Body);
             Func<Box, Box> outer = b => square ? Box.FromCenter(b.CenterX, b.CenterY, Mathf.Min(b.Width, b.Height), Mathf.Min(b.Width, b.Height)) : b;
-            Func<Box, Box> faceBox = outer;
             if (rim)
             {
-                IconRim(layout, view.Body, outer);
-                faceBox = b => GardenLook.IconRimFace(outer(b));
+                RaisedFace(view, layout, outer);
+                return view;
             }
 
+            Func<Box, Box> faceBox = outer;
             SoftShadow(layout, faceBox, b => Mathf.Min(radius(b), Mathf.Min(b.Width, b.Height) / 2f), 0.2f, 0.06f);
             RectTransform face = UiFactory.CreateRect("Face", view.Body);
             BuildFace(view, face, FaceKind.Icon, gloss: false);
@@ -791,20 +797,53 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// The light wood rim of an icon button, the speed pill and the profile avatar (spec 005 §3.3, the playtest's
-        /// <c>Kit.IconRim</c>; the owner, 2026-10-06: a bigger border like Play's): a soft shadow and Play's light plank
-        /// (<c>ui.button.rim</c>) as a rounded rectangle (<see cref="GardenLook.IconRadiusShare"/> of its height) filling
-        /// <paramref name="box"/> of the layout's rect, with a deeper outline and lip than Play's
-        /// (<see cref="GardenLook.IconRimOutline"/>, <see cref="GardenLook.IconRimLip"/>). Never a touch target.
+        /// An icon button's plate and raised face (spec 005 FR-044, contracts/look.md §6.18; the playtest's
+        /// <c>Kit.RimmedIconFace</c>): the wooden plate (<see cref="RaisedPlate"/>) and the cream face raised on it
+        /// (<see cref="ProceduralSprites.ButtonFace"/> in <see cref="UiRaster.RaisedFaceBox"/>), whose top box a press sinks by
+        /// up to 3% of the button (<see cref="UiRaster.RaisedFaceSink"/>). The content is
+        /// <see cref="UiRaster.RaisedFaceContent"/>; <see cref="GardenButton.IconSide"/> stays the cushion's side the glyphs
+        /// were sized from (<see cref="GardenLook.IconRimFaceShare"/> of the button).
         /// </summary>
-        public static Image IconRim(BoxLayout layout, Transform parent, Func<Box, Box> box)
+        private static void RaisedFace(GardenButton view, BoxLayout layout, Func<Box, Box> outer)
+        {
+            RaisedPlate(layout, view.Body, outer);
+            RectTransform face = UiFactory.CreateRect("Face", view.Body);
+            RectTransform topBox = UiFactory.Stretch(UiFactory.CreateRect("TopBox", face));
+            Image top = UiFactory.CreateImage("Top", topBox, null, Color.white);
+            BoxLayout topLayout = BoxLayout.On(topBox);
+            float lip = 0f;
+
+            // The picture holds the face's front side too: it reaches the lip below the top box and moves with it.
+            topLayout.Add(top.rectTransform, b => new Box(b.Left, b.Top, b.Right, b.Bottom + lip));
+            RectTransform content = UiFactory.Stretch(UiFactory.CreateRect("Content", face));
+            view.BuildPictureFace(topBox, top, content, topLayout, shown => PictureFit.On(top, (w, h) => ProceduralSprites.ButtonFace(shown, w, h)));
+            layout.Then(box =>
+            {
+                Box o = outer(box);
+                float side = Mathf.Min(o.Width, o.Height);
+                Box f = UiRaster.RaisedFaceBox(o);
+                BoxLayout.Place(face, f);
+                lip = side * UiRaster.FaceSide;
+                Box inside = UiRaster.RaisedFaceContent(f, side);
+                float radius = Mathf.Max(0f, GardenLook.IconRadius(o) - (f.Left - o.Left));
+                view.SetGeometry(0f, lip, UiRaster.RaisedFaceSink(side, 1f), radius, inside.Left - f.Left, side * GardenLook.IconRimFaceShare);
+            });
+        }
+
+        /// <summary>
+        /// The wooden plate of an icon button, the speed pill and the profile avatar's border (spec 005 FR-044, the playtest's
+        /// <c>Kit.RaisedPlate</c>; <c>ui.button.rim</c>): a soft shadow and <see cref="ProceduralSprites.ButtonPlate"/> filling
+        /// <paramref name="box"/> of the layout's rect, its border rounding over, its corners
+        /// <see cref="GardenLook.IconRadius"/>. Never a touch target.
+        /// </summary>
+        public static Image RaisedPlate(BoxLayout layout, Transform parent, Func<Box, Box> box)
         {
             SoftShadow(layout, box, b => GardenLook.IconRadius(b), 0.24f, 0.07f);
-            Image rim = UiFactory.CreateImage("Rim", parent, null, Color.white);
-            rim.raycastTarget = false;
-            PictureFit.On(rim, (w, h) => ProceduralSprites.Plank(WoodTone.Light, w, h, GardenLook.IconRadiusShare, GardenLook.IconRimOutline, 3, GardenLook.IconRimLip), sliced: true);
-            layout.Add(rim.rectTransform, box);
-            return rim;
+            Image plate = UiFactory.CreateImage("Plate", parent, null, Color.white);
+            plate.raycastTarget = false;
+            PictureFit.On(plate, ProceduralSprites.ButtonPlate);
+            layout.Add(plate.rectTransform, box);
+            return plate;
         }
 
         /// <summary>
@@ -836,10 +875,11 @@ namespace Bloomlings.Client.UI
                 rings.Add(ring.gameObject);
             }
 
-            Sprite off = ProceduralSprites.Haloed(GardenLook.FastGlyph.ShapeId, GardenLook.FastGlyph.Fill, C.CreamTop);
-            Sprite lit = ProceduralSprites.Haloed(GardenLook.FastGlyphOn.ShapeId, GardenLook.FastGlyphOn.Fill, C.CreamTop);
+            Sprite off = ProceduralSprites.RaisedGlyph(GardenLook.FastGlyph.ShapeId, GardenLook.FastGlyph.Fill);
+            Sprite lit = ProceduralSprites.RaisedGlyph(GardenLook.FastGlyphOn.ShapeId, GardenLook.FastGlyphOn.Fill);
             Image fast = UiFactory.CreateImage("Fast", view.Content, off, Color.white);
             fast.preserveAspect = true;
+            fast.rectTransform.localScale = Vector3.one * UiRaster.GlyphPictureScale;
             BoxLayout.On(view.Content).Then(f =>
             {
                 float side = view.IconSide * GardenLook.SpeedGlyphShare * GardenLook.IconRimGlyphOfFace;
@@ -1587,6 +1627,8 @@ namespace Bloomlings.Client.UI
         private readonly List<(Graphic Graphic, Func<ColorSet, float, (Rgba Top, Rgba Bottom)> Colors)> _extras = new List<(Graphic, Func<ColorSet, float, (Rgba, Rgba)>)>();
         private Image? _line;
         private Image? _lip;
+        private Action<ColorSet>? _showFace;
+        private ColorSet? _faceSet;
         private RectTransform? _topBox;
         private CanvasGroup? _sheen;
         private CanvasGroup? _fade;
@@ -1658,6 +1700,21 @@ namespace Bloomlings.Client.UI
             Set = set;
             Body = body;
             _content = body;
+        }
+
+        /// <summary>
+        /// The raised face as one picture (spec 005 FR-044, <see cref="UiKit.IconFace"/> with a rim): the top box moves with
+        /// the press as a drawn face's top does, and <paramref name="show"/> pictures the face in the shown set (greyed when
+        /// disabled); no line, lip or press darkening, as the playtest's <c>Kit.RimmedIconFace</c>.
+        /// </summary>
+        internal void BuildPictureFace(RectTransform topBox, Image top, RectTransform content, BoxLayout topLayout, Action<ColorSet> show)
+        {
+            _topBox = topBox;
+            Top = top;
+            _content = content;
+            _topLayout = topLayout;
+            _showFace = show;
+            Recolor(true, 0f);
         }
 
         internal void BuildFace(Image line, Image lip, RectTransform topBox, Image top, CanvasGroup? sheen, RectTransform content, BoxLayout topLayout)
@@ -1788,6 +1845,12 @@ namespace Bloomlings.Client.UI
                 UiKit.Gradient(Top, UiTheme.Of(top), UiTheme.Of(bottom));
             }
 
+            if (_showFace != null && !ReferenceEquals(_faceSet, shown))
+            {
+                _faceSet = shown;
+                _showFace(shown);
+            }
+
             foreach ((Graphic graphic, Func<ColorSet, float, (Rgba Top, Rgba Bottom)> colors) in _extras)
             {
                 (Rgba top, Rgba bottom) = colors(shown, dark);
@@ -1832,17 +1895,22 @@ namespace Bloomlings.Client.UI
 
         private void ApplyGeometry(float shift)
         {
-            if (_line == null || _lip == null || _topBox == null)
+            if (_topBox == null)
             {
                 return;
             }
 
             // The playtest's Kit.Face: the lip fills the face from max(0, shift) down, the top sits `shift` lower and `lip`
-            // short of the bottom, and the outline goes around both (from the top's top edge down).
-            _line.rectTransform.offsetMin = Vector2.zero;
-            _line.rectTransform.offsetMax = new Vector2(0f, -shift);
-            _lip.rectTransform.offsetMin = Vector2.zero;
-            _lip.rectTransform.offsetMax = new Vector2(0f, -Mathf.Max(0f, shift));
+            // short of the bottom, and the outline goes around both (from the top's top edge down). A picture face has
+            // only the top (its picture reaching down over the lip).
+            if (_line != null && _lip != null)
+            {
+                _line.rectTransform.offsetMin = Vector2.zero;
+                _line.rectTransform.offsetMax = new Vector2(0f, -shift);
+                _lip.rectTransform.offsetMin = Vector2.zero;
+                _lip.rectTransform.offsetMax = new Vector2(0f, -Mathf.Max(0f, shift));
+            }
+
             _topBox.offsetMin = new Vector2(0f, _lipHeight - shift);
             _topBox.offsetMax = new Vector2(0f, -shift);
             _content.offsetMin = new Vector2(Rim, _lipHeight - shift + Rim);

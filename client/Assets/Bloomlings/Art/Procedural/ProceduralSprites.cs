@@ -627,6 +627,30 @@ namespace Bloomlings.Client.Art
             return Baked(shapeId + "/haloed/" + fill.Hex + "/" + halo.Hex + "/" + Share(grow), size, layers);
         }
 
+        /// <summary>The side of a raised glyph's picture in pixels (its glyph box takes <see cref="UiRaster.GlyphPictureShare"/> of it).</summary>
+        public const int RaisedGlyphSize = 160;
+
+        /// <summary>
+        /// The wooden plate of an icon button, the speed pill and the profile avatar's border (spec 005 FR-044, the
+        /// playtest's <c>Kit.RaisedPlate</c>): <see cref="UiRaster.ButtonPlate"/> at <paramref name="width"/> ×
+        /// <paramref name="height"/> px.
+        /// </summary>
+        public static Sprite ButtonPlate(int width, int height) => Picture("ui.button.plate", width, height, UiRaster.ButtonPlate);
+
+        /// <summary>The raised face of an icon button or the speed pill in <paramref name="set"/> (<see cref="UiRaster.ButtonFace"/>), the picture of its face box.</summary>
+        public static Sprite ButtonFace(ColorSet set, int width, int height) => Picture("ui.button.face/" + set.Name, width, height, (w, h) => UiRaster.ButtonFace(w, h, set));
+
+        /// <summary>
+        /// A glyph a little raised on its cream face (spec 005 FR-044, <see cref="UiRaster.RaisedGlyph(int, string, Rgba)"/>):
+        /// shown <see cref="UiRaster.GlyphPictureScale"/> larger than its glyph box, about its middle.
+        /// </summary>
+        public static Sprite RaisedGlyph(string shapeId, Rgba color) =>
+            Picture("ui.glyph.raised/" + shapeId + "/" + color.Hex, RaisedGlyphSize, RaisedGlyphSize, (w, h) => UiRaster.RaisedGlyph(Math.Min(w, h), shapeId, color));
+
+        /// <summary>The raised › of the arrows, or the ‹ when not <paramref name="next"/> (<see cref="UiRaster.RaisedChevron"/>), light from the upper left either way.</summary>
+        public static Sprite RaisedChevron(bool next, Rgba color) =>
+            Picture("ui.glyph.raised/ui.chevron/" + (next ? "next/" : "previous/") + color.Hex, RaisedGlyphSize, RaisedGlyphSize, (w, h) => UiRaster.RaisedChevron(Math.Min(w, h), next, color));
+
         /// <summary>The 9-slice border of a plank: its ends (corner radius, outline and nails) at the sides, its whole height top and bottom.</summary>
         private static Vector4 PlankBorder(int width, int height, float radiusShare, float outlineShare)
         {

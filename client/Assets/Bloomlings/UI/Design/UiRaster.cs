@@ -415,9 +415,10 @@ namespace Bloomlings.Client.UI.Design
         // ---- Candy tiles ----
 
         /// <summary>
-        /// The share of a candy tile's side its lip takes (§3.1), so the kit's press can sink the face into it.
+        /// The share of a candy tile's side its lip takes (§3.1; a board tile's front face under its top since FR-044,
+        /// <see cref="CubeSide"/>), so the kit's press can sink the face into it and the icon sits on the top's middle.
         /// </summary>
-        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : style == TileStyle.Board && VolumeLook ? CubeSide : 0.07f;
+        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : style == TileStyle.Board ? CubeSide : 0.07f;
 
         /// <summary>
         /// A candy tile of side <paramref name="size"/> (spec 005 contracts/look.md §3.1): a satin rounded square in
@@ -426,7 +427,8 @@ namespace Bloomlings.Client.UI.Design
         /// dark outline, a fill in a shade of the tile and a white highlight (<see cref="TileStyle.Board"/> and
         /// <see cref="TileStyle.Flat"/>, <see cref="ShapeLibrary.GemSymbol"/>, §3.1.2; nearly square, so the board reads as
         /// one mosaic), or a bigger, detailed sticker with a dark outline in its own tone (<see cref="TileStyle.Sticker"/>,
-        /// <see cref="ShapeLibrary.SymbolId"/>, §3.1.1). Below 28 px the gem is a flat dark silhouette.
+        /// <see cref="ShapeLibrary.SymbolId"/>, §3.1.1). Below 28 px the gem is a flat dark silhouette. A board tile is a soft
+        /// cube instead (spec 005 FR-044, §6.18, <see cref="Cube"/>), its symbol on the top's middle.
         /// </summary>
         public static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal) =>
             Tile(size, color, iconId, style, state, true);
@@ -466,7 +468,7 @@ namespace Bloomlings.Client.UI.Design
             // board's symbol shape covers about 70% of its box, so the bead spans about 42% of the tile.
             float box = s * (board ? 0.60f : 0.66f);
             float sx = s / 2f;
-            bool cube = style == TileStyle.Board && VolumeLook;
+            bool cube = style == TileStyle.Board;
             float sy = cube ? faceH / 2f : (s / 2f) - (s * (board ? 0.02f : 0.01f));
             float unit = box / 2f / ShapeRaster.Margin;
             float iconLine = Math.Max(0.8f, box * (board ? 0.045f : StickerLine));

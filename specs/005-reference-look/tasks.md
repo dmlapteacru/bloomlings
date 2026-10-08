@@ -830,3 +830,27 @@ and contracts/look.md §3.6, §6.10.
 - [X] T186 Docs: spec Session 2026-10-08 and FR-042, contracts/look.md §6.12 and §6.16, spec 001 Q&A and research R4.
 - [ ] T187 Devices: the pace beside Colony Flow's on one phone, and the tile clicks felt on the owner's phone; the
   owner's verdict.
+
+
+## The owner's volume look: soft cube cells, raised buttons (2026-10-08, FR-044)
+
+- [X] T188 Review renders for the owner in five rounds (soft cube tiles; the plate, the raised face and glyphs; the
+  laminate; the colors), then a sheet of seven color variants beside the reference: the owner's pick, half way between
+  5a and 6a.
+- [X] T189 Kit (`VolumeRaster.cs`): the soft cube for every board tile (`UiRaster.Cube`, `CubeSide`, `CubeMargin`,
+  `TileLipShare`), `ButtonPlate`, `ButtonFace`, `ButtonSideOfFace`, `RaisedFaceBox`, `RaisedFaceContent`,
+  `RaisedFaceSink`, `RaisedGlyph`, `RaisedChevron`, `GlyphPictureScale`; the owner's colors as constants; the preview's
+  switch removed; the slots `ui.button.face.raised` and `ui.glyph.raised`, `tile.candy`, `ui.button.round`,
+  `ui.pill.speed` and `ui.button.rim` restated.
+- [X] T190 Tests (`VolumeRasterTests`): the cube's top over its front face and lit from the upper left, the icon on its
+  top, the plate's lit border and caramel side, the face inside the plate and its button's side given back, the press,
+  the glyph about its middle, the ‹ the › mirrored with its light kept.
+- [X] T191 Both builds: the playtest's `Kit.RimmedIconFace`, `Kit.RaisedPlate`, `Kit.RaisedGlyph`, `Kit.Glyph`,
+  `Kit.SpeedPill`, `Kit.ArrowButton`, `Kit.Avatar`; Unity's `UiKit.IconFace(..., rim: true)` (a picture face in
+  `GardenButton.BuildPictureFace`), `UiKit.RaisedPlate`, `UiKit.RaisedGlyph`, `UiKit.GardenGlyph`, `UiKit.SpeedPill`,
+  `UiKit.ArrowButton`, `UiKit.PageArrow`, `ProfileAvatar`; `ProceduralSprites.ButtonPlate`, `ButtonFace`,
+  `RaisedGlyph`, `RaisedChevron`. The old rim plank (`Kit.IconRim`, `UiKit.IconRim`, `IconRimOutline`, `IconRimLip`)
+  and the glyphs' cream halo on buttons are gone.
+- [X] T192 Docs: spec Session 2026-10-08 and FR-044, contracts/look.md §3.1, §3.3 and §6.18, the inventory, CLAUDE.md.
+- [ ] T193 Devices: the cubes and the buttons on a phone in both APKs (crisp at the phone's density, the press sinking
+  the face); the owner's verdict.

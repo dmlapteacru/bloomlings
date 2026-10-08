@@ -144,7 +144,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   material tokens (`wood.*`, `stone.*`, `parchment.*`, `cream.*`, `ink.*`, `lotus.*`, `lawn.*`, `ivy.*`). `UiRaster`
   (kit) renders engine-free material pictures (planks, pod frames, stones, pedestal, candy tiles; deterministic,
   straight alpha), drawn through `IPainter.Picture` (playtest) and `ProceduralSprites.Picture` (Unity), each cached by
-  key and size. `BoardLayout` places the grid and the stone border; each Garden Entry is a small stone arch set in the border beside its entry cell, turned to its side (`BoardLayout.Arch`, `UiRaster.EntryArch`; the owner's "B" of 2026-10-05, FR-034; the big arch under the board stays retired since 2026-10-03), and the Bloomlings set off from there. The board is candy tiles in a
+  key and size. `BoardLayout` places the grid and the stone border; each Garden Entry is a small stone arch set in the border beside its entry cell, turned to its side (`BoardLayout.Arch`, `UiRaster.EntryArch`; the owner's "B" of 2026-10-05, FR-034; the big arch under the board stays retired since 2026-10-03), and the Bloomlings set off from there. The board is candy tiles (soft cubes since FR-044, below) in a
   stone border on a lawn (a big board, over 288 cells, in the icons look without the layer chip). Pods are wooden frames wider than tall (the owner's icon in the middle, a small count in the corner) that stand one
   after another in a column per Source stack, never on each other: a gameplay rule (owner, 2026-10-03), whatever the
   look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). A connected pod carries a chain badge
@@ -222,11 +222,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   opaque 384 px JPEG in `client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/` (`AvatarCatalog`: four free, ten for
   Petals at 300 / 600 / 1200, Remote Config `economy.price.avatar*`), shown in a rounded-square clip
   (`IPainter.PushClipRound` with a radius, Unity a `Mask` on a `UiKit.RoundRect`) that fills the avatar's whole disc
-  inside a thin ring; the avatar has one border, the icon buttons' wood rim or the shown frame in its place, never both
-  (the kit's `AvatarLook`; the owner, 2026-10-06). Every icon button
-  (Settings, Pause, close, back, the pencil, ‹ ›, the Daily Challenge) and the speed pill is a rounded square in that
-  light wood rim (`Kit.RimmedIconFace`, `Kit.IconRim` / `UiKit.IconFace(..., rim: true)`, `UiKit.IconRim`;
-  `GardenLook.IconRadiusShare`, `IconRimShare`); they were circles. Five drawn rounded-square frames (`ProfileFrames`,
+  inside a thin ring; the avatar has one border, the icon buttons' wooden plate or the shown frame in its place, never
+  both (the kit's `AvatarLook`; the owner, 2026-10-06). Every icon button
+  (Settings, Pause, close, back, the pencil, ‹ ›, the Daily Challenge) and the speed pill is a rounded square, a cream
+  face raised on that wooden plate (`Kit.RimmedIconFace`, `Kit.RaisedPlate` / `UiKit.IconFace(..., rim: true)`,
+  `UiKit.RaisedPlate`; `GardenLook.IconRadiusShare`, `IconRimShare`; FR-044, below); they were circles. Five drawn rounded-square frames (`ProfileFrames`,
   `UiRaster.ProfileFrame`: Wooden Frame, Leaf Frame, Flower Wreath, Stone Frame, Golden Ribbon; their catalog ids keep
   the `_ring` names) are the cosmetic catalog's `free` items: everyone's from Level 1 with no save entry
   (`WardrobeService.Owns`), listed first in the Frame tab before the Wardrobe opens too, never a default frame. The
@@ -235,6 +235,18 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `cosmetics.equipped.profile.avatar`, the name and joining day in the optional `profile` section. The name stays on
   the device (the playtest asks with the system's text dialog through `ITextPrompt`, Unity uses a `TMP_InputField`);
   the three achievements (`Achievements`: Green Thumb, Picture Keeper, Daily Gardener, bronze, silver and gold from the save's counters) are shown only. Layouts: `ScreenLayout.ReferenceProfile`, `ProfileEdit`.
+- The volume look (spec 005 FR-044, the owner, 2026-10-08: "cells like cubes, but not cubes", buttons "as if laid on a
+  volumetric plane"; recipe in `contracts/look.md` §6.18): the kit's `VolumeRaster.cs` (part of `UiRaster`, engine-free
+  pictures lit from the upper left) draws every board tile as a soft cube (`UiRaster.Cube` through `Tile`'s board style:
+  a rounded top over a front face, `CubeSide`; the icon on the top's middle, `TileLipShare`), the icon buttons', speed
+  pill's and avatar's wooden plate (`ButtonPlate`), the cream face raised on it (`ButtonFace` in `RaisedFaceBox`, sunk by
+  a press, `RaisedFaceSink`) and every brown glyph on a cream face raised (`RaisedGlyph`, `RaisedChevron`; its picture
+  `GlyphPictureScale` larger than the glyph box, which Unity's `UiKit.RaisedGlyph` sets as the image's scale). The
+  colors are the owner's pick (`PlateVivid`, `PlateDepth`, `FaceVivid`, `FaceWarmth`, half way between the review's 5a and
+  6a). The playtest draws them with `Kit.RimmedIconFace`, `Kit.RaisedPlate`, `Kit.RaisedGlyph`; Unity with
+  `UiKit.IconFace(..., rim: true)` (a picture face, `GardenButton.BuildPictureFace`), `UiKit.RaisedPlate`,
+  `UiKit.RaisedGlyph` and `ProceduralSprites.ButtonPlate`, `ButtonFace`, `RaisedGlyph`, `RaisedChevron`. Flat 2D
+  pictures only (constitution VII); the main buttons keep their light wood rim.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

@@ -13,7 +13,7 @@ namespace Bloomlings.Playtest.Design
         /// The profile avatar (Home's header, the profile page, the edit card; Unity's <c>ProfileAvatar</c>) on
         /// <see cref="AvatarLook"/> (the owner, 2026-10-06: the picture fills the avatar, a rounded square, and its border is
         /// one: the light wood rim by default, or the chosen frame in its place): with no <paramref name="frame"/>, the wood
-        /// rim (<see cref="IconRim"/>) round the picture filling the rounded square inside it; with one, the picture a little
+        /// plate (<see cref="RaisedPlate"/>, spec 005 FR-044) round the picture filling the rounded square inside it; with one, the picture a little
         /// larger and the frame over its edge (a drawn frame, <see cref="ProfileFrames"/>, or the plain tinted band); a thin
         /// <c>wood.line</c> ring on the picture's edge, and the profile badge at the lower left (0.36 of the side). With
         /// <paramref name="action"/> it presses like an icon button and a tap runs it.
@@ -27,7 +27,7 @@ namespace Bloomlings.Playtest.Design
             bool framed = frame != null;
             if (!framed)
             {
-                IconRim(p, AvatarLook.Rim(box), AvatarLook.RimRadius(box));
+                RaisedPlate(p, AvatarLook.Rim(box));
             }
 
             Box disc = AvatarLook.Disc(box, framed);

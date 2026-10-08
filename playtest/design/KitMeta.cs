@@ -204,8 +204,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A cream ‹ or › button (§4.6: the Wardrobe's arrows; the Store's pages): the icon buttons' rounded square in its
-        /// wood rim (<see cref="RimmedIconFace"/>) with a brown chevron in its cream halo, pointing right when
-        /// <paramref name="next"/>. Without an action it is greyed and takes no tap.
+        /// plate (<see cref="RimmedIconFace"/>) with a raised brown chevron (<see cref="UiRaster.RaisedChevron"/>), pointing
+        /// right when <paramref name="next"/>. Without an action it is greyed and takes no tap.
         /// </summary>
         public static void ArrowButton(IPainter p, float cx, float cy, float size, bool next, Action? action)
         {
@@ -216,13 +216,11 @@ namespace Bloomlings.Playtest.Design
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
             Box face = RimmedIconFace(p, box, GardenLook.White, depth);
-            Func<float, float, float> chevron = ShapeLibrary.Get("ui.chevron");
             float m = next ? 1f : -1f;
-            string key = "ui.chevron" + (next ? "/next" : "/previous");
             float g = size * 0.5f * GardenLook.IconRimGlyph;
             Box glyph = Box.FromCenter(face.CenterX + (size * 0.03f * m), face.CenterY, g, g);
-            p.ShapeOf(key + "/halo", (x, y) => chevron(m * x, y) - 0.06f, glyph, C.CreamTop);
-            p.ShapeOf(key, (x, y) => chevron(m * x, y), glyph, C.InkBrown);
+            p.Mark("ui.glyph.raised");
+            p.Picture("ui.glyph.raised/ui.chevron/" + (next ? "next" : "previous"), UiRaster.RaisedGlyphBox(glyph), (w, h) => UiRaster.RaisedChevron(Math.Min(w, h), next, C.InkBrown));
             p.PopTransform();
             p.PopAlpha();
             if (action != null)

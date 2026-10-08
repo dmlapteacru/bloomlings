@@ -127,6 +127,9 @@ Playtest names are `Kit.*`; the Unity twin in `UiKit` takes the same name. A com
 
 Reference crops: the board (gameplay screen) and the "Target Variants" strip.
 
+Since the owner's request of 2026-10-08 (FR-044) a **board** tile is a soft cube instead of the satin square below
+(§6.18): its symbol and the owner's icon sit on the top's middle. The sticker and flat styles keep this recipe.
+
 - Shape: a square, corner radius 7% of its side (board: nearly square, so the board reads as one continuous mosaic) or
   20% (sticker), at least 3 px.
 - Face (pillowy satin): vertical gradient from `color.Lighten(0.36)` (top) to `color` (60%) to `color.Darken(0.14)`
@@ -245,11 +248,12 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   `UiKit.IconFace(..., rim: true)`): since the owner's request of 2026-10-06 ("our layout and main buttons are
   rectangular; turn the round buttons and the profile into squares, then the border can be bigger, like Play's") every
   icon button is a rounded square, its corners `GardenLook.IconRadiusShare` (34%) of its side: Settings, Pause, close,
-  back, the pencil, the ‹ › arrows and Home's Daily Challenge (they were circles, and only Pause a squircle). Each sits in
-  the light wood rim (`Kit.IconRim` / `UiKit.IconRim`, slot `ui.button.rim`): a soft shadow (0.24, 0.07 down) and Play's
-  pale plank as a rounded square filling the button, `GardenLook.IconRimShare` (10%) of its side wide, its outline
-  `IconRimOutline` (3% of its height) and lip `IconRimLip` (4.5%) a little deeper than Play's. Inside the rim
-  (`GardenLook.IconRimFace`) a single domed cream cushion, its corners following the rim's
+  back, the pencil, the ‹ › arrows and Home's Daily Challenge (they were circles, and only Pause a squircle). Since
+  the owner's request of 2026-10-08 (FR-044) each is a cream face raised on a wooden plate with a raised glyph (§6.18:
+  `Kit.RaisedPlate` / `UiKit.RaisedPlate`, slot `ui.button.rim`, the border `GardenLook.IconRimShare`, 10%, of its side;
+  `ui.button.face.raised`; `ui.glyph.raised`); the light wood rim and cushion below were its look from 2026-10-06. The
+  booster tiles and the green + keep the cushion (`Kit.IconFace` / `UiKit.IconFace` without a rim): a single domed
+  cream cushion, its corners following the rim's
   (`GardenLook.IconRimFaceRadius`: 0.24 of the button's side): the face `CreamFace` → `CreamFace.Darken(0.04)` (peach
   toward the edges) with a lighter `CreamTop` middle feathered in from 8% of the size (three steps, no inner ring, no
   dish), a `CreamLip` lower edge (7% of the size), a soft tan `CreamLine` outline (`GardenLook.IconLineCream` = 4.5% of
@@ -260,9 +264,9 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   the owner, 2026-10-06). The booster tiles keep their own squircle and bezel (§3.7); the Petals pill's green +
   and the toggles' knobs stay round.
 - **Speed pill** (`Kit.SpeedPill(p, box, on, action)` / `UiKit.SpeedPill`, replaces `DarkPill`): the icon buttons'
-  rounded square in its wood rim, as tall as Pause and wider, with only the `ui.fast` glyph in the middle (▶▶▶: three
-  notched chevrons, its box `GardenLook.SpeedGlyphShare` = 74% of the pill's height times `IconRimGlyph`, in the cream
-  halo), no number (the owner, 2026-10-06; it showed
+  raised face on its wooden plate (§6.18), as tall as Pause and wider, with only the `ui.fast` glyph in the middle (▶▶▶:
+  three notched chevrons, its box `GardenLook.SpeedGlyphShare` = 74% of the pill's height times `IconRimGlyph`, raised),
+  no number (the owner, 2026-10-06; it showed
   "1×"/"2×" and ▶▶). Off: brown chevrons (`GardenLook.FastGlyph`). On (fast forward, 3×, `PlaySpeed.Fast`, or on its
   own while no pod can be tapped): lit, with `SpeedGlowLayers` (4) rings of `garden.glow` round the face, each grown by
   `SpeedGlowGrow` (4.5%) of the height and sharing `SpeedGlowAlpha` (0.85), and the chevrons in `ButtonPrimary` green
@@ -1705,3 +1709,24 @@ Drawn by the playtest's `PodPainter` and Unity's `TrayView` from the kit's `PodL
 | Refusal | a tap the rules refuse with `NotExposed` on a pod on top whose group has a member not on top (`PodLinks.WaitsForPartner`): the toast `refusal.partner_buried` ("Its linked pod isn't on top yet"), the pod's shake (Unity), and the hint |
 | Hint | for each buried member (`PodLinks.Buried`): its frame, or the "+N" disc's box grown to 1.5 of its height when it is hidden, ringed by a round stroke of the group's color, grown 6% + 10%·k of its height, corner 22% of its height plus the growth, 3 to 5 units wide, alpha 0.35 + 0.65·k, where k = `PodLinks.Hint(t)`: two half-sine pulses over 1.2 s of real time |
 | Tester | the level tester keeps its "∞" mark and says the same refusal |
+
+### 6.18 The volume look: soft cube cells, raised buttons (both builds; the owner's request of 2026-10-08, FR-044)
+
+Engine-free pictures of the kit (`client/Assets/Bloomlings/UI/Design/VolumeRaster.cs`, straight alpha, deterministic),
+drawn by the playtest's `Kit.CandyTile`, `Kit.RimmedIconFace`, `Kit.RaisedPlate`, `Kit.RaisedGlyph` and Unity's
+`UiKit.CandyTile`, `UiKit.IconFace(..., rim: true)`, `UiKit.RaisedPlate`, `UiKit.RaisedGlyph` (`ProceduralSprites.ButtonPlate`,
+`ButtonFace`, `RaisedGlyph`, `RaisedChevron`). The light comes from the upper left, a little toward the viewer
+(-0.45, -0.75, 1.1 normalized); a surface lightens toward its color lightened 60% where it faces the light more than a
+flat top and deepens toward its color darkened 50% where less, with a Blinn-Phong gloss (power 24) above the flat top's.
+Flat 2D pictures only: no 3D scene, camera or perspective (constitution VII).
+
+| Piece | Recipe |
+|---|---|
+| Soft cube (`UiRaster.Tile`, board style; slot `tile.candy`) | inside a clear margin of `CubeMargin` (3.5% of the side) a rounded square body (corners 17%); its top ends `CubeSide` (10%) above the bottom: the color lightened 12% at the top to darkened 4% at its bottom, its edges rounding down over a quarter round bevel of 12% of the side (lighten 1.25, darken 0.7, gloss 0.75), a cushion (its middle up to 18% toward the color lightened 35%), a short white gloss dash (alpha 0.55) along the top left edge; the front face below the top from the color darkened 20% to 36% downward, lighter at the left, deeper at the right; a soft deep edge (the color darkened 55%, 0.55) where it meets the ground. The symbol (or the owner's icon, `OwnerPictures.TileIconBox`) on the top's middle, (s − 10%) / 2 from the top (`UiRaster.TileLipShare(Board)` = `CubeSide`) |
+| Plate (`UiRaster.ButtonPlate(w, h)`, `RaisedPlate`; slot `ui.button.rim`) | the button's rounded square (corners `GardenLook.IconRadiusShare`, 34% of the shorter side), a soft shadow (0.24, 0.07 down) under it; a laminate (`wood.edge` toward `wood.mid` 25% and `wood.grain` 8%; long streaks lighter toward `wood.mid` lightened 12% or deeper toward `wood.grain`, fine wavering grain lines in `wood.grain` darkened 10% across the whole button); its top ends `PlateSide` (3.5%) above the bottom; the top's border (`IconRimShare`, 10%) rounds over at the outside (the outer 40%) and into the opening (the inner 25%), flat between (lighten 0.45, darken 0.45, gloss 0.18), its upper 30% catching the light (`wood.mid` lightened 12%, up to 0.6); the front side `wood.edge` darkened 6%, deeper downward; in the opening a `wood.line` groove (0.22) and the face's soft shadow (`wood.line` darkened 25%, 0.16, 3% lower); deeper toward `wood.grain` by `PlateDepth` (0.475 × 0.45 to 0.9, more on the lower side), a `wood.line` outline (1.6% of the side, 0.55 + 0.35 × `PlateDepth`), then `Vivid` × `PlateVivid` (1.425) |
+| Raised face (`UiRaster.ButtonFace(w, h, set)`, `RaisedFace`; slot `ui.button.face.raised`) | in `UiRaster.RaisedFaceBox` (inside the border by 1.15 of it at the sides and 1.1 at the top, over its bottom by 0.15 of it, standing on the plate's top); corners the button's less the side inset; the button's side from the face box (`ButtonSideOfFace`); its top ends `FaceSide` (2.2% of the button) above its bottom: the set's face toward its lip 12% and its top up to 25% at the upper left, its lip up to 35% downward, a faint grain (`FaceGrain`), its edge rounding down over 7% of its side (lighten 0.35, darken 0.2, gloss 0.15); the front side the face toward its lip 45% to 75% downward; a soft edge in the lip darkened 15% (0.3); warmer toward its lip by `FaceWarmth` (0.35 × 0.4), then `Vivid` × `FaceVivid` (1.25). A press sinks it by `RaisedFaceSink` (3% of the button at full depth, a quarter of that up on the spring-back) and squashes the button as before; no darkening. Disabled, the set's `Disabled()` greys it |
+| Content | `UiRaster.RaisedFaceContent(face, side)`: the face's top less 9% of its shorter side all round; glyph sizes stay those of §3.3 (`IconRimGlyph`; Unity's `IconSide` the cushion's side, `IconRimFaceShare` of the button) |
+| Raised glyph (`UiRaster.RaisedGlyph`, `RaisedChevron`; slot `ui.glyph.raised`) | the shape filling `GlyphPictureShare` (0.8) of a square picture about its middle; a soft shadow in the color darkened 35% (0.28, 3.5% of the glyph lower, feathered over 6%), a `cream.top` emboss line (0.5) just under its lower edge; the shape from the color lightened 12% to darkened 8% downward, its edge rounding over a bevel of 4.5% of the glyph (lighten 0.6, darken 0.45, gloss 0.22). Its picture box is the glyph box `GlyphPictureScale` (1.25) larger about the same middle (`RaisedGlyphBox`; Unity scales the glyph's image by it). The ‹ is the › mirrored, its light still from the upper left. Every brown glyph on a cream face (`Kit.Glyph` / `UiKit.GardenGlyph` on cream and white sets: the icon buttons, Restart's ⟳, the ×2 offer), the speed pill's chevrons and the ‹ › arrows; glyphs on colored faces keep their line |
+| Avatar | the profile avatar's default border is the plate (`AvatarLook.Rim`), the picture over its opening; a chosen frame still takes its place |
+| Colors | the owner's pick of 2026-10-08, half way between the review sheet's 5a (`PlateVivid` 1.55, `PlateDepth` 0.25, `FaceVivid` 1.3, `FaceWarmth` 0.25) and 6a (1.3, 0.7, 1.2, 0.45) |
+

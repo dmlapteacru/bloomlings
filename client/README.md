@@ -184,10 +184,10 @@ layouts, the order of elements and every rule (recipes in `contracts/look.md`):
   cached sprites (9-sliced where needed, one per key and size); `PicturePixels` flips the rows and bleeds the edges.
 - `UiKit` (`UiKit.cs`, `UiKitGarden.cs`, `UiKitGameplay.cs`, `UiKitTray.cs`, `UiKitCards.cs`, `UiKitMeta.cs`,
   `UiKitViews.cs`) holds the twins of the playtest's `Kit.*` components under the same names (`WoodSign`,
-  `PrimaryButton` in its wood rim, `SpeedPill`, `ChoiceButton`, `CountBadge`, `CostPill`, `PetalsPill`, `Paper`, `Card`,
+  `PrimaryButton` in its wood rim, `RaisedPlate` and `RaisedGlyph` (the icon buttons' plate and glyphs, FR-044), `SpeedPill`, `ChoiceButton`, `CountBadge`, `CostPill`, `PetalsPill`, `Paper`, `Card`,
   `PodFrame`, `SlotPlate`, `BoosterTile`, `StoneBorder`, `StonePedestal`, `LightRays`, `FallingPetals`,
   `WoodLogo`, `OutfitCard`).
-- The board is candy tiles in a stone border on a lawn: `BoardLayout` (kit) places the grid and the border for
+- The board is candy tiles (soft cubes, spec 005 FR-044) in a stone border on a lawn: `BoardLayout` (kit) places the grid and the border for
   `BoardView` (a Garden Entry has no picture: its Bloomlings set off from the border beside the entry cell,
   `BoardLayout.Door`), and `BoardPictures` draws the restored ground, stone obstacles and the finished picture (win,
   Collection). Waiting Slots are cream plates holding the variant's candy tile with its plain count below it; the 2D

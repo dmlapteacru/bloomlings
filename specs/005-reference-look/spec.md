@@ -668,6 +668,32 @@ from the slot up to the board, take the nearest tile there and carry it to the n
   pulse at 140–200 (it was 8–14 ms at 55–85); the pod done's "ta-dum" is two clicks, 0.8 then 1.0, above them all. The
   90 ms gap between tile haptics stays (FR-042 as amended).
 
+### Session 2026-10-08 (the owner's volume: cells like cubes, buttons laid on a plate)
+
+The owner, with two screenshots of the reference: "Ты можешь клетки поля сделать более объемными, как кубики...но не
+кубики. То есть по форме не прям кубы, но верхушка должна ощущаться как верхушка куба. Так же посмотри на кнопки на
+скриншоте, обводка объемная и кнопка как будто слегка вылазить из обводки, или как будто кнопку положили на объемную
+плоскость. Нам нужен такой же эффект. Попробуй, срендери мне и потом сделаем" ("Can you make the board's cells more
+volumetric, like cubes but not cubes: not really cube shaped, but the top must feel like a cube's top. And look at the
+buttons: the rim is volumetric and the button seems to come a little out of it, as if laid on a volumetric plane. We
+need the same effect. Try it, render it for me, and then we do it.") Rendered for review in five rounds (the preview's
+switch, off in both builds until approved):
+- Q: The cells? → A: A soft cube (FR-044): a rounded square top whose edges round down, lit from the upper left, over a
+  deeper front face, the ground showing round each cube, the symbol on the top's middle. Still flat 2D pictures, no 3D
+  scene or perspective (constitution VII): the front face is drawn straight below the top. Not objected to.
+- Q: The buttons, round 1 → 2? → A: "The volume of the button's top, without the rim, should be smaller: it is smaller
+  on the reference. The rim's color and texture are more wooden, like laminate flooring. The colors also creamier. Even
+  the icons on the buttons (>>> for one) look a little volumetric." Version 2: a gentler face, a plate of laminate, the
+  glyphs raised. "Version 2 is better in volume. But not yet close in color."
+- Q: Round 3 → 5? → A: A caramel cream wood with a board's grain: "The texture is better. The color is still pale"
+  (twice), then "Pale" for a warmer, more saturated version 4. A sheet of seven (4a, 4b and 5a–5c more saturated, 6a and
+  6b deeper honey wood) on the same Home background beside the reference: "5a", then "between 5a and 6a".
+- Q: What is in? → A: Every icon button, the speed pill and the profile avatar's border (FR-044): the wooden plate whose
+  border rounds over (caramel laminate, its front side under it, a deeper outline, a groove and the face's soft shadow
+  in its opening), the cream face raised on it (a press sinks it), and every brown glyph on a cream face raised (the ‹
+  the › mirrored, its light still from the upper left). The colors are the owner's pick, half way between 5a and 6a.
+  The main buttons (Play, Next) keep their face in the light wood rim.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1267,6 +1293,21 @@ inventory.
   a ring of the group's color twice in 1.2 s round each buried member the tray shows, or round the "+N" disc that hides
   it (`PodLinks.Hint`). Both builds (contracts/look.md §6.17; the kit's `PodLinks`, the playtest's `PodPainter`, Unity's
   `TrayView`; the level tester says the same). Presentation only: the rule and every tap's outcome stay.
+
+- **FR-044** *(the owner's request of 2026-10-08: "cells like cubes, but not cubes", buttons "as if laid on a volumetric
+  plane"; the colors "between 5a and 6a")*: Every board tile MUST be a soft cube (`UiRaster.Cube` through `UiRaster.Tile`
+  in the board style): a rounded square top (corners 17% of the side) whose edges round down over 12% of the side, lit
+  from the upper left, over a deeper front face of 10% of the side (`UiRaster.CubeSide`), in a clear margin of 3.5%
+  (`CubeMargin`), its symbol or the owner's icon on the top's middle (`UiRaster.TileLipShare`). Every icon button, the
+  speed pill and the profile avatar's default border MUST be the wooden plate (`UiRaster.ButtonPlate`): a caramel
+  laminate whose border, 10% of the shorter side, rounds over, lit at the top, over its front side, in a deeper outline;
+  every icon button and the speed pill MUST carry the cream face raised on it (`UiRaster.ButtonFace` in
+  `UiRaster.RaisedFaceBox`), which a press sinks by up to 3% of the button (`UiRaster.RaisedFaceSink`); every brown glyph
+  on a cream face MUST be raised (`UiRaster.RaisedGlyph`, `RaisedChevron`). The plate's and the face's color are the
+  owner's pick (`PlateVivid` 1.425, `PlateDepth` 0.475, `FaceVivid` 1.25, `FaceWarmth` 0.35). Both builds
+  (contracts/look.md §6.18; the playtest's `Kit.RimmedIconFace`, `Kit.RaisedPlate`, `Kit.RaisedGlyph`, Unity's
+  `UiKit.IconFace(..., rim: true)`, `UiKit.RaisedPlate`, `UiKit.RaisedGlyph`). Flat 2D pictures only (constitution VII);
+  presentation only: no layout, rule or tap outcome changes.
 
 ### Key Entities
 

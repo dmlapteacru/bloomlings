@@ -313,15 +313,11 @@ namespace Bloomlings.Client.UI.Design
         public const float IconRadiusShare = 0.34f;
 
         /// <summary>
-        /// The light wood rim round an icon button, the speed pill and the profile avatar, as a share of the shorter side
-        /// (the owner, 2026-10-06: a bigger border, like Play's wood rim); the cushion fills the rest.
+        /// The border of an icon button's wooden plate, of the speed pill's and of the profile avatar's, as a share of the
+        /// shorter side (the owner, 2026-10-06: a bigger border, like Play's wood rim; a plate whose border rounds over since
+        /// spec 005 FR-044, <see cref="UiRaster.RaisedPlate"/>); the raised face fills the rest.
         /// </summary>
         public const float IconRimShare = 0.1f;
-
-        /// <summary>The icon rim's plank outline and lip, as shares of its height (Play's rim: 0.018 and 0.03).</summary>
-        public const float IconRimOutline = 0.03f;
-
-        public const float IconRimLip = 0.045f;
 
         /// <summary>The share of an icon button its glyph keeps inside the rim (the glyphs were sized to the whole button).</summary>
         public const float IconRimGlyph = 0.88f;

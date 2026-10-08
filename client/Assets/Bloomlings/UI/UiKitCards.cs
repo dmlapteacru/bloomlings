@@ -44,9 +44,9 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A cream ‹ or › button (spec 005 §4.6: the Store's and the Collection's pages; the playtest's
-        /// <c>Kit.ArrowButton</c>): the icon buttons' rounded square in its wood rim, 100/132 of the rect (place a touch-sized square,
+        /// <c>Kit.ArrowButton</c>): the icon buttons' rounded square on its wooden plate, 100/132 of the rect (place a touch-sized square,
         /// <c>size.touch_min</c>, so the 100-unit arrow keeps a full touch target), with the brown chevron (half the
-        /// cushion, nudged the way it points) in its cream halo, pointing right when <paramref name="next"/>. Not
+        /// cushion, nudged the way it points) raised on it (spec 005 FR-044), pointing right when <paramref name="next"/>. Not
         /// interactable, it fades to 55% and takes no tap.
         /// </summary>
         public static Button PageArrow(string name, Transform parent, bool next, Action onClick)
@@ -55,13 +55,9 @@ namespace Bloomlings.Client.UI
             GardenButton face = IconFace("Face", root, GardenLook.White, GardenLook.IconRimFaceRadius, square: true, rim: true);
             face.GreyWhenDisabled = false;
             face.FadeWhenDisabled = true;
-            Image glyph = GardenGlyph(face, face.Content, "ui.chevron");
+            // The chevron points right; the previous page's arrow is its mirror, its light still from the upper left.
+            Image glyph = RaisedGlyph(face.Content, ProceduralSprites.RaisedChevron(next, GardenLook.GlyphOn(face.Set)));
             float m = next ? 1f : -1f;
-            if (!next)
-            {
-                // The chevron points right; the previous page's arrow is its mirror.
-                glyph.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
-            }
 
             BoxLayout.On(face.Content).Add(glyph.rectTransform, f =>
             {
