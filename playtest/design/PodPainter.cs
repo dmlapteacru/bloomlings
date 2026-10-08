@@ -29,8 +29,10 @@ namespace Bloomlings.Playtest.Design
     /// rows in all), the same parts muted but readable: variant symbol and count (spec 001 FR-013);</description></item>
     /// <item><description>a "+N" count badge on the last shown pod for the pods deeper than the tray shows;</description></item>
     /// <item><description>an emptied stack as a sunk well where its exposed pod stood;</description></item>
-    /// <item><description>locked: the padlock on a grey panel; mystery: the lilac "?" tile and the count; connected: a link
-    /// between the frames of members on one row, a ring of the group's color on each member otherwise.</description></item>
+    /// <item><description>locked: the padlock on a grey panel; mystery: the lilac "?" tile and the count; connected: the link
+    /// badge on every member (<see cref="PodLinks"/>, spec 005 FR-043), a link between the frames of members side by side
+    /// in one row, the small link badge at the "+N" of a column that hides a member, and the partner's pulse after a tap
+    /// that waits for it.</description></item>
     /// </list>
     /// When the exposed pod leaves for its slot the pods under it slide up one row, and when Return puts a pod back on top
     /// the column slides down (<see cref="TrayMotion"/>); committed pods fly from their tile to their slot's tile, returned
@@ -42,8 +44,9 @@ namespace Bloomlings.Playtest.Design
         /// The columns of the level's Source stacks in the tray's pod row: each stack's shown pods, the deepest first, at
         /// their places in <see cref="ReferenceGameplayRegions.Pod"/> (sliding there when the rules moved them,
         /// <see cref="LevelScreen.TrayMotion"/>), the exposed one taking the tap, or a well for an emptied stack; then the
-        /// links of the connected groups and the "+N" badges. Records where each pod's tile was drawn in
-        /// <see cref="LevelScreen.PodBoxes"/>, where flights start and end.
+        /// links and badges of the connected groups, the "+N" badges with their hidden partners' marks, and the hint of a
+        /// tap that waits for a partner. Records where each pod's tile was drawn in <see cref="LevelScreen.PodBoxes"/>,
+        /// where flights start and end.
         /// </summary>
         public static void DrawColumns(IPainter p, ReferenceGameplayRegions r, LevelScreen s)
         {
@@ -51,6 +54,7 @@ namespace Bloomlings.Playtest.Design
             s.PodBoxes.Clear();
             int stacks = Math.Min(view.StackCount, r.Columns.Count);
             var linked = new Dictionary<string, List<Box>>(StringComparer.Ordinal);
+            var frames = new Dictionary<string, Box>(StringComparer.Ordinal);
             float now = s.Animator.Now;
             TrayMotion motion = s.TrayMotion;
             motion.BeginFrame();
@@ -97,10 +101,12 @@ namespace Bloomlings.Playtest.Design
                     PodChip chip = PodChip.In(layout);
                     Box drawn = slide.Box;
                     s.PodBoxes[id] = Map(chip.Tile, layout, drawn);
-                    if (shown)
+                    if (shown && !Returning(s, id))
                     {
                         // The links join the frames, which stand narrower than their places in the middle of the column.
-                        Link(linked, pod, PodChip.In(drawn).Frame);
+                        Box frame = PodChip.In(drawn).Frame;
+                        Link(linked, pod, frame);
+                        frames[id] = frame;
                     }
 
                     // The exposed pod squashes under the finger and springs back (spec 003 FR-017).
@@ -156,14 +162,65 @@ namespace Bloomlings.Playtest.Design
 
             DrawLinks(p, view, linked);
 
-            // The pods deeper than the tray shows wait under a "+N" badge on the last shown pod of their column.
+            // The pods deeper than the tray shows wait under a "+N" badge on the last shown pod of their column, with the
+            // small link badge of a connected member among them (FR-043).
+            string?[] hidden = PodLinks.Hidden(view, r.PodRows);
             for (int st = 0; st < stacks; st++)
             {
                 int more = view.Stack(st).Count - r.PodRows;
                 if (more > 0)
                 {
                     MoreBadge(p, r.Chip(st, r.PodRows - 1), more);
+                    if (hidden[st] != null)
+                    {
+                        LinkBadge(p, PodLinks.HiddenMark(r.Chip(st, r.PodRows - 1)), PodLinks.ColorOf(view, hidden[st]!));
+                    }
                 }
+            }
+
+            DrawHint(p, r, s, frames);
+        }
+
+        /// <summary>
+        /// The hint of a tap that waits for a partner (FR-043, <see cref="LevelScreen.LinkHint"/>): a ring of the group's
+        /// color pulses round each buried member the tray shows, or round the "+N" disc that hides it.
+        /// </summary>
+        private static void DrawHint(IPainter p, ReferenceGameplayRegions r, LevelScreen s, Dictionary<string, Box> frames)
+        {
+            if (!s.LinkHint.HasValue)
+            {
+                return;
+            }
+
+            LevelView view = s.Session.View;
+            (string podId, float at) = s.LinkHint.Value;
+            float k = PodLinks.Hint(s.UiNow - at);
+            string? group = view.Pod(podId).ConnectedGroupId;
+            if (k <= 0f || group == null)
+            {
+                return;
+            }
+
+            Rgba color = PodLinks.ColorOf(view, group);
+            foreach (string member in PodLinks.Buried(view, podId))
+            {
+                Box ring;
+                if (frames.TryGetValue(member, out Box frame))
+                {
+                    ring = frame;
+                }
+                else if (PodLinks.Place(view, member) is (int stack, _) && stack < r.Columns.Count)
+                {
+                    Box badge = r.Chip(stack, r.PodRows - 1).Badge;
+                    ring = Box.FromCenter(badge.CenterX, badge.CenterY, badge.Height * 1.5f, badge.Height * 1.5f);
+                }
+                else
+                {
+                    continue;
+                }
+
+                float grow = ring.Height * (0.06f + (0.1f * k));
+                p.StrokeRound(ring.Inset(-grow), (ring.Height * 0.22f) + grow, p.U(5f) * (0.6f + (0.4f * k)), color.WithAlpha(0.35f + (0.65f * k)));
             }
         }
 
@@ -260,27 +317,24 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The links of the connected groups (spec 002 FR-012): a bar between consecutive members drawn on one row of the
-        /// grid, and a small ring of the link's color on each member when a group's members lie on different rows. Each
-        /// group has its own color (state.link, state.link_2, state.link_3), by the groups' order, as in Unity's TrayView.
+        /// The links of the connected groups (spec 002 FR-012, spec 005 FR-043): a bar between consecutive members side by
+        /// side in one row of the grid, and the link badge in the group's color on every member the tray shows, wherever its
+        /// partners stand (<see cref="PodLinks.Palette"/> by the groups' order, as in Unity's TrayView).
         /// </summary>
         private static void DrawLinks(IPainter p, LevelView view, Dictionary<string, List<Box>> linked)
         {
-            if (linked.Count == 0)
-            {
-                return;
-            }
-
-            List<string> groups = ConnectedGroups(view);
             foreach (KeyValuePair<string, List<Box>> group in linked)
             {
-                Rgba color = LinkPalette[Math.Max(0, groups.IndexOf(group.Key)) % LinkPalette.Length];
+                Rgba color = PodLinks.ColorOf(view, group.Key);
                 List<Box> boxes = group.Value;
                 boxes.Sort((a, b) => a.Left.CompareTo(b.Left));
-                bool oneRow = true;
+
+                // One row of neighbors: the same row, and each member in the column next to the one before it.
+                bool oneRow = boxes.Count > 1;
                 for (int i = 1; i < boxes.Count; i++)
                 {
-                    oneRow &= Math.Abs(boxes[i].CenterY - boxes[0].CenterY) < boxes[0].Height * 0.5f;
+                    oneRow &= Math.Abs(boxes[i].CenterY - boxes[0].CenterY) < boxes[0].Height * 0.5f
+                        && boxes[i].Left - boxes[i - 1].Right < boxes[i].Height;
                 }
 
                 if (oneRow)
@@ -289,47 +343,24 @@ namespace Bloomlings.Playtest.Design
                     {
                         Link(p, boxes[i - 1], boxes[i], color);
                     }
-
-                    continue;
                 }
 
                 foreach (Box box in boxes)
                 {
-                    LinkRing(p, box, color);
+                    LinkBadge(p, PodLinks.BadgeBox(box), color);
                 }
             }
         }
 
         /// <summary>
-        /// The ring mark of a connected pod whose group lies on several rows: a dot of the group's color on its frame's top
-        /// right corner (the "+N" disc takes the top left, the count the bottom right).
+        /// The link badge (<c>pod.link</c>, FR-043, <see cref="UiRaster.LinkBadge"/>): a white chain on a disc of the group's
+        /// <paramref name="color"/> in <paramref name="box"/> (a member's frame corner, <see cref="PodLinks.BadgeBox"/>, or a
+        /// column's "+N", <see cref="PodLinks.HiddenMark"/>).
         /// </summary>
-        public static void LinkRing(IPainter p, Box box, Rgba color)
+        public static void LinkBadge(IPainter p, Box box, Rgba color)
         {
             p.Mark("pod.link");
-            float d = Math.Min(box.Width, box.Height) * 0.16f;
-            p.FillCircle(box.Right - d, box.Top + d, d * 1.25f, Rgba.White);
-            p.FillCircle(box.Right - d, box.Top + d, d, color);
-        }
-
-        /// <summary>The connected groups' link colors, in order (the Unity tray's palette).</summary>
-        public static readonly Rgba[] LinkPalette = { C.StateLink, C.StateLink2, C.StateLink3 };
-
-        /// <summary>The level's connected groups, sorted by id: a group's place picks its link color.</summary>
-        private static List<string> ConnectedGroups(LevelView view)
-        {
-            var groups = new List<string>();
-            foreach (string id in view.PodIds)
-            {
-                string? group = view.Pod(id).ConnectedGroupId;
-                if (group != null && !groups.Contains(group))
-                {
-                    groups.Add(group);
-                }
-            }
-
-            groups.Sort(StringComparer.Ordinal);
-            return groups;
+            p.Picture("pod.link.badge" + color.Hex, box, (w, h) => UiRaster.LinkBadge(Math.Min(w, h), color));
         }
 
         /// <summary>

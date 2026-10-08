@@ -1390,7 +1390,7 @@ namespace Bloomlings.Playtest.Preview
             }
 
             SheetLine(p, body, rowTop);
-            StateLabel(p, "The tray in play: each stack a column, two pods connected", body.CenterX, rowTop + (0.035f * g.W), body.Width);
+            StateLabel(p, "The tray in play: each stack a column, connected pods with their link badge", body.CenterX, rowTop + (0.035f * g.W), body.Width);
             float dy = rowTop + (0.07f * g.W) - g.PodRow.Top;
             var columns = new[]
             {
@@ -1408,9 +1408,13 @@ namespace Bloomlings.Playtest.Preview
 
             if (frames.Length >= 4)
             {
+                // A pair side by side on the top row (the bar and both badges), and a pair apart: one member shown, its
+                // partner under the "+N" of the second column (FR-043).
                 PodPainter.Link(p, frames[1][0], frames[2][0]);
-                PodPainter.LinkRing(p, frames[0][1], PodPainter.LinkPalette[1]);
-                PodPainter.LinkRing(p, frames[3][2], PodPainter.LinkPalette[1]);
+                PodPainter.LinkBadge(p, PodLinks.BadgeBox(frames[1][0]), PodLinks.Palette[0]);
+                PodPainter.LinkBadge(p, PodLinks.BadgeBox(frames[2][0]), PodLinks.Palette[0]);
+                PodPainter.LinkBadge(p, PodLinks.BadgeBox(frames[3][2]), PodLinks.Palette[1]);
+                PodPainter.LinkBadge(p, PodLinks.HiddenMark(PodChip.In(g.Pod(1, g.PodRows - 1).Offset(0f, dy))), PodLinks.Palette[1]);
             }
         }
 

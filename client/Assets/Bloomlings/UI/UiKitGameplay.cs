@@ -1,4 +1,5 @@
 using System;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.UI.Design;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +9,9 @@ namespace Bloomlings.Client.UI
 {
     /// <summary>
     /// The gameplay screen's own pieces in the reference look (spec 005 contracts/look.md §4.1), the twins of the playtest's
-    /// <c>LevelScreen.TrayFrame</c>, <c>LevelScreen.TrayBand</c>, <c>SlotPainter.TargetGlow</c> and <c>PodPainter.Link</c>:
-    /// the tray's parchment frame and bands, the golden target glow and the connected pods' link bar. Each is laid out
+    /// <c>LevelScreen.TrayFrame</c>, <c>LevelScreen.TrayBand</c>, <c>SlotPainter.TargetGlow</c>, <c>PodPainter.Link</c> and
+    /// <c>PodPainter.LinkBadge</c>: the tray's parchment frame and bands, the golden target glow and the connected pods'
+    /// link bar and badge. Each is laid out
     /// from its own rect (<see cref="BoxLayout"/>); decorations never take taps.
     /// </summary>
     public static partial class UiKit
@@ -127,6 +129,25 @@ namespace Bloomlings.Client.UI
             view.Build();
             return view;
         }
+
+        /// <summary>
+        /// The link badge of a connected pod (<c>pod.link</c>, spec 005 FR-043; the playtest's <c>PodPainter.LinkBadge</c>):
+        /// the <see cref="UiRaster.LinkBadge"/> picture, a white chain on a disc of the group's <paramref name="color"/>,
+        /// fitted square to its rect. Never a touch target.
+        /// </summary>
+        public static Image LinkBadge(string name, Transform parent, Rgba color)
+        {
+            Image image = UiFactory.CreateImage(name, parent, null, Color.white);
+            SetLinkBadge(image, color);
+            return image;
+        }
+
+        /// <summary>Shows a link badge (<see cref="LinkBadge"/>) in a group's <paramref name="color"/>.</summary>
+        public static void SetLinkBadge(Image badge, Rgba color) =>
+            PictureFit.On(
+                badge,
+                (w, h) => ProceduralSprites.Picture("pod.link.badge" + color.Hex, Mathf.Min(w, h), Mathf.Min(w, h), (pw, ph) => UiRaster.LinkBadge(Mathf.Min(pw, ph), color)),
+                square: true);
 
         /// <summary>
         /// A booster tile's body (§3.7, <c>booster.tile</c>; the playtest's <c>Kit.BoosterBezel</c>): a cream face set in a

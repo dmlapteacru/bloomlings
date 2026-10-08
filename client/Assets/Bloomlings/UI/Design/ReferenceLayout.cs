@@ -165,8 +165,8 @@ namespace Bloomlings.Client.UI.Design
     /// centered in its place in the column), its panel inside a border of <see cref="Border"/> of its height, the
     /// variant's icon over the panel's middle (<see cref="Icon"/>; the candy tile in <see cref="Tile"/> for a mystery or
     /// locked pod, or without the owner's picture), the count's small outlined digits over the panel's bottom right corner
-    /// (<see cref="Count"/>), and the "+N" disc of the pods deeper than the tray shows over the frame's top left corner
-    /// (<see cref="Badge"/>). Engine-free.
+    /// (<see cref="Count"/>), the "+N" disc of the pods deeper than the tray shows over the frame's top left corner
+    /// (<see cref="Badge"/>), and a connected pod's link badge over its top right corner (<see cref="Link"/>). Engine-free.
     /// </summary>
     public sealed record PodChip(Box Frame, Box Inner, Box Tile, Box Icon, Box Count, Box Badge)
     {
@@ -215,6 +215,9 @@ namespace Bloomlings.Client.UI.Design
             Box badgeBox = Box.FromCenter(frame.Left + (h * 0.12f), frame.Top + (h * 0.12f), badge, badge);
             return new PodChip(frame, inner, tile, icon, count, badgeBox);
         }
+
+        /// <summary>A connected pod's link badge over the frame's top right corner (spec 005 FR-043, <see cref="PodLinks.BadgeBox"/>).</summary>
+        public Box Link => PodLinks.BadgeBox(Frame);
 
         /// <summary>
         /// The count's look (§6.1): <c>ink.brown</c> digits, softer (<c>ink.brown_soft</c> mixed 30% toward

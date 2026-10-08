@@ -211,6 +211,7 @@ gameplay.booster_useless,That booster can't help here
 gameplay.not_enough_petals,Not enough Petals
 refusal.no_free_slot,No free slot
 refusal.not_exposed,Take the top pod first
+refusal.partner_buried,Its linked pod isn't on top yet
 refusal.locked,Locked: collect its key
 refusal.group,Needs more free slots
 cosmetic.hat.sprout_cap,Sprout Cap

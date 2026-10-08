@@ -805,3 +805,15 @@ and contracts/look.md §3.6, §6.10.
   haptics on a Pixel (primitives), a Samsung (predefined or one-shot), an older phone without amplitude control (none)
   and an iPhone (impact feedback, with the plugin in an Xcode build); the owner's verdict on each style.
 
+
+## The owner's connected pods' marks (2026-10-08, FR-043)
+
+- [X] T179 Kit: `PodLinks` (`Groups`, `ColorOf`, `Buried`, `WaitsForPartner`, `Place`, `Hidden`, `BadgeBox`,
+  `HiddenMark`, `Hint`), `UiRaster.LinkBadge`, `PodChip.Link`; the string `refusal.partner_buried`; the `pod.link` slot.
+- [X] T180 Tests (`PodLinksTests`): Level 54's pair apart under both "+N"s, a member on top waiting for its partner (the
+  rule's reason unchanged), the palette, the hint's two pulses, the badges' places and the picture.
+- [X] T181 Both builds: the playtest's `PodPainter` (badges, bar only side by side, hidden marks, the hint ring) and
+  `LevelScreen.Tap` (`LinkHint`); Unity's `TrayView` (badge pool, hidden marks, `ShowPartners`) and
+  `GameplayController`; the tester's refusal; preview frame 12 shows the badges and a hidden mark.
+- [ ] T182 Devices: Level 54 in both APKs: the badges read at a glance on a phone, the hint shows where the partner
+  waits; the owner's verdict.

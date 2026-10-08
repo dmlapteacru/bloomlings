@@ -217,7 +217,7 @@ namespace Bloomlings.Playtest
             if (!check.IsAllowed)
             {
                 _sound.Play(SoundCue.Refused);
-                Toast(RefusalText(check.Reason));
+                Toast(check.Reason == RejectReason.NotExposed && Bloomlings.Client.UI.Design.PodLinks.WaitsForPartner(_session.View, podId) ? PlaytestText.T("refusal.partner_buried") : RefusalText(check.Reason));
                 Invalidate();
                 return;
             }

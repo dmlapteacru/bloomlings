@@ -147,7 +147,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   key and size. `BoardLayout` places the grid and the stone border; each Garden Entry is a small stone arch set in the border beside its entry cell, turned to its side (`BoardLayout.Arch`, `UiRaster.EntryArch`; the owner's "B" of 2026-10-05, FR-034; the big arch under the board stays retired since 2026-10-03), and the Bloomlings set off from there. The board is candy tiles in a
   stone border on a lawn (a big board, over 288 cells, in the icons look without the layer chip). Pods are wooden frames wider than tall (the owner's icon in the middle, a small count in the corner) that stand one
   after another in a column per Source stack, never on each other: a gameplay rule (owner, 2026-10-03), whatever the
-  look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). Waiting Slots are cream
+  look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). A connected pod carries a chain badge
+  of its group's color wherever it stands, a column whose "+N" hides one shows a small one, and a tap that waits for a
+  partner says "Its linked pod isn't on top yet" and pulses it (FR-043, `PodLinks`, `UiRaster.LinkBadge`). Waiting Slots are cream
   plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`
   with same-named `UiKit*` twins. The owner's backgrounds keep at most 70% of the animated heroes' saturation (FR-031):
   run `node tools/heroanim/saturation.mjs` after adding one (idempotent; the Home layers through `layers.mjs`).

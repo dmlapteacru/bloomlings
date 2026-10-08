@@ -625,6 +625,27 @@ reviewed on the listening page and the playtest APK:
 - Q: Colony Flow's sounds? → A: None are used (spec 001 FR-091): every sound is synthesized by the game itself; only
   the idea of a soft sound and a light tick for each piece collected is shared.
 
+### Session 2026-10-08 (the owner's Level 54: which pods are linked)
+
+The owner, on Level 54 with the flower pod on top of the third column: "Почему ... когда нажимаю на цветочек в 3 ряду, мне
+выдает эту ошибку. Я как юзер не понимаю что не так. Так же связанные поды, было бы не плохо как-то помечать, потому что
+вначале там есть линия их связывающая, но потом когда одна колонка идет вперед, линия исчезает и не понятно с кем связаны
+поды." ("Why does tapping the flower in the third column give me this error? As a user I don't understand what is wrong.
+And the connected pods should be marked somehow: at first a line links them, but once one column moves on the line
+disappears and it is unclear which pods are linked.") The pod was connected to a flower pod still under the fifth
+column's "+2", so the rules refused the tap (spec 001 FR-035) with "Take the top pod first", and nothing showed the
+link: the bar joins members only side by side in one row, and the playtest marked a lone member with nothing. Decided
+without a question (the owner left the mark's look open: "a digit, or something else, a stroke"):
+- Q: How is a connected pod marked? → A: Every connected pod the tray shows carries the link badge, a white chain of two
+  links on a disc of its group's color, over its frame's top right corner (the "+N" takes the top left, the count the
+  bottom right), wherever its partners stand; the bar still joins members side by side in one row (FR-043). A chain
+  rather than a digit: a digit beside the pod's count reads as a count, and no level has more than one group (about one
+  level in eight has one, a pair or a triple), so the group's color and the chain say all.
+- Q: And a partner the tray does not show? → A: A smaller link badge sits at the "+N" disc of the column that hides it.
+- Q: What does the tap say? → A: A tap on a connected pod on top whose partner is not says "Its linked pod isn't on top
+  yet", and the partner, or the "+N" that hides it, pulses twice in the group's color while the pod shakes. "Take the top
+  pod first" stays for any other pod not on top (no screen takes such a tap today). The rule is unchanged.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1213,6 +1234,17 @@ inventory.
   feedback), else a short soft pulse where they have amplitude control, and no tile haptic where they can only buzz. A
   pod done MUST play its light "ta-dum". The Settings toggles (spec 001 FR-073) MUST keep each off; the Store's previews
   stay silent. Presentation only: no rule, timing or outcome changes.
+
+- **FR-043** *(the owner's request of 2026-10-08: "the connected pods should be marked somehow")*: Every connected pod
+  (spec 001 FR-035) the tray shows MUST carry the link badge (`UiRaster.LinkBadge`: a white chain of two woven links on
+  the count badge's disc in its group's color, `state.link`, `state.link_2`, `state.link_3` by the groups' order) over
+  its frame's top right corner (`PodChip.Link`, 0.52 of the pod's height), in every row, wherever its partners stand; the
+  link bar MUST still join members side by side in one row. A column whose "+N" hides a member MUST show a smaller link
+  badge (0.74 of it) at its "+N" disc (`PodLinks.HiddenMark`). A refused tap on a connected pod on top whose partner is
+  not on top (`PodLinks.WaitsForPartner`) MUST say "Its linked pod isn't on top yet" (`refusal.partner_buried`) and pulse
+  a ring of the group's color twice in 1.2 s round each buried member the tray shows, or round the "+N" disc that hides
+  it (`PodLinks.Hint`). Both builds (contracts/look.md §6.17; the kit's `PodLinks`, the playtest's `PodPainter`, Unity's
+  `TrayView`; the level tester says the same). Presentation only: the rule and every tap's outcome stay.
 
 ### Key Entities
 

@@ -358,6 +358,14 @@ namespace Bloomlings.Client.Gameplay
             {
                 Feedback?.Play(SoundCue.Refused);
                 _tray.ShowRefused(podId);
+                if (check.Reason == RejectReason.NotExposed && PodLinks.WaitsForPartner(_session.View, podId))
+                {
+                    // A connected pod on top waits for a partner that is not (spec 005 FR-043): say so, and show where it waits.
+                    _hud.Toast(Loc.T("refusal.partner_buried"));
+                    _tray.ShowPartners(_session.View, podId);
+                    return;
+                }
+
                 _hud.Toast(RefusalText(check.Reason!.Value));
                 if (check.Reason == RejectReason.Locked)
                 {

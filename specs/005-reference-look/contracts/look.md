@@ -1688,3 +1688,18 @@ route cells to `ClearSounds.Crossed` for the timeline time since the last frame.
 
 `dotnet run --project playtest/preview -- --sounds` writes every clip as a WAV file and `schedule.json` (a pod of eight
 tiles from one arch in each style, at 1× and 3×, after the policy) to `playtest/preview/out/sounds/`, for listening.
+
+### 6.17 Connected pods' marks (both builds; the owner's request of 2026-10-08, FR-043)
+
+Drawn by the playtest's `PodPainter` and Unity's `TrayView` from the kit's `PodLinks` (engine-free, `client/Assets/Bloomlings/UI/Design/`).
+
+| Piece | Recipe |
+|---|---|
+| Link badge | `UiRaster.LinkBadge(size, color)`: the disc 0.92 of the picture over a soft `garden.shadow` (0.3, 0.03 lower), a `garden.shadow` 0.8 outline, a white ring to 0.79 of its radius, the face its group's color lit from the top (lightened 16%) with a soft gloss; a white chain of two stadium outlines along the rising diagonal (each half length 0.2, loop 0.2, 0.25 off the middle, stroke 0.12 of the face's radius) with an edge of the color darkened 45%, the lower link over the upper one on the chain's left side and under it on its right |
+| Where | every connected pod the tray shows: `PodChip.Link` = `PodLinks.BadgeBox(frame)`, a square 0.52 of the pod's height centred 0.12 of it in from the frame's top right corner (the "+N" disc keeps the top left, the count the bottom right) |
+| Colors | `PodLinks.Palette` (`state.link`, `state.link_2`, `state.link_3`) by the groups' order (`PodLinks.Groups`, sorted by id) |
+| Bar | the link bar (§3.7) between members side by side: one row, each in the column next to the one before |
+| Hidden partner | `PodLinks.Hidden(view, rows)` per column; a badge 0.74 of the link badge centred at the "+N" disc's centre plus 0.95 of its height right and 0.12 down (`PodLinks.HiddenMark`): clear of the digits, over the badge's ring |
+| Refusal | a tap the rules refuse with `NotExposed` on a pod on top whose group has a member not on top (`PodLinks.WaitsForPartner`): the toast `refusal.partner_buried` ("Its linked pod isn't on top yet"), the pod's shake (Unity), and the hint |
+| Hint | for each buried member (`PodLinks.Buried`): its frame, or the "+N" disc's box grown to 1.5 of its height when it is hidden, ringed by a round stroke of the group's color, grown 6% + 10%·k of its height, corner 22% of its height plus the growth, 3 to 5 units wide, alpha 0.35 + 0.65·k, where k = `PodLinks.Hint(t)`: two half-sine pulses over 1.2 s of real time |
+| Tester | the level tester keeps its "∞" mark and says the same refusal |

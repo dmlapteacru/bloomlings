@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
@@ -28,32 +29,30 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// <item><description>a green "+N" count badge on the last shown pod's top-right corner for the pods beyond
     /// it;</description></item>
     /// <item><description>an emptied stack as a sunk well where its exposed pod stood;</description></item>
-    /// <item><description>locked: the padlock on a grey panel; mystery: the lilac "?" tile; connected: a riveted link bar in
-    /// the group's color between the frames of members side by side in one row, or a ring of that color on each member
-    /// otherwise (FR-035).</description></item>
+    /// <item><description>locked: the padlock on a grey panel; mystery: the lilac "?" tile; connected (FR-035): the link
+    /// badge of its group's color on every member the tray shows (spec 005 FR-043, <see cref="PodLinks"/>), a riveted link
+    /// bar between the frames of members side by side in one row, and the small link badge at the "+N" of a column that
+    /// hides a member.</description></item>
     /// </list>
     /// When the exposed pod leaves, the pods under it slide up one row and the next hidden one fades in at the bottom;
     /// Return puts a pod back on top and the column slides down; Shuffle re-lays the columns and turns the pods over
     /// (presentation only, spec 005 FR-002: the core's events and state drive it). The tray mirrors the logical state
     /// directly, because commits are immediate feedback (R4), except that a pod whose key is still in flight keeps its
-    /// lock until the key lands. Taps are forwarded to the controller.
+    /// lock until the key lands. Taps are forwarded to the controller; a tap that waits for a partner pulses the partner,
+    /// or the "+N" that hides it (<see cref="ShowPartners"/>).
     /// </summary>
     public sealed class TrayView : MonoBehaviour
     {
-        /// <summary>The radius of a connected member's ring mark, as a share of its pod's height (its white rim 30% more).</summary>
-        public const float MarkShare = 0.15f;
-
-        private static readonly Rgba[] LinkPalette =
-        {
-            C.StateLink,
-            C.StateLink2,
-            C.StateLink3,
-        };
-
         private readonly Dictionary<string, PodView> _pods = new Dictionary<string, PodView>(StringComparer.Ordinal);
         private readonly HashSet<string> _shown = new HashSet<string>(StringComparer.Ordinal);
         private readonly List<LinkBarView> _links = new List<LinkBarView>();
-        private readonly List<(Image Rim, Image Dot)> _marks = new List<(Image, Image)>();
+        private readonly List<Image> _badges = new List<Image>();
+        private readonly List<Rgba> _badgeColors = new List<Rgba>();
+        private readonly List<Image> _hints = new List<Image>();
+        private readonly Dictionary<string, Box> _boxes = new Dictionary<string, Box>(StringComparer.Ordinal);
+        private ReferenceGameplayRegions? _grid;
+        private Coroutine? _hint;
+        private int _badgesUsed;
         private readonly List<TMPro.TextMeshProUGUI> _more = new List<TMPro.TextMeshProUGUI>();
         private readonly List<Image> _moreDiscs = new List<Image>();
         private readonly List<Image> _wells = new List<Image>();
@@ -88,11 +87,12 @@ namespace Bloomlings.Client.Gameplay.Tray
                 link.gameObject.SetActive(false);
             }
 
-            foreach ((Image rim, Image dot) in _marks)
+            foreach (Image badge in _badges)
             {
-                rim.gameObject.SetActive(false);
-                dot.gameObject.SetActive(false);
+                badge.gameObject.SetActive(false);
             }
+
+            _badgesUsed = 0;
 
             foreach (Image disc in _moreDiscs)
             {
@@ -106,8 +106,10 @@ namespace Bloomlings.Client.Gameplay.Tray
 
             int stacks = view.StackCount;
             ReferenceGameplayRegions grid = Grid?.Invoke(stacks) ?? ScreenGrid(stacks);
+            _grid = grid;
             float touchMin = UiKit.Units(DesignTokens.Size.TouchMin);
-            var boxes = new Dictionary<string, Box>(StringComparer.Ordinal);
+            Dictionary<string, Box> boxes = _boxes;
+            boxes.Clear();
             _shown.Clear();
             for (int s = 0; s < stacks && s < grid.Columns.Count; s++)
             {
@@ -183,6 +185,16 @@ namespace Bloomlings.Client.Gameplay.Tray
                     disc.transform.SetAsLastSibling();
                 }
             }
+
+            // A connected member under a column's "+N": the small link badge at its disc (FR-043).
+            string?[] hidden = PodLinks.Hidden(view, grid.PodRows);
+            for (int s = 0; s < stacks && s < grid.Columns.Count; s++)
+            {
+                if (hidden[s] != null && view.Stack(s).Count > grid.PodRows)
+                {
+                    Badge(PodLinks.HiddenMark(grid.Chip(s, grid.PodRows - 1)), PodLinks.ColorOf(view, hidden[s]!));
+                }
+            }
         }
 
         /// <summary>
@@ -223,15 +235,14 @@ namespace Bloomlings.Client.Gameplay.Tray
         }
 
         /// <summary>
-        /// Connected pods (FR-035): a link bar joins the shown members of each group that sit side by side in one row,
-        /// across the gap between their frames, so it is clear that they commit together; a group whose members lie in
-        /// different rows or columns apart, or that shows a single member, marks each shown member with a ring of its color
-        /// instead. Each group has its own color.
+        /// Connected pods (FR-035, spec 005 FR-043): a link bar joins the shown members of each group that sit side by side
+        /// in one row, across the gap between their frames, so it is clear that they commit together, and every shown
+        /// member carries the link badge of its group's color over its frame's top right corner, wherever its partners
+        /// stand (the "+N" disc takes the top left, the count the bottom right). Each group has its own color.
         /// </summary>
         private void DrawLinks(LevelView view, Dictionary<string, Box> boxes)
         {
             var groups = new Dictionary<string, List<Box>>(StringComparer.Ordinal);
-            var colors = new Dictionary<string, Color>(StringComparer.Ordinal);
             foreach (KeyValuePair<string, Box> entry in boxes)
             {
                 PodInfo pod = view.Pod(entry.Key);
@@ -243,19 +254,17 @@ namespace Bloomlings.Client.Gameplay.Tray
                 if (!groups.TryGetValue(pod.ConnectedGroupId, out List<Box>? members))
                 {
                     groups[pod.ConnectedGroupId] = members = new List<Box>();
-                    colors[pod.ConnectedGroupId] = LinkColorOf(view, pod) ?? UiTheme.LinkColor;
                 }
 
                 members.Add(entry.Value);
             }
 
             int used = 0;
-            int marked = 0;
             foreach (KeyValuePair<string, List<Box>> group in groups)
             {
                 List<Box> members = group.Value;
                 members.Sort((a, b) => a.Left.CompareTo(b.Left));
-                Color color = colors[group.Key];
+                Rgba color = PodLinks.ColorOf(view, group.Key);
 
                 // One row of neighbors: the same row, and each member in the column next to the one before it.
                 bool oneRow = members.Count > 1;
@@ -276,58 +285,110 @@ namespace Bloomlings.Client.Gameplay.Tray
 
                         LinkBarView link = _links[used++];
                         link.gameObject.SetActive(true);
-                        link.Set(PodChip.In(members[i - 1]).Frame, PodChip.In(members[i]).Frame, color);
+                        link.Set(PodChip.In(members[i - 1]).Frame, PodChip.In(members[i]).Frame, UiTheme.Of(color));
                         link.transform.SetAsLastSibling();
                     }
-
-                    continue;
                 }
 
-                // Members in different rows or columns apart, or the only member shown: a small ring of the group's color on
-                // each one's top-right corner (the "+N" disc takes the top left, the count the bottom right).
                 foreach (Box place in members)
                 {
-                    Box box = PodChip.In(place).Frame;
-                    if (marked == _marks.Count)
-                    {
-                        _marks.Add((UiKit.RoundRect("LinkMarkRim", _area, Color.white), UiKit.RoundRect("LinkMark", _area, Color.white)));
-                    }
-
-                    (Image rim, Image dot) = _marks[marked++];
-                    float d = box.Height * MarkShare;
-                    float x = box.Right - (box.Height * 0.12f);
-                    float y = box.Top + (box.Height * 0.12f);
-                    BoxLayout.Place(rim.rectTransform, Box.FromCenter(x, y, d * 2.6f, d * 2.6f));
-                    BoxLayout.Place(dot.rectTransform, Box.FromCenter(x, y, d * 2f, d * 2f));
-                    dot.color = color;
-                    rim.gameObject.SetActive(true);
-                    dot.gameObject.SetActive(true);
-                    rim.transform.SetAsLastSibling();
-                    dot.transform.SetAsLastSibling();
+                    Badge(PodChip.In(place).Link, color);
                 }
             }
         }
 
-        /// <summary>The link color of a pod's connected group (<c>state.link</c>, then a small fixed palette by group order), or null.</summary>
-        private static Color? LinkColorOf(LevelView view, PodInfo pod)
+        /// <summary>Shows the next link badge of the pool in <paramref name="box"/> in a group's <paramref name="color"/>, on top.</summary>
+        private void Badge(Box box, Rgba color)
         {
-            if (pod.ConnectedGroupId == null)
+            if (_badgesUsed == _badges.Count)
             {
-                return null;
+                _badges.Add(UiKit.LinkBadge("LinkBadge", _area, color));
+                _badgeColors.Add(color);
+            }
+            else if (!_badgeColors[_badgesUsed].Equals(color))
+            {
+                UiKit.SetLinkBadge(_badges[_badgesUsed], color);
+                _badgeColors[_badgesUsed] = color;
             }
 
-            var groups = new List<string>();
-            foreach (string id in view.PodIds)
+            Image badge = _badges[_badgesUsed++];
+            BoxLayout.Place(badge.rectTransform, box);
+            badge.gameObject.SetActive(true);
+            badge.transform.SetAsLastSibling();
+        }
+
+        /// <summary>
+        /// A tap on <paramref name="podId"/> waits for a partner that is not on top (FR-043): a ring of the group's color
+        /// pulses round each buried member the tray shows, or round the "+N" disc that hides it, for
+        /// <see cref="PodLinks.HintSeconds"/>.
+        /// </summary>
+        public void ShowPartners(LevelView view, string podId)
+        {
+            string? group = view.Pod(podId).ConnectedGroupId;
+            if (group == null || _grid == null || !isActiveAndEnabled)
             {
-                string? group = view.Pod(id).ConnectedGroupId;
-                if (group != null && !groups.Contains(group))
+                return;
+            }
+
+            var rings = new List<Box>();
+            foreach (string member in PodLinks.Buried(view, podId))
+            {
+                if (_shown.Contains(member) && _boxes.TryGetValue(member, out Box place))
                 {
-                    groups.Add(group);
+                    rings.Add(PodChip.In(place).Frame);
+                }
+                else if (PodLinks.Place(view, member) is (int stack, _) && stack < _grid.Columns.Count)
+                {
+                    Box badge = _grid.Chip(stack, _grid.PodRows - 1).Badge;
+                    rings.Add(Box.FromCenter(badge.CenterX, badge.CenterY, badge.Height * 1.5f, badge.Height * 1.5f));
                 }
             }
 
-            groups.Sort(StringComparer.Ordinal);
-            return UiTheme.Of(LinkPalette[Mathf.Max(0, groups.IndexOf(pod.ConnectedGroupId)) % LinkPalette.Length]);
+            if (_hint != null)
+            {
+                StopCoroutine(_hint);
+            }
+
+            _hint = StartCoroutine(HintRoutine(rings, UiTheme.Of(PodLinks.ColorOf(view, group))));
+        }
+
+        private System.Collections.IEnumerator HintRoutine(List<Box> rings, Color color)
+        {
+            while (_hints.Count < rings.Count)
+            {
+                Image ring = UiKit.RoundRing("PartnerHint", _area, color, null, _ => 1f);
+                ring.gameObject.SetActive(false);
+                _hints.Add(ring);
+            }
+
+            for (float t = 0f; t < PodLinks.HintSeconds; t += Time.unscaledDeltaTime)
+            {
+                float k = PodLinks.Hint(t);
+                for (int i = 0; i < rings.Count; i++)
+                {
+                    // The playtest's stroke: the frame grown 6% to 16% of its height, the line 3 to 5 units wide.
+                    Image ring = _hints[i];
+                    Box box = rings[i];
+                    float grow = box.Height * (0.06f + (0.1f * k));
+                    float radius = (box.Height * 0.22f) + grow;
+                    float line = UiKit.Units(5f) * (0.6f + (0.4f * k));
+                    RoundShape shape = RoundShape.On(ring, _ => radius, RoundFill.Ring, _ => line);
+                    BoxLayout.Place(ring.rectTransform, box.Inset(-grow));
+                    shape.Apply();
+                    ring.color = new Color(color.r, color.g, color.b, 0.35f + (0.65f * k));
+                    ring.gameObject.SetActive(true);
+                    ring.transform.SetAsLastSibling();
+                }
+
+                yield return null;
+            }
+
+            foreach (Image ring in _hints)
+            {
+                ring.gameObject.SetActive(false);
+            }
+
+            _hint = null;
         }
 
         /// <summary>The "+N" count badge of a stack (§3.4: white digits on a <c>badge.green</c> disc with a white ring).</summary>

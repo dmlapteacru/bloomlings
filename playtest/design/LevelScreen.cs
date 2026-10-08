@@ -89,6 +89,15 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The last booster used and when (animation time), for its effect (fx.shuffle_swirl, fx.burst).</summary>
         public (BoosterKind Kind, float At)? LastBooster { get; private set; }
 
+        /// <summary>
+        /// The last tap that waited for a partner (spec 005 FR-043) and when (real time, <see cref="UiNow"/>): the partner, or
+        /// the "+N" that hides it, pulses for <see cref="PodLinks.HintSeconds"/>.
+        /// </summary>
+        public (string PodId, float At)? LinkHint { get; private set; }
+
+        /// <summary>The screen's real-time clock (the toasts' and cards' clock, never sped up or paused with the animation).</summary>
+        public float UiNow => _app.Now;
+
         public DemoCard? Demo { get; set; }
 
         public float DemoOpenedAt { get; private set; }
@@ -175,7 +184,7 @@ namespace Bloomlings.Playtest.Design
         /// and the end cards (the jam's rise for <see cref="EndCardSeconds"/>; the win and milestone cards' celebration for
         /// <see cref="CelebrationSeconds"/>, and for as long as they show an animated hero).
         /// </summary>
-        public bool NeedsFrames => !Animator.Idle || TrayMotion.Moving(Animator.Now) || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (_app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds) || (Won && HeroMoving))) || Targeting.HasValue || Guide != null || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+        public bool NeedsFrames => !Animator.Idle || TrayMotion.Moving(Animator.Now) || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (LinkHint.HasValue && _app.Now - LinkHint.Value.At < PodLinks.HintSeconds) || (EndShownAt >= 0f && (_app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds) || (Won && HeroMoving))) || Targeting.HasValue || Guide != null || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
 
         /// <summary>
         /// Whether only the win's own motion moves the screen (the win or milestone card is open and every other animation
@@ -409,6 +418,14 @@ namespace Bloomlings.Playtest.Design
             if (!check.IsAllowed)
             {
                 _app.Sound.Play(SoundCue.Refused);
+                if (check.Reason == RejectReason.NotExposed && PodLinks.WaitsForPartner(Session.View, podId))
+                {
+                    // A connected pod on top waits for a partner that is not (FR-043): say so, and show where it waits.
+                    Toast(PlaytestText.T("refusal.partner_buried"));
+                    LinkHint = (podId, _app.Now);
+                    return;
+                }
+
                 Toast(RefusalText(check.Reason));
                 return;
             }
