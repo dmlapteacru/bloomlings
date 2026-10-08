@@ -212,9 +212,10 @@ namespace Bloomlings.Playtest.Design
             // The card pops in (motion.pop).
             p.Mark("ui.sheet");
             p.PushTransform(0f, 0f, Kit.Pop(since), r.Card.CenterX, r.Card.CenterY);
-            float radius = Math.Max(p.U(DesignTokens.Radius.CardMin), r.Card.Width * DesignTokens.Radius.Card);
-            Kit.Paper(p, r.Card, radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            // The popups' wooden frame and the corner sprigs (spec 005 FR-045).
+            Kit.CardFrame(p, r.Card);
             p.Hit(r.Card, () => { });
+            Kit.Decoration(p, CardLook.Decoration(r.Card, p.U(1f)));
 
             // The title as big as the reference's, the subtitle in up to two lines broken after its first sentence.
             float titleScale = r.Title.Height * TitleFill / p.U(T.Title.Size);

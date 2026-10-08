@@ -39,7 +39,7 @@ namespace Bloomlings.Client.UI
         internal void Build(RectTransform root)
         {
             // Buy: the lotus and the price, no "Buy" word, laid out together and shrunk together to fit (ClearingCard.PriceParts).
-            _buy = UiKit.Garden("Buy", root, GardenLook.Green, DesignTokens.Size.SecondaryHeight, raycast: false, gloss: true);
+            _buy = UiKit.RaisedButton("Buy", root, GardenLook.Green, 0.5f, gloss: true, raycast: false);
             UiFactory.Stretch((RectTransform)_buy.transform);
             TextLook on = TextLook.OnColor(GardenLook.Green);
             _lotus = UiKit.PetalIcon("Lotus", root);
@@ -53,7 +53,7 @@ namespace Bloomlings.Client.UI
             });
 
             // Choose: the cream face with the brown label.
-            _choose = UiKit.Garden("Choose", root, GardenLook.Cream, DesignTokens.Size.SecondaryHeight, raycast: false);
+            _choose = UiKit.RaisedButton("Choose", root, GardenLook.Cream, 0.5f, raycast: false);
             UiFactory.Stretch((RectTransform)_choose.transform);
             TextMeshProUGUI choose = UiKit.KitLabel("Label", _choose.Content, Loc.T("clearing.choose"), T.ButtonSecondary, GardenLook.LabelOn(GardenLook.Cream));
             BoxLayout.On(_choose.Content).Then(f => KitText.Place(choose, T.ButtonSecondary, f.CenterX, f.CenterY, root.rect.height * ClearingCard.LabelShare, f.Width * 0.86f));

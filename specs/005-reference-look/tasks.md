@@ -854,3 +854,25 @@ and contracts/look.md §3.6, §6.10.
 - [X] T192 Docs: spec Session 2026-10-08 and FR-044, contracts/look.md §3.1, §3.3 and §6.18, the inventory, CLAUDE.md.
 - [ ] T193 Devices: the cubes and the buttons on a phone in both APKs (crisp at the phone's density, the press sinking
   the face); the owner's verdict.
+
+
+## The owner's popup mockup: the frame, raised rows, laminate signs, every button on its plate (2026-10-08, FR-045)
+
+- [X] T194 Kit: `UiRaster.CardFrame`, `CardFrameBorder`, `LaminateSign`, `SignSide` (`LaminateRaster.cs`);
+  `ButtonPlate(w, h, share)`, `ButtonFace(w, h, set, share, gloss)`, `RaisedFace`'s gloss and colored faces; `CardLook`
+  (the sign, the lotus, the corners, the radius, the panel, the Settings rows' icons and label); the slots `ui.card.frame`,
+  `ui.card.lotus`, `ui.row.raised`, `ui.settings.icon`, and `ui.card`, `ui.row`, `ui.sign.wood`, `ui.button.primary`,
+  `ui.button.secondary`, `ui.button.choice` restated.
+- [X] T195 Playtest: `Kit.Card` (frame, sign, lotus, corners), `Kit.CardFrame`, `Kit.RaisedButton` (Primary, Secondary,
+  icon buttons), `Kit.RaisedRow`, `Kit.Row`, `Kit.WoodSign`, `Kit.ChoiceButton`, the clearing cards' buttons, the jam
+  card, `MenuCards` (the Settings rows' icons, the dev row's raised pills); the old rim plank (`Kit.RimmedButton`) is gone.
+- [X] T196 Unity: `UiKit.Card`, `UiKit.CardFrame`, `UiKit.CardDecoration`, `UiKit.RaisedButton` (Primary, Secondary,
+  `ChoiceButton`, `ClearingButtonView`), `UiKit.RaisedRow`, `UiKit.Row`, `UiKit.WoodSign`, `JamScreen`,
+  `UiFactory.CreateModal`, `SettingsScreen` (icons, Music's bud); `ProceduralSprites.CardFrame`, `LaminateSign`,
+  `RaisedRow`, `ButtonPlate(w, h, share)`, `ButtonFace(set, w, h, share, gloss)`.
+- [X] T197 Tests (`PopupLookTests`): the frame's wood and cream panel, the sign's lit top and nails, the pill plate and
+  the gloss, the raised row, the sign over the card's edge with the lotus and corners, the Settings rows' icons.
+- [X] T198 Docs: spec Session 2026-10-08 and FR-045 (FR-044's main buttons superseded), contracts/look.md §3.2, §3.3,
+  §3.5, §6.18 and §6.19, the inventory, CLAUDE.md and both READMEs.
+- [ ] T199 Devices: the popups, the signs and the buttons on a phone in both APKs; the owner's verdict.
+

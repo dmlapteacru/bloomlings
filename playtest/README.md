@@ -82,10 +82,10 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
   `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the reference look of spec 005
   (`specs/005-reference-look/`, recipes in `contracts/look.md`) on the spec 003 Garden kit: sentence-case labels in
-  Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); glossy green main buttons in a light
-  wood rim, cream secondary buttons, icon buttons as a cream face raised on a wooden plate with raised glyphs (FR-044);
-  wooden signs; parchment cards with a cream round close; the board as candy tiles, soft cubes (FR-044), in a stone
-  border on a lawn; wooden pods (the owner's icon over the middle, a small
+  Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); every button raised on a wooden plate
+  (glossy green main buttons, cream secondaries, icon buttons with raised glyphs; FR-044, FR-045); laminate wooden
+  signs; popups in a wooden frame round a cream panel with raised rows and the title on a sign (FR-045); the board as
+  candy tiles, soft cubes (FR-044), in a stone border on a lawn; wooden pods (the owner's icon over the middle, a small
   outlined count at the bottom right corner) and cream Waiting Slots (the tile, the count below it); cream booster tiles with green count
   badges; Petals as a pink lotus.
   Material pictures (planks, frames, stones, pedestal, candy tiles) come from the kit's `UiRaster` through

@@ -108,8 +108,9 @@ namespace Bloomlings.Client.UI
         // ---- Wooden signs (§3.2) ----
 
         /// <summary>
-        /// A wooden sign (§3.2; the gameplay level, the win and banner titles, the Home level plaque): a light wood plank
-        /// filling the rect (radius 28% of its height) over a soft shadow, the text centered in <c>ink.brown</c>
+        /// A wooden sign (§3.2; the gameplay level, the win and banner titles, the popups' titles, the Home level plaque): a
+        /// plank of the buttons' plate laminate (<see cref="ProceduralSprites.LaminateSign"/>, spec 005 FR-045) filling the
+        /// rect (radius 28% of its height) over a soft shadow, the text centered in <c>ink.brown</c>
         /// (<c>ink.title</c> on the win's flower sign, or <paramref name="letters"/>) with a light emboss, at most 82% of the plank wide and 62% of its height tall, and its
         /// decoration: ivy over both ends (clusters 1.25 × the height, the back leaves behind the plank), or flower clusters
         /// at the top-left and bottom-right ends (1.35 × the height); <paramref name="ivyScale"/> sizes the ivy clusters (the
@@ -126,7 +127,10 @@ namespace Bloomlings.Client.UI
                 layout.Add(IvyCluster("IvyBackRight", root, flipped: true, back: true).rectTransform, b => GardenLook.IvyBox(b, left: false, ivyScale));
             }
 
-            Image plank = WoodPlank("Plank", root, 0.28f, 7);
+            // The plank in the buttons' plate laminate (spec 005 FR-045, the playtest's UiRaster.LaminateSign).
+            Image plank = UiFactory.CreateImage("Plank", root, null, Color.white);
+            plank.raycastTarget = false;
+            PictureFit.On(plank, ProceduralSprites.LaminateSign);
             layout.Add(plank.rectTransform, b => b);
             // The win's flower sign titles a card: its letters in ink.title (the playtest's Kit.WoodSign).
             TextMeshProUGUI label = KitLabel("Label", root, text, style, GardenLook.SignLetters(letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown)));
@@ -208,9 +212,12 @@ namespace Bloomlings.Client.UI
 
         // ---- Jam choices and cost pills (§3.3, §3.4) ----
 
+        /// <summary>A jam choice's corners, as a share of its height (the playtest's <c>Kit.ChoiceRadiusShare</c>).</summary>
+        public const float ChoiceRadiusShare = 0.22f;
+
         /// <summary>
         /// A jam choice (§3.3): a glossy rounded rectangle in <paramref name="set"/> (green or blue, radius 22% of its
-        /// height) with the icon (44% of the height) in its upper half, the white outlined label (17% of the height) below
+        /// height) raised on its wooden plate (<see cref="RaisedButton"/>, spec 005 FR-045) with the icon (44% of the height) in its upper half, the white outlined label (17% of the height) below
         /// it, and the cost pill centered on its bottom edge, overlapping by 40% of the pill's height. The rect holds the
         /// button and the pill below it and is the touch target. Without <paramref name="onClick"/> it is disabled: greyed,
         /// 55% alpha, the icon grey.
@@ -220,19 +227,10 @@ namespace Bloomlings.Client.UI
             (RectTransform root, BoxLayout layout) = Element(name, parent, raycast: true);
             var view = root.gameObject.AddComponent<ChoiceButtonView>();
             CanvasGroup fade = root.gameObject.AddComponent<CanvasGroup>();
-            GardenButton face = NewButton("Button", root, set, raycast: false);
-            BoxLayout body = BoxLayout.On(face.Body);
-            SoftShadow(body, b => b, b => b.Height * 0.22f, 0.24f, 0.05f);
-            RectTransform faceRect = UiFactory.CreateRect("Face", face.Body);
-            BuildFace(face, faceRect, FaceKind.Raised, gloss: true);
+            // The glossy face raised on its wooden plate (spec 005 FR-045, the playtest's Kit.RaisedButton).
+            GardenButton face = RaisedButton("Button", root, set, ChoiceRadiusShare, gloss: true, raycast: false);
             float buttonHeight = 1f;
-            body.Then(b =>
-            {
-                buttonHeight = b.Height;
-                BoxLayout.Place(faceRect, b);
-                float lip = b.Height * 0.075f;
-                face.SetGeometry(Units(DesignTokens.Garden.Outline(b.Height / Mathf.Max(0.0001f, Units(1f)))), lip, Mathf.Max(0f, lip - Units(3f)), b.Height * 0.22f);
-            });
+            BoxLayout.On(face.Body).Then(b => buttonHeight = b.Height);
 
             Image? iconImage = null;
             if (icon != null)

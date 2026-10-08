@@ -637,8 +637,27 @@ namespace Bloomlings.Client.Art
         /// </summary>
         public static Sprite ButtonPlate(int width, int height) => Picture("ui.button.plate", width, height, UiRaster.ButtonPlate);
 
-        /// <summary>The raised face of an icon button or the speed pill in <paramref name="set"/> (<see cref="UiRaster.ButtonFace"/>), the picture of its face box.</summary>
+        /// <summary>The wooden plate of a button whose corners are <paramref name="radiusShare"/> of its shorter side (spec 005 FR-045: 0.5 for the pills).</summary>
+        public static Sprite ButtonPlate(int width, int height, float radiusShare) =>
+            Picture("ui.button.plate/" + Share(radiusShare), width, height, (w, h) => UiRaster.ButtonPlate(w, h, radiusShare));
+
+        /// <summary>The raised face of an icon button or the speed pill in <paramref name="set"/> (<see cref="UiRaster.ButtonFace(int, int, ColorSet)"/>), the picture of its face box.</summary>
         public static Sprite ButtonFace(ColorSet set, int width, int height) => Picture("ui.button.face/" + set.Name, width, height, (w, h) => UiRaster.ButtonFace(w, h, set));
+
+        /// <summary>The raised face on a plate of <paramref name="radiusShare"/>, with the smooth gloss when <paramref name="gloss"/> (spec 005 FR-045: Play, the jam choices).</summary>
+        public static Sprite ButtonFace(ColorSet set, int width, int height, float radiusShare, bool gloss) =>
+            Picture("ui.button.face/" + set.Name + "/" + Share(radiusShare) + (gloss ? "/gloss" : string.Empty), width, height, (w, h) => UiRaster.ButtonFace(w, h, set, radiusShare, gloss));
+
+        /// <summary>A wooden sign's laminate plank (spec 005 FR-045, <see cref="UiRaster.LaminateSign"/>), its corners 28% of its height.</summary>
+        public static Sprite LaminateSign(int width, int height) => Picture("ui.sign.wood/laminate", width, height, (w, h) => UiRaster.LaminateSign(w, h, h * 0.28f));
+
+        /// <summary>A popup card's wooden frame round its cream panel (spec 005 FR-045, <see cref="UiRaster.CardFrame"/>), its corners <paramref name="radiusShare"/> of its width.</summary>
+        public static Sprite CardFrame(int width, int height, float radiusShare) =>
+            Picture("ui.card.frame/" + Share(radiusShare), width, height, (w, h) => UiRaster.CardFrame(w, h, radiusShare * w));
+
+        /// <summary>A raised cream slab of a popup's row (spec 005 FR-045), its corners <paramref name="radiusShare"/> of its height, its front side 6% of it.</summary>
+        public static Sprite RaisedRow(int width, int height, float radiusShare) =>
+            Picture("ui.row.raised/" + Share(radiusShare), width, height, (w, h) => UiRaster.RaisedFace(w, h, radiusShare * h, h * 0.06f, GardenLook.Cream));
 
         /// <summary>
         /// A glyph a little raised on its cream face (spec 005 FR-044, <see cref="UiRaster.RaisedGlyph(int, string, Rgba)"/>):

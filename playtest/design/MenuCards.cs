@@ -7,8 +7,9 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The pause card of frame 11 and the Settings card (spec 002 FR-018, FR-007) in the reference look of spec 005
-    /// (contracts/look.md §3.5, §4.3): parchment cards with a brown title and the cream round close, the green Resume in
-    /// its wooden rim, cream secondaries with brown glyphs, and cream rows with the garden toggles.
+    /// (contracts/look.md §3.5, §4.3, §6.19): the popups' wooden frame with the title on a wooden sign and the close, the
+    /// green Resume and the cream secondaries raised on their plates, and the Settings rows raised with their icons and the
+    /// garden toggles.
     /// </summary>
     public static class MenuCards
     {
@@ -80,14 +81,30 @@ namespace Bloomlings.Playtest.Design
                 (string key, bool on, Action toggle) = items[i];
                 Box line = lines[i];
                 Kit.Row(p, line, false);
+                DrawSettingsIcon(p, CardLook.SettingsIconOf(key), CardLook.SettingsIconBox(line, p.U(1f)));
                 string value = PlaytestText.T(on ? "common.on" : "common.off");
-                p.TextLeft(PlaytestText.F(key, value), line.Left + p.U(36f), line.CenterY, T.ButtonSecondary, C.InkBrown, line.Width * 0.6f, 0.86f, TextLook.Plain(C.InkBrown));
+                float left = CardLook.SettingsLabelLeft(line, p.U(1f));
+                p.TextLeft(PlaytestText.F(key, value), left, line.CenterY, T.ButtonSecondary, C.InkBrown, line.Right - p.U(190f) - left, CardLook.SettingsLabelScale, TextLook.Plain(C.InkBrown));
                 Kit.Toggle(p, Box.FromCenter(line.Right - p.U(104f), line.CenterY, p.U(136f), p.U(70f)), on, toggle);
             }
 
             float top = lines[lines.Length - 1].Bottom + p.U(20f);
             DevRow(p, app, new Box(r.Body.Left, top, r.Body.Right, top + p.U(DesignTokens.Size.TouchMin)));
             Kit.EndCard(p);
+        }
+
+        /// <summary>A Settings row's icon (the owner's mockup of 2026-10-08): the owner's picture, its drawn stand-in, or the raised glyph.</summary>
+        private static void DrawSettingsIcon(IPainter p, SettingsIcon icon, Box box)
+        {
+            p.Mark("ui.settings.icon");
+            if (icon.Glyph != null)
+            {
+                Kit.RaisedGlyph(p, icon.Glyph, box.Inset(box.Width * 0.06f), C.MedalGold);
+            }
+            else if (icon.Picture == null || !Kit.OwnerPicture(p, PainterBase.IconPrefix + icon.Picture, box))
+            {
+                p.Shape(icon.StandIn, box, C.InkBrown);
+            }
         }
 
         /// <summary>
@@ -109,13 +126,12 @@ namespace Bloomlings.Playtest.Design
             float label = p.MeasureText(caption, T.Caption) + (row.Height * 0.2f);
             p.TextLeft(caption, row.Left, row.CenterY, T.Caption, C.InkBrownSoft);
             Box[] cells = ScreenLayout.Row(new Box(row.Left + label, row.Top, row.Right, row.Bottom), labels.Length, row.Height * 0.1f, float.MaxValue, square: false);
-            float line = Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidthSmall));
             for (int i = 0; i < cells.Length; i++)
             {
-                Box pill = Box.FromCenter(cells[i].CenterX, cells[i].CenterY, cells[i].Width, cells[i].Height * 0.5f);
-                p.FillRound(pill, pill.Height / 2f, C.CreamTop.WithAlpha(0.72f));
-                p.StrokeRound(pill.Inset(line / 2f), (pill.Height / 2f) - (line / 2f), line, C.CreamLine.WithAlpha(0.6f));
-                p.Text(labels[i], pill.CenterX, pill.CenterY, T.Caption, C.InkBrownSoft, pill.Width * 0.9f);
+                // Raised cream pills, as the popups' rows (spec 005 FR-045).
+                Box pill = Box.FromCenter(cells[i].CenterX, cells[i].CenterY, cells[i].Width, cells[i].Height * 0.78f);
+                Kit.RaisedRow(p, pill, pill.Height / 2f);
+                p.Text(labels[i], pill.CenterX, pill.CenterY - (pill.Height * 0.03f), T.ButtonSecondary, C.InkBrown, pill.Width * 0.86f, 0.8f, TextLook.Plain(C.InkBrown));
                 Action action = actions[i];
                 p.Hit(cells[i], () =>
                 {

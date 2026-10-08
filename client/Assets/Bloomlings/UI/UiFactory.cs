@@ -121,7 +121,7 @@ namespace Bloomlings.Client.UI
                 : UiKit.SecondaryButton(name, parent, label, onClick);
 
         /// <summary>
-        /// A full-screen shade with a centered paper card in a wooden frame (spec 003 FR-015), popping in. Returns the
+        /// A full-screen shade with a centered card in the popups' wooden frame (spec 003 FR-015, spec 005 FR-045), popping in. Returns the
         /// card.
         /// </summary>
         public static RectTransform CreateModal(string name, Transform parent, float cardHeight01, out GameObject root)
@@ -129,7 +129,7 @@ namespace Bloomlings.Client.UI
             Image shade = CreateImage(name, parent, null, UiTheme.PanelShade, raycast: true);
             Stretch(shade.rectTransform);
             root = shade.gameObject;
-            Image card = UiKit.Paper("Card", shade.transform, 56f, Design.DesignTokens.Garden.FrameWidth, Design.DesignTokens.Garden.FrameDepthCard);
+            Image card = UiKit.CardFrame("Card", shade.transform);
             card.gameObject.AddComponent<PopMotion>();
             float half = cardHeight01 / 2f;
             Place(card.rectTransform, 0.08f, 0.5f - half, 0.92f, 0.5f + half);

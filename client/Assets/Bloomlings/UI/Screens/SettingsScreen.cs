@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Backend;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using TMPro;
@@ -76,10 +77,10 @@ namespace Bloomlings.Client.UI.Screens
             Box body = view.Regions.Body;
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
             Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), 4, RowUnits * u, RowGapUnits * u);
-            screen._music = Toggle(view.Body, body, lines[0], "Music", () => settings.Music, () => settings.Music = !settings.Music, screen, u);
-            screen._sfx = Toggle(view.Body, body, lines[1], "Sound", () => settings.Sfx, () => settings.Sfx = !settings.Sfx, screen, u);
-            screen._haptics = Toggle(view.Body, body, lines[2], "Haptics", () => settings.Haptics, () => settings.Haptics = !settings.Haptics, screen, u);
-            screen._speed = Toggle(view.Body, body, lines[3], "Speed", () => settings.Speed2x, () => settings.Speed2x = !settings.Speed2x, screen, u);
+            screen._music = Toggle(view.Body, body, lines[0], "Music", "settings.music", () => settings.Music, () => settings.Music = !settings.Music, screen, u);
+            screen._sfx = Toggle(view.Body, body, lines[1], "Sound", "settings.sound", () => settings.Sfx, () => settings.Sfx = !settings.Sfx, screen, u);
+            screen._haptics = Toggle(view.Body, body, lines[2], "Haptics", "settings.haptics", () => settings.Haptics, () => settings.Haptics = !settings.Haptics, screen, u);
+            screen._speed = Toggle(view.Body, body, lines[3], "Speed", "settings.speed", () => settings.Speed2x, () => settings.Speed2x = !settings.Speed2x, screen, u);
             float y = lines[3].Bottom;
 
             if (account != null)
@@ -165,17 +166,21 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// A settings row (the playtest's <c>MenuCards.Settings</c>): a cream row, its brown label 36 units in at 86% of
-        /// <c>type.button_secondary</c>, and the garden switch (136 × 70 units) near its right end.
+        /// A settings row (the playtest's <c>MenuCards.Settings</c>; spec 005 FR-045, the owner's mockup of 2026-10-08): a
+        /// raised cream row, its icon (<see cref="CardLook.SettingsIconOf"/>), its brown label after it
+        /// (<see cref="CardLook.SettingsLabelScale"/> of <c>type.button_secondary</c>), and the garden switch (136 × 70
+        /// units) near its right end.
         /// </summary>
-        private static TextMeshProUGUI Toggle(RectTransform cardBody, Box body, Box line, string name, Func<bool> on, Action flip, SettingsScreen screen, float u)
+        private static TextMeshProUGUI Toggle(RectTransform cardBody, Box body, Box line, string name, string key, Func<bool> on, Action flip, SettingsScreen screen, float u)
         {
             Image row = UiKit.Row(name, cardBody, highlighted: false);
             UiKit.PlaceBox(row.rectTransform, line, body);
+            Icon(row.transform, CardLook.SettingsIconOf(key), CardLook.SettingsIconBox(line, u), line);
             TextMeshProUGUI label = UiKit.Label("Label", row.transform, string.Empty, T.ButtonSecondary, UiTheme.Of(C.InkBrown), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrown));
-            label.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * 0.86f);
+            label.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * CardLook.SettingsLabelScale);
             label.fontSize = label.fontSizeMax;
-            UiKit.PlaceBox(label.rectTransform, new Box(line.Left + (36f * u), line.Top, line.Left + (36f * u) + (line.Width * 0.6f), line.Bottom), line);
+            float left = CardLook.SettingsLabelLeft(line, u);
+            UiKit.PlaceBox(label.rectTransform, new Box(left, line.Top, line.Right - (190f * u), line.Bottom), line);
             ToggleView toggle = UiKit.Toggle("Switch", row.transform, () =>
             {
                 flip();
@@ -185,6 +190,31 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox((RectTransform)toggle.transform, Box.FromCenter(line.Right - (104f * u), line.CenterY, 136f * u, 70f * u), line);
             screen._toggles.Add((toggle, on));
             return label;
+        }
+
+        /// <summary>A settings row's icon: the owner's picture, the raised glyph, or the drawn stand-in (the playtest's <c>MenuCards</c>).</summary>
+        private static void Icon(Transform row, SettingsIcon icon, Box box, Box line)
+        {
+            Sprite? picture = icon.Picture != null ? OwnerArt.Icon(icon.Picture) : null;
+            Image image;
+            if (icon.Glyph != null)
+            {
+                image = UiKit.RaisedGlyph(row, ProceduralSprites.RaisedGlyph(icon.Glyph, C.MedalGold));
+                box = box.Inset(box.Width * 0.06f);
+            }
+            else if (picture != null)
+            {
+                image = UiFactory.CreateImage("Icon", row, null, Color.white);
+                OwnerArt.Show(image, picture);
+            }
+            else
+            {
+                image = UiFactory.CreateImage("Icon", row, ProceduralSprites.Shape(icon.StandIn), UiTheme.Of(C.InkBrown));
+                image.preserveAspect = true;
+            }
+
+            image.raycastTarget = false;
+            UiKit.PlaceBox(image.rectTransform, box, line);
         }
 
         /// <summary>One or two cream buttons in a row: two halves with a gap, or one at the card's secondary width.</summary>

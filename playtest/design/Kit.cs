@@ -135,19 +135,20 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A main button's body (spec 005 §3.3): a soft shadow, the uniform pale wood rim (<c>ui.button.rim</c>, a plank
-        /// picture with only a thin deeper bottom band) filling <paramref name="box"/>, and the glossy face inset on every
-        /// side. Returns the face's content box.
+        /// A button raised on its wooden plate (spec 005 FR-044, FR-045; the owner, 2026-10-08: "I hope you changed every
+        /// button to the new ones, even Play"): a soft shadow, the plate (<see cref="RaisedPlate(IPainter, Box, float)"/>,
+        /// its corners <paramref name="radiusShare"/> of the shorter side) and the face raised on it in <paramref name="set"/>
+        /// (<see cref="UiRaster.ButtonFace(int, int, ColorSet, float, bool)"/>, with the reference's smooth gloss when
+        /// <paramref name="gloss"/>), sunk by a press. Returns the face's content box, moved with the press.
         /// </summary>
-        public static Box RimmedButton(IPainter p, Box box, ColorSet set, float depth, bool highlight = true)
+        public static Box RaisedButton(IPainter p, Box box, ColorSet set, float radiusShare, float depth, bool gloss = false)
         {
-            p.Mark("ui.button.rim");
-            float h = box.Height;
-            SoftShadow(p, box, h / 2f, 0.24f, 0.07f);
-            WoodPlank(p, box, 0.5f, 3, outlineShare: 0.018f, lipShare: 0.03f);
-            Box face = box.Inset(h * 0.085f);
-            float lip = (face.Height / p.Scale) * 0.1f;
-            return Face(p, face, set, face.Height / 2f, depth, highlight, lip, gloss: true);
+            RaisedPlate(p, box, radiusShare);
+            float side = Math.Min(box.Width, box.Height);
+            Box face = UiRaster.RaisedFaceBox(box).Offset(0f, UiRaster.RaisedFaceSink(side, depth));
+            p.Mark("ui.button.face.raised");
+            p.Picture("ui.button.face/" + set.Name + "/" + Share(radiusShare) + (gloss ? "/gloss" : string.Empty), face, (w, h) => UiRaster.ButtonFace(w, h, set, radiusShare, gloss));
+            return UiRaster.RaisedFaceContent(face, side);
         }
 
         /// <summary>The press of an element (FR-017): its depth now, from the finger and the spring-back.</summary>
@@ -332,7 +333,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The green primary button (Play, Next, Claim, Resume, Continue, Free rescue; spec 005 §3.3): a glossy green pill
-        /// in a light wood rim with a volumetric white label outlined in dark green (FR-009, FR-012). Pressed, the face
+        /// raised on its wooden plate (<see cref="RaisedButton"/>, FR-045) with a volumetric white label outlined in dark green (FR-009, FR-012). Pressed, the face
         /// sinks into its lip and darkens. <paramref name="decorate"/> adds the leaves and flower,
         /// <paramref name="playArrow"/> the ▶ as tall as the letters, and <paramref name="breathe"/> the idle breath of
         /// the one waiting button (FR-019). <paramref name="set"/> picks another color (<see cref="GardenLook.Orange"/>).
@@ -355,7 +356,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             Squash(p, box, depth);
-            Box f = RimmedButton(p, box, colors, depth, highlight: enabled);
+            Box f = RaisedButton(p, box, colors, 0.5f, depth, gloss: enabled);
             TypeStyle s = style ?? T.Button;
             TextLook look = TextLook.OnGloss(colors);
             float side = f.Height * 0.45f;
@@ -402,8 +403,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The cream secondary button (Restart, Settings, Home, ×2 reward, Get +N; spec 005 §3.3): a cream face on a cream
-        /// plate with a brown label and an optional brown glyph on the left (Restart's ⟳).
+        /// The cream secondary button (Restart, Settings, Home, ×2 reward, Get +N; spec 005 §3.3): a cream face raised on
+        /// its wooden plate (<see cref="RaisedButton"/>, FR-045) with a brown label and an optional brown glyph on the left (Restart's ⟳).
         /// </summary>
         public static void SecondaryButton(IPainter p, Box box, string label, Action? action, string? iconId = null, TypeStyle? style = null)
         {
@@ -412,7 +413,7 @@ namespace Bloomlings.Playtest.Design
             float depth = Press(p, box, enabled);
             p.PushAlpha(enabled ? 1f : 0.55f);
             Squash(p, box, depth);
-            Box f = GardenButton(p, box, GardenLook.Cream, box.Height / 2f, depth, highlight: enabled);
+            Box f = RaisedButton(p, box, GardenLook.Cream, 0.5f, depth);
             TypeStyle s = style ?? T.ButtonSecondary;
             TextLook look = GardenLook.LabelOn(GardenLook.Cream);
             if (iconId != null)
@@ -491,26 +492,21 @@ namespace Bloomlings.Playtest.Design
         /// <see cref="UiRaster.RaisedFaceBox"/>), which a press sinks by up to 3% of the button. Returns the face's content
         /// box (<see cref="UiRaster.RaisedFaceContent"/>), moved with the press.
         /// </summary>
-        public static Box RimmedIconFace(IPainter p, Box box, ColorSet set, float depth)
-        {
-            RaisedPlate(p, box);
-            float side = Math.Min(box.Width, box.Height);
-            Box face = UiRaster.RaisedFaceBox(box).Offset(0f, UiRaster.RaisedFaceSink(side, depth));
-            p.Mark("ui.button.face.raised");
-            p.Picture("ui.button.face/" + set.Name, face, (w, h) => UiRaster.ButtonFace(w, h, set));
-            return UiRaster.RaisedFaceContent(face, side);
-        }
+        public static Box RimmedIconFace(IPainter p, Box box, ColorSet set, float depth) => RaisedButton(p, box, set, GardenLook.IconRadiusShare, depth);
 
         /// <summary>
         /// The wooden plate of an icon button and the speed pill (<see cref="RimmedIconFace"/>) and the profile avatar's
-        /// border (<c>ui.button.rim</c>, spec 005 FR-044): a soft shadow and <see cref="UiRaster.ButtonPlate"/> filling
-        /// <paramref name="box"/>, its corners <see cref="GardenLook.IconRadius"/>.
+        /// border (<c>ui.button.rim</c>, spec 005 FR-044): a soft shadow and <see cref="UiRaster.ButtonPlate(int, int)"/>
+        /// filling <paramref name="box"/>, its corners <see cref="GardenLook.IconRadius"/>.
         /// </summary>
-        public static void RaisedPlate(IPainter p, Box box)
+        public static void RaisedPlate(IPainter p, Box box) => RaisedPlate(p, box, GardenLook.IconRadiusShare);
+
+        /// <summary>The wooden plate of a button whose corners are <paramref name="radiusShare"/> of its shorter side (0.5 for a pill).</summary>
+        public static void RaisedPlate(IPainter p, Box box, float radiusShare)
         {
             p.Mark("ui.button.rim");
-            SoftShadow(p, box, GardenLook.IconRadius(box), 0.24f, 0.07f);
-            p.Picture("ui.button.plate", box, UiRaster.ButtonPlate);
+            SoftShadow(p, box, Math.Min(box.Width, box.Height) * radiusShare, 0.24f, 0.07f);
+            p.Picture("ui.button.plate/" + Share(radiusShare), box, (w, h) => UiRaster.ButtonPlate(w, h, radiusShare));
         }
 
         /// <summary>
@@ -846,35 +842,27 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A popup card (FR-007, spec 005 §3.5): the scrim, parchment, the title in <c>type.title</c> <c>ink.title</c> or,
-        /// when <paramref name="sign"/> is set, a wooden sign across the card's top edge with that decoration (the win,
-        /// the Store), and the cream round close button over the top-right corner when <paramref name="onClose"/> is set.
-        /// <paramref name="contentHeight"/> is in reference units.
+        /// A popup card (FR-007; spec 005 FR-045, the owner's mockup of 2026-10-08, contracts/look.md §6.19): the scrim, the
+        /// card's wooden frame round its cream panel (<see cref="CardFrame"/>), the leaves and flower over its top-left and
+        /// bottom-right corners, the title on a wooden sign over the frame's top edge (with <paramref name="sign"/>'s
+        /// decoration, the ivy by default) with a pink lotus behind it (<see cref="CardLook"/>), and the close button over
+        /// the top-right corner when <paramref name="onClose"/> is set. <paramref name="contentHeight"/> is in reference units.
         /// </summary>
         public static CardRegions Card(IPainter p, float contentHeight, string title, Action? onClose, float pop = 1f, TypeStyle? titleStyle = null, SignDecor? sign = null)
         {
             p.Mark("ui.card");
             Scrim(p);
             CardRegions r = ScreenLayout.Card(p.Width, p.Height, p.Insets, contentHeight);
-            float radius = Math.Max(p.U(DesignTokens.Radius.CardMin), r.Card.Width * DesignTokens.Radius.Card);
             p.PushTransform(0f, 0f, pop, r.Card.CenterX, r.Card.CenterY);
-            Paper(p, r.Card, radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            CardFrame(p, r.Card);
             p.Hit(r.Card, () => { });
+            Decoration(p, CardLook.Decoration(r.Card, p.U(1f)));
             if (title.Length > 0)
             {
                 TypeStyle style = titleStyle ?? T.Title;
-                if (sign.HasValue)
-                {
-                    float h = p.U(118f);
-                    float width = Math.Min(r.Card.Width * 0.78f, p.MeasureText(title, style) + (h * 1.4f));
-                    WoodSign(p, Box.FromCenter(r.Card.CenterX, r.Title.CenterY - p.U(30f), width, h), title, style, sign.Value);
-                }
-                else
-                {
-                    float closeRoom = onClose != null ? r.Close.Width + p.U(20f) : 0f;
-                    float titleWidth = Math.Min(r.Title.Width, r.Card.Width - (2f * closeRoom) - p.U(60f));
-                    p.Text(title, r.Title.CenterX, r.Title.CenterY, style, C.InkTitle, titleWidth, look: TextLook.Plain(C.InkTitle));
-                }
+                Box board = CardLook.Sign(r.Card, r.Title, p.MeasureText(title, style), p.U(1f));
+                CardLotus(p, CardLook.Lotus(board));
+                WoodSign(p, board, title, style, sign ?? SignDecor.Ivy);
             }
 
             if (onClose != null)
@@ -885,6 +873,31 @@ namespace Bloomlings.Playtest.Design
             }
 
             return r;
+        }
+
+        /// <summary>
+        /// A popup card's surface (spec 005 FR-045): a soft shadow under it and <see cref="UiRaster.CardFrame"/> filling
+        /// <paramref name="box"/>: the wooden frame in the buttons' laminate round the cream panel
+        /// (<see cref="CardLook.Panel"/>).
+        /// </summary>
+        public static void CardFrame(IPainter p, Box box)
+        {
+            p.Mark("ui.card.frame");
+            float radius = CardLook.Radius(box, p.U(1f));
+            p.FillRound(box.Offset(0f, p.U(16f)).Inset(-p.U(3f), 0f), radius, C.GardenShadow.WithAlpha(0.18f));
+            p.FillRound(box.Offset(0f, p.U(7f)), radius, C.GardenShadow.WithAlpha(0.14f));
+            float share = radius / Math.Max(1f, box.Width);
+            p.Picture("ui.card.frame/" + Share(share), box, (w, h) => UiRaster.CardFrame(w, h, share * w));
+        }
+
+        /// <summary>The pink lotus behind a card's title sign (spec 005 FR-045; the owner's lotus picture, or its drawn stand-in).</summary>
+        private static void CardLotus(IPainter p, Box box)
+        {
+            p.Mark("ui.card.lotus");
+            if (!OwnerPicture(p, LotusPicture, box))
+            {
+                IconParts(p, box, GardenLook.Lotus);
+            }
         }
 
         /// <summary>Ends a <see cref="Card"/> (its pop transform).</summary>
@@ -915,25 +928,38 @@ namespace Bloomlings.Playtest.Design
         public static void EndSheet(IPainter p) => p.PopTransform();
 
         /// <summary>
-        /// A list row (Store, Leaderboard; spec 005 §3.5): a cream rounded panel with a <c>cream.line</c> outline and a
-        /// lip; the player's own row is raised and green-tinted.
+        /// A list row (Settings, Store, Leaderboard; spec 005 §3.5): since the owner's mockup of 2026-10-08 (FR-045) a cream
+        /// slab raised like the buttons' faces without their plate (<see cref="RaisedRow"/>); the player's own row is raised
+        /// and green-tinted.
         /// </summary>
         public static void Row(IPainter p, Box box, bool highlighted)
         {
             p.Mark("ui.row");
-            float radius = box.Height * DesignTokens.Radius.Row;
-            float line = p.U(DesignTokens.Garden.OutlineWidth);
-            if (highlighted)
+            if (!highlighted)
             {
-                p.FillRound(box.Offset(0f, p.U(6f)), radius, GardenLook.Green.Lip.Mix(C.CreamLip, 0.4f));
-                p.FillRoundGradient(box, radius, C.SurfaceRowHighlight.Lighten(0.4f), C.SurfaceRowHighlight);
-                p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, GardenLook.Green.Lip);
+                RaisedRow(p, box, box.Height * DesignTokens.Radius.Row);
                 return;
             }
 
-            p.FillRound(box.Offset(0f, p.U(4f)), radius, C.CreamLip);
-            p.FillRoundGradient(box, radius, C.CreamTop, C.CreamFace);
-            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine);
+            float radius = box.Height * DesignTokens.Radius.Row;
+            float line = p.U(DesignTokens.Garden.OutlineWidth);
+            p.FillRound(box.Offset(0f, p.U(6f)), radius, GardenLook.Green.Lip.Mix(C.CreamLip, 0.4f));
+            p.FillRoundGradient(box, radius, C.SurfaceRowHighlight.Lighten(0.4f), C.SurfaceRowHighlight);
+            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, GardenLook.Green.Lip);
+        }
+
+        /// <summary>
+        /// A cream slab raised like a button's face without its plate (spec 005 FR-045: the popups' rows, the dev row's
+        /// pills): a soft shadow and <see cref="UiRaster.RaisedFace"/> in the cream set filling <paramref name="box"/>, its
+        /// front side 6% of its height, its corners <paramref name="radius"/>.
+        /// </summary>
+        public static void RaisedRow(IPainter p, Box box, float radius)
+        {
+            p.Mark("ui.row.raised");
+            float r = Math.Min(radius, box.Height / 2f);
+            SoftShadow(p, box, r, 0.16f, 0.05f);
+            float share = r / Math.Max(1f, box.Height);
+            p.Picture("ui.row.raised/" + Share(share), box, (w, h) => UiRaster.RaisedFace(w, h, share * h, h * 0.06f, GardenLook.Cream));
         }
 
         /// <summary>

@@ -106,7 +106,7 @@ namespace Bloomlings.Playtest.Design
             p.Mark(buy ? "ui.button.primary" : "ui.button.secondary");
             float depth = Press(p, box, pressable);
             Squash(p, box, depth);
-            Box face = GardenButton(p, box, set, h / 2f, depth, gloss: buy);
+            Box face = RaisedButton(p, box, set, 0.5f, depth, gloss: buy);
             float scale = ClearingCard.LabelSize(box) / p.U(T.ButtonSecondary.Size);
             TextLook look = buy ? TextLook.OnColor(set) : GardenLook.LabelOn(set);
             if (buy)

@@ -692,7 +692,33 @@ switch, off in both builds until approved):
   border rounds over (caramel laminate, its front side under it, a deeper outline, a groove and the face's soft shadow
   in its opening), the cream face raised on it (a press sinks it), and every brown glyph on a cream face raised (the ‹
   the › mirrored, its light still from the upper left). The colors are the owner's pick, half way between 5a and 6a.
-  The main buttons (Play, Next) keep their face in the light wood rim.
+  The main buttons (Play, Next) keep their face in the light wood rim. *(Superseded the same day: every button raised on
+  the plate, even Play, FR-045 and the session below.)*
+
+### Session 2026-10-08 (the owner's popup mockup: a wooden frame, raised rows, a laminate sign)
+
+The owner sent a mockup of the Settings popup over Home: "Нужно изменить попапы. Вот как должен выглядеть. Прямоугольной
+формы с округлыми краями. Все строчки в попапе объемные. Точно такие как кнопки (но без обводки). Посередине сверху плашка
+деревянная (как сейчас во всех страницах; заголовок страниц). Единственное что, поменяй цвет, на тот что мы сделали и
+текстуру, как на обводке кнопок. Так же я надеюсь ты поменял все кнопки на те новые. Даже play." ("The popups must change;
+this is how they should look: rectangular with rounded corners; every row in the popup volumetric, exactly like the
+buttons but without the rim; at the top in the middle a wooden plank, as on every page's title, only in the color we made
+and the texture of the buttons' rim. And I hope you changed every button to the new ones, even Play.") Decided from the
+mockup without a question:
+- Q: The card? → A: A wooden frame of the buttons' plate laminate round a cream panel, its corners as the cards' (FR-045):
+  no more parchment on a popup; the leaves and flower over its top-left and bottom-right corners, as on the main buttons;
+  the close button over the top-right corner as before.
+- Q: The title? → A: On a wooden sign over the frame's top edge with the ivy at its ends, as the pages' banners, and the
+  owner's pink lotus rising behind it, as in the mockup. Every wooden sign (the pages' banners, the level label, Home's
+  plaque, the win's sign, the popups' titles) takes the plate's laminate and color: one sign everywhere.
+- Q: The rows? → A: Each row is a cream slab raised like a button's face without its plate (the Settings rows, the Store
+  and Leaderboard rows, the dev row's pills); the Settings rows carry the mockup's icons: the owner's flower (Sound), leaf
+  (Haptics), the violet bud for Unity's Music, and the raised ▶▶▶ in gold (Fast forward), the labels larger.
+- Q: The buttons? → A: Every button is raised on the plate: Play, Next and the other green buttons with the glossy green
+  face, the cream secondaries (Restart, Settings, Home, Cancel), the jam's choices with their glossy faces (corners 22%),
+  and the clearing cards' Buy and Choose. The booster tiles keep their bezel, the tabs and the cost pills their own look.
+- Q: The jam card? → A: The same frame and corner sprigs; its title stays above the subtitle, as the reference's "No More
+  Space!".
 
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
@@ -1308,6 +1334,22 @@ inventory.
   (contracts/look.md §6.18; the playtest's `Kit.RimmedIconFace`, `Kit.RaisedPlate`, `Kit.RaisedGlyph`, Unity's
   `UiKit.IconFace(..., rim: true)`, `UiKit.RaisedPlate`, `UiKit.RaisedGlyph`). Flat 2D pictures only (constitution VII);
   presentation only: no layout, rule or tap outcome changes.
+
+- **FR-045** *(the owner's popup mockup of 2026-10-08: "rectangular with rounded corners", rows "exactly like the buttons
+  but without the rim", the sign "in the color we made and the texture of the buttons' rim", "every button the new ones,
+  even Play")*: Every popup card (`Kit.Card` / `UiKit.Card`, the jam card, Unity's modal) MUST be the wooden frame
+  (`UiRaster.CardFrame`: the plate laminate, `CardFrameUnits` 26 on a 920-unit card, round a cream panel) with the leaves
+  and flower over its top-left and bottom-right corners (`CardLook.Decoration`), its title on a wooden sign over the
+  frame's top edge (`CardLook.Sign`, the ivy by default) with the owner's lotus behind it (`CardLook.Lotus`), and the close
+  button over the top-right corner. Every wooden sign MUST be the laminate plank (`UiRaster.LaminateSign`). Every list
+  row (Settings, Store, Leaderboard; the player's own row keeps its green tint) and the dev row's pills MUST be a raised
+  cream slab (`UiRaster.RaisedFace` in the cream set); the Settings rows MUST carry their icons
+  (`CardLook.SettingsIconOf`). Every primary and secondary button, the jam choices and the clearing cards' buttons MUST be
+  raised on the plate (`UiRaster.ButtonPlate(w, h, share)`, `ButtonFace(w, h, set, share, gloss)`; 0.5 for the pills,
+  `ChoiceRadiusShare` 0.22), the colored faces with the smooth gloss. Both builds (contracts/look.md §6.19; the playtest's
+  `Kit.Card`, `Kit.CardFrame`, `Kit.RaisedButton`, `Kit.RaisedRow`, `Kit.WoodSign`; Unity's `UiKit.Card`,
+  `UiKit.CardFrame`, `UiKit.CardDecoration`, `UiKit.RaisedButton`, `UiKit.RaisedRow`, `UiKit.WoodSign`). Presentation only:
+  layouts, rules and tap outcomes stay.
 
 ### Key Entities
 

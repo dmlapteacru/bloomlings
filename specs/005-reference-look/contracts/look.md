@@ -211,6 +211,9 @@ uses the same gem icons.
 
 ### 3.2 Wooden sign — `Kit.WoodSign(p, box, text, TypeStyle style, SignDecor decor)`
 
+Since the owner's popup mockup of 2026-10-08 (FR-045) the plank is the buttons' plate laminate
+(`UiRaster.LaminateSign`, §6.19) instead of the pale plank below; the letters and the decorations stay.
+
 Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, the Home "LEVEL 88" plaque.
 
 - `UiRaster.Plank` (Light: pale honey wood) filling `box`, radius 28% of the height, outline 2.5% of the height (min
@@ -235,14 +238,15 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 
 ### 3.3 Buttons
 
-- **Primary** (`Kit.PrimaryButton`): the green set's face (spec 003 `Kit.Face`) with the smooth gloss: a band of the
+- **Primary** (`Kit.PrimaryButton`; since FR-045 the glossy face raised on its wooden plate, §6.19, replacing the rim
+  below): the green set's face (spec 003 `Kit.Face`) with the smooth gloss: a band of the
   set's top lightened 0.35, from 4% to 46% of the face, inset 3%, alpha 0.35 → 0, feathered in three steps (inset +0,
   +2%, +4% at a third of the alpha each) so no edge shows, and a thin white shine along the straight part of the top edge
   only. A uniform pale wood rim instead of the cream plate: `UiRaster.Plank` (Light, `lipShare` 0.03, so no dark bottom
   band) behind the face, the face inset by 8.5% of the height on every side, outline `WoodLine`, a soft shadow. White
   label outlined in the set's line with a lighter extrusion (`TextLook.OnGloss`: 0.6 × `LabelExtrudeEm`). Pressed: the
   face sinks (existing press depth) and darkens by 8%. Decorations (leaves and flower at the corners) stay.
-- **Secondary** (`Kit.SecondaryButton`): the cream set on a cream plate (`ParchmentEdge` depth), brown label, optional
+- **Secondary** (`Kit.SecondaryButton`; since FR-045 the cream face raised on its wooden plate, §6.19): the cream set on a cream plate (`ParchmentEdge` depth), brown label, optional
   brown glyph on the left (Restart's ⟳).
 - **Icon buttons** (`Kit.RoundButton`, `Kit.RimmedIconFace`, `Kit.IconFace`; Unity `UiKit.RoundIconButton`,
   `UiKit.IconFace(..., rim: true)`): since the owner's request of 2026-10-06 ("our layout and main buttons are
@@ -271,7 +275,8 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   own while no pod can be tapped): lit, with `SpeedGlowLayers` (4) rings of `garden.glow` round the face, each grown by
   `SpeedGlowGrow` (4.5%) of the height and sharing `SpeedGlowAlpha` (0.85), and the chevrons in `ButtonPrimary` green
   (`GardenLook.FastGlyphOn`).
-- **Choice button** (`Kit.ChoiceButton(p, box, ColorSet set, iconDraw, label, cost)`, jam): a rounded rectangle
+- **Choice button** (`Kit.ChoiceButton(p, box, ColorSet set, iconDraw, label, cost)`, jam; since FR-045 raised on its
+  wooden plate, §6.19): a rounded rectangle
   (radius 22% of its height) in the green or blue set with the glossy face, the icon (its box 50% of the height, so the
   icon itself is about 44% of the face as on the reference; its center at 36% of the face) in the upper half, the white
   outlined label below it (font scaled to 21% of the button's height, centered at 78% of the face, `TextLook.OnGloss`),
@@ -306,6 +311,10 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   of its length, over a softer pink band) in its middle, the middles parted by deep pink edges; `LotusLine` outline.
 
 ### 3.5 Surfaces
+
+Since the owner's popup mockup of 2026-10-08 (FR-045) a popup card is the wooden frame round a cream panel and a list
+row a raised cream slab (§6.19); the parchment below stays for the sheet, the tray panel, the pages' panels, the
+toasts and the guides' bubbles.
 
 - **Parchment** (`Kit.Paper`, all cards, the jam sheet, the tray panel, the slot band): `ParchmentTop` →
   `ParchmentBottom` gradient, a warm aged band over the outer 6% of the shorter side (`ParchmentEdge` at about 0.4 at
@@ -1718,7 +1727,8 @@ drawn by the playtest's `Kit.CandyTile`, `Kit.RimmedIconFace`, `Kit.RaisedPlate`
 `ButtonFace`, `RaisedGlyph`, `RaisedChevron`). The light comes from the upper left, a little toward the viewer
 (-0.45, -0.75, 1.1 normalized); a surface lightens toward its color lightened 60% where it faces the light more than a
 flat top and deepens toward its color darkened 50% where less, with a Blinn-Phong gloss (power 24) above the flat top's.
-Flat 2D pictures only: no 3D scene, camera or perspective (constitution VII).
+Flat 2D pictures only: no 3D scene, camera or perspective (constitution VII). Since the owner's popup mockup of the same
+day every button stands on such a plate (§6.19).
 
 | Piece | Recipe |
 |---|---|
@@ -1729,4 +1739,24 @@ Flat 2D pictures only: no 3D scene, camera or perspective (constitution VII).
 | Raised glyph (`UiRaster.RaisedGlyph`, `RaisedChevron`; slot `ui.glyph.raised`) | the shape filling `GlyphPictureShare` (0.8) of a square picture about its middle; a soft shadow in the color darkened 35% (0.28, 3.5% of the glyph lower, feathered over 6%), a `cream.top` emboss line (0.5) just under its lower edge; the shape from the color lightened 12% to darkened 8% downward, its edge rounding over a bevel of 4.5% of the glyph (lighten 0.6, darken 0.45, gloss 0.22). Its picture box is the glyph box `GlyphPictureScale` (1.25) larger about the same middle (`RaisedGlyphBox`; Unity scales the glyph's image by it). The ‹ is the › mirrored, its light still from the upper left. Every brown glyph on a cream face (`Kit.Glyph` / `UiKit.GardenGlyph` on cream and white sets: the icon buttons, Restart's ⟳, the ×2 offer), the speed pill's chevrons and the ‹ › arrows; glyphs on colored faces keep their line |
 | Avatar | the profile avatar's default border is the plate (`AvatarLook.Rim`), the picture over its opening; a chosen frame still takes its place |
 | Colors | the owner's pick of 2026-10-08, half way between the review sheet's 5a (`PlateVivid` 1.55, `PlateDepth` 0.25, `FaceVivid` 1.3, `FaceWarmth` 0.25) and 6a (1.3, 0.7, 1.2, 0.45) |
+
+### 6.19 The popups after the owner's mockup, every button on its plate (both builds; the owner's request of 2026-10-08, FR-045)
+
+The kit's `LaminateRaster.cs` and `CardLook` (engine-free), drawn by the playtest's `Kit.Card`, `Kit.CardFrame`,
+`Kit.RaisedButton`, `Kit.RaisedRow`, `Kit.WoodSign`, `MenuCards` and Unity's `UiKit.Card`, `UiKit.CardFrame`,
+`UiKit.CardDecoration`, `UiKit.RaisedButton`, `UiKit.RaisedRow`, `UiKit.WoodSign`, `SettingsScreen`, `JamScreen`
+(`ProceduralSprites.CardFrame`, `LaminateSign`, `RaisedRow`, `ButtonPlate(w, h, share)`, `ButtonFace(set, w, h, share, gloss)`).
+The laminate, the light and the plate's colors are §6.18's.
+
+| Piece | Recipe |
+|---|---|
+| Card frame (`UiRaster.CardFrame`; slot `ui.card.frame`) | the card's rounded rectangle (`CardLook.Radius`: `radius.card` of its width, at least `radius.card_min`) under two soft shadows (0.18 16 units lower and 3 wider, 0.14 7 lower); a frame `CardFrameBorder` wide (26 units on a 920-unit card) of the plate laminate, its grain along each member (across on the top and bottom, down on the sides), rounding over at its outer 40% and down into the panel over its inner 30% (lighten 0.45, darken 0.45, gloss 0.18), a front side of 0.3 of its width along the bottom, a thin `wood.line` where it meets the panel, the plate's finish (`PlateDepth`, the outline, `PlateVivid`); inside it the panel (`CardLook.Panel`) from `cream.top` to `cream.face` mixed 45% toward `cream.top`, with a soft `wood.line` darkened 20% shadow under the frame's inner edge (0.08, 0.22 at the top) |
+| Title | on a wooden sign (`CardLook.Sign`: 118 units tall, the title's width plus 1.4 of its height, at most 78% of the card, its middle 30 units above the title region's), the ivy at its ends unless the caller picks another decoration; behind it the owner's lotus (`currency.petal`'s picture; slot `ui.card.lotus`) in a square 2.3 times the sign's height, its middle 0.05 of the sign's height above the sign's top |
+| Corners | the main buttons' sprig (the owner's `button-leaves`, or the drawn cluster) over the card's top-left corner and turned half way over its bottom-right one (`CardLook.Decoration`: 170 units, 28% of it outside the card) |
+| Close | as before: the icon button over the top-right corner |
+| Sign (`UiRaster.LaminateSign`; slot `ui.sign.wood`) | every wooden sign: the plate laminate (its grain at the sign's height) as a slab, its top's edge rounding over 14% of its height (lighten 0.45, darken 0.45, gloss 0.18), its upper 35% catching `wood.mid` lightened 12% (up to 0.45), its front side `SignSide` (7%) of the height, two nails as the old plank's, the plate's finish; corners 28% of its height |
+| Raised row (`UiRaster.RaisedFace` in the cream set; slot `ui.row.raised`) | every list row but the player's own (green-tinted as before) and the dev row's pills (78% of the cell, round ends): a soft shadow (0.16, 5% lower) and the cream face of §6.18 filling the row, its corners `radius.row` of its height, its front side 6% of it |
+| Settings rows (slot `ui.settings.icon`) | the icon (`CardLook.SettingsIconOf`: the owner's flower, leaf, violet bud, or the raised `ui.fast` in `medal.gold`) in a square 62% of the row's height 74 units in; the label from 134 units in at `SettingsLabelScale` (1.04) of `type.button_secondary`, up to 190 units before the row's end |
+| Buttons (`Kit.RaisedButton` / `UiKit.RaisedButton`) | the plate (`UiRaster.ButtonPlate(w, h, share)`) and the raised face (`ButtonFace(w, h, set, share, gloss)`) of §6.18 at `share` 0.5 (Play, Next, Claim, Resume, Continue, Buy, the cream secondaries, the clearing cards' Buy and Choose) or `ChoiceRadiusShare` 0.22 (the jam's choices); a colored face with the smooth gloss: its lightened top (`set.top` lightened 35%, 0.35, fading with the square of the depth) from 4% to 46% of its top and a white shine (0.55) along the straight part of the top edge at 7% of its top; a colored face keeps its color (no grain, warmth or saturation); a greyed face no gloss. The main buttons' sprigs, the labels and the glyphs stay |
+| Kept | the booster tiles' bezel, the tabs, the cost pills, the Petals pill's "+", the page panels' parchment, the bubbles of the guides |
 

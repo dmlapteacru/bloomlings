@@ -193,8 +193,9 @@ namespace Bloomlings.Playtest.Design
         // ---- Wooden signs (§3.2) ----
 
         /// <summary>
-        /// A wooden sign (§3.2; the gameplay level, the win and banner titles, the Home level plaque): a light wood plank
-        /// filling <paramref name="box"/> (radius 28% of its height) over a soft shadow, the text centered in
+        /// A wooden sign (§3.2; the gameplay level, the win and banner titles, the popups' titles, the Home level plaque): a
+        /// plank of the buttons' plate laminate (<see cref="UiRaster.LaminateSign"/>, spec 005 FR-045) filling
+        /// <paramref name="box"/> (radius 28% of its height) over a soft shadow, the text centered in
         /// <c>ink.brown</c> (<c>ink.title</c> on the win's flower sign, or <paramref name="letters"/>) with a light emboss,
         /// at most 82% of the plank wide, and its
         /// decoration (the ivy clusters at <paramref name="ivyScale"/> of their size: <see cref="GardenLook.IvyBox"/>).
@@ -212,7 +213,8 @@ namespace Bloomlings.Playtest.Design
                 IvyCluster(p, GardenLook.IvyBox(box, left: false, ivyScale), flipped: true, back: true);
             }
 
-            WoodPlank(p, box, 0.28f, 7);
+            // The plank in the buttons' plate laminate (spec 005 FR-045; it was the pale plank of mat.wood.light).
+            p.Picture("ui.sign.wood/laminate", box, (w, ph) => UiRaster.LaminateSign(w, ph, ph * 0.28f));
             float scale = Math.Min(1f, (h * 0.62f) / Math.Max(1f, p.U(style.Size)));
             Rgba ink = letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown);
 
@@ -292,10 +294,14 @@ namespace Bloomlings.Playtest.Design
 
         // ---- Jam choices and cost pills (§3.3, §3.4) ----
 
+        /// <summary>A jam choice's corners, as a share of its height.</summary>
+        public const float ChoiceRadiusShare = 0.22f;
+
         /// <summary>
         /// A jam choice (§3.3): a glossy rounded rectangle in <paramref name="set"/> (green or blue, radius 22% of its
-        /// height) with the icon (its box half the height) in its upper half, the white outlined label below it, and the cost
-        /// pill centered on its bottom edge, overlapping by 40% of the pill's height. <paramref name="box"/> holds the
+        /// height) raised on its wooden plate (<see cref="RaisedButton"/>, spec 005 FR-045) with the icon (its box half the
+        /// height) in its upper half, the white outlined label below it, and the cost pill centered on its bottom edge,
+        /// overlapping by 40% of the pill's height. <paramref name="box"/> holds the
         /// button and the pill below it; the whole box is the touch target.
         /// </summary>
         public static void ChoiceButton(IPainter p, Box box, ColorSet set, IReadOnlyList<IconPart>? icon, string label, Cost? cost, Action? action)
@@ -309,9 +315,7 @@ namespace Bloomlings.Playtest.Design
             float depth = Press(p, box, enabled);
             p.PushAlpha(enabled ? 1f : 0.55f);
             Squash(p, button, depth);
-            float radius = buttonHeight * 0.22f;
-            SoftShadow(p, button, radius, 0.24f, 0.05f);
-            Box f = Face(p, button, colors, radius, depth, enabled, (buttonHeight / p.Scale) * 0.075f, gloss: true);
+            Box f = RaisedButton(p, button, colors, ChoiceRadiusShare, depth, gloss: enabled);
             // As measured on the reference's jam card: the icon about 44% of the face (its box a little more, for the
             // shapes' margins), the label's letters about 21% of the button's height.
             float iconSize = buttonHeight * 0.5f;

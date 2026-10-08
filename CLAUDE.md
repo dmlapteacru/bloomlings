@@ -119,8 +119,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (`AssetSlots`), which the asset inventory is generated from.
 - The cartoon "Garden" look (`specs/003-cartoon-ui-style/`) lives in the same kit: `DesignTokens.Garden` and the
   `garden.*` colors, `GardenLook` (color sets, label looks, press/breath/count-up/glow curves, booster tile states,
-  decoration). Buttons are a raised face on a cream plate (`Kit.GardenButton` / `UiKit.Garden`; main buttons sit in a
-  light wood rim since spec 005), labels are sentence case in the bundled Nunito font
+  decoration). Buttons are a raised face on a plate (`Kit.GardenButton` / `UiKit.Garden`; since spec 005 FR-045 every
+  button's face is raised on the wooden plate, `Kit.RaisedButton` / `UiKit.RaisedButton`, below), labels are sentence case in the bundled Nunito font
   (`client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL; only `type.badge` stays uppercase), and the board, pods and
   slots are volumetric 2D, never 3D. The level tester keeps its minimal look.
 - The characters are generated art (`specs/004-character-art/`, replacing spec 003's kawaii figures): each variant is a
@@ -246,7 +246,19 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   6a). The playtest draws them with `Kit.RimmedIconFace`, `Kit.RaisedPlate`, `Kit.RaisedGlyph`; Unity with
   `UiKit.IconFace(..., rim: true)` (a picture face, `GardenButton.BuildPictureFace`), `UiKit.RaisedPlate`,
   `UiKit.RaisedGlyph` and `ProceduralSprites.ButtonPlate`, `ButtonFace`, `RaisedGlyph`, `RaisedChevron`. Flat 2D
-  pictures only (constitution VII); the main buttons keep their light wood rim.
+  pictures only (constitution VII). Since FR-045 (below) every button stands on that plate, Play too.
+- The popups after the owner's mockup (spec 005 FR-045, 2026-10-08: "rectangular with rounded corners", rows "like the
+  buttons but without the rim", the sign "in the color we made", "every button the new ones, even Play"; recipe in
+  `contracts/look.md` §6.19): a popup card (`Kit.Card` / `UiKit.Card`, the jam card, Unity's modal) is the wooden frame of
+  the plate's laminate round a cream panel (`UiRaster.CardFrame`, `Kit.CardFrame` / `UiKit.CardFrame`), the main buttons'
+  sprig over its top-left and bottom-right corners, its title on a wooden sign over the frame's top edge with the owner's
+  lotus rising behind it and the close over the top-right corner (the kit's `CardLook`); every wooden sign is the
+  laminate plank (`UiRaster.LaminateSign`, `Kit.WoodSign` / `UiKit.WoodSign`); every list row (Settings, Store,
+  Leaderboard, the player's own row kept green) and the dev row's pills are a raised cream slab (`Kit.RaisedRow` /
+  `UiKit.RaisedRow`), the Settings rows with their icons (`CardLook.SettingsIconOf`); every primary and secondary button,
+  the jam's choices and the clearing cards' buttons are raised on the plate (`Kit.RaisedButton` / `UiKit.RaisedButton`,
+  `UiRaster.ButtonPlate(w, h, share)`, `ButtonFace(w, h, set, share, gloss)`: 0.5 for the pills, 0.22 for the choices,
+  the colored faces glossy). The booster tiles, tabs and cost pills keep their own look; the pages' panels stay parchment.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

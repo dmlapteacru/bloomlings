@@ -141,7 +141,7 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     float top = RoundRect(x, y, 0f, 0f, w, topBottom, radius);
-                    Color c = Laminate(x, y, body, s, radius, w, h);
+                    Color c = Laminate(x, y, s);
                     if (top < 0.5f)
                     {
                         // The border rounds over at the outside and into the opening; flat on its middle.
@@ -184,7 +184,13 @@ namespace Bloomlings.Client.UI.Design
         /// <paramref name="height"/> px: <see cref="RaisedPlate"/> with the icon buttons' corners
         /// (<see cref="GardenLook.IconRadiusShare"/> of the shorter side), so the picture depends only on its size.
         /// </summary>
-        public static byte[] ButtonPlate(int width, int height) => RaisedPlate(width, height, Math.Min(width, height) * GardenLook.IconRadiusShare);
+        public static byte[] ButtonPlate(int width, int height) => ButtonPlate(width, height, GardenLook.IconRadiusShare);
+
+        /// <summary>
+        /// The wooden plate of a button whose corners are <paramref name="radiusShare"/> of its shorter side (spec 005
+        /// FR-045: 0.5 for the pill buttons, Play and the cream secondaries; the jam choices' 0.22).
+        /// </summary>
+        public static byte[] ButtonPlate(int width, int height, float radiusShare) => RaisedPlate(width, height, Math.Min(width, height) * radiusShare);
 
         /// <summary>
         /// The raised face of an icon button or the speed pill whose face box (<see cref="RaisedFaceBox"/>) is
@@ -192,11 +198,17 @@ namespace Bloomlings.Client.UI.Design
         /// side of a button of the side this face box gives back (<see cref="ButtonSideOfFace"/>), so the picture depends only
         /// on its size and <paramref name="set"/>.
         /// </summary>
-        public static byte[] ButtonFace(int width, int height, ColorSet set)
+        public static byte[] ButtonFace(int width, int height, ColorSet set) => ButtonFace(width, height, set, GardenLook.IconRadiusShare, false);
+
+        /// <summary>
+        /// The raised face on a plate of <see cref="ButtonPlate(int, int, float)"/>'s <paramref name="radiusShare"/>; a colored
+        /// set's face with <paramref name="gloss"/> takes the reference's smooth gloss (Play, the jam choices).
+        /// </summary>
+        public static byte[] ButtonFace(int width, int height, ColorSet set, float radiusShare, bool gloss)
         {
             float side = ButtonSideOfFace(width, height);
-            float radius = Math.Max(0f, side * (GardenLook.IconRadiusShare - (GardenLook.IconRimShare * FaceInsetX)));
-            return RaisedFace(width, height, radius, side * FaceSide, set);
+            float radius = Math.Max(0f, side * (radiusShare - (GardenLook.IconRimShare * FaceInsetX)));
+            return RaisedFace(width, height, radius, side * FaceSide, set, gloss);
         }
 
         // The raised face's insets in the plate, as shares of the border (GardenLook.IconRimShare of the shorter side).
@@ -245,7 +257,7 @@ namespace Bloomlings.Client.UI.Design
         /// (<paramref name="set"/>'s face, its top lighter at the upper left) whose top's edge rounds down over 15% of its
         /// shorter side, lit from the upper left, over its front side of <paramref name="sidePixels"/> in the set's lip.
         /// </summary>
-        public static byte[] RaisedFace(int width, int height, float radius, float sidePixels, ColorSet set)
+        public static byte[] RaisedFace(int width, int height, float radius, float sidePixels, ColorSet set, bool gloss = false)
         {
             Check(width, height);
             var pixels = new byte[width * height * 4];
@@ -255,6 +267,13 @@ namespace Bloomlings.Client.UI.Design
             float side = Math.Min(h * 0.3f, sidePixels);
             float topBottom = h - side;
             float bevel = Math.Max(1.5f, s * 0.07f);
+
+            // A cream face is grained and warmed; a colored one (Play's green, the blue choice) keeps its color and may shine.
+            bool cream = !GardenLook.LabelOn(set).Volumetric;
+            float topRadius = Math.Min(radius, topBottom / 2f);
+            var band = new Box(w * 0.03f, topBottom * 0.04f, w * 0.97f, topBottom * 0.46f);
+            float shineY = Math.Max(1.5f, topBottom * 0.07f);
+            float shineWidth = Math.Max(1f, topBottom * 0.025f);
             for (int py = 0; py < height; py++)
             {
                 float y = py + 0.5f;
@@ -275,11 +294,25 @@ namespace Bloomlings.Client.UI.Design
                         float lit = Clamp01(1f - ((x / w * 0.5f) + (y / topBottom * 0.8f)));
                         c = new Color(set.Face.Mix(set.Lip, 0.12f).Mix(set.Top, 0.25f * lit));
                         c.Mix(set.Lip, 0.35f * Clamp01((y / topBottom) - 0.35f));
-                        c.Mix(set.Lip.Darken(0.1f), FaceGrain(x, y, s));
+                        if (cream)
+                        {
+                            c.Mix(set.Lip.Darken(0.1f), FaceGrain(x, y, s));
+                        }
                         (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float tilt = 1f - Clamp01(-top / bevel);
                         (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
                         Shade(ref c, set.Face, nx, ny, nz, 0.35f, 0.2f, 0.15f);
+                        if (gloss)
+                        {
+                            // The reference's smooth gloss: the lightened top fading down from the top edge, and a thin white
+                            // shine along the straight part of the top edge.
+                            float fade = Clamp01(1f - ((y - band.Top) / band.Height));
+                            float inBand = Coverage(RoundRect(x, y, band.Left, band.Top, band.Right, band.Bottom, Math.Min(topRadius, band.Height / 2f)) + (s * 0.02f));
+                            c.Mix(set.Top.Lighten(0.35f), 0.35f * fade * fade * inBand);
+                            float straight = Clamp01((x - (topRadius * 0.6f)) / Math.Max(1f, s * 0.05f)) * Clamp01((w - (topRadius * 0.6f) - x) / Math.Max(1f, s * 0.05f));
+                            c.Mix(Rgba.White, 0.55f * straight * Clamp01(1f - (Math.Abs(y - shineY) / shineWidth)));
+                        }
+
                         c.Mix(set.Lip, Clamp01(top + 0.5f) * 0.2f);
                     }
                     else
@@ -289,8 +322,11 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     c.Mix(set.Lip.Darken(0.15f), 0.3f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
-                    c.Mix(set.Lip, FaceWarmth * 0.4f);
-                    c = new Color(Vivid(c.ToRgba(), FaceVivid));
+                    if (cream)
+                    {
+                        c.Mix(set.Lip, FaceWarmth * 0.4f);
+                        c = new Color(Vivid(c.ToRgba(), FaceVivid));
+                    }
                     Put(pixels, width, px, py, c, cover);
                 }
             }
@@ -304,7 +340,7 @@ namespace Bloomlings.Client.UI.Design
         /// board of warm wood (<c>wood.edge</c> toward <c>wood.mid</c>) cut into the frame, its grain running across the whole
         /// button: long streaks a little lighter or deeper and fine darker grain lines (<c>wood.grain</c>), wavering gently.
         /// </summary>
-        private static Color Laminate(float x, float y, float outer, float s, float radius, float w, float h)
+        private static Color Laminate(float x, float y, float s)
         {
             var c = new Color(C.WoodEdge.Mix(C.WoodMid, 0.25f).Mix(C.WoodGrain, 0.08f));
 
