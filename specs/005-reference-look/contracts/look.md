@@ -68,6 +68,10 @@ reference image is `specs/005-reference-look/reference.jpg`; crops named below a
 
 ### 1.4 The backgrounds' saturation (the owner's note of 2026-10-04, FR-031)
 
+**Since 2026-10-08 the backgrounds keep their colors as delivered** (the owner, FR-031 as changed): `saturation.mjs`
+`ladder.background` is null, so it only measures, and `layers.mjs` scales nothing. What follows is the muting of
+2026-10-04 to 2026-10-08.
+
 The owner's backgrounds keep at most 70% of the animated heroes' mean HSL saturation (their frames' mean, 0.656, on the
 pixels at least half opaque): `tools/heroanim/saturation.mjs` scales `win.jpg` (×0.66), `wardrobe.jpg` (×0.68) and the
 gameplay themes (daylight ×0.72, orchard ×0.71, pond ×0.82; moonlit stays, at 59%), and `layers.mjs` the layered Home
@@ -1063,7 +1067,7 @@ keeps 22%–70% of H. The rank pill (`Rank`), the Wardrobe, Collection and Store
 
 **The owner's tuning** (2026-10-05, FR-036, research D29, from the constructor of the game's own layers; the
 numbers are the owner's on a 1080 px wide screen, kept as shares of W): no logo; the garden blurred by `4/1080` of its
-width in its picture (`layers.mjs` `gardenBlur`); the stage (the fountain's layers, the heroes and their shadows) at `HomeLayers.Stage(screen)`, the cover box at 0.9 toward the screen's middle across and 60% of its height
+width in its picture (`layers.mjs` `gardenBlur`; since 2026-10-08 the owner's garden comes blurred and the pass is off); the stage (the fountain's layers, the heroes and their shadows) at `HomeLayers.Stage(screen)`, the cover box at 0.9 toward the screen's middle across and 60% of its height
 down; each hero ×1.05 about its feet (`HomeLayers.HeroScale`), Twig at 0.85 of the picture's width; the heroes' Home
 frames sharpened, at 110% contrast and saturation (`heroes.json` `home`, `post.mjs`); no falling petals (removed from
 the game on 2026-10-06). Each promo scene stands on the round buttons' cream cushion (`ui.button.round`,

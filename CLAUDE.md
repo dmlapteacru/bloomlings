@@ -151,13 +151,13 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   of its group's color wherever it stands, a column whose "+N" hides one shows a small one, and a tap that waits for a
   partner says "Its linked pod isn't on top yet" and pulses it (FR-043, `PodLinks`, `UiRaster.LinkBadge`). Waiting Slots are cream
   plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`
-  with same-named `UiKit*` twins. The owner's backgrounds keep at most 70% of the animated heroes' saturation (FR-031):
-  run `node tools/heroanim/saturation.mjs` after adding one (idempotent; the Home layers through `layers.mjs`).
+  with same-named `UiKit*` twins. The owner's backgrounds keep the colors they come with (FR-031 as changed by the owner on
+  2026-10-08; the 70% muting of 2026-10-04 is off: `saturation.mjs` `ladder.background` is null and only measures).
   Home's two promo scenes (FR-032, `HomePromo`, the owner's layers `Decor/promo-*.png`): No Ads at the left (from L1
   until Remove Ads is owned; a tap opens the Remove Ads card, FR-033) and Daily at the right (the Daily Reward), each
   idling and playing its attention sequence every 12 s, never together; hosts draw `HomePromo.Layers` per frame.
 - The owner's Home tuning (spec 005 FR-036, research D29, 2026-10-05), chosen on a constructor page of the game's own
-  layers: Home has no logo (the splash keeps it); the garden is blurred in `home.jpg` (`layers.mjs` `gardenBlur`); the
+  layers: Home has no logo (the splash keeps it); the garden in `home.jpg` is the owner's picture, already blurred (since 2026-10-08; `layers.mjs` `gardenBlur` is 0); the
   fountain and heroes stand in `HomeLayers.Stage` (0.9 of the cover box) at `HeroScale` 1.05; the heroes' Home frames
   are sharpened and at 110% contrast and saturation (`heroes.json` `home`, `tools/heroanim/post.mjs`, applied by the
   bake); Play, the plaque, the promo scenes and the sun follow `ReferenceHomeRegions`' shares; each promo scene stands on

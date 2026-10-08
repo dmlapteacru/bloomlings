@@ -781,6 +781,20 @@ being the Settings mockup of FR-045. Decided from the mockup without a question 
 - Q: What stays? → A: The wells (the jam's slots, the tray's empty plates, the name field) and the guides' parchment
   bubbles, as FR-047 kept them; the references' leaves at every row's ends still wait for a leaves-only picture.
 
+### Session 2026-10-08 (the owner's restyled pictures: their colors as delivered)
+
+The owner restyled the backgrounds, the variant icons, the leaves, the booster icons and the Petals lotus, sent a new
+Home garden that comes blurred, and was shown every background at 70% of the heroes' saturation and as delivered, side
+by side in the game's screens.
+- Q: Which? → A: "Оставь как прислал": as delivered. FR-031 is changed: no background is muted any more
+  (`saturation.mjs` `ladder.background` null), the restyled backgrounds and Home's layers keep their colors, and the two
+  Home layers not restyled yet (the fountain's back and the shadow) had the ×0.738 of 2026-10-04 undone.
+- Q: Home's garden? → A: The owner's new picture, already blurred: no blur pass (`layers.mjs` `gardenBlur` 0, FR-036).
+- Q: Home's fountain? → A: The original one (the owner, after seeing a restyled back, new front stones and a shadow in
+  place: "the basin already has its lotus; no point laying another on top"). Its back with the painted lotus, its
+  shadow, and `home-lotus.png` as the cut-out of that same lotus, drawn again only over Bloom so Bloom stands behind it;
+  the restyled front stones of the first archive stay.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1202,11 +1216,12 @@ inventory.
 
 #### K. The backgrounds' saturation (the owner's note, 2026-10-04)
 
-- **FR-031**: The owner's backgrounds (the gameplay themes, the win, the Wardrobe and the pages' garden, the layered
-  Home with its layers as one scene) MUST keep at most 70% of the animated heroes' mean HSL saturation (the owner's
-  choice after 60%, 80% and 70% were shown; contracts/look.md §1.4), scaled offline by `tools/heroanim/saturation.mjs`
-  (and `layers.mjs` for the Home layers) with their lightness and hue kept. The UI, the heroes, the 2D characters and
-  the board's pieces keep their saturation. Presentation only (FR-002).
+- **FR-031** *(changed by the owner on 2026-10-08: the backgrounds keep their colors as delivered)*: The owner's
+  backgrounds (the gameplay themes, the win, the Wardrobe and the pages' garden, the layered Home with its layers as one
+  scene) MUST keep the colors they are delivered with: no offline muting (`tools/heroanim/saturation.mjs`
+  `ladder.background` null; it only measures). From 2026-10-04 to 2026-10-08 they kept at most 70% of the animated
+  heroes' mean HSL saturation (the owner's choice then, after 60%, 80% and 70% were shown; contracts/look.md §1.4). The
+  UI, the heroes, the 2D characters and the board's pieces keep their saturation. Presentation only (FR-002).
 
 #### L. Home's promo scenes (the owner's pack and notes, 2026-10-04)
 
