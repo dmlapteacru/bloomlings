@@ -795,7 +795,8 @@ The Leaderboard and Collection pages (§6.8, §6.9) add no slot: they draw the p
 cards' slots (`bg.wardrobe`, `mat.parchment`, `ui.row`, `ui.medal`, `ui.person`, `ui.button.secondary`, `ui.restart`,
 `collection.frame`, `collection.detail_frame`, the menu's); `ui.card` no longer lists them.
 New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked where drawn:
-`mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment`, `tile.candy`, `tile.candy.sticker`,
+`mat.wood.light` (retired by FR-049: the win's plaque, its last plank, is the laminate sign), `mat.wood.dark`, `mat.stone`,
+`mat.parchment`, `tile.candy`, `tile.candy.sticker`,
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch` (retired on 2026-10-03 with the arch), the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.layer_peek` and `tile.picture` restyled; `tile.entry` retired on 2026-10-03), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
