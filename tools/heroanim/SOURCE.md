@@ -73,6 +73,8 @@ dances, `victory`) are not used.
 | `02_home_fountain_back.png` | `home-fountain-back.png`: cropped to its visible bounds (alpha under 6 of 255 counts as dust) |
 | `02_home_fountain_back.png` | `home-lotus.png`: the lotus cut out of it (its pink petals and what they enclose, the edge softened), drawn again over Bloom, who stands behind it |
 | `03_home_fountain_front.png` | `home-fountain-front.png`: cropped the same way |
+
+Since 2026-10-08 `home-fountain-front.png` and `home-lotus.png` are the owner's restyled versions (`bloomlings_01_backgrounds_restyled.zip`, `home_layers/home-fountain-back.png` and `home_layers/home-lotus.png`, their canvases matching the layers' boxes): scaled into the same boxes, alpha up to 5 / 255 cleared, scaled by the scene's saturation factor of `layers.json`, which lists their new hashes; record `tools/artgen/models/owner-pictures.md`. The garden, the fountain's back and the shadow stay those of `bloomlings_home_assets.zip` until their restyled versions come.
 | `04_home_soft_shadow.png` | `home-shadow.png`: its front left shadow (of four), cut out with faded edges, drawn under every hero |
 | `05_home_petals_overlay.png` | not used since 2026-10-06: the owner removed Home's falling petals (it was `home-petals.png`) |
 

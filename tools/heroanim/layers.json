@@ -45,9 +45,9 @@
     "w": 852,
     "h": 342
    },
-   "from": "03_home_fountain_front.png",
-   "sha256": "eaba892ae8b8c2f78ab83925d0f25a54cc86ea83af5b675e85a9e0fdc826cc3c",
-   "bytes": 451224
+   "from": "bloomlings_01_backgrounds_restyled.zip home_layers/home-fountain-back.png (the restyled front stones, 2026-10-08)",
+   "sha256": "46bfec65fbb527504e4245ab3f652e779a384456922c01e1f9cf54cd5feabc4e",
+   "bytes": 369414
   },
   {
    "name": "home-lotus.png",
@@ -57,9 +57,9 @@
     "w": 269,
     "h": 159
    },
-   "from": "02_home_fountain_back.png (the lotus)",
-   "sha256": "071dc863db30250f88d413070f7fc62da1a8fb1c3ddebe2b199c8ebcca24aada",
-   "bytes": 77036
+   "from": "bloomlings_01_backgrounds_restyled.zip home_layers/home-lotus.png (the restyled lotus, 2026-10-08)",
+   "sha256": "ca5c7b2c43835ef4d24343c12ea0bc40446b23f7f9ee060a8282a1f1f2cbc6ab",
+   "bytes": 53851
   },
   {
    "name": "home-shadow.png",

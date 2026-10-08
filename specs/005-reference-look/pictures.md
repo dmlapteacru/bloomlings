@@ -83,7 +83,7 @@ pictures are stored as JPEG (quality 90) whatever their delivered format; a pict
 | B5 | `gameplay-moonlit.jpg` | from level 200 | the lawn at dusk with fireflies (since 2026-10-04 the owner's calm `07_evening_fireflies_calm_background.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors) | `bg.theme.moonlit_garden` |
 | B6 | `splash.png` | splash | the Home garden, more blossoms (not shown since FR-039: the splash is the lotus loader on parchment; no longer needed) | `bg.splash` |
 | B7 | `wardrobe.jpg` | Wardrobe and the Store page (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal (since 2026-10-04 the owner's calm `08_wardrobe_calm_garden.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors) | `bg.wardrobe` |
-| B8 | `win.jpg` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened (since 2026-10-04 the owner's calm `02_win_calm_garden_glow.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors, the hero on its round stone stage, `OwnerPictures.WinStageShare` 0.60) | `bg.win` |
+| B8 | `win.jpg` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened (since 2026-10-04 the owner's calm `02_win_calm_garden_glow.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors, the hero on its round stone stage, `OwnerPictures.WinStageShare` 0.60; since 2026-10-08 the owner's restyled garden, its stage at 0.58) | `bg.win` |
 
 Since the owner's note of 2026-10-04 (spec FR-031, contracts/look.md §1.4) every background (B1 to B8) keeps at most
 70% of the animated heroes' mean saturation, scaled offline by `tools/heroanim/saturation.mjs` (the B1 layers by
@@ -263,6 +263,13 @@ Files may be sent in the chat; the session places, resizes and records them (sou
 Delivered by 2026-10-02: D1–D7; B1 (as the layered Home), B2–B5, B7 and B8; A1–A4, A6 and A7 (cut from the owner's
 character sheet) and the animated heroes (A10); C1; G9–G24 and the lotus. On 2026-10-04: the calm backgrounds (B1's
 garden, B2–B5, B7, B8) and the bottom menu's icons D9–D13. What is still open is in H.
+
+On 2026-10-08 the owner restyled what the session had sent them (record `tools/artgen/models/owner-pictures.md`):
+B2–B5, B7 and B8, Home's front stones and lotus (B1's `home-fountain-front.png`, `home-lotus.png`), seven of the eight
+detailed variant icons (all but the Violet Bud), the eight field icons and the leaves D5–D7, each in its file's place.
+Still in the earlier style: Home's garden (`home.jpg`), the fountain's back (`home-fountain-back.png`), the shadow, and
+`variant-bud.png`. The archive's two extra decorations (`extra-floral-vine.png`, `extra-flower-cluster.png`) have no
+slot yet and are not in the game.
 
 ## H. Still awaited from the owner, and open questions (2026-10-03)
 
