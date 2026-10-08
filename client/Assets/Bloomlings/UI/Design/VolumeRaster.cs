@@ -90,6 +90,12 @@ namespace Bloomlings.Client.UI.Design
             return (c, cover);
         }
 
+        /// <summary>How much more saturated the plate's wood is drawn (<see cref="Vivid"/>; the owner, 2026-10-08: "the color is still pale").</summary>
+        public const float PlateVivid = 1.25f;
+
+        /// <summary>How much more saturated a raised face's cream is drawn (<see cref="Vivid"/>).</summary>
+        public const float FaceVivid = 1.15f;
+
         /// <summary>The thickness of an icon button's wooden plate under its top, as a share of the button's shorter side.</summary>
         public const float PlateSide = 0.035f;
 
@@ -141,10 +147,10 @@ namespace Bloomlings.Client.UI.Design
                         (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float f = q < 0.4f ? (float)Math.Cos(q / 0.4f * Math.PI / 2f) : q > 0.75f ? -(float)Math.Cos((1f - Math.Min(1f, q)) / 0.25f * Math.PI / 2f) : 0f;
                         (float nx, float ny, float nz) = (gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))));
-                        Shade(ref c, C.WoodEdge, nx, ny, nz, 0.55f, 0.45f, 0.25f);
+                        Shade(ref c, C.WoodGrain, nx, ny, nz, 0.45f, 0.45f, 0.18f);
 
                         // The top of the frame catches the light (the reference's (249, 215, 168) above, deeper below).
-                        c.Mix(C.WoodMid.Lighten(0.25f), 0.7f * Clamp01(1f - (y / (h * 0.3f))));
+                        c.Mix(C.WoodMid.Lighten(0.12f), 0.6f * Clamp01(1f - (y / (h * 0.3f))));
                         c.Mix(C.WoodEdge.Darken(0.12f), Clamp01(top + 0.5f) * 0.5f);
                     }
                     else
@@ -161,6 +167,7 @@ namespace Bloomlings.Client.UI.Design
                     c.Mix(C.WoodLine.Darken(0.25f), 0.16f * (1f - Smooth(Clamp01((shadow + (s * 0.005f)) / (s * 0.04f)))));
 
                     c.Mix(C.WoodLine, 0.55f * Clamp01(0.5f - (-body - line)));
+                    c = new Color(Vivid(c.ToRgba(), PlateVivid));
                     Put(pixels, width, px, py, c, cover);
                 }
             }
@@ -220,7 +227,7 @@ namespace Bloomlings.Client.UI.Design
                     if (top < 0.5f)
                     {
                         float lit = Clamp01(1f - ((x / w * 0.5f) + (y / topBottom * 0.8f)));
-                        c = new Color(set.Face.Mix(set.Top, 0.3f * lit));
+                        c = new Color(set.Face.Mix(set.Lip, 0.12f).Mix(set.Top, 0.25f * lit));
                         c.Mix(set.Lip, 0.35f * Clamp01((y / topBottom) - 0.35f));
                         c.Mix(set.Lip.Darken(0.1f), FaceGrain(x, y, s));
                         (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
@@ -236,6 +243,7 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     c.Mix(set.Lip.Darken(0.15f), 0.3f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
+                    c = new Color(Vivid(c.ToRgba(), FaceVivid));
                     Put(pixels, width, px, py, c, cover);
                 }
             }
