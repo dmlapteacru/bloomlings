@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 3387
+    "score": 3345
   },
   "entries": [
     {
@@ -240,14 +240,14 @@
       "variantId": "acorn"
     },
     {
-      "count": 33,
+      "count": 16,
       "id": "p02",
-      "variantId": "acorn"
+      "variantId": "moss"
     },
     {
       "count": 33,
       "id": "p03",
-      "variantId": "flower"
+      "variantId": "acorn"
     },
     {
       "count": 33,
@@ -255,42 +255,42 @@
       "variantId": "flower"
     },
     {
-      "count": 19,
+      "count": 33,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 18,
+      "count": 19,
       "id": "p06",
       "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 18,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 17,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 18,
+      "count": 19,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 18,
       "id": "p10",
       "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 19,
       "id": "p11",
       "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 17,
       "id": "p12",
       "variantId": "water"
     },
@@ -300,7 +300,7 @@
       "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 19,
       "id": "p14",
       "variantId": "water"
     },
@@ -310,22 +310,22 @@
       "variantId": "water"
     },
     {
-      "count": 20,
+      "count": 17,
       "id": "p16",
       "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 20,
       "id": "p17",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 19,
       "id": "p18",
       "variantId": "moss"
     },
     {
-      "count": 16,
+      "count": 17,
       "id": "p19",
       "variantId": "moss"
     },
@@ -398,12 +398,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13", "p19", "p25", "p31"],
-      ["p02", "p08", "p14", "p20", "p26"],
-      ["p03", "p09", "p15", "p21", "p27"],
-      ["p04", "p10", "p16", "p22", "p28"],
-      ["p05", "p11", "p17", "p23", "p29"],
-      ["p06", "p12", "p18", "p24", "p30"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30"]
     ]
   }
 }

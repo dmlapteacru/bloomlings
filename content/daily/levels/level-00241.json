@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 3309
+    "score": 3438
   },
   "entries": [
     {
@@ -307,17 +307,17 @@
       "variantId": "wood"
     },
     {
-      "count": 16,
-      "id": "p24",
-      "variantId": "moss"
-    },
-    {
       "count": 12,
-      "id": "p25",
+      "id": "p24",
       "variantId": "wood"
     },
     {
       "count": 10,
+      "id": "p25",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
       "id": "p26",
       "variantId": "violet_bud"
     },
@@ -332,67 +332,67 @@
       "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 20,
       "id": "p29",
       "variantId": "violet_bud"
     },
     {
-      "count": 20,
+      "count": 9,
       "id": "p30",
       "variantId": "violet_bud"
     },
     {
-      "count": 9,
+      "count": 12,
       "id": "p31",
       "variantId": "violet_bud"
     },
     {
-      "count": 12,
+      "count": 19,
       "id": "p32",
       "variantId": "violet_bud"
     },
     {
-      "count": 19,
+      "count": 10,
       "id": "p33",
       "variantId": "violet_bud"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p34",
       "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p35",
       "variantId": "violet_bud"
     },
     {
-      "count": 10,
+      "count": 12,
       "id": "p36",
       "variantId": "violet_bud"
     },
     {
-      "count": 12,
+      "count": 10,
       "id": "p37",
       "variantId": "violet_bud"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p38",
       "variantId": "violet_bud"
     },
     {
       "count": 11,
       "id": "p39",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 11,
-      "id": "p40",
       "variantId": "dew"
     },
     {
       "count": 13,
+      "id": "p40",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
       "id": "p41",
       "variantId": "dew"
     },
@@ -402,9 +402,9 @@
       "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 16,
       "id": "p43",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
       "count": 16,
@@ -444,11 +444,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26", "p31", "p36", "p41", "p46"],
-      ["p02", "p07", "p12", "p17", "p22", "p27", "p32", "p37", "p42", "p47"],
-      ["p03", "p08", "p13", "p18", "p23", "p28", "p33", "p38", "p43", "p48"],
-      ["p04", "p09", "p14", "p19", "p24", "p29", "p34", "p39", "p44", "p49"],
-      ["p05", "p10", "p15", "p20", "p25", "p30", "p35", "p40", "p45"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37", "p40", "p43", "p46", "p49"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38", "p41", "p44", "p47"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36", "p39", "p42", "p45", "p48"]
     ]
   }
 }

@@ -3,12 +3,12 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 3180
+    "score": 3294
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 20,
+      "x": 1,
       "y": 0
     }
   ],
@@ -18,331 +18,356 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p41",
-        "kind": "pod"
+        "id": "door1",
+        "kind": "special"
       }
     }
   ],
   "mapping": {
-    "banana": "acorn",
-    "blanket": "acorn",
-    "blanket_dots": "wood",
+    "banana": "wood",
+    "blanket": "wood",
+    "blanket_dots": "acorn",
     "cloud": "water",
-    "hill": "moss",
-    "plate": "leaf",
+    "hill": "leaf",
+    "plate": "moss",
     "sky": "dew",
-    "stem": "acorn"
+    "stem": "wood"
   },
-  "mechanics": ["locked_pod"],
+  "mechanics": ["key", "layered_tile"],
   "overlays": {
     "cells": [
       {
+        "layersBelow": ["leaf"],
+        "x": 10,
+        "y": 0
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 6,
+        "y": 2
+      },
+      {
         "keyId": "k1",
+        "x": 12,
+        "y": 2
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 15,
+        "y": 2
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 4,
+        "y": 4
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 16,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 6,
+        "y": 9
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 21,
+        "y": 9
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 10,
+        "y": 10
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 19,
+        "y": 10
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 8,
+        "y": 11
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 4,
+        "y": 13
+      },
+      {
+        "hole": true,
+        "x": 13,
+        "y": 13
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 12,
+        "y": 14
+      },
+      {
+        "layersBelow": ["acorn"],
         "x": 5,
-        "y": 1
+        "y": 15
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 3,
+        "y": 16
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 7,
+        "y": 16
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 10,
+        "y": 16
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 16,
+        "y": 20
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 13,
+        "y": 24
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 3,
+        "y": 25
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 8,
+        "y": 27
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 18,
+        "y": 27
       }
     ]
   },
   "picture": {
     "id": "banana_03",
-    "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 11,
+      "count": 13,
       "id": "p01",
-      "variantId": "acorn"
+      "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 11,
       "id": "p02",
-      "variantId": "acorn"
+      "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 13,
       "id": "p03",
-      "variantId": "acorn"
+      "variantId": "wood"
     },
     {
-      "count": 5,
+      "count": 14,
       "id": "p04",
-      "variantId": "acorn"
+      "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 13,
       "id": "p05",
-      "variantId": "acorn"
+      "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 15,
       "id": "p06",
-      "variantId": "acorn"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 12,
       "id": "p07",
-      "variantId": "acorn"
+      "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 14,
       "id": "p08",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 9,
+      "count": 12,
       "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "count": 10,
-      "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 6,
-      "id": "p11",
       "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
     },
     {
       "count": 12,
       "id": "p12",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 13,
       "id": "p13",
-      "variantId": "leaf"
-    },
-    {
-      "count": 7,
-      "id": "p14",
-      "variantId": "leaf"
-    },
-    {
-      "count": 6,
-      "id": "p15",
-      "variantId": "leaf"
-    },
-    {
-      "count": 9,
-      "id": "p16",
-      "variantId": "moss"
-    },
-    {
-      "count": 10,
-      "id": "p17",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
       "count": 11,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 23,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 23,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 22,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
       "id": "p18",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 13,
       "id": "p19",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 21,
       "id": "p20",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 13,
       "id": "p21",
-      "variantId": "water"
+      "variantId": "wood"
     },
     {
       "count": 11,
       "id": "p22",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 22,
       "id": "p23",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 11,
       "id": "p24",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 12,
+      "count": 14,
       "id": "p25",
-      "variantId": "acorn"
+      "variantId": "wood"
     },
     {
-      "count": 11,
+      "count": 20,
       "id": "p26",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 22,
       "id": "p27",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 10,
+      "count": 20,
       "id": "p28",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 21,
       "id": "p29",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 21,
       "id": "p30",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 20,
       "id": "p31",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 21,
       "id": "p32",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 21,
       "id": "p33",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 13,
       "id": "p34",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p35",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p36",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p37",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p38",
-      "variantId": "acorn"
-    },
-    {
-      "count": 11,
-      "id": "p39",
-      "variantId": "acorn"
-    },
-    {
-      "count": 11,
-      "id": "p40",
-      "variantId": "acorn"
-    },
-    {
-      "count": 12,
-      "id": "p41",
-      "lockKeyId": "k1",
-      "variantId": "dew"
-    },
-    {
-      "count": 10,
-      "id": "p42",
-      "variantId": "dew"
-    },
-    {
-      "count": 9,
-      "id": "p43",
-      "variantId": "dew"
-    },
-    {
-      "count": 11,
-      "id": "p44",
-      "variantId": "dew"
-    },
-    {
-      "count": 10,
-      "id": "p45",
-      "variantId": "dew"
-    },
-    {
-      "count": 10,
-      "id": "p46",
-      "variantId": "dew"
-    },
-    {
-      "count": 11,
-      "id": "p47",
-      "variantId": "dew"
-    },
-    {
-      "count": 9,
-      "id": "p48",
-      "variantId": "dew"
-    },
-    {
-      "count": 10,
-      "id": "p49",
-      "variantId": "dew"
-    },
-    {
-      "count": 9,
-      "id": "p50",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p51",
-      "variantId": "dew"
-    },
-    {
-      "count": 11,
-      "id": "p52",
-      "variantId": "dew"
-    },
-    {
-      "count": 9,
-      "id": "p53",
-      "variantId": "dew"
-    },
-    {
-      "count": 12,
-      "id": "p54",
-      "variantId": "dew"
-    },
-    {
-      "count": 10,
-      "id": "p55",
       "variantId": "water"
     },
     {
-      "count": 5,
-      "id": "p56",
-      "variantId": "wood"
+      "count": 13,
+      "id": "p35",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p36",
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "9523213219000471944",
+  "seed": "9217990284489816416",
   "slots": {
     "count": 5
   },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 13,
+          "y": 13
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26", "p31", "p36", "p41", "p46", "p51", "p56"],
-      ["p02", "p07", "p12", "p17", "p22", "p27", "p32", "p37", "p42", "p47", "p52"],
-      ["p03", "p08", "p13", "p18", "p23", "p28", "p33", "p38", "p43", "p48", "p53"],
-      ["p04", "p09", "p14", "p19", "p24", "p29", "p34", "p39", "p44", "p49", "p54"],
-      ["p05", "p10", "p15", "p20", "p25", "p30", "p35", "p40", "p45", "p50", "p55"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36"]
     ]
   }
 }

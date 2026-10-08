@@ -1,17 +1,17 @@
 {
   "checks": ["accounting", "board", "losable", "picture-approved", "player-info-fair", "solvable"],
-  "definitionHash": "8582621d41f262f7b6a76f903cad031fe1f8c3e3721564df6385d44eca257169",
+  "definitionHash": "f1d067a5b9ce46d9aba69cca45c1b5d1741471a06a21fb1cdf0ff845a48c1dae",
   "definitionVersion": 1,
-  "jamWitness": ["tap:p02", "tap:p07", "tap:p12", "tap:p17", "tap:p22"],
+  "jamWitness": ["tap:p02", "tap:p01", "tap:p04", "tap:p07", "tap:p10", "tap:p13", "tap:p16", "tap:p19", "tap:p22", "tap:p25", "tap:p28", "tap:p31", "tap:p34", "tap:p37", "tap:p40", "tap:p43", "tap:p46", "tap:p49", "tap:p52", "tap:p05", "tap:p08", "tap:p11", "tap:p14", "tap:p17"],
   "levelNumber": 25,
   "metrics": {
-    "branchingX1000": 3134,
+    "branchingX1000": 2076,
     "connectedCommitments": 0,
     "crossVariantLayers": 36,
-    "deadEndDepth": 5,
+    "deadEndDepth": 24,
     "dependencyDepth": 4,
     "estimatedDurationMs": 144600,
-    "meanBufferX1000": 1442,
+    "meanBufferX1000": 1576,
     "peakBuffer": 4,
     "podCount": 52,
     "siblingPairs": 1,
@@ -21,9 +21,9 @@
     "variantCount": 5
   },
   "nodeBudget": 600000,
-  "nodesUsed": 57,
+  "nodesUsed": 225,
   "playerInfoFair": true,
   "result": "solvable",
-  "solutionTrace": ["tap:p01", "tap:p06", "tap:p11", "tap:p03", "tap:p08", "tap:p16", "tap:p21", "tap:p26", "tap:p31", "tap:p36", "tap:p41", "tap:p46", "tap:p51", "tap:p02", "tap:p07", "tap:p12", "tap:p17", "tap:p22", "tap:p27", "tap:p32", "tap:p37", "tap:p42", "tap:p47", "tap:p52", "tap:p13", "tap:p18", "tap:p23", "tap:p28", "tap:p33", "tap:p38", "tap:p43", "tap:p48", "tap:p04", "tap:p09", "tap:p14", "tap:p19", "tap:p24", "tap:p29", "tap:p34", "tap:p39", "tap:p44", "tap:p49", "tap:p05", "tap:p10", "tap:p15", "tap:p20", "tap:p25", "tap:p30", "tap:p35", "tap:p40", "tap:p45", "tap:p50"],
+  "solutionTrace": ["tap:p01", "tap:p04", "tap:p07", "tap:p10", "tap:p13", "tap:p16", "tap:p19", "tap:p22", "tap:p25", "tap:p28", "tap:p31", "tap:p34", "tap:p37", "tap:p40", "tap:p43", "tap:p46", "tap:p49", "tap:p03", "tap:p52", "tap:p02", "tap:p05", "tap:p08", "tap:p06", "tap:p11", "tap:p14", "tap:p17", "tap:p20", "tap:p23", "tap:p26", "tap:p29", "tap:p32", "tap:p35", "tap:p38", "tap:p41", "tap:p44", "tap:p47", "tap:p50", "tap:p09", "tap:p12", "tap:p15", "tap:p18", "tap:p21", "tap:p24", "tap:p27", "tap:p30", "tap:p33", "tap:p36", "tap:p39", "tap:p42", "tap:p45", "tap:p48", "tap:p51"],
   "solverVersion": "solver-1.0.0"
 }

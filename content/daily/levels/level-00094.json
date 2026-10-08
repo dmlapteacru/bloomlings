@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 3254
+    "score": 3209
   },
   "entries": [
     {
@@ -267,72 +267,72 @@
   },
   "pods": [
     {
-      "count": 24,
+      "count": 18,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "acorn"
     },
     {
-      "count": 22,
+      "count": 24,
       "id": "p02",
       "variantId": "moss"
     },
     {
-      "count": 16,
+      "count": 22,
       "id": "p03",
-      "variantId": "acorn"
+      "variantId": "moss"
     },
     {
-      "count": 19,
+      "count": 16,
       "id": "p04",
       "variantId": "acorn"
     },
     {
-      "count": 17,
+      "count": 19,
       "id": "p05",
       "variantId": "acorn"
     },
     {
-      "count": 16,
+      "count": 17,
       "id": "p06",
       "variantId": "acorn"
     },
     {
-      "count": 32,
+      "count": 16,
       "id": "p07",
       "variantId": "acorn"
     },
     {
-      "count": 17,
+      "count": 32,
       "id": "p08",
       "variantId": "acorn"
     },
     {
-      "count": 18,
+      "count": 26,
       "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 17,
+      "id": "p10",
       "variantId": "acorn"
     },
     {
       "count": 23,
-      "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 25,
       "id": "p11",
       "variantId": "dew"
     },
     {
-      "count": 26,
+      "count": 25,
       "id": "p12",
       "variantId": "dew"
     },
     {
-      "count": 25,
+      "count": 26,
       "id": "p13",
       "variantId": "dew"
     },
     {
-      "count": 24,
+      "count": 25,
       "id": "p14",
       "variantId": "dew"
     },
@@ -342,7 +342,7 @@
       "variantId": "dew"
     },
     {
-      "count": 25,
+      "count": 24,
       "id": "p16",
       "variantId": "dew"
     },
@@ -352,9 +352,9 @@
       "variantId": "dew"
     },
     {
-      "count": 26,
+      "count": 25,
       "id": "p18",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
       "count": 26,
@@ -409,10 +409,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13", "p17", "p21", "p25"],
-      ["p02", "p06", "p10", "p14", "p18", "p22", "p26"],
-      ["p03", "p07", "p11", "p15", "p19", "p23", "p27"],
-      ["p04", "p08", "p12", "p16", "p20", "p24"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27"]
     ]
   }
 }

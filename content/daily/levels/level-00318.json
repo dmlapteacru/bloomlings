@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 3258
+    "score": 3171
   },
   "entries": [
     {
@@ -207,9 +207,9 @@
       "variantId": "wood"
     },
     {
-      "count": 14,
+      "count": 17,
       "id": "p03",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
       "count": 14,
@@ -217,77 +217,77 @@
       "variantId": "wood"
     },
     {
-      "count": 15,
+      "count": 14,
       "id": "p05",
-      "variantId": "violet_bud"
+      "variantId": "wood"
     },
     {
-      "count": 13,
+      "count": 15,
       "id": "p06",
       "variantId": "violet_bud"
     },
     {
-      "count": 12,
+      "count": 13,
       "id": "p07",
       "variantId": "violet_bud"
     },
     {
-      "count": 14,
+      "count": 12,
       "id": "p08",
       "variantId": "violet_bud"
     },
     {
-      "count": 17,
+      "count": 14,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "violet_bud"
     },
     {
-      "count": 9,
+      "count": 17,
       "id": "p10",
       "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 9,
       "id": "p11",
       "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 11,
       "id": "p12",
       "variantId": "dew"
     },
     {
-      "count": 10,
+      "count": 18,
       "id": "p13",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p14",
       "variantId": "dew"
     },
     {
-      "count": 18,
+      "count": 9,
       "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 18,
       "id": "p16",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 11,
       "id": "p17",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 9,
       "id": "p18",
       "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 19,
       "id": "p19",
       "variantId": "dew"
     },
@@ -394,12 +394,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p07", "p13", "p19", "p25", "p31", "p37"],
-      ["p02", "p08", "p14", "p20", "p26", "p32", "p38"],
-      ["p03", "p09", "p15", "p21", "p27", "p33"],
-      ["p04", "p10", "p16", "p22", "p28", "p34"],
-      ["p05", "p11", "p17", "p23", "p29", "p35"],
-      ["p06", "p12", "p18", "p24", "p30", "p36"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36"]
     ]
   }
 }

@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3843
+    "score": 3802
   },
   "entries": [
     {
@@ -339,14 +339,14 @@
       "variantId": "flower"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p16",
       "variantId": "leaf"
     },
     {
-      "count": 11,
+      "count": 16,
       "id": "p17",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
       "count": 16,
@@ -354,42 +354,42 @@
       "variantId": "flower"
     },
     {
-      "count": 16,
+      "count": 9,
       "id": "p19",
-      "variantId": "flower"
+      "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 12,
       "id": "p20",
       "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 11,
       "id": "p21",
       "variantId": "leaf"
     },
     {
-      "count": 20,
+      "count": 10,
       "id": "p22",
       "variantId": "leaf"
     },
     {
-      "count": 15,
+      "count": 10,
       "id": "p23",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p24",
       "variantId": "water"
     },
     {
       "count": 11,
-      "id": "p24",
-      "variantId": "leaf"
-    },
-    {
-      "count": 12,
       "id": "p25",
       "variantId": "leaf"
     },
     {
-      "count": 11,
+      "count": 12,
       "id": "p26",
       "variantId": "leaf"
     },
@@ -409,22 +409,22 @@
       "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 20,
       "id": "p30",
       "variantId": "leaf"
     },
     {
-      "count": 10,
+      "count": 12,
       "id": "p31",
       "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 10,
       "id": "p32",
       "variantId": "leaf"
     },
     {
-      "count": 11,
+      "count": 12,
       "id": "p33",
       "variantId": "leaf"
     },
@@ -434,17 +434,17 @@
       "variantId": "leaf"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p35",
       "variantId": "leaf"
     },
     {
-      "count": 11,
+      "count": 10,
       "id": "p36",
       "variantId": "leaf"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p37",
       "variantId": "leaf"
     },
@@ -454,12 +454,12 @@
       "variantId": "leaf"
     },
     {
-      "count": 12,
+      "count": 10,
       "id": "p39",
       "variantId": "leaf"
     },
     {
-      "count": 10,
+      "count": 12,
       "id": "p40",
       "variantId": "leaf"
     },
@@ -526,10 +526,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13", "p17", "p21", "p25", "p29", "p33", "p37", "p41", "p45", "p49"],
-      ["p02", "p06", "p10", "p14", "p18", "p22", "p26", "p30", "p34", "p38", "p42", "p46", "p50"],
-      ["p03", "p07", "p11", "p15", "p19", "p23", "p27", "p31", "p35", "p39", "p43", "p47", "p51"],
-      ["p04", "p08", "p12", "p16", "p20", "p24", "p28", "p32", "p36", "p40", "p44", "p48"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37", "p40", "p43", "p46", "p49"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38", "p41", "p44", "p47", "p50"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36", "p39", "p42", "p45", "p48", "p51"]
     ]
   }
 }

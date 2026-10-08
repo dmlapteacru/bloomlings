@@ -7,7 +7,7 @@ puzzle on the same day, and the year starts over after 365 days. `publish --dail
 the catalog. The publish gate checks each entry by itself, without the catalog's band rules or FR-083 windows, and
 checks the pool's own picture rules.
 
-Built on 2026-10-07 with:
+Built on 2026-10-07 and again on 2026-10-08, after the three-stack rule for Hard and Super Hard (FR-011 as amended), with:
 
 ```sh
 dotnet run --project core/src/Bloomlings.Pipeline -- daily generate --seed 1 --count 365 --segments 7 --jobs 4 --out content/daily
@@ -37,6 +37,8 @@ dotnet run --project core/src/Bloomlings.Pipeline -- daily generate --seed 1 --c
 
   That makes 209 Normal, 104 Hard and 52 Super Hard entries. From 2027 the weekdays move by one a year, as the pool
   starts over every 365 days.
+- **Columns.** A Hard or Super Hard entry has 3 Source stacks, the profile's minimum and the most such a level may have
+  (spec 001 FR-011 as amended on 2026-10-08). A Normal entry has 3–6.
 - **Mechanics.** Every entry plays with the unlocks of L50, where the challenge opens: Stone, Key, Locked Pod, Connected
   Pair, Layered Tile and Gate, with one layer below a top.
 - **Profile.** `content/profiles/daily.json` holds the pods, work and durations of the big levels' row. The `daily`

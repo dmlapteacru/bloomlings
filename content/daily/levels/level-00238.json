@@ -3,7 +3,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 3490
+    "score": 3428
   },
   "entries": [
     {
@@ -287,7 +287,7 @@
       "variantId": "acorn"
     },
     {
-      "count": 16,
+      "count": 22,
       "id": "p02",
       "variantId": "acorn"
     },
@@ -297,27 +297,27 @@
       "variantId": "acorn"
     },
     {
-      "count": 15,
+      "count": 16,
       "id": "p04",
       "variantId": "acorn"
     },
     {
-      "count": 25,
+      "count": 15,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 23,
+      "count": 25,
       "id": "p06",
       "variantId": "water"
     },
     {
       "count": 23,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 23,
       "id": "p08",
       "variantId": "dew"
     },
@@ -327,12 +327,12 @@
       "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 12,
       "id": "p10",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 22,
+      "count": 23,
       "id": "p11",
       "variantId": "acorn"
     },
@@ -342,22 +342,22 @@
       "variantId": "acorn"
     },
     {
-      "count": 23,
+      "count": 19,
       "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 23,
+      "id": "p14",
       "variantId": "acorn"
     },
     {
       "count": 22,
-      "id": "p14",
-      "variantId": "dew"
-    },
-    {
-      "count": 25,
       "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 23,
+      "count": 25,
       "id": "p16",
       "variantId": "dew"
     },
@@ -367,29 +367,29 @@
       "variantId": "dew"
     },
     {
-      "count": 22,
+      "count": 23,
       "id": "p18",
       "variantId": "dew"
     },
     {
-      "count": 25,
+      "count": 22,
       "id": "p19",
       "variantId": "dew"
     },
     {
-      "count": 22,
+      "count": 25,
       "id": "p20",
       "variantId": "dew"
     },
     {
-      "count": 24,
+      "count": 22,
       "id": "p21",
       "variantId": "dew"
     },
     {
-      "count": 19,
+      "count": 24,
       "id": "p22",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
       "count": 22,
@@ -434,10 +434,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13", "p17", "p21", "p25", "p29"],
-      ["p02", "p06", "p10", "p14", "p18", "p22", "p26"],
-      ["p03", "p07", "p11", "p15", "p19", "p23", "p27"],
-      ["p04", "p08", "p12", "p16", "p20", "p24", "p28"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27"]
     ]
   }
 }
