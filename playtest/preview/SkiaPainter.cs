@@ -28,17 +28,35 @@ namespace Bloomlings.Playtest.Preview
         private static readonly SKTypeface Bold = LoadFont(true) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Bold) ?? SKTypeface.Default;
         private static readonly SKTypeface Regular = LoadFont(false) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Normal) ?? SKTypeface.Default;
 
-        private readonly SKSurface _surface;
+        private readonly SKSurface? _surface;
+        private readonly SKCanvas? _noDraw;
         private readonly SKPaint _paint = new SKPaint { IsAntialias = true };
         private readonly int _width;
         private readonly int _height;
 
         public SkiaPainter(int width, int height, Insets insets)
+            : this(width, height, insets, draw: true)
+        {
+        }
+
+        /// <summary>
+        /// A painter that draws into a surface of the given size, or with <paramref name="draw"/> false only does what a
+        /// device's UI thread does (the frame-time harness): it runs the screens, makes and caches the pictures and records
+        /// the draws on a canvas that draws nothing (a phone's GPU draws them), so a frame's time is the C# side's.
+        /// </summary>
+        public SkiaPainter(int width, int height, Insets insets, bool draw)
         {
             _width = width;
             _height = height;
             Insets = insets;
-            _surface = SKSurface.Create(new SKImageInfo(width, height));
+            if (draw)
+            {
+                _surface = SKSurface.Create(new SKImageInfo(width, height));
+            }
+            else
+            {
+                _noDraw = new SKNoDrawCanvas(width, height);
+            }
         }
 
         /// <summary>Whether the bundled Nunito files were loaded (else the DejaVu fallback draws).</summary>
@@ -48,7 +66,7 @@ namespace Bloomlings.Playtest.Preview
 
         public override float Height => _height;
 
-        public SKCanvas Canvas => _surface.Canvas;
+        public SKCanvas Canvas => _noDraw ?? _surface!.Canvas;
 
         /// <summary>Every slot id drawn or marked (shapes count as their slot).</summary>
         public HashSet<string> Slots { get; } = new HashSet<string>(StringComparer.Ordinal);
@@ -94,17 +112,18 @@ namespace Bloomlings.Playtest.Preview
 
         public byte[] Png()
         {
-            using SKImage image = _surface.Snapshot();
+            using SKImage image = _surface!.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
             return data.ToArray();
         }
 
-        public SKImage Snapshot() => _surface.Snapshot();
+        public SKImage Snapshot() => _surface!.Snapshot();
 
         public void Dispose()
         {
             _paint.Dispose();
-            _surface.Dispose();
+            _surface?.Dispose();
+            _noDraw?.Dispose();
         }
 
         public override void Mark(string slotId) => Slots.Add(slotId);
@@ -149,6 +168,8 @@ namespace Bloomlings.Playtest.Preview
 
         private SKPaint Fill(Rgba color)
         {
+            // Every draw sets up its paint once (the APK's AndroidPainter too: a handful of JNI calls each).
+            PaintStats.Drew();
             _paint.Reset();
             _paint.IsAntialias = true;
             _paint.Style = SKPaintStyle.Fill;
@@ -228,7 +249,9 @@ namespace Bloomlings.Playtest.Preview
                     MaskKind.Skin => ShapeLibrary.SkinPattern(key),
                     _ => sdf!,
                 };
+                long start = System.Diagnostics.Stopwatch.GetTimestamp();
                 byte[] mask = ShapeRaster.Mask(shape, size, topDown: true);
+                PaintStats.Masked(start);
                 var info = new SKImageInfo(size, size, SKColorType.Alpha8, SKAlphaType.Premul);
                 using var bitmap = new SKBitmap(info);
                 System.Runtime.InteropServices.Marshal.Copy(mask, 0, bitmap.GetPixels(), mask.Length);
@@ -294,6 +317,7 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>A label with volume (contracts/painter-text.md): shadow, extrusion, outline, gradient fill.</summary>
         private void DrawLook(string shown, float left, float baseline, SKFont font, float size, TextLook look, SKFontMetrics metrics)
         {
+            PaintStats.Looked();
             float stroke = look.OutlineEm * size * 2f;
             (int count, float step) = Extrusion(look, size);
             if (look.ShadowAlpha > 0f)
@@ -341,7 +365,9 @@ namespace Bloomlings.Playtest.Preview
             string key = cacheKey + "@" + w + "x" + h;
             if (!Backdrops.TryGetValue(key, out SKImage? image))
             {
+                long start = System.Diagnostics.Stopwatch.GetTimestamp();
                 byte[] rgba = BackdropRaster.Render(w, h, colors, scene);
+                PaintStats.Backdropped(start);
                 var info = new SKImageInfo(w, h, SKColorType.Rgba8888, SKAlphaType.Premul);
                 using var bitmap = new SKBitmap(info);
                 System.Runtime.InteropServices.Marshal.Copy(rgba, 0, bitmap.GetPixels(), rgba.Length);
@@ -366,22 +392,59 @@ namespace Bloomlings.Playtest.Preview
             {
                 if (!Pictures.TryGet(key, w, h, out image))
                 {
-                    byte[] rgba = render(w, h);
-                    if (rgba.Length != w * h * 4)
+                    long start = System.Diagnostics.Stopwatch.GetTimestamp();
+                    int bytes = w * h * 4;
+                    if (Store != null && ReadStored(key, w, h, bytes))
                     {
-                        throw new ArgumentException("Picture " + UiRaster.CacheKey(key, w, h) + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
+                        // Made in an earlier run (the harness's second launch, --perf-store).
+                        image = StraightImage(s_read, w, h);
+                        Pictures.Add(key, w, h, image, bytes);
+                        PaintStats.Loaded(start);
                     }
+                    else
+                    {
+                        byte[] rgba = render(w, h);
+                        if (rgba.Length != bytes)
+                        {
+                            throw new ArgumentException("Picture " + UiRaster.CacheKey(key, w, h) + " rendered " + rgba.Length + " bytes, expected " + bytes + ".");
+                        }
 
-                    // Straight alpha, as UiRaster renders it.
-                    var info = new SKImageInfo(w, h, SKColorType.Rgba8888, SKAlphaType.Unpremul);
-                    using var bitmap = new SKBitmap(info);
-                    System.Runtime.InteropServices.Marshal.Copy(rgba, 0, bitmap.GetPixels(), rgba.Length);
-                    image = SKImage.FromBitmap(bitmap);
-                    Pictures.Add(key, w, h, image, rgba.Length);
+                        image = StraightImage(rgba, w, h);
+                        Pictures.Add(key, w, h, image, bytes);
+                        PaintStats.Rastered(key, w, h, start);
+                        Store?.Write(key, w, h, rgba, bytes);
+                    }
                 }
             }
 
             Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
+        }
+
+        /// <summary>
+        /// Where the made pictures are kept between runs, as the APK keeps them between launches (<see cref="PictureStore"/>;
+        /// the frame-time harness's <c>--perf-store</c>), or null: pictures are only made.
+        /// </summary>
+        public static PictureStore? Store { get; set; }
+
+        private static byte[] s_read = Array.Empty<byte>();
+
+        private static bool ReadStored(string key, int w, int h, int bytes)
+        {
+            if (s_read.Length < bytes)
+            {
+                s_read = new byte[bytes];
+            }
+
+            return Store!.TryRead(key, w, h, 4, s_read);
+        }
+
+        /// <summary>An image of the first w × h × 4 straight-alpha RGBA bytes of <paramref name="rgba"/>, as UiRaster renders them.</summary>
+        private static SKImage StraightImage(byte[] rgba, int w, int h)
+        {
+            var info = new SKImageInfo(w, h, SKColorType.Rgba8888, SKAlphaType.Unpremul);
+            using var bitmap = new SKBitmap(info);
+            System.Runtime.InteropServices.Marshal.Copy(rgba, 0, bitmap.GetPixels(), w * h * 4);
+            return SKImage.FromBitmap(bitmap);
         }
 
         public override bool HasSprite(string name)
@@ -395,6 +458,21 @@ namespace Bloomlings.Playtest.Preview
             }
 
             return LoadSprite(name) != null;
+        }
+
+        /// <summary>The picture cache's budget in bytes (the APK's, <see cref="PainterBase.PictureCacheBytes"/>).</summary>
+        public static long PictureCacheBudget => Pictures.BudgetBytes;
+
+        /// <summary>The picture cache's counters (the frame-time harness's report).</summary>
+        public static (long Hits, long Misses, long Evictions, long EvictedBytes, long Bytes, int Count) PictureCacheStats
+        {
+            get
+            {
+                lock (Pictures)
+                {
+                    return (Pictures.Hits, Pictures.Misses, Pictures.Evictions, Pictures.EvictedBytes, Pictures.Bytes, Pictures.Count);
+                }
+            }
         }
 
         /// <summary>How many hero frames were decoded so far, and the bytes of those held now (the preview's report).</summary>

@@ -32,6 +32,17 @@ namespace Bloomlings.Playtest.Design
 
         public int Count => _entries.Count;
 
+        /// <summary>How many draws found their picture cached (the harness's report).</summary>
+        public long Hits { get; private set; }
+
+        /// <summary>How many draws did not (the picture then renders and is added).</summary>
+        public long Misses { get; private set; }
+
+        /// <summary>How many pictures were dropped over budget, and their bytes.</summary>
+        public long Evictions { get; private set; }
+
+        public long EvictedBytes { get; private set; }
+
         /// <summary>Starts a frame: drops the least recently used pictures not drawn in the last two frames while over budget.</summary>
         public void NextFrame()
         {
@@ -60,6 +71,8 @@ namespace Bloomlings.Playtest.Design
 
                 _entries.Remove(entry.Key);
                 Bytes -= entry.Value.Bytes;
+                Evictions++;
+                EvictedBytes += entry.Value.Bytes;
                 _dispose(entry.Value.Picture);
             }
 
@@ -73,10 +86,12 @@ namespace Bloomlings.Playtest.Design
             {
                 entry.LastFrame = _frame;
                 picture = entry.Picture;
+                Hits++;
                 return true;
             }
 
             picture = null!;
+            Misses++;
             return false;
         }
 

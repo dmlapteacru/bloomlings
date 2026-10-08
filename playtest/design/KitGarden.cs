@@ -781,7 +781,23 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("tile.grass");
             int k = ((seed % UiRaster.GrassVariants) + UiRaster.GrassVariants) % UiRaster.GrassVariants;
-            p.Picture("tile.grass/" + k, full, (w, h) => UiRaster.Grass(w, h, k));
+            p.Picture(GrassKeys[k], full, GrassPictures[k]);
+        }
+
+        // Each grass cell's key and render function, made once instead of for every cell of every frame.
+        private static readonly string[] GrassKeys = MakeGrass(k => "tile.grass/" + k);
+
+        private static readonly Func<int, int, byte[]>[] GrassPictures = MakeGrass<Func<int, int, byte[]>>(k => (w, h) => UiRaster.Grass(w, h, k));
+
+        private static T[] MakeGrass<T>(Func<int, T> make)
+        {
+            var all = new T[UiRaster.GrassVariants];
+            for (int k = 0; k < all.Length; k++)
+            {
+                all[k] = make(k);
+            }
+
+            return all;
         }
 
         /// <summary>
