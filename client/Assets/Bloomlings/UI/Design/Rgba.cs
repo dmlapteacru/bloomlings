@@ -33,14 +33,39 @@ namespace Bloomlings.Client.UI.Design
 
         public static Rgba Transparent => new Rgba(255, 255, 255, 0);
 
-        /// <summary>The <c>#RRGGBB</c> or <c>#RRGGBBAA</c> form.</summary>
-        public string Hex => A == 255
-            ? string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B)
-            : string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
+        /// <summary>
+        /// The <c>#RRGGBB</c> or <c>#RRGGBBAA</c> form. Painters build picture keys with it on every frame, so each color's
+        /// text is made once (<see cref="Cached"/>).
+        /// </summary>
+        public string Hex
+        {
+            get
+            {
+                int packed = GetHashCode();
+                if (HexTexts.TryGetValue(packed, out string? text))
+                {
+                    return text;
+                }
 
-        /// <summary>Parses <c>#RRGGBB</c> or <c>#RRGGBBAA</c>.</summary>
+                text = A == 255
+                    ? string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B)
+                    : string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
+                Cached(HexTexts, packed, text);
+                return text;
+            }
+        }
+
+        /// <summary>
+        /// Parses <c>#RRGGBB</c> or <c>#RRGGBBAA</c>. The screens ask for a variant's color on every tile of every frame, so
+        /// each text is parsed once (<see cref="Cached"/>); a bad one throws every time.
+        /// </summary>
         public static Rgba FromHex(string hex)
         {
+            if (Parsed.TryGetValue(hex, out Rgba known))
+            {
+                return known;
+            }
+
             string s = hex.StartsWith("#", StringComparison.Ordinal) ? hex.Substring(1) : hex;
             if (s.Length != 6 && s.Length != 8)
             {
@@ -48,7 +73,26 @@ namespace Bloomlings.Client.UI.Design
             }
 
             byte Channel(int i) => byte.Parse(s.Substring(i * 2, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
-            return new Rgba(Channel(0), Channel(1), Channel(2), s.Length == 8 ? Channel(3) : (byte)255);
+            var color = new Rgba(Channel(0), Channel(1), Channel(2), s.Length == 8 ? Channel(3) : (byte)255);
+            Cached(Parsed, hex, color);
+            return color;
+        }
+
+        // The texts parsed and made so far, read from any thread (pictures render on several, UiRaster.ParallelRows).
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Rgba> Parsed =
+            new System.Collections.Concurrent.ConcurrentDictionary<string, Rgba>(StringComparer.Ordinal);
+
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<int, string> HexTexts =
+            new System.Collections.Concurrent.ConcurrentDictionary<int, string>();
+
+        /// <summary>Keeps a parsed or made text, up to a few thousand (the tokens, the variants and the cosmetics' colors).</summary>
+        private static void Cached<TKey, TValue>(System.Collections.Concurrent.ConcurrentDictionary<TKey, TValue> cache, TKey key, TValue value)
+            where TKey : notnull
+        {
+            if (cache.Count < 4096)
+            {
+                cache.TryAdd(key, value);
+            }
         }
 
         /// <summary>The same color with an alpha of 0–1.</summary>

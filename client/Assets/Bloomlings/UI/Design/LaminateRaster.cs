@@ -35,7 +35,7 @@ namespace Bloomlings.Client.UI.Design
             float line = Math.Max(1f, h * 0.02f);
             float nail = Math.Max(1.4f, h * 0.035f);
             float nailInset = Math.Max(r * 0.7f, h * 0.3f);
-            for (int py = 0; py < height; py++)
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
                 for (int px = 0; px < width; px++)
@@ -52,9 +52,15 @@ namespace Bloomlings.Client.UI.Design
                     float top = RoundRect(x, y, 0f, 0f, w, topBottom, r);
                     if (top < 0.5f)
                     {
-                        (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, r));
-                        (float nx, float ny, float nz) = BevelNormal(gx, gy, 1f - Clamp01(-top / bevel));
-                        Shade(ref c, C.WoodGrain, nx, ny, nz, 0.45f, 0.45f, 0.18f);
+                        float tilt = 1f - Clamp01(-top / bevel);
+                        if (tilt > 0f)
+                        {
+                            // Only the bevel is lit: on the flat top the light changes nothing (Shade of a flat normal).
+                            (float gx, float gy) = RoundRectGradient(x, y, 0f, 0f, w, topBottom, r);
+                            (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
+                            Shade(ref c, C.WoodGrain, nx, ny, nz, 0.45f, 0.45f, 0.18f);
+                        }
+
                         c.Mix(C.WoodMid.Lighten(0.12f), 0.45f * Clamp01(1f - (y / (topBottom * 0.35f))));
                         c.Mix(C.WoodEdge.Darken(0.12f), Clamp01(top + 0.5f) * 0.5f);
 
@@ -77,7 +83,7 @@ namespace Bloomlings.Client.UI.Design
                     Finish(ref c, y / h, body, line);
                     Put(pixels, width, px, py, c, cover);
                 }
-            }
+            });
 
             return pixels;
         }
@@ -108,11 +114,58 @@ namespace Bloomlings.Client.UI.Design
             float grain = border * 9f;
             Rgba panelTop = C.CreamTop;
             Rgba panelBottom = C.CreamFace.Mix(C.CreamTop, 0.45f);
-            for (int py = 0; py < height; py++)
+            Rgba panelShade = C.WoodLine.Darken(0.2f);
+
+            // The panel's open middle, where the frame's shadow (Math.Max(1, 0.7 border) deep) no longer reaches: there every
+            // pixel is its row's panel color, fully covered. The hole's box as RoundRect measures it, and how far inside it
+            // that middle starts (two pixels more, so rounding never decides it); a hole too small for its corners (its
+            // radius cut to its half size, a tiny card) has none.
+            float holeCx = (border + (w - border)) / 2f;
+            float holeHx = ((w - border) - border) / 2f;
+            float holeCy = (border + (topBottom - border)) / 2f;
+            float holeHy = ((topBottom - border) - border) / 2f;
+            float holeRadius = Math.Min(innerRadius, Math.Min(holeHx, holeHy));
+            float open = Math.Max(1f, border * 0.7f) + 2f;
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
+
+                // The panel's color and the strength of the frame's shadow on it change only down the card.
+                Rgba panelRow = panelTop.Mix(panelBottom, Clamp01((y - border) / Math.Max(1f, topBottom - (2f * border))));
+                float topness = Clamp01(1f - ((y - border) / Math.Max(1f, border * 2.5f)));
+                float shadowRow = 0.08f + (0.14f * topness);
+
+                // This row's open middle, if it has one (away from the rounded corners, as the hole's straight sides go).
+                int openFrom = width;
+                int openTo = -1;
+                float dy = Math.Abs(y - holeCy);
+                if (holeRadius == innerRadius && dy <= holeHy - open)
+                {
+                    float half = dy <= holeHy - holeRadius ? holeHx - open : holeHx - Math.Max(open, holeRadius);
+                    if (half > 0f)
+                    {
+                        openFrom = Math.Max(0, (int)Math.Ceiling(holeCx - half - 0.5f) + 1);
+                        openTo = Math.Min(width - 1, (int)Math.Floor(holeCx + half - 0.5f) - 1);
+                    }
+                }
+
+                var open4 = new Color(panelRow);
+                byte openR = Byte(open4.R);
+                byte openG = Byte(open4.G);
+                byte openB = Byte(open4.B);
                 for (int px = 0; px < width; px++)
                 {
+                    if (px >= openFrom && px <= openTo)
+                    {
+                        // As the panel below: its row's color, no shadow (its edge is 0 there), fully covered.
+                        int i = ((py * width) + px) * 4;
+                        pixels[i] = openR;
+                        pixels[i + 1] = openG;
+                        pixels[i + 2] = openB;
+                        pixels[i + 3] = 255;
+                        continue;
+                    }
+
                     float x = px + 0.5f;
                     float body = RoundRect(x, y, 0f, 0f, w, h, r);
                     float cover = Coverage(body);
@@ -125,10 +178,9 @@ namespace Bloomlings.Client.UI.Design
                     if (hole < -0.5f)
                     {
                         // The panel, with the frame's soft shadow along its edge, deeper at the top.
-                        var panel = new Color(panelTop.Mix(panelBottom, Clamp01((y - border) / Math.Max(1f, topBottom - (2f * border)))));
-                        float topness = Clamp01(1f - ((y - border) / Math.Max(1f, border * 2.5f)));
+                        var panel = new Color(panelRow);
                         float edge = 1f - Smooth(Clamp01(-hole / Math.Max(1f, border * 0.7f)));
-                        panel.Mix(C.WoodLine.Darken(0.2f), (0.08f + (0.14f * topness)) * edge);
+                        panel.Mix(panelShade, shadowRow * edge);
                         Put(pixels, width, px, py, panel, cover);
                         continue;
                     }
@@ -141,10 +193,15 @@ namespace Bloomlings.Client.UI.Design
                     {
                         // Across the border: rounding over at the outside, flat on its middle, rounding down into the panel.
                         float q = Clamp01(-top / Math.Max(1f, border));
-                        (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, r));
                         float f = q < 0.4f ? (float)Math.Cos(q / 0.4f * Math.PI / 2f) : q > 0.7f ? -(float)Math.Cos((1f - Math.Min(1f, q)) / 0.3f * Math.PI / 2f) : 0f;
-                        (float nx, float ny, float nz) = (gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))));
-                        Shade(ref c, C.WoodGrain, nx, ny, nz, 0.45f, 0.45f, 0.18f);
+                        if (f != 0f)
+                        {
+                            // On the flat middle the light changes nothing (Shade of a flat normal).
+                            (float gx, float gy) = RoundRectGradient(x, y, 0f, 0f, w, topBottom, r);
+                            (float nx, float ny, float nz) = (gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))));
+                            Shade(ref c, C.WoodGrain, nx, ny, nz, 0.45f, 0.45f, 0.18f);
+                        }
+
                         c.Mix(C.WoodEdge.Darken(0.12f), Clamp01(top + 0.5f) * 0.5f);
                     }
                     else
@@ -157,7 +214,7 @@ namespace Bloomlings.Client.UI.Design
                     Finish(ref c, y / h, body, line);
                     Put(pixels, width, px, py, c, cover);
                 }
-            }
+            });
 
             return pixels;
         }

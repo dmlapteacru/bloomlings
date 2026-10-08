@@ -59,7 +59,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             float unit = 1f / band;
-            for (int py = 0; py < height; py++)
+            Rows(width, height, py =>
             {
                 float y = py + 0.5f;
                 float v = (y - top) * unit;
@@ -114,7 +114,7 @@ namespace Bloomlings.Client.UI.Design
 
                     paint.Write(pixels, ((py * width) + px) * 4);
                 }
-            }
+            });
 
             return pixels;
         }
@@ -141,7 +141,7 @@ namespace Bloomlings.Client.UI.Design
             Wood light = Wood.Of(WoodTone.Light, size, size, NavFaceSeed);
             Rgba honey = C.WoodGrain;
             float unit = 1f / s;
-            for (int py = 0; py < size; py++)
+            Rows(size, size, py =>
             {
                 float y = py + 0.5f;
                 for (int px = 0; px < size; px++)
@@ -197,7 +197,7 @@ namespace Bloomlings.Client.UI.Design
 
                     paint.Write(pixels, ((py * size) + px) * 4);
                 }
-            }
+            });
 
             return pixels;
         }
