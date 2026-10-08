@@ -417,7 +417,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The share of a candy tile's side its lip takes (§3.1), so the kit's press can sink the face into it.
         /// </summary>
-        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : 0.07f;
+        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : style == TileStyle.Board && VolumeLook ? CubeSide : 0.07f;
 
         /// <summary>
         /// A candy tile of side <paramref name="size"/> (spec 005 contracts/look.md §3.1): a satin rounded square in
@@ -466,7 +466,8 @@ namespace Bloomlings.Client.UI.Design
             // board's symbol shape covers about 70% of its box, so the bead spans about 42% of the tile.
             float box = s * (board ? 0.60f : 0.66f);
             float sx = s / 2f;
-            float sy = (s / 2f) - (s * (board ? 0.02f : 0.01f));
+            bool cube = style == TileStyle.Board && VolumeLook;
+            float sy = cube ? faceH / 2f : (s / 2f) - (s * (board ? 0.02f : 0.01f));
             float unit = box / 2f / ShapeRaster.Margin;
             float iconLine = Math.Max(0.8f, box * (board ? 0.045f : StickerLine));
 
@@ -487,6 +488,26 @@ namespace Bloomlings.Client.UI.Design
                     float x = px + 0.5f;
                     float d = RoundRect(x, y, 0f, 0f, s, s, r);
                     float cover = Coverage(d);
+                    Color c;
+                    if (cube)
+                    {
+                        // The board's soft cube (the owner, 2026-10-08): its own body, light and front face.
+                        (c, cover) = Cube(x, y, s, col);
+                        if (cover <= 0f)
+                        {
+                            continue;
+                        }
+
+                        CubeSymbol(ref c, x, y, sx, sy, unit, symbol, mystery, drawn, gem, small, beadFlat, faceH, s);
+                        if (state == TileState.Dimmed)
+                        {
+                            c.Mix(dim, 0.45f);
+                        }
+
+                        Put(pixels, size, px, py, c, cover);
+                        continue;
+                    }
+
                     if (cover <= 0f)
                     {
                         continue;
@@ -494,7 +515,7 @@ namespace Bloomlings.Client.UI.Design
 
                     // The face over its lip: the tile shape moved up by the lip.
                     float t = Clamp01(y / faceH);
-                    var c = new Color(t < 0.6f ? top.Mix(col, t / 0.6f) : col.Mix(bottom, (t - 0.6f) / 0.4f));
+                    c = new Color(t < 0.6f ? top.Mix(col, t / 0.6f) : col.Mix(bottom, (t - 0.6f) / 0.4f));
                     if (lip > 0f)
                     {
                         c.Mix(lipColor, Outside(RoundRect(x, y + lip, 0f, 0f, s, s, r), 1f));
@@ -555,6 +576,24 @@ namespace Bloomlings.Client.UI.Design
             }
 
             return pixels;
+        }
+
+        /// <summary>The symbol on a soft cube's top: the mystery's white "?", or the gem.</summary>
+        private static void CubeSymbol(ref Color c, float x, float y, float sx, float sy, float unit, Func<float, float, float>? symbol, bool mystery, bool drawn, Gem gem, bool small, Rgba beadFlat, float faceH, float s)
+        {
+            if (mystery && symbol != null)
+            {
+                float u = (x - sx) / unit;
+                float v = -(y - sy) / unit;
+                if (Math.Abs(u) < 1.3f && Math.Abs(v) < 1.3f)
+                {
+                    c.Mix(Rgba.White, Coverage(symbol(u, v) * unit));
+                }
+            }
+            else if (drawn)
+            {
+                gem.Draw(ref c, x, y, s / 2f, faceH / 2f, small, beadFlat);
+            }
         }
 
         /// <summary>

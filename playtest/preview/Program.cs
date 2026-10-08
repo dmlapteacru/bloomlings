@@ -43,6 +43,11 @@ for (int i = 0; i < args.Length; i++)
     {
         sounds = true;
     }
+    else if (args[i] == "--volume")
+    {
+        // The owner's volume proposal of 2026-10-08 (soft cube tiles, raised buttons), off in the builds until approved.
+        UiRaster.VolumeLook = true;
+    }
 }
 
 if (sounds)

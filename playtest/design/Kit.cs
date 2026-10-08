@@ -504,8 +504,25 @@ namespace Bloomlings.Playtest.Design
         public static Box RimmedIconFace(IPainter p, Box box, ColorSet set, float depth)
         {
             float radius = GardenLook.IconRadius(box);
-            Box inside = IconRim(p, box, radius);
-            return IconFace(p, inside, set, Math.Max(0f, radius - (inside.Left - box.Left)), depth);
+            if (!UiRaster.VolumeLook)
+            {
+                Box inside = IconRim(p, box, radius);
+                return IconFace(p, inside, set, Math.Max(0f, radius - (inside.Left - box.Left)), depth);
+            }
+
+            // The owner's volume proposal (2026-10-08, off until approved): a wooden plate whose border rounds over, and the
+            // face raised on it, casting its shadow on the plate (UiRaster.RaisedPlate, RaisedFace); a press sinks the face.
+            p.Mark("ui.button.rim");
+            SoftShadow(p, box, radius, 0.24f, 0.07f);
+            p.Picture("ui.button.plate/" + radius.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) + "/" + (box.Width / Math.Max(1f, box.Height)).ToString("0.000", System.Globalization.CultureInfo.InvariantCulture), box, (w, h) => UiRaster.RaisedPlate(w, h, radius * w / Math.Max(1f, box.Width)));
+            Box face = UiRaster.RaisedFaceBox(box);
+            float side = Math.Min(box.Width, box.Height);
+            float sink = side * 0.03f * Math.Max(-0.25f, Math.Min(1f, depth));
+            face = face.Offset(0f, sink);
+            float faceRadius = Math.Max(0f, radius - (face.Left - box.Left));
+            float faceSide = side * UiRaster.FaceSide;
+            p.Picture("ui.button.face/" + set.Name + "/" + (face.Width / Math.Max(1f, face.Height)).ToString("0.000", System.Globalization.CultureInfo.InvariantCulture), face, (w, h) => UiRaster.RaisedFace(w, h, faceRadius * w / Math.Max(1f, face.Width), faceSide * h / Math.Max(1f, face.Height), set));
+            return UiRaster.RaisedFaceContent(face, side);
         }
 
         /// <summary>
