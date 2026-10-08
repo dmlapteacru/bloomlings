@@ -125,9 +125,6 @@ namespace Bloomlings.Client.Tests
             Box lotus = CardLook.Lotus(sign);
             Assert.That(lotus.Top, Is.LessThan(sign.Top - sign.Height), "its petals rise above the sign");
             Assert.That(lotus.CenterX, Is.EqualTo(sign.CenterX).Within(1e-3));
-            (Box topLeft, Box bottomRight) = CardLook.Decoration(card, 1f);
-            Assert.That(topLeft.Contains(card.Left, card.Top), Is.True, "over the top-left corner");
-            Assert.That(bottomRight.Contains(card.Right, card.Bottom), Is.True, "over the bottom-right corner");
         }
 
         [Test]

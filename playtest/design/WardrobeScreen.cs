@@ -177,8 +177,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The locked Wardrobe (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
-        /// Wardrobe's garden, the page's lighter panel (as under its family tabs) from under the header to the bottom of
-        /// the screen holding the locked notice (<see cref="Kit.LockedNotice"/>: the Wardrobe's icon with its padlock,
+        /// Wardrobe's garden, every page's wooden frame with its flowers (spec 005 FR-049, the owner, 2026-10-08; it was the
+        /// page's lighter panel) from under the header to the bottom of the screen holding the locked notice (<see cref="Kit.LockedNotice"/>: the Wardrobe's icon with its padlock,
         /// "Available from level N" from the roadmap), the bottom menu with the Wardrobe raised, and the header as usual
         /// (the Petals pill's "+" opens the Store page once it is open).
         /// </summary>
@@ -186,9 +186,11 @@ namespace Bloomlings.Playtest.Design
         {
             LockedPageRegions r = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);
             DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
-            Kit.Panel(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + p.U(Kit.PanelRadius)));
+            float radius = r.PanelRadius(p.Scale);
+            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.LockedNotice(p, r.Notice, NavPlace.Wardrobe, app.UnlockLevel(NavPlace.Wardrobe));
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Wardrobe), look, app.Navigate);
+            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.PageHeader(p, r.Header, PlaytestText.T("wardrobe.title"), app.CloseWardrobe, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
             string? toast = app.HomeToastText;

@@ -911,3 +911,23 @@ and contracts/look.md §3.6, §6.10.
 - [X] T211 Docs: spec Session 2026-10-08 (the switches) and FR-048, contracts/look.md §3.5 and §6.21, the inventory,
   CLAUDE.md.
 - [ ] T212 Devices: the switches, the portraits and the badges on a phone in both APKs; the owner's verdict.
+
+- [X] T213 Kit (FR-049): `UiRaster.Pedestal` in the fountain's soft volume (slab, ring and side blocks, pillow bevels,
+  no moss); `ScreenLayout.ProfileEdit` with three or four columns (`ProfileEditRegions.Columns`, `Rows`, `CellCount`,
+  `ContentUnits`, `NameCell`, `NoteLock`); `CardLook` without the corner sprigs; `AvatarLook.Wooden` and `FlowerShare`
+  removed.
+- [X] T214 Playtest: green buy pills (`Kit.CostPill(..., button: true)`: Store, outfit cards, avatars), the win's laminate
+  plaque, the locked Wardrobe in the card frame with the page flowers, `Kit.FamilyTabParts`, the profile without content
+  flowers, no sprigs on `Kit.Card` and the popups' main buttons, the edit card's adaptive grid.
+- [X] T215 Unity: the same in `UiKit.CostPill`, `OutfitCardView`, `ProfileEditCard`, `StoreScreen`, `WardrobeScreen`
+  (locked frame and flowers, tabs ending at the panel), `ProfileScreen`, `UiKit.Card`, `JamScreen` and the popups'
+  `PrimaryButton`s.
+- [X] T216 Backgrounds: `tools/heroanim/backdrops.mjs` (blur σ 3 / 1080 of the width, × 0.86; Home's fountain layers
+  × 0.86 only) from the owner's pictures kept in `tools/heroanim/backgrounds/`; `layers.mjs` writes there;
+  `backdrops.json` and `check.mjs`.
+- [X] T217 Tests (`OwnerRestyleTests`, `ProfileLayoutTests`): the pedestal's lit top and no moss, the seed turning only the
+  joints, three bigger columns on a tall phone, every avatar a cell, the host's card the regions' card.
+- [X] T218 Docs: spec Session 2026-10-08 (the owner's batch) and FR-049, contracts/look.md §6.22, pictures.md, SOURCE.md,
+  the records, the inventory, CLAUDE.md.
+- [ ] T219 Devices: the buy buttons, the profile, the popups, the avatar picker and the calmer backgrounds on a phone in
+  both APKs; the owner's verdict.

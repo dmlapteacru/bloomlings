@@ -800,6 +800,45 @@ by side in the game's screens.
   (`home-fountain-back.png`); Bloom stands a little lower (its feet at 0.505) so they stay behind the lotus; the shadow
   stays. `layers.json` records the pictures' hashes and the fitting.
 
+### Session 2026-10-08 (the owner's batch: green buy buttons, plain profile, no sprigs, calmer backgrounds)
+
+The owner, after playing the restyled build, in one message (FR-049): every buy button green with the rim, as on the
+Store's Animations tab; the win's top plaque the same as every other wooden plaque; the locked page's notice in the
+wooden frame of the other pages; the Wardrobe's pedestal ("is it an asset? If not, make it in the new style"); no flowers
+or decorations in the profile's content; no sprigs on Edit profile ("top left and bottom right") and on every popup;
+bigger avatar cells ("nothing can be seen"); the Wardrobe's family names lying over the box of small boxes below; every
+background picture "a little, just a touch" blurred and darkened ("they take too much focus"). Decided without a further
+question:
+- Q: Which buttons are "buy buttons"? → A: Every price that buys something: the Store's Shop and outfits, the Wardrobe's
+  outfit cards and the avatars in Edit profile, as the Animations tab's Buy (the glossy green face raised on the plate,
+  the lotus and a white price). The purchase confirmation's price stays a cream pill (it states the price; its Buy is
+  already green), as do the jam's choices and the booster tiles' costs (they spend, they do not buy).
+- Q: The win's plaque? → A: The laminate sign of every other plaque (`UiRaster.LaminateSign`), its flowers kept.
+- Q: The locked page? → A: The Wardrobe's locked notice in the pages' wooden card frame with the corner flowers, in both
+  builds, instead of the Wardrobe's lighter panel.
+- Q: The pedestal? → A: It is drawn by the kit (`UiRaster.Pedestal`, no owner picture), so it is redrawn in the soft
+  volume of the owner's fountain: cream stones lit from the upper left, a round slab and a ring of rounded blocks on top,
+  one course of rounded blocks round the side, soft grooves, no cracks and no moss; the same size and top, so the heroes'
+  feet stay put.
+- Q: The profile's flowers? → A: Gone from the content: the avatar's corners, the Level plaque, the "Achievements" sign,
+  the stats and the achievements stand plain. The page's frame keeps its corner flowers, as every page's.
+- Q: Which sprigs? → A: The leaves and flower over a popup card's top-left and bottom-right corners (FR-045) and over a
+  popup's main button (Edit profile's Save or Buy, Pause's Resume, the Daily Reward's Claim, the Daily Challenge's Play,
+  Remove Ads' Buy, the purchase confirmation's Buy): all removed. Home's Play, the win's Next and the milestone's
+  Continue are not popups and keep theirs; the title signs keep their flowers.
+- Q: How much bigger are the avatar cells? → A: Three a row where three come out bigger than four (a 19.5:9 phone: about
+  40% bigger), else four; the cells fill the card's width. The Name tab and the notes keep their sizes.
+- Q: The family names? → A: Kept clear of the outfit panel: the name's whole line stays above the panel's edge and the
+  hero shrinks to keep its feet above the name.
+- Q: How much blur and darkening? → A: A Gaussian of 3 px on a 1080 px wide screen and every color 14% darker, on every
+  owner background (Home's garden, the four gameplay gardens, the Wardrobe's and the win's); Home's fountain layers are
+  darkened by the same 14% but not blurred, so the heroes' feet stay sharp on their stones and the scene keeps one light.
+  Done once offline (`tools/heroanim/backdrops.mjs`), so it costs nothing while playing; the owner's pictures stay as
+  delivered in `tools/heroanim/backgrounds/`. FR-031 (colors as delivered) holds for the pictures' colors; FR-049 adds
+  the finish.
+- Q: The slowdown? → A: Investigated separately (the owner: "after the design change it started to lag badly; it did not
+  before").
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1458,6 +1497,20 @@ inventory.
   the plate and its offline names and scores pressed-in grooves (`UiRaster.Groove`); the check badges MUST be a glossy
   green ball and the padlock badges the switches' knob (`UiRaster.Ball`, `ToggleKnob`). Both builds (contracts/look.md
   §6.21). Presentation only: the switches' states, their taps and the rest stay.
+
+- **FR-049** *(the owner's batch of 2026-10-08: green buy buttons, plain profile, no sprigs on popups, bigger avatar cells,
+  calmer backgrounds)*: Every price that buys MUST be the Animations tab's green button (`Kit.CostPill(..., button: true)` /
+  `UiKit.CostPill(..., button: true)`: `GardenLook.Green` glossy on the plate, a white price): the Store's Shop and
+  outfits, the Wardrobe's outfit cards, the avatars. The win's top plaque MUST be the laminate sign. The locked Wardrobe's
+  notice MUST sit in the pages' wooden card frame with the corner flowers. The pedestal (`UiRaster.Pedestal`) MUST be the
+  soft-volume stone of the owner's fountain, its size and top unchanged. The profile page's content MUST carry no flowers
+  (the frame's corner flowers stay). No popup card and no popup's main button MAY carry the sprig (Home's Play, the win's
+  Next and the milestone's Continue keep it). The Edit profile grid MUST take three columns where its cells come out
+  bigger than with four (`ScreenLayout.ProfileEdit`, `ProfileEditRegions.Columns`), its cells as wide as the card allows.
+  The Wardrobe's family names MUST stay above the outfit panel. Every owner background MUST be shown blurred by a
+  Gaussian of 3 / 1080 of its width and its colors multiplied by 0.86, the Home fountain's layers by 0.86 only, done
+  offline (`tools/heroanim/backdrops.mjs`, `backdrops.json`) from the pictures as delivered (`tools/heroanim/backgrounds/`).
+  Both builds (contracts/look.md §6.22). Presentation only: layouts' order, rules and tap outcomes stay.
 
 ### Key Entities
 

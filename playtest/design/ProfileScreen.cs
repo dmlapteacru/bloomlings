@@ -44,20 +44,14 @@ namespace Bloomlings.Playtest.Design
             Kit.Row(p, r.Card, false);
             ProfileLook decor = meta.Wardrobe.Profile;
             Kit.Avatar(p, r.Avatar, profile.Avatar, decor.Frame, decor.Badge, covered ? null : () => app.OpenProfileEdit(ProfileTab.Avatar), HomeScreen.OutfitsOf(app)?.Invoke(profile.Avatar.Family));
-            if (AvatarLook.Wooden(decor.Frame?.Shape))
-            {
-                // The wooden frames (the base rim and the Wooden Frame, the buttons' wood) with the references' flowers over
-                // two corners (spec 005 FR-047).
-                float flowers = r.Avatar.Width * AvatarLook.FlowerShare;
-                Kit.CornerFlowers(p, CardLook.CornerBox(r.Avatar, Corner.TopLeft, flowers), Corner.TopLeft);
-                Kit.CornerFlowers(p, CardLook.CornerBox(r.Avatar, Corner.BottomRight, flowers), Corner.BottomRight);
-            }
             p.TextLeft(NameOf(profile), r.Name.Left, r.Name.CenterY, T.Title, C.InkTitle, r.Name.Width, grow, TextLook.Plain(C.InkTitle));
             p.Mark("ui.edit");
             Kit.RoundButton(p, r.Edit.CenterX, r.Edit.CenterY, r.Edit.Width, "ui.edit", covered ? null : () => app.OpenProfileEdit(ProfileTab.Name));
             p.TextLeft(PlaytestText.F("profile.id", profile.ShortId), r.Id.Left, r.Id.CenterY, T.Body, C.InkBrownSoft, r.Id.Width, grow);
             p.TextLeft(PlaytestText.F("profile.joined", profile.JoinedMonth), r.Joined.Left, r.Joined.CenterY, T.Body, C.InkBrownSoft, r.Joined.Width, grow);
-            Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(meta.CurrentLevel)), T.LevelPill, SignDecor.Flowers);
+            // No flowers in the page's content (spec 005 FR-049, the owner, 2026-10-08): the plaque, the title sign, the avatar
+            // and the tiles stand plain; only the page's frame keeps its corner flowers, as every page's.
+            Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(meta.CurrentLevel)), T.LevelPill);
 
             // The stats.
             (string Label, long Value)[] stats =
@@ -70,9 +64,6 @@ namespace Bloomlings.Playtest.Design
             {
                 Box cell = r.Stats[i];
                 Kit.FramedTile(p, cell, 0.22f);
-                float flowers = cell.Height * TileFlowerShare;
-                Kit.CornerFlowers(p, CardLook.CornerBox(cell, Corner.TopLeft, flowers), Corner.TopLeft);
-                Kit.CornerFlowers(p, CardLook.CornerBox(cell, Corner.BottomRight, flowers), Corner.BottomRight);
                 Box value = ReferenceProfileRegions.StatValue(cell);
                 p.Text(NumberText.Group(stats[i].Value), value.CenterX, value.CenterY, T.LevelPill, C.InkBrown, value.Width * 0.9f, grow, TextLook.Plain(C.InkBrown));
                 Box label = ReferenceProfileRegions.StatLabel(cell);
@@ -81,7 +72,7 @@ namespace Bloomlings.Playtest.Design
 
             // The Achievements: bronze, silver and gold for what the save counts (Achievements).
             string title = PlaytestText.T("profile.achievements");
-            Kit.WoodSign(p, CardLook.TitleSign(r.AchievementsTitle, p.MeasureText(title, T.Title, grow)), title, T.Title, SignDecor.Flowers);
+            Kit.WoodSign(p, CardLook.TitleSign(r.AchievementsTitle, p.MeasureText(title, T.Title, grow)), title, T.Title);
             IReadOnlyList<AchievementState> achievements = Achievements.Of(stats[0].Value, stats[1].Value, Achievements.Count(meta.Save, Achievements.DailyCounter));
             for (int i = 0; i < r.Achievements.Count && i < achievements.Count; i++)
             {
@@ -99,12 +90,9 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The flowers over a stat's or an achievement's tile corners, as a share of its height (spec 005 FR-047).</summary>
-        public const float TileFlowerShare = 0.42f;
-
         /// <summary>
-        /// An achievement's tile (<c>ui.achievement</c>): a cream tile in a thin wooden rim with flowers over two corners
-        /// (spec 005 FR-047) holding the trophy in its tier's medal color
+        /// An achievement's tile (<c>ui.achievement</c>): a cream tile in a thin wooden rim (spec 005 FR-047; no flowers since
+        /// FR-049) holding the trophy in its tier's medal color
         /// (faded under the padlock badge before the bronze tier) and the count toward the next tier ("37/50"; the count
         /// alone with the check badge once gold), the name under it.
         /// </summary>
@@ -113,9 +101,6 @@ namespace Bloomlings.Playtest.Design
             p.Mark("ui.achievement");
             Box well = ReferenceProfileRegions.AchievementWell(tile);
             Kit.FramedTile(p, well, 0.24f);
-            float flowers = well.Height * TileFlowerShare;
-            Kit.CornerFlowers(p, CardLook.CornerBox(well, Corner.BottomLeft, flowers), Corner.BottomLeft);
-            Kit.CornerFlowers(p, CardLook.CornerBox(well, Corner.TopRight, flowers), Corner.TopRight);
             Box trophy = ReferenceProfileRegions.AchievementTrophy(well);
             Rgba? medal = AchievementLook.TierColor(state.Tier);
             if (medal.HasValue)
@@ -160,7 +145,7 @@ namespace Bloomlings.Playtest.Design
 
             PlaytestMeta meta = app.Meta;
             ProfileEditRegions r = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
-            Kit.Card(p, ProfileEditRegions.ContentUnits, PlaytestText.T("profile.edit_title"), app.CardClose, Kit.Pop(since), T.Title);
+            Kit.Card(p, r.ContentUnits, PlaytestText.T("profile.edit_title"), app.CardClose, Kit.Pop(since), T.Title);
             Action? Act(Action action) => app.DrawingCovered ? null : action;
 
             // The tabs, then the preview: the picked avatar in the picked frame and badge, and the name.
@@ -193,7 +178,7 @@ namespace Bloomlings.Playtest.Design
                         Kit.Avatar(p, picture, avatar, null, null, null);
                         if (!meta.Profile.Owns(avatar))
                         {
-                            Kit.CostPill(p, ProfileEditRegions.CellPrice(cell), Cost.Petals(meta.Profile.Price(avatar)));
+                            Kit.CostPill(p, ProfileEditRegions.CellPrice(cell), Cost.Petals(meta.Profile.Price(avatar)), button: true);
                         }
 
                         if (picked)
@@ -229,7 +214,7 @@ namespace Bloomlings.Playtest.Design
             string label = editor.Action == ProfileAction.Buy
                 ? PlaytestText.F("profile.buy", NumberText.Group(editor.Price))
                 : PlaytestText.T("profile.save");
-            Kit.PrimaryButton(p, r.Button, label, Act(app.ConfirmProfileEdit), decorate: true);
+            Kit.PrimaryButton(p, r.Button, label, Act(app.ConfirmProfileEdit));
             Kit.EndCard(p);
 
             // The page's toast lies under the scrim while the card is open: it shows under the card instead.
@@ -249,7 +234,7 @@ namespace Bloomlings.Playtest.Design
         {
             if (editor.IsLocked(kind))
             {
-                Kit.LockBadge(p, r.Note.CenterX, r.Note.Top - (r.CellSize * 0.4f), r.CellSize * 0.5f);
+                Kit.LockBadge(p, r.NoteLock.CenterX, r.NoteLock.CenterY, r.NoteLock.Width);
                 p.Text(PlaytestText.F("profile.badges_locked", app.UnlockLevel(NavPlace.Wardrobe)), r.Note.CenterX, r.Note.CenterY, T.Body, C.InkBrownSoft, r.Note.Width);
                 return;
             }
@@ -261,7 +246,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            int count = Math.Min(owned.Count, ProfileEditRegions.Columns * ProfileEditRegions.Rows);
+            int count = Math.Min(owned.Count, r.CellCount);
             for (int i = 0; i < count; i++)
             {
                 CosmeticItem item = owned[i];

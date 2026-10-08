@@ -53,7 +53,7 @@ namespace Bloomlings.Playtest.Design
                 app.CloseOverlay();
                 app.RewardBurst(before);
                 app.HomeToast(PlaytestText.F("common.petals_plus", paid));
-            } : (Action?)null, decorate: true, breathe: true);
+            } : (Action?)null, breathe: true);
             Box bonus = ScreenLayout.CardButton(r.Body, claim.Bottom + p.U(24f), false, p.Scale).Inset(p.U(40f), 0f);
             Kit.SecondaryButton(p, bonus, PlaytestText.F("daily_reward.bonus", 20), null, "ui.ad");
             p.Text(PlaytestText.T("win.no_ads"), r.Body.CenterX, bonus.Bottom + p.U(34f), T.Caption, C.InkBrownSoft);
@@ -92,7 +92,7 @@ namespace Bloomlings.Playtest.Design
 
             // The purchase, off in the playtest: the disabled green button and the offline line under it.
             Box buy = ScreenLayout.CardButton(r.Body, y + p.U(36f), true, p.Scale);
-            Kit.PrimaryButton(p, buy, PlaytestText.T("store.unavailable"), null, decorate: true);
+            Kit.PrimaryButton(p, buy, PlaytestText.T("store.unavailable"), null);
             p.Text(PlaytestText.T("store.offline"), r.Body.CenterX, buy.Bottom + p.U(captionUnits / 2f), T.Caption, C.InkBrownSoft, r.Body.Width);
             Box restore = ScreenLayout.CardButton(r.Body, buy.Bottom + p.U(captionUnits + 20f), false, p.Scale).Inset(p.U(40f), 0f);
             Kit.SecondaryButton(p, restore, PlaytestText.T("remove_ads.restore"), () => app.HomeToast(PlaytestText.T("store.offline")));

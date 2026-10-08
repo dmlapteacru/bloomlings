@@ -7,7 +7,8 @@ namespace Bloomlings.Client.UI.Design
     /// A popup card's pieces (spec 005 FR-045, the owner's mockup of 2026-10-08; contracts/look.md §6.19), shared by the
     /// playtest's <c>Kit.Card</c> and Unity's <c>UiKit.Card</c>: the wooden frame round the cream panel
     /// (<see cref="UiRaster.CardFrame"/>), the title on a wooden sign over the frame's top edge, a pink lotus behind the
-    /// sign, the leaves and flower over two corners, and the close button over the top-right corner. Engine-free.
+    /// sign and the close button over the top-right corner (no sprigs over its corners since FR-049, the owner, 2026-10-08:
+    /// "remove those branches in every popup"). Engine-free.
     /// </summary>
     public static class CardLook
     {
@@ -16,9 +17,6 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The lotus behind the sign, as a share of the sign's height (its side).</summary>
         public const float LotusShare = 2.3f;
-
-        /// <summary>The leaves and flower over the card's corners, their side in reference units.</summary>
-        public const float DecorationUnits = 170f;
 
         /// <summary>
         /// The title sign over the frame's top edge (<paramref name="title"/> is the card's title region): centered, 30 units
@@ -37,16 +35,6 @@ namespace Bloomlings.Client.UI.Design
         {
             float side = sign.Height * LotusShare;
             return Box.FromCenter(sign.CenterX, sign.Top - (sign.Height * 0.05f), side, side);
-        }
-
-        /// <summary>The leaves and flower over the card's top-left and bottom-right corners (the main buttons' sprig, the second turned half way).</summary>
-        public static (Box TopLeft, Box BottomRight) Decoration(Box card, float unit)
-        {
-            float side = DecorationUnits * unit;
-            float over = side * 0.28f;
-            var topLeft = new Box(card.Left - over, card.Top - over, card.Left - over + side, card.Top - over + side);
-            var bottomRight = new Box(card.Right + over - side, card.Bottom + over - side, card.Right + over, card.Bottom + over);
-            return (topLeft, bottomRight);
         }
 
         /// <summary>The card's corner radius for its <paramref name="card"/> box (<c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>
@@ -85,9 +73,10 @@ namespace Bloomlings.Client.UI.Design
         public static float SettingsLabelRight(Box row, float unit) => row.Right - (214f * unit);
 
         /// <summary>
-        /// A section title's wooden sign with flowers at its ends (spec 005 FR-047, the profile's "Achievements" after the
-        /// owner's references of 2026-10-08): centered in <paramref name="title"/>, 1.1 times its height, as wide as the
-        /// text in <paramref name="textWidth"/> plus twice the sign's height (the flowers' room), at most 80% of the title.
+        /// A section title's wooden sign (spec 005 FR-047, the profile's "Achievements" after the owner's references of
+        /// 2026-10-08; plain since FR-049): centered in <paramref name="title"/>, 1.1 times its height, as wide as the text in
+        /// <paramref name="textWidth"/> plus twice the sign's height (a sign's height of wood at each end), at most 80% of the
+        /// title.
         /// </summary>
         public static Box TitleSign(Box title, float textWidth)
         {

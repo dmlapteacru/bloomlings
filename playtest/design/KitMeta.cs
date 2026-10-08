@@ -72,17 +72,31 @@ namespace Bloomlings.Playtest.Design
                 Box cell = cells[i];
                 float top = cell.Top + (on ? 0f : sunk);
                 float h = cell.Bottom - top;
-                float figure = Math.Min(cell.Width * 0.66f, h * 0.6f);
+                float scale = Math.Min(1f, (h * 0.2f) / p.U(T.ButtonSecondary.Size));
+                (float nameY, float figure) = FamilyTabParts(top, h, cell.Width, panel.Top, p.U(T.ButtonSecondary.Size) * scale);
                 Box hero = Box.FromCenter(cell.CenterX, top + (h * 0.08f) + (figure * 0.52f), figure * CharacterArt.HeroWidth / CharacterArt.HeroHeight, figure);
                 Visuals.Hero(p, hero, families[i], outfitOf?.Invoke(families[i]));
                 Rgba ink = on ? C.InkBrown : C.InkBrownSoft;
-                float scale = Math.Min(1f, (h * 0.2f) / p.U(T.ButtonSecondary.Size));
-                p.Text(names[i], cell.CenterX, top + (h * 0.83f), T.ButtonSecondary, ink, cell.Width * 0.9f, scale, TextLook.Plain(ink));
+                p.Text(names[i], cell.CenterX, nameY, T.ButtonSecondary, ink, cell.Width * 0.9f, scale, TextLook.Plain(ink));
                 int index = i;
                 p.Hit(Touch(p, cell), () => onSelect(index));
             }
 
             return panel.Inset(p.U(22f));
+        }
+
+        /// <summary>
+        /// A family tab's name and hero (spec 005 FR-049, the owner, 2026-10-08: the names lay over the panel below): the
+        /// name's middle at 83% of the tab, or higher so the whole name keeps clear of the panel's edge at
+        /// <paramref name="panelTop"/> (a line of <paramref name="text"/> pixels), and the hero's height so its feet keep
+        /// clear of the name (Unity's <c>WardrobeScreen</c> ends an unselected tab at the panel's edge to the same end).
+        /// </summary>
+        public static (float NameY, float Figure) FamilyTabParts(float top, float height, float width, float panelTop, float text)
+        {
+            float nameY = Math.Min(top + (height * 0.83f), panelTop - (text * 0.62f));
+            float room = (nameY - (text * 0.58f)) - (top + (height * 0.08f));
+            float figure = Math.Max(0f, Math.Min(Math.Min(width * 0.66f, height * 0.6f), room / 1.02f));
+            return (nameY, figure);
         }
 
         /// <summary>The corner radius of the Wardrobe's lighter panel (<see cref="Panel"/>), in reference units.</summary>
@@ -190,7 +204,7 @@ namespace Bloomlings.Playtest.Design
             if (cost.HasValue)
             {
                 float pillHeight = bodyHeight * pillShare;
-                CostPill(p, Box.FromCenter(card.CenterX, card.Bottom + (pillHeight * 0.1f), w * 0.78f, pillHeight), cost.Value);
+                CostPill(p, Box.FromCenter(card.CenterX, card.Bottom + (pillHeight * 0.1f), w * 0.78f, pillHeight), cost.Value, button: true);
             }
 
             if (action != null)

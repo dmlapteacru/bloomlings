@@ -1,0 +1,97 @@
+{
+ "finish": {
+  "blur": 0.002778,
+  "dim": 0.86
+ },
+ "sources": "tools/heroanim/backgrounds",
+ "outputs": [
+  {
+   "name": "home.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "68fced60f7a8a85d7cc80080928a8fbc0a9cf49bff7b26b3d628abc44e36ed8c",
+   "sha256": "bd492a3c787923b55915e80c317710d6bd530f3bfbfcf2775ea71fddc4f64499",
+   "bytes": 235495
+  },
+  {
+   "name": "home-fountain-back.png",
+   "blur": false,
+   "dim": true,
+   "sourceSha256": "56e3304e87baac5136b39d1c28d66447ee0d9baada471a1b6c05f96f922b4a4e",
+   "sha256": "f1ef8532706bd24b2aebcbccab5a87fc0b4413030b65f13f411685b6999c7738",
+   "bytes": 419029
+  },
+  {
+   "name": "home-lotus.png",
+   "blur": false,
+   "dim": true,
+   "sourceSha256": "502c6f37b40da5cb750fea36e5c0f245c40e3315702f0722cca041f417bdf6c3",
+   "sha256": "ffd7ee6fda38fe95e877240c8954ce461c5df2e6b60466ac76fa6ea8b969e2a8",
+   "bytes": 83219
+  },
+  {
+   "name": "home-fountain-front.png",
+   "blur": false,
+   "dim": true,
+   "sourceSha256": "52872791e5fd48f8d376c1817697f3848d80f7dc12be522057441979ac91e024",
+   "sha256": "55ea364fbfccf33401895b7094681295f8472c36bc2ea06ce18c272c4bfb38cc",
+   "bytes": 195913
+  },
+  {
+   "name": "home-shadow.png",
+   "blur": false,
+   "dim": false,
+   "sourceSha256": "61b7b2fbb3aef58036f1510619630c89465721ace34f6c6bc5a4fff100b3457f",
+   "sha256": "61b7b2fbb3aef58036f1510619630c89465721ace34f6c6bc5a4fff100b3457f",
+   "bytes": 105044
+  },
+  {
+   "name": "gameplay-daylight.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "217b121117001e52b3000656e2957a3bcf7c33135542b165731744dc2383ad0a",
+   "sha256": "311e3daf1d5cc28e8ff8c84a09b3b83db75e22f188b8d80f3de7c57f6cbc428f",
+   "bytes": 269180
+  },
+  {
+   "name": "gameplay-pond.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "0dfe2d9715806dfcf9774487870ede9350cab9d9754e91bc0414489e8b8ca548",
+   "sha256": "8a637b25d76928d4e44f4e05d78b7813fc4e0d7b6e60bcae9b4630e7fbe04442",
+   "bytes": 269476
+  },
+  {
+   "name": "gameplay-orchard.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "b1b58d292e2348fb4a3da7fe3f02aa2ccba2233b4a16fbc99120d7f96795c413",
+   "sha256": "1a9cc13a454f224df6f39cba6ef8a4442337fa79eb1b190949ec54ff6145ed21",
+   "bytes": 274026
+  },
+  {
+   "name": "gameplay-moonlit.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "cc4c1d4cbdf8ba4ff97433a58d5e36e8d7f0991f49484361a26beb662b6326eb",
+   "sha256": "19262ca14f8f69ccbbe1a03bbd54c52e94d17e50c357eda0c04b9168d64755cd",
+   "bytes": 303480
+  },
+  {
+   "name": "wardrobe.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "aacfc714217b5651cc03218e819cca3de2904df23afa3c4b152621da43708090",
+   "sha256": "06c1fe8de2c144078eed0e43fa1a2f9d34367ab2ff3ef07d11bc44fd701a8fbf",
+   "bytes": 271222
+  },
+  {
+   "name": "win.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "f40bc0d8ac965d9cb0058a4e19a05dcfe67ff00f0471a87c1e2f43943af923c6",
+   "sha256": "5cbc71a3e6857391132f39300263f75b7645e944eb3307f694c8c42aec34e05d",
+   "bytes": 269590
+  }
+ ]
+}

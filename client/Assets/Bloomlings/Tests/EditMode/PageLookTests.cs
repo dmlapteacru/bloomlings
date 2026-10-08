@@ -98,28 +98,14 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheTitleSign_FitsItsTextAndFlowers_CenteredInTheTitle()
+        public void TheTitleSign_FitsItsTextAndEnds_CenteredInTheTitle()
         {
             var title = new Box(100f, 1000f, 980f, 1090f);
             Box sign = CardLook.TitleSign(title, 300f);
             Assert.That(sign.CenterX, Is.EqualTo(title.CenterX).Within(1e-3));
             Assert.That(sign.CenterY, Is.EqualTo(title.CenterY).Within(1e-3));
-            Assert.That(sign.Width, Is.EqualTo(300f + (2f * sign.Height)).Within(1e-3), "the text and the flowers' room");
+            Assert.That(sign.Width, Is.EqualTo(300f + (2f * sign.Height)).Within(1e-3), "the text and its ends");
             Assert.That(CardLook.TitleSign(title, 5000f).Width, Is.EqualTo(title.Width * 0.8f).Within(1e-3), "at most 80% of the title");
-        }
-
-        [Test]
-        public void TheWoodenFrames_AreTheBaseRimAndTheWoodenFrame()
-        {
-            Assert.That(AvatarLook.Wooden(null), Is.True, "no frame: the plate's rim");
-            Assert.That(AvatarLook.Wooden(ProfileFrames.ShapeOf(ProfileFrameStyle.WoodRing)), Is.True);
-            foreach (ProfileFrameStyle style in ProfileFrames.All)
-            {
-                if (style != ProfileFrameStyle.WoodRing)
-                {
-                    Assert.That(AvatarLook.Wooden(ProfileFrames.ShapeOf(style)), Is.False, style.ToString());
-                }
-            }
         }
 
         private static int Alpha(byte[] rgba, int width, int x, int y) => rgba[(((y * width) + x) * 4) + 3];

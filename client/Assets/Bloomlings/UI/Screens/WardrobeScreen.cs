@@ -39,8 +39,8 @@ namespace Bloomlings.Client.UI.Screens
     /// </list>
     /// Cosmetics only change how Bloomlings look; the variant colors and icons stay as they are. Before the Wardrobe
     /// unlocks (L40) the bottom menu's Wardrobe opens it locked (<see cref="ShowLocked"/>, the playtest's
-    /// <c>WardrobeScreen.Locked</c>; the owner's request of 2026-10-04): the same garden and header, and the page's lighter
-    /// panel holding the locked notice (<see cref="LockedNoticeView"/>: "Available from level 40") instead of the hero, the
+    /// <c>WardrobeScreen.Locked</c>; the owner's request of 2026-10-04): the same garden and header, and every page's wooden
+    /// frame (spec 005 FR-049; it was the page's lighter panel) holding the locked notice (<see cref="LockedNoticeView"/>: "Available from level 40") instead of the hero, the
     /// name card, the tabs, the cards and the footer.
     /// </summary>
     public sealed class WardrobeScreen : MonoBehaviour
@@ -71,6 +71,8 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _probe = null!;
         private Image _panel = null!;
         private Image _panelLine = null!;
+        private Image _lockedFrame = null!;
+        private Image[] _lockedFlowers = null!;
         private RectTransform _chips = null!;
         private TabsView _wornKinds = null!;
         private TabsView _profileKinds = null!;
@@ -134,6 +136,10 @@ namespace Bloomlings.Client.UI.Screens
             // The lighter panel, then the tabs over its top edge (the selected one flows into it).
             screen._panel = UiKit.RoundGradient("Panel", root, C.ParchmentTop, C.CreamTop, _ => UiKit.Units(26f));
             screen._panelLine = UiKit.RoundRing("PanelLine", root, UiTheme.Of(C.CreamLine), _ => UiKit.Units(26f), _ => Mathf.Max(UiKit.Units(2f), UiKit.Units(DesignTokens.Garden.OutlineWidth) * 0.8f));
+
+            // The locked page's wooden frame, as every page's (spec 005 FR-049; shown only while locked).
+            screen._lockedFrame = UiKit.CardFrame("LockedFrame", root, raycast: false);
+            screen._lockedFrame.gameObject.SetActive(false);
             IReadOnlyList<Family> families = WardrobeService.Families;
             for (int i = 0; i < families.Count; i++)
             {
@@ -188,6 +194,13 @@ namespace Bloomlings.Client.UI.Screens
                 });
             }
 
+            // The locked page's flowers over its frame's corners and the bottom menu's top edge (FR-049, as the other pages').
+            screen._lockedFlowers = UiKit.PageFlowers(root);
+            foreach (Image flower in screen._lockedFlowers)
+            {
+                flower.gameObject.SetActive(false);
+            }
+
             // The header last, on one line (the Store page's too): the back button, the banner with ivy, the Petals pill.
             screen._header = UiKit.PageHeader(root, Loc.T("wardrobe.title"), screen.Hide, petals != null, onStore);
             screen._petals = screen._header.Petals;
@@ -216,7 +229,7 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// Shows the Wardrobe locked (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
-        /// header as usual, the page's lighter panel from under the header to the bottom of the screen holding the locked
+        /// header as usual, every page's wooden frame with its flowers (spec 005 FR-049) from under the header to the bottom of the screen holding the locked
         /// notice of the Wardrobe, available from <paramref name="level"/> (the roadmap's,
         /// <see cref="BottomNav.UnlockLevel"/>), and the bottom menu with the Wardrobe raised; the hero, the name card, the
         /// tabs, the cards and the footer hide. Its back hides it as usual.
@@ -236,9 +249,18 @@ namespace Bloomlings.Client.UI.Screens
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
             LockedPageRegions r = ScreenLayout.LockedPage(w, h, insets);
             _header.Place(r.Header);
-            var panel = new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + (60f * DesignTokens.ScaleFor(w, h)));
-            UiKit.PlaceScreen(_panel.rectTransform, panel);
-            UiKit.PlaceScreen(_panelLine.rectTransform, panel);
+            // The wooden frame of every page instead of the lighter panel (spec 005 FR-049), its flowers as the other pages'.
+            float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
+            _panel.gameObject.SetActive(false);
+            _panelLine.gameObject.SetActive(false);
+            _lockedFrame.gameObject.SetActive(true);
+            UiKit.PlaceScreen(_lockedFrame.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            foreach (Image flower in _lockedFlowers)
+            {
+                flower.gameObject.SetActive(DesignTokens.Garden.Decorations);
+            }
+
+            UiKit.PlacePageFlowers(_lockedFlowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _notice.gameObject.SetActive(true);
             UiKit.PlaceScreen((RectTransform)_notice.transform, r.Notice);
             _notice.Show(NavPlace.Wardrobe, level);
@@ -250,6 +272,14 @@ namespace Bloomlings.Client.UI.Screens
         {
             _locked = false;
             _notice.gameObject.SetActive(false);
+            _lockedFrame.gameObject.SetActive(false);
+            foreach (Image flower in _lockedFlowers)
+            {
+                flower.gameObject.SetActive(false);
+            }
+
+            _panel.gameObject.SetActive(true);
+            _panelLine.gameObject.SetActive(true);
             SetContent(true);
         }
 
@@ -503,7 +533,9 @@ namespace Bloomlings.Client.UI.Screens
             {
                 Box cell = r.Tab(i, _tabs.Count);
                 float sunk = cell.Height * 0.07f;
-                UiKit.PlaceScreen((RectTransform)_tabs[i].transform, i == selected ? cell : new Box(cell.Left, cell.Top + sunk, cell.Right, cell.Bottom));
+                // An unselected tab ends at the panel's edge, so its name stays clear of the panel (spec 005 FR-049; the
+                // playtest's Kit.FamilyTabParts).
+                UiKit.PlaceScreen((RectTransform)_tabs[i].transform, i == selected ? cell : new Box(cell.Left, cell.Top + sunk, cell.Right, Mathf.Min(cell.Bottom, r.Panel.Top)));
                 _tabs[i].Select(i == selected);
             }
 

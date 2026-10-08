@@ -284,10 +284,11 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A cost pill (§3.4; jam choices, booster tiles, the Store; the playtest's <c>Kit.CostPill</c>): since spec 005
-        /// FR-047 a cream pill raised like the rows (<see cref="RaisedRow"/>), or, as a <paramref name="button"/> (the Store's
-        /// prices), raised on its wooden plate as the buttons, holding the lotus and a brown price, a green ▶ square and
-        /// "Free", or "×N" charges, centered as a group on its top; with <see cref="CostPillView.SetChargeIcon"/> the charges
+        /// A cost pill (§3.4; jam choices, booster tiles, the purchase confirmation; the playtest's <c>Kit.CostPill</c>): since
+        /// spec 005 FR-047 a cream pill raised like the rows (<see cref="RaisedRow"/>) holding the lotus and a brown price, or,
+        /// as a <paramref name="button"/> (every price that buys: the Store's Shop and outfits, the Wardrobe's outfits, the
+        /// avatars; FR-049), the glossy green face raised on its wooden plate holding the lotus and a white price; a green ▶
+        /// square and "Free", or "×N" charges, centered as a group on its top; with <see cref="CostPillView.SetChargeIcon"/> the charges
         /// show in bigger digits after the booster's icon (80% of the pill's height).
         /// </summary>
         public static CostPillView CostPill(string name, Transform parent, Cost cost, bool button = false)
@@ -300,7 +301,8 @@ namespace Bloomlings.Client.UI
                 RaisedPlate(layout, root, b => b, 0.5f);
                 Image face = UiFactory.CreateImage("Face", root, null, Color.white);
                 face.raycastTarget = false;
-                PictureFit.On(face, (w, h) => ProceduralSprites.ButtonFace(GardenLook.Cream, w, h, 0.5f, false));
+                // Every price that buys (spec 005 FR-049): the glossy green face, as the Animations tab's Buy.
+                PictureFit.On(face, (w, h) => ProceduralSprites.ButtonFace(GardenLook.Green, w, h, 0.5f, true));
                 layout.Add(face.rectTransform, UiRaster.RaisedFaceBox);
                 top = b =>
                 {
@@ -334,7 +336,7 @@ namespace Bloomlings.Client.UI
             charge.preserveAspect = true;
             charge.gameObject.SetActive(false);
 
-            TextMeshProUGUI label = KitLabel("Amount", root, string.Empty, T.Count, TextLook.Plain(C.InkBrown));
+            TextMeshProUGUI label = KitLabel("Amount", root, string.Empty, T.Count, button ? TextLook.OnColor(GardenLook.Green) : TextLook.Plain(C.InkBrown));
             view.Init(label, lotus, free.gameObject, charge, layout);
             layout.Watch(label).Then(whole =>
             {
@@ -1903,7 +1905,7 @@ namespace Bloomlings.Client.UI
             layout.Add(_wellLine.rectTransform, b => WellBox(b, _pillRoom));
             if (cost.HasValue)
             {
-                CostPill = UiKit.CostPill("Cost", root, cost.Value);
+                CostPill = UiKit.CostPill("Cost", root, cost.Value, button: true);
                 if (faded)
                 {
                     CostPill.gameObject.AddComponent<CanvasGroup>().alpha = 0.45f;

@@ -212,10 +212,9 @@ namespace Bloomlings.Playtest.Design
             // The card pops in (motion.pop).
             p.Mark("ui.sheet");
             p.PushTransform(0f, 0f, Kit.Pop(since), r.Card.CenterX, r.Card.CenterY);
-            // The popups' wooden frame and the corner sprigs (spec 005 FR-045).
+            // The popups' wooden frame (spec 005 FR-045; no corner sprigs since FR-049, the owner, 2026-10-08).
             Kit.CardFrame(p, r.Card);
             p.Hit(r.Card, () => { });
-            Kit.Decoration(p, CardLook.Decoration(r.Card, p.U(1f)));
 
             // The title as big as the reference's, the subtitle in up to two lines broken after its first sentence.
             float titleScale = r.Title.Height * TitleFill / p.U(T.Title.Size);
@@ -391,9 +390,6 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The letters stay inside this share of the plank's width.</summary>
         private const float SignText = 0.78f;
-
-        /// <summary>The win sign's corner radius as a share of its height (a tall plank, so rounder than a share of 0.28 would be).</summary>
-        private const float SignRadius = 0.2f;
 
         /// <summary>A flower cluster is this share of the sign's height, at most <see cref="ClusterMaxShare"/> of the width.</summary>
         private const float ClusterShare = 1.2f;
@@ -580,8 +576,10 @@ namespace Bloomlings.Playtest.Design
             p.PushTransform(0f, -drop * sign.Bottom, 1f, 0f, 0f);
 
             p.Mark("ui.sign.wood");
-            Kit.SoftShadow(p, sign, h * SignRadius, 0.22f, 0.07f);
-            Kit.WoodPlank(p, sign, SignRadius, 7);
+            // The plank of every wooden sign (spec 005 FR-049, the owner, 2026-10-08: "like any other wooden plaque"; Unity's
+            // UiKit.CelebrationSign is a WoodSign): the buttons' plate laminate, as Kit.WoodSign.
+            Kit.SoftShadow(p, sign, h * 0.28f, 0.22f, 0.07f);
+            p.Picture("ui.sign.wood/laminate", sign, (w, ph) => UiRaster.LaminateSign(w, ph, ph * 0.28f));
             TypeStyle style = T.LevelHome;
             TextLook look = GardenLook.SignLetters(C.InkTitle);
             float size = Math.Min(h * ClusterShare, r.W * ClusterMaxShare);

@@ -165,12 +165,11 @@ namespace Bloomlings.Client.UI.Screens
             float k = Mathf.Min(1f, r.Scale);
             Box cardBox = r.Card;
 
-            // The popups' wooden frame and the corner sprigs (spec 005 FR-045) that pop in (motion.pop); everything on it
-            // pops with it.
+            // The popups' wooden frame (spec 005 FR-045; no corner sprigs since FR-049) that pops in (motion.pop); everything
+            // on it pops with it.
             Image card = UiKit.CardFrame("Card", _host);
             UiKit.PlaceScreen(card.rectTransform, cardBox);
             card.gameObject.AddComponent<PopMotion>();
-            UiKit.CardDecoration(card.transform, BoxLayout.On(card.rectTransform));
             _card = card.gameObject;
 
             // The title in ink.title (its letters about 0.68 of its box tall, as the reference's "No More Space!"), and the

@@ -64,7 +64,7 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheEditCard_HoldsFourRowsOfFour_AboveItsButton()
+        public void TheEditCard_HoldsEveryAvatarInBigCells_AboveItsButton()
         {
             foreach ((float w, float h, Insets insets) in Phones())
             {
@@ -77,11 +77,15 @@ namespace Bloomlings.Client.Tests
                 Assert.That(r.Preview.Bottom, Is.LessThan(r.Grid.Top), at);
                 Assert.That(Inside(body, r.Preview) && Inside(body, r.PreviewName) && Inside(body, r.Button), Is.True, at);
                 Assert.That(r.CellSize, Is.GreaterThanOrEqualTo(touch * 0.95f), at + ": a cell is a touch target");
-                Box last = r.Cell((ProfileEditRegions.Rows * ProfileEditRegions.Columns) - 1);
+                Assert.That(r.Columns, Is.InRange(3, 4), at);
+                Assert.That(r.CellCount, Is.GreaterThanOrEqualTo(Bloomlings.Client.Meta.Profile.AvatarCatalog.All.Count), at + ": every avatar has a cell");
+                Assert.That(r.CellSize, Is.GreaterThanOrEqualTo(ScreenLayout.ProfileEdit(w, h, insets, 4).CellSize - 0.01f), at + ": the bigger of the two grids");
+                Assert.That(r.Card, Is.EqualTo(ScreenLayout.Card(w, h, insets, r.ContentUnits)), at + ": the host's card is the regions' card");
+                Box last = r.Cell(r.CellCount - 1);
                 Assert.That(Inside(r.Grid, r.Cell(0)) && Inside(r.Grid, last), Is.True, at + ": the grid holds its cells");
                 Assert.That(last.Bottom, Is.LessThan(r.Button.Top), at + ": above the button");
                 Assert.That(r.Cell(0).Right, Is.LessThan(r.Cell(1).Left), at);
-                Assert.That(r.Cell(0).Bottom, Is.LessThan(r.Cell(ProfileEditRegions.Columns).Top), at);
+                Assert.That(r.Cell(0).Bottom, Is.LessThan(r.Cell(r.Columns).Top), at);
                 Assert.That(Inside(r.Grid, r.NameField) && Inside(r.Grid, r.NameButton) && Inside(r.Grid, r.NameHint), Is.True, at + ": the Name tab");
                 Assert.That(r.NameButton.Height, Is.GreaterThanOrEqualTo(touch * 0.95f), at);
                 Box item = ProfileEditRegions.CellItemAvatar(r.Cell(0));

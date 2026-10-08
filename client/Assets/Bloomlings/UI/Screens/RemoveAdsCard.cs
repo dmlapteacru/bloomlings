@@ -80,7 +80,7 @@ namespace Bloomlings.Client.UI.Screens
 
             // Buy: the green primary button with its leaves, breathing while it waits.
             Box buy = ScreenLayout.CardButton(body, y, true, u);
-            screen._buy = UiKit.PrimaryButton("Buy", card.Body, Loc.T("remove_ads.buy"), screen.Buy, decorate: true, breathe: true);
+            screen._buy = UiKit.PrimaryButton("Buy", card.Body, Loc.T("remove_ads.buy"), screen.Buy, breathe: true);
             UiKit.PlaceBox((RectTransform)screen._buy.transform, buy, body);
             screen._buyLabel = screen._buy.GetComponentInChildren<TextMeshProUGUI>();
 

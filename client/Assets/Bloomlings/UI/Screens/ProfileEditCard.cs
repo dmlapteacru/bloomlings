@@ -24,8 +24,6 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed class ProfileEditCard : MonoBehaviour
     {
-        private const int CellCount = ProfileEditRegions.Columns * ProfileEditRegions.Rows;
-
         private readonly List<Cell> _cells = new List<Cell>();
         private GameObject _root = null!;
         private TabsView _tabs = null!;
@@ -52,15 +50,15 @@ namespace Bloomlings.Client.UI.Screens
         public static ProfileEditCard Create(Transform parent, ProfileService profile, WardrobeService wardrobe, int wardrobeLevel, Action changed)
         {
             ProfileEditCard screen = null!;
-            CardView card = UiKit.Card("ProfileEdit", parent, Loc.T("profile.edit_title"), ProfileEditRegions.ContentUnits, () => screen.Hide());
+            Box screenBox = UiKit.ScreenBox();
+            ProfileEditRegions r = ScreenLayout.ProfileEdit(screenBox.Width, screenBox.Height, UiKit.ScreenFrame().Insets);
+            CardView card = UiKit.Card("ProfileEdit", parent, Loc.T("profile.edit_title"), r.ContentUnits, () => screen.Hide());
             screen = card.Root.AddComponent<ProfileEditCard>();
             screen._root = card.Root;
             screen._profile = profile;
             screen._wardrobe = wardrobe;
             screen._wardrobeLevel = wardrobeLevel;
             screen._changed = changed;
-            Box screenBox = UiKit.ScreenBox();
-            ProfileEditRegions r = ScreenLayout.ProfileEdit(screenBox.Width, screenBox.Height, UiKit.ScreenFrame().Insets);
             Box body = card.Regions.Body;
             Transform at = card.Body;
 
@@ -85,7 +83,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(screen._status.rectTransform, new Box(name.Left, name.CenterY + (name.Height * 0.15f), name.Right, r.Preview.Bottom), body);
 
             // The grid's cells: a picture, a price pill and a check each.
-            for (int i = 0; i < CellCount; i++)
+            for (int i = 0; i < r.CellCount; i++)
             {
                 screen._cells.Add(Cell.Create(at, r.Cell(i), body, screen.Pick, i));
             }
@@ -101,10 +99,10 @@ namespace Bloomlings.Client.UI.Screens
             screen._note = UiKit.Label("Note", at, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft));
             UiKit.PlaceBox(screen._note.rectTransform, r.Note, body);
             screen._lock = UiKit.LockBadge("Lock", at);
-            UiKit.PlaceBox(screen._lock, Box.FromCenter(r.Note.CenterX, r.Note.Top - (r.CellSize * 0.4f), r.CellSize * 0.5f, r.CellSize * 0.5f), body);
+            UiKit.PlaceBox(screen._lock, r.NoteLock, body);
 
             // The main button: Save, or Buy at the picked avatar's price.
-            Button button = UiKit.PrimaryButton("Confirm", at, Loc.T("profile.save"), screen.Confirm, decorate: true);
+            Button button = UiKit.PrimaryButton("Confirm", at, Loc.T("profile.save"), screen.Confirm);
             UiKit.PlaceBox((RectTransform)button.transform, r.Button, body);
             screen._buttonLabel = button.GetComponentInChildren<TextMeshProUGUI>();
             card.Root.SetActive(false);
@@ -393,7 +391,7 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.PlaceBox(ring.rectTransform, ProfileEditRegions.Picked(picture), cell);
                 ProfileAvatar avatar = ProfileAvatar.Create("Avatar", hit.transform);
                 UiKit.PlaceBox(avatar.Rect, picture, cell);
-                CostPillView price = UiKit.CostPill("Price", hit.transform, Cost.Petals(0));
+                CostPillView price = UiKit.CostPill("Price", hit.transform, Cost.Petals(0), button: true);
                 UiKit.PlaceBox((RectTransform)price.transform, ProfileEditRegions.CellPrice(cell), cell);
                 Box checkBox = ProfileEditRegions.CellCheck(cell);
                 RectTransform check = UiFactory.CreateRect("Check", hit.transform);

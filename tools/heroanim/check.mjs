@@ -1,6 +1,7 @@
-// Proves the committed hero frames and Home layers still come from this tool: every file listed in manifest.json and
-// layers.json exists with its SHA-256, nothing else sits in the frames folder, the generated kit files match, and the
-// models and heroes.json are the ones baked. Needs no npm packages. Usage: node check.mjs
+// Proves the committed hero frames, Home layers and backgrounds still come from this tool: every file listed in
+// manifest.json, layers.json (in backgrounds/, the sources) and backdrops.json (its sources, and what the game shows in the
+// Backgrounds folder) exists with its SHA-256, nothing else sits in the frames or Backgrounds folder, the generated kit
+// files match, and the models and heroes.json are the ones baked. Needs no npm packages. Usage: node check.mjs
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -9,7 +10,8 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
 const framesDir = path.join(repo, 'client', 'Assets', 'Bloomlings', 'Art', 'Heroes', 'Resources', 'HeroMotion');
-const layersDir = path.join(repo, 'client', 'Assets', 'Bloomlings', 'Art', 'Backgrounds', 'Resources', 'Backgrounds');
+const backgroundsDir = path.join(repo, 'client', 'Assets', 'Bloomlings', 'Art', 'Backgrounds', 'Resources', 'Backgrounds');
+const sourcesDir = path.join(here, 'backgrounds');
 const sha = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const problems = [];
 const expect = (ok, message) => { if (!ok) problems.push(message); };
@@ -42,12 +44,27 @@ for (const f of fs.readdirSync(framesDir)) {
 const layers = JSON.parse(fs.readFileSync(path.join(here, 'layers.json'), 'utf8'));
 expect(sha(path.join(repo, layers.data)) === layers.dataSha256, `${layers.data} does not match layers.json`);
 for (const o of layers.outputs) {
-  const file = path.join(layersDir, o.name);
-  expect(fs.existsSync(file) && sha(file) === o.sha256, `Backgrounds/${o.name} is missing or changed`);
+  const file = path.join(sourcesDir, o.name);
+  expect(fs.existsSync(file) && sha(file) === o.sha256, `backgrounds/${o.name} is missing or changed since layers.mjs`);
 }
+
+// The backgrounds' finish (backdrops.mjs, spec 005 FR-049): each shown picture from its source as delivered.
+const backdrops = JSON.parse(fs.readFileSync(path.join(here, 'backdrops.json'), 'utf8'));
+const finished = new Set(backdrops.outputs.map(o => o.name));
+for (const o of backdrops.outputs) {
+  const source = path.join(sourcesDir, o.name);
+  const file = path.join(backgroundsDir, o.name);
+  expect(fs.existsSync(source) && sha(source) === o.sourceSha256, `backgrounds/${o.name} changed since backdrops.mjs: run node backdrops.mjs`);
+  expect(fs.existsSync(file) && sha(file) === o.sha256, `Backgrounds/${o.name} is missing or changed: run node backdrops.mjs`);
+}
+for (const f of fs.readdirSync(backgroundsDir)) {
+  if (f.endsWith('.meta') || f === '.gitkeep') continue;
+  expect(finished.has(f), `Backgrounds/${f} is not in backdrops.json`);
+}
+for (const f of fs.readdirSync(sourcesDir)) expect(finished.has(f), `backgrounds/${f} is not in backdrops.json`);
 
 if (problems.length) {
   for (const p of problems) console.error('FAIL ' + p);
   process.exit(1);
 }
-console.log(`heroanim check: OK (${frames} hero frames of ${manifest.heroes.length} heroes, ${layers.outputs.length} Home layers)`);
+console.log(`heroanim check: OK (${frames} hero frames of ${manifest.heroes.length} heroes, ${layers.outputs.length} Home layers, ${backdrops.outputs.length} backgrounds finished)`);

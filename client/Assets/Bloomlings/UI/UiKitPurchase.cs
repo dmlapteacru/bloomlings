@@ -95,7 +95,7 @@ namespace Bloomlings.Client.UI
             _note = UiKit.Label("Note", at, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
             UiKit.PlaceBox(_note.rectTransform, r.Note, body);
 
-            Button buy = UiKit.PrimaryButton("Buy", at, Loc.T("purchase.buy"), Buy, decorate: true);
+            Button buy = UiKit.PrimaryButton("Buy", at, Loc.T("purchase.buy"), Buy);
             UiKit.PlaceBox((RectTransform)buy.transform, r.Confirm, body);
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
             Button cancel = UiKit.SecondaryButton("Cancel", at, Loc.T("common.cancel"), Cancel);

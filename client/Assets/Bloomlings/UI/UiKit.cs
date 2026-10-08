@@ -575,7 +575,7 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static void Decoration(GardenButton button) => Decoration(button.transform);
 
-        /// <summary>The leaves and white flower over any element's corners, laid out from its own rect (spec 005 FR-047: the Store's price buttons).</summary>
+        /// <summary>The leaves and white flower over any element's corners, laid out from its own rect.</summary>
         public static void Decoration(Transform element)
         {
             if (!DesignTokens.Garden.Decorations)
@@ -1191,8 +1191,8 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A popup card (FR-007; spec 005 FR-045, the owner's mockup of 2026-10-08, the playtest's <c>Kit.Card</c>): a dimmed
-        /// backdrop, the card's wooden frame round its cream panel (<see cref="CardFrame"/>), the leaves and flower over its
-        /// top-left and bottom-right corners, the title on a wooden sign over the frame's top edge (with
+        /// backdrop, the card's wooden frame round its cream panel (<see cref="CardFrame"/>; no sprigs over its corners since
+        /// FR-049), the title on a wooden sign over the frame's top edge (with
         /// <paramref name="sign"/>'s decoration, the ivy by default) with a pink lotus behind it (<see cref="CardLook"/>),
         /// and the close button over the top-right corner when <paramref name="onClose"/> is given (hidden while a card
         /// opened after it is open: one close button per stack, <see cref="CardStackMember"/>).
@@ -1210,7 +1210,6 @@ namespace Bloomlings.Client.UI
             PlaceBox(card.rectTransform, regions.Card, screen);
             card.gameObject.AddComponent<PopMotion>();
             BoxLayout layout = BoxLayout.On(card.rectTransform);
-            CardDecoration(card.transform, layout);
 
             TypeStyle style = titleStyle ?? DesignTokens.Type.Title;
             Box titleLocal = ToLocal(regions.Title, regions.Card);
@@ -1273,21 +1272,6 @@ namespace Bloomlings.Client.UI
             });
             PictureFit.On(frame, (pw, ph) => ProceduralSprites.CardFrame(pw, ph, share));
             return root;
-        }
-
-        /// <summary>The leaves and flower over a popup card's top-left and bottom-right corners (<see cref="CardLook.Decoration"/>; spec 005 FR-045). Never touch targets.</summary>
-        public static void CardDecoration(Transform card, BoxLayout layout)
-        {
-            if (!DesignTokens.Garden.Decorations)
-            {
-                return;
-            }
-
-            (Image topLeft, Image bottomRight) = DecorationImages(card);
-            topLeft.raycastTarget = false;
-            bottomRight.raycastTarget = false;
-            layout.Add(topLeft.rectTransform, b => CardLook.Decoration(b, Units(1f)).TopLeft);
-            layout.Add(bottomRight.rectTransform, b => CardLook.Decoration(b, Units(1f)).BottomRight);
         }
 
         /// <summary>

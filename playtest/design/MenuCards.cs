@@ -31,7 +31,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             // Resume, then the card's narrower cream buttons (spec 003 FR-011, FR-011a).
-            Kit.PrimaryButton(p, Take(true), PlaytestText.T("pause.resume"), app.CloseOverlay, decorate: true);
+            Kit.PrimaryButton(p, Take(true), PlaytestText.T("pause.resume"), app.CloseOverlay);
             Kit.SecondaryButton(p, Take(false), PlaytestText.T("common.restart"), () =>
             {
                 app.CloseOverlay();

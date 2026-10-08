@@ -80,28 +80,41 @@ namespace Bloomlings.Client.UI.Design
     /// The "Edit profile" card (spec 005 FR-037), both builds: a centered card (<see cref="ScreenLayout.Card"/>) with the
     /// title and close, then the preview (<see cref="Preview"/>: the picked avatar in the picked frame and badge, the
     /// name beside it in <see cref="PreviewName"/>), the tabs (<see cref="Tabs"/>: Avatar, Frame, Badge, Name), the tab's
-    /// grid (<see cref="Grid"/>, <see cref="Columns"/> cells a row: <see cref="Cell"/>) and the main button
+    /// grid (<see cref="Grid"/>, <see cref="Columns"/> cells a row, three where they come out bigger, else four:
+    /// <see cref="Cell"/>) and the main button
     /// (<see cref="Button"/>: "Save", or "Buy" with the price). The Name tab shows the name's field
     /// (<see cref="NameField"/>) and its "Change name" button (<see cref="NameButton"/>) in the grid's place, and an
     /// empty or locked tab shows its note in <see cref="Note"/>. Engine-free.
     /// </summary>
-    public sealed record ProfileEditRegions(CardRegions Card, Box Preview, Box PreviewName, Box Tabs, Box Grid, Box Button, float CellSize, float Gap)
+    /// <param name="Columns">Cells in a grid row: 3 or 4 (<see cref="ScreenLayout.ProfileEdit"/>).</param>
+    /// <param name="ContentUnits">The card's content height in reference units (title and close excluded), for
+    /// <see cref="ScreenLayout.Card"/>: the host's card takes it so it matches these regions.</param>
+    /// <param name="Unit">The reference unit's size (<see cref="DesignTokens.ScaleFor"/>).</param>
+    public sealed record ProfileEditRegions(CardRegions Card, Box Preview, Box PreviewName, Box Tabs, Box Grid, Box Button, float CellSize, float Gap, int Columns, float ContentUnits, float Unit)
     {
-        /// <summary>Cells in a grid row.</summary>
-        public const int Columns = 4;
+        /// <summary>The most cells a tab lists: the 14 avatars (<c>AvatarCatalog</c>).</summary>
+        public const int Items = 14;
 
-        /// <summary>The rows the grid holds: the 14 avatars.</summary>
-        public const int Rows = 4;
+        /// <summary>The rows the grid holds for <see cref="Items"/> at <see cref="Columns"/> a row.</summary>
+        public int Rows => (Items + Columns - 1) / Columns;
 
-        /// <summary>The card's content height in reference units (title and close excluded), for <see cref="ScreenLayout.Card"/>.</summary>
-        public const float ContentUnits = TabsUnits + GapUnits + PreviewUnits + GapUnits + (Rows * CellUnits) + ((Rows - 1) * CellGapUnits) + ButtonGapUnits + DesignTokens.Size.CardPrimaryHeight;
+        /// <summary>The cells a host lays out: every row full.</summary>
+        public int CellCount => Rows * Columns;
 
         internal const float TabsUnits = 104f;
         internal const float PreviewUnits = 190f;
         internal const float GapUnits = 22f;
+
+        /// <summary>The cell the Name tab and the notes are measured by (the four-column cell), in reference units.</summary>
         internal const float CellUnits = 196f;
         internal const float CellGapUnits = 14f;
         internal const float ButtonGapUnits = 30f;
+
+        /// <summary>The content height in reference units but the grid's rows (tabs, preview, gaps, the button).</summary>
+        internal const float FixedUnits = TabsUnits + GapUnits + PreviewUnits + GapUnits + ButtonGapUnits + DesignTokens.Size.CardPrimaryHeight;
+
+        /// <summary>The reference cell the Name tab and the notes are measured by, whatever the grid's cells.</summary>
+        public float NameCell => CellUnits * Unit;
 
         /// <summary>The cell of <paramref name="index"/> in the grid, rows from the top, centered across.</summary>
         public Box Cell(int index)
@@ -139,16 +152,19 @@ namespace Bloomlings.Client.UI.Design
         public static Box CellCheck(Box cell) => Box.FromCenter(cell.Right - (cell.Width * 0.16f), cell.Top + (cell.Height * 0.14f), cell.Width * 0.3f, cell.Width * 0.3f);
 
         /// <summary>The Name tab's field: a parchment well across the grid's top.</summary>
-        public Box NameField => new Box(Grid.Left + (Grid.Width * 0.04f), Grid.Top + (CellSize * 0.2f), Grid.Right - (Grid.Width * 0.04f), Grid.Top + (CellSize * 0.75f));
+        public Box NameField => new Box(Grid.Left + (Grid.Width * 0.04f), Grid.Top + (NameCell * 0.2f), Grid.Right - (Grid.Width * 0.04f), Grid.Top + (NameCell * 0.75f));
 
         /// <summary>The Name tab's "Change name" button, under the field.</summary>
-        public Box NameButton => Box.FromCenter(Grid.CenterX, NameField.Bottom + (CellSize * 0.6f), Grid.Width * 0.6f, CellSize * 0.7f);
+        public Box NameButton => Box.FromCenter(Grid.CenterX, NameField.Bottom + (NameCell * 0.6f), Grid.Width * 0.6f, NameCell * 0.7f);
 
         /// <summary>The Name tab's hint (the rules: up to 16 letters and digits), under the button.</summary>
-        public Box NameHint => new Box(Grid.Left, NameButton.Bottom + (CellSize * 0.14f), Grid.Right, NameButton.Bottom + (CellSize * 0.44f));
+        public Box NameHint => new Box(Grid.Left, NameButton.Bottom + (NameCell * 0.14f), Grid.Right, NameButton.Bottom + (NameCell * 0.44f));
 
         /// <summary>An empty or locked tab's note, in the grid's middle.</summary>
-        public Box Note => Box.FromCenter(Grid.CenterX, Grid.Top + (Grid.Height * 0.3f), Grid.Width * 0.92f, CellSize * 0.5f);
+        public Box Note => Box.FromCenter(Grid.CenterX, Grid.Top + (Grid.Height * 0.3f), Grid.Width * 0.92f, NameCell * 0.5f);
+
+        /// <summary>A locked tab's padlock, over its note.</summary>
+        public Box NoteLock => Box.FromCenter(Note.CenterX, Note.Top - (NameCell * 0.4f), NameCell * 0.5f, NameCell * 0.5f);
     }
 
     /// <content>The profile page and its edit card (spec 005 FR-037).</content>
@@ -214,15 +230,30 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The edit card (<see cref="ProfileEditRegions"/>), in reference units under the card's title: the tabs
         /// <c>104</c> tall, the preview <c>190</c> tall <c>22</c> lower (the avatar a circle of its height at the body's
-        /// left, the name beside it), the grid <c>22</c> lower with <see cref="ProfileEditRegions.Rows"/> rows of
-        /// <see cref="ProfileEditRegions.Columns"/> cells (<c>196</c> square, <c>14</c> apart; narrower to fit the
-        /// body's width, shorter to fit a capped card), and the main button (<c>card.primary_height</c>) <c>30</c> under
-        /// the grid at the body's bottom.
+        /// left, the name beside it), the grid <c>22</c> lower with the rows the 14 avatars take of
+        /// <see cref="ProfileEditRegions.Columns"/> square cells <c>14</c> apart across the body's width (shorter to fit
+        /// a capped card), and the main button (<c>card.primary_height</c>) <c>30</c> under the grid at the body's bottom.
+        /// The grid has three columns where its cells come out bigger than with four (a tall phone), else four: the owner,
+        /// 2026-10-08 (spec 005 FR-049): "make the avatar cells bigger, nothing can be seen".
         /// </summary>
         public static ProfileEditRegions ProfileEdit(float width, float height, Insets insets)
         {
-            CardRegions card = Card(width, height, insets, ProfileEditRegions.ContentUnits);
+            ProfileEditRegions four = ProfileEdit(width, height, insets, 4);
+            ProfileEditRegions three = ProfileEdit(width, height, insets, 3);
+            return three.CellSize > four.CellSize * 1.04f ? three : four;
+        }
+
+        /// <summary>The edit card with <paramref name="columns"/> cells a row (<see cref="ProfileEdit(float, float, Insets)"/>).</summary>
+        public static ProfileEditRegions ProfileEdit(float width, float height, Insets insets, int columns)
+        {
             float u = DesignTokens.ScaleFor(width, height);
+            float gapUnits = ProfileEditRegions.CellGapUnits;
+            int rows = (ProfileEditRegions.Items + columns - 1) / columns;
+            // The cells as wide as the body allows (the card's width does not depend on its content).
+            float bodyUnits = Card(width, height, insets, 0f).Body.Width / u;
+            float cellUnits = (bodyUnits - ((columns - 1) * gapUnits)) / columns;
+            float content = ProfileEditRegions.FixedUnits + (rows * cellUnits) + ((rows - 1) * gapUnits);
+            CardRegions card = Card(width, height, insets, content);
             Box body = card.Body;
             var tabs = new Box(body.Left, body.Top, body.Right, body.Top + (ProfileEditRegions.TabsUnits * u));
             float previewTop = tabs.Bottom + (ProfileEditRegions.GapUnits * u);
@@ -232,11 +263,11 @@ namespace Bloomlings.Client.UI.Design
             Box button = CardButton(body, body.Bottom - (DesignTokens.Size.CardPrimaryHeight * u), true, u);
             float gridTop = preview.Bottom + (ProfileEditRegions.GapUnits * u);
             var grid = new Box(body.Left, gridTop, body.Right, Math.Max(gridTop + 1f, button.Top - (ProfileEditRegions.ButtonGapUnits * u)));
-            float gap = ProfileEditRegions.CellGapUnits * u;
-            float byWidth = (grid.Width - ((ProfileEditRegions.Columns - 1) * gap)) / ProfileEditRegions.Columns;
-            float byHeight = (grid.Height - ((ProfileEditRegions.Rows - 1) * gap)) / ProfileEditRegions.Rows;
-            float cell = Math.Min(ProfileEditRegions.CellUnits * u, Math.Min(byWidth, byHeight));
-            return new ProfileEditRegions(card, preview, previewName, tabs, grid, button, cell, gap);
+            float gap = gapUnits * u;
+            float byWidth = (grid.Width - ((columns - 1) * gap)) / columns;
+            float byHeight = (grid.Height - ((rows - 1) * gap)) / rows;
+            float cell = Math.Max(0f, Math.Min(byWidth, byHeight));
+            return new ProfileEditRegions(card, preview, previewName, tabs, grid, button, cell, gap, columns, content, u);
         }
     }
 }

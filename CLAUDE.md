@@ -93,8 +93,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `BandGuidelines.Stacks`, `HardMaxStacks`); a Normal level keeps its band's 2–6.
 - `tools/heroanim` (Node 22, not in the solution; `tools/heroanim/README.md`) pre-renders the owner's animated FBX
   heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
-  minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`
-  (no npm packages) must pass before committing hero frames or Home layers.
+  minutes; `--only <family>`), `node layers.mjs <folder>` (the owner's Home layers, into `tools/heroanim/backgrounds/`)
+  and `node backdrops.mjs` (spec 005 FR-049: the shown backgrounds, the owner's as delivered in `backgrounds/` blurred by
+  3 / 1080 of their width and 14% darker, Home's fountain layers darker only; a new background goes into `backgrounds/`
+  first). `node tools/heroanim/check.mjs` (no npm packages) must pass before committing hero frames, Home layers or
+  backgrounds.
 - `dotnet run --project tools/appicon` (not in the solution; `tools/appicon/README.md`) cuts the owner's app icon picture
   (`tools/appicon/source/app-icon.png`) into the Unity client's icon textures (`Art/Brand/AppIcon/`, set by
   `CiBuild.ApplyIcons`) and both playtest APKs' launcher mipmaps (`playtest/icon/`, adaptive, round and legacy).
@@ -252,8 +255,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - The popups after the owner's mockup (spec 005 FR-045, 2026-10-08: "rectangular with rounded corners", rows "like the
   buttons but without the rim", the sign "in the color we made", "every button the new ones, even Play"; recipe in
   `contracts/look.md` §6.19): a popup card (`Kit.Card` / `UiKit.Card`, the jam card, Unity's modal) is the wooden frame of
-  the plate's laminate round a cream panel (`UiRaster.CardFrame`, `Kit.CardFrame` / `UiKit.CardFrame`), the main buttons'
-  sprig over its top-left and bottom-right corners, its title on a wooden sign over the frame's top edge with the owner's
+  the plate's laminate round a cream panel (`UiRaster.CardFrame`, `Kit.CardFrame` / `UiKit.CardFrame`; no sprig over
+  its corners or its main button since FR-049), its title on a wooden sign over the frame's top edge with the owner's
   lotus rising behind it and the close over the top-right corner (the kit's `CardLook`); every wooden sign is the
   laminate plank (`UiRaster.LaminateSign`, `Kit.WoodSign` / `UiKit.WoodSign`); every list row (Settings, Store,
   Leaderboard, the player's own row kept green) and the dev row's pills are a raised cream slab (`Kit.RaisedRow` /
@@ -272,8 +275,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   guides' icons and the Daily Challenge's sun stand on the plate (`Kit.RaisedButton` / `UiKit.RaisedButton`, `square:` in
   Unity); the profile's stats and achievements, the outfit cards and the Collection's frames are tiles in a thin wooden rim
   (`Kit.FramedTile` / `UiKit.FramedTile`, `GardenLook.TileRimShare`, `CardLook.TileTop`) with `Kit.CornerFlowers` /
-  `UiKit.CornerFlowers`; the Wooden Frame is the plate's laminate, and the profile page puts flowers on the wooden frames
-  (`AvatarLook.Wooden`). The family tabs keep their folder look and the Wardrobe its lighter panel and tabbed name card, as
+  `UiKit.CornerFlowers` (none in the profile's content since FR-049); the Wooden Frame is the plate's laminate. The family tabs keep their folder look and the Wardrobe its lighter panel and tabbed name card, as
   their references; wells and the guides' bubbles stay. The preview takes `--shape 19.5x9` for a quick look.
 - The switches are the Settings mockup's (spec 005 FR-048, 2026-10-08, "the toggles volumetric too ... and so on"; recipe
   in `contracts/look.md` §6.21): the kit's `ToggleRaster.cs` (part of `UiRaster`) draws the track pressed into the row
@@ -282,6 +284,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `CardLook.SettingsToggleBox`; the Leaderboard's portraits stand on the plate and its offline names and scores are
   pressed-in grooves (`UiRaster.Groove`); the check badges are a glossy green ball (`UiRaster.Ball`) and the padlock badges
   the switches' knob.
+- The owner's batch of 2026-10-08 (spec 005 FR-049; recipe in `contracts/look.md` §6.22): every price that buys (the
+  Store's Shop and outfits, the Wardrobe's outfit cards, the avatars) is the Animations tab's green button
+  (`Kit.CostPill(..., button: true)` / `UiKit.CostPill(..., button: true)`); the win's plaque is the laminate sign; the
+  locked Wardrobe sits in the pages' card frame with the corner flowers; the pedestal (`UiRaster.Pedestal`) is the soft
+  stone of the owner's fountain (slab, ring and side blocks, no moss); the profile's content has no flowers; no popup and
+  no popup's main button has the sprig (Home's Play, the win's Next and the milestone's Continue keep it); Edit profile's
+  grid takes three columns where they come out bigger (`ScreenLayout.ProfileEdit`, `ProfileEditRegions.Columns`,
+  `ContentUnits` for the host's card); the family names stay above the outfit panel (`Kit.FamilyTabParts`); and every
+  owner background is shown a little blurred and darker (`tools/heroanim/backdrops.mjs`, above).
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

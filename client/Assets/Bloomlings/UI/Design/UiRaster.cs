@@ -273,14 +273,15 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// A stone pedestal (the win, Home and Wardrobe heroes stand on it; spec 005 contracts/look.md §3.6): a warm
-        /// grey-beige stone drum seen a little from above, as wide as the picture. Its top is an ellipse 28% as tall as
-        /// wide, paved in <c>stone.top</c> mixed 0.4 toward <c>stone.face</c>, with a ring joint at 0.72 of its radius,
-        /// radial joints outside it and one hairline crack; its side is two courses of blocks shaded from
-        /// <c>stone.face</c> darkened 0.06 to <c>stone.lip</c> darkened 0.12, darker toward both sides like a cylinder,
-        /// with staggered <c>stone.line</c> joints (alpha 0.55, 1.5% of the height wide), a crack, and <c>stone.moss</c>
-        /// tufts on about a third of the base rim; a <c>stone.line</c> outline 2.5% of the height goes around it and along
-        /// the top's front edge. (The kit draws the soft ground shadow under it.)
+        /// A stone pedestal (the win, Home and Wardrobe heroes stand on it; spec 005 contracts/look.md §3.6), since spec 005
+        /// FR-049 in the soft volume of the owner's fountain (2026-10-08: "in the new style we are making"): a drum of light
+        /// cream stones seen a little from above, as wide as the picture. Its top is an ellipse 28% as tall as wide (the same
+        /// as before, so the heroes' feet stay put: <c>HomeLook.PedestalTop</c>): a round slab in its middle (to 0.58 of the
+        /// radius) and a ring of twelve rounded blocks round it, <c>stone.top</c> lightened, each rounded off at its edges (lit
+        /// along its upper left ones, deeper along its lower right ones) in soft grooves; the top's front edge rounds over
+        /// into the side, one course of rounded blocks shaded from <c>stone.face</c> to <c>stone.lip</c>, darker toward both
+        /// sides like a cylinder and toward its foot, and a soft <c>stone.line</c> outline 2% of the height goes round it. No
+        /// cracks and no moss. <paramref name="seed"/> turns the blocks' joints. (The kit draws the soft ground shadow under it.)
         /// </summary>
         public static byte[] Pedestal(int width, int height, int seed)
         {
@@ -292,12 +293,20 @@ namespace Bloomlings.Client.UI.Design
             float ty = ry + 1f;
             float by = Math.Max(ty + 1f, height - ry - 1f);
             float side = by - ty;
-            float line = Math.Max(1f, height * 0.025f);
-            float joint = Math.Max(0.8f, height * 0.0075f);
-            float grain = Math.Max(4f, width * 0.08f);
-            Rgba paving = C.StoneTop.Mix(C.StoneFace, 0.4f);
-            Rgba sideTop = C.StoneFace.Darken(0.06f);
-            Rgba sideBottom = C.StoneLip.Darken(0.12f);
+            float line = Math.Max(1f, height * 0.018f);
+            const float Slab = 0.58f;
+            const int Ring = 12;
+            const int Blocks = 10;
+            float ringStep = (float)(Math.PI * 2.0 / Ring);
+            float sideStep = (float)(Math.PI / Blocks);
+            float turn = ((seed % 7) / 7f) * ringStep;
+            float gap = Math.Max(0.8f, height * 0.016f);
+            float topBevel = Math.Max(2f, ry * (1f - Slab) * 0.6f);
+            float sideBevel = Math.Max(1.5f, side * 0.34f);
+            Rgba top = C.StoneTop.Lighten(0.22f);
+            Rgba lit = C.StoneTop.Lighten(0.7f);
+            Rgba deep = C.StoneLip.Darken(0.08f);
+            Rgba joint = C.StoneLip.Darken(0.22f);
             for (int py = 0; py < height; py++)
             {
                 float y = py + 0.5f;
@@ -317,61 +326,67 @@ namespace Bloomlings.Client.UI.Design
 
                     float k = Clamp(dx / rx, -1f, 1f);
                     float front = ry * (float)Math.Sqrt(Math.Max(0f, 1f - (k * k)));
-                    float mottle = (Fbm(x / grain, y / grain, seed, 3) - 0.5f) * 0.14f;
                     Color c;
                     if (dTop < 0.5f)
                     {
-                        // The paved top: lighter toward the front, a ring joint, radial joints between it and the rim, and
-                        // one hairline crack running from the ring toward the back left.
-                        float e = Length(dx / rx, (y - ty) / ry);
-                        c = new Color(paving.Mix(C.StoneTop, 0.3f * Smooth(Clamp01((y - ty + ry) / (2f * ry)))));
-                        c.Scale(1f + mottle);
-                        float ring = Math.Abs(e - 0.72f) * ry;
-                        c.Mix(C.StoneLine, 0.55f * Clamp01(1f - (ring / joint)));
-                        float a = (float)Math.Atan2((y - ty) / ry, dx / rx);
-                        if (e > 0.72f)
+                        // The top: the round middle slab and a ring of pillow blocks. Each piece's distances to its edges are in
+                        // screen pixels along the ellipse's radial and tangential directions, so it rounds off evenly.
+                        float ex = dx / rx;
+                        float ey = (y - ty) / ry;
+                        float e = Math.Max(1e-4f, Length(ex, ey));
+                        float phi = (float)Math.Atan2(ey, ex);
+                        float cos = ex / e;
+                        float sin = ey / e;
+                        float radialScale = Length(rx * cos, ry * sin);
+                        (float nrx, float nry) = (rx * cos / radialScale, ry * sin / radialScale);
+                        float tangentScale = e * Length(rx * sin, ry * cos);
+                        (float ntx, float nty) = (-rx * sin * e / Math.Max(1e-4f, tangentScale), ry * cos * e / Math.Max(1e-4f, tangentScale));
+                        c = new Color(top);
+                        float bright;
+                        float inside;
+                        if (e < Slab)
                         {
-                            float step = (float)(Math.PI / 4.0);
-                            float nearest = (step * (float)Math.Round((a - 0.2f) / step)) + 0.2f;
-                            float off = Math.Abs(a - nearest) * e * ry;
-                            c.Mix(C.StoneLine, 0.5f * Clamp01(1f - (off / joint)));
+                            float toEdge = (Slab - e) * radialScale - (gap / 2f);
+                            inside = toEdge;
+                            bright = Pillow(toEdge, topBevel) * Dot(nrx, nry);
                         }
                         else
                         {
-                            float crackAngle = -2.3f + (0.18f * (float)Math.Sin(e * 23f));
-                            float crack = Math.Abs(a - crackAngle) * e * ry;
-                            c.Mix(C.StoneLine, 0.45f * Clamp01(1f - (crack / (joint * 0.7f))) * Clamp01((e - 0.25f) * 4f));
+                            float u = (phi - turn) / ringStep;
+                            float f = u - (float)Math.Floor(u);
+                            float toInner = ((e - Slab) * radialScale) - (gap / 2f);
+                            float toOuter = Math.Max(0f, -dTop) - (gap * 0.25f);
+                            float toLow = (f * ringStep * tangentScale) - (gap / 2f);
+                            float toHigh = ((1f - f) * ringStep * tangentScale) - (gap / 2f);
+                            inside = RoundedInside(Math.Min(toInner, toOuter), Math.Min(toLow, toHigh), topBevel);
+                            bright = (Pillow(toInner, topBevel) * Dot(-nrx, -nry)) + (Pillow(toOuter, topBevel) * Dot(nrx, nry))
+                                + (Pillow(toLow, topBevel) * Dot(-ntx, -nty)) + (Pillow(toHigh, topBevel) * Dot(ntx, nty));
                         }
 
-                        c.Mix(C.StoneTop.Lighten(0.45f), 0.5f * Clamp01(1f - (Math.Abs(dTop + (line * 1.6f)) / line)));
-                        c.Mix(C.StoneLine, Clamp01(0.5f + dTop + line) * (y > ty ? 1f : 0.85f));
-                        Mossy(ref c, x, y, seed + 3, width, Clamp01((e - 0.86f) * 5f) * (y > ty ? 0.7f : 0.3f) * MossPatch(dx / rx, seed + 5));
+                        c.Mix(bright > 0f ? lit : deep, Clamp01(Math.Abs(bright) * 1.25f));
+                        c.Mix(joint, Clamp01(1f - (inside / gap)) * 0.9f);
+                        c.Mix(C.StoneLine, 0.55f * Clamp01(0.5f + dTop + line) * (y > ty ? 1f : 0.6f));
                     }
                     else
                     {
-                        // The side: two courses of blocks, shaded like a cylinder lit from the upper left.
+                        // The side: one course of pillow blocks round a cylinder lit from the upper left.
                         float t = Clamp01((y - ty - front) / Math.Max(1f, side));
-                        c = new Color(sideTop.Mix(sideBottom, Smooth(t)));
-                        c.Scale(1f - (0.22f * k * k) - (0.07f * k) + mottle);
-                        int course = t < 0.5f ? 0 : 1;
-                        float courseLine = Math.Abs(y - (ty + front + (0.5f * side)));
-                        c.Mix(C.StoneLine, 0.55f * Clamp01(1f - (courseLine / joint)));
-                        float theta = (float)Math.Asin(k);
-                        float stepAngle = (float)(Math.PI / 4.0);
-                        float offset = course == 0 ? 0.5f : 0f;
-                        float nearest = stepAngle * ((float)Math.Round((theta / stepAngle) - offset) + offset);
-                        float jointX = Math.Abs(dx - (rx * (float)Math.Sin(nearest)));
-                        c.Mix(C.StoneLine, 0.55f * Clamp01(1f - (jointX / joint)) * Clamp01(courseLine / (joint * 2f)));
-
-                        // A hairline crack down the upper course, right of the middle.
-                        float crackX = (rx * 0.28f) + (side * 0.06f * (float)Math.Sin(t * 19f));
-                        c.Mix(C.StoneLine, 0.4f * Clamp01(1f - (Math.Abs(dx - crackX) / (joint * 0.7f))) * Clamp01((0.48f - t) * 8f));
-
-                        // A light edge just under the top's rim, the lip band along the bottom and moss tufts on part of it.
-                        c.Mix(C.StoneTop, 0.35f * Clamp01(1f - (Math.Abs(y - (ty + front + (line * 1.6f))) / line)));
-                        c.Mix(C.StoneLip.Darken(0.2f), Smooth(Clamp01((t - 0.86f) / 0.14f)) * 0.5f);
-                        Mossy(ref c, x, y, seed, width, Clamp01((t - 0.6f) * 2.6f) * MossPatch(dx / rx, seed));
-                        c.Mix(C.StoneLine, Clamp01(0.5f + d + line));
+                        c = new Color(C.StoneFace.Mix(C.StoneLip, 0.25f + (0.45f * Smooth(t))));
+                        c.Scale(1f - (0.18f * k * k) - (0.06f * k));
+                        float theta = (float)Math.Asin(k) - (turn * 0.5f);
+                        float u = (theta / sideStep) + 0.5f;
+                        float f = u - (float)Math.Floor(u);
+                        float across = rx * (float)Math.Sqrt(Math.Max(0.04f, 1f - (k * k)));
+                        float toLeft = (f * sideStep * across) - (gap / 2f);
+                        float toRight = ((1f - f) * sideStep * across) - (gap / 2f);
+                        float toTop = (y - (ty + front)) - (gap * 0.25f);
+                        float toBottom = ((by + front) - y) - (gap / 2f);
+                        float inside = RoundedInside(Math.Min(toTop, toBottom), Math.Min(toLeft, toRight), sideBevel);
+                        float bright = (Pillow(toTop, sideBevel) * Dot(0f, -1f)) + (Pillow(toBottom, sideBevel) * Dot(0f, 1f))
+                            + (Pillow(toLeft, sideBevel) * Dot(-1f, 0f)) + (Pillow(toRight, sideBevel) * Dot(1f, 0f));
+                        c.Mix(bright > 0f ? lit : deep.Darken(0.06f), Clamp01(Math.Abs(bright) * 0.8f));
+                        c.Mix(joint.Darken(0.06f), Clamp01(1f - (inside / gap)) * 0.85f);
+                        c.Mix(C.StoneLine, 0.55f * Clamp01(0.5f + d + line));
                     }
 
                     Put(pixels, width, px, py, c, cover);
@@ -381,26 +396,26 @@ namespace Bloomlings.Client.UI.Design
             return pixels;
         }
 
-        /// <summary>Where moss grows along a pedestal's rim (0–1), by the position across it (−1…1): about a third of it.</summary>
-        private static float MossPatch(float across, int seed) => Clamp01((Fbm((across * 3f) + 10f, 0.5f, seed + 13, 2) - 0.5f) * 6f);
-
-        /// <summary>Moss over a stone where <paramref name="amount"/> is high and the noise agrees (pedestal base and rim).</summary>
-        private static void Mossy(ref Color c, float x, float y, int seed, int width, float amount)
+        /// <summary>How much a pillow block's edge rounds off at <paramref name="distance"/> pixels in from it (1 at the edge, 0 past the bevel).</summary>
+        private static float Pillow(float distance, float bevel)
         {
-            if (amount <= 0f)
+            float t = Clamp01(1f - (Math.Max(0f, distance) / bevel));
+            return t * (float)Math.Sqrt(t);
+        }
+
+        /// <summary>How far in from a rounded block's outline a point is, from its distances to the block's two pairs of edges.</summary>
+        private static float RoundedInside(float a, float b, float radius)
+        {
+            if (a < radius && b < radius)
             {
-                return;
+                return radius - Length(radius - a, radius - b);
             }
 
-            float scale = Math.Max(3f, width * 0.05f);
-            float n = Fbm(x / scale, y / scale, seed + 77, 3);
-            float k = Clamp01((n - (0.62f - (0.3f * amount))) * 6f) * amount;
-            if (k > 0f)
-            {
-                Rgba tuft = C.StoneMoss.Lighten(0.2f).Mix(C.StoneMoss.Darken(0.25f), Fbm(x / (scale * 0.3f), y / (scale * 0.3f), seed + 91, 2));
-                c.Mix(tuft, 0.9f * k);
-            }
+            return Math.Min(a, b);
         }
+
+        /// <summary>How much an edge facing (<paramref name="nx"/>, <paramref name="ny"/>) on the screen faces the light from the upper left (−1…1).</summary>
+        private static float Dot(float nx, float ny) => (nx * -0.55f) + (ny * -0.835f);
 
         /// <summary>An approximate signed distance (pixels) to an ellipse centered at the origin: its implicit value over its gradient.</summary>
         private static float EllipseDistance(float x, float y, float rx, float ry)

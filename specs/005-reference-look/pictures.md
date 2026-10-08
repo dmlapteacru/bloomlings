@@ -88,9 +88,13 @@ pictures are stored as JPEG (quality 90) whatever their delivered format; a pict
 From the owner's note of 2026-10-04 (spec FR-031, contracts/look.md §1.4) every background (B1 to B8) kept at most
 70% of the animated heroes' mean saturation, scaled offline by `tools/heroanim/saturation.mjs` (the B1 layers by
 `layers.mjs`, as one scene). Since 2026-10-08 every picture, the backgrounds too, keeps its colors as delivered (the
-owner; FR-031 as changed).
+owner; FR-031 as changed). Later that day the owner asked for every background "a little, just a touch" blurred and
+darkened (spec FR-049): the pictures as delivered are kept in `tools/heroanim/backgrounds/` (drop a new one there with its
+name) and `node tools/heroanim/backdrops.mjs` writes the shown ones into the Backgrounds folder: B1's garden and B2 to B8
+blurred by a Gaussian of 3 / 1080 of their width and 14% darker, B1's fountain layers 14% darker only
+(`tools/heroanim/backdrops.json`, checked by `check.mjs`).
 
-The B1 layers (the Backgrounds folder; prepared by `tools/heroanim/layers.mjs` from the owner's five 852 × 1846 layers,
+The B1 layers (the Backgrounds folder, through `backdrops.mjs`; prepared by `tools/heroanim/layers.mjs` from the owner's five 852 × 1846 layers,
 their boxes in `HomeLayersData.cs`, source record `tools/heroanim/SOURCE.md`):
 
 | File | Layer | Slot |

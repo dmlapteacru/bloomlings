@@ -72,7 +72,7 @@ namespace Bloomlings.Client.Meta.DailyReward
 
             // Claim: narrower, decorated and breathing while it waits (spec 003 FR-011, FR-011a, FR-019).
             Box claim = ScreenLayout.CardButton(body, y + (10f * u), true, u);
-            popup._claim = UiKit.PrimaryButton("Claim", card.Body, Loc.T("daily_reward.claim"), () => { }, decorate: true, breathe: true);
+            popup._claim = UiKit.PrimaryButton("Claim", card.Body, Loc.T("daily_reward.claim"), () => { }, breathe: true);
             UiKit.PlaceBox((RectTransform)popup._claim.transform, claim, body);
             Box bonus = ScreenLayout.CardButton(body, claim.Bottom + (24f * u), false, u).Inset(40f * u, 0f);
             popup._bonus = UiKit.SecondaryButton("Bonus", card.Body, Loc.T("daily_reward.watch"), () => { }, "ui.ad");

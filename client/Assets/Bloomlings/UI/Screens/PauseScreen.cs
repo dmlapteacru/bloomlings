@@ -37,7 +37,7 @@ namespace Bloomlings.Client.UI.Screens
                 return b;
             }
 
-            Button resume = UiKit.PrimaryButton("Resume", card.Body, Loc.T("pause.resume"), onResume, decorate: true);
+            Button resume = UiKit.PrimaryButton("Resume", card.Body, Loc.T("pause.resume"), onResume);
             UiKit.PlaceBox((RectTransform)resume.transform, Take(true), body);
             Button restart = UiKit.SecondaryButton("Restart", card.Body, Loc.T("common.restart"), onRestart, "ui.restart");
             UiKit.PlaceBox((RectTransform)restart.transform, Take(false), body);

@@ -64,7 +64,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.Text(note, r.Note.CenterX, r.Note.CenterY, T.Caption, C.InkBrownSoft, r.Note.Width);
-            PrimaryButton(p, r.Confirm, PlaytestText.T("purchase.buy"), onBuy, decorate: true);
+            PrimaryButton(p, r.Confirm, PlaytestText.T("purchase.buy"), onBuy);
             SecondaryButton(p, r.Cancel.Inset(p.U(40f), 0f), PlaytestText.T("common.cancel"), onCancel);
             EndCard(p);
         }

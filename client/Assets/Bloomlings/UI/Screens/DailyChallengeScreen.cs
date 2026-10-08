@@ -72,7 +72,7 @@ namespace Bloomlings.Client.UI.Screens
             {
                 screen.Hide();
                 onPlay();
-            }, decorate: true, breathe: true);
+            }, breathe: true);
             UiKit.PlaceBox((RectTransform)screen._play.transform, ScreenLayout.CardButton(body, y, true, u), body);
             card.Root.SetActive(false);
             return screen;

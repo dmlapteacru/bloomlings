@@ -45,16 +45,6 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public static class AvatarLook
     {
-        /// <summary>
-        /// Whether the shown frame (its catalog shape, null without one) is wooden: the base rim (the icon buttons' plate) or
-        /// the Wooden Frame (<see cref="ProfileFrameStyle.WoodRing"/>), which the profile page decorates with flowers over two
-        /// corners (spec 005 FR-047, the owner's references of 2026-10-08).
-        /// </summary>
-        public static bool Wooden(string? frameShape) => frameShape == null || ProfileFrames.StyleOf(frameShape) == ProfileFrameStyle.WoodRing;
-
-        /// <summary>The flowers over a wooden frame's corners on the profile page, as a share of the avatar's side.</summary>
-        public const float FlowerShare = 0.36f;
-
         /// <summary>The thin <c>wood.line</c> ring round the picture, as a share of the disc's side (at least 2 reference units).</summary>
         public const float RingShare = 0.025f;
 

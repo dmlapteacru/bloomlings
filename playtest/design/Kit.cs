@@ -660,10 +660,12 @@ namespace Bloomlings.Playtest.Design
         public static void PriceTag(IPainter p, Box box, int price) => CostPill(p, box, Cost.Petals(price));
 
         /// <summary>
-        /// A cost pill (spec 005 §3.4; jam choices, booster tiles, the Store): since spec 005 FR-047 a cream pill raised like
-        /// the rows (<see cref="RaisedRow(IPainter, Box, float, ColorSet?)"/>), or, as a <paramref name="button"/> (the Store's
-        /// prices), raised on its wooden plate as the buttons (<see cref="RaisedButton"/>),
-        /// holding the lotus and a brown price, a green ▶ square and "Free", or "×N" charges in big digits after
+        /// A cost pill (spec 005 §3.4; jam choices, booster tiles, the purchase confirmation): since spec 005 FR-047 a cream
+        /// pill raised like the rows (<see cref="RaisedRow(IPainter, Box, float, ColorSet?)"/>) holding the lotus and a brown
+        /// price, or, as a <paramref name="button"/> (every price that buys: the Store's Shop and outfits, the Wardrobe's
+        /// outfits, the avatars; spec 005 FR-049, the owner, 2026-10-08: "green with the rim, as in the Animations store"),
+        /// the glossy green face raised on its wooden plate (<see cref="RaisedButton"/>, as <c>ClearingButton</c>'s Buy)
+        /// holding the lotus and a white price; a green ▶ square and "Free", or "×N" charges in big digits after
         /// <paramref name="chargeIcon"/> (the booster's icon, at 80% of the pill's height) when given. <paramref name="text"/>
         /// replaces the amount's text next to the same icon (the win's reward pill: the lotus and "+N" counting up).
         /// </summary>
@@ -673,7 +675,7 @@ namespace Bloomlings.Playtest.Design
             float line = Math.Max(p.U(2f), box.Height * 0.05f);
             if (button)
             {
-                RaisedButton(p, box, GardenLook.Cream, 0.5f, 0f);
+                RaisedButton(p, box, GardenLook.Green, 0.5f, 0f, gloss: true);
                 Box face = UiRaster.RaisedFaceBox(box);
                 box = new Box(face.Left, face.Top, face.Right, face.Bottom - (box.Height * UiRaster.FaceSide));
             }
@@ -720,7 +722,14 @@ namespace Bloomlings.Playtest.Design
                 IconParts(p, iconBox, chargeIcon);
             }
 
-            p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
+            if (button)
+            {
+                p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, s, C.TextOnColor, textWidth, scale, TextLook.OnColor(GardenLook.Green));
+            }
+            else
+            {
+                p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
+            }
         }
 
         /// <summary>
@@ -848,8 +857,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A popup card (FR-007; spec 005 FR-045, the owner's mockup of 2026-10-08, contracts/look.md §6.19): the scrim, the
-        /// card's wooden frame round its cream panel (<see cref="CardFrame"/>), the leaves and flower over its top-left and
-        /// bottom-right corners, the title on a wooden sign over the frame's top edge (with <paramref name="sign"/>'s
+        /// card's wooden frame round its cream panel (<see cref="CardFrame"/>; no sprigs over its corners since FR-049), the
+        /// title on a wooden sign over the frame's top edge (with <paramref name="sign"/>'s
         /// decoration, the ivy by default) with a pink lotus behind it (<see cref="CardLook"/>), and the close button over
         /// the top-right corner when <paramref name="onClose"/> is set. <paramref name="contentHeight"/> is in reference units.
         /// </summary>
@@ -861,7 +870,6 @@ namespace Bloomlings.Playtest.Design
             p.PushTransform(0f, 0f, pop, r.Card.CenterX, r.Card.CenterY);
             CardFrame(p, r.Card);
             p.Hit(r.Card, () => { });
-            Decoration(p, CardLook.Decoration(r.Card, p.U(1f)));
             if (title.Length > 0)
             {
                 TypeStyle style = titleStyle ?? T.Title;

@@ -525,10 +525,9 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            // The price at the row's right end, as wide as its text, raised on its plate as a button (spec 005 FR-047): the
-            // lotus and the Petals, or the store's price.
+            // The price at the row's right end, as wide as its text: the green buy pill raised on its plate (spec 005 FR-049, as
+            // the Animations tab's prices) with the lotus and the Petals, or the store's price.
             CostPillView pill = UiKit.CostPill("Price", row.transform, petals ? Cost.Petals(item.PetalPrice!.Value) : Cost.Charges(0), button: true);
-            UiKit.Decoration(pill.transform);
             TextMeshProUGUI amount = pill.GetComponentInChildren<TextMeshProUGUI>();
             if (!petals)
             {

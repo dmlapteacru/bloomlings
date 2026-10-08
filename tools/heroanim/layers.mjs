@@ -5,8 +5,9 @@
 // re-encoded as JPEG (quality 90); every layer's saturation scaled by one factor, the one that brings the
 // garden to the background's share of the heroes' (saturation.mjs, spec 005 FR-031), so the scene keeps its balance
 // (none since 2026-10-08: the owner keeps the colors as delivered).
-// Writes the pictures into the Backgrounds folder, their boxes into client/Assets/Bloomlings/UI/Design/HomeLayersData.cs
-// and the hashes into layers.json.
+// Writes the pictures into backgrounds/ (the sources of backdrops.mjs, which writes what the game shows into the
+// Backgrounds folder: run it after this), their boxes into client/Assets/Bloomlings/UI/Design/HomeLayersData.cs and the
+// hashes into layers.json.
 // Usage: node layers.mjs <folder with 01_home_bg_back.png … 04_home_soft_shadow.png> (the owner's 05_home_petals_overlay.png
 // is not used since 2026-10-06: the owner removed Home's falling petals)
 import fs from 'node:fs';
@@ -16,10 +17,12 @@ import { PNG } from 'pngjs';
 import jpeg from 'jpeg-js';
 import { sha256 } from './bake.mjs';
 import { heroesMean, ladder, meanSaturation, scale, sceneFactor } from './saturation.mjs';
+import { blur, sourcesDir } from './backdrops.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
-export const layersDir = path.join(repo, 'client', 'Assets', 'Bloomlings', 'Art', 'Backgrounds', 'Resources', 'Backgrounds');
+/** Where the layers go: backdrops.mjs's sources (the game shows its finish of them). */
+export const layersDir = sourcesDir;
 export const layersDataFile = path.join(repo, 'client', 'Assets', 'Bloomlings', 'UI', 'Design', 'HomeLayersData.cs');
 export const layersManifest = path.join(here, 'layers.json');
 
@@ -52,28 +55,6 @@ const write = p => PNG.sync.write(p, { deflateLevel: 9 });
  * was the owner's 4 px on a 1080 px wide screen, 4 / 1080, the Home constructor's of 2026-10-05).
  */
 export const gardenBlur = 0;
-
-// A Gaussian blur of an opaque RGBA picture in place (separable, the edges clamped), `sigma` in pixels.
-function blur(img, sigma) {
-  if (!(sigma > 0)) return img;
-  const { width: w, height: h, data } = img;
-  const r = Math.ceil(sigma * 3);
-  const k = Array.from({ length: 2 * r + 1 }, (_, i) => Math.exp(-((i - r) ** 2) / (2 * sigma * sigma)));
-  const sum = k.reduce((a, b) => a + b, 0);
-  const kn = k.map(v => v / sum);
-  const tmp = new Float32Array(w * h * 3);
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) {
-    let v = 0;
-    for (let i = -r; i <= r; i++) v += kn[i + r] * data[(y * w + Math.min(w - 1, Math.max(0, x + i))) * 4 + c];
-    tmp[(y * w + x) * 3 + c] = v;
-  }
-  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) {
-    let v = 0;
-    for (let i = -r; i <= r; i++) v += kn[i + r] * tmp[(Math.min(h - 1, Math.max(0, y + i)) * w + x) * 3 + c];
-    data[(y * w + x) * 4 + c] = Math.max(0, Math.min(255, Math.round(v)));
-  }
-  return img;
-}
 
 // Fades a cut-out to nothing over its outer `margin` pixels, so its crop leaves no edge.
 function fadeEdges(p, margin) {

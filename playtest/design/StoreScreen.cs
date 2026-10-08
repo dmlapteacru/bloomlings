@@ -257,15 +257,14 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A price as a cost pill raised on its plate (a button) with the lotus at a row's right end, the main buttons' leaves
-        /// and flower over its corners (spec 005 FR-047, the owner's references of 2026-10-08); the whole row takes the tap.
+        /// A price as the green buy pill raised on its plate (<see cref="Kit.CostPill"/> as a button; spec 005 FR-049, as the
+        /// Animations tab's prices) with the lotus at a row's right end; the whole row takes the tap.
         /// </summary>
         private static void Price(IPainter p, Box line, int price, Action? buy)
         {
             Box pill = PriceBox(p, line, price);
             p.PushAlpha(buy != null ? 1f : 0.45f);
             Kit.CostPill(p, pill, Cost.Petals(price), button: true);
-            Kit.Decoration(p, pill);
             p.PopAlpha();
             if (buy != null)
             {

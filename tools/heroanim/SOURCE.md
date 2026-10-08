@@ -67,7 +67,13 @@ dances, `victory`) are not used.
 
 ## The Home layers (`layers.mjs`)
 
-| Delivered | Here (`client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`) |
+Since the owner's request of 2026-10-08 (spec 005 FR-049: every background "a little, just a touch" blurred and darkened)
+`layers.mjs` and the hand fitting below write into `tools/heroanim/backgrounds/`, which keeps every background and Home
+layer as delivered, and `backdrops.mjs` writes what the game shows into the Backgrounds folder: the garden (and every
+other owner background) blurred by a Gaussian of 3 / 1080 of its width and 14% darker, the fountain's back, the lotus and
+the front bushes 14% darker only, the shadow as it is (`backdrops.json` holds both hashes of each).
+
+| Delivered | Here (`tools/heroanim/backgrounds/`, shown through `backdrops.mjs` in `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`) |
 |---|---|
 | `01_home_bg_back.png` (852 × 1846) | `home.jpg`: re-encoded as JPEG (quality 90); it replaces the earlier single Home picture. Since 2026-10-04 the garden comes from the owner's calm backgrounds (`bloomlings_calm_backgrounds.zip`, `01_home_calm_garden.png`, recorded in `tools/artgen/models/owner-pictures.md`), given to `layers.mjs` as `01_home_bg_back.png` with this pack's other four layers unchanged (`layers.json` holds its hash). Since the owner's note of 2026-10-04 (spec 005 FR-031) `layers.mjs` scales every layer's saturation by the factor that brings the garden to 70% of the heroes' (×0.73, `layers.json` `saturation`), lightness and hue kept. Since the owner's Home tuning of 2026-10-05 (FR-036) the garden is blurred by a Gaussian of 4/1080 of its width (`gardenBlur`) after that scale; the factor was measured on the heroes before their Home finish (×0.738). Since 2026-10-08 `home.jpg` is the owner's new garden (a 941 × 1672 picture sent in the chat, already blurred: columns with ivy and a round stone terrace with steps), scaled to the picture's height and cropped to its middle 852 × 1846, encoded once as JPEG (quality 90), with no blur pass (`gardenBlur` 0) and its colors as delivered; `layers.json` holds its hash |
 | `02_home_fountain_back.png` | `home-fountain-back.png`: cropped to its visible bounds (alpha under 6 of 255 counts as dust) |
