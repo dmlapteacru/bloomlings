@@ -242,6 +242,21 @@ namespace Bloomlings.Generator.Profiles
         };
 
         /// <summary>
+        /// The most Source stacks a Hard or Super Hard level has (spec 001 FR-011 as amended on 2026-10-08, the owner: "4
+        /// are passed quite fast, even Super Hard"): fewer exposed pods to choose from.
+        /// </summary>
+        public const int HardMaxStacks = 3;
+
+        /// <summary>
+        /// The stacks a level of <paramref name="difficulty"/> may have within its profile's range: a Normal level the
+        /// whole range, a Hard or Super Hard one at most <see cref="HardMaxStacks"/> (the profile's minimum if that is more).
+        /// </summary>
+        public static IntRange Stacks(IntRange profile, DifficultyClass difficulty) =>
+            difficulty == DifficultyClass.Normal
+                ? profile
+                : new IntRange(profile.Min, Math.Max(profile.Min, Math.Min(profile.Max, HardMaxStacks)));
+
+        /// <summary>
         /// A big board's buffer-pressure target, lower than its band's (generator slack for the hidden layers of its
         /// icons board, research R8b): a Normal level keeps 1–3 slots busy at its peak, a Hard or Super Hard one at most
         /// tense (3–4), never critical.

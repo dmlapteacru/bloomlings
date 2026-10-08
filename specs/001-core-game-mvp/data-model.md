@@ -66,7 +66,7 @@ One per level number (FR-075 to FR-077). Wire format:
 | `specials[]` | list of `{id, type: gate\|fountain\|chest\|statue\|bridge, cells[], condition, effect}` | Type must be unlocked for the level (FR-031). Condition and effect must be visible (FR-037, FR-038) |
 | `locks[]` | list of `{keyId, target: {kind: pod\|slot\|special, id}}` | Exactly one lock per key and one key per lock (FR-033) |
 | `slots` | `{count: 5, locked?: {slotIndex, keyId}}` | At most 1 locked slot, and only from L80 (FR-039) |
-| `tray.stacks[]` | ordered pod ids, top first | 2–6 stacks (tuned per band) |
+| `tray.stacks[]` | ordered pod ids, top first | 2–6 stacks (tuned per band); at most 3 on a Hard or Super Hard level (FR-011 as amended on 2026-10-08) |
 | `pods[]` | list of `{id, variantId, count, mystery?, lockKeyId?, connectedGroupId?}` | `count ≥ 1`. Connected groups have 2 members (3 only if that mechanic is unlocked). Members of a connected group sit at the **same depth** in different stacks |
 | `difficulty` | `{class: normal\|hard\|super_hard, score, overridden}` | FR-082. `score` is an integer fixed-point value (× 1000) |
 | `rewardProfile` | string | Links to an economy config entry |

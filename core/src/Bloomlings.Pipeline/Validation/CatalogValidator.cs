@@ -36,8 +36,8 @@ namespace Bloomlings.Pipeline.Validation
     /// boards of 224–616 cells from L11, as amended on 2026-10-07), FR-036 as amended (the stored
     /// board look follows the cell count; the hidden layers of an icons board pass the hidden-layer fairness check, and
     /// it holds no mystery) and the data-model rules (keys and locks 1:1, at most one locked slot and only from L80,
-    /// layer depth ≤ 2 before L125 and ≤ 3 after, 2–6 stacks, connected members at the same depth). Across the catalog it
-    /// checks the FR-083 repetition rules.
+    /// layer depth ≤ 2 before L125 and ≤ 3 after, 2–6 stacks and at most 3 on a Hard or Super Hard level, connected
+    /// members at the same depth). Across the catalog it checks the FR-083 repetition rules.
     /// </summary>
     public sealed class CatalogValidator
     {
@@ -499,6 +499,10 @@ namespace Bloomlings.Pipeline.Validation
             if (level.Tray.Stacks.Count < 2 || level.Tray.Stacks.Count > 6)
             {
                 Fail($"{level.Tray.Stacks.Count} stacks; 2–6 are allowed");
+            }
+            else if (level.Difficulty.Class != DifficultyClass.Normal && level.Tray.Stacks.Count > BandGuidelines.HardMaxStacks)
+            {
+                Fail($"a {level.Difficulty.Class} level with {level.Tray.Stacks.Count} stacks; at most {BandGuidelines.HardMaxStacks} (FR-011 as amended on 2026-10-08)");
             }
 
             if (level.Slots.Locked != null && rules < 80)

@@ -1723,6 +1723,19 @@ final validation.
   - Done on 2026-10-07 except the APK. The owner's build gave L1–5000 with one gap, L2068, which seed 6 filled.
     `validate` over the whole catalog gives 0 errors. Both APKs and the preview embed `content/catalog/levels` and read a
     level on first use (`ContentSet` with a level reader). `playtest/check` and the preview checks pass.
+- [X] T191 At most 3 Source stacks on a Hard or Super Hard level (FR-011 as amended on 2026-10-08; the owner: "make 3
+  [columns] at moments instead of 4. 4 are passed quite fast, even Super Hard", with the answer "Hard and Super Hard").
+  - Before, every class drew its stacks from the band's range (2–6). The catalog's Hard and Super Hard levels had 4–6
+    stacks in about half the cases (710 of 1351).
+  - The generator draws a Hard or Super Hard level's stacks from `BandGuidelines.Stacks` (at most `HardMaxStacks` = 3,
+    never under the profile's minimum). `validate` refuses such a level with more (`data-model`).
+  - Trial on L230–233 (Hard) and L4200–4203 (Super Hard): every level still found a candidate, with fewer rejections
+    (13 instead of 16, and 58 instead of 80).
+  - The showcase L151 and L400 were generated again (3 stacks each). The Daily pool's Hard and Super Hard entries now
+    have 3 stacks (its profile's minimum is 3).
+  - Test: `BandGuidelinesTests.HardAndSuperHardLevels_HaveAtMostThreeStacks`.
+- [ ] T192 The owner regenerates the catalog L11–5000 with `tools/catalog` for T191. Until then `validate --catalog
+  content/catalog` reports the Hard and Super Hard levels that still have 4–6 stacks.
 - [ ] T190 Before the release, turn the Daily Challenge on (the owner, 2026-10-08). The steps are in
   `checklists/release.md`: publish the release content with `--daily content/daily` (the Unity APK workflow packs only
   `content/curated` today), keep `feature.dailyChallenge` on in the live Remote Config, and check it on a release build

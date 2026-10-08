@@ -223,6 +223,18 @@ a default or asks a question.
   A: Those a player knows when the challenge opens at L50: Stone, Key, Locked Pod, Connected Pair, Layered Tile and
   Gate, with at most one layer below a top. Every puzzle plays with the unlocks of L50, whatever its day.
 
+### Session 2026-10-08 (the owner)
+
+- **Q: How many Source stacks does a Hard or Super Hard level have?**
+  A: The owner: "make 3 [columns] at moments instead of 4. 4 are passed quite fast, even Super Hard", and the moments
+  are the Hard and Super Hard levels, the owner's pick among the proposals. Such a level has at most 3 stacks, so it
+  offers at most 3 exposed pods to choose from (FR-011 as amended). A Normal level keeps its band's 2–6. Before this,
+  every class drew from the band's range, so Hard and Super Hard levels also had 4–6 stacks. The rule holds for the
+  catalog, the showcase and practice levels and the Daily Challenge pool.
+- **Q: What must happen before the release?**
+  A: The owner: "before the release the Daily Challenge must be turned on". The steps are in
+  `checklists/release.md` (task T190).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Play a level: commit pods, restore the picture, avoid the jam (Priority: P1)
@@ -518,7 +530,7 @@ skin. Complete the daily challenge. Open the Collection.
 
 #### B. Source Tray and Waiting Buffer (doc 02)
 
-- **FR-011**: The Source Tray MUST consist of stacks of Spirit Pods. Only the exposed pod of each stack is selectable, and removing it exposes the next one. The number of stacks varies by level.
+- **FR-011**: The Source Tray MUST consist of stacks of Spirit Pods. Only the exposed pod of each stack is selectable, and removing it exposes the next one. The number of stacks varies by level, from 2 to 6. A Hard or Super Hard level MUST have at most 3 stacks. *(Amended 2026-10-08, the owner: "4 are passed quite fast, even Super Hard"; before, every class drew from its band's range.)*
 - **FR-012**: Each pod MUST show, in this order of prominence: exact variant icon, exact variant color, count, and family silhouette. It MUST also show any state: connected, locked or mystery.
 - **FR-013**: Visibility MUST follow these rules:
 

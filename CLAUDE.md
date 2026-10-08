@@ -89,7 +89,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `big` ones at 616 (`BandGuidelines.ThresholdsFor`, `difficulty-thresholds.json`), so any class may fall on any board.
   Practice levels are never Super Hard (FR-059 as amended): with the roadmap, `DifficultySchedule` moves such a Super
   Hard to the next level that is not a showcase, a practice or a milestone level, and `validate` refuses a Super Hard
-  practice level.
+  practice level. A Hard or Super Hard level has at most 3 Source stacks (FR-011 as amended on 2026-10-08,
+  `BandGuidelines.Stacks`, `HardMaxStacks`); a Normal level keeps its band's 2–6.
 - `tools/heroanim` (Node 22, not in the solution; `tools/heroanim/README.md`) pre-renders the owner's animated FBX
   heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
   minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`

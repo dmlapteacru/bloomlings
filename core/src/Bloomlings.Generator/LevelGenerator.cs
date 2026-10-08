@@ -487,7 +487,8 @@ namespace Bloomlings.Generator
             // deterministic depth-first walks, so a trace found within it is the one the full budget finds, and the
             // metrics walk is capped (Solver.MetricsNodeCap): an accepted level's analysis is identical under the full
             // profile budget recorded below.
-            int stacks = Math.Min(pods.Count, _profile.Stacks.Min + rng.NextInt(_profile.Stacks.Max - _profile.Stacks.Min + 1));
+            IntRange stackRange = BandGuidelines.Stacks(_profile.Stacks, target);
+            int stacks = Math.Min(pods.Count, stackRange.Min + rng.NextInt(stackRange.Max - stackRange.Min + 1));
             stacks = Math.Max(2, stacks);
             var options = new SolveOptions(_profile.SolverNodeBudget);
             var tuning = new SolveOptions(Math.Min(_profile.SolverNodeBudget, TuningNodeBudget));

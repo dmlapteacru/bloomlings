@@ -210,6 +210,28 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void HardAndSuperHardLevels_HaveAtMostThreeStacks()
+        {
+            // The owner, 2026-10-08: "4 are passed quite fast, even Super Hard". Fewer exposed pods to choose from.
+            Assert.That(BandGuidelines.Stacks(new IntRange(2, 6), DifficultyClass.Normal), Is.EqualTo(new IntRange(2, 6)));
+            Assert.That(BandGuidelines.Stacks(new IntRange(2, 6), DifficultyClass.Hard), Is.EqualTo(new IntRange(2, 3)));
+            Assert.That(BandGuidelines.Stacks(new IntRange(3, 6), DifficultyClass.SuperHard), Is.EqualTo(new IntRange(3, 3)));
+            Assert.That(BandGuidelines.Stacks(new IntRange(4, 5), DifficultyClass.Hard), Is.EqualTo(new IntRange(4, 4)), "never under the profile's minimum");
+
+            // Curated L5 is Hard with 3 stacks; with its last stack split in two it has 4, which only a Normal level may have.
+            LevelDefinition five = Curated(5);
+            Assert.That(five.Difficulty.Class, Is.EqualTo(DifficultyClass.Hard));
+            Assert.That(five.Tray.Stacks.Count, Is.EqualTo(3));
+            IReadOnlyList<string> last = five.Tray.Stacks[^1];
+            Assert.That(last.Count, Is.GreaterThan(1));
+            var four = new TrayDef(five.Tray.Stacks.Take(2).Append(last.Take(1).ToList()).Append(last.Skip(1).ToList()).ToList());
+            static bool TooMany(IEnumerable<LevelIssue> issues) => issues.Any(i => i.IsError && i.Check == "data-model" && i.Message.Contains("at most 3"));
+            Assert.That(TooMany(Validate(five)), Is.False);
+            Assert.That(TooMany(Validate(five with { Tray = four })), Is.True);
+            Assert.That(TooMany(Validate(five with { Tray = four, Difficulty = five.Difficulty with { Class = DifficultyClass.Normal } })), Is.False);
+        }
+
+        [Test]
         public void ThePublishGate_RefusesAnInvalidCatalog_AndChecksTheDailyPoolByItself()
         {
             string lib = Path.Combine(RepoRoot, "content", "pictures", "lib");

@@ -48,10 +48,10 @@ The levels today (`gen-1.3.0` unless noted; every picture approved by the automa
 | 90 | showcase | mystery_tile | fir_tree_01 | 16×18 (288) | Normal (1548) | 2026-10-06, seed 1 |
 | 91 | practice | mystery_tile | barn_03 | 14×16 (224) | Normal (1633) | 2026-10-06, seed 1 |
 | 150 | showcase | chest | butterfly_02 | 14×16 (224) | Normal (1873) | 2026-10-05, `gen-1.2.0` |
-| 151 | practice | chest | rabbit_04 | 16×16 (256) | Hard (2367) | 2026-10-06, seed 1 |
+| 151 | practice | chest | castle_04 | 15×16 (240) | Hard (2392) | 2026-10-08, seed 1 |
 | 250 | showcase | environment_2 | ladybug_03 | 14×16 (224) | Normal (1775) | 2026-10-05, `gen-1.2.0` |
 | 251 | practice | environment_2 | tulip_bed_04 | 14×16 (224) | Normal (1940) | 2026-10-06, seed 1 (T175) |
-| 400 | showcase | connected_triple | pear_03 | 14×16 (224) | Hard (2588) | 2026-10-06, seed 1 (T175) |
+| 400 | showcase | connected_triple | basketball_08 | 18×22 (396) | Hard (2683) | 2026-10-08, seed 1 |
 | 401 | practice | connected_triple | sailboat_03 | 14×16 (224) | Hard (2490) | 2026-10-05, `gen-1.2.0` |
 
 The commands, without `--allow-draft` (every picture is approved), for example:
@@ -81,3 +81,10 @@ spent all 60 candidates, and the scored ones topped out at 2549 (median 2018). T
 are never Super Hard (2026-10-06, spec 001 FR-059 as amended): the schedule moves that Super Hard to L153, and L151 takes
 L153's class, Hard. It was regenerated with `generate --profile content/profiles/band-0101-0250.json --levels 151-151
 --seed 1` (Hard 2367 at candidate 2).
+
+**L151 and L400 (2026-10-08):** a Hard or Super Hard level has at most 3 stacks (spec 001 FR-011 as amended on
+2026-10-08). The two Hard levels here with more, L151 (4 stacks) and L400 (6), were generated again with the same
+commands and seed 1, with `content/catalog/` left out of the history (`--catalog` an empty folder): L151 with
+`generate --profile content/profiles/band-0101-0250.json --levels 151-151 --seed 1`, and L400 with `generate --profile
+content/profiles/band-0251-0500.json --levels 400-400 --mechanics connected_triple --class hard --seed 1`. Both now have
+3 stacks, and `validate --catalog content/showcase --context content/curated` gives 0 errors.
