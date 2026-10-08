@@ -1,7 +1,7 @@
 // Prepares the owner's layered Home picture (bloomlings_home_assets.zip, 2026-10-02; spec 005 FR-028) for both builds:
 // every layer cropped to its visible bounds (so a decoded layer holds no empty rows; alpha under 6 / 255 is dust), the lotus cut out of the fountain's
 // back layer (it is drawn again over Bloom, who stands behind it), one soft shadow cut out of the shadow sheet, the
-// opaque garden blurred (the owner's 4 px on a 1080 px wide screen, 2026-10-05, spec 005 FR-036: `gardenBlur`) and
+// opaque garden blurred by `gardenBlur` (none since 2026-10-08: the owner's garden comes blurred; spec 005 FR-036) and
 // re-encoded as JPEG (quality 90); every layer's saturation scaled by one factor, the one that brings the
 // garden to the background's share of the heroes' (saturation.mjs, spec 005 FR-031), so the scene keeps its balance.
 // Writes the pictures into the Backgrounds folder, their boxes into client/Assets/Bloomlings/UI/Design/HomeLayersData.cs
@@ -46,11 +46,15 @@ function crop(png, r) {
 
 const write = p => PNG.sync.write(p, { deflateLevel: 9 });
 
-/** The garden's blur, as a share of its width (the owner's 4 px on a 1080 px wide screen, the Home constructor's). */
-export const gardenBlur = 4 / 1080;
+/**
+ * The garden's blur, as a share of its width: none since 2026-10-08, when the owner's garden came already blurred (it
+ * was the owner's 4 px on a 1080 px wide screen, 4 / 1080, the Home constructor's of 2026-10-05).
+ */
+export const gardenBlur = 0;
 
 // A Gaussian blur of an opaque RGBA picture in place (separable, the edges clamped), `sigma` in pixels.
 function blur(img, sigma) {
+  if (!(sigma > 0)) return img;
   const { width: w, height: h, data } = img;
   const r = Math.ceil(sigma * 3);
   const k = Array.from({ length: 2 * r + 1 }, (_, i) => Math.exp(-((i - r) ** 2) / (2 * sigma * sigma)));

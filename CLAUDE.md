@@ -157,7 +157,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   until Remove Ads is owned; a tap opens the Remove Ads card, FR-033) and Daily at the right (the Daily Reward), each
   idling and playing its attention sequence every 12 s, never together; hosts draw `HomePromo.Layers` per frame.
 - The owner's Home tuning (spec 005 FR-036, research D29, 2026-10-05), chosen on a constructor page of the game's own
-  layers: Home has no logo (the splash keeps it); the garden is blurred in `home.jpg` (`layers.mjs` `gardenBlur`); the
+  layers: Home has no logo (the splash keeps it); the garden in `home.jpg` is the owner's picture, already blurred (since 2026-10-08; `layers.mjs` `gardenBlur` is 0); the
   fountain and heroes stand in `HomeLayers.Stage` (0.9 of the cover box) at `HeroScale` 1.05; the heroes' Home frames
   are sharpened and at 110% contrast and saturation (`heroes.json` `home`, `tools/heroanim/post.mjs`, applied by the
   bake); Play, the plaque, the promo scenes and the sun follow `ReferenceHomeRegions`' shares; each promo scene stands on
