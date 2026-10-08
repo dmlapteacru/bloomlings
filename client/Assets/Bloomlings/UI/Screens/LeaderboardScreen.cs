@@ -347,13 +347,13 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         private static void Portrait(Transform row, Box line, Box face, bool player, AvatarItem? avatar)
         {
-            float ring = Mathf.Max(1f, face.Width * 0.044f);
-            float r = AvatarLook.Radius(face);
-            Image lip = UiKit.RoundRect("PortraitLip", row, UiTheme.Of(C.CreamLip), _ => r + ring);
-            UiKit.PlaceBox(lip.rectTransform, face.Inset(-ring).Offset(0f, ring * 0.8f), line);
-            Image edge = UiKit.RoundRect("PortraitLine", row, UiTheme.Of(C.CreamLine), _ => r + ring);
-            UiKit.PlaceBox(edge.rectTransform, face.Inset(-ring), line);
-            Image disc = UiKit.RoundGradient("Portrait", row, C.CreamTop, C.CreamFace, AvatarLook.Radius);
+            // The avatar's wooden plate and a cream face raised in it (spec 005 FR-048, the playtest's Portrait).
+            RectTransform rim = UiFactory.CreateRect("PortraitRim", row);
+            UiKit.PlaceBox(rim, face, line);
+            UiKit.RaisedPlate(BoxLayout.On(rim), rim, AvatarLook.Rim);
+            Image disc = UiFactory.CreateImage("Portrait", row, null, Color.white);
+            disc.raycastTarget = false;
+            PictureFit.On(disc, (w, h) => ProceduralSprites.ButtonFace(GardenLook.White, w, h));
             UiKit.PlaceBox(disc.rectTransform, face, line);
             // The player's avatar picture in a rounded-square mask (spec 005 FR-037), else their hero.
             Texture2D? own = avatar == null ? null : OwnerArt.Avatar(avatar.Picture);

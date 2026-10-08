@@ -229,21 +229,22 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The worn item's badge (§4.6): a green disc with a white ring and a white check, over a soft shadow.</summary>
+        /// <summary>The worn item's badge (§4.6): a glossy green ball (spec 005 FR-048, <see cref="UiRaster.Ball"/>) in a white ring with a white check, over a soft shadow.</summary>
         public static void CheckBadge(IPainter p, float cx, float cy, float size)
         {
             float ring = size * 0.1f;
             Box outer = Box.FromCenter(cx, cy, size + (2f * ring), size + (2f * ring));
             SoftShadow(p, outer, outer.Width / 2f, 0.25f, 0.06f);
             p.FillCircle(cx, cy, outer.Width / 2f, Rgba.White);
-            p.FillRoundGradient(Box.FromCenter(cx, cy, size, size), size / 2f, GardenLook.Green.Top, GardenLook.Green.Face);
-            p.StrokeCircle(cx, cy, (size / 2f) - Math.Max(0.5f, size * 0.02f), Math.Max(1f, size * 0.04f), GardenLook.Green.Line);
+            ColorSet green = GardenLook.Green;
+            p.Picture("ui.badge.ball/green", Box.FromCenter(cx, cy, size, size), (w, h) => UiRaster.Ball(Math.Min(w, h), green.Face, green.Top, green.Lip, green.Line));
             p.Shape("ui.check", Box.FromCenter(cx, cy, size * 0.58f, size * 0.58f), Rgba.White);
         }
 
         /// <summary>
-        /// A locked item's badge (the Wardrobe's outfit cards): a domed cream disc in a <c>cream.line</c> ring with the
-        /// brown padlock, over a soft shadow, where the worn item's check would be.
+        /// A locked item's badge (the Wardrobe's outfit cards): the switches' round cream knob (spec 005 FR-048,
+        /// <see cref="UiRaster.ToggleKnob"/>) in a <c>cream.line</c> ring with the brown padlock, over a soft shadow, where the
+        /// worn item's check would be.
         /// </summary>
         public static void LockBadge(IPainter p, float cx, float cy, float size)
         {
@@ -252,7 +253,7 @@ namespace Bloomlings.Playtest.Design
             Box outer = Box.FromCenter(cx, cy, size + (2f * ring), size + (2f * ring));
             SoftShadow(p, outer, outer.Width / 2f, 0.25f, 0.06f);
             p.FillCircle(cx, cy, outer.Width / 2f, C.CreamLine);
-            p.FillRoundGradient(Box.FromCenter(cx, cy, size, size), size / 2f, C.CreamTop, C.CreamFace);
+            p.Picture("ui.toggle/knob", Box.FromCenter(cx, cy, size, size), (w, h) => UiRaster.ToggleKnob(Math.Min(w, h)));
             p.Shape("ui.lock", Box.FromCenter(cx, cy, size * 0.56f, size * 0.56f), C.InkBrown);
         }
 

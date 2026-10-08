@@ -78,8 +78,8 @@ namespace Bloomlings.Client.UI.Design
     public static class ClearStyles
     {
         /// <summary>
-        /// How much faster than the calm pace (1.1 s a cell) the Bloomlings walk: Colony Flow's ants (the owner's video of
-        /// 2026-10-08, Level 11 at 1×: about 330 px a second on its 36 px cells, 9 cells a second), so a cell takes
+        /// How much faster than the calm pace (1.1 s a cell) the Bloomlings walk: the reference game's walkers (the owner's
+        /// video of 2026-10-08, Level 11 at 1×: about 330 px a second on its 36 px cells, 9 cells a second), so a cell takes
         /// <see cref="PerCell"/>. The walking legs below are written at the calm pace and divided by it.
         /// </summary>
         public const float WalkSpeedUp = 10f;
@@ -90,15 +90,15 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float ActSpeedUp = 1.5f;
 
-        /// <summary>Seconds a tile's trip takes for each route cell from its entry: Colony Flow's ants' pace (<see cref="WalkSpeedUp"/>).</summary>
+        /// <summary>Seconds a tile's trip takes for each route cell from its entry: the reference game's walking pace (<see cref="WalkSpeedUp"/>).</summary>
         public const float PerCell = 1.1f / WalkSpeedUp;
 
         /// <summary>Seconds every trip takes besides its cells (the act at the tile and the tile's last leg).</summary>
         public const float Base = 1.4f / ActSpeedUp;
 
         /// <summary>
-        /// The least time between two Bloomlings of a pod leaving the same arch, a line, never a crowd: Colony Flow's ants
-        /// leave their slot every 0.30 s (the owner's video of 2026-10-08), so a pod clears about 3.3 tiles a second.
+        /// The least time between two Bloomlings of a pod leaving the same arch, a line, never a crowd: the reference game's
+        /// walkers leave their slot every 0.30 s (the owner's video of 2026-10-08), so a pod clears about 3.3 tiles a second.
         /// </summary>
         public const float LineGap = 0.3f;
 

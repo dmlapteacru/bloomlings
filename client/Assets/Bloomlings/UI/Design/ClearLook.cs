@@ -72,8 +72,8 @@ namespace Bloomlings.Client.UI.Design
         public const float WalkerSize = 0.74f;
 
         /// <summary>
-        /// A walker's hops a cell: half a hop, about four and a half hops a second at Colony Flow's pace of 9 cells a second
-        /// (<see cref="ClearStyles.PerCell"/>; it was two a cell at the calm 1.4 cells a second, under three a second).
+        /// A walker's hops a cell: half a hop, about four and a half hops a second at the reference game's pace of 9 cells a
+        /// second (<see cref="ClearStyles.PerCell"/>; it was two a cell at the calm 1.4 cells a second, under three a second).
         /// </summary>
         public const float HopsPerCell = 0.5f;
 

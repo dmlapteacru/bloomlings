@@ -272,7 +272,14 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (`Kit.FramedTile` / `UiKit.FramedTile`, `GardenLook.TileRimShare`, `CardLook.TileTop`) with `Kit.CornerFlowers` /
   `UiKit.CornerFlowers`; the Wooden Frame is the plate's laminate, and the profile page puts flowers on the wooden frames
   (`AvatarLook.Wooden`). The family tabs keep their folder look and the Wardrobe its lighter panel and tabbed name card, as
-  their references; toggles, wells and the guides' bubbles stay. The preview takes `--shape 19.5x9` for a quick look.
+  their references; wells and the guides' bubbles stay. The preview takes `--shape 19.5x9` for a quick look.
+- The switches are the Settings mockup's (spec 005 FR-048, 2026-10-08, "the toggles volumetric too ... and so on"; recipe
+  in `contracts/look.md` §6.21): the kit's `ToggleRaster.cs` (part of `UiRaster`) draws the track pressed into the row
+  (`ToggleTrack`: on, green with a faint check in its left end; off, `GardenLook.TanDeep` with a faint leaf in its right
+  end) and the knob as a round cream button (`ToggleKnob`, `KnobShare`), drawn by `Kit.Toggle` / `UiKit.Toggle` at
+  `CardLook.SettingsToggleBox`; the Leaderboard's portraits stand on the plate and its offline names and scores are
+  pressed-in grooves (`UiRaster.Groove`); the check badges are a glossy green ball (`UiRaster.Ball`) and the padlock badges
+  the switches' knob.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

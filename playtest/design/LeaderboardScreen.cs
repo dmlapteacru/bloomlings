@@ -161,11 +161,9 @@ namespace Bloomlings.Playtest.Design
             float size = face.Width;
             float cx = face.CenterX;
             float cy = face.CenterY;
-            float ring = Math.Max(1f, size * 0.044f);
-            float r = AvatarLook.Radius(face);
-            p.FillRound(face.Inset(-ring).Offset(0f, ring * 0.8f), r + ring, C.CreamLip);
-            p.FillRound(face.Inset(-ring), r + ring, C.CreamLine);
-            p.FillRoundGradient(face, r, C.CreamTop, C.CreamFace);
+            // The avatar's wooden plate and a cream face raised in it (spec 005 FR-048, as the profile's avatar).
+            Kit.RaisedPlate(p, AvatarLook.Rim(face));
+            p.Picture("ui.portrait.face", face, (w, h) => UiRaster.ButtonFace(w, h, GardenLook.White));
             if (family.HasValue)
             {
                 Visuals.Hero(p, Box.FromCenter(cx, cy + (size * 0.02f), size * 0.92f, size * 0.92f), family.Value, null);
@@ -176,11 +174,7 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>A sunk parchment bar where a name or a score will show once the leaderboard is online.</summary>
-        private static void Placeholder(IPainter p, Box box)
-        {
-            p.FillRound(box, box.Height / 2f, C.ParchmentWell);
-            p.StrokeRound(box.Inset(0.5f), (box.Height / 2f) - 0.5f, Math.Max(1f, p.U(2f)), C.ParchmentEdge);
-        }
+        /// <summary>A light wood groove pressed into the row (spec 005 FR-048, <see cref="UiRaster.Groove"/>) where a name or a score will show once the leaderboard is online.</summary>
+        private static void Placeholder(IPainter p, Box box) => p.Picture("ui.groove", box, UiRaster.Groove);
     }
 }

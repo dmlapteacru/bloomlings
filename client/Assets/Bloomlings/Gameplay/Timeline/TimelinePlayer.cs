@@ -35,7 +35,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
     /// </summary>
     public sealed class TimelinePlayer
     {
-        // The clearing pace is the clearing styles' (ClearStyles.TripSeconds: Colony Flow's ants' walk since the owner's
+        // The clearing pace is the clearing styles' (ClearStyles.TripSeconds: the reference game's walk since the owner's
         // video of 2026-10-08, the calm acts of 2026-10-06): every style takes the same time for a tile, and no wave
         // squeezes a trip. The cap is far above a straight route across the biggest board, 22×28 (49 cells, about 6.3 s).
         public const float MinWaveSeconds = 1.2f;

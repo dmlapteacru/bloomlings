@@ -79,7 +79,10 @@ namespace Bloomlings.Client.UI
 
             SoftShadow(layout, Outer, b => b.Width / 2f, 0.25f, 0.06f);
             Image ring = RoundRect("LockRing", root.transform, UiTheme.Of(C.CreamLine));
-            Image face = RoundGradient("LockDisc", root.transform, C.CreamTop, C.CreamFace);
+            // The switches' round cream knob (spec 005 FR-048, the playtest's Kit.LockBadge).
+            Image face = UiFactory.CreateImage("LockBall", root.transform, null, Color.white);
+            face.raycastTarget = false;
+            PictureFit.On(face, (w, h) => ProceduralSprites.ToggleKnob(Mathf.Min(w, h)), square: true);
             Image glyph = ShapeImage("Lock", root.transform, "ui.lock", C.InkBrown);
             glyph.raycastTarget = false;
             layout.Add(ring.rectTransform, Outer);

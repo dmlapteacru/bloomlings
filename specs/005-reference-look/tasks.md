@@ -898,3 +898,16 @@ and contracts/look.md §3.6, §6.10.
 - [X] T205 Docs: spec Session 2026-10-08 (the audit and the references) and FR-047, contracts/look.md §6.19 and §6.20, the
   inventory, CLAUDE.md.
 - [ ] T206 Devices: the pages, the rows, the tiles and the flowers on a phone in both APKs; the owner's verdict.
+
+- [X] T207 Kit (FR-048): `ToggleRaster.cs` (`ToggleTrack` pressed in with its marks, `ToggleKnob`, `Ball`, `Groove`,
+  `KnobShare`, `ToggleMarkShare`), `GardenLook.TanDeep`, `CardLook.SettingsToggleBox` and `SettingsLabelRight`; the slot
+  `ui.toggle` and the restated rows, outfit cards and bottom menu padlock.
+- [X] T208 Playtest: `Kit.Toggle`, the Settings rows, `Kit.CheckBadge`, `Kit.LockBadge`, the Leaderboard's portraits and
+  grooves.
+- [X] T209 Unity: `UiKit.Toggle` (`ToggleView` with the two track pictures), `SettingsScreen`, `UiKit.CheckBadge`,
+  `UiKitNav.LockBadge`, `LeaderboardScreen.Portrait`; `ProceduralSprites.ToggleTrack`, `ToggleKnob`, `Ball`.
+- [X] T210 Tests (`ToggleLookTests`): both tracks pressed in with their marks, the off track deeper than the tabs, the knob
+  flat on top and lit from the upper left, the groove paler than the off track, the badges' ball, the Settings switch's box.
+- [X] T211 Docs: spec Session 2026-10-08 (the switches) and FR-048, contracts/look.md §3.5 and §6.21, the inventory,
+  CLAUDE.md.
+- [ ] T212 Devices: the switches, the portraits and the badges on a phone in both APKs; the owner's verdict.

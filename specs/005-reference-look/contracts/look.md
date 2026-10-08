@@ -651,8 +651,8 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   §4.6, §6.8, §6.9). Pause: brown title, the
   cream close, Resume (primary, decorated), Restart (⟳), Settings (gear) and Home (`ui.back`) as cream secondaries with
   their glyphs. Settings: cream rows with brown labels and
-  the garden toggle (on: the green set's glossy track with a white ✓ and the knob right; off: a parchment well; the knob
-  a domed cream cushion like the round buttons). Its "Falling petals" switch (the owner's request of 2026-10-04) went
+  the garden toggle (since FR-048 the mockup's volumetric switch, §6.21: the track pressed into the row, green with a
+  faint check when on, deeper wood with a faint leaf when off; the knob a round cream button). Its "Falling petals" switch (the owner's request of 2026-10-04) went
   with Home's falling petals on 2026-10-06 (the owner: removed from the game altogether); older saves' `homePetals` and
   `homePetalsOn` are read and ignored. The win, the milestone and the Wardrobe keep their falling petals.
 - Demo and unlock cards: parchment, no title; a booster's card shows its colored icon on a cream tile; the first line in
@@ -1782,5 +1782,23 @@ drawn by the playtest's `Kit.RaisedRow`, `Kit.FramedTile`, `Kit.CornerFlowers`, 
 | Signs with flowers | the profile's Level plaque and "Achievements" (`CardLook.TitleSign`: 1.1 of the title's height, the text plus twice that, at most 80% wide) with `SignDecor.Flowers` |
 | Base frame | the avatar's plate (FR-044) and the Wooden Frame (§6.11, now laminate) are wooden (`AvatarLook.Wooden`): on the profile page the flowers over the avatar's top-left and bottom-right corners (`AvatarLook.FlowerShare` 0.36 of its side) |
 | Wardrobe | the family tabs keep their folder look joined to the lighter panel, as its reference; the name card keeps its tab, the flowers at its ends (half its body's height, at 72% of it) |
-| Kept | the toggles, the wells (the jam's slots, the tray's empty plates, the name field), the guides' parchment bubbles; the leaves at each row's ends wait for a leaves-only picture |
+| Kept | the wells (the jam's slots, the tray's empty plates, the name field), the guides' parchment bubbles; the leaves at each row's ends wait for a leaves-only picture (the toggles since FR-048, §6.21) |
+
+### 6.21 The volumetric switches, portraits, grooves and badges (both builds; the owner's request of 2026-10-08, FR-048)
+
+The kit's `ToggleRaster.cs` (part of `UiRaster`: `ToggleTrack(w, h, on)`, `ToggleKnob(size)`, `Ball(size, fill, shade,
+lip, line)`, `Groove(w, h)`, `KnobShare`, `ToggleMarkShare`), `GardenLook.TanDeep` and `CardLook.SettingsToggleBox`,
+`SettingsLabelRight`, drawn by the playtest's `Kit.Toggle`, `Kit.CheckBadge`, `Kit.LockBadge` and the Leaderboard's
+`Portrait` and `Placeholder`, and by Unity's `UiKit.Toggle` (`ToggleView`), `UiKit.CheckBadge`, `UiKitNav.LockBadge` and
+`LeaderboardScreen.Portrait` (`ProceduralSprites.ToggleTrack`, `ToggleKnob`, `Ball`).
+
+| Piece | Recipe |
+|---|---|
+| Track (slot `ui.toggle`) | round ends, pressed in (`SunkPill`): its face 25% toward its top color, a bevel 16% of its height turned inward (deeper under its upper edge, lit along its lower one), `garden.shadow` 18% over its upper 45%, the set's lip as a 3% outline; no shadow of its own |
+| On | `set.green`; a disc `ToggleMarkShare` (38%) of the height in the left end (2% in from its round end's middle), `button.primary_top` lightened 30% at 42%, deeper toward the lower right, with the `ui.check` in it lightened 55% at 70% |
+| Off | `set.tan.deep` (`wood.edge` 22% toward `wood.line`, top `wood.edge`, lip `wood.line` 35% toward `wood.edge`); the `symbol.leaf` in the right end, its lip 30% toward its line at 55%, a light edge under it |
+| Knob | a round cream button (`Dome`): `cream.top` 40% toward `cream.face`, flat on top, its edge rounded off over 30% of the radius and lit from the upper left, a 3% `cream.line` outline; `KnobShare` (0.98) of the track's height in its right end when on, its left end when off, over a soft shadow (0.3, 7% lower); the playtest's sinks 3% of the height when pressed |
+| In Settings | `CardLook.SettingsToggleBox`: 160 × 82 units, its middle 116 units in from the row's right end; the label ends at `SettingsLabelRight` (214 units in) |
+| Leaderboard | the portrait a white face raised on the plate (`AvatarLook.Rim(face)`) with the `ui.person` glyph; the offline name and score `UiRaster.Groove` (`set.tan` pressed in, paler than the off track) |
+| Badges | the check badge a glossy green ball (`Ball` in `set.green`) in a white ring with the white check; the padlock badges (outfit cards, achievements, the bottom menu's locked places) the knob in a `cream.line` ring with the brown `ui.lock` |
 

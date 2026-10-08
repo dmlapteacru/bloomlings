@@ -84,8 +84,8 @@ namespace Bloomlings.Playtest.Design
                 DrawSettingsIcon(p, CardLook.SettingsIconOf(key), CardLook.SettingsIconBox(line, p.U(1f)));
                 string value = PlaytestText.T(on ? "common.on" : "common.off");
                 float left = CardLook.SettingsLabelLeft(line, p.U(1f));
-                p.TextLeft(PlaytestText.F(key, value), left, line.CenterY, T.ButtonSecondary, C.InkBrown, line.Right - p.U(190f) - left, CardLook.SettingsLabelScale, TextLook.Plain(C.InkBrown));
-                Kit.Toggle(p, Box.FromCenter(line.Right - p.U(104f), line.CenterY, p.U(136f), p.U(70f)), on, toggle);
+                p.TextLeft(PlaytestText.F(key, value), left, line.CenterY, T.ButtonSecondary, C.InkBrown, CardLook.SettingsLabelRight(line, p.U(1f)) - left, CardLook.SettingsLabelScale, TextLook.Plain(C.InkBrown));
+                Kit.Toggle(p, CardLook.SettingsToggleBox(line, p.U(1f)), on, toggle);
             }
 
             float top = lines[lines.Length - 1].Bottom + p.U(20f);

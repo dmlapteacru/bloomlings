@@ -1069,37 +1069,22 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A switch (Settings; spec 005 §3.3, §3.5): a track pressed into the parchment and a domed cream knob like the round
-        /// buttons. On, the track is the green set's glossy face with a white check where the knob was (so the state never
-        /// rests on the hue alone) and the knob is right; off, it is a parchment well with the knob left.
+        /// A switch (Settings; spec 005 §3.3, §3.5; since FR-048 the owner's mockup's volumetric toggles): the track pressed
+        /// into the row (<see cref="UiRaster.ToggleTrack"/>: on, green with a faint check in its left end, so the state never
+        /// rests on the hue alone; off, deeper wood with a faint leaf in its right end) and a round cream button
+        /// (<see cref="UiRaster.ToggleKnob"/>, <see cref="UiRaster.KnobShare"/> of the track's height, a soft shadow under
+        /// it) in the track's right end when on, its left end when off, sinking a little when pressed.
         /// </summary>
         public static void Toggle(IPainter p, Box box, bool on, Action action)
         {
             p.Mark("ui.toggle");
             float r = box.Height / 2f;
-            float line = Math.Max(p.U(2f), box.Height * 0.04f);
-            if (on)
-            {
-                ColorSet green = GardenLook.Green;
-                p.FillRoundGradient(box, r, green.Lip, green.Face);
-                p.PushClip(box);
-                p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + (box.Height * 0.5f)), r, C.GardenShadow.WithAlpha(0.22f), C.GardenShadow.WithAlpha(0f));
-                p.PopClip();
-                var shine = new Box(box.Left + (box.Height * 0.3f), box.Bottom - (box.Height * 0.34f), box.Right - (box.Height * 0.3f), box.Bottom - (box.Height * 0.12f));
-                p.FillRoundGradient(shine, shine.Height / 2f, green.Top.WithAlpha(0f), green.Top.WithAlpha(0.55f));
-                p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, green.Line);
-                float check = box.Height * 0.5f;
-                p.Shape("ui.check", Box.FromCenter(box.Left + r + (box.Height * 0.06f), box.CenterY, check, check), Rgba.White);
-            }
-            else
-            {
-                Well(p, box, r);
-            }
-
-            float knob = box.Height + p.U(10f);
-            float cx = on ? box.Right - r : box.Left + r;
-            Box knobBox = Box.FromCenter(cx, box.CenterY - p.U(2f), knob, knob);
-            IconFace(p, knobBox, GardenLook.White, knob / 2f, Press(p, box, true));
+            p.Picture("ui.toggle/" + (on ? "on" : "off"), box, (w, h) => UiRaster.ToggleTrack(w, h, on));
+            float knob = box.Height * UiRaster.KnobShare;
+            float sink = box.Height * 0.03f * Math.Max(0f, Press(p, box, true));
+            Box knobBox = Box.FromCenter(on ? box.Right - r : box.Left + r, box.CenterY + sink, knob, knob);
+            SoftShadow(p, knobBox, knob / 2f, 0.3f, 0.07f);
+            p.Picture("ui.toggle/knob", knobBox, (w, h) => UiRaster.ToggleKnob(Math.Min(w, h)));
             p.Hit(Touch(p, box), action);
         }
 

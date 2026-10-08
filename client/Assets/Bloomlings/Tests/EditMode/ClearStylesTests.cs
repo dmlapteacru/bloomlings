@@ -26,8 +26,8 @@ namespace Bloomlings.Client.Tests
                 }
             }
 
-            // Colony Flow's ants (the owner's video of 2026-10-08, Level 11 at 1×): about 9 cells a second, one out of each
-            // slot every 0.30 s; the acts keep the calm pace 1.5 times as fast (the owner, 2026-10-06).
+            // The reference game's walkers (the owner's video of 2026-10-08, Level 11 at 1×): about 9 cells a second, one out
+            // of each slot every 0.30 s; the acts keep the calm pace 1.5 times as fast (the owner, 2026-10-06).
             Assert.That(1f / ClearStyles.PerCell, Is.InRange(8.5f, 9.5f), "cells a second");
             Assert.That(ClearStyles.TripSeconds(6), Is.EqualTo((6f * 1.1f / 10f) + (1.4f / 1.5f)).Within(1e-4f));
             Assert.That(ClearStyles.LineGap, Is.EqualTo(0.3f).Within(1e-4f));

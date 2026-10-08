@@ -180,14 +180,14 @@ namespace Bloomlings.Client.UI.Screens
             label.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * CardLook.SettingsLabelScale);
             label.fontSize = label.fontSizeMax;
             float left = CardLook.SettingsLabelLeft(line, u);
-            UiKit.PlaceBox(label.rectTransform, new Box(left, line.Top, line.Right - (190f * u), line.Bottom), line);
+            UiKit.PlaceBox(label.rectTransform, new Box(left, line.Top, CardLook.SettingsLabelRight(line, u), line.Bottom), line);
             ToggleView toggle = UiKit.Toggle("Switch", row.transform, () =>
             {
                 flip();
                 screen._persist();
                 screen.Refresh();
             });
-            UiKit.PlaceBox((RectTransform)toggle.transform, Box.FromCenter(line.Right - (104f * u), line.CenterY, 136f * u, 70f * u), line);
+            UiKit.PlaceBox((RectTransform)toggle.transform, CardLook.SettingsToggleBox(line, u), line);
             screen._toggles.Add((toggle, on));
             return label;
         }

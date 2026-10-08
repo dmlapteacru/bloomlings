@@ -203,6 +203,12 @@ namespace Bloomlings.Client.UI.Design
         public static readonly ColorSet Tan = new ColorSet("set.tan", C.WoodMid.Mix(C.WoodLight, 0.4f), C.WoodLight, C.WoodEdge, C.WoodLine);
 
         /// <summary>
+        /// A switch's track when off (spec 005 FR-048, the owner's Settings mockup of 2026-10-08): deeper wood,
+        /// <c>wood.edge</c> toward <c>wood.line</c>, pressed into the row, its outline deeper still.
+        /// </summary>
+        public static readonly ColorSet TanDeep = new ColorSet("set.tan.deep", C.WoodEdge.Mix(C.WoodLine, 0.22f), C.WoodEdge, C.WoodLine.Mix(C.WoodEdge, 0.35f), C.WoodLine);
+
+        /// <summary>
         /// The tiles and cards in a thin wooden rim (spec 005 FR-047, the owner's references of 2026-10-08: the profile's
         /// stats and achievements, the outfit cards, the Collection's frames): the rim as a share of the tile's shorter side.
         /// </summary>

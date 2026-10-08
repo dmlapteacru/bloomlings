@@ -1512,35 +1512,33 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A switch (Settings; FR-016, spec 005 §4.3; the playtest's <c>Kit.Toggle</c>): off, a parchment well; on, the green
-        /// set's glossy track (its lip color fading to its face, a shadow along the top half, a light band along the bottom
-        /// and a green outline) with a white ✓ where the knob was, so the state never rests on the hue alone; the knob a
-        /// domed cream cushion like the round buttons (one track height plus 10 units) at the off or on end.
+        /// A switch (Settings; FR-016, spec 005 §4.3; since FR-048 the owner's mockup's volumetric toggles, the playtest's
+        /// <c>Kit.Toggle</c>): the track pressed into the row (<see cref="ProceduralSprites.ToggleTrack"/>: on, green with a
+        /// faint check in its left end, so the state never rests on the hue alone; off, deeper wood with a faint leaf in its
+        /// right end) and a round cream button (<see cref="ProceduralSprites.ToggleKnob"/>, <see cref="UiRaster.KnobShare"/>
+        /// of the track's height, a soft shadow under it) in the track's right end when on, its left end when off.
         /// </summary>
         public static ToggleView Toggle(string name, Transform parent, Action onClick)
         {
-            Image track = Well(name, parent, raycast: true);
+            Image track = UiFactory.CreateImage(name, parent, null, Color.clear, raycast: true);
             var view = track.gameObject.AddComponent<ToggleView>();
-            RectTransform on = UiFactory.Stretch(UiFactory.CreateRect("On", track.transform));
-            Image onFace = RoundGradient("Face", on, GardenLook.Green.Lip, GardenLook.Green.Face);
-            UiFactory.Stretch(onFace.rectTransform);
-            Image onShadow = RoundRect("Shadow", on, Color.white);
-            Gradient(onShadow, UiTheme.Of(C.GardenShadow.WithAlpha(0.22f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
-            onShadow.GetComponent<VerticalGradient>().Stop = 0.5f;
-            UiFactory.Stretch(onShadow.rectTransform);
-            Image onShine = RoundRect("Shine", on, Color.white);
-            Gradient(onShine, UiTheme.Of(GardenLook.Green.Top.WithAlpha(0f)), UiTheme.Of(GardenLook.Green.Top.WithAlpha(0.55f)));
-            Image onLine = RoundRing("Line", on, UiTheme.Of(GardenLook.Green.Line), null, _ => Units(DesignTokens.Garden.OutlineWidth));
-            UiFactory.Stretch(onLine.rectTransform);
-            Image check = ShapeImage("Check", on, "ui.check", Rgba.White);
-            BoxLayout.On(on)
-                .Add(onShine.rectTransform, b => new Box(b.Left + (b.Height * 0.3f), b.Bottom - (b.Height * 0.34f), b.Right - (b.Height * 0.3f), b.Bottom - (b.Height * 0.12f)))
-                .Add(check.rectTransform, b => Box.FromCenter(b.Left + (b.Height * 0.56f), b.CenterY, b.Height * 0.5f, b.Height * 0.5f));
+            Image off = UiFactory.CreateImage("Off", track.transform, null, Color.white);
+            off.raycastTarget = false;
+            PictureFit.On(off, (w, h) => ProceduralSprites.ToggleTrack(w, h, false));
+            UiFactory.Stretch(off.rectTransform);
+            Image on = UiFactory.CreateImage("On", track.transform, null, Color.white);
+            on.raycastTarget = false;
+            PictureFit.On(on, (w, h) => ProceduralSprites.ToggleTrack(w, h, true));
+            UiFactory.Stretch(on.rectTransform);
 
-            GardenButton knob = IconFace("Knob", track.transform, GardenLook.White, b => Mathf.Min(b.Width, b.Height) / 2f, square: true);
-            var relay = track.gameObject.AddComponent<PressRelay>();
-            relay.Target = knob;
-            view.Init(on.gameObject, (RectTransform)knob.transform);
+            RectTransform knob = UiFactory.CreateRect("Knob", track.transform);
+            BoxLayout knobLayout = BoxLayout.On(knob);
+            SoftShadow(knobLayout, b => b, b => b.Width / 2f, 0.3f, 0.07f);
+            Image ball = UiFactory.CreateImage("Ball", knob, null, Color.white);
+            ball.raycastTarget = false;
+            PictureFit.On(ball, (w, h) => ProceduralSprites.ToggleKnob(Mathf.Min(w, h)), square: true);
+            UiFactory.Stretch(ball.rectTransform);
+            view.Init(on.gameObject, off.gameObject, knob);
             var button = track.gameObject.AddComponent<Button>();
             button.transition = Selectable.Transition.None;
             button.targetGraphic = track;
@@ -1549,7 +1547,6 @@ namespace Bloomlings.Client.UI
                 GameFeedback.Current?.Play(SoundCue.Click);
                 onClick();
             });
-            knob.Button = button;
             return view;
         }
 
@@ -2229,13 +2226,13 @@ namespace Bloomlings.Client.UI
     public sealed class ToggleView : MonoBehaviour
     {
         private GameObject _on = null!;
-        private RectTransform _knob = null!;
+        private GameObject _off = null!;
         private bool _state;
 
-        public void Init(GameObject on, RectTransform knob)
+        public void Init(GameObject on, GameObject off, RectTransform knob)
         {
             _on = on;
-            _knob = knob;
+            _off = off;
             BoxLayout.On((RectTransform)transform).Add(knob, Knob);
             Show(false);
         }
@@ -2244,15 +2241,16 @@ namespace Bloomlings.Client.UI
         {
             _state = on;
             _on.SetActive(on);
+            _off.SetActive(!on);
             BoxLayout.On((RectTransform)transform).Apply();
         }
 
-        /// <summary>The knob: a square one track height plus 10 units, centered on the track's end, 2 units up.</summary>
+        /// <summary>The knob: a square <see cref="UiRaster.KnobShare"/> of the track's height in its round end (the playtest's <c>Kit.Toggle</c>).</summary>
         private Box Knob(Box track)
         {
-            float size = track.Height + UiKit.Units(10f);
+            float size = track.Height * UiRaster.KnobShare;
             float cx = _state ? track.Right - (track.Height / 2f) : track.Left + (track.Height / 2f);
-            return Box.FromCenter(cx, track.CenterY - UiKit.Units(2f), size, size);
+            return Box.FromCenter(cx, track.CenterY, size, size);
         }
     }
 

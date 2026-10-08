@@ -765,6 +765,22 @@ Wardrobe, the profile and its edit card: "Не вижу чтоб на ренде
   flowers at its ends), as their references; the toggles, the wells of the jam's slots, the tray and the name field, and
   the guides' parchment bubbles stay. The references' leaves at every row's ends wait for a leaves-only picture.
 
+### Session 2026-10-08 (the owner's volumetric switches, "and so on")
+
+The owner, repeating the audit request: "Так же в попапе настроек, тоглы тоже должны быть обьемные, вспомни референс. И так
+далее" ("In the Settings popup the toggles must be volumetric too, remember the reference. And so on"), the reference
+being the Settings mockup of FR-045. Decided from the mockup without a question (FR-048):
+- Q: The switches? → A: As the mockup's: the track pressed into the row, deeper under its upper edge and catching the
+  light along its lower one; on, green with a faint lighter check in a lighter disc in its left end; off, a deeper wood
+  than the tabs with a faint leaf pressed into its right end; the knob a round cream button, flat on top with its edge
+  rounded off, filling the track's round end over a soft shadow; about two thirds of the row's height, as the mockup's.
+- Q: "And so on"? → A: The Leaderboard's portraits become a white face raised on the plate with the person glyph, and its
+  offline names and scores light wood grooves pressed into the row (the reference's); the outfit cards' and Edit profile's
+  check badge a glossy green ball, the padlock badges (outfit cards, achievements, the bottom menu's locked places) the
+  switches' cream knob with the brown padlock.
+- Q: What stays? → A: The wells (the jam's slots, the tray's empty plates, the name field) and the guides' parchment
+  bubbles, as FR-047 kept them; the references' leaves at every row's ends still wait for a leaves-only picture.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1413,6 +1429,15 @@ inventory.
   MUST be the plate's laminate (`UiRaster.ProfileFrame`), and the profile page's wooden frames carry flowers over two
   corners (`AvatarLook.Wooden`). Both builds (contracts/look.md §6.20). Presentation only: layouts, rules and tap outcomes
   stay.
+
+- **FR-048** *(the owner's request of 2026-10-08: "the toggles volumetric too, remember the reference. And so on")*: Every
+  switch MUST be the mockup's (`Kit.Toggle` / `UiKit.Toggle`): its track pressed into the row (`UiRaster.ToggleTrack`; on,
+  `GardenLook.Green` with a faint check in its left end; off, `GardenLook.TanDeep` with a faint leaf in its right end, so
+  the state never rests on the hue alone) and a round cream button for its knob (`UiRaster.ToggleKnob`, `KnobShare` of the
+  track's height), in Settings `CardLook.SettingsToggleBox` (160 × 82 units). The Leaderboard's portraits MUST be raised on
+  the plate and its offline names and scores pressed-in grooves (`UiRaster.Groove`); the check badges MUST be a glossy
+  green ball and the padlock badges the switches' knob (`UiRaster.Ball`, `ToggleKnob`). Both builds (contracts/look.md
+  §6.21). Presentation only: the switches' states, their taps and the rest stay.
 
 ### Key Entities
 

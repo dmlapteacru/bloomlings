@@ -672,8 +672,8 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// The worn item's badge (§4.6, the playtest's <c>Kit.CheckBadge</c>): a green disc in a white ring (10% of the disc)
-        /// with a thin green line and a white check, over a soft shadow, in the box <paramref name="disc"/> gives for the
+        /// The worn item's badge (§4.6, the playtest's <c>Kit.CheckBadge</c>): a glossy green ball in a white ring (10% of the
+        /// disc; spec 005 FR-048) and a white check, over a soft shadow, in the box <paramref name="disc"/> gives for the
         /// element's box. Its images go into <paramref name="layout"/>'s element.
         /// </summary>
         internal static void CheckBadge(BoxLayout layout, Func<Box, Box> disc)
@@ -688,12 +688,13 @@ namespace Bloomlings.Client.UI
 
             SoftShadow(layout, Outer, b => b.Width / 2f, 0.25f, 0.06f);
             Image ring = RoundRect("CheckRing", root, Color.white);
-            Image face = RoundGradient("CheckDisc", root, green.Top, green.Face);
-            Image edge = RoundRing("CheckLine", root, UiTheme.Of(green.Line), null, b => Mathf.Max(Units(1f), b.Width * 0.04f));
+            // A glossy green ball (spec 005 FR-048, the playtest's Kit.CheckBadge).
+            Image face = UiFactory.CreateImage("CheckBall", root, null, Color.white);
+            face.raycastTarget = false;
+            PictureFit.On(face, (w, h) => ProceduralSprites.Ball(green, Mathf.Min(w, h)), square: true);
             Image check = ShapeImage("Check", root, "ui.check", Rgba.White);
             layout.Add(ring.rectTransform, Outer);
             layout.Add(face.rectTransform, disc);
-            layout.Add(edge.rectTransform, b => disc(b).Inset(Mathf.Max(0.5f, disc(b).Width * 0.02f)));
             layout.Add(check.rectTransform, b =>
             {
                 Box d = disc(b);

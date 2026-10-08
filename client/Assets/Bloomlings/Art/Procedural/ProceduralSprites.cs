@@ -658,6 +658,17 @@ namespace Bloomlings.Client.Art
         /// <summary>A raised cream slab of a popup's row (spec 005 FR-045), its corners <paramref name="radiusShare"/> of its height, its front side 6% of it.</summary>
         public static Sprite RaisedRow(int width, int height, float radiusShare) => RaisedRow(width, height, radiusShare, GardenLook.RowCream);
 
+        /// <summary>A switch's track, on or off (spec 005 FR-048; <see cref="UiRaster.ToggleTrack"/>).</summary>
+        public static Sprite ToggleTrack(int width, int height, bool on) =>
+            Picture("ui.toggle/" + (on ? "on" : "off"), width, height, (w, h) => UiRaster.ToggleTrack(w, h, on));
+
+        /// <summary>A switch's round cream knob (spec 005 FR-048; <see cref="UiRaster.ToggleKnob"/>).</summary>
+        public static Sprite ToggleKnob(int size) => Picture("ui.toggle/knob", size, size, (w, h) => UiRaster.ToggleKnob(Math.Min(w, h)));
+
+        /// <summary>A glossy ball in <paramref name="set"/>'s colors (spec 005 FR-048; <see cref="UiRaster.Ball"/>: the check badge's green).</summary>
+        public static Sprite Ball(ColorSet set, int size) =>
+            Picture("ui.badge.ball/" + set.Name, size, size, (w, h) => UiRaster.Ball(Math.Min(w, h), set.Face, set.Top, set.Lip, set.Line));
+
         /// <summary>The plate of a tile in a thin wooden rim (spec 005 FR-047; <see cref="UiRaster.ButtonPlate(int, int, float, float)"/> with <see cref="GardenLook.TileRimShare"/>).</summary>
         public static Sprite TilePlate(int width, int height, float radiusShare) =>
             Picture("ui.tile.plate/" + Share(radiusShare), width, height, (w, h) => UiRaster.ButtonPlate(w, h, radiusShare, GardenLook.TileRimShare));

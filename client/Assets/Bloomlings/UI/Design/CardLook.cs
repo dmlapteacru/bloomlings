@@ -76,6 +76,15 @@ namespace Bloomlings.Client.UI.Design
         public const float SettingsLabelScale = 1.04f;
 
         /// <summary>
+        /// A Settings row's switch (spec 005 FR-048, the owner's mockup): 160 × 82 units, about two thirds of the row's
+        /// height as in the mockup, its middle 116 units in from the row's right end.
+        /// </summary>
+        public static Box SettingsToggleBox(Box row, float unit) => Box.FromCenter(row.Right - (116f * unit), row.CenterY, 160f * unit, 82f * unit);
+
+        /// <summary>Where a Settings row's label must end, clear of its switch.</summary>
+        public static float SettingsLabelRight(Box row, float unit) => row.Right - (214f * unit);
+
+        /// <summary>
         /// A section title's wooden sign with flowers at its ends (spec 005 FR-047, the profile's "Achievements" after the
         /// owner's references of 2026-10-08): centered in <paramref name="title"/>, 1.1 times its height, as wide as the
         /// text in <paramref name="textWidth"/> plus twice the sign's height (the flowers' room), at most 80% of the title.
