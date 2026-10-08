@@ -94,7 +94,7 @@ namespace Bloomlings.Client.UI.Design
         public const float PlateSide = 0.035f;
 
         /// <summary>The thickness of an icon button's raised face under its top, as a share of the button's shorter side.</summary>
-        public const float FaceSide = 0.035f;
+        public const float FaceSide = 0.022f;
 
         /// <summary>
         /// The wooden plate of an icon button or the speed pill (the owner, 2026-10-08: "the rim is volumetric, the button seems
@@ -117,7 +117,6 @@ namespace Bloomlings.Client.UI.Design
             float side = s * PlateSide;
             float topBottom = h - side;
             float line = Math.Max(1f, s * 0.016f);
-            Wood wood = Wood.Of(WoodTone.Light, width, height, 5);
             Box face = RaisedFaceBox(new Box(0f, 0f, w, h));
             float faceRadius = Math.Max(0f, radius - rim);
             for (int py = 0; py < height; py++)
@@ -134,9 +133,7 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     float top = RoundRect(x, y, 0f, 0f, w, topBottom, radius);
-                    var c = new Color(wood.Face(px, py, horizontal: true));
-                    c.Mix(C.WoodEdge, 0.62f);
-                    c.Mix(C.WoodGrain, 0.1f);
+                    Color c = Laminate(x, y, body, s, radius, w, h);
                     if (top < 0.5f)
                     {
                         // The border rounds over at the outside and into the opening; flat on its middle.
@@ -144,7 +141,7 @@ namespace Bloomlings.Client.UI.Design
                         (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float f = q < 0.4f ? (float)Math.Cos(q / 0.4f * Math.PI / 2f) : q > 0.75f ? -(float)Math.Cos((1f - Math.Min(1f, q)) / 0.25f * Math.PI / 2f) : 0f;
                         (float nx, float ny, float nz) = (gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))));
-                        Shade(ref c, C.WoodEdge, nx, ny, nz, 0.5f, 0.45f, 0.3f);
+                        Shade(ref c, C.WoodMid, nx, ny, nz, 0.45f, 0.4f, 0.25f);
                         c.Mix(C.WoodEdge.Darken(0.12f), Clamp01(top + 0.5f) * 0.5f);
                     }
                     else
@@ -156,9 +153,9 @@ namespace Bloomlings.Client.UI.Design
 
                     // The opening: a dark groove round the face and the face's soft shadow below it.
                     float hole = RoundRect(x, y, face.Left, face.Top, face.Right, face.Bottom, faceRadius);
-                    c.Mix(C.WoodLine, 0.35f * Clamp01(1f - (Math.Abs(hole - (s * 0.006f)) / Math.Max(1f, s * 0.015f))));
+                    c.Mix(C.WoodLine, 0.22f * Clamp01(1f - (Math.Abs(hole - (s * 0.006f)) / Math.Max(1f, s * 0.012f))));
                     float shadow = RoundRect(x, y - (s * 0.03f), face.Left + (s * 0.01f), face.Top, face.Right - (s * 0.01f), face.Bottom, faceRadius);
-                    c.Mix(C.WoodLine.Darken(0.25f), 0.3f * (1f - Smooth(Clamp01((shadow + (s * 0.005f)) / (s * 0.045f)))));
+                    c.Mix(C.WoodLine.Darken(0.25f), 0.16f * (1f - Smooth(Clamp01((shadow + (s * 0.005f)) / (s * 0.04f)))));
 
                     c.Mix(C.WoodLine, 0.55f * Clamp01(0.5f - (-body - line)));
                     Put(pixels, width, px, py, c, cover);
@@ -201,7 +198,7 @@ namespace Bloomlings.Client.UI.Design
             float s = Math.Min(w, h);
             float side = Math.Min(h * 0.3f, sidePixels);
             float topBottom = h - side;
-            float bevel = Math.Max(1.5f, s * 0.15f);
+            float bevel = Math.Max(1.5f, s * 0.07f);
             for (int py = 0; py < height; py++)
             {
                 float y = py + 0.5f;
@@ -224,17 +221,108 @@ namespace Bloomlings.Client.UI.Design
                         (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float tilt = 1f - Clamp01(-top / bevel);
                         (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
-                        Shade(ref c, set.Face, nx, ny, nz, 0.6f, 0.55f, 0.35f);
-                        c.Mix(set.Lip, Clamp01(top + 0.5f) * 0.5f);
+                        Shade(ref c, set.Face, nx, ny, nz, 0.35f, 0.2f, 0.15f);
+                        c.Mix(set.Lip, Clamp01(top + 0.5f) * 0.2f);
                     }
                     else
                     {
                         float t = Clamp01((y - (topBottom - radius)) / Math.Max(1f, h - (topBottom - radius)));
-                        c = new Color(set.Lip.Lighten(0.22f).Mix(set.Lip, t));
+                        c = new Color(set.Face.Mix(set.Lip, 0.45f + (0.3f * t)));
                     }
 
-                    c.Mix(set.Lip.Darken(0.2f), 0.4f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
+                    c.Mix(set.Lip.Darken(0.15f), 0.3f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
                     Put(pixels, width, px, py, c, cover);
+                }
+            }
+
+            return pixels;
+        }
+
+        /// <summary>
+        /// The plate's laminate (the owner, 2026-10-08: "more wooden, like laminate flooring, and creamier"): creamy light
+        /// wood (<c>wood.light</c> toward <c>wood.mid</c>) in long streaks along the border, a little deeper here and there
+        /// (<c>wood.edge</c>), with fine darker grain lines (<c>wood.grain</c>) running along it, wavering gently, as a strip
+        /// of laminate bent round the button. <paramref name="outer"/> is the plate's signed distance at (x, y).
+        /// </summary>
+        private static Color Laminate(float x, float y, float outer, float s, float radius, float w, float h)
+        {
+            (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, h, radius));
+            bool upright = Math.Abs(gx) > Math.Abs(gy);
+            float along = upright ? y : x;
+            float across = -outer;
+            int seed = upright ? (gx < 0f ? 11 : 13) : (gy < 0f ? 17 : 19);
+            var c = new Color(C.WoodLight.Mix(C.WoodMid, 0.45f));
+
+            // Long streaks: slow along the strip, quick across it.
+            float streak = Fbm(along / (s * 0.42f), across / (s * 0.022f), seed, 3);
+            c.Mix(C.WoodEdge.Lighten(0.08f), 0.55f * Smooth(Clamp01((streak - 0.4f) / 0.35f)));
+
+            // Fine grain lines along the strip, wavering a little.
+            float wave = Fbm(along / (s * 0.55f), across / (s * 0.06f), seed + 5, 2);
+            float lines = (float)Math.Abs(Math.Sin(((across / (s * 0.0105f)) + (wave * 3.2f)) * Math.PI));
+            float fine = (float)Math.Pow(1f - lines, 6);
+            c.Mix(C.WoodGrain.Lighten(0.12f), 0.32f * fine * (0.55f + (0.45f * Fbm(along / (s * 0.2f), across / (s * 0.03f), seed + 9, 2))));
+            return c;
+        }
+
+        /// <summary>The share of a raised glyph's picture its glyph box takes (the rest holds its shadow).</summary>
+        public const float GlyphPictureShare = 0.86f;
+
+        /// <summary>The picture box of a raised glyph whose shape fills <paramref name="glyph"/>, a little lower for its shadow.</summary>
+        public static Box RaisedGlyphBox(Box glyph)
+        {
+            float side = Math.Max(glyph.Width, glyph.Height) / GlyphPictureShare;
+            return Box.FromCenter(glyph.CenterX, glyph.CenterY + (side * 0.02f), side, side);
+        }
+
+        /// <summary>
+        /// A button's glyph, a little raised (the owner, 2026-10-08: "even the icons on the buttons look a little
+        /// volumetric"): the shape <paramref name="shapeId"/> in <paramref name="color"/>, filling
+        /// <see cref="GlyphPictureShare"/> of a square picture of side <paramref name="size"/> (as the painters fit a
+        /// shape, <see cref="ShapeRaster.Margin"/>), its edge rounding over a bevel of 4.5% of the glyph, lit from the upper
+        /// left (lighter there, deeper at the lower right, a soft gloss), over a soft shadow below it and a thin light
+        /// emboss line under its lower edge, as if pressed into the cream.
+        /// </summary>
+        public static byte[] RaisedGlyph(int size, string shapeId, Rgba color)
+        {
+            Check(size, size);
+            var pixels = new byte[size * size * 4];
+            Func<float, float, float> sdf = ShapeLibrary.Get(shapeId);
+            float s = size;
+            float box = s * GlyphPictureShare;
+            float unit = box / 2f / ShapeRaster.Margin;
+            float cx = s / 2f;
+            float cy = (s / 2f) - (s * 0.02f);
+            float bevel = Math.Max(1f, box * 0.045f);
+            float shadowDrop = box * 0.035f;
+            Func<float, float, float> d = (px, py) => sdf((px - cx) / unit, -(py - cy) / unit) * unit;
+            for (int py = 0; py < size; py++)
+            {
+                float y = py + 0.5f;
+                for (int px = 0; px < size; px++)
+                {
+                    float x = px + 0.5f;
+                    var paint = default(NavPaint);
+                    float ds = d(x, y);
+
+                    // The soft shadow below and the light emboss line under the lower edge.
+                    float shadow = d(x, y - shadowDrop);
+                    paint.Over(0.28f * (1f - Smooth(Clamp01((shadow + (box * 0.01f)) / (box * 0.06f)))), color.Darken(0.35f));
+                    float emboss = d(x, y - (box * 0.022f));
+                    paint.Over(0.5f * Coverage(emboss) * Clamp01(ds / Math.Max(0.5f, box * 0.01f)), C.CreamTop);
+
+                    float cover = Coverage(ds);
+                    if (cover > 0f)
+                    {
+                        float t = Clamp01((y - (cy - (box / 2f))) / box);
+                        var c = new Color(color.Lighten(0.12f).Mix(color.Darken(0.08f), t));
+                        (float gx, float gy) = Gradient(x, y, d);
+                        (float nx, float ny, float nz) = BevelNormal(gx, gy, 1f - Clamp01(-ds / bevel));
+                        Shade(ref c, color, nx, ny, nz, 0.6f, 0.45f, 0.22f);
+                        paint.Over(cover, c.ToRgba());
+                    }
+
+                    paint.Write(pixels, ((py * size) + px) * 4);
                 }
             }
 

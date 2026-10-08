@@ -166,6 +166,12 @@ namespace Bloomlings.Playtest.Design
         public static void Glyph(IPainter p, string shapeId, Box box, ColorSet set)
         {
             Rgba glyph = GardenLook.GlyphOn(set);
+            if (UiRaster.VolumeLook && !GardenLook.LabelOn(set).Volumetric)
+            {
+                RaisedGlyph(p, shapeId, box, glyph);
+                return;
+            }
+
             if (GardenLook.LabelOn(set).Volumetric)
             {
                 p.Shape(shapeId, box.Offset(0f, box.Height * 0.06f), set.Line);
@@ -177,6 +183,12 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.Shape(shapeId, box, glyph);
+        }
+
+        /// <summary>A glyph a little raised on its button (the owner's volume proposal, <see cref="UiRaster.RaisedGlyph"/>).</summary>
+        public static void RaisedGlyph(IPainter p, string shapeId, Box box, Rgba color)
+        {
+            p.Picture("ui.glyph.raised/" + shapeId + "/" + color.Hex, UiRaster.RaisedGlyphBox(box), (w, h) => UiRaster.RaisedGlyph(Math.Min(w, h), shapeId, color));
         }
 
         /// <summary>The thin <c>cream.top</c> halo around a brown glyph on cream (the shape grown by 0.06 shape units).</summary>
@@ -599,8 +611,16 @@ namespace Bloomlings.Playtest.Design
             IconPart glyph = on ? GardenLook.FastGlyphOn : GardenLook.FastGlyph;
             float side = box.Height * GardenLook.SpeedGlyphShare * GardenLook.IconRimGlyph;
             Box fast = Box.FromCenter(f.CenterX, f.CenterY, side, side);
-            GlyphHalo(p, glyph.ShapeId, fast);
-            p.Shape(glyph.ShapeId, fast, glyph.Fill);
+            if (UiRaster.VolumeLook)
+            {
+                RaisedGlyph(p, glyph.ShapeId, fast, glyph.Fill);
+            }
+            else
+            {
+                GlyphHalo(p, glyph.ShapeId, fast);
+                p.Shape(glyph.ShapeId, fast, glyph.Fill);
+            }
+
             p.PopTransform();
             if (action != null)
             {
