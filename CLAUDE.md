@@ -258,7 +258,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `UiKit.RaisedRow`), the Settings rows with their icons (`CardLook.SettingsIconOf`); every primary and secondary button,
   the jam's choices and the clearing cards' buttons are raised on the plate (`Kit.RaisedButton` / `UiKit.RaisedButton`,
   `UiRaster.ButtonPlate(w, h, share)`, `ButtonFace(w, h, set, share, gloss)`: 0.5 for the pills, 0.22 for the choices,
-  the colored faces glossy). The booster tiles, tabs and cost pills keep their own look; the pages' panels stay parchment.
+  the colored faces glossy). The rows take the lighter `GardenLook.RowCream` (`UiRaster.RaisedRow`), the card's body keeps
+  clear of the frame (`ScreenLayout.Card`), and the finished picture on the win and in the Collection is drawn in the soft
+  cubes too (FR-046). The booster tiles, tabs and cost pills keep their own look; the pages' panels stay parchment.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

@@ -404,9 +404,10 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A finished picture (the win card and the Collection; research D14, §4.4): each cell a flat full-color candy tile
-        /// of its role's variant (no lip, a small gloss, the board-style symbol), stones as stone blocks and ground as
-        /// cream cells, inside a thin stone border when the cells are big enough for one.
+        /// A finished picture (the win card and the Collection; research D14, §4.4): each cell a full-color candy tile of its
+        /// role's variant, the board's soft cube (spec 005 FR-046, the owner, 2026-10-08: "on the win page the board must
+        /// look as in the gameplay, volumetric"), stones as stone blocks and ground as grass, inside a thin stone border
+        /// when the cells are big enough for one.
         /// </summary>
         public static void Picture(IPainter p, Box box, LevelDefinition definition, BasePicture picture)
         {
@@ -444,7 +445,7 @@ namespace Bloomlings.Playtest.Design
                     (VariantId? variant, int value) = PictureCell(definition, picture, x, y);
                     if (variant.HasValue)
                     {
-                        Kit.CandyTile(p, full.Inset(cell * TileInset), variant.Value, TileStyle.Flat);
+                        Kit.CandyTile(p, full.Inset(cell * TileInset), variant.Value, TileStyle.Board);
                     }
                     else if (value == BasePicture.Stone)
                     {

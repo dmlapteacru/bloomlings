@@ -257,7 +257,19 @@ namespace Bloomlings.Client.UI.Design
         /// (<paramref name="set"/>'s face, its top lighter at the upper left) whose top's edge rounds down over 15% of its
         /// shorter side, lit from the upper left, over its front side of <paramref name="sidePixels"/> in the set's lip.
         /// </summary>
-        public static byte[] RaisedFace(int width, int height, float radius, float sidePixels, ColorSet set, bool gloss = false)
+        public static byte[] RaisedFace(int width, int height, float radius, float sidePixels, ColorSet set, bool gloss = false) =>
+            RaisedFace(width, height, radius, sidePixels, set, gloss, 1f);
+
+        /// <summary>
+        /// A popup's row (spec 005 FR-045; the owner, 2026-10-08: "the row's color must be cream, as a button without its
+        /// rim", the mockup's (254, 236, 207)): the raised cream face (<see cref="RaisedFace(int, int, float, float, ColorSet, bool)"/>)
+        /// in the lighter <see cref="GardenLook.RowCream"/>, evenly cream across its length (a quarter of the face's deepening
+        /// toward its lower edge), filling <paramref name="width"/> × <paramref name="height"/>, its corners
+        /// <paramref name="radius"/>, its front side 6% of its height.
+        /// </summary>
+        public static byte[] RaisedRow(int width, int height, float radius) => RaisedFace(width, height, radius, height * 0.06f, GardenLook.RowCream, false, 0.25f);
+
+        private static byte[] RaisedFace(int width, int height, float radius, float sidePixels, ColorSet set, bool gloss, float deepen)
         {
             Check(width, height);
             var pixels = new byte[width * height * 4];
@@ -293,7 +305,7 @@ namespace Bloomlings.Client.UI.Design
                     {
                         float lit = Clamp01(1f - ((x / w * 0.5f) + (y / topBottom * 0.8f)));
                         c = new Color(set.Face.Mix(set.Lip, 0.12f).Mix(set.Top, 0.25f * lit));
-                        c.Mix(set.Lip, 0.35f * Clamp01((y / topBottom) - 0.35f));
+                        c.Mix(set.Lip, 0.35f * deepen * Clamp01((y / topBottom) - 0.35f));
                         if (cream)
                         {
                             c.Mix(set.Lip.Darken(0.1f), FaceGrain(x, y, s));

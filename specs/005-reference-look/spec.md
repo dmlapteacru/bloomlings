@@ -720,6 +720,20 @@ mockup without a question:
 - Q: The jam card? → A: The same frame and corner sprigs; its title stays above the subtitle, as the reference's "No More
   Space!".
 
+### Session 2026-10-08 (the owner's review of the popups and the win's board)
+
+The owner, on the first renders: "Цвет ряда в попапе настроек должен быть кремовый. Как кнопка без обводки. Кстати на
+странице победы, борд должен выглядеть так же как в геймплее, объемным." ("The Settings rows must be cream, as a button
+without its rim. And on the win page the board must look as in the gameplay, volumetric.") Then: "Должен быть отступ слева
+справа от границ попапа" ("There must be a gap left and right of the popup's edges").
+- Q: The rows' cream? → A: They read tan on the light panel (their lower part deepened toward the lip, about (248, 218,
+  177) against the mockup's (254, 236, 207)): a row is now the lighter row cream (`GardenLook.RowCream`, half way to
+  `cream.top`) and deepens a quarter as much toward its lower edge (`UiRaster.RaisedRow`), about (252, 235, 210) (FR-045).
+- Q: The gap? → A: A card's content keeps the padding clear of the frame: `ScreenLayout.Card`'s body is inset by the
+  padding plus the frame's width at the sides (and 1.3 of it at the bottom), and the card grows by that at the bottom.
+- Q: The win's board? → A: The finished picture (the win, the Collection) draws each cell as the board's soft cube
+  (FR-046): the playtest's `BoardPainter.Picture`, Unity's `WinPictureView` and `BoardPictures.Finished` (`PictureTile`).
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1350,6 +1364,11 @@ inventory.
   `Kit.Card`, `Kit.CardFrame`, `Kit.RaisedButton`, `Kit.RaisedRow`, `Kit.WoodSign`; Unity's `UiKit.Card`,
   `UiKit.CardFrame`, `UiKit.CardDecoration`, `UiKit.RaisedButton`, `UiKit.RaisedRow`, `UiKit.WoodSign`). Presentation only:
   layouts, rules and tap outcomes stay.
+
+- **FR-046** *(the owner, 2026-10-08: "on the win page the board must look as in the gameplay, volumetric")*: The
+  finished picture on the win and in the Collection MUST draw each target cell as the board's soft cube (FR-044,
+  `TileStyle.Board`, the owner's field icon on the top's middle) in both builds (the playtest's `BoardPainter.Picture`,
+  Unity's `WinPictureView` and `BoardPictures.Finished`); stones and grass stay. Presentation only.
 
 ### Key Entities
 

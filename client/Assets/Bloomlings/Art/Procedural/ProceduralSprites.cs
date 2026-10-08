@@ -657,7 +657,7 @@ namespace Bloomlings.Client.Art
 
         /// <summary>A raised cream slab of a popup's row (spec 005 FR-045), its corners <paramref name="radiusShare"/> of its height, its front side 6% of it.</summary>
         public static Sprite RaisedRow(int width, int height, float radiusShare) =>
-            Picture("ui.row.raised/" + Share(radiusShare), width, height, (w, h) => UiRaster.RaisedFace(w, h, radiusShare * h, h * 0.06f, GardenLook.Cream));
+            Picture("ui.row.raised/" + Share(radiusShare), width, height, (w, h) => UiRaster.RaisedRow(w, h, radiusShare * h));
 
         /// <summary>
         /// A glyph a little raised on its cream face (spec 005 FR-044, <see cref="UiRaster.RaisedGlyph(int, string, Rgba)"/>):

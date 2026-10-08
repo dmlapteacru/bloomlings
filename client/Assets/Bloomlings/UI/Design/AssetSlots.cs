@@ -287,7 +287,7 @@ namespace Bloomlings.Client.UI.Design
 
             Add("board.entry.arch", "Garden Entry: a small stone arch set in the border beside each entry cell (spec 005 FR-034; the owner's choice \"B\", 2026-10-05)", Gameplay, "Board (every entry, turned to its side)", "bottom; top; left; right", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.EntryArch: two stone pillars and an arch of keystones round a dark opening with two peeping eyes, ivy, a pink flower on the keystone and a soft warm light; it reaches 0.36 cell over the entry cell");
             Add("board.border.stone", "Stone border around the board", Gameplay, "Board; win picture", "normal; thin (win)", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles");
-            Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells as flat full-color candy tiles (`tile.candy`, no lip, with the owner's field icons `tile.gem.*`) of each role's variant in a thin stone border (spec 005 D14)");
+            Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells as the board's soft cubes (`tile.candy`, with the owner's field icons `tile.gem.*`; spec 005 FR-046: \"as in the gameplay, volumetric\") of each role's variant in a thin stone border (spec 005 D14)");
 
             // ---- Specials ----
             Shape("special.gate", "Garden Gate (hedge seal)", new[] { 9 }, "Board", "closed; opening", SizeClass.Small, readability: true);

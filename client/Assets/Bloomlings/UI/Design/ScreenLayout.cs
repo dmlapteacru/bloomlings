@@ -272,7 +272,10 @@ namespace Bloomlings.Client.UI.Design
             float cardWidth = Math.Min(safe.Width * 0.84f, 920f * u);
             float titleHeight = 130f * u;
             float padding = DesignTokens.Space.M * u;
-            float cardHeight = Math.Min(safe.Height - (80f * u), titleHeight + (contentHeight * u) + padding);
+            // The popups' wooden frame (spec 005 FR-045) takes its width inside the card on every side, and the content
+            // keeps the padding clear of it (the owner, 2026-10-08: "there must be a gap left and right of the popup's edges").
+            float frame = UiRaster.CardFrameBorder(cardWidth);
+            float cardHeight = Math.Min(safe.Height - (80f * u), titleHeight + (contentHeight * u) + padding + (frame * 1.3f));
             Box card = Box.FromCenter(safe.CenterX, safe.CenterY, cardWidth, cardHeight);
             // The close button as big as every other icon button (the owner, 2026-10-06: "make the ✕ bigger"; it was 96),
             // the centered title kept clear of it on both sides.
@@ -280,7 +283,7 @@ namespace Bloomlings.Client.UI.Design
             float titleSide = close + (40f * u);
             var title = new Box(card.Left + titleSide, card.Top + (20f * u), card.Right - titleSide, card.Top + titleHeight);
             var closeBox = new Box(card.Right - close - (22f * u), card.Top + (22f * u), card.Right - (22f * u), card.Top + (22f * u) + close);
-            var body = new Box(card.Left + padding, card.Top + titleHeight, card.Right - padding, card.Bottom - padding);
+            var body = new Box(card.Left + padding + frame, card.Top + titleHeight, card.Right - padding - frame, card.Bottom - padding - (frame * 1.3f));
             return new CardRegions(card, title, closeBox, body);
         }
 

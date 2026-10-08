@@ -84,6 +84,35 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void ARow_IsTheLightEvenCream_OfTheMockup()
+        {
+            const int w = 600;
+            const int h = 126;
+            byte[] row = UiRaster.RaisedRow(w, h, h * 0.25f);
+            byte[] face = UiRaster.RaisedFace(w, h, h * 0.25f, h * 0.06f, GardenLook.Cream);
+            (byte r, byte g, byte b) = Rgb(row, w, w / 2, (int)(h * 0.6f));
+            Assert.That(b, Is.GreaterThan(Rgb(face, w, w / 2, (int)(h * 0.6f)).B + 15), "lighter cream than a button's face over a long row");
+            Assert.That(r, Is.GreaterThan(240));
+            Assert.That(b, Is.InRange(195, 225), "the mockup's (254, 236, 207)");
+            Assert.That(Math.Abs(Luma(row, w, w / 2, (int)(h * 0.3f)) - Luma(row, w, w / 2, (int)(h * 0.75f))), Is.LessThan(12f), "even along its height");
+        }
+
+        [Test]
+        public void ACardsBody_KeepsClearOfItsFrame()
+        {
+            foreach ((float w, float h) in new[] { (1080f, 1920f), (1080f, 2340f), (1440f, 3200f) })
+            {
+                CardRegions r = ScreenLayout.Card(w, h, default, 600f);
+                float frame = UiRaster.CardFrameBorder(r.Card.Width);
+                Box panel = CardLook.Panel(r.Card);
+                Assert.That(r.Body.Left - panel.Left, Is.GreaterThanOrEqualTo(DesignTokens.Space.M * DesignTokens.ScaleFor(w, h) - 0.01f), "a gap at the left");
+                Assert.That(panel.Right - r.Body.Right, Is.GreaterThanOrEqualTo(DesignTokens.Space.M * DesignTokens.ScaleFor(w, h) - 0.01f), "and at the right");
+                Assert.That(r.Body.Bottom, Is.LessThan(panel.Bottom), "above the frame's bottom member");
+                Assert.That(frame, Is.GreaterThan(0f));
+            }
+        }
+
+        [Test]
         public void TheSign_StraddlesTheCardsTopEdge_WithTheLotusRisingBehindIt()
         {
             var card = new Box(80f, 400f, 1000f, 1300f);

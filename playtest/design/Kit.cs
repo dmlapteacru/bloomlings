@@ -950,8 +950,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A cream slab raised like a button's face without its plate (spec 005 FR-045: the popups' rows, the dev row's
-        /// pills): a soft shadow and <see cref="UiRaster.RaisedFace"/> in the cream set filling <paramref name="box"/>, its
-        /// front side 6% of its height, its corners <paramref name="radius"/>.
+        /// pills): a soft shadow and <see cref="UiRaster.RaisedRow"/> (the light, even row cream) filling
+        /// <paramref name="box"/>, its front side 6% of its height, its corners <paramref name="radius"/>.
         /// </summary>
         public static void RaisedRow(IPainter p, Box box, float radius)
         {
@@ -959,7 +959,7 @@ namespace Bloomlings.Playtest.Design
             float r = Math.Min(radius, box.Height / 2f);
             SoftShadow(p, box, r, 0.16f, 0.05f);
             float share = r / Math.Max(1f, box.Height);
-            p.Picture("ui.row.raised/" + Share(share), box, (w, h) => UiRaster.RaisedFace(w, h, share * h, h * 0.06f, GardenLook.Cream));
+            p.Picture("ui.row.raised/" + Share(share), box, (w, h) => UiRaster.RaisedRow(w, h, share * h));
         }
 
         /// <summary>

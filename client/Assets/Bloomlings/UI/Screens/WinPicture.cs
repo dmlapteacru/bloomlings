@@ -10,8 +10,8 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// A finished picture in full color (spec 005 research D14, contracts/look.md §4.4; the playtest's
-    /// <c>BoardPainter.Picture</c>): each cell a flat candy tile of its role's variant (<see cref="TileStyle.Flat"/>: no
-    /// lip, a small gloss, the board-style symbol), stones as stone blocks and ground as cream cells, inside a thin stone
+    /// <c>BoardPainter.Picture</c>): each cell a candy tile of its role's variant, the board's soft cube
+    /// (<see cref="TileStyle.Board"/>, spec 005 FR-046: "as in the gameplay, volumetric"), stones as stone blocks and ground as cream cells, inside a thin stone
     /// border (0.3 cell) when the cells are at least 16 units; a light band sweeps it once when it is shown. The board's
     /// own restored ground stays pale (<c>FinishedPictureRenderer</c>); this is the win card's picture.
     /// </summary>
@@ -102,7 +102,7 @@ namespace Bloomlings.Client.UI.Screens
                     int value = px >= 0 && px < picture.Width && y < picture.Height ? picture.CellAt(px, y) : BasePicture.Empty;
                     if (value >= 0 && definition.Mapping.TryGetValue(picture.Roles[value].RoleId, out VariantId variant))
                     {
-                        CandyTileView tile = UiKit.CandyTile("Tile", _grid, variant, TileStyle.Flat);
+                        CandyTileView tile = UiKit.CandyTile("Tile", _grid, variant, TileStyle.Board);
                         UiKit.PlaceBox((RectTransform)tile.transform, full.Inset(cell * TileInset), _gridBox);
                     }
                     else if (value == BasePicture.Stone)

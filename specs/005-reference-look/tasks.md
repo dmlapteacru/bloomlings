@@ -875,4 +875,6 @@ and contracts/look.md §3.6, §6.10.
 - [X] T198 Docs: spec Session 2026-10-08 and FR-045 (FR-044's main buttons superseded), contracts/look.md §3.2, §3.3,
   §3.5, §6.18 and §6.19, the inventory, CLAUDE.md and both READMEs.
 - [ ] T199 Devices: the popups, the signs and the buttons on a phone in both APKs; the owner's verdict.
-
+- [X] T200 The owner's review (2026-10-08): the rows in the lighter row cream, evenly (`GardenLook.RowCream`,
+  `UiRaster.RaisedRow`), the card's body clear of the frame (`ScreenLayout.Card`), and the finished picture of the win and
+  the Collection in soft cubes (FR-046: `BoardPainter.Picture`, `WinPictureView`, `BoardPictures.PictureTile`).

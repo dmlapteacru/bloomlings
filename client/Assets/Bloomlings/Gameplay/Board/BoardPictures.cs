@@ -17,8 +17,8 @@ namespace Bloomlings.Client.Gameplay.Board
     /// finished picture with a small radius and a faint inner shadow along its top, over a deeper shade of itself, and
     /// the picture's background as grass (<see cref="UiRaster.Grass"/>);</description></item>
     /// <item><description><see cref="Finished"/>: the finished picture in full color (the win, the Collection), each cell a
-    /// flat candy tile of its role's variant (<see cref="TileStyle.Flat"/>), stones as stone blocks and the background as
-    /// grass, inside a thin stone border;</description></item>
+    /// candy tile of its role's variant, the board's soft cube (<see cref="TileStyle.Board"/>, spec 005 FR-046), stones as
+    /// stone blocks and the background as grass, inside a thin stone border;</description></item>
     /// <item><description><see cref="StoneObstacle"/>: a stone obstacle, a raised block of the border's sandy stone over a
     /// soft shadow with a jagged crack.</description></item>
     /// </list>
@@ -170,12 +170,12 @@ namespace Bloomlings.Client.Gameplay.Board
 
         /// <summary>
         /// The finished picture in full color (<c>tile.picture</c>, research D14, §4.4), each cell
-        /// <paramref name="cellPixels"/> square: every picture cell a flat candy tile of its role's variant (no lip, a small
-        /// gloss, the board-style symbol), stones as stone blocks, ground as cream cells. <paramref name="framed"/> puts it
+        /// <paramref name="cellPixels"/> square: every picture cell a candy tile of its role's variant, the board's soft cube
+        /// (spec 005 FR-046), stones as stone blocks, ground as grass. <paramref name="framed"/> puts it
         /// in a thin stone border (<see cref="PictureBorder"/> cells thick, with room for the border's shadow); otherwise it
         /// lies on the board's dark gap. <paramref name="icons"/> gives the pixels of an owner icon picture by its name
         /// (straight-alpha RGBA, rows from the top) or null: with a variant's field icon (spec 005 pictures.md G17–G24) its
-        /// tiles are the flat face with the icon baked over it (<see cref="FlatTile"/>). Returns the bytes and their size.
+        /// tiles are the cube's face with the icon baked over it (<see cref="PictureTile"/>). Returns the bytes and their size.
         /// </summary>
         public static byte[] Finished(LevelDefinition definition, BasePicture picture, int cellPixels, bool framed, out int width, out int height, Func<string, (byte[] Rgba, int Width, int Height)?>? icons = null)
         {
@@ -215,7 +215,7 @@ namespace Bloomlings.Client.Gameplay.Board
                         string key = icon + "/" + color.Hex;
                         if (!tiles.TryGetValue(key, out byte[]? tile))
                         {
-                            tile = FlatTile(tileSize, color, icon, icons);
+                            tile = PictureTile(tileSize, color, icon, icons);
                             tiles[key] = tile;
                         }
 
@@ -239,22 +239,25 @@ namespace Bloomlings.Client.Gameplay.Board
         }
 
         /// <summary>
-        /// A flat candy tile of the finished picture (<see cref="TileStyle.Flat"/>) of side <paramref name="size"/>: with the
-        /// owner's field icon of <paramref name="iconId"/> from <paramref name="icons"/> (pictures.md G17–G24), the flat face
-        /// (<see cref="UiRaster.TileFace"/>) with the icon drawn over its middle (<see cref="OwnerPictures.TileIconBox"/>,
-        /// <see cref="UiRaster.DrawOver"/>), as the playtest's <c>Kit.CandyTile</c> draws it; otherwise the drawn tile.
+        /// A candy tile of the finished picture of side <paramref name="size"/>: the board's soft cube
+        /// (<see cref="TileStyle.Board"/>; spec 005 FR-046, the owner, 2026-10-08: "on the win page the board must look as in
+        /// the gameplay, volumetric"). With the owner's field icon of <paramref name="iconId"/> from <paramref name="icons"/>
+        /// (pictures.md G17–G24) the cube's face (<see cref="UiRaster.TileFace"/>) with the icon drawn over its top's middle
+        /// (<see cref="OwnerPictures.TileIconBox"/>, <see cref="UiRaster.DrawOver"/>), as the playtest's
+        /// <c>Kit.CandyTile</c> draws it; otherwise the drawn tile.
         /// </summary>
-        public static byte[] FlatTile(int size, Rgba color, string iconId, Func<string, (byte[] Rgba, int Width, int Height)?>? icons)
+        public static byte[] PictureTile(int size, Rgba color, string iconId, Func<string, (byte[] Rgba, int Width, int Height)?>? icons)
         {
-            string? name = OwnerPictures.TileIcon(iconId, TileStyle.Flat, TileState.Normal);
+            const TileStyle style = TileStyle.Board;
+            string? name = OwnerPictures.TileIcon(iconId, style, TileState.Normal);
             (byte[] Rgba, int Width, int Height)? art = name != null && icons != null ? icons(name) : null;
             if (!art.HasValue)
             {
-                return UiRaster.Tile(size, color, iconId, TileStyle.Flat);
+                return UiRaster.Tile(size, color, iconId, style);
             }
 
-            byte[] tile = UiRaster.TileFace(size, color, TileStyle.Flat);
-            UiRaster.DrawOver(tile, size, size, art.Value.Rgba, art.Value.Width, art.Value.Height, OwnerPictures.TileIconBox(new Box(0f, 0f, size, size), TileStyle.Flat));
+            byte[] tile = UiRaster.TileFace(size, color, style);
+            UiRaster.DrawOver(tile, size, size, art.Value.Rgba, art.Value.Width, art.Value.Height, OwnerPictures.TileIconBox(new Box(0f, 0f, size, size), style));
             return tile;
         }
 

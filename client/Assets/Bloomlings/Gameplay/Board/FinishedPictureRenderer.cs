@@ -15,8 +15,8 @@ namespace Bloomlings.Client.Gameplay.Board
     /// cells read as one calm mosaic next to the saturated candy tiles (SC-003). A cell shows as soon as its tile is
     /// gone.</description></item>
     /// <item><description><see cref="Render"/> draws it in full color for the win and the Collection
-    /// (<c>tile.picture</c>): flat candy tiles (<see cref="Bloomlings.Client.UI.Design.TileStyle.Flat"/>) of each role's
-    /// variant, stone blocks and cream ground cells in a thin stone border.</description></item>
+    /// (<c>tile.picture</c>): the board's soft cubes (<see cref="Bloomlings.Client.UI.Design.TileStyle.Board"/>, spec 005
+    /// FR-046) of each role's variant, stone blocks and grass in a thin stone border.</description></item>
     /// </list>
     /// The pixels come from the engine-free <see cref="BoardPictures"/>. A bespoke illustration can replace the texture
     /// later (finishedLook.mode = illustration).

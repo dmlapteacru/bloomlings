@@ -190,6 +190,12 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static readonly ColorSet White = new ColorSet("set.white", C.CreamFace, C.CreamTop, C.CreamLip, C.CreamLine);
 
+        /// <summary>
+        /// A popup's rows (spec 005 FR-045; the owner, 2026-10-08: "cream, as a button without its rim"): the cream set half
+        /// way to <c>cream.top</c>, its lip a third of the way, so a long row reads as the mockup's light cream.
+        /// </summary>
+        public static readonly ColorSet RowCream = new ColorSet("set.row", C.CreamFace.Mix(C.CreamTop, 0.5f), C.CreamTop, C.CreamLip.Mix(C.CreamFace, 0.35f), C.CreamLine);
+
         /// <summary>The jam's blue choices (Return, Bloom Burst; spec 005 §1.3). The gameplay level pill becomes a wooden sign.</summary>
         public static readonly ColorSet Blue = new ColorSet("set.blue", C.ButtonBlue, C.ButtonBlue.Lighten(0.3f), C.ButtonBlue.Darken(0.25f), C.ButtonBlue.Darken(0.42f));
 
