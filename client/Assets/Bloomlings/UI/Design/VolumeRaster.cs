@@ -91,10 +91,16 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>How much more saturated the plate's wood is drawn (<see cref="Vivid"/>; the owner, 2026-10-08: "the color is still pale").</summary>
-        public const float PlateVivid = 1.25f;
+        public static float PlateVivid { get; set; } = 1.25f;
+
+        /// <summary>How much deeper the plate's wood is (toward <c>wood.grain</c>), its lower side and outline included, 0–1.</summary>
+        public static float PlateDepth { get; set; }
 
         /// <summary>How much more saturated a raised face's cream is drawn (<see cref="Vivid"/>).</summary>
-        public const float FaceVivid = 1.15f;
+        public static float FaceVivid { get; set; } = 1.15f;
+
+        /// <summary>How much warmer a raised face's cream is (toward <c>cream.lip</c>), 0–1.</summary>
+        public static float FaceWarmth { get; set; }
 
         /// <summary>The thickness of an icon button's wooden plate under its top, as a share of the button's shorter side.</summary>
         public const float PlateSide = 0.035f;
@@ -166,7 +172,9 @@ namespace Bloomlings.Client.UI.Design
                     float shadow = RoundRect(x, y - (s * 0.03f), face.Left + (s * 0.01f), face.Top, face.Right - (s * 0.01f), face.Bottom, faceRadius);
                     c.Mix(C.WoodLine.Darken(0.25f), 0.16f * (1f - Smooth(Clamp01((shadow + (s * 0.005f)) / (s * 0.04f)))));
 
-                    c.Mix(C.WoodLine, 0.55f * Clamp01(0.5f - (-body - line)));
+                    // Deeper wood: toward the grain's color, more so on the lower side, and a deeper outline.
+                    c.Mix(C.WoodGrain, PlateDepth * (0.45f + (0.45f * Clamp01((y / h) - 0.4f))));
+                    c.Mix(C.WoodLine, (0.55f + (0.35f * PlateDepth)) * Clamp01(0.5f - (-body - line)));
                     c = new Color(Vivid(c.ToRgba(), PlateVivid));
                     Put(pixels, width, px, py, c, cover);
                 }
@@ -243,6 +251,7 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     c.Mix(set.Lip.Darken(0.15f), 0.3f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
+                    c.Mix(set.Lip, FaceWarmth * 0.4f);
                     c = new Color(Vivid(c.ToRgba(), FaceVivid));
                     Put(pixels, width, px, py, c, cover);
                 }
