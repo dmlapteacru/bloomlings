@@ -677,6 +677,9 @@ by side in the game's screens.
   (`saturation.mjs` `ladder.background` null), the restyled backgrounds and Home's layers keep their colors, and the two
   Home layers not restyled yet (the fountain's back and the shadow) had the ×0.738 of 2026-10-04 undone.
 - Q: Home's garden? → A: The owner's new picture, already blurred: no blur pass (`layers.mjs` `gardenBlur` 0, FR-036).
+- Q: Home's fountain? → A: The owner restyled its back (a wider pool), its front stones and the shadow. Each is fitted
+  to the layered picture's width (`HomeLayersData.cs`), the shadow kept as soft as before, and Sprig stands a little
+  further left and lower (0.215, 0.585) so its feet are behind the front stones, not in the pool.
 
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
