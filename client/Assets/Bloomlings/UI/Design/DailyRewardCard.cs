@@ -57,9 +57,10 @@ namespace Bloomlings.Client.UI.Design
     /// The Daily Reward card (spec 005 FR-050, the owner, 2026-10-09: "always 5 claims every day ... follow the popups'
     /// design"; contracts/look.md §6.23) in the popups' look, shared by both builds: the reward basket with its lotus heap
     /// in the win's soft turning light, smaller than before; the day's five steps (spec 001 FR-055 as amended) as raised
-    /// rows (<c>Kit.RaisedRow</c> / <c>UiKit.RaisedRow</c>), each with its number, the lotus and "+N", and at its right the
-    /// next step's green Claim raised on the plate (an ad step's with the ad mark before it), a claimed step's green check
-    /// or a later step's padlock (the Wardrobe's badges); and under them when the day's rewards come again. Home's Daily
+    /// rows (<c>Kit.RaisedRow</c> / <c>UiKit.RaisedRow</c>), each with its number, the lotus and "+N", and at its right its
+    /// Claim raised on the plate (an ad step's with the ad mark before it), green on the next step and greyed, not
+    /// active, on a later one (the owner, 2026-10-09: "the Claim buttons always visible, but not active"), or a claimed
+    /// step's green check; and under them when the day's rewards come again. Home's Daily
     /// scene wears the "!" badge (<see cref="BadgeDisc"/>) while a step waits and the card was not opened that day.
     /// Engine-free.
     /// </summary>
@@ -68,13 +69,19 @@ namespace Bloomlings.Client.UI.Design
         public const float TopUnits = 6f;
         public const float ArtUnits = 236f;
         public const float ArtGapUnits = 14f;
-        public const float RowUnits = 120f;
+        public const float RowUnits = 132f;
         public const float RowGapUnits = 16f;
         public const float CaptionGapUnits = 14f;
         public const float CaptionUnits = 60f;
 
-        /// <summary>A later step's row, faded under its padlock.</summary>
-        public const float LockedAlpha = 0.6f;
+        /// <summary>The Claim's "Claim" as a share of its face's content height (the owner, 2026-10-09: "the text and the camera much bigger").</summary>
+        public const float ClaimTextShare = 0.8f;
+
+        /// <summary>The ad mark before an ad step's "Claim", as a share of the face's content height.</summary>
+        public const float ClaimIconShare = 0.92f;
+
+        /// <summary>The gap between the ad mark and "Claim", as a share of the face's content height.</summary>
+        public const float ClaimGapShare = 0.14f;
 
         /// <summary>The "+N" rising from a claimed row: its seconds.</summary>
         public const float RiseSeconds = 0.9f;
@@ -101,7 +108,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// A step's row: its number in a box 0.48 of the row's height at the left, the lotus 0.62 of it after the number, the
-        /// amount after the lotus up to the claim, and the claim 0.76 of the row tall and up to 0.4 of its width at the right.
+        /// amount after the lotus up to the claim, and the claim 0.84 of the row tall and up to 0.42 of its width at the right.
         /// </summary>
         public static DailyRowParts Row(Box row)
         {
@@ -110,17 +117,17 @@ namespace Bloomlings.Client.UI.Design
             var number = Box.FromCenter(row.Left + pad + (h * 0.24f), row.CenterY, h * 0.48f, h * 0.56f);
             float lotus = h * 0.62f;
             var lotusBox = Box.FromCenter(number.Right + (h * 0.12f) + (lotus / 2f), row.CenterY - (h * 0.02f), lotus, lotus);
-            float width = Math.Min(row.Width * 0.4f, h * 2.6f);
-            float right = row.Right - (pad * 0.6f);
-            var button = new Box(right - width, row.CenterY - (h * 0.38f), right, row.CenterY + (h * 0.38f));
+            float width = Math.Min(row.Width * 0.42f, h * 2.8f);
+            float right = row.Right - (pad * 0.5f);
+            var button = new Box(right - width, row.CenterY - (h * 0.42f), right, row.CenterY + (h * 0.42f));
             var amount = new Box(lotusBox.Right + (h * 0.1f), row.Top, button.Left - (h * 0.15f), row.Bottom);
             return new DailyRowParts(row, number, lotusBox, amount, button);
         }
 
-        /// <summary>The check or padlock badge in the middle of a row's claim box: 0.76 of its height.</summary>
+        /// <summary>A claimed step's check in the middle of its row's claim box: 0.72 of its height.</summary>
         public static Box Badge(Box button)
         {
-            float s = button.Height * 0.76f;
+            float s = button.Height * 0.72f;
             return Box.FromCenter(button.CenterX, button.CenterY, s, s);
         }
 

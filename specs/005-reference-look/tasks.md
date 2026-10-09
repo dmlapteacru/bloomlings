@@ -949,4 +949,7 @@ and contracts/look.md §3.6, §6.10.
   save's claim as step 1, the countdown, the same day's merge.
 - [X] T225 Docs: spec Session 2026-10-09 and FR-050, spec 001 FR-055, contracts/look.md §6.23, the data model, the
   backend and analytics contracts, pictures.md, the inventory, CLAUDE.md.
+- [X] T227 The owner's review (2026-10-09): every unclaimed step's Claim shown, a later one greyed and not active (no
+  padlock, no fading); "Claim" and the camera larger (`DailyRewardCard.ClaimTextShare`, `ClaimIconShare`), rows 132
+  units; both builds.
 - [ ] T226 Devices: the five steps, the stand-in for the ads and the "!" on a phone in both builds; the owner's verdict.

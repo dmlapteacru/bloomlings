@@ -22,8 +22,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// The Daily Reward popup (spec 001 FR-055 as amended on 2026-10-09; spec 005 FR-050, <see cref="DailyRewardCard"/>):
         /// the lotus heap in its basket and light, then the day's five steps as raised rows, each with its number, the lotus
-        /// and "+N", and at its right the next step's breathing green Claim (an ad step's with the ad mark), a claimed step's
-        /// check or a later step's padlock (faded), and under them when the steps come again. A claim keeps the card open:
+        /// and "+N", and at its right its Claim (an ad step's with the ad mark): green and breathing on the next step, greyed
+        /// and not active on a later one; a claimed step's check; and under them when the steps come again. A claim keeps the card open:
         /// the check pops in, "+N" rises from the row and the Petals pill counts up. The playtest has no ads: an ad step takes
         /// the ad's stand-in (<see cref="DailyRewardService.AdStub"/>), else its Claim is disabled.
         /// </summary>
@@ -60,18 +60,13 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A Daily Reward step's row (<c>ui.daily.step</c>): the raised slab, the number, the lotus and "+N", and its claim, its
-        /// check (popping in after the claim) or its padlock; a later step faded. After a claim, "+N" rises from its claim.
+        /// A Daily Reward step's row (<c>ui.daily.step</c>): the raised slab, the number, the lotus and "+N", and its Claim
+        /// (green and breathing on the next step, greyed and not active on a later one) or, once claimed, its check (popping
+        /// in after the claim). After a claim, "+N" rises from its claim.
         /// </summary>
         private static void Step(IPainter p, DesignApp app, DailyRowParts row, DailyRewardStep step, DailyStepState state, float sinceClaim)
         {
             p.Mark("ui.daily.step");
-            bool locked = state == DailyStepState.Locked;
-            if (locked)
-            {
-                p.PushAlpha(DailyRewardCard.LockedAlpha);
-            }
-
             float h = row.Row.Height;
             Kit.RaisedRow(p, row.Row, h * 0.3f);
             float lift = h * Kit.RaisedRowSide / 2f;
@@ -81,25 +76,15 @@ namespace Bloomlings.Playtest.Design
             string amount = NumberText.Plus(step.Petals);
             p.TextLeft(amount, row.Amount.Left, row.Amount.CenterY - lift, T.Reward, C.InkBrown, row.Amount.Width, h * 0.46f / p.U(T.Reward.Size), TextLook.Plain(C.InkBrown));
 
-            Box badge = DailyRewardCard.Badge(row.Button.Offset(0f, -lift));
-            switch (state)
+            if (state == DailyStepState.Claimed)
             {
-                case DailyStepState.Claimed:
-                    float pop = DailyRewardCard.CheckPop(sinceClaim);
-                    Kit.CheckBadge(p, badge.CenterX, badge.CenterY, badge.Width * pop);
-                    break;
-                case DailyStepState.Locked:
-                    Kit.LockBadge(p, badge.CenterX, badge.CenterY, badge.Width);
-                    break;
-                default:
-                    bool payable = !step.Ad || DailyRewardService.AdStub;
-                    StepButton(p, row.Button, step.Ad, payable ? () => app.ClaimDailyStep(step) : (Action?)null);
-                    break;
+                Box badge = DailyRewardCard.Badge(row.Button.Offset(0f, -lift));
+                Kit.CheckBadge(p, badge.CenterX, badge.CenterY, badge.Width * DailyRewardCard.CheckPop(sinceClaim));
             }
-
-            if (locked)
+            else
             {
-                p.PopAlpha();
+                bool payable = state == DailyStepState.Ready && (!step.Ad || DailyRewardService.AdStub);
+                StepButton(p, row.Button, step.Ad, payable ? () => app.ClaimDailyStep(step) : (Action?)null, breathe: state == DailyStepState.Ready);
             }
 
             // The claimed "+N" rising from where it was claimed.
@@ -114,16 +99,17 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A step's Claim: the green face raised on its wooden plate (<see cref="Kit.RaisedButton"/>, as every primary
-        /// button since spec 005 FR-045), breathing while it waits, with "Claim" in the buttons' white letters, an ad step's
-        /// after the ad mark; greyed without <paramref name="action"/>.
+        /// button since spec 005 FR-045), "Claim" in the buttons' white letters (<see cref="DailyRewardCard.ClaimTextShare"/>
+        /// of the face), an ad step's after the ad mark (<see cref="DailyRewardCard.ClaimIconShare"/>); breathing while it
+        /// waits; greyed without <paramref name="action"/> (a later step, or an ad step without its ad).
         /// </summary>
-        private static void StepButton(IPainter p, Box box, bool ad, Action? action)
+        private static void StepButton(IPainter p, Box box, bool ad, Action? action, bool breathe)
         {
             p.Mark("ui.button.primary");
             bool enabled = action != null;
             ColorSet colors = enabled ? GardenLook.Green : GardenLook.Green.Disabled();
             float depth = Kit.Press(p, box, enabled);
-            bool breathing = enabled && depth == 0f;
+            bool breathing = breathe && enabled && depth == 0f;
             if (breathing)
             {
                 p.PushTransform(0f, 0f, GardenLook.Breathe(p.Now), box.CenterX, box.CenterY);
@@ -133,20 +119,20 @@ namespace Bloomlings.Playtest.Design
             Box f = Kit.RaisedButton(p, box, colors, 0.5f, depth, gloss: enabled);
             string label = PlaytestText.T("daily_reward.claim");
             TypeStyle s = T.Button;
-            float scale = f.Height * 0.62f / p.U(s.Size);
+            float scale = f.Height * DailyRewardCard.ClaimTextShare / p.U(s.Size);
             TextLook look = TextLook.OnGloss(colors);
             if (ad)
             {
-                float icon = f.Height * 0.62f;
-                float gap = f.Height * 0.12f;
-                float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - icon - gap - (f.Height * 0.5f));
+                float icon = f.Height * DailyRewardCard.ClaimIconShare;
+                float gap = f.Height * DailyRewardCard.ClaimGapShare;
+                float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - icon - gap - (f.Height * 0.4f));
                 float start = f.CenterX - ((icon + gap + textWidth) / 2f);
                 Kit.Glyph(p, "ui.ad", Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), colors);
                 p.Text(label, start + icon + gap + (textWidth / 2f), f.CenterY, s, C.TextOnColor, textWidth, scale, look);
             }
             else
             {
-                p.Text(label, f.CenterX, f.CenterY, s, C.TextOnColor, f.Width - (f.Height * 0.6f), scale, look);
+                p.Text(label, f.CenterX, f.CenterY, s, C.TextOnColor, f.Width - (f.Height * 0.5f), scale, look);
             }
 
             p.PopTransform();

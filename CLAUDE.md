@@ -54,7 +54,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; the profile 39–41: the page, the
   edit card's avatars, its name and frames; and the Store's Animations 42–43: the clearing styles' live previews, then
   their padlocks before L40; the lotus iris 44–47: the splash opening on Level 1, then the win's Next closing, closed
-  on "Level 13" and opening) to PNG in `playtest/preview/out/` (gitignored) and checks
+  on "Level 13" and opening) to PNG in `playtest/preview/out/` (gitignored; a fixture's frames are only recorded and its
+  last one rasterized, `SkiaPainter.Flush`, so the whole board takes a few minutes) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry. `DOTNET_TieredCompilation=0 dotnet run -c Release --project playtest/preview -- --perf`
   runs only the frame-time harness (`Perf.cs`, `playtest/README.md`): a journey through the screens with the APK's
@@ -307,8 +308,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   after an ad; Remote Config `daily.reward.step1`–`step5`), starting again from step 1 the next day
   (`DailyRewardService`; the save's `daily.rewardClaimed`). Until the rewarded ads pay, an ad step whose ad cannot show
   takes the ad's stand-in (`DailyRewardService.AdStub`; always in the playtest, which has no ads). The card
-  (`DailyRewardCard`; `MetaCards.DailyReward` / `DailyRewardPopup` with `UiKit.DailyStep`) stays open as steps are
-  claimed. Home never opens it by itself: its Daily scene wears the "!" (`ui.badge.alert`, `Kit.AlertBadge` /
+  (`DailyRewardCard`; `MetaCards.DailyReward` / `DailyRewardPopup` with `UiKit.DailyStep`) shows every unclaimed
+  step's Claim, a later one greyed and not active, and stays open as steps are claimed. Home never opens it by itself: its Daily scene wears the "!" (`ui.badge.alert`, `Kit.AlertBadge` /
   `UiKit.AlertBadge`) while a step waits and the card was not opened that day (`ShowsBadge`, the save's
   `daily.rewardSeenUtcDate`).
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in

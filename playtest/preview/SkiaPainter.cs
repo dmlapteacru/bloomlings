@@ -30,6 +30,8 @@ namespace Bloomlings.Playtest.Preview
 
         private readonly SKSurface? _surface;
         private readonly SKCanvas? _noDraw;
+        private SKPictureRecorder? _recorder;
+        private SKCanvas? _recording;
         private readonly SKPaint _paint = new SKPaint { IsAntialias = true };
         private readonly int _width;
         private readonly int _height;
@@ -66,7 +68,14 @@ namespace Bloomlings.Playtest.Preview
 
         public override float Height => _height;
 
-        public SKCanvas Canvas => _sink ?? _noDraw ?? _surface!.Canvas;
+        /// <summary>
+        /// Where a frame draws: the warmer's sink, the harness's canvas that draws nothing, or this frame's recording. Every
+        /// frame is recorded (cheap: the draw calls are kept, no pixel is touched), and only the last one is drawn onto the
+        /// surface, when the frame is asked for (<see cref="Png"/>, <see cref="Snapshot"/>): a fixture plays many frames to
+        /// reach its moment (a level solved to its win runs thousands), and rasterizing each at full size was most of the
+        /// design board's render time. The pixels of the frame asked for are the same.
+        /// </summary>
+        public SKCanvas Canvas => _sink ?? _noDraw ?? _recording ?? _surface!.Canvas;
 
         /// <summary>Every slot id drawn or marked (shapes count as their slot).</summary>
         public HashSet<string> Slots { get; } = new HashSet<string>(StringComparer.Ordinal);
@@ -107,21 +116,56 @@ namespace Bloomlings.Playtest.Preview
             base.BeginFrame();
             Targets.Clear();
             Texts.Clear();
+            if (_surface != null)
+            {
+                // The last frame's recording is dropped undrawn: only the frame asked for is drawn (Flush).
+                _recorder?.Dispose();
+                _recorder = new SKPictureRecorder();
+                _recording = _recorder.BeginRecording(new SKRect(0f, 0f, _width, _height));
+            }
+
             Canvas.Clear(SKColors.White);
         }
 
         public byte[] Png()
         {
+            Flush();
             using SKImage image = _surface!.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
             return data.ToArray();
         }
 
-        public SKImage Snapshot() => _surface!.Snapshot();
+        public SKImage Snapshot()
+        {
+            Flush();
+            return _surface!.Snapshot();
+        }
+
+        /// <summary>Draws the last frame's recording onto the surface (once; the frames before it are never drawn).</summary>
+        private void Flush()
+        {
+            if (_recorder == null)
+            {
+                return;
+            }
+
+            using (SKPicture picture = _recorder.EndRecording())
+            {
+                SKCanvas canvas = _surface!.Canvas;
+                canvas.Clear(SKColors.White);
+                canvas.DrawPicture(picture);
+                canvas.Flush();
+            }
+
+            _recorder.Dispose();
+            _recorder = null;
+            _recording = null;
+        }
 
         public void Dispose()
         {
             _paint.Dispose();
+            _recorder?.Dispose();
             _surface?.Dispose();
             _noDraw?.Dispose();
         }

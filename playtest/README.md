@@ -157,7 +157,9 @@ says, and 32 the Remove Ads card opened from Home's No Ads scene at Level 15, wh
 back; frames 2 and 3 also check which promo scenes show and the Daily scene's "!", and frame 4 its tap, the "!" gone
 once the card opened, and the steps' order and Petals)
 at 16:9,
-19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
+19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. A
+fixture plays many frames to reach its moment (a level solved to its win runs thousands); each frame is only recorded
+(`SKPictureRecorder`) and the last one drawn onto the surface when its PNG is written, so a level's win takes seconds. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the
 safe area. It also checks that every animated hero frame is embedded and decodes to its size in the kit, and prints
 how many frames it decoded. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset

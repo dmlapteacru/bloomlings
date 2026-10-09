@@ -112,7 +112,7 @@ namespace Bloomlings.Playtest.Preview
                 // The Daily Reward's five steps (spec 001 FR-055 as amended on 2026-10-09, spec 005 FR-050): a tap on Home's
                 // Daily scene opens the card and hides the "!" for the day; the system back closes it. Claimed in order,
                 // step 1 for 20 Petals and step 2 after its ad's stand-in for 30, the card staying open: the frame shows
-                // them checked, step 3's ad Claim waiting and steps 4 and 5 under their padlocks.
+                // them checked, step 3's ad Claim waiting and steps 4 and 5's Claims greyed.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
                 Run(app, p, 0.3f);
@@ -126,11 +126,11 @@ namespace Bloomlings.Playtest.Preview
 
                 Tap(p, scene);
                 Run(app, p, 0.6f);
-                Expect(p.Slots.Contains("ui.daily.step") && p.Slots.Contains("ui.lock"), "the card shows the steps' rows, the later ones locked");
+                Expect(p.Slots.Contains("ui.daily.step"), "the card shows the steps' rows");
                 DailyRewardRegions d = DailyRewardCard.Layout(ScreenLayout.Card(p.Width, p.Height, p.Insets, DailyRewardCard.ContentUnits(DailyRewardService.StepCount)).Body, p.U(1f), DailyRewardService.StepCount);
                 long petals = app.Meta.Economy.Petals;
                 Tap(p, DailyRewardCard.Row(d.Rows[1]).Button);
-                Expect(app.Meta.DailyReward.ClaimedToday == 0, "step 2 waits for step 1");
+                Expect(app.Meta.DailyReward.ClaimedToday == 0, "step 2's greyed Claim waits for step 1");
                 Tap(p, DailyRewardCard.Row(d.Rows[0]).Button);
                 Expect(app.Meta.DailyReward.ClaimedToday == 1 && app.Meta.Economy.Petals == petals + 20 && app.IsOpen(Overlay.DailyReward), "step 1's Claim pays 20 Petals and the card stays open");
                 Run(app, p, 0.2f);

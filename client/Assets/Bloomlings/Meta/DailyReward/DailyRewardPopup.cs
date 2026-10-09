@@ -20,8 +20,8 @@ namespace Bloomlings.Client.Meta.DailyReward
     /// <list type="bullet">
     /// <item><description>"Daily rewards" on the wooden sign, the reward basket heaped with lotuses in the win's soft turning
     /// light;</description></item>
-    /// <item><description>the day's five steps as raised rows (<see cref="UiKit.DailyStep"/>): the next step's breathing
-    /// green Claim (an ad step's with the ad mark), a claimed step's check, a later step's padlock, faded;</description></item>
+    /// <item><description>the day's five steps as raised rows (<see cref="UiKit.DailyStep"/>): each step's Claim (an ad
+    /// step's with the ad mark), green and breathing on the next one, greyed on a later one; a claimed step's check;</description></item>
     /// <item><description>under them, when the steps come again (midnight UTC).</description></item>
     /// </list>
     /// A claim keeps the card open: the row's check pops in and "+N" rises from it. Home's Daily scene opens it at any time
@@ -118,8 +118,8 @@ namespace Bloomlings.Client.Meta.DailyReward
             {
                 DailyRewardStep step = steps[i];
                 DailyStepState state = _daily.StateOf(step.Number);
-                _steps[i].Show(step.Number, step.Petals, step.Ad, state == DailyStepState.Claimed, state == DailyStepState.Ready);
-                _steps[i].Claim.interactable = !step.Ad || DailyRewardService.AdStub || (_adReady?.Invoke() ?? false);
+                bool payable = !step.Ad || DailyRewardService.AdStub || (_adReady?.Invoke() ?? false);
+                _steps[i].Show(step.Number, step.Petals, step.Ad, state == DailyStepState.Claimed, state == DailyStepState.Ready, payable);
             }
 
             UpdateCaption();

@@ -868,6 +868,10 @@ a further question:
   scene's plate's top-right corner, pulsing softly. The owner's pack of 2026-10-04 had a red "!" badge picture
   (`05_daily_notification_badge.png`, not kept then: "no notification mark"); it is not in the repository, so the badge
   is drawn (`ui.badge.alert`) until the owner sends it again.
+- Q: The owner's review of the first render (same day): "the Claim buttons always visible, but not active; the text and
+  the video camera much bigger, to be seen well" → A: Every step not yet claimed shows its Claim, a later one greyed
+  and not active (no padlock, no fading); "Claim" 0.8 and the camera 0.92 of the face's height (they were 0.62), the
+  claim box 0.84 of the row (0.76) in rows of 132 units (120).
 - Q: The streak? → A: Kept only as a count for analytics (`daily.rewardStreak`, days in a row with a claim); it no longer
   changes the amounts (`daily.reward.streakBonusPetals` and `streakMaxDays` are gone; the steps' amounts are Remote
   Config `daily.reward.step1` to `step5`).
@@ -1548,8 +1552,9 @@ inventory.
 - **FR-050** *(the owner's Daily Reward of 2026-10-09: five claims a day, Home's "!")*: The Daily Reward card MUST show
   the day's five steps of spec 001 FR-055 (as amended) in the popups' look (`DailyRewardCard`; `MetaCards.DailyReward` /
   `DailyRewardPopup`): the reward basket in its light, then one raised row a step with its number, the lotus and "+N",
-  and at its right the next step's green Claim raised on the plate (an ad step's after the ad mark), a claimed step's
-  green check or a later step's padlock, the later rows faded; under the rows the time to the next steps (midnight UTC).
+  and at its right its Claim raised on the plate (an ad step's after the ad mark, both large: the label 0.8 and the mark
+  0.92 of the face), green on the next step and greyed, not active, on a later one, or a claimed step's green check;
+  under the rows the time to the next steps (midnight UTC).
   The steps MUST be claimed in order on the card, which stays open; a claim pops its check in and raises its "+N". Home
   MUST NOT open the card by itself; while a step waits and the card was not opened that UTC day, the Daily scene (FR-032)
   MUST wear the "!" badge over its plate's top-right corner (`ui.badge.alert`, `DailyRewardCard.BadgeDisc`), which opening
