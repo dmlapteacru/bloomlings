@@ -23,7 +23,8 @@ namespace Bloomlings.Client.UI.Screens
     /// Leaderboard page it opens). <see cref="Profile"/> and <see cref="AvatarOutfit"/> dress the header's profile avatar
     /// (its frame and badge; what the pictured hero wears, once the Wardrobe is open). The promo scenes (spec 005 FR-032):
     /// <see cref="NoAdsPromo"/> until Remove Ads is owned, <see cref="DailyRewardPromo"/> once the Daily Reward is unlocked,
-    /// calling for attention while <see cref="DailyRewardWaiting"/> (today's reward can be claimed).
+    /// calling for attention while <see cref="DailyRewardWaiting"/> (a step of today's can be claimed), and wearing the "!"
+    /// while <see cref="DailyRewardBadge"/> (a step waits and the card was not opened today; spec 005 FR-050).
     /// </summary>
     public sealed record HomeModel(
         int CurrentLevel,
@@ -47,7 +48,8 @@ namespace Bloomlings.Client.UI.Screens
         bool NoAdsPromo = false,
         bool DailyRewardPromo = false,
         bool DailyRewardWaiting = false,
-        AvatarItem? Avatar = null);
+        AvatarItem? Avatar = null,
+        bool DailyRewardBadge = false);
 
     /// <summary>
     /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7), the header's profile avatar
@@ -313,10 +315,11 @@ namespace Bloomlings.Client.UI.Screens
             _dailyDone.SetActive(model.DailyChallengeDone);
 
             // No Ads until Remove Ads is owned (hidden at once after a purchase or a restore); the Daily Reward once
-            // unlocked, calling while today's reward waits.
+            // unlocked, calling while a step of today's waits, with the "!" until its card is opened today.
             _noAds.gameObject.SetActive(model.NoAdsPromo);
             _dailyReward.gameObject.SetActive(model.DailyRewardPromo);
             _dailyReward.Calling = model.DailyRewardWaiting;
+            _dailyReward.ShowBadge(model.DailyRewardBadge);
             _backdrop.Show(model.Theme);
             _teaser.gameObject.SetActive(model.NextMilestoneLevel.HasValue);
             if (model.NextMilestoneLevel.HasValue)

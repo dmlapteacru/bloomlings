@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 80 | 0 | 80 |
+| UI kit | 83 | 0 | 83 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **233** | **32** | **265** |
+| **All** | **236** | **32** | **268** |
 
 ## Brand
 
@@ -229,6 +229,8 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.badge.hard` | HARD badge | 8 | Gameplay | intro; steady | Small | no | Launch | red glossy pill raised on its wooden plate (spec 005 FR-047) |
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
+| `ui.badge.alert` | Notification badge ("!") | 3 | Home: over the top-right corner of the Daily Reward's scene while a step waits and the card was not opened today (spec 005 FR-050) | pulsing | Icon | no | Launch | a glossy red ball (`set.red`, as the check badges' green one) in a white ring with a white "!" over a soft shadow |
+| `ui.daily.step` | Daily Reward step row | 4 | Daily Reward card (spec 005 FR-050) | claimed (the green check); next (Claim raised on the plate, an ad step's with the ad mark; breathing); later (the padlock, faded) | Medium | no | Launch | a raised cream row (`ui.row.raised`) with the step's number, the lotus and "+N", and at its right the green Claim or a badge; a claim's "+N" rises from it |
 | `ui.card` | Popup card | 4, 11, 16 | Daily Reward; Pause; Milestone; Settings; Daily Challenge; No Ads; the purchase confirmation; Edit profile | with close; without close | Large | no | Launch | the wooden frame round the cream panel (`ui.card.frame`), the title on a wooden sign over its top edge (`ui.sign.wood`) with the pink lotus behind it (`ui.card.lotus`) and the close button over the top-right corner, over a scrim (spec 005 FR-045; no sprigs over its corners or its main button since FR-049) |
 | `ui.card.frame` | Popup card's wooden frame and cream panel | 4, 10, 11, 16 | every popup card; the jam card | normal | Large | no | Launch | UiRaster.CardFrame (spec 005 FR-045): a frame of the buttons' plate laminate, 26 units on a 920-unit card, its grain along each member, rounding over at both edges, lit from the upper left, over a front side along the bottom, round a cream panel with a soft shadow under the frame's inner edge |
 | `ui.card.lotus` | Lotus behind a popup's title sign | 4, 11, 16 | every popup card with a title | normal | Medium | no | Launch | the owner's lotus (`currency.petal`'s picture) 2.3 times the sign's height, its middle at the sign's top so its petals rise above it; the drawn lotus while it is missing |
@@ -270,9 +272,10 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.back` | Back arrow glyph (spec 005) | 5, 6, 17 | The pages' back: Wardrobe; Store; Leaderboard; Collection | normal | Icon | no | Launch | shape `ui.back` |
 | `ui.deco.garden` | Leaves and a white flower on the main buttons and Home's Petals pill (spec 003 FR-011a; the owner's picture `Decor/button-leaves.png`, turned half way for the bottom right, replaces them, pictures.md D7); since spec 005 FR-047 also the owner's flowers (`Decor/flowers.png`, pictures.md D6) over the pages' frame corners, the own Leaderboard row and the Wardrobe's name card (since FR-049 none on the popups, their main buttons, the Store's prices or the profile's content) | 2, 3, 5, 15, 16, 17 | PLAY; NEXT; CONTINUE; Home's Petals pill; the pages' frames; the own Leaderboard row | top-left; top-right (mirrored); bottom-left (turned); bottom-right (turned); on the pill, larger for its height | Small | no | Launch | shape `ui.deco.garden` |
 | `ui.gift` | Gift (milestone teaser) | 3 | Home | normal; ready | Small | no | Launch | shape `ui.gift` |
-| `ui.trophy` | Trophy (Get +N; the bottom menu's Leaderboard stand-in) | 4 | Daily Reward; bottom menu (while `Icons/nav-leaderboard.png` is missing) | normal | Small | no | Launch | shape `ui.trophy` |
+| `ui.trophy` | Trophy (the bottom menu's Leaderboard stand-in; the profile's empty achievement wells) | 3 | Bottom menu (while `Icons/nav-leaderboard.png` is missing); profile | normal | Small | no | Launch | shape `ui.trophy` |
 | `ui.medal` | Medal (ranks 1–3) | 5 | Leaderboard page | gold; silver; bronze | Small | no | Launch | shape `ui.medal` |
-| `ui.ad` | Rewarded-ad mark (video) | 4, 10, 15 | Get +N; Free rescue; ×2 reward; free booster | normal | Icon | no | Launch | shape `ui.ad` |
+| `ui.ad` | Rewarded-ad mark (video) | 4, 10, 15 | The Daily Reward's ad steps; Free rescue; ×2 reward; free booster | normal | Icon | no | Launch | shape `ui.ad` |
+| `ui.alert` | Exclamation mark | 3 | Home: the Daily Reward's "!" badge (spec 005 FR-050) | normal | Icon | no | Launch | shape `ui.alert` |
 | `ui.shirt` | Wardrobe glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-wardrobe.png` is missing) | normal | Icon | no | Launch | shape `ui.shirt` |
 | `ui.grid` | Collection glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-collection.png` is missing) | normal | Icon | no | Launch | shape `ui.grid` |
 | `ui.sun` | Daily Challenge glyph | 3 | Home Daily Challenge card | normal; done | Small | no | Launch | shape `ui.sun` |
@@ -316,7 +319,7 @@ size and inputs give the same pixels. Painted 9-slice art may replace them (spec
 | `currency.petal` | Petals symbol (soft currency): a pink lotus (spec 005; the owner's picture `Icons/currency-lotus.png` replaces the drawn lotus) | 2, 3, 4, 10, 15, 16, 17 | Petals pill; rewards; costs; prices; badges | small; large | Icon | no | Launch | shape `currency.petal` |
 | `currency.petal.front` | Lotus part: the front petals (center and sides) and the base | 2, 3, 4, 10, 15, 16, 17 | Wherever the lotus shows | small; large | Icon | no | Launch | shape `currency.petal.front` |
 | `currency.petal.tips` | Lotus part: the near-white petal middles | 2, 3, 4, 10, 15, 16, 17 | Wherever the lotus shows | small; large | Icon | no | Launch | shape `currency.petal.tips` |
-| `currency.reward_basket` | Reward basket (Daily Reward; the bottom menu's Shop stand-in) | 4 | Daily Reward; bottom menu (while `Icons/nav-shop.png` is missing) | day 1–7 | Medium | no | Launch | shape `currency.reward_basket` |
+| `currency.reward_basket` | Reward basket (Daily Reward; the bottom menu's Shop stand-in) | 4 | Daily Reward; bottom menu (while `Icons/nav-shop.png` is missing) | normal | Medium | no | Launch | shape `currency.reward_basket` |
 | `currency.petal_pile` | Pile of Petals (big rewards) | 4, 16 | Daily Reward; Milestone | small; large | Medium | no | Launch | a cluster of Petal symbols |
 
 ## Collection frames

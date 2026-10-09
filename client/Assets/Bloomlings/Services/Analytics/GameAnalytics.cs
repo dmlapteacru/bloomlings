@@ -154,7 +154,10 @@ namespace Bloomlings.Client.Services.Analytics
         public void MilestoneClaim(int milestoneLevel, string bundleId) =>
             Log(AnalyticsEvents.MilestoneClaim, null, ("milestone_level", milestoneLevel), ("bundle_id", bundleId));
 
-        public void DailyRewardClaim(int streak) => Log(AnalyticsEvents.DailyRewardClaim, null, ("streak", streak));
+        /// <param name="step">The Daily Reward's step claimed, 1–5 (FR-055 as amended on 2026-10-09).</param>
+        /// <param name="ad">Whether a rewarded ad paid it (or its stand-in, <c>DailyRewardService.AdStub</c>).</param>
+        /// <param name="streak">The days in a row with a claim, today's included.</param>
+        public void DailyRewardClaim(int step, bool ad, int streak) => Log(AnalyticsEvents.DailyRewardClaim, null, ("step", step), ("ad", ad), ("streak", streak));
 
         public void DailyChallengeComplete(string utcDate) => Log(AnalyticsEvents.DailyChallengeComplete, null, ("utc_date", utcDate));
 

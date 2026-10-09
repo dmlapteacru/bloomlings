@@ -121,6 +121,8 @@
       "properties": {
         "rewardLastClaimUtcDate": { "type": ["string", "null"], "format": "date" },
         "rewardStreak": { "type": "integer", "minimum": 0 },
+        "rewardClaimed": { "type": "integer", "minimum": 0, "maximum": 5 },
+        "rewardSeenUtcDate": { "type": ["string", "null"], "format": "date" },
         "challengeLastCompletedUtcDate": { "type": ["string", "null"], "format": "date" },
         "freeBoosterAdUtcDate": { "type": ["string", "null"], "format": "date" }
       }

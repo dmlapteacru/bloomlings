@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Golden;
 using Bloomlings.Content.Json;
@@ -235,10 +236,15 @@ Check(meta.CompleteLevel(5, DifficultyClass.Normal, 0) == null, "only the curren
 meta.SkipTo(24);
 WinPayout? payout = meta.CompleteLevel(25, DifficultyClass.Normal, 0);
 Check(payout?.Milestone != null && payout.Milestone.Level == 25, "L25 pays its milestone");
-Check(meta.DailyReward.IsUnlocked && meta.DailyReward.CanClaim, "the Daily Reward opens at L7 and can be claimed");
+Check(meta.DailyReward.IsUnlocked && meta.DailyReward.CanClaim && meta.DailyReward.ShowsBadge, "the Daily Reward opens at L7 with its steps and Home's \"!\"");
 int petalsBefore = meta.Economy.Petals;
-int claimed = meta.DailyReward.Claim();
-Check(claimed > 0 && meta.Economy.Petals == petalsBefore + claimed && !meta.DailyReward.CanClaim, "claiming pays once a day");
+int claimed = 0;
+foreach (DailyRewardStep step in meta.DailyReward.Steps)
+{
+    claimed += meta.DailyReward.Claim(step.Number, adWatched: step.Ad);
+}
+
+Check(claimed == 220 && meta.Economy.Petals == petalsBefore + claimed && !meta.DailyReward.CanClaim, "the five steps pay 20 + 30 + 40 + 50 + 80 Petals once a day");
 LevelDefinition level26 = runs.First(r => r.Level.LevelNumber > 0).Level;
 meta.CompleteLevel(26, DifficultyClass.Normal, 0, level26);
 Check(meta.Collection.Count == 1 && meta.Collection.Entries[0].LevelNumber == 26, "a won picture joins the Collection");

@@ -48,8 +48,9 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     a tap on one makes it react, petals drift over them; without the owner's pictures the drawn stand-in's four still
     heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the owner's two animated promo
     scenes under the logo (spec 005 FR-032: No Ads at the left from level 1, whose tap opens the Remove Ads card at every
-    level; the Daily Reward at the right from its unlock, whose tap opens its card; each idles and in turn plays its
-    attention sequence while it calls; a wooden sign with the label while their pictures are missing), the level plaque,
+    level; the Daily Reward at the right from its unlock, whose tap opens its card, with a "!" over its corner while a
+    step waits and the card was not opened today, spec 005 FR-050; each idles and in turn plays its attention sequence
+    while it calls; a wooden sign with the label while their pictures are missing), the level plaque,
     the big Play, "N levels to reward" and the Daily Challenge's cream round side button under the Daily Reward's scene;
   - the owner's wooden bottom menu (spec 005 FR-030, §6.7) on Home and the four pages: the Shop, the Wardrobe, Home, the
     Leaderboard and the Collection, always all five (the owner's request of 2026-10-04), a locked one with a padlock
@@ -82,7 +83,8 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     exposed one leaves and down when Return puts one back. Frames 12–14 show the pod, slot and booster states;
   - cards: pause and Settings (frame 11), the jam card centered on the screen (frame 10), the win card (frame 15) and the milestone
     card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), the Daily Reward
-    (frame 4) and the Remove Ads card (spec 005 FR-033, preview frame 32: the No Ads scene idling, what it does, the
+    (frame 4: the day's five steps, claimed in order, the ad steps through the ads' stand-in as the playtest has no ads;
+    spec 001 FR-055 as amended, spec 005 FR-050) and the Remove Ads card (spec 005 FR-033, preview frame 32: the No Ads scene idling, what it does, the
     purchase unavailable offline and Restore Purchases, which says so); the system back closes the top card as its ✕.
 
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
@@ -152,7 +154,8 @@ also checks a tap on a hero and on Play, and the bottom menu's locked places: 29
 the locked Wardrobe at Level 15 (its Shop and Petals "+" open the Store page, whose back returns there) and 31 the
 locked Leaderboard page on a new profile (after the locked Collection page's check), each checking what the notice
 says, and 32 the Remove Ads card opened from Home's No Ads scene at Level 15, which checks its Restore and the system
-back; frames 2 and 3 also check which promo scenes show and the Daily Reward scene's tap)
+back; frames 2 and 3 also check which promo scenes show and the Daily scene's "!", and frame 4 its tap, the "!" gone
+once the card opened, and the steps' order and Petals)
 at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the

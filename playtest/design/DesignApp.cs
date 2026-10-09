@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Feedback;
@@ -329,10 +330,9 @@ namespace Bloomlings.Playtest.Design
             Level = null;
             Screen = Screen.Home;
             _promoOpenedAt = Now;
-            if (Meta.DailyReward.CanClaim)
-            {
-                OpenOverlay(Overlay.DailyReward);
-            }
+
+            // The Daily Reward no longer opens by itself (spec 005 FR-050, the owner, 2026-10-09): the Daily scene's "!"
+            // calls for it until it is opened that day.
         }
 
         /// <summary>Opens the Wardrobe over Home (spec 005 FR-025) on its first page.</summary>
@@ -610,6 +610,39 @@ namespace Bloomlings.Playtest.Design
 
             return false;
         }
+
+        /// <summary>
+        /// Opens the Daily Reward card (Home's Daily scene): its "!" hides until the next day (spec 005 FR-050).
+        /// </summary>
+        public void OpenDailyReward()
+        {
+            Meta.DailyReward.MarkSeen();
+            _dailyClaimStep = 0;
+            OpenOverlay(Overlay.DailyReward);
+        }
+
+        /// <summary>
+        /// Claims the Daily Reward's next step from its card (spec 001 FR-055 as amended on 2026-10-09): an ad step with the
+        /// ad's stand-in, as the playtest has no ads (<see cref="DailyRewardService.AdStub"/>). The card stays open; the
+        /// Petals pill counts up and the row shows the claim (<see cref="DailyClaim"/>).
+        /// </summary>
+        public void ClaimDailyStep(DailyRewardStep step)
+        {
+            long before = Meta.Economy.Petals;
+            if (Meta.DailyReward.Claim(step.Number, adWatched: step.Ad && DailyRewardService.AdStub) > 0)
+            {
+                Sound.Play(SoundCue.Click);
+                RewardBurst(before);
+                _dailyClaimStep = step.Number;
+                _dailyClaimAt = Now;
+            }
+        }
+
+        /// <summary>The Daily Reward step claimed last on the open card (0 for none) and the seconds since.</summary>
+        public (int Step, float Since) DailyClaim => (_dailyClaimStep, Now - _dailyClaimAt);
+
+        private int _dailyClaimStep;
+        private float _dailyClaimAt;
 
         /// <summary>
         /// A claimed reward (spec 003 FR-020): the Petals pill counts up from <paramref name="before"/> and sparkles burst

@@ -101,6 +101,8 @@ namespace Bloomlings.Client.Services.Save
 
             Daily.RewardLastClaimUtcDate = source.Daily.RewardLastClaimUtcDate;
             Daily.RewardStreak = source.Daily.RewardStreak;
+            Daily.RewardClaimed = source.Daily.RewardClaimed;
+            Daily.RewardSeenUtcDate = source.Daily.RewardSeenUtcDate;
             Daily.ChallengeLastCompletedUtcDate = source.Daily.ChallengeLastCompletedUtcDate;
             Daily.FreeBoosterAdUtcDate = source.Daily.FreeBoosterAdUtcDate;
             Collection.Clear();
@@ -349,7 +351,17 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>UTC date <c>yyyy-MM-dd</c> of the last Daily Reward claim, or null.</summary>
         public string? RewardLastClaimUtcDate { get; set; }
 
+        /// <summary>The days in a row with a Daily Reward claim, up to the last claim (analytics).</summary>
         public int RewardStreak { get; set; }
+
+        /// <summary>
+        /// The Daily Reward's steps claimed on <see cref="RewardLastClaimUtcDate"/>, 0–5 (FR-055 as amended on 2026-10-09;
+        /// an older save's one claim of that day counts as step 1).
+        /// </summary>
+        public int RewardClaimed { get; set; }
+
+        /// <summary>UTC date <c>yyyy-MM-dd</c> the Daily Reward card was last opened (Home's "!", spec 005 FR-050), or null.</summary>
+        public string? RewardSeenUtcDate { get; set; }
 
         public string? ChallengeLastCompletedUtcDate { get; set; }
 

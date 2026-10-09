@@ -48,6 +48,7 @@ namespace Bloomlings.Client.UI.Screens
         private Image? _plateShadow;
         private GardenButton? _plate;
         private RectTransform? _shadowLayer;
+        private RectTransform? _badge;
 
         /// <summary>Whether the scene calls for attention (its sequence plays every cycle); else it only idles.</summary>
         public bool Calling { get; set; }
@@ -112,8 +113,40 @@ namespace Bloomlings.Client.UI.Screens
                 KitText.Place(_label, T.LevelPill, plaque.CenterX, plaque.CenterY, plaque.Height * HomePromo.LabelShare, plaque.Width);
             }
 
+            PlaceBadge();
             _placed = true;
             Animate(Time.unscaledTime - _start);
+        }
+
+        /// <summary>
+        /// Shows or hides the "!" over the plate's top-right corner (spec 005 FR-050, the Daily scene while a Daily Reward
+        /// step waits and its card was not opened today; <see cref="UiKit.AlertBadge"/>, <see cref="DailyRewardCard.BadgeDisc"/>),
+        /// pressing with the scene and pulsing softly.
+        /// </summary>
+        public void ShowBadge(bool on)
+        {
+            if (on && _badge == null)
+            {
+                _badge = UiKit.AlertBadge("Alert", _root);
+                if (_placed)
+                {
+                    PlaceBadge();
+                }
+            }
+
+            if (_badge != null)
+            {
+                _badge.gameObject.SetActive(on);
+                _badge.SetAsLastSibling();
+            }
+        }
+
+        private void PlaceBadge()
+        {
+            if (_badge != null)
+            {
+                UiKit.PlaceBox(_badge, DailyRewardCard.BadgeDisc(HomePromo.PlateBox(_box)), _box);
+            }
         }
 
         /// <summary>Starts the scene's time again (the attention sequences count from here).</summary>
@@ -126,6 +159,11 @@ namespace Bloomlings.Client.UI.Screens
             if (_placed)
             {
                 Animate(Time.unscaledTime - _start);
+            }
+
+            if (_badge != null && _badge.gameObject.activeSelf)
+            {
+                _badge.localScale = Vector3.one * DailyRewardCard.BadgePulse(Time.unscaledTime);
             }
         }
 

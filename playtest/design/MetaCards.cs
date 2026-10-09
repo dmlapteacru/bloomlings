@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
@@ -8,56 +10,155 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Playtest.Design
 {
     /// <summary>
-    /// The meta card of frame 4 (spec 002 US3, FR-022) in the reference look (spec 005 §4.3, §4.6): the Daily Reward, a
-    /// parchment card under a wooden sign header with the lotus heap, the reward pill and green and cream buttons; the
+    /// The meta card of frame 4 (spec 002 US3, FR-022) in the reference look (spec 005 §4.3, §4.6): the Daily Reward, the
+    /// popups' card with the lotus heap and the day's five steps (spec 005 FR-050); the
     /// Remove Ads card of Home's No Ads scene (spec 005 FR-033, preview frame 32); and an item's player-facing name. The
     /// Store, the Leaderboard and the Collection are pages of their own since the owner's notes of 2026-10-04
     /// (<see cref="StoreScreen"/>, <see cref="LeaderboardScreen"/>, <see cref="CollectionScreen"/>).
-    /// Ads are unavailable in the playtest.
+    /// Ads are unavailable in the playtest (the Daily Reward's ad steps take their stand-in).
     /// </summary>
     public static class MetaCards
     {
-        /// <summary>The Daily Reward popup: Day N, the lotus heap in its basket and light, the "+N" pill, Claim, and "Get +N" (ad).</summary>
+        /// <summary>
+        /// The Daily Reward popup (spec 001 FR-055 as amended on 2026-10-09; spec 005 FR-050, <see cref="DailyRewardCard"/>):
+        /// the lotus heap in its basket and light, then the day's five steps as raised rows, each with its number, the lotus
+        /// and "+N", and at its right the next step's breathing green Claim (an ad step's with the ad mark), a claimed step's
+        /// check or a later step's padlock (faded), and under them when the steps come again. A claim keeps the card open:
+        /// the check pops in, "+N" rises from the row and the Petals pill counts up. The playtest has no ads: an ad step takes
+        /// the ad's stand-in (<see cref="DailyRewardService.AdStub"/>), else its Claim is disabled.
+        /// </summary>
         public static void DailyReward(IPainter p, DesignApp app, float since)
         {
-            var daily = app.Meta.DailyReward;
-            CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.CardSecondaryHeight + 90f, PlaytestText.T("daily_reward.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
-            float y = r.Body.Top;
-            // Opened from Home's Daily scene after today's claim, it shows the day just claimed, Claim greyed (as Unity's).
-            p.Text(PlaytestText.F("daily_reward.day", daily.TodayStreak), r.Body.CenterX, y + p.U(20f), T.Body, C.InkBrownSoft);
-            y += p.U(60f);
+            DailyRewardService daily = app.Meta.DailyReward;
+            IReadOnlyList<DailyRewardStep> steps = daily.Steps;
+            CardRegions r = Kit.Card(p, DailyRewardCard.ContentUnits(steps.Count), PlaytestText.T("daily_reward.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
+            DailyRewardRegions d = DailyRewardCard.Layout(r.Body, p.U(1f), steps.Count);
 
             // The reward: a heap of lotuses over a woven basket, in the win's soft turning light.
             p.Mark("currency.petal_pile");
-            var art = new Box(r.Body.CenterX - p.U(220f), y, r.Body.CenterX + p.U(220f), y + p.U(330f));
-            Kit.LightRays(p, art.CenterX, art.CenterY, art.Width * 0.62f, since);
-            (float X, float Y, float S)[] heap = { (-0.22f, 0.02f, 0.3f), (0.2f, 0.0f, 0.32f), (0f, -0.12f, 0.34f), (-0.08f, 0.1f, 0.28f), (0.12f, 0.12f, 0.26f) };
-            foreach ((float hx, float hy, float hs) in heap)
+            Kit.LightRays(p, d.Art.CenterX, d.Art.CenterY, d.Art.Width * 0.62f, since);
+            foreach ((float hx, float hy, float hs) in DailyRewardCard.Heap)
             {
-                float size = art.Width * hs;
-                Kit.Petal(p, Box.FromCenter(art.CenterX + (hx * art.Width), art.CenterY + (hy * art.Height), size, size));
+                float size = d.Art.Width * hs;
+                Kit.Petal(p, Box.FromCenter(d.Art.CenterX + (hx * d.Art.Width), d.Art.CenterY + (hy * d.Art.Height), size, size));
             }
 
-            Basket(p, Box.FromCenter(art.CenterX, art.CenterY + (art.Height * 0.2f), art.Width * 0.8f, art.Width * 0.6f));
-            y = art.Bottom + p.U(10f);
+            Basket(p, d.Basket);
 
-            RewardPill(p, Box.FromCenter(r.Body.CenterX, y + p.U(50f), p.U(250f), p.U(92f)), NumberText.Plus(daily.PetalsOn(daily.TodayStreak)));
-            y += p.U(110f);
-
-            // Claim breathes while it waits, and the claim bursts sparkles over the Petals pill (spec 003 FR-019, FR-020).
-            Box claim = ScreenLayout.CardButton(r.Body, y + p.U(10f), true, p.Scale);
-            long before = app.Meta.Economy.Petals;
-            Kit.PrimaryButton(p, claim, PlaytestText.T("daily_reward.claim"), daily.CanClaim ? () =>
+            (int claimedStep, float claimedSince) = app.DailyClaim;
+            for (int i = 0; i < steps.Count; i++)
             {
-                int paid = daily.Claim();
-                app.CloseOverlay();
-                app.RewardBurst(before);
-                app.HomeToast(PlaytestText.F("common.petals_plus", paid));
-            } : (Action?)null, breathe: true);
-            Box bonus = ScreenLayout.CardButton(r.Body, claim.Bottom + p.U(24f), false, p.Scale).Inset(p.U(40f), 0f);
-            Kit.SecondaryButton(p, bonus, PlaytestText.F("daily_reward.bonus", 20), null, "ui.ad");
-            p.Text(PlaytestText.T("win.no_ads"), r.Body.CenterX, bonus.Bottom + p.U(34f), T.Caption, C.InkBrownSoft);
+                DailyRewardStep step = steps[i];
+                float sinceClaim = step.Number == claimedStep ? claimedSince : float.MaxValue;
+                Step(p, app, DailyRewardCard.Row(d.Rows[i]), step, daily.StateOf(step.Number), sinceClaim);
+            }
+
+            (string key, object[] args) = DailyRewardCard.Duration(daily.MinutesToNextDay);
+            string caption = PlaytestText.F(DailyRewardCard.CaptionKey(daily.CanClaim), PlaytestText.F(key, args));
+            p.Text(caption, d.Caption.CenterX, d.Caption.CenterY, T.Caption, C.InkBrownSoft, d.Caption.Width);
             Kit.EndCard(p);
+        }
+
+        /// <summary>
+        /// A Daily Reward step's row (<c>ui.daily.step</c>): the raised slab, the number, the lotus and "+N", and its claim, its
+        /// check (popping in after the claim) or its padlock; a later step faded. After a claim, "+N" rises from its claim.
+        /// </summary>
+        private static void Step(IPainter p, DesignApp app, DailyRowParts row, DailyRewardStep step, DailyStepState state, float sinceClaim)
+        {
+            p.Mark("ui.daily.step");
+            bool locked = state == DailyStepState.Locked;
+            if (locked)
+            {
+                p.PushAlpha(DailyRewardCard.LockedAlpha);
+            }
+
+            float h = row.Row.Height;
+            Kit.RaisedRow(p, row.Row, h * 0.3f);
+            float lift = h * Kit.RaisedRowSide / 2f;
+            string number = step.Number.ToString(CultureInfo.InvariantCulture);
+            p.Text(number, row.Number.CenterX, row.Number.CenterY - lift, T.Count, C.InkBrownSoft, row.Number.Width, h * 0.42f / p.U(T.Count.Size), TextLook.Plain(C.InkBrownSoft));
+            Kit.Petal(p, row.Lotus.Offset(0f, -lift));
+            string amount = NumberText.Plus(step.Petals);
+            p.TextLeft(amount, row.Amount.Left, row.Amount.CenterY - lift, T.Reward, C.InkBrown, row.Amount.Width, h * 0.46f / p.U(T.Reward.Size), TextLook.Plain(C.InkBrown));
+
+            Box badge = DailyRewardCard.Badge(row.Button.Offset(0f, -lift));
+            switch (state)
+            {
+                case DailyStepState.Claimed:
+                    float pop = DailyRewardCard.CheckPop(sinceClaim);
+                    Kit.CheckBadge(p, badge.CenterX, badge.CenterY, badge.Width * pop);
+                    break;
+                case DailyStepState.Locked:
+                    Kit.LockBadge(p, badge.CenterX, badge.CenterY, badge.Width);
+                    break;
+                default:
+                    bool payable = !step.Ad || DailyRewardService.AdStub;
+                    StepButton(p, row.Button, step.Ad, payable ? () => app.ClaimDailyStep(step) : (Action?)null);
+                    break;
+            }
+
+            if (locked)
+            {
+                p.PopAlpha();
+            }
+
+            // The claimed "+N" rising from where it was claimed.
+            if (DailyRewardCard.Rise(sinceClaim) is (float rise, float alpha))
+            {
+                p.PushAlpha(alpha);
+                ColorSet green = GardenLook.Green;
+                p.Text(amount, row.Button.CenterX, row.Button.CenterY - (rise * h), T.Reward, C.TextOnColor, row.Button.Width * 1.4f, h * 0.5f / p.U(T.Reward.Size), TextLook.OnGloss(green));
+                p.PopAlpha();
+            }
+        }
+
+        /// <summary>
+        /// A step's Claim: the green face raised on its wooden plate (<see cref="Kit.RaisedButton"/>, as every primary
+        /// button since spec 005 FR-045), breathing while it waits, with "Claim" in the buttons' white letters, an ad step's
+        /// after the ad mark; greyed without <paramref name="action"/>.
+        /// </summary>
+        private static void StepButton(IPainter p, Box box, bool ad, Action? action)
+        {
+            p.Mark("ui.button.primary");
+            bool enabled = action != null;
+            ColorSet colors = enabled ? GardenLook.Green : GardenLook.Green.Disabled();
+            float depth = Kit.Press(p, box, enabled);
+            bool breathing = enabled && depth == 0f;
+            if (breathing)
+            {
+                p.PushTransform(0f, 0f, GardenLook.Breathe(p.Now), box.CenterX, box.CenterY);
+            }
+
+            Kit.Squash(p, box, depth);
+            Box f = Kit.RaisedButton(p, box, colors, 0.5f, depth, gloss: enabled);
+            string label = PlaytestText.T("daily_reward.claim");
+            TypeStyle s = T.Button;
+            float scale = f.Height * 0.62f / p.U(s.Size);
+            TextLook look = TextLook.OnGloss(colors);
+            if (ad)
+            {
+                float icon = f.Height * 0.62f;
+                float gap = f.Height * 0.12f;
+                float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - icon - gap - (f.Height * 0.5f));
+                float start = f.CenterX - ((icon + gap + textWidth) / 2f);
+                Kit.Glyph(p, "ui.ad", Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), colors);
+                p.Text(label, start + icon + gap + (textWidth / 2f), f.CenterY, s, C.TextOnColor, textWidth, scale, look);
+            }
+            else
+            {
+                p.Text(label, f.CenterX, f.CenterY, s, C.TextOnColor, f.Width - (f.Height * 0.6f), scale, look);
+            }
+
+            p.PopTransform();
+            if (breathing)
+            {
+                p.PopTransform();
+            }
+
+            if (action != null)
+            {
+                p.Hit(Kit.Touch(p, box), action);
+            }
         }
 
         /// <summary>
@@ -142,27 +243,6 @@ namespace Bloomlings.Playtest.Design
         {
             float t = (v * count) - (float)Math.Floor(v * count);
             return (0.42f - Math.Abs(t - 0.5f)) / count;
-        }
-
-        /// <summary>A reward "+N" on a cream pill with the lotus (the cost pill's look, larger).</summary>
-        private static void RewardPill(IPainter p, Box box, string text)
-        {
-            p.Mark("ui.pill.cost");
-            float h = box.Height;
-            float radius = h / 2f;
-            float line = Math.Max(p.U(2f), h * 0.04f);
-            Kit.SoftShadow(p, box, radius, 0.2f, 0.1f);
-            p.FillRound(box.Offset(0f, h * 0.07f), radius, C.CreamLip);
-            p.FillRoundGradient(box, radius, C.CreamTop, C.ParchmentBottom);
-            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine);
-            float icon = h * 0.92f;
-            float gap = h * 0.12f;
-            float scale = (h * 0.64f) / p.U(T.Reward.Size);
-            float textWidth = Math.Min(p.MeasureText(text, T.Reward, scale), box.Width - icon - gap - (h * 0.5f));
-            float start = box.CenterX - ((icon + gap + textWidth) / 2f);
-            // The lotus first, then the amount, as on the win's reward pill and every cost pill.
-            Kit.Petal(p, Box.FromCenter(start + (icon / 2f), box.CenterY - (h * 0.02f), icon, icon));
-            p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, T.Reward, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
         }
 
         /// <summary>An item's player-facing name (<c>cosmetic.{id}</c> in the string table), else its catalog name.</summary>

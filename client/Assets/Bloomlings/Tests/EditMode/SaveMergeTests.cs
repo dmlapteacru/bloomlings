@@ -91,6 +91,22 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void DailyRewardSteps_OnTheSameDay_KeepTheMoreClaimed()
+        {
+            PlayerSave local = Save("local", 20, T0);
+            local.Daily.RewardLastClaimUtcDate = "2026-09-29";
+            local.Daily.RewardClaimed = 4;
+            local.Daily.RewardStreak = 3;
+            PlayerSave remote = Save("remote", 10, T0);
+            remote.Daily.RewardLastClaimUtcDate = "2026-09-29";
+            remote.Daily.RewardClaimed = 1;
+            remote.Daily.RewardStreak = 3;
+
+            Assert.That(SaveMerge.Merge(local, remote).Daily.RewardClaimed, Is.EqualTo(4));
+            Assert.That(SaveMerge.Merge(remote, local).Daily.RewardClaimed, Is.EqualTo(4));
+        }
+
+        [Test]
         public void DailyClaims_KeepTheLaterDate_AndInputsAreNotModified()
         {
             PlayerSave local = Save("local", 20, T0);
@@ -99,6 +115,8 @@ namespace Bloomlings.Client.Tests
             PlayerSave remote = Save("remote", 10, T0);
             remote.Daily.RewardLastClaimUtcDate = "2026-09-29";
             remote.Daily.RewardStreak = 1;
+            remote.Daily.RewardClaimed = 2;
+            remote.Daily.RewardSeenUtcDate = "2026-09-29";
             remote.Daily.ChallengeLastCompletedUtcDate = "2026-09-29";
             remote.Stats.Increment("levelsWon", 30);
             string before = SaveSerializer.Write(local);
@@ -106,6 +124,8 @@ namespace Bloomlings.Client.Tests
             PlayerSave merged = SaveMerge.Merge(local, remote);
             Assert.That(merged.Daily.RewardLastClaimUtcDate, Is.EqualTo("2026-09-29"), "a reward claimed elsewhere today is not claimable again");
             Assert.That(merged.Daily.RewardStreak, Is.EqualTo(1));
+            Assert.That(merged.Daily.RewardClaimed, Is.EqualTo(2), "its steps come with the day");
+            Assert.That(merged.Daily.RewardSeenUtcDate, Is.EqualTo("2026-09-29"), "opened elsewhere today: no \"!\" here either");
             Assert.That(merged.Daily.ChallengeLastCompletedUtcDate, Is.EqualTo("2026-09-29"));
             Assert.That(merged.Stats.Counters["levelsWon"], Is.EqualTo(30));
             Assert.That(SaveSerializer.Write(local), Is.EqualTo(before));

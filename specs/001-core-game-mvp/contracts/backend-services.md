@@ -55,8 +55,7 @@ only.
 | `economy.price.clearing` | 5000 (the owner, 2026-10-06: every bought clearing style, for now) | 10–50000 | spec 005 FR-038 (the board's clearing styles) |
 | `economy.unlockGrant` | 1 | 1–3 | FR-042 |
 | `economy.drop.everyLevels` | 5 | 2–20 | FR-047: every Nth completed level grants 1 charge, rotating through the unlocked boosters (no randomness) |
-| `daily.reward.petals` | 20 | 5–200 | FR-055 |
-| `daily.reward.streakBonusPetals` / `streakMaxDays` | 5 / 7 | 0–50 / 1–30 | FR-055: bonus per consecutive day, capped |
+| `daily.reward.step1` / `step2` / `step3` / `step4` / `step5` | 20 / 30 / 40 / 50 / 80 (the owner, 2026-10-09) | 5–500 | FR-055 as amended: the Daily Reward's five steps a day, 2, 3 and 5 after a rewarded ad (they replace `daily.reward.petals` 20 and the streak bonus `streakBonusPetals` / `streakMaxDays` 5 / 7) |
 | `ads.interstitial.firstLevel` | 11 | 11–100 | FR-053, SC-013 |
 | `ads.interstitial.minSeconds` / `minLevels` | 180 / 3 | 60–1800 / 1–10 | FR-053 |
 | `ads.rescue.perAttempt` | 1 | 0–1 | FR-027, FR-048 |

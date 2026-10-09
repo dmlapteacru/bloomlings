@@ -16,7 +16,8 @@ namespace Bloomlings.Client.Services.Save
     /// re-applied once by its transaction id, so merging again changes nothing.</item>
     /// </list>
     /// The identity fields (<c>localPlayerId</c>, <c>deviceId</c>) stay the local device's. Daily claims keep the later
-    /// date on each side, so a reward claimed on another device today is not claimable again; statistics keep the larger
+    /// date on each side (on the same day the more Daily Reward steps claimed), so a reward claimed on another device
+    /// today is not claimable again; statistics keep the larger
     /// value of each counter; the profile keeps the base's name (else the other's) and the earlier joining day (spec 005
     /// FR-037). Neither input is modified.
     /// </summary>
@@ -111,11 +112,19 @@ namespace Bloomlings.Client.Services.Save
 
         private static void MergeDaily(DailyData merged, DailyData other)
         {
+            // The later claim day wins; on the same day the more steps claimed (FR-055 as amended on 2026-10-09), then the longer streak.
             int byDate = string.CompareOrdinal(other.RewardLastClaimUtcDate ?? string.Empty, merged.RewardLastClaimUtcDate ?? string.Empty);
-            if (byDate > 0 || (byDate == 0 && other.RewardStreak > merged.RewardStreak))
+            int bySteps = other.RewardClaimed.CompareTo(merged.RewardClaimed);
+            if (byDate > 0 || (byDate == 0 && (bySteps > 0 || (bySteps == 0 && other.RewardStreak > merged.RewardStreak))))
             {
                 merged.RewardLastClaimUtcDate = other.RewardLastClaimUtcDate;
                 merged.RewardStreak = other.RewardStreak;
+                merged.RewardClaimed = other.RewardClaimed;
+            }
+
+            if (string.CompareOrdinal(other.RewardSeenUtcDate ?? string.Empty, merged.RewardSeenUtcDate ?? string.Empty) > 0)
+            {
+                merged.RewardSeenUtcDate = other.RewardSeenUtcDate;
             }
 
             if (string.CompareOrdinal(other.ChallengeLastCompletedUtcDate ?? string.Empty, merged.ChallengeLastCompletedUtcDate ?? string.Empty) > 0)

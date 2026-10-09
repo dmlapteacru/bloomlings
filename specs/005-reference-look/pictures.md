@@ -167,7 +167,9 @@ folder `client/Assets/Bloomlings/Art/Decor/Resources/Decor/` (names `HomePromo.P
 `tools/artgen/models/owner-pictures.md`, notices `client/THIRD_PARTY_NOTICES.md`). Each layer keeps its whole canvas
 (the stands 1448 × 1086 fitted into 724 × 543, the others 1254 × 1254 into 512 × 512), so the kit's pivots and offsets,
 in the owner's pixels, hold. The pack's red "!" badge (`05_daily_notification_badge.png`) is not used (the owner's note:
-no notification mark). While a file is missing, the scene's label shows on a wooden sign.
+no notification mark). Since the owner's Daily Reward of 2026-10-09 (spec FR-050) the Daily scene wears a "!" while a
+step waits unopened, drawn by the kit (`ui.badge.alert`, contracts/look.md §6.23) as the pack's picture is not in the
+repository; sent again, it could take the drawn badge's place. While a file is missing, the scene's label shows on a wooden sign.
 
 | # | File | Size | What | Slot |
 |---|---|---|---|---|

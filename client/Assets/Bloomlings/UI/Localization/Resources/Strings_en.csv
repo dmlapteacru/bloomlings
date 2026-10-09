@@ -120,10 +120,8 @@ daily.body,"One puzzle, the same for everyone today. Reward: {0} Petals."
 daily.play_again,Play again
 daily_reward.title,Daily rewards
 daily_reward.claim,Claim
-daily_reward.watch,Watch for more
-daily_reward.day,Day {0}
-daily_reward.claimed_bonus,+{0} Petals with the bonus
-daily_reward.bonus,Get +{0}
+daily_reward.next_in,New rewards in {0}
+daily_reward.all_claimed,All claimed! New rewards in {0}
 leaderboard.title,Leaderboard
 leaderboard.refresh,Refresh
 leaderboard.offline_empty,Offline: the leaderboard will update when you reconnect
@@ -263,6 +261,8 @@ cosmetic.frame.stone_ring,Stone Frame
 cosmetic.frame.golden_ribbon,Golden Ribbon
 common.ok,OK
 common.cancel,Cancel
+common.hours_minutes,{0} h {1} min
+common.minutes,{0} min
 profile.title,Profile
 profile.edit_title,Edit profile
 profile.default_name,Gardener {0}

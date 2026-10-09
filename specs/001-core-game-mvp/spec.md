@@ -408,7 +408,8 @@ level and recover it with Extra Slot and then with the ad rescue.
 
 ### User Story 6 - Store, ads and daily rewards (Priority: P4)
 
-- **Daily Reward** unlocks at L7: the player claims a small reward once a day.
+- **Daily Reward** unlocks at L7: the player claims small rewards every day *(since 2026-10-09: five steps a day, two
+  claimed as they are and three after an optional rewarded ad, FR-055 as amended)*.
 - **The full Store** opens at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics
   join after the Wardrobe unlock.
 - **Rewarded ads** are always optional and started by the player. They offer a jam rescue, a free booster, a doubled
@@ -626,7 +627,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
 - **FR-052**: Rewarded ads MUST always be started by the player and optional. They MAY be used for: jam rescue, a free booster, an extra win reward, and an optional daily bonus.
 - **FR-053**: Interstitial ads MUST appear only at post-win transitions. They MUST never appear during a level, immediately after a fail, or during onboarding (Levels 1–10). They MUST be capped by both time and level count.
 - **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage. *(Amended on 2026-10-04 by the product owner: besides the Store's row (FR-051, from L12), Home offers Remove Ads from L1 through its No Ads scene and a Remove Ads card of its own, until it is owned; spec 005 FR-032, FR-033. Docs 11 and 13 list Remove Ads in the Store only.)*
-- **FR-055**: Daily Reward MUST unlock at L7, with one claim per calendar day.
+- **FR-055**: Daily Reward MUST unlock at L7, with one claim per calendar day. *(Amended on 2026-10-09 by the product owner: every UTC calendar day the Daily Reward offers the same five steps, claimed in order: 1 claimed as it is for 20 Petals, 2 after a rewarded ad for 30, 3 after an ad for 40, 4 claimed as it is for 50, 5 after an ad for 80 (Remote Config `daily.reward.step1` to `step5`; 220 a day with every ad). The next day the steps start again from step 1, whatever was left; the claim date still only moves forward, so a clock set back gives nothing. The ad steps are optional rewarded ads (FR-052); until the ads pay, a stand-in pays them. The streak no longer changes the amounts (it was 20 Petals plus 5 a consecutive day, capped at 7 days); Home no longer opens the card by itself and shows a "!" on its Daily scene until the card is opened that day, spec 005 FR-050. Docs 10 and 13 still describe one simple daily claim.)*
 - **FR-056**: No level may require spending money or watching ads. This follows from FR-046 and FR-080.
 
 #### H. Progression, Home and long-run motivation (docs 07, 08, 11, 13)

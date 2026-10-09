@@ -390,7 +390,8 @@ before any code, and three rounds of the owner's notes shaped them.
 - Q: How often? → A: As the pack's guide asks (No Ads every 8–12 s, the Daily every 10–15 s, never together): both every
   12 s, No Ads 1 s after Home opens, the Daily 6.5 s; the Daily only while today's reward waits, else it idles.
 - Q: Does Home still open the Daily Reward by itself? → A: Yes, as before, once a day while the reward waits; the Daily
-  scene opens the same card any time (the owner did not choose otherwise; one line to change).
+  scene opens the same card any time (the owner did not choose otherwise; one line to change). *(Changed on 2026-10-09,
+  FR-050: no longer; the Daily scene's "!" calls for the card until it is opened that day.)*
 - Q: Labels? → A: The stands' wooden plaques carry "No Ads" and "Daily" in the game's letters (`home.promo_no_ads`,
   `home.promo_daily`), so they translate.
 
@@ -839,6 +840,38 @@ question:
 - Q: The slowdown? → A: Investigated separately (the owner: "after the design change it started to lag badly; it did not
   before").
 
+### Session 2026-10-09 (the owner's Daily Reward: five claims a day and Home's "!")
+
+The owner, in one message (FR-050; spec 001 FR-055 as amended): the Daily Reward always holds five claims, every day: 1
+a plain claim of 20 Petals, 2 an ad for 30, 3 an ad for 40, 4 a claim of 50, 5 an ad for 80 ("I know the ads' reward is
+not there yet: put stubs. And follow the popups' design"); while claims are available and the player has not opened the
+Daily Reward today, Home shows an exclamation mark in the top-right corner as a notification, gone for that day once
+the card is opened; the next day it comes back, the progress resets and the same five are offered again. Decided without
+a further question:
+- Q: In order, or each on its own? → A: In order, as a ladder: a step can be claimed once the steps before it are (the
+  amounts rise to the end). The next day starts again from step 1, whatever was left.
+- Q: The ads' stubs? → A: An ad step plays a rewarded ad when one is ready (Unity; FR-052: started by the player); with
+  none, its stand-in pays it at once, as if the ad was watched (`DailyRewardService.AdStub`, on until the ads pay; the
+  playtest has no ads, so it always takes the stand-in). Analytics count the step with `ad` true, and `ad_rewarded` only
+  for a real ad.
+- Q: Does Home still open the card by itself? → A: No: with the card opening itself the "!" would never be seen. The
+  Daily scene's "!" calls for it instead; the scene still plays its attention sequence while a step waits.
+- Q: What hides the "!"? → A: Opening the card (a tap on the Daily scene), whether or not anything is claimed; the
+  save keeps the day (`daily.rewardSeenUtcDate`), so a relaunch does not bring it back. With all five claimed it shows
+  no more, opened or not.
+- Q: The card? → A: The popups' card (FR-045): the basket heaped with lotuses in its light, smaller; the five steps as
+  raised rows, each with its number, the lotus and "+N", at its right the next step's green Claim raised on the plate
+  (an ad step's with the ad mark), a claimed step's green check or a later step's padlock (the Wardrobe's badges; the
+  row faded); under them "New rewards in 5 h 12 min" (midnight UTC). A claim keeps the card open: the check pops in and
+  "+N" rises from the row while the Petals pill counts up. The streak's "Day N" and the "Get +N" bonus are gone.
+- Q: The "!"? → A: The check badge's recipe in red: a glossy red ball in a white ring with a white "!", over the Daily
+  scene's plate's top-right corner, pulsing softly. The owner's pack of 2026-10-04 had a red "!" badge picture
+  (`05_daily_notification_badge.png`, not kept then: "no notification mark"); it is not in the repository, so the badge
+  is drawn (`ui.badge.alert`) until the owner sends it again.
+- Q: The streak? → A: Kept only as a count for analytics (`daily.rewardStreak`, days in a row with a claim); it no longer
+  changes the amounts (`daily.reward.streakBonusPetals` and `streakMaxDays` are gone; the steps' amounts are Remote
+  Config `daily.reward.step1` to `step5`).
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1278,7 +1311,8 @@ inventory.
   palms; the album floating) and plays its attention sequence every 12 s, No Ads at 1 s and the Daily at 6.5 s after
   Home opens, never together; the Daily only while today's reward can be claimed (the sequences of the clarification
   "the owner's Home promo scenes"). A tap on No Ads opens the Remove Ads card (FR-033); a tap on the Daily opens the
-  Daily Reward card, which Home still opens by itself once a day while the reward waits. Their touch boxes MUST be at
+  Daily Reward card (Home no longer opens it by itself since FR-050: the Daily scene wears the "!" instead). Their
+  touch boxes MUST be at
   least the touch minimum, inside the safe area and clear of Home's other buttons; while a picture is missing, the
   scene's label shows on a wooden sign. The scenes change no rule, economy value, reward or unlock (FR-002): they add
   ways to the existing Remove Ads purchase and the existing Daily Reward card.
@@ -1511,6 +1545,16 @@ inventory.
   Gaussian of 3 / 1080 of its width and its colors multiplied by 0.86, the Home fountain's layers by 0.86 only, done
   offline (`tools/heroanim/backdrops.mjs`, `backdrops.json`) from the pictures as delivered (`tools/heroanim/backgrounds/`).
   Both builds (contracts/look.md §6.22). Presentation only: layouts' order, rules and tap outcomes stay.
+- **FR-050** *(the owner's Daily Reward of 2026-10-09: five claims a day, Home's "!")*: The Daily Reward card MUST show
+  the day's five steps of spec 001 FR-055 (as amended) in the popups' look (`DailyRewardCard`; `MetaCards.DailyReward` /
+  `DailyRewardPopup`): the reward basket in its light, then one raised row a step with its number, the lotus and "+N",
+  and at its right the next step's green Claim raised on the plate (an ad step's after the ad mark), a claimed step's
+  green check or a later step's padlock, the later rows faded; under the rows the time to the next steps (midnight UTC).
+  The steps MUST be claimed in order on the card, which stays open; a claim pops its check in and raises its "+N". Home
+  MUST NOT open the card by itself; while a step waits and the card was not opened that UTC day, the Daily scene (FR-032)
+  MUST wear the "!" badge over its plate's top-right corner (`ui.badge.alert`, `DailyRewardCard.BadgeDisc`), which opening
+  the card hides until the next day (the save's `daily.rewardSeenUtcDate`). Until the rewarded ads pay, an ad step whose
+  ad cannot show MUST take the ad's stand-in (`DailyRewardService.AdStub`). Both builds (contracts/look.md §6.23).
 
 ### Key Entities
 

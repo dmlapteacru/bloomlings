@@ -50,7 +50,7 @@ namespace Bloomlings.Client.Services.Analytics
             [TutorialStep] = new[] { "unlock_id", "step", "completed" },
             [Unlock] = new[] { "unlock_id", "kind" },
             [MilestoneClaim] = new[] { "milestone_level", "bundle_id" },
-            [DailyRewardClaim] = new[] { "streak" },
+            [DailyRewardClaim] = new[] { "step", "ad", "streak" },
             [DailyChallengeComplete] = new[] { "utc_date" },
             [LeaderboardView] = new[] { "rank" },
             [CosmeticEquip] = new[] { "family", "skin_id" },

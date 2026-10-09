@@ -1,4 +1,5 @@
 using System;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.UI.Design;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,6 +49,35 @@ namespace Bloomlings.Client.UI
                 return Box.FromCenter(b.CenterX + (side * 0.36f), b.CenterY - (side * 0.36f), s, s);
             });
             return root.gameObject;
+        }
+
+        /// <summary>
+        /// The "!" notification badge (<c>ui.badge.alert</c>; spec 005 FR-050, the playtest's <c>Kit.AlertBadge</c>): the
+        /// check badge's recipe in red, a glossy <c>set.red</c> ball in a white ring (10% of the ball a side) with a white
+        /// "!" (<c>ui.alert</c>, 60% of the ball) over its darker line, over a soft shadow. The returned rect is the ball;
+        /// place it (<see cref="Design.DailyRewardCard.BadgeDisc"/>) and scale it for the pulse. Never a touch target.
+        /// </summary>
+        public static RectTransform AlertBadge(string name, Transform parent)
+        {
+            (RectTransform root, BoxLayout layout) = Element(name, parent);
+            ColorSet red = GardenLook.Red;
+            Box Outer(Box b) => b.Inset(-b.Width * 0.1f);
+            SoftShadow(layout, Outer, b => b.Width / 2f, 0.25f, 0.06f);
+            Image ring = RoundRect("AlertRing", root, Color.white);
+            ring.raycastTarget = false;
+            Image ball = UiFactory.CreateImage("AlertBall", root, null, Color.white);
+            ball.raycastTarget = false;
+            PictureFit.On(ball, (w, h) => ProceduralSprites.Ball(red, Mathf.Min(w, h)), square: true);
+            Image line = ShapeImage("AlertLine", root, "ui.alert", red.Line);
+            Image mark = ShapeImage("Alert", root, "ui.alert", Rgba.White);
+            line.raycastTarget = false;
+            mark.raycastTarget = false;
+            Box Mark(Box b) => Box.FromCenter(b.CenterX, b.CenterY, b.Width * 0.6f, b.Width * 0.6f);
+            layout.Add(ring.rectTransform, Outer);
+            layout.Add(ball.rectTransform, b => b);
+            layout.Add(line.rectTransform, b => Mark(b).Offset(0f, b.Width * 0.03f));
+            layout.Add(mark.rectTransform, Mark);
+            return root;
         }
     }
 }

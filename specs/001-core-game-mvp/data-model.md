@@ -255,7 +255,7 @@ Wire format: [`contracts/player-save.schema.json`](contracts/player-save.schema.
 | Unlocks | Flags keyed by `unlockId`, plus `demosSeen[]` |
 | Milestones | `claimed[]` of level numbers (each granted exactly once, FR-061) |
 | Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items, the bought avatars `avatar.<name>`, spec 005 FR-037, and the bought clearing styles `clear.<name>`, spec 005 FR-038), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker, avatar}, board → {clearing}}` (no `board.clearing`: the free pair by level) |
-| Daily | `dailyReward{lastClaimUtcDate, streak}`, `dailyChallenge{lastCompletedUtcDate}` |
+| Daily | `dailyReward{lastClaimUtcDate, streak}`, `dailyChallenge{lastCompletedUtcDate}`; since FR-055's amendment of 2026-10-09 also `rewardClaimed` (0–5, the steps claimed on the last claim's day; a save without it had one claim that day, step 1) and `rewardSeenUtcDate` (the day the card was last opened, which hides Home's "!", spec 005 FR-050); `streak` counts the days in a row with a claim, for analytics only |
 | Collection | `entries[]` of `{pictureId, pictureVersion, mappingHash, levelNumber}` (FR-065) |
 | Settings | `music`, `sfx`, `haptics`, `speed2x` (fast forward on; 3× since FR-069's amendment of 2026-10-06, the key kept for older saves), `language`; older saves' `homePetals` and `homePetalsOn` (Home's falling petals' switch, removed with the petals by the owner on 2026-10-06, spec 005) are read and ignored |
 | Stats | `levelsWon`, `jams`, `boostersUsed{}`, `adsWatched`, `firstSessionMaxLevel` |

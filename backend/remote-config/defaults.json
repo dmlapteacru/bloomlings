@@ -28,22 +28,34 @@
       "default": "",
       "type": "string"
     },
-    "daily.reward.petals": {
+    "daily.reward.step1": {
       "default": 20,
-      "max": 200,
+      "max": 500,
       "min": 5,
       "type": "int"
     },
-    "daily.reward.streakBonusPetals": {
-      "default": 5,
-      "max": 50,
-      "min": 0,
+    "daily.reward.step2": {
+      "default": 30,
+      "max": 500,
+      "min": 5,
       "type": "int"
     },
-    "daily.reward.streakMaxDays": {
-      "default": 7,
-      "max": 30,
-      "min": 1,
+    "daily.reward.step3": {
+      "default": 40,
+      "max": 500,
+      "min": 5,
+      "type": "int"
+    },
+    "daily.reward.step4": {
+      "default": 50,
+      "max": 500,
+      "min": 5,
+      "type": "int"
+    },
+    "daily.reward.step5": {
+      "default": 80,
+      "max": 500,
+      "min": 5,
       "type": "int"
     },
     "economy.drop.everyLevels": {

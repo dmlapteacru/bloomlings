@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bloomlings.Client.Meta.Clearing;
+using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Save;
@@ -92,25 +93,52 @@ namespace Bloomlings.Playtest.Preview
 
             yield return new Fixture(3, "home-progressed", "Home (progressed)", (p, data) =>
             {
-                // Both promo scenes under the logo (spec 005 FR-032), the Daily Challenge under the Daily Reward's: a tap on
-                // the Daily Reward's scene opens its card, and the system back closes it; with today's reward still
-                // waiting, the frame catches the scene's attention sequence as the stamp has pressed and the petals burst
-                // out of the album.
+                // Both promo scenes under the logo (spec 005 FR-032), the Daily Challenge under the Daily Reward's. Home no
+                // longer opens the Daily Reward by itself: its scene wears the "!" while its steps wait and the card was not
+                // opened today (spec 005 FR-050; frame 4 opens it). With today's steps waiting, the frame catches the
+                // scene's attention sequence as the stamp has pressed and the petals burst out of the album.
                 DesignApp app = Progressed(App(data), content, 87);
+                Expect(!app.IsOpen(Overlay.DailyReward), "Home does not open the Daily Reward by itself");
                 CloseAll(app);
                 Run(app, p, 0.3f);
                 Expect(p.Slots.Contains(HomePromo.Slot(PromoScene.NoAds)) && p.Slots.Contains(HomePromo.Slot(PromoScene.Daily)), "a progressed Home shows both promo scenes");
-                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).DailyReward);
-                Expect(app.Overlays.Count == 1 && app.IsOpen(Overlay.DailyReward), "a tap on the Daily Reward's scene opens its card");
-                Expect(app.Back() && app.Overlays.Count == 0 && app.Screen == Design.Screen.Home, "the system back closes the card");
+                Expect(p.Slots.Contains("ui.badge.alert"), "the Daily Reward's scene wears the \"!\" while its steps wait unopened today");
                 RunTo(app, p, HomePromo.DailyAt + 1.6f);
                 Expect(HomePromo.AttentionAt(PromoScene.Daily, app.PromoSeconds, app.Meta.DailyReward.CanClaim) >= 0f, "the Daily Reward's scene calls while its reward waits");
             });
 
             yield return new Fixture(4, "daily-reward", "Daily Reward (popup)", (p, data) =>
             {
+                // The Daily Reward's five steps (spec 001 FR-055 as amended on 2026-10-09, spec 005 FR-050): a tap on Home's
+                // Daily scene opens the card and hides the "!" for the day; the system back closes it. Claimed in order,
+                // step 1 for 20 Petals and step 2 after its ad's stand-in for 30, the card staying open: the frame shows
+                // them checked, step 3's ad Claim waiting and steps 4 and 5 under their padlocks.
                 DesignApp app = Progressed(App(data), content, 87);
-                Run(app, p, 0.5f);
+                CloseAll(app);
+                Run(app, p, 0.3f);
+                Box scene = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).DailyReward;
+                Tap(p, scene);
+                Expect(app.Overlays.Count == 1 && app.IsOpen(Overlay.DailyReward), "a tap on the Daily Reward's scene opens its card");
+                Expect(!app.Meta.DailyReward.ShowsBadge, "opening the card hides the \"!\" for the day");
+                Expect(app.Back() && app.Overlays.Count == 0 && app.Screen == Design.Screen.Home, "the system back closes the card");
+                Run(app, p, 0.1f);
+                Expect(!app.Meta.DailyReward.ShowsBadge && app.Meta.DailyReward.CanClaim, "Home without the \"!\" for the rest of the day, its steps still waiting");
+
+                Tap(p, scene);
+                Run(app, p, 0.6f);
+                Expect(p.Slots.Contains("ui.daily.step") && p.Slots.Contains("ui.lock"), "the card shows the steps' rows, the later ones locked");
+                DailyRewardRegions d = DailyRewardCard.Layout(ScreenLayout.Card(p.Width, p.Height, p.Insets, DailyRewardCard.ContentUnits(DailyRewardService.StepCount)).Body, p.U(1f), DailyRewardService.StepCount);
+                long petals = app.Meta.Economy.Petals;
+                Tap(p, DailyRewardCard.Row(d.Rows[1]).Button);
+                Expect(app.Meta.DailyReward.ClaimedToday == 0, "step 2 waits for step 1");
+                Tap(p, DailyRewardCard.Row(d.Rows[0]).Button);
+                Expect(app.Meta.DailyReward.ClaimedToday == 1 && app.Meta.Economy.Petals == petals + 20 && app.IsOpen(Overlay.DailyReward), "step 1's Claim pays 20 Petals and the card stays open");
+                Run(app, p, 0.2f);
+                Tap(p, DailyRewardCard.Row(d.Rows[1]).Button);
+                Expect(app.Meta.DailyReward.ClaimedToday == 2 && app.Meta.Economy.Petals == petals + 50, "step 2 pays 30 Petals after its ad's stand-in");
+                Run(app, p, 0.3f);
+                Expect(app.Meta.DailyReward.StateOf(3) == DailyStepState.Ready && app.Meta.DailyReward.StateOf(4) == DailyStepState.Locked, "step 3 is next, 4 and 5 wait");
+                Run(app, p, 0.9f);
             });
 
             yield return new Fixture(5, "leaderboard", "Leaderboard", (p, data) =>

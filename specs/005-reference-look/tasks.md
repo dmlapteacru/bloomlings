@@ -931,3 +931,22 @@ and contracts/look.md §3.6, §6.10.
   the records, the inventory, CLAUDE.md.
 - [ ] T219 Devices: the buy buttons, the profile, the popups, the avatar picker and the calmer backgrounds on a phone in
   both APKs; the owner's verdict.
+
+- [X] T220 Core (spec 001 FR-055 as amended on 2026-10-09): `DailyRewardService` with five steps a UTC day in order
+  (`Steps`, `ClaimedToday`, `StateOf`, `Claim(number, adWatched)`, `Streak`, `MinutesToNextDay`), `SeenToday`,
+  `ShowsBadge`, `MarkSeen`, the ads' stand-in `AdStub`; the save's `rewardClaimed` and `rewardSeenUtcDate` (serializer,
+  schema, `SaveMerge`), Remote Config `daily.reward.step1`–`step5` (client and `backend/remote-config/defaults.json`),
+  analytics `daily_reward_claim{step, ad, streak}`.
+- [X] T221 Kit (FR-050): `DailyRewardCard` (layout, row parts, badges, the "!" disc and pulse, the check's pop, the rising
+  "+N", the caption), the `ui.alert` shape, the slots `ui.badge.alert` and `ui.daily.step`, the strings.
+- [X] T222 Playtest: `MetaCards.DailyReward` with the five rows, `DesignApp.OpenDailyReward` / `ClaimDailyStep`, Home's
+  `Kit.AlertBadge` on the Daily scene, no card by itself on Home; preview frames 3 and 4 and the check.
+- [X] T223 Unity: `DailyRewardPopup` with `UiKit.DailyStep` / `DailyClaim`, `HomePromoView.ShowBadge` with
+  `UiKit.AlertBadge`, `HomeModel.DailyRewardBadge`, `HomeController` (no card by itself, the ad steps through a ready
+  rewarded ad or the stand-in).
+- [X] T224 Tests (`DailyRewardTests`, `SaveMergeTests`, `AnalyticsContractTests`): the owner's amounts and kinds, the
+  order, a double tap, the next day's reset, the clock set back, the "!" until opened and after a relaunch, an older
+  save's claim as step 1, the countdown, the same day's merge.
+- [X] T225 Docs: spec Session 2026-10-09 and FR-050, spec 001 FR-055, contracts/look.md §6.23, the data model, the
+  backend and analytics contracts, pictures.md, the inventory, CLAUDE.md.
+- [ ] T226 Devices: the five steps, the stand-in for the ads and the "!" on a phone in both builds; the owner's verdict.

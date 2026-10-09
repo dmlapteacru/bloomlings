@@ -159,10 +159,16 @@ namespace Bloomlings.Client.Services.Save
                 }
             }
 
-            JObject daily = Obj(root, "daily", "rewardLastClaimUtcDate", "rewardStreak", "challengeLastCompletedUtcDate", "freeBoosterAdUtcDate");
+            JObject daily = Obj(root, "daily", "rewardLastClaimUtcDate", "rewardStreak", "rewardClaimed", "rewardSeenUtcDate", "challengeLastCompletedUtcDate", "freeBoosterAdUtcDate");
             save.Daily.RewardLastClaimUtcDate = OptionalString(daily, "daily", "rewardLastClaimUtcDate");
             JToken? streak = JsonDoc.Optional(daily, "rewardStreak");
             save.Daily.RewardStreak = streak == null ? 0 : JsonDoc.Int(streak, "daily.rewardStreak", min: 0);
+
+            // The Daily Reward's steps of its last claim's day (FR-055 as amended on 2026-10-09): a save from before the
+            // steps had one claim that day, step 1.
+            JToken? steps = JsonDoc.Optional(daily, "rewardClaimed");
+            save.Daily.RewardClaimed = steps != null ? JsonDoc.Int(steps, "daily.rewardClaimed", min: 0, max: 5) : save.Daily.RewardLastClaimUtcDate != null ? 1 : 0;
+            save.Daily.RewardSeenUtcDate = OptionalString(daily, "daily", "rewardSeenUtcDate");
             save.Daily.ChallengeLastCompletedUtcDate = OptionalString(daily, "daily", "challengeLastCompletedUtcDate");
             save.Daily.FreeBoosterAdUtcDate = OptionalString(daily, "daily", "freeBoosterAdUtcDate");
 
@@ -292,6 +298,8 @@ namespace Bloomlings.Client.Services.Save
             {
                 ["rewardLastClaimUtcDate"] = save.Daily.RewardLastClaimUtcDate,
                 ["rewardStreak"] = save.Daily.RewardStreak,
+                ["rewardClaimed"] = save.Daily.RewardClaimed,
+                ["rewardSeenUtcDate"] = save.Daily.RewardSeenUtcDate,
                 ["challengeLastCompletedUtcDate"] = save.Daily.ChallengeLastCompletedUtcDate,
                 ["freeBoosterAdUtcDate"] = save.Daily.FreeBoosterAdUtcDate,
             };

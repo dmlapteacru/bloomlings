@@ -256,6 +256,30 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
+        /// The "!" notification badge (<c>ui.badge.alert</c>; spec 005 FR-050, Home's Daily scene while a Daily Reward step
+        /// waits and its card was not opened today): the check badge's recipe in red, a glossy <c>set.red</c> ball
+        /// (<see cref="UiRaster.Ball"/>) in a white ring with a white "!" over its darker line, over a soft shadow, pulsing
+        /// softly (<see cref="DailyRewardCard.BadgePulse"/>). <paramref name="disc"/> is the ball's box.
+        /// </summary>
+        public static void AlertBadge(IPainter p, Box disc)
+        {
+            p.Mark("ui.badge.alert");
+            float pulse = DailyRewardCard.BadgePulse(p.Now);
+            p.PushTransform(0f, 0f, pulse, disc.CenterX, disc.CenterY);
+            float size = disc.Width;
+            float ring = size * 0.1f;
+            Box outer = disc.Inset(-ring);
+            SoftShadow(p, outer, outer.Width / 2f, 0.25f, 0.06f);
+            p.FillCircle(disc.CenterX, disc.CenterY, outer.Width / 2f, Rgba.White);
+            ColorSet red = GardenLook.Red;
+            p.Picture("ui.badge.ball/red", disc, (w, h) => UiRaster.Ball(Math.Min(w, h), red.Face, red.Top, red.Lip, red.Line));
+            Box mark = Box.FromCenter(disc.CenterX, disc.CenterY, size * 0.6f, size * 0.6f);
+            p.Shape("ui.alert", mark.Offset(0f, size * 0.03f), red.Line);
+            p.Shape("ui.alert", mark, Rgba.White);
+            p.PopTransform();
+        }
+
+        /// <summary>
         /// A locked item's badge (the Wardrobe's outfit cards): the switches' round cream knob (spec 005 FR-048,
         /// <see cref="UiRaster.ToggleKnob"/>) in a <c>cream.line</c> ring with the brown padlock, over a soft shadow, where the
         /// worn item's check would be.

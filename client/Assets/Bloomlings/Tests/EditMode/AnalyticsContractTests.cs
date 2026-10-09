@@ -89,7 +89,7 @@ namespace Bloomlings.Client.Tests
             analytics.TutorialStep(Level, "mechanic.key", 1, true);
             analytics.Unlock("mechanic.key", "mechanic");
             analytics.MilestoneClaim(100, "major");
-            analytics.DailyRewardClaim(3);
+            analytics.DailyRewardClaim(2, true, 3);
             analytics.DailyChallengeComplete("2026-09-29");
             analytics.LeaderboardView(1234);
             analytics.CosmeticEquip("drop", "hat.leaf_cap");

@@ -302,6 +302,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   grid takes three columns where they come out bigger (`ScreenLayout.ProfileEdit`, `ProfileEditRegions.Columns`,
   `ContentUnits` for the host's card); the family names stay above the outfit panel (`Kit.FamilyTabParts`); and every
   owner background is shown a little blurred and darker (`tools/heroanim/backdrops.mjs`, above).
+- The owner's Daily Reward of 2026-10-09 (spec 001 FR-055 as amended, spec 005 FR-050; recipe in `contracts/look.md`
+  §6.23): five steps every UTC day, claimed in order (20 claimed as it is, 30 and 40 after a rewarded ad, 50 claimed, 80
+  after an ad; Remote Config `daily.reward.step1`–`step5`), starting again from step 1 the next day
+  (`DailyRewardService`; the save's `daily.rewardClaimed`). Until the rewarded ads pay, an ad step whose ad cannot show
+  takes the ad's stand-in (`DailyRewardService.AdStub`; always in the playtest, which has no ads). The card
+  (`DailyRewardCard`; `MetaCards.DailyReward` / `DailyRewardPopup` with `UiKit.DailyStep`) stays open as steps are
+  claimed. Home never opens it by itself: its Daily scene wears the "!" (`ui.badge.alert`, `Kit.AlertBadge` /
+  `UiKit.AlertBadge`) while a step waits and the card was not opened that day (`ShowsBadge`, the save's
+  `daily.rewardSeenUtcDate`).
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`; the playtest APKs carry them as assets, the preview embeds them) and the artgen folder's `3d/` (record them with

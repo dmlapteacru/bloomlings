@@ -156,8 +156,9 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// Home's promo scenes in their boxes (<see cref="ReferenceHomeRegions.Promo"/>), each a touch target that presses
         /// as a whole: No Ads opens the Remove Ads card at every level (<see cref="Overlay.RemoveAds"/>; the Store keeps its
-        /// own row), the Daily Reward its card (<see cref="Overlay.DailyReward"/>). No Ads always calls for attention, the
-        /// Daily Reward while it can be claimed. Returns whether a scene moves (its pictures are embedded).
+        /// own row), the Daily Reward its card (<see cref="DesignApp.OpenDailyReward"/>). No Ads always calls for attention, the
+        /// Daily Reward while a step can be claimed, and wears the "!" until its card is opened that day (spec 005 FR-050).
+        /// Returns whether a scene moves (its pictures are embedded, or the "!" pulses).
         /// </summary>
         private static bool Promos(IPainter p, ReferenceHomeRegions r, DesignApp app)
         {
@@ -171,11 +172,19 @@ namespace Bloomlings.Playtest.Design
 
                 Box box = r.Promo(scene);
                 bool calling = scene == PromoScene.NoAds || app.Meta.DailyReward.CanClaim;
-                Action open = scene == PromoScene.NoAds ? () => app.OpenOverlay(Overlay.RemoveAds) : () => app.OpenOverlay(Overlay.DailyReward);
+                Action open = scene == PromoScene.NoAds ? () => app.OpenOverlay(Overlay.RemoveAds) : app.OpenDailyReward;
                 float depth = Kit.Press(p, box, true);
                 Kit.Squash(p, box, depth);
                 Plate(p, box, r.W, depth);
                 moving |= Promo(p, scene, box, app.PromoSeconds, calling, r.W);
+
+                // The Daily scene's "!" while a step waits and the card was not opened today (spec 005 FR-050).
+                if (scene == PromoScene.Daily && app.Meta.DailyReward.ShowsBadge)
+                {
+                    Kit.AlertBadge(p, DailyRewardCard.BadgeDisc(HomePromo.PlateBox(box)));
+                    moving = true;
+                }
+
                 p.PopTransform();
                 p.Hit(Kit.Touch(p, box), open);
             }

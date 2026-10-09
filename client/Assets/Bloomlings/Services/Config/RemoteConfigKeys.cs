@@ -88,10 +88,16 @@ namespace Bloomlings.Client.Services.Config
         public static readonly IntKey UnlockGrant = new IntKey("economy.unlockGrant", 1, 1, 3);
         public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 5, 2, 20);
 
-        // Daily reward (FR-055).
-        public static readonly IntKey DailyRewardPetals = new IntKey("daily.reward.petals", 20, 5, 200);
-        public static readonly IntKey DailyStreakBonusPetals = new IntKey("daily.reward.streakBonusPetals", 5, 0, 50);
-        public static readonly IntKey DailyStreakMaxDays = new IntKey("daily.reward.streakMaxDays", 7, 1, 30);
+        // Daily reward (FR-055 as amended on 2026-10-09 by the owner: five steps a day, 1 and 4 claimed as they are, 2, 3 and 5
+        // after a rewarded ad; they were one claim of daily.reward.petals 20 with a streak bonus of 5 a day for up to 7 days).
+        public static readonly IntKey DailyRewardStep1 = new IntKey("daily.reward.step1", 20, 5, 500);
+        public static readonly IntKey DailyRewardStep2 = new IntKey("daily.reward.step2", 30, 5, 500);
+        public static readonly IntKey DailyRewardStep3 = new IntKey("daily.reward.step3", 40, 5, 500);
+        public static readonly IntKey DailyRewardStep4 = new IntKey("daily.reward.step4", 50, 5, 500);
+        public static readonly IntKey DailyRewardStep5 = new IntKey("daily.reward.step5", 80, 5, 500);
+
+        /// <summary>The Daily Reward's steps' Petals, in order.</summary>
+        public static readonly IReadOnlyList<IntKey> DailyRewardSteps = new[] { DailyRewardStep1, DailyRewardStep2, DailyRewardStep3, DailyRewardStep4, DailyRewardStep5 };
 
         // Ads (FR-027, FR-048, FR-053, SC-013).
         public static readonly IntKey InterstitialFirstLevel = new IntKey("ads.interstitial.firstLevel", 11, 11, 100);
@@ -119,7 +125,7 @@ namespace Bloomlings.Client.Services.Config
             PetalsBase, PetalsCleanBonus, PetalsHardBonus, PetalsSuperHardBonus,
             PriceExtraSlot, PriceShuffle, PriceReturn, PriceBloomBurst,
             PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearing, UnlockGrant, DropEveryLevels,
-            DailyRewardPetals, DailyStreakBonusPetals, DailyStreakMaxDays,
+            DailyRewardStep1, DailyRewardStep2, DailyRewardStep3, DailyRewardStep4, DailyRewardStep5,
             InterstitialFirstLevel, InterstitialMinSeconds, InterstitialMinLevels, RescuePerAttempt,
             FxBacklogThresholdMs,
         };

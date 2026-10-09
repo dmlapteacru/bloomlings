@@ -124,7 +124,8 @@ namespace Bloomlings.Client.App.Home
                     NoAdsPromo: !ledger.RemoveAds,
                     DailyRewardPromo: daily.IsUnlocked,
                     DailyRewardWaiting: daily.CanClaim,
-                    Avatar: profile.Avatar));
+                    Avatar: profile.Avatar,
+                    DailyRewardBadge: daily.ShowsBadge));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.ShowsRanks)
                 {
@@ -298,9 +299,10 @@ namespace Bloomlings.Client.App.Home
                 done(ok);
             });
 
-            // The Daily Reward popup (FR-055), built when first shown: by itself once a day while a claim is due, and from
-            // the Daily scene at any time once unlocked (spec 005 FR-032; after the claim, Claim greyed). The ad bonus
-            // claims the reward with its extra Petals, so it can be earned once a day.
+            // The Daily Reward popup (FR-055 as amended on 2026-10-09), built when first shown: from the Daily scene at any
+            // time once unlocked. It no longer opens by itself (spec 005 FR-050): the scene's "!" calls for it until it is
+            // opened that day. The day's five steps are claimed in order on the card, which stays open; an ad step plays a
+            // rewarded ad when one is ready, else its stand-in pays it (DailyRewardService.AdStub) until the ads pay.
             DailyRewardPopup? dailyPopup = null;
             void ShowDailyReward()
             {
@@ -309,40 +311,45 @@ namespace Bloomlings.Client.App.Home
                     return;
                 }
 
+                daily.MarkSeen();
                 dailyPopup ??= DailyRewardPopup.Create(root);
-                bool claimable = daily.CanClaim;
-                dailyPopup.Show(
-                    claimable ? daily.NextPetals : daily.PetalsOn(daily.TodayStreak),
-                    daily.TodayStreak,
-                    ads.IsRewardedReady,
-                    () =>
+                dailyPopup.Show(daily, () => ads.IsRewardedReady, (step, done) =>
+                {
+                    void Pay(bool watched, bool realAd)
                     {
-                        int paid = daily.Claim();
+                        int paid = daily.Claim(step.Number, adWatched: watched);
                         if (paid > 0)
                         {
-                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
+                            analytics?.DailyRewardClaim(step.Number, step.Ad, daily.Streak);
+                            if (realAd)
+                            {
+                                analytics?.AdRewarded("daily");
+                            }
                         }
 
+                        done(paid > 0);
                         Refresh();
-                        return paid;
-                    },
-                    done => ads.ShowRewarded(AdPlacements.DailyBonus, earned =>
+                    }
+
+                    if (!step.Ad)
                     {
-                        int extra = 0;
-                        if (earned && daily.CanClaim)
-                        {
-                            int paid = daily.Claim();
-                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
-                            extra = config.Get(RemoteConfigKeys.DailyRewardPetals);
-                            analytics?.AdRewarded("daily");
-                            economy.Grant(extra, null);
-                            extra += paid;
-                        }
-
-                        done(extra);
-                        Refresh();
-                    }),
-                    claimable: claimable);
+                        Pay(false, false);
+                    }
+                    else if (ads.IsRewardedReady)
+                    {
+                        ads.ShowRewarded(AdPlacements.DailyBonus, earned => Pay(earned, earned));
+                    }
+                    else if (DailyRewardService.AdStub)
+                    {
+                        Debug.Log("[Ads] Daily Reward step " + step.Number + ": no rewarded ad yet, its stand-in pays it.");
+                        Pay(true, false);
+                    }
+                    else
+                    {
+                        done(false);
+                    }
+                });
+                Refresh();
             }
 
             // The Remove Ads card (spec 005 FR-033): the Store row's purchase and Settings' restore; Home refreshes after
@@ -432,36 +439,27 @@ namespace Bloomlings.Client.App.Home
             RunInBackground(leaderboard.Refresh());
 
             // A system reached since the last visit is demonstrated once, on its button (FR-031: "demonstrated at that
-            // level or within the next 1–2 levels"; Home is where these systems live). Not over the Daily Reward popup.
-            if (!daily.CanClaim)
+            // level or within the next 1–2 levels"; Home is where these systems live). The Daily Reward no longer opens by
+            // itself (spec 005 FR-050), so nothing covers them.
+            foreach (string unlockId in DemoScripts.HomeSystems)
             {
-                foreach (string unlockId in DemoScripts.HomeSystems)
+                if (!progression.IsUnlocked(unlockId) || progression.HasSeenDemo(unlockId) || !home.CanDemo(unlockId))
                 {
-                    if (!progression.IsUnlocked(unlockId) || progression.HasSeenDemo(unlockId) || !home.CanDemo(unlockId))
-                    {
-                        continue;
-                    }
-
-                    string id = unlockId;
-                    DemoScript? demo = DemoScripts.HomeSystem(id, () => home.DemoTarget(id));
-                    if (demo != null)
-                    {
-                        analytics?.TutorialStep(null, id, 1, false);
-                        DemoOverlay.Create(root).Show(demo, _ =>
-                        {
-                            analytics?.TutorialStep(null, id, 1, true);
-                            progression.MarkDemoSeen(id);
-                        });
-                        break;
-                    }
+                    continue;
                 }
-            }
 
-            // The Daily Reward pops up once a day while a claim is due (FR-055): it does not come back by itself after a
-            // claim (the Daily scene still opens it).
-            if (daily.CanClaim)
-            {
-                ShowDailyReward();
+                string id = unlockId;
+                DemoScript? demo = DemoScripts.HomeSystem(id, () => home.DemoTarget(id));
+                if (demo != null)
+                {
+                    analytics?.TutorialStep(null, id, 1, false);
+                    DemoOverlay.Create(root).Show(demo, _ =>
+                    {
+                        analytics?.TutorialStep(null, id, 1, true);
+                        progression.MarkDemoSeen(id);
+                    });
+                    break;
+                }
             }
         }
 

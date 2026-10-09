@@ -27,7 +27,7 @@ These events feed difficulty tuning and business metrics (FR-086, SC-006, SC-007
 |---|---|---|
 | `unlock` | Roadmap unlock reached | `unlock_id`, `kind` |
 | `milestone_claim` | Milestone reward granted | `milestone_level`, `bundle_id` |
-| `daily_reward_claim` | Daily reward claimed | `streak` |
+| `daily_reward_claim` | A Daily Reward step claimed (FR-055 as amended on 2026-10-09: five a day) | `step` (1–5), `ad` (a rewarded ad paid it), `streak` |
 | `daily_challenge_complete` | Daily challenge won | `utc_date` |
 | `leaderboard_view` | Leaderboard opened | `rank` |
 | `cosmetic_equip` | Skin equipped, or a clearing style chosen (spec 005 FR-038: `family` `board`, `skin_id` the style's `clear.*` id) | `family`, `skin_id` |
