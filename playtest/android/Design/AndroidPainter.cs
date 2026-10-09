@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Bloomlings.Playtest.Droid
     /// (<see cref="HeroBitmaps"/>), never all 576 at once. The gameplay lawn renders on a worker thread; until it is ready
     /// the lawn's flat gradient shows, then the view redraws.
     /// </summary>
-    public sealed class AndroidPainter : PainterBase
+    public sealed class AndroidPainter : PainterBase, IPictureWarmer
     {
         /// <summary>How many vertical gradients are kept before they are all made again.</summary>
         private const int GradientCacheLimit = 256;
@@ -34,7 +35,7 @@ namespace Bloomlings.Playtest.Droid
         private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
         private static readonly Dictionary<string, Bitmap?> Sprites = new Dictionary<string, Bitmap?>(StringComparer.Ordinal);
         private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
-        private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(typeof(AndroidPainter).Assembly, HeroFrameCacheBytes);
+        private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(HeroFrameCacheBytes);
         private static readonly HeroBitmaps HeroDraws = new HeroBitmaps(HeroDrawCacheBytes);
 
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
@@ -471,11 +472,30 @@ namespace Bloomlings.Playtest.Droid
 
             int w = PictureSize(box.Width);
             int h = PictureSize(box.Height);
+            if (_recording)
+            {
+                // A draw made for its pictures (Warm): note what is not made yet, show nothing.
+                if (!Pictures.TryGet(key, w, h, out _) && !s_warmed.ContainsKey(UiRaster.CacheKey(key, w, h)) && (s_store == null || !s_store.Has(key, w, h)))
+                {
+                    _recorded.Add((key, w, h, render));
+                }
+
+                return;
+            }
+
             if (!Pictures.TryGet(key, w, h, out Bitmap bitmap))
             {
                 long start = System.Diagnostics.Stopwatch.GetTimestamp();
                 int bytes = w * h * 4;
-                if (s_store != null && ReadStored(key, w, h, bytes))
+                if (!s_warmed.IsEmpty && s_warmed.TryRemove(UiRaster.CacheKey(key, w, h), out Bitmap? warm))
+                {
+                    // Made and uploaded ahead on the warmer's worker (and kept in the store): only cached now.
+                    Interlocked.Add(ref s_warmedBytes, -bytes);
+                    bitmap = warm;
+                    Pictures.Add(key, w, h, bitmap, bytes);
+                    PaintStats.Loaded(start);
+                }
+                else if (s_store != null && ReadStored(key, w, h, bytes))
                 {
                     // Made in an earlier launch of this build: its premultiplied bytes, read back.
                     bitmap = ToBitmap(s_read, bytes, w, h, Bitmap.Config.Argb8888!);
@@ -504,6 +524,140 @@ namespace Bloomlings.Playtest.Droid
 
             _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
+        }
+
+        // ---- Warming (IPictureWarmer) ----
+
+        /// <summary>The most bytes of pictures made ahead and not drawn yet (a few screens' worth).</summary>
+        private const long WarmBytes = 48L * 1024 * 1024;
+
+        private static readonly ConcurrentDictionary<string, Bitmap> s_warmed = new ConcurrentDictionary<string, Bitmap>(StringComparer.Ordinal);
+
+        // The warmer's work, one batch after another on the thread pool, with its own upload buffer (the UI thread's is s_upload).
+        private static Task s_warmTail = Task.CompletedTask;
+        private static Java.Nio.ByteBuffer? s_warmUpload;
+        private static IntPtr s_warmUploadAddress;
+        private static int s_warmUploadBytes;
+        private static readonly HashSet<string> s_warmQueued = new HashSet<string>(StringComparer.Ordinal);
+        private static long s_warmedBytes;
+        private static int s_warmTotal;
+        private static int s_warmDone;
+        private static Bitmap? s_sinkBitmap;
+        private static Canvas? s_sink;
+        private readonly List<(string Key, int W, int H, Func<int, int, byte[]> Render)> _recorded = new List<(string, int, int, Func<int, int, byte[]>)>();
+        private bool _recording;
+
+        public bool WarmsPictures => true;
+
+        public float WarmProgress
+        {
+            get
+            {
+                int total = Volatile.Read(ref s_warmTotal);
+                return total == 0 ? 1f : Math.Min(1f, Volatile.Read(ref s_warmDone) / (float)total);
+            }
+        }
+
+        /// <summary>
+        /// Runs <paramref name="draw"/> on a one-pixel canvas (its sprites are decoded, its pictures noted, nothing shows and
+        /// its touch areas are forgotten), then makes the pictures it asked for on a worker thread: premultiplied and
+        /// uploaded into bitmaps as <see cref="Picture"/> does, kept in the store for the next launches, and held until a
+        /// frame draws them (at most <see cref="WarmBytes"/>). A picture already made, held or stored is not made again.
+        /// </summary>
+        public void Warm(Action draw)
+        {
+            Canvas real = _canvas;
+            var marks = FrameMarks();
+            s_sink ??= new Canvas(s_sinkBitmap = Bitmap.CreateBitmap(1, 1, Bitmap.Config.Argb8888!)!);
+            int save = s_sink.Save();
+            _recorded.Clear();
+            _canvas = s_sink;
+            _recording = true;
+            try
+            {
+                draw();
+            }
+            catch (Exception e)
+            {
+                Android.Util.Log.Warn("Bloomlings", "A warming draw failed: " + e.Message);
+            }
+            finally
+            {
+                _recording = false;
+                s_sink.RestoreToCount(save);
+                _canvas = real;
+                ForgetSince(marks);
+            }
+
+            var jobs = new List<(string CacheKey, string Key, int W, int H, Func<int, int, byte[]> Render)>();
+            foreach ((string key, int w, int h, Func<int, int, byte[]> render) in _recorded)
+            {
+                string cacheKey = UiRaster.CacheKey(key, w, h);
+                if (s_warmQueued.Add(cacheKey))
+                {
+                    jobs.Add((cacheKey, key, w, h, render));
+                }
+            }
+
+            _recorded.Clear();
+            if (jobs.Count == 0)
+            {
+                return;
+            }
+
+            Interlocked.Add(ref s_warmTotal, jobs.Count);
+            PictureStore? store = s_store;
+            s_warmTail = s_warmTail.ContinueWith(_ =>
+            {
+                foreach ((string cacheKey, string key, int w, int h, Func<int, int, byte[]> render) in jobs)
+                {
+                    try
+                    {
+                        int bytes = w * h * 4;
+                        if (Interlocked.Read(ref s_warmedBytes) + bytes <= WarmBytes)
+                        {
+                            byte[] rgba = render(w, h);
+                            if (rgba.Length == bytes)
+                            {
+                                Premultiply(rgba);
+                                Bitmap bitmap = WarmBitmap(rgba, bytes, w, h);
+                                store?.Write(key, w, h, rgba, bytes);
+                                Interlocked.Add(ref s_warmedBytes, bytes);
+                                s_warmed[cacheKey] = bitmap;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Android.Util.Log.Warn("Bloomlings", "Could not make " + cacheKey + " ahead: " + e.Message);
+                    }
+                    finally
+                    {
+                        Interlocked.Increment(ref s_warmDone);
+                    }
+                }
+            }, TaskScheduler.Default);
+        }
+
+        /// <summary>A premultiplied picture's bitmap, made on the warmer's worker through its own direct buffer (as <see cref="ToBitmap(byte[], int, int, int, Bitmap.Config)"/>).</summary>
+        private static Bitmap WarmBitmap(byte[] pixels, int bytes, int width, int height)
+        {
+            Bitmap bitmap = Bitmap.CreateBitmap(width, height, Bitmap.Config.Argb8888!)!;
+            if (s_warmUpload == null || s_warmUploadBytes < bytes)
+            {
+                s_warmUpload?.Dispose();
+                s_warmUpload = Java.Nio.ByteBuffer.AllocateDirect(bytes)!;
+                s_warmUploadAddress = Android.Runtime.JNIEnv.GetDirectBufferAddress(s_warmUpload.Handle);
+                s_warmUploadBytes = bytes;
+            }
+
+            System.Runtime.InteropServices.Marshal.Copy(pixels, 0, s_warmUploadAddress, bytes);
+            s_warmUpload.Rewind();
+            bitmap.CopyPixelsFromBuffer(s_warmUpload);
+
+            // Asks the render thread to upload it to the GPU ahead too (from any thread, Android 7 and later).
+            bitmap.PrepareToDraw();
+            return bitmap;
         }
 
         /// <summary>
@@ -688,7 +842,7 @@ namespace Bloomlings.Playtest.Droid
             return bitmap == null ? null : (bitmap, bitmap.Width, bitmap.Height);
         }
 
-        /// <summary>An embedded picture (a character or an owner picture), decoded once; null (logged once) when it is missing.</summary>
+        /// <summary>A picture the APK carries (a character or an owner picture, <see cref="PlaytestFiles"/>), decoded once; null (logged once) when it is missing.</summary>
         private static Bitmap? LoadSprite(string name)
         {
             if (!Sprites.TryGetValue(name, out Bitmap? bitmap))
@@ -702,11 +856,11 @@ namespace Bloomlings.Playtest.Droid
                 }
                 else
                 {
-                    using System.IO.Stream? stream = typeof(AndroidPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
+                    using System.IO.Stream? stream = PlaytestFiles.Open(SpriteResource(name));
                     bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
                     if (bitmap == null)
                     {
-                        Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not embedded; drawing the stand-in");
+                        Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not in the APK; drawing the stand-in");
                     }
                     else if (name.StartsWith(IconPrefix, StringComparison.Ordinal) || name.StartsWith(AvatarPrefix, StringComparison.Ordinal))
                     {

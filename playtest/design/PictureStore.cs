@@ -81,6 +81,24 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Called with the message of the I/O failure that turned the store off (the host logs it).</summary>
         public Action<string>? Failed { get; set; }
 
+        /// <summary>Whether a picture of that key and size is stored (its file exists; a read still checks the header).</summary>
+        public bool Has(string key, int width, int height)
+        {
+            if (_broken)
+            {
+                return false;
+            }
+
+            try
+            {
+                return File.Exists(PathOf(key, width, height));
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Reads the stored bytes of (<paramref name="key"/>, <paramref name="width"/>, <paramref name="height"/>) into the
         /// start of <paramref name="into"/> (at least <c>width × height × bytesPerPixel</c> long): false when it is not

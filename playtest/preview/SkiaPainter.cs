@@ -14,14 +14,14 @@ namespace Bloomlings.Playtest.Preview
     /// heroes' frames (spec 005 FR-028) take the device's path: decoded on first use into palette pictures in a cache
     /// bounded by bytes (<see cref="HeroFrameStore"/>), then expanded to premultiplied RGBA for the frames drawn.
     /// </summary>
-    public sealed class SkiaPainter : PainterBase, IDisposable
+    public sealed class SkiaPainter : PainterBase, IDisposable, IPictureWarmer
     {
         private static readonly Dictionary<(MaskKind Kind, string Key, int Size), SKImage> Masks = new Dictionary<(MaskKind, string, int), SKImage>();
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly PictureCache<SKImage> Pictures = new PictureCache<SKImage>(PictureCacheBytes, image => image.Dispose());
         private static readonly Dictionary<string, SKImage?> Sprites = new Dictionary<string, SKImage?>(StringComparer.Ordinal);
         private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
-        private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(typeof(SkiaPainter).Assembly, HeroFrameCacheBytes);
+        private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(HeroFrameCacheBytes);
         private static readonly PictureCache<SKImage> HeroImages = new PictureCache<SKImage>(HeroDrawCacheBytes, image => image.Dispose());
         // Declared before the faces: static initializers run in order, and LoadFont reads it.
         private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
@@ -66,7 +66,7 @@ namespace Bloomlings.Playtest.Preview
 
         public override float Height => _height;
 
-        public SKCanvas Canvas => _noDraw ?? _surface!.Canvas;
+        public SKCanvas Canvas => _sink ?? _noDraw ?? _surface!.Canvas;
 
         /// <summary>Every slot id drawn or marked (shapes count as their slot).</summary>
         public HashSet<string> Slots { get; } = new HashSet<string>(StringComparer.Ordinal);
@@ -390,11 +390,29 @@ namespace Bloomlings.Playtest.Preview
             SKImage image;
             lock (Pictures)
             {
+                if (_sink != null)
+                {
+                    // A draw made for its pictures (Warm, as the APK's painter): note what is not made yet.
+                    if (!Pictures.TryGet(key, w, h, out _) && !Warmed.ContainsKey(UiRaster.CacheKey(key, w, h)) && (Store == null || !Store.Has(key, w, h)))
+                    {
+                        _recorded.Add((key, w, h, render));
+                    }
+
+                    return;
+                }
+
                 if (!Pictures.TryGet(key, w, h, out image))
                 {
                     long start = System.Diagnostics.Stopwatch.GetTimestamp();
                     int bytes = w * h * 4;
-                    if (Store != null && ReadStored(key, w, h, bytes))
+                    if (!Warmed.IsEmpty && Warmed.TryRemove(UiRaster.CacheKey(key, w, h), out SKImage? warm))
+                    {
+                        // Made into an image ahead on the warmer's worker: only cached now.
+                        image = warm;
+                        Pictures.Add(key, w, h, image, bytes);
+                        PaintStats.Loaded(start);
+                    }
+                    else if (Store != null && ReadStored(key, w, h, bytes))
                     {
                         // Made in an earlier run (the harness's second launch, --perf-store).
                         image = StraightImage(s_read, w, h);
@@ -418,6 +436,84 @@ namespace Bloomlings.Playtest.Preview
             }
 
             Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
+        }
+
+        // ---- Warming (IPictureWarmer): the APK painter's, for the frame-time harness's --perf-warm ----
+
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, SKImage> Warmed = new System.Collections.Concurrent.ConcurrentDictionary<string, SKImage>(StringComparer.Ordinal);
+        private static System.Threading.Tasks.Task s_warmTail = System.Threading.Tasks.Task.CompletedTask;
+        private static readonly HashSet<string> WarmQueued = new HashSet<string>(StringComparer.Ordinal);
+        private static int s_warmTotal;
+        private static int s_warmDone;
+        private readonly List<(string Key, int W, int H, Func<int, int, byte[]> Render)> _recorded = new List<(string, int, int, Func<int, int, byte[]>)>();
+        private SKCanvas? _sink;
+
+        /// <summary>Whether the painter warms pictures as the APK's does (the harness's <c>--perf-warm</c>); off for the design board's renders.</summary>
+        public static bool Warms { get; set; }
+
+        public bool WarmsPictures => Warms;
+
+        public float WarmProgress
+        {
+            get
+            {
+                int total = System.Threading.Volatile.Read(ref s_warmTotal);
+                return total == 0 ? 1f : Math.Min(1f, System.Threading.Volatile.Read(ref s_warmDone) / (float)total);
+            }
+        }
+
+        /// <summary>As the APK painter's <c>Warm</c>: records the draw's pictures on a canvas that draws nothing, then makes them on a worker.</summary>
+        public void Warm(Action draw)
+        {
+            var marks = FrameMarks();
+            using var sink = new SKNoDrawCanvas(1, 1);
+            _recorded.Clear();
+            _sink = sink;
+            try
+            {
+                draw();
+            }
+            finally
+            {
+                _sink = null;
+                ForgetSince(marks);
+            }
+
+            var jobs = new List<(string CacheKey, string Key, int W, int H, Func<int, int, byte[]> Render)>();
+            foreach ((string key, int w, int h, Func<int, int, byte[]> render) in _recorded)
+            {
+                string cacheKey = UiRaster.CacheKey(key, w, h);
+                if (WarmQueued.Add(cacheKey))
+                {
+                    jobs.Add((cacheKey, key, w, h, render));
+                }
+            }
+
+            _recorded.Clear();
+            if (jobs.Count == 0)
+            {
+                return;
+            }
+
+            System.Threading.Interlocked.Add(ref s_warmTotal, jobs.Count);
+            PictureStore? store = Store;
+            s_warmTail = s_warmTail.ContinueWith(_ =>
+            {
+                foreach ((string cacheKey, string key, int w, int h, Func<int, int, byte[]> render) in jobs)
+                {
+                    try
+                    {
+                        byte[] rgba = render(w, h);
+                        SKImage image = StraightImage(rgba, w, h);
+                        store?.Write(key, w, h, rgba, rgba.Length);
+                        Warmed[cacheKey] = image;
+                    }
+                    finally
+                    {
+                        System.Threading.Interlocked.Increment(ref s_warmDone);
+                    }
+                }
+            }, System.Threading.Tasks.TaskScheduler.Default);
         }
 
         /// <summary>

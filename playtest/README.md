@@ -19,12 +19,18 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 
 ## What the full playtest has
 
-- All 5000 levels of the level catalog, embedded straight from `content/catalog/levels/` (the owner's build of
+- All 5000 levels of the level catalog, carried straight from `content/catalog/levels/` (the owner's build of
   2026-10-07 with `tools/catalog`, spec 001 T188): the curated Levels 1–10 on 11×12–12×12 boards, the mechanic
   showcases and their practice levels (`content/showcase/`), and from L11 the generated levels on every board size from
   14×16 to 22×28 (FR-008 as amended on 2026-10-07), all with approved pictures and validated. `PlaytestContent` reads a
-  level only when a screen first asks for it, so the start stays as quick as with 100 levels. A new catalog build comes
-  in with the next APK, with nothing to copy.
+  level and its library picture only when a screen first asks for them (only their names are listed at start: parsing
+  the 2300 library pictures took about 0.6 s on .NET, more on a phone), so the start stays as quick as with 100 levels. A
+  new catalog build comes in with the next APK, with nothing to copy.
+
+  The levels, the picture library and every picture are the APKs' assets (`AndroidAsset`, read through `PlaytestFiles`
+  and `AndroidAssetFiles`), not embedded resources: an APK carries its assemblies once for each processor it runs on
+  (arm64, arm, x64), so the 57 MB of pictures were in it three times (the full playtest was 182 MB). The preview and the
+  check still read them from their own embedded resources (`EmbeddedFiles`).
 
   Past L5000 the levels repeat. A level whose data stores the icons look (a big board, over 288 cells) draws no
   next-layer chip in either APK (FR-036 as amended).
@@ -91,15 +97,19 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   Material pictures (planks, frames, stones, pedestal, candy tiles) come from the kit's `UiRaster` through
   `IPainter.Picture`, cached by key and size (64 MiB of bitmaps; a big picture's rows render on several cores), and the
   full playtest keeps them on disk between launches of the same APK (`PictureStore`, the cache folder's `pictures/`), so a
-  screen seen before opens without making them again; a frame slower than 34 ms is logged with what its pictures cost
-  (`adb logcat -s Bloomlings`). `BoardLayout` places the board. The Bloomlings are the generated character
-  art of spec 004 (`specs/004-character-art/`), embedded from
+  screen seen before opens without making them again. The painter also makes pictures ahead (`IPictureWarmer`): the
+  splash draws the first screen (Home, or Level 1 on a first launch) for its pictures only and its ring fills as a worker
+  makes them, and an idle Home warms the level Play starts, Settings, the profile and the Store page one after another
+  (a level its Pause card), so they open without making anything (the harness's `--perf-warm`: Settings 132 → 1 ms,
+  the Store page 373 → 0.4 ms, a level 270 → 13 ms on a first launch). A frame slower than 34 ms is logged with what its
+  pictures cost (`adb logcat -s Bloomlings`). `BoardLayout` places the board. The Bloomlings are the generated character
+  art of spec 004 (`specs/004-character-art/`), carried from
   `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: 2D characters whose shape is the variant symbol, as
   walkers and on the Bloomlings sheet; 3D heroes on the splash, Home, the win and milestone cards and the leaderboard
-  row. The owner's pictures (`specs/005-reference-look/pictures.md`) are embedded from `Art/Backgrounds/`, `Art/Brand/`,
+  row. The owner's pictures (`specs/005-reference-look/pictures.md`) are carried from `Art/Backgrounds/`, `Art/Brand/`,
   `Art/Icons/` and `Art/Decor/` when they exist, and replace the drawn backdrop, wordmark, booster icons or leaves
   (mirrored with `IPainter.PushSquash(-1, 1, …)`). The owner's animated heroes (spec 005 FR-028, made by
-  `tools/heroanim`) are embedded from `Art/Heroes/Resources/HeroMotion/` under `heromotion/`: both painters decode a
+  `tools/heroanim`) are carried from `Art/Heroes/Resources/HeroMotion/` under `heromotion/`: both painters decode a
   frame when it is first drawn and keep the frames in a cache bounded by bytes (the least recently drawn dropped first),
   never all 576; the layered Home's pictures (`home.jpg`, `home-*.png`) come with the backgrounds. The level tester
   keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show as
@@ -156,7 +166,8 @@ slot registry.
 (Home, its cards, the Store's tabs, the pages, a level played to its win, the iris, a big board, a jam) with the APK's
 picture cache and sizes, which prints per screen its slowest frame, the pictures made and their milliseconds, cache drops,
 draws and allocations, and the heaviest pictures (`--csv <file>` every frame, `--perf-store <dir>` keeps the pictures as
-the APK does between launches: run it twice to see a later launch, `--perf-serial` one thread). Run it with
+the APK does between launches: run it twice to see a later launch, `--perf-warm` warms pictures ahead as the APK does,
+`--perf-serial` one thread). Run it with
 `DOTNET_TieredCompilation=0`, as the APK's Mono compiles each method optimized at once. The normal run also checks that
 the kit's animations draw the pictures of their first frame and that the picture store gives back what it kept.
 

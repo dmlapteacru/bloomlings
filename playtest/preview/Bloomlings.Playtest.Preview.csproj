@@ -24,6 +24,7 @@
     <Compile Include="../android/LevelAnimator.cs" />
     <Compile Include="../android/PlaytestText.cs" />
     <Compile Include="../android/PlaytestContent.cs" />
+    <Compile Include="../android/PlaytestFiles.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ClearSounds.cs" />

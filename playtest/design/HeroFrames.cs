@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace Bloomlings.Playtest.Design
@@ -224,7 +223,7 @@ namespace Bloomlings.Playtest.Design
     }
 
     /// <summary>
-    /// The animated heroes' frames of a painter (spec 005 FR-028): each is read from the embedded resources and decoded
+    /// The animated heroes' frames of a painter (spec 005 FR-028): each is read from the build's files (<see cref="PlaytestFiles"/>) and decoded
     /// the first time it is drawn (<see cref="PalettePng"/>), then kept in a <see cref="PictureCache{T}"/> bounded by
     /// bytes, so the 576 frames are never all decoded up front and the cache never grows past its budget (the least
     /// recently drawn frames are dropped first, never one drawn in the last two frames). The painter calls
@@ -232,16 +231,12 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public sealed class HeroFrameStore
     {
-        private readonly Assembly _assembly;
         private readonly PictureCache<PalettePicture> _frames;
-        private readonly HashSet<string> _resources;
         private readonly HashSet<string> _undecodable = new HashSet<string>(StringComparer.Ordinal);
 
-        public HeroFrameStore(Assembly assembly, long budgetBytes)
+        public HeroFrameStore(long budgetBytes)
         {
-            _assembly = assembly;
             _frames = new PictureCache<PalettePicture>(budgetBytes, _ => { });
-            _resources = new HashSet<string>(assembly.GetManifestResourceNames(), StringComparer.Ordinal);
         }
 
         /// <summary>The bytes of the frames held now.</summary>
@@ -253,8 +248,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>How many frames were decoded so far (a frame dropped and drawn again counts again).</summary>
         public int Decoded { get; private set; }
 
-        /// <summary>Whether the frame is embedded (nothing is decoded).</summary>
-        public bool Has(string name) => _resources.Contains(PainterBase.SpriteResource(name));
+        /// <summary>Whether the build carries the frame (nothing is decoded).</summary>
+        public bool Has(string name) => PlaytestFiles.Has(PainterBase.SpriteResource(name));
 
         /// <summary>The frame, decoded now when it is not held; null when it is missing or not a palette PNG.</summary>
         public PalettePicture? Get(string name)
@@ -269,7 +264,7 @@ namespace Bloomlings.Playtest.Design
                 return null;
             }
 
-            using Stream? stream = _assembly.GetManifestResourceStream(PainterBase.SpriteResource(name));
+            using Stream? stream = PlaytestFiles.Open(PainterBase.SpriteResource(name));
             PalettePicture? decoded = stream != null ? PalettePng.Decode(stream) : null;
             if (decoded == null)
             {

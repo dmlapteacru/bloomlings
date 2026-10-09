@@ -32,7 +32,7 @@ namespace Bloomlings.Playtest.Design
     {
         public static void Draw(IPainter p, DesignApp app)
         {
-            float progress = LotusIris.SplashProgress(app.Now, 1f);
+            float progress = LotusIris.SplashProgress(app.Now, app.SplashLoaded);
             LotusPainter.Draw(p, LotusIris.Splash(app.Now, progress), PlaytestText.T("splash.loading"), splash: true);
         }
     }

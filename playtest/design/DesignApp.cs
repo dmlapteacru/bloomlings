@@ -82,10 +82,32 @@ namespace Bloomlings.Playtest.Design
     {
         /// <summary>
         /// When the splash's lotus iris started to open on the first screen (spec 005 FR-039), or −1 while it loads: the
-        /// splash fills its ring of petals (the playtest has loaded everything before it starts), then the iris opens from
-        /// the lotus. It never waits for a tap (spec 002 FR-016).
+        /// splash fills its ring of petals as the first screen's pictures are made (<see cref="SplashLoaded"/>), then the
+        /// iris opens from the lotus. It never waits for a tap (spec 002 FR-016).
         /// </summary>
         private float _splashOpenSince = -1f;
+
+        /// <summary>How many frames the splash has drawn (the first screen's pictures are warmed on its second).</summary>
+        private int _splashFrames;
+
+        /// <summary>When Home has been showing alone since (no card, no iris), or −1: it warms what may come next.</summary>
+        private float _homeIdleSince = -1f;
+
+        /// <summary>How many of <see cref="WarmNext"/>'s steps an idle Home has warmed.</summary>
+        private int _warmStep;
+
+        /// <summary>The level whose Pause card was warmed, or null: a level warms it once, on the first frame after its start.</summary>
+        private LevelScreen? _pauseWarmedFor;
+
+        /// <summary>The longest the splash waits for the first screen's pictures after its ring could be full, in seconds.</summary>
+        private const float SplashWarmWait = 3f;
+
+        /// <summary>
+        /// How far the splash's loading has come (0–1): with a warming painter (<see cref="IPictureWarmer"/>, the APK's)
+        /// the share of the first screen's pictures made, so its ring fills as they are and the first screen then opens
+        /// without a stall (at most <see cref="SplashWarmWait"/> later than its fill); without one, everything is loaded.
+        /// </summary>
+        public float SplashLoaded { get; private set; } = 1f;
 
         /// <summary>When the lotus iris between two levels started (the win's Next, spec 005 FR-039), or −1.</summary>
         private float _transitionSince = -1f;
@@ -730,7 +752,22 @@ namespace Bloomlings.Playtest.Design
         public void Draw(IPainter p, float dt)
         {
             Now += Math.Max(0f, Math.Min(0.1f, dt));
-            if (Screen == Screen.Splash && LotusIris.SplashFull(Now, 1f))
+            IPictureWarmer? warmer = p is IPictureWarmer w && w.WarmsPictures ? w : null;
+            if (Screen == Screen.Splash && warmer != null)
+            {
+                // The first frame shows the splash; the second warms the first screen's pictures, which the ring then follows.
+                _splashFrames++;
+                if (_splashFrames == 2)
+                {
+                    warmer.Warm(() => DrawFirstScreen(p));
+                }
+
+                SplashLoaded = _splashFrames < 2 ? 0f
+                    : Now >= LotusIris.SplashFillFrom + LotusIris.SplashFillSeconds + SplashWarmWait ? 1f
+                    : warmer.WarmProgress;
+            }
+
+            if (Screen == Screen.Splash && LotusIris.SplashFull(Now, SplashLoaded))
             {
                 // The ring is full: the first screen comes up under the cover and the iris opens on it.
                 _splashOpenSince = Now;
@@ -759,6 +796,8 @@ namespace Bloomlings.Playtest.Design
             {
                 HomeMotion.Update(Now);
             }
+
+            WarmWhileIdle(p, warmer);
 
             switch (Screen)
             {
@@ -861,6 +900,74 @@ namespace Bloomlings.Playtest.Design
 
             Visuals.Background(p, screen, picture, () =>
                 p.Backdrop(screen, colors, scene, theme.Id + "/" + scene + (warm ? "/warm" : string.Empty)), place);
+        }
+
+        /// <summary>The screen the splash opens on, drawn for its pictures only: Level 1 on a first launch, else Home.</summary>
+        private void DrawFirstScreen(IPainter p)
+        {
+            if (_firstLaunch)
+            {
+                new LevelScreen(this, Meta.CurrentLevel).Draw(p);
+            }
+            else
+            {
+                HomeScreen.Draw(p, this);
+            }
+        }
+
+        /// <summary>
+        /// On a Home left alone for a while, warms one likely next screen at a time (<see cref="WarmNext"/>), each once the
+        /// last is made: their first opening then only uploads their pictures.
+        /// </summary>
+        private void WarmWhileIdle(IPainter p, IPictureWarmer? warmer)
+        {
+            if (warmer != null && Screen == Screen.Level && Level != null && _pauseWarmedFor != Level && _overlays.Count == 0 && !Transitioning && warmer.WarmProgress >= 1f)
+            {
+                // A level warms its Pause card once (the same card for every level of a screen size, so mostly the first).
+                _pauseWarmedFor = Level;
+                warmer.Warm(() => MenuCards.Pause(p, this, 10f));
+            }
+
+            if (warmer == null || Screen != Screen.Home || _overlays.Count > 0 || SplashOpening || Transitioning)
+            {
+                _homeIdleSince = -1f;
+                return;
+            }
+
+            if (_homeIdleSince < 0f)
+            {
+                _homeIdleSince = Now;
+                return;
+            }
+
+            if (_warmStep < WarmSteps && Now - _homeIdleSince >= 1.2f + (0.6f * _warmStep) && warmer.WarmProgress >= 1f)
+            {
+                int step = _warmStep++;
+                warmer.Warm(() => WarmNext(p, step));
+            }
+        }
+
+        /// <summary>The likely next screens an idle Home warms, in order.</summary>
+        private const int WarmSteps = 4;
+
+        /// <summary>Draws a likely next screen for its pictures only: the level Play starts, Settings, the profile, the Store page.</summary>
+        private void WarmNext(IPainter p, int step)
+        {
+            switch (step)
+            {
+                case 0:
+                    new LevelScreen(this, Meta.CurrentLevel).Draw(p);
+                    break;
+                case 1:
+                    MenuCards.Settings(p, this, 10f);
+                    break;
+                case 2:
+                    ProfileScreen.Draw(p, this);
+                    break;
+                default:
+                    StoreScreen.Draw(p, this);
+                    break;
+            }
         }
 
         /// <summary>Whether the painter has an owner background of that name (pictures.md B).</summary>

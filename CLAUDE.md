@@ -59,8 +59,13 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   from the asset slot registry. `DOTNET_TieredCompilation=0 dotnet run -c Release --project playtest/preview -- --perf`
   runs only the frame-time harness (`Perf.cs`, `playtest/README.md`): a journey through the screens with the APK's
   picture cache, printing per screen its slowest frame and what its pictures cost (`--perf-store <dir>` twice for a later
-  launch). The kit's pictures render big ones row band by row band on several cores (`UiRaster.Rows`, byte-identical to
-  one thread); the full playtest keeps them in a 64 MiB cache and on disk between launches (`PictureStore`).
+  launch, `--perf-warm` with the APK's warming). The kit's pictures render big ones row band by row band on several cores
+  (`UiRaster.Rows`, byte-identical to one thread); the full playtest keeps them in a 64 MiB cache and on disk between
+  launches (`PictureStore`) and makes them ahead (`IPictureWarmer`: the splash warms the first screen while its ring
+  fills, an idle Home the level, Settings, the profile and the Store page, a level its Pause card). Both APKs carry the
+  pictures, levels and picture library as Android assets, once (`PlaytestFiles`, `AndroidAssetFiles`; embedded
+  resources would be packed once for each of the three processors), and read a level and its library picture on first
+  use (`ContentSet` with a picture reader).
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
   after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI
@@ -299,7 +304,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   owner background is shown a little blurred and darker (`tools/heroanim/backdrops.mjs`, above).
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
-  `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with
+  `Art/Brand/Resources/` (Unity `OwnerArt`; the playtest APKs carry them as assets, the preview embeds them) and the artgen folder's `3d/` (record them with
   `artgen -- adopt`). The drawn stand-in shows while a file is missing; every picture needs a source record for the
   originality test.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with

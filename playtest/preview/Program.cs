@@ -7,7 +7,8 @@
 // APK's picture cache, per screen ms a frame, C# picture rasters and cache misses; --csv also writes every frame;
 // --perf-serial renders the pictures' rows on one thread, --perf-draw really draws the frames, --perf-verbose prints each,
 // --perf-store <dir> keeps the made pictures there as the APK does between launches: run twice to see a later launch,
-// --perf-allocs lists what the level's frames allocate by type)
+// --perf-allocs lists what the level's frames allocate by type, --perf-warm warms pictures ahead as the APK does: an idle
+// Home makes the next likely screens' pictures on a worker, IPictureWarmer)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -79,6 +80,12 @@ for (int i = 0; i < args.Length; i++)
     {
         perf = true;
         Perf.Allocations = true;
+    }
+    else if (args[i] == "--perf-warm")
+    {
+        // As the APK: an idle Home warms the likely next screens' pictures on a worker (IPictureWarmer).
+        perf = true;
+        SkiaPainter.Warms = true;
     }
     else if (args[i] == "--perf-serial")
     {

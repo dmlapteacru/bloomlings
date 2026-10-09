@@ -29,21 +29,26 @@
     <!-- The Garden look's font (spec 003 contracts/fonts.md); AndroidPainter loads it, the level tester does not. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-ExtraBold.ttf" LogicalName="fonts/Nunito-ExtraBold.ttf" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
-    <!-- The generated character pictures (spec 004 contracts/art-files.md "Loading"), drawn by the painter's Sprite. -->
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" LogicalName="characters/2d/%(Filename)%(Extension)" />
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" LogicalName="characters/3d/%(Filename)%(Extension)" />
+    <!--
+      The pictures are the APK's assets (PlaytestFiles, AndroidAssetFiles), kept once: as embedded resources they were packed
+      in the assembly, which the APK carries once for every processor (three copies). A picture goes by its folder and name
+      (PainterBase.SpriteResource); the backgrounds, the hero frames and the avatars by their names alone, so a PNG or a
+      JPEG works. The generated character pictures (spec 004 contracts/art-files.md "Loading"), drawn by the painter's Sprite.
+    -->
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" Link="Assets/characters/2d/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" Link="Assets/characters/3d/%(Filename)%(Extension)" />
     <!-- The owner's pictures (spec 005 pictures.md B and C): backgrounds and the logo, drawn when present (PainterBase.SpriteResource). -->
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.png;../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.jpg" LogicalName="backgrounds/%(Filename)" />
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Brand/Resources/Brand/*.png" LogicalName="brand/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.png;../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.jpg" Link="Assets/backgrounds/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Brand/Resources/Brand/*.png" Link="Assets/brand/%(Filename)%(Extension)" />
     <!-- The owner's booster icons and leaf decorations (spec 005 pictures.md D), drawn instead of the drawn ones when present. -->
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" LogicalName="icons/%(Filename)%(Extension)" />
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" LogicalName="decor/%(Filename)%(Extension)" />
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" LogicalName="avatars/%(Filename)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" Link="Assets/icons/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" Link="Assets/decor/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" Link="Assets/avatars/%(Filename)%(Extension)" />
     <!--
       The owner's animated heroes as flat frames (spec 005 FR-028, tools/heroanim; no 3D model in the game): the splash,
       Home, the win and the milestone draw them, each frame decoded when it is first drawn and kept in a cache bounded by
-      bytes (HeroFrameStore). Embedded without the extension, as the backgrounds (PainterBase.HeroMotionPrefix).
+      bytes (HeroFrameStore). Found by their names alone, as the backgrounds (PainterBase.HeroMotionPrefix).
     -->
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" LogicalName="heromotion/%(Filename)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" Link="Assets/heromotion/%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

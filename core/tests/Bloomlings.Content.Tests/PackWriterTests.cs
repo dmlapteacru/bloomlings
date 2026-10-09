@@ -112,6 +112,48 @@ namespace Bloomlings.Content.Tests
         }
 
         [Test]
+        public void ALazySet_ReadsEachPictureOnFirstUse_ByIdAndVersion()
+        {
+            BasePicture picture = Picture;
+            var reads = new List<string>();
+            BasePicture ReadPicture(string id)
+            {
+                reads.Add(id);
+                return id == "other" ? picture : picture with { Id = id };
+            }
+
+            var levels = new List<int>();
+            LevelDefinition ReadLevel(int n)
+            {
+                levels.Add(n);
+                LevelDefinition level = Level(n);
+                return n switch
+                {
+                    3 => level with { Picture = level.Picture with { Id = "missing" } },
+                    4 => level with { Picture = level.Picture with { Version = level.Picture.Version + 1 } },
+                    _ => level,
+                };
+            }
+
+            var set = new ContentSet(1, 20000, new[] { 1, 2, 3, 4 }, ReadLevel, new[] { picture.Id, "spare" }, ReadPicture);
+            Assert.That(set.PictureCount, Is.EqualTo(2));
+            Assert.That(reads, Is.Empty, "nothing is read up front");
+
+            Assert.That(set.GetLevel(1).LevelNumber, Is.EqualTo(1));
+            Assert.That(reads, Is.EqualTo(new[] { picture.Id }), "a level's picture is read with it");
+            Assert.That(set.GetPicture(set.GetLevel(2).Picture).Id, Is.EqualTo(picture.Id));
+            Assert.That(reads, Is.EqualTo(new[] { picture.Id }), "a picture is read once");
+
+            Assert.Throws<ContentIntegrityException>(() => set.GetLevel(3), "a picture the set does not have");
+            Assert.Throws<ContentIntegrityException>(() => set.GetLevel(4), "a picture of another version");
+            Assert.Throws<KeyNotFoundException>(() => set.GetPicture("missing", 1));
+            Assert.That(set.Pictures.Select(p => p.Id), Is.EquivalentTo(new[] { picture.Id, "spare" }), "every picture, read");
+
+            var wrong = new ContentSet(1, 20000, new[] { 1 }, ReadLevel, new[] { "other" }, ReadPicture);
+            Assert.Throws<ContentIntegrityException>(() => wrong.GetPicture("other", picture.Version), "a file that holds another picture");
+        }
+
+        [Test]
         public void GapsInTheDailyPool_AreRejected()
         {
             Assert.Throws<ContentIntegrityException>(() => new ContentSet(1, 20000, new[] { Level(1) }, new[] { Picture }, new[] { new DailyPoolEntry(1, Level(2)) }));

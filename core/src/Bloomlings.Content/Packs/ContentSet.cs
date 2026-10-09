@@ -8,7 +8,8 @@ namespace Bloomlings.Content.Packs
     /// The loaded levels and pictures of one content version, with lookups by level number and by picture
     /// <c>(id, version)</c>. Every level's picture must be present, so a missing picture fails at load time rather
     /// than when the level starts. A set made with a level reader knows its level numbers up front and reads each level
-    /// when it is first asked for (the playtest APK, which embeds all 5000), checking its picture then.
+    /// when it is first asked for (the playtest APK, which carries all 5000), checking its picture then; one made with a
+    /// picture reader too knows its picture ids up front and reads each picture when it is first asked for.
     /// </summary>
     public sealed class ContentSet
     {
@@ -17,6 +18,8 @@ namespace Bloomlings.Content.Packs
         private readonly int[] _levelNumbers;
         private readonly DailyPoolEntry[] _daily;
         private readonly Func<int, LevelDefinition>? _readLevel;
+        private readonly HashSet<string>? _pictureIds;
+        private readonly Func<string, BasePicture>? _readPicture;
         private readonly object _gate = new object();
 
         /// <param name="contentVersion">The manifest's content version; 0 for loose development content.</param>
@@ -86,9 +89,29 @@ namespace Bloomlings.Content.Packs
             _readLevel = readLevel;
         }
 
+        /// <summary>
+        /// A content set whose levels and pictures are both read on first use (the playtest APK: nothing is parsed at
+        /// start), the levels by number with <paramref name="readLevel"/>, the pictures by id with
+        /// <paramref name="readPicture"/>: a picture is found by its id and must have the version asked for.
+        /// </summary>
+        /// <param name="pictureIds">Every picture id the set has (one version of each).</param>
+        /// <param name="readPicture">Reads the picture of one of those ids; called at most once per id.</param>
+        public ContentSet(
+            int contentVersion,
+            int shuffleNodeBudget,
+            IEnumerable<int> levelNumbers,
+            Func<int, LevelDefinition> readLevel,
+            IEnumerable<string> pictureIds,
+            Func<string, BasePicture> readPicture)
+            : this(contentVersion, shuffleNodeBudget, levelNumbers, readLevel, Array.Empty<BasePicture>())
+        {
+            _pictureIds = new HashSet<string>(pictureIds, StringComparer.Ordinal);
+            _readPicture = readPicture;
+        }
+
         private void CheckPicture(LevelDefinition level)
         {
-            if (!_pictures.ContainsKey(PictureKey(level.Picture.Id, level.Picture.Version)))
+            if (!HasPicture(level.Picture.Id, level.Picture.Version))
             {
                 throw new ContentIntegrityException(
                     "levels",
@@ -127,10 +150,27 @@ namespace Bloomlings.Content.Packs
 
         public int LevelCount => _levelNumbers.Length;
 
-        public int PictureCount => _pictures.Count;
+        public int PictureCount => _pictureIds?.Count ?? _pictures.Count;
 
-        /// <summary>Every picture of the content set, in no particular order.</summary>
-        public IEnumerable<BasePicture> Pictures => _pictures.Values;
+        /// <summary>Every picture of the content set, in no particular order (a set that reads its pictures on first use reads them all).</summary>
+        public IEnumerable<BasePicture> Pictures
+        {
+            get
+            {
+                if (_pictureIds == null)
+                {
+                    return _pictures.Values;
+                }
+
+                var all = new List<BasePicture>(_pictureIds.Count);
+                foreach (string id in _pictureIds)
+                {
+                    all.Add(ReadPicture(id));
+                }
+
+                return all;
+            }
+        }
 
         /// <summary>The Daily Challenge pool by index (R19); empty when the content has no daily pack.</summary>
         public IReadOnlyList<DailyPoolEntry> DailyPool => _daily;
@@ -178,9 +218,49 @@ namespace Bloomlings.Content.Packs
         public BasePicture GetPicture(PictureRef picture) => GetPicture(picture.Id, picture.Version);
 
         public BasePicture GetPicture(string id, int version) =>
-            _pictures.TryGetValue(PictureKey(id, version), out BasePicture? picture)
+            TryGetPicture(id, version, out BasePicture picture)
                 ? picture
                 : throw new KeyNotFoundException($"Picture {id} v{version} is not in content version {ContentVersion}.");
+
+        private bool HasPicture(string id, int version) => TryGetPicture(id, version, out _);
+
+        private bool TryGetPicture(string id, int version, out BasePicture picture)
+        {
+            if (_pictureIds == null)
+            {
+                return _pictures.TryGetValue(PictureKey(id, version), out picture!);
+            }
+
+            if (!_pictureIds.Contains(id))
+            {
+                picture = null!;
+                return false;
+            }
+
+            picture = ReadPicture(id);
+            return picture.Version == version;
+        }
+
+        /// <summary>The picture of an id the set has, read on first use (a set made with a picture reader).</summary>
+        private BasePicture ReadPicture(string id)
+        {
+            lock (_gate)
+            {
+                if (_pictures.TryGetValue(id, out BasePicture? picture))
+                {
+                    return picture;
+                }
+
+                BasePicture read = _readPicture!(id);
+                if (read.Id != id)
+                {
+                    throw new ContentIntegrityException("pictures", $"picture {id} reads as picture {read.Id}");
+                }
+
+                _pictures.Add(id, read);
+                return read;
+            }
+        }
 
         private static string PictureKey(string id, int version) => id + "@" + version.ToString(System.Globalization.CultureInfo.InvariantCulture);
     }

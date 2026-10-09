@@ -34,6 +34,9 @@ namespace Bloomlings.Playtest
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            // The pictures, levels and picture library are the APK's assets, kept once (PlaytestFiles), before anything loads.
+            PlaytestFiles.Source = new AndroidAssetFiles(Assets!);
 #if PLAYTEST_TESTER
             SetContentView(new TesterView(this));
 #else

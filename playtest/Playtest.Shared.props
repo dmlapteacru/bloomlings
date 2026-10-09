@@ -51,9 +51,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- The whole level catalog, L1–5000 (content/catalog/levels, read on first use), and the picture library. -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)../content/catalog/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
+    <!--
+      The whole level catalog, L1–5000 (content/catalog/levels), and the picture library, each file read on first use
+      (PlaytestContent): the APK's assets, kept once and compressed, not embedded resources (PlaytestFiles).
+    -->
+    <AndroidAsset Include="$(MSBuildThisFileDirectory)../content/catalog/levels/*.json" Link="Assets/levels/%(Filename)%(Extension)" />
+    <AndroidAsset Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" Link="Assets/pictures/%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
     <!--

@@ -69,6 +69,31 @@ namespace Bloomlings.Playtest.Design
             _transforms.Clear();
         }
 
+        /// <summary>Where this frame's touch areas, alphas and transforms stand now (<see cref="ForgetSince"/>).</summary>
+        protected (int Hits, int Scrolls, int CoverAt, int Alphas, int Transforms) FrameMarks() =>
+            (_hits.Count, _scrolls.Count, _coverAt, _alpha.Count, _transforms.Count);
+
+        /// <summary>
+        /// Forgets what was registered since <paramref name="marks"/> (a draw made only for its pictures, <see cref="IPictureWarmer"/>):
+        /// its touch areas never take a tap, and an unbalanced alpha or transform never outlives it.
+        /// </summary>
+        protected void ForgetSince((int Hits, int Scrolls, int CoverAt, int Alphas, int Transforms) marks)
+        {
+            Trim(_hits, marks.Hits);
+            Trim(_scrolls, marks.Scrolls);
+            _coverAt = marks.CoverAt;
+            Trim(_alpha, marks.Alphas);
+            Trim(_transforms, marks.Transforms);
+        }
+
+        private static void Trim<T>(List<T> list, int count)
+        {
+            if (list.Count > count)
+            {
+                list.RemoveRange(count, list.Count - count);
+            }
+        }
+
         /// <summary>
         /// A finger goes down (spec 005 FR-041): on a page that scrolls (an uncovered <see cref="Scroll"/> area of the
         /// last frame under it) the touch may become a drag; everywhere else it taps where it lifts, as before.

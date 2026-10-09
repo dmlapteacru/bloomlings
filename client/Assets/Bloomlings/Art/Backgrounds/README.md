@@ -6,8 +6,8 @@ their exact names: `home.png`, `splash.png`, `wardrobe.png`, `win.png`, `gamepla
 
 - Unity loads them from `Resources/Backgrounds/` (`OwnerArt`); `wardrobe.png` is Unity only (the playtest has no
   Wardrobe screen).
-- The playtest embeds the folder (`playtest/android` and `playtest/preview`) and cover-fits each picture
-  (`Visuals.Background`).
+- The playtest APKs carry the folder as assets (`playtest/android`, one copy whatever the processor; `PlaytestFiles`),
+  the preview embeds it (`playtest/preview`), and both cover-fit each picture (`Visuals.Background`).
 
 Since spec 005 FR-049 (2026-10-08) the pictures here are the finish of the owner's as delivered: put a new or changed
 picture into `tools/heroanim/backgrounds/` and run `node tools/heroanim/backdrops.mjs`, which writes it here a little
