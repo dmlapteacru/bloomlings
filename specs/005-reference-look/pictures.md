@@ -225,7 +225,8 @@ one on pods, slots, the jam row, flights and every other sticker tile; the lotus
 leaves), Berry (red berries with leaves), Mist (blue-violet wisps) and Bark (a brown bark piece), one picture each, in
 the same folder: `variant-{vine,berry,mist,bark}.png` (G25–G28, 512 × 512, slots `tile.icon.{id}`) and
 `field-{…}.png` (G29–G32, 256 × 256, slots `tile.gem.{id}`), both made from the same picture (the owner: "use the same
-pictures there and there"); 256-color PNG with alpha, as the record says.
+pictures there and there"); Berry with a cream ring round its silhouette so it reads on its dark red tile. Since
+2026-10-10 every icon in the folder is a 256-color PNG with alpha (the record says how).
 
 **Later (optional):** the expansion variants' G1–G8 rows, and the mechanics' board objects
 (stone obstacle, gate, fountain, chest, statue, bridge, key, lock, the "?" mystery tile), all drawn in code today.
