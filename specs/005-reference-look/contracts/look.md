@@ -1831,3 +1831,13 @@ lip, line)`, `Groove(w, h)`, `KnobShare`, `ToggleMarkShare`), `GardenLook.TanDee
 | Claimed step | the check badge (§6.21: the glossy `set.green` ball in a white ring with the white check) 0.72 of the claim box's height in its middle, popping in after a claim (`DailyRewardCard.CheckPop`: to 1.18 in 0.21 s, back to 1 by 0.35 s); "+N" in `type.reward` `TextLook.OnGloss(Green)` at 0.5 of the row's height rising 0.55 rows from the claim box in 0.9 s (ease out), fading over its last 40% (`DailyRewardCard.Rise`) |
 | Caption | "New rewards in {0}" while a step waits, "All claimed! New rewards in {0}" once all five are (`DailyRewardCard.CaptionKey`), {0} the minutes to midnight UTC as "5 h 12 min" or "12 min" (`DailyRewardCard.Duration`, `DailyDates.MinutesToNextDay`), `type.caption` `ink.brown_soft` |
 | Home's "!" (slot `ui.badge.alert`) | over the Daily scene's plate's top-right corner (`DailyRewardCard.BadgeDisc(HomePromo.PlateBox(scene))`: a disc 0.3 of the plate's shorter side, its center 0.3 of the disc inside the corner), pressing with the scene: a soft shadow (0.25, 6% lower), a white ring 10% of the disc a side, the glossy `set.red` ball (`UiRaster.Ball`, as the check's green one), the white `ui.alert` mark 0.6 of the disc over itself in `set.red`'s line 3% lower; pulsing by 8% every 1.6 s (`DailyRewardCard.BadgePulse`); shown while `DailyRewardService.ShowsBadge` |
+
+### 6.24 Every rewarded ad's mark: the clapperboard (both builds; the owner, 2026-10-10, FR-051)
+
+| Piece | Recipe |
+|---|---|
+| Shape `ui.ad` (`ShapeLibrary.Clapperboard`, `GardenLook.AdMark`) | a film slate in shape units: the board a rounded box (half sizes 0.82 × 0.46, radius 0.1) centered 0.36 under the middle, cut where `|y| < 0.12`; the band along its top (0.82 × 0.12, radius 0.04) and the arm (0.82 × 0.14, radius 0.04, centered 0.36 up in its own frame) both cut by diagonal stripe gaps (`x + 0.9 y`, 0.5 apart, 0.2 wide, `StripeGaps`); the arm turned 22° up about its hinge at (−0.82, 0.17) |
+| On a green button | before the label as every glyph on a colored face (`Kit.Glyph` / `UiKit.GardenGlyph`): `set.green`'s line 6% lower, then white; the Daily Reward's ad steps at `DailyRewardCard.ClaimIconShare`, the win's ×2 as its glyph |
+| On a cream pill ("Free") | the jam's free rescue and Home's free booster (`Kit.CostPill` / `UiKit.CostPill` with `Cost.Free`): `set.green`'s line 6% lower, then `set.green`'s face, 0.8 of the pill's height (`GardenLook.AdMarkPillShare`), before "Free"; the green square with the white ▶ is gone |
+| Never | a video camera, or a ▶, for an ad (Play's ▶ is no ad and stays) |
+

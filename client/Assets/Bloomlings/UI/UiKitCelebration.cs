@@ -224,7 +224,7 @@ namespace Bloomlings.Client.UI
             GardenButton view = RaisedButton(name, parent, GardenLook.White, 0.3f);
             view.GreyWhenDisabled = false;
             view.FadeWhenDisabled = true;
-            Image glyph = GardenGlyph(view, view.Content, "ui.ad");
+            Image glyph = GardenGlyph(view, view.Content, GardenLook.AdMark);
             TextMeshProUGUI label = KitLabel("Label", view.Content, Loc.F("common.charges", 2), T.Count, TextLook.Plain(C.InkBrown));
             BoxLayout.On(view.Content).Then(f =>
             {

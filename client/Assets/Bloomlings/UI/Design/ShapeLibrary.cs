@@ -338,9 +338,9 @@ namespace Bloomlings.Client.UI.Design
                     RoundedBox(x, y, 0f, -0.36f, 0.1f, 0.2f, 0.03f),
                     RoundedBox(x, y, 0f, -0.68f, 0.42f, 0.12f, 0.05f)),
                 ["ui.medal"] = (x, y) => Min(Length(x, y + 0.2f) - 0.55f, Segment(x, y, -0.32f, 0.88f, -0.05f, 0.3f) - 0.14f, Segment(x, y, 0.32f, 0.88f, 0.05f, 0.3f) - 0.14f),
-                ["ui.ad"] = (x, y) => Min(
-                    RoundedBox(x, y, -0.18f, 0f, 0.55f, 0.42f, 0.12f),
-                    Max(MathF.Abs(y) - (0.1f + (0.7f * (x - 0.42f))), -(x - 0.42f), x - 0.86f)),
+                // Every rewarded ad's mark (the owner, 2026-10-10: "the clapperboard, everywhere"; it was a video camera): a
+                // film slate, its board under a striped band, and the striped arm hinged at the left, lifted 22°.
+                ["ui.ad"] = Clapperboard,
                 ["ui.shirt"] = (x, y) => Max(
                     Min(RoundedBox(x, y, 0f, -0.18f, 0.45f, 0.62f, 0.08f), Segment(x, y, -0.35f, 0.34f, -0.78f, 0.02f) - 0.18f, Segment(x, y, 0.35f, 0.34f, 0.78f, 0.02f) - 0.18f),
                     -(Length(x, y - 0.5f) - 0.2f)),
@@ -962,6 +962,32 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>An upward-pointing triangle on top of a circle of radius r at the origin (a droplet tip).</summary>
         private static float Triangle(float x, float y, float r) => Max(y - (r * 1.9f), (MathF.Abs(x) * 1.6f) + y - (r * 1.9f), -y);
+
+        /// <summary>
+        /// The clapperboard (<c>ui.ad</c>): the board (rounded, 0.82 × 0.46 half sizes under its middle) with a thin gap
+        /// under a band along its top, the band and the arm both cut by diagonal stripes (<see cref="StripeGaps"/>), the arm
+        /// turned 22° up about its hinge at the board's top-left corner.
+        /// </summary>
+        private static float Clapperboard(float x, float y)
+        {
+            float board = Max(RoundedBox(x, y, 0f, -0.36f, 0.82f, 0.46f, 0.1f), -(MathF.Abs(y) - 0.12f));
+            float band = Max(RoundedBox(x, y, 0f, 0f, 0.82f, 0.12f, 0.04f), -StripeGaps(x, y));
+            const float angle = -22f * MathF.PI / 180f;
+            const float hx = -0.82f;
+            const float hy = 0.17f;
+            float rx = ((x - hx) * MathF.Cos(angle)) - ((y - hy) * MathF.Sin(angle)) + hx;
+            float ry = ((x - hx) * MathF.Sin(angle)) + ((y - hy) * MathF.Cos(angle)) + hy;
+            float arm = Max(RoundedBox(rx, ry, 0f, 0.36f, 0.82f, 0.14f, 0.04f), -StripeGaps(rx, ry));
+            return Min(board, band, arm);
+        }
+
+        /// <summary>Negative inside the gaps between the clapperboard's diagonal stripes (0.5 apart, 0.2 wide).</summary>
+        private static float StripeGaps(float x, float y)
+        {
+            const float period = 0.5f;
+            float v = x + (y * 0.9f);
+            return MathF.Abs(v - (period * MathF.Floor(v / period)) - (period / 2f)) - 0.1f;
+        }
 
         private static float RoundedBox(float x, float y, float cx, float cy, float hx, float hy, float radius)
         {

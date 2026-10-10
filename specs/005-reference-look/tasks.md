@@ -952,4 +952,7 @@ and contracts/look.md §3.6, §6.10.
 - [X] T227 The owner's review (2026-10-09): every unclaimed step's Claim shown, a later one greyed and not active (no
   padlock, no fading); "Claim" and the camera larger (`DailyRewardCard.ClaimTextShare`, `ClaimIconShare`), rows 132
   units; both builds.
+- [X] T228 The owner's ad mark (FR-051, 2026-10-10): `ui.ad` is the clapperboard (`ShapeLibrary.Clapperboard`,
+  `GardenLook.AdMark`, `AdMarkPillShare`); the cost pills' Free shows it in green in both builds (the ▶ square gone); the
+  rule in CLAUDE.md, contracts/look.md §6.24, the slot text, `AdMarkTests`.
 - [ ] T226 Devices: the five steps, the stand-in for the ads and the "!" on a phone in both builds; the owner's verdict.

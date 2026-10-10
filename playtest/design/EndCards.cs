@@ -172,7 +172,7 @@ namespace Bloomlings.Playtest.Design
         /// its subtitle, the Waiting Slots' contents in an inset well, the recoveries the player can use now as a two-column
         /// grid of big colored choices (green Extra Slot and Shuffle, blue Return and Bloom Burst), each with its cost pill
         /// hanging under it (×N charges with the booster's icon, or the lotus and the price), the free rescue once per attempt
-        /// (▶ Free), and Restart. The rules do not let the jam be dismissed, so the card has no close button. The gameplay
+        /// (the clapperboard and Free, spec 005 FR-051), and Restart. The rules do not let the jam be dismissed, so the card has no close button. The gameplay
         /// shows around the card (spec 001 FR-027); its scrim takes the taps off the board and the tray, and the top bar
         /// above it (Pause, the speed) stays usable as before.
         /// </summary>
@@ -197,7 +197,7 @@ namespace Bloomlings.Playtest.Design
             (BoosterKind Kind, Command Command)? rescue = s.RescueOffer();
             if (rescue.HasValue)
             {
-                // The free rescue: a green choice with the ▶ Free pill (a rewarded ad in the game).
+                // The free rescue: a green choice with the clapperboard's Free pill (a rewarded ad in the game, spec 005 FR-051).
                 choices.Add((IdOf(rescue.Value.Kind), GardenLook.Green, BoosterName(rescue.Value.Kind), Cost.Free, s.UseRescue));
             }
 
@@ -780,7 +780,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A jam choice (§3.3, §6.2): the big glossy button in <paramref name="button"/> with the icon over the label, its cost
         /// pill in <paramref name="pill"/> hanging under its bottom edge (×N charges after the booster's icon, the lotus and
-        /// the price, or ▶ Free), and one touch box over both.
+        /// the price, or the clapperboard and Free), and one touch box over both.
         /// </summary>
         private static void Choice(IPainter p, Box button, Box pill, ColorSet set, IReadOnlyList<IconPart> icon, string label, Cost cost, Action action)
         {

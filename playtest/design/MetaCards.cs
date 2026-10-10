@@ -100,7 +100,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A step's Claim: the green face raised on its wooden plate (<see cref="Kit.RaisedButton"/>, as every primary
         /// button since spec 005 FR-045), "Claim" in the buttons' white letters (<see cref="DailyRewardCard.ClaimTextShare"/>
-        /// of the face), an ad step's after the ad mark (<see cref="DailyRewardCard.ClaimIconShare"/>); breathing while it
+        /// of the face), an ad step's after the clapperboard (<see cref="GardenLook.AdMark"/>, <see cref="DailyRewardCard.ClaimIconShare"/>); breathing while it
         /// waits; greyed without <paramref name="action"/> (a later step, or an ad step without its ad).
         /// </summary>
         private static void StepButton(IPainter p, Box box, bool ad, Action? action, bool breathe)
@@ -127,7 +127,7 @@ namespace Bloomlings.Playtest.Design
                 float gap = f.Height * DailyRewardCard.ClaimGapShare;
                 float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - icon - gap - (f.Height * 0.4f));
                 float start = f.CenterX - ((icon + gap + textWidth) / 2f);
-                Kit.Glyph(p, "ui.ad", Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), colors);
+                Kit.Glyph(p, GardenLook.AdMark, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), colors);
                 p.Text(label, start + icon + gap + (textWidth / 2f), f.CenterY, s, C.TextOnColor, textWidth, scale, look);
             }
             else

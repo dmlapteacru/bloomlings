@@ -665,7 +665,7 @@ namespace Bloomlings.Playtest.Design
         /// price, or, as a <paramref name="button"/> (every price that buys: the Store's Shop and outfits, the Wardrobe's
         /// outfits, the avatars; spec 005 FR-049, the owner, 2026-10-08: "green with the rim, as in the Animations store"),
         /// the glossy green face raised on its wooden plate (<see cref="RaisedButton"/>, as <c>ClearingButton</c>'s Buy)
-        /// holding the lotus and a white price; a green ▶ square and "Free", or "×N" charges in big digits after
+        /// holding the lotus and a white price; the green clapperboard and "Free" (a rewarded ad, spec 005 FR-051), or "×N" charges in big digits after
         /// <paramref name="chargeIcon"/> (the booster's icon, at 80% of the pill's height) when given. <paramref name="text"/>
         /// replaces the amount's text next to the same icon (the win's reward pill: the lotus and "+N" counting up).
         /// </summary>
@@ -698,7 +698,7 @@ namespace Bloomlings.Playtest.Design
             TypeStyle s = T.Count;
             float scale = h * (charges ? 0.66f : 0.56f) / p.U(s.Size);
             bool withCharge = charges && chargeIcon != null;
-            float icon = cost.Kind == CostKind.Petals ? h * 0.86f : cost.Kind == CostKind.Free ? h * 0.6f : withCharge ? h * 0.8f : 0f;
+            float icon = cost.Kind == CostKind.Petals ? h * 0.86f : cost.Kind == CostKind.Free ? h * GardenLook.AdMarkPillShare : withCharge ? h * 0.8f : 0f;
             float gap = icon > 0f ? h * 0.16f : 0f;
             float textWidth = Math.Min(p.MeasureText(text, s, scale), box.Width - icon - gap - (h * 0.5f));
             float start = box.CenterX - ((icon + gap + textWidth) / 2f);
@@ -709,13 +709,10 @@ namespace Bloomlings.Playtest.Design
             }
             else if (cost.Kind == CostKind.Free)
             {
-                // The rewarded choice: a white ▶ on a small green square.
-                p.Mark("ui.play");
+                // The rewarded choice: the clapperboard, every rewarded ad's mark (spec 005 FR-051), green over its line.
                 ColorSet green = GardenLook.Green;
-                p.FillRound(iconBox.Offset(0f, icon * 0.08f), icon * 0.26f, green.Lip);
-                p.FillRoundGradient(iconBox, icon * 0.26f, green.Top, green.Face);
-                p.StrokeRound(iconBox.Inset(line / 4f), icon * 0.26f, Math.Max(1f, line / 2f), green.Line);
-                p.Shape("ui.play", iconBox.Inset(icon * 0.2f).Offset(icon * 0.03f, 0f), Rgba.White);
+                p.Shape(GardenLook.AdMark, iconBox.Offset(0f, icon * 0.06f), green.Line);
+                p.Shape(GardenLook.AdMark, iconBox, green.Face);
             }
             else if (withCharge && chargeIcon != null)
             {

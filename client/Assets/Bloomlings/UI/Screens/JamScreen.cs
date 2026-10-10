@@ -34,7 +34,7 @@ namespace Bloomlings.Client.UI.Screens
     /// <item><description>one big colored choice per usable recovery (green Extra Slot and Shuffle, blue Return and
     /// Bloom Burst) with its icon, in a two-column grid (an odd last one centered), each with its cost pill (×N charges,
     /// or the lotus and the price) hanging under its bottom edge; the free rescue (a rewarded ad, once per attempt) as
-    /// one more green choice with the "▶ Free" pill;</description></item>
+    /// one more green choice with the clapperboard's "Free" pill (spec 005 FR-051);</description></item>
     /// <item><description>Restart as a cream button with ⟳.</description></item>
     /// </list>
     /// The card pops in over a warm scrim that keeps the board visible and takes every tap off the card, except over the
@@ -156,7 +156,7 @@ namespace Bloomlings.Client.UI.Screens
 
             if (rescue.HasValue)
             {
-                // The free rescue: a green choice with the ▶ Free pill (a rewarded ad).
+                // The free rescue: a green choice with the clapperboard's Free pill (a rewarded ad, spec 005 FR-051).
                 choices.Add((Id(rescue.Value.Booster), GardenLook.Green, Label(rescue.Value.Booster), Cost.Free, rescue.Value.Watch));
             }
 

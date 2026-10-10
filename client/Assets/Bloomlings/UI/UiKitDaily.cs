@@ -42,13 +42,13 @@ namespace Bloomlings.Client.UI
         /// <summary>The step's Claim: green and breathing on the next step, greyed when not interactable.</summary>
         public Button Claim { get; }
 
-        /// <summary>The ad mark before an ad step's "Claim".</summary>
+        /// <summary>The clapperboard before an ad step's "Claim" (<see cref="GardenLook.AdMark"/>).</summary>
         public Image AdGlyph { get; }
 
         /// <summary>A claimed step's green check, scaled for its pop.</summary>
         public RectTransform Check { get; }
 
-        /// <summary>Whether the step's Claim shows the ad mark (an ad step); lay the row out again after a change.</summary>
+        /// <summary>Whether the step's Claim shows the clapperboard (an ad step); lay the row out again after a change.</summary>
         public bool Ad { get; set; }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Bloomlings.Client.UI
         /// A Daily Reward step's Claim (the playtest's <c>MetaCards.StepButton</c>): the green face raised on its wooden plate
         /// (<see cref="RaisedButton"/>, glossy, as every primary button since spec 005 FR-045), breathing while it waits,
         /// "Claim" in the buttons' white letters (<see cref="DailyRewardCard.ClaimTextShare"/> of the face's height), after the
-        /// ad mark (<see cref="DailyRewardCard.ClaimIconShare"/>) while <paramref name="ad"/>
+        /// clapperboard (<see cref="GardenLook.AdMark"/>, <see cref="DailyRewardCard.ClaimIconShare"/>) while <paramref name="ad"/>
         /// (<paramref name="adGlyph"/>; lay <paramref name="face"/> out again when it changes); greyed when not interactable.
         /// </summary>
         public static Button DailyClaim(string name, Transform parent, Action onClick, Func<bool> ad, out Image adGlyph, out BoxLayout face)
@@ -122,7 +122,7 @@ namespace Bloomlings.Client.UI
             GardenButton view = RaisedButton(name, parent, GardenLook.Green, 0.5f, gloss: true);
             TextMeshProUGUI text = KitLabel("Label", view.Content, Loc.T("daily_reward.claim"), s, TextLook.OnGloss(GardenLook.Green));
             view.Track(text, s, TextLook.OnGloss);
-            Image glyph = GardenGlyph(view, view.Content, "ui.ad");
+            Image glyph = GardenGlyph(view, view.Content, GardenLook.AdMark);
             glyph.raycastTarget = false;
             face = BoxLayout.On(view.Content).Watch(text).Then(f =>
             {

@@ -106,7 +106,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The lotus and a price in Petals.</summary>
         Petals,
 
-        /// <summary>A green ▶ square and "Free" (a rescue or a rewarded choice).</summary>
+        /// <summary>The green clapperboard and "Free" (a rescue or a rewarded choice, spec 005 FR-051).</summary>
         Free,
 
         /// <summary>"×N": the charges the player owns.</summary>
@@ -127,7 +127,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The price in Petals or the number of charges; 0 for <see cref="CostKind.Free"/>.</summary>
         public int Amount { get; }
 
-        /// <summary>A free choice (▶ Free).</summary>
+        /// <summary>A rewarded ad's choice: the clapperboard and "Free" (<see cref="GardenLook.AdMark"/>).</summary>
         public static Cost Free => new Cost(CostKind.Free, 0);
 
         /// <summary>A price in Petals, shown with the lotus.</summary>
@@ -175,6 +175,16 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public static class GardenLook
     {
+        /// <summary>
+        /// Every rewarded ad's mark (spec 005 FR-051, the owner, 2026-10-10: "the clapperboard, everywhere"): the Daily
+        /// Reward's ad steps, the jam's free rescue, Home's free booster and the win's ×2 show this shape and no other (it
+        /// was a video camera, and a white ▶ on a green square on the "Free" pills).
+        /// </summary>
+        public const string AdMark = "ui.ad";
+
+        /// <summary>The clapperboard before "Free" on a cream cost pill, as a share of the pill's height (green, its line under it).</summary>
+        public const float AdMarkPillShare = 0.8f;
+
         /// <summary>
         /// The primary button (PLAY, NEXT, RESUME, CLAIM, CONTINUE), the selected tab and the "+": the reference's green
         /// with its explicit shades (spec 005 contracts/look.md §1.3).

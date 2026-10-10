@@ -58,7 +58,7 @@ namespace Bloomlings.Client.UI.Design
     /// design"; contracts/look.md §6.23) in the popups' look, shared by both builds: the reward basket with its lotus heap
     /// in the win's soft turning light, smaller than before; the day's five steps (spec 001 FR-055 as amended) as raised
     /// rows (<c>Kit.RaisedRow</c> / <c>UiKit.RaisedRow</c>), each with its number, the lotus and "+N", and at its right its
-    /// Claim raised on the plate (an ad step's with the ad mark before it), green on the next step and greyed, not
+    /// Claim raised on the plate (an ad step's with the clapperboard before it, `GardenLook.AdMark`), green on the next step and greyed, not
     /// active, on a later one (the owner, 2026-10-09: "the Claim buttons always visible, but not active"), or a claimed
     /// step's green check; and under them when the day's rewards come again. Home's Daily
     /// scene wears the "!" badge (<see cref="BadgeDisc"/>) while a step waits and the card was not opened that day.
@@ -77,10 +77,10 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The Claim's "Claim" as a share of its face's content height (the owner, 2026-10-09: "the text and the camera much bigger").</summary>
         public const float ClaimTextShare = 0.8f;
 
-        /// <summary>The ad mark before an ad step's "Claim", as a share of the face's content height.</summary>
+        /// <summary>The clapperboard before an ad step's "Claim", as a share of the face's content height.</summary>
         public const float ClaimIconShare = 0.92f;
 
-        /// <summary>The gap between the ad mark and "Claim", as a share of the face's content height.</summary>
+        /// <summary>The gap between the clapperboard and "Claim", as a share of the face's content height.</summary>
         public const float ClaimGapShare = 0.14f;
 
         /// <summary>The "+N" rising from a claimed row: its seconds.</summary>

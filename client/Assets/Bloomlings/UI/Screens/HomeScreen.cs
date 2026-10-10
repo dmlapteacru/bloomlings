@@ -178,7 +178,7 @@ namespace Bloomlings.Client.UI.Screens
             });
 
             // The optional rewarded offer beside the teaser, started only by the player (FR-052): a cream pill with the green
-            // ▶ and "Free", in a clear touch box at least size.touch_min.
+            // clapperboard and "Free" (spec 005 FR-051), in a clear touch box at least size.touch_min.
             Image free = UiFactory.CreateImage("FreeBooster", root, null, Color.clear, raycast: true);
             UiKit.TapTarget(free, () => onFreeBooster?.Invoke(), press: true);
             screen._freeBooster = free.rectTransform;

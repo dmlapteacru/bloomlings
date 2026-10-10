@@ -287,8 +287,8 @@ namespace Bloomlings.Client.UI
         /// A cost pill (§3.4; jam choices, booster tiles, the purchase confirmation; the playtest's <c>Kit.CostPill</c>): since
         /// spec 005 FR-047 a cream pill raised like the rows (<see cref="RaisedRow"/>) holding the lotus and a brown price, or,
         /// as a <paramref name="button"/> (every price that buys: the Store's Shop and outfits, the Wardrobe's outfits, the
-        /// avatars; FR-049), the glossy green face raised on its wooden plate holding the lotus and a white price; a green ▶
-        /// square and "Free", or "×N" charges, centered as a group on its top; with <see cref="CostPillView.SetChargeIcon"/> the charges
+        /// avatars; FR-049), the glossy green face raised on its wooden plate holding the lotus and a white price; the green
+        /// clapperboard and "Free" (a rewarded ad, spec 005 FR-051), or "×N" charges, centered as a group on its top; with <see cref="CostPillView.SetChargeIcon"/> the charges
         /// show in bigger digits after the booster's icon (80% of the pill's height).
         /// </summary>
         public static CostPillView CostPill(string name, Transform parent, Cost cost, bool button = false)
@@ -318,18 +318,16 @@ namespace Bloomlings.Client.UI
 
             Image lotus = PetalIcon("Lotus", root);
 
-            // The rewarded choice: a white ▶ on a small green square.
+            // The rewarded choice: the clapperboard, every rewarded ad's mark (spec 005 FR-051), green over its line.
             RectTransform free = UiFactory.CreateRect("Free", root);
             BoxLayout freeLayout = BoxLayout.On(free);
             ColorSet green = GardenLook.Green;
-            Image freeLip = RoundRect("Lip", free, UiTheme.Of(green.Lip), b => b.Width * 0.26f);
-            Image freeFace = RoundGradient("Face", free, green.Top, green.Face, b => b.Width * 0.26f);
-            Image freeLine = RoundRing("Line", free, UiTheme.Of(green.Line), b => b.Width * 0.26f, b => Mathf.Max(Units(1f), b.Width * 0.04f));
-            Image play = ShapeImage("Play", free, "ui.play", Rgba.White);
-            freeLayout.Add(freeLip.rectTransform, b => b.Offset(0f, b.Height * 0.08f));
-            freeLayout.Add(freeFace.rectTransform, b => b);
-            freeLayout.Add(freeLine.rectTransform, b => b);
-            freeLayout.Add(play.rectTransform, b => b.Inset(b.Width * 0.2f).Offset(b.Width * 0.03f, 0f));
+            Image markLine = ShapeImage("AdLine", free, GardenLook.AdMark, green.Line);
+            Image mark = ShapeImage("Ad", free, GardenLook.AdMark, green.Face);
+            markLine.raycastTarget = false;
+            mark.raycastTarget = false;
+            freeLayout.Add(markLine.rectTransform, b => b.Offset(0f, b.Height * 0.06f));
+            freeLayout.Add(mark.rectTransform, b => b);
 
             // Charges ("×2") with the booster's icon before them (the jam choices; hidden until SetChargeIcon).
             Image charge = UiFactory.CreateImage("Charge", root, null, Color.white);
@@ -343,7 +341,7 @@ namespace Bloomlings.Client.UI
                 Box b = top(whole);
                 float h = b.Height;
                 bool charges = view.ShowsChargeIcon;
-                float icon = view.Cost.Kind == CostKind.Petals ? h * 0.86f : view.Cost.Kind == CostKind.Free ? h * 0.6f : charges ? h * 0.8f : 0f;
+                float icon = view.Cost.Kind == CostKind.Petals ? h * 0.86f : view.Cost.Kind == CostKind.Free ? h * GardenLook.AdMarkPillShare : charges ? h * 0.8f : 0f;
                 float gap = icon > 0f ? h * 0.16f : 0f;
 
                 // Charges get bigger digits, as large as the reference's prices look next to their icons.
@@ -863,7 +861,7 @@ namespace Bloomlings.Client.UI
             _layout = layout;
         }
 
-        /// <summary>Shows a price with the lotus, Free with the green ▶, or ×N charges (after the booster's icon when set).</summary>
+        /// <summary>Shows a price with the lotus, Free with the green clapperboard, or ×N charges (after the booster's icon when set).</summary>
         public void SetCost(Cost cost)
         {
             Cost = cost;

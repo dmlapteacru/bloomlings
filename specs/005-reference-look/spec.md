@@ -876,6 +876,17 @@ a further question:
   changes the amounts (`daily.reward.streakBonusPetals` and `streakMaxDays` are gone; the steps' amounts are Remote
   Config `daily.reward.step1` to `step5`).
 
+### Session 2026-10-10 (the owner's rewarded-ad mark: the clapperboard)
+
+The owner, after seeing the Daily Reward's camera beside the jam card's "▶ Free" and a sheet of five marks on the Claim
+(the camera, a ▶ in a square, a ▶ in a circle, a clapperboard, a screen with a ▶): "The clapperboard. Use the clapperboard
+everywhere. Write it into the rule" (FR-051). Decided without a further question:
+- Q: Where? → A: Every rewarded ad's mark, in both builds: the Daily Reward's ad steps and the win's ×2 (white on the
+  green button), the jam's free rescue and Home's free booster (green over its line on the cream pill before "Free").
+  The shape keeps its id `ui.ad`; the Play button's ▶ is not an ad and stays.
+- Q: Which rule? → A: The project's (CLAUDE.md) and this spec's FR-051: a rewarded ad shows the clapperboard and no other
+  mark, and a new placement takes `GardenLook.AdMark`.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1560,6 +1571,11 @@ inventory.
   MUST wear the "!" badge over its plate's top-right corner (`ui.badge.alert`, `DailyRewardCard.BadgeDisc`), which opening
   the card hides until the next day (the save's `daily.rewardSeenUtcDate`). Until the rewarded ads pay, an ad step whose
   ad cannot show MUST take the ad's stand-in (`DailyRewardService.AdStub`). Both builds (contracts/look.md §6.23).
+- **FR-051** *(the owner, 2026-10-10: "the clapperboard, use the clapperboard everywhere; write it into the rule")*: Every
+  rewarded ad MUST be marked with the clapperboard (`ui.ad`, `GardenLook.AdMark`) and with no other mark (no video camera,
+  no ▶): white on a green button before its label (the Daily Reward's ad steps, the win's ×2) and green over its line on
+  a cream cost pill before "Free" (the jam's free rescue, Home's free booster; `GardenLook.AdMarkPillShare` of the pill's
+  height). A new rewarded placement MUST take the same mark. Both builds (contracts/look.md §6.24).
 
 ### Key Entities
 
