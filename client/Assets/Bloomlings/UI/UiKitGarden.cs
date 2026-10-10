@@ -287,7 +287,7 @@ namespace Bloomlings.Client.UI
         /// A cost pill (§3.4; jam choices, booster tiles, the purchase confirmation; the playtest's <c>Kit.CostPill</c>): since
         /// spec 005 FR-047 a cream pill raised like the rows (<see cref="RaisedRow"/>) holding the lotus and a brown price, or,
         /// as a <paramref name="button"/> (every price that buys: the Store's Shop and outfits, the Wardrobe's outfits, the
-        /// avatars; FR-049), the glossy green face raised on its wooden plate holding the lotus and a white price; the green
+        /// avatars; FR-049), the glossy green face raised on its wooden plate holding the lotus and a white price; the blue
         /// clapperboard and "Free" (a rewarded ad, spec 005 FR-051), or "×N" charges, centered as a group on its top; with <see cref="CostPillView.SetChargeIcon"/> the charges
         /// show in bigger digits after the booster's icon (80% of the pill's height).
         /// </summary>
@@ -318,16 +318,8 @@ namespace Bloomlings.Client.UI
 
             Image lotus = PetalIcon("Lotus", root);
 
-            // The rewarded choice: the clapperboard, every rewarded ad's mark (spec 005 FR-051), green over its line.
-            RectTransform free = UiFactory.CreateRect("Free", root);
-            BoxLayout freeLayout = BoxLayout.On(free);
-            ColorSet green = GardenLook.Green;
-            Image markLine = ShapeImage("AdLine", free, GardenLook.AdMark, green.Line);
-            Image mark = ShapeImage("Ad", free, GardenLook.AdMark, green.Face);
-            markLine.raycastTarget = false;
-            mark.raycastTarget = false;
-            freeLayout.Add(markLine.rectTransform, b => b.Offset(0f, b.Height * 0.06f));
-            freeLayout.Add(mark.rectTransform, b => b);
+            // The rewarded choice: the clapperboard, every rewarded ad's mark, as its blue sticker (spec 005 FR-051).
+            RectTransform free = AdMark("Free", root);
 
             // Charges ("×2") with the booster's icon before them (the jam choices; hidden until SetChargeIcon).
             Image charge = UiFactory.CreateImage("Charge", root, null, Color.white);
@@ -861,7 +853,7 @@ namespace Bloomlings.Client.UI
             _layout = layout;
         }
 
-        /// <summary>Shows a price with the lotus, Free with the green clapperboard, or ×N charges (after the booster's icon when set).</summary>
+        /// <summary>Shows a price with the lotus, Free with the blue clapperboard, or ×N charges (after the booster's icon when set).</summary>
         public void SetCost(Cost cost)
         {
             Cost = cost;

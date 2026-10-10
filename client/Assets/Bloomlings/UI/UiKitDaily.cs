@@ -18,7 +18,7 @@ namespace Bloomlings.Client.UI
     /// </summary>
     public sealed class DailyStepView
     {
-        internal DailyStepView(RectTransform root, TextMeshProUGUI number, TextMeshProUGUI amount, Button claim, GardenButton claimView, Image adGlyph, BoxLayout claimFace, RectTransform check)
+        internal DailyStepView(RectTransform root, TextMeshProUGUI number, TextMeshProUGUI amount, Button claim, GardenButton claimView, RectTransform adGlyph, BoxLayout claimFace, RectTransform check)
         {
             _claimFace = claimFace;
             _claimView = claimView;
@@ -43,7 +43,7 @@ namespace Bloomlings.Client.UI
         public Button Claim { get; }
 
         /// <summary>The clapperboard before an ad step's "Claim" (<see cref="GardenLook.AdMark"/>).</summary>
-        public Image AdGlyph { get; }
+        public RectTransform AdGlyph { get; }
 
         /// <summary>A claimed step's green check, scaled for its pop.</summary>
         public RectTransform Check { get; }
@@ -61,6 +61,7 @@ namespace Bloomlings.Client.UI
             Amount.text = NumberText.Plus(petals);
             Ad = ad;
             AdGlyph.gameObject.SetActive(ad);
+            AdGlyph.GetComponent<CanvasGroup>().alpha = ready && payable ? 1f : GardenLook.AdMarkDisabledAlpha;
             Claim.gameObject.SetActive(!claimed);
             Claim.interactable = ready && payable;
             _claimView.Breathe = ready && payable;
@@ -86,7 +87,7 @@ namespace Bloomlings.Client.UI
             Image lotus = PetalIcon("Lotus", root);
             TextMeshProUGUI amount = KitLabel("Amount", root, string.Empty, T.Reward, TextLook.Plain(C.InkBrown));
             DailyStepView? view = null;
-            Button claim = DailyClaim("Claim", root, onClaim, () => view?.Ad ?? false, out Image adGlyph, out BoxLayout claimFace);
+            Button claim = DailyClaim("Claim", root, onClaim, () => view?.Ad ?? false, out RectTransform adGlyph, out BoxLayout claimFace);
             GardenButton claimView = claim.GetComponent<GardenButton>();
 
             (RectTransform check, BoxLayout checkLayout) = Element("Check", root);
@@ -113,17 +114,16 @@ namespace Bloomlings.Client.UI
         /// A Daily Reward step's Claim (the playtest's <c>MetaCards.StepButton</c>): the green face raised on its wooden plate
         /// (<see cref="RaisedButton"/>, glossy, as every primary button since spec 005 FR-045), breathing while it waits,
         /// "Claim" in the buttons' white letters (<see cref="DailyRewardCard.ClaimTextShare"/> of the face's height), after the
-        /// clapperboard (<see cref="GardenLook.AdMark"/>, <see cref="DailyRewardCard.ClaimIconShare"/>) while <paramref name="ad"/>
+        /// clapperboard's blue sticker (<see cref="AdMark"/>, <see cref="DailyRewardCard.ClaimIconShare"/>) while <paramref name="ad"/>
         /// (<paramref name="adGlyph"/>; lay <paramref name="face"/> out again when it changes); greyed when not interactable.
         /// </summary>
-        public static Button DailyClaim(string name, Transform parent, Action onClick, Func<bool> ad, out Image adGlyph, out BoxLayout face)
+        public static Button DailyClaim(string name, Transform parent, Action onClick, Func<bool> ad, out RectTransform adGlyph, out BoxLayout face)
         {
             TypeStyle s = T.Button;
             GardenButton view = RaisedButton(name, parent, GardenLook.Green, 0.5f, gloss: true);
             TextMeshProUGUI text = KitLabel("Label", view.Content, Loc.T("daily_reward.claim"), s, TextLook.OnGloss(GardenLook.Green));
             view.Track(text, s, TextLook.OnGloss);
-            Image glyph = GardenGlyph(view, view.Content, GardenLook.AdMark);
-            glyph.raycastTarget = false;
+            RectTransform glyph = AdMark("Ad", view.Content);
             face = BoxLayout.On(view.Content).Watch(text).Then(f =>
             {
                 float size = f.Height * DailyRewardCard.ClaimTextShare;
@@ -139,7 +139,7 @@ namespace Bloomlings.Client.UI
                 float measured = KitText.Measure(text, size);
                 float textWidth = Mathf.Min(measured > 0f ? measured : room, room);
                 float start = f.CenterX - ((icon + gap + textWidth) / 2f);
-                BoxLayout.Place(glyph.rectTransform, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon));
+                BoxLayout.Place(glyph, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon));
                 KitText.Place(text, s, start + icon + gap + (textWidth / 2f), f.CenterY, size, textWidth + 1f);
             });
             view.Breathe = true;

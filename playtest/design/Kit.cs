@@ -179,6 +179,29 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
+        /// Every rewarded ad's mark (spec 005 FR-051): the clapperboard as a blue sticker in <paramref name="box"/>
+        /// (<see cref="GardenLook.AdMarkLayers"/>: its dark outline, the white under its stripes, the striped blue board), at
+        /// <see cref="GardenLook.AdMarkDisabledAlpha"/> on a greyed button (<paramref name="enabled"/> false).
+        /// </summary>
+        public static void AdMark(IPainter p, Box box, bool enabled = true)
+        {
+            if (!enabled)
+            {
+                p.PushAlpha(GardenLook.AdMarkDisabledAlpha);
+            }
+
+            foreach ((string shape, Rgba color) in GardenLook.AdMarkLayers)
+            {
+                p.Shape(shape, box, color);
+            }
+
+            if (!enabled)
+            {
+                p.PopAlpha();
+            }
+        }
+
+        /// <summary>
         /// A glyph a little raised on its cream face (spec 005 FR-044, the owner, 2026-10-08: "even the icons on the buttons
         /// look a little volumetric"): <see cref="UiRaster.RaisedGlyph"/> in its picture box round the glyph's
         /// <paramref name="box"/> (<see cref="UiRaster.RaisedGlyphBox"/>).
@@ -665,7 +688,7 @@ namespace Bloomlings.Playtest.Design
         /// price, or, as a <paramref name="button"/> (every price that buys: the Store's Shop and outfits, the Wardrobe's
         /// outfits, the avatars; spec 005 FR-049, the owner, 2026-10-08: "green with the rim, as in the Animations store"),
         /// the glossy green face raised on its wooden plate (<see cref="RaisedButton"/>, as <c>ClearingButton</c>'s Buy)
-        /// holding the lotus and a white price; the green clapperboard and "Free" (a rewarded ad, spec 005 FR-051), or "×N" charges in big digits after
+        /// holding the lotus and a white price; the blue clapperboard and "Free" (a rewarded ad, spec 005 FR-051), or "×N" charges in big digits after
         /// <paramref name="chargeIcon"/> (the booster's icon, at 80% of the pill's height) when given. <paramref name="text"/>
         /// replaces the amount's text next to the same icon (the win's reward pill: the lotus and "+N" counting up).
         /// </summary>
@@ -709,10 +732,8 @@ namespace Bloomlings.Playtest.Design
             }
             else if (cost.Kind == CostKind.Free)
             {
-                // The rewarded choice: the clapperboard, every rewarded ad's mark (spec 005 FR-051), green over its line.
-                ColorSet green = GardenLook.Green;
-                p.Shape(GardenLook.AdMark, iconBox.Offset(0f, icon * 0.06f), green.Line);
-                p.Shape(GardenLook.AdMark, iconBox, green.Face);
+                // The rewarded choice: the clapperboard, every rewarded ad's mark, as its blue sticker (spec 005 FR-051).
+                AdMark(p, iconBox);
             }
             else if (withCharge && chargeIcon != null)
             {

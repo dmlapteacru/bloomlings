@@ -886,6 +886,10 @@ everywhere. Write it into the rule" (FR-051). Decided without a further question
   The shape keeps its id `ui.ad`; the Play button's ▶ is not an ad and stays.
 - Q: Which rule? → A: The project's (CLAUDE.md) and this spec's FR-051: a rewarded ad shows the clapperboard and no other
   mark, and a new placement takes `GardenLook.AdMark`.
+- Q: Its color? → A: The owner, the same day, after a sheet of four (white or green as drawn; blue; a blue sticker with
+  white stripes and a dark outline; a light blue sticker): "Shouldn't we paint the clapperboard blue, so it stands out?",
+  then "C": the blue sticker, the same on the green buttons and the cream pills, like the boosters' icons (Extra Slot's
+  blue disc with its white plus and dark outline); faded on a greyed button.
 
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
@@ -1571,11 +1575,13 @@ inventory.
   MUST wear the "!" badge over its plate's top-right corner (`ui.badge.alert`, `DailyRewardCard.BadgeDisc`), which opening
   the card hides until the next day (the save's `daily.rewardSeenUtcDate`). Until the rewarded ads pay, an ad step whose
   ad cannot show MUST take the ad's stand-in (`DailyRewardService.AdStub`). Both builds (contracts/look.md §6.23).
-- **FR-051** *(the owner, 2026-10-10: "the clapperboard, use the clapperboard everywhere; write it into the rule")*: Every
-  rewarded ad MUST be marked with the clapperboard (`ui.ad`, `GardenLook.AdMark`) and with no other mark (no video camera,
-  no ▶): white on a green button before its label (the Daily Reward's ad steps, the win's ×2) and green over its line on
-  a cream cost pill before "Free" (the jam's free rescue, Home's free booster; `GardenLook.AdMarkPillShare` of the pill's
-  height). A new rewarded placement MUST take the same mark. Both builds (contracts/look.md §6.24).
+- **FR-051** *(the owner, 2026-10-10: "the clapperboard, use the clapperboard everywhere; write it into the rule", then
+  "C": blue, so it stands out)*: Every rewarded ad MUST be marked with the clapperboard and with no other mark (no video
+  camera, no ▶): a blue sticker, the same on every face (`GardenLook.AdMarkLayers`: a dark blue outline, white under the
+  stripes, the striped clapperboard `ui.ad` in `set.blue`), drawn by `Kit.AdMark` / `UiKit.AdMark`: before "Claim" on the
+  Daily Reward's ad steps, on the win's ×2, before "Free" on a cream cost pill (the jam's free rescue, Home's free
+  booster; `GardenLook.AdMarkPillShare` of the pill's height), at `GardenLook.AdMarkDisabledAlpha` on a greyed button. A
+  new rewarded placement MUST take the same mark. Both builds (contracts/look.md §6.24).
 
 ### Key Entities
 

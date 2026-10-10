@@ -182,8 +182,23 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const string AdMark = "ui.ad";
 
-        /// <summary>The clapperboard before "Free" on a cream cost pill, as a share of the pill's height (green, its line under it).</summary>
+        /// <summary>The clapperboard before "Free" on a cream cost pill, as a share of the pill's height.</summary>
         public const float AdMarkPillShare = 0.8f;
+
+        /// <summary>The clapperboard on a greyed (not active) button: its sticker's alpha.</summary>
+        public const float AdMarkDisabledAlpha = 0.6f;
+
+        /// <summary>
+        /// The clapperboard as a blue sticker, on every face it stands on (the owner's "C" of 2026-10-10: "blue, so it stands
+        /// out"): back to front, the outline (<c>ui.ad.outline</c>) in <c>set.blue</c>'s line, the white under the stripes
+        /// (<c>ui.ad.base</c>), and the striped clapperboard (<see cref="AdMark"/>) in <c>set.blue</c>'s face, all in one box.
+        /// </summary>
+        public static IReadOnlyList<(string ShapeId, Rgba Color)> AdMarkLayers => new[]
+        {
+            ("ui.ad.outline", Blue.Line),
+            ("ui.ad.base", Rgba.White),
+            (AdMark, Blue.Face),
+        };
 
         /// <summary>
         /// The primary button (PLAY, NEXT, RESUME, CLAIM, CONTINUE), the selected tab and the "+": the reference's green

@@ -390,7 +390,9 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.gift", "Gift (milestone teaser)", new[] { 3 }, "Home", "normal; ready", SizeClass.Small);
             Shape("ui.trophy", "Trophy (the bottom menu's Leaderboard stand-in; the profile's empty achievement wells)", new[] { 3 }, "Bottom menu (while `Icons/nav-leaderboard.png` is missing); profile", "normal", SizeClass.Small);
             Shape("ui.medal", "Medal (ranks 1–3)", new[] { 5 }, "Leaderboard page", "gold; silver; bronze", SizeClass.Small);
-            Shape("ui.ad", "Rewarded-ad mark: the clapperboard, every rewarded ad's and no other (spec 005 FR-051)", new[] { 4, 10, 15 }, "The Daily Reward's ad steps; the jam's free rescue (its Free pill); ×2 reward; Home's free booster", "normal");
+            Shape("ui.ad", "Rewarded-ad mark: the clapperboard, every rewarded ad's and no other (spec 005 FR-051), a blue sticker (`GardenLook.AdMarkLayers`)", new[] { 4, 10, 15 }, "The Daily Reward's ad steps; the jam's free rescue (its Free pill); ×2 reward; Home's free booster", "normal; on a greyed button, faded");
+            Shape("ui.ad.base", "Rewarded-ad mark's white under its stripes (the clapperboard's silhouette)", new[] { 4, 10, 15 }, "Under every `ui.ad`", "normal");
+            Shape("ui.ad.outline", "Rewarded-ad mark's dark blue outline", new[] { 4, 10, 15 }, "Round every `ui.ad`", "normal");
             Shape("ui.alert", "Exclamation mark", new[] { 3 }, "Home: the Daily Reward's \"!\" badge (spec 005 FR-050)", "normal");
             Shape("ui.shirt", "Wardrobe glyph (the bottom menu's stand-in)", new[] { 3 }, "Bottom menu (while `Icons/nav-wardrobe.png` is missing)", "normal");
             Shape("ui.grid", "Collection glyph (the bottom menu's stand-in)", new[] { 3 }, "Bottom menu (while `Icons/nav-collection.png` is missing)", "normal");

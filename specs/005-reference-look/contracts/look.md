@@ -1837,7 +1837,8 @@ lip, line)`, `Groove(w, h)`, `KnobShare`, `ToggleMarkShare`), `GardenLook.TanDee
 | Piece | Recipe |
 |---|---|
 | Shape `ui.ad` (`ShapeLibrary.Clapperboard`, `GardenLook.AdMark`) | a film slate in shape units: the board a rounded box (half sizes 0.82 × 0.46, radius 0.1) centered 0.36 under the middle, cut where `|y| < 0.12`; the band along its top (0.82 × 0.12, radius 0.04) and the arm (0.82 × 0.14, radius 0.04, centered 0.36 up in its own frame) both cut by diagonal stripe gaps (`x + 0.9 y`, 0.5 apart, 0.2 wide, `StripeGaps`); the arm turned 22° up about its hinge at (−0.82, 0.17) |
-| On a green button | before the label as every glyph on a colored face (`Kit.Glyph` / `UiKit.GardenGlyph`): `set.green`'s line 6% lower, then white; the Daily Reward's ad steps at `DailyRewardCard.ClaimIconShare`, the win's ×2 as its glyph |
-| On a cream pill ("Free") | the jam's free rescue and Home's free booster (`Kit.CostPill` / `UiKit.CostPill` with `Cost.Free`): `set.green`'s line 6% lower, then `set.green`'s face, 0.8 of the pill's height (`GardenLook.AdMarkPillShare`), before "Free"; the green square with the white ▶ is gone |
-| Never | a video camera, or a ▶, for an ad (Play's ▶ is no ad and stays) |
+| Sticker (`GardenLook.AdMarkLayers`, `Kit.AdMark` / `UiKit.AdMark`; the owner's "C") | three shapes in one box, back to front: `ui.ad.outline` (the clapperboard's silhouette, `ui.ad.base`, grown by 0.09) in `set.blue`'s line, `ui.ad.base` (the silhouette without the stripes' gaps) white, `ui.ad` in `set.blue`'s face, so the stripes and the gaps read white inside a dark outline; the same on every face; alpha `AdMarkDisabledAlpha` 0.6 on a greyed button |
+| On a green button | before "Claim" on the Daily Reward's ad steps (`DailyRewardCard.ClaimIconShare` of the face), and on the win's ×2 cream squircle (0.6 of its content, over "×2") |
+| On a cream pill ("Free") | the jam's free rescue and Home's free booster (`Kit.CostPill` / `UiKit.CostPill` with `Cost.Free`): 0.8 of the pill's height (`GardenLook.AdMarkPillShare`) before "Free"; the green square with the white ▶ is gone |
+| Never | a video camera, a ▶ or another color for an ad (Play's ▶ is no ad and stays) |
 

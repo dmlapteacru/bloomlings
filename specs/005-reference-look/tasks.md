@@ -955,4 +955,6 @@ and contracts/look.md §3.6, §6.10.
 - [X] T228 The owner's ad mark (FR-051, 2026-10-10): `ui.ad` is the clapperboard (`ShapeLibrary.Clapperboard`,
   `GardenLook.AdMark`, `AdMarkPillShare`); the cost pills' Free shows it in green in both builds (the ▶ square gone); the
   rule in CLAUDE.md, contracts/look.md §6.24, the slot text, `AdMarkTests`.
+- [X] T229 The owner's "C" (2026-10-10): the clapperboard as a blue sticker everywhere (`ui.ad.base`, `ui.ad.outline`,
+  `GardenLook.AdMarkLayers`, `AdMarkDisabledAlpha`, `Kit.AdMark` / `UiKit.AdMark`), the rule in CLAUDE.md, FR-051, §6.24.
 - [ ] T226 Devices: the five steps, the stand-in for the ads and the "!" on a phone in both builds; the owner's verdict.

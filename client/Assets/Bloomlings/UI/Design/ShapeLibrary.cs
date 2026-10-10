@@ -341,6 +341,10 @@ namespace Bloomlings.Client.UI.Design
                 // Every rewarded ad's mark (the owner, 2026-10-10: "the clapperboard, everywhere"; it was a video camera): a
                 // film slate, its board under a striped band, and the striped arm hinged at the left, lifted 22°.
                 ["ui.ad"] = Clapperboard,
+                // The sticker's white under the stripes (the clapperboard without its gaps) and its dark outline round it (the
+                // owner's "C" of 2026-10-10, GardenLook.AdMarkLayers).
+                ["ui.ad.base"] = ClapperboardSilhouette,
+                ["ui.ad.outline"] = (x, y) => ClapperboardSilhouette(x, y) - 0.09f,
                 ["ui.shirt"] = (x, y) => Max(
                     Min(RoundedBox(x, y, 0f, -0.18f, 0.45f, 0.62f, 0.08f), Segment(x, y, -0.35f, 0.34f, -0.78f, 0.02f) - 0.18f, Segment(x, y, 0.35f, 0.34f, 0.78f, 0.02f) - 0.18f),
                     -(Length(x, y - 0.5f) - 0.2f)),
@@ -979,6 +983,19 @@ namespace Bloomlings.Client.UI.Design
             float ry = ((x - hx) * MathF.Sin(angle)) + ((y - hy) * MathF.Cos(angle)) + hy;
             float arm = Max(RoundedBox(rx, ry, 0f, 0.36f, 0.82f, 0.14f, 0.04f), -StripeGaps(rx, ry));
             return Min(board, band, arm);
+        }
+
+        /// <summary>The clapperboard's whole outline: its board, band and lifted arm without the stripes' gaps.</summary>
+        private static float ClapperboardSilhouette(float x, float y)
+        {
+            float board = Max(RoundedBox(x, y, 0f, -0.36f, 0.82f, 0.46f, 0.1f), -(MathF.Abs(y) - 0.12f));
+            float band = RoundedBox(x, y, 0f, 0f, 0.82f, 0.12f, 0.04f);
+            const float angle = -22f * MathF.PI / 180f;
+            const float hx = -0.82f;
+            const float hy = 0.17f;
+            float rx = ((x - hx) * MathF.Cos(angle)) - ((y - hy) * MathF.Sin(angle)) + hx;
+            float ry = ((x - hx) * MathF.Sin(angle)) + ((y - hy) * MathF.Cos(angle)) + hy;
+            return Min(board, band, RoundedBox(rx, ry, 0f, 0.36f, 0.82f, 0.14f, 0.04f));
         }
 
         /// <summary>Negative inside the gaps between the clapperboard's diagonal stripes (0.5 apart, 0.2 wide).</summary>

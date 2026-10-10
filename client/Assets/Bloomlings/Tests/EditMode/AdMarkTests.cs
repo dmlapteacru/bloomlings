@@ -46,5 +46,27 @@ namespace Bloomlings.Client.Tests
             Assert.That(inside, Is.GreaterThan(8), "the band's stripes");
             Assert.That(gaps, Is.GreaterThan(8), "the gaps between them");
         }
+
+        [Test]
+        public void TheAdMark_IsABlueSticker_TheSameOnEveryFace()
+        {
+            var layers = GardenLook.AdMarkLayers;
+            Assert.That(layers.Count, Is.EqualTo(3));
+            Assert.That(layers[0], Is.EqualTo(("ui.ad.outline", GardenLook.Blue.Line)), "the dark outline at the back");
+            Assert.That(layers[1], Is.EqualTo(("ui.ad.base", Rgba.White)), "the white under the stripes");
+            Assert.That(layers[2], Is.EqualTo((GardenLook.AdMark, GardenLook.Blue.Face)), "the striped blue clapperboard on top");
+
+            // The white base fills the stripes' gaps and the outline grows round the base.
+            System.Func<float, float, float> mark = ShapeLibrary.Get(GardenLook.AdMark);
+            System.Func<float, float, float> white = ShapeLibrary.Get("ui.ad.base");
+            System.Func<float, float, float> outline = ShapeLibrary.Get("ui.ad.outline");
+            for (int i = 0; i < 40; i++)
+            {
+                float x = -0.75f + (i * 0.0375f);
+                Assert.That(white(x, 0f), Is.LessThan(0f), "the band's whole length at x " + x);
+                Assert.That(outline(x, 0f), Is.LessThanOrEqualTo(white(x, 0f)), "the outline round it at x " + x);
+                Assert.That(white(x, 0f), Is.LessThanOrEqualTo(mark(x, 0f) + 1e-4f), "the stripes inside the base at x " + x);
+            }
+        }
     }
 }

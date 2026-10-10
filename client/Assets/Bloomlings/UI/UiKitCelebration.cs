@@ -216,7 +216,7 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// The ×2 reward offer beside the win's reward plate (§6.3, a rewarded ad, spec 001 FR-052): a cream squircle
-        /// button (radius 30%) raised on its wooden plate (spec 005 FR-047) with the brown <c>ui.ad</c> glyph (60% of its content's height) in its upper half and "×2"
+        /// button (radius 30%) raised on its wooden plate (spec 005 FR-047) with the clapperboard's blue sticker (<see cref="AdMark"/>, 60% of its content's height) in its upper half and "×2"
         /// below it in <c>type.count</c> <c>ink.brown</c>. Not interactable, it fades to 55%.
         /// </summary>
         public static Button DoubleOffer(string name, Transform parent, Action onClick)
@@ -224,12 +224,12 @@ namespace Bloomlings.Client.UI
             GardenButton view = RaisedButton(name, parent, GardenLook.White, 0.3f);
             view.GreyWhenDisabled = false;
             view.FadeWhenDisabled = true;
-            Image glyph = GardenGlyph(view, view.Content, GardenLook.AdMark);
+            RectTransform glyph = AdMark("Ad", view.Content);
             TextMeshProUGUI label = KitLabel("Label", view.Content, Loc.F("common.charges", 2), T.Count, TextLook.Plain(C.InkBrown));
             BoxLayout.On(view.Content).Then(f =>
             {
                 float h = f.Height;
-                BoxLayout.Place(glyph.rectTransform, Box.FromCenter(f.CenterX, f.Top + (h * 0.3f), h * 0.6f, h * 0.6f));
+                BoxLayout.Place(glyph, Box.FromCenter(f.CenterX, f.Top + (h * 0.3f), h * 0.6f, h * 0.6f));
                 KitText.Place(label, T.Count, f.CenterX, f.Top + (h * 0.78f), h * 0.46f, f.Width * 0.92f);
             });
             return Clickable(view, onClick);

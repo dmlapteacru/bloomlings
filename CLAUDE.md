@@ -313,10 +313,12 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `UiKit.AlertBadge`) while a step waits and the card was not opened that day (`ShowsBadge`, the save's
   `daily.rewardSeenUtcDate`).
 - Every rewarded ad is marked with the clapperboard and nothing else (spec 005 FR-051, the owner, 2026-10-10: "the
-  clapperboard, everywhere"; recipe in `contracts/look.md` §6.24): the shape `ui.ad` (`GardenLook.AdMark`), white on a
-  green button (the Daily Reward's ad steps, the win's ×2) and green over its line on a cream pill before "Free" (the
-  jam's free rescue, Home's free booster; `GardenLook.AdMarkPillShare`), in both builds. Never a video camera or a ▶ for
-  an ad; a new rewarded placement uses `GardenLook.AdMark` too.
+  clapperboard, everywhere", then "C": blue, so it stands out; recipe in `contracts/look.md` §6.24): a blue sticker, the
+  same on every face (`GardenLook.AdMarkLayers`: the dark blue outline `ui.ad.outline`, the white under the stripes
+  `ui.ad.base`, the striped clapperboard `ui.ad` in `set.blue`), drawn only by `Kit.AdMark` / `UiKit.AdMark`: before
+  "Claim" on the Daily Reward's ad steps, on the win's ×2, before "Free" on the jam's free rescue and Home's free booster
+  (`GardenLook.AdMarkPillShare` of the pill), faded on a greyed button (`AdMarkDisabledAlpha`), in both builds. Never a
+  video camera, a ▶, or another color for an ad; a new rewarded placement uses `Kit.AdMark` / `UiKit.AdMark` too.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`; the playtest APKs carry them as assets, the preview embeds them) and the artgen folder's `3d/` (record them with

@@ -127,7 +127,7 @@ namespace Bloomlings.Playtest.Design
                 float gap = f.Height * DailyRewardCard.ClaimGapShare;
                 float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - icon - gap - (f.Height * 0.4f));
                 float start = f.CenterX - ((icon + gap + textWidth) / 2f);
-                Kit.Glyph(p, GardenLook.AdMark, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), colors);
+                Kit.AdMark(p, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), enabled);
                 p.Text(label, start + icon + gap + (textWidth / 2f), f.CenterY, s, C.TextOnColor, textWidth, scale, look);
             }
             else

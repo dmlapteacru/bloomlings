@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 83 | 0 | 83 |
+| UI kit | 85 | 0 | 85 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **236** | **32** | **268** |
+| **All** | **238** | **32** | **270** |
 
 ## Brand
 
@@ -274,7 +274,9 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.gift` | Gift (milestone teaser) | 3 | Home | normal; ready | Small | no | Launch | shape `ui.gift` |
 | `ui.trophy` | Trophy (the bottom menu's Leaderboard stand-in; the profile's empty achievement wells) | 3 | Bottom menu (while `Icons/nav-leaderboard.png` is missing); profile | normal | Small | no | Launch | shape `ui.trophy` |
 | `ui.medal` | Medal (ranks 1–3) | 5 | Leaderboard page | gold; silver; bronze | Small | no | Launch | shape `ui.medal` |
-| `ui.ad` | Rewarded-ad mark: the clapperboard, every rewarded ad's and no other (spec 005 FR-051) | 4, 10, 15 | The Daily Reward's ad steps; the jam's free rescue (its Free pill); ×2 reward; Home's free booster | normal | Icon | no | Launch | shape `ui.ad` |
+| `ui.ad` | Rewarded-ad mark: the clapperboard, every rewarded ad's and no other (spec 005 FR-051), a blue sticker (`GardenLook.AdMarkLayers`) | 4, 10, 15 | The Daily Reward's ad steps; the jam's free rescue (its Free pill); ×2 reward; Home's free booster | normal; on a greyed button, faded | Icon | no | Launch | shape `ui.ad` |
+| `ui.ad.base` | Rewarded-ad mark's white under its stripes (the clapperboard's silhouette) | 4, 10, 15 | Under every `ui.ad` | normal | Icon | no | Launch | shape `ui.ad.base` |
+| `ui.ad.outline` | Rewarded-ad mark's dark blue outline | 4, 10, 15 | Round every `ui.ad` | normal | Icon | no | Launch | shape `ui.ad.outline` |
 | `ui.alert` | Exclamation mark | 3 | Home: the Daily Reward's "!" badge (spec 005 FR-050) | normal | Icon | no | Launch | shape `ui.alert` |
 | `ui.shirt` | Wardrobe glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-wardrobe.png` is missing) | normal | Icon | no | Launch | shape `ui.shirt` |
 | `ui.grid` | Collection glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-collection.png` is missing) | normal | Icon | no | Launch | shape `ui.grid` |

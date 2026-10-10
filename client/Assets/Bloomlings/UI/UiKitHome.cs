@@ -52,6 +52,26 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
+        /// Every rewarded ad's mark (spec 005 FR-051; the playtest's <c>Kit.AdMark</c>): the clapperboard as a blue sticker
+        /// (<see cref="Design.GardenLook.AdMarkLayers"/>: its dark outline, the white under its stripes, the striped blue
+        /// board), each layer filling the returned rect, never a touch target. Fade a greyed button's with the rect's
+        /// <see cref="CanvasGroup"/> (<see cref="Design.GardenLook.AdMarkDisabledAlpha"/>).
+        /// </summary>
+        public static RectTransform AdMark(string name, Transform parent)
+        {
+            (RectTransform root, BoxLayout layout) = Element(name, parent);
+            root.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
+            foreach ((string shape, Rgba color) in GardenLook.AdMarkLayers)
+            {
+                Image layer = ShapeImage(shape, root, shape, color);
+                layer.raycastTarget = false;
+                layout.Add(layer.rectTransform, b => b);
+            }
+
+            return root;
+        }
+
+        /// <summary>
         /// The "!" notification badge (<c>ui.badge.alert</c>; spec 005 FR-050, the playtest's <c>Kit.AlertBadge</c>): the
         /// check badge's recipe in red, a glossy <c>set.red</c> ball in a white ring (10% of the ball a side) with a white
         /// "!" (<c>ui.alert</c>, 60% of the ball) over its darker line, over a soft shadow. The returned rect is the ball;
