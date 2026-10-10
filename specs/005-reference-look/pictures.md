@@ -221,7 +221,13 @@ highlight, 256 × 256, for the small board tiles (40–60 px on a phone). Withou
 face and the icon over it (contracts/look.md §3.11): the field icon on the board and the finished picture, the detailed
 one on pods, slots, the jam row, flights and every other sticker tile; the lotus wherever the Petals show.
 
-**Later (optional):** the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects
+**G25–G32: the four expansion variants' icons (delivered 2026-10-10, sent in the chat):** Vine (a lime curl with
+leaves), Berry (red berries with leaves), Mist (blue-violet wisps) and Bark (a brown bark piece), one picture each, in
+the same folder: `variant-{vine,berry,mist,bark}.png` (G25–G28, 512 × 512, slots `tile.icon.{id}`) and
+`field-{…}.png` (G29–G32, 256 × 256, slots `tile.gem.{id}`), both made from the same picture (the owner: "use the same
+pictures there and there"); 256-color PNG with alpha, as the record says.
+
+**Later (optional):** the expansion variants' G1–G8 rows, and the mechanics' board objects
 (stone obstacle, gate, fountain, chest, statue, bridge, key, lock, the "?" mystery tile), all drawn in code today.
 
 ## I. Profile avatars (the owner's delivery of 2026-10-05, spec 005 FR-037)
@@ -289,7 +295,7 @@ slot yet and are not in the game.
    owner's and need no attribution (`tools/heroanim/SOURCE.md`).
 2. G1–G8: the eight variant characters (walkers, the Bloomlings sheet); `tools/artgen` draws them until then.
 3. A5: the faceless still heroes; `tools/artgen` draws the blanks until then.
-4. Later: the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects.
+4. Later: the mechanics' board objects (the expansion variants' icons came on 2026-10-10, G25–G32).
 5. Optional: the tagline (C2), modelled outfits (A8), tab heads (A9). (The splash picture B6 is no longer shown since
    FR-039.)
 6. Optional, for the animated heroes:

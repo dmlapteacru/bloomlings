@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Bloomlings.Client.Tests
 {
     /// <summary>
-    /// The owner's gameplay icons (spec 005 pictures.md G9–G24 and the currency lotus): their names and slots, the tile
+    /// The owner's gameplay icons (spec 005 pictures.md G9–G32 and the currency lotus): their names and slots, the tile
     /// face they lie on, where they go on a tile and how the hosts grey or bake them.
     /// </summary>
     public class OwnerIconTests
@@ -17,8 +17,8 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void TheVariantIcons_AreNamedAsThePictureListSays_AndHaveTheirSlots()
         {
-            string[] launch = VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Launch).Select(v => v.IconId).ToArray();
-            Assert.That(OwnerPictures.Variants, Is.EquivalentTo(launch));
+            string[] all = VariantCatalog.Default.All.Select(v => v.IconId).ToArray();
+            Assert.That(OwnerPictures.Variants, Is.EquivalentTo(all));
             foreach (string icon in OwnerPictures.Variants)
             {
                 Assert.That(OwnerPictures.VariantIcon(icon), Is.EqualTo("variant-" + icon));

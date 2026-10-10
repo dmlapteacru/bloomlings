@@ -30,7 +30,7 @@ How to read the columns:
 | Backgrounds | 12 | 0 | 12 |
 | Bloomling characters | 22 | 8 | 30 |
 | Variant symbols | 8 | 4 | 12 |
-| Board tiles and overlays | 28 | 0 | 28 |
+| Board tiles and overlays | 28 | 8 | 36 |
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **238** | **32** | **270** |
+| **All** | **238** | **40** | **278** |
 
 ## Brand
 
@@ -156,6 +156,14 @@ the fallback when a picture is missing.
 | `tile.gem.dew` | Variant icon, simplified for the board: Dew (the owner's picture `Icons/field-dew.png`, spec 005 pictures.md G22) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Launch | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
 | `tile.gem.log` | Variant icon, simplified for the board: Wood (the owner's picture `Icons/field-log.png`, spec 005 pictures.md G23) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Launch | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
 | `tile.gem.acorn` | Variant icon, simplified for the board: Acorn (the owner's picture `Icons/field-acorn.png`, spec 005 pictures.md G24) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Launch | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
+| `tile.icon.vine` | Variant icon, detailed: Vine (expansion; the owner's picture `Icons/variant-vine.png`, spec 005 pictures.md G25) | 7, 10, 12, 13 | Pods; slots; jam sheet; flights; demos; kit sheet | normal; dimmed (queued, faded); grey (stuck, a grey copy); pressed | Small | yes | Later | the drawn sticker symbol `symbol.vine` (UiRaster.Tile, sticker style) until the picture exists; it covers about 70% of the tile |
+| `tile.gem.vine` | Variant icon, simplified for the board: Vine (expansion; the owner's picture `Icons/field-vine.png`, the same picture as the detailed one, spec 005 pictures.md G29) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Later | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
+| `tile.icon.berry` | Variant icon, detailed: Berry (expansion; the owner's picture `Icons/variant-berry.png`, spec 005 pictures.md G26) | 7, 10, 12, 13 | Pods; slots; jam sheet; flights; demos; kit sheet | normal; dimmed (queued, faded); grey (stuck, a grey copy); pressed | Small | yes | Later | the drawn sticker symbol `symbol.berry` (UiRaster.Tile, sticker style) until the picture exists; it covers about 70% of the tile |
+| `tile.gem.berry` | Variant icon, simplified for the board: Berry (expansion; the owner's picture `Icons/field-berry.png`, the same picture as the detailed one, spec 005 pictures.md G30) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Later | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
+| `tile.icon.mist` | Variant icon, detailed: Mist (expansion; the owner's picture `Icons/variant-mist.png`, spec 005 pictures.md G27) | 7, 10, 12, 13 | Pods; slots; jam sheet; flights; demos; kit sheet | normal; dimmed (queued, faded); grey (stuck, a grey copy); pressed | Small | yes | Later | the drawn sticker symbol `symbol.mist` (UiRaster.Tile, sticker style) until the picture exists; it covers about 70% of the tile |
+| `tile.gem.mist` | Variant icon, simplified for the board: Mist (expansion; the owner's picture `Icons/field-mist.png`, the same picture as the detailed one, spec 005 pictures.md G31) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Later | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
+| `tile.icon.bark` | Variant icon, detailed: Bark (expansion; the owner's picture `Icons/variant-bark.png`, spec 005 pictures.md G28) | 7, 10, 12, 13 | Pods; slots; jam sheet; flights; demos; kit sheet | normal; dimmed (queued, faded); grey (stuck, a grey copy); pressed | Small | yes | Later | the drawn sticker symbol `symbol.bark` (UiRaster.Tile, sticker style) until the picture exists; it covers about 70% of the tile |
+| `tile.gem.bark` | Variant icon, simplified for the board: Bark (expansion; the owner's picture `Icons/field-bark.png`, the same picture as the detailed one, spec 005 pictures.md G32) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Later | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
 | `board.entry.arch` | Garden Entry: a small stone arch set in the border beside each entry cell (spec 005 FR-034; the owner's choice "B", 2026-10-05) | 7, 8, 9 | Board (every entry, turned to its side) | bottom; top; left; right | Small | yes | Launch | UiRaster.EntryArch: two stone pillars and an arch of keystones round a dark opening with two peeping eyes, ivy, a pink flower on the keystone and a soft warm light; it reaches 0.36 cell over the entry cell |
 | `board.border.stone` | Stone border around the board | 7, 8, 9 | Board; win picture | normal; thin (win) | Large | yes | Launch | UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles |
 | `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells as the board's soft cubes (`tile.candy`, with the owner's field icons `tile.gem.*`; spec 005 FR-046: "as in the gameplay, volumetric") of each role's variant in a thin stone border (spec 005 D14) |

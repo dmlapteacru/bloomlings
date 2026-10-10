@@ -76,8 +76,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>D1 to D4: a booster's icon (<c>booster-extra_slot</c>, <c>booster-shuffle</c>, …), in the Icons folder.</summary>
         public static string BoosterIcon(string boosterId) => "booster-" + boosterId;
 
-        /// <summary>The variant icon ids with icon pictures (G9–G24): the eight launch variants (the expansion keeps its drawn symbols).</summary>
-        public static readonly string[] Variants = { "leaf", "moss", "flower", "bud", "drop", "dew", "log", "acorn" };
+        /// <summary>
+        /// The variant icon ids with icon pictures: the eight launch variants (G9–G24) and the four expansion variants (the
+        /// owner's pictures of 2026-10-10, pictures.md G25–G32).
+        /// </summary>
+        public static readonly string[] Variants = { "leaf", "moss", "flower", "bud", "drop", "dew", "log", "acorn", "vine", "berry", "mist", "bark" };
 
         /// <summary>
         /// G9–G16: a variant's detailed icon (<c>variant-leaf</c>, …), in the Icons folder: the sticker tiles of the pods,
