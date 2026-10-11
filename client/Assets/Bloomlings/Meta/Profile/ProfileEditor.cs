@@ -44,8 +44,8 @@ namespace Bloomlings.Client.Meta.Profile
     /// kept yet (an avatar, a frame, a badge, a name). An avatar not owned yet turns the main button into "Buy" at its
     /// price; Save keeps every choice at once and Close forgets them. Frames and badges are the Wardrobe's items: the five
     /// free frames (<see cref="CosmeticItem.Free"/>, spec 005 FR-037 as amended 2026-10-06) are listed from Level 1, the
-    /// frames and badges of milestones and the Store once the Wardrobe opens; a tab with nothing to list before then is
-    /// locked (the Badge tab). Engine-free.
+    /// frames and badges of milestones and the Store once the Wardrobe opens; the Badge tab always starts with an explicit
+    /// "No badge" choice. Engine-free.
     /// </summary>
     public sealed class ProfileEditor
     {
@@ -104,8 +104,8 @@ namespace Bloomlings.Client.Meta.Profile
             return early;
         }
 
-        /// <summary>Whether a tab is locked until the Wardrobe opens: it has nothing to list before (the Badge tab).</summary>
-        public bool IsLocked(CosmeticKind kind) => !ProfileItemsOpen && Owned(kind).Count == 0;
+        /// <summary>Whether a tab is locked until the Wardrobe opens. Badge stays available for its "No badge" choice.</summary>
+        public bool IsLocked(CosmeticKind kind) => kind != CosmeticKind.Badge && !ProfileItemsOpen && Owned(kind).Count == 0;
 
         public void PickAvatar(string avatarId)
         {
@@ -118,6 +118,9 @@ namespace Bloomlings.Client.Meta.Profile
         public void PickFrame(string itemId) => FrameId = Pick(CosmeticKind.Frame, itemId) ?? FrameId;
 
         public void PickBadge(string itemId) => BadgeId = Pick(CosmeticKind.Badge, itemId) ?? BadgeId;
+
+        /// <summary>Picks the explicit "No badge" variant.</summary>
+        public void ClearBadge() => BadgeId = null;
 
         /// <summary>Takes a typed name; false (and nothing changes) when nothing is left of it once cleaned.</summary>
         public bool EnterName(string text)
@@ -162,7 +165,22 @@ namespace Bloomlings.Client.Meta.Profile
         /// <summary>Shows a picked frame or badge on the profile when it is listed now and not shown yet.</summary>
         private void Keep(CosmeticKind kind, string? itemId)
         {
-            if (_wardrobe != null && itemId != null && Pick(kind, itemId) != null && itemId != _wardrobe.Shown(kind)?.Id)
+            if (_wardrobe == null)
+            {
+                return;
+            }
+
+            if (itemId == null)
+            {
+                if (kind == CosmeticKind.Badge)
+                {
+                    _wardrobe.HideProfile(kind);
+                }
+
+                return;
+            }
+
+            if (Pick(kind, itemId) != null && itemId != _wardrobe.Shown(kind)?.Id)
             {
                 _wardrobe.Show(itemId);
             }

@@ -12,8 +12,7 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="Avatar"/>; a tap opens the edit card), the name (<see cref="Name"/>) with the pencil
     /// (<see cref="Edit"/>), the short ID (<see cref="Id"/>), the joining month (<see cref="Joined"/>) and the wooden
     /// "Level N" plaque (<see cref="Plaque"/>);</description></item>
-    /// <item><description>three stat cells (<see cref="Stats"/>: levels won, pictures collected, milestones);</description></item>
-    /// <item><description>the Achievements title (<see cref="AchievementsTitle"/>), its tiles
+    /// <item><description>the Achievements title (<see cref="AchievementsTitle"/>), its 3 × 3 grid of tiles
     /// (<see cref="Achievements"/>: a well with the trophy and the count, the name under it) and their note
     /// (<see cref="AchievementsNote"/>).</description></item>
     /// </list>
@@ -33,34 +32,31 @@ namespace Bloomlings.Client.UI.Design
         Box Id,
         Box Joined,
         Box Plaque,
-        IReadOnlyList<Box> Stats,
         Box AchievementsTitle,
         IReadOnlyList<Box> Achievements,
         Box AchievementsNote)
     {
         /// <summary>Achievement tiles visible on one profile page.</summary>
-        public const int AchievementCount = 3;
+        public const int AchievementColumns = 3;
+
+        public const int AchievementRows = 3;
+
+        public const int AchievementCount = AchievementColumns * AchievementRows;
 
         /// <summary>The panel's corner radius (a card's, <c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>
         public float PanelRadius(float scale) => Math.Max(DesignTokens.Radius.CardMin * scale, Panel.Width * DesignTokens.Radius.Card);
 
-        /// <summary>A stat cell's value line (its upper 58%).</summary>
-        public static Box StatValue(Box cell) => new Box(cell.Left, cell.Top + (cell.Height * 0.08f), cell.Right, cell.Top + (cell.Height * 0.6f));
-
-        /// <summary>A stat cell's label line (its lower part).</summary>
-        public static Box StatLabel(Box cell) => new Box(cell.Left + (cell.Width * 0.05f), cell.Top + (cell.Height * 0.6f), cell.Right - (cell.Width * 0.05f), cell.Bottom - (cell.Height * 0.08f));
-
         /// <summary>An achievement tile's well (the square above its label).</summary>
         public static Box AchievementWell(Box tile) => new Box(tile.Left, tile.Top, tile.Right, tile.Top + tile.Width);
 
-        /// <summary>An achievement well's trophy: half the well, its middle 42% down.</summary>
-        public static Box AchievementTrophy(Box well) => Box.FromCenter(well.CenterX, well.Top + (well.Height * 0.42f), well.Width * 0.5f, well.Height * 0.5f);
+        /// <summary>An achievement picture filling the well, with a small inset for its wooden rim.</summary>
+        public static Box AchievementTrophy(Box well) => well.Inset(well.Width * 0.035f);
 
         /// <summary>An achievement well's count line, along its bottom (under the trophy, left of the badge's middle).</summary>
-        public static Box AchievementProgress(Box well) => new Box(well.Left + (well.Width * 0.06f), well.Top + (well.Height * 0.7f), well.Right - (well.Width * 0.2f), well.Bottom - (well.Height * 0.04f));
+        public static Box AchievementProgress(Box well) => new Box(well.Left + (well.Width * 0.06f), well.Top + (well.Height * 0.72f), well.Right - (well.Width * 0.2f), well.Bottom - (well.Height * 0.04f));
 
         /// <summary>An achievement tile's label (under its well).</summary>
-        public static Box AchievementLabel(Box tile) => new Box(tile.Left - (tile.Width * 0.1f), tile.Top + tile.Width, tile.Right + (tile.Width * 0.1f), tile.Bottom);
+        public static Box AchievementLabel(Box tile) => new Box(tile.Left - (tile.Width * 0.05f), tile.Top + tile.Width, tile.Right + (tile.Width * 0.05f), tile.Bottom);
     }
 
     /// <summary>The achievements' look (spec 005 FR-037 as amended on 2026-10-06; contracts/look.md §6.11).</summary>
@@ -175,8 +171,8 @@ namespace Bloomlings.Client.UI.Design
         /// header and panel (<see cref="ReferenceStore"/>), then, from 0.045 W under the panel's top, 0.88 W wide: the card
         /// 0.55 W tall (the avatar 0.3 W at 0.05 W in; beside it, 0.05 W on, the name 0.09 W tall with the pencil 0.11 W
         /// at its end, the ID and the joining month 0.06 W each; the plaque 0.5 W × 0.11 W, 0.04 W under the avatar), the
-        /// stat cells 0.2 W tall 0.04 W lower (three, 0.03 W apart), the Achievements title 0.08 W tall 0.05 W lower, the
-        /// tiles 0.03 W lower (three squares 0.2 W with a 0.06 W label, 0.07 W apart) and their note 0.06 W tall 0.02 W
+        /// Achievements title 0.08 W tall 0.035 W lower, the tiles 0.025 W lower (a 3 × 3 grid of 0.245 W squares with a
+        /// 0.055 W label, 0.0725 W apart across and 0.025 W between rows) and their note 0.055 W tall 0.015 W
         /// lower. The content ends at least 0.04 W over the safe bottom; it shrinks evenly when it would not.
         /// </summary>
         public static ReferenceProfileRegions ReferenceProfile(float width, float height, Insets insets)
@@ -185,7 +181,13 @@ namespace Bloomlings.Client.UI.Design
             Box safe = store.Safe;
             float w = store.W;
             float top = store.Panel.Top + (0.045f * w);
-            const float content = 0.55f + 0.04f + 0.2f + 0.05f + 0.08f + 0.03f + 0.26f + 0.02f + 0.06f;
+            const float tileShare = 0.245f;
+            const float labelShare = 0.055f;
+            const float rowGapShare = 0.025f;
+            const float content = 0.55f + 0.035f + 0.08f + 0.025f
+                + (ReferenceProfileRegions.AchievementRows * (tileShare + labelShare))
+                + ((ReferenceProfileRegions.AchievementRows - 1) * rowGapShare)
+                + 0.015f + 0.055f;
             float room = safe.Bottom - (0.04f * w) - top;
             float k = Math.Min(1f, room / (content * w));
             float u = w * k;
@@ -202,29 +204,25 @@ namespace Bloomlings.Client.UI.Design
             var joined = new Box(column, id.Bottom + (0.01f * u), card.Right - (0.04f * u), id.Bottom + (0.07f * u));
             Box plaque = Box.FromCenter(card.CenterX, avatar.Bottom + (0.04f * u) + (0.055f * u), 0.5f * u, 0.11f * u);
 
-            float statsTop = card.Bottom + (0.04f * u);
-            float cell = ((right - left) - (2f * 0.03f * u)) / 3f;
-            var stats = new Box[3];
-            for (int i = 0; i < 3; i++)
-            {
-                float x = left + (i * (cell + (0.03f * u)));
-                stats[i] = new Box(x, statsTop, x + cell, statsTop + (0.2f * u));
-            }
-
-            var title = new Box(left, stats[0].Bottom + (0.05f * u), right, stats[0].Bottom + (0.13f * u));
-            float tile = 0.2f * u;
-            float tileGap = 0.07f * u;
-            float tilesWidth = (ReferenceProfileRegions.AchievementCount * tile) + ((ReferenceProfileRegions.AchievementCount - 1) * tileGap);
-            float tilesTop = title.Bottom + (0.03f * u);
+            var title = new Box(left, card.Bottom + (0.035f * u), right, card.Bottom + (0.115f * u));
+            float tile = tileShare * u;
+            float tileGap = ((right - left) - (ReferenceProfileRegions.AchievementColumns * tile)) / (ReferenceProfileRegions.AchievementColumns - 1);
+            float rowGap = rowGapShare * u;
+            float label = labelShare * u;
+            float tilesWidth = (ReferenceProfileRegions.AchievementColumns * tile) + ((ReferenceProfileRegions.AchievementColumns - 1) * tileGap);
+            float tilesTop = title.Bottom + (0.025f * u);
             var tiles = new Box[ReferenceProfileRegions.AchievementCount];
             for (int i = 0; i < tiles.Length; i++)
             {
-                float x = safe.CenterX - (tilesWidth / 2f) + (i * (tile + tileGap));
-                tiles[i] = new Box(x, tilesTop, x + tile, tilesTop + tile + (0.06f * u));
+                int row = i / ReferenceProfileRegions.AchievementColumns;
+                int columnIndex = i % ReferenceProfileRegions.AchievementColumns;
+                float x = safe.CenterX - (tilesWidth / 2f) + (columnIndex * (tile + tileGap));
+                float y = tilesTop + (row * (tile + label + rowGap));
+                tiles[i] = new Box(x, y, x + tile, y + tile + label);
             }
 
-            var note = new Box(left, tiles[0].Bottom + (0.02f * u), right, tiles[0].Bottom + (0.08f * u));
-            return new ReferenceProfileRegions(safe, w, store.Header, store.Panel, card, avatar, name, editBox, id, joined, plaque, stats, title, tiles, note);
+            var note = new Box(left, tiles[tiles.Length - 1].Bottom + (0.015f * u), right, tiles[tiles.Length - 1].Bottom + (0.07f * u));
+            return new ReferenceProfileRegions(safe, w, store.Header, store.Panel, card, avatar, name, editBox, id, joined, plaque, title, tiles, note);
         }
 
         /// <summary>

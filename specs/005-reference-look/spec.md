@@ -1393,11 +1393,10 @@ inventory.
   on Avatar; the
   name, "Gardener NNNN" until one is chosen, with the pencil opening it on Name; "ID: XXXXXXXX", the first 8
   characters of the local player ID; "Playing since MM/YYYY";
-  the wooden "Level N" plaque); three stat cells (levels won, pictures collected, milestones reached); and
-  "Achievements": three tiles and a note *(amended 2026-10-06: they were locked placeholders)*, Green Thumb (levels
-  won), Picture Keeper (pictures collected) and Daily Gardener (Daily Challenges won), each with a bronze, a silver and
-  a gold tier (`Achievements`): the trophy in its tier's medal color, faded under the padlock before bronze, the count
-  toward the next tier ("14/50") and the check at gold; shown only, no reward. The "Edit profile" card
+  the wooden "Level N" plaque); and "Achievements": a 3 × 3 page of illustrated achievement tiles, without a separate
+  statistics block *(amended 2026-10-11, the owner)*. Each tile's generated badge fills its well, fades under the
+  padlock before bronze, shows the count toward the next tier ("14/50") and the check at gold; shown only, no reward.
+  The "Edit profile" card
   (`ScreenLayout.ProfileEdit`, `ProfileEditor`) MUST show the tabs Avatar, Frame, Badge and Name, the picked avatar in
   the picked frame and badge with the name, the tab's grid of four a row (the 14 avatars, free first, the others with
   their Petal price until bought, the picked one checked; the owned frames or badges on the avatar, locked until the
@@ -1408,7 +1407,7 @@ inventory.
   drawn by the kit in the reference look (`ProfileFrames`, `UiRaster.ProfileFrame`, contracts/look.md §6.11) MUST be
   every player's from Level 1 (the catalog's `free` items: owned without a save entry, never given, sold or shown by
   default), listed first in the Frame tab, before the Wardrobe opens too, the picked one on a green disc with the check;
-  only the Badge tab stays locked until the Wardrobe opens, and the earlier frames keep their tinted band)*; the
+  the Badge tab starts with an always-available "No badge" choice and the earlier frames keep their tinted band)*; the
   name's field, the playtest asking with the system's text dialog), and one button: "Save" keeps every choice and
   closes the card; "Buy for N" buys the picked avatar once (`ProfileService.TryBuy`), short Petals say so. A name is 1–16 letters, digits, spaces, `_ - .` (Latin and Cyrillic). The avatar shows on Home, the page, the
   card, the Wardrobe's profile tab and the player's own leaderboard row; while its picture is missing, its family's

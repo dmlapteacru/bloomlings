@@ -17,35 +17,12 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// What the profile page counts: levels won, pictures collected, milestones reached (its stat cells) and Daily
-    /// Challenges won (an achievement's).
-    /// </summary>
-    public readonly struct ProfileStats
-    {
-        public ProfileStats(long levelsWon, int pictures, int milestones, long dailyWon = 0)
-        {
-            LevelsWon = levelsWon;
-            Pictures = pictures;
-            Milestones = milestones;
-            DailyWon = dailyWon;
-        }
-
-        public long LevelsWon { get; }
-
-        public int Pictures { get; }
-
-        public int Milestones { get; }
-
-        public long DailyWon { get; }
-    }
-
-    /// <summary>
     /// The profile page (spec 005 FR-037; the playtest's <c>ProfileScreen</c>), every element placed from
     /// <see cref="ScreenLayout.ReferenceProfile"/>: over the Wardrobe's garden, the page header (back, the wooden "Profile"
     /// banner, the Petals pill whose "+" opens the Store once it is open) and the wooden-framed cream panel (spec 005 FR-047); on it the player's card
     /// (the round avatar in its frame and badge, a tap opening the edit card on Avatar; the name with the pencil, opening it
-    /// on Name; the short ID; "Playing since 10/2026"; the wooden "Level N" plaque), three stat cells (levels won,
-    /// pictures, Daily wins) and three illustrated achievements per page. It
+    /// on Name; the short ID; "Playing since 10/2026"; the wooden "Level N" plaque) and a 3 × 3 grid of illustrated
+    /// achievements per page. It
     /// lies over Home (Home's avatar opens it, <c>HomeFeatureActions.OnProfile</c>); its back hides it. It has no bottom
     /// menu: it is not a menu place.
     /// </summary>
@@ -63,9 +40,6 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _id = null!;
         private TextMeshProUGUI _joined = null!;
         private WoodSignView _plaque = null!;
-        private readonly Image[] _stats = new Image[3];
-        private readonly TextMeshProUGUI[] _statValues = new TextMeshProUGUI[3];
-        private readonly TextMeshProUGUI[] _statLabels = new TextMeshProUGUI[3];
         private WoodSignView _title = null!;
         private readonly RectTransform[] _tiles = new RectTransform[ReferenceProfileRegions.AchievementCount];
         private readonly TextMeshProUGUI[] _tileLabels = new TextMeshProUGUI[ReferenceProfileRegions.AchievementCount];
@@ -81,7 +55,6 @@ namespace Bloomlings.Client.UI.Screens
         private ProfileService _profile = null!;
         private WardrobeService _wardrobe = null!;
         private Func<int> _level = () => 1;
-        private Func<ProfileStats> _statsSource = () => default;
         private Func<Family, Outfit>? _outfitOf;
         private Func<long>? _petalsSource;
         private Func<HomeLook>? _navLook;
@@ -92,8 +65,7 @@ namespace Bloomlings.Client.UI.Screens
         public bool IsOpen => _root.activeSelf;
 
         /// <param name="level">The level Home shows (the plaque's).</param>
-        /// <param name="stats">The stat cells' counts.</param>
-        /// <param name="wardrobeLevel">The level the Wardrobe opens at (the edit card's locked Frame and Badge tabs).</param>
+        /// <param name="wardrobeLevel">The level named if a future profile-item tab has no early choice.</param>
         /// <param name="outfitOf">What the avatar's hero wears while its picture is missing (once the Wardrobe is open).</param>
         /// <param name="petals">The Petals balance for the header's pill; null hides the pill.</param>
         /// <param name="onStore">Opens the Store page from the pill's "+" (once the Store is open); null shows no "+".</param>
@@ -105,7 +77,6 @@ namespace Bloomlings.Client.UI.Screens
             WardrobeService wardrobe,
             PlayerSave save,
             Func<int> level,
-            Func<ProfileStats> stats,
             int wardrobeLevel,
             Func<Family, Outfit>? outfitOf = null,
             Func<long>? petals = null,
@@ -123,7 +94,6 @@ namespace Bloomlings.Client.UI.Screens
             screen._save = save;
             screen._onChanged = onChanged;
             screen._level = level;
-            screen._statsSource = stats;
             screen._outfitOf = outfitOf;
             screen._petalsSource = petals;
             screen._store = onStore != null;
@@ -146,28 +116,10 @@ namespace Bloomlings.Client.UI.Screens
             // and the tiles stand plain; only the page's frame keeps its corner flowers, as every page's.
             screen._plaque = UiKit.WoodSign("Level", root, Loc.F("common.level", 1), T.LevelPill);
 
-            // The stat cells.
-            string[] labels = { Loc.T("profile.stat_levels"), Loc.T("profile.stat_pictures"), Loc.T("profile.stat_daily") };
-            for (int i = 0; i < 3; i++)
-            {
-                // A tile in a thin wooden rim (spec 005 FR-047).
-                screen._stats[i] = UiKit.Tile("Stat" + i, root, 0.22f);
-                screen._statValues[i] = UiKit.Label("Value", screen._stats[i].transform, "0", T.LevelPill, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
-                screen._statLabels[i] = UiKit.Label("Label", screen._stats[i].transform, labels[i], T.Caption, UiTheme.Of(C.InkBrownSoft));
-            }
-
-            // Three illustrated achievement tiles at a time; the arrows page through the full catalog.
+            // Nine illustrated achievement tiles at a time; the standard page arrows page through the full catalog.
             screen._title = UiKit.WoodSign("Achievements", root, Loc.T("profile.achievements"), T.Title);
-            RectTransform PageButton(string name, string glyph, Action tap)
-            {
-                Image hit = UiFactory.CreateImage(name, root, null, Color.clear, raycast: true);
-                UiKit.TapTarget(hit, tap, press: true);
-                TextMeshProUGUI arrow = UiKit.Label("Arrow", hit.transform, glyph, T.Title, UiTheme.Of(C.InkBrown));
-                UiFactory.Stretch(arrow.rectTransform);
-                return hit.rectTransform;
-            }
-            screen._previous = PageButton("PreviousAchievements", "‹", () => screen.ChangePage(-1));
-            screen._next = PageButton("NextAchievements", "›", () => screen.ChangePage(1));
+            screen._previous = (RectTransform)UiKit.PageArrow("PreviousAchievements", root, next: false, () => screen.ChangePage(-1)).transform;
+            screen._next = (RectTransform)UiKit.PageArrow("NextAchievements", root, next: true, () => screen.ChangePage(1)).transform;
             Box Badge(Box b) => Box.FromCenter(b.Right - (b.Width * 0.14f), b.Bottom - (b.Height * 0.14f), b.Width * 0.3f, b.Width * 0.3f);
             for (int i = 0; i < screen._tiles.Length; i++)
             {
@@ -241,10 +193,6 @@ namespace Bloomlings.Client.UI.Screens
             _id.text = Loc.F("profile.id", _profile.ShortId);
             _joined.text = Loc.F("profile.joined", _profile.JoinedMonth);
             _plaque.Text = Loc.F("common.level", NumberText.Group(_level()));
-            ProfileStats stats = _statsSource();
-            _statValues[0].text = NumberText.Group(stats.LevelsWon);
-            _statValues[1].text = NumberText.Group(stats.Pictures);
-            _statValues[2].text = NumberText.Group(stats.DailyWon);
             IReadOnlyList<AchievementState> achievements = Achievements.Of(_save);
             for (int i = 0; i < _tileParts.Length; i++)
             {
@@ -319,14 +267,6 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_id.rectTransform, r.Id);
             UiKit.PlaceScreen(_joined.rectTransform, r.Joined);
             UiKit.PlaceScreen((RectTransform)_plaque.transform, r.Plaque);
-            for (int i = 0; i < _stats.Length; i++)
-            {
-                Box cell = r.Stats[i];
-                UiKit.PlaceScreen(_stats[i].rectTransform, cell);
-                UiKit.PlaceBox(_statValues[i].rectTransform, ReferenceProfileRegions.StatValue(cell), cell);
-                UiKit.PlaceBox(_statLabels[i].rectTransform, ReferenceProfileRegions.StatLabel(cell), cell);
-            }
-
             // The sign as wide as its title (the playtest's CardLook.TitleSign).
             float titleWidth = KitText.Measure(_title.Label, UiKit.Units(T.Title.Size)) * UiKit.PixelsPerUnit;
             UiKit.PlaceScreen((RectTransform)_title.transform, CardLook.TitleSign(r.AchievementsTitle, titleWidth > 0f ? titleWidth : r.AchievementsTitle.Width * 0.4f));

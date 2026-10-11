@@ -18,8 +18,7 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the player's card: the round avatar in its frame and badge (a tap opens the card on Avatar),
     /// the name with the pencil (the card on Name), the short ID, "Playing since 10/2026" and the wooden "Level N"
     /// plaque;</description></item>
-    /// <item><description>three stats: levels won, pictures collected, milestones reached;</description></item>
-    /// <item><description>three illustrated achievements per page, with progress toward the next tier.</description></item>
+    /// <item><description>a 3 × 3 grid of illustrated achievements per page, with progress toward the next tier.</description></item>
     /// </list>
     /// The card lists the 14 avatars (free ones first, the others with their price; the picked one checked), the owned
     /// frames and badges (once the Wardrobe is open) and the name (the host's text dialog); its button saves, or buys the
@@ -52,24 +51,7 @@ namespace Bloomlings.Playtest.Design
             // and the tiles stand plain; only the page's frame keeps its corner flowers, as every page's.
             Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(meta.CurrentLevel)), T.LevelPill);
 
-            // The stats.
-            (string Label, long Value)[] stats =
-            {
-                (PlaytestText.T("profile.stat_levels"), Achievements.Count(meta.Save, Achievements.LevelsCounter)),
-                (PlaytestText.T("profile.stat_pictures"), meta.Collection.Count),
-                (PlaytestText.T("profile.stat_daily"), Achievements.Count(meta.Save, Achievements.DailyCounter)),
-            };
-            for (int i = 0; i < stats.Length; i++)
-            {
-                Box cell = r.Stats[i];
-                Kit.FramedTile(p, cell, 0.22f);
-                Box value = ReferenceProfileRegions.StatValue(cell);
-                p.Text(NumberText.Group(stats[i].Value), value.CenterX, value.CenterY, T.LevelPill, C.InkBrown, value.Width * 0.9f, grow, TextLook.Plain(C.InkBrown));
-                Box label = ReferenceProfileRegions.StatLabel(cell);
-                p.Text(stats[i].Label, label.CenterX, label.CenterY, T.Caption, C.InkBrownSoft, label.Width, grow);
-            }
-
-            // The illustrated achievements, three per page.
+            // The illustrated achievements, nine per page.
             string title = PlaytestText.T("profile.achievements");
             Kit.WoodSign(p, CardLook.TitleSign(r.AchievementsTitle, p.MeasureText(title, T.Title, grow)), title, T.Title);
             IReadOnlyList<AchievementState> achievements = Achievements.Of(meta.Save);
@@ -77,13 +59,10 @@ namespace Bloomlings.Playtest.Design
             int page = Math.Max(0, Math.Min(pageCount - 1, app.ProfileAchievementPage));
             Box previous = Box.FromCenter(r.AchievementsTitle.Left + r.AchievementsTitle.Height * 0.5f, r.AchievementsTitle.CenterY, r.AchievementsTitle.Height, r.AchievementsTitle.Height);
             Box next = Box.FromCenter(r.AchievementsTitle.Right - r.AchievementsTitle.Height * 0.5f, r.AchievementsTitle.CenterY, r.AchievementsTitle.Height, r.AchievementsTitle.Height);
-            p.Text("‹", previous.CenterX, previous.CenterY, T.Title, C.InkBrown, previous.Width);
-            p.Text("›", next.CenterX, next.CenterY, T.Title, C.InkBrown, next.Width);
-            if (!covered)
-            {
-                p.Hit(previous, () => app.ProfileAchievementPage = (page + pageCount - 1) % pageCount);
-                p.Hit(next, () => app.ProfileAchievementPage = (page + 1) % pageCount);
-            }
+            Kit.ArrowButton(p, previous.CenterX, previous.CenterY, previous.Width, next: false,
+                covered ? null : () => app.ProfileAchievementPage = (page + pageCount - 1) % pageCount);
+            Kit.ArrowButton(p, next.CenterX, next.CenterY, next.Width, next: true,
+                covered ? null : () => app.ProfileAchievementPage = (page + 1) % pageCount);
             for (int i = 0; i < r.Achievements.Count; i++)
             {
                 int index = page * r.Achievements.Count + i;
@@ -240,7 +219,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The Frame or Badge tab: the listed items on the picked avatar (the five free frames from Level 1, every owned one
-        /// once the Wardrobe is open), the picked one on a green disc with the check, or the note while there are none.
+        /// once the Wardrobe is open), with "No badge" first on the Badge tab, the picked one on a green disc with the check.
         /// </summary>
         private static void Items(IPainter p, DesignApp app, ProfileEditor editor, ProfileEditRegions r, CosmeticKind kind)
         {
@@ -252,22 +231,47 @@ namespace Bloomlings.Playtest.Design
             }
 
             IReadOnlyList<CosmeticItem> owned = editor.Owned(kind);
-            if (owned.Count == 0)
+            bool badges = kind == CosmeticKind.Badge;
+            int itemCount = owned.Count + (badges ? 1 : 0);
+            if (itemCount == 0)
             {
                 p.Text(PlaytestText.T(kind == CosmeticKind.Frame ? "profile.no_frames" : "profile.no_badges"), r.Note.CenterX, r.Note.CenterY, T.Body, C.InkBrownSoft, r.Note.Width);
                 return;
             }
 
-            bool paged = kind == CosmeticKind.Badge && owned.Count > r.CellCount;
+            bool paged = badges && itemCount > r.CellCount;
             int perPage = paged ? r.CellCount - 1 : r.CellCount;
-            int pageCount = (owned.Count + perPage - 1) / perPage;
+            int pageCount = (itemCount + perPage - 1) / perPage;
             int page = paged ? Math.Max(0, Math.Min(pageCount - 1, app.ProfileBadgePage)) : 0;
             int start = page * perPage;
-            int count = Math.Min(owned.Count - start, perPage);
+            int count = Math.Min(itemCount - start, perPage);
             for (int i = 0; i < count; i++)
             {
-                CosmeticItem item = owned[start + i];
+                int itemIndex = start + i;
                 Box cell = r.Cell(i);
+                if (badges && itemIndex == 0)
+                {
+                    bool noBadgePicked = editor.BadgeId == null;
+                    if (noBadgePicked)
+                    {
+                        Box plate = ProfileEditRegions.Picked(ProfileEditRegions.CellPicture(cell));
+                        p.FillRound(plate, GardenLook.IconRadius(plate), GardenLook.Green.Face);
+                    }
+
+                    Kit.Avatar(p, ProfileEditRegions.CellItemAvatar(cell), editor.Avatar, null, null, null);
+                    Box label = ProfileEditRegions.CellPrice(cell);
+                    p.Text(PlaytestText.T("profile.badge_none"), label.CenterX, label.CenterY, T.Caption, C.InkBrown, label.Width);
+                    if (noBadgePicked)
+                    {
+                        Box check = ProfileEditRegions.CellCheck(cell);
+                        Kit.CheckBadge(p, check.CenterX, check.CenterY, check.Width);
+                    }
+
+                    if (!app.DrawingCovered) p.Hit(cell, editor.ClearBadge);
+                    continue;
+                }
+
+                CosmeticItem item = owned[itemIndex - (badges ? 1 : 0)];
                 bool frame = kind == CosmeticKind.Frame;
                 bool picked = item.Id == (frame ? editor.FrameId : editor.BadgeId);
                 if (picked)

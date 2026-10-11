@@ -201,7 +201,7 @@ namespace Bloomlings.Client.Tests
         /// <summary>
         /// The owner's request of 2026-10-06: five different free frames from Level 1. They are owned without a save entry
         /// (no migration), listed and picked in the edit card while the Wardrobe is still closed, shown on the profile once
-        /// saved, never shown by default, never sold; the Badge tab stays locked until the Wardrobe opens.
+        /// saved, never shown by default, never sold; the Badge tab remains available for its "No badge" choice.
         /// </summary>
         [Test]
         public void TheFreeFrames_AreOwnedFromLevelOne_AndCanBePickedAndShown()
@@ -224,7 +224,7 @@ namespace Bloomlings.Client.Tests
 
             var editor = new ProfileEditor(profile, wardrobe, ProfileTab.Frame);
             Assert.That(editor.IsLocked(CosmeticKind.Frame), Is.False, "the Frame tab is open at Level 1");
-            Assert.That(editor.IsLocked(CosmeticKind.Badge), Is.True, "badges wait for the Wardrobe");
+            Assert.That(editor.IsLocked(CosmeticKind.Badge), Is.False, "No badge is available from Level 1");
             Assert.That(editor.Owned(CosmeticKind.Badge), Is.Empty);
             Assert.That(editor.FrameId, Is.Null);
             editor.PickFrame("frame.daisy");
@@ -254,6 +254,27 @@ namespace Bloomlings.Client.Tests
             Assert.That(wardrobe.Profile.Frame!.Id, Is.EqualTo("frame.daisy"));
             save.Cosmetics.Owned.Remove("frame.daisy");
             Assert.That(wardrobe.Profile.Frame, Is.Null);
+        }
+
+        [Test]
+        public void NoBadge_IsAnExplicitChoice_AndSurvivesARestart()
+        {
+            ProfileService profile = Service(out PlayerSave save, out EconomyService economy);
+            CosmeticCatalog catalog = CosmeticCatalog.Parse(File.ReadAllText(CatalogPath));
+            var wardrobe = new WardrobeService(save, catalog, new BundledRemoteConfigService(), () => { }, economy);
+            save.Progression.HighestCompletedLevel = 1;
+            Assert.That(wardrobe.Show("badge.achievement.first_bloom"), Is.True);
+            Assert.That(wardrobe.Profile.Badge!.Id, Is.EqualTo("badge.achievement.first_bloom"));
+
+            var editor = new ProfileEditor(profile, wardrobe, ProfileTab.Badge);
+            editor.ClearBadge();
+            Assert.That(editor.Confirm(), Is.EqualTo(ProfileOutcome.Saved));
+            Assert.That(wardrobe.Profile.Badge, Is.Null);
+            Assert.That(save.Cosmetics.Equipped["profile.badge"], Is.EqualTo(WardrobeService.HiddenProfileItemId));
+
+            PlayerSave restored = SaveSerializer.Read(SaveSerializer.Write(save));
+            var afterRestart = new WardrobeService(restored, catalog, new BundledRemoteConfigService(), () => { });
+            Assert.That(afterRestart.Profile.Badge, Is.Null);
         }
 
         private static ProfileService Service(out PlayerSave save, out EconomyService economy)

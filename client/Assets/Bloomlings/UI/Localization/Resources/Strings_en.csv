@@ -325,6 +325,7 @@ profile.achievement_help.space_garden,Collect 5 different space pictures
 profile.tab_avatar,Avatar
 profile.tab_frame,Frame
 profile.tab_badge,Badge
+profile.badge_none,No badge
 profile.tab_name,Name
 profile.save,Save
 profile.buy,Buy for {0}

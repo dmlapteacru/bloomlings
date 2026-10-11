@@ -1473,13 +1473,13 @@ and panel (§6.6), no bottom menu (Home's avatar opens the page; back returns Ho
 `0.88W` wide: the card `0.55W` tall (a cream row, `Kit.Row` / `UiKit.Row`): the avatar `0.3W` at `0.05W` in; beside it,
 `0.05W` on, the name `0.09W` tall (`type.title`, `ink.title`) with the pencil (`ui.edit` on an icon button, `0.11W`) at
 its end, the ID and the joining month `0.06W` each (`type.body`, `ink.brown_soft`); the wooden plaque "Level N"
-(`0.5W × 0.11W`, `type.level_pill`) `0.04W` under the avatar. Then the stat cells `0.2W` tall (three parchment wells
-`0.03W` apart: the count in `type.level_pill`, the label in `type.caption`), the "Achievements" title `0.08W` tall
-(`type.title`), the three achievement tiles (`ui.achievement`, `Achievements`, `0.07W` apart: a `0.2W` parchment
-well holding the trophy, `AchievementTrophy`, in its tier's `medal.bronze` / `medal.silver` / `medal.gold`, or faded
-`ink.brown_soft` at 0.35 under the padlock badge before bronze; the count toward the next tier along its bottom,
-`AchievementProgress`, "14/50" in `type.caption` `ink.brown`, the count alone with the check badge at gold; the name
-under it, `ink.brown_soft` before bronze) and their note. On a page too short for it all, everything under
+(`0.5W × 0.11W`, `type.level_pill`) `0.04W` under the avatar. There is no separate statistics block. The
+"Achievements" title (`type.title`) starts `0.035W` below the card and uses the same `PageArrow` / `ArrowButton`
+controls as the other paged screens. Each page is a 3 × 3 grid of achievement tiles (`ui.achievement`, `Achievements`):
+a `0.245W` square parchment well whose illustrated badge fills the well inside a `0.035` inset, faded to 0.42 under the
+padlock before bronze; the count toward the next tier along its bottom (`AchievementProgress`, "14/50" in
+`type.caption` `ink.brown`), the count alone with the check badge at gold, and the name under it in `ink.brown_soft`
+before bronze. On a page too short for it all, everything under
 the header shrinks evenly to end `0.04W` over the safe bottom.
 
 The edit card (`ScreenLayout.ProfileEdit`, `ProfileEditRegions`): `ScreenLayout.Card` with `ContentUnits`, the title
@@ -1491,11 +1491,12 @@ right when picked, a green rounded square behind the picked avatar), and the mai
 the body's bottom: "Save" or "Buy for N". The Name tab: a cream well across the grid's top holding the name (Unity: a
 `TMP_InputField`; the playtest: the name and a "Change name" button asking the host's text dialog), its hint under it.
 Frame and Badge: the listed items on the picked avatar (`ProfileEditor.Owned`: the five free frames first, from Level
-1, then every owned frame or badge once the Wardrobe is open), each on `ProfileEditRegions.CellItemAvatar` (the cell's
+1, then every owned frame or badge once the Wardrobe is open); Badge starts with an explicit, always-available
+"No badge" cell, persisted as the profile's empty badge choice. Each item is on `ProfileEditRegions.CellItemAvatar` (the cell's
 picture box `0.06` of the cell smaller on each side, so a drawn frame about fills the picture box), the picked one on
 the green rounded square (`PickedShare`: half its side `0.56` of the picture box, `ProfileEditRegions.Picked`; a
 disc before the owner's rounded squares) with the check; a note with the padlock while a tab
-has nothing to list before the Wardrobe opens (the Badge tab: "Badges open at level N", `profile.badges_locked`). The
+has nothing to list before the Wardrobe opens. The
 Frame tab holds at most 11 frames today (three rows), so the four-a-row grid needs no scrolling.
 
 The avatar (`AvatarLook`, both builds; the owner, 2026-10-06: "the icon in the profile must be stretched over the
@@ -1515,8 +1516,8 @@ No lip: the picture sits centered, a thin `wood.line` ring (`RingShare` 0.025 of
 edging it, clipped to its rounded square (the playtest's `IPainter.PushClipRound` with the radius; Unity's `Mask` on a
 `UiKit.RoundRect`, its corners from its own box by `AvatarLook.DiscRadiusOf`). A press squashes the avatar and darkens
 the picture by 8% (`garden.shadow`), as the icon buttons. While the picture is missing, the soft green middle fills the
-same rounded square with the family hero at 0.82 of it. The badge `0.36 s` at the lower left (`-0.36 s`, `+0.36 s`),
-the leaderboard marker at its upper right. The leaderboard's portraits are rounded squares too (`cream.lip`,
+same rounded square with the family hero at 0.82 of it. The badge `0.42 s` at the lower left (`-0.42 s`, `+0.42 s`),
+the leaderboard marker remains `0.36 s` at its upper right. The leaderboard's portraits are rounded squares too (`cream.lip`,
 `cream.line`, the picture filling the face with a thin `cream.line` stroke, `AvatarLook.Radius`).
 
 The five free frames (`ProfileFrames`, `UiRaster.ProfileFrame(size, style)`; slots `cosmetic.frame.{shape}`; catalog

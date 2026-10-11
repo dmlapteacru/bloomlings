@@ -270,7 +270,6 @@ namespace Bloomlings.Client.App.Home
                 wardrobe,
                 save,
                 () => progression.CurrentLevel,
-                () => new ProfileStats(Achievements.Count(save, Achievements.LevelsCounter), collection.Count, save.Milestones.Claimed.Count, Achievements.Count(save, Achievements.DailyCounter)),
                 UnlockLevel(NavPlace.Wardrobe),
                 wardrobe.OutfitOf,
                 () => economy.Petals,

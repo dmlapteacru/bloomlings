@@ -69,8 +69,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The plain tinted frame (<c>cosmetic.frame</c>) as a share of the avatar's side: as a drawn frame.</summary>
         public const float ShapeFrameShare = FrameShare;
 
-        /// <summary>The badge and the marker, as a share of the avatar's side.</summary>
-        public const float BadgeShare = 0.36f;
+        /// <summary>The profile badge, as a share of the avatar's side.</summary>
+        public const float BadgeShare = 0.42f;
+
+        /// <summary>The leaderboard marker, as a share of the avatar's side.</summary>
+        public const float MarkerShare = 0.36f;
 
         /// <summary>The avatar's side: the shorter side of its box.</summary>
         public static float Side(Box avatar) => Math.Min(avatar.Width, avatar.Height);
@@ -121,8 +124,8 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The badge's box: <see cref="BadgeShare"/> of the side, at the avatar's lower left.</summary>
         public static Box Badge(Box avatar) => Square(avatar, Side(avatar) * BadgeShare, -Side(avatar) * BadgeShare, Side(avatar) * BadgeShare);
 
-        /// <summary>The leaderboard marker's box: <see cref="BadgeShare"/> of the side, at the avatar's upper right.</summary>
-        public static Box Marker(Box avatar) => Square(avatar, Side(avatar) * BadgeShare, Side(avatar) * BadgeShare, -Side(avatar) * BadgeShare);
+        /// <summary>The leaderboard marker's box: <see cref="MarkerShare"/> of the side, at the avatar's upper right.</summary>
+        public static Box Marker(Box avatar) => Square(avatar, Side(avatar) * MarkerShare, Side(avatar) * MarkerShare, -Side(avatar) * MarkerShare);
 
         private static Box Square(Box avatar, float side, float dx, float dy) => Box.FromCenter(avatar.CenterX + dx, avatar.CenterY + dy, side, side);
     }

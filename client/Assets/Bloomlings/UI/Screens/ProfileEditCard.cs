@@ -18,7 +18,7 @@ namespace Bloomlings.Client.UI.Screens
     /// <see cref="ScreenLayout.ProfileEdit"/> and run by the engine-free <see cref="ProfileEditor"/>: the tabs (Avatar,
     /// Frame, Badge, Name), the preview (the picked avatar in the picked frame and badge, the name beside it, a status line
     /// under it), the tab's grid and the main button. Avatar lists the 14 avatars, free ones first, the others with their
-    /// price, the picked one checked; Frame and Badge list the owned ones on the avatar (locked until the Wardrobe opens);
+    /// price, the picked one checked; Frame lists the owned ones, and Badge starts with "No badge" followed by owned ones;
     /// Name holds a text field (<c>TMP_InputField</c>; the system keyboard on a phone). The button saves every choice and
     /// closes the card, or buys the picked avatar at its price ("Buy for 600").
     /// </summary>
@@ -48,7 +48,7 @@ namespace Bloomlings.Client.UI.Screens
 
         public bool IsOpen => _root.activeSelf;
 
-        /// <param name="wardrobeLevel">The level the Wardrobe opens at (the locked Frame and Badge tabs say it).</param>
+        /// <param name="wardrobeLevel">The level named if a profile-item tab has no early choice.</param>
         /// <param name="changed">Something was kept or bought (the page and Home redraw the avatar).</param>
         public static ProfileEditCard Create(Transform parent, ProfileService profile, WardrobeService wardrobe, int wardrobeLevel, Action changed)
         {
@@ -194,16 +194,18 @@ namespace Bloomlings.Client.UI.Screens
                 CosmeticKind kind = editor.Tab == ProfileTab.Frame ? CosmeticKind.Frame : CosmeticKind.Badge;
                 // The five free frames from Level 1, every owned frame and badge once the Wardrobe is open.
                 IReadOnlyList<CosmeticItem> owned = editor.Owned(kind);
-                bool paged = kind == CosmeticKind.Badge && owned.Count > _cells.Count;
+                bool badges = kind == CosmeticKind.Badge;
+                int itemCount = owned.Count + (badges ? 1 : 0);
+                bool paged = badges && itemCount > _cells.Count;
                 int perPage = paged ? _cells.Count - 1 : _cells.Count;
                 int start = paged ? _badgePage * perPage : 0;
                 if (paged)
                 {
                     _moreBadges.gameObject.SetActive(true);
-                    _moreLabel.text = Loc.F("profile.badge_page", _badgePage + 1, (owned.Count + perPage - 1) / perPage);
+                    _moreLabel.text = Loc.F("profile.badge_page", _badgePage + 1, (itemCount + perPage - 1) / perPage);
                 }
                 bool locked = editor.IsLocked(kind);
-                if (locked || owned.Count == 0)
+                if (locked || itemCount == 0)
                 {
                     _note.gameObject.SetActive(true);
                     _lock.gameObject.SetActive(locked);
@@ -212,9 +214,16 @@ namespace Bloomlings.Client.UI.Screens
                         : Loc.T(kind == CosmeticKind.Frame ? "profile.no_frames" : "profile.no_badges");
                 }
 
-                for (int i = 0; i < perPage && start + i < owned.Count; i++)
+                for (int i = 0; i < perPage && start + i < itemCount; i++)
                 {
-                    CosmeticItem item = owned[start + i];
+                    int itemIndex = start + i;
+                    if (badges && itemIndex == 0)
+                    {
+                        _cells[i].ShowNoBadge(editor.Avatar, editor.BadgeId == null, Loc.T("profile.badge_none"));
+                        continue;
+                    }
+
+                    CosmeticItem item = owned[itemIndex - (badges ? 1 : 0)];
                     bool frame = kind == CosmeticKind.Frame;
                     _cells[i].Show(editor.Avatar, frame ? item : null, frame ? null : item, item.Id == (frame ? editor.FrameId : editor.BadgeId), null, framed: true);
                 }
@@ -241,17 +250,23 @@ namespace Bloomlings.Client.UI.Screens
             else if (editor.Tab == ProfileTab.Frame || editor.Tab == ProfileTab.Badge)
             {
                 IReadOnlyList<CosmeticItem> owned = editor.Owned(editor.Tab == ProfileTab.Frame ? CosmeticKind.Frame : CosmeticKind.Badge);
-                int perPage = owned.Count > _cells.Count && editor.Tab == ProfileTab.Badge ? _cells.Count - 1 : _cells.Count;
+                bool badges = editor.Tab == ProfileTab.Badge;
+                int itemCount = owned.Count + (badges ? 1 : 0);
+                int perPage = itemCount > _cells.Count && badges ? _cells.Count - 1 : _cells.Count;
                 int selected = index + (editor.Tab == ProfileTab.Badge ? _badgePage * perPage : 0);
-                if (selected < owned.Count)
+                if (selected < itemCount)
                 {
-                    if (editor.Tab == ProfileTab.Frame)
+                    if (badges && selected == 0)
+                    {
+                        editor.ClearBadge();
+                    }
+                    else if (editor.Tab == ProfileTab.Frame)
                     {
                         editor.PickFrame(owned[selected].Id);
                     }
                     else
                     {
-                        editor.PickBadge(owned[selected].Id);
+                        editor.PickBadge(owned[selected - 1].Id);
                     }
                 }
             }
@@ -262,7 +277,7 @@ namespace Bloomlings.Client.UI.Screens
         private void NextBadgePage()
         {
             if (_editor == null || _editor.Tab != ProfileTab.Badge) return;
-            int count = _editor.Owned(CosmeticKind.Badge).Count;
+            int count = _editor.Owned(CosmeticKind.Badge).Count + 1;
             int perPage = _cells.Count - 1;
             _badgePage = (_badgePage + 1) % ((count + perPage - 1) / perPage);
             Redraw();
@@ -400,15 +415,17 @@ namespace Bloomlings.Client.UI.Screens
             private readonly ProfileAvatar _avatar;
             private readonly CostPillView _price;
             private readonly GameObject _check;
+            private readonly TextMeshProUGUI _label;
             private readonly Box _cell;
 
-            private Cell(GameObject root, Image ring, ProfileAvatar avatar, CostPillView price, GameObject check, Box cell)
+            private Cell(GameObject root, Image ring, ProfileAvatar avatar, CostPillView price, GameObject check, TextMeshProUGUI label, Box cell)
             {
                 _root = root;
                 _ring = ring;
                 _avatar = avatar;
                 _price = price;
                 _check = check;
+                _label = label;
                 _cell = cell;
             }
 
@@ -428,7 +445,10 @@ namespace Bloomlings.Client.UI.Screens
                 RectTransform check = UiFactory.CreateRect("Check", hit.transform);
                 UiKit.PlaceBox(check, cell, cell);
                 UiKit.CheckBadge(BoxLayout.On(check), b => Box.FromCenter(b.Left + (checkBox.CenterX - cell.Left), b.Top + (checkBox.CenterY - cell.Top), checkBox.Width, checkBox.Height));
-                return new Cell(hit.gameObject, ring, avatar, price, check.gameObject, cell);
+                TextMeshProUGUI label = UiKit.Label("Label", hit.transform, string.Empty, T.Caption, UiTheme.Of(C.InkBrown));
+                UiKit.PlaceBox(label.rectTransform, ProfileEditRegions.CellPrice(cell), cell);
+                label.gameObject.SetActive(false);
+                return new Cell(hit.gameObject, ring, avatar, price, check.gameObject, label, cell);
             }
 
             /// <param name="framed">A Frame or Badge cell: the avatar a little smaller, its frame inside the picture's box.</param>
@@ -440,10 +460,18 @@ namespace Bloomlings.Client.UI.Screens
                 _ring.gameObject.SetActive(picked);
                 _check.SetActive(picked);
                 _price.gameObject.SetActive(price.HasValue);
+                _label.gameObject.SetActive(false);
                 if (price.HasValue)
                 {
                     _price.SetCost(Cost.Petals(price.Value));
                 }
+            }
+
+            public void ShowNoBadge(AvatarItem avatar, bool picked, string label)
+            {
+                Show(avatar, null, null, picked, null, framed: true);
+                _label.text = label;
+                _label.gameObject.SetActive(true);
             }
 
             public void Hide() => _root.SetActive(false);

@@ -183,7 +183,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The Collection page's page of pictures.</summary>
         public int CollectionPage { get; set; }
 
-        /// <summary>The current three-badge page on the profile.</summary>
+        /// <summary>The current nine-badge page on the profile.</summary>
         public int ProfileAchievementPage { get; set; }
         public int ProfileBadgePage { get; set; }
 

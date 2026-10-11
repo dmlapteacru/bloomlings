@@ -617,9 +617,9 @@ namespace Bloomlings.Client.UI.Screens
 
             _cards.Clear();
 
-            // Worn kinds start with the "Default" look (none of the kind); a profile kind always shows one of its items.
+            // Worn kinds start with the "Default" look. The badge profile tab also offers an explicit no-badge choice.
             var options = new List<CosmeticItem?>();
-            if (!_profileMode)
+            if (!_profileMode || _kind == CosmeticKind.Badge)
             {
                 options.Add(null);
             }
@@ -650,7 +650,10 @@ namespace Bloomlings.Client.UI.Screens
                 }
 
                 CosmeticItem? item = options[index];
-                OutfitCardView card = UiKit.OutfitCard(item?.Id ?? "Default", _items, item == null ? Loc.T("wardrobe.default") : Name(item), () => Choose(item));
+                string title = item == null && _profileMode
+                    ? Loc.T("profile.badge_none")
+                    : item == null ? Loc.T("wardrobe.default") : Name(item);
+                OutfitCardView card = UiKit.OutfitCard(item?.Id ?? "Default", _items, title, () => Choose(item));
                 UiKit.PlaceBox((RectTransform)card.transform, _regions.Card(slot), _regions.Grid);
                 Preview(card.Picture, item, outfit);
                 card.Show(item?.Id == current?.Id);
@@ -719,7 +722,11 @@ namespace Bloomlings.Client.UI.Screens
         {
             if (_profileMode)
             {
-                if (item != null)
+                if (item == null)
+                {
+                    _wardrobe.HideProfile(_kind);
+                }
+                else
                 {
                     _wardrobe.Show(item.Id);
                 }

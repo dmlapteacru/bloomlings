@@ -54,6 +54,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
     {
         public const string UnlockId = "system.wardrobe";
 
+        /// <summary>Saved in a profile slot when the player explicitly chooses to show no item of that kind.</summary>
+        public const string HiddenProfileItemId = "profile.none";
+
         private const string StarterGrantedFlag = "granted." + UnlockId;
 
         private readonly PlayerSave _save;
@@ -275,6 +278,25 @@ namespace Bloomlings.Client.Meta.Wardrobe
             return true;
         }
 
+        /// <summary>Explicitly shows no frame, badge or marker on the profile and keeps that choice across restarts.</summary>
+        public void HideProfile(CosmeticKind kind)
+        {
+            if (kind != CosmeticKind.Frame && kind != CosmeticKind.Badge && kind != CosmeticKind.Marker)
+            {
+                return;
+            }
+
+            string slot = CosmeticsData.Slot(CosmeticsData.ProfileOwner, CosmeticCatalog.KindName(kind));
+            if (_save.Cosmetics.Equipped.TryGetValue(slot, out string? current) && current == HiddenProfileItemId)
+            {
+                return;
+            }
+
+            _save.Cosmetics.Equipped[slot] = HiddenProfileItemId;
+            _persist();
+            Changed?.Invoke();
+        }
+
         /// <summary>
         /// The profile item shown of one kind: the chosen one while owned, else the newest owned that is not free; null for
         /// none. While the Wardrobe is closed only a chosen free item shows (the profile's free frames, from Level 1).
@@ -282,6 +304,11 @@ namespace Bloomlings.Client.Meta.Wardrobe
         public CosmeticItem? Shown(CosmeticKind kind)
         {
             string slot = CosmeticsData.Slot(CosmeticsData.ProfileOwner, CosmeticCatalog.KindName(kind));
+            if (_save.Cosmetics.Equipped.TryGetValue(slot, out string? saved) && saved == HiddenProfileItemId)
+            {
+                return null;
+            }
+
             CosmeticItem? chosen = _save.Cosmetics.Equipped.TryGetValue(slot, out string? id)
                 && _catalog.TryGet(id, out CosmeticItem? item)
                 && item!.Kind == kind

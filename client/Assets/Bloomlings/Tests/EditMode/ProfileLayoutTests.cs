@@ -29,7 +29,7 @@ namespace Bloomlings.Client.Tests
                 string at = $"{w}x{h}";
                 ReferenceProfileRegions r = ScreenLayout.ReferenceProfile(w, h, insets);
                 Assert.That(r.Header, Is.EqualTo(ScreenLayout.ReferenceStore(w, h, insets, false, false).Header), at + ": the pages' header");
-                foreach (Box box in new[] { r.Card, r.AchievementsNote }.Concat(r.Stats).Concat(r.Achievements))
+                foreach (Box box in new[] { r.Card, r.AchievementsNote }.Concat(r.Achievements))
                 {
                     Assert.That(Inside(r.Safe, box), Is.True, at + ": inside the safe area");
                     Assert.That(Inside(r.Panel, box), Is.True, at + ": on the panel");
@@ -46,19 +46,30 @@ namespace Bloomlings.Client.Tests
                 Assert.That(r.Name.Bottom, Is.LessThanOrEqualTo(r.Id.Top), at);
                 Assert.That(r.Id.Bottom, Is.LessThanOrEqualTo(r.Joined.Top), at);
                 Assert.That(r.Avatar.Bottom, Is.LessThan(r.Plaque.Top), at);
-                Assert.That(r.Card.Bottom, Is.LessThan(r.Stats[0].Top), at);
-                Assert.That(r.Stats[0].Bottom, Is.LessThan(r.AchievementsTitle.Top), at);
+                Assert.That(r.Card.Bottom, Is.LessThan(r.AchievementsTitle.Top), at);
                 Assert.That(r.AchievementsTitle.Bottom, Is.LessThan(r.Achievements[0].Top), at);
-                Assert.That(r.Achievements[0].Bottom, Is.LessThanOrEqualTo(r.AchievementsNote.Top), at);
+                Assert.That(r.Achievements.Count, Is.EqualTo(9), at + ": a 3 by 3 page");
+                Assert.That(r.Achievements[r.Achievements.Count - 1].Bottom, Is.LessThanOrEqualTo(r.AchievementsNote.Top), at);
                 Assert.That(r.AchievementsNote.Bottom, Is.LessThanOrEqualTo(r.Safe.Bottom - (0.04f * r.W) + 0.5f), at + ": clear of the safe bottom");
-                for (int i = 1; i < r.Stats.Count; i++)
+                for (int i = 0; i < r.Achievements.Count; i++)
                 {
-                    Assert.That(r.Stats[i - 1].Right, Is.LessThan(r.Stats[i].Left), at + ": stat cells apart");
-                }
+                    Box tile = r.Achievements[i];
+                    Box well = ReferenceProfileRegions.AchievementWell(tile);
+                    Box picture = ReferenceProfileRegions.AchievementTrophy(well);
+                    Assert.That(Inside(tile, well) && Inside(well, picture), Is.True, at + ": achievement picture inside its tile");
+                    Assert.That(picture.Width, Is.GreaterThan(well.Width * 0.9f), at + ": achievement picture fills its box");
+                    int column = i % ReferenceProfileRegions.AchievementColumns;
+                    int row = i / ReferenceProfileRegions.AchievementColumns;
+                    if (column > 0)
+                    {
+                        Assert.That(r.Achievements[i - 1].Right, Is.LessThan(tile.Left), at + ": columns apart");
+                        Assert.That(r.Achievements[i - 1].Top, Is.EqualTo(tile.Top).Within(0.01f), at + ": row aligned");
+                    }
 
-                for (int i = 1; i < r.Achievements.Count; i++)
-                {
-                    Assert.That(r.Achievements[i - 1].Right, Is.LessThan(r.Achievements[i].Left), at + ": tiles apart");
+                    if (row > 0)
+                    {
+                        Assert.That(r.Achievements[i - ReferenceProfileRegions.AchievementColumns].Bottom, Is.LessThan(tile.Top), at + ": rows apart");
+                    }
                 }
             }
         }
@@ -129,6 +140,8 @@ namespace Bloomlings.Client.Tests
             Assert.That(AvatarLook.FrameEdge * frame.Width, Is.EqualTo(framed.Width / 2f).Within(0.01f), "the frames' bands lie on the framed picture's edge");
             Assert.That(AvatarLook.FrameCorner * frame.Width, Is.EqualTo(AvatarLook.DiscRadius(avatar, framed: true)).Within(0.01f), "with its corners");
             Assert.That(AvatarLook.ShapeFrame(avatar).Width, Is.EqualTo(frame.Width).Within(0.01f), "the plain frame in the same place");
+            Assert.That(AvatarLook.Badge(avatar).Width, Is.EqualTo(avatar.Width * 0.42f).Within(0.01f), "the profile badge is easier to see");
+            Assert.That(AvatarLook.Marker(avatar).Width, Is.EqualTo(avatar.Width * 0.36f).Within(0.01f), "the leaderboard marker keeps its size");
         }
     }
 }
