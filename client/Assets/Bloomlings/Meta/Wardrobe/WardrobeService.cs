@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Core.Variants;
 
 namespace Bloomlings.Client.Meta.Wardrobe
@@ -86,7 +87,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
         public bool IsAvailable => _save.Unlocks.IsSet(UnlockId) && _config.Get(RemoteConfigKeys.WardrobeEnabled);
 
         /// <summary>Whether the player owns an item: a free one always, any other once the save holds it.</summary>
-        public bool Owns(CosmeticItem item) => item.Free || _save.Cosmetics.Owned.Contains(item.Id);
+        public bool Owns(CosmeticItem item) => item.Free || _save.Cosmetics.Owned.Contains(item.Id)
+            || (item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal)
+                && Achievements.Unlocked(_save, item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)));
 
         /// <summary>
         /// Owned items: the listed ones in catalog order (the free ones among them), then the generated level badges and
@@ -105,11 +108,17 @@ namespace Bloomlings.Client.Meta.Wardrobe
                     }
                 }
 
+                foreach (AchievementState state in Achievements.Of(_save))
+                {
+                    if (state.Tier > 0 && _catalog.TryGet(state.Def.BadgeId, out CosmeticItem? badge))
+                        owned.Add(badge!);
+                }
+
                 var generated = new List<CosmeticItem>();
                 foreach (string id in _save.Cosmetics.Owned)
                 {
                     CosmeticItem? item = CosmeticCatalog.Generated(id);
-                    if (item != null)
+                    if (item?.MilestoneLevel != null)
                     {
                         generated.Add(item);
                     }
@@ -281,7 +290,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 : null;
             if (!IsAvailable)
             {
-                return chosen != null && chosen.Free ? chosen : null;
+                return chosen != null && (chosen.Free || chosen.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal)) ? chosen : null;
             }
 
             if (chosen != null)

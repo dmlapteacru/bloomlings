@@ -48,7 +48,11 @@ namespace Bloomlings.Playtest.Design
 
             if (badge != null)
             {
-                p.Shape("cosmetic.badge", AvatarLook.Badge(box), Visuals.Tint(badge));
+                string? image = badge.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal)
+                    ? PainterBase.BadgePrefix + badge.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)
+                    : null;
+                if (image != null && p.HasSprite(image)) p.Sprite(image, AvatarLook.Badge(box));
+                else p.Shape("cosmetic.badge", AvatarLook.Badge(box), Visuals.Tint(badge));
             }
 
             p.PopTransform();

@@ -92,10 +92,17 @@ namespace Bloomlings.Client.Meta.Profile
         /// The frames or badges a tab lists: every owned one while the Wardrobe is open (the free ones first, in catalog
         /// order), only the free ones before.
         /// </summary>
-        public IReadOnlyList<CosmeticItem> Owned(CosmeticKind kind) =>
-            _wardrobe == null ? Array.Empty<CosmeticItem>()
-            : ProfileItemsOpen ? _wardrobe.OwnedOf(kind)
-            : _wardrobe.Catalog.FreeOf(kind);
+        public IReadOnlyList<CosmeticItem> Owned(CosmeticKind kind)
+        {
+            if (_wardrobe == null) return Array.Empty<CosmeticItem>();
+            IReadOnlyList<CosmeticItem> all = _wardrobe.OwnedOf(kind);
+            if (ProfileItemsOpen) return all;
+            var early = new List<CosmeticItem>();
+            foreach (CosmeticItem item in all)
+                if (item.Free || item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal))
+                    early.Add(item);
+            return early;
+        }
 
         /// <summary>Whether a tab is locked until the Wardrobe opens: it has nothing to list before (the Badge tab).</summary>
         public bool IsLocked(CosmeticKind kind) => !ProfileItemsOpen && Owned(kind).Count == 0;

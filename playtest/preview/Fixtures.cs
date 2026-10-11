@@ -713,9 +713,8 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Shows(p, PlaytestText.F("profile.default_name", profile.DefaultNumber)), "the default name");
                 Expect(Shows(p, PlaytestText.F("profile.id", profile.ShortId)) && Shows(p, PlaytestText.F("profile.joined", profile.JoinedMonth)), "the ID and the joining month");
                 Expect(Shows(p, PlaytestText.F("common.level", 15)), "the Level plaque");
-                Expect(Achievements.All.All(a => Shows(p, PlaytestText.T(a.NameKey))), "the three achievements by name");
-                long won = Achievements.Count(app.Meta.Save, Achievements.LevelsCounter);
-                Expect(Shows(p, PlaytestText.F("profile.achievement_progress", won, 50)), "Green Thumb's count toward bronze");
+                Expect(Achievements.All.Take(3).All(a => Shows(p, PlaytestText.T(a.NameKey))), "the first achievement page by name");
+                Expect(Shows(p, PlaytestText.F("profile.achievement_progress", 0, 1)), "mastery starts with new winning attempts");
                 Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && p.Slots.Contains("ui.achievement"), "the avatar picture and the achievement tiles");
                 Expect(p.Slots.Contains("cosmetic.frame.wood_ring") && p.Slots.Contains("ui.deco.garden"), "the page's avatar in the Wooden Frame, with its flowers");
             });

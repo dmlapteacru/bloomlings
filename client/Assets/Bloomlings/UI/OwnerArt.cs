@@ -55,6 +55,9 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static Sprite? Icon(string name) => SpriteOf(OwnerPictures.IconFolder + "/" + name);
 
+        /// <summary>A compact achievement badge from Resources/Badges.</summary>
+        public static Sprite? Badge(string id) => SpriteOf("Badges/" + id);
+
         /// <summary>
         /// The owner's icon picture a candy tile of <paramref name="iconId"/> shows over its face
         /// (<see cref="OwnerPictures.TileIcon"/>: the field icon on board and flat tiles, the detailed one on stickers), its

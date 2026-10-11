@@ -4,26 +4,14 @@ using Bloomlings.Client.Services.Save;
 
 namespace Bloomlings.Client.Meta.Profile
 {
-    /// <summary>What an achievement counts.</summary>
-    public enum AchievementKind
+    public enum AchievementKind { LevelsWon, Pictures, DailyChallenges, WinFact, Prestige, Theme }
+
+    /// <summary>A stable achievement line. Its id also names its badge image and profile cosmetic.</summary>
+    public sealed record AchievementDef(string Id, AchievementKind Kind, string NameKey, IReadOnlyList<long> Tiers)
     {
-        /// <summary>Levels won (the save's <c>levelsWon</c> counter).</summary>
-        LevelsWon,
-
-        /// <summary>Pictures in the Collection.</summary>
-        Pictures,
-
-        /// <summary>Daily Challenges won (the save's <c>dailyChallengesWon</c> counter).</summary>
-        DailyChallenges,
+        public string BadgeId => "badge.achievement." + Id;
     }
 
-    /// <summary>An achievement: what it counts, its name's key and the counts of its bronze, silver and gold tiers.</summary>
-    public sealed record AchievementDef(AchievementKind Kind, string NameKey, IReadOnlyList<long> Tiers);
-
-    /// <summary>
-    /// An achievement as the profile shows it: the player's count, the tier reached (0 for none, 1 bronze, 2 silver,
-    /// 3 gold) and the count of the next tier (the gold one once it is reached).
-    /// </summary>
     public readonly struct AchievementState
     {
         public AchievementState(AchievementDef def, long value)
@@ -31,71 +19,109 @@ namespace Bloomlings.Client.Meta.Profile
             Def = def;
             Value = Math.Max(0, value);
             int tier = 0;
-            while (tier < def.Tiers.Count && Value >= def.Tiers[tier])
-            {
-                tier++;
-            }
-
+            while (tier < def.Tiers.Count && Value >= def.Tiers[tier]) tier++;
             Tier = tier;
             Goal = def.Tiers[Math.Min(tier, def.Tiers.Count - 1)];
         }
 
         public AchievementDef Def { get; }
-
         public long Value { get; }
-
         public int Tier { get; }
-
         public long Goal { get; }
-
-        /// <summary>Whether the gold tier is reached.</summary>
         public bool Complete => Tier >= Def.Tiers.Count;
-
-        /// <summary>The count shown toward the next tier, at most its goal.</summary>
         public long Shown => Math.Min(Value, Goal);
     }
 
     /// <summary>
-    /// The profile's achievements (spec 005 FR-037 as amended on 2026-10-06; the owner left their names to us): three
-    /// achievements from what the save already counts, each with a bronze, a silver and a gold tier. Green Thumb wins
-    /// levels (50, 500, 2500), Picture Keeper collects pictures (10, 100, 1000) and Daily Gardener wins Daily Challenges
-    /// (7, 30, 100). They are shown only: no reward, nothing in a level. The look's colors are the kit's
-    /// (<c>AchievementLook</c>). Engine-free.
+    /// The game's badge catalog. Level facts are stored per level, so replaying a win and merging offline saves cannot
+    /// double-count it. Old saves can reconstruct first win, collection, daily and prestige; mastery begins with this build.
     /// </summary>
     public static class Achievements
     {
-        /// <summary>The save counter of Daily Challenges won.</summary>
         public const string DailyCounter = "dailyChallengesWon";
-
-        /// <summary>The save counter of levels won.</summary>
         public const string LevelsCounter = "levelsWon";
+        public const string FactPrefix = "achievement.";
+        public const string ThemePrefix = "achievement.theme.";
+
+        private static AchievementDef Def(string id, AchievementKind kind, params long[] tiers) =>
+            new AchievementDef(id, kind, "profile.achievement." + id, tiers);
 
         public static IReadOnlyList<AchievementDef> All { get; } = new[]
         {
-            new AchievementDef(AchievementKind.LevelsWon, "profile.achievement.levels", new long[] { 50, 500, 2500 }),
-            new AchievementDef(AchievementKind.Pictures, "profile.achievement.pictures", new long[] { 10, 100, 1000 }),
-            new AchievementDef(AchievementKind.DailyChallenges, "profile.achievement.daily", new long[] { 7, 30, 100 }),
+            Def("first_bloom", AchievementKind.LevelsWon, 1),
+            Def("natural_talent", AchievementKind.WinFact, 1, 10, 50, 250),
+            Def("breathing_room", AchievementKind.WinFact, 1, 10, 50),
+            Def("tough_bloom", AchievementKind.WinFact, 1, 10, 50),
+            Def("lotus_mind", AchievementKind.WinFact, 1, 5, 25),
+            Def("chain_reaction", AchievementKind.WinFact, 1, 10, 50),
+            Def("key_keeper", AchievementKind.WinFact, 5, 25, 100),
+            Def("deep_roots", AchievementKind.WinFact, 1, 10, 50),
+            Def("better_together", AchievementKind.WinFact, 1, 10, 50),
+            Def("spring_keeper", AchievementKind.WinFact, 1, 10, 50),
+            Def("picture_explorer", AchievementKind.Pictures, 5, 25, 100),
+            Def("daily_bloom", AchievementKind.DailyChallenges, 1, 7, 30, 100),
+            Def("young_gardener", AchievementKind.Prestige, 25),
+            Def("seasoned_gardener", AchievementKind.Prestige, 100),
+            Def("garden_master", AchievementKind.Prestige, 250),
+            Def("grove_keeper", AchievementKind.Prestige, 500),
+            Def("golden_gardener", AchievementKind.Prestige, 1000),
+            Def("bloom_legend", AchievementKind.Prestige, 2500),
+            Def("heart_of_bloomlings", AchievementKind.Prestige, 5000),
+            Def("forest_friend", AchievementKind.Theme, 10),
+            Def("sweet_life", AchievementKind.Theme, 10),
+            Def("sea_stories", AchievementKind.Theme, 10),
+            Def("space_garden", AchievementKind.Theme, 5),
         };
 
-        /// <summary>The achievements' states for the player's counts, in <see cref="All"/>'s order.</summary>
-        public static IReadOnlyList<AchievementState> Of(long levelsWon, long pictures, long dailyWon)
+        private static readonly IReadOnlyDictionary<string, string> ThemeOf = new Dictionary<string, string>
         {
+            ["forest_friend"] = "forest", ["sweet_life"] = "sweets",
+            ["sea_stories"] = "sea", ["space_garden"] = "space",
+        };
+
+        public static AchievementDef? ById(string id)
+        {
+            foreach (AchievementDef def in All) if (def.Id == id) return def;
+            return null;
+        }
+
+        public static IReadOnlyList<AchievementState> Of(PlayerSave save)
+        {
+            var pictures = new HashSet<string>(StringComparer.Ordinal);
+            foreach (CollectionEntry entry in save.Collection) pictures.Add(entry.PictureId);
             var states = new List<AchievementState>(All.Count);
             foreach (AchievementDef def in All)
             {
                 long value = def.Kind switch
                 {
-                    AchievementKind.LevelsWon => levelsWon,
-                    AchievementKind.Pictures => pictures,
-                    _ => dailyWon,
+                    AchievementKind.LevelsWon => Math.Min(1, save.Progression.HighestCompletedLevel),
+                    AchievementKind.Pictures => pictures.Count,
+                    AchievementKind.DailyChallenges => Count(save, DailyCounter),
+                    AchievementKind.Prestige => Math.Min(save.Progression.HighestCompletedLevel, def.Tiers[0]),
+                    AchievementKind.Theme => SumGroup(save, ThemePrefix + ThemeOf[def.Id]),
+                    _ => SumGroup(save, FactPrefix + def.Id),
                 };
                 states.Add(new AchievementState(def, value));
             }
-
             return states;
         }
 
-        /// <summary>The save's count of <paramref name="counter"/> (0 when it has none).</summary>
-        public static long Count(PlayerSave save, string counter) => save.Stats.Counters.TryGetValue(counter, out long value) ? value : 0;
+        public static bool Unlocked(PlayerSave save, string id)
+        {
+            foreach (AchievementState state in Of(save))
+                if (state.Def.Id == id) return state.Tier > 0;
+            return false;
+        }
+
+        public static long Count(PlayerSave save, string counter) =>
+            save.Stats.Counters.TryGetValue(counter, out long value) ? value : 0;
+
+        private static long SumGroup(PlayerSave save, string group)
+        {
+            if (!save.Stats.Groups.TryGetValue(group, out SortedDictionary<string, long>? facts)) return 0;
+            long sum = 0;
+            foreach (long value in facts.Values) sum += value;
+            return sum;
+        }
     }
 }

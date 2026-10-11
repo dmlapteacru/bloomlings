@@ -42,6 +42,7 @@
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Brand/Resources/Brand/*.png" Link="Assets/brand/%(Filename)%(Extension)" />
     <!-- The owner's booster icons and leaf decorations (spec 005 pictures.md D), drawn instead of the drawn ones when present. -->
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" Link="Assets/icons/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Badges/Resources/Badges/*.png" Link="Assets/badges/%(Filename)%(Extension)" />
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" Link="Assets/decor/%(Filename)%(Extension)" />
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" Link="Assets/avatars/%(Filename)%(Extension)" />
     <!--

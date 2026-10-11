@@ -38,7 +38,7 @@ namespace Bloomlings.Client.UI.Design
         IReadOnlyList<Box> Achievements,
         Box AchievementsNote)
     {
-        /// <summary>The number of achievement tiles (<c>Achievements.All</c>).</summary>
+        /// <summary>Achievement tiles visible on one profile page.</summary>
         public const int AchievementCount = 3;
 
         /// <summary>The panel's corner radius (a card's, <c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Content.Json;
+using Bloomlings.Client.Meta.Profile;
 using Newtonsoft.Json.Linq;
 
 namespace Bloomlings.Client.Meta.Wardrobe
@@ -59,6 +60,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
 
         private const string LevelBadgePrefix = "badge.level_";
         private const string LevelMarkerPrefix = "marker.level_";
+        public const string AchievementBadgePrefix = "badge.achievement.";
 
         /// <summary>The accessory shapes the placeholder art can draw, by kind.</summary>
         public static readonly IReadOnlyDictionary<CosmeticKind, string[]> Shapes = new Dictionary<CosmeticKind, string[]>
@@ -143,6 +145,11 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// </summary>
         public static CosmeticItem? Generated(string id)
         {
+            if (id.StartsWith(AchievementBadgePrefix, StringComparison.Ordinal))
+            {
+                AchievementDef? achievement = Achievements.ById(id.Substring(AchievementBadgePrefix.Length));
+                return achievement == null ? null : new CosmeticItem(id, CosmeticKind.Badge, achievement.NameKey, "badge", "#FFFFFF", false);
+            }
             bool badge = id.StartsWith(LevelBadgePrefix, StringComparison.Ordinal);
             if (!badge && !id.StartsWith(LevelMarkerPrefix, StringComparison.Ordinal))
             {

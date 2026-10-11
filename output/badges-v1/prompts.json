@@ -1,0 +1,145 @@
+{
+  "tool": "built-in image_gen",
+  "transparent_background": true,
+  "base_prompt": "Use case: stylized-concept. Asset type: a single isolated wearable achievement badge PNG for Bloomlings, a cozy premium mobile garden puzzle. Style: polished cute dimensional casual-game icon, sculpted soft rounded forms, glossy lime green leaves with pale yellow specular highlights, candy pink petals, cyan water, warm honey wood, cream accents. Smooth painterly 3D-rendered 2D asset, soft upper-left lighting, gentle ambient occlusion within the object, bold clean silhouette readable at 48px. One compact die-cut emblem; warm honey-colored softly beveled wood edging where a frame is requested. Front-facing slightly three-quarter depth, centered on square canvas, entire silhouette and effects inside with 12% empty margin. Transparent background with genuine alpha, no backdrop, no ground plane, no external cast shadow, no text, letters, numbers, banners, watermark, UI screenshot, or multiple variants. Large simple shapes, restrained detail. It must belong to the same cohesive garden badge set; do not draw a generic trophy or military medal.  Cohesion: warm rounded honey-wood emblem border, cream inlay accents, a compact vividly colored focal symbol. Ornament must not obscure the central action. Not flat vector, not pixel art, not gritty or realistic. ",
+  "badges": [
+    {
+      "id": "first_bloom",
+      "name": "Первый росток",
+      "group": "achievements",
+      "subject": "A cheerful vivid lime-green seedling with exactly two broad glossy leaves growing from a tiny rounded terracotta pot, dark rich soil visible. Simple approachable beginner emblem."
+    },
+    {
+      "id": "natural_talent",
+      "name": "Природный талант",
+      "group": "achievements",
+      "subject": "A single softly rounded stylized open peach-colored palm, fingers simplified together, cupping a vivid pink five-petal flower with golden center and two tiny lime leaves. Hand points up; beautiful plant is central. No realistic anatomy."
+    },
+    {
+      "id": "breathing_room",
+      "name": "Свободное место",
+      "group": "achievements",
+      "subject": "A compact gently curved honey-wood tray displaying exactly FIVE rounded cream nest cups in one horizontal row. First three hold one small lime-green seedling each, last two are visibly EMPTY cream cups. No additional cups. Make five cups large and easy to count. A tiny green leaf-shaped backing accent unifies the silhouette."
+    },
+    {
+      "id": "tough_bloom",
+      "name": "Крепкий бутон",
+      "group": "achievements",
+      "subject": "A sturdy vivid pink flower with a short bright green stem growing up through the clear central crack in a rounded warm-gray stone split into two pieces. The stone supports the flower, dramatic but friendly resilience symbol."
+    },
+    {
+      "id": "lotus_mind",
+      "name": "Мудрость лотоса",
+      "group": "achievements",
+      "subject": "A glossy vivid pink lotus with a few thick rounded petals and warm golden center, resting above one small faceted violet crystal, with two lime-green leaves. A restrained golden gleam, no large halo."
+    },
+    {
+      "id": "chain_reaction",
+      "name": "Цепная реакция",
+      "group": "achievements",
+      "subject": "Exactly THREE chunky rounded garden pod capsules arranged in a compact triangular arc, honey-wood and cream rims, inset leaf-green, flower-pink and water-cyan faces. A thick simple curved golden spark trail connects all three. No symbols except one embossed leaf, one flower and one water drop on the respective faces. No counters or text."
+    },
+    {
+      "id": "key_keeper",
+      "name": "Хранитель ключей",
+      "group": "achievements",
+      "subject": "One chunky warm-gold garden key diagonally upright, bow is a glossy lime-green leaf enclosed in a honey-wood leaf-shaped rim. Short rounded key stem with exactly two large teeth. One tiny gold glint."
+    },
+    {
+      "id": "deep_roots",
+      "name": "Глубокие корни",
+      "group": "achievements",
+      "subject": "A compact rounded cutaway block of earth with exactly THREE broad horizontal strata in moss green, warm terracotta and honey brown, a lime-green two-leaf sprout on top, three simple pale cream branching roots visibly extending through the strata. Chunky toy diorama emblem, no landscape."
+    },
+    {
+      "id": "better_together",
+      "name": "Вместе сильнее",
+      "group": "achievements",
+      "subject": "Two tiny adorable Bloomlings characters close together holding one large lime-green leaf between them. Left is Sprig: lime-green round chibi body and leafy crown; right is Bloom: pink round chibi body with pink petal crown. Both have large dark glossy eyes, little smiling mouths, short rounded arms and feet. Compact readable paired silhouettes, no scene."
+    },
+    {
+      "id": "spring_keeper",
+      "name": "Хранитель источника",
+      "group": "achievements",
+      "subject": "A large glossy turquoise water drop suspended above a small rounded warm sandstone fountain bowl with a short pedestal. Bowl filled with bright blue water, two tiny curved streams flow into it. Very simple compact garden fountain icon, one small lime leaf at its base."
+    },
+    {
+      "id": "picture_explorer",
+      "name": "Охотник за сюжетами",
+      "group": "achievements",
+      "subject": "A rounded honey-wood and cream picture album slightly open, three chunky illustrated picture tabs peeking out: one vivid green leaf, one rounded red apple and one golden pawprint. Large simple recognizable symbols, no text, compact collection emblem."
+    },
+    {
+      "id": "daily_bloom",
+      "name": "Каждый день — цветение",
+      "group": "achievements",
+      "subject": "A single rounded cream calendar page in a small honey-wood frame with exactly two top wooden binding pegs. One big vivid pink flower centered on its blank face. A cheerful small golden sun rises behind the upper edge. No dates, digits, grids or text."
+    },
+    {
+      "id": "young_gardener",
+      "name": "Юный садовник",
+      "group": "prestige",
+      "subject": "Beginner prestige emblem: a single large glossy lime-green leaf with a bold central vein, inset into a simple rounded leaf-shaped warm honey-wood frame. Quiet friendly design, no crown or metallic ornament."
+    },
+    {
+      "id": "seasoned_gardener",
+      "name": "Опытный садовник",
+      "group": "prestige",
+      "subject": "Second prestige emblem: a compact circular wreath of six broad glossy green leaves overlapping around a warm cream center containing one small green seed. Simple polished honey-wood inner edge, no flowers, no crown."
+    },
+    {
+      "id": "garden_master",
+      "name": "Мастер сада",
+      "group": "prestige",
+      "subject": "Third prestige emblem: a compact round wreath of six broad glossy lime-green leaves decorated with exactly three chunky vivid pink blossoms with golden centers. Warm cream central opening, honey-wood inner rim. Abundant but readable, no crown."
+    },
+    {
+      "id": "grove_keeper",
+      "name": "Хранитель рощи",
+      "group": "prestige",
+      "subject": "Fourth prestige emblem: a little broad-canopy vivid green tree with a short honey-brown trunk, inside a substantial circular softly beveled bronze frame. Chunky clustered foliage, warm cream inner plate, modest embossed leaf accents in the bronze. No words."
+    },
+    {
+      "id": "golden_gardener",
+      "name": "Золотой садовник",
+      "group": "prestige",
+      "subject": "Fifth prestige emblem: a shiny rounded GOLDEN watering can, broad loop handle and short spout with round rose, decorated by one large pink flower and two glossy lime-green leaves. Warm gold sculpted metal, a few clean highlight glints, no generic trophy."
+    },
+    {
+      "id": "bloom_legend",
+      "name": "Легенда цветения",
+      "group": "prestige",
+      "subject": "Sixth prestige emblem: a sumptuous but compact glossy pink LOTUS, layered thick rounded petals and golden center, green leaf base, framed by a small sculpted golden starry halo with exactly five gold star shapes. Bright refined premium garden icon, no floating haze beyond silhouette."
+    },
+    {
+      "id": "heart_of_bloomlings",
+      "name": "Сердце Bloomlings",
+      "group": "prestige",
+      "subject": "Highest prestige emblem: a luminous golden SEED at center inside a substantial honey-gold circular ring. Exactly FOUR large clearly separate family symbols arranged like compass points around it: top a lime-green LEAF, right a vivid pink FLOWER, bottom a bright cyan WATER DROP, left a warm orange ACORN with brown cap. Symmetrical compact composition, soft contained golden glow, refined rounded toy-like material."
+    },
+    {
+      "id": "forest_friend",
+      "name": "Лесной друг",
+      "group": "collections",
+      "subject": "A cute orange fox cub HEAD with two large triangular rounded ears, cream cheeks and muzzle, glossy dark eyes and a tiny friendly smile, framed by a simple arc of two chunky lime-green forest leaves. Compact head-only collectible emblem, no body or scenery."
+    },
+    {
+      "id": "sweet_life",
+      "name": "Сладкая жизнь",
+      "group": "collections",
+      "subject": "A single plump cupcake in a warm honey-colored fluted wrapper, thick glossy pastel pink frosting swirl, topped by one tiny rounded red berry and two little green leaves. Cute dimensional garden collectible icon, no writing."
+    },
+    {
+      "id": "sea_stories",
+      "name": "Морские истории",
+      "group": "collections",
+      "subject": "One large soft coral-pink scallop seashell with six broad rounded ridges, open slightly to reveal one creamy pearl, two small glossy cyan water drops beside its base. Compact ocean collectible emblem, warm playful sculpted material."
+    },
+    {
+      "id": "space_garden",
+      "name": "Космический сад",
+      "group": "collections",
+      "subject": "A tiny vivid lime-green two-leaf seedling growing in a rounded honey-brown pot INSIDE a clear spherical astronaut helmet dome. Cream helmet rim and two simple cyan side knobs, one small golden star beside it attached close to the silhouette. The plant is the astronaut, no humanoid, no rocket or scenery."
+    }
+  ]
+}

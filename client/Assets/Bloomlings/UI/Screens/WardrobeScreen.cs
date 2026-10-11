@@ -346,6 +346,8 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>A cosmetic's display name: its localized entry (a level badge or marker names its level), else the catalog name.</summary>
         public static string Name(CosmeticItem item)
         {
+            if (item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal))
+                return Loc.T("profile.achievement." + item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length));
             if (item.MilestoneLevel.HasValue)
             {
                 return item.Kind == CosmeticKind.Marker ? Loc.F("cosmetic.level_marker", item.MilestoneLevel.Value) : Loc.F("cosmetic.level_badge", item.MilestoneLevel.Value);
@@ -355,7 +357,9 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>The icon of an item in grids and the Store: its accessory, or its pattern on a round swatch for a skin.</summary>
-        public static Sprite Icon(CosmeticItem item) => ProceduralSprites.Accessory(item.Shape);
+        public static Sprite Icon(CosmeticItem item) => item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal)
+            ? OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)) ?? ProceduralSprites.Accessory(item.Shape)
+            : ProceduralSprites.Accessory(item.Shape);
 
         public static string KindLabel(CosmeticKind kind) => kind switch
         {

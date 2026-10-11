@@ -183,6 +183,10 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The Collection page's page of pictures.</summary>
         public int CollectionPage { get; set; }
 
+        /// <summary>The current three-badge page on the profile.</summary>
+        public int ProfileAchievementPage { get; set; }
+        public int ProfileBadgePage { get; set; }
+
         /// <summary>The Store's selected tab (0 shop, 1 cosmetics).</summary>
         public int StoreTab { get; set; }
 
@@ -685,6 +689,7 @@ namespace Bloomlings.Playtest.Design
         {
             Sound.Play(SoundCue.Click);
             ClearOverlays();
+            ProfileAchievementPage = 0;
             Screen = Screen.Profile;
         }
 
@@ -698,6 +703,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Opens the edit card on <paramref name="tab"/> (the avatar's tap: Avatar; the pencil: Name).</summary>
         public void OpenProfileEdit(ProfileTab tab)
         {
+            ProfileBadgePage = 0;
             ProfileEditor = new ProfileEditor(Meta.Profile, Meta.Wardrobe, tab);
             OpenOverlay(Overlay.ProfileEdit);
         }

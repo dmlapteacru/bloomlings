@@ -1,0 +1,232 @@
+[
+  {
+    "id": "first_bloom",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "natural_talent",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "breathing_room",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "tough_bloom",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "lotus_mind",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "chain_reaction",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "key_keeper",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "deep_roots",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "better_together",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "spring_keeper",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "picture_explorer",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "daily_bloom",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "young_gardener",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "seasoned_gardener",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "garden_master",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "grove_keeper",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "golden_gardener",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "bloom_legend",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 1,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "heart_of_bloomlings",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "forest_friend",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "sweet_life",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "sea_stories",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  },
+  {
+    "id": "space_garden",
+    "width": 1254,
+    "height": 1254,
+    "pixelFormat": "Format32bppArgb",
+    "alphaTopLeft": 0,
+    "alphaTopRight": 0,
+    "alphaBottomLeft": 0,
+    "alphaBottomRight": 0
+  }
+]

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Golden;
 using Bloomlings.Content.Json;
@@ -227,6 +228,9 @@ var meta = new PlaytestMeta(temp);
 Check(meta.FirstLaunch && meta.CurrentLevel == 1, "a new profile starts at L1");
 Check(!meta.Economy.IsUnlocked(BoosterKind.ExtraSlot), "boosters are locked at L1");
 meta.CompleteLevel(1, DifficultyClass.Normal, 0);
+Check(Achievements.Unlocked(meta.Save, "first_bloom"), "first win unlocks First Sprout");
+Check(meta.Wardrobe.Show("badge.achievement.first_bloom") && meta.Wardrobe.Profile.Badge?.Id == "badge.achievement.first_bloom",
+    "an achievement badge can be worn before the Wardrobe unlocks");
 meta.CompleteLevel(2, DifficultyClass.Normal, 0);
 Check(meta.CurrentLevel == 3 && meta.Economy.IsUnlocked(BoosterKind.ExtraSlot) && meta.Economy.Charges(BoosterKind.ExtraSlot) >= 1, "Extra Slot opens at L3 with a free charge");
 Check(!meta.Economy.IsUnlocked(BoosterKind.Shuffle), "Shuffle still locked at L3");
@@ -246,12 +250,33 @@ foreach (DailyRewardStep step in meta.DailyReward.Steps)
 
 Check(claimed == 220 && meta.Economy.Petals == petalsBefore + claimed && !meta.DailyReward.CanClaim, "the five steps pay 20 + 30 + 40 + 50 + 80 Petals once a day");
 LevelDefinition level26 = runs.First(r => r.Level.LevelNumber > 0).Level;
-meta.CompleteLevel(26, DifficultyClass.Normal, 0, level26);
+var evidence = new AchievementAttempt();
+evidence.Observe(new GameEvent[]
+{
+    new PodCommitted(0, "a", 0, 0, 0), new PodCommitted(0, "b", 1, 0, 0), new PodCommitted(0, "c", 2, 0, 0),
+    new PodCompleted(1, "a", 0), new PodCompleted(1, "b", 1), new PodCompleted(2, "c", 2),
+    new KeyCollected(2, "key-a", new CellPos(0, 0)), new KeyCollected(2, "key-b", new CellPos(0, 0)),
+}, level26, ordinaryTap: true);
+Check(evidence.ChainReaction && evidence.PeakSlots == 3 && evidence.Keys == 2, "one tap captures the full cascade and transient slot peak");
+PlayerSave factSave = PlayerSave.CreateNew("00000000000000000000000000000001", DateTime.UtcNow);
+factSave.Progression.HighestCompletedLevel = 10;
+BasePicture factPicture = runs.First(r => r.Level.LevelNumber > 0).Picture;
+evidence.RecordWin(factSave, 11, level26, factPicture, 0);
+evidence.RecordWin(factSave, 11, level26, factPicture, 0);
+Check(Achievements.Of(factSave).First(s => s.Def.Id == "natural_talent").Value == 1
+    && Achievements.Of(factSave).First(s => s.Def.Id == "key_keeper").Value == 2,
+    "repeated win processing does not double-count mastery or keys");
+meta.CompleteLevel(26, DifficultyClass.Normal, 0, level26, factPicture, evidence);
 Check(meta.Collection.Count == 1 && meta.Collection.Entries[0].LevelNumber == 26, "a won picture joins the Collection");
+Check(Achievements.Of(meta.Save).First(s => s.Def.Id == "natural_talent").Value == 1,
+    "the playtest persists achievement evidence with the new win");
 meta.SkipTo(40);
 Check(meta.Wardrobe.IsAvailable, "the Wardrobe opens at L40");
 var reloaded = new PlaytestMeta(temp);
 Check(!reloaded.FirstLaunch && reloaded.CurrentLevel == 41 && reloaded.Economy.Petals == meta.Economy.Petals && reloaded.Collection.Count == 1, "progress survives a restart");
+Check(reloaded.Wardrobe.Profile.Badge?.Id == "badge.achievement.first_bloom", "the selected achievement badge survives a restart");
+Check(Achievements.Of(reloaded.Save).First(s => s.Def.Id == "natural_talent").Value == 1,
+    "achievement progress survives a restart");
 var fresh = PlaytestMeta.ResetProfile(temp);
 Check(fresh.CurrentLevel == 1 && fresh.Economy.Petals == 0, "reset starts over");
 Directory.Delete(temp, true);

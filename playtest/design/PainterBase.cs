@@ -311,11 +311,15 @@ namespace Bloomlings.Playtest.Design
                 return "avatars/" + name.Substring(AvatarPrefix.Length);
             }
 
+            if (name.StartsWith(BadgePrefix, StringComparison.Ordinal))
+                return "badges/" + name.Substring(BadgePrefix.Length) + ".png";
+
             return "characters/" + name + ".png";
         }
 
         /// <summary>The name prefix of the profile's avatar pictures (<c>avatar/drop_default</c>, spec 005 pictures.md I).</summary>
         public const string AvatarPrefix = "avatar/";
+        public const string BadgePrefix = "badge/";
 
         /// <summary>The name prefix of the owner's backgrounds (<c>bg/home</c>).</summary>
         public const string BackgroundPrefix = "bg/";

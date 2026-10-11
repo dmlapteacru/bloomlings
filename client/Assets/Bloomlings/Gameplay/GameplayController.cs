@@ -13,6 +13,7 @@ using Bloomlings.Client.Gameplay.Tray;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.DailyChallenge;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Ads;
 using Bloomlings.Client.Services.Analytics;
@@ -115,6 +116,7 @@ namespace Bloomlings.Client.Gameplay
         private float _attemptStart;
         private int _attemptIndex;
         private int _peakSlots;
+        private readonly AchievementAttempt _achievementAttempt = new AchievementAttempt();
         private bool _winLogged;
         private bool _jamLogged;
         private readonly System.Collections.Generic.HashSet<string> _devDemosSeen = new System.Collections.Generic.HashSet<string>();
@@ -200,6 +202,7 @@ namespace Bloomlings.Client.Gameplay
         /// <summary>A new attempt (level load or restart): <c>level_start</c> and the crash keys of this level (R14).</summary>
         private void BeginAttemptAnalytics()
         {
+            _achievementAttempt.Reset();
             _attemptIndex++;
             _attemptStart = Time.unscaledTime;
             _peakSlots = 0;
@@ -403,6 +406,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             CommandResult result = _session.Apply(tap);
+            _achievementAttempt.Observe(result.Events, _session.Definition, ordinaryTap: true);
             RefreshSpeed();
             Feedback?.Play(SoundCue.Tap);
             HoldLocksOpenedBy(result.Events);
@@ -471,6 +475,11 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
+            PlayerSave? save = Service<PlayerSave>();
+            if (save != null && attempt.LevelNumber == save.Progression.CurrentLevel)
+            {
+                _achievementAttempt.RecordWin(save, attempt.LevelNumber, attempt.Definition, attempt.Picture, _session.BoostersUsed - _demoUses);
+            }
             if (Flow.OnLevelWon(attempt.LevelNumber, LeaderboardClient.CommandLogHash(_session.CommandLog)) && Economy != null)
             {
                 _reward = Economy.GrantLevelReward(attempt.LevelNumber, _session.Definition.Difficulty.Class, _session.BoostersUsed - _demoUses);
@@ -825,6 +834,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             CommandResult result = session.Apply(command);
+            _achievementAttempt.Observe(result.Events, session.Definition, ordinaryTap: false);
             RefreshSpeed();
             HoldLocksOpenedBy(result.Events);
             Feedback?.Play(SoundCue.Booster);

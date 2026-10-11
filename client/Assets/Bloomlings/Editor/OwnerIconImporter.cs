@@ -12,6 +12,7 @@ namespace Bloomlings.Client.Editor
     /// edges clamp, sizes are kept as made and the compression is the high-quality one so the dark outlines stay crisp. They
     /// keep no readable copy: the grey copy and the finished picture read their pixels back once (<c>OwnerArt.IconPixels</c>).
     /// The profile's avatars (pictures.md I, <c>Art/Avatars/</c>) are opaque, with mipmaps and at most 512 px.
+    /// Achievement badges are transparent and capped at 256 px; the full-resolution art stays outside Assets.
     /// </summary>
     public sealed class OwnerIconImporter : AssetPostprocessor
     {
@@ -23,9 +24,30 @@ namespace Bloomlings.Client.Editor
         // The profile's avatar pictures (pictures.md I, spec 005 FR-037): opaque 384 px JPEG files, drawn from about 70 px
         // (the edit card's grid) to about 370 px (the profile page), so mipmaps keep the small ones smooth.
         private const string Avatars = "Assets/Bloomlings/Art/Avatars/";
+        private const string Badges = "Assets/Bloomlings/Art/Badges/";
 
         private void OnPreprocessTexture()
         {
+            if (assetPath.StartsWith(Badges, StringComparison.Ordinal) && assetImporter is TextureImporter badge)
+            {
+                badge.textureType = TextureImporterType.Default;
+                badge.sRGBTexture = true;
+                badge.alphaSource = TextureImporterAlphaSource.FromInput;
+                badge.alphaIsTransparency = true;
+                badge.mipmapEnabled = true;
+                badge.wrapMode = TextureWrapMode.Clamp;
+                badge.npotScale = TextureImporterNPOTScale.None;
+                badge.maxTextureSize = 256;
+                badge.isReadable = false;
+                badge.textureCompression = TextureImporterCompression.CompressedHQ;
+                TextureImporterPlatformSettings android = badge.GetPlatformTextureSettings("Android");
+                android.name = "Android";
+                android.overridden = true;
+                android.maxTextureSize = 256;
+                android.format = TextureImporterFormat.ETC2_RGBA8;
+                badge.SetPlatformTextureSettings(android);
+                return;
+            }
             if (assetPath.StartsWith(Avatars, StringComparison.Ordinal) && assetImporter is TextureImporter avatar)
             {
                 avatar.textureType = TextureImporterType.Default;

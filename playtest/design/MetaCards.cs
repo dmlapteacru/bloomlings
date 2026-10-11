@@ -232,6 +232,9 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>An item's player-facing name (<c>cosmetic.{id}</c> in the string table), else its catalog name.</summary>
-        public static string ItemName(CosmeticItem item) => PlaytestText.Has("cosmetic." + item.Id) ? PlaytestText.T("cosmetic." + item.Id) : item.Name;
+        public static string ItemName(CosmeticItem item) =>
+            item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal)
+                ? PlaytestText.T("profile.achievement." + item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length))
+                : PlaytestText.Has("cosmetic." + item.Id) ? PlaytestText.T("cosmetic." + item.Id) : item.Name;
     }
 }

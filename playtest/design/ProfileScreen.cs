@@ -19,8 +19,7 @@ namespace Bloomlings.Playtest.Design
     /// the name with the pencil (the card on Name), the short ID, "Playing since 10/2026" and the wooden "Level N"
     /// plaque;</description></item>
     /// <item><description>three stats: levels won, pictures collected, milestones reached;</description></item>
-    /// <item><description>the three achievements (<see cref="Achievements"/>): Green Thumb, Picture Keeper and Daily
-    /// Gardener, each a trophy in its tier's medal color with the count toward the next tier.</description></item>
+    /// <item><description>three illustrated achievements per page, with progress toward the next tier.</description></item>
     /// </list>
     /// The card lists the 14 avatars (free ones first, the others with their price; the picked one checked), the owned
     /// frames and badges (once the Wardrobe is open) and the name (the host's text dialog); its button saves, or buys the
@@ -58,7 +57,7 @@ namespace Bloomlings.Playtest.Design
             {
                 (PlaytestText.T("profile.stat_levels"), Achievements.Count(meta.Save, Achievements.LevelsCounter)),
                 (PlaytestText.T("profile.stat_pictures"), meta.Collection.Count),
-                (PlaytestText.T("profile.stat_milestones"), meta.Save.Milestones.Claimed.Count),
+                (PlaytestText.T("profile.stat_daily"), Achievements.Count(meta.Save, Achievements.DailyCounter)),
             };
             for (int i = 0; i < stats.Length; i++)
             {
@@ -70,16 +69,34 @@ namespace Bloomlings.Playtest.Design
                 p.Text(stats[i].Label, label.CenterX, label.CenterY, T.Caption, C.InkBrownSoft, label.Width, grow);
             }
 
-            // The Achievements: bronze, silver and gold for what the save counts (Achievements).
+            // The illustrated achievements, three per page.
             string title = PlaytestText.T("profile.achievements");
             Kit.WoodSign(p, CardLook.TitleSign(r.AchievementsTitle, p.MeasureText(title, T.Title, grow)), title, T.Title);
-            IReadOnlyList<AchievementState> achievements = Achievements.Of(stats[0].Value, stats[1].Value, Achievements.Count(meta.Save, Achievements.DailyCounter));
-            for (int i = 0; i < r.Achievements.Count && i < achievements.Count; i++)
+            IReadOnlyList<AchievementState> achievements = Achievements.Of(meta.Save);
+            int pageCount = (achievements.Count + r.Achievements.Count - 1) / r.Achievements.Count;
+            int page = Math.Max(0, Math.Min(pageCount - 1, app.ProfileAchievementPage));
+            Box previous = Box.FromCenter(r.AchievementsTitle.Left + r.AchievementsTitle.Height * 0.5f, r.AchievementsTitle.CenterY, r.AchievementsTitle.Height, r.AchievementsTitle.Height);
+            Box next = Box.FromCenter(r.AchievementsTitle.Right - r.AchievementsTitle.Height * 0.5f, r.AchievementsTitle.CenterY, r.AchievementsTitle.Height, r.AchievementsTitle.Height);
+            p.Text("‹", previous.CenterX, previous.CenterY, T.Title, C.InkBrown, previous.Width);
+            p.Text("›", next.CenterX, next.CenterY, T.Title, C.InkBrown, next.Width);
+            if (!covered)
             {
-                Achievement(p, r.Achievements[i], achievements[i], grow);
+                p.Hit(previous, () => app.ProfileAchievementPage = (page + pageCount - 1) % pageCount);
+                p.Hit(next, () => app.ProfileAchievementPage = (page + 1) % pageCount);
+            }
+            for (int i = 0; i < r.Achievements.Count; i++)
+            {
+                int index = page * r.Achievements.Count + i;
+                if (index >= achievements.Count) break;
+                AchievementState state = achievements[index];
+                Achievement(p, r.Achievements[i], state, grow, covered ? null : () =>
+                {
+                    if (state.Tier > 0 && meta.Wardrobe.Show(state.Def.BadgeId)) app.HomeToast(PlaytestText.T("profile.badge_equipped"));
+                    else app.HomeToast(PlaytestText.T("profile.achievement_help." + state.Def.Id));
+                });
             }
 
-            p.Text(PlaytestText.T("profile.achievements_note"), r.AchievementsNote.CenterX, r.AchievementsNote.CenterY, T.Caption, C.InkBrownSoft, r.AchievementsNote.Width, grow);
+            p.Text(PlaytestText.F("profile.achievements_page", page + 1, pageCount), r.AchievementsNote.CenterX, r.AchievementsNote.CenterY, T.Caption, C.InkBrownSoft, r.AchievementsNote.Width, grow);
 
             Kit.PageFlowers(p, r.Panel, r.Panel.Bottom);
             Kit.PageHeader(p, r.Header, PlaytestText.T("profile.title"), app.CloseProfile, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
@@ -96,23 +113,17 @@ namespace Bloomlings.Playtest.Design
         /// (faded under the padlock badge before the bronze tier) and the count toward the next tier ("37/50"; the count
         /// alone with the check badge once gold), the name under it.
         /// </summary>
-        public static void Achievement(IPainter p, Box tile, AchievementState state, float grow)
+        public static void Achievement(IPainter p, Box tile, AchievementState state, float grow, Action? action = null)
         {
             p.Mark("ui.achievement");
             Box well = ReferenceProfileRegions.AchievementWell(tile);
             Kit.FramedTile(p, well, 0.24f);
             Box trophy = ReferenceProfileRegions.AchievementTrophy(well);
-            Rgba? medal = AchievementLook.TierColor(state.Tier);
-            if (medal.HasValue)
-            {
-                p.Shape("ui.trophy", trophy, medal.Value);
-            }
-            else
-            {
-                p.PushAlpha(0.35f);
-                p.Shape("ui.trophy", trophy, C.InkBrownSoft);
-                p.PopAlpha();
-            }
+            string image = PainterBase.BadgePrefix + state.Def.Id;
+            if (state.Tier == 0) p.PushAlpha(0.42f);
+            if (p.HasSprite(image)) p.Sprite(image, trophy);
+            else p.Shape("ui.trophy", trophy, C.InkBrownSoft);
+            if (state.Tier == 0) p.PopAlpha();
 
             Box count = ReferenceProfileRegions.AchievementProgress(well);
             string text = state.Complete ? NumberText.Group(state.Value) : PlaytestText.F("profile.achievement_progress", NumberText.Group(state.Shown), NumberText.Group(state.Goal));
@@ -129,6 +140,7 @@ namespace Bloomlings.Playtest.Design
             Box label = ReferenceProfileRegions.AchievementLabel(tile);
             Rgba ink = state.Tier == 0 ? C.InkBrownSoft : C.InkBrown;
             p.Text(PlaytestText.T(state.Def.NameKey), label.CenterX, label.CenterY, T.Caption, ink, label.Width, grow);
+            if (action != null) p.Hit(tile, action);
         }
 
         /// <summary>The name the page shows: the chosen one, else "Gardener 4821" (<see cref="ProfileService.DefaultNumber"/>).</summary>
@@ -155,7 +167,7 @@ namespace Bloomlings.Playtest.Design
                 labels.Add(PlaytestText.T(TabKey(tab)));
             }
 
-            Kit.Tabs(p, r.Tabs, labels, (int)editor.Tab, i => editor.Tab = ProfileEditor.Tabs[i]);
+            Kit.Tabs(p, r.Tabs, labels, (int)editor.Tab, i => { editor.Tab = ProfileEditor.Tabs[i]; app.ProfileBadgePage = 0; });
             Kit.Avatar(p, r.Preview, editor.Avatar, editor.Frame, editor.Badge, null);
             string name = editor.Name ?? PlaytestText.F("profile.default_name", meta.Profile.DefaultNumber);
             p.TextLeft(name, r.PreviewName.Left, r.PreviewName.CenterY, T.Title, C.InkTitle, r.PreviewName.Width, look: TextLook.Plain(C.InkTitle));
@@ -246,10 +258,15 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            int count = Math.Min(owned.Count, r.CellCount);
+            bool paged = kind == CosmeticKind.Badge && owned.Count > r.CellCount;
+            int perPage = paged ? r.CellCount - 1 : r.CellCount;
+            int pageCount = (owned.Count + perPage - 1) / perPage;
+            int page = paged ? Math.Max(0, Math.Min(pageCount - 1, app.ProfileBadgePage)) : 0;
+            int start = page * perPage;
+            int count = Math.Min(owned.Count - start, perPage);
             for (int i = 0; i < count; i++)
             {
-                CosmeticItem item = owned[i];
+                CosmeticItem item = owned[start + i];
                 Box cell = r.Cell(i);
                 bool frame = kind == CosmeticKind.Frame;
                 bool picked = item.Id == (frame ? editor.FrameId : editor.BadgeId);
@@ -281,6 +298,13 @@ namespace Bloomlings.Playtest.Design
                         }
                     });
                 }
+            }
+            if (paged)
+            {
+                Box more = r.Cell(r.CellCount - 1);
+                Kit.FramedTile(p, more, 0.22f);
+                p.Text(PlaytestText.F("profile.badge_page", page + 1, pageCount), more.CenterX, more.CenterY, T.Caption, C.InkBrown, more.Width);
+                if (!app.DrawingCovered) p.Hit(more, () => app.ProfileBadgePage = (page + 1) % pageCount);
             }
         }
 

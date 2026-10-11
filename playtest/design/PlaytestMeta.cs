@@ -99,9 +99,13 @@ namespace Bloomlings.Playtest
 
         /// <summary>Records a win of the current level and pays it; null when the level was not the current one.</summary>
         /// <param name="definition">The level played: its finished picture joins the Collection (FR-065).</param>
-        public WinPayout? CompleteLevel(int level, DifficultyClass difficulty, int boostersUsed, LevelDefinition? definition = null)
+        public WinPayout? CompleteLevel(int level, DifficultyClass difficulty, int boostersUsed, LevelDefinition? definition = null,
+            BasePicture? picture = null, AchievementAttempt? achievements = null)
         {
             NewUnlocks.Clear();
+            if (level != Progression.CurrentLevel) return null;
+            if (definition != null && picture != null && achievements != null)
+                achievements.RecordWin(Save, level, definition, picture, boostersUsed);
             if (!Progression.CompleteLevel(level))
             {
                 return null;

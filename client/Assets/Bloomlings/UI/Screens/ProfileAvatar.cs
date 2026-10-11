@@ -150,8 +150,10 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            image.sprite = ProceduralSprites.Accessory(item.Shape);
-            image.color = BloomlingFigure.Tint(item);
+            bool achievement = item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, System.StringComparison.Ordinal);
+            Sprite? badge = achievement ? OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)) : null;
+            image.sprite = badge ?? ProceduralSprites.Accessory(item.Shape);
+            image.color = badge != null ? Color.white : BloomlingFigure.Tint(item);
             image.gameObject.SetActive(true);
         }
 

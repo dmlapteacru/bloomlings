@@ -1,0 +1,213 @@
+{
+  "tool": "tools/pack_badges.py",
+  "version": 1,
+  "files": [
+    {
+      "path": "better_together.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "9d965bf86efb808a8995e074931db6ba990fa536fa1b088107ab3be04627184c",
+      "slot": "profile.achievement.better_together",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "breathing_room.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "a9048350bc7587848809799a4e0dfded7a9813ca19897addbd0c44fbf39a494d",
+      "slot": "profile.achievement.breathing_room",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "chain_reaction.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "9012c6ad8bf2722b78ec466e102005157f4a5246bf52ad145a41469f4f95f5a5",
+      "slot": "profile.achievement.chain_reaction",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "daily_bloom.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "5be1d88543a4fade1f0c48ba3459b4e4558e2ede0ef4b90c92803ae1a4afc12e",
+      "slot": "profile.achievement.daily_bloom",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "deep_roots.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "5ceac97b1166861b26d5d8adface45093e296f56507a1882b8dfe5ce51b849fd",
+      "slot": "profile.achievement.deep_roots",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "first_bloom.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "181890d785174f1d012d7ac8e5213c5bc5edf07356592ad3269ce293ba9243c0",
+      "slot": "profile.achievement.first_bloom",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "key_keeper.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "dd5b317ef5872136142538f1d1d13c8291ccc7bf217f1c3653f47c1f822cdb02",
+      "slot": "profile.achievement.key_keeper",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "lotus_mind.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "07c40898f56743a6d213b2e335cbb3b0f909cdceb897195499eeb3e94a7137a5",
+      "slot": "profile.achievement.lotus_mind",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "natural_talent.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "0ba5403dc7777f7a6f32edb209c1017485c3961ae21a4db23b6c233dfe9a734b",
+      "slot": "profile.achievement.natural_talent",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "picture_explorer.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "95d947d664d49878e7c7a74020213962736b70f7e6c48c9daf825166d2652eea",
+      "slot": "profile.achievement.picture_explorer",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "spring_keeper.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "e0c08d620681f0f9c421a735a20ee9852bbf75b634eca5b4645f22f3ced7503c",
+      "slot": "profile.achievement.spring_keeper",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "tough_bloom.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "d8f13daf92bdb9de4ac3206b03822e07cf1b028dd68247b9a94fc9568b297093",
+      "slot": "profile.achievement.tough_bloom",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "bloom_legend.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "fa248051b8412e9f40b41407c84c775bc5be24f278542ff3ffb40bb076cdc2be",
+      "slot": "profile.achievement.bloom_legend",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "garden_master.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "116a2d5590090b9605fd3f44cb7abd7688bedd954882fad9963c11603dd976b8",
+      "slot": "profile.achievement.garden_master",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "golden_gardener.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "36f20ca6e3bb74ff9cf29d16a0466b64bcf60b0e1669907d5f55b4ec647a5dd2",
+      "slot": "profile.achievement.golden_gardener",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "grove_keeper.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "922d5398216992bbb0f4abc6e31a9f98d433f0e2fbfc4591364cf74d91dea0f7",
+      "slot": "profile.achievement.grove_keeper",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "heart_of_bloomlings.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "f547ddfcd47b4daa200d12cf13c1363c010a319d5cf02d73202c8a855a65cb32",
+      "slot": "profile.achievement.heart_of_bloomlings",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "seasoned_gardener.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "b89209ef271a531955e48f20ac4a0544074d08418e728629072b1652a62884c5",
+      "slot": "profile.achievement.seasoned_gardener",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "young_gardener.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "4110174c98e752de395c9f63172617389595fd1a405972795c3ef6a66be9dfcb",
+      "slot": "profile.achievement.young_gardener",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "forest_friend.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "139265e7950fc547a6f766cfc60f4766b977beea4749bc5ec4bc088cf27dcebf",
+      "slot": "profile.achievement.forest_friend",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "sea_stories.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "34aed4e6bffe3d5a95b579391d8148cb65bda3b0f2dab6ac03d44c8e7e77dfe4",
+      "slot": "profile.achievement.sea_stories",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "space_garden.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "7dd42ba1013c37da1ba61091b3a3193fe4418ce93082e89bc376b9900708fd35",
+      "slot": "profile.achievement.space_garden",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "sweet_life.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "d8c21719e440850e54909109f536b1dc4b086789586c2bafcca92e66d3dd250a",
+      "slot": "profile.achievement.sweet_life",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    }
+  ]
+}

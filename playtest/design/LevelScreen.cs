@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
@@ -40,6 +41,7 @@ namespace Bloomlings.Playtest.Design
         };
 
         private readonly DesignApp _app;
+        private readonly AchievementAttempt _achievementAttempt = new AchievementAttempt();
         private readonly List<GuideStep> _guide = new List<GuideStep>();
         private string? _toast;
         private float _toastUntil;
@@ -455,6 +457,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             CommandResult result = Session.Apply(tap);
+            _achievementAttempt.Observe(result.Events, Session.Definition, ordinaryTap: true);
             _app.Sound.Play(SoundCue.Tap);
             if (Guide != null && Guide.Kind == GuideKind.FirstTap)
             {
@@ -509,6 +512,7 @@ namespace Bloomlings.Playtest.Design
             // Return: the pod flies back from the slot it shows in (maybe not its slot in the rules, LevelAnimator.Place).
             int from = command is UseReturn aimed && Session.View.PodInSlot(aimed.SlotIndex) is string aimedPod ? Animator.PlaceOf(aimedPod) : -1;
             CommandResult result = Session.Apply(command);
+            _achievementAttempt.Observe(result.Events, Session.Definition, ordinaryTap: false);
             _app.Sound.Play(SoundCue.Booster);
             Animator.Boosted(result, Session.View);
             if (command is UseReturn back)
@@ -633,6 +637,7 @@ namespace Bloomlings.Playtest.Design
         public void Restart()
         {
             Session.Apply(new Restart());
+            _achievementAttempt.Reset();
             RefreshSpeed();
             Animator.Reset(Session.View);
             _ladder.Reset();
@@ -651,7 +656,8 @@ namespace Bloomlings.Playtest.Design
             RefreshSpeed();
             if (Won && Payout == null)
             {
-                Payout = Meta.CompleteLevel(Level, Session.Definition.Difficulty.Class, Session.BoostersUsed - DemoBoosterUses, Session.Definition) ?? new WinPayout(null, null);
+                Payout = Meta.CompleteLevel(Level, Session.Definition.Difficulty.Class, Session.BoostersUsed - DemoBoosterUses,
+                    Session.Definition, _app.Content.GetPicture(Session.Definition.Picture), _achievementAttempt) ?? new WinPayout(null, null);
             }
         }
 

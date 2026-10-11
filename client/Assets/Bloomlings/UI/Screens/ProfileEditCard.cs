@@ -34,6 +34,8 @@ namespace Bloomlings.Client.UI.Screens
         private TMP_InputField _input = null!;
         private TextMeshProUGUI _hint = null!;
         private TextMeshProUGUI _note = null!;
+        private Image _moreBadges = null!;
+        private TextMeshProUGUI _moreLabel = null!;
         private RectTransform _lock = null!;
         private TextMeshProUGUI _buttonLabel = null!;
         private ProfileService _profile = null!;
@@ -42,6 +44,7 @@ namespace Bloomlings.Client.UI.Screens
         private int _wardrobeLevel;
         private Action _changed = () => { };
         private float _statusUntil = -1f;
+        private int _badgePage;
 
         public bool IsOpen => _root.activeSelf;
 
@@ -87,6 +90,12 @@ namespace Bloomlings.Client.UI.Screens
             {
                 screen._cells.Add(Cell.Create(at, r.Cell(i), body, screen.Pick, i));
             }
+            screen._moreBadges = UiKit.Tile("MoreBadges", at, 0.22f);
+            screen._moreLabel = UiKit.Label("MoreLabel", screen._moreBadges.transform, string.Empty, T.Caption, UiTheme.Of(C.InkBrown));
+            UiFactory.Stretch(screen._moreLabel.rectTransform);
+            UiKit.PlaceBox(screen._moreBadges.rectTransform, r.Cell(r.CellCount - 1), body);
+            UiKit.TapTarget(screen._moreBadges, () => screen.NextBadgePage(), press: true);
+            screen._moreBadges.gameObject.SetActive(false);
 
             // The Name tab: the field, its hint.
             screen._field = UiKit.Well("NameField", at, UiTheme.Of(C.CreamTop), raycast: true);
@@ -113,6 +122,7 @@ namespace Bloomlings.Client.UI.Screens
         public void Show(ProfileTab tab)
         {
             _editor = new ProfileEditor(_profile, _wardrobe, tab);
+            _badgePage = 0;
             _input.SetTextWithoutNotify(_profile.Name ?? string.Empty);
             _statusUntil = -1f;
             _root.SetActive(true);
@@ -143,6 +153,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _editor.Tab = tab;
+            _badgePage = 0;
             _tabs.Select((int)tab);
             Redraw();
         }
@@ -163,6 +174,7 @@ namespace Bloomlings.Client.UI.Screens
             _hint.gameObject.SetActive(name);
             _note.gameObject.SetActive(false);
             _lock.gameObject.SetActive(false);
+            _moreBadges.gameObject.SetActive(false);
             for (int i = 0; i < _cells.Count; i++)
             {
                 _cells[i].Hide();
@@ -182,6 +194,14 @@ namespace Bloomlings.Client.UI.Screens
                 CosmeticKind kind = editor.Tab == ProfileTab.Frame ? CosmeticKind.Frame : CosmeticKind.Badge;
                 // The five free frames from Level 1, every owned frame and badge once the Wardrobe is open.
                 IReadOnlyList<CosmeticItem> owned = editor.Owned(kind);
+                bool paged = kind == CosmeticKind.Badge && owned.Count > _cells.Count;
+                int perPage = paged ? _cells.Count - 1 : _cells.Count;
+                int start = paged ? _badgePage * perPage : 0;
+                if (paged)
+                {
+                    _moreBadges.gameObject.SetActive(true);
+                    _moreLabel.text = Loc.F("profile.badge_page", _badgePage + 1, (owned.Count + perPage - 1) / perPage);
+                }
                 bool locked = editor.IsLocked(kind);
                 if (locked || owned.Count == 0)
                 {
@@ -192,9 +212,9 @@ namespace Bloomlings.Client.UI.Screens
                         : Loc.T(kind == CosmeticKind.Frame ? "profile.no_frames" : "profile.no_badges");
                 }
 
-                for (int i = 0; i < owned.Count && i < _cells.Count; i++)
+                for (int i = 0; i < perPage && start + i < owned.Count; i++)
                 {
-                    CosmeticItem item = owned[i];
+                    CosmeticItem item = owned[start + i];
                     bool frame = kind == CosmeticKind.Frame;
                     _cells[i].Show(editor.Avatar, frame ? item : null, frame ? null : item, item.Id == (frame ? editor.FrameId : editor.BadgeId), null, framed: true);
                 }
@@ -221,19 +241,30 @@ namespace Bloomlings.Client.UI.Screens
             else if (editor.Tab == ProfileTab.Frame || editor.Tab == ProfileTab.Badge)
             {
                 IReadOnlyList<CosmeticItem> owned = editor.Owned(editor.Tab == ProfileTab.Frame ? CosmeticKind.Frame : CosmeticKind.Badge);
-                if (index < owned.Count)
+                int perPage = owned.Count > _cells.Count && editor.Tab == ProfileTab.Badge ? _cells.Count - 1 : _cells.Count;
+                int selected = index + (editor.Tab == ProfileTab.Badge ? _badgePage * perPage : 0);
+                if (selected < owned.Count)
                 {
                     if (editor.Tab == ProfileTab.Frame)
                     {
-                        editor.PickFrame(owned[index].Id);
+                        editor.PickFrame(owned[selected].Id);
                     }
                     else
                     {
-                        editor.PickBadge(owned[index].Id);
+                        editor.PickBadge(owned[selected].Id);
                     }
                 }
             }
 
+            Redraw();
+        }
+
+        private void NextBadgePage()
+        {
+            if (_editor == null || _editor.Tab != ProfileTab.Badge) return;
+            int count = _editor.Owned(CosmeticKind.Badge).Count;
+            int perPage = _cells.Count - 1;
+            _badgePage = (_badgePage + 1) % ((count + perPage - 1) / perPage);
             Redraw();
         }
 

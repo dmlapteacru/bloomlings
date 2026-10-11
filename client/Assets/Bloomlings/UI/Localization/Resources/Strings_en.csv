@@ -270,12 +270,58 @@ profile.joined,Playing since {0}
 profile.stat_levels,Levels won
 profile.stat_pictures,Pictures
 profile.stat_milestones,Milestones
+profile.stat_daily,Daily wins
 profile.achievements,Achievements
-profile.achievement.levels,Green Thumb
-profile.achievement.pictures,Picture Keeper
-profile.achievement.daily,Daily Gardener
+profile.achievement.first_bloom,First Sprout
+profile.achievement.natural_talent,Natural Talent
+profile.achievement.breathing_room,Breathing Room
+profile.achievement.tough_bloom,Tough Bloom
+profile.achievement.lotus_mind,Lotus Mind
+profile.achievement.chain_reaction,Chain Reaction
+profile.achievement.key_keeper,Key Keeper
+profile.achievement.deep_roots,Deep Roots
+profile.achievement.better_together,Better Together
+profile.achievement.spring_keeper,Spring Keeper
+profile.achievement.picture_explorer,Picture Explorer
+profile.achievement.daily_bloom,Daily Bloom
+profile.achievement.young_gardener,Young Gardener
+profile.achievement.seasoned_gardener,Seasoned Gardener
+profile.achievement.garden_master,Garden Master
+profile.achievement.grove_keeper,Grove Keeper
+profile.achievement.golden_gardener,Golden Gardener
+profile.achievement.bloom_legend,Bloom Legend
+profile.achievement.heart_of_bloomlings,Heart of Bloomlings
+profile.achievement.forest_friend,Forest Friend
+profile.achievement.sweet_life,Sweet Life
+profile.achievement.sea_stories,Sea Stories
+profile.achievement.space_garden,Space Garden
 profile.achievement_progress,{0}/{1}
-profile.achievements_note,"Bronze, silver and gold: win levels, collect pictures, win Daily Challenges"
+profile.achievements_page,{0}/{1} • Tap a badge to wear it
+profile.badge_equipped,Badge equipped
+profile.badge_page,{0}/{1} More ›
+profile.achievement_help.first_bloom,Win your first level
+profile.achievement_help.natural_talent,Win levels without using boosters from level 11
+profile.achievement_help.breathing_room,Win from level 11 with at most three occupied slots and no boosters
+profile.achievement_help.tough_bloom,Win Hard levels
+profile.achievement_help.lotus_mind,Win Super Hard levels
+profile.achievement_help.chain_reaction,Complete three pods with one tap on a winning level
+profile.achievement_help.key_keeper,Collect keys on winning levels
+profile.achievement_help.deep_roots,Win levels with three-layer cells
+profile.achievement_help.better_together,Win levels with connected pods
+profile.achievement_help.spring_keeper,Activate fountains on winning levels
+profile.achievement_help.picture_explorer,Collect different picture subjects
+profile.achievement_help.daily_bloom,Win Daily Challenges on different dates
+profile.achievement_help.young_gardener,Complete level 25
+profile.achievement_help.seasoned_gardener,Complete level 100
+profile.achievement_help.garden_master,Complete level 250
+profile.achievement_help.grove_keeper,Complete level 500
+profile.achievement_help.golden_gardener,Complete level 1000
+profile.achievement_help.bloom_legend,Complete level 2500
+profile.achievement_help.heart_of_bloomlings,Complete level 5000
+profile.achievement_help.forest_friend,Collect 10 different forest pictures
+profile.achievement_help.sweet_life,Collect 10 different sweets pictures
+profile.achievement_help.sea_stories,Collect 10 different sea pictures
+profile.achievement_help.space_garden,Collect 5 different space pictures
 profile.tab_avatar,Avatar
 profile.tab_frame,Frame
 profile.tab_badge,Badge
