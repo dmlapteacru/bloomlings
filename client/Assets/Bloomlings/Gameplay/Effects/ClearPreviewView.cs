@@ -15,8 +15,8 @@ namespace Bloomlings.Client.Gameplay.Effects
     /// A clearing style's live preview in a Store card's well (spec 005 FR-038, contracts/look.md §6.12;
     /// <c>ui.card.clearing</c>, the playtest's <c>Kit.ClearingPreview</c>): the small board of <see cref="ClearPreview"/>
     /// in its stone border on its plain ground, the arch under its middle and the slot below, cleared in the style in a
-    /// loop on unscaled time, the style's items drawn by two <see cref="ClearFxView"/> layers. With the pair the free
-    /// card shows Blossom and Munchers by turns (<see cref="ClearPreview.At"/>). Presentation only.
+    /// loop on unscaled time, the style's items drawn by two <see cref="ClearFxView"/> layers (<see cref="ClearPreview.At"/>).
+    /// Presentation only.
     /// </summary>
     public sealed class ClearPreviewView : MonoBehaviour
     {
@@ -30,20 +30,18 @@ namespace Bloomlings.Client.Gameplay.Effects
         private ClearFxView _fxBoard = null!;
         private ClearFxView _fxOver = null!;
         private ClearStyle _style;
-        private bool _pair;
         private VariantId? _shown;
         private int _count = -1;
         private Vector2 _size;
         private float _cell;
 
         /// <summary>A preview filling <paramref name="well"/> (a card's picture rect, which clips it).</summary>
-        public static ClearPreviewView Create(RectTransform well, ClearStyle style, bool pair, System.Func<Family, Outfit>? outfits = null)
+        public static ClearPreviewView Create(RectTransform well, ClearStyle style, System.Func<Family, Outfit>? outfits = null)
         {
             RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("ClearingPreview", well));
             var view = root.gameObject.AddComponent<ClearPreviewView>();
             view._root = root;
             view._style = style;
-            view._pair = pair;
             view.Build(outfits);
             return view;
         }
@@ -87,7 +85,7 @@ namespace Bloomlings.Client.Gameplay.Effects
                 Layout();
             }
 
-            (ClearPreview scene, float t) = ClearPreview.At(_style, _pair, Time.unscaledTime);
+            (ClearPreview scene, float t) = ClearPreview.At(_style, Time.unscaledTime);
             if (!_shown.HasValue || !_shown.Value.Equals(scene.Variant))
             {
                 Show(scene.Variant);

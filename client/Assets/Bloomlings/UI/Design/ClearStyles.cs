@@ -102,25 +102,25 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float LineGap = 0.3f;
 
-        /// <summary>The levels of the onboarding, which always play the plainer free style (Blossom).</summary>
-        public const int OnboardingLevels = 10;
-
         /// <summary>The level from which the bought styles can be bought (the Wardrobe's unlock, with the other cosmetics).</summary>
         public const int BuyFromLevel = 40;
 
         /// <summary>How long a restored tile's effect lasts after the clear (the flower, the confetti, the slot's ring).</summary>
         public const float RestoreSeconds = 1f;
 
-        /// <summary>The free pair, in the order the levels play them.</summary>
-        public static IReadOnlyList<ClearStyle> Free { get; } = new[] { ClearStyle.Blossom, ClearStyle.Munchers };
+        /// <summary>The free style, every level's while no bought style is chosen (the owner, 2026-10-11: "Munchers stays the main one").</summary>
+        public const ClearStyle Default = ClearStyle.Munchers;
 
-        /// <summary>The bought styles, in the Store's order.</summary>
+        /// <summary>The free styles: Munchers alone since 2026-10-11 (Blossom went to the Store).</summary>
+        public static IReadOnlyList<ClearStyle> Free { get; } = new[] { Default };
+
+        /// <summary>The bought styles, in the Store's order (Blossom first since the owner moved it there on 2026-10-11).</summary>
         public static IReadOnlyList<ClearStyle> Bought { get; } = new[]
         {
-            ClearStyle.Fireflies, ClearStyle.Bubbles, ClearStyle.Pushers, ClearStyle.Fireworks, ClearStyle.Parade,
+            ClearStyle.Blossom, ClearStyle.Fireflies, ClearStyle.Bubbles, ClearStyle.Pushers, ClearStyle.Fireworks, ClearStyle.Parade,
         };
 
-        public static bool IsFree(ClearStyle style) => style == ClearStyle.Blossom || style == ClearStyle.Munchers;
+        public static bool IsFree(ClearStyle style) => style == Default;
 
         /// <summary>The style's id: its save id for a bought one (<c>clear.fireflies</c>), its name key's tail for all.</summary>
         public static string Id(ClearStyle style) => "clear." + Key(style);
@@ -143,18 +143,12 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// The style a level plays: the chosen bought style when there is one, else the free pair by level, Blossom on
-        /// the onboarding's levels and odd levels, Munchers on even levels after it (the owner, 2026-10-06).
+        /// The style a level plays: the chosen bought style when there is one, else Munchers on every level (the owner,
+        /// 2026-10-11; before, Blossom and Munchers alternated by level). <paramref name="level"/> stays for the callers: a
+        /// rule by level may come back.
         /// </summary>
-        public static ClearStyle ForLevel(int level, ClearStyle? chosen = null)
-        {
-            if (chosen.HasValue && !IsFree(chosen.Value))
-            {
-                return chosen.Value;
-            }
-
-            return level > OnboardingLevels && level % 2 == 0 ? ClearStyle.Munchers : ClearStyle.Blossom;
-        }
+        public static ClearStyle ForLevel(int level, ClearStyle? chosen = null) =>
+            chosen.HasValue && !IsFree(chosen.Value) ? chosen.Value : Default;
 
         /// <summary>A trip of <paramref name="cells"/> route cells, in every style: <see cref="PerCell"/> a cell plus <see cref="Base"/>.</summary>
         public static float TripSeconds(int cells) => (Math.Max(1, cells) * PerCell) + Base;

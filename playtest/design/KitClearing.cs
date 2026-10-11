@@ -14,13 +14,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A clearing style's live preview filling <paramref name="well"/> (<c>ui.card.clearing</c>): the small board of
         /// <see cref="ClearPreview"/> in its stone border with the arch under its middle and the slot below, cleared in the
-        /// style in a loop on the painter's clock. With <paramref name="pair"/> the free card shows Blossom and Munchers by
-        /// turns, a loop each.
+        /// style in a loop on the painter's clock.
         /// </summary>
-        public static void ClearingPreview(IPainter p, Box well, ClearStyle style, bool pair = false)
+        public static void ClearingPreview(IPainter p, Box well, ClearStyle style)
         {
             p.Mark("ui.card.clearing");
-            (ClearPreview preview, float t) = ClearPreview.At(style, pair, (float)p.Now);
+            (ClearPreview preview, float t) = ClearPreview.At(style, (float)p.Now);
             Box bounds = ClearPreview.Bounds;
             float cell = Math.Min(well.Width * 0.84f / bounds.Width, well.Height * 0.9f / bounds.Height);
             float ox = well.CenterX - (bounds.Width * cell / 2f);

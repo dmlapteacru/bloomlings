@@ -188,8 +188,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `TripSeconds` split into each style's legs (Colony Flow's ants' walk, 0.11 s a cell, a pod's walkers 0.30 s apart, since the owner's video of 2026-10-08), the walkers' line from each arch) and `ClearLook` (each frame's walkers,
   restores and flights as an `FxList` of items in cell units) are drawn by the playtest's `ClearPainter` and Unity's
   `ClearFxView`, so both builds and the Store's previews (`ClearPreview`; `Kit.ClearingPreview`, `ClearPreviewView`)
-  show the same thing. Blossom and Munchers are free and alternate by level (`ClearStyles.ForLevel`); Fireflies,
-  Bubbles, Pushers, Fireworks and Confetti Parade are board cosmetics bought once for Petals from L40 on the Store's
+  show the same thing. Munchers is the free style and plays on every level (`ClearStyles.Default`, `ForLevel`; the owner,
+  2026-10-11); Blossom, Fireflies, Bubbles, Pushers, Fireworks and Confetti Parade are board cosmetics bought once for Petals from L40 on the Store's
   Animations tab (`ClearingService`; Remote Config `economy.price.clearing`, the save's `clear.<name>` and
   `cosmetics.equipped.board.clearing`), and a chosen one plays on every level. The rules' clear stays at each trip's
   end; `LevelAnimator` and `TimelinePlayer` keep the same schedule.

@@ -72,7 +72,7 @@ namespace Bloomlings.Client.UI.Screens
     /// </para>
     /// <para>
     /// The Animations tab (spec 005 FR-038, contracts/look.md §6.12; the playtest's <c>StoreScreen.Animations</c>), from
-    /// the Store's unlock: the free pair's card first, then each bought clearing style's, three to a row from the list's
+    /// the Store's unlock: the free style's card (Munchers) first, then each bought clearing style's, three to a row from the list's
     /// top (<see cref="ReferenceStoreRegions.ClearingCard"/>), each well holding the style's live preview
     /// (<see cref="ClearPreviewView"/>); a style not owned shows its price, with the padlock badge (the preview still
     /// bright) before L40; the chosen one is checked. Since the owner's request of 2026-10-06 the previews loop all the time
@@ -584,13 +584,13 @@ namespace Bloomlings.Client.UI.Screens
         // ---- The board's clearing styles (spec 005 FR-038, contracts/look.md §6.12) ----
 
         /// <summary>
-        /// The Animations tab (the playtest's <c>StoreScreen.Animations</c>): the free pair's card, then each bought style's
+        /// The Animations tab (the playtest's <c>StoreScreen.Animations</c>): the free style's card, then each bought style's
         /// card with its live preview, a page of them at a time, and the footer line between the page arrows.
         /// </summary>
         private void Animations(ClearingService clearing)
         {
             ReferenceStoreRegions r = _regions;
-            var styles = new List<ClearStyle> { ClearStyle.Blossom };
+            var styles = new List<ClearStyle>(ClearStyles.Free);
             styles.AddRange(ClearStyles.Bought);
             int perPage = r.ClearingsPerPage;
             int pages = Mathf.Max(1, (styles.Count + perPage - 1) / perPage);
@@ -612,22 +612,21 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// A clearing style's card (<c>ui.card.clearing</c> in an outfit card): its live preview in the well, looping all the
-        /// time (the free card showing Blossom and Munchers by turns), its name and its action button
+        /// time, its name and its action button
         /// (<see cref="UiKit.ClearingButton"/>, spec 005 FR-038 as amended on 2026-10-06): the green "Buy" with the price,
         /// "Choose", or "Chosen" with the check; before L40 the price pill and the padlock badge (the preview stays bright).
         /// The whole card is the button; the chosen card takes no tap.
         /// </summary>
         private void ClearingCard(Box box, ClearStyle style, ClearingService clearing)
         {
-            bool free = ClearStyles.IsFree(style);
             ClearingAction action = clearing.ActionOf(style, _level);
             bool locked = action == ClearingAction.Locked;
             Cost? price = locked ? Cost.Petals(clearing.Price) : (Cost?)null;
-            string name = Loc.T(free ? "clearing.free_pair" : ClearStyles.NameKey(style));
+            string name = Loc.T(ClearStyles.NameKey(style));
             Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(style, name, clearing);
             OutfitCardView card = UiKit.OutfitCard("Clearing", _list, name, tap, price, pillRoom: true);
             PlaceInList((RectTransform)card.transform, box);
-            ClearPreviewView.Create(card.Picture, style, pair: free, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
+            ClearPreviewView.Create(card.Picture, style, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
             card.Show(action == ClearingAction.Chosen);
             if (!locked)
             {
@@ -661,7 +660,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             if (clearing.Check(style, _level) == ClearingTap.Bought)
             {
-                _confirm.ShowPetals(PurchaseOffer.ForPetals(name, clearing.Price), _petals, well => ClearPreviewView.Create(well, style, pair: false, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null), () => Tapped(clearing.Tap(style, _level)), () => Tapped(ClearingTap.Short));
+                _confirm.ShowPetals(PurchaseOffer.ForPetals(name, clearing.Price), _petals, well => ClearPreviewView.Create(well, style, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null), () => Tapped(clearing.Tap(style, _level)), () => Tapped(ClearingTap.Short));
                 return;
             }
 

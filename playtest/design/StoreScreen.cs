@@ -363,11 +363,11 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The Store's Animations (spec 005 FR-038 as amended on 2026-10-06, contracts/look.md §6.12): the free pair's card
-        /// first, then each bought clearing style, each card holding the style's live preview (<see cref="Kit.ClearingPreview"/>),
+        /// The Store's Animations (spec 005 FR-038 as amended on 2026-10-11, contracts/look.md §6.12): the free style's card
+        /// (Munchers) first, then each bought clearing style, each card holding the style's live preview (<see cref="Kit.ClearingPreview"/>),
         /// looping all the time, and its action button (<see cref="Kit.ClearingButton"/>): the green "Buy" with the price
         /// (the purchase confirmation asks first, FR-040), "Choose" for an owned style not chosen, "Chosen" with the check for
-        /// the chosen one (the free pair's while no bought style is chosen). Before L40 a style not owned keeps its cost pill
+        /// the chosen one (Munchers' while no bought style is chosen). Before L40 a style not owned keeps its cost pill
         /// and the padlock badge (the preview still bright), and a tap says from which level. The whole card is the button
         /// (one touch target, its button inside it); the chosen card takes no tap.
         /// </summary>
@@ -375,7 +375,7 @@ namespace Bloomlings.Playtest.Design
         {
             ClearingService clearing = app.Meta.Clearing;
             int level = app.Meta.CurrentLevel;
-            var styles = new List<ClearStyle> { ClearStyle.Blossom };
+            var styles = new List<ClearStyle>(ClearStyles.Free);
             styles.AddRange(ClearStyles.Bought);
             int perPage = r.ClearingsPerPage;
             int pages = Math.Max(1, (styles.Count + perPage - 1) / perPage);
@@ -389,13 +389,12 @@ namespace Bloomlings.Playtest.Design
                 }
 
                 ClearStyle style = styles[index];
-                bool free = ClearStyles.IsFree(style);
-                string name = PlaytestText.T(free ? "clearing.free_pair" : ClearStyles.NameKey(style));
+                string name = PlaytestText.T(ClearStyles.NameKey(style));
                 ClearingAction action = clearing.ActionOf(style, level);
                 bool locked = action == ClearingAction.Locked;
                 Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(app, style, name);
                 Box box = r.ClearingCard(slot);
-                Kit.OutfitCard(p, box, name, action == ClearingAction.Chosen, well => Kit.ClearingPreview(p, well, style, pair: free), locked ? Cost.Petals(clearing.Price) : (Cost?)null, tap, pillRoom: true, locked: locked, dim: false);
+                Kit.OutfitCard(p, box, name, action == ClearingAction.Chosen, well => Kit.ClearingPreview(p, well, style), locked ? Cost.Petals(clearing.Price) : (Cost?)null, tap, pillRoom: true, locked: locked, dim: false);
                 if (!locked)
                 {
                     Kit.ClearingButton(p, ClearingCard.Button(box), action, clearing.Price, tap != null);

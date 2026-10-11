@@ -794,7 +794,7 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>
-        /// The Store's Animations tab (spec 005 FR-038): the free pair's card and the five bought clearing styles, each with
+        /// The Store's Animations tab (spec 005 FR-038): the free style's card (Munchers) and the six bought clearing styles (Blossom first), each with
         /// its live preview; at Level 45 Fireflies is bought and chosen, the others show their price; a tap buys one.
         /// </summary>
         public static IEnumerable<Fixture> Clearing(ContentSet content)
@@ -830,7 +830,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.StoreTab == 1, "a tap on the Animations tab shows the clearing styles");
                 Run(app, p, 0.1f);
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-                Box bubbles = r.ClearingCard(2);
+                Box bubbles = r.ClearingCard(ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles));
                 int petals = app.Meta.Economy.Petals;
                 Tap(p, Box.FromCenter(bubbles.CenterX, bubbles.CenterY, 1f, 1f));
                 Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "a style is not bought before Level 40");
@@ -842,7 +842,7 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>
         /// The purchase confirmation (spec 005 FR-040) and the Animations tab's buttons (FR-038 as amended on 2026-10-06):
         /// at Level 45 a booster used without charges asks first, Cancel and the system back buy nothing, Buy buys; on the
-        /// Store's Animations a style's Buy asks, its Buy buys and chooses it ("Chosen"), the free pair's card then reads
+        /// Store's Animations a style's Buy asks, its Buy buys and chooses it ("Chosen"), the free style's card then reads
         /// "Choose"; the frame shows the confirmation for Pushers over the tab, its live preview in the well.
         /// </summary>
         public static IEnumerable<Fixture> Purchases(ContentSet content)
@@ -890,16 +890,17 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.2f);
                 Expect(app.NeedsFrames && app.StoreMoving, "the live previews keep the host drawing");
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, NumberText.Group(app.Meta.Clearing.Price)), "the free pair Chosen, the others their price (no Buy word)");
+                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, NumberText.Group(app.Meta.Clearing.Price)), "Munchers Chosen, the others their price (no Buy word)");
                 petals = app.Meta.Economy.Petals;
-                Box bubbles = ClearingCard.Button(r.ClearingCard(2));
+                int bubblesCard = ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles);
+                Box bubbles = ClearingCard.Button(r.ClearingCard(bubblesCard));
                 Tap(p, bubbles);
                 Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Name == PlaytestText.T("clearing.bubbles") && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "Bubbles' Buy asks first");
                 Run(app, p, 0.3f);
                 Tap(p, confirm.Cancel);
                 Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "Cancel buys nothing");
                 Run(app, p, 0.1f);
-                Tap(p, Box.FromCenter(r.ClearingCard(2).CenterX, r.ClearingCard(2).Top + (r.ClearingCard(2).Height * 0.3f), 1f, 1f));
+                Tap(p, Box.FromCenter(r.ClearingCard(bubblesCard).CenterX, r.ClearingCard(bubblesCard).Top + (r.ClearingCard(bubblesCard).Height * 0.3f), 1f, 1f));
                 Expect(app.IsOpen(Overlay.Purchase), "a tap on the card's preview asks too");
                 Expect(app.Back() && app.Overlays.Count == 0 && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "the system back buys nothing");
                 Run(app, p, 0.1f);
@@ -908,10 +909,10 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, confirm.Confirm);
                 Expect(app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Clearing.IsChosen(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals - app.Meta.Clearing.Price, "Buy buys Bubbles and chooses it");
                 Run(app, p, 0.1f);
-                Expect(Shows(p, PlaytestText.T("clearing.choose")) && Shows(p, PlaytestText.T("clearing.chosen")), "the free pair now Choose, Bubbles Chosen");
+                Expect(Shows(p, PlaytestText.T("clearing.choose")) && Shows(p, PlaytestText.T("clearing.chosen")), "Munchers now Choose, Bubbles Chosen");
 
                 // The frame: Pushers' confirmation over the tab, its live preview in the well.
-                Tap(p, ClearingCard.Button(r.ClearingCard(3)));
+                Tap(p, ClearingCard.Button(r.ClearingCard(ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Pushers))));
                 Expect(app.IsOpen(Overlay.Purchase), "Pushers' Buy asks");
                 Run(app, p, 2.5f);
                 Expect(p.Slots.Contains("ui.card.purchase") && p.Slots.Contains("fx.clear.pushers"), "the card with the live preview");

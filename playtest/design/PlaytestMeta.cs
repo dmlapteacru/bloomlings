@@ -89,7 +89,7 @@ namespace Bloomlings.Playtest
 
         public ProfileService Profile { get; }
 
-        /// <summary>The board's clearing styles: the free pair by level, the bought ones (spec 005 FR-038).</summary>
+        /// <summary>The board's clearing styles: the free one (Munchers), the bought ones (spec 005 FR-038).</summary>
         public ClearingService Clearing { get; }
 
         /// <summary>Unlocks reached by the last win (the Home and win card mention them).</summary>

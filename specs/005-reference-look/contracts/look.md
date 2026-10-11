@@ -1559,7 +1559,7 @@ divided by `WalkSpeedUp`, the fixed seconds by `ActSpeedUp`:
 
 | Style | Slot | Out | Act | Back | Fin | Look |
 |---|---|---|---|---|---|---|
-| Blossom (free) | `fx.clear.blossom` | 1.1n | 1.4 | 0 | 0 | the Bloomling hops onto its tile and sinks into it; the tile sinks turning 18° to half and fades; a five-petal flower of the variant's color opens (overshooting) and, after the clear, fades into the picture over 0.9 s with a white `fx.sparkle` (a Drop-family tile splashes two `fx.droplet` of its color lightened 0.72 instead); the neighbours within 2.5 cells sway up to 7° about their feet |
+| Blossom (bought) | `fx.clear.blossom` | 1.1n | 1.4 | 0 | 0 | the Bloomling hops onto its tile and sinks into it; the tile sinks turning 18° to half and fades; a five-petal flower of the variant's color opens (overshooting) and, after the clear, fades into the picture over 0.9 s with a white `fx.sparkle` (a Drop-family tile splashes two `fx.droplet` of its color lightened 0.72 instead); the neighbours within 2.5 cells sway up to 7° about their feet |
 | Munchers (free) | `fx.clear.munchers` | 0.5n | 1.1 | 0.6n | 0.3 | it climbs on the tile and eats it in three bites (the tile squashes by each), crumbs of the variant's color scattering, then waddles home round and full |
 | Fireflies | `fx.clear.fireflies` | 0.9n | 0.4 | 0 | 0.2n + 1 | the tile glows `garden.glow` and breaks into `fx.firefly` motes with `fx.firefly_glow` halos that hover, then drift in a trailing swarm to the slot |
 | Bubbles | `fx.clear.bubbles` | 0.9n | 0.5 | 0 | 0.2n + 0.9 | it blows an `fx.glass` bubble (an `fx.glass_rim` ring with a white glint) round the tile, which floats on a lazy wave to the slot and pops |
@@ -1569,14 +1569,15 @@ divided by `WalkSpeedUp`, the fixed seconds by `ActSpeedUp`:
 
 While a style holds a walker's tile (`ClearLook.Holds`: its Act to its clear) the host leaves the tile off the board,
 so its ground shows; the rules' clear stays at the trip's end (the outcome never depends on the look). A tile landing
-in its slot draws a white ring there for 0.45 s. The free pair plays by level (Blossom on L1–10 and odd levels,
-Munchers on even levels from 12) until a bought style is chosen (`ClearingService`).
+in its slot draws a white ring there for 0.45 s. Munchers, the free style, plays on every level until a bought style
+is chosen (`ClearStyles.ForLevel`, `ClearingService`; the owner, 2026-10-11: before, Blossom and Munchers alternated by
+level, and Blossom is now sold with the others).
 
 The Store's Animations tab (`ui.card.clearing`; the playtest's `StoreScreen.Animations`, Unity's
 `StoreScreen.Animations`), from the Store's unlock: the cards are outfit cards (§4.6) three to a row from the list's
 top (`ReferenceStoreRegions.ClearingCard`, `ClearingsPerPage`; no family tabs), the footer line
-`store.animations_footer` ("Blossom and Munchers take turns. A chosen style plays on every level.") between the page
-arrows. The free card first (`clearing.free_pair` "Free pair"), then the five bought styles by their names
+`store.animations_footer` ("Munchers is free. A chosen style plays on every level.") between the page
+arrows. The free card first (Munchers, `clearing.munchers`), then the six bought styles, Blossom first, by their names
 (`clearing.<name>`). Each card carries its action button (`ui.button.clearing`; the owner's request of 2026-10-06:
 "It is not clear how to choose an animation"; `ClearingService.ActionOf`, `Kit.ClearingButton` / `UiKit.ClearingButton`)
 where an outfit card's cost pill hangs, a little wider (`ClearingCard.Button`: 0.94 of the card's width, 0.3 of its
@@ -1597,8 +1598,7 @@ variant per style (Blossom Flower, Munchers Leaf, Fireflies Violet Bud, Bubbles 
 Parade Acorn) in its stone border on its plain ground (`BoardPictures.PlainGround`, the variant's color lightened
 0.55), the arch under its middle column and one slot plate below at its left (`ClearPreview.Slot`, clear of the
 badge), the whole picture (`ClearPreview.Bounds`, 5 × 4.8 cells) centered at most 84% of the well wide and 90% tall;
-its line of walkers clears it as the board is scheduled, then it rests 1.8 s and is laid again. The free card shows
-Blossom's loop, then Munchers' (`ClearPreview.At`). The previews loop all the time, never only under a finger: the
+its line of walkers clears it as the board is scheduled, then it rests 1.8 s and is laid again. Each card shows its style's own loop (`ClearPreview.At`). The previews loop all the time, never only under a finger: the
 playtest keeps drawing frames while the tab shows (`DesignApp.StoreMoving`, about 30 a second), Unity's
 `ClearPreviewView` follows unscaled time every frame. A tap on Buy asks the purchase confirmation first (§6.14, FR-040,
 `ClearingService.Check`) and buys and chooses the style only on its Buy; Choose chooses at once; before L40 a tap says

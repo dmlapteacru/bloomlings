@@ -81,7 +81,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
         public float Speed { get; set; } = 1f;
 
         /// <summary>The level's clearing style (spec 005 FR-038): its legs decide when a walker's tile leaves its cell.</summary>
-        public ClearStyle Style { get; set; } = ClearStyle.Blossom;
+        public ClearStyle Style { get; set; } = ClearStyles.Default;
 
         /// <summary>The backlog beyond which playback speeds up (Remote Config <c>fx.backlogThresholdMs</c>).</summary>
         public float BacklogThresholdSeconds { get; set; } = RemoteConfigKeys.FxBacklogThresholdMs.Default / 1000f;

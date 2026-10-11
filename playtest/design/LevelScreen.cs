@@ -59,7 +59,7 @@ namespace Bloomlings.Playtest.Design
             Session = LevelSession.Load(definition, content.GetPicture(definition.Picture), new SessionOptions(content.ContentVersion, content.ShuffleNodeBudget));
             RefreshSpeed();
 
-            // The level's clearing style (spec 005 FR-038): the free pair by level, or the chosen bought one.
+            // The level's clearing style (spec 005 FR-038): Munchers, or the chosen bought one.
             Animator.Style = app.Meta.Clearing.StyleFor(Level);
             Animator.Arrived += OnArrived;
             Animator.Shown += OnShown;

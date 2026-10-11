@@ -68,7 +68,7 @@ store.booster_owned,{0} (owned {1})
 store.tab_shop,Shop
 store.tab_cosmetics,Cosmetics
 store.tab_animations,Animations
-store.animations_footer,Blossom and Munchers take turns. A chosen style plays on every level.
+store.animations_footer,Munchers is free. A chosen style plays on every level.
 clearing.blossom,Blossom
 clearing.munchers,Munchers
 clearing.fireflies,Fireflies
@@ -76,7 +76,6 @@ clearing.bubbles,Bubbles
 clearing.pushers,Pushers
 clearing.fireworks,Fireworks
 clearing.parade,Confetti Parade
-clearing.free_pair,Free pair
 clearing.choose,Choose
 clearing.chosen,Chosen
 store.cosmetic,{0} ({1})

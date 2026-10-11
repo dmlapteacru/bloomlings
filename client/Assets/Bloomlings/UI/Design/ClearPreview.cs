@@ -81,23 +81,11 @@ namespace Bloomlings.Client.UI.Design
             }
         }
 
-        /// <summary>
-        /// The scene a card shows at <paramref name="now"/> (any clock) and its loop time: the style's own loop, or with
-        /// <paramref name="pair"/> the free pair's card, Blossom and Munchers by turns, a loop each.
-        /// </summary>
-        public static (ClearPreview Scene, float T) At(ClearStyle style, bool pair, float now)
+        /// <summary>The scene a card shows at <paramref name="now"/> (any clock) and its loop time: the style's own loop.</summary>
+        public static (ClearPreview Scene, float T) At(ClearStyle style, float now)
         {
-            if (!pair)
-            {
-                ClearPreview scene = Of(style);
-                return (scene, scene.Local(now));
-            }
-
-            ClearPreview first = Of(ClearStyle.Blossom);
-            ClearPreview second = Of(ClearStyle.Munchers);
-            float both = first.Period + second.Period;
-            float local = now - ((float)Math.Floor(now / both) * both);
-            return local < first.Period ? (first, local) : (second, local - first.Period);
+            ClearPreview scene = Of(style);
+            return (scene, scene.Local(now));
         }
 
         /// <summary>Whether the tile at (column, row) is cleared at loop time <paramref name="t"/>.</summary>

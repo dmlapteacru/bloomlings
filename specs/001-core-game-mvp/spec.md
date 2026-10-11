@@ -669,6 +669,8 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
   and Munchers are free and play by level. Fireflies, Bubbles, Pushers, Fireworks and Confetti Parade are bought once
   for 5000 Petals each from L40 in the Store's Animations tab, whose previews show from L12. A chosen one plays on every
   level. Every style takes the same time per tile, so none changes the pace or an outcome.
+  *Amended 2026-10-11 (the owner):* Blossom moves to the Store as a sixth bought style at the same price; Munchers is
+  the only free style and plays on every level until a bought style is chosen (spec 005 FR-038 as amended).
 - **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50. *(Amended 2026-10-07, the owner.)* Each puzzle MUST show a picture of the Daily Challenge's own, which no other puzzle and no level shows; a subject comes back only after 60 days at least. Every puzzle MUST be on the biggest board, 22×28. Each week MUST have four Normal, two Hard and one Super Hard puzzle. Every puzzle MUST use only the mechanics unlocked by L50.
 - **FR-065**: Every finished picture MUST be added to a Collection that the player can view. The Collection is never a level selector.
 - **FR-066**: Background themes MUST rotate automatically by level band. This is visual only; there are no navigable areas.

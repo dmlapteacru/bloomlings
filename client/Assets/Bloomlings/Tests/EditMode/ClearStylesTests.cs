@@ -35,27 +35,27 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheFreePair_AlternatesByLevel_AndAChosenBoughtStyleWins()
+        public void Munchers_PlaysEveryLevel_AndAChosenBoughtStyleWins()
         {
-            for (int level = 1; level <= ClearStyles.OnboardingLevels; level++)
+            // The owner, 2026-10-11: Blossom goes to the Store, Munchers stays the main style.
+            foreach (int level in new[] { 1, 2, 10, 11, 12, 13, 500 })
             {
-                Assert.That(ClearStyles.ForLevel(level), Is.EqualTo(ClearStyle.Blossom), "the onboarding plays Blossom");
+                Assert.That(ClearStyles.ForLevel(level), Is.EqualTo(ClearStyle.Munchers), "level " + level);
             }
 
-            Assert.That(ClearStyles.ForLevel(11), Is.EqualTo(ClearStyle.Blossom));
-            Assert.That(ClearStyles.ForLevel(12), Is.EqualTo(ClearStyle.Munchers));
-            Assert.That(ClearStyles.ForLevel(13), Is.EqualTo(ClearStyle.Blossom));
-            Assert.That(ClearStyles.ForLevel(500), Is.EqualTo(ClearStyle.Munchers));
+            Assert.That(ClearStyles.Default, Is.EqualTo(ClearStyle.Munchers));
             Assert.That(ClearStyles.ForLevel(12, ClearStyle.Fireflies), Is.EqualTo(ClearStyle.Fireflies));
             Assert.That(ClearStyles.ForLevel(3, ClearStyle.Parade), Is.EqualTo(ClearStyle.Parade));
-            Assert.That(ClearStyles.ForLevel(12, ClearStyle.Blossom), Is.EqualTo(ClearStyle.Munchers), "a free style is never chosen: the pair plays");
+            Assert.That(ClearStyles.ForLevel(5, ClearStyle.Blossom), Is.EqualTo(ClearStyle.Blossom), "a bought Blossom plays");
+            Assert.That(ClearStyles.ForLevel(12, ClearStyle.Munchers), Is.EqualTo(ClearStyle.Munchers));
         }
 
         [Test]
-        public void TheCatalog_HasTwoFreeAndFiveBoughtStyles_WithIdsAndSlots()
+        public void TheCatalog_HasOneFreeAndSixBoughtStyles_WithIdsAndSlots()
         {
-            Assert.That(ClearStyles.Free, Is.EquivalentTo(new[] { ClearStyle.Blossom, ClearStyle.Munchers }));
-            Assert.That(ClearStyles.Bought.Count, Is.EqualTo(5));
+            Assert.That(ClearStyles.Free, Is.EquivalentTo(new[] { ClearStyle.Munchers }));
+            Assert.That(ClearStyles.Bought.Count, Is.EqualTo(6));
+            Assert.That(ClearStyles.Bought[0], Is.EqualTo(ClearStyle.Blossom), "Blossom first in the Store");
             Assert.That(ClearStyles.Free.Concat(ClearStyles.Bought), Is.EquivalentTo(Styles));
             foreach (ClearStyle style in Styles)
             {
@@ -160,25 +160,20 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheFreeCard_ShowsBlossomAndMunchersByTurns_ABoughtCardItsOwnLoop()
+        public void EveryCard_ShowsItsOwnStylesLoop()
         {
             ClearPreview blossom = ClearPreview.Of(ClearStyle.Blossom);
-            ClearPreview munchers = ClearPreview.Of(ClearStyle.Munchers);
             Assert.That(ClearPreview.Of(ClearStyle.Blossom), Is.SameAs(blossom), "made once");
-            float both = blossom.Period + munchers.Period;
-            foreach (float cycle in new[] { 0f, both, 7f * both })
+            foreach (ClearStyle style in new[] { ClearStyle.Munchers, ClearStyle.Blossom, ClearStyle.Bubbles })
             {
-                (ClearPreview first, float t1) = ClearPreview.At(ClearStyle.Blossom, true, cycle + 1f);
-                Assert.That(first, Is.SameAs(blossom));
-                Assert.That(t1, Is.EqualTo(1f).Within(0.01f));
-                (ClearPreview second, float t2) = ClearPreview.At(ClearStyle.Blossom, true, cycle + blossom.Period + 2f);
-                Assert.That(second, Is.SameAs(munchers), "Munchers' loop follows Blossom's");
-                Assert.That(t2, Is.EqualTo(2f).Within(0.01f));
+                ClearPreview scene = ClearPreview.Of(style);
+                foreach (float cycle in new[] { 0f, scene.Period, 7f * scene.Period })
+                {
+                    (ClearPreview own, float t) = ClearPreview.At(style, cycle + 1f);
+                    Assert.That(own, Is.SameAs(scene), style.ToString());
+                    Assert.That(t, Is.EqualTo(1f).Within(0.01f));
+                }
             }
-
-            (ClearPreview own, float t) = ClearPreview.At(ClearStyle.Bubbles, false, ClearPreview.Of(ClearStyle.Bubbles).Period + 3f);
-            Assert.That(own.Style, Is.EqualTo(ClearStyle.Bubbles));
-            Assert.That(t, Is.EqualTo(3f).Within(0.01f));
         }
 
         [Test]

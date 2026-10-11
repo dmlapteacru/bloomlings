@@ -1912,7 +1912,7 @@ namespace Bloomlings.Client.Gameplay
             _board.Build(session.View, session.Definition, session.Picture);
             _fxBoard.transform.SetAsLastSibling();
 
-            // The level's clearing style: the free pair by level, or the chosen bought one (spec 005 FR-038).
+            // The level's clearing style: Munchers, or the chosen bought one (spec 005 FR-038).
             int styleLevel = Flow?.CurrentAttempt?.LevelNumber ?? session.Definition.LevelNumber;
             _timeline.Style = Service<ClearingService>()?.StyleFor(styleLevel) ?? ClearStyles.ForLevel(styleLevel);
             _ladder.Reset();

@@ -9,7 +9,7 @@ namespace Bloomlings.Client.Meta.Clearing
     /// <summary>What a tap on a clearing style's card did (<see cref="ClearingService.Tap"/>).</summary>
     public enum ClearingTap
     {
-        /// <summary>The style is now chosen (an owned one, or the free pair).</summary>
+        /// <summary>The style is now chosen (an owned one, or the free style).</summary>
         Chosen,
 
         /// <summary>The style was bought for Petals and chosen.</summary>
@@ -37,19 +37,19 @@ namespace Bloomlings.Client.Meta.Clearing
         /// <summary>Not owned from L40: the green "Buy" with the price; a tap opens the purchase confirmation (FR-040).</summary>
         Buy,
 
-        /// <summary>Owned (or the free pair) but not chosen: the cream "Choose".</summary>
+        /// <summary>Owned (or the free style) but not chosen: the cream "Choose".</summary>
         Choose,
 
-        /// <summary>The chosen one (the free pair while no bought style is chosen): "Chosen" with a check; a tap changes nothing.</summary>
+        /// <summary>The chosen one (the free style while no bought style is chosen): "Chosen" with a check; a tap changes nothing.</summary>
         Chosen,
     }
 
     /// <summary>
     /// The board's clearing styles as board cosmetics (spec 005 FR-038; spec 001 FR-063 and FR-051 as amended): the free
-    /// pair, Blossom and Munchers, plays by level; the five bought styles are bought once with Petals from
+    /// style, Munchers, plays on every level; the six bought styles (Blossom among them since 2026-10-11) are bought once with Petals from
     /// <see cref="ClearStyles.BuyFromLevel"/> (Remote Config <c>economy.price.clearing</c>, 5000 for now) and, once chosen,
     /// play on every level. The save keeps the bought ones in <c>cosmetics.owned</c> (<c>clear.&lt;name&gt;</c>) and the
-    /// chosen one in <c>cosmetics.equipped.board.clearing</c>; no chosen style means the free pair. Presentation only:
+    /// chosen one in <c>cosmetics.equipped.board.clearing</c>; no chosen style means Munchers. Presentation only:
     /// nothing here reaches the level rules, and every style takes the same time. Engine-free.
     /// </summary>
     public sealed class ClearingService
@@ -80,7 +80,7 @@ namespace Bloomlings.Client.Meta.Clearing
 
         public bool Owns(ClearStyle style) => ClearStyles.IsFree(style) || _save.Cosmetics.Owned.Contains(ClearStyles.Id(style));
 
-        /// <summary>The chosen bought style while it is owned, or null for the free pair.</summary>
+        /// <summary>The chosen bought style while it is owned, or null for the free style.</summary>
         public ClearStyle? Chosen
         {
             get
@@ -90,7 +90,7 @@ namespace Bloomlings.Client.Meta.Clearing
             }
         }
 
-        /// <summary>Whether the card shows as chosen: the chosen bought style, or the free pair's card when there is none.</summary>
+        /// <summary>Whether the card shows as chosen: the chosen bought style, or the free style's card when there is none.</summary>
         public bool IsChosen(ClearStyle style) => Chosen.HasValue ? Chosen.Value == style : ClearStyles.IsFree(style);
 
         /// <summary>The style a level plays (<see cref="ClearStyles.ForLevel"/>).</summary>
@@ -132,7 +132,7 @@ namespace Bloomlings.Client.Meta.Clearing
         }
 
         /// <summary>
-        /// A tap on a style's card at <paramref name="level"/>: an owned style (or the free pair) is chosen; a bought one
+        /// A tap on a style's card at <paramref name="level"/>: an owned style (or the free style) is chosen; a bought one
         /// not owned yet is bought for Petals and chosen, from L40. The hosts call it for a purchase only once the player
         /// has confirmed it (spec 005 FR-040, <see cref="Check"/>).
         /// </summary>
@@ -184,7 +184,7 @@ namespace Bloomlings.Client.Meta.Clearing
             return ClearingTap.Bought;
         }
 
-        /// <summary>Chooses an owned bought style, or the free pair for a free one; false for a style not owned.</summary>
+        /// <summary>Chooses an owned bought style, or the free style for the free one; false for a style not owned.</summary>
         public bool Choose(ClearStyle style)
         {
             if (!Owns(style))

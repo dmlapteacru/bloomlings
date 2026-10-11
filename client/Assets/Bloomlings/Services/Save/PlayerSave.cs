@@ -312,7 +312,7 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>The owner of the board's slot (the chosen clearing style, spec 005 FR-038).</summary>
         public const string BoardOwner = "board";
 
-        /// <summary>The board slot of the chosen bought clearing style: <c>board.clearing</c> (none: the free pair).</summary>
+        /// <summary>The board slot of the chosen bought clearing style: <c>board.clearing</c> (none: the free style, Munchers).</summary>
         public const string ClearingKind = "clearing";
 
         /// <summary>The kinds of slot each owner has (the family slots are worn, the profile and board slots are shown).</summary>

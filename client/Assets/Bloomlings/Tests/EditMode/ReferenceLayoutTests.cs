@@ -1044,10 +1044,11 @@ namespace Bloomlings.Client.Tests
 
                         Assert.That(r.OutfitGrid.Bottom, Is.LessThanOrEqualTo(r.Footer.Top + 0.5f), at + ": the cards above the footer");
 
-                        // The Animations tab's cards (spec 005 FR-038): from the list's top, the six styles' cards on one
-                        // page, laid as the outfit cards, above the footer.
+                        // The Animations tab's cards (spec 005 FR-038): from the list's top, at least two rows of them a page,
+                        // laid as the outfit cards, above the footer; since Blossom joined the bought styles (2026-10-11) the
+                        // seventh card may turn to a second page, as the outfits do.
                         Assert.That(r.ClearingGrid.Top, Is.EqualTo(r.List.Top).Within(0.5f), at + ": the clearing cards from the list's top");
-                        Assert.That(r.ClearingsPerPage, Is.GreaterThanOrEqualTo(1 + ClearStyles.Bought.Count), at + ": every style on one page");
+                        Assert.That(r.ClearingsPerPage, Is.GreaterThanOrEqualTo(2 * ReferenceStoreRegions.OutfitColumns), at + ": two rows of styles a page");
                         for (int i = 0; i < r.ClearingsPerPage; i++)
                         {
                             Box card = r.ClearingCard(i);

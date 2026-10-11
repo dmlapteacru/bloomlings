@@ -15,15 +15,18 @@ namespace Bloomlings.Client.Tests
         private static readonly DateTime Today = new DateTime(2026, 10, 6, 0, 0, 0, DateTimeKind.Utc);
 
         [Test]
-        public void TheFreePair_PlaysByLevel_UntilABoughtStyleIsChosen()
+        public void Munchers_PlaysEveryLevel_UntilABoughtStyleIsChosen()
         {
             ClearingService clearing = Service(out _, out _);
             Assert.That(clearing.Price, Is.EqualTo(5000), "the owner's price, for now");
             Assert.That(clearing.Chosen, Is.Null);
-            Assert.That(clearing.StyleFor(5), Is.EqualTo(ClearStyle.Blossom));
+            Assert.That(clearing.StyleFor(1), Is.EqualTo(ClearStyle.Munchers));
+            Assert.That(clearing.StyleFor(5), Is.EqualTo(ClearStyle.Munchers));
             Assert.That(clearing.StyleFor(44), Is.EqualTo(ClearStyle.Munchers));
-            Assert.That(clearing.IsChosen(ClearStyle.Blossom) && clearing.IsChosen(ClearStyle.Munchers), Is.True, "the free card is the chosen one");
+            Assert.That(clearing.IsChosen(ClearStyle.Munchers), Is.True, "the free card is the chosen one");
+            Assert.That(clearing.IsChosen(ClearStyle.Blossom), Is.False);
             Assert.That(clearing.Owns(ClearStyle.Munchers), Is.True);
+            Assert.That(clearing.Owns(ClearStyle.Blossom), Is.False, "Blossom is bought in the Store since 2026-10-11");
             Assert.That(clearing.Owns(ClearStyle.Bubbles), Is.False);
         }
 
@@ -61,7 +64,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(economy.Petals, Is.EqualTo(0));
             Assert.That(clearing.Chosen, Is.EqualTo(ClearStyle.Parade));
 
-            Assert.That(clearing.Tap(ClearStyle.Blossom, 50), Is.EqualTo(ClearingTap.Chosen), "the free card brings back the pair");
+            Assert.That(clearing.Tap(ClearStyle.Munchers, 50), Is.EqualTo(ClearingTap.Chosen), "the free card brings back Munchers");
             Assert.That(clearing.Chosen, Is.Null);
             Assert.That(save.Cosmetics.Equipped.ContainsKey("board.clearing"), Is.False);
             Assert.That(clearing.StyleFor(50), Is.EqualTo(ClearStyle.Munchers));
@@ -87,7 +90,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(merged.Cosmetics.Owned, Is.SupersetOf(new[] { "clear.fireworks", "clear.bubbles" }));
             Assert.That(merged.Cosmetics.Equipped["board.clearing"], Is.EqualTo("clear.fireworks"));
 
-            // An edited save that names a style it does not own plays the free pair.
+            // An edited save that names a style it does not own plays Munchers.
             read.Cosmetics.Owned.Remove("clear.fireworks");
             var again = new ClearingService(read, new BundledRemoteConfigService(), () => { });
             Assert.That(again.Chosen, Is.Null);
@@ -100,7 +103,9 @@ namespace Bloomlings.Client.Tests
             // The Animations tab's buttons (FR-038 as amended on 2026-10-06): Buy, Choose, Chosen, or the padlock before L40;
             // Check says what a tap would do so the hosts ask the purchase confirmation first (FR-040).
             ClearingService clearing = Service(out PlayerSave save, out EconomyService economy);
-            Assert.That(clearing.ActionOf(ClearStyle.Blossom, 39), Is.EqualTo(ClearingAction.Chosen), "the free pair while nothing is chosen");
+            Assert.That(clearing.ActionOf(ClearStyle.Munchers, 39), Is.EqualTo(ClearingAction.Chosen), "Munchers while nothing is chosen");
+            Assert.That(clearing.ActionOf(ClearStyle.Blossom, 39), Is.EqualTo(ClearingAction.Locked));
+            Assert.That(clearing.ActionOf(ClearStyle.Blossom, 40), Is.EqualTo(ClearingAction.Buy), "Blossom is for sale like the others");
             Assert.That(clearing.ActionOf(ClearStyle.Bubbles, 39), Is.EqualTo(ClearingAction.Locked));
             Assert.That(clearing.ActionOf(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingAction.Buy));
             Assert.That(clearing.Check(ClearStyle.Bubbles, 39), Is.EqualTo(ClearingTap.Locked));
@@ -113,8 +118,8 @@ namespace Bloomlings.Client.Tests
 
             Assert.That(clearing.Tap(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingTap.Bought));
             Assert.That(clearing.ActionOf(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingAction.Chosen));
-            Assert.That(clearing.ActionOf(ClearStyle.Blossom, 40), Is.EqualTo(ClearingAction.Choose), "the free pair can be chosen back");
-            Assert.That(clearing.Check(ClearStyle.Blossom, 40), Is.EqualTo(ClearingTap.Chosen));
+            Assert.That(clearing.ActionOf(ClearStyle.Munchers, 40), Is.EqualTo(ClearingAction.Choose), "Munchers can be chosen back");
+            Assert.That(clearing.Check(ClearStyle.Munchers, 40), Is.EqualTo(ClearingTap.Chosen));
             Assert.That(clearing.ActionOf(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingAction.Buy));
             Assert.That(clearing.Check(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingTap.Short), "1000 Petals left");
         }

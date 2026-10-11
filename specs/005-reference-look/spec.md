@@ -523,6 +523,9 @@ from a certain level, 40 I think; the preview may show before, but they cannot b
 above the boosters, 5–10 thousand an animation)."
 - Q: How do the free two alternate? → A: By level: Blossom on Levels 1–10 (the onboarding: the shorter, plainer look)
   and on odd levels, Munchers on even levels from 12.
+- Q (2026-10-11): Which style plays for free? → A: Munchers alone, on every level: "The Blossom animation must be in
+  the Store. Munchers stays the main one. Any price, we will review the whole economy later." Blossom is sold with the
+  other five at the same price (FR-038 as amended).
 - Q: The price? → A: 5000 Petals each for now (Remote Config `economy.price.clearing`), Petals only.
 - Q: Where? → A: In the Store, an Animations tab of its own (open with the Store, L12), a card for each style with a
   live preview (the same drawing as the board on a small board of its own), the free pair's card first. Buying opens at
@@ -1416,9 +1419,9 @@ inventory.
   look, and each host only draws the list they give (contracts/look.md §6.12). Every style takes the same time for a
   tile (`ClearStyles.TripSeconds`). The Bloomlings leave the arch in a line, each style splitting the trip into its own
   legs:
-  - **Blossom** (free): the tile sinks, turning, and a five-petal flower opens where it was, then fades into the
+  - **Blossom** (bought since 2026-10-11, below): the tile sinks, turning, and a five-petal flower opens where it was, then fades into the
     picture.
-  - **Munchers** (free): the Bloomling climbs onto the tile and eats it in three bites, crumbs flying, then waddles home
+  - **Munchers** (free, every level's since 2026-10-11): the Bloomling climbs onto the tile and eats it in three bites, crumbs flying, then waddles home
     round and full.
   - **Fireflies**: the tile glows and breaks into fireflies that hover and drift in a swarm to the slot.
   - **Bubbles**: the Bloomling blows a soap bubble round the tile, which floats on a lazy wave to the slot and pops.
@@ -1438,6 +1441,13 @@ inventory.
   the pair. Presentation and
   board cosmetics only (spec 001 FR-063 as amended): no outcome changes, and the tiles, pods and walkers keep their
   variant icons and colors.
+
+  *Amended 2026-10-11 (the owner: "the Blossom animation must be in the Store; Munchers stays the main one; any price,
+  we will review the whole economy later"):* Munchers is the only free style and MUST play on every level, the
+  onboarding's too, while no bought style is chosen. Blossom MUST be a bought style like the other five, sold in the
+  Store's Animations tab first among them (six bought styles), at the same price (Remote Config
+  `economy.price.clearing`) and from the same level (L40). The Animations tab MUST show Munchers' card first, then the
+  six bought styles; the free card brings back Munchers. The rules above that name the free pair read Munchers.
 - **FR-039** *(the owner's loading screen of 2026-10-06, "the lotus")*: Both builds MUST show the lotus loader as the
   splash and the lotus iris between levels (contracts/look.md §6.13; the kit's `LotusIris`, slots `brand.splash_art`,
   `bg.splash`, `ui.lotus_iris`). The splash (spec 002 FR-016 as amended) MUST show the logo and the lotus on the
