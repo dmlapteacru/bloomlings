@@ -16,7 +16,7 @@ namespace Bloomlings.Playtest
         /// <summary>The asset folders (the csproj's <c>AndroidAsset</c> links).</summary>
         private static readonly string[] Folders =
         {
-            "backgrounds", "brand", "icons", "decor", "avatars", "heromotion", "characters/2d", "characters/3d", "levels", "pictures",
+            "backgrounds", "brand", "icons", "badges", "decor", "avatars", "heromotion", "characters/2d", "characters/3d", "levels", "pictures",
         };
 
         private readonly AssetManager _assets;
