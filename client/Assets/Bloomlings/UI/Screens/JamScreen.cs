@@ -151,7 +151,11 @@ namespace Bloomlings.Client.UI.Screens
             {
                 Recovery chosen = recovery;
                 string id = Id(recovery);
-                choices.Add((id, ChoiceSet(id), Label(recovery), cost(recovery), () => _onRecovery(chosen)));
+                Cost? recoveryCost = cost(recovery);
+                string label = recoveryCost.HasValue && recoveryCost.Value.Kind == CostKind.Petals && recovery != Recovery.BloomBurst
+                    ? Loc.F("store.booster_quantity", Label(recovery), 3)
+                    : Label(recovery);
+                choices.Add((id, ChoiceSet(id), label, recoveryCost, () => _onRecovery(chosen)));
             }
 
             if (rescue.HasValue)

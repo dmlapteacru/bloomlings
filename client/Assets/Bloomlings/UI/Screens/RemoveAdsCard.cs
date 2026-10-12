@@ -104,19 +104,19 @@ namespace Bloomlings.Client.UI.Screens
         /// Opens the card with the store's localized <paramref name="price"/> (null while unknown: "Remove Ads" alone);
         /// while the store is not <paramref name="available"/>, the buy button is greyed "Unavailable".
         /// </summary>
-        public void Show(string? price, bool available)
+        public void Show(string? price, bool available, bool preview = false)
         {
             _available = available;
             _price = price;
             _thanked = false;
             _closeAt = -1f;
             _body.text = Loc.T("remove_ads.body");
-            _buyLabel.text = !available ? Loc.T("store.unavailable") : price != null ? Loc.F("remove_ads.price", price) : Loc.T("remove_ads.buy");
+            _buyLabel.text = !available && !preview ? Loc.T("store.unavailable") : price != null ? Loc.F("remove_ads.price", price) : Loc.T("remove_ads.buy");
             _buy.interactable = available;
             _restoreLabel.text = Loc.T("remove_ads.restore");
             _restore.interactable = true;
             _restore.gameObject.SetActive(true);
-            _status.text = available ? string.Empty : Loc.T("store.offline");
+            _status.text = preview ? Loc.T("store.preview_status") : available ? string.Empty : Loc.T("store.offline");
             _root.SetActive(true);
             if (_owned())
             {

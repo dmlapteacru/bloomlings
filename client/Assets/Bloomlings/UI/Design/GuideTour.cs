@@ -25,7 +25,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Return's slot or Bloom Burst's tiles: the player must tap one to finish the free use.</summary>
         BoosterTarget,
 
-        /// <summary>After the free use: the free charge of the unlock is still there for later.</summary>
+        /// <summary>After the free demo use: the next source of charges is explained.</summary>
         BoosterKept,
     }
 
@@ -67,7 +67,8 @@ namespace Bloomlings.Client.UI.Design
     /// the tiles in front of the entry that block the way (<see cref="BlockingCells"/>; Level 2 in the launch
     /// content).</description></item>
     /// <item><description>Each booster at its unlock: its button lit, the player must tap it (and for Return a slot, for
-    /// Bloom Burst a tile), and that use is free, so the unlock's free charge stays (spec 001 FR-042). Extra Slot,
+    /// Bloom Burst a tile), and that use is free. The first three boosters keep their unlock charge; Bloom Burst does
+    /// not grant one at unlock. Extra Slot,
     /// Shuffle and Bloom Burst start as the level opens; Return waits until a pod waits in a slot (Level 6: after the
     /// first tap), as it has nothing to send back before.</description></item>
     /// </list>
@@ -160,7 +161,7 @@ namespace Bloomlings.Client.UI.Design
             return BoosterSteps(BoosterKind.Return);
         }
 
-        /// <summary>A booster's demo: tap its button (free), then for Return a slot and for Bloom Burst a tile, then "it stays".</summary>
+        /// <summary>A booster's demo: tap its button (free), then for Return a slot and for Bloom Burst a tile, then explain future charges.</summary>
         public static IReadOnlyList<GuideStep> BoosterSteps(BoosterKind kind)
         {
             string id = BoosterId(kind);
@@ -171,7 +172,8 @@ namespace Bloomlings.Client.UI.Design
                 steps.Add(new GuideStep(GuideKind.BoosterTarget, id, kind, true, "demo." + key + ".2"));
             }
 
-            steps.Add(new GuideStep(GuideKind.BoosterKept, id, kind, false, "demo.booster_kept"));
+            steps.Add(new GuideStep(GuideKind.BoosterKept, id, kind, false,
+                kind == BoosterKind.BloomBurst ? "demo.bloom_burst_after" : "demo.booster_kept"));
             return steps;
         }
 

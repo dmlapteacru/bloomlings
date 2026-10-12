@@ -1,0 +1,151 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 2,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 18,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "prototype-mosaic-v1",
+  "levelNumber": 5003,
+  "mapping": {
+    "sky": "water",
+    "outline": "berry",
+    "primary": "flower",
+    "secondary": "vine",
+    "detail": "wood"
+  },
+  "picture": {
+    "id": "dev_mosaic_butterfly_36x36",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 90,
+      "id": "w1_1",
+      "variantId": "water"
+    },
+    {
+      "count": 90,
+      "id": "w1_2",
+      "variantId": "water"
+    },
+    {
+      "count": 90,
+      "id": "w1_3",
+      "variantId": "water"
+    },
+    {
+      "count": 90,
+      "id": "w1_4",
+      "variantId": "water"
+    },
+    {
+      "count": 62,
+      "id": "w1_5",
+      "variantId": "water"
+    },
+    {
+      "count": 90,
+      "id": "b2_1",
+      "variantId": "berry"
+    },
+    {
+      "count": 28,
+      "id": "b2_2",
+      "variantId": "berry"
+    },
+    {
+      "count": 90,
+      "id": "f3_1",
+      "variantId": "flower"
+    },
+    {
+      "count": 90,
+      "id": "f3_2",
+      "variantId": "flower"
+    },
+    {
+      "count": 90,
+      "id": "f3_3",
+      "variantId": "flower"
+    },
+    {
+      "count": 90,
+      "id": "f3_4",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "f3_5",
+      "variantId": "flower"
+    },
+    {
+      "count": 90,
+      "id": "v4_1",
+      "variantId": "vine"
+    },
+    {
+      "count": 90,
+      "id": "v4_2",
+      "variantId": "vine"
+    },
+    {
+      "count": 40,
+      "id": "v4_3",
+      "variantId": "vine"
+    },
+    {
+      "count": 90,
+      "id": "w5_1",
+      "variantId": "wood"
+    },
+    {
+      "count": 68,
+      "id": "w5_2",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5003",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      [
+        "w1_1",
+        "w1_2",
+        "w1_3",
+        "w1_4",
+        "w1_5"
+      ],
+      [
+        "b2_1",
+        "b2_2"
+      ],
+      [
+        "f3_1",
+        "f3_2",
+        "f3_3",
+        "f3_4",
+        "f3_5"
+      ],
+      [
+        "v4_1",
+        "v4_2",
+        "v4_3"
+      ],
+      [
+        "w5_1",
+        "w5_2"
+      ]
+    ]
+  }
+}

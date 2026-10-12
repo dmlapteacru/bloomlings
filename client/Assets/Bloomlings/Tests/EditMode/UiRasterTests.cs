@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using Bloomlings.Client.Gameplay.Board;
+using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using NUnit.Framework;
@@ -99,6 +101,31 @@ namespace Bloomlings.Client.Tests
                 // The symbol shows: the same color with another symbol gives another picture.
                 string other = variant.IconId == "mist" ? "bark" : "mist";
                 Assert.That(UiRaster.Tile(64, color, variant.IconId, TileStyle.Board), Is.Not.EqualTo(UiRaster.Tile(64, color, other, TileStyle.Board)), variant.Id.Key);
+            }
+        }
+
+        [Test]
+        public void MosaicTiles_UseColorOnly_WhileStickersKeepTheirPictures()
+        {
+            Rgba color = Color("flower");
+            Assert.That(UiRaster.Tile(48, color, "flower", TileStyle.Mosaic), Is.EqualTo(UiRaster.Tile(48, color, "leaf", TileStyle.Mosaic)));
+            Assert.That(UiRaster.Tile(48, color, "flower", TileStyle.Sticker), Is.Not.EqualTo(UiRaster.Tile(48, color, "leaf", TileStyle.Sticker)));
+            Assert.That(UiRaster.GameplayTileStyle(24, 24), Is.EqualTo(TileStyle.MosaicIcon));
+            Assert.That(UiRaster.GameplayTileStyle(24, 25), Is.EqualTo(TileStyle.Mosaic));
+            Assert.That(UiRaster.GameplayTileStyle(30, 32), Is.EqualTo(TileStyle.Mosaic));
+            Assert.That(UiRaster.GameplayTileStyle(36, 36), Is.EqualTo(TileStyle.Mosaic));
+        }
+
+        [Test]
+        public void ExposedPodPanels_UseExactlyTheBoardTileColor()
+        {
+            foreach (VariantInfo variant in VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Launch))
+            {
+                Rgba board = BoardPictures.ColorOf(variant.Id);
+                (Rgba expectedTop, Rgba expectedBottom) = UiRaster.MosaicRamp(board);
+                (Rgba top, Rgba bottom) = UiKit.PodPanelColors(variant.Id, waiting: false);
+                Assert.That(top, Is.EqualTo(expectedTop), variant.Id.Key + " top");
+                Assert.That(bottom, Is.EqualTo(expectedBottom), variant.Id.Key + " bottom");
             }
         }
 

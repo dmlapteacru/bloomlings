@@ -57,9 +57,20 @@ namespace Bloomlings.Client.UI
             return view;
         }
 
-        /// <summary>A variant's color as the pods tint with it (the catalog's color, <c>tile.mystery</c> when unknown).</summary>
+        /// <summary>
+        /// The exact board-tile color of a pod's variant. Exposed pods do not lighten it: on dense boards this panel is
+        /// the player's color key for the mosaic. Waiting pods may still be washed out to show that they cannot be tapped.
+        /// </summary>
         internal static Rgba PodColor(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : C.TileMystery;
+
+        internal static (Rgba Top, Rgba Bottom) PodPanelColors(VariantId variant, bool waiting)
+        {
+            Rgba color = PodColor(variant);
+            return waiting
+                ? (color.Lighten(GridPodView.WaitingPanelTop), color.Lighten(GridPodView.WaitingPanelBottom))
+                : UiRaster.MosaicRamp(color);
+        }
     }
 
     /// <summary>The tray built by <see cref="UiKit.TrayPanel"/>: its frame and up to three bands.</summary>
@@ -241,12 +252,6 @@ namespace Bloomlings.Client.UI
         /// <summary>A locked pod's padlock, as a share of the tile's side it stands in for.</summary>
         public const float LockShare = 0.62f;
 
-        /// <summary>How far the variant's color is lightened for the top of an exposed pod's panel (the reference's tinted panels).</summary>
-        public const float PanelTop = 0.5f;
-
-        /// <summary>How far the variant's color is lightened for the bottom of an exposed pod's panel.</summary>
-        public const float PanelBottom = 0.8f;
-
         /// <summary>How far the variant's color is lightened for the top of a waiting pod's panel (a lighter wash).</summary>
         public const float WaitingPanelTop = 0.74f;
 
@@ -333,8 +338,8 @@ namespace Bloomlings.Client.UI
             }
             else if (variant.HasValue)
             {
-                Rgba color = UiKit.PodColor(variant.Value);
-                UiKit.Gradient(_panel, UiTheme.Of(color.Lighten(Waiting ? WaitingPanelTop : PanelTop)), UiTheme.Of(color.Lighten(Waiting ? WaitingPanelBottom : PanelBottom)));
+                (Rgba top, Rgba bottom) = UiKit.PodPanelColors(variant.Value, Waiting);
+                UiKit.Gradient(_panel, UiTheme.Of(top), UiTheme.Of(bottom));
             }
             else
             {

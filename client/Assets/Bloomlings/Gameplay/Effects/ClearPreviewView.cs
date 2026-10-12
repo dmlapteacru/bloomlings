@@ -58,7 +58,7 @@ namespace Bloomlings.Client.Gameplay.Effects
                 {
                     // Each tile in a holder pivoted on its bottom middle, so Blossom's sway turns it about its foot.
                     RectTransform holder = UiFactory.CreateRect("Cell", _grid);
-                    CandyTileView tile = UiKit.CandyTile("Tile", holder, ClearPreview.VariantOf(_style), TileStyle.Board);
+                    CandyTileView tile = UiKit.CandyTile("Tile", holder, ClearPreview.VariantOf(_style), TileStyle.Mosaic);
                     _tiles.Add((holder, tile));
                 }
             }

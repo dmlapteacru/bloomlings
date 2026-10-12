@@ -85,6 +85,7 @@ namespace Bloomlings.Client.Tests.EditMode
             Assert.That(steps.All(s => s.Booster == kind && s.DemoId == GuideTour.BoosterId(kind)), Is.True);
             Assert.That(steps.First().Forced && steps.First().MessageKeys.Contains("demo.try_free"), Is.True, "forced, and it says the use is free");
             Assert.That(steps.Last().Kind == GuideKind.BoosterKept && !steps.Last().Forced, Is.True, "then the kept step");
+            Assert.That(steps.Last().MessageKeys, Does.Contain(kind == BoosterKind.BloomBurst ? "demo.bloom_burst_after" : "demo.booster_kept"));
             Assert.That(steps.Any(s => s.Kind == GuideKind.BoosterTarget), Is.EqualTo(kind == BoosterKind.BloomBurst), "Bloom Burst also has its tile to tap");
             Assert.That(GuideTour.AtStart(level, false, Seen(GuideTour.DemoIds.ToArray()), Unlocked(unlocked), session), Is.Empty, "once only");
         }

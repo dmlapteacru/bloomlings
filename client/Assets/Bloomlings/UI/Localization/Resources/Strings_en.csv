@@ -62,9 +62,31 @@ account.local,Local profile
 store.title,Store
 store.offline,Purchases are unavailable offline
 store.remove_ads,Remove Ads
+store.remove_ads_bundle,Remove Ads + Garden Pack
 store.starter_pack,Starter pack
 store.booster_bundle,Booster bundle
+store.garden_bundle,Garden Bundle
+store.best_sale,BEST SALE
+store.preview_status,Purchases coming soon
+store.preview_remove_ads,Stops forced ads
+store.preview_remove_ads_bundle,1 200 Petals + 1 of each booster
+store.preview_starter,2 000 Petals + 1 of each booster
+store.preview_garden_small,5 000 Petals + 3 each basic + 1 Bloom Burst
+store.preview_garden_medium,11 000 Petals + 6 each basic + 2 Bloom Bursts
+store.preview_garden_large,25 000 Petals + 12 each basic + 3 Bloom Bursts
+store.preview_petals_1200,1 200 Petals
+store.preview_petals_5500,5 500 Petals
+store.preview_petals_12000,12 000 Petals
+store.preview_petals_27500,27 500 Petals
+store.preview_petals_58000,58 000 Petals
+store.preview_petals_120000,120 000 Petals
+store.preview_base,Base value
+store.preview_value_13,13% better than previous
+store.preview_value_14,14% better than previous
+store.preview_value_15,15% better than previous
+store.preview_value_16,16% better than previous
 store.booster_owned,{0} (owned {1})
+store.booster_quantity,{0} ×{1}
 store.tab_shop,Shop
 store.tab_cosmetics,Cosmetics
 store.tab_animations,Animations
@@ -167,6 +189,7 @@ demo.entry_blocked.1,These tiles are in the way
 demo.entry_blocked.2,Clear them first to reach the others
 demo.try_free,Tap it to try. This one is on us
 demo.booster_kept,Your free one is still here for later
+demo.bloom_burst_after,Get more Bloom Bursts from milestones or the shop
 demo.exact_symbol,Match the exact symbol
 demo.extra_slot.1,Extra Slot: one more slot for this level
 demo.shuffle.1,Shuffle rearranges the pods in the tray

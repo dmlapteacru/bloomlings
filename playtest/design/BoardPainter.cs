@@ -52,6 +52,7 @@ namespace Bloomlings.Playtest.Design
             int h = view.Height;
             float cell = layout.Cell;
             bool peek = view.BoardLook == BoardLook.Peek;
+            TileStyle tileStyle = UiRaster.GameplayTileStyle(w, h);
             s.Board = (layout.Grid.Left, layout.Grid.Top, cell, h);
 
             // The stone border with the dark gap the tiles lie in (the Garden Entries' arches come after the tiles).
@@ -99,7 +100,7 @@ namespace Bloomlings.Playtest.Design
                                 p.PushRotate(sway, full.CenterX, full.Bottom);
                             }
 
-                            Tile(p, info, full, cell, 1f, 1f, peek);
+                            Tile(p, info, full, cell, 1f, 1f, peek, tileStyle);
                             if (sway != 0f)
                             {
                                 p.PopTransform();
@@ -157,12 +158,12 @@ namespace Bloomlings.Playtest.Design
         public static (float X, float Y) EntryPoint(LevelScreen s, EntryDef entry) => BoardLayout.DoorOf(CellBox(s, entry.Cell), entry.Side);
 
         /// <summary>
-        /// A target tile (§3.1): a candy tile in the board style, nearly filling its cell. A hidden mystery tile is the
+        /// A target tile (§3.1): a color-only mosaic tile, nearly filling its cell. A hidden mystery tile is the
         /// lilac "?" tile; the next layer peeks from a small chip in the top-right corner (on a <paramref name="peek"/>
         /// board only, spec 001 FR-036 as amended on 2026-10-06) and a key waiting under the tile shows on a cream disc in
         /// the top-left corner, both kept off the symbol.
         /// </summary>
-        public static void Tile(IPainter p, CellInfo info, Box full, float cell, float scale, float alpha, bool peek = true)
+        public static void Tile(IPainter p, CellInfo info, Box full, float cell, float scale, float alpha, bool peek = true, TileStyle style = TileStyle.Mosaic)
         {
             p.Mark("tile.base");
             // Drawn at its rest size and shrunk with the canvas (a fading tile), so its picture is the one the board
@@ -177,15 +178,15 @@ namespace Bloomlings.Playtest.Design
             p.PushAlpha(alpha);
             if (info.MysteryHidden || !info.Visible.HasValue)
             {
-                Kit.CandyTile(p, box, (VariantId?)null, TileStyle.Board);
+                Kit.CandyTile(p, box, (VariantId?)null, style);
             }
             else
             {
-                Kit.CandyTile(p, box, info.Visible.Value, TileStyle.Board);
+                Kit.CandyTile(p, box, info.Visible.Value, style);
 
                 if (peek && info.RemainingLayers > 1 && info.Next.HasValue)
                 {
-                    LayerPeek(p, box, info.Next.Value);
+                    LayerPeek(p, box, info.Next.Value, style);
                 }
 
                 if (info.KeyId != null)
@@ -205,7 +206,7 @@ namespace Bloomlings.Playtest.Design
         /// The next layer (<c>tile.layer_peek</c>): a small candy tile of its variant in a cream ring with a thin dark rim,
         /// tucked into the tile's top-right corner like a chip stacked on it.
         /// </summary>
-        private static void LayerPeek(IPainter p, Box tile, VariantId next)
+        private static void LayerPeek(IPainter p, Box tile, VariantId next, TileStyle style)
         {
             p.Mark("tile.layer_peek");
             float s = tile.Width;
@@ -217,7 +218,7 @@ namespace Bloomlings.Playtest.Design
             Kit.SoftShadow(p, box, chip * 0.26f, 0.3f, 0.06f);
             p.FillRound(box.Inset(-line), (chip * 0.24f) + line, GardenLook.BoardGap);
             p.FillRoundGradient(box, chip * 0.24f, C.CreamTop, C.CreamFace);
-            Kit.CandyTile(p, box.Inset(ring), next, TileStyle.Board);
+            Kit.CandyTile(p, box.Inset(ring), next, style);
         }
 
         /// <summary>A key waiting under a tile (<c>tile.key</c>): the gold key on a cream disc in the tile's top-left corner.</summary>

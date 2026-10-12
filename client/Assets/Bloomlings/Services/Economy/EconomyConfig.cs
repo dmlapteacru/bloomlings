@@ -6,8 +6,8 @@ namespace Bloomlings.Client.Services.Economy
 {
     /// <summary>
     /// The economy values of one session (T118): the <c>economy.*</c> Remote Config keys with their bundled defaults and
-    /// ranges (contracts/backend-services.md). Every value is clamped into its range, and Bloom Burst always stays the
-    /// most expensive booster (FR-048). Prices never depend on the level number (FR-041).
+    /// ranges (contracts/backend-services.md). Every value is clamped into its range. The first three prices buy three
+    /// charges, while Bloom Burst's price buys one, so their pack prices are not ordered by strength.
     /// </summary>
     public sealed record EconomyConfig(
         int PetalsBase,
@@ -38,20 +38,15 @@ namespace Bloomlings.Client.Services.Economy
         public static EconomyConfig Read(Func<IntKey, int> value)
         {
             int Get(IntKey key) => key.Clamp(value(key));
-            int extra = Get(RemoteConfigKeys.PriceExtraSlot);
-            int shuffle = Get(RemoteConfigKeys.PriceShuffle);
-            int back = Get(RemoteConfigKeys.PriceReturn);
-            int othersMax = Math.Max(extra, Math.Max(shuffle, back));
-            int burst = Math.Max(Get(RemoteConfigKeys.PriceBloomBurst), othersMax + 1);
             return new EconomyConfig(
                 Get(RemoteConfigKeys.PetalsBase),
                 Get(RemoteConfigKeys.PetalsCleanBonus),
                 Get(RemoteConfigKeys.PetalsHardBonus),
                 Get(RemoteConfigKeys.PetalsSuperHardBonus),
-                extra,
-                shuffle,
-                back,
-                RemoteConfigKeys.PriceBloomBurst.Clamp(burst),
+                Get(RemoteConfigKeys.PriceExtraSlot),
+                Get(RemoteConfigKeys.PriceShuffle),
+                Get(RemoteConfigKeys.PriceReturn),
+                Get(RemoteConfigKeys.PriceBloomBurst),
                 Get(RemoteConfigKeys.UnlockGrant),
                 Get(RemoteConfigKeys.DropEveryLevels));
         }

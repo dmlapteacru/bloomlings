@@ -44,8 +44,22 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static class StoreScreen
     {
-        /// <summary>The real-money rows (unavailable in the playtest).</summary>
-        private static readonly string[] MoneyRows = { "store.starter_pack", "store.booster_bundle", "store.remove_ads" };
+        /// <summary>Approved real-money offers, shown as non-purchasable previews until platform products exist.</summary>
+        private static readonly (string Title, string Details, string Price, bool BestSale)[] MoneyRows =
+        {
+            ("store.remove_ads", "store.preview_remove_ads", "$5.99", false),
+            ("store.remove_ads_bundle", "store.preview_remove_ads_bundle", "$9.99", false),
+            ("store.starter_pack", "store.preview_starter", "$4.99", false),
+            ("store.garden_bundle", "store.preview_garden_small", "$9.99", true),
+            ("store.garden_bundle", "store.preview_garden_medium", "$19.99", false),
+            ("store.garden_bundle", "store.preview_garden_large", "$39.99", false),
+            ("store.preview_petals_1200", "store.preview_base", "$1.99", false),
+            ("store.preview_petals_5500", "store.preview_value_14", "$7.99", false),
+            ("store.preview_petals_12000", "store.preview_value_16", "$14.99", false),
+            ("store.preview_petals_27500", "store.preview_value_14", "$29.99", false),
+            ("store.preview_petals_58000", "store.preview_value_15", "$54.99", false),
+            ("store.preview_petals_120000", "store.preview_value_13", "$99.99", false),
+        };
 
         public static void Draw(IPainter p, DesignApp app)
         {
@@ -136,9 +150,9 @@ namespace Bloomlings.Playtest.Design
                 rows.Add((line, grow) => BoosterRow(p, app, line, grow, kind, id));
             }
 
-            foreach (string key in MoneyRows)
+            foreach ((string title, string details, string price, bool bestSale) in MoneyRows)
             {
-                rows.Add((line, grow) => MoneyRow(p, line, grow, key));
+                rows.Add((line, grow) => MoneyRow(p, line, grow, title, details, price, bestSale));
             }
 
             // Rows taller than the type's row (a taller page) grow their names with them, shorter ones shrink them.
@@ -178,7 +192,7 @@ namespace Bloomlings.Playtest.Design
             Kit.BoosterIcon(p, id, Box.FromCenter(tile.CenterX, tile.CenterY, tile.Width * 0.74f, tile.Width * 0.74f), grey: !unlocked);
             float badge = tile.Width * 0.3f;
             Kit.CountBadge(p, tile.Right - (badge * 0.2f), tile.Bottom - (badge * 0.2f), badge, app.Meta.Economy.Charges(kind).ToString(CultureInfo.InvariantCulture));
-            Name(p, line, tile, grow, EndCards.BoosterName(kind), PriceBox(p, line, app.Meta.Economy.Price(kind)).Left);
+            Name(p, line, tile, grow, PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), PriceBox(p, line, app.Meta.Economy.Price(kind)).Left);
             p.PopAlpha();
             Price(p, line, app.Meta.Economy.Price(kind), unlocked ? () => BuyBooster(app, kind, id) : (Action?)null);
         }
@@ -196,7 +210,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(EndCards.BoosterName(kind), price), (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)), () =>
+            app.ConfirmPurchase(PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), price), (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)), () =>
             {
                 if (!app.Meta.Economy.TryBuy(kind))
                 {
@@ -212,16 +226,22 @@ namespace Bloomlings.Playtest.Design
             app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
         }
 
-        /// <summary>A real-money row: the lotus on its tile, its name and "Unavailable", faded (the playtest sells nothing for money).</summary>
-        private static void MoneyRow(IPainter p, Box line, float grow, string key)
+        /// <summary>A real-money preview with a disabled price and its contents; it never initiates a purchase.</summary>
+        private static void MoneyRow(IPainter p, Box line, float grow, string title, string details, string price, bool bestSale)
         {
             Kit.Row(p, line, false);
-            p.PushAlpha(0.5f);
             Box tile = ItemTile(p, line);
             Kit.Petal(p, tile.Inset(tile.Width * 0.14f));
-            Name(p, line, tile, grow, PlaytestText.T(key));
-            p.Text(PlaytestText.T("store.unavailable"), line.Right - (line.Height * 0.85f), line.CenterY, T.Caption, C.InkBrownSoft, line.Width * 0.3f, grow);
-            p.PopAlpha();
+            float left = tile.Right + (tile.Width * 0.22f);
+            float width = line.Width * 0.42f;
+            if (bestSale)
+            {
+                p.TextLeft(PlaytestText.T("store.best_sale"), left, line.Top + (line.Height * 0.16f), T.Caption, C.BoosterBloomBurst, width, grow);
+            }
+
+            p.TextLeft(PlaytestText.T(title), left, line.CenterY - (line.Height * 0.06f), T.ButtonSecondary, C.InkBrown, width, grow, TextLook.Plain(C.InkBrown));
+            p.TextLeft(PlaytestText.T(details), left, line.Bottom - (line.Height * 0.18f), T.Caption, C.InkBrownSoft, width, grow);
+            p.Text(price, line.Right - (line.Height * 0.75f), line.CenterY, T.Caption, C.InkBrownSoft, line.Width * 0.25f, grow);
         }
 
         /// <summary>
@@ -394,10 +414,10 @@ namespace Bloomlings.Playtest.Design
                 bool locked = action == ClearingAction.Locked;
                 Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(app, style, name);
                 Box box = r.ClearingCard(slot);
-                Kit.OutfitCard(p, box, name, action == ClearingAction.Chosen, well => Kit.ClearingPreview(p, well, style), locked ? Cost.Petals(clearing.Price) : (Cost?)null, tap, pillRoom: true, locked: locked, dim: false);
+                Kit.OutfitCard(p, box, name, action == ClearingAction.Chosen, well => Kit.ClearingPreview(p, well, style), locked ? Cost.Petals(clearing.PriceOf(style)) : (Cost?)null, tap, pillRoom: true, locked: locked, dim: false);
                 if (!locked)
                 {
-                    Kit.ClearingButton(p, ClearingCard.Button(box), action, clearing.Price, tap != null);
+                    Kit.ClearingButton(p, ClearingCard.Button(box), action, clearing.PriceOf(style), tap != null);
                 }
             }
 
@@ -416,7 +436,7 @@ namespace Bloomlings.Playtest.Design
             ClearingService clearing = app.Meta.Clearing;
             if (clearing.Check(style, app.Meta.CurrentLevel) == ClearingTap.Bought)
             {
-                app.ConfirmPurchase(PurchaseOffer.ForPetals(name, clearing.Price), (q, well) => Kit.ClearingPreview(q, well, style), () => Tapped(app, clearing.Tap(style, app.Meta.CurrentLevel)));
+                app.ConfirmPurchase(PurchaseOffer.ForPetals(name, clearing.PriceOf(style)), (q, well) => Kit.ClearingPreview(q, well, style), () => Tapped(app, clearing.Tap(style, app.Meta.CurrentLevel)));
                 return;
             }
 

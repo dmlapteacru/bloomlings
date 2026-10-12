@@ -145,7 +145,7 @@ namespace Bloomlings.Client.App.Home
                 }
             }
 
-            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable, wardrobe, clearing, progression.CurrentLevel, () =>
+            void OpenStore() => store!.Show(StoreItems(economy, ledger, wardrobe, OpenStore, Refresh), economy.Petals, false, wardrobe, clearing, progression.CurrentLevel, () =>
             {
                 OpenStore();
                 Refresh();
@@ -352,13 +352,12 @@ namespace Bloomlings.Client.App.Home
                 Refresh();
             }
 
-            // The Remove Ads card (spec 005 FR-033): the Store row's purchase and Settings' restore; Home refreshes after
-            // either, so the No Ads scene hides as soon as Remove Ads is owned.
+            // Real-money offers are previews until the platform products are created and connected.
             RemoveAdsCard? removeAds = null;
             var features = new HomeFeatureActions(
                 () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
                 OnProfile: () => profileScreen?.Show(),
-                OnNoAds: () => removeAds?.Show(purchases.PriceOf(ProductCatalog.RemoveAdsId), purchases.IsAvailable),
+                OnNoAds: () => removeAds?.Show("$5.99", available: false, preview: true),
                 OnDailyReward: ShowDailyReward);
 
             home = HomeScreen.Create(
@@ -409,15 +408,7 @@ namespace Bloomlings.Client.App.Home
                 account,
                 services.TryGet(out IConsentService? consent) ? consent : null);
             store = StoreScreen.Create(root, Navigate, NavLook);
-            removeAds = RemoveAdsCard.Create(
-                root,
-                done => purchases.Buy(ProductCatalog.RemoveAdsId, _ =>
-                {
-                    Refresh();
-                    done();
-                }),
-                RestorePurchases,
-                () => ledger.RemoveAds);
+            removeAds = RemoveAdsCard.Create(root, done => done(), RestorePurchases, () => ledger.RemoveAds);
             Refresh();
 
             // Background refresh: a cloud merge, a new rank or a purchase the store delivers later (an order left pending,
@@ -469,7 +460,7 @@ namespace Bloomlings.Client.App.Home
             BoosterKind? best = null;
             foreach ((string _, BoosterKind kind) in EconomyService.BoosterUnlocks)
             {
-                if (economy.IsUnlocked(kind) && (!best.HasValue || economy.Charges(kind) < economy.Charges(best.Value)))
+                if (kind != BoosterKind.BloomBurst && economy.IsUnlocked(kind) && (!best.HasValue || economy.Charges(kind) < economy.Charges(best.Value)))
                 {
                     best = kind;
                 }
@@ -485,30 +476,43 @@ namespace Bloomlings.Client.App.Home
             kind == BoosterKind.BloomBurst ? 1 : 0);
 
         /// <summary>
-        /// The Store rows (FR-051): Petal packs, boosters for Petals, the starter pack once, Remove Ads until owned; and,
+        /// The Store rows (FR-051): previews of the approved real-money offers, boosters for Petals; and,
         /// once the Wardrobe is open, the cosmetics for Petals on their own tab.
         /// </summary>
-        private static List<StoreItem> StoreItems(EconomyService economy, IPurchaseService purchases, PurchaseLedger ledger, ProductCatalog products, PlayerSave save, WardrobeService wardrobe, Action reopen, Action refreshHome)
+        private static List<StoreItem> StoreItems(EconomyService economy, PurchaseLedger ledger, WardrobeService wardrobe, Action reopen, Action refreshHome)
         {
             var items = new List<StoreItem>();
-            foreach (StoreProduct product in products.Products)
+            var drafts = new (string Id, string Title, string Details, string Price, string? Badge)[]
             {
-                if ((product.OfferedOnce && save.Purchases.StarterPackOffered) || (product.RemoveAds && ledger.RemoveAds))
+                ("remove_ads", "store.remove_ads", "store.preview_remove_ads", "$5.99", null),
+                ("remove_ads_bundle", "store.remove_ads_bundle", "store.preview_remove_ads_bundle", "$9.99", null),
+                ("starter_garden", "store.starter_pack", "store.preview_starter", "$4.99", null),
+                ("garden_small", "store.garden_bundle", "store.preview_garden_small", "$9.99", "store.best_sale"),
+                ("garden_medium", "store.garden_bundle", "store.preview_garden_medium", "$19.99", null),
+                ("garden_large", "store.garden_bundle", "store.preview_garden_large", "$39.99", null),
+                ("petals_1200", "store.preview_petals_1200", "store.preview_base", "$1.99", null),
+                ("petals_5500", "store.preview_petals_5500", "store.preview_value_14", "$7.99", null),
+                ("petals_12000", "store.preview_petals_12000", "store.preview_value_16", "$14.99", null),
+                ("petals_27500", "store.preview_petals_27500", "store.preview_value_14", "$29.99", null),
+                ("petals_58000", "store.preview_petals_58000", "store.preview_value_15", "$54.99", null),
+                ("petals_120000", "store.preview_petals_120000", "store.preview_value_13", "$99.99", null),
+            };
+            foreach ((string id, string title, string details, string price, string? badge) in drafts)
+            {
+                if ((id == "remove_ads" || id == "remove_ads_bundle") && ledger.RemoveAds)
                 {
                     continue;
                 }
 
-                string id = product.Id;
                 items.Add(new StoreItem(
                     id,
-                    Title(product),
-                    purchases.PriceOf(id) ?? (purchases.IsAvailable ? "…" : "—"),
-                    purchases.IsAvailable,
-                    () => purchases.Buy(id, _ =>
-                    {
-                        reopen();
-                        refreshHome();
-                    })));
+                    Loc.T(title),
+                    price,
+                    false,
+                    () => { },
+                    Badge: badge == null ? null : Loc.T(badge),
+                    Description: Loc.T(details),
+                    PreviewOnly: true));
             }
 
             foreach ((string _, BoosterKind kind) in EconomyService.BoosterUnlocks)
@@ -528,7 +532,7 @@ namespace Bloomlings.Client.App.Home
                 };
                 items.Add(new StoreItem(
                     "booster_" + kind,
-                    Loc.F("store.booster_owned", BoosterName(kind), economy.Charges(kind)),
+                    Loc.F("store.booster_quantity", BoosterName(kind), EconomyService.PurchaseQuantity(kind)),
                     economy.Price(kind).ToString(CultureInfo.InvariantCulture) + " ✿",
                     economy.Petals >= economy.Price(kind),
                     () =>
@@ -542,7 +546,7 @@ namespace Bloomlings.Client.App.Home
                     PetalPrice: economy.Price(kind),
                     BoosterId: boosterId,
                     Charges: economy.Charges(kind),
-                    Name: BoosterName(kind)));
+                    Name: Loc.F("store.booster_quantity", BoosterName(kind), EconomyService.PurchaseQuantity(kind))));
             }
 
             if (wardrobe.IsAvailable)
@@ -571,23 +575,6 @@ namespace Bloomlings.Client.App.Home
             }
 
             return items;
-        }
-
-        private static string Title(StoreProduct product)
-        {
-            if (product.RemoveAds)
-            {
-                return Loc.T("store.remove_ads");
-            }
-
-            if (product.OfferedOnce)
-            {
-                return Loc.T("store.starter_pack");
-            }
-
-            return product.Petals > 0 && product.Boosters == null
-                ? Loc.F("common.petals", product.Petals)
-                : Loc.T("store.booster_bundle");
         }
 
         private static string BoosterName(BoosterKind kind) => kind switch

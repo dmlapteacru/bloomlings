@@ -71,22 +71,23 @@ namespace Bloomlings.Client.Services.Config
         public static readonly IntKey PetalsCleanBonus = new IntKey("economy.petals.cleanBonus", 8, 0, 50);
         public static readonly IntKey PetalsHardBonus = new IntKey("economy.petals.hardBonus", 10, 0, 100);
         public static readonly IntKey PetalsSuperHardBonus = new IntKey("economy.petals.superHardBonus", 20, 0, 100);
-        // Booster prices as in the reference game (the owner, 2026-10-05: its cheapest booster costs 1200 coins, the four in
-        // the ratio 40:40:50:60); they were 40/40/50/60.
+        // Extra Slot, Shuffle and Return prices buy three charges; Bloom Burst's price buys one.
         public static readonly IntKey PriceExtraSlot = new IntKey("economy.price.extraSlot", 1200, 10, 5000);
         public static readonly IntKey PriceShuffle = new IntKey("economy.price.shuffle", 1200, 10, 5000);
         public static readonly IntKey PriceReturn = new IntKey("economy.price.return", 1500, 10, 5000);
-        /// <summary>Up to 10000, so it can always stay above the other prices (at most 5000) as FR-048 asks.</summary>
-        public static readonly IntKey PriceBloomBurst = new IntKey("economy.price.bloomBurst", 1800, 10, 10000);
+        /// <summary>The price of one Bloom Burst charge, not a three-charge pack.</summary>
+        public static readonly IntKey PriceBloomBurst = new IntKey("economy.price.bloomBurst", 1000, 10, 10000);
         // The profile's avatar pictures for Petals, by tier (spec 005 FR-037; the owner's 300 / 600 / 1200 of 2026-10-05).
         public static readonly IntKey PriceAvatarCommon = new IntKey("economy.price.avatarCommon", 300, 10, 10000);
         public static readonly IntKey PriceAvatarRare = new IntKey("economy.price.avatarRare", 600, 10, 10000);
         public static readonly IntKey PriceAvatarSpecial = new IntKey("economy.price.avatarSpecial", 1200, 10, 10000);
 
-        /// <summary>Every bought clearing style (spec 005 FR-038; the owner, 2026-10-06: 5000 for now, Petals only).</summary>
-        public static readonly IntKey PriceClearing = new IntKey("economy.price.clearing", 5000, 10, 50000);
+        /// <summary>The standard clearing style price; Blossom is introductory and Fireworks/Parade are premium.</summary>
+        public static readonly IntKey PriceClearingIntro = new IntKey("economy.price.clearingIntro", 2500, 10, 50000);
+        public static readonly IntKey PriceClearing = new IntKey("economy.price.clearing", 3500, 10, 50000);
+        public static readonly IntKey PriceClearingPremium = new IntKey("economy.price.clearingPremium", 5000, 10, 50000);
         public static readonly IntKey UnlockGrant = new IntKey("economy.unlockGrant", 1, 1, 3);
-        public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 5, 2, 20);
+        public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 10, 2, 20);
 
         // Daily reward (FR-055 as amended on 2026-10-09 by the owner: five steps a day, 1 and 4 claimed as they are, 2, 3 and 5
         // after a rewarded ad; they were one claim of daily.reward.petals 20 with a streak bonus of 5 a day for up to 7 days).
@@ -124,7 +125,7 @@ namespace Bloomlings.Client.Services.Config
         {
             PetalsBase, PetalsCleanBonus, PetalsHardBonus, PetalsSuperHardBonus,
             PriceExtraSlot, PriceShuffle, PriceReturn, PriceBloomBurst,
-            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearing, UnlockGrant, DropEveryLevels,
+            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearingIntro, PriceClearing, PriceClearingPremium, UnlockGrant, DropEveryLevels,
             DailyRewardStep1, DailyRewardStep2, DailyRewardStep3, DailyRewardStep4, DailyRewardStep5,
             InterstitialFirstLevel, InterstitialMinSeconds, InterstitialMinLevels, RescuePerAttempt,
             FxBacklogThresholdMs,

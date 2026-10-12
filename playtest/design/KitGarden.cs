@@ -155,7 +155,7 @@ namespace Bloomlings.Playtest.Design
         {
             public TileRecipe(TileStyle style, TileState state, string icon, Rgba color)
             {
-                string kind = style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker";
+                string kind = style == TileStyle.Board ? "board" : style == TileStyle.Mosaic ? "mosaic" : style == TileStyle.MosaicIcon ? "mosaic-icon" : style == TileStyle.Flat ? "flat" : "sticker";
                 Key = "tile.candy/" + kind + "/" + state + "/" + icon + "/" + color.Hex;
                 Render = (w, h) => UiRaster.Tile(Math.Min(w, h), color, icon, style, state);
                 Slot = state == TileState.Mystery ? "tile.mystery" : ShapeLibrary.SymbolId(icon);
@@ -166,7 +166,7 @@ namespace Bloomlings.Playtest.Design
                 {
                     Picture = PainterBase.IconPrefix + picture;
                     GreyPicture = Picture + PainterBase.GreySuffix;
-                    PictureSlot = style == TileStyle.Sticker ? OwnerPictures.IconSlot(icon) : OwnerPictures.GemSlot(icon);
+                    PictureSlot = style == TileStyle.Sticker || style == TileStyle.MosaicIcon ? OwnerPictures.IconSlot(icon) : OwnerPictures.GemSlot(icon);
                 }
             }
 

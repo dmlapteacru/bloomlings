@@ -13,10 +13,10 @@ namespace Bloomlings.Client.Services.Economy
     /// mutators keep "Petals and charges are never negative". Engine-free, so it runs in the .NET check:
     /// <list type="bullet">
     /// <item>a won level pays base, plus the clean-clear bonus without boosters, plus the Hard/Super Hard bonus (FR-041);</item>
-    /// <item>each booster unlock (L3, L4, L6, L9) grants <c>economy.unlockGrant</c> charges, once (FR-042);</item>
-    /// <item>every <c>economy.drop.everyLevels</c>-th completed level grants one charge, rotating through the unlocked
-    /// boosters in a fixed order, with no randomness (FR-047);</item>
-    /// <item>boosters can be bought with Petals once unlocked, and each use consumes a charge (FR-048);</item>
+    /// <item>the L3, L4 and L6 unlocks grant a charge once; Bloom Burst's guided demo is free but its unlock grants none;</item>
+    /// <item>regular drops start at L20, repeat every <c>economy.drop.everyLevels</c> levels except on L50 milestones,
+    /// and rotate through the first three unlocked boosters; Bloom Burst is reserved for milestone rewards and purchases;</item>
+    /// <item>Petal purchases grant three charges of the first three boosters, or one Bloom Burst;</item>
     /// <item>milestones and rewarded ads grant through <see cref="Grant"/>.</item>
     /// </list>
     /// </summary>
@@ -53,6 +53,9 @@ namespace Bloomlings.Client.Services.Economy
         public int Charges(BoosterKind kind) => _save.Boosters.Get(kind);
 
         public int Price(BoosterKind kind) => Config.Price(kind);
+
+        /// <summary>The number of charges in one Petal purchase of this booster.</summary>
+        public static int PurchaseQuantity(BoosterKind kind) => kind == BoosterKind.BloomBurst ? 1 : 3;
 
         public bool IsUnlocked(BoosterKind kind)
         {
@@ -103,10 +106,10 @@ namespace Bloomlings.Client.Services.Economy
             return new LevelReward(petals, drop);
         }
 
-        /// <summary>The booster the Nth-level drop gives at this level, or null (FR-047).</summary>
+        /// <summary>The regular drop from L20 onward, except on L50 milestones, rotating only through the first three boosters.</summary>
         public BoosterKind? DropFor(int level)
         {
-            if (level <= 0 || level % Config.DropEveryLevels != 0)
+            if (level < 20 || level % 50 == 0 || (level - 20) % Config.DropEveryLevels != 0)
             {
                 return null;
             }
@@ -114,21 +117,35 @@ namespace Bloomlings.Client.Services.Economy
             var unlocked = new List<BoosterKind>();
             foreach ((string _, BoosterKind kind) in BoosterUnlocks)
             {
-                if (IsUnlocked(kind))
+                if (kind != BoosterKind.BloomBurst && IsUnlocked(kind))
                 {
                     unlocked.Add(kind);
                 }
             }
 
-            return unlocked.Count == 0 ? (BoosterKind?)null : unlocked[((level / Config.DropEveryLevels) - 1) % unlocked.Count];
+            if (unlocked.Count == 0)
+            {
+                return null;
+            }
+
+            int earlierDrops = 0;
+            for (int scheduled = 20; scheduled < level; scheduled += Config.DropEveryLevels)
+            {
+                if (scheduled % 50 != 0)
+                {
+                    earlierDrops++;
+                }
+            }
+
+            return unlocked[earlierDrops % unlocked.Count];
         }
 
-        /// <summary>A roadmap unlock was reached: booster unlocks grant their free charges, exactly once (FR-042).</summary>
+        /// <summary>A basic booster unlock grants its free charge once; Bloom Burst's unlock grants none.</summary>
         public void OnUnlock(string unlockId)
         {
             foreach ((string id, BoosterKind kind) in BoosterUnlocks)
             {
-                if (id == unlockId && !_save.Unlocks.IsSet(GrantedPrefix + id))
+                if (id == unlockId && kind != BoosterKind.BloomBurst && !_save.Unlocks.IsSet(GrantedPrefix + id))
                 {
                     _save.Boosters.Add(kind, Config.UnlockGrant);
                     _save.Unlocks.Flags[GrantedPrefix + id] = true;
@@ -137,7 +154,7 @@ namespace Bloomlings.Client.Services.Economy
             }
         }
 
-        /// <summary>Buys one charge with Petals; false when locked or unaffordable (the balance never goes negative).</summary>
+        /// <summary>Buys a three-charge pack, or one Bloom Burst, with Petals.</summary>
         public bool TryBuy(BoosterKind kind)
         {
             if (!IsUnlocked(kind) || !_save.Wallet.TrySpendPetals(Price(kind)))
@@ -145,7 +162,7 @@ namespace Bloomlings.Client.Services.Economy
                 return false;
             }
 
-            _save.Boosters.Add(kind, 1);
+            _save.Boosters.Add(kind, PurchaseQuantity(kind));
             Save();
             return true;
         }

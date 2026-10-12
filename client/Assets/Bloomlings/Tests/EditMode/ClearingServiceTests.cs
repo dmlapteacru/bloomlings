@@ -18,7 +18,12 @@ namespace Bloomlings.Client.Tests
         public void Munchers_PlaysEveryLevel_UntilABoughtStyleIsChosen()
         {
             ClearingService clearing = Service(out _, out _);
-            Assert.That(clearing.Price, Is.EqualTo(5000), "the owner's price, for now");
+            Assert.That(clearing.PriceOf(ClearStyle.Blossom), Is.EqualTo(2500));
+            Assert.That(clearing.PriceOf(ClearStyle.Fireflies), Is.EqualTo(3500));
+            Assert.That(clearing.PriceOf(ClearStyle.Bubbles), Is.EqualTo(3500));
+            Assert.That(clearing.PriceOf(ClearStyle.Pushers), Is.EqualTo(3500));
+            Assert.That(clearing.PriceOf(ClearStyle.Fireworks), Is.EqualTo(5000));
+            Assert.That(clearing.PriceOf(ClearStyle.Parade), Is.EqualTo(5000));
             Assert.That(clearing.Chosen, Is.Null);
             Assert.That(clearing.StyleFor(1), Is.EqualTo(ClearStyle.Munchers));
             Assert.That(clearing.StyleFor(5), Is.EqualTo(ClearStyle.Munchers));
@@ -34,19 +39,19 @@ namespace Bloomlings.Client.Tests
         public void ABoughtStyle_IsLockedBeforeLevel40_AndCostsItsPrice()
         {
             ClearingService clearing = Service(out PlayerSave save, out EconomyService economy);
-            economy.Grant(12000, null);
+            economy.Grant(8000, null);
             Assert.That(clearing.Tap(ClearStyle.Fireflies, 39), Is.EqualTo(ClearingTap.Locked), "the preview shows, the buying waits");
-            Assert.That(economy.Petals, Is.EqualTo(12000));
+            Assert.That(economy.Petals, Is.EqualTo(8000));
 
             Assert.That(clearing.Tap(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingTap.Bought));
-            Assert.That(economy.Petals, Is.EqualTo(7000));
+            Assert.That(economy.Petals, Is.EqualTo(4500));
             Assert.That(clearing.Chosen, Is.EqualTo(ClearStyle.Fireflies));
             Assert.That(clearing.StyleFor(12), Is.EqualTo(ClearStyle.Fireflies), "a chosen style plays on every level");
             Assert.That(clearing.StyleFor(13), Is.EqualTo(ClearStyle.Fireflies));
             Assert.That(save.Cosmetics.Owned, Does.Contain("clear.fireflies"));
 
             Assert.That(clearing.Tap(ClearStyle.Bubbles, 41), Is.EqualTo(ClearingTap.Bought));
-            Assert.That(clearing.Tap(ClearStyle.Pushers, 41), Is.EqualTo(ClearingTap.Short), "2000 Petals left");
+            Assert.That(clearing.Tap(ClearStyle.Pushers, 41), Is.EqualTo(ClearingTap.Short), "1000 Petals left");
             Assert.That(clearing.Owns(ClearStyle.Pushers), Is.False);
             Assert.That(clearing.Chosen, Is.EqualTo(ClearStyle.Bubbles), "a failed buy keeps the chosen style");
         }
@@ -57,7 +62,7 @@ namespace Bloomlings.Client.Tests
             ClearingService clearing = Service(out PlayerSave save, out EconomyService economy);
             var chose = new List<string>();
             clearing.Chose += chose.Add;
-            economy.Grant(10000, null);
+            economy.Grant(8500, null);
             clearing.Tap(ClearStyle.Parade, 50);
             clearing.Tap(ClearStyle.Pushers, 50);
             Assert.That(clearing.Tap(ClearStyle.Parade, 50), Is.EqualTo(ClearingTap.Chosen));
@@ -121,7 +126,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(clearing.ActionOf(ClearStyle.Munchers, 40), Is.EqualTo(ClearingAction.Choose), "Munchers can be chosen back");
             Assert.That(clearing.Check(ClearStyle.Munchers, 40), Is.EqualTo(ClearingTap.Chosen));
             Assert.That(clearing.ActionOf(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingAction.Buy));
-            Assert.That(clearing.Check(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingTap.Short), "1000 Petals left");
+            Assert.That(clearing.Check(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingTap.Short), "2500 Petals left");
         }
 
         private static ClearingService Service(out PlayerSave save, out EconomyService economy)

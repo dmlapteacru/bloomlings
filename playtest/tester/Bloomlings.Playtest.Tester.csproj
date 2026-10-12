@@ -20,4 +20,11 @@
     <!-- Which tap waits for a connected partner, for the refusal's message (spec 005 FR-043; the rules only, no pictures). -->
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/PodLinkRules.cs" Link="Shared/Design/PodLinkRules.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!-- Oversized board prototypes are tester-only and never enter the production level catalog. -->
+    <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-24x24.json" Link="Assets/levels/level-05001.json" />
+    <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-30x32.json" Link="Assets/levels/level-05002.json" />
+    <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-36x36.json" Link="Assets/levels/level-05003.json" />
+  </ItemGroup>
 </Project>

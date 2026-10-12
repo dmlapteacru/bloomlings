@@ -339,6 +339,19 @@ namespace Bloomlings.Playtest.Preview
         {
             DesignApp App(string data) => new DesignApp(data, content, new Silence(), false);
 
+            yield return new Fixture(50, "mosaic-24x24", "Prototype: 24×24 color mosaic", (p, data) => Playing(App(data), p, content, 5001, taps: 0));
+            yield return new Fixture(51, "mosaic-30x32", "Prototype: 30×32 color mosaic", (p, data) => Playing(App(data), p, content, 5002, taps: 0));
+            yield return new Fixture(52, "mosaic-36x36", "Prototype: 36×36 color mosaic", (p, data) => Playing(App(data), p, content, 5003, taps: 0));
+
+            yield return new Fixture(53, "store-packs", "Extra: Store money offers and Petals packs, page 2", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 49);
+                CloseAll(app);
+                app.OpenStore();
+                app.StoreRowsPage = 1;
+                Run(app, p, 0.5f);
+            });
+
             yield return new Fixture(18, "themes", "Extra: background themes", (p, data) =>
             {
                 p.BeginFrame();
@@ -889,7 +902,7 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.2f);
                 Expect(app.NeedsFrames && app.StoreMoving, "the live previews keep the host drawing");
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, NumberText.Group(app.Meta.Clearing.Price)), "Munchers Chosen, the others their price (no Buy word)");
+                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, NumberText.Group(app.Meta.Clearing.PriceOf(ClearStyle.Bubbles))), "Munchers Chosen, the others their price (no Buy word)");
                 petals = app.Meta.Economy.Petals;
                 int bubblesCard = ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles);
                 Box bubbles = ClearingCard.Button(r.ClearingCard(bubblesCard));
@@ -906,7 +919,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, bubbles);
                 Run(app, p, 0.5f);
                 Tap(p, confirm.Confirm);
-                Expect(app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Clearing.IsChosen(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals - app.Meta.Clearing.Price, "Buy buys Bubbles and chooses it");
+                Expect(app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Clearing.IsChosen(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals - app.Meta.Clearing.PriceOf(ClearStyle.Bubbles), "Buy buys Bubbles and chooses it");
                 Run(app, p, 0.1f);
                 Expect(Shows(p, PlaytestText.T("clearing.choose")) && Shows(p, PlaytestText.T("clearing.chosen")), "Munchers now Choose, Bubbles Chosen");
 

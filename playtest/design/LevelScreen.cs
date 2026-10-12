@@ -490,11 +490,11 @@ namespace Bloomlings.Playtest.Design
 
             if (!free && !confirmed && Meta.Economy.Charges(kind) == 0 && Meta.Economy.CanAfford(kind))
             {
-                // No charge left: the use buys one for Petals, so the purchase confirmation asks first and the booster is
+                // No charge left: the use buys a pack for Petals, so the purchase confirmation asks first and the booster is
                 // bought and used only on its Buy (spec 005 FR-040); a cancel buys nothing and brings the jam card back.
                 string id = EndCards.IdOf(kind);
                 _app.ConfirmPurchase(
-                    PurchaseOffer.ForPetals(EndCards.BoosterName(kind), Meta.Economy.Price(kind)),
+                    PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind)),
                     (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)),
                     () => UseBooster(kind, command, confirmed: true),
                     () => JamHidden = false);

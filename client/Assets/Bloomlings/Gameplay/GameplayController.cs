@@ -776,7 +776,7 @@ namespace Bloomlings.Client.Gameplay
         {
             LevelSession session = _session!;
 
-            // A guided demo's forced use is free: the unlock's free charge stays (spec 001 FR-042 as amended on 2026-10-05).
+            // A guided demo's forced use is free. Bloom Burst's L9 demo is its only free use before milestones.
             GuideStep? step = _guide.Step;
             bool demo = step != null && step.Booster == kind && (step.Kind == GuideKind.Booster || step.Kind == GuideKind.BoosterTarget);
             if (step != null && !demo)
@@ -794,11 +794,11 @@ namespace Bloomlings.Client.Gameplay
 
             if (!free && !demo && !confirmed && Economy != null && Economy.Charges(kind) == 0 && Economy.CanAfford(kind))
             {
-                // No charge left: the use buys one for Petals, so the confirmation asks first (over the jam card too).
+                // No charge left: the use buys a pack for Petals, so the confirmation asks first (over the jam card too).
                 _confirm ??= UiKit.PurchaseCard(_root);
                 string boosterId = MethodName(kind);
                 _confirm.ShowPetals(
-                    PurchaseOffer.ForPetals(BoosterTitle(kind), Economy.Price(kind)),
+                    PurchaseOffer.ForPetals(Loc.F("store.booster_quantity", BoosterTitle(kind), EconomyService.PurchaseQuantity(kind)), Economy.Price(kind)),
                     Economy.Petals,
                     well => UiFactory.Place(UiKit.BoosterIcon("Icon", well, boosterId).rectTransform, 0.08f, 0.08f, 0.92f, 0.92f),
                     () => UseBooster(kind, command, confirmed: true),

@@ -13,6 +13,12 @@ The same sources build two APKs, which install side by side:
 | **Bloomlings Playtest** (`com.bloomlings.playtest`) | `playtest/android` + `playtest/design` | the game as a player meets it, in the look of the UX design board (spec 002): splash, Home, progression and unlocks, Petals and booster charges, milestones, Daily Reward, Collection, Store, demos, animations |
 | **Bloomlings Tester** (`com.bloomlings.playtest.tester`) | `playtest/tester` (`PLAYTEST_TESTER`) | quick level testing in the first playtest's minimal look (`TesterView`): levels open straight away, ◀ ▶ move between them, every booster is free, a tap shows its result at once, no Home, progression, economy or demos |
 
+The tester also carries three development-only mosaic prototypes: L5001 (24×24 flower), L5002 (30×32 balloon) and
+L5003 (36×36 butterfly). Use the `24`, `30×32` and `36` shortcuts in its top bar. In Unity and the desktop preview,
+L5001 and L5002 show the pods' detailed pictures on every board cell for comparison; L5003 stays color-only. The
+minimal tester keeps its color-only renderer. These levels are not included in the production catalog. In Unity, open
+them from `Tools/Bloomlings/Play Dev Level/Mosaic prototype ...`.
+
 `PlaytestFlavor` holds the difference, and `MainActivity` picks `Droid.DesignView` or `TesterView`.
 `playtest/Playtest.Shared.props` holds everything the two share. The tester compiles only `playtest/android/*.cs`; the
 full playtest also compiles the designed screens of `playtest/design/` and the host of `playtest/android/Design/`.
@@ -93,7 +99,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); every button raised on a wooden plate
   (glossy green main buttons, cream secondaries, icon buttons with raised glyphs; FR-044, FR-045); laminate wooden
   signs; popups in a wooden frame round a cream panel with raised rows and the title on a sign (FR-045); the board as
-  candy tiles, soft cubes (FR-044), in a stone border on a lawn; wooden pods (the owner's icon over the middle, a small
+  compact color-only mosaic tiles in a stone border on a lawn; wooden pods keep the owner's detailed icon over the middle, a small
   outlined count at the bottom right corner) and cream Waiting Slots (the tile, the count below it); cream booster tiles with green count
   badges; Petals as a pink lotus.
   Material pictures (planks, frames, stones, pedestal, candy tiles) come from the kit's `UiRaster` through
@@ -175,6 +181,9 @@ the APK does between launches: run it twice to see a later launch, `--perf-warm`
 `--perf-serial` one thread). Run it with
 `DOTNET_TieredCompilation=0`, as the APK's Mono compiles each method optimized at once. The normal run also checks that
 the kit's animations draw the pictures of their first frame and that the picture store gives back what it kept.
+
+For a quick desktop comparison of the three oversized boards, run
+`dotnet run --project playtest/preview -- --frames 50,51,52 --shape 19.5x9`.
 
 Both APKs play the Unity client's synthesized sounds (`ToneSynth`, linked) through a SoundPool and its haptic patterns
 on the vibrator (`PlaytestSound`), as the client's `FeedbackPolicy` decides: each clearing style's act sounds and its

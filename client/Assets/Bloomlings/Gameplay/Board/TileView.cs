@@ -14,15 +14,16 @@ namespace Bloomlings.Client.Gameplay.Board
     /// <summary>
     /// One board cell in the reference look (spec 005 contracts/look.md §3.1, §4.1; the playtest's <c>BoardPainter</c>).
     /// <list type="bullet">
-    /// <item><description>A target is a candy tile in the board style (<c>tile.base</c>): a satin tile in its variant's
-    /// color with the symbol as a small raised bead, nearly filling its cell (inset 0.8%), so only the dark board gap
-    /// and the tiles' outlines part neighbors. A hidden mystery tile is the lilac "?" tile (FR-039).</description></item>
+    /// <item><description>A target is a compact color-mosaic tile (<c>tile.base</c>) without a variant picture, nearly
+    /// filling its cell (inset 0.8%), so only the dark board gap and the tiles' outlines part neighbors. A hidden mystery
+    /// tile is the lilac "?" tile (FR-039).</description></item>
     /// <item><description>The next hidden layer peeks from a chip in the tile's top-right corner (<c>tile.layer_peek</c>,
-    /// FR-036): a small candy tile of its variant in a cream ring with a dark rim. On a level whose data stores the icons
+    /// FR-036): a small color tile of its variant in a cream ring with a dark rim. On a level whose data stores the icons
     /// look (boards over 288 cells) <see cref="BoardView"/> passes no next layer, so no chip shows (FR-036 as amended on
     /// 2026-10-06).</description></item>
     /// <item><description>A key waiting under the tile is the gold key on a cream disc in its top-left corner
-    /// (<c>tile.key</c>, FR-033), clear of the symbol.</description></item>
+    /// (<c>tile.key</c>, FR-033), clear of the symbol. On a dense color-only board it becomes a large gold mark over the
+    /// whole tile, so mechanics stay readable even though variant pictures are omitted.</description></item>
     /// <item><description>A stone is a raised block of the border's sandy stone with a crack (<c>tile.stone</c>) over the
     /// restored ground.</description></item>
     /// <item><description>Open cells hide the tile, so the restored ground (<see cref="FinishedPictureRenderer"/>) shows
@@ -54,6 +55,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private float _countedWidth;
         private float _targetRadius;
         private float _targetWidth;
+        private TileStyle _style;
 
         /// <summary>Raised when the tile is tapped while it is tappable (Bloom Burst picks its variant, T120).</summary>
         public event Action<CellPos>? Tapped;
@@ -63,11 +65,12 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>The variant currently shown, or null when the tile is hidden (open ground, a stone or a mystery tile).</summary>
         public VariantId? Shown { get; private set; }
 
-        public static TileView Create(Transform parent, CellPos cell, VariantVisualCatalog? visuals)
+        public static TileView Create(Transform parent, CellPos cell, VariantVisualCatalog? visuals, TileStyle style)
         {
             RectTransform root = UiFactory.CreateRect($"Tile {cell.X},{cell.Y}", parent);
             var view = root.gameObject.AddComponent<TileView>();
             view.Cell = cell;
+            view._style = style;
 
             // The dark board gap under the tile (the stone border's gap, §3.6): it parts the tiles and takes the taps while
             // the tile is a Bloom Burst target. It hides at once when the tile goes, so the ground shows under the shrinking tile.
@@ -81,7 +84,7 @@ namespace Bloomlings.Client.Gameplay.Board
             // The body moves in the animations (shrink, flip); the tile and its marks are laid out in it from the cell's box.
             view._body = UiFactory.Stretch(UiFactory.CreateRect("Body", root));
             view._layout = BoxLayout.On(view._body);
-            view._tile = UiKit.CandyTile("Candy", view._body, null, TileStyle.Board);
+            view._tile = UiKit.CandyTile("Candy", view._body, null, style);
             view._layout.Add((RectTransform)view._tile.transform, TileBox);
             return view;
         }
@@ -275,7 +278,7 @@ namespace Bloomlings.Client.Gameplay.Board
                     return chip.Inset(-line);
                 });
                 layout.Add(ring.rectTransform, b => Chip(TileBox(b)));
-                _peekTile = UiKit.CandyTile("Next", _peek, next, TileStyle.Board);
+                _peekTile = UiKit.CandyTile("Next", _peek, next, _style);
                 layout.Add((RectTransform)_peekTile.transform, b =>
                 {
                     Box chip = Chip(TileBox(b));
@@ -330,13 +333,17 @@ namespace Bloomlings.Client.Gameplay.Board
                 layout.Add(outline.rectTransform, b => b.Inset(b.Width * 0.14f));
                 layout.Add(_keyGlyph.rectTransform, b => b.Inset(b.Width * 0.14f));
 
-                // The key's own rect is the disc, so the flash scales it about its middle.
+                // On dense boards a corner badge would be only a few pixels. Use most of the cell for the mechanic mark;
+                // the tile color remains visible around its cream disc and the gold key remains readable.
                 _layout.Add(_key, b =>
                 {
                     Box tile = TileBox(b);
-                    float d = tile.Width * 0.38f;
-                    float m = tile.Width * 0.03f;
-                    return new Box(tile.Left + m, tile.Top + m, tile.Left + m + d, tile.Top + m + d);
+                    bool dense = _style == TileStyle.Mosaic;
+                    float d = tile.Width * (dense ? 0.72f : 0.38f);
+                    float m = tile.Width * (dense ? 0.14f : 0.03f);
+                    return dense
+                        ? Box.FromCenter(tile.CenterX, tile.CenterY, d, d)
+                        : new Box(tile.Left + m, tile.Top + m, tile.Left + m + d, tile.Top + m + d);
                 });
             }
 

@@ -16,13 +16,12 @@ namespace Bloomlings.Client.Gameplay.Board
     /// <summary>
     /// The board (T041) in the reference look (spec 005 contracts/look.md §3.6, §4.1; the playtest's <c>BoardPainter</c>):
     /// it lies on the lawn inside a border of sandy stone blocks, laid out by the shared <see cref="BoardLayout"/>, so it
-    /// fits up to 22×28 cells (the big levels; FR-008 as amended on 2026-10-06) into the board area without scrolling or
-    /// zooming exactly as the playtest does.
+    /// fits the runtime's 36×36 ceiling into the board area without scrolling or zooming exactly as the playtest does.
     /// <list type="bullet">
-    /// <item><description>Target tiles are candy tiles that nearly touch, parted by the dark board gap
+    /// <item><description>Target tiles are color-mosaic tiles that nearly touch, parted by the dark board gap
     /// (<see cref="TileView"/>). A layered tile's next layer peeks from its chip only when the level's data stores the
-    /// peek look (<see cref="BoardLook.Peek"/>, boards of up to 288 cells); a big level's icons board shows the tiles'
-    /// icons only and keeps the next layer a surprise (FR-036 as amended on 2026-10-06).</description></item>
+    /// peek look (<see cref="BoardLook.Peek"/>, boards of up to 288 cells). A denser board keeps the next layer a
+    /// surprise; clearing the top color flips the newly revealed color into view.</description></item>
     /// <item><description>Restored ground shows the finished picture as pale flat cells under the tiles (T042,
     /// <see cref="FinishedPictureRenderer"/>).</description></item>
     /// <item><description>A Garden Entry is a small stone arch set in the border beside its entry cell (spec 005 FR-034,
@@ -97,6 +96,7 @@ namespace Bloomlings.Client.Gameplay.Board
             _peek = view.BoardLook == BoardLook.Peek;
             Layout();
             _picture.Build(definition, picture, _width, _height, GroundPixels(), _grid);
+            TileStyle tileStyle = UiRaster.GameplayTileStyle(_width, _height);
 
             // The stone border with its dark gap lies under the ground and the tiles (§3.6).
             if (_border == null)
@@ -115,7 +115,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 for (int x = 0; x < _width; x++)
                 {
                     var cell = new CellPos(x, y);
-                    TileView tile = TileView.Create(_grid, cell, _visuals);
+                    TileView tile = TileView.Create(_grid, cell, _visuals, tileStyle);
                     tile.Tapped += c => CellTapped?.Invoke(c);
                     _tiles.Add(tile);
                 }

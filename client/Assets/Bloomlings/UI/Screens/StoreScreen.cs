@@ -48,13 +48,16 @@ namespace Bloomlings.Client.UI.Screens
         string? BoosterId = null,
         int? Charges = null,
         CosmeticItem? Cosmetic = null,
-        string? Name = null);
+        string? Name = null,
+        string? Badge = null,
+        string? Description = null,
+        bool PreviewOnly = false);
 
     /// <summary>
     /// The Store of the design board's frame 17 (spec 002 FR-025; FR-051, T133): the Petals balance pill, then one
-    /// row per item with its icon, its name and its price (the Petal symbol for Petal prices). Open from L12, it sells Petal packs, boosters for Petals, Remove Ads and the starter pack
-    /// (offered once). Cosmetics for Petals join on their own tab after the Wardrobe unlock (L40). Real-money items need
-    /// the platform store: offline they show as unavailable (FR-074), while everything for Petals always works. Nothing in
+    /// row per item with its icon, its name and its price (the Petal symbol for Petal prices). Open from L12, it sells
+    /// boosters for Petals and previews the planned money packs without purchase actions. Cosmetics for Petals join on
+    /// their own tab after the Wardrobe unlock (L40). The money offers await platform products; everything for Petals works. Nothing in
     /// a level ever requires it (FR-056).
     /// <para>
     /// A full-screen page since the owner's note of 2026-10-04 (spec 005 FR-029; contracts/look.md §6.6), every element
@@ -184,6 +187,7 @@ namespace Bloomlings.Client.UI.Screens
         public void Show(IReadOnlyList<StoreItem> items, int petals, bool storeAvailable, WardrobeService? wardrobe = null, ClearingService? clearing = null, int level = 0, Action? clearingChanged = null)
         {
             _items = items;
+            _status.text = Loc.T("store.preview_status");
             _wardrobe = wardrobe;
             _clearing = clearing;
             _level = level;
@@ -468,7 +472,7 @@ namespace Bloomlings.Client.UI.Screens
             Image row = UiKit.Row(item.Id, _list, highlighted: false);
             PlaceInList(row.rectTransform, line);
             bool petals = item.PetalPrice.HasValue;
-            bool unavailable = !petals && !item.Enabled;
+            bool unavailable = !petals && !item.Enabled && !item.PreviewOnly;
             if (unavailable)
             {
                 row.gameObject.AddComponent<CanvasGroup>().alpha = 0.5f;
@@ -514,7 +518,24 @@ namespace Bloomlings.Client.UI.Screens
             string priceText = unavailable ? string.Empty : petals ? NumberText.Group(item.PetalPrice!.Value) : item.PriceText;
             float pillLeft = line.Right - (line.Height * 0.14f) - ((pillH * 0.45f * 0.6f * Mathf.Max(1, priceText.Length)) + (pillH * (petals ? 1.75f : 0.9f)));
             float titleRight = unavailable ? titleLeft + (line.Width * 0.42f) : Mathf.Min(titleLeft + (line.Width * 0.42f), pillLeft - (line.Height * 0.12f));
-            UiKit.PlaceBox(title.rectTransform, new Box(titleLeft, line.Top, titleRight, line.Bottom), line);
+            float titleTop = item.Badge == null ? line.Top : line.Top + (line.Height * 0.22f);
+            float titleBottom = item.Description == null ? line.Bottom : line.Top + (line.Height * 0.64f);
+            UiKit.PlaceBox(title.rectTransform, new Box(titleLeft, titleTop, titleRight, titleBottom), line);
+            if (item.Badge != null)
+            {
+                TextMeshProUGUI badge = UiKit.Label("Badge", row.transform, item.Badge, T.Caption, UiTheme.Of(C.BoosterBloomBurst), TextAlignmentOptions.Left, TextLook.Plain(C.BoosterBloomBurst));
+                badge.fontSizeMax = UiKit.Units(T.Caption.Size * grow);
+                badge.fontSize = badge.fontSizeMax;
+                UiKit.PlaceBox(badge.rectTransform, new Box(titleLeft, line.Top, titleRight, line.Top + (line.Height * 0.27f)), line);
+            }
+
+            if (item.Description != null)
+            {
+                TextMeshProUGUI details = UiKit.Label("Details", row.transform, item.Description, T.Caption, UiTheme.Of(C.InkBrownSoft), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrownSoft));
+                details.fontSizeMax = UiKit.Units(T.Caption.Size * grow);
+                details.fontSize = details.fontSizeMax;
+                UiKit.PlaceBox(details.rectTransform, new Box(titleLeft, line.Top + (line.Height * 0.61f), titleRight, line.Bottom), line);
+            }
 
             if (unavailable)
             {
@@ -621,7 +642,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             ClearingAction action = clearing.ActionOf(style, _level);
             bool locked = action == ClearingAction.Locked;
-            Cost? price = locked ? Cost.Petals(clearing.Price) : (Cost?)null;
+            Cost? price = locked ? Cost.Petals(clearing.PriceOf(style)) : (Cost?)null;
             string name = Loc.T(ClearStyles.NameKey(style));
             Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(style, name, clearing);
             OutfitCardView card = UiKit.OutfitCard("Clearing", _list, name, tap, price, pillRoom: true);
@@ -632,7 +653,7 @@ namespace Bloomlings.Client.UI.Screens
             {
                 ClearingButtonView button = UiKit.ClearingButton("Action", card.transform);
                 BoxLayout.On((RectTransform)card.transform).Add((RectTransform)button.transform, ClearingCardButton);
-                button.Show(action, clearing.Price);
+                button.Show(action, clearing.PriceOf(style));
                 return;
             }
 
@@ -660,7 +681,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             if (clearing.Check(style, _level) == ClearingTap.Bought)
             {
-                _confirm.ShowPetals(PurchaseOffer.ForPetals(name, clearing.Price), _petals, well => ClearPreviewView.Create(well, style, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null), () => Tapped(clearing.Tap(style, _level)), () => Tapped(ClearingTap.Short));
+                _confirm.ShowPetals(PurchaseOffer.ForPetals(name, clearing.PriceOf(style)), _petals, well => ClearPreviewView.Create(well, style, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null), () => Tapped(clearing.Tap(style, _level)), () => Tapped(ClearingTap.Short));
                 return;
             }
 

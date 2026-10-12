@@ -109,7 +109,7 @@ namespace Bloomlings.Client.Gameplay.Effects
             switch (item.Kind)
             {
                 case FxKind.Tile:
-                    return (ProceduralSprites.CandyTile(item.Variant, TileStyle.Board), 0f);
+                    return (ProceduralSprites.CandyTile(item.Variant, TileStyle.Mosaic), 0f);
                 case FxKind.Ring:
                     return (Ring(item.Line / Math.Max(0.001f, item.W / 2f)), 0f);
                 case FxKind.Round:

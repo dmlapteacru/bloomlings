@@ -422,11 +422,27 @@ namespace Bloomlings.Playtest
             DifficultyClass difficulty = _session.Definition.Difficulty.Class;
             int resolved = Resolve(_level);
             string title = PlaytestText.F("common.level", _level) + (resolved != _level ? " (= L" + resolved + ")" : string.Empty);
-            Text(canvas, title, bar.CenterX(), bar.Top + (h * 0.42f), h * 0.42f, TextColor);
-            const string tail = "tester";
-            string subtitle = difficulty == DifficultyClass.Normal ? tail
-                : PlaytestText.T(difficulty == DifficultyClass.Hard ? "difficulty.hard" : "difficulty.super_hard") + " · " + tail;
-            Text(canvas, subtitle, bar.CenterX(), bar.Top + (h * 0.85f), h * 0.26f, difficulty == DifficultyClass.Normal ? Locked : Warning);
+            if (difficulty != DifficultyClass.Normal)
+            {
+                title += " · " + PlaytestText.T(difficulty == DifficultyClass.Hard ? "difficulty.hard" : "difficulty.super_hard");
+            }
+
+            Text(canvas, title, bar.CenterX(), bar.Top + (h * 0.27f), h * 0.34f, difficulty == DifficultyClass.Normal ? TextColor : Warning);
+
+            // Direct access to the three oversized mosaic prototypes.
+            float shortcutWidth = h * 0.62f;
+            float shortcutGap = h * 0.08f;
+            float shortcutsWidth = (shortcutWidth * 3f) + (shortcutGap * 2f);
+            float shortcutLeft = bar.CenterX() - (shortcutsWidth / 2f);
+            string[] labels = { "24", "30×32", "36" };
+            int[] levels = { 5001, 5002, 5003 };
+            for (int i = 0; i < labels.Length; i++)
+            {
+                int targetLevel = levels[i];
+                float left = shortcutLeft + (i * (shortcutWidth + shortcutGap));
+                var rect = new RectF(left, bar.Top + (h * 0.53f), left + shortcutWidth, bar.Bottom);
+                Button(canvas, rect, labels[i], _level == targetLevel ? Accent : Locked, () => LoadLevel(targetLevel));
+            }
         }
 
         private void DrawBoard(Canvas canvas, RectF area)
@@ -446,7 +462,7 @@ namespace Bloomlings.Playtest
                     var pos = new CellPos(x, y);
                     CellInfo info = _animator.Cell(pos);
                     RectF full = CellRect(pos);
-                    RectF tile = Inset(full, cell * 0.06f);
+                    RectF tile = Inset(full, cell * 0.018f);
                     switch (info.Kind)
                     {
                         case CellKind.Open:
@@ -551,8 +567,7 @@ namespace Bloomlings.Playtest
 
             VariantId variant = info.Visible.Value;
             Color color = VariantColor(variant);
-            Fill(canvas, tile, WithAlpha(color, alpha), cell * 0.18f);
-            Text(canvas, Code(variant), tile.CenterX(), tile.CenterY(), cell * 0.36f, WithAlpha(Ink(color), alpha));
+            Fill(canvas, tile, WithAlpha(color, alpha), cell * 0.12f);
             // The next layer's corner, on a peek board only: an icons board keeps it a surprise (FR-036 as amended on 2026-10-06).
             if (_session.View.BoardLook == BoardLook.Peek && info.RemainingLayers > 1 && info.Next.HasValue)
             {

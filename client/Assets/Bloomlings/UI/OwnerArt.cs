@@ -66,7 +66,12 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static Sprite? TileIcon(string iconId, TileStyle style, TileState state)
         {
-            bool sticker = style == TileStyle.Sticker;
+            if (style == TileStyle.Mosaic)
+            {
+                return null;
+            }
+
+            bool sticker = style == TileStyle.Sticker || style == TileStyle.MosaicIcon;
             bool grey = state == TileState.Grey;
             if (state == TileState.Mystery)
             {

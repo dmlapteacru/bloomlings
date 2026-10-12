@@ -44,7 +44,7 @@ namespace Bloomlings.Playtest.Design
                         p.PushRotate(sway, full.CenterX, full.Bottom);
                     }
 
-                    CandyTile(p, full.Inset(cell * 0.008f), preview.Variant, TileStyle.Board);
+                    CandyTile(p, full.Inset(cell * 0.008f), preview.Variant, TileStyle.Mosaic);
                     if (sway != 0f)
                     {
                         p.PopTransform();

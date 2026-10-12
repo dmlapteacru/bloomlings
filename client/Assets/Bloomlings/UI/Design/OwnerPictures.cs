@@ -217,7 +217,9 @@ namespace Bloomlings.Client.UI.Design
         /// keeps its drawn symbol.
         /// </summary>
         public static string? TileIcon(string iconId, TileStyle style, TileState state) =>
-            state == TileState.Mystery || iconId == "mystery" ? null : style == TileStyle.Sticker ? VariantIcon(iconId) : FieldIcon(iconId);
+            state == TileState.Mystery || iconId == "mystery" || style == TileStyle.Mosaic
+                ? null
+                : style == TileStyle.Sticker || style == TileStyle.MosaicIcon ? VariantIcon(iconId) : FieldIcon(iconId);
 
         /// <summary>
         /// The share of a board or flat tile's side that its field icon picture's box takes: the pictures keep about 4% of
@@ -240,7 +242,7 @@ namespace Bloomlings.Client.UI.Design
         public static Box TileIconBox(Box tile, TileStyle style)
         {
             float face = tile.Height * (1f - UiRaster.TileLipShare(style));
-            float side = tile.Width * (style == TileStyle.Sticker ? StickerIconBox : FieldIconBox);
+            float side = tile.Width * (style == TileStyle.Sticker || style == TileStyle.MosaicIcon ? StickerIconBox : FieldIconBox);
             return Box.FromCenter(tile.CenterX, tile.Top + (face / 2f), side, side);
         }
 

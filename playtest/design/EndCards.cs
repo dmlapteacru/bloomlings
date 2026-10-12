@@ -189,7 +189,10 @@ namespace Bloomlings.Playtest.Design
                         Cost cost = charges > 0 ? Cost.Charges(charges) : Cost.Petals(s.Meta.Economy.Price(kind));
                         BoosterKind used = kind;
                         Recovery chosen = rec;
-                        choices.Add((id, ChoiceSet(id), BoosterName(kind), cost, () => s.PressBooster(used, chosen)));
+                        string label = charges == 0
+                            ? PlaytestText.F("store.booster_quantity", BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind))
+                            : BoosterName(kind);
+                        choices.Add((id, ChoiceSet(id), label, cost, () => s.PressBooster(used, chosen)));
                     }
                 }
             }

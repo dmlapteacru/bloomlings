@@ -47,7 +47,7 @@ namespace Bloomlings.Client.Meta.Clearing
     /// <summary>
     /// The board's clearing styles as board cosmetics (spec 005 FR-038; spec 001 FR-063 and FR-051 as amended): the free
     /// style, Munchers, plays on every level; the six bought styles (Blossom among them since 2026-10-11) are bought once with Petals from
-    /// <see cref="ClearStyles.BuyFromLevel"/> (Remote Config <c>economy.price.clearing</c>, 5000 for now) and, once chosen,
+    /// <see cref="ClearStyles.BuyFromLevel"/> (Remote Config intro/standard/premium prices) and, once chosen,
     /// play on every level. The save keeps the bought ones in <c>cosmetics.owned</c> (<c>clear.&lt;name&gt;</c>) and the
     /// chosen one in <c>cosmetics.equipped.board.clearing</c>; no chosen style means Munchers. Presentation only:
     /// nothing here reaches the level rules, and every style takes the same time. Engine-free.
@@ -75,8 +75,13 @@ namespace Bloomlings.Client.Meta.Clearing
         /// <summary>A style was chosen (the <c>cosmetic_equip</c> event, family <c>board</c>): its id.</summary>
         public event Action<string>? Chose;
 
-        /// <summary>What a bought style costs in Petals.</summary>
-        public int Price => _config.Get(RemoteConfigKeys.PriceClearing);
+        /// <summary>What a bought style costs in Petals: Blossom 2500, three standard styles 3500, two premium 5000.</summary>
+        public int PriceOf(ClearStyle style) => style switch
+        {
+            ClearStyle.Blossom => _config.Get(RemoteConfigKeys.PriceClearingIntro),
+            ClearStyle.Fireworks or ClearStyle.Parade => _config.Get(RemoteConfigKeys.PriceClearingPremium),
+            _ => _config.Get(RemoteConfigKeys.PriceClearing),
+        };
 
         public bool Owns(ClearStyle style) => ClearStyles.IsFree(style) || _save.Cosmetics.Owned.Contains(ClearStyles.Id(style));
 
@@ -123,12 +128,13 @@ namespace Bloomlings.Client.Meta.Clearing
                 return ClearingTap.Locked;
             }
 
-            if (_economy == null || Price <= 0)
+            int price = PriceOf(style);
+            if (_economy == null || price <= 0)
             {
                 return ClearingTap.Unavailable;
             }
 
-            return _economy.Petals < Price ? ClearingTap.Short : ClearingTap.Bought;
+            return _economy.Petals < price ? ClearingTap.Short : ClearingTap.Bought;
         }
 
         /// <summary>
@@ -149,12 +155,13 @@ namespace Bloomlings.Client.Meta.Clearing
                 return ClearingTap.Locked;
             }
 
-            if (_economy == null || Price <= 0)
+            int price = PriceOf(style);
+            if (_economy == null || price <= 0)
             {
                 return ClearingTap.Unavailable;
             }
 
-            if (_economy.Petals < Price)
+            if (_economy.Petals < price)
             {
                 return ClearingTap.Short;
             }
@@ -164,7 +171,7 @@ namespace Bloomlings.Client.Meta.Clearing
             string? before = _save.Cosmetics.Equipped.TryGetValue(Slot, out string? was) ? was : null;
             _save.Cosmetics.Owned.Add(id);
             _save.Cosmetics.Equipped[Slot] = id;
-            if (!_economy.TrySpend(Price))
+            if (!_economy.TrySpend(price))
             {
                 _save.Cosmetics.Owned.Remove(id);
                 if (before == null)

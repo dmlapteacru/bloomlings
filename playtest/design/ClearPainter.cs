@@ -112,7 +112,7 @@ namespace Bloomlings.Playtest.Design
                         Visuals.Character(p, box, item.Variant, item.Mood);
                         break;
                     case FxKind.Tile:
-                        Kit.CandyTile(p, box, item.Variant, TileStyle.Board);
+                        Kit.CandyTile(p, box, item.Variant, TileStyle.Mosaic);
                         break;
                     case FxKind.Circle:
                         if (Math.Abs(w - h) < 0.5f)

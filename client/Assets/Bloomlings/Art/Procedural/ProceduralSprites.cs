@@ -359,7 +359,7 @@ namespace Bloomlings.Client.Art
             return Picture(key, size, size, (w, h) => UiRaster.TileFace(Math.Min(w, h), color, style, state));
         }
 
-        private static string StyleKey(TileStyle style) => style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker";
+        private static string StyleKey(TileStyle style) => style == TileStyle.Board ? "board" : style == TileStyle.Mosaic ? "mosaic" : style == TileStyle.MosaicIcon ? "mosaic-icon" : style == TileStyle.Flat ? "flat" : "sticker";
 
         /// <summary>
         /// A wooden plank (spec 005 §2, <c>mat.wood.light</c> or <c>mat.wood.dark</c>) of

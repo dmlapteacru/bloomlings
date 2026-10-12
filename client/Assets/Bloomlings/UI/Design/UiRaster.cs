@@ -20,6 +20,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Board tiles: nearly square, with the symbol as a bold gem with a thick dark outline (spec 005 FR-026).</summary>
         Board,
 
+        /// <summary>Gameplay board cells: a compact color-only mosaic tile with no variant picture.</summary>
+        Mosaic,
+
+        /// <summary>Comparison prototype: the mosaic tile with the same detailed picture used by its pod.</summary>
+        MosaicIcon,
+
         /// <summary>Pods, slots, the jam row, the Collection and the strip: a bigger, detailed symbol with a dark outline.</summary>
         Sticker,
 
@@ -434,7 +440,18 @@ namespace Bloomlings.Client.UI.Design
         /// The share of a candy tile's side its lip takes (§3.1; a board tile's front face under its top since FR-044,
         /// <see cref="CubeSide"/>), so the kit's press can sink the face into it and the icon sits on the top's middle.
         /// </summary>
-        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : style == TileStyle.Board ? CubeSide : 0.07f;
+        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : style == TileStyle.Board ? CubeSide : IsMosaic(style) ? 0.025f : 0.07f;
+
+        /// <summary>
+        /// Boards up to 24×24 keep the pod picture inside each tile. Denser boards use color alone: at that size the
+        /// picture stops helping recognition, while the separate mechanic marks (key, stone and special rings) remain.
+        /// </summary>
+        public static TileStyle GameplayTileStyle(int width, int height) =>
+            width <= 24 && height <= 24 ? TileStyle.MosaicIcon : TileStyle.Mosaic;
+
+        /// <summary>The visible color ramp shared by color-mosaic cells and their exposed pod panels.</summary>
+        public static (Rgba Top, Rgba Bottom) MosaicRamp(Rgba color) =>
+            (color.Lighten(0.36f), color.Darken(0.14f));
 
         /// <summary>
         /// A candy tile of side <paramref name="size"/> (spec 005 contracts/look.md §3.1): a satin rounded square in
@@ -447,7 +464,7 @@ namespace Bloomlings.Client.UI.Design
         /// cube instead (spec 005 FR-044, §6.18, <see cref="Cube"/>), its symbol on the top's middle.
         /// </summary>
         public static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal) =>
-            Tile(size, color, iconId, style, state, true);
+            Tile(size, color, iconId, style, state, style != TileStyle.Mosaic);
 
         /// <summary>
         /// A candy tile's face without its symbol (spec 005 pictures.md G9–G24): the same satin square, bevel, gloss band,
@@ -473,7 +490,7 @@ namespace Bloomlings.Client.UI.Design
             float s = size;
 
             // At least 3 px of corner, so small tiles stay rounded (and their corner pixels clear).
-            float r = Math.Max(3f, s * (board ? 0.07f : 0.2f));
+            float r = Math.Max(2f, s * (IsMosaic(style) ? 0.12f : board ? 0.07f : 0.2f));
             float line = Math.Max(1f, s * (board ? 0.02f : 0.026f));
             float lip = s * TileLipShare(style);
             float faceH = s - lip;
@@ -489,10 +506,9 @@ namespace Bloomlings.Client.UI.Design
             float unit = box / 2f / ShapeRaster.Margin;
             float iconLine = Math.Max(0.8f, box * (board ? 0.045f : StickerLine));
 
-            Rgba top = col.Lighten(0.36f);
-            Rgba bottom = col.Darken(0.14f);
+            (Rgba top, Rgba bottom) = MosaicRamp(col);
             Rgba lipColor = col.Darken(0.28f);
-            Rgba outline = col.Darken(board ? 0.45f : 0.5f);
+            Rgba outline = col.Darken(IsMosaic(style) ? 0.25f : board ? 0.45f : 0.5f);
             Rgba bevelColor = col.Lighten(0.45f);
             Rgba beadFlat = col.Darken(0.32f);
             float bandAlpha = board ? 0.18f : 0.16f;
@@ -595,6 +611,8 @@ namespace Bloomlings.Client.UI.Design
 
             return pixels;
         }
+
+        private static bool IsMosaic(TileStyle style) => style == TileStyle.Mosaic || style == TileStyle.MosaicIcon;
 
         /// <summary>The symbol on a soft cube's top: the mystery's white "?", or the gem.</summary>
         private static void CubeSymbol(ref Color c, float x, float y, float sx, float sy, float unit, Func<float, float, float>? symbol, bool mystery, bool drawn, Gem gem, bool small, Rgba beadFlat, float faceH, float s)

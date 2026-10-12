@@ -1,0 +1,103 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 2,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 12,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "prototype-mosaic-v1",
+  "levelNumber": 5001,
+  "mapping": {
+    "sky": "water",
+    "outline": "berry",
+    "primary": "flower",
+    "secondary": "vine",
+    "detail": "wood"
+  },
+  "picture": {
+    "id": "dev_mosaic_flower_24x24",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 90,
+      "id": "w1_1",
+      "variantId": "water"
+    },
+    {
+      "count": 90,
+      "id": "w1_2",
+      "variantId": "water"
+    },
+    {
+      "count": 90,
+      "id": "w1_3",
+      "variantId": "water"
+    },
+    {
+      "count": 66,
+      "id": "w1_4",
+      "variantId": "water"
+    },
+    {
+      "count": 32,
+      "id": "b2_1",
+      "variantId": "berry"
+    },
+    {
+      "count": 90,
+      "id": "f3_1",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "f3_2",
+      "variantId": "flower"
+    },
+    {
+      "count": 50,
+      "id": "v4_1",
+      "variantId": "vine"
+    },
+    {
+      "count": 62,
+      "id": "w5_1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5001",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      [
+        "w1_1",
+        "w1_2",
+        "w1_3",
+        "w1_4"
+      ],
+      [
+        "b2_1"
+      ],
+      [
+        "f3_1",
+        "f3_2"
+      ],
+      [
+        "v4_1"
+      ],
+      [
+        "w5_1"
+      ]
+    ]
+  }
+}

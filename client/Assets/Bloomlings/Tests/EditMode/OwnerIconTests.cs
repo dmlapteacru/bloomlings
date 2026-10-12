@@ -51,6 +51,8 @@ namespace Bloomlings.Client.Tests
         {
             Assert.That(OwnerPictures.TileIcon("leaf", TileStyle.Board, TileState.Normal), Is.EqualTo("field-leaf"));
             Assert.That(OwnerPictures.TileIcon("leaf", TileStyle.Flat, TileState.Normal), Is.EqualTo("field-leaf"));
+            Assert.That(OwnerPictures.TileIcon("leaf", TileStyle.Mosaic, TileState.Normal), Is.Null);
+            Assert.That(OwnerPictures.TileIcon("leaf", TileStyle.MosaicIcon, TileState.Normal), Is.EqualTo("variant-leaf"));
             Assert.That(OwnerPictures.TileIcon("acorn", TileStyle.Sticker, TileState.Dimmed), Is.EqualTo("variant-acorn"));
             Assert.That(OwnerPictures.TileIcon("acorn", TileStyle.Sticker, TileState.Grey), Is.EqualTo("variant-acorn"));
             Assert.That(OwnerPictures.TileIcon("acorn", TileStyle.Sticker, TileState.Mystery), Is.Null);
