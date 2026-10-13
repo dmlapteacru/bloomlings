@@ -7,9 +7,8 @@ namespace Bloomlings.Client.UI.Design
     /// Where the board's pieces go inside the board region of the gameplay layout (spec 005 contracts/look.md §3.6,
     /// §4.1): the grid of cells and the stone border around it (a dark gap of <see cref="Gap"/> cell and stones
     /// <see cref="Stone"/> cell thick), with <see cref="Margin"/> cell of lawn kept at its left and right. The cells take
-    /// the largest size that fits the region (and the widest border the caller allows), and the board is centered in the
-    /// region. A Garden Entry is a small stone arch set in the border beside its entry cell (<see cref="Arch"/>; the
-    /// owner, 2026-10-05, after the big arch under the board went on 2026-10-03, so the board keeps that room), and its
+    /// the largest size that fits the region (and the widest border the caller allows). Gameplay docks the fitted
+    /// board above the waiting-slot panel. A Garden Entry is an enlarged stone arch beside its entry cell, and its
     /// Bloomlings set off from the border there (<see cref="Door"/>). Both builds draw from it, so the board looks the
     /// same in each. Engine-free.
     /// </summary>
@@ -34,13 +33,13 @@ namespace Bloomlings.Client.UI.Design
         public const float DoorReach = 0.5f + Gap + (Stone / 2f);
 
         /// <summary>The entry arch picture's width across its entry, in cells (<see cref="UiRaster.EntryArch"/>).</summary>
-        public const float ArchWidth = 1.12f;
+        public const float ArchWidth = 2.1f;
 
-        /// <summary>The entry arch picture's height toward the board, in cells: it reaches 0.36 cell over its entry cell.</summary>
-        public const float ArchHeight = 0.86f;
+        /// <summary>The arch's height in cells, preserving the illustration's original aspect.</summary>
+        public const float ArchHeight = ArchWidth * 0.86f / 1.12f;
 
-        /// <summary>From the door to the arch picture's middle, in cells toward the board.</summary>
-        public const float ArchInset = 0.18f;
+        /// <summary>From the door to the arch picture's middle, in cells toward the board (negative reaches out).</summary>
+        public const float ArchInset = -0.08f;
 
         private BoardLayout(Box grid, float cell, int width, int height)
         {
@@ -62,6 +61,9 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The stone border's outer edge.</summary>
         public Box Outer => Grid.Inset(-Rim * Cell);
+
+        /// <summary>Keep the fence by the waiting-slot panel without changing the fitted cell size.</summary>
+        public BoardLayout DockBottom(float bottom) => new BoardLayout(Grid.Offset(0f, bottom - Outer.Bottom), Cell, Width, Height);
 
         /// <summary>The box of the cell at (<paramref name="x"/>, <paramref name="y"/>); y counts up from the bottom row.</summary>
         public Box CellBox(int x, int y)

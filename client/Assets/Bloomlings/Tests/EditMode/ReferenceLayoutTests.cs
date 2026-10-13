@@ -121,7 +121,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(r.Board.Top, Is.EqualTo(0.162f * w).Within(1f));
             Assert.That(r.EntryStrip.Height, Is.EqualTo(0.04f * w).Within(1f), "the plain strip: the Garden Entries have no arch");
             Assert.That(r.Board.Bottom, Is.EqualTo(r.Tray.Top - (0.04f * w)).Within(1f), "the board's region reaches down to it");
-            Assert.That(r.SlotRow.Height, Is.EqualTo(0.16f * w).Within(1f));
+            Assert.That(r.SlotRow.Height, Is.EqualTo(0.14f * w).Within(1f));
             Assert.That(r.BoosterRow.Height, Is.EqualTo(0.18f * w).Within(1f));
             Assert.That(r.PodRows, Is.EqualTo(4));
             Assert.That(r.PodRow.Height, Is.EqualTo(0.42f * w).Within(1f), "the exposed pod 0.18 W and three 0.16 W pods covered halfway");
@@ -136,7 +136,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(r.Columns[3].Right, Is.EqualTo(0.98f * w).Within(1f));
             Assert.That(r.Pod(0, 0).Height, Is.EqualTo(0.18f * w).Within(1f));
             Assert.That(r.Pod(0, 1).Height, Is.EqualTo(0.16f * w).Within(1f));
-            Assert.That(r.Tray.Top, Is.EqualTo(h - (0.865f * w)).Within(2f), "the rows and padding fit below the board");
+            Assert.That(r.Tray.Top, Is.EqualTo(h - (0.845f * w)).Within(2f), "the compact rows and padding fit below the board");
         }
 
         [Test]
@@ -245,6 +245,11 @@ namespace Bloomlings.Client.Tests
                 AssertRow(r.Boosters, r.BoosterRow, "boosters within their row");
                 for (int i = 1; i < r.Slots.Count; i++)
                     Assert.That(r.Slots[i].Left - r.Slots[i - 1].Right, Is.EqualTo(w * 0.012f).Within(0.01f), "small equal gaps between waiting pods");
+                Assert.That(r.Slots[0].Height, Is.EqualTo(r.Slots[0].Width).Within(0.01f), "square selected-pod boxes");
+                var entry = new EntryDef(new CellPos(size.Item1 / 2, 0), EntrySide.Bottom);
+                Box arch = board.Arch(entry).Box;
+                float stoneFoot = arch.Top + arch.Height * (0.84f / 0.86f);
+                Assert.That(stoneFoot, Is.GreaterThanOrEqualTo(GameplaySkin.SlotPanel(r).Top), "arch pillars meet the slot panel");
             }
         }
 
@@ -411,7 +416,7 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheSlotTile_FillsTheReferenceShareOfItsPlate_AndLeavesRoomForTheCount()
+        public void TheSlotTile_AndCornerCountOverlapInsideTheCompactPlate()
         {
             ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2160f, Insets.None, 4, 5);
             Box plate = r.Slots[0];
@@ -419,10 +424,14 @@ namespace Bloomlings.Client.Tests
             float lip = Math.Min(plate.Width, plate.Height) * ReferenceGameplayRegions.SlotLipShare;
             float face = plate.Height - lip;
             Assert.That(tile.Width, Is.EqualTo(tile.Height).Within(0.01f));
-            Assert.That(tile.Width, Is.EqualTo(Math.Min(plate.Width * 0.74f, face * 0.66f)).Within(0.5f));
-            Assert.That(tile.Top, Is.EqualTo(plate.Top + (face * 0.08f)).Within(0.5f));
+            Assert.That(tile.Width, Is.EqualTo(Math.Min(plate.Width, face) * 0.78f).Within(0.5f));
+            Assert.That(tile.CenterY, Is.EqualTo(plate.Top + face * 0.5f).Within(0.5f));
             Assert.That(tile.CenterX, Is.EqualTo(plate.CenterX).Within(0.5f));
-            Assert.That(plate.Bottom - lip - tile.Bottom, Is.GreaterThan(face * 0.2f), "the count keeps a quarter of the face");
+            Box count = ReferenceGameplayRegions.SlotCount(plate);
+            Assert.That(count.CenterX, Is.GreaterThan(plate.CenterX));
+            Assert.That(count.CenterY, Is.GreaterThan(plate.CenterY));
+            Assert.That(count.Top, Is.LessThan(tile.Bottom), "count overlaps the icon's lower corner");
+            Assert.That(count.Within(plate), Is.True);
             Assert.That(tile.Width, Is.GreaterThan(0.09f * r.W), "about 0.1 W (the slots shrank so the tray shows its pods' rows)");
         }
 

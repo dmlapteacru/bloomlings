@@ -145,7 +145,7 @@ namespace Bloomlings.Client.UI.Design
             var slots = new Box[Slots.Count];
             float slotWidth = Math.Min(W * 0.14f * K, (outer.Width - W * 0.012f * Math.Max(0, slots.Length - 1)) / Math.Max(1, slots.Length));
             float slotSpan = slotWidth * slots.Length + W * 0.012f * Math.Max(0, slots.Length - 1);
-            for (int i = 0; i < slots.Length; i++) slots[i] = Box.FromCenter(outer.CenterX - slotSpan * 0.5f + slotWidth * 0.5f + i * (slotWidth + W * 0.012f), SlotRow.CenterY, slotWidth, SlotRow.Height);
+            for (int i = 0; i < slots.Length; i++) slots[i] = Box.FromCenter(outer.CenterX - slotSpan * 0.5f + slotWidth * 0.5f + i * (slotWidth + W * 0.012f), SlotRow.CenterY, slotWidth, Math.Min(slotWidth, SlotRow.Height));
             return this with { Boosters = boosts, Slots = slots };
         }
 
@@ -153,16 +153,20 @@ namespace Bloomlings.Client.UI.Design
         public const float SlotLipShare = 0.055f;
 
         /// <summary>
-        /// The sticker tile in a Waiting Slot's <paramref name="plate"/> (both builds; z-tray): the face is the plate less
-        /// its lip; the tile is <c>min(0.74 face width, 0.66 face height)</c>, centered across, 8% of the face below its
-        /// top, and the count takes the room under it.
+        /// Large centered sticker, with the count overlapping its lower-right corner.
         /// </summary>
         public static Box SlotTile(Box plate)
         {
             float lip = Math.Min(plate.Width, plate.Height) * SlotLipShare;
             var face = new Box(plate.Left, plate.Top, plate.Right, plate.Bottom - lip);
-            float tile = Math.Min(face.Width * 0.74f, face.Height * 0.66f);
-            return Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.08f) + (tile / 2f), tile, tile);
+            float tile = Math.Min(face.Width, face.Height) * 0.78f;
+            return Box.FromCenter(face.CenterX, face.CenterY, tile, tile);
+        }
+
+        public static Box SlotCount(Box plate)
+        {
+            float s = Math.Min(plate.Width, plate.Height);
+            return Box.FromCenter(plate.Right - s * 0.26f, plate.Bottom - s * 0.20f, s * 0.50f, s * 0.30f);
         }
 
         /// <summary>
@@ -171,7 +175,7 @@ namespace Bloomlings.Client.UI.Design
         /// Entries take no room: their Bloomlings set off from the border (<see cref="BoardLayout.Door"/>).
         /// </summary>
         public BoardLayout FitBoard(int width, int height) =>
-            BoardLayout.Fit(BoardArea.Inset(W * 0.02f, 0f), width, height, W * MaxBoardShare);
+            BoardLayout.Fit(BoardArea.Inset(W * 0.02f, 0f), width, height, W * MaxBoardShare).DockBottom(BoardArea.Bottom);
     }
 
     /// <summary>
@@ -957,7 +961,7 @@ namespace Bloomlings.Client.UI.Design
             Box above = hasBoosters ? boosterRow : podRow;
             Box separatorTop = SeparatorAbove(above);
             float slotBottom = above.Top - separator;
-            var slotRow = new Box(safe.Left + (0.04f * w), slotBottom - (0.16f * w * k), safe.Right - (0.04f * w), slotBottom);
+            var slotRow = new Box(safe.Left + (0.04f * w), slotBottom - (0.14f * w * k), safe.Right - (0.04f * w), slotBottom);
             float trayTop = slotRow.Top - (0.025f * w);
             var tray = new Box(0f, trayTop, width, height);
             var trayContent = new Box(safe.Left + (0.035f * w), slotRow.Top, safe.Right - (0.035f * w), contentBottom);
@@ -967,7 +971,7 @@ namespace Bloomlings.Client.UI.Design
             float boardWidth = ReferenceGameplayRegions.MaxBoardShare * w;
             var board = new Box(safe.CenterX - (boardWidth / 2f), boardTop, safe.CenterX + (boardWidth / 2f), Math.Max(boardTop, entryStrip.Top));
 
-            // The slots: portrait plates 0.14 W wide spread evenly across 0.92 W (an extra slot narrows them).
+            // Compact plates 0.14 W wide; AlignControls squares them against the fitted fence.
             int slots = Math.Max(1, slotCount);
             Box[] slotBoxes = Spread(Box.FromCenter(safe.CenterX, slotRow.CenterY, 0.86f * w, slotRow.Height), slots, 0.14f * w * k, 0.012f * w, 0.012f * w);
 

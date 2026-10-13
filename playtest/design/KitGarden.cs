@@ -635,15 +635,14 @@ namespace Bloomlings.Playtest.Design
                         p.Mark("pod.state.mystery");
                     }
 
-                    // The tile near the top (about 74% of a portrait plate's width, as in the reference; less on a square
-                    // one), so the count below it keeps about a quarter of the face.
+                    // Square occupied slot: large sticker with the outlined number over its lower-right corner.
                     Box tileBox = ReferenceGameplayRegions.SlotTile(box);
                     p.PushSquash(tileFlip, 1f, tileBox.CenterX, tileBox.CenterY);
                     CandyTile(p, tileBox, variant, TileStyle.Sticker, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
                     p.PopTransform();
-                    var countArea = new Box(face.Left, tileBox.Bottom, face.Right, face.Bottom - (face.Height * 0.03f));
+                    Box countArea = ReferenceGameplayRegions.SlotCount(box);
                     p.PushTransform(0f, 0f, countBump, countArea.CenterX, countArea.Bottom);
-                    CountBelow(p, countArea, count, stuck);
+                    PodCount(p, countArea, count, stuck);
                     p.PopTransform();
                     if (stuck && count > 0)
                     {

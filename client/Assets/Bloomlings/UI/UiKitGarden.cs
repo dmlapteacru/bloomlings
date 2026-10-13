@@ -1196,7 +1196,7 @@ namespace Bloomlings.Client.UI
             _line = UiKit.RoundRing("Line", _filled.transform, Color.white, _ => _radius, b => Mathf.Max(UiKit.Units(1f), Mathf.Min(b.Width, b.Height) * 0.018f));
             _lock = UiKit.ShapeImage("Lock", _filled.transform, "ui.lock", C.StateLock.Darken(0.15f));
             _tile = UiKit.CandyTile("Tile", _filled.transform, null, TileStyle.Sticker);
-            _count = UiKit.KitLabel("Count", _filled.transform, string.Empty, T.Count, TextLook.Plain(C.InkBrown));
+            _count = UiKit.KitLabel("Count", _filled.transform, string.Empty, GameplaySkin.PodCount, PodChip.CountLook(false));
             _hourglass = UiFactory.CreateRect("Hourglass", _filled.transform).gameObject;
             UiFactory.Stretch((RectTransform)_hourglass.transform);
             _hourShadow = UiKit.RoundRect("Shadow", _hourglass.transform, UiTheme.Of(C.GardenShadow.WithAlpha(0.2f)));
@@ -1242,6 +1242,7 @@ namespace Bloomlings.Client.UI
             {
                 _tile.Show(variant, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
                 _count.text = count.ToString(CultureInfo.InvariantCulture);
+                UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CountLook(stuck));
             }
 
             _hourglass.SetActive(stuck && count > 0);
@@ -1267,19 +1268,17 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_dashed.rectTransform, box);
             BoxLayout.Place(_dangerMark.rectTransform, box.Inset(s * 0.32f));
 
-            // The filled plate: a lip of 5.5% of the shorter side; the tile 8% of the face below its top (74% of a
-            // portrait plate's width, at most 66% of the face's height, as the reference's), so the count below it keeps
-            // about a quarter of the face.
+            // Compact slot with a centered sticker and the count overlapping its lower-right corner.
             float lip = s * 0.055f;
             var face = new Box(box.Left, box.Top, box.Right, box.Bottom - lip);
             BoxLayout.Place(_lip.rectTransform, box);
             BoxLayout.Place(_face.rectTransform, face);
             BoxLayout.Place(_line.rectTransform, box);
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(face.CenterX, face.CenterY, s * 0.44f, s * 0.44f));
-            float tile = Mathf.Min(face.Width * 0.74f, face.Height * 0.66f);
-            Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.08f) + (tile / 2f), tile, tile);
+            Box tileBox = ReferenceGameplayRegions.SlotTile(box);
             BoxLayout.Place((RectTransform)_tile.transform, tileBox);
-            UiKit.PlaceCount(_count, new Box(face.Left, tileBox.Bottom, face.Right, face.Bottom - (face.Height * 0.03f)), State == SlotPlateState.Stuck);
+            Box countBox = ReferenceGameplayRegions.SlotCount(box);
+            KitText.Place(_count, GameplaySkin.PodCount, countBox.CenterX, countBox.CenterY, countBox.Height, countBox.Width);
 
             float b = s * 0.17f;
             float ring = Mathf.Max(UiKit.Units(1f), s * 0.012f);

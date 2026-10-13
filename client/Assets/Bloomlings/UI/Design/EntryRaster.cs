@@ -10,8 +10,8 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The Garden Entry's small stone arch (spec 005 FR-034, contracts/look.md §3 "Garden Entry"; the owner's choice
         /// "B" of 2026-10-05), upright for an entry at the bottom: a picture <see cref="BoardLayout.ArchWidth"/> ×
-        /// <see cref="BoardLayout.ArchHeight"/> cells whose top reaches 0.36 cell over the entry cell and whose bottom is
-        /// the border's outer edge. Two <c>stone.*</c> pillars carry an arch of keystones round a dark opening
+        /// <see cref="BoardLayout.ArchHeight"/> cells. Gameplay places its foot against the waiting-slot panel.
+        /// Two <c>stone.*</c> pillars carry an arch of keystones round a dark opening
         /// (<c>garden.shadow</c> deepened at the top, warm <c>ray.light</c> from beyond at its foot) where two eyes peep out;
         /// <c>ivy.leaf</c> leaves climb it, a pink flower (<c>petal.*</c>) sits on the keystone, a soft
         /// <c>garden.glow</c> light is round it and its shadow falls on the border. Hosts turn it for the other sides
@@ -21,7 +21,8 @@ namespace Bloomlings.Client.UI.Design
         {
             Check(width, height);
             var pixels = new byte[width * height * 4];
-            float c = width / BoardLayout.ArchWidth;
+            // Original illustration coordinates; layout can enlarge the entire arch proportionally.
+            float c = width / 1.12f;
             float cx = 0.56f * c;
             float spring = 0.53f * c;
             float inner = 0.29f * c;
