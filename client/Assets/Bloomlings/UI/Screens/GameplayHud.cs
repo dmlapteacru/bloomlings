@@ -1,4 +1,5 @@
 using System;
+using Bloomlings.Client.Art;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.UI.Design;
@@ -44,7 +45,7 @@ namespace Bloomlings.Client.UI.Screens
         private Action<bool> _lightSpeed = null!;
         private GardenButton _badge = null!;
         private TextMeshProUGUI _badgeLabel = null!;
-        private TrayPanelView _tray = null!;
+        private Image _tray = null!;
         private TextMeshProUGUI _toast = null!;
         private Image _toastPill = null!;
         private ReferenceGameplayRegions? _regions;
@@ -110,9 +111,9 @@ namespace Bloomlings.Client.UI.Screens
 
             hud.BoardArea = UiFactory.CreateRect("BoardArea", root);
 
-            // The tray (spec 005 FR-020, §6.1): one parchment tray across the screen behind the slots, the booster boxes and
-            // the pod columns; it takes no taps.
-            hud._tray = UiKit.TrayPanel("Tray", root);
+            // Only the waiting slots have a shared panel; boosters and pod columns stand over the existing backdrop.
+            hud._tray = UiFactory.CreateImage("SlotPanel", root, null, Color.white);
+            PictureFit.On(hud._tray, (w, h) => ProceduralSprites.Picture("gameplay.slot.panel", w, h, (pw, ph) => ShopBodyRaster.Framed(pw, ph, 0.20f, GameplaySkin.StoneRim, ShopBodyDesign.Card, 0.035f, true)));
             hud._tray.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
 
             hud.SlotArea = UiFactory.CreateRect("SlotArea", root);
@@ -162,19 +163,9 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(BoardArea, r.BoardArea, screen);
             _boardBox = r.Board;
 
-            // The tray from the entry strip to past the bottom of the screen, with a groove at each separator's middle.
-            var frame = new Box(r.Tray.Left, r.Tray.Top, r.Tray.Right, r.Tray.Bottom + r.TrayRadius);
+            // Compact slot panel; its images take no taps.
+            Box frame = GameplaySkin.SlotPanel(r);
             UiKit.PlaceBox((RectTransform)_tray.transform, frame, screen);
-            var cuts = new List<float>();
-            foreach (Box line in new[] { r.SeparatorTop, r.SeparatorBottom })
-            {
-                if (!line.IsEmpty)
-                {
-                    cuts.Add(line.CenterY);
-                }
-            }
-
-            _tray.Set(frame, r.W, r.TrayRadius, cuts);
             UiKit.PlaceBox(SlotArea, r.SlotRow, screen);
             UiKit.PlaceBox(TrayArea, r.PodRow, screen);
             UiKit.PlaceBox(BoosterArea, hasBoosters ? r.BoosterRow : r.SlotRow, screen);

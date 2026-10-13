@@ -365,7 +365,7 @@ namespace Bloomlings.Client.UI
         /// corners and thin dark joints. The cell is
         /// the grid's width over <paramref name="columns"/> (or its height over <paramref name="rows"/>, the smaller).
         /// </summary>
-        public static StoneBorderView StoneBorder(RectTransform grid, int columns, int rows, float thickness = 0.42f)
+        public static StoneBorderView StoneBorder(RectTransform grid, int columns, int rows, float thickness = BoardLayout.Stone)
         {
             RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("StoneBorder", grid));
             root.SetAsFirstSibling();
@@ -485,7 +485,7 @@ namespace Bloomlings.Client.UI
         public static void SetIconParts(Image image, IReadOnlyList<IconPart> parts, bool grey)
         {
             string? booster = GardenLook.BoosterOf(parts);
-            Sprite? picture = booster != null ? OwnerArt.Icon(OwnerPictures.BoosterIcon(booster))
+            Sprite? picture = booster != null ? ShopArt.Get("shop/boost-" + booster) ?? OwnerArt.Icon(OwnerPictures.BoosterIcon(booster))
                 : ReferenceEquals(parts, GardenLook.Lotus) ? OwnerArt.Icon(OwnerPictures.CurrencyLotus) : null;
             if (picture != null)
             {
@@ -755,6 +755,11 @@ namespace Bloomlings.Client.UI
         {
             TileStyle style = _style;
             Sprite? picture = OwnerArt.TileIcon(iconId, style, state);
+            if (style == TileStyle.Sticker)
+            {
+                foreach (VariantInfo variant in VariantCatalog.Default.All)
+                    if (variant.IconId == iconId) { picture = GameplayArt.Pod(variant.Id, state == TileState.Grey) ?? picture; break; }
+            }
             if (picture == null)
             {
                 PictureFit.On(Image, (w, h) => ProceduralSprites.CandyTile(color, iconId, style, state, w), false, PictureShape.SquareByWidth);
@@ -1446,21 +1451,20 @@ namespace Bloomlings.Client.UI
         private Image _gap = null!;
         private int _columns = 1;
         private int _rows = 1;
-        private float _thickness = 0.42f;
+        private float _thickness = BoardLayout.Stone;
         private float _shadowRadius;
-        private float _jointRadius;
         private float _gapRadius;
 
         internal void Init(int columns, int rows, float thickness)
         {
             _shadow = UiKit.RoundRect("Shadow", transform, UiTheme.Of(C.GardenShadow.WithAlpha(0.22f)), _ => _shadowRadius);
-            _joints = UiKit.RoundRect("Joints", transform, UiTheme.Of(C.StoneLine.WithAlpha(0.45f)), _ => _jointRadius);
+            _joints = UiFactory.CreateImage("RoundedRim", transform, null, Color.white);
             _gap = UiKit.RoundRect("Gap", transform, UiTheme.Of(GardenLook.BoardGap), _ => _gapRadius);
             SetGrid(columns, rows, thickness);
         }
 
         /// <summary>The grid's columns and rows (the cell is the smaller of its width and height over them) and the thickness in cells.</summary>
-        public void SetGrid(int columns, int rows, float thickness = 0.42f)
+        public void SetGrid(int columns, int rows, float thickness = BoardLayout.Stone)
         {
             _columns = Math.Max(1, columns);
             _rows = Math.Max(1, rows);
@@ -1477,13 +1481,9 @@ namespace Bloomlings.Client.UI
             var blocks = new List<(Box, int, float)>();
             float gap = cell * 0.04f;
             float t = cell * thickness;
-            float half = cell * 0.02f;
+            float half = cell * 0.009f;
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
-            blocks.Add((new Box(outer.Left, outer.Top, inner.Left, inner.Top).Inset(half), 1, 0.3f));
-            blocks.Add((new Box(inner.Right, outer.Top, outer.Right, inner.Top).Inset(half), 2, 0.3f));
-            blocks.Add((new Box(outer.Left, inner.Bottom, inner.Left, outer.Bottom).Inset(half), 3, 0.3f));
-            blocks.Add((new Box(inner.Right, inner.Bottom, outer.Right, outer.Bottom).Inset(half), 4, 0.3f));
             Run(blocks, inner.Left, inner.Right, cell, 0, (a, b) => new Box(a, outer.Top, b, inner.Top), half);
             Run(blocks, inner.Left, inner.Right, cell, 1, (a, b) => new Box(a, inner.Bottom, b, outer.Bottom), half);
             Run(blocks, inner.Top, inner.Bottom, cell, 2, (a, b) => new Box(outer.Left, a, inner.Left, b), half);
@@ -1541,12 +1541,13 @@ namespace Bloomlings.Client.UI
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
             _shadowRadius = t * 0.5f;
-            _jointRadius = t * 0.4f;
             _gapRadius = gap * 2f;
             BoxLayout.Place(_shadow.rectTransform, outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f));
-            BoxLayout.Place(_joints.rectTransform, outer.Inset(cell * 0.02f));
+            BoxLayout.Place(_joints.rectTransform, outer);
+            float rimShare = t / Mathf.Min(outer.Width, outer.Height);
+            PictureFit.On(_joints, (w, h) => ProceduralSprites.Picture("gameplay.board.rim/" + _thickness + "/" + rimShare, w, h, (pw, ph) => GameplaySkin.BoardRim(pw, ph, rimShare)));
             BoxLayout.Place(_gap.rectTransform, inner);
-            foreach (Image image in new[] { _shadow, _joints, _gap })
+            foreach (Image image in new[] { _shadow, _gap })
             {
                 image.GetComponent<RoundShape>().Apply();
             }
@@ -1563,7 +1564,7 @@ namespace Bloomlings.Client.UI
                 block.gameObject.SetActive(true);
                 (Box box, int seed, float share) = blocks[i];
                 BoxLayout.Place(block.rectTransform, box);
-                PictureFit.On(block, (w, h) => ProceduralSprites.Stone(w, h, seed, share));
+                PictureFit.On(block, (w, h) => ProceduralSprites.Picture("gameplay.stone.block", w, h, (pw, ph) => GameplaySkin.Stone(pw, ph, 0.18f)));
             }
 
             for (int i = blocks.Count; i < _blocks.Count; i++)

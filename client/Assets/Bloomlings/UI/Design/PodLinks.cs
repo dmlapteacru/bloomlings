@@ -25,7 +25,7 @@ namespace Bloomlings.Client.UI.Design
     public static partial class PodLinks
     {
         /// <summary>The link badge picture's side, as a share of the pod's height (its disc a little smaller than the "+N" disc).</summary>
-        public const float PictureShare = 0.52f;
+        public const float PictureShare = 0.28f;
 
         /// <summary>The hidden partner's mark at a "+N" disc, as a share of the link badge.</summary>
         public const float HiddenShare = 0.74f;
@@ -42,12 +42,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The color of a connected group (<see cref="Palette"/> by its place in <see cref="Groups"/>).</summary>
         public static Rgba ColorOf(LevelView view, string group) => Palette[Math.Max(0, Groups(view).IndexOf(group)) % Palette.Length];
 
-        /// <summary>The link badge's picture box over a pod's <paramref name="frame"/>: its top right corner, as the "+N" disc takes the top left.</summary>
+        /// <summary>The link badge near the lower left of a pod, beside +N and clear of the lower-right count.</summary>
         public static Box BadgeBox(Box frame)
         {
             float h = frame.Height;
             float side = h * PictureShare;
-            return Box.FromCenter(frame.Right - (h * 0.12f), frame.Top + (h * 0.12f), side, side);
+            return Box.FromCenter(frame.Left + (h * 0.40f), frame.Bottom - (h * 0.16f), side, side);
         }
 
         /// <summary>

@@ -162,6 +162,11 @@ namespace Bloomlings.Playtest.Design
                 FaceKey = "tile.face/" + kind + "/" + state + "/" + color.Hex;
                 Face = (w, h) => UiRaster.TileFace(Math.Min(w, h), color, style, state);
                 string? picture = OwnerPictures.TileIcon(icon, style, state);
+                if (style == TileStyle.Sticker)
+                {
+                    foreach (VariantInfo variant in VariantCatalog.Default.All)
+                        if (variant.IconId == icon) { Picture = GameplaySkin.PodIcon(variant.Id); GreyPicture = Picture + PainterBase.GreySuffix; PictureSlot = OwnerPictures.IconSlot(icon); return; }
+                }
                 if (picture != null)
                 {
                     Picture = PainterBase.IconPrefix + picture;
@@ -372,24 +377,21 @@ namespace Bloomlings.Playtest.Design
         /// before the tiles: the gap shows between them as their thin dark separation. Seeds follow the block's place, so
         /// the border never flickers.
         /// </summary>
-        public static void StoneBorder(IPainter p, Box grid, float cell, float thickness = 0.42f)
+        public static void StoneBorder(IPainter p, Box grid, float cell, float thickness = BoardLayout.Stone)
         {
             p.Mark("board.border.stone");
             float gap = cell * 0.04f;
             float t = cell * thickness;
-            float joint = cell * 0.04f;
+            float joint = cell * 0.018f;
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
             p.FillRound(outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), t * 0.5f, C.GardenShadow.WithAlpha(0.22f));
-            p.FillRound(outer.Inset(joint * 0.5f), t * 0.4f, C.StoneLine.WithAlpha(0.45f));
+            float rimShare = t / Math.Min(outer.Width, outer.Height);
+            p.Picture("gameplay.board.rim/" + thickness + "/" + rimShare, outer, (w, h) => GameplaySkin.BoardRim(w, h, rimShare));
             p.FillRound(inner, gap * 2f, GardenLook.BoardGap);
 
             // The corners, then each side's run of blocks between them.
             float half = joint / 2f;
-            StoneBlock(p, new Box(outer.Left, outer.Top, inner.Left, inner.Top).Inset(half), 1, 0.3f);
-            StoneBlock(p, new Box(inner.Right, outer.Top, outer.Right, inner.Top).Inset(half), 2, 0.3f);
-            StoneBlock(p, new Box(outer.Left, inner.Bottom, inner.Left, outer.Bottom).Inset(half), 3, 0.3f);
-            StoneBlock(p, new Box(inner.Right, inner.Bottom, outer.Right, outer.Bottom).Inset(half), 4, 0.3f);
             StoneRun(p, inner.Left, inner.Right, cell, 0, (a, b) => new Box(a, outer.Top, b, inner.Top), half);
             StoneRun(p, inner.Left, inner.Right, cell, 1, (a, b) => new Box(a, inner.Bottom, b, outer.Bottom), half);
             StoneRun(p, inner.Top, inner.Bottom, cell, 2, (a, b) => new Box(outer.Left, a, inner.Left, b), half);
@@ -412,9 +414,10 @@ namespace Bloomlings.Playtest.Design
             for (int i = 0; i < count; i++)
             {
                 float next = i == count - 1 ? to : at + (Pattern(i, side) * k);
-                // A few stone looks, chosen by the block's place, keep the picture cache small.
-                int seed = 11 + (((side * 7) + (i * 3)) % 8);
-                StoneBlock(p, place(at, next).Inset(half), seed, 0.14f);
+                // Border blocks share one smooth stone recipe, cached by their pixel size.
+                Box block = place(at, next).Inset(half);
+                p.Mark("mat.stone");
+                p.Picture("gameplay.stone.block", block, (w, h) => GameplaySkin.Stone(w, h, 0.18f));
                 at = next;
             }
         }
@@ -523,16 +526,15 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("pod.card");
             bool locked = look == PodLook.Locked;
-            Rgba? color = variant.HasValue && !locked ? Visuals.ColorOf(variant.Value) : (Rgba?)null;
-            Rgba? top = color?.Lighten(waiting ? PodWaitingPanelTop : PodPanelTop);
-            Rgba? bottom = color?.Lighten(waiting ? PodWaitingPanelBottom : PodPanelBottom);
-            Box panel = PodFrame(p, chip.Frame, look, waiting, top, bottom);
+            float sink = look == PodLook.Pressed ? chip.Frame.Height * 0.04f : 0f;
+            Box frame = chip.Frame.Offset(0, sink);
+            p.Picture("gameplay.pod/" + (variant?.Key ?? "mystery") + "/" + waiting + "/" + locked, frame, (w, h) => GameplaySkin.Pod(w, h, variant, waiting, locked));
 
             // A pressed frame sinks: its icon and count go with it.
-            float sink = panel.Top - chip.Inner.Top;
             Box tile = chip.Tile.Offset(0f, sink);
             string? iconId = !locked && variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? info.IconId : null;
-            string? icon = iconId == null ? null : PainterBase.IconPrefix + OwnerPictures.VariantIcon(iconId);
+            string? icon = variant.HasValue && !locked ? GameplaySkin.PodIcon(variant.Value) : null;
+            if (icon != null && !p.HasSprite(icon)) icon = iconId == null ? null : PainterBase.IconPrefix + OwnerPictures.VariantIcon(iconId);
             if (icon != null && p.HasSprite(icon))
             {
                 p.Mark(OwnerPictures.IconSlot(iconId!));
@@ -573,8 +575,9 @@ namespace Bloomlings.Playtest.Design
         public static void PodCount(IPainter p, Box area, int count, bool dim)
         {
             p.Mark("pod.count");
+            p.Mark("font.shop");
             TextLook look = PodChip.CountLook(dim);
-            p.Text(count.ToString(CultureInfo.InvariantCulture), area.CenterX, area.CenterY, T.Count, look.FillTop, area.Width, area.Height / p.U(T.Count.Size), look);
+            p.Text(count.ToString(CultureInfo.InvariantCulture), area.CenterX, area.CenterY, GameplaySkin.PodCount, look.FillTop, area.Width, area.Height / p.U(GameplaySkin.PodCount.Size), look);
         }
 
         /// <summary>

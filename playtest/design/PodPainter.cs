@@ -18,8 +18,8 @@ namespace Bloomlings.Playtest.Design
 
     /// <summary>
     /// The Source Tray as columns of pods (spec 005 FR-021, contracts/look.md §3.7, §6.1; frame 12), one column per stack in
-    /// <see cref="ReferenceGameplayRegions.Columns"/>, its pods one after another and never on each other (the owner's
-    /// gameplay rule of 2026-10-03), so the player reads what each choice uncovers:
+    /// <see cref="ReferenceGameplayRegions.Columns"/>, its pods slightly overlapping, the exposed pod drawn in front
+    /// (the owner's visual update of 2026-10-13), so the player reads what each choice uncovers:
     /// <list type="bullet">
     /// <item><description>the exposed pod in the top row (<see cref="ReferenceGameplayRegions.Pod"/> at depth 0): a dark
     /// wooden frame wider than tall, a panel tinted by the variant, the variant's sticker tile at its left and the plain
@@ -260,7 +260,7 @@ namespace Bloomlings.Playtest.Design
             return frames;
         }
 
-        /// <summary>The "+N" disc of the pods a column does not show, over its last shown pod's top left corner (<see cref="PodChip.Badge"/>; the count keeps the bottom right).</summary>
+        /// <summary>The +N disc over the last shown pod's lower-left corner; the count keeps the lower right.</summary>
         public static void MoreBadge(IPainter p, PodChip last, int more) =>
             Kit.CountBadge(p, last.Badge.CenterX, last.Badge.CenterY, last.Badge.Height, "+" + more.ToString(CultureInfo.InvariantCulture));
 

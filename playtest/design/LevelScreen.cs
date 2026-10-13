@@ -799,16 +799,8 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void TrayPanel(IPainter p, ReferenceGameplayRegions r)
         {
-            var cuts = new List<float>();
-            foreach (Box line in new[] { r.SeparatorTop, r.SeparatorBottom })
-            {
-                if (!line.IsEmpty)
-                {
-                    cuts.Add(line.CenterY);
-                }
-            }
-
-            TrayPanel(p, r.Tray, r.TrayRadius, r.W, cuts);
+            p.Mark("mat.parchment");
+            p.Picture("gameplay.slot.panel", GameplaySkin.SlotPanel(r), (w, h) => ShopBodyRaster.Framed(w, h, 0.20f, GameplaySkin.StoneRim, ShopBodyDesign.Card, 0.035f, true));
         }
 
         /// <summary>

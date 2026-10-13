@@ -1,0 +1,13 @@
+{
+  "tool": "OpenAI ImageGen (built-in)",
+  "version": 1,
+  "files": [{
+    "path": "pod-icons-v1.png",
+    "width": 1448,
+    "height": 1086,
+    "sha256": "f4b6392bc97cc0b8eba6b389c691e966d1b2510ce582ae880432ce8807034f33",
+    "slot": "pod.card",
+    "source": "generated",
+    "record": "client/Assets/Bloomlings/Art/Gameplay/SOURCE.md"
+  }]
+}

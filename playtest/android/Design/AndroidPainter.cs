@@ -869,6 +869,16 @@ namespace Bloomlings.Playtest.Droid
                     Bitmap? source = LoadSprite(grey);
                     bitmap = source != null ? Greyed(source) : null;
                 }
+                else if (name.StartsWith("gameplay/pod-", StringComparison.Ordinal))
+                {
+                    Bitmap? atlas = LoadSprite("gameplay/atlas");
+                    var cell = GameplaySkin.PodCell(name.Substring(13));
+                    if (atlas != null && cell.HasValue)
+                    {
+                        int w = atlas.Width / 4, h = atlas.Height / 3;
+                        bitmap = Bitmap.CreateBitmap(atlas, cell.Value.Column * w, cell.Value.Row * h, w, h);
+                    }
+                }
                 else
                 {
                     using System.IO.Stream? stream = PlaytestFiles.Open(SpriteResource(name));

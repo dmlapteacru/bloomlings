@@ -16,8 +16,8 @@ namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
     /// The Source Tray (T043) as the reference's grid of pods at the bottom of the tray (spec 005 FR-021, contracts/look.md
-    /// §3.7, §6.1; the playtest's <c>PodPainter</c>): one column per stack, its pods one after another and never on each
-    /// other (the owner's gameplay rule, 2026-10-03), in the boxes <see cref="Grid"/> gives
+    /// §3.7, §6.1; the playtest's <c>PodPainter</c>): one column per stack, its pods slightly overlapping with the exposed
+    /// pod in front (the owner's visual update, 2026-10-13), in the boxes <see cref="Grid"/> gives
     /// (<see cref="ReferenceGameplayRegions.Pod"/>):
     /// <list type="bullet">
     /// <item><description>the exposed pod in the top row (<see cref="PodView"/>): bright, the only pod that takes a tap
@@ -126,9 +126,9 @@ namespace Bloomlings.Client.Gameplay.Tray
                     continue;
                 }
 
-                // The column top down: the exposed pod, then the next ones, each in its own row.
+                // Draw deeper pods first so the exposed pod covers the upper edge of the next one.
                 int rows = Mathf.Min(ids.Count, grid.PodRows);
-                for (int depth = 0; depth < rows; depth++)
+                for (int depth = rows - 1; depth >= 0; depth--)
                 {
                     PodInfo info = view.Pod(ids[depth]);
                     bool exposed = depth == 0 && view.IsExposed(info.Id);
@@ -157,7 +157,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     boxes[info.Id] = box;
                 }
 
-                // The pods beyond the rows shown wait under a "+N" badge on the last shown pod's top-left corner (the count keeps its bottom right).
+                // +N occupies the last shown pod's lower-left corner; the count keeps the lower right.
                 int more = ids.Count - rows;
                 if (more > 0)
                 {

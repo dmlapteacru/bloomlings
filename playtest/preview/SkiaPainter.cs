@@ -755,6 +755,17 @@ namespace Bloomlings.Playtest.Preview
                         SKImage? source = LoadSprite(grey);
                         image = source != null ? Greyed(source) : null;
                     }
+                    else if (name.StartsWith("gameplay/pod-", StringComparison.Ordinal))
+                    {
+                        // All pod sprites share one decoded atlas rather than decoding it for each variant.
+                        SKImage? atlas = LoadSprite("gameplay/atlas");
+                        var cell = GameplaySkin.PodCell(name.Substring(13));
+                        if (atlas != null && cell.HasValue)
+                        {
+                            int w = atlas.Width / 4, h = atlas.Height / 3;
+                            image = atlas.Subset(new SKRectI(cell.Value.Column * w, cell.Value.Row * h, (cell.Value.Column + 1) * w, (cell.Value.Row + 1) * h));
+                        }
+                    }
                     else
                     {
                         using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(SpriteResource(name));

@@ -101,12 +101,12 @@ namespace Bloomlings.Client.Tests.EditMode
         }
 
         [Test]
-        public void TheBadges_SitAtTheFramesTopRight_AndAtThePlusN()
+        public void TheBadges_SitAtTheFramesBottomLeft_AndAtThePlusN()
         {
             PodChip chip = PodChip.In(new Box(0f, 0f, 200f, 100f));
             Box link = chip.Link;
-            Assert.That(link.CenterX, Is.GreaterThan(chip.Frame.CenterX), "the right side: the +N takes the left");
-            Assert.That(link.CenterY, Is.LessThan(chip.Frame.CenterY), "the top: the count takes the bottom right");
+            Assert.That(link.CenterX, Is.LessThan(chip.Frame.CenterX), "the left side: the count takes the right");
+            Assert.That(link.CenterY, Is.GreaterThan(chip.Frame.CenterY), "the bottom stays visible in an overlapping stack");
             Assert.That(link.Height, Is.EqualTo(chip.Frame.Height * PodLinks.PictureShare).Within(1e-3));
             Box hidden = PodLinks.HiddenMark(chip);
             Assert.That(hidden.Height, Is.LessThan(link.Height));

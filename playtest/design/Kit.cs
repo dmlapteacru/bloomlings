@@ -778,6 +778,7 @@ namespace Bloomlings.Playtest.Design
         {
             string? booster = GardenLook.BoosterOf(parts);
             string picture = booster == null ? string.Empty : PainterBase.IconPrefix + OwnerPictures.BoosterIcon(booster);
+            if (booster != null && p.HasSprite("shop/boost-" + booster)) picture = "shop/boost-" + booster;
             if (booster != null && p.HasSprite(picture))
             {
                 p.PushAlpha(grey ? GardenLook.PictureDisabledAlpha : 1f);

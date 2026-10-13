@@ -175,7 +175,7 @@ namespace Bloomlings.Client.UI
         /// A texture's pixels as RGBA bytes in Unity's row order (from the bottom), read back through a temporary render
         /// texture (the imported texture is not readable); null when it fails.
         /// </summary>
-        private static byte[]? ReadBack(Texture2D texture)
+        internal static byte[]? ReadBack(Texture2D texture)
         {
             int w = texture.width;
             int h = texture.height;

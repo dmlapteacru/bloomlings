@@ -287,6 +287,7 @@ namespace Bloomlings.Playtest.Design
         public static string SpriteResource(string name)
         {
             if (name.StartsWith("shop/", StringComparison.Ordinal)) return "shop/" + ShopBodyDesign.ResourceName(name.Substring(5)) + ".png";
+            if (name == "gameplay/atlas" || name.StartsWith("gameplay/pod-", StringComparison.Ordinal)) return "gameplay/" + GameplaySkin.Atlas + ".png";
             string? grey = GreySource(name);
             if (grey != null)
             {

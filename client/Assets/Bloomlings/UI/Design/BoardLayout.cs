@@ -19,7 +19,7 @@ namespace Bloomlings.Client.UI.Design
         public const float Gap = 0.04f;
 
         /// <summary>The stone border's thickness, in cells.</summary>
-        public const float Stone = 0.42f;
+        public const float Stone = 0.52f;
 
         /// <summary>How far the border reaches beyond the grid, in cells.</summary>
         public const float Rim = Gap + Stone;

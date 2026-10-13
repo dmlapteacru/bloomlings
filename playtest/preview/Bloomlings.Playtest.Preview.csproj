@@ -62,6 +62,7 @@
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/LilitaOne-Regular.ttf" LogicalName="fonts/LilitaOne-Regular.ttf" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Shop/Resources/Shop/*.png" LogicalName="shop/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Gameplay/Resources/Gameplay/*.png" LogicalName="gameplay/%(Filename)%(Extension)" />
     <!-- The generated character pictures (spec 004 contracts/art-files.md "Loading"), drawn by the painter's Sprite. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" LogicalName="characters/2d/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" LogicalName="characters/3d/%(Filename)%(Extension)" />

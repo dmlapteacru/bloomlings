@@ -8,9 +8,9 @@ namespace Bloomlings.Client.UI.Design
     /// The reference gameplay screen (spec 005 FR-020, FR-021; contracts/look.md §6.1), top to bottom: the top bar (Pause,
     /// the wooden level sign, the speed pill), the board in its stone border on the lawn, the entry strip (a thin strip of
     /// lawn under the board), and one parchment
-    /// tray from there to the bottom of the screen holding the Waiting Slots, the four booster boxes and the Source stacks,
-    /// parted by two thin lines. Each stack is a column of pods one after another, never on each other (the owner's
-    /// gameplay rule, 2026-10-03): the exposed pod in the top row and the next ones below it, <see cref="PodRows"/> rows
+    /// layout from there to the bottom holding the Waiting Slots, the four booster boxes and the Source stacks.
+    /// Only the Waiting Slots have a shared panel. Each stack is a column of slightly overlapping pods (owner's
+    /// gameplay visual update, 2026-10-13): the exposed pod in front and the next ones below it, <see cref="PodRows"/> rows
     /// in all (<see cref="Pod"/>, <see cref="Chip"/>). <see cref="W"/> is the safe width in pixels and <see cref="K"/> the factor the tray
     /// rows (and the entry strip) shrink by on screens shorter than 19.5:9. Collapsed regions (no badge, no boosters) are
     /// empty. Screen pixels, y down. Engine-free.
@@ -55,12 +55,12 @@ namespace Bloomlings.Client.UI.Design
         public const float PodMaxShare = 0.24f;
 
         /// <summary>The exposed pod's height and a waiting pod's height, as shares of <see cref="W"/> (times <see cref="K"/>).</summary>
-        public const float FrontShare = 0.13f;
+        public const float FrontShare = 0.18f;
 
-        public const float QueueShare = 0.1f;
+        public const float QueueShare = 0.125f;
 
-        /// <summary>The gap between two pods of a column, and between two columns, as shares of <see cref="W"/>.</summary>
-        public const float PodGapShare = 0.01f;
+        /// <summary>How much the preceding pod covers the next one's upper edge, as a share of the smaller pod's height.</summary>
+        public const float PodOverlapShare = 0.18f;
 
         public const float ColumnGapShare = 0.016f;
         /// <summary>The widest the stone border's outer box may be, as a share of <see cref="W"/>.</summary>
@@ -116,7 +116,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The box of the pod at <paramref name="depth"/> (0 = exposed) of Source stack <paramref name="stack"/>: the
         /// exposed pod at the column's top, <see cref="FrontHeight"/> tall, and each next one under the one before it,
-        /// <see cref="QueueHeight"/> tall, <see cref="PodGap"/> apart, never overlapping. Depths from
+        /// <see cref="QueueHeight"/> tall, with the negative <see cref="PodGap"/> making a shallow overlap. Depths from
         /// <see cref="PodRows"/> on fall under the pod row (the tray does not show them).
         /// </summary>
         public Box Pod(int stack, int depth)
@@ -174,10 +174,10 @@ namespace Bloomlings.Client.UI.Design
         public const float Border = 0.09f;
 
         /// <summary>The frame's width, as a multiple of its height (a place wider than that centers it).</summary>
-        public const float Aspect = 1.3f;
+        public const float Aspect = 1.06f;
 
         /// <summary>The narrowest a pod's place in its column is, as a multiple of its height (the layout keeps it so): the frame and a little air beside it.</summary>
-        public const float MinAspect = 1.45f;
+        public const float MinAspect = 1.10f;
 
         /// <summary>The candy tile's side, as a share of the panel's height (a little over it, into the border).</summary>
         public const float TileShare = 1.04f;
@@ -186,16 +186,16 @@ namespace Bloomlings.Client.UI.Design
         public const float IconGrow = 0.04f;
 
         /// <summary>The count's type size, as a share of the pod's height.</summary>
-        public const float CountShare = 0.36f;
+        public const float CountShare = 0.30f;
 
         /// <summary>How far the count's middle stands in from the panel's bottom right corner, as a share of its type size.</summary>
         public const float CountInset = 0.42f;
 
         /// <summary>The white outline round the count's digits, in fractions of its type size (it reads over the icon).</summary>
-        public const float CountOutlineEm = 0.14f;
+        public const float CountOutlineEm = 0.075f;
 
         /// <summary>The "+N" disc's size, as a share of the pod's height.</summary>
-        public const float BadgeShare = 0.44f;
+        public const float BadgeShare = 0.30f;
 
         /// <summary>How opaque the icon of a waiting pod is (its veiled panel shows through a little).</summary>
         public const float WaitingIconAlpha = 0.7f;
@@ -212,7 +212,7 @@ namespace Bloomlings.Client.UI.Design
             float size = h * CountShare;
             Box count = Box.FromCenter(inner.Right - (size * CountInset), inner.Bottom - (size * CountInset), inner.Width * 0.5f, size);
             float badge = h * BadgeShare;
-            Box badgeBox = Box.FromCenter(frame.Left + (h * 0.12f), frame.Top + (h * 0.12f), badge, badge);
+            Box badgeBox = Box.FromCenter(frame.Left + (h * 0.12f), frame.Bottom - (h * 0.16f), badge, badge);
             return new PodChip(frame, inner, tile, icon, count, badgeBox);
         }
 
@@ -226,8 +226,9 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static TextLook CountLook(bool dim)
         {
-            Rgba ink = dim ? DesignTokens.Colors.InkBrownSoft.Mix(DesignTokens.Colors.ParchmentBottom, 0.3f) : DesignTokens.Colors.InkBrown;
-            return new TextLook(ink, ink, Rgba.White, CountOutlineEm, 0f, 0f);
+            Rgba ink = dim ? DesignTokens.Colors.InkBrownSoft : DesignTokens.Colors.InkBrown;
+            Rgba fill = dim ? ShopBodyDesign.Cream : Rgba.White;
+            return new TextLook(fill, fill, ink, CountOutlineEm, 0f, 0f);
         }
     }
 
@@ -917,7 +918,7 @@ namespace Bloomlings.Client.UI.Design
 
             // The tray, bottom up: its content ends 0.02 W above the bottom inset; the pods, a line, the boosters, a line,
             // the slots and 0.025 W of padding above them. The pods: one column per stack, the exposed pod on top and the
-            // next ones under it, never overlapping (the owner, 2026-10-03), each pod's place at least PodChip.MinAspect
+            // next ones under it with a shallow overlap, each pod's place at least PodChip.MinAspect
             // times as wide as tall, so its frame (PodChip.Aspect of its height) has its whole width and air beside it.
             int stacks = Math.Max(1, stackCount);
             int podRows = safe.Height / Math.Max(1f, w) >= ReferenceGameplayRegions.FourRowsAspect ? ReferenceGameplayRegions.MaxPodRows : ReferenceGameplayRegions.MinPodRows;
@@ -925,7 +926,7 @@ namespace Bloomlings.Client.UI.Design
             float podWidth = Math.Min(ReferenceGameplayRegions.PodMaxShare * w * k, ((0.96f * w) - (columnGap * (stacks - 1))) / stacks);
             float frontHeight = Math.Min(ReferenceGameplayRegions.FrontShare * w * k, podWidth / PodChip.MinAspect);
             float queueHeight = Math.Min(ReferenceGameplayRegions.QueueShare * w * k, podWidth / PodChip.MinAspect);
-            float podGap = ReferenceGameplayRegions.PodGapShare * w * k;
+            float podGap = -Math.Min(frontHeight, queueHeight) * ReferenceGameplayRegions.PodOverlapShare;
             float podRowHeight = frontHeight + ((podRows - 1) * (queueHeight + podGap));
             float contentBottom = safe.Bottom - (0.02f * w);
             var podRow = new Box(safe.Left + (0.02f * w), contentBottom - podRowHeight, safe.Right - (0.02f * w), contentBottom);

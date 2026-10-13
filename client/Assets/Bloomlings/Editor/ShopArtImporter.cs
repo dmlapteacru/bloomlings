@@ -11,7 +11,7 @@ namespace Bloomlings.Client.Editor
 
         private void OnPreprocessTexture()
         {
-            if (!assetPath.StartsWith(Folder, StringComparison.Ordinal) || !(assetImporter is TextureImporter importer))
+            if (!(assetPath.StartsWith(Folder, StringComparison.Ordinal) || assetPath.StartsWith("Assets/Bloomlings/Art/Gameplay/Resources/Gameplay/", StringComparison.Ordinal)) || !(assetImporter is TextureImporter importer))
             {
                 return;
             }
