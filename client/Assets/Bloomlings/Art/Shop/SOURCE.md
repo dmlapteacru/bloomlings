@@ -16,9 +16,23 @@ The source PNGs were copied unmodified into `Resources/Shop/`. `manifest.json` r
 
 - `ShopArt.Get` creates sprites from textures at runtime. The price-button source crop is `(109, 100, 1985, 505)` in top-down coordinates; nine-slice borders are left/right 350 and top/bottom 190 pixels.
 - Unity uses `Image.Type.Sliced`. Border scale follows button height; prices are separate localized TMP labels, using Lilita One under SIL OFL 1.1.
-- Card, ribbon and booster-price capsule surfaces remain procedural. Offer illustrations and the green money-price button are bitmap assets. The full-screen reference is never used as a flattened UI.
+- The Best Sale card is now a complete illustrated bitmap base (`hero-card-v2.png`), including the berry, basket, cream panel and dimensional red wraparound frame. Text, reward icons, counts and the price button are separate live layers. Other card surfaces and booster-price capsules remain procedural.
 - `ShopArtImporter` preserves original texture dimensions, disables NPOT resizing and mipmaps, and clamps edges. This matters because slice rectangles use original pixel coordinates.
 - Shared `ShopBodyDesign` supplies the layout to Unity and the Skia/Android playtest. The latter renders the same nine source regions for the price skin.
 - Money offers show a coming-soon message. No platform product or entitlement is created by these preview buttons. Petals purchases retain existing confirmation and economy logic.
+
+## Revision 2: vertical content and larger illustrations
+
+The store body is one vertical list. Unity uses `ScrollRect` with a `RectMask2D` viewport; only its content is moved. The existing header, wallet, tabs and bottom navigation are siblings outside that viewport. The playtest uses continuous vertical gesture deltas and the same viewport clip and layout. The Shop tab has no horizontal page turns or page arrows; Cosmetics and Animations keep their existing navigation.
+
+Selected new ImageGen assets (copied without image processing):
+
+- `booster-atlas-v2.png`: four regenerated icons in a transparent 2-by-2 sheet: blue plus coin, green shuffle coin, yellow return coin and pink flower. Shop-only use; gameplay icons are unchanged.
+- `hero-card-v2.png`: full illustrated Best Sale card base. Selected output `exec-32d41885-6ef6-4f67-85a3-0168ba21810c.png`. Two alternate generated variants were reviewed and discarded.
+- `noads-basket-v2.png`: basket of pink Petals with a prominent No Ads badge; used by the 1,200-Petals No Ads bundle.
+
+Exact generation prompts and source output filenames are in `prompts-v2.json`. The source reference is the owner's generated concept. All runtime files, dimensions and hashes are recorded in `Resources/Shop/manifest.json`.
+
+Green price buttons remain nine-slice skins with narrower proportions and greater vertical padding. Booster prices now use larger white lettering with the same brown outline and extrusion as other shop prices. The wider No Ads bundle and all offer illustrations use more of their cards' area.
 
 Generated assets may be used as part of this project. Font licensing is recorded separately in `client/THIRD_PARTY_NOTICES.md`.

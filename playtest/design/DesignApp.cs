@@ -198,6 +198,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The Store Shop's page of rows (when the rows take more than the page).</summary>
         public int StoreRowsPage { get; set; }
+        public float ShopScrollOffset { get; set; }
 
         /// <summary>
         /// The screen the Store page returns to: Home, or the page whose bottom menu or Petals "+" opened it (the Wardrobe,
@@ -473,6 +474,7 @@ namespace Bloomlings.Playtest.Design
             ClearOverlays();
             StorePage = 0;
             StoreRowsPage = 0;
+            ShopScrollOffset = 0f;
             Screen = Screen.Store;
         }
 

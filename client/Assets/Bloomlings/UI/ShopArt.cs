@@ -13,11 +13,18 @@ namespace Bloomlings.Client.UI
         {
             if (Sprites.TryGetValue(name, out Sprite? cached)) return cached;
             string key = name.StartsWith("shop/", StringComparison.Ordinal) ? name.Substring(5) : name;
-            Texture2D? texture = Resources.Load<Texture2D>(key == "background" ? "Shop/background" : key == "price-button" ? "Shop/price-button" : "Shop/offer-atlas");
+            Texture2D? texture = Resources.Load<Texture2D>("Shop/" + ShopBodyDesign.ResourceName(key));
             if (texture == null) return Sprites[name] = null;
             Rect rect;
-            if (key == "background") rect = new Rect(0, 0, texture.width, texture.height);
+            if (key == "background" || key == "hero-card-v2" || key == "noads-basket-v2") rect = new Rect(0, 0, texture.width, texture.height);
             else if (key == "price-button") rect = new Rect(109, texture.height - 605, 1985, 505);
+            else if (key.StartsWith("boost-", StringComparison.Ordinal))
+            {
+                var cell = ShopBodyDesign.BoosterCell(key);
+                if (!cell.HasValue) return Sprites[name] = null;
+                int w = texture.width / 2, h = texture.height / 2;
+                rect = new Rect(cell.Value.Column * w, (1 - cell.Value.Row) * h, w, h);
+            }
             else
             {
                 (int Column, int Row)? cell = ShopBodyDesign.AtlasCell(key);

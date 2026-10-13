@@ -522,7 +522,7 @@ namespace Bloomlings.Client.UI.Design
             foreach (string kind in new[] { "card", "ribbon", "well" })
                 Add("ui.shop." + kind, "Garden store " + kind, new[] { 17, 53, 54 }, "Store body", "normal; pressed", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "Shared ShopBodyDesign surface");
             Add("ui.shop.button", "Illustrated nine-slice price button", new[] { 17, 53, 54 }, "Store body", "normal; pressed", SizeClass.Large, true, Launch, PlaceholderKind.Generated, "Shop/price-button.png, separate text");
-            Add("ui.shop.illustrations", "Garden offer illustrations", new[] { 17, 53, 54 }, "Store body", "offer", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "Shop/offer-atlas.png");
+            Add("ui.shop.illustrations", "Garden offer illustrations and booster coins", new[] { 17, 53, 54 }, "Store body", "offer", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "Shop/offer-atlas.png; hero-card-v2.png; noads-basket-v2.png; booster-atlas-v2.png");
             Add("bg.shop", "Illustrated garden store background", new[] { 17, 53, 54 }, "Store body", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Generated, "Shop/background.png");
             Add("font.shop", "Lilita One store lettering", new[] { 17, 53, 54 }, "Store body", "amount; price; title", SizeClass.Small, true, Launch, PlaceholderKind.BundledFont, "LilitaOne-Regular.ttf, SIL OFL 1.1");
             return list;

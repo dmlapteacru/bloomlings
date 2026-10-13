@@ -1,6 +1,6 @@
 {
   "tool": "OpenAI ImageGen (built-in)",
-  "version": 1,
+  "version": 2,
   "files": [
     {
       "path": "background.png",
@@ -8,6 +8,33 @@
       "height": 1844,
       "sha256": "e4fd53c56bd2eac80dcc01bfb810aaf75edef2548b173f86c1bf8cf8c8e7e2ed",
       "slot": "bg.shop",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "booster-atlas-v2.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "2db060ddb07b1d1e718e8223012acddad12246d031d3c064d878bfcac83dd86b",
+      "slot": "ui.shop.illustrations",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "hero-card-v2.png",
+      "width": 1704,
+      "height": 923,
+      "sha256": "0883c88bf843734f9b8b763d74789f76026032211b4e662a4cbe7e88188475db",
+      "slot": "ui.shop.illustrations",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "noads-basket-v2.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "a0e71fb6e59f68a0b25a15cec1e29cfc6242468dd6732e5ee2d8cff6b2311cf7",
+      "slot": "ui.shop.illustrations",
       "source": "owner",
       "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
     },

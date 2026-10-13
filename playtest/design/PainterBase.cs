@@ -20,7 +20,7 @@ namespace Bloomlings.Playtest.Design
     public abstract class PainterBase : IPainter
     {
         private readonly List<(Box Box, Action Action)> _hits = new List<(Box, Action)>();
-        private readonly List<(Box Box, Action? Previous, Action? Next, int After)> _scrolls = new List<(Box, Action?, Action?, int)>();
+        private readonly List<(Box Box, Action? Previous, Action? Next, int After, Action<float>? Delta)> _scrolls = new List<(Box, Action?, Action?, int, Action<float>?)>();
         private readonly List<float> _alpha = new List<float>();
         private readonly List<(float Dx, float Dy, float Sx, float Sy, float Cx, float Cy, float Degrees)> _transforms = new List<(float, float, float, float, float, float, float)>();
         private (float X, float Y, float At)? _release;
@@ -29,6 +29,8 @@ namespace Bloomlings.Playtest.Design
         private int _coverAt = -1;
         private TouchGesture? _gesture;
         private (Action? Previous, Action? Next) _dragTurns;
+        private Action<float>? _verticalDrag;
+        private float _dragY;
 
         public abstract float Width { get; }
 
@@ -103,6 +105,8 @@ namespace Bloomlings.Playtest.Design
             _gesture = TouchGesture.For(Dpi, Width);
             int area = ScrollAt(x, y);
             _dragTurns = area >= 0 ? (_scrolls[area].Previous, _scrolls[area].Next) : (null, null);
+            _verticalDrag = area >= 0 ? _scrolls[area].Delta : null;
+            _dragY = y;
             _gesture.Press(x, y, area >= 0);
             Finger = (x, y);
         }
@@ -116,6 +120,11 @@ namespace Bloomlings.Playtest.Design
             }
 
             _gesture.Move(x, y);
+            if (_gesture.Dragging && _verticalDrag != null)
+            {
+                _verticalDrag(y - _dragY);
+                _dragY = y;
+            }
             Finger = _gesture.Dragging ? ((float, float)?)null : (x, y);
         }
 
@@ -131,12 +140,15 @@ namespace Bloomlings.Playtest.Design
                 return false;
             }
 
+            TouchMove(x, y);
+            Finger = null;
             GestureEnd end = _gesture.Lift(x, y);
             switch (end.Kind)
             {
                 case GestureKind.Tap:
                     return Dispatch(x, y);
                 case GestureKind.Drag:
+                    if (_verticalDrag != null) return true;
                     Action? turn = end.Page > 0 ? _dragTurns.Next : end.Page < 0 ? _dragTurns.Previous : null;
                     turn?.Invoke();
                     return turn != null;
@@ -152,7 +164,8 @@ namespace Bloomlings.Playtest.Design
             Finger = null;
         }
 
-        public void Scroll(Box area, Action? previous = null, Action? next = null) => _scrolls.Add((ToScreen(area), previous, next, _hits.Count));
+        public void Scroll(Box area, Action? previous = null, Action? next = null) => _scrolls.Add((ToScreen(area), previous, next, _hits.Count, null));
+        public void VerticalScroll(Box area, Action<float> delta) => _scrolls.Add((ToScreen(area), null, null, _hits.Count, delta));
 
         /// <summary>The topmost scroll area of the last frame under (x, y) that no later full-screen target covers, or −1.</summary>
         public int ScrollAt(float x, float y)
@@ -272,7 +285,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static string SpriteResource(string name)
         {
-            if(name.StartsWith("shop/",StringComparison.Ordinal)) return name=="shop/background"?"shop/background.png":name=="shop/price-button"?"shop/price-button.png":"shop/offer-atlas.png";
+            if (name.StartsWith("shop/", StringComparison.Ordinal)) return "shop/" + ShopBodyDesign.ResourceName(name.Substring(5)) + ".png";
             string? grey = GreySource(name);
             if (grey != null)
             {

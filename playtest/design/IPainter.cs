@@ -149,6 +149,9 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         void Scroll(Box area, Action? previous = null, Action? next = null);
 
+        /// <summary>Continuous vertical content drag, in screen pixels (positive when the finger moves down).</summary>
+        void VerticalScroll(Box area, Action<float> delta);
+
         /// <summary>Where the tap being dispatched now is, in screen pixels (a target spanning a grid of cells picks one).</summary>
         (float X, float Y) TapPoint { get; }
 

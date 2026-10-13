@@ -315,7 +315,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.shop.ribbon` | Garden store ribbon | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
 | `ui.shop.well` | Garden store well | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
 | `ui.shop.button` | Illustrated nine-slice price button | 17, 53, 54 | Store body | normal; pressed | Large | yes | Launch | Shop/price-button.png, separate text |
-| `ui.shop.illustrations` | Garden offer illustrations | 17, 53, 54 | Store body | offer | Large | no | Launch | Shop/offer-atlas.png |
+| `ui.shop.illustrations` | Garden offer illustrations and booster coins | 17, 53, 54 | Store body | offer | Large | no | Launch | Shop/offer-atlas.png; hero-card-v2.png; noads-basket-v2.png; booster-atlas-v2.png |
 
 ## Materials
 

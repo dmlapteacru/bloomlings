@@ -16,15 +16,18 @@ namespace Bloomlings.Playtest.Design
             float scale = Math.Max(p.Width / size.Value.Width, p.Height / size.Value.Height);
             p.Sprite("shop/background", Box.FromCenter(p.Width * 0.5f, p.Height * 0.5f, size.Value.Width * scale, size.Value.Height * scale));
         }
-        public static int Draw(IPainter p, DesignApp app, ReferenceStoreRegions regions, int requestedPage)
+        public static void Draw(IPainter p, DesignApp app, ReferenceStoreRegions regions)
         {
             Box area = ShopBodyDesign.Bounds(regions);
-            int pages = ShopBodyDesign.PageCount(area);
-            int page = Math.Max(0, Math.Min(pages - 1, requestedPage));
             bool Visible(string id) => !(app.Meta.Save.Purchases.RemoveAds && (id == "remove_ads" || id == "remove_ads_bundle"));
-            List<ShopVisual> nodes = ShopBodyDesign.Build(area, page, PlaytestText.T, Visible, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked);
-            foreach (ShopVisual n in nodes)
+            List<ShopVisual> nodes = ShopBodyDesign.Build(area, PlaytestText.T, Visible, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked);
+            float max = Math.Max(0, ShopBodyDesign.ContentHeight(nodes, area) - area.Height);
+            app.ShopScrollOffset = Math.Max(0, Math.Min(max, app.ShopScrollOffset));
+            p.PushClip(area);
+            foreach (ShopVisual source in nodes)
             {
+                ShopVisual n = source with { Box = source.Box.Offset(0, -app.ShopScrollOffset) };
+                if (n.Box.Bottom <= area.Top || n.Box.Top >= area.Bottom) continue;
                 if (n.Kind == ShopVisualKind.Sprite) { if (n.Value.StartsWith("shop/", StringComparison.Ordinal)) p.Mark("ui.shop.illustrations"); p.Sprite(n.Value, n.Box); continue; }
                 if (n.Kind == ShopVisualKind.Text) { Text(p, n); continue; }
                 if (n.Kind == ShopVisualKind.Divider) { p.FillRound(n.Box, n.Box.Height * 0.5f, ShopBodyDesign.Green.Face); continue; }
@@ -46,22 +49,23 @@ namespace Bloomlings.Playtest.Design
                 }
                 else p.Picture("shop.surface/" + surface, n.Box, (w, h) => ShopBodyDesign.Surface(surface, w, h));
                 if (n.Kind != ShopVisualKind.Button) continue;
-                Box label = n.Box.Inset(n.Box.Width * 0.055f, n.Box.Height * 0.055f);
+                Box label = ShopBodyDesign.ButtonLabel(n.Box, n.Dark);
                 if (n.Dark)
                 {
                     Kit.Petal(p, new Box(n.Box.Left + n.Box.Width * 0.04f, n.Box.Top + n.Box.Height * 0.1f, n.Box.Left + n.Box.Width * 0.24f, n.Box.Bottom - n.Box.Height * 0.1f));
                     label = new Box(n.Box.Left + n.Box.Width * 0.25f, label.Top, label.Right, label.Bottom);
                 }
-                Text(p, n with { Box = label });
+                Text(p, n with { Box = label, Dark = false });
                 if (!enabled) p.PopAlpha();
                 p.PopTransform();
-                if (enabled)
+                if (enabled && Kit.Touch(p, n.Box).Within(area))
                 {
                     string id = n.Id;
                     p.Hit(Kit.Touch(p, n.Box), () => Tap(app, id));
                 }
             }
-            return pages;
+            p.PopClip();
+            p.VerticalScroll(area, dy => app.ShopScrollOffset = Math.Max(0, Math.Min(max, app.ShopScrollOffset - dy)));
         }
         private static void Text(IPainter p, ShopVisual n)
         {

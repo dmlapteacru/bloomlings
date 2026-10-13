@@ -1,0 +1,24 @@
+{
+  "tool": "OpenAI ImageGen (built-in)",
+  "reference": "exec-3d43445f-43d1-4bef-a6d9-102a2cd1f019.png (owner's generated concept)",
+  "assets": [
+    {
+      "file": "booster-atlas-v2.png",
+      "source_output": "exec-77e2b378-6ac2-4d49-8559-93678e25d5fe.png",
+      "transparent_background": true,
+      "prompt": "Create a production transparent sprite sheet for the Bloomlings mobile game shop. Reference image is style and exact icon design guidance only, not an edit target. Square canvas, exactly 2 columns x 2 rows of equal cells. Only four isolated toy-like glossy 3D cartoon icons, each centered in its own quadrant and occupying 82% of that cell with completely transparent gutters, no overlap. TOP LEFT: a plump cobalt-blue circular coin with thick bevel and a large raised soft white PLUS sign, exactly like the blue plus in reference. TOP RIGHT: a plump lime-green circular coin with thick bevel and two raised chunky golden-yellow curved shuffle arrows. BOTTOM LEFT: a plump golden-orange circular coin with a thick bevel and a single raised curved yellow return arrow pointing left. BOTTOM RIGHT: a pink flower with multiple plump glossy magenta petals, yellow center and small green leaf accent, like the reference flower booster. Cohesive game art, warm brown soft contour, highlights on upper left, dimensional under-edge, richly saturated colors, no realistic metallic look, no textures or extra foliage. Every icon completely isolated, no labels, counts, prices, text, shadows outside cell or UI cards. Genuinely transparent background with clean alpha edges."
+    },
+    {
+      "file": "hero-card-v2.png",
+      "source_output": "exec-32d41885-6ef6-4f67-85a3-0168ba21810c.png",
+      "transparent_background": true,
+      "prompt": "Generate a single production game UI asset, transparent background, wide landscape aspect approximately 1.85:1. Use the provided Bloomlings shop concept as a visual reference. Recreate the entire large Garden Bundle CARD'S ART BASE only, excluding text, icons and buttons: a warm ivory cream rounded rectangular panel, with a substantial glossy coral-red dimensional frame that wraps around both lower side corners and across the bottom, forming a raised red footer shelf occupying the bottom 23% of the card. Red side rims wrap about 18% up the sides, bright peach highlights, dark red recessed underside, visible thickness. Leaf clusters and tiny white daisies decorate side corners. A smiling red berry character with large green leaves and rosy cheeks holds a big wicker basket brimming with plump pink lotus petals on the left half, filling the left upper 78% of card, exactly matching the reference mood. Keep the right upper half clean blank cream space for four separately overlaid booster icons. Keep the entire red footer blank for live text and a separate green purchase button. No writing, no numbers, no labels, no badge, no booster icons, no purchase button, no background scene. Front-facing, even proportions, rounded toy-like illustrated 3D forms, lush garden game style. Card should occupy 96% of canvas width and height with a narrow transparent gutter. Smooth genuine alpha outside card."
+    },
+    {
+      "file": "noads-basket-v2.png",
+      "source_output": "exec-b2ef6fee-b567-4019-9220-099cb4587677.png",
+      "transparent_background": true,
+      "prompt": "Create one isolated transparent game shop illustration in the same Bloomlings cartoon art style as the provided reference image. A large wicker basket overflowing with luminous plump pink lotus flower petals, a few green leaves and small white daisies around its base. Behind the basket on its upper right, include a prominent glossy round red NO ADS emblem: white letters ADS and a red diagonal prohibition slash, exactly like the No Ads Pack basket in the reference. The sign must be clearly visible above the petals, not hidden. Rich dimensional golden basket weave, warm shadows, soft brown contours, bright highlights, cheerful 3D mobile puzzle game aesthetic. Basket fills 90% of square canvas with small fully transparent margins. No price, no quantity, no surrounding card, no UI, no background scene. Genuine transparent alpha."
+    }
+  ]
+}

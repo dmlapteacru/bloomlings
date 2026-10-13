@@ -95,6 +95,19 @@ namespace UnityEngine.UI
     public sealed class RawImage : Graphic { public Texture? texture { get; set; } public Rect uvRect { get; set; } }
     public sealed class Mask : UnityEngine.MonoBehaviour { public bool showMaskGraphic { get; set; } }
     public sealed class RectMask2D : UnityEngine.MonoBehaviour { }
+    public sealed class ScrollRect : UnityEngine.MonoBehaviour
+    {
+        public enum MovementType { Unrestricted, Elastic, Clamped }
+        public RectTransform viewport { get; set; } = null!;
+        public RectTransform content { get; set; } = null!;
+        public bool horizontal { get; set; }
+        public bool vertical { get; set; }
+        public bool inertia { get; set; }
+        public float decelerationRate { get; set; }
+        public float scrollSensitivity { get; set; }
+        public MovementType movementType { get; set; }
+        public void StopMovement() { }
+    }
     public class Shadow : UnityEngine.MonoBehaviour { public Color effectColor { get; set; } public Vector2 effectDistance { get; set; } public bool useGraphicAlpha { get; set; } }
     public class Outline : Shadow { }
     public class Selectable : Behaviour { public enum Transition { None, ColorTint, SpriteSwap, Animation } public Transition transition { get; set; } public bool interactable { get; set; } public Graphic? targetGraphic { get; set; } }

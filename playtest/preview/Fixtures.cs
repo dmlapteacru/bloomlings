@@ -343,12 +343,14 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(51, "mosaic-30x32", "Prototype: 30×32 color mosaic", (p, data) => Playing(App(data), p, content, 5002, taps: 0));
             yield return new Fixture(52, "mosaic-36x36", "Prototype: 36×36 color mosaic", (p, data) => Playing(App(data), p, content, 5003, taps: 0));
 
-            yield return new Fixture(53, "store-packs", "Extra: Store money offers and Petals packs, page 2", (p, data) =>
+            yield return new Fixture(53, "store-packs", "Extra: vertically scrolled Petals packs and boosters", (p, data) =>
             {
                 DesignApp app = Progressed(App(data), content, 49);
                 CloseAll(app);
                 app.OpenStore();
-                app.StoreRowsPage = 1;
+                ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                Box area = ShopBodyDesign.Bounds(r);
+                app.ShopScrollOffset = ShopBodyDesign.Build(area, PlaytestText.T, _ => true, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked).First(n => n.Kind == ShopVisualKind.Text && n.Value == PlaytestText.T("store.shop_petals")).Box.Top - area.Top;
                 Run(app, p, 0.5f);
             });
 
@@ -360,26 +362,55 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.1f);
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
                 Box area = ShopBodyDesign.Bounds(r);
-                ShopVisual Button(string id, int page) => ShopBodyDesign.Build(area, page, PlaytestText.T, _ => true, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked).First(n => n.Kind == ShopVisualKind.Button && n.Id == id);
+                List<ShopVisual> nodes = ShopBodyDesign.Build(area, PlaytestText.T, _ => true, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked);
+                Box Button(string id) => nodes.First(n => n.Kind == ShopVisualKind.Button && n.Id == id).Box.Offset(0, -app.ShopScrollOffset);
                 int petals = app.Meta.Economy.Petals;
-                Tap(p, Button("remove_ads", 0).Box);
+                Tap(p, Button("remove_ads"));
                 Expect(app.Meta.Economy.Petals == petals && !app.Meta.Save.Purchases.RemoveAds && app.Overlays.Count == 0, "money previews cannot spend Petals or grant Remove Ads");
                 Run(app, p, 3f);
-                int page = ShopBodyDesign.HasBoosterRow(area) ? 0 : 2;
-                app.StoreRowsPage = page;
+                Box header = p.Texts.First(t => t.Text == PlaytestText.T("store.title")).Box;
+                Box nav = NavTouch(p, app, NavPlace.Home);
+                Box money = Button("garden_small");
+                p.TouchDown(money.CenterX, money.CenterY);
+                p.TouchMove(money.CenterX, money.CenterY - p.Width * 0.35f);
+                p.TouchUp(money.CenterX, money.CenterY - p.Width * 0.35f);
+                Run(app, p, 0.1f);
+                Expect(app.ShopScrollOffset > 0 && app.Meta.Economy.Petals == petals && app.Overlays.Count == 0, "vertical dragging a price scrolls content without buying");
+                Expect(p.Texts.First(t => t.Text == PlaytestText.T("store.title")).Box.Equals(header) && NavTouch(p, app, NavPlace.Home).Equals(nav), "header and bottom navigation stay fixed while content scrolls");
+                float offset = app.ShopScrollOffset;
+                p.TouchDown(area.CenterX, area.CenterY);
+                p.TouchMove(area.CenterX + p.Width * 0.25f, area.CenterY);
+                p.TouchUp(area.CenterX + p.Width * 0.25f, area.CenterY);
+                Expect(app.ShopScrollOffset == offset && app.StoreRowsPage == 0, "horizontal dragging never changes the shop page or offset");
+                Expect(p.ScrollAt(header.CenterX, header.CenterY) == -1 && p.ScrollAt(nav.CenterX, nav.CenterY) == -1, "fixed navigation is outside the content scroll area");
+                ShopVisual booster = nodes.First(n => n.Kind == ShopVisualKind.Button && n.Id == "booster_ExtraSlot");
+                app.ShopScrollOffset = booster.Box.CenterY - area.CenterY;
                 Run(app, p, 0.1f);
                 int charges = app.Meta.Economy.Charges(BoosterKind.ExtraSlot);
-                Tap(p, Button("booster_ExtraSlot", page).Box);
+                Tap(p, Button("booster_ExtraSlot"));
                 Expect(app.IsOpen(Overlay.Purchase), "the booster price asks for confirmation");
                 Run(app, p, 0.1f);
                 PurchaseConfirmRegions confirm = ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets);
                 Tap(p, confirm.Cancel);
                 Expect(app.Meta.Economy.Petals == petals && app.Meta.Economy.Charges(BoosterKind.ExtraSlot) == charges, "cancel changes nothing");
                 Run(app, p, 0.1f);
-                Tap(p, Button("booster_ExtraSlot", page).Box);
+                Tap(p, Button("booster_ExtraSlot"));
                 Run(app, p, 0.1f);
                 Tap(p, confirm.Confirm);
                 Expect(app.Meta.Economy.Petals == petals - app.Meta.Economy.Price(BoosterKind.ExtraSlot) && app.Meta.Economy.Charges(BoosterKind.ExtraSlot) == charges + 3, "the real Petal button grants exactly the agreed three charges");
+                Run(app, p, 0.1f);
+                p.TouchDown(area.CenterX, area.CenterY);
+                p.TouchMove(area.CenterX, area.CenterY - p.Height * 5);
+                p.TouchUp(area.CenterX, area.CenterY - p.Height * 5);
+                Run(app, p, 0.1f);
+                float max = ShopBodyDesign.ContentHeight(nodes, area) - area.Height;
+                Expect(Math.Abs(app.ShopScrollOffset - max) < 1, "scroll clamps at content bottom");
+                p.TouchDown(area.CenterX, area.CenterY);
+                p.TouchMove(area.CenterX, area.CenterY + p.Height * 5);
+                p.TouchUp(area.CenterX, area.CenterY + p.Height * 5);
+                Run(app, p, 0.1f);
+                Expect(app.ShopScrollOffset == 0, "scroll clamps at content top");
+                app.ShopScrollOffset = booster.Box.CenterY - area.CenterY;
                 Run(app, p, 0.1f);
             });
 

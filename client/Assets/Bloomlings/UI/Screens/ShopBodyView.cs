@@ -51,7 +51,7 @@ namespace Bloomlings.Client.UI.Screens
                     surface.gameObject.AddComponent<PressMotion>();
                 }
                 else surface.gameObject.AddComponent<CanvasGroup>().alpha = 0.55f;
-                Box textBox = n.Box.Inset(n.Box.Width * 0.055f, n.Box.Height * 0.055f);
+                Box textBox = ShopBodyDesign.ButtonLabel(n.Box, n.Dark);
                 if (n.Dark)
                 {
                     Image petals = UiKit.PetalIcon("Petals", surface.transform);
@@ -59,7 +59,7 @@ namespace Bloomlings.Client.UI.Screens
                     UiKit.PlaceBox(petals.rectTransform, icon, n.Box);
                     textBox = new Box(n.Box.Left + n.Box.Width * 0.25f, textBox.Top, textBox.Right, textBox.Bottom);
                 }
-                Text(surface.transform, n.Box, n with { Kind = ShopVisualKind.Text, Box = textBox });
+                Text(surface.transform, n.Box, n with { Kind = ShopVisualKind.Text, Box = textBox, Dark = false });
                 float min = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
                 Image hit = UiFactory.CreateImage("Touch", surface.transform, null, Color.clear, raycast: true);
                 UiKit.PlaceBox(hit.rectTransform, Box.FromCenter(n.Box.CenterX, n.Box.CenterY, Math.Max(n.Box.Width, min), Math.Max(n.Box.Height, min)), n.Box);

@@ -94,6 +94,7 @@ namespace Bloomlings.Playtest.Design
             {
                 app.StoreTab = i;
                 app.StorePage = 0;
+                app.ShopScrollOffset = 0f;
             });
 
             switch (tabs[tab])
@@ -125,13 +126,7 @@ namespace Bloomlings.Playtest.Design
 
         private static void ShopCards(IPainter p, DesignApp app, ReferenceStoreRegions r)
         {
-            int pages = ShopBodyPainter.Draw(p, app, r, app.StoreRowsPage);
-            int page = Math.Max(0, Math.Min(pages - 1, app.StoreRowsPage));
-            Action? previous = page > 0 ? () => app.StoreRowsPage = page - 1 : (Action?)null;
-            Action? next = page < pages - 1 ? () => app.StoreRowsPage = page + 1 : (Action?)null;
-            p.Picture("shop.pagepill", ShopBodyDesign.PagePill(r), (w, h) => ShopBodyDesign.Surface(ShopVisualKind.Well, w, h));
-            Footer(p, r, PlaytestText.F("common.page", page + 1, pages), T.Caption, previous, next);
-            p.Scroll(r.List, previous, next);
+            ShopBodyPainter.Draw(p, app, r);
         }
 
         /// <summary>

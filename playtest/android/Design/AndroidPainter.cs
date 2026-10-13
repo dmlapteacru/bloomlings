@@ -868,6 +868,14 @@ namespace Bloomlings.Playtest.Droid
                             bitmap.Dispose();
                             bitmap=cropped;
                         }
+                        var booster=ShopBodyDesign.BoosterCell(name.Substring(5));
+                        if(bitmap!=null&&booster.HasValue)
+                        {
+                            int w=bitmap.Width/2,h=bitmap.Height/2;
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,booster.Value.Column*w,booster.Value.Row*h,w,h);
+                            bitmap.Dispose();
+                            bitmap=cropped;
+                        }
                         var cell=ShopBodyDesign.AtlasCell(name.Substring(5));
                         if(bitmap!=null&&cell.HasValue)
                         {

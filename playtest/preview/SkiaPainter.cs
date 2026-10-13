@@ -758,6 +758,14 @@ namespace Bloomlings.Playtest.Preview
                                 image.Dispose();
                                 image = cropped;
                             }
+                            var booster = ShopBodyDesign.BoosterCell(name.Substring(5));
+                            if (image != null && booster.HasValue)
+                            {
+                                int w = image.Width / 2, h = image.Height / 2;
+                                SKImage? cropped = image.Subset(new SKRectI(booster.Value.Column * w, booster.Value.Row * h, (booster.Value.Column + 1) * w, (booster.Value.Row + 1) * h));
+                                image.Dispose();
+                                image = cropped;
+                            }
                             var cell = ShopBodyDesign.AtlasCell(name.Substring(5));
                             if (image != null && cell.HasValue)
                             {

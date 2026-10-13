@@ -102,6 +102,10 @@ namespace Bloomlings.Client.UI.Screens
         private PageHeaderView _header = null!;
         private Image _panel = null!;
         private Image _shopBackground = null!;
+        private RectTransform _shopViewport = null!;
+        private RectTransform _shopContent = null!;
+        private ScrollRect _shopScroll = null!;
+        private TextMeshProUGUI _shopToast = null!;
         private string? _shopNote;
         private bool _storeAvailable;
         private Image[] _flowers = null!;
@@ -152,6 +156,22 @@ namespace Bloomlings.Client.UI.Screens
             screen._tabsBox = UiFactory.CreateRect("Tabs", root);
             screen._status = UiKit.Label("Status", root, Loc.T("store.offline"), T.Caption, UiTheme.Of(C.InkBrownSoft));
             screen._list = UiFactory.CreateRect("Items", root);
+            Image viewport = UiFactory.CreateImage("ShopViewport", root, null, Color.clear, raycast: true);
+            screen._shopViewport = viewport.rectTransform;
+            viewport.gameObject.AddComponent<RectMask2D>();
+            screen._shopContent = UiFactory.CreateRect("ShopContent", viewport.transform);
+            screen._shopScroll = viewport.gameObject.AddComponent<ScrollRect>();
+            screen._shopScroll.viewport = screen._shopViewport;
+            screen._shopScroll.content = screen._shopContent;
+            screen._shopScroll.horizontal = false;
+            screen._shopScroll.vertical = true;
+            screen._shopScroll.movementType = ScrollRect.MovementType.Clamped;
+            screen._shopScroll.inertia = true;
+            screen._shopScroll.decelerationRate = 0.12f;
+            screen._shopScroll.scrollSensitivity = 40f;
+            screen._shopToast = UiKit.Label("ShopNotice", viewport.transform, "", ShopBodyDesign.Small, Color.white, look: ShopBodyDesign.Letters);
+            screen._shopToast.gameObject.SetActive(false);
+            screen._shopViewport.gameObject.SetActive(false);
 
             // The locked notice in the list's place, shown only before the Store unlocks (FR-030).
             screen._notice = UiKit.LockedNotice("Locked", root);
@@ -241,6 +261,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             _items = Array.Empty<StoreItem>();
             _shopBackground.gameObject.SetActive(false);
+            _shopViewport.gameObject.SetActive(false);
             _panel.gameObject.SetActive(true);
             foreach (Image flower in _flowers) flower.gameObject.SetActive(true);
             _root.SetActive(true);
@@ -264,6 +285,9 @@ namespace Bloomlings.Client.UI.Screens
         public void Hide()
         {
             _confirm.Cancel();
+            _shopScroll.StopMovement();
+            _shopContent.anchoredPosition = Vector2.zero;
+            _shopNote = null;
             _root.SetActive(false);
         }
 
@@ -277,11 +301,6 @@ namespace Bloomlings.Client.UI.Screens
 
             if (_tab == StoreTab.Shop)
             {
-                if (_pageIndex + step >= 0 && _pageIndex + step < _pages)
-                {
-                    Turn(step);
-                }
-
                 return;
             }
 
@@ -377,6 +396,9 @@ namespace Bloomlings.Client.UI.Screens
             }
             ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, tabs, !storeAvailable && _tab != StoreTab.Shop);
             _regions = r;
+            Box viewport = ShopBodyDesign.Bounds(r);
+            UiKit.PlaceScreen(_shopViewport, viewport);
+            UiKit.PlaceBox(_shopToast.rectTransform, new Box(viewport.Left, viewport.Bottom - r.W * 0.12f, viewport.Right, viewport.Bottom - r.W * 0.02f), viewport);
             _header.Place(r.Header);
 
             // The panel runs to the bottom of the screen: its bottom corners go past the edge.
@@ -400,6 +422,8 @@ namespace Bloomlings.Client.UI.Screens
             _outfitPage = 0;
             _clearingNote = null;
             _shopNote = null;
+            _shopScroll.StopMovement();
+            _shopContent.anchoredPosition = Vector2.zero;
             Layout(_tabOrder.Count > 1, _storeAvailable);
             Refresh();
         }
@@ -413,6 +437,10 @@ namespace Bloomlings.Client.UI.Screens
 
             _tabs?.Select(_tabOrder.IndexOf(_tab));
             bool shop = _tab == StoreTab.Shop;
+            _list.gameObject.SetActive(!shop);
+            _shopViewport.gameObject.SetActive(shop);
+            _shopToast.gameObject.SetActive(shop && _shopNote != null);
+            _shopToast.text = _shopNote ?? "";
             _shopBackground.gameObject.SetActive(shop);
             _panel.gameObject.SetActive(!shop);
             foreach (Image flower in _flowers) flower.gameObject.SetActive(!shop);
@@ -452,14 +480,19 @@ namespace Bloomlings.Client.UI.Screens
             foreach (StoreItem item in shown) byId[item.Id] = item;
             StoreItem? Item(string id) => byId.TryGetValue(id, out StoreItem? found) ? found : null;
             Box bounds = ShopBodyDesign.Bounds(_regions);
-            _pages = ShopBodyDesign.PageCount(bounds);
-            _pageIndex = Mathf.Clamp(_pageIndex, 0, _pages - 1);
+            _pages = 1;
             int Price(Services.Save.BoosterKind kind) => Item("booster_" + kind)?.PetalPrice ?? 0;
             bool Open(Services.Save.BoosterKind kind) => Item("booster_" + kind) != null;
-            List<ShopVisual> nodes = ShopBodyDesign.Build(bounds, _pageIndex, Loc.T, id => Item(id) != null, Price, Open);
-            nodes.Add(new ShopVisual(ShopVisualKind.Well, ShopBodyDesign.PagePill(_regions)));
-            ShopBodyView.Draw(_list, _regions.List, nodes, Item, Confirm);
-            Footer(_shopNote ?? Loc.F("common.page", _pageIndex + 1, _pages), T.Caption, _pageIndex > 0 ? () => Turn(-1) : (Action?)null, _pageIndex < _pages - 1 ? () => Turn(1) : (Action?)null);
+            List<ShopVisual> nodes = ShopBodyDesign.Build(bounds, Loc.T, id => Item(id) != null, Price, Open);
+            float height = ShopBodyDesign.ContentHeight(nodes, bounds);
+            float offset = Mathf.Clamp(_shopContent.anchoredPosition.y, 0, (height - bounds.Height) / UiKit.PixelsPerUnit);
+            for (int i = _shopContent.childCount - 1; i >= 0; i--) Destroy(_shopContent.GetChild(i).gameObject);
+            _shopContent.anchorMin = new Vector2(0, 1);
+            _shopContent.anchorMax = new Vector2(1, 1);
+            _shopContent.pivot = new Vector2(0.5f, 1);
+            _shopContent.sizeDelta = new Vector2(0, height / UiKit.PixelsPerUnit);
+            _shopContent.anchoredPosition = new Vector2(0, offset);
+            ShopBodyView.Draw(_shopContent, new Box(bounds.Left, bounds.Top, bounds.Right, bounds.Top + height), nodes, Item, Confirm);
         }
 
         /// <summary>Places a child of the list on a screen box (relative to the list's own box).</summary>
