@@ -273,6 +273,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(chip.Tile.CenterX, Is.EqualTo(chip.Inner.CenterX).Within(0.01f), "the icon first: over the panel's middle");
             Assert.That(chip.Tile.CenterY, Is.GreaterThan(chip.Inner.CenterY), "the icon moves into the visible lower half");
             Assert.That(chip.Icon.Top, Is.GreaterThanOrEqualTo(r.Pod(0, 0).Bottom), "the upper card does not cover the next icon");
+            Assert.That(chip.Icon.Height, Is.GreaterThanOrEqualTo(place.Height * 0.46f), "the icon uses almost all of the visible half's height");
             Assert.That(chip.Tile.Within(chip.Frame), Is.True, "the tile stays inside the frame");
             Assert.That(chip.Tile.Within(chip.Icon), Is.True, "the owner's icon reaches a little beyond the tile");
             Assert.That(chip.Count.Height, Is.EqualTo(chip.Frame.Height * PodChip.CountShare).Within(0.01f), "small digits");

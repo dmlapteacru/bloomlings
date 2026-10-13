@@ -186,7 +186,7 @@ namespace Bloomlings.Client.UI.Design
     public sealed record PodChip(Box Frame, Box Inner, Box Tile, Box Icon, Box Count, Box Badge)
     {
         /// <summary>The frame's border, as a share of the pod's height.</summary>
-        public const float Border = 0.04f;
+        public const float Border = 0.025f;
 
         /// <summary>The frame's width, as a multiple of its height (a place wider than that centers it).</summary>
         public const float Aspect = 1.06f;
@@ -213,7 +213,7 @@ namespace Bloomlings.Client.UI.Design
         public const float BadgeShare = 0.30f;
 
         /// <summary>How opaque the icon of a waiting pod is (its veiled panel shows through a little).</summary>
-        public const float WaitingIconAlpha = 0.7f;
+        public const float WaitingIconAlpha = 1.0f;
 
         /// <summary>The parts of a pod in its <paramref name="place"/> (<see cref="ReferenceGameplayRegions.Pod"/>).</summary>
         public static PodChip In(Box place, bool waiting = false)
@@ -221,10 +221,10 @@ namespace Bloomlings.Client.UI.Design
             float h = place.Height;
             Box frame = Box.FromCenter(place.CenterX, place.CenterY, Math.Min(place.Width, h * Aspect), h);
             Box inner = frame.Inset(h * Border);
-            float side = waiting ? h * 0.39f : inner.Height * TileShare;
-            float iconY = waiting ? frame.Top + h * 0.75f : inner.CenterY;
+            float side = waiting ? h * 0.47f : inner.Height * TileShare;
+            float iconY = waiting ? frame.Top + h * 0.74f : inner.CenterY;
             Box tile = Box.FromCenter(inner.CenterX, iconY, side, side);
-            Box icon = waiting ? tile : tile.Inset(-h * IconGrow);
+            Box icon = waiting ? Box.FromCenter(inner.CenterX, iconY, inner.Width * 0.70f, side) : tile.Inset(-h * IconGrow);
             float size = h * CountShare;
             Box count = Box.FromCenter(inner.Right - (size * CountInset), inner.Bottom - (size * CountInset), inner.Width * 0.5f, size);
             float badge = h * BadgeShare;

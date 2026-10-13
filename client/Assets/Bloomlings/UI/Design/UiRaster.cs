@@ -451,7 +451,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The visible color ramp shared by color-mosaic cells and their exposed pod panels.</summary>
         public static (Rgba Top, Rgba Bottom) MosaicRamp(Rgba color) =>
-            (color.Lighten(0.36f), color.Darken(0.14f));
+            (Vivid(color, 1.12f).Lighten(0.18f), Vivid(color, 1.12f).Darken(0.08f));
 
         /// <summary>
         /// A candy tile of side <paramref name="size"/> (spec 005 contracts/look.md §3.1): a satin rounded square in

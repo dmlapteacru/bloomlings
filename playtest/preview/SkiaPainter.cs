@@ -763,7 +763,9 @@ namespace Bloomlings.Playtest.Preview
                         if (atlas != null && cell.HasValue)
                         {
                             int w = atlas.Width / 4, h = atlas.Height / 3;
-                            image = atlas.Subset(new SKRectI(cell.Value.Column * w, cell.Value.Row * h, (cell.Value.Column + 1) * w, (cell.Value.Row + 1) * h));
+                            var crop = GameplaySkin.PodCrop(name.Substring(13), w, h);
+                            int left = cell.Value.Column * w + crop.Left, top = cell.Value.Row * h + crop.Top;
+                            image = atlas.Subset(new SKRectI(left, top, left + crop.Width, top + crop.Height));
                         }
                     }
                     else

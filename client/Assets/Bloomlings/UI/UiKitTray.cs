@@ -247,7 +247,7 @@ namespace Bloomlings.Client.UI
     public sealed class GridPodView : MonoBehaviour
     {
         /// <summary>The frame's corner radius, as a share of the pod's height.</summary>
-        public const float Radius = 0.2f;
+        public const float Radius = GameplaySkin.PodRadiusShare;
 
         /// <summary>A locked pod's padlock, as a share of the tile's side it stands in for.</summary>
         public const float LockShare = 0.62f;
@@ -275,6 +275,7 @@ namespace Bloomlings.Client.UI
         private CandyTileView _tile = null!;
         private Image _icon = null!;
         private TextMeshProUGUI _count = null!;
+        private TextMeshProUGUI _mystery = null!;
         private float _radius;
         private float _panelRadius;
         private float _tileRadius;
@@ -304,6 +305,7 @@ namespace Bloomlings.Client.UI
             Transform root = layout.transform;
             _shadow = UiKit.RoundRect("Shadow", root, UiTheme.Of(C.GardenShadow.WithAlpha(0.26f)), _ => _radius);
             _panel = UiKit.RoundGradient("Panel", root, C.CreamTop, C.CreamFace, _ => _panelRadius);
+            _panel.gameObject.SetActive(false); // The complete raster face includes its own rounded silhouette.
 
             // The wooden frame with its corner and border as shares of the pod's height, whatever its width.
             _frame = UiFactory.CreateImage("Frame", root, null, Color.white);
@@ -318,6 +320,7 @@ namespace Bloomlings.Client.UI
             _icon.raycastTarget = false;
             _icon.preserveAspect = true;
             _lock = UiKit.ShapeImage("Lock", root, "ui.lock", C.StateLock.Darken(0.2f));
+            _mystery = UiKit.KitLabel("Mystery", root, "?", GameplaySkin.PodCount, PodChip.CountLook(dim: false));
             _count = UiKit.KitLabel("Count", root, string.Empty, GameplaySkin.PodCount, PodChip.CountLook(dim: false));
             layout.Then(Lay);
         }
@@ -334,7 +337,7 @@ namespace Bloomlings.Client.UI
             Waiting = waiting || look == PodLook.Next;
             bool locked = look == PodLook.Locked;
             PictureFit.On(_frame, (w, h) => ProceduralSprites.Picture("gameplay.pod/" + (_variant?.Key ?? "mystery") + "/" + Waiting + "/" + locked, w, h, (rw, rh) => GameplaySkin.Pod(rw, rh, _variant, Waiting, locked)));
-            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.05f : 0.12f));
+            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.025f : 0.06f));
             if (locked)
             {
                 UiKit.Gradient(_panel, UiTheme.Of(C.StateLockBg.Lighten(0.2f)), UiTheme.Of(C.StateLockBg));
@@ -363,7 +366,9 @@ namespace Bloomlings.Client.UI
                 _icon.color = new Color(1f, 1f, 1f, Waiting ? PodChip.WaitingIconAlpha : 1f);
             }
 
-            bool tile = !locked && icon == null;
+            bool mystery = !locked && !variant.HasValue;
+            _mystery.gameObject.SetActive(mystery);
+            bool tile = !locked && !mystery && icon == null;
             _tile.gameObject.SetActive(tile);
             _tileVeil.gameObject.SetActive(tile && Waiting && !variant.HasValue);
             if (tile)
@@ -388,7 +393,7 @@ namespace Bloomlings.Client.UI
             float border = h * PodChip.Border;
             _radius = Mathf.Min(h * Radius, h / 2f);
             _panelRadius = Mathf.Max(0f, _radius - (border * 0.8f));
-            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, h * (pressed ? 0.01f : 0.02f)).Inset(h * 0.04f, 0f));
+            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, h * 0.01f).Inset(h * 0.04f, 0f));
             BoxLayout.Place(_panel.rectTransform, frame.Inset(border * 0.8f));
             BoxLayout.Place(_frame.rectTransform, frame);
             BoxLayout.Place(_veil.rectTransform, frame);
@@ -396,11 +401,12 @@ namespace Bloomlings.Client.UI
 
             // The icon (or the tile) over the panel's middle and the count at its bottom right, sinking with the frame.
             Box tile = chip.Tile.Offset(0f, sink);
+            KitText.Place(_mystery, GameplaySkin.PodCount, tile.CenterX, tile.CenterY, tile.Height * 0.90f, tile.Width);
             BoxLayout.Place(_icon.rectTransform, chip.Icon.Offset(0f, sink));
             BoxLayout.Place((RectTransform)_tile.transform, tile);
             _tileRadius = tile.Width * 0.2f;
             BoxLayout.Place(_tileVeil.rectTransform, tile);
-            float g = tile.Width * LockShare;
+            float g = tile.Width * (Waiting ? 0.90f : LockShare);
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(tile.CenterX, tile.CenterY, g, g));
             // The count's middle at the panel's bottom right corner, its type size the box's height, at most its width wide.
             Box count = chip.Count.Offset(0f, sink);

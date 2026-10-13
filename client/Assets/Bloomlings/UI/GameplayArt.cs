@@ -25,10 +25,12 @@ namespace Bloomlings.Client.UI
                 if (atlas == null || !cell.HasValue) return Pixels[info.Id.Key] = null;
                 _atlasPixels ??= OwnerArt.ReadBack(atlas);
                 if (_atlasPixels == null) return Pixels[info.Id.Key] = null;
-                int w = atlas.width / 4, h = atlas.height / 3;
+                int cellW = atlas.width / 4, cellH = atlas.height / 3;
+                var crop = GameplaySkin.PodCrop(info.Id.Key, cellW, cellH);
+                int w = crop.Width, h = crop.Height;
                 byte[] pixels = new byte[w * h * 4];
                 for (int y = 0; y < h; y++)
-                    Buffer.BlockCopy(_atlasPixels, ((atlas.height - 1 - cell.Value.Row * h - y) * atlas.width + cell.Value.Column * w) * 4, pixels, y * w * 4, w * 4);
+                    Buffer.BlockCopy(_atlasPixels, ((atlas.height - 1 - cell.Value.Row * cellH - crop.Top - y) * atlas.width + cell.Value.Column * cellW + crop.Left) * 4, pixels, y * w * 4, w * 4);
                 return Pixels[info.Id.Key] = (pixels, w, h);
             }
             return null;
@@ -52,7 +54,8 @@ namespace Bloomlings.Client.UI
             }
             if (grey && _greyAtlas != null) atlas = _greyAtlas;
             int w = atlas.width / 4, h = atlas.height / 3;
-            return Icons[key] = Sprite.Create(atlas, new Rect(cell.Value.Column * w, atlas.height - (cell.Value.Row + 1) * h, w, h), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, Vector4.zero);
+            var crop = GameplaySkin.PodCrop(variant.Key, w, h);
+            return Icons[key] = Sprite.Create(atlas, new Rect(cell.Value.Column * w + crop.Left, atlas.height - (cell.Value.Row * h + crop.Top + crop.Height), crop.Width, crop.Height), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, Vector4.zero);
         }
     }
 }

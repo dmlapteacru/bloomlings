@@ -876,7 +876,8 @@ namespace Bloomlings.Playtest.Droid
                     if (atlas != null && cell.HasValue)
                     {
                         int w = atlas.Width / 4, h = atlas.Height / 3;
-                        bitmap = Bitmap.CreateBitmap(atlas, cell.Value.Column * w, cell.Value.Row * h, w, h);
+                        var crop = GameplaySkin.PodCrop(name.Substring(13), w, h);
+                        bitmap = Bitmap.CreateBitmap(atlas, cell.Value.Column * w + crop.Left, cell.Value.Row * h + crop.Top, crop.Width, crop.Height);
                     }
                 }
                 else

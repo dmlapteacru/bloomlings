@@ -518,22 +518,18 @@ namespace Bloomlings.Playtest.Design
             else if (locked)
             {
                 p.Mark("pod.state.locked");
-                float g = tile.Width * 0.62f;
+                float g = tile.Width * (waiting ? 0.90f : 0.62f);
                 p.Shape("ui.lock", Box.FromCenter(tile.CenterX, tile.CenterY, g, g), C.StateLock.Darken(waiting ? 0.05f : 0.2f));
+            }
+            else if (!variant.HasValue)
+            {
+                p.Mark("pod.state.mystery");
+                TextLook mystery = PodChip.CountLook(false);
+                p.Text("?", tile.CenterX, tile.CenterY, GameplaySkin.PodCount, mystery.FillTop, tile.Width, tile.Height * 0.90f / p.U(GameplaySkin.PodCount.Size), mystery);
             }
             else
             {
-                if (!variant.HasValue)
-                {
-                    p.Mark("pod.state.mystery");
-                }
-
                 CandyTile(p, tile, variant, TileStyle.Sticker, waiting ? TileState.Dimmed : TileState.Normal, pressed: look == PodLook.Pressed);
-                if (waiting && !variant.HasValue)
-                {
-                    // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
-                    p.FillRound(tile, tile.Width * 0.2f, C.ParchmentBottom.WithAlpha(0.4f));
-                }
             }
 
             PodCount(p, chip.Count.Offset(0f, sink), count, waiting || locked);
