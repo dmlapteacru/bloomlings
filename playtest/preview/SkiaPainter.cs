@@ -792,6 +792,18 @@ namespace Bloomlings.Playtest.Preview
                         }
                         if (image != null && name.StartsWith("shop/", StringComparison.Ordinal) && name != "shop/background")
                         {
+                            if(name.StartsWith("shop/profile-frame-",StringComparison.Ordinal))
+                            {
+                                var c=ProfileGameDesign.FrameCrop(name,image.Width,image.Height);
+                                SKImage? cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
+                                image.Dispose();image=cropped;
+                            }
+                            if(name==ProfileGameDesign.Gold)
+                            {
+                                var c=ProfileGameDesign.GoldCrop(image.Width,image.Height);
+                                SKImage? cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
+                                image.Dispose();image=cropped;
+                            }
                             if(name.StartsWith("shop/accessory-",StringComparison.Ordinal))
                             {
                                 var c=ShopCatalogDesign.AccessoryCrop(name,image.Width,image.Height);

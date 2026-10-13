@@ -48,11 +48,7 @@ namespace Bloomlings.Playtest.Design
 
             if (badge != null)
             {
-                string? image = badge.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal)
-                    ? PainterBase.BadgePrefix + badge.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)
-                    : null;
-                if (image != null && p.HasSprite(image)) p.Sprite(image, AvatarLook.Badge(box));
-                else p.Shape("cosmetic.badge", AvatarLook.Badge(box), Visuals.Tint(badge));
+                ProfileGamePainter.Badge(p,AvatarLook.Badge(box),badge);
             }
 
             p.PopTransform();
@@ -69,6 +65,8 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Frame(IPainter p, Box avatar, CosmeticItem frame)
         {
+            string? asset=ProfileGameDesign.FrameAsset(frame.Id)??ShopCatalogDesign.Accessory(frame.Id);
+            if(asset!=null&&p.HasSprite(asset)){p.Mark("cosmetic.frame");p.Sprite(asset,AvatarLook.Frame(avatar));return;}
             ProfileFrameStyle? style = ProfileFrames.StyleOf(frame.Shape);
             if (style.HasValue)
             {

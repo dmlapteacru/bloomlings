@@ -22,7 +22,7 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="title"/> and the Petals pill showing <paramref name="petals"/> (its "+" calls
         /// <paramref name="onPlus"/>; none without it), all three centered on the kit's one line (<see cref="PageHeader"/>).
         /// </summary>
-        public static void PageHeader(IPainter p, PageHeader header, string title, Action onBack, long petals, Action? onPlus)
+        public static void PageHeader(IPainter p, PageHeader header, string title, Action? onBack, long petals, Action? onPlus)
         {
             RoundButton(p, header.Back.CenterX, header.Back.CenterY, header.Back.Width, "ui.back", onBack);
             WoodSign(p, header.Banner, title, T.Title, SignDecor.Ivy, ivyScale: Bloomlings.Client.UI.Design.PageHeader.IvyScale);

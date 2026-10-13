@@ -186,6 +186,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The current nine-badge page on the profile.</summary>
         public int ProfileAchievementPage { get; set; }
         public int ProfileBadgePage { get; set; }
+        public float ProfileScrollOffset { get; set; }
 
         /// <summary>The Store's selected tab (0 shop, 1 cosmetics).</summary>
         public int StoreTab { get; set; }
@@ -467,8 +468,16 @@ namespace Bloomlings.Playtest.Design
         /// "+") or from the Wardrobe, the Leaderboard or the Collection page (the same two), where its back returns
         /// (<see cref="StoreReturn"/>).
         /// </summary>
+        private ProfileEditor? _storeProfileDraft;
+        private float _storeProfileScroll;
+        public void OpenStoreFromProfileEdit()
+        {
+            var draft=ProfileEditor;float scroll=ProfileScrollOffset;OpenStore();_storeProfileDraft=draft;_storeProfileScroll=scroll;
+        }
+
         public void OpenStore()
         {
+            _storeProfileDraft=null;
             Sound.Play(SoundCue.Click);
             StoreReturn = Screen == Screen.Wardrobe || Screen == Screen.Leaderboard || Screen == Screen.Collection || Screen == Screen.Profile ? Screen : Screen.Home;
             ClearOverlays();
@@ -489,6 +498,11 @@ namespace Bloomlings.Playtest.Design
             }
 
             Screen = StoreReturn;
+            if(Screen==Screen.Profile&&_storeProfileDraft!=null)
+            {
+                ProfileEditor=_storeProfileDraft;ProfileScrollOffset=_storeProfileScroll;_storeProfileDraft=null;OpenOverlay(Overlay.ProfileEdit);
+            }
+
         }
 
         /// <summary>
@@ -706,6 +720,7 @@ namespace Bloomlings.Playtest.Design
         public void OpenProfileEdit(ProfileTab tab)
         {
             ProfileBadgePage = 0;
+            ProfileScrollOffset = 0;
             ProfileEditor = new ProfileEditor(Meta.Profile, Meta.Wardrobe, tab);
             OpenOverlay(Overlay.ProfileEdit);
         }
@@ -891,8 +906,7 @@ namespace Bloomlings.Playtest.Design
                     case Overlay.ProfileEdit:
                         ProfileScreen.Edit(p, this, since);
 
-                        // A drag over the card's grid never taps a cell (spec 005 FR-041).
-                        p.Scroll(ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets).Grid);
+                        // The full-page editor owns the vertical catalog gesture; its navigation is fixed.
                         break;
                     case Overlay.Purchase:
                         MetaCards.Purchase(p, this, since);

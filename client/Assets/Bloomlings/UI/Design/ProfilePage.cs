@@ -166,65 +166,8 @@ namespace Bloomlings.Client.UI.Design
     /// <content>The profile page and its edit card (spec 005 FR-037).</content>
     public static partial class ScreenLayout
     {
-        /// <summary>
-        /// The profile page (<see cref="ReferenceProfileRegions"/>), in shares of the safe width W: the Store page's
-        /// header and panel (<see cref="ReferenceStore"/>), then, from 0.045 W under the panel's top, 0.88 W wide: the card
-        /// 0.55 W tall (the avatar 0.3 W at 0.05 W in; beside it, 0.05 W on, the name 0.09 W tall with the pencil 0.11 W
-        /// at its end, the ID and the joining month 0.06 W each; the plaque 0.5 W × 0.11 W, 0.04 W under the avatar), the
-        /// Achievements title 0.08 W tall 0.035 W lower, the tiles 0.025 W lower (a 3 × 3 grid of 0.245 W squares with a
-        /// 0.055 W label, 0.0725 W apart across and 0.025 W between rows) and their note 0.055 W tall 0.015 W
-        /// lower. The content ends at least 0.04 W over the safe bottom; it shrinks evenly when it would not.
-        /// </summary>
-        public static ReferenceProfileRegions ReferenceProfile(float width, float height, Insets insets)
-        {
-            ReferenceStoreRegions store = ReferenceStore(width, height, insets, hasCosmetics: false, hasStatus: false);
-            Box safe = store.Safe;
-            float w = store.W;
-            float top = store.Panel.Top + (0.045f * w);
-            const float tileShare = 0.245f;
-            const float labelShare = 0.055f;
-            const float rowGapShare = 0.025f;
-            const float content = 0.55f + 0.035f + 0.08f + 0.045f
-                + (ReferenceProfileRegions.AchievementRows * (tileShare + labelShare))
-                + ((ReferenceProfileRegions.AchievementRows - 1) * rowGapShare)
-                + 0.015f + 0.055f;
-            float room = safe.Bottom - (0.04f * w) - top;
-            float k = Math.Min(1f, room / (content * w));
-            float u = w * k;
-            float left = safe.CenterX - (0.44f * u);
-            float right = safe.CenterX + (0.44f * u);
-
-            var card = new Box(left, top, right, top + (0.55f * u));
-            var avatar = new Box(card.Left + (0.05f * u), card.Top + (0.05f * u), card.Left + (0.35f * u), card.Top + (0.35f * u));
-            float column = avatar.Right + (0.05f * u);
-            float edit = 0.11f * u;
-            var name = new Box(column, avatar.Top + (0.02f * u), card.Right - (0.04f * u) - edit - (0.02f * u), avatar.Top + (0.11f * u));
-            Box editBox = Box.FromCenter(card.Right - (0.04f * u) - (edit / 2f), name.CenterY, edit, edit);
-            var id = new Box(column, name.Bottom + (0.03f * u), card.Right - (0.04f * u), name.Bottom + (0.09f * u));
-            var joined = new Box(column, id.Bottom + (0.01f * u), card.Right - (0.04f * u), id.Bottom + (0.07f * u));
-            Box plaque = Box.FromCenter(card.CenterX, avatar.Bottom + (0.04f * u) + (0.055f * u), 0.5f * u, 0.11f * u);
-
-            var title = new Box(left, card.Bottom + (0.035f * u), right, card.Bottom + (0.115f * u));
-            float tile = tileShare * u;
-            float tileGap = ((right - left) - (ReferenceProfileRegions.AchievementColumns * tile)) / (ReferenceProfileRegions.AchievementColumns - 1);
-            float rowGap = rowGapShare * u;
-            float label = labelShare * u;
-            float tilesWidth = (ReferenceProfileRegions.AchievementColumns * tile) + ((ReferenceProfileRegions.AchievementColumns - 1) * tileGap);
-            // The arrow's minimum touch target extends below this short title on 16:9 screens.
-            float tilesTop = title.Bottom + (0.045f * u);
-            var tiles = new Box[ReferenceProfileRegions.AchievementCount];
-            for (int i = 0; i < tiles.Length; i++)
-            {
-                int row = i / ReferenceProfileRegions.AchievementColumns;
-                int columnIndex = i % ReferenceProfileRegions.AchievementColumns;
-                float x = safe.CenterX - (tilesWidth / 2f) + (columnIndex * (tile + tileGap));
-                float y = tilesTop + (row * (tile + label + rowGap));
-                tiles[i] = new Box(x, y, x + tile, y + tile + label);
-            }
-
-            var note = new Box(left, tiles[tiles.Length - 1].Bottom + (0.015f * u), right, tiles[tiles.Length - 1].Bottom + (0.07f * u));
-            return new ReferenceProfileRegions(safe, w, store.Header, store.Panel, card, avatar, name, editBox, id, joined, plaque, title, tiles, note);
-        }
+        /// <summary>The approved floating-card profile layout shared by Unity and the playtest.</summary>
+        public static ReferenceProfileRegions ReferenceProfile(float width, float height, Insets insets) => ProfileGameDesign.Page(width,height,insets);
 
         /// <summary>
         /// The edit card (<see cref="ProfileEditRegions"/>), in reference units under the card's title: the tabs

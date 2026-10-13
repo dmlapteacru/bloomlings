@@ -16,7 +16,16 @@ namespace Bloomlings.Client.UI
             Texture2D? texture = Resources.Load<Texture2D>("Shop/" + ShopBodyDesign.ResourceName(key));
             if (texture == null) return Sprites[name] = null;
             Rect rect;
-            if(key.StartsWith("accessory-",StringComparison.Ordinal))
+            if(key.StartsWith("profile-frame-",StringComparison.Ordinal))
+            {
+                var c=ProfileGameDesign.FrameCrop(name,texture.width,texture.height);rect=new Rect(c.Left,texture.height-c.Top-c.Height,c.Width,c.Height);
+            }
+            else if(key=="profile-gold-v1")
+            {
+                var c=ProfileGameDesign.GoldCrop(texture.width,texture.height);
+                rect=new Rect(c.Left,texture.height-c.Top-c.Height,c.Width,c.Height);
+            }
+            else if(key.StartsWith("accessory-",StringComparison.Ordinal))
             {
                 var crop=ShopCatalogDesign.AccessoryCrop("shop/"+key,texture.width,texture.height);
                 rect=new Rect(crop.Left,texture.height-crop.Top-crop.Height,crop.Width,crop.Height);
@@ -50,6 +59,7 @@ namespace Bloomlings.Client.UI
                 var b=ShopCatalogDesign.Borders("shop/"+key);
                 border=new Vector4(rect.width*b.X,rect.height*b.Y,rect.width*b.X,rect.height*b.Y);
             }
+            if(key=="profile-gold-v1")border=new Vector4(rect.width*.16f,rect.height*.16f,rect.width*.16f,rect.height*.16f);
             return Sprites[name] = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, border);
         }
     }

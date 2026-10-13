@@ -115,6 +115,11 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>A drawn frame's picture (<see cref="UiRaster.ProfileFrame"/>, at the rect's pixel size), else the tinted frame.</summary>
         private void ShowFrame(CosmeticItem? frame)
         {
+            string? asset=frame==null ? null : ProfileGameDesign.FrameAsset(frame.Id)??ShopCatalogDesign.Accessory(frame.Id);
+            if(asset!=null&&ShopArt.Get(asset)!=null)
+            {
+                _frame.sprite=ShopArt.Get(asset);_frame.color=Color.white;_frame.gameObject.SetActive(true);_framePicture.gameObject.SetActive(false);_frameStyle=null;return;
+            }
             ProfileFrameStyle? style = frame == null ? null : ProfileFrames.StyleOf(frame.Shape);
             Show(_frame, style.HasValue ? null : frame);
             _framePicture.gameObject.SetActive(style.HasValue);
@@ -151,7 +156,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             bool achievement = item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, System.StringComparison.Ordinal);
-            Sprite? badge = achievement ? OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)) : null;
+            Sprite? badge = achievement ? OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)) : ShopCatalogDesign.Accessory(item.Id) != null ? ShopArt.Get(ShopCatalogDesign.Accessory(item.Id)!) : item.Id=="badge.sprout" ? OwnerArt.Badge("first_bloom") : null;
             image.sprite = badge ?? ProceduralSprites.Accessory(item.Shape);
             image.color = badge != null ? Color.white : BloomlingFigure.Tint(item);
             image.gameObject.SetActive(true);

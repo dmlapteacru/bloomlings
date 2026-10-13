@@ -808,13 +808,13 @@ namespace Bloomlings.Playtest.Preview
                 Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && !p.Slots.Contains("cosmetic.frame"), "the avatar's picture, no frame until one is picked");
                 Tap(p, ScreenLayout.ReferenceProfile(p.Width, p.Height, p.Insets).Avatar);
                 Run(app, p, 0.5f);
-                ProfileEditRegions edit = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
+                ProfileGameEditRegions edit = ProfileGameDesign.Edit(p.Width, p.Height, p.Insets);
                 Tap(p, Box.FromCenter(edit.Tabs.Left + (edit.Tabs.Width * 1.5f / ProfileEditor.Tabs.Count), edit.Tabs.CenterY, 1f, 1f));
                 Run(app, p, 0.1f);
                 ProfileEditor editor = app.ProfileEditor!;
                 Expect(editor.Tab == ProfileTab.Frame && !editor.ProfileItemsOpen && !editor.IsLocked(Client.Meta.Wardrobe.CosmeticKind.Frame), "the Frame tab is open before the Wardrobe");
                 Expect(editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 5 && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the five free frames, each drawn");
-                Tap(p, edit.Cell(0));
+                Tap(p, edit.Cell(0,true));
                 Run(app, p, 0.1f);
                 Expect(editor.FrameId == "frame.wood_ring", "the Wooden Frame picked");
                 Tap(p, edit.Button);
@@ -841,8 +841,8 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, ScreenLayout.ReferenceProfile(p.Width, p.Height, p.Insets).Avatar);
                 Expect(app.IsOpen(Overlay.ProfileEdit) && app.ProfileEditor!.Tab == ProfileTab.Avatar, "the avatar opens the card on Avatar");
                 Run(app, p, 0.5f);
-                ProfileEditRegions r = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
-                Tap(p, r.Cell(9));
+                ProfileGameEditRegions r = ProfileGameDesign.Edit(p.Width, p.Height, p.Insets);
+                PickProfileCell(app,p,9);
                 Run(app, p, 0.1f);
                 Expect(Shows(p, PlaytestText.F("profile.buy", NumberText.Group(600))), "a 600 avatar to buy");
                 Tap(p, r.Button);
@@ -853,7 +853,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Meta.Economy.Petals == 640 && app.Meta.Profile.Avatar.Id == "avatar.sprig_flower_crown_3d", "bought and shown");
                 Run(app, p, 0.1f);
                 Expect(Shows(p, PlaytestText.T("profile.bought")) && Shows(p, PlaytestText.T("profile.save")), "the card stays, its button now Save");
-                Tap(p, r.Cell(13));
+                PickProfileCell(app,p,13);
                 Run(app, p, 0.1f);
                 Tap(p, r.Button);
                 Expect(app.HomeToastText == PlaytestText.T("gameplay.not_enough_petals") && app.Meta.Economy.Petals == 640, "Petals short for 1 200");
@@ -880,8 +880,8 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, page.Edit);
                 Expect(app.IsOpen(Overlay.ProfileEdit) && app.ProfileEditor!.Tab == ProfileTab.Name, "the pencil opens the card on Name");
                 Run(app, p, 0.5f);
-                ProfileEditRegions r = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
-                Tap(p, r.NameButton);
+                ProfileGameEditRegions r = ProfileGameDesign.Edit(p.Width, p.Height, p.Insets);
+                Tap(p, r.NameField);
                 Run(app, p, 0.1f);
                 Expect(app.Meta.Profile.Name == null && Shows(p, "Rosie"), "the typed name waits for Save");
                 Tap(p, r.Button);
@@ -896,11 +896,90 @@ namespace Bloomlings.Playtest.Preview
                 ProfileEditor editor = app.ProfileEditor;
                 Expect(editor.ProfileItemsOpen && editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 7, "the five free frames and the two owned ones at Level 45");
                 Expect(editor.FrameId == "frame.ivy", "the newest owned frame is shown by default, never a free one");
-                Expect(p.Slots.Contains("cosmetic.frame") && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the frames on the avatar");
-                Tap(p, r.Cell(1));
+                Expect(p.Slots.Contains("cosmetic.frame"), "visible frame cards and the fixed profile preview");
+                Tap(p, r.Cell(1,true));
                 Run(app, p, 0.2f);
                 Expect(editor.FrameId == "frame.leaf_ring", "a tap picks the Leaf Frame");
             });
+        }
+
+        public static IEnumerable<Fixture> ProfileGame(ContentSet content)
+        {
+            DesignApp Ready(string data)
+            {
+                var app=Progressed(new DesignApp(data,content,new Silence(),false){TextPrompt=new FixedPrompt("Rosie")},content,44);CloseAll(app);
+                foreach(string id in new[]{"frame.daisy","frame.ivy","badge.sprout","badge.watering_can"})app.Meta.Save.Cosmetics.Owned.Add(id);
+                app.Meta.Profile.Rename("Rosie");app.Meta.Profile.Choose(AvatarCatalog.DefaultId);app.Meta.Wardrobe.Show("frame.leaf_ring");app.Meta.Wardrobe.Show("badge.sprout");app.OpenProfile();return app;
+            }
+            yield return new Fixture(57,"profile-game-avatar","Game profile: Avatar, unchanged shared summary",(p,data)=>
+            {
+                var app=Ready(data);Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Avatar);Run(app,p,.2f);
+                var editor=app.ProfileEditor!;string avatar=editor.AvatarId,frame=editor.FrameId!,badge=editor.BadgeId!,name=editor.Name!;
+                foreach(var tab in ProfileEditor.Tabs){editor.Tab=tab;Run(app,p,.1f);Expect(editor.AvatarId==avatar&&editor.FrameId==frame&&editor.BadgeId==badge&&editor.Name==name,"switching tabs preserves the exact pending profile");}
+                editor.Tab=ProfileTab.Avatar;Run(app,p,.1f);
+                var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);int petals=app.Meta.Economy.Petals;
+                Drag(p,r.Grid.CenterX,r.Grid.CenterY,r.Grid.CenterX,r.Grid.CenterY-180);Run(app,p,.1f);
+                Expect(app.ProfileScrollOffset>0&&app.Overlays.Count==1&&app.Meta.Economy.Petals==petals,"drag never buys an avatar");
+                Drag(p,r.Grid.CenterX,r.Grid.CenterY,r.Grid.CenterX,r.Grid.CenterY+6000);Run(app,p,.1f);Expect(app.ProfileScrollOffset==0,"catalog returns to initial viewport");
+                Tap(p,NavigationSkin.Segment(r.Tabs,3,4));Run(app,p,.1f);Expect(app.ProfileEditor!.Tab==ProfileTab.Name,"fixed tabs still respond after a scroll");
+                Tap(p,r.NameField);Run(app,p,.1f);Tap(p,NavigationSkin.Segment(r.Tabs,0,4));Run(app,p,.1f);
+            });
+            yield return new Fixture(58,"profile-game-badge","Game profile: compact owned badge selector",(p,data)=>
+            {
+                var app=Ready(data);Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Badge);Run(app,p,.1f);var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);
+                int petals=app.Meta.Economy.Petals;Tap(p,r.Cell(0));Run(app,p,.1f);Expect(app.ProfileEditor!.BadgeId==null&&app.Meta.Wardrobe.Profile.Badge!=null,"No badge is pending until Save");
+                Tap(p,r.Button);Run(app,p,.1f);Expect(app.Meta.Wardrobe.Profile.Badge==null&&app.Meta.Economy.Petals==petals,"No badge saves without spending");
+                app.OpenProfileEdit(ProfileTab.Badge);Run(app,p,.1f);
+                int sprout=app.ProfileEditor!.Owned(Client.Meta.Wardrobe.CosmeticKind.Badge).ToList().FindIndex(i=>i.Id=="badge.sprout")+1;PickProfileCell(app,p,sprout);Run(app,p,.1f);
+                Tap(p,r.Button);Run(app,p,.1f);Expect(app.Meta.Wardrobe.Profile.Badge!.Id=="badge.sprout","selected badge saved");app.OpenProfileEdit(ProfileTab.Badge);Run(app,p,.1f);
+            });
+            yield return new Fixture(59,"profile-game-name","Game profile: direct name field",(p,data)=>
+            {
+                var app=Ready(data);Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Name);Run(app,p,.1f);var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);
+                Expect(!app.ProfileEditor!.EnterName(" !!! "),"invalid names remain rejected");Tap(p,r.NameField);Run(app,p,.1f);
+                Expect(app.ProfileEditor.Name=="Rosie","the field opens the native host prompt");
+                Tap(p,r.Button);Run(app,p,.1f);Expect(app.Meta.Profile.Name=="Rosie"&&!app.IsOpen(Overlay.ProfileEdit),"Save keeps the name and returns to Profile");app.OpenProfileEdit(ProfileTab.Name);Run(app,p,.1f);
+            });
+            yield return new Fixture(60,"profile-game","Game profile: approved landing composition",(p,data)=>{var app=Ready(data);Run(app,p,.1f);});
+            yield return new Fixture(61,"profile-game-avatar-buy","Game profile: purchase button and cancellation",(p,data)=>
+            {
+                var app=Ready(data);Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Avatar);Run(app,p,.1f);var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);
+                Box card=r.Cell(4);int petals=app.Meta.Economy.Petals;Tap(p,ProfileGameDesign.CellPrice(card));Run(app,p,.2f);
+                Expect(app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==petals,"green card price asks before buying");app.Back();Run(app,p,.1f);
+                Expect(app.Meta.Economy.Petals==petals&&!app.Meta.Profile.Owns(app.Meta.Profile.Avatars[4]),"Cancel buys nothing");
+                Tap(p,ProfileGameDesign.CellPrice(card));Run(app,p,.3f);
+            });
+            yield return new Fixture(62,"profile-game-badges-scroll","Game profile: all earned badges remain reachable",(p,data)=>
+            {
+                var app=Ready(data);app.Meta.Save.Progression.HighestCompletedLevel=5000;
+                foreach(var def in Achievements.All)if(def.Kind==AchievementKind.WinFact)app.Meta.Save.Stats.Groups[Achievements.FactPrefix+def.Id]=new SortedDictionary<string,long>{{"fixture",1000}};
+                Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Badge);Run(app,p,.1f);var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);int count=app.ProfileEditor!.Owned(Client.Meta.Wardrobe.CosmeticKind.Badge).Count+1;
+                Expect(count>14,"more than the old fixed grid's capacity");PickProfileCell(app,p,count-1);Run(app,p,.1f);Expect(app.ProfileScrollOffset>0&&app.ProfileEditor.BadgeId!=null,"final earned badge remains selectable after scrolling");
+                string shown=app.Meta.Wardrobe.Profile.Badge!.Id;Expect(app.Back()&&app.Meta.Wardrobe.Profile.Badge!.Id==shown,"back discards pending edits");
+                app.OpenProfileEdit(ProfileTab.Badge);Run(app,p,.1f);PickProfileCell(app,p,count-1);Run(app,p,.1f);
+            });
+            yield return new Fixture(63,"profile-game-achievements-last","Game profile: all achievement pages",(p,data)=>
+            {
+                var app=Ready(data);Run(app,p,.1f);var r=ScreenLayout.ReferenceProfile(p.Width,p.Height,p.Insets);Box next=Box.FromCenter(r.AchievementsTitle.Right-r.AchievementsTitle.Height*.5f,r.AchievementsTitle.CenterY,r.AchievementsTitle.Height,r.AchievementsTitle.Height);
+                Tap(p,next);Run(app,p,.1f);Tap(p,next);Run(app,p,.1f);Expect(app.ProfileAchievementPage==2&&Shows(p,PlaytestText.T("profile.achievement.space_garden")),"the final achievement page remains reachable");
+            });
+            yield return new Fixture(65,"profile-game-frame","Game profile: Frame with the same summary as every other tab",(p,data)=>{var app=Ready(data);Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Frame);Run(app,p,.1f);});
+            yield return new Fixture(64,"profile-game-store-return","Game profile: shopping retains the edit draft",(p,data)=>
+            {
+                var app=Ready(data);Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Frame);Run(app,p,.1f);var editor=app.ProfileEditor!;editor.PickFrame("frame.ivy");
+                app.OpenStoreFromProfileEdit();Run(app,p,.1f);Expect(app.Screen==Design.Screen.Store,"plus opens Shop");app.CloseStore();Run(app,p,.1f);
+                Expect(app.ProfileEditor==editor&&editor.FrameId=="frame.ivy"&&editor.Tab==ProfileTab.Frame,"return from Shop retains draft and tab");
+            });
+        }
+
+        private static void PickProfileCell(DesignApp app,SkiaPainter p,int index,bool frames=false)
+        {
+            var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);Box cell=r.Cell(index,frames).Offset(0,-app.ProfileScrollOffset);
+            if(cell.Bottom>r.Grid.Bottom)
+            {
+                Drag(p,r.Grid.CenterX,r.Grid.CenterY,r.Grid.CenterX,r.Grid.CenterY-(cell.Bottom-r.Grid.Bottom)-r.W*.015f);Run(app,p,.1f);
+            }
+            cell=r.Cell(index,frames).Offset(0,-app.ProfileScrollOffset);Tap(p,ProfileGameDesign.Picture(cell,frames));
         }
 
         /// <summary>

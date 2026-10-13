@@ -29,6 +29,24 @@ namespace Bloomlings.Client.Tests
 
         private static float Touch(float w, float h) => DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(w, h);
 
+        [Test]
+        public void ProfileGame_KeepsFixedEditorControlsAndAchievementsInsidePhoneSafeAreas()
+        {
+            foreach(var phone in Phones())
+            {
+                var r=ProfileGameDesign.Edit(phone.W,phone.H,phone.Insets);
+                foreach(Box b in new[]{r.Tabs,r.Summary,r.Grid,r.Button,r.NameCard,r.NameField,r.NameHint})Assert.That(b.Within(r.Safe),Is.True,phone+": "+b);
+                foreach(Box b in new[]{r.Preview,r.PreviewName,r.Level})Assert.That(b.Within(r.Summary),Is.True,"all editor tabs use this fixed summary");
+                Assert.That(r.Tabs.Bottom,Is.LessThan(r.Summary.Top));
+                Assert.That(r.Summary.Bottom,Is.LessThan(r.Grid.Top));
+                Assert.That(r.Grid.Bottom,Is.LessThan(r.Button.Top));
+                Assert.That(r.Button.Height,Is.GreaterThanOrEqualTo(Touch(phone.W,phone.H)*.95f));
+                var page=ScreenLayout.ReferenceProfile(phone.W,phone.H,phone.Insets);
+                foreach(Box b in page.Achievements)Assert.That(b.Within(page.Safe),Is.True,"achievement pagination stays in the safe area");
+                Assert.That(page.AchievementsNote.Within(page.Safe),Is.True);
+            }
+        }
+
         /// <summary>A button's touch box as the kit grows it (<c>Kit.Touch</c>, <c>UiKit</c>): at least the touch minimum.</summary>
         private static Box TouchBox(Box box, float min) => Box.FromCenter(box.CenterX, box.CenterY, Math.Max(box.Width, min), Math.Max(box.Height, min));
 
