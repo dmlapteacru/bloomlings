@@ -39,7 +39,8 @@ namespace Bloomlings.Client.UI.Design
         {
             Rgba color = locked ? Rgba.FromHex("#83978C") : variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : Rgba.FromHex("#B99ACC");
             Rgba tint = color;
-            if (!locked) color = UiRaster.Vivid(color, 0.94f).Darken(0.10f);
+            bool cool = variant.HasValue && (variant.Value.Key == "leaf" || variant.Value.Key == "moss" || variant.Value.Key == "vine" || variant.Value.Key == "water" || variant.Value.Key == "dew");
+            if (!locked) color = UiRaster.Vivid(color, 1.06f).Darken(cool ? 0.18f : 0.10f);
             Rgba top = locked ? color.Lighten(0.88f) : Rgba.FromHex("#FFF4DE").Mix(tint, 0.055f);
             Rgba bottom = locked ? color.Lighten(0.75f) : Rgba.FromHex("#FBE6C7").Mix(tint, 0.11f);
             bool raised = !waiting && !locked;
@@ -58,22 +59,28 @@ namespace Bloomlings.Client.UI.Design
                     float ty = Math.Abs(py - (h - lip) * 0.5f) - ((h - lip) * 0.5f - padding - radius);
                     float topDistance = (float)Math.Sqrt(ox * ox + Math.Max(0, ty) * Math.Max(0, ty)) + Math.Min(Math.Max(qx, ty), 0) - radius;
                     float across = Math.Max(0, Math.Min(1, -topDistance / stroke));
-                    float shine = (float)Math.Sin(Math.PI * across) * (0.20f - 0.12f * py / h);
+                    float shine = (float)Math.Sin(Math.PI * across) * (0.34f - 0.18f * py / h);
                     Rgba rim = color.Lighten(0.035f + shine).Mix(color.Darken(0.17f), (1 - Smooth(0, size * 0.014f, -topDistance)) * 0.40f);
+                    float edgeGlow = (float)Math.Exp(-Math.Pow((-topDistance - size * 0.017f) / (size * 0.010f), 2));
+                    rim = rim.Mix(color.Lighten(0.60f), edgeGlow * (0.24f + 0.18f * (1 - py / h)));
                     float faceRadius = Math.Max(1, radius - stroke);
                     float fx = Math.Abs(px - w * 0.5f) - (w * 0.5f - padding - stroke - faceRadius);
                     float fy = Math.Abs(py - (h - lip) * 0.5f) - ((h - lip) * 0.5f - padding - stroke - faceRadius);
                     float faceDistance = (float)Math.Sqrt(Math.Max(0, fx) * Math.Max(0, fx) + Math.Max(0, fy) * Math.Max(0, fy)) + Math.Min(Math.Max(fx, fy), 0) - faceRadius;
                     float channelWidth = Math.Max(1, size * 0.018f);
-                    float insetShadow = (float)Math.Exp(-Math.Max(0, -faceDistance) / channelWidth) * 0.22f;
+                    float insetShadow = (float)Math.Exp(-Math.Max(0, -faceDistance) / channelWidth) * 0.27f;
                     Rgba face = top.Mix(bottom, py / h).Mix(color.Darken(0.42f), insetShadow);
                     Rgba c = rim.Mix(face, 1 - Smooth(-0.6f, 0.6f, faceDistance));
+                    // A fine, antialiased near-black tinted contour separates the rim from the cream face.
+                    float innerLine = 1 - Smooth(size * 0.003f, size * 0.008f, Math.Abs(faceDistance));
+                    c = c.Mix(color.Darken(0.70f).Mix(Rgba.Black, 0.30f), innerLine * 0.62f);
                     if (raised)
                     {
                         // One continuous side plane: light at the front edge, smoothly shaded toward its foot.
                         // Avoid stacked reflection/seam bands, which read as corrugation on small pods.
                         float sideDepth = Smooth(h - lip - padding, h - padding, py);
-                        Rgba side = color.Darken(0.10f + sideDepth * 0.16f);
+                        Rgba side = color.Darken(0.06f + sideDepth * 0.28f);
+                        side = side.Mix(color.Darken(0.45f), Smooth(0.55f, 0.98f, px / w) * 0.12f);
                         c = c.Mix(side, Smooth(-0.6f, 0.6f, topDistance));
                     }
                     float cover = 1 - Smooth(-0.75f, 0.75f, distance);
