@@ -1,0 +1,36 @@
+{
+  "tool": "OpenAI ImageGen (built-in)",
+  "purpose": "visual concepts, not implemented UI",
+  "files": [
+    {
+      "path": "01-profile.png",
+      "width": 852,
+      "height": 1846,
+      "sha256": "a94c4bc52e0b5521485acb6a62579676a4e10af5c8dfc4860c074f56f4c1ce79"
+    },
+    {
+      "path": "02-avatar.png",
+      "width": 852,
+      "height": 1846,
+      "sha256": "753f199cd59a30e42dc246fa2b13e547349ed3c03b52de650633f24415ac8a12"
+    },
+    {
+      "path": "03-frame.png",
+      "width": 852,
+      "height": 1846,
+      "sha256": "4431342510dd28a36a85e41f60f49185d74a2eb0b61801ef246d1e74cb2ef903"
+    },
+    {
+      "path": "04-badge.png",
+      "width": 853,
+      "height": 1844,
+      "sha256": "ecfdcd65533a2fe60b395f90cb22edf81f4932ed70cf430678c760e800ddc5c4"
+    },
+    {
+      "path": "05-name.png",
+      "width": 852,
+      "height": 1846,
+      "sha256": "c083147f55384446b67b61ab34712800e7bc361eff43f0d36166d479ed24bf1a"
+    }
+  ]
+}
