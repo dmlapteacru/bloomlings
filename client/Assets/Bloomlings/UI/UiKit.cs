@@ -1091,10 +1091,10 @@ namespace Bloomlings.Client.UI
             layout.Add(face.rectTransform, b => UiRaster.RaisedFaceBox(view.Parts(b).Pill));
             Image icon = PetalIcon("Petal", root);
             layout.Add(icon.rectTransform, b => view.Parts(b).Lotus);
-            TextMeshProUGUI balance = KitLabel("Balance", root, "0", DesignTokens.Type.Count, TextLook.Plain(C.InkBrown));
+            TextMeshProUGUI balance = KitLabel("Balance", root, "0", NavigationSkin.Balance, NavigationSkin.TitleLetters);
             balance.alignment = TextAlignmentOptions.Left;
             view.Balance = balance;
-            GardenButton plus = RaisedButton("Plus", root, GardenLook.Green, 0.5f, gloss: true, raycast: false, square: true);
+            GardenButton plus = NavigationButton("Plus", root, 0, true, price: true);
             Image glyph = GardenGlyph(plus, plus.Content, "ui.plus");
             BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.65f, plus.IconSide * 0.65f));
             view.Plus = plus.gameObject;
@@ -1107,7 +1107,7 @@ namespace Bloomlings.Client.UI
                 Box amount = parts.Amount;
                 float measured = KitText.Measure(balance, parts.AmountSize);
                 float width = measured > 0f ? Mathf.Min(measured, amount.Width) : amount.Width;
-                KitText.Place(balance, DesignTokens.Type.Count, amount.Left + (width / 2f), amount.CenterY, parts.AmountSize, width + 1f);
+                KitText.Place(balance, NavigationSkin.Balance, amount.Left + (width / 2f), amount.CenterY, parts.AmountSize, width + 1f);
             });
             view.Relayout = layout.Apply;
             if (onPlus != null)
@@ -1467,31 +1467,22 @@ namespace Bloomlings.Client.UI
         /// glossy with a white label, the others light wood (<see cref="GardenLook.Tan"/>) with brown labels, sinking when
         /// pressed.
         /// </summary>
-        public static TabsView Tabs(string name, Transform parent, string[] labels, Action<int> onSelect)
+        public static TabsView Tabs(string name, Transform parent, string[] labels, Action<int> onSelect, string[]? keys = null)
         {
             RectTransform root = UiFactory.Stretch(UiFactory.CreateRect(name, parent));
             var view = root.gameObject.AddComponent<TabsView>();
-            for (int i = 0; i < labels.Length; i++)
+            for(int i=0;i<labels.Length;i++)
             {
-                int index = i;
-                RectTransform cell = UiFactory.Place(UiFactory.CreateRect("Tab" + i, root), i / (float)labels.Length, 0f, (i + 1) / (float)labels.Length, 1f);
-                cell.offsetMin = new Vector2(Units(8f), 0f);
-                cell.offsetMax = new Vector2(-Units(8f), 0f);
-                GardenButton on = RaisedButton("On", cell, GardenLook.Green, 0.5f, gloss: true);
-                UiFactory.Stretch((RectTransform)on.transform);
-                TextMeshProUGUI onLabel = KitLabel("Label", on.Content, labels[i], DesignTokens.Type.ButtonSecondary, TextLook.OnColor(GardenLook.Green));
-                on.Track(onLabel, DesignTokens.Type.ButtonSecondary, TextLook.OnColor);
-                BoxLayout.On(on.Content).Watch(onLabel).Then(f => KitText.Place(onLabel, DesignTokens.Type.ButtonSecondary, f.CenterX, f.CenterY, Units(DesignTokens.Type.ButtonSecondary.Size), f.Width * 1.1f));
-                Clickable(on, () => onSelect(index));
-
-                GardenButton off = RaisedButton("Off", cell, GardenLook.Tan, 0.5f);
-                UiFactory.Stretch((RectTransform)off.transform);
-                TextMeshProUGUI offLabel = KitLabel("Label", off.Content, labels[i], DesignTokens.Type.ButtonSecondary, TextLook.Plain(C.InkBrown));
-                BoxLayout.On(off.Content).Watch(offLabel).Then(f => KitText.Place(offLabel, DesignTokens.Type.ButtonSecondary, f.CenterX, f.CenterY, Units(DesignTokens.Type.ButtonSecondary.Size), f.Width * 1.1f));
-                Clickable(off, () => onSelect(index));
-                view.Add(on.gameObject, off.gameObject);
+                int index=i;
+                RectTransform cell=UiFactory.Place(UiFactory.CreateRect("Tab"+i,root),i/(float)labels.Length,0,(i+1)/(float)labels.Length,1);
+                cell.offsetMin=new Vector2(Units(8),0); cell.offsetMax=new Vector2(-Units(8),0);
+                string icon=NavigationSkin.Icon(keys != null ? keys[i] : labels[i]);
+                GardenButton on=NavigationButton("On",cell,index,true);
+                UiFactory.Stretch((RectTransform)on.transform); NavigationTabContent(on,labels[i],icon); Clickable(on,()=>onSelect(index));
+                GardenButton off=NavigationButton("Off",cell,index,false);
+                UiFactory.Stretch((RectTransform)off.transform); NavigationTabContent(off,labels[i],icon); Clickable(off,()=>onSelect(index));
+                view.Add(on.gameObject,off.gameObject);
             }
-
             return view;
         }
 

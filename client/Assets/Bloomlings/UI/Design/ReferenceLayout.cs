@@ -663,7 +663,7 @@ namespace Bloomlings.Client.UI.Design
         public const float TopShare = 0.025f;
 
         /// <summary>The banner's plank height, as a share of W (its ivy clusters are <see cref="GardenLook.IvyShare"/> of it).</summary>
-        public const float BannerShare = 0.1f;
+        public const float BannerShare = 0.13f;
 
         /// <summary>The Petals pill's box, as shares of W: its width (to 0.02 W from the right) and its height.</summary>
         public const float PetalsWidthShare = 0.24f;
@@ -680,7 +680,7 @@ namespace Bloomlings.Client.UI.Design
         public float CenterY => Back.CenterY;
 
         /// <summary>The banner with its ivy clusters (<see cref="GardenLook.SignExtent"/>).</summary>
-        public Box BannerExtent => GardenLook.SignExtent(Banner, SignDecor.Ivy, IvyScale);
+        public Box BannerExtent => Banner;
 
         /// <summary>The whole row: the three and the banner's leaves.</summary>
         public Box Row
@@ -1192,7 +1192,7 @@ namespace Bloomlings.Client.UI.Design
             float pill = Design.PageHeader.PetalsHeightShare * w;
             var petals = new Box(safe.Right - (0.02f * w) - (Design.PageHeader.PetalsWidthShare * w), cy - (pill / 2f), safe.Right - (0.02f * w), cy + (pill / 2f));
             float plank = Design.PageHeader.BannerShare * w;
-            float room = (Design.PageHeader.GapShare * w) + (GardenLook.IvyReachAt(Design.PageHeader.IvyScale) * plank);
+            float room = Design.PageHeader.GapShare * w;
             float half = Math.Min(safe.CenterX - (back.Right + room), (petals.Left - room) - safe.CenterX);
             var banner = new Box(safe.CenterX - half, cy - (plank / 2f), safe.CenterX + half, cy + (plank / 2f));
             return new PageHeader(back, banner, petals);

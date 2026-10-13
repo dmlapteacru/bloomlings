@@ -578,15 +578,10 @@ namespace Bloomlings.Playtest.Design
             float drop = 1f - Kit.Ease(since / 0.45f);
             p.PushTransform(0f, -drop * sign.Bottom, 1f, 0f, 0f);
 
-            p.Mark("ui.sign.wood");
-            // The plank of every wooden sign (spec 005 FR-049, the owner, 2026-10-08: "like any other wooden plaque"; Unity's
-            // UiKit.CelebrationSign is a WoodSign): the buttons' plate laminate, as Kit.WoodSign.
-            Kit.SoftShadow(p, sign, h * 0.28f, 0.22f, 0.07f);
-            p.Picture("ui.sign.wood/laminate", sign, (w, ph) => UiRaster.LaminateSign(w, ph, ph * 0.28f));
-            TypeStyle style = T.LevelHome;
-            TextLook look = GardenLook.SignLetters(C.InkTitle);
-            float size = Math.Min(h * ClusterShare, r.W * ClusterMaxShare);
-            float maxWidth = Math.Min(sign.Width * SignText, sign.Width - (size * 0.9f));
+            Kit.NavigationSignArt(p, sign, T.LevelHome);
+            TypeStyle style = NavigationSkin.Title;
+            TextLook look = NavigationSkin.TitleLetters;
+            float maxWidth = NavigationSkin.SignRoom(sign);
             float lineScale = h * SignLine / p.U(style.Size);
             List<string> lines = Lines(p, title, style, maxWidth / lineScale, 2);
             if (lines.Count > 1)
@@ -594,21 +589,15 @@ namespace Bloomlings.Playtest.Design
                 float gap = h * SignLine * 1.02f;
                 for (int i = 0; i < lines.Count; i++)
                 {
-                    p.Text(lines[i], sign.CenterX, sign.CenterY - (h * 0.04f) + ((i - 0.5f) * gap), style, C.InkTitle, maxWidth, lineScale, look);
+                    p.Text(lines[i], sign.CenterX, sign.CenterY - (h * 0.04f) + ((i - 0.5f) * gap), style, look.FillTop, maxWidth, lineScale, look);
                 }
             }
             else
             {
                 float scale = Math.Min(h * SignSingle / p.U(style.Size), maxWidth / Math.Max(1f, p.MeasureText(title, style)));
-                p.Text(title, sign.CenterX, sign.CenterY - (h * 0.04f), style, C.InkTitle, maxWidth, scale, look);
+                p.Text(title, sign.CenterX, sign.CenterY - (h * 0.04f), style, look.FillTop, maxWidth, scale, look);
             }
 
-            p.Mark("ui.sign.flowers");
-            Kit.FlowerCluster(p, Box.FromCenter(sign.Left + (size * 0.04f), sign.Top + (h * 0.18f), size, size), flipped: false);
-            var right = Box.FromCenter(sign.Right - (size * 0.04f), sign.Top + (h * 0.1f), size, size);
-            p.PushSquash(-1f, 1f, right.CenterX, right.CenterY);
-            Kit.FlowerCluster(p, right, flipped: false);
-            p.PopTransform();
             p.PopTransform();
         }
 

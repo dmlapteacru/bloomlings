@@ -40,49 +40,15 @@ namespace Bloomlings.Playtest.Design
         public static Box FamilyTabs(IPainter p, Box tabs, Box panel, IReadOnlyList<Family> families, IReadOnlyList<string> names, int selected, Action<int> onSelect, Func<Family, Outfit?>? outfitOf = null, IReadOnlyList<Box>? cells = null)
         {
             p.Mark("ui.tab.family");
-            cells ??= ScreenLayout.Row(tabs, families.Count, p.U(10f), float.MaxValue, square: false);
-            float line = PanelLine(p);
-            float radius = Math.Min(cells.Count > 0 ? cells[0].Width * 0.18f : 0f, p.U(34f));
-            float panelRadius = p.U(PanelRadius);
-            float sunk = tabs.Height * 0.07f;
-
-            // The other tabs first: a little lower, their bottoms hidden under the panel's edge.
-            for (int i = 0; i < cells.Count; i++)
+            cells ??= ScreenLayout.Row(tabs,families.Count,p.U(10),float.MaxValue,square:false);
+            Panel(p,panel);
+            for(int i=0;i<cells.Count;i++)
             {
-                if (i != selected)
-                {
-                    Box tab = new Box(cells[i].Left, cells[i].Top + sunk, cells[i].Right, panel.Top + panelRadius);
-                    TabFace(p, tab, radius, C.CreamFace, C.CreamFace.Darken(0.05f), line, panel.Top + line);
-                }
+                int index=i;
+                Box box=NavigationSkin.FamilyButton(cells[i]);
+                NavigationTab(p,box,names[i],NavigationSkin.FamilyIcon(families[i]),i,i==selected,()=>onSelect(index));
             }
-
-            // The panel: lighter than the card's parchment, with a thin tan outline.
-            Panel(p, panel);
-
-            if (selected >= 0 && selected < cells.Count)
-            {
-                // The selected tab flows into the panel: its face covers the panel's outline under it.
-                Box tab = new Box(cells[selected].Left, cells[selected].Top, cells[selected].Right, panel.Top + panelRadius);
-                TabFace(p, tab, radius, C.ParchmentTop.Lighten(0.3f), C.ParchmentTop, line, panel.Top + (line * 1.5f), outlineBottom: panel.Top);
-            }
-
-            for (int i = 0; i < cells.Count; i++)
-            {
-                bool on = i == selected;
-                Box cell = cells[i];
-                float top = cell.Top + (on ? 0f : sunk);
-                float h = cell.Bottom - top;
-                float scale = Math.Min(1f, (h * 0.2f) / p.U(T.ButtonSecondary.Size));
-                (float nameY, float figure) = FamilyTabParts(top, h, cell.Width, panel.Top, p.U(T.ButtonSecondary.Size) * scale);
-                Box hero = Box.FromCenter(cell.CenterX, top + (h * 0.08f) + (figure * 0.52f), figure * CharacterArt.HeroWidth / CharacterArt.HeroHeight, figure);
-                Visuals.Hero(p, hero, families[i], outfitOf?.Invoke(families[i]));
-                Rgba ink = on ? C.InkBrown : C.InkBrownSoft;
-                p.Text(names[i], cell.CenterX, nameY, T.ButtonSecondary, ink, cell.Width * 0.9f, scale, TextLook.Plain(ink));
-                int index = i;
-                p.Hit(Touch(p, cell), () => onSelect(index));
-            }
-
-            return panel.Inset(p.U(22f));
+            return panel.Inset(p.U(22));
         }
 
         /// <summary>

@@ -208,46 +208,9 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void WoodSign(IPainter p, Box box, string text, TypeStyle style, SignDecor decor = SignDecor.None, Rgba? letters = null, float ivyScale = 1f)
         {
-            p.Mark("ui.sign.wood");
-            float h = box.Height;
-            SoftShadow(p, box, h * 0.28f, 0.22f, 0.07f);
-            if (decor == SignDecor.Ivy)
-            {
-                // The back leaves of each cluster hang behind the plank's ends.
-                IvyCluster(p, GardenLook.IvyBox(box, left: true, ivyScale), flipped: false, back: true);
-                IvyCluster(p, GardenLook.IvyBox(box, left: false, ivyScale), flipped: true, back: true);
-            }
-
-            // The plank in the buttons' plate laminate (spec 005 FR-045; it was the pale plank of mat.wood.light).
-            p.Picture("ui.sign.wood/laminate", box, (w, ph) => UiRaster.LaminateSign(w, ph, ph * 0.28f));
-            float scale = Math.Min(1f, (h * 0.62f) / Math.Max(1f, p.U(style.Size)));
-            Rgba ink = letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown);
-
-            // The letters keep clear of the leaves on the plank's ends: the owner's ivy cluster reaches 0.585 h into each
-            // end (at full size), the flower clusters about 0.64 h.
-            float maxWidth = box.Width * 0.82f;
-            if (decor == SignDecor.Ivy && p.HasSprite(PainterBase.DecorPrefix + OwnerPictures.Ivy))
-            {
-                maxWidth = Math.Min(maxWidth, box.Width - (h * GardenLook.IvyShare * ivyScale));
-            }
-            else if (decor == SignDecor.Flowers)
-            {
-                maxWidth = Math.Min(maxWidth, box.Width - (h * 1.35f * 0.95f));
-            }
-
-            p.Text(text, box.CenterX, box.CenterY - (h * 0.04f), style, ink, Math.Max(h, maxWidth), scale, GardenLook.SignLetters(ink));
-            switch (decor)
-            {
-                case SignDecor.Ivy:
-                    IvyCluster(p, GardenLook.IvyBox(box, left: true, ivyScale), flipped: false, back: false);
-                    IvyCluster(p, GardenLook.IvyBox(box, left: false, ivyScale), flipped: true, back: false);
-                    break;
-                case SignDecor.Flowers:
-                    p.Mark("ui.sign.flowers");
-                    FlowerCluster(p, GardenLook.FlowerBox(box, left: true), flipped: false);
-                    FlowerCluster(p, GardenLook.FlowerBox(box, left: false), flipped: true);
-                    break;
-            }
+            NavigationSignArt(p, box, style);
+            TextLook look = NavigationSkin.TitleLetters;
+            p.Text(text, box.CenterX, box.CenterY - box.Height * .025f, NavigationSkin.Title, look.FillTop, NavigationSkin.SignRoom(box), box.Height * NavigationSkin.SignTextShare(style) / p.U(NavigationSkin.Title.Size), look);
         }
 
         /// <summary>

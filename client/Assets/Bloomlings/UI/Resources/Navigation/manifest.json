@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "file": "page-sign-v1.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "a4e257ec5a1af9e988db661cb38c6c2dcd07182da97ad5a42f4d8154e2829c31",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "level-sign-v1.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "1f6525bd2f7d588e9e537a3a61b8e569f23ce736cbca99374a7dc80f5cad6f06",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "tab-icons-v1.png",
+      "width": 1448,
+      "height": 1086,
+      "sha256": "6a78fec7773e34acedb84fbd75b11fbcbe9983cd17e876f28ba0004650200e96",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    }
+  ]
+}

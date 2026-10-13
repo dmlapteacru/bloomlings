@@ -141,12 +141,14 @@ namespace Bloomlings.Playtest.Design
 
             // The tabs, then the preview: the picked avatar in the picked frame and badge, and the name.
             var labels = new List<string>();
+            var keys = new List<string>();
             foreach (ProfileTab tab in ProfileEditor.Tabs)
             {
+                keys.Add(TabKey(tab));
                 labels.Add(PlaytestText.T(TabKey(tab)));
             }
 
-            Kit.Tabs(p, r.Tabs, labels, (int)editor.Tab, i => { editor.Tab = ProfileEditor.Tabs[i]; app.ProfileBadgePage = 0; });
+            Kit.Tabs(p, r.Tabs, labels, (int)editor.Tab, i => { editor.Tab = ProfileEditor.Tabs[i]; app.ProfileBadgePage = 0; }, keys);
             Kit.Avatar(p, r.Preview, editor.Avatar, editor.Frame, editor.Badge, null);
             string name = editor.Name ?? PlaytestText.F("profile.default_name", meta.Profile.DefaultNumber);
             p.TextLeft(name, r.PreviewName.Left, r.PreviewName.CenterY, T.Title, C.InkTitle, r.PreviewName.Width, look: TextLook.Plain(C.InkTitle));

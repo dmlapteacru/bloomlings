@@ -884,6 +884,12 @@ namespace Bloomlings.Playtest.Droid
                 {
                     using System.IO.Stream? stream = PlaytestFiles.Open(SpriteResource(name));
                     bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
+                    if(bitmap!=null&&name.StartsWith("navigation/icon-",StringComparison.Ordinal))
+                    {
+                        var c=NavigationSkin.IconCrop(name,bitmap.Width,bitmap.Height);
+                        Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
+                        bitmap.Dispose(); bitmap=cropped;
+                    }
                     if(bitmap!=null&&name.StartsWith("shop/",StringComparison.Ordinal)&&name!="shop/background")
                     {
                         if(name=="shop/price-button")

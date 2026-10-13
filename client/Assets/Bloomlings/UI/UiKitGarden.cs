@@ -120,34 +120,19 @@ namespace Bloomlings.Client.UI
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<WoodSignView>();
-            SoftShadow(layout, b => b, b => b.Height * 0.28f, 0.22f, 0.07f);
-            if (decor == SignDecor.Ivy)
-            {
-                layout.Add(IvyCluster("IvyBackLeft", root, flipped: false, back: true).rectTransform, b => GardenLook.IvyBox(b, left: true, ivyScale));
-                layout.Add(IvyCluster("IvyBackRight", root, flipped: true, back: true).rectTransform, b => GardenLook.IvyBox(b, left: false, ivyScale));
-            }
-
-            // The plank in the buttons' plate laminate (spec 005 FR-045, the playtest's UiRaster.LaminateSign).
-            Image plank = UiFactory.CreateImage("Plank", root, null, Color.white);
+            Sprite? asset = NavigationArt.Get(NavigationSkin.Sign(style));
+            Image plank = UiFactory.CreateImage("Plank", root, asset, Color.white);
             plank.raycastTarget = false;
-            PictureFit.On(plank, ProceduralSprites.LaminateSign);
+            if (asset == null) PictureFit.On(plank, ProceduralSprites.LaminateSign);
+            else plank.type = Image.Type.Sliced;
             layout.Add(plank.rectTransform, b => b);
-            // The win's flower sign titles a card: its letters in ink.title (the playtest's Kit.WoodSign).
-            TextMeshProUGUI label = KitLabel("Label", root, text, style, GardenLook.SignLetters(letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown)));
-            view.Init(label, plank, style);
-            layout.Watch(label).Then(b => KitText.Place(label, style, b.CenterX, b.CenterY - (b.Height * 0.04f), Mathf.Min(Units(style.Size), b.Height * 0.62f), SignLetterRoom(b, decor, ivyScale)));
-            switch (decor)
+            TextMeshProUGUI label = KitLabel("Label", root, text, NavigationSkin.Title, NavigationSkin.TitleLetters);
+            view.Init(label, plank, NavigationSkin.Title);
+            layout.Watch(label).Then(b =>
             {
-                case SignDecor.Ivy:
-                    layout.Add(IvyCluster("IvyLeft", root, flipped: false, back: false).rectTransform, b => GardenLook.IvyBox(b, left: true, ivyScale));
-                    layout.Add(IvyCluster("IvyRight", root, flipped: true, back: false).rectTransform, b => GardenLook.IvyBox(b, left: false, ivyScale));
-                    break;
-                case SignDecor.Flowers:
-                    layout.Add(FlowerCluster("FlowersLeft", root, flipped: false).rectTransform, b => GardenLook.FlowerBox(b, left: true));
-                    layout.Add(FlowerCluster("FlowersRight", root, flipped: true).rectTransform, b => GardenLook.FlowerBox(b, left: false));
-                    break;
-            }
-
+                if(asset != null) plank.pixelsPerUnitMultiplier = asset.texture.height / Mathf.Max(.01f, b.Height);
+                KitText.Place(label, NavigationSkin.Title, b.CenterX, b.CenterY - b.Height * .025f, b.Height * NavigationSkin.SignTextShare(style), NavigationSkin.SignRoom(b));
+            });
             return view;
         }
 
@@ -830,7 +815,7 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>The letters' color (<c>ink.brown</c>; <c>badge.super_hard</c> darkened on a Super Hard level), embossed.</summary>
-        public void SetLetters(Rgba ink) => UiKit.ApplyLook(Label, _style, GardenLook.SignLetters(ink));
+        public void SetLetters(Rgba ink) => UiKit.ApplyLook(Label, _style, NavigationSkin.TitleLetters);
     }
 
     /// <summary>A cost pill built by <see cref="UiKit.CostPill"/>.</summary>
@@ -1693,74 +1678,40 @@ namespace Bloomlings.Client.UI
     {
         private BoxLayout _layout = null!;
         private Image _face = null!;
-        private Image _foot = null!;
-        private Image _line = null!;
-        private Image _leftEdge = null!;
-        private Image _rightEdge = null!;
-        private Image _bottomEdge = null!;
         private TextMeshProUGUI _label = null!;
-        private float _radius;
-        private float _stroke;
-
-        /// <summary>Where the family's picture goes (a square over the name).</summary>
-        public RectTransform Picture { get; private set; } = null!;
-
-        /// <summary>The family's name.</summary>
+        private int _index;
+        private Image _symbol = null!;
+        private Image _glow = null!;
         public TextMeshProUGUI Label => _label;
-
-        /// <summary>Whether this tab is the selected one.</summary>
         public bool Selected { get; private set; }
-
         internal void Build(BoxLayout layout, string label)
         {
-            _layout = layout;
-            Transform root = layout.transform;
-            _face = UiKit.RoundRect("Face", root, Color.white, _ => _radius);
-            _line = UiKit.RoundRing("Line", root, UiTheme.Of(C.CreamLine), _ => _radius, _ => _stroke);
-            _foot = UiKit.RoundRect("Foot", root, Color.white, _ => 0.5f);
-            _leftEdge = UiKit.RoundRect("LeftEdge", root, UiTheme.Of(C.CreamLine), _ => 0.5f);
-            _rightEdge = UiKit.RoundRect("RightEdge", root, UiTheme.Of(C.CreamLine), _ => 0.5f);
-            _bottomEdge = UiKit.RoundRect("BottomEdge", root, UiTheme.Of(C.CreamLine), _ => 0.5f);
-            Picture = UiFactory.CreateRect("Picture", root);
-            _label = UiKit.KitLabel("Name", root, label, T.Body, TextLook.Plain(C.InkBrown));
-            layout.Watch(_label).Then(Lay);
-            Select(false);
+            _layout=layout;
+            _index=gameObject.name == "Bloom" ? 1 : gameObject.name == "Drop" ? 2 : gameObject.name == "Twig" ? 3 : 0;
+            _glow=UiKit.RoundRect("SelectedGlow",layout.transform,UiTheme.Of(ShopBodyDesign.BadgeLight.WithAlpha(.30f)),b=>b.Height*.52f);
+            _face=UiFactory.CreateImage("Capsule",layout.transform,null,Color.white);
+            Sprite? icon = Enum.TryParse<Family>(gameObject.name,out Family family)
+                ? GameplayArt.Pod(new VariantId(NavigationSkin.FamilyIcon(family).Substring(13)))
+                : NavigationArt.Get("navigation/icon-avatar");
+            _symbol=UiFactory.CreateImage("Icon",layout.transform,icon,Color.white); _symbol.preserveAspect=true;
+            _label=UiKit.KitLabel("Name",layout.transform,label,NavigationSkin.Tab,NavigationSkin.TabLetters);
+            layout.Watch(_label).Then(Lay); Select(false);
         }
-
-        /// <summary>Shows the tab selected (lighter, bold name, joined to the panel below) or not.</summary>
         public void Select(bool selected)
         {
-            Selected = selected;
-            Color face = UiTheme.Of(selected ? C.CreamTop : C.CreamFace.Mix(C.ParchmentWell, 0.5f));
-            _face.color = face;
-            _foot.color = face;
-            _bottomEdge.gameObject.SetActive(!selected);
-            UiKit.Style(_label, selected ? T.ButtonSecondary : T.Body, TextLook.Plain(C.InkBrown));
+            Selected=selected;
+            _glow.gameObject.SetActive(selected);
+            PictureFit.On(_face,(w,h)=>ProceduralSprites.Picture("navigation.family/"+_index+"/"+selected,w,h,(pw,ph)=>NavigationSkin.Button(pw,ph,_index,selected)));
             _layout.Apply();
         }
-
         private void Lay(Box box)
         {
-            _radius = box.Width * 0.14f;
-            _stroke = Mathf.Max(UiKit.Units(2f), box.Width * 0.015f);
-
-            // The rounded face and outline, their lower half squared off by the foot, and the sides redrawn straight there.
-            BoxLayout.Place(_face.rectTransform, box);
-            BoxLayout.Place(_line.rectTransform, box);
-            // Selected, the foot reaches a little into the panel below and covers its top line there: the tab joins it.
-            float foot = Selected ? box.Bottom + (_stroke * 2.5f) : box.Bottom;
-            BoxLayout.Place(_foot.rectTransform, new Box(box.Left, box.CenterY, box.Right, foot));
-            BoxLayout.Place(_leftEdge.rectTransform, new Box(box.Left, box.CenterY, box.Left + _stroke, foot));
-            BoxLayout.Place(_rightEdge.rectTransform, new Box(box.Right - _stroke, box.CenterY, box.Right, foot));
-            BoxLayout.Place(_bottomEdge.rectTransform, new Box(box.Left, box.Bottom - _stroke, box.Right, box.Bottom));
-            float picture = box.Height * 0.56f;
-            BoxLayout.Place(Picture, Box.FromCenter(box.CenterX, box.Top + (box.Height * 0.38f), picture, picture));
-            TypeStyle style = Selected ? T.ButtonSecondary : T.Body;
-            KitText.Place(_label, style, box.CenterX, box.Top + (box.Height * 0.8f), Mathf.Min(UiKit.Units(style.Size), box.Height * 0.2f), box.Width * 0.9f);
-            foreach (Image image in new[] { _face, _foot, _line, _leftEdge, _rightEdge, _bottomEdge })
-            {
-                image.GetComponent<RoundShape>().Apply();
-            }
+            Box capsule=NavigationSkin.FamilyButton(box);
+            BoxLayout.Place(_glow.rectTransform,capsule.Inset(-capsule.Height*.025f));
+            BoxLayout.Place(_face.rectTransform,capsule);
+            BoxLayout.Place(_symbol.rectTransform,NavigationSkin.TabIcon(capsule));
+            Box text=NavigationSkin.TabLabel(capsule);
+            KitText.Place(_label,NavigationSkin.Tab,text.CenterX,text.CenterY,text.Height*.78f,text.Width);
         }
     }
 

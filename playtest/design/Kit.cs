@@ -813,7 +813,7 @@ namespace Bloomlings.Playtest.Design
         public static PetalsPillParts PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f)
         {
             p.Mark("ui.pill.petals");
-            TypeStyle s = T.Count;
+            TypeStyle s = NavigationSkin.Balance;
             float scale = box.Height * PetalsPillParts.AmountShare / p.U(s.Size);
             string amount = NumberText.Group(petals);
             float measured = Math.Max(p.MeasureText(PetalsPillParts.WidthText(amount), s, scale), p.MeasureText(amount, s, scale));
@@ -821,13 +821,15 @@ namespace Bloomlings.Playtest.Design
             Box pill = parts.Pill;
             RaisedButton(p, pill, GardenLook.Cream, 0.5f, 0f);
             Petal(p, parts.Lotus);
-            p.TextLeft(amount, parts.Amount.Left, parts.Amount.CenterY, s, C.InkBrown, parts.Amount.Width + 1f, scale, TextLook.Plain(C.InkBrown));
+            p.Mark("font.shop");
+            p.TextLeft(amount, parts.Amount.Left, parts.Amount.CenterY, s, NavigationSkin.TitleLetters.FillTop, parts.Amount.Width + 1f, scale, NavigationSkin.TitleLetters);
             if (onPlus != null)
             {
                 Box plus = parts.Plus;
                 float depth = Press(p, Touch(p, pill), true);
                 Squash(p, plus, depth);
-                Box f = RaisedButton(p, plus, GardenLook.Green, 0.5f, depth, gloss: true);
+                SlicedSprite(p, "shop/price-button", plus, 350f/1985, 190f/505, .4f);
+                Box f = plus;
                 float g = f.Width * 0.82f;
                 Glyph(p, "ui.plus", Box.FromCenter(f.CenterX, f.CenterY, g, g), GardenLook.Green);
                 p.PopTransform();
@@ -1072,27 +1074,10 @@ namespace Bloomlings.Playtest.Design
         /// (<see cref="RaisedButton"/>), the selected one green and glossy with a white label, the others light wood
         /// (<see cref="GardenLook.Tan"/>, the owner's references of 2026-10-08) with brown labels, sinking when pressed.
         /// </summary>
-        public static void Tabs(IPainter p, Box box, IReadOnlyList<string> labels, int selected, Action<int> onSelect)
+        public static void Tabs(IPainter p, Box box, IReadOnlyList<string> labels, int selected, Action<int> onSelect, IReadOnlyList<string>? keys = null)
         {
-            p.Mark("ui.tab");
-            Box[] cells = ScreenLayout.Row(box, labels.Count, p.U(16f), float.MaxValue, square: false);
-            for (int i = 0; i < cells.Length; i++)
-            {
-                int index = i;
-                Box cell = cells[i];
-                if (i == selected)
-                {
-                    Box face = RaisedButton(p, cell, GardenLook.Green, 0.5f, 0f, gloss: true);
-                    p.Text(labels[i], face.CenterX, face.CenterY, T.ButtonSecondary, C.TextOnColor, face.Width * 0.96f, look: TextLook.OnColor(GardenLook.Green));
-                }
-                else
-                {
-                    Box face = RaisedButton(p, cell, GardenLook.Tan, 0.5f, Press(p, cell, true));
-                    p.Text(labels[i], face.CenterX, face.CenterY, T.ButtonSecondary, C.InkBrown, face.Width * 0.96f, look: TextLook.Plain(C.InkBrown));
-                }
-
-                p.Hit(Touch(p, cells[i]), () => onSelect(index));
-            }
+            Box[] cells=ScreenLayout.Row(box,labels.Count,p.U(16),float.MaxValue,square:false);
+            for(int i=0;i<cells.Length;i++) { int index=i; NavigationTab(p,cells[i],labels[i],NavigationSkin.Icon(keys != null ? keys[i] : labels[i]),i,i==selected,()=>onSelect(index)); }
         }
 
         /// <summary>

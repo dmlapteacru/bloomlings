@@ -67,13 +67,15 @@ namespace Bloomlings.Client.UI.Screens
 
             // The tabs.
             var labels = new string[ProfileEditor.Tabs.Count];
+            var keys = new string[labels.Length];
             for (int i = 0; i < labels.Length; i++)
             {
-                labels[i] = Loc.T(TabKey(ProfileEditor.Tabs[i]));
+                keys[i] = TabKey(ProfileEditor.Tabs[i]);
+                labels[i] = Loc.T(keys[i]);
             }
 
             RectTransform tabs = UiFactory.CreateRect("Tabs", at);
-            screen._tabs = UiKit.Tabs("Tabs", tabs, labels, i => screen.SelectTab(ProfileEditor.Tabs[i]));
+            screen._tabs = UiKit.Tabs("Tabs", tabs, labels, i => screen.SelectTab(ProfileEditor.Tabs[i]), keys);
             UiKit.PlaceBox(tabs, r.Tabs, body);
 
             // The preview: the picked avatar and the name, a status line under the name.

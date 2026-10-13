@@ -381,7 +381,7 @@ namespace Bloomlings.Client.UI.Screens
                 StoreTab.Animations => "store.tab_animations",
                 _ => "store.tab_shop",
             })).ToArray();
-            _tabs = UiKit.Tabs("TabRow", _tabsBox, labels, i => SetTab(_tabOrder[i]));
+            _tabs = UiKit.Tabs("TabRow", _tabsBox, labels, i => SetTab(_tabOrder[i]), tabs.ConvertAll(t => t == StoreTab.Cosmetics ? "store.tab_cosmetics" : t == StoreTab.Animations ? "store.tab_animations" : "store.tab_shop").ToArray());
         }
 
         /// <summary>Places the page on the kit's regions for the screen's shape (contracts/look.md §6.6).</summary>
@@ -866,7 +866,6 @@ namespace Bloomlings.Client.UI.Screens
         private void FamilyTabs(Box tabs, Box panel, IReadOnlyList<Family> families, WardrobeService wardrobe)
         {
             Box[] cells = ScreenLayout.Row(tabs, families.Count, 10f * Scale, float.MaxValue, square: false);
-            float sunk = tabs.Height * 0.07f;
             FamilyTabView? selected = null;
             for (int i = 0; i < cells.Length; i++)
             {
@@ -875,11 +874,7 @@ namespace Bloomlings.Client.UI.Screens
                 Family family = families[i];
                 FamilyTabView tab = UiKit.FamilyTab(family.ToString(), _list, Loc.T("family." + WardrobeService.FamilyKey(family)), () => SelectFamily(index));
                 Box cell = cells[i];
-                PlaceInList((RectTransform)tab.transform, new Box(cell.Left, cell.Top + (on ? 0f : sunk), cell.Right, panel.Top));
-                BloomlingFigure hero = BloomlingFigure.Create("Hero", tab.Picture);
-                UiFactory.Stretch(hero.Rect);
-                hero.ShowHero(family, wardrobe.OutfitOf(family));
-                hero.Body.raycastTarget = false;
+                PlaceInList((RectTransform)tab.transform, NavigationSkin.FamilyButton(cell));
                 tab.Select(on);
                 if (on)
                 {

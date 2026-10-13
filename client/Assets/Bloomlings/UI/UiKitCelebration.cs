@@ -46,25 +46,15 @@ namespace Bloomlings.Client.UI
 
             // The sign's own label stays hidden; the lines come after the plank and before the flowers.
             TextLook look = GardenLook.SignLetters(C.InkTitle);
-            TextMeshProUGUI first = KitLabel("Line1", sign.transform, string.Empty, T.LevelHome, look);
-            TextMeshProUGUI second = KitLabel("Line2", sign.transform, string.Empty, T.LevelHome, look);
-            TextMeshProUGUI probe = KitLabel("Probe", sign.transform, string.Empty, T.LevelHome, look);
+            TextMeshProUGUI first = KitLabel("Line1", sign.transform, string.Empty, NavigationSkin.Title, look);
+            TextMeshProUGUI second = KitLabel("Line2", sign.transform, string.Empty, NavigationSkin.Title, look);
+            TextMeshProUGUI probe = KitLabel("Probe", sign.transform, string.Empty, NavigationSkin.Title, look);
             probe.color = Color.clear;
             var view = sign.gameObject.AddComponent<CelebrationSignView>();
             BoxLayout layout = BoxLayout.On((RectTransform)sign.transform);
             view.Init(sign, first, second, probe, layout);
             view.Text = text;
             layout.Then(view.LayLetters);
-            layout.Add(FlowerCluster("FlowersLeft", sign.transform, flipped: false).rectTransform, b =>
-            {
-                float size = CelebrationFlowerSize(b);
-                return Box.FromCenter(b.Left + (size * 0.04f), b.Top + (b.Height * 0.18f), size, size);
-            });
-            layout.Add(FlowerCluster("FlowersRight", sign.transform, flipped: true).rectTransform, b =>
-            {
-                float size = CelebrationFlowerSize(b);
-                return Box.FromCenter(b.Right - (size * 0.04f), b.Top + (b.Height * 0.1f), size, size);
-            });
             return view;
         }
 
@@ -115,7 +105,7 @@ namespace Bloomlings.Client.UI
         /// <summary>The width the celebration sign's letters may take: 82% of the plank, between the two flower clusters.</summary>
         public static float CelebrationLetterRoom(Box b)
         {
-            return Mathf.Min(b.Width * 0.82f, b.Width - (0.9f * CelebrationFlowerSize(b)));
+            return NavigationSkin.SignRoom(b);
         }
 
         /// <summary>
@@ -290,7 +280,7 @@ namespace Bloomlings.Client.UI
             {
                 _second.gameObject.SetActive(false);
                 _first.text = _text;
-                KitText.Place(_first, T.LevelHome, b.CenterX, b.CenterY - (b.Height * 0.04f), b.Height * UiKit.CelebrationSignOneLine, room);
+                KitText.Place(_first, NavigationSkin.Title, b.CenterX, b.CenterY - (b.Height * 0.04f), b.Height * UiKit.CelebrationSignOneLine, room);
                 return;
             }
 
@@ -301,8 +291,8 @@ namespace Bloomlings.Client.UI
             float widest = Mathf.Max(KitText.Measure(_first, two), KitText.Measure(_second, two));
             float size = widest > room ? two * room / widest : two;
             float cy = b.CenterY - (b.Height * 0.02f);
-            KitText.Place(_first, T.LevelHome, b.CenterX, cy - (size * 0.47f), size, room);
-            KitText.Place(_second, T.LevelHome, b.CenterX, cy + (size * 0.47f), size, room);
+            KitText.Place(_first, NavigationSkin.Title, b.CenterX, cy - (size * 0.47f), size, room);
+            KitText.Place(_second, NavigationSkin.Title, b.CenterX, cy + (size * 0.47f), size, room);
         }
     }
 

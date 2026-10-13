@@ -961,7 +961,7 @@ namespace Bloomlings.Client.Tests
                 Assert.That(header.Petals.CenterY, Is.EqualTo(header.CenterY).Within(0.5f), at + ": the Petals pill on the back button's line");
                 Assert.That(header.Back.Width, Is.EqualTo(PageHeader.BackShare * sw).Within(0.5f), at);
                 Assert.That(header.Banner.Height, Is.EqualTo(PageHeader.BannerShare * sw).Within(0.5f), at);
-                Assert.That(header.BannerExtent.Height, Is.EqualTo(header.Banner.Height * GardenLook.IvyShare * PageHeader.IvyScale).Within(0.5f), at + ": the banner with its smaller leaves");
+                Assert.That(header.BannerExtent.Height, Is.EqualTo(header.Banner.Height).Within(0.5f), at + ": asset decorations stay inside the banner");
                 Assert.That(header.Petals.Width, Is.EqualTo(PageHeader.PetalsWidthShare * sw).Within(0.5f), at);
                 Assert.That(header.Petals.Height, Is.EqualTo(PageHeader.PetalsHeightShare * sw).Within(0.5f), at);
                 Assert.That(header.Petals.Right, Is.EqualTo(safe.Right - (0.02f * sw)).Within(0.5f), at);
@@ -984,7 +984,7 @@ namespace Bloomlings.Client.Tests
 
                 // "Wardrobe" needs about 0.27 W at type.title; the room between the smaller ivy clusters (the plank less
                 // 1.25 × 0.8 of its height) keeps it at 95% or more.
-                Assert.That(header.Banner.Width - (GardenLook.IvyShare * PageHeader.IvyScale * header.Banner.Height), Is.GreaterThanOrEqualTo(0.26f * sw), at + ": the title keeps its room");
+                Assert.That(NavigationSkin.SignRoom(header.Banner), Is.GreaterThanOrEqualTo(0.26f * sw), at + ": the title keeps its room");
 
                 ReferenceWardrobeRegions wardrobe = ScreenLayout.ReferenceWardrobe(w, h, insets);
                 ReferenceStoreRegions store = ScreenLayout.ReferenceStore(w, h, insets);

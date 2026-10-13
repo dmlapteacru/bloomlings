@@ -31,6 +31,7 @@
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/LilitaOne-Regular.ttf" LogicalName="fonts/LilitaOne-Regular.ttf" />
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Shop/Resources/Shop/*.png" Link="Assets/shop/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/UI/Resources/Navigation/*.png" Link="Assets/navigation/%(Filename)%(Extension)" />
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Gameplay/Resources/Gameplay/*.png" Link="Assets/gameplay/%(Filename)%(Extension)" />
     <!--
       The pictures are the APK's assets (PlaytestFiles, AndroidAssetFiles), kept once: as embedded resources they were packed

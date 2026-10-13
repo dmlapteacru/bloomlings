@@ -59,7 +59,7 @@ account.linked_apple,Linked: Apple
 account.linked_google,Linked: Google Play Games
 account.signed_in,Signed in (anonymous)
 account.local,Local profile
-store.title,Store
+store.title,Shop
 store.offline,Purchases are unavailable offline
 store.remove_ads,Remove Ads
 store.remove_ads_bundle,Remove Ads + Garden Pack
@@ -91,7 +91,7 @@ store.preview_value_15,15% better than previous
 store.preview_value_16,16% better than previous
 store.booster_owned,{0} (owned {1})
 store.booster_quantity,{0} ×{1}
-store.tab_shop,Shop
+store.tab_shop,Packs
 store.tab_cosmetics,Cosmetics
 store.tab_animations,Animations
 store.animations_footer,Munchers is free. A chosen style plays on every level.

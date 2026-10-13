@@ -46,7 +46,6 @@ namespace Bloomlings.Client.UI.Screens
     public sealed class WardrobeScreen : MonoBehaviour
     {
         private readonly List<FamilyTabView> _tabs = new List<FamilyTabView>();
-        private readonly List<BloomlingFigure> _tabHeroes = new List<BloomlingFigure>();
         private readonly List<GameObject> _cards = new List<GameObject>();
         private GameObject _root = null!;
         private WardrobeService _wardrobe = null!;
@@ -59,7 +58,6 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _pedestal = null!;
         private BloomlingFigure _hero = null!;
         private ProfileAvatar _avatar = null!;
-        private ProfileAvatar _tabAvatar = null!;
         private Button _previous = null!;
         private Button _next = null!;
         private Image _nameCard = null!;
@@ -145,22 +143,16 @@ namespace Bloomlings.Client.UI.Screens
             {
                 Family family = families[i];
                 FamilyTabView tab = UiKit.FamilyTab(family.ToString(), root, Loc.T("family." + WardrobeService.FamilyKey(family)), () => screen.Select(family));
-                BloomlingFigure figure = BloomlingFigure.Create("Hero", tab.Picture);
-                UiFactory.Stretch(figure.Rect);
-                figure.Body.raycastTarget = false;
                 screen._tabs.Add(tab);
-                screen._tabHeroes.Add(figure);
             }
 
             FamilyTabView profile = UiKit.FamilyTab("Profile", root, Loc.T("wardrobe.tab_profile"), () => screen.SetMode(true));
-            screen._tabAvatar = ProfileAvatar.Create("Avatar", profile.Picture);
-            UiFactory.Stretch(screen._tabAvatar.Rect);
             screen._tabs.Add(profile);
 
             // The kinds as chips, the outfit cards, the empty line and the footer between the page arrows.
             screen._chips = UiFactory.CreateRect("Kinds", root);
-            screen._wornKinds = UiKit.Tabs("Worn", screen._chips, Labels(CosmeticCatalog.WornKinds), screen.SetKind);
-            screen._profileKinds = UiKit.Tabs("Profile", screen._chips, Labels(CosmeticCatalog.ProfileKinds), screen.SetKind);
+            screen._wornKinds = UiKit.Tabs("Worn", screen._chips, Labels(CosmeticCatalog.WornKinds), screen.SetKind, KindKeys(CosmeticCatalog.WornKinds));
+            screen._profileKinds = UiKit.Tabs("Profile", screen._chips, Labels(CosmeticCatalog.ProfileKinds), screen.SetKind, KindKeys(CosmeticCatalog.ProfileKinds));
             screen._items = UiFactory.CreateRect("Items", root);
             screen._empty = UiKit.Label("Empty", root, Loc.T("wardrobe.more"), T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             screen._footer = UiKit.Label("Footer", root, Loc.T("wardrobe.footer"), T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
@@ -361,6 +353,11 @@ namespace Bloomlings.Client.UI.Screens
             ? OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)) ?? ProceduralSprites.Accessory(item.Shape)
             : ProceduralSprites.Accessory(item.Shape);
 
+        private static string[] KindKeys(IReadOnlyList<CosmeticKind> kinds)
+        {
+            var keys=new string[kinds.Count]; for(int i=0;i<keys.Length;i++) keys[i]="wardrobe.kind_"+kinds[i].ToString().ToLowerInvariant(); return keys;
+        }
+
         public static string KindLabel(CosmeticKind kind) => kind switch
         {
             CosmeticKind.Skin => Loc.T("wardrobe.kind_skin"),
@@ -536,10 +533,9 @@ namespace Bloomlings.Client.UI.Screens
             for (int i = 0; i < _tabs.Count; i++)
             {
                 Box cell = r.Tab(i, _tabs.Count);
-                float sunk = cell.Height * 0.07f;
                 // An unselected tab ends at the panel's edge, so its name stays clear of the panel (spec 005 FR-049; the
                 // playtest's Kit.FamilyTabParts).
-                UiKit.PlaceScreen((RectTransform)_tabs[i].transform, i == selected ? cell : new Box(cell.Left, cell.Top + sunk, cell.Right, Mathf.Min(cell.Bottom, r.Panel.Top)));
+                UiKit.PlaceScreen((RectTransform)_tabs[i].transform, NavigationSkin.FamilyButton(cell));
                 _tabs[i].Select(i == selected);
             }
 
@@ -578,19 +574,12 @@ namespace Bloomlings.Client.UI.Screens
             AvatarItem? avatar = _avatarOf?.Invoke();
             Outfit outfit = _wardrobe.OutfitOf(avatar?.Family ?? Family.Bloom);
             _avatar.Show(_wardrobe.Profile, outfit, avatar);
-            _tabAvatar.Show(_wardrobe.Profile, outfit, avatar);
             _name.text = _profileMode ? Loc.T("wardrobe.tab_profile") : Loc.T("family." + key);
             _role.text = _profileMode ? Loc.T("wardrobe.role.profile") : Loc.T("wardrobe.role." + key);
             // The description in two balanced lines, as the reference's (§6.5).
             string about = _profileMode ? Loc.T("wardrobe.about.profile") : Loc.T("wardrobe.about." + key);
             float aboutWidth = _regions.About.Width * 0.7f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
             _about.text = string.Join("\n", UiKit.BalancedLines(_probe, about, UiKit.Units(T.Body.Size), aboutWidth));
-
-            IReadOnlyList<Family> families = WardrobeService.Families;
-            for (int i = 0; i < families.Count && i < _tabHeroes.Count; i++)
-            {
-                _tabHeroes[i].ShowHero(families[i], _wardrobe.OutfitOf(families[i]));
-            }
 
             _wornKinds.gameObject.SetActive(!_profileMode);
             _profileKinds.gameObject.SetActive(_profileMode);

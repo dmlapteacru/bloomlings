@@ -184,7 +184,7 @@ namespace Bloomlings.Client.UI.Design
             const float tileShare = 0.245f;
             const float labelShare = 0.055f;
             const float rowGapShare = 0.025f;
-            const float content = 0.55f + 0.035f + 0.08f + 0.025f
+            const float content = 0.55f + 0.035f + 0.08f + 0.045f
                 + (ReferenceProfileRegions.AchievementRows * (tileShare + labelShare))
                 + ((ReferenceProfileRegions.AchievementRows - 1) * rowGapShare)
                 + 0.015f + 0.055f;
@@ -210,7 +210,8 @@ namespace Bloomlings.Client.UI.Design
             float rowGap = rowGapShare * u;
             float label = labelShare * u;
             float tilesWidth = (ReferenceProfileRegions.AchievementColumns * tile) + ((ReferenceProfileRegions.AchievementColumns - 1) * tileGap);
-            float tilesTop = title.Bottom + (0.025f * u);
+            // The arrow's minimum touch target extends below this short title on 16:9 screens.
+            float tilesTop = title.Bottom + (0.045f * u);
             var tiles = new Box[ReferenceProfileRegions.AchievementCount];
             for (int i = 0; i < tiles.Length; i++)
             {

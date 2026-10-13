@@ -95,7 +95,7 @@ namespace Bloomlings.Playtest.Design
                 app.StoreTab = i;
                 app.StorePage = 0;
                 app.ShopScrollOffset = 0f;
-            });
+            }, tabs);
 
             switch (tabs[tab])
             {
