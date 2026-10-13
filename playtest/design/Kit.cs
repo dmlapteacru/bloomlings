@@ -472,6 +472,11 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("ui.button.round");
             Box box = Box.FromCenter(cx, cy, size, size);
+            string? asset=GameNavigationDesign.Control(shapeId);
+            if(set==null&&!glyph.HasValue&&asset!=null&&p.HasSprite(asset))
+            {
+                Squash(p,box,Press(p,box,action!=null));p.Sprite(asset,box);p.PopTransform();if(action!=null)p.Hit(Touch(p,box),action);return;
+            }
             ColorSet colors = set ?? GardenLook.White;
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
@@ -590,6 +595,12 @@ namespace Bloomlings.Playtest.Design
         public static void SpeedPill(IPainter p, Box box, bool on, Action? action)
         {
             p.Mark("ui.pill.speed");
+            if(p.HasSprite(GameNavigationDesign.Speed(on)))
+            {
+                Squash(p,box,Press(p,box,action!=null));p.Sprite(GameNavigationDesign.Speed(on),box);
+                ProfileGamePainter.Label(p,GameNavigationDesign.SpeedLabel(box),"2x",NavigationSkin.Tab,on ? ShopBodyDesign.MoneyLetters : ShopBodyDesign.Letters);
+                p.PopTransform();if(action!=null)p.Hit(Touch(p,box),action);return;
+            }
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
             float radius = GardenLook.IconRadius(box);
@@ -819,7 +830,8 @@ namespace Bloomlings.Playtest.Design
             float measured = Math.Max(p.MeasureText(PetalsPillParts.WidthText(amount), s, scale), p.MeasureText(amount, s, scale));
             PetalsPillParts parts = PetalsPillParts.Fit(box, measured, onPlus != null, align);
             Box pill = parts.Pill;
-            RaisedButton(p, pill, GardenLook.Cream, 0.5f, 0f);
+            if(p.HasSprite(GameNavigationDesign.Wallet))SlicedSprite(p,GameNavigationDesign.Wallet,pill,.17f,.42f,.42f);
+            else RaisedButton(p, pill, GardenLook.Cream, 0.5f, 0f);
             Petal(p, parts.Lotus);
             p.Mark("font.shop");
             p.TextLeft(amount, parts.Amount.Left, parts.Amount.CenterY, s, NavigationSkin.TitleLetters.FillTop, parts.Amount.Width + 1f, scale, NavigationSkin.TitleLetters);
@@ -828,7 +840,8 @@ namespace Bloomlings.Playtest.Design
                 Box plus = parts.Plus;
                 float depth = Press(p, Touch(p, pill), true);
                 Squash(p, plus, depth);
-                if (p.HasSprite("navigation/plus-v2")) p.Sprite("navigation/plus-v2", plus);
+                if(p.HasSprite(GameNavigationDesign.Plus))p.Sprite(GameNavigationDesign.Plus,plus);
+                else if (p.HasSprite("navigation/plus-v2")) p.Sprite("navigation/plus-v2", plus);
                 else
                 {
                     SlicedSprite(p, "shop/price-button", plus, 350f/1985, 190f/505, .4f);

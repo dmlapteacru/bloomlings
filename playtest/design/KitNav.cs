@@ -14,11 +14,6 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static partial class Kit
     {
-        // The bar's render function for each picture key (its places' grooves), made once per key.
-        private static readonly Dictionary<string, Func<int, int, byte[]>> NavBars = new Dictionary<string, Func<int, int, byte[]>>(StringComparer.Ordinal);
-
-        private static readonly Func<int, int, byte[]> NavMedallionPicture = (w, h) => UiRaster.NavMedallion(Math.Min(w, h));
-
         /// <summary>
         /// The bottom menu in its regions (<see cref="ScreenLayout.BottomNav"/>): the wooden bar (<c>ui.nav.bar</c>,
         /// <see cref="UiRaster.NavBar"/>) across the screen's bottom; each place's icon on the plank, squashing while
@@ -27,44 +22,23 @@ namespace Bloomlings.Playtest.Design
         /// (<see cref="NavLock"/>), still tappable; then the medallion (<c>ui.nav.medallion</c>,
         /// <see cref="UiRaster.NavMedallion"/>) over the active place with its icon and no badge, which takes no tap.
         /// </summary>
-        public static void BottomNav(IPainter p, BottomNavRegions r, HomeLook look, Action<NavPlace> onSelect)
+        public static void BottomNav(IPainter p,BottomNavRegions r,HomeLook look,Action<NavPlace> onSelect)
         {
-            p.Mark("ui.nav.bar");
-            NavBarShape shape = r.Shape;
-            if (!NavBars.TryGetValue(shape.Key, out Func<int, int, byte[]>? render))
+            p.Mark("ui.nav.bar");p.Mark("ui.nav.medallion");p.Mark("ui.nav.illustrations");
+            for(int i=0;i<r.Places.Count;i++)
             {
-                render = (w, h) => UiRaster.NavBar(w, h, shape);
-                NavBars[shape.Key] = render;
-            }
-
-            p.Picture(shape.Key, r.Bar, render);
-            int active = r.ActiveIndex;
-            for (int i = 0; i < r.Places.Count; i++)
-            {
-                if (i == active)
+                NavPlace place=r.Places[i];bool chosen=i==r.ActiveIndex;Box face=GameNavigationDesign.NavButton(r,i),touch=GameNavigationDesign.NavTouch(r,i);
+                if(!chosen)Squash(p,face,Press(p,touch,true),tile:true);
+                p.Mark(Client.UI.Design.BottomNav.Slot(place));p.Sprite(GameNavigationDesign.Nav(place,chosen),face);
+                if(chosen)ProfileGamePainter.Label(p,GameNavigationDesign.NavCaption(face),PlaytestText.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,ShopBodyDesign.Letters,heightShare:.92f);
+                else
                 {
-                    continue;
+                    if(!Client.UI.Design.BottomNav.IsOpen(place,look))NavLock(p,face);
+                    p.PopTransform();p.Hit(touch,()=>onSelect(place));
                 }
-
-                NavPlace place = r.Places[i];
-                Box touch = r.Touch(i);
-                Box icon = r.Icon(i);
-                float depth = Press(p, touch, true);
-                Squash(p, icon, depth, tile: true);
-                NavIcon(p, place, icon);
-                if (!Client.UI.Design.BottomNav.IsOpen(place, look))
-                {
-                    NavLock(p, icon);
-                }
-
-                p.PopTransform();
-                p.Hit(touch, () => onSelect(place));
             }
-
-            p.Mark("ui.nav.medallion");
-            p.Picture("ui.nav.medallion", r.Medallion, NavMedallionPicture);
-            NavIcon(p, r.Active, r.Icon(active));
         }
+
 
         /// <summary>
         /// A place's icon (<see cref="Client.UI.Design.BottomNav.Slot"/>): the owner's picture (<see cref="OwnerPictures.NavIcon"/>) fitted

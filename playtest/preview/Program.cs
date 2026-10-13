@@ -127,7 +127,7 @@ if (perf)
 var usedSlots = new HashSet<string>(StringComparer.Ordinal);
 var problems = new List<string>();
 var sheetImages = new List<(int Number, string Title, SKImage Image)>();
-foreach (Fixture frame in Fixtures.All(content, root).Concat(Fixtures.Extras(content)).Concat(Fixtures.Guides(content)).Concat(Fixtures.Profile(content).Concat(Fixtures.ProfileGame(content))).Concat(Fixtures.Clearing(content)).Concat(Fixtures.Purchases(content)).Concat(Fixtures.Loading(content)))
+foreach (Fixture frame in Fixtures.All(content, root).Concat(Fixtures.Extras(content)).Concat(Fixtures.Guides(content)).Concat(Fixtures.Profile(content).Concat(Fixtures.ProfileGame(content))).Concat(Fixtures.NavigationControls(content)).Concat(Fixtures.Clearing(content)).Concat(Fixtures.Purchases(content)).Concat(Fixtures.Loading(content)))
 {
     if (only != null && !only.Contains(frame.Number))
     {

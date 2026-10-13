@@ -703,9 +703,9 @@ namespace Bloomlings.Client.Tests
                         Assert.That(r.Medallion.Width, Is.GreaterThan(0.16f * sw), at);
                         Assert.That(r.Medallion.Height, Is.EqualTo(r.Medallion.Width).Within(0.01f), at);
                         Assert.That(r.Medallion.CenterX, Is.EqualTo(active0.CenterX).Within(0.01f), at + ": the medallion over the active place");
-                        Assert.That(r.Medallion.Top, Is.EqualTo(r.Plank.Top - (BottomNav.RiseShare * sw)).Within(0.5f), at + ": it rises 0.03 W above the plank");
+                        Assert.That(r.Medallion.Top, Is.EqualTo(r.Plank.Top - (BottomNav.RiseFor(r.Safe) * sw)).Within(0.5f), at + ": responsive selected-button reserve");
                         Assert.That(r.Disc.Bottom, Is.LessThanOrEqualTo(h + 0.5f), at + ": its disc stays on the screen");
-                        Assert.That(r.Top, Is.EqualTo(r.Safe.Bottom - (0.17f * sw)).Within(0.5f), at + ": the menu's top 0.17 W above the safe bottom");
+                        Assert.That(r.Top, Is.EqualTo(r.Safe.Bottom - ((BottomNav.PlankShare+BottomNav.RiseFor(r.Safe)) * sw)).Within(0.5f), at + ": content stays above the selected button");
                         Assert.That(r.Medallion.Left, Is.GreaterThanOrEqualTo(-0.5f), at);
                         Assert.That(r.Medallion.Right, Is.LessThanOrEqualTo(w + 0.5f), at);
 

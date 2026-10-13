@@ -125,7 +125,8 @@ namespace Bloomlings.Client.App.Home
                     DailyRewardPromo: daily.IsUnlocked,
                     DailyRewardWaiting: daily.CanClaim,
                     Avatar: profile.Avatar,
-                    DailyRewardBadge: daily.ShowsBadge));
+                    DailyRewardBadge: daily.ShowsBadge,
+                    ProfileName: ProfileScreen.NameOf(profile)));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.ShowsRanks)
                 {

@@ -723,6 +723,8 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static Button RoundIconButton(string name, Transform parent, string shapeId, Action onClick, ColorSet? set = null)
         {
+            string? asset=GameNavigationDesign.Control(shapeId);
+            if(set==null&&asset!=null&&NavigationArt.Get(asset)!=null)return GameNavigationView.Button(name,parent,asset,onClick);
             ColorSet colors = set ?? GardenLook.White;
             GardenButton view = IconFace(name, parent, colors, GardenLook.IconRimFaceRadius, square: true, raycast: true, rim: true);
             Image glyph = GardenGlyph(view, view.Content, shapeId);
@@ -867,6 +869,14 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static Button SpeedPill(string name, Transform parent, Action onClick, out Action<bool> setOn)
         {
+            if(NavigationArt.Get(GameNavigationDesign.Speed(false))!=null)
+            {
+                Button control=GameNavigationView.Button(name,parent,GameNavigationDesign.Speed(false),onClick);
+                Image face=control.GetComponent<Image>();
+                TextMeshProUGUI text=GameNavigationView.Label("Speed",control.transform,"2x",NavigationSkin.Tab,ShopBodyDesign.MoneyLetters);
+                BoxLayout.On((RectTransform)control.transform).Add(text.rectTransform,GameNavigationDesign.SpeedLabel);
+                setOn=on=>{face.sprite=NavigationArt.Get(GameNavigationDesign.Speed(on));UiKit.ApplyLook(text,NavigationSkin.Tab,on ? ShopBodyDesign.MoneyLetters : ShopBodyDesign.Letters);};setOn(false);return control;
+            }
             GardenButton view = IconFace(name, parent, GardenLook.White, GardenLook.IconRimFaceRadius, square: false, raycast: true, rim: true);
             BoxLayout body = BoxLayout.On(view.Body);
             var rings = new List<GameObject>();
@@ -1084,18 +1094,23 @@ namespace Bloomlings.Client.UI
             // The pill raised on its wooden plate as the buttons (spec 005 FR-047); a clear image over it takes the taps.
             Image lip = RoundRect("Hit", root, Color.clear, raycast: onPlus != null);
             layout.Add(lip.rectTransform, b => view.Parts(b).Pill);
-            RaisedPlate(layout, root, b => view.Parts(b).Pill, 0.5f);
-            Image face = UiFactory.CreateImage("Face", root, null, Color.white);
-            face.raycastTarget = false;
-            PictureFit.On(face, (w, h) => ProceduralSprites.ButtonFace(GardenLook.Cream, w, h, 0.5f, false));
-            layout.Add(face.rectTransform, b => UiRaster.RaisedFaceBox(view.Parts(b).Pill));
+            if(NavigationArt.Get(GameNavigationDesign.Wallet)!=null)
+            {
+                Image skin=GameNavigationView.Surface("Wallet",root,GameNavigationDesign.Wallet);layout.Add(skin.rectTransform,b=>view.Parts(b).Pill);
+            }
+            else
+            {
+                RaisedPlate(layout,root,b=>view.Parts(b).Pill,.5f);
+                Image face=UiFactory.CreateImage("Face",root,null,Color.white);face.raycastTarget=false;
+                PictureFit.On(face,(w,h)=>ProceduralSprites.ButtonFace(GardenLook.Cream,w,h,.5f,false));layout.Add(face.rectTransform,b=>UiRaster.RaisedFaceBox(view.Parts(b).Pill));
+            }
             Image icon = PetalIcon("Petal", root);
             layout.Add(icon.rectTransform, b => view.Parts(b).Lotus);
             TextMeshProUGUI balance = KitLabel("Balance", root, "0", NavigationSkin.Balance, NavigationSkin.TitleLetters);
             balance.alignment = TextAlignmentOptions.Left;
             view.Balance = balance;
             GardenButton plus = NavigationButton("Plus", root, 0, true, price: true);
-            if (NavigationArt.Get("navigation/plus-v2") == null)
+            if (NavigationArt.Get(GameNavigationDesign.Plus) == null)
             {
                 Image glyph = GardenGlyph(plus, plus.Content, "ui.plus");
                 BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.65f, plus.IconSide * 0.65f));

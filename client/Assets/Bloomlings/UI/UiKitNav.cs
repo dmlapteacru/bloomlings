@@ -120,104 +120,41 @@ namespace Bloomlings.Client.UI
     /// </summary>
     public sealed class BottomNavView : MonoBehaviour
     {
-        private readonly Dictionary<NavPlace, (Image Touch, Image Icon, RectTransform Lock)> _places = new Dictionary<NavPlace, (Image, Image, RectTransform)>();
-        private Image _bar = null!;
-        private Image _medallion = null!;
-        private Image _activeIcon = null!;
-        private Action<NavPlace>? _onSelect;
-        private NavPlace _active = NavPlace.Home;
+        private readonly Dictionary<NavPlace,(Image Touch,Image Face,TextMeshProUGUI Caption,RectTransform Lock)> _places=new Dictionary<NavPlace,(Image,Image,TextMeshProUGUI,RectTransform)>();
+        private Image _bar=null!;
+        private NavPlace _active=NavPlace.Home;
         private bool _shown;
-
-        /// <summary>The place in the medallion.</summary>
-        public NavPlace Active => _active;
-
+        public NavPlace Active=>_active;
         internal void Build(Action<NavPlace> onSelect)
         {
-            _onSelect = onSelect;
-
-            // The bar takes the taps that fall on it, so none reach the stage under it.
-            _bar = UiFactory.CreateImage("Bar", transform, null, Color.white, raycast: true);
-            foreach (NavPlace place in Design.BottomNav.Order)
+            _bar=UiFactory.CreateImage("Bar",transform,null,Color.clear,raycast:true);
+            foreach(NavPlace place in Design.BottomNav.Order)
             {
-                NavPlace p = place;
-                Image touch = UiFactory.CreateImage(Design.BottomNav.Key(place), transform, null, Color.clear, raycast: true);
-                UiKit.TapTarget(touch, () => _onSelect?.Invoke(p), press: true);
-                Image icon = UiFactory.CreateImage("Icon", touch.transform, null, Color.white);
-                icon.raycastTarget = false;
-                RectTransform badge = UiKit.LockBadge("Lock", touch.transform);
-                _places[place] = (touch, icon, badge);
-                touch.gameObject.SetActive(false);
+                NavPlace p=place;Image touch=UiFactory.CreateImage(Design.BottomNav.Key(place),transform,null,Color.clear,raycast:true);
+                UiKit.TapTarget(touch,()=>onSelect(p),press:true);
+                Image face=UiFactory.CreateImage("Illustration",touch.transform,null,Color.white);face.preserveAspect=true;face.raycastTarget=false;
+                TextMeshProUGUI caption=GameNavigationView.Label("SelectedName",touch.transform,Loc.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,ShopBodyDesign.Letters,.92f);
+                RectTransform badge=UiKit.LockBadge("Lock",touch.transform);
+                _places[place]=(touch,face,caption,badge);
             }
-
-            _medallion = UiFactory.CreateImage("Medallion", transform, null, Color.white, raycast: true);
-            PictureFit.On(_medallion, (w, h) => ProceduralSprites.Picture("ui.nav.medallion", Mathf.Min(w, h), Mathf.Min(w, h), (pw, ph) => UiRaster.NavMedallion(Mathf.Min(pw, ph))), square: true);
-            _activeIcon = UiFactory.CreateImage("ActiveIcon", transform, null, Color.white);
-            _activeIcon.raycastTarget = false;
         }
-
-        /// <summary>
-        /// Lays the menu out for the screen's shape (<see cref="ScreenLayout.BottomNav"/>) with its five places
-        /// (<see cref="Design.BottomNav.Order"/>) and <paramref name="active"/> in the medallion; each place
-        /// <paramref name="look"/> keeps locked (<see cref="Design.BottomNav.IsOpen"/>) carries the padlock badge.
-        /// </summary>
-        public void Show(NavPlace active, HomeLook look)
+        public void Show(NavPlace active,HomeLook look)
         {
-            (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            BottomNavRegions r = ScreenLayout.BottomNav(w, h, insets, Design.BottomNav.Order, active);
-            _active = active;
-            _shown = true;
-            UiKit.PlaceScreen(_bar.rectTransform, r.Bar);
-            NavBarShape shape = r.Shape;
-            PictureFit.On(_bar, (pw, ph) => ProceduralSprites.Picture(shape.Key, pw, ph, (x, y) => UiRaster.NavBar(x, y, shape)));
-            int activeIndex = r.ActiveIndex;
-            foreach (NavPlace place in Design.BottomNav.Order)
+            var frame=UiKit.ScreenFrame();BottomNavRegions r=ScreenLayout.BottomNav(frame.Width,frame.Height,frame.Insets,Design.BottomNav.Order,active);
+            _active=active;_shown=true;UiKit.PlaceScreen(_bar.rectTransform,r.Bar);
+            for(int i=0;i<r.Places.Count;i++)
             {
-                (Image touch, Image icon, RectTransform badge) = _places[place];
-                int index = r.IndexOf(place);
-                bool shows = index >= 0 && index != activeIndex;
-                touch.gameObject.SetActive(shows);
-                if (!shows)
-                {
-                    continue;
-                }
-
-                Box target = r.Touch(index);
-                UiKit.PlaceScreen(touch.rectTransform, target);
-                Box box = r.Icon(index);
-                UiKit.PlaceBox(icon.rectTransform, UiKit.SetNavIcon(icon, place) ? box : Design.BottomNav.GlyphBox(box), target);
-                bool locked = !Design.BottomNav.IsOpen(place, look);
-                badge.gameObject.SetActive(locked);
-                if (locked)
-                {
-                    UiKit.PlaceBox(badge, Design.BottomNav.LockBox(box), target);
-                }
+                NavPlace place=r.Places[i];var parts=_places[place];bool chosen=place==active;Box touch=chosen ? r.Medallion : GameNavigationDesign.NavTouch(r,i),face=GameNavigationDesign.NavButton(r,i);
+                UiKit.PlaceScreen(parts.Touch.rectTransform,touch);parts.Touch.raycastTarget=!chosen;
+                parts.Face.sprite=NavigationArt.Get(GameNavigationDesign.Nav(place,chosen));UiKit.PlaceBox(parts.Face.rectTransform,face,touch);
+                parts.Caption.gameObject.SetActive(chosen);if(chosen)UiKit.PlaceBox(parts.Caption.rectTransform,GameNavigationDesign.NavCaption(face),touch);
+                bool locked=!chosen&&!Design.BottomNav.IsOpen(place,look);parts.Lock.gameObject.SetActive(locked);
+                if(locked)UiKit.PlaceBox(parts.Lock,Design.BottomNav.LockBox(face),touch);
             }
-
-            UiKit.PlaceScreen(_medallion.rectTransform, r.Medallion);
-            Box medallionIcon = r.Icon(activeIndex);
-            UiKit.PlaceScreen(_activeIcon.rectTransform, UiKit.SetNavIcon(_activeIcon, active) ? medallionIcon : Design.BottomNav.GlyphBox(medallionIcon));
         }
-
-        /// <summary>
-        /// Where a place shows (a Home demo points at it, roadmap L10–L100): its touch target, the medallion for the active
-        /// place, or null before the menu is shown.
-        /// </summary>
-        public RectTransform? PlaceRect(NavPlace place)
-        {
-            if (!_shown || !isActiveAndEnabled)
-            {
-                return null;
-            }
-
-            if (place == _active)
-            {
-                return _medallion.rectTransform;
-            }
-
-            Image touch = _places[place].Touch;
-            return touch.gameObject.activeSelf ? touch.rectTransform : null;
-        }
+        public RectTransform? PlaceRect(NavPlace place)=>!_shown||!isActiveAndEnabled ? null : _places[place].Touch.rectTransform;
     }
+
 
     /// <summary>
     /// The notice of a locked place built by <see cref="UiKit.LockedNotice"/> (spec 005 FR-030, contracts/look.md §6.7; the

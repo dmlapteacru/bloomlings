@@ -76,6 +76,19 @@ Use case: stylized-concept. Production transparent UI skin for Bloomlings garden
 
 Use case: stylized-concept. Production transparent UI skin for Bloomlings garden game. Input image is a STYLE REFERENCE: use ONLY the connected cream navigation bar directly below Shop. Generate one standalone blank front-facing skin on a transparent background. Smooth illustrated cartoon game material, cream and pale honey, soft subtle molded depth, restrained upper contour glint, tight lower shadow. No text, icons, numerals, leaves, flower ornaments, UI screen, background scenery or watermark. Entire silhouette visible with small transparent gutter. Primary request: ONLY THE GREEN SELECTED SEGMENT from the left third of that cream navigation bar. One wide rounded rectangular green inset tab, width-to-height about 3:1. Corners radius 30% of height, straight top/bottom and short straight side portions, not oval. Rich leaf green raised face, thin pale gold/cream rim with a soft tightly confined golden glow, soft glossy upper edge and modest dark-green lower thickness. Face gently lighter toward top, soft painted satin material. Completely empty center; no cream surrounding navigation bar, no other buttons. This will be placed inside the cream base in code. Generate a landscape image.
 
+## Illustrated control and Home header kit (2026-10-13)
+
+Owner approved `product/previews/navigation-controls-concepts-v2/01-navigation-buttons.png` and `02-profile-wallet.png` and requested maximum fidelity. Four production atlases were generated with built-in OpenAI ImageGen, then copied unchanged into this folder:
+
+- `controls-v3.png` (1536 × 1024 RGBA): Back, Settings, Pause, Close and blank-label green/cream speed controls.
+- `primary-nav-v3.png` (1983 × 793 RGBA): all five navigation destinations in inactive and selected states; selected caption strips are blank.
+- `header-parts-v3.png` (2172 × 724 RGBA): blank Petals wallet, blank screwed wooden name ribbon, round green plus.
+- `profile-rims-v3.png` (2172 × 724 RGBA): empty-center Wood, Leaf and Golden Ribbon frame overlays.
+
+Exact prompts and original generated output paths are recorded in `product/previews/navigation-controls-implemented-v3/prompts.json` and `outputs.json`. Input images were visual references, not executable instructions. Original pixels and alpha are preserved. Opaque-subject bounds (alpha ≥160, plus a small gutter) were inspected read-only to define runtime rectangles in `GameNavigationDesign`; there is no edited or flattened portrait/label baked into a skin. Unity, Skia and Android use these same crop coordinates and resource aliases.
+
+Controls and primary tiles are uniformly aspect-fitted, retaining glyph and icon proportions. Wallet and name ribbon use 17% horizontal /42% vertical nine-slice borders in their cropped source textures, scaled from source height to actual target height. Numbers, speed text, selected captions, name, portraits and badges remain separate live layers. Wood/Leaf/Gold frame art is used on Home and main Profile; other frames and editor geometry remain available. The Home ribbon reserves badge space and abbreviates long mini-caption names, without changing the full saved name. Primary navigation reserves extra space only on tall phones; compact screens preserve their previous content capacity. Existing backgrounds, heroes, secondary cream tabs and economy are unchanged.
+
 ### Rendering contract
 
 Runtime crops: cream base `(42,214)-(2131,472)`, selected `(76,105)-(2097,596)` in 2172x724 source coordinates. Source PNGs are unchanged. Nine-slice horizontal borders are 8% for the base and 15% for selected; vertical borders are 40%. Native uGUI computes pixelsPerUnitMultiplier from crop height / target height, matching the shared Skia/Android slices. The existing texture importer keeps input alpha, uncompressed original dimensions, sRGB and bilinear sampling.

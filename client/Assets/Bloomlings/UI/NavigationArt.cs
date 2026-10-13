@@ -16,7 +16,12 @@ namespace Bloomlings.Client.UI
             if (texture == null) return Sprites[name] = null;
             Rect rect = new Rect(0, 0, texture.width, texture.height);
             Vector4 border = Vector4.zero;
-            if (name.StartsWith("navigation/icon-", StringComparison.Ordinal))
+            if(GameNavigationDesign.Owns(name))
+            {
+                var c=GameNavigationDesign.Crop(name,texture.width,texture.height);rect=new Rect(c.Left,texture.height-c.Top-c.Height,c.Width,c.Height);
+                if(name==GameNavigationDesign.Wallet||name==GameNavigationDesign.NameRibbon)border=new Vector4(c.Width*.17f,c.Height*.42f,c.Width*.17f,c.Height*.42f);
+            }
+            else if (name.StartsWith("navigation/icon-", StringComparison.Ordinal))
             {
                 var c = NavigationSkin.IconCrop(name, texture.width, texture.height);
                 rect = new Rect(c.Left, texture.height - c.Top - c.Height, c.Width, c.Height);

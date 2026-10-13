@@ -45,7 +45,8 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The raised medallion's box, as a share of W, and how far it rises above the plank's top.</summary>
         public const float MedallionShare = 0.2f;
 
-        public const float RiseShare = 0.03f;
+        public const float RiseShare = 0.07f;
+        public static float RiseFor(Box safe)=>safe.Height/safe.Width<1.95f ? .03f : RiseShare;
 
         /// <summary>The wooden disc's diameter, as a share of the medallion's box (its leaves and flowers take the rest).</summary>
         public const float DiscShare = 0.88f;
@@ -409,7 +410,7 @@ namespace Bloomlings.Client.UI.Design
                 }
             }
 
-            float top = MedallionTop(plankTop, w);
+            float top = MedallionTop(plankTop, w, safe);
             float size = Math.Max(1f, Math.Min(Design.BottomNav.MedallionShare * w, (height - top) / (0.5f + (Design.BottomNav.DiscShare / 2f))));
             var medallion = new Box(boxes[activeIndex].CenterX - (size / 2f), top, boxes[activeIndex].CenterX + (size / 2f), top + size);
             float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
@@ -425,9 +426,9 @@ namespace Bloomlings.Client.UI.Design
             Box safe = SafeArea(width, height, insets);
             float w = safe.Width;
             float plankTop = safe.Bottom - (Design.BottomNav.PlankShare * w);
-            return Math.Min(plankTop, MedallionTop(plankTop, w));
+            return Math.Min(plankTop, MedallionTop(plankTop, w, safe));
         }
 
-        private static float MedallionTop(float plankTop, float w) => plankTop - (Design.BottomNav.RiseShare * w);
+        private static float MedallionTop(float plankTop, float w, Box safe) => plankTop - (Design.BottomNav.RiseFor(safe) * w);
     }
 }

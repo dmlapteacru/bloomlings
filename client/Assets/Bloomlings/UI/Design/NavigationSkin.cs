@@ -112,6 +112,6 @@ namespace Bloomlings.Client.UI.Design
             Box b = i < 0 ? new Box(0, 0, 1448, 1086) : Bounds[i];
             return ((int)(b.Left * w / 1448), (int)(b.Top * h / 1086), (int)(b.Width * w / 1448), (int)(b.Height * h / 1086));
         }
-        public static string Resource(string name) => "navigation/" + (name.StartsWith("navigation/icon-", StringComparison.Ordinal) ? "tab-icons-v1" : name.StartsWith("navigation/button-", StringComparison.Ordinal) ? "button-skins-v2" : name.Substring(11)) + ".png";
+        public static string Resource(string name) => GameNavigationDesign.Owns(name) ? GameNavigationDesign.Resource(name) : "navigation/" + (name.StartsWith("navigation/icon-", StringComparison.Ordinal) ? "tab-icons-v1" : name.StartsWith("navigation/button-", StringComparison.Ordinal) ? "button-skins-v2" : name.Substring(11)) + ".png";
     }
 }

@@ -106,7 +106,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             // A frame is the border: it takes the wood rim's place and the picture grows under its band.
-            _framed = look?.Frame != null;
+            _framed = look?.Frame != null || _sceneFrame;
             _rim.gameObject.SetActive(!_framed);
             ShowFrame(look?.Frame);
             Show(_badge, look?.Badge);
@@ -117,7 +117,12 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>A drawn frame's picture (<see cref="UiRaster.ProfileFrame"/>, at the rect's pixel size), else the tinted frame.</summary>
         private void ShowFrame(CosmeticItem? frame)
         {
-            string? asset=frame==null ? null : _sceneFrame&&frame.Id=="frame.leaf_ring" ? ProfileGameDesign.LeafFrame : ProfileGameDesign.FrameAsset(frame.Id)??ShopCatalogDesign.Accessory(frame.Id);
+            string? illustrated=_sceneFrame ? GameNavigationDesign.Frame(frame?.Id) : null;
+            if(illustrated!=null&&NavigationArt.Get(illustrated)!=null)
+            {
+                _frame.sprite=NavigationArt.Get(illustrated);_frame.color=Color.white;_frame.gameObject.SetActive(true);_framePicture.gameObject.SetActive(false);_frameStyle=null;return;
+            }
+            string? asset=frame==null ? null : ProfileGameDesign.FrameAsset(frame.Id)??ShopCatalogDesign.Accessory(frame.Id);
             if(asset!=null&&ShopArt.Get(asset)!=null)
             {
                 _frame.sprite=ShopArt.Get(asset);_frame.color=Color.white;_frame.gameObject.SetActive(true);_framePicture.gameObject.SetActive(false);_frameStyle=null;return;

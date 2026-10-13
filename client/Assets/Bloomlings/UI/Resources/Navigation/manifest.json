@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "files": [
     {
       "file": "page-sign-v1.png",
@@ -54,6 +54,38 @@
       "width": 2172,
       "height": 724,
       "sha256": "5d5471f6da155ec1e7bf4a9b0003c4ac1d76d14ce783ee1c66da0243c8b6b11e",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "controls-v3.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "77783a82480e4f5a34314804967d455d11e3e331e7544008b96760079b0c09e5",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "primary-nav-v3.png",
+      "width": 1983,
+      "height": 793,
+      "sha256": "b1489659b11d7ae4fff1f669d3906286ad91b27c13afe78ce0c3522c73284a79",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "header-parts-v3.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "a53804bb55fde8ebfbaefae62544eead96194428ea214d6147968cfec3759bed",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "profile-rims-v3.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "ab50f9a76b1d6b2c1cef9ad11d557cbb6d2fb026fe77b6f06a958c7cb2c0c793",
       "alpha": true,
       "generator": "built-in OpenAI ImageGen"
     }

@@ -778,6 +778,10 @@ namespace Bloomlings.Playtest.Preview
                             SKImage? cropped = image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
                             image.Dispose(); image=cropped;
                         }
+                        if(image!=null&&GameNavigationDesign.Owns(name))
+                        {
+                            var c=GameNavigationDesign.Crop(name,image.Width,image.Height);SKImage? cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));image.Dispose();image=cropped;
+                        }
                         if (image != null && (name.StartsWith("navigation/button-", StringComparison.Ordinal) || name == "navigation/plus-v2"))
                         {
                             var c = name == "navigation/plus-v2" ? NavigationSkin.PlusCrop(image.Width,image.Height) : NavigationSkin.ButtonCrop(name,image.Width,image.Height);

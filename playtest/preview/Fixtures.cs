@@ -972,6 +972,38 @@ namespace Bloomlings.Playtest.Preview
             });
         }
 
+        public static IEnumerable<Fixture> NavigationControls(ContentSet content)
+        {
+            DesignApp Ready(string data)
+            {
+                var app=Progressed(new DesignApp(data,content,new Silence(),false),content,87);CloseAll(app);
+                app.Meta.Profile.Rename("Rosie");app.Meta.Profile.Choose(AvatarCatalog.DefaultId);app.Meta.Save.Cosmetics.Owned.Add("badge.watering_can");app.Meta.Save.Cosmetics.Owned.Add("badge.sprout");return app;
+            }
+            var examples=new[]{(Number:66,Slug:"home-controls-wood",Frame:"frame.wood_ring",Badge:(string?)null),(Number:67,Slug:"home-controls-leaf",Frame:"frame.leaf_ring",Badge:(string?)"badge.sprout"),(Number:68,Slug:"home-controls-gold",Frame:"frame.golden_ribbon",Badge:(string?)"badge.watering_can")};
+            foreach(var example in examples)
+            {
+                var item=example;
+                yield return new Fixture(item.Number,item.Slug,"Illustrated navigation: live frame and badge",(p,data)=>
+                {
+                    var app=Ready(data);app.Meta.Wardrobe.Show(item.Frame);
+                    if(item.Badge==null)app.Meta.Wardrobe.HideProfile(Client.Meta.Wardrobe.CosmeticKind.Badge);else app.Meta.Wardrobe.Show(item.Badge);
+                    Run(app,p,.2f);Expect(app.Meta.Wardrobe.Profile.Frame?.Id==item.Frame&&app.Meta.Wardrobe.Profile.Badge?.Id==item.Badge,"Home uses the selected live cosmetics");
+                    var r=ScreenLayout.ReferenceHome(p.Width,p.Height,p.Insets);Tap(p,GameNavigationDesign.ProfileBounds(r.Avatar));Run(app,p,.1f);
+                    Expect(app.Screen==Design.Screen.Profile&&Shows(p,"Rosie"),"the full profile opens from the portrait and name plaque");
+                    app.Back();RunTo(app,p,HomePromo.DailyAt+1.6f);Expect(Shows(p,"Rosie"),"Home restores the current player name");
+                });
+            }
+            yield return new Fixture(69,"shop-wallet-large","Illustrated wallet: grouped six-digit balance",(p,data)=>
+            {
+                var app=Ready(data);app.Meta.Save.Wallet.AddPetals(120000-app.Meta.Economy.Petals);Run(app,p,1.5f);app.OpenStore();Run(app,p,1.5f);
+                Expect(Shows(p,NumberText.Group(120000)),"the small page wallet shows a large live balance");
+            });
+            yield return new Fixture(70,"gameplay-controls-fast","Illustrated gameplay controls: enabled speed",(p,data)=>
+            {
+                var app=Ready(data);app.Meta.Save.Settings.Speed2x=true;app.LoadLevel(12);CloseDemo(app);Run(app,p,.3f);
+                Expect(app.Level!.Animator.Speed>1f&&Shows(p,"2x"),"speed material follows the actual speed state");
+            });
+        }
         private static void PickProfileCell(DesignApp app,SkiaPainter p,int index,bool frames=false)
         {
             var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);Box cell=r.Cell(index,frames).Offset(0,-app.ProfileScrollOffset);

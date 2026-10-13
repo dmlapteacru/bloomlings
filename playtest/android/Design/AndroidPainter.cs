@@ -896,6 +896,10 @@ namespace Bloomlings.Playtest.Droid
                         Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
                         bitmap.Dispose();bitmap=cropped;
                     }
+                    if(bitmap!=null&&GameNavigationDesign.Owns(name))
+                    {
+                        var c=GameNavigationDesign.Crop(name,bitmap.Width,bitmap.Height);Bitmap cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped;
+                    }
                     if(bitmap!=null&&name.StartsWith("navigation/icon-",StringComparison.Ordinal))
                     {
                         var c=NavigationSkin.IconCrop(name,bitmap.Width,bitmap.Height);

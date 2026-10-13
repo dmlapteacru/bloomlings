@@ -24,7 +24,7 @@ namespace Bloomlings.Playtest.Design
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
             float dark = 0.08f * Math.Max(0f, Math.Min(1f, depth));
-            bool framed = frame != null;
+            bool framed = frame != null || sceneFrame;
             if (!framed)
             {
                 RaisedPlate(p, AvatarLook.Rim(box));
@@ -41,10 +41,11 @@ namespace Bloomlings.Playtest.Design
                 p.FillRound(disc, radius, C.GardenShadow.WithAlpha(dark));
             }
 
-            if (frame != null)
+            string? illustrated=sceneFrame ? GameNavigationDesign.Frame(frame?.Id) : null;
+            if(illustrated!=null&&p.HasSprite(illustrated))p.Sprite(illustrated,AvatarLook.Frame(box));
+            else if (frame != null)
             {
-                if(sceneFrame&&frame.Id=="frame.leaf_ring"&&p.HasSprite(ProfileGameDesign.LeafFrame))p.Sprite(ProfileGameDesign.LeafFrame,AvatarLook.Frame(box));
-                else Frame(p, box, frame);
+                Frame(p, box, frame);
             }
 
             if (badge != null)

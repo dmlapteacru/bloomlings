@@ -1,0 +1,33 @@
+{
+  "tool": "OpenAI ImageGen (built-in)",
+  "production": [
+    {
+      "key": "controls-v3",
+      "refs": [
+        "product/previews/navigation-controls-concepts-v2/01-navigation-buttons.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Reference is APPROVED Bloomlings navigation button board. Extract/reproduce its actual illustrated button objects as production sprites with genuine transparent alpha. Faithfully preserve sculpted ivory/gold bevels, thick darkbrown raisedglyphs, warmcorners, contactshadow and exact material. SINGLE ATLAS, exactly THREE equal columns by TWO equal rows, generous clear gutters, six objects all centered in their equal square cells. Row1: BACK ivory rounded-square with thick brownleftarrow; SETTINGS ivory rounded-square with brownchunkycog; PAUSE ivory rounded-square with brownroundedpausebars. Row2: CLOSE coralred rounded-square goldenrim with creamX; SPEED ON a wide greenroundedrectangle goldrim and creamdoublechevrons atleft, RIGHTHALF EMPTY for live '2x' label; SPEED OFF exactlysamewidegeometry goldrim, paleivoryface and darkbrowndoublechevronsatleft, rightHALFEMPTY. Preserve referencebuttonappearance as closely aspossible, do not simplify redrawtoflatvector. No headings, labels, numeral/text, platesoutsideactualbuttons, decor flowers orotherobjects. No navicons, no tealbackground, no checkerboard. Blank speedrightfaceispartofbutton, not a newtextbox. Complete silhouettes with minimal transparent margins and no clipping. Source atlas actual controls, equalcells, not a screenshot."
+    },
+    {
+      "key": "primary-nav-v3",
+      "refs": [
+        "product/previews/navigation-controls-concepts-v2/01-navigation-buttons.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Reference is approved Bloomlings main navigation board. Prepare EXACT illustratedbuttonappearance as production sprites on genuinelytransparentalpha. Single atlas exactly FIVE equal columns by TWO equal rows, wide2.5:1canvas, equal square cells, 10objects centered generousgutters. SAME destination order BOTH ROWS: SHOP pinkstripedmarketstall, WARDROBE pinkdressonhanger, HOME redroofgardenhouse, LEADERBOARD goldtrophy, COLLECTION purplefloweralbum. Row1 all INACTIVE: softrounded-square creamivoryface, champagnegoldrim andbottomsidewall with exactreferenceiconillustrations filling75percentofinterior; no captiontag, no minicapsules. Row2 all SELECTED: eachsameicon on reference's coralred selectedHomeframe, creamfaceinside, golden selectededge light and integrated blankcoralcaptionstrip atbottom. CaptionstripEMPTY: runtime will draw page name; remove all letters includingHome. Preserve reference's sculptedsoftmaterials, glypharttexture, beautifulroundedcorners, brighticoncolor, tightcontactshadow, no flatvectorlook. ACTIVE heightabout1.1timesinactive height, allfullywithin equalcells; respectsamewidth. Exactly5inactive +5activebuttons, not variationswithmissingdestinations, same recognizable iconidentities ineachcolumn. Noannotationlabels/headings/background/teal/checkerboard. No extra tiny buttons or decorative flowersoutsidebuttonsilhouettes."
+    },
+    {
+      "key": "header-parts-v3",
+      "refs": [
+        "product/previews/navigation-controls-concepts-v2/02-profile-wallet.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Reference is approved Bloomlings Petals/profile material board. Extract THREE production UI sprites in ONE horizontal atlas, THREE equal square cells, true transparentalphaoutsideobjects. Faithfully preserve actual reference materials, colors, texture, lighting, curves. LEFTCELL: blankPetalswalletsurfaceONLY, horizontallyelongated approx3.6:1 paleivoryrecessedface with slimchampagnegold outerrim, luminousivoryinneredge andsmallshadedamberbottomlip. Remove everylotus, number andplusbutton; centerentirelyblank for livecontent; no leaves. Capsuleends preserve reference, continuousgoldrim safe9slice. MIDDLECELL: actualshortwoodenprofile NAME RIBBON from reference (the Rosietab beneath portraits), approximately3:1 aspect, softly rounded corners, honeywoodgrain, warm raised edge and subtle sidewall, two smallroundgoldbronzescrews atleft/right, emptycenter. RemoveRosietext, noavatar,frame,badgeorarchbakedin. RIGHTCELL: actualROUNDglossyemeraldgreen PLUS button fromwalletreference, goldenroundedrim andthinivoryinnerhighlight, thickraisedcreamwhite '+' with darkgreenedge, no textotherthanglyph+. Keep perfectroundshape, samehighlightsasreference. Allobjectsfitwithinowncell withcleartransparentpadding; wallet/namebar aspectpreserved, not stretchedintocell. No background, headings, extraobject, checkerboard orcaption. Exactlythree sprites."
+    },
+    {
+      "key": "profile-rims-v3",
+      "refs": [
+        "product/previews/navigation-controls-concepts-v2/02-profile-wallet.png"
+      ],
+      "prompt": "Use case: precise-object-edit. Reference is approved Bloomlings customizableprofile board. Prepare exactlyTHREE standalone portrait FRAME OVERLAYS in ONE horizontalatlas with3equalSQUARE cells, truly transparentalphacentersandoutside. Copy referenceframeappearance exactly, notcharacterornamebar. LEFT: WoodenFrame lightwarmhoneywoodgrain rounded-squareframe, thickbutrestrainedbevel,4 smallmetal screws, oneateachcorner. MIDDLE: LeafFrame narrow roundedgreenrimwithgreenleafaccentsasreference. RIGHT: GoldenRibbon roundedgoldframewithsmallgoldSTARtopcenter andpinkbowbottomcenter, fullstar/bowsilhouettevisible. Center openings matchedsquareportraitsize, about80percentexternalframewidth transparenthole, cornersasreference. Preserve sculptedmaterialcolorslighting/shadows, notflatvector orsimpleoutline. No portrait/hero, no solidbackgroundfill, no namebar, no badge, no label/text, nofixedstonearch, no flowersinvented. Exactlythreeframes eachcentered/fullycontainedcleartransparentgutters, generousoutermarginpreventclippingstarbow, no checkerboard."
+    }
+  ]
+}

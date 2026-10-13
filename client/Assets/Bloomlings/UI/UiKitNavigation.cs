@@ -44,7 +44,7 @@ namespace Bloomlings.Client.UI
         {
             GardenButton view = NewButton(name, parent, NavigationSkin.Color(index, selected), raycast: true);
             view.GreyWhenDisabled = false;
-            string? surface = price ? "navigation/plus-v2" : selected ? NavigationSkin.CreamSelected : null;
+            string? surface = price ? GameNavigationDesign.Plus : selected ? NavigationSkin.CreamSelected : null;
             Sprite? sprite = surface == null ? null : NavigationArt.Get(surface);
             RectTransform face = UiFactory.Stretch(UiFactory.CreateRect("Face", view.Body));
             RectTransform topBox = UiFactory.Stretch(UiFactory.CreateRect("TopBox", face));
