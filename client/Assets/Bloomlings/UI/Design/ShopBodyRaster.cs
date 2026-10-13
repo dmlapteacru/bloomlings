@@ -5,7 +5,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>Colored card rims, inset reward panels and price capsules, shared by Unity and the playtest.</summary>
     public static class ShopBodyRaster
     {
-        public static byte[] Framed(int width, int height, float radiusShare, ColorSet border, ColorSet face, float strokeShare, bool cushion = false)
+        public static byte[] Framed(int width, int height, float radiusShare, ColorSet border, ColorSet face, float strokeShare, bool cushion = false, float bulge = 0)
         {
             float size = Math.Min(width, height), radius = size * radiusShare, stroke = Math.Max(2, size * strokeShare);
             float padding = Math.Max(2, size * 0.016f), bevel = Math.Max(3, size * (cushion ? 0.16f : 0.05f));
@@ -35,7 +35,8 @@ namespace Bloomlings.Client.UI.Design
                     if (cushion)
                     {
                         float shine = (float)Math.Exp(-Math.Pow((py - height * 0.26f) / (height * 0.18f), 2));
-                        interior = interior.Mix(face.Top, shine * 0.35f);
+                        interior = interior.Mix(face.Lip, Smooth(0.5f, 0.96f, py / height) * bulge);
+                        interior = interior.Mix(face.Top, shine * (0.35f + bulge));
                     }
                     Rgba color = interior.Mix(rim, 1 - Smooth(stroke - 0.8f, stroke + 0.8f, -distance));
                     float cover = 1 - Smooth(-0.75f, 0.75f, distance);

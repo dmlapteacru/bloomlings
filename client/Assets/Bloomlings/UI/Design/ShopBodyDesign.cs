@@ -21,7 +21,7 @@ namespace Bloomlings.Client.UI.Design
         public static readonly ColorSet Card = new ColorSet("shop.card", Rgba.FromHex("#FFE6AF"), Rgba.FromHex("#FFF6DD"), Rgba.FromHex("#C78B48"), Rgba.FromHex("#DEAF72"));
         public static readonly ColorSet Green = new ColorSet("shop.price", Rgba.FromHex("#70D517"), Rgba.FromHex("#B2FA3A"), Rgba.FromHex("#347917"), Rgba.FromHex("#4A851E"));
         public static readonly ColorSet Coral = new ColorSet("shop.ribbon", Rgba.FromHex("#F67957"), Rgba.FromHex("#FFAC7F"), Rgba.FromHex("#B9472D"), Rgba.FromHex("#D66345"));
-        public static readonly ColorSet Well = new ColorSet("shop.well", Rgba.FromHex("#FFDB98"), Rgba.FromHex("#FFEBC2"), Rgba.FromHex("#E9B86E"), Rgba.FromHex("#E9C38D"));
+        public static readonly ColorSet Well = new ColorSet("shop.well", Rgba.FromHex("#FFE2A3"), Rgba.FromHex("#FFF9DD"), Rgba.FromHex("#CC9349"), Rgba.FromHex("#E9C38D"));
         public static readonly TypeStyle Title = new TypeStyle("type.shop.title", 56, true, false, 0, 20);
         public static readonly TypeStyle Amount = new TypeStyle("type.shop.amount", 68, true, false, 0, 24);
         public static readonly TypeStyle Price = new TypeStyle("type.shop.price", 58, true, false, 0, 24);
@@ -77,7 +77,13 @@ namespace Bloomlings.Client.UI.Design
             foreach (ShopVisual n in nodes) bottom = Math.Max(bottom, n.Box.Bottom);
             return Math.Max(viewport.Height, bottom - viewport.Top + viewport.Width * 0.035f);
         }
-        public static Box ButtonLabel(Box b, bool petals) => b.Inset(b.Width * 0.05f, b.Height * (petals ? 0.12f : 0.20f));
+        public static Box ButtonLabel(Box b, bool petals) => In(b, petals ? 0.34f : 0.05f, petals ? 0.12f : 0.20f, 0.95f, petals ? 0.88f : 0.80f);
+        public static Box ButtonPetal(Box b)
+        {
+            float side = Math.Min(b.Width * 0.26f, b.Height * 0.90f);
+            // Center the currency in the gap between the inner left rim and the price-label region.
+            return Box.FromCenter(b.Left + b.Width * (0.055f + 0.34f) * 0.5f, b.CenterY, side, side);
+        }
         public static (int Column, int Row)? BoosterCell(string name) => name switch
         {
             "boost-extra_slot" => (0, 0),
@@ -175,7 +181,7 @@ namespace Bloomlings.Client.UI.Design
                 for (int row = 0; row < 2; row++)
                 {
                     float offset = (row - 0.5f) * b.Height * 0.065f;
-                    Box line = Box.FromCenter(b.Left + b.Width * 0.13f - offset * (float)Math.Sin(radians), b.Top + b.Height * 0.1525f + offset * (float)Math.Cos(radians), b.Width * 0.13f, b.Height * 0.07f);
+                    Box line = Box.FromCenter(b.Left + b.Width * 0.105f - offset * (float)Math.Sin(radians), b.Top + b.Height * 0.1525f + offset * (float)Math.Cos(radians), b.Width * 0.13f, b.Height * 0.07f);
                     n.Add(new ShopVisual(ShopVisualKind.Text, line, row == 0 ? "BEST" : "SALE", Type: Badge, Look: BadgeLetters, Angle: angle));
                 }
             }
@@ -262,7 +268,7 @@ namespace Bloomlings.Client.UI.Design
         {
             ShopVisualKind.Button => UiRaster.ButtonFace(w, h, Green, 0.38f, true),
             ShopVisualKind.Ribbon => UiRaster.RaisedRow(w, h, Math.Min(w, h) * 0.42f, Coral),
-            ShopVisualKind.Well => ShopBodyRaster.Framed(w, h, 0.48f, InsetBorder, Well, 0.07f, true),
+            ShopVisualKind.Well => ShopBodyRaster.Framed(w, h, 0.48f, InsetBorder, Well, 0.08f, true, 0.18f),
             ShopVisualKind.RewardBox => ShopBodyRaster.Framed(w, h, 0.18f, InsetBorder, Card, 0.03f, true),
             _ => ShopBodyRaster.Framed(w, h, group == ShopGroup.Boosters ? 0.20f : 0.16f, Border(group), Card, 0.038f),
         };

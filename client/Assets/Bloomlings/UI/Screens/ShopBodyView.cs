@@ -49,9 +49,8 @@ namespace Bloomlings.Client.UI.Screens
                 if (n.Dark)
                 {
                     Image petals = UiKit.PetalIcon("Petals", surface.transform);
-                    Box icon = new Box(n.Box.Left + n.Box.Width * 0.04f, n.Box.Top + n.Box.Height * 0.1f, n.Box.Left + n.Box.Width * 0.24f, n.Box.Bottom - n.Box.Height * 0.1f);
+                    Box icon = ShopBodyDesign.ButtonPetal(n.Box);
                     UiKit.PlaceBox(petals.rectTransform, icon, n.Box);
-                    textBox = new Box(n.Box.Left + n.Box.Width * 0.25f, textBox.Top, textBox.Right, textBox.Bottom);
                 }
                 Text(surface.transform, n.Box, n with { Kind = ShopVisualKind.Text, Box = textBox, Look = ShopBodyDesign.LookFor(n) });
                 float min = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);

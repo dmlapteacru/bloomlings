@@ -51,8 +51,7 @@ namespace Bloomlings.Playtest.Design
                 Box label = ShopBodyDesign.ButtonLabel(n.Box, n.Dark);
                 if (n.Dark)
                 {
-                    Kit.Petal(p, new Box(n.Box.Left + n.Box.Width * 0.04f, n.Box.Top + n.Box.Height * 0.1f, n.Box.Left + n.Box.Width * 0.24f, n.Box.Bottom - n.Box.Height * 0.1f));
-                    label = new Box(n.Box.Left + n.Box.Width * 0.25f, label.Top, label.Right, label.Bottom);
+                    Kit.Petal(p, ShopBodyDesign.ButtonPetal(n.Box));
                 }
                 Text(p, n with { Box = label });
                 if (!enabled) p.PopAlpha();
