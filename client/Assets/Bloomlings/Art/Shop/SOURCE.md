@@ -57,4 +57,10 @@ Procedural card rims now use a continuous curved profile with directional highli
 
 Code-built bundle buttons are lifted to leave 5.5% of the card height below them, with additional left padding for the artwork. Booster-price capsules leave 7.5% below them. The compact booster row is now 0.255 of the content width, preserving button height with the extra padding. Existing illustrated assets and nine-slice money buttons are unchanged.
 
+## Revision 6: compact reward insets and centered badge
+
+Code-built reward panels now derive their height from two rows of square booster icons and overlapping count labels. Their outer content padding is equal in physical pixels on all four sides, avoiding excess vertical whitespace at different card widths. Bundle panels have a larger right margin; the 1,200-Petals No Ads card retains its existing right margin. The featured illustrated reward panel keeps its existing layout.
+
+The leaf label is now `BEST SALE`. Both centered lines are positioned along one rotated center axis, retaining the existing tilt and glow. Source PNGs are unchanged.
+
 Generated assets may be used as part of this project. Font licensing is recorded separately in `client/THIRD_PARTY_NOTICES.md`.

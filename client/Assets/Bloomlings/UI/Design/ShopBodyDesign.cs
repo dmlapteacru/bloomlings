@@ -160,7 +160,7 @@ namespace Bloomlings.Client.UI.Design
             }
             Label(n, In(b, 0.17f, 0.565f, 0.51f, 0.72f), NumberText.Group(o.Petals), Amount);
             if (o.BestSale) RewardGrid(n, FeaturedRewards(b), o.Boosters!);
-            else RewardPanel(n, In(b, 0.55f, 0.075f, 0.945f, 0.69f), o.Boosters!);
+            else RewardPanel(n, In(b, 0.55f, 0.075f, 0.91f, 0.69f), o.Boosters!);
             Label(n, In(b, 0.065f, 0.76f, 0.63f, 0.907f), text(o.NameKey), Title);
             Buy(n, In(b, 0.665f, 0.755f, 0.932f, 0.918f), o.Price, o.Id);
             if (o.BestSale)
@@ -170,8 +170,14 @@ namespace Bloomlings.Client.UI.Design
                 n.Add(new ShopVisual(ShopVisualKind.Sprite, badge.Scale(1.075f, 1.075f), "shop/badge", Tint: BadgeLight.WithAlpha(0.45f)));
                 n.Add(new ShopVisual(ShopVisualKind.Sprite, badge.Scale(1.025f, 1.025f), "shop/badge", Tint: BadgeLight));
                 Art(n, badge, "badge");
-                n.Add(new ShopVisual(ShopVisualKind.Text, In(b, 0.065f, 0.085f, 0.195f, 0.155f), "BEST", Type: Badge, Look: BadgeLetters, Angle: -18f));
-                n.Add(new ShopVisual(ShopVisualKind.Text, In(b, 0.065f, 0.15f, 0.195f, 0.22f), "SELLER", Type: Badge, Look: BadgeLetters, Angle: -18f));
+                // Both lines share one tilted center axis, rather than rotating around two unshifted centers.
+                float angle = -18f, radians = angle * (float)Math.PI / 180f;
+                for (int row = 0; row < 2; row++)
+                {
+                    float offset = (row - 0.5f) * b.Height * 0.065f;
+                    Box line = Box.FromCenter(b.Left + b.Width * 0.13f - offset * (float)Math.Sin(radians), b.Top + b.Height * 0.1525f + offset * (float)Math.Cos(radians), b.Width * 0.13f, b.Height * 0.07f);
+                    n.Add(new ShopVisual(ShopVisualKind.Text, line, row == 0 ? "BEST" : "SALE", Type: Badge, Look: BadgeLetters, Angle: angle));
+                }
             }
         }
         private static void SmallOffer(List<ShopVisual> n, Box b, ShopOffer o, Func<string, string> text, Func<string, bool> visible)
@@ -186,7 +192,8 @@ namespace Bloomlings.Client.UI.Design
             {
                 Art(n, In(b, 0.06f, 0.035f, 0.53f, 0.69f), o.Art);
                 Label(n, In(b, 0.06f, 0.535f, 0.53f, 0.69f), NumberText.Group(o.Petals), Amount);
-                RewardPanel(n, In(b, 0.57f, 0.075f, 0.945f, 0.66f), o.Boosters);
+                float right = o.Id == "remove_ads_bundle" ? 0.945f : 0.91f;
+                RewardPanel(n, In(b, 0.57f, 0.075f, right, 0.66f), o.Boosters);
             }
             Label(n, In(b, 0.02f, 0.675f, 0.98f, 0.76f), text(o.NameKey), Count, true);
             Buy(n, In(b, 0.20f, 0.775f, 0.80f, 0.945f), o.Price, o.Id);
@@ -202,8 +209,23 @@ namespace Bloomlings.Client.UI.Design
         }
         private static void RewardPanel(List<ShopVisual> n, Box b, BoosterGrant g)
         {
+            // Fit the panel to its square icons and overlapping counts, with equal padding in physical pixels.
+            float padding = b.Width * 0.065f, gap = b.Width * 0.07f;
+            float side = (b.Width - padding * 2 - gap) * 0.5f, countHeight = side * 0.44f;
+            float rowHeight = side + countHeight * 0.58f;
+            b = Box.FromCenter(b.CenterX, b.CenterY, b.Width, rowHeight * 2 + gap + padding * 2);
             n.Add(new ShopVisual(ShopVisualKind.RewardBox, b));
-            RewardGrid(n, In(b, 0.065f, 0.06f, 0.935f, 0.945f), g);
+            string[] ids = { "extra_slot", "shuffle", "return", "bloom_burst" };
+            int[] counts = { g.ExtraSlot, g.Shuffle, g.Return, g.BloomBurst };
+            for (int i = 0; i < 4; i++)
+            {
+                float left = b.Left + padding + (i % 2) * (side + gap);
+                float top = b.Top + padding + (i / 2) * (rowHeight + gap);
+                Box icon = new Box(left, top, left + side, top + side);
+                n.Add(new ShopVisual(ShopVisualKind.Sprite, icon, "shop/boost-" + ids[i]));
+                Box count = Box.FromCenter(icon.CenterX, icon.Bottom + countHeight * 0.08f, side * 0.9f, countHeight);
+                Label(n, count, "×" + counts[i], Count);
+            }
         }
         private static void RewardGrid(List<ShopVisual> n, Box b, BoosterGrant g)
         {
