@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "files": [
     {
       "file": "page-sign-v1.png",
@@ -94,6 +94,30 @@
       "width": 2182,
       "height": 721,
       "sha256": "220f6363c4af18fb632c5b0e89d105f5cafd817de8c743a96c45472ab062a46e",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "primary-buttons-v1.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "bddd843b708d75dcc6b77f2407c47206ac57b6a39b72ab4c501fc9caed7c6897",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "play-reference-v2.png",
+      "width": 1961,
+      "height": 802,
+      "sha256": "ed1ee9700bd7bb1f4de93a0e8c9554bcfb73b72a9e8167697f32ceffb80d6424",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "reward-progress-v2.png",
+      "width": 2030,
+      "height": 775,
+      "sha256": "9c6d58ab8e68a2a6734d4389c4c299d4b250c4364eb065d78395e1be3f9c246e",
       "alpha": true,
       "generator": "built-in OpenAI ImageGen"
     }

@@ -62,6 +62,7 @@ namespace Bloomlings.Client.UI.Screens
         }
         public static Image Price(Transform parent,string value,Action? tap=null,bool petals=true)
         {
+            if(!petals){var primary=UiKit.PrimaryButton("PrimaryAction",parent,value,tap??(()=>{}),ShopBodyDesign.Price);primary.interactable=tap!=null;return primary.GetComponent<Image>();}
             Image button=UiFactory.CreateImage("Purchase",parent,ShopArt.Get("shop/price-button"),Color.white,raycast:tap!=null);
             if(tap!=null)
             {

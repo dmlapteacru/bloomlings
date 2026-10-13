@@ -122,13 +122,14 @@ namespace Bloomlings.Client.UI
     {
         private readonly Dictionary<NavPlace,(Image Touch,Image Face,TextMeshProUGUI Caption,RectTransform Lock)> _places=new Dictionary<NavPlace,(Image,Image,TextMeshProUGUI,RectTransform)>();
         private Image _bar=null!;
+        private readonly Image[] _stoneRows=new Image[4];
         private NavPlace _active=NavPlace.Home;
         private bool _shown;
         public NavPlace Active=>_active;
         internal void Build(Action<NavPlace> onSelect)
         {
-            _bar=UiFactory.CreateImage("StoneWall",transform,NavigationArt.Get(GameNavigationDesign.StoneWall),Color.white,raycast:true);
-            _bar.preserveAspect=true;
+            _bar=UiFactory.CreateImage("StoneInput",transform,null,Color.clear,raycast:true);
+            for(int i=0;i<_stoneRows.Length;i++){_stoneRows[i]=UiFactory.CreateImage("StoneRow"+i,transform,NavigationArt.Get(GameNavigationDesign.StoneWall),Color.white);_stoneRows[i].preserveAspect=true;}
             foreach(NavPlace place in Design.BottomNav.Order)
             {
                 NavPlace p=place;Image touch=UiFactory.CreateImage(Design.BottomNav.Key(place),transform,null,Color.clear,raycast:true);
@@ -142,7 +143,9 @@ namespace Bloomlings.Client.UI
         public void Show(NavPlace active,HomeLook look)
         {
             var frame=UiKit.ScreenFrame();BottomNavRegions r=ScreenLayout.BottomNav(frame.Width,frame.Height,frame.Insets,Design.BottomNav.Order,active);
-            _active=active;_shown=true;UiKit.PlaceScreen(_bar.rectTransform,GameNavigationDesign.NavWall(r,frame.Width));
+            _active=active;_shown=true;UiKit.PlaceScreen(_bar.rectTransform,GameNavigationDesign.NavBacking(r,frame.Width));
+            var rows=GameNavigationDesign.NavStoneRows(r,frame.Width);
+            for(int i=0;i<_stoneRows.Length;i++){_stoneRows[i].gameObject.SetActive(i<rows.Count);if(i<rows.Count)UiKit.PlaceScreen(_stoneRows[i].rectTransform,rows[i]);}
             for(int i=0;i<r.Places.Count;i++)
             {
                 NavPlace place=r.Places[i];var parts=_places[place];bool chosen=place==active;Box touch=GameNavigationDesign.NavTouch(r,i),face=GameNavigationDesign.NavButton(r,i);

@@ -21,7 +21,7 @@ namespace Bloomlings.Client.UI
         {
             Image image=UiFactory.CreateImage(name,parent,NavigationArt.Get(asset),Color.white);
             image.type=Image.Type.Sliced;
-            var crop=GameNavigationDesign.Crop(asset,2172,724);
+            var crop=GameNavigationDesign.Crop(asset,asset==PrimaryActionDesign.Reward ? 2030 : 2172,asset==PrimaryActionDesign.Reward ? 775 : 724);
             BoxLayout.On(image.rectTransform).Then(b=>image.pixelsPerUnitMultiplier=crop.Height/Mathf.Max(.01f,b.Height));return image;
         }
         public static TextMeshProUGUI Label(string name,Transform parent,string value,TypeStyle style,TextLook look,float share=.72f)

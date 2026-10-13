@@ -1006,6 +1006,9 @@ namespace Bloomlings.Playtest.Preview
                 Expect(p.ScrollAt(area.CenterX,area.CenterY)>=0,"catalog receives vertical drags");
                 Expect(p.ScrollAt(face.CenterX,face.CenterY)<0,"selected menu tile blocks catalog drags");
                 Expect(p.ScrollAt(area.CenterX,wall.Top+nav.W*.005f)<0,"stone ledge blocks catalog drags");
+                Box backing=GameNavigationDesign.NavBacking(nav,p.Width);
+                Expect(p.ScrollAt(nav.Safe.Left+nav.W*.01f,backing.Top+nav.W*.02f)<0,"stone behind the tiles shields gaps and side edges");
+                Expect(p.ScrollAt(r.Tabs.CenterX,r.Tabs.CenterY)<0,"fixed top tabs shield catalog drag starts");
                 float before=app.ShopScrollOffset;Drag(p,face.CenterX,face.CenterY,face.CenterX,face.CenterY-nav.W*.1f);Run(app,p,.1f);
                 Expect(app.ShopScrollOffset==before&&app.Screen==Design.Screen.Store,"dragging selected navigation does not scroll or purchase");
                 Drag(p,area.CenterX,area.CenterY,area.CenterX,area.CenterY-nav.W*.35f);Run(app,p,.1f);

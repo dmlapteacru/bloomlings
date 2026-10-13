@@ -20,6 +20,8 @@ namespace Bloomlings.Client.UI
             {
                 var c=GameNavigationDesign.Crop(name,texture.width,texture.height);rect=new Rect(c.Left,texture.height-c.Top-c.Height,c.Width,c.Height);
                 if(name==GameNavigationDesign.Wallet||name==GameNavigationDesign.NameRibbon)border=new Vector4(c.Width*.17f,c.Height*.42f,c.Width*.17f,c.Height*.42f);
+                if(name==PrimaryActionDesign.Plain||name==PrimaryActionDesign.Decorated||name==PrimaryActionDesign.Play)border=new Vector4(c.Width*PrimaryActionDesign.BorderX(name!=PrimaryActionDesign.Plain),c.Height*PrimaryActionDesign.BorderY,c.Width*PrimaryActionDesign.BorderX(name!=PrimaryActionDesign.Plain),c.Height*PrimaryActionDesign.BorderY);
+                if(name==PrimaryActionDesign.Reward)border=new Vector4(c.Width*.28f,c.Height*.30f,c.Width*.28f,c.Height*.30f);
             }
             else if (name.StartsWith("navigation/icon-", StringComparison.Ordinal))
             {

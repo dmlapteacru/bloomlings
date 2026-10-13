@@ -475,14 +475,14 @@ namespace Bloomlings.Client.UI.Design
         public const float PlayLabelShare = 0.5f;
 
         /// <summary>
-        /// Play's height, as a share of the safe height, and the least it shrinks to: 80% of the reference's 0.15 and 0.11
-        /// since the owner's tuning of 2026-10-05 (spec 005 FR-036), as its width (<see cref="PlayWidthShare"/>, of W).
+        /// Play's height, as a share of the safe height, and the least it shrinks to: the reference's 0.15 and 0.11
+        /// with the larger owner-approved floral face, as its width (<see cref="PlayWidthShare"/>, of W).
         /// </summary>
-        public const float PlayShare = 0.12f;
+        public const float PlayShare = 0.15f;
 
-        public const float PlayMinShare = 0.088f;
+        public const float PlayMinShare = 0.11f;
 
-        public const float PlayWidthShare = 0.68f;
+        public const float PlayWidthShare = 0.78f;
 
         /// <summary>
         /// The level plaque's height and the gap between it and Play, as shares of the safe height, and its width as a share
@@ -490,7 +490,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float PlaqueShare = 0.068f;
 
-        public const float PlaqueGapShare = 0.01f;
+        public const float PlaqueGapShare = 0f;
 
         public const float PlaqueWidthShare = 0.4f;
 
@@ -509,7 +509,7 @@ namespace Bloomlings.Client.UI.Design
         /// The highest the plaque's top goes before Play shrinks, as a share of the safe height (it stood at 0.64 before
         /// the bottom menu): the heroes on the fountain stay in view above it.
         /// </summary>
-        public const float PlaqueFloorShare = 0.6f;
+        public const float PlaqueFloorShare = 0.58f;
 
         /// <summary>The owner's logo picture's width, as a share of <see cref="W"/> (its letters span about 0.8 W).</summary>
         public const float LogoPictureShare = 0.82f;
@@ -1127,7 +1127,7 @@ namespace Bloomlings.Client.UI.Design
         /// Daily Challenge side button 0.086 W under the Daily Reward's scene; then, bottom up from the bottom menu's top
         /// (<see cref="BottomNavTop"/>, the medallion's) less <paramref name="bottomReserve"/> (the playtest's dev row):
         /// the teaser row (the teaser pill 0.5 W × 0.04 H with the free booster pill at its right) whose touch boxes end
-        /// there, Play 0.68 W wide ending 1 px over them, 0.12 H tall unless the plaque would rise above 60% of H (then
+        /// there, Play 0.68 W wide ending 1 px over them, 0.12 H tall unless the plaque would rise above 58% of H (then
         /// shorter, at least 0.088 H and the touch minimum), and the plaque 0.4 W × 0.068 H 0.01 H over Play.
         /// </summary>
         public static ReferenceHomeRegions ReferenceHome(float width, float height, Insets insets, float bottomReserve = 0f)
@@ -1158,11 +1158,11 @@ namespace Bloomlings.Client.UI.Design
             float navTop = BottomNavTop(width, height, insets);
             float limit = navTop - Math.Max(0f, bottomReserve);
             float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
-            float rowHeight = 0.04f * h;
-            float rowCenter = limit - (touch / 2f);
-            var teaser = new Box(safe.CenterX - (0.25f * w), rowCenter - (rowHeight / 2f), safe.CenterX + (0.25f * w), rowCenter + (rowHeight / 2f));
+            float rowHeight = 0.135f * w;
+            float rowCenter = limit - (rowHeight / 2f) - .012f*w;
+            var teaser = new Box(safe.CenterX - (0.275f * w), rowCenter - (rowHeight / 2f), safe.CenterX + (0.275f * w), rowCenter + (rowHeight / 2f));
             var free = new Box(teaser.Right + (0.02f * w), teaser.Top, safe.Right - (0.02f * w), teaser.Bottom);
-            float playBottom = rowCenter - (touch / 2f) - 1f;
+            float playBottom = rowCenter - (rowHeight / 2f) - .016f*w;
             float plaqueHeight = ReferenceHomeRegions.PlaqueShare * h;
             float gap = ReferenceHomeRegions.PlaqueGapShare * h;
             float room = playBottom - gap - plaqueHeight - Y(ReferenceHomeRegions.PlaqueFloorShare);

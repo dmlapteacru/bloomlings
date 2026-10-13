@@ -90,12 +90,7 @@ namespace Bloomlings.Playtest.Design
             // The parchment panel, its bottom corners below the screen's edge.
             float radius = r.PanelRadius(p.Scale);
             // Open Shop tabs share the garden background and floating cards.
-            Kit.Tabs(p, r.Tabs, tabs.ConvertAll(PlaytestText.T).ToArray(), tab, i =>
-            {
-                app.StoreTab = i;
-                app.StorePage = 0;
-                app.ShopScrollOffset = 0f;
-            }, tabs);
+
 
             switch (tabs[tab])
             {
@@ -113,6 +108,13 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The bottom menu, the Shop in its medallion (FR-030); the header last, as on the Wardrobe.
+            p.BlockInput(r.Tabs);
+            Kit.Tabs(p, r.Tabs, tabs.ConvertAll(PlaytestText.T).ToArray(), tab, i =>
+            {
+                app.StoreTab = i;
+                app.StorePage = 0;
+                app.ShopScrollOffset = 0f;
+            }, tabs);
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Shop), look, app.Navigate);
 
             Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, () => app.HomeToast(PlaytestText.T("store.offline")));
@@ -329,11 +331,6 @@ namespace Bloomlings.Playtest.Design
             Family family=families[selected];
             Box bar=ShopCatalogDesign.FamilyTabs(r);
             Kit.NavigationBar(p,bar,families.Count);
-            for(int i=0;i<families.Count;i++)
-            {
-                int index=i;
-                Kit.NavigationTab(p,NavigationSkin.Segment(bar,i,families.Count),PlaytestText.T("family."+WardrobeService.FamilyKey(families[i])),NavigationSkin.FamilyIcon(families[i]),i,i==selected,()=>{app.StoreFamily=index;app.ShopScrollOffset=0;});
-            }
             var items=new List<CosmeticItem?>{null};items.AddRange(wardrobe.ForSale);
             Box area=ShopCatalogDesign.Viewport(r,true);Box viewport=ShopBodyDesign.ScrollViewport(r,area);
             float max=Math.Max(0,ShopCatalogDesign.CosmeticsHeight(area,items.Count)-area.Height);
@@ -343,7 +340,7 @@ namespace Bloomlings.Playtest.Design
             {
                 CosmeticItem? item=items[i];
                 Box card=ShopCatalogDesign.CosmeticCard(area,i).Offset(0,-app.ShopScrollOffset);
-                if(card.Bottom<=area.Top||card.Top>=viewport.Bottom)continue;
+                if(card.Bottom<=viewport.Top||card.Top>=viewport.Bottom)continue;
                 bool chosen=item==null&&wardrobe.OutfitOf(family).IsEmpty;
                 string name=item==null ? PlaytestText.T("wardrobe.default") : MetaCards.ItemName(item);
                 Action? tap=item==null ? (Action?)null : ()=>BuyCosmetic(app,family,item);
@@ -351,6 +348,12 @@ namespace Bloomlings.Playtest.Design
             }
             p.PopClip();
             p.VerticalScroll(viewport,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
+            p.BlockInput(bar);
+            for(int i=0;i<families.Count;i++)
+            {
+                int index=i;
+                Kit.NavigationTab(p,NavigationSkin.Segment(bar,i,families.Count),PlaytestText.T("family."+WardrobeService.FamilyKey(families[i])),NavigationSkin.FamilyIcon(families[i]),i,i==selected,()=>{app.StoreFamily=index;app.ShopScrollOffset=0;});
+            }
         }
         private static void BuyCosmetic(DesignApp app,Family family,CosmeticItem item)
         {
@@ -379,14 +382,14 @@ namespace Bloomlings.Playtest.Design
             {
                 ClearStyle style=styles[i];
                 Box card=ShopCatalogDesign.AnimationCard(area,i).Offset(0,-app.ShopScrollOffset);
-                if(card.Bottom<=area.Top||card.Top>=viewport.Bottom)continue;
+                if(card.Bottom<=viewport.Top||card.Top>=viewport.Bottom)continue;
                 string name=PlaytestText.T(ClearStyles.NameKey(style));
                 ClearingAction action=clearing.ActionOf(style,app.Meta.CurrentLevel);
                 Action? tap=action==ClearingAction.Chosen ? (Action?)null : ()=>TapClearing(app,style,name);
                 ShopCatalogPainter.Card(p,card,area,false,i==6,name,action,clearing.PriceOf(style),action==ClearingAction.Chosen,ClearStyles.IsFree(style),tap,well=>Kit.ClearingPreview(p,well,style,catalog:true));
             }
             Box caption=ShopCatalogDesign.Caption(area).Offset(0,-app.ShopScrollOffset);
-            if(caption.Bottom>area.Top&&caption.Top<viewport.Bottom)
+            if(caption.Bottom>viewport.Top&&caption.Top<viewport.Bottom)
             {
                 p.Mark("font.shop");p.Text(PlaytestText.T("store.animations_caption"),caption.CenterX,caption.CenterY,ShopBodyDesign.Small,ShopBodyDesign.Letters.FillTop,caption.Width,caption.Height*.65f/p.U(ShopBodyDesign.Small.Size),ShopBodyDesign.Letters);
             }

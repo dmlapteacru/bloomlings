@@ -50,7 +50,8 @@ namespace Bloomlings.Client.UI.Screens
         bool DailyRewardWaiting = false,
         AvatarItem? Avatar = null,
         bool DailyRewardBadge = false,
-        string? ProfileName = null);
+        string? ProfileName = null,
+        int MilestoneProgressLeaves=0);
 
     /// <summary>
     /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7), the header's profile avatar
@@ -112,6 +113,7 @@ namespace Bloomlings.Client.UI.Screens
         private Button _playButton = null!;
         private Image _teaser = null!;
         private TextMeshProUGUI _milestone = null!;
+        private readonly Image[] _milestoneLeaves=new Image[7];
         private GameObject _daily = null!;
         private GameObject _dailyDone = null!;
         private RectTransform _freeBooster = null!;
@@ -160,24 +162,14 @@ namespace Bloomlings.Client.UI.Screens
             float su = DesignTokens.ScaleFor(sw, sh);
             float playHeight = ScreenLayout.ReferenceHome(sw, sh, si).Play.Height;
             TypeStyle playStyle = T.ButtonLarge with { Size = Mathf.Max(T.ButtonLarge.Size, playHeight * ReferenceHomeRegions.PlayLabelShare / Mathf.Max(0.0001f, su)) };
-            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, playStyle, decorate: true, playArrow: false, breathe: true);
+            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, playStyle, decorate: true, playArrow: false, breathe: true,hero:true);
             screen._playLabel = screen._playButton.GetComponentInChildren<TextMeshProUGUI>();
 
             // The milestone teaser under Play: a parchment pill with the text and the pink gift after it.
-            screen._teaser = UiKit.ParchmentPill("Teaser", root);
-            screen._milestone = UiKit.KitLabel("Text", screen._teaser.transform, string.Empty, T.Body, TextLook.Plain(C.InkBrown));
-            Image gift = UiKit.OutlinedGlyph("Gift", screen._teaser.transform, "ui.gift", C.LotusFill, C.LotusLine);
-            TextMeshProUGUI milestone = screen._milestone;
-            BoxLayout.On(screen._teaser.rectTransform).Watch(milestone).Then(b =>
-            {
-                float giftSize = b.Height * 0.72f;
-                float gap = b.Height * 0.2f;
-                float size = Mathf.Min(UiKit.Units(T.Body.Size), b.Height * 0.5f);
-                float textWidth = Fit(milestone, size, b.Width - giftSize - gap - (b.Height * 0.8f));
-                float start = b.CenterX - ((textWidth + gap + giftSize) / 2f);
-                KitText.Place(milestone, T.Body, start + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
-                BoxLayout.Place(gift.rectTransform, Box.FromCenter(start + textWidth + gap + (giftSize / 2f), b.CenterY - (giftSize * 0.03f), giftSize, giftSize));
-            });
+            screen._teaser=GameNavigationView.Surface("RewardProgress",root,PrimaryActionDesign.Reward);
+            screen._milestone=GameNavigationView.Label("Text",screen._teaser.transform,"",PrimaryActionDesign.Status,TextLook.Plain(ShopBodyDesign.Ink),.9f);
+            BoxLayout reward=BoxLayout.On(screen._teaser.rectTransform);reward.Add(screen._milestone.rectTransform,PrimaryActionDesign.RewardLabel);
+            for(int i=0;i<7;i++){int index=i;Image leaf=UiFactory.CreateImage("ProgressLeaf"+i,screen._teaser.transform,null,Color.white);leaf.preserveAspect=true;screen._milestoneLeaves[i]=leaf;reward.Add(leaf.rectTransform,b=>PrimaryActionDesign.RewardLeaf(b,index));}
 
             // The optional rewarded offer beside the teaser, started only by the player (FR-052): a cream pill with the green
             // clapperboard and "Free" (spec 005 FR-051), in a clear touch box at least size.touch_min.
@@ -333,14 +325,10 @@ namespace Bloomlings.Client.UI.Screens
             {
                 int toGo = model.LevelsToMilestone.GetValueOrDefault();
                 _milestone.text = toGo == 1 ? Loc.T("home.level_to_reward") : Loc.F("home.levels_to_reward", toGo);
+                for(int i=0;i<7;i++){bool filled=i<model.MilestoneProgressLeaves;_milestoneLeaves[i].sprite=filled ? GameplayArt.Pod(new VariantId("leaf")) : ProceduralSprites.Shape("symbol.leaf");_milestoneLeaves[i].color=filled ? Color.white : UiTheme.Of(Rgba.FromHex("#B9AB8C"));}
             }
         }
 
-        /// <summary>A label's width at <paramref name="size"/> canvas units, at most <paramref name="room"/> (all of it before the text engine can tell).</summary>
-        private static float Fit(TextMeshProUGUI label, float size, float room)
-        {
-            float measured = KitText.Measure(label, size);
-            return Mathf.Max(1f, Mathf.Min(measured > 0f ? measured : room, room));
-        }
+
     }
 }

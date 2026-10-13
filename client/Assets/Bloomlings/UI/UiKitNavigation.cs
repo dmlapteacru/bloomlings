@@ -13,6 +13,7 @@ namespace Bloomlings.Client.UI
         {
             RectTransform root = UiFactory.CreateRect(name, parent);
             Image face = UiFactory.CreateImage("Cream", root, NavigationArt.Get(NavigationSkin.CreamBar), Color.white);
+            face.raycastTarget=true;
             var dark = new Image[Math.Max(0,count-1)];
             var light = new Image[dark.Length];
             for (int i=0;i<dark.Length;i++)

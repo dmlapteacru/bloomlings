@@ -19,11 +19,15 @@ namespace Bloomlings.Client.UI.Design
         public static string Nav(NavPlace place,bool selected)=>"navigation/game-nav-"+(BottomNav.Order.IndexOfPlace(place)+(selected ? 5 : 0));
         public static string NameKey(NavPlace place)=>place switch {NavPlace.Shop=>"store.title",NavPlace.Home=>"pause.home",_=>BottomNav.Key(place)+".title"};
         public static string? Frame(string? id)=>id switch {null or "frame.wood_ring"=>"navigation/game-frame-0","frame.leaf_ring"=>"navigation/game-frame-1","frame.golden_ribbon"=>"navigation/game-frame-2",_=>null};
-        public static string Resource(string name)=>"navigation/"+(name==StoneWall ? "stone-wall-v1" : name.StartsWith("navigation/game-control-",StringComparison.Ordinal) ? "controls-v3" : name.StartsWith("navigation/game-nav-",StringComparison.Ordinal) ? "primary-nav-v3" : name.StartsWith("navigation/game-frame-",StringComparison.Ordinal) ? "profile-rims-v3" : "header-parts-v3")+".png";
+        public static string Resource(string name)=>"navigation/"+(name==PrimaryActionDesign.Play ? "play-reference-v2" : name==PrimaryActionDesign.Reward ? "reward-progress-v2" : name.StartsWith("navigation/game-primary",StringComparison.Ordinal) ? "primary-buttons-v1" : name==StoneWall ? "stone-wall-v1" : name.StartsWith("navigation/game-control-",StringComparison.Ordinal) ? "controls-v3" : name.StartsWith("navigation/game-nav-",StringComparison.Ordinal) ? "primary-nav-v3" : name.StartsWith("navigation/game-frame-",StringComparison.Ordinal) ? "profile-rims-v3" : "header-parts-v3")+".png";
         public static (int Left,int Top,int Width,int Height) Crop(string name,int w,int h)
         {
             Box b;float sw,sh;
-            if(name==StoneWall){b=new Box(0,282,2182,520);sw=2182;sh=721;}
+            if(name==PrimaryActionDesign.Play){b=new Box(18,79,1942,715);sw=1961;sh=802;}
+            else if(name==PrimaryActionDesign.Reward){b=new Box(65,175,1959,609);sw=2030;sh=775;}
+            else if(name==PrimaryActionDesign.Decorated){b=new Box(74,14,1701,444);sw=1774;sh=887;}
+            else if(name==PrimaryActionDesign.Plain){b=new Box(223,481,1551,865);sw=1774;sh=887;}
+            else if(name==StoneWall){b=new Box(0,282,2182,520);sw=2182;sh=721;}
             else if(name.StartsWith("navigation/game-control-",StringComparison.Ordinal)){b=Controls[int.Parse(name.Substring(24))];sw=1536;sh=1024;}
             else if(name.StartsWith("navigation/game-nav-",StringComparison.Ordinal)){b=Places[int.Parse(name.Substring(20))];sw=1983;sh=793;}
             else if(name.StartsWith("navigation/game-frame-",StringComparison.Ordinal)){b=Frames[int.Parse(name.Substring(22))];sw=2172;sh=724;}
@@ -45,6 +49,13 @@ namespace Bloomlings.Client.UI.Design
         {
             float top=NavButton(r,0).Bottom-r.W*.018f;
             return new Box(0,top,width,top+width*238f/2182f);
+        }
+        public static Box NavBacking(BottomNavRegions r,float width)=>new Box(0,NavButton(r,r.ActiveIndex).Top-r.W*.004f,width,r.Bar.Bottom);
+        public static System.Collections.Generic.IReadOnlyList<Box> NavStoneRows(BottomNavRegions r,float width)
+        {
+            var rows=new System.Collections.Generic.List<Box>();Box band=NavBacking(r,width);float height=width*238f/2182f;
+            for(float y=band.Top;y<band.Bottom;y+=height-width*.004f)rows.Add(new Box(0,y,width,y+height));
+            rows.Add(NavWall(r,width));return rows;
         }
         public static Box NavTouch(BottomNavRegions r,int index){Box b=NavButton(r,index);return new Box(b.Left,b.Top,b.Right,r.Safe.Bottom);}
         public static Box ProfileRibbon(Box avatar)=>Box.FromCenter(avatar.CenterX,avatar.Bottom+avatar.Width*.042f,avatar.Width,avatar.Width*.264f);

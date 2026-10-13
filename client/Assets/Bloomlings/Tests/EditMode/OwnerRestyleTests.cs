@@ -10,6 +10,15 @@ namespace Bloomlings.Client.Tests
     public class OwnerRestyleTests
     {
         [Test]
+        public void RewardLeaves_UseThePreviousConfiguredMilestone_NotTheMajorRewardCadence()
+        {
+            var table=Bloomlings.Client.App.Progression.MilestoneTable.Default;
+            Assert.That(PrimaryActionDesign.FilledLeaves(table,100,13),Is.EqualTo(3));
+            Assert.That(PrimaryActionDesign.FilledLeaves(table,100,5),Is.EqualTo(5));
+            Assert.That(PrimaryActionDesign.FilledLeaves(table,25,25),Is.Zero);
+            Assert.That(PrimaryActionDesign.FilledLeaves(table,25,0),Is.EqualTo(7));
+        }
+        [Test]
         public void ThePedestal_IsSoftCreamStone_LitOnTop_WithoutMoss()
         {
             const int w = 420;

@@ -72,7 +72,7 @@ namespace Bloomlings.Client.UI.Design
         public static bool IsShopFont(TypeStyle style) => style.Name.StartsWith("type.shop.", StringComparison.Ordinal);
         public static Box Bounds(ReferenceStoreRegions r) => new Box(r.Safe.Left + r.W * 0.025f, r.Tabs.Bottom + r.W * 0.015f, r.Safe.Right - r.W * 0.025f, r.NavTop - r.W * 0.015f);
         /// <summary>Only visual clipping extends behind navigation; the content's end retains a menu-sized scroll reserve.</summary>
-        public static Box ScrollViewport(ReferenceStoreRegions r,Box contentArea)=>new Box(contentArea.Left,contentArea.Top,contentArea.Right,r.Panel.Bottom);
+        public static Box ScrollViewport(ReferenceStoreRegions r,Box contentArea)=>new Box(contentArea.Left,r.Tabs.Top+r.Tabs.Height*.065f,contentArea.Right,r.Panel.Bottom);
         public static float ContentHeight(IReadOnlyList<ShopVisual> nodes, Box viewport)
         {
             float bottom = viewport.Top;

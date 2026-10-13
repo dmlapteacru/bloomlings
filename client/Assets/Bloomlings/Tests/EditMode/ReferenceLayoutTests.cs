@@ -540,7 +540,7 @@ namespace Bloomlings.Client.Tests
         /// Settings' mirror, the pill's box 0.44 W × 0.105 W centered on the safe area at least 0.03 W clear of both, its
         /// flowers between them and the logo picture's letters under the row; the plaque, Play and the teaser row above
         /// the bottom menu (Play's bottom and the free booster's touch box end a gap over its top, less the reserve);
-        /// Play 0.15 H tall unless the plaque would rise above 60% of H, then shorter (never under 0.11 H nor the touch
+        /// Play 0.15 H tall unless the plaque would rise above 58% of H, then shorter (never under 0.11 H nor the touch
         /// minimum); the Daily Challenge the right column's first side button; and every button, the bottom menu's places
         /// included, reachable and clear of the others.
         /// </summary>
@@ -591,7 +591,7 @@ namespace Bloomlings.Client.Tests
                     Assert.That(r.Play.Height, Is.InRange(Math.Max(ReferenceHomeRegions.PlayMinShare * sh, touch) - 0.5f, (ReferenceHomeRegions.PlayShare * sh) + 0.5f), at);
                     if (r.Play.Height < (ReferenceHomeRegions.PlayShare * sh) - 0.5f && r.Play.Height > Math.Max(ReferenceHomeRegions.PlayMinShare * sh, touch) + 0.5f)
                     {
-                        Assert.That(r.Plaque.Top, Is.EqualTo(r.Safe.Top + (ReferenceHomeRegions.PlaqueFloorShare * sh)).Within(0.5f), at + ": Play shrinks only to keep the plaque at 60% of H");
+                        Assert.That(r.Plaque.Top, Is.EqualTo(r.Safe.Top + (ReferenceHomeRegions.PlaqueFloorShare * sh)).Within(0.5f), at + ": Play shrinks only to keep the plaque at 58% of H");
                     }
 
                     Assert.That(r.SideButton(true, 0), Is.EqualTo(r.Daily), at);

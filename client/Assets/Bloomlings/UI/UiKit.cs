@@ -620,13 +620,15 @@ namespace Bloomlings.Client.UI
         /// <paramref name="breathe"/> the idle breath of the one waiting button, and <paramref name="set"/> another color
         /// (<see cref="GardenLook.Orange"/>).
         /// </summary>
-        public static Button PrimaryButton(string name, Transform parent, string label, Action onClick, TypeStyle? style = null, bool decorate = false, bool playArrow = false, ColorSet? set = null, string? iconId = null, bool breathe = false)
+        public static Button PrimaryButton(string name, Transform parent, string label, Action onClick, TypeStyle? style = null, bool decorate = false, bool playArrow = false, ColorSet? set = null, string? iconId = null, bool breathe = false, bool hero=false)
         {
             TypeStyle s = style ?? DesignTokens.Type.Button;
             ColorSet colors = set ?? GardenLook.Green;
-            GardenButton view = RaisedButton(name, parent, colors, 0.5f, gloss: true);
+            bool illustrated=ReferenceEquals(colors,GardenLook.Green)&&NavigationArt.Get(PrimaryActionDesign.Plain)!=null;
+            if(illustrated)s=PrimaryActionDesign.Type(s);
+            GardenButton view = illustrated ? IllustratedPrimary(name,parent,decorate,hero) : RaisedButton(name, parent, colors, 0.5f, gloss: true);
 
-            TextLook Look(ColorSet shown) => TextLook.OnGloss(shown);
+            TextLook Look(ColorSet shown) => illustrated ? hero ? PrimaryActionDesign.PlayLetters : PrimaryActionDesign.Letters : TextLook.OnGloss(shown);
             TextMeshProUGUI text = KitLabel("Label", view.Content, label, s, Look(colors));
             view.Track(text, s, Look);
             BoxLayout content = BoxLayout.On(view.Content).Watch(text);
@@ -635,6 +637,7 @@ namespace Bloomlings.Client.UI
                 RectTransform arrow = PlayArrow(view, s);
                 content.Then(f =>
                 {
+                    if(illustrated)f=PrimaryActionDesign.Content(f,decorate,hero);
                     // The label and the ▶ as one group, centered, shrunk together to the face less its rounded ends.
                     float em = Units(s.Size);
                     float textWidth = KitText.Measure(text, em);
@@ -655,14 +658,14 @@ namespace Bloomlings.Client.UI
             else if (iconId != null)
             {
                 Image glyph = GardenGlyph(view, view.Content, iconId);
-                content.Then(f => IconAndText(glyph.rectTransform, text, s, f, f.Height * 0.5f, Units(14f), f.Width - (f.Height * 1.4f)));
+                content.Then(f => {if(illustrated)f=PrimaryActionDesign.Content(f,decorate,hero);IconAndText(glyph.rectTransform, text, s, f, f.Height * 0.5f, Units(14f), f.Width - (f.Height * 1.4f));});
             }
             else
             {
-                content.Then(f => KitText.Place(text, s, f.CenterX, f.CenterY, Units(s.Size), f.Width - (f.Height * 0.9f)));
+                content.Then(f => {if(illustrated)f=PrimaryActionDesign.Content(f,decorate,hero);KitText.Place(text, s, f.CenterX, f.CenterY, Units(s.Size), f.Width - (f.Height * (illustrated ? .3f : .9f)));});
             }
 
-            if (decorate)
+            if (decorate&&!illustrated)
             {
                 Decoration(view);
             }

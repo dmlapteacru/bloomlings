@@ -102,3 +102,13 @@ This covers Shop Packs/Cosmetics/Animations, the profile editor's Avatar/Frame/B
 Owner reference: `product/previews/navigation-stone-v4/reference-menu.png`. `stone-wall-v1.png` was generated with built-in OpenAI ImageGen from that reference and copied unchanged from `exec-fd5928b5-0ba0-4a83-9f3f-2321e84e1973.png`. The original output is recorded in `product/previews/navigation-stone-v4/prompts.json`, together with the exact prompt. 2182×721 RGBA; source alpha preserved; integrity recorded in manifest version 5.
 
 Shared runtime crop: x=0, y=282, width=2182, height=238. `GameNavigationDesign.NavWall` places the top surface slightly behind the bottom of the five navigation tiles and lets the stone front continue below the screen edge. Home omits the name ribbon; profile cosmetics and full-page name remain live. Catalog clipping extends behind the menu while content padding keeps its final rows accessible.
+
+## Primary actions and reference Play/progress (2026-10-14)
+
+Built-in OpenAI ImageGen, final owner reference `product/previews/primary-actions-v6/reference-play-progress.png`. Exact prompts and original output paths are in that preview's `prompts.json`. Original generated RGBA files are copied unchanged and recorded by manifest version 6.
+
+- `primary-buttons-v1.png`: 1774×887 atlas, `exec-42410634-e77a-483a-85cf-d7a030c974dc.png`. Floral crop (74,14)-(1701,444), plain crop (223,481)-(1551,865). Nine-slice X=25% floral /20% plain, Y=30%.
+- `play-reference-v2.png`: 1961×802, `exec-799fe101-3d0d-43cf-87bb-427f4c2b2d7c.png`. Runtime crop (18,79)-(1942,715), nine-slice X=25%, Y=30%. Dedicated rounded floral Play; the rejected organic silhouette is not used. Live cream lettering has a brown outline.
+- `reward-progress-v2.png`: 2030×775, `exec-1c12a125-3a1f-4171-bb48-a00add1243ac.png`. Runtime crop (65,175)-(1959,609), nine-slice X=28%, Y=30%. Banner/gift are illustrated; remaining-level text and seven progress leaves are live.
+
+Shared crops and material borders are consumed by Unity, Skia and Android. Native GardenButton owns callbacks, press/spring, breath and disabled fade. The Save action uses the primary skin; Petals purchase price buttons retain their purchase material. Bottom navigation reuses `stone-wall-v1.png` in overlapping rows behind every tile and gap, with a front ledge. Shop top padding/viewport extends content behind fixed tabs; their foreground surfaces shield input.

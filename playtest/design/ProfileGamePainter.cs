@@ -22,6 +22,7 @@ namespace Bloomlings.Playtest.Design
         }
         public static void Price(IPainter p,Box b,string text,Action? tap=null,bool petals=true,Box? touch=null)
         {
+            if(!petals){Kit.PrimaryButton(p,b,text,tap,ShopBodyDesign.Price);return;}
             p.Mark("ui.shop.button");p.Mark("font.shop");Kit.SlicedSprite(p,"shop/price-button",b,350f/1985,190f/505,.4f);
             float size=b.Height*.54f;Box label=b.Inset(b.Height*.20f);
             if(petals){var parts=ShopCatalogDesign.PriceParts(b,p.MeasureText(text,ShopBodyDesign.Price,size/p.U(ShopBodyDesign.Price.Size)));Kit.Petal(p,parts.Petal);label=parts.Label;}

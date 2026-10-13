@@ -25,9 +25,8 @@ namespace Bloomlings.Playtest.Design
         public static void BottomNav(IPainter p,BottomNavRegions r,HomeLook look,Action<NavPlace> onSelect)
         {
             p.Mark("ui.nav.bar");p.Mark("ui.nav.medallion");p.Mark("ui.nav.illustrations");
-            Box wall=GameNavigationDesign.NavWall(r,p.Width);
-            p.Sprite(GameNavigationDesign.StoneWall,wall);
-            p.BlockInput(wall);
+            foreach(Box row in GameNavigationDesign.NavStoneRows(r,p.Width))p.Sprite(GameNavigationDesign.StoneWall,row);
+            p.BlockInput(GameNavigationDesign.NavBacking(r,p.Width));
             for(int i=0;i<r.Places.Count;i++)
             {
                 NavPlace place=r.Places[i];bool chosen=i==r.ActiveIndex;Box face=GameNavigationDesign.NavButton(r,i),touch=GameNavigationDesign.NavTouch(r,i);

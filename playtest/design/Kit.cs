@@ -361,11 +361,12 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="playArrow"/> the ▶ as tall as the letters, and <paramref name="breathe"/> the idle breath of
         /// the one waiting button (FR-019). <paramref name="set"/> picks another color (<see cref="GardenLook.Orange"/>).
         /// </summary>
-        public static void PrimaryButton(IPainter p, Box box, string label, Action? action, TypeStyle? style = null, string? iconId = null, bool decorate = false, bool playArrow = false, bool breathe = false, ColorSet? set = null)
+        public static void PrimaryButton(IPainter p, Box box, string label, Action? action, TypeStyle? style = null, string? iconId = null, bool decorate = false, bool playArrow = false, bool breathe = false, ColorSet? set = null, bool hero=false)
         {
             p.Mark("ui.button.primary");
             bool enabled = action != null;
             ColorSet colors = set ?? GardenLook.Green;
+            bool illustrated=ReferenceEquals(colors,GardenLook.Green)&&p.HasSprite(PrimaryActionDesign.Plain);
             if (!enabled)
             {
                 colors = colors.Disabled();
@@ -379,10 +380,18 @@ namespace Bloomlings.Playtest.Design
             }
 
             Squash(p, box, depth);
-            Box f = RaisedButton(p, box, colors, 0.5f, depth, gloss: enabled);
+            if(illustrated&&!enabled)p.PushAlpha(.55f);
+            Box f;
+            if(illustrated)
+            {
+                if(hero)SlicedSprite(p,PrimaryActionDesign.Play,box,.25f,.30f);else SlicedSprite(p,decorate ? PrimaryActionDesign.Decorated : PrimaryActionDesign.Plain,box,PrimaryActionDesign.BorderX(decorate),PrimaryActionDesign.BorderY);
+                f=PrimaryActionDesign.Content(box,decorate,hero);p.Mark("font.shop");
+            }
+            else f=RaisedButton(p, box, colors, 0.5f, depth, gloss: enabled);
             TypeStyle s = style ?? T.Button;
-            TextLook look = TextLook.OnGloss(colors);
-            float side = f.Height * 0.45f;
+            if(illustrated)s=PrimaryActionDesign.Type(s);
+            TextLook look = illustrated ? hero ? PrimaryActionDesign.PlayLetters : PrimaryActionDesign.Letters : TextLook.OnGloss(colors);
+            float side = f.Height * (illustrated ? .15f : .45f);
             if (playArrow)
             {
                 p.Mark("ui.play");
@@ -408,10 +417,11 @@ namespace Bloomlings.Playtest.Design
                 p.Text(label, f.CenterX, f.CenterY, s, C.TextOnColor, f.Width - (side * 2f), look: look);
             }
 
-            if (decorate)
+            if (decorate&&!illustrated)
             {
                 Decoration(p, box);
             }
+            if(illustrated&&!enabled)p.PopAlpha();
 
             p.PopTransform();
             if (breathing)

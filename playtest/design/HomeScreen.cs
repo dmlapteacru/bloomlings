@@ -129,11 +129,11 @@ namespace Bloomlings.Playtest.Design
             Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(level)), T.LevelHome);
             bool available = app.Content.LevelCount > 0;
             TypeStyle play = T.ButtonLarge with { Size = Math.Max(T.ButtonLarge.Size, r.Play.Height * ReferenceHomeRegions.PlayLabelShare / p.Scale) };
-            Kit.PrimaryButton(p, r.Play, PlaytestText.T("common.play"), available ? app.StartLevel : (Action?)null, play, decorate: true, playArrow: false, breathe: app.Overlays.Count == 0);
+            Kit.PrimaryButton(p, r.Play, PlaytestText.T("common.play"), available ? app.StartLevel : (Action?)null, play, decorate: true, playArrow: false, breathe: app.Overlays.Count == 0,hero:true);
             if (look.Teaser && next.HasValue)
             {
                 string teaser = next.Value.WinsToGo == 1 ? PlaytestText.T("home.level_to_reward") : PlaytestText.F("home.levels_to_reward", next.Value.WinsToGo);
-                Teaser(p, r.Teaser, teaser);
+                Teaser(p, r.Teaser, teaser,PrimaryActionDesign.FilledLeaves(meta.Milestones.Table,next.Value.Level,next.Value.WinsToGo));
             }
 
             // The bottom menu, Home in its medallion, the locked places with their padlocks (FR-030).
@@ -596,17 +596,12 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>The milestone teaser: a parchment pill with "N levels to reward" and the pink gift.</summary>
-        private static void Teaser(IPainter p, Box box, string text)
+        private static void Teaser(IPainter p, Box box, string text,int filled)
         {
             p.Mark("ui.gift");
-            Kit.ParchmentPill(p, box);
-            float gift = box.Height * 0.68f;
-            float scale = Math.Min(1f, (box.Height * 0.5f) / p.U(T.Body.Size));
-            float textWidth = Math.Min(p.MeasureText(text, T.Body, scale), box.Width - (gift * 2.6f));
-            float gap = gift * 0.3f;
-            float start = box.CenterX - ((textWidth + gap + gift) / 2f);
-            p.Text(text, start + (textWidth / 2f), box.CenterY, T.Body, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
-            OutlinedShape(p, "ui.gift", Box.FromCenter(start + textWidth + gap + (gift / 2f), box.CenterY - (gift * 0.03f), gift, gift), C.LotusFill, C.LotusLine);
+            Kit.SlicedSprite(p,PrimaryActionDesign.Reward,box,.28f,.30f);
+            ProfileGamePainter.Label(p,PrimaryActionDesign.RewardLabel(box),text,PrimaryActionDesign.Status,TextLook.Plain(ShopBodyDesign.Ink),heightShare:.9f);
+            for(int i=0;i<7;i++){Box leaf=PrimaryActionDesign.RewardLeaf(box,i);if(i<filled)p.Sprite("gameplay/pod-leaf",leaf);else p.Shape("symbol.leaf",leaf,Rgba.FromHex("#B9AB8C"));}
         }
 
         /// <summary>A glyph in a saturated color over its darker outline (the gift, the trophy), as the reference's icons.</summary>
