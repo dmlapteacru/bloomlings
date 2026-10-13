@@ -132,7 +132,7 @@ namespace Bloomlings.Client.UI.Design
                 Box coins = Next(0.36f);
                 for (int i = 0; i < 3; i++) Currency(nodes, new Box(coins.Left + i * (cw + gap), coins.Top, coins.Left + i * (cw + gap) + cw, coins.Bottom), Offers[6 + row * 3 + i], visible);
             }
-            Boosters(nodes, Next(0.245f), boosterPrice, unlocked);
+            Boosters(nodes, Next(0.255f), boosterPrice, unlocked);
             Box packs = Next(0.47f);
             SmallOffer(nodes, new Box(packs.Left, packs.Top, packs.CenterX - gap * 0.5f, packs.Bottom), Offers[3], text, visible);
             SmallOffer(nodes, new Box(packs.CenterX + gap * 0.5f, packs.Top, packs.Right, packs.Bottom), Offers[4], text, visible);
@@ -155,7 +155,7 @@ namespace Bloomlings.Client.UI.Design
             else
             {
                 n.Add(new ShopVisual(ShopVisualKind.Card, b));
-                Art(n, In(b, 0.025f, 0.04f, 0.51f, 0.735f), o.Art);
+                Art(n, In(b, 0.06f, 0.04f, 0.51f, 0.735f), o.Art);
                 n.Add(new ShopVisual(ShopVisualKind.Ribbon, In(b, 0.015f, 0.76f, 0.985f, 0.97f)));
             }
             Label(n, In(b, 0.17f, 0.565f, 0.51f, 0.72f), NumberText.Group(o.Petals), Amount);
@@ -180,16 +180,16 @@ namespace Bloomlings.Client.UI.Design
             n.Add(new ShopVisual(ShopVisualKind.Card, b, Group: o.Id.StartsWith("remove_ads", StringComparison.Ordinal) ? ShopGroup.NoAds : ShopGroup.Bundles));
             if (o.Boosters == null)
             {
-                Art(n, In(b, -0.02f, -0.015f, 1.02f, 0.74f), o.Art);
+                Art(n, In(b, 0.055f, 0.02f, 0.945f, 0.705f), o.Art);
             }
             else
             {
-                Art(n, In(b, 0.025f, 0.035f, 0.53f, 0.69f), o.Art);
-                Label(n, In(b, 0.025f, 0.535f, 0.53f, 0.69f), NumberText.Group(o.Petals), Amount);
+                Art(n, In(b, 0.06f, 0.035f, 0.53f, 0.69f), o.Art);
+                Label(n, In(b, 0.06f, 0.535f, 0.53f, 0.69f), NumberText.Group(o.Petals), Amount);
                 RewardPanel(n, In(b, 0.57f, 0.075f, 0.945f, 0.66f), o.Boosters);
             }
-            Label(n, In(b, 0.02f, 0.70f, 0.98f, 0.80f), text(o.NameKey), Count, true);
-            Buy(n, In(b, 0.20f, 0.805f, 0.80f, 0.975f), o.Price, o.Id);
+            Label(n, In(b, 0.02f, 0.675f, 0.98f, 0.76f), text(o.NameKey), Count, true);
+            Buy(n, In(b, 0.20f, 0.775f, 0.80f, 0.945f), o.Price, o.Id);
         }
         private static void Currency(List<ShopVisual> n, Box b, ShopOffer o, Func<string, bool> visible)
         {
@@ -232,7 +232,7 @@ namespace Bloomlings.Client.UI.Design
                 n.Add(new ShopVisual(ShopVisualKind.Card, cell, Group: ShopGroup.Boosters));
                 n.Add(new ShopVisual(ShopVisualKind.Sprite, In(cell, 0.20f, 0.03f, 0.80f, 0.57f), "shop/boost-" + ids[i]));
                 Label(n, In(cell, 0.20f, 0.47f, 0.80f, 0.67f), "×" + (i == 3 ? 1 : 3), Count);
-                n.Add(new ShopVisual(ShopVisualKind.Button, In(cell, 0.07f, 0.705f, 0.93f, 0.965f), NumberText.Group(price(kind)), "booster_" + kind, Count, Dark: true));
+                n.Add(new ShopVisual(ShopVisualKind.Button, In(cell, 0.07f, 0.675f, 0.93f, 0.925f), NumberText.Group(price(kind)), "booster_" + kind, Count, Dark: true));
             }
         }
 
@@ -240,9 +240,9 @@ namespace Bloomlings.Client.UI.Design
         {
             ShopVisualKind.Button => UiRaster.ButtonFace(w, h, Green, 0.38f, true),
             ShopVisualKind.Ribbon => UiRaster.RaisedRow(w, h, Math.Min(w, h) * 0.42f, Coral),
-            ShopVisualKind.Well => ShopBodyRaster.Framed(w, h, 0.48f, InsetBorder, Well, 0.045f),
-            ShopVisualKind.RewardBox => ShopBodyRaster.Framed(w, h, 0.18f, InsetBorder, Card, 0.018f),
-            _ => ShopBodyRaster.Framed(w, h, group == ShopGroup.Boosters ? 0.20f : 0.16f, Border(group), Card, 0.024f),
+            ShopVisualKind.Well => ShopBodyRaster.Framed(w, h, 0.48f, InsetBorder, Well, 0.07f, true),
+            ShopVisualKind.RewardBox => ShopBodyRaster.Framed(w, h, 0.18f, InsetBorder, Card, 0.03f, true),
+            _ => ShopBodyRaster.Framed(w, h, group == ShopGroup.Boosters ? 0.20f : 0.16f, Border(group), Card, 0.038f),
         };
     }
 }

@@ -51,4 +51,10 @@ Mixed offers reserve separate picture and reward-panel columns, with space aroun
 
 The two tilted Best Seller lines share their horizontal center, weight and tighter line spacing. Petals illustrations use measured sprite crops with a small transparent gutter, aligning the visible artwork bottoms before quantity labels are overlaid. The source PNGs are unchanged. `ShopBodyDesign.AtlasCrop` supplies the same rectangles to Unity, Skia and Android.
 
+## Revision 5: smooth rounded rims and purchase padding
+
+Procedural card rims now use a continuous curved profile with directional highlights, soft shading and 2-by-2 sampling per pixel. This replaces the hard concentric color steps. Reward panels have a thicker rounded rim and a gently raised face; booster-price capsules use the same molded treatment. The narrow perimeter shadow remains.
+
+Code-built bundle buttons are lifted to leave 5.5% of the card height below them, with additional left padding for the artwork. Booster-price capsules leave 7.5% below them. The compact booster row is now 0.255 of the content width, preserving button height with the extra padding. Existing illustrated assets and nine-slice money buttons are unchanged.
+
 Generated assets may be used as part of this project. Font licensing is recorded separately in `client/THIRD_PARTY_NOTICES.md`.
