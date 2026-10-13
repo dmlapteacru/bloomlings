@@ -23,9 +23,10 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _tabsBox=null!,_viewport=null!,_content=null!;
         private ScrollRect _scroll=null!;
         private PageHeaderView _header=null!;
-        private Image _summary=null!,_levelPlate=null!,_field=null!,_nameCard=null!,_button=null!;
+        private Image _summary=null!,_field=null!,_nameCard=null!,_button=null!;
         private ProfileAvatar _preview=null!;
-        private TextMeshProUGUI _previewName=null!,_levelLabel=null!,_status=null!,_hint=null!,_note=null!;
+        private WoodSignView _levelSign=null!;
+        private TextMeshProUGUI _previewName=null!,_status=null!,_hint=null!,_note=null!;
         private TMP_InputField _input=null!;
         private RectTransform _nameIcon=null!,_nameTitle=null!;
         private ProfileService _profile=null!;
@@ -53,9 +54,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._summary=ProfileGameView.Skin("ProfileSummary",root.transform,ShopCatalogDesign.CosmeticsFrame);
             screen._preview=ProfileAvatar.Create("Preview",root.transform);
             screen._previewName=ProfileGameView.Label("Name",root.transform,"",ProfileGameDesign.Name,align:TextAlignmentOptions.Left);
-            screen._levelPlate=UiFactory.CreateImage("Level",root.transform,null,Color.white);
-            PictureFit.On(screen._levelPlate,(w,h)=>ProceduralSprites.Picture("profile.level",w,h,(pw,ph)=>ShopCatalogDesign.ActionSurface(pw,ph,false)));
-            screen._levelLabel=ProfileGameView.Label("Label",screen._levelPlate.transform,"",ProfileGameDesign.Info);UiFactory.Stretch(screen._levelLabel.rectTransform);
+            screen._levelSign=UiKit.WoodSign("Level",root.transform,"",T.LevelPill);
             Image viewport=UiFactory.CreateImage("CatalogViewport",root.transform,null,Color.clear,raycast:true);screen._viewport=viewport.rectTransform;viewport.gameObject.AddComponent<RectMask2D>();screen._content=UiFactory.CreateRect("Catalog",viewport.transform);
             screen._scroll=viewport.gameObject.AddComponent<ScrollRect>();screen._scroll.viewport=screen._viewport;screen._scroll.content=screen._content;screen._scroll.horizontal=false;screen._scroll.vertical=true;screen._scroll.movementType=ScrollRect.MovementType.Clamped;screen._scroll.inertia=true;screen._scroll.decelerationRate=.12f;screen._scroll.scrollSensitivity=40;
             screen._nameCard=ProfileGameView.Skin("NameForm",root.transform,ProfileGameDesign.Gold);
@@ -87,14 +86,14 @@ namespace Bloomlings.Client.UI.Screens
         private void Layout()
         {
             var f=UiKit.ScreenFrame();_regions=ProfileGameDesign.Edit(f.Width,f.Height,f.Insets);_layoutWidth=f.Width;_layoutHeight=f.Height;
-            var r=_regions;_header.Place(r.Header);UiKit.PlaceScreen(_tabsBox,r.Tabs);UiKit.PlaceScreen(_summary.rectTransform,r.Summary);UiKit.PlaceScreen(_preview.Rect,r.Preview);UiKit.PlaceScreen(_previewName.rectTransform,r.PreviewName);UiKit.PlaceScreen(_levelPlate.rectTransform,r.Level);UiKit.PlaceScreen(_viewport,r.Grid);UiKit.PlaceScreen(_button.rectTransform,r.Button);
+            var r=_regions;_header.Place(r.Header);UiKit.PlaceScreen(_tabsBox,r.Tabs);UiKit.PlaceScreen(_summary.rectTransform,r.Summary);UiKit.PlaceScreen(_preview.Rect,r.Preview);UiKit.PlaceScreen(_previewName.rectTransform,r.PreviewName);UiKit.PlaceScreen((RectTransform)_levelSign.transform,r.Level);UiKit.PlaceScreen(_viewport,r.Grid);UiKit.PlaceScreen(_button.rectTransform,r.Button);
             UiKit.PlaceScreen(_nameCard.rectTransform,r.NameCard);UiKit.PlaceScreen(_nameTitle,ProfileGameDesign.In(r.NameCard,.12f,.17f,.88f,.36f));UiKit.PlaceScreen(_nameIcon,Box.FromCenter(r.NameCard.CenterX,r.NameCard.Top,r.W*.09f,r.W*.09f));UiKit.PlaceScreen(_field.rectTransform,r.NameField);UiKit.PlaceScreen(_hint.rectTransform,r.NameHint);UiKit.PlaceScreen(_note.rectTransform,r.Note);
             UiKit.PlaceScreen(_status.rectTransform,new Box(r.Grid.Left,r.Button.Top-r.W*.085f,r.Grid.Right,r.Button.Top-r.W*.015f));
         }
         private void Redraw()
         {
             var editor=_editor;if(editor==null)return;
-            _preview.Show(new ProfileLook(editor.Frame,editor.Badge,null),null,editor.Avatar);_previewName.text=editor.Name??Loc.F("profile.default_name",_profile.DefaultNumber);_levelLabel.text=Loc.F("common.level",NumberText.Group(_level()));
+            _preview.Show(new ProfileLook(editor.Frame,editor.Badge,null),null,editor.Avatar);_previewName.text=editor.Name??Loc.F("profile.default_name",_profile.DefaultNumber);_levelSign.Text=Loc.F("common.level",NumberText.Group(_level()));
             bool name=editor.Tab==ProfileTab.Name;foreach(GameObject item in new[]{_nameCard.gameObject,_nameTitle.gameObject,_nameIcon.gameObject,_field.gameObject,_hint.gameObject})item.SetActive(name);_viewport.gameObject.SetActive(!name);_note.gameObject.SetActive(false);
             for(int i=_content.childCount-1;i>=0;i--){var child=_content.GetChild(i);child.gameObject.SetActive(false);Destroy(child.gameObject);}
             if(!name)

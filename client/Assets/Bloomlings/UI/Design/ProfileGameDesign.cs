@@ -23,6 +23,13 @@ namespace Bloomlings.Client.UI.Design
         public static readonly TypeStyle Action = new TypeStyle("type.shop.profile_action",56,true,false,0,20);
         public static readonly TypeStyle Progress = new TypeStyle("type.shop.profile_progress",28,true,false,0,16);
         public static TextLook Ink => ShopBodyDesign.DarkLetters;
+        public static byte[] EditSurface(int w,int h) => ShopBodyRaster.Framed(w,h,.28f,ShopBodyDesign.Green,ShopBodyDesign.Green,.05f,true,.15f,.006f,.7f);
+        public static IEnumerable<Box> PencilLayers(Box button)
+        {
+            Box icon=button.Inset(button.Width*.18f);float edge=button.Width*.018f;
+            yield return icon.Offset(-edge,0);yield return icon.Offset(edge,0);
+            yield return icon.Offset(0,-edge);yield return icon.Offset(0,edge);yield return icon;
+        }
         public static (int Left,int Top,int Width,int Height) GoldCrop(int w,int h) => (88*w/1254,100*h/1254,1079*w/1254,1054*h/1254);
         public static string? FrameAsset(string id) => id=="frame.daisy" ? "shop/profile-frame-daisy" : id=="frame.ivy" ? "shop/profile-frame-ivy" : null;
         public static (int Left,int Top,int Width,int Height) FrameCrop(string name,int w,int h)
@@ -37,10 +44,10 @@ namespace Bloomlings.Client.UI.Design
             float left=safe.Left+w*.04f,right=safe.Right-w*.04f;
             float top=store.Header.Back.Bottom+w*.05f;
             Box tabs=new Box(left,top,right,top+w*.09f);
-            Box summary=new Box(left,tabs.Bottom+w*.025f,right,tabs.Bottom+w*.265f);
-            Box preview=In(summary,.07f,.10f,.33f,.90f);
-            Box name=In(summary,.40f,.19f,.93f,.50f);
-            Box level=In(summary,.40f,.57f,.71f,.80f);
+            Box summary=new Box(left+w*.03f,tabs.Bottom+w*.025f,right-w*.03f,tabs.Bottom+w*.205f);
+            Box preview=In(summary,.065f,.10f,.29f,.90f);
+            Box name=In(summary,.35f,.10f,.94f,.44f);
+            Box level=In(summary,.34f,.52f,.82f,.94f);
             Box button=new Box(safe.Left+w*.16f,safe.Bottom-w*.17f,safe.Right-w*.16f,safe.Bottom-w*.045f);
             Box grid=new Box(left,summary.Bottom+w*.025f,right,button.Top-w*.035f);
             return new ProfileGameEditRegions(safe,w,store.Header,tabs,summary,preview,name,level,grid,button);

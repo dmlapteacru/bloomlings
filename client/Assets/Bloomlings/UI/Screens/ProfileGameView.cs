@@ -12,6 +12,19 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>Shared profile material and live labels; all skins preserve their source alpha and use nine-slice.</summary>
     public static class ProfileGameView
     {
+        public static Image EditButton(Transform parent,Action tap)
+        {
+            Image button=UiFactory.CreateImage("EditProfile",parent,null,Color.white);
+            PictureFit.On(button,(w,h)=>ProceduralSprites.Picture("ui.edit/profile-button",w,h,ProfileGameDesign.EditSurface));
+            Image touch=UiFactory.CreateImage("Touch",button.transform,null,Color.clear,raycast:true);UiKit.TapTarget(touch,tap,press:true);
+            BoxLayout.On(button.rectTransform).Add(touch.rectTransform,b=>Box.FromCenter(b.CenterX,b.CenterY,Mathf.Max(b.Width,UiKit.Units(DesignTokens.Size.TouchMin)),Mathf.Max(b.Height,UiKit.Units(DesignTokens.Size.TouchMin))));
+            for(int i=0;i<5;i++)
+            {
+                int index=i;Image pencil=UiFactory.CreateImage("Pencil"+i,button.transform,ProceduralSprites.Shape("ui.edit"),Color.white);
+                BoxLayout.On(button.rectTransform).Add(pencil.rectTransform,b=>{int at=0;foreach(Box box in ProfileGameDesign.PencilLayers(b)){if(at++==index)return box;}return b;});
+            }
+            return button;
+        }
         public static Image Skin(string name,Transform parent,string asset)
         {
             Image image=UiFactory.CreateImage(name,parent,ShopArt.Get(asset),Color.white);

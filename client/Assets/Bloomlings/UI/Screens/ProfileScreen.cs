@@ -98,9 +98,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.TapTarget(avatarHit, () => screen._editCard.Show(ProfileTab.Avatar), press: true);
             screen._avatarButton = avatarHit.rectTransform;
             screen._name = ProfileGameView.Label("Name", root, string.Empty, ProfileGameDesign.Name, align: TextAlignmentOptions.Left);
-            Image edit=ProfileGameView.Price(root,"",()=>screen._editCard.Show(ProfileTab.Name),petals:false);
-            Image pencil=UiFactory.CreateImage("Pencil",edit.transform,ProceduralSprites.Shape("ui.edit"),Color.white);
-            BoxLayout.On(edit.rectTransform).Add(pencil.rectTransform,b=>b.Inset(b.Width*.25f));screen._edit=edit.rectTransform;
+            screen._edit=ProfileGameView.EditButton(root,()=>screen._editCard.Show(ProfileTab.Name)).rectTransform;
             screen._id = UiKit.Label("Id", root, string.Empty, ProfileGameDesign.Info, UiTheme.Of(ShopBodyDesign.Ink), TextAlignmentOptions.Left);
             screen._joined = UiKit.Label("Joined", root, string.Empty, ProfileGameDesign.Info, UiTheme.Of(ShopBodyDesign.Ink), TextAlignmentOptions.Left);
             screen._plaque = UiKit.WoodSign("Level", root, Loc.F("common.level", 1), T.LevelPill);

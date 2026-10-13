@@ -16,7 +16,9 @@ namespace Bloomlings.Playtest.Design
             ProfileGamePainter.Skin(p,r.Card,ShopCatalogDesign.CosmeticsFrame);
             Kit.Avatar(p,r.Avatar,profile.Avatar,meta.Wardrobe.Profile.Frame,meta.Wardrobe.Profile.Badge,covered ? null : ()=>app.OpenProfileEdit(ProfileTab.Avatar),HomeScreen.OutfitsOf(app)?.Invoke(profile.Avatar.Family));
             ProfileGamePainter.Label(p,r.Name,NameOf(profile),ProfileGameDesign.Name,left:true);
-            ProfileGamePainter.Price(p,r.Edit,"",covered ? null : ()=>app.OpenProfileEdit(ProfileTab.Name),false,Kit.Touch(p,r.Edit));p.Shape("ui.edit",r.Edit.Inset(r.Edit.Width*.25f),Rgba.White);
+            p.Mark("ui.edit");p.Picture("ui.edit/profile-button",r.Edit,ProfileGameDesign.EditSurface);
+            foreach(Box pencil in ProfileGameDesign.PencilLayers(r.Edit))p.Shape("ui.edit",pencil,Rgba.White);
+            if(!covered)p.Hit(Kit.Touch(p,r.Edit),()=>app.OpenProfileEdit(ProfileTab.Name));
             ProfileGamePainter.Label(p,r.Id,PlaytestText.F("profile.id",profile.ShortId),ProfileGameDesign.Info,left:true);
             ProfileGamePainter.Label(p,r.Joined,PlaytestText.F("profile.joined",profile.JoinedMonth),ProfileGameDesign.Info,left:true);
             Kit.WoodSign(p,r.Plaque,PlaytestText.F("common.level",NumberText.Group(meta.CurrentLevel)),T.LevelPill);
@@ -53,7 +55,7 @@ namespace Bloomlings.Playtest.Design
             ProfileGamePainter.Skin(p,r.Summary,ShopCatalogDesign.CosmeticsFrame);
             Kit.Avatar(p,r.Preview,editor.Avatar,editor.Frame,editor.Badge,null);
             ProfileGamePainter.Label(p,r.PreviewName,editor.Name??PlaytestText.F("profile.default_name",meta.Profile.DefaultNumber),ProfileGameDesign.Name,left:true);
-            p.Picture("profile.level",r.Level,(w,h)=>ShopCatalogDesign.ActionSurface(w,h,false));ProfileGamePainter.Label(p,r.Level,PlaytestText.F("common.level",NumberText.Group(meta.CurrentLevel)),ProfileGameDesign.Info);
+            Kit.WoodSign(p,r.Level,PlaytestText.F("common.level",NumberText.Group(meta.CurrentLevel)),T.LevelPill);
             if(editor.Tab==ProfileTab.Name)
             {
                 ProfileGamePainter.Skin(p,r.NameCard,ProfileGameDesign.Gold);p.Sprite("navigation/icon-name",Box.FromCenter(r.NameCard.CenterX,r.NameCard.Top,r.W*.09f,r.W*.09f));
