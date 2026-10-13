@@ -819,6 +819,19 @@ namespace Bloomlings.Playtest.Droid
             _canvas.RestoreToCount(layer);
         }
 
+        public override void SpriteTint(string name,Box box,Rgba tint)
+        {
+            var picture=Drawable(name);
+            if(!picture.HasValue) return;
+            var (bitmap,w,h)=picture.Value;
+            using var filter=new PorterDuffColorFilter(new Color(tint.R,tint.G,tint.B),PorterDuff.Mode.SrcIn!);
+            using var paint=new Paint(PaintFlags.AntiAlias|PaintFlags.FilterBitmap);
+            paint.SetColorFilter(filter);
+            paint.Alpha=(int)(tint.A*Alpha);
+            _source.Set(0,0,w,h);
+            _canvas.DrawBitmap(bitmap,_source,R(Fit(box,w,h)),paint);
+        }
+
         /// <summary>
         /// A picture to draw and the size of its part of the bitmap (from the top-left): an embedded picture decoded once,
         /// or an animated hero's frame from its palette picture in a reused bitmap (<see cref="HeroBitmaps"/>); a frame

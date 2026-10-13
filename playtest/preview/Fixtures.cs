@@ -350,7 +350,7 @@ namespace Bloomlings.Playtest.Preview
                 app.OpenStore();
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
                 Box area = ShopBodyDesign.Bounds(r);
-                app.ShopScrollOffset = ShopBodyDesign.Build(area, PlaytestText.T, _ => true, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked).First(n => n.Kind == ShopVisualKind.Text && n.Value == PlaytestText.T("store.shop_petals")).Box.Top - area.Top;
+                app.ShopScrollOffset = ShopBodyDesign.Build(area, PlaytestText.T, _ => true, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked).First(n => n.Kind == ShopVisualKind.Card && n.Group == ShopGroup.Petals).Box.Top - area.Top;
                 Run(app, p, 0.5f);
             });
 
@@ -363,6 +363,10 @@ namespace Bloomlings.Playtest.Preview
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
                 Box area = ShopBodyDesign.Bounds(r);
                 List<ShopVisual> nodes = ShopBodyDesign.Build(area, PlaytestText.T, _ => true, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked);
+                Box featured = nodes.First(n => n.Value == "shop/hero-card-v2").Box;
+                Box inset = ShopBodyDesign.FeaturedInset(featured);
+                Expect(nodes.Where(n => n.Kind == ShopVisualKind.Sprite && n.Value.StartsWith("shop/boost-", StringComparison.Ordinal)).Take(4).All(n => n.Box.Within(inset)), "all featured reward icons stay inside the asset's inset at this screen shape");
+                Expect(nodes.First(n => n.Id == "garden_small").Box.Within(ShopBodyDesign.FeaturedFooter(featured)), "featured price button stays inside the red footer");
                 Box Button(string id) => nodes.First(n => n.Kind == ShopVisualKind.Button && n.Id == id).Box.Offset(0, -app.ShopScrollOffset);
                 int petals = app.Meta.Economy.Petals;
                 Tap(p, Button("remove_ads"));

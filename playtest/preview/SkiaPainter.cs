@@ -703,6 +703,15 @@ namespace Bloomlings.Playtest.Preview
             Canvas.Restore();
         }
 
+        public override void SpriteTint(string name, Box box, Rgba tint)
+        {
+            SKImage? sprite = LoadSprite(name);
+            if (sprite == null) { MissingSprites.Add(name); return; }
+            using var filter = SKColorFilter.CreateBlendMode(new SKColor(tint.R, tint.G, tint.B), SKBlendMode.SrcIn);
+            using var paint = new SKPaint { IsAntialias = true, ColorFilter = filter, Color = new SKColor(255, 255, 255, (byte)(tint.A * Alpha)) };
+            Canvas.DrawImage(sprite, Rect(Fit(box, sprite.Width, sprite.Height)), new SKSamplingOptions(SKFilterMode.Linear), paint);
+        }
+
         /// <summary>
         /// A picture from the embedded resources (null when missing): an animated hero's frame from its palette picture,
         /// expanded for the frames that draw it (a frame that is not a palette PNG decodes as any picture), else decoded

@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 90 | 0 | 90 |
+| UI kit | 91 | 0 | 91 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **245** | **40** | **285** |
+| **All** | **246** | **40** | **286** |
 
 ## Brand
 
@@ -314,6 +314,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.shop.card` | Garden store card | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
 | `ui.shop.ribbon` | Garden store ribbon | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
 | `ui.shop.well` | Garden store well | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
+| `ui.shop.rewardbox` | Garden store rewardbox | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
 | `ui.shop.button` | Illustrated nine-slice price button | 17, 53, 54 | Store body | normal; pressed | Large | yes | Launch | Shop/price-button.png, separate text |
 | `ui.shop.illustrations` | Garden offer illustrations and booster coins | 17, 53, 54 | Store body | offer | Large | no | Launch | Shop/offer-atlas.png; hero-card-v2.png; noads-basket-v2.png; booster-atlas-v2.png |
 

@@ -519,7 +519,7 @@ namespace Bloomlings.Client.UI.Design
                 Add("audio.cue." + cue, "Sound: " + title, Array.Empty<int>(), use, "one-shot", SizeClass.Audio, false, Launch, PlaceholderKind.Synth, "synthesized tone");
             }
 
-            foreach (string kind in new[] { "card", "ribbon", "well" })
+            foreach (string kind in new[] { "card", "ribbon", "well", "rewardbox" })
                 Add("ui.shop." + kind, "Garden store " + kind, new[] { 17, 53, 54 }, "Store body", "normal; pressed", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "Shared ShopBodyDesign surface");
             Add("ui.shop.button", "Illustrated nine-slice price button", new[] { 17, 53, 54 }, "Store body", "normal; pressed", SizeClass.Large, true, Launch, PlaceholderKind.Generated, "Shop/price-button.png, separate text");
             Add("ui.shop.illustrations", "Garden offer illustrations and booster coins", new[] { 17, 53, 54 }, "Store body", "offer", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "Shop/offer-atlas.png; hero-card-v2.png; noads-basket-v2.png; booster-atlas-v2.png");

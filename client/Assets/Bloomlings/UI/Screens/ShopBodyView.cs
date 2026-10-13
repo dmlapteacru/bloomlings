@@ -20,22 +20,16 @@ namespace Bloomlings.Client.UI.Screens
                 {
                     Sprite? sprite = n.Value.StartsWith("icon/", StringComparison.Ordinal) ? OwnerArt.Icon(n.Value.Substring(5)) : ShopArt.Get(n.Value);
                     if (sprite == null) continue;
-                    Image art = UiFactory.CreateImage("ShopArt", parent, sprite, Color.white);
+                    Image art = UiFactory.CreateImage("ShopArt", parent, sprite, n.Tint.HasValue ? UiTheme.Of(n.Tint.Value) : Color.white);
                     art.preserveAspect = true;
                     UiKit.PlaceBox(art.rectTransform, n.Box, parentBox);
-                    continue;
-                }
-                if (n.Kind == ShopVisualKind.Divider)
-                {
-                    Image line = UiKit.RoundRect("VineDivider", parent, UiTheme.Of(ShopBodyDesign.Green.Face), _ => n.Box.Height * 0.5f);
-                    UiKit.PlaceBox(line.rectTransform, n.Box, parentBox);
                     continue;
                 }
                 bool painted = n.Kind == ShopVisualKind.Button && !n.Dark;
                 Image surface = UiFactory.CreateImage("Shop" + n.Kind, parent, painted ? ShopArt.Get("shop/price-button") : null, Color.white, n.Kind == ShopVisualKind.Button);
                 if (painted) surface.pixelsPerUnitMultiplier = 190f / (n.Box.Height / UiKit.PixelsPerUnit * 0.4f);
                 ShopVisualKind surfaceKind = n.Kind == ShopVisualKind.Button && n.Dark ? ShopVisualKind.Well : n.Kind;
-                if (!painted) PictureFit.On(surface, (w, h) => ProceduralSprites.Picture("shop.surface/" + surfaceKind, w, h, (rw, rh) => ShopBodyDesign.Surface(surfaceKind, rw, rh)));
+                if (!painted) PictureFit.On(surface, (w, h) => ProceduralSprites.Picture("shop.surface/" + surfaceKind + "/" + n.Group, w, h, (rw, rh) => ShopBodyDesign.Surface(surfaceKind, rw, rh, n.Group)));
                 UiKit.PlaceBox(surface.rectTransform, n.Box, parentBox);
                 if (n.Kind != ShopVisualKind.Button) continue;
                 StoreItem? offer = item(n.Id);
@@ -59,7 +53,7 @@ namespace Bloomlings.Client.UI.Screens
                     UiKit.PlaceBox(petals.rectTransform, icon, n.Box);
                     textBox = new Box(n.Box.Left + n.Box.Width * 0.25f, textBox.Top, textBox.Right, textBox.Bottom);
                 }
-                Text(surface.transform, n.Box, n with { Kind = ShopVisualKind.Text, Box = textBox, Dark = false });
+                Text(surface.transform, n.Box, n with { Kind = ShopVisualKind.Text, Box = textBox, Look = ShopBodyDesign.LookFor(n) });
                 float min = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
                 Image hit = UiFactory.CreateImage("Touch", surface.transform, null, Color.clear, raycast: true);
                 UiKit.PlaceBox(hit.rectTransform, Box.FromCenter(n.Box.CenterX, n.Box.CenterY, Math.Max(n.Box.Width, min), Math.Max(n.Box.Height, min)), n.Box);
@@ -68,13 +62,14 @@ namespace Bloomlings.Client.UI.Screens
         private static void Text(Transform parent, Box parentBox, ShopVisual n)
         {
             TypeStyle type = n.Type ?? ShopBodyDesign.Title;
-            TextLook look = n.Dark ? ShopBodyDesign.DarkLetters : ShopBodyDesign.Letters;
+            TextLook look = ShopBodyDesign.LookFor(n);
             TextMeshProUGUI label = UiKit.Label("ShopLabel", parent, n.Value, type, UiTheme.Of(look.FillTop), look: look);
             float pixels = Math.Min(type.Size * DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height), n.Box.Height * 0.79f);
             label.fontSizeMax = pixels / UiKit.PixelsPerUnit;
             label.fontSize = label.fontSizeMax;
             label.fontSizeMin = Math.Min(label.fontSizeMax, 14f);
             UiKit.PlaceBox(label.rectTransform, n.Box, parentBox);
+            label.rectTransform.localEulerAngles = new Vector3(0, 0, -n.Angle);
         }
     }
 }

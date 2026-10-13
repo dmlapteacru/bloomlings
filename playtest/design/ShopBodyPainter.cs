@@ -28,9 +28,8 @@ namespace Bloomlings.Playtest.Design
             {
                 ShopVisual n = source with { Box = source.Box.Offset(0, -app.ShopScrollOffset) };
                 if (n.Box.Bottom <= area.Top || n.Box.Top >= area.Bottom) continue;
-                if (n.Kind == ShopVisualKind.Sprite) { if (n.Value.StartsWith("shop/", StringComparison.Ordinal)) p.Mark("ui.shop.illustrations"); p.Sprite(n.Value, n.Box); continue; }
+                if (n.Kind == ShopVisualKind.Sprite) { if (n.Value.StartsWith("shop/", StringComparison.Ordinal)) p.Mark("ui.shop.illustrations"); if (n.Tint.HasValue) p.SpriteTint(n.Value, n.Box, n.Tint.Value); else p.Sprite(n.Value, n.Box); continue; }
                 if (n.Kind == ShopVisualKind.Text) { Text(p, n); continue; }
-                if (n.Kind == ShopVisualKind.Divider) { p.FillRound(n.Box, n.Box.Height * 0.5f, ShopBodyDesign.Green.Face); continue; }
                 p.Mark("ui.shop." + n.Kind.ToString().ToLowerInvariant());
                 bool isButton = n.Kind == ShopVisualKind.Button;
                 bool booster = isButton && n.Id.StartsWith("booster_", StringComparison.Ordinal);
@@ -47,7 +46,7 @@ namespace Bloomlings.Playtest.Design
                 {
                     PriceSkin(p, n.Box);
                 }
-                else p.Picture("shop.surface/" + surface, n.Box, (w, h) => ShopBodyDesign.Surface(surface, w, h));
+                else p.Picture("shop.surface/" + surface + "/" + n.Group, n.Box, (w, h) => ShopBodyDesign.Surface(surface, w, h, n.Group));
                 if (n.Kind != ShopVisualKind.Button) continue;
                 Box label = ShopBodyDesign.ButtonLabel(n.Box, n.Dark);
                 if (n.Dark)
@@ -55,7 +54,7 @@ namespace Bloomlings.Playtest.Design
                     Kit.Petal(p, new Box(n.Box.Left + n.Box.Width * 0.04f, n.Box.Top + n.Box.Height * 0.1f, n.Box.Left + n.Box.Width * 0.24f, n.Box.Bottom - n.Box.Height * 0.1f));
                     label = new Box(n.Box.Left + n.Box.Width * 0.25f, label.Top, label.Right, label.Bottom);
                 }
-                Text(p, n with { Box = label, Dark = false });
+                Text(p, n with { Box = label });
                 if (!enabled) p.PopAlpha();
                 p.PopTransform();
                 if (enabled && Kit.Touch(p, n.Box).Within(area))
@@ -72,8 +71,10 @@ namespace Bloomlings.Playtest.Design
             p.Mark("font.shop");
             TypeStyle type = n.Type ?? ShopBodyDesign.Title;
             float size = Math.Min(type.Size * p.Scale, n.Box.Height * 0.79f);
-            TextLook look = n.Dark ? ShopBodyDesign.DarkLetters : ShopBodyDesign.Letters;
+            TextLook look = ShopBodyDesign.LookFor(n);
+            if (n.Angle != 0) p.PushRotate(n.Angle, n.Box.CenterX, n.Box.CenterY);
             p.Text(n.Value, n.Box.CenterX, n.Box.CenterY, type, look.FillTop, n.Box.Width, size / (type.Size * p.Scale), look);
+            if (n.Angle != 0) p.PopTransform();
         }
         private static void PriceSkin(IPainter p, Box b)
         {

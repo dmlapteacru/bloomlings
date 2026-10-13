@@ -265,6 +265,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         public abstract void Sprite(string name, Box box);
+        public abstract void SpriteTint(string name, Box box, Rgba tint);
 
         public abstract bool HasSprite(string name);
 

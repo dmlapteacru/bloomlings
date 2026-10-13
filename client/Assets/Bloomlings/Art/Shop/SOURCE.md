@@ -35,4 +35,12 @@ Exact generation prompts and source output filenames are in `prompts-v2.json`. T
 
 Green price buttons remain nine-slice skins with narrower proportions and greater vertical padding. Booster prices now use larger white lettering with the same brown outline and extrusion as other shop prices. The wider No Ads bundle and all offer illustrations use more of their cards' area.
 
+## Revision 3: frames and featured-card alignment
+
+Group headings and green dividers are removed. Procedural `ShopBodyRaster` rims distinguish Petals (gold), boosters (blue), bundles (pink) and No Ads (mint). These are code-generated UI surfaces. The first illustrated card retains its own red frame.
+
+Code-built bundles now contain a framed reward inset with padding around the booster grid. The featured grid and footer overlays use the aspect-fitted bounds of the 1704-by-923 card PNG. This corrects the previous mismatch between the outer layout rectangle and the artwork's fitted rectangle. The featured booster icons fit inside the illustrated inner panel, and the caption and price button are raised into the red footer.
+
+The leaf carries live, rotated `BEST SELLER` text and three alpha-tinted silhouette layers behind the original leaf to create a luminous rim. No source PNG is modified. General outlined lettering is heavier; money prices use a dark green outline. Booster prices use brown text without an outline and a more rounded, visibly framed price capsule.
+
 Generated assets may be used as part of this project. Font licensing is recorded separately in `client/THIRD_PARTY_NOTICES.md`.

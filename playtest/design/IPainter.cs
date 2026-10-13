@@ -67,6 +67,8 @@ namespace Bloomlings.Playtest.Design
         /// and transform stacks. Pictures are decoded once and cached.
         /// </summary>
         void Sprite(string name, Box box);
+        /// <summary>A flat tint clipped to the sprite's alpha silhouette, for glows behind illustrated UI.</summary>
+        void SpriteTint(string name, Box box, Rgba tint);
 
         /// <summary>Whether the picture is embedded and decodes (else callers draw the spec 002 fallback, FR-021).</summary>
         bool HasSprite(string name);
