@@ -93,6 +93,19 @@ namespace Bloomlings.Client.UI.Design
             _ => null,
         };
         public static string ResourceName(string name) => name.StartsWith("boost-", StringComparison.Ordinal) ? "booster-atlas-v2" : name == "background" || name == "price-button" || name == "hero-card-v2" || name == "noads-basket-v2" ? name : "offer-atlas";
+        public static (int Left, int Top, int Width, int Height) BoosterCrop(string name, int width, int height)
+        {
+            // Opaque subject bounds (alpha >= 160) plus 3 pixels; all icons center their artwork, not the atlas cell.
+            Box crop = name switch
+            {
+                "boost-extra_slot" => new Box(46, 51, 592, 593),
+                "boost-shuffle" => new Box(33, 52, 583, 597),
+                "boost-return" => new Box(47, 29, 583, 560),
+                "boost-bloom_burst" => new Box(12, 25, 585, 550),
+                _ => new Box(0, 0, 627, 627),
+            };
+            return ((int)(crop.Left * width / 627), (int)(crop.Top * height / 627), (int)(crop.Width * width / 627), (int)(crop.Height * height / 627));
+        }
         public static (int Column, int Row)? AtlasCell(string name) => name switch
         {
             "hero" => (0, 0),

@@ -700,9 +700,8 @@ namespace Bloomlings.Playtest.Design
 
             Squash(p, tile, depth, tile: true);
             Box f = BoosterBezel(p, tile, radius, depth, state.Disabled);
-            // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile, as in the
-            // reference.
-            float icon = s * 0.90f;
+            // Cropped artwork fills a centered box with equal top/bottom padding.
+            float icon = s * 0.80f;
             BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, f.CenterY, icon, icon), grey: state.Disabled);
             p.PopTransform();
 

@@ -39,8 +39,10 @@ namespace Bloomlings.Client.UI.Design
         {
             Rgba color = locked ? Rgba.FromHex("#83978C") : variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : Rgba.FromHex("#B99ACC");
             if (!locked) color = UiRaster.Vivid(color, 1.18f);
-            Rgba top = color.Lighten(0.91f), bottom = color.Lighten(0.78f);
-            float size = Math.Min(w, h), padding = Math.Max(1, size * 0.008f), radius = size * PodRadiusShare, stroke = Math.Max(1.5f, size * 0.055f), lip = size * 0.085f;
+            Rgba top = locked ? color.Lighten(0.88f) : Rgba.FromHex("#FFF4DE").Mix(color, 0.055f);
+            Rgba bottom = locked ? color.Lighten(0.75f) : Rgba.FromHex("#FBE6C7").Mix(color, 0.11f);
+            bool raised = !waiting && !locked;
+            float size = Math.Min(w, h), padding = Math.Max(1, size * 0.008f), radius = size * PodRadiusShare, stroke = Math.Max(1.5f, size * 0.055f), lip = raised ? size * 0.085f : 0;
             byte[] pixels = new byte[w * h * 4];
             for (int y = 0; y < h; y++) for (int x = 0; x < w; x++)
             {
@@ -51,14 +53,29 @@ namespace Bloomlings.Client.UI.Design
                     float qx = Math.Abs(px - w * 0.5f) - (w * 0.5f - padding - radius), qy = Math.Abs(py - h * 0.5f) - (h * 0.5f - padding - radius);
                     float ox = Math.Max(0, qx), oy = Math.Max(0, qy);
                     float distance = (float)Math.Sqrt(ox * ox + oy * oy) + Math.Min(Math.Max(qx, qy), 0) - radius;
-                    // A broad flat rim around a pale face; the raised face leaves a taller colored lower lip.
-                    Rgba rim = color.Lighten(0.04f * (1 - py / h)).Mix(color.Darken(0.12f), (1 - Smooth(0, 1.2f, -distance)) * 0.5f);
+                    // The selectable pod has a rounded upper face over a separate, deeper colored base.
+                    float ty = Math.Abs(py - (h - lip) * 0.5f) - ((h - lip) * 0.5f - padding - radius);
+                    float topDistance = (float)Math.Sqrt(ox * ox + Math.Max(0, ty) * Math.Max(0, ty)) + Math.Min(Math.Max(qx, ty), 0) - radius;
+                    float across = Math.Max(0, Math.Min(1, -topDistance / stroke));
+                    float shine = (float)Math.Sin(Math.PI * across) * (0.38f - 0.18f * py / h);
+                    Rgba rim = color.Lighten(0.08f + shine).Mix(color.Darken(0.17f), (1 - Smooth(0, size * 0.014f, -topDistance)) * 0.55f);
                     float faceRadius = Math.Max(1, radius - stroke);
                     float fx = Math.Abs(px - w * 0.5f) - (w * 0.5f - padding - stroke - faceRadius);
                     float fy = Math.Abs(py - (h - lip) * 0.5f) - ((h - lip) * 0.5f - padding - stroke - faceRadius);
                     float faceDistance = (float)Math.Sqrt(Math.Max(0, fx) * Math.Max(0, fx) + Math.Max(0, fy) * Math.Max(0, fy)) + Math.Min(Math.Max(fx, fy), 0) - faceRadius;
-                    rim = rim.Mix(color.Darken(0.16f), Smooth(h - lip - stroke, h - padding, py) * 0.65f);
-                    Rgba c = rim.Mix(top.Mix(bottom, py / h), 1 - Smooth(-0.6f, 0.6f, faceDistance));
+                    float channelWidth = Math.Max(1, size * 0.018f);
+                    float insetShadow = (float)Math.Exp(-Math.Max(0, -faceDistance) / channelWidth) * 0.22f;
+                    Rgba face = top.Mix(bottom, py / h).Mix(color.Darken(0.42f), insetShadow);
+                    Rgba c = rim.Mix(face, 1 - Smooth(-0.6f, 0.6f, faceDistance));
+                    if (raised)
+                    {
+                        float sideDepth = Smooth(h - lip - padding - radius, h - padding, py);
+                        Rgba side = color.Darken(0.10f + sideDepth * 0.20f);
+                        // A slim seam follows the curved front edge, then a softer reflection across the lower side.
+                        side = side.Mix(color.Lighten(0.24f), (float)Math.Exp(-Math.Pow((topDistance - size * 0.023f) / (size * 0.012f), 2)) * 0.60f);
+                        side = side.Mix(color.Darken(0.40f), (float)Math.Exp(-Math.Pow(topDistance / (size * 0.010f), 2)) * 0.50f);
+                        c = c.Mix(side, Smooth(-0.6f, 0.6f, topDistance));
+                    }
                     float cover = 1 - Smooth(-0.75f, 0.75f, distance);
                     float shadow = 0.035f * (float)Math.Exp(-Math.Max(0, distance) * Math.Max(0, distance) / 4f);
                     float a = cover + shadow * (1 - cover);

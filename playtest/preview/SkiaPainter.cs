@@ -784,7 +784,9 @@ namespace Bloomlings.Playtest.Preview
                             if (image != null && booster.HasValue)
                             {
                                 int w = image.Width / 2, h = image.Height / 2;
-                                SKImage? cropped = image.Subset(new SKRectI(booster.Value.Column * w, booster.Value.Row * h, (booster.Value.Column + 1) * w, (booster.Value.Row + 1) * h));
+                                var crop = ShopBodyDesign.BoosterCrop(name.Substring(5), w, h);
+                                int left = booster.Value.Column * w + crop.Left, top = booster.Value.Row * h + crop.Top;
+                                SKImage? cropped = image.Subset(new SKRectI(left, top, left + crop.Width, top + crop.Height));
                                 image.Dispose();
                                 image = cropped;
                             }

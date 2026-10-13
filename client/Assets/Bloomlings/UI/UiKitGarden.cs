@@ -1352,9 +1352,8 @@ namespace Bloomlings.Client.UI
             Face = UiKit.BoosterBezel("Tile", root, 0.26f, raycast: true);
             Face.TileSquash = true;
             _icon = UiKit.BoosterIcon("Icon", Face.Content, boosterId);
-            // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile (the playtest's
-            // 0.74 of the tile; IconSide is the face's share of it).
-            float IconBox() => Face.IconSide * 0.90f / GardenLook.IconRimFaceShare;
+            // Cropped artwork fills a centered box with equal top/bottom padding.
+            float IconBox() => Face.IconSide * 0.80f / GardenLook.IconRimFaceShare;
             BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, IconBox(), IconBox()));
 
             _badge = UiKit.CountBadge("Count", root, out _badgeDisc);

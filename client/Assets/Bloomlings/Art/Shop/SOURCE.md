@@ -69,4 +69,8 @@ Booster-price capsules have a brighter upper-face highlight, a soft lower-face s
 
 `ShopBodyDesign.ButtonPetal` supplies a larger square currency icon centered between the inner left rim and the price-label region. Unity and the Skia/Android painter use the same helper and label region. The two tilted `BEST SALE` lines move left together onto the center of the leaf artwork. Source PNGs are unchanged.
 
+## Booster alignment, gameplay revision 5
+
+`ShopBodyDesign.BoosterCrop` supplies measured opaque-subject bounds (alpha >= 160 plus a 3-pixel gutter) for the four booster atlas cells. Unity, Skia and Android slice these rectangles, so the return/flower icons no longer sit above center due to excess transparent space below them. Gameplay uses a centered 80%-of-card icon box; shop reward icons keep their existing boxes. The source PNG is unchanged.
+
 Generated assets may be used as part of this project. Font licensing is recorded separately in `client/THIRD_PARTY_NOTICES.md`.

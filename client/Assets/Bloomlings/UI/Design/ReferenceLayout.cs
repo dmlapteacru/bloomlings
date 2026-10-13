@@ -199,7 +199,7 @@ namespace Bloomlings.Client.UI.Design
         public const float MinAspect = 1.10f;
 
         /// <summary>The candy tile's side, as a share of the panel's height (a little over it, into the border).</summary>
-        public const float TileShare = 0.90f;
+        public const float TileShare = 0.84f;
 
         /// <summary>How far the owner's icon reaches beyond the tile's square on each side, as a share of the pod's height.</summary>
         public const float IconGrow = 0.015f;
@@ -226,7 +226,7 @@ namespace Bloomlings.Client.UI.Design
             Box frame = Box.FromCenter(place.CenterX, place.CenterY, Math.Min(place.Width, h * Aspect), h);
             Box inner = frame.Inset(h * Border);
             float side = waiting ? h * 0.47f : inner.Height * TileShare;
-            float iconY = waiting ? frame.Top + h * 0.74f : inner.CenterY;
+            float iconY = waiting ? frame.Top + h * 0.74f : inner.CenterY - h * 0.0425f;
             Box tile = Box.FromCenter(inner.CenterX, iconY, side, side);
             Box icon = waiting ? Box.FromCenter(inner.CenterX, iconY, inner.Width * 0.70f, side) : tile.Inset(-h * IconGrow);
             float size = h * CountShare;

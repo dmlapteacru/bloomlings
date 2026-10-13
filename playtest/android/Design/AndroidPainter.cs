@@ -896,7 +896,8 @@ namespace Bloomlings.Playtest.Droid
                         if(bitmap!=null&&booster.HasValue)
                         {
                             int w=bitmap.Width/2,h=bitmap.Height/2;
-                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,booster.Value.Column*w,booster.Value.Row*h,w,h);
+                            var crop=ShopBodyDesign.BoosterCrop(name.Substring(5),w,h);
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,booster.Value.Column*w+crop.Left,booster.Value.Row*h+crop.Top,crop.Width,crop.Height);
                             bitmap.Dispose();
                             bitmap=cropped;
                         }

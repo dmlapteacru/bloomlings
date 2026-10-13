@@ -23,7 +23,8 @@ namespace Bloomlings.Client.UI
                 var cell = ShopBodyDesign.BoosterCell(key);
                 if (!cell.HasValue) return Sprites[name] = null;
                 int w = texture.width / 2, h = texture.height / 2;
-                rect = new Rect(cell.Value.Column * w, (1 - cell.Value.Row) * h, w, h);
+                var crop = ShopBodyDesign.BoosterCrop(key, w, h);
+                rect = new Rect(cell.Value.Column * w + crop.Left, texture.height - (cell.Value.Row * h + crop.Top + crop.Height), crop.Width, crop.Height);
             }
             else
             {
