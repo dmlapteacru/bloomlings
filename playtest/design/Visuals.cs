@@ -209,6 +209,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>A worn hat in full color: a darker outline of its own tint, the fill, a light top-left.</summary>
         private static void Hat(IPainter p, Box hatBox, CosmeticItem item)
         {
+            string? asset=ShopCatalogDesign.Accessory(item.Id);
+            if(asset!=null&&p.HasSprite(asset)){p.Mark("ui.shop.illustrations");p.Sprite(asset,hatBox);return;}
             string hat = ShapeLibrary.CosmeticId(item.Shape);
             Rgba tint = Tint(item);
             if (ShapeLibrary.Has(hat))

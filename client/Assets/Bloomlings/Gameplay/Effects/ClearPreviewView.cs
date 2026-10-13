@@ -30,18 +30,22 @@ namespace Bloomlings.Client.Gameplay.Effects
         private ClearFxView _fxBoard = null!;
         private ClearFxView _fxOver = null!;
         private ClearStyle _style;
+        private bool _catalog;
+        private ClearPreview _scene = null!;
         private VariantId? _shown;
         private int _count = -1;
         private Vector2 _size;
         private float _cell;
 
         /// <summary>A preview filling <paramref name="well"/> (a card's picture rect, which clips it).</summary>
-        public static ClearPreviewView Create(RectTransform well, ClearStyle style, System.Func<Family, Outfit>? outfits = null)
+        public static ClearPreviewView Create(RectTransform well, ClearStyle style, System.Func<Family, Outfit>? outfits = null, bool catalog = false)
         {
             RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("ClearingPreview", well));
             var view = root.gameObject.AddComponent<ClearPreviewView>();
             view._root = root;
             view._style = style;
+            view._catalog = catalog;
+            view._scene = catalog ? ClearPreview.Catalog(style) : ClearPreview.Of(style);
             view.Build(outfits);
             return view;
         }
@@ -51,24 +55,27 @@ namespace Bloomlings.Client.Gameplay.Effects
             _grid = UiFactory.CreateRect("Grid", _root);
             _ground = UiFactory.CreateImage("Ground", _grid, null, Color.white);
             UiFactory.Stretch(_ground.rectTransform);
-            UiKit.StoneBorder(_grid, ClearPreview.Columns, ClearPreview.Rows);
-            for (int row = 0; row < ClearPreview.Rows; row++)
+            UiKit.StoneBorder(_grid, _scene.BoardColumns, _scene.BoardRows);
+            for (int row = 0; row < _scene.BoardRows; row++)
             {
-                for (int column = 0; column < ClearPreview.Columns; column++)
+                for (int column = 0; column < _scene.BoardColumns; column++)
                 {
                     // Each tile in a holder pivoted on its bottom middle, so Blossom's sway turns it about its foot.
                     RectTransform holder = UiFactory.CreateRect("Cell", _grid);
-                    CandyTileView tile = UiKit.CandyTile("Tile", holder, ClearPreview.VariantOf(_style), TileStyle.Mosaic);
+                    CandyTileView tile = UiKit.CandyTile("Tile", holder, _scene.VariantAt(column,row), _catalog ? TileStyle.MosaicIcon : TileStyle.Mosaic);
                     _tiles.Add((holder, tile));
                 }
             }
 
             _arch = UiFactory.CreateImage("EntryArch", _grid, null, Color.white);
             _slot = UiKit.SlotPlate("Slot", _grid);
+            _slot.gameObject.SetActive(!_catalog);
             _fxBoard = ClearFxView.Create(_grid, "ClearFx");
             _fxOver = ClearFxView.Create(_grid, "ClearFxOver");
             _fxBoard.Outfits = outfits;
             _fxOver.Outfits = outfits;
+            _fxBoard.CatalogIcons = _catalog;
+            _fxOver.CatalogIcons = _catalog;
         }
 
         private void Update()
@@ -85,17 +92,18 @@ namespace Bloomlings.Client.Gameplay.Effects
                 Layout();
             }
 
-            (ClearPreview scene, float t) = ClearPreview.At(_style, Time.unscaledTime);
+            ClearPreview scene = _scene;
+            float t = scene.PreviewTime(Time.unscaledTime);
             if (!_shown.HasValue || !_shown.Value.Equals(scene.Variant))
             {
                 Show(scene.Variant);
             }
 
-            for (int row = 0; row < ClearPreview.Rows; row++)
+            for (int row = 0; row < scene.BoardRows; row++)
             {
-                for (int column = 0; column < ClearPreview.Columns; column++)
+                for (int column = 0; column < scene.BoardColumns; column++)
                 {
-                    RectTransform holder = _tiles[(row * ClearPreview.Columns) + column].Holder;
+                    RectTransform holder = _tiles[(row * scene.BoardColumns) + column].Holder;
                     bool gone = scene.Cleared(column, row, t) || scene.Held(column, row, t);
                     if (holder.gameObject.activeSelf == gone)
                     {
@@ -110,7 +118,7 @@ namespace Bloomlings.Client.Gameplay.Effects
             }
 
             int count = scene.Count(t);
-            if (count != _count)
+            if (count != _count && !_catalog)
             {
                 _count = count;
                 _slot.Show(count > 0 ? SlotPlateState.Working : SlotPlateState.Empty, count > 0 ? scene.Variant : (VariantId?)null, count);
@@ -126,9 +134,9 @@ namespace Bloomlings.Client.Gameplay.Effects
         private void Show(VariantId variant)
         {
             _shown = variant;
-            foreach ((RectTransform _, CandyTileView tile) in _tiles)
+            for(int i=0;i<_tiles.Count;i++)
             {
-                tile.Show(variant);
+                _tiles[i].Tile.Show(_scene.VariantAt(i%_scene.BoardColumns,i/_scene.BoardColumns));
             }
 
             _count = -1;
@@ -141,15 +149,15 @@ namespace Bloomlings.Client.Gameplay.Effects
         /// </summary>
         private void Layout()
         {
-            Box bounds = ClearPreview.Bounds;
-            float c = Mathf.Min(_size.x * 0.84f / bounds.Width, _size.y * 0.9f / bounds.Height);
+            Box bounds = _scene.ViewBounds;
+            float c = Mathf.Min(_size.x * (_catalog ? .98f : .84f) / bounds.Width, _size.y * (_catalog ? .98f : .9f) / bounds.Height);
             _cell = c;
-            int columns = ClearPreview.Columns;
-            int rows = ClearPreview.Rows;
+            int columns = _scene.BoardColumns;
+            int rows = _scene.BoardRows;
 
             // The grid's top is the picture's top (y up from the well's bottom left).
-            float top = (_size.y / 2f) + (bounds.Height * c / 2f);
-            UiFactory.PlaceAbsolute(_grid, new Vector2(_size.x / 2f, top - (rows * c / 2f)), new Vector2(columns * c, rows * c));
+            float top = (_size.y / 2f) + (bounds.CenterY * c);
+            UiFactory.PlaceAbsolute(_grid, new Vector2(_size.x/2f+(columns*.5f-bounds.CenterX)*c, top - (rows * c / 2f)), new Vector2(columns * c, rows * c));
             Vector2 At(float x, float y) => new Vector2(x * c, (rows - y) * c);
 
             for (int row = 0; row < rows; row++)
@@ -170,7 +178,7 @@ namespace Bloomlings.Client.Gameplay.Effects
                 }
             }
 
-            int entry = ClearPreview.EntryColumn;
+            int entry = _scene.DoorColumn;
             (Box arch, float degrees) = BoardLayout.ArchOf(new Box(entry, rows - 1, entry + 1, rows), EntrySide.Bottom);
             UiFactory.PlaceAbsolute(_arch.rectTransform, At(arch.CenterX, arch.CenterY), new Vector2(arch.Width * c, arch.Height * c));
             _arch.transform.localEulerAngles = new Vector3(0f, 0f, -degrees);
@@ -178,7 +186,7 @@ namespace Bloomlings.Client.Gameplay.Effects
             int ph = UiRaster.Quantize(arch.Height * c * UiKit.PixelsPerUnit);
             _arch.sprite = ProceduralSprites.Picture("board.entry.arch", pw, ph, UiRaster.EntryArch);
 
-            Box slot = ClearPreview.Slot;
+            Box slot = _scene.SlotAt;
             UiFactory.PlaceAbsolute((RectTransform)_slot.transform, At(slot.CenterX, slot.CenterY), new Vector2(slot.Width * c, slot.Height * c));
             foreach (ClearFxView fx in new[] { _fxBoard, _fxOver })
             {
@@ -200,7 +208,7 @@ namespace Bloomlings.Client.Gameplay.Effects
             VariantId variant = _shown.Value;
             int cellPixels = UiRaster.Quantize(_cell * UiKit.PixelsPerUnit);
             Rgba color = BoardPictures.ColorOf(variant).Lighten(0.55f);
-            _ground.sprite = ProceduralSprites.Picture("tile.ground.plain." + variant, ClearPreview.Columns * cellPixels, ClearPreview.Rows * cellPixels, (pw, ph) => BoardPictures.PlainGround(ClearPreview.Columns, ClearPreview.Rows, cellPixels, color));
+            _ground.sprite = ProceduralSprites.Picture("tile.ground.plain." + variant+"/"+_scene.BoardColumns+"/"+_scene.BoardRows, _scene.BoardColumns * cellPixels, _scene.BoardRows * cellPixels, (pw, ph) => BoardPictures.PlainGround(_scene.BoardColumns, _scene.BoardRows, cellPixels, color));
         }
     }
 }

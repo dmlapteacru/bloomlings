@@ -16,20 +16,21 @@ namespace Bloomlings.Playtest.Design
         /// <see cref="ClearPreview"/> in its stone border with the arch under its middle and the slot below, cleared in the
         /// style in a loop on the painter's clock.
         /// </summary>
-        public static void ClearingPreview(IPainter p, Box well, ClearStyle style)
+        public static void ClearingPreview(IPainter p, Box well, ClearStyle style, bool catalog = false)
         {
             p.Mark("ui.card.clearing");
-            (ClearPreview preview, float t) = ClearPreview.At(style, (float)p.Now);
-            Box bounds = ClearPreview.Bounds;
-            float cell = Math.Min(well.Width * 0.84f / bounds.Width, well.Height * 0.9f / bounds.Height);
-            float ox = well.CenterX - (bounds.Width * cell / 2f);
-            float oy = well.CenterY - (bounds.Height * cell / 2f);
-            var grid = new Box(ox, oy, ox + (ClearPreview.Columns * cell), oy + (ClearPreview.Rows * cell));
+            ClearPreview preview=catalog ? ClearPreview.Catalog(style) : ClearPreview.Of(style);
+            float t=preview.PreviewTime((float)p.Now);
+            Box bounds = preview.ViewBounds;
+            float cell = Math.Min(well.Width * (catalog ? .98f : .84f) / bounds.Width, well.Height * (catalog ? .98f : .9f) / bounds.Height);
+            float ox = well.CenterX - bounds.CenterX*cell;
+            float oy = well.CenterY - bounds.CenterY*cell;
+            var grid = new Box(ox, oy, ox + (preview.BoardColumns * cell), oy + (preview.BoardRows * cell));
             StoneBorder(p, grid, cell);
             Rgba ground = Visuals.ColorOf(preview.Variant).Lighten(0.55f);
-            for (int row = 0; row < ClearPreview.Rows; row++)
+            for (int row = 0; row < preview.BoardRows; row++)
             {
-                for (int column = 0; column < ClearPreview.Columns; column++)
+                for (int column = 0; column < preview.BoardColumns; column++)
                 {
                     var full = new Box(ox + (column * cell), oy + (row * cell), ox + ((column + 1) * cell), oy + ((row + 1) * cell));
                     if (preview.Cleared(column, row, t) || preview.Held(column, row, t))
@@ -44,7 +45,7 @@ namespace Bloomlings.Playtest.Design
                         p.PushRotate(sway, full.CenterX, full.Bottom);
                     }
 
-                    CandyTile(p, full.Inset(cell * 0.008f), preview.Variant, TileStyle.Mosaic);
+                    CandyTile(p, full.Inset(cell * 0.008f), preview.VariantAt(column,row), catalog ? TileStyle.MosaicIcon : TileStyle.Mosaic);
                     if (sway != 0f)
                     {
                         p.PopTransform();
@@ -52,17 +53,17 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            var entry = new Box(ox + (ClearPreview.EntryColumn * cell), oy + ((ClearPreview.Rows - 1) * cell), ox + ((ClearPreview.EntryColumn + 1) * cell), oy + (ClearPreview.Rows * cell));
+            var entry = new Box(ox + (preview.DoorColumn * cell), oy + ((preview.BoardRows - 1) * cell), ox + ((preview.DoorColumn + 1) * cell), oy + (preview.BoardRows * cell));
             EntryArch(p, BoardLayout.ArchOf(entry, EntrySide.Bottom));
-            Box slot = ClearPreview.Slot;
+            Box slot = preview.SlotAt;
             var plate = new Box(ox + (slot.Left * cell), oy + (slot.Top * cell), ox + (slot.Right * cell), oy + (slot.Bottom * cell));
             int count = preview.Count(t);
-            SlotPlate(p, plate, count > 0 ? SlotPlateState.Working : SlotPlateState.Empty, count > 0 ? preview.Variant : (Core.Variants.VariantId?)null, count);
+            if(!catalog) SlotPlate(p, plate, count > 0 ? SlotPlateState.Working : SlotPlateState.Empty, count > 0 ? preview.Variant : (Core.Variants.VariantId?)null, count);
 
             var list = new FxList();
             preview.Draw(list, t);
-            ClearPainter.DrawItems(p, list.Items, FxLayer.Board, ox, oy, cell);
-            ClearPainter.DrawItems(p, list.Items, FxLayer.Over, ox, oy, cell);
+            ClearPainter.DrawItems(p, list.Items, FxLayer.Board, ox, oy, cell,catalog);
+            ClearPainter.DrawItems(p, list.Items, FxLayer.Over, ox, oy, cell,catalog);
         }
 
         /// <summary>

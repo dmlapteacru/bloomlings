@@ -21,6 +21,7 @@ namespace Bloomlings.Client.Gameplay.Effects
     /// </summary>
     public sealed class ClearFxView : MonoBehaviour
     {
+        public bool CatalogIcons { get; set; }
         private readonly List<Image> _images = new List<Image>();
         private readonly List<(BloomlingFigure Figure, CanvasGroup Group, VariantId? Shown)> _figures = new List<(BloomlingFigure, CanvasGroup, VariantId?)>();
         private RectTransform _layer = null!;
@@ -59,7 +60,7 @@ namespace Bloomlings.Client.Gameplay.Effects
                 if (item.Kind == FxKind.Character)
                 {
                     RectTransform figure = Figure(figures++, item.Variant, item.Alpha);
-                    Place(figure, center, item.W * Cell, item.H * Cell, item);
+                    Place(figure, center, item.W * Cell*(CatalogIcons ? 1.5f : 1), item.H * Cell*(CatalogIcons ? 1.5f : 1), item);
                     figure.SetSiblingIndex(order++);
                     continue;
                 }
@@ -104,12 +105,12 @@ namespace Bloomlings.Client.Gameplay.Effects
         }
 
         // The sprite for an item and, for a rounded box, the side of the square picture it is drawn in (cell units).
-        private static (Sprite Sprite, float Side) SpriteOf(FxItem item)
+        private (Sprite Sprite, float Side) SpriteOf(FxItem item)
         {
             switch (item.Kind)
             {
                 case FxKind.Tile:
-                    return (ProceduralSprites.CandyTile(item.Variant, TileStyle.Mosaic), 0f);
+                    return (ProceduralSprites.CandyTile(item.Variant, CatalogIcons ? TileStyle.MosaicIcon : TileStyle.Mosaic), 0f);
                 case FxKind.Ring:
                     return (Ring(item.Line / Math.Max(0.001f, item.W / 2f)), 0f);
                 case FxKind.Round:
@@ -180,7 +181,8 @@ namespace Bloomlings.Client.Gameplay.Effects
             if (!shown.HasValue || !shown.Value.Equals(variant))
             {
                 Family family = VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.Family : Family.Sprig;
-                figure.ShowCharacter(variant, Outfits?.Invoke(family));
+                if(CatalogIcons)figure.ShowHero(family,Outfits?.Invoke(family));
+                else figure.ShowCharacter(variant, Outfits?.Invoke(family));
                 _figures[index] = (figure, canvas, variant);
             }
 

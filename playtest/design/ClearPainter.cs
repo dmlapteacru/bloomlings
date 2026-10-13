@@ -72,7 +72,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>Draws <paramref name="items"/> of <paramref name="layer"/>, cell (0, 0)'s top left at (ox, oy), a cell <paramref name="cell"/> wide.</summary>
-        public static void DrawItems(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell)
+        public static void DrawItems(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons = false)
         {
             string? marked = null;
             foreach (FxItem item in items)
@@ -109,10 +109,11 @@ namespace Bloomlings.Playtest.Design
                 switch (item.Kind)
                 {
                     case FxKind.Character:
-                        Visuals.Character(p, box, item.Variant, item.Mood);
+                        if(icons)Visuals.Hero(p,box.Inset(-box.Width*.25f),Visuals.FamilyOf(item.Variant),null);
+                        else Visuals.Character(p, box, item.Variant, item.Mood);
                         break;
                     case FxKind.Tile:
-                        Kit.CandyTile(p, box, item.Variant, TileStyle.Mosaic);
+                        Kit.CandyTile(p, box, item.Variant, icons ? TileStyle.MosaicIcon : TileStyle.Mosaic);
                         break;
                     case FxKind.Circle:
                         if (Math.Abs(w - h) < 0.5f)

@@ -60,34 +60,14 @@ namespace Bloomlings.Client.UI.Screens
     /// their own tab after the Wardrobe unlock (L40). The money offers await platform products; everything for Petals works. Nothing in
     /// a level ever requires it (FR-056).
     /// <para>
-    /// A full-screen page since the owner's note of 2026-10-04 (spec 005 FR-029; contracts/look.md §6.6), every element
-    /// placed from <see cref="ScreenLayout.ReferenceStore"/>, as the playtest's <c>StoreScreen</c>: over the Wardrobe's
-    /// garden, the Wardrobe's page header on one line (<see cref="UiKit.PageHeader"/>: the back button, the wooden "Store"
-    /// banner with ivy, the Petals pill); a wooden-framed cream panel (spec 005 FR-047) to the bottom of the screen with the raised tabs,
-    /// the offline line, and cream rows with the booster's tile and count badge, the name and a cost pill with the lotus (a
-    /// tap on the row buys), growing to fill a taller page, a page of them at a time between cream page arrows; and the
-    /// cosmetics in the reference Wardrobe's look: the four family tabs with their heroes over a lighter panel, outfit
-    /// cards three to a row, as many rows as the page holds (the "Default" look first, worn while the family wears
-    /// nothing; each item shown on the family's hero with its cost pill, a tap buys) and the footer line between the page
-    /// arrows. It opens over Home (the bottom menu's Shop, the Petals pill's "+") or over the Wardrobe (the same two); its
-    /// back hides it, so the screen under it shows again. The bottom menu stands over the panel's foot, the Shop in its
-    /// medallion (spec 005 FR-030); the list ends above it.
+    /// The approved garden Shop uses a fixed header, cream segmented tabs and bottom menu. Only the content scrolls
+    /// vertically. Packs use the illustrated offer layout; Cosmetics uses a fixed family row and two-column cards
+    /// with existing heroes; Animations uses looping previews, six regular cards and a wide Confetti Parade card.
+    /// All card skins are shared with the Skia/Android painter through ShopCatalogDesign.
     /// </para>
     /// <para>
-    /// The Animations tab (spec 005 FR-038, contracts/look.md §6.12; the playtest's <c>StoreScreen.Animations</c>), from
-    /// the Store's unlock: the free style's card (Munchers) first, then each bought clearing style's, three to a row from the list's
-    /// top (<see cref="ReferenceStoreRegions.ClearingCard"/>), each well holding the style's live preview
-    /// (<see cref="ClearPreviewView"/>); a style not owned shows its price, with the padlock badge (the preview still
-    /// bright) before L40; the chosen one is checked. Since the owner's request of 2026-10-06 the previews loop all the time
-    /// and each card carries its action button (<see cref="UiKit.ClearingButton"/>: Buy with the price, Choose, Chosen). A
-    /// tap asks to buy the style from L40 and chooses an owned one; a refused tap says why on the footer line (from which
-    /// level, or too few Petals).
-    /// </para>
-    /// <para>
-    /// Every purchase here asks the purchase confirmation first (spec 005 FR-040, <see cref="UiKit.PurchaseCard"/>): the
-    /// boosters, the cosmetics and the clearing styles for Petals, and the real-money rows, whose platform purchase sheet
-    /// follows the confirmation. Nothing is spent until its Buy. The list is a page that scrolls (FR-041,
-    /// <see cref="SwipePager"/>): a drag never buys, a swipe turns its page.
+    /// Petals purchases require confirmation and preserve existing ownership, prices and level gates. Dragging the
+    /// ScrollRect does not buy a card. Money products currently show the owner-requested coming-soon stub.
     /// </para>
     /// <para>
     /// Before the Store unlocks (L12) the bottom menu's Shop opens the page locked (<see cref="ShowLocked"/>, the
@@ -196,9 +176,7 @@ namespace Bloomlings.Client.UI.Screens
             // The header last, as on the Wardrobe; the pill shows the balance only (Petal packs are rows of the Shop).
             screen._header = UiKit.PageHeader(root, Loc.T("store.title"), screen.Hide, petals: true);
 
-            // A drag over the list never buys and a swipe turns its page (spec 005 FR-041); the purchase confirmation over
-            // everything (FR-040).
-            UiKit.Scrolls(screen._root, screen.Swipe, screen._list);
+            // ScrollRect owns catalog drags; navigation remains outside its viewport. Purchase confirmation overlays it.
             screen._confirm = UiKit.PurchaseCard(root);
             shade.gameObject.SetActive(false);
             return screen;
@@ -396,7 +374,7 @@ namespace Bloomlings.Client.UI.Screens
             }
             ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, tabs, !storeAvailable && _tab != StoreTab.Shop);
             _regions = r;
-            Box viewport = ShopBodyDesign.Bounds(r);
+            Box viewport = _tab == StoreTab.Shop ? ShopBodyDesign.Bounds(r) : ShopCatalogDesign.Viewport(r,_tab==StoreTab.Cosmetics);
             UiKit.PlaceScreen(_shopViewport, viewport);
             UiKit.PlaceBox(_shopToast.rectTransform, new Box(viewport.Left, viewport.Bottom - r.W * 0.12f, viewport.Right, viewport.Bottom - r.W * 0.02f), viewport);
             _header.Place(r.Header);
@@ -407,7 +385,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _tabsBox.gameObject.SetActive(tabs);
             UiKit.PlaceScreen(_tabsBox, r.Tabs);
-            _status.gameObject.SetActive(!storeAvailable && _tab != StoreTab.Shop);
+            _status.gameObject.SetActive(false);
             UiKit.PlaceScreen(_status.rectTransform, r.Status);
             _notice.gameObject.SetActive(false);
             _list.gameObject.SetActive(true);
@@ -437,13 +415,14 @@ namespace Bloomlings.Client.UI.Screens
 
             _tabs?.Select(_tabOrder.IndexOf(_tab));
             bool shop = _tab == StoreTab.Shop;
-            _list.gameObject.SetActive(!shop);
-            _shopViewport.gameObject.SetActive(shop);
-            _shopToast.gameObject.SetActive(shop && _shopNote != null);
-            _shopToast.text = _shopNote ?? "";
-            _shopBackground.gameObject.SetActive(shop);
-            _panel.gameObject.SetActive(!shop);
-            foreach (Image flower in _flowers) flower.gameObject.SetActive(!shop);
+            _list.gameObject.SetActive(_tab==StoreTab.Cosmetics);
+            _shopViewport.gameObject.SetActive(true);
+            string? note=shop ? _shopNote : _clearingNote;
+            _shopToast.gameObject.SetActive(note!=null);
+            _shopToast.text=note??"";
+            _shopBackground.gameObject.SetActive(true);
+            _panel.gameObject.SetActive(false);
+            foreach(Image flower in _flowers)flower.gameObject.SetActive(false);
             _pages = 1;
             if (_tab == StoreTab.Animations && _clearing != null)
             {
@@ -685,30 +664,27 @@ namespace Bloomlings.Client.UI.Screens
         // ---- The board's clearing styles (spec 005 FR-038, contracts/look.md §6.12) ----
 
         /// <summary>
-        /// The Animations tab (the playtest's <c>StoreScreen.Animations</c>): the free style's card, then each bought style's
-        /// card with its live preview, a page of them at a time, and the footer line between the page arrows.
+        /// Rebuilds the vertical catalog while preserving its clamped scroll offset.
         /// </summary>
+        private Box CatalogContent(Box area,float height)
+        {
+            _pages=1;
+            float offset=Mathf.Clamp(_shopContent.anchoredPosition.y,0,Mathf.Max(0,height-area.Height)/UiKit.PixelsPerUnit);
+            for(int i=_shopContent.childCount-1;i>=0;i--)Destroy(_shopContent.GetChild(i).gameObject);
+            _shopContent.anchorMin=new Vector2(0,1);_shopContent.anchorMax=new Vector2(1,1);
+            _shopContent.pivot=new Vector2(.5f,1);
+            _shopContent.sizeDelta=new Vector2(0,height/UiKit.PixelsPerUnit);
+            _shopContent.anchoredPosition=new Vector2(0,offset);
+            return new Box(area.Left,area.Top,area.Right,area.Top+height);
+        }
         private void Animations(ClearingService clearing)
         {
-            ReferenceStoreRegions r = _regions;
-            var styles = new List<ClearStyle>(ClearStyles.Free);
-            styles.AddRange(ClearStyles.Bought);
-            int perPage = r.ClearingsPerPage;
-            int pages = Mathf.Max(1, (styles.Count + perPage - 1) / perPage);
-            _pages = pages;
-            _outfitPage = Mathf.Clamp(_outfitPage, 0, pages - 1);
-            for (int slot = 0; slot < perPage; slot++)
-            {
-                int index = (_outfitPage * perPage) + slot;
-                if (index >= styles.Count)
-                {
-                    break;
-                }
-
-                ClearingCard(r.ClearingCard(slot), styles[index], clearing);
-            }
-
-            Footer(_clearingNote ?? Loc.T("store.animations_footer"), T.Body, _outfitPage > 0 ? () => TurnOutfits(-1) : (Action?)null, _outfitPage < pages - 1 ? () => TurnOutfits(1) : (Action?)null);
+            Box area=ShopCatalogDesign.Viewport(_regions,false);
+            Box content=CatalogContent(area,ShopCatalogDesign.AnimationsHeight(area));
+            var styles=new List<ClearStyle>(ClearStyles.Free);styles.AddRange(ClearStyles.Bought);
+            for(int i=0;i<styles.Count;i++)ClearingCatalogCard(ShopCatalogDesign.AnimationCard(area,i),content,styles[i],clearing,i==6);
+            TextMeshProUGUI caption=UiKit.KitLabel("Caption",_shopContent,Loc.T("store.animations_caption"),ShopBodyDesign.Small,ShopBodyDesign.Letters);
+            UiKit.PlaceBox(caption.rectTransform,ShopCatalogDesign.Caption(area),content);
         }
 
         /// <summary>
@@ -718,35 +694,14 @@ namespace Bloomlings.Client.UI.Screens
         /// "Choose", or "Chosen" with the check; before L40 the price pill and the padlock badge (the preview stays bright).
         /// The whole card is the button; the chosen card takes no tap.
         /// </summary>
-        private void ClearingCard(Box box, ClearStyle style, ClearingService clearing)
+        private void ClearingCatalogCard(Box box,Box content,ClearStyle style,ClearingService clearing,bool wide)
         {
-            ClearingAction action = clearing.ActionOf(style, _level);
-            bool locked = action == ClearingAction.Locked;
-            Cost? price = locked ? Cost.Petals(clearing.PriceOf(style)) : (Cost?)null;
-            string name = Loc.T(ClearStyles.NameKey(style));
-            Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(style, name, clearing);
-            OutfitCardView card = UiKit.OutfitCard("Clearing", _list, name, tap, price, pillRoom: true);
-            PlaceInList((RectTransform)card.transform, box);
-            ClearPreviewView.Create(card.Picture, style, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
-            card.Show(action == ClearingAction.Chosen);
-            if (!locked)
-            {
-                ClearingButtonView button = UiKit.ClearingButton("Action", card.transform);
-                BoxLayout.On((RectTransform)card.transform).Add((RectTransform)button.transform, ClearingCardButton);
-                button.Show(action, clearing.PriceOf(style));
-                return;
-            }
-
-            // The padlock badge at the well's lower right, where the check of a chosen card goes (its disc 0.22 of the card's
-            // width; the badge's rect holds its ring too), and the name in the softer brown.
-            RectTransform badge = UiKit.LockBadge("Lock", card.transform);
-            BoxLayout.On((RectTransform)card.transform).Add(badge, b =>
-            {
-                Box well = OutfitCardView.WellBox(b, pillRoom: true);
-                float disc = OutfitCardView.CardBox(b, pillRoom: true).Width * 0.22f;
-                return Box.FromCenter(well.Right - (disc * 0.42f), well.Bottom - (disc * 0.42f), disc * 1.16f, disc * 1.16f);
-            });
-            card.Label.color = UiTheme.Of(C.InkBrownSoft);
+            ClearingAction action=clearing.ActionOf(style,_level);
+            string name=Loc.T(ClearStyles.NameKey(style));
+            Action? tap=action==ClearingAction.Chosen ? (Action?)null : ()=>TapClearing(style,name,clearing);
+            RectTransform card=ShopCatalogView.Create(_shopContent,false,wide,name,action,clearing.PriceOf(style),action==ClearingAction.Chosen,ClearStyles.IsFree(style),tap,
+                picture=>ClearPreviewView.Create(picture,style,_wardrobe!=null ? _wardrobe.OutfitOf : (Func<Family,Outfit>?)null,catalog:true));
+            UiKit.PlaceBox(card,box,content);
         }
 
         /// <summary>The action button's box in a card's own box (<see cref="Design.ClearingCard.Button"/>).</summary>
@@ -800,48 +755,27 @@ namespace Bloomlings.Client.UI.Screens
         // ---- The cosmetics in the reference Wardrobe's look (spec 005 §4.6) ----
 
         /// <summary>
-        /// The Cosmetics tab (the playtest's <c>StoreScreen.Outfits</c>): the four family tabs with their heroes over the
-        /// lighter panel, the outfit cards of the chosen family three to a row, as many rows as the page holds
-        /// (<see cref="ReferenceStoreRegions.OutfitsPerPage"/>), and the footer line between the page arrows.
+        /// Cosmetics: a fixed family row and a vertical two-column catalog of Default and items still for sale.
         /// </summary>
-        private void Outfits(List<StoreItem> shown, WardrobeService wardrobe)
+        private void Outfits(List<StoreItem> shown,WardrobeService wardrobe)
         {
-            ReferenceStoreRegions r = _regions;
-            IReadOnlyList<Family> families = WardrobeService.Families;
-            _family = Mathf.Clamp(_family, 0, families.Count - 1);
-            Family family = families[_family];
-            FamilyTabs(r.FamilyTabs, r.OutfitPanel, families, wardrobe);
-
-            var cards = new List<StoreItem?> { null };
-            cards.AddRange(shown);
-            int perPage = r.OutfitsPerPage;
-            int pages = Mathf.Max(1, (cards.Count + perPage - 1) / perPage);
-            _pages = pages;
-            _outfitPage = Mathf.Clamp(_outfitPage, 0, pages - 1);
-            Outfit worn = wardrobe.OutfitOf(family);
-            for (int slot = 0; slot < perPage; slot++)
+            ReferenceStoreRegions r=_regions;
+            IReadOnlyList<Family> families=WardrobeService.Families;
+            _family=Mathf.Clamp(_family,0,families.Count-1);
+            Family family=families[_family];
+            FamilyTabs(ShopCatalogDesign.FamilyTabs(r),r.OutfitPanel,families,wardrobe);
+            Box area=ShopCatalogDesign.Viewport(r,true);
+            Box content=CatalogContent(area,ShopCatalogDesign.CosmeticsHeight(area,shown.Count+1));
+            bool chosen=wardrobe.OutfitOf(family).IsEmpty;
+            string status=Loc.T(chosen ? "clearing.chosen" : "wardrobe.default");
+            RectTransform plain=ShopCatalogView.Create(_shopContent,true,false,Loc.T("wardrobe.default"),chosen ? ClearingAction.Chosen : ClearingAction.Choose,0,chosen,false,null,picture=>Preview(picture,family,null),status);
+            UiKit.PlaceBox(plain,ShopCatalogDesign.CosmeticCard(area,0),content);
+            for(int i=0;i<shown.Count;i++)
             {
-                int index = (_outfitPage * perPage) + slot;
-                if (index >= cards.Count)
-                {
-                    break;
-                }
-
-                Box box = r.OutfitCard(slot);
-                StoreItem? item = cards[index];
-                if (item == null)
-                {
-                    OutfitCard(box, Loc.T("wardrobe.default"), worn.IsEmpty, family, null, null, null);
-                }
-                else
-                {
-                    Cost? price = item.PetalPrice.HasValue ? Cost.Petals(item.PetalPrice.Value) : (Cost?)null;
-                    StoreItem buy = item;
-                    OutfitCard(box, item.Name ?? item.Title, false, family, item.Cosmetic, price, item.Enabled ? () => Confirm(buy) : (Action?)null);
-                }
+                StoreItem item=shown[i];
+                RectTransform card=ShopCatalogView.Create(_shopContent,true,false,item.Name??item.Title,ClearingAction.Buy,item.PetalPrice??0,false,false,item.Enabled ? ()=>Confirm(item) : (Action?)null,picture=>Preview(picture,family,item.Cosmetic));
+                UiKit.PlaceBox(card,ShopCatalogDesign.CosmeticCard(area,i+1),content);
             }
-
-            Footer(Loc.T("wardrobe.footer"), T.Body, _outfitPage > 0 ? () => TurnOutfits(-1) : (Action?)null, _outfitPage < pages - 1 ? () => TurnOutfits(1) : (Action?)null);
         }
 
         private void TurnOutfits(int by)
@@ -854,14 +788,14 @@ namespace Bloomlings.Client.UI.Screens
         private void SelectFamily(int index)
         {
             _family = index;
+            _shopScroll.StopMovement();
+            _shopContent.anchoredPosition=Vector2.zero;
             _outfitPage = 0;
             Refresh();
         }
 
         /// <summary>
-        /// The family tabs joined to the panel below them (the playtest's <c>Kit.FamilyTabs</c>, <c>ui.tab.family</c>):
-        /// the other tabs a little lower behind the panel's edge, the lighter panel with its tan outline, and the selected
-        /// tab over it, flowing into it; each tab shows the family's 3D hero in its outfit and its name.
+        /// Fixed cream family navigation outside the scrolling catalog, with the shared family icons and live labels.
         /// </summary>
         private void FamilyTabs(Box tabs, Box panel, IReadOnlyList<Family> families, WardrobeService wardrobe)
         {
@@ -884,12 +818,6 @@ namespace Bloomlings.Client.UI.Screens
                 }
             }
 
-            // The panel: lighter than the page's parchment, with a thin tan outline; the selected tab is drawn over it.
-            float radius = UiKit.Units(26f);
-            Image face = UiKit.RoundGradient("Panel", _list, C.ParchmentTop, C.CreamTop, _ => radius);
-            PlaceInList(face.rectTransform, panel);
-            Image outline = UiKit.RoundRing("PanelLine", _list, UiTheme.Of(C.CreamLine), _ => radius, _ => Mathf.Max(UiKit.Units(1f), UiKit.Units(DesignTokens.Garden.OutlineWidth) * 0.8f));
-            PlaceInList(outline.rectTransform, panel);
             selected?.transform.SetAsLastSibling();
         }
 
@@ -945,7 +873,9 @@ namespace Bloomlings.Client.UI.Screens
                 layout.Add(small.Rect, well => Mark(well).Inset(Mark(well).Width * 0.16f));
             }
 
-            Image mark = UiFactory.CreateImage("Mark", picture, ProceduralSprites.Accessory(item.Shape), BloomlingFigure.Tint(item));
+            string? asset=ShopCatalogDesign.Accessory(item.Id);
+            Sprite? illustration=asset!=null ? ShopArt.Get(asset) : null;
+            Image mark = UiFactory.CreateImage("Mark", picture, illustration??ProceduralSprites.Accessory(item.Shape), illustration!=null ? Color.white : BloomlingFigure.Tint(item));
             mark.preserveAspect = true;
             layout.Add(mark.rectTransform, well => item.Kind == CosmeticKind.Frame ? Mark(well) : Mark(well).Inset(Mark(well).Width * 0.08f));
         }

@@ -16,7 +16,17 @@ namespace Bloomlings.Client.UI
             Texture2D? texture = Resources.Load<Texture2D>("Shop/" + ShopBodyDesign.ResourceName(key));
             if (texture == null) return Sprites[name] = null;
             Rect rect;
-            if (key == "background" || key == "hero-card-v2" || key == "noads-basket-v2") rect = new Rect(0, 0, texture.width, texture.height);
+            if(key.StartsWith("accessory-",StringComparison.Ordinal))
+            {
+                var crop=ShopCatalogDesign.AccessoryCrop("shop/"+key,texture.width,texture.height);
+                rect=new Rect(crop.Left,texture.height-crop.Top-crop.Height,crop.Width,crop.Height);
+            }
+            else if (key.StartsWith("catalog-", StringComparison.Ordinal))
+            {
+                var crop=ShopCatalogDesign.FrameCrop("shop/"+key,texture.width,texture.height);
+                rect=new Rect(crop.Left,texture.height-crop.Top-crop.Height,crop.Width,crop.Height);
+            }
+            else if (key == "background" || key == "hero-card-v2" || key == "noads-basket-v2") rect = new Rect(0, 0, texture.width, texture.height);
             else if (key == "price-button") rect = new Rect(109, texture.height - 605, 1985, 505);
             else if (key.StartsWith("boost-", StringComparison.Ordinal))
             {
@@ -35,6 +45,11 @@ namespace Bloomlings.Client.UI
                 rect = new Rect(cell.Value.Column * w + crop.Left, texture.height - (cell.Value.Row * h + crop.Top + crop.Height), crop.Width, crop.Height);
             }
             Vector4 border = key == "price-button" ? new Vector4(350, 190, 350, 190) : Vector4.zero;
+            if(key.StartsWith("catalog-",StringComparison.Ordinal))
+            {
+                var b=ShopCatalogDesign.Borders("shop/"+key);
+                border=new Vector4(rect.width*b.X,rect.height*b.Y,rect.width*b.X,rect.height*b.Y);
+            }
             return Sprites[name] = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, border);
         }
     }

@@ -190,6 +190,28 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void CatalogPreviews_LoopAllTilesIncludingTheWideParade_AndKeepExistingEffects()
+        {
+            foreach(ClearStyle style in Styles)
+            {
+                ClearPreview scene=ClearPreview.Catalog(style);
+                int tiles=scene.BoardColumns*scene.BoardRows;
+                Assert.That(scene.Count(0),Is.EqualTo(tiles));
+                Assert.That(scene.Count(scene.Period-.01f),Is.Zero,style.ToString());
+                var variants=new HashSet<VariantId>();
+                for(int x=0;x<scene.BoardColumns;x++)for(int y=0;y<scene.BoardRows;y++)variants.Add(scene.VariantAt(x,y));
+                Assert.That(variants.Count,Is.GreaterThan(1),"catalog samples show existing colored symbols");
+                for(float t=0;t<scene.Period;t+=.1f)
+                {
+                    var fx=new FxList();scene.Draw(fx,t);
+                    Assert.That(fx.Items.All(i=>!float.IsNaN(i.X)&&!float.IsNaN(i.Y)),Is.True,style.ToString());
+                    Assert.That(fx.Items.All(i=>i.Slot==ClearLook.SlotOf(style)),Is.True,"existing effect slot remains valid");
+                }
+                Assert.That(scene.Local(scene.Period+1),Is.EqualTo(1).Within(.001f));
+            }
+        }
+
+        [Test]
         public void Blossom_SwaysTheNeighboursOfAJustOpenedFlower()
         {
             var fades = new List<ClearFade> { new ClearFade((2.5f, 2.5f), VariantId.Flower, 10f, null) };

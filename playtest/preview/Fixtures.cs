@@ -561,21 +561,53 @@ namespace Bloomlings.Playtest.Preview
                 ReferenceStoreRegions store = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
                 int balance = app.Meta.Economy.Petals;
                 int owned = app.Meta.Save.Cosmetics.Owned.Count;
-                Box top = store.OutfitCard(1);
-                Box below = store.OutfitCard(4);
+                Box area=ShopCatalogDesign.Viewport(store,true);
+                Box top=ShopCatalogDesign.CosmeticCard(area,1);
+                Box below=ShopCatalogDesign.CosmeticCard(area,3);
                 Drag(p, top.CenterX, top.CenterY, top.CenterX + (top.Width * 0.6f), top.CenterY + (top.Height * 0.1f));
                 Expect(app.Overlays.Count == 0 && app.StorePage == 0, "a sideways drag over a card taps nothing (and there is no page before)");
                 Drag(p, below.CenterX, below.CenterY, top.CenterX, top.CenterY);
-                Expect(app.Overlays.Count == 0 && app.StorePage == 1, "a swipe up over the cards turns to the next page, buying nothing");
+                Expect(app.Overlays.Count == 0 && app.ShopScrollOffset > 0, "an upward catalog drag scrolls without buying");
                 Run(app, p, 0.1f);
                 Drag(p, top.CenterX, top.CenterY, below.CenterX, below.CenterY);
-                Expect(app.Overlays.Count == 0 && app.StorePage == 0, "a swipe down turns back");
+                Expect(app.Overlays.Count == 0 && app.ShopScrollOffset == 0, "a downward catalog drag returns to the top");
                 Run(app, p, 0.1f);
                 Tap(p, top);
                 Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer != null && app.Purchase.Offer.Petals > 0, "a tap on a card asks to buy it");
                 Expect(app.Back() && app.Overlays.Count == 0, "the system back cancels the confirmation");
                 Expect(app.Meta.Economy.Petals == balance && app.Meta.Save.Cosmetics.Owned.Count == owned, "nothing was bought");
                 Run(app, p, 0.5f);
+            });
+            yield return new Fixture(55,"store-cosmetics-bottom","Game Shop: final cosmetic items and scroll-safe purchases",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,49);app.Meta.Economy.Grant(1000,null);
+                CloseAll(app);app.OpenStore();Run(app,p,.1f);
+                ReferenceStoreRegions r=ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets);
+                Tap(p,NavigationSkin.Segment(r.Tabs,1,3));Run(app,p,.1f);
+                Box area=ShopCatalogDesign.Viewport(r,true);
+                int petals=app.Meta.Economy.Petals,owned=app.Meta.Save.Cosmetics.Owned.Count;
+                Drag(p,area.CenterX,area.CenterY,area.CenterX,area.Top-6000);Run(app,p,.1f);
+                Expect(app.ShopScrollOffset>0&&app.Overlays.Count==0,"scroll reaches final items without tapping");
+                Expect(Shows(p,"Bramble Frame")&&Shows(p,"Watering Can Badge"),"the frame and badge remain reachable");
+                Box frame=ShopCatalogDesign.CosmeticCard(area,9).Offset(0,-app.ShopScrollOffset);
+                Tap(p,frame);Expect(app.IsOpen(Overlay.Purchase),"the frame asks before spending");
+                Expect(app.Meta.Economy.Petals==petals,"opening confirmation spends nothing");
+                app.Back();Run(app,p,.1f);
+                Box badge=ShopCatalogDesign.CosmeticCard(area,10).Offset(0,-app.ShopScrollOffset);
+                Tap(p,badge);Expect(app.IsOpen(Overlay.Purchase),"the badge is purchasable at the bottom");
+                app.Back();Run(app,p,.1f);
+                Expect(app.Meta.Economy.Petals==petals&&app.Meta.Save.Cosmetics.Owned.Count==owned,"cancelling both spends nothing");
+                Tap(p,frame);Run(app,p,.3f);
+                Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Confirm);Run(app,p,.1f);
+                Expect(app.Meta.Save.Cosmetics.Owned.Contains("frame.bramble")&&app.Meta.Economy.Petals==petals-350,"confirmed frame purchase charges the existing price once");
+            });
+            yield return new Fixture(56,"store-cosmetics-bloom","Game Shop: Bloom accessories",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,49);CloseAll(app);app.OpenStore();Run(app,p,.1f);
+                ReferenceStoreRegions r=ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets);
+                Tap(p,NavigationSkin.Segment(r.Tabs,1,3));Run(app,p,.1f);
+                Tap(p,NavigationSkin.Segment(ShopCatalogDesign.FamilyTabs(r),1,4));Run(app,p,.1f);
+                Expect(app.StoreFamily==1&&app.ShopScrollOffset==0,"family switch resets only the catalog scroll");
             });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
             yield return new Fixture(27, "wardrobe", "Extra: Wardrobe (spec 005 FR-025)", (p, data) =>
@@ -908,7 +940,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.StoreTab == 1, "a tap on the Animations tab shows the clearing styles");
                 Run(app, p, 0.1f);
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-                Box bubbles = r.ClearingCard(ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles));
+                Box bubbles = ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),ClearStyles.Free.Count+ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles));
                 int petals = app.Meta.Economy.Petals;
                 Tap(p, Box.FromCenter(bubbles.CenterX, bubbles.CenterY, 1f, 1f));
                 Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "a style is not bought before Level 40");
@@ -948,7 +980,7 @@ namespace Bloomlings.Playtest.Preview
                 level.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant));
                 Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Petals == price && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "a booster without charges asks before buying");
                 Run(app, p, 0.5f);
-                Expect(Shows(p, PlaytestText.F("purchase.question_petals", PlaytestText.T("booster.bloom_burst"), NumberText.Group(price))), "the question names the booster and its price");
+                Expect(Shows(p, PlaytestText.F("purchase.question_petals", app.Purchase.Offer!.Name, NumberText.Group(price))), "the question names the booster quantity and its price");
                 Tap(p, confirm.Cancel);
                 Expect(app.Overlays.Count == 0 && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "Cancel buys nothing");
                 Run(app, p, 0.1f);
@@ -971,14 +1003,14 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, NumberText.Group(app.Meta.Clearing.PriceOf(ClearStyle.Bubbles))), "Munchers Chosen, the others their price (no Buy word)");
                 petals = app.Meta.Economy.Petals;
                 int bubblesCard = ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles);
-                Box bubbles = ClearingCard.Button(r.ClearingCard(bubblesCard));
+                Box bubbles = ShopCatalogDesign.Parts(ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),bubblesCard),false).Action;
                 Tap(p, bubbles);
                 Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Name == PlaytestText.T("clearing.bubbles") && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "Bubbles' Buy asks first");
                 Run(app, p, 0.3f);
                 Tap(p, confirm.Cancel);
                 Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "Cancel buys nothing");
                 Run(app, p, 0.1f);
-                Tap(p, Box.FromCenter(r.ClearingCard(bubblesCard).CenterX, r.ClearingCard(bubblesCard).Top + (r.ClearingCard(bubblesCard).Height * 0.3f), 1f, 1f));
+                Tap(p, Box.FromCenter(ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),bubblesCard).CenterX, ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),bubblesCard).Top + (ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),bubblesCard).Height * 0.3f), 1f, 1f));
                 Expect(app.IsOpen(Overlay.Purchase), "a tap on the card's preview asks too");
                 Expect(app.Back() && app.Overlays.Count == 0 && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "the system back buys nothing");
                 Run(app, p, 0.1f);
@@ -990,7 +1022,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Shows(p, PlaytestText.T("clearing.choose")) && Shows(p, PlaytestText.T("clearing.chosen")), "Munchers now Choose, Bubbles Chosen");
 
                 // The frame: Pushers' confirmation over the tab, its live preview in the well.
-                Tap(p, ClearingCard.Button(r.ClearingCard(ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Pushers))));
+                Tap(p, ShopCatalogDesign.Parts(ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),ClearStyles.Free.Count+ClearStyles.Bought.ToList().IndexOf(ClearStyle.Pushers)),false).Action);
                 Expect(app.IsOpen(Overlay.Purchase), "Pushers' Buy asks");
                 Run(app, p, 2.5f);
                 Expect(p.Slots.Contains("ui.card.purchase") && p.Slots.Contains("fx.clear.pushers"), "the card with the live preview");

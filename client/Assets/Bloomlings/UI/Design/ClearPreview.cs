@@ -21,13 +21,17 @@ namespace Bloomlings.Client.UI.Design
         public const float Rest = 1.8f;
 
         private static readonly Dictionary<ClearStyle, ClearPreview> Made = new Dictionary<ClearStyle, ClearPreview>();
+        private static readonly Dictionary<ClearStyle, ClearPreview> CatalogMade = new Dictionary<ClearStyle, ClearPreview>();
 
         private readonly List<Trip> _trips = new List<Trip>();
 
-        public ClearPreview(ClearStyle style)
+        public ClearPreview(ClearStyle style, bool colorful = false, int columns = Columns, int rows = Rows)
         {
             Style = style;
             Variant = VariantOf(style);
+            Colorful = colorful;
+            BoardColumns = columns;
+            BoardRows = rows;
             Schedule();
             float end = 0f;
             foreach (Trip trip in _trips)
@@ -35,13 +39,22 @@ namespace Bloomlings.Client.UI.Design
                 end = Math.Max(end, trip.Start + trip.Arrival);
             }
 
-            Period = end + Rest;
+            Period = end + (Colorful ? .5f : Rest);
         }
 
         public ClearStyle Style { get; }
 
         /// <summary>The tiles' variant (a different one for each style, so the cards differ).</summary>
         public VariantId Variant { get; }
+        public bool Colorful { get; }
+        public int BoardColumns { get; }
+        public int BoardRows { get; }
+        public int DoorColumn => BoardColumns / 2;
+        public (float X,float Y) DoorAt => (DoorColumn+.5f,BoardRows);
+        public Box SlotAt => Slot.Offset(0,BoardRows-Rows);
+        public Box SeatAt => Seat.Offset(0,BoardRows-Rows);
+        public Box ViewBounds => Colorful ? new Box(-.24f,-.24f,BoardColumns+.24f,BoardRows+.50f) : Bounds;
+        public VariantId VariantAt(int column,int row) => !Colorful ? Variant : (column+row*2)%3==0 ? VariantId.Flower : (column+row*2)%3==1 ? VariantId.Leaf : VariantId.Water;
 
         /// <summary>The loop's length, in seconds.</summary>
         public float Period { get; }
@@ -65,6 +78,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The time in the loop at <paramref name="now"/> (any clock).</summary>
         public float Local(float now) => Period <= 0f ? 0f : now - ((float)Math.Floor(now / Period) * Period);
+        public float PreviewTime(float now) => Local(now+(Colorful ? (int)Style*.41f : 0));
 
         /// <summary>A style's scene, made once and shared by the cards.</summary>
         public static ClearPreview Of(ClearStyle style)
@@ -87,10 +101,23 @@ namespace Bloomlings.Client.UI.Design
             ClearPreview scene = Of(style);
             return (scene, scene.Local(now));
         }
+        public static ClearPreview Catalog(ClearStyle style)
+        {
+            lock(CatalogMade)
+            {
+                if(!CatalogMade.TryGetValue(style,out ClearPreview? scene))
+                {
+                    scene=new ClearPreview(style,true,style==ClearStyle.Parade ? 9 : Columns,style==ClearStyle.Parade ? 2 : Rows);
+                    CatalogMade.Add(style,scene);
+                }
+                return scene;
+            }
+        }
 
         /// <summary>Whether the tile at (column, row) is cleared at loop time <paramref name="t"/>.</summary>
         public bool Cleared(int column, int row, float t)
         {
+            if(Colorful&&t>=Period-.5f)return false;
             foreach (Trip trip in _trips)
             {
                 if (trip.Column == column && trip.Row == row)
@@ -105,6 +132,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Whether the look holds the tile at (column, row) at loop time <paramref name="t"/> (the host leaves it off).</summary>
         public bool Held(int column, int row, float t)
         {
+            if(Colorful&&t>=Period-.5f)return false;
             foreach (Trip trip in _trips)
             {
                 if (trip.Column == column && trip.Row == row)
@@ -131,6 +159,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The look's items at loop time <paramref name="t"/>: every walker, then every just-cleared tile.</summary>
         public void Draw(FxList list, float t)
         {
+            if(Colorful&&t>=Period-.5f)
+            {
+                list.Slot=ClearLook.SlotOf(Style);
+                list.Layer=FxLayer.Over;
+                list.Character(Box.FromCenter(DoorAt.X,BoardRows-.8f,.8f,.8f),VariantId.Leaf);
+            }
             foreach (Trip trip in _trips)
             {
                 ClearLook.Walker(list, Style, Walk(trip), t);
@@ -138,7 +172,7 @@ namespace Bloomlings.Client.UI.Design
 
             foreach (Trip trip in _trips)
             {
-                ClearLook.Restore(list, Style, new ClearFade(Center(trip.Column, trip.Row), Variant, trip.Start + trip.Arrival, Seat), t);
+                ClearLook.Restore(list, Style, new ClearFade(Center(trip.Column, trip.Row), VariantAt(trip.Column,trip.Row), trip.Start + trip.Arrival, SeatAt), t);
             }
         }
 
@@ -148,7 +182,7 @@ namespace Bloomlings.Client.UI.Design
             var fades = new List<ClearFade>();
             foreach (Trip trip in _trips)
             {
-                fades.Add(new ClearFade(Center(trip.Column, trip.Row), Variant, trip.Start + trip.Arrival, Seat));
+                fades.Add(new ClearFade(Center(trip.Column, trip.Row), VariantAt(trip.Column,trip.Row), trip.Start + trip.Arrival, SeatAt));
             }
 
             return ClearLook.Sway(Style, fades, Center(column, row), t);
@@ -166,25 +200,25 @@ namespace Bloomlings.Client.UI.Design
             _ => VariantId.Acorn,
         };
 
-        private ClearWalk Walk(Trip trip) => new ClearWalk(trip.Points, Variant, trip.Start, trip.Arrival, Seat);
+        private ClearWalk Walk(Trip trip) => new ClearWalk(trip.Points, VariantAt(trip.Column,trip.Row), trip.Start, trip.Arrival, SeatAt);
 
         // Nearer tiles first; each walker leaves a line gap after the one before, and late enough that it reaches each
         // cell of its way after that cell's tile is gone (as the boards' timelines schedule them).
         private void Schedule()
         {
-            var distance = new int[Columns, Rows];
-            var from = new (int X, int Y)[Columns, Rows];
-            for (int x = 0; x < Columns; x++)
+            var distance = new int[BoardColumns, BoardRows];
+            var from = new (int X, int Y)[BoardColumns, BoardRows];
+            for (int x = 0; x < BoardColumns; x++)
             {
-                for (int y = 0; y < Rows; y++)
+                for (int y = 0; y < BoardRows; y++)
                 {
                     distance[x, y] = -1;
                 }
             }
 
             var queue = new Queue<(int X, int Y)>();
-            distance[EntryColumn, Rows - 1] = 1;
-            queue.Enqueue((EntryColumn, Rows - 1));
+            distance[DoorColumn, BoardRows - 1] = 1;
+            queue.Enqueue((DoorColumn, BoardRows - 1));
             var order = new List<(int X, int Y)>();
             while (queue.Count > 0)
             {
@@ -194,7 +228,7 @@ namespace Bloomlings.Client.UI.Design
                 {
                     int nx = x + dx;
                     int ny = y + dy;
-                    if (nx >= 0 && ny >= 0 && nx < Columns && ny < Rows && distance[nx, ny] < 0)
+                    if (nx >= 0 && ny >= 0 && nx < BoardColumns && ny < BoardRows && distance[nx, ny] < 0)
                     {
                         distance[nx, ny] = distance[x, y] + 1;
                         from[nx, ny] = (x, y);
@@ -208,7 +242,7 @@ namespace Bloomlings.Client.UI.Design
             foreach ((int X, int Y) cell in order)
             {
                 var route = new List<(int X, int Y)> { cell };
-                while (route[0] != (EntryColumn, Rows - 1))
+                while (route[0] != (DoorColumn, BoardRows - 1))
                 {
                     route.Insert(0, from[route[0].X, route[0].Y]);
                 }
@@ -225,7 +259,7 @@ namespace Bloomlings.Client.UI.Design
                     }
                 }
 
-                var points = new List<(float X, float Y)> { Door };
+                var points = new List<(float X, float Y)> { DoorAt };
                 foreach ((int x, int y) in route)
                 {
                     points.Add(Center(x, y));

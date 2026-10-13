@@ -182,6 +182,9 @@ namespace Bloomlings.Client.Gameplay.Workers
         /// </summary>
         public static (Sprite Sprite, Color Color) HeroHat(CosmeticItem hat)
         {
+            string? asset=ShopCatalogDesign.Accessory(hat.Id);
+            Sprite? picture=asset!=null ? ShopArt.Get(asset) : null;
+            if(picture!=null)return (picture,Color.white);
             string id = ShapeLibrary.CosmeticId(hat.Shape);
             if (!ShapeLibrary.Has(id))
             {
@@ -240,8 +243,10 @@ namespace Bloomlings.Client.Gameplay.Workers
                 return;
             }
 
-            image.sprite = ProceduralSprites.Accessory(item.Shape);
-            image.color = Tint(item);
+            string? asset=ShopCatalogDesign.Accessory(item.Id);
+            Sprite? picture=asset!=null ? ShopArt.Get(asset) : null;
+            image.sprite = picture??ProceduralSprites.Accessory(item.Shape);
+            image.color = picture!=null ? Color.white : Tint(item);
             UiFactory.Place(image.rectTransform, box.Left / frame.Width, 1f - (box.Bottom / frame.Height), box.Right / frame.Width, 1f - (box.Top / frame.Height));
             image.gameObject.SetActive(true);
         }

@@ -904,6 +904,18 @@ namespace Bloomlings.Playtest.Droid
                     }
                     if(bitmap!=null&&name.StartsWith("shop/",StringComparison.Ordinal)&&name!="shop/background")
                     {
+                        if(name.StartsWith("shop/accessory-",StringComparison.Ordinal))
+                        {
+                            var c=ShopCatalogDesign.AccessoryCrop(name,bitmap.Width,bitmap.Height);
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
+                            bitmap.Dispose();bitmap=cropped;
+                        }
+                        if(name.StartsWith("shop/catalog-",StringComparison.Ordinal))
+                        {
+                            var c=ShopCatalogDesign.FrameCrop(name,bitmap.Width,bitmap.Height);
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
+                            bitmap.Dispose();bitmap=cropped;
+                        }
                         if(name=="shop/price-button")
                         {
                             Bitmap? cropped=Bitmap.CreateBitmap(bitmap,109,100,1985,505);

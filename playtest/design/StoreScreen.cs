@@ -84,12 +84,12 @@ namespace Bloomlings.Playtest.Design
             tabs.Add("store.tab_animations");
             int tab = Math.Max(0, Math.Min(tabs.Count - 1, app.StoreTab));
             ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-            if (tabs[tab] == "store.tab_shop" && p.HasSprite("shop/background")) ShopBodyPainter.Background(p);
+            if (p.HasSprite("shop/background")) ShopBodyPainter.Background(p);
             else DesignApp.DrawBackdrop(p, BackdropScene.Home, meta.CurrentLevel, OwnerPictures.Wardrobe);
 
             // The parchment panel, its bottom corners below the screen's edge.
             float radius = r.PanelRadius(p.Scale);
-            if (tabs[tab] != "store.tab_shop") Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            // Open Shop tabs share the garden background and floating cards.
             Kit.Tabs(p, r.Tabs, tabs.ConvertAll(PlaytestText.T).ToArray(), tab, i =>
             {
                 app.StoreTab = i;
@@ -114,7 +114,7 @@ namespace Bloomlings.Playtest.Design
 
             // The bottom menu, the Shop in its medallion (FR-030); the header last, as on the Wardrobe.
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Shop), look, app.Navigate);
-            if (tabs[tab] != "store.tab_shop") Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
+
             Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, () => app.HomeToast(PlaytestText.T("store.offline")));
 
             string? toast = app.HomeToastText;
@@ -321,72 +321,41 @@ namespace Bloomlings.Playtest.Design
         /// for sale shown on the family's hero with its cost pill; a tap buys), as many to a page as the page's height holds
         /// (<see cref="ReferenceStoreRegions.OutfitsPerPage"/>), and the footer line with the page arrows.
         /// </summary>
-        private static void Outfits(IPainter p, DesignApp app, ReferenceStoreRegions r)
+        private static void Outfits(IPainter p,DesignApp app,ReferenceStoreRegions r)
         {
-            WardrobeService wardrobe = app.Meta.Wardrobe;
-            IReadOnlyList<Family> families = WardrobeService.Families;
-            int selected = Math.Max(0, Math.Min(families.Count - 1, app.StoreFamily));
-            Family family = families[selected];
-            var names = new string[families.Count];
-            for (int i = 0; i < families.Count; i++)
+            WardrobeService wardrobe=app.Meta.Wardrobe;
+            IReadOnlyList<Family> families=WardrobeService.Families;
+            int selected=Math.Max(0,Math.Min(families.Count-1,app.StoreFamily));
+            Family family=families[selected];
+            Box bar=ShopCatalogDesign.FamilyTabs(r);
+            Kit.NavigationBar(p,bar,families.Count);
+            for(int i=0;i<families.Count;i++)
             {
-                names[i] = PlaytestText.T("family." + WardrobeService.FamilyKey(families[i]));
+                int index=i;
+                Kit.NavigationTab(p,NavigationSkin.Segment(bar,i,families.Count),PlaytestText.T("family."+WardrobeService.FamilyKey(families[i])),NavigationSkin.FamilyIcon(families[i]),i,i==selected,()=>{app.StoreFamily=index;app.ShopScrollOffset=0;});
             }
-
-            Kit.FamilyTabs(p, r.FamilyTabs, r.OutfitPanel, families, names, selected, i =>
+            var items=new List<CosmeticItem?>{null};items.AddRange(wardrobe.ForSale);
+            Box area=ShopCatalogDesign.Viewport(r,true);
+            float max=Math.Max(0,ShopCatalogDesign.CosmeticsHeight(area,items.Count)-area.Height);
+            app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset));
+            p.PushClip(area);
+            for(int i=0;i<items.Count;i++)
             {
-                app.StoreFamily = i;
-                app.StorePage = 0;
-            }, f => wardrobe.OutfitOf(f));
-
-            var items = new List<CosmeticItem?> { null };
-            items.AddRange(wardrobe.ForSale);
-            int perPage = r.OutfitsPerPage;
-            int pages = Math.Max(1, (items.Count + perPage - 1) / perPage);
-            int page = Math.Max(0, Math.Min(pages - 1, app.StorePage));
-            Outfit worn = wardrobe.OutfitOf(family);
-            for (int slot = 0; slot < perPage; slot++)
-            {
-                int index = (page * perPage) + slot;
-                if (index >= items.Count)
-                {
-                    break;
-                }
-
-                Box box = r.OutfitCard(slot);
-                CosmeticItem? item = items[index];
-                if (item == null)
-                {
-                    Kit.OutfitCard(p, box, PlaytestText.T("wardrobe.default"), worn.IsEmpty, well => Preview(p, well, family, null), pillRoom: true);
-                    continue;
-                }
-
-                string id = item.Id;
-                Kit.OutfitCard(p, box, MetaCards.ItemName(item), false, well => Preview(p, well, family, item), Cost.Petals(item.Price), () =>
-                {
-                    // Short Petals say so at once; else the confirmation asks and only its Buy spends (FR-040).
-                    if (app.Meta.Economy.Petals < item.Price)
-                    {
-                        Refuse(app);
-                        return;
-                    }
-
-                    app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item), item.Price), (q, well) => Preview(q, well, family, item), () =>
-                    {
-                        if (!wardrobe.TryBuy(id))
-                        {
-                            Refuse(app);
-                        }
-                    });
-                });
+                CosmeticItem? item=items[i];
+                Box card=ShopCatalogDesign.CosmeticCard(area,i).Offset(0,-app.ShopScrollOffset);
+                if(card.Bottom<=area.Top||card.Top>=area.Bottom)continue;
+                bool chosen=item==null&&wardrobe.OutfitOf(family).IsEmpty;
+                string name=item==null ? PlaytestText.T("wardrobe.default") : MetaCards.ItemName(item);
+                Action? tap=item==null ? (Action?)null : ()=>BuyCosmetic(app,family,item);
+                ShopCatalogPainter.Card(p,card,area,true,false,name,item==null ? chosen ? ClearingAction.Chosen : ClearingAction.Choose : ClearingAction.Buy,item?.Price??0,chosen,false,tap,well=>Preview(p,well,family,item),item==null ? PlaytestText.T(chosen ? "clearing.chosen" : "wardrobe.default") : null);
             }
-
-            Action? previous = page > 0 ? () => app.StorePage = page - 1 : (Action?)null;
-            Action? next = page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null;
-            Footer(p, r, PlaytestText.T("wardrobe.footer"), T.Body, previous, next);
-
-            // A drag over the cards never buys one (the owner's request of 2026-10-06); a swipe turns their page (FR-041).
-            p.Scroll(r.OutfitPanel, previous, next);
+            p.PopClip();
+            p.VerticalScroll(area,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
+        }
+        private static void BuyCosmetic(DesignApp app,Family family,CosmeticItem item)
+        {
+            if(app.Meta.Economy.Petals<item.Price){Refuse(app);return;}
+            app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),(q,well)=>Preview(q,well,family,item),()=>{if(!app.Meta.Wardrobe.TryBuy(item.Id))Refuse(app);});
         }
 
         /// <summary>
@@ -398,40 +367,31 @@ namespace Bloomlings.Playtest.Design
         /// and the padlock badge (the preview still bright), and a tap says from which level. The whole card is the button
         /// (one touch target, its button inside it); the chosen card takes no tap.
         /// </summary>
-        private static void Animations(IPainter p, DesignApp app, ReferenceStoreRegions r)
+        private static void Animations(IPainter p,DesignApp app,ReferenceStoreRegions r)
         {
-            ClearingService clearing = app.Meta.Clearing;
-            int level = app.Meta.CurrentLevel;
-            var styles = new List<ClearStyle>(ClearStyles.Free);
-            styles.AddRange(ClearStyles.Bought);
-            int perPage = r.ClearingsPerPage;
-            int pages = Math.Max(1, (styles.Count + perPage - 1) / perPage);
-            int page = Math.Max(0, Math.Min(pages - 1, app.StorePage));
-            for (int slot = 0; slot < perPage; slot++)
+            ClearingService clearing=app.Meta.Clearing;
+            var styles=new List<ClearStyle>(ClearStyles.Free);styles.AddRange(ClearStyles.Bought);
+            Box area=ShopCatalogDesign.Viewport(r,false);
+            float max=Math.Max(0,ShopCatalogDesign.AnimationsHeight(area)-area.Height);
+            app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset));
+            p.PushClip(area);
+            for(int i=0;i<styles.Count;i++)
             {
-                int index = (page * perPage) + slot;
-                if (index >= styles.Count)
-                {
-                    break;
-                }
-
-                ClearStyle style = styles[index];
-                string name = PlaytestText.T(ClearStyles.NameKey(style));
-                ClearingAction action = clearing.ActionOf(style, level);
-                bool locked = action == ClearingAction.Locked;
-                Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(app, style, name);
-                Box box = r.ClearingCard(slot);
-                Kit.OutfitCard(p, box, name, action == ClearingAction.Chosen, well => Kit.ClearingPreview(p, well, style), locked ? Cost.Petals(clearing.PriceOf(style)) : (Cost?)null, tap, pillRoom: true, locked: locked, dim: false);
-                if (!locked)
-                {
-                    Kit.ClearingButton(p, ClearingCard.Button(box), action, clearing.PriceOf(style), tap != null);
-                }
+                ClearStyle style=styles[i];
+                Box card=ShopCatalogDesign.AnimationCard(area,i).Offset(0,-app.ShopScrollOffset);
+                if(card.Bottom<=area.Top||card.Top>=area.Bottom)continue;
+                string name=PlaytestText.T(ClearStyles.NameKey(style));
+                ClearingAction action=clearing.ActionOf(style,app.Meta.CurrentLevel);
+                Action? tap=action==ClearingAction.Chosen ? (Action?)null : ()=>TapClearing(app,style,name);
+                ShopCatalogPainter.Card(p,card,area,false,i==6,name,action,clearing.PriceOf(style),action==ClearingAction.Chosen,ClearStyles.IsFree(style),tap,well=>Kit.ClearingPreview(p,well,style,catalog:true));
             }
-
-            Action? previous = page > 0 ? () => app.StorePage = page - 1 : (Action?)null;
-            Action? next = page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null;
-            Footer(p, r, PlaytestText.T("store.animations_footer"), T.Body, previous, next);
-            p.Scroll(r.List, previous, next);
+            Box caption=ShopCatalogDesign.Caption(area).Offset(0,-app.ShopScrollOffset);
+            if(caption.Bottom>area.Top&&caption.Top<area.Bottom)
+            {
+                p.Mark("font.shop");p.Text(PlaytestText.T("store.animations_caption"),caption.CenterX,caption.CenterY,ShopBodyDesign.Small,ShopBodyDesign.Letters.FillTop,caption.Width,caption.Height*.65f/p.U(ShopBodyDesign.Small.Size),ShopBodyDesign.Letters);
+            }
+            p.PopClip();
+            p.VerticalScroll(area,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
         }
 
         /// <summary>
@@ -498,6 +458,12 @@ namespace Bloomlings.Playtest.Design
             float size = Math.Min(well.Width, well.Height) * 0.8f;
             string shape = ShapeLibrary.CosmeticId(item.Shape);
             Box mark = Box.FromCenter(well.CenterX, well.CenterY, size, size);
+            string? asset=ShopCatalogDesign.Accessory(item.Id);
+            if(asset!=null&&p.HasSprite(asset))
+            {
+                if(item.Kind==CosmeticKind.Frame)Visuals.Hero(p,mark.Inset(size*.16f),family,null);
+                p.Mark("ui.shop.illustrations");p.Sprite(asset,mark);return;
+            }
             if (item.Kind == CosmeticKind.Frame)
             {
                 Visuals.Hero(p, mark.Inset(size * 0.16f), family, null);
