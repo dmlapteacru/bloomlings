@@ -35,7 +35,7 @@ namespace Bloomlings.Client.UI
                 var crop=ShopCatalogDesign.FrameCrop("shop/"+key,texture.width,texture.height);
                 rect=new Rect(crop.Left,texture.height-crop.Top-crop.Height,crop.Width,crop.Height);
             }
-            else if (key == "background" || key == "hero-card-v2" || key == "noads-basket-v2") rect = new Rect(0, 0, texture.width, texture.height);
+            else if (key == "background" || key == "hero-card-v2" || key == "noads-basket-v2" || key == "profile-showcase-v1" || key == "profile-leaf-v1") rect = new Rect(0, 0, texture.width, texture.height);
             else if (key == "price-button") rect = new Rect(109, texture.height - 605, 1985, 505);
             else if (key.StartsWith("boost-", StringComparison.Ordinal))
             {

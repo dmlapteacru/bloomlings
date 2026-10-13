@@ -54,10 +54,10 @@ namespace Bloomlings.Client.Tests
                 for (int i = 0; i < r.Achievements.Count; i++)
                 {
                     Box tile = r.Achievements[i];
-                    Box well = ReferenceProfileRegions.AchievementWell(tile);
-                    Box picture = ReferenceProfileRegions.AchievementTrophy(well);
-                    Assert.That(Inside(tile, well) && Inside(well, picture), Is.True, at + ": achievement picture inside its tile");
-                    Assert.That(picture.Width, Is.GreaterThan(well.Width * 0.9f), at + ": achievement picture fills its box");
+                    Box picture = ProfileGameDesign.AchievementPicture(tile);
+                    Assert.That(Inside(tile, picture), Is.True, at + ": medal artwork stays in its shelf slot");
+                    Assert.That(picture.Width, Is.GreaterThan(tile.Width * 0.8f), at + ": large readable medal artwork");
+                    Assert.That(Inside(tile,ProfileGameDesign.AchievementCount(tile)) && Inside(tile,ProfileGameDesign.AchievementLabel(tile)),Is.True,at + ": live content stays in the illustrated socket and tag");
                     int column = i % ReferenceProfileRegions.AchievementColumns;
                     int row = i / ReferenceProfileRegions.AchievementColumns;
                     if (column > 0)
@@ -71,6 +71,7 @@ namespace Bloomlings.Client.Tests
                         Assert.That(r.Achievements[i - ReferenceProfileRegions.AchievementColumns].Bottom, Is.LessThan(tile.Top), at + ": rows apart");
                     }
                 }
+                Assert.That(r.Panel.Width/r.Panel.Height,Is.EqualTo(ProfileGameDesign.ShowcaseWidth/ProfileGameDesign.ShowcaseHeight).Within(.0001f),at + ": the illustrated arch and shelves retain their proportions");
             }
         }
 

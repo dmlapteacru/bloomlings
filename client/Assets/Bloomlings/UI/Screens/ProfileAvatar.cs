@@ -37,9 +37,11 @@ namespace Bloomlings.Client.UI.Screens
         private readonly RawImage _picture;
         private ProfileFrameStyle? _frameStyle;
         private bool _framed;
+        private readonly bool _sceneFrame;
 
-        private ProfileAvatar(RectTransform root)
+        private ProfileAvatar(RectTransform root,bool sceneFrame=false)
         {
+            _sceneFrame=sceneFrame;
             Rect = root;
             _layout = BoxLayout.On(root);
 
@@ -86,7 +88,7 @@ namespace Bloomlings.Client.UI.Screens
 
         public RectTransform Rect { get; }
 
-        public static ProfileAvatar Create(string name, Transform parent) => new ProfileAvatar(UiFactory.CreateRect(name, parent));
+        public static ProfileAvatar Create(string name, Transform parent,bool sceneFrame=false) => new ProfileAvatar(UiFactory.CreateRect(name, parent),sceneFrame);
 
         /// <param name="look">The shown frame, badge and marker (each may be none).</param>
         /// <param name="outfit">What the pictured hero wears while the avatar's picture is missing.</param>
@@ -115,7 +117,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>A drawn frame's picture (<see cref="UiRaster.ProfileFrame"/>, at the rect's pixel size), else the tinted frame.</summary>
         private void ShowFrame(CosmeticItem? frame)
         {
-            string? asset=frame==null ? null : ProfileGameDesign.FrameAsset(frame.Id)??ShopCatalogDesign.Accessory(frame.Id);
+            string? asset=frame==null ? null : _sceneFrame&&frame.Id=="frame.leaf_ring" ? ProfileGameDesign.LeafFrame : ProfileGameDesign.FrameAsset(frame.Id)??ShopCatalogDesign.Accessory(frame.Id);
             if(asset!=null&&ShopArt.Get(asset)!=null)
             {
                 _frame.sprite=ShopArt.Get(asset);_frame.color=Color.white;_frame.gameObject.SetActive(true);_framePicture.gameObject.SetActive(false);_frameStyle=null;return;

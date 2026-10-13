@@ -92,7 +92,7 @@ namespace Bloomlings.Client.UI.Design
             "boost-bloom_burst" => (1, 1),
             _ => null,
         };
-        public static string ResourceName(string name) => name.StartsWith("profile-frame-",StringComparison.Ordinal) ? "profile-frames-v1" : name.StartsWith("accessory-", StringComparison.Ordinal) ? "catalog-accessories-v1" : name.StartsWith("catalog-", StringComparison.Ordinal) ? "catalog-frames-v1" : name.StartsWith("boost-", StringComparison.Ordinal) ? "booster-atlas-v2" : name == "background" || name == "price-button" || name == "hero-card-v2" || name == "noads-basket-v2" || name == "profile-gold-v1" ? name : "offer-atlas";
+        public static string ResourceName(string name) => name.StartsWith("profile-frame-",StringComparison.Ordinal) ? "profile-frames-v1" : name.StartsWith("accessory-", StringComparison.Ordinal) ? "catalog-accessories-v1" : name.StartsWith("catalog-", StringComparison.Ordinal) ? "catalog-frames-v1" : name.StartsWith("boost-", StringComparison.Ordinal) ? "booster-atlas-v2" : name == "background" || name == "price-button" || name == "hero-card-v2" || name == "noads-basket-v2" || name == "profile-gold-v1" || name == "profile-showcase-v1" || name == "profile-leaf-v1" ? name : "offer-atlas";
         public static (int Left, int Top, int Width, int Height) BoosterCrop(string name, int width, int height)
         {
             // Opaque subject bounds (alpha >= 160) plus 3 pixels; all icons center their artwork, not the atlas cell.

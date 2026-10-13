@@ -18,7 +18,7 @@ namespace Bloomlings.Playtest.Design
         /// <c>wood.line</c> ring on the picture's edge, and the profile badge at the lower left (0.36 of the side). With
         /// <paramref name="action"/> it presses like an icon button and a tap runs it.
         /// </summary>
-        public static void Avatar(IPainter p, Box box, AvatarItem avatar, CosmeticItem? frame, CosmeticItem? badge, Action? action, Outfit? outfit = null)
+        public static void Avatar(IPainter p, Box box, AvatarItem avatar, CosmeticItem? frame, CosmeticItem? badge, Action? action, Outfit? outfit = null,bool sceneFrame=false)
         {
             p.Mark("ui.button.round");
             float depth = Press(p, box, action != null);
@@ -43,7 +43,8 @@ namespace Bloomlings.Playtest.Design
 
             if (frame != null)
             {
-                Frame(p, box, frame);
+                if(sceneFrame&&frame.Id=="frame.leaf_ring"&&p.HasSprite(ProfileGameDesign.LeafFrame))p.Sprite(ProfileGameDesign.LeafFrame,AvatarLook.Frame(box));
+                else Frame(p, box, frame);
             }
 
             if (badge != null)

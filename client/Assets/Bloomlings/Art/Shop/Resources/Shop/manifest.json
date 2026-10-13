@@ -1,6 +1,6 @@
 {
   "tool": "OpenAI ImageGen (built-in)",
-  "version": 4,
+  "version": 5,
   "files": [
     {
       "path": "background.png",
@@ -88,6 +88,24 @@
       "width": 1774,
       "height": 887,
       "sha256": "2909a97dabc676b17936a348bf8999a2c69501070083509ad5dd8bcbd9340b20",
+      "slot": "ui.shop.illustrations",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "profile-showcase-v1.png",
+      "width": 940,
+      "height": 1672,
+      "sha256": "0f428a7d8fa2509649c88395c32a36ef3072cd422fdde2b81c54081a5a727656",
+      "slot": "ui.shop.illustrations",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "profile-leaf-v1.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "20e3b7c262851bd164d9486de9d101cf8e1474f1891ba6e3846d136861a109de",
       "slot": "ui.shop.illustrations",
       "source": "owner",
       "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"

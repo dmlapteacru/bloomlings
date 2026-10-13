@@ -12,6 +12,16 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>Shared profile material and live labels; all skins preserve their source alpha and use nine-slice.</summary>
     public static class ProfileGameView
     {
+        /// <summary>The illustrated showcase already carries these button faces; overlay only live glyphs and hits.</summary>
+        public static RectTransform SceneButton(string name,Transform parent,Action tap,bool? next=null)
+        {
+            Image hit=UiFactory.CreateImage(name,parent,null,Color.clear,raycast:true);UiKit.TapTarget(hit,tap,press:true);
+            Image glyph=UiFactory.CreateImage("Glyph",hit.transform,next.HasValue ? ProceduralSprites.RaisedChevron(next.Value,ShopBodyDesign.Ink) : ProceduralSprites.Shape("ui.edit"),Color.white);
+            BoxLayout.On(hit.rectTransform).Add(glyph.rectTransform,b=>b.Inset(b.Width*(next.HasValue ? .32f : .24f)));
+            Image touch=UiFactory.CreateImage("Touch",hit.transform,null,Color.clear,raycast:true);UiKit.TapTarget(touch,tap);
+            BoxLayout.On(hit.rectTransform).Add(touch.rectTransform,b=>next.HasValue ? ProfileGameDesign.ArrowTouch(b,UiKit.Units(DesignTokens.Size.TouchMin)) : Box.FromCenter(b.CenterX,b.CenterY,Mathf.Max(b.Width,UiKit.Units(DesignTokens.Size.TouchMin)),Mathf.Max(b.Height,UiKit.Units(DesignTokens.Size.TouchMin))));
+            return hit.rectTransform;
+        }
         public static Image EditButton(Transform parent,Action tap)
         {
             Image button=UiFactory.CreateImage("EditProfile",parent,null,Color.white);
@@ -40,6 +50,15 @@ namespace Bloomlings.Client.UI.Screens
         {
             var label=UiKit.Label(name,parent,text,type,UiTheme.Of((look??ProfileGameDesign.Ink).FillTop),align,look??ProfileGameDesign.Ink);
             return label;
+        }
+        public static TextMeshProUGUI SceneLabel(string name,Transform parent,string text,TypeStyle type,TextLook? look=null)
+        {
+            var label=Label(name,parent,text,type,look);
+            BoxLayout.On(label.rectTransform).Then(b=>
+            {
+                float size=Mathf.Min(UiKit.Units(type.Size),b.Height*.72f);
+                label.fontSizeMax=size;label.fontSizeMin=Mathf.Min(size,UiKit.Units(type.Min));label.fontSize=size;
+            });return label;
         }
         public static Image Price(Transform parent,string value,Action? tap=null,bool petals=true)
         {

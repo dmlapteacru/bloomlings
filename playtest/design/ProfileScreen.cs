@@ -13,20 +13,19 @@ namespace Bloomlings.Playtest.Design
         {
             var meta=app.Meta;var profile=meta.Profile;var r=ScreenLayout.ReferenceProfile(p.Width,p.Height,p.Insets);bool covered=app.Overlays.Count>0;
             DesignApp.DrawBackdrop(p,BackdropScene.Home,meta.CurrentLevel,OwnerPictures.Wardrobe);
-            ProfileGamePainter.Skin(p,r.Card,ShopCatalogDesign.CosmeticsFrame);
-            Kit.Avatar(p,r.Avatar,profile.Avatar,meta.Wardrobe.Profile.Frame,meta.Wardrobe.Profile.Badge,covered ? null : ()=>app.OpenProfileEdit(ProfileTab.Avatar),HomeScreen.OutfitsOf(app)?.Invoke(profile.Avatar.Family));
-            ProfileGamePainter.Label(p,r.Name,NameOf(profile),ProfileGameDesign.Name,left:true);
-            p.Mark("ui.edit");p.Picture("ui.edit/profile-button",r.Edit,ProfileGameDesign.EditSurface);
-            foreach(Box pencil in ProfileGameDesign.PencilLayers(r.Edit))p.Shape("ui.edit",pencil,Rgba.White);
+            p.Mark("ui.shop.illustrations");p.Sprite(ProfileGameDesign.Showcase,r.Panel);
+            Kit.Avatar(p,r.Avatar,profile.Avatar,meta.Wardrobe.Profile.Frame,meta.Wardrobe.Profile.Badge,null,HomeScreen.OutfitsOf(app)?.Invoke(profile.Avatar.Family),sceneFrame:true);
+            if(!covered)p.Hit(ProfileGameDesign.AvatarTouch(r.Avatar),()=>app.OpenProfileEdit(ProfileTab.Avatar));
+            ProfileGamePainter.Label(p,r.Name,NameOf(profile),ProfileGameDesign.Name,ShopBodyDesign.Letters);
+            p.Mark("ui.edit");p.Shape("ui.edit",ProfileGameDesign.Pencil(r.Edit),Rgba.White);
             if(!covered)p.Hit(Kit.Touch(p,r.Edit),()=>app.OpenProfileEdit(ProfileTab.Name));
-            ProfileGamePainter.Label(p,r.Id,PlaytestText.F("profile.id",profile.ShortId),ProfileGameDesign.Info,left:true);
-            ProfileGamePainter.Label(p,r.Joined,PlaytestText.F("profile.joined",profile.JoinedMonth),ProfileGameDesign.Info,left:true);
-            Kit.WoodSign(p,r.Plaque,PlaytestText.F("common.level",NumberText.Group(meta.CurrentLevel)),T.LevelPill);
-            Box title=new Box(r.AchievementsTitle.Left+r.AchievementsTitle.Width*.14f,r.AchievementsTitle.Top,r.AchievementsTitle.Right-r.AchievementsTitle.Width*.14f,r.AchievementsTitle.Bottom);
-            Kit.WoodSign(p,title,PlaytestText.T("profile.achievements"),T.Title);
+            ProfileGamePainter.Label(p,r.Id,PlaytestText.F("profile.id",profile.ShortId),ProfileGameDesign.Info);
+            ProfileGamePainter.Label(p,r.Joined,PlaytestText.F("profile.joined",profile.JoinedMonth),ProfileGameDesign.Info);
+            ProfileGamePainter.Label(p,r.Plaque,PlaytestText.F("common.level",NumberText.Group(meta.CurrentLevel)),ProfileGameDesign.Name,ShopBodyDesign.Letters);
+            ProfileGamePainter.Label(p,ProfileGameDesign.ShowcaseTitle(r),PlaytestText.T("profile.achievements"),ProfileGameDesign.Name,ShopBodyDesign.Letters);
             var states=Achievements.Of(meta.Save);int pages=(states.Count+8)/9,page=Math.Max(0,Math.Min(pages-1,app.ProfileAchievementPage));
-            Kit.ArrowButton(p,r.AchievementsTitle.Left+r.AchievementsTitle.Height*.5f,r.AchievementsTitle.CenterY,r.AchievementsTitle.Height,false,covered ? null : ()=>app.ProfileAchievementPage=(page+pages-1)%pages);
-            Kit.ArrowButton(p,r.AchievementsTitle.Right-r.AchievementsTitle.Height*.5f,r.AchievementsTitle.CenterY,r.AchievementsTitle.Height,true,covered ? null : ()=>app.ProfileAchievementPage=(page+1)%pages);
+            SceneArrow(p,ProfileGameDesign.Previous(r),false,covered ? null : ()=>app.ProfileAchievementPage=(page+pages-1)%pages);
+            SceneArrow(p,ProfileGameDesign.Next(r),true,covered ? null : ()=>app.ProfileAchievementPage=(page+1)%pages);
             for(int i=0;i<9&&page*9+i<states.Count;i++)
             {
                 var state=states[page*9+i];Achievement(p,r.Achievements[i],state,1,covered ? null : ()=>{if(state.Tier>0&&meta.Wardrobe.Show(state.Def.BadgeId))app.HomeToast(PlaytestText.T("profile.badge_equipped"));else app.HomeToast(PlaytestText.T("profile.achievement_help."+state.Def.Id));});
@@ -37,12 +36,18 @@ namespace Bloomlings.Playtest.Design
         }
         public static void Achievement(IPainter p,Box tile,AchievementState state,float grow,Action? action=null)
         {
-            p.Mark("ui.achievement");ProfileGamePainter.Skin(p,tile,ProfileGameDesign.Gold);Box art=ProfileGameDesign.AchievementPicture(tile);
+            p.Mark("ui.achievement");Box art=ProfileGameDesign.AchievementPicture(tile);
             string image=PainterBase.BadgePrefix+state.Def.Id;if(state.Tier==0)p.PushAlpha(.58f);if(p.HasSprite(image))p.Sprite(image,art);else p.Shape("ui.trophy",art,ShopBodyDesign.Ink);if(state.Tier==0)p.PopAlpha();
-            Box count=ProfileGameDesign.AchievementCount(tile);if(state.Complete)Kit.SlicedSprite(p,"shop/price-button",count,350f/1985,190f/505,.4f);else p.Picture("profile.progress",count,(w,h)=>ShopCatalogDesign.ActionSurface(w,h,false));
+            Box count=ProfileGameDesign.AchievementCount(tile);if(state.Complete)Kit.SlicedSprite(p,"shop/price-button",count,350f/1985,190f/505,.4f);
             ProfileGamePainter.Label(p,count,state.Complete ? NumberText.Group(state.Value) : PlaytestText.F("profile.achievement_progress",NumberText.Group(state.Shown),NumberText.Group(state.Goal)),ProfileGameDesign.Progress,state.Complete ? ShopBodyDesign.MoneyLetters : ProfileGameDesign.Ink);
             Box mark=ProfileGameDesign.AchievementMark(tile);if(state.Tier==0)Kit.LockBadge(p,mark.CenterX,mark.CenterY,mark.Width);else if(state.Complete)ProfileGamePainter.Check(p,mark);
             ProfileGamePainter.Label(p,ProfileGameDesign.AchievementLabel(tile),PlaytestText.T(state.Def.NameKey),ProfileGameDesign.Item);if(action!=null)p.Hit(tile,action);
+        }
+        private static void SceneArrow(IPainter p,Box box,bool next,Action? tap)
+        {
+            p.Mark("ui.chevron");p.Mark("ui.glyph.raised");Box glyph=box.Inset(box.Width*.32f);
+            p.Picture("ui.glyph.raised/ui.chevron/"+(next ? "next" : "previous"),UiRaster.RaisedGlyphBox(glyph),(w,h)=>UiRaster.RaisedChevron(Math.Min(w,h),next,ShopBodyDesign.Ink));
+            if(tap!=null)p.Hit(ProfileGameDesign.ArrowTouch(box,p.U(DesignTokens.Size.TouchMin)),tap);
         }
         public static string NameOf(ProfileService profile)=>profile.Name??PlaytestText.F("profile.default_name",profile.DefaultNumber);
         public static void Edit(IPainter p,DesignApp app,float since)
