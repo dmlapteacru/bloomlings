@@ -56,4 +56,30 @@ Both calls used the supplied navigation reference and `transparent_background: t
 
 The plus is cropped by `NavigationSkin.PlusCrop`, rendered with preserved aspect ratio and no 9-slice or additional glyph. It replaces the stretched money-price button in the balance pill. Page header height increases from 0.13W to 0.16W while title text stays approximately the same size, creating more vertical wood padding. Wardrobe hero placement clears the taller header; the legacy Store panel's upper spacing is tightened to preserve its row capacity.
 
-Palette A: selected green/gold, inactive purple. Palette B: Packs green, Cosmetics pink, Animations blue, with gold selection rim. The local preview flag `--nav-palette A|B` selects these experiments. `ButtonPalette` defaults to -1: production secondary surfaces keep their previous palette until the owner chooses. The circular plus and taller page plaque are common changes.
+Palette A: selected green/gold, inactive purple. Palette B: Packs green, Cosmetics pink, Animations blue, with gold selection rim. The local preview flag `--nav-palette A|B` selected these historical experiments. They have been superseded by the approved cream block below.
+## Approved connected cream navigation (current implementation)
+
+On 2026-10-13 the owner selected the common cream block from `product/previews/navigation-concepts-v1/01-cream-segments.png`. This supersedes the A/B capsule palette experiments above; the selected design is now the production default. The preview-only palette flag was removed.
+
+### New files
+
+- `cream-bar-v1.png`: generated `exec-11012b8d-5e07-45fb-96b8-5d07e6e97787.png`, copied unchanged.
+- `cream-selected-v1.png`: generated `exec-4e1b6dd3-cf68-459d-a7c4-f4e2feb6c890.png`, copied unchanged.
+
+Both PNGs are 2172x724 RGBA. Dimensions and SHA-256 hashes are in `manifest.json`. Generation used the built-in OpenAI ImageGen tool with the approved concept as a style reference and `transparent_background: true`.
+
+### Exact cream base prompt
+
+Use case: stylized-concept. Production transparent UI skin for Bloomlings garden game. Input image is a STYLE REFERENCE: use ONLY the connected cream navigation bar directly below Shop. Generate one standalone blank front-facing skin on a transparent background. Smooth illustrated cartoon game material, cream and pale honey, soft subtle molded depth, restrained upper contour glint, tight lower shadow. No text, icons, numerals, leaves, flower ornaments, UI screen, background scenery or watermark. Entire silhouette visible with small transparent gutter. Primary request: ONLY THE EMPTY CREAM BASE of that horizontal navigation bar. One long rounded rectangular cream parchment-like slab, width-to-height about 7:1. Thin warm golden-brown raised outer rim and delicate ivory inside highlight. Mostly straight top/bottom, small round ends with corner radius 35% of height. Interior is uninterrupted light creamy ivory with very gentle warm gradient; no segments, no dividers, no green selected tab, no darker decorative panels. Center and edges blank for live text, icons and variable segment count in code. Shadow just below, compact, not heavy. Generate a landscape image.
+
+### Exact selected segment prompt
+
+Use case: stylized-concept. Production transparent UI skin for Bloomlings garden game. Input image is a STYLE REFERENCE: use ONLY the connected cream navigation bar directly below Shop. Generate one standalone blank front-facing skin on a transparent background. Smooth illustrated cartoon game material, cream and pale honey, soft subtle molded depth, restrained upper contour glint, tight lower shadow. No text, icons, numerals, leaves, flower ornaments, UI screen, background scenery or watermark. Entire silhouette visible with small transparent gutter. Primary request: ONLY THE GREEN SELECTED SEGMENT from the left third of that cream navigation bar. One wide rounded rectangular green inset tab, width-to-height about 3:1. Corners radius 30% of height, straight top/bottom and short straight side portions, not oval. Rich leaf green raised face, thin pale gold/cream rim with a soft tightly confined golden glow, soft glossy upper edge and modest dark-green lower thickness. Face gently lighter toward top, soft painted satin material. Completely empty center; no cream surrounding navigation bar, no other buttons. This will be placed inside the cream base in code. Generate a landscape image.
+
+### Rendering contract
+
+Runtime crops: cream base `(42,214)-(2131,472)`, selected `(76,105)-(2097,596)` in 2172x724 source coordinates. Source PNGs are unchanged. Nine-slice horizontal borders are 8% for the base and 15% for selected; vertical borders are 40%. Native uGUI computes pixelsPerUnitMultiplier from crop height / target height, matching the shared Skia/Android slices. The existing texture importer keeps input alpha, uncompressed original dimensions, sRGB and bilinear sampling.
+
+One decorative base spans each whole row. Equal segments occupy its inset interior. Only selected segments draw green surfaces; other segments have transparent faces, brown labels and shallow decorative dividers. Text and icons are live layers. `NavigationSkin.TabContent` centers each icon/label group, reserves 22% of segment height as minimum side padding and bounds long labels to the remaining width. Geometry is derived from actual box sizes, with no screen-resolution coordinates. Press motion, click callbacks, selection and unlock conditions are preserved.
+
+This covers Shop Packs/Cosmetics/Animations, the profile editor's Avatar/Frame/Badge/Name, Unity Wardrobe item-kind filters, and family navigation in Shop and Wardrobe. The Shop row is 92% of the safe width. Background images, title plaques, Petals plus and bottom main navigation retain their previous look.

@@ -865,16 +865,18 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         private void FamilyTabs(Box tabs, Box panel, IReadOnlyList<Family> families, WardrobeService wardrobe)
         {
-            Box[] cells = ScreenLayout.Row(tabs, families.Count, 10f * Scale, float.MaxValue, square: false);
+            Box barBox=NavigationSkin.FamilyBar(tabs,families.Count);
+            RectTransform bar=UiKit.NavigationBar("FamilyNavigation",_list,families.Count);
+            PlaceInList(bar,barBox);
             FamilyTabView? selected = null;
-            for (int i = 0; i < cells.Length; i++)
+            for (int i = 0; i < families.Count; i++)
             {
                 int index = i;
                 bool on = i == _family;
                 Family family = families[i];
                 FamilyTabView tab = UiKit.FamilyTab(family.ToString(), _list, Loc.T("family." + WardrobeService.FamilyKey(family)), () => SelectFamily(index));
-                Box cell = cells[i];
-                PlaceInList((RectTransform)tab.transform, NavigationSkin.FamilyButton(cell));
+                Box cell = NavigationSkin.Segment(barBox,i,families.Count);
+                PlaceInList((RectTransform)tab.transform, cell);
                 tab.Select(on);
                 if (on)
                 {

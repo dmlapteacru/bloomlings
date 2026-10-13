@@ -1465,25 +1465,25 @@ namespace Bloomlings.Client.UI
             Well(name, parent, UiTheme.Of(C.ParchmentWell), radiusUnits, raycast);
 
         /// <summary>
-        /// Tabs (Store, Wardrobe, the profile's edit card; FR-016, spec 005, the playtest's <c>Kit.Tabs</c>): since FR-047
-        /// every tab a pill raised on its wooden plate as the buttons (<see cref="RaisedButton"/>), the selected one green and
-        /// glossy with a white label, the others light wood (<see cref="GardenLook.Tan"/>) with brown labels, sinking when
-        /// pressed.
+        /// Shared cream segmented navigation (Shop, Wardrobe filters, profile editor).
+        /// The selected segment has a generated green face and white text; inactive labels sit directly on the cream bar.
         /// </summary>
         public static TabsView Tabs(string name, Transform parent, string[] labels, Action<int> onSelect, string[]? keys = null)
         {
             RectTransform root = UiFactory.Stretch(UiFactory.CreateRect(name, parent));
             var view = root.gameObject.AddComponent<TabsView>();
+            RectTransform cream=NavigationBar("CreamBar",root,labels.Length);
+            BoxLayout layout=BoxLayout.On(root).Add(cream,b=>b);
             for(int i=0;i<labels.Length;i++)
             {
                 int index=i;
-                RectTransform cell=UiFactory.Place(UiFactory.CreateRect("Tab"+i,root),i/(float)labels.Length,0,(i+1)/(float)labels.Length,1);
-                cell.offsetMin=new Vector2(Units(8),0); cell.offsetMax=new Vector2(-Units(8),0);
+                RectTransform cell=UiFactory.CreateRect("Tab"+i,root);
+                layout.Add(cell,b=>NavigationSkin.Segment(b,index,labels.Length));
                 string icon=NavigationSkin.Icon(keys != null ? keys[i] : labels[i]);
                 GardenButton on=NavigationButton("On",cell,index,true);
-                UiFactory.Stretch((RectTransform)on.transform); NavigationTabContent(on,labels[i],icon); Clickable(on,()=>onSelect(index));
+                UiFactory.Stretch((RectTransform)on.transform); NavigationTabContent(on,labels[i],icon,true); Clickable(on,()=>onSelect(index));
                 GardenButton off=NavigationButton("Off",cell,index,false);
-                UiFactory.Stretch((RectTransform)off.transform); NavigationTabContent(off,labels[i],icon); Clickable(off,()=>onSelect(index));
+                UiFactory.Stretch((RectTransform)off.transform); NavigationTabContent(off,labels[i],icon,false); Clickable(off,()=>onSelect(index));
                 view.Add(on.gameObject,off.gameObject);
             }
             return view;
@@ -2183,7 +2183,7 @@ namespace Bloomlings.Client.UI
         }
     }
 
-    /// <summary>Tabs built by <see cref="UiKit.Tabs"/>: shows the raised button for the selected tab, the well for the others.</summary>
+    /// <summary>Tabs built by <see cref="UiKit.Tabs"/>: switches the green selected face and each segment's label colors.</summary>
     public sealed class TabsView : MonoBehaviour
     {
         private readonly List<(GameObject On, GameObject Off)> _tabs = new List<(GameObject, GameObject)>();

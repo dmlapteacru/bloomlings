@@ -1679,39 +1679,38 @@ namespace Bloomlings.Client.UI
         private BoxLayout _layout = null!;
         private Image _face = null!;
         private TextMeshProUGUI _label = null!;
-        private int _index;
         private Image _symbol = null!;
-        private Image _glow = null!;
         public TextMeshProUGUI Label => _label;
         public bool Selected { get; private set; }
         internal void Build(BoxLayout layout, string label)
         {
             _layout=layout;
-            _index=gameObject.name == "Bloom" ? 1 : gameObject.name == "Drop" ? 2 : gameObject.name == "Twig" ? 3 : 0;
-            _glow=UiKit.RoundRect("SelectedGlow",layout.transform,UiTheme.Of(ShopBodyDesign.BadgeLight.WithAlpha(.30f)),b=>b.Height*.52f);
-            _face=UiFactory.CreateImage("Capsule",layout.transform,null,Color.white);
+            _face=UiFactory.CreateImage("SelectedSegment",layout.transform,NavigationArt.Get(NavigationSkin.CreamSelected),Color.white);
             Sprite? icon = Enum.TryParse<Family>(gameObject.name,out Family family)
                 ? GameplayArt.Pod(new VariantId(NavigationSkin.FamilyIcon(family).Substring(13)))
                 : NavigationArt.Get("navigation/icon-avatar");
             _symbol=UiFactory.CreateImage("Icon",layout.transform,icon,Color.white); _symbol.preserveAspect=true;
-            _label=UiKit.KitLabel("Name",layout.transform,label,NavigationSkin.Tab,NavigationSkin.TabLetters);
+            _label=UiKit.KitLabel("Name",layout.transform,label,NavigationSkin.Tab,NavigationSkin.TabLook(false));
             layout.Watch(_label).Then(Lay); Select(false);
         }
         public void Select(bool selected)
         {
             Selected=selected;
-            _glow.gameObject.SetActive(selected);
-            PictureFit.On(_face,(w,h)=>ProceduralSprites.Picture("navigation.family/"+_index+"/"+selected,w,h,(pw,ph)=>NavigationSkin.Button(pw,ph,_index,selected)));
+            _face.gameObject.SetActive(selected);
+            UiKit.ApplyLook(_label,NavigationSkin.Tab,NavigationSkin.TabLook(selected));
+            if(selected&&_face.sprite==null) PictureFit.On(_face,(w,h)=>ProceduralSprites.Picture("navigation.family/selected",w,h,(pw,ph)=>NavigationSkin.Button(pw,ph,0,true)));
             _layout.Apply();
         }
         private void Lay(Box box)
         {
-            Box capsule=NavigationSkin.FamilyButton(box);
-            BoxLayout.Place(_glow.rectTransform,capsule.Inset(-capsule.Height*.025f));
-            BoxLayout.Place(_face.rectTransform,capsule);
-            BoxLayout.Place(_symbol.rectTransform,NavigationSkin.TabIcon(capsule));
-            Box text=NavigationSkin.TabLabel(capsule);
-            KitText.Place(_label,NavigationSkin.Tab,text.CenterX,text.CenterY,text.Height*.78f,text.Width);
+            Box face=NavigationSkin.SelectedFace(box);
+            BoxLayout.Place(_face.rectTransform,face);
+            UiKit.SetNavigationSlice(_face,NavigationSkin.CreamSelected,face);
+            float size=box.Height*NavigationSkin.TabTextHeight;
+            var content=NavigationSkin.TabContent(box,KitText.Measure(_label,size));
+            BoxLayout.Place(_symbol.rectTransform,content.Icon);
+            Box text=content.Label;
+            KitText.Place(_label,NavigationSkin.Tab,text.CenterX,text.CenterY,size,text.Width);
         }
     }
 

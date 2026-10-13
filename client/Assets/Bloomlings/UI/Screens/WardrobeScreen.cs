@@ -71,6 +71,7 @@ namespace Bloomlings.Client.UI.Screens
         private Image _panelLine = null!;
         private Image _lockedFrame = null!;
         private Image[] _lockedFlowers = null!;
+        private RectTransform _familyBar = null!;
         private RectTransform _chips = null!;
         private TabsView _wornKinds = null!;
         private TabsView _profileKinds = null!;
@@ -139,6 +140,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._lockedFrame = UiKit.CardFrame("LockedFrame", root, raycast: false);
             screen._lockedFrame.gameObject.SetActive(false);
             IReadOnlyList<Family> families = WardrobeService.Families;
+            screen._familyBar = UiKit.NavigationBar("FamilyNavigation",root,families.Count+1);
             for (int i = 0; i < families.Count; i++)
             {
                 Family family = families[i];
@@ -278,6 +280,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>Shows or hides everything of the open Wardrobe but its garden, its panel, its header and the menu.</summary>
         private void SetContent(bool shown)
         {
+            _familyBar.gameObject.SetActive(shown);
             _pedestal.gameObject.SetActive(shown);
             _hero.Rect.gameObject.SetActive(shown);
             _avatar.Rect.gameObject.SetActive(shown);
@@ -528,14 +531,14 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_panel.rectTransform, panel);
             UiKit.PlaceScreen(_panelLine.rectTransform, panel);
 
-            // The tabs: the others a little lower, the selected one flowing into the panel.
+            // The family navigation shares one cream base; each segment uses the shared responsive geometry.
             int selected = _profileMode ? _tabs.Count - 1 : IndexOf(_selected);
+            Box familyBar=NavigationSkin.FamilyBar(r.Tabs,_tabs.Count);
+            UiKit.PlaceScreen(_familyBar,familyBar);
             for (int i = 0; i < _tabs.Count; i++)
             {
-                Box cell = r.Tab(i, _tabs.Count);
-                // An unselected tab ends at the panel's edge, so its name stays clear of the panel (spec 005 FR-049; the
-                // playtest's Kit.FamilyTabParts).
-                UiKit.PlaceScreen((RectTransform)_tabs[i].transform, NavigationSkin.FamilyButton(cell));
+                Box cell = NavigationSkin.Segment(familyBar,i,_tabs.Count);
+                UiKit.PlaceScreen((RectTransform)_tabs[i].transform, cell);
                 _tabs[i].Select(i == selected);
             }
 

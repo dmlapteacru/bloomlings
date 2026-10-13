@@ -27,6 +27,13 @@ namespace Bloomlings.Client.UI
                 rect = new Rect(c.Left, texture.height-c.Top-c.Height, c.Width, c.Height);
                 border = new Vector4(c.Width*NavigationSkin.ButtonBorderX,c.Height*NavigationSkin.ButtonBorderY,c.Width*NavigationSkin.ButtonBorderX,c.Height*NavigationSkin.ButtonBorderY);
             }
+            else if (name == NavigationSkin.CreamBar || name == NavigationSkin.CreamSelected)
+            {
+                var c = NavigationSkin.CreamCrop(name, texture.width, texture.height);
+                rect = new Rect(c.Left, texture.height-c.Top-c.Height, c.Width, c.Height);
+                float bx = name == NavigationSkin.CreamBar ? NavigationSkin.CreamBarBorderX : NavigationSkin.CreamSelectedBorderX;
+                border = new Vector4(c.Width*bx,c.Height*NavigationSkin.CreamBorderY,c.Width*bx,c.Height*NavigationSkin.CreamBorderY);
+            }
             else if (name == "navigation/plus-v2")
             {
                 var c=NavigationSkin.PlusCrop(texture.width,texture.height);

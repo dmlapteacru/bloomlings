@@ -884,6 +884,12 @@ namespace Bloomlings.Playtest.Droid
                 {
                     using System.IO.Stream? stream = PlaytestFiles.Open(SpriteResource(name));
                     bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
+                    if(bitmap!=null&&(name==NavigationSkin.CreamBar||name==NavigationSkin.CreamSelected))
+                    {
+                        var c=NavigationSkin.CreamCrop(name,bitmap.Width,bitmap.Height);
+                        Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
+                        bitmap.Dispose();bitmap=cropped;
+                    }
                     if(bitmap!=null&&(name.StartsWith("navigation/button-",StringComparison.Ordinal)||name=="navigation/plus-v2"))
                     {
                         var c=name=="navigation/plus-v2" ? NavigationSkin.PlusCrop(bitmap.Width,bitmap.Height) : NavigationSkin.ButtonCrop(name,bitmap.Width,bitmap.Height);

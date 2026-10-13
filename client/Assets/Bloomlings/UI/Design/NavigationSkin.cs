@@ -8,17 +8,47 @@ namespace Bloomlings.Client.UI.Design
     {
         public const float SignBorderX = 0.28f;
         public const float SignBorderY = 0.16f;
+        public const string CreamBar = "navigation/cream-bar-v1";
+        public const string CreamSelected = "navigation/cream-selected-v1";
+        public const float CreamBarBorderX = 0.08f;
+        public const float CreamSelectedBorderX = 0.15f;
+        public const float CreamBorderY = 0.40f;
+        public const float TabTextHeight = 0.42f;
+        public static (int Left, int Top, int Width, int Height) CreamCrop(string name, int w, int h)
+        {
+            Box b = name == CreamBar ? new Box(42,214,2131,472) : new Box(76,105,2097,596);
+            return ((int)(b.Left*w/2172), (int)(b.Top*h/724), (int)(b.Width*w/2172), (int)(b.Height*h/724));
+        }
+        public static Box Segment(Box bar, int index, int count)
+        {
+            Box inner = bar.Inset(bar.Height * 0.065f);
+            float width = inner.Width / Math.Max(1, count);
+            return new Box(inner.Left + width*index, inner.Top, inner.Left + width*(index+1), inner.Bottom);
+        }
+        public static Box SelectedFace(Box cell) => cell.Inset(cell.Height * 0.018f, cell.Height * 0.018f);
+        public static Box Divider(Box bar, int index, int count)
+        {
+            Box inner = bar.Inset(bar.Height * 0.065f);
+            return Box.FromCenter(inner.Left + inner.Width*index/Math.Max(1,count), bar.CenterY, bar.Height*0.022f, bar.Height*0.62f);
+        }
+        public static readonly Rgba DividerInk = Rgba.FromHex("#B99061").WithAlpha(0.55f);
+        public static readonly Rgba DividerLight = Rgba.FromHex("#FFF9DF").WithAlpha(0.75f);
+        public static TextLook TabLook(bool selected) => selected
+            ? new TextLook(Rgba.White, Rgba.FromHex("#FFF8E8"), Rgba.FromHex("#24551A"), 0.055f, 0.015f, 0.06f)
+            : TextLook.Plain(Rgba.FromHex("#60351B"));
+        public static (Box Icon, Box Label) TabContent(Box box, float measuredLabelWidth)
+        {
+            float padding = box.Height*0.22f, gap = box.Height*0.10f;
+            float side = Math.Min(box.Height*0.64f, box.Width*0.24f);
+            float available = Math.Max(1, box.Width - padding*2 - side - gap);
+            float width = measuredLabelWidth > 0 ? Math.Min(available, measuredLabelWidth) : available;
+            float left = box.CenterX - (side + gap + width)*0.5f;
+            return (Box.FromCenter(left+side*0.5f,box.CenterY-box.Height*0.018f,side,side),
+                Box.FromCenter(left+side+gap+width*0.5f,box.CenterY-box.Height*0.018f,width,box.Height*0.68f));
+        }
         public const float ButtonBorderX = 0.17f;
         public const float ButtonBorderY = 0.32f;
         public const float ButtonTargetBorderY = 0.34f;
-        // Preview CLI sets A/B; the production palette stays undecided until the owner selects it.
-        public static int ButtonPalette { get; set; } = -1;
-        public static string? ButtonSprite(int index, bool selected)
-        {
-            if (ButtonPalette < 0) return null;
-            int row = ButtonPalette == 0 ? (selected ? 0 : 1) : new[] { 0, 3, 2, 1 }[Math.Abs(index) % 4];
-            return "navigation/button-" + row + "-" + (selected ? 0 : 1);
-        }
         private static readonly Box[] ButtonBounds = {
             new Box(6,24,774,264), new Box(766,25,1534,265),
             new Box(6,263,774,503), new Box(766,265,1534,505),
@@ -52,6 +82,7 @@ namespace Bloomlings.Client.UI.Design
         public static Box TabIcon(Box box) { float s = Math.Min(box.Height * 0.72f, box.Width * 0.24f); return Box.FromCenter(box.Left + box.Height * 0.14f + s * 0.5f, box.CenterY - box.Height * 0.025f, s, s); }
         public static Box TabLabel(Box box) { Box icon = TabIcon(box); return new Box(icon.Right + box.Height * 0.06f, box.Top + box.Height * 0.14f, box.Right - box.Height * 0.14f, box.Bottom - box.Height * 0.18f); }
         public static Box FamilyButton(Box box) => Box.FromCenter(box.CenterX, box.CenterY, box.Width, Math.Min(box.Height, box.Width * 0.46f));
+        public static Box FamilyBar(Box tabs, int count) => Box.FromCenter(tabs.CenterX,tabs.CenterY,tabs.Width,Math.Min(tabs.Height,tabs.Width/Math.Max(1,count)*0.46f));
         public static string FamilyIcon(Family family) => family switch { Family.Sprig => "gameplay/pod-leaf", Family.Bloom => "gameplay/pod-flower", Family.Drop => "gameplay/pod-water", _ => "gameplay/pod-acorn" };
         public static string Icon(string key) => "navigation/icon-" + (key switch
         {

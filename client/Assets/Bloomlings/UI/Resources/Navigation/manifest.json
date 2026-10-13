@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "files": [
     {
       "file": "page-sign-v1.png",
@@ -38,6 +38,22 @@
       "width": 1254,
       "height": 1254,
       "sha256": "679174ad896b1424c401352d3485799e8f32e90ab251262343ee628cc42e02c5",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "cream-bar-v1.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "316795b8a41c5fe7fe8a2cf9cc082dd33a57d579640452d69e7c2513254f20c4",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "cream-selected-v1.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "5d5471f6da155ec1e7bf4a9b0003c4ac1d76d14ce783ee1c66da0243c8b6b11e",
       "alpha": true,
       "generator": "built-in OpenAI ImageGen"
     }

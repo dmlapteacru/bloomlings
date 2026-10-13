@@ -1266,7 +1266,7 @@ namespace Bloomlings.Client.UI.Design
             var tabs = new Box(safe.CenterX, y, safe.CenterX, y);
             if (hasCosmetics)
             {
-                tabs = new Box(X(0.1f), y, X(0.9f), y + (0.1f * w));
+                tabs = new Box(X(0.04f), y, X(0.96f), y + (0.1f * w));
                 y = tabs.Bottom + (0.04f * w);
             }
 

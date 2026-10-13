@@ -30,22 +30,20 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Family tabs joined to the panel below them (§4.6, <c>ui.tab.family</c>; the reference Wardrobe): one cream tab
-        /// per family with rounded top corners, the family's 3D hero (in <paramref name="outfitOf"/>'s outfit) and its
-        /// name; the selected tab is lighter, a little taller and flows into the lighter panel, the others sit behind its
-        /// edge. A tap on a tab calls <paramref name="onSelect"/>. <paramref name="cells"/> places the tabs (the Wardrobe's
-        /// <see cref="ReferenceWardrobeRegions.Tab"/>); without it they share <paramref name="tabs"/> evenly. Returns the
-        /// panel's content box.
+        /// Family navigation on one shared cream bar, with gameplay symbols and live names.
+        /// Selection uses the same green inset as the Shop. Legacy outfit/cell arguments are retained for callers;
+        /// segments now divide the shared bar evenly. Returns the panel's content box.
         /// </summary>
         public static Box FamilyTabs(IPainter p, Box tabs, Box panel, IReadOnlyList<Family> families, IReadOnlyList<string> names, int selected, Action<int> onSelect, Func<Family, Outfit?>? outfitOf = null, IReadOnlyList<Box>? cells = null)
         {
             p.Mark("ui.tab.family");
-            cells ??= ScreenLayout.Row(tabs,families.Count,p.U(10),float.MaxValue,square:false);
             Panel(p,panel);
-            for(int i=0;i<cells.Count;i++)
+            Box bar=NavigationSkin.FamilyBar(tabs,families.Count);
+            NavigationBar(p,bar,families.Count);
+            for(int i=0;i<families.Count;i++)
             {
                 int index=i;
-                Box box=NavigationSkin.FamilyButton(cells[i]);
+                Box box=NavigationSkin.Segment(bar,i,families.Count);
                 NavigationTab(p,box,names[i],NavigationSkin.FamilyIcon(families[i]),i,i==selected,()=>onSelect(index));
             }
             return panel.Inset(p.U(22));

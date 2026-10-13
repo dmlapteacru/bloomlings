@@ -1073,14 +1073,12 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Tabs in a row (FR-016, spec 005): since FR-047 every tab is a pill raised on its wooden plate as the buttons
-        /// (<see cref="RaisedButton"/>), the selected one green and glossy with a white label, the others light wood
-        /// (<see cref="GardenLook.Tan"/>, the owner's references of 2026-10-08) with brown labels, sinking when pressed.
+        /// Cream segmented navigation with a generated green selected face and live icons and labels.
         /// </summary>
         public static void Tabs(IPainter p, Box box, IReadOnlyList<string> labels, int selected, Action<int> onSelect, IReadOnlyList<string>? keys = null)
         {
-            Box[] cells=ScreenLayout.Row(box,labels.Count,p.U(16),float.MaxValue,square:false);
-            for(int i=0;i<cells.Length;i++) { int index=i; NavigationTab(p,cells[i],labels[i],NavigationSkin.Icon(keys != null ? keys[i] : labels[i]),i,i==selected,()=>onSelect(index)); }
+            NavigationBar(p,box,labels.Count);
+            for(int i=0;i<labels.Count;i++) { int index=i; NavigationTab(p,NavigationSkin.Segment(box,i,labels.Count),labels[i],NavigationSkin.Icon(keys != null ? keys[i] : labels[i]),i,i==selected,()=>onSelect(index)); }
         }
 
         /// <summary>

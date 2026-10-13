@@ -33,11 +33,7 @@ bool perf = false;
 string? csv = null;
 for (int i = 0; i < args.Length; i++)
 {
-    if (args[i] == "--nav-palette" && i + 1 < args.Length)
-    {
-        NavigationSkin.ButtonPalette = args[++i].Equals("B", StringComparison.OrdinalIgnoreCase) ? 1 : 0;
-    }
-    else if (args[i] == "--out" && i + 1 < args.Length)
+    if (args[i] == "--out" && i + 1 < args.Length)
     {
         outDir = Path.GetFullPath(args[++i]);
     }

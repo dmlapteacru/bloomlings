@@ -33,15 +33,31 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("ui.tab"); p.Mark("font.shop");
             float depth = action != null ? Press(p, box, true) : 0;
-            string? surface = NavigationSkin.ButtonSprite(index, selected);
-            if (selected && surface == null) p.FillRound(box.Inset(-box.Height * .025f), box.Height * .52f, ShopBodyDesign.BadgeLight.WithAlpha(.30f));
             Squash(p, box, depth);
-            if (surface != null && p.HasSprite(surface)) SlicedSprite(p, surface, box, NavigationSkin.ButtonBorderX, NavigationSkin.ButtonBorderY, NavigationSkin.ButtonTargetBorderY);
-            else p.Picture("navigation.tab/" + index + "/" + selected, box, (w, h) => NavigationSkin.Button(w, h, index, selected));
-            if (p.HasSprite(icon)) p.Sprite(icon, NavigationSkin.TabIcon(box));
-            Box text = NavigationSkin.TabLabel(box); TextLook look = NavigationSkin.TabLetters;
-            p.Text(label, text.CenterX, text.CenterY, NavigationSkin.Tab, look.FillTop, text.Width, text.Height * .78f / p.U(NavigationSkin.Tab.Size), look);
+            if (selected)
+            {
+                Box face=NavigationSkin.SelectedFace(box);
+                if(p.HasSprite(NavigationSkin.CreamSelected)) SlicedSprite(p,NavigationSkin.CreamSelected,face,NavigationSkin.CreamSelectedBorderX,NavigationSkin.CreamBorderY);
+                else p.Picture("navigation.tab/selected",face,(w,h)=>NavigationSkin.Button(w,h,0,true));
+            }
+            float scale=box.Height*NavigationSkin.TabTextHeight/p.U(NavigationSkin.Tab.Size);
+            var content=NavigationSkin.TabContent(box,p.MeasureText(label,NavigationSkin.Tab,scale));
+            if(p.HasSprite(icon))p.Sprite(icon,content.Icon);
+            Box text=content.Label; TextLook look=NavigationSkin.TabLook(selected);
+            p.Text(label,text.CenterX,text.CenterY,NavigationSkin.Tab,look.FillTop,text.Width,scale,look);
             p.PopTransform(); if (action != null) p.Hit(Touch(p, box), action);
+        }
+        public static void NavigationBar(IPainter p, Box box, int count)
+        {
+            p.Mark("ui.tab");
+            if(p.HasSprite(NavigationSkin.CreamBar)) SlicedSprite(p,NavigationSkin.CreamBar,box,NavigationSkin.CreamBarBorderX,NavigationSkin.CreamBorderY);
+            else RaisedButton(p,box,GardenLook.Cream,.35f,0);
+            for(int i=1;i<count;i++)
+            {
+                Box d=NavigationSkin.Divider(box,i,count);
+                p.FillRound(d,d.Width*.5f,NavigationSkin.DividerInk);
+                p.FillRound(new Box(d.Right,d.Top,d.Right+d.Width*.55f,d.Bottom),d.Width*.275f,NavigationSkin.DividerLight);
+            }
         }
     }
 }
