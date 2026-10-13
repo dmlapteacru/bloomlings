@@ -199,7 +199,7 @@ namespace Bloomlings.Client.UI.Design
         public const float MinAspect = 1.10f;
 
         /// <summary>The candy tile's side, as a share of the panel's height (a little over it, into the border).</summary>
-        public const float TileShare = 0.84f;
+        public const float TileShare = 0.76f;
 
         /// <summary>How far the owner's icon reaches beyond the tile's square on each side, as a share of the pod's height.</summary>
         public const float IconGrow = 0.015f;
@@ -230,7 +230,8 @@ namespace Bloomlings.Client.UI.Design
             Box tile = Box.FromCenter(inner.CenterX, iconY, side, side);
             Box icon = waiting ? Box.FromCenter(inner.CenterX, iconY, inner.Width * 0.70f, side) : tile.Inset(-h * IconGrow);
             float size = h * CountShare;
-            Box count = Box.FromCenter(inner.Right - (size * CountInset), inner.Bottom - (size * CountInset), inner.Width * 0.5f, size);
+            float countLift = h * (waiting ? 0.035f : 0.105f);
+            Box count = Box.FromCenter(inner.Right - (size * CountInset), inner.Bottom - (size * CountInset) - countLift, inner.Width * 0.5f, size);
             float badge = h * BadgeShare;
             Box badgeBox = Box.FromCenter(frame.Left + (h * 0.12f), frame.Bottom - (h * 0.16f), badge, badge);
             return new PodChip(frame, inner, tile, icon, count, badgeBox);
