@@ -779,8 +779,9 @@ namespace Bloomlings.Playtest.Preview
                             if (image != null && cell.HasValue)
                             {
                                 int w = image.Width / 3, h = image.Height / 2;
-                                int inset = ShopBodyDesign.AtlasLeftPadding(name.Substring(5));
-                                SKImage? cropped = image.Subset(new SKRectI(cell.Value.Column * w + inset, cell.Value.Row * h, (cell.Value.Column + 1) * w, (cell.Value.Row + 1) * h));
+                                var crop = ShopBodyDesign.AtlasCrop(name.Substring(5), w, h);
+                                int left = cell.Value.Column * w + crop.Left, top = cell.Value.Row * h + crop.Top;
+                                SKImage? cropped = image.Subset(new SKRectI(left, top, left + crop.Width, top + crop.Height));
                                 image.Dispose();
                                 image = cropped;
                             }

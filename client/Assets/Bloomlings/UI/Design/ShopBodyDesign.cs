@@ -35,6 +35,7 @@ namespace Bloomlings.Client.UI.Design
         public static readonly Rgba BadgeLight = Rgba.FromHex("#FFFAB6");
         public static TextLook MoneyLetters => new TextLook(Rgba.White, Cream, MoneyInk, 0.085f, 0.02f, 0.1f);
         public static TextLook PetalLetters => new TextLook(PetalPriceInk, PetalPriceInk, PetalPriceInk, 0, 0, 0);
+        public static TextLook BadgeLetters => new TextLook(Ink, Ink, Ink, 0.027f, 0, 0);
         public static TextLook LookFor(ShopVisual n) => n.Look ?? (n.Kind == ShopVisualKind.Button ? (n.Dark ? PetalLetters : MoneyLetters) : n.Dark ? DarkLetters : Letters);
         public static readonly ColorSet PetalsBorder = new ColorSet("shop.border.petals", Rgba.FromHex("#FFD250"), Rgba.FromHex("#FFF8CC"), Rgba.FromHex("#EAA32D"), Rgba.FromHex("#D89225"));
         public static readonly ColorSet BoostersBorder = new ColorSet("shop.border.boosters", Rgba.FromHex("#71C5F1"), Rgba.FromHex("#DBF7FF"), Rgba.FromHex("#308ECA"), Rgba.FromHex("#257BA9"));
@@ -97,6 +98,18 @@ namespace Bloomlings.Client.UI.Design
             _ => null,
         };
         public static int AtlasLeftPadding(string name) => name == "badge" ? 40 : name == "pouch" ? 24 : 0;
+        public static (int Left, int Top, int Width, int Height) AtlasCrop(string name, int width, int height)
+        {
+            // Measured opaque artwork bounds plus a tiny gutter: align subjects, not their different transparent margins.
+            Box crop = name switch
+            {
+                "pouch" => new Box(31, 106, 497, 508),
+                "basket" => new Box(14, 42, 512, 452),
+                "chest" => new Box(24, 32, 512, 452),
+                _ => new Box(AtlasLeftPadding(name), 0, 512, 512),
+            };
+            return ((int)(crop.Left * width / 512), (int)(crop.Top * height / 512), (int)(crop.Width * width / 512), (int)(crop.Height * height / 512));
+        }
 
         public static List<ShopVisual> Build(Box area, Func<string, string> text, Func<string, bool> visible, Func<BoosterKind, int> boosterPrice, Func<BoosterKind, bool> unlocked)
         {
@@ -119,7 +132,7 @@ namespace Bloomlings.Client.UI.Design
                 Box coins = Next(0.36f);
                 for (int i = 0; i < 3; i++) Currency(nodes, new Box(coins.Left + i * (cw + gap), coins.Top, coins.Left + i * (cw + gap) + cw, coins.Bottom), Offers[6 + row * 3 + i], visible);
             }
-            Boosters(nodes, Next(0.32f), boosterPrice, unlocked);
+            Boosters(nodes, Next(0.245f), boosterPrice, unlocked);
             Box packs = Next(0.47f);
             SmallOffer(nodes, new Box(packs.Left, packs.Top, packs.CenterX - gap * 0.5f, packs.Bottom), Offers[3], text, visible);
             SmallOffer(nodes, new Box(packs.CenterX + gap * 0.5f, packs.Top, packs.Right, packs.Bottom), Offers[4], text, visible);
@@ -142,12 +155,12 @@ namespace Bloomlings.Client.UI.Design
             else
             {
                 n.Add(new ShopVisual(ShopVisualKind.Card, b));
-                Art(n, In(b, 0.01f, -0.02f, 0.55f, 0.80f), o.Art);
+                Art(n, In(b, 0.025f, 0.04f, 0.51f, 0.735f), o.Art);
                 n.Add(new ShopVisual(ShopVisualKind.Ribbon, In(b, 0.015f, 0.76f, 0.985f, 0.97f)));
             }
             Label(n, In(b, 0.17f, 0.565f, 0.51f, 0.72f), NumberText.Group(o.Petals), Amount);
             if (o.BestSale) RewardGrid(n, FeaturedRewards(b), o.Boosters!);
-            else RewardPanel(n, In(b, 0.54f, 0.045f, 0.965f, 0.735f), o.Boosters!);
+            else RewardPanel(n, In(b, 0.55f, 0.075f, 0.945f, 0.69f), o.Boosters!);
             Label(n, In(b, 0.065f, 0.76f, 0.63f, 0.907f), text(o.NameKey), Title);
             Buy(n, In(b, 0.665f, 0.755f, 0.932f, 0.918f), o.Price, o.Id);
             if (o.BestSale)
@@ -157,8 +170,8 @@ namespace Bloomlings.Client.UI.Design
                 n.Add(new ShopVisual(ShopVisualKind.Sprite, badge.Scale(1.075f, 1.075f), "shop/badge", Tint: BadgeLight.WithAlpha(0.45f)));
                 n.Add(new ShopVisual(ShopVisualKind.Sprite, badge.Scale(1.025f, 1.025f), "shop/badge", Tint: BadgeLight));
                 Art(n, badge, "badge");
-                n.Add(new ShopVisual(ShopVisualKind.Text, In(b, 0.062f, 0.08f, 0.195f, 0.16f), "BEST", Type: Small, Dark: true, Angle: -18f));
-                n.Add(new ShopVisual(ShopVisualKind.Text, In(b, 0.065f, 0.165f, 0.185f, 0.245f), "SELLER", Type: Badge, Dark: true, Angle: -18f));
+                n.Add(new ShopVisual(ShopVisualKind.Text, In(b, 0.065f, 0.085f, 0.195f, 0.155f), "BEST", Type: Badge, Look: BadgeLetters, Angle: -18f));
+                n.Add(new ShopVisual(ShopVisualKind.Text, In(b, 0.065f, 0.15f, 0.195f, 0.22f), "SELLER", Type: Badge, Look: BadgeLetters, Angle: -18f));
             }
         }
         private static void SmallOffer(List<ShopVisual> n, Box b, ShopOffer o, Func<string, string> text, Func<string, bool> visible)
@@ -171,9 +184,9 @@ namespace Bloomlings.Client.UI.Design
             }
             else
             {
-                Art(n, In(b, -0.01f, 0.00f, 0.60f, 0.72f), o.Art);
-                Label(n, In(b, 0.025f, 0.535f, 0.59f, 0.69f), NumberText.Group(o.Petals), Amount);
-                RewardPanel(n, In(b, 0.555f, 0.045f, 0.97f, 0.695f), o.Boosters);
+                Art(n, In(b, 0.025f, 0.035f, 0.53f, 0.69f), o.Art);
+                Label(n, In(b, 0.025f, 0.535f, 0.53f, 0.69f), NumberText.Group(o.Petals), Amount);
+                RewardPanel(n, In(b, 0.57f, 0.075f, 0.945f, 0.66f), o.Boosters);
             }
             Label(n, In(b, 0.02f, 0.70f, 0.98f, 0.80f), text(o.NameKey), Count, true);
             Buy(n, In(b, 0.20f, 0.805f, 0.80f, 0.975f), o.Price, o.Id);
@@ -182,7 +195,7 @@ namespace Bloomlings.Client.UI.Design
         {
             if (!visible(o.Id)) return;
             n.Add(new ShopVisual(ShopVisualKind.Card, b, Group: ShopGroup.Petals));
-            Art(n, In(b, -0.02f, -0.01f, 1.02f, 0.67f), o.Art);
+            Art(n, In(b, 0.04f, 0.045f, 0.96f, 0.66f), o.Art);
             if (o.ValuePercent > 0) Label(n, In(b, 0.62f, 0.015f, 0.96f, 0.125f), "+" + o.ValuePercent + "%", Small);
             Label(n, In(b, 0.025f, 0.565f, 0.975f, 0.735f), NumberText.Group(o.Petals), Amount);
             Buy(n, In(b, 0.14f, 0.74f, 0.86f, 0.965f), o.Price, o.Id);
@@ -199,8 +212,13 @@ namespace Bloomlings.Client.UI.Design
             for (int i = 0; i < 4; i++)
             {
                 Box cell = In(b, (i % 2) * 0.5f, (i / 2) * 0.5f, (i % 2) * 0.5f + 0.47f, (i / 2) * 0.5f + 0.47f);
-                n.Add(new ShopVisual(ShopVisualKind.Sprite, In(cell, 0.00f, -0.01f, 1.00f, 0.80f), "shop/boost-" + ids[i]));
-                Label(n, In(cell, 0.05f, 0.70f, 0.95f, 0.99f), "×" + counts[i], Count);
+                Box icon = In(cell, 0, -0.01f, 1, 0.80f);
+                n.Add(new ShopVisual(ShopVisualKind.Sprite, icon, "shop/boost-" + ids[i]));
+                float side = Math.Min(icon.Width, icon.Height), countHeight = cell.Height * 0.28f;
+                float iconBottom = icon.CenterY + side * 0.5f;
+                // Anchor to the fitted square icon, rather than the taller reward-grid cell.
+                Box count = Box.FromCenter(cell.CenterX, iconBottom - side * 0.10f + countHeight * 0.32f, cell.Width * 0.9f, countHeight);
+                Label(n, count, "×" + counts[i], Count);
             }
         }
         private static void Boosters(List<ShopVisual> n, Box b, Func<BoosterKind, int> price, Func<BoosterKind, bool> unlocked)
@@ -212,9 +230,9 @@ namespace Bloomlings.Client.UI.Design
                 if (!unlocked(kind)) continue;
                 Box cell = In(b, i * 0.25f, 0, i * 0.25f + 0.235f, 1);
                 n.Add(new ShopVisual(ShopVisualKind.Card, cell, Group: ShopGroup.Boosters));
-                n.Add(new ShopVisual(ShopVisualKind.Sprite, In(cell, -0.02f, -0.005f, 1.02f, 0.64f), "shop/boost-" + ids[i]));
-                Label(n, In(cell, 0.10f, 0.575f, 0.90f, 0.735f), "×" + (i == 3 ? 1 : 3), Count);
-                n.Add(new ShopVisual(ShopVisualKind.Button, In(cell, 0.05f, 0.755f, 0.95f, 0.975f), NumberText.Group(price(kind)), "booster_" + kind, Count, Dark: true));
+                n.Add(new ShopVisual(ShopVisualKind.Sprite, In(cell, 0.20f, 0.03f, 0.80f, 0.57f), "shop/boost-" + ids[i]));
+                Label(n, In(cell, 0.20f, 0.47f, 0.80f, 0.67f), "×" + (i == 3 ? 1 : 3), Count);
+                n.Add(new ShopVisual(ShopVisualKind.Button, In(cell, 0.07f, 0.705f, 0.93f, 0.965f), NumberText.Group(price(kind)), "booster_" + kind, Count, Dark: true));
             }
         }
 
@@ -224,7 +242,7 @@ namespace Bloomlings.Client.UI.Design
             ShopVisualKind.Ribbon => UiRaster.RaisedRow(w, h, Math.Min(w, h) * 0.42f, Coral),
             ShopVisualKind.Well => ShopBodyRaster.Framed(w, h, 0.48f, InsetBorder, Well, 0.045f),
             ShopVisualKind.RewardBox => ShopBodyRaster.Framed(w, h, 0.18f, InsetBorder, Card, 0.018f),
-            _ => ShopBodyRaster.Framed(w, h, 0.16f, Border(group), Card, 0.024f),
+            _ => ShopBodyRaster.Framed(w, h, group == ShopGroup.Boosters ? 0.20f : 0.16f, Border(group), Card, 0.024f),
         };
     }
 }

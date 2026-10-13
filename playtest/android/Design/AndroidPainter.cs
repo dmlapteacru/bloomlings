@@ -893,8 +893,8 @@ namespace Bloomlings.Playtest.Droid
                         if(bitmap!=null&&cell.HasValue)
                         {
                             int w=bitmap.Width/3,h=bitmap.Height/2;
-                            int inset=ShopBodyDesign.AtlasLeftPadding(name.Substring(5));
-                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,cell.Value.Column*w+inset,cell.Value.Row*h,w-inset,h);
+                            var crop=ShopBodyDesign.AtlasCrop(name.Substring(5),w,h);
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,cell.Value.Column*w+crop.Left,cell.Value.Row*h+crop.Top,crop.Width,crop.Height);
                             bitmap.Dispose();
                             bitmap=cropped;
                         }

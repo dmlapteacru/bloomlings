@@ -30,8 +30,8 @@ namespace Bloomlings.Client.UI
                 (int Column, int Row)? cell = ShopBodyDesign.AtlasCell(key);
                 if (!cell.HasValue) return Sprites[name] = null;
                 int w = texture.width / 3, h = texture.height / 2;
-                int inset = ShopBodyDesign.AtlasLeftPadding(key);
-                rect = new Rect(cell.Value.Column * w + inset, (1 - cell.Value.Row) * h, w - inset, h);
+                var crop = ShopBodyDesign.AtlasCrop(key, w, h);
+                rect = new Rect(cell.Value.Column * w + crop.Left, texture.height - (cell.Value.Row * h + crop.Top + crop.Height), crop.Width, crop.Height);
             }
             Vector4 border = key == "price-button" ? new Vector4(350, 190, 350, 190) : Vector4.zero;
             return Sprites[name] = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, border);

@@ -43,4 +43,12 @@ Code-built bundles now contain a framed reward inset with padding around the boo
 
 The leaf carries live, rotated `BEST SELLER` text and three alpha-tinted silhouette layers behind the original leaf to create a luminous rim. No source PNG is modified. General outlined lettering is heavier; money prices use a dark green outline. Booster prices use brown text without an outline and a more rounded, visibly framed price capsule.
 
+## Revision 4: subtle depth and consistent artwork placement
+
+Code-built cards, reward panels and price capsules now use a soft, even perimeter shadow and a shallow bevel. They no longer inherit `UiRaster.RaisedRow`'s lower slab, which was 6% of the card height.
+
+Mixed offers reserve separate picture and reward-panel columns, with space around each panel. Quantity labels follow the fitted square booster icon's lower edge so they overlap it slightly even in narrow panels. Standalone booster cards follow the compact proportions of the owner's booster-row reference: the row is 0.245 of the content width, and icons occupy about half of each card's width.
+
+The two tilted Best Seller lines share their horizontal center, weight and tighter line spacing. Petals illustrations use measured sprite crops with a small transparent gutter, aligning the visible artwork bottoms before quantity labels are overlaid. The source PNGs are unchanged. `ShopBodyDesign.AtlasCrop` supplies the same rectangles to Unity, Skia and Android.
+
 Generated assets may be used as part of this project. Font licensing is recorded separately in `client/THIRD_PARTY_NOTICES.md`.
