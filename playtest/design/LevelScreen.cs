@@ -787,7 +787,8 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            return ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, view.StackCount, slots, hasBoosters, hasBadge);
+            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, view.StackCount, slots, hasBoosters, hasBadge);
+            return r.AlignControls(r.FitBoard(view.Width, view.Height));
         }
 
         /// <summary>

@@ -156,8 +156,24 @@ namespace Bloomlings.Client.UI
         /// it, sinking when pressed; a disabled tile's face is grey (<see cref="ColorSet.Disabled"/>). Children go into
         /// <see cref="GardenButton.Content"/>.
         /// </summary>
-        internal static GardenButton BoosterBezel(string name, Transform parent, float radiusShare, bool raycast) =>
-            RaisedButton(name, parent, GardenLook.Cream, radiusShare, raycast: raycast, square: true);
+        internal static GardenButton BoosterBezel(string name, Transform parent, float radiusShare, bool raycast)
+        {
+            GardenButton view = NewButton(name, parent, GardenLook.Cream, raycast);
+            view.GreyWhenDisabled = false;
+            RectTransform face = UiFactory.CreateRect("Face", view.Body);
+            RectTransform topBox = UiFactory.Stretch(UiFactory.CreateRect("TopBox", face));
+            Image top = UiFactory.CreateImage("Cream", topBox, null, Color.white);
+            BoxLayout topLayout = BoxLayout.On(topBox).Add(top.rectTransform, b => b);
+            RectTransform content = UiFactory.Stretch(UiFactory.CreateRect("Content", face));
+            view.BuildPictureFace(topBox, top, content, topLayout, _ => PictureFit.On(top, (w, h) => ProceduralSprites.Picture("gameplay.booster.cream", w, h, (pw, ph) => GameplaySkin.Booster(pw, ph))));
+            BoxLayout.On(view.Body).Then(b =>
+            {
+                float side = Mathf.Min(b.Width, b.Height);
+                BoxLayout.Place(face, Box.FromCenter(b.CenterX, b.CenterY, side, side));
+                view.SetGeometry(0, 0, side * 0.035f, side * 0.23f, 0, side * GardenLook.IconRimFaceShare);
+            });
+            return view;
+        }
 
         private static void ApplyShapes(params Image[] images)
         {

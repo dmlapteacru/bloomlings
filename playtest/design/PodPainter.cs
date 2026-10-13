@@ -98,7 +98,7 @@ namespace Bloomlings.Playtest.Design
                     bool locked = pod.Locked || s.Animator.HeldPodLocks.Contains(id);
                     bool live = exposed && !locked;
                     Box touch = Kit.Touch(p, layout);
-                    PodChip chip = PodChip.In(layout);
+                    PodChip chip = PodChip.In(layout, depth > 0);
                     Box drawn = slide.Box;
                     s.PodBoxes[id] = Map(chip.Tile, layout, drawn);
                     if (shown && !Returning(s, id))
@@ -245,7 +245,7 @@ namespace Bloomlings.Playtest.Design
             PodChip? last = null;
             for (int depth = shown - 1; depth >= 0; depth--)
             {
-                PodChip chip = PodChip.In(r.Pod(stack, depth).Offset(0f, dy));
+                PodChip chip = PodChip.In(r.Pod(stack, depth).Offset(0f, dy), depth > 0);
                 last ??= chip;
                 frames[depth] = chip.Frame;
                 PodLook podLook = pods[depth].Locked ? PodLook.Locked : depth == 0 ? look : PodLook.Exposed;

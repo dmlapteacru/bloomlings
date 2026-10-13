@@ -124,19 +124,19 @@ namespace Bloomlings.Client.Tests
             Assert.That(r.SlotRow.Height, Is.EqualTo(0.16f * w).Within(1f));
             Assert.That(r.BoosterRow.Height, Is.EqualTo(0.18f * w).Within(1f));
             Assert.That(r.PodRows, Is.EqualTo(4));
-            Assert.That(r.PodRow.Height, Is.EqualTo(0.4875f * w).Within(1f), "the exposed pod 0.18 W and three more 0.125 W, overlapping by 18% of the waiting height");
+            Assert.That(r.PodRow.Height, Is.EqualTo(0.42f * w).Within(1f), "the exposed pod 0.18 W and three 0.16 W pods covered halfway");
             Assert.That(r.Slots[0].Width, Is.EqualTo(0.14f * w).Within(1f));
-            Assert.That(r.Slots[0].Left, Is.EqualTo(0.04f * w).Within(1f), "the slots span 0.92 W");
-            Assert.That(r.Slots[4].Right, Is.EqualTo(0.96f * w).Within(1f));
-            Assert.That(r.Boosters[0].Width, Is.EqualTo(0.16f * w).Within(1f));
-            Assert.That(r.Boosters[0].Left, Is.EqualTo(0.05f * w).Within(1f), "the boosters span 0.9 W");
-            Assert.That(r.Boosters[3].Right, Is.EqualTo(0.95f * w).Within(1f));
+            Assert.That(r.Slots[0].Left, Is.EqualTo(0.126f * w).Within(1f), "compact centered waiting plates");
+            Assert.That(r.Slots[4].Right, Is.EqualTo(0.874f * w).Within(1f));
+            Assert.That(r.Boosters[0].Width, Is.EqualTo(0.18f * w).Within(1f));
+            Assert.That(r.Boosters[0].Left, Is.EqualTo(0.07f * w).Within(1f), "the default booster row spans 0.86 W");
+            Assert.That(r.Boosters[3].Right, Is.EqualTo(0.93f * w).Within(1f));
             Assert.That(r.Columns[0].Width, Is.EqualTo(0.228f * w).Within(1f));
             Assert.That(r.Columns[0].Left, Is.EqualTo(0.02f * w).Within(1f), "four columns span 0.96 W");
             Assert.That(r.Columns[3].Right, Is.EqualTo(0.98f * w).Within(1f));
             Assert.That(r.Pod(0, 0).Height, Is.EqualTo(0.18f * w).Within(1f));
-            Assert.That(r.Pod(0, 1).Height, Is.EqualTo(0.125f * w).Within(1f));
-            Assert.That(r.Tray.Top, Is.EqualTo(h - (0.9325f * w)).Within(2f), "the rows and padding fit below the board");
+            Assert.That(r.Pod(0, 1).Height, Is.EqualTo(0.16f * w).Within(1f));
+            Assert.That(r.Tray.Top, Is.EqualTo(h - (0.865f * w)).Within(2f), "the rows and padding fit below the board");
         }
 
         [Test]
@@ -231,10 +231,27 @@ namespace Bloomlings.Client.Tests
             Assert.That(bx, Is.EqualTo(layout.CellBox(4, 0).CenterX).Within(0.01f));
         }
 
+        [Test]
+        public void Gameplay_ControlsFollowTheActualFence_OnDifferentBoardShapes()
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            foreach (var size in new[] { (14, 16), (22, 28), (22, 14) })
+            {
+                ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, 6, 6);
+                BoardLayout board = r.FitBoard(size.Item1, size.Item2);
+                r = r.AlignControls(board);
+                Assert.That(r.Boosters[0].Left, Is.EqualTo(board.Outer.Left).Within(0.01f));
+                Assert.That(r.Boosters[3].Right, Is.EqualTo(board.Outer.Right).Within(0.01f));
+                AssertRow(r.Boosters, r.BoosterRow, "boosters within their row");
+                for (int i = 1; i < r.Slots.Count; i++)
+                    Assert.That(r.Slots[i].Left - r.Slots[i - 1].Right, Is.EqualTo(w * 0.012f).Within(0.01f), "small equal gaps between waiting pods");
+            }
+        }
+
         private static bool Inside(Box box, float x, float y) => x > box.Left && x < box.Right && y > box.Top && y < box.Bottom;
 
         [Test]
-        public void ThePods_OverlapSlightly_KeepingLowerBadgesVisible()
+        public void ThePods_OverlapHalfway_KeepingIconsAndLowerBadgesVisible()
         {
             ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2340f, Insets.None, 4, 5);
             for (int depth = 1; depth < r.PodRows; depth++)
@@ -254,7 +271,8 @@ namespace Bloomlings.Client.Tests
             Assert.That(chip.Frame.CenterX, Is.EqualTo(place.CenterX).Within(0.01f), "centered in its column");
             Assert.That(chip.Tile.Width, Is.EqualTo(chip.Tile.Height).Within(0.01f), "a square tile");
             Assert.That(chip.Tile.CenterX, Is.EqualTo(chip.Inner.CenterX).Within(0.01f), "the icon first: over the panel's middle");
-            Assert.That(chip.Tile.CenterY, Is.EqualTo(chip.Inner.CenterY).Within(0.01f));
+            Assert.That(chip.Tile.CenterY, Is.GreaterThan(chip.Inner.CenterY), "the icon moves into the visible lower half");
+            Assert.That(chip.Icon.Top, Is.GreaterThanOrEqualTo(r.Pod(0, 0).Bottom), "the upper card does not cover the next icon");
             Assert.That(chip.Tile.Within(chip.Frame), Is.True, "the tile stays inside the frame");
             Assert.That(chip.Tile.Within(chip.Icon), Is.True, "the owner's icon reaches a little beyond the tile");
             Assert.That(chip.Count.Height, Is.EqualTo(chip.Frame.Height * PodChip.CountShare).Within(0.01f), "small digits");
@@ -1272,7 +1290,8 @@ namespace Bloomlings.Client.Tests
                     {
                         float overlap = r.Pod(s, d - 1).Bottom - pod.Top;
                         Assert.That(overlap, Is.GreaterThan(0), at + ": the pods overlap");
-                        Assert.That(overlap, Is.LessThanOrEqualTo(pod.Height * 0.20f), at + ": most of the next pod remains visible");
+                        Assert.That(overlap, Is.EqualTo(pod.Height * 0.50f).Within(0.01f), at + ": exactly half the next pod remains visible");
+                        Assert.That(r.Chip(s, d).Icon.Top, Is.GreaterThanOrEqualTo(r.Pod(s, d - 1).Bottom), at + ": the smaller icon is not covered");
                         Assert.That(r.Chip(s, d).Count.Top, Is.GreaterThan(r.Pod(s, d - 1).Bottom), at + ": counts stay visible below the overlap");
                         Assert.That(r.Pod(s, 0).Height, Is.GreaterThanOrEqualTo(pod.Height - 0.01f), at);
                     }

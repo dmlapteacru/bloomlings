@@ -334,7 +334,7 @@ namespace Bloomlings.Client.UI
             Waiting = waiting || look == PodLook.Next;
             bool locked = look == PodLook.Locked;
             PictureFit.On(_frame, (w, h) => ProceduralSprites.Picture("gameplay.pod/" + (_variant?.Key ?? "mystery") + "/" + Waiting + "/" + locked, w, h, (rw, rh) => GameplaySkin.Pod(rw, rh, _variant, Waiting, locked)));
-            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.1f : 0.26f));
+            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.05f : 0.12f));
             if (locked)
             {
                 UiKit.Gradient(_panel, UiTheme.Of(C.StateLockBg.Lighten(0.2f)), UiTheme.Of(C.StateLockBg));
@@ -380,7 +380,7 @@ namespace Bloomlings.Client.UI
         private void Lay(Box box)
         {
             // The frame stands in the middle of its place (PodChip.Aspect of its height wide), its parts in it (§6.1).
-            PodChip chip = PodChip.In(box);
+            PodChip chip = PodChip.In(box, Waiting);
             float h = box.Height;
             bool pressed = Look == PodLook.Pressed;
             float sink = pressed ? h * Sink : 0f;
@@ -388,7 +388,7 @@ namespace Bloomlings.Client.UI
             float border = h * PodChip.Border;
             _radius = Mathf.Min(h * Radius, h / 2f);
             _panelRadius = Mathf.Max(0f, _radius - (border * 0.8f));
-            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, h * (pressed ? 0.015f : 0.06f)).Inset(h * 0.04f, 0f));
+            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, h * (pressed ? 0.01f : 0.02f)).Inset(h * 0.04f, 0f));
             BoxLayout.Place(_panel.rectTransform, frame.Inset(border * 0.8f));
             BoxLayout.Place(_frame.rectTransform, frame);
             BoxLayout.Place(_veil.rectTransform, frame);

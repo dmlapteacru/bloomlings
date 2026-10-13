@@ -57,10 +57,10 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The exposed pod's height and a waiting pod's height, as shares of <see cref="W"/> (times <see cref="K"/>).</summary>
         public const float FrontShare = 0.18f;
 
-        public const float QueueShare = 0.125f;
+        public const float QueueShare = 0.16f;
 
         /// <summary>How much the preceding pod covers the next one's upper edge, as a share of the smaller pod's height.</summary>
-        public const float PodOverlapShare = 0.18f;
+        public const float PodOverlapShare = 0.50f;
 
         public const float ColumnGapShare = 0.016f;
         /// <summary>The widest the stone border's outer box may be, as a share of <see cref="W"/>.</summary>
@@ -132,7 +132,22 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>The parts of the pod at <paramref name="depth"/> of stack <paramref name="stack"/> (<see cref="PodChip"/>).</summary>
-        public PodChip Chip(int stack, int depth) => PodChip.In(Pod(stack, depth));
+        public PodChip Chip(int stack, int depth) => PodChip.In(Pod(stack, depth), depth > 0);
+
+        /// <summary>Align the booster row to the actual stone fence, and keep waiting-slot plates close together.</summary>
+        public ReferenceGameplayRegions AlignControls(BoardLayout board)
+        {
+            Box outer = board.Outer;
+            var boosts = new Box[Boosters.Count];
+            float side = Math.Min(BoosterRow.Height, (outer.Width - W * 0.014f * 3) / 4);
+            float gap = (outer.Width - side * 4) / 3;
+            for (int i = 0; i < boosts.Length; i++) boosts[i] = Box.FromCenter(outer.Left + side * 0.5f + i * (side + gap), BoosterRow.CenterY, side, side);
+            var slots = new Box[Slots.Count];
+            float slotWidth = Math.Min(W * 0.14f * K, (outer.Width - W * 0.012f * Math.Max(0, slots.Length - 1)) / Math.Max(1, slots.Length));
+            float slotSpan = slotWidth * slots.Length + W * 0.012f * Math.Max(0, slots.Length - 1);
+            for (int i = 0; i < slots.Length; i++) slots[i] = Box.FromCenter(outer.CenterX - slotSpan * 0.5f + slotWidth * 0.5f + i * (slotWidth + W * 0.012f), SlotRow.CenterY, slotWidth, SlotRow.Height);
+            return this with { Boosters = boosts, Slots = slots };
+        }
 
         /// <summary>A Waiting Slot plate's lip under its face, as a share of the plate's shorter side.</summary>
         public const float SlotLipShare = 0.055f;
@@ -171,7 +186,7 @@ namespace Bloomlings.Client.UI.Design
     public sealed record PodChip(Box Frame, Box Inner, Box Tile, Box Icon, Box Count, Box Badge)
     {
         /// <summary>The frame's border, as a share of the pod's height.</summary>
-        public const float Border = 0.09f;
+        public const float Border = 0.04f;
 
         /// <summary>The frame's width, as a multiple of its height (a place wider than that centers it).</summary>
         public const float Aspect = 1.06f;
@@ -180,10 +195,10 @@ namespace Bloomlings.Client.UI.Design
         public const float MinAspect = 1.10f;
 
         /// <summary>The candy tile's side, as a share of the panel's height (a little over it, into the border).</summary>
-        public const float TileShare = 1.04f;
+        public const float TileShare = 0.90f;
 
         /// <summary>How far the owner's icon reaches beyond the tile's square on each side, as a share of the pod's height.</summary>
-        public const float IconGrow = 0.04f;
+        public const float IconGrow = 0.015f;
 
         /// <summary>The count's type size, as a share of the pod's height.</summary>
         public const float CountShare = 0.30f;
@@ -201,14 +216,15 @@ namespace Bloomlings.Client.UI.Design
         public const float WaitingIconAlpha = 0.7f;
 
         /// <summary>The parts of a pod in its <paramref name="place"/> (<see cref="ReferenceGameplayRegions.Pod"/>).</summary>
-        public static PodChip In(Box place)
+        public static PodChip In(Box place, bool waiting = false)
         {
             float h = place.Height;
             Box frame = Box.FromCenter(place.CenterX, place.CenterY, Math.Min(place.Width, h * Aspect), h);
             Box inner = frame.Inset(h * Border);
-            float side = inner.Height * TileShare;
-            Box tile = Box.FromCenter(inner.CenterX, inner.CenterY, side, side);
-            Box icon = tile.Inset(-h * IconGrow);
+            float side = waiting ? h * 0.39f : inner.Height * TileShare;
+            float iconY = waiting ? frame.Top + h * 0.75f : inner.CenterY;
+            Box tile = Box.FromCenter(inner.CenterX, iconY, side, side);
+            Box icon = waiting ? tile : tile.Inset(-h * IconGrow);
             float size = h * CountShare;
             Box count = Box.FromCenter(inner.Right - (size * CountInset), inner.Bottom - (size * CountInset), inner.Width * 0.5f, size);
             float badge = h * BadgeShare;
@@ -953,11 +969,11 @@ namespace Bloomlings.Client.UI.Design
 
             // The slots: portrait plates 0.14 W wide spread evenly across 0.92 W (an extra slot narrows them).
             int slots = Math.Max(1, slotCount);
-            Box[] slotBoxes = Spread(Box.FromCenter(safe.CenterX, slotRow.CenterY, 0.92f * w, slotRow.Height), slots, 0.14f * w * k, 0.0238f * w);
+            Box[] slotBoxes = Spread(Box.FromCenter(safe.CenterX, slotRow.CenterY, 0.86f * w, slotRow.Height), slots, 0.14f * w * k, 0.012f * w, 0.012f * w);
 
             // The boosters: four squircles 0.16 W spread evenly across 0.9 W.
             Box[] boosterBoxes = hasBoosters
-                ? Spread(Box.FromCenter(safe.CenterX, boosterRow.CenterY, 0.9f * w, 0.16f * w * k), 4, 0.16f * w * k, 0.03f * w)
+                ? Spread(Box.FromCenter(safe.CenterX, boosterRow.CenterY, 0.86f * w, 0.18f * w * k), 4, 0.18f * w * k, 0.014f * w)
                 : Array.Empty<Box>();
 
             // The columns: spread evenly across 0.96 W, at most 0.04 W apart, centered.

@@ -162,7 +162,7 @@ namespace Bloomlings.Playtest.Design
                 FaceKey = "tile.face/" + kind + "/" + state + "/" + color.Hex;
                 Face = (w, h) => UiRaster.TileFace(Math.Min(w, h), color, style, state);
                 string? picture = OwnerPictures.TileIcon(icon, style, state);
-                if (style == TileStyle.Sticker)
+                if (style != TileStyle.Mosaic)
                 {
                     foreach (VariantInfo variant in VariantCatalog.Default.All)
                         if (variant.IconId == icon) { Picture = GameplaySkin.PodIcon(variant.Id); GreyPicture = Picture + PainterBase.GreySuffix; PictureSlot = OwnerPictures.IconSlot(icon); return; }
@@ -382,7 +382,6 @@ namespace Bloomlings.Playtest.Design
             p.Mark("board.border.stone");
             float gap = cell * 0.04f;
             float t = cell * thickness;
-            float joint = cell * 0.018f;
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
             p.FillRound(outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), t * 0.5f, C.GardenShadow.WithAlpha(0.22f));
@@ -390,39 +389,13 @@ namespace Bloomlings.Playtest.Design
             p.Picture("gameplay.board.rim/" + thickness + "/" + rimShare, outer, (w, h) => GameplaySkin.BoardRim(w, h, rimShare));
             p.FillRound(inner, gap * 2f, GardenLook.BoardGap);
 
-            // The corners, then each side's run of blocks between them.
-            float half = joint / 2f;
-            StoneRun(p, inner.Left, inner.Right, cell, 0, (a, b) => new Box(a, outer.Top, b, inner.Top), half);
-            StoneRun(p, inner.Left, inner.Right, cell, 1, (a, b) => new Box(a, inner.Bottom, b, outer.Bottom), half);
-            StoneRun(p, inner.Top, inner.Bottom, cell, 2, (a, b) => new Box(outer.Left, a, inner.Left, b), half);
-            StoneRun(p, inner.Top, inner.Bottom, cell, 3, (a, b) => new Box(inner.Right, a, outer.Right, b), half);
-        }
-
-        /// <summary>One side of the border: blocks of 1.0 and 0.8 cell, stretched together to fill the side exactly.</summary>
-        private static void StoneRun(IPainter p, float from, float to, float cell, int side, Func<float, float, Box> place, float half)
-        {
-            float length = to - from;
-            int count = Math.Max(1, (int)Math.Round(length / (cell * 0.9f)));
-            float total = 0f;
-            for (int i = 0; i < count; i++)
+            foreach (var piece in GameplaySkin.Fence(grid, cell, thickness))
             {
-                total += Pattern(i, side);
-            }
-
-            float k = length / total;
-            float at = from;
-            for (int i = 0; i < count; i++)
-            {
-                float next = i == count - 1 ? to : at + (Pattern(i, side) * k);
-                // Border blocks share one smooth stone recipe, cached by their pixel size.
-                Box block = place(at, next).Inset(half);
                 p.Mark("mat.stone");
-                p.Picture("gameplay.stone.block", block, (w, h) => GameplaySkin.Stone(w, h, 0.18f));
-                at = next;
+                int corner = piece.Corner;
+                p.Picture("gameplay.fence/" + corner, piece.Box, (w, h) => corner < 0 ? GameplaySkin.Stone(w, h, 0.18f) : GameplaySkin.CornerStone(w, h, corner));
             }
         }
-
-        private static float Pattern(int i, int side) => ((i + side) % 2) == 0 ? 1f : 0.8f;
 
         /// <summary>
         /// The stone pedestal the heroes stand on (§3.6, <c>ui.pedestal</c>; win, milestone, Home, Wardrobe): an
@@ -734,7 +707,7 @@ namespace Bloomlings.Playtest.Design
             Box f = BoosterBezel(p, tile, radius, depth, state.Disabled);
             // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile, as in the
             // reference.
-            float icon = s * 0.74f;
+            float icon = s * 0.90f;
             BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, f.CenterY, icon, icon), grey: state.Disabled);
             p.PopTransform();
 
@@ -770,8 +743,9 @@ namespace Bloomlings.Playtest.Design
         private static Box BoosterBezel(IPainter p, Box box, float radius, float depth, bool disabled)
         {
             p.Mark("booster.tile");
-            float share = radius / Math.Max(1f, Math.Min(box.Width, box.Height));
-            return RaisedButton(p, box, disabled ? GardenLook.Cream.Disabled() : GardenLook.Cream, share, depth);
+            Box face = box.Offset(0, Math.Min(box.Width, box.Height) * 0.035f * depth);
+            p.Picture("gameplay.booster.cream", face, (w, h) => GameplaySkin.Booster(w, h));
+            return face;
         }
 
         /// <summary>

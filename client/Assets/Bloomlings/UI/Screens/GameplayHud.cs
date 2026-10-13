@@ -50,6 +50,8 @@ namespace Bloomlings.Client.UI.Screens
         private Image _toastPill = null!;
         private ReferenceGameplayRegions? _regions;
         private int _stackCount = 4;
+        private int _boardWidth;
+        private int _boardHeight;
         private bool _hasBadge;
         private bool _hasBoosters = true;
         private Box _boardBox;
@@ -142,11 +144,12 @@ namespace Bloomlings.Client.UI.Screens
         /// row holds one column per Source stack (<paramref name="stackCount"/>). The Garden Entries take no room (no arch).
         /// Call it before the board, slots and tray are built.
         /// </summary>
-        public void Layout(bool hasBadge, bool hasBoosters, int stackCount)
+        public void Layout(bool hasBadge, bool hasBoosters, int stackCount, int boardWidth = 0, int boardHeight = 0)
         {
             _hasBadge = hasBadge;
             _hasBoosters = hasBoosters;
             _stackCount = Mathf.Max(0, stackCount);
+            if (boardWidth > 0 && boardHeight > 0) { _boardWidth = boardWidth; _boardHeight = boardHeight; }
             ReferenceGameplayRegions r = Compute(WaitingSlots.DefaultCount);
             _regions = r;
             (float w, float h, Insets _) = UiKit.ScreenFrame();
@@ -177,7 +180,8 @@ namespace Bloomlings.Client.UI.Screens
         private ReferenceGameplayRegions Compute(int slotCount)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            return ScreenLayout.ReferenceGameplay(w, h, insets, _stackCount, slotCount, _hasBoosters, _hasBadge);
+            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, _stackCount, slotCount, _hasBoosters, _hasBadge);
+            return _boardWidth > 0 && _boardHeight > 0 ? r.AlignControls(r.FitBoard(_boardWidth, _boardHeight)) : r;
         }
 
         /// <summary>

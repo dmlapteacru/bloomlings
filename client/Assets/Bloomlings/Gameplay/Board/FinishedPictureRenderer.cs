@@ -150,7 +150,7 @@ namespace Bloomlings.Client.Gameplay.Board
         public static Texture2D Render(LevelDefinition definition, BasePicture picture, VariantVisualCatalog? visuals, bool framed = true, int cellPixels = PicturePixelsPerCell)
         {
             // The owner's field icons (spec 005 pictures.md G17–G24) are baked into the flat tiles when they exist.
-            byte[] rgba = BoardPictures.Finished(definition, picture, cellPixels, framed, out int width, out int height, OwnerArt.IconPixels);
+            byte[] rgba = BoardPictures.Finished(definition, picture, cellPixels, framed, out int width, out int height, name => GameplayArt.PicturePixels(name) ?? OwnerArt.IconPixels(name));
             return ToTexture(rgba, width, height, "FinishedPicture_" + picture.Id);
         }
 

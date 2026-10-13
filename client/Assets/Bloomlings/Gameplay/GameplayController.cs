@@ -329,7 +329,7 @@ namespace Bloomlings.Client.Gameplay
                 boosters |= economy != null && economy.IsUnlocked(kind);
             }
 
-            _hud.Layout(labelled, boosters, session.View.StackCount);
+            _hud.Layout(labelled, boosters, session.View.StackCount, session.View.Width, session.View.Height);
             _hud.SetDifficulty(difficulty, labelled);
             Canvas.ForceUpdateCanvases();
         }

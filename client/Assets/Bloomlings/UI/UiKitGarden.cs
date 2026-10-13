@@ -755,7 +755,7 @@ namespace Bloomlings.Client.UI
         {
             TileStyle style = _style;
             Sprite? picture = OwnerArt.TileIcon(iconId, style, state);
-            if (style == TileStyle.Sticker)
+            if (style != TileStyle.Mosaic)
             {
                 foreach (VariantInfo variant in VariantCatalog.Default.All)
                     if (variant.IconId == iconId) { picture = GameplayArt.Pod(variant.Id, state == TileState.Grey) ?? picture; break; }
@@ -1355,7 +1355,7 @@ namespace Bloomlings.Client.UI
             _icon = UiKit.BoosterIcon("Icon", Face.Content, boosterId);
             // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile (the playtest's
             // 0.74 of the tile; IconSide is the face's share of it).
-            float IconBox() => Face.IconSide * 0.74f / GardenLook.IconRimFaceShare;
+            float IconBox() => Face.IconSide * 0.90f / GardenLook.IconRimFaceShare;
             BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, IconBox(), IconBox()));
 
             _badge = UiKit.CountBadge("Count", root, out _badgeDisc);
@@ -1479,43 +1479,9 @@ namespace Bloomlings.Client.UI
         public static List<(Box Box, int Seed, float RadiusShare)> Blocks(Box grid, float cell, float thickness)
         {
             var blocks = new List<(Box, int, float)>();
-            float gap = cell * 0.04f;
-            float t = cell * thickness;
-            float half = cell * 0.009f;
-            Box inner = grid.Inset(-gap);
-            Box outer = inner.Inset(-t);
-            Run(blocks, inner.Left, inner.Right, cell, 0, (a, b) => new Box(a, outer.Top, b, inner.Top), half);
-            Run(blocks, inner.Left, inner.Right, cell, 1, (a, b) => new Box(a, inner.Bottom, b, outer.Bottom), half);
-            Run(blocks, inner.Top, inner.Bottom, cell, 2, (a, b) => new Box(outer.Left, a, inner.Left, b), half);
-            Run(blocks, inner.Top, inner.Bottom, cell, 3, (a, b) => new Box(inner.Right, a, outer.Right, b), half);
+            foreach (var piece in GameplaySkin.Fence(grid, cell, thickness)) blocks.Add((piece.Box, piece.Corner, 0.18f));
             return blocks;
         }
-
-        /// <summary>One side of the border: blocks of 1.0 and 0.8 cell, stretched together to fill the side exactly.</summary>
-        private static void Run(List<(Box, int, float)> blocks, float from, float to, float cell, int side, Func<float, float, Box> place, float half)
-        {
-            float length = to - from;
-            int count = Math.Max(1, (int)Math.Round(length / (cell * 0.9f)));
-            float total = 0f;
-            for (int i = 0; i < count; i++)
-            {
-                total += Pattern(i, side);
-            }
-
-            float k = length / total;
-            float at = from;
-            for (int i = 0; i < count; i++)
-            {
-                float next = i == count - 1 ? to : at + (Pattern(i, side) * k);
-
-                // A few stone looks, chosen by the block's place, keep the picture cache small.
-                int seed = 11 + (((side * 7) + (i * 3)) % 8);
-                blocks.Add((place(at, next).Inset(half), seed, 0.14f));
-                at = next;
-            }
-        }
-
-        private static float Pattern(int i, int side) => ((i + side) % 2) == 0 ? 1f : 0.8f;
 
         private void OnRectTransformDimensionsChange() => Lay();
 
@@ -1564,7 +1530,7 @@ namespace Bloomlings.Client.UI
                 block.gameObject.SetActive(true);
                 (Box box, int seed, float share) = blocks[i];
                 BoxLayout.Place(block.rectTransform, box);
-                PictureFit.On(block, (w, h) => ProceduralSprites.Picture("gameplay.stone.block", w, h, (pw, ph) => GameplaySkin.Stone(pw, ph, 0.18f)));
+                PictureFit.On(block, (w, h) => ProceduralSprites.Picture("gameplay.fence/" + seed, w, h, (pw, ph) => seed < 0 ? GameplaySkin.Stone(pw, ph, 0.18f) : GameplaySkin.CornerStone(pw, ph, seed)));
             }
 
             for (int i = blocks.Count; i < _blocks.Count; i++)

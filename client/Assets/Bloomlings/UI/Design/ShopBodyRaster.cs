@@ -5,10 +5,10 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>Colored card rims, inset reward panels and price capsules, shared by Unity and the playtest.</summary>
     public static class ShopBodyRaster
     {
-        public static byte[] Framed(int width, int height, float radiusShare, ColorSet border, ColorSet face, float strokeShare, bool cushion = false, float bulge = 0, float paddingShare = 0.016f)
+        public static byte[] Framed(int width, int height, float radiusShare, ColorSet border, ColorSet face, float strokeShare, bool cushion = false, float bulge = 0, float paddingShare = 0.016f, float paddingMin = 2)
         {
             float size = Math.Min(width, height), radius = size * radiusShare, stroke = Math.Max(2, size * strokeShare);
-            float padding = Math.Max(2, size * paddingShare), bevel = Math.Max(3, size * (cushion ? 0.16f : 0.05f));
+            float padding = Math.Max(paddingMin, size * paddingShare), bevel = Math.Max(3, size * (cushion ? 0.16f : 0.05f));
             radius = Math.Min(radius, size * 0.5f - padding);
             byte[] pixels = new byte[width * height * 4];
             for (int y = 0; y < height; y++) for (int x = 0; x < width; x++)
