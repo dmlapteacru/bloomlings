@@ -828,10 +828,13 @@ namespace Bloomlings.Playtest.Design
                 Box plus = parts.Plus;
                 float depth = Press(p, Touch(p, pill), true);
                 Squash(p, plus, depth);
-                SlicedSprite(p, "shop/price-button", plus, 350f/1985, 190f/505, .4f);
-                Box f = plus;
-                float g = f.Width * 0.82f;
-                Glyph(p, "ui.plus", Box.FromCenter(f.CenterX, f.CenterY, g, g), GardenLook.Green);
+                if (p.HasSprite("navigation/plus-v2")) p.Sprite("navigation/plus-v2", plus);
+                else
+                {
+                    SlicedSprite(p, "shop/price-button", plus, 350f/1985, 190f/505, .4f);
+                    float g = plus.Width * 0.82f;
+                    Glyph(p, "ui.plus", Box.FromCenter(plus.CenterX, plus.CenterY, g, g), GardenLook.Green);
+                }
                 p.PopTransform();
                 p.Hit(Touch(p, pill), onPlus);
             }

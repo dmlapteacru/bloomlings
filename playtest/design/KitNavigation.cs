@@ -33,9 +33,11 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("ui.tab"); p.Mark("font.shop");
             float depth = action != null ? Press(p, box, true) : 0;
-            if (selected) p.FillRound(box.Inset(-box.Height * .025f), box.Height * .52f, ShopBodyDesign.BadgeLight.WithAlpha(.30f));
+            string? surface = NavigationSkin.ButtonSprite(index, selected);
+            if (selected && surface == null) p.FillRound(box.Inset(-box.Height * .025f), box.Height * .52f, ShopBodyDesign.BadgeLight.WithAlpha(.30f));
             Squash(p, box, depth);
-            p.Picture("navigation.tab/" + index + "/" + selected, box, (w, h) => NavigationSkin.Button(w, h, index, selected));
+            if (surface != null && p.HasSprite(surface)) SlicedSprite(p, surface, box, NavigationSkin.ButtonBorderX, NavigationSkin.ButtonBorderY, NavigationSkin.ButtonTargetBorderY);
+            else p.Picture("navigation.tab/" + index + "/" + selected, box, (w, h) => NavigationSkin.Button(w, h, index, selected));
             if (p.HasSprite(icon)) p.Sprite(icon, NavigationSkin.TabIcon(box));
             Box text = NavigationSkin.TabLabel(box); TextLook look = NavigationSkin.TabLetters;
             p.Text(label, text.CenterX, text.CenterY, NavigationSkin.Tab, look.FillTop, text.Width, text.Height * .78f / p.U(NavigationSkin.Tab.Size), look);

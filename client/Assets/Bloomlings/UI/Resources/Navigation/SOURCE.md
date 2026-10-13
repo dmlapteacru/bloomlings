@@ -37,3 +37,23 @@ Every call used `transparent_background: true` and the user-supplied reference p
 - Shop text is localized as `Shop`; its tabs are `Packs`, `Cosmetics`, `Animations`. Unlock conditions, navigation actions, background files, main bottom navigation and game rules retain their existing behavior.
 
 Generated assets are project artwork. Font licensing is recorded in `client/THIRD_PARTY_NOTICES.md`.
+## Generated navigation surfaces v2 (palette previews)
+
+- `button-skins-v2.png`: generated output `exec-f7963bbf-1a59-4b48-a9e6-e80671d321cf.png`, copied unchanged. Eight blank surfaces, four colors and two selection states.
+- `plus-v2.png`: generated output `exec-2bbe22e8-ace4-4b8f-b13e-80324b73cbc7.png`, copied unchanged. Circular green button with a baked white plus glyph.
+
+### Exact button atlas prompt
+
+Use case: stylized-concept. Asset type: ONE transparent production UI button-skin atlas for Bloomlings secondary navigation. Supplied image is a STYLE REFERENCE, especially the small raised colorful tabs beneath Shop. Generate an exactly 2-column by 4-row atlas of EIGHT blank glossy cartoon buttons. Each cell contains one identical wide rounded rectangular capsule, about 3:1 width:height, front-facing, fully visible and centered with transparent gutters. LEFT column is selected: a fine glowing pale gold/cream outline. RIGHT column is idle: a fine light rim in a paler tint of the button color, without gold glow. ROW 1 fresh rich emerald/lime green; ROW 2 soft saturated violet/lavender; ROW 3 bright azure blue; ROW 4 warm petal pink/rose. Match the reference's game UI material: clearly convex smooth candy face, bright upper-left sheen, restrained upper rim highlight, substantial colored lower lip about 12% of height, dark lower contour and tight soft shadow, smoothly rounded ends. The face is darker toward the bottom but never flat. Use smooth chunky cartoon 3D, not flat vector or realistic glass. Center of EVERY button must be completely blank for live icon and text overlays; no lettering, glyphs, icons, flowers, leaves, numbers, watermark, or background. Consistent outline thickness, proportions, depth and lighting across ALL eight. Transparent background. Do not include a screen, header, price button or other objects.
+
+### Exact plus prompt
+
+Use case: stylized-concept. Asset type: single transparent production circular plus button for Bloomlings Petals balance. Supplied image is a STYLE REFERENCE: specifically the small green circular + at the far upper right. Generate that style of a SMALL circular game UI button as a standalone asset: exactly circular glossy rich green slightly domed face, thin warm pale gold/cream ring outside it, subtle dark green lower thickness and lower-right tight shadow, bright smooth upper-left rim glint, and a chunky white plus symbol centered on the green face, with softly rounded corners and a small dark-green shadow for raised depth. Plus is one vertical bar crossing one horizontal bar of equal length, symmetrical and clearly legible at 24px. Make the outer rim fairly thin, not a large wooden bezel. Straight-on, compact cohesive silhouette. The button must be fully visible with a small transparent gutter. Bright polished cartoon 3D game material matching the reference, not flat vector. Transparent background; no coins, lotus, text, price, numerals, other buttons, UI, background scene, leaves, flowers, or watermark. Only the circular green button and white plus glyph.
+
+### V2 rendering contract
+
+Both calls used the supplied navigation reference and `transparent_background: true`. Source PNGs are unchanged. Button subjects use equal 768x240 crop rectangles in `NavigationSkin.ButtonCrop`; the surfaces use 9-slice borders of 17% width / 32% height, with target vertical borders at 34% of button height. Unity, Skia and Android share crop metadata. Labels and icons remain separate live overlays.
+
+The plus is cropped by `NavigationSkin.PlusCrop`, rendered with preserved aspect ratio and no 9-slice or additional glyph. It replaces the stretched money-price button in the balance pill. Page header height increases from 0.13W to 0.16W while title text stays approximately the same size, creating more vertical wood padding. Wardrobe hero placement clears the taller header; the legacy Store panel's upper spacing is tightened to preserve its row capacity.
+
+Palette A: selected green/gold, inactive purple. Palette B: Packs green, Cosmetics pink, Animations blue, with gold selection rim. The local preview flag `--nav-palette A|B` selects these experiments. `ButtonPalette` defaults to -1: production secondary surfaces keep their previous palette until the owner chooses. The circular plus and taller page plaque are common changes.

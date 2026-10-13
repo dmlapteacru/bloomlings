@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "files": [
     {
       "file": "page-sign-v1.png",
@@ -22,6 +22,22 @@
       "width": 1448,
       "height": 1086,
       "sha256": "6a78fec7773e34acedb84fbd75b11fbcbe9983cd17e876f28ba0004650200e96",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "button-skins-v2.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "9996c61e4d757ddf4aa6d4a8008d6799d11f73fd94480fbb26bc5c9a6ee620a0",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "plus-v2.png",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "679174ad896b1424c401352d3485799e8f32e90ab251262343ee628cc42e02c5",
       "alpha": true,
       "generator": "built-in OpenAI ImageGen"
     }

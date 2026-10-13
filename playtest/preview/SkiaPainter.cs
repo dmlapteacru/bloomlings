@@ -772,6 +772,12 @@ namespace Bloomlings.Playtest.Preview
                     {
                         using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
                         image = stream != null ? SKImage.FromEncodedData(stream)?.ToRasterImage(ensurePixelData: true) : null;
+                        if (image != null && (name.StartsWith("navigation/button-", StringComparison.Ordinal) || name == "navigation/plus-v2"))
+                        {
+                            var c = name == "navigation/plus-v2" ? NavigationSkin.PlusCrop(image.Width,image.Height) : NavigationSkin.ButtonCrop(name,image.Width,image.Height);
+                            SKImage? cropped = image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
+                            image.Dispose(); image=cropped;
+                        }
                         if (image != null && name.StartsWith("navigation/icon-", StringComparison.Ordinal))
                         {
                             var c = NavigationSkin.IconCrop(name, image.Width, image.Height);

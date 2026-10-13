@@ -663,7 +663,7 @@ namespace Bloomlings.Client.UI.Design
         public const float TopShare = 0.025f;
 
         /// <summary>The banner's plank height, as a share of W (its ivy clusters are <see cref="GardenLook.IvyShare"/> of it).</summary>
-        public const float BannerShare = 0.13f;
+        public const float BannerShare = 0.16f;
 
         /// <summary>The Petals pill's box, as shares of W: its width (to 0.02 W from the right) and its height.</summary>
         public const float PetalsWidthShare = 0.24f;
@@ -1222,9 +1222,10 @@ namespace Bloomlings.Client.UI.Design
             Box back = header.Back;
             Box banner = header.Banner;
             Box petals = header.Petals;
-            float heroHeight = Y(0.37f) - Y(0.11f);
+            float heroTop = Math.Max(Y(0.11f), header.Row.Bottom);
+            float heroHeight = Y(0.37f) - heroTop;
             float heroWidth = Math.Min(0.8f * w, heroHeight * CharacterArt.HeroWidth / CharacterArt.HeroHeight);
-            var hero = new Box(safe.CenterX - (heroWidth / 2f), Y(0.11f), safe.CenterX + (heroWidth / 2f), Y(0.37f));
+            var hero = new Box(safe.CenterX - (heroWidth / 2f), heroTop, safe.CenterX + (heroWidth / 2f), Y(0.37f));
             var pedestal = new Box(X(0.2f), Y(0.35f), X(0.8f), Y(0.43f));
             float arrow = 0.09f * w;
             Box previous = Box.FromCenter(X(0.08f), Y(0.28f), arrow, arrow);
@@ -1260,8 +1261,8 @@ namespace Bloomlings.Client.UI.Design
             float X(float share) => safe.Left + (w * share);
 
             PageHeader header = PageHeader(safe);
-            var panel = new Box(X(0.02f), header.Row.Bottom + (0.03f * w), X(0.98f), height);
-            float y = panel.Top + (0.045f * w);
+            var panel = new Box(X(0.02f), header.Row.Bottom + (0.02f * w), X(0.98f), height);
+            float y = panel.Top + (0.035f * w);
             var tabs = new Box(safe.CenterX, y, safe.CenterX, y);
             if (hasCosmetics)
             {

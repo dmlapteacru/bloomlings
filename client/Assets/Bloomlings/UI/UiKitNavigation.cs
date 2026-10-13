@@ -13,23 +13,34 @@ namespace Bloomlings.Client.UI
         {
             GardenButton view = NewButton(name, parent, NavigationSkin.Color(index, selected), raycast: true);
             view.GreyWhenDisabled = false;
-            if (selected && !price)
+            string? surface = price ? "navigation/plus-v2" : NavigationSkin.ButtonSprite(index, selected);
+            Sprite? sprite = surface == null ? null : NavigationArt.Get(surface);
+            if (selected && !price && sprite == null)
             {
                 Image glow = RoundRect("SelectedGlow", view.Body, UiTheme.Of(ShopBodyDesign.BadgeLight.WithAlpha(.30f)), b => b.Height * .52f);
                 BoxLayout.On(view.Body).Add(glow.rectTransform, b => b.Inset(-b.Height * .025f));
             }
             RectTransform face = UiFactory.Stretch(UiFactory.CreateRect("Face", view.Body));
             RectTransform topBox = UiFactory.Stretch(UiFactory.CreateRect("TopBox", face));
-            Image top = UiFactory.CreateImage("Surface", topBox, price ? ShopArt.Get("shop/price-button") : null, Color.white);
+            Image top = UiFactory.CreateImage("Surface", topBox, sprite, Color.white);
+            if (sprite != null)
+            {
+                top.type = price ? Image.Type.Simple : Image.Type.Sliced;
+                top.preserveAspect = price;
+            }
             BoxLayout topLayout = BoxLayout.On(topBox).Add(top.rectTransform, b => b);
             RectTransform content = UiFactory.Stretch(UiFactory.CreateRect("Content", face));
             view.BuildPictureFace(topBox, top, content, topLayout, _ =>
             {
-                if (!price) PictureFit.On(top, (w, h) => ProceduralSprites.Picture("navigation.tab/" + index + "/" + selected, w, h, (pw, ph) => NavigationSkin.Button(pw, ph, index, selected)));
+                if (sprite == null) PictureFit.On(top, (w, h) => ProceduralSprites.Picture("navigation.tab/" + index + "/" + selected, w, h, (pw, ph) => NavigationSkin.Button(pw, ph, index, selected)));
             });
             BoxLayout.On(view.Body).Then(b =>
             {
-                if (price) top.pixelsPerUnitMultiplier = 190f / Mathf.Max(.01f, b.Height * .4f);
+                if (sprite != null && !price)
+                {
+                    var crop = NavigationSkin.ButtonCrop(surface!, sprite.texture.width, sprite.texture.height);
+                    top.pixelsPerUnitMultiplier = crop.Height * NavigationSkin.ButtonBorderY / Mathf.Max(.01f, b.Height * NavigationSkin.ButtonTargetBorderY);
+                }
                 view.SetGeometry(0, 0, b.Height * .035f, b.Height * .48f, 0, b.Height * .80f);
             });
             return view;

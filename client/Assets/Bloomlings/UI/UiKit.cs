@@ -1095,8 +1095,11 @@ namespace Bloomlings.Client.UI
             balance.alignment = TextAlignmentOptions.Left;
             view.Balance = balance;
             GardenButton plus = NavigationButton("Plus", root, 0, true, price: true);
-            Image glyph = GardenGlyph(plus, plus.Content, "ui.plus");
-            BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.65f, plus.IconSide * 0.65f));
+            if (NavigationArt.Get("navigation/plus-v2") == null)
+            {
+                Image glyph = GardenGlyph(plus, plus.Content, "ui.plus");
+                BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.65f, plus.IconSide * 0.65f));
+            }
             view.Plus = plus.gameObject;
             layout.Add((RectTransform)plus.transform, b => view.Parts(b).Plus);
             // The amount starts right after the lotus (left-aligned, so it never floats in the pill's middle, even while
