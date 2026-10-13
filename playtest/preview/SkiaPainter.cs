@@ -27,6 +27,13 @@ namespace Bloomlings.Playtest.Preview
         private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
         private static readonly SKTypeface Bold = LoadFont(true) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Bold) ?? SKTypeface.Default;
         private static readonly SKTypeface Regular = LoadFont(false) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Normal) ?? SKTypeface.Default;
+        private static readonly SKTypeface Shop = LoadShopFont() ?? Bold;
+
+        private static SKTypeface? LoadShopFont()
+        {
+            using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream("fonts/LilitaOne-Regular.ttf");
+            return stream == null ? null : SKTypeface.FromStream(stream);
+        }
 
         private readonly SKSurface? _surface;
         private readonly SKCanvas? _noDraw;
@@ -307,7 +314,7 @@ namespace Bloomlings.Playtest.Preview
             Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), paint);
         }
 
-        private SKFont Font(TypeStyle style, float size) => new SKFont(style.Bold ? Bold : Regular, size) { Subpixel = true, Edging = SKFontEdging.Antialias };
+        private SKFont Font(TypeStyle style, float size) => new SKFont(ShopBodyDesign.IsShopFont(style) ? Shop : style.Bold ? Bold : Regular, size) { Subpixel = true, Edging = SKFontEdging.Antialias };
 
         private float MeasureAt(string text, TypeStyle style, float size)
         {
@@ -743,6 +750,24 @@ namespace Bloomlings.Playtest.Preview
                     {
                         using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
                         image = stream != null ? SKImage.FromEncodedData(stream)?.ToRasterImage(ensurePixelData: true) : null;
+                        if (image != null && name.StartsWith("shop/", StringComparison.Ordinal) && name != "shop/background")
+                        {
+                            if (name == "shop/price-button")
+                            {
+                                SKImage? cropped = image.Subset(new SKRectI(109, 100, 2094, 605));
+                                image.Dispose();
+                                image = cropped;
+                            }
+                            var cell = ShopBodyDesign.AtlasCell(name.Substring(5));
+                            if (image != null && cell.HasValue)
+                            {
+                                int w = image.Width / 3, h = image.Height / 2;
+                                int inset = ShopBodyDesign.AtlasLeftPadding(name.Substring(5));
+                                SKImage? cropped = image.Subset(new SKRectI(cell.Value.Column * w + inset, cell.Value.Row * h, (cell.Value.Column + 1) * w, (cell.Value.Row + 1) * h));
+                                image.Dispose();
+                                image = cropped;
+                            }
+                        }
                     }
 
                     Sprites[name] = image;

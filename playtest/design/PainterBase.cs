@@ -272,6 +272,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static string SpriteResource(string name)
         {
+            if(name.StartsWith("shop/",StringComparison.Ordinal)) return name=="shop/background"?"shop/background.png":name=="shop/price-button"?"shop/price-button.png":"shop/offer-atlas.png";
             string? grey = GreySource(name);
             if (grey != null)
             {

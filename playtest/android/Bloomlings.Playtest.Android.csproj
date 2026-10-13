@@ -29,6 +29,8 @@
     <!-- The Garden look's font (spec 003 contracts/fonts.md); AndroidPainter loads it, the level tester does not. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-ExtraBold.ttf" LogicalName="fonts/Nunito-ExtraBold.ttf" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/LilitaOne-Regular.ttf" LogicalName="fonts/LilitaOne-Regular.ttf" />
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Shop/Resources/Shop/*.png" Link="Assets/shop/%(Filename)%(Extension)" />
     <!--
       The pictures are the APK's assets (PlaytestFiles, AndroidAssetFiles), kept once: as embedded resources they were packed
       in the assembly, which the APK carries once for every processor (three copies). A picture goes by its folder and name

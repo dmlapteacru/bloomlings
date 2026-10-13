@@ -101,6 +101,9 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _root = null!;
         private PageHeaderView _header = null!;
         private Image _panel = null!;
+        private Image _shopBackground = null!;
+        private string? _shopNote;
+        private bool _storeAvailable;
         private Image[] _flowers = null!;
         private RectTransform _tabsBox = null!;
         private TabsView? _tabs;
@@ -139,6 +142,8 @@ namespace Bloomlings.Client.UI.Screens
             screen._root = shade.gameObject;
             Transform root = shade.transform;
             BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
+            screen._shopBackground = UiFactory.CreateImage("ShopGarden", root, ShopArt.Get("shop/background"), Color.white);
+            UiFactory.Stretch(screen._shopBackground.rectTransform);
 
             // The pages' wooden frame round its cream panel (spec 005 FR-047, the popups' card frame), the tabs, the offline line and the list's area.
             screen._panel = UiKit.CardFrame("Panel", root, raycast: false);
@@ -187,6 +192,7 @@ namespace Bloomlings.Client.UI.Screens
         public void Show(IReadOnlyList<StoreItem> items, int petals, bool storeAvailable, WardrobeService? wardrobe = null, ClearingService? clearing = null, int level = 0, Action? clearingChanged = null)
         {
             _items = items;
+            _storeAvailable = storeAvailable;
             _status.text = Loc.T("store.preview_status");
             _wardrobe = wardrobe;
             _clearing = clearing;
@@ -234,6 +240,9 @@ namespace Bloomlings.Client.UI.Screens
         public void ShowLocked(int level, int petals)
         {
             _items = Array.Empty<StoreItem>();
+            _shopBackground.gameObject.SetActive(false);
+            _panel.gameObject.SetActive(true);
+            foreach (Image flower in _flowers) flower.gameObject.SetActive(true);
             _root.SetActive(true);
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
             LockedPageRegions r = ScreenLayout.LockedPage(w, h, insets);
@@ -289,6 +298,12 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         private void Confirm(StoreItem item)
         {
+            if (item.PreviewOnly)
+            {
+                _shopNote = Loc.T("store.preview_status");
+                Refresh();
+                return;
+            }
             string name = item.Name ?? item.Title;
             Family family = WardrobeService.Families[Mathf.Clamp(_family, 0, WardrobeService.Families.Count - 1)];
             Action<RectTransform> picture = rect => ItemPicture(rect, item, family);
@@ -354,7 +369,13 @@ namespace Bloomlings.Client.UI.Screens
         private void Layout(bool tabs, bool storeAvailable)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, tabs, !storeAvailable);
+            Sprite? garden = _shopBackground.sprite;
+            if (garden != null)
+            {
+                float cover = Mathf.Max(w / garden.texture.width, h / garden.texture.height);
+                UiKit.PlaceScreen(_shopBackground.rectTransform, Box.FromCenter(w * 0.5f, h * 0.5f, garden.texture.width * cover, garden.texture.height * cover));
+            }
+            ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, tabs, !storeAvailable && _tab != StoreTab.Shop);
             _regions = r;
             _header.Place(r.Header);
 
@@ -364,7 +385,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
             _tabsBox.gameObject.SetActive(tabs);
             UiKit.PlaceScreen(_tabsBox, r.Tabs);
-            _status.gameObject.SetActive(!storeAvailable);
+            _status.gameObject.SetActive(!storeAvailable && _tab != StoreTab.Shop);
             UiKit.PlaceScreen(_status.rectTransform, r.Status);
             _notice.gameObject.SetActive(false);
             _list.gameObject.SetActive(true);
@@ -378,6 +399,8 @@ namespace Bloomlings.Client.UI.Screens
             _pageIndex = 0;
             _outfitPage = 0;
             _clearingNote = null;
+            _shopNote = null;
+            Layout(_tabOrder.Count > 1, _storeAvailable);
             Refresh();
         }
 
@@ -389,6 +412,10 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _tabs?.Select(_tabOrder.IndexOf(_tab));
+            bool shop = _tab == StoreTab.Shop;
+            _shopBackground.gameObject.SetActive(shop);
+            _panel.gameObject.SetActive(!shop);
+            foreach (Image flower in _flowers) flower.gameObject.SetActive(!shop);
             _pages = 1;
             if (_tab == StoreTab.Animations && _clearing != null)
             {
@@ -409,10 +436,30 @@ namespace Bloomlings.Client.UI.Screens
             {
                 Outfits(shown, _wardrobe);
             }
+            else if (_tab == StoreTab.Shop)
+            {
+                ShopCards(shown);
+            }
             else
             {
                 ShopRows(shown);
             }
+        }
+
+        private void ShopCards(List<StoreItem> shown)
+        {
+            var byId = new Dictionary<string, StoreItem>();
+            foreach (StoreItem item in shown) byId[item.Id] = item;
+            StoreItem? Item(string id) => byId.TryGetValue(id, out StoreItem? found) ? found : null;
+            Box bounds = ShopBodyDesign.Bounds(_regions);
+            _pages = ShopBodyDesign.PageCount(bounds);
+            _pageIndex = Mathf.Clamp(_pageIndex, 0, _pages - 1);
+            int Price(Services.Save.BoosterKind kind) => Item("booster_" + kind)?.PetalPrice ?? 0;
+            bool Open(Services.Save.BoosterKind kind) => Item("booster_" + kind) != null;
+            List<ShopVisual> nodes = ShopBodyDesign.Build(bounds, _pageIndex, Loc.T, id => Item(id) != null, Price, Open);
+            nodes.Add(new ShopVisual(ShopVisualKind.Well, ShopBodyDesign.PagePill(_regions)));
+            ShopBodyView.Draw(_list, _regions.List, nodes, Item, Confirm);
+            Footer(_shopNote ?? Loc.F("common.page", _pageIndex + 1, _pages), T.Caption, _pageIndex > 0 ? () => Turn(-1) : (Action?)null, _pageIndex < _pages - 1 ? () => Turn(1) : (Action?)null);
         }
 
         /// <summary>Places a child of the list on a screen box (relative to the list's own box).</summary>

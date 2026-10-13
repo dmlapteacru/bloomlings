@@ -1,0 +1,33 @@
+{
+  "tool": "OpenAI ImageGen (built-in)",
+  "version": 1,
+  "files": [
+    {
+      "path": "background.png",
+      "width": 853,
+      "height": 1844,
+      "sha256": "e4fd53c56bd2eac80dcc01bfb810aaf75edef2548b173f86c1bf8cf8c8e7e2ed",
+      "slot": "bg.shop",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "offer-atlas.png",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "9491045ffac416f2bd5e310a7c985630c32eb94b05ad86ed3958a75746d61076",
+      "slot": "ui.shop.illustrations",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "price-button.png",
+      "width": 2204,
+      "height": 713,
+      "sha256": "6a10a5a769e877eee398de13f46a01bc3400f00ab61a9ad2a941d18d3b38c17a",
+      "slot": "ui.shop.button",
+      "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    }
+  ]
+}

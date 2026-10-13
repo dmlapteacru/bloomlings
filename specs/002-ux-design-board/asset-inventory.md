@@ -27,22 +27,22 @@ How to read the columns:
 | Category | Launch | Later | Total |
 |---|---|---|---|
 | Brand | 3 | 1 | 4 |
-| Backgrounds | 12 | 0 | 12 |
+| Backgrounds | 13 | 0 | 13 |
 | Bloomling characters | 22 | 8 | 30 |
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 28 | 8 | 36 |
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 85 | 0 | 85 |
+| UI kit | 90 | 0 | 90 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
 | Cosmetics | 12 | 11 | 23 |
 | Visual effects | 12 | 5 | 17 |
-| Typography | 2 | 0 | 2 |
+| Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **238** | **40** | **278** |
+| **All** | **245** | **40** | **285** |
 
 ## Brand
 
@@ -69,6 +69,7 @@ How to read the columns:
 | `bg.splash` | Splash backdrop: the lotus loader's parchment (spec 005 FR-039) | 1 | Splash | portrait | Screen | no | Launch | `parchment.bottom` with a soft `parchment.top` light behind the lotus (the iris' cover, `ui.lotus_iris`); the owner's `Backgrounds/splash.png` (pictures.md B6) is not shown while the lotus loader is the splash |
 | `bg.wardrobe` | The pages' backdrop: the garden arches behind the Wardrobe's hero on its pedestal and behind the Store, Leaderboard and Collection pages (both builds) | 5, 6, 17 | Wardrobe; Store; Leaderboard; Collection | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7; shown a little blurred and darker, spec 005 FR-049) |
 | `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15, 16 | Win; milestone | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8; shown a little blurred and darker, spec 005 FR-049) |
+| `bg.shop` | Illustrated garden store background | 17, 53, 54 | Store body | tall; short | Screen | no | Launch | Shop/background.png |
 
 ## Bloomling characters
 
@@ -310,6 +311,11 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.achievement` | Achievement tile (spec 005 FR-037) | 2 | The profile page's 3 × 3 Achievements grid | before bronze (padlock); bronze; silver; gold (check) | Small | no | Launch | a cream tile in a thin wooden rim (`ui.tile.framed`, spec 005 FR-047; no flowers since FR-049) filled by the achievement's illustrated badge (faded before bronze), with the count toward the next tier over its foot and the name under it |
 | `ui.promo.no_ads` | Home promo scene: No Ads (the owner's layers `Decor/promo-noads-*.png`: the stand, Sprig, the crossed AD sign, the lotus) | 2, 3 | Home (left, under the logo, until Remove Ads is owned); the Remove Ads card | idle; attention (Sprig pushes the sign off, a lotus blooms, both come back); pressed | Medium | no | Launch | the label "No Ads" on a wooden sign (`ui.sign.wood`) until the pictures exist |
 | `ui.promo.daily` | Home promo scene: the Daily Reward (the owner's layers `Decor/promo-daily-*.png`: the stand, the album closed and open, the flower stamp, the petals) | 3 | Home (right, under the logo, from the Daily Reward's unlock) | idle; attention while the reward waits (the album opens, the stamp presses, petals burst); pressed | Medium | no | Launch | the label "Daily" on a wooden sign (`ui.sign.wood`) until the pictures exist |
+| `ui.shop.card` | Garden store card | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
+| `ui.shop.ribbon` | Garden store ribbon | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
+| `ui.shop.well` | Garden store well | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
+| `ui.shop.button` | Illustrated nine-slice price button | 17, 53, 54 | Store body | normal; pressed | Large | yes | Launch | Shop/price-button.png, separate text |
+| `ui.shop.illustrations` | Garden offer illustrations | 17, 53, 54 | Store body | offer | Large | no | Launch | Shop/offer-atlas.png |
 
 ## Materials
 
@@ -398,6 +404,7 @@ The fonts are bundled files, the only new files of spec 003: Nunito ExtraBold an
 |---|---|---|---|---|---|---|---|---|
 | `font.display` | Display font (rounded, bold): titles, buttons, pills, wordmark | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17 | Every screen | bold; outlined; volumetric on colored faces | Icon | yes | Launch | Nunito ExtraBold (SIL OFL 1.1), `UI/Fonts/Resources/Nunito-ExtraBold.ttf` |
 | `font.body` | Body font: rows, captions, numbers | 3, 4, 5, 6, 10, 17 | Every screen | regular; bold digits | Icon | yes | Launch | Nunito SemiBold (SIL OFL 1.1), `UI/Fonts/Resources/Nunito-SemiBold.ttf` |
+| `font.shop` | Lilita One store lettering | 17, 53, 54 | Store body | amount; price; title | Small | yes | Launch | LilitaOne-Regular.ttf, SIL OFL 1.1 |
 
 ## Audio
 

@@ -84,11 +84,12 @@ namespace Bloomlings.Playtest.Design
             tabs.Add("store.tab_animations");
             int tab = Math.Max(0, Math.Min(tabs.Count - 1, app.StoreTab));
             ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-            DesignApp.DrawBackdrop(p, BackdropScene.Home, meta.CurrentLevel, OwnerPictures.Wardrobe);
+            if (tabs[tab] == "store.tab_shop" && p.HasSprite("shop/background")) ShopBodyPainter.Background(p);
+            else DesignApp.DrawBackdrop(p, BackdropScene.Home, meta.CurrentLevel, OwnerPictures.Wardrobe);
 
             // The parchment panel, its bottom corners below the screen's edge.
             float radius = r.PanelRadius(p.Scale);
-            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            if (tabs[tab] != "store.tab_shop") Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
             Kit.Tabs(p, r.Tabs, tabs.ConvertAll(PlaytestText.T).ToArray(), tab, i =>
             {
                 app.StoreTab = i;
@@ -106,13 +107,13 @@ namespace Bloomlings.Playtest.Design
                     Animations(p, app, r);
                     break;
                 default:
-                    ShopRows(p, app, r);
+                    ShopCards(p, app, r);
                     break;
             }
 
             // The bottom menu, the Shop in its medallion (FR-030); the header last, as on the Wardrobe.
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Shop), look, app.Navigate);
-            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
+            if (tabs[tab] != "store.tab_shop") Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
             Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, () => app.HomeToast(PlaytestText.T("store.offline")));
 
             string? toast = app.HomeToastText;
@@ -120,6 +121,17 @@ namespace Bloomlings.Playtest.Design
             {
                 Kit.Toast(p, new Box(r.Safe.Left, r.Panel.Top, r.Safe.Right, r.Footer.Top), toast);
             }
+        }
+
+        private static void ShopCards(IPainter p, DesignApp app, ReferenceStoreRegions r)
+        {
+            int pages = ShopBodyPainter.Draw(p, app, r, app.StoreRowsPage);
+            int page = Math.Max(0, Math.Min(pages - 1, app.StoreRowsPage));
+            Action? previous = page > 0 ? () => app.StoreRowsPage = page - 1 : (Action?)null;
+            Action? next = page < pages - 1 ? () => app.StoreRowsPage = page + 1 : (Action?)null;
+            p.Picture("shop.pagepill", ShopBodyDesign.PagePill(r), (w, h) => ShopBodyDesign.Surface(ShopVisualKind.Well, w, h));
+            Footer(p, r, PlaytestText.F("common.page", page + 1, pages), T.Caption, previous, next);
+            p.Scroll(r.List, previous, next);
         }
 
         /// <summary>

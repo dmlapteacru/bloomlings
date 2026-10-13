@@ -42,8 +42,10 @@ namespace Bloomlings.Playtest.Droid
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias);
         private static Typeface? s_bold;
         private static Typeface? s_regular;
+        private static Typeface? s_shop;
         private readonly Typeface _bold = s_bold ??= LoadFont(true) ?? Typeface.Create(Typeface.Default, TypefaceStyle.Bold)!;
         private readonly Typeface _regular = s_regular ??= LoadFont(false) ?? Typeface.Default!;
+        private readonly Typeface _shop = s_shop ??= LoadFontResource("fonts/LilitaOne-Regular.ttf") ?? Typeface.Default!;
         private readonly RectF _rect = new RectF();
         private readonly Rect _source = new Rect();
         private Canvas _canvas = null!;
@@ -102,9 +104,9 @@ namespace Bloomlings.Playtest.Droid
         /// A bundled Nunito face: the embedded file is written to the cache folder once, then loaded from there. Null
         /// (logged once) keeps the system typeface, so text never disappears.
         /// </summary>
-        private static Typeface? LoadFont(bool bold)
+        private static Typeface? LoadFont(bool bold) => LoadFontResource(FontResource(bold));
+        private static Typeface? LoadFontResource(string resource)
         {
-            string resource = FontResource(bold);
             try
             {
                 string folder = Android.App.Application.Context.CacheDir!.AbsolutePath;
@@ -258,7 +260,7 @@ namespace Bloomlings.Playtest.Droid
 
         private float MeasureAt(string text, TypeStyle style, float size)
         {
-            _text.SetTypeface(style.Bold ? _bold : _regular);
+            _text.SetTypeface(ShopBodyDesign.IsShopFont(style)?_shop:style.Bold ? _bold : _regular);
             _text.TextSize = size;
             return _text.MeasureText(text);
         }
@@ -283,7 +285,7 @@ namespace Bloomlings.Playtest.Droid
             float size = FitSize(shown, style, maxWidth, sizeScale, (t, s) => MeasureAt(t, style, s));
             _text.Reset();
             _text.AntiAlias = true;
-            _text.SetTypeface(style.Bold ? _bold : _regular);
+            _text.SetTypeface(ShopBodyDesign.IsShopFont(style)?_shop:style.Bold ? _bold : _regular);
             _text.TextSize = size;
             float width = _text.MeasureText(shown);
             float left = centered ? x - (width / 2f) : x;
@@ -858,6 +860,24 @@ namespace Bloomlings.Playtest.Droid
                 {
                     using System.IO.Stream? stream = PlaytestFiles.Open(SpriteResource(name));
                     bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
+                    if(bitmap!=null&&name.StartsWith("shop/",StringComparison.Ordinal)&&name!="shop/background")
+                    {
+                        if(name=="shop/price-button")
+                        {
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,109,100,1985,505);
+                            bitmap.Dispose();
+                            bitmap=cropped;
+                        }
+                        var cell=ShopBodyDesign.AtlasCell(name.Substring(5));
+                        if(bitmap!=null&&cell.HasValue)
+                        {
+                            int w=bitmap.Width/3,h=bitmap.Height/2;
+                            int inset=ShopBodyDesign.AtlasLeftPadding(name.Substring(5));
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,cell.Value.Column*w+inset,cell.Value.Row*h,w-inset,h);
+                            bitmap.Dispose();
+                            bitmap=cropped;
+                        }
+                    }
                     if (bitmap == null)
                     {
                         Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not in the APK; drawing the stand-in");

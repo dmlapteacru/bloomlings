@@ -352,6 +352,37 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.5f);
             });
 
+            yield return new Fixture(54, "store-body-purchases", "Garden Store: preview offers do not charge, boosters still confirm", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 49);
+                CloseAll(app);
+                app.OpenStore();
+                Run(app, p, 0.1f);
+                ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                Box area = ShopBodyDesign.Bounds(r);
+                ShopVisual Button(string id, int page) => ShopBodyDesign.Build(area, page, PlaytestText.T, _ => true, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked).First(n => n.Kind == ShopVisualKind.Button && n.Id == id);
+                int petals = app.Meta.Economy.Petals;
+                Tap(p, Button("remove_ads", 0).Box);
+                Expect(app.Meta.Economy.Petals == petals && !app.Meta.Save.Purchases.RemoveAds && app.Overlays.Count == 0, "money previews cannot spend Petals or grant Remove Ads");
+                Run(app, p, 3f);
+                int page = ShopBodyDesign.HasBoosterRow(area) ? 0 : 2;
+                app.StoreRowsPage = page;
+                Run(app, p, 0.1f);
+                int charges = app.Meta.Economy.Charges(BoosterKind.ExtraSlot);
+                Tap(p, Button("booster_ExtraSlot", page).Box);
+                Expect(app.IsOpen(Overlay.Purchase), "the booster price asks for confirmation");
+                Run(app, p, 0.1f);
+                PurchaseConfirmRegions confirm = ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets);
+                Tap(p, confirm.Cancel);
+                Expect(app.Meta.Economy.Petals == petals && app.Meta.Economy.Charges(BoosterKind.ExtraSlot) == charges, "cancel changes nothing");
+                Run(app, p, 0.1f);
+                Tap(p, Button("booster_ExtraSlot", page).Box);
+                Run(app, p, 0.1f);
+                Tap(p, confirm.Confirm);
+                Expect(app.Meta.Economy.Petals == petals - app.Meta.Economy.Price(BoosterKind.ExtraSlot) && app.Meta.Economy.Charges(BoosterKind.ExtraSlot) == charges + 3, "the real Petal button grants exactly the agreed three charges");
+                Run(app, p, 0.1f);
+            });
+
             yield return new Fixture(18, "themes", "Extra: background themes", (p, data) =>
             {
                 p.BeginFrame();

@@ -21,6 +21,7 @@ namespace Bloomlings.Client.UI
         private static readonly Dictionary<string, Material> Materials = new Dictionary<string, Material>();
         private static TMP_FontAsset? s_display;
         private static TMP_FontAsset? s_body;
+        private static TMP_FontAsset? s_shop;
         private static bool s_loaded;
 
         /// <summary>Nunito ExtraBold (bold styles), or null when it could not be loaded.</summary>
@@ -44,7 +45,11 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>The font of a type style.</summary>
-        public static TMP_FontAsset? For(TypeStyle style) => style.Bold ? Display : Body;
+        public static TMP_FontAsset? For(TypeStyle style)
+        {
+            Load();
+            return ShopBodyDesign.IsShopFont(style) ? s_shop ?? Display : style.Bold ? Display : Body;
+        }
 
         /// <summary>
         /// Gives a label its look: the gradient fill as vertex colors, and the shared outline and extrusion material.
@@ -111,6 +116,7 @@ namespace Bloomlings.Client.UI
             s_loaded = true;
             s_display = Create("Nunito-ExtraBold");
             s_body = Create("Nunito-SemiBold");
+            s_shop = Create("LilitaOne-Regular");
         }
 
         private static TMP_FontAsset? Create(string resource)

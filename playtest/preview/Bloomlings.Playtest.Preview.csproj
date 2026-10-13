@@ -60,6 +60,8 @@
     <!-- The Garden look's font (spec 003 contracts/fonts.md), the same files the Unity client and the full playtest use. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-ExtraBold.ttf" LogicalName="fonts/Nunito-ExtraBold.ttf" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/LilitaOne-Regular.ttf" LogicalName="fonts/LilitaOne-Regular.ttf" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Shop/Resources/Shop/*.png" LogicalName="shop/%(Filename)%(Extension)" />
     <!-- The generated character pictures (spec 004 contracts/art-files.md "Loading"), drawn by the painter's Sprite. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" LogicalName="characters/2d/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" LogicalName="characters/3d/%(Filename)%(Extension)" />
