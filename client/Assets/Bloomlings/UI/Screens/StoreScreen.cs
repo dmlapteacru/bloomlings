@@ -375,7 +375,7 @@ namespace Bloomlings.Client.UI.Screens
             ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, tabs, !storeAvailable && _tab != StoreTab.Shop);
             _regions = r;
             Box viewport = _tab == StoreTab.Shop ? ShopBodyDesign.Bounds(r) : ShopCatalogDesign.Viewport(r,_tab==StoreTab.Cosmetics);
-            UiKit.PlaceScreen(_shopViewport, viewport);
+            UiKit.PlaceScreen(_shopViewport, ShopBodyDesign.ScrollViewport(r,viewport));
             UiKit.PlaceBox(_shopToast.rectTransform, new Box(viewport.Left, viewport.Bottom - r.W * 0.12f, viewport.Right, viewport.Bottom - r.W * 0.02f), viewport);
             _header.Place(r.Header);
 
@@ -465,6 +465,7 @@ namespace Bloomlings.Client.UI.Screens
             List<ShopVisual> nodes = ShopBodyDesign.Build(bounds, Loc.T, id => Item(id) != null, Price, Open);
             float height = ShopBodyDesign.ContentHeight(nodes, bounds);
             float offset = Mathf.Clamp(_shopContent.anchoredPosition.y, 0, (height - bounds.Height) / UiKit.PixelsPerUnit);
+            height+=ShopBodyDesign.ScrollViewport(_regions,bounds).Height-bounds.Height;
             for (int i = _shopContent.childCount - 1; i >= 0; i--) Destroy(_shopContent.GetChild(i).gameObject);
             _shopContent.anchorMin = new Vector2(0, 1);
             _shopContent.anchorMax = new Vector2(1, 1);
@@ -670,6 +671,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             _pages=1;
             float offset=Mathf.Clamp(_shopContent.anchoredPosition.y,0,Mathf.Max(0,height-area.Height)/UiKit.PixelsPerUnit);
+            height+=ShopBodyDesign.ScrollViewport(_regions,area).Height-area.Height;
             for(int i=_shopContent.childCount-1;i>=0;i--)Destroy(_shopContent.GetChild(i).gameObject);
             _shopContent.anchorMin=new Vector2(0,1);_shopContent.anchorMax=new Vector2(1,1);
             _shopContent.pivot=new Vector2(.5f,1);

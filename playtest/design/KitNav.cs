@@ -25,12 +25,15 @@ namespace Bloomlings.Playtest.Design
         public static void BottomNav(IPainter p,BottomNavRegions r,HomeLook look,Action<NavPlace> onSelect)
         {
             p.Mark("ui.nav.bar");p.Mark("ui.nav.medallion");p.Mark("ui.nav.illustrations");
+            Box wall=GameNavigationDesign.NavWall(r,p.Width);
+            p.Sprite(GameNavigationDesign.StoneWall,wall);
+            p.BlockInput(wall);
             for(int i=0;i<r.Places.Count;i++)
             {
                 NavPlace place=r.Places[i];bool chosen=i==r.ActiveIndex;Box face=GameNavigationDesign.NavButton(r,i),touch=GameNavigationDesign.NavTouch(r,i);
                 if(!chosen)Squash(p,face,Press(p,touch,true),tile:true);
                 p.Mark(Client.UI.Design.BottomNav.Slot(place));p.Sprite(GameNavigationDesign.Nav(place,chosen),face);
-                if(chosen)ProfileGamePainter.Label(p,GameNavigationDesign.NavCaption(face),PlaytestText.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,ShopBodyDesign.Letters,heightShare:.92f);
+                if(chosen){ProfileGamePainter.Label(p,GameNavigationDesign.NavCaption(face),PlaytestText.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,ShopBodyDesign.Letters,heightShare:.92f);p.BlockInput(touch);}
                 else
                 {
                     if(!Client.UI.Design.BottomNav.IsOpen(place,look))NavLock(p,face);

@@ -141,6 +141,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>A touch target; the topmost target under the finger gets the tap (FR-027: at least <c>size.touch_min</c>).</summary>
         void Hit(Box box, Action action);
+        /// <summary>A decorative foreground surface consumes taps and drags; it is not an actionable button.</summary>
+        void BlockInput(Box box);
 
         /// <summary>
         /// A page that scrolls (spec 005 FR-041, <see cref="TouchGesture"/>): a finger that goes down inside

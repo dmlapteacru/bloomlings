@@ -103,8 +103,6 @@ namespace Bloomlings.Client.UI.Screens
         private PetalsPill _petals = null!;
         private RectTransform _profile = null!;
         private ProfileAvatar _avatar = null!;
-        private Image _profileRibbon=null!;
-        private TextMeshProUGUI _profileName=null!;
         private Image _profileBadge=null!;
         private HomePromoView _noAds = null!;
         private HomePromoView _dailyReward = null!;
@@ -208,9 +206,7 @@ namespace Bloomlings.Client.UI.Screens
             profile.gameObject.AddComponent<PressMotion>();
             screen._profile = profile.rectTransform;
             screen._avatar = ProfileAvatar.Create("Avatar", profile.transform,sceneFrame:true);
-            screen._profileRibbon=GameNavigationView.Surface("NameRibbon",profile.transform,GameNavigationDesign.NameRibbon);
             screen._profileBadge=UiFactory.CreateImage("LiveBadge",profile.transform,null,Color.white);screen._profileBadge.preserveAspect=true;
-            screen._profileName=GameNavigationView.Label("Name",profile.transform,"",GameNavigationDesign.ProfileName,ShopBodyDesign.Letters,.85f);
             screen._nav = UiKit.BottomNav("BottomNav", root, place =>
             {
                 if (place != NavPlace.Home)
@@ -274,14 +270,10 @@ namespace Bloomlings.Client.UI.Screens
             float u = DesignTokens.ScaleFor(w, h);
             UiKit.PlaceBox(_settings, r.Settings, screen);
             UiKit.PlaceBox((RectTransform)_petals.transform, r.Petals, screen);
-            Box profileBounds=GameNavigationDesign.ProfileBounds(r.Avatar),ribbon=GameNavigationDesign.ProfileRibbon(r.Avatar);
+            Box profileBounds=GameNavigationDesign.ProfileBounds(r.Avatar);
             UiKit.PlaceBox(_profile,profileBounds,screen);
             UiKit.PlaceBox(_avatar.Rect,r.Avatar,profileBounds);
-            UiKit.PlaceBox(_profileRibbon.rectTransform,ribbon,profileBounds);
             UiKit.PlaceBox(_profileBadge.rectTransform,AvatarLook.Badge(r.Avatar),profileBounds);
-            Box nameBox=GameNavigationDesign.ProfileNameBox(ribbon,model.Profile?.Badge!=null);
-            _profileName.text=GameNavigationDesign.FitName(model.ProfileName??Loc.T("profile.title"),nameBox.Width/u,text=>KitText.Measure(_profileName,nameBox.Height*.85f/u,text));
-            UiKit.PlaceBox(_profileName.rectTransform,nameBox,profileBounds);
 
             // The four heroes (frames 2 and 3): on the owner's layered fountain, or around the drawn diorama's lotus
             // fountain with the player's hero at the left front; once the Wardrobe is open each in its outfit.

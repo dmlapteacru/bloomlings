@@ -1,0 +1,7 @@
+{
+  "generator": "built-in OpenAI ImageGen",
+  "source": "C:/Users/meisa/.codex/generated_images/01a13154-94be-7542-8149-0d8eb2df6d8d/exec-fd5928b5-0ba0-4a83-9f3f-2321e84e1973.png",
+  "asset": "client/Assets/Bloomlings/UI/Resources/Navigation/stone-wall-v1.png",
+  "reference": "reference-menu.png",
+  "prompt": "Use case: stylized-concept. Asset type: transparent game UI stone ledge / bottom navigation backing, production sprite. Input image 1 is a style reference; reproduce only its warm beige stone wall beneath the buttons, not any buttons, icons, text or background. A long perfectly horizontal continuous low garden wall: broad smoothly rounded creamy limestone cap blocks with a thin visible top surface, warm soft bevel highlights, shallow dark seams, tan front faces, two staggered rows of large rectangular rounded stone blocks. Several tiny moss-green patches in seams as reference. Sculpted cartoon casual puzzle-game aesthetic, soft polished texture, crisp antialiased edges, pleasant subtle shadows. Full-width horizontal strip with no perspective tilt, front-facing, ends go to edges so it can extend beyond screen. The strip itself should be about 8 times wider than tall; center in a wide canvas surrounded by true transparent pixels. The cap top edge is approximately straight with shallow rounded joins. Do not add tall pillars, decorative leaves, flowers, grass, arches, buttons, captions, scenery, blur or cast shadow outside the wall. Transparent background, no text."
+}

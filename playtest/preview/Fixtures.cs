@@ -989,14 +989,28 @@ namespace Bloomlings.Playtest.Preview
                     if(item.Badge==null)app.Meta.Wardrobe.HideProfile(Client.Meta.Wardrobe.CosmeticKind.Badge);else app.Meta.Wardrobe.Show(item.Badge);
                     Run(app,p,.2f);Expect(app.Meta.Wardrobe.Profile.Frame?.Id==item.Frame&&app.Meta.Wardrobe.Profile.Badge?.Id==item.Badge,"Home uses the selected live cosmetics");
                     var r=ScreenLayout.ReferenceHome(p.Width,p.Height,p.Insets);Tap(p,GameNavigationDesign.ProfileBounds(r.Avatar));Run(app,p,.1f);
-                    Expect(app.Screen==Design.Screen.Profile&&Shows(p,"Rosie"),"the full profile opens from the portrait and name plaque");
-                    app.Back();RunTo(app,p,HomePromo.DailyAt+1.6f);Expect(Shows(p,"Rosie"),"Home restores the current player name");
+                    Expect(app.Screen==Design.Screen.Profile&&Shows(p,"Rosie"),"the full profile opens from the portrait");
+                    app.Back();RunTo(app,p,HomePromo.DailyAt+1.6f);Expect(!Shows(p,"Rosie"),"Home omits the player name beneath the live portrait");
                 });
             }
             yield return new Fixture(69,"shop-wallet-large","Illustrated wallet: grouped six-digit balance",(p,data)=>
             {
                 var app=Ready(data);app.Meta.Save.Wallet.AddPetals(120000-app.Meta.Economy.Petals);Run(app,p,1.5f);app.OpenStore();Run(app,p,1.5f);
                 Expect(Shows(p,NumberText.Group(120000)),"the small page wallet shows a large live balance");
+            });
+            yield return new Fixture(71,"shop-scroll-behind-menu","Shop content continues behind the stone menu",(p,data)=>
+            {
+                var app=Ready(data);app.OpenStore();Run(app,p,.3f);
+                var r=ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets);Box area=ShopBodyDesign.Bounds(r);
+                var nav=HomeScreen.Nav(p,NavPlace.Shop);Box face=GameNavigationDesign.NavButton(nav,0),wall=GameNavigationDesign.NavWall(nav,p.Width);
+                Expect(p.ScrollAt(area.CenterX,area.CenterY)>=0,"catalog receives vertical drags");
+                Expect(p.ScrollAt(face.CenterX,face.CenterY)<0,"selected menu tile blocks catalog drags");
+                Expect(p.ScrollAt(area.CenterX,wall.Top+nav.W*.005f)<0,"stone ledge blocks catalog drags");
+                float before=app.ShopScrollOffset;Drag(p,face.CenterX,face.CenterY,face.CenterX,face.CenterY-nav.W*.1f);Run(app,p,.1f);
+                Expect(app.ShopScrollOffset==before&&app.Screen==Design.Screen.Store,"dragging selected navigation does not scroll or purchase");
+                Drag(p,area.CenterX,area.CenterY,area.CenterX,area.CenterY-nav.W*.35f);Run(app,p,.1f);
+                Expect(app.ShopScrollOffset>before,"catalog scrolls under the fixed menu");
+                app.ShopScrollOffset=nav.W*.30f;Run(app,p,.1f);
             });
             yield return new Fixture(70,"gameplay-controls-fast","Illustrated gameplay controls: enabled speed",(p,data)=>
             {

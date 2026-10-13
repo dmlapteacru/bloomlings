@@ -113,13 +113,7 @@ namespace Bloomlings.Playtest.Design
             ProfileLook profile = meta.Wardrobe.Profile;
             AvatarItem avatar = meta.Profile.Avatar;
             Kit.Avatar(p,r.Avatar,avatar,profile.Frame,null,null,OutfitsOf(app)?.Invoke(avatar.Family),sceneFrame:true);
-            Box ribbon=GameNavigationDesign.ProfileRibbon(r.Avatar);
-            Kit.SlicedSprite(p,GameNavigationDesign.NameRibbon,ribbon,.17f,.42f,.42f);
             if(profile.Badge!=null)ProfileGamePainter.Badge(p,AvatarLook.Badge(r.Avatar),profile.Badge);
-            Box nameBox=GameNavigationDesign.ProfileNameBox(ribbon,profile.Badge!=null);
-            float nameScale=nameBox.Height*.85f/p.U(GameNavigationDesign.ProfileName.Size);
-            string shownName=GameNavigationDesign.FitName(ProfileScreen.NameOf(meta.Profile),nameBox.Width,text=>p.MeasureText(text,GameNavigationDesign.ProfileName,nameScale));
-            ProfileGamePainter.Label(p,nameBox,shownName,GameNavigationDesign.ProfileName,ShopBodyDesign.Letters,heightShare:.85f);
             p.Hit(GameNavigationDesign.ProfileBounds(r.Avatar),app.OpenProfile);
 
             // The promo scenes under the header (spec 005 FR-032, FR-036): No Ads at the left, the Daily Reward at the right,

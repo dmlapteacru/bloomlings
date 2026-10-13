@@ -96,3 +96,9 @@ Runtime crops: cream base `(42,214)-(2131,472)`, selected `(76,105)-(2097,596)` 
 One decorative base spans each whole row. Equal segments occupy its inset interior. Only selected segments draw green surfaces; other segments have transparent faces, brown labels and shallow decorative dividers. Text and icons are live layers. `NavigationSkin.TabContent` centers each icon/label group, reserves 22% of segment height as minimum side padding and bounds long labels to the remaining width. Geometry is derived from actual box sizes, with no screen-resolution coordinates. Press motion, click callbacks, selection and unlock conditions are preserved.
 
 This covers Shop Packs/Cosmetics/Animations, the profile editor's Avatar/Frame/Badge/Name, Unity Wardrobe item-kind filters, and family navigation in Shop and Wardrobe. The Shop row is 92% of the safe width. Background images, title plaques, Petals plus and bottom main navigation retain their previous look.
+
+## Stone navigation backing (2026-10-14)
+
+Owner reference: `product/previews/navigation-stone-v4/reference-menu.png`. `stone-wall-v1.png` was generated with built-in OpenAI ImageGen from that reference and copied unchanged from `exec-fd5928b5-0ba0-4a83-9f3f-2321e84e1973.png`. The original output is recorded in `product/previews/navigation-stone-v4/prompts.json`, together with the exact prompt. 2182×721 RGBA; source alpha preserved; integrity recorded in manifest version 5.
+
+Shared runtime crop: x=0, y=282, width=2182, height=238. `GameNavigationDesign.NavWall` places the top surface slightly behind the bottom of the five navigation tiles and lets the stone front continue below the screen edge. Home omits the name ribbon; profile cosmetics and full-page name remain live. Catalog clipping extends behind the menu while content padding keeps its final rows accessible.

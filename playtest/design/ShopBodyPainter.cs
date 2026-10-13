@@ -19,15 +19,16 @@ namespace Bloomlings.Playtest.Design
         public static void Draw(IPainter p, DesignApp app, ReferenceStoreRegions regions)
         {
             Box area = ShopBodyDesign.Bounds(regions);
+            Box viewport=ShopBodyDesign.ScrollViewport(regions,area);
             bool Visible(string id) => !(app.Meta.Save.Purchases.RemoveAds && (id == "remove_ads" || id == "remove_ads_bundle"));
             List<ShopVisual> nodes = ShopBodyDesign.Build(area, PlaytestText.T, Visible, app.Meta.Economy.Price, app.Meta.Economy.IsUnlocked);
             float max = Math.Max(0, ShopBodyDesign.ContentHeight(nodes, area) - area.Height);
             app.ShopScrollOffset = Math.Max(0, Math.Min(max, app.ShopScrollOffset));
-            p.PushClip(area);
+            p.PushClip(viewport);
             foreach (ShopVisual source in nodes)
             {
                 ShopVisual n = source with { Box = source.Box.Offset(0, -app.ShopScrollOffset) };
-                if (n.Box.Bottom <= area.Top || n.Box.Top >= area.Bottom) continue;
+                if (n.Box.Bottom <= viewport.Top || n.Box.Top >= viewport.Bottom) continue;
                 if (n.Kind == ShopVisualKind.Sprite) { if (n.Value.StartsWith("shop/", StringComparison.Ordinal)) p.Mark("ui.shop.illustrations"); if (n.Tint.HasValue) p.SpriteTint(n.Value, n.Box, n.Tint.Value); else p.Sprite(n.Value, n.Box); continue; }
                 if (n.Kind == ShopVisualKind.Text) { Text(p, n); continue; }
                 p.Mark("ui.shop." + n.Kind.ToString().ToLowerInvariant());
@@ -63,7 +64,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
             p.PopClip();
-            p.VerticalScroll(area, dy => app.ShopScrollOffset = Math.Max(0, Math.Min(max, app.ShopScrollOffset - dy)));
+            p.VerticalScroll(viewport, dy => app.ShopScrollOffset = Math.Max(0, Math.Min(max, app.ShopScrollOffset - dy)));
         }
         private static void Text(IPainter p, ShopVisual n)
         {

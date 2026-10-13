@@ -335,22 +335,22 @@ namespace Bloomlings.Playtest.Design
                 Kit.NavigationTab(p,NavigationSkin.Segment(bar,i,families.Count),PlaytestText.T("family."+WardrobeService.FamilyKey(families[i])),NavigationSkin.FamilyIcon(families[i]),i,i==selected,()=>{app.StoreFamily=index;app.ShopScrollOffset=0;});
             }
             var items=new List<CosmeticItem?>{null};items.AddRange(wardrobe.ForSale);
-            Box area=ShopCatalogDesign.Viewport(r,true);
+            Box area=ShopCatalogDesign.Viewport(r,true);Box viewport=ShopBodyDesign.ScrollViewport(r,area);
             float max=Math.Max(0,ShopCatalogDesign.CosmeticsHeight(area,items.Count)-area.Height);
             app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset));
-            p.PushClip(area);
+            p.PushClip(viewport);
             for(int i=0;i<items.Count;i++)
             {
                 CosmeticItem? item=items[i];
                 Box card=ShopCatalogDesign.CosmeticCard(area,i).Offset(0,-app.ShopScrollOffset);
-                if(card.Bottom<=area.Top||card.Top>=area.Bottom)continue;
+                if(card.Bottom<=area.Top||card.Top>=viewport.Bottom)continue;
                 bool chosen=item==null&&wardrobe.OutfitOf(family).IsEmpty;
                 string name=item==null ? PlaytestText.T("wardrobe.default") : MetaCards.ItemName(item);
                 Action? tap=item==null ? (Action?)null : ()=>BuyCosmetic(app,family,item);
                 ShopCatalogPainter.Card(p,card,area,true,false,name,item==null ? chosen ? ClearingAction.Chosen : ClearingAction.Choose : ClearingAction.Buy,item?.Price??0,chosen,false,tap,well=>Preview(p,well,family,item),item==null ? PlaytestText.T(chosen ? "clearing.chosen" : "wardrobe.default") : null);
             }
             p.PopClip();
-            p.VerticalScroll(area,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
+            p.VerticalScroll(viewport,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
         }
         private static void BuyCosmetic(DesignApp app,Family family,CosmeticItem item)
         {
@@ -371,27 +371,27 @@ namespace Bloomlings.Playtest.Design
         {
             ClearingService clearing=app.Meta.Clearing;
             var styles=new List<ClearStyle>(ClearStyles.Free);styles.AddRange(ClearStyles.Bought);
-            Box area=ShopCatalogDesign.Viewport(r,false);
+            Box area=ShopCatalogDesign.Viewport(r,false);Box viewport=ShopBodyDesign.ScrollViewport(r,area);
             float max=Math.Max(0,ShopCatalogDesign.AnimationsHeight(area)-area.Height);
             app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset));
-            p.PushClip(area);
+            p.PushClip(viewport);
             for(int i=0;i<styles.Count;i++)
             {
                 ClearStyle style=styles[i];
                 Box card=ShopCatalogDesign.AnimationCard(area,i).Offset(0,-app.ShopScrollOffset);
-                if(card.Bottom<=area.Top||card.Top>=area.Bottom)continue;
+                if(card.Bottom<=area.Top||card.Top>=viewport.Bottom)continue;
                 string name=PlaytestText.T(ClearStyles.NameKey(style));
                 ClearingAction action=clearing.ActionOf(style,app.Meta.CurrentLevel);
                 Action? tap=action==ClearingAction.Chosen ? (Action?)null : ()=>TapClearing(app,style,name);
                 ShopCatalogPainter.Card(p,card,area,false,i==6,name,action,clearing.PriceOf(style),action==ClearingAction.Chosen,ClearStyles.IsFree(style),tap,well=>Kit.ClearingPreview(p,well,style,catalog:true));
             }
             Box caption=ShopCatalogDesign.Caption(area).Offset(0,-app.ShopScrollOffset);
-            if(caption.Bottom>area.Top&&caption.Top<area.Bottom)
+            if(caption.Bottom>area.Top&&caption.Top<viewport.Bottom)
             {
                 p.Mark("font.shop");p.Text(PlaytestText.T("store.animations_caption"),caption.CenterX,caption.CenterY,ShopBodyDesign.Small,ShopBodyDesign.Letters.FillTop,caption.Width,caption.Height*.65f/p.U(ShopBodyDesign.Small.Size),ShopBodyDesign.Letters);
             }
             p.PopClip();
-            p.VerticalScroll(area,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
+            p.VerticalScroll(viewport,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
         }
 
         /// <summary>

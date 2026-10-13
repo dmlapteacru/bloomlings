@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "files": [
     {
       "file": "page-sign-v1.png",
@@ -86,6 +86,14 @@
       "width": 2172,
       "height": 724,
       "sha256": "ab50f9a76b1d6b2c1cef9ad11d557cbb6d2fb026fe77b6f06a958c7cb2c0c793",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "stone-wall-v1.png",
+      "width": 2182,
+      "height": 721,
+      "sha256": "220f6363c4af18fb632c5b0e89d105f5cafd817de8c743a96c45472ab062a46e",
       "alpha": true,
       "generator": "built-in OpenAI ImageGen"
     }

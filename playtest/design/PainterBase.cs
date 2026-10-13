@@ -174,7 +174,9 @@ namespace Bloomlings.Playtest.Design
             {
                 if (_scrolls[i].After > _coverAt && _scrolls[i].Box.Contains(x, y))
                 {
-                    return i;
+                    bool covered=false;
+                    for(int j=_scrolls[i].After;j<_hits.Count&&!covered;j++)covered=_hits[j].Box.Contains(x,y);
+                    if(!covered)return i;
                 }
             }
 
@@ -209,6 +211,7 @@ namespace Bloomlings.Playtest.Design
             _hits.Add((screen, action));
             OnHit(screen);
         }
+        public void BlockInput(Box box) => _hits.Add((ToScreen(box), () => { }));
 
         public bool Pressed(Box box) => Finger.HasValue && ToScreen(box).Contains(Finger.Value.X, Finger.Value.Y);
 

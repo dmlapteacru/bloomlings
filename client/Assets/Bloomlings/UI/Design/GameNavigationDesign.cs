@@ -6,6 +6,7 @@ namespace Bloomlings.Client.UI.Design
     public static class GameNavigationDesign
     {
         public const string Wallet="navigation/game-wallet",NameRibbon="navigation/game-name",Plus="navigation/game-plus";
+        public const string StoneWall="navigation/game-wall";
         public static readonly TypeStyle Caption=new TypeStyle("type.shop.nav_caption",38,true,false,0,12);
         public static readonly TypeStyle ProfileName=new TypeStyle("type.shop.home_name",32,true,false,0,9);
         public static readonly Box[] Controls={new Box(48,109,460,516),new Box(561,109,974,516),new Box(1074,109,1487,516),new Box(36,565,431,946),new Box(466,611,999,914),new Box(1012,611,1515,915)};
@@ -18,11 +19,12 @@ namespace Bloomlings.Client.UI.Design
         public static string Nav(NavPlace place,bool selected)=>"navigation/game-nav-"+(BottomNav.Order.IndexOfPlace(place)+(selected ? 5 : 0));
         public static string NameKey(NavPlace place)=>place switch {NavPlace.Shop=>"store.title",NavPlace.Home=>"pause.home",_=>BottomNav.Key(place)+".title"};
         public static string? Frame(string? id)=>id switch {null or "frame.wood_ring"=>"navigation/game-frame-0","frame.leaf_ring"=>"navigation/game-frame-1","frame.golden_ribbon"=>"navigation/game-frame-2",_=>null};
-        public static string Resource(string name)=>"navigation/"+(name.StartsWith("navigation/game-control-",StringComparison.Ordinal) ? "controls-v3" : name.StartsWith("navigation/game-nav-",StringComparison.Ordinal) ? "primary-nav-v3" : name.StartsWith("navigation/game-frame-",StringComparison.Ordinal) ? "profile-rims-v3" : "header-parts-v3")+".png";
+        public static string Resource(string name)=>"navigation/"+(name==StoneWall ? "stone-wall-v1" : name.StartsWith("navigation/game-control-",StringComparison.Ordinal) ? "controls-v3" : name.StartsWith("navigation/game-nav-",StringComparison.Ordinal) ? "primary-nav-v3" : name.StartsWith("navigation/game-frame-",StringComparison.Ordinal) ? "profile-rims-v3" : "header-parts-v3")+".png";
         public static (int Left,int Top,int Width,int Height) Crop(string name,int w,int h)
         {
             Box b;float sw,sh;
-            if(name.StartsWith("navigation/game-control-",StringComparison.Ordinal)){b=Controls[int.Parse(name.Substring(24))];sw=1536;sh=1024;}
+            if(name==StoneWall){b=new Box(0,282,2182,520);sw=2182;sh=721;}
+            else if(name.StartsWith("navigation/game-control-",StringComparison.Ordinal)){b=Controls[int.Parse(name.Substring(24))];sw=1536;sh=1024;}
             else if(name.StartsWith("navigation/game-nav-",StringComparison.Ordinal)){b=Places[int.Parse(name.Substring(20))];sw=1983;sh=793;}
             else if(name.StartsWith("navigation/game-frame-",StringComparison.Ordinal)){b=Frames[int.Parse(name.Substring(22))];sw=2172;sh=724;}
             else {b=Header[name==Wallet ? 0 : name==NameRibbon ? 1 : 2];sw=2172;sh=724;}
@@ -38,6 +40,12 @@ namespace Bloomlings.Client.UI.Design
             return new Box(slot.CenterX-side*.5f,r.Safe.Bottom-r.W*.012f-height,slot.CenterX+side*.5f,r.Safe.Bottom-r.W*.012f);
         }
         public static Box NavCaption(Box button)=>ProfileGameDesign.In(button,.07f,.76f,.93f,.945f);
+        /// <summary>Stone cap meets the bottom of the tiles; the front continues below the display edge.</summary>
+        public static Box NavWall(BottomNavRegions r,float width)
+        {
+            float top=NavButton(r,0).Bottom-r.W*.018f;
+            return new Box(0,top,width,top+width*238f/2182f);
+        }
         public static Box NavTouch(BottomNavRegions r,int index){Box b=NavButton(r,index);return new Box(b.Left,b.Top,b.Right,r.Safe.Bottom);}
         public static Box ProfileRibbon(Box avatar)=>Box.FromCenter(avatar.CenterX,avatar.Bottom+avatar.Width*.042f,avatar.Width,avatar.Width*.264f);
         public static Box ProfileNameBox(Box ribbon,bool badge)=>ProfileGameDesign.In(ribbon,badge ? .30f : .13f,.14f,.87f,.86f);
@@ -47,7 +55,7 @@ namespace Bloomlings.Client.UI.Design
             while(prefix.Length>1&&measure(prefix.TrimEnd()+"…")>width)prefix=prefix.Substring(0,prefix.Length-1);
             return prefix.TrimEnd()+"…";
         }
-        public static Box ProfileBounds(Box avatar)=>new Box(avatar.Left,avatar.Top,avatar.Right,ProfileRibbon(avatar).Bottom);
+        public static Box ProfileBounds(Box avatar)=>avatar;
         public static Box SpeedLabel(Box button)=>ProfileGameDesign.In(button,.48f,.16f,.91f,.81f);
         private static int IndexOfPlace(this System.Collections.Generic.IReadOnlyList<NavPlace> places,NavPlace place){for(int i=0;i<places.Count;i++)if(places[i]==place)return i;return 2;}
     }

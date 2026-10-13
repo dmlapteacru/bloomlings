@@ -127,11 +127,12 @@ namespace Bloomlings.Client.UI
         public NavPlace Active=>_active;
         internal void Build(Action<NavPlace> onSelect)
         {
-            _bar=UiFactory.CreateImage("Bar",transform,null,Color.clear,raycast:true);
+            _bar=UiFactory.CreateImage("StoneWall",transform,NavigationArt.Get(GameNavigationDesign.StoneWall),Color.white,raycast:true);
+            _bar.preserveAspect=true;
             foreach(NavPlace place in Design.BottomNav.Order)
             {
                 NavPlace p=place;Image touch=UiFactory.CreateImage(Design.BottomNav.Key(place),transform,null,Color.clear,raycast:true);
-                UiKit.TapTarget(touch,()=>onSelect(p),press:true);
+                UiKit.TapTarget(touch,()=>{if(p!=_active)onSelect(p);},press:true);
                 Image face=UiFactory.CreateImage("Illustration",touch.transform,null,Color.white);face.preserveAspect=true;face.raycastTarget=false;
                 TextMeshProUGUI caption=GameNavigationView.Label("SelectedName",touch.transform,Loc.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,ShopBodyDesign.Letters,.92f);
                 RectTransform badge=UiKit.LockBadge("Lock",touch.transform);
@@ -141,11 +142,11 @@ namespace Bloomlings.Client.UI
         public void Show(NavPlace active,HomeLook look)
         {
             var frame=UiKit.ScreenFrame();BottomNavRegions r=ScreenLayout.BottomNav(frame.Width,frame.Height,frame.Insets,Design.BottomNav.Order,active);
-            _active=active;_shown=true;UiKit.PlaceScreen(_bar.rectTransform,r.Bar);
+            _active=active;_shown=true;UiKit.PlaceScreen(_bar.rectTransform,GameNavigationDesign.NavWall(r,frame.Width));
             for(int i=0;i<r.Places.Count;i++)
             {
-                NavPlace place=r.Places[i];var parts=_places[place];bool chosen=place==active;Box touch=chosen ? r.Medallion : GameNavigationDesign.NavTouch(r,i),face=GameNavigationDesign.NavButton(r,i);
-                UiKit.PlaceScreen(parts.Touch.rectTransform,touch);parts.Touch.raycastTarget=!chosen;
+                NavPlace place=r.Places[i];var parts=_places[place];bool chosen=place==active;Box touch=GameNavigationDesign.NavTouch(r,i),face=GameNavigationDesign.NavButton(r,i);
+                UiKit.PlaceScreen(parts.Touch.rectTransform,touch);parts.Touch.raycastTarget=true;
                 parts.Face.sprite=NavigationArt.Get(GameNavigationDesign.Nav(place,chosen));UiKit.PlaceBox(parts.Face.rectTransform,face,touch);
                 parts.Caption.gameObject.SetActive(chosen);if(chosen)UiKit.PlaceBox(parts.Caption.rectTransform,GameNavigationDesign.NavCaption(face),touch);
                 bool locked=!chosen&&!Design.BottomNav.IsOpen(place,look);parts.Lock.gameObject.SetActive(locked);
