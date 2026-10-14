@@ -18,13 +18,16 @@ namespace Bloomlings.Client.Tests
         public void Ids_AreUnique_AndMatchTheirCategoryPrefix()
         {
             Assert.That(AssetSlots.All.Select(s => s.Id).Distinct().Count(), Is.EqualTo(AssetSlots.All.Count));
+            string fixtures=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","playtest","preview","Fixtures.cs"));
+            var knownFrames=Regex.Matches(File.ReadAllText(fixtures),@"new Fixture\((\d+)").Cast<Match>().Select(m=>int.Parse(m.Groups[1].Value)).ToHashSet();
+            Assert.That(knownFrames,Is.Not.Empty);
             foreach (AssetSlot slot in AssetSlots.All)
             {
                 Assert.That(AssetSlots.CategoryOf(slot.Id), Is.EqualTo(slot.Category), slot.Id);
                 Assert.That(Regex.IsMatch(slot.Id, "^[a-z]+(\\.[a-z0-9_]+)+$"), Is.True, slot.Id);
                 Assert.That(slot.Title, Is.Not.Empty, slot.Id);
                 Assert.That(slot.UsedIn, Is.Not.Empty, slot.Id);
-                Assert.That(slot.Frames.All(f => f >= 1 && f <= 17), Is.True, slot.Id);
+                Assert.That(slot.Frames.All(knownFrames.Contains), Is.True, slot.Id);
             }
         }
 

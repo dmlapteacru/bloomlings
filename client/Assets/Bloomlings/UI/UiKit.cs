@@ -681,7 +681,7 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static Button SecondaryButton(string name, Transform parent, string label, Action onClick, string? iconId = null, TypeStyle? style = null)
         {
-            TypeStyle s = style ?? DesignTokens.Type.ButtonSecondary;
+            TypeStyle s = style ?? PopupDesign.Label;
             GardenButton view = RaisedButton(name, parent, GardenLook.Cream, 0.5f);
             view.GreyWhenDisabled = false;
             view.FadeWhenDisabled = true;
@@ -1232,24 +1232,21 @@ namespace Bloomlings.Client.UI
             card.gameObject.AddComponent<PopMotion>();
             BoxLayout layout = BoxLayout.On(card.rectTransform);
 
-            TypeStyle style = titleStyle ?? DesignTokens.Type.Title;
+            TypeStyle style = PopupDesign.Title;
             Box titleLocal = ToLocal(regions.Title, regions.Card);
-            Image lotus = PetalIcon("Lotus", card.transform);
-            lotus.raycastTarget = false;
             WoodSignView signView = WoodSign("Title", card.transform, title, style, sign ?? SignDecor.Ivy);
             TextMeshProUGUI titleLabel = signView.Label;
             Func<Box, Box> signBox = b => CardLook.Sign(b, titleLocal, KitText.Measure(signView.Label, Units(style.Size)), Units(1f));
             layout.Watch(titleLabel)
-                .Add(lotus.rectTransform, b => CardLook.Lotus(signBox(b)))
                 .Add((RectTransform)signView.transform, signBox);
             if (title.Length == 0)
             {
-                lotus.gameObject.SetActive(false);
                 signView.gameObject.SetActive(false);
             }
 
             // Only the top card of a stack shows its close button (CardStackMember).
             CardStackMember member = shade.gameObject.AddComponent<CardStackMember>();
+            member.Surface = card.gameObject; member.Shade = shade;
             if (onClose != null)
             {
                 // Over the top-right corner, as in the reference.
@@ -1270,6 +1267,12 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static Image CardFrame(string name, Transform parent, bool raycast = true)
         {
+            Sprite? skin = NavigationArt.Get(PopupDesign.Frame);
+            if(skin != null)
+            {
+                Image surface = UiFactory.CreateImage(name,parent,skin,Color.white,raycast);surface.type=Image.Type.Sliced;
+                BoxLayout.On(surface.rectTransform).Then(b=>surface.pixelsPerUnitMultiplier=skin.border.y/Mathf.Max(.01f,Mathf.Min(Units(95f),b.Height*.13f))); return surface;
+            }
             Image root = UiFactory.CreateImage(name, parent, null, Color.clear, raycast);
             BoxLayout layout = BoxLayout.On(root.rectTransform);
             float radius = 0f;
@@ -1376,11 +1379,11 @@ namespace Bloomlings.Client.UI
         /// rows' light cream by default), its corners <paramref name="radiusShare"/> of the shorter side, filling
         /// <paramref name="box"/> of the layout's rect (all of it by default). The face's top is <see cref="CardLook.TileTop"/>.
         /// </summary>
-        public static Image FramedTile(BoxLayout layout, Transform parent, float radiusShare, Func<Box, Box>? box = null, ColorSet? set = null)
+        public static Image FramedTile(BoxLayout layout, Transform parent, float radiusShare, Func<Box, Box>? box = null, ColorSet? set = null, bool shadow = true)
         {
             ColorSet colors = set ?? GardenLook.RowCream;
             Func<Box, Box> at = box ?? (b => b);
-            SoftShadow(layout, at, b => Mathf.Min(b.Width, b.Height) * radiusShare, 0.2f, 0.05f);
+            if(shadow) SoftShadow(layout, at, b => Mathf.Min(b.Width, b.Height) * radiusShare, 0.2f, 0.05f);
             Image plate = UiFactory.CreateImage("Plate", parent, null, Color.white);
             plate.raycastTarget = false;
             PictureFit.On(plate, (w, h) => ProceduralSprites.TilePlate(w, h, radiusShare));
@@ -1392,7 +1395,7 @@ namespace Bloomlings.Client.UI
             return face;
         }
 
-        /// <summary>A framed tile as an element (<see cref="FramedTile(BoxLayout, Transform, float, Func{Box, Box}?, ColorSet?)"/> filling a clear root); children go into the returned root, after the tile.</summary>
+        /// <summary>A framed tile as an element (<see cref="FramedTile(BoxLayout, Transform, float, Func{Box, Box}?, ColorSet?, bool)"/> filling a clear root); children go into the returned root, after the tile.</summary>
         public static Image Tile(string name, Transform parent, float radiusShare, bool raycast = false)
         {
             Image root = UiFactory.CreateImage(name, parent, null, Color.clear, raycast);

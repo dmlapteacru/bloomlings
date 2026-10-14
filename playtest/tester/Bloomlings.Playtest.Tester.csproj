@@ -19,6 +19,8 @@
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ClearStyles.cs" Link="Shared/Design/ClearStyles.cs" />
     <!-- Which tap waits for a connected partner, for the refusal's message (spec 005 FR-043; the rules only, no pictures). -->
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/PodLinkRules.cs" Link="Shared/Design/PodLinkRules.cs" />
+    <!-- CosmeticCatalog resolves achievement badge names; the tester shares that catalog, without profile UI. -->
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/Achievements.cs" Link="Shared/Achievements.cs" />
   </ItemGroup>
 
   <ItemGroup>

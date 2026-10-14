@@ -69,6 +69,10 @@ tools/artgen/obj/
 tools/artgen/out/
 tools/appicon/bin/
 tools/appicon/obj/
+tools/assetpack/bin/
+tools/assetpack/obj/
+tools/assetpack-check/bin/
+tools/assetpack-check/obj/
 
 # tools/heroanim (npm packages; `npm ci` restores them)
 tools/heroanim/node_modules/

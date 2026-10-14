@@ -14,6 +14,29 @@ namespace Bloomlings.Client.UI
     /// </summary>
     public static partial class UiKit
     {
+        public static RectTransform PromoSeal(string name, Transform parent, bool completed)
+        {
+            GardenButton seal = RaisedButton(name, parent, GardenLook.Green, GardenLook.IconRadiusShare, raycast: false, square: true);
+            Image glyph = OutlinedIcon("Glyph", seal.Content, completed ? "ui.check" : "symbol.leaf",
+                completed ? DesignTokens.Colors.TextOnColor : DesignTokens.Colors.GardenFlowerCenter,
+                completed ? DesignTokens.Colors.TextOnColor : DesignTokens.Colors.GardenFlowerCenterLine);
+            glyph.raycastTarget = false;
+            BoxLayout.On(seal.Content).Add(glyph.rectTransform, b => b.Inset(b.Width * .16f));
+            return (RectTransform)seal.transform;
+        }
+
+        public static Image ChallengeObject(string name, Transform parent)
+        {
+            Image image = UiFactory.CreateImage(name, parent, OwnerArt.Decor(HomePromo.ChallengePicture), Color.white);
+            image.preserveAspect = true;
+            image.raycastTarget = false;
+            var label = KitLabel("Label", image.transform, Localization.Loc.T("daily.short"), HomePromo.LabelStyle,
+                TextLook.Plain(DesignTokens.Colors.InkBrown));
+            BoxLayout.On(image.rectTransform).Add(label.rectTransform, b => HomePromo.ChallengeLabel(b));
+            BoxLayout.On(label.rectTransform).Then(b => { label.fontSize = b.Height * .95f; label.fontSizeMax = label.fontSize; label.fontSizeMin = label.fontSize * .6f; });
+            return image;
+        }
+
         /// <summary>
         /// A cream side button of Home (§6.4) with a colored picture: the icon buttons' rounded square in its wood rim
         /// (<see cref="IconFace"/>) with the image <paramref name="picture"/> makes in its content, a square

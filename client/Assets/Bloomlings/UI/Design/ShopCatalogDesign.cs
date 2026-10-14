@@ -62,14 +62,14 @@ namespace Bloomlings.Client.UI.Design
             Box b=name==CosmeticsFrame ? new Box(41,36,723,674) : name==SelectedFrame ? new Box(1430,18,2143,690) : new Box(753,37,1419,673);
             return ((int)(b.Left*w/2172),(int)(b.Top*h/724),(int)(b.Width*w/2172),(int)(b.Height*h/724));
         }
-        public static string? Accessory(string id) => id switch
+        public static string? Accessory(string id) => MetaScreenArt.Hat(id) ?? (id switch
         {
             "hat.bucket_hat" => "shop/accessory-bucket",
             "hat.bell_cap" => "shop/accessory-bell",
             "frame.bramble" => "shop/accessory-bramble",
             "badge.watering_can" => "shop/accessory-watering",
             _ => null
-        };
+        });
         public static (int Left,int Top,int Width,int Height) AccessoryCrop(string name,int w,int h)
         {
             Box b=name=="shop/accessory-bucket" ? new Box(35,159,656,573) : name=="shop/accessory-bell" ? new Box(686,57,1214,584) : name=="shop/accessory-bramble" ? new Box(50,639,639,1170) : new Box(692,672,1186,1162);

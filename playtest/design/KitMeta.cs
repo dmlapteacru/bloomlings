@@ -308,13 +308,12 @@ namespace Bloomlings.Playtest.Design
             float w = Math.Min(box.Width, box.Height);
             float radius = w * 0.1f;
             float line = Math.Max(1f, w * 0.01f);
-            Box face = FramedTile(p, box, 0.1f);
+            p.FillRoundGradient(box,radius,C.WoodLight,C.WoodMid);
+            Box face=box.Inset(w*.035f);
+            p.FillRoundGradient(face,radius-w*.035f,C.CreamTop,C.CreamFace);
             Box well = face.Inset(w * 0.06f);
             float wellRadius = radius * 0.6f;
             p.FillRoundGradient(well, wellRadius, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell);
-            p.PushClip(well);
-            p.FillRoundGradient(new Box(well.Left, well.Top, well.Right, well.Top + (well.Height * 0.16f)), wellRadius, C.GardenShadow.WithAlpha(0.12f), C.GardenShadow.WithAlpha(0f));
-            p.PopClip();
             p.StrokeRound(well.Inset(line / 2f), wellRadius - (line / 2f), line, C.ParchmentEdge.Darken(0.08f));
             return well;
         }

@@ -209,6 +209,8 @@ namespace Bloomlings.Client.UI
     {
         private static readonly List<CardStackMember> Open = new List<CardStackMember>();
         private GameObject? _close;
+        public GameObject? Surface { get; set; }
+        public Image? Shade { get; set; }
 
         /// <summary>The card's close button (none for a card without one).</summary>
         public GameObject? Close
@@ -241,6 +243,9 @@ namespace Bloomlings.Client.UI
         {
             for (int i = 0; i < Open.Count; i++)
             {
+                bool top = i == Open.Count - 1;
+                if(Open[i].Surface != null) Open[i].Surface!.SetActive(top);
+                if(Open[i].Shade != null) Open[i].Shade!.color = top ? UiTheme.PanelShade : Color.clear;
                 if (Open[i]._close != null)
                 {
                     Open[i]._close!.SetActive(i == Open.Count - 1);

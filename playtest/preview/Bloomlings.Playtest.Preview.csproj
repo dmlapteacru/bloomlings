@@ -26,6 +26,9 @@
     <Compile Include="../android/PlaytestContent.cs" />
     <Compile Include="../android/PlaytestFiles.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Backend/LeaderboardAppearance.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Backend/ILeaderboardService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Backend/LeaderboardScore.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ClearSounds.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/HapticPattern.cs" />
@@ -45,6 +48,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/CosmeticCatalog.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/DailyChallenge/DailyChallengeRules.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" />

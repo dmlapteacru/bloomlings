@@ -22,21 +22,22 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed class DailyChallengeScreen : MonoBehaviour
     {
-        private const float SunUnits = 150f;
+        private const float SunUnits = 260f;
         private const float LineUnits = 56f;
 
         private GameObject _root = null!;
-        private TextMeshProUGUI _date = null!;
         private TextMeshProUGUI _probe = null!;
         private TextMeshProUGUI[] _body = Array.Empty<TextMeshProUGUI>();
         private float _bodyWidth;
+        private TextMeshProUGUI _reward = null!;
+        private GameObject _done = null!;
         private Button _play = null!;
 
         public bool IsOpen => _root.activeSelf;
 
         public static DailyChallengeScreen Create(Transform parent, Action onPlay)
         {
-            float content = 10f + SunUnits + 16f + LineUnits + 12f + (2f * LineUnits) + 34f + DesignTokens.Size.CardPrimaryHeight + 40f;
+            float content = 10f + SunUnits + 24f + (2f * LineUnits) + 22f + 72f + 26f + DesignTokens.Size.CardPrimaryHeight + 40f;
             DailyChallengeScreen screen = null!;
             CardView card = UiKit.Card("DailyChallenge", parent, Loc.T("daily.title"), content, () => screen.Hide(), sign: SignDecor.None);
             screen = card.Root.AddComponent<DailyChallengeScreen>();
@@ -45,16 +46,10 @@ namespace Bloomlings.Client.UI.Screens
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
             float y = body.Top + (10f * u);
 
-            // The sun on a cream face raised on its wooden plate (ui.sun; spec 005 FR-047), as Home's Daily Challenge button.
-            GardenButton disc = UiKit.RaisedButton("Sun", card.Body, GardenLook.White, GardenLook.IconRadiusShare, raycast: false, square: true);
-            UiKit.PlaceBox((RectTransform)disc.transform, Box.FromCenter(body.CenterX, y + (SunUnits * u / 2f), SunUnits * u, SunUnits * u), body);
-            Image sun = UiKit.OutlinedIcon("Glyph", disc.Content, "ui.sun", C.GardenFlowerCenter, C.GardenFlowerCenterLine);
-            BoxLayout.On(disc.Content).Add(sun.rectTransform, f => f.Inset(-f.Width * 0.06f));
-            y += (SunUnits + 16f) * u;
-
-            screen._date = UiKit.Label("Date", card.Body, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft));
-            UiKit.PlaceBox(screen._date.rectTransform, new Box(body.Left, y, body.Right, y + (LineUnits * u)), body);
-            y += (LineUnits + 12f) * u;
+            Image puzzle = UiKit.ChallengeObject("PuzzleBoard", card.Body);
+            UiKit.PlaceBox(puzzle.rectTransform, Box.FromCenter(body.CenterX, y + SunUnits * u / 2f, SunUnits * u, SunUnits * u), body);
+            screen._done = UiKit.CornerCheck("Completed", puzzle.transform);
+            y += (SunUnits + 24f) * u;
 
             screen._probe = UiKit.Label("Probe", card.Body, string.Empty, T.Body, Color.clear);
             screen._bodyWidth = body.Width * 0.94f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
@@ -67,7 +62,13 @@ namespace Bloomlings.Client.UI.Screens
                 y += LineUnits * u;
             }
 
-            y += 34f * u;
+            y += 22f * u;
+            Box reward = Box.FromCenter(body.CenterX, y + 36f * u, 340f * u, 72f * u);
+            Image lotus = UiKit.PetalIcon("RewardLotus", card.Body);
+            UiKit.PlaceBox(lotus.rectTransform, new Box(reward.Left, reward.Top, reward.Left + 72f * u, reward.Bottom), body);
+            screen._reward = UiKit.Label("Reward", card.Body, string.Empty, PopupDesign.Label, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
+            UiKit.PlaceBox(screen._reward.rectTransform, new Box(reward.Left + 80f * u, reward.Top, reward.Right, reward.Bottom), body);
+            y += (72f + 26f) * u;
             screen._play = UiKit.PrimaryButton("Play", card.Body, Loc.T("common.play"), () =>
             {
                 screen.Hide();
@@ -80,8 +81,9 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Show(DailyChallengeModel model)
         {
-            _date.text = Loc.F("daily.date", model.UtcDate);
-            string text = model.CompletedToday ? Loc.T("daily.done") : Loc.F("daily.body", model.RewardPetals);
+            _done.SetActive(model.CompletedToday);
+            _reward.text = model.CompletedToday ? Loc.T("daily.reward_collected") : Loc.F("daily.reward", model.RewardPetals);
+            string text = model.CompletedToday ? Loc.T("daily.done") : Loc.T("daily.description");
             _root.SetActive(true);
             List<string> lines = UiKit.BalancedLines(_probe, text, UiKit.Units(T.Body.Size), _bodyWidth);
             _body[0].text = lines[0];

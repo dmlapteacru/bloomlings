@@ -29,101 +29,31 @@ namespace Bloomlings.Client.UI.Design
         public Box Button { get; }
     }
 
-    /// <summary>The Daily Reward card's body (<see cref="DailyRewardCard.Layout"/>).</summary>
-    public sealed class DailyRewardRegions
-    {
-        public DailyRewardRegions(Box art, Box basket, Box[] rows, Box caption)
-        {
-            Art = art;
-            Basket = basket;
-            Rows = rows;
-            Caption = caption;
-        }
+    /// <summary>The shared calm shelf, five stations, one claim action and UTC reset caption.</summary>
+    public sealed record DailyRewardRegions(Box Shelf,Box[] Rows,Box Claim,Box Caption);
 
-        /// <summary>The reward's light and lotus heap.</summary>
-        public Box Art { get; }
-
-        /// <summary>The woven basket under the heap.</summary>
-        public Box Basket { get; }
-
-        /// <summary>The steps' rows, step 1 at the top.</summary>
-        public Box[] Rows { get; }
-
-        /// <summary>The line under the rows: when the day's rewards come again.</summary>
-        public Box Caption { get; }
-    }
-
-    /// <summary>
-    /// The Daily Reward card (spec 005 FR-050, the owner, 2026-10-09: "always 5 claims every day ... follow the popups'
-    /// design"; contracts/look.md §6.23) in the popups' look, shared by both builds: the reward basket with its lotus heap
-    /// in the win's soft turning light, smaller than before; the day's five steps (spec 001 FR-055 as amended) as raised
-    /// rows (<c>Kit.RaisedRow</c> / <c>UiKit.RaisedRow</c>), each with its number, the lotus and "+N", and at its right its
-    /// Claim raised on the plate (an ad step's with the clapperboard before it, `GardenLook.AdMark`), green on the next step and greyed, not
-    /// active, on a later one (the owner, 2026-10-09: "the Claim buttons always visible, but not active"), or a claimed
-    /// step's green check; and under them when the day's rewards come again. Home's Daily
-    /// scene wears the "!" badge (<see cref="BadgeDisc"/>) while a step waits and the card was not opened that day.
-    /// Engine-free.
-    /// </summary>
     public static class DailyRewardCard
     {
-        public const float TopUnits = 6f;
-        public const float ArtUnits = 236f;
-        public const float ArtGapUnits = 14f;
-        public const float RowUnits = 132f;
-        public const float RowGapUnits = 16f;
-        public const float CaptionGapUnits = 14f;
-        public const float CaptionUnits = 60f;
-
-        /// <summary>The Claim's "Claim" as a share of its face's content height (the owner, 2026-10-09: "the text and the camera much bigger").</summary>
-        public const float ClaimTextShare = 0.8f;
-
-        /// <summary>The clapperboard before an ad step's "Claim", as a share of the face's content height.</summary>
-        public const float ClaimIconShare = 0.92f;
-
-        /// <summary>The gap between the clapperboard and "Claim", as a share of the face's content height.</summary>
-        public const float ClaimGapShare = 0.14f;
-
-        /// <summary>The "+N" rising from a claimed row: its seconds.</summary>
-        public const float RiseSeconds = 0.9f;
-
-        /// <summary>The lotuses heaped over the basket: center offsets and sizes in shares of the art's width.</summary>
-        public static readonly (float X, float Y, float S)[] Heap = { (-0.22f, 0.02f, 0.3f), (0.2f, 0.0f, 0.32f), (0f, -0.12f, 0.34f), (-0.08f, 0.1f, 0.28f), (0.12f, 0.12f, 0.26f) };
-
-        /// <summary>The card's content height in reference units (<see cref="ScreenLayout.Card"/>) for <paramref name="steps"/> rows.</summary>
-        public static float ContentUnits(int steps) =>
-            TopUnits + ArtUnits + ArtGapUnits + (steps * RowUnits) + (Math.Max(0, steps - 1) * RowGapUnits) + CaptionGapUnits + CaptionUnits;
-
-        /// <summary>The card's body laid out from its top (<paramref name="unit"/> one reference unit in pixels).</summary>
-        public static DailyRewardRegions Layout(Box body, float unit, int steps)
+        public const float TopUnits=30f, RowUnits=290f, RowGapUnits=10f, CaptionGapUnits=26f, CaptionUnits=70f;
+        public const float RiseSeconds=.9f;
+        public static float ContentUnits(int steps)=>TopUnits+RowUnits+40f+DesignTokens.Size.CardPrimaryHeight+CaptionGapUnits+CaptionUnits+20f;
+        public static DailyRewardRegions Layout(Box body,float unit,int steps)
         {
-            float y = body.Top + (TopUnits * unit);
-            float art = ArtUnits * unit;
-            var artBox = new Box(body.CenterX - (art * 0.7f), y, body.CenterX + (art * 0.7f), y + art);
-            var basket = Box.FromCenter(artBox.CenterX, artBox.CenterY + (artBox.Height * 0.2f), artBox.Width * 0.8f, artBox.Width * 0.6f);
-            Box[] rows = ScreenLayout.Column(new Box(body.Left, artBox.Bottom + (ArtGapUnits * unit), body.Right, body.Bottom), steps, RowUnits * unit, RowGapUnits * unit);
-            float top = rows.Length > 0 ? rows[rows.Length - 1].Bottom : artBox.Bottom;
-            var caption = new Box(body.Left, top + (CaptionGapUnits * unit), body.Right, top + ((CaptionGapUnits + CaptionUnits) * unit));
-            return new DailyRewardRegions(artBox, basket, rows, caption);
+            Box shelf=new Box(body.Left,body.Top+TopUnits*unit,body.Right,body.Top+(TopUnits+RowUnits)*unit);
+            Box[] rows=ScreenLayout.Row(shelf,steps,RowGapUnits*unit,float.MaxValue,false);
+            Box claim=ScreenLayout.CardButton(body,shelf.Bottom+40*unit,true,unit);
+            Box caption=new Box(body.Left,claim.Bottom+CaptionGapUnits*unit,body.Right,claim.Bottom+(CaptionGapUnits+CaptionUnits)*unit);
+            return new DailyRewardRegions(shelf,rows,claim,caption);
         }
-
-        /// <summary>
-        /// A step's row: its number in a box 0.48 of the row's height at the left, the lotus 0.62 of it after the number, the
-        /// amount after the lotus up to the claim, and the claim 0.84 of the row tall and up to 0.42 of its width at the right.
-        /// </summary>
         public static DailyRowParts Row(Box row)
         {
-            float h = row.Height;
-            float pad = h * 0.2f;
-            var number = Box.FromCenter(row.Left + pad + (h * 0.24f), row.CenterY, h * 0.48f, h * 0.56f);
-            float lotus = h * 0.62f;
-            var lotusBox = Box.FromCenter(number.Right + (h * 0.12f) + (lotus / 2f), row.CenterY - (h * 0.02f), lotus, lotus);
-            float width = Math.Min(row.Width * 0.42f, h * 2.8f);
-            float right = row.Right - (pad * 0.5f);
-            var button = new Box(right - width, row.CenterY - (h * 0.42f), right, row.CenterY + (h * 0.42f));
-            var amount = new Box(lotusBox.Right + (h * 0.1f), row.Top, button.Left - (h * 0.15f), row.Bottom);
-            return new DailyRowParts(row, number, lotusBox, amount, button);
+            float w=row.Width,h=row.Height;
+            return new DailyRowParts(row,
+                Box.FromCenter(row.CenterX,row.Top+h*.10f,w*.45f,h*.18f),
+                Box.FromCenter(row.CenterX,row.Top+h*.35f,w*.64f,w*.64f),
+                new Box(row.Left,row.Top+h*.48f,row.Right,row.Top+h*.68f),
+                Box.FromCenter(row.CenterX,row.Top+h*.81f,w*.58f,h*.25f));
         }
-
         /// <summary>A claimed step's check in the middle of its row's claim box: 0.72 of its height.</summary>
         public static Box Badge(Box button)
         {

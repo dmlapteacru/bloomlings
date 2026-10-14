@@ -1,180 +1,88 @@
 using System;
-using System.Globalization;
+using System.Collections.Generic;
+using Bloomlings.Client.Meta.Profile;
+using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.UI.Design;
-using Bloomlings.Core.Variants;
-using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
-using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Playtest.Design
 {
-    /// <summary>
-    /// The Leaderboard as a page (preview frames 5 and 31; spec 002 FR-023, spec 005 FR-030; the owner's request of
-    /// 2026-10-04: "All the menu's places must be a separate page. Not popups.") in the reference layout
-    /// (contracts/look.md §6.8, <see cref="ScreenLayout.ReferenceLeaderboard"/>), opened from the bottom menu's
-    /// Leaderboard (open from L10); its back (and the system back) returns to Home:
-    /// <list type="bullet">
-    /// <item><description>the Store page's frame: the Wardrobe's garden, the page header (<see cref="Kit.PageHeader"/>: the
-    /// back button, the wooden "Leaderboard" banner with ivy and the Petals pill, whose "+" opens the Store page once it is
-    /// open, its back returning here) and the parchment panel to the bottom of the screen;</description></item>
-    /// <item><description>on the panel, in its offline form (the server is deferred): the top ranks with gold, silver and
-    /// bronze medals as placeholder rows (no invented players), the gap, and the player's own row highlighted as "You"
-    /// with the hero's portrait and the highest completed level (research R12);</description></item>
-    /// <item><description>the offline line and the cream Refresh with ⟳, which says the leaderboard is offline;</description></item>
-    /// <item><description>the bottom menu over the panel's foot, the Leaderboard in its medallion (FR-030).</description></item>
-    /// </list>
-    /// Before the Leaderboard unlocks (L10) the bottom menu's Leaderboard still opens the page, locked (<see cref="Locked"/>):
-    /// the same garden, header and panel, the panel holding the locked notice ("Available from level 10") instead of the
-    /// ranks, the offline line and Refresh. Unity's twin is <c>LeaderboardScreen</c>.
-    /// </summary>
+    /// <summary>Cached/offline honor board; preview fixtures can supply real-shaped rows without inventing live ranks.</summary>
     public static class LeaderboardScreen
     {
-        /// <summary>
-        /// The top ranks the offline Leaderboard shows as placeholder rows on <paramref name="r"/>: as many as fill its rows'
-        /// box with the gap and the player's own row (the owner's choice of 2026-10-04: the list over the panel's whole
-        /// height), at least one.
-        /// </summary>
-        public static int PlaceholderRanks(ReferenceLeaderboardRegions r) => Math.Max(1, r.LinesFitting - 2);
-
-        public static void Draw(IPainter p, DesignApp app)
+        public static void Draw(IPainter p,DesignApp app)
         {
-            HomeLook look = HomeScreen.Look(app);
-            if (!BottomNav.IsOpen(NavPlace.Leaderboard, look))
+            var look=HomeScreen.Look(app);
+            DesignApp.DrawBackdrop(p,BackdropScene.Home,app.Meta.CurrentLevel,OwnerPictures.Wardrobe);
+            if(!BottomNav.IsOpen(NavPlace.Leaderboard,look)){Locked(p,app,look);return;}
+            var r=LeaderboardHonorDesign.Page(p.Width,p.Height,p.Insets);
+            LeaderboardPage? page=app.PreviewLeaderboard;
+            p.Mark("ui.leaderboard.illustrations");p.Sprite(MetaScreenArt.Podium,r.Podium);
+            for(int rank=1;rank<=3;rank++)
             {
-                Locked(p, app, look);
-                return;
+                LeaderboardEntry? entry=null;if(page!=null)foreach(var candidate in page.Entries)if(candidate.Rank==rank){entry=candidate;break;}
+                if(entry!=null)Portrait(p,r.Portrait(rank),entry,app);
+                string displayName=entry==null?"—":DisplayName(entry);
+                Box name=LeaderboardHonorDesign.NamePlate(r.Name(rank),p.MeasureText(displayName,LeaderboardHonorDesign.SmallName));
+                Skin(p,MetaScreenArt.Plank,name);Name(p,name.Inset(name.Width*.08f,0),displayName,LeaderboardHonorDesign.SmallName);
+                Skin(p,MetaScreenArt.Tag,r.Level(rank));ProfileGamePainter.Label(p,r.Level(rank).Inset(r.Level(rank).Width*.08f,0),entry==null?"—":PlaytestText.F("common.level",entry.Level),WardrobeShelfDesign.Status);
+                ProfileGamePainter.Label(p,r.Medal(rank),rank.ToString(),LeaderboardHonorDesign.Number);
             }
-
-            ReferenceLeaderboardRegions r = ScreenLayout.ReferenceLeaderboard(p.Width, p.Height, p.Insets);
-            DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
-
-            // The parchment panel, its bottom corners below the screen's edge (the Store page's).
-            float radius = r.PanelRadius(p.Scale);
-            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
-
-            // The rows fill the rows' box: the placeholder ranks, the gap and the player's own row. They grow their letters
-            // with them (sized for a RowTypeShare row).
-            int ranks = PlaceholderRanks(r);
-            int lines = ranks + 2;
-            float grow = r.RowHeight(lines) / (r.W * ReferenceLeaderboardRegions.RowTypeShare);
-            for (int i = 0; i < ranks; i++)
+            var rows=new List<LeaderboardEntry>();if(page!=null)foreach(var entry in page.Entries)if(entry.Rank>3&&!entry.IsPlayer)rows.Add(entry);
+            rows.Sort((a,b)=>a.Rank.CompareTo(b.Rank));
+            app.LeaderboardScrollOffset=Math.Max(0,Math.Min(r.Maximum(rows.Count),app.LeaderboardScrollOffset));
+            p.PushClip(r.Viewport);
+            for(int i=0;i<rows.Count;i++)
             {
-                Box line = r.Row(i, lines);
-                LeaderboardRowParts parts = ReferenceLeaderboardRegions.Parts(line);
-                Kit.Row(p, line, false);
-                Rank(p, parts, i + 1, grow);
-                Portrait(p, parts.Portrait, null);
-                Placeholder(p, Box.FromCenter(parts.Name.Left + (parts.Name.Width * 0.38f), line.CenterY, parts.Name.Width * 0.76f, line.Height * 0.3f));
-                Placeholder(p, Box.FromCenter(parts.Score.CenterX, line.CenterY, parts.Score.Width * 0.6f, line.Height * 0.3f));
+                Box row=r.Row(i).Offset(0,-app.LeaderboardScrollOffset);
+                if(row.Bottom>r.Rows.Top&&row.Top<r.Rows.Bottom)Row(p,row,rows[i],app);
             }
-
-            Box gap = r.Row(ranks, lines);
-            p.Text("…", gap.CenterX, gap.CenterY, T.Title, C.InkBrownSoft, sizeScale: grow);
-
-            Box you = r.Row(ranks + 1, lines);
-            LeaderboardRowParts own = ReferenceLeaderboardRegions.Parts(you);
-            Kit.Row(p, you, highlighted: true);
-            p.Text("—", own.Rank.CenterX, you.CenterY, T.Body, C.InkBrown, own.Rank.Width, grow);
-            Portrait(p, own.Portrait, null);
-            Kit.AvatarPicture(p, own.Portrait, app.Meta.Profile.Avatar);
-            p.TextLeft(PlaytestText.T("leaderboard.you"), own.Name.Left, you.CenterY, T.ButtonSecondary, C.InkBrown, own.Name.Width, grow, TextLook.Plain(C.InkBrown));
-            p.Text(NumberText.Group(app.Meta.Progression.HighestCompletedLevel), own.Score.CenterX, you.CenterY, T.Count, C.InkBrown, own.Score.Width, grow, TextLook.Plain(C.InkBrown));
-            // The flowers over the own row's top corners (spec 005 FR-047, the owner's references of 2026-10-08).
-            float flowers = you.Height * YouFlowerShare;
-            Kit.CornerFlowers(p, CardLook.CornerBox(you, Corner.TopLeft, flowers), Corner.TopLeft);
-            Kit.CornerFlowers(p, CardLook.CornerBox(you, Corner.TopRight, flowers), Corner.TopRight);
-
-            // The ranks are a list that scrolls: a drag over them never taps (spec 005 FR-041).
-            p.Scroll(r.Rows);
-
-            // The offline line and Refresh: the playtest has no leaderboard server, so Refresh says it is offline.
-            p.Text(PlaytestText.T("leaderboard.offline_empty"), r.Status.CenterX, r.Status.CenterY, T.Caption, C.InkBrownSoft, r.Status.Width);
-            Kit.SecondaryButton(p, r.Refresh, PlaytestText.T("leaderboard.refresh"), () => app.HomeToast(PlaytestText.T("leaderboard.offline_empty")), "ui.restart");
-
-            // The bottom menu, the Leaderboard in its medallion (FR-030); the header last, as on the other pages.
-            Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Leaderboard), look, app.Navigate);
-            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
-            Kit.PageHeader(p, r.Header, PlaytestText.T("leaderboard.title"), app.CloseLeaderboard, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
-
-            string? toast = app.HomeToastText;
-            if (toast != null)
-            {
-                Kit.Toast(p, new Box(r.Safe.Left, r.Panel.Top, r.Safe.Right, r.Rows.Bottom), toast);
-            }
+            p.PopClip();
+            p.VerticalScroll(r.Viewport,dy=>app.LeaderboardScrollOffset=Math.Max(0,Math.Min(r.Maximum(rows.Count),app.LeaderboardScrollOffset-dy)));
+            var own=page?.Player??new LeaderboardEntry(0,PlaytestText.T("leaderboard.you"),app.Meta.Progression.HighestCompletedLevel,true);
+            Row(p,r.Player,own,app);
+            ProfileGamePainter.Label(p,r.Status,PlaytestText.T("leaderboard.offline"),WardrobeShelfDesign.Status);
+            Kit.RoundButton(p,r.Refresh.CenterX,r.Refresh.CenterY,r.Refresh.Width,"ui.restart",()=>app.HomeToast(PlaytestText.T("leaderboard.offline_empty")));
+            Kit.BottomNav(p,HomeScreen.Nav(p,NavPlace.Leaderboard),look,app.Navigate);
+            Kit.PageHeader(p,r.Header,PlaytestText.T("leaderboard.title"),app.CloseLeaderboard,app.ShownPetals,look.Store?app.OpenStore:(Action?)null);
+            if(app.HomeToastText!=null)Kit.Toast(p,r.Player,app.HomeToastText);
         }
-
-        /// <summary>The flowers over the own row's corners, as a share of its height.</summary>
-        public const float YouFlowerShare = 0.62f;
-
-        /// <summary>
-        /// The locked Leaderboard page (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
-        /// Wardrobe's garden, the parchment panel holding the locked notice (<see cref="Kit.LockedNotice"/>: the
-        /// Leaderboard's icon with its padlock, "Available from level N" from the roadmap) where the ranks would be, the
-        /// bottom menu with the Leaderboard raised, and the header with its back and the Petals pill ("+" once the Store is
-        /// open).
-        /// </summary>
-        private static void Locked(IPainter p, DesignApp app, HomeLook look)
+        private static void Skin(IPainter p,string asset,Box b)
         {
-            LockedPageRegions r = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);
-            DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
-            float radius = r.PanelRadius(p.Scale);
-            Kit.CardFrame(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
-            Kit.LockedNotice(p, r.Notice, NavPlace.Leaderboard, app.UnlockLevel(NavPlace.Leaderboard));
-            Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Leaderboard), look, app.Navigate);
-            Kit.PageFlowers(p, r.Panel, ScreenLayout.BottomNavTop(p.Width, p.Height, p.Insets));
-            Kit.PageHeader(p, r.Header, PlaytestText.T("leaderboard.title"), app.CloseLeaderboard, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
-
-            string? toast = app.HomeToastText;
-            if (toast != null)
-            {
-                Kit.Toast(p, new Box(r.Safe.Left, r.Panel.Top, r.Safe.Right, r.Notice.Bottom), toast);
-            }
+            p.Mark("ui.leaderboard.illustrations");var border=MetaScreenArt.Borders(asset);
+            Kit.SlicedSprite(p,asset,b,border.X,border.Y,border.Y);
         }
-
-        /// <summary>
-        /// A row's rank (<see cref="LeaderboardRowParts.Rank"/>): ranks 1–3 on their outlined medal (<c>ui.medal</c>, gold,
-        /// silver, bronze) with the number in <c>type.badge</c>, the others as a brown number.
-        /// </summary>
-        private static void Rank(IPainter p, LeaderboardRowParts parts, int rank, float grow)
+        private static void Row(IPainter p,Box row,LeaderboardEntry entry,DesignApp app)
         {
-            Rgba? medal = C.Medal(rank);
-            string number = rank.ToString(CultureInfo.InvariantCulture);
-            if (medal.HasValue)
-            {
-                Box box = parts.Medal;
-                Func<float, float, float> sdf = ShapeLibrary.Get("ui.medal");
-                p.ShapeOf("ui.medal/line/0.06", (x, y) => sdf(x, y) - 0.06f, box, medal.Value.Darken(0.42f));
-                p.Shape("ui.medal", box, medal.Value);
-                p.Text(number, box.CenterX, box.CenterY + (box.Height * 0.11f), T.Badge, medal.Value.Darken(0.55f), box.Width, grow);
-            }
-            else
-            {
-                p.Text(number, parts.Rank.CenterX, parts.Rank.CenterY, T.Body, C.InkBrown, parts.Rank.Width, grow, TextLook.Plain(C.InkBrown));
-            }
+            Skin(p,MetaScreenArt.Plank,row);
+            if(entry.IsPlayer)p.FillRound(row.Inset(row.Height*.12f),row.Height*.12f,ShopCatalogDesign.ChosenRim.Face.WithAlpha(.28f));
+            var parts=LeaderboardHonorDesign.Parts(row);
+            ProfileGamePainter.Label(p,parts.Rank,entry.Rank>0?NumberText.Group(entry.Rank):"—",LeaderboardHonorDesign.Number);
+            Portrait(p,parts.Avatar,entry,app);
+            Name(p,parts.Name,DisplayName(entry),LeaderboardHonorDesign.NameType);
+            Skin(p,MetaScreenArt.Tag,parts.Level);
+            ProfileGamePainter.Label(p,parts.Level.Inset(parts.Level.Width*.10f,0),NumberText.Group(entry.Level),LeaderboardHonorDesign.Number);
         }
-
-        /// <summary>
-        /// A portrait on a cream rounded square (the avatar's shape, <see cref="AvatarLook.Radius"/>; the owner, 2026-10-06;
-        /// it was round): the player's hero, or the anonymous figure of a placeholder row.
-        /// </summary>
-        private static void Portrait(IPainter p, Box face, Family? family)
+        private static string DisplayName(LeaderboardEntry entry)=>entry.IsPlayer?PlaytestText.T("leaderboard.you"):string.IsNullOrWhiteSpace(entry.Appearance?.Name??entry.Name)?PlaytestText.T("leaderboard.anonymous"):entry.Appearance?.Name??entry.Name;
+        private static void Name(IPainter p,Box box,string full,TypeStyle type)
         {
-            float size = face.Width;
-            float cx = face.CenterX;
-            float cy = face.CenterY;
-            // The avatar's wooden plate and a cream face raised in it (spec 005 FR-048, as the profile's avatar).
-            Kit.RaisedPlate(p, AvatarLook.Rim(face));
-            p.Picture("ui.portrait.face", face, (w, h) => UiRaster.ButtonFace(w, h, GardenLook.White));
-            if (family.HasValue)
-            {
-                Visuals.Hero(p, Box.FromCenter(cx, cy + (size * 0.02f), size * 0.92f, size * 0.92f), family.Value, null);
-            }
-            else
-            {
-                p.Shape("ui.person", Box.FromCenter(cx, cy + (size * 0.04f), size * 0.7f, size * 0.7f), C.CreamLine);
-            }
+            float size=Math.Min(p.U(type.Size),box.Height*.78f),scale=size/p.U(type.Size);
+            string fitted=LeaderboardHonorDesign.FitName(full,box.Width,text=>p.MeasureText(text,type,scale));
+            ProfileGamePainter.Label(p,box,fitted,type);
         }
-
-        /// <summary>A light wood groove pressed into the row (spec 005 FR-048, <see cref="UiRaster.Groove"/>) where a name or a score will show once the leaderboard is online.</summary>
-        private static void Placeholder(IPainter p, Box box) => p.Picture("ui.groove", box, UiRaster.Groove);
+        private static void Portrait(IPainter p,Box box,LeaderboardEntry entry,DesignApp app)
+        {
+            ProfileLook style=entry.IsPlayer?app.Meta.Wardrobe.Profile:LeaderboardHonorDesign.Look(entry.Appearance,app.Meta.Wardrobe.Catalog);
+            AvatarItem? avatar=entry.IsPlayer?app.Meta.Profile.Avatar:AvatarCatalog.Get(entry.Appearance?.Avatar);
+            if(avatar!=null)Kit.Avatar(p,box,avatar,style.Frame,style.Badge,null,sceneFrame:true);
+            else {p.Mark("ui.person");p.Shape("ui.person",box,ShopBodyDesign.Card.Line);}
+        }
+        private static void Locked(IPainter p,DesignApp app,HomeLook look)
+        {
+            var r=ScreenLayout.LockedPage(p.Width,p.Height,p.Insets);Kit.CardFrame(p,r.Panel);
+            Kit.LockedNotice(p,r.Notice,NavPlace.Leaderboard,app.UnlockLevel(NavPlace.Leaderboard));
+            Kit.BottomNav(p,HomeScreen.Nav(p,NavPlace.Leaderboard),look,app.Navigate);
+            Kit.PageHeader(p,r.Header,PlaytestText.T("leaderboard.title"),app.CloseLeaderboard,app.ShownPetals,look.Store?app.OpenStore:(Action?)null);
+        }
     }
 }

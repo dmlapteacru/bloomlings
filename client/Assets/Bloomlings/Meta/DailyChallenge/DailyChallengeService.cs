@@ -26,7 +26,7 @@ namespace Bloomlings.Client.Meta.DailyChallenge
         /// The separate daily reward, in Petals. REMOTE-CONFIG-DEFERRED: local on purpose; whether it becomes a Remote
         /// Config key (FR-085) is decided at the end (tasks.md, "Local values, Remote Config decided at the end").
         /// </summary>
-        public const int RewardPetals = 30;
+        public const int RewardPetals = DailyChallengeRules.RewardPetals;
 
         public static readonly DateTime Epoch = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 

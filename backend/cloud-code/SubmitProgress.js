@@ -51,11 +51,42 @@ module.exports = async ({ params, context, logger }) => {
     return reject("unsupported-content-version", { contentVersion: params.contentVersion });
   }
 
+  let appearance = null;
+  if (params.appearanceJson !== undefined) {
+    if (typeof params.appearanceJson !== "string" || params.appearanceJson.length > 2048) return reject("invalid-appearance", {});
+    try {
+      const input = JSON.parse(params.appearanceJson);
+      if (!input || typeof input !== "object" || Array.isArray(input)) return reject("invalid-appearance", {});
+      appearance = {};
+      for (const key of ["avatar", "frame", "badge", "marker"]) {
+        const value = input[key] === undefined ? null : input[key];
+        // IDs only: no URLs, files, markup or arbitrary metadata. Entitlement checks stay in the existing profile flow.
+        if (value !== null && (typeof value !== "string" || value.length > 128 || !new RegExp("^" + key + "\\.[a-zA-Z0-9_.-]+$").test(value))) return reject("invalid-appearance", { key });
+        appearance[key] = value;
+      }
+      if (input.name !== undefined) {
+        if (input.name !== null && (typeof input.name !== "string" || input.name.length > 128 || /[\r\n]/.test(input.name))) return reject("invalid-appearance", { key: "name" });
+        appearance.name = input.name;
+      }
+    } catch { return reject("invalid-appearance", {}); }
+  }
+
   const now = Date.now();
   const cloudSave = new DataApi({ accessToken: context.serviceToken });
   const stored = await cloudSave.getProtectedItems(context.projectId, context.playerId, [STATE_KEY]);
   const found = stored.data.results.find((item) => item.key === STATE_KEY);
   const state = found ? found.value : { level: 0, at: null, firstAttemptAt: now };
+
+  if (level === state.level && appearance !== null && state.at !== null) {
+    // Updating the profile must NEVER change the time-encoded score or completion timestamp.
+    const minutesAtCompletion = Math.min(MAX_MINUTES, Math.max(0, Math.floor((state.at - EPOCH_MS) / 60000)));
+    const score = state.score ?? state.level * LEVEL_FACTOR + (MAX_MINUTES - minutesAtCompletion);
+    const leaderboards = new LeaderboardsApi({ accessToken: context.serviceToken });
+    const result = await leaderboards.addLeaderboardPlayerScore(context.projectId, LEADERBOARD_ID, context.playerId, { score, metadata: { appearance } });
+    await cloudSave.setProtectedItem(context.projectId, context.playerId, { key: STATE_KEY, value: { ...state, score, appearance } });
+    const rank = result && result.data && typeof result.data.rank === "number" ? result.data.rank + 1 : null;
+    return { accepted: true, reason: null, rank };
+  }
 
   if (level <= state.level) {
     return reject("not-monotonic", { level, previous: state.level });
@@ -76,11 +107,11 @@ module.exports = async ({ params, context, logger }) => {
   const elapsed = Math.min(MAX_MINUTES, Math.max(0, Math.floor((now - EPOCH_MS) / 60000)));
   const score = level * LEVEL_FACTOR + (MAX_MINUTES - elapsed);
   const leaderboards = new LeaderboardsApi({ accessToken: context.serviceToken });
-  const result = await leaderboards.addLeaderboardPlayerScore(context.projectId, LEADERBOARD_ID, context.playerId, { score });
+  const result = await leaderboards.addLeaderboardPlayerScore(context.projectId, LEADERBOARD_ID, context.playerId, { score, metadata: { appearance: appearance ?? state.appearance ?? null } });
 
   await cloudSave.setProtectedItem(context.projectId, context.playerId, {
     key: STATE_KEY,
-    value: { level, at: now, firstAttemptAt: state.firstAttemptAt, contentVersion, commandLogHash: String(params.commandLogHash || "") },
+    value: { level, at: now, firstAttemptAt: state.firstAttemptAt, contentVersion, score, appearance: appearance ?? state.appearance ?? null, commandLogHash: String(params.commandLogHash || "") },
   });
 
   const rank = result && result.data && typeof result.data.rank === "number" ? result.data.rank + 1 : null;
@@ -91,4 +122,5 @@ module.exports.params = {
   level: { type: "NUMERIC", required: true },
   contentVersion: { type: "NUMERIC", required: true },
   commandLogHash: { type: "STRING", required: false },
+  appearanceJson: { type: "STRING", required: false },
 };

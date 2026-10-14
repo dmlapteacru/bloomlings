@@ -30,12 +30,7 @@ namespace Bloomlings.Client.UI
         }
     }
 
-    /// <summary>
-    /// The purchase confirmation card built by <see cref="UiKit.PurchaseCard"/> (spec 005 FR-040): the item's picture in a
-    /// cream well, "Buy {item} for {price} Petals?" (or the store's price), the cost pill, a caption (the Petals balance, or
-    /// that the store's own purchase sheet follows), the green "Buy" and the cream "Cancel". Nothing is bought until Buy:
-    /// the purchase waits in its <see cref="PurchaseConfirmation"/>; Cancel buys nothing.
-    /// </summary>
+    /// <summary>Compact item preview, balance, price on Buy and Cancel; the purchase runs once after confirmation.</summary>
     public sealed class PurchaseCardView : MonoBehaviour
     {
         private readonly PurchaseConfirmation _confirmation = new PurchaseConfirmation();
@@ -43,8 +38,8 @@ namespace Bloomlings.Client.UI
         private RectTransform _picture = null!;
         private TextMeshProUGUI _question = null!;
         private TextMeshProUGUI _note = null!;
-        private CostPillView _petals = null!;
-        private CostPillView _money = null!;
+        private TextMeshProUGUI _buyLabel = null!;
+        private Image _buyPetal = null!;
         private Action? _cancelled;
 
         /// <summary>Whether the card is open (a purchase waits for the player's answer).</summary>
@@ -59,44 +54,24 @@ namespace Bloomlings.Client.UI
             Box body = r.Card.Body;
             Transform at = card.Body;
 
-            // The picture's cream well (an outfit card's), its picture clipped to it.
-            Func<Box, float> radius = b => b.Width * 0.12f;
-            Image well = UiKit.RoundGradient("Well", at, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell, radius);
-            well.gameObject.AddComponent<Mask>();
-            UiKit.PlaceBox(well.rectTransform, r.Picture, body);
-            _picture = UiFactory.CreateRect("Picture", well.transform);
-            BoxLayout.On(well.rectTransform).Add(_picture, b => b.Inset(b.Width * 0.06f));
-            Image line = UiKit.RoundRing("WellLine", at, UiTheme.Of(C.ParchmentEdge.Darken(0.08f)), radius, _ => Mathf.Max(1f, UiKit.Units(DesignTokens.Garden.OutlineWidth)));
-            UiKit.PlaceBox(line.rectTransform, r.Picture, body);
-
-            // The question on up to two lines.
-            _question = UiKit.Label("Question", at, string.Empty, T.Body, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
-            _question.textWrappingMode = TextWrappingModes.Normal;
-            UiKit.PlaceBox(_question.rectTransform, r.Question, body);
-
-            // The price: the cost pill with the lotus, or the store's price on the same cream pill, as wide as its text.
-            RectTransform price = UiFactory.CreateRect("Price", at);
-            UiKit.PlaceBox(price, r.Price, body);
-            _petals = UiKit.CostPill("Petals", price, Cost.Petals(0));
-            _money = UiKit.TextPill("Money", price, CostKind.Charges, string.Empty);
-            float max = r.PriceMaxWidth;
-            foreach ((CostPillView pill, bool lotus) in new[] { (_petals, true), (_money, false) })
-            {
-                TextMeshProUGUI amount = UiKit.PillText(pill);
-                BoxLayout.On(price).Watch(amount).Add((RectTransform)pill.transform, b =>
-                {
-                    float hh = b.Height;
-                    float measured = KitText.Measure(amount, hh * 0.56f);
-                    float text = measured > 0f ? measured : hh * 0.56f * 0.6f * Mathf.Max(1, amount.text.Length);
-                    return Box.FromCenter(b.CenterX, b.CenterY, Mathf.Min(max, text + (hh * (lotus ? 1.9f : 1f))), hh);
-                });
-            }
-
+            _picture = UiFactory.CreateRect("Picture",at);
+            UiKit.PlaceBox(_picture,r.Picture,body);
+            _question=UiKit.Label("Item",at,string.Empty,PopupDesign.Label,UiTheme.Of(C.InkBrown),look:TextLook.Plain(C.InkBrown));
+            _question.textWrappingMode=TextWrappingModes.Normal;UiKit.PlaceBox(_question.rectTransform,r.Question,body);
             _note = UiKit.Label("Note", at, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
             UiKit.PlaceBox(_note.rectTransform, r.Note, body);
 
             Button buy = UiKit.PrimaryButton("Buy", at, Loc.T("purchase.buy"), Buy);
             UiKit.PlaceBox((RectTransform)buy.transform, r.Confirm, body);
+            _buyLabel=buy.GetComponentInChildren<TextMeshProUGUI>();
+            GardenButton buyView=buy.GetComponent<GardenButton>();
+            _buyPetal=UiKit.PetalIcon("PricePetal",buyView.Content);
+            BoxLayout.On(buyView.Content).Watch(_buyLabel).Then(b=>
+            {
+                Box f=PrimaryActionDesign.Content(b,false);TypeStyle type=PrimaryActionDesign.Type(T.Button);
+                if(_buyPetal.gameObject.activeSelf) UiKit.PriceButtonContent(_buyPetal.rectTransform,_buyLabel,type,f);
+                else KitText.Place(_buyLabel,type,f.CenterX,f.CenterY,UiKit.Units(type.Size),f.Width-f.Height*.3f);
+            });
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
             Button cancel = UiKit.SecondaryButton("Cancel", at, Loc.T("common.cancel"), Cancel);
             UiKit.PlaceBox((RectTransform)cancel.transform, r.Cancel.Inset(40f * u, 0f), body);
@@ -104,9 +79,9 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// Asks to confirm <paramref name="offer"/> and opens the card over its siblings: <paramref name="picture"/> puts the
-        /// item's picture into the well (a booster's icon, the hero in the outfit, the style's live preview, the avatar);
+        /// item's picture into the preview (a booster's icon, the hero in the outfit, the style's live preview, the avatar);
         /// <paramref name="buy"/> runs only on Buy, <paramref name="cancelled"/> when Cancel closes it. <paramref name="note"/>
-        /// is the caption under the price (by default the store's sheet follows, for real money).
+        /// is the caption above the purchase action (by default the store's sheet follows, for real money).
         /// </summary>
         public void Show(PurchaseOffer offer, Action<RectTransform>? picture, Action buy, Action? cancelled = null, string? note = null)
         {
@@ -118,18 +93,9 @@ namespace Bloomlings.Client.UI
             }
 
             picture?.Invoke(_picture);
-            _question.text = Loc.F(offer.RealMoney ? "purchase.question_money" : "purchase.question_petals", offer.Name, offer.PriceText);
-            _petals.gameObject.SetActive(!offer.RealMoney);
-            _money.gameObject.SetActive(offer.RealMoney);
-            if (offer.RealMoney)
-            {
-                UiKit.PillText(_money).text = offer.PriceText;
-            }
-            else
-            {
-                _petals.SetCost(Cost.Petals(offer.Petals));
-            }
-
+            _question.text = offer.Name;
+            _buyLabel.text = Loc.T("purchase.buy") + "  " + offer.PriceText;
+            _buyPetal.gameObject.SetActive(!offer.RealMoney);
             _note.text = note ?? (offer.RealMoney ? Loc.T("purchase.store_next") : string.Empty);
             _root.SetActive(true);
             _root.transform.SetAsLastSibling();

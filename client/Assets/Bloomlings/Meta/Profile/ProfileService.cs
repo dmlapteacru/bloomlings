@@ -11,7 +11,7 @@ namespace Bloomlings.Client.Meta.Profile
 {
     /// <summary>
     /// The profile page's own data (spec 005 FR-037): the avatar picture (the four free defaults, the others bought with
-    /// Petals once), the player's name (kept on the device: no server sees it yet, so no name check runs), the short
+    /// Petals once), the player's name (stored locally and shared with the unlocked leaderboard), the short
     /// player ID and the day they joined. Open from Level 1, unlike the Wardrobe's frames and badges. Presentation only:
     /// nothing here reaches the level rules. Engine-free.
     /// </summary>

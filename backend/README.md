@@ -30,3 +30,12 @@ Raise `MAX_CONTENT_VERSION` in `SubmitProgress.js` before publishing content bey
 Deploy the Cloud Code scripts with the UGS CLI (`ugs deploy backend/cloud-code`) and set the secrets named in
 `ValidatePurchase.js` in the UGS Secret Manager. These scripts have not been run against a live UGS project yet; check
 the module names against the current UGS Cloud Code documentation when deploying.
+
+
+### Leaderboard profile presentation
+
+Deploy both `SubmitProgress` and `GetLeaderboardAppearances` when enabling the new honor board. `SubmitProgress` accepts optional `appearanceJson` with avatar/frame/badge/marker IDs and the chosen profile name. A submission at the already accepted level changes the presentation while preserving the stored score and completion timestamp. Old clients without appearance metadata retain their original progress behavior.
+
+`GetLeaderboardAppearances` returns only public cosmetic identifiers/name for up to 24 requested player IDs. Its data comes from protected `leaderboard_progress`, so profile edits remain current even when the leaderboard's Keep Best strategy retains the metadata of an equal score. No private save or purchase details are exposed. The client requests top three separately from the neighbour window, joins their saved appearance by player ID and falls back to existing score metadata when the appearance endpoint is unavailable. Legacy rows with no known avatar show a neutral portrait.
+
+The code and in-memory backend tests have been checked locally; live UGS deployment/SDK execution still needs the configured UGS project. Run the backend checks with `node --test backend/tests/*.test.js`.

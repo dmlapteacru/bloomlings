@@ -200,7 +200,7 @@ namespace Bloomlings.Playtest.Design
             p.FillRound(diamond, p.U(6f), layout.TailDown ? C.ParchmentBottom : C.ParchmentTop);
             p.StrokeRound(diamond, p.U(6f), p.U(DesignTokens.Garden.OutlineWidth) * 0.8f, C.ParchmentLine);
             p.PopTransform();
-            Kit.Paper(p, b, p.U(34f), DesignTokens.Garden.OutlineWidth, 6f);
+            Kit.CardFrame(p,b);
 
             // The icon at the left: the booster, or the tile that blocks the way.
             float left = b.Left + pad;
@@ -210,8 +210,8 @@ namespace Bloomlings.Playtest.Design
             bool hasIcon = false;
             if (booster != null)
             {
-                Box face = Kit.RaisedButton(p, iconBox, GardenLook.White, 0.26f, 0f);
-                Kit.BoosterIcon(p, booster, Box.FromCenter(face.CenterX, face.CenterY, iconSide * 0.7f, iconSide * 0.7f));
+                Box face = Kit.BoosterBezel(p,iconBox,iconSide*.26f,0f,false);
+                Kit.BoosterIcon(p, booster, Box.FromCenter(face.CenterX, face.CenterY, iconSide * 0.80f, iconSide * 0.80f));
                 hasIcon = true;
             }
             else if (step.Kind == GuideKind.Blocked && GuideTour.BlockingVariant(s.Session.View) is VariantId variant)
@@ -228,7 +228,7 @@ namespace Bloomlings.Playtest.Design
             foreach ((string text, bool strong) in lines)
             {
                 Rgba ink = strong ? C.InkBrown : C.InkBrownSoft;
-                p.Text(text, textLeft + (textWidth / 2f), y, strong ? T.ButtonSecondary : T.Body, ink, textWidth, look: TextLook.Plain(ink));
+                p.Text(text, textLeft + (textWidth / 2f), y, strong ? PopupDesign.Label : T.Body, ink, textWidth, look: TextLook.Plain(ink));
                 y += lineH;
             }
 
@@ -248,7 +248,7 @@ namespace Bloomlings.Playtest.Design
             var lines = new List<(string, bool)>();
             for (int i = 0; i < step.MessageKeys.Count; i++)
             {
-                foreach (string line in EndCards.Lines(p, PlaytestText.T(step.MessageKeys[i]), i == 0 ? T.ButtonSecondary : T.Body, width, 2))
+                foreach (string line in EndCards.Lines(p, PlaytestText.T(step.MessageKeys[i]), i == 0 ? PopupDesign.Label : T.Body, width, 2))
                 {
                     lines.Add((line, i == 0));
                 }

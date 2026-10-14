@@ -51,7 +51,8 @@ namespace Bloomlings.Client.UI.Screens
         AvatarItem? Avatar = null,
         bool DailyRewardBadge = false,
         string? ProfileName = null,
-        int MilestoneProgressLeaves=0);
+        int MilestoneProgressLeaves=0,
+        bool DailyRewardCompleted=false);
 
     /// <summary>
     /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7), the header's profile avatar
@@ -105,6 +106,9 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _profile = null!;
         private ProfileAvatar _avatar = null!;
         private Image _profileBadge=null!;
+        private float _promoStarted;
+        private void OnEnable() => _promoStarted = Time.unscaledTime;
+
         private HomePromoView _noAds = null!;
         private HomePromoView _dailyReward = null!;
         private HomeStageView _stage = null!;
@@ -144,11 +148,16 @@ namespace Bloomlings.Client.UI.Screens
             // for attention while it shows.
             screen._noAds = HomePromoView.Create("NoAds", root, PromoScene.NoAds, calling: true, () => features?.OnNoAds?.Invoke(), plate: true);
             screen._dailyReward = HomePromoView.Create("DailyReward", root, PromoScene.Daily, calling: false, () => features?.OnDailyReward?.Invoke(), plate: true);
+            screen._noAds.Clock = () => Time.unscaledTime - screen._promoStarted;
+            screen._dailyReward.Clock = screen._noAds.Clock;
             screen._noAds.gameObject.SetActive(false);
             screen._dailyReward.gameObject.SetActive(false);
 
             // The Daily Challenge side button at the right (the other features are the bottom menu's places).
-            Button daily = UiKit.RoundPictureButton("Daily", root, parent => UiKit.OutlinedGlyph("Sun", parent, "ui.sun", C.GardenFlowerCenter, C.GardenFlowerCenterLine), 0.72f, () => features?.OnDailyChallenge?.Invoke());
+            Image challenge = UiKit.ChallengeObject("DailyChallenge", root);
+            challenge.raycastTarget = true;
+            Button daily = UiKit.TapTarget(challenge, () => features?.OnDailyChallenge?.Invoke());
+            challenge.gameObject.AddComponent<PressMotion>();
             screen._daily = daily.gameObject;
             screen._dailyDone = UiKit.CornerCheck("Done", daily.transform);
 
@@ -318,6 +327,7 @@ namespace Bloomlings.Client.UI.Screens
             _noAds.gameObject.SetActive(model.NoAdsPromo);
             _dailyReward.gameObject.SetActive(model.DailyRewardPromo);
             _dailyReward.Calling = model.DailyRewardWaiting;
+            _dailyReward.Completed = model.DailyRewardCompleted;
             _dailyReward.ShowBadge(model.DailyRewardBadge);
             _backdrop.Show(model.Theme);
             _teaser.gameObject.SetActive(model.NextMilestoneLevel.HasValue);

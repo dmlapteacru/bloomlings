@@ -16,7 +16,11 @@ namespace Bloomlings.Client.UI
             Texture2D? texture = Resources.Load<Texture2D>("Shop/" + ShopBodyDesign.ResourceName(key));
             if (texture == null) return Sprites[name] = null;
             Rect rect;
-            if(key.StartsWith("profile-frame-",StringComparison.Ordinal))
+            if(MetaScreenArt.Is("shop/"+key))
+            {
+                var c=MetaScreenArt.Crop("shop/"+key,texture.width,texture.height);rect=new Rect(c.Left,texture.height-c.Top-c.Height,c.Width,c.Height);
+            }
+            else if(key.StartsWith("profile-frame-",StringComparison.Ordinal))
             {
                 var c=ProfileGameDesign.FrameCrop(name,texture.width,texture.height);rect=new Rect(c.Left,texture.height-c.Top-c.Height,c.Width,c.Height);
             }
@@ -54,6 +58,7 @@ namespace Bloomlings.Client.UI
                 rect = new Rect(cell.Value.Column * w + crop.Left, texture.height - (cell.Value.Row * h + crop.Top + crop.Height), crop.Width, crop.Height);
             }
             Vector4 border = key == "price-button" ? new Vector4(350, 190, 350, 190) : Vector4.zero;
+            if(MetaScreenArt.Is("shop/"+key)){var b=MetaScreenArt.Borders("shop/"+key);border=new Vector4(rect.width*b.X,rect.height*b.Y,rect.width*b.X,rect.height*b.Y);}
             if(key.StartsWith("catalog-",StringComparison.Ordinal))
             {
                 var b=ShopCatalogDesign.Borders("shop/"+key);

@@ -177,7 +177,7 @@ namespace Bloomlings.Client.Gameplay.Board
         /// (straight-alpha RGBA, rows from the top) or null: with a variant's field icon (spec 005 pictures.md G17–G24) its
         /// tiles are the cube's face with the icon baked over it (<see cref="PictureTile"/>). Returns the bytes and their size.
         /// </summary>
-        public static byte[] Finished(LevelDefinition definition, BasePicture picture, int cellPixels, bool framed, out int width, out int height, Func<string, (byte[] Rgba, int Width, int Height)?>? icons = null)
+        public static byte[] Finished(LevelDefinition definition, BasePicture picture, int cellPixels, bool framed, out int width, out int height, Func<string, (byte[] Rgba, int Width, int Height)?>? icons = null, bool shadow = true)
         {
             int w = Math.Max(1, picture.Width);
             int h = Math.Max(1, picture.Height);
@@ -189,7 +189,7 @@ namespace Bloomlings.Client.Gameplay.Board
             var grid = new Box(rim * c, rim * c, (rim * c) + (w * c), (rim * c) + (h * c));
             if (framed)
             {
-                StoneBorder(pixels, width, height, grid, c, PictureBorder);
+                StoneBorder(pixels, width, height, grid, c, PictureBorder,shadow);
             }
             else
             {
@@ -303,7 +303,7 @@ namespace Bloomlings.Client.Gameplay.Board
         /// The stone border (§3.6, the playtest's <c>Kit.StoneBorder</c>) around <paramref name="grid"/>: its soft shadow, the
         /// dark joints, the board gap and the blocks of <see cref="StoneBorderView.Blocks"/>.
         /// </summary>
-        private static void StoneBorder(byte[] pixels, int width, int height, Box grid, float cell, float thickness)
+        private static void StoneBorder(byte[] pixels, int width, int height, Box grid, float cell, float thickness,bool showShadow=true)
         {
             float gap = cell * 0.04f;
             float t = cell * thickness;
@@ -311,7 +311,7 @@ namespace Bloomlings.Client.Gameplay.Board
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
             Rgba shadow = C.GardenShadow.WithAlpha(0.22f);
-            FillRound(pixels, width, height, outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), t * 0.5f, shadow, shadow);
+            if(showShadow) FillRound(pixels, width, height, outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), GameplaySkin.BoardCornerRadius(t), shadow, shadow);
             Rgba joints = C.StoneLine.WithAlpha(0.45f);
             FillRound(pixels, width, height, outer.Inset(joint * 0.5f), t * 0.4f, joints, joints);
             FillRound(pixels, width, height, inner, gap * 2f, GardenLook.BoardGap, GardenLook.BoardGap);

@@ -22,26 +22,7 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed record JamSlot(SlotPlateState State, VariantId? Variant, int Count);
 
-    /// <summary>
-    /// The jam card of the design board's frame 10 (spec 002 FR-019; spec 001 FR-027, T051, T121) in the reference layout
-    /// of spec 005 (FR-022, contracts/look.md §4.3 and §6.2; the playtest's <c>EndCards.Jam</c>): a centered modal
-    /// parchment card over the dimmed gameplay, laid out by <see cref="ScreenLayout.JamCard"/>, top to bottom:
-    /// <list type="bullet">
-    /// <item><description>"No more space!" (or "No pod can move!" when Stuck) and its subtitle in up to two balanced
-    /// lines;</description></item>
-    /// <item><description>the Waiting Slots' contents in an inset well: each pod's sticker tile with its count, a free
-    /// slot as a small dashed plate, a locked one with its padlock;</description></item>
-    /// <item><description>one big colored choice per usable recovery (green Extra Slot and Shuffle, blue Return and
-    /// Bloom Burst) with its icon, in a two-column grid (an odd last one centered), each with its cost pill (×N charges,
-    /// or the lotus and the price) hanging under its bottom edge; the free rescue (a rewarded ad, once per attempt) as
-    /// one more green choice with the clapperboard's "Free" pill (spec 005 FR-051);</description></item>
-    /// <item><description>Restart as a cream button with ⟳.</description></item>
-    /// </list>
-    /// The card pops in over a warm scrim that keeps the board visible and takes every tap off the card, except over the
-    /// gameplay top bar, so Pause stays usable during a jam. The rules give no way back to play but the card's choices,
-    /// so it shows no close button. It never opens the Store. A short phone shrinks every height and gap together
-    /// (<see cref="JamCardRegions.Scale"/>).
-    /// </summary>
+    /// <summary>Compact jam window: actual slot snapshot, eligible recoveries on one divided tray, secondary Restart.</summary>
     public sealed class JamScreen : MonoBehaviour
     {
         /// <summary>The title's letters fill at most this share of its box's height (the playtest's <c>EndCards.TitleFill</c>).</summary>
@@ -175,13 +156,12 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(card.rectTransform, cardBox);
             card.gameObject.AddComponent<PopMotion>();
             _card = card.gameObject;
+            CardStackMember member=_host.GetComponent<CardStackMember>() ?? _host.gameObject.AddComponent<CardStackMember>();member.Surface=_card;member.Shade=_host.GetComponent<Image>();
 
             // The title in ink.title (its letters about 0.68 of its box tall, as the reference's "No More Space!"), and the
             // subtitle in up to two balanced lines.
-            Box title = UiKit.ToLocal(r.Title, cardBox);
-            TextMeshProUGUI titleLabel = UiKit.KitLabel("Title", card.transform, stuck ? Loc.T("jam.stuck") : Loc.T("jam.title"), T.Title, TextLook.Plain(C.InkTitle));
-            KitText.Place(titleLabel, T.Title, title.CenterX, title.CenterY, Mathf.Min(UiKit.Units(T.Title.Size) * k, title.Height * TitleFill), title.Width);
-
+            WoodSignView header=UiKit.WoodSign("Title",card.transform,stuck?Loc.T("jam.stuck"):Loc.T("jam.title"),PopupDesign.Title,SignDecor.None);
+            UiKit.PlaceBox((RectTransform)header.transform,r.Title.Inset(-r.W*.025f,0),cardBox);
             Box subtitle = UiKit.ToLocal(r.Subtitle, cardBox);
             float bodySize = UiKit.Units(T.Body.Size) * k;
             List<string> lines = UiKit.BalancedLines(_probe, stuck ? Loc.T("jam.stuck_subtitle") : Loc.T("jam.subtitle"), bodySize, subtitle.Width);
@@ -198,26 +178,22 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(well.rectTransform, r.Well, cardBox);
             SlotRow(well.rectTransform, r, slots);
 
-            // The choices in two columns, each with its cost pill hanging under it; the pill takes the choice's tap too.
-            for (int i = 0; i < choices.Count; i++)
+            for(int i=0;i<choices.Count;i++)
             {
-                (string id, ColorSet set, string label, Cost? price, Action action) = choices[i];
-                IReadOnlyList<IconPart> icon = GardenLook.BoosterIcon(id);
-                ChoiceButtonView choice = UiKit.ChoiceButton(id, card.transform, set, icon, label, null, action);
-                UiKit.PlaceBox((RectTransform)choice.transform, r.Choices[i], cardBox);
-                if (price.HasValue)
+                (string id,ColorSet set,string label,Cost? price,Action action)=choices[i];Box cell=r.Choices[i];
+                Image touch=UiFactory.CreateImage(id,card.transform,null,Color.clear,raycast:true);UiKit.PlaceBox(touch.rectTransform,cell,cardBox);
+                UiKit.FramedTile(BoxLayout.On(touch.rectTransform),touch.transform,.16f);UiKit.TapTarget(touch,action,press:true);
+                Image icon=UiKit.BoosterIcon("Icon",touch.transform,id);UiKit.PlaceBox(icon.rectTransform,PopupDesign.RecoveryIcon(cell),cell);
+                TextMeshProUGUI text=UiKit.Label("Label",touch.transform,label,PopupDesign.Label,UiTheme.Of(C.InkBrown),look:TextLook.Plain(C.InkBrown));UiKit.PlaceBox(text.rectTransform,PopupDesign.RecoveryLabel(cell),cell);
+                if(price.HasValue)
                 {
-                    CostPillView pill = UiKit.CostPill(id + "Cost", card.transform, price.Value);
-                    pill.SetChargeIcon(icon);
-                    UiKit.PlaceBox((RectTransform)pill.transform, r.CostPills[i], cardBox);
-                    Image touch = UiFactory.CreateImage("Touch", pill.transform, null, Color.clear, raycast: true);
-                    UiFactory.Stretch(touch.rectTransform);
-                    UiKit.TapTarget(touch, action);
+                    CostPillView pill=UiKit.CostPill("Use",touch.transform,price.Value,button:true);pill.SetChargeIcon(GardenLook.BoosterIcon(id));
+                    UiKit.PlaceBox((RectTransform)pill.transform,r.CostPills[i],cell);
                 }
             }
 
             // Restart: a cream button with ⟳, as on the reference's jam card.
-            Button restart = UiKit.SecondaryButton("Restart", card.transform, Loc.T("common.restart"), _onRestart, "ui.restart", T.Button);
+            Button restart = UiKit.SecondaryButton("Restart", card.transform, Loc.T("common.restart"), _onRestart, "ui.restart", PrimaryActionDesign.Type(T.Button));
             UiKit.PlaceBox((RectTransform)restart.transform, r.Restart, cardBox);
         }
 

@@ -120,7 +120,8 @@ namespace Bloomlings.Client.UI
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<WoodSignView>();
-            Sprite? asset = NavigationArt.Get(NavigationSkin.Sign(style));
+            bool quiet=style==PopupDesign.Title && decor==SignDecor.None;
+            Sprite? asset = NavigationArt.Get(quiet ? PopupDesign.Header : NavigationSkin.Sign(style));
             Image plank = UiFactory.CreateImage("Plank", root, asset, Color.white);
             plank.raycastTarget = false;
             if (asset == null) PictureFit.On(plank, ProceduralSprites.LaminateSign);
@@ -130,8 +131,8 @@ namespace Bloomlings.Client.UI
             view.Init(label, plank, NavigationSkin.Title);
             layout.Watch(label).Then(b =>
             {
-                if(asset != null) plank.pixelsPerUnitMultiplier = asset.texture.height / Mathf.Max(.01f, b.Height);
-                KitText.Place(label, NavigationSkin.Title, b.CenterX, b.CenterY - b.Height * .025f, b.Height * NavigationSkin.SignTextShare(style), NavigationSkin.SignRoom(b));
+                if(asset != null) plank.pixelsPerUnitMultiplier = (quiet?PopupDesign.HeaderCrop(asset.texture.width,asset.texture.height).Height:asset.texture.height) / Mathf.Max(.01f, b.Height);
+                KitText.Place(label, NavigationSkin.Title, b.CenterX, b.CenterY - b.Height * .025f, b.Height * (quiet?.62f:NavigationSkin.SignTextShare(style)), quiet?b.Width*.88f:NavigationSkin.SignRoom(b));
             });
             return view;
         }
@@ -311,7 +312,7 @@ namespace Bloomlings.Client.UI
             charge.preserveAspect = true;
             charge.gameObject.SetActive(false);
 
-            TextMeshProUGUI label = KitLabel("Amount", root, string.Empty, T.Count, button ? TextLook.OnColor(GardenLook.Green) : TextLook.Plain(C.InkBrown));
+            TextMeshProUGUI label = KitLabel("Amount", root, string.Empty, PrimaryActionDesign.Type(T.Count), button ? TextLook.OnColor(GardenLook.Green) : TextLook.Plain(C.InkBrown));
             view.Init(label, lotus, free.gameObject, charge, layout);
             layout.Watch(label).Then(whole =>
             {
@@ -331,7 +332,7 @@ namespace Bloomlings.Client.UI
                 BoxLayout.Place(lotus.rectTransform, iconBox);
                 BoxLayout.Place(free, iconBox);
                 BoxLayout.Place(charge.rectTransform, iconBox);
-                KitText.Place(label, T.Count, start + icon + gap + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
+                KitText.Place(label, PrimaryActionDesign.Type(T.Count), start + icon + gap + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
             });
             view.SetCost(cost);
             return view;
@@ -1489,7 +1490,7 @@ namespace Bloomlings.Client.UI
             float t = cell * _thickness;
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
-            _shadowRadius = t * 0.5f;
+            _shadowRadius = GameplaySkin.BoardCornerRadius(t);
             _gapRadius = gap * 2f;
             BoxLayout.Place(_shadow.rectTransform, outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f));
             BoxLayout.Place(_joints.rectTransform, outer);

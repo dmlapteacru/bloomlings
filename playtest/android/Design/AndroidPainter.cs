@@ -33,7 +33,8 @@ namespace Bloomlings.Playtest.Droid
         private static readonly Dictionary<string, Task<byte[]>> PendingBackdrops = new Dictionary<string, Task<byte[]>>(StringComparer.Ordinal);
         private static readonly PictureCache<Bitmap> Pictures = new PictureCache<Bitmap>(PictureCacheBytes, bitmap => bitmap.Dispose());
         private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
-        private static readonly Dictionary<string, Bitmap?> Sprites = new Dictionary<string, Bitmap?>(StringComparer.Ordinal);
+        private static readonly PictureCache<Bitmap> Sprites = new PictureCache<Bitmap>(64L * 1024 * 1024, bitmap => bitmap.Dispose());
+        private static readonly HashSet<string> MissingSprites = new HashSet<string>(StringComparer.Ordinal);
         private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
         private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(HeroFrameCacheBytes);
         private static readonly HeroBitmaps HeroDraws = new HeroBitmaps(HeroDrawCacheBytes);
@@ -82,6 +83,7 @@ namespace Bloomlings.Playtest.Droid
             Insets = insets;
             Volatile.Write(ref s_redraw, Redraw);
             Pictures.NextFrame();
+            Sprites.NextFrame();
             HeroFrames.NextFrame();
             HeroDraws.NextFrame();
             BeginFrame();
@@ -860,7 +862,9 @@ namespace Bloomlings.Playtest.Droid
         /// <summary>A picture the APK carries (a character or an owner picture, <see cref="PlaytestFiles"/>), decoded once; null (logged once) when it is missing.</summary>
         private static Bitmap? LoadSprite(string name)
         {
-            if (!Sprites.TryGetValue(name, out Bitmap? bitmap))
+            if (MissingSprites.Contains(name)) return null;
+            if (Sprites.TryGet(name, 0, 0, out Bitmap cached)) return cached;
+            Bitmap? bitmap = null;
             {
                 string? grey = GreySource(name);
                 if (grey != null)
@@ -888,13 +892,22 @@ namespace Bloomlings.Playtest.Droid
                     {
                         var c=NavigationSkin.CreamCrop(name,bitmap.Width,bitmap.Height);
                         Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
-                        bitmap.Dispose();bitmap=cropped;
+                        if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped;
                     }
                     if(bitmap!=null&&(name.StartsWith("navigation/button-",StringComparison.Ordinal)||name=="navigation/plus-v2"))
                     {
                         var c=name=="navigation/plus-v2" ? NavigationSkin.PlusCrop(bitmap.Width,bitmap.Height) : NavigationSkin.ButtonCrop(name,bitmap.Width,bitmap.Height);
                         Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
-                        bitmap.Dispose();bitmap=cropped;
+                        if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped;
+                    }
+                    if(bitmap!=null&&PopupDesign.SettingsIcon(name))
+                    { var c=PopupDesign.SettingsCrop(name,bitmap.Width,bitmap.Height);var cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped; }
+                    if(bitmap!=null&&name==PopupDesign.Header)
+                    { var c=PopupDesign.HeaderCrop(bitmap.Width,bitmap.Height);var cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped; }
+                    if(bitmap!=null&&name==PopupDesign.Frame)
+                    {
+                        var c=PopupDesign.Crop(bitmap.Width,bitmap.Height);var cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
+                        if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped;
                     }
                     if(bitmap!=null&&GameNavigationDesign.Owns(name))
                     {
@@ -904,10 +917,16 @@ namespace Bloomlings.Playtest.Droid
                     {
                         var c=NavigationSkin.IconCrop(name,bitmap.Width,bitmap.Height);
                         Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
-                        bitmap.Dispose(); bitmap=cropped;
+                        if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose(); bitmap=cropped;
                     }
                     if(bitmap!=null&&name.StartsWith("shop/",StringComparison.Ordinal)&&name!="shop/background")
                     {
+                        if(MetaScreenArt.Is(name))
+                        {
+                            var c=MetaScreenArt.Crop(name,bitmap.Width,bitmap.Height);
+                            Bitmap cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
+                            if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped;
+                        }
                         if(name.StartsWith("shop/profile-frame-",StringComparison.Ordinal))
                         {
                             var c=ProfileGameDesign.FrameCrop(name,bitmap.Width,bitmap.Height);
@@ -924,18 +943,19 @@ namespace Bloomlings.Playtest.Droid
                         {
                             var c=ShopCatalogDesign.AccessoryCrop(name,bitmap.Width,bitmap.Height);
                             Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
-                            bitmap.Dispose();bitmap=cropped;
+                            if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped;
                         }
                         if(name.StartsWith("shop/catalog-",StringComparison.Ordinal))
                         {
                             var c=ShopCatalogDesign.FrameCrop(name,bitmap.Width,bitmap.Height);
                             Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
-                            bitmap.Dispose();bitmap=cropped;
+                            if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();bitmap=cropped;
                         }
                         if(name=="shop/price-button")
                         {
-                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,109,100,1985,505);
-                            bitmap.Dispose();
+                            var c=ShopBodyDesign.PriceCrop(bitmap.Width,bitmap.Height);
+                            Bitmap? cropped=Bitmap.CreateBitmap(bitmap,c.Left,c.Top,c.Width,c.Height);
+                            if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();
                             bitmap=cropped;
                         }
                         var booster=ShopBodyDesign.BoosterCell(name.Substring(5));
@@ -944,7 +964,7 @@ namespace Bloomlings.Playtest.Droid
                             int w=bitmap.Width/2,h=bitmap.Height/2;
                             var crop=ShopBodyDesign.BoosterCrop(name.Substring(5),w,h);
                             Bitmap? cropped=Bitmap.CreateBitmap(bitmap,booster.Value.Column*w+crop.Left,booster.Value.Row*h+crop.Top,crop.Width,crop.Height);
-                            bitmap.Dispose();
+                            if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();
                             bitmap=cropped;
                         }
                         var cell=ShopBodyDesign.AtlasCell(name.Substring(5));
@@ -953,7 +973,7 @@ namespace Bloomlings.Playtest.Droid
                             int w=bitmap.Width/3,h=bitmap.Height/2;
                             var crop=ShopBodyDesign.AtlasCrop(name.Substring(5),w,h);
                             Bitmap? cropped=Bitmap.CreateBitmap(bitmap,cell.Value.Column*w+crop.Left,cell.Value.Row*h+crop.Top,crop.Width,crop.Height);
-                            bitmap.Dispose();
+                            if(!ReferenceEquals(cropped,bitmap))bitmap.Dispose();
                             bitmap=cropped;
                         }
                     }
@@ -969,7 +989,8 @@ namespace Bloomlings.Playtest.Droid
                     }
                 }
 
-                Sprites[name] = bitmap;
+                if (bitmap != null) Sprites.Add(name, 0, 0, bitmap, bitmap.AllocationByteCount);
+                else MissingSprites.Add(name);
             }
 
             return bitmap;

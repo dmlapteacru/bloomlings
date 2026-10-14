@@ -60,29 +60,16 @@ namespace Bloomlings.Client.UI.Design
         public Box Box => new Box(X - (Width * PivotX), Y - (Height * PivotY), X + (Width * (1f - PivotX)), Y + (Height * (1f - PivotY)));
     }
 
-    /// <summary>
-    /// Home's two promo scenes (spec 005 FR-032, contracts/look.md §6.4.1; the owner's pack
-    /// <c>bloomlings_daily_noads_anim_assets</c> of 2026-10-04 and the preview the owner approved on the same day): the owner's
-    /// layers on a flowered stone stand with a wooden plaque carrying the scene's label. No Ads, at the left: Sprig pushes
-    /// the crossed AD sign, which leans on its palms; Daily, at the right: a closed album. Each scene idles all the time
-    /// and, while it calls for attention, plays its attention sequence once every <see cref="CycleSeconds"/>, the two never
-    /// together (<see cref="AttentionAt"/>):
-    /// <list type="bullet">
-    /// <item><description>No Ads (<see cref="NoAdsSeconds"/>): Sprig crouches, lunges and pushes the sign off the stand, tipping
-    /// it over its bottom-right corner; Sprig hops and is gone; a lotus blooms in their place and breathes; then it folds
-    /// away and the two pop back.</description></item>
-    /// <item><description>Daily (<see cref="DailySeconds"/>): the album squashes and pops open; the flower stamp appears over its
-    /// right page, hovers, lifts and presses down (the album dips); only then the petals and sparkles burst out and fade;
-    /// the album closes again.</description></item>
-    /// </list>
-    /// The pictures keep their whole canvases (the owner's 1448 × 1086 stands and 1254 × 1254 layers, fitted into the Decor
-    /// folder at <see cref="StandCanvas"/> and <see cref="LayerCanvas"/>), so every pivot below is in the owner's pixels.
-    /// Engine-free.
-    /// </summary>
+    /// <summary>Garden objects on short sandstone stands. Shared poses keep Unity and Android previews identical.
+    /// Attention alternates: Sprig shoves the AD sign off its stand, and a large physical stamp marks the open album.
+    /// No frame sequences: the hosts transform a handful of transparent sprites.</summary>
     public static class HomePromo
     {
         /// <summary>A scene's width, as a share of the safe width W.</summary>
-        public const float WidthShare = 0.27f;
+        public const float WidthShare = 0.32f;
+
+        /// <summary>Home artwork is slightly smaller inside its unchanged touch rectangle.</summary>
+        public const float HomeVisualScale = .92f;
 
         /// <summary>A scene box's height, as a share of its width: the stand's canvas from 70 px above it to its 900th row.</summary>
         public const float HeightShare = 970f / 1448f;
@@ -103,7 +90,7 @@ namespace Bloomlings.Client.UI.Design
         public static readonly (int Width, int Height) LayerCanvas = (512, 512);
 
         /// <summary>How often each scene's attention sequence plays, and when in that cycle (seconds since Home opened).</summary>
-        public const float CycleSeconds = 12f;
+        public const float CycleSeconds = 14f;
 
         public const float NoAdsAt = 1f;
 
@@ -112,7 +99,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The attention sequences' lengths.</summary>
         public const float NoAdsSeconds = 3.2f;
 
-        public const float DailySeconds = 2.6f;
+        public const float DailySeconds = 3.6f;
 
         /// <summary>The idle loops' lengths: No Ads' breathing and sway, the album's float.</summary>
         public const float NoAdsIdleSeconds = 2.4f;
@@ -123,17 +110,19 @@ namespace Bloomlings.Client.UI.Design
         public const string DailyStand = "promo-daily-platform";
         public const string DailyBook = "promo-daily-book";
         public const string DailyBookOpen = "promo-daily-book-open";
+        public const string DailyImprint = "promo-daily-imprint";
         public const string DailyStamp = "promo-daily-stamp";
         public const string DailySparkles = "promo-daily-sparkles";
         public const string NoAdsStand = "promo-noads-platform";
         public const string NoAdsSprig = "promo-noads-sprig";
+        public const string NoAdsSprigPush = "promo-noads-sprig-push";
         public const string NoAdsSign = "promo-noads-sign";
         public const string NoAdsLotus = "promo-noads-lotus";
 
         /// <summary>Every picture of the two scenes, in the Decor folder.</summary>
         public static readonly string[] Pictures =
         {
-            DailyStand, DailyBook, DailyBookOpen, DailyStamp, DailySparkles, NoAdsStand, NoAdsSprig, NoAdsSign, NoAdsLotus,
+            DailyStand, DailyBook, DailyBookOpen, DailyStamp, DailyImprint, DailySparkles, NoAdsStand, NoAdsSprig, NoAdsSprigPush, NoAdsSign, NoAdsLotus,
         };
 
         /// <summary>The asset slot of a scene (both its stand and its props).</summary>
@@ -151,15 +140,12 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static Box Plaque(Box scene, PromoScene kind)
         {
-            float u = scene.Width / StandWidth;
-            float oy = scene.Top + (StandTop * u);
-            return kind == PromoScene.NoAds
-                ? new Box(scene.Left + (385 * u), oy + (640 * u), scene.Left + (1065 * u), oy + (820 * u))
-                : new Box(scene.Left + (370 * u), oy + (635 * u), scene.Left + (1090 * u), oy + (810 * u));
+            return new Box(scene.Left + scene.Width * .22f, scene.Top + scene.Width * .466f,
+                scene.Left + scene.Width * .78f, scene.Top + scene.Width * .544f);
         }
 
         /// <summary>The label's letters' height, as a share of the plaque's face (<see cref="Plaque"/>).</summary>
-        public const float LabelShare = 0.74f;
+        public const float LabelShare = 0.9f;
 
         /// <summary>
         /// The cream plate a scene stands on on Home (spec 005 FR-036, the owner's tuning of 2026-10-05: "a light plate, as
@@ -177,11 +163,11 @@ namespace Bloomlings.Client.UI.Design
         /// <see cref="PlateShadowBlurShare"/> and dropped <see cref="PlateShadowDropShare"/>. The Remove Ads card's scene has
         /// neither plate nor shadows.
         /// </summary>
-        public const float ShadowAlpha = 0.55f;
+        public const float ShadowAlpha = 0.22f;
 
-        public const float ShadowBlurShare = 16f / 1080f;
+        public const float ShadowBlurShare = 8f / 1080f;
 
-        public const float ShadowDropShare = 8f / 1080f;
+        public const float ShadowDropShare = 4f / 1080f;
 
         public const float PlateShadowAlpha = 0.4f;
 
@@ -296,197 +282,86 @@ namespace Bloomlings.Client.UI.Design
             return scene == PromoScene.NoAds ? NoAds(box, seconds, a) : Daily(box, seconds, a);
         }
 
-        // ---- Daily ----
+        /// <summary>A short, shared tap spring. The host transforms art, never the touch rectangle.</summary>
+        public static float PressScale(bool down, float sinceRelease) => down ? .94f :
+            sinceRelease < 0f || sinceRelease >= .22f ? 1f : Key(sinceRelease, (0f, .94f), (.10f, 1.02f), (.22f, 1f));
 
+        public static readonly TypeStyle LabelStyle = new TypeStyle("type.shop.home_promo", 42f, false, false, 0f, 20f);
+        public const string ChallengePicture = "promo-challenge-board";
+        public static Box ChallengeLabel(Box box) => new Box(box.Left + box.Width * .21f, box.Top + box.Height * .827f,
+            box.Right - box.Width * .21f, box.Top + box.Height * .912f);
+        public static Box SealBox(Box box) => Box.FromCenter(box.Left + box.Width * .79f,
+            box.Top + box.Width * .07f, box.Width * .18f, box.Width * .18f);
+        public static bool CastsShadow(string picture) => picture == DailyStand || picture == NoAdsStand;
+
+        /// <summary>Wind up, open, hover, press, lift to reveal the mark, then close. All phases remain readable at Home size.</summary>
         private static IReadOnlyList<PromoLayer> Daily(Box box, float t, float a)
         {
-            float b = box.Width, u = b / StandWidth, k = b / 240f;
-            float ox = box.Left, oy = box.Top + (StandTop * u);
-            var layers = new List<PromoLayer> { Stand(DailyStand, ox, oy, b) };
-
-            float idle = Bump((t % DailyIdleSeconds) / DailyIdleSeconds);
-            bool on = a >= 0f;
-            float bx = ox + (725 * u), by = oy + (590 * u) - (4f * k * idle);
-            float idleRot = -2f * idle, idleScale = 1f + (0.02f * idle);
-            float sb = 0.37f * b / 915f;
-
-            // The closed album squashes, the open one pops in and dips under the stamp, then the album closes again.
-            float closedAlpha = 1f, openAlpha = 0f, cScale = 1f, cRot = 0f, oScale = 1f, oRot = 0f, oY = 0f;
-            if (on)
+            float open = a < 0 ? 0 : Key(a, (0f, 0f), (.15f, 0f), (.55f, 1f), (3.05f, 1f), (DailySeconds, 0f));
+            float dip = a < 0 ? 0 : Key(a, (1.42f, 0f), (1.55f, .025f), (1.9f, 0f));
+            float closedScale = a < 0 ? 1f : Key(a, (0f, 1f), (.15f, .92f), (.55f, 1f));
+            float pop = a < 0 ? 1f : Key(a, (.15f, .85f), (.55f, 1.06f), (.75f, 1f));
+            float stampAlpha = a < 0 ? 0 : Key(a, (.65f, 0f), (.9f, 1f), (2f, 1f), (2.35f, 0f));
+            float stampX = a < 0 ? .64f : Key(a, (.65f, .80f), (.95f, .64f), (1.9f, .64f), (2.35f, .80f));
+            float stampY = a < 0 ? .04f : Key(a, (.65f, -.02f), (.95f, .04f), (1.25f, .04f), (1.55f, .27f), (1.8f, .17f), (2.35f, -.03f));
+            float stampSy = a < 0 ? 1f : Key(a, (1.4f, 1f), (1.55f, .9f), (1.75f, 1f));
+            float imprint = a < 0 ? 0 : Key(a, (1.5f, 0f), (1.57f, 1f));
+            float glint = a < 0 ? 0 : Key(a, (1.55f, 0f), (1.7f, 1f), (2.35f, 0f));
+            return new[]
             {
-                if (a < 0.15f)
-                {
-                    cScale = Key(a, (0f, 1f), (0.15f, 0.94f));
-                    cRot = Key(a, (0f, 0f), (0.15f, -4f));
-                }
-                else
-                {
-                    openAlpha = a < 2.2f ? 1f : Key(a, (2.2f, 1f), (2.55f, 0f));
-                    closedAlpha = 1f - openAlpha;
-                    oScale = Key(a, (0.15f, 0.85f), (0.30f, 1.05f), (0.45f, 1f)) * Key(a, (1.22f, 1f), (1.32f, 0.97f), (1.45f, 1f));
-                    oRot = Key(a, (0.15f, -4f), (0.30f, 1f), (0.45f, 0f));
-                    oY = Key(a, (0.15f, 0f), (0.27f, -10f * k), (0.45f, 0f));
-                }
-            }
-
-            layers.Add(Layer(DailyBook, bx, by, sb, 639, 1057, idleScale * cScale, idleScale * cScale, idleRot + cRot, closedAlpha));
-            layers.Add(Layer(DailyBookOpen, bx, by + oY, sb, 637, 1025, idleScale * oScale, idleScale * oScale, idleRot + oRot, openAlpha));
-
-            // The stamp over the right page: it fades in hovering, lifts, presses down and settles.
-            if (on && a >= 0.5f)
-            {
-                float y = Key(a, (0.50f, -50f * k), (0.85f, -42f * k), (1.05f, -52f * k), (1.27f, 0f));
-                float sc = Key(a, (0.50f, 0.8f), (0.70f, 1.1f), (1.05f, 1.12f), (1.30f, 0.92f), (1.42f, 1.04f), (1.55f, 1f));
-                float rot = Key(a, (0.50f, -14f), (1.05f, -14f), (1.30f, -8f));
-                float alpha = Key(a, (0.50f, 0f), (0.70f, 1f)) * openAlpha;
-                layers.Add(Layer(DailyStamp, bx + (323 * sb), by + oY - (385 * sb) + y, 0.14f * b / 1131f, 628, 612, sc, sc, rot, alpha));
-            }
-
-            // The petals and sparkles: only once the stamp is down, bursting out of the album and fading.
-            if (on && a >= 1.3f)
-            {
-                float alpha = Key(a, (1.30f, 0f), (1.45f, 0.85f), (1.85f, 0.75f), (2.40f, 0f));
-                float sc = Key(a, (1.30f, 0.5f), (1.70f, 1f), (2.40f, 1.15f));
-                float rise = Key(a, (1.30f, 0f), (2.40f, -20f * k));
-                layers.Add(Layer(DailySparkles, bx, by - (560 * sb) + rise, 0.6f * b / 1027f, 641, 627, sc, sc, Key(a, (1.3f, -4f), (2.4f, 4f)), alpha));
-            }
-
-            return layers;
+                Stand(DailyStand, box),
+                Prop(DailyBook, box, .5f, .43f, .54f, .9f, closedScale, closedScale, 0f, 1f - open),
+                Prop(DailyBookOpen, box, .5f, .46f + dip, .78f, .9f, pop, pop, 0f, open),
+                Prop(DailyImprint, box, .64f, .27f + dip, .18f, .5f, 1f, .72f, -5f, imprint * open),
+                Prop(DailyStamp, box, stampX, stampY + dip, .27f, .96f, 1f, stampSy, 0f, stampAlpha * open),
+                Prop(DailySparkles, box, .82f, .17f, .18f, .5f, 1f, 1f, 0f, glint),
+            };
         }
 
-        // ---- No Ads ----
-
-        private readonly struct Pose
-        {
-            public Pose(float x, float y, float rot, float sx, float sy, float scale, float alpha)
-            {
-                X = x;
-                Y = y;
-                Rot = rot;
-                Sx = sx;
-                Sy = sy;
-                Scale = scale;
-                Alpha = alpha;
-            }
-
-            public float X { get; }
-
-            public float Y { get; }
-
-            public float Rot { get; }
-
-            public float Sx { get; }
-
-            public float Sy { get; }
-
-            public float Scale { get; }
-
-            public float Alpha { get; }
-        }
-
-        /// <summary>Sprig's pose: breathing and swaying; in the sequence a crouch, a lunge, a hop, gone, and back.</summary>
-        private static Pose SprigPose(float t, float a, float k)
-        {
-            float idle = Bump((t % NoAdsIdleSeconds) / NoAdsIdleSeconds);
-            float x = 6f * k * idle, y = 0f, rot = -3f * idle, sy = 1f + (0.03f * idle), sx = 1f - (0.01f * idle), scale = 1f, alpha = 1f;
-            if (a >= 0f && a < 2.6f)
-            {
-                x += Key(a, (0f, 0f), (0.14f, -8f * k), (0.42f, 18f * k));
-                sy *= Key(a, (0f, 1f), (0.14f, 0.92f), (0.30f, 1.05f), (0.42f, 1f));
-                rot += Key(a, (0f, 0f), (0.14f, 6f), (0.42f, 0f));
-                y = Key(a, (0.48f, 0f), (0.58f, -10f * k), (0.68f, 0f));
-                scale = Key(a, (0.66f, 1f), (0.84f, 0.5f));
-                alpha = Key(a, (0.66f, 1f), (0.84f, 0f));
-            }
-            else if (a >= 2.6f)
-            {
-                scale = Key(a, (2.75f, 0.6f), (3.0f, 1.06f), (3.2f, 1f));
-                alpha = Key(a, (2.75f, 0f), (2.95f, 1f));
-            }
-
-            return new Pose(x, y, rot, sx, sy, scale, alpha);
-        }
-
+        /// <summary>Sprig braces and shoves the sign off the stand, celebrates the bloom, and resets for the next loop.</summary>
         private static IReadOnlyList<PromoLayer> NoAds(Box box, float t, float a)
         {
-            float b = box.Width, u = b / StandWidth, k = b / 240f;
-            float ox = box.Left, oy = box.Top + (StandTop * u);
-            var layers = new List<PromoLayer> { Stand(NoAdsStand, ox, oy, b) };
-
-            float sSprig = 0.38f * b / 1072f, sSign = 0.31f * b / 941f;
-            float baseX = ox + (0.34f * b), baseY = oy + (612 * u), signY = oy + (620 * u);
-
-            // The front palm's tip (the sprig picture's 1150, 720) on the screen for a pose.
-            (float X, float Y) Palm(Pose q)
+            float idle = Bump((t % NoAdsIdleSeconds) / NoAdsIdleSeconds);
+            float push = a < 0 ? 0 : Key(a, (0f, 0f), (.12f, 0f), (.3f, 1f), (2.45f, 1f), (2.9f, 0f));
+            float x = a < 0 ? 0 : Key(a, (0f, 0f), (.2f, -.025f), (.62f, .09f), (.95f, .05f), (2.4f, .02f), (NoAdsSeconds, 0f));
+            float hop = a < 0 ? 0 : Key(a, (.7f, 0f), (.9f, -.09f), (1.12f, 0f), (1.4f, -.06f), (1.6f, 0f));
+            float lean = a < 0 ? 0 : Key(a, (0f, 0f), (.2f, -8f), (.6f, 12f), (.85f, -5f), (1.3f, 0f));
+            float squash = a < 0 ? 1f : Key(a, (0f, 1f), (.2f, .9f), (.5f, 1.04f), (.65f, 1f));
+            float signX = .72f, signY = .43f, signRot = 3f, signAlpha = 1f;
+            if (a >= 0 && a < 2.45f)
             {
-                float r = q.Rot * (float)Math.PI / 180f;
-                float dx = sSprig * q.Scale * q.Sx * (1150 - 634), dy = sSprig * q.Scale * q.Sy * (720 - 1187);
-                return (baseX + q.X + (dx * (float)Math.Cos(r)) - (dy * (float)Math.Sin(r)), baseY + q.Y + (dx * (float)Math.Sin(r)) + (dy * (float)Math.Cos(r)));
+                signX += Key(a, (.2f, 0f), (.6f, .06f), (.95f, .18f), (1.32f, .38f));
+                signY += Key(a, (.6f, 0f), (.86f, -.07f), (1.32f, .18f));
+                signRot = Key(a, (.2f, 3f), (.6f, 18f), (.95f, 60f), (1.32f, 110f));
+                signAlpha = Key(a, (1.05f, 1f), (1.32f, 0f));
             }
-
-            // Where the sign's pivot (its bottom-right corner, 1098, 1072) stands so that its left edge, tilted by tilt
-            // degrees, covers the palm's tip by a little: the hands press on its side.
-            float Attach((float X, float Y) palm, float tilt)
+            else if (a >= 2.45f)
             {
-                float r = tilt * (float)Math.PI / 180f;
-                float dx = 158 - 1098;
-                float dy = (((palm.Y - signY) / sSign) - (dx * (float)Math.Sin(r))) / (float)Math.Cos(r);
-                float edge = sSign * ((dx * (float)Math.Cos(r)) - (dy * (float)Math.Sin(r)));
-                return palm.X - (75 * sSprig) - edge;
+                signX += Key(a, (2.45f, .28f), (NoAdsSeconds, 0f));
+                signY += Key(a, (2.45f, .04f), (NoAdsSeconds, 0f));
+                signRot = Key(a, (2.45f, -22f), (2.85f, 5f), (NoAdsSeconds, 3f));
+                signAlpha = Key(a, (2.45f, 0f), (2.8f, 1f));
             }
-
-            float idleTilt = 4f + (2f * (float)Math.Sin(2.0 * Math.PI * t / NoAdsIdleSeconds));
-            Pose pose = SprigPose(t, a, k);
-            float tilt = idleTilt, signScale = 1f, signAlpha = 1f, signDy = 0f;
-            float px = Attach(Palm(pose), idleTilt);
-            float lotusAlpha = 0f, lotusScale = 1f;
-            if (a >= 0f && a < 2.6f)
+            float bloom = a < 0 ? 0 : Key(a, (.95f, 0f), (1.25f, 1f), (2.25f, 1f), (2.75f, 0f));
+            float bloomScale = a < 0 ? 1f : Key(a, (.95f, .2f), (1.4f, 1.12f), (1.65f, 1f), (2.25f, 1f), (2.75f, .6f));
+            float sx = 1f - .008f * idle, sy = (1f + .015f * idle) * squash;
+            return new[]
             {
-                if (a < 0.42f)
-                {
-                    // The crouch leaves the sign where it stood; the lunge pushes it and tips it over its corner.
-                    tilt = Key(a, (0.14f, idleTilt), (0.42f, 16f));
-                    px = Math.Max(Attach(Palm(SprigPose(t, -1f, k)), idleTilt), Attach(Palm(pose), tilt));
-                }
-                else
-                {
-                    float pushed = Attach(Palm(SprigPose(t - a + 0.42f, 0.42f, k)), 16f);
-                    px = pushed + Key(a, (0.42f, 0f), (0.85f, 0.38f * b));
-                    tilt = Key(a, (0.42f, 16f), (0.85f, 50f));
-                    signDy = Key(a, (0.42f, 0f), (0.58f, -14f * k), (0.85f, 12f * k));
-                    signScale = Key(a, (0.42f, 1f), (0.85f, 0.8f));
-                    signAlpha = Key(a, (0.55f, 1f), (0.85f, 0f));
-                }
-
-                lotusAlpha = Key(a, (0.62f, 0f), (0.85f, 1f));
-                lotusScale = Key(a, (0.62f, 0.4f), (0.95f, 1.12f), (1.15f, 1f)) * (a > 1.15f ? 1f + (0.03f * Bump((a - 1.15f) / 1.45f)) : 1f);
-            }
-            else if (a >= 2.6f)
-            {
-                // The lotus folds away and Sprig and the sign pop back.
-                lotusAlpha = Key(a, (2.6f, 1f), (2.9f, 0f));
-                lotusScale = Key(a, (2.6f, 1f), (2.9f, 0.8f));
-                signScale = Key(a, (2.75f, 0.6f), (3.0f, 1.06f), (3.2f, 1f));
-                signAlpha = Key(a, (2.75f, 0f), (2.95f, 1f));
-            }
-
-            layers.Add(Layer(NoAdsLotus, ox + (700 * u), oy + (600 * u), 0.6f * b / 1128f, 614, 1096, lotusScale, lotusScale, 0f, lotusAlpha));
-            layers.Add(Layer(NoAdsSprig, baseX + pose.X, baseY + pose.Y, sSprig, 634, 1187, pose.Sx * pose.Scale, pose.Sy * pose.Scale, pose.Rot, pose.Alpha));
-            layers.Add(Layer(NoAdsSign, px, signY + signDy, sSign, 1098, 1072, signScale, signScale, tilt, signAlpha));
-            return layers;
+                Stand(NoAdsStand, box),
+                Prop(NoAdsSprig, box, .32f + x, .43f + hop, .50f, .96f, sx, sy, -idle + lean, 1f - push),
+                Prop(NoAdsSprigPush, box, .32f + x, .43f + hop, .50f, .96f, sx, sy, -idle + lean, push),
+                Prop(NoAdsLotus, box, .72f, .43f, .34f, .9f, bloomScale, bloomScale, 0f, bloom),
+                Prop(NoAdsSign, box, signX, signY, .40f, .86f, 1f, 1f, signRot, signAlpha),
+            };
         }
 
-        // ---- Helpers ----
+        private static PromoLayer Stand(string picture, Box box) =>
+            new PromoLayer(picture, box.Left, box.Top + box.Width * .04f, box.Width, box.Width * .60f, 0f, 0f, 1f, 1f, 0f, 1f);
 
-        private static PromoLayer Stand(string picture, float ox, float oy, float width) =>
-            new PromoLayer(picture, ox, oy, width, width * StandHeight / StandWidth, 0f, 0f, 1f, 1f, 0f, 1f);
-
-        /// <summary>A 1254-square layer drawn at <paramref name="scale"/> screen px per owner pixel, its pivot in owner pixels.</summary>
-        private static PromoLayer Layer(string picture, float x, float y, float scale, float pivotX, float pivotY, float sx, float sy, float rotation, float alpha)
-        {
-            float side = LayerSide * scale;
-            return new PromoLayer(picture, x, y, side, side, pivotX / LayerSide, pivotY / LayerSide, sx, sy, rotation, Math.Max(0f, Math.Min(1f, alpha)));
-        }
+        private static PromoLayer Prop(string picture, Box box, float x, float y, float size, float pivotY,
+            float sx, float sy, float rotation, float alpha) =>
+            new PromoLayer(picture, box.Left + box.Width * x, box.Top + box.Width * y, box.Width * size,
+                box.Width * size, .5f, pivotY, sx, sy, rotation, Math.Max(0f, Math.Min(1f, alpha)));
 
         /// <summary>0 → 1 → 0 over a phase of 0 to 1 (a cosine bump: eases in and out).</summary>
         private static float Bump(float phase) => (1f - (float)Math.Cos(2.0 * Math.PI * phase)) / 2f;

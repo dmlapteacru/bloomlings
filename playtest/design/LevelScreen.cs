@@ -569,7 +569,7 @@ namespace Bloomlings.Playtest.Design
                     UseBooster(kind, new UseShuffle());
                     break;
                 default:
-                    if (!Meta.Economy.CanAfford(kind))
+                    if (!guided && !Meta.Economy.CanAfford(kind))
                     {
                         Toast(PlaytestText.T("gameplay.not_enough_petals"));
                         return;
@@ -1004,7 +1004,7 @@ namespace Bloomlings.Playtest.Design
                 }
                 else
                 {
-                    EndCards.Jam(p, this, since);
+                    if(_app.Overlays.Count==0) EndCards.Jam(p, this, since);
                 }
 
                 if (Won)

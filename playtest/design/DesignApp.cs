@@ -1,4 +1,5 @@
 using System;
+using Bloomlings.Client.Services.Backend;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Meta.DailyReward;
@@ -34,7 +35,9 @@ namespace Bloomlings.Playtest.Design
     {
         Pause,
         Settings,
+        PrivacyPolicy,
         DailyReward,
+        DailyChallenge,
 
         /// <summary>The Remove Ads card (spec 005 FR-033), opened from Home's No Ads scene at every level.</summary>
         RemoveAds,
@@ -200,6 +203,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The Store Shop's page of rows (when the rows take more than the page).</summary>
         public int StoreRowsPage { get; set; }
         public float ShopScrollOffset { get; set; }
+        public LeaderboardPage? PreviewLeaderboard { get; set; }
+        public float LeaderboardScrollOffset { get; set; }
 
         /// <summary>
         /// The screen the Store page returns to: Home, or the page whose bottom menu or Petals "+" opened it (the Wardrobe,
@@ -208,7 +213,8 @@ namespace Bloomlings.Playtest.Design
         public Screen StoreReturn { get; private set; } = Screen.Home;
 
         /// <summary>The Wardrobe's chosen family (an index into the four families, spec 005 §6.5).</summary>
-        public int WardrobeFamily { get; set; }
+        public WardrobeBrowseState WardrobeBrowse { get; } = new WardrobeBrowseState();
+        public int WardrobeFamily { get => (int)WardrobeBrowse.Family; set => WardrobeBrowse.Select(WardrobeService.Families[Math.Max(0,Math.Min(3,value))]); }
 
         /// <summary>The Wardrobe's page of outfit cards.</summary>
         public int WardrobePage { get; set; }
@@ -346,7 +352,6 @@ namespace Bloomlings.Playtest.Design
         {
             Sound.Play(SoundCue.Click);
             ClearOverlays();
-            WardrobePage = 0;
             Screen = Screen.Wardrobe;
         }
 
@@ -889,6 +894,7 @@ namespace Bloomlings.Playtest.Design
                 (Overlay overlay, float openedAt) = _overlays[i];
                 float since = Now - openedAt;
                 DrawingCovered = i < _overlays.Count - 1;
+                if(DrawingCovered && overlay != Overlay.ProfileEdit) continue;
                 switch (overlay)
                 {
                     case Overlay.Pause:
@@ -897,8 +903,14 @@ namespace Bloomlings.Playtest.Design
                     case Overlay.Settings:
                         MenuCards.Settings(p, this, since);
                         break;
+                    case Overlay.PrivacyPolicy:
+                        MenuCards.PrivacyPolicy(p,this,since);
+                        break;
                     case Overlay.DailyReward:
                         MetaCards.DailyReward(p, this, since);
+                        break;
+                    case Overlay.DailyChallenge:
+                        MetaCards.DailyChallenge(p,this,since);
                         break;
                     case Overlay.RemoveAds:
                         MetaCards.RemoveAds(p, this, since);

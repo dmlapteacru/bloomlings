@@ -6,25 +6,15 @@ using Bloomlings.Client.UI.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
-    /// <summary>
-    /// One of Home's promo scenes in Unity (spec 005 FR-032, <see cref="HomePromo"/>; slots <c>ui.promo.no_ads</c> and
-    /// <c>ui.promo.daily</c>): the owner's layer pictures of the scene (<c>Decor/promo-*.png</c>), one image each, posed every
-    /// frame from <see cref="HomePromo.Layers"/> back to front, with the scene's label (<see cref="HomePromo.LabelKey"/>) on
-    /// the stand's wooden plaque right after the stand, in the wooden sign's brown letters. The time is the seconds since
-    /// the scene was shown (Home opening, or the card opening), so each attention sequence first plays a little after
-    /// Home opens; a scene that is not <see cref="Calling"/> only idles. The whole scene box is the touch target when it
-    /// takes taps: it clicks and squashes like Home's profile avatar (<see cref="PressMotion"/>). While the stand's picture
-    /// is missing, the label shows on a wooden sign (<c>ui.sign.wood</c>) inside the box instead. On Home (spec 005 FR-036,
-    /// the owner's tuning of 2026-10-05) the scene stands on the round buttons' cream cushion with its soft shadow
-    /// (<see cref="HomePromo.PlateBox"/>), and every picture casts a soft shadow under all of them
-    /// (<see cref="HomePromo.ShadowOf"/>, made from the picture's alpha, <see cref="OwnerArt.DecorAlpha"/>).
-    /// </summary>
-    public sealed class HomePromoView : MonoBehaviour
+    /// <summary>One garden object: transparent layers and a short contact shadow, with a fixed touch target.
+    /// A leaf seal marks unseen rewards; the check is reserved for the completed five-step day.</summary>
+    public sealed class HomePromoView : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
         /// <summary>The stand-in sign's size in the scene box: shares of the box's width.</summary>
         private const float SignWidthShare = 0.9f;
@@ -38,6 +28,10 @@ namespace Bloomlings.Client.UI.Screens
         private readonly HashSet<string> _shown = new HashSet<string>(StringComparer.Ordinal);
         private PromoScene _scene;
         private RectTransform _root = null!;
+        private RectTransform _art = null!;
+        private bool _down;
+        private float _releasedAt = -10f;
+        private float _pressScale = 1f;
         private TextMeshProUGUI? _label;
         private WoodSignView? _sign;
         private Box _box;
@@ -45,13 +39,15 @@ namespace Bloomlings.Client.UI.Screens
         private bool _placed;
         private bool _plated;
         private float _w;
-        private Image? _plateShadow;
-        private GardenButton? _plate;
         private RectTransform? _shadowLayer;
         private RectTransform? _badge;
+        private RectTransform? _done;
+        public bool Completed { get; set; }
 
         /// <summary>Whether the scene calls for attention (its sequence plays every cycle); else it only idles.</summary>
         public bool Calling { get; set; }
+        public Func<float>? Clock { get; set; }
+        private float Seconds => Clock != null ? Clock() : Time.unscaledTime - _start;
 
         /// <summary>
         /// The scene under <paramref name="parent"/> (place it with <see cref="Place"/>), taking taps on its whole box when
@@ -64,6 +60,9 @@ namespace Bloomlings.Client.UI.Screens
             var view = touch.gameObject.AddComponent<HomePromoView>();
             view._scene = scene;
             view._root = touch.rectTransform;
+            view._art = UiFactory.CreateRect("Visual", touch.transform);
+            UiFactory.Stretch(view._art);
+            view._art.pivot = new Vector2(.5f, 0f);
             view._plated = plate;
             view.Calling = calling;
             if (onTap != null)
@@ -71,7 +70,6 @@ namespace Bloomlings.Client.UI.Screens
                 // The squash about the stand's foot, as Home's other round buttons press.
                 touch.rectTransform.pivot = new Vector2(0.5f, 0f);
                 UiKit.TapTarget(touch, onTap);
-                touch.gameObject.AddComponent<PressMotion>();
             }
 
             view.Build();
@@ -87,14 +85,6 @@ namespace Bloomlings.Client.UI.Screens
             _box = box;
             _w = w > 0f ? w : box.Width / Mathf.Max(0.01f, HomePromo.WidthShare);
             UiKit.PlaceBox(_root, box, parent);
-            if (_plate != null && _plateShadow != null)
-            {
-                Box plate = HomePromo.PlateBox(box);
-                (Box shadow, float pad, float blur) = HomePromo.PlateShadowOf(plate, _w);
-                UiKit.PlaceBox((RectTransform)_plate.transform, plate, box);
-                UiKit.PlaceBox(_plateShadow.rectTransform, shadow, box);
-                PictureFit.On(_plateShadow, (pw, ph) => ProceduralSprites.Picture(HomePromo.PlateShadowKey, pw, ph, (x, y) => HomePromo.PlateShadow(x, y, shadow, plate, pad, blur)));
-            }
 
             if (_shadowLayer != null)
             {
@@ -110,12 +100,13 @@ namespace Bloomlings.Client.UI.Screens
             {
                 // Centered on the plaque's face, its letters LabelShare of the face's height, fitted to its width.
                 Box plaque = UiKit.ToLocal(HomePromo.Plaque(box, _scene), box);
-                KitText.Place(_label, T.LevelPill, plaque.CenterX, plaque.CenterY, plaque.Height * HomePromo.LabelShare, plaque.Width);
+                KitText.Place(_label, HomePromo.LabelStyle, plaque.CenterX, plaque.CenterY, plaque.Height * HomePromo.LabelShare, plaque.Width);
             }
 
             PlaceBadge();
+            if (_done != null) UiKit.PlaceBox(_done, HomePromo.SealBox(box), box);
             _placed = true;
-            Animate(Time.unscaledTime - _start);
+            Animate(Seconds);
         }
 
         /// <summary>
@@ -127,7 +118,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             if (on && _badge == null)
             {
-                _badge = UiKit.AlertBadge("Alert", _root);
+                _badge = UiKit.PromoSeal("Ready", _art, completed: false);
                 if (_placed)
                 {
                     PlaceBadge();
@@ -145,25 +136,40 @@ namespace Bloomlings.Client.UI.Screens
         {
             if (_badge != null)
             {
-                UiKit.PlaceBox(_badge, DailyRewardCard.BadgeDisc(HomePromo.PlateBox(_box)), _box);
+                UiKit.PlaceBox(_badge, HomePromo.SealBox(_box), _box);
             }
         }
 
         /// <summary>Starts the scene's time again (the attention sequences count from here).</summary>
         public void Restart() => _start = Time.unscaledTime;
 
-        private void OnEnable() => Restart();
+        private void OnEnable() { Restart(); _down = false; _releasedAt = -10f; }
+        // Keep the touch rectangle fixed while only the artwork squashes.
+        public void OnPointerDown(PointerEventData e) => _down = true;
+        public void OnPointerUp(PointerEventData e)
+        {
+            if (_down) { _down = false; _releasedAt = Time.unscaledTime; }
+        }
+        public void OnPointerExit(PointerEventData e) => OnPointerUp(e);
 
         private void Update()
         {
+            float scale = HomePromo.PressScale(_down, Time.unscaledTime - _releasedAt) * (_plated ? HomePromo.HomeVisualScale : 1f);
+            if (scale != _pressScale) { _pressScale = scale; _art.localScale = Vector3.one * scale; }
             if (_placed)
             {
-                Animate(Time.unscaledTime - _start);
+                Animate(Seconds);
+                if (_badge != null) _badge.SetAsLastSibling();
             }
 
-            if (_badge != null && _badge.gameObject.activeSelf)
+            if (_scene == PromoScene.Daily)
             {
-                _badge.localScale = Vector3.one * DailyRewardCard.BadgePulse(Time.unscaledTime);
+                if (Completed && _done == null)
+                {
+                    _done = UiKit.PromoSeal("Completed", _art, completed: true);
+                    UiKit.PlaceBox(_done, HomePromo.SealBox(_box), _box);
+                }
+                if (_done != null) { _done.gameObject.SetActive(Completed); _done.SetAsLastSibling(); }
             }
         }
 
@@ -172,18 +178,14 @@ namespace Bloomlings.Client.UI.Screens
             string label = Loc.T(HomePromo.LabelKey(_scene));
             if (OwnerArt.Decor(_scene == PromoScene.NoAds ? HomePromo.NoAdsStand : HomePromo.DailyStand) == null)
             {
-                _sign = UiKit.WoodSign("Sign", _root, label, T.LevelPill);
+                _sign = UiKit.WoodSign("Sign", _art, label, T.LevelPill);
                 return;
             }
 
-            // On Home: the plate's soft shadow and the cream face raised on its wooden plate (spec 005 FR-047), then a layer for
-            // the pictures' shadows, under them all.
+            // Only the short stone stand casts a contact shadow. The background stays visible around it.
             if (_plated)
             {
-                _plateShadow = UiFactory.CreateImage("PlateShadow", _root, null, Color.white);
-                _plateShadow.raycastTarget = false;
-                _plate = UiKit.RaisedButton("Plate", _root, GardenLook.White, HomePromo.PlateRadiusShare, raycast: false);
-                _shadowLayer = UiFactory.CreateRect("Shadows", _root);
+                _shadowLayer = UiFactory.CreateRect("Shadows", _art);
             }
 
             // One image per picture of the scene, hidden until posed; a missing prop is left out.
@@ -192,10 +194,10 @@ namespace Bloomlings.Client.UI.Screens
                 Sprite? sprite = OwnerPictures.SlotOf(picture) == HomePromo.Slot(_scene) ? OwnerArt.Decor(picture) : null;
                 if (sprite != null)
                 {
-                    Image image = UiFactory.CreateImage(picture, _root, sprite, Color.white);
+                    Image image = UiFactory.CreateImage(picture, _art, sprite, Color.white);
                     image.enabled = false;
                     _pictures[picture] = image;
-                    (byte[] Alpha, int Width, int Height)? mask = _shadowLayer != null ? OwnerArt.DecorAlpha(picture) : null;
+                    (byte[] Alpha, int Width, int Height)? mask = _shadowLayer != null && HomePromo.CastsShadow(picture) ? OwnerArt.DecorAlpha(picture) : null;
                     if (mask != null)
                     {
                         string name = picture;
@@ -218,7 +220,7 @@ namespace Bloomlings.Client.UI.Screens
                 }
             }
 
-            _label = UiKit.KitLabel("Label", _root, label, T.LevelPill, GardenLook.SignLetters(C.InkBrown));
+            _label = UiKit.KitLabel("Label", _art, label, HomePromo.LabelStyle, GardenLook.SignLetters(C.InkBrown));
         }
 
         /// <summary>

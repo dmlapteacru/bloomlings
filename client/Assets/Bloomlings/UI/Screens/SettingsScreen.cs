@@ -17,19 +17,15 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>The optional account section of Settings (FR-087, T138).</summary>
     /// <param name="Status">"Local profile", "Signed in" or the linked identity.</param>
     /// <param name="Link">Links a platform identity; <paramref name="Link"/>'s callback reports success.</param>
+    public sealed record LevelActions(Func<int> Current, Action<int> Change);
+
     public sealed record AccountActions(Func<string> Status, bool CanLinkApple, bool CanLinkGooglePlayGames, Action<LinkProvider, Action<bool>> Link);
 
-    /// <summary>
-    /// Settings (T066): music, sound effects, haptics and the 2× default, stored in the save and saved on every change
-    /// (R15). Restore Purchases is wired with the store in US6. The account section offers optional Sign in with Apple
-    /// or Google Play Games linking for cloud sync (FR-087); the game never requires it. In the reference look of spec 005
-    /// (contracts/look.md §4.3; the playtest's <c>MenuCards.Settings</c>): a parchment card with the brown title and the
-    /// cream round close, cream rows with brown labels and the garden switches, and cream buttons below them.
-    /// </summary>
+    /// <summary>Sound and Haptics, optional account/privacy actions and retained level controls on one calm card.</summary>
     public sealed class SettingsScreen : MonoBehaviour
     {
         private const float RowUnits = 126f;
-        private const float RowGapUnits = 20f;
+        private const float RowGapUnits = 12f;
         private const float StatusUnits = 56f;
         private const float ButtonGapUnits = 24f;
 
@@ -37,33 +33,33 @@ namespace Bloomlings.Client.UI.Screens
         private SettingsData _settings = null!;
         private Action _persist = () => { };
         private readonly List<(ToggleView View, Func<bool> On)> _toggles = new List<(ToggleView, Func<bool>)>();
-        private TextMeshProUGUI _music = null!;
         private TextMeshProUGUI _sfx = null!;
         private TextMeshProUGUI _haptics = null!;
-        private TextMeshProUGUI _speed = null!;
         private TextMeshProUGUI? _account;
         private Func<string>? _accountStatus;
-        private TextMeshProUGUI _restoreLabel = null!;
+        private TextMeshProUGUI? _levelLabel;
+        private LevelActions? _levels;
         private Button _privacy = null!;
         private IConsentService? _consent;
+        private GameObject _policyRoot=null!;
 
         public bool IsOpen => _root.activeSelf;
 
-        /// <param name="onRestorePurchases">Restores purchases and reports whether the store answered.</param>
         /// <param name="consent">Shows the privacy options entry when the consent rules require one (FR-090).</param>
         public static SettingsScreen Create(
             Transform parent,
             SettingsData settings,
             Action persist,
-            Action<Action<bool>>? onRestorePurchases = null,
             AccountActions? account = null,
-            IConsentService? consent = null)
+            IConsentService? consent = null,
+            LevelActions? levels = null)
         {
             bool links = account != null && (account.CanLinkApple || account.CanLinkGooglePlayGames);
-            float content = 12f + (4f * RowUnits) + (3f * RowGapUnits)
+            float content = 12f + (2f * RowUnits) + RowGapUnits
                 + (account != null ? ButtonGapUnits + StatusUnits : 0f)
                 + (links ? 16f + DesignTokens.Size.SecondaryHeight : 0f)
-                + ButtonGapUnits + DesignTokens.Size.SecondaryHeight + 30f;
+                + (consent != null && consent.PrivacyOptionsRequired ? ButtonGapUnits + DesignTokens.Size.SecondaryHeight : 0f)
+                + (levels != null ? 20f + DesignTokens.Size.TouchMin : 0f) + ButtonGapUnits + DesignTokens.Size.SecondaryHeight + 30f;
 
             SettingsScreen screen = null!;
             CardView view = UiKit.Card("SettingsScreen", parent, Loc.T("settings.title"), content, () => screen.Hide(), T.Title);
@@ -72,16 +68,14 @@ namespace Bloomlings.Client.UI.Screens
             screen._root = root;
             screen._settings = settings;
             screen._persist = persist;
-            screen._consent = consent;
+            screen._consent = consent; screen._levels=levels;
 
             Box body = view.Regions.Body;
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
-            Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), 4, RowUnits * u, RowGapUnits * u);
-            screen._music = Toggle(view.Body, body, lines[0], "Music", "settings.music", () => settings.Music, () => settings.Music = !settings.Music, screen, u);
-            screen._sfx = Toggle(view.Body, body, lines[1], "Sound", "settings.sound", () => settings.Sfx, () => settings.Sfx = !settings.Sfx, screen, u);
-            screen._haptics = Toggle(view.Body, body, lines[2], "Haptics", "settings.haptics", () => settings.Haptics, () => settings.Haptics = !settings.Haptics, screen, u);
-            screen._speed = Toggle(view.Body, body, lines[3], "Speed", "settings.speed", () => settings.Speed2x, () => settings.Speed2x = !settings.Speed2x, screen, u);
-            float y = lines[3].Bottom;
+            Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), 2, RowUnits * u, RowGapUnits * u);
+            screen._sfx=Toggle(view.Body,body,lines[0],"Sound","settings.sound",()=>settings.Sfx,()=>settings.Sfx=!settings.Sfx,screen,u);
+            screen._haptics=Toggle(view.Body,body,lines[1],"Haptics","settings.haptics",()=>settings.Haptics,()=>settings.Haptics=!settings.Haptics,screen,u);
+            float y=lines[1].Bottom;
 
             if (account != null)
             {
@@ -112,27 +106,25 @@ namespace Bloomlings.Client.UI.Screens
                 }
             }
 
-            // Restore Purchases and the privacy options side by side, as cream buttons.
-            y += ButtonGapUnits * u;
-            Box[] buttons = Pair(new Box(body.Left, y, body.Right, y + (DesignTokens.Size.SecondaryHeight * u)), 2, u);
-            Button restore = null!;
-            restore = UiKit.SecondaryButton("RestorePurchases", view.Body, Loc.T("settings.restore"), () =>
+            if(levels != null)
             {
-                restore.interactable = false;
-                screen._restoreLabel.text = Loc.T("settings.restoring");
-                onRestorePurchases?.Invoke(ok =>
-                {
-                    restore.interactable = true;
-                    screen._restoreLabel.text = ok ? Loc.T("settings.restore_done") : Loc.T("settings.restore_failed");
-                });
-            });
-            UiKit.PlaceBox((RectTransform)restore.transform, buttons[0], body);
-            restore.interactable = onRestorePurchases != null;
-            screen._restoreLabel = restore.GetComponentInChildren<TextMeshProUGUI>();
-
-            screen._privacy = UiKit.SecondaryButton("PrivacyOptions", view.Body, Loc.T("settings.privacy"), () =>
-                screen._consent?.ShowPrivacyOptions(screen.Refresh));
-            UiKit.PlaceBox((RectTransform)screen._privacy.transform, buttons[1], body);
+                y+=20f*u; Box dev=new Box(body.Left,y,body.Right,y+DesignTokens.Size.TouchMin*u);
+                screen._levelLabel=UiKit.Label("Level",view.Body,string.Empty,T.Caption,UiTheme.Of(C.InkBrownSoft));
+                float left=dev.Left+dev.Width*.25f; UiKit.PlaceBox(screen._levelLabel.rectTransform,new Box(dev.Left,dev.Top,left,dev.Bottom),body);
+                Box[] cells=ScreenLayout.Row(new Box(left,dev.Top,dev.Right,dev.Bottom),4,10*u,float.MaxValue,false);
+                string[] labels={"−1","+1","+10","Reset"};int[] deltas={-1,1,10,0};
+                for(int i=0;i<cells.Length;i++) { int delta=deltas[i]; Button action=UiKit.SecondaryButton("Level"+i,view.Body,labels[i],()=>{levels.Change(delta);screen.Refresh();},style:PopupDesign.Label);UiKit.PlaceBox((RectTransform)action.transform,cells[i],body); }
+                y=dev.Bottom;
+            }
+            y += ButtonGapUnits * u;
+            Box policyBox=Pair(new Box(body.Left,y,body.Right,y+DesignTokens.Size.SecondaryHeight*u),1,u)[0];
+            Button policy=UiKit.SecondaryButton("PrivacyPolicy",view.Body,Loc.T("settings.privacy_policy"),()=>screen._policyRoot.SetActive(true));
+            UiKit.PlaceBox((RectTransform)policy.transform,policyBox,body);y=policyBox.Bottom;
+            screen._privacy=UiKit.SecondaryButton("PrivacyOptions",view.Body,Loc.T("settings.privacy"),()=>screen._consent?.ShowPrivacyOptions(screen.Refresh));
+            UiKit.PlaceBox((RectTransform)screen._privacy.transform,Pair(new Box(body.Left,y+ButtonGapUnits*u,body.Right,y+(ButtonGapUnits+DesignTokens.Size.SecondaryHeight)*u),1,u)[0],body);
+            CardView mock=UiKit.Card("PrivacyPolicyMock",root.transform,Loc.T("settings.privacy_policy"),180,()=>screen._policyRoot.SetActive(false),sign:SignDecor.None);
+            TextMeshProUGUI message=UiKit.Label("Mock",mock.Body,Loc.T("settings.privacy_mock"),T.Body,UiTheme.Of(C.InkBrown),look:TextLook.Plain(C.InkBrown));message.textWrappingMode=TextWrappingModes.Normal;
+            UiFactory.Place(message.rectTransform,.03f,.12f,.97f,.88f);screen._policyRoot=mock.Root;mock.Root.SetActive(false);
 
             root.SetActive(false);
             return screen;
@@ -140,19 +132,18 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Show()
         {
-            _restoreLabel.text = Loc.T("settings.restore");
+            _policyRoot.SetActive(false);
             Refresh();
             _root.SetActive(true);
         }
 
-        public void Hide() => _root.SetActive(false);
+        public void Hide() { if(_policyRoot.activeSelf){_policyRoot.SetActive(false);return;} _root.SetActive(false); }
 
         private void Refresh()
         {
-            _music.text = Loc.F("settings.music", OnOff(_settings.Music));
-            _sfx.text = Loc.F("settings.sound", OnOff(_settings.Sfx));
-            _haptics.text = Loc.F("settings.haptics", OnOff(_settings.Haptics));
-            _speed.text = Loc.F("settings.speed", Loc.T(_settings.Speed2x ? "common.on" : "common.off"));
+            _sfx.text = Loc.T("settings.sound_label");
+            _haptics.text = Loc.T("settings.haptics_label");
+            if(_levelLabel != null && _levels != null) _levelLabel.text="Level "+_levels.Current();
             foreach ((ToggleView view, Func<bool> on) in _toggles)
             {
                 view.Show(on());
@@ -173,10 +164,15 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         private static TextMeshProUGUI Toggle(RectTransform cardBody, Box body, Box line, string name, string key, Func<bool> on, Action flip, SettingsScreen screen, float u)
         {
-            Image row = UiKit.Row(name, cardBody, highlighted: false);
+            if(key!="settings.sound")
+            {
+                Image separator=UiKit.RoundRect("Divider",cardBody,UiTheme.Of(C.ParchmentEdge.WithAlpha(.35f)));
+                UiKit.PlaceBox(separator.rectTransform,new Box(line.Left+line.Width*.04f,line.Top-7*u,line.Right-line.Width*.04f,line.Top-5*u),body);
+            }
+            Image row = UiFactory.CreateImage(name,cardBody,null,Color.clear);
             UiKit.PlaceBox(row.rectTransform, line, body);
             Icon(row.transform, CardLook.SettingsIconOf(key), CardLook.SettingsIconBox(line, u), line);
-            TextMeshProUGUI label = UiKit.Label("Label", row.transform, string.Empty, T.ButtonSecondary, UiTheme.Of(C.InkBrown), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrown));
+            TextMeshProUGUI label = UiKit.Label("Label", row.transform, string.Empty, PopupDesign.Label, UiTheme.Of(C.InkBrown), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrown));
             label.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * CardLook.SettingsLabelScale);
             label.fontSize = label.fontSizeMax;
             float left = CardLook.SettingsLabelLeft(line, u);
@@ -195,7 +191,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>A settings row's icon: the owner's picture, the raised glyph, or the drawn stand-in (the playtest's <c>MenuCards</c>).</summary>
         private static void Icon(Transform row, SettingsIcon icon, Box box, Box line)
         {
-            Sprite? picture = icon.Picture != null ? OwnerArt.Icon(icon.Picture) : null;
+            Sprite? picture=icon.Picture!=null ? PopupDesign.SettingsIcon(icon.Picture)?NavigationArt.Get(icon.Picture):OwnerArt.Icon(icon.Picture) : null;
             Image image;
             if (icon.Glyph != null)
             {
@@ -221,6 +217,5 @@ namespace Bloomlings.Client.UI.Screens
         private static Box[] Pair(Box row, int count, float u) =>
             ScreenLayout.Row(row, count, ButtonGapUnits * u, count == 1 ? DesignTokens.Size.CardSecondaryWidth * u : float.MaxValue, square: false);
 
-        private static string OnOff(bool value) => value ? Loc.T("common.on") : Loc.T("common.off");
     }
 }

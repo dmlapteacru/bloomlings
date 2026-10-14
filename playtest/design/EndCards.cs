@@ -219,9 +219,7 @@ namespace Bloomlings.Playtest.Design
             Kit.CardFrame(p, r.Card);
             p.Hit(r.Card, () => { });
 
-            // The title as big as the reference's, the subtitle in up to two lines broken after its first sentence.
-            float titleScale = r.Title.Height * TitleFill / p.U(T.Title.Size);
-            p.Text(PlaytestText.T(stuck ? "jam.stuck" : "jam.title"), r.Title.CenterX, r.Title.CenterY, T.Title, C.InkTitle, r.Title.Width, titleScale, TextLook.Plain(C.InkTitle));
+            Kit.WoodSign(p,r.Title.Inset(-r.W*.025f,0),PlaytestText.T(stuck?"jam.stuck":"jam.title"),PopupDesign.Title,SignDecor.None);
             float line = r.Subtitle.Height / 2f;
             float bodyScale = line * SubtitleFill / p.U(T.Body.Size);
             List<string> subtitle = Lines(p, PlaytestText.T(stuck ? "jam.stuck_subtitle" : "jam.subtitle"), T.Body, r.Subtitle.Width / bodyScale, 2);
@@ -232,13 +230,17 @@ namespace Bloomlings.Playtest.Design
             }
 
             SlotContents(p, r, s);
-            for (int i = 0; i < choices.Count; i++)
+            for(int i=0;i<choices.Count;i++)
             {
-                (string id, ColorSet set, string label, Cost cost, Action action) = choices[i];
-                Choice(p, r.Choices[i], r.CostPills[i], set, GardenLook.BoosterIcon(id), label, cost, action);
+                (string id,ColorSet set,string label,Cost cost,Action action)=choices[i];Box cell=r.Choices[i];
+                p.Mark("ui.button.choice");float depth=Kit.Press(p,cell,true);Kit.Squash(p,cell,depth,tile:true);
+                Kit.FramedTile(p,cell,.16f,depth);
+                Kit.BoosterIcon(p,id,PopupDesign.RecoveryIcon(cell));Box text=PopupDesign.RecoveryLabel(cell);
+                p.Text(label,text.CenterX,text.CenterY,PopupDesign.Label,C.InkBrown,text.Width,look:TextLook.Plain(C.InkBrown));
+                Kit.CostPill(p,r.CostPills[i],cost,chargeIcon:GardenLook.BoosterIcon(id),button:true);p.PopTransform();p.Hit(cell,action);
             }
 
-            Kit.SecondaryButton(p, r.Restart, PlaytestText.T("common.restart"), s.Restart, "ui.restart", T.Button);
+            Kit.SecondaryButton(p, r.Restart, PlaytestText.T("common.restart"), s.Restart, "ui.restart", PrimaryActionDesign.Type(T.Button));
             p.PopTransform();
         }
 
@@ -272,8 +274,8 @@ namespace Bloomlings.Playtest.Design
             {
                 float tile = p.U(170f);
                 Box tileBox = Box.FromCenter(r.Body.CenterX, y + (tile / 2f), tile, tile);
-                Box face = Kit.RaisedButton(p, tileBox, GardenLook.White, 0.26f, 0f);
-                Kit.BoosterIcon(p, booster, Box.FromCenter(face.CenterX, face.CenterY, tile * 0.7f, tile * 0.7f));
+                Box face = Kit.BoosterBezel(p,tileBox,tile*.26f,0,false);
+                Kit.BoosterIcon(p,booster,Box.FromCenter(face.CenterX,face.CenterY,tile*.80f,tile*.80f));
                 y += p.U(iconUnits);
             }
 
@@ -636,7 +638,7 @@ namespace Bloomlings.Playtest.Design
             Kit.CostPill(p, pill, Cost.Petals(petals), amount);
 
             // The lotus sits where the pill put it: left of the amount, the pair centered.
-            float textWidth = Math.Min(p.MeasureText(amount, T.Count, scale), pill.Width - icon - gap - (h * 0.5f));
+            float textWidth = Math.Min(p.MeasureText(amount, PrimaryActionDesign.Type(T.Count), scale), pill.Width - icon - gap - (h * 0.5f));
             float lotusX = pill.CenterX - ((icon + gap + textWidth) / 2f) + (icon / 2f);
             Kit.SparkleBurst(p, lotusX, pill.CenterY, icon * 1.3f, since);
             if (since >= 0f && since < 1.25f)

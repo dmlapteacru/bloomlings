@@ -32,7 +32,7 @@ class SecretManagerClient {
   async getSecret(name) { return { value: name === "GOOGLE_PLAY_LICENSE_KEY" ? licenseKey : "" }; }
 }
 class LeaderboardsApi {
-  async addLeaderboardPlayerScore(projectId, id, playerId, body) { store.scores.push({ playerId, score: body.score }); return { data: { rank: 0 } }; }
+  async addLeaderboardPlayerScore(projectId, id, playerId, body) { store.scores.push({ playerId, score: body.score, metadata: body.metadata }); return { data: { rank: 0 } }; }
 }
 
 const fakes = {
@@ -113,4 +113,38 @@ test("progress state is protected and cannot be reset by the player", async () =
   store.player.delete("erin");
   assert.equal((await submit(500)).reason, "implausible-jump");
   assert.equal(store.scores.length, 1);
+});
+
+
+test("leaderboard profile changes preserve level, score and reached-at time", async () => {
+  const playerId = "appearance-player";
+  const first = { avatar: "avatar.bloom_default", frame: "frame.leaf_ring", badge: "badge.sprout", marker: null };
+  const submit = (level, appearance) => progress({ params: { level, contentVersion: 1, appearanceJson: JSON.stringify(appearance) }, context: context(playerId), logger });
+  assert.equal((await submit(45, first)).accepted, true);
+  const before = { ...store.protected.get(playerId).get("leaderboard_progress") };
+  const changed = { avatar: "avatar.drop_default", frame: "frame.golden_ribbon", badge: null, marker: "marker.level_250", name: "A very long renamed gardener 👩‍🌾" };
+  assert.equal((await submit(45, changed)).accepted, true);
+  const after = store.protected.get(playerId).get("leaderboard_progress");
+  assert.equal(after.score, before.score);
+  assert.equal(after.at, before.at);
+  assert.equal(after.level, before.level);
+  assert.deepEqual(store.scores.at(-1).metadata.appearance, changed);
+  assert.equal((await submit(44, first)).reason, "not-monotonic");
+});
+
+test("invalid leaderboard appearance cannot replace saved cosmetics or advance progress", async () => {
+  const params = { level: 10, contentVersion: 1, appearanceJson: JSON.stringify({ avatar: "https://example.com/a.png" }) };
+  assert.equal((await progress({ params, context: context("bad-look"), logger })).reason, "invalid-appearance");
+  assert.equal(store.protected.get("bad-look"), undefined);
+});
+
+
+test("public leaderboard appearance read returns latest cosmetics without private score state", async () => {
+  const read = require(path.join(__dirname, "..", "cloud-code", "GetLeaderboardAppearances.js"));
+  const current = await read({ params: { playerIdsJson: JSON.stringify(["appearance-player", "unknown", "appearance-player"]) }, context: context("viewer") });
+  assert.deepEqual(current["appearance-player"], { avatar: "avatar.drop_default", frame: "frame.golden_ribbon", badge: null, marker: "marker.level_250", name: "A very long renamed gardener 👩‍🌾" });
+  assert.equal(current.unknown, undefined);
+  assert.equal(current["appearance-player"].level, undefined);
+  assert.equal(Object.keys(current).length, 1);
+  await assert.rejects(read({ params: { playerIdsJson: JSON.stringify(Array(25).fill("user")) }, context: context("viewer") }), /invalid-player-list/);
 });

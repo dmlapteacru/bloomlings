@@ -114,7 +114,7 @@ purchase.question_money,Buy {0} for {1}?
 purchase.buy,Buy
 purchase.balance,You have {0} Petals
 purchase.store_next,Your app store confirms the payment next
-purchase.avatar,this avatar
+purchase.avatar,Avatar
 purchase.price_unknown,the store's price
 pause.title,Paused
 pause.resume,Resume
@@ -139,6 +139,10 @@ jam.stuck_subtitle,Choose a way to continue.
 difficulty.hard,Hard
 difficulty.super_hard,Super Hard
 hud.pause,II
+daily.short,Challenge
+daily.description,"A new puzzle every day, the same challenge for everyone."
+daily.reward,+{0} Petals
+daily.reward_collected,Collected
 daily.title,Daily Challenge
 daily.date,{0} (UTC)
 daily.done,Done for today! A new puzzle arrives at midnight UTC.
@@ -366,3 +370,16 @@ profile.no_frames,Frames come from milestones and the Store
 profile.no_badges,Badges come from milestones and the Store
 profile.bought,New avatar!
 profile.owned,Owned
+
+wardrobe.milestone_every,Every {0} levels
+wardrobe.milestone_reward,Milestone reward
+
+settings.music_label,Music
+settings.sound_label,Sound
+settings.haptics_label,Haptics
+settings.speed_label,Fast forward
+daily_reward.watch_claim,Watch & claim
+purchase.failed,Purchase could not be completed. Try again.
+purchase.price_pending,Price is not available yet.
+settings.privacy_policy,Privacy policy
+settings.privacy_mock,Privacy policy will be added here.

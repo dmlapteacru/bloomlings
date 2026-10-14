@@ -85,61 +85,30 @@ namespace Bloomlings.Client.UI.Design
         }
     }
 
-    /// <summary>
-    /// The purchase confirmation card (spec 005 FR-040, contracts/look.md §6.14; slot <c>ui.card.purchase</c>), both
-    /// builds: a popup card (<see cref="ScreenLayout.Card"/>, "Confirm purchase" in its title, no close: Cancel closes it)
-    /// holding, top to bottom, the item's picture in a cream well (<see cref="Picture"/>), the question naming the item and
-    /// its price on up to two lines ("Buy Fireflies for 5 000 Petals?", <see cref="Question"/>), the cost pill with the
-    /// lotus and the price, or the store's price for real money (<see cref="Price"/>), a caption line (<see cref="Note"/>:
-    /// the Petals balance, or that the store confirms the payment next), the green "Buy" (<see cref="Confirm"/>) and the
-    /// cream "Cancel" (<see cref="Cancel"/>). Engine-free.
-    /// </summary>
+    /// <summary>Compact confirmation: item preview and name, balance/store note, price on Buy, and Cancel. No close icon.</summary>
     public sealed record PurchaseConfirmRegions(CardRegions Card, Box Picture, Box Question, Box Price, Box Note, Box Confirm, Box Cancel)
     {
-        /// <summary>The picture well's side, in reference units (at most half the body's width).</summary>
-        public const float PictureUnits = 320f;
-
-        /// <summary>A line of the question, in reference units; the question takes up to <see cref="QuestionLines"/>.</summary>
-        public const float LineUnits = 60f;
-
+        public const float PictureUnits = 380f;
+        public const float LineUnits = 56f;
         public const int QuestionLines = 2;
-
-        /// <summary>The cost pill's height, in reference units (the Daily Reward's reward pill's).</summary>
-        public const float PriceUnits = 92f;
-
-        /// <summary>The caption line's height, in reference units.</summary>
-        public const float NoteUnits = 50f;
-
-        /// <summary>The card's content height in reference units (<see cref="ScreenLayout.Card"/>).</summary>
-        public const float ContentUnits = 10f + PictureUnits + 26f + (QuestionLines * LineUnits) + 14f + PriceUnits + 10f + NoteUnits + 30f
-            + DesignTokens.Size.CardPrimaryHeight + 24f + DesignTokens.Size.CardSecondaryHeight + 16f;
-
-        /// <summary>The widest the cost pill may grow (the hosts fit it to its price).</summary>
-        public float PriceMaxWidth => Card.Body.Width * 0.7f;
+        public const float PriceUnits = 0f;
+        public const float NoteUnits = 52f;
+        public const float ContentUnits = 12f + PictureUnits + 12f + (QuestionLines * LineUnits) + NoteUnits + 28f + DesignTokens.Size.CardPrimaryHeight + 18f + DesignTokens.Size.CardSecondaryHeight + 16f;
+        public float PriceMaxWidth => Card.Body.Width * .7f;
     }
-
     public static partial class ScreenLayout
     {
-        /// <summary>The purchase confirmation card's regions on a screen (<see cref="PurchaseConfirmRegions"/>).</summary>
-        public static PurchaseConfirmRegions PurchaseConfirm(float width, float height, Insets insets)
+        public static PurchaseConfirmRegions PurchaseConfirm(float width,float height,Insets insets)
         {
-            CardRegions card = Card(width, height, insets, PurchaseConfirmRegions.ContentUnits);
-            float u = DesignTokens.ScaleFor(width, height);
-            Box body = card.Body;
-            float y = body.Top + (10f * u);
-            float side = Math.Min(PurchaseConfirmRegions.PictureUnits * u, body.Width * 0.5f);
-            Box picture = Box.FromCenter(body.CenterX, y + (side / 2f), side, side);
-            y = picture.Bottom + (26f * u);
-            var question = new Box(body.Left, y, body.Right, y + (PurchaseConfirmRegions.QuestionLines * PurchaseConfirmRegions.LineUnits * u));
-            y = question.Bottom + (14f * u);
-            float pill = PurchaseConfirmRegions.PriceUnits * u;
-            var price = new Box(body.CenterX - (body.Width * 0.35f), y, body.CenterX + (body.Width * 0.35f), y + pill);
-            y = price.Bottom + (10f * u);
-            var note = new Box(body.Left, y, body.Right, y + (PurchaseConfirmRegions.NoteUnits * u));
-            y = note.Bottom + (30f * u);
-            Box confirm = CardButton(body, y, true, u);
-            Box cancel = CardButton(body, confirm.Bottom + (24f * u), false, u);
-            return new PurchaseConfirmRegions(card, picture, question, price, note, confirm, cancel);
+            CardRegions card=Card(width,height,insets,PurchaseConfirmRegions.ContentUnits);
+            float u=DesignTokens.ScaleFor(width,height); Box body=card.Body;
+            float side=Math.Min(PurchaseConfirmRegions.PictureUnits*u,body.Width*.64f);
+            Box picture=Box.FromCenter(body.CenterX,body.Top+12*u+side/2,side,side);
+            Box question=new Box(body.Left,picture.Bottom+12*u,body.Right,picture.Bottom+124*u);
+            Box note=new Box(body.Left,question.Bottom,body.Right,question.Bottom+52*u);
+            Box confirm=CardButton(body,note.Bottom+28*u,true,u);
+            Box cancel=CardButton(body,confirm.Bottom+18*u,false,u);
+            return new PurchaseConfirmRegions(card,picture,question,new Box(body.CenterX,note.Top,body.CenterX,note.Top),note,confirm,cancel);
         }
     }
 }

@@ -39,6 +39,27 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void FiveStationsStayOnOneShelf_WithASeparateClaimAction()
+        {
+            foreach((float width,float height) in new[]{(320f,568f),(360f,780f),(414f,966f)})
+            {
+                var insets=new Bloomlings.Client.UI.Design.Insets(top:24,bottom:20);
+                var card=Bloomlings.Client.UI.Design.ScreenLayout.Card(width,height,insets,Bloomlings.Client.UI.Design.DailyRewardCard.ContentUnits(5));
+                var layout=Bloomlings.Client.UI.Design.DailyRewardCard.Layout(card.Body,Bloomlings.Client.UI.Design.DesignTokens.ScaleFor(width,height),5);
+                Assert.That(layout.Rows.Length,Is.EqualTo(5));
+                for(int i=0;i<5;i++)
+                {
+                    Assert.That(layout.Rows[i].Within(layout.Shelf),Is.True);
+                    if(i>0)Assert.That(layout.Rows[i].Overlaps(layout.Rows[i-1]),Is.False);
+                }
+                Assert.That(layout.Claim.Within(card.Body),Is.True);
+                Assert.That(layout.Claim.Overlaps(layout.Shelf),Is.False);
+                Assert.That(layout.Caption.Within(card.Body),Is.True);
+                Assert.That(layout.Claim.Overlaps(layout.Caption),Is.False);
+            }
+        }
+
+        [Test]
         public void LockedBeforeLevel7()
         {
             Assert.That(_daily.CanClaim, Is.False);

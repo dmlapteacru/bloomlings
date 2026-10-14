@@ -409,7 +409,8 @@ namespace Bloomlings.Playtest.Design
                 float icon = f.Height * 0.5f;
                 float textWidth = Math.Min(p.MeasureText(label, s), f.Width - (f.Height * 1.4f));
                 float start = f.CenterX - ((icon + p.U(14f) + textWidth) / 2f);
-                Glyph(p, iconId, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), colors);
+                Box iconBox=Box.FromCenter(start+(icon/2f),f.CenterY,icon,icon);
+                if(iconId=="currency.petal")Petal(p,iconBox);else if(iconId=="ui.ad")AdMark(p,iconBox,enabled);else Glyph(p,iconId,iconBox,colors);
                 p.Text(label, start + icon + p.U(14f) + (textWidth / 2f), f.CenterY, s, C.TextOnColor, textWidth, look: look);
             }
             else
@@ -447,7 +448,7 @@ namespace Bloomlings.Playtest.Design
             p.PushAlpha(enabled ? 1f : 0.55f);
             Squash(p, box, depth);
             Box f = RaisedButton(p, box, GardenLook.Cream, 0.5f, depth);
-            TypeStyle s = style ?? T.ButtonSecondary;
+            TypeStyle s = style ?? PopupDesign.Label;
             TextLook look = GardenLook.LabelOn(GardenLook.Cream);
             if (iconId != null)
             {
@@ -739,7 +740,7 @@ namespace Bloomlings.Playtest.Design
                 CostKind.Free => PlaytestText.T("common.free"),
                 _ => PlaytestText.F("common.charges", cost.Amount),
             };
-            TypeStyle s = T.Count;
+            TypeStyle s = PrimaryActionDesign.Type(T.Count);
             float scale = h * (charges ? 0.66f : 0.56f) / p.U(s.Size);
             bool withCharge = charges && chargeIcon != null;
             float icon = cost.Kind == CostKind.Petals ? h * 0.86f : cost.Kind == CostKind.Free ? h * GardenLook.AdMarkPillShare : withCharge ? h * 0.8f : 0f;
@@ -919,9 +920,8 @@ namespace Bloomlings.Playtest.Design
             p.Hit(r.Card, () => { });
             if (title.Length > 0)
             {
-                TypeStyle style = titleStyle ?? T.Title;
+                TypeStyle style = PopupDesign.Title;
                 Box board = CardLook.Sign(r.Card, r.Title, p.MeasureText(title, style), p.U(1f));
-                CardLotus(p, CardLook.Lotus(board));
                 WoodSign(p, board, title, style, sign ?? SignDecor.Ivy);
             }
 
@@ -943,6 +943,7 @@ namespace Bloomlings.Playtest.Design
         public static void CardFrame(IPainter p, Box box)
         {
             p.Mark("ui.card.frame");
+            if(p.HasSprite(PopupDesign.Frame)) { SlicedSprite(p,PopupDesign.Frame,box,PopupDesign.BorderX,PopupDesign.BorderY,Math.Min(.13f,p.U(95f)/box.Height));return; }
             float radius = CardLook.Radius(box, p.U(1f));
             p.FillRound(box.Offset(0f, p.U(16f)).Inset(-p.U(3f), 0f), radius, C.GardenShadow.WithAlpha(0.18f));
             p.FillRound(box.Offset(0f, p.U(7f)), radius, C.GardenShadow.WithAlpha(0.14f));
@@ -1034,12 +1035,12 @@ namespace Bloomlings.Playtest.Design
         /// and the face raised on it in <paramref name="set"/> (the rows' light cream by default), its corners
         /// <paramref name="radiusShare"/> of the shorter side, sunk by <paramref name="depth"/>. Returns the face's top.
         /// </summary>
-        public static Box FramedTile(IPainter p, Box box, float radiusShare, float depth = 0f, ColorSet? set = null)
+        public static Box FramedTile(IPainter p, Box box, float radiusShare, float depth = 0f, ColorSet? set = null, bool shadow=true)
         {
             p.Mark("ui.tile.framed");
             ColorSet colors = set ?? GardenLook.RowCream;
             float side = Math.Min(box.Width, box.Height);
-            SoftShadow(p, box, side * radiusShare, 0.2f, 0.05f);
+            if(shadow) SoftShadow(p, box, side * radiusShare, 0.2f, 0.05f);
             p.Picture("ui.tile.plate/" + Share(radiusShare), box, (w, h) => UiRaster.ButtonPlate(w, h, radiusShare, GardenLook.TileRimShare));
             Box face = UiRaster.RaisedFaceBox(box, GardenLook.TileRimShare).Offset(0f, UiRaster.RaisedFaceSink(side, depth));
             p.Picture("ui.button.face/" + colors.Name + "/" + Share(radiusShare), face, (w, h) => UiRaster.ButtonFace(w, h, colors, radiusShare, false));
@@ -1130,7 +1131,7 @@ namespace Bloomlings.Playtest.Design
             float h = p.U(96f);
             float w = Math.Min(area.Width, p.MeasureText(message, T.Body) + p.U(80f));
             Box box = Box.FromCenter(area.CenterX, area.Bottom - (h / 2f) - p.U(16f), w, h);
-            RaisedRow(p, box, h / 2f);
+            CardFrame(p,box);
             p.Text(message, box.CenterX, box.CenterY - (h * RaisedRowSide * 0.5f), T.Body, C.InkBrown, box.Width - p.U(40f));
         }
 

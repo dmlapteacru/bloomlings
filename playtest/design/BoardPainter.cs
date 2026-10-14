@@ -410,7 +410,7 @@ namespace Bloomlings.Playtest.Design
         /// look as in the gameplay, volumetric"), stones as stone blocks and ground as grass, inside a thin stone border
         /// when the cells are big enough for one.
         /// </summary>
-        public static void Picture(IPainter p, Box box, LevelDefinition definition, BasePicture picture)
+        public static void Picture(IPainter p, Box box, LevelDefinition definition, BasePicture picture,bool shadow=true)
         {
             p.Mark("tile.picture");
             int w = Math.Max(1, picture.Width);
@@ -429,7 +429,7 @@ namespace Bloomlings.Playtest.Design
             var grid = new Box(ox, oy, ox + (cell * w), oy + (cell * h));
             if (framed)
             {
-                Kit.StoneBorder(p, grid, cell, thin);
+                Kit.StoneBorder(p, grid, cell, thin,shadow);
             }
             else
             {

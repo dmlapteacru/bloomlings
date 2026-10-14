@@ -128,10 +128,10 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheSettingsRows_TakeTheMockupsIcons()
+        public void TheSettingsRows_ShowRecognizableSoundAndHapticsIcons()
         {
-            Assert.That(CardLook.SettingsIconOf("settings.sound").Picture, Is.EqualTo(OwnerPictures.VariantIcon("flower")));
-            Assert.That(CardLook.SettingsIconOf("settings.haptics").Picture, Is.EqualTo(OwnerPictures.VariantIcon("leaf")));
+            Assert.That(CardLook.SettingsIconOf("settings.sound").Picture, Is.EqualTo(PopupDesign.SoundIcon));
+            Assert.That(CardLook.SettingsIconOf("settings.haptics").Picture, Is.EqualTo(PopupDesign.HapticsIcon));
             Assert.That(CardLook.SettingsIconOf("settings.music").Picture, Is.EqualTo(OwnerPictures.VariantIcon("bud")));
             SettingsIcon speed = CardLook.SettingsIconOf("settings.speed");
             Assert.That(speed.Picture, Is.Null);

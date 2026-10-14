@@ -84,9 +84,10 @@ namespace Bloomlings.Playtest.Preview
 
             foreach ((Box box, string text) in p.Texts)
             {
-                // Catalog text may continue below the safe bottom under the opaque stone ledge.
+                // Catalog text may continue below the safe bottom under the opaque menu console.
                 // Only fully covered labels are excluded; visible text keeps the normal safe-area check.
-                if(p.Slots.Contains("ui.nav.illustrations")&&box.Within(GameNavigationDesign.NavWall(ScreenLayout.BottomNav(p.Width,p.Height,p.Insets,BottomNav.Order,NavPlace.Home),p.Width)))continue;
+                Box menu=GameNavigationDesign.NavBacking(ScreenLayout.BottomNav(p.Width,p.Height,p.Insets,BottomNav.Order,NavPlace.Home),p.Width);
+                if(p.Slots.Contains("ui.nav.illustrations")&&box.Top>=menu.Top&&box.Left>=menu.Left&&box.Right<=menu.Right)continue;
                 if (box.Left < safe.Left - 1f || box.Right > safe.Right + 1f || box.Top < safe.Top - 1f || box.Bottom > safe.Bottom + 1f)
                 {
                     yield return at + "text \"" + text + "\" " + box + " leaves the safe area";

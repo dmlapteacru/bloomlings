@@ -1843,3 +1843,40 @@ lip, line)`, `Groove(w, h)`, `KnobShare`, `ToggleMarkShare`), `GardenLook.TanDee
 | On a cream pill ("Free") | the jam's free rescue and Home's free booster (`Kit.CostPill` / `UiKit.CostPill` with `Cost.Free`): 0.8 of the pill's height (`GardenLook.AdMarkPillShare`) before "Free"; the green square with the white ▶ is gone |
 | Never | a video camera, a ▶ or another color for an ad (Play's ▶ is no ad and stays) |
 
+### 6.25 Wardrobe shelves and Leaderboard honor board (owner-approved, 2026-10-14)
+
+This revision replaces the earlier unlocked Wardrobe panel and Leaderboard panel recipes. Approved references and implemented renders are linked in `product/previews/meta-shelves-implemented-v1/README.md`. Existing garden backdrop, header, characters, standard buttons and stone-wall bottom navigation remain the shared direction.
+
+| Screen/piece | Current recipe |
+|---|---|
+| Wardrobe stage | Compact cream stone fitting arch with a runtime character and wooden family name; fixed below the page header |
+| Wardrobe filters | Four families and four worn categories; both strips fixed and touch-sized |
+| Wardrobe inventory | Three previews per wooden shelf; vertical native `ScrollRect`/playtest gesture under fixed filters and menu; visible-row window plus a one-row buffer, per-family/category session scroll memory |
+| Wardrobe actions | Existing catalog/ownership/economy; immediate equip for owned items, confirmation for Petals purchases, no charge on swipe or cancel, no reorder after equip/purchase |
+| Leaderboard | Three stone winners' podiums above scrolling wooden neighbour planks; fixed personal rank above the bottom menu and a small refresh button |
+| Player appearance | Chosen avatar, frame and badge from saved public profile identifiers for each player; independent runtime layers, never a portrait frame baked into the podium; neutral legacy fallback |
+| Name/level surfaces | Independent live labels and plaques; nine-slice wooden planks/captions; bounded measured podium name width and grapheme-safe ellipsis, full name retained in the row model; plain-text player names |
+| Profile updates online | Optional appearance metadata plus bounded public appearance read; same-level updates preserve the accepted score/time; offline edits remain queued |
+
+Shared geometry: `WardrobeShelfDesign`, `LeaderboardHonorDesign`; art/crops: `MetaScreenArt`, `ShopArt`; native surfaces: `MetaShelfView`; renderer fixtures: 73–75. Four ImageGen production sources and provenance are recorded in Shop manifest version 6 and `Art/Shop/SOURCE.md`. Locked-page recipes remain as previously defined.
+
+### 6.26 Shared wooden bottom console — approved A (2026-10-14)
+
+The owner selected variant A from `product/previews/bottom-navigation-concepts-v1/`. This replaces the separate cream navigation tiles and stone wall across all main pages. One honey-wood panel contains the five original illustrated icons, equal-width touch segments and subtle dividers. The follow-up enlarges icons to fill their segments; only the active destination has a caption. Its larger green inset rises slightly above the lip and displays white Lilita One lettering, the same font family as Play/page titles. Other destinations show icons without captions. Locks remain visible and tappable destinations retain their existing routing.
+
+The continuous opaque backing covers the full width from the reserved menu top through the screen bottom, including the safe-area inset and gaps. Content scrolls behind this face and gestures starting on any menu section, divider or side edge cannot reach a page's scrolling viewport. The page's reserved menu height remains unchanged. The raised selected inset extends its own input shield above the lip. Corner flowers may overhang the lip, while icons, labels and selected skin stay inside the safe region.
+
+`GameNavigationDesign` owns the shared geometry, `BottomNavView` the Unity view and `Kit.BottomNav` the playtest twin. `Navigation/wood-console-v1.png` and `wood-selected-v1.png` are unchanged ImageGen RGBA sources with runtime crops and nine-slice borders, recorded in navigation manifest version 7. Existing icons are reused. Current renders and validation are in `product/previews/bottom-navigation-wood-implemented-v1/README.md`.
+
+
+
+## Popup redesign — implementation 2026-10-14
+
+The accepted popup concepts in `product/previews/popup-redesign-concepts-v1` / `v2` supersede the older universal lotus crown and tall per-action stacks. Runtime results and verification: `product/previews/popups-implemented-v1/README.md`. Use the shared ivory/honey-wood 9-slice frame, optional small header decoration, Lilita One short labels and readable Nunito body copy. Pause has one connected secondary tray; purchase shows the item and balance with the actual price on Buy; Daily Rewards shows five steps today on one shelf and a single next-step CTA; Jam shows only eligible recoveries on one divided tray. One visible modal/scrim at a time preserves the underlying stack state.
+
+Final user overrides: retain Settings level controls (−1/+1/+10/Reset); remove Restore Purchases from Settings and No Ads. Native No Ads uses the store's actual availability and localized price. Platform payment, consent and sign-in sheets remain provider-owned. Full-page profile, collection and win/milestone compositions keep their approved direction.
+
+
+## Popup feedback — v2, 2026-10-14
+
+Runtime results: `product/previews/popups-implemented-v2/README.md`. Pause secondary icons are larger and their captions slightly raised. Jam removes the shared inner tray frame and presents individually raised cream buttons with green cost/charge/ad chips. Settings exposes Sound and Haptics with speaker/vibration symbols, retained level controls, and a Privacy policy mock until the owner supplies its URL; speed stays in the gameplay HUD. Tutorial booster previews reuse the gameplay booster bezel and icon proportions. Collection picture shadows/bevel shading are removed; other board shadows follow the shared rounded board-frame geometry.

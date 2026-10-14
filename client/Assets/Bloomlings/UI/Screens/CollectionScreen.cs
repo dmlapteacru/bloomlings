@@ -371,14 +371,13 @@ namespace Bloomlings.Client.UI.Screens
             float line = 0f;
             float wellRadius = 0f;
             float Side(Box b) => Mathf.Min(b.Width, b.Height);
-            Box Well(Box b) => CardLook.TileTop(b).Inset(Side(b) * 0.06f);
+            Box Well(Box b) => b.Inset(Side(b)*.035f).Inset(Side(b)*.06f);
 
             // The frame: a tile in a thin wooden rim (spec 005 FR-047, the playtest's Kit.PictureFrame), its corners 10% of its side.
-            UiKit.FramedTile(layout, root, 0.1f);
+            Image wood=UiKit.RoundGradient("Wood",root,C.WoodLight,C.WoodMid,b=>Side(b)*.1f);
+            Image face=UiKit.RoundGradient("Face",root,C.CreamTop,C.CreamFace,b=>Side(b)*.065f);
+            layout.Add(wood.rectTransform,b=>b);layout.Add(face.rectTransform,b=>b.Inset(Side(b)*.035f));
             Image well = UiKit.RoundGradient("Well", root, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell, _ => wellRadius);
-            Image shade = UiKit.RoundRect("Shade", root, Color.white, _ => wellRadius);
-            UiKit.Gradient(shade, UiTheme.Of(C.GardenShadow.WithAlpha(0.12f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
-            shade.GetComponent<VerticalGradient>().Stop = 0.16f;
             Image wellLine = UiKit.RoundRing("WellLine", root, UiTheme.Of(C.ParchmentEdge.Darken(0.08f)), _ => wellRadius, _ => line);
             RectTransform area = UiFactory.CreateRect("Area", root);
 
@@ -389,12 +388,11 @@ namespace Bloomlings.Client.UI.Screens
                 wellRadius = r * 0.6f;
             });
             layout.Add(well.rectTransform, Well);
-            layout.Add(shade.rectTransform, Well);
             layout.Add(wellLine.rectTransform, Well);
             layout.Add(area, b => Well(b).Inset(Well(b).Width * 0.04f));
             layout.Then(_ =>
             {
-                foreach (Image image in new[] { well, shade, wellLine })
+                foreach (Image image in new[] { well, wellLine })
                 {
                     image.GetComponent<RoundShape>().Apply();
                 }

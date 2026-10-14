@@ -12,12 +12,17 @@
   <PropertyGroup>
     <ApplicationId>com.bloomlings.playtest</ApplicationId>
     <ApplicationTitle>Bloomlings Playtest</ApplicationTitle>
+    <!-- Opt-in integration check: compiled out of normal APKs. Reads the actual installed Android assets. -->
+    <DefineConstants Condition="'$(VerifyGameAssets)' == 'true'">$(DefineConstants);ASSET_VERIFY</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- The designed screens (engine-free, also rendered by playtest/preview) and the Unity client's design kit. -->
     <Compile Include="../design/*.cs" Link="Design/Screens/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" Link="Shared/Design/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Backend/LeaderboardAppearance.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Backend/ILeaderboardService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Backend/LeaderboardScore.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" Link="Shared/BundledRemoteConfigService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" Link="Shared/WardrobeService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" Link="Shared/DailyRewardService.cs" />
@@ -56,4 +61,5 @@
     -->
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" Link="Assets/heromotion/%(Filename)%(Extension)" />
   </ItemGroup>
+  <Import Project="../OptimizeAssets.targets" />
 </Project>

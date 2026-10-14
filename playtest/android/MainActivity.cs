@@ -37,6 +37,10 @@ namespace Bloomlings.Playtest
 
             // The pictures, levels and picture library are the APK's assets, kept once (PlaytestFiles), before anything loads.
             PlaytestFiles.Source = new AndroidAssetFiles(Assets!);
+#if ASSET_VERIFY
+            if (Intent?.GetBooleanExtra("verify-assets", false) == true)
+                Droid.AssetVerification.Run(PlaytestFiles.Source, CacheDir!.AbsolutePath);
+#endif
 #if PLAYTEST_TESTER
             SetContentView(new TesterView(this));
 #else

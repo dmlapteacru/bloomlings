@@ -1,228 +1,101 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using Bloomlings.Client.Art;
+using System.Globalization;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.UI.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Bloomlings.Client.UI.Localization;
-using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
-using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
-
+using C=Bloomlings.Client.UI.Design.DesignTokens.Colors;
+using T=Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Client.Meta.DailyReward
 {
-    /// <summary>
-    /// The Daily Reward popup of the design board's frame 4 (spec 002 FR-022; spec 001 FR-055 as amended on 2026-10-09,
-    /// T134; spec 005 FR-050, <see cref="DailyRewardCard"/>) in the popups' look (contracts/look.md §6.23; the playtest's
-    /// <c>MetaCards.DailyReward</c>):
-    /// <list type="bullet">
-    /// <item><description>"Daily rewards" on the wooden sign, the reward basket heaped with lotuses in the win's soft turning
-    /// light;</description></item>
-    /// <item><description>the day's five steps as raised rows (<see cref="UiKit.DailyStep"/>): each step's Claim (an ad
-    /// step's with the ad mark), green and breathing on the next one, greyed on a later one; a claimed step's check;</description></item>
-    /// <item><description>under them, when the steps come again (midnight UTC).</description></item>
-    /// </list>
-    /// A claim keeps the card open: the row's check pops in and "+N" rises from it. Home's Daily scene opens it at any time
-    /// once unlocked; it no longer opens by itself (spec 005 FR-050: the scene's "!" calls for it instead).
-    /// </summary>
-    public sealed class DailyRewardPopup : MonoBehaviour
+    /// <summary>Today's five steps on one calm shelf; one CTA claims only the next eligible step.</summary>
+    public sealed class DailyRewardPopup:MonoBehaviour
     {
-        private readonly DailyStepView[] _steps = new DailyStepView[DailyRewardService.StepCount];
-        private CardView _card = null!;
-        private TextMeshProUGUI _caption = null!;
-        private TextMeshProUGUI _rise = null!;
-        private Box _body;
-        private DailyRewardRegions _regions = null!;
+        private CardView _card=null!;
+        private TextMeshProUGUI _caption=null!,_claimLabel=null!;
+        private Button _claimButton=null!;
+        private RectTransform _ad=null!;
+        private readonly Image[] _ready=new Image[DailyRewardService.StepCount];
+        private readonly RectTransform[] _checks=new RectTransform[DailyRewardService.StepCount];
+        private readonly Image[] _locks=new Image[DailyRewardService.StepCount];
+        private readonly RectTransform[] _ads=new RectTransform[DailyRewardService.StepCount];
+        private readonly TextMeshProUGUI[] _amounts=new TextMeshProUGUI[DailyRewardService.StepCount];
         private DailyRewardService? _daily;
-        private Action<DailyRewardStep, Action<bool>>? _claim;
         private Func<bool>? _adReady;
+        private Action<DailyRewardStep,Action<bool>>? _claim;
+        private bool _pending;
+        private float _nextRefresh;
         private int _claimedStep;
-        private float _claimedAt = -10f;
-        private float _nextCaption;
-
+        private float _claimedAt;
         public static DailyRewardPopup Create(Transform parent)
         {
-            DailyRewardPopup popup = null!;
-            CardView card = UiKit.Card("DailyReward", parent, Loc.T("daily_reward.title"), DailyRewardCard.ContentUnits(DailyRewardService.StepCount), () => popup.Hide(), sign: SignDecor.None);
-            popup = card.Root.AddComponent<DailyRewardPopup>();
-            popup._card = card;
-
-            Box body = card.Regions.Body;
-            float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
-            DailyRewardRegions d = DailyRewardCard.Layout(body, u, DailyRewardService.StepCount);
-            popup._body = body;
-            popup._regions = d;
-
-            // The reward: a heap of lotuses over a woven basket, in the win's soft turning light (currency.petal_pile).
-            Box art = d.Art;
-            float rays = art.Width * 0.62f;
-            LightRaysView light = UiKit.LightRays("Light", card.Body);
-            UiKit.PlaceBox((RectTransform)light.transform, Box.FromCenter(art.CenterX, art.CenterY, rays * 2f, rays * 2f), body);
-            foreach ((float hx, float hy, float hs) in DailyRewardCard.Heap)
+            DailyRewardPopup popup=null!;
+            CardView card=UiKit.Card("DailyReward",parent,Loc.T("daily_reward.title"),DailyRewardCard.ContentUnits(5),()=>popup.Hide(),sign:SignDecor.None);
+            popup=card.Root.AddComponent<DailyRewardPopup>();popup._card=card;
+            Box body=card.Regions.Body;float u=DesignTokens.ScaleFor(UiKit.ScreenBox().Width,UiKit.ScreenBox().Height);
+            DailyRewardRegions d=DailyRewardCard.Layout(body,u,5);
+            RectTransform shelf=UiKit.PopupTray("Shelf",card.Body);UiKit.PlaceBox(shelf,d.Shelf,body);
+            for(int i=0;i<5;i++)
             {
-                float size = art.Width * hs;
-                Image lotus = UiKit.PetalIcon("Petal", card.Body);
-                UiKit.PlaceBox(lotus.rectTransform, Box.FromCenter(art.CenterX + (hx * art.Width), art.CenterY + (hy * art.Height), size, size), body);
+                DailyRowParts parts=DailyRewardCard.Row(d.Rows[i]);
+                Image station=UiKit.Row("Step"+(i+1),card.Body,false);UiKit.PlaceBox(station.rectTransform,parts.Row,body);
+                popup._ready[i]=UiKit.RoundRing("Ready",station.transform,UiTheme.Of(GardenLook.Green.Top),b=>b.Width*.2f,_=>UiKit.Units(5));UiFactory.Stretch(popup._ready[i].rectTransform);
+                TextMeshProUGUI number=UiKit.Label("Number",station.transform,(i+1).ToString(CultureInfo.InvariantCulture),PopupDesign.Label,UiTheme.Of(C.InkBrownSoft));UiKit.PlaceBox(number.rectTransform,parts.Number,parts.Row);
+                Image lotus=UiKit.PetalIcon("Petals",station.transform);UiKit.PlaceBox(lotus.rectTransform,parts.Lotus,parts.Row);
+                popup._amounts[i]=UiKit.Label("Amount",station.transform,string.Empty,PopupDesign.Label,UiTheme.Of(C.InkBrown),look:TextLook.Plain(C.InkBrown));UiKit.PlaceBox(popup._amounts[i].rectTransform,parts.Amount,parts.Row);
+                RectTransform check=UiFactory.CreateRect("Check",station.transform);BoxLayout checkLayout=BoxLayout.On(check);UiKit.CheckBadge(checkLayout,b=>Box.FromCenter(b.CenterX,b.CenterY,Math.Min(b.Width,b.Height),Math.Min(b.Width,b.Height)));UiKit.PlaceBox(check,parts.Button,parts.Row);popup._checks[i]=check;
+                popup._locks[i]=UiKit.RaisedGlyph(station.transform,ProceduralSprites.RaisedGlyph("ui.lock",C.InkBrownSoft));UiKit.PlaceBox(popup._locks[i].rectTransform,parts.Button.Inset(parts.Button.Width*.12f),parts.Row);
+                popup._ads[i]=UiKit.AdMark("Ad",station.transform);UiKit.PlaceBox(popup._ads[i],Box.FromCenter(parts.Row.Right-parts.Row.Width*.16f,parts.Row.Top+parts.Row.Height*.12f,parts.Row.Width*.26f,parts.Row.Width*.26f),parts.Row);
             }
-
-            Image basket = Basket("Basket", card.Body);
-            UiKit.PlaceBox(basket.rectTransform, d.Basket, body);
-
-            for (int i = 0; i < DailyRewardService.StepCount; i++)
+            popup._claimButton=UiKit.PrimaryButton("Claim",card.Body,Loc.T("daily_reward.claim"),popup.ClaimNext);
+            UiKit.PlaceBox((RectTransform)popup._claimButton.transform,d.Claim,body);popup._claimLabel=popup._claimButton.GetComponentInChildren<TextMeshProUGUI>();
+            GardenButton claimView=popup._claimButton.GetComponent<GardenButton>();
+            popup._ad=UiKit.AdMark("Ad",claimView.Content);
+            BoxLayout.On(claimView.Content).Watch(popup._claimLabel).Then(b=>
             {
-                int index = i;
-                DailyStepView step = UiKit.DailyStep("Step" + (i + 1).ToString(CultureInfo.InvariantCulture), card.Body, () => popup.ClaimAt(index));
-                UiKit.PlaceBox(step.Root, d.Rows[i], body);
-                popup._steps[i] = step;
-            }
-
-            popup._caption = UiKit.Label("Caption", card.Body, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
-            UiKit.PlaceBox(popup._caption.rectTransform, d.Caption, body);
-
-            // The claimed "+N" rising from where it was claimed, over the rows.
-            popup._rise = UiKit.KitLabel("Rise", card.Body, string.Empty, T.Reward, TextLook.OnGloss(GardenLook.Green));
-            popup._rise.raycastTarget = false;
-            popup._rise.gameObject.SetActive(false);
-            card.Root.SetActive(false);
-            return popup;
+                Box f=PrimaryActionDesign.Content(b,false);TypeStyle type=PrimaryActionDesign.Type(T.Button);
+                if(popup._ad.gameObject.activeSelf)UiKit.PriceButtonContent(popup._ad,popup._claimLabel,type,f);
+                else KitText.Place(popup._claimLabel,type,f.CenterX,f.CenterY,UiKit.Units(type.Size),f.Width-f.Height*.3f);
+            });
+            popup._caption=UiKit.Label("Caption",card.Body,string.Empty,T.Caption,UiTheme.Of(C.InkBrownSoft));UiKit.PlaceBox(popup._caption.rectTransform,d.Caption,body);
+            card.Root.SetActive(false);return popup;
         }
-
-        /// <param name="daily">The steps and their states.</param>
-        /// <param name="adReady">Whether a rewarded ad can show now; without one and without the ad's stand-in
-        /// (<see cref="DailyRewardService.AdStub"/>) an ad step's Claim is greyed.</param>
-        /// <param name="claim">Claims a step (an ad step after its rewarded ad, or its stand-in) and calls back with whether it paid.</param>
-        public void Show(DailyRewardService daily, Func<bool> adReady, Action<DailyRewardStep, Action<bool>> claim)
-        {
-            _daily = daily;
-            _adReady = adReady;
-            _claim = claim;
-            _claimedStep = 0;
-            _rise.gameObject.SetActive(false);
-            Refresh();
-            _card.Root.SetActive(true);
-        }
-
-        public void Hide() => _card.Root.SetActive(false);
-
+        public void Show(DailyRewardService daily,Func<bool> adReady,Action<DailyRewardStep,Action<bool>> claim)
+        { _daily=daily;_adReady=adReady;_claim=claim;_pending=false;_claimedStep=0;Refresh();_card.Root.SetActive(true); }
+        public void Hide()=>_card.Root.SetActive(false);
         private void Refresh()
         {
-            if (_daily == null)
+            if(_daily==null)return;
+            for(int i=0;i<5;i++)
             {
-                return;
+                DailyRewardStep step=_daily.Steps[i];DailyStepState state=_daily.StateOf(step.Number);
+                _amounts[i].text=NumberText.Plus(step.Petals);_ready[i].gameObject.SetActive(state==DailyStepState.Ready);
+                _checks[i].gameObject.SetActive(state==DailyStepState.Claimed);_locks[i].gameObject.SetActive(state==DailyStepState.Locked);_ads[i].gameObject.SetActive(step.Ad);
             }
-
-            IReadOnlyList<DailyRewardStep> steps = _daily.Steps;
-            for (int i = 0; i < _steps.Length && i < steps.Count; i++)
+            bool available=_daily.CanClaim && _daily.NextStep.HasValue;
+            _claimButton.gameObject.SetActive(available);
+            if(available)
             {
-                DailyRewardStep step = steps[i];
-                DailyStepState state = _daily.StateOf(step.Number);
-                bool payable = !step.Ad || DailyRewardService.AdStub || (_adReady?.Invoke() ?? false);
-                _steps[i].Show(step.Number, step.Petals, step.Ad, state == DailyStepState.Claimed, state == DailyStepState.Ready, payable);
+                bool ad=_daily.NextStep!.Value.Ad;_ad.gameObject.SetActive(ad);
+                _claimLabel.text=Loc.T(ad?"daily_reward.watch_claim":"daily_reward.claim");
+                _claimButton.interactable=!_pending && (!ad || DailyRewardService.AdStub || (_adReady?.Invoke() ?? false));
             }
-
-            UpdateCaption();
+            (string key,object[] args)=DailyRewardCard.Duration(_daily.MinutesToNextDay);
+            _caption.text=Loc.F(DailyRewardCard.CaptionKey(_daily.CanClaim),Loc.F(key,args));_nextRefresh=Time.unscaledTime+1;
         }
-
-        private void ClaimAt(int index)
+        private void ClaimNext()
         {
-            if (_daily == null || _claim == null)
-            {
-                return;
-            }
-
-            DailyRewardStep step = _daily.Steps[index];
-            _claim(step, paid =>
-            {
-                if (!paid)
-                {
-                    return;
-                }
-
-                // A short sparkle burst where the step was claimed (spec 003 FR-020); the row's check pops in, "+N" rises.
-                if (_card.Root.transform.parent is RectTransform overlay)
-                {
-                    Bloomlings.Client.Gameplay.Effects.UiFx.Puff(overlay, _steps[index].Claim.transform.position, UiTheme.Of(DesignTokens.Colors.PetalCenter), 8, UiKit.Units(140f), UiKit.Units(36f), 0.8f, ProceduralSprites.Shape("fx.sparkle"));
-                }
-
-                _claimedStep = step.Number;
-                _claimedAt = Time.unscaledTime;
-                _rise.text = NumberText.Plus(step.Petals);
-                _rise.gameObject.SetActive(true);
-                _rise.transform.SetAsLastSibling();
-                Refresh();
-            });
+            if(_pending || _daily==null || !_daily.CanClaim || !_daily.NextStep.HasValue || _claim==null)return;
+            DailyRewardStep step=_daily.NextStep.Value;_pending=true;Refresh();
+            _claim(step,paid=>{_pending=false;if(!this)return;if(paid){_claimedStep=step.Number;_claimedAt=Time.unscaledTime;}Refresh();});
         }
-
         private void Update()
         {
-            if (Time.unscaledTime >= _nextCaption)
-            {
-                UpdateCaption();
-            }
-
-            if (_claimedStep <= 0)
-            {
-                return;
-            }
-
-            float since = Time.unscaledTime - _claimedAt;
-            DailyStepView row = _steps[_claimedStep - 1];
-            row.Check.localScale = Vector3.one * DailyRewardCard.CheckPop(since);
-            if (DailyRewardCard.Rise(since) is (float rise, float alpha))
-            {
-                Box claim = DailyRewardCard.Row(_regions.Rows[_claimedStep - 1]).Button;
-                float h = _regions.Rows[_claimedStep - 1].Height;
-                Box local = UiKit.ToLocal(Box.FromCenter(claim.CenterX, claim.CenterY - (rise * h), claim.Width * 1.4f, h), _body);
-                KitText.Place(_rise, T.Reward, local.CenterX, local.CenterY, h * 0.5f, claim.Width * 1.4f);
-                _rise.alpha = alpha;
-            }
-            else
-            {
-                _rise.gameObject.SetActive(false);
-            }
-        }
-
-        /// <summary>The caption under the rows, once a second: when the steps come again.</summary>
-        private void UpdateCaption()
-        {
-            _nextCaption = Time.unscaledTime + 1f;
-            if (_daily == null)
-            {
-                return;
-            }
-
-            (string key, object[] args) = DailyRewardCard.Duration(_daily.MinutesToNextDay);
-            _caption.text = Loc.F(DailyRewardCard.CaptionKey(_daily.CanClaim), Loc.F(key, args));
-        }
-
-        /// <summary>
-        /// The reward basket (the playtest's <c>MetaCards.Basket</c>, <c>currency.reward_basket</c>): woven wood with
-        /// darker weave lines and a lighter upper half, outlined in <c>wood.dark_line</c>, baked into one sprite and
-        /// stretched over the rect like the playtest's shapes.
-        /// </summary>
-        private static Image Basket(string name, Transform parent)
-        {
-            Func<float, float, float> sdf = ShapeLibrary.Get("currency.reward_basket");
-            var layers = new List<(Func<float, float, float> Sdf, Rgba Color)>
-            {
-                ((x, y) => sdf(x, y) - 0.05f, C.WoodDarkLine),
-                (sdf, C.RewardBasket),
-                ((x, y) => Math.Max(sdf(x, y) + 0.05f, Math.Min(Weave(y, 7f), Weave(x + (0.07f * (float)Math.Floor(y * 7f)), 9f))), C.WoodDarkLine.WithAlpha(0.35f)),
-                // The light over the basket's upper half (shape units have y up).
-                ((x, y) => Math.Max(sdf(x, y) + 0.04f, -y), C.RewardBasket.Lighten(0.25f)),
-            };
-            Image image = UiFactory.CreateImage(name, parent, null, Color.white);
-            PictureFit.On(image, (w, h) => ProceduralSprites.Baked("currency.reward_basket/woven", Mathf.Max(8, Mathf.Max(w, h)), layers), sliced: false, shape: PictureShape.Rect);
-            return image;
-        }
-
-        /// <summary>Thin lines across <paramref name="v"/> every 1/<paramref name="count"/> (negative on a line).</summary>
-        private static float Weave(float v, float count)
-        {
-            float t = (v * count) - (float)Math.Floor(v * count);
-            return (0.42f - Math.Abs(t - 0.5f)) / count;
+            if(Time.unscaledTime>=_nextRefresh)Refresh();
+            if(_claimedStep>0)_checks[_claimedStep-1].localScale=Vector3.one*DailyRewardCard.CheckPop(Time.unscaledTime-_claimedAt);
         }
     }
 }

@@ -770,7 +770,7 @@ namespace Bloomlings.Playtest.Preview
                     }
                     else
                     {
-                        using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
+                        using System.IO.Stream? stream = PlaytestFiles.Open(SpriteResource(name));
                         image = stream != null ? SKImage.FromEncodedData(stream)?.ToRasterImage(ensurePixelData: true) : null;
                         if (image != null && (name == NavigationSkin.CreamBar || name == NavigationSkin.CreamSelected))
                         {
@@ -778,9 +778,23 @@ namespace Bloomlings.Playtest.Preview
                             SKImage? cropped = image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
                             image.Dispose(); image=cropped;
                         }
+                        if(image!=null&&PopupDesign.SettingsIcon(name))
+                    { var c=PopupDesign.SettingsCrop(name,image.Width,image.Height);var cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));if(!ReferenceEquals(cropped,image))image.Dispose();image=cropped; }
+                    if(image!=null&&name==PopupDesign.Header)
+                    { var c=PopupDesign.HeaderCrop(image.Width,image.Height);var cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));if(!ReferenceEquals(cropped,image))image.Dispose();image=cropped; }
+                    if(image!=null&&name==PopupDesign.Frame)
+                        {
+                            var c=PopupDesign.Crop(image.Width,image.Height);var cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
+                            if(!ReferenceEquals(cropped,image))image.Dispose();image=cropped;
+                        }
                         if(image!=null&&GameNavigationDesign.Owns(name))
                         {
-                            var c=GameNavigationDesign.Crop(name,image.Width,image.Height);SKImage? cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));image.Dispose();image=cropped;
+                            var c=GameNavigationDesign.Crop(name,image.Width,image.Height);
+                            if(c.Left!=0||c.Top!=0||c.Width!=image.Width||c.Height!=image.Height)
+                            {
+                                SKImage? cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
+                                if(!ReferenceEquals(cropped,image))image.Dispose();image=cropped;
+                            }
                         }
                         if (image != null && (name.StartsWith("navigation/button-", StringComparison.Ordinal) || name == "navigation/plus-v2"))
                         {
@@ -796,6 +810,15 @@ namespace Bloomlings.Playtest.Preview
                         }
                         if (image != null && name.StartsWith("shop/", StringComparison.Ordinal) && name != "shop/background")
                         {
+                            if(MetaScreenArt.Is(name))
+                            {
+                                var c=MetaScreenArt.Crop(name,image.Width,image.Height);
+                                if(c.Left != 0 || c.Top != 0 || c.Width != image.Width || c.Height != image.Height)
+                                {
+                                    SKImage? cropped=image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
+                                    if(!ReferenceEquals(cropped,image))image.Dispose();image=cropped;
+                                }
+                            }
                             if(name.StartsWith("shop/profile-frame-",StringComparison.Ordinal))
                             {
                                 var c=ProfileGameDesign.FrameCrop(name,image.Width,image.Height);
@@ -822,7 +845,8 @@ namespace Bloomlings.Playtest.Preview
                             }
                             if (name == "shop/price-button")
                             {
-                                SKImage? cropped = image.Subset(new SKRectI(109, 100, 2094, 605));
+                                var c=ShopBodyDesign.PriceCrop(image.Width,image.Height);
+                                SKImage? cropped = image.Subset(new SKRectI(c.Left,c.Top,c.Left+c.Width,c.Top+c.Height));
                                 image.Dispose();
                                 image = cropped;
                             }

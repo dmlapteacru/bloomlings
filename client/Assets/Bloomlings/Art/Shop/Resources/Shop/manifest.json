@@ -1,6 +1,6 @@
 {
   "tool": "OpenAI ImageGen (built-in)",
-  "version": 5,
+  "version": 6,
   "files": [
     {
       "path": "background.png",
@@ -108,6 +108,42 @@
       "sha256": "20e3b7c262851bd164d9486de9d101cf8e1474f1891ba6e3846d136861a109de",
       "slot": "ui.shop.illustrations",
       "source": "owner",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "meta-wardrobe-stage-v1.png",
+      "width": 1562,
+      "height": 1007,
+      "sha256": "6973eefb3efdd20b5eb96e5c9e2a862248939649ee6020bef9aea34955ac9a2c",
+      "slot": "ui.wardrobe.illustrations",
+      "source": "imagegen",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "meta-shelf-atlas-v1.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "d770919482c45a7992efcb7c8644e20a23d5e86394880d8001a8eb2383f899a3",
+      "slot": "ui.wardrobe.illustrations",
+      "source": "imagegen",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "meta-leaderboard-podium-v1.png",
+      "width": 1796,
+      "height": 876,
+      "sha256": "2c448e3fbf94b4fcd6d3c5224bbd55c1e9935c8324296b4537c79a88f33aaff0",
+      "slot": "ui.leaderboard.illustrations",
+      "source": "imagegen",
+      "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
+    },
+    {
+      "path": "meta-hats-atlas-v1.png",
+      "width": 1306,
+      "height": 1204,
+      "sha256": "7dbf704de132812b9db86f2498267b45f20ded9b6865010518fc7da72a637abd",
+      "slot": "ui.wardrobe.illustrations",
+      "source": "imagegen",
       "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"
     }
   ]

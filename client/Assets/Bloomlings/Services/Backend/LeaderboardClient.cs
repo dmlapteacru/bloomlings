@@ -21,6 +21,7 @@ namespace Bloomlings.Client.Services.Backend
     {
         public const string UnlockId = "system.leaderboard";
         public const string SubmittedCounter = "leaderboard.submittedLevel";
+        public const string AppearanceCounter = "leaderboard.appearanceFingerprint";
         /// <summary>
         /// The players read above and below the player (and the top read, twice as many plus one): five, so the Leaderboard
         /// page's rows fill its panel on every phone (eleven lines on 21:9; the owner's choice of 2026-10-04).
@@ -58,7 +59,9 @@ namespace Bloomlings.Client.Services.Backend
 
         public int SubmittedLevel => (int)(_save.Stats.Counters.TryGetValue(SubmittedCounter, out long level) ? level : 0);
 
-        public bool HasPendingSubmission => _save.Progression.HighestCompletedLevel > SubmittedLevel;
+        public bool HasPendingSubmission => _save.Progression.HighestCompletedLevel > SubmittedLevel ||
+            (_service is ILeaderboardAppearanceService && _save.Progression.HighestCompletedLevel > 0 &&
+             (!_save.Stats.Counters.TryGetValue(AppearanceCounter,out long fingerprint) || fingerprint != LeaderboardAppearance.FromSave(_save).Fingerprint));
 
         /// <summary>The SHA-256 of a winning command log (one <see cref="CommandText"/> line per command).</summary>
         public static string CommandLogHash(IEnumerable<Command> commands)
@@ -90,12 +93,18 @@ namespace Bloomlings.Client.Services.Backend
             _submitting = true;
             int level = _save.Progression.HighestCompletedLevel;
             SubmitResult? result = null;
-            yield return _service.Submit(level, _contentVersion, _commandLogHash, r => result = r);
+            LeaderboardAppearance appearance = LeaderboardAppearance.FromSave(_save);
+            if (_service is ILeaderboardAppearanceService styled)
+                yield return styled.SubmitAppearance(level,_contentVersion,_commandLogHash,appearance,r=>result=r);
+            else yield return _service.Submit(level, _contentVersion, _commandLogHash, r => result = r);
             _submitting = false;
             if (result != null && result.Accepted)
             {
                 _save.Stats.Counters[SubmittedCounter] = Math.Max(SubmittedLevel, level);
+                if (_service is ILeaderboardAppearanceService) _save.Stats.Counters[AppearanceCounter] = appearance.Fingerprint;
                 _persist();
+                // A profile edit arriving during the request remains queued and is sent after the acknowledged snapshot.
+                if (HasPendingSubmission) yield return SubmitPending();
             }
         }
 

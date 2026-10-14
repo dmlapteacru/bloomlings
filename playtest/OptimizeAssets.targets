@@ -1,0 +1,26 @@
+<Project>
+  <PropertyGroup>
+    <OptimizeGameAssets Condition="'$(OptimizeGameAssets)' == ''">true</OptimizeGameAssets>
+    <GameAssetMaxEdge Condition="'$(GameAssetMaxEdge)' == ''">1024</GameAssetMaxEdge>
+    <_AssetPackProject>$(MSBuildThisFileDirectory)../tools/assetpack/Bloomlings.AssetPack.csproj</_AssetPackProject>
+  </PropertyGroup>
+  <Target Name="OptimizeBundledGameAssets" BeforeTargets="_ComputeAndroidAssetsPaths"
+          Condition="'$(OptimizeGameAssets)' == 'true' and '$(DesignTimeBuild)' != 'true'">
+    <PropertyGroup>
+      <_PackedAssetRoot>$([System.IO.Path]::GetFullPath('$(IntermediateOutputPath)packed-images/'))</_PackedAssetRoot>
+    </PropertyGroup>
+    <ItemGroup>
+      <_GameImage Include="@(AndroidAsset)" Condition="'%(Extension)' == '.png' or '%(Extension)' == '.jpg'" />
+    </ItemGroup>
+    <MakeDir Directories="$(_PackedAssetRoot)" />
+    <WriteLinesToFile File="$(_PackedAssetRoot)input.txt" Lines="@(_GameImage->'%(FullPath)|%(Link)')" Overwrite="true" WriteOnlyWhenDifferent="true" />
+    <Exec Command="dotnet run --project &quot;$(_AssetPackProject)&quot; -c Release -- &quot;$(_PackedAssetRoot)input.txt&quot; &quot;$(_PackedAssetRoot)&quot; $(GameAssetMaxEdge)" />
+    <ItemGroup>
+      <!-- Item transforms retain Link metadata: the APK and saves keep exactly the same logical names. -->
+      <_PackedGameImage Include="@(_GameImage->'$(_PackedAssetRoot)%(Link)')" />
+      <AndroidAsset Remove="@(_GameImage)" />
+      <AndroidAsset Include="@(_PackedGameImage)" />
+      <FileWrites Include="@(_PackedGameImage)" />
+    </ItemGroup>
+  </Target>
+</Project>

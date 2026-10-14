@@ -175,16 +175,15 @@ namespace Bloomlings.Playtest.Design
                 Box box = r.Promo(scene);
                 bool calling = scene == PromoScene.NoAds || app.Meta.DailyReward.CanClaim;
                 Action open = scene == PromoScene.NoAds ? () => app.OpenOverlay(Overlay.RemoveAds) : app.OpenDailyReward;
-                float depth = Kit.Press(p, box, true);
-                Kit.Squash(p, box, depth);
-                Plate(p, box, r.W, depth);
+                float press = HomePromo.PressScale(p.Pressed(box), p.Released(box));
+                press *= HomePromo.HomeVisualScale;
+                p.PushSquash(press, press, box.CenterX, box.Bottom);
                 moving |= Promo(p, scene, box, app.PromoSeconds, calling, r.W);
 
-                // The Daily scene's "!" while a step waits and the card was not opened today (spec 005 FR-050).
-                if (scene == PromoScene.Daily && app.Meta.DailyReward.ShowsBadge)
+                if (scene == PromoScene.Daily && (app.Meta.DailyReward.ShowsBadge || !app.Meta.DailyReward.CanClaim))
                 {
-                    Kit.AlertBadge(p, DailyRewardCard.BadgeDisc(HomePromo.PlateBox(box)));
-                    moving = true;
+                    Box seal = HomePromo.SealBox(box);
+                    PromoSeal(p, seal, !app.Meta.DailyReward.CanClaim);
                 }
 
                 p.PopTransform();
@@ -218,7 +217,7 @@ namespace Bloomlings.Playtest.Design
             {
                 foreach (PromoLayer layer in layers)
                 {
-                    PromoShadow(p, layer, shadowW);
+                    if (HomePromo.CastsShadow(layer.Picture)) PromoShadow(p, layer, shadowW);
                 }
             }
 
@@ -240,8 +239,8 @@ namespace Bloomlings.Playtest.Design
                 {
                     // The label on the stand's wooden plaque, in the wooden sign's embossed brown letters.
                     Box plaque = HomePromo.Plaque(box, scene);
-                    float scale = plaque.Height * HomePromo.LabelShare / p.U(T.LevelPill.Size);
-                    p.Text(label, plaque.CenterX, plaque.CenterY, T.LevelPill, C.InkBrown, plaque.Width * 0.92f, scale, GardenLook.SignLetters(C.InkBrown));
+                    float scale = plaque.Height * HomePromo.LabelShare / p.U(HomePromo.LabelStyle.Size);
+                    p.Text(label, plaque.CenterX, plaque.CenterY, HomePromo.LabelStyle, C.InkBrown, plaque.Width * 0.92f, scale, GardenLook.SignLetters(C.InkBrown));
                 }
             }
 
@@ -272,21 +271,6 @@ namespace Bloomlings.Playtest.Design
             p.PopAlpha();
         }
 
-        /// <summary>
-        /// The plate a promo scene stands on (spec 005 FR-036, <see cref="HomePromo.PlateBox"/>): its soft shadow, then since
-        /// FR-047 the cream face raised on its wooden plate as the buttons (<see cref="Kit.RaisedButton"/>), pressing with the
-        /// scene.
-        /// </summary>
-        private static void Plate(IPainter p, Box scene, float w, float depth)
-        {
-            p.Mark("ui.button.round");
-            Box plate = HomePromo.PlateBox(scene);
-            (Box shadow, float pad, float blur) = HomePromo.PlateShadowOf(plate, w);
-            p.Picture(HomePromo.PlateShadowKey, shadow, (pw, ph) => HomePromo.PlateShadow(pw, ph, shadow, plate, pad, blur));
-            Kit.RaisedButton(p, plate, GardenLook.White, HomePromo.PlateRadiusShare, depth);
-        }
-
-        /// <summary>Whether every picture of a promo scene is embedded (<see cref="HomePromo.Pictures"/>).</summary>
         private static bool HasPromoPictures(IPainter p, PromoScene scene)
         {
             string slot = HomePromo.Slot(scene);
@@ -570,14 +554,31 @@ namespace Bloomlings.Playtest.Design
         {
             if (look.DailyChallenge)
             {
-                // The playtest has no Daily Challenge content.
-                RoundSide(p, r.Daily, () => app.HomeToast("Daily Challenge: not in the playtest yet"), face =>
-                {
-                    p.Mark("ui.sun");
-                    float g = face.Width * 0.8f;
-                    OutlinedShape(p, "ui.sun", Box.FromCenter(face.CenterX, face.CenterY, g, g), C.GardenFlowerCenter, C.GardenFlowerCenterLine);
-                });
+                float depth = Kit.Press(p, r.Daily, true);
+                Kit.Squash(p, r.Daily, depth);
+                ChallengePicture(p, r.Daily);
+                p.PopTransform();
+                p.Hit(Kit.Touch(p, r.Daily), () => app.OpenOverlay(Overlay.DailyChallenge));
             }
+        }
+
+        private static void PromoSeal(IPainter p, Box box, bool completed)
+        {
+            p.Mark("ui.promo.daily.seal");
+            Box face = Kit.RimmedIconFace(p, box, GardenLook.Green, 0f);
+            p.Shape(completed ? "ui.check" : "symbol.leaf", face.Inset(face.Width * .14f),
+                completed ? Rgba.White : C.GardenFlowerCenter);
+        }
+
+        public static void ChallengePicture(IPainter p, Box box)
+        {
+            p.Mark("ui.sun");
+            if (p.HasSprite(PainterBase.DecorPrefix + HomePromo.ChallengePicture))
+                p.Sprite(PainterBase.DecorPrefix + HomePromo.ChallengePicture, box);
+            else Kit.RaisedGlyph(p, "ui.sun", box, C.GardenFlowerCenter);
+            Box label = HomePromo.ChallengeLabel(box);
+            p.Text(PlaytestText.T("daily.short"), label.CenterX, label.CenterY, HomePromo.LabelStyle,
+                C.InkBrown, label.Width, label.Height * .95f / p.U(HomePromo.LabelStyle.Size), TextLook.Plain(C.InkBrown));
         }
 
         /// <summary>

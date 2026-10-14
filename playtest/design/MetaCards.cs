@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
@@ -19,14 +20,7 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static class MetaCards
     {
-        /// <summary>
-        /// The Daily Reward popup (spec 001 FR-055 as amended on 2026-10-09; spec 005 FR-050, <see cref="DailyRewardCard"/>):
-        /// the lotus heap in its basket and light, then the day's five steps as raised rows, each with its number, the lotus
-        /// and "+N", and at its right its Claim (an ad step's with the ad mark): green and breathing on the next step, greyed
-        /// and not active on a later one; a claimed step's check; and under them when the steps come again. A claim keeps the card open:
-        /// the check pops in, "+N" rises from the row and the Petals pill counts up. The playtest has no ads: an ad step takes
-        /// the ad's stand-in (<see cref="DailyRewardService.AdStub"/>), else its Claim is disabled.
-        /// </summary>
+        /// <summary>Five display stations and one next-step action; state and UTC reset come from the reward service.</summary>
         public static void DailyReward(IPainter p, DesignApp app, float since)
         {
             DailyRewardService daily = app.Meta.DailyReward;
@@ -34,126 +28,49 @@ namespace Bloomlings.Playtest.Design
             CardRegions r = Kit.Card(p, DailyRewardCard.ContentUnits(steps.Count), PlaytestText.T("daily_reward.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
             DailyRewardRegions d = DailyRewardCard.Layout(r.Body, p.U(1f), steps.Count);
 
-            // The reward: a heap of lotuses over a woven basket, in the win's soft turning light.
-            p.Mark("currency.petal_pile");
-            Kit.LightRays(p, d.Art.CenterX, d.Art.CenterY, d.Art.Width * 0.62f, since);
-            foreach ((float hx, float hy, float hs) in DailyRewardCard.Heap)
+            Kit.NavigationBar(p,d.Shelf,0);
+            (int claimedStep,float claimedSince)=app.DailyClaim;
+            for(int i=0;i<steps.Count;i++)
             {
-                float size = d.Art.Width * hs;
-                Kit.Petal(p, Box.FromCenter(d.Art.CenterX + (hx * d.Art.Width), d.Art.CenterY + (hy * d.Art.Height), size, size));
+                DailyRewardStep step=steps[i];DailyStepState state=daily.StateOf(step.Number);DailyRowParts parts=DailyRewardCard.Row(d.Rows[i]);
+                p.Mark("ui.daily.step");Kit.RaisedRow(p,parts.Row,parts.Row.Width*.2f);
+                if(state==DailyStepState.Ready) p.StrokeRound(parts.Row.Inset(p.U(2f)),parts.Row.Width*.2f,p.U(5f),GardenLook.Green.Top);
+                p.Text(step.Number.ToString(CultureInfo.InvariantCulture),parts.Number.CenterX,parts.Number.CenterY,PopupDesign.Label,C.InkBrownSoft,parts.Number.Width,sizeScale:.7f,look:TextLook.Plain(C.InkBrownSoft));
+                Kit.Petal(p,parts.Lotus);p.Text(NumberText.Plus(step.Petals),parts.Amount.CenterX,parts.Amount.CenterY,PopupDesign.Label,C.InkBrown,parts.Amount.Width,sizeScale:.85f,look:TextLook.Plain(C.InkBrown));
+                Box status=parts.Button;
+                if(state==DailyStepState.Claimed) Kit.CheckBadge(p,status.CenterX,status.CenterY,Math.Min(status.Width,status.Height)*DailyRewardCard.CheckPop(step.Number==claimedStep?claimedSince:10));
+                else if(state==DailyStepState.Locked) Kit.RaisedGlyph(p,"ui.lock",status.Inset(status.Width*.12f),C.InkBrownSoft);
+                else if(step.Ad) Kit.AdMark(p,status);
+                if(step.Ad && state!=DailyStepState.Ready) Kit.AdMark(p,Box.FromCenter(parts.Row.Right-parts.Row.Width*.16f,parts.Row.Top+parts.Row.Height*.12f,parts.Row.Width*.26f,parts.Row.Width*.26f));
             }
-
-            Basket(p, d.Basket);
-
-            (int claimedStep, float claimedSince) = app.DailyClaim;
-            for (int i = 0; i < steps.Count; i++)
-            {
-                DailyRewardStep step = steps[i];
-                float sinceClaim = step.Number == claimedStep ? claimedSince : float.MaxValue;
-                Step(p, app, DailyRewardCard.Row(d.Rows[i]), step, daily.StateOf(step.Number), sinceClaim);
-            }
-
-            (string key, object[] args) = DailyRewardCard.Duration(daily.MinutesToNextDay);
-            string caption = PlaytestText.F(DailyRewardCard.CaptionKey(daily.CanClaim), PlaytestText.F(key, args));
-            p.Text(caption, d.Caption.CenterX, d.Caption.CenterY, T.Caption, C.InkBrownSoft, d.Caption.Width);
+            if(daily.CanClaim && daily.NextStep is DailyRewardStep next)
+                Kit.PrimaryButton(p,d.Claim,PlaytestText.T(next.Ad?"daily_reward.watch_claim":"daily_reward.claim"),!next.Ad||DailyRewardService.AdStub ? ()=>app.ClaimDailyStep(next) : (Action?)null,iconId:next.Ad?"ui.ad":null);
+            (string key,object[] args)=DailyRewardCard.Duration(daily.MinutesToNextDay);
+            p.Text(PlaytestText.F(DailyRewardCard.CaptionKey(daily.CanClaim),PlaytestText.F(key,args)),d.Caption.CenterX,d.Caption.CenterY,T.Caption,C.InkBrownSoft,d.Caption.Width);
             Kit.EndCard(p);
         }
 
-        /// <summary>
-        /// A Daily Reward step's row (<c>ui.daily.step</c>): the raised slab, the number, the lotus and "+N", and its Claim
-        /// (green and breathing on the next step, greyed and not active on a later one) or, once claimed, its check (popping
-        /// in after the claim). After a claim, "+N" rises from its claim.
-        /// </summary>
-        private static void Step(IPainter p, DesignApp app, DailyRowParts row, DailyRewardStep step, DailyStepState state, float sinceClaim)
+        /// <summary>The separate Daily Challenge window. Puzzle content remains native-client only.</summary>
+        public static void DailyChallenge(IPainter p,DesignApp app,float since, bool completed = false)
         {
-            p.Mark("ui.daily.step");
-            float h = row.Row.Height;
-            Kit.RaisedRow(p, row.Row, h * 0.3f);
-            float lift = h * Kit.RaisedRowSide / 2f;
-            string number = step.Number.ToString(CultureInfo.InvariantCulture);
-            p.Text(number, row.Number.CenterX, row.Number.CenterY - lift, T.Count, C.InkBrownSoft, row.Number.Width, h * 0.42f / p.U(T.Count.Size), TextLook.Plain(C.InkBrownSoft));
-            Kit.Petal(p, row.Lotus.Offset(0f, -lift));
-            string amount = NumberText.Plus(step.Petals);
-            p.TextLeft(amount, row.Amount.Left, row.Amount.CenterY - lift, T.Reward, C.InkBrown, row.Amount.Width, h * 0.46f / p.U(T.Reward.Size), TextLook.Plain(C.InkBrown));
-
-            if (state == DailyStepState.Claimed)
-            {
-                Box badge = DailyRewardCard.Badge(row.Button.Offset(0f, -lift));
-                Kit.CheckBadge(p, badge.CenterX, badge.CenterY, badge.Width * DailyRewardCard.CheckPop(sinceClaim));
-            }
-            else
-            {
-                bool payable = state == DailyStepState.Ready && (!step.Ad || DailyRewardService.AdStub);
-                StepButton(p, row.Button, step.Ad, payable ? () => app.ClaimDailyStep(step) : (Action?)null, breathe: state == DailyStepState.Ready);
-            }
-
-            // The claimed "+N" rising from where it was claimed.
-            if (DailyRewardCard.Rise(sinceClaim) is (float rise, float alpha))
-            {
-                p.PushAlpha(alpha);
-                ColorSet green = GardenLook.Green;
-                p.Text(amount, row.Button.CenterX, row.Button.CenterY - (rise * h), T.Reward, C.TextOnColor, row.Button.Width * 1.4f, h * 0.5f / p.U(T.Reward.Size), TextLook.OnGloss(green));
-                p.PopAlpha();
-            }
+            const float art=260,line=56;
+            float content=10+art+24+2*line+22+72+26+DesignTokens.Size.CardPrimaryHeight+40;
+            CardRegions r=Kit.Card(p,content,PlaytestText.T("daily.title"),app.CardClose,Kit.Pop(since),sign:SignDecor.None);
+            float y=r.Body.Top+p.U(10);
+            HomeScreen.ChallengePicture(p,Box.FromCenter(r.Body.CenterX,y+p.U(art/2),p.U(art),p.U(art)));
+            if(completed)Kit.CheckBadge(p,r.Body.CenterX+p.U(art*.36f),y+p.U(art*.14f),p.U(art*.25f));
+            y+=p.U(art+24);
+            var lines=EndCards.Lines(p,PlaytestText.T(completed ? "daily.done" : "daily.description"),T.Body,r.Body.Width*.94f,2);
+            for(int i=0;i<2;i++){if(i<lines.Count)p.Text(lines[i],r.Body.CenterX,y+p.U(line/2),T.Body,C.InkBrown,r.Body.Width*.94f);y+=p.U(line);}
+            y+=p.U(22);
+            Box reward=Box.FromCenter(r.Body.CenterX,y+p.U(36),p.U(340),p.U(72));
+            Kit.Petal(p,new Box(reward.Left,reward.Top,reward.Left+p.U(72),reward.Bottom));
+            p.Text(completed ? PlaytestText.T("daily.reward_collected") : PlaytestText.F("daily.reward",DailyChallengeRules.RewardPetals),reward.CenterX+p.U(40),reward.CenterY,PopupDesign.Label,C.InkBrown,reward.Width-p.U(80),look:TextLook.Plain(C.InkBrown));
+            y+=p.U(72+26);
+            Kit.PrimaryButton(p,ScreenLayout.CardButton(r.Body,y,true,p.Scale),PlaytestText.T(completed ? "daily.play_again" : "common.play"),()=>{app.CloseOverlay();app.HomeToast("Daily Challenge: not in the playtest yet");});
+            Kit.EndCard(p);
         }
 
-        /// <summary>
-        /// A step's Claim: the green face raised on its wooden plate (<see cref="Kit.RaisedButton"/>, as every primary
-        /// button since spec 005 FR-045), "Claim" in the buttons' white letters (<see cref="DailyRewardCard.ClaimTextShare"/>
-        /// of the face), an ad step's after the clapperboard (<see cref="GardenLook.AdMark"/>, <see cref="DailyRewardCard.ClaimIconShare"/>); breathing while it
-        /// waits; greyed without <paramref name="action"/> (a later step, or an ad step without its ad).
-        /// </summary>
-        private static void StepButton(IPainter p, Box box, bool ad, Action? action, bool breathe)
-        {
-            p.Mark("ui.button.primary");
-            bool enabled = action != null;
-            ColorSet colors = enabled ? GardenLook.Green : GardenLook.Green.Disabled();
-            float depth = Kit.Press(p, box, enabled);
-            bool breathing = breathe && enabled && depth == 0f;
-            if (breathing)
-            {
-                p.PushTransform(0f, 0f, GardenLook.Breathe(p.Now), box.CenterX, box.CenterY);
-            }
-
-            Kit.Squash(p, box, depth);
-            Box f = Kit.RaisedButton(p, box, colors, 0.5f, depth, gloss: enabled);
-            string label = PlaytestText.T("daily_reward.claim");
-            TypeStyle s = T.Button;
-            float scale = f.Height * DailyRewardCard.ClaimTextShare / p.U(s.Size);
-            TextLook look = TextLook.OnGloss(colors);
-            if (ad)
-            {
-                float icon = f.Height * DailyRewardCard.ClaimIconShare;
-                float gap = f.Height * DailyRewardCard.ClaimGapShare;
-                float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - icon - gap - (f.Height * 0.4f));
-                float start = f.CenterX - ((icon + gap + textWidth) / 2f);
-                Kit.AdMark(p, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), enabled);
-                p.Text(label, start + icon + gap + (textWidth / 2f), f.CenterY, s, C.TextOnColor, textWidth, scale, look);
-            }
-            else
-            {
-                p.Text(label, f.CenterX, f.CenterY, s, C.TextOnColor, f.Width - (f.Height * 0.5f), scale, look);
-            }
-
-            p.PopTransform();
-            if (breathing)
-            {
-                p.PopTransform();
-            }
-
-            if (action != null)
-            {
-                p.Hit(Kit.Touch(p, box), action);
-            }
-        }
-
-        /// <summary>
-        /// The Remove Ads card (spec 005 FR-033), opened from Home's No Ads scene at every level (the Store keeps its own No
-        /// Ads row): the title, the No Ads scene idling (<see cref="HomeScreen.Promo"/>), what Remove Ads does, the purchase
-        /// (purchases are off in the playtest, so the green button is disabled and reads "Unavailable" over the offline
-        /// line, as the Store's money rows), Restore Purchases (which says purchases are offline: the playtest restores
-        /// nothing) and the close. Its toasts show under the card, over the scrim.
-        /// </summary>
         public static void RemoveAds(IPainter p, DesignApp app, float since)
         {
             const float sceneUnits = 420f;
@@ -162,8 +79,8 @@ namespace Bloomlings.Playtest.Design
             float bodyWidth = ScreenLayout.Card(p.Width, p.Height, p.Insets, 0f).Body.Width;
             List<string> lines = EndCards.Lines(p, PlaytestText.T("remove_ads.body"), T.Body, bodyWidth * 0.92f, 3);
             float sceneHeight = sceneUnits * HomePromo.HeightShare;
-            float content = 10f + sceneHeight + 14f + (lines.Count * lineUnits) + 36f + DesignTokens.Size.CardPrimaryHeight + captionUnits + 20f + DesignTokens.Size.CardSecondaryHeight + 40f;
-            CardRegions r = Kit.Card(p, content, PlaytestText.T("remove_ads.title"), app.CardClose, Kit.Pop(since), T.Title);
+            float content = 10f + sceneHeight + 14f + (lines.Count * lineUnits) + 36f + DesignTokens.Size.CardPrimaryHeight + captionUnits + 20f;
+            CardRegions r = Kit.Card(p, content, PlaytestText.T("remove_ads.title"), app.CardClose, Kit.Pop(since), sign:SignDecor.None);
             float y = r.Body.Top + p.U(10f);
 
             // The No Ads scene at its idle pose, small and centered.
@@ -179,10 +96,8 @@ namespace Bloomlings.Playtest.Design
 
             // The purchase, off in the playtest: the disabled green button and the offline line under it.
             Box buy = ScreenLayout.CardButton(r.Body, y + p.U(36f), true, p.Scale);
-            Kit.PrimaryButton(p, buy, PlaytestText.T("store.unavailable"), null);
+            Kit.PrimaryButton(p, buy, PlaytestText.T("store.unavailable"), null,style:PrimaryActionDesign.Type(T.Button),set:GardenLook.Green.Disabled());
             p.Text(PlaytestText.T("store.offline"), r.Body.CenterX, buy.Bottom + p.U(captionUnits / 2f), T.Caption, C.InkBrownSoft, r.Body.Width);
-            Box restore = ScreenLayout.CardButton(r.Body, buy.Bottom + p.U(captionUnits + 20f), false, p.Scale).Inset(p.U(40f), 0f);
-            Kit.SecondaryButton(p, restore, PlaytestText.T("remove_ads.restore"), () => app.HomeToast(PlaytestText.T("store.offline")));
             Kit.EndCard(p);
 
             // Home's toast lies under the scrim while this card is open: it shows under the card instead.
@@ -209,26 +124,6 @@ namespace Bloomlings.Playtest.Design
 
             string note = offer.RealMoney ? PlaytestText.T("purchase.store_next") : PlaytestText.F("purchase.balance", NumberText.Group(app.Meta.Economy.Petals));
             Kit.PurchaseCard(p, offer, app.PurchasePicture, note, app.BuyConfirmed, app.CloseOverlay, Kit.Pop(since));
-        }
-
-        /// <summary>The reward basket: woven wood (darker weave lines) with a lighter rim, outlined like the reference's objects.</summary>
-        private static void Basket(IPainter p, Box box)
-        {
-            p.Mark("currency.reward_basket");
-            Func<float, float, float> sdf = ShapeLibrary.Get("currency.reward_basket");
-            p.ShapeOf("currency.reward_basket/line", (x, y) => sdf(x, y) - 0.05f, box, C.WoodDarkLine);
-            p.Shape("currency.reward_basket", box, C.RewardBasket);
-            p.ShapeOf("currency.reward_basket/weave", (x, y) => Math.Max(sdf(x, y) + 0.05f, Math.Min(Weave(y, 7f), Weave(x + (0.07f * (float)Math.Floor(y * 7f)), 9f))), box, C.WoodDarkLine.WithAlpha(0.35f));
-            p.PushClip(new Box(box.Left, box.Top, box.Right, box.CenterY));
-            p.ShapeOf("currency.reward_basket/light", (x, y) => sdf(x, y) + 0.04f, box, C.RewardBasket.Lighten(0.25f));
-            p.PopClip();
-        }
-
-        /// <summary>Thin lines across <paramref name="v"/> every 1/<paramref name="count"/> (negative on a line).</summary>
-        private static float Weave(float v, float count)
-        {
-            float t = (v * count) - (float)Math.Floor(v * count);
-            return (0.42f - Math.Abs(t - 0.5f)) / count;
         }
 
         /// <summary>An item's player-facing name (<c>cosmetic.{id}</c> in the string table), else its catalog name.</summary>

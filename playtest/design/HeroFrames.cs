@@ -97,6 +97,8 @@ namespace Bloomlings.Playtest.Design
 
         public static PalettePicture? Decode(byte[] png)
         {
+            if (PackedPalette.TryDecode(png, out int packedWidth, out int packedHeight, out byte[] packedColors, out byte[] packedIndices))
+                return new PalettePicture(packedWidth, packedHeight, packedIndices, packedColors);
             if (png.Length < 8 || !png.AsSpan(0, 8).SequenceEqual(Signature))
             {
                 return null;

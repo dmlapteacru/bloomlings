@@ -208,9 +208,10 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void WoodSign(IPainter p, Box box, string text, TypeStyle style, SignDecor decor = SignDecor.None, Rgba? letters = null, float ivyScale = 1f)
         {
-            NavigationSignArt(p, box, style);
+            bool quiet=style==PopupDesign.Title && decor==SignDecor.None;
+            if(quiet && p.HasSprite(PopupDesign.Header))SlicedSprite(p,PopupDesign.Header,box,.12f,.3f);else NavigationSignArt(p, box, style);
             TextLook look = NavigationSkin.TitleLetters;
-            p.Text(text, box.CenterX, box.CenterY - box.Height * .025f, NavigationSkin.Title, look.FillTop, NavigationSkin.SignRoom(box), box.Height * NavigationSkin.SignTextShare(style) / p.U(NavigationSkin.Title.Size), look);
+            p.Text(text, box.CenterX, box.CenterY - box.Height * .025f, NavigationSkin.Title, look.FillTop, quiet?box.Width*.88f:NavigationSkin.SignRoom(box), box.Height * (quiet?.62f:NavigationSkin.SignTextShare(style)) / p.U(NavigationSkin.Title.Size), look);
         }
 
         /// <summary>
@@ -340,14 +341,14 @@ namespace Bloomlings.Playtest.Design
         /// before the tiles: the gap shows between them as their thin dark separation. Seeds follow the block's place, so
         /// the border never flickers.
         /// </summary>
-        public static void StoneBorder(IPainter p, Box grid, float cell, float thickness = BoardLayout.Stone)
+        public static void StoneBorder(IPainter p, Box grid, float cell, float thickness = BoardLayout.Stone,bool shadow=true)
         {
             p.Mark("board.border.stone");
             float gap = cell * 0.04f;
             float t = cell * thickness;
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
-            p.FillRound(outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), t * 0.5f, C.GardenShadow.WithAlpha(0.22f));
+            if(shadow) p.FillRound(outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), GameplaySkin.BoardCornerRadius(t), C.GardenShadow.WithAlpha(0.22f));
             float rimShare = t / Math.Min(outer.Width, outer.Height);
             p.Picture("gameplay.board.rim/" + thickness + "/" + rimShare, outer, (w, h) => GameplaySkin.BoardRim(w, h, rimShare));
             p.FillRound(inner, gap * 2f, GardenLook.BoardGap);
@@ -697,7 +698,7 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="radius"/>), sinking by the press <paramref name="depth"/>; a disabled tile's face is grey
         /// (<see cref="ColorSet.Disabled"/>). Returns the face's content box.
         /// </summary>
-        private static Box BoosterBezel(IPainter p, Box box, float radius, float depth, bool disabled)
+        public static Box BoosterBezel(IPainter p, Box box, float radius, float depth, bool disabled)
         {
             p.Mark("booster.tile");
             Box face = box.Offset(0, Math.Min(box.Width, box.Height) * 0.035f * depth);

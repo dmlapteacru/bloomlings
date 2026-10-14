@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 9,
   "files": [
     {
       "file": "page-sign-v1.png",
@@ -118,6 +118,46 @@
       "width": 2030,
       "height": 775,
       "sha256": "9c6d58ab8e68a2a6734d4389c4c299d4b250c4364eb065d78395e1be3f9c246e",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "wood-console-v1.png",
+      "width": 1997,
+      "height": 787,
+      "sha256": "64ef5fa554e54703c5185f39690fb1dcd42934d3f125f2de7b4756914fa99570",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "wood-selected-v1.png",
+      "width": 1159,
+      "height": 1356,
+      "sha256": "ec67af1f44b1b56dc58f7512a255889d2924349d67f545871a46602a3f7ca3da",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "popup-frame-v1.png",
+      "width": 1489,
+      "height": 1056,
+      "sha256": "cfbf83427256f801c037d2f1da68f1a526ea9b7d411a79cefaea7a4c065fa929",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "popup-title-v1.png",
+      "width": 2172,
+      "height": 724,
+      "sha256": "78e19ccd7ffcaf111dac63a0c5062af51835b91a8910f05b7deaca1be37c85e4",
+      "alpha": true,
+      "generator": "built-in OpenAI ImageGen"
+    },
+    {
+      "file": "settings-controls-v1.png",
+      "width": 1774,
+      "height": 887,
+      "sha256": "9f4940d7603aad571bcd9d50b80f9454a10509e43bc00d240cd1ef2195f2084d",
       "alpha": true,
       "generator": "built-in OpenAI ImageGen"
     }

@@ -3,13 +3,7 @@ using System.Collections.Generic;
 
 namespace Bloomlings.Client.UI.Design
 {
-    /// <summary>
-    /// A popup card's pieces (spec 005 FR-045, the owner's mockup of 2026-10-08; contracts/look.md §6.19), shared by the
-    /// playtest's <c>Kit.Card</c> and Unity's <c>UiKit.Card</c>: the wooden frame round the cream panel
-    /// (<see cref="UiRaster.CardFrame"/>), the title on a wooden sign over the frame's top edge, a pink lotus behind the
-    /// sign and the close button over the top-right corner (no sprigs over its corners since FR-049, the owner, 2026-10-08:
-    /// "remove those branches in every popup"). Engine-free.
-    /// </summary>
+    /// <summary>Shared popup heading and settings-row geometry. Header decoration is optional; there is no lotus crown.</summary>
     public static class CardLook
     {
         /// <summary>The title sign's height in reference units.</summary>
@@ -26,7 +20,7 @@ namespace Bloomlings.Client.UI.Design
         public static Box Sign(Box card, Box title, float titleWidth, float unit)
         {
             float h = SignUnits * unit;
-            float width = Math.Min(card.Width * 0.78f, titleWidth + (h * 1.4f));
+            float width = Math.Min(card.Width * 0.80f, Math.Max(card.Width*.62f,titleWidth + (h * 1.4f)));
             return Box.FromCenter(card.CenterX, title.CenterY - (30f * unit), width, h);
         }
 
@@ -40,16 +34,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The card's corner radius for its <paramref name="card"/> box (<c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>
         public static float Radius(Box card, float unit) => Math.Max(DesignTokens.Radius.CardMin * unit, card.Width * DesignTokens.Radius.Card);
 
-        /// <summary>
-        /// The icon of a Settings row (the owner's mockup of 2026-10-08): the owner's flower for Sound, the leaf for Haptics,
-        /// the violet bud for Music (Unity's row, not in the mockup), or, for Fast forward, the raised <c>ui.fast</c> glyph in
-        /// <c>medal.gold</c>. <see cref="SettingsIcon.Picture"/> is
-        /// an icon picture's name (<see cref="OwnerPictures.VariantIcon"/>), else <see cref="SettingsIcon.Glyph"/> the shape.
-        /// </summary>
+        /// <summary>Settings symbols: speaker for Sound, vibrating phone for Haptics, with drawn fallbacks.</summary>
         public static SettingsIcon SettingsIconOf(string key) => key switch
         {
-            "settings.sound" => new SettingsIcon(OwnerPictures.VariantIcon("flower"), null, ShapeLibrary.SymbolId("flower")),
-            "settings.haptics" => new SettingsIcon(OwnerPictures.VariantIcon("leaf"), null, ShapeLibrary.SymbolId("leaf")),
+            "settings.sound" => new SettingsIcon(PopupDesign.SoundIcon,null,"ui.sound"),
+            "settings.haptics" => new SettingsIcon(PopupDesign.HapticsIcon,null,"ui.haptics"),
             "settings.music" => new SettingsIcon(OwnerPictures.VariantIcon("bud"), null, ShapeLibrary.SymbolId("bud")),
             _ => new SettingsIcon(null, "ui.fast", "ui.fast"),
         };

@@ -15,13 +15,15 @@
     <ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
     <ApplicationVersion>$([MSBuild]::ValueOrDefault('$(GITHUB_RUN_NUMBER)', '1'))</ApplicationVersion>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <RuntimeIdentifiers>android-arm64;android-arm;android-x64</RuntimeIdentifiers>
+    <!-- A phone downloads only its CPU's code. ARM32/x64/universal remain build options (android-apk workflow). -->
+    <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == '' and '$(RuntimeIdentifier)' == ''">android-arm64</RuntimeIdentifiers>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
-    <ProjectReference Include="$(MSBuildThisFileDirectory)../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
+    <!-- These netstandard libraries are CPU-neutral. Do not give Android's inner RID builds separate artifact pivots. -->
+    <ProjectReference Include="$(MSBuildThisFileDirectory)../core/src/Bloomlings.Core/Bloomlings.Core.csproj" GlobalPropertiesToRemove="RuntimeIdentifier;RuntimeIdentifiers;SelfContained" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)../core/src/Bloomlings.Content/Bloomlings.Content.csproj" GlobalPropertiesToRemove="RuntimeIdentifier;RuntimeIdentifiers;SelfContained" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" Link="Shared/EconomyConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" Link="Shared/IRemoteConfigService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" Link="Shared/RemoteConfigKeys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Meta/DailyChallenge/DailyChallengeRules.cs" Link="Shared/DailyChallengeRules.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Meta/Wardrobe/CosmeticCatalog.cs" Link="Shared/CosmeticCatalog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" Link="Shared/InkContrast.cs" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv" LogicalName="strings/Strings_en.csv" />

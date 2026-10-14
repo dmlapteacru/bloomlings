@@ -38,7 +38,7 @@ namespace Bloomlings.Playtest.Preview
         private static string? Check(System.Reflection.Assembly assembly, string name, HeroFrame frame)
         {
             byte[] png;
-            using (Stream? stream = assembly.GetManifestResourceStream(PainterBase.SpriteResource(name)))
+            using (Stream? stream = PlaytestFiles.Open(PainterBase.SpriteResource(name)))
             {
                 if (stream == null)
                 {
@@ -61,7 +61,9 @@ namespace Bloomlings.Playtest.Preview
                 return "decodes to " + own.Width + " x " + own.Height + ", the kit's data says " + frame.Width + " x " + frame.Height;
             }
 
-            using SKBitmap? skia = SKBitmap.Decode(png, new SKImageInfo(own.Width, own.Height, SKColorType.Rgba8888, SKAlphaType.Unpremul));
+            // Compare shipped PNG/BPF1 frames with the original master PNG, independently of the packer's verification.
+            using Stream? master = assembly.GetManifestResourceStream(PainterBase.SpriteResource(name));
+            using SKBitmap? skia = master != null ? SKBitmap.Decode(master, new SKImageInfo(own.Width, own.Height, SKColorType.Rgba8888, SKAlphaType.Unpremul)) : null;
             if (skia == null)
             {
                 return "SkiaSharp does not decode it";

@@ -39,14 +39,14 @@ namespace Bloomlings.Client.UI.Screens
 
             // The stage keeps the banner's place on the screen; the sign is as wide as its letters and stars need.
             RectTransform stage = UiFactory.Place(UiFactory.CreateRect("Stage", shade.transform), 0.08f, 0.55f, 0.92f, 0.7f);
-            banner._sign = UiKit.WoodSign("Sign", stage, string.Empty, T.Title, SignDecor.None, C.BadgeHard);
+            banner._sign = UiKit.WoodSign("Sign", stage, string.Empty, PopupDesign.Title, SignDecor.None, C.BadgeHard);
             (RectTransform hardLeft, RectTransform hardRight) = Stars(stage, "ui.star", C.BadgeHard, out banner._hard);
             (RectTransform superLeft, RectTransform superRight) = Stars(stage, "ui.star2", C.BadgeSuperHard, out banner._super);
             TextMeshProUGUI label = banner._sign.Label;
             BoxLayout.On(stage).Watch(label).Then(b =>
             {
                 float h = Mathf.Min(b.Height, UiKit.Units(SignUnits));
-                float em = Mathf.Min(UiKit.Units(T.Title.Size), h * 0.62f);
+                float em = Mathf.Min(UiKit.Units(PopupDesign.Title.Size), h * 0.62f);
                 float measured = KitText.Measure(label, em);
                 float star = h * 0.56f;
                 float width = Mathf.Min(b.Width, (measured > 0f ? measured : b.Width * 0.4f) + (2f * star) + (h * 1.2f));

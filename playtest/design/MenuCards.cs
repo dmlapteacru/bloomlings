@@ -19,26 +19,19 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Pause(IPainter p, DesignApp app, float since)
         {
-            float buttons = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.CardSecondaryHeight) + (4f * 28f) + 30f;
-            CardRegions r = Kit.Card(p, buttons, PlaytestText.T("pause.title"), app.CardClose, Kit.Pop(since), T.Title);
-            float gap = p.U(28f);
-            float y = r.Body.Top + p.U(24f);
-            Box Take(bool primary)
+            CardRegions r=Kit.Card(p,PopupDesign.PauseContent,PlaytestText.T("pause.title"),app.CardClose,Kit.Pop(since));
+            Kit.PrimaryButton(p,PopupDesign.PauseResume(r.Body,p.Scale),PlaytestText.T("pause.resume"),app.CloseOverlay);
+            Box tray=PopupDesign.PauseTray(r.Body,p.Scale);Kit.NavigationBar(p,tray,3);
+            Box[] cells=ScreenLayout.Row(tray,3,0,float.MaxValue,false);
+            string[] labels={PlaytestText.T("common.restart"),PlaytestText.T("pause.settings"),PlaytestText.T("pause.home")};
+            string[] icons={"ui.restart","ui.settings","ui.star"};
+            Action[] actions={()=>{app.CloseOverlay();app.Level?.Restart();},()=>app.OpenOverlay(Overlay.Settings),app.GoHome};
+            for(int i=0;i<cells.Length;i++)
             {
-                Box b = ScreenLayout.CardButton(r.Body, y, primary, p.Scale);
-                y = b.Bottom + gap;
-                return b;
+                Box cell=cells[i];Box icon=PopupDesign.CellIcon(cell);
+                if(i==2) Kit.OwnerPicture(p,PainterBase.IconPrefix+"nav-home",icon);else Kit.RaisedGlyph(p,icons[i],icon,C.InkBrown);
+                Box label=PopupDesign.CellLabel(cell);p.Text(labels[i],label.CenterX,label.CenterY,PopupDesign.Label,C.InkBrown,label.Width,look:TextLook.Plain(C.InkBrown));p.Hit(cell,actions[i]);
             }
-
-            // Resume, then the card's narrower cream buttons (spec 003 FR-011, FR-011a).
-            Kit.PrimaryButton(p, Take(true), PlaytestText.T("pause.resume"), app.CloseOverlay);
-            Kit.SecondaryButton(p, Take(false), PlaytestText.T("common.restart"), () =>
-            {
-                app.CloseOverlay();
-                app.Level?.Restart();
-            }, "ui.restart");
-            Kit.SecondaryButton(p, Take(false), PlaytestText.T("pause.settings"), () => app.OpenOverlay(Overlay.Settings), "ui.settings");
-            Kit.SecondaryButton(p, Take(false), PlaytestText.T("pause.home"), app.GoHome, GardenLook.BackGlyph.ShapeId);
             Kit.EndCard(p);
         }
 
@@ -49,7 +42,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Settings(IPainter p, DesignApp app, float since)
         {
-            float rows = (3f * 126f) + (2f * 20f) + 30f + 20f + DesignTokens.Size.TouchMin;
+            float rows = PopupDesign.SettingsContent;
             CardRegions r = Kit.Card(p, rows, PlaytestText.T("settings.title"), app.CardClose, Kit.Pop(since), T.Title);
             var save = app.Meta.Save.Settings;
             (string Key, bool On, Action Toggle)[] items =
@@ -65,31 +58,24 @@ namespace Bloomlings.Playtest.Design
                     save.Haptics = !save.Haptics;
                     app.Meta.Persist();
                 }),
-                ("settings.speed", save.Speed2x, () =>
-                {
-                    save.Speed2x = !save.Speed2x;
-                    app.Meta.Persist();
-                    if (app.Level != null)
-                    {
-                        app.Level.RefreshSpeed();
-                    }
-                }),
             };
-            Box[] lines = ScreenLayout.Column(new Box(r.Body.Left, r.Body.Top + p.U(12f), r.Body.Right, r.Body.Bottom), items.Length, p.U(126f), p.U(20f));
+            Box[] lines = ScreenLayout.Column(new Box(r.Body.Left, r.Body.Top + p.U(12f), r.Body.Right, r.Body.Bottom), items.Length, p.U(126f), p.U(12f));
             for (int i = 0; i < items.Length; i++)
             {
                 (string key, bool on, Action toggle) = items[i];
                 Box line = lines[i];
-                Kit.Row(p, line, false);
+                if(i>0)p.Line(line.Left+line.Width*.04f,line.Top-p.U(6),line.Right-line.Width*.04f,line.Top-p.U(6),p.U(2),C.ParchmentEdge.WithAlpha(.35f));
                 DrawSettingsIcon(p, CardLook.SettingsIconOf(key), CardLook.SettingsIconBox(line, p.U(1f)));
                 string value = PlaytestText.T(on ? "common.on" : "common.off");
                 float left = CardLook.SettingsLabelLeft(line, p.U(1f));
-                p.TextLeft(PlaytestText.F(key, value), left, line.CenterY, T.ButtonSecondary, C.InkBrown, CardLook.SettingsLabelRight(line, p.U(1f)) - left, CardLook.SettingsLabelScale, TextLook.Plain(C.InkBrown));
+                p.TextLeft(PlaytestText.T(key + "_label"), left, line.CenterY, PopupDesign.Label, C.InkBrown, CardLook.SettingsLabelRight(line, p.U(1f)) - left, CardLook.SettingsLabelScale, TextLook.Plain(C.InkBrown));
                 Kit.Toggle(p, CardLook.SettingsToggleBox(line, p.U(1f)), on, toggle);
             }
 
             float top = lines[lines.Length - 1].Bottom + p.U(20f);
             DevRow(p, app, new Box(r.Body.Left, top, r.Body.Right, top + p.U(DesignTokens.Size.TouchMin)));
+            Box policy=ScreenLayout.CardButton(r.Body,top+p.U(DesignTokens.Size.TouchMin+24),false,p.Scale);
+            Kit.SecondaryButton(p,policy,PlaytestText.T("settings.privacy_policy"),()=>app.OpenOverlay(Overlay.PrivacyPolicy));
             Kit.EndCard(p);
         }
 
@@ -97,6 +83,7 @@ namespace Bloomlings.Playtest.Design
         private static void DrawSettingsIcon(IPainter p, SettingsIcon icon, Box box)
         {
             p.Mark("ui.settings.icon");
+            if(icon.Picture!=null && PopupDesign.SettingsIcon(icon.Picture)){p.Sprite(icon.Picture,box);return;}
             if (icon.Glyph != null)
             {
                 Kit.RaisedGlyph(p, icon.Glyph, box.Inset(box.Width * 0.06f), C.MedalGold);
@@ -112,6 +99,13 @@ namespace Bloomlings.Playtest.Design
         /// new profile, after "dev L<i>n</i>" (the current level, so a skip shows at once). Used from a level's pause, a
         /// control also returns Home, where the new level waits. Each pill is half the row tall; the whole cell takes the tap.
         /// </summary>
+        public static void PrivacyPolicy(IPainter p,DesignApp app,float since)
+        {
+            CardRegions r=Kit.Card(p,180,PlaytestText.T("settings.privacy_policy"),app.CardClose,Kit.Pop(since),sign:SignDecor.None);
+            var lines=EndCards.Lines(p,PlaytestText.T("settings.privacy_mock"),T.Body,r.Body.Width,2);
+            float line=p.U(60),y=r.Body.CenterY-(lines.Count-1)*line/2;
+            foreach(string text in lines){p.Text(text,r.Body.CenterX,y,T.Body,C.InkBrown,r.Body.Width);y+=line;}Kit.EndCard(p);
+        }
         private static void DevRow(IPainter p, DesignApp app, Box row)
         {
             string[] labels = { "−1", "+1", "+10", "Reset" };
@@ -122,7 +116,7 @@ namespace Bloomlings.Playtest.Design
                 () => app.Meta.SkipTo(app.Meta.Progression.HighestCompletedLevel + 10),
                 app.ResetProfile,
             };
-            string caption = "dev L" + app.Meta.CurrentLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string caption = "Level " + app.Meta.CurrentLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
             float label = p.MeasureText(caption, T.Caption) + (row.Height * 0.2f);
             p.TextLeft(caption, row.Left, row.CenterY, T.Caption, C.InkBrownSoft);
             Box[] cells = ScreenLayout.Row(new Box(row.Left + label, row.Top, row.Right, row.Bottom), labels.Length, row.Height * 0.1f, float.MaxValue, square: false);

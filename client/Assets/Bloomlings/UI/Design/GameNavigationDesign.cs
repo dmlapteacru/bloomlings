@@ -7,7 +7,9 @@ namespace Bloomlings.Client.UI.Design
     {
         public const string Wallet="navigation/game-wallet",NameRibbon="navigation/game-name",Plus="navigation/game-plus";
         public const string StoneWall="navigation/game-wall";
-        public static readonly TypeStyle Caption=new TypeStyle("type.shop.nav_caption",38,true,false,0,12);
+        public const string Console="navigation/game-console",Selected="navigation/game-nav-selected";
+        public static readonly Rgba ConsoleFill=Rgba.FromHex("#D89240");
+        public static readonly TypeStyle Caption=new TypeStyle("type.shop.nav_caption",34,true,false,0,12);
         public static readonly TypeStyle ProfileName=new TypeStyle("type.shop.home_name",32,true,false,0,9);
         public static readonly Box[] Controls={new Box(48,109,460,516),new Box(561,109,974,516),new Box(1074,109,1487,516),new Box(36,565,431,946),new Box(466,611,999,914),new Box(1012,611,1515,915)};
         public static readonly Box[] Places={new Box(59,29,401,364),new Box(439,29,782,364),new Box(819,29,1165,364),new Box(1200,28,1544,364),new Box(1582,28,1924,364),new Box(51,378,406,753),new Box(433,378,788,753),new Box(815,379,1169,752),new Box(1195,379,1550,752),new Box(1577,378,1932,753)};
@@ -19,10 +21,13 @@ namespace Bloomlings.Client.UI.Design
         public static string Nav(NavPlace place,bool selected)=>"navigation/game-nav-"+(BottomNav.Order.IndexOfPlace(place)+(selected ? 5 : 0));
         public static string NameKey(NavPlace place)=>place switch {NavPlace.Shop=>"store.title",NavPlace.Home=>"pause.home",_=>BottomNav.Key(place)+".title"};
         public static string? Frame(string? id)=>id switch {null or "frame.wood_ring"=>"navigation/game-frame-0","frame.leaf_ring"=>"navigation/game-frame-1","frame.golden_ribbon"=>"navigation/game-frame-2",_=>null};
-        public static string Resource(string name)=>"navigation/"+(name==PrimaryActionDesign.Play ? "play-reference-v2" : name==PrimaryActionDesign.Reward ? "reward-progress-v2" : name.StartsWith("navigation/game-primary",StringComparison.Ordinal) ? "primary-buttons-v1" : name==StoneWall ? "stone-wall-v1" : name.StartsWith("navigation/game-control-",StringComparison.Ordinal) ? "controls-v3" : name.StartsWith("navigation/game-nav-",StringComparison.Ordinal) ? "primary-nav-v3" : name.StartsWith("navigation/game-frame-",StringComparison.Ordinal) ? "profile-rims-v3" : "header-parts-v3")+".png";
+        public static string Resource(string name)=>"navigation/"+(name==Console ? "wood-console-v1" : name==Selected ? "wood-selected-v1" : name==PrimaryActionDesign.Play ? "play-reference-v2" : name==PrimaryActionDesign.Reward ? "reward-progress-v2" : name.StartsWith("navigation/game-primary",StringComparison.Ordinal) ? "primary-buttons-v1" : name==StoneWall ? "stone-wall-v1" : name.StartsWith("navigation/game-control-",StringComparison.Ordinal) ? "controls-v3" : name.StartsWith("navigation/game-nav-",StringComparison.Ordinal) ? "primary-nav-v3" : name.StartsWith("navigation/game-frame-",StringComparison.Ordinal) ? "profile-rims-v3" : "header-parts-v3")+".png";
+        public static (float X,float Y) NavBorders(string name)=>name==Console ? (.10f,.20f) : name==Selected ? (.25f,.25f) : (0,0);
         public static (int Left,int Top,int Width,int Height) Crop(string name,int w,int h)
         {
             Box b;float sw,sh;
+            if(name==Console)return ((int)(12f*w/1997),(int)(155f*h/787),(int)(1974f*w/1997),(int)(456f*h/787));
+            if(name==Selected)return ((int)(97f*w/1159),(int)(107f*h/1356),(int)(959f*w/1159),(int)(1100f*h/1356));
             if(name==PrimaryActionDesign.Play){b=new Box(18,79,1942,715);sw=1961;sh=802;}
             else if(name==PrimaryActionDesign.Reward){b=new Box(65,175,1959,609);sw=2030;sh=775;}
             else if(name==PrimaryActionDesign.Decorated){b=new Box(74,14,1701,444);sw=1774;sh=887;}
@@ -36,28 +41,26 @@ namespace Bloomlings.Client.UI.Design
         }
         public static Box NavButton(BottomNavRegions r,int index)
         {
-            Box slot=r.PlaceBoxes[index];bool active=index==r.ActiveIndex;
-            float aspect=active ? 375f/355 : 335f/342;
-            bool compact=r.Safe.Height/r.Safe.Width<1.95f;
-            float side=Math.Min(slot.Width*1.04f,r.W*(compact ? active ? .158f : .145f : active ? .19f : .175f));
-            float height=Math.Min(side*aspect,r.Safe.Bottom-r.W*.012f-r.Top);side=height/aspect;
-            return new Box(slot.CenterX-side*.5f,r.Safe.Bottom-r.W*.012f-height,slot.CenterX+side*.5f,r.Safe.Bottom-r.W*.012f);
+            Box slot=r.PlaceBoxes[index];
+            if(index==r.ActiveIndex)return new Box(slot.Left+slot.Width*.01f,r.Top-r.W*.022f,slot.Right-slot.Width*.01f,r.Safe.Bottom-r.W*.014f);
+            return new Box(slot.Left+slot.Width*.035f,r.Top+r.W*.018f,slot.Right-slot.Width*.035f,r.Safe.Bottom-r.W*.014f);
         }
-        public static Box NavCaption(Box button)=>ProfileGameDesign.In(button,.07f,.76f,.93f,.945f);
-        /// <summary>Stone cap meets the bottom of the tiles; the front continues below the display edge.</summary>
-        public static Box NavWall(BottomNavRegions r,float width)
+        public static Box NavIcon(Box button,bool selected)
         {
-            float top=NavButton(r,0).Bottom-r.W*.018f;
-            return new Box(0,top,width,top+width*238f/2182f);
+            // Original sprites have transparent gutters; their visible subjects fill the segment at this scale.
+            float side=Math.Min(button.Width*1.08f,button.Height*(selected?.84f:1.02f));
+            return Box.FromCenter(button.CenterX,selected?button.Top+button.Height*.42f:button.CenterY,side,side);
         }
-        public static Box NavBacking(BottomNavRegions r,float width)=>new Box(0,NavButton(r,r.ActiveIndex).Top-r.W*.004f,width,r.Bar.Bottom);
-        public static System.Collections.Generic.IReadOnlyList<Box> NavStoneRows(BottomNavRegions r,float width)
+        public static Box NavCaption(Box button)=>ProfileGameDesign.In(button,.015f,.79f,.985f,.975f);
+        /// <summary>The entire console is opaque, including gaps, side edges and the bottom safe-area inset.</summary>
+        public static Box NavBacking(BottomNavRegions r,float width)=>new Box(0,r.Top,width,r.Bar.Bottom);
+        // Corner flowers overhang the lip; the wood face meets the opaque backing at the reserved menu top.
+        public static Box NavSurface(BottomNavRegions r,float width)=>new Box(0,r.Top-(r.Bar.Bottom-r.Top)*.09f,width,r.Bar.Bottom+r.W*.01f);
+        public static Box NavDivider(BottomNavRegions r,int index)
         {
-            var rows=new System.Collections.Generic.List<Box>();Box band=NavBacking(r,width);float height=width*238f/2182f;
-            for(float y=band.Top;y<band.Bottom;y+=height-width*.004f)rows.Add(new Box(0,y,width,y+height));
-            rows.Add(NavWall(r,width));return rows;
+            return new Box(r.PlaceBoxes[index].Left-r.W*.001f,r.Top+r.W*.035f,r.PlaceBoxes[index].Left+r.W*.001f,r.Safe.Bottom-r.W*.025f);
         }
-        public static Box NavTouch(BottomNavRegions r,int index){Box b=NavButton(r,index);return new Box(b.Left,b.Top,b.Right,r.Safe.Bottom);}
+        public static Box NavTouch(BottomNavRegions r,int index){Box slot=r.PlaceBoxes[index];return new Box(slot.Left,index==r.ActiveIndex?NavButton(r,index).Top:r.Top+r.W*.012f,slot.Right,r.Safe.Bottom);}
         public static Box ProfileRibbon(Box avatar)=>Box.FromCenter(avatar.CenterX,avatar.Bottom+avatar.Width*.042f,avatar.Width,avatar.Width*.264f);
         public static Box ProfileNameBox(Box ribbon,bool badge)=>ProfileGameDesign.In(ribbon,badge ? .30f : .13f,.14f,.87f,.86f);
         public static string FitName(string value,float width,Func<string,float> measure)

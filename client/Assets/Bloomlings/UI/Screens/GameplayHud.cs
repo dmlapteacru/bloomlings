@@ -124,7 +124,7 @@ namespace Bloomlings.Client.UI.Screens
 
             // A short message over the board's lower edge (a refused tap, a hint): a cream pill raised like the rows (spec 005
             // FR-047) with brown text.
-            hud._toastPill = UiKit.Slab("Toast", root, 0.5f);
+            hud._toastPill = UiKit.CardFrame("Toast", root,false);
             hud._toast = UiKit.KitLabel("Text", hud._toastPill.transform, string.Empty, DesignTokens.Type.Body, TextLook.Plain(C.InkBrown));
             BoxLayout.On(hud._toastPill.rectTransform).Watch(hud._toast).Then(b => KitText.Place(hud._toast, DesignTokens.Type.Body, b.CenterX, b.CenterY - (b.Height * UiKit.RaisedRowSide * 0.5f), UiKit.Units(DesignTokens.Type.Body.Size), b.Width - UiKit.Units(40f)));
             hud._toastPill.gameObject.SetActive(false);

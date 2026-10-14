@@ -17,6 +17,11 @@ on:
         type: choice
         options: [both, playtest, tester]
         default: both
+      architecture:
+        description: CPU architecture (arm64 for most phones; universal carries all CPUs)
+        type: choice
+        options: [arm64, arm, x64, universal]
+        default: arm64
 
 permissions:
   contents: read
@@ -37,6 +42,7 @@ jobs:
     env:
       ARTIFACT: ${{ matrix.artifact }}
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      APK_RUNTIME: ${{ inputs.architecture == 'arm' && 'android-arm' || inputs.architecture == 'x64' && 'android-x64' || inputs.architecture == 'universal' && 'android-arm64;android-arm;android-x64' || 'android-arm64' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,8 +64,19 @@ jobs:
         run: dotnet build -t:InstallAndroidDependencies -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME" -p:AcceptAndroidSDKLicenses=True
 
       - name: Build the APK
+        # Single CPU by default; universal remains an explicit choice. Keep APK signing/output names unchanged.
         working-directory: ${{ matrix.project }}
-        run: dotnet publish -c Release -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME"
+        run: |
+          build_code=$(date -u +%s)
+          build_label="0.1.0-${GITHUB_SHA:0:8}"
+          echo "Building commit $GITHUB_SHA ($build_label)"
+          dotnet publish -c Release -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME" -p:RuntimeIdentifiers="$APK_RUNTIME" -p:AndroidCreatePackagePerAbi=false -p:ApplicationVersion="$build_code" -p:ApplicationDisplayVersion="$build_label"
+
+      - name: Report APK size by assets and CPU
+        run: |
+          for apk in "${{ matrix.project }}"/bin/Release/net10.0-android/*-Signed.apk; do
+            python3 tools/assetpack/apk-size.py "$apk"
+          done
 
       # `dotnet publish` signs the APK in bin/Release/net10.0-android/ and copies it into its publish/ folder: only the
       # first is uploaded (a recursive pattern took both, the same APK twice).

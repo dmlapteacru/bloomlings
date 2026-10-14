@@ -28,6 +28,7 @@ bool inventory = false;
 string? before = null;
 HashSet<int>? only = null;
 bool sounds = false;
+bool promoMotion = false;
 string? shape = null;
 bool perf = false;
 string? csv = null;
@@ -36,6 +37,10 @@ for (int i = 0; i < args.Length; i++)
     if (args[i] == "--out" && i + 1 < args.Length)
     {
         outDir = Path.GetFullPath(args[++i]);
+    }
+    else if (args[i] == "--packed-assets" && i + 1 < args.Length)
+    {
+        PlaytestFiles.Source = new PackedAssetFiles(args[++i]);
     }
     else if (args[i] == "--inventory")
     {
@@ -48,6 +53,10 @@ for (int i = 0; i < args.Length; i++)
     else if (args[i] == "--frames" && i + 1 < args.Length)
     {
         only = new HashSet<int>(args[++i].Split(',').Select(int.Parse));
+    }
+    else if (args[i] == "--promo-motion")
+    {
+        promoMotion = true;
     }
     else if (args[i] == "--sounds")
     {
@@ -97,6 +106,12 @@ for (int i = 0; i < args.Length; i++)
     {
         csv = Path.GetFullPath(args[++i]);
     }
+}
+
+if (promoMotion)
+{
+    PromoMotion.Write(outDir);
+    return 0;
 }
 
 if (sounds)

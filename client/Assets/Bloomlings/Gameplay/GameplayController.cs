@@ -1277,7 +1277,12 @@ namespace Bloomlings.Client.Gameplay
         {
             if (_settings == null && AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && AppServices.Current.TryGet(out SaveService? saves))
             {
-                _settings = SettingsScreen.Create(_root, save!.Settings, saves!.Save);
+                _settings = SettingsScreen.Create(_root, save!.Settings, saves!.Save,levels:new LevelActions(()=>save.Progression.CurrentLevel,delta=>
+                {
+                    if(delta>0 && AppServices.Current.TryGet(out Bloomlings.Client.App.Progression.ProgressionService? progression)) progression!.FastForward(save.Progression.HighestCompletedLevel+delta);
+                    else {save.Progression.HighestCompletedLevel=delta==0 ? 0 : Math.Max(0,save.Progression.HighestCompletedLevel-1);saves!.Save();}
+                    _settings?.Hide();Leave();
+                }));
             }
 
             _settings?.Show();

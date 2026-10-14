@@ -51,10 +51,10 @@ namespace Bloomlings.Client.Tests.EditMode
         {
             var layer = new PromoLayer(HomePromo.NoAdsSign, 400f, 600f, 200f, 200f, 0.3f, 0.8f, 1.1f, 0.9f, 12f, 0.7f);
             (PromoLayer shadow, float pad, float blur) = HomePromo.ShadowOf(layer, 1080f);
-            Assert.That(blur, Is.EqualTo(16f).Within(1e-3f), "the owner's 16 px on a 1080 px screen");
+            Assert.That(blur, Is.EqualTo(8f).Within(1e-3f), "short contact shadow on a 1080 px screen");
             Assert.That(pad, Is.EqualTo(HomePromo.ShadowPad * blur).Within(1e-3f));
             Assert.That(shadow.X, Is.EqualTo(layer.X));
-            Assert.That(shadow.Y, Is.EqualTo(layer.Y + 8f).Within(1e-3f), "8 px down");
+            Assert.That(shadow.Y, Is.EqualTo(layer.Y + 4f).Within(1e-3f), "4 px down");
             Assert.That(shadow.Box.Left + (shadow.Width * shadow.PivotX), Is.EqualTo(layer.X).Within(1e-3f));
             Assert.That(shadow.Box.Top + (shadow.Height * shadow.PivotY), Is.EqualTo(shadow.Y).Within(1e-3f));
             Assert.That(shadow.Width, Is.EqualTo(layer.Width + (2f * pad)).Within(1e-3f));
@@ -70,7 +70,7 @@ namespace Bloomlings.Client.Tests.EditMode
             byte[] shadow = UiRaster.SilhouetteShadow(mask, 20, 20, 60, 60, 20f, 20f, 3f, HomePromo.ShadowAlpha);
             int At(int x, int y) => shadow[(((y * 60) + x) * 4) + 3];
             Assert.That(At(30, 30), Is.EqualTo((int)Math.Round(HomePromo.ShadowAlpha * 255f)).Within(3), "the middle");
-            Assert.That(At(20, 30), Is.InRange(50, 100), "about half at the edge");
+            Assert.That(At(20, 30) / (float)At(30, 30), Is.InRange(.4f, .7f), "about half at the edge");
             Assert.That(At(2, 2), Is.EqualTo(0), "clear far out");
             Assert.That((shadow[(((30 * 60) + 30) * 4) + 0], shadow[(((30 * 60) + 30) * 4) + 1], shadow[(((30 * 60) + 30) * 4) + 2]), Is.EqualTo((C.GardenShadow.R, C.GardenShadow.G, C.GardenShadow.B)));
             Assert.That(UiRaster.SilhouetteShadow(mask, 20, 20, 60, 60, 20f, 20f, 3f, HomePromo.ShadowAlpha), Is.EqualTo(shadow), "deterministic");

@@ -17,6 +17,7 @@ namespace Bloomlings.Playtest
         private static readonly string[] Folders =
         {
             "backgrounds", "brand", "icons", "badges", "decor", "avatars", "heromotion", "characters/2d", "characters/3d", "levels", "pictures",
+            "shop", "navigation", "gameplay",
         };
 
         private readonly AssetManager _assets;

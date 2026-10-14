@@ -8,34 +8,40 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The bottom menu (spec 005 FR-030, contracts/look.md §6.7; Unity's <c>UiKit.BottomNav</c>): the wooden bar, its places'
-    /// icons (a locked one with its padlock badge) and the raised medallion of the active place, on Home and the four pages
+    /// icons/captions (a locked one with its padlock badge) and the selected green inset, on Home and the four pages
     /// (the Store, the Wardrobe, the Leaderboard and the Collection); and the notice a locked place's page shows
     /// (<see cref="LockedNotice"/>). It marks the slots it draws; screens only call it.
     /// </summary>
     public static partial class Kit
     {
         /// <summary>
-        /// The bottom menu in its regions (<see cref="ScreenLayout.BottomNav"/>): the wooden bar (<c>ui.nav.bar</c>,
-        /// <see cref="UiRaster.NavBar"/>) across the screen's bottom; each place's icon on the plank, squashing while
-        /// pressed, its touch box calling <paramref name="onSelect"/> with the place, a place <paramref name="look"/> keeps
-        /// locked (<see cref="Client.UI.Design.BottomNav.IsOpen"/>) with the padlock badge on its icon's lower right
-        /// (<see cref="NavLock"/>), still tappable; then the medallion (<c>ui.nav.medallion</c>,
-        /// <see cref="UiRaster.NavMedallion"/>) over the active place with its icon and no badge, which takes no tap.
+        /// The common opaque console shields content and gestures across its full width; five live destinations share
+        /// its surface. Selection, press feedback and lock routing remain independent of the panel artwork.
         /// </summary>
         public static void BottomNav(IPainter p,BottomNavRegions r,HomeLook look,Action<NavPlace> onSelect)
         {
             p.Mark("ui.nav.bar");p.Mark("ui.nav.medallion");p.Mark("ui.nav.illustrations");
-            foreach(Box row in GameNavigationDesign.NavStoneRows(r,p.Width))p.Sprite(GameNavigationDesign.StoneWall,row);
-            p.BlockInput(GameNavigationDesign.NavBacking(r,p.Width));
+            Box backing=GameNavigationDesign.NavBacking(r,p.Width);
+            p.FillRound(backing,0,GameNavigationDesign.ConsoleFill);
+            var panelBorder=GameNavigationDesign.NavBorders(GameNavigationDesign.Console);
+            SlicedSprite(p,GameNavigationDesign.Console,GameNavigationDesign.NavSurface(r,p.Width),panelBorder.X,panelBorder.Y);
+            p.BlockInput(backing);
+            for(int i=1;i<r.Places.Count;i++)
+            {
+                Box divider=GameNavigationDesign.NavDivider(r,i);
+                p.FillRound(divider,divider.Width*.5f,NavigationSkin.DividerInk);
+            }
             for(int i=0;i<r.Places.Count;i++)
             {
                 NavPlace place=r.Places[i];bool chosen=i==r.ActiveIndex;Box face=GameNavigationDesign.NavButton(r,i),touch=GameNavigationDesign.NavTouch(r,i);
                 if(!chosen)Squash(p,face,Press(p,touch,true),tile:true);
-                p.Mark(Client.UI.Design.BottomNav.Slot(place));p.Sprite(GameNavigationDesign.Nav(place,chosen),face);
-                if(chosen){ProfileGamePainter.Label(p,GameNavigationDesign.NavCaption(face),PlaytestText.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,ShopBodyDesign.Letters,heightShare:.92f);p.BlockInput(touch);}
+                if(chosen){var border=GameNavigationDesign.NavBorders(GameNavigationDesign.Selected);SlicedSprite(p,GameNavigationDesign.Selected,face,border.X,border.Y);}
+                Box icon=GameNavigationDesign.NavIcon(face,chosen);NavIcon(p,place,icon);
+                if(chosen)ProfileGamePainter.Label(p,GameNavigationDesign.NavCaption(face),PlaytestText.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,NavigationSkin.TabLook(true),heightShare:.90f);
+                if(chosen)p.BlockInput(touch);
                 else
                 {
-                    if(!Client.UI.Design.BottomNav.IsOpen(place,look))NavLock(p,face);
+                    if(!Client.UI.Design.BottomNav.IsOpen(place,look))NavLock(p,icon);
                     p.PopTransform();p.Hit(touch,()=>onSelect(place));
                 }
             }

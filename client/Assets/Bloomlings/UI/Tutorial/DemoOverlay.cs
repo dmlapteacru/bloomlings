@@ -53,11 +53,11 @@ namespace Bloomlings.Client.UI.Tutorial
             next.onClick.AddListener(overlay.Advance);
 
             // The message on parchment, never a touch target (taps go to the shade or, while waiting, to the game).
-            Image bubble = UiKit.Paper("Bubble", shade.transform, 48f, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
+            Image bubble = UiKit.CardFrame("Bubble", shade.transform, raycast:false);
             UiFactory.Place(bubble.rectTransform, 0.08f, 0.8f, 0.92f, 0.9f);
-            overlay._message = UiKit.Label("Message", bubble.transform, string.Empty, T.ButtonSecondary, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
+            overlay._message = UiKit.Label("Message", bubble.transform, string.Empty, PopupDesign.Label, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
             UiFactory.Place(overlay._message.rectTransform, 0.05f, 0.08f, 0.95f, 0.92f);
-            overlay._probe = UiKit.Label("Probe", bubble.transform, string.Empty, T.ButtonSecondary, Color.clear);
+            overlay._probe = UiKit.Label("Probe", bubble.transform, string.Empty, PopupDesign.Label, Color.clear);
             overlay._messageWidth = UiKit.ScreenBox().Width * 0.84f * 0.9f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
 
             overlay._iconRow = UiFactory.Place(UiFactory.CreateRect("Icons", shade.transform), 0.15f, 0.58f, 0.85f, 0.76f);
@@ -125,7 +125,7 @@ namespace Bloomlings.Client.UI.Tutorial
         private void ShowStep()
         {
             DemoStep step = _script!.Steps[_step];
-            _message.text = string.Join("\n", UiKit.BalancedLines(_probe, step.Message, UiKit.Units(T.ButtonSecondary.Size), _messageWidth));
+            _message.text = string.Join("\n", UiKit.BalancedLines(_probe, step.Message, UiKit.Units(PopupDesign.Label.Size), _messageWidth));
 
             // A step that waits for a game action lets taps through, except on the Skip button.
             _shade.raycastTarget = !step.WaitForAction;

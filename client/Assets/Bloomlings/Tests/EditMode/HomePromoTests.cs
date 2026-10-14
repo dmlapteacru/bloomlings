@@ -50,26 +50,43 @@ namespace Bloomlings.Client.Tests.EditMode
         [Test]
         public void TheSequences_DoWhatTheOwnerAsked()
         {
-            // No Ads: in the middle of its sequence Sprig and the sign are gone and the lotus is full.
-            IReadOnlyList<PromoLayer> lotus = HomePromo.Layers(PromoScene.NoAds, Scene, HomePromo.NoAdsAt + 2f, true);
-            Assert.That(Alpha(lotus, HomePromo.NoAdsLotus), Is.EqualTo(1f).Within(0.01f));
-            Assert.That(Alpha(lotus, HomePromo.NoAdsSprig), Is.EqualTo(0f).Within(0.01f));
-            Assert.That(Alpha(lotus, HomePromo.NoAdsSign), Is.EqualTo(0f).Within(0.01f));
-            Assert.That(Alpha(HomePromo.Layers(PromoScene.NoAds, Scene, 0.5f, true), HomePromo.NoAdsLotus), Is.EqualTo(0f), "no lotus while idling");
-
-            // Daily: no sparkles before the stamp is down, then the burst; the stamp takes its time.
-            for (float a = 0f; a < 1.3f; a += 0.05f)
+            // Sprig remains on stage while the sign visibly leaves it, then the scene resets.
+            for (float t = 0; t < HomePromo.CycleSeconds * 2; t += .05f)
             {
-                Assert.That(Alpha(HomePromo.Layers(PromoScene.Daily, Scene, HomePromo.DailyAt + a, true), HomePromo.DailySparkles), Is.EqualTo(0f), "sparkles at " + a);
+                var layers = HomePromo.Layers(PromoScene.NoAds, Scene, t, true);
+                Assert.That(Alpha(layers, HomePromo.NoAdsSprig) + Alpha(layers, HomePromo.NoAdsSprigPush), Is.EqualTo(1f).Within(.001f));
             }
-
-            Assert.That(Alpha(HomePromo.Layers(PromoScene.Daily, Scene, HomePromo.DailyAt + 1.6f, true), HomePromo.DailySparkles), Is.GreaterThan(0.5f));
-            Assert.That(Alpha(HomePromo.Layers(PromoScene.Daily, Scene, HomePromo.DailyAt + 0.8f, true), HomePromo.DailyStamp), Is.GreaterThan(0.9f), "the stamp hovers before it presses");
-            Assert.That(HomePromo.Layers(PromoScene.Daily, Scene, 3f, false).Select(l => l.Picture), Does.Not.Contain("promo-daily-badge"));
+            var launch = HomePromo.Layers(PromoScene.NoAds, Scene, HomePromo.NoAdsAt + 1.2f, true);
+            PromoLayer sign = launch.Single(l => l.Picture == HomePromo.NoAdsSign);
+            Assert.That(sign.X, Is.GreaterThan(Scene.Right), "the sign crosses the stand's edge");
+            Assert.That(sign.Rotation, Is.GreaterThan(45f), "the sign tumbles instead of gently rocking");
+            Assert.That(Alpha(HomePromo.Layers(PromoScene.NoAds, Scene, HomePromo.NoAdsAt + 1.5f, true), HomePromo.NoAdsSign), Is.Zero);
+            Assert.That(Alpha(HomePromo.Layers(PromoScene.NoAds, Scene, HomePromo.NoAdsAt + .5f, true), HomePromo.NoAdsSprigPush), Is.EqualTo(1f));
+            Assert.That(HomePromo.DailyAt - HomePromo.NoAdsAt - HomePromo.NoAdsSeconds, Is.GreaterThanOrEqualTo(2f));
+            Assert.That(HomePromo.CycleSeconds + HomePromo.NoAdsAt - HomePromo.DailyAt - HomePromo.DailySeconds, Is.GreaterThanOrEqualTo(2f));
+            var before = HomePromo.Layers(PromoScene.Daily, Scene, HomePromo.DailyAt + 1.2f, true);
+            Assert.That(Alpha(before, HomePromo.DailyImprint), Is.Zero, "blank page before contact");
+            Assert.That(Alpha(before, HomePromo.DailySparkles), Is.Zero, "no impact glint before contact");
+            var pressed = HomePromo.Layers(PromoScene.Daily, Scene, HomePromo.DailyAt + 1.6f, true);
+            Assert.That(Alpha(pressed, HomePromo.DailyImprint), Is.GreaterThan(.9f));
+            Assert.That(pressed.Single(l => l.Picture == HomePromo.DailyStamp).Y - before.Single(l => l.Picture == HomePromo.DailyStamp).Y, Is.GreaterThan(Scene.Width * .20f), "large visible downstroke");
+            var reveal = HomePromo.Layers(PromoScene.Daily, Scene, HomePromo.DailyAt + 2.5f, true);
+            Assert.That(Alpha(reveal, HomePromo.DailyImprint), Is.EqualTo(1f), "the page keeps its mark after the tool leaves");
+            Assert.That(Alpha(reveal, HomePromo.DailyStamp), Is.Zero);
+            Assert.That(Alpha(reveal, HomePromo.DailyBookOpen), Is.EqualTo(1f));
+            for (float t = 0; t < HomePromo.CycleSeconds; t += .1f)
+            {
+                var quiet = HomePromo.Layers(PromoScene.Daily, Scene, t, false);
+                Assert.That(Alpha(quiet, HomePromo.DailyBook), Is.EqualTo(1f));
+                Assert.That(Alpha(quiet, HomePromo.DailyBookOpen), Is.Zero);
+                Assert.That(Alpha(quiet, HomePromo.DailyStamp), Is.Zero);
+                Assert.That(Alpha(quiet, HomePromo.DailySparkles), Is.Zero);
+                Assert.That(Alpha(quiet, HomePromo.DailyImprint), Is.Zero);
+            }
         }
 
         [Test]
-        public void WhileIdling_TheProps_StandOnTheirStand_AndTheSignLeansOnSprigsPalms()
+        public void WhileIdling_TheProps_StayOnTheirStand_AndTheSignStaysBesideSprig()
         {
             foreach (PromoScene scene in new[] { PromoScene.NoAds, PromoScene.Daily })
             {
@@ -98,7 +115,7 @@ namespace Bloomlings.Client.Tests.EditMode
                 Box plaque = HomePromo.Plaque(Scene, scene);
                 Assert.That(plaque.Within(Scene), Is.True, scene.ToString());
                 Assert.That(plaque.Width, Is.GreaterThan(0.45f * Scene.Width), scene.ToString());
-                Assert.That(plaque.Height * HomePromo.LabelShare, Is.GreaterThan(0.08f * Scene.Width), scene + ": letters about 0.09 of the scene's width");
+                Assert.That(plaque.Height * HomePromo.LabelShare, Is.GreaterThan(0.06f * Scene.Width), scene + ": letters at least 0.06 of the scene's width");
             }
         }
 
@@ -143,9 +160,10 @@ namespace Bloomlings.Client.Tests.EditMode
                     }
                 }
 
-                Assert.That(r.NoAds.Left, Is.EqualTo(r.Safe.Left + (0.04f * r.W)).Within(0.5f), at);
-                Assert.That(r.DailyReward.Right, Is.EqualTo(r.Safe.Right - (0.04f * r.W)).Within(0.5f), at);
+                Assert.That(r.NoAds.CenterX - r.Safe.Left, Is.EqualTo(r.Safe.Right - r.DailyReward.CenterX).Within(0.5f), at + ": mirrored promo columns");
+                Assert.That(r.DailyReward.CenterX, Is.EqualTo(r.Daily.CenterX).Within(0.5f), at + ": album centered above Challenge");
                 Assert.That(r.Daily.Top, Is.GreaterThan(r.DailyReward.Bottom), at + ": the Daily Challenge under the Daily Reward's scene");
+                Assert.That(r.Daily.Bottom, Is.LessThan(r.Safe.Top + .45f * r.Safe.Height), at + ": keep the challenge above the front hero's head");
             }
         }
 

@@ -210,7 +210,7 @@ namespace Bloomlings.Playtest.Design
         private static void Hat(IPainter p, Box hatBox, CosmeticItem item)
         {
             string? asset=ShopCatalogDesign.Accessory(item.Id);
-            if(asset!=null&&p.HasSprite(asset)){p.Mark("ui.shop.illustrations");p.Sprite(asset,hatBox);return;}
+            if(asset!=null&&p.HasSprite(asset)){p.Mark("ui.shop.illustrations");p.Sprite(asset,MetaScreenArt.Is(asset)?MetaScreenArt.FitHat(asset,hatBox):hatBox);return;}
             string hat = ShapeLibrary.CosmeticId(item.Shape);
             Rgba tint = Tint(item);
             if (ShapeLibrary.Has(hat))

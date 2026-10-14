@@ -169,7 +169,7 @@ namespace Bloomlings.Playtest.Design
             Box well = Kit.PictureFrame(p, box);
             if (app.Content.TryGetLevel(app.Resolve(entry.LevelNumber), out LevelDefinition? definition) && definition != null)
             {
-                BoardPainter.Picture(p, well.Inset(well.Width * 0.04f), definition, app.Content.GetPicture(definition.Picture));
+                BoardPainter.Picture(p, well.Inset(well.Width * 0.04f), definition, app.Content.GetPicture(definition.Picture),shadow:false);
             }
         }
     }

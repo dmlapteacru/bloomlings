@@ -34,7 +34,8 @@ namespace Bloomlings.Client.UI.Design
         public static readonly ColorSet StoneFace = new ColorSet("gameplay.stone.face", Rgba.FromHex("#F3D39C"), Rgba.FromHex("#FFF2D1"), Rgba.FromHex("#CAA268"), Rgba.FromHex("#D9B57A"));
         public static byte[] Stone(int w, int h, float radius) => ShopBodyRaster.Framed(w, h, radius, StoneRim, StoneFace, 0.07f, true, 0.10f, 0, 0.5f);
         public static byte[] Booster(int w, int h) => ShopBodyRaster.Framed(w, h, 0.23f, StoneRim, ShopBodyDesign.Card, 0.04f, true, 0.08f);
-        public static byte[] BoardRim(int w, int h, float thicknessShare) => ShopBodyRaster.Framed(w, h, thicknessShare * 1.6f, StoneRim, StoneFace, thicknessShare * 0.30f, true, 0.12f, 0.0015f);
+        public static float BoardCornerRadius(float borderThickness)=>borderThickness*1.6f;
+        public static byte[] BoardRim(int w, int h, float thicknessShare) => ShopBodyRaster.Framed(w, h, BoardCornerRadius(thicknessShare), StoneRim, StoneFace, thicknessShare * 0.30f, true, 0.12f, 0.0015f);
         public static byte[] Pod(int w, int h, VariantId? variant, bool waiting, bool locked)
         {
             Rgba color = locked ? Rgba.FromHex("#83978C") : variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : Rgba.FromHex("#B99ACC");

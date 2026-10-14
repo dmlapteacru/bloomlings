@@ -6,733 +6,207 @@ using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.UI.Localization;
 using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Bloomlings.Client.UI.Localization;
-using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
-using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
-    /// <summary>
-    /// The Wardrobe (FR-063, T143), open from L40, in the reference Wardrobe's look and layout (spec 005 FR-025,
-    /// contracts/look.md §4.6 and §6.5), every element placed from <see cref="ScreenLayout.ReferenceWardrobe"/>:
-    /// <list type="bullet">
-    /// <item><description>the page header on one line (<see cref="UiKit.PageHeader"/>, shared with the Store page): a cream
-    /// round back button at the top left, the wooden "Wardrobe" banner with ivy and the Petals pill at the top right (its
-    /// "+" opens the Store page over the Wardrobe; its back returns here);</description></item>
-    /// <item><description>the chosen family's 3D hero in its outfit standing on a stone pedestal, with cream ‹ › arrows
-    /// to the other families at the screen's sides;</description></item>
-    /// <item><description>a parchment name card: the name on a raised cream tab, the family's role under it and two lines
-    /// about it;</description></item>
-    /// <item><description>tabs with each family's hero and name, and a last one for the profile (the Home avatar), joined
-    /// to the lighter panel below;</description></item>
-    /// <item><description>on the panel to the bottom of the screen, the kinds as chips (skin, hat, trail, face; or frame,
-    /// badge, marker), then the owned items of the kind as outfit cards, three to a page, the worn one green with a
-    /// check, the "Default" look (none of the kind) first; a tap wears an item, and each family wears one of each
-    /// kind;</description></item>
-    /// <item><description>the footer "Earn special outfits as you play!" between the page arrows;</description></item>
-    /// <item><description>the bottom menu over the panel's foot, the Wardrobe in its medallion (spec 005 FR-030); the
-    /// cards and the footer stand above it.</description></item>
-    /// </list>
-    /// Cosmetics only change how Bloomlings look; the variant colors and icons stay as they are. Before the Wardrobe
-    /// unlocks (L40) the bottom menu's Wardrobe opens it locked (<see cref="ShowLocked"/>, the playtest's
-    /// <c>WardrobeScreen.Locked</c>; the owner's request of 2026-10-04): the same garden and header, and every page's wooden
-    /// frame (spec 005 FR-049; it was the page's lighter panel) holding the locked notice (<see cref="LockedNoticeView"/>: "Available from level 40") instead of the hero, the
-    /// name card, the tabs, the cards and the footer.
-    /// </summary>
+    /// <summary>Fixed preview and filters; native vertical scrolling creates only visible shelf rows.</summary>
     public sealed class WardrobeScreen : MonoBehaviour
     {
-        private readonly List<FamilyTabView> _tabs = new List<FamilyTabView>();
-        private readonly List<GameObject> _cards = new List<GameObject>();
-        private GameObject _root = null!;
-        private WardrobeService _wardrobe = null!;
-        private Func<long>? _petalsSource;
-        private bool _store;
-        private bool _plus;
-        private PetalsPill? _petals;
-        private long _petalsShown = -1;
-        private PageHeaderView _header = null!;
-        private RectTransform _pedestal = null!;
-        private BloomlingFigure _hero = null!;
-        private ProfileAvatar _avatar = null!;
-        private Button _previous = null!;
-        private Button _next = null!;
-        private Image _nameCard = null!;
-        private Image[] _nameFlowers = null!;
-        private RectTransform _nameTab = null!;
-        private TextMeshProUGUI _name = null!;
-        private TextMeshProUGUI _role = null!;
-        private TextMeshProUGUI _about = null!;
-        private TextMeshProUGUI _probe = null!;
-        private Image _panel = null!;
-        private Image _panelLine = null!;
-        private Image _lockedFrame = null!;
-        private Image[] _lockedFlowers = null!;
-        private RectTransform _familyBar = null!;
-        private RectTransform _chips = null!;
-        private TabsView _wornKinds = null!;
-        private TabsView _profileKinds = null!;
-        private RectTransform _items = null!;
-        private TextMeshProUGUI _empty = null!;
-        private TextMeshProUGUI _footer = null!;
-        private Button _pagePrevious = null!;
-        private Button _pageNext = null!;
-        private LockedNoticeView _notice = null!;
+        private GameObject _root=null!;
+        private WardrobeService _wardrobe=null!;
+        private readonly WardrobeBrowseState _browse=new WardrobeBrowseState();
+        private WardrobeShelfRegions _regions=null!;
+        private PageHeaderView _header=null!;
+        private Image _stage=null!,_thumb=null!,_lockedFrame=null!;
+        private BloomlingFigure _hero=null!;
+        private TextMeshProUGUI _name=null!;
+        private Button _previous=null!,_next=null!;
+        private RectTransform _filters=null!,_viewport=null!,_content=null!;
+        private ScrollRect _scroll=null!;
+        private LockedNoticeView _notice=null!;
         private BottomNavView? _nav;
-        private Func<HomeLook>? _navLook;
-        private Func<AvatarItem>? _avatarOf;
-        private bool _locked;
-        private ReferenceWardrobeRegions _regions = null!;
-        private Family _selected = Family.Sprig;
-        private bool _profileMode;
-        private CosmeticKind _kind = CosmeticKind.Skin;
-        private int _pageIndex;
+        private PurchaseCardView _confirm=null!;
+        private ToastView _toast=null!;
+        private Func<long>? _petals;
+        private Func<HomeLook>? _look;
+        private bool _store,_locked;
+        private long _shownPetals=-1;
+        private readonly Dictionary<int,GameObject> _cells=new Dictionary<int,GameObject>();
+        private readonly Dictionary<int,Image> _shelves=new Dictionary<int,Image>();
+        private IReadOnlyList<WardrobeShelfItem> _items=Array.Empty<WardrobeShelfItem>();
+        private float _lastOffset=-1;
+        public bool IsOpen=>_root.activeSelf;
 
-        public bool IsOpen => _root.activeSelf;
-
-        /// <param name="petals">The Petals balance for the pill; null hides the pill.</param>
-        /// <param name="onStore">Opens the Store from the pill's "+"; null shows the pill without it.</param>
-        /// <param name="onNav">A tap on another place of the bottom menu (spec 005 FR-030); null shows no menu.</param>
-        /// <param name="navLook">The look that tells which places of the bottom menu are open (<see cref="BottomNav.IsOpen"/>); null: all of them.</param>
-        /// <param name="avatar">The profile's chosen avatar (spec 005 FR-037) for the Profile tab's picture; null shows the profile hero.</param>
-        public static WardrobeScreen Create(Transform parent, WardrobeService wardrobe, Func<long>? petals = null, Action? onStore = null, Action<NavPlace>? onNav = null, Func<HomeLook>? navLook = null, Func<AvatarItem>? avatar = null)
+        public static WardrobeScreen Create(Transform parent,WardrobeService wardrobe,Func<long>? petals=null,
+            Action? onStore=null,Action<NavPlace>? onNav=null,Func<HomeLook>? navLook=null,Func<AvatarItem>? avatar=null)
         {
-            // A full screen over Home that takes every tap, on the owner's Wardrobe garden (pictures.md B7) or the drawn one.
-            Image shade = UiFactory.CreateImage("Wardrobe", parent, null, Color.clear, raycast: true);
-            UiFactory.Stretch(shade.rectTransform);
-            var screen = shade.gameObject.AddComponent<WardrobeScreen>();
-            screen._root = shade.gameObject;
-            screen._wardrobe = wardrobe;
-            screen._avatarOf = avatar;
-            screen._petalsSource = petals;
-            screen._store = onStore != null;
-            Transform root = shade.transform;
-            BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
-
-            // The hero on its stone pedestal, and the profile avatar in its place on the Profile tab.
-            screen._pedestal = UiKit.StonePedestal("Pedestal", root);
-            screen._hero = BloomlingFigure.Create("Hero", root);
-            screen._hero.Body.raycastTarget = false;
-            screen._avatar = ProfileAvatar.Create("Avatar", root);
-            // The ‹ › arrows: a 0.09 W cushion in a touch-sized square (size.touch_min).
-            screen._previous = UiKit.PageArrow("Previous", root, next: false, () => screen.Turn(-1));
-            screen._next = UiKit.PageArrow("Next", root, next: true, () => screen.Turn(1));
-
-            // The name card: parchment under a raised cream tab with the name, the role under the tab and two lines about
-            // the family below it.
-            screen._nameCard = UiKit.Paper("NameCard", root, b => b.Height * 0.16f, DesignTokens.Garden.FrameWidth, 8f, raycast: false);
-            (screen._nameTab, screen._name) = NameTab(root);
-            // The flowers at the card's ends (spec 005 FR-047, the playtest's Kit.NameCard).
-            screen._nameFlowers = new[] { UiKit.CornerFlowers("NameFlowersLeft", root, Corner.BottomLeft), UiKit.CornerFlowers("NameFlowersRight", root, Corner.BottomRight) };
-            screen._role = UiKit.Label("Role", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
-            screen._about = UiKit.Label("About", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
-            screen._about.textWrappingMode = TextWrappingModes.Normal;
-            screen._probe = UiKit.Label("Probe", root, string.Empty, T.Body, Color.clear);
-
-            // The lighter panel, then the tabs over its top edge (the selected one flows into it).
-            screen._panel = UiKit.RoundGradient("Panel", root, C.ParchmentTop, C.CreamTop, _ => UiKit.Units(26f));
-            screen._panelLine = UiKit.RoundRing("PanelLine", root, UiTheme.Of(C.CreamLine), _ => UiKit.Units(26f), _ => Mathf.Max(UiKit.Units(2f), UiKit.Units(DesignTokens.Garden.OutlineWidth) * 0.8f));
-
-            // The locked page's wooden frame, as every page's (spec 005 FR-049; shown only while locked).
-            screen._lockedFrame = UiKit.CardFrame("LockedFrame", root, raycast: false);
-            screen._lockedFrame.gameObject.SetActive(false);
-            IReadOnlyList<Family> families = WardrobeService.Families;
-            screen._familyBar = UiKit.NavigationBar("FamilyNavigation",root,families.Count+1);
-            for (int i = 0; i < families.Count; i++)
-            {
-                Family family = families[i];
-                FamilyTabView tab = UiKit.FamilyTab(family.ToString(), root, Loc.T("family." + WardrobeService.FamilyKey(family)), () => screen.Select(family));
-                screen._tabs.Add(tab);
-            }
-
-            FamilyTabView profile = UiKit.FamilyTab("Profile", root, Loc.T("wardrobe.tab_profile"), () => screen.SetMode(true));
-            screen._tabs.Add(profile);
-
-            // The kinds as chips, the outfit cards, the empty line and the footer between the page arrows.
-            screen._chips = UiFactory.CreateRect("Kinds", root);
-            screen._wornKinds = UiKit.Tabs("Worn", screen._chips, Labels(CosmeticCatalog.WornKinds), screen.SetKind, KindKeys(CosmeticCatalog.WornKinds));
-            screen._profileKinds = UiKit.Tabs("Profile", screen._chips, Labels(CosmeticCatalog.ProfileKinds), screen.SetKind, KindKeys(CosmeticCatalog.ProfileKinds));
-            screen._items = UiFactory.CreateRect("Items", root);
-            screen._empty = UiKit.Label("Empty", root, Loc.T("wardrobe.more"), T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
-            screen._footer = UiKit.Label("Footer", root, Loc.T("wardrobe.footer"), T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
-            screen._pagePrevious = UiKit.PageArrow("PagePrevious", root, next: false, () => screen.TurnPage(-1));
-            screen._pageNext = UiKit.PageArrow("PageNext", root, next: true, () => screen.TurnPage(1));
-
-            // A drag on the page never taps a card (spec 005 FR-041); a swipe over the cards turns their page, as the arrows.
-            UiKit.Scrolls(screen._root, step =>
-            {
-                Button arrow = step > 0 ? screen._pageNext : screen._pagePrevious;
-                if (arrow.gameObject.activeSelf && arrow.interactable)
-                {
-                    screen.TurnPage(step);
-                }
-            }, screen._items);
-
-            // The locked notice on the panel, shown only before the Wardrobe unlocks (FR-030).
-            screen._notice = UiKit.LockedNotice("Locked", root);
-            screen._notice.gameObject.SetActive(false);
-
-            // The bottom menu over the panel's foot, the Wardrobe in its medallion (FR-030).
-            if (onNav != null)
-            {
-                screen._navLook = navLook;
-                screen._nav = UiKit.BottomNav("BottomNav", root, place =>
-                {
-                    if (place != NavPlace.Wardrobe)
-                    {
-                        onNav(place);
-                    }
-                });
-            }
-
-            // The locked page's flowers over its frame's corners and the bottom menu's top edge (FR-049, as the other pages').
-            screen._lockedFlowers = UiKit.PageFlowers(root);
-            foreach (Image flower in screen._lockedFlowers)
-            {
-                flower.gameObject.SetActive(false);
-            }
-
-            // The header last, on one line (the Store page's too): the back button, the banner with ivy, the Petals pill.
-            screen._header = UiKit.PageHeader(root, Loc.T("wardrobe.title"), screen.Hide, petals != null, onStore);
-            screen._petals = screen._header.Petals;
-
-            shade.gameObject.SetActive(false);
-            return screen;
+            Image root=UiFactory.CreateImage("Wardrobe",parent,null,Color.clear,raycast:true);UiFactory.Stretch(root.rectTransform);
+            var s=root.gameObject.AddComponent<WardrobeScreen>();
+            s._toast=ToastView.Create(root.transform);
+            s._root=root.gameObject;s._wardrobe=wardrobe;s._petals=petals;s._look=navLook;s._store=onStore!=null;
+            BackdropView.Create(root.rectTransform,OwnerPictures.Wardrobe,BackdropScene.Home);
+            Image viewport=UiFactory.CreateImage("ShelfViewport",root.transform,null,Color.clear,raycast:true);
+            s._viewport=viewport.rectTransform;viewport.gameObject.AddComponent<RectMask2D>();
+            s._content=UiFactory.CreateRect("ShelfContent",viewport.transform);
+            s._scroll=viewport.gameObject.AddComponent<ScrollRect>();s._scroll.viewport=s._viewport;s._scroll.content=s._content;
+            s._scroll.horizontal=false;s._scroll.vertical=true;s._scroll.inertia=true;s._scroll.scrollSensitivity=30;
+            s._scroll.movementType=ScrollRect.MovementType.Clamped;
+            s._stage=MetaShelfView.Skin("FittingArch",root.transform,MetaScreenArt.Stage);
+            s._hero=BloomlingFigure.Create("Hero",root.transform);s._hero.Body.raycastTarget=false;
+            s._name=MetaShelfView.Label("FamilyName",root.transform,"",WardrobeShelfDesign.FamilyName);
+            s._previous=UiKit.PageArrow("PreviousFamily",root.transform,false,()=>s.Turn(-1));
+            s._next=UiKit.PageArrow("NextFamily",root.transform,true,()=>s.Turn(1));
+            s._filters=UiFactory.CreateRect("FixedFilters",root.transform);
+            s._thumb=UiKit.RoundRect("ScrollThumb",root.transform,UiTheme.Of(ShopBodyDesign.Card.Face),b=>b.Width*.5f);
+            s._lockedFrame=UiKit.CardFrame("LockedFrame",root.transform,false);s._notice=UiKit.LockedNotice("Locked",root.transform);
+            if(onNav!=null)s._nav=UiKit.BottomNav("BottomNav",root.transform,p=>{if(p!=NavPlace.Wardrobe)onNav(p);});
+            s._header=UiKit.PageHeader(root.transform,Loc.T("wardrobe.title"),s.Hide,petals!=null,onStore);
+            s._confirm=UiKit.PurchaseCard(root.transform);root.gameObject.SetActive(false);return s;
         }
-
         public void Show()
         {
-            // Shown first, so the new cards' text engine is awake when their layouts measure them.
-            _root.SetActive(true);
-            Unlock();
-            SyncPlus();
-            Refresh();
+            _root.SetActive(true);_locked=false;_shownPetals=-1;
+            _wardrobe.Changed-=Changed;_wardrobe.Changed+=Changed;Refresh();
         }
-
-        /// <summary>Opens on the Profile tab (the Home avatar).</summary>
-        public void ShowProfile()
-        {
-            _root.SetActive(true);
-            Unlock();
-            SyncPlus();
-            SetMode(true);
-        }
-
-        /// <summary>
-        /// Shows the Wardrobe locked (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
-        /// header as usual, every page's wooden frame with its flowers (spec 005 FR-049) from under the header to the bottom of the screen holding the locked
-        /// notice of the Wardrobe, available from <paramref name="level"/> (the roadmap's,
-        /// <see cref="BottomNav.UnlockLevel"/>), and the bottom menu with the Wardrobe raised; the hero, the name card, the
-        /// tabs, the cards and the footer hide. Its back hides it as usual.
-        /// </summary>
+        public void ShowProfile()=>Show();
+        public void Hide(){Remember();_confirm.Cancel();_root.SetActive(false);}
         public void ShowLocked(int level)
         {
-            _root.SetActive(true);
-            _locked = true;
-            SyncPlus();
-            SetContent(false);
-            foreach (GameObject card in _cards)
-            {
-                Destroy(card);
-            }
-
-            _cards.Clear();
-            (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            LockedPageRegions r = ScreenLayout.LockedPage(w, h, insets);
-            _header.Place(r.Header);
-            // The wooden frame of every page instead of the lighter panel (spec 005 FR-049), its flowers as the other pages'.
-            float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
-            _panel.gameObject.SetActive(false);
-            _panelLine.gameObject.SetActive(false);
-            _lockedFrame.gameObject.SetActive(true);
-            UiKit.PlaceScreen(_lockedFrame.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
-            foreach (Image flower in _lockedFlowers)
-            {
-                flower.gameObject.SetActive(DesignTokens.Garden.Decorations);
-            }
-
-            UiKit.PlacePageFlowers(_lockedFlowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
-            _notice.gameObject.SetActive(true);
-            UiKit.PlaceScreen((RectTransform)_notice.transform, r.Notice);
-            _notice.Show(NavPlace.Wardrobe, level);
-            _nav?.Show(NavPlace.Wardrobe, _navLook?.Invoke() ?? HomeLook.All);
+            _root.SetActive(true);_locked=true;_shownPetals=-1;SetContent(false);ClearCells();
+            var f=UiKit.ScreenFrame();var r=ScreenLayout.LockedPage(f.Width,f.Height,f.Insets);
+            _header.Place(r.Header);_lockedFrame.gameObject.SetActive(true);UiKit.PlaceScreen(_lockedFrame.rectTransform,r.Panel);
+            _notice.gameObject.SetActive(true);UiKit.PlaceScreen((RectTransform)_notice.transform,r.Notice);_notice.Show(NavPlace.Wardrobe,level);
+            _nav?.Show(NavPlace.Wardrobe,_look?.Invoke()??HomeLook.All);
         }
-
-        /// <summary>Leaves the locked look: the notice hides and the page's own elements show again (<see cref="Refresh"/> then sets each one).</summary>
-        private void Unlock()
+        private void OnDisable(){if(_wardrobe!=null)_wardrobe.Changed-=Changed;}
+        private void OnDestroy()=>OnDisable();
+        private void Changed(){if(IsOpen&&!_locked){Remember();Refresh();}}
+        private void Remember(){if(_regions!=null&&!_locked)_browse.SetOffset(_content.anchoredPosition.y*UiKit.PixelsPerUnit,_regions.Maximum(_items.Count));}
+        private void Select(Family family){Remember();_browse.Select(family);_scroll.StopMovement();Refresh();}
+        private void Select(CosmeticKind kind){Remember();_browse.Select(kind);_scroll.StopMovement();Refresh();}
+        private void Turn(int step)
         {
-            _locked = false;
-            _notice.gameObject.SetActive(false);
-            _lockedFrame.gameObject.SetActive(false);
-            foreach (Image flower in _lockedFlowers)
-            {
-                flower.gameObject.SetActive(false);
-            }
-
-            _panel.gameObject.SetActive(true);
-            _panelLine.gameObject.SetActive(true);
-            SetContent(true);
+            int index=0;for(int i=0;i<4;i++)if(WardrobeService.Families[i]==_browse.Family)index=i;
+            Select(WardrobeService.Families[(index+step+4)%4]);
         }
-
-        /// <summary>Shows or hides everything of the open Wardrobe but its garden, its panel, its header and the menu.</summary>
-        private void SetContent(bool shown)
+        private void SetContent(bool show)
         {
-            _familyBar.gameObject.SetActive(shown);
-            _pedestal.gameObject.SetActive(shown);
-            _hero.Rect.gameObject.SetActive(shown);
-            _avatar.Rect.gameObject.SetActive(shown);
-            _previous.gameObject.SetActive(shown);
-            _next.gameObject.SetActive(shown);
-            _nameCard.gameObject.SetActive(shown);
-            foreach (Image flower in _nameFlowers)
-            {
-                flower.gameObject.SetActive(shown && DesignTokens.Garden.Decorations);
-            }
-            _nameTab.gameObject.SetActive(shown);
-            _role.gameObject.SetActive(shown);
-            _about.gameObject.SetActive(shown);
-            foreach (FamilyTabView tab in _tabs)
-            {
-                tab.gameObject.SetActive(shown);
-            }
-
-            _chips.gameObject.SetActive(shown);
-            _items.gameObject.SetActive(shown);
-            _empty.gameObject.SetActive(shown);
-            _footer.gameObject.SetActive(shown);
-            _pagePrevious.gameObject.SetActive(shown);
-            _pageNext.gameObject.SetActive(shown);
+            foreach(GameObject go in new[]{_viewport.gameObject,_stage.gameObject,_hero.Rect.gameObject,_name.gameObject,
+                _previous.gameObject,_next.gameObject,_filters.gameObject,_thumb.gameObject})go.SetActive(show);
         }
-
-        public void Hide() => _root.SetActive(false);
-
-        // While open, the screen follows the wardrobe: a choice here, or a cosmetic bought in the Store opened from the
-        // Petals pill's "+", shows at once.
-        private void OnEnable()
-        {
-            if (_wardrobe != null)
-            {
-                _wardrobe.Changed -= OnWardrobeChanged;
-                _wardrobe.Changed += OnWardrobeChanged;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (_wardrobe != null)
-            {
-                _wardrobe.Changed -= OnWardrobeChanged;
-            }
-        }
-
-        private void OnDestroy() => OnDisable();
-
-        private void OnWardrobeChanged()
-        {
-            if (_root != null && _root.activeSelf && !_locked)
-            {
-                Refresh();
-            }
-        }
-
-        /// <summary>A cosmetic's display name: its localized entry (a level badge or marker names its level), else the catalog name.</summary>
-        public static string Name(CosmeticItem item)
-        {
-            if (item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal))
-                return Loc.T("profile.achievement." + item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length));
-            if (item.MilestoneLevel.HasValue)
-            {
-                return item.Kind == CosmeticKind.Marker ? Loc.F("cosmetic.level_marker", item.MilestoneLevel.Value) : Loc.F("cosmetic.level_badge", item.MilestoneLevel.Value);
-            }
-
-            return Loc.T("cosmetic." + item.Id, item.Name);
-        }
-
-        /// <summary>The icon of an item in grids and the Store: its accessory, or its pattern on a round swatch for a skin.</summary>
-        public static Sprite Icon(CosmeticItem item) => item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix, StringComparison.Ordinal)
-            ? OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length)) ?? ProceduralSprites.Accessory(item.Shape)
-            : ProceduralSprites.Accessory(item.Shape);
-
-        private static string[] KindKeys(IReadOnlyList<CosmeticKind> kinds)
-        {
-            var keys=new string[kinds.Count]; for(int i=0;i<keys.Length;i++) keys[i]="wardrobe.kind_"+kinds[i].ToString().ToLowerInvariant(); return keys;
-        }
-
-        public static string KindLabel(CosmeticKind kind) => kind switch
-        {
-            CosmeticKind.Skin => Loc.T("wardrobe.kind_skin"),
-            CosmeticKind.Hat => Loc.T("wardrobe.kind_hat"),
-            CosmeticKind.Trail => Loc.T("wardrobe.kind_trail"),
-            CosmeticKind.Expression => Loc.T("wardrobe.kind_expression"),
-            CosmeticKind.Frame => Loc.T("wardrobe.kind_frame"),
-            CosmeticKind.Badge => Loc.T("wardrobe.kind_badge"),
-            _ => Loc.T("wardrobe.kind_marker"),
-        };
-
-        private IReadOnlyList<CosmeticKind> Kinds => _profileMode ? CosmeticCatalog.ProfileKinds : CosmeticCatalog.WornKinds;
-
-        private static string[] Labels(IReadOnlyList<CosmeticKind> kinds)
-        {
-            var labels = new string[kinds.Count];
-            for (int i = 0; i < kinds.Count; i++)
-            {
-                labels[i] = KindLabel(kinds[i]);
-            }
-
-            return labels;
-        }
-
-        /// <summary>
-        /// The name tab (§4.6, §6.5): a raised cream plate (a soft shadow, the <c>cream.lip</c>, the <c>cream.top</c> to
-        /// <c>parchment.bottom</c> face, a <c>cream.line</c> outline) rising over the name card's top edge, with the name in
-        /// <c>type.title</c>.
-        /// </summary>
-        /// <summary>The flowers at the name card's ends, as a share of its body's height (the playtest's <c>Kit.NameCardFlowerShare</c>).</summary>
-        private const float NameCardFlowerShare = 0.5f;
-
-        private static (RectTransform Tab, TextMeshProUGUI Name) NameTab(Transform parent)
-        {
-            (RectTransform tab, BoxLayout layout) = UiKit.Element("NameTab", parent);
-            float R(Box b) => b.Height * 0.3f;
-            UiKit.SoftShadow(layout, b => b, R, 0.2f, 0.05f);
-            Image lip = UiKit.RoundRect("Lip", tab, UiTheme.Of(C.CreamLip), R);
-            Image face = UiKit.RoundGradient("Face", tab, C.CreamTop, C.ParchmentBottom, R);
-            Image line = UiKit.RoundRing("Line", tab, UiTheme.Of(C.CreamLine), R, b => Mathf.Max(UiKit.Units(2f), b.Height * 0.025f));
-            layout.Add(lip.rectTransform, b => b.Offset(0f, b.Height * 0.06f));
-            layout.Add(face.rectTransform, b => b);
-            layout.Add(line.rectTransform, b => b);
-            TextMeshProUGUI name = UiKit.KitLabel("Name", tab, string.Empty, T.Title, TextLook.Plain(C.InkBrown));
-            layout.Watch(name).Then(b =>
-            {
-                KitText.Place(name, T.Title, b.CenterX, b.CenterY - (b.Height * 0.02f), Mathf.Min(UiKit.Units(T.Title.Size), b.Height * 0.62f), b.Width * 0.86f);
-            });
-            return (tab, name);
-        }
-
-        private void SetMode(bool profile)
-        {
-            _profileMode = profile;
-            _kind = Kinds[0];
-            _pageIndex = 0;
-            Refresh();
-        }
-
-        private void SetKind(int index)
-        {
-            if (index < Kinds.Count)
-            {
-                _kind = Kinds[index];
-                _pageIndex = 0;
-                Refresh();
-            }
-        }
-
-        private void Select(Family family)
-        {
-            bool wasProfile = _profileMode;
-            _selected = family;
-            _profileMode = false;
-            if (wasProfile)
-            {
-                _kind = Kinds[0];
-            }
-
-            _pageIndex = 0;
-            Refresh();
-        }
-
-        /// <summary>The ‹ › arrows: the previous or next family, around the four.</summary>
-        private void Turn(int by)
-        {
-            IReadOnlyList<Family> families = WardrobeService.Families;
-            int index = 0;
-            for (int i = 0; i < families.Count; i++)
-            {
-                if (families[i] == _selected)
-                {
-                    index = i;
-                }
-            }
-
-            Select(families[(index + by + families.Count) % families.Count]);
-        }
-
-        private void TurnPage(int by)
-        {
-            _pageIndex += by;
-            RefreshItems();
-        }
-
-        private void Update()
-        {
-            // The balance follows the economy (a purchase in the Store opened from the "+").
-            if (_petals != null && _petalsSource != null)
-            {
-                long now = _petalsSource();
-                if (now != _petalsShown)
-                {
-                    _petals.Show(now, _plus);
-                    _petalsShown = now;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Whether the Petals pill shows its "+" (to the Store page) as the screen opens: with a Store to open, once the
-        /// Store is open (spec 005 FR-030: the locked Wardrobe can show before L12, and the "+" must not open the Store
-        /// before its unlock, as on Home). The pill is shown again on the next frame.
-        /// </summary>
-        private void SyncPlus()
-        {
-            _plus = _store && (_navLook == null || _navLook().Store);
-            _petalsShown = -1;
-        }
-
-        /// <summary>Places every element on the reference regions for the screen's shape (contracts/look.md §6.5).</summary>
-        private void Layout()
-        {
-            (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            ReferenceWardrobeRegions r = ScreenLayout.ReferenceWardrobe(w, h, insets, hasChips: true);
-            _regions = r;
-            float u = DesignTokens.ScaleFor(w, h);
-            float touch = DesignTokens.Size.TouchMin * u;
-            Box Touch(Box b) => Box.FromCenter(b.CenterX, b.CenterY, Mathf.Max(b.Width, touch), Mathf.Max(b.Height, touch));
-            _header.Place(r.Header);
-
-            // The hero stands on the pedestal's top ellipse (its feet at 90% of its picture), its picture from the hero
-            // box's top; on the Profile tab the avatar stands there instead.
-            UiKit.PlaceScreen(_pedestal, r.Pedestal);
-            float feet = UiKit.PedestalTop(r.Pedestal).CenterY;
-            Box hero = HomeStage.Figure(r.Hero.CenterX, feet, Mathf.Max(1f, (feet - r.Hero.Top) / HomeStage.FeetShare));
-            UiKit.PlaceScreen(_hero.Rect, hero);
-            float avatar = Mathf.Min(r.Hero.Width, feet - r.Hero.Top) * 0.84f;
-            UiKit.PlaceScreen(_avatar.Rect, Box.FromCenter(r.Hero.CenterX, feet - (avatar * 0.52f), avatar, avatar));
-
-            // The ‹ › arrows: their 0.09 W cushions centered in touch-sized squares.
-            UiKit.PlaceScreen((RectTransform)_previous.transform, Touch(r.Previous));
-            UiKit.PlaceScreen((RectTransform)_next.transform, Touch(r.Next));
-
-            // The name card's parchment starts a little under its tab's top, so the tab rises over its edge.
-            var nameBody = new Box(r.NameCard.Left, r.NameTab.Top + (r.NameTab.Height * 0.36f), r.NameCard.Right, r.NameCard.Bottom);
-            UiKit.PlaceScreen(_nameCard.rectTransform, nameBody);
-            float flowers = nameBody.Height * NameCardFlowerShare;
-            var ends = new Box(nameBody.Left, nameBody.Top, nameBody.Right, nameBody.Top + (nameBody.Height * 0.72f));
-            UiKit.PlaceScreen(_nameFlowers[0].rectTransform, CardLook.CornerBox(ends, Corner.BottomLeft, flowers));
-            UiKit.PlaceScreen(_nameFlowers[1].rectTransform, CardLook.CornerBox(ends, Corner.BottomRight, flowers));
-            UiKit.PlaceScreen(_nameTab, r.NameTab);
-            UiKit.PlaceScreen(_role.rectTransform, r.Role);
-            UiKit.PlaceScreen(_about.rectTransform, r.About);
-
-            // The panel runs to the bottom of the screen: its bottom corners go past the edge.
-            var panel = new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + (60f * u));
-            UiKit.PlaceScreen(_panel.rectTransform, panel);
-            UiKit.PlaceScreen(_panelLine.rectTransform, panel);
-
-            // The family navigation shares one cream base; each segment uses the shared responsive geometry.
-            int selected = _profileMode ? _tabs.Count - 1 : IndexOf(_selected);
-            Box familyBar=NavigationSkin.FamilyBar(r.Tabs,_tabs.Count);
-            UiKit.PlaceScreen(_familyBar,familyBar);
-            for (int i = 0; i < _tabs.Count; i++)
-            {
-                Box cell = NavigationSkin.Segment(familyBar,i,_tabs.Count);
-                UiKit.PlaceScreen((RectTransform)_tabs[i].transform, cell);
-                _tabs[i].Select(i == selected);
-            }
-
-            UiKit.PlaceScreen(_chips, r.Chips);
-            UiKit.PlaceScreen(_items, r.Grid);
-            UiKit.PlaceScreen(_empty.rectTransform, r.Grid);
-            UiKit.PlaceScreen(_footer.rectTransform, r.Footer);
-            UiKit.PlaceScreen((RectTransform)_pagePrevious.transform, Touch(r.PagePrevious));
-            UiKit.PlaceScreen((RectTransform)_pageNext.transform, Touch(r.PageNext));
-            _nav?.Show(NavPlace.Wardrobe, _navLook?.Invoke() ?? HomeLook.All);
-        }
-
-        private static int IndexOf(Family family)
-        {
-            IReadOnlyList<Family> families = WardrobeService.Families;
-            for (int i = 0; i < families.Count; i++)
-            {
-                if (families[i] == family)
-                {
-                    return i;
-                }
-            }
-
-            return 0;
-        }
-
         private void Refresh()
         {
-            Layout();
-            string key = WardrobeService.FamilyKey(_selected);
-            _hero.Rect.gameObject.SetActive(!_profileMode);
-            _avatar.Rect.gameObject.SetActive(_profileMode);
-            _previous.gameObject.SetActive(!_profileMode);
-            _next.gameObject.SetActive(!_profileMode);
-            _hero.ShowHero(_selected, _wardrobe.OutfitOf(_selected));
-            AvatarItem? avatar = _avatarOf?.Invoke();
-            Outfit outfit = _wardrobe.OutfitOf(avatar?.Family ?? Family.Bloom);
-            _avatar.Show(_wardrobe.Profile, outfit, avatar);
-            _name.text = _profileMode ? Loc.T("wardrobe.tab_profile") : Loc.T("family." + key);
-            _role.text = _profileMode ? Loc.T("wardrobe.role.profile") : Loc.T("wardrobe.role." + key);
-            // The description in two balanced lines, as the reference's (§6.5).
-            string about = _profileMode ? Loc.T("wardrobe.about.profile") : Loc.T("wardrobe.about." + key);
-            float aboutWidth = _regions.About.Width * 0.7f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
-            _about.text = string.Join("\n", UiKit.BalancedLines(_probe, about, UiKit.Units(T.Body.Size), aboutWidth));
-
-            _wornKinds.gameObject.SetActive(!_profileMode);
-            _profileKinds.gameObject.SetActive(_profileMode);
-            IReadOnlyList<CosmeticKind> kinds = Kinds;
-            int kind = 0;
-            for (int i = 0; i < kinds.Count; i++)
-            {
-                if (kinds[i] == _kind)
-                {
-                    kind = i;
-                }
-            }
-
-            (_profileMode ? _profileKinds : _wornKinds).Select(kind);
-            RefreshItems();
+            var f=UiKit.ScreenFrame();_regions=WardrobeShelfDesign.Page(f.Width,f.Height,f.Insets);var r=_regions;
+            SetContent(true);_lockedFrame.gameObject.SetActive(false);_notice.gameObject.SetActive(false);
+            _header.Place(r.Header);_nav?.Show(NavPlace.Wardrobe,_look?.Invoke()??HomeLook.All);
+            UiKit.PlaceScreen(_stage.rectTransform,r.Stage);_hero.ShowHero(_browse.Family,_wardrobe.OutfitOf(_browse.Family));
+            UiKit.PlaceScreen(_hero.Rect,HomeStage.Figure(r.Hero.CenterX,r.Hero.Bottom,r.Hero.Height));
+            _name.text=Loc.T("family."+WardrobeService.FamilyKey(_browse.Family));UiKit.PlaceScreen(_name.rectTransform,r.Name);
+            UiKit.PlaceScreen((RectTransform)_previous.transform,r.Previous);UiKit.PlaceScreen((RectTransform)_next.transform,r.Next);
+            BuildFilters();_items=WardrobeShelfCatalog.Build(_wardrobe,_browse.Kind);_browse.SetOffset(_browse.Offset,r.Maximum(_items.Count));
+            UiKit.PlaceScreen(_viewport,r.Viewport);
+            _content.anchorMin=new Vector2(0,1);_content.anchorMax=new Vector2(1,1);_content.pivot=new Vector2(.5f,1);
+            float height=r.ContentHeight(_items.Count)+r.Viewport.Height-r.Area.Height;
+            _content.sizeDelta=new Vector2(0,height/UiKit.PixelsPerUnit);_content.anchoredPosition=new Vector2(0,_browse.Offset/UiKit.PixelsPerUnit);
+            ClearCells();_lastOffset=-1;UpdateVisible();
         }
-
-        private void RefreshItems()
+        private Box ContentBox=>new Box(_regions.Viewport.Left,_regions.Viewport.Top,_regions.Viewport.Right,
+            _regions.Viewport.Top+_content.sizeDelta.y*UiKit.PixelsPerUnit);
+        private void BuildFilters()
         {
-            foreach (GameObject card in _cards)
+            for(int i=_filters.childCount-1;i>=0;i--){GameObject c=_filters.GetChild(i).gameObject;c.SetActive(false);Destroy(c);}
+            Box box=new Box(_regions.Families.Left,_regions.Families.Top,_regions.Categories.Right,_regions.Categories.Bottom);
+            Image shield=UiFactory.CreateImage("FilterInput",_filters,null,Color.clear,raycast:true);UiKit.PlaceScreen(shield.rectTransform,box);
+            UiKit.PlaceScreen(UiKit.NavigationBar("Families",_filters,4),_regions.Families);
+            for(int i=0;i<4;i++)
             {
-                Destroy(card);
+                Family family=WardrobeService.Families[i];
+                var tab=UiKit.FamilyTab(family.ToString(),_filters,Loc.T("family."+WardrobeService.FamilyKey(family)),()=>Select(family));
+                UiKit.PlaceScreen((RectTransform)tab.transform,NavigationSkin.Segment(_regions.Families,i,4));tab.Select(family==_browse.Family);
             }
-
-            _cards.Clear();
-
-            // Worn kinds start with the "Default" look. The badge profile tab also offers an explicit no-badge choice.
-            var options = new List<CosmeticItem?>();
-            if (!_profileMode || _kind == CosmeticKind.Badge)
-            {
-                options.Add(null);
-            }
-
-            foreach (CosmeticItem item in _wardrobe.OwnedOf(_kind))
-            {
-                options.Add(item);
-            }
-
-            int perPage = ReferenceWardrobeRegions.Columns;
-            int pages = Mathf.Max(1, (options.Count + perPage - 1) / perPage);
-            _pageIndex = Mathf.Clamp(_pageIndex, 0, pages - 1);
-            _pagePrevious.gameObject.SetActive(pages > 1);
-            _pageNext.gameObject.SetActive(pages > 1);
-            _pagePrevious.interactable = _pageIndex > 0;
-            _pageNext.interactable = _pageIndex < pages - 1;
-            _empty.gameObject.SetActive(options.Count == 0);
-
-            // The worn item (or the shown profile item) is the green card with the check.
-            CosmeticItem? current = _profileMode ? _wardrobe.Shown(_kind) : _wardrobe.EquippedFor(_selected, _kind);
-            Outfit outfit = _wardrobe.OutfitOf(_selected);
-            for (int slot = 0; slot < perPage; slot++)
-            {
-                int index = (_pageIndex * perPage) + slot;
-                if (index >= options.Count)
-                {
-                    break;
-                }
-
-                CosmeticItem? item = options[index];
-                string title = item == null && _profileMode
-                    ? Loc.T("profile.badge_none")
-                    : item == null ? Loc.T("wardrobe.default") : Name(item);
-                OutfitCardView card = UiKit.OutfitCard(item?.Id ?? "Default", _items, title, () => Choose(item));
-                UiKit.PlaceBox((RectTransform)card.transform, _regions.Card(slot), _regions.Grid);
-                Preview(card.Picture, item, outfit);
-                card.Show(item?.Id == current?.Id);
-                _cards.Add(card.gameObject);
-            }
+            string[] labels=new string[4],keys=new string[4];
+            for(int i=0;i<4;i++){var k=CosmeticCatalog.WornKinds[i];labels[i]=KindLabel(k);keys[i]="wardrobe.kind_"+k.ToString().ToLowerInvariant();}
+            TabsView kinds=UiKit.Tabs("Categories",_filters,labels,i=>Select(CosmeticCatalog.WornKinds[i]),keys);
+            UiKit.PlaceScreen((RectTransform)kinds.transform,_regions.Categories);kinds.Select((int)_browse.Kind);
         }
-
-        /// <summary>
-        /// An outfit card's picture: the chosen family's hero in its outfit with this item in its kind's place (or none of
-        /// the kind for the Default card); a frame around a small portrait of the hero; a badge or a marker as its shape.
-        /// </summary>
-        private void Preview(RectTransform well, CosmeticItem? item, Outfit outfit)
+        private void ClearCells()
         {
-            if (item == null || item.IsWorn)
-            {
-                // The hero fills the well with its feet near the bottom, as on the Store's outfit cards.
-                Outfit worn = With(outfit, item?.Kind ?? _kind, item);
-                BloomlingFigure figure = BloomlingFigure.Create("Hero", well);
-                figure.Body.raycastTarget = false;
-                figure.ShowHero(_selected, worn);
-                OutfitCardView.PlaceHero(figure.Rect, well, hat: worn.Hat != null);
-                return;
-            }
-
-            // A profile item as its own mark, 80% of the well (the Store's previews, the playtest's MetaCards.Preview).
-            BoxLayout layout = BoxLayout.On(well);
-            Box Mark(Box w)
-            {
-                float size = Mathf.Min(w.Width, w.Height) * 0.8f;
-                return Box.FromCenter(w.CenterX, w.CenterY, size, size);
-            }
-
-            if (item.Kind == CosmeticKind.Frame)
-            {
-                BloomlingFigure portrait = BloomlingFigure.Create("Hero", well);
-                portrait.Body.raycastTarget = false;
-                portrait.ShowHero(Family.Bloom, null);
-                layout.Add(portrait.Rect, w => Mark(w).Inset(Mark(w).Width * 0.16f));
-            }
-
-            // A drawn frame (the five free ones, spec 005 FR-037 as amended 2026-10-06) shows its picture; the others their tinted mark.
-            ProfileFrameStyle? drawn = item.Kind == CosmeticKind.Frame ? ProfileFrames.StyleOf(item.Shape) : null;
-            Image mark = UiFactory.CreateImage("Item", well, drawn.HasValue ? null : Icon(item), drawn.HasValue ? Color.white : BloomlingFigure.Tint(item));
-            mark.preserveAspect = true;
-            mark.raycastTarget = false;
-            layout.Add(mark.rectTransform, w => item.Kind == CosmeticKind.Frame ? Mark(w) : Mark(w).Inset(Mark(w).Width * 0.08f));
-            if (drawn.HasValue)
-            {
-                ProfileFrameStyle style = drawn.Value;
-                string slot = ProfileFrames.Slot(style);
-                PictureFit.On(mark, (pw, ph) => ProceduralSprites.Picture(slot, Mathf.Min(pw, ph), Mathf.Min(pw, ph), (x, y) => ProfileFrames.Render(style, Mathf.Min(x, y))), square: true);
-            }
+            foreach(GameObject go in _cells.Values){go.SetActive(false);Destroy(go);}_cells.Clear();
+            foreach(Image im in _shelves.Values){im.gameObject.SetActive(false);Destroy(im.gameObject);}_shelves.Clear();
         }
-
-        /// <summary>An outfit with <paramref name="item"/> (or nothing) in <paramref name="kind"/>'s place.</summary>
-        private static Outfit With(Outfit outfit, CosmeticKind kind, CosmeticItem? item) => kind switch
+        private void UpdateVisible()
         {
-            CosmeticKind.Skin => outfit with { Skin = item },
-            CosmeticKind.Hat => outfit with { Hat = item },
-            CosmeticKind.Trail => outfit with { Trail = item },
-            CosmeticKind.Expression => outfit with { Expression = item },
-            _ => outfit,
-        };
-
-        private void Choose(CosmeticItem? item)
-        {
-            if (_profileMode)
+            var r=_regions;float offset=Mathf.Clamp(_content.anchoredPosition.y*UiKit.PixelsPerUnit,0,r.Maximum(_items.Count));
+            _browse.SetOffset(offset,r.Maximum(_items.Count));var window=r.Visible(_items.Count,offset);
+            var remove=new List<int>();
+            foreach(var p in _cells)if(p.Key<window.First||p.Key>window.Last)remove.Add(p.Key);
+            foreach(int i in remove){_cells[i].SetActive(false);Destroy(_cells[i]);_cells.Remove(i);}
+            remove.Clear();
+            foreach(var p in _shelves)if(p.Key<window.First/3||p.Key>window.Last/3)remove.Add(p.Key);
+            foreach(int i in remove){_shelves[i].gameObject.SetActive(false);Destroy(_shelves[i].gameObject);_shelves.Remove(i);}
+            for(int row=window.First/3;row<=window.Last/3;row++)if(!_shelves.ContainsKey(row))
             {
-                if (item == null)
-                {
-                    _wardrobe.HideProfile(_kind);
-                }
-                else
-                {
-                    _wardrobe.Show(item.Id);
-                }
+                Image shelf=MetaShelfView.Skin("Shelf"+row,_content,MetaScreenArt.Shelf);UiKit.PlaceBox(shelf.rectTransform,r.Row(row),ContentBox);
+                shelf.transform.SetAsFirstSibling();_shelves[row]=shelf;
             }
-            else if (item == null)
-            {
-                _wardrobe.Unequip(_selected, _kind);
-            }
-            else
-            {
-                _wardrobe.Equip(_selected, item.Id);
-            }
-
-            // A change raises the wardrobe's Changed, which refreshes the screen (OnWardrobeChanged); no change, nothing to redraw.
+            for(int i=window.First;i<=window.Last;i++)if(!_cells.ContainsKey(i))_cells[i]=CreateItem(i);
+            _thumb.gameObject.SetActive(r.Maximum(_items.Count)>0);UiKit.PlaceScreen(_thumb.rectTransform,r.Thumb(_items.Count,offset));_lastOffset=offset;
         }
+        private GameObject CreateItem(int index)
+        {
+            var card=_items[index];CosmeticItem? item=card.Item;Box cell=_regions.Cell(index);
+            Image hit=UiFactory.CreateImage("Item"+index,_content,null,Color.clear,raycast:card.State!=WardrobeItemState.Reward);UiKit.PlaceBox(hit.rectTransform,cell,ContentBox);
+            if(card.State!=WardrobeItemState.Reward)UiKit.TapTarget(hit,()=>Choose(card));
+            UiKit.PlaceBox(MetaShelfView.Skin("Base",hit.transform,MetaScreenArt.Base).rectTransform,WardrobeShelfDesign.Pedestal(cell),cell);
+            RectTransform picture=UiFactory.CreateRect("Preview",hit.transform);UiKit.PlaceBox(picture,WardrobeShelfDesign.Picture(cell),cell);
+            var hero=BloomlingFigure.Create("Hero",picture);hero.Body.raycastTarget=false;
+            hero.ShowHero(_browse.Family,WardrobeShelfCatalog.Preview(_wardrobe.OutfitOf(_browse.Family),_browse.Kind,item));UiFactory.Stretch(hero.Rect);
+            UiKit.PlaceBox(MetaShelfView.Skin("NamePlate",hit.transform,MetaScreenArt.Tag).rectTransform,WardrobeShelfDesign.Caption(cell),cell);
+            var name=MetaShelfView.Label("Name",hit.transform,item==null?Loc.T("wardrobe.default"):Name(item),WardrobeShelfDesign.ItemName);
+            UiKit.PlaceBox(name.rectTransform,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),cell);
+            if(_wardrobe.EquippedFor(_browse.Family,_browse.Kind)?.Id==item?.Id)UiKit.PlaceBox(MetaShelfView.Check(hit.transform),WardrobeShelfDesign.Check(cell),cell);
+            if(card.State==WardrobeItemState.ForSale)UiKit.PlaceBox(MetaShelfView.Price(hit.transform,NumberText.Group(item!.Price)).rectTransform,WardrobeShelfDesign.Action(cell),cell);
+            if(card.State==WardrobeItemState.Reward)
+            {
+                Box action=WardrobeShelfDesign.Action(cell);UiKit.PlaceBox(MetaShelfView.Skin("Reward",hit.transform,MetaScreenArt.Tag).rectTransform,action,cell);
+                UiKit.PlaceBox(UiKit.LockBadge("Lock",hit.transform),Box.FromCenter(action.Left+action.Height*.4f,action.CenterY,action.Height*.8f,action.Height*.8f),cell);
+                var note=MetaShelfView.Label("RewardLabel",hit.transform,RewardText(card),WardrobeShelfDesign.Status);
+                UiKit.PlaceBox(note.rectTransform,new Box(action.Left+action.Height,action.Top,action.Right-action.Height*.12f,action.Bottom),cell);
+            }
+            return hit.gameObject;
+        }
+        private void Choose(WardrobeShelfItem card)
+        {
+            Family family=_browse.Family;CosmeticKind kind=_browse.Kind;CosmeticItem? item=card.Item;
+            if(card.State==WardrobeItemState.ForSale)
+            {
+                _confirm.ShowPetals(PurchaseOffer.ForPetals(Name(item!),item!.Price),_petals?.Invoke()??0,well=>
+                {
+                    var figure=BloomlingFigure.Create("Preview",well);UiFactory.Stretch(figure.Rect);
+                    figure.ShowHero(family,WardrobeShelfCatalog.Preview(_wardrobe.OutfitOf(family),kind,item));
+                },()=>{if(_wardrobe.TryBuy(item.Id))_wardrobe.Equip(family,item.Id);},()=>_toast.Show(Loc.T("gameplay.not_enough_petals")));return;
+            }
+            if(item==null||_wardrobe.EquippedFor(family,kind)?.Id==item.Id)_wardrobe.Unequip(family,kind);else _wardrobe.Equip(family,item.Id);
+        }
+        private void Update()
+        {
+            if(_petals!=null&&_header.Petals!=null){long now=_petals();if(now!=_shownPetals){_header.Petals.Show(now,_store&&(_look==null||_look().Store));_shownPetals=now;}}
+            if(!_locked&&_regions!=null&&Mathf.Abs(_content.anchoredPosition.y*UiKit.PixelsPerUnit-_lastOffset)>.2f)UpdateVisible();
+        }
+        public static string RewardText(WardrobeShelfItem item)=>item.RewardCadence.HasValue?Loc.F("wardrobe.milestone_every",item.RewardCadence.Value):Loc.T("wardrobe.milestone_reward");
+        public static string Name(CosmeticItem item)
+        {
+            if(item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix,StringComparison.Ordinal))return Loc.T("profile.achievement."+item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length));
+            if(item.MilestoneLevel.HasValue)return Loc.F(item.Kind==CosmeticKind.Marker?"cosmetic.level_marker":"cosmetic.level_badge",item.MilestoneLevel.Value);
+            return Loc.T("cosmetic."+item.Id,item.Name);
+        }
+        public static Sprite Icon(CosmeticItem item)=>item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix,StringComparison.Ordinal)?
+            OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length))??ProceduralSprites.Accessory(item.Shape):ProceduralSprites.Accessory(item.Shape);
+        public static string KindLabel(CosmeticKind kind)=>Loc.T("wardrobe.kind_"+kind.ToString().ToLowerInvariant());
     }
 }

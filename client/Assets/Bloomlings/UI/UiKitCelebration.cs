@@ -118,7 +118,7 @@ namespace Bloomlings.Client.UI
         {
             Image root = Slab(name, parent, 0.5f);
             Image lotus = PetalIcon("Lotus", root.transform);
-            TextMeshProUGUI label = KitLabel("Amount", root.transform, string.Empty, T.Reward, TextLook.Plain(C.InkBrown));
+            TextMeshProUGUI label = KitLabel("Amount", root.transform, string.Empty, PrimaryActionDesign.Type(T.Reward), TextLook.Plain(C.InkBrown));
             var view = root.gameObject.AddComponent<RewardPlateView>();
             BoxLayout content = BoxLayout.On(root.rectTransform).Watch(label);
             view.Init(root, lotus, label, content);
@@ -136,7 +136,7 @@ namespace Bloomlings.Client.UI
                 float textWidth = Mathf.Min(measured > 0f ? measured : room, room);
                 float start = f.CenterX - ((icon + gap + textWidth) / 2f);
                 BoxLayout.Place(lotus.rectTransform, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon));
-                KitText.Place(label, T.Reward, start + icon + gap + (textWidth / 2f), f.CenterY, size, textWidth + 1f);
+                KitText.Place(label, PrimaryActionDesign.Type(T.Reward), start + icon + gap + (textWidth / 2f), f.CenterY, size, textWidth + 1f);
             });
             return view;
         }

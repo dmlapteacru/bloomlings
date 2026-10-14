@@ -111,49 +111,50 @@ namespace Bloomlings.Client.UI
     }
 
     /// <summary>
-    /// The bottom menu (spec 005 FR-030; the playtest's <c>Kit.BottomNav</c>): the wooden bar's picture
-    /// (<c>ui.nav.bar</c>, <see cref="UiRaster.NavBar"/>) across the screen's bottom, which takes the taps that fall on it;
-    /// one clear touch target per place with its icon, squashing while pressed, a locked place's icon with the padlock
-    /// badge on its lower right (<c>ui.nav.lock</c>, <see cref="UiKit.LockBadge"/>), still tappable; and the raised
-    /// medallion (<c>ui.nav.medallion</c>, <see cref="UiRaster.NavMedallion"/>) with the active place's icon and no badge,
-    /// which takes no tap.
+    /// One opaque wooden console with five live icons/captions and a green selected inset. The backing blocks scroll
+    /// gestures through gaps; locked destinations retain their badge and callback. Twin of the playtest's Kit.BottomNav.
     /// </summary>
     public sealed class BottomNavView : MonoBehaviour
     {
-        private readonly Dictionary<NavPlace,(Image Touch,Image Face,TextMeshProUGUI Caption,RectTransform Lock)> _places=new Dictionary<NavPlace,(Image,Image,TextMeshProUGUI,RectTransform)>();
-        private Image _bar=null!;
-        private readonly Image[] _stoneRows=new Image[4];
+        private readonly Dictionary<NavPlace,(Image Touch,Image Selected,Image Icon,TextMeshProUGUI Caption,RectTransform Lock)> _places=new Dictionary<NavPlace,(Image,Image,Image,TextMeshProUGUI,RectTransform)>();
+        private Image _bar=null!,_panel=null!;
+        private readonly List<Image> _dividers=new List<Image>();
         private NavPlace _active=NavPlace.Home;
         private bool _shown;
         public NavPlace Active=>_active;
         internal void Build(Action<NavPlace> onSelect)
         {
-            _bar=UiFactory.CreateImage("StoneInput",transform,null,Color.clear,raycast:true);
-            for(int i=0;i<_stoneRows.Length;i++){_stoneRows[i]=UiFactory.CreateImage("StoneRow"+i,transform,NavigationArt.Get(GameNavigationDesign.StoneWall),Color.white);_stoneRows[i].preserveAspect=true;}
+            _bar=UiFactory.CreateImage("ConsoleInput",transform,null,UiTheme.Of(GameNavigationDesign.ConsoleFill),raycast:true);
+            _panel=GameNavigationView.Surface("WoodConsole",_bar.transform,GameNavigationDesign.Console);
+            for(int i=1;i<Design.BottomNav.Order.Count;i++)_dividers.Add(UiFactory.CreateImage("Divider"+i,_bar.transform,null,UiTheme.Of(NavigationSkin.DividerInk)));
             foreach(NavPlace place in Design.BottomNav.Order)
             {
                 NavPlace p=place;Image touch=UiFactory.CreateImage(Design.BottomNav.Key(place),transform,null,Color.clear,raycast:true);
                 UiKit.TapTarget(touch,()=>{if(p!=_active)onSelect(p);},press:true);
-                Image face=UiFactory.CreateImage("Illustration",touch.transform,null,Color.white);face.preserveAspect=true;face.raycastTarget=false;
-                TextMeshProUGUI caption=GameNavigationView.Label("SelectedName",touch.transform,Loc.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,ShopBodyDesign.Letters,.92f);
+                Image selected=GameNavigationView.Surface("SelectedInset",touch.transform,GameNavigationDesign.Selected);
+                Image icon=UiFactory.CreateImage("Illustration",touch.transform,null,Color.white);UiKit.SetNavIcon(icon,place);icon.raycastTarget=false;
+                TextMeshProUGUI caption=GameNavigationView.Label("Name",touch.transform,Loc.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,NavigationSkin.TabLook(false),.90f);
                 RectTransform badge=UiKit.LockBadge("Lock",touch.transform);
-                _places[place]=(touch,face,caption,badge);
+                _places[place]=(touch,selected,icon,caption,badge);
             }
         }
         public void Show(NavPlace active,HomeLook look)
         {
             var frame=UiKit.ScreenFrame();BottomNavRegions r=ScreenLayout.BottomNav(frame.Width,frame.Height,frame.Insets,Design.BottomNav.Order,active);
-            _active=active;_shown=true;UiKit.PlaceScreen(_bar.rectTransform,GameNavigationDesign.NavBacking(r,frame.Width));
-            var rows=GameNavigationDesign.NavStoneRows(r,frame.Width);
-            for(int i=0;i<_stoneRows.Length;i++){_stoneRows[i].gameObject.SetActive(i<rows.Count);if(i<rows.Count)UiKit.PlaceScreen(_stoneRows[i].rectTransform,rows[i]);}
+            _active=active;_shown=true;Box backing=GameNavigationDesign.NavBacking(r,frame.Width);UiKit.PlaceScreen(_bar.rectTransform,backing);
+            UiKit.PlaceBox(_panel.rectTransform,GameNavigationDesign.NavSurface(r,frame.Width),backing);
+            for(int i=0;i<_dividers.Count;i++)UiKit.PlaceBox(_dividers[i].rectTransform,GameNavigationDesign.NavDivider(r,i+1),backing);
             for(int i=0;i<r.Places.Count;i++)
             {
                 NavPlace place=r.Places[i];var parts=_places[place];bool chosen=place==active;Box touch=GameNavigationDesign.NavTouch(r,i),face=GameNavigationDesign.NavButton(r,i);
                 UiKit.PlaceScreen(parts.Touch.rectTransform,touch);parts.Touch.raycastTarget=true;
-                parts.Face.sprite=NavigationArt.Get(GameNavigationDesign.Nav(place,chosen));UiKit.PlaceBox(parts.Face.rectTransform,face,touch);
-                parts.Caption.gameObject.SetActive(chosen);if(chosen)UiKit.PlaceBox(parts.Caption.rectTransform,GameNavigationDesign.NavCaption(face),touch);
+                parts.Selected.gameObject.SetActive(chosen);UiKit.PlaceBox(parts.Selected.rectTransform,face,touch);
+                Box icon=GameNavigationDesign.NavIcon(face,chosen);UiKit.PlaceBox(parts.Icon.rectTransform,icon,touch);
+                parts.Caption.gameObject.SetActive(chosen);
+                UiKit.ApplyLook(parts.Caption,GameNavigationDesign.Caption,NavigationSkin.TabLook(chosen));
+                UiKit.PlaceBox(parts.Caption.rectTransform,GameNavigationDesign.NavCaption(face),touch);
                 bool locked=!chosen&&!Design.BottomNav.IsOpen(place,look);parts.Lock.gameObject.SetActive(locked);
-                if(locked)UiKit.PlaceBox(parts.Lock,Design.BottomNav.LockBox(face),touch);
+                if(locked)UiKit.PlaceBox(parts.Lock,Design.BottomNav.LockBox(icon),touch);
             }
         }
         public RectTransform? PlaceRect(NavPlace place)=>!_shown||!isActiveAndEnabled ? null : _places[place].Touch.rectTransform;

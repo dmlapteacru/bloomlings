@@ -336,7 +336,7 @@ namespace Bloomlings.Client.Tests
         {
             foreach ((float w, float h, Insets insets) in Phones())
             {
-                foreach (int choices in new[] { 1, 2, 3, 4, 5 })
+                foreach (int choices in new[] { 0, 1, 2, 3, 4, 5 })
                 {
                     foreach (bool close in new[] { true, false })
                     {
@@ -358,7 +358,7 @@ namespace Bloomlings.Client.Tests
                             Assert.That(r.Choices[i].Within(r.Card), Is.True, at + " choice " + i);
                             Assert.That(r.CostPills[i].Within(r.Card), Is.True, at + " pill " + i);
                             Assert.That(r.CostPills[i].Top, Is.LessThan(r.Choices[i].Bottom), at + ": the pill overlaps its button's bottom edge");
-                            Assert.That(r.CostPills[i].Bottom, Is.GreaterThan(r.Choices[i].Bottom), at + ": the pill hangs under its button");
+                            Assert.That(r.CostPills[i].Within(r.Choices[i]), Is.True, at + ": the price remains inside its action tap area");
                             Assert.That(r.CostPills[i].CenterX, Is.EqualTo(r.Choices[i].CenterX).Within(0.5f), at);
                             for (int j = 0; j < i; j++)
                             {

@@ -129,3 +129,15 @@ Use case: stylized-concept. Production mobile-game UI nine-slice skin. Reference
 ```text
 Use case: stylized-concept. Transparent production UI accessory atlas for Bloomlings, exactly TWO standalone rounded-square PROFILE FRAMES in one horizontal row, equal square cells, centered, full silhouettes, generous transparent gutters and transparent empty center. Reference is approved Frame selection screen; match precisely the last two frame accessories ONLY. LEFT DAISY FRAME: a delicate rounded-square light cream/ivory frame rim with lush green leaves and exactly four small white daisies with warm yellow centers at the four rounded corners. RIGHT IVY FRAME: slim warm brown rounded-square twig ring wrapped in small bright green ivy leaves, small three-point ivy clusters at upper-left and lower-right, no flowers. Both frames have the SAME center opening and rounded-square proportions to go over an existing avatar portrait, about80% of external frame width open/empty. Smooth polished 3D cartoon garden-game texture, upper-left highlights, dimensional but slender edges, tiny tight shadow, warm friendly finish. Do NOT draw any avatar, portrait, heroes, head, face, background image, inner fill, price, card, name, text, checkmark, button, badges, numeral or watermark. The entire interior and outside must be genuine transparency. Wide2:1 atlas. Only two frame accessories, not screen mockup.
 ```
+
+
+## Wardrobe shelves and Leaderboard honor board (2026-10-14)
+
+Owner-approved references: `product/previews/wardrobe-scroll-concepts-v1/wardrobe-scroll.png` and `product/previews/leaderboard-wardrobe-concepts-v1/leaderboard.png`. Generated with built-in OpenAI ImageGen. Exact prompts and original generated file paths: `product/previews/meta-shelves-implemented-v1/prompts.json`.
+
+- `meta-wardrobe-stage-v1.png`: transparent stone arch, pedestal and blank family name plate; existing characters remain runtime layers.
+- `meta-shelf-atlas-v1.png`: shelf, ranking plank, item pedestal and blank caption. Atlas fragments are cropped at runtime; plank and caption use independent nine-slice geometry.
+- `meta-leaderboard-podium-v1.png`: three bases and blank medals, with transparent avatar spaces. Fixed portrait frames and baked name/level plaques were removed through ImageGen so each player's own frame, avatar and badge stay independent.
+- `meta-hats-atlas-v1.png`: all eleven existing catalog hats, rendered only on meta heroes. Original worker/tile variant signals and gameplay cosmetic tints are unchanged.
+
+Original PNG RGBA bytes and transparency are preserved. `MetaScreenArt` shares crop bounds between Unity, Skia and Android. Dimensions and SHA-256 are recorded in manifest version 6. All names, levels, prices, equipped states and cosmetic IDs are live data, never baked labels.

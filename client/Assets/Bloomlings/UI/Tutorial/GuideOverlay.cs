@@ -65,13 +65,13 @@ namespace Bloomlings.Client.UI.Tutorial
 
             overlay._ring = UiKit.RoundRing("Ring", scrim.transform, UiTheme.Of(C.GardenGlow), b => overlay._layout.Radius / Mathf.Max(0.0001f, UiKit.PixelsPerUnit), _ => UiKit.Units(6f));
             overlay._tail = UiKit.RoundRect("Tail", scrim.transform, UiTheme.Of(C.ParchmentBottom), _ => UiKit.Units(6f));
-            Image bubble = UiKit.Paper("Bubble", scrim.transform, 34f, DesignTokens.Garden.OutlineWidth, 6f, raycast: false);
+            Image bubble = UiKit.CardFrame("Bubble", scrim.transform, raycast:false);
             overlay._bubble = bubble.rectTransform;
             overlay._iconSlot = UiFactory.CreateRect("Icon", bubble.transform);
-            overlay._strong = UiKit.Label("Message", bubble.transform, string.Empty, T.ButtonSecondary, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
+            overlay._strong = UiKit.Label("Message", bubble.transform, string.Empty, PopupDesign.Label, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
             overlay._soft = UiKit.Label("Detail", bubble.transform, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             overlay._caption = UiKit.Label("Continue", bubble.transform, Loc.T("demo.tap_continue"), T.Caption, UiTheme.Of(C.InkBrownSoft));
-            overlay._probe = UiKit.Label("Probe", bubble.transform, string.Empty, T.ButtonSecondary, Color.clear);
+            overlay._probe = UiKit.Label("Probe", bubble.transform, string.Empty, PopupDesign.Label, Color.clear);
             overlay._handLine = UiFactory.CreateImage("HandLine", scrim.transform, ProceduralSprites.Pointer, UiTheme.Of(C.InkBrown));
             overlay._handLine.preserveAspect = true;
             overlay._hand = UiFactory.CreateImage("Hand", scrim.transform, ProceduralSprites.Pointer, Color.white);
@@ -99,7 +99,7 @@ namespace Bloomlings.Client.UI.Tutorial
             // The message, balanced on its lines once per step.
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
             float width = Spotlight.TextWidth(w, h, insets, icon != null) / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
-            _strongLines = UiKit.BalancedLines(_probe, Loc.T(step.MessageKeys[0]), UiKit.Units(T.ButtonSecondary.Size), width);
+            _strongLines = UiKit.BalancedLines(_probe, Loc.T(step.MessageKeys[0]), UiKit.Units(PopupDesign.Label.Size), width);
             _softLines.Clear();
             for (int i = 1; i < step.MessageKeys.Count; i++)
             {
@@ -260,10 +260,10 @@ namespace Bloomlings.Client.UI.Tutorial
         /// <summary>The bubble's icon for a booster's steps: its icon on a cream face raised on its wooden plate (spec 005 FR-047).</summary>
         public static Action<RectTransform> BoosterIcon(string boosterId) => slot =>
         {
-            GardenButton face = UiKit.RaisedButton("Face", slot, GardenLook.White, 0.26f, raycast: false, square: true);
+            GardenButton face = UiKit.BoosterBezel("Face",slot,.26f,raycast:false);
             UiFactory.Stretch((RectTransform)face.transform);
             Image icon = UiKit.BoosterIcon("Booster", face.Content, boosterId);
-            UiFactory.Place(icon.rectTransform, 0.15f, 0.15f, 0.85f, 0.85f);
+            BoxLayout.On(face.Content).Add(icon.rectTransform,f=>Box.FromCenter(f.CenterX,f.CenterY,face.IconSide*.80f/GardenLook.IconRimFaceShare,face.IconSide*.80f/GardenLook.IconRimFaceShare));
         };
 
         /// <summary>The bubble's icon for the blocked entry: the tile that blocks the way.</summary>

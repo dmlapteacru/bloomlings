@@ -1,0 +1,84 @@
+[
+  {
+    "file": "promo-noads-platform.png",
+    "source": "exec-34eef8a3-96f6-4e62-9c8f-f0e00fef4fcf.png",
+    "sourceSHA256": "eac16e1f6f84059300353d063928de1621808a1c8dfb35ea40186cb19e4e21ec",
+    "sha256": "5471085eec4933a7aa25561eb2c405463a86c3547e6975d73bdffe38a340188d",
+    "size": "724x543",
+    "bytes": 202740
+  },
+  {
+    "file": "promo-daily-platform.png",
+    "source": "exec-34eef8a3-96f6-4e62-9c8f-f0e00fef4fcf.png",
+    "sourceSHA256": "eac16e1f6f84059300353d063928de1621808a1c8dfb35ea40186cb19e4e21ec",
+    "sha256": "5471085eec4933a7aa25561eb2c405463a86c3547e6975d73bdffe38a340188d",
+    "size": "724x543",
+    "bytes": 202740
+  },
+  {
+    "file": "promo-noads-sprig.png",
+    "source": "exec-7616424b-ffb1-4d79-a9f3-e17f91acd1c8.png",
+    "sourceSHA256": "133a5c5c702150ebfbed4007eea8b3ab816dca11ae9ee58afd3c3ccfbe53ced0",
+    "sha256": "e45ab553a026dfab0ca05d89e0d83125ac7a427d213381500f345cabe2fc7bdb",
+    "size": "512x512",
+    "bytes": 241620
+  },
+  {
+    "file": "promo-daily-book.png",
+    "source": "exec-fa0aad75-f1da-42bd-86fe-5e8d63f934d7.png",
+    "sourceSHA256": "627993b9266c09b9c95b90f8bd8e800225b63105470f03571968e377267003cb",
+    "sha256": "85dd496ad0aaae698716e8f2d62bcd6e028e904ef80df5d578e88777996e1ff0",
+    "size": "512x512",
+    "bytes": 242190
+  },
+  {
+    "file": "promo-daily-book-open.png",
+    "source": "exec-57d0d0e1-2515-41df-9162-368c2471cd9e.png",
+    "sourceSHA256": "6cf30229038fe7e15bf5b6373a57f96a3e2b2c4bd85dadbcf1950c4ea0fad8f3",
+    "sha256": "78557f7ebdeacedb47b52384379eafcc15392b541488139bdf9960d29fc277c9",
+    "size": "512x512",
+    "bytes": 185567,
+    "revision": 3
+  },
+  {
+    "file": "promo-daily-sparkles.png",
+    "source": "exec-09f66343-c6aa-4be5-b4b5-7877ccf423cd.png",
+    "sourceSHA256": "63f3de6747a6f1caeb7312b8fe48477e99b35b6ac973ef2b1c651eff89cdaba0",
+    "sha256": "6793aec1c7c68db582886d17b502de095e747170532772765a8305c92cd607cd",
+    "size": "128x128",
+    "bytes": 16507
+  },
+  {
+    "file": "promo-challenge-board.png",
+    "source": "exec-7334b1b7-b1a1-4ff3-927d-dc2ff2c48506.png",
+    "sourceSHA256": "ae898f3fd46aa3d5392d81b93bd0ab04ae6aec8a687cb848a5f8ac34c5ca4c3a",
+    "sha256": "a832e58427df4d9562aab1953630327d73f0d886a2486d20f8e765e46ddef4aa",
+    "size": "512x512",
+    "bytes": 301868
+  },
+  {
+    "file": "promo-daily-stamp.png",
+    "source": "exec-fdfadf72-aba2-4df5-9349-01e235fbf4a8.png",
+    "sha256": "f7a863dc03e8ed4098f01b9ee2d7b893cbf09046cc26dccd17421975835c13e7",
+    "bytes": 182174,
+    "revision": 3,
+    "sourceSHA256": "c31c39136aacebb248da8433fc217152cac0070ad2bfc4ebbf2900899fa3d92f",
+    "size": "512x512"
+  },
+  {
+    "file": "promo-daily-imprint.png",
+    "source": "client/Assets/Bloomlings/Art/Icons/Resources/Icons/currency-lotus.png",
+    "sha256": "213e5b8d770c7e2eca9fe1bada1c13ae053d3ad37c57d912dbc7d221dadcc10e",
+    "bytes": 21252,
+    "revision": 3,
+    "sourceSHA256": "213e5b8d770c7e2eca9fe1bada1c13ae053d3ad37c57d912dbc7d221dadcc10e"
+  },
+  {
+    "file": "promo-noads-sprig-push.png",
+    "source": "HEAD:client/Assets/Bloomlings/Art/Decor/Resources/Decor/promo-noads-sprig.png",
+    "sha256": "41e5b606d500009619767ce39bb0097d35cde14345a4cc956800b46b50c73c07",
+    "bytes": 212086,
+    "revision": 3,
+    "sourceSHA256": "41e5b606d500009619767ce39bb0097d35cde14345a4cc956800b46b50c73c07"
+  }
+]

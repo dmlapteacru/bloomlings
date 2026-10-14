@@ -32,7 +32,7 @@ using Bloomlings.Client.UI.Localization;
 namespace Bloomlings.Client.App.Home
 {
     /// <summary>
-    /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (with Restore Purchases
+    /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (saved toggles and level controls
     /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, Home's
     /// promo scenes (spec 005 FR-032, FR-033: No Ads, opening the <see cref="RemoveAdsCard"/> at every level until Remove
     /// Ads is owned, and the Daily Reward's, opening its popup once unlocked), and
@@ -126,12 +126,13 @@ namespace Bloomlings.Client.App.Home
                     DailyRewardWaiting: daily.CanClaim,
                     Avatar: profile.Avatar,
                     DailyRewardBadge: daily.ShowsBadge,
+                    DailyRewardCompleted: daily.IsUnlocked && daily.ClaimedToday == DailyRewardService.StepCount,
                     ProfileName: ProfileScreen.NameOf(profile),
                     MilestoneProgressLeaves: next.HasValue ? PrimaryActionDesign.FilledLeaves(milestones.Table,next.Value.Level,next.Value.WinsToGo) : 0));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.ShowsRanks)
                 {
-                    board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile, profile.Avatar);
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile, profile.Avatar, progression.HighestCompletedLevel);
                 }
             }
 
@@ -256,6 +257,9 @@ namespace Bloomlings.Client.App.Home
             // The pages' Petals pills: their "+" shows once the Store is open (a locked page can show from L1, FR-030).
             wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () => StoreFrom("wardrobe"), Navigate, NavLook, () => profile.Avatar);
             wardrobe.Changed += Refresh;
+            Action submitAppearance = () => RunInBackground(leaderboard.SubmitPending());
+            wardrobe.Changed += submitAppearance;
+            profile.Changed += submitAppearance;
             collectionScreen = CollectionScreen.Create(root, () => economy.Petals, () => StoreFrom("collection"), Navigate, NavLook);
             DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
             {
@@ -280,7 +284,7 @@ namespace Bloomlings.Client.App.Home
                 Refresh);
             // The profile page and its edit card's grid of avatars: a drag on them never taps (spec 005 FR-041).
             UiKit.Scrolls(profileScreen.gameObject);
-            board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()), () => economy.Petals, () => StoreFrom("leaderboard"), Navigate, NavLook);
+            board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()), () => economy.Petals, () => StoreFrom("leaderboard"), Navigate, NavLook, wardrobe.Catalog);
             showCollection = () =>
             {
                 analytics?.CollectionOpen(collection.Count);
@@ -289,18 +293,9 @@ namespace Bloomlings.Client.App.Home
             showBoard = () =>
             {
                 analytics?.LeaderboardView(leaderboard.LastPage?.Player?.Rank ?? 0);
-                board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile, profile.Avatar);
+                board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile, profile.Avatar, progression.HighestCompletedLevel);
                 RunInBackground(leaderboard.Refresh());
             };
-            // Restore Purchases (Settings and the Remove Ads card): Home refreshes after it, so a restored Remove Ads hides
-            // the No Ads scene at once.
-            void RestorePurchases(Action<bool> done) => purchases.Restore(ok =>
-            {
-                Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.");
-                Refresh();
-                done(ok);
-            });
-
             // The Daily Reward popup (FR-055 as amended on 2026-10-09), built when first shown: from the Daily scene at any
             // time once unlocked. It no longer opens by itself (spec 005 FR-050): the scene's "!" calls for it until it is
             // opened that day. The day's five steps are claimed in order on the card, which stays open; an ad step plays a
@@ -359,7 +354,7 @@ namespace Bloomlings.Client.App.Home
             var features = new HomeFeatureActions(
                 () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
                 OnProfile: () => profileScreen?.Show(),
-                OnNoAds: () => removeAds?.Show("$5.99", available: false, preview: true),
+                OnNoAds: () => removeAds?.Show(purchases.PriceOf("remove_ads"), purchases.IsAvailable),
                 OnDailyReward: ShowDailyReward);
 
             home = HomeScreen.Create(
@@ -406,11 +401,16 @@ namespace Bloomlings.Client.App.Home
                 root,
                 save.Settings,
                 saves.Save,
-                RestorePurchases,
                 account,
-                services.TryGet(out IConsentService? consent) ? consent : null);
+                services.TryGet(out IConsentService? consent) ? consent : null,
+                new LevelActions(()=>progression.CurrentLevel,delta=>
+                {
+                    if(delta>0) progression.FastForward(progression.HighestCompletedLevel+delta);
+                    else {save.Progression.HighestCompletedLevel=delta==0 ? 0 : Math.Max(0,progression.HighestCompletedLevel-1);saves.Save();}
+                    Refresh();
+                }));
             store = StoreScreen.Create(root, Navigate, NavLook);
-            removeAds = RemoveAdsCard.Create(root, done => done(), RestorePurchases, () => ledger.RemoveAds);
+            removeAds = RemoveAdsCard.Create(root, done => purchases.Buy("remove_ads", result => {Refresh();done(result);}), () => ledger.RemoveAds);
             Refresh();
 
             // Background refresh: a cloud merge, a new rank or a purchase the store delivers later (an order left pending,
@@ -427,6 +427,8 @@ namespace Bloomlings.Client.App.Home
                 leaderboard.Updated -= onRank;
                 ledger.Granted -= onGranted;
                 wardrobe.Changed -= Refresh;
+                wardrobe.Changed -= submitAppearance;
+                profile.Changed -= submitAppearance;
             };
             RunInBackground(sync.Sync());
             RunInBackground(leaderboard.Refresh());
@@ -604,7 +606,7 @@ namespace Bloomlings.Client.App.Home
 
             BasePicture picture = content.GetPicture(level.Picture);
             int cell = side > 0 ? FinishedPictureRenderer.CellPixelsToFit(picture, side) : FinishedPictureRenderer.PicturePixelsPerCell;
-            return FinishedPictureRenderer.Render(level, picture, null, cellPixels: cell);
+            return FinishedPictureRenderer.Render(level, picture, null, cellPixels: cell,shadow:false);
         }
     }
 }

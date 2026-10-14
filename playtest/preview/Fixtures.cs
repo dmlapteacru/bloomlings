@@ -1,4 +1,6 @@
 using System;
+using Bloomlings.Client.Services.Backend;
+using Bloomlings.Client.Meta.Wardrobe;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -53,6 +55,80 @@ namespace Bloomlings.Playtest.Preview
         {
             DesignApp App(string data, bool splash = false) => new DesignApp(data, content, new Silence(), splash);
 
+            yield return new Fixture(80,"home-promos-idle","Garden objects at rest",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);Run(app,p,.4f);
+                Tap(p,ScreenLayout.ReferenceHome(p.Width,p.Height,p.Insets).Daily);
+                Expect(app.IsOpen(Overlay.DailyChallenge),"the puzzle board opens Daily Challenge");
+                app.Back();Run(app,p,.4f);
+            });
+            yield return new Fixture(81,"home-daily-complete","Quiet completed reward album",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);
+                foreach(DailyRewardStep step in app.Meta.DailyReward.Steps)app.Meta.DailyReward.Claim(step.Number,adWatched:true);
+                RunTo(app,p,HomePromo.DailyAt+1.1f);
+                Expect(!app.Meta.DailyReward.CanClaim && p.Slots.Contains("ui.promo.daily.seal"),"completed day shows check seal");
+                Expect(HomePromo.AttentionAt(PromoScene.Daily,app.PromoSeconds,false)<0,"completed album stays quiet");
+            });
+            yield return new Fixture(82,"daily-challenge-complete","Daily Challenge completed / replay",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);Run(app,p,.4f);
+                MetaCards.DailyChallenge(p,app,1f,completed:true);
+                Expect(Shows(p,PlaytestText.T("daily.play_again")) && Shows(p,PlaytestText.T("daily.reward_collected")),"replay never advertises another reward");
+            });
+            yield return new Fixture(83,"home-noads-hello","Sprig knocks the AD sign away",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);RunTo(app,p,HomePromo.NoAdsAt+1.1f);
+            });
+            yield return new Fixture(84,"home-daily-stamp","Album stamp and one warm glint",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);RunTo(app,p,HomePromo.DailyAt+2.5f);
+            });
+
+            yield return new Fixture(79,"privacy-policy-mock","Privacy policy: placeholder and return to Settings",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,14);CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
+                Expect(!Shows(p,PlaytestText.T("settings.music_label")) && !Shows(p,PlaytestText.T("settings.speed_label")),"only the two requested switches are in Settings");
+                Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("settings.privacy_policy")).Box);Run(app,p,.5f);
+                Expect(app.IsOpen(Overlay.PrivacyPolicy) && Shows(p,PlaytestText.T("settings.privacy_mock")) && !Shows(p,PlaytestText.T("settings.title")),"policy mock replaces the visible settings card");
+                Expect(app.Back() && app.IsOpen(Overlay.Settings),"back returns to retained Settings");Run(app,p,.1f);
+                Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("settings.privacy_policy")).Box);Run(app,p,.5f);
+            });
+            yield return new Fixture(78,"settings-controls","Settings: toggles persist, level controls work",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,14);CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
+                Expect(!Shows(p,PlaytestText.T("settings.restore")),"Restore Purchases is absent from Settings");
+                Box body=ScreenLayout.Card(p.Width,p.Height,p.Insets,PopupDesign.SettingsContent).Body;
+                Box[] rows=ScreenLayout.Column(new Box(body.Left,body.Top+p.U(12),body.Right,body.Bottom),2,p.U(126),p.U(12));
+                bool music=app.Meta.Save.Settings.Music,sound=app.Meta.Save.Settings.Sfx,haptics=app.Meta.Save.Settings.Haptics,speed=app.Meta.Save.Settings.Speed2x;
+                for(int i=0;i<2;i++){Tap(p,CardLook.SettingsToggleBox(rows[i],p.Scale));Run(app,p,.1f);}
+                DesignApp restored=App(data);
+                Expect(restored.Meta.Save.Settings.Music==music && restored.Meta.Save.Settings.Sfx!=sound && restored.Meta.Save.Settings.Haptics!=haptics && restored.Meta.Save.Settings.Speed2x==speed,"sound and haptics persist; settings no longer change music or HUD speed");
+                int level=app.Meta.CurrentLevel;
+                Tap(p,p.Texts.First(t=>t.Text=="+10").Box);Run(app,p,.1f);Expect(app.Meta.CurrentLevel==level+10,"+10 advances the level");
+                Tap(p,p.Texts.First(t=>t.Text=="−1").Box);Run(app,p,.1f);Expect(app.Meta.CurrentLevel==level+9,"minus returns one level");
+                Tap(p,p.Texts.First(t=>t.Text=="+1").Box);Run(app,p,.1f);Expect(app.Meta.CurrentLevel==level+10,"plus advances one level");
+                Tap(p,p.Texts.First(t=>t.Text=="Reset").Box);Run(app,p,.1f);Expect(app.Meta.CurrentLevel==1 && app.Meta.Progression.HighestCompletedLevel==0,"the retained playtest Reset starts from level one");
+            });
+            yield return new Fixture(76,"daily-challenge","Separate Daily Challenge window",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);Run(app,p,.1f);
+                app.OpenOverlay(Overlay.DailyChallenge);Run(app,p,.5f);
+                Expect(Shows(p,PlaytestText.T("daily.title")) && Shows(p,PlaytestText.T("common.play")),"daily challenge has its own title and play action");
+                Expect(Shows(p,PlaytestText.F("daily.reward",50)),"challenge advertises 50 Petals");
+                Expect(!p.Texts.Any(t=>t.Text.Contains("(UTC)")),"no date row in Daily Challenge");
+            });
+            yield return new Fixture(77,"daily-reward-complete","All five rewards claimed, no action remains",(p,data)=>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);app.OpenDailyReward();Run(app,p,.5f);
+                Box body=ScreenLayout.Card(p.Width,p.Height,p.Insets,DailyRewardCard.ContentUnits(5)).Body;
+                Box claim=DailyRewardCard.Layout(body,p.Scale,5).Claim;
+                long before=app.Meta.Economy.Petals;
+                for(int i=0;i<5;i++){Tap(p,claim);Run(app,p,.15f);}
+                Expect(app.Meta.DailyReward.ClaimedToday==5 && app.Meta.Economy.Petals==before+220,"all five steps pay once in order");
+                Tap(p,claim);Run(app,p,.15f);Expect(app.Meta.Economy.Petals==before+220,"completed reward cannot pay again");
+                Expect(!Shows(p,PlaytestText.T("daily_reward.claim")) && !Shows(p,PlaytestText.T("daily_reward.watch_claim")),"completed day hides the claim action");
+            });
             yield return new Fixture(1, "splash", "Splash", (p, data) =>
             {
                 // The lotus loader (spec 005 FR-039): the ring half full.
@@ -102,9 +178,9 @@ namespace Bloomlings.Playtest.Preview
                 CloseAll(app);
                 Run(app, p, 0.3f);
                 Expect(p.Slots.Contains(HomePromo.Slot(PromoScene.NoAds)) && p.Slots.Contains(HomePromo.Slot(PromoScene.Daily)), "a progressed Home shows both promo scenes");
-                Expect(p.Slots.Contains("ui.badge.alert"), "the Daily Reward's scene wears the \"!\" while its steps wait unopened today");
-                RunTo(app, p, HomePromo.DailyAt + 1.6f);
-                Expect(HomePromo.AttentionAt(PromoScene.Daily, app.PromoSeconds, app.Meta.DailyReward.CanClaim) >= 0f, "the Daily Reward's scene calls while its reward waits");
+                Expect(p.Slots.Contains("ui.promo.daily.seal"), "the Daily Reward wears a leaf seal while its steps wait unopened today");
+                RunTo(app, p, HomePromo.DailyAt - .3f);
+                Expect(HomePromo.AttentionAt(PromoScene.Daily, app.PromoSeconds, app.Meta.DailyReward.CanClaim) < 0f, "the Daily album idles between attention sequences");
             });
 
             yield return new Fixture(4, "daily-reward", "Daily Reward (popup)", (p, data) =>
@@ -131,10 +207,10 @@ namespace Bloomlings.Playtest.Preview
                 long petals = app.Meta.Economy.Petals;
                 Tap(p, DailyRewardCard.Row(d.Rows[1]).Button);
                 Expect(app.Meta.DailyReward.ClaimedToday == 0, "step 2's greyed Claim waits for step 1");
-                Tap(p, DailyRewardCard.Row(d.Rows[0]).Button);
+                Tap(p, d.Claim);
                 Expect(app.Meta.DailyReward.ClaimedToday == 1 && app.Meta.Economy.Petals == petals + 20 && app.IsOpen(Overlay.DailyReward), "step 1's Claim pays 20 Petals and the card stays open");
                 Run(app, p, 0.2f);
-                Tap(p, DailyRewardCard.Row(d.Rows[1]).Button);
+                Tap(p, d.Claim);
                 Expect(app.Meta.DailyReward.ClaimedToday == 2 && app.Meta.Economy.Petals == petals + 50, "step 2 pays 30 Petals after its ad's stand-in");
                 Run(app, p, 0.3f);
                 Expect(app.Meta.DailyReward.StateOf(3) == DailyStepState.Ready && app.Meta.DailyReward.StateOf(4) == DailyStepState.Locked, "step 3 is next, 4 and 5 wait");
@@ -178,7 +254,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);
                 Expect(app.Screen == Design.Screen.Leaderboard, "the Store page's back returns to the Leaderboard page");
                 Run(app, p, 0.1f);
-                Tap(p, ScreenLayout.ReferenceLeaderboard(p.Width, p.Height, p.Insets).Refresh);
+                Tap(p, LeaderboardHonorDesign.Page(p.Width, p.Height, p.Insets).Refresh);
                 Expect(app.HomeToastText == PlaytestText.T("leaderboard.offline_empty"), "Refresh says the playtest's leaderboard is offline");
                 Run(app, p, 1.7f);
                 Tap(p, NavTouch(p, app, NavPlace.Home));
@@ -610,6 +686,67 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.StoreFamily==1&&app.ShopScrollOffset==0,"family switch resets only the catalog scroll");
             });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
+            yield return new Fixture(73, "leaderboard-customized", "Leaderboard: saved avatars, frames, badges and long names", (p,data) =>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);
+                var own=new LeaderboardEntry(248,"You",87,true);
+                var rows=new List<LeaderboardEntry>
+                {
+                    new LeaderboardEntry(1,"AVeryLongGardenersNameThatMustNotCoverTheLevel",50000,false,Appearance:new LeaderboardAppearance("avatar.drop_sailor_sticker","frame.golden_ribbon","badge.sprout",null)),
+                    new LeaderboardEntry(2,"Rosie",49999,false,Appearance:new LeaderboardAppearance("avatar.bloom_default","frame.flower_wreath","badge.achievement.natural_talent",null)),
+                    new LeaderboardEntry(3,"Sprig",49998,false,Appearance:new LeaderboardAppearance("avatar.sprig_default","frame.leaf_ring","badge.achievement.key_keeper",null)),
+                    own,
+                };
+                for(int rank=4;rank<=14;rank++)rows.Add(new LeaderboardEntry(rank,rank==4?"GardenerWithAnExtremelyLongDisplayName":"Gardener "+rank,49000-rank,false,Appearance:new LeaderboardAppearance("avatar.twig_default",rank%2==0?"frame.stone_ring":"frame.wood_ring",null,null)));
+                app.PreviewLeaderboard=new LeaderboardPage(rows,own);app.Navigate(NavPlace.Leaderboard);Run(app,p,.1f);
+                Expect(Shows(p,"You")&&Shows(p,"87"),"own row remains visible separately from the neighbour scroll");
+                var r=LeaderboardHonorDesign.Page(p.Width,p.Height,p.Insets);
+                Drag(p,r.Rows.CenterX,r.Rows.CenterY,r.Rows.CenterX,r.Rows.CenterY-r.W*.12f);Run(app,p,.1f);
+                Expect(app.LeaderboardScrollOffset>0,"rank rows scroll with fixed podium and own row");
+            });
+            yield return new Fixture(74, "wardrobe-scroll", "Wardrobe: drag, filter memory and purchase confirmation", (p,data) =>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();
+                app.Meta.Wardrobe.Equip(Family.Sprig,"hat.sprout_cap");Run(app,p,.1f);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                Drag(p,r.Area.CenterX,r.Area.CenterY,r.Area.CenterX,r.Area.Top-6000);Run(app,p,.1f);
+                float offset=app.WardrobeBrowse.Offset;Expect(offset>0,"a long inventory scrolls to the last shelf");
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.sprout_cap","swiping cannot equip or buy an item");
+                Drag(p,r.Categories.CenterX,r.Categories.CenterY,r.Categories.CenterX,r.Categories.CenterY-r.W*.2f);Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.Offset==offset,"filters intercept drags");
+                var nav=HomeScreen.Nav(p,NavPlace.Wardrobe);Box menu=GameNavigationDesign.NavButton(nav,1);
+                Drag(p,menu.CenterX,menu.CenterY,menu.CenterX,menu.CenterY-r.W*.2f);Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.Offset==offset&&app.Screen==Design.Screen.Wardrobe,"selected menu intercepts drags");
+                Tap(p,NavigationSkin.Segment(r.Families,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==0,"new family starts at its own offset");
+                Tap(p,NavigationSkin.Segment(r.Families,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"returning to family restores its offset");
+                Tap(p,NavigationSkin.Segment(r.Categories,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Kind==CosmeticKind.Skin,"category filters the catalog");
+                Tap(p,NavigationSkin.Segment(r.Categories,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"category restores its own scroll");
+                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat);int bucket=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
+                long before=app.Meta.Economy.Petals;Tap(p,r.Cell(bucket).Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                Expect(app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==before,"tap opens confirmation without spending");
+                Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Cancel);Run(app,p,.1f);
+                Expect(app.Meta.Economy.Petals==before&&app.WardrobeBrowse.Offset==offset,"cancel preserves balance and scroll");
+            });
+            yield return new Fixture(75, "wardrobe-purchase", "Wardrobe: confirmed purchase equips once without losing scroll", (p,data) =>
+            {
+                DesignApp app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();Run(app,p,.1f);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                Drag(p,r.Area.CenterX,r.Area.CenterY,r.Area.CenterX,r.Area.Top-6000);Run(app,p,.1f);
+                float offset=app.WardrobeBrowse.Offset;
+                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat);
+                int index=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
+                long balance=app.Meta.Economy.Petals;
+                Box bucket=r.Cell(index).Offset(0,-offset);
+                Tap(p,bucket);Run(app,p,.1f);
+                Expect(app.IsOpen(Overlay.Purchase),"unowned item asks for confirmation");
+                Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Confirm);Run(app,p,.1f);
+                Expect(app.Meta.Save.Cosmetics.Owned.Contains("hat.bucket_hat")&&app.Meta.Economy.Petals==balance-200,"confirmation buys at the catalog price once");
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.WardrobeBrowse.Offset==offset,"purchase equips without moving the shelves");
+                Tap(p,bucket);Run(app,p,.1f);
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)==null&&app.Meta.Economy.Petals==balance-200,"owned item toggles without another charge");
+                Tap(p,bucket);Run(app,p,.1f);
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.Overlays.Count==0,"owned item equips immediately");
+            });
             yield return new Fixture(27, "wardrobe", "Extra: Wardrobe (spec 005 FR-025)", (p, data) =>
             {
                 // From the bottom menu's Wardrobe (FR-030); its Shop opens the Store page over it (whose back returns
@@ -637,7 +774,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
                 Expect(app.Screen == Design.Screen.Wardrobe, "the Collection page's Wardrobe opens the Wardrobe again");
                 Run(app, p, 0.1f);
-                Tap(p, ScreenLayout.ReferenceWardrobe(p.Width, p.Height, p.Insets).Card(1));
+                Tap(p, WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets).Cell(1));
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig, Client.Meta.Wardrobe.CosmeticKind.Hat)?.Id == "hat.sprout_cap", "a tap on an owned item's card wears it");
                 Run(app, p, 0.5f);
             });
@@ -768,11 +905,7 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.5f);
                 string offline = PlaytestText.T("store.offline");
                 Expect(Shows(p, PlaytestText.T("remove_ads.title")) && Shows(p, PlaytestText.T("store.unavailable")) && Shows(p, offline), "the card says purchases are unavailable");
-                Tap(p, p.Texts.First(t => t.Text == PlaytestText.T("remove_ads.restore")).Box);
-                Expect(app.HomeToastText == offline && app.IsOpen(Overlay.RemoveAds), "Restore says purchases are offline, and the card stays");
-                Run(app, p, 0.1f);
-                Expect(p.Texts.Count(t => t.Text == offline) == 2, "the toast shows under the card, besides the offline line");
-                Run(app, p, 1.7f);
+                Expect(!Shows(p,PlaytestText.T("remove_ads.restore")),"Restore Purchases is absent from the No Ads window");
                 Expect(app.Back() && app.Overlays.Count == 0 && app.Screen == Design.Screen.Home, "the system back closes the Remove Ads card");
                 Run(app, p, 0.1f);
                 Tap(p, noAds);
@@ -998,19 +1131,27 @@ namespace Bloomlings.Playtest.Preview
                 var app=Ready(data);app.Meta.Save.Wallet.AddPetals(120000-app.Meta.Economy.Petals);Run(app,p,1.5f);app.OpenStore();Run(app,p,1.5f);
                 Expect(Shows(p,NumberText.Group(120000)),"the small page wallet shows a large live balance");
             });
-            yield return new Fixture(71,"shop-scroll-behind-menu","Shop content continues behind the stone menu",(p,data)=>
+            yield return new Fixture(71,"shop-scroll-behind-menu","Shop content continues behind the opaque wooden menu",(p,data)=>
             {
                 var app=Ready(data);app.OpenStore();Run(app,p,.3f);
                 var r=ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets);Box area=ShopBodyDesign.Bounds(r);
-                var nav=HomeScreen.Nav(p,NavPlace.Shop);Box face=GameNavigationDesign.NavButton(nav,0),wall=GameNavigationDesign.NavWall(nav,p.Width);
+                var nav=HomeScreen.Nav(p,NavPlace.Shop);Box face=GameNavigationDesign.NavButton(nav,0),wall=GameNavigationDesign.NavBacking(nav,p.Width);
                 Expect(p.ScrollAt(area.CenterX,area.CenterY)>=0,"catalog receives vertical drags");
                 Expect(p.ScrollAt(face.CenterX,face.CenterY)<0,"selected menu tile blocks catalog drags");
-                Expect(p.ScrollAt(area.CenterX,wall.Top+nav.W*.005f)<0,"stone ledge blocks catalog drags");
+                Expect(p.ScrollAt(face.CenterX,face.Top+nav.W*.006f)<0,"raised selected inset blocks catalog drags above the console");
+                var captions=p.Texts.Where(t=>t.Box.Top>=nav.Top-nav.W*.025f&&BottomNav.Order.Any(place=>t.Text==PlaytestText.T(GameNavigationDesign.NameKey(place)))).ToList();
+                Expect(captions.Count==1&&captions[0].Text==PlaytestText.T(GameNavigationDesign.NameKey(NavPlace.Shop)),"only the selected destination has a caption");
+                Expect(p.ScrollAt(area.CenterX,wall.Top+nav.W*.005f)<0,"console top lip blocks catalog drags");
                 Box backing=GameNavigationDesign.NavBacking(nav,p.Width);
-                Expect(p.ScrollAt(nav.Safe.Left+nav.W*.01f,backing.Top+nav.W*.02f)<0,"stone behind the tiles shields gaps and side edges");
+                Expect(p.ScrollAt(nav.Safe.Left+nav.W*.01f,backing.Top+nav.W*.02f)<0,"opaque console shields gaps and side edges");
+                for(int i=1;i<nav.Places.Count;i++)Expect(p.ScrollAt(nav.PlaceBoxes[i].Left,backing.Top+nav.W*.06f)<0,"dividers block catalog drags");
+                Expect(p.ScrollAt(backing.CenterX,backing.Bottom-nav.W*.005f)<0,"bottom inset blocks catalog drags");
                 Expect(p.ScrollAt(r.Tabs.CenterX,r.Tabs.CenterY)<0,"fixed top tabs shield catalog drag starts");
                 float before=app.ShopScrollOffset;Drag(p,face.CenterX,face.CenterY,face.CenterX,face.CenterY-nav.W*.1f);Run(app,p,.1f);
                 Expect(app.ShopScrollOffset==before&&app.Screen==Design.Screen.Store,"dragging selected navigation does not scroll or purchase");
+                Box home=GameNavigationDesign.NavTouch(nav,2);
+                Drag(p,home.CenterX,home.CenterY,home.CenterX,home.CenterY-nav.W*.1f);Run(app,p,.1f);
+                Expect(app.ShopScrollOffset==before&&app.Screen==Design.Screen.Store,"dragging another destination neither navigates nor scrolls");
                 Drag(p,area.CenterX,area.CenterY,area.CenterX,area.CenterY-nav.W*.35f);Run(app,p,.1f);
                 Expect(app.ShopScrollOffset>before,"catalog scrolls under the fixed menu");
                 app.ShopScrollOffset=nav.W*.30f;Run(app,p,.1f);
@@ -1108,7 +1249,7 @@ namespace Bloomlings.Playtest.Preview
                 level.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant));
                 Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Petals == price && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "a booster without charges asks before buying");
                 Run(app, p, 0.5f);
-                Expect(Shows(p, PlaytestText.F("purchase.question_petals", app.Purchase.Offer!.Name, NumberText.Group(price))), "the question names the booster quantity and its price");
+                Expect(Shows(p, app.Purchase.Offer!.Name) && Shows(p,PlaytestText.T("purchase.buy")+"  "+NumberText.Group(price)), "item and actual price on the buy action are visible before spending");
                 Tap(p, confirm.Cancel);
                 Expect(app.Overlays.Count == 0 && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "Cancel buys nothing");
                 Run(app, p, 0.1f);

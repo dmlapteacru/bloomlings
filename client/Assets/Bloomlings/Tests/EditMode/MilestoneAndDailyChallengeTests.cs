@@ -170,8 +170,11 @@ namespace Bloomlings.Client.Tests
             Assert.That(attempt.DailyUtcDate, Is.EqualTo("2026-09-29"));
             Assert.That(attempt.Definition.LevelNumber, Is.EqualTo(DailyChallengeService.PoolIndex(clock.UtcToday, 3) + 1));
 
-            Assert.That(daily.Complete(attempt), Is.EqualTo(DailyChallengeService.RewardPetals));
+            long before = _economy.Petals;
+            Assert.That(daily.Complete(attempt), Is.EqualTo(50));
+            Assert.That(_economy.Petals, Is.EqualTo(before + 50));
             Assert.That(daily.Complete(attempt), Is.Zero, "one reward per day");
+            Assert.That(_economy.Petals, Is.EqualTo(before + 50), "replaying does not pay again");
             Assert.That(daily.CompletedToday, Is.True);
             Assert.That(_save.Progression.HighestCompletedLevel, Is.EqualTo(60));
 

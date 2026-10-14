@@ -304,6 +304,14 @@ namespace Bloomlings.Client.UI.Design
                 ["ui.star2"] = (x, y) => Min(StarShape((x + 0.42f) * 1.7f, y * 1.7f, 0.9f) / 1.7f, StarShape((x - 0.42f) * 1.7f, y * 1.7f, 0.9f) / 1.7f),
                 ["ui.cross"] = Cross,
                 ["ui.close"] = (x, y) => Cross(x * 1.25f, y * 1.25f) / 1.25f,
+                ["ui.sound"] = (x,y) => Min(
+                    Min(RoundedBox(x,y,-.5f,0,.18f,.25f,.05f),TriangleSdf(x,y,-.38f,-.25f,.05f,-.55f,.05f,.55f)),
+                    Max(Min(MathF.Abs(Length(x+.25f,y)-.65f)-.055f,MathF.Abs(Length(x+.25f,y)-.9f)-.055f),.22f-x)),
+                ["ui.haptics"] = (x,y) => Min(
+                    Max(RoundedBox(x,y,0,0,.3f,.62f,.08f),-RoundedBox(x,y,0,.03f,.22f,.5f,.035f)),
+                    Min(Length(x,y+.44f)-.065f,
+                        Min(Min(Segment(x,y,-.62f,.4f,-.76f,.15f),Segment(x,y,-.76f,.15f,-.58f,-.1f)),
+                            Min(Segment(x,y,.62f,.4f,.76f,.15f),Segment(x,y,.76f,.15f,.58f,-.1f)))-.065f)),
                 ["ui.settings"] = (x, y) =>
                 {
                     float teeth = MathF.Cos(8f * MathF.Atan2(y, x)) > 0f ? 0.16f : 0f;

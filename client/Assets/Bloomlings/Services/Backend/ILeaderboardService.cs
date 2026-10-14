@@ -9,7 +9,7 @@ namespace Bloomlings.Client.Services.Backend
     /// One leaderboard row (data-model §3.2). <paramref name="Score"/> is the time-encoded score
     /// (<see cref="LeaderboardScore"/>), 0 when unknown; <see cref="ReachedAtUtc"/> is decoded from it.
     /// </summary>
-    public sealed record LeaderboardEntry(int Rank, string Name, int Level, bool IsPlayer, double Score = 0)
+    public sealed record LeaderboardEntry(int Rank, string Name, int Level, bool IsPlayer, double Score = 0, LeaderboardAppearance? Appearance = null, string? PlayerId = null)
     {
         public System.DateTime? ReachedAtUtc => Score > 0 ? LeaderboardScore.CompletedAt(Score) : (System.DateTime?)null;
     }

@@ -503,7 +503,10 @@ namespace Bloomlings.Client.UI.Design
 
         public const float PromoScale = 1.05f;
 
-        public const float DailyGapShare = 0.086f;
+        /// <summary>Mirrored promo column centers, measured from the safe area's nearest edge.</summary>
+        public const float PromoColumnCenterShare = .18f;
+
+        public const float DailyGapShare = 0.014f;
 
         /// <summary>
         /// The highest the plaque's top goes before Play shrinks, as a share of the safe height (it stood at 0.64 before
@@ -552,6 +555,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public Box SideButton(bool right, int index)
         {
+            if (right && index == 0) return Daily;
             float size = W * SideButtonShare;
             float x = right ? Safe.Right - (W * 0.04f) - size : Safe.Left + (W * 0.04f);
             float y = Daily.Top + (index * (size + (W * SideGapShare)));
@@ -1033,12 +1037,12 @@ namespace Bloomlings.Client.UI.Design
             int choices = Math.Max(0, choiceCount);
             int rows = (choices + 1) / 2;
             const float top = 0.06f;
-            const float title = 0.1f;
-            const float subtitle = 0.11f;
-            const float well = 0.21f;
-            const float button = 0.205f;
-            const float hang = 0.075f;
-            const float rowGap = 0.03f;
+            const float title = 0.085f;
+            const float subtitle = 0.09f;
+            const float well = 0.14f;
+            const float button = 0.23f;
+            const float hang = 0f;
+            const float rowGap = 0.024f;
             const float restart = 0.14f;
             float content = top + title + 0.02f + subtitle + 0.035f + well + 0.04f
                 + (rows * (button + hang)) + (Math.Max(0, rows - 1) * rowGap) + (rows > 0 ? 0.045f : 0f) + restart + top;
@@ -1064,8 +1068,8 @@ namespace Bloomlings.Client.UI.Design
 
             var choiceBoxes = new Box[choices];
             var pills = new Box[choices];
-            float column = 0.4f * w;
-            float gap = 0.05f * w;
+            float column = 0.38f * w;
+            float gap = 0.032f * w;
             for (int i = 0; i < choices; i++)
             {
                 int row = i / 2;
@@ -1073,9 +1077,9 @@ namespace Bloomlings.Client.UI.Design
                 float cx = alone ? safe.CenterX : safe.CenterX + ((i % 2 == 0 ? -1f : 1f) * ((column + gap) / 2f));
                 float rowTop = y + (row * (button + hang + rowGap) * s);
                 choiceBoxes[i] = new Box(cx - (column / 2f), rowTop, cx + (column / 2f), rowTop + (button * s));
-                float pill = 0.09f * s;
-                float pillBottom = choiceBoxes[i].Bottom + (hang * s);
-                pills[i] = new Box(cx - (0.3f * w / 2f), pillBottom - pill, cx + (0.3f * w / 2f), pillBottom);
+                float pill = 0.055f * s;
+                float pillBottom = choiceBoxes[i].Bottom - (0.012f * s);
+                pills[i] = new Box(cx - (0.22f * w / 2f), pillBottom - pill, cx + (0.22f * w / 2f), pillBottom);
             }
 
             if (rows > 0)
@@ -1144,13 +1148,13 @@ namespace Bloomlings.Client.UI.Design
             var logo = new Box(safe.CenterX - (0.4f * w), Math.Max(Y(0.1f), settings.Bottom + (0.01f * w)), safe.CenterX + (0.4f * w), Y(0.205f));
             float sideTop = Math.Max(Y(ReferenceHomeRegions.PromoTopShare), settings.Bottom + (0.02f * w));
 
-            // The promo scenes (spec 005 FR-032) under the header, 0.04 W from the edges: No Ads at the left, the Daily
-            // Reward at the right; the Daily Challenge's round button under the Daily Reward's scene.
+            // Mirrored promo columns under the header; Challenge shares the reward album's center line.
             float scene = HomePromo.WidthShare * ReferenceHomeRegions.PromoScale * w;
-            Box noAds = HomePromo.SceneBox(safe.Left + (0.04f * w), sideTop, scene);
-            Box dailyReward = HomePromo.SceneBox(safe.Right - (0.04f * w) - scene, sideTop, scene);
+            float column = ReferenceHomeRegions.PromoColumnCenterShare * w;
+            Box noAds = HomePromo.SceneBox(safe.Left + column - scene / 2f, sideTop, scene);
+            Box dailyReward = HomePromo.SceneBox(safe.Right - column - scene / 2f, sideTop, scene);
             float dailyTop = dailyReward.Bottom + (ReferenceHomeRegions.DailyGapShare * w);
-            var daily = new Box(safe.Right - (0.04f * w) - button, dailyTop, safe.Right - (0.04f * w), dailyTop + button);
+            var daily = Box.FromCenter(dailyReward.CenterX, dailyTop + .0875f * w, .175f * w, .175f * w);
 
             // Bottom up from the menu's top: the teaser row, whose touch boxes (the free booster's) end at the limit, the
             // medallion's top (the owner lowered the group by about the menu's gap, 2026-10-05); Play over them; the plaque
