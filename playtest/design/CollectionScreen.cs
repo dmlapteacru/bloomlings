@@ -33,6 +33,7 @@ namespace Bloomlings.Playtest.Design
                     Kit.SlicedSprite(p, MetaScreenArt.Tag, r.Name, .16f, .30f, .30f);
                     ProfileGamePainter.Label(p, r.Name.Inset(r.W * .03f), PictureName(entry.PictureId), ProfileGameDesign.Name);
                     ProfileGamePainter.Label(p, r.Level, PlaytestText.F("collection.completed", NumberText.Group(entry.LevelNumber)), ProfileGameDesign.Info);
+                    Kit.RoundButton(p, r.DetailClose.CenterX, r.DetailClose.CenterY, r.DetailClose.Width, "ui.close", app.CollectionBack);
                 }
                 else
                 {
@@ -53,6 +54,7 @@ namespace Bloomlings.Playtest.Design
                             if (index < 0) continue;
                             CollectionEntry entry = entries[index];
                             Box cell = r.Cell(slot).Offset(0, -offset);
+                            if (cell.Bottom <= r.Area.Top || cell.Top >= r.Area.Bottom) continue;
                             Frame(p, CollectionGalleryDesign.Art(cell), entry, app);
                             Box name = CollectionGalleryDesign.Name(cell);
                             Kit.SlicedSprite(p, MetaScreenArt.Tag, name, .16f, .30f, .30f);
@@ -81,7 +83,16 @@ namespace Bloomlings.Playtest.Design
         {
             Box well = Kit.PictureFrame(p, box);
             if (app.Content.TryGetLevel(app.Resolve(entry.LevelNumber), out LevelDefinition? definition) && definition != null)
-                BoardPainter.Picture(p, well.Inset(well.Width * .04f), definition, app.Content.GetPicture(definition.Picture), shadow: false);
+            {
+                var picture = app.Content.GetPicture(definition.Picture);
+                Box art = well.Inset(well.Width * .04f);
+                p.Mark("tile.picture");
+                if (p is ICachedIllustration cache)
+                    cache.Illustration("collection/" + app.Content.ContentVersion + "/" + entry.LevelNumber + "/" + entry.PictureId
+                        + "/" + entry.PictureVersion + "/" + entry.MappingHash,
+                        art, () => BoardPainter.Picture(p, art, definition, picture, shadow: false));
+                else BoardPainter.Picture(p, art, definition, picture, shadow: false);
+            }
         }
     }
 }

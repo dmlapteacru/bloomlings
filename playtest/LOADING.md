@@ -18,3 +18,11 @@ Validation:
 - `dotnet run --project playtest/preview -c Release -- --perf --perf-warm --perf-serial --shape 19.5x9`: the journey now waits for resource gates before playing and fails if it does not actually win. Its Skia sprite path remains synchronous and does not measure Android's background decoding.
 
 There is no usable Android device/emulator acceleration in this environment. Check real frame timing on a phone with `adb logcat -s Bloomlings`; the APK already logs frames over 34 ms. Release packaging checks must still verify the signed APK and all 1,096 packed image payloads.
+
+## Collection follow-up
+
+The gallery now caches completed mosaics separately from their live frames, captions and close control. Android records the mosaic once, then flattens the completed recording on the graphics producer; incomplete recordings never enter the bitmap cache. New resource requests invalidate a recording even if the producer finishes before its readiness check. Snapshot results use a 16 MiB LRU cache and release older entries under Android memory pressure. Keys include content version, level, picture id/version and mapping hash; placement is excluded so scrolling reuses a thumbnail. Covered rows skip their mosaic work.
+
+For the same six-picture gallery, the desktop frame harness went from 3,381 draw operations per frame to 240 (about 93% fewer). This is an operation count, not a device FPS measurement. Fixture 87 checks warm-gallery draw cost and that the detail's close cross restores the exact scroll position. The Android changes were checked with `dotnet msbuild playtest/android -t:Compile`; no APK was built for this follow-up.
+
+Purchase-size proposals are preview-only: `--purchase-size 0.85`, `0.75`, or `0.5` changes the rendered price faces; Android retains its existing size until a variant is chosen. The preview retains original touch areas, keeps three avatar columns, and centers the gameplay booster artwork in the compact variants. Render frames 17, 40, 86 and 88 for each scale, then run `--compare-purchases <parent-folder>` with `current`, `minus-15`, `minus-25`, and `minus-50` folders. The four Shop PNGs were checked byte-for-byte identical.

@@ -667,7 +667,9 @@ namespace Bloomlings.Playtest.Design
             Box f = BoosterBezel(p, tile, radius, depth, state.Disabled);
             // Cropped artwork fills a centered box with equal top/bottom padding.
             float icon = s * (state.ShowsCharges ? .80f : .62f);
-            BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, state.ShowsCharges ? f.CenterY : f.Top + f.Height * .22f, icon, icon), grey: state.Disabled);
+            bool compactPreview = !state.ShowsCharges && p is IPurchaseSizePreview sizes && sizes.PurchaseSize < 1f;
+            if (compactPreview) icon = s * .80f;
+            BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, state.ShowsCharges || compactPreview ? f.CenterY : f.Top + f.Height * .22f, icon, icon), grey: state.Disabled);
             p.PopTransform();
 
             if (state.ShowsCharges)

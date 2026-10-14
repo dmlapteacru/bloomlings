@@ -55,6 +55,43 @@ namespace Bloomlings.Playtest.Preview
         {
             DesignApp App(string data, bool splash = false) => new DesignApp(data, content, new Silence(), splash);
 
+            yield return new Fixture(86, "gameplay-purchase-sizes", "All four empty boosters, including the longest price", (p, data) =>
+            {
+                var app = Progressed(App(data), content, 87);
+                app.Meta.Economy.Grant(5000, null);
+                foreach (var booster in LevelScreen.Boosters)
+                    while (app.Meta.Save.Boosters.TryUse(booster.Kind)) { }
+                app.LoadLevel(88); app.Level!.SkipGuide(); app.Level.CloseDemo(); CloseAll(app);
+                Run(app, p, .4f);
+            });
+
+            yield return new Fixture(87, "collection-cached-scroll", "Cached collection thumbnails, scrolling and close control", (p, data) =>
+            {
+                var app = Progressed(App(data), content, 87); CloseAll(app);
+                app.OpenCollection(); Run(app, p, .2f);
+                long before = PaintStats.Snapshot().Draws;
+                Run(app, p, .2f);
+                Expect((PaintStats.Snapshot().Draws - before) / 6 < 400, "settled gallery uses cached thumbnails instead of redrawing every cube");
+                var gallery = CollectionGalleryDesign.Page(p.Width, p.Height, p.Insets);
+                app.CollectionScrollOffset = gallery.Maximum(app.Meta.Collection.Count) * .65f;
+                float offset = app.CollectionScrollOffset;
+                app.CollectionDetail = 2; Run(app, p, .2f);
+                Tap(p, gallery.DetailClose);
+                Expect(app.CollectionDetail == -1 && app.Screen == Design.Screen.Collection && app.CollectionScrollOffset == offset,
+                    "the close cross restores the gallery's exact scroll position");
+                Run(app, p, .2f);
+            });
+
+            yield return new Fixture(88, "wardrobe-purchase-sizes", "Wardrobe shelf scrolled to items for sale", (p, data) =>
+            {
+                var app = Progressed(App(data), content, 87); CloseAll(app); app.OpenWardrobe();
+                var r = WardrobeShelfDesign.Page(p.Width, p.Height, p.Insets);
+                var cards = WardrobeShelfCatalog.Build(app.Meta.Wardrobe, CosmeticKind.Hat);
+                int first = Enumerable.Range(0, cards.Count).First(i => cards[i].State == WardrobeItemState.ForSale);
+                app.WardrobeBrowse.SetOffset(r.Cell(first).Top - r.Area.Top - r.W * .025f, r.Maximum(cards.Count));
+                Run(app, p, .4f);
+            });
+
             yield return new Fixture(85, "phone-scroll", "Quick swipe, glide, interrupt and fresh Shop entry", (p, data) =>
             {
                 var app = Progressed(App(data), content, 87); CloseAll(app); app.OpenStore(); Run(app, p, .1f);
@@ -315,6 +352,10 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.CollectionDetail == count - 1, "a tap on the first picture (the newest) shows its detail");
                 Run(app, p, 0.1f);
                 Expect(Shows(p, "Completed at Level " + NumberText.Group(app.Meta.Collection.Entries[count - 1].LevelNumber)), "the detail says its level");
+                Tap(p, r.DetailClose);
+                Expect(app.Screen == Design.Screen.Collection && app.CollectionDetail == -1, "the preview's cross returns to the gallery");
+                Run(app, p, .1f);
+                Tap(p, r.Cell(0)); Run(app, p, .1f);
                 Tap(p, r.Header.Back);
                 Expect(app.Screen == Design.Screen.Collection && app.CollectionDetail == -1, "back from a picture's detail returns to the grid");
                 Run(app, p, 0.1f);

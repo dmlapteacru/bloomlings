@@ -32,6 +32,8 @@ bool promoMotion = false;
 string? shape = null;
 bool perf = false;
 string? csv = null;
+float purchaseSize = 1f;
+string? purchaseComparison = null;
 for (int i = 0; i < args.Length; i++)
 {
     if (args[i] == "--out" && i + 1 < args.Length)
@@ -65,6 +67,15 @@ for (int i = 0; i < args.Length; i++)
     else if (args[i] == "--shape" && i + 1 < args.Length)
     {
         shape = args[++i];
+    }
+    else if (args[i] == "--compare-purchases" && i + 1 < args.Length)
+    {
+        purchaseComparison = Path.GetFullPath(args[++i]);
+    }
+    else if (args[i] == "--purchase-size" && i + 1 < args.Length)
+    {
+        purchaseSize = float.Parse(args[++i], System.Globalization.CultureInfo.InvariantCulture);
+        if (purchaseSize < .5f || purchaseSize > 1f) throw new ArgumentOutOfRangeException("purchase-size");
     }
     else if (args[i] == "--perf")
     {
@@ -106,6 +117,12 @@ for (int i = 0; i < args.Length; i++)
     {
         csv = Path.GetFullPath(args[++i]);
     }
+}
+
+if (purchaseComparison != null)
+{
+    PurchaseComparison.Write(purchaseComparison);
+    return 0;
 }
 
 if (promoMotion)
@@ -151,7 +168,7 @@ foreach (Fixture frame in Fixtures.All(content, root).Concat(Fixtures.Extras(con
 
     foreach ((string shapeName, float w, float h, Insets insets) in shapes)
     {
-        using var painter = new SkiaPainter((int)w, (int)h, insets);
+        using var painter = new SkiaPainter((int)w, (int)h, insets) { PurchaseSize = purchaseSize };
         string data = Path.Combine(Path.GetTempPath(), "bloomlings-preview", frame.Slug + "-" + shapeName);
         if (Directory.Exists(data))
         {

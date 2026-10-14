@@ -26,6 +26,7 @@ namespace Bloomlings.Client.UI.Design
         }
         public Box Name => Box.FromCenter(Area.CenterX, Picture.Bottom + W * .09f, W * .80f, W * .13f);
         public Box Level => Box.FromCenter(Area.CenterX, Name.Bottom + W * .055f, W * .84f, W * .07f);
+        public Box DetailClose => Box.FromCenter(Area.Right - W * .06f, Area.Top + W * .06f, W * .105f, W * .105f);
     }
 
     /// <summary>Large collectible mosaics in a two-column garden cabinet; only visible shelves are drawn.</summary>

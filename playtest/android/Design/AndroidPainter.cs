@@ -21,7 +21,7 @@ namespace Bloomlings.Playtest.Droid
     /// (<see cref="HeroBitmaps"/>), never all 576 at once. The gameplay lawn renders on a worker thread; until it is ready
     /// the lawn's flat gradient shows, then the view redraws.
     /// </summary>
-    public sealed class AndroidPainter : PainterBase, IPictureWarmer
+    public sealed class AndroidPainter : PainterBase, IPictureWarmer, ICachedIllustration
     {
         /// <summary>How many vertical gradients are kept before they are all made again.</summary>
         private const int GradientCacheLimit = 256;
@@ -31,6 +31,7 @@ namespace Bloomlings.Playtest.Droid
         private static readonly PictureCache<Bitmap> Pictures = new PictureCache<Bitmap>(PictureCacheBytes, bitmap => bitmap.Dispose());
         private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
         private static readonly PictureCache<Bitmap> Sprites = new PictureCache<Bitmap>(64L * 1024 * 1024, bitmap => bitmap.Dispose());
+        private static readonly PictureCache<Bitmap> Illustrations = new PictureCache<Bitmap>(16L * 1024 * 1024, bitmap => bitmap.Dispose());
         private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
         private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(HeroFrameCacheBytes);
         private static readonly HeroBitmaps HeroDraws = new HeroBitmaps(HeroDrawCacheBytes);
@@ -67,6 +68,7 @@ namespace Bloomlings.Playtest.Droid
         {
             Pictures.TrimUnused();
             Sprites.TrimUnused();
+            Illustrations.TrimUnused();
             HeroFrames.TrimUnused();
         }
 
@@ -88,6 +90,7 @@ namespace Bloomlings.Playtest.Droid
             Volatile.Write(ref s_redraw, Redraw);
             Pictures.NextFrame();
             Sprites.NextFrame();
+            Illustrations.NextFrame();
             HeroFrames.NextFrame();
             HeroDraws.NextFrame();
             BeginFrame();
@@ -476,6 +479,61 @@ namespace Bloomlings.Playtest.Droid
 
             _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
+        }
+
+        public void Illustration(string key, Box bounds, Action draw)
+        {
+            if (_recording) { draw(); return; }
+            int w = PictureSize(bounds.Width), h = PictureSize(bounds.Height);
+            if (!Illustrations.TryGet(key, w, h, out Bitmap bitmap))
+            {
+                string workKey = "illustration/" + UiRaster.CacheKey(key, w, h);
+                if (s_pictureWork.TryTake(workKey, out Bitmap ready))
+                {
+                    bitmap = ready;
+                    Illustrations.Add(key, w, h, bitmap, bitmap.AllocationByteCount);
+                }
+                else
+                {
+                    if (s_pictureWork.Contains(workKey)) { draw(); return; }
+                    // Record once for this frame; the same commands can be flattened off the UI thread when complete.
+                    int requested = s_pictureWork.Requested;
+                    var recording = new Android.Graphics.Picture();
+                    Canvas original = _canvas;
+                    var marks = FrameMarks();
+                    bool complete = false;
+                    try
+                    {
+                        _canvas = recording.BeginRecording(w, h)!;
+                        _canvas.Scale(w / bounds.Width, h / bounds.Height);
+                        _canvas.Translate(-bounds.Left, -bounds.Top);
+                        draw();
+                        complete = true;
+                    }
+                    finally
+                    {
+                        _canvas = original; recording.EndRecording(); ForgetSince(marks);
+                        if (!complete) recording.Dispose();
+                    }
+                    _canvas.DrawPicture(recording, R(bounds));
+                    // Newly requested components were absent in the recording, even if their jobs already finished.
+                    if (s_pictureWork.Requested != requested || s_pictureWork.Progress < 1f) { recording.Dispose(); return; }
+                    if (!s_pictureWork.Request(workKey, w * h * 4, () =>
+                    {
+                        try
+                        {
+                            Bitmap snapshot = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
+                            using (var canvas = new Canvas(snapshot)) canvas.DrawPicture(recording);
+                            snapshot.PrepareToDraw();
+                            return snapshot;
+                        }
+                        finally { recording.Dispose(); }
+                    })) recording.Dispose();
+                    return;
+                }
+            }
+            _source.Set(0, 0, w, h);
+            _canvas.DrawBitmap(bitmap, _source, R(bounds), Fill(Rgba.White));
         }
 
         // ---- Warming (IPictureWarmer) ----

@@ -14,11 +14,14 @@ namespace Bloomlings.Playtest.Preview
     /// heroes' frames (spec 005 FR-028) take the device's path: decoded on first use into palette pictures in a cache
     /// bounded by bytes (<see cref="HeroFrameStore"/>), then expanded to premultiplied RGBA for the frames drawn.
     /// </summary>
-    public sealed class SkiaPainter : PainterBase, IDisposable, IPictureWarmer
+    public sealed class SkiaPainter : PainterBase, IDisposable, IPictureWarmer, ICachedIllustration, IPurchaseSizePreview
     {
+        public float PurchaseSize { get; set; } = 1f;
         private static readonly Dictionary<(MaskKind Kind, string Key, int Size), SKImage> Masks = new Dictionary<(MaskKind, string, int), SKImage>();
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly PictureCache<SKImage> Pictures = new PictureCache<SKImage>(PictureCacheBytes, image => image.Dispose());
+        private static readonly PictureCache<SKImage> Illustrations = new PictureCache<SKImage>(16L * 1024 * 1024, image => image.Dispose());
+        private SKCanvas? _illustrationCanvas;
         private static readonly Dictionary<string, SKImage?> Sprites = new Dictionary<string, SKImage?>(StringComparer.Ordinal);
         private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
         private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(HeroFrameCacheBytes);
@@ -82,7 +85,7 @@ namespace Bloomlings.Playtest.Preview
         /// reach its moment (a level solved to its win runs thousands), and rasterizing each at full size was most of the
         /// design board's render time. The pixels of the frame asked for are the same.
         /// </summary>
-        public SKCanvas Canvas => _sink ?? _noDraw ?? _recording ?? _surface!.Canvas;
+        public SKCanvas Canvas => _sink ?? _illustrationCanvas ?? _noDraw ?? _recording ?? _surface!.Canvas;
 
         /// <summary>Every slot id drawn or marked (shapes count as their slot).</summary>
         public HashSet<string> Slots { get; } = new HashSet<string>(StringComparer.Ordinal);
@@ -109,6 +112,7 @@ namespace Bloomlings.Playtest.Preview
 
         public override void BeginFrame()
         {
+            Illustrations.NextFrame();
             lock (Pictures)
             {
                 Pictures.NextFrame();
@@ -487,6 +491,26 @@ namespace Bloomlings.Playtest.Preview
             }
 
             Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
+        }
+
+        public void Illustration(string key, Box bounds, Action draw)
+        {
+            if (_sink != null) { draw(); return; }
+            int w = PictureSize(bounds.Width), h = PictureSize(bounds.Height);
+            if (!Illustrations.TryGet(key, w, h, out SKImage image))
+            {
+                using var surface = SKSurface.Create(new SKImageInfo(w, h));
+                SKCanvas? previous = _illustrationCanvas;
+                var marks = FrameMarks();
+                _illustrationCanvas = surface.Canvas;
+                _illustrationCanvas.Scale(w / bounds.Width, h / bounds.Height);
+                _illustrationCanvas.Translate(-bounds.Left, -bounds.Top);
+                try { draw(); }
+                finally { _illustrationCanvas = previous; ForgetSince(marks); }
+                image = surface.Snapshot();
+                Illustrations.Add(key, w, h, image, w * h * 4L);
+            }
+            Canvas.DrawImage(image, Rect(bounds), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
         }
 
         // ---- Warming (IPictureWarmer): the APK painter's, for the frame-time harness's --perf-warm ----

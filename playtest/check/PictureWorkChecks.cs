@@ -18,9 +18,10 @@ namespace Bloomlings.Playtest.Check
             using var queue = new PictureWorkQueue<object>(8, _ => { });
             object result = new object();
             Func<object> make = () => { maker = Environment.CurrentManagedThreadId; Interlocked.Increment(ref calls); started.Set(); release.Wait(TimeSpan.FromSeconds(5)); return result; };
-            queue.Request("level", 4, make);
+            Expect(queue.Request("level", 4, make), "the first producer owns its request");
             Expect(started.Wait(TimeSpan.FromSeconds(5)), "picture producer starts");
-            queue.Request("level", 4, make);
+            Expect(!queue.Request("level", 4, make) && queue.Contains("level") && queue.Requested == 1,
+                "duplicate requests do not take ownership or change the resource generation");
             Expect(queue.Pending == 1 && queue.Progress < 1 && calls == 1, "pending pictures deduplicate and keep loading incomplete");
             release.Set();
             Expect(Finished(queue) && maker != caller, "rasterization finishes on a different thread");

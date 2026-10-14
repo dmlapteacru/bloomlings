@@ -22,13 +22,16 @@ namespace Bloomlings.Playtest.Design
         }
         public static void Price(IPainter p,Box b,string text,Action? tap=null,bool petals=true,Box? touch=null)
         {
+            Box original = b;
+            if (petals && p is IPurchaseSizePreview preview)
+                b = Box.FromCenter(b.CenterX,b.CenterY,b.Width*preview.PurchaseSize,b.Height*preview.PurchaseSize);
             if(!petals){Kit.PrimaryButton(p,b,text,tap,ShopBodyDesign.Price);return;}
             p.Mark("ui.shop.button");p.Mark("font.shop");Kit.SlicedSprite(p,"shop/price-button",b,350f/1985,190f/505,.4f);
             float size=b.Height*.54f;Box label=b.Inset(b.Height*.20f);
             if(petals){var parts=ShopCatalogDesign.PriceParts(b,p.MeasureText(text,ShopBodyDesign.Price,size/p.U(ShopBodyDesign.Price.Size)));Kit.Petal(p,parts.Petal);label=parts.Label;}
             float scale=size/p.U(ShopBodyDesign.Price.Size);float measured=p.MeasureText(text,ShopBodyDesign.Price,scale);if(measured>label.Width)scale*=label.Width/measured;
             p.Text(text,label.CenterX,label.CenterY,ShopBodyDesign.Price,ShopBodyDesign.MoneyLetters.FillTop,label.Width,scale,ShopBodyDesign.MoneyLetters);
-            if(tap!=null)p.Hit(touch??b,tap);
+            if(tap!=null)p.Hit(touch??original,tap);
         }
         public static void Check(IPainter p,Box b)
         {

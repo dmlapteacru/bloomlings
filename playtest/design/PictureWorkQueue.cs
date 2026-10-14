@@ -26,6 +26,8 @@ namespace Bloomlings.Playtest.Design
         public PictureWorkQueue(long budget, Action<T> dispose, Action? completed = null, Action<Exception>? error = null, Func<T, long>? measure = null)
         { _budget = budget; _dispose = dispose; _completed = completed; _error = error; _measure = measure; }
         public int Pending { get { lock (_gate) return _pending.Count; } }
+        public int Requested { get { lock (_gate) return _total; } }
+        public bool Contains(string key) { lock (_gate) return _pending.Contains(key) || _ready.ContainsKey(key) || _failed.Contains(key); }
         public long ReadyBytes { get { lock (_gate) return _bytes; } }
         public float Progress { get { lock (_gate) return _total == 0 ? 1f : (float)_done / _total; } }
         public bool Failed(string key) { lock (_gate) return _failed.Contains(key); }
@@ -40,17 +42,18 @@ namespace Bloomlings.Playtest.Design
                 value = null!; return false;
             }
         }
-        public void Request(string key, long bytes, Func<T> make)
+        public bool Request(string key, long bytes, Func<T> make)
         {
             lock (_gate)
             {
-                if (_closed || _ready.ContainsKey(key) || _failed.Contains(key) || !_pending.Add(key)) return;
+                if (_closed || _ready.ContainsKey(key) || _failed.Contains(key) || !_pending.Add(key)) return false;
                 _total++; _jobs.Add((key, bytes, make));
                 if (_worker == null)
                 {
                     _worker = new Thread(Work) { IsBackground = true, Name = "GamePictures", Priority = ThreadPriority.BelowNormal };
                     _worker.Start();
                 }
+                return true;
             }
         }
         private void Work()
