@@ -260,6 +260,12 @@ namespace Bloomlings.Playtest.Design
             (int Width, int Height)? size = p.HasSprite(name) ? p.SpriteSize(name) : null;
             if (!size.HasValue || size.Value.Width <= 0 || size.Value.Height <= 0)
             {
+                if (p is IPictureWarmer warmer && warmer.WarmsPictures && p.HasSprite(name))
+                {
+                    // An existing image is decoding. Do not generate a second, unnecessary garden behind the loader.
+                    p.FillRect(box, C.ParchmentBottom);
+                    return;
+                }
                 fallback();
                 return;
             }

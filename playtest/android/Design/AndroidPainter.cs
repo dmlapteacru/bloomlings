@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Android.Graphics;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Playtest.Design;
@@ -29,7 +28,6 @@ namespace Bloomlings.Playtest.Droid
 
         private static readonly Dictionary<(MaskKind Kind, string Key, int Size), Bitmap> Masks = new Dictionary<(MaskKind, string, int), Bitmap>();
         private static readonly Dictionary<string, Bitmap> Backdrops = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
-        private static readonly Dictionary<string, Task<byte[]>> PendingBackdrops = new Dictionary<string, Task<byte[]>>(StringComparer.Ordinal);
         private static readonly PictureCache<Bitmap> Pictures = new PictureCache<Bitmap>(PictureCacheBytes, bitmap => bitmap.Dispose());
         private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
         private static readonly PictureCache<Bitmap> Sprites = new PictureCache<Bitmap>(64L * 1024 * 1024, bitmap => bitmap.Dispose());
@@ -421,12 +419,7 @@ namespace Bloomlings.Playtest.Droid
             return blur;
         }
 
-        /// <summary>
-        /// The garden backdrop, cached per theme and size. The Home and splash skies render at once. The gameplay lawn is
-        /// heavier (a third of the screen's resolution), so it renders on a worker thread (<see cref="BackdropRaster.Render"/>
-        /// is pure) while the lawn's flat gradient (<c>lawn.light</c> to <c>lawn.dark</c>) shows; its bitmap is made here,
-        /// on the UI thread, in the first frame after it is ready (<see cref="Redraw"/> asks for that frame).
-        /// </summary>
+        /// <summary>Fallback garden scenes use the same producer as other graphics, including their bitmap upload.</summary>
         public override void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey)
         {
             float step = BackdropRaster.Downscale(scene);
@@ -435,50 +428,24 @@ namespace Bloomlings.Playtest.Droid
             string key = cacheKey + "@" + w + "x" + h;
             if (!Backdrops.TryGetValue(key, out Bitmap? bitmap))
             {
-                long start = System.Diagnostics.Stopwatch.GetTimestamp();
-                byte[]? rgba = BackdropRaster.IsLawn(scene) ? RenderedAside(key, w, h, colors, scene) : BackdropRaster.Render(w, h, colors, scene);
-                if (rgba == null)
+                string workKey = "backdrop/" + key;
+                if (s_pictureWork.TryTake(workKey, out Bitmap ready))
                 {
-                    FillRoundGradient(box, 0f, DesignTokens.Colors.LawnLight, DesignTokens.Colors.LawnDark);
+                    bitmap = ready;
+                    Backdrops[key] = bitmap;
+                }
+                else
+                {
+                    s_pictureWork.Request(workKey, w * h * 4, () => WarmBitmap(BackdropRaster.Render(w, h, colors, scene), w * h * 4, w, h));
+                    if (!_recording)
+                        FillRoundGradient(box, 0f, BackdropRaster.IsLawn(scene) ? DesignTokens.Colors.LawnLight : colors.SkyTop,
+                            BackdropRaster.IsLawn(scene) ? DesignTokens.Colors.LawnDark : colors.SkyBottom);
                     return;
                 }
-
-                bitmap = ToBitmap(rgba, w, h, Bitmap.Config.Argb8888!);
-                Backdrops[key] = bitmap;
-                PaintStats.Backdropped(start);
             }
-
+            if (_recording) return;
             _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
-        }
-
-        /// <summary>
-        /// A backdrop rendered on a worker thread: its pixels once they are ready, else null (the first call starts the
-        /// render). A render that failed runs again here, so its error still shows.
-        /// </summary>
-        private byte[]? RenderedAside(string key, int w, int h, BackdropColors colors, BackdropScene scene)
-        {
-            if (!PendingBackdrops.TryGetValue(key, out Task<byte[]>? task))
-            {
-                task = Task.Run(() => BackdropRaster.Render(w, h, colors, scene));
-                // The view drawing by then (a recreated activity's, too) shows it.
-                task.ContinueWith(_ => Volatile.Read(ref s_redraw)?.Invoke(), TaskScheduler.Default);
-                PendingBackdrops[key] = task;
-            }
-
-            if (!task.IsCompleted)
-            {
-                return null;
-            }
-
-            PendingBackdrops.Remove(key);
-            if (task.Status == TaskStatus.RanToCompletion)
-            {
-                return task.Result;
-            }
-
-            Android.Util.Log.Warn("Bloomlings", "The lawn did not render aside (" + task.Exception?.GetBaseException().Message + "); rendering it here");
-            return BackdropRaster.Render(w, h, colors, scene);
         }
 
         public override void Picture(string key, Box box, Func<int, int, byte[]> render)
@@ -560,7 +527,7 @@ namespace Bloomlings.Playtest.Droid
             }
         }
 
-        /// <summary>A premultiplied picture's bitmap, made on the warmer's worker through its own direct buffer (as <see cref="ToBitmap(byte[], int, int, int, Bitmap.Config)"/>).</summary>
+        /// <summary>A picture or mask bitmap, made on the producer through its reused direct upload buffer.</summary>
         private static Bitmap WarmBitmap(byte[] pixels, int bytes, int width, int height, Bitmap.Config? config = null)
         {
             Bitmap bitmap = Bitmap.CreateBitmap(width, height, config ?? Bitmap.Config.Argb8888!)!;
@@ -605,33 +572,6 @@ namespace Bloomlings.Playtest.Droid
             {
                 Failed = message => Android.Util.Log.Warn("Bloomlings", message),
             };
-        }
-
-        // One direct buffer the made pictures' pixels go through to their bitmaps, grown to the largest so far: no Java array
-        // is made and copied twice for each picture (ByteBuffer.Wrap of a managed array), and none is left for the Java heap.
-        private static Java.Nio.ByteBuffer? s_upload;
-        private static IntPtr s_uploadAddress;
-        private static int s_uploadBytes;
-
-        /// <summary>A bitmap of <paramref name="config"/> holding <paramref name="pixels"/> (its rows from the top, as the bitmap stores them).</summary>
-        private static Bitmap ToBitmap(byte[] pixels, int width, int height, Bitmap.Config config) => ToBitmap(pixels, pixels.Length, width, height, config);
-
-        /// <summary>A bitmap of <paramref name="config"/> holding the first <paramref name="bytes"/> of <paramref name="pixels"/>.</summary>
-        private static Bitmap ToBitmap(byte[] pixels, int bytes, int width, int height, Bitmap.Config config)
-        {
-            Bitmap bitmap = Bitmap.CreateBitmap(width, height, config)!;
-            if (s_upload == null || s_uploadBytes < bytes)
-            {
-                s_upload?.Dispose();
-                s_upload = Java.Nio.ByteBuffer.AllocateDirect(bytes)!;
-                s_uploadAddress = Android.Runtime.JNIEnv.GetDirectBufferAddress(s_upload.Handle);
-                s_uploadBytes = bytes;
-            }
-
-            System.Runtime.InteropServices.Marshal.Copy(pixels, 0, s_uploadAddress, bytes);
-            s_upload.Rewind();
-            bitmap.CopyPixelsFromBuffer(s_upload);
-            return bitmap;
         }
 
         /// <summary>Straight to premultiplied alpha, in place.</summary>
