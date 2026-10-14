@@ -6,7 +6,7 @@ namespace Bloomlings.Playtest.Design
     /// <summary>
     /// The lotus loader and the lotus iris (spec 005 FR-039, contracts/look.md §6.13; Unity's <c>LotusIrisView</c> is its
     /// twin): a <see cref="LotusPose"/> of the kit's <see cref="LotusIris"/> drawn over the screen, back to front: the
-    /// parchment cover with its round hole and pink rim, the glow, the ring of petals, the lotus, the splash's logo and the
+    /// teal cover (Home garden on the splash) with its round hole and pink rim, the glow, the ring of petals, the lotus, the splash's logo and the
     /// text. While anything of the cover shows, it takes every tap.
     /// </summary>
     public static class LotusPainter
@@ -24,7 +24,7 @@ namespace Bloomlings.Playtest.Design
 
             LotusIrisLayout l = LotusIris.Layout(p.Width, p.Height, p.Insets);
             var screen = new Box(0f, 0f, p.Width, p.Height);
-            Cover(p, l, pose);
+            Cover(p, l, pose, splash);
             if (splash)
             {
                 p.Mark("brand.splash_art");
@@ -89,13 +89,14 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>The cover: plain where the hole picture does not reach, the hole picture round the hole, the pink rim.</summary>
-        private static void Cover(IPainter p, LotusIrisLayout l, LotusPose pose)
+        private static void Cover(IPainter p, LotusIrisLayout l, LotusPose pose, bool splash)
         {
             p.Mark("ui.lotus_iris");
             float radius = l.HoleRadius(pose);
             if (radius < 0.5f)
             {
                 p.FillRect(new Box(0f, 0f, p.Width, p.Height), LotusIris.Cover);
+                if (splash) Garden(p);
                 return;
             }
 
@@ -111,8 +112,21 @@ namespace Bloomlings.Playtest.Design
             p.Picture(LotusIris.HoleKey, new Box(0f, 0f, LotusIris.HoleRaster, LotusIris.HoleRaster), (w, h) => UiRaster.IrisHole(w, h));
             p.PopTransform();
 
+            if (splash)
+            {
+                p.PushClipOutsideCircle(l.CenterX, l.CenterY, radius);
+                Garden(p);
+                p.PopClip();
+            }
+
             p.StrokeCircle(l.CenterX, l.CenterY, radius + p.U(LotusIris.RimUnits / 2f), p.U(LotusIris.RimUnits), LotusIris.Rim);
             p.StrokeCircle(l.CenterX, l.CenterY, radius + p.U(LotusIris.RimUnits + (LotusIris.RimLineUnits / 2f)), p.U(LotusIris.RimLineUnits), LotusIris.RimLine);
+        }
+
+        private static void Garden(IPainter p)
+        {
+            DesignApp.DrawBackdrop(p, BackdropScene.Home, 1);
+            p.FillRect(new Box(0, 0, p.Width, p.Height), Rgba.Black.WithAlpha(1f - LotusIris.SplashGardenDim));
         }
 
         /// <summary>The ring: twelve petals pointing outward, each over a larger copy in its outline color.</summary>

@@ -41,7 +41,7 @@ namespace Bloomlings.Client.Tests
                 Assert.That(OwnerPictures.SlotOf(OwnerPictures.Gameplay(theme.Id)), Is.EqualTo("bg.theme." + theme.Id), theme.Id);
             }
 
-            foreach (string picture in new[] { OwnerPictures.Home, OwnerPictures.Splash, OwnerPictures.Wardrobe, OwnerPictures.Logo, OwnerPictures.Tagline })
+            foreach (string picture in new[] { OwnerPictures.Home, OwnerPictures.Splash, OwnerPictures.Wardrobe, OwnerPictures.Profile, OwnerPictures.Leaderboard, OwnerPictures.Collection, OwnerPictures.Logo, OwnerPictures.Tagline })
             {
                 Assert.That(AssetSlots.Has(OwnerPictures.SlotOf(picture)), Is.True, picture);
             }

@@ -36,7 +36,7 @@ namespace Bloomlings.Client.UI.Screens
             Image root=UiFactory.CreateImage("Leaderboard",parent,null,Color.clear,raycast:true);UiFactory.Stretch(root.rectTransform);
             var s=root.gameObject.AddComponent<LeaderboardScreen>();s._root=root.gameObject;s._refresh=onRefresh;s._petals=petals;s._look=navLook;s._store=onStore!=null;
             s._catalog=catalog??new CosmeticCatalog(Array.Empty<CosmeticItem>());
-            BackdropView.Create(root.rectTransform,OwnerPictures.Wardrobe,BackdropScene.Home);
+            BackdropView.Create(root.rectTransform,OwnerPictures.Leaderboard,BackdropScene.Home);
             s._body=UiFactory.CreateRect("HonorBoard",root.transform);UiFactory.Stretch(s._body);
             if(onNav!=null)s._nav=UiKit.BottomNav("BottomNav",root.transform,p=>{if(p!=NavPlace.Leaderboard)onNav(p);});
             s._header=UiKit.PageHeader(root.transform,Loc.T("leaderboard.title"),s.Hide,petals!=null,onStore);

@@ -12,7 +12,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The layered picture's height in pixels.</summary>
         public const int PictureHeight = 1846;
 
-        /// <summary><c>home.jpg</c> (from <c>01_home_bg_back.png</c>): its box in the picture.</summary>
+        /// <summary><c>home.jpg</c> (the approved mint-teal courtyard of 2026-10-14): its box in the picture.</summary>
         public static readonly PictureBox Back = new PictureBox("home", 0, 0, 852, 1846);
 
         /// <summary><c>home-fountain-back.png</c> (from <c>the owner's fountain basin of 2026-10-08</c>): its box in the picture.</summary>

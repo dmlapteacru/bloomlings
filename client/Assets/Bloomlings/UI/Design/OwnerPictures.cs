@@ -43,8 +43,17 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>B6: the splash garden.</summary>
         public const string Splash = "splash";
 
-        /// <summary>B7: the Wardrobe's garden arches (Unity only: the playtest has no Wardrobe screen).</summary>
+        /// <summary>The Wardrobe's shaded wooden garden pavilion.</summary>
         public const string Wardrobe = "wardrobe";
+
+        /// <summary>The personal profile and editor's quiet pond terrace.</summary>
+        public const string Profile = "profile";
+
+        /// <summary>The leaderboard's ceremonial garden avenue.</summary>
+        public const string Leaderboard = "leaderboard";
+
+        /// <summary>The collection's shaded botanical archive.</summary>
+        public const string Collection = "collection";
 
         /// <summary>B8: the full-screen win's garden, calm in the middle with soft light from it.</summary>
         public const string Win = "win";
@@ -116,6 +125,9 @@ namespace Bloomlings.Client.UI.Design
             Home => "bg.home",
             Splash => "bg.splash",
             Wardrobe => "bg.wardrobe",
+            Profile => "bg.profile",
+            Leaderboard => "bg.leaderboard",
+            Collection => "bg.collection",
             Win => "bg.win",
             Logo => "brand.wordmark",
             Tagline => "brand.tagline",
@@ -155,9 +167,9 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// Where the stone disc of the owner's win picture (B8) lies: the middle of its top, as a share of the picture's
-        /// height. The win stands the hero on it instead of a drawn pedestal (<see cref="TopAnchored"/>).
+        /// height (0.615 in the mint-teal clearing of 2026-10-14). The win stands the hero on it instead of a drawn pedestal (<see cref="TopAnchored"/>).
         /// </summary>
-        public const float WinStageShare = 0.58f;
+        public const float WinStageShare = 0.615f;
 
         /// <summary>
         /// The box of a background picture of <paramref name="width"/> × <paramref name="height"/> drawn over
@@ -183,10 +195,8 @@ namespace Bloomlings.Client.UI.Design
             scene == BackdropScene.Splash && !exists(Splash) ? Home : Background(scene, themeId);
 
         /// <summary>
-        /// The height share of the middle of the round stone disc's top painted in the owner's win picture (B8, the restyled
-        /// garden of 2026-10-08; its back rim at 0.561, its front rim at 0.604; 0.60 on the calm garden of 2026-10-04, 0.58 on the
-        /// first picture): the full-screen win anchors the picture at the top and zooms it so the
-        /// disc lies under the hero's feet (<see cref="WinZoom"/>).
+        /// The standing point on the approved victory clearing's stone disc, as a share of image height.
+        /// The full-screen win anchors and zooms the picture so this point lies under the hero's feet.
         /// </summary>
         public const float WinDiscShare = WinStageShare;
 

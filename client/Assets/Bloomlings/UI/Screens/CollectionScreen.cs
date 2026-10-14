@@ -44,7 +44,7 @@ namespace Bloomlings.Client.UI.Screens
             UiFactory.Stretch(root.rectTransform);
             var s = root.gameObject.AddComponent<CollectionScreen>();
             s._root = root.gameObject; s._petals = petals; s._store = onStore != null; s._navLook = navLook;
-            BackdropView.Create(root.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
+            BackdropView.Create(root.rectTransform, OwnerPictures.Collection, BackdropScene.Home);
             Image viewport = UiFactory.CreateImage("GalleryViewport", root.transform, null, Color.clear, raycast: true);
             s._viewport = viewport.rectTransform; viewport.gameObject.AddComponent<RectMask2D>();
             s._content = UiFactory.CreateRect("Shelves", viewport.transform);

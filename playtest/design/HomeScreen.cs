@@ -24,7 +24,7 @@ namespace Bloomlings.Playtest.Design
 
     /// <summary>
     /// The splash of frame 1 (spec 002 FR-016 as amended by spec 005 FR-039, contracts/look.md §6.13): the lotus loader.
-    /// The logo and the lotus stand on the parchment while the ring of petals round the lotus fills, "Loading..." under
+    /// The logo and the lotus stand over the Home courtyard while the ring of petals round the lotus fills, "Loading..." under
     /// it; once it is full the first screen comes up under it and the lotus iris opens on it (<see cref="DesignApp"/>). It
     /// shows while the game starts and never waits for a tap.
     /// </summary>

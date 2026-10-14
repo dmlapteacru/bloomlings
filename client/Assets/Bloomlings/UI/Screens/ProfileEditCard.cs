@@ -47,7 +47,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             Image root=UiFactory.CreateImage("ProfileEdit",parent,null,Color.clear,raycast:true);UiFactory.Stretch(root.rectTransform);
             var screen=root.gameObject.AddComponent<ProfileEditCard>();screen._root=root.gameObject;screen._profile=profile;screen._wardrobe=wardrobe;screen._wardrobeLevel=wardrobeLevel;screen._changed=changed;screen._level=level??(()=>1);screen._petals=petals;screen._storeOpen=storeOpen??(()=>onStore!=null);
-            BackdropView.Create(root.rectTransform,OwnerPictures.Wardrobe,BackdropScene.Home);
+            BackdropView.Create(root.rectTransform,OwnerPictures.Profile,BackdropScene.Home);
             screen._tabsBox=UiFactory.CreateRect("Tabs",root.transform);
             var keys=new string[4];var labels=new string[4];for(int i=0;i<4;i++){keys[i]=ProfileGameDesign.TabKey(ProfileEditor.Tabs[i]);labels[i]=Loc.T(keys[i]);}
             screen._tabs=UiKit.Tabs("Tabs",screen._tabsBox,labels,i=>screen.SelectTab(ProfileEditor.Tabs[i]),keys);

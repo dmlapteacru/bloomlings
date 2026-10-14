@@ -9,9 +9,9 @@
    "name": "home.jpg",
    "blur": true,
    "dim": true,
-   "sourceSha256": "68fced60f7a8a85d7cc80080928a8fbc0a9cf49bff7b26b3d628abc44e36ed8c",
-   "sha256": "bd492a3c787923b55915e80c317710d6bd530f3bfbfcf2775ea71fddc4f64499",
-   "bytes": 235495
+   "sourceSha256": "223b741d4e7ad53b8323a9672d5a593f581dbf6af6a672c27ff7b168b35615b4",
+   "sha256": "2e6828812a9504e4aa590dc511807d64eb3cb32a2b7854cf1051f254be40c5a0",
+   "bytes": 237487
   },
   {
    "name": "home-fountain-back.png",
@@ -49,49 +49,73 @@
    "name": "gameplay-daylight.jpg",
    "blur": true,
    "dim": true,
-   "sourceSha256": "217b121117001e52b3000656e2957a3bcf7c33135542b165731744dc2383ad0a",
-   "sha256": "311e3daf1d5cc28e8ff8c84a09b3b83db75e22f188b8d80f3de7c57f6cbc428f",
-   "bytes": 269180
+   "sourceSha256": "9e56147d1d8ac6e7268e44f2c3cf0484501e71fe009a1250b0089c230b895004",
+   "sha256": "0db5b3e4ef06be92ded2854f88173119c56e09a680ad3eae4193ffc1f736cc5d",
+   "bytes": 164884
   },
   {
    "name": "gameplay-pond.jpg",
    "blur": true,
    "dim": true,
-   "sourceSha256": "0dfe2d9715806dfcf9774487870ede9350cab9d9754e91bc0414489e8b8ca548",
-   "sha256": "8a637b25d76928d4e44f4e05d78b7813fc4e0d7b6e60bcae9b4630e7fbe04442",
-   "bytes": 269476
+   "sourceSha256": "e59a38cd575d10072058a95d21524295b9bb51cff99c1708df81be6b8ec28d9d",
+   "sha256": "2c54e97e5456ab17e086378bc63162e1c1be5c4a1360e54b90ca0300338aafad",
+   "bytes": 183151
   },
   {
    "name": "gameplay-orchard.jpg",
    "blur": true,
    "dim": true,
-   "sourceSha256": "b1b58d292e2348fb4a3da7fe3f02aa2ccba2233b4a16fbc99120d7f96795c413",
-   "sha256": "1a9cc13a454f224df6f39cba6ef8a4442337fa79eb1b190949ec54ff6145ed21",
-   "bytes": 274026
+   "sourceSha256": "f5bfbc36914927c0888e35f76e424c6fa7de38716e33425b266e8b56caf11f60",
+   "sha256": "4496498ed7076e07bc97ce61cac442c41a357237cbcb4bcb5cceeef8bee00c85",
+   "bytes": 181410
   },
   {
    "name": "gameplay-moonlit.jpg",
    "blur": true,
    "dim": true,
-   "sourceSha256": "cc4c1d4cbdf8ba4ff97433a58d5e36e8d7f0991f49484361a26beb662b6326eb",
-   "sha256": "19262ca14f8f69ccbbe1a03bbd54c52e94d17e50c357eda0c04b9168d64755cd",
-   "bytes": 303480
+   "sourceSha256": "0c3019eea1e77bb2f8991f232b8b4b598ea59fb52a080188fecaa09e46984aa8",
+   "sha256": "9a6f042a8147af0b81044aa1450d1a6d9633001501a9834d7cbc0ca7207584fc",
+   "bytes": 163247
   },
   {
    "name": "wardrobe.jpg",
    "blur": true,
    "dim": true,
-   "sourceSha256": "aacfc714217b5651cc03218e819cca3de2904df23afa3c4b152621da43708090",
-   "sha256": "06c1fe8de2c144078eed0e43fa1a2f9d34367ab2ff3ef07d11bc44fd701a8fbf",
-   "bytes": 271222
+   "sourceSha256": "e3633f020ba71a94f55626d497d660c4bed60dbc9503c11fe078a9102457e2f3",
+   "sha256": "40660b6e3dc5c2347404786b391934c8c6890ea2b906b94513f75c35a355b71d",
+   "bytes": 241564
+  },
+  {
+   "name": "profile.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "84412ef56b8766d7cffc8e9f24b6cc89e67194e36daa13dac6a2572f0833004f",
+   "sha256": "caf8ab765dd834ec7a5d27d651a4c38841362ca1cea00677aeae512bb3b2f860",
+   "bytes": 253098
+  },
+  {
+   "name": "leaderboard.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "8e63786ac11793994a63d29e526d6bec4907f2d9a7d98c009be8b746ba3c1152",
+   "sha256": "7ed4055a1c8d644342f220a415a50b5648aab3b27bcaf90e7d74179031933f06",
+   "bytes": 246736
+  },
+  {
+   "name": "collection.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "06ea1f1c91d6f95c2416dcd11c45af3dd9afded66d82c748cc114f9a0e58a785",
+   "sha256": "a52528c49ad95a19a173809ccc186443103082ce0672c5658803aa95e5b3d930",
+   "bytes": 230020
   },
   {
    "name": "win.jpg",
    "blur": true,
    "dim": true,
-   "sourceSha256": "f40bc0d8ac965d9cb0058a4e19a05dcfe67ff00f0471a87c1e2f43943af923c6",
-   "sha256": "5cbc71a3e6857391132f39300263f75b7645e944eb3307f694c8c42aec34e05d",
-   "bytes": 269590
+   "sourceSha256": "334399f1297c3641c229f7f982e615fff37f03e44b0ec5561dcbddd74cdcbbcd",
+   "sha256": "43c1126026a6402f3aa2c7433256c3595ab15128698b0c69f6be1af91124bbea",
+   "bytes": 201167
   }
  ]
 }

@@ -14,7 +14,7 @@ namespace Bloomlings.Playtest.Design
         {
             HomeLook look = HomeScreen.Look(app);
             var r = CollectionGalleryDesign.Page(p.Width, p.Height, p.Insets);
-            DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
+            DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Collection);
             if (!BottomNav.IsOpen(NavPlace.Collection, look))
             {
                 var locked = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);

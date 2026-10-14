@@ -55,6 +55,39 @@ namespace Bloomlings.Playtest.Preview
         {
             DesignApp App(string data, bool splash = false) => new DesignApp(data, content, new Silence(), splash);
 
+            yield return new Fixture(90, "garden-backgrounds", "Distinct garden scenes remain available through the bundled asset loader", (p, data) =>
+            {
+                var app = Progressed(App(data), content, 87); CloseAll(app);
+                void Scene(string picture, Action open)
+                {
+                    open(); CloseAll(app); p.Slots.Clear(); Run(app, p, .1f);
+                    Expect(p.HasSprite(PainterBase.BackgroundPrefix + picture) && p.Slots.Contains(OwnerPictures.SlotOf(picture)),
+                        "the page draws its bundled garden: " + picture);
+                }
+                Scene(OwnerPictures.Home, app.GoHome);
+                Expect(p.Slots.Contains("bg.home.fountain_back") && p.Slots.Contains("bg.home.lotus"), "Home retains its separate fountain layers");
+                Scene(OwnerPictures.Wardrobe, app.OpenWardrobe);
+                Scene(OwnerPictures.Leaderboard, app.OpenLeaderboard);
+                Scene(OwnerPictures.Collection, app.OpenCollection);
+                Scene(OwnerPictures.Profile, app.OpenProfile);
+                app.OpenProfileEdit(ProfileTab.Avatar); p.Slots.Clear(); Run(app, p, .1f);
+                Expect(p.Slots.Contains("bg.profile"), "the editor shares the profile's pond terrace");
+                foreach (string picture in new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit", OwnerPictures.Win })
+                    Expect(p.HasSprite(PainterBase.BackgroundPrefix + picture), "theme and victory assets are bundled: " + picture);
+
+                // The new garden cover must reveal the incoming screen, rather than
+                // painting the full background back into the iris opening.
+                p.BeginFrame();
+                p.FillRect(new Box(0, 0, p.Width, p.Height), new Rgba(210, 17, 35));
+                LotusPainter.Draw(p, LotusIris.Splash(2.5f, 1f, 2f), PlaytestText.T("splash.loading"), true);
+                using (var pixels = SkiaSharp.SKBitmap.Decode(p.Png()))
+                {
+                    var revealed = pixels.GetPixel((int)(p.Width * .95f), (int)(p.Height * .5f));
+                    Expect(revealed.Red > 180 && revealed.Green < 50 && revealed.Blue < 70, "the opening iris preserves the screen underneath its garden cover");
+                }
+                app.GoHome(); CloseAll(app); Run(app, p, .4f);
+            });
+
             yield return new Fixture(86, "gameplay-purchase-sizes", "Empty boosters show only their icons and refill plus", (p, data) =>
             {
                 var app = Progressed(App(data), content, 87);

@@ -12,7 +12,7 @@ namespace Bloomlings.Playtest.Design
         public static void Draw(IPainter p,DesignApp app)
         {
             var meta=app.Meta;var profile=meta.Profile;var r=ScreenLayout.ReferenceProfile(p.Width,p.Height,p.Insets);bool covered=app.Overlays.Count>0;
-            DesignApp.DrawBackdrop(p,BackdropScene.Home,meta.CurrentLevel,OwnerPictures.Wardrobe);
+            DesignApp.DrawBackdrop(p,BackdropScene.Home,meta.CurrentLevel,OwnerPictures.Profile);
             p.Mark("ui.shop.illustrations");p.Sprite(ProfileGameDesign.Showcase,r.Panel);
             Kit.Avatar(p,r.Avatar,profile.Avatar,meta.Wardrobe.Profile.Frame,meta.Wardrobe.Profile.Badge,null,HomeScreen.OutfitsOf(app)?.Invoke(profile.Avatar.Family),sceneFrame:true);
             if(!covered)p.Hit(ProfileGameDesign.AvatarTouch(r.Avatar),()=>app.OpenProfileEdit(ProfileTab.Avatar));
@@ -54,7 +54,7 @@ namespace Bloomlings.Playtest.Design
         {
             var editor=app.ProfileEditor;if(editor==null)return;var meta=app.Meta;var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);
             Action? Act(Action? action)=>app.DrawingCovered ? null : action;
-            DesignApp.DrawBackdrop(p,BackdropScene.Home,meta.CurrentLevel,OwnerPictures.Wardrobe);
+            DesignApp.DrawBackdrop(p,BackdropScene.Home,meta.CurrentLevel,OwnerPictures.Profile);
             var keys=new List<string>();var labels=new List<string>();foreach(var t in ProfileEditor.Tabs){keys.Add(ProfileGameDesign.TabKey(t));labels.Add(PlaytestText.T(ProfileGameDesign.TabKey(t)));}
             Kit.Tabs(p,r.Tabs,labels,(int)editor.Tab,i=>{editor.Tab=ProfileEditor.Tabs[i];app.ProfileScrollOffset=0;},keys);
             Kit.CardFrame(p,r.Summary);

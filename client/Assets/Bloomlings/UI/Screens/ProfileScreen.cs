@@ -88,7 +88,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._store = onStore != null;
             screen._navLook = navLook;
             Transform root = shade.transform;
-            BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
+            BackdropView.Create(shade.rectTransform, OwnerPictures.Profile, BackdropScene.Home);
 
             // Preserve the reference skin's silhouette: uniform scale, no slicing of the arch or shelves.
             screen._card = UiFactory.CreateImage("Showcase",root,ShopArt.Get(ProfileGameDesign.Showcase),Color.white);

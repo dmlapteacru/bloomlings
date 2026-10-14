@@ -112,6 +112,9 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         void PushClipRound(Box box, float radius);
 
+        /// <summary>Excludes the iris opening so its garden cover never paints over the incoming screen.</summary>
+        void PushClipOutsideCircle(float cx, float cy, float radius);
+
         void PopClip();
 
         /// <summary>Multiplies the alpha of everything drawn until <see cref="PopAlpha"/>.</summary>

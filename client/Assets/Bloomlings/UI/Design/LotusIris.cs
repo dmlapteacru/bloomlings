@@ -210,10 +210,13 @@ namespace Bloomlings.Client.UI.Design
         public const float RiseUnits = 30f;
 
         /// <summary>The cover's color.</summary>
-        public static Rgba Cover => C.ParchmentBottom;
+        public static Rgba Cover => Rgba.FromHex("#125F62");
+
+        /// <summary>The Home garden remains quiet behind the splash's lotus and white lettering.</summary>
+        public const float SplashGardenDim = .78f;
 
         /// <summary>The glow behind the lotus.</summary>
-        public static Rgba GlowColor => C.ParchmentTop.Lighten(0.5f);
+        public static Rgba GlowColor => Rgba.FromHex("#C1E4D3");
 
         public static Rgba Rim => C.LotusFill;
 
@@ -226,7 +229,7 @@ namespace Bloomlings.Client.UI.Design
         public static Rgba PetalLine(float lit) => C.ParchmentLine.Mix(C.LotusLine, Clamp01(lit));
 
         /// <summary>"Level N" under the lotus; "Loading..." on the splash.</summary>
-        public static Rgba TextColor(bool splash) => splash ? C.InkBrownSoft : C.InkTitle;
+        public static Rgba TextColor(bool splash) => C.ParchmentTop;
 
         public static LotusIrisLayout Layout(float width, float height, Insets insets)
         {

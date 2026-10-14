@@ -528,6 +528,8 @@ namespace Bloomlings.Playtest.Design
 
         public abstract void PushClipRound(Box box, float radius);
 
+        public abstract void PushClipOutsideCircle(float cx, float cy, float radius);
+
         public abstract void PopClip();
 
         /// <summary>The text size in pixels, shrunk to fit <paramref name="maxWidth"/> down to the style's minimum.</summary>

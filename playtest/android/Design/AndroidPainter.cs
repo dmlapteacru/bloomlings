@@ -971,6 +971,14 @@ namespace Bloomlings.Playtest.Droid
             _canvas.ClipPath(path);
         }
 
+        public override void PushClipOutsideCircle(float cx, float cy, float radius)
+        {
+            _canvas.Save();
+            using var path = new Android.Graphics.Path();
+            path.AddCircle(cx, cy, radius, Android.Graphics.Path.Direction.Cw!);
+            _canvas.ClipOutPath(path);
+        }
+
         public override void PopClip() => _canvas.Restore();
     }
 }

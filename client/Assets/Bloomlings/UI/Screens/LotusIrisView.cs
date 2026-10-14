@@ -10,7 +10,7 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>
     /// The lotus loader and the lotus iris (spec 005 FR-039, contracts/look.md §6.13; the playtest's <c>LotusPainter</c>
     /// is its twin): a top-most canvas that draws a <see cref="LotusPose"/> of the kit's <see cref="LotusIris"/> over the
-    /// screen, back to front: the parchment cover (the hole picture scaled to the hole and four plain boxes round it), the
+    /// screen, back to front: the teal cover (the Home garden on the splash; the hole picture scaled to the hole and four plain boxes round it), the
     /// pink rim, the glow, the ring of petals, the lotus, the splash's logo and the text. While anything of the cover
     /// shows, a clear full-screen image takes every tap. <see cref="SplashScreen"/> and <see cref="LevelTransition"/> drive
     /// it.
@@ -32,6 +32,9 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _text = null!;
         private Color _textColor;
         private bool _splash;
+        private Texture2D? _garden;
+        private readonly RawImage[] _gardenPanels = new RawImage[4];
+        private RawImage? _gardenHole;
 
         /// <summary>
         /// A top-most canvas under <paramref name="parent"/>, which should survive scene loads (the Boot object). The splash
@@ -58,6 +61,27 @@ namespace Bloomlings.Client.UI.Screens
 
             Sprite hole = ProceduralSprites.Picture(LotusIris.HoleKey, LotusIris.HoleRaster, LotusIris.HoleRaster, (w, h) => UiRaster.IrisHole(w, h));
             view._hole = UiFactory.CreateImage("Hole", root, hole, Color.white);
+            if (splash && (view._garden = OwnerArt.Background(OwnerPictures.Home)) != null)
+            {
+                RawImage Garden(Transform holder)
+                {
+                    var art = UiFactory.CreateRect("Garden", holder).gameObject.AddComponent<RawImage>();
+                    art.texture = view._garden;
+                    art.raycastTarget = false;
+                    float dim = LotusIris.SplashGardenDim;
+                    art.color = new Color(dim, dim, dim, 1f);
+                    return art;
+                }
+                for (int i = 0; i < view._panels.Length; i++)
+                {
+                    view._gardenPanels[i] = Garden(view._panels[i].transform);
+                    UiFactory.Stretch(view._gardenPanels[i].rectTransform);
+                }
+                // The existing inverse-hole alpha is also the stencil for the garden;
+                // it never obscures the screen being revealed by the iris.
+                view._hole.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+                view._gardenHole = Garden(view._hole.transform);
+            }
             view._rim = UiKit.RoundRing("Rim", root, UiTheme.Of(LotusIris.Rim), b => b.Width / 2f, _ => UiKit.Units(LotusIris.RimUnits));
             view._rimLine = UiKit.RoundRing("RimLine", root, UiTheme.Of(LotusIris.RimLine), b => b.Width / 2f, _ => UiKit.Units(LotusIris.RimLineUnits));
             Sprite glow = ProceduralSprites.Picture(LotusIris.GlowKey, LotusIris.GlowRaster, LotusIris.GlowRaster, (w, h) => UiRaster.IrisGlow(w, h));
@@ -156,6 +180,13 @@ namespace Bloomlings.Client.UI.Screens
                 if (i < panels.Length)
                 {
                     UiKit.PlaceScreen(_panels[i].rectTransform, panels[i]);
+                    if (_garden != null)
+                    {
+                        (float x, float y, float w, float h) = PicturePixels.CoverUv(_garden.width, _garden.height, l.Width, l.Height);
+                        Box panel = panels[i];
+                        _gardenPanels[i].uvRect = new Rect(x + w * panel.Left / l.Width, y + h * (1f - panel.Bottom / l.Height),
+                            w * panel.Width / l.Width, h * panel.Height / l.Height);
+                    }
                 }
             }
 
@@ -167,7 +198,13 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            UiKit.PlaceScreen(_hole.rectTransform, LotusIris.HoleBox(l.CenterX, l.CenterY, radius));
+            Box hole = LotusIris.HoleBox(l.CenterX, l.CenterY, radius);
+            UiKit.PlaceScreen(_hole.rectTransform, hole);
+            if (_gardenHole != null && _garden != null)
+            {
+                UiKit.PlaceBox(_gardenHole.rectTransform, new Box(0, 0, l.Width, l.Height), hole);
+                OwnerArt.Cover(_gardenHole, _garden, l.Width, l.Height);
+            }
             float rim = radius + (LotusIris.RimUnits * l.Unit);
             float line = rim + (LotusIris.RimLineUnits * l.Unit);
             UiKit.PlaceScreen(_rim.rectTransform, Box.FromCenter(l.CenterX, l.CenterY, 2f * rim, 2f * rim));

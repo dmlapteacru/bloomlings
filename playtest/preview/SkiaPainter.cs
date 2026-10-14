@@ -938,6 +938,14 @@ namespace Bloomlings.Playtest.Preview
             Canvas.ClipRoundRect(new SKRoundRect(Rect(box), radius, radius), SKClipOperation.Intersect, antialias: true);
         }
 
+        public override void PushClipOutsideCircle(float cx, float cy, float radius)
+        {
+            Canvas.Save();
+            using var path = new SKPath();
+            path.AddCircle(cx, cy, radius);
+            Canvas.ClipPath(path, SKClipOperation.Difference, antialias: true);
+        }
+
         public override void PopClip() => Canvas.Restore();
     }
 }

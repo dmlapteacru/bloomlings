@@ -13,7 +13,7 @@
   "note": "colors as delivered since 2026-10-08 (spec 005 FR-031 as changed by the owner); it was x0.738 to 70% of the heroes"
  },
  "data": "client/Assets/Bloomlings/UI/Design/HomeLayersData.cs",
- "dataSha256": "da5fcd86542addb8008c15f23c45eeb193afb4b7872e610aad23701f05467fe9",
+ "dataSha256": "a728c50abdab4530cd799e7d120d5631a95605ac00b571c5e577408ce82699cb",
  "outputs": [
   {
    "name": "home.jpg",
@@ -23,9 +23,9 @@
     "w": 852,
     "h": 1846
    },
-   "from": "the owner's new Home garden of 2026-10-08 (941 x 1672, already blurred), scaled and cropped to 852 x 1846, no blur pass",
-   "sha256": "68fced60f7a8a85d7cc80080928a8fbc0a9cf49bff7b26b3d628abc44e36ed8c",
-   "bytes": 299166
+   "from": "OpenAI ImageGen mint-teal courtyard approved 2026-10-14; no fountain baked into background; original fountain layers and 852x1846 placement retained (tools/artgen/models/garden-backgrounds-2026-10-14.md)",
+   "sha256": "223b741d4e7ad53b8323a9672d5a593f581dbf6af6a672c27ff7b168b35615b4",
+   "bytes": 322492
   },
   {
    "name": "home-fountain-back.png",

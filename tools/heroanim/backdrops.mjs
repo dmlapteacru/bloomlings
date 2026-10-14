@@ -39,6 +39,9 @@ export const pictures = [
   { name: 'gameplay-orchard.jpg', blur: true, dim: true },
   { name: 'gameplay-moonlit.jpg', blur: true, dim: true },
   { name: 'wardrobe.jpg', blur: true, dim: true },
+  { name: 'profile.jpg', blur: true, dim: true },
+  { name: 'leaderboard.jpg', blur: true, dim: true },
+  { name: 'collection.jpg', blur: true, dim: true },
   { name: 'win.jpg', blur: true, dim: true },
 ];
 

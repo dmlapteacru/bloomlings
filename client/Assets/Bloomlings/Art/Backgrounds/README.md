@@ -1,19 +1,34 @@
-# Backgrounds (the owner's pictures)
+# Garden backgrounds
 
-Drop the background pictures of `specs/005-reference-look/pictures.md` (section B) into `Resources/Backgrounds/` with
-their exact names: `home.png`, `splash.png`, `wardrobe.png`, `win.png`, `gameplay-daylight.png`, `gameplay-pond.png`,
-`gameplay-orchard.png` and `gameplay-moonlit.png` (1080 × 2340, opaque PNG). The names are in `OwnerPictures`.
+The 2026-10-14 redesign uses the Shop's shaded teal/jade palette with mint atmospheric depth, warm stone and sparse edge flowers. Each page has its own location and a quiet center for UI:
 
-- Unity loads them from `Resources/Backgrounds/` (`OwnerArt`); `wardrobe.png` is Unity only (the playtest has no
-  Wardrobe screen).
-- The playtest APKs carry the folder as assets (`playtest/android`, one copy whatever the processor; `PlaytestFiles`),
-  the preview embeds it (`playtest/preview`), and both cover-fit each picture (`Visuals.Background`).
+| Resource name | Scene |
+|---|---|
+| `home` | Open courtyard, behind the existing separate fountain and hero layers |
+| `wardrobe` | Wooden dressing pavilion |
+| `profile` | Pond terrace, shared by Profile and Edit Profile |
+| `leaderboard` | Ceremonial avenue |
+| `collection` | Outdoor botanical archive, shared by gallery and detail |
+| `gameplay-daylight` | Shaded clearing |
+| `gameplay-pond` | Clearing with reeds and lilies at the edges |
+| `gameplay-orchard` | Clearing with fruit-tree edges |
+| `gameplay-moonlit` | Deeper teal clearing with silver-mint illumination |
+| `win` | Light clearing with a low stone dais; standing point at 0.615 image height |
 
-Since spec 005 FR-049 (2026-10-08) the pictures here are the finish of the owner's as delivered: put a new or changed
-picture into `tools/heroanim/backgrounds/` and run `node tools/heroanim/backdrops.mjs`, which writes it here a little
-blurred and darker (and `node tools/heroanim/check.mjs` must pass).
+The Shop retains its existing `Art/Shop/Resources/Shop/background.png`. Splash reuses the Home courtyard beneath the lotus loader, clipped outside the opening iris; level transitions use a plain matching teal cover. Popups retain their underlying page scene and dim it.
 
-While a picture is missing, both builds draw the code-drawn backdrop (`BackdropRaster`) instead (for `win.png`, the
-`BackdropScene.Win` garden: the gameplay garden blurred and lightened with a warm glow in the middle). Each picture needs a
-row in `client/THIRD_PARTY_NOTICES.md` (its path, and its source record with the tool, author and licence as the
-licence file); the originality test fails without it.
+Opaque backgrounds are 852 × 1846 JPEGs. The original transparent Home fountain layers, their coordinates, heroes and shadows remain unchanged. Unity loads `Resources/Backgrounds/{name}`; Android and Skia use `bg/{name}` through `OwnerPictures`. Both project asset globs include every JPEG and PNG here automatically.
+
+The authoritative production sources are in `tools/heroanim/backgrounds/`. To rebuild their existing slight blur and dim finish:
+
+```sh
+cd tools/heroanim
+npm ci --ignore-scripts --no-audit --no-fund
+cd ../..
+node tools/heroanim/backdrops.mjs
+node tools/heroanim/check.mjs
+```
+
+This verifies all source/output hashes, retained Home layers and hero frames. Do not run the legacy `layers.mjs` against an older Home layer pack when only updating backgrounds: it would replace the approved courtyard. The layer manifest records the newer source while preserving the original canvas and foreground placements.
+
+Generation provenance and original output hashes: `tools/artgen/models/garden-backgrounds-2026-10-14.md`; imported-resource records: `client/THIRD_PARTY_NOTICES.md`. Source generator PNGs and concept sheets are review artifacts and are not bundled in the game.

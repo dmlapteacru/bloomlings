@@ -13,7 +13,7 @@ namespace Bloomlings.Playtest.Design
         public static void Draw(IPainter p,DesignApp app)
         {
             var look=HomeScreen.Look(app);
-            DesignApp.DrawBackdrop(p,BackdropScene.Home,app.Meta.CurrentLevel,OwnerPictures.Wardrobe);
+            DesignApp.DrawBackdrop(p,BackdropScene.Home,app.Meta.CurrentLevel,OwnerPictures.Leaderboard);
             if(!BottomNav.IsOpen(NavPlace.Leaderboard,look)){Locked(p,app,look);return;}
             var r=LeaderboardHonorDesign.Page(p.Width,p.Height,p.Insets);
             LeaderboardPage? page=app.PreviewLeaderboard;
