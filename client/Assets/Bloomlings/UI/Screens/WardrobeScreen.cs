@@ -54,7 +54,7 @@ namespace Bloomlings.Client.UI.Screens
             s._viewport=viewport.rectTransform;viewport.gameObject.AddComponent<RectMask2D>();
             s._content=UiFactory.CreateRect("ShelfContent",viewport.transform);
             s._scroll=viewport.gameObject.AddComponent<ScrollRect>();s._scroll.viewport=s._viewport;s._scroll.content=s._content;
-            s._scroll.horizontal=false;s._scroll.vertical=true;s._scroll.inertia=true;s._scroll.scrollSensitivity=30;
+            s._scroll.horizontal=false;s._scroll.vertical=true;s._scroll.inertia=true;s._scroll.decelerationRate=.015f;s._scroll.scrollSensitivity=30;
             s._scroll.movementType=ScrollRect.MovementType.Clamped;
             s._stage=MetaShelfView.Skin("FittingArch",root.transform,MetaScreenArt.Stage);
             s._hero=BloomlingFigure.Create("Hero",root.transform);s._hero.Body.raycastTarget=false;

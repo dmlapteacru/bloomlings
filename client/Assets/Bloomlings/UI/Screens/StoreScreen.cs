@@ -148,7 +148,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._shopScroll.vertical = true;
             screen._shopScroll.movementType = ScrollRect.MovementType.Clamped;
             screen._shopScroll.inertia = true;
-            screen._shopScroll.decelerationRate = 0.12f;
+            screen._shopScroll.decelerationRate = .015f;
             screen._shopScroll.scrollSensitivity = 40f;
             screen._shopToast = UiKit.Label("ShopNotice", viewport.transform, "", ShopBodyDesign.Small, Color.white, look: ShopBodyDesign.Letters);
             screen._shopToast.gameObject.SetActive(false);
@@ -231,6 +231,8 @@ namespace Bloomlings.Client.UI.Screens
             _header.Petals?.Show(petals, storeUnlocked: false);
             Refresh();
         }
+
+        public void SelectShop() => SetTab(StoreTab.Shop);
 
         /// <summary>
         /// Shows the page locked (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the page

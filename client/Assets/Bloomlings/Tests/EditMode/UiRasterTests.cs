@@ -109,11 +109,13 @@ namespace Bloomlings.Client.Tests
         {
             Rgba color = Color("flower");
             Assert.That(UiRaster.Tile(48, color, "flower", TileStyle.Mosaic), Is.EqualTo(UiRaster.Tile(48, color, "leaf", TileStyle.Mosaic)));
+            Assert.That(UiRaster.Tile(48, color, "flower", TileStyle.BoardColor), Is.EqualTo(UiRaster.Tile(48, color, "leaf", TileStyle.BoardColor)));
+            Assert.That(OwnerPictures.TileIcon("leaf", TileStyle.BoardColor, TileState.Normal), Is.Null);
             Assert.That(UiRaster.Tile(48, color, "flower", TileStyle.Sticker), Is.Not.EqualTo(UiRaster.Tile(48, color, "leaf", TileStyle.Sticker)));
-            Assert.That(UiRaster.GameplayTileStyle(24, 24), Is.EqualTo(TileStyle.MosaicIcon));
-            Assert.That(UiRaster.GameplayTileStyle(24, 25), Is.EqualTo(TileStyle.Mosaic));
-            Assert.That(UiRaster.GameplayTileStyle(30, 32), Is.EqualTo(TileStyle.Mosaic));
-            Assert.That(UiRaster.GameplayTileStyle(36, 36), Is.EqualTo(TileStyle.Mosaic));
+            Assert.That(UiRaster.GameplayTileStyle(24, 24), Is.EqualTo(TileStyle.Board));
+            Assert.That(UiRaster.GameplayTileStyle(24, 25), Is.EqualTo(TileStyle.BoardColor));
+            Assert.That(UiRaster.GameplayTileStyle(30, 32), Is.EqualTo(TileStyle.BoardColor));
+            Assert.That(UiRaster.GameplayTileStyle(36, 36), Is.EqualTo(TileStyle.BoardColor));
         }
 
         [Test]

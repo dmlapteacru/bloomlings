@@ -23,7 +23,7 @@ namespace Bloomlings.Client.UI.Design
         }
         public static Box CosmeticCard(Box area, int index)
         {
-            float gap=area.Width*.028f, width=(area.Width-gap)*.5f, height=width*.90f;
+            float gap=area.Width*.028f, width=(area.Width-gap)*.5f, height=width*1.10f;
             float x=area.Left+(index%2)*(width+gap), y=area.Top+(index/2)*(height+gap);
             return new Box(x,y,x+width,y+height);
         }
@@ -31,8 +31,8 @@ namespace Bloomlings.Client.UI.Design
         public static Box AnimationCard(Box area,int index)
         {
             float gap=area.Width*.028f, width=(area.Width-gap)*.5f;
-            float wide=width*.51f, caption=area.Width*.06f;
-            float height=Math.Max(width*.72f,Math.Min(width*.86f,(area.Height-wide-caption-gap*4)/3));
+            float wide=width*.65f;
+            float height=width*1.06f;
             if(index==6) return new Box(area.Left,area.Top+3*(height+gap),area.Right,area.Top+3*(height+gap)+wide);
             float x=area.Left+(index%2)*(width+gap), y=area.Top+(index/2)*(height+gap);
             return new Box(x,y,x+width,y+height);
@@ -41,9 +41,9 @@ namespace Bloomlings.Client.UI.Design
         public static float AnimationsHeight(Box area) => Math.Max(area.Height,Caption(area).Bottom-area.Top+area.Width*.025f);
         public static ShopCatalogParts Parts(Box b,bool cosmetics,bool wide=false)
         {
-            Box picture=cosmetics ? In(b,.075f,.025f,.925f,.665f) : wide ? In(b,.035f,.065f,.61f,.925f) : In(b,.055f,.045f,.945f,.65f);
-            Box name=wide ? In(b,.62f,.20f,.965f,.47f) : In(b,cosmetics ? .17f : .05f,.66f,cosmetics ? .83f : .95f,.79f);
-            Box action=wide ? In(b,.64f,.56f,.96f,.865f) : In(b,cosmetics ? .17f : .135f,.775f,cosmetics ? .83f : .865f,.96f);
+            Box picture=cosmetics ? In(b,.075f,.025f,.925f,.585f) : wide ? In(b,.035f,.065f,.57f,.925f) : In(b,.055f,.035f,.945f,.59f);
+            Box name=wide ? In(b,.58f,.16f,.965f,.40f) : In(b,.06f,.59f,.94f,.71f);
+            Box action=wide ? In(b,.58f,.46f,.97f,.92f) : In(b,.07f,.72f,.93f,.97f);
             float side=Math.Min(b.Width,b.Height)*.17f;
             Box check=Box.FromCenter(picture.Right-side*.38f,picture.Bottom-side*.52f,side,side);
             Box free=In(b,.025f,.075f,.34f,.19f);
@@ -51,7 +51,7 @@ namespace Bloomlings.Client.UI.Design
         }
         public static (Box Petal,Box Label) PriceParts(Box b,float measured)
         {
-            float icon=b.Height*.74f, gap=b.Height*.08f, width=Math.Min(measured,Math.Max(1,b.Width-icon-gap-b.Height*.34f));
+            float icon=Math.Min(b.Height*.74f,b.Width*.26f), gap=b.Height*.06f, width=Math.Min(measured,Math.Max(1,b.Width-icon-gap-b.Height*.24f));
             float left=b.CenterX-(icon+gap+width)*.5f;
             return (Box.FromCenter(left+icon*.5f,b.CenterY,icon,icon),Box.FromCenter(left+icon+gap+width*.5f,b.CenterY,width,b.Height*.88f));
         }

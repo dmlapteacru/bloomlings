@@ -365,6 +365,7 @@ namespace Bloomlings.Client.App.Home
                 {
                     analytics?.StoreOpen("home");
                     OpenStore();
+                    store!.SelectShop();
                 },
                 () => ads.ShowRewarded(AdPlacements.FreeBooster, earned =>
                 {

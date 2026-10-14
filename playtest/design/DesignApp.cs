@@ -205,6 +205,7 @@ namespace Bloomlings.Playtest.Design
         public float ShopScrollOffset { get; set; }
         public LeaderboardPage? PreviewLeaderboard { get; set; }
         public float LeaderboardScrollOffset { get; set; }
+        public float CollectionScrollOffset { get; set; }
 
         /// <summary>
         /// The screen the Store page returns to: Home, or the page whose bottom menu or Petals "+" opened it (the Wardrobe,
@@ -449,6 +450,7 @@ namespace Bloomlings.Playtest.Design
             ClearOverlays();
             CollectionDetail = -1;
             CollectionPage = 0;
+            CollectionScrollOffset = 0;
             Screen = Screen.Collection;
         }
 
@@ -488,6 +490,7 @@ namespace Bloomlings.Playtest.Design
             ClearOverlays();
             StorePage = 0;
             StoreRowsPage = 0;
+            StoreTab = 0;
             ShopScrollOffset = 0f;
             Screen = Screen.Store;
         }

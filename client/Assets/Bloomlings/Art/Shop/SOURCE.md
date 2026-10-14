@@ -141,3 +141,7 @@ Owner-approved references: `product/previews/wardrobe-scroll-concepts-v1/wardrob
 - `meta-hats-atlas-v1.png`: all eleven existing catalog hats, rendered only on meta heroes. Original worker/tile variant signals and gameplay cosmetic tints are unchanged.
 
 Original PNG RGBA bytes and transparency are preserved. `MetaScreenArt` shares crop bounds between Unity, Skia and Android. Dimensions and SHA-256 are recorded in manifest version 6. All names, levels, prices, equipped states and cosmetic IDs are live data, never baked labels.
+
+## Quiet profile showcase revision (2026-10-15)
+
+`Resources/Shop/profile-showcase-v1.png` is an OpenAI ImageGen edit of the existing original showcase, generated as `exec-14a12096-be2d-482f-ad1c-b7d6ac05d058.png`. The arch now has an opaque ivory interior and most foliage/flowers are removed; all shelf, socket, sign and button coordinates are preserved. The outer background remains transparent. Live avatars, frames, badges, text and values remain separate runtime layers.

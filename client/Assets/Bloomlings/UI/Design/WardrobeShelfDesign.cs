@@ -65,7 +65,7 @@ namespace Bloomlings.Client.UI.Design
         Box Name, Box Previous, Box Next, Box Families, Box Categories, Box Area, Box Viewport, float NavTop)
     {
         public const int Columns = 3;
-        public float RowHeight => Area.Width * .335f;
+        public float RowHeight => Area.Width * .49f;
         public Box Row(int row) => new Box(Area.Left, Area.Top + row * RowHeight, Area.Right, Area.Top + (row + 1) * RowHeight);
         public Box Cell(int index)
         {
@@ -121,11 +121,11 @@ namespace Bloomlings.Client.UI.Design
             Box viewport = new Box(left, categories.Top + categories.Height * .08f, right, safe.Bottom);
             return new WardrobeShelfRegions(safe, w, page.Header, stage, hero, name, previous, next, families, categories, area, viewport, navTop);
         }
-        public static Box Picture(Box cell) => In(cell, .02f, .025f, .98f, .69f);
-        public static Box Pedestal(Box cell) => In(cell, .015f, .58f, .985f, .79f);
-        public static Box Caption(Box cell) => In(cell, .015f, .69f, .985f, .855f);
-        public static Box Action(Box cell) => In(cell, .08f, .86f, .92f, 1);
-        public static Box Check(Box cell) => Box.FromCenter(cell.Right - cell.Width * .07f, cell.Top + cell.Height * .57f, cell.Width * .23f, cell.Width * .23f);
+        public static Box Picture(Box cell) => In(cell, .02f, .025f, .98f, .53f);
+        public static Box Pedestal(Box cell) => In(cell, .015f, .43f, .985f, .62f);
+        public static Box Caption(Box cell) => In(cell, .015f, .54f, .985f, .70f);
+        public static Box Action(Box cell) => In(cell, .015f, .70f, .985f, 1);
+        public static Box Check(Box cell) => Box.FromCenter(cell.Right - cell.Width * .07f, cell.Top + cell.Height * .45f, cell.Width * .23f, cell.Width * .23f);
         public static Box In(Box b, float l, float t, float r, float bottom) => new Box(b.Left + b.Width*l, b.Top + b.Height*t, b.Left + b.Width*r, b.Top + b.Height*bottom);
     }
 }

@@ -55,6 +55,26 @@ namespace Bloomlings.Playtest.Preview
         {
             DesignApp App(string data, bool splash = false) => new DesignApp(data, content, new Silence(), splash);
 
+            yield return new Fixture(85, "phone-scroll", "Quick swipe, glide, interrupt and fresh Shop entry", (p, data) =>
+            {
+                var app = Progressed(App(data), content, 87); CloseAll(app); app.OpenStore(); Run(app, p, .1f);
+                var r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                Box area = ShopBodyDesign.Bounds(r);
+                float x = area.CenterX, y = area.Top + p.Width * .35f;
+                p.TouchDown(x, y); p.Now += .04f;
+                p.TouchMove(x, y - p.Width * .14f); p.Now += .02f;
+                p.TouchUp(x, y - p.Width * .22f);
+                float released = app.ShopScrollOffset;
+                Expect(p.Scrolling && released > 0 && app.Overlays.Count == 0, "a quick swipe starts a glide without buying");
+                Run(app, p, .18f);
+                Expect(app.ShopScrollOffset > released, "the shop keeps scrolling after the finger lifts");
+                p.TouchDown(x, y); float stopped = app.ShopScrollOffset; Run(app, p, .15f);
+                Expect(!p.Scrolling && app.ShopScrollOffset == stopped, "a new finger stops the glide immediately"); p.TouchCancel();
+                app.StoreTab = 2; app.CloseStore(); Run(app, p, .1f);
+                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets).Petals);
+                Expect(app.Screen == Design.Screen.Store && app.StoreTab == 0, "Home Petals always opens the Shop tab");
+                Run(app, p, .1f);
+            });
             yield return new Fixture(80,"home-promos-idle","Garden objects at rest",(p,data)=>
             {
                 DesignApp app=Progressed(App(data),content,87);CloseAll(app);Run(app,p,.4f);
@@ -283,23 +303,19 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, NavTouch(p, app, NavPlace.Collection));
                 Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the bottom menu's Collection opens the page");
                 Run(app, p, 0.1f);
-                ReferenceCollectionRegions r = ScreenLayout.ReferenceCollection(p.Width, p.Height, p.Insets);
+                var r = CollectionGalleryDesign.Page(p.Width, p.Height, p.Insets);
                 int count = app.Meta.Collection.Count;
-                int pages = r.Pages(count);
-                Expect(pages > 1 && Shows(p, "1 / " + pages), "the pictures take more than a page, the footer says which");
                 Expect(Shows(p, count + " pictures"), "the count line counts every picture");
-                Tap(p, r.PageNext);
-                Expect(app.CollectionPage == 1, "the next page arrow turns the page");
-                Run(app, p, 0.1f);
-                Expect(Shows(p, "2 / " + pages), "the footer says the second page");
-                Tap(p, r.PagePrevious);
-                Expect(app.CollectionPage == 0, "the previous page arrow turns back");
-                Run(app, p, 0.1f);
+                Expect(r.Maximum(count) > 0, "the gallery scrolls through all collected mosaics");
+                Drag(p, r.Area.CenterX, r.Area.CenterY, r.Area.CenterX, r.Area.CenterY - p.Width * .35f);
+                Expect(app.CollectionScrollOffset > 0 && app.CollectionDetail == -1, "swiping the gallery never opens a picture");
+                p.TouchCancel(); app.CollectionScrollOffset = 0;
+                Run(app, p, .1f);
                 Tap(p, r.Cell(0));
                 Expect(app.CollectionDetail == count - 1, "a tap on the first picture (the newest) shows its detail");
                 Run(app, p, 0.1f);
                 Expect(Shows(p, "Completed at Level " + NumberText.Group(app.Meta.Collection.Entries[count - 1].LevelNumber)), "the detail says its level");
-                Tap(p, r.Back);
+                Tap(p, r.Header.Back);
                 Expect(app.Screen == Design.Screen.Collection && app.CollectionDetail == -1, "back from a picture's detail returns to the grid");
                 Run(app, p, 0.1f);
                 Tap(p, r.Cell(1));
@@ -308,7 +324,7 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Collection));
                 Run(app, p, 0.1f);
-                Tap(p, r.Back);
+                Tap(p, r.Header.Back);
                 Expect(app.Screen == Design.Screen.Home, "the Collection page's back returns to Home");
                 app.OpenCollection();
                 Run(app, p, 0.5f);
@@ -562,7 +578,11 @@ namespace Bloomlings.Playtest.Preview
                 app.OpenCollection();
                 Run(app, p, 0.1f);
                 Expect(Nav(p, app).Active == NavPlace.Collection, "the Collection page raises the Collection");
-                Tap(p, ScreenLayout.ReferenceCollection(p.Width, p.Height, p.Insets).Cell(app.Meta.Collection.Count - 1 - 2));
+                var gallery = CollectionGalleryDesign.Page(p.Width, p.Height, p.Insets);
+                int slot = app.Meta.Collection.Count - 1 - 2;
+                app.CollectionScrollOffset = Math.Max(0, Math.Min(gallery.Maximum(app.Meta.Collection.Count), gallery.Cell(slot).Top - gallery.Area.Top));
+                Run(app, p, .1f);
+                Tap(p, gallery.Cell(slot).Offset(0, -app.CollectionScrollOffset));
                 Expect(app.Screen == Design.Screen.Collection && app.CollectionDetail == 2, "a tap on a picture shows its detail on the page");
                 Run(app, p, 0.5f);
             });
@@ -946,7 +966,9 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.1f);
                 ProfileEditor editor = app.ProfileEditor!;
                 Expect(editor.Tab == ProfileTab.Frame && !editor.ProfileItemsOpen && !editor.IsLocked(Client.Meta.Wardrobe.CosmeticKind.Frame), "the Frame tab is open before the Wardrobe");
+                PickProfileCell(app,p,4,frames:true);Run(app,p,.1f);
                 Expect(editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 5 && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the five free frames, each drawn");
+                app.ProfileScrollOffset=0;Run(app,p,.1f);
                 Tap(p, edit.Cell(0,true));
                 Run(app, p, 0.1f);
                 Expect(editor.FrameId == "frame.wood_ring", "the Wooden Frame picked");
@@ -960,7 +982,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Achievements.All.Take(3).All(a => Shows(p, PlaytestText.T(a.NameKey))), "the first achievement page by name");
                 Expect(Shows(p, PlaytestText.F("profile.achievement_progress", 0, 1)), "mastery starts with new winning attempts");
                 Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && p.Slots.Contains("ui.achievement"), "the avatar picture and the achievement tiles");
-                Expect(p.Slots.Contains("cosmetic.frame.wood_ring") && p.Slots.Contains("ui.deco.garden"), "the page's avatar in the Wooden Frame, with its flowers");
+                Expect(p.Slots.Contains("cosmetic.frame.wood_ring"), "the page preserves the selected illustrated Wooden Frame");
             });
             yield return new Fixture(40, "profile-edit", "Extra: profile edit card, avatars (spec 005 FR-037)", (p, data) =>
             {
@@ -1077,7 +1099,8 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(61,"profile-game-avatar-buy","Game profile: purchase button and cancellation",(p,data)=>
             {
                 var app=Ready(data);Run(app,p,.1f);app.OpenProfileEdit(ProfileTab.Avatar);Run(app,p,.1f);var r=ProfileGameDesign.Edit(p.Width,p.Height,p.Insets);
-                Box card=r.Cell(4);int petals=app.Meta.Economy.Petals;Tap(p,ProfileGameDesign.CellPrice(card));Run(app,p,.2f);
+                Box card=r.Cell(4);app.ProfileScrollOffset=Math.Max(0,card.Bottom-r.Grid.Bottom+r.W*.025f);Run(app,p,.1f);card=card.Offset(0,-app.ProfileScrollOffset);
+                int petals=app.Meta.Economy.Petals;Tap(p,ProfileGameDesign.CellPrice(card));Run(app,p,.2f);
                 Expect(app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==petals,"green card price asks before buying");app.Back();Run(app,p,.1f);
                 Expect(app.Meta.Economy.Petals==petals&&!app.Meta.Profile.Owns(app.Meta.Profile.Avatars[4]),"Cancel buys nothing");
                 Tap(p,ProfileGameDesign.CellPrice(card));Run(app,p,.3f);

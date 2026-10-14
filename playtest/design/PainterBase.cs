@@ -31,6 +31,11 @@ namespace Bloomlings.Playtest.Design
         private (Action? Previous, Action? Next) _dragTurns;
         private Action<float>? _verticalDrag;
         private float _dragY;
+        private readonly ScrollMotion _scrollMotion = new ScrollMotion();
+        private Action<float>? _coast;
+        private float _scrollAt;
+        private float _scrollMaximumSpeed;
+        public bool Scrolling => _coast != null && _scrollMotion.Moving;
 
         public abstract float Width { get; }
 
@@ -64,6 +69,11 @@ namespace Bloomlings.Playtest.Design
 
         public virtual void BeginFrame()
         {
+            if (Scrolling)
+            {
+                _coast!(_scrollMotion.Advance(Math.Max(0f, Now - _scrollAt), DesignTokens.Touch.Pixels(12f, Dpi, Width)));
+                _scrollAt = Now;
+            }
             _hits.Clear();
             _scrolls.Clear();
             _coverAt = -1;
@@ -102,10 +112,13 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public void TouchDown(float x, float y)
         {
+            _coast = null;
+            _scrollMotion.Press(y, Now);
             _gesture = TouchGesture.For(Dpi, Width);
             int area = ScrollAt(x, y);
             _dragTurns = area >= 0 ? (_scrolls[area].Previous, _scrolls[area].Next) : (null, null);
             _verticalDrag = area >= 0 ? _scrolls[area].Delta : null;
+            _scrollMaximumSpeed = area >= 0 ? _scrolls[area].Box.Height * 2f : Height * 2f;
             _dragY = y;
             _gesture.Press(x, y, area >= 0);
             Finger = (x, y);
@@ -120,6 +133,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             _gesture.Move(x, y);
+            _scrollMotion.Record(y, Now);
             if (_gesture.Dragging && _verticalDrag != null)
             {
                 _verticalDrag(y - _dragY);
@@ -148,7 +162,13 @@ namespace Bloomlings.Playtest.Design
                 case GestureKind.Tap:
                     return Dispatch(x, y);
                 case GestureKind.Drag:
-                    if (_verticalDrag != null) return true;
+                    if (_verticalDrag != null)
+                    {
+                        _scrollMotion.Release(y, Now, _scrollMaximumSpeed);
+                        _scrollAt = Now;
+                        _coast = _verticalDrag;
+                        return true;
+                    }
                     Action? turn = end.Page > 0 ? _dragTurns.Next : end.Page < 0 ? _dragTurns.Previous : null;
                     turn?.Invoke();
                     return turn != null;
@@ -160,6 +180,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The system took the touch: nothing taps.</summary>
         public void TouchCancel()
         {
+            _coast = null;
+            _scrollMotion.Stop();
             _gesture?.Cancel();
             Finger = null;
         }
@@ -186,6 +208,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Runs the topmost target under a tap; false when none was hit. The lift starts the spring-back.</summary>
         public bool Dispatch(float x, float y)
         {
+            _coast = null;
+            _scrollMotion.Stop();
             _release = (x, y, Now);
             for (int i = _hits.Count - 1; i >= 0; i--)
             {

@@ -1,6 +1,6 @@
 {
   "tool": "OpenAI ImageGen (built-in)",
-  "version": 6,
+  "version": 7,
   "files": [
     {
       "path": "background.png",
@@ -95,8 +95,8 @@
     {
       "path": "profile-showcase-v1.png",
       "width": 940,
-      "height": 1672,
-      "sha256": "0f428a7d8fa2509649c88395c32a36ef3072cd422fdde2b81c54081a5a727656",
+      "height": 1673,
+      "sha256": "a411c6de5f652f7903dcc56791490b627d337025f7a58e899fd6c4ee2cdfc9a8",
       "slot": "ui.shop.illustrations",
       "source": "owner",
       "record": "client/Assets/Bloomlings/Art/Shop/SOURCE.md"

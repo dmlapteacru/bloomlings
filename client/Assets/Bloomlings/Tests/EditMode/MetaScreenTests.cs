@@ -34,7 +34,7 @@ namespace Bloomlings.Client.Tests
             foreach(float ratio in new[]{16f/9,19.5f/9,21f/9})
             {
                 var r=WardrobeShelfDesign.Page(1080,1080*ratio,new Insets(80,40));
-                Assert.That(r.Area.Height,Is.GreaterThan(r.RowHeight*1.6f));
+                Assert.That(r.Area.Height,Is.GreaterThan(r.RowHeight*1.25f));
                 Assert.That(r.Categories.Bottom,Is.LessThan(r.Area.Top));
                 var window=r.Visible(1000,r.Maximum(1000));
                 Assert.That(window.Last,Is.EqualTo(999));

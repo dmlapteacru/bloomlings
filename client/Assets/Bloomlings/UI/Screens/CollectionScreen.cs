@@ -3,365 +3,177 @@ using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.UI.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Bloomlings.Client.UI.Localization;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
-using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
-    /// <summary>
-    /// The Collection of the design board's frame 6 (spec 002 FR-024; FR-065, T145): every finished picture as a framed
-    /// tile, newest first, a page at a time. Tapping a tile shows it larger with its name and "Completed at Level N". It
-    /// only shows pictures: there is no way to open or replay a level from here (it is never a level selector).
-    /// <para>
-    /// A full-screen page since the owner's request of 2026-10-04 ("All the menu's places must be a separate page. Not
-    /// popups."; spec 005 FR-030, contracts/look.md §6.9), every element placed from
-    /// <see cref="ScreenLayout.ReferenceCollection"/>, as the playtest's <c>CollectionScreen</c> (frames 6 and 20): over the
-    /// Wardrobe's garden, the page header on one line (<see cref="UiKit.PageHeader"/>: the back button, the wooden
-    /// "Collection" banner with ivy, the Petals pill, whose "+" opens the Store page over it once the Store is open); a
-    /// wooden-framed cream panel (spec 005 FR-047) to the bottom of the screen with the count in soft brown, the pictures in raised cream frames
-    /// (<c>collection.frame</c>) three to a row, as large as fit, as many rows as the page holds, and "n / m" between the
-    /// cream page arrows when they take more than one page; and the bottom menu over the panel's foot, the Collection in its
-    /// medallion. A tap on a picture shows its detail on the page (<c>collection.detail_frame</c>): the picture large, its
-    /// name and level. The back button returns from the detail to the grid, then hides the page, so Home shows again.
-    /// </para>
-    /// <para>
-    /// Before its first picture (from Level 2) the bottom menu's Collection opens the page locked (<see cref="ShowLocked"/>,
-    /// the playtest's <c>CollectionScreen.Locked</c>): the same garden, header and panel, the panel holding the locked
-    /// notice (<see cref="LockedNoticeView"/>: "Available from level 2") instead of the count and the pictures.
-    /// </para>
-    /// </summary>
+    /// <summary>Virtualized two-column collection cabinet. A mosaic opens a detail; back preserves the scroll position.</summary>
     public sealed class CollectionScreen : MonoBehaviour
     {
-        private readonly List<Texture2D> _textures = new List<Texture2D>();
         private GameObject _root = null!;
         private PageHeaderView _header = null!;
-        private Image _panel = null!;
-        private Image[] _flowers = null!;
+        private RectTransform _viewport = null!, _content = null!, _detail = null!;
+        private ScrollRect _scroll = null!;
+        private Image _countPlate = null!, _lockedFrame = null!;
         private TextMeshProUGUI _count = null!;
-        private RectTransform _grid = null!;
-        private TextMeshProUGUI _page = null!;
-        private Button _previous = null!;
-        private Button _next = null!;
-        private RectTransform _detail = null!;
         private LockedNoticeView _notice = null!;
         private BottomNavView? _nav;
         private Func<HomeLook>? _navLook;
-        private Func<long>? _petalsSource;
-        private bool _store;
-        private bool _plus;
-        private long _petalsShown = -1;
-        private Texture2D? _detailTexture;
-        private bool _detailOpen;
-        private ReferenceCollectionRegions _regions = null!;
+        private Func<long>? _petals;
+        private bool _store, _locked, _detailOpen;
+        private long _shownPetals = -1;
+        private float _lastOffset = -1;
+        private CollectionGalleryRegions _regions = null!;
         private IReadOnlyList<CollectionEntry> _entries = Array.Empty<CollectionEntry>();
         private Func<CollectionEntry, int, Texture2D?> _render = (_, _) => null;
-        private int _pageIndex;
-
-        /// <summary>Whether the page shows, locked or not.</summary>
+        private readonly Dictionary<int, (GameObject Root, Texture2D? Texture)> _cells = new Dictionary<int, (GameObject, Texture2D?)>();
+        private readonly Dictionary<int, Image> _shelves = new Dictionary<int, Image>();
+        private Texture2D? _detailTexture;
         public bool IsOpen => _root.activeSelf;
+        private Box ContentBox => new Box(_regions.Area.Left, _regions.Area.Top, _regions.Area.Right,
+            _regions.Area.Top + _regions.ContentHeight(_entries.Count) + _regions.Viewport.Height - _regions.Area.Height);
 
-        /// <param name="petals">The Petals balance for the header's pill; null hides the pill.</param>
-        /// <param name="onStore">Opens the Store page from the pill's "+" (once the Store is open); null shows no "+".</param>
-        /// <param name="onNav">A tap on another place of the bottom menu (spec 005 FR-030); null shows no menu.</param>
-        /// <param name="navLook">The look that tells which places of the bottom menu are open (<see cref="BottomNav.IsOpen"/>); null: all of them.</param>
-        public static CollectionScreen Create(Transform parent, Func<long>? petals = null, Action? onStore = null, Action<NavPlace>? onNav = null, Func<HomeLook>? navLook = null)
+        public static CollectionScreen Create(Transform parent, Func<long>? petals = null, Action? onStore = null,
+            Action<NavPlace>? onNav = null, Func<HomeLook>? navLook = null)
         {
-            // A full screen over Home that takes every tap, on the Wardrobe's garden (the owner's picture B7, or the drawn
-            // one), as the other pages.
-            Image shade = UiFactory.CreateImage("Collection", parent, null, Color.clear, raycast: true);
-            UiFactory.Stretch(shade.rectTransform);
-            var screen = shade.gameObject.AddComponent<CollectionScreen>();
-            screen._root = shade.gameObject;
-            screen._petalsSource = petals;
-            screen._store = onStore != null;
-            Transform root = shade.transform;
-            BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
-
-            // The pages' wooden frame round its cream panel (spec 005 FR-047, the popups' card frame), the count, the grid's area and the footer between the page arrows.
-            screen._panel = UiKit.CardFrame("Panel", root, raycast: false);
-            screen._count = UiKit.Label("Count", root, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
-            screen._grid = UiFactory.CreateRect("Pictures", root);
-            screen._page = UiKit.Label("Page", root, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
-            screen._previous = UiKit.PageArrow("Previous", root, next: false, () => screen.Turn(-1));
-            screen._next = UiKit.PageArrow("Next", root, next: true, () => screen.Turn(1));
-
-            // A drag on the page never opens a picture (spec 005 FR-041); a swipe over the grid turns its page, as the arrows.
-            UiKit.Scrolls(screen._root, step =>
-            {
-                Button arrow = step > 0 ? screen._next : screen._previous;
-                if (screen._grid.gameObject.activeSelf && arrow.gameObject.activeSelf && arrow.interactable)
-                {
-                    screen.Turn(step);
-                }
-            }, screen._grid);
-
-            // A picture's detail in the page's area, shown in the grid's place.
-            screen._detail = UiFactory.CreateRect("Detail", root);
-            screen._detail.gameObject.SetActive(false);
-
-            // The locked notice in the grid's place, shown only before the first picture (FR-030).
-            screen._notice = UiKit.LockedNotice("Locked", root);
-            screen._notice.gameObject.SetActive(false);
-
-            // The bottom menu over the panel's foot, the Collection in its medallion (FR-030).
-            if (onNav != null)
-            {
-                screen._navLook = navLook;
-                screen._nav = UiKit.BottomNav("BottomNav", root, place =>
-                {
-                    if (place != NavPlace.Collection)
-                    {
-                        onNav(place);
-                    }
-                });
-            }
-
-            // The flowers over the frame's corners and the bottom menu's ends (spec 005 FR-047), over the page and the menu.
-            screen._flowers = UiKit.PageFlowers(root);
-
-            // The header last, as on the other pages; its back leaves a picture's detail for the grid, then the page.
-            screen._header = UiKit.PageHeader(root, Loc.T("collection.title"), screen.Back, petals != null, onStore);
-            shade.gameObject.SetActive(false);
-            return screen;
+            Image root = UiFactory.CreateImage("Collection", parent, null, Color.clear, raycast: true);
+            UiFactory.Stretch(root.rectTransform);
+            var s = root.gameObject.AddComponent<CollectionScreen>();
+            s._root = root.gameObject; s._petals = petals; s._store = onStore != null; s._navLook = navLook;
+            BackdropView.Create(root.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
+            Image viewport = UiFactory.CreateImage("GalleryViewport", root.transform, null, Color.clear, raycast: true);
+            s._viewport = viewport.rectTransform; viewport.gameObject.AddComponent<RectMask2D>();
+            s._content = UiFactory.CreateRect("Shelves", viewport.transform);
+            s._scroll = viewport.gameObject.AddComponent<ScrollRect>();
+            s._scroll.viewport = s._viewport; s._scroll.content = s._content;
+            s._scroll.horizontal = false; s._scroll.vertical = true; s._scroll.inertia = true;
+            s._scroll.movementType = ScrollRect.MovementType.Clamped; s._scroll.decelerationRate = .015f;
+            s._scroll.scrollSensitivity = 40f;
+            s._countPlate = MetaShelfView.Skin("CountPlate", root.transform, MetaScreenArt.Tag);
+            s._count = MetaShelfView.Label("Count", root.transform, "", ShopCatalogDesign.Name);
+            s._detail = UiFactory.CreateRect("PictureDetail", root.transform); s._detail.gameObject.SetActive(false);
+            s._lockedFrame = UiKit.CardFrame("LockedPanel", root.transform, false);
+            s._notice = UiKit.LockedNotice("Locked", root.transform);
+            if (onNav != null) s._nav = UiKit.BottomNav("BottomNav", root.transform, place => { if (place != NavPlace.Collection) onNav(place); });
+            s._header = UiKit.PageHeader(root.transform, Loc.T("collection.title"), s.Back, petals != null, onStore);
+            s._root.SetActive(false); return s;
         }
 
-        /// <param name="render">
-        /// Draws an entry's finished picture to fit a side in pixels (0: at full detail), or null when this content version
-        /// cannot redraw it. The grid draws each picture at its frame's own resolution, the detail at full detail.
-        /// </param>
         public void Show(IReadOnlyList<CollectionEntry> entries, Func<CollectionEntry, int, Texture2D?> render)
         {
-            _entries = entries;
-            _render = render;
-            _pageIndex = 0;
-            _root.SetActive(true);
-            SyncPlus();
-            CloseDetail();
-            Layout();
-            BuildGrid();
+            _entries = entries; _render = render; _locked = false; _shownPetals = -1;
+            _root.SetActive(true); CloseDetail(); ClearVisible();
+            var f = UiKit.ScreenFrame(); _regions = CollectionGalleryDesign.Page(f.Width, f.Height, f.Insets);
+            var r = _regions; _header.Place(r.Header);
+            UiKit.PlaceScreen(_viewport, r.Viewport); UiKit.PlaceBox(_content, ContentBox, r.Viewport);
+            _scroll.StopMovement(); _content.anchoredPosition = Vector2.zero;
+            UiKit.PlaceScreen(_countPlate.rectTransform, r.Count); UiKit.PlaceScreen(_count.rectTransform, r.Count.Inset(r.W * .015f));
+            _count.text = Loc.F(entries.Count == 1 ? "collection.count_one" : "collection.count_many", entries.Count);
+            _notice.gameObject.SetActive(false); _lockedFrame.gameObject.SetActive(false);
+            SetGallery(true); UpdateVisible(); _nav?.Show(NavPlace.Collection, _navLook?.Invoke() ?? HomeLook.All);
         }
 
-        /// <summary>
-        /// Shows the page locked (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the page
-        /// header as usual, the panel holding the locked notice of the Collection, available from <paramref name="level"/>
-        /// (<see cref="BottomNav.UnlockLevel"/>, <see cref="BottomNav.CollectionLevel"/>), and the bottom menu with the
-        /// Collection raised; the count, the pictures and the page arrows hide. Its back hides it as usual.
-        /// </summary>
         public void ShowLocked(int level)
         {
-            _entries = Array.Empty<CollectionEntry>();
-            _pageIndex = 0;
-            _root.SetActive(true);
-            SyncPlus();
-            CloseDetail();
-            ClearGrid();
-            (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            LockedPageRegions r = ScreenLayout.LockedPage(w, h, insets);
-            _header.Place(r.Header);
-            float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
-            UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
-            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
-            SetGrid(false);
-            _notice.gameObject.SetActive(true);
+            _locked = true; _shownPetals = -1; _root.SetActive(true); CloseDetail(); ClearVisible(); SetGallery(false);
+            var f = UiKit.ScreenFrame(); var r = ScreenLayout.LockedPage(f.Width, f.Height, f.Insets);
+            _header.Place(r.Header); UiKit.PlaceScreen(_lockedFrame.rectTransform, r.Panel);
             UiKit.PlaceScreen((RectTransform)_notice.transform, r.Notice);
-            _notice.Show(NavPlace.Collection, level);
+            _notice.Show(NavPlace.Collection, level); _notice.gameObject.SetActive(true); _lockedFrame.gameObject.SetActive(true);
             _nav?.Show(NavPlace.Collection, _navLook?.Invoke() ?? HomeLook.All);
         }
 
-        public void Hide()
+        public void Hide() { _scroll.StopMovement(); CloseDetail(); ClearVisible(); _root.SetActive(false); }
+        private void Back() { if (_detailOpen) { CloseDetail(); SetGallery(true); } else Hide(); }
+        private void SetGallery(bool shown)
         {
-            CloseDetail();
-            ClearGrid();
-            _root.SetActive(false);
+            _viewport.gameObject.SetActive(shown); _countPlate.gameObject.SetActive(shown); _count.gameObject.SetActive(shown);
         }
-
-        /// <summary>The header's back: from a picture's detail to the grid, from the grid (or the locked page) to Home.</summary>
-        private void Back()
-        {
-            if (_detailOpen)
-            {
-                CloseDetail();
-                SetGrid(true);
-                BuildFooter();
-                return;
-            }
-
-            Hide();
-        }
-
         private void Update()
         {
-            // The balance follows the economy (a purchase in the Store opened from the "+").
-            if (_header.Petals != null && _petalsSource != null)
+            if (_petals != null && _header.Petals != null)
             {
-                long now = _petalsSource();
-                if (now != _petalsShown)
+                long now = _petals();
+                if (now != _shownPetals) { _header.Petals.Show(now, _store && (_navLook == null || _navLook().Store)); _shownPetals = now; }
+            }
+            if (!_locked && !_detailOpen && _regions != null && Mathf.Abs(_content.anchoredPosition.y * UiKit.PixelsPerUnit - _lastOffset) > .2f) UpdateVisible();
+        }
+        private void UpdateVisible()
+        {
+            var r = _regions;
+            float offset = Mathf.Clamp(_content.anchoredPosition.y * UiKit.PixelsPerUnit, 0, r.Maximum(_entries.Count));
+            var rows = r.VisibleRows(_entries.Count, offset);
+            var remove = new List<int>();
+            foreach (var pair in _cells) if (pair.Key / 2 < rows.First || pair.Key / 2 > rows.Last) remove.Add(pair.Key);
+            foreach (int slot in remove) { ReleaseCell(slot); _cells.Remove(slot); }
+            remove.Clear();
+            foreach (var pair in _shelves) if (pair.Key < rows.First || pair.Key > rows.Last) remove.Add(pair.Key);
+            foreach (int row in remove) { _shelves[row].gameObject.SetActive(false); Destroy(_shelves[row].gameObject); _shelves.Remove(row); }
+            for (int row = rows.First; row <= rows.Last; row++)
+            {
+                if (!_shelves.ContainsKey(row))
                 {
-                    _header.Petals.Show(now, _plus);
-                    _petalsShown = now;
+                    var shelf = MetaShelfView.Skin("Shelf" + row, _content, MetaScreenArt.Shelf);
+                    UiKit.PlaceBox(shelf.rectTransform, r.Row(row), ContentBox); shelf.transform.SetAsFirstSibling(); _shelves[row] = shelf;
+                }
+                for (int col = 0; col < 2; col++)
+                {
+                    int slot = row * 2 + col;
+                    if (slot >= _entries.Count || _cells.ContainsKey(slot)) continue;
+                    CollectionEntry entry = _entries[_entries.Count - 1 - slot];
+                    Box cell = r.Cell(slot);
+                    Image hit = UiFactory.CreateImage("Picture" + slot, _content, null, Color.clear, raycast: true);
+                    UiKit.PlaceBox(hit.rectTransform, cell, ContentBox); UiKit.TapTarget(hit, () => OpenDetail(entry));
+                    Texture2D? texture = _render(entry, Mathf.CeilToInt(CollectionGalleryDesign.Art(cell).Width));
+                    UiKit.PlaceBox(Frame("Mosaic", hit.transform, texture, null), CollectionGalleryDesign.Art(cell), cell);
+                    Box name = CollectionGalleryDesign.Name(cell);
+                    UiKit.PlaceBox(MetaShelfView.Skin("NamePlate", hit.transform, MetaScreenArt.Tag).rectTransform, name, cell);
+                    var title = MetaShelfView.Label("Title", hit.transform, PictureName(entry.PictureId), CollectionGalleryDesign.Caption);
+                    UiKit.PlaceBox(title.rectTransform, name.Inset(name.Height * .1f), cell);
+                    var level = MetaShelfView.Label("Level", hit.transform, Loc.F("common.level", NumberText.Group(entry.LevelNumber)), ProfileGameDesign.Info, ShopBodyDesign.Letters);
+                    UiKit.PlaceBox(level.rectTransform, CollectionGalleryDesign.Level(cell), cell);
+                    _cells[slot] = (hit.gameObject, texture);
                 }
             }
+            _lastOffset = offset;
         }
-
-        /// <summary>Whether the Petals pill shows its "+" as the page opens: with a Store to open, once the Store is open (as on Home).</summary>
-        private void SyncPlus()
+        private void ReleaseCell(int slot)
         {
-            _plus = _store && (_navLook == null || _navLook().Store);
-            _petalsShown = -1;
+            var cell = _cells[slot]; cell.Root.SetActive(false); Destroy(cell.Root);
+            if (cell.Texture != null) Destroy(cell.Texture);
         }
-
-        /// <summary>Places the page on the kit's regions for the screen's shape (contracts/look.md §6.9).</summary>
-        private void Layout()
+        private void ClearVisible()
         {
-            (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            ReferenceCollectionRegions r = ScreenLayout.ReferenceCollection(w, h, insets);
-            _regions = r;
-            _header.Place(r.Header);
-
-            // The panel runs to the bottom of the screen: its bottom corners go past the edge.
-            float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
-            UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
-            UiKit.PlacePageFlowers(_flowers, r.Panel, ScreenLayout.BottomNavTop(w, h, insets));
-            _notice.gameObject.SetActive(false);
-            UiKit.PlaceScreen(_count.rectTransform, r.Count);
-            UiKit.PlaceScreen(_grid, r.Area);
-            UiKit.PlaceScreen(_detail, r.Area);
-
-            // The footer between the arrows, their 0.09 W cushions in touch-sized squares (as the Store page's).
-            float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(w, h);
-            float room = r.Footer.Height + (12f * DesignTokens.ScaleFor(w, h));
-            UiKit.PlaceScreen(_page.rectTransform, new Box(r.Footer.Left + room, r.Footer.Top, r.Footer.Right - room, r.Footer.Bottom));
-            UiKit.PlaceScreen((RectTransform)_previous.transform, Box.FromCenter(r.PagePrevious.CenterX, r.PagePrevious.CenterY, touch, touch));
-            UiKit.PlaceScreen((RectTransform)_next.transform, Box.FromCenter(r.PageNext.CenterX, r.PageNext.CenterY, touch, touch));
-            SetGrid(true);
-            _nav?.Show(NavPlace.Collection, _navLook?.Invoke() ?? HomeLook.All);
+            foreach (int slot in _cells.Keys) ReleaseCell(slot);
+            _cells.Clear(); foreach (var shelf in _shelves.Values) { shelf.gameObject.SetActive(false); Destroy(shelf.gameObject); } _shelves.Clear(); _lastOffset = -1;
         }
-
-        /// <summary>Shows or hides the grid's parts: the count, the pictures and the footer (the footer only with more than one page).</summary>
-        private void SetGrid(bool shown)
+        private void OpenDetail(CollectionEntry entry)
         {
-            _count.gameObject.SetActive(shown);
-            _grid.gameObject.SetActive(shown);
-            bool paged = shown && _regions != null && _regions.Pages(_entries.Count) > 1;
-            _page.gameObject.SetActive(paged);
-            _previous.gameObject.SetActive(paged);
-            _next.gameObject.SetActive(paged);
+            CloseDetail(); _scroll.StopMovement(); SetGallery(false); _detailOpen = true; _detail.gameObject.SetActive(true);
+            var r = _regions;
+            var card = UiKit.CardFrame("DetailPanel", _detail, false);
+            UiKit.PlaceScreen(card.rectTransform, new Box(r.Area.Left, r.Area.Top, r.Area.Right, Mathf.Min(r.Area.Bottom, r.Level.Bottom + r.W * .08f)));
+            _detailTexture = _render(entry, 0);
+            UiKit.PlaceScreen(Frame("Picture", _detail, _detailTexture, null), r.Picture);
+            UiKit.PlaceScreen(MetaShelfView.Skin("NamePlate", _detail, MetaScreenArt.Tag).rectTransform, r.Name);
+            UiKit.PlaceScreen(MetaShelfView.Label("Name", _detail, PictureName(entry.PictureId), ProfileGameDesign.Name).rectTransform, r.Name.Inset(r.W * .03f));
+            UiKit.PlaceScreen(MetaShelfView.Label("Completed", _detail, Loc.F("collection.completed", NumberText.Group(entry.LevelNumber)), ProfileGameDesign.Info).rectTransform, r.Level);
         }
-
-        private void Turn(int delta)
-        {
-            _pageIndex = Mathf.Clamp(_pageIndex + delta, 0, _regions.Pages(_entries.Count) - 1);
-            BuildGrid();
-        }
-
-        private void ClearGrid()
-        {
-            for (int i = _grid.childCount - 1; i >= 0; i--)
-            {
-                Destroy(_grid.GetChild(i).gameObject);
-            }
-
-            ReleaseTextures();
-        }
-
-        /// <summary>
-        /// The grid: the count, then this page's pictures (newest first) in square frames three to a row
-        /// (<see cref="ReferenceCollectionRegions.Cell"/>, <see cref="ReferenceCollectionRegions.PerPage"/>), and the page
-        /// arrows when there is more than one page.
-        /// </summary>
-        private void BuildGrid()
-        {
-            ClearGrid();
-            ReferenceCollectionRegions r = _regions;
-            _count.text = _entries.Count == 1 ? Loc.F("collection.count_one", 1) : Loc.F("collection.count_many", _entries.Count);
-            int perPage = r.PerPage(_entries.Count);
-            _pageIndex = Mathf.Clamp(_pageIndex, 0, r.Pages(_entries.Count) - 1);
-            int first = _pageIndex * perPage;
-            int onPage = Mathf.Clamp(_entries.Count - first, 0, perPage);
-            int framePixels = Mathf.Max(1, Mathf.CeilToInt(r.CellSize));
-            for (int slot = 0; slot < onPage; slot++)
-            {
-                // Newest first.
-                CollectionEntry entry = _entries[_entries.Count - 1 - (first + slot)];
-                Texture2D? texture = _render(entry, framePixels);
-                if (texture != null)
-                {
-                    _textures.Add(texture);
-                }
-
-                RectTransform frame = Frame("Picture", _grid, texture, () => OpenDetail(entry, texture != null));
-                UiKit.PlaceBox(frame, r.Cell(slot), r.Area);
-            }
-
-            SetGrid(true);
-            BuildFooter();
-        }
-
-        /// <summary>The footer "n / m" and the arrows' states (greyed where there is no page to turn to).</summary>
-        private void BuildFooter()
-        {
-            int pages = _regions.Pages(_entries.Count);
-            _page.text = Loc.F("common.page", _pageIndex + 1, pages);
-            _previous.interactable = _pageIndex > 0;
-            _next.interactable = _pageIndex < pages - 1;
-        }
-
-        /// <summary>
-        /// A picture's detail on the page (frame 20, <c>collection.detail_frame</c>): the picture large in its frame
-        /// (<see cref="ReferenceCollectionRegions.Picture"/>), its name in brown and "Completed at Level N" below it, in the
-        /// grid's place; the header's back returns to the grid.
-        /// </summary>
-        private void OpenDetail(CollectionEntry entry, bool drawn)
-        {
-            // The grid only hides, so its thumbnails stay until the page closes or turns; the detail draws its picture at
-            // full detail and releases it when it closes.
-            CloseDetail();
-            SetGrid(false);
-            _detailOpen = true;
-            _detail.gameObject.SetActive(true);
-            ReferenceCollectionRegions r = _regions;
-            Texture2D? texture = drawn ? _render(entry, 0) : null;
-            _detailTexture = texture;
-            RectTransform frame = Frame("Picture", _detail, texture, null);
-            UiKit.PlaceBox(frame, r.Picture, r.Area);
-            TextMeshProUGUI name = UiKit.Label("Name", _detail, PictureName(entry.PictureId), T.Title, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
-            UiKit.PlaceBox(name.rectTransform, r.Name, r.Area);
-            TextMeshProUGUI level = UiKit.Label("Completed", _detail, Loc.F("collection.completed", NumberText.Group(entry.LevelNumber)), T.Body, UiTheme.Of(C.InkBrownSoft));
-            UiKit.PlaceBox(level.rectTransform, r.Level, r.Area);
-        }
-
         private void CloseDetail()
         {
             _detailOpen = false;
-            for (int i = _detail.childCount - 1; i >= 0; i--)
-            {
-                Destroy(_detail.GetChild(i).gameObject);
-            }
-
+            for (int i = _detail.childCount - 1; i >= 0; i--) { var child = _detail.GetChild(i); child.gameObject.SetActive(false); Destroy(child.gameObject); }
             _detail.gameObject.SetActive(false);
-            if (_detailTexture != null)
-            {
-                Destroy(_detailTexture);
-                _detailTexture = null;
-            }
+            if (_detailTexture != null) { Destroy(_detailTexture); _detailTexture = null; }
         }
-
-        /// <summary>A picture's name from its id, in sentence case ("tulip_pot" → "Tulip pot").</summary>
         private static string PictureName(string id)
         {
-            string name = id.Replace('_', ' ');
-            return name.Length == 0 ? name : char.ToUpperInvariant(name[0]) + name.Substring(1);
+            string name = id.Replace('_', ' '); return name.Length == 0 ? name : char.ToUpperInvariant(name[0]) + name.Substring(1);
         }
-
-        /// <summary>
-        /// A finished picture in its frame (the playtest's <c>Kit.PictureFrame</c>, <c>collection.frame</c>): a cream tile in a
-        /// thin wooden rim (spec 005 FR-047) around a beige well with a shadow along its top, and the picture inside the
-        /// well keeping its own proportions. With <paramref name="onTap"/> the frame squashes like a tile and opens it.
-        /// </summary>
         private static RectTransform Frame(string name, Transform parent, Texture2D? texture, Action? onTap)
         {
             Image rootImage = UiFactory.CreateImage(name, parent, null, Color.clear, raycast: onTap != null);
@@ -418,14 +230,5 @@ namespace Bloomlings.Client.UI.Screens
             return root;
         }
 
-        private void ReleaseTextures()
-        {
-            foreach (Texture2D texture in _textures)
-            {
-                Destroy(texture);
-            }
-
-            _textures.Clear();
-        }
     }
 }

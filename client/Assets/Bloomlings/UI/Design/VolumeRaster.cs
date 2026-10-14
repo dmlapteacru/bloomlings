@@ -20,7 +20,7 @@ namespace Bloomlings.Client.UI.Design
         private static readonly float VolumeGlossRange = Math.Max(0.01f, 1f - VolumeBaseline);
 
         /// <summary>A board tile's clear margin round its body, as a share of its side: the ground shows between the cubes.</summary>
-        public const float CubeMargin = 0.035f;
+        public const float CubeMargin = 0.010f;
 
         /// <summary>A board tile's front face under its top, as a share of its side (the top's middle is where the icon sits).</summary>
         public const float CubeSide = 0.1f;

@@ -217,7 +217,7 @@ namespace Bloomlings.Client.UI.Design
         /// keeps its drawn symbol.
         /// </summary>
         public static string? TileIcon(string iconId, TileStyle style, TileState state) =>
-            state == TileState.Mystery || iconId == "mystery" || style == TileStyle.Mosaic
+            state == TileState.Mystery || iconId == "mystery" || style == TileStyle.Mosaic || style == TileStyle.BoardColor
                 ? null
                 : style == TileStyle.Sticker || style == TileStyle.MosaicIcon ? VariantIcon(iconId) : FieldIcon(iconId);
 

@@ -42,7 +42,15 @@ namespace Bloomlings.Playtest.Design
             }
 
             string? illustrated=sceneFrame ? GameNavigationDesign.Frame(frame?.Id) : null;
-            if(illustrated!=null&&p.HasSprite(illustrated))p.Sprite(illustrated,AvatarLook.Frame(box));
+            if(illustrated!=null&&p.HasSprite(illustrated))
+            {
+                if(frame!=null)
+                {
+                    ProfileFrameStyle? selected=ProfileFrames.StyleOf(frame.Shape);
+                    p.Mark(selected.HasValue ? ProfileFrames.Slot(selected.Value) : "cosmetic.frame");
+                }
+                p.Sprite(illustrated,AvatarLook.Frame(box));
+            }
             else if (frame != null)
             {
                 Frame(p, box, frame);

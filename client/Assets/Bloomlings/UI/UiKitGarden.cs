@@ -741,7 +741,7 @@ namespace Bloomlings.Client.UI
         {
             TileStyle style = _style;
             Sprite? picture = OwnerArt.TileIcon(iconId, style, state);
-            if (style != TileStyle.Mosaic)
+            if (style != TileStyle.Mosaic && style != TileStyle.BoardColor)
             {
                 foreach (VariantInfo variant in VariantCatalog.Default.All)
                     if (variant.IconId == iconId) { picture = GameplayArt.Pod(variant.Id, state == TileState.Grey) ?? picture; break; }
@@ -1301,8 +1301,9 @@ namespace Bloomlings.Client.UI
         private Image _icon = null!;
         private Image _badgeDisc = null!;
         private TextMeshProUGUI _badge = null!;
-        private CostPillView _cost = null!;
+        private Image _cost = null!;
         private GardenButton _plus = null!;
+        private Image _purchaseTouch = null!;
         private string _boosterId = string.Empty;
         private float _radius;
         private readonly float[] _haloRadii = new float[3];
@@ -1339,11 +1340,14 @@ namespace Bloomlings.Client.UI
             Face.TileSquash = true;
             _icon = UiKit.BoosterIcon("Icon", Face.Content, boosterId);
             // Cropped artwork fills a centered box with equal top/bottom padding.
-            float IconBox() => Face.IconSide * 0.80f / GardenLook.IconRimFaceShare;
-            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, IconBox(), IconBox()));
+            float IconBox() => Face.IconSide * (State.ShowsCharges ? .80f : .62f) / GardenLook.IconRimFaceShare;
+            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, State.ShowsCharges ? f.CenterY : f.Top + f.Height * .22f, IconBox(), IconBox()));
 
             _badge = UiKit.CountBadge("Count", root, out _badgeDisc);
-            _cost = UiKit.CostPill("Cost", root, Cost.Petals(0));
+            _cost = MetaShelfView.Price(root, "0");
+            _purchaseTouch = UiFactory.CreateImage("PurchaseTouch", _cost.transform, null, Color.clear, raycast: true);
+            UiFactory.Stretch(_purchaseTouch.rectTransform);
+            UiKit.TapTarget(_purchaseTouch, () => { if (!State.Disabled) onPress?.Invoke(); }, press: true);
             // The small green "+" raised on its plate (spec 005 FR-047).
             _plus = UiKit.RaisedButton("Plus", root, GardenLook.Green, 0.5f, gloss: true, raycast: false, square: true);
             Image plusGlyph = UiKit.ShapeImage("Glyph", _plus.Content, "ui.plus", Rgba.White);
@@ -1376,7 +1380,8 @@ namespace Bloomlings.Client.UI
             _plus.gameObject.SetActive(!state.ShowsCharges);
             if (!state.ShowsCharges)
             {
-                _cost.SetCost(Cost.Petals(state.Price));
+                _cost.GetComponentInChildren<TextMeshProUGUI>().text = NumberText.Group(state.Price);
+                _purchaseTouch.GetComponent<Button>().interactable = !state.Disabled;
             }
 
             _layout.Apply();
@@ -1408,8 +1413,7 @@ namespace Bloomlings.Client.UI
             float badge = s * 0.34f;
             // Over the tile's lower right corner, mostly on the tile, as in the reference (the playtest's Kit.BoosterTile).
             BoxLayout.Place(_badgeDisc.rectTransform, Box.FromCenter(tile.Right - (badge * 0.55f), tile.Bottom - (badge * 0.55f), badge * 1.26f, badge * 1.26f));
-            float pill = s * 0.3f;
-            BoxLayout.Place((RectTransform)_cost.transform, Box.FromCenter(tile.CenterX, tile.Bottom + (pill * 0.12f), s * 0.86f, pill));
+            BoxLayout.Place((RectTransform)_cost.transform, GameplaySkin.BoosterPurchase(tile));
             float plus = s * 0.34f;
             BoxLayout.Place((RectTransform)_plus.transform, Box.FromCenter(tile.Right - (plus * 0.3f), tile.Top + (plus * 0.3f), plus, plus));
         }

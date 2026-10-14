@@ -1880,3 +1880,23 @@ Final user overrides: retain Settings level controls (−1/+1/+10/Reset); remove
 ## Popup feedback — v2, 2026-10-14
 
 Runtime results: `product/previews/popups-implemented-v2/README.md`. Pause secondary icons are larger and their captions slightly raised. Jam removes the shared inner tray frame and presents individually raised cream buttons with green cost/charge/ad chips. Settings exposes Sound and Haptics with speaker/vibration symbols, retained level controls, and a Privacy policy mock until the owner supplies its URL; speed stays in the gameplay HUD. Tutorial booster previews reuse the gameplay booster bezel and icon proportions. Collection picture shadows/bevel shading are removed; other board shadows follow the shared rounded board-frame geometry.
+
+### Phone interaction and gallery revision (2026-10-15)
+
+Purchase faces grow with their cards: Petals and boosters use two columns in Shop, animation/cosmetic cards reserve
+one quarter of their height for the action, profile avatars retain three columns with taller price rows, and wardrobe shelves reserve a taller
+price row. The editor's fixed profile preview is larger on an ivory wooden frame. Ordinary confirmation actions
+retain their existing large primary buttons. Home's Petals plus explicitly selects Shop on every entry.
+
+Android vertical lists follow the finger, then coast from recent release velocity with capped speed and exponential
+friction. A new touch or system back stops the glide; a swipe never purchases. Header/navigation stay fixed and the
+opaque wooden menu covers scrolling content. Unity's ScrollRects use the same moderate deceleration. Preview clocks
+run at half speed; actual gameplay clearing schedules do not change. Gameplay targets use the Darwin raised cube
+geometry, including color-only cubes on dense boards, while revealed ground remains ground.
+
+Collection is a two-column illustrated cabinet with larger framed mosaics and live name/level tags. All entries are
+reachable by vertical scrolling; only visible rows plus a small buffer are retained. Opening a detail preserves the
+list offset, back restores the list, and the collection still cannot launch a level. Mosaic shadows stay disabled.
+The profile showcase's arch has an opaque ivory insert and sparse outer foliage to separate it from the garden.
+
+The upper editor summary is the redesigned element; avatar selection retains three items per row. Cubes keep their depth with a 1% internal margin (formerly 3.5%) for narrower seams. In-game booster prices are larger green buttons sharing one touch target with their booster and stay above the source pods.

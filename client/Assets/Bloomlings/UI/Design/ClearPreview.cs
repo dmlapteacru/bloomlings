@@ -78,7 +78,8 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The time in the loop at <paramref name="now"/> (any clock).</summary>
         public float Local(float now) => Period <= 0f ? 0f : now - ((float)Math.Floor(now / Period) * Period);
-        public float PreviewTime(float now) => Local(now+(Colorful ? (int)Style*.41f : 0));
+        public const float PlaybackSpeed = .5f;
+        public float PreviewTime(float now) => Local(now * PlaybackSpeed + (Colorful ? (int)Style*.41f : 0));
 
         /// <summary>A style's scene, made once and shared by the cards.</summary>
         public static ClearPreview Of(ClearStyle style)

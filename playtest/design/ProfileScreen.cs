@@ -57,7 +57,7 @@ namespace Bloomlings.Playtest.Design
             DesignApp.DrawBackdrop(p,BackdropScene.Home,meta.CurrentLevel,OwnerPictures.Wardrobe);
             var keys=new List<string>();var labels=new List<string>();foreach(var t in ProfileEditor.Tabs){keys.Add(ProfileGameDesign.TabKey(t));labels.Add(PlaytestText.T(ProfileGameDesign.TabKey(t)));}
             Kit.Tabs(p,r.Tabs,labels,(int)editor.Tab,i=>{editor.Tab=ProfileEditor.Tabs[i];app.ProfileScrollOffset=0;},keys);
-            ProfileGamePainter.Skin(p,r.Summary,ShopCatalogDesign.CosmeticsFrame);
+            Kit.CardFrame(p,r.Summary);
             Kit.Avatar(p,r.Preview,editor.Avatar,editor.Frame,editor.Badge,null);
             ProfileGamePainter.Label(p,r.PreviewName,editor.Name??PlaytestText.F("profile.default_name",meta.Profile.DefaultNumber),ProfileGameDesign.Name,left:true);
             Kit.WoodSign(p,r.Level,PlaytestText.F("common.level",NumberText.Group(meta.CurrentLevel)),T.LevelPill);

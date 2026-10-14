@@ -155,14 +155,14 @@ namespace Bloomlings.Playtest.Design
         {
             public TileRecipe(TileStyle style, TileState state, string icon, Rgba color)
             {
-                string kind = style == TileStyle.Board ? "board" : style == TileStyle.Mosaic ? "mosaic" : style == TileStyle.MosaicIcon ? "mosaic-icon" : style == TileStyle.Flat ? "flat" : "sticker";
+                string kind = style == TileStyle.Board ? "board" : style == TileStyle.BoardColor ? "board-color" : style == TileStyle.Mosaic ? "mosaic" : style == TileStyle.MosaicIcon ? "mosaic-icon" : style == TileStyle.Flat ? "flat" : "sticker";
                 Key = "tile.candy/" + kind + "/" + state + "/" + icon + "/" + color.Hex;
                 Render = (w, h) => UiRaster.Tile(Math.Min(w, h), color, icon, style, state);
                 Slot = state == TileState.Mystery ? "tile.mystery" : ShapeLibrary.SymbolId(icon);
                 FaceKey = "tile.face/" + kind + "/" + state + "/" + color.Hex;
                 Face = (w, h) => UiRaster.TileFace(Math.Min(w, h), color, style, state);
                 string? picture = OwnerPictures.TileIcon(icon, style, state);
-                if (style != TileStyle.Mosaic)
+                if (style != TileStyle.Mosaic && style != TileStyle.BoardColor)
                 {
                     foreach (VariantInfo variant in VariantCatalog.Default.All)
                         if (variant.IconId == icon) { Picture = GameplaySkin.PodIcon(variant.Id); GreyPicture = Picture + PainterBase.GreySuffix; PictureSlot = OwnerPictures.IconSlot(icon); return; }
@@ -665,8 +665,8 @@ namespace Bloomlings.Playtest.Design
             Squash(p, tile, depth, tile: true);
             Box f = BoosterBezel(p, tile, radius, depth, state.Disabled);
             // Cropped artwork fills a centered box with equal top/bottom padding.
-            float icon = s * 0.80f;
-            BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, f.CenterY, icon, icon), grey: state.Disabled);
+            float icon = s * (state.ShowsCharges ? .80f : .62f);
+            BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, state.ShowsCharges ? f.CenterY : f.Top + f.Height * .22f, icon, icon), grey: state.Disabled);
             p.PopTransform();
 
             if (state.ShowsCharges)
@@ -677,8 +677,7 @@ namespace Bloomlings.Playtest.Design
             }
             else
             {
-                float pill = s * 0.3f;
-                CostPill(p, Box.FromCenter(tile.CenterX, tile.Bottom + (pill * 0.12f), s * 0.86f, pill), Cost.Petals(state.Price));
+                ProfileGamePainter.Price(p, GameplaySkin.BoosterPurchase(tile), NumberText.Group(state.Price));
                 float plus = s * 0.34f;
                 Box plusBox = Box.FromCenter(tile.Right - (plus * 0.3f), tile.Top + (plus * 0.3f), plus, plus);
                 Box plusFace = RaisedButton(p, plusBox, GardenLook.Green, 0.5f, 0f, gloss: true);
@@ -688,7 +687,13 @@ namespace Bloomlings.Playtest.Design
             p.PopAlpha();
             if (action != null)
             {
-                p.Hit(Touch(p, box), action);
+                Box target = box;
+                if (!state.ShowsCharges)
+                {
+                    Box price = GameplaySkin.BoosterPurchase(tile);
+                    target = new Box(Math.Min(box.Left, price.Left), box.Top, Math.Max(box.Right, price.Right), Math.Max(box.Bottom, price.Bottom));
+                }
+                p.Hit(Touch(p, target), action);
             }
         }
 

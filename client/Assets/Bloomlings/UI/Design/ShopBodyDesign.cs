@@ -53,7 +53,7 @@ namespace Bloomlings.Client.UI.Design
         }
         public static Box FeaturedRewards(Box art) => In(art, 0.552f, 0.135f, 0.913f, 0.672f);
         public static Box FeaturedInset(Box art) => In(art, 0.526f, 0.104f, 0.929f, 0.708f);
-        public static Box FeaturedFooter(Box art) => In(art, 0.03f, 0.73f, 0.98f, 0.958f);
+        public static Box FeaturedFooter(Box art) => In(art, 0.03f, 0.705f, 0.98f, 0.985f);
 
         public static readonly IReadOnlyList<ShopOffer> Offers = new[]
         {
@@ -141,25 +141,25 @@ namespace Bloomlings.Client.UI.Design
             float gap = w * 0.02f;
             float y = area.Top + w * 0.02f;
             Box Next(float share) { var b = new Box(area.Left, y, area.Right, y + w * share); y = b.Bottom + gap; return b; }
-            Hero(nodes, Next(0.55f), Offers[0], text, visible);
+            Hero(nodes, Next(0.57f), Offers[0], text, visible);
             if (visible("remove_ads") || visible("remove_ads_bundle"))
             {
-                Box pair = Next(0.47f);
+                Box pair = Next(0.56f);
                 float split = pair.Left + w * 0.42f;
                 SmallOffer(nodes, new Box(pair.Left, pair.Top, split - gap * 0.5f, pair.Bottom), Offers[1], text, visible);
                 SmallOffer(nodes, new Box(split + gap * 0.5f, pair.Top, pair.Right, pair.Bottom), Offers[2], text, visible);
             }
-            float cw = (w - gap * 2) / 3;
-            for (int row = 0; row < 2; row++)
+            float cw = (w - gap) / 2;
+            for (int row = 0; row < 3; row++)
             {
-                Box coins = Next(0.36f);
-                for (int i = 0; i < 3; i++) Currency(nodes, new Box(coins.Left + i * (cw + gap), coins.Top, coins.Left + i * (cw + gap) + cw, coins.Bottom), Offers[6 + row * 3 + i], visible);
+                Box coins = Next(0.53f);
+                for (int i = 0; i < 2; i++) Currency(nodes, new Box(coins.Left + i * (cw + gap), coins.Top, coins.Left + i * (cw + gap) + cw, coins.Bottom), Offers[6 + row * 2 + i], visible);
             }
-            Boosters(nodes, Next(0.255f), boosterPrice, unlocked);
-            Box packs = Next(0.47f);
+            Boosters(nodes, Next(0.82f), boosterPrice, unlocked);
+            Box packs = Next(0.56f);
             SmallOffer(nodes, new Box(packs.Left, packs.Top, packs.CenterX - gap * 0.5f, packs.Bottom), Offers[3], text, visible);
             SmallOffer(nodes, new Box(packs.CenterX + gap * 0.5f, packs.Top, packs.Right, packs.Bottom), Offers[4], text, visible);
-            Hero(nodes, Next(0.52f), Offers[5], text, visible);
+            Hero(nodes, Next(0.66f), Offers[5], text, visible);
             return nodes;
         }
 
@@ -184,8 +184,8 @@ namespace Bloomlings.Client.UI.Design
             Label(n, In(b, 0.17f, 0.565f, 0.51f, 0.72f), NumberText.Group(o.Petals), Amount);
             if (o.BestSale) RewardGrid(n, FeaturedRewards(b), o.Boosters!);
             else RewardPanel(n, In(b, 0.55f, 0.075f, 0.91f, 0.69f), o.Boosters!);
-            Label(n, In(b, 0.065f, 0.76f, 0.63f, 0.907f), text(o.NameKey), Title);
-            Buy(n, In(b, 0.665f, 0.755f, 0.932f, 0.918f), o.Price, o.Id);
+            Label(n, In(b, 0.065f, 0.76f, 0.59f, 0.94f), text(o.NameKey), Title);
+            Buy(n, In(b, 0.60f, 0.715f, 0.965f, 0.975f), o.Price, o.Id);
             if (o.BestSale)
             {
                 Box badge = In(b, 0.005f, 0.005f, 0.23f, 0.335f);
@@ -209,17 +209,17 @@ namespace Bloomlings.Client.UI.Design
             n.Add(new ShopVisual(ShopVisualKind.Card, b, Group: o.Id.StartsWith("remove_ads", StringComparison.Ordinal) ? ShopGroup.NoAds : ShopGroup.Bundles));
             if (o.Boosters == null)
             {
-                Art(n, In(b, 0.055f, 0.02f, 0.945f, 0.705f), o.Art);
+                Art(n, In(b, 0.055f, 0.02f, 0.945f, 0.62f), o.Art);
             }
             else
             {
-                Art(n, In(b, 0.06f, 0.035f, 0.53f, 0.69f), o.Art);
-                Label(n, In(b, 0.06f, 0.535f, 0.53f, 0.69f), NumberText.Group(o.Petals), Amount);
+                Art(n, In(b, 0.06f, 0.035f, 0.53f, 0.58f), o.Art);
+                Label(n, In(b, 0.06f, 0.50f, 0.53f, 0.635f), NumberText.Group(o.Petals), Amount);
                 float right = o.Id == "remove_ads_bundle" ? 0.945f : 0.91f;
-                RewardPanel(n, In(b, 0.57f, 0.075f, right, 0.66f), o.Boosters);
+                RewardPanel(n, In(b, 0.57f, 0.06f, right, 0.60f), o.Boosters);
             }
-            Label(n, In(b, 0.02f, 0.675f, 0.98f, 0.76f), text(o.NameKey), Count, true);
-            Buy(n, In(b, 0.20f, 0.775f, 0.80f, 0.945f), o.Price, o.Id);
+            Label(n, In(b, 0.02f, 0.64f, 0.98f, 0.73f), text(o.NameKey), Count, true);
+            Buy(n, In(b, 0.10f, 0.735f, 0.90f, 0.965f), o.Price, o.Id);
         }
         private static void Currency(List<ShopVisual> n, Box b, ShopOffer o, Func<string, bool> visible)
         {
@@ -227,8 +227,8 @@ namespace Bloomlings.Client.UI.Design
             n.Add(new ShopVisual(ShopVisualKind.Card, b, Group: ShopGroup.Petals));
             Art(n, In(b, 0.04f, 0.045f, 0.96f, 0.66f), o.Art);
             if (o.ValuePercent > 0) Label(n, In(b, 0.62f, 0.015f, 0.96f, 0.125f), "+" + o.ValuePercent + "%", Small);
-            Label(n, In(b, 0.025f, 0.565f, 0.975f, 0.735f), NumberText.Group(o.Petals), Amount);
-            Buy(n, In(b, 0.14f, 0.74f, 0.86f, 0.965f), o.Price, o.Id);
+            Label(n, In(b, 0.025f, 0.54f, 0.975f, 0.70f), NumberText.Group(o.Petals), Amount);
+            Buy(n, In(b, 0.08f, 0.72f, 0.92f, 0.97f), o.Price, o.Id);
         }
         private static void RewardPanel(List<ShopVisual> n, Box b, BoosterGrant g)
         {
@@ -273,11 +273,12 @@ namespace Bloomlings.Client.UI.Design
             {
                 BoosterKind kind = (BoosterKind)i;
                 if (!unlocked(kind)) continue;
-                Box cell = In(b, i * 0.25f, 0, i * 0.25f + 0.235f, 1);
+                float x=(i%2)*.51f,y=(i/2)*.52f;
+                Box cell = In(b, x, y, x+.49f, y+.48f);
                 n.Add(new ShopVisual(ShopVisualKind.Card, cell, Group: ShopGroup.Boosters));
-                n.Add(new ShopVisual(ShopVisualKind.Sprite, In(cell, 0.20f, 0.03f, 0.80f, 0.57f), "shop/boost-" + ids[i]));
-                Label(n, In(cell, 0.20f, 0.47f, 0.80f, 0.67f), "×" + (i == 3 ? 1 : 3), Count);
-                n.Add(new ShopVisual(ShopVisualKind.Button, In(cell, 0.07f, 0.675f, 0.93f, 0.925f), NumberText.Group(price(kind)), "booster_" + kind, Count, Dark: true));
+                n.Add(new ShopVisual(ShopVisualKind.Sprite, In(cell, 0.20f, 0.02f, 0.80f, 0.51f), "shop/boost-" + ids[i]));
+                Label(n, In(cell, 0.20f, 0.43f, 0.80f, 0.63f), "×" + (i == 3 ? 1 : 3), Count);
+                n.Add(new ShopVisual(ShopVisualKind.Button, In(cell, 0.07f, 0.635f, 0.93f, 0.965f), NumberText.Group(price(kind)), "booster_" + kind, Price, Dark: true));
             }
         }
 

@@ -22,9 +22,10 @@ namespace Bloomlings.Client.Tests
             Assert.That(tile, Is.EqualTo(UiRaster.TileFace(s, leaf, TileStyle.Board)), "deterministic");
 
             // The ground shows round the cube, its body is opaque.
-            Assert.That(Alpha(tile, s, 1, s / 2), Is.Zero, "the clear margin at the left");
-            Assert.That(Alpha(tile, s, s / 2, s - 1), Is.Zero, "and below");
+            Assert.That(Alpha(tile, s, 0, s / 2), Is.LessThan(20), "the clear margin at the left");
+            Assert.That(Alpha(tile, s, s / 2, s - 1), Is.LessThan(20), "and below");
             Assert.That(Alpha(tile, s, s / 2, s / 2), Is.EqualTo(255));
+            Assert.That(Alpha(tile, s, 2, s / 2), Is.EqualTo(255), "the cube fills its cell with a narrow seam");
 
             // The top's middle is lighter than the front face under it, and the top's upper left lighter than its lower right.
             float top = Luma(tile, s, s / 2, (int)(s * 0.3f));

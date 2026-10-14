@@ -20,6 +20,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Board tiles: nearly square, with the symbol as a bold gem with a thick dark outline (spec 005 FR-026).</summary>
         Board,
 
+        /// <summary>The same raised cube on dense boards, with color alone.</summary>
+        BoardColor,
+
         /// <summary>Gameplay board cells: a compact color-only mosaic tile with no variant picture.</summary>
         Mosaic,
 
@@ -440,14 +443,14 @@ namespace Bloomlings.Client.UI.Design
         /// The share of a candy tile's side its lip takes (§3.1; a board tile's front face under its top since FR-044,
         /// <see cref="CubeSide"/>), so the kit's press can sink the face into it and the icon sits on the top's middle.
         /// </summary>
-        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : style == TileStyle.Board ? CubeSide : IsMosaic(style) ? 0.025f : 0.07f;
+        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : style == TileStyle.Board || style == TileStyle.BoardColor ? CubeSide : IsMosaic(style) ? 0.025f : 0.07f;
 
         /// <summary>
         /// Boards up to 24×24 keep the pod picture inside each tile. Denser boards use color alone: at that size the
         /// picture stops helping recognition, while the separate mechanic marks (key, stone and special rings) remain.
         /// </summary>
         public static TileStyle GameplayTileStyle(int width, int height) =>
-            width <= 24 && height <= 24 ? TileStyle.MosaicIcon : TileStyle.Mosaic;
+            width <= 24 && height <= 24 ? TileStyle.Board : TileStyle.BoardColor;
 
         /// <summary>The visible color ramp shared by color-mosaic cells and their exposed pod panels.</summary>
         public static (Rgba Top, Rgba Bottom) MosaicRamp(Rgba color) =>
@@ -464,7 +467,7 @@ namespace Bloomlings.Client.UI.Design
         /// cube instead (spec 005 FR-044, §6.18, <see cref="Cube"/>), its symbol on the top's middle.
         /// </summary>
         public static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal) =>
-            Tile(size, color, iconId, style, state, style != TileStyle.Mosaic);
+            Tile(size, color, iconId, style, state, style != TileStyle.Mosaic && style != TileStyle.BoardColor);
 
         /// <summary>
         /// A candy tile's face without its symbol (spec 005 pictures.md G9–G24): the same satin square, bevel, gloss band,
@@ -501,7 +504,7 @@ namespace Bloomlings.Client.UI.Design
             // board's symbol shape covers about 70% of its box, so the bead spans about 42% of the tile.
             float box = s * (board ? 0.60f : 0.66f);
             float sx = s / 2f;
-            bool cube = style == TileStyle.Board;
+            bool cube = style == TileStyle.Board || style == TileStyle.BoardColor;
             float sy = cube ? faceH / 2f : (s / 2f) - (s * (board ? 0.02f : 0.01f));
             float unit = box / 2f / ShapeRaster.Margin;
             float iconLine = Math.Max(0.8f, box * (board ? 0.045f : StickerLine));

@@ -47,29 +47,29 @@ namespace Bloomlings.Client.UI.Design
             float left=safe.Left+w*.04f,right=safe.Right-w*.04f;
             float top=store.Header.Back.Bottom+w*.05f;
             Box tabs=new Box(left,top,right,top+w*.09f);
-            Box summary=new Box(left+w*.03f,tabs.Bottom+w*.025f,right-w*.03f,tabs.Bottom+w*.205f);
-            Box preview=In(summary,.065f,.10f,.29f,.90f);
-            Box name=In(summary,.35f,.10f,.94f,.44f);
-            Box level=In(summary,.34f,.52f,.82f,.94f);
-            Box button=new Box(safe.Left+w*.16f,safe.Bottom-w*.17f,safe.Right-w*.16f,safe.Bottom-w*.045f);
+            Box summary=new Box(left,tabs.Bottom+w*.025f,right,tabs.Bottom+w*.345f);
+            Box preview=Box.FromCenter(summary.Left+summary.Width*.19f,summary.CenterY,w*.245f,w*.245f);
+            Box name=In(summary,.38f,.15f,.95f,.46f);
+            Box level=In(summary,.39f,.52f,.88f,.85f);
+            Box button=new Box(safe.Left+w*.12f,safe.Bottom-w*.20f,safe.Right-w*.12f,safe.Bottom-w*.045f);
             Box grid=new Box(left,summary.Bottom+w*.025f,right,button.Top-w*.035f);
             return new ProfileGameEditRegions(safe,w,store.Header,tabs,summary,preview,name,level,grid,button);
         }
         public static Box Cell(Box area,int index,bool frames=false)
         {
             int columns=frames ? 2 : 3;
-            float gap=area.Width*.025f,side=(area.Width-gap*(columns-1))/columns,height=side*(frames ? .82f : 1.04f);
+            float gap=area.Width*.025f,side=(area.Width-gap*(columns-1))/columns,height=side*(frames ? 1.05f : 1.40f);
             float x=area.Left+(index%columns)*(side+gap),y=area.Top+(index/columns)*(height+gap);
             return new Box(x,y,x+side,y+height);
         }
         public static float ContentHeight(Box area,int count,bool frames) => Math.Max(area.Height,Cell(area,Math.Max(0,count-1),frames).Bottom-area.Top+area.Width*.022f);
         public static Box Picture(Box b,bool frames=false)
         {
-            Box well=In(b,frames ? .17f : .09f,.055f,frames ? .83f : .91f,frames ? .73f : .75f);float side=Math.Min(well.Width,well.Height);
+            Box well=In(b,frames ? .17f : .09f,.055f,frames ? .83f : .91f,.64f);float side=Math.Min(well.Width,well.Height);
             return Box.FromCenter(well.CenterX,well.CenterY,side,side);
         }
         public static Box CellLabel(Box b) => In(b,.05f,.775f,.95f,.955f);
-        public static Box CellPrice(Box b) => In(b,.08f,.765f,.92f,.955f);
+        public static Box CellPrice(Box b) => In(b,.06f,.67f,.94f,.97f);
         public static Box PriceHit(Box card,float touch) {Box b=CellPrice(card);return Box.FromCenter(b.CenterX,b.CenterY,b.Width,Math.Max(touch,b.Height));}
         public static Box CellCheck(Box b) => Box.FromCenter(b.Right-b.Width*.12f,b.Top+b.Width*.12f,b.Width*.22f,b.Width*.22f);
         public static Box AchievementPicture(Box b) => In(b,.075f,.025f,.925f,.73f);

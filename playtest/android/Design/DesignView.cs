@@ -19,6 +19,7 @@ namespace Bloomlings.Playtest.Droid
         private readonly AndroidPainter _painter = new AndroidPainter();
         private readonly DesignApp _app;
         private long _lastFrame;
+        private readonly long _clockOrigin = SystemClock.UptimeMillis();
         private int _insetTop;
         private int _insetBottom;
 
@@ -76,15 +77,15 @@ namespace Bloomlings.Playtest.Droid
             long now = SystemClock.UptimeMillis();
             float dt = _lastFrame == 0 ? 0f : Math.Min(0.1f, (now - _lastFrame) / 1000f);
             _lastFrame = now;
-            _painter.Now = now / 1000f;
+            _painter.Now = (now - _clockOrigin) / 1000f;
             long start = System.Diagnostics.Stopwatch.GetTimestamp();
             PaintStats.Counts before = PaintStats.Snapshot();
             _painter.Begin(canvas, Width, Height, new Client.UI.Design.Insets(_insetTop, _insetBottom));
             _app.Draw(_painter, dt);
             LogSlowFrame(start, before);
-            if (_app.NeedsFrames || _painter.Springing || _painter.Finger.HasValue)
+            if (_app.NeedsFrames || _painter.Springing || _painter.Finger.HasValue || _painter.Scrolling)
             {
-                if (_app.Calm && !_painter.Springing && !_painter.Finger.HasValue)
+                if (_app.Calm && !_painter.Springing && !_painter.Finger.HasValue && !_painter.Scrolling)
                 {
                     // Only slow motion is left (the win card's, or Home's 24 fps heroes under a card): about 30 frames a
                     // second is enough.
@@ -149,6 +150,7 @@ namespace Bloomlings.Playtest.Droid
         /// </summary>
         public bool Back()
         {
+            _painter.TouchCancel();
             bool handled = _app.Back();
             if (handled)
             {
@@ -167,7 +169,7 @@ namespace Bloomlings.Playtest.Droid
 
             // Tap or scroll (spec 005 FR-041, TouchGesture): on a page that scrolls a finger moving past touch.slop drags it
             // and never taps, a long drag turns the page; anywhere else a tap fires where the finger lifts, as before.
-            _painter.Now = SystemClock.UptimeMillis() / 1000f;
+            _painter.Now = (SystemClock.UptimeMillis() - _clockOrigin) / 1000f;
             switch (e.ActionMasked)
             {
                 case MotionEventActions.Down:
