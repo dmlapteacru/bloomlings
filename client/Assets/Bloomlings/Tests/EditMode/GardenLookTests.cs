@@ -202,10 +202,10 @@ namespace Bloomlings.Client.Tests
         public void BoosterTiles_ShowChargesOrPrice_AndGreyOutPerFr046()
         {
             var charges = new BoosterTileState(charges: 2, price: 40, selected: false, usable: true, affordable: true);
-            Assert.That(charges.ShowsCharges && !charges.ShowsPrice && !charges.Disabled, Is.True);
+            Assert.That(charges.ShowsCharges && !charges.ShowsBuyPlus && !charges.Disabled, Is.True);
 
             var price = new BoosterTileState(0, 40, false, true, true);
-            Assert.That(!price.ShowsCharges && price.ShowsPrice && !price.Disabled, Is.True);
+            Assert.That(!price.ShowsCharges && price.ShowsBuyPlus && !price.Disabled, Is.True);
 
             var poor = new BoosterTileState(0, 40, false, true, false);
             Assert.That(poor.Disabled, Is.True, "no charges and too few Petals");

@@ -16,6 +16,9 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>One responsive composition for all four editor tabs and the approved profile landing page.</summary>
     public static class ProfileGameDesign
     {
+        public const float PurchaseScale = .80f;
+        public static Box PurchaseFace(Box box, float scale = PurchaseScale) =>
+            Box.FromCenter(box.CenterX, box.CenterY, box.Width * scale, box.Height * scale);
         public const string Gold = "shop/profile-gold-v1";
         public const string Showcase = "shop/profile-showcase-v1";
         public const string LeafFrame = "shop/profile-leaf-v1";

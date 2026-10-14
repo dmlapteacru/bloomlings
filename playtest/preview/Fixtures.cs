@@ -55,7 +55,7 @@ namespace Bloomlings.Playtest.Preview
         {
             DesignApp App(string data, bool splash = false) => new DesignApp(data, content, new Silence(), splash);
 
-            yield return new Fixture(86, "gameplay-purchase-sizes", "All four empty boosters, including the longest price", (p, data) =>
+            yield return new Fixture(86, "gameplay-purchase-sizes", "Empty boosters show only their icons and refill plus", (p, data) =>
             {
                 var app = Progressed(App(data), content, 87);
                 app.Meta.Economy.Grant(5000, null);
@@ -63,6 +63,44 @@ namespace Bloomlings.Playtest.Preview
                     while (app.Meta.Save.Boosters.TryUse(booster.Kind)) { }
                 app.LoadLevel(88); app.Level!.SkipGuide(); app.Level.CloseDemo(); CloseAll(app);
                 Run(app, p, .4f);
+                foreach (var booster in LevelScreen.Boosters)
+                    Expect(!Shows(p, NumberText.Group(app.Meta.Economy.Price(booster.Kind))), "gameplay booster tiles have no price labels");
+            });
+
+            yield return new Fixture(89, "booster-plus-purchase", "Refill confirmation opens immediately for every empty booster", (p, data) =>
+            {
+                var app = Progressed(App(data), content, 87); CloseAll(app);
+                app.Meta.Economy.Grant(20000, null);
+                foreach (var booster in LevelScreen.Boosters)
+                    while (app.Meta.Save.Boosters.TryUse(booster.Kind)) { }
+                app.LoadLevel(88); var level = app.Level!; level.SkipGuide(); level.CloseDemo();
+                level.PressBooster(BoosterKind.Return, Recovery.Return);
+                var confirm = ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets);
+                foreach (var booster in LevelScreen.Boosters)
+                {
+                    Run(app, p, .1f);
+                    Box plus = GameplaySkin.BoosterBuyPlus(level.BoosterBoxes[booster.Kind]);
+                    int petals = app.Meta.Economy.Petals, price = app.Meta.Economy.Price(booster.Kind);
+                    void Ask()
+                    {
+                        Tap(p, plus); Run(app, p, .3f);
+                        Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer?.Petals == price && level.Targeting == null,
+                            "the plus asks before targeting or using " + booster.Kind);
+                        Expect(app.Meta.Economy.Petals == petals && app.Meta.Economy.Charges(booster.Kind) == 0,
+                            "opening a refill spends nothing");
+                    }
+                    Ask(); Tap(p, confirm.Cancel); Run(app, p, .1f);
+                    Expect(app.Meta.Economy.Petals == petals && app.Meta.Economy.Charges(booster.Kind) == 0, "Cancel buys nothing");
+                    Ask(); app.Back(); Run(app, p, .1f);
+                    Expect(app.Meta.Economy.Petals == petals && app.Meta.Economy.Charges(booster.Kind) == 0, "Back buys nothing");
+                    Ask(); Tap(p, confirm.Confirm); app.BuyConfirmed();
+                    Expect(app.Meta.Economy.Petals == petals - price
+                        && app.Meta.Economy.Charges(booster.Kind) == Client.Services.Economy.EconomyService.PurchaseQuantity(booster.Kind)
+                        && level.Session.BoostersUsed == 0 && level.Targeting == null,
+                        "confirm buys exactly one pack without using a booster");
+                }
+                while (app.Meta.Save.Boosters.TryUse(BoosterKind.BloomBurst)) { }
+                Run(app, p, .1f); Tap(p, GameplaySkin.BoosterBuyPlus(level.BoosterBoxes[BoosterKind.BloomBurst])); Run(app, p, .5f);
             });
 
             yield return new Fixture(87, "collection-cached-scroll", "Cached collection thumbnails, scrolling and close control", (p, data) =>
@@ -1355,7 +1393,12 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Shows(p, PlaytestText.T("clearing.choose")) && Shows(p, PlaytestText.T("clearing.chosen")), "Munchers now Choose, Bubbles Chosen");
 
                 // The frame: Pushers' confirmation over the tab, its live preview in the well.
-                Tap(p, ShopCatalogDesign.Parts(ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),ClearStyles.Free.Count+ClearStyles.Bought.ToList().IndexOf(ClearStyle.Pushers)),false).Action);
+                Box animationArea = ShopCatalogDesign.Viewport(r, false);
+                int pushersIndex = ClearStyles.Free.Count + ClearStyles.Bought.ToList().IndexOf(ClearStyle.Pushers);
+                Box pushersCard = ShopCatalogDesign.AnimationCard(animationArea, pushersIndex);
+                app.ShopScrollOffset = Math.Max(0, pushersCard.Bottom - animationArea.Bottom + animationArea.Width * .025f);
+                Run(app, p, .1f);
+                Tap(p, ShopCatalogDesign.Parts(pushersCard.Offset(0, -app.ShopScrollOffset), false, pushersIndex == 6).Action);
                 Expect(app.IsOpen(Overlay.Purchase), "Pushers' Buy asks");
                 Run(app, p, 2.5f);
                 Expect(p.Slots.Contains("ui.card.purchase") && p.Slots.Contains("fx.clear.pushers"), "the card with the live preview");

@@ -63,19 +63,31 @@ namespace Bloomlings.Client.Tests
             Assert.That(ShopCatalogDesign.Parts(cosmetic, true).Action.Height, Is.GreaterThan(width * .115f));
             Assert.That(ShopCatalogDesign.Parts(animation, false).Action.Height, Is.GreaterThan(width * .115f));
             var edit = ProfileGameDesign.Edit(width, height, Insets.None);
-            Assert.That(ProfileGameDesign.CellPrice(edit.Cell(0)).Height, Is.GreaterThan(width * .115f));
+            Assert.That(ProfileGameDesign.PurchaseFace(ProfileGameDesign.CellPrice(edit.Cell(0))).Height, Is.GreaterThan(width * .09f));
             Assert.That(edit.Preview.Width, Is.GreaterThan(width * .23f));
             Assert.That(edit.Cell(2).Top, Is.EqualTo(edit.Cell(0).Top), "three avatars per row");
             Assert.That(edit.Cell(3).Top, Is.GreaterThan(edit.Cell(0).Bottom), "the fourth avatar starts the next row");
             var gameplay = ScreenLayout.ReferenceGameplay(width, height, Insets.None, 4, 5);
             foreach (Box booster in gameplay.Boosters)
             {
-                Box purchase = GameplaySkin.BoosterPurchase(booster);
-                Assert.That(purchase.Height, Is.GreaterThan(booster.Height * .55f));
-                Assert.That(purchase.Bottom, Is.LessThan(gameplay.PodRow.Top), "price never covers the pod below");
+                Box plus = GameplaySkin.BoosterBuyPlus(booster);
+                Assert.That(plus.CenterX, Is.InRange(booster.Left, booster.Right));
+                Assert.That(plus.CenterY, Is.InRange(booster.Top, booster.Bottom));
+                Assert.That(plus.Bottom, Is.LessThan(gameplay.PodRow.Top), "the plus never covers the pod below");
             }
             var wardrobe = WardrobeShelfDesign.Page(width, height, Insets.None);
-            Assert.That(WardrobeShelfDesign.Action(wardrobe.Cell(0)).Height, Is.GreaterThan(width * .115f));
+            Assert.That(ProfileGameDesign.PurchaseFace(WardrobeShelfDesign.Action(wardrobe.Cell(0))).Height, Is.GreaterThan(width * .09f));
+        }
+
+        [Test]
+        public void NonShopPrices_UseTheApprovedTwentyPercentReduction()
+        {
+            Box original = new Box(10, 20, 210, 120);
+            Box face = ProfileGameDesign.PurchaseFace(original);
+            Assert.That(face.Width, Is.EqualTo(160).Within(.001f));
+            Assert.That(face.Height, Is.EqualTo(80).Within(.001f));
+            Assert.That(face.CenterX, Is.EqualTo(original.CenterX));
+            Assert.That(face.CenterY, Is.EqualTo(original.CenterY));
         }
 
         [Test]

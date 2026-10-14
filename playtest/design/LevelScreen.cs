@@ -547,6 +547,22 @@ namespace Bloomlings.Playtest.Design
             AfterCommand();
         }
 
+        public void BuyBooster(BoosterKind kind)
+        {
+            if (Demo != null || Guide != null || Won || !Meta.Economy.IsUnlocked(kind)) return;
+            Targeting = null;
+            JamHidden = false;
+            string id = EndCards.IdOf(kind);
+            _app.ConfirmPurchase(
+                PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind),
+                    Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind)),
+                (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * .1f)),
+                () =>
+                {
+                    if (!Meta.Economy.TryBuy(kind)) Toast(PlaytestText.T("gameplay.not_enough_petals"));
+                });
+        }
+
         public void PressBooster(BoosterKind kind, Recovery recovery)
         {
             bool guided = Guide != null && Guide.Kind == GuideKind.Booster && Guide.Booster == kind;

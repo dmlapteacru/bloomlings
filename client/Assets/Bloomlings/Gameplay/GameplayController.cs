@@ -137,7 +137,7 @@ namespace Bloomlings.Client.Gameplay
             _fxBoard = ClearFxView.Create(_board.Grid, "ClearFx");
             _slots = SlotRowView.Create(_hud.SlotArea, _visuals);
             _tray = TrayView.Create(_hud.TrayArea, _visuals, OnPodTapped);
-            _boosters = BoosterBar.Create(_hud.BoosterArea, OnBoosterPressed);
+            _boosters = BoosterBar.Create(_hud.BoosterArea, OnBoosterTilePressed);
 
             // The views take their places from the reference layout's regions (spec 005 FR-020, contracts/look.md §6.1).
             _board.Fit = _hud.FitBoard;
@@ -638,6 +638,29 @@ namespace Bloomlings.Client.Gameplay
 
         private static EconomyService? Economy =>
             AppServices.Current != null && AppServices.Current.TryGet(out EconomyService? economy) ? economy : null;
+
+        private void OnBoosterTilePressed(BoosterKind kind)
+        {
+            if (_session == null || _pause.IsOpen) return;
+            if (_guide.Step != null || Economy == null || Economy.Charges(kind) > 0)
+            {
+                OnBoosterPressed(kind);
+                return;
+            }
+            CancelTargeting();
+            _confirm ??= UiKit.PurchaseCard(_root);
+            EconomyService economy = Economy;
+            _confirm.ShowPetals(
+                PurchaseOffer.ForPetals(Loc.F("store.booster_quantity", BoosterTitle(kind), EconomyService.PurchaseQuantity(kind)), economy.Price(kind)),
+                economy.Petals,
+                well => UiFactory.Place(UiKit.BoosterIcon("Icon", well, MethodName(kind)).rectTransform, .08f, .08f, .92f, .92f),
+                () =>
+                {
+                    if (!economy.TryBuy(kind)) _hud.Toast(Loc.T("gameplay.not_enough_petals"));
+                    RefreshBoosters();
+                },
+                () => { }, ShowJamIfBlocked);
+        }
 
         private void OnBoosterPressed(BoosterKind kind)
         {

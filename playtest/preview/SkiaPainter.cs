@@ -16,7 +16,7 @@ namespace Bloomlings.Playtest.Preview
     /// </summary>
     public sealed class SkiaPainter : PainterBase, IDisposable, IPictureWarmer, ICachedIllustration, IPurchaseSizePreview
     {
-        public float PurchaseSize { get; set; } = 1f;
+        public float PurchaseSize { get; set; } = ProfileGameDesign.PurchaseScale;
         private static readonly Dictionary<(MaskKind Kind, string Key, int Size), SKImage> Masks = new Dictionary<(MaskKind, string, int), SKImage>();
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly PictureCache<SKImage> Pictures = new PictureCache<SKImage>(PictureCacheBytes, image => image.Dispose());

@@ -85,7 +85,7 @@ namespace Bloomlings.Client.UI.Gameplay
             {
                 BoosterButtonState s = state(Order[i]);
                 _unlocked[i] = s.Unlocked;
-                _states[i] = new BoosterTileState(s.Charges, s.Price, _targeting == Order[i], s.Applicable, s.Charges > 0 || s.Affordable);
+                _states[i] = new BoosterTileState(s.Charges, s.Price, _targeting == Order[i], s.Charges == 0 || s.Applicable, s.Charges > 0 || s.Affordable);
             }
 
             Layout();

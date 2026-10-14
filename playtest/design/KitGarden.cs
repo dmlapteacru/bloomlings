@@ -639,8 +639,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A booster tile (§3.7; the booster bar, <c>booster.tile</c>): a cream squircle (radius 26%) raised on its wooden
         /// plate (spec 005 FR-047, <see cref="BoosterBezel"/>) with the booster's colored icon (about two thirds of the tile),
-        /// and the count badge over its lower right corner, or the cost pill under it and a small green "+" raised on its
-        /// plate when no charges are left. A selected tile is raised with
+        /// and the count badge over its lower right corner, or a small green "+" raised on its
+        /// plate when no charges are left. Prices appear only in the refill confirmation. A selected tile is raised with
         /// the pulsing golden glow; a disabled one is greyed (spec 003 FR-031).
         /// </summary>
         public static void BoosterTile(IPainter p, Box box, string boosterId, BoosterTileState state, Action? action)
@@ -666,10 +666,8 @@ namespace Bloomlings.Playtest.Design
             Squash(p, tile, depth, tile: true);
             Box f = BoosterBezel(p, tile, radius, depth, state.Disabled);
             // Cropped artwork fills a centered box with equal top/bottom padding.
-            float icon = s * (state.ShowsCharges ? .80f : .62f);
-            bool compactPreview = !state.ShowsCharges && p is IPurchaseSizePreview sizes && sizes.PurchaseSize < 1f;
-            if (compactPreview) icon = s * .80f;
-            BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, state.ShowsCharges || compactPreview ? f.CenterY : f.Top + f.Height * .22f, icon, icon), grey: state.Disabled);
+            float icon = s * .80f;
+            BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, f.CenterY, icon, icon), grey: state.Disabled);
             p.PopTransform();
 
             if (state.ShowsCharges)
@@ -680,9 +678,7 @@ namespace Bloomlings.Playtest.Design
             }
             else
             {
-                ProfileGamePainter.Price(p, GameplaySkin.BoosterPurchase(tile), NumberText.Group(state.Price));
-                float plus = s * 0.34f;
-                Box plusBox = Box.FromCenter(tile.Right - (plus * 0.3f), tile.Top + (plus * 0.3f), plus, plus);
+                Box plusBox = GameplaySkin.BoosterBuyPlus(tile);
                 Box plusFace = RaisedButton(p, plusBox, GardenLook.Green, 0.5f, 0f, gloss: true);
                 p.Shape("ui.plus", Box.FromCenter(plusFace.CenterX, plusFace.CenterY, plusFace.Width * 0.86f, plusFace.Width * 0.86f), Rgba.White);
             }
@@ -693,8 +689,8 @@ namespace Bloomlings.Playtest.Design
                 Box target = box;
                 if (!state.ShowsCharges)
                 {
-                    Box price = GameplaySkin.BoosterPurchase(tile);
-                    target = new Box(Math.Min(box.Left, price.Left), box.Top, Math.Max(box.Right, price.Right), Math.Max(box.Bottom, price.Bottom));
+                    Box plus = GameplaySkin.BoosterBuyPlus(tile);
+                    target = new Box(box.Left, Math.Min(box.Top, plus.Top), Math.Max(box.Right, plus.Right), box.Bottom);
                 }
                 p.Hit(Touch(p, target), action);
             }

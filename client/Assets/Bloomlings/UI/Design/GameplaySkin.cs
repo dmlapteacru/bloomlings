@@ -9,10 +9,11 @@ namespace Bloomlings.Client.UI.Design
     {
         public const string Atlas = "pod-icons-v1";
         public const float PodRadiusShare = 0.24f;
-        public static Box BoosterPurchase(Box tile)
+        public static Box BoosterBuyPlus(Box tile)
         {
             float side = Math.Min(tile.Width, tile.Height);
-            return Box.FromCenter(tile.CenterX, tile.Bottom - side * .15f, side * 1.04f, side * .60f);
+            float plus = side * .34f;
+            return Box.FromCenter(tile.Right - plus * .3f, tile.Top + plus * .3f, plus, plus);
         }
         private static readonly string[] PodKeys = { "leaf", "moss", "flower", "violet_bud", "water", "dew", "wood", "acorn", "vine", "berry", "mist", "bark" };
         // Opaque subject bounds in each 362-pixel cell, with a 3-pixel gutter. Source PNG stays unchanged.

@@ -80,8 +80,8 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The "×N" badge shows.</summary>
         public bool ShowsCharges => Charges > 0;
 
-        /// <summary>The price tag and the green "+" show.</summary>
-        public bool ShowsPrice => Charges <= 0;
+        /// <summary>The green "+" opens a refill confirmation; the price appears in that dialog.</summary>
+        public bool ShowsBuyPlus => Charges <= 0;
 
         /// <summary>Greyed and not pressable; a selected tile is never disabled.</summary>
         public bool Disabled => !Selected && (!Usable || (Charges <= 0 && !Affordable));

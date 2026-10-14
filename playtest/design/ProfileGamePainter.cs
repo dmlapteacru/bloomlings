@@ -23,8 +23,8 @@ namespace Bloomlings.Playtest.Design
         public static void Price(IPainter p,Box b,string text,Action? tap=null,bool petals=true,Box? touch=null)
         {
             Box original = b;
-            if (petals && p is IPurchaseSizePreview preview)
-                b = Box.FromCenter(b.CenterX,b.CenterY,b.Width*preview.PurchaseSize,b.Height*preview.PurchaseSize);
+            if (petals)
+                b = ProfileGameDesign.PurchaseFace(b, p is IPurchaseSizePreview preview ? preview.PurchaseSize : ProfileGameDesign.PurchaseScale);
             if(!petals){Kit.PrimaryButton(p,b,text,tap,ShopBodyDesign.Price);return;}
             p.Mark("ui.shop.button");p.Mark("font.shop");Kit.SlicedSprite(p,"shop/price-button",b,350f/1985,190f/505,.4f);
             float size=b.Height*.54f;Box label=b.Inset(b.Height*.20f);

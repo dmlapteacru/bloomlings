@@ -1301,9 +1301,8 @@ namespace Bloomlings.Client.UI
         private Image _icon = null!;
         private Image _badgeDisc = null!;
         private TextMeshProUGUI _badge = null!;
-        private Image _cost = null!;
         private GardenButton _plus = null!;
-        private Image _purchaseTouch = null!;
+        private Button _plusButton = null!;
         private string _boosterId = string.Empty;
         private float _radius;
         private readonly float[] _haloRadii = new float[3];
@@ -1340,16 +1339,14 @@ namespace Bloomlings.Client.UI
             Face.TileSquash = true;
             _icon = UiKit.BoosterIcon("Icon", Face.Content, boosterId);
             // Cropped artwork fills a centered box with equal top/bottom padding.
-            float IconBox() => Face.IconSide * (State.ShowsCharges ? .80f : .62f) / GardenLook.IconRimFaceShare;
-            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, State.ShowsCharges ? f.CenterY : f.Top + f.Height * .22f, IconBox(), IconBox()));
+            float IconBox() => Face.IconSide * .80f / GardenLook.IconRimFaceShare;
+            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, IconBox(), IconBox()));
 
             _badge = UiKit.CountBadge("Count", root, out _badgeDisc);
-            _cost = MetaShelfView.Price(root, "0");
-            _purchaseTouch = UiFactory.CreateImage("PurchaseTouch", _cost.transform, null, Color.clear, raycast: true);
-            UiFactory.Stretch(_purchaseTouch.rectTransform);
-            UiKit.TapTarget(_purchaseTouch, () => { if (!State.Disabled) onPress?.Invoke(); }, press: true);
             // The small green "+" raised on its plate (spec 005 FR-047).
-            _plus = UiKit.RaisedButton("Plus", root, GardenLook.Green, 0.5f, gloss: true, raycast: false, square: true);
+            _plus = UiKit.RaisedButton("Plus", root, GardenLook.Green, 0.5f, gloss: true, raycast: true, square: true);
+            _plusButton = UiKit.TapTarget(_plus.Top, () => { if (!State.Disabled) onPress?.Invoke(); }, press: true);
+            _plus.Button = _plusButton;
             Image plusGlyph = UiKit.ShapeImage("Glyph", _plus.Content, "ui.plus", Rgba.White);
             BoxLayout.On(_plus.Content).Add(plusGlyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, f.Width * 0.86f, f.Width * 0.86f));
 
@@ -1367,7 +1364,7 @@ namespace Bloomlings.Client.UI
             Show(new BoosterTileState(1, 0, false, true, true));
         }
 
-        /// <summary>Shows the tile's state: charges or price, selected (raised, glowing) or disabled (greyed at 55%).</summary>
+        /// <summary>Shows charges or the refill plus, selected (raised, glowing) or disabled (greyed at 55%).</summary>
         public void Show(BoosterTileState state)
         {
             State = state;
@@ -1376,13 +1373,8 @@ namespace Bloomlings.Client.UI
             _glow.gameObject.SetActive(state.Selected);
             _badgeDisc.gameObject.SetActive(state.ShowsCharges);
             _badge.text = state.Charges.ToString(CultureInfo.InvariantCulture);
-            _cost.gameObject.SetActive(!state.ShowsCharges);
             _plus.gameObject.SetActive(!state.ShowsCharges);
-            if (!state.ShowsCharges)
-            {
-                _cost.GetComponentInChildren<TextMeshProUGUI>().text = NumberText.Group(state.Price);
-                _purchaseTouch.GetComponent<Button>().interactable = !state.Disabled;
-            }
+            _plusButton.interactable = !state.Disabled;
 
             _layout.Apply();
         }
@@ -1413,9 +1405,7 @@ namespace Bloomlings.Client.UI
             float badge = s * 0.34f;
             // Over the tile's lower right corner, mostly on the tile, as in the reference (the playtest's Kit.BoosterTile).
             BoxLayout.Place(_badgeDisc.rectTransform, Box.FromCenter(tile.Right - (badge * 0.55f), tile.Bottom - (badge * 0.55f), badge * 1.26f, badge * 1.26f));
-            BoxLayout.Place((RectTransform)_cost.transform, GameplaySkin.BoosterPurchase(tile));
-            float plus = s * 0.34f;
-            BoxLayout.Place((RectTransform)_plus.transform, Box.FromCenter(tile.Right - (plus * 0.3f), tile.Top + (plus * 0.3f), plus, plus));
+            BoxLayout.Place((RectTransform)_plus.transform, GameplaySkin.BoosterBuyPlus(tile));
         }
 
         private void Update()

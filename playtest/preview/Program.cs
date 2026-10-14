@@ -32,7 +32,7 @@ bool promoMotion = false;
 string? shape = null;
 bool perf = false;
 string? csv = null;
-float purchaseSize = 1f;
+float purchaseSize = ProfileGameDesign.PurchaseScale;
 string? purchaseComparison = null;
 for (int i = 0; i < args.Length; i++)
 {

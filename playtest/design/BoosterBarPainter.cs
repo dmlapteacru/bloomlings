@@ -15,8 +15,7 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>Each booster appears at its unlock level as a cream tile in a silver rim with its colored icon:
     /// Extra Slot a white "+" on a blue disc, Shuffle two chasing arrows, Return a yellow arrow, Bloom Burst a pink
     /// flower.</description></item>
-    /// <item><description>A dark green count badge shows the charges as plain digits. With none left, a cream cost pill with
-    /// the lotus and a green "+" show instead, so buying stays clear.</description></item>
+    /// <item><description>A dark green count badge shows the charges as plain digits. With none left, a green "+" opens the refill confirmation, which shows its price.</description></item>
     /// <item><description>A booster the level cannot use now is greyed (spec 001 FR-046).</description></item>
     /// <item><description>The booster whose target is being chosen is raised, with a pulsing golden glow.</description></item>
     /// </list>
@@ -50,9 +49,13 @@ namespace Bloomlings.Playtest.Design
                     charges,
                     s.Meta.Economy.Price(kind),
                     selected: s.Targeting == recovery,
-                    usable: Applicable(s, recovery, eligible) && s.Session.Status != LevelStatus.Won,
+                    usable: (charges == 0 || Applicable(s, recovery, eligible)) && s.Session.Status != LevelStatus.Won,
                     affordable: charges > 0 || s.Meta.Economy.CanAfford(kind));
-                Tile(p, places[i], id, state, state.Disabled ? (Action?)null : () => s.PressBooster(kind, recovery));
+                Tile(p, places[i], id, state, state.Disabled ? (Action?)null : () =>
+                {
+                    if (s.Meta.Economy.Charges(kind) == 0 && s.Guide == null) s.BuyBooster(kind);
+                    else s.PressBooster(kind, recovery);
+                });
             }
         }
 
