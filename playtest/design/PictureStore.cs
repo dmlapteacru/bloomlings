@@ -27,6 +27,8 @@ namespace Bloomlings.Playtest.Design
         private readonly long _budgetBytes;
         private readonly BlockingCollection<Action> _work = new BlockingCollection<Action>(new ConcurrentQueue<Action>());
         private long _bytes;
+        private long _queuedWriteBytes;
+        private const long WriteQueueBytes = 8L * 1024 * 1024;
         private volatile bool _broken;
 
         /// <summary>
@@ -169,26 +171,37 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
+            // A slow disk must not retain an unbounded number of full RGBA arrays. Skipping a disk-cache write is safe.
+            if (Interlocked.Add(ref _queuedWriteBytes, length) > WriteQueueBytes)
+            {
+                Interlocked.Add(ref _queuedWriteBytes, -length);
+                return;
+            }
+
             string path = PathOf(key, width, height);
             Enqueue(() =>
             {
-                string temp = path + ".tmp";
-                using (var stream = new FileStream(temp, FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024))
-                using (var writer = new BinaryWriter(stream, Encoding.UTF8))
+                try
                 {
-                    writer.Write(Magic);
-                    writer.Write(width);
-                    writer.Write(height);
-                    writer.Write(length);
-                    writer.Write(key);
-                    writer.Write(pixels, 0, length);
-                }
+                    string temp = path + ".tmp";
+                    using (var stream = new FileStream(temp, FileMode.Create, FileAccess.Write, FileShare.None, 64 * 1024))
+                    using (var writer = new BinaryWriter(stream, Encoding.UTF8))
+                    {
+                        writer.Write(Magic);
+                        writer.Write(width);
+                        writer.Write(height);
+                        writer.Write(length);
+                        writer.Write(key);
+                        writer.Write(pixels, 0, length);
+                    }
 
-                long size = new FileInfo(temp).Length;
-                long before = File.Exists(path) ? new FileInfo(path).Length : 0;
-                File.Move(temp, path, overwrite: true);
-                Interlocked.Add(ref _bytes, size - before);
-                Trim();
+                    long size = new FileInfo(temp).Length;
+                    long before = File.Exists(path) ? new FileInfo(path).Length : 0;
+                    File.Move(temp, path, overwrite: true);
+                    Interlocked.Add(ref _bytes, size - before);
+                    Trim();
+                }
+                finally { Interlocked.Add(ref _queuedWriteBytes, -length); }
             });
         }
 

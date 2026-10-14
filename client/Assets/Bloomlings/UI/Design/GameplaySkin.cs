@@ -40,7 +40,29 @@ namespace Bloomlings.Client.UI.Design
         public static byte[] Stone(int w, int h, float radius) => ShopBodyRaster.Framed(w, h, radius, StoneRim, StoneFace, 0.07f, true, 0.10f, 0, 0.5f);
         public static byte[] Booster(int w, int h) => ShopBodyRaster.Framed(w, h, 0.23f, StoneRim, ShopBodyDesign.Card, 0.04f, true, 0.08f);
         public static float BoardCornerRadius(float borderThickness)=>borderThickness*1.6f;
-        public static byte[] BoardRim(int w, int h, float thicknessShare) => ShopBodyRaster.Framed(w, h, BoardCornerRadius(thicknessShare), StoneRim, StoneFace, thicknessShare * 0.30f, true, 0.12f, 0.0015f);
+        public static byte[] BoardRim(int w, int h, float thicknessShare)
+        {
+            // This underlay is covered by the grid and individual fence stones. A scanline gradient needs no
+            // supersampled lighting/trigonometry for the million hidden interior pixels of a phone-sized board.
+            float size = Math.Min(w, h), radius = Math.Max(1, size * BoardCornerRadius(thicknessShare));
+            float padding = Math.Max(.5f, size * .0015f);
+            var pixels = new byte[checked(w * h * 4)];
+            for (int y = 0; y < h; y++)
+            {
+                Rgba color = StoneRim.Top.Mix(StoneRim.Lip, (float)y / Math.Max(1, h - 1));
+                for (int x = 0; x < w; x++)
+                {
+                    float qx = Math.Abs(x + .5f - w * .5f) - (w * .5f - padding - radius);
+                    float qy = Math.Abs(y + .5f - h * .5f) - (h * .5f - padding - radius);
+                    float ox = Math.Max(0, qx), oy = Math.Max(0, qy);
+                    float d = (ox > 0 && oy > 0 ? (float)Math.Sqrt(ox * ox + oy * oy) : ox + oy) + Math.Min(Math.Max(qx, qy), 0) - radius;
+                    int i = (y * w + x) * 4;
+                    pixels[i] = color.R; pixels[i + 1] = color.G; pixels[i + 2] = color.B;
+                    pixels[i + 3] = (byte)(255 * Math.Max(0, Math.Min(1, .5f - d)));
+                }
+            }
+            return pixels;
+        }
         public static byte[] Pod(int w, int h, VariantId? variant, bool waiting, bool locked)
         {
             Rgba color = locked ? Rgba.FromHex("#83978C") : variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : Rgba.FromHex("#B99ACC");

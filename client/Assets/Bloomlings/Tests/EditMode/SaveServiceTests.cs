@@ -31,6 +31,53 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void BatchedWin_WritesOneDurableSnapshot_AndNotifiesOnce()
+        {
+            var service = new SaveService(_folder, _clock);
+            service.Load();
+            int writes = 0;
+            service.Saved += () => writes++;
+            using (service.Batch())
+            {
+                service.Current.Progression.HighestCompletedLevel = 25;
+                service.Save();
+                using (service.Batch())
+                {
+                    service.Current.Wallet.AddPetals(100);
+                    service.Save();
+                }
+                Assert.That(writes, Is.Zero);
+                Assert.That(File.Exists(service.MainPath), Is.False);
+            }
+            Assert.That(writes, Is.EqualTo(1));
+            PlayerSave loaded = new SaveService(_folder, _clock).Load();
+            Assert.That(loaded.Progression.HighestCompletedLevel, Is.EqualTo(25));
+            Assert.That(loaded.Wallet.Petals, Is.EqualTo(100));
+            using (service.Batch()) { }
+            Assert.That(writes, Is.EqualTo(1), "an unchanged scope does not write");
+        }
+
+        [Test]
+        public void BatchDisposedDuringAnException_FlushesRequestedChanges_AndRestoresNormalSaving()
+        {
+            var service = new SaveService(_folder, _clock);
+            service.Load();
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                using (service.Batch())
+                {
+                    service.Current.Wallet.AddPetals(5);
+                    service.Save();
+                    throw new InvalidOperationException();
+                }
+            });
+            Assert.That(new SaveService(_folder, _clock).Load().Wallet.Petals, Is.EqualTo(5));
+            service.Current.Wallet.AddPetals(3);
+            service.Save();
+            Assert.That(new SaveService(_folder, _clock).Load().Wallet.Petals, Is.EqualTo(8));
+        }
+
+        [Test]
         public void FirstLoad_CreatesANewProfile()
         {
             var service = new SaveService(_folder, _clock);

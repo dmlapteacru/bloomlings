@@ -103,13 +103,16 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The level whose Pause card was warmed, or null: a level warms it once, on the first frame after its start.</summary>
         private LevelScreen? _pauseWarmedFor;
 
-        /// <summary>The longest the splash waits for the first screen's pictures after its ring could be full, in seconds.</summary>
-        private const float SplashWarmWait = 3f;
+        /// <summary>Runtime painters prepare resources behind the closed iris before revealing a level.</summary>
+        private bool _runtimePreparation;
+        private bool _levelPrepared;
+        private LevelScreen? _firstPreparedLevel;
+        private LevelScreen? _winWarmedFor;
 
         /// <summary>
         /// How far the splash's loading has come (0–1): with a warming painter (<see cref="IPictureWarmer"/>, the APK's)
         /// the share of the first screen's pictures made, so its ring fills as they are and the first screen then opens
-        /// without a stall (at most <see cref="SplashWarmWait"/> later than its fill); without one, everything is loaded.
+        /// without a stall (when its resources are ready); without one, everything is loaded.
         /// </summary>
         public float SplashLoaded { get; private set; } = 1f;
 
@@ -255,6 +258,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public bool NeedsFrames =>
             Screen == Screen.Splash
+            || PreparingLevel
             || SplashOpening
             || Transitioning
             || (Level != null && Screen == Screen.Level && Level.NeedsFrames)
@@ -291,7 +295,12 @@ namespace Bloomlings.Playtest.Design
         {
             if (_firstLaunch)
             {
-                StartLevel();
+                ClearOverlays();
+                Level = _firstPreparedLevel ?? new LevelScreen(this, Meta.CurrentLevel);
+                Level.RestartIntroAnimation();
+                _firstPreparedLevel = null;
+                Screen = Screen.Level;
+                _levelPrepared = true;
             }
             else
             {
@@ -299,7 +308,10 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        public void StartLevel() => LoadLevel(Meta.CurrentLevel);
+        public void StartLevel()
+        {
+            if (_runtimePreparation) NextLevel(); else LoadLevel(Meta.CurrentLevel);
+        }
 
         /// <summary>
         /// The win's Next (spec 005 FR-039): the lotus iris closes over the win, the next level starts under its closed
@@ -321,13 +333,18 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Whether the lotus iris between two levels shows.</summary>
         public bool Transitioning => _transitionSince >= 0f;
 
+        public bool PreparingLevel => _runtimePreparation && Screen == Screen.Level && !_levelPrepared;
+
         /// <summary>Whether the splash's iris is opening on the first screen.</summary>
         public bool SplashOpening => _splashOpenSince >= 0f;
 
         public void LoadLevel(int levelNumber)
         {
             ClearOverlays();
-            Level = new LevelScreen(this, levelNumber);
+            Level = _firstPreparedLevel?.Level == levelNumber ? _firstPreparedLevel : new LevelScreen(this, levelNumber);
+            Level.RestartIntroAnimation();
+            _firstPreparedLevel = null;
+            _levelPrepared = false;
             Screen = Screen.Level;
         }
 
@@ -817,18 +834,12 @@ namespace Bloomlings.Playtest.Design
         {
             Now += Math.Max(0f, Math.Min(0.1f, dt));
             IPictureWarmer? warmer = p is IPictureWarmer w && w.WarmsPictures ? w : null;
+            _runtimePreparation = warmer != null;
             if (Screen == Screen.Splash && warmer != null)
             {
-                // The first frame shows the splash; the second warms the first screen's pictures, which the ring then follows.
                 _splashFrames++;
-                if (_splashFrames == 2)
-                {
-                    warmer.Warm(() => DrawFirstScreen(p));
-                }
-
-                SplashLoaded = _splashFrames < 2 ? 0f
-                    : Now >= LotusIris.SplashFillFrom + LotusIris.SplashFillSeconds + SplashWarmWait ? 1f
-                    : warmer.WarmProgress;
+                if (_splashFrames >= 2) warmer.Warm(() => DrawFirstScreen(p));
+                SplashLoaded = _splashFrames < 2 ? 0f : warmer.WarmProgress;
             }
 
             if (Screen == Screen.Splash && LotusIris.SplashFull(Now, SplashLoaded))
@@ -850,10 +861,28 @@ namespace Bloomlings.Playtest.Design
                     _transitionSwitched = true;
                     LoadLevel(_transitionLevel);
                 }
-                else if (since >= LotusIris.TransitionSeconds)
+                else if (since >= LotusIris.TransitionSeconds && (warmer == null || _levelPrepared))
                 {
                     _transitionSince = -1f;
                 }
+            }
+
+            if (warmer != null && Screen == Screen.Level && Level != null && !_levelPrepared)
+            {
+                warmer.Warm(() => Level.Draw(p));
+                _levelPrepared = warmer.WarmProgress >= 1f;
+                if (!_levelPrepared)
+                {
+                    if (Transitioning && Now - _transitionSince > LotusIris.OpenAt)
+                        _transitionSince = Now - LotusIris.OpenAt;
+                    LotusPainter.Draw(p, LotusIris.Transition(LotusIris.OpenAt), PlaytestText.F("common.level", Level.Level), false);
+                    return;
+                }
+            }
+            if (Transitioning && LotusIris.Transition(Now - _transitionSince).Open <= 0f)
+            {
+                LotusPainter.Draw(p, LotusIris.Transition(Now - _transitionSince), PlaytestText.F("common.level", _transitionLevel), false);
+                return;
             }
 
             if (Screen == Screen.Splash || Screen == Screen.Home)
@@ -977,7 +1006,7 @@ namespace Bloomlings.Playtest.Design
         {
             if (_firstLaunch)
             {
-                new LevelScreen(this, Meta.CurrentLevel).Draw(p);
+                (_firstPreparedLevel ??= new LevelScreen(this, Meta.CurrentLevel)).Draw(p);
             }
             else
             {
@@ -991,11 +1020,25 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         private void WarmWhileIdle(IPainter p, IPictureWarmer? warmer)
         {
-            if (warmer != null && Screen == Screen.Level && Level != null && _pauseWarmedFor != Level && _overlays.Count == 0 && !Transitioning && warmer.WarmProgress >= 1f)
+            if (warmer != null && Screen == Screen.Level && Level != null && Level.Won && Meta.CurrentLevel != Level.Level
+                && !Transitioning && warmer.WarmProgress >= 1f && _firstPreparedLevel?.Level != Meta.CurrentLevel)
+            {
+                // Prepare the next board while the player watches the win, rather than starting work at Next.
+                _firstPreparedLevel = new LevelScreen(this, Meta.CurrentLevel);
+                warmer.Warm(() => _firstPreparedLevel.Draw(p));
+            }
+
+            if (warmer != null && _levelPrepared && Screen == Screen.Level && Level != null && _pauseWarmedFor != Level && _overlays.Count == 0 && !Transitioning && warmer.WarmProgress >= 1f)
             {
                 // A level warms its Pause card once (the same card for every level of a screen size, so mostly the first).
                 _pauseWarmedFor = Level;
                 warmer.Warm(() => MenuCards.Pause(p, this, 10f));
+            }
+
+            if (warmer != null && _levelPrepared && Screen == Screen.Level && Level != null && _pauseWarmedFor == Level && _winWarmedFor != Level && !Transitioning && _overlays.Count == 0 && warmer.WarmProgress >= 1f)
+            {
+                _winWarmedFor = Level;
+                warmer.Warm(() => EndCards.Win(p, Level, 10f));
             }
 
             if (warmer == null || Screen != Screen.Home || _overlays.Count > 0 || SplashOpening || Transitioning)
@@ -1026,7 +1069,8 @@ namespace Bloomlings.Playtest.Design
             switch (step)
             {
                 case 0:
-                    new LevelScreen(this, Meta.CurrentLevel).Draw(p);
+                    if (_firstPreparedLevel?.Level != Meta.CurrentLevel) _firstPreparedLevel = new LevelScreen(this, Meta.CurrentLevel);
+                    _firstPreparedLevel.Draw(p);
                     break;
                 case 1:
                     MenuCards.Settings(p, this, 10f);

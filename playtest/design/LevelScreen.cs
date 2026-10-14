@@ -75,6 +75,13 @@ namespace Bloomlings.Playtest.Design
 
         public LevelAnimator Animator { get; } = new LevelAnimator();
 
+        /// <summary>A screen prepared ahead starts its intro's clock when navigation brings it into use.</summary>
+        public void RestartIntroAnimation()
+        {
+            DemoOpenedAt = _app.Now;
+            GuideOpenedAt = _app.Now;
+        }
+
         public PlaytestMeta Meta => _app.Meta;
 
         /// <summary>The booster whose target the player is choosing (Return: a slot; Bloom Burst: a tile).</summary>

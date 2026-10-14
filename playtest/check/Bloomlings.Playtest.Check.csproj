@@ -18,6 +18,8 @@
     <Compile Include="../../playtest/android/LevelAnimator.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ClearStyles.cs" />
     <Compile Include="../../playtest/design/PlaytestMeta.cs" />
+    <Compile Include="../design/PictureWorkQueue.cs" />
+    <Compile Include="../design/PictureCache.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />

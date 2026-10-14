@@ -197,6 +197,7 @@ problems.AddRange(HeroFrameCheck.Run());
 
 // Animations draw the pictures their first frame made, and the APK's picture store gives back what it kept (PictureChecks).
 problems.AddRange(PictureChecks.Run());
+problems.AddRange(LoadingChecks.Run(content));
 Console.WriteLine($"slots used by the playtest screens: {usedSlots.Count} of {AssetSlots.All.Count}");
 if (only == null)
 {

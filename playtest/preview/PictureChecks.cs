@@ -89,7 +89,7 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>The store's round trip in a fresh folder: the same bytes back, nothing for another key or size, old builds dropped.</summary>
         private static IEnumerable<string> Store()
         {
-            string root = Path.Combine(Path.GetTempPath(), "bloomlings-picture-store-check");
+            string root = Path.Combine(Path.GetTempPath(), "bloomlings-picture-store-check-" + Guid.NewGuid().ToString("N"));
             if (Directory.Exists(root))
             {
                 Directory.Delete(root, recursive: true);
@@ -116,6 +116,8 @@ namespace Bloomlings.Playtest.Preview
             }
 
             // Another build's store drops the first build's pictures.
+            // Finish the first process's queued read timestamp before simulating its replacement by a new build.
+            old.Flush(TimeSpan.FromSeconds(30));
             var next = new PictureStore(root, "build-2", 1024 * 1024);
             next.Flush(TimeSpan.FromSeconds(30));
             if (Directory.Exists(Path.Combine(root, "build-1")) || next.TryRead("ui.button.plate/0.5", 64, 40, 4, buffer))

@@ -281,5 +281,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>Starts a frame (drops the least recently drawn frames while over budget).</summary>
         public void NextFrame() => _frames.NextFrame();
+
+        public void TrimUnused() => _frames.TrimUnused();
     }
 }

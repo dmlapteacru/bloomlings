@@ -33,6 +33,8 @@ namespace Bloomlings.Client.Services.Save
         private readonly string _folder;
         private readonly IClock _clock;
         private readonly SaveMigrations _migrations;
+        private int _batchDepth;
+        private bool _savePending;
 
         public SaveService(string folder, IClock clock, SaveMigrations? migrations = null)
         {
@@ -98,6 +100,12 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>Writes <see cref="Current"/> atomically.</summary>
         public void Save()
         {
+            if (_batchDepth > 0)
+            {
+                _savePending = true;
+                return;
+            }
+
             Directory.CreateDirectory(_folder);
             Current.Touch(_clock.UtcNow);
             byte[] bytes = Encoding.UTF8.GetBytes(Envelope(Current));
@@ -127,6 +135,30 @@ namespace Bloomlings.Client.Services.Save
             }
 
             Saved?.Invoke();
+        }
+
+        /// <summary>Combines a synchronous operation's saves into one durable write when its outermost scope ends.</summary>
+        public IDisposable Batch()
+        {
+            _batchDepth++;
+            return new SaveBatch(this);
+        }
+
+        private sealed class SaveBatch : IDisposable
+        {
+            private SaveService? _owner;
+            public SaveBatch(SaveService owner) => _owner = owner;
+            public void Dispose()
+            {
+                SaveService? owner = _owner;
+                if (owner == null) return;
+                _owner = null;
+                if (--owner._batchDepth == 0 && owner._savePending)
+                {
+                    owner._savePending = false;
+                    owner.Save();
+                }
+            }
         }
 
         /// <summary>The envelope text written to disk.</summary>

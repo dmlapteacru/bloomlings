@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +33,6 @@ namespace Bloomlings.Playtest.Droid
         private static readonly PictureCache<Bitmap> Pictures = new PictureCache<Bitmap>(PictureCacheBytes, bitmap => bitmap.Dispose());
         private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
         private static readonly PictureCache<Bitmap> Sprites = new PictureCache<Bitmap>(64L * 1024 * 1024, bitmap => bitmap.Dispose());
-        private static readonly HashSet<string> MissingSprites = new HashSet<string>(StringComparer.Ordinal);
         private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
         private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(HeroFrameCacheBytes);
         private static readonly HeroBitmaps HeroDraws = new HeroBitmaps(HeroDrawCacheBytes);
@@ -65,6 +63,14 @@ namespace Bloomlings.Playtest.Droid
         /// thread is ready.
         /// </summary>
         public Action? Redraw { get; set; }
+
+        /// <summary>Called on the UI thread when Android needs memory; visible and recent images stay valid.</summary>
+        public static void ReleaseUnused()
+        {
+            Pictures.TrimUnused();
+            Sprites.TrimUnused();
+            HeroFrames.TrimUnused();
+        }
 
         /// <summary>What a cached mask was made from.</summary>
         private enum MaskKind
@@ -243,18 +249,26 @@ namespace Bloomlings.Playtest.Droid
             int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
             if (!Masks.TryGetValue((kind, key, size), out Bitmap? bitmap))
             {
-                Func<float, float, float> shape = kind switch
+                string workKey = "mask/" + kind + "/" + key + "/" + size;
+                if (s_pictureWork.TryTake(workKey, out Bitmap ready))
                 {
-                    MaskKind.Shape => ShapeLibrary.Get(key),
-                    MaskKind.Skin => ShapeLibrary.SkinPattern(key),
-                    _ => sdf!,
-                };
-                long start = System.Diagnostics.Stopwatch.GetTimestamp();
-                byte[] mask = ShapeRaster.Mask(shape, size, topDown: true);
-                bitmap = ToBitmap(mask, size, size, Bitmap.Config.Alpha8!);
-                Masks[(kind, key, size)] = bitmap;
-                PaintStats.Masked(start);
+                    bitmap = ready;
+                    Masks[(kind, key, size)] = bitmap;
+                }
+                else
+                {
+                    Func<float, float, float> shape = kind switch
+                    {
+                        MaskKind.Shape => ShapeLibrary.Get(key),
+                        MaskKind.Skin => ShapeLibrary.SkinPattern(key),
+                        _ => sdf!,
+                    };
+                    s_pictureWork.Request(workKey, size * size, () =>
+                        WarmBitmap(ShapeRaster.Mask(shape, size, topDown: true), size * size, size, size, Bitmap.Config.Alpha8!));
+                    return;
+                }
             }
+            if (_recording) return;
 
             _source.Set(0, 0, size, size);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(color));
@@ -278,7 +292,7 @@ namespace Bloomlings.Playtest.Droid
 
         private void DrawText(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth, float sizeScale, bool centered, TextLook? look)
         {
-            if (text.Length == 0)
+            if (_recording || text.Length == 0)
             {
                 return;
             }
@@ -476,55 +490,22 @@ namespace Bloomlings.Playtest.Droid
 
             int w = PictureSize(box.Width);
             int h = PictureSize(box.Height);
-            if (_recording)
-            {
-                // A draw made for its pictures (Warm): note what is not made yet, show nothing.
-                if (!Pictures.TryGet(key, w, h, out _) && !s_warmed.ContainsKey(UiRaster.CacheKey(key, w, h)) && (s_store == null || !s_store.Has(key, w, h)))
-                {
-                    _recorded.Add((key, w, h, render));
-                }
-
-                return;
-            }
-
             if (!Pictures.TryGet(key, w, h, out Bitmap bitmap))
             {
-                long start = System.Diagnostics.Stopwatch.GetTimestamp();
+                string cacheKey = UiRaster.CacheKey(key, w, h);
                 int bytes = w * h * 4;
-                if (!s_warmed.IsEmpty && s_warmed.TryRemove(UiRaster.CacheKey(key, w, h), out Bitmap? warm))
+                if (s_pictureWork.TryTake(cacheKey, out Bitmap ready))
                 {
-                    // Made and uploaded ahead on the warmer's worker (and kept in the store): only cached now.
-                    Interlocked.Add(ref s_warmedBytes, -bytes);
-                    bitmap = warm;
+                    bitmap = ready;
                     Pictures.Add(key, w, h, bitmap, bytes);
-                    PaintStats.Loaded(start);
-                }
-                else if (s_store != null && ReadStored(key, w, h, bytes))
-                {
-                    // Made in an earlier launch of this build: its premultiplied bytes, read back.
-                    bitmap = ToBitmap(s_read, bytes, w, h, Bitmap.Config.Argb8888!);
-                    Pictures.Add(key, w, h, bitmap, bytes);
-                    PaintStats.Loaded(start);
                 }
                 else
                 {
-                    byte[] rgba = render(w, h);
-                    if (rgba.Length != bytes)
-                    {
-                        throw new ArgumentException("Picture " + UiRaster.CacheKey(key, w, h) + " rendered " + rgba.Length + " bytes, expected " + bytes + ".");
-                    }
-
-                    // ARGB_8888 holds premultiplied RGBA bytes; UiRaster renders straight alpha.
-                    Premultiply(rgba);
-                    bitmap = ToBitmap(rgba, bytes, w, h, Bitmap.Config.Argb8888!);
-                    // Dropped bitmaps are disposed, not recycled: a hardware canvas may still hold a recent frame's draws of them.
-                    Pictures.Add(key, w, h, bitmap, bytes);
-                    PaintStats.Rastered(key, w, h, start);
-
-                    // Kept for the next launches; the array is the store's from here.
-                    s_store?.Write(key, w, h, rgba, bytes);
+                    QueuePicture(key, w, h, render);
+                    return;
                 }
             }
+            if (_recording) return;
 
             _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
@@ -532,121 +513,57 @@ namespace Bloomlings.Playtest.Droid
 
         // ---- Warming (IPictureWarmer) ----
 
-        /// <summary>The most bytes of pictures made ahead and not drawn yet (a few screens' worth).</summary>
-        private const long WarmBytes = 48L * 1024 * 1024;
-
-        private static readonly ConcurrentDictionary<string, Bitmap> s_warmed = new ConcurrentDictionary<string, Bitmap>(StringComparer.Ordinal);
-
-        // The warmer's work, one batch after another on the thread pool, with its own upload buffer (the UI thread's is s_upload).
-        private static Task s_warmTail = Task.CompletedTask;
+        private static readonly PictureWorkQueue<Bitmap> s_pictureWork = new PictureWorkQueue<Bitmap>(
+            32L * 1024 * 1024, bitmap => bitmap.Dispose(),
+            () => Volatile.Read(ref s_redraw)?.Invoke(),
+            error => Android.Util.Log.Warn("Bloomlings", "Picture preparation failed: " + error.Message),
+            bitmap => bitmap.AllocationByteCount);
         private static Java.Nio.ByteBuffer? s_warmUpload;
         private static IntPtr s_warmUploadAddress;
         private static int s_warmUploadBytes;
-        private static readonly HashSet<string> s_warmQueued = new HashSet<string>(StringComparer.Ordinal);
-        private static long s_warmedBytes;
-        private static int s_warmTotal;
-        private static int s_warmDone;
         private static Bitmap? s_sinkBitmap;
         private static Canvas? s_sink;
-        private readonly List<(string Key, int W, int H, Func<int, int, byte[]> Render)> _recorded = new List<(string, int, int, Func<int, int, byte[]>)>();
         private bool _recording;
-
         public bool WarmsPictures => true;
+        public float WarmProgress => s_pictureWork.Progress;
 
-        public float WarmProgress
+        private static void QueuePicture(string key, int w, int h, Func<int, int, byte[]> render)
         {
-            get
+            int bytes = checked(w * h * 4);
+            s_pictureWork.Request(UiRaster.CacheKey(key, w, h), bytes, () =>
             {
-                int total = Volatile.Read(ref s_warmTotal);
-                return total == 0 ? 1f : Math.Min(1f, Volatile.Read(ref s_warmDone) / (float)total);
-            }
+                // Disk reads, rasterization, premultiplication and upload all belong to the producer.
+                byte[] rgba = s_store != null && s_store.Has(key, w, h) ? new byte[bytes] : Array.Empty<byte>();
+                bool stored = rgba.Length == bytes && s_store!.TryRead(key, w, h, 4, rgba);
+                if (!stored)
+                {
+                    rgba = render(w, h);
+                    if (rgba.Length != bytes) throw new ArgumentException("Invalid picture size: " + key);
+                    Premultiply(rgba);
+                    s_store?.Write(key, w, h, rgba, bytes);
+                }
+                return WarmBitmap(rgba, bytes, w, h);
+            });
         }
 
-        /// <summary>
-        /// Runs <paramref name="draw"/> on a one-pixel canvas (its sprites are decoded, its pictures noted, nothing shows and
-        /// its touch areas are forgotten), then makes the pictures it asked for on a worker thread: premultiplied and
-        /// uploaded into bitmaps as <see cref="Picture"/> does, kept in the store for the next launches, and held until a
-        /// frame draws them (at most <see cref="WarmBytes"/>). A picture already made, held or stored is not made again.
-        /// </summary>
         public void Warm(Action draw)
         {
             Canvas real = _canvas;
             var marks = FrameMarks();
             s_sink ??= new Canvas(s_sinkBitmap = Bitmap.CreateBitmap(1, 1, Bitmap.Config.Argb8888!)!);
             int save = s_sink.Save();
-            _recorded.Clear();
-            _canvas = s_sink;
-            _recording = true;
-            try
-            {
-                draw();
-            }
-            catch (Exception e)
-            {
-                Android.Util.Log.Warn("Bloomlings", "A warming draw failed: " + e.Message);
-            }
+            _canvas = s_sink; _recording = true;
+            try { draw(); }
             finally
             {
-                _recording = false;
-                s_sink.RestoreToCount(save);
-                _canvas = real;
-                ForgetSince(marks);
+                _recording = false; s_sink.RestoreToCount(save); _canvas = real; ForgetSince(marks);
             }
-
-            var jobs = new List<(string CacheKey, string Key, int W, int H, Func<int, int, byte[]> Render)>();
-            foreach ((string key, int w, int h, Func<int, int, byte[]> render) in _recorded)
-            {
-                string cacheKey = UiRaster.CacheKey(key, w, h);
-                if (s_warmQueued.Add(cacheKey))
-                {
-                    jobs.Add((cacheKey, key, w, h, render));
-                }
-            }
-
-            _recorded.Clear();
-            if (jobs.Count == 0)
-            {
-                return;
-            }
-
-            Interlocked.Add(ref s_warmTotal, jobs.Count);
-            PictureStore? store = s_store;
-            s_warmTail = s_warmTail.ContinueWith(_ =>
-            {
-                foreach ((string cacheKey, string key, int w, int h, Func<int, int, byte[]> render) in jobs)
-                {
-                    try
-                    {
-                        int bytes = w * h * 4;
-                        if (Interlocked.Read(ref s_warmedBytes) + bytes <= WarmBytes)
-                        {
-                            byte[] rgba = render(w, h);
-                            if (rgba.Length == bytes)
-                            {
-                                Premultiply(rgba);
-                                Bitmap bitmap = WarmBitmap(rgba, bytes, w, h);
-                                store?.Write(key, w, h, rgba, bytes);
-                                Interlocked.Add(ref s_warmedBytes, bytes);
-                                s_warmed[cacheKey] = bitmap;
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Android.Util.Log.Warn("Bloomlings", "Could not make " + cacheKey + " ahead: " + e.Message);
-                    }
-                    finally
-                    {
-                        Interlocked.Increment(ref s_warmDone);
-                    }
-                }
-            }, TaskScheduler.Default);
         }
 
         /// <summary>A premultiplied picture's bitmap, made on the warmer's worker through its own direct buffer (as <see cref="ToBitmap(byte[], int, int, int, Bitmap.Config)"/>).</summary>
-        private static Bitmap WarmBitmap(byte[] pixels, int bytes, int width, int height)
+        private static Bitmap WarmBitmap(byte[] pixels, int bytes, int width, int height, Bitmap.Config? config = null)
         {
-            Bitmap bitmap = Bitmap.CreateBitmap(width, height, Bitmap.Config.Argb8888!)!;
+            Bitmap bitmap = Bitmap.CreateBitmap(width, height, config ?? Bitmap.Config.Argb8888!)!;
             if (s_warmUpload == null || s_warmUploadBytes < bytes)
             {
                 s_warmUpload?.Dispose();
@@ -671,7 +588,6 @@ namespace Bloomlings.Playtest.Droid
         private const long StoreBytes = 160L * 1024 * 1024;
 
         private static PictureStore? s_store;
-        private static byte[] s_read = Array.Empty<byte>();
 
         /// <summary>
         /// Keeps the made pictures on disk between launches (<see cref="PictureStore"/>) in <paramref name="cacheFolder"/>'s
@@ -689,17 +605,6 @@ namespace Bloomlings.Playtest.Droid
             {
                 Failed = message => Android.Util.Log.Warn("Bloomlings", message),
             };
-        }
-
-        /// <summary>Reads a stored picture's bytes into <see cref="s_read"/>; false when it is not stored.</summary>
-        private static bool ReadStored(string key, int w, int h, int bytes)
-        {
-            if (s_read.Length < bytes)
-            {
-                s_read = new byte[bytes];
-            }
-
-            return s_store!.TryRead(key, w, h, 4, s_read);
         }
 
         // One direct buffer the made pictures' pixels go through to their bitmaps, grown to the largest so far: no Java array
@@ -746,7 +651,19 @@ namespace Bloomlings.Playtest.Droid
             }
         }
 
-        public override bool HasSprite(string name) => IsHeroFrame(name) ? HeroFrames.Has(name) : LoadSprite(name) != null;
+        public override bool HasSprite(string name)
+        {
+            if (IsHeroFrame(name)) return HeroFrames.Has(name);
+            if (!SpriteExists(name) || s_pictureWork.Failed("sprite/" + name)) return false;
+            LoadSprite(name);
+            return true;
+        }
+
+        private static bool SpriteExists(string name)
+        {
+            string? grey = GreySource(name);
+            return grey != null ? SpriteExists(grey) : PlaytestFiles.Has(SpriteResource(name));
+        }
 
         public override (int Width, int Height)? SpriteSize(string name)
         {
@@ -781,7 +698,8 @@ namespace Bloomlings.Playtest.Droid
                     alpha = (bytes, w, h);
                 }
 
-                Alphas[name] = alpha;
+                // A pending sprite has no alpha yet; do not cache that temporary absence.
+                if (bitmap != null || !SpriteExists(name) || s_pictureWork.Failed("sprite/" + name)) Alphas[name] = alpha;
             }
 
             return alpha;
@@ -862,20 +780,36 @@ namespace Bloomlings.Playtest.Droid
         /// <summary>A picture the APK carries (a character or an owner picture, <see cref="PlaytestFiles"/>), decoded once; null (logged once) when it is missing.</summary>
         private static Bitmap? LoadSprite(string name)
         {
-            if (MissingSprites.Contains(name)) return null;
             if (Sprites.TryGet(name, 0, 0, out Bitmap cached)) return cached;
+            if (!SpriteExists(name) || s_pictureWork.Failed("sprite/" + name)) return null;
+            if (s_pictureWork.TryTake("sprite/" + name, out Bitmap ready))
+            {
+                Sprites.Add(name, 0, 0, ready, ready.AllocationByteCount);
+                return ready;
+            }
+            s_pictureWork.Request("sprite/" + name, 0, () =>
+            {
+                Bitmap bitmap = DecodeSprite(name) ?? throw new InvalidOperationException("Could not decode " + name);
+                bitmap.PrepareToDraw();
+                return bitmap;
+            });
+            return null;
+        }
+
+        private static Bitmap? DecodeSprite(string name)
+        {
             Bitmap? bitmap = null;
             {
                 string? grey = GreySource(name);
                 if (grey != null)
                 {
                     // A grey copy (a stuck slot's tile icon), made once from its picture.
-                    Bitmap? source = LoadSprite(grey);
+                    using Bitmap? source = DecodeSprite(grey);
                     bitmap = source != null ? Greyed(source) : null;
                 }
                 else if (name.StartsWith("gameplay/pod-", StringComparison.Ordinal))
                 {
-                    Bitmap? atlas = LoadSprite("gameplay/atlas");
+                    using Bitmap? atlas = DecodeSprite("gameplay/atlas");
                     var cell = GameplaySkin.PodCell(name.Substring(13));
                     if (atlas != null && cell.HasValue)
                     {
@@ -989,8 +923,7 @@ namespace Bloomlings.Playtest.Droid
                     }
                 }
 
-                if (bitmap != null) Sprites.Add(name, 0, 0, bitmap, bitmap.AllocationByteCount);
-                else MissingSprites.Add(name);
+
             }
 
             return bitmap;

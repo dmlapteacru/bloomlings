@@ -18,6 +18,11 @@ using Bloomlings.Playtest;
 
 string Root = FindRoot();
 int cases = 0, failures = 0;
+foreach (string failure in Bloomlings.Playtest.Check.PictureWorkChecks.Run())
+{
+    failures++;
+    Console.WriteLine("FAIL resources: " + failure);
+}
 
 var pictures = Directory.GetFiles(Path.Combine(Root, "content/pictures/lib"), "*.json").Select(f => BasePictureJson.Read(File.ReadAllText(f))).Select(p => p with { Review = p.Review with { Status = ReviewStatus.Approved } }).ToDictionary(p => p.Id);
 var runs = new List<(string Name, LevelDefinition Level, BasePicture Picture, IReadOnlyList<Command> Commands, int Budget)>();

@@ -56,6 +56,14 @@ namespace Bloomlings.Playtest
         }
 
 #if !PLAYTEST_TESTER
+#pragma warning disable CS0618, CS0672, CA1422
+        public override void OnTrimMemory(Android.Content.TrimMemory level)
+        {
+            base.OnTrimMemory(level);
+            Droid.AndroidPainter.ReleaseUnused();
+        }
+#pragma warning restore CS0618, CS0672, CA1422
+
 #pragma warning disable CS0618, CS0672, CA1422 // The older back key path, still used while the system does not route back to callbacks.
         public override void OnBackPressed()
         {

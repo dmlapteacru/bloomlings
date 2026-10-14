@@ -104,6 +104,7 @@ namespace Bloomlings.Playtest
         {
             NewUnlocks.Clear();
             if (level != Progression.CurrentLevel) return null;
+            using var saveBatch = _saves.Batch();
             if (definition != null && picture != null && achievements != null)
                 achievements.RecordWin(Save, level, definition, picture, boostersUsed);
             if (!Progression.CompleteLevel(level))

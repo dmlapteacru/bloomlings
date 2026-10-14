@@ -223,6 +223,18 @@ namespace Bloomlings.Playtest.Preview
                 }
             }
 
+            /// <summary>Keep pumping real readiness gates before the scripted player can touch the new level.</summary>
+            public void Ready()
+            {
+                var timeout = Stopwatch.StartNew();
+                while (_app.Transitioning || _app.PreparingLevel)
+                {
+                    if (timeout.Elapsed > TimeSpan.FromSeconds(30)) throw new InvalidOperationException("Level preparation did not finish");
+                    Step();
+                    if (SkiaPainter.Warms && _p.WarmProgress < 1f) System.Threading.Thread.Sleep(1);
+                }
+            }
+
             /// <summary>A finger pressing <paramref name="box"/>'s middle for <paramref name="hold"/> s, lifting (a tap), then the spring-back.</summary>
             public void Press(Box box, float hold = 0.12f, float after = 0.3f)
             {
@@ -364,6 +376,7 @@ namespace Bloomlings.Playtest.Preview
                 app.LoadLevel(88);
             }
 
+            journey.Ready();
             CloseDemo(app);
             LevelScreen played = app.Level!;
             SolveResult win = new Solver.Solver().Solve(Session(content, played.Level), SolveOptions.Default);
@@ -388,9 +401,11 @@ namespace Bloomlings.Playtest.Preview
             journey.Play(win.Trace.Skip(win.Trace.Count - 1).ToList(), 1, gap: 0.1f);
             journey.Settle();
             journey.Run(3f);
+            if (!played.Won) throw new InvalidOperationException("Performance journey did not finish level " + played.Level + ": " + played.Session.Status + ", guide=" + played.Guide?.Kind + ", demo=" + played.Demo + ", trace=" + win.Trace.Count + ", current=" + app.Level?.Level);
             journey.Begin("Win: Next, lotus iris to the next level");
             app.Level!.Next();
             journey.Run(2.5f);
+            journey.Ready();
 
             // A big board (the icons look, over 288 cells) and a jam on a level of the content.
             int big = BigLevel(content, app);
@@ -400,6 +415,7 @@ namespace Bloomlings.Playtest.Preview
                 CloseDemo(app);
                 journey.Begin($"Level {big} (big board {Cells(content, app, big)} cells): open");
                 journey.Run(0.5f);
+                journey.Ready();
                 SolveResult bigWin = new Solver.Solver().Solve(Session(content, big), SolveOptions.Default);
                 journey.Begin($"Level {big}: taps and clearing");
                 journey.Play(bigWin.Trace, Math.Min(8, bigWin.Trace.Count - 1));
@@ -409,6 +425,7 @@ namespace Bloomlings.Playtest.Preview
             CloseDemo(app);
             journey.Begin("Level 28: open");
             journey.Run(0.3f);
+            journey.Ready();
             SolveResult jam = new Solver.Solver().FindJam(Session(content, app.Level!.Level), SolveOptions.Default);
             journey.Begin("Level 28: play to a jam, the sheet rises");
             journey.Play(jam.Trace, jam.Trace.Count);

@@ -47,7 +47,13 @@ namespace Bloomlings.Playtest.Design
         public void NextFrame()
         {
             _frame++;
-            if (Bytes <= BudgetBytes)
+            TrimUnused(BudgetBytes);
+        }
+
+        /// <summary>Releases older screens under memory pressure, retaining images used in the last two frames.</summary>
+        public void TrimUnused(long targetBytes = 0)
+        {
+            if (Bytes <= targetBytes)
             {
                 return;
             }
@@ -64,7 +70,7 @@ namespace Bloomlings.Playtest.Design
             _old.Sort((a, b) => a.Value.LastFrame.CompareTo(b.Value.LastFrame));
             foreach (KeyValuePair<(string Key, int Width, int Height), Entry> entry in _old)
             {
-                if (Bytes <= BudgetBytes)
+                if (Bytes <= targetBytes)
                 {
                     break;
                 }

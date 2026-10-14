@@ -349,7 +349,8 @@ namespace Bloomlings.Playtest.Design
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
             if(shadow) p.FillRound(outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), GameplaySkin.BoardCornerRadius(t), C.GardenShadow.WithAlpha(0.22f));
-            float rimShare = t / Math.Min(outer.Width, outer.Height);
+            // Moving/scaling a board can perturb the last float bits without changing the raster's geometry.
+            float rimShare = (float)Math.Round(t / Math.Min(outer.Width, outer.Height), 5);
             p.Picture("gameplay.board.rim/" + thickness + "/" + rimShare, outer, (w, h) => GameplaySkin.BoardRim(w, h, rimShare));
             p.FillRound(inner, gap * 2f, GardenLook.BoardGap);
 

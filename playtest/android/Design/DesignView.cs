@@ -26,6 +26,7 @@ namespace Bloomlings.Playtest.Droid
         public DesignView(Context context)
             : base(context)
         {
+            Bloomlings.Client.UI.Design.UiRaster.ParallelRows = false;
             var sound = new PlaytestSound(context);
             var output = new SoundOut(sound);
             _app = new DesignApp(context.FilesDir!.AbsolutePath, PlaytestContent.Load(), output);

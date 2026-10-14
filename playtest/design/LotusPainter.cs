@@ -124,10 +124,12 @@ namespace Bloomlings.Playtest.Design
             {
                 (float x, float y, float turn) = l.PetalAt(i, pose.RingSpin);
                 (float lit, float scale) = LotusIris.PetalState(i, pose.RingLit);
-                float side = l.Petal * scale;
+                float side = l.Petal;
                 p.PushRotate(turn, x, y);
+                p.PushTransform(0, 0, scale, x, y);
                 p.Shape(LotusIris.PetalShape, Box.FromCenter(x, y, side * LotusIris.PetalLineScale, side * LotusIris.PetalLineScale), LotusIris.PetalLine(lit));
                 p.Shape(LotusIris.PetalShape, Box.FromCenter(x, y, side, side), LotusIris.PetalFill(lit));
+                p.PopTransform();
                 p.PopTransform();
             }
 
