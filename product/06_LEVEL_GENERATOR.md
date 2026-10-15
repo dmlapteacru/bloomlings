@@ -397,3 +397,13 @@ fairness still apply. Existing definitions and production pictures are not regen
 The three restored engineering fixtures and their exact local generation recipes are documented in
 `content/pictures/dev/README.md`. Their pictures are separate from the production library and explicitly included
 only in the tester/desktop preview. Dense-board completed images retain their gameplay tile style in win/Collection.
+
+## Approved size distribution (owner amendment, 2026-10-15)
+
+For the new L1–2500 composition library, the approved weighted distribution and pacing rules are recorded in
+[`content/pictures/art-direction.md`](../content/pictures/art-direction.md#согласованное-распределение-размеров-по-уровням).
+This supersedes the old equal-size production target from L11. At L51–100, 65% of boards are large/very large;
+at L301–2500, compact boards are removed: 20% medium (around 21×24–22×26), 60% large, 20% very large.
+The percentage quotas, pacing and art migration remain to be implemented; the current picker/validator and existing
+catalog have not changed. Large-board mystery restrictions still apply and need separate review before reintroducing
+Mystery on the new post-L300 size mix. Visible tile symbols are independent of the stored `boardLook` layer policy.
