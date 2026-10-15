@@ -1,0 +1,67 @@
+{
+  "id": "story_snail_tea_house",
+  "version": 1,
+  "subject": "Чайная на спине улитки",
+  "width": 22,
+  "height": 28,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Небо",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "shadow",
+      "name": "Вода / зелень",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "leaf",
+      "name": "Листва",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "amber",
+      "name": "Тёплая охра",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "petal",
+      "name": "Чайник",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "light",
+      "name": "Свет",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "m": "shadow",
+    "g": "leaf",
+    "a": "amber",
+    "p": "petal",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "story-pilot"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "origin": "content/pictures/pilot/references/story-concepts-v1.png; hand-authored target-cell grid",
+    "licence": "owned"
+  }
+}

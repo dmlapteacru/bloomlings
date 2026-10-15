@@ -126,10 +126,11 @@ Required:
 - five-slot UI;
 - special-object assets;
 - quiet background themes;
-- picture library: 100 different base pictures for Levels 1–100, an estimated 800–1000 composed pictures for the 2500-level launch, to be calibrated after the art pilot (`06_LEVEL_GENERATOR.md` §23);
+- picture library: 2500 unique compositions for 2500 launch levels, each used once; resize/mirror/recolor variants do not count (owner amendment, 2026-10-15) (`06_LEVEL_GENERATOR.md` §23);
 - automatic finished-picture rendering, with bespoke illustrations only where chosen (e.g. milestones).
 
-The 2500 levels reuse a curated library of compositions with controlled repetition.
+The new 2500-level art library must use each composition once. The existing catalog still uses legacy reuse rules
+and is not evidence that 2500 unique compositions are already ready.
 
 ## 9. Generator/solver launch gate
 
@@ -140,7 +141,7 @@ Before release:
 - mechanic unlock constraints pass;
 - palette/readability constraints pass;
 - every base picture reviewed; subject recognizable at level start;
-- picture reuse limits pass (Levels 1–100 unique, no repeat within 50 levels);
+- 2500 visually reviewed, unique compositions cover L1–2500 exactly once; resize/mirror/recolor copies do not count;
 - no booster-required solutions;
 - no invalid hidden-information dependencies.
 

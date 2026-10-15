@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "launchCompositionTarget": 2500,
+  "policy": {
+    "oneCompositionPerLaunchLevel": true,
+    "resizeMirrorRecolorAreNewComposition": false,
+    "dailyIsSeparate": true
+  },
+  "compositions": [
+    {
+      "compositionId": "story_pear_lighthouse",
+      "pictureId": "story_pear_lighthouse",
+      "version": 1,
+      "title": "Маяк внутри груши",
+      "story": "Груша стала маяком; луч из окна освещает море.",
+      "width": 14,
+      "height": 16,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "moss",
+        "leaf": "leaf",
+        "amber": "acorn",
+        "light": "vine",
+        "door": "violet_bud"
+      },
+      "sampleLevel": 501,
+      "sampleSeed": 3
+    },
+    {
+      "compositionId": "story_suitcase_island",
+      "pictureId": "story_suitcase_island",
+      "version": 1,
+      "title": "Остров в чемодане",
+      "story": "Путешественник открыл чемодан, а внутри вырос остров с морем и пальмой.",
+      "width": 18,
+      "height": 22,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "water",
+        "wood": "violet_bud",
+        "amber": "acorn",
+        "leaf": "leaf",
+        "light": "vine"
+      },
+      "sampleLevel": 551,
+      "sampleSeed": 3
+    },
+    {
+      "compositionId": "story_snail_tea_house",
+      "pictureId": "story_snail_tea_house",
+      "version": 1,
+      "title": "Чайная на спине улитки",
+      "story": "Улитка везёт чайную; её раковина — чайник с окошком обслуживания.",
+      "width": 22,
+      "height": 28,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "moss",
+        "leaf": "leaf",
+        "amber": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "sampleLevel": 601,
+      "sampleSeed": 2
+    }
+  ]
+}

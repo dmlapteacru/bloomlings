@@ -1,0 +1,86 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, -1, -1, -1, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1, -1, -1, -1],
+    [-1, -1, -1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, -1, -1, -1],
+    [-1, -1, 3, 5, 5, 3, 2, 3, 3, 3, 3, 2, 3, 5, 5, 3, -1, -1],
+    [-1, 3, 3, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 3, 3, -1],
+    [3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3],
+    [0, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 0, 0, 0, 0, 1, 3, 0],
+    [0, 3, 1, 1, 1, 5, 5, 3, 3, 5, 5, 5, 1, 1, 1, 1, 3, 0],
+    [0, 3, 1, 0, 0, 0, 5, 3, 3, 5, 5, 1, 1, 1, 1, 3, 3, 0],
+    [0, 0, 3, 1, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1, 1, 3, 0, 0],
+    [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0],
+    [0, 0, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 3, 0, 0],
+    [0, 0, 3, 2, 2, 4, 2, 2, 2, 3, 3, 2, 4, 4, 2, 3, 0, 0],
+    [0, 0, 3, 2, 2, 4, 4, 4, 2, 3, 3, 2, 4, 2, 2, 3, 0, 0],
+    [0, 0, 3, 2, 2, 2, 4, 4, 4, 2, 3, 4, 2, 2, 4, 3, 0, 0],
+    [0, 0, 3, 2, 4, 2, 2, 4, 4, 2, 4, 4, 4, 4, 2, 3, 0, 0],
+    [0, 0, 3, 2, 2, 4, 4, 4, 2, 2, 4, 4, 4, 4, 2, 3, 0, 0],
+    [0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 3, 0, 0],
+    [0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 3, 0, 0],
+    [-1, 0, 3, 5, 5, 3, 3, 3, 3, 3, 3, 3, 4, 5, 5, 3, 0, -1],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1],
+    [-1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1],
+    [-1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1]
+  ],
+  "height": 22,
+  "id": "story_suitcase_island",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Небо",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Море",
+      "roleId": "shadow"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Тёмная подкладка",
+      "roleId": "wood"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Тёплая охра",
+      "roleId": "amber"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Листва",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Свет",
+      "roleId": "light"
+    }
+  ],
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/pictures/pilot/references/story-concepts-v1.png; hand-authored target-cell grid"
+  },
+  "structure": {
+    "backgroundShare": 0.265,
+    "nestingDepth": 4,
+    "regionCount": 32
+  },
+  "subject": "Остров в чемодане",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["story-pilot"]
+  },
+  "version": 1,
+  "width": 18
+}

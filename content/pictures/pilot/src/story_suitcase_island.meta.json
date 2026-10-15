@@ -1,0 +1,67 @@
+{
+  "id": "story_suitcase_island",
+  "version": 1,
+  "subject": "Остров в чемодане",
+  "width": 18,
+  "height": 22,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Небо",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "shadow",
+      "name": "Море",
+      "colorGroup": "blue_cyan"
+    },
+    {
+      "roleId": "wood",
+      "name": "Тёмная подкладка",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "amber",
+      "name": "Тёплая охра",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "leaf",
+      "name": "Листва",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "light",
+      "name": "Свет",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "m": "shadow",
+    "b": "wood",
+    "a": "amber",
+    "g": "leaf",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "story-pilot"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "origin": "content/pictures/pilot/references/story-concepts-v1.png; hand-authored target-cell grid",
+    "licence": "owned"
+  }
+}

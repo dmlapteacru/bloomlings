@@ -183,6 +183,9 @@ namespace Bloomlings.Pipeline.Commands
                 int max = levels.Count == 0 ? 0 : levels.Keys.Max();
                 for (int start = 11; start + 99 <= max; start += 100)
                 {
+                    // A pilot or band review may be sparse. Missing levels are not Normal levels;
+                    // judge the class mix only when the entire block is actually present.
+                    if (Enumerable.Range(start, 100).Any(n => !levels.ContainsKey(n))) continue;
                     int hard = 0;
                     int superHard = 0;
                     for (int n = start; n < start + 100; n++)
@@ -211,7 +214,8 @@ namespace Bloomlings.Pipeline.Commands
                     }
                 }
 
-                // SC-012: Levels 1–100 use 100 different pictures; no picture repeats within 50 consecutive levels.
+                // Legacy picture-window statistics. The replacement launch's 2500 unique compositions
+                // are audited separately by tools/catalog/check-compositions.py against the art registry.
                 var firstHundred = levels.Values.Where(l => l.LevelNumber <= 100).ToList();
                 int distinct = firstHundred.Select(l => l.Picture.Id).Distinct(StringComparer.Ordinal).Count();
                 int repeatsInFirstHundred = firstHundred.Count - distinct;
@@ -242,7 +246,7 @@ namespace Bloomlings.Pipeline.Commands
                     ["minReuseGap"] = minGap == int.MaxValue ? (JToken)JValue.CreateNull() : minGap,
                     ["repeatsWithin50"] = closeRepeats,
                 };
-                Cli.Say(parse, $"  similarity: {distinct} distinct pictures in {firstHundred.Count} levels up to L100, {lastUse.Count} pictures overall, smallest reuse gap {(minGap == int.MaxValue ? "none" : minGap.ToString(CultureInfo.InvariantCulture))}, {closeRepeats.Count} repeats within 50 levels (SC-012).");
+                Cli.Say(parse, $"  similarity: {distinct} distinct pictures in {firstHundred.Count} levels up to L100, {lastUse.Count} pictures overall, smallest reuse gap {(minGap == int.MaxValue ? "none" : minGap.ToString(CultureInfo.InvariantCulture))}, {closeRepeats.Count} repeats within 50 levels (legacy picture windows).");
 
                 report["blocks"] = blocks;
                 report["reliefViolations"] = relief;

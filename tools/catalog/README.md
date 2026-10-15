@@ -171,3 +171,19 @@ normal Windows catalog generation still needs only PowerShell, .NET 10 and Git.
 
 Pipeline tests additionally publish a real small fixture through the solver gate, decode its output packs, verify
 that unreferenced pictures/future definitions are excluded, and reject incomplete requested ranges.
+
+## Unique story-art pilot (2026-10-15)
+
+The replacement launch art requires **2500 unique compositions, used once each**. The existing catalog and normal
+resume scripts still implement legacy repetition rules; running them does not turn the old art into 2500 unique scenes.
+The first three independently drawn grids and solved examples live outside the production library in
+[`content/pictures/pilot`](../../content/pictures/pilot/README.md). To reproduce this small pilot on your own computer:
+
+```powershell
+./tools/catalog/build-art-pilot.ps1 -Render
+```
+
+It imports, generates, solves, validates and scores into `content/work/art-pilot-local/` only; no APK is built.
+`check-compositions.py` audits registered picture identities and structural copies. Its `--complete` mode additionally
+requires full launch coverage and visual approvals; the three-scene pilot intentionally cannot pass that release check.
+The audit is a separate command until the replacement library and catalog are ready to connect to publication.

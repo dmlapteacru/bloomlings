@@ -135,13 +135,14 @@ Need a growing library of base pictures:
 - readable as the subject at board size with tile symbols on;
 - hand-drawn, generated, or generated and then edited.
 
-Scale:
-- Levels 1–100: 100 different base pictures;
-- 2500-level launch: production estimate 800–1000 composed base pictures, roughly 2–3 uses on average; calibrate after the pilot. Recoloring or mirroring alone does not count as a new composition in the art plan.
+Scale (owner amendment, 2026-10-15): **2500 unique compositions for the 2500-level launch**, one use per composition.
+Resizing, mirroring and recoloring do not count as new art. Build the library in reviewable batches with stable
+composition IDs; the three-scene pilot is only a style/readability check. The earlier 800–1000 reuse estimate is withdrawn.
 
 Every base picture is manually reviewed for recognizability and gameplay usability before first use.
 
-The launch reuses reviewed compositions with controlled repetition; future catalogs can expand the library.
+The new launch art must not repeat compositions. The current legacy catalog has not yet been replaced; enforce
+registry coverage and one use per composition across L1–2500 when migrating. Future catalogs add new compositions.
 
 ## 11. Backgrounds
 

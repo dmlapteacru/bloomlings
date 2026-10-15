@@ -321,10 +321,13 @@ Track recent:
 
 Reject repetitive sequences.
 
-Hard rules:
-- Levels 1–100: every level uses a different base picture;
-- the same base picture never appears twice within 50 consecutive levels;
-- a reused base picture must differ in role → variant mapping or mirroring **and** in Source design.
+New launch-art rule (owner amendment, 2026-10-15):
+- L1–2500 use 2500 different compositions, one use each;
+- resize/mirror/recolor and different Source difficulty do not create a new composition.
+
+The current picker and existing source catalog still implement the legacy rules (first 100 unique, no reuse within
+50, changed mapping/mirror and Source on reuse). They are retained until the art migration; passing them does not
+satisfy the new launch-art requirement. The composition registry audit must pass before publishing the replacement art.
 
 ## 21. QA strategy
 
@@ -373,8 +376,8 @@ Sources:
 - generated;
 - generated and then edited.
 
-Size estimate:
-- Levels 1–100 need 100 different base pictures;
-- for the 2500-level launch, the new art production estimate is 800–1000 composed pictures with roughly 2–3 uses on average; calibrate this after the pilot. Recoloring/mirroring alone does not count as a new composition in the art budget.
-
-Exact library size and production plan are decided in implementation planning.
+Owner amendment, 2026-10-15: the launch needs **2500 unique compositions for 2500 levels**, each used once.
+Resizing, mirroring, recoloring or changing the difficulty does not create another composition. This supersedes the
+800–1000 estimate and the reuse plan for new launch art. The existing catalog/picker still follows the legacy windows;
+it must be migrated and checked against the composition registry before claiming this target is met.
+Pilot batches validate art quality; they are never recycled to fill the launch. See `content/pictures/art-direction.md`.

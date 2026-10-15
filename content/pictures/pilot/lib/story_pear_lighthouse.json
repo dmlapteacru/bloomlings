@@ -1,0 +1,80 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, -1, -1, -1],
+    [-1, -1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, -1, -1],
+    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, -1],
+    [1, 0, 0, 1, 2, 2, 2, 3, 3, 2, 1, 1, 1, 1],
+    [1, 1, 1, 1, 2, 2, 2, 3, 3, 2, 2, 1, 1, 1],
+    [0, 0, 0, 0, 2, 2, 2, 5, 3, 2, 2, 0, 0, 0],
+    [4, 4, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0],
+    [4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [4, 4, 4, 4, 4, 2, 5, 5, 5, 0, 0, 0, 0, 0],
+    [4, 4, 4, 4, 4, 4, 5, 4, 4, 0, 0, 0, 0, 0],
+    [4, 4, 4, 4, 4, 4, 5, 5, 5, 0, 0, 0, 0, 0],
+    [4, 4, 4, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0],
+    [4, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 3, 1, 1, 1, 0, 0, -1],
+    [-1, -1, 0, 0, 0, 0, 0, 3, 0, 1, 1, 1, -1, -1],
+    [-1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1]
+  ],
+  "height": 16,
+  "id": "story_pear_lighthouse",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Небо",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Вода / зелень",
+      "roleId": "shadow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Листва",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Тёплая охра",
+      "roleId": "amber"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Свет",
+      "roleId": "light"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Тёмное окно",
+      "roleId": "door"
+    }
+  ],
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/pictures/pilot/references/story-concepts-v1.png; hand-authored target-cell grid"
+  },
+  "structure": {
+    "backgroundShare": 0.361,
+    "nestingDepth": 4,
+    "regionCount": 17
+  },
+  "subject": "Маяк внутри груши",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["story-pilot"]
+  },
+  "version": 1,
+  "width": 14
+}

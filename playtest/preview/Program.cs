@@ -29,6 +29,7 @@ string? before = null;
 HashSet<int>? only = null;
 bool sounds = false;
 bool promoMotion = false;
+bool mosaicPilot = false;
 string? shape = null;
 bool perf = false;
 string? csv = null;
@@ -59,6 +60,10 @@ for (int i = 0; i < args.Length; i++)
     else if (args[i] == "--promo-motion")
     {
         promoMotion = true;
+    }
+    else if (args[i] == "--mosaic-pilot")
+    {
+        mosaicPilot = true;
     }
     else if (args[i] == "--sounds")
     {
@@ -117,6 +122,12 @@ for (int i = 0; i < args.Length; i++)
     {
         csv = Path.GetFullPath(args[++i]);
     }
+}
+
+if (mosaicPilot)
+{
+    MosaicPilotPreview.Write(root, outDir);
+    return 0;
 }
 
 if (purchaseComparison != null)

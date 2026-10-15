@@ -1,0 +1,67 @@
+{
+  "id": "story_pear_lighthouse",
+  "version": 1,
+  "subject": "Маяк внутри груши",
+  "width": 14,
+  "height": 16,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Небо",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "shadow",
+      "name": "Вода / зелень",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "leaf",
+      "name": "Листва",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "amber",
+      "name": "Тёплая охра",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "light",
+      "name": "Свет",
+      "colorGroup": "lime"
+    },
+    {
+      "roleId": "door",
+      "name": "Тёмное окно",
+      "colorGroup": "pink_purple"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "m": "shadow",
+    "g": "leaf",
+    "a": "amber",
+    "y": "light",
+    "v": "door"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "story-pilot"
+    ],
+    "bands": [
+      "regular"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "origin": "content/pictures/pilot/references/story-concepts-v1.png; hand-authored target-cell grid",
+    "licence": "owned"
+  }
+}
