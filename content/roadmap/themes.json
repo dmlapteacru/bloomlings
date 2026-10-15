@@ -1,5 +1,5 @@
 {
-  "note": "Background themes by level band (FR-066, T146). Visual only: no navigable areas. Before startLevel every level uses the first theme; from startLevel the next theme starts every bandLength levels (L100 pond, L150 orchard, L200 moonlit garden, L250 fern glade, L300 willow brook, L350 daylight garden again). Mirrored by ThemeRotation.Default in the client.",
+  "note": "Background themes by level band (FR-066, T146). Visual only: no navigable areas. Before startLevel every level uses the first theme; from startLevel the next theme starts every bandLength levels (L100 pond, L150 orchard, L200 moonlit garden, L250 fern glade, L300 willow brook, L350 pear garden, L400 citrus grove, L450 plum garden, L500 daylight garden again). Mirrored by ThemeRotation.Default in the client.",
   "startLevel": 100,
   "bandLength": 50,
   "themes": [
@@ -38,6 +38,24 @@
       "name": "Willow Brook",
       "background": "#E5F0EF",
       "accent": "#C9E3DD"
+    },
+    {
+      "id": "pear",
+      "name": "Pear Garden",
+      "background": "#E9F1E6",
+      "accent": "#DDE7CB"
+    },
+    {
+      "id": "citrus",
+      "name": "Citrus Grove",
+      "background": "#F0F2E4",
+      "accent": "#E6E7CA"
+    },
+    {
+      "id": "plum",
+      "name": "Plum Garden",
+      "background": "#EAEFF0",
+      "accent": "#DADFEA"
     }
   ]
 }

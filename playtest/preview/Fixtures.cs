@@ -121,7 +121,7 @@ namespace Bloomlings.Playtest.Preview
                 Scene(OwnerPictures.Profile, app.OpenProfile);
                 app.OpenProfileEdit(ProfileTab.Avatar); p.Slots.Clear(); Run(app, p, .1f);
                 Expect(p.Slots.Contains("bg.profile"), "the editor shares the profile's pond terrace");
-                foreach (string picture in new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit", "gameplay-fern", "gameplay-willow", OwnerPictures.Win })
+                foreach (string picture in new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit", "gameplay-fern", "gameplay-willow", "gameplay-pear", "gameplay-citrus", "gameplay-plum", OwnerPictures.Win })
                     Expect(p.HasSprite(PainterBase.BackgroundPrefix + picture), "theme and victory assets are bundled: " + picture);
 
                 // The new garden cover must reveal the incoming screen, rather than
@@ -148,7 +148,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Meta.Wardrobe.Profile.Badge?.Id == "badge.achievement.hero_sprig", "the completed hero medal can be worn");
             });
 
-            foreach (var garden in new[] { (Frame:101, Level:250, Name:"fern"), (Frame:102, Level:300, Name:"willow") })
+            foreach (var garden in new[] { (Frame:101, Level:250, Name:"fern"), (Frame:102, Level:300, Name:"willow"), (Frame:103, Level:350, Name:"pear"), (Frame:104, Level:400, Name:"citrus"), (Frame:105, Level:450, Name:"plum") })
                 yield return new Fixture(garden.Frame, "gameplay-"+garden.Name, "The quiet garden behind the real gameplay board", (p, data) =>
                 {
                     var app = Progressed(App(data), content, garden.Level-1);

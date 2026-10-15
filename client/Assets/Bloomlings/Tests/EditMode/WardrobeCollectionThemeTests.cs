@@ -252,9 +252,10 @@ namespace Bloomlings.Client.Tests
         public void Themes_RotateByBand_AndMirrorTheRoadmapFile()
         {
             ThemeRotation rotation = ThemeRotation.Default;
-            Assert.That(new[] { 1, 99, 100, 149, 150, 200, 250, 300 }.Select(l => rotation.ThemeFor(l).Id), Is.EqualTo(new[]
+            Assert.That(new[] { 1, 99, 100, 149, 150, 200, 250, 300, 350, 399, 400, 449, 450, 499, 500, 550, 949, 950 }.Select(l => rotation.ThemeFor(l).Id), Is.EqualTo(new[]
             {
                 "daylight_garden", "daylight_garden", "pond", "pond", "orchard", "moonlit_garden", "fern", "willow",
+                "pear", "pear", "citrus", "citrus", "plum", "plum", "daylight_garden", "pond", "plum", "daylight_garden",
             }));
 
             ThemeRotation file = ThemeRotation.Parse(File.ReadAllText(Path.Combine(DevContent.RepositoryContentFolder, "roadmap", "themes.json")));

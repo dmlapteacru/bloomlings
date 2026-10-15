@@ -94,6 +94,30 @@
    "bytes": 194142
   },
   {
+   "name": "gameplay-pear.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "440ede193200b0f3617270bb6288eaab55097e768fbaab1a2e5c5e3eddc08117",
+   "sha256": "641665b5c385fcc34da7c34eaee9606574ed5ea8edaf934ce64dc6dbe9ae33d3",
+   "bytes": 194532
+  },
+  {
+   "name": "gameplay-citrus.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "462fa0569c8a1f86d5c5f8aa18a266ac2340c11c18dc64537398a8bf28a0ad65",
+   "sha256": "0b0d833b136adfe7bed90e878fa50ddb940ac1cad22c453c6592329474798272",
+   "bytes": 189307
+  },
+  {
+   "name": "gameplay-plum.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "87e0f41228b912e503b1ebc6d3cfedc1fa8a16d7bd1cab2bc9d202a56a9a07b9",
+   "sha256": "de1ed5e8658510bf873f64ef22d42b9ffc67785e30280b59e7db5749bb0c5446",
+   "bytes": 197637
+  },
+  {
    "name": "wardrobe.jpg",
    "blur": true,
    "dim": true,

@@ -18,7 +18,7 @@ namespace Bloomlings.Client.Tests
         {
             // Spec 005 pictures.md B: one gameplay picture per theme, Home and the splash.
             var names = Gameplay.Themes.ThemeRotation.Default.Themes.Select(t => OwnerPictures.Gameplay(t.Id)).ToList();
-            Assert.That(names, Is.EquivalentTo(new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit", "gameplay-fern", "gameplay-willow" }));
+            Assert.That(names, Is.EquivalentTo(new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit", "gameplay-fern", "gameplay-willow", "gameplay-pear", "gameplay-citrus", "gameplay-plum" }));
             foreach (Gameplay.Themes.BackgroundTheme theme in Gameplay.Themes.ThemeRotation.Default.Themes)
             {
                 Assert.That(AssetSlots.Has("bg.theme." + theme.Id), Is.True, theme.Id);

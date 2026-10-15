@@ -9,10 +9,11 @@ namespace Bloomlings.Client.Gameplay.Themes
     public sealed record BackgroundTheme(string Id, string Name, string Background, string Accent);
 
     /// <summary>
-    /// Background themes by level band (FR-066, T146): daylight garden, pond, orchard and moonlit garden. Before
+    /// Background themes by level band (FR-066, T146), including the owner’s additional garden scenes. Before
     /// <see cref="StartLevel"/> (the roadmap's <c>system.theme_rotation</c>, L100) every level uses the first theme; from
     /// there the next theme starts every <see cref="BandLength"/> levels (L100 pond, L150 orchard, L200 moonlit garden,
-    /// L250 fern glade, L300 willow brook, L350 daylight garden again, ...). Visual only: there are no areas to navigate, and
+    /// L250 fern glade, L300 willow brook, L350 pear garden, L400 citrus grove, L450 plum garden,
+    /// L500 daylight garden again, ...). Visual only: there are no areas to navigate, and
     /// every theme keeps a light background so tiles and pods stay readable. <see cref="Default"/> mirrors
     /// <c>content/roadmap/themes.json</c>. Engine-free.
     /// </summary>
@@ -44,6 +45,9 @@ namespace Bloomlings.Client.Gameplay.Themes
             new BackgroundTheme("moonlit_garden", "Moonlit Garden", "#E3E3F0", "#CACBE3"),
             new BackgroundTheme("fern", "Fern Glade", "#E5F0E9", "#CDE4D8"),
             new BackgroundTheme("willow", "Willow Brook", "#E5F0EF", "#C9E3DD"),
+            new BackgroundTheme("pear", "Pear Garden", "#E9F1E6", "#DDE7CB"),
+            new BackgroundTheme("citrus", "Citrus Grove", "#F0F2E4", "#E6E7CA"),
+            new BackgroundTheme("plum", "Plum Garden", "#EAEFF0", "#DADFEA"),
         });
 
         public BackgroundTheme ThemeFor(int level)
