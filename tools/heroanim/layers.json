@@ -9,7 +9,9 @@
   "exec-2797d1b5-caa0-4d5d-aa3c-289845d6aaac.png": "b8027702908af474ba86d794ca174c15a2605da30398bb0d2ac9177e4d56a6c5",
   "exec-e12f6e01-46a9-40a9-b22e-f9111488e8c5.png": "66e3fe0d38c317961258b36b548e9d563967f5222cb0f06388ad6ce186fd667d",
   "exec-7a7dae9c-bed5-4994-a961-89633ef450bf.png": "8936041a2a09962f512341310dc97bb46fc123536ff9380a7cac1de7e8426442",
-  "exec-c8074ca1-56dd-433f-b12e-c6ab6ac7f4fe.png": "8d449ddd358dcca438e35d5d835a307a0860655e76f07ae985acf20f94cb862e"
+  "exec-c8074ca1-56dd-433f-b12e-c6ab6ac7f4fe.png": "8d449ddd358dcca438e35d5d835a307a0860655e76f07ae985acf20f94cb862e",
+  "exec-539c0066-af90-446e-8e17-76ac14b934ff.png": "a0b3a99ef17c6fc05aed27e63a63116dab4758e4aad1e70152be741c8dfe6c3a",
+  "exec-f21dfaff-4d17-4e81-9fdc-e2500d83ea04.png": "4b7f8140bfa2d0e19f34282c77120e438fd29489a1d862d074af38328e52a72c"
  },
  "saturation": {
   "factor": 1,
@@ -40,9 +42,9 @@
     "w": 804,
     "h": 413
    },
-   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
-   "sha256": "09eab4c18963444df6ffd2327d8d793bf36eda78a929c76241a401e8424efc63",
-   "bytes": 454296
+   "from": "OpenAI ImageGen Home fountain complete side contours, 2026-10-15; transparent safety margins, original canvas and layer box retained (tools/artgen/models/home-fountain-2026-10-15.md)",
+   "sha256": "3a094e95783ff223b6bc7ab0448d0195d9a43ad6bd88ef381718fdd610b6f256",
+   "bytes": 450938
   },
   {
    "name": "home-fountain-front.png",
@@ -52,9 +54,9 @@
     "w": 852,
     "h": 250
    },
-   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
-   "sha256": "25c0285bde648f595f275c1ae55de09d36294c44c6bd3ddf8cd5d8242f137fa3",
-   "bytes": 189001
+   "from": "OpenAI ImageGen Home fountain complete side contours, 2026-10-15; transparent safety margins, original canvas and layer box retained (tools/artgen/models/home-fountain-2026-10-15.md)",
+   "sha256": "3341151c6e253bbec9dd11ba2c157d6c0e3c4de85a022529d418797b055745ba",
+   "bytes": 189942
   },
   {
    "name": "home-lotus.png",

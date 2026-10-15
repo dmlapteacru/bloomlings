@@ -17,9 +17,9 @@
    "name": "home-fountain-back.png",
    "blur": false,
    "dim": false,
-   "sourceSha256": "09eab4c18963444df6ffd2327d8d793bf36eda78a929c76241a401e8424efc63",
-   "sha256": "09eab4c18963444df6ffd2327d8d793bf36eda78a929c76241a401e8424efc63",
-   "bytes": 454296
+   "sourceSha256": "3a094e95783ff223b6bc7ab0448d0195d9a43ad6bd88ef381718fdd610b6f256",
+   "sha256": "3a094e95783ff223b6bc7ab0448d0195d9a43ad6bd88ef381718fdd610b6f256",
+   "bytes": 450938
   },
   {
    "name": "home-lotus.png",
@@ -33,9 +33,9 @@
    "name": "home-fountain-front.png",
    "blur": false,
    "dim": false,
-   "sourceSha256": "25c0285bde648f595f275c1ae55de09d36294c44c6bd3ddf8cd5d8242f137fa3",
-   "sha256": "25c0285bde648f595f275c1ae55de09d36294c44c6bd3ddf8cd5d8242f137fa3",
-   "bytes": 189001
+   "sourceSha256": "3341151c6e253bbec9dd11ba2c157d6c0e3c4de85a022529d418797b055745ba",
+   "sha256": "3341151c6e253bbec9dd11ba2c157d6c0e3c4de85a022529d418797b055745ba",
+   "bytes": 189942
   },
   {
    "name": "home-shadow.png",

@@ -11,8 +11,8 @@ Home and its three new foreground layers now bypass the old additional Gaussian 
 | Source / runtime basename | ImageGen output | Original PNG SHA-256 |
 |---|---|---|
 | `home.jpg` | `exec-983ceaac-fe39-4db8-9b6e-d7f73087907a.png` | `7eec67cca10df992b5aac1c8c5275659619bbd2a3efd75946fdc921910ea62a4` |
-| `home-fountain-back.png` | `exec-2797d1b5-caa0-4d5d-aa3c-289845d6aaac.png` | `b8027702908af474ba86d794ca174c15a2605da30398bb0d2ac9177e4d56a6c5` |
-| `home-fountain-front.png` | `exec-e12f6e01-46a9-40a9-b22e-f9111488e8c5.png` | `66e3fe0d38c317961258b36b548e9d563967f5222cb0f06388ad6ce186fd667d` |
+| `home-fountain-back.png` | `exec-f21dfaff-4d17-4e81-9fdc-e2500d83ea04.png` | `4b7f8140bfa2d0e19f34282c77120e438fd29489a1d862d074af38328e52a72c` |
+| `home-fountain-front.png` | `exec-539c0066-af90-446e-8e17-76ac14b934ff.png` | `a0b3a99ef17c6fc05aed27e63a63116dab4758e4aad1e70152be741c8dfe6c3a` |
 | `home-lotus.png` | `exec-c8074ca1-56dd-433f-b12e-c6ab6ac7f4fe.png` | `8d449ddd358dcca438e35d5d835a307a0860655e76f07ae985acf20f94cb862e` |
 
 Project-generated artwork; no imported third-party or stock material. Source images are in `tools/heroanim/backgrounds/`; runtime counterparts are in `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`.
@@ -20,3 +20,7 @@ Project-generated artwork; no imported third-party or stock material. Source ima
 ## Lotus color refinement — 2026-10-15
 
 The owner found the initial blush/ivory lotus too pale. OpenAI ImageGen edited the previous lotus (`exec-7a7dae9c-bed5-4994-a961-89633ef450bf.png`) into richer rose/coral pink petals with deeper folds and a warm golden center. The rounded petal structure, jade leaf base, transparent background, 296 × 217 production canvas and original placement are retained. The same alpha threshold and resampling preparation described above is used; no extra blur or dimming is applied.
+
+## Fountain side contour repair — 2026-10-15
+
+The owner noticed straight clipped sides on the fountain stones. ImageGen edited the prior foreground corners and basin into complete rounded rock/leaf silhouettes. Production preparation keeps a transparent safety margin after thresholding and alpha-aware resampling: 12 px horizontally / 4 px vertically in the 852 × 250 foreground canvas, and 6 px / 4 px in the 804 × 413 basin canvas. The center foreground gap remains transparent. Layer coordinates, lotus, hero placement and draw order are unchanged. The new input SHA-256 values are recorded above and in `layers.json`; source and runtime hashes remain checked.
