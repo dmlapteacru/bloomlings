@@ -1,6 +1,7 @@
-<# Builds three isolated, solved story mosaics on your computer. Never writes to the production catalog. #>
+<# Builds an isolated, solved art pilot on your computer. Never writes to the production catalog. #>
 param(
     [string]$Out = 'content/work/art-pilot-local',
+    [string]$Pilot = 'content/pictures/pilot',
     [switch]$Render
 )
 $ErrorActionPreference = 'Stop'
@@ -13,7 +14,7 @@ try {
     if (-not $output.StartsWith($workRoot, [StringComparison]::OrdinalIgnoreCase)) {
         throw 'The pilot output must be inside content/work/. Production folders are never pilot outputs.'
     }
-    $pilot = Join-Path $repo 'content/pictures/pilot'
+    $pilot = [IO.Path]::GetFullPath((Join-Path $repo $Pilot))
     $registry = Get-Content -Raw "$pilot/compositions.json" | ConvertFrom-Json
     $pipeline = Join-Path $repo 'core/src/Bloomlings.Pipeline'
     & dotnet build $pipeline -c Release -m:2 --nologo
@@ -38,11 +39,26 @@ try {
         $single = Join-Path $output "input/$id"
         New-Item -ItemType Directory -Force -Path $single | Out-Null
         Copy-Item "$library/$id.json" "$single/$id.json" -Force
-        $profile = Get-Content -Raw 'content/profiles/band-0501-1000.json' | ConvertFrom-Json
-        $profile.variantCount = @(6, 6)
+        $authoredPalette = $null -ne $composition.sampleProfile
+        $profileName = if ($authoredPalette) { $composition.sampleProfile } else { 'band-0501-1000' }
+        $profile = Get-Content -Raw "content/profiles/$profileName.json" | ConvertFrom-Json
+        $colors = @($composition.previewMapping.PSObject.Properties | ForEach-Object { $_.Value } | Select-Object -Unique).Count
+        $profile.variantCount = @($colors, $colors)
         $profile.mappingConstraints.allowRoleMerge = $false
         $profile.allowedVariants = @($composition.previewMapping.PSObject.Properties | ForEach-Object { $_.Value })
         $profile.solver.maxCandidatesPerLevel = 12
+        if ($authoredPalette) {
+            $profile.mappingConstraints | Add-Member -NotePropertyName fixedMapping -NotePropertyValue $composition.previewMapping
+            $profile | Add-Member -NotePropertyName pictureMirror -NotePropertyValue 'none'
+            # First assess the picture and source puzzle; mechanic combinations get their own later pilots.
+            $profile.allowedMechanics = @()
+            $profile.maxLayerDepth = 0
+            $profile.solver.maxCandidatesPerLevel = 60
+        } else {
+            # Preserve the original pilot's pre-readability generation recipe.
+            $profile.readableMechanics = $false
+            $profile.allowedMechanics = @($profile.allowedMechanics | Where-Object { $_ -ne 'counted_stack' })
+        }
         $profilePath = Join-Path $output "input/$id.profile.json"
         # Windows PowerShell's UTF8 writer emits a BOM, which the existing JSON reader accepts.
         $profile | ConvertTo-Json -Depth 30 | Set-Content -Encoding UTF8 $profilePath
@@ -76,7 +92,7 @@ try {
             $actual = Get-Content -Raw "$output/catalog/levels/$filename" | ConvertFrom-Json | ConvertTo-Json -Depth 100 -Compress
             if ($actual -ne $expected) { throw "$filename differs from the checked-in sample; review the generator change before rendering." }
         }
-        & dotnet run --project playtest/preview -c Release -- --mosaic-pilot --out "$output/game-render"
+        & dotnet run --project playtest/preview -c Release -- --mosaic-pilot --mosaic-pilot-root $pilot --mosaic-game-states --out "$output/game-render"
         if ($LASTEXITCODE -ne 0) { throw 'Game mosaic rendering failed.' }
     }
     Write-Host "Pilot ready: $output/review/index.html"

@@ -1,0 +1,67 @@
+{
+  "id": "story_crescent_cloud_mill",
+  "version": 1,
+  "subject": "Лунная мельница",
+  "width": 22,
+  "height": 28,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Небо / вода",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "shadow",
+      "name": "Глубокая зелень",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "leaf",
+      "name": "Листва",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "wood",
+      "name": "Дерево / охра",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "petal",
+      "name": "Розовый акцент",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "light",
+      "name": "Лаймовый свет",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "m": "shadow",
+    "g": "leaf",
+    "a": "wood",
+    "p": "petal",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "art-pilot-v2"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "origin": "Original Bloomlings pilot-v2 concept; hand-authored exact target-cell grid. Reference: content/pictures/pilot-v2/references/concepts-v2.png",
+    "licence": "owned"
+  }
+}

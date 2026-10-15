@@ -411,3 +411,12 @@ Mystery on the new post-L300 size mix. Visible tile symbols are independent of t
 Visible same-variant stacks and the `gen-1.5.0` mechanic readability policy are described in
 [16 — Mechanics and board readability](16_MECHANICS_AND_BOARD_READABILITY.md). New normal/Daily profiles apply
 that policy; the stored legacy catalogs remain intact until versioned regeneration.
+
+## Authored palettes (owner pilot, 2026-10-15)
+
+Profiles can supply a complete `mappingConstraints.fixedMapping` (role → exact variant) and `pictureMirror`
+(`none` or `horizontal`; absent retains random mirroring). The generator still enforces allowed/unlocked colors,
+role color groups, distinct-variant counts, merge and readability rules. An invalid palette yields no candidate;
+it is never replaced by an approximate recoloring. Profiles without these fields retain their previous behavior.
+The six independently drawn examples and exact local reproduction are in
+[`content/pictures/pilot-v2`](../content/pictures/pilot-v2/README.md). They do not replace launch content.

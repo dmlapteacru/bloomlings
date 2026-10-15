@@ -1,0 +1,79 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, -1, -1, 1, 1, 1, 1, 0, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, -1, -1],
+    [-1, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 4, 4, 4, 4, 0],
+    [0, 0, 0, 0, 2, 3, 3, 3, 3, 3, 3, 3, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 3, 3, 3, 3, 2, 2, 2, 3, 3, 2, 0, 0, 0, 0],
+    [0, 0, 2, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 0, 0, 0],
+    [0, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+    [0, 3, 3, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 4, 1, 1, 1, 0, 2, 1, 1, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 4, 1, 1, 0, 2, 1, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 4, 4, 0, 2, 0, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 4, 2, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1],
+    [-1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1]
+  ],
+  "height": 20,
+  "id": "icon_leaf_sail_boat",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Небо / вода",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Листва",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Дерево / охра",
+      "roleId": "wood"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Розовый акцент",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Глубокая вода",
+      "roleId": "wave"
+    }
+  ],
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "Original Bloomlings pilot-v2 concept; hand-authored exact target-cell grid. Reference: content/pictures/pilot-v2/references/concepts-v2.png"
+  },
+  "structure": {
+    "backgroundShare": 0.569,
+    "nestingDepth": 4,
+    "regionCount": 28
+  },
+  "subject": "Лодка с листом-парусом",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["art-pilot-v2"]
+  },
+  "version": 1,
+  "width": 18
+}

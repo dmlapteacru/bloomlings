@@ -65,3 +65,11 @@ or validation. `--max-level N` explicitly selects another complete 1..N range (f
 `--launch-config file.props` selects another scope file. Only referenced pictures and optional Daily pictures are packed.
 The main source catalog can retain 5000 historical levels without shipping all of them. `validate`/`score` remain general
 catalog tools; the local launch scripts run them on a bounded `launch-view` and print exact ranges with `--plan`/`-Plan`.
+
+## Authored art profiles — 2026-10-15
+
+`mappingConstraints.fixedMapping` supplies a complete role→variant map; optional `pictureMirror` is `none` or
+`horizontal`. Normal group, unlock, allowed-variant, variant-count, merge and readability checks still apply.
+Missing/extra roles or an impossible mapping reject the candidate. Omitting these fields preserves random
+mapping/mirroring. Reproduce the six-scene second pilot with
+`tools/catalog/build-art-pilot.ps1 -Pilot content/pictures/pilot-v2 -Out content/work/art-pilot-v2-local -Render`.

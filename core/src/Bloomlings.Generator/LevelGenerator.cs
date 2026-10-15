@@ -340,6 +340,7 @@ namespace Bloomlings.Generator
             // 3. Entries and mirroring toward the structure target.
             string layout = _profile.EntryLayouts[rng.NextInt(_profile.EntryLayouts.Count)];
             Mirror mirror = rng.NextInt(2) == 0 ? Mirror.None : Mirror.Horizontal;
+            mirror = _profile.PictureMirror ?? mirror;
 
             // FR-083: a picture used again beyond the window differs from each other use in its look (mapping or mirror).
             if (ReusesLook(level, picture.Id, mirror, mapping, history))

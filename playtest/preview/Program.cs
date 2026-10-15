@@ -23,6 +23,8 @@ using Bloomlings.Playtest.Preview;
 using SkiaSharp;
 
 string root = FindRoot();
+string? mosaicPilotRoot = null;
+bool mosaicGameStates = false;
 string outDir = Path.Combine(root, "playtest", "preview", "out");
 bool inventory = false;
 string? before = null;
@@ -64,6 +66,14 @@ for (int i = 0; i < args.Length; i++)
     else if (args[i] == "--mosaic-pilot")
     {
         mosaicPilot = true;
+    }
+    else if (args[i] == "--mosaic-pilot-root" && i + 1 < args.Length)
+    {
+        mosaicPilotRoot = Path.GetFullPath(args[++i]);
+    }
+    else if (args[i] == "--mosaic-game-states")
+    {
+        mosaicGameStates = true;
     }
     else if (args[i] == "--sounds")
     {
@@ -126,7 +136,7 @@ for (int i = 0; i < args.Length; i++)
 
 if (mosaicPilot)
 {
-    MosaicPilotPreview.Write(root, outDir);
+    MosaicPilotPreview.Write(root, outDir, mosaicPilotRoot, mosaicGameStates);
     return 0;
 }
 

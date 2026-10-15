@@ -119,7 +119,8 @@ One profile per progression band (FR-079, doc 06 §4). It defines:
   the regular boards and the big ones, up to 22×28);
 - `picturePool` (tags) and `structureTargets`;
 - `variantCount` (min and max) and `allowedVariants`;
-- `mappingConstraints`;
+- `mappingConstraints` (`allowRoleMerge`, optional complete `fixedMapping` role→exact variant);
+- optional `pictureMirror` (`none` / `horizontal`; absent retains random orientation);
 - `entryLayouts`;
 - `maxLayerDepth`;
 - `allowedMechanics`;

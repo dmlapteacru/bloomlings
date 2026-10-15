@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "launchCompositionTarget": 2500,
+  "policy": {
+    "oneCompositionPerLaunchLevel": true,
+    "resizeMirrorRecolorAreNewComposition": false,
+    "dailyIsSeparate": true
+  },
+  "compositions": [
+    {
+      "compositionId": "icon_leaf_steam_cup",
+      "pictureId": "icon_leaf_steam_cup",
+      "version": 1,
+      "title": "Чашка с паром-листком",
+      "story": "Пар над розовой чашкой складывается в один большой зелёный лист.",
+      "width": 14,
+      "height": 16,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "moss",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "sampleLevel": 41,
+      "sampleSeed": 1,
+      "sampleProfile": "band-0026-0050"
+    },
+    {
+      "compositionId": "icon_leaf_sail_boat",
+      "pictureId": "icon_leaf_sail_boat",
+      "version": 1,
+      "title": "Лодка с листом-парусом",
+      "story": "Бумажная лодка несёт большой лист вместо паруса.",
+      "width": 18,
+      "height": 20,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "wave": "water"
+      },
+      "sampleLevel": 71,
+      "sampleSeed": 1,
+      "sampleProfile": "band-0051-0100"
+    },
+    {
+      "compositionId": "story_boot_greenhouse",
+      "pictureId": "story_boot_greenhouse",
+      "version": 1,
+      "title": "Оранжерея в сапоге",
+      "story": "Старый садовый сапог стал стеклянной оранжереей; цветы выходят из голенища.",
+      "width": 24,
+      "height": 24,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "moss",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "sampleLevel": 601,
+      "sampleSeed": 1,
+      "sampleProfile": "band-0501-1000"
+    },
+    {
+      "compositionId": "story_crescent_cloud_mill",
+      "pictureId": "story_crescent_cloud_mill",
+      "version": 1,
+      "title": "Лунная мельница",
+      "story": "На серпе луны мельница перемалывает облако в звёздную пыль.",
+      "width": 22,
+      "height": 28,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "moss",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "sampleLevel": 651,
+      "sampleSeed": 1,
+      "sampleProfile": "band-0501-1000"
+    },
+    {
+      "compositionId": "story_jellyfish_garden_airship",
+      "pictureId": "story_jellyfish_garden_airship",
+      "version": 1,
+      "title": "Медуза-аэростат",
+      "story": "Медуза несёт по небу вагончик, на крыше которого растёт маленький сад.",
+      "width": 30,
+      "height": 32,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "moss",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "sampleLevel": 701,
+      "sampleSeed": 1,
+      "sampleProfile": "band-0501-1000"
+    },
+    {
+      "compositionId": "story_lilypad_bakery",
+      "pictureId": "story_lilypad_bakery",
+      "version": 1,
+      "title": "Пекарня на кувшинке",
+      "story": "На листе кувшинки работает печь с дымоходом-буханкой и маленьким причалом.",
+      "width": 36,
+      "height": 36,
+      "artStatus": "pilot-awaiting-owner-review",
+      "previewMapping": {
+        "sky": "dew",
+        "shadow": "moss",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "sampleLevel": 751,
+      "sampleSeed": 1,
+      "sampleProfile": "band-0501-1000"
+    }
+  ]
+}

@@ -58,7 +58,8 @@ namespace Bloomlings.Generator
                 var choices = new List<VariantId>();
                 foreach (VariantId variant in allowed)
                 {
-                    if (VariantCatalog.Default.Get(variant).ColorGroup == picture.Roles[i].ColorGroup)
+                    if (VariantCatalog.Default.Get(variant).ColorGroup == picture.Roles[i].ColorGroup
+                        && (profile.FixedMapping == null || (profile.FixedMapping.TryGetValue(picture.Roles[i].RoleId, out VariantId fixedVariant) && fixedVariant == variant)))
                     {
                         choices.Add(variant);
                     }
@@ -74,6 +75,8 @@ namespace Bloomlings.Generator
             }
 
             var results = new List<SortedDictionary<string, VariantId>>();
+            // A misspelled or unused role must fail rather than silently weakening the authored palette.
+            if (profile.FixedMapping != null && profile.FixedMapping.Count != roles.Count) return results;
             var current = new VariantId[roles.Count];
             Enumerate(0);
             return results;

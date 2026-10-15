@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Bloomlings.Content.Json;
+using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Variants;
 using Bloomlings.Solver;
 using Newtonsoft.Json.Linq;
@@ -23,12 +24,12 @@ namespace Bloomlings.Generator.Profiles
         {
             const string p = "";
             JObject root = JsonDoc.ParseObject(json, name);
-            JsonDoc.AllowOnly(root, p, "bandId", "levelRange", "boardSize", "picturePool", "structureTargets", "variantCount", "allowedVariants", "mappingConstraints", "entryLayouts", "maxLayerDepth", "allowedMechanics", "stacks", "podCount", "podSize", "work", "bufferPressureTarget", "durationTarget", "hardMode", "solver", "note", "readableMechanics");
+            JsonDoc.AllowOnly(root, p, "bandId", "levelRange", "boardSize", "picturePool", "structureTargets", "variantCount", "allowedVariants", "mappingConstraints", "entryLayouts", "maxLayerDepth", "allowedMechanics", "stacks", "podCount", "podSize", "work", "bufferPressureTarget", "durationTarget", "hardMode", "solver", "note", "readableMechanics", "pictureMirror");
 
             JObject board = Obj(root, "boardSize", "width", "height");
             JObject pool = Obj(root, "picturePool", "themes");
             JObject structure = Obj(root, "structureTargets", "nestingDepth", "backgroundSharePermille");
-            JObject mapping = Obj(root, "mappingConstraints", "allowRoleMerge");
+            JObject mapping = Obj(root, "mappingConstraints", "allowRoleMerge", "fixedMapping");
             JObject hard = Obj(root, "hardMode", "extraPods", "maxInjections", "hardPressure", "superHardPressure");
             JObject solver = Obj(root, "solver", "nodeBudget", "maxCandidatesPerLevel");
 
@@ -69,6 +70,21 @@ namespace Bloomlings.Generator.Profiles
                 JsonDoc.Int(JsonDoc.Required(solver, "solver", "maxCandidatesPerLevel"), "solver.maxCandidatesPerLevel", min: 1));
 
             profile = profile with { ReadableMechanics = JsonDoc.Optional(root, "readableMechanics") is JToken readable && JsonDoc.Bool(readable, "readableMechanics") };
+            if (JsonDoc.Optional(mapping, "fixedMapping") is JToken fixedToken)
+            {
+                var palette = new SortedDictionary<string, VariantId>(StringComparer.Ordinal);
+                foreach (JProperty role in JsonDoc.Object(fixedToken, "mappingConstraints.fixedMapping").Properties())
+                    palette.Add(role.Name, DefinitionJsonVariant(role.Value, "mappingConstraints.fixedMapping." + role.Name));
+                if (palette.Count == 0) throw new ContentFormatException("mappingConstraints.fixedMapping", "an art palette cannot be empty");
+                profile = profile with { FixedMapping = palette };
+            }
+            if (JsonDoc.Optional(root, "pictureMirror") is JToken mirror)
+                profile = profile with { PictureMirror = JsonDoc.String(mirror, "pictureMirror") switch
+                {
+                    "none" => Mirror.None,
+                    "horizontal" => Mirror.Horizontal,
+                    _ => throw new ContentFormatException("pictureMirror", "use none or horizontal; omit for random"),
+                } };
             if (profile.Stacks.Min < 2 || profile.Stacks.Max > 6)
             {
                 throw new ContentFormatException("stacks", "stacks must stay within 2–6");

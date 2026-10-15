@@ -188,6 +188,17 @@ It imports, generates, solves, validates and scores into `content/work/art-pilot
 requires full launch coverage and visual approvals; the three-scene pilot intentionally cannot pass that release check.
 The audit is a separate command until the replacement library and catalog are ready to connect to publication.
 
+The second art pilot contains six new compositions at 14×16 through 36×36, with complete fixed palettes and
+preserved orientation. Generate it locally with:
+
+```powershell
+./tools/catalog/build-art-pilot.ps1 -Pilot content/pictures/pilot-v2 -Out content/work/art-pilot-v2-local -Render
+```
+
+The optional `-Pilot` selects a registry/source folder; the default reproduces the original three-scene pilot.
+`-Render` checks equivalent canonical definitions before drawing start/partial/win/Collection screens.
+See [`pilot-v2/README.md`](../../content/pictures/pilot-v2/README.md) for scope, statuses and release limitations.
+
 ## Large grids up to 36×36
 
 The standard band profiles now accept width/height up to 36. New art can therefore use 24×24, 30×32 and 36×36 through

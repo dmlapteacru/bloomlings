@@ -1,0 +1,61 @@
+{
+  "id": "icon_leaf_steam_cup",
+  "version": 1,
+  "subject": "Чашка с паром-листком",
+  "width": 14,
+  "height": 16,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Небо / вода",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "shadow",
+      "name": "Глубокая зелень",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "leaf",
+      "name": "Листва",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "wood",
+      "name": "Дерево / охра",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "petal",
+      "name": "Розовый акцент",
+      "colorGroup": "pink_purple"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "m": "shadow",
+    "g": "leaf",
+    "a": "wood",
+    "p": "petal"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "art-pilot-v2"
+    ],
+    "bands": [
+      "regular"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "origin": "Original Bloomlings pilot-v2 concept; hand-authored exact target-cell grid. Reference: content/pictures/pilot-v2/references/concepts-v2.png",
+    "licence": "owned"
+  }
+}
