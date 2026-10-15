@@ -1,0 +1,61 @@
+{
+  "id": "lavender",
+  "version": 1,
+  "subject": "Lavender",
+  "width": 14,
+  "height": 16,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "leaf",
+      "name": "leaf",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "shadow",
+      "name": "shadow",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "light",
+      "name": "light",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "g": "leaf",
+    "m": "shadow",
+    "p": "petal",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "regular"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0036.png panel 12; quantized exact target-cell authoring grid"
+  }
+}

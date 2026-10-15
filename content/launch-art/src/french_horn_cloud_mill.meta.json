@@ -1,0 +1,55 @@
+{
+  "id": "french_horn_cloud_mill",
+  "version": 1,
+  "subject": "French Horn Cloud Mill",
+  "width": 30,
+  "height": 32,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "wood",
+      "name": "wood",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "light",
+      "name": "light",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "a": "wood",
+    "p": "petal",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0089.png panel 14; quantized exact target-cell authoring grid"
+  }
+}

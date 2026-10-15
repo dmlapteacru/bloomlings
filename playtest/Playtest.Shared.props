@@ -60,7 +60,8 @@
       (PlaytestContent): the APK's assets, kept once and compressed, not embedded resources (PlaytestFiles).
     -->
     <AndroidAsset Include="@(LaunchCatalogLevel)" Link="Assets/levels/%(Filename)%(Extension)" />
-    <AndroidAsset Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" Link="Assets/pictures/%(Filename)%(Extension)" />
+    <AndroidAsset Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" Link="Assets/pictures/%(Filename)%(Extension)" Condition="'$(LaunchArtInstalled)' != 'true'" />
+    <AndroidAsset Include="@(LaunchInstalledPicture)" Link="Assets/pictures/%(Filename)%(Extension)" Condition="'$(LaunchArtInstalled)' == 'true'" />
   </ItemGroup>
   <ItemGroup>
     <!--

@@ -20,6 +20,8 @@ using Bloomlings.Solver;
 using Newtonsoft.Json.Linq;
 using Command = System.CommandLine.Command;
 
+using Bloomlings.Pipeline.Launch;
+
 namespace Bloomlings.Pipeline.Commands
 {
     /// <summary><c>solve</c>, <c>validate</c>, <c>score</c>, <c>review</c>, <c>publish</c>, <c>replay</c> and <c>diff</c>.</summary>
@@ -300,7 +302,9 @@ namespace Bloomlings.Pipeline.Commands
                     metrics = solver.Analyze(LevelSession.Load(level, picture, new SessionOptions(1, 20000)), options).Metrics.ToDictionary();
                 }
 
-                DifficultyThresholds thresholds = ProfileLoader.ReadThresholdsFor(thresholdsJson, band.BandId, picture.Width * picture.Height);
+                string calibration = level.GeneratorVersion == LevelGenerator.AuthoredArtVersion
+                    ? File.ReadAllText(LaunchArtDocument.ThresholdsPath) : thresholdsJson;
+                DifficultyThresholds thresholds = ProfileLoader.ReadThresholdsFor(calibration, band.BandId, picture.Width * picture.Height);
                 int score = DifficultyScorer.Score(metrics, thresholds);
                 DifficultyClass computed = DifficultyScorer.Classify(score, thresholds);
                 bool agrees = level.Difficulty.Overridden || (computed == level.Difficulty.Class && score == level.Difficulty.Score);
@@ -360,13 +364,16 @@ namespace Bloomlings.Pipeline.Commands
             Option<int> pictureVersion = Cli.Int("--picture-library-version", 0, "Picture library version (default: the content version).");
             Option<int> maxLevel = Cli.Int("--max-level", 0, "Last sequential level to publish (default: content/launch.props). Later levels stay in the source catalog.");
             Option<string> launch = Cli.Path("--launch-config", "content/launch.props", "Launch scope shared with local generation and APK packaging.");
+            Option<string> artPlan = Cli.Path("--art-plan", string.Empty, "Enforce the frozen replacement launch plan and one approved composition per level.");
+            Option<string> artRegistry = Cli.Path("--art-registry", Bloomlings.Pipeline.Launch.LaunchArtDocument.DefaultRegistry, "Replacement launch composition registry.");
+            Option<string> dailyLibrary = Cli.Path("--daily-lib", string.Empty, "Optional separate picture library for the unchanged Daily pool.");
             Option<int> shuffleBudget = Cli.Int("--shuffle-node-budget", 50_000, "Shuffle node budget, fixed for this content version (R10).");
             Option<string> daily = Cli.Path("--daily", string.Empty, "Daily pool folder (optional).");
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Playtest builds only: include pictures that are not approved yet, marked as draft previews. Never for release." };
             Option<string> pairs = Cli.Path("--pairs", "content/readability/approved-pairs.json", "Approved readability pairs.");
             Option<int> budget = Budget();
             Option<string> level8 = Cli.Level8();
-            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, maxLevel, launch, shuffleBudget, daily, allowDraft, pairs, budget, level8 })
+            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, maxLevel, launch, artPlan, artRegistry, dailyLibrary, shuffleBudget, daily, allowDraft, pairs, budget, level8 })
             {
                 command.Options.Add(option);
             }
@@ -383,14 +390,29 @@ namespace Bloomlings.Pipeline.Commands
                 }
 
                 Dictionary<string, BasePicture> library = Pictures(parse.GetValue(lib)!);
+                if (parse.GetValue(artPlan)!.Length > 0)
+                {
+                    if (last != 2500 || parse.GetValue(allowDraft)) throw new ArgumentException("The replacement launch requires all 2500 levels and approved art");
+                    var plan = new Bloomlings.Pipeline.Launch.LaunchArtDocument(parse.GetValue(artRegistry)!, parse.GetValue(artPlan));
+                    plan.RequireCurrent(parse.GetValue(artPlan)!);
+                    if (Path.GetFullPath(parse.GetValue(lib)!) != Path.GetFullPath(plan.LibraryDirectory)) throw new ArgumentException("Publish library differs from the launch art registry");
+                    var artErrors = plan.CheckArt(Enumerable.Range(1, 2500)).Concat(plan.CheckDefinitions(levels, true)).ToList();
+                    if (artErrors.Count > 0)
+                    {
+                        report["artErrors"] = new JArray(artErrors);
+                        Cli.Say(parse, $"publish refused: {artErrors.Count} launch art/assignment errors.");
+                        return ExitCodes.ValidationFailed;
+                    }
+                }
                 List<LevelDefinition> dailyLevels = parse.GetValue(daily)!.Length > 0
                     ? ContentStore.LoadLevels(parse.GetValue(daily)!).Select(l => l.Level).ToList()
                     : new List<LevelDefinition>();
+                library = MergeDailyPictures(library.Values.ToList(), parse.GetValue(dailyLibrary)!, dailyLevels).ToDictionary(p => p.Id + "@" + p.Version);
 
                 // The release gate (FR-080, FR-081, FR-083): the whole catalog is validated again, and any error stops the
                 // publish. The daily pool is checked level by level (its numbers are pool indexes, not Level N). With
                 // --allow-draft only unapproved pictures are tolerated, never an unsolvable or otherwise invalid level.
-                List<LevelIssue> issues = GateIssues(parse.GetValue(lib)!, parse.GetValue(pairs)!, parse.GetValue(budget), levels, dailyLevels, UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
+                List<LevelIssue> issues = GateIssues(parse.GetValue(lib)!, parse.GetValue(pairs)!, parse.GetValue(budget), levels, dailyLevels, UnlockRoadmap.ForLevel8(parse.GetValue(level8)!), parse.GetValue(dailyLibrary));
                 var blocking = issues.Where(i => i.IsError && !(parse.GetValue(allowDraft) && i.Check == "picture-approved")).ToList();
                 report["gateErrors"] = new JArray(blocking.Select(i => new JObject { ["level"] = i.Level, ["check"] = i.Check, ["message"] = i.Message }).ToArray());
                 if (blocking.Count > 0)
@@ -463,9 +485,9 @@ namespace Bloomlings.Pipeline.Commands
         }
 
         /// <summary>The validation issues of a catalog and its daily pool, for the publish gate.</summary>
-        public static List<LevelIssue> GateIssues(string lib, string pairsPath, int budget, IReadOnlyList<LevelDefinition> levels, IReadOnlyList<LevelDefinition> dailyLevels, UnlockRoadmap? roadmap = null)
+        public static List<LevelIssue> GateIssues(string lib, string pairsPath, int budget, IReadOnlyList<LevelDefinition> levels, IReadOnlyList<LevelDefinition> dailyLevels, UnlockRoadmap? roadmap = null, string? dailyLibrary = null)
         {
-            List<BasePicture> library = ContentStore.LoadLibrary(lib);
+            List<BasePicture> library = MergeDailyPictures(ContentStore.LoadLibrary(lib), dailyLibrary ?? string.Empty, dailyLevels);
             ApprovedPairs? pairs = ContentStore.LoadPairs(pairsPath);
             roadmap ??= UnlockRoadmap.Default;
             var issues = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)).Validate(levels).Issues;
@@ -476,6 +498,23 @@ namespace Bloomlings.Pipeline.Commands
             }
 
             return issues;
+        }
+
+        public static List<BasePicture> MergeDailyPictures(IReadOnlyList<BasePicture> normal, string dailyLibrary, IReadOnlyList<LevelDefinition> daily)
+        {
+            if (dailyLibrary.Length == 0 || daily.Count == 0) return normal.ToList();
+            var result = normal.ToDictionary(p => p.Id + "@" + p.Version);
+            var separate = ContentStore.LoadLibrary(dailyLibrary).ToDictionary(p => p.Id + "@" + p.Version);
+            foreach (var level in daily)
+            {
+                string key = Key(level.Picture);
+                if (!separate.TryGetValue(key, out var picture)) throw new IOException("Missing Daily picture " + key);
+                if (!PicturePicker.IsDaily(picture)) throw new IOException("Non-Daily picture in the separate pool: " + key);
+                if (result.TryGetValue(key, out var previous) && BasePictureJson.Write(previous) != BasePictureJson.Write(picture))
+                    throw new IOException("Conflicting Daily picture versions: " + key);
+                result[key] = picture;
+            }
+            return result.Values.OrderBy(p => p.Id, StringComparer.Ordinal).ThenBy(p => p.Version).ToList();
         }
 
         public static Command Replay()

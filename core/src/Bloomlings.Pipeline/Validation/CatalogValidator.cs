@@ -214,13 +214,13 @@ namespace Bloomlings.Pipeline.Validation
             CheckVariants(level, report, passed);
             CheckUnlocks(level, picture, report, passed);
             CheckDataModel(level, RulesLevel ?? level.LevelNumber, report, passed);
-            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion)
+            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion || level.GeneratorVersion == Generator.LevelGenerator.AuthoredArtVersion)
                 foreach (string unlock in MechanicsUsed(level, picture).Where(u => u.StartsWith("mechanic.", StringComparison.Ordinal)))
                     if (!BoardMechanicReadability.Allows(unlock.Substring("mechanic.".Length), picture.Width, picture.Height))
                         Error(report, n, "mechanic-readability", $"{unlock} is too small on a {picture.Width}×{picture.Height} board");
             if (level.Overlays.Any(o => o.StackCount > 1) && !BoardMechanicReadability.Allows("counted_stack", picture.Width, picture.Height))
                 Error(report, n, "mechanic-readability", "visible stack counters require a board at most 24×26");
-            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion)
+            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion || level.GeneratorVersion == Generator.LevelGenerator.AuthoredArtVersion)
                 foreach (SpecialDef special in level.Specials.Where(s => s.Condition.Kind != SpecialConditionKind.Key))
                 {
                     int side = BoardMechanicReadability.ObjectSide(picture.Width, picture.Height);

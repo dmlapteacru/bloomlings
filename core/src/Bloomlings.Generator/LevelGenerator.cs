@@ -54,13 +54,15 @@ namespace Bloomlings.Generator
         /// <summary>New board-size path; existing sizes retain their reproducible definition bytes.</summary>
         public const string ExtendedBoardVersion = "gen-1.4.0";
         public const string ReadableMechanicsVersion = "gen-1.5.0";
+        public const string AuthoredArtVersion = "gen-1.6.0";
+        public bool UseAuthoredArtTray { get; set; }
 
         /// <summary>Node budget of each search while the tray is tuned.</summary>
         public const int TuningNodeBudget = 10_000;
 
-        private readonly GenerationProfile _profile;
+        private GenerationProfile _profile;
         private readonly PicturePicker _pictures;
-        private readonly DifficultyThresholds _thresholds;
+        private DifficultyThresholds _thresholds;
         private readonly Func<VariantId, VariantId, bool> _readablePair;
         private readonly DifficultySchedule _schedule;
         private readonly UnlockRoadmap _roadmap;
@@ -104,6 +106,17 @@ namespace Bloomlings.Generator
         /// pool's week, <see cref="DailyPlan.WeeklyClass"/>).
         /// </summary>
         public Func<int, DifficultyClass>? ClassOf { get; set; }
+
+        /// <summary>Per-level authored recipes. Each parallel worker owns its own generator instance.</summary>
+        public Func<int, (GenerationProfile Profile, DifficultyThresholds Thresholds, DifficultyThresholds? Big)>? RecipeOf { get; set; }
+
+        /// <summary>Null selects ordinary combinations; an array fixes the introduction/practice mechanic.</summary>
+        public Func<int, IReadOnlyList<string>?>? MechanicsOf { get; set; }
+
+        /// <summary>Versioned replacement content; absent retains legacy definition version 1.</summary>
+        public Func<int, int>? DefinitionVersionOf { get; set; }
+        /// <summary>Candidate diagnostics, including candidates before an accepted definition.</summary>
+        public Action<Rejection>? Rejected { get; set; }
 
         /// <summary>
         /// The Level N whose unlocks apply to every level generated (mechanics and their combinations, layers below a top,
@@ -159,6 +172,14 @@ namespace Bloomlings.Generator
 
         private void GenerateOne(int level, ulong seed, IDictionary<int, LevelDefinition> history, GenerationResult result)
         {
+            if (RecipeOf != null)
+            {
+                var recipe = RecipeOf(level);
+                _profile = recipe.Profile.Allows(MechanicNames.CountedStack) ? recipe.Profile with { ReadableMechanics = true } : recipe.Profile;
+                _thresholds = recipe.Thresholds;
+                BigBoardThresholds = recipe.Big;
+            }
+            if (MechanicsOf != null) ForcedMechanics = MechanicsOf(level);
             var readOnlyHistory = new ReadOnlyHistory(history);
             bool accepted = false;
             int attempt = 0;
@@ -168,7 +189,9 @@ namespace Bloomlings.Generator
                 GeneratedLevel? generated = TryGenerate(level, levelSeed, readOnlyHistory, out string? reason);
                 if (generated == null)
                 {
-                    result.Rejections.Add(new Rejection(level, attempt, reason ?? "unknown"));
+                    var rejected = new Rejection(level, attempt, reason ?? "unknown");
+                    result.Rejections.Add(rejected);
+                    Rejected?.Invoke(rejected);
                     continue;
                 }
 
@@ -406,9 +429,9 @@ namespace Bloomlings.Generator
 
             var skeleton = new LevelDefinition(
                 level,
-                1,
+                DefinitionVersionOf?.Invoke(level) ?? 1,
                 levelSeed,
-                _profile.ReadableMechanics || chosen.Contains(MechanicNames.CountedStack) ? ReadableMechanicsVersion : extendedBoard ? ExtendedBoardVersion : Version,
+                UseAuthoredArtTray ? AuthoredArtVersion : _profile.ReadableMechanics || chosen.Contains(MechanicNames.CountedStack) ? ReadableMechanicsVersion : extendedBoard ? ExtendedBoardVersion : Version,
                 new PictureRef(picture.Id, picture.Version, mirror, "default"),
                 mapping,
                 entries,
@@ -462,7 +485,10 @@ namespace Bloomlings.Generator
 
             // 6. Pods along the waves.
             int extra = target == DifficultyClass.Normal ? 0 : _profile.HardMode.ExtraPods;
-            IReadOnlyList<PlannedPod>? planned = PodPartitioner.Partition(waves, podRange, _profile.PodSize, extra, ref rng);
+            IntRange partitionRange = UseAuthoredArtTray && target != DifficultyClass.Normal
+                ? new IntRange(podRange.Min + (podRange.Max - podRange.Min) * (target == DifficultyClass.SuperHard ? 2 : 1) / 3, podRange.Max)
+                : podRange;
+            IReadOnlyList<PlannedPod>? planned = PodPartitioner.Partition(waves, partitionRange, _profile.PodSize, extra, ref rng);
             if (planned == null)
             {
                 reason = $"partition:{waves.Count}-waves-outside-{podRange}-pods-of-{BandGuidelines.MinPodSize}+";
@@ -526,8 +552,16 @@ namespace Bloomlings.Generator
                 IntRange? desiredPeak = extendedBoard && UseBandGuidelines
                     ? look == BoardLook.Icons ? BandGuidelines.BigBoardPeakSlots(target) : BandGuidelines.PeakSlots(PressureFor(rules, target))
                     : null;
-                tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out string? trayReason,
-                    peakSlots: desiredPeak, preventClassOvershoot: extendedBoard);
+                if (UseAuthoredArtTray && UseBandGuidelines && desiredPeak == null)
+                    desiredPeak = look == BoardLook.Icons ? BandGuidelines.BigBoardPeakSlots(target)
+                        : BandGuidelines.PeakSlots(PressureFor(rules, target));
+                string? trayReason;
+                if (UseAuthoredArtTray)
+                    tray = AuthoredTrayBuilder.Tune(skeleton, picture, pods, stacks, target,
+                        _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out trayReason, desiredPeak, podRange, _profile.PodSize);
+                else
+                    tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out trayReason,
+                        peakSlots: desiredPeak, preventClassOvershoot: extendedBoard);
                 if (tray == null)
                 {
                     reason = trayReason;

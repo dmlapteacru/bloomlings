@@ -1,0 +1,61 @@
+{
+  "id": "pea_pod",
+  "version": 1,
+  "subject": "Pea Pod",
+  "width": 21,
+  "height": 26,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "leaf",
+      "name": "leaf",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "shadow",
+      "name": "shadow",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "light",
+      "name": "light",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "g": "leaf",
+    "m": "shadow",
+    "p": "petal",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0030.png panel 10; quantized exact target-cell authoring grid"
+  }
+}

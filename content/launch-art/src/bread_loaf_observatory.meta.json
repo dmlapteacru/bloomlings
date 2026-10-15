@@ -1,0 +1,55 @@
+{
+  "id": "bread_loaf_observatory",
+  "version": 1,
+  "subject": "Bread Loaf Observatory",
+  "width": 24,
+  "height": 28,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "leaf",
+      "name": "leaf",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "wood",
+      "name": "wood",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "light",
+      "name": "light",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "g": "leaf",
+    "a": "wood",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0121.png panel 14; quantized exact target-cell authoring grid; one-cell entry clearance"
+  }
+}

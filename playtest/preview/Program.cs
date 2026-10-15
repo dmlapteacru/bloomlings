@@ -24,6 +24,8 @@ using SkiaSharp;
 
 string root = FindRoot();
 string? mosaicPilotRoot = null;
+string? artLibraryRegistry = null;
+string artLibraryLevels = "1-2500";
 bool mosaicGameStates = false;
 string outDir = Path.Combine(root, "playtest", "preview", "out");
 bool inventory = false;
@@ -62,6 +64,14 @@ for (int i = 0; i < args.Length; i++)
     else if (args[i] == "--promo-motion")
     {
         promoMotion = true;
+    }
+    else if (args[i] == "--art-library" && i + 1 < args.Length)
+    {
+        artLibraryRegistry = Path.GetFullPath(args[++i]);
+    }
+    else if (args[i] == "--art-levels" && i + 1 < args.Length)
+    {
+        artLibraryLevels = args[++i];
     }
     else if (args[i] == "--mosaic-pilot")
     {
@@ -132,6 +142,13 @@ for (int i = 0; i < args.Length; i++)
     {
         csv = Path.GetFullPath(args[++i]);
     }
+}
+
+if (artLibraryRegistry != null)
+{
+    int[] range = artLibraryLevels.Split('-').Select(int.Parse).ToArray();
+    ArtLibraryPreview.Write(root, artLibraryRegistry, outDir, range[0], range.Length > 1 ? range[1] : range[0]);
+    return 0;
 }
 
 if (mosaicPilot)

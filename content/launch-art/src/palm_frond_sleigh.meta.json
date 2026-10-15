@@ -1,0 +1,55 @@
+{
+  "id": "palm_frond_sleigh",
+  "version": 1,
+  "subject": "Palm Frond Sleigh",
+  "width": 24,
+  "height": 28,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "leaf",
+      "name": "leaf",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "shadow",
+      "name": "shadow",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "g": "leaf",
+    "m": "shadow",
+    "p": "petal"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0082.png panel 6; quantized exact target-cell authoring grid"
+  }
+}

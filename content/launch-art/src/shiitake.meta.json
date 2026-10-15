@@ -1,0 +1,61 @@
+{
+  "id": "shiitake",
+  "version": 1,
+  "subject": "Shiitake",
+  "width": 14,
+  "height": 16,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "shadow",
+      "name": "shadow",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "wood",
+      "name": "wood",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "light",
+      "name": "light",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "m": "shadow",
+    "a": "wood",
+    "p": "petal",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "regular"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0127.png panel 2; quantized exact target-cell authoring grid"
+  }
+}

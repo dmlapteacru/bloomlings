@@ -22,7 +22,7 @@ Randomly painting colors and hoping for solvability is forbidden. Picture colors
 
 Bloomlings ships **2500 deterministic, solver-validated sequential levels at launch**, as configured in `content/launch.props`.
 
-The local generator builds gameplay around a reviewed picture library. The launch does not require 2500 separately authored illustrations.
+The local generator builds gameplay around a reviewed picture library. The replacement launch requires 2500 distinct authored compositions, each assigned once; color or size variations do not count as new compositions.
 
 Content model:
 
@@ -420,3 +420,17 @@ role color groups, distinct-variant counts, merge and readability rules. An inva
 it is never replaced by an approximate recoloring. Profiles without these fields retain their previous behavior.
 The six independently drawn examples and exact local reproduction are in
 [`content/pictures/pilot-v2`](../content/pictures/pilot-v2/README.md). They do not replace launch content.
+
+### Production implementation and readability ceiling (owner amendment, 2026-10-15)
+
+`content/launch-art/plan.json` freezes all 2500 size/class/mechanic slots independently of artwork inventory.
+`tools/catalog/build-launch.*` uses gen-1.6.0, exact per-level pictures, version-2 L11–2500 definitions, fixed palettes,
+per-level checkpoints and solver certificates. Full generation runs on the owner's computer; a partial library or
+partial catalog cannot be installed. Tutorials retain their curated definitions. Daily remains separate.
+
+The remaining artwork is deliberately simple: roughly 16×18 logical pixels, 5–8 broad regions, one recognizable
+silhouette and at most one large identifying feature. Large boards do not call for more detail. Existing detailed
+sources already provide enough complex compositions. Every accepted drawing is reviewed using the actual finished-board
+painter. Static entry checks precede generation; actual winning and losing traces are still required for every puzzle.
+The versioned launch thresholds prioritize buffer/decision pressure and need player playtesting. They do not change the
+legacy/Daily thresholds or permit overriding a generated class. See `content/launch-art/README.md` for the local workflow.

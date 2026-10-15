@@ -3,4 +3,5 @@
   <PropertyGroup>
     <LaunchLevelCount>2500</LaunchLevelCount>
   </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)launch-art/installed-assets.props" Condition="'$(LaunchLevelCount)' == '2500' and Exists('$(MSBuildThisFileDirectory)launch-art/installed-assets.props')" />
 </Project>

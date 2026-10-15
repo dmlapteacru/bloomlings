@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 5 Waiting Slots. Bloomlings then automatically clear reachable board tiles of the pod's exact
 target variant. The level is lost when the slots jam. There are 4 character families (Sprig,
 Bloom, Drop, Twig) and 8 exact target variants at launch (Leaf/Moss, Flower/Violet Bud,
-Water/Dew, Wood/Acorn). Progression is a linear sequence of 5000+ levels, with no map.
+Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expansion and no map.
 
 ## Current stage: implementation of spec 001 (development gate open)
 
@@ -86,6 +86,14 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   earlier bands as history, two more seeds for a level without an accepted candidate (else a recorded gap), every band
   validated in context before it is copied in, `content/catalog/build-manifest.jsonl` per band; resumable, and
   `-Check <band>` / `--check <band>` regenerates a band to compare it file by file. It never commits.
+- Unique-art launch (owner revision, 2026-10-15): `content/launch-art/plan.json` freezes all 2500 slots, up to 36×36;
+  tutorials keep their existing sizes, and L301+ has no compact 14×16–16×18 boards. Each level has a different
+  composition; no recolors/resizes count as new art. `build-launch.ps1` / `.sh` generate locally on the owner's
+  computer, with resume/checkpoints and checked installation. See `content/launch-art/README.md`. Do not use the legacy
+  builder for this replacement. Remaining art uses sparse coarse icons, not detailed scenes. Full generation is local;
+  small engineering samples may run here. Source atlases are authoring data and are never APK assets.
+- The following board/difficulty notes describe the legacy catalog; the frozen launch plan and gen-1.6.0 launch
+  thresholds take precedence for new art.
 - Boards (spec 001 FR-008 and FR-036 as amended on 2026-10-07, the owner): the curated Levels 1–10 keep 11–12×12; from
   L11 every board size from 14×16 to 22×28 (`CellPos.MaxWidth`/`MaxHeight`) comes about as often as any other
   (`BandGuidelines.AnyBoard`; `PicturePicker.Pick` draws a size first, then a picture of it), so about half the levels are

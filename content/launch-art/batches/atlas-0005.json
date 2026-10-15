@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "referenceFile": "content/launch-art/references/atlas-0005.png",
+  "columns": 4,
+  "rows": 5,
+  "paletteRoles": 5,
+  "entries": [
+    {
+      "level": 86,
+      "compositionId": "dragonfly_wing_workshop",
+      "title": "Мастерская стрекозиных крыльев",
+      "displayName": "Dragonfly wing workshop",
+      "artBrief": "A friendly green dragonfly at an orange workbench repairs two huge pink paper wings, with a broad yellow spool; wings dominate the silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A friendly green dragonfly at an orange workbench repairs two huge pink paper wings, with a broad yellow spool; wings dominate the silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 87,
+      "compositionId": "leaf_measuring_tape",
+      "title": "Листовая рулетка",
+      "displayName": "Leaf measuring tape",
+      "artBrief": "One broad orange measuring-tape case with a big pink spiral, green leaf clip and broad yellow tape curling out; no numbers or writing. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "One broad orange measuring-tape case with a big pink spiral, green leaf clip and broad yellow tape curling out; no numbers or writing.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 88,
+      "compositionId": "fern_railway",
+      "title": "Железная дорога на папоротнике",
+      "displayName": "Fern railway",
+      "artBrief": "A huge arched green fern frond becomes a railway viaduct, a chunky orange train with broad yellow windows crosses it beneath a pink leaf canopy. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge arched green fern frond becomes a railway viaduct, a chunky orange train with broad yellow windows crosses it beneath a pink leaf canopy.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 89,
+      "compositionId": "lotus_candle_cup",
+      "title": "Свеча в лотосе",
+      "displayName": "Lotus candle cup",
+      "artBrief": "A broad pink lotus-shaped candle cup with a large yellow flame, orange base and two broad green leaves. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad pink lotus-shaped candle cup with a large yellow flame, orange base and two broad green leaves.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 90,
+      "compositionId": "leaf_ring_spinning_top",
+      "title": "Волчок с листовым кольцом",
+      "displayName": "Leaf ring spinning top",
+      "artBrief": "A large spinning top with broad orange body, wide yellow lower band, pink center ring and a large green leaf loop at the top. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A large spinning top with broad orange body, wide yellow lower band, pink center ring and a large green leaf loop at the top.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 91,
+      "compositionId": "spiral_shell_water_leaf",
+      "title": "Спиральная раковина",
+      "displayName": "Spiral shell water leaf",
+      "artBrief": "A broad pink conch shell with a thick yellow spiral, orange lip and one large green water leaf underneath. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad pink conch shell with a thick yellow spiral, orange lip and one large green water leaf underneath.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 92,
+      "compositionId": "lantern_flower_market",
+      "title": "Цветочный рынок в фонаре",
+      "displayName": "Lantern flower market",
+      "artBrief": "A huge orange hanging lantern unfolds into a floating flower stall, broad pink awning, green leaf shelves and one large yellow flower lamp. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge orange hanging lantern unfolds into a floating flower stall, broad pink awning, green leaf shelves and one large yellow flower lamp.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 93,
+      "compositionId": "walnut_cable_station",
+      "title": "Канатная станция в орехе",
+      "displayName": "Walnut cable station",
+      "artBrief": "A huge orange walnut shell becomes a cable car station, pink roof, green suspension cables and one broad yellow gondola. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge orange walnut shell becomes a cable car station, pink roof, green suspension cables and one broad yellow gondola.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 94,
+      "compositionId": "diamond_wing_dragonfly",
+      "title": "Стрекоза с ромбами",
+      "displayName": "Diamond wing dragonfly",
+      "artBrief": "An orange dragonfly with broad pink diamond wings, green leaf tail and two large yellow eye circles. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "An orange dragonfly with broad pink diamond wings, green leaf tail and two large yellow eye circles.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 95,
+      "compositionId": "mushroom_drawbridge",
+      "title": "Грибной подъёмный мост",
+      "displayName": "Mushroom drawbridge",
+      "artBrief": "A huge pink mushroom cap lifts as a drawbridge on an orange stalk, two green leaf boats below and broad yellow hinge wheel. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge pink mushroom cap lifts as a drawbridge on an orange stalk, two green leaf boats below and broad yellow hinge wheel.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 96,
+      "compositionId": "hedgehog_post_office",
+      "title": "Почта на спине ежа",
+      "displayName": "Hedgehog post office",
+      "artBrief": "A broad orange hedgehog carries a small pink postal booth, green leaf spikes around it and one huge yellow envelope sign without letters. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad orange hedgehog carries a small pink postal booth, green leaf spikes around it and one huge yellow envelope sign without letters.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 97,
+      "compositionId": "leaf_hand_mirror",
+      "title": "Листовое зеркальце",
+      "displayName": "Leaf hand mirror",
+      "artBrief": "A broad green leaf-shaped hand mirror, thick pink rim, orange handle and large yellow reflection area. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad green leaf-shaped hand mirror, thick pink rim, orange handle and large yellow reflection area.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 98,
+      "compositionId": "rose_pottery_kiln",
+      "title": "Гончарная печь в розе",
+      "displayName": "Rose pottery kiln",
+      "artBrief": "A huge pink rose bud opens into an orange pottery kiln, green leaf platform and broad yellow glowing arch with one large pot inside. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge pink rose bud opens into an orange pottery kiln, green leaf platform and broad yellow glowing arch with one large pot inside.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 99,
+      "compositionId": "sun_claw_crab",
+      "title": "Краб с солнечными клешнями",
+      "displayName": "Sun claw crab",
+      "artBrief": "An orange crab with broad pink shell, two large yellow claws and green seaweed below, clean recognizable crab silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "An orange crab with broad pink shell, two large yellow claws and green seaweed below, clean recognizable crab silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 100,
+      "compositionId": "sailing_book_library",
+      "title": "Плавучая книжная библиотека",
+      "displayName": "Sailing book library",
+      "artBrief": "An open orange book becomes a sailing library, broad green leaf sails, pink bookshelf cabin and large yellow porthole. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "An open orange book becomes a sailing library, broad green leaf sails, pink bookshelf cabin and large yellow porthole.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 101,
+      "compositionId": "crocodile_floating_orchard",
+      "title": "Плавучий сад крокодила",
+      "displayName": "Crocodile floating orchard",
+      "artBrief": "A friendly huge green crocodile holds a floating orange orchard platform across its open jaws, broad pink fruit and a yellow footbridge; clear crocodile silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A friendly huge green crocodile holds a floating orange orchard platform across its open jaws, broad pink fruit and a yellow footbridge; clear crocodile silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 102,
+      "compositionId": "drop_shaped_metronome",
+      "title": "Каплевидный метроном",
+      "displayName": "Drop shaped metronome",
+      "artBrief": "One chunky orange drop-shaped metronome with a large yellow front, broad pink pendulum and green leaf base; no numbers or writing. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "One chunky orange drop-shaped metronome with a large yellow front, broad pink pendulum and green leaf base; no numbers or writing.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 103,
+      "compositionId": "teacup_stone_staircase",
+      "title": "Каменная лестница из чашки",
+      "displayName": "Teacup stone staircase",
+      "artBrief": "An orange teacup pours a staircase of broad yellow stepping stones into a green garden pond, with a wide pink rim; clear pouring cup silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "An orange teacup pours a staircase of broad yellow stepping stones into a green garden pond, with a wide pink rim; clear pouring cup silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 104,
+      "compositionId": "leaf_strap_binoculars",
+      "title": "Бинокль с листовым ремнём",
+      "displayName": "Leaf strap binoculars",
+      "artBrief": "One broad orange pair of binoculars, thick pink eyecups, large yellow lenses and a green leaf strap. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "One broad orange pair of binoculars, thick pink eyecups, large yellow lenses and a green leaf strap.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 105,
+      "compositionId": "cloud_leaf_caravan",
+      "title": "Облачный караван",
+      "displayName": "Cloud leaf caravan",
+      "artBrief": "A huge pink sleeping cloud carries two broad green leaf boats with orange cabins and yellow lamps, wide looping cloud silhouette, sparse detail. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge pink sleeping cloud carries two broad green leaf boats with orange cabins and yellow lamps, wide looping cloud silhouette, sparse detail.",
+      "readabilityRevision": 3
+    }
+  ],
+  "readabilityRevision": 3,
+  "sourceReadabilityRevision": 1
+}

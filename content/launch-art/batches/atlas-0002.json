@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "referenceFile": "content/launch-art/references/atlas-0002.png",
+  "columns": 4,
+  "rows": 5,
+  "paletteRoles": 4,
+  "entries": [
+    {
+      "level": 31,
+      "compositionId": "folded_garden_map",
+      "title": "Складная садовая карта",
+      "displayName": "Folded garden map",
+      "artBrief": "An orange folded map with broad green river path and one pink flag; the folded paper silhouette is the subject. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud"
+      },
+      "zoom": 0.95,
+      "originalArtBrief": "An orange folded map with broad green river path and one pink flag; the folded paper silhouette is the subject.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 32,
+      "compositionId": "leaf_sand_hourglass",
+      "title": "Песочные часы с листьями",
+      "displayName": "Leaf sand hourglass",
+      "artBrief": "An orange hourglass frame, pink glass upper bulb, a broad green pile of leaf-shaped sand in its lower bulb. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "originalArtBrief": "An orange hourglass frame, pink glass upper bulb, a broad green pile of leaf-shaped sand in its lower bulb.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 33,
+      "compositionId": "frog_drummer",
+      "title": "Лягушка-барабанщик",
+      "displayName": "Frog drummer",
+      "artBrief": "A round green frog sitting behind one large orange drum with a wide pink drum skin, no other instruments. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "A round green frog sitting behind one large orange drum with a wide pink drum skin, no other instruments.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 34,
+      "compositionId": "hummingbird_blossom",
+      "title": "Колибри у цветка",
+      "displayName": "Hummingbird blossom",
+      "artBrief": "A green hummingbird with a broad pink wing approaching one orange flower; clear side-view bird silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "flower"
+      },
+      "zoom": 1.09,
+      "originalArtBrief": "A green hummingbird with a broad pink wing approaching one orange flower; clear side-view bird silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 35,
+      "compositionId": "leaf_pointer_sundial",
+      "title": "Солнечные часы",
+      "displayName": "Leaf pointer sundial",
+      "artBrief": "A broad orange sundial plate with green leaf-shaped pointer and four big pink petal hour marks. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "A broad orange sundial plate with green leaf-shaped pointer and four big pink petal hour marks.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 36,
+      "compositionId": "macrame_succulent",
+      "title": "Подвесной суккулент",
+      "displayName": "Macrame succulent",
+      "artBrief": "A chunky green succulent in a large pink pot hanging from an orange triangular macrame cradle. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "originalArtBrief": "A chunky green succulent in a large pink pot hanging from an orange triangular macrame cradle.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 37,
+      "compositionId": "shell_back_crab",
+      "title": "Краб с ракушкой",
+      "displayName": "Shell back crab",
+      "artBrief": "An orange side-stepping crab carrying a big pink scallop shell; green seaweed beneath the claws. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "An orange side-stepping crab carrying a big pink scallop shell; green seaweed beneath the claws.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 38,
+      "compositionId": "peach_half_leaf",
+      "title": "Половинка персика",
+      "displayName": "Peach half leaf",
+      "artBrief": "A large orange peach half with a big pink round stone and two broad green leaves, clean bold silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "flower"
+      },
+      "originalArtBrief": "A large orange peach half with a big pink round stone and two broad green leaves, clean bold silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 39,
+      "compositionId": "windup_turtle",
+      "title": "Заводная черепаха",
+      "displayName": "Windup turtle",
+      "artBrief": "A green wind-up toy turtle with an orange shell divided by a broad pink band and a visible orange winding wheel. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "A green wind-up toy turtle with an orange shell divided by a broad pink band and a visible orange winding wheel.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 40,
+      "compositionId": "ribbon_butterfly_spool",
+      "title": "Бабочка из ленты",
+      "displayName": "Ribbon butterfly spool",
+      "artBrief": "An orange spool of ribbon, its broad pink ribbon unfolds into two butterfly wings with green loop ends. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "originalArtBrief": "An orange spool of ribbon, its broad pink ribbon unfolds into two butterfly wings with green loop ends.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 42,
+      "compositionId": "embroidered_garden_glove",
+      "title": "Садовая перчатка",
+      "displayName": "Embroidered garden glove",
+      "artBrief": "One large orange gardening glove with a broad pink cuff and a big green leaf embroidered across the palm. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "flower"
+      },
+      "originalArtBrief": "One large orange gardening glove with a broad pink cuff and a big green leaf embroidered across the palm.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 43,
+      "compositionId": "leaf_magnifier",
+      "title": "Лупа с листом",
+      "displayName": "Leaf magnifier",
+      "artBrief": "A large round pink magnifier with an orange handle; one broad green leaf is visible inside the cyan lens. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "A large round pink magnifier with an orange handle; one broad green leaf is visible inside the cyan lens.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 44,
+      "compositionId": "hanging_nest_basket",
+      "title": "Гнездо в корзинке",
+      "displayName": "Hanging nest basket",
+      "artBrief": "A broad orange woven basket holding three large pink eggs, with green leaves over its curved handle. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "originalArtBrief": "A broad orange woven basket holding three large pink eggs, with green leaves over its curved handle.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 504,
+      "compositionId": "branch_chess_knight",
+      "title": "Шахматный конь из ветки",
+      "displayName": "Branch chess knight",
+      "artBrief": "A chunky orange wooden chess knight with a broad green mane and pink saddle shape, on an orange round chess base. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "originalArtBrief": "A chunky orange wooden chess knight with a broad green mane and pink saddle shape, on an orange round chess base.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 509,
+      "compositionId": "leaf_mandolin",
+      "title": "Мандолина-лист",
+      "displayName": "Leaf mandolin",
+      "artBrief": "An orange mandolin whose broad body is shaped like a green leaf, a large pink sound hole, broad orange neck. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "An orange mandolin whose broad body is shaped like a green leaf, a large pink sound hole, broad orange neck.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 512,
+      "compositionId": "pea_pod_canoe",
+      "title": "Лодка из горохового стручка",
+      "displayName": "Pea pod canoe",
+      "artBrief": "One open green pea pod used as a canoe, three large pink peas inside and a broad orange paddle across it. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "originalArtBrief": "One open green pea pod used as a canoe, three large pink peas inside and a broad orange paddle across it.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 515,
+      "compositionId": "gear_wing_dragonfly",
+      "title": "Стрекоза с шестерёнками",
+      "displayName": "Gear wing dragonfly",
+      "artBrief": "A large orange dragonfly with two broad green gear-shaped wings and two pink rounded wings, clean symmetric silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "A large orange dragonfly with two broad green gear-shaped wings and two pink rounded wings, clean symmetric silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 520,
+      "compositionId": "snail_watering_can",
+      "title": "Лейка-улитка",
+      "displayName": "Snail watering can",
+      "artBrief": "An orange watering can shaped like a snail shell, with one large green spiral and a broad pink curved spout. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower"
+      },
+      "originalArtBrief": "An orange watering can shaped like a snail shell, with one large green spiral and a broad pink curved spout.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 522,
+      "compositionId": "leaf_tripod_telescope",
+      "title": "Телескоп на листьях",
+      "displayName": "Leaf tripod telescope",
+      "artBrief": "A chunky orange telescope with a large pink lens rim, standing on three broad green leaves as a tripod. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "flower"
+      },
+      "originalArtBrief": "A chunky orange telescope with a large pink lens rim, standing on three broad green leaves as a tripod.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 527,
+      "compositionId": "artichoke_lantern",
+      "title": "Фонарь-артишок",
+      "displayName": "Artichoke lantern",
+      "artBrief": "A broad green artichoke opened like a lantern, a large pink glowing center, and an orange hanging loop. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud"
+      },
+      "originalArtBrief": "A broad green artichoke opened like a lantern, a large pink glowing center, and an orange hanging loop.",
+      "readabilityRevision": 3
+    }
+  ],
+  "readabilityRevision": 3,
+  "sourceReadabilityRevision": 1,
+  "targetGridReviewRevision": 2
+}

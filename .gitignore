@@ -77,3 +77,6 @@ tools/assetpack-check/obj/
 # tools/heroanim (npm packages; `npm ci` restores them)
 tools/heroanim/node_modules/
 __pycache__/
+
+# Generated only by a complete local launch installation.
+/content/launch-art/installed-assets.props

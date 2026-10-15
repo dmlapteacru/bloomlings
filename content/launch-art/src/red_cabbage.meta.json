@@ -1,0 +1,61 @@
+{
+  "id": "red_cabbage",
+  "version": 1,
+  "subject": "Red Cabbage",
+  "width": 18,
+  "height": 20,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "leaf",
+      "name": "leaf",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "petal_shadow",
+      "name": "petal_shadow",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "light",
+      "name": "light",
+      "colorGroup": "lime"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "g": "leaf",
+    "p": "petal",
+    "q": "petal_shadow",
+    "y": "light"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0037.png panel 17; quantized exact target-cell authoring grid"
+  }
+}

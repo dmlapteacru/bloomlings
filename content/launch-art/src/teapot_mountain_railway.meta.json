@@ -1,0 +1,55 @@
+{
+  "id": "teapot_mountain_railway",
+  "version": 1,
+  "subject": "Teapot Mountain Railway",
+  "width": 24,
+  "height": 24,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "leaf",
+      "name": "leaf",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "shadow",
+      "name": "shadow",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "g": "leaf",
+    "m": "shadow",
+    "p": "petal"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/atlas-0069.png panel 9; quantized exact target-cell authoring grid; one-cell entry clearance"
+  }
+}

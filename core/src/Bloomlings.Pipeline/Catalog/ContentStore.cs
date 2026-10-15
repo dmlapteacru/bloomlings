@@ -91,6 +91,21 @@ namespace Bloomlings.Pipeline.Catalog
             }
         }
 
+        /// <summary>Resumable builds never expose a truncated JSON file if the process is interrupted.</summary>
+        public static void WriteLevelAtomic(string folder, LevelDefinition level, ValidationRecord? record)
+        {
+            AtomicText(Path.Combine(folder,LevelsFolder,LevelFileName(level.LevelNumber)),DefinitionJson.Write(level));
+            if(record!=null)AtomicText(Path.Combine(folder,ValidationFolder,LevelFileName(level.LevelNumber)),record.Write());
+        }
+
+        public static void AtomicText(string path,string text)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);
+            string temporary=path+".tmp-"+Guid.NewGuid().ToString("N");
+            try { File.WriteAllText(temporary,text);File.Move(temporary,path,true); }
+            finally { if(File.Exists(temporary))File.Delete(temporary); }
+        }
+
         public static ApprovedPairs? LoadPairs(string path) => File.Exists(path) ? ApprovedPairs.Read(path) : null;
 
         /// <summary>Whether a folder holds published content (a <c>manifest.json</c> and its packs).</summary>

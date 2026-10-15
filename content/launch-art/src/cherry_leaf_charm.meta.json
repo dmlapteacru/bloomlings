@@ -1,0 +1,55 @@
+{
+  "id": "cherry_leaf_charm",
+  "version": 1,
+  "subject": "Черешни с листом",
+  "width": 14,
+  "height": 16,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "leaf",
+      "name": "leaf",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "wood",
+      "name": "wood",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "petal",
+      "name": "petal",
+      "colorGroup": "pink_purple"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "g": "leaf",
+    "a": "wood",
+    "p": "petal"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original"
+    ],
+    "bands": [
+      "regular"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "origin": "content/launch-art/references/atlas-0001.png panel 7; quantized exact target-cell authoring grid",
+    "licence": "owned"
+  }
+}

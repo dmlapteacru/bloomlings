@@ -1,0 +1,57 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, -1, 0, 0, 0, 2, 2, 0, 0, -1, -1],
+    [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+    [-1, 0, 0, 0, 0, 1, 1, 1, 0, 0, -1],
+    [-1, -1, 0, 0, 0, 0, 1, 0, 0, -1, -1]
+  ],
+  "height": 12,
+  "id": "kite",
+  "review": {
+    "date": "2026-10-05",
+    "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
+    "reviewer": "content",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Kite",
+      "roleId": "kite"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail",
+      "roleId": "tail"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Kite",
+  "tags": {
+    "bands": ["onboarding"],
+    "themes": ["sky"]
+  },
+  "version": 2,
+  "width": 11
+}

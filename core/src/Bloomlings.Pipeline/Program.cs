@@ -17,6 +17,7 @@ namespace Bloomlings.Pipeline
             root.Subcommands.Add(PictureCommands.Create());
             root.Subcommands.Add(ReadabilityCli.Create());
             root.Subcommands.Add(GenerateCommand.Create());
+            root.Subcommands.Add(LaunchArtCommand.Create());
             root.Subcommands.Add(DailyGenerateCommand.Create());
             root.Subcommands.Add(CatalogCommands.Solve());
             root.Subcommands.Add(CatalogCommands.Validate());

@@ -1,0 +1,86 @@
+{
+  "bands": {
+    "band-0011-0025": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "band-0026-0050": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "band-0051-0100": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "band-0101-0250": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "band-0251-0500": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "band-0501-1000": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "band-1001-2000": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "band-2001-5000": {
+      "big": {
+        "hardMin": 3000,
+        "superHardMin": 4000
+      },
+      "hardMin": 3000,
+      "superHardMin": 4000
+    },
+    "daily": {
+      "hardMin": 3000,
+      "superHardMin": 4000
+    }
+  },
+  "note": "Authored launch only, generator gen-1.6.0. Class measures decision pressure: one occupied buffer slot contributes 1000, unsafe choices up to 1000, with smaller costs for dependencies, mean occupancy, variants and mechanisms. Hard starts at 3000, Super Hard at 4000 on all sizes. Work and pod count affect duration and remain independently bounded, but do not make a large simple drawing mechanically Hard by themselves. Winning pressure limits and solver win/loss checks remain mandatory. Legacy levels and Daily retain difficulty-thresholds.json. The preset requires further player playtesting; classes are never overridden to fill quotas.",
+  "weights": {
+    "branchingX1000": 20,
+    "crossVariantLayers": 15000,
+    "dependencyDepth": 60000,
+    "meanBufferX1000": 100,
+    "peakBuffer": 1000000,
+    "podCount": 0,
+    "siblingPairs": 60000,
+    "specialLoad": 40000,
+    "totalWork": 0,
+    "unsafeChoicePermille": 1000,
+    "variantCount": 50000
+  }
+}

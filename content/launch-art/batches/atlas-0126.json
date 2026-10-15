@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "referenceFile": "content/launch-art/references/atlas-0126.png",
+  "columns": 2,
+  "rows": 1,
+  "paletteRoles": 5,
+  "entries": [
+    {
+      "compositionId": "french_horn_tide_pool",
+      "conceptKey": "french_horn:tide_pool",
+      "title": "French Horn Tide Pool",
+      "displayName": "French Horn Tide Pool",
+      "artBrief": "french horn with one enormous curled shell shape; one simple toy-like icon.",
+      "direction": "pocket_worlds",
+      "level": 200,
+      "paletteRoles": 5,
+      "red": true,
+      "width": 24,
+      "height": 24,
+      "artKind": "story",
+      "state": "pending",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "berry",
+        "light": "vine"
+      },
+      "originalArtBrief": "An enormous open french horn contains a miniature tide pool: one huge shell arch over a broad pool. One large enclosing silhouette and one clear inner landscape, no tiny clutter.",
+      "readabilityRevision": 3
+    },
+    {
+      "compositionId": "shooting_star_seed_harvest",
+      "conceptKey": "shooting_star:seed_harvest",
+      "title": "Shooting Star Seed Harvest",
+      "displayName": "Shooting Star Seed Harvest",
+      "artBrief": "shooting star with one oversized seed scoop attached to the main silhouette; one simple toy-like icon.",
+      "direction": "celestial_gardens",
+      "level": 201,
+      "paletteRoles": 5,
+      "red": true,
+      "width": 24,
+      "height": 24,
+      "artKind": "story",
+      "state": "pending",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "berry",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge shooting star holds a magical seed harvest: one enormous leaf scoop harvests glowing seeds. Broad celestial silhouette, one large garden mechanism, no tiny stars or writing.",
+      "readabilityRevision": 3
+    }
+  ],
+  "readabilityRevision": 3,
+  "sourceReadabilityRevision": 3,
+  "targetGridReviewRevision": 2
+}

@@ -194,3 +194,14 @@ Bad:
 > The game hid information I could not know.
 
 Solver/fairness rules remain mandatory.
+
+## Unique-art launch production (2026-10-15 owner revision)
+
+The frozen 2500-slot schedule is in `content/launch-art/plan.json`. Adding or repairing art must not move sizes,
+classes or required mechanic introductions. The gen-1.6.0 launch preset is
+`content/profiles/difficulty-thresholds-launch.json`: decision pressure determines class, while work/pod limits still
+bound duration. Every generated class must match its measured score, without overrides. This preset requires player
+playtesting; the existing catalog and Daily retain their original difficulty thresholds.
+
+Visual complexity does not increase with puzzle difficulty: the remaining pictures use large, sparse shapes, even on
+30–36-cell boards. Readability in the finished cell grid takes precedence over detail in a source illustration.

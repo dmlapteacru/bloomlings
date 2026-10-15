@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "referenceFile": "content/launch-art/references/atlas-0001.png",
+  "columns": 4,
+  "rows": 5,
+  "paletteRoles": 4,
+  "entries": [
+    {
+      "level": 11,
+      "compositionId": "crescent_lantern",
+      "title": "Лунный фонарь",
+      "artBrief": "Лунный фонарь Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Лунный фонарь",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 12,
+      "compositionId": "garden_bell",
+      "title": "Садовый колокольчик",
+      "artBrief": "Садовый колокольчик Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Садовый колокольчик",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 13,
+      "compositionId": "leaf_handle_umbrella",
+      "title": "Зонтик с ручкой-листом",
+      "artBrief": "Зонтик с ручкой-листом Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1.035,
+      "originalArtBrief": "Зонтик с ручкой-листом",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 14,
+      "compositionId": "garden_hose_reel",
+      "title": "Катушка садового шланга",
+      "artBrief": "Катушка садового шланга Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Катушка садового шланга",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 15,
+      "compositionId": "koi_water_leaf",
+      "title": "Карп над водяным листом",
+      "artBrief": "Карп над водяным листом Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Карп над водяным листом",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 16,
+      "compositionId": "acorn_bird_feeder",
+      "title": "Кормушка-жёлудь",
+      "artBrief": "Кормушка-жёлудь Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Кормушка-жёлудь",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 17,
+      "compositionId": "cherry_leaf_charm",
+      "title": "Черешни с листом",
+      "artBrief": "Черешни с листом Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Черешни с листом",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 18,
+      "compositionId": "quill_ink_bottle",
+      "title": "Чернильница с пером",
+      "artBrief": "Чернильница с пером Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Чернильница с пером",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 19,
+      "compositionId": "scallop_seaweed",
+      "title": "Ракушка в водорослях",
+      "artBrief": "Ракушка в водорослях Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Ракушка в водорослях",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 20,
+      "compositionId": "garden_compass",
+      "title": "Садовый компас",
+      "artBrief": "Садовый компас Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Садовый компас",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 21,
+      "compositionId": "watering_can_blossom",
+      "title": "Лейка и цветок",
+      "artBrief": "Лейка и цветок Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Лейка и цветок",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 22,
+      "compositionId": "leaf_pinwheel",
+      "title": "Вертушка из листьев",
+      "artBrief": "Вертушка из листьев Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Вертушка из листьев",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 23,
+      "compositionId": "garden_book_stack",
+      "title": "Стопка садовых книг",
+      "artBrief": "Стопка садовых книг Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Стопка садовых книг",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 24,
+      "compositionId": "leaf_seal_letter",
+      "title": "Письмо с печатью-листом",
+      "artBrief": "Письмо с печатью-листом Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Письмо с печатью-листом",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 25,
+      "compositionId": "garden_violin",
+      "title": "Садовая скрипка",
+      "artBrief": "Садовая скрипка Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Садовая скрипка",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 26,
+      "compositionId": "leaf_lid_jam",
+      "title": "Варенье под листом",
+      "artBrief": "Варенье под листом Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 0.9,
+      "originalArtBrief": "Варенье под листом",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 27,
+      "compositionId": "origami_fox_scarf",
+      "title": "Лиса из бумаги",
+      "artBrief": "Лиса из бумаги Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Лиса из бумаги",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 28,
+      "compositionId": "hand_coffee_grinder",
+      "title": "Ручная кофемолка",
+      "artBrief": "Ручная кофемолка Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Ручная кофемолка",
+      "readabilityRevision": 2
+    },
+    {
+      "level": 29,
+      "compositionId": "striped_garden_balloon",
+      "title": "Полосатый воздушный шар",
+      "artBrief": "Полосатый воздушный шар Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Полосатый воздушный шар",
+      "readabilityRevision": 2,
+      "skyHalo": true
+    },
+    {
+      "level": 30,
+      "compositionId": "hanging_flower_terrarium",
+      "title": "Подвесной цветочный сад",
+      "artBrief": "Подвесной цветочный сад Keep only the main object and its single strongest identifying feature; omit all subsidiary props and background scenery.",
+      "zoom": 1,
+      "originalArtBrief": "Подвесной цветочный сад",
+      "readabilityRevision": 2
+    }
+  ],
+  "readabilityRevision": 3,
+  "sourceReadabilityRevision": 1,
+  "targetGridReviewRevision": 2
+}

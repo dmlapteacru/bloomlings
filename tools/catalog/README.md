@@ -1,5 +1,12 @@
 # tools/catalog: build the level catalog
 
+> **Unique-art launch:** use `build-launch.ps1` / `build-launch.sh` and
+> [the production guide](../../content/launch-art/README.md). `-Status` reports actual reviewed coverage;
+> `-Jobs 2 -Install` builds the assigned L1–2500 catalog locally and installs it only after full validation.
+> These commands require .NET 10; source PNGs, Python and image-generation credentials are not needed by the owner.
+> The older `build-catalog.*` commands below preserve legacy picture-reuse recipes and do not build the unique-art launch.
+
+
 Generates and certifies the launch range (Levels 1–2500 by default) in `content/catalog/`, band by band with the content pipeline
 (`specs/001-core-game-mvp/contracts/pipeline-cli.md`). Two scripts run the same procedure:
 

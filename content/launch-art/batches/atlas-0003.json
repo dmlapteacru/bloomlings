@@ -1,0 +1,331 @@
+{
+  "schemaVersion": 1,
+  "referenceFile": "content/launch-art/references/atlas-0003.png",
+  "columns": 4,
+  "rows": 5,
+  "paletteRoles": 5,
+  "entries": [
+    {
+      "level": 45,
+      "compositionId": "lemon_leaf_juicer",
+      "title": "Лимонный пресс",
+      "displayName": "Lemon leaf juicer",
+      "artBrief": "One huge yellow lemon half on a chunky orange hand juicer, a broad pink collecting cup and large green leaf lever; simple bold silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "One huge yellow lemon half on a chunky orange hand juicer, a broad pink collecting cup and large green leaf lever; simple bold silhouette.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 46,
+      "compositionId": "seedling_lightbulb",
+      "title": "Лампочка с ростком",
+      "displayName": "Seedling lightbulb",
+      "artBrief": "A broad yellow light bulb containing a green seedling in a pink pot, with orange screw base. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad yellow light bulb containing a green seedling in a pink pot, with orange screw base.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 47,
+      "compositionId": "leaf_pancake_stack",
+      "title": "Стопка садовых оладий",
+      "displayName": "Leaf pancake stack",
+      "artBrief": "A broad orange stack of pancakes, green leaf garnish, big pink berry and a wide yellow honey stream. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad orange stack of pancakes, green leaf garnish, big pink berry and a wide yellow honey stream.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 48,
+      "compositionId": "tiny_carousel_box",
+      "title": "Музыкальная карусель",
+      "displayName": "Tiny carousel box",
+      "artBrief": "A chunky orange music box with a broad pink carousel roof, green base and large yellow wind-up wheel. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A chunky orange music box with a broad pink carousel roof, green base and large yellow wind-up wheel.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 49,
+      "compositionId": "toucan_leaf_swing",
+      "title": "Тукан на листовых качелях",
+      "displayName": "Toucan leaf swing",
+      "artBrief": "A chunky green toucan with a huge orange beak and broad pink chest sits on a bright yellow leaf-shaped swing. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A chunky green toucan with a huge orange beak and broad pink chest sits on a bright yellow leaf-shaped swing.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 50,
+      "compositionId": "wheelbarrow_theater",
+      "title": "Театр в садовой тачке",
+      "displayName": "Wheelbarrow theater",
+      "artBrief": "A broad orange garden wheelbarrow has become a theater: its green handles surround a broad pink curtain, with a large yellow moon stage backdrop. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad orange garden wheelbarrow has become a miniature theater: its green handles surround a broad pink curtain, with a large yellow moon stage backdrop.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 51,
+      "compositionId": "teapot_reef_submarine",
+      "title": "Подводный чайник",
+      "displayName": "Teapot reef submarine",
+      "artBrief": "An orange TEAPOT transformed into a submarine, with a wide yellow round porthole, pink periscope, green kelp around its spout; complete teapot silhouette underwater. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "An orange TEAPOT transformed into a submarine, with a wide yellow round porthole, pink periscope, green kelp around its spout; complete teapot silhouette underwater.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 52,
+      "compositionId": "solar_leaf_beetle",
+      "title": "Солнечный жук",
+      "displayName": "Solar leaf beetle",
+      "artBrief": "A broad orange beetle with green leaf wings, wide pink body stripe and large yellow wing spots. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad orange beetle with green leaf wings, wide pink body stripe and large yellow wing spots.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 53,
+      "compositionId": "garden_hand_fan",
+      "title": "Садовый веер",
+      "displayName": "Garden hand fan",
+      "artBrief": "A broad pink folding fan with orange ribs, green leaf handle and a wide yellow sun motif across the fan. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad pink folding fan with orange ribs, green leaf handle and a wide yellow sun motif across the fan.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 54,
+      "compositionId": "paper_crane_ferry",
+      "title": "Паром на бумажном журавле",
+      "displayName": "Paper crane ferry",
+      "artBrief": "A huge green origami crane becomes a floating ferry, carrying a small orange cabin with a broad pink canopy and yellow windows. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge green origami crane becomes a floating ferry, carrying a small orange cabin with a broad pink canopy and yellow windows.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 55,
+      "compositionId": "turtle_shell_glasshouse",
+      "title": "Оранжерея-черепаха",
+      "displayName": "Turtle shell glasshouse",
+      "artBrief": "A friendly green turtle whose shell is a broad orange glasshouse frame, with a pink roof and large yellow glowing panes. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A friendly green turtle whose shell is a broad orange glasshouse frame, with a pink roof and large yellow glowing panes.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 56,
+      "compositionId": "accordion_waterfall",
+      "title": "Водопад из гармошки",
+      "displayName": "Accordion waterfall",
+      "artBrief": "An open orange accordion unfolds into a stepped waterfall, green leaf banks, pink bellows and broad yellow musical sun above. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "An open orange accordion unfolds into a stepped waterfall, green leaf banks, pink bellows and broad yellow musical sun above.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 57,
+      "compositionId": "sunflower_seed_rattle",
+      "title": "Погремушка-подсолнух",
+      "displayName": "Sunflower seed rattle",
+      "artBrief": "One big yellow sunflower-shaped rattle, green handle, broad pink inner ring and orange center. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "One big yellow sunflower-shaped rattle, green handle, broad pink inner ring and orange center.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 58,
+      "compositionId": "honeycomb_lighthouse",
+      "title": "Сотовый маяк",
+      "displayName": "Honeycomb lighthouse",
+      "artBrief": "A lighthouse made of three huge orange honeycomb cells, with a broad yellow lantern at the top, pink roof and green leaf shoreline. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A lighthouse made of three huge orange honeycomb cells, with a broad yellow lantern at the top, pink roof and green leaf shoreline.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 59,
+      "compositionId": "garden_rotary_telephone",
+      "title": "Садовый телефон",
+      "displayName": "Garden rotary telephone",
+      "artBrief": "One broad orange rotary telephone, green leaf-shaped handset, thick pink circular dial and large yellow center; no numbers or writing. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "One broad orange rotary telephone, green leaf-shaped handset, thick pink circular dial and large yellow center; no numbers or writing.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 60,
+      "compositionId": "camera_glass_garden",
+      "title": "Сад в старом фотоаппарате",
+      "displayName": "Camera glass garden",
+      "artBrief": "An orange vintage CAMERA becomes a garden: its big round lens is a green glasshouse with broad pink flower inside and a yellow sun-shaped shutter. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "An orange vintage CAMERA becomes a tiny garden: its big round lens is a green glasshouse with broad pink flower inside and a yellow sun-shaped shutter.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 61,
+      "compositionId": "petal_wind_chime",
+      "title": "Цветочный колокольчик",
+      "displayName": "Petal wind chime",
+      "artBrief": "One broad pink flower bell hanging from an orange arch, green leaf clapper and large yellow bead at its center. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "acorn",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "One broad pink flower bell hanging from an orange arch, green leaf clapper and large yellow bead at its center.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 62,
+      "compositionId": "orange_peel_bakery_boat",
+      "title": "Пекарня в апельсиновой лодке",
+      "displayName": "Orange peel bakery boat",
+      "artBrief": "A broad curled orange peel boat carries a small pink bakery oven, with a yellow arched opening and green leaf awning. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "A broad curled orange peel boat carries a small pink bakery oven, with a yellow arched opening and green leaf awning.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 63,
+      "compositionId": "octopus_music_organ",
+      "title": "Орган осьминога",
+      "displayName": "Octopus music organ",
+      "artBrief": "A huge pink octopus playing a broad orange floating pipe organ, four large green pipes, yellow keys; clear octopus bell and looping arms. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "moss",
+        "wood": "wood",
+        "petal": "violet_bud",
+        "light": "vine"
+      },
+      "originalArtBrief": "A huge pink octopus playing a broad orange floating pipe organ, four large green pipes, yellow keys; clear octopus bell and looping arms.",
+      "readabilityRevision": 3
+    },
+    {
+      "level": 64,
+      "compositionId": "leaf_cookie_tin",
+      "title": "Коробка садового печенья",
+      "displayName": "Leaf cookie tin",
+      "artBrief": "An open orange cookie tin holds three large yellow leaf-shaped biscuits, with green lid and broad pink ribbon. Reduce to one coarse silhouette and one solid identifying shape.",
+      "palette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "wood": "acorn",
+        "petal": "flower",
+        "light": "vine"
+      },
+      "originalArtBrief": "An open orange cookie tin holds three large yellow leaf-shaped biscuits, with green lid and broad pink ribbon.",
+      "readabilityRevision": 3
+    }
+  ],
+  "readabilityRevision": 3,
+  "sourceReadabilityRevision": 1
+}
