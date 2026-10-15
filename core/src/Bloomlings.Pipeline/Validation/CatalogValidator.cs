@@ -214,13 +214,13 @@ namespace Bloomlings.Pipeline.Validation
             CheckVariants(level, report, passed);
             CheckUnlocks(level, picture, report, passed);
             CheckDataModel(level, RulesLevel ?? level.LevelNumber, report, passed);
-            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion || level.GeneratorVersion == Generator.LevelGenerator.AuthoredArtVersion)
+            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion || Generator.LevelGenerator.IsAuthoredArtVersion(level.GeneratorVersion))
                 foreach (string unlock in MechanicsUsed(level, picture).Where(u => u.StartsWith("mechanic.", StringComparison.Ordinal)))
                     if (!BoardMechanicReadability.Allows(unlock.Substring("mechanic.".Length), picture.Width, picture.Height))
                         Error(report, n, "mechanic-readability", $"{unlock} is too small on a {picture.Width}×{picture.Height} board");
             if (level.Overlays.Any(o => o.StackCount > 1) && !BoardMechanicReadability.Allows("counted_stack", picture.Width, picture.Height))
                 Error(report, n, "mechanic-readability", "visible stack counters require a board at most 24×26");
-            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion || level.GeneratorVersion == Generator.LevelGenerator.AuthoredArtVersion)
+            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion || Generator.LevelGenerator.IsAuthoredArtVersion(level.GeneratorVersion))
                 foreach (SpecialDef special in level.Specials.Where(s => s.Condition.Kind != SpecialConditionKind.Key))
                 {
                     int side = BoardMechanicReadability.ObjectSide(picture.Width, picture.Height);
@@ -683,6 +683,13 @@ namespace Bloomlings.Pipeline.Validation
                         string unlock = Generator.Overlays.MechanicNames.UnlockId(mechanic);
                         int? showcase = _roadmap.LevelOf(unlock);
                         int? practice = Generator.Overlays.MechanicNames.PracticeLevel(mechanic, _roadmap, l => byNumber.TryGetValue(l, out LevelDefinition? d) ? d.Difficulty.Class : DifficultyClass.Normal);
+                        // Triple practice depends on the intervening classes. A missing Hard level in a partial
+                        // build is unknown, not Normal: otherwise its practice moves to an unrelated later Super Hard.
+                        if (mechanic == Generator.Overlays.MechanicNames.ConnectedTriple && showcase.HasValue && practice.HasValue
+                            && Enumerable.Range(showcase.Value + 1, practice.Value - showcase.Value).Any(l => !byNumber.ContainsKey(l)))
+                        {
+                            practice = null;
+                        }
                         bool isShowcase = showcase == n;
                         if (!isShowcase && practice != n)
                         {

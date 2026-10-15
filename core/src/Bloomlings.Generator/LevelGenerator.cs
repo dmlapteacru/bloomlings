@@ -54,7 +54,8 @@ namespace Bloomlings.Generator
         /// <summary>New board-size path; existing sizes retain their reproducible definition bytes.</summary>
         public const string ExtendedBoardVersion = "gen-1.4.0";
         public const string ReadableMechanicsVersion = "gen-1.5.0";
-        public const string AuthoredArtVersion = "gen-1.6.0";
+        public const string AuthoredArtVersion = "gen-1.6.1";
+        public static bool IsAuthoredArtVersion(string version) => version is "gen-1.6.0" or AuthoredArtVersion;
         public bool UseAuthoredArtTray { get; set; }
 
         /// <summary>Node budget of each search while the tray is tuned.</summary>
@@ -544,6 +545,7 @@ namespace Bloomlings.Generator
             IntRange stackRange = BandGuidelines.Stacks(_profile.Stacks, target);
             int stacks = Math.Min(pods.Count, stackRange.Min + rng.NextInt(stackRange.Max - stackRange.Min + 1));
             stacks = Math.Max(2, stacks);
+            if (UseAuthoredArtTray && chosen.Contains(MechanicNames.ConnectedTriple)) stacks = 3;
             var options = new SolveOptions(_profile.SolverNodeBudget);
             var tuning = new SolveOptions(Math.Min(_profile.SolverNodeBudget, TuningNodeBudget));
             TrayOutcome? tray;
@@ -555,10 +557,12 @@ namespace Bloomlings.Generator
                 if (UseAuthoredArtTray && UseBandGuidelines && desiredPeak == null)
                     desiredPeak = look == BoardLook.Icons ? BandGuidelines.BigBoardPeakSlots(target)
                         : BandGuidelines.PeakSlots(PressureFor(rules, target));
+                if (UseAuthoredArtTray && UseBandGuidelines) desiredPeak = AuthoredPeakSlots(target);
                 string? trayReason;
                 if (UseAuthoredArtTray)
                     tray = AuthoredTrayBuilder.Tune(skeleton, picture, pods, stacks, target,
-                        _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out trayReason, desiredPeak, podRange, _profile.PodSize);
+                        _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out trayReason, desiredPeak, podRange, _profile.PodSize,
+                        pendingConnectionSize: chosen.Contains(MechanicNames.ConnectedTriple) ? 3 : 0);
                 else
                     tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out trayReason,
                         peakSlots: desiredPeak, preventClassOvershoot: extendedBoard);
@@ -584,16 +588,18 @@ namespace Bloomlings.Generator
                 }
 
                 // One group per level: a triple, when chosen, stands for the pair too.
+                string? connectionReason = null;
                 TrayOutcome? connected = tray.Definition.Pods.Any(p => p.ConnectedGroupId != null)
                     ? null
-                    : TrayBuilder.Connect(tray, picture, target, thresholds, tuning, ref rng, size);
+                    : TrayBuilder.Connect(tray, picture, target, thresholds, tuning, ref rng, size,
+                        maxCandidates: UseAuthoredArtTray ? 48 : 6, rejected: message => connectionReason = message);
                 if (connected != null)
                 {
                     tray = connected;
                 }
                 else if (ForcedMechanics != null && ForcedMechanics.Contains(mechanic))
                 {
-                    reason = "showcase:cannot-place-" + mechanic;
+                    reason = "showcase:cannot-place-" + mechanic + (UseAuthoredArtTray && connectionReason != null ? ":" + connectionReason : "");
                     return null;
                 }
                 else if (IsPracticeOf(level, mechanic))
@@ -644,8 +650,14 @@ namespace Bloomlings.Generator
 
             // Buffer pressure (the band's target, as peak occupied slots on the winning line; an icons board's, of a big
             // board or a Daily Challenge entry, is lower and capped for every class, slack for its hidden layers).
+            if (UseAuthoredArtTray && tray.Class != target)
+            {
+                reason = $"authored-tray:post-mechanic-class-{tray.Class}-expected-{target}";
+                return null;
+            }
             bool icons = look == BoardLook.Icons;
-            IntRange pressure = icons ? BandGuidelines.BigBoardPeakSlots(tray.Class) : BandGuidelines.PeakSlots(PressureFor(rules, tray.Class));
+            IntRange pressure = UseAuthoredArtTray ? AuthoredPeakSlots(tray.Class)
+                : icons ? BandGuidelines.BigBoardPeakSlots(tray.Class) : BandGuidelines.PeakSlots(PressureFor(rules, tray.Class));
             int peak = tray.Analysis.Metrics.PeakBuffer;
             if (peak < pressure.Min || ((icons || tray.Class == DifficultyClass.Normal) && peak > pressure.Max))
             {
@@ -781,6 +793,15 @@ namespace Bloomlings.Generator
 
         /// <summary>Unlock of the advanced Hard profile (roadmap L225): Hard and Super Hard press the buffer critically.</summary>
         public const string AdvancedHardUnlock = "profile.advanced_hard";
+
+        /// <summary>The authored launch measures difficulty by waiting-slot pressure at every board size.
+        /// Legacy late-band Normal=tense and Hard=critical targets contradict that launch calibration.</summary>
+        public static IntRange AuthoredPeakSlots(DifficultyClass difficulty) => difficulty switch
+        {
+            DifficultyClass.Normal => new IntRange(1, 2),
+            DifficultyClass.Hard => new IntRange(2, 3),
+            _ => new IntRange(3, 4),
+        };
 
         /// <summary>The buffer-pressure target of a level's class; from the advanced Hard profile, critical for Hard too.</summary>
         private BufferPressure PressureFor(int level, DifficultyClass difficulty)

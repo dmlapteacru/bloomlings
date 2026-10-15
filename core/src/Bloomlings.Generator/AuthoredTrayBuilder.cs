@@ -41,7 +41,8 @@ namespace Bloomlings.Generator
 
         public static TrayOutcome? Tune(LevelDefinition skeleton,BasePicture picture,IReadOnlyList<PlannedPod> plan,int stacks,
             DifficultyClass target,int maxInjections,DifficultyThresholds thresholds,SolveOptions options,
-            ref Xoshiro256StarStar rng,out string? rejection,IntRange? peakSlots,IntRange podCount,IntRange podSize)
+            ref Xoshiro256StarStar rng,out string? rejection,IntRange? peakSlots,IntRange podCount,IntRange podSize,
+            int pendingConnectionSize = 0)
         {
             var solver=new Solver.Solver();
             LevelDefinition original=TrayBuilder.Layout(skeleton,plan,stacks);
@@ -60,7 +61,21 @@ namespace Bloomlings.Generator
                 int at=Enumerable.Range(0,partition.Count)
                     .Where(i=>!firstReachable.Contains(partition[i].Variant)&&partition[i].LockKeyId==null&&partition[i].Count>=2*podSize.Min)
                     .OrderByDescending(i=>partition[i].Count).ThenBy(i=>i).DefaultIfEmpty(-1).First();
-                if(at<0)break;
+                if(at<0)
+                {
+                    // Several sub-minimum halves can still have enough total work for another legal pod
+                    // (e.g. 9+9+9 => 7+7+7+6). Repartition only one unlocked variant in one wave.
+                    var group=Enumerable.Range(0,partition.Count)
+                        .Where(i=>!firstReachable.Contains(partition[i].Variant)&&partition[i].LockKeyId==null)
+                        .GroupBy(i=>(partition[i].Variant,partition[i].Wave))
+                        .FirstOrDefault(g=>g.Sum(i=>partition[i].Count)>=(g.Count()+1)*podSize.Min);
+                    if(group==null)break;
+                    int[] indices=group.ToArray();int total=indices.Sum(i=>partition[i].Count),parts=indices.Length+1;
+                    var basis=partition[indices[0]];
+                    for(int j=0;j<indices.Length;j++)partition[indices[j]]=basis with{Count=total/parts+(j<total%parts?1:0)};
+                    partition.Insert(indices[^1]+1,basis with{Count=total/parts});
+                    continue;
+                }
                 var part=partition[at];int left=part.Count/2;
                 partition[at]=part with{Count=left};partition.Insert(at+1,part with{Count=part.Count-left});
             }
@@ -69,9 +84,13 @@ namespace Bloomlings.Generator
                 plan=partition;original=TrayBuilder.Layout(skeleton,plan,stacks);
                 initial=LevelSession.Load(original,picture,new SessionOptions(0,20000));
             }
-            int prefix=target==DifficultyClass.Normal?0:Math.Min(capacity-2,
+            int maxPrefix=target==DifficultyClass.Normal?0:Math.Min(capacity-2,
                 Math.Max(1,Math.Min(target==DifficultyClass.Hard?2:3,(peakSlots?.Max??4)-1)));
+            if(pendingConnectionSize>0)maxPrefix=Math.Max(0,maxPrefix-(pendingConnectionSize-1));
             string last="no-seed";
+            // Geometry can itself add pressure. If the intended waiting prefix overshoots, try a shorter one
+            // instead of rejecting every partition of this artwork as too difficult.
+            for(int prefix=maxPrefix;prefix>=0;prefix--)
             for(int warmup=0;warmup<=3;warmup++)
             {
                 var view=initial;
@@ -94,7 +113,11 @@ namespace Bloomlings.Generator
                 var forced=blocked.Take(prefix).ToArray();
                 var trap=blocked.Skip(prefix).Take(capacity-prefix).ToArray();
                 var chosen=warm.Concat(forced).Concat(trap).ToHashSet();
-                var route=Enumerable.Range(0,plan.Count).Where(i=>!chosen.Contains(i)&&available.Contains(plan[i].Variant)).ToArray();
+                var reachablePods=Enumerable.Range(0,plan.Count).Where(i=>!chosen.Contains(i)&&available.Contains(plan[i].Variant)).ToArray();
+                int firstWave=reachablePods.Select(i=>plan[i].Wave).DefaultIfEmpty(-1).Min();
+                // A reachable color may also occur behind later colors. Exposing all its later-wave pods first
+                // strands their remaining charge and can force Hard pressure on an otherwise Normal picture.
+                var route=reachablePods.Where(i=>plan[i].Wave==firstWave).ToArray();
                 if(route.Length==0||route.Any(i=>plan[i].LockKeyId!=null)){last="route-unavailable";continue;}
                 foreach(int i in route)chosen.Add(i);
                 var columns=Enumerable.Range(0,stacks).Select(_=>new List<int>()).ToArray();
@@ -135,7 +158,9 @@ namespace Bloomlings.Generator
                 for(int attempt=0;attempt<=Math.Min(12,maxInjections*2);attempt++)
                 {
                     DifficultyClass current=DifficultyScorer.Classify(score,thresholds);
-                    if(current==target&&analysis.Jam.Status==SolveStatus.Solvable&&(peakSlots==null||peakSlots.Contains(analysis.Metrics.PeakBuffer)))
+                    bool baseClass=current==target||(pendingConnectionSize>0&&(int)current<(int)target);
+                    bool basePressure=peakSlots==null||(pendingConnectionSize>0?analysis.Metrics.PeakBuffer<=peakSlots.Max:peakSlots.Contains(analysis.Metrics.PeakBuffer));
+                    if(baseClass&&analysis.Jam.Status==SolveStatus.Solvable&&basePressure)
                     {rejection=null;return new TrayOutcome(definition,analysis,score,current,injections);}
                     last=$"seed-class-{current}-score-{score}-peak-{analysis.Metrics.PeakBuffer}";
                     if((int)current>(int)target||injections>=maxInjections)break;

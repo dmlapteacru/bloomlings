@@ -60,8 +60,10 @@ On Linux/macOS:
 bash tools/catalog/build-launch.sh --jobs 2 --install
 ```
 
-Generation writes `content/work/launch-catalog`. Rerun the same command to resume. Every accepted level is saved
-immediately with an atomic definition, solver certificate and recipe fingerprint. The fingerprint includes the exact
+Generation writes `content/work/launch-catalog`. Rerun the same command to resume. Certified `gen-1.6.0` levels are retained
+when their complete old recipe still matches; the patch regenerates failed slots and, when needed, one optional
+neighbour blocking a mandatory clean introduction. Do not delete the working catalog to apply this update.
+Every accepted level is saved immediately with an atomic definition, solver certificate and recipe fingerprint. The fingerprint includes the exact
 picture, palette, slot, generation version, profile, thresholds and approved color pairs. A changed recipe regenerates
 that level. Missing/unreviewed art blocks the requested build before writing a catalog; it never silently reuses another
 picture. Failed candidates are reported in `rejections/level-NNNNN.json`. `-Retries 2` / `--retries 2` adds seeds while
@@ -70,9 +72,18 @@ keeping the same assigned picture.
 For engineering samples, use `-Levels 11-30` / `--levels 11-30` and a separate `-Out` / `--out` directory under
 `content/work`. A sample cannot be installed as the full launch. Full puzzle generation stays on the owner's computer.
 
+On Windows PowerShell without `pwsh`, the same script runs with:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tools\catalog\build-launch.ps1 -Jobs 12 -Install
+```
+
+`Bypass` applies to this child process only. `Jobs` controls parallel level generation; checkpoints and fixed segments
+keep the catalog independent of the worker count.
+
 ## Difficulty and release checks
 
-The new generator is `gen-1.6.0`. Authored silhouettes get a deliberately constructed Source route and a replayable
+The new generator is `gen-1.6.1`. Authored silhouettes get a deliberately constructed Source route and a replayable
 premature sequence. If needed, interior-color pods are split within the existing pod-size and count limits. Cell counts,
 palette and gameplay rules do not change. Every accepted layout must be winnable without boosters and losable, meet its
 planned computed class and winning buffer-pressure limits, and pass accounting, unlock, mechanic and fairness checks.
@@ -81,7 +92,9 @@ planned computed class and winning buffer-pressure limits, and pass accounting, 
 dependencies and mechanisms contribute smaller costs. Board work and pod count still bound duration but do not make a
 large simple drawing Hard by themselves. Hard starts at 3000, Super Hard at 4000 on every supported size. This is a
 versioned production preset requiring player playtesting, not a claim of completed balance testing. Legacy levels and
-Daily retain their original calibration. Filling quotas by overriding stored classes is prohibited.
+Daily retain their original calibration. Authored puzzles use class-specific winning pressure at every board
+size: Normal 1–2 slots, Hard 2–3, Super Hard 3–4. Legacy late-band tense/critical targets do not apply to this preset.
+Filling quotas by overriding stored classes is prohibited.
 
 `-Install` accepts only a complete L1–2500 artifact matching the current registry. It checks hashes/certificates,
 replays winning and losing traces, audits computed classes and level-sequence rules, and verifies unchanged tutorials.

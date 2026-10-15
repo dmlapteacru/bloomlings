@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Bloomlings.Content.Json;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
@@ -41,6 +42,23 @@ namespace Bloomlings.Generator.Tests
             UnlockRoadmap.Default,
             ContentStore.LoadPairs(Path.Combine(RepoRoot, "content", "readability", "approved-pairs.json")),
             new SolveOptions(20000));
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void MissingClassesDoNotMoveTriplePracticeToALaterSuperHard(bool completeContext)
+        {
+            var triple = DefinitionJson.Read(File.ReadAllText(Path.Combine(RepoRoot, "content/showcase/levels/level-00400.json")));
+            var plain = Curated.Single(l => l.LevelNumber == 3);
+            var levels = new List<LevelDefinition> { triple,
+                plain with { LevelNumber = 410, Difficulty = plain.Difficulty with { Class = DifficultyClass.SuperHard } } };
+            if (completeContext)
+                levels.AddRange(Enumerable.Range(401, 9).Select(n => plain with { LevelNumber = n,
+                    Difficulty = plain.Difficulty with { Class = n == 406 ? DifficultyClass.Hard : DifficultyClass.Normal } }));
+            var issues = Validator().Validate(levels, new HashSet<int>()).Issues;
+            Assert.That(issues.Any(i => i.Level == 410 && i.Check == "practice"), Is.False);
+            Assert.That(issues.Any(i => i.Level == 406 && i.Check == "practice"), Is.EqualTo(completeContext),
+                "When classes are known, the real practice still requires the triple.");
+        }
 
         [Test]
         public void FromL11_ThreeLevelsWithoutMechanics_AreRepetitive_ButTheTutorialIsNot()

@@ -168,6 +168,64 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void Certified160CacheMigratesWithoutRegeneratingItsLevels()
+        {
+            var doc=new LaunchArtDocument(LaunchArtDocument.DefaultRegistry,LaunchArtDocument.DefaultPlan);
+            string folder=Path.Combine(_temporary,"old-cache");
+            string[] args={"launch","generate","--levels","11","--out",folder,"--jobs","1","--retries","0","--json"};
+            Assert.That(RunCli(args).Value<int>("exitCode"),Is.Zero);
+            string path=Path.Combine(folder,"levels",ContentStore.LevelFileName(11));
+            var old=DefinitionJson.Read(File.ReadAllText(path)) with{GeneratorVersion="gen-1.6.0"};
+            var record=ContentStore.LoadRecords(folder)[11] with{DefinitionHash=ValidationRecord.HashOf(old)};
+            ContentStore.WriteLevelAtomic(folder,old,record);
+            string recipe=Path.Combine(folder,"recipes",ContentStore.LevelFileName(11));
+            File.WriteAllText(recipe,new JObject{["recipeHash"]=doc.RecipeHash(11,"gen-1.6.0")}.ToString());
+            var resumed=RunCli(args);
+            Assert.That(resumed.Value<int>("exitCode"),Is.Zero);
+            Assert.That(resumed.Value<int>("generated"),Is.Zero);
+            Assert.That(resumed.Value<int>("resumed"),Is.EqualTo(1));
+            Assert.That(File.ReadAllText(path),Is.EqualTo(DefinitionJson.Write(old)));
+            Assert.That(JObject.Parse(File.ReadAllText(recipe)).Value<string>("recipeHash"),Is.EqualTo(doc.RecipeHash(11)));
+        }
+
+        [Test]
+        public void ResumeRepairsAnOptionalNeighbourOfABlockedCleanIntroduction()
+        {
+            var doc=new LaunchArtDocument(LaunchArtDocument.DefaultRegistry,LaunchArtDocument.DefaultPlan);
+            var library=ContentStore.LoadLibrary(doc.LibraryDirectory);
+            var pairs=ContentStore.LoadPairs("content/readability/approved-pairs.json")!;
+            string calibration=File.ReadAllText(LaunchArtDocument.ThresholdsPath);
+            var basis=doc.Profile(doc.Plan.Slots[42]);
+            var prepare=new LevelGenerator(basis,new PicturePicker(library,plan:n=>doc.Compositions[n].PictureId),
+                ProfileLoader.ReadThresholds(calibration,basis.BandId),pairs.IsApproved,new DifficultySchedule(doc.Plan.ScheduleSeed,UnlockRoadmap.Default)) {
+                UseAuthoredArtTray=true,DefinitionVersionOf=doc.DefinitionVersion,ClassOf=n=>doc.Plan.Slots[n-1].Difficulty,
+                MechanicsOf=_=>Array.Empty<string>(),RecipeOf=n=>{
+                    var profile=doc.Profile(doc.Plan.Slots[n-1]);
+                    return (profile,ProfileLoader.ReadThresholds(calibration,profile.BandId),ProfileLoader.ReadBigThresholds(calibration,profile.BandId));
+                }
+            };
+            var initial=prepare.Generate(43,44,doc.Plan.Seed,new Dictionary<int,LevelDefinition>());
+            Assert.That(initial.Failed,Is.Empty);
+            string folder=Path.Combine(_temporary,"blocked-introduction");
+            foreach(var generated in initial.Accepted)
+            {
+                var old=generated.Definition with{GeneratorVersion="gen-1.6.0"};int n=old.LevelNumber;
+                ContentStore.WriteLevelAtomic(folder,old,generated.Record with{DefinitionHash=ValidationRecord.HashOf(old)});
+                ContentStore.AtomicText(Path.Combine(folder,"recipes",ContentStore.LevelFileName(n)),new JObject{["recipeHash"]=doc.RecipeHash(n,"gen-1.6.0")}.ToString());
+            }
+            File.WriteAllText(Path.Combine(folder,"launch-build.json"),new JObject{["version"]=Bloomlings.Pipeline.Commands.LaunchArtCommand.BuildVersion,["complete"]=false}.ToString());
+            var report=RunCli("launch","generate","--levels","43-45","--out",folder,"--jobs","1","--retries","0","--json");
+            Assert.That(report.Value<int>("exitCode"),Is.Zero);
+            Assert.That(report["failedLevels"]!.HasValues,Is.False);
+            Assert.That(report.Value<int>("generated"),Is.EqualTo(2),"Only the blocked slot and one optional neighbour are rebuilt.");
+            Assert.That(report.Value<int>("resumed"),Is.EqualTo(1));
+            var levels=ContentStore.LoadLevels(folder).Select(l=>l.Level).ToArray();
+            Assert.That(levels.Select(l=>l.LevelNumber),Is.EquivalentTo(new[]{43,44,45}));
+            Assert.That(LevelMechanics.UnlocksUsed(levels.Single(l=>l.LevelNumber==45),library.Single(p=>p.Id==doc.Compositions[45].PictureId)),Is.Empty,
+                "The new-color introduction keeps its required clean gameplay.");
+        }
+
+        [Test]
         public void CoarseXlArtGeneratesANonemptySourceWithCertifiedSuperHardDifficulty()
         {
             // L51 has few broad colors: almost all pods belong to the reserved route or jam sequence.
@@ -218,11 +276,18 @@ namespace Bloomlings.Generator.Tests
         [TestCase(15)]
         [TestCase(23)]
         [TestCase(26)]
+        [TestCase(60)]
+        [TestCase(102)]
+        [TestCase(112)]
+        [TestCase(351)]
+        [TestCase(406)]
+        [TestCase(1437)]
+        [TestCase(2166)]
         public void AssignedAuthoredArtBuildsARealWinningAndLosingPuzzle(int number)
         {
             var doc=new LaunchArtDocument(LaunchArtDocument.DefaultRegistry,LaunchArtDocument.DefaultPlan);
             var slot=doc.Plan.Slots[number-1];
-            var profile=doc.Profile(slot) with{MaxCandidatesPerLevel=10};
+            var profile=doc.Profile(slot);
             string thresholds=File.ReadAllText(LaunchArtDocument.ThresholdsPath);
             var normal=ProfileLoader.ReadThresholds(thresholds,profile.BandId);
             var big=ProfileLoader.ReadBigThresholds(thresholds,profile.BandId);

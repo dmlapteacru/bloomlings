@@ -125,13 +125,13 @@ namespace Bloomlings.Pipeline.Launch
         }
         public static string ClassName(DifficultyClass c)=>c==DifficultyClass.SuperHard?"super_hard":c.ToString().ToLowerInvariant();
         public int DefinitionVersion(int level)=>_definitionVersions[level];
-        public string RecipeHash(int n)
+        public string RecipeHash(int n, string? generatorVersion = null)
         {
             var art=Compositions[n];
             string profile=File.ReadAllText("content/profiles/"+ProfileName(Math.Max(11,n))+".json");
             string picture=BasePictureJson.Write(BasePictureJson.Read(File.ReadAllText(Path.Combine(LibraryDirectory,art.PictureId+".json"))));
             string curated=art.CuratedDefinition==null?"":File.ReadAllText(art.CuratedDefinition);
-            string text=RecipeVersion+"\n"+LevelGenerator.AuthoredArtVersion+"\n"+Plan.Seed+"\n"+Plan.ScheduleSeed+"\n"+SlotJson(Plan.Slots[n-1])+"\n"+profile+"\n"+picture+"\n"+curated+"\n"
+            string text=RecipeVersion+"\n"+(generatorVersion??LevelGenerator.AuthoredArtVersion)+"\n"+Plan.Seed+"\n"+Plan.ScheduleSeed+"\n"+SlotJson(Plan.Slots[n-1])+"\n"+profile+"\n"+picture+"\n"+curated+"\n"
                 +File.ReadAllText(ThresholdsPath)+"\n"+File.ReadAllText("content/readability/approved-pairs.json");
             return PackIntegrity.ComputeSha256Hex(Encoding.UTF8.GetBytes(text));
         }

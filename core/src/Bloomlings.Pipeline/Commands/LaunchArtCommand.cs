@@ -138,7 +138,11 @@ namespace Bloomlings.Pipeline.Commands
                     if(n<1||n>2500||!doc.Compositions.ContainsKey(n))throw new ArgumentException("Cached level has no current launch assignment: "+n);
                     string recipePath=Path.Combine(folder,"recipes",ContentStore.LevelFileName(n));
                     string expected=RecipeHash(n);hashes[n]=expected;
-                    if(File.Exists(recipePath)&&JObject.Parse(File.ReadAllText(recipePath)).Value<string>("recipeHash")==expected
+                    string? cached=File.Exists(recipePath)?JObject.Parse(File.ReadAllText(recipePath)).Value<string>("recipeHash"):null;
+                    // 1.6.1 repairs rejected candidates. Already certified 1.6.0 definitions remain valid when
+                    // their entire old recipe still matches; artwork/profile changes never take this migration path.
+                    bool matching=cached==expected||(item.Level.GeneratorVersion=="gen-1.6.0"&&cached==doc.RecipeHash(n,"gen-1.6.0"));
+                    if(matching
                         &&records.TryGetValue(n,out var record)&&record.DefinitionHash==ValidationRecord.HashOf(item.Level)
                         &&record.Result==ValidationResult.Solvable&&doc.CheckDefinitions(new[]{item.Level},false).Count==0)
                     {history[n]=item.Level;kept.Add(n);}
@@ -189,6 +193,21 @@ namespace Bloomlings.Pipeline.Commands
                         var attempt=NewGenerator().Regenerate(new[]{n},doc.Plan.Seed+(ulong)retry,history);
                         if(attempt.Accepted.Count==1) {all[n]=attempt.Accepted[0];failed.Remove(n);}
                     }
+                foreach(int n in failed.OrderBy(n=>n).ToArray())
+                {
+                    if(!rejections.Any(r=>r.Level==n&&r.Reason=="similarity:mechanics-3-in-a-row"))continue;
+                    var repaired=LaunchRecovery.RepairMechanicConflict(n,doc,NewGenerator,history);
+                    if(repaired==null)continue;
+                    foreach(var generated in repaired)
+                    {
+                        int at=generated.Definition.LevelNumber;
+                        all[at]=generated;history[at]=generated.Definition;kept.Remove(at);
+                        ContentStore.WriteLevelAtomic(folder,generated.Definition,generated.Record);
+                        ContentStore.AtomicText(Path.Combine(folder,"recipes",ContentStore.LevelFileName(at)),CanonicalJson.Write(new JObject{["recipeHash"]=RecipeHash(at)},true));
+                    }
+                    failed.Remove(n);
+                    Console.Error.WriteLine($"  L{n}: recovered with optional neighbour L{repaired[0].Definition.LevelNumber}");
+                }
                 foreach(var generated in all.Values) ContentStore.WriteLevelAtomic(folder,generated.Definition,generated.Record);
                 Directory.CreateDirectory(Path.Combine(folder,"rejections"));
                 foreach(var group in rejections.GroupBy(r=>r.Level))

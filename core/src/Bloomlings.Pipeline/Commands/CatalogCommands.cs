@@ -302,7 +302,7 @@ namespace Bloomlings.Pipeline.Commands
                     metrics = solver.Analyze(LevelSession.Load(level, picture, new SessionOptions(1, 20000)), options).Metrics.ToDictionary();
                 }
 
-                string calibration = level.GeneratorVersion == LevelGenerator.AuthoredArtVersion
+                string calibration = LevelGenerator.IsAuthoredArtVersion(level.GeneratorVersion)
                     ? File.ReadAllText(LaunchArtDocument.ThresholdsPath) : thresholdsJson;
                 DifficultyThresholds thresholds = ProfileLoader.ReadThresholdsFor(calibration, band.BandId, picture.Width * picture.Height);
                 int score = DifficultyScorer.Score(metrics, thresholds);

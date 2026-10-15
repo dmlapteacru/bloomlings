@@ -543,8 +543,15 @@ namespace Bloomlings.Generator.Overlays
                     : openCells.Where(c => !usedSpecialCells.Contains(c));
                 foreach (int cell in spots)
                 {
+                    int[] footprint = boardPlan.Footprints.TryGetValue(MechanicNames.Fountain, out int[]? placed)
+                        ? placed : new[] { cell };
+                    var neighbours = new SortedSet<int>();
+                    foreach (int part in footprint)
+                        for (int dir = 0; dir < CellPos.NeighbourCount; dir++)
+                            if (board.PosOf(part).TryGetNeighbour(dir, board.Width, board.Height, out CellPos next)
+                                && board.IsTarget(board.IndexOf(next))) neighbours.Add(board.IndexOf(next));
                     int[] stones = Enumerable.Range(0, board.CellCount)
-                        .Where(s => s != cell && !usedSpecialCells.Contains(s) && board.KindAt(s) == CellKind.Stone && Distance(board, s, cell) <= 3)
+                        .Where(s => !footprint.Contains(s) && !usedSpecialCells.Contains(s) && board.KindAt(s) == CellKind.Stone && footprint.Any(part => Distance(board, s, part) <= 3))
                         .Take(3)
                         .ToArray();
                     if (stones.Length == 0)
@@ -552,9 +559,9 @@ namespace Bloomlings.Generator.Overlays
                         continue;
                     }
 
-                    foreach (VariantId variant in AdjacentVariants(board, cell))
+                    foreach (VariantId variant in new SortedSet<VariantId>(neighbours.SelectMany(n => Enumerable.Range(0, board.OriginalLayerCount(n)).Select(d => board.LayerAt(n, d)))))
                     {
-                        int layers = AdjacentLayers(board, cell, variant);
+                        int layers = neighbours.Sum(n => Enumerable.Range(0, board.OriginalLayerCount(n)).Count(d => board.LayerAt(n, d) == variant));
                         if (layers >= 2)
                         {
                             options.Add((cell, variant, layers, stones));

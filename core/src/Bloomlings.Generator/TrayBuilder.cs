@@ -165,7 +165,7 @@ namespace Bloomlings.Generator
         /// optional triple) and keeps the first group, in a seeded order, that leaves the level winnable, losable and in
         /// the target class. Null when no group does.
         /// </summary>
-        public static TrayOutcome? Connect(TrayOutcome tray, BasePicture picture, DifficultyClass target, DifficultyThresholds thresholds, SolveOptions options, ref Xoshiro256StarStar rng, int size = 2)
+        public static TrayOutcome? Connect(TrayOutcome tray, BasePicture picture, DifficultyClass target, DifficultyThresholds thresholds, SolveOptions options, ref Xoshiro256StarStar rng, int size = 2, int maxCandidates = 6, Action<string>? rejected = null)
         {
             LevelDefinition level = tray.Definition;
             var locked = new HashSet<string>(StringComparer.Ordinal);
@@ -191,7 +191,7 @@ namespace Bloomlings.Generator
             }
 
             var solver = new Solver.Solver();
-            for (int attempt = 0; attempt < 6 && groups.Count > 0; attempt++)
+            for (int attempt = 0; attempt < maxCandidates && groups.Count > 0; attempt++)
             {
                 int pick = rng.NextInt(groups.Count);
                 var members = new HashSet<string>(groups[pick], StringComparer.Ordinal);
@@ -207,6 +207,7 @@ namespace Bloomlings.Generator
                 SolveResult win = solver.Solve(session, options);
                 if (win.Status != SolveStatus.Solvable)
                 {
+                    rejected?.Invoke("win-" + win.Status);
                     continue;
                 }
 
@@ -217,6 +218,7 @@ namespace Bloomlings.Generator
                 {
                     return new TrayOutcome(candidate, analysis, score, reached, tray.Injections);
                 }
+                rejected?.Invoke($"class-{reached}-score-{score}-peak-{analysis.Metrics.PeakBuffer}-jam-{analysis.Jam.Status}");
             }
 
             return null;

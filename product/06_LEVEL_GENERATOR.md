@@ -424,7 +424,7 @@ The six independently drawn examples and exact local reproduction are in
 ### Production implementation and readability ceiling (owner amendment, 2026-10-15)
 
 `content/launch-art/plan.json` freezes all 2500 size/class/mechanic slots independently of artwork inventory.
-`tools/catalog/build-launch.*` uses gen-1.6.0, exact per-level pictures, version-2 L11–2500 definitions, fixed palettes,
+`tools/catalog/build-launch.*` uses gen-1.6.1, exact per-level pictures, version-2 L11–2500 definitions, fixed palettes,
 per-level checkpoints and solver certificates. Full generation runs on the owner's computer; a partial library or
 partial catalog cannot be installed. Tutorials retain their curated definitions. Daily remains separate.
 
