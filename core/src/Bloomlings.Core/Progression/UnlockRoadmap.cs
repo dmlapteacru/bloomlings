@@ -140,6 +140,7 @@ namespace Bloomlings.Core.Progression
             new UnlockEntry(90, "mechanic.mystery_tile", UnlockKind.Mechanic, 0, true),
             new UnlockEntry(100, "system.milestone_100", UnlockKind.System, 0, false),
             new UnlockEntry(100, "system.theme_rotation", UnlockKind.System, 0, false),
+            new UnlockEntry(110, "mechanic.counted_stack", UnlockKind.Mechanic, 0, true),
             new UnlockEntry(125, "profile.layers_depth_3", UnlockKind.Profile, 0, false),
             new UnlockEntry(150, "mechanic.chest", UnlockKind.Mechanic, 0, true),
             new UnlockEntry(175, "profile.advanced_combinations", UnlockKind.Profile, 0, false),

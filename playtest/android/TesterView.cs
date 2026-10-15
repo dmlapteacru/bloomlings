@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using Android.Content;
 using Android.Graphics;
@@ -432,10 +433,10 @@ namespace Bloomlings.Playtest
             // Direct access to the three oversized mosaic prototypes.
             float shortcutWidth = h * 0.62f;
             float shortcutGap = h * 0.08f;
-            float shortcutsWidth = (shortcutWidth * 3f) + (shortcutGap * 2f);
+            float shortcutsWidth = (shortcutWidth * 5f) + (shortcutGap * 4f);
             float shortcutLeft = bar.CenterX() - (shortcutsWidth / 2f);
-            string[] labels = { "24", "30×32", "36" };
-            int[] levels = { 5001, 5002, 5003 };
+            string[] labels = { "24", "30×32", "36", "×9", "Gate" };
+            int[] levels = { 5001, 5002, 5003, 5004, 5005 };
             for (int i = 0; i < labels.Length; i++)
             {
                 int targetLevel = levels[i];
@@ -569,7 +570,9 @@ namespace Bloomlings.Playtest
             Color color = VariantColor(variant);
             Fill(canvas, tile, WithAlpha(color, alpha), cell * 0.12f);
             // The next layer's corner, on a peek board only: an icons board keeps it a surprise (FR-036 as amended on 2026-10-06).
-            if (_session.View.BoardLook == BoardLook.Peek && info.RemainingLayers > 1 && info.Next.HasValue)
+            if (info.StackRemaining > 0)
+                Text(canvas, info.StackRemaining.ToString(CultureInfo.InvariantCulture), tile.CenterX(), tile.CenterY(), cell * 0.7f, WithAlpha(Color.White, alpha));
+            if (info.StackRemaining == 0 && _session.View.BoardLook == BoardLook.Peek && info.RemainingLayers > 1 && info.Next.HasValue)
             {
                 Fill(canvas, new RectF(tile.Right - (cell * 0.32f), tile.Top, tile.Right, tile.Top + (cell * 0.32f)), WithAlpha(VariantColor(info.Next.Value), alpha), cell * 0.1f);
             }

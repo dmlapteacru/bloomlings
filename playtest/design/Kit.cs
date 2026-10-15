@@ -663,11 +663,11 @@ namespace Bloomlings.Playtest.Design
         /// A count badge (booster charges, "+N" on a stack; spec 005 §3.4): white digits on a <c>badge.green</c> disc with a
         /// white ring (10% of its size) and a thin dark outline.
         /// </summary>
-        public static void CountBadge(IPainter p, float cx, float cy, float size, string text)
+        public static void CountBadge(IPainter p, float cx, float cy, float size, string text, float digitScale = 1f)
         {
             p.Mark("ui.badge.count");
             float scale = size / p.U(48f);
-            float width = Math.Max(size, p.MeasureText(text, T.Badge, scale) + (size * 0.55f));
+            float width = Math.Max(size, p.MeasureText(text, T.Badge, scale * digitScale) + (size * 0.55f));
             Box box = Box.FromCenter(cx, cy, width, size);
             float ring = size * 0.1f;
             float line = Math.Max(1f, size * 0.03f);
@@ -677,7 +677,7 @@ namespace Bloomlings.Playtest.Design
             p.FillRound(outer, r, C.GardenShadow.WithAlpha(0.8f));
             p.FillRound(box.Inset(-ring), (size / 2f) + ring, Rgba.White);
             p.FillRoundGradient(box, size / 2f, C.BadgeGreen.Lighten(0.14f), C.BadgeGreen);
-            p.Text(text, cx, cy + (size * 0.02f), T.Badge, C.TextOnColor, width * 0.9f, sizeScale: scale);
+            p.Text(text, cx, cy + (size * 0.02f), T.Badge, C.TextOnColor, width * 0.9f, sizeScale: scale * digitScale);
         }
 
         /// <summary>

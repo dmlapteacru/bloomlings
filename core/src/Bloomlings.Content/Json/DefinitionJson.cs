@@ -256,7 +256,7 @@ namespace Bloomlings.Content.Json
             {
                 string itemPath = JsonDoc.Index(cellsPath, i);
                 JObject cell = JsonDoc.Object(array[i], itemPath);
-                JsonDoc.AllowOnly(cell, itemPath, "x", "y", "layersBelow", "mystery", "stone", "hole", "keyId");
+                JsonDoc.AllowOnly(cell, itemPath, "x", "y", "layersBelow", "mystery", "stone", "hole", "keyId", "stackCount");
                 CellPos pos = ReadCellCoordinates(cell, itemPath);
 
                 IReadOnlyList<VariantId> layersBelow = Array.Empty<VariantId>();
@@ -280,7 +280,8 @@ namespace Bloomlings.Content.Json
                     OptionalBool(cell, itemPath, "mystery"),
                     OptionalBool(cell, itemPath, "stone"),
                     OptionalBool(cell, itemPath, "hole"),
-                    OptionalString(cell, itemPath, "keyId"));
+                    OptionalString(cell, itemPath, "keyId"),
+                    JsonDoc.Optional(cell, "stackCount") is JToken count ? JsonDoc.Int(count, JsonDoc.Join(itemPath, "stackCount"), 1, 9) : 1);
             }
 
             return overlays;
@@ -590,6 +591,7 @@ namespace Bloomlings.Content.Json
                 AddFlag(obj, "stone", overlay.Stone);
                 AddFlag(obj, "hole", overlay.Hole);
                 AddString(obj, "keyId", overlay.KeyId);
+                if (overlay.StackCount != 1) obj["stackCount"] = overlay.StackCount;
                 array.Add(obj);
             }
 

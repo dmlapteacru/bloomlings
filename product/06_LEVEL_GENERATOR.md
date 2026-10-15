@@ -407,3 +407,7 @@ at L301–2500, compact boards are removed: 20% medium (around 21×24–22×26),
 The percentage quotas, pacing and art migration remain to be implemented; the current picker/validator and existing
 catalog have not changed. Large-board mystery restrictions still apply and need separate review before reintroducing
 Mystery on the new post-L300 size mix. Visible tile symbols are independent of the stored `boardLook` layer policy.
+
+Visible same-variant stacks and the `gen-1.5.0` mechanic readability policy are described in
+[16 — Mechanics and board readability](16_MECHANICS_AND_BOARD_READABILITY.md). New normal/Daily profiles apply
+that policy; the stored legacy catalogs remain intact until versioned regeneration.

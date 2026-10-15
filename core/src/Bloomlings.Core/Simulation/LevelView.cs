@@ -10,12 +10,13 @@ namespace Bloomlings.Core.Simulation
     /// <summary>What the player can see of one cell. Hidden mystery variants are never exposed (FR-039).</summary>
     public readonly struct CellInfo
     {
-        public CellInfo(CellKind kind, VariantId? visible, VariantId? next, int remainingLayers, bool mysteryHidden, string? keyId, string? specialId, bool isEntry)
+        public CellInfo(CellKind kind, VariantId? visible, VariantId? next, int remainingLayers, bool mysteryHidden, string? keyId, string? specialId, bool isEntry, int stackRemaining = 0)
         {
             Kind = kind;
             Visible = visible;
             Next = next;
             RemainingLayers = remainingLayers;
+            StackRemaining = stackRemaining;
             MysteryHidden = mysteryHidden;
             KeyId = keyId;
             SpecialId = specialId;
@@ -40,6 +41,9 @@ namespace Bloomlings.Core.Simulation
         /// <see cref="Next"/> is null there.
         /// </summary>
         public int RemainingLayers { get; }
+
+        /// <summary>Public remaining count for a same-variant stack; zero on ordinary and hidden-layer cells.</summary>
+        public int StackRemaining { get; }
 
         public bool MysteryHidden { get; }
 
@@ -151,7 +155,7 @@ namespace Bloomlings.Core.Simulation
             bool hidden = board.IsMysteryHidden(index);
             VariantId? visible = kind == CellKind.Target && !hidden ? board.TopLayer(index) : (VariantId?)null;
             VariantId? next = kind == CellKind.Target && !hidden && BoardLook == BoardLook.Peek ? board.NextLayer(index) : null;
-            return new CellInfo(kind, visible, next, board.RemainingLayers(index), hidden, board.KeyAt(index), board.SpecialAt(index), board.IsEntryCell(index));
+            return new CellInfo(kind, visible, next, board.RemainingLayers(index), hidden, board.KeyAt(index), board.SpecialAt(index), board.IsEntryCell(index), board.StackRemaining(index));
         }
 
         public int SlotCapacity => WaitingSlots.Capacity;

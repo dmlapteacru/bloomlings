@@ -68,6 +68,7 @@
     5,
     60
   ],
+  "readableMechanics": true,
   "solver": {
     "maxCandidatesPerLevel": 60,
     "nodeBudget": 400000

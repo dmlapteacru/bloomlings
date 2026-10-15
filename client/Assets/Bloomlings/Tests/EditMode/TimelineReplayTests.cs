@@ -185,9 +185,9 @@ namespace Bloomlings.Client.Tests
                 }
             }
 
-            foreach (string size in new[] { "24x24", "30x32", "36x36" })
+            foreach (string size in new[] { "mosaic-24x24", "mosaic-30x32", "mosaic-36x36", "counted-stack-24x24", "large-gate-36x36", "large-fountain-36x36" })
             {
-                LevelDefinition level = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/curated/dev", "level-dev-mosaic-" + size + ".json")));
+                LevelDefinition level = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/curated/dev", "level-dev-" + size + ".json")));
                 BasePicture picture = BasePictureJson.Read(File.ReadAllText(Path.Combine(Root, "content/pictures/dev/lib", level.Picture.Id + ".json")));
                 ValidationRecord validation = ValidationRecord.Read(File.ReadAllText(Path.Combine(Root, "content/pictures/dev/validation", $"level-{level.LevelNumber:00000}.json")));
                 runs.Add(new Run("extended/" + size, level, picture, validation.SolutionTrace, 20000));

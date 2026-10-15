@@ -97,3 +97,9 @@ Do not treat every new color as a major tutorial mechanic.
 ## G. Avoid feature creep
 
 No combat, timers, random spawning, manual path drawing or permanent hero power upgrades in baseline.
+
+## Owner amendment · 2026-10-15
+
+Visible same-variant stacks with decreasing counters, readable multi-cell environmental objects and the size
+compatibility policy are specified in [16 — Mechanics and board readability](16_MECHANICS_AND_BOARD_READABILITY.md).
+The document separates implemented mechanics from further feature proposals.

@@ -60,7 +60,8 @@ namespace Bloomlings.Solver
             var hidden = HiddenLayers(real);
             if (hidden.Count == 0)
             {
-                return new FairnessResult(FairnessStatus.Fair, 1, 0);
+                return new FairnessResult(FairnessStatus.Fair, 1, 0)
+                { PlayerInfoFair = definition.Overlays.Any(o => o.StackCount > 1) ? true : (bool?)null };
             }
 
             if (hidden.Count > maxHiddenLayers)
@@ -147,7 +148,7 @@ namespace Bloomlings.Solver
                 if (cell.Kind == CellKind.Target)
                 {
                     VariantId top = cell.Visible ?? throw new InvalidOperationException("A mystery tile on an icons board is not covered.");
-                    count[catalog.IndexOf(top)]--;
+                    count[catalog.IndexOf(top)] -= Math.Max(1, cell.StackRemaining);
                 }
             }
 
@@ -169,7 +170,7 @@ namespace Bloomlings.Solver
             var cells = new List<int>();
             for (int i = 0; i < start.View.Width * start.View.Height; i++)
             {
-                if (start.View.Cell(i).Kind == CellKind.Target)
+                if (start.View.Cell(i).Kind == CellKind.Target && start.View.Cell(i).StackRemaining == 0)
                 {
                     cells.Add(i);
                 }
@@ -268,7 +269,7 @@ namespace Bloomlings.Solver
                     : new CellOverlay(pos, stack, false, false, false, null);
             }
 
-            var overlays = byCell.Values.Where(o => o.LayersBelow.Count > 0 || o.Mystery || o.Stone || o.Hole || o.KeyId != null).ToList();
+            var overlays = byCell.Values.Where(o => o.StackCount > 1 || o.LayersBelow.Count > 0 || o.Mystery || o.Stone || o.Hole || o.KeyId != null).ToList();
             return definition with { Overlays = overlays };
         }
 
@@ -391,6 +392,7 @@ namespace Bloomlings.Solver
                     {
                         case LayerRevealed layer:
                             int cell = layer.Cell.ToIndex(Width);
+                            if (_definition.Overlays.Any(o => o.Cell == layer.Cell && o.StackCount > 1)) break;
                             (_revealed[cell] ??= new List<VariantId>()).Add(layer.NewTopVariant);
                             break;
                         case CellOpened opened:

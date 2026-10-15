@@ -1525,6 +1525,7 @@ namespace Bloomlings.Client.Gameplay
                 LockedPod = () => PodRect(p => p.Locked),
                 ConnectedPod = () => PodRect(p => p.ConnectedGroupId != null && view.IsExposed(p.Id)),
                 LayeredTile = () => _board.FindCell(view, c => c.Next.HasValue),
+                CountedStack = () => _board.FindCell(view, c => c.StackRemaining > 1),
                 Gate = () => _board.SpecialRectOfType(SpecialType.Gate),
                 Fountain = () => _board.SpecialRectOfType(SpecialType.Fountain),
                 LockedSlot = LockedSlot,

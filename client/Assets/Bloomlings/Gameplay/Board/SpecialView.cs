@@ -38,7 +38,6 @@ namespace Bloomlings.Client.Gameplay.Board
         private Image _badge = null!;
         private TextMeshProUGUI _counter = null!;
         private Rgba _color;
-        private int _columns = 1;
         private bool _showsCounter;
         private bool _triggered;
         private Coroutine? _animation;
@@ -60,15 +59,6 @@ namespace Bloomlings.Client.Gameplay.Board
             view._fade = root.gameObject.AddComponent<CanvasGroup>();
             view._fade.blocksRaycasts = false;
             view._fade.interactable = false;
-            int minX = int.MaxValue;
-            int maxX = int.MinValue;
-            foreach (CellPos cell in special.Cells)
-            {
-                minX = Mathf.Min(minX, cell.X);
-                maxX = Mathf.Max(maxX, cell.X);
-            }
-
-            view._columns = special.Cells.Count > 0 ? maxX - minX + 1 : 1;
             view.Build(special);
             view.SetProgress(special.Progress, special.Total, special.Condition.Kind);
             if (special.Triggered)
@@ -132,13 +122,13 @@ namespace Bloomlings.Client.Gameplay.Board
             _layout.Add(_glyph.rectTransform, GlyphBox);
 
             _condition = Condition(root, special.Condition);
-            _counter = UiKit.CountBadge("Counter", root, out _badge);
+            _counter = UiKit.CountBadge("Counter", root, out _badge, SpecialObjectLook.CounterDigitScale);
             _layout.Add(_badge.rectTransform, b =>
             {
                 // The counter on a count badge over the block's bottom edge, big enough to read at a glance.
                 Box f = Face(b);
-                float size = Cell(b) * 0.36f;
-                return Box.FromCenter(f.CenterX, f.Bottom - (size * 0.12f), size * 1.26f, size * 1.26f);
+                float size = Cell(b) * SpecialObjectLook.CounterShare;
+                return Box.FromCenter(f.CenterX, f.Bottom - (size * 0.4f), size * 1.26f, size * 1.26f);
             });
             _layout.Then(_ =>
             {
@@ -149,8 +139,8 @@ namespace Bloomlings.Client.Gameplay.Board
             });
         }
 
-        /// <summary>One cell's side in the special's box.</summary>
-        private float Cell(Box box) => box.Width / Mathf.Max(1, _columns);
+        /// <summary>The shorter side of the full object, so its details grow with a 2×2 or 3×3 footprint.</summary>
+        private float Cell(Box box) => Mathf.Min(box.Width, box.Height);
 
         /// <summary>The block: the special's box inset like a tile (0.8% of a cell).</summary>
         private Box Block(Box box) => box.Inset(Cell(box) * BoardPictures.TileInset);
@@ -171,7 +161,7 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             Box f = Face(box);
             float g = Mathf.Min(f.Width, f.Height) * (_showsCounter ? 0.56f : 0.66f);
-            return Box.FromCenter(f.CenterX, f.CenterY - (f.Height * (_showsCounter ? 0.1f : 0f)), g, g);
+            return Box.FromCenter(f.CenterX, f.CenterY - (f.Height * (_showsCounter ? 0.18f : 0f)), g, g);
         }
 
         private void SetGlyph(string shape)
@@ -243,11 +233,11 @@ namespace Bloomlings.Client.Gameplay.Board
             return chip;
         }
 
-        /// <summary>The counter: "3/6" on a count badge until the special opens; a key door, or a one-step condition, shows none.</summary>
+        /// <summary>Remaining work on a count badge; key doors and one-step conditions show no number.</summary>
         public void SetProgress(int progress, int total, SpecialConditionKind kind)
         {
             _showsCounter = !_triggered && kind != SpecialConditionKind.Key && total > 1;
-            _counter.text = progress.ToString(CultureInfo.InvariantCulture) + "/" + total.ToString(CultureInfo.InvariantCulture);
+            _counter.text = Mathf.Max(0, total - progress).ToString(CultureInfo.InvariantCulture);
             _badge.gameObject.SetActive(_showsCounter);
             _layout.Apply();
             if (isActiveAndEnabled && kind != SpecialConditionKind.Key)

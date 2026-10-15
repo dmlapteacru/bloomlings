@@ -34,6 +34,7 @@ namespace Bloomlings.Core.Progression
 
             foreach (CellOverlay overlay in level.Overlays)
             {
+                if (overlay.StackCount > 1) used.Add("mechanic.counted_stack");
                 if (overlay.Stone)
                 {
                     used.Add("mechanic.stone");

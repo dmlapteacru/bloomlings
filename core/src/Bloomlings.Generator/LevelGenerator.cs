@@ -53,6 +53,7 @@ namespace Bloomlings.Generator
 
         /// <summary>New board-size path; existing sizes retain their reproducible definition bytes.</summary>
         public const string ExtendedBoardVersion = "gen-1.4.0";
+        public const string ReadableMechanicsVersion = "gen-1.5.0";
 
         /// <summary>Node budget of each search while the tray is tuned.</summary>
         public const int TuningNodeBudget = 10_000;
@@ -72,7 +73,7 @@ namespace Bloomlings.Generator
             DifficultySchedule schedule,
             UnlockRoadmap? roadmap = null)
         {
-            _profile = profile;
+            _profile = profile.Allows(MechanicNames.CountedStack) ? profile with { ReadableMechanics = true } : profile;
             _pictures = pictures;
             _thresholds = thresholds;
             _readablePair = readablePair;
@@ -374,6 +375,20 @@ namespace Bloomlings.Generator
                 chosen = OverlayPlanner.Choose(_profile, rules, _roadmap, combinations != null && rules >= combinations.Value ? 3 : 2, ref rng, target);
             }
 
+            if (_profile.ReadableMechanics || chosen.Contains(MechanicNames.CountedStack))
+            {
+                foreach (string mechanic in chosen.ToArray())
+                {
+                    if (BoardMechanicReadability.Allows(mechanic, picture.Width, picture.Height)) continue;
+                    if (ForcedMechanics != null || IsPracticeOf(level, mechanic))
+                    {
+                        reason = $"readability:{mechanic}-on-{picture.Width}x{picture.Height}";
+                        return null;
+                    }
+                    chosen.Remove(mechanic);
+                }
+            }
+
             // No mystery on an icons board: its hidden layers are hidden information already, and the fairness check
             // covers them alone (research R8b).
             if (look == BoardLook.Icons)
@@ -392,7 +407,7 @@ namespace Bloomlings.Generator
                 level,
                 1,
                 levelSeed,
-                extendedBoard ? ExtendedBoardVersion : Version,
+                _profile.ReadableMechanics || chosen.Contains(MechanicNames.CountedStack) ? ReadableMechanicsVersion : extendedBoard ? ExtendedBoardVersion : Version,
                 new PictureRef(picture.Id, picture.Version, mirror, "default"),
                 mapping,
                 entries,
@@ -412,6 +427,13 @@ namespace Bloomlings.Generator
             var active = new List<VariantId>(new SortedSet<VariantId>(mapping.Values));
             Board plain = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
             BoardPlan boardPlan = OverlayPlanner.BoardOverlays(plain, BackgroundCells(picture, mirror), chosen, _profile, rules, active, ref rng, look);
+            if (_profile.ReadableMechanics)
+                foreach (string mechanic in chosen.Where(m => m == MechanicNames.Gate || m == MechanicNames.Fountain || m == MechanicNames.Chest || m == MechanicNames.Environment2))
+                    if (!boardPlan.Footprints.ContainsKey(mechanic))
+                    {
+                        reason = "readability:no-footprint-for-" + mechanic;
+                        return null;
+                    }
             List<CellOverlay> boardOverlays = boardPlan.Overlays;
             skeleton = skeleton with { Overlays = boardOverlays };
             Board board = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
@@ -599,7 +621,7 @@ namespace Bloomlings.Generator
             // Mystery tiles and pods, and the hidden layers of an icons board: no blind guesses (FR-036, FR-039, R8, R8b).
             bool? playerInfoFair = null;
             bool hiddenLayers = look == BoardLook.Icons && tray.Definition.Overlays.Any(o => o.LayersBelow.Count > 0);
-            if (hiddenLayers || mechanics.Contains(MechanicNames.MysteryTile) || mechanics.Contains(MechanicNames.MysteryPod))
+            if (hiddenLayers || mechanics.Contains(MechanicNames.CountedStack) || mechanics.Contains(MechanicNames.MysteryTile) || mechanics.Contains(MechanicNames.MysteryPod))
             {
                 FairnessResult fairness = FairnessChecker.Check(tray.Definition, picture, new SessionOptions(1, 20000), tuning.NodeBudget, BandGuidelines.MaxLayersBelow(rules), BandGuidelines.MaxHiddenLayersOnIcons);
                 if (fairness.Status != FairnessStatus.Fair)

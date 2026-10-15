@@ -884,7 +884,7 @@ namespace Bloomlings.Playtest
                 if (e is MysteryTileRevealed revealed)
                 {
                     CellInfo old = Cell(revealed.Cell);
-                    _cells[Index(revealed.Cell)] = new CellInfo(old.Kind, revealed.Variant, old.Next, old.RemainingLayers, false, old.KeyId, old.SpecialId, old.IsEntry);
+                    _cells[Index(revealed.Cell)] = new CellInfo(old.Kind, revealed.Variant, old.Next, old.RemainingLayers, false, old.KeyId, old.SpecialId, old.IsEntry, old.StackRemaining);
                 }
             }
 
@@ -938,7 +938,7 @@ namespace Bloomlings.Playtest
                         false,
                         old.KeyId,
                         null,
-                        old.IsEntry),
+                        old.IsEntry, old.StackRemaining > 0 ? Math.Max(1, old.StackRemaining - 1) : 0),
                     _ => new CellInfo(CellKind.Open, null, null, 0, false, null, null, old.IsEntry),
                 };
 
@@ -994,7 +994,7 @@ namespace Bloomlings.Playtest
                     break;
                 case KeyCollected key:
                     CellInfo old = Cell(key.Cell);
-                    _cells[Index(key.Cell)] = new CellInfo(old.Kind, old.Visible, old.Next, old.RemainingLayers, old.MysteryHidden, null, old.SpecialId, old.IsEntry);
+                    _cells[Index(key.Cell)] = new CellInfo(old.Kind, old.Visible, old.Next, old.RemainingLayers, old.MysteryHidden, null, old.SpecialId, old.IsEntry, old.StackRemaining);
                     break;
                 case LockOpened opened:
                     if (opened.TargetKind == LockTargetKind.Pod)

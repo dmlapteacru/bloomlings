@@ -19,6 +19,7 @@ namespace Bloomlings.Generator.Overlays
         public const string LockedPod = "locked_pod";
         public const string ConnectedPair = "connected_pair";
         public const string LayeredTile = "layered_tile";
+        public const string CountedStack = "counted_stack";
         public const string Gate = "gate";
         public const string Fountain = "fountain";
         public const string LockedSlot = "locked_slot";
@@ -44,7 +45,7 @@ namespace Bloomlings.Generator.Overlays
         {
             MechanicNames.Stone, MechanicNames.Key, MechanicNames.LockedPod, MechanicNames.ConnectedPair, MechanicNames.LayeredTile, MechanicNames.Gate,
             MechanicNames.Fountain, MechanicNames.LockedSlot, MechanicNames.MysteryTile, MechanicNames.MysteryPod, MechanicNames.Chest,
-            MechanicNames.Environment2, MechanicNames.ConnectedTriple,
+            MechanicNames.Environment2, MechanicNames.ConnectedTriple, MechanicNames.CountedStack,
         };
 
         /// <summary>
@@ -87,6 +88,7 @@ namespace Bloomlings.Generator.Overlays
 
         /// <summary>The hole made for a key door, gate or Fountain, by mechanic name (cell index).</summary>
         public Dictionary<string, int> HoleFor { get; } = new Dictionary<string, int>(StringComparer.Ordinal);
+        public Dictionary<string, int[]> Footprints { get; } = new Dictionary<string, int[]>(StringComparer.Ordinal);
     }
 
     /// <summary>Keys, locks and specials planned for one level (R9 step 4, after the solution plan).</summary>
@@ -202,6 +204,12 @@ namespace Bloomlings.Generator.Overlays
                 }
 
                 List<int> spots = ground.Where(c => !taken.Contains(c) && AdjacentTargets(board, c) >= 3 && !Touches(board, c, taken)).ToList();
+                bool largeObject = profile.ReadableMechanics && special != MechanicNames.Key;
+                int side = BoardMechanicReadability.ObjectSide(board.Width, board.Height);
+                int[] Square(int c) => Enumerable.Range(0, side * side).Select(k => c + (k % side) + (k / side) * board.Width).ToArray();
+                if (largeObject)
+                    spots = spots.Where(c => c % board.Width + side <= board.Width && c / board.Width + side <= board.Height
+                        && Square(c).All(t => ground.Contains(t) && !taken.Contains(t) && !Touches(board, t, taken))).ToList();
                 if (spots.Count == 0)
                 {
                     continue;
@@ -216,9 +224,14 @@ namespace Bloomlings.Generator.Overlays
                     return da != db ? da.CompareTo(db) : a.CompareTo(b);
                 });
                 int hole = spots[rng.NextInt(Math.Min(3, spots.Count))];
-                taken.Add(hole);
                 plan.HoleFor[special] = hole;
-                overlays[hole] = new CellOverlay(board.PosOf(hole), Array.Empty<VariantId>(), false, false, true, null);
+                int[] footprint = largeObject ? Square(hole) : new[] { hole };
+                plan.Footprints[special] = footprint;
+                foreach (int c in footprint)
+                {
+                    taken.Add(c);
+                    overlays[c] = new CellOverlay(board.PosOf(c), Array.Empty<VariantId>(), false, false, true, null);
+                }
                 if (special == MechanicNames.Fountain || special == MechanicNames.Chest)
                 {
                     List<int> near = ground.Where(c => !taken.Contains(c) && Distance(board, c, hole) >= 2 && Distance(board, c, hole) <= 3).ToList();
@@ -237,6 +250,21 @@ namespace Bloomlings.Generator.Overlays
                 {
                     taken.Add(stone);
                     overlays[stone] = new CellOverlay(board.PosOf(stone), Array.Empty<VariantId>(), false, true, false, null);
+                }
+            }
+
+            if (mechanics.Contains(MechanicNames.CountedStack))
+            {
+                // Sparse, public, same-variant stacks. Keep entries and other marks clear, with room between counters.
+                List<int> free = targets.Where(c => !taken.Contains(c) && !board.IsEntryCell(c)).ToList();
+                var placed = new HashSet<int>();
+                foreach (int cell in Pick(free, free.Count, ref rng, sort: false))
+                {
+                    if (Touches(board, cell, placed)) continue;
+                    int count = 2 + rng.NextInt(level < 150 ? 3 : 8);
+                    overlays[cell] = new CellOverlay(board.PosOf(cell), Array.Empty<VariantId>(), false, false, false, null, count);
+                    taken.Add(cell); placed.Add(cell);
+                    if (placed.Count >= Math.Min(6, Math.Max(2, board.CellCount / 120))) break;
                 }
             }
 
@@ -551,13 +579,37 @@ namespace Bloomlings.Generator.Overlays
                 }
             }
 
+            for (int i = 0; i < plan.Specials.Count; i++)
+            {
+                SpecialDef special = plan.Specials[i];
+                if (special.Condition.Kind == SpecialConditionKind.Key) continue;
+                string mechanic = special.Type switch
+                {
+                    SpecialType.Fountain => MechanicNames.Fountain,
+                    SpecialType.Chest => MechanicNames.Chest,
+                    SpecialType.Statue or SpecialType.Bridge => MechanicNames.Environment2,
+                    _ => MechanicNames.Gate,
+                };
+                if (!boardPlan.Footprints.TryGetValue(mechanic, out int[]? footprint) || footprint.Length == 1) continue;
+                SpecialCondition condition = special.Condition;
+                if (special.Type == SpecialType.Chest)
+                {
+                    var adjacent = new HashSet<int>();
+                    foreach (int c in footprint)
+                        for (int dir = 0; dir < CellPos.NeighbourCount; dir++)
+                            if (board.PosOf(c).TryGetNeighbour(dir, board.Width, board.Height, out CellPos next) && board.IsTarget(board.IndexOf(next)))
+                                adjacent.Add(board.IndexOf(next));
+                    condition = condition with { Count = adjacent.Sum(board.RemainingLayers) };
+                }
+                plan.Specials[i] = special with { Cells = footprint.Select(board.PosOf).ToArray(), Condition = condition };
+            }
             return plan;
         }
 
         /// <summary>Puts a new key on an unused early cell; null when none is left.</summary>
         private static string? NextKey(Board board, List<int> earlyCells, HashSet<int> usedKeyCells, LockPlan plan, ref int keyNumber, ref Xoshiro256StarStar rng)
         {
-            List<int> free = earlyCells.Where(c => !usedKeyCells.Contains(c)).ToList();
+            List<int> free = earlyCells.Where(c => !usedKeyCells.Contains(c) && board.StackRemaining(c) == 0).ToList();
             if (free.Count == 0)
             {
                 return null;
@@ -624,7 +676,7 @@ namespace Bloomlings.Generator.Overlays
             return Math.Abs(pa.X - pb.X) + Math.Abs(pa.Y - pb.Y);
         }
 
-        private static List<int> Pick(List<int> from, int count, ref Xoshiro256StarStar rng)
+        private static List<int> Pick(List<int> from, int count, ref Xoshiro256StarStar rng, bool sort = true)
         {
             var pool = new List<int>(from);
             var picked = new List<int>();
@@ -635,7 +687,7 @@ namespace Bloomlings.Generator.Overlays
                 pool.RemoveAt(i);
             }
 
-            picked.Sort();
+            if (sort) picked.Sort();
             return picked;
         }
     }

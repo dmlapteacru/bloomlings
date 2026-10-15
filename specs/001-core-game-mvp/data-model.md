@@ -62,7 +62,7 @@ One per level number (FR-075 to FR-077). Wire format:
 | `picture` | `{id, version, mirror: none\|horizontal, backgroundTreatment}` | Must reference an `approved` picture |
 | `mapping` | map of `roleId → variantId` | Each role maps to a variant of the same `colorGroup` that is allowed in the band. Several roles may share one variant (merge) |
 | `entries[]` | list of `{x, y, side}` | At least 1 entry; default is bottom-center (FR-009) |
-| `overlays.cells[]` | list of `{x, y, layersBelow[], mystery?, stone?, hole?, keyId?}` | Sparse. `layersBelow` holds the hidden variants under the top layer, top first: depth ≤ 2 before L125 and ≤ 3 after (FR-036). Keys sit on target cells only (FR-033) |
+| `overlays.cells[]` | list of `{x, y, layersBelow[], mystery?, stone?, hole?, keyId?, stackCount?}` | Sparse. `layersBelow` holds the hidden variants under the top layer, top first: depth ≤ 2 before L125 and ≤ 3 after (FR-036). Keys sit on target cells only (FR-033) |
 | `specials[]` | list of `{id, type: gate\|fountain\|chest\|statue\|bridge, cells[], condition, effect}` | Type must be unlocked for the level (FR-031). Condition and effect must be visible (FR-037, FR-038) |
 | `locks[]` | list of `{keyId, target: {kind: pod\|slot\|special, id}}` | Exactly one lock per key and one key per lock (FR-033) |
 | `slots` | `{count: 5, locked?: {slotIndex, keyId}}` | At most 1 locked slot, and only from L80 (FR-039) |
@@ -77,7 +77,7 @@ One per level number (FR-075 to FR-077). Wire format:
 
 1. `cell(x, y)` starts as `grid[y][x']`, where `x' = mirror ? width-1-x : x`.
 2. The top-layer variant is `mapping[role]`.
-3. `layersBelow`, `stone`, `hole`, `mystery` and `keyId` overlays are applied.
+3. `layersBelow`, `stone`, `hole`, `mystery` and `keyId` overlays are applied. A `stackCount` of 2–9 expands into that many tiles of the mapped top variant; it cannot combine with hidden layers, mystery, stone, hole or a key. Its remaining count is public (FR-092).
 
 **Validation rules** (all enforced by the pipeline, FR-080):
 

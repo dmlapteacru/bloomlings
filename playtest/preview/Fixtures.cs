@@ -55,6 +55,55 @@ namespace Bloomlings.Playtest.Preview
         {
             DesignApp App(string data, bool splash = false) => new DesignApp(data, content, new Silence(), splash);
 
+            DesignApp StackApp(string data)
+            {
+                var app = App(data);
+                app.Meta.SkipTo(5003); app.LoadLevel(5004); CloseDemo(app); app.Level!.SkipGuide();
+                return app;
+            }
+            yield return new Fixture(96, "counted-stack-start", "Visible same-variant stacks before clearing", (p, data) =>
+            {
+                var app = StackApp(data); Run(app, p, .1f);
+                Expect(p.Slots.Contains("tile.stack_count"), "public stack counters are drawn");
+            });
+            yield return new Fixture(97, "counted-stack-five", "The counter reaches five at the actual worker arrival", (p, data) =>
+            {
+                var app = StackApp(data);
+                var level = app.Level!;
+                var cell = level.Session.Definition.Overlays.First(o => o.StackCount == 9).Cell;
+                SolveResult win = new Solver.Solver().Solve(Session(content, 5004), new SolveOptions(200000));
+                Expect(win.Status == SolveStatus.Solvable, "the counted-stack fixture is solvable");
+                bool found = false;
+                foreach (Command command in win.Trace)
+                {
+                    Expect(command is TapPod, "no booster for the stack fixture");
+                    level.Tap(((TapPod)command).PodId);
+                    for (int frame = 0; frame < 20000; frame++)
+                    {
+                        level.Advance(.02f);
+                        if (level.Animator.Cell(cell).StackRemaining == 5) { found = true; break; }
+                        if (level.Animator.Idle) break;
+                    }
+                    if (found) break;
+                }
+                Expect(found, "the animation displays 9 to 5 instead of reading the final rules count");
+                Run(app, p, 0f);
+            });
+            yield return new Fixture(98, "large-gate-36x36", "A readable 3x3 gate on the dense board", (p, data) =>
+            {
+                var app = App(data); app.Meta.SkipTo(5004); app.LoadLevel(5005); CloseDemo(app); app.Level!.SkipGuide();
+                Run(app, p, .1f);
+                Expect(app.Level.Session.View.Specials.Single().Cells.Count == 9, "dense-board gate occupies 3x3 cells");
+            });
+            yield return new Fixture(99, "large-fountain-36x36", "A large fountain shows its exact target variant", (p, data) =>
+            {
+                var app = App(data); app.Meta.SkipTo(5005); app.LoadLevel(5006); CloseDemo(app); app.Level!.SkipGuide();
+                Run(app, p, .1f);
+                SpecialInfo fountain = app.Level.Session.View.Specials.Single();
+                Expect(fountain.Cells.Count == 9 && fountain.Condition.Variant.HasValue, "large fountain has a visible exact-variant condition");
+                Expect(p.Slots.Contains("special.fountain"), "the fountain glyph is drawn");
+            });
+
             yield return new Fixture(90, "garden-backgrounds", "Distinct garden scenes remain available through the bundled asset loader", (p, data) =>
             {
                 var app = Progressed(App(data), content, 87); CloseAll(app);

@@ -11,7 +11,8 @@
     "mystery_tile",
     "chest",
     "environment_2",
-    "connected_triple"
+    "connected_triple",
+    "counted_stack"
   ],
   "allowedVariants": [
     "acorn",
@@ -73,6 +74,7 @@
     5,
     120
   ],
+  "readableMechanics": true,
   "solver": {
     "maxCandidatesPerLevel": 60,
     "nodeBudget": 700000

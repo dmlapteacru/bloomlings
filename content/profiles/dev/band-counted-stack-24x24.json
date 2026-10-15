@@ -1,0 +1,94 @@
+{
+  "allowedMechanics": [
+    "counted_stack"
+  ],
+  "allowedVariants": [
+    "acorn",
+    "dew",
+    "flower",
+    "leaf",
+    "moss",
+    "violet_bud",
+    "water",
+    "wood"
+  ],
+  "bandId": "band-2001-5000",
+  "boardSize": {
+    "height": [
+      24,
+      24
+    ],
+    "width": [
+      24,
+      24
+    ]
+  },
+  "bufferPressureTarget": "normal",
+  "durationTarget": [
+    120,
+    770
+  ],
+  "entryLayouts": [
+    "bottom_center",
+    "bottom_left",
+    "bottom_right",
+    "two_bottom",
+    "side_left",
+    "side_right"
+  ],
+  "hardMode": {
+    "extraPods": 3,
+    "hardPressure": "tense",
+    "maxInjections": 16,
+    "superHardPressure": "critical"
+  },
+  "levelRange": [
+    5004,
+    5004
+  ],
+  "mappingConstraints": {
+    "allowRoleMerge": true
+  },
+  "maxLayerDepth": 0,
+  "note": "Visible counted-stack regression; no launch level is replaced.",
+  "picturePool": {
+    "themes": [
+      "dev-mosaic"
+    ]
+  },
+  "podCount": [
+    12,
+    56
+  ],
+  "podSize": [
+    5,
+    120
+  ],
+  "readableMechanics": true,
+  "solver": {
+    "maxCandidatesPerLevel": 24,
+    "nodeBudget": 200000
+  },
+  "stacks": [
+    2,
+    6
+  ],
+  "structureTargets": {
+    "backgroundSharePermille": [
+      200,
+      650
+    ],
+    "nestingDepth": [
+      2,
+      5
+    ]
+  },
+  "variantCount": [
+    6,
+    6
+  ],
+  "work": [
+    150,
+    770
+  ]
+}

@@ -77,9 +77,9 @@ if (File.Exists(Path.Combine(fixtures, "big-level.level.json")))
 }
 
 // The supported extended sizes: replay both wins and jams through the actual Android animator.
-foreach (string size in new[] { "24x24", "30x32", "36x36" })
+foreach (string size in new[] { "mosaic-24x24", "mosaic-30x32", "mosaic-36x36", "counted-stack-24x24", "large-gate-36x36", "large-fountain-36x36" })
 {
-    LevelDefinition level = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/curated/dev", "level-dev-mosaic-" + size + ".json")));
+    LevelDefinition level = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/curated/dev", "level-dev-" + size + ".json")));
     BasePicture picture = BasePictureJson.Read(File.ReadAllText(Path.Combine(Root, "content/pictures/dev/lib", level.Picture.Id + ".json")));
     ValidationRecord record = ValidationRecord.Read(File.ReadAllText(Path.Combine(Root, "content/pictures/dev/validation", $"level-{level.LevelNumber:00000}.json")));
     runs.Add(("extended/" + size, level, picture, record.SolutionTrace, 20000));
@@ -321,6 +321,7 @@ void Settle(LevelAnimator animator, LevelSession session, List<string> problems,
         var pos = new CellPos(x, y);
         CellInfo shown = animator.Cell(pos), real = view.Cell(pos);
         if (shown.Kind != real.Kind || shown.Visible != real.Visible || shown.MysteryHidden != real.MysteryHidden || shown.KeyId != real.KeyId
+            || shown.StackRemaining != real.StackRemaining
             || (real.Kind == CellKind.Target && shown.RemainingLayers != real.RemainingLayers))
             problems.Add($"{at}: cell {pos} shows {shown.Kind}/{shown.Visible}/{shown.KeyId}/{shown.RemainingLayers}, is {real.Kind}/{real.Visible}/{real.KeyId}/{real.RemainingLayers}");
     }

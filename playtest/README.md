@@ -20,6 +20,10 @@ Unity can open them through `Tools/Bloomlings/Play Dev Level/Mosaic prototype ..
 production catalog. The runtime, importer, schemas and generator now support boards up to **36×36**. Dense boards keep
 the gameplay tile style in the win and Collection. Sources and local reproduction: `content/pictures/dev/README.md`.
 
+Three more dev fixtures reuse those pictures: L5004 (counted stacks on 24×24), L5005 (3×3 gate on 36×36) and L5006
+(3×3 Fountain on 36×36). The tester has `×9` and `Gate` shortcuts; use Next from L5005 for L5006. Preview frames
+96–99 and Unity’s Play Dev Level menu include them. The ordinary client still packages only the 2500 production levels.
+
 `PlaytestFlavor` holds the difference, and `MainActivity` picks `Droid.DesignView` or `TesterView`.
 `playtest/Playtest.Shared.props` holds everything the two share. The tester compiles only `playtest/android/*.cs`; the
 full playtest also compiles the designed screens of `playtest/design/` and the host of `playtest/android/Design/`.

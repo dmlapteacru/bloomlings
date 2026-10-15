@@ -268,6 +268,7 @@ namespace Bloomlings.Client.UI.Design
             // ---- Board tiles and overlays ----
             Add("tile.base", "Board tile (a target cell's top layer)", Gameplay, "Board", "normal; mystery; clearing (shrinks and fades)", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the candy tile `tile.candy` (board style) nearly filling its cell, parted from its neighbors by the dark board gap");
             Add("tile.layer_peek", "Layered tile: the next layer peeking", Gameplay, "Board", "2 layers; 3 layers", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a small candy tile of the next layer in a cream ring with a dark rim, in the tile's top-right corner");
+            Add("tile.stack_count", "Visible same-variant stack counter", Gameplay, "Board", "9 to 1; empty", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "two slab edges, a color-only cube face and a large single digit on cream; no external picture");
             Shape("tile.mystery", "Mystery tile and mystery pod mark (?)", new[] { 9, 12 }, "Board; pods; slots", "hidden; revealing", SizeClass.Small, readability: true);
             Shape("tile.stone", "Stone blocker: the rock glyph carved into a raised sandy stone block (`mat.stone`)", new[] { 7, 9 }, "Board", "whole; cracking", SizeClass.Small, readability: true);
             Shape("tile.key", "Key (gold, on a cream disc in the tile's top-left corner)", new[] { 9 }, "Board; flights to locks", "on tile; flying", SizeClass.Icon, readability: true);

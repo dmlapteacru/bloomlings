@@ -214,6 +214,21 @@ namespace Bloomlings.Pipeline.Validation
             CheckVariants(level, report, passed);
             CheckUnlocks(level, picture, report, passed);
             CheckDataModel(level, RulesLevel ?? level.LevelNumber, report, passed);
+            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion)
+                foreach (string unlock in MechanicsUsed(level, picture).Where(u => u.StartsWith("mechanic.", StringComparison.Ordinal)))
+                    if (!BoardMechanicReadability.Allows(unlock.Substring("mechanic.".Length), picture.Width, picture.Height))
+                        Error(report, n, "mechanic-readability", $"{unlock} is too small on a {picture.Width}×{picture.Height} board");
+            if (level.Overlays.Any(o => o.StackCount > 1) && !BoardMechanicReadability.Allows("counted_stack", picture.Width, picture.Height))
+                Error(report, n, "mechanic-readability", "visible stack counters require a board at most 24×26");
+            if (level.GeneratorVersion == Generator.LevelGenerator.ReadableMechanicsVersion)
+                foreach (SpecialDef special in level.Specials.Where(s => s.Condition.Kind != SpecialConditionKind.Key))
+                {
+                    int side = BoardMechanicReadability.ObjectSide(picture.Width, picture.Height);
+                    int width = special.Cells.Max(c => c.X) - special.Cells.Min(c => c.X) + 1;
+                    int height = special.Cells.Max(c => c.Y) - special.Cells.Min(c => c.Y) + 1;
+                    if (width < side || height < side || special.Cells.Count != width * height)
+                        Error(report, n, "mechanic-readability", $"{special.Id} requires a full {side}×{side} or larger footprint");
+                }
 
             LevelAnalysis analysis = _solver.Analyze(session, _options);
             ValidationResult result = analysis.Win.Status switch
@@ -513,6 +528,8 @@ namespace Bloomlings.Pipeline.Validation
             int maxBelow = BandGuidelines.MaxLayersBelow(rules);
             foreach (CellOverlay overlay in level.Overlays)
             {
+                if (overlay.StackCount > 4 && rules < 150)
+                    Fail($"cell {overlay.Cell} has a stack of {overlay.StackCount}; initial stacks allow at most 4 before L150");
                 if (overlay.LayersBelow.Count > maxBelow)
                 {
                     Fail($"cell {overlay.Cell} has depth {overlay.LayersBelow.Count + 1}; the limit is {maxBelow + 1} at L{rules} (FR-036)");

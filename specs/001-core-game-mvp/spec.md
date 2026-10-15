@@ -739,6 +739,20 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
 - **FR-090**: The game MUST obtain the user consents that platform policies and regional privacy laws require for ads and analytics before using personal data for them.
 - **FR-091**: The game MUST NOT reuse Colony Flow's name, characters, art, audio, level pictures or interface graphics. The similarity is limited to gameplay rules and structure.
 
+#### L. Visible stacks and mechanic readability (owner amendment, 2026-10-15)
+
+- **FR-092**: A visible stack MAY contain 2–9 target tiles of one exact variant in one board cell. Its visible count
+  MUST decrease by one per cleared tile and the cell MUST open only after the last tile. Pods clear it automatically,
+  one work unit per item. It MUST NOT hide a different variant, mystery or a key. Counts MUST participate in exact
+  accounting and solver validation and remain public information in fairness checks. The initial roadmap target is
+  L110 with practice L111, optional until catalog migration. Counts 2–4 introduce it; up to 9 from L150.
+- **FR-093**: Newly generated `gen-1.5.0` levels MUST follow the mechanic compatibility rules in
+  `product/16_MECHANICS_AND_BOARD_READABILITY.md`. Keys and key-dependent locks require boards at most 20×24;
+  visible stack counters require at most 24×26. Environmental objects with non-key conditions MUST occupy full 2×2 or larger footprints,
+  at least 3×3 above width 24 or height 26. Both clients MUST draw one object over its footprint and readable remaining
+  counters. Existing definitions retain their play behavior until versioned regeneration. Device readability and
+  play comfort require playtesting in addition to logical solvability.
+
 ### Unlock Roadmap (from doc 13; indicative level numbers)
 
 | Level | Unlock |
@@ -772,6 +786,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
 | 80 | Locked Waiting Slot |
 | 90 | Mystery Tile if fair, otherwise a substitute |
 | 100 | Major milestone + theme rotation |
+| 110 | Visible same-variant stacks (optional until production migration; practice L111) |
 | 125 | Depth-3 layers |
 | 150 | Chest (optional) |
 | 175 | Advanced connected/locked combinations (profile only) |

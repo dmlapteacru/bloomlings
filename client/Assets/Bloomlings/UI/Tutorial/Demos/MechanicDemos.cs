@@ -18,6 +18,7 @@ namespace Bloomlings.Client.UI.Tutorial.Demos
         public Func<RectTransform?> ConnectedPod { get; set; } = () => null;
 
         public Func<RectTransform?> LayeredTile { get; set; } = () => null;
+        public Func<RectTransform?> CountedStack { get; set; } = () => null;
 
         public Func<RectTransform?> Gate { get; set; } = () => null;
 
@@ -65,6 +66,10 @@ namespace Bloomlings.Client.UI.Tutorial.Demos
                 unlockId,
                 new DemoStep(Loc.T("demo.layered_tile.1")) { PointAt = at.LayeredTile },
                 new DemoStep(Loc.T("demo.layered_tile.2")) { PointAt = at.LayeredTile }),
+            "mechanic.counted_stack" => new DemoScript(
+                unlockId,
+                new DemoStep(Loc.T("demo.counted_stack.1")) { PointAt = at.CountedStack },
+                new DemoStep(Loc.T("demo.counted_stack.2")) { PointAt = at.CountedStack }),
             "mechanic.gate" => new DemoScript(
                 unlockId,
                 new DemoStep(Loc.T("demo.gate")) { PointAt = at.Gate }),

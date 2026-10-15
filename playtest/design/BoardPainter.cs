@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
@@ -60,6 +61,30 @@ namespace Bloomlings.Playtest.Design
 
             // The clearing style's items for this frame (spec 005 FR-038): the tiles it holds show their ground under it.
             ClearPainter.Build(s, s.FxSlots);
+            var counted = new Dictionary<CellPos, Rgba>();
+            foreach (SpecialInfo special in view.Specials)
+            {
+                if (s.Animator.Special(special.Id).Triggered || special.Condition.Kind == SpecialConditionKind.Key) continue;
+                var cells = new HashSet<CellPos>(special.Condition.RegionCells);
+                if (special.Condition.Kind == SpecialConditionKind.ClearCountAdjacent)
+                    foreach (CellPos origin in special.Cells)
+                        for (int dir = 0; dir < CellPos.NeighbourCount; dir++)
+                            if (origin.TryGetNeighbour(dir, w, h, out CellPos next)) cells.Add(next);
+                Rgba color = special.Type switch
+                {
+                    SpecialType.Fountain => C.SpecialFountain,
+                    SpecialType.Chest => C.SpecialChest,
+                    SpecialType.Statue => C.SpecialStatue,
+                    SpecialType.Bridge => C.SpecialBridge,
+                    _ => C.SpecialGate,
+                };
+                foreach (CellPos pos in cells)
+                {
+                    CellInfo info = s.Animator.Cell(pos);
+                    if (info.Kind == CellKind.Target && (!special.Condition.Variant.HasValue || info.Visible == special.Condition.Variant))
+                        counted[pos] = color;
+                }
+            }
 
             for (int y = 0; y < h; y++)
             {
@@ -101,6 +126,8 @@ namespace Bloomlings.Playtest.Design
                             }
 
                             Tile(p, info, full, cell, 1f, 1f, peek, tileStyle);
+                            if (counted.TryGetValue(pos, out Rgba ring))
+                                p.StrokeRound(full.Inset(cell * 0.02f), cell * 0.1f, Math.Max(1f, cell * 0.06f), ring);
                             if (sway != 0f)
                             {
                                 p.PopTransform();
@@ -182,9 +209,26 @@ namespace Bloomlings.Playtest.Design
             }
             else
             {
-                Kit.CandyTile(p, box, info.Visible.Value, style);
+                if (info.StackRemaining > 0)
+                {
+                    Rgba color = Visuals.ColorOf(info.Visible.Value);
+                    for (int tier = 1; tier >= 0; tier--)
+                    {
+                        Box slab = StackTileLook.Tier(box, tier);
+                        p.FillRound(slab, cell * 0.06f, color.Darken(0.4f));
+                        p.FillRound(slab.Inset(cell * 0.02f), cell * 0.04f, color);
+                    }
+                    Kit.CandyTile(p, StackTileLook.Face(box), info.Visible.Value, TileStyle.BoardColor);
+                    Box counter = StackTileLook.Counter(box);
+                    p.FillRound(counter, cell * 0.16f, C.CreamFace);
+                    p.Mark("tile.stack_count");
+                    p.Text(info.StackRemaining.ToString(CultureInfo.InvariantCulture), counter.CenterX, counter.CenterY,
+                        DesignTokens.Type.Count, C.InkBrown, counter.Width * 0.95f,
+                        (counter.Height * 0.92f) / p.U(DesignTokens.Type.Count.Size));
+                }
+                else Kit.CandyTile(p, box, info.Visible.Value, style);
 
-                if (peek && info.RemainingLayers > 1 && info.Next.HasValue)
+                if (info.StackRemaining == 0 && peek && info.RemainingLayers > 1 && info.Next.HasValue)
                 {
                     LayerPeek(p, box, info.Next.Value, style);
                 }
@@ -225,9 +269,8 @@ namespace Bloomlings.Playtest.Design
         private static void KeyCorner(IPainter p, Box tile)
         {
             float s = tile.Width;
-            float d = s * 0.38f;
-            float m = s * 0.03f;
-            Box disc = new Box(tile.Left + m, tile.Top + m, tile.Left + m + d, tile.Top + m + d);
+            float d = s * 0.78f;
+            Box disc = Box.FromCenter(tile.CenterX, tile.CenterY, d, d);
             float line = Math.Max(1f, d * 0.05f);
             Kit.SoftShadow(p, disc, d / 2f, 0.3f, 0.06f);
             p.FillCircle(disc.CenterX, disc.CenterY, (d / 2f) + line, C.CreamLine);
@@ -297,11 +340,21 @@ namespace Bloomlings.Playtest.Design
         {
             (int progress, int total, bool triggered) = info.SpecialId != null ? s.Animator.Special(info.SpecialId) : (0, 0, true);
             SpecialType type = SpecialType.Gate;
+            SpecialCondition? condition = null;
             foreach (SpecialInfo special in s.Session.View.Specials)
             {
                 if (special.Id == info.SpecialId)
                 {
                     type = special.Type;
+                    condition = special.Condition;
+                    Box first = CellBox(s, special.Cells[0]);
+                    if (Math.Abs(first.Left - full.Left) > 0.01f || Math.Abs(first.Top - full.Top) > 0.01f) return;
+                    foreach (CellPos pos in special.Cells)
+                    {
+                        Box other = CellBox(s, pos);
+                        full = new Box(Math.Min(full.Left, other.Left), Math.Min(full.Top, other.Top), Math.Max(full.Right, other.Right), Math.Max(full.Bottom, other.Bottom));
+                    }
+                    cell = Math.Min(full.Width, full.Height);
                 }
             }
 
@@ -318,15 +371,27 @@ namespace Bloomlings.Playtest.Design
             Box face = CandyBlock(p, box, color);
             bool counter = !triggered && total > 1;
             float glyph = Math.Min(face.Width, face.Height) * (counter ? 0.56f : 0.66f);
-            Box g = Box.FromCenter(face.CenterX, face.CenterY - (face.Height * (counter ? 0.1f : 0f)), glyph, glyph);
+            Box g = Box.FromCenter(face.CenterX, face.CenterY - (face.Height * (counter ? 0.18f : 0f)), glyph, glyph);
             Func<float, float, float> sdf = ShapeLibrary.Get(shape);
             p.ShapeOf(shape + "/line", (x, y) => sdf(x, y) - 0.08f, g, color.Darken(0.45f));
             p.Shape(shape, g, Rgba.White);
+            if (condition != null && (condition.Kind == SpecialConditionKind.Key || condition.Variant.HasValue || condition.Kind == SpecialConditionKind.ClearRegion))
+            {
+                float size = cell * 0.38f, margin = cell * 0.03f;
+                Box chip = new Box(box.Left + margin, box.Top + margin, box.Left + margin + size, box.Top + margin + size);
+                p.FillRound(chip.Inset(-Math.Max(1f, size * 0.05f)), size * 0.25f, C.CreamLine);
+                p.FillRoundGradient(chip, size * 0.25f, C.CreamTop, C.CreamFace);
+                if (condition.Variant.HasValue)
+                    Kit.CandyTile(p, chip.Inset(size * 0.1f), condition.Variant.Value, TileStyle.Board);
+                else
+                    p.Shape(condition.Kind == SpecialConditionKind.Key ? "tile.key" : "special.region", chip.Inset(size * 0.16f), C.InkBrown);
+            }
             if (counter)
             {
                 // The counter on a count badge over the block's bottom edge, big enough to read at a glance.
-                float badge = cell * 0.36f;
-                Kit.CountBadge(p, face.CenterX, face.Bottom - (badge * 0.12f), badge, progress + "/" + total);
+                float badge = cell * SpecialObjectLook.CounterShare;
+                Kit.CountBadge(p, face.CenterX, face.Bottom - (badge * 0.4f), badge,
+                    Math.Max(0, total - progress).ToString(CultureInfo.InvariantCulture), SpecialObjectLook.CounterDigitScale);
             }
         }
 

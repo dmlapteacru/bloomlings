@@ -10,7 +10,8 @@
     "locked_slot",
     "mystery_tile",
     "chest",
-    "environment_2"
+    "environment_2",
+    "counted_stack"
   ],
   "allowedVariants": [
     "acorn",
@@ -72,6 +73,7 @@
     5,
     100
   ],
+  "readableMechanics": true,
   "solver": {
     "maxCandidatesPerLevel": 60,
     "nodeBudget": 500000

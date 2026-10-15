@@ -14,5 +14,6 @@ namespace Bloomlings.Core.Definitions
         bool Mystery,
         bool Stone,
         bool Hole,
-        string? KeyId);
+        string? KeyId,
+        int StackCount = 1);
 }

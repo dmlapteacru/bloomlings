@@ -29,6 +29,15 @@ namespace Bloomlings.Client.Editor
         [MenuItem("Tools/Bloomlings/Play Dev Level/Mosaic prototype 36x36 (Butterfly)")]
         public static void PlayMosaic36() => Play(Path.Combine(DevContent.RepositoryContentFolder, "curated", "dev", "level-dev-mosaic-36x36.json"));
 
+        [MenuItem("Tools/Bloomlings/Play Dev Level/Counted stacks 24x24")]
+        public static void PlayCountedStacks() => Play(Path.Combine(DevContent.RepositoryContentFolder, "curated", "dev", "level-dev-counted-stack-24x24.json"));
+
+        [MenuItem("Tools/Bloomlings/Play Dev Level/Large gate 36x36")]
+        public static void PlayLargeGate() => Play(Path.Combine(DevContent.RepositoryContentFolder, "curated", "dev", "level-dev-large-gate-36x36.json"));
+
+        [MenuItem("Tools/Bloomlings/Play Dev Level/Large fountain 36x36")]
+        public static void PlayLargeFountain() => Play(Path.Combine(DevContent.RepositoryContentFolder, "curated", "dev", "level-dev-large-fountain-36x36.json"));
+
         [MenuItem("Tools/Bloomlings/Play Dev Level/Choose File...")]
         public static void Choose()
         {

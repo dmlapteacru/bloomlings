@@ -19,6 +19,9 @@ namespace Bloomlings.Core.Boards
         /// <summary>Hard format limit for hidden layers; band limits (2 before L125, 3 after) are checked by validation.</summary>
         public const int MaxLayersBelow = 3;
 
+        /// <summary>Visible same-variant stacks keep a single-digit counter.</summary>
+        public const int MaxStackCount = 9;
+
         public static Board Build(LevelDefinition definition, BasePicture picture, VariantCatalog catalog)
         {
             if (definition == null)
@@ -262,7 +265,11 @@ namespace Bloomlings.Core.Boards
                     throw new InvalidLevelException($"Duplicate overlay at {c}.");
                 }
 
-                bool hasTargetExtras = overlay.LayersBelow.Count > 0 || overlay.Mystery || overlay.KeyId != null;
+                if (overlay.StackCount < 1 || overlay.StackCount > MaxStackCount)
+                    throw new InvalidLevelException($"Overlay {c}: stack count must be 1–{MaxStackCount}.");
+                if (overlay.StackCount > 1 && (overlay.LayersBelow.Count > 0 || overlay.Mystery || overlay.KeyId != null))
+                    throw new InvalidLevelException($"Overlay {c}: a visible stack cannot hide layers, mystery or a key.");
+                bool hasTargetExtras = overlay.StackCount > 1 || overlay.LayersBelow.Count > 0 || overlay.Mystery || overlay.KeyId != null;
                 if (overlay.Stone && overlay.Hole)
                 {
                     throw new InvalidLevelException($"Overlay {c} cannot be both stone and hole.");
@@ -295,8 +302,10 @@ namespace Bloomlings.Core.Boards
                     throw new InvalidLevelException($"Overlay {c} has {overlay.LayersBelow.Count} hidden layers; the maximum is {MaxLayersBelow}.");
                 }
 
-                var layers = new VariantId[1 + overlay.LayersBelow.Count];
+                var layers = new VariantId[overlay.StackCount > 1 ? overlay.StackCount : 1 + overlay.LayersBelow.Count];
                 layers[0] = board.TopLayer(index);
+                if (overlay.StackCount > 1)
+                    for (int i = 1; i < layers.Length; i++) layers[i] = layers[0];
                 for (int i = 0; i < overlay.LayersBelow.Count; i++)
                 {
                     VariantId hidden = overlay.LayersBelow[i];
@@ -308,7 +317,7 @@ namespace Bloomlings.Core.Boards
                     layers[i + 1] = hidden;
                 }
 
-                board.SetTarget(index, layers, overlay.Mystery, overlay.KeyId);
+                board.SetTarget(index, layers, overlay.Mystery, overlay.KeyId, overlay.StackCount > 1);
             }
         }
 

@@ -50,6 +50,15 @@ dotnet run --project playtest/preview -c Release -- --frames 50,51,52,94,95 --ou
 
 ## Limits and balance
 
+Three additional engineering fixtures exercise `gen-1.5.0`: L5004 (visible stacks on 24×24, seed 1, Normal, forced
+`counted_stack`), L5005 (a full 3×3 gate on 36×36, seed 2, Normal, forced `gate`) and L5006 (a full 3×3 Fountain on
+36×36, seed 2, Normal, forced `fountain`). Their profiles are `band-counted-stack-24x24.json`,
+`band-large-gate-36x36.json` and `band-large-fountain-36x36.json` in `content/profiles/dev/`. Use the same dev library
+and empty history folders. Validation records are next to the original three. Preview frames 96/97/98/99 cover these
+levels, including a real animated count of 5 after the initial 9 and the Fountain condition chip. All six levels remain
+outside production packaging.
+See `product/16_MECHANICS_AND_BOARD_READABILITY.md` for the full compatibility policy and future feature proposals.
+
 Runtime coordinates are 0–35 on each axis; schemas and JSON readers match. A whole board fits its gameplay area,
 without scroll/zoom. The existing visibility rule still hides the next layer above 288 cells; this is independent of
 whether the visual tile style draws a symbol. Win and Collection use the same tile style as gameplay.
@@ -57,8 +66,8 @@ whether the visual tile style draws a symbol. Win and Collection use the same ti
 The standard band profiles accept up to 36 per side. Their count/work/duration ranges remain calibrated at the
 legacy 616-cell anchor: `GenerationProfile.ForBoard` scales those ranges only above it. Variant counts, pod size
 limits, mechanics unlocks, fairness and five-slot rules remain in effect. Difficulty thresholds retain their previous
-interpolation through 616 cells and scale above it; old levels are not rebalanced. New dimensions identify the
-extended generation path as `gen-1.4.0`; old dimensions retain `gen-1.3.0` and reproduce their previous bytes.
+interpolation through 616 cells and scale above it; old levels are not rebalanced. Legacy profiles without `readableMechanics` retain `gen-1.3.0` / `gen-1.4.0` reproduction. The standard presets now
+enable `gen-1.5.0` readability rules for newly generated content; stored production definitions are unchanged.
 
 The existing 2500 production definitions remain intact. Adding new large story art and regenerating launch content
 is a separate production step; the final library still requires 2500 different compositions used once each.

@@ -189,6 +189,13 @@
     },
     {
       "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 110,
+      "optional": true,
+      "unlockId": "mechanic.counted_stack"
+    },
+    {
+      "demoWithin": 0,
       "kind": "profile",
       "level": 125,
       "unlockId": "profile.layers_depth_3"

@@ -198,6 +198,35 @@ namespace Bloomlings.Client.Tests
             }
         }
 
+        [TestCase(18, 20)]
+        [TestCase(21, 26)]
+        [TestCase(24, 24)]
+        public void VisibleStackCountersFitTheirCellsAndKeepReadableDigits(int width, int height)
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                BoardLayout layout = ScreenLayout.ReferenceGameplay(w, h, insets, 6, 5).FitBoard(width, height);
+                Box tile = layout.CellBox(width / 2, height / 2).Inset(layout.Cell * 0.008f);
+                Box counter = StackTileLook.Counter(tile);
+                Assert.That(counter.Within(tile), Is.True);
+                Assert.That(counter.Height * 0.92f * 360f / w, Is.GreaterThanOrEqualTo(8f),
+                    $"{width}x{height} on {w}x{h}: single-digit counters need at least 8 dp");
+            }
+        }
+
+        [TestCase(14, 16)] [TestCase(18, 20)] [TestCase(21, 26)] [TestCase(24, 24)]
+        [TestCase(22, 28)] [TestCase(28, 28)] [TestCase(30, 32)] [TestCase(36, 36)]
+        public void SpecialObjectCountersKeepReadableDigitsAcrossPhoneShapes(int width, int height)
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                BoardLayout layout = ScreenLayout.ReferenceGameplay(w, h, insets, 6, 5).FitBoard(width, height);
+                int side = BoardMechanicReadability.ObjectSide(width, height);
+                float font = side * layout.Cell * SpecialObjectLook.CounterFontShare * 360f / w;
+                Assert.That(font, Is.GreaterThanOrEqualTo(8f), $"{width}x{height} on {w}x{h}");
+            }
+        }
+
         [TestCase(22, 28)]
         [TestCase(24, 24)]
         [TestCase(30, 32)]

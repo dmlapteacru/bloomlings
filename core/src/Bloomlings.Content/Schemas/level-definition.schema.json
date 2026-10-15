@@ -65,8 +65,16 @@
               "mystery": { "type": "boolean", "description": "Top-layer variant hidden until reachable (FR-039)." },
               "stone": { "type": "boolean" },
               "hole": { "type": "boolean", "description": "Open ground from the start." },
-              "keyId": { "type": "string", "description": "Key lying on this target cell (FR-033)." }
-            }
+              "keyId": { "type": "string", "description": "Key lying on this target cell (FR-033)." },
+              "stackCount": { "type": "integer", "minimum": 1, "maximum": 9, "default": 1, "description": "Visible same-variant stack, including its top. Cannot combine with layersBelow, mystery, stone, hole or keyId." }
+            },
+            "allOf": [{
+              "if": { "required": ["stackCount"], "properties": { "stackCount": { "minimum": 2 } } },
+              "then": {
+                "properties": { "layersBelow": { "maxItems": 0 }, "mystery": { "const": false }, "stone": { "const": false }, "hole": { "const": false } },
+                "not": { "required": ["keyId"] }
+              }
+            }]
           }
         }
       }

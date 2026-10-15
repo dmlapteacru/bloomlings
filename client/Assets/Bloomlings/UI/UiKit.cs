@@ -1026,7 +1026,7 @@ namespace Bloomlings.Client.UI
         /// rect is the whole badge (ring and outline included) and the disc's size is its height; a longer number widens
         /// the badge about its center. Returns the label.
         /// </summary>
-        public static TextMeshProUGUI CountBadge(string name, Transform parent, out Image disc)
+        public static TextMeshProUGUI CountBadge(string name, Transform parent, out Image disc, float digitScale = 1f)
         {
             disc = UiFactory.CreateImage(name, parent, null, Color.clear);
             BoxLayout layout = BoxLayout.On(disc.rectTransform);
@@ -1036,7 +1036,7 @@ namespace Bloomlings.Client.UI
             Box Disc(Box b)
             {
                 size = b.Height / 1.26f;
-                float measured = label != null ? KitText.Measure(label, size * 28f / 48f) : 0f;
+                float measured = label != null ? KitText.Measure(label, size * 28f / 48f * digitScale) : 0f;
                 width = Mathf.Max(size, measured + (size * 0.55f));
                 return Box.FromCenter(b.CenterX, b.CenterY, width, size);
             }
@@ -1054,7 +1054,7 @@ namespace Bloomlings.Client.UI
             layout.Watch(text).Then(b =>
             {
                 Box d = Disc(b);
-                KitText.Place(text, DesignTokens.Type.Badge, d.CenterX, d.CenterY - (size * 0.02f), size * 28f / 48f, width * 0.9f);
+                KitText.Place(text, DesignTokens.Type.Badge, d.CenterX, d.CenterY - (size * 0.02f), size * 28f / 48f * digitScale, width * 0.9f);
             });
             return text;
         }

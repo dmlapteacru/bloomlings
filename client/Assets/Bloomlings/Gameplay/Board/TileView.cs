@@ -1,10 +1,12 @@
 using System;
+using System.Globalization;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Variants;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
@@ -56,6 +58,11 @@ namespace Bloomlings.Client.Gameplay.Board
         private float _targetRadius;
         private float _targetWidth;
         private TileStyle _style;
+        private RectTransform? _stack;
+        private CandyTileView? _stackFace;
+        private TextMeshProUGUI? _stackCount;
+        private Image[]? _stackTiers;
+        public int StackRemaining { get; private set; }
 
         /// <summary>Raised when the tile is tapped while it is tappable (Bloom Burst picks its variant, T120).</summary>
         public event Action<CellPos>? Tapped;
@@ -93,12 +100,12 @@ namespace Bloomlings.Client.Gameplay.Board
         private static Box TileBox(Box cell) => cell.Inset(cell.Width * BoardPictures.TileInset);
 
         /// <param name="animate">Flip in (a revealed layer or mystery tile); false on build and restart.</param>
-        public void ShowTarget(VariantId? visible, VariantId? next, string? keyId, bool animate = false)
+        public void ShowTarget(VariantId? visible, VariantId? next, string? keyId, bool animate = false, int stackRemaining = 0)
         {
             StopAnimation();
             gameObject.SetActive(true);
             _gap.enabled = true;
-            _tile.gameObject.SetActive(true);
+            _tile.gameObject.SetActive(stackRemaining == 0);
             if (_stone != null)
             {
                 _stone.gameObject.SetActive(false);
@@ -106,7 +113,8 @@ namespace Bloomlings.Client.Gameplay.Board
 
             // A hidden mystery tile (FR-039) is the lilac "?" tile, and shows no next layer.
             _tile.Show(visible, TileState.Normal);
-            ShowPeek(visible.HasValue ? next : null);
+            ShowStack(visible, stackRemaining);
+            ShowPeek(visible.HasValue && stackRemaining == 0 ? next : null);
             ShowKey(keyId != null);
             Shown = visible;
             if (animate && isActiveAndEnabled)
@@ -115,9 +123,51 @@ namespace Bloomlings.Client.Gameplay.Board
             }
         }
 
+        /// <summary>A public stack of one exact variant, with separate slab edges and a count.</summary>
+        private void ShowStack(VariantId? variant, int remaining)
+        {
+            StackRemaining = remaining;
+            if (remaining == 0 || !variant.HasValue)
+            {
+                if (_stack != null) _stack.gameObject.SetActive(false);
+                return;
+            }
+            if (_stack == null)
+            {
+                _stack = UiFactory.CreateRect("Stack", _body);
+                _layout.Add(_stack, TileBox);
+                BoxLayout layout = BoxLayout.On(_stack);
+                _stackTiers = new Image[2];
+                for (int i = 1; i >= 0; i--)
+                {
+                    int tier = i;
+                    _stackTiers[i] = UiKit.RoundRect("Tier" + i, _stack, Color.white, b => b.Width * 0.06f);
+                    layout.Add(_stackTiers[i].rectTransform, b => StackTileLook.Tier(b, tier));
+                }
+                _stackFace = UiKit.CandyTile("Top", _stack, variant, TileStyle.BoardColor);
+                layout.Add((RectTransform)_stackFace.transform, StackTileLook.Face);
+                Image badge = UiKit.RoundRect("CounterFace", _stack, UiTheme.Of(C.CreamFace), b => b.Width * 0.16f);
+                layout.Add(badge.rectTransform, StackTileLook.Counter);
+                _stackCount = UiKit.KitLabel("Count", _stack, string.Empty, DesignTokens.Type.Count, TextLook.Plain(C.InkBrown));
+                layout.Then(b =>
+                {
+                    Box counter = StackTileLook.Counter(b);
+                    KitText.Place(_stackCount, DesignTokens.Type.Count, counter.CenterX, counter.CenterY,
+                        counter.Height * 0.92f, counter.Width * 0.95f);
+                });
+            }
+            _stackFace!.Show(variant);
+            Rgba color = BoardPictures.ColorOf(variant.Value);
+            foreach (Image tier in _stackTiers!) tier.color = UiTheme.Of(color.Darken(0.3f));
+            _stackCount!.text = remaining.ToString(CultureInfo.InvariantCulture);
+            _stack.gameObject.SetActive(true);
+            _layout.Apply();
+        }
+
         /// <summary>A stone obstacle (frame 9): a raised stone block with a crack, on the restored ground.</summary>
         public void ShowStone()
         {
+            ShowStack(null, 0);
             StopAnimation();
             gameObject.SetActive(true);
             _gap.enabled = false;
@@ -228,6 +278,7 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <param name="animate">Shrink away (a Bloomling restored it); false on build and restart.</param>
         public void ShowOpen(bool animate = false)
         {
+            ShowStack(null, 0);
             StopAnimation();
             Shown = null;
             SetCounted(null);
@@ -338,12 +389,8 @@ namespace Bloomlings.Client.Gameplay.Board
                 _layout.Add(_key, b =>
                 {
                     Box tile = TileBox(b);
-                    bool dense = _style == TileStyle.Mosaic;
-                    float d = tile.Width * (dense ? 0.72f : 0.38f);
-                    float m = tile.Width * (dense ? 0.14f : 0.03f);
-                    return dense
-                        ? Box.FromCenter(tile.CenterX, tile.CenterY, d, d)
-                        : new Box(tile.Left + m, tile.Top + m, tile.Left + m + d, tile.Top + m + d);
+                    float d = tile.Width * 0.78f;
+                    return Box.FromCenter(tile.CenterX, tile.CenterY, d, d);
                 });
             }
 

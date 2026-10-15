@@ -23,7 +23,7 @@ namespace Bloomlings.Generator.Profiles
         {
             const string p = "";
             JObject root = JsonDoc.ParseObject(json, name);
-            JsonDoc.AllowOnly(root, p, "bandId", "levelRange", "boardSize", "picturePool", "structureTargets", "variantCount", "allowedVariants", "mappingConstraints", "entryLayouts", "maxLayerDepth", "allowedMechanics", "stacks", "podCount", "podSize", "work", "bufferPressureTarget", "durationTarget", "hardMode", "solver", "note");
+            JsonDoc.AllowOnly(root, p, "bandId", "levelRange", "boardSize", "picturePool", "structureTargets", "variantCount", "allowedVariants", "mappingConstraints", "entryLayouts", "maxLayerDepth", "allowedMechanics", "stacks", "podCount", "podSize", "work", "bufferPressureTarget", "durationTarget", "hardMode", "solver", "note", "readableMechanics");
 
             JObject board = Obj(root, "boardSize", "width", "height");
             JObject pool = Obj(root, "picturePool", "themes");
@@ -68,6 +68,7 @@ namespace Bloomlings.Generator.Profiles
                 JsonDoc.Int(JsonDoc.Required(solver, "solver", "nodeBudget"), "solver.nodeBudget", min: 100),
                 JsonDoc.Int(JsonDoc.Required(solver, "solver", "maxCandidatesPerLevel"), "solver.maxCandidatesPerLevel", min: 1));
 
+            profile = profile with { ReadableMechanics = JsonDoc.Optional(root, "readableMechanics") is JToken readable && JsonDoc.Bool(readable, "readableMechanics") };
             if (profile.Stacks.Min < 2 || profile.Stacks.Max > 6)
             {
                 throw new ContentFormatException("stacks", "stacks must stay within 2–6");

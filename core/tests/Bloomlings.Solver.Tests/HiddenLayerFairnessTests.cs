@@ -66,6 +66,20 @@ namespace Bloomlings.Solver.Tests
             Assert.That(result.NodesUsed, Is.Zero);
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void PublicStacksStayFixedAndDoNotConsumeTheHiddenLayerBudget(bool withHiddenLayer)
+        {
+            var counted = new CellOverlay(new CellPos(3, 1), Array.Empty<VariantId>(), false, false, false, null, 9);
+            var hidden = new CellOverlay(new CellPos(3, 2), new[] { VariantId.Water }, false, false, false, null);
+            LevelDefinition level = Level(BoardLook.Icons, Pod("x", VariantId.Water, withHiddenLayer ? 10 : 9),
+                withHiddenLayer ? new[] { counted, hidden } : new[] { counted });
+            FairnessResult result = Check(level, maxHidden: withHiddenLayer ? 1 : 0);
+            Assert.That(result.Status, Is.EqualTo(FairnessStatus.Fair), result.Detail);
+            Assert.That(result.PlayerInfoFair, Is.True);
+            Assert.That(result.Worlds, Is.EqualTo(withHiddenLayer ? 1 + HiddenLayerFairness.SampledWorlds : 1));
+        }
+
         [Test]
         public void IconsBoard_WithoutHiddenLayers_HidesNothing()
         {

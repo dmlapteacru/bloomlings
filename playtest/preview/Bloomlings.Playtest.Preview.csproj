@@ -91,6 +91,9 @@
     <EmbeddedResource Include="../../content/curated/dev/level-dev-mosaic-24x24.json" LogicalName="levels/level-05001.json" />
     <EmbeddedResource Include="../../content/curated/dev/level-dev-mosaic-30x32.json" LogicalName="levels/level-05002.json" />
     <EmbeddedResource Include="../../content/curated/dev/level-dev-mosaic-36x36.json" LogicalName="levels/level-05003.json" />
+    <EmbeddedResource Include="../../content/curated/dev/level-dev-counted-stack-24x24.json" LogicalName="levels/level-05004.json" />
+    <EmbeddedResource Include="../../content/curated/dev/level-dev-large-gate-36x36.json" LogicalName="levels/level-05005.json" />
+    <EmbeddedResource Include="../../content/curated/dev/level-dev-large-fountain-36x36.json" LogicalName="levels/level-05006.json" />
     <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../content/pictures/dev/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
   </ItemGroup>

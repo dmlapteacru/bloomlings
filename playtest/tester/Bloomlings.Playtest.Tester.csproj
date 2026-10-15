@@ -29,5 +29,8 @@
     <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-24x24.json" Link="Assets/levels/level-05001.json" />
     <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-30x32.json" Link="Assets/levels/level-05002.json" />
     <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-36x36.json" Link="Assets/levels/level-05003.json" />
+    <AndroidAsset Include="../../content/curated/dev/level-dev-counted-stack-24x24.json" Link="Assets/levels/level-05004.json" />
+    <AndroidAsset Include="../../content/curated/dev/level-dev-large-gate-36x36.json" Link="Assets/levels/level-05005.json" />
+    <AndroidAsset Include="../../content/curated/dev/level-dev-large-fountain-36x36.json" Link="Assets/levels/level-05006.json" />
   </ItemGroup>
 </Project>

@@ -206,6 +206,8 @@ demo.return.1,Return sends a waiting pod back to the tray
 demo.return.2,Then tap the slot to send back
 demo.bloom_burst.1,Bloom Burst clears one symbol from the whole garden
 demo.bloom_burst.2,Then tap a tile with that symbol
+demo.counted_stack.1,This stack holds tiles of the same symbol
+demo.counted_stack.2,Its number falls as Bloomlings take the tiles
 demo.stone,Stones never move. Bloomlings walk around them
 demo.key.1,Clear the tile under the key to collect it
 demo.key.2,The key opens its lock

@@ -63,6 +63,7 @@ namespace Bloomlings.Core.Boards
         // The catalog index of every layer, parallel to _layers (-1 for a variant the catalog lacks). It changes with
         // _layers and is shared with it.
         private int[][] _codes;
+        private bool[] _countedStacks;
         private readonly VariantCatalog? _catalog;
         private bool _ownsLayers;
         private readonly byte[] _top;
@@ -107,6 +108,7 @@ namespace Bloomlings.Core.Boards
             _kind = new byte[n];
             _layers = new VariantId[n][];
             _codes = new int[n][];
+            _countedStacks = new bool[n];
             _catalog = catalog;
             _ownsLayers = true;
             for (int i = 0; i < n; i++)
@@ -166,6 +168,7 @@ namespace Bloomlings.Core.Boards
             _entryIndexes = source._entryIndexes;
             _layers = source._layers;
             _codes = source._codes;
+            _countedStacks = source._countedStacks;
             _mysteryHidden = source._mysteryHidden;
             _keyId = source._keyId;
             _specialId = source._specialId;
@@ -201,6 +204,7 @@ namespace Bloomlings.Core.Boards
         /// <summary>The cell state of <paramref name="source"/>: the kinds and top pointers copied, the rest shared.</summary>
         private void CopyCellsFrom(Board source)
         {
+            _countedStacks = source._countedStacks;
             Array.Copy(source._kind, _kind, _kind.Length);
             Array.Copy(source._top, _top, _top.Length);
 
@@ -319,6 +323,8 @@ namespace Bloomlings.Core.Boards
 
         /// <summary>Number of layers still on the cell, including the top one.</summary>
         public int RemainingLayers(int index) => _kind[index] == TargetKind ? _layers[index].Length - _top[index] : 0;
+
+        public int StackRemaining(int index) => _countedStacks[index] ? RemainingLayers(index) : 0;
 
         /// <summary>Depth of the current top layer in the original stack (0 = original top); used for hashing.</summary>
         public int TopDepth(int index) => _top[index];
@@ -507,7 +513,7 @@ namespace Bloomlings.Core.Boards
             _layerCount = -1;
         }
 
-        internal void SetTarget(int index, VariantId[] layersTopFirst, bool mysteryHidden, string? keyId)
+        internal void SetTarget(int index, VariantId[] layersTopFirst, bool mysteryHidden, string? keyId, bool countedStack = false)
         {
             // BoardBuilder allows at most 1 + MaxLayersBelow layers; the top pointer is a byte.
             if (layersTopFirst.Length > byte.MaxValue)
@@ -521,6 +527,7 @@ namespace Bloomlings.Core.Boards
             SetKind(index, CellKind.Target);
             _layers[index] = layersTopFirst;
             _codes[index] = Codes(layersTopFirst);
+            _countedStacks[index] = countedStack;
             _top[index] = 0;
             _mysteryHidden[index] = mysteryHidden;
             _keyId[index] = keyId;
@@ -584,6 +591,7 @@ namespace Bloomlings.Core.Boards
             {
                 _layers = (VariantId[][])_layers.Clone();
                 _codes = (int[][])_codes.Clone();
+                _countedStacks = (bool[])_countedStacks.Clone();
                 _ownsLayers = true;
             }
         }

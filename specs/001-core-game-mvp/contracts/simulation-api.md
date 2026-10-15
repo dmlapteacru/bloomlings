@@ -49,6 +49,13 @@ public sealed record CommandResult(bool Accepted, RejectReason? Reason, IReadOnl
 content manifest (`shuffleNodeBudget`) and is fixed per `contentVersion`. It is never read from Remote Config, app
 settings or device capabilities, and every golden case records it.
 
+## Visible stacks (FR-092, owner amendment 2026-10-15)
+
+`View.Cell(pos).StackRemaining` is the public count of a visible same-variant stack, including its top tile;
+zero denotes an ordinary cell or an empty stack. `TileCleared` and `LayerRevealed` still describe one work unit.
+Presentation decrements its displayed count at worker arrival rather than reading a later settled state.
+Hidden-layer fairness excludes these publicly known items from unknown-variant allocations.
+
 ## Rejection reasons (no state change)
 
 | Reason | When |

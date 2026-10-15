@@ -250,7 +250,7 @@ namespace Bloomlings.Client.Gameplay.Board
             switch (info.Kind)
             {
                 case CellKind.Target:
-                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, NextOf(info), info.KeyId);
+                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, NextOf(info), info.KeyId, stackRemaining: info.StackRemaining);
                     break;
                 case CellKind.Stone:
                     tile.ShowStone();
@@ -267,7 +267,9 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             CellInfo info = view.Cell(cell);
             Sparkle(cell);
-            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop ? NextOf(info) : null, null, animate: true);
+            int remaining = Tile(cell).StackRemaining;
+            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop ? NextOf(info) : null, null,
+                animate: true, stackRemaining: remaining > 0 ? Mathf.Max(1, remaining - 1) : 0);
         }
 
         /// <summary>The next layer to peek from a tile's chip: none on an icons board (FR-036 as amended on 2026-10-06).</summary>
@@ -287,7 +289,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 CellInfo info = view.Cell(cell);
                 if (info.Kind == CellKind.Target)
                 {
-                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, NextOf(info), info.KeyId, animate: true);
+                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, NextOf(info), info.KeyId, animate: true, stackRemaining: info.StackRemaining);
                 }
                 else if (info.Kind == CellKind.Stone)
                 {
