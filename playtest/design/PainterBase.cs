@@ -51,6 +51,9 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The host's clock in seconds; set before each frame and each touch.</summary>
         public float Now { get; set; }
 
+        /// <summary>Optional wall-clock input time. Gesture velocity stays accurate while the scene clock is paused.</summary>
+        public float? InputTime { get; set; }
+
         /// <summary>Whether a press is still springing back (the host keeps drawing frames).</summary>
         public bool Springing => _release.HasValue && Now - _release.Value.At < DesignTokens.Motion.Press.Seconds;
 
@@ -113,7 +116,7 @@ namespace Bloomlings.Playtest.Design
         public void TouchDown(float x, float y)
         {
             _coast = null;
-            _scrollMotion.Press(y, Now);
+            _scrollMotion.Press(y, InputTime ?? Now);
             _gesture = TouchGesture.For(Dpi, Width);
             int area = ScrollAt(x, y);
             _dragTurns = area >= 0 ? (_scrolls[area].Previous, _scrolls[area].Next) : (null, null);
@@ -133,7 +136,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             _gesture.Move(x, y);
-            _scrollMotion.Record(y, Now);
+            _scrollMotion.Record(y, InputTime ?? Now);
             if (_gesture.Dragging && _verticalDrag != null)
             {
                 _verticalDrag(y - _dragY);
@@ -164,7 +167,7 @@ namespace Bloomlings.Playtest.Design
                 case GestureKind.Drag:
                     if (_verticalDrag != null)
                     {
-                        _scrollMotion.Release(y, Now, _scrollMaximumSpeed);
+                        _scrollMotion.Release(y, InputTime ?? Now, _scrollMaximumSpeed);
                         _scrollAt = Now;
                         _coast = _verticalDrag;
                         return true;

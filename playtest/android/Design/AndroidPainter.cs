@@ -21,7 +21,7 @@ namespace Bloomlings.Playtest.Droid
     /// (<see cref="HeroBitmaps"/>), never all 576 at once. The gameplay lawn renders on a worker thread; until it is ready
     /// the lawn's flat gradient shows, then the view redraws.
     /// </summary>
-    public sealed class AndroidPainter : PainterBase, IPictureWarmer, ICachedIllustration
+    public sealed class AndroidPainter : PainterBase, IPictureWarmer, ICachedIllustration, ITransientPictures
     {
         /// <summary>How many vertical gradients are kept before they are all made again.</summary>
         private const int GradientCacheLimit = 256;
@@ -47,8 +47,22 @@ namespace Bloomlings.Playtest.Droid
         private readonly RectF _rect = new RectF();
         private readonly Rect _source = new Rect();
         private Canvas _canvas = null!;
+        private Canvas _output = null!;
+        private Android.Graphics.Picture? _candidate;
+        private readonly ReadyFrame<Android.Graphics.Picture> _frames = new ReadyFrame<Android.Graphics.Picture>(picture => picture.Dispose());
         private float _width;
         private float _height;
+
+        public bool PreparingFrame => _frames.Waiting;
+        private bool _transient;
+
+        public void Transient(Action draw)
+        {
+            bool previous = _transient;
+            _transient = true;
+            try { draw(); }
+            finally { _transient = previous; }
+        }
 
         /// <summary>The <see cref="Redraw"/> of the painter that drew last: a lawn finished on a worker thread asks it for a frame.</summary>
         private static Action? s_redraw;
@@ -83,17 +97,49 @@ namespace Bloomlings.Playtest.Droid
         /// <summary>Starts a frame on a view's canvas.</summary>
         public void Begin(Canvas canvas, float width, float height, Client.UI.Design.Insets insets)
         {
-            _canvas = canvas;
+            if (_width != width || _height != height) _frames.Dispose();
+            _output = canvas;
             _width = width;
             _height = height;
             Insets = insets;
             Volatile.Write(ref s_redraw, Redraw);
-            Pictures.NextFrame();
-            Sprites.NextFrame();
-            Illustrations.NextFrame();
-            HeroFrames.NextFrame();
-            HeroDraws.NextFrame();
+            _frames.Begin();
+            _candidate = new Android.Graphics.Picture();
+            _canvas = _candidate.BeginRecording((int)width, (int)height)!;
             BeginFrame();
+        }
+
+        /// <summary>Retains the previous display list until every visible resource of this frame is ready.</summary>
+        public void End()
+        {
+            _candidate!.EndRecording();
+            bool published = _frames.Publish(_candidate);
+            _candidate = null;
+            _canvas = _output;
+            if (_frames.Current != null) _canvas.DrawPicture(_frames.Current);
+            else _canvas.DrawColor(new Color(236, 244, 222));
+            if (published)
+            {
+                // A retained display list still references its bitmaps. Do not evict/reuse them while it is displayed.
+                Pictures.NextFrame(); Sprites.NextFrame(); Illustrations.NextFrame();
+                HeroFrames.NextFrame(); HeroDraws.NextFrame();
+            }
+            else
+            {
+                // This indicator has no assets of its own and cannot recursively wait on the picture worker.
+                float radius = Math.Max(12f, _width * .021f), x = _width * .5f, y = _height * .45f;
+                _paint.Reset(); _paint.AntiAlias = true; _paint.Color = new Color(255, 250, 230, 235);
+                _canvas.DrawCircle(x, y, radius * 1.7f, _paint);
+                _paint.SetStyle(Paint.Style.Stroke); _paint.StrokeWidth = radius * .24f;
+                _paint.StrokeCap = Paint.Cap.Round; _paint.Color = new Color(66, 135, 75);
+                _rect.Set(x - radius, y - radius, x + radius, y + radius);
+                _canvas.DrawArc(_rect, (Android.OS.SystemClock.UptimeMillis() % 1000) * .36f, 270f, false, _paint);
+            }
+        }
+
+        private void Missing(string key)
+        {
+            if (!_recording && !_transient && !s_pictureWork.Failed(key)) _frames.Missing();
         }
 
         protected override void ApplyTransform(float dx, float dy, float sx, float sy, float cx, float cy)
@@ -264,8 +310,9 @@ namespace Bloomlings.Playtest.Droid
                         MaskKind.Skin => ShapeLibrary.SkinPattern(key),
                         _ => sdf!,
                     };
+                    Missing(workKey);
                     s_pictureWork.Request(workKey, size * size, () =>
-                        WarmBitmap(ShapeRaster.Mask(shape, size, topDown: true), size * size, size, size, Bitmap.Config.Alpha8!));
+                        WarmBitmap(ShapeRaster.Mask(shape, size, topDown: true), size * size, size, size, Bitmap.Config.Alpha8!), urgent: !_recording);
                     return;
                 }
             }
@@ -439,7 +486,8 @@ namespace Bloomlings.Playtest.Droid
                 }
                 else
                 {
-                    s_pictureWork.Request(workKey, w * h * 4, () => WarmBitmap(BackdropRaster.Render(w, h, colors, scene), w * h * 4, w, h));
+                    Missing(workKey);
+                    s_pictureWork.Request(workKey, w * h * 4, () => WarmBitmap(BackdropRaster.Render(w, h, colors, scene), w * h * 4, w, h), urgent: !_recording);
                     if (!_recording)
                         FillRoundGradient(box, 0f, BackdropRaster.IsLawn(scene) ? DesignTokens.Colors.LawnLight : colors.SkyTop,
                             BackdropRaster.IsLawn(scene) ? DesignTokens.Colors.LawnDark : colors.SkyBottom);
@@ -471,7 +519,8 @@ namespace Bloomlings.Playtest.Droid
                 }
                 else
                 {
-                    QueuePicture(key, w, h, render);
+                    Missing(cacheKey);
+                    QueuePicture(key, w, h, render, urgent: !_recording);
                     return;
                 }
             }
@@ -552,7 +601,7 @@ namespace Bloomlings.Playtest.Droid
         public bool WarmsPictures => true;
         public float WarmProgress => s_pictureWork.Progress;
 
-        private static void QueuePicture(string key, int w, int h, Func<int, int, byte[]> render)
+        private static void QueuePicture(string key, int w, int h, Func<int, int, byte[]> render, bool urgent)
         {
             int bytes = checked(w * h * 4);
             s_pictureWork.Request(UiRaster.CacheKey(key, w, h), bytes, () =>
@@ -568,11 +617,12 @@ namespace Bloomlings.Playtest.Droid
                     s_store?.Write(key, w, h, rgba, bytes);
                 }
                 return WarmBitmap(rgba, bytes, w, h);
-            });
+            }, urgent);
         }
 
         public void Warm(Action draw)
         {
+            if (_recording) { draw(); return; }
             Canvas real = _canvas;
             var marks = FrameMarks();
             s_sink ??= new Canvas(s_sinkBitmap = Bitmap.CreateBitmap(1, 1, Bitmap.Config.Argb8888!)!);
@@ -755,7 +805,7 @@ namespace Bloomlings.Playtest.Droid
         /// or an animated hero's frame from its palette picture in a reused bitmap (<see cref="HeroBitmaps"/>); a frame
         /// that is not a palette PNG decodes as any picture. Null when the picture is missing.
         /// </summary>
-        private static (Bitmap Bitmap, int Width, int Height)? Drawable(string name)
+        private (Bitmap Bitmap, int Width, int Height)? Drawable(string name)
         {
             if (IsHeroFrame(name))
             {
@@ -776,7 +826,7 @@ namespace Bloomlings.Playtest.Droid
         }
 
         /// <summary>A picture the APK carries (a character or an owner picture, <see cref="PlaytestFiles"/>), decoded once; null (logged once) when it is missing.</summary>
-        private static Bitmap? LoadSprite(string name)
+        private Bitmap? LoadSprite(string name)
         {
             if (Sprites.TryGet(name, 0, 0, out Bitmap cached)) return cached;
             if (!SpriteExists(name) || s_pictureWork.Failed("sprite/" + name)) return null;
@@ -785,12 +835,13 @@ namespace Bloomlings.Playtest.Droid
                 Sprites.Add(name, 0, 0, ready, ready.AllocationByteCount);
                 return ready;
             }
+            Missing("sprite/" + name);
             s_pictureWork.Request("sprite/" + name, 0, () =>
             {
                 Bitmap bitmap = DecodeSprite(name) ?? throw new InvalidOperationException("Could not decode " + name);
                 bitmap.PrepareToDraw();
                 return bitmap;
-            });
+            }, urgent: !_recording);
             return null;
         }
 

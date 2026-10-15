@@ -94,10 +94,10 @@ namespace Bloomlings.Playtest.Design
         /// <summary>How many frames the splash has drawn (the first screen's pictures are warmed on its second).</summary>
         private int _splashFrames;
 
-        /// <summary>When Home has been showing alone since (no card, no iris), or −1: it warms what may come next.</summary>
+        /// <summary>When a menu page has been idle since (no card, no iris), or −1: it warms likely destinations.</summary>
         private float _homeIdleSince = -1f;
 
-        /// <summary>How many of <see cref="WarmNext"/>'s steps an idle Home has warmed.</summary>
+        /// <summary>How many of <see cref="WarmNext"/>'s steps an idle menu has warmed.</summary>
         private int _warmStep;
 
         /// <summary>The level whose Pause card was warmed, or null: a level warms it once, on the first frame after its start.</summary>
@@ -1015,8 +1015,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// On a Home left alone for a while, warms one likely next screen at a time (<see cref="WarmNext"/>), each once the
-        /// last is made: their first opening then only uploads their pictures.
+        /// On an idle menu page, warms one likely destination at a time, each once the last is made. Visible requests
+        /// overtake this speculative work; publication still waits for the actual visible frame's dependencies.
         /// </summary>
         private void WarmWhileIdle(IPainter p, IPictureWarmer? warmer)
         {
@@ -1041,7 +1041,7 @@ namespace Bloomlings.Playtest.Design
                 warmer.Warm(() => EndCards.Win(p, Level, 10f));
             }
 
-            if (warmer == null || Screen != Screen.Home || _overlays.Count > 0 || SplashOpening || Transitioning)
+            if (warmer == null || Screen == Screen.Splash || Screen == Screen.Level || _overlays.Count > 0 || SplashOpening || Transitioning)
             {
                 _homeIdleSince = -1f;
                 return;
@@ -1053,33 +1053,42 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            if (_warmStep < WarmSteps && Now - _homeIdleSince >= 1.2f + (0.6f * _warmStep) && warmer.WarmProgress >= 1f)
+            if (_warmStep < WarmSteps && Now - _homeIdleSince >= .6f + (.45f * _warmStep) && warmer.WarmProgress >= 1f)
             {
                 int step = _warmStep++;
                 warmer.Warm(() => WarmNext(p, step));
             }
         }
 
-        /// <summary>The likely next screens an idle Home warms, in order.</summary>
-        private const int WarmSteps = 4;
+        /// <summary>The likely destinations an idle menu warms, in order.</summary>
+        private const int WarmSteps = 7;
 
-        /// <summary>Draws a likely next screen for its pictures only: the level Play starts, Settings, the profile, the Store page.</summary>
+        /// <summary>Prepares Shop, Wardrobe, Leaderboard, Collection, Profile, Settings, then the next level.</summary>
         private void WarmNext(IPainter p, int step)
         {
             switch (step)
             {
                 case 0:
-                    if (_firstPreparedLevel?.Level != Meta.CurrentLevel) _firstPreparedLevel = new LevelScreen(this, Meta.CurrentLevel);
-                    _firstPreparedLevel.Draw(p);
+                    StoreScreen.Draw(p, this);
                     break;
                 case 1:
-                    MenuCards.Settings(p, this, 10f);
+                    WardrobeScreen.Draw(p, this);
                     break;
                 case 2:
+                    LeaderboardScreen.Draw(p, this);
+                    break;
+                case 3:
+                    CollectionScreen.Draw(p, this);
+                    break;
+                case 4:
                     ProfileScreen.Draw(p, this);
                     break;
+                case 5:
+                    MenuCards.Settings(p, this, 10f);
+                    break;
                 default:
-                    StoreScreen.Draw(p, this);
+                    if (_firstPreparedLevel?.Level != Meta.CurrentLevel) _firstPreparedLevel = new LevelScreen(this, Meta.CurrentLevel);
+                    _firstPreparedLevel.Draw(p);
                     break;
             }
         }

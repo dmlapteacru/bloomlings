@@ -74,6 +74,13 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Draws <paramref name="items"/> of <paramref name="layer"/>, cell (0, 0)'s top left at (ox, oy), a cell <paramref name="cell"/> wide.</summary>
         public static void DrawItems(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons = false)
         {
+            if (p is ITransientPictures transient)
+                transient.Transient(() => DrawEffects(p, items, layer, ox, oy, cell, icons));
+            else DrawEffects(p, items, layer, ox, oy, cell, icons);
+        }
+
+        private static void DrawEffects(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons)
+        {
             string? marked = null;
             foreach (FxItem item in items)
             {

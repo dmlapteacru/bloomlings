@@ -6,5 +6,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
     <ProjectReference Include="../assetpack/Bloomlings.AssetPack.csproj" />
     <Compile Include="../../playtest/design/PictureCache.cs" />
+    <Compile Include="../../playtest/design/PictureWorkQueue.cs" />
+    <Compile Include="../../playtest/design/ReadyFrame.cs" />
+    <Compile Include="../../playtest/check/PictureWorkChecks.cs" />
   </ItemGroup>
 </Project>

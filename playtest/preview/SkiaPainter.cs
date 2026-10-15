@@ -540,6 +540,7 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>As the APK painter's <c>Warm</c>: records the draw's pictures on a canvas that draws nothing, then makes them on a worker.</summary>
         public void Warm(Action draw)
         {
+            if (_sink != null) { draw(); return; }
             var marks = FrameMarks();
             using var sink = new SKNoDrawCanvas(1, 1);
             _recorded.Clear();

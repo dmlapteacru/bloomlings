@@ -19,6 +19,7 @@ namespace Bloomlings.Playtest.Droid
         private readonly AndroidPainter _painter = new AndroidPainter();
         private readonly DesignApp _app;
         private long _lastFrame;
+        private long _preparingSince;
         private readonly long _clockOrigin = SystemClock.UptimeMillis();
         private int _insetTop;
         private int _insetBottom;
@@ -78,13 +79,29 @@ namespace Bloomlings.Playtest.Droid
             long now = SystemClock.UptimeMillis();
             float dt = _lastFrame == 0 ? 0f : Math.Min(0.1f, (now - _lastFrame) / 1000f);
             _lastFrame = now;
-            _painter.Now = (now - _clockOrigin) / 1000f;
+            // Freeze animation/scroll clocks while retaining an old frame: no skipped promo or hero phases on reveal.
+            if (_painter.PreparingFrame) dt = 0f;
+            _painter.Now = _app.Now + dt;
             long start = System.Diagnostics.Stopwatch.GetTimestamp();
             PaintStats.Counts before = PaintStats.Snapshot();
             _painter.Begin(canvas, Width, Height, new Client.UI.Design.Insets(_insetTop, _insetBottom));
             _app.Draw(_painter, dt);
+            _painter.End();
+            if (_painter.PreparingFrame)
+            {
+                if (_preparingSince == 0) _preparingSince = now;
+            }
+            else if (_preparingSince != 0)
+            {
+                Android.Util.Log.Info("Bloomlings", $"ready frame on {_app.Screen}: {now - _preparingSince} ms preparing behind retained page");
+                _preparingSince = 0;
+            }
             LogSlowFrame(start, before);
-            if (_app.NeedsFrames || _painter.Springing || _painter.Finger.HasValue || _painter.Scrolling)
+            if (_painter.PreparingFrame)
+            {
+                PostInvalidateDelayed(33);
+            }
+            else if (_app.NeedsFrames || _painter.Springing || _painter.Finger.HasValue || _painter.Scrolling)
             {
                 if (_app.Calm && !_painter.Springing && !_painter.Finger.HasValue && !_painter.Scrolling)
                 {
@@ -167,10 +184,20 @@ namespace Bloomlings.Playtest.Droid
             {
                 return false;
             }
+            _painter.InputTime = (SystemClock.UptimeMillis() - _clockOrigin) / 1000f;
+            if (_painter.PreparingFrame)
+            {
+                // Finish an existing swipe without dispatching any hidden page's tap. Coasting resumes after reveal.
+                if (e.ActionMasked == MotionEventActions.Up && _painter.Dragging)
+                    _painter.TouchUp(e.GetX(), e.GetY());
+                else if (e.ActionMasked == MotionEventActions.Up || e.ActionMasked == MotionEventActions.Cancel)
+                    _painter.TouchCancel();
+                return true;
+            }
 
             // Tap or scroll (spec 005 FR-041, TouchGesture): on a page that scrolls a finger moving past touch.slop drags it
             // and never taps, a long drag turns the page; anywhere else a tap fires where the finger lifts, as before.
-            _painter.Now = (SystemClock.UptimeMillis() - _clockOrigin) / 1000f;
+            _painter.Now = _app.Now;
             switch (e.ActionMasked)
             {
                 case MotionEventActions.Down:

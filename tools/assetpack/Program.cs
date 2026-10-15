@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using Bloomlings.Playtest.Design;
 using SkiaSharp;
+using Bloomlings.AssetPack;
 
 // Input lines: absolute source path|logical asset path. Outputs preserve logical names;
 // BitmapFactory/Skia sniff image headers, and HeroFrameStore reads PNG or BPF1.
@@ -23,11 +24,19 @@ Parallel.ForEach(entries, new ParallelOptions { MaxDegreeOfParallelism = 2 }, en
     string hash = Convert.ToHexString(SHA256.HashData(original));
     string stamp = target + ".sha256";
     // The format version also invalidates outputs after changing encoder settings.
-    string recipe = $"v3:{maxEdge}:{hash}";
+    string recipe = $"v4:{maxEdge}:{hash}";
+    int sourceWidth, sourceHeight;
+    using (var codec = SKCodec.Create(new SKMemoryStream(original)))
+    {
+        if (codec == null) throw new InvalidDataException("Invalid image: " + logical);
+        sourceWidth = codec.Info.Width; sourceHeight = codec.Info.Height;
+    }
     if (!File.Exists(target) || !File.Exists(stamp) || File.ReadAllText(stamp) != recipe)
     {
         byte[] packed = original;
-        if (Path.GetExtension(source).Equals(".png", StringComparison.OrdinalIgnoreCase))
+        bool jpeg = Path.GetExtension(source).Equals(".jpg", StringComparison.OrdinalIgnoreCase);
+        var size = PhoneTextureProfile.Size(logical, sourceWidth, sourceHeight, maxEdge);
+        if (!jpeg || size != (sourceWidth, sourceHeight))
         {
             using var sourceBitmap = Decode(original, SKAlphaType.Unpremul);
             if (logical.StartsWith("Assets/heromotion/", StringComparison.Ordinal))
@@ -38,16 +47,15 @@ Parallel.ForEach(entries, new ParallelOptions { MaxDegreeOfParallelism = 2 }, en
             else
             {
                 // All atlas crops and nine-slice borders use ratios of decoded dimensions.
-                bool ui = logical.StartsWith("Assets/navigation/", StringComparison.Ordinal) || logical.StartsWith("Assets/shop/", StringComparison.Ordinal);
-                using var reduced = ui ? ResizeUi(original, sourceBitmap.Width, sourceBitmap.Height, maxEdge) : null;
+                using var reduced = ResizeUi(original, sourceBitmap.Width, sourceBitmap.Height, PhoneTextureProfile.MaxEdge(logical, maxEdge));
                 SKBitmap bitmap = reduced ?? sourceBitmap;
                 using var pixels = bitmap.PeekPixels();
                 if (reduced != null)
                 {
-                    using var png = pixels.Encode(SKEncodedImageFormat.Png, 100) ?? throw new InvalidDataException("UI PNG encode failed");
+                    using var png = pixels.Encode(jpeg ? SKEncodedImageFormat.Jpeg : SKEncodedImageFormat.Png, jpeg ? 90 : 100) ?? throw new InvalidDataException("Resized image encode failed");
                     packed = png.ToArray();
                 }
-                using var encoded = pixels.Encode(new SKWebpEncoderOptions(SKWebpEncoderCompression.Lossless, 100));
+                using var encoded = jpeg ? null : pixels.Encode(new SKWebpEncoderOptions(SKWebpEncoderCompression.Lossless, 100));
                 if (encoded != null && encoded.Size < packed.Length)
                 {
                     byte[] candidate = encoded.ToArray();
@@ -65,12 +73,23 @@ Parallel.ForEach(entries, new ParallelOptions { MaxDegreeOfParallelism = 2 }, en
     }
     byte[] header = new byte[4];
     using (var file = File.OpenRead(target)) file.ReadExactly(header);
+    var shippedSize = PhoneTextureProfile.Size(logical, sourceWidth, sourceHeight, maxEdge);
+    if (header[0] != 'B')
+    {
+        using var shipped = SKCodec.Create(target) ?? throw new InvalidDataException("Invalid packed image: " + logical);
+        if ((shipped.Info.Width, shipped.Info.Height) != shippedSize)
+            throw new InvalidDataException("Packed dimensions differ from texture profile: " + logical);
+    }
     report.Add(new Result(logical, original.Length, new FileInfo(target).Length,
-        header[0] == 'B' ? "BPF1" : header[0] == 'R' ? "WebP lossless" : "original"));
+        header[0] == 'B' ? "BPF1" : header[0] == 'R' ? "WebP lossless" : "PNG/JPEG",
+        sourceWidth, sourceHeight, shippedSize.Width, shippedSize.Height,
+        (long)sourceWidth * sourceHeight * 4, (long)shippedSize.Width * shippedSize.Height * 4));
 });
 var sorted = report.OrderBy(e => e.Asset).ToArray();
 File.WriteAllText(Path.Combine(output, "report.json"), JsonSerializer.Serialize(sorted, new JsonSerializerOptions { WriteIndented = true }));
-Console.WriteLine($"Game assets: {sorted.Sum(e => e.Before) / 1_000_000.0:F2} → {sorted.Sum(e => e.After) / 1_000_000.0:F2} MB ({sorted.Length} files; UI edge {maxEdge}px, lossless encoding verified)");
+Console.WriteLine($"Game assets: {sorted.Sum(e => e.Before) / 1_000_000.0:F2} → {sorted.Sum(e => e.After) / 1_000_000.0:F2} MB ({sorted.Length} files; UI edge {maxEdge}px; lossless PNG/WebP/palette checked, resized JPEG q90)");
+var textures = sorted.Where(e => !e.Asset.StartsWith("Assets/heromotion/", StringComparison.Ordinal)).ToArray();
+Console.WriteLine($"Regular texture RGBA budget: {textures.Sum(e => e.SourceRgbaBytes) / 1048576.0:F1} → {textures.Sum(e => e.RgbaBytes) / 1048576.0:F1} MiB (all assets; runtime loads visible screens only)");
 
 static SKBitmap Decode(byte[] bytes, SKAlphaType alpha)
 {
@@ -134,4 +153,4 @@ static byte[]? PackHero(SKBitmap image)
     return candidate;
 }
 
-record Result(string Asset, long Before, long After, string Format);
+record Result(string Asset, long Before, long After, string Format, int SourceWidth, int SourceHeight, int Width, int Height, long SourceRgbaBytes, long RgbaBytes);

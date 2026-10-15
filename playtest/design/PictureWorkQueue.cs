@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -9,7 +8,9 @@ namespace Bloomlings.Playtest.Design
     public sealed class PictureWorkQueue<T> : IDisposable where T : class
     {
         private readonly object _gate = new object();
-        private readonly BlockingCollection<(string Key, long Bytes, Func<T> Make)> _jobs = new BlockingCollection<(string, long, Func<T>)>();
+        private readonly LinkedList<Job> _urgent = new LinkedList<Job>();
+        private readonly LinkedList<Job> _idle = new LinkedList<Job>();
+        private readonly Dictionary<string, LinkedListNode<Job>> _queued = new Dictionary<string, LinkedListNode<Job>>(StringComparer.Ordinal);
         private readonly HashSet<string> _pending = new HashSet<string>(StringComparer.Ordinal);
         private readonly HashSet<string> _failed = new HashSet<string>(StringComparer.Ordinal);
         private readonly Dictionary<string, (T Value, long Bytes, LinkedListNode<string> Node)> _ready = new Dictionary<string, (T, long, LinkedListNode<string>)>(StringComparer.Ordinal);
@@ -42,12 +43,21 @@ namespace Bloomlings.Playtest.Design
                 value = null!; return false;
             }
         }
-        public bool Request(string key, long bytes, Func<T> make)
+        public bool Request(string key, long bytes, Func<T> make, bool urgent = false)
         {
             lock (_gate)
             {
-                if (_closed || _ready.ContainsKey(key) || _failed.Contains(key) || !_pending.Add(key)) return false;
-                _total++; _jobs.Add((key, bytes, make));
+                if (_closed || _ready.ContainsKey(key) || _failed.Contains(key)) return false;
+                if (!_pending.Add(key))
+                {
+                    // A visible request overtakes idle preloading, including when that key was already queued.
+                    if (urgent && _queued.TryGetValue(key, out var node) && node.List == _idle)
+                    { _idle.Remove(node); _urgent.AddLast(node); }
+                    return false;
+                }
+                _total++;
+                _queued[key] = (urgent ? _urgent : _idle).AddLast(new Job(key, bytes, make));
+                Monitor.Pulse(_gate);
                 if (_worker == null)
                 {
                     _worker = new Thread(Work) { IsBackground = true, Name = "GamePictures", Priority = ThreadPriority.BelowNormal };
@@ -58,9 +68,16 @@ namespace Bloomlings.Playtest.Design
         }
         private void Work()
         {
-            foreach (var job in _jobs.GetConsumingEnumerable())
+            while (true)
             {
-                lock (_gate) { if (_closed) break; }
+                Job job;
+                lock (_gate)
+                {
+                    while (!_closed && _urgent.Count == 0 && _idle.Count == 0) Monitor.Wait(_gate);
+                    if (_closed) break;
+                    var list = _urgent.Count != 0 ? _urgent : _idle;
+                    job = list.First!.Value; list.RemoveFirst(); _queued.Remove(job.Key);
+                }
                 T? made = null;
                 try
                 {
@@ -94,10 +111,17 @@ namespace Bloomlings.Playtest.Design
             lock (_gate)
             {
                 if (_closed) return;
-                _closed = true; _jobs.CompleteAdding();
+                _closed = true; _urgent.Clear(); _idle.Clear(); _queued.Clear(); Monitor.PulseAll(_gate);
                 foreach (var entry in _ready.Values) _dispose(entry.Value);
                 _ready.Clear(); _order.Clear(); _bytes = 0;
             }
+        }
+        private sealed class Job
+        {
+            public readonly string Key;
+            public readonly long Bytes;
+            public readonly Func<T> Make;
+            public Job(string key, long bytes, Func<T> make) { Key = key; Bytes = bytes; Make = make; }
         }
     }
 }

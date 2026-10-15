@@ -178,6 +178,18 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.ShopScrollOffset > released, "the shop keeps scrolling after the finger lifts");
                 p.TouchDown(x, y); float stopped = app.ShopScrollOffset; Run(app, p, .15f);
                 Expect(!p.Scrolling && app.ShopScrollOffset == stopped, "a new finger stops the glide immediately"); p.TouchCancel();
+                // Input samples use real time even while an incomplete frame pauses the scene clock.
+                app.ShopScrollOffset = 0f; Run(app, p, .1f);
+                p.InputTime = 10f; p.TouchDown(x, y);
+                p.InputTime = 10.04f; p.TouchMove(x, y - p.Width * .14f);
+                p.InputTime = 10.06f; p.TouchUp(x, y - p.Width * .22f);
+                float waitingOffset = app.ShopScrollOffset;
+                Expect(p.Scrolling, "a swipe retains its physical velocity while the scene clock is paused");
+                p.BeginFrame(); app.Draw(p, 0f);
+                Expect(app.ShopScrollOffset == waitingOffset, "a retained page does not coast behind the loading indicator");
+                p.InputTime = null; Run(app, p, .18f);
+                Expect(app.ShopScrollOffset > waitingOffset, "coasting resumes after the ready page is revealed");
+                p.TouchCancel();
                 app.StoreTab = 2; app.CloseStore(); Run(app, p, .1f);
                 Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets).Petals);
                 Expect(app.Screen == Design.Screen.Store && app.StoreTab == 0, "Home Petals always opens the Shop tab");

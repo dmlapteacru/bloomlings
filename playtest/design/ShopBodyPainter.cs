@@ -28,7 +28,14 @@ namespace Bloomlings.Playtest.Design
             foreach (ShopVisual source in nodes)
             {
                 ShopVisual n = source with { Box = source.Box.Offset(0, -app.ShopScrollOffset) };
-                if (n.Box.Bottom <= viewport.Top || n.Box.Top >= viewport.Bottom) continue;
+                if (n.Box.Bottom <= viewport.Top || n.Box.Top >= viewport.Bottom)
+                {
+                    // Decode and rasterize the next strip before a swipe reveals it. Warm() discards its hit areas.
+                    if (p is IPictureWarmer warmer && warmer.WarmsPictures
+                        && n.Box.Bottom > viewport.Top - viewport.Height * .6f && n.Box.Top < viewport.Bottom + viewport.Height * .6f)
+                        warmer.Warm(() => WarmNode(p, n));
+                    continue;
+                }
                 if (n.Kind == ShopVisualKind.Sprite) { if (n.Value.StartsWith("shop/", StringComparison.Ordinal)) p.Mark("ui.shop.illustrations"); if (n.Tint.HasValue) p.SpriteTint(n.Value, n.Box, n.Tint.Value); else p.Sprite(n.Value, n.Box); continue; }
                 if (n.Kind == ShopVisualKind.Text) { Text(p, n); continue; }
                 p.Mark("ui.shop." + n.Kind.ToString().ToLowerInvariant());
@@ -65,6 +72,14 @@ namespace Bloomlings.Playtest.Design
             }
             p.PopClip();
             p.VerticalScroll(viewport, dy => app.ShopScrollOffset = Math.Max(0, Math.Min(max, app.ShopScrollOffset - dy)));
+        }
+        private static void WarmNode(IPainter p, ShopVisual n)
+        {
+            if (n.Kind == ShopVisualKind.Sprite) { p.Sprite(n.Value, n.Box); return; }
+            if (n.Kind == ShopVisualKind.Text) return;
+            if (n.Kind == ShopVisualKind.Button && !n.Dark) { PriceSkin(p, n.Box); return; }
+            ShopVisualKind surface = n.Kind == ShopVisualKind.Button && n.Dark ? ShopVisualKind.Well : n.Kind;
+            p.Picture("shop.surface/" + surface + "/" + n.Group, n.Box, (w, h) => ShopBodyDesign.Surface(surface, w, h, n.Group));
         }
         private static void Text(IPainter p, ShopVisual n)
         {
