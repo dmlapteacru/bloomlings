@@ -1,4 +1,5 @@
 <Project>
+  <Import Project="Catalog.props" />
   <!--
     Shared by the two playtest APKs (playtest/android, the full playtest, and playtest/tester, the level tester): the
     Android settings, the shared core, the Unity client's engine-free logic (linked, never copied), the playtest levels
@@ -55,10 +56,10 @@
 
   <ItemGroup>
     <!--
-      The whole level catalog, L1–5000 (content/catalog/levels), and the picture library, each file read on first use
+      The launch catalog, L1–2500 (content/launch.props), and the picture library, each file read on first use
       (PlaytestContent): the APK's assets, kept once and compressed, not embedded resources (PlaytestFiles).
     -->
-    <AndroidAsset Include="$(MSBuildThisFileDirectory)../content/catalog/levels/*.json" Link="Assets/levels/%(Filename)%(Extension)" />
+    <AndroidAsset Include="@(LaunchCatalogLevel)" Link="Assets/levels/%(Filename)%(Extension)" />
     <AndroidAsset Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" Link="Assets/pictures/%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>

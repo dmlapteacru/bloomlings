@@ -11,7 +11,7 @@ namespace Bloomlings.Playtest
     /// <summary>
     /// Loads the build's levels (the whole catalog, <c>content/catalog/levels</c>) and the picture library
     /// (<see cref="PlaytestFiles"/>: the APK's assets, the preview's embedded resources) into a content set. A level and its
-    /// picture are read when a screen first asks for them, so the 5000 levels and the 2300 pictures cost nothing at start
+    /// picture are read when a screen first asks for them, so the launch levels and picture library cost nothing at start
     /// (only their names are listed). As with <c>publish --allow-draft</c>, pictures still waiting for approval (FR-084) are
     /// used as in-memory preview copies, so this content is for playtests only.
     /// </summary>

@@ -354,23 +354,28 @@ namespace Bloomlings.Pipeline.Commands
             Option<string> outDir = Cli.Path("--out", "build/content", "Output folder.");
             Option<string> minApp = Cli.Path("--min-app-version", "1.0.0", "Minimum app version.");
             Option<int> pictureVersion = Cli.Int("--picture-library-version", 0, "Picture library version (default: the content version).");
+            Option<int> maxLevel = Cli.Int("--max-level", 0, "Last sequential level to publish (default: content/launch.props). Later levels stay in the source catalog.");
+            Option<string> launch = Cli.Path("--launch-config", "content/launch.props", "Launch scope shared with local generation and APK packaging.");
             Option<int> shuffleBudget = Cli.Int("--shuffle-node-budget", 50_000, "Shuffle node budget, fixed for this content version (R10).");
             Option<string> daily = Cli.Path("--daily", string.Empty, "Daily pool folder (optional).");
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Playtest builds only: include pictures that are not approved yet, marked as draft previews. Never for release." };
             Option<string> pairs = Cli.Path("--pairs", "content/readability/approved-pairs.json", "Approved readability pairs.");
             Option<int> budget = Budget();
             Option<string> level8 = Cli.Level8();
-            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, shuffleBudget, daily, allowDraft, pairs, budget, level8 })
+            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, maxLevel, launch, shuffleBudget, daily, allowDraft, pairs, budget, level8 })
             {
                 command.Options.Add(option);
             }
 
             command.SetAction(parse => Cli.Run(parse, report =>
             {
-                var levels = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).OrderBy(l => l.LevelNumber).ToList();
-                if (levels.Count == 0 || levels[0].LevelNumber != 1 || levels.Last().LevelNumber != levels.Count)
+                int last = parse.GetValue(maxLevel);
+                if (last == 0) last = LaunchScope.ReadLimit(parse.GetValue(launch)!);
+                if (last < 1) throw new ArgumentException("--max-level must be positive.");
+                var levels = ContentStore.LoadLevels(parse.GetValue(defs)!, last).Select(l => l.Level).OrderBy(l => l.LevelNumber).ToList();
+                if (levels.Count != last || !levels.Select(l => l.LevelNumber).SequenceEqual(Enumerable.Range(1, last)))
                 {
-                    throw new IOException("the catalog must hold levels 1..N without gaps.");
+                    throw new IOException($"the catalog must hold levels 1..{last} without gaps; found {levels.Count} in scope. Use --max-level for a smaller review pack.");
                 }
 
                 Dictionary<string, BasePicture> library = Pictures(parse.GetValue(lib)!);
@@ -440,6 +445,7 @@ namespace Bloomlings.Pipeline.Commands
                     parse.GetValue(outDir)!);
                 report["contentVersion"] = contentVersion;
                 report["levels"] = levels.Count;
+                report["maxLevel"] = last;
                 report["packs"] = manifest.Packs.Count;
                 report["draftPictures"] = new JArray(drafts.ToArray());
                 if (drafts.Count > 0)

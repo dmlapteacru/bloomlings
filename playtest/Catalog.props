@@ -1,0 +1,10 @@
+<Project>
+  <Import Project="../content/launch.props" />
+  <ItemGroup>
+    <_CatalogSource Include="$(MSBuildThisFileDirectory)../content/catalog/levels/*.json">
+      <Number>$([System.Int32]::Parse($([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '^level-', ''))))</Number>
+      <Ship Condition="'%(Number)' &lt;= '$(LaunchLevelCount)'">true</Ship>
+    </_CatalogSource>
+    <LaunchCatalogLevel Include="@(_CatalogSource->WithMetadataValue('Ship', 'true'))" />
+  </ItemGroup>
+</Project>

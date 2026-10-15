@@ -1,5 +1,7 @@
 # The level catalog
 
+**Launch scope (2026-10-15): L1–2500**, configured in `content/launch.props`. L2501–5000 remain as historical reserve for later updates; Android/preview packaging and default `publish` exclude them. The picture library has not been replaced by the new art direction yet. See `content/pictures/art-direction.md` and `tools/catalog/README.md`.
+
 The certified levels of the game, `level-NNNNN.json` in `levels/` with their validation records in `validation/`
 (`contracts/pipeline-cli.md`, data-model §1.3). `publish --catalog content/catalog` packs them once the catalog holds
 Levels 1..N without gaps.
@@ -39,4 +41,4 @@ playtests every level (FR-084).
 
 L51–100 were built on 2026-10-07 the same way (the playtest's Levels 1–100 are copied from here).
 
-**Next.** The owner builds L101–5000 with `tools/catalog/` (the README there), which resumes after L100.
+**Current data.** The source catalog already contains L1–5000. The launch uses its first 2500; local scripts resume verified ranges and default to this boundary. The status table above records earlier build history.

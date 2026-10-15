@@ -5,6 +5,8 @@
 **Revision 2026-10-06 (product owner):** pictures of 224–288 cells from Level 11 and up to 22×28 for the rare big
 levels (spec `001` FR-008).
 
+**Revision 2026-10-15:** the launch scope is 2500 levels. The new picture direction is authored, unusual scene compositions; the plan and first 24 briefs are in `content/pictures/art-direction.md`. Existing procedural images remain baseline content until replaced and visually reviewed. Local generation of gameplay remains offline on the owner's computer.
+
 ## 1. Locked visual direction
 
 - flat 2D;
@@ -135,11 +137,11 @@ Need a growing library of base pictures:
 
 Scale:
 - Levels 1–100: 100 different base pictures;
-- 5000-level catalog: roughly 1000–1500 base pictures if each is used in at most ~5 levels (reuse through remapping, mirroring and different Source design).
+- 2500-level launch: production estimate 800–1000 composed base pictures, roughly 2–3 uses on average; calibrate after the pilot. Recoloring or mirroring alone does not count as a new composition in the art plan.
 
 Every base picture is manually reviewed for recognizability and gameplay usability before first use.
 
-5000 levels do not require 5000 bespoke illustrations.
+The launch reuses reviewed compositions with controlled repetition; future catalogs can expand the library.
 
 ## 11. Backgrounds
 

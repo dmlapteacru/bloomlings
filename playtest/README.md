@@ -25,7 +25,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 
 ## What the full playtest has
 
-- All 5000 levels of the level catalog, carried straight from `content/catalog/levels/` (the owner's build of
+- The first 2500 levels of the source catalog (the launch boundary in `content/launch.props`), carried from `content/catalog/levels/` (the owner's build of
   2026-10-07 with `tools/catalog`, spec 001 T188): the curated Levels 1–10 on 11×12–12×12 boards, the mechanic
   showcases and their practice levels (`content/showcase/`), and from L11 the generated levels on every board size from
   14×16 to 22×28 (FR-008 as amended on 2026-10-07), all with approved pictures and validated. `PlaytestContent` reads a
@@ -38,7 +38,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   (arm64, arm, x64), so the 57 MB of pictures were in it three times (the full playtest was 182 MB). The preview and the
   check still read them from their own embedded resources (`EmbeddedFiles`).
 
-  Past L5000 the levels repeat. A level whose data stores the icons look (a big board, over 288 cells) draws no
+  Past the bundled launch range the playtest repeats its levels. Reserved source levels L2501–5000 do not ship. A level whose data stores the icons look (a big board, over 288 cells) draws no
   next-layer chip in either APK (FR-036 as amended).
   A pod tap goes in only when a slot shows no pod on screen (spec 001 FR-014 as amended on 2026-10-05).
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free

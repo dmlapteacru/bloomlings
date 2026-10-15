@@ -1,5 +1,6 @@
 # 07 — Difficulty & Global Level Progression
 
+**Launch revision 2026-10-15:** the first release contains 2500 sequential levels. Long-run guidance and milestones beyond 2500 describe future content updates, not required launch content.
 **Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** §4 aligned with the unlock roadmap in doc 13 and spec `001` (Hard label L5, Key L8, Stones L11).
 

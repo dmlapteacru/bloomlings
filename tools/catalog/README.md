@@ -1,6 +1,6 @@
 # tools/catalog: build the level catalog
 
-Generates and certifies `content/catalog/` (Levels 1–5000, spec 001 T153) band by band with the content pipeline
+Generates and certifies the launch range (Levels 1–2500 by default) in `content/catalog/`, band by band with the content pipeline
 (`specs/001-core-game-mvp/contracts/pipeline-cli.md`). Two scripts run the same procedure:
 
 - `build-catalog.ps1` for Windows PowerShell 5.1 and PowerShell 7;
@@ -24,7 +24,8 @@ tools/catalog/build-catalog.sh --check 0026-0050
 | PowerShell | bash | Default | Meaning |
 |---|---|---|---|
 | `-Jobs N` | `--jobs N` | logical cores − 2 | Threads for `generate`. The levels never depend on it |
-| `-ToLevel N` | `--to-level N` | 5000 | Stop after the bands that start at or before level N |
+| `-ToLevel N` | `--to-level N` | `content/launch.props` (2500) | Exact last level, including inside a band |
+| `-Plan` | `--plan` | off | Print the selected ranges without generation, build or writes |
 | `-Retries N` | `--retries N` | 2 | Seeds tried after the band's own seed for a level that gets no accepted candidate |
 | `-Work DIR` | `--work DIR` | `content/work/catalog-build` | Work folder (gitignored): the pipeline build, the batches, the logs |
 | `-NoBuild` | `--no-build` | build | Reuse the pipeline build in the work folder |
@@ -52,9 +53,10 @@ owner's run of 2026-10-07, two segments apart), and the later one is generated a
 | 0251-0500 | 251–500 | `band-0251-0500.json` | 1 | 5 |
 | 0501-1000 | 501–1000 | `band-0501-1000.json` | 1 | 10 |
 | 1001-2000 | 1001–2000 | `band-1001-2000.json` | 1 | 14 |
-| 2001-3000 | 2001–3000 | `band-2001-5000.json` | 1 | 14 |
-| 3001-4000 | 3001–4000 | `band-2001-5000.json` | 1 | 14 |
-| 4001-5000 | 4001–5000 | `band-2001-5000.json` | 1 | 14 |
+| 2001-2500 | 2001–2500 (launch ends here) | `band-2001-5000.json` | 1 | 10 |
+| 2501-3000 | 2501–3000 (future update) | `band-2001-5000.json` | 1 | 10 |
+| 3001-4000 | 3001–4000 (future update) | `band-2001-5000.json` | 1 | 14 |
+| 4001-5000 | 4001–5000 (future update) | `band-2001-5000.json` | 1 | 14 |
 
 ## The procedure
 
@@ -80,11 +82,11 @@ owner's run of 2026-10-07, two segments apart), and the later one is generated a
       levels generated and kept, the seam repairs, the fills (`"level:seed"`), the gaps, the seconds, the validation
       counts and the pipeline commit (`+changes` when core, profiles, pictures, showcases, curated levels or readability
       pairs had uncommitted changes).
-4. **The whole catalog** at the end: `validate --catalog content/catalog --context content/curated` (the release gate's
+4. **The selected launch range** at the end (copied to `<work>/launch-view`; later source levels are left intact): `validate --catalog content/catalog --context content/curated` (the release gate's
    checks, SC-004) and `score --defs content/catalog --curated content/curated` (FR-059's counts per 100 levels and
    the picture statistics of SC-012, in `<work>/score.txt`). The summary is in `<work>/summary.txt`.
 
-**Resuming.** A band listed in the manifest is skipped, so a stopped run continues with the first unfinished band.
+**Resuming.** A completed range covered by the manifest is skipped only when every requested definition and validation record exists. This accepts the first 2500 of the historical 5000-level catalog without regenerating it. A stopped run continues with the first unfinished band.
 A partial copy of that band in the catalog is removed first; a level past it stops the script, since it would change
 the band's history. To redo a band, delete its manifest line and its levels and every later band's.
 
@@ -126,3 +128,46 @@ the band. A level takes about
 ## What to commit
 
 `content/catalog/` (levels, validation records and `build-manifest.jsonl`). The work folder stays out of git.
+
+## Launch boundary and later updates (2026-10-15)
+
+`content/launch.props` is the shared source of truth: **2500 sequential launch levels**. Both scripts read it; the
+Android and desktop-preview builds include only its production range, and pipeline `publish` defaults to the same
+limit. The existing L2501–5000 definitions remain in the source catalog as reserve and are not launch content.
+Developer-only prototype levels remain separate. The complete picture source library stays available for local work.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\catalog\build-catalog.ps1 -Plan
+powershell -ExecutionPolicy Bypass -File tools\catalog\build-catalog.ps1 -Jobs 8
+```
+
+```sh
+bash tools/catalog/build-catalog.sh --plan
+bash tools/catalog/build-catalog.sh --jobs 8
+```
+
+The default final certification checks `<work>/launch-view`, L1–2500, rather than the reserved later levels. `score`
+failures now fail the script too. Generation and solver work stay on the owner's computer; no artwork service or GPU
+is required. Committed, curated picture grids are the generator's inputs. See [the new picture direction](../../content/pictures/art-direction.md).
+
+`publish --catalog content/catalog --content-version N --out build/content` requires a complete 1–2500 range and
+publishes only referenced pictures (plus explicitly requested Daily content). For a smaller review pack, explicitly
+pass `--max-level 100`; use `--launch-config <file.props>` to select another reviewed scope. Daily count is independent.
+
+For a future content update, deliberately raise `LaunchLevelCount`, generate/certify the added range locally and publish
+another content version. The canonical split at 2500 prevents an expansion to 3000 from rebuilding the already shipped
+2001–2500 band. Saved level IDs and existing definitions stay stable. The historical 2001–3000 recipe used 14 segments;
+a fresh split build uses 10 per half, so its generated bytes can differ from that historical batch. Never overwrite
+already published definitions without the required versioning and review. Keeping the old source catalog does not
+redesign its pictures; the new art library is a separate production step.
+
+## Checks for the launch boundary
+
+`python3 tools/catalog/check-scope.py --powershell pwsh` compares Bash and PowerShell plans at 50, 2401, 2500 and
+5000, then exercises resume and final certification with a fake pipeline. It never generates or replaces real levels.
+The test verifies preservation of reserved definitions, bounds of the validation view, and failure propagation from
+`score`. Without PowerShell installed it tests Bash only. This optional development check needs Python and Bash;
+normal Windows catalog generation still needs only PowerShell, .NET 10 and Git.
+
+Pipeline tests additionally publish a real small fixture through the solver gate, decode its output packs, verify
+that unreferenced pictures/future definitions are excluded, and reject incomplete requested ranges.

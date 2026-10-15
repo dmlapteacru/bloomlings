@@ -13,12 +13,13 @@ cd "$ROOT" || exit 2
 
 nproc_all=$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)
 JOBS=$(( nproc_all > 3 ? nproc_all - 2 : 1 ))
-TO_LEVEL=5000
+TO_LEVEL=$(sed -n 's:.*<LaunchLevelCount>\([0-9][0-9]*\)</LaunchLevelCount>.*:\1:p' content/launch.props)
 RETRIES=2
 WORK=content/work/catalog-build
 BUILD=1
 FINAL=1
 CHECK=""
+PLAN=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -29,10 +30,12 @@ while [ $# -gt 0 ]; do
     --no-build) BUILD=0; shift ;;
     --no-final) FINAL=0; shift ;;
     --check) CHECK=$2; shift 2 ;;
+    --plan) PLAN=1; shift ;;
     -h|--help) sed -n 2,9p "$0"; exit 0 ;;
     *) echo "unknown option $1" >&2; exit 2 ;;
   esac
 done
+[[ $TO_LEVEL =~ ^[0-9]+$ ]] && [ "$TO_LEVEL" -ge 10 ] && [ "$TO_LEVEL" -le 5000 ] || { echo 'to-level must be 10..5000'; exit 2; }
 
 CATALOG=content/catalog
 MANIFEST=$CATALOG/build-manifest.jsonl
@@ -46,9 +49,31 @@ BANDS="0011-0025 11 25 band-0011-0025 1 1
 0251-0500 251 500 band-0251-0500 1 5
 0501-1000 501 1000 band-0501-1000 1 10
 1001-2000 1001 2000 band-1001-2000 1 14
-2001-3000 2001 3000 band-2001-5000 1 14
+2001-2500 2001 2500 band-2001-5000 1 10
+2501-3000 2501 3000 band-2001-5000 1 10
 3001-4000 3001 4000 band-2001-5000 1 14
 4001-5000 4001 5000 band-2001-5000 1 14"
+
+# Stop exactly at the requested level, including inside a band. Keep full-band recipes unchanged.
+selected_bands() {
+  local band first last profile seed segments
+  while read -r band first last profile seed segments; do
+    [ "$first" -gt "$TO_LEVEL" ] && break
+    if [ "$last" -gt "$TO_LEVEL" ]; then
+      last=$TO_LEVEL
+      band=$(printf '%04d-%04d' "$first" "$last")
+      local cap=$(( (last - first + 1) / 50 )); [ "$cap" -lt 1 ] && cap=1
+      [ "$segments" -gt "$cap" ] && segments=$cap
+    fi
+    echo "$band $first $last $profile $seed $segments"
+  done <<< "$BANDS"
+}
+if [ "$PLAN" = 1 ]; then
+  echo "launch 1-$TO_LEVEL"
+  selected_bands
+  exit 0
+fi
+SELECTED_BANDS=$(selected_bands)
 
 say() { echo "[$(date -u +%H:%M:%S)] $*"; }
 fail() { say "STOP: $*"; exit 1; }
@@ -171,14 +196,29 @@ seed_curated() {
   echo "{\"band\":\"0001-0010\",\"levels\":\"1-10\",\"source\":\"content/curated\",\"validation\":\"0 errors, $(warnings_of "$tmp/validate.json") warnings\",\"pipeline\":\"$(commit_of)\"}" >> "$MANIFEST"
 }
 
-band_done() { [ -f "$MANIFEST" ] && grep -q "\"band\":\"$1\"" "$MANIFEST"; }
+band_done() {
+  [ -f "$MANIFEST" ] || return 1
+  local requested=$1 first=$2 last=$3 line range a b
+  while IFS= read -r line; do
+    range=$(echo "$line" | sed -n 's/.*"levels":"\([0-9]*-[0-9]*\)".*/\1/p')
+    [ -n "$range" ] || continue
+    a=${range%-*}; b=${range#*-}
+    [ "$a" -le "$first" ] && [ "$b" -ge "$last" ] || continue
+    local n
+    for ((n = first; n <= last; n++)); do
+      [ -f "$CATALOG/levels/$(name "$n")" ] && [ -f "$CATALOG/validation/$(name "$n")" ] || return 1
+    done
+    return 0
+  done < "$MANIFEST"
+  return 1
+}
 
 mkdir -p "$WORK" "$CATALOG/levels" "$CATALOG/validation"
 build_pipeline
 
 # --check BAND: regenerate a finished band with only the earlier levels as history and compare it file by file.
 if [ -n "$CHECK" ]; then
-  line=$(echo "$BANDS" | awk -v b="$CHECK" '$1 == b')
+  line=$(printf '%s\n%s\n' "$SELECTED_BANDS" "$BANDS" | awk -v b="$CHECK" '$1 == b {print; exit}')
   [ -n "$line" ] || fail "no band $CHECK"
   read -r band first last profile seed segments <<< "$line"
   view="$WORK/check-$band/catalog"
@@ -202,7 +242,7 @@ SUMMARY="$WORK/summary.txt"
 previous=""
 while read -r -u 3 band first last profile seed segments; do
   [ "$first" -gt "$TO_LEVEL" ] && break
-  if band_done "$band"; then
+  if band_done "$band" "$first" "$last"; then
     [ -n "$(levels_in "$CATALOG" | awk -v a="$first" -v b="$last" '$1 >= a && $1 <= b' | head -1)" ] \
       || fail "$MANIFEST lists band $band, but content/catalog has none of its levels"
     say "L$first–$last ($band): done earlier, skipped"
@@ -234,16 +274,23 @@ while read -r -u 3 band first last profile seed segments; do
   say "$line"
   echo "$line" >> "$SUMMARY"
   previous="$asm"
-done 3<<< "$BANDS"
+done 3<<< "$SELECTED_BANDS"
 
 if [ "$FINAL" = 1 ]; then
   say "the whole catalog: validate and score"
-  pipeline validate --catalog "$CATALOG" --context content/curated --json > "$WORK/validate-catalog.json" 2> "$WORK/validate-catalog.log"
+  # Keep already generated later levels as reserve, outside this run's validation/publishing scope.
+  view="$WORK/launch-view"
+  rm -rf "$view"; mkdir -p "$view/levels" "$view/validation"
+  for n in $(levels_in "$CATALOG"); do
+    if [ "$n" -le "$TO_LEVEL" ]; then copy_level "$CATALOG" "$view" "$n" || fail "L$n has no validation record"; fi
+  done
+  pipeline validate --catalog "$view" --context content/curated --json > "$WORK/validate-catalog.json" 2> "$WORK/validate-catalog.log"
   errors=$(errors_of "$WORK/validate-catalog.json")
-  pipeline score --defs "$CATALOG" --curated content/curated > "$WORK/score.txt" 2>&1
+  pipeline score --defs "$view" --curated content/curated > "$WORK/score.txt" 2>&1
   score_code=$?
-  echo "catalog: $(levels_in "$CATALOG" | wc -l) levels, validate ${errors:-?} errors, score exit $score_code (see $WORK/score.txt)" >> "$SUMMARY"
+  echo "launch: $(levels_in "$view" | wc -l) levels, limit $TO_LEVEL, validate ${errors:-?} errors, score exit $score_code (see $WORK/score.txt)" >> "$SUMMARY"
   [ "${errors:-1}" -eq 0 ] || { cat "$SUMMARY"; fail "the whole catalog has $errors validation errors, see $WORK/validate-catalog.json"; }
+  [ "$score_code" -eq 0 ] || fail "score failed, see $WORK/score.txt"
 fi
 
 echo

@@ -46,7 +46,7 @@ a default or asks a question.
 | Board | Pixel-art picture that is cleared away | A small garden picture drawn with target tiles; clearing reveals its finished version beneath |
 | Core loop | Tray → 5 slots → workers clear reachable matching cells → jam = fail | Same |
 | Boosters | Extra Slot (L3), Shuffle (L4), Pick Up (L6), Vacuum (L9) | Extra Slot (L3), Shuffle (L4), Return (L6), Bloom Burst (L9) |
-| Progression | Linear levels | Linear Level N (5000+ at launch); no map, no level groupings |
+| Progression | Linear levels | Linear Level N (2500 at launch; later expansion); no map, no level groupings |
 | Hard levels | Hard / Super Hard; players report that some need boosters | Hard (from L5) / Super Hard (from L10); none need boosters |
 | Meta | Collection of finished pictures | Milestones, Leaderboard (L10), Wardrobe (L40), Daily Challenge (L50), Collection |
 
@@ -305,13 +305,13 @@ in the roadmap. They restart the app and continue from Level 11. A second device
 
 ---
 
-### User Story 3 - 5000+ deterministic levels built from a validated catalog (Priority: P2)
+### User Story 3 - 2500 launch levels built from a validated catalog (Priority: P2)
 
-The content team produces the launch catalog of at least 5000 sequential levels:
+The content team produces the launch catalog of 2500 sequential levels (owner revision 2026-10-15; later levels are post-launch updates):
 
 - Levels 1–100 are heavily curated.
 - Levels 101–500 are generated and strongly reviewed.
-- Levels 501–5000+ are generated from progression profiles.
+- Levels 501–2500 are generated locally from progression profiles; higher levels are future updates.
 
 Every level is built from a base picture in the picture library. It is generated solution-first, checked by the
 solver, scored and classified as Normal, Hard or Super Hard. It is then published as a stable, versioned level
@@ -334,7 +334,7 @@ a launch requirement.
 1. **Given** a generation profile for a level band, **When** a batch is generated, **Then** every accepted level passes all invariants and every rejected candidate records the reason. The invariants are: solvable without boosters, exact per-variant accounting, no mechanic before its unlock level, no unavoidable hidden-information failure, and a readable palette.
 2. **Given** a published catalog, **When** the app or the content is updated, **Then** no shipped level number silently gets a different level unless the change is a deliberate, versioned content fix.
 3. **Given** a bug report with app version, level number and content version, **Then** the team can rebuild and replay exactly that level.
-4. **Given** the launch catalog, **Then** all of its 5000+ levels are playable offline right after install.
+4. **Given** the launch catalog, **Then** all of its 2500 launch levels are playable offline right after install.
 5. **Given** a new content pack is published, **Then** players receive the new or fixed levels without installing a new app version.
 6. **Given** a base picture from the library, **When** a level is generated from it, **Then** the visible top layer of every cell follows the picture's color roles mapped to exact variants. The subject is recognizable at level start, and the finished picture is available for the reveal and the Collection.
 7. **Given** a base picture that was already used, **When** it is used again, **Then** the new level differs in role-to-variant mapping or mirroring and in Source design, and it comes at least 50 levels after the previous use.
@@ -697,7 +697,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
 
 #### J. Level catalog and content pipeline (docs 06, 14, 15)
 
-- **FR-075**: The launch catalog MUST contain at least 5000 sequential levels. Each level MUST be deterministic and verified by the solver.
+- **FR-075**: The launch catalog MUST contain 2500 sequential levels (owner revision 2026-10-15), configured in `content/launch.props`. Generation MUST remain local on the owner's computer; later levels are reserved for post-launch updates. Each level MUST be deterministic and verified by the solver.
 - **FR-076**: Each level number MUST map to one stable, versioned level definition, identified by level number, definition version, seed and content version. The definition MUST be identical for all players and devices. An app or content update MUST NOT change a shipped level unless a fix is deliberately versioned.
 - **FR-077**: The game MUST build each level from its definition. A definition MAY be a compact generation config that the game expands into cells, layers and pods deterministically. The same definition MUST always produce the same level.
 - **FR-078**: The launch catalog MUST be included with the app for offline play. Later content packs and level fixes MUST be deliverable without a new app release.
@@ -876,7 +876,7 @@ Layout principles:
 - **SC-001**: In playtests, at least 90% of first-time players finish Level 1 within 2 minutes of first launch without outside help.
 - **SC-002**: After Level 10, at least 80% of playtesters can explain in their own words when a level jams.
 - **SC-003**: In a glance test with 6 active variants on a 14×16 board, players identify the exact variant of any tile with at least 95% accuracy, and confuse same-family siblings in under 2% of answers. They also tell active tiles apart from restored (open) cells with at least 95% accuracy. The same test passes under a colorblind simulation.
-- **SC-004**: 100% of the 5000+ launch levels pass every invariant in FR-080 before release.
+- **SC-004**: 100% of the 2500 launch levels pass every invariant in FR-080 before release.
 - **SC-005**: Replaying a stored tap sequence gives an identical outcome in 100% of automated replays, across devices and at both 1× and fast-forward (3×) speed.
 - **SC-006**: Median completion times fall within the band targets: tutorial 20–45 s, Normal 45–120 s, Hard 2–4 min.
 - **SC-007**: First-attempt win rates meet the targets (tunable): Normal at least 70%, Hard 35–60%, Super Hard 15–40%.
@@ -923,3 +923,12 @@ Layout principles:
   - live events other than the Daily Challenge.
 - **Language**: English first. The minimal-text UI keeps localization cheap.
 - **Art**: strict flat 2D, calm and minimal, with 4 reusable family animation rigs. A new variant needs an icon, a palette, a tile skin, a pod skin and a small character accent, not a new character (doc 12).
+
+### Owner revision — 2026-10-15: picture quality and launch scope
+
+The launch scope is 2500 sequential levels. Earlier statements requiring 5000+ at launch are superseded; historical
+Q&A remains for provenance. The system still supports future expansion, and existing L2501–5000 can stay in source
+as reserve. APK packaging and default publication use the shared launch boundary. New picture production prioritizes
+distinctive composed scenes over volume; `content/pictures/art-direction.md` describes the pilot and quality criteria.
+Prepared picture grids are committed inputs; the owner's computer generates and solver-validates the level catalog
+without requiring an online image service. Existing images have not been replaced by this scope change.

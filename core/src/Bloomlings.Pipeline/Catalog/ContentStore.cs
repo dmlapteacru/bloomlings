@@ -41,7 +41,7 @@ namespace Bloomlings.Pipeline.Catalog
         }
 
         /// <summary>Level definitions of a catalog or batch (<c>levels/</c>) or of a plain folder (top level only).</summary>
-        public static List<(string File, LevelDefinition Level)> LoadLevels(string folder)
+        public static List<(string File, LevelDefinition Level)> LoadLevels(string folder, int maxLevel = int.MaxValue)
         {
             string levels = Path.Combine(folder, LevelsFolder);
             string source = Directory.Exists(levels) ? levels : folder;
@@ -53,7 +53,10 @@ namespace Bloomlings.Pipeline.Catalog
 
             foreach (string file in Sorted(Directory.GetFiles(source, "level-*.json")))
             {
-                result.Add((file, DefinitionJson.Read(File.ReadAllText(file))));
+                string name = Path.GetFileNameWithoutExtension(file).Substring("level-".Length);
+                if (int.TryParse(name, NumberStyles.None, CultureInfo.InvariantCulture, out int number) && number > maxLevel) continue;
+                LevelDefinition definition = DefinitionJson.Read(File.ReadAllText(file));
+                if (definition.LevelNumber <= maxLevel) result.Add((file, definition));
             }
 
             return result.OrderBy(r => r.Item2.LevelNumber).ToList();

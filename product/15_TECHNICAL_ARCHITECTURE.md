@@ -1,5 +1,6 @@
 # 15 — Technical Architecture
 
+**Launch revision 2026-10-15:** ship 2500 sequential levels, configured in `content/launch.props`; 2501+ is post-launch content. The scalable architecture and historical 5000+ capacity estimates below remain. Generation and solver certification stay local on the owner's computer.
 **Status:** LOCKED (2026-09-29)  
 **Scope:** conceptual technology and system architecture only.  
 **Out of scope:** low-level class design, folder structure, dependency injection, exact interfaces, frame-by-frame implementation details.  
@@ -216,7 +217,7 @@ This matters for:
 
 ## Launch
 
-The initial 5000+ level catalog can be bundled with the application as compact level data, together with the picture library it references.
+The initial 2500-level launch catalog can be bundled with the application as compact level data, together with the picture library it references.
 
 This ensures:
 - offline play;
@@ -537,7 +538,7 @@ Recommended automated pipeline:
 - staged deployment;
 - environment-specific configuration.
 
-The 5000-level catalog should be treated as validated build input.
+The 2500-level launch catalog should be treated as validated build input; reserved later source levels are excluded by launch scope.
 
 ---
 

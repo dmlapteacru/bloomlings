@@ -1,0 +1,6 @@
+<Project>
+  <!-- Sequential levels shipped at launch; increase deliberately for a later content update. -->
+  <PropertyGroup>
+    <LaunchLevelCount>2500</LaunchLevelCount>
+  </PropertyGroup>
+</Project>

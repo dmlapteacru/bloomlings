@@ -1,9 +1,11 @@
-# 06 — Level Generator, Solver & 5000-Level Content Pipeline
+# 06 — Level Generator, Solver & Launch Content Pipeline
 
 **Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** picture-first generation (§1, §3–§10, §19–§23; spec `001` FR-079).
 **Revision 2026-10-06 (product owner):** pictures up to 22×28 for the rare big levels (spec `001` FR-008); the
 generator writes each level's board look and checks a big level's hidden layers for blind guesses (FR-036).
+
+**Revision 2026-10-15 (product owner):** launch scope is **2500 levels**, with later expansion after launch. Local generation stays on the owner's computer. New picture production prioritizes authored, unusual scene compositions; see `content/pictures/art-direction.md`. Older 5000-level production estimates below describe the expandable system.
 
 ## 1. Principle
 
@@ -18,15 +20,16 @@ Randomly painting colors and hoping for solvability is forbidden. Picture colors
 
 ## 2. Launch requirement
 
-Bloomlings must support **at least 5000 deterministic, solver-validated levels at launch**.
+Bloomlings ships **2500 deterministic, solver-validated sequential levels at launch**, as configured in `content/launch.props`.
 
-This does **not** mean 5000 hand-authored boards.
+The local generator builds gameplay around a reviewed picture library. The launch does not require 2500 separately authored illustrations.
 
 Content model:
 
 - Levels 1–100: heavily curated / many handcrafted.
 - Levels 101–500: generated from profiles, solver-validated, strong human review.
-- Levels 501–5000+: profile-driven generation, automatic solver validation, sampling/manual QA.
+- Levels 501–2500: profile-driven generation, automatic solver validation, sampling/manual QA.
+- Levels 2501+: future content updates using the same extensible pipeline.
 - Milestone / Hard / Super Hard levels receive stronger curation.
 
 A level number must map to a stable level definition.
@@ -372,6 +375,6 @@ Sources:
 
 Size estimate:
 - Levels 1–100 need 100 different base pictures;
-- with each base picture used in at most ~5 levels, 5000 levels need roughly 1000–1500 base pictures.
+- for the 2500-level launch, the new art production estimate is 800–1000 composed pictures with roughly 2–3 uses on average; calibrate this after the pilot. Recoloring/mirroring alone does not count as a new composition in the art budget.
 
 Exact library size and production plan are decided in implementation planning.

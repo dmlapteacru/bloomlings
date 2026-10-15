@@ -1,5 +1,6 @@
 # 13 — Unlock & Milestone Roadmap
 
+**Launch revision 2026-10-15:** the first release contains 2500 sequential levels. Long-run guidance and milestones beyond 2500 describe future content updates, not required launch content.
 **Status:** LOCKED (2026-09-29)
 
 This document defines **what the player unlocks as the global level number increases**.

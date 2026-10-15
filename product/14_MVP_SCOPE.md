@@ -3,7 +3,7 @@
 **Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** picture-first levels and picture library (§4, §8, §9; spec `001` FR-006).
 
-> v0.4 changes the content requirement substantially: the launch build must support **5000+ levels**, even though only the early portion is heavily handcrafted.
+> Revision 2026-10-15 supersedes v0.4: the launch contains **2500 sequential levels**, generated and solver-validated locally on the owner's computer. Additional levels follow after launch. Picture quality and distinctive composed scenes take priority over catalog size; see `content/pictures/art-direction.md`.
 
 ## 1. Product goal
 
@@ -12,15 +12,15 @@ Launch a Colony Flow-like long-run puzzle product that can support:
 - Level 100 milestone;
 - Level 1000 players;
 - Level 2000 players;
-- Level 5000+ players;
+- Level 2500 players at launch, with later expansion;
 
 without changing the fundamental UX.
 
 ## 2. Launch level requirement
 
-**At least 5000 deterministic, solver-validated sequential levels.**
+**2500 deterministic, solver-validated sequential levels at launch.**
 
-This is a content-system requirement, not a requirement for 5000 handmade designs.
+The boundary is `content/launch.props`; the source catalog can retain later levels as reserve. A reviewed picture library supplies the compositions.
 
 ## 3. Curation tiers
 
@@ -35,7 +35,7 @@ This is a content-system requirement, not a requirement for 5000 handmade design
 - strong manual review;
 - advanced mechanics introduced.
 
-### 501–5000+
+### 501–2500 at launch; 2501+ in future updates
 - generator/profile driven;
 - solver validates every level;
 - milestone/Hard/Super Hard receive stronger review;
@@ -114,7 +114,7 @@ Late launch progression candidates:
 - Statue/Bridge;
 - Connected Triple.
 
-Only mechanics validated before launch should appear in the 5000-level profiles.
+Only mechanics validated before launch should appear in the launch profiles.
 
 ## 8. Art/content
 
@@ -126,15 +126,15 @@ Required:
 - five-slot UI;
 - special-object assets;
 - quiet background themes;
-- picture library: 100 different base pictures for Levels 1–100, roughly 1000–1500 for the 5000-level catalog (`06_LEVEL_GENERATOR.md` §23);
+- picture library: 100 different base pictures for Levels 1–100, an estimated 800–1000 composed pictures for the 2500-level launch, to be calibrated after the art pilot (`06_LEVEL_GENERATOR.md` §23);
 - automatic finished-picture rendering, with bespoke illustrations only where chosen (e.g. milestones).
 
-5000 levels do not require 5000 bespoke illustrations.
+The 2500 levels reuse a curated library of compositions with controlled repetition.
 
 ## 9. Generator/solver launch gate
 
 Before release:
-- all 5000 level definitions generated/materialized or reproducibly derivable;
+- all 2500 launch level definitions generated/materialized and solver-validated;
 - solver passes every level;
 - exact target accounting passes;
 - mechanic unlock constraints pass;
@@ -176,8 +176,8 @@ No level map.
 Do not start full implementation until:
 - all design docs locked;
 - unlock roadmap locked at least through Level 500;
-- long-run milestone policy locked through Level 5000;
-- generator profiles defined through Level 5000;
+- long-run milestone policy supports expansion beyond the 2500-level launch;
+- generator profiles cover the launch and remain extensible;
 - leaderboard semantics locked;
 - four booster semantics locked;
 - launch mechanic set frozen;

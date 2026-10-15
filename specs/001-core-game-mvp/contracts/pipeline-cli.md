@@ -56,3 +56,12 @@ locally before each push.
   - `score`
   - the similarity statistics (SC-012)
 - **Release**: `publish`. Its output is committed or uploaded as the release content artifact.
+
+## Launch scope revision — 2026-10-15
+
+The launch is **2500 sequential levels**, configured in `content/launch.props`; later content is a post-launch update.
+`publish` defaults to this scope, requires every level 1..2500 and excludes reserved later definitions before parsing
+or validation. `--max-level N` explicitly selects another complete 1..N range (for example a small review pack);
+`--launch-config file.props` selects another scope file. Only referenced pictures and optional Daily pictures are packed.
+The main source catalog can retain 5000 historical levels without shipping all of them. `validate`/`score` remain general
+catalog tools; the local launch scripts run them on a bounded `launch-view` and print exact ranges with `--plan`/`-Plan`.

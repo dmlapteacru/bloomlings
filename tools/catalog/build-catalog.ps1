@@ -15,8 +15,8 @@ powershell -ExecutionPolicy Bypass -File tools\catalog\build-catalog.ps1 -Check 
 param(
     # Threads for generate (default: the logical cores minus 2). The levels never depend on it.
     [int]$Jobs = [Math]::Max(1, [Environment]::ProcessorCount - 2),
-    # Stop after the bands that start at or before this level.
-    [int]$ToLevel = 5000,
+    # Exact last level (default: content/launch.props).
+    [int]$ToLevel = 0,
     # Seeds tried after the band's own seed for a level that gets no accepted candidate.
     [int]$Retries = 2,
     # Work folder (gitignored): the pipeline build, the batches and the logs.
@@ -26,7 +26,9 @@ param(
     # Skip the whole-catalog validate and score at the end.
     [switch]$NoFinal,
     # Regenerate this finished band (e.g. 0011-0025) with only the earlier levels as history and compare its files.
-    [string]$Check = ''
+    [string]$Check = '',
+    # Print exact ranges without building, generating or modifying content.
+    [switch]$Plan
 )
 
 Set-StrictMode -Version 2.0
@@ -35,6 +37,11 @@ $ErrorActionPreference = 'Stop'
 $Root = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 Set-Location $Root
 [Environment]::CurrentDirectory = $Root
+if ($ToLevel -eq 0) {
+    [xml]$launch = Get-Content 'content/launch.props' -Raw
+    $ToLevel = [int]$launch.Project.PropertyGroup.LaunchLevelCount
+}
+if ($ToLevel -lt 10 -or $ToLevel -gt 5000) { throw 'ToLevel must be 10..5000' }
 
 $Catalog = 'content/catalog'
 $Manifest = "$Catalog/build-manifest.jsonl"
@@ -50,10 +57,28 @@ $Bands = @(
     @{ Band = '0251-0500'; First = 251;  Last = 500;  Profile = 'band-0251-0500'; Seed = 1; Segments = 5 },
     @{ Band = '0501-1000'; First = 501;  Last = 1000; Profile = 'band-0501-1000'; Seed = 1; Segments = 10 },
     @{ Band = '1001-2000'; First = 1001; Last = 2000; Profile = 'band-1001-2000'; Seed = 1; Segments = 14 },
-    @{ Band = '2001-3000'; First = 2001; Last = 3000; Profile = 'band-2001-5000'; Seed = 1; Segments = 14 },
+    @{ Band = '2001-2500'; First = 2001; Last = 2500; Profile = 'band-2001-5000'; Seed = 1; Segments = 10 },
+    @{ Band = '2501-3000'; First = 2501; Last = 3000; Profile = 'band-2001-5000'; Seed = 1; Segments = 10 },
     @{ Band = '3001-4000'; First = 3001; Last = 4000; Profile = 'band-2001-5000'; Seed = 1; Segments = 14 },
     @{ Band = '4001-5000'; First = 4001; Last = 5000; Profile = 'band-2001-5000'; Seed = 1; Segments = 14 }
 )
+$OriginalBands = $Bands
+$Bands = @($Bands | ForEach-Object {
+    if ($_.First -le $ToLevel) {
+        $b = $_.Clone()
+        if ($b.Last -gt $ToLevel) {
+            $b.Last = $ToLevel
+            $b.Band = '{0:D4}-{1:D4}' -f $b.First, $b.Last
+            $b.Segments = [Math]::Min($b.Segments, [Math]::Max(1, [int][Math]::Floor(($b.Last - $b.First + 1) / 50)))
+        }
+        $b
+    }
+})
+if ($Plan) {
+    Write-Output "launch 1-$ToLevel"
+    foreach ($b in $Bands) { Write-Output "$($b.Band) $($b.First) $($b.Last) $($b.Profile) $($b.Seed) $($b.Segments)" }
+    exit 0
+}
 
 function Say([string]$Message) { Write-Host ('[{0}] {1}' -f [DateTime]::UtcNow.ToString('HH:mm:ss'), $Message) }
 
@@ -217,7 +242,20 @@ function SeedCurated {
     AppendLine $Manifest ('{"band":"0001-0010","levels":"1-10","source":"content/curated","validation":"0 errors, ' + $counts.Warnings + ' warnings","pipeline":"' + (CommitOf) + '"}')
 }
 
-function BandDone([string]$Band) { (Test-Path $Manifest) -and (Select-String -Path $Manifest -SimpleMatch -Quiet -Pattern "`"band`":`"$Band`"") }
+function BandDone($Band) {
+    if (-not (Test-Path $Manifest)) { return $false }
+    foreach ($line in Get-Content $Manifest) {
+        $row = $line | ConvertFrom-Json
+        $range = $row.levels -split '-'
+        if ([int]$range[0] -le $Band.First -and [int]$range[1] -ge $Band.Last) {
+            for ($n = $Band.First; $n -le $Band.Last; $n++) {
+                if (-not (Test-Path "$Catalog/levels/$(Name $n)") -or -not (Test-Path "$Catalog/validation/$(Name $n)")) { return $false }
+            }
+            return $true
+        }
+    }
+    return $false
+}
 
 New-Item -ItemType Directory -Force -Path $Work, "$Catalog/levels", "$Catalog/validation" | Out-Null
 if (-not $NoBuild -or -not (Test-Path $Pipe)) {
@@ -228,6 +266,7 @@ if (-not $NoBuild -or -not (Test-Path $Pipe)) {
 
 if ($Check) {
     $B = $Bands | Where-Object { $_.Band -eq $Check } | Select-Object -First 1
+    if (-not $B) { $B = $OriginalBands | Where-Object { $_.Band -eq $Check } | Select-Object -First 1 }
     if (-not $B) { Fail "no band $Check" }
     $dir = "$Work/check-$($B.Band)"
     if (Test-Path $dir) { Remove-Item -Recurse -Force $dir }
@@ -257,7 +296,7 @@ $Summary = New-Object System.Collections.Generic.List[string]
 $previous = ''
 foreach ($B in $Bands) {
     if ($B.First -gt $ToLevel) { break }
-    if (BandDone $B.Band) {
+    if (BandDone $B) {
         if (@(LevelsIn $Catalog | Where-Object { $_ -ge $B.First -and $_ -le $B.Last }).Count -eq 0) {
             Fail "$Manifest lists band $($B.Band), but content/catalog has none of its levels"
         }
@@ -301,14 +340,21 @@ foreach ($B in $Bands) {
 
 if (-not $NoFinal) {
     Say 'the whole catalog: validate and score'
-    $null = Pipeline @('validate', '--catalog', $Catalog, '--context', 'content/curated', '--json') "$Work/validate-catalog.json" "$Work/validate-catalog.log" -Quiet
+    $view = "$Work/launch-view"
+    if (Test-Path $view) { Remove-Item -Recurse -Force $view }
+    New-Item -ItemType Directory -Force -Path "$view/levels", "$view/validation" | Out-Null
+    foreach ($n in (LevelsIn $Catalog)) {
+        if ($n -le $ToLevel -and -not (CopyLevel $Catalog $view $n)) { Fail "L$n has no validation record" }
+    }
+    $null = Pipeline @('validate', '--catalog', $view, '--context', 'content/curated', '--json') "$Work/validate-catalog.json" "$Work/validate-catalog.log" -Quiet
     $counts = IssueCounts "$Work/validate-catalog.json"
-    $scoreCode = Pipeline @('score', '--defs', $Catalog, '--curated', 'content/curated') "$Work/score.txt" "$Work/score.err.log" -Quiet
-    $Summary.Add("catalog: $(@(LevelsIn $Catalog).Count) levels, validate $($counts.Errors) errors, score exit $scoreCode (see $Work/score.txt)")
+    $scoreCode = Pipeline @('score', '--defs', $view, '--curated', 'content/curated') "$Work/score.txt" "$Work/score.err.log" -Quiet
+    $Summary.Add("launch: $(@(LevelsIn $view).Count) levels, limit $ToLevel, validate $($counts.Errors) errors, score exit $scoreCode (see $Work/score.txt)")
     if ($counts.Errors -ne 0) {
         $Summary | ForEach-Object { Write-Host $_ }
         Fail "the whole catalog has $($counts.Errors) validation errors, see $Work/validate-catalog.json"
     }
+    if ($scoreCode -ne 0) { Fail "score failed, see $Work/score.txt" }
 }
 
 [System.IO.File]::WriteAllText((Join-Path $Root "$Work/summary.txt"), (($Summary -join "`n") + "`n"), $Utf8)
