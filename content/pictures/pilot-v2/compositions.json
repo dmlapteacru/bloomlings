@@ -15,7 +15,7 @@
       "story": "Пар над розовой чашкой складывается в один большой зелёный лист.",
       "width": 14,
       "height": 16,
-      "artStatus": "pilot-awaiting-owner-review",
+      "artStatus": "approved",
       "previewMapping": {
         "sky": "dew",
         "shadow": "moss",
@@ -35,7 +35,7 @@
       "story": "Бумажная лодка несёт большой лист вместо паруса.",
       "width": 18,
       "height": 20,
-      "artStatus": "pilot-awaiting-owner-review",
+      "artStatus": "approved",
       "previewMapping": {
         "sky": "dew",
         "leaf": "leaf",
@@ -55,7 +55,7 @@
       "story": "Старый садовый сапог стал стеклянной оранжереей; цветы выходят из голенища.",
       "width": 24,
       "height": 24,
-      "artStatus": "pilot-awaiting-owner-review",
+      "artStatus": "approved",
       "previewMapping": {
         "sky": "dew",
         "shadow": "moss",
@@ -76,7 +76,7 @@
       "story": "На серпе луны мельница перемалывает облако в звёздную пыль.",
       "width": 22,
       "height": 28,
-      "artStatus": "pilot-awaiting-owner-review",
+      "artStatus": "approved",
       "previewMapping": {
         "sky": "dew",
         "shadow": "moss",
@@ -97,7 +97,7 @@
       "story": "Медуза несёт по небу вагончик, на крыше которого растёт маленький сад.",
       "width": 30,
       "height": 32,
-      "artStatus": "pilot-awaiting-owner-review",
+      "artStatus": "approved",
       "previewMapping": {
         "sky": "dew",
         "shadow": "moss",
@@ -118,7 +118,7 @@
       "story": "На листе кувшинки работает печь с дымоходом-буханкой и маленьким причалом.",
       "width": 36,
       "height": 36,
-      "artStatus": "pilot-awaiting-owner-review",
+      "artStatus": "approved",
       "previewMapping": {
         "sky": "dew",
         "shadow": "moss",
