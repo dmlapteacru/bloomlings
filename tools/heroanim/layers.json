@@ -8,7 +8,8 @@
   "exec-983ceaac-fe39-4db8-9b6e-d7f73087907a.png": "7eec67cca10df992b5aac1c8c5275659619bbd2a3efd75946fdc921910ea62a4",
   "exec-2797d1b5-caa0-4d5d-aa3c-289845d6aaac.png": "b8027702908af474ba86d794ca174c15a2605da30398bb0d2ac9177e4d56a6c5",
   "exec-e12f6e01-46a9-40a9-b22e-f9111488e8c5.png": "66e3fe0d38c317961258b36b548e9d563967f5222cb0f06388ad6ce186fd667d",
-  "exec-7a7dae9c-bed5-4994-a961-89633ef450bf.png": "8936041a2a09962f512341310dc97bb46fc123536ff9380a7cac1de7e8426442"
+  "exec-7a7dae9c-bed5-4994-a961-89633ef450bf.png": "8936041a2a09962f512341310dc97bb46fc123536ff9380a7cac1de7e8426442",
+  "exec-c8074ca1-56dd-433f-b12e-c6ab6ac7f4fe.png": "8d449ddd358dcca438e35d5d835a307a0860655e76f07ae985acf20f94cb862e"
  },
  "saturation": {
   "factor": 1,
@@ -63,9 +64,9 @@
     "w": 296,
     "h": 217
    },
-   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
-   "sha256": "dc9d1c2ddb9df80ddf4d60e830668ef302c884f2e5cdc4d37a7aac29f605c301",
-   "bytes": 84744
+   "from": "OpenAI ImageGen Home lotus rose/gold color refinement, 2026-10-15; original canvas, layer box and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
+   "sha256": "fe1c80f548370c098e9cf4580697a677acf2d1d06debe1d56f101a088bf8e780",
+   "bytes": 94629
   },
   {
    "name": "home-shadow.png",
