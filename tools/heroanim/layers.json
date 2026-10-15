@@ -4,7 +4,11 @@
   "fountain basin (the owner's chat picture of 2026-10-08, 1448 x 1086)": "812e892037442319e7716d9ae75e6035ecf871ce04bb0a96f119ee3b0f571188",
   "lotus (the owner's chat picture of 2026-10-08, 1448 x 1086)": "00f21b2d476d6a7f6e4da4aa925532ed61a421766d4f6c082be1fa365b07d53b",
   "front bushes (the owner's chat picture of 2026-10-08, 1448 x 1086)": "4279554796a217a6327e637c94f4c60ad9363bf9976057f86d21342e86886e13",
-  "04_home_soft_shadow.png": "842696d90d0b83b6f8dd3b578691e469436df4a22224c65034833c72f308130f"
+  "04_home_soft_shadow.png": "842696d90d0b83b6f8dd3b578691e469436df4a22224c65034833c72f308130f",
+  "exec-983ceaac-fe39-4db8-9b6e-d7f73087907a.png": "7eec67cca10df992b5aac1c8c5275659619bbd2a3efd75946fdc921910ea62a4",
+  "exec-2797d1b5-caa0-4d5d-aa3c-289845d6aaac.png": "b8027702908af474ba86d794ca174c15a2605da30398bb0d2ac9177e4d56a6c5",
+  "exec-e12f6e01-46a9-40a9-b22e-f9111488e8c5.png": "66e3fe0d38c317961258b36b548e9d563967f5222cb0f06388ad6ce186fd667d",
+  "exec-7a7dae9c-bed5-4994-a961-89633ef450bf.png": "8936041a2a09962f512341310dc97bb46fc123536ff9380a7cac1de7e8426442"
  },
  "saturation": {
   "factor": 1,
@@ -13,7 +17,7 @@
   "note": "colors as delivered since 2026-10-08 (spec 005 FR-031 as changed by the owner); it was x0.738 to 70% of the heroes"
  },
  "data": "client/Assets/Bloomlings/UI/Design/HomeLayersData.cs",
- "dataSha256": "a728c50abdab4530cd799e7d120d5631a95605ac00b571c5e577408ce82699cb",
+ "dataSha256": "925596e0c9f081721e92d4fb96ef08fe99123c59cb207c494f7263422e04f3df",
  "outputs": [
   {
    "name": "home.jpg",
@@ -23,9 +27,9 @@
     "w": 852,
     "h": 1846
    },
-   "from": "OpenAI ImageGen mint-teal courtyard approved 2026-10-14; no fountain baked into background; original fountain layers and 852x1846 placement retained (tools/artgen/models/garden-backgrounds-2026-10-14.md)",
-   "sha256": "223b741d4e7ad53b8323a9672d5a593f581dbf6af6a672c27ff7b168b35615b4",
-   "bytes": 322492
+   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
+   "sha256": "ba0b6d0c3082d1f523ac1f41ee107da87cf919854180c2ed4504d5f530cb53da",
+   "bytes": 440083
   },
   {
    "name": "home-fountain-back.png",
@@ -35,9 +39,9 @@
     "w": 804,
     "h": 413
    },
-   "from": "the owner's fountain basin of 2026-10-08 (no lotus, a pedestal in the pool; one 1448 x 1086 canvas with the lotus and the front bushes), scaled to 852 px wide (x0.588, Lanczos over premultiplied alpha), the canvas's top at y 674, alpha under 6 / 255 cleared, colors as delivered",
-   "sha256": "56e3304e87baac5136b39d1c28d66447ee0d9baada471a1b6c05f96f922b4a4e",
-   "bytes": 435269
+   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
+   "sha256": "09eab4c18963444df6ffd2327d8d793bf36eda78a929c76241a401e8424efc63",
+   "bytes": 454296
   },
   {
    "name": "home-fountain-front.png",
@@ -47,9 +51,9 @@
     "w": 852,
     "h": 250
    },
-   "from": "the owner's front bushes of 2026-10-08 (the same canvas): each of the two bushes x0.82 toward its outer bottom corner, so the basin's sides and waterfalls show (the owner's choice C), then the canvas's scale",
-   "sha256": "52872791e5fd48f8d376c1817697f3848d80f7dc12be522057441979ac91e024",
-   "bytes": 203156
+   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
+   "sha256": "25c0285bde648f595f275c1ae55de09d36294c44c6bd3ddf8cd5d8242f137fa3",
+   "bytes": 189001
   },
   {
    "name": "home-lotus.png",
@@ -59,9 +63,9 @@
     "w": 296,
     "h": 217
    },
-   "from": "the owner's lotus of 2026-10-08 (the same canvas), trimmed, x0.72 of the canvas's scale, centered where the owner drew it and standing on the basin's pedestal (its leaves end at the pedestal's front edge, canvas y 705)",
-   "sha256": "502c6f37b40da5cb750fea36e5c0f245c40e3315702f0722cca041f417bdf6c3",
-   "bytes": 83037
+   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
+   "sha256": "dc9d1c2ddb9df80ddf4d60e830668ef302c884f2e5cdc4d37a7aac29f605c301",
+   "bytes": 84744
   },
   {
    "name": "home-shadow.png",

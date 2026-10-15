@@ -7,35 +7,35 @@
  "outputs": [
   {
    "name": "home.jpg",
-   "blur": true,
-   "dim": true,
-   "sourceSha256": "223b741d4e7ad53b8323a9672d5a593f581dbf6af6a672c27ff7b168b35615b4",
-   "sha256": "2e6828812a9504e4aa590dc511807d64eb3cb32a2b7854cf1051f254be40c5a0",
-   "bytes": 237487
+   "blur": false,
+   "dim": false,
+   "sourceSha256": "ba0b6d0c3082d1f523ac1f41ee107da87cf919854180c2ed4504d5f530cb53da",
+   "sha256": "ba0b6d0c3082d1f523ac1f41ee107da87cf919854180c2ed4504d5f530cb53da",
+   "bytes": 440083
   },
   {
    "name": "home-fountain-back.png",
    "blur": false,
-   "dim": true,
-   "sourceSha256": "56e3304e87baac5136b39d1c28d66447ee0d9baada471a1b6c05f96f922b4a4e",
-   "sha256": "f1ef8532706bd24b2aebcbccab5a87fc0b4413030b65f13f411685b6999c7738",
-   "bytes": 419029
+   "dim": false,
+   "sourceSha256": "09eab4c18963444df6ffd2327d8d793bf36eda78a929c76241a401e8424efc63",
+   "sha256": "09eab4c18963444df6ffd2327d8d793bf36eda78a929c76241a401e8424efc63",
+   "bytes": 454296
   },
   {
    "name": "home-lotus.png",
    "blur": false,
-   "dim": true,
-   "sourceSha256": "502c6f37b40da5cb750fea36e5c0f245c40e3315702f0722cca041f417bdf6c3",
-   "sha256": "ffd7ee6fda38fe95e877240c8954ce461c5df2e6b60466ac76fa6ea8b969e2a8",
-   "bytes": 83219
+   "dim": false,
+   "sourceSha256": "dc9d1c2ddb9df80ddf4d60e830668ef302c884f2e5cdc4d37a7aac29f605c301",
+   "sha256": "dc9d1c2ddb9df80ddf4d60e830668ef302c884f2e5cdc4d37a7aac29f605c301",
+   "bytes": 84744
   },
   {
    "name": "home-fountain-front.png",
    "blur": false,
-   "dim": true,
-   "sourceSha256": "52872791e5fd48f8d376c1817697f3848d80f7dc12be522057441979ac91e024",
-   "sha256": "55ea364fbfccf33401895b7094681295f8472c36bc2ea06ce18c272c4bfb38cc",
-   "bytes": 195913
+   "dim": false,
+   "sourceSha256": "25c0285bde648f595f275c1ae55de09d36294c44c6bd3ddf8cd5d8242f137fa3",
+   "sha256": "25c0285bde648f595f275c1ae55de09d36294c44c6bd3ddf8cd5d8242f137fa3",
+   "bytes": 189001
   },
   {
    "name": "home-shadow.png",

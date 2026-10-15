@@ -2,8 +2,9 @@
 // just a touch, and darken them: they take too much focus"). The owner's backgrounds and the Home layers stay as delivered
 // in backgrounds/ (the Home layers as layers.mjs and the hand fitting of SOURCE.md wrote them); this script writes what the
 // game shows into the Backgrounds folder: every opaque picture blurred by a Gaussian of `finish.blur` of its width, every
-// picture's color multiplied by `finish.dim` (its alpha untouched). The Home fountain's layers are dimmed only, so the
-// heroes' feet stay sharp on their stones and the scene keeps one light; the heroes, the UI and the board are not touched.
+// picture's color multiplied by `finish.dim` (its alpha untouched). Since 2026-10-15 Home uses the light, coherently
+// focused courtyard and fountain as authored, without another blur or darkening pass. Other scenes keep their finish.
+// The heroes, the UI and the board are not touched.
 // Deterministic: the same sources give the same bytes. The hashes go to backdrops.json; check.mjs proves them.
 // Usage: node backdrops.mjs
 import fs from 'node:fs';
@@ -27,12 +28,12 @@ export const backdropsManifest = path.join(here, 'backdrops.json');
  */
 export const finish = { blur: 3 / 1080, dim: 0.86 };
 
-/** Every picture of the Backgrounds folder: whether it is blurred and dimmed (an opaque background), or dimmed only. */
+/** Per-image finish switches; Home is kept as authored, other gardens retain their slight blur and dimming. */
 export const pictures = [
-  { name: 'home.jpg', blur: true, dim: true },
-  { name: 'home-fountain-back.png', blur: false, dim: true },
-  { name: 'home-lotus.png', blur: false, dim: true },
-  { name: 'home-fountain-front.png', blur: false, dim: true },
+  { name: 'home.jpg', blur: false, dim: false },
+  { name: 'home-fountain-back.png', blur: false, dim: false },
+  { name: 'home-lotus.png', blur: false, dim: false },
+  { name: 'home-fountain-front.png', blur: false, dim: false },
   { name: 'home-shadow.png', blur: false, dim: false },
   { name: 'gameplay-daylight.jpg', blur: true, dim: true },
   { name: 'gameplay-pond.jpg', blur: true, dim: true },

@@ -17,7 +17,7 @@ The 2026-10-14 redesign uses the Shop's shaded teal/jade palette with mint atmos
 
 The Shop retains its existing `Art/Shop/Resources/Shop/background.png`. Splash reuses the Home courtyard beneath the lotus loader, clipped outside the opening iris; level transitions use a plain matching teal cover. Popups retain their underlying page scene and dim it.
 
-Opaque backgrounds are 852 × 1846 JPEGs. The original transparent Home fountain layers, their coordinates, heroes and shadows remain unchanged. Unity loads `Resources/Backgrounds/{name}`; Android and Skia use `bg/{name}` through `OwnerPictures`. Both project asset globs include every JPEG and PNG here automatically.
+Opaque backgrounds are 852 × 1846 JPEGs. Since 2026-10-15 the Home courtyard and fountain layers share lighter ivory/mint/jade artwork with coherent focus; their original dimensions, layer coordinates, heroes and shadows remain unchanged. Home bypasses the old additional blur and dim finish; other scenes keep it. Unity loads `Resources/Backgrounds/{name}`; Android and Skia use `bg/{name}` through `OwnerPictures`. Both project asset globs include every JPEG and PNG here automatically.
 
 The authoritative production sources are in `tools/heroanim/backgrounds/`. To rebuild their existing slight blur and dim finish:
 
@@ -31,4 +31,4 @@ node tools/heroanim/check.mjs
 
 This verifies all source/output hashes, retained Home layers and hero frames. Do not run the legacy `layers.mjs` against an older Home layer pack when only updating backgrounds: it would replace the approved courtyard. The layer manifest records the newer source while preserving the original canvas and foreground placements.
 
-Generation provenance and original output hashes: `tools/artgen/models/garden-backgrounds-2026-10-14.md`; imported-resource records: `client/THIRD_PARTY_NOTICES.md`. Source generator PNGs and concept sheets are review artifacts and are not bundled in the game.
+Generation provenance and original output hashes: `tools/artgen/models/garden-backgrounds-2026-10-14.md` and `tools/artgen/models/home-fountain-2026-10-15.md`; imported-resource records: `client/THIRD_PARTY_NOTICES.md`. Source generator PNGs and concept sheets are review artifacts and are not bundled in the game.

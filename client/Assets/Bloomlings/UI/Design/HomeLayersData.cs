@@ -12,16 +12,16 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The layered picture's height in pixels.</summary>
         public const int PictureHeight = 1846;
 
-        /// <summary><c>home.jpg</c> (the approved mint-teal courtyard of 2026-10-14): its box in the picture.</summary>
+        /// <summary><c>home.jpg</c> (the light mint-teal courtyard of 2026-10-15): its box in the picture.</summary>
         public static readonly PictureBox Back = new PictureBox("home", 0, 0, 852, 1846);
 
-        /// <summary><c>home-fountain-back.png</c> (from <c>the owner's fountain basin of 2026-10-08</c>): its box in the picture.</summary>
+        /// <summary><c>home-fountain-back.png</c> (from <c>the matching ivory/mint basin of 2026-10-15</c>): its box in the picture.</summary>
         public static readonly PictureBox FountainBack = new PictureBox("home-fountain-back", 24, 827, 804, 413);
 
-        /// <summary><c>home-fountain-front.png</c> (from <c>the owner's front bushes of 2026-10-08, x0.82 to the corners</c>): its box in the picture.</summary>
+        /// <summary><c>home-fountain-front.png</c> (from <c>the matching ivory/jade front corners of 2026-10-15</c>): its box in the picture.</summary>
         public static readonly PictureBox FountainFront = new PictureBox("home-fountain-front", 0, 1043, 852, 250);
 
-        /// <summary><c>home-lotus.png</c> (from <c>the owner's lotus of 2026-10-08, x0.72 on the pedestal</c>): its box in the picture.</summary>
+        /// <summary><c>home-lotus.png</c> (from <c>the matching blush/jade lotus of 2026-10-15</c>): its box in the picture.</summary>
         public static readonly PictureBox Lotus = new PictureBox("home-lotus", 278, 871, 296, 217);
 
         /// <summary><c>home-shadow.png</c> (from <c>04_home_soft_shadow.png (the front left shadow)</c>): its box in the picture.</summary>
