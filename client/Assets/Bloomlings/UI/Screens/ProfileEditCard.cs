@@ -23,7 +23,7 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _tabsBox=null!,_viewport=null!,_content=null!;
         private ScrollRect _scroll=null!;
         private PageHeaderView _header=null!;
-        private Image _summary=null!,_field=null!,_nameCard=null!,_button=null!;
+        private Image _summary=null!,_field=null!,_nameCard=null!,_button=null!,_buyButton=null!;
         private ProfileAvatar _preview=null!;
         private WoodSignView _levelSign=null!;
         private TextMeshProUGUI _previewName=null!,_status=null!,_hint=null!,_note=null!;
@@ -64,6 +64,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._hint=ProfileGameView.Label("Hint",root.transform,Loc.T("profile.name_hint"),ProfileGameDesign.Info);
             screen._note=ProfileGameView.Label("Note",root.transform,"",ProfileGameDesign.Info);
             screen._button=ProfileGameView.Price(root.transform,Loc.T("profile.save"),screen.Confirm,petals:false);
+            screen._buyButton=UiKit.PurchaseButton("BuyAvatar",root.transform,"",screen.Confirm,ShopBodyDesign.Price).GetComponent<Image>();
             screen._status=ProfileGameView.Label("Status",root.transform,"",ProfileGameDesign.Info,ShopBodyDesign.Letters);screen._status.gameObject.SetActive(false);
             screen._header=UiKit.PageHeader(root.transform,Loc.T("profile.edit_title"),screen.Hide,petals!=null,onStore);
             screen._root.SetActive(false);return screen;
@@ -86,7 +87,7 @@ namespace Bloomlings.Client.UI.Screens
         private void Layout()
         {
             var f=UiKit.ScreenFrame();_regions=ProfileGameDesign.Edit(f.Width,f.Height,f.Insets);_layoutWidth=f.Width;_layoutHeight=f.Height;
-            var r=_regions;_header.Place(r.Header);UiKit.PlaceScreen(_tabsBox,r.Tabs);UiKit.PlaceScreen(_summary.rectTransform,r.Summary);UiKit.PlaceScreen(_preview.Rect,r.Preview);UiKit.PlaceScreen(_previewName.rectTransform,r.PreviewName);UiKit.PlaceScreen((RectTransform)_levelSign.transform,r.Level);UiKit.PlaceScreen(_viewport,r.Grid);UiKit.PlaceScreen(_button.rectTransform,r.Button);
+            var r=_regions;_header.Place(r.Header);UiKit.PlaceScreen(_tabsBox,r.Tabs);UiKit.PlaceScreen(_summary.rectTransform,r.Summary);UiKit.PlaceScreen(_preview.Rect,r.Preview);UiKit.PlaceScreen(_previewName.rectTransform,r.PreviewName);UiKit.PlaceScreen((RectTransform)_levelSign.transform,r.Level);UiKit.PlaceScreen(_viewport,r.Grid);UiKit.PlaceScreen(_button.rectTransform,r.Button);UiKit.PlaceScreen(_buyButton.rectTransform,ProfileGameDesign.PurchaseFace(r.Button));
             UiKit.PlaceScreen(_nameCard.rectTransform,r.NameCard);UiKit.PlaceScreen(_nameTitle,ProfileGameDesign.In(r.NameCard,.12f,.17f,.88f,.36f));UiKit.PlaceScreen(_nameIcon,Box.FromCenter(r.NameCard.CenterX,r.NameCard.Top,r.W*.09f,r.W*.09f));UiKit.PlaceScreen(_field.rectTransform,r.NameField);UiKit.PlaceScreen(_hint.rectTransform,r.NameHint);UiKit.PlaceScreen(_note.rectTransform,r.Note);
             UiKit.PlaceScreen(_status.rectTransform,new Box(r.Grid.Left,r.Button.Top-r.W*.085f,r.Grid.Right,r.Button.Top-r.W*.015f));
         }
@@ -123,12 +124,13 @@ namespace Bloomlings.Client.UI.Screens
                         Image target=UiFactory.CreateImage("PurchaseTouch",hit.transform,null,Color.clear,raycast:true);UiKit.TapTarget(target,()=>{Pick(index);Confirm();},press:true);
                         BoxLayout.On(hit.rectTransform).Add(target.rectTransform,b=>ProfileGameDesign.PriceHit(b,UiKit.Units(DesignTokens.Size.TouchMin)));
                     }
-                    BoxLayout.On(hit.rectTransform).Then(b=>{BoxLayout.Place(picture,ProfileGameDesign.Picture(b,frames));if(check!=null)BoxLayout.Place(check,ProfileGameDesign.CellCheck(b));if(title!=null)KitText.Place(title,ProfileGameDesign.Item,ProfileGameDesign.CellLabel(b).CenterX,ProfileGameDesign.CellLabel(b).CenterY,Mathf.Min(UiKit.Units(ProfileGameDesign.Item.Size),b.Width*.115f),ProfileGameDesign.CellLabel(b).Width);if(purchase!=null)BoxLayout.Place(purchase.rectTransform,ProfileGameDesign.CellPrice(b));});
+                    BoxLayout.On(hit.rectTransform).Then(b=>{BoxLayout.Place(picture,ProfileGameDesign.Picture(b,frames));if(check!=null)BoxLayout.Place(check,ProfileGameDesign.CellCheck(b));if(title!=null)KitText.Place(title,ProfileGameDesign.Item,ProfileGameDesign.CellLabel(b).CenterX,ProfileGameDesign.CellLabel(b).CenterY,Mathf.Min(UiKit.Units(ProfileGameDesign.Item.Size),b.Width*.115f),ProfileGameDesign.CellLabel(b).Width);if(purchase!=null)BoxLayout.Place(purchase.rectTransform,ProfileGameDesign.PurchaseFace(ProfileGameDesign.CellPrice(b)));});
                     UiKit.PlaceBox(hit.rectTransform,_regions.Cell(i,frames),content);
                 }
                 if(count==0){_note.text=Loc.T(frames ? "profile.no_frames" : "profile.no_badges");_note.gameObject.SetActive(true);}
             }
-            var buttonLabel=_button.GetComponentInChildren<TextMeshProUGUI>();buttonLabel.text=editor.NeedsBuying ? Loc.F("profile.buy",NumberText.Group(editor.Price)) : Loc.T("profile.save");
+            _button.gameObject.SetActive(!editor.NeedsBuying);_buyButton.gameObject.SetActive(editor.NeedsBuying);
+            _buyButton.GetComponentInChildren<TextMeshProUGUI>().text=Loc.F("profile.buy",NumberText.Group(editor.Price));
         }
         private void Pick(int index)
         {

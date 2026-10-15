@@ -170,7 +170,7 @@ namespace Bloomlings.Client.UI.Screens
             var name=MetaShelfView.Label("Name",hit.transform,item==null?Loc.T("wardrobe.default"):Name(item),WardrobeShelfDesign.ItemName);
             UiKit.PlaceBox(name.rectTransform,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),cell);
             if(_wardrobe.EquippedFor(_browse.Family,_browse.Kind)?.Id==item?.Id)UiKit.PlaceBox(MetaShelfView.Check(hit.transform),WardrobeShelfDesign.Check(cell),cell);
-            if(card.State==WardrobeItemState.ForSale)UiKit.PlaceBox(MetaShelfView.Price(hit.transform,NumberText.Group(item!.Price)).rectTransform,WardrobeShelfDesign.Action(cell),cell);
+            if(card.State==WardrobeItemState.ForSale)UiKit.PlaceBox(MetaShelfView.Price(hit.transform,NumberText.Group(item!.Price)).rectTransform,ProfileGameDesign.PurchaseFace(WardrobeShelfDesign.Action(cell)),cell);
             if(card.State==WardrobeItemState.Reward)
             {
                 Box action=WardrobeShelfDesign.Action(cell);UiKit.PlaceBox(MetaShelfView.Skin("Reward",hit.transform,MetaScreenArt.Tag).rectTransform,action,cell);

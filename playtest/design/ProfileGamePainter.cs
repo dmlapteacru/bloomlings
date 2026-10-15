@@ -20,12 +20,12 @@ namespace Bloomlings.Playtest.Design
             if(left)p.TextLeft(value,b.Left,b.CenterY,type,letters.FillTop,b.Width,scale,letters);
             else p.Text(value,b.CenterX,b.CenterY,type,letters.FillTop,b.Width,scale,letters);
         }
-        public static void Price(IPainter p,Box b,string text,Action? tap=null,bool petals=true,Box? touch=null)
+        public static void Price(IPainter p,Box b,string text,Action? tap=null,bool petals=true,Box? touch=null,bool purchaseAction=false)
         {
             Box original = b;
             if (petals)
                 b = ProfileGameDesign.PurchaseFace(b, p is IPurchaseSizePreview preview ? preview.PurchaseSize : ProfileGameDesign.PurchaseScale);
-            if(!petals){Kit.PrimaryButton(p,b,text,tap,ShopBodyDesign.Price);return;}
+            if(!petals){if(purchaseAction)Kit.PurchaseButton(p,b,text,tap,ShopBodyDesign.Price);else Kit.PrimaryButton(p,b,text,tap,ShopBodyDesign.Price);return;}
             p.Mark("ui.shop.button");p.Mark("font.shop");Kit.SlicedSprite(p,"shop/price-button",b,350f/1985,190f/505,.4f);
             float size=b.Height*.54f;Box label=b.Inset(b.Height*.20f);
             if(petals){var parts=ShopCatalogDesign.PriceParts(b,p.MeasureText(text,ShopBodyDesign.Price,size/p.U(ShopBodyDesign.Price.Size)));Kit.Petal(p,parts.Petal);label=parts.Label;}

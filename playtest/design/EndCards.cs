@@ -237,7 +237,7 @@ namespace Bloomlings.Playtest.Design
                 Kit.FramedTile(p,cell,.16f,depth);
                 Kit.BoosterIcon(p,id,PopupDesign.RecoveryIcon(cell));Box text=PopupDesign.RecoveryLabel(cell);
                 p.Text(label,text.CenterX,text.CenterY,PopupDesign.Label,C.InkBrown,text.Width,look:TextLook.Plain(C.InkBrown));
-                Kit.CostPill(p,r.CostPills[i],cost,chargeIcon:GardenLook.BoosterIcon(id),button:true);p.PopTransform();p.Hit(cell,action);
+                Kit.CostPill(p,cost.Kind==CostKind.Petals ? ProfileGameDesign.PurchaseFace(r.CostPills[i]) : r.CostPills[i],cost,chargeIcon:GardenLook.BoosterIcon(id),button:true);p.PopTransform();p.Hit(cell,action);
             }
 
             Kit.SecondaryButton(p, r.Restart, PlaytestText.T("common.restart"), s.Restart, "ui.restart", PrimaryActionDesign.Type(T.Button));

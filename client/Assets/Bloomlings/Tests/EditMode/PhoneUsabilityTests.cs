@@ -60,8 +60,8 @@ namespace Bloomlings.Client.Tests
                     Assert.That(node.Box.Height, Is.GreaterThanOrEqualTo(width * .115f), node.Id);
             Box cosmetic = ShopCatalogDesign.CosmeticCard(area, 0);
             Box animation = ShopCatalogDesign.AnimationCard(area, 0);
-            Assert.That(ShopCatalogDesign.Parts(cosmetic, true).Action.Height, Is.GreaterThan(width * .115f));
-            Assert.That(ShopCatalogDesign.Parts(animation, false).Action.Height, Is.GreaterThan(width * .115f));
+            Assert.That(ShopCatalogDesign.Parts(cosmetic, true).Action.Height, Is.GreaterThan(width * .09f));
+            Assert.That(ShopCatalogDesign.Parts(animation, false).Action.Height, Is.GreaterThan(width * .09f));
             var edit = ProfileGameDesign.Edit(width, height, Insets.None);
             Assert.That(ProfileGameDesign.PurchaseFace(ProfileGameDesign.CellPrice(edit.Cell(0))).Height, Is.GreaterThan(width * .09f));
             Assert.That(edit.Preview.Width, Is.GreaterThan(width * .23f));

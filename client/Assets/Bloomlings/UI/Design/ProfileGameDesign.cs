@@ -19,6 +19,7 @@ namespace Bloomlings.Client.UI.Design
         public const float PurchaseScale = .80f;
         public static Box PurchaseFace(Box box, float scale = PurchaseScale) =>
             Box.FromCenter(box.CenterX, box.CenterY, box.Width * scale, box.Height * scale);
+        public static TypeStyle PurchaseType(TypeStyle style) => style with { Size = style.Size * PurchaseScale, Min = style.Min * PurchaseScale };
         public const string Gold = "shop/profile-gold-v1";
         public const string Showcase = "shop/profile-showcase-v1";
         public const string LeafFrame = "shop/profile-leaf-v1";

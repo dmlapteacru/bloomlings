@@ -47,7 +47,7 @@ namespace Bloomlings.Client.UI.Design
             float side=Math.Min(b.Width,b.Height)*.17f;
             Box check=Box.FromCenter(picture.Right-side*.38f,picture.Bottom-side*.52f,side,side);
             Box free=In(b,.025f,.075f,.34f,.19f);
-            return new ShopCatalogParts(b,picture,name,action,check,free,wide);
+            return new ShopCatalogParts(b,picture,name,ProfileGameDesign.PurchaseFace(action),check,free,wide);
         }
         public static (Box Petal,Box Label) PriceParts(Box b,float measured)
         {

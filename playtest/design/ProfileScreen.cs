@@ -70,7 +70,7 @@ namespace Bloomlings.Playtest.Design
                 ProfileGamePainter.Label(p,r.NameHint,PlaytestText.T("profile.name_hint"),ProfileGameDesign.Info);
             }
             else Catalog(p,app,editor,r);
-            ProfileGamePainter.Price(p,r.Button,editor.NeedsBuying ? PlaytestText.F("profile.buy",NumberText.Group(editor.Price)) : PlaytestText.T("profile.save"),Act(app.ConfirmProfileEdit),false);
+            ProfileGamePainter.Price(p,r.Button,editor.NeedsBuying ? PlaytestText.F("profile.buy",NumberText.Group(editor.Price)) : PlaytestText.T("profile.save"),Act(app.ConfirmProfileEdit),false,purchaseAction:editor.NeedsBuying);
             Kit.PageHeader(p,r.Header,PlaytestText.T("profile.edit_title"),Act(app.CardClose),app.ShownPetals,HomeScreen.Look(app).Store ? Act(app.OpenStoreFromProfileEdit) : null);
             if(app.HomeToastText!=null&&!app.DrawingCovered)Kit.Toast(p,new Box(r.Grid.Left,r.Button.Top-r.W*.085f,r.Grid.Right,r.Button.Top-r.W*.015f),app.HomeToastText);
         }

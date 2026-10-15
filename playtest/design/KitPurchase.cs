@@ -9,6 +9,14 @@ namespace Bloomlings.Playtest.Design
     /// <summary>The purchase confirmation (spec 005 FR-040, contracts/look.md §6.14).</summary>
     public static partial class Kit
     {
+        /// <summary>Compact purchase artwork and lettering, retaining the original comfortable touch area.</summary>
+        public static void PurchaseButton(IPainter p, Box box, string label, Action? action, TypeStyle? style = null, string? iconId = null)
+        {
+            PrimaryButton(p, ProfileGameDesign.PurchaseFace(box), label, action,
+                ProfileGameDesign.PurchaseType(style ?? T.Button), iconId);
+            if (action != null) p.Hit(box, action);
+        }
+
         /// <summary>
         /// The purchase confirmation card (<c>ui.card.purchase</c>; Unity's <c>UiKit.PurchaseCard</c>), laid by
         /// <see cref="ScreenLayout.PurchaseConfirm"/>: the popup card titled "Confirm purchase" with no close (Cancel
@@ -28,7 +36,7 @@ namespace Bloomlings.Playtest.Design
             float lh=r.Question.Height/2;float y=r.Question.CenterY-(lines.Count-1)*lh/2;
             foreach(string text in lines) { p.Text(text,r.Question.CenterX,y,PopupDesign.Label,C.InkBrown,r.Question.Width,look:TextLook.Plain(C.InkBrown)); y+=lh; }
             p.Text(note,r.Note.CenterX,r.Note.CenterY,T.Caption,C.InkBrownSoft,r.Note.Width);
-            PrimaryButton(p,r.Confirm,PlaytestText.T("purchase.buy")+"  "+offer.PriceText,onBuy,iconId:offer.RealMoney?null:"currency.petal");
+            PurchaseButton(p,r.Confirm,PlaytestText.T("purchase.buy")+"  "+offer.PriceText,onBuy,iconId:offer.RealMoney?null:"currency.petal");
             SecondaryButton(p,r.Cancel.Inset(p.U(40f),0),PlaytestText.T("common.cancel"),onCancel,style:PopupDesign.Label);
             EndCard(p);
         }

@@ -126,7 +126,7 @@ namespace Bloomlings.Playtest.Preview
                     Expect(app.Meta.Economy.Petals == petals && app.Meta.Economy.Charges(booster.Kind) == 0, "Cancel buys nothing");
                     Ask(); app.Back(); Run(app, p, .1f);
                     Expect(app.Meta.Economy.Petals == petals && app.Meta.Economy.Charges(booster.Kind) == 0, "Back buys nothing");
-                    Ask(); Tap(p, confirm.Confirm); app.BuyConfirmed();
+                    Ask(); Tap(p, Box.FromCenter(confirm.Confirm.Left + confirm.Confirm.Width * .03f, confirm.Confirm.CenterY, 1, 1)); app.BuyConfirmed();
                     Expect(app.Meta.Economy.Petals == petals - price
                         && app.Meta.Economy.Charges(booster.Kind) == Client.Services.Economy.EconomyService.PurchaseQuantity(booster.Kind)
                         && level.Session.BoostersUsed == 0 && level.Targeting == null,

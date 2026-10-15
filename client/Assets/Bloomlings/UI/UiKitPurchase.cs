@@ -13,6 +13,15 @@ namespace Bloomlings.Client.UI
     /// <summary>The purchase confirmation (spec 005 FR-040, contracts/look.md §6.14), the playtest's <c>Kit.PurchaseCard</c>.</summary>
     public static partial class UiKit
     {
+        public static Button PurchaseButton(string name, Transform parent, string label, Action onClick, TypeStyle? style = null)
+        {
+            Button button = PrimaryButton(name, parent, label, onClick, ProfileGameDesign.PurchaseType(style ?? T.Button));
+            Image touch = UiFactory.CreateImage("PurchaseTouch", button.transform, null, Color.clear, raycast: true);
+            BoxLayout.On((RectTransform)button.transform).Add(touch.rectTransform, b =>
+                Box.FromCenter(b.CenterX, b.CenterY, b.Width / ProfileGameDesign.PurchaseScale, b.Height / ProfileGameDesign.PurchaseScale));
+            return button;
+        }
+
         /// <summary>
         /// The purchase confirmation card (<c>ui.card.purchase</c>) under <paramref name="parent"/>, hidden: a popup card
         /// titled "Confirm purchase" with no close (Cancel closes it), laid by <see cref="ScreenLayout.PurchaseConfirm"/>.
@@ -61,14 +70,14 @@ namespace Bloomlings.Client.UI
             _note = UiKit.Label("Note", at, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
             UiKit.PlaceBox(_note.rectTransform, r.Note, body);
 
-            Button buy = UiKit.PrimaryButton("Buy", at, Loc.T("purchase.buy"), Buy);
-            UiKit.PlaceBox((RectTransform)buy.transform, r.Confirm, body);
+            Button buy = UiKit.PurchaseButton("Buy", at, Loc.T("purchase.buy"), Buy);
+            UiKit.PlaceBox((RectTransform)buy.transform, ProfileGameDesign.PurchaseFace(r.Confirm), body);
             _buyLabel=buy.GetComponentInChildren<TextMeshProUGUI>();
             GardenButton buyView=buy.GetComponent<GardenButton>();
             _buyPetal=UiKit.PetalIcon("PricePetal",buyView.Content);
             BoxLayout.On(buyView.Content).Watch(_buyLabel).Then(b=>
             {
-                Box f=PrimaryActionDesign.Content(b,false);TypeStyle type=PrimaryActionDesign.Type(T.Button);
+                Box f=PrimaryActionDesign.Content(b,false);TypeStyle type=PrimaryActionDesign.Type(ProfileGameDesign.PurchaseType(T.Button));
                 if(_buyPetal.gameObject.activeSelf) UiKit.PriceButtonContent(_buyPetal.rectTransform,_buyLabel,type,f);
                 else KitText.Place(_buyLabel,type,f.CenterX,f.CenterY,UiKit.Units(type.Size),f.Width-f.Height*.3f);
             });

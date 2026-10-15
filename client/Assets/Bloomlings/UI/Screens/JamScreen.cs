@@ -188,7 +188,7 @@ namespace Bloomlings.Client.UI.Screens
                 if(price.HasValue)
                 {
                     CostPillView pill=UiKit.CostPill("Use",touch.transform,price.Value,button:true);pill.SetChargeIcon(GardenLook.BoosterIcon(id));
-                    UiKit.PlaceBox((RectTransform)pill.transform,r.CostPills[i],cell);
+                    UiKit.PlaceBox((RectTransform)pill.transform,price.Value.Kind==CostKind.Petals ? ProfileGameDesign.PurchaseFace(r.CostPills[i]) : r.CostPills[i],cell);
                 }
             }
 
