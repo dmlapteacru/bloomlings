@@ -29,7 +29,8 @@ namespace Bloomlings.Content.Tests
             }
         }
 
-        private static string[] PictureFiles() => Files(Path.Combine("pictures", "lib"));
+        private static string[] PictureFiles() => Files(Path.Combine("pictures", "lib"))
+            .Concat(Files(Path.Combine("pictures", "dev", "lib"))).ToArray();
 
         private static string[] LevelFiles() => Files("curated");
 
@@ -47,6 +48,8 @@ namespace Bloomlings.Content.Tests
             string text = File.ReadAllText(Path.Combine(ContentRoot, relativePath));
             LevelDefinition level = DefinitionJson.Read(text);
             string picturePath = Path.Combine(ContentRoot, "pictures", "lib", level.Picture.Id + ".json");
+            if (!File.Exists(picturePath))
+                picturePath = Path.Combine(ContentRoot, "pictures", "dev", "lib", level.Picture.Id + ".json");
             BasePicture picture = BasePictureJson.Read(File.ReadAllText(picturePath));
 
             Assert.That(DefinitionJson.Write(level), Is.EqualTo(text));

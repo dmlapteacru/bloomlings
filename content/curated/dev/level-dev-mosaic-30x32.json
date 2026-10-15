@@ -1,25 +1,44 @@
 {
   "boardLook": "icons",
-  "definitionVersion": 2,
+  "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 0
+    "score": 3217
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 15,
+      "x": 1,
       "y": 0
     }
   ],
-  "generatorVersion": "prototype-mosaic-v1",
+  "generatorVersion": "gen-1.4.0",
   "levelNumber": 5002,
   "mapping": {
-    "sky": "water",
-    "outline": "berry",
-    "primary": "flower",
-    "secondary": "vine",
-    "detail": "wood"
+    "blue": "water",
+    "grass": "moss",
+    "green": "leaf",
+    "orange": "acorn",
+    "pink": "flower",
+    "sky": "dew",
+    "string": "acorn",
+    "violet": "flower",
+    "weight": "leaf"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 6,
+        "y": 4
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 8
+      }
+    ]
   },
   "picture": {
     "id": "dev_mosaic_balloon_30x32",
@@ -27,107 +46,276 @@
   },
   "pods": [
     {
-      "count": 90,
-      "id": "w1_1",
-      "variantId": "water"
+      "count": 19,
+      "id": "p01",
+      "variantId": "moss"
     },
     {
-      "count": 90,
-      "id": "w1_2",
-      "variantId": "water"
+      "count": 13,
+      "id": "p02",
+      "variantId": "dew"
     },
     {
-      "count": 90,
-      "id": "w1_3",
-      "variantId": "water"
+      "count": 22,
+      "id": "p03",
+      "variantId": "moss"
     },
     {
-      "count": 90,
-      "id": "w1_4",
-      "variantId": "water"
+      "count": 20,
+      "id": "p04",
+      "variantId": "moss"
     },
     {
-      "count": 90,
-      "id": "w1_5",
-      "variantId": "water"
+      "count": 14,
+      "id": "p05",
+      "variantId": "dew"
     },
     {
-      "count": 76,
-      "id": "w1_6",
-      "variantId": "water"
+      "count": 23,
+      "id": "p06",
+      "variantId": "moss"
     },
     {
-      "count": 89,
-      "id": "b2_1",
-      "variantId": "berry"
+      "count": 15,
+      "id": "p07",
+      "variantId": "dew"
     },
     {
-      "count": 5,
-      "id": "b2_2",
-      "variantId": "berry"
+      "count": 14,
+      "id": "p08",
+      "variantId": "dew"
     },
     {
-      "count": 90,
-      "id": "f3_1",
+      "count": 12,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p20",
       "variantId": "flower"
     },
     {
-      "count": 89,
-      "id": "f3_2",
+      "count": 12,
+      "id": "p21",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p22",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p23",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p24",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p25",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p26",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p27",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p28",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p29",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p30",
+      "variantId": "dew"
+    },
+    {
+      "count": 22,
+      "id": "p31",
+      "variantId": "acorn"
+    },
+    {
+      "count": 24,
+      "id": "p32",
+      "variantId": "acorn"
+    },
+    {
+      "count": 24,
+      "id": "p33",
+      "variantId": "acorn"
+    },
+    {
+      "count": 23,
+      "id": "p34",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p35",
       "variantId": "flower"
     },
     {
-      "count": 5,
-      "id": "f3_3",
+      "count": 15,
+      "id": "p36",
       "variantId": "flower"
     },
     {
-      "count": 90,
-      "id": "v4_1",
-      "variantId": "vine"
+      "count": 17,
+      "id": "p37",
+      "variantId": "flower"
     },
     {
-      "count": 36,
-      "id": "v4_2",
-      "variantId": "vine"
+      "count": 15,
+      "id": "p38",
+      "variantId": "flower"
     },
     {
-      "count": 30,
-      "id": "w5_1",
-      "variantId": "wood"
+      "count": 15,
+      "id": "p39",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p40",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p41",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p42",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p43",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p44",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p45",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p46",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p47",
+      "variantId": "leaf"
+    },
+    {
+      "count": 23,
+      "id": "p48",
+      "variantId": "leaf"
+    },
+    {
+      "count": 23,
+      "id": "p49",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p50",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p51",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p52",
+      "variantId": "dew"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "5002",
+  "seed": "10664720954329296961",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      [
-        "w1_1",
-        "w1_2",
-        "w1_3",
-        "w1_4",
-        "w1_5",
-        "w1_6"
-      ],
-      [
-        "b2_1",
-        "b2_2"
-      ],
-      [
-        "f3_1",
-        "f3_2",
-        "f3_3"
-      ],
-      [
-        "v4_1",
-        "v4_2"
-      ],
-      [
-        "w5_1"
-      ]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37", "p40", "p43", "p46", "p49", "p52"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38", "p41", "p44", "p47", "p50"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36", "p39", "p42", "p45", "p48", "p51"]
     ]
   }
 }

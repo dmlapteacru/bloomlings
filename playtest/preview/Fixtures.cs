@@ -559,6 +559,44 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(51, "mosaic-30x32", "Prototype: 30×32 color mosaic", (p, data) => Playing(App(data), p, content, 5002, taps: 0));
             yield return new Fixture(52, "mosaic-36x36", "Prototype: 36×36 color mosaic", (p, data) => Playing(App(data), p, content, 5003, taps: 0));
 
+            DesignApp WonMosaic(string data)
+            {
+                var app = App(data);
+                app.Meta.SkipTo(5002);
+                app.LoadLevel(5003); CloseDemo(app); app.Level!.SkipGuide();
+                SolveResult win = new Solver.Solver().Solve(Session(content, 5003), new SolveOptions(200000));
+                Expect(win.Status == SolveStatus.Solvable, "36×36 has a winning line");
+                foreach (Command command in win.Trace)
+                {
+                    Expect(command is TapPod, "the large fixture never needs a booster");
+                    string id = ((TapPod)command).PodId;
+                    int wait = 0;
+                    while (app.Level.Animator.FreeOnScreen(app.Level.Session.View) < 1 && wait++ < 1000)
+                        app.Level.Advance(.2f);
+                    Expect(wait < 1000, "a large-board slot becomes available");
+                    int before = app.Level.Session.CommandLog.Count;
+                    app.Level.Tap(id);
+                    Expect(app.Level.Session.CommandLog.Count > before, "large-board solution tap accepted");
+                    app.Level.Advance(.2f);
+                }
+                for (int wait = 0; wait < 5000 && !app.Level.Animator.Settled; wait++) app.Level.Advance(.2f);
+                Expect(app.Level.Won && app.Level.Animator.Settled, "large-board win and animations complete");
+                return app;
+            }
+
+            yield return new Fixture(94, "mosaic-36-win", "36×36 completed mosaic on the real win screen", (p, data) =>
+            {
+                var app = WonMosaic(data); Run(app, p, 1.5f);
+                Expect(p.Slots.Contains("tile.picture"), "the win shows the completed large mosaic");
+            });
+            yield return new Fixture(95, "mosaic-36-collection", "36×36 collection detail after a real completed level", (p, data) =>
+            {
+                var app = WonMosaic(data); app.GoHome(); CloseAll(app); app.OpenCollection(); Run(app, p, .2f);
+                var gallery = CollectionGalleryDesign.Page(p.Width, p.Height, p.Insets);
+                Tap(p, gallery.Cell(0)); Run(app, p, .4f);
+                Expect(app.CollectionDetail >= 0 && p.Slots.Contains("tile.picture"), "the earned large mosaic opens in collection");
+            });
+
             yield return new Fixture(53, "store-packs", "Extra: vertically scrolled Petals packs and boosters", (p, data) =>
             {
                 DesignApp app = Progressed(App(data), content, 49);

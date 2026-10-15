@@ -26,6 +26,8 @@ namespace Bloomlings.Client.Services.Content
         {
             LevelDefinition level = DefinitionJson.Read(File.ReadAllText(levelFile));
             string picturePath = Path.Combine(RepositoryContentFolder, "pictures", "lib", level.Picture.Id + ".json");
+            if (!File.Exists(picturePath))
+                picturePath = Path.Combine(RepositoryContentFolder, "pictures", "dev", "lib", level.Picture.Id + ".json");
             BasePicture picture = BasePictureJson.Read(File.ReadAllText(picturePath));
             return (level, picture);
         }

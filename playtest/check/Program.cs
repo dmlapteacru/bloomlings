@@ -76,6 +76,16 @@ if (File.Exists(Path.Combine(fixtures, "big-level.level.json")))
     runs.Add(("fixture/big-level-22x28", big, bigPicture, line.Path, 20000));
 }
 
+// The supported extended sizes: replay both wins and jams through the actual Android animator.
+foreach (string size in new[] { "24x24", "30x32", "36x36" })
+{
+    LevelDefinition level = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/curated/dev", "level-dev-mosaic-" + size + ".json")));
+    BasePicture picture = BasePictureJson.Read(File.ReadAllText(Path.Combine(Root, "content/pictures/dev/lib", level.Picture.Id + ".json")));
+    ValidationRecord record = ValidationRecord.Read(File.ReadAllText(Path.Combine(Root, "content/pictures/dev/validation", $"level-{level.LevelNumber:00000}.json")));
+    runs.Add(("extended/" + size, level, picture, record.SolutionTrace, 20000));
+    if (record.JamWitness != null) runs.Add(("extended/" + size + "-jam", level, picture, record.JamWitness, 20000));
+}
+
 foreach (var run in runs)
 {
     foreach (bool rapid in new[] { false, true })

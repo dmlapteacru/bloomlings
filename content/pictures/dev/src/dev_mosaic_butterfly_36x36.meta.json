@@ -1,0 +1,70 @@
+{
+  "id": "dev_mosaic_butterfly_36x36",
+  "version": 1,
+  "subject": "Development butterfly 36x36",
+  "width": 36,
+  "height": 36,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "wing",
+      "name": "Wings",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "lower_wing",
+      "name": "Lower wings",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "spot",
+      "name": "Spots",
+      "colorGroup": "blue_cyan"
+    },
+    {
+      "roleId": "body",
+      "name": "Body",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "grass",
+      "name": "Grass",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "flower",
+      "name": "Flowers",
+      "colorGroup": "brown_orange"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "w": "wing",
+    "v": "lower_wing",
+    "d": "spot",
+    "b": "body",
+    "g": "grass",
+    "f": "flower"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "dev-mosaic"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "origin": "content/pictures/tools/garden_subjects.py; contiguous corner openings for a readable, sequential board",
+    "licence": "owned"
+  }
+}

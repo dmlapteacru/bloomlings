@@ -9,7 +9,7 @@ namespace Bloomlings.Generator
 {
     /// <summary>
     /// R9 step 1 (T084): picks an approved base picture that fits the profile (size, themes, structure targets and
-    /// mechanics) and the level's board rule (<see cref="BandGuidelines.Board"/>: a big picture, 289–616 cells, only for a
+    /// mechanics) and the level's board rule (<see cref="BandGuidelines.Board"/>: a big picture, 289–1296 cells, only for a
     /// big level, and a regular one, 224–288 cells, otherwise; FR-008 as amended on 2026-10-06), and is not blocked by the
     /// FR-083 windows: Levels 1–100 each use a different picture, and a picture never repeats within 50 consecutive
     /// levels (judged on both sides of the level, against what the history holds). The Daily Challenge's pictures (the
@@ -124,7 +124,7 @@ namespace Bloomlings.Generator
 
         /// <summary>
         /// A candidate picture: first a board size, each size the candidates have as likely as any other, then one of the
-        /// pictures of that size (FR-008 as amended on 2026-10-07: from L11 every size from 14 × 16 to 22 × 28 about
+        /// pictures of that size (FR-008 as amended on 2026-10-07: from L11 every size from 14 × 16 to 36 × 36 about
         /// evenly, though the library holds more regular pictures than big ones). With one size, a picture alone is drawn.
         /// </summary>
         public BasePicture? Pick(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, ref Xoshiro256StarStar rng, BoardRule? board = null, IReadOnlyCollection<VariantId>? expansions = null)

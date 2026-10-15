@@ -5,6 +5,7 @@ using System.Linq;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Random;
 using Bloomlings.Core.Simulation;
+using Bloomlings.Generator.Profiles;
 using Bloomlings.Solver;
 
 namespace Bloomlings.Generator
@@ -75,7 +76,9 @@ namespace Bloomlings.Generator
             DifficultyThresholds thresholds,
             SolveOptions options,
             ref Xoshiro256StarStar rng,
-            out string? rejection)
+            out string? rejection,
+            IntRange? peakSlots = null,
+            bool preventClassOvershoot = false)
         {
             var solver = new Solver.Solver();
             var order = new List<PlannedPod>(plan);
@@ -94,7 +97,8 @@ namespace Bloomlings.Generator
             {
                 DifficultyClass current = DifficultyScorer.Classify(score, thresholds);
                 bool losable = analysis.Jam.Status == SolveStatus.Solvable;
-                if (current == target && (losable || !requireLosable))
+                bool pressureOk = peakSlots == null || peakSlots.Contains(analysis.Metrics.PeakBuffer);
+                if (current == target && (losable || !requireLosable) && pressureOk)
                 {
                     rejection = null;
                     return new TrayOutcome(definition, analysis, score, current, injections);
@@ -128,10 +132,15 @@ namespace Bloomlings.Generator
                 // Keep a harder level, or one that becomes losable; while the level cannot be lost yet, an equally hard
                 // step is kept too, so tempting pods can pile up until a jam becomes possible.
                 int candidateScore = DifficultyScorer.Score(candidateAnalysis.Metrics, thresholds);
+                DifficultyClass candidateClass = DifficultyScorer.Classify(candidateScore, thresholds);
+                if (preventClassOvershoot && Rank(candidateClass) > Rank(target)) continue;
                 bool candidateLosable = candidateAnalysis.Jam.Status == SolveStatus.Solvable;
                 bool gainsLosability = requireLosable && !losable && candidateLosable;
                 bool drift = requireLosable && !losable && candidateScore >= score;
-                if (candidateScore > score || gainsLosability || drift)
+                int PressureDistance(int peak) => peakSlots == null ? 0
+                    : Math.Max(0, peakSlots.Min - peak) + Math.Max(0, peak - peakSlots.Max);
+                bool gainsPressure = candidateClass == target && PressureDistance(candidateAnalysis.Metrics.PeakBuffer) < PressureDistance(analysis.Metrics.PeakBuffer);
+                if (candidateScore > score || gainsLosability || gainsPressure || drift)
                 {
                     order = candidate;
                     definition = candidateDefinition;
@@ -141,12 +150,13 @@ namespace Bloomlings.Generator
                 }
             }
 
-            // The reason names the score the tuning reached (its best, since only harder steps are kept), so a batch's
-            // rejections.json shows how far a candidate stayed from the target class's threshold.
+            // Record the last score, and distinguish insufficient pressure from an absent jam witness.
             DifficultyClass reached = DifficultyScorer.Classify(score, thresholds);
-            rejection = reached == target
-                ? "tray:not-losable:score-" + score.ToString(CultureInfo.InvariantCulture)
-                : $"tray:class-{reached.ToString().ToLowerInvariant()}-not-{target.ToString().ToLowerInvariant()}:score-{score.ToString(CultureInfo.InvariantCulture)}";
+            rejection = reached != target
+                ? $"tray:class-{reached.ToString().ToLowerInvariant()}-not-{target.ToString().ToLowerInvariant()}:score-{score.ToString(CultureInfo.InvariantCulture)}"
+                : peakSlots != null && !peakSlots.Contains(analysis.Metrics.PeakBuffer) && (!requireLosable || analysis.Jam.Status == SolveStatus.Solvable)
+                    ? $"tray:pressure-{analysis.Metrics.PeakBuffer}-outside-{peakSlots}:score-{score.ToString(CultureInfo.InvariantCulture)}"
+                    : "tray:not-losable:score-" + score.ToString(CultureInfo.InvariantCulture);
             return null;
         }
 

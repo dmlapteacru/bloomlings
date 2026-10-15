@@ -4,13 +4,12 @@ namespace Bloomlings.Core.Boards
 {
     /// <summary>
     /// A board cell position. Row 0 is the bottom row; the Garden Entry is usually on it (FR-009).
-    /// Boards are at most 22 columns × 28 rows (FR-008 as amended on 2026-10-06, the owner: it was 14 × 16), the size of
-    /// the rare big levels; regular boards stay at most 288 cells.
+    /// Boards are at most 36 columns × 36 rows; regular boards stay at most 288 cells.
     /// </summary>
     public readonly struct CellPos : IEquatable<CellPos>
     {
-        public const int MaxWidth = 22;
-        public const int MaxHeight = 28;
+        public const int MaxWidth = 36;
+        public const int MaxHeight = 36;
 
         /// <summary>Number of orthogonal neighbours; diagonals never count (FR-010).</summary>
         public const int NeighbourCount = 4;

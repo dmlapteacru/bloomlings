@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <!-- Oversized board prototypes are tester-only and never enter the production level catalog. -->
+    <AndroidAsset Include="../../content/pictures/dev/lib/*.json" Link="Assets/pictures/%(Filename)%(Extension)" />
     <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-24x24.json" Link="Assets/levels/level-05001.json" />
     <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-30x32.json" Link="Assets/levels/level-05002.json" />
     <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-36x36.json" Link="Assets/levels/level-05003.json" />

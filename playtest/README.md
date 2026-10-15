@@ -13,11 +13,12 @@ The same sources build two APKs, which install side by side:
 | **Bloomlings Playtest** (`com.bloomlings.playtest`) | `playtest/android` + `playtest/design` | the game as a player meets it, in the look of the UX design board (spec 002): splash, Home, progression and unlocks, Petals and booster charges, milestones, Daily Reward, Collection, Store, demos, animations |
 | **Bloomlings Tester** (`com.bloomlings.playtest.tester`) | `playtest/tester` (`PLAYTEST_TESTER`) | quick level testing in the first playtest's minimal look (`TesterView`): levels open straight away, ◀ ▶ move between them, every booster is free, a tap shows its result at once, no Home, progression, economy or demos |
 
-The tester also carries three development-only mosaic prototypes: L5001 (24×24 flower), L5002 (30×32 balloon) and
-L5003 (36×36 butterfly). Use the `24`, `30×32` and `36` shortcuts in its top bar. In Unity and the desktop preview,
-L5001 and L5002 show the pods' detailed pictures on every board cell for comparison; L5003 stays color-only. The
-minimal tester keeps its color-only renderer. These levels are not included in the production catalog. In Unity, open
-them from `Tools/Bloomlings/Play Dev Level/Mosaic prototype ...`.
+The tester also carries three complete development-only large-board fixtures: L5001 (24×24 flower), L5002
+(30×32 balloons, with stone), L5003 (36×36 butterfly). Each has its picture, a generated and solver-checked definition,
+and a validation record. Use the `24`, `30×32` and `36` shortcuts in its top bar. The desktop preview includes them too;
+Unity can open them through `Tools/Bloomlings/Play Dev Level/Mosaic prototype ...`. These test assets do not enter the
+production catalog. The runtime, importer, schemas and generator now support boards up to **36×36**. Dense boards keep
+the gameplay tile style in the win and Collection. Sources and local reproduction: `content/pictures/dev/README.md`.
 
 `PlaytestFlavor` holds the difference, and `MainActivity` picks `Droid.DesignView` or `TesterView`.
 `playtest/Playtest.Shared.props` holds everything the two share. The tester compiles only `playtest/android/*.cs`; the

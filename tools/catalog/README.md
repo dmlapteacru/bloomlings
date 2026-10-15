@@ -187,3 +187,13 @@ It imports, generates, solves, validates and scores into `content/work/art-pilot
 `check-compositions.py` audits registered picture identities and structural copies. Its `--complete` mode additionally
 requires full launch coverage and visual approvals; the three-scene pilot intentionally cannot pass that release check.
 The audit is a separate command until the replacement library and catalog are ready to connect to publication.
+
+## Large grids up to 36×36
+
+The standard band profiles now accept width/height up to 36. New art can therefore use 24×24, 30×32 and 36×36 through
+the same local CLI and catalog scripts. Work and pod limits scale beyond the old 616-cell profile anchor; existing
+board sizes retain their balance and generation bytes. The normal resume behavior still preserves completed bands: a
+new maximum does not replace old level definitions or supply missing art.
+
+[Engineering fixtures and exact local recipes](../../content/pictures/dev/README.md) exercise import, generation,
+solver, packs and gameplay/win/Collection. Keep those fixtures outside the production library.

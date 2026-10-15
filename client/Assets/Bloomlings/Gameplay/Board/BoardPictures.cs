@@ -215,7 +215,7 @@ namespace Bloomlings.Client.Gameplay.Board
                         string key = icon + "/" + color.Hex;
                         if (!tiles.TryGetValue(key, out byte[]? tile))
                         {
-                            tile = PictureTile(tileSize, color, icon, icons);
+                            tile = PictureTile(tileSize, color, icon, icons, UiRaster.GameplayTileStyle(w, h));
                             tiles[key] = tile;
                         }
 
@@ -246,9 +246,8 @@ namespace Bloomlings.Client.Gameplay.Board
         /// (<see cref="OwnerPictures.TileIconBox"/>, <see cref="UiRaster.DrawOver"/>), as the playtest's
         /// <c>Kit.CandyTile</c> draws it; otherwise the drawn tile.
         /// </summary>
-        public static byte[] PictureTile(int size, Rgba color, string iconId, Func<string, (byte[] Rgba, int Width, int Height)?>? icons)
+        public static byte[] PictureTile(int size, Rgba color, string iconId, Func<string, (byte[] Rgba, int Width, int Height)?>? icons, TileStyle style = TileStyle.Board)
         {
-            const TileStyle style = TileStyle.Board;
             string? name = OwnerPictures.TileIcon(iconId, style, TileState.Normal);
             (byte[] Rgba, int Width, int Height)? art = name != null && icons != null ? icons(name) : null;
             if (!art.HasValue)

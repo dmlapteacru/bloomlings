@@ -71,7 +71,7 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
-        public void Boards_FromL11_AreEverySizeFrom14x16To22x28()
+        public void Boards_FromL11_AreEverySizeFrom14x16To36x36()
         {
             Assert.That(BandGuidelines.Board(10).Allows(12, 12), Is.True, "the curated onboarding stays 11–12×12");
             Assert.That(BandGuidelines.Board(10).Allows(14, 16), Is.False);
@@ -80,8 +80,9 @@ namespace Bloomlings.Generator.Tests
             Assert.That(BandGuidelines.Board(11).Allows(22, 28), Is.True, "the biggest board from L11");
             Assert.That(BandGuidelines.Board(300).Allows(17, 18), Is.True);
             Assert.That(BandGuidelines.Board(5000).Allows(16, 18), Is.True);
-            Assert.That(BandGuidelines.Board(5000).Allows(23, 28), Is.False, "22 wide at most");
+            Assert.That(BandGuidelines.Board(5000).Allows(37, 36), Is.False, "36 wide at most");
 
+            Assert.That(BandGuidelines.Board(11).Allows(36, 36), Is.True);
             Assert.That(BoardLooks.For(14, 16), Is.EqualTo(BoardLook.Peek));
             Assert.That(BoardLooks.For(16, 18), Is.EqualTo(BoardLook.Peek));
             Assert.That(BoardLooks.For(17, 17), Is.EqualTo(BoardLook.Icons));

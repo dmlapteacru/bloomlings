@@ -124,8 +124,8 @@ namespace Bloomlings.Content.Tests
             ("one pod", d => ((JArray)d["pods"]!).RemoveAt(1), "pods"),
             ("mapping with one role", d => d["mapping"] = new JObject { ["bg"] = "water" }, "mapping"),
             ("no entries", d => d["entries"] = new JArray(), "entries"),
-            ("entry x out of range", d => d["entries"]![0]!["x"] = 22, "entries[0].x"),
-            ("entry y out of range", d => d["entries"]![0]!["y"] = 28, "entries[0].y"),
+            ("entry x out of range", d => d["entries"]![0]!["x"] = 36, "entries[0].x"),
+            ("entry y out of range", d => d["entries"]![0]!["y"] = 36, "entries[0].y"),
             ("unknown board look", d => d["boardLook"] = "tiles", "boardLook"),
             ("entry side unknown", d => d["entries"]![0]!["side"] = "middle", "entries[0].side"),
             ("fractional score", d => d["difficulty"]!["score"] = 1.5m, "difficulty.score"),
@@ -184,37 +184,37 @@ namespace Bloomlings.Content.Tests
         }
 
         [Test]
-        public void TheBiggestBoard_HasCoordinatesUpTo21By27()
+        public void TheBiggestBoard_HasCoordinatesUpTo35By35()
         {
             JObject doc = MinimalLevel();
-            doc["entries"]![0]!["x"] = 21;
-            doc["entries"]![0]!["y"] = 27;
+            doc["entries"]![0]!["x"] = 35;
+            doc["entries"]![0]!["y"] = 35;
             doc["entries"]![0]!["side"] = "top";
 
             LevelDefinition level = DefinitionJson.Read(doc.ToString());
 
-            Assert.That(level.Entries[0].Cell, Is.EqualTo(new CellPos(21, 27)));
+            Assert.That(level.Entries[0].Cell, Is.EqualTo(new CellPos(35, 35)));
             Assert.That(ContractSchemas.IsValidLevel(doc.ToString()), Is.True);
-            Assert.That(CellPos.MaxWidth * CellPos.MaxHeight, Is.EqualTo(616), "22 × 28 (FR-008 as amended on 2026-10-06)");
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new CellPos(22, 0));
-            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new CellPos(0, 28));
+            Assert.That(CellPos.MaxWidth * CellPos.MaxHeight, Is.EqualTo(1296), "36 × 36 runtime ceiling");
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new CellPos(36, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new CellPos(0, 36));
         }
 
         [Test]
-        public void ThePictureSchema_AllowsBoardsUpTo22By28()
+        public void ThePictureSchema_AllowsBoardsUpTo36By36()
         {
-            string wide = PictureSample.Replace("\"width\": 7", "\"width\": 22");
-            string tooWide = PictureSample.Replace("\"width\": 7", "\"width\": 23");
-            string tall = PictureSample.Replace("\"height\": 8", "\"height\": 28");
-            string tooTall = PictureSample.Replace("\"height\": 8", "\"height\": 29");
+            string wide = PictureSample.Replace("\"width\": 7", "\"width\": 36");
+            string tooWide = PictureSample.Replace("\"width\": 7", "\"width\": 37");
+            string tall = PictureSample.Replace("\"height\": 8", "\"height\": 36");
+            string tooTall = PictureSample.Replace("\"height\": 8", "\"height\": 37");
 
             // The grid no longer matches, which only the reader checks; the schema sees the size limits.
             Assert.That(ContractSchemas.IsValidPicture(wide), Is.True);
             Assert.That(ContractSchemas.IsValidPicture(tall), Is.True);
             Assert.That(ContractSchemas.IsValidPicture(tooWide), Is.False);
             Assert.That(ContractSchemas.IsValidPicture(tooTall), Is.False);
-            Assert.That(BasePicture.MaxWidth, Is.EqualTo(22));
-            Assert.That(BasePicture.MaxHeight, Is.EqualTo(28));
+            Assert.That(BasePicture.MaxWidth, Is.EqualTo(36));
+            Assert.That(BasePicture.MaxHeight, Is.EqualTo(36));
         }
 
         [TestCase("level-definition.schema.json")]

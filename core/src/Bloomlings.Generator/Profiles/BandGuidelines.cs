@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Boards;
 using Bloomlings.Solver;
 
 namespace Bloomlings.Generator.Profiles
@@ -41,7 +42,7 @@ namespace Bloomlings.Generator.Profiles
     /// <item>Pods: at least <see cref="MinPodSize"/> tiles, the "small" class of the pod size table.</item>
     /// <item>From L20 all four families are regular: any <see cref="FamilyWindow"/> consecutive levels use all four.</item>
     /// <item>Boards (FR-008 as amended on 2026-10-07, the owner): 11–12 × 12 for the curated Levels 1–10
-    /// (<see cref="MinBoardWidth"/>, <see cref="MinBoardHeight"/>); from L11 every size from 14 × 16 to 22 × 28
+    /// (<see cref="MinBoardWidth"/>, <see cref="MinBoardHeight"/>); from L11 every size from 14 × 16 to 36 × 36
     /// (<see cref="RegularMinCells"/>–<see cref="BigMaxCells"/> cells, <see cref="AnyBoard"/>), which the picker draws
     /// about evenly (<see cref="PicturePicker"/>). A board over <see cref="BoardLooks.MaxPeekCells"/> cells is a big
     /// board, in the icons look. A band row holds its pods, work and durations for the regular boards; on a big board they
@@ -64,8 +65,11 @@ namespace Bloomlings.Generator.Profiles
         /// <summary>The fewest cells of a big board: one more than the largest regular (peek) board.</summary>
         public const int BigMinCells = BoardLooks.MaxPeekCells + 1;
 
-        /// <summary>The most cells of any board: 22 × 28.</summary>
-        public const int BigMaxCells = 616;
+        /// <summary>The existing 22 × 28 balance anchor; old levels keep their thresholds and profile ranges.</summary>
+        public const int LegacyBigCells = 22 * 28;
+
+        /// <summary>The supported ceiling, 36 × 36.</summary>
+        public const int BigMaxCells = CellPos.MaxWidth * CellPos.MaxHeight;
 
         /// <summary>From this level, every window of <see cref="FamilyWindow"/> consecutive levels uses all four families.</summary>
         public const int AllFamiliesFrom = 20;
@@ -78,11 +82,11 @@ namespace Bloomlings.Generator.Profiles
         /// <summary>The regular boards: 224–288 cells, 14 × 16 up to 16 × 18; they show the layer peek.</summary>
         public static readonly BoardRule RegularBoard = new BoardRule(new IntRange(14, 16), new IntRange(16, 18), new IntRange(RegularMinCells, BoardLooks.MaxPeekCells));
 
-        /// <summary>The big boards: 289–616 cells, at most 22 × 28; they show icons only.</summary>
-        public static readonly BoardRule BigBoard = new BoardRule(new IntRange(14, 22), new IntRange(16, 28), new IntRange(BigMinCells, BigMaxCells));
+        /// <summary>The big boards: 289–1296 cells, at most 36 × 36; their next layer stays hidden.</summary>
+        public static readonly BoardRule BigBoard = new BoardRule(new IntRange(14, CellPos.MaxWidth), new IntRange(16, CellPos.MaxHeight), new IntRange(BigMinCells, BigMaxCells));
 
-        /// <summary>The boards from L11 (the owner, 2026-10-07): every size from 14 × 16 to 22 × 28, regular and big.</summary>
-        public static readonly BoardRule AnyBoard = new BoardRule(new IntRange(14, 22), new IntRange(16, 28), new IntRange(RegularMinCells, BigMaxCells));
+        /// <summary>The boards from L11: every size from 14 × 16 to 36 × 36, regular and big.</summary>
+        public static readonly BoardRule AnyBoard = new BoardRule(new IntRange(14, CellPos.MaxWidth), new IntRange(16, CellPos.MaxHeight), new IntRange(RegularMinCells, BigMaxCells));
 
         /// <summary>
         /// The most hidden layers of an <see cref="BoardLook.Icons"/> board, where none shows: the generator keeps under
@@ -149,23 +153,44 @@ namespace Bloomlings.Generator.Profiles
 
         /// <summary>
         /// The class thresholds of a board of <paramref name="cells"/> cells: the band's own up to the largest regular board,
-        /// then growing in a straight line to its big thresholds at <see cref="BigMaxCells"/> (22 × 28), since a bigger board
-        /// scores higher for the same play (its work and pods). A band without big thresholds keeps its own.
+        /// then growing to its big thresholds at <see cref="LegacyBigCells"/> (22 × 28). Beyond that anchor,
+        /// thresholds scale with cell count. Existing sizes retain their previous balance.
         /// </summary>
         public static DifficultyThresholds ThresholdsFor(DifficultyThresholds regular, DifficultyThresholds? big, int cells)
         {
-            if (big == null || !IsBig(cells))
+            if (!IsBig(cells))
             {
                 return regular;
             }
 
-            double t = Math.Min(1.0, (cells - BoardLooks.MaxPeekCells) / (double)(BigMaxCells - BoardLooks.MaxPeekCells));
+            if (cells > LegacyBigCells)
+            {
+                DifficultyThresholds anchor = big ?? regular;
+                // Board work grows, while the cost of a dangerous choice and the five-slot buffer do not.
+                // Continue the band's calibrated Normal/Hard size slope and preserve its Hard/Super Hard gap.
+                // Multiplying both whole thresholds by area makes simple large pictures impossible to tune.
+                int rise = big == null ? regular.HardMin : Math.Max(0, big.HardMin - regular.HardMin);
+                int span = big == null ? LegacyBigCells : LegacyBigCells - BoardLooks.MaxPeekCells;
+                int extra = (int)Math.Round(rise * (double)(cells - LegacyBigCells) / span, MidpointRounding.AwayFromZero);
+                return anchor with
+                {
+                    HardMin = anchor.HardMin + extra,
+                    SuperHardMin = anchor.SuperHardMin + extra,
+                };
+            }
+
+            if (big == null) return regular;
+            double t = (cells - BoardLooks.MaxPeekCells) / (double)(LegacyBigCells - BoardLooks.MaxPeekCells);
             int Lerp(int a, int b) => (int)Math.Round(a + (b - a) * t, MidpointRounding.AwayFromZero);
             return regular with { HardMin = Lerp(regular.HardMin, big.HardMin), SuperHardMin = Lerp(regular.SuperHardMin, big.SuperHardMin) };
         }
 
         private static int Scale(int value, int cells) =>
             (int)Math.Round(value * (double)cells / BoardLooks.MaxPeekCells, MidpointRounding.AwayFromZero);
+
+        /// <summary>Scale an existing profile bound only beyond its 22 × 28 balance anchor.</summary>
+        public static int ExpandBeyondLegacy(int value, int cells) => cells <= LegacyBigCells ? value
+            : (int)Math.Round(value * (double)cells / LegacyBigCells, MidpointRounding.AwayFromZero);
 
         /// <summary>The allowed number of active variants (see the class summary).</summary>
         public static IntRange Variants(int level, DifficultyClass difficulty)

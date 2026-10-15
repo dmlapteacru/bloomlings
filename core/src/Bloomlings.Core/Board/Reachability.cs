@@ -49,7 +49,7 @@ namespace Bloomlings.Core.Boards
             byte[] kind = board.Kinds;
             int[] neighbours = board.Neighbours;
 
-            // Open distances fit in a short: a board has at most 22 × 28 cells.
+            // Open distances fit in a short: a board has at most 36 × 36 cells.
             var distance = new short[n];
             for (int i = 0; i < n; i++)
             {

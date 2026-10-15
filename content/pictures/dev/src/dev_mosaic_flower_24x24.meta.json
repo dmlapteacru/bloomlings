@@ -1,0 +1,76 @@
+{
+  "id": "dev_mosaic_flower_24x24",
+  "version": 1,
+  "subject": "Development flower_pot 24x24",
+  "width": 24,
+  "height": 24,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "petal",
+      "name": "Petals",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "center",
+      "name": "Center",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "leaf",
+      "name": "Leaves",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "pot",
+      "name": "Pot",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "rim",
+      "name": "Pot rim",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "sill",
+      "name": "Windowsill",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "sun",
+      "name": "Sun",
+      "colorGroup": "brown_orange"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "p": "petal",
+    "c": "center",
+    "l": "leaf",
+    "o": "pot",
+    "m": "rim",
+    "g": "sill",
+    "u": "sun"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "dev-mosaic"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated",
+    "origin": "content/pictures/tools/sketch_pictures.py and subject modules; isolated runtime size fixtures",
+    "licence": "owned"
+  }
+}

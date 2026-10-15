@@ -40,7 +40,7 @@ namespace Bloomlings.Generator
     /// four families recur from L20, and the winning line's peak slot use meets the band's buffer-pressure target
     /// (Normal levels stay within it; Hard and Super Hard reach at least its minimum, tighter is their point).
     /// The board follows the level's board rule (<see cref="BandGuidelines.Board"/>, FR-008 as amended on 2026-10-07):
-    /// from L11 a picture of any size from 14 × 16 to 22 × 28, drawn about evenly, whose cells scale the level's pods,
+    /// from L11 a picture of any size from 14 × 16 to 36 × 36, drawn about evenly, whose cells scale the level's pods,
     /// work and class thresholds (<see cref="BandGuidelines.For(int, int)"/>, <see cref="BandGuidelines.ThresholdsFor"/>).
     /// Every level stores its board look from the cell count (<see cref="BoardLooks.For"/>); an icons board (over 288
     /// cells) gets fewer hidden layers, no mystery, a lower buffer pressure and the hidden-layer fairness check
@@ -50,6 +50,9 @@ namespace Bloomlings.Generator
     {
         /// <summary>Recorded in each definition; bump it when generator behavior changes.</summary>
         public const string Version = "gen-1.3.0";
+
+        /// <summary>New board-size path; existing sizes retain their reproducible definition bytes.</summary>
+        public const string ExtendedBoardVersion = "gen-1.4.0";
 
         /// <summary>Node budget of each search while the tray is tuned.</summary>
         public const int TuningNodeBudget = 10_000;
@@ -290,8 +293,10 @@ namespace Bloomlings.Generator
 
             // The board's pods, work and thresholds grow with its cells (a big board's, BandGuidelines.For).
             int cells = picture.Width * picture.Height;
-            IntRange? workRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.Work, BandGuidelines.Work(level, target, cells)) : _profile.Work;
-            IntRange? podRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.PodCount, BandGuidelines.For(level, cells).Pods) : _profile.PodCount;
+            bool extendedBoard = picture.Width > 22 || picture.Height > 28;
+            GenerationProfile boardProfile = UseBandGuidelines ? _profile.ForBoard(cells) : _profile;
+            IntRange? workRange = UseBandGuidelines ? BandGuidelines.Intersect(boardProfile.Work, BandGuidelines.Work(level, target, cells)) : boardProfile.Work;
+            IntRange? podRange = UseBandGuidelines ? BandGuidelines.Intersect(boardProfile.PodCount, BandGuidelines.For(level, cells).Pods) : boardProfile.PodCount;
             DifficultyThresholds thresholds = UseBandGuidelines ? BandGuidelines.ThresholdsFor(_thresholds, BigBoardThresholds, cells) : _thresholds;
             if (workRange == null || podRange == null)
             {
@@ -387,7 +392,7 @@ namespace Bloomlings.Generator
                 level,
                 1,
                 levelSeed,
-                Version,
+                extendedBoard ? ExtendedBoardVersion : Version,
                 new PictureRef(picture.Id, picture.Version, mirror, "default"),
                 mapping,
                 entries,
@@ -495,7 +500,11 @@ namespace Bloomlings.Generator
             TrayOutcome? tray;
             try
             {
-                tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out string? trayReason);
+                IntRange? desiredPeak = extendedBoard && UseBandGuidelines
+                    ? look == BoardLook.Icons ? BandGuidelines.BigBoardPeakSlots(target) : BandGuidelines.PeakSlots(PressureFor(rules, target))
+                    : null;
+                tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out string? trayReason,
+                    peakSlots: desiredPeak, preventClassOvershoot: extendedBoard);
                 if (tray == null)
                 {
                     reason = trayReason;

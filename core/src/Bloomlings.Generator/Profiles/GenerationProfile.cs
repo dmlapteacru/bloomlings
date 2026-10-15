@@ -59,5 +59,14 @@ namespace Bloomlings.Generator.Profiles
         int MaxCandidatesPerLevel)
     {
         public bool Allows(string mechanic) => ((ICollection<string>)AllowedMechanics).Contains(mechanic);
+
+        /// <summary>Existing profile ranges are calibrated at 22 × 28. Larger boards scale their counts, not variants or pod sizes.</summary>
+        public GenerationProfile ForBoard(int cells)
+        {
+            if (cells <= BandGuidelines.LegacyBigCells) return this;
+            IntRange Grow(IntRange range) => new IntRange(BandGuidelines.ExpandBeyondLegacy(range.Min, cells),
+                BandGuidelines.ExpandBeyondLegacy(range.Max, cells));
+            return this with { PodCount = Grow(PodCount), Work = Grow(Work), DurationSeconds = Grow(DurationSeconds) };
+        }
     }
 }

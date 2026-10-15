@@ -33,7 +33,7 @@ namespace Bloomlings.Pipeline.Validation
     /// stored trace, exact accounting, no inaccessible content, no mechanic or variant before its unlock, no hidden-
     /// information failure, readable variant pairs), FR-081 (losable unless a tutorial level), FR-004/FR-060 (variant
     /// count per band), FR-008 (board limits and occupancy, and as amended on 2026-10-06 the level's board rule: regular
-    /// boards of 224–616 cells from L11, as amended on 2026-10-07), FR-036 as amended (the stored
+    /// boards of 224–1296 cells from L11, as amended on 2026-10-07), FR-036 as amended (the stored
     /// board look follows the cell count; the hidden layers of an icons board pass the hidden-layer fairness check, and
     /// it holds no mystery) and the data-model rules (keys and locks 1:1, at most one locked slot and only from L80,
     /// layer depth ≤ 2 before L125 and ≤ 3 after, 2–6 stacks and at most 3 on a Hard or Super Hard level, connected

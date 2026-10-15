@@ -1,0 +1,82 @@
+{
+  "id": "dev_mosaic_balloon_30x32",
+  "version": 1,
+  "subject": "Development balloons 30x32",
+  "width": 30,
+  "height": 32,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "Sky",
+      "colorGroup": "blue_cyan",
+      "isBackground": true
+    },
+    {
+      "roleId": "pink",
+      "name": "Pink balloon",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "blue",
+      "name": "Blue balloons",
+      "colorGroup": "blue_cyan"
+    },
+    {
+      "roleId": "green",
+      "name": "Green balloon",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "orange",
+      "name": "Orange balloon",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "violet",
+      "name": "Violet balloon",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "string",
+      "name": "Strings",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "weight",
+      "name": "Weight",
+      "colorGroup": "green"
+    },
+    {
+      "roleId": "grass",
+      "name": "Grass",
+      "colorGroup": "green"
+    }
+  ],
+  "legend": {
+    "s": "sky",
+    "a": "pink",
+    "b": "blue",
+    "c": "green",
+    "d": "orange",
+    "e": "violet",
+    "t": "string",
+    "k": "weight",
+    "g": "grass"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "dev-mosaic"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated",
+    "origin": "content/pictures/tools/sketch_pictures.py and subject modules; isolated runtime size fixtures",
+    "licence": "owned"
+  }
+}

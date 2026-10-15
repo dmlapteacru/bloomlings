@@ -32,25 +32,28 @@ namespace Bloomlings.Core.Tests.Board
             TestContent.GardenLegend,
             Enumerable.Range(0, height).Select(y => new string(y == 0 ? 'l' : 'b', width)).ToArray());
 
-        [Test]
-        public void Build_TakesTheBiggestBoard_22By28_AndPlaysOnIt()
+        [TestCase(22, 28)]
+        [TestCase(24, 24)]
+        [TestCase(30, 32)]
+        [TestCase(36, 36)]
+        public void Build_PlaysThroughEverySupportedLargeBoard(int width, int height)
         {
-            // FR-008 as amended on 2026-10-06: the big levels' boards reach 22 × 28 (616 cells; it was 14 × 16).
-            BasePicture big = Plain(22, 28);
-            int water = 22 * 27;
+            // FR-008: a complete win and incremental hash cover even the last cell of each large board.
+            BasePicture big = Plain(width, height);
+            int water = width * (height - 1);
             var pods = new[]
             {
                 new PodDef("w1", VariantId.Water, water / 2, false, null, null),
                 new PodDef("w2", VariantId.Water, water - (water / 2), false, null, null),
-                new PodDef("l1", VariantId.Leaf, 22, false, null, null),
+                new PodDef("l1", VariantId.Leaf, width, false, null, null),
             };
             LevelDefinition level = TestContent.Level(big, TestContent.GardenMapping(), pods: pods, stacks: new[] { new[] { "w1" }, new[] { "w2", "l1" } });
 
             var board = BoardBuilder.Build(level, big, VariantCatalog.Default);
             LevelSession session = LevelSession.Load(level, big, new SessionOptions(1, 20000));
 
-            Assert.That(board.CellCount, Is.EqualTo(616));
-            Assert.That(session.View.Cell(new CellPos(21, 27)).Visible, Is.EqualTo(VariantId.Leaf));
+            Assert.That(board.CellCount, Is.EqualTo(width * height));
+            Assert.That(session.View.Cell(new CellPos(width - 1, height - 1)).Visible, Is.EqualTo(VariantId.Leaf));
             Assert.That(session.Apply(new TapPod("w1")).Accepted, Is.True);
             Assert.That(session.Apply(new TapPod("w2")).Accepted, Is.True);
             Assert.That(session.Apply(new TapPod("l1")).Accepted, Is.True);
@@ -58,8 +61,8 @@ namespace Bloomlings.Core.Tests.Board
             Assert.That(session.State.ComputeFullHash(), Is.EqualTo(session.StateHash), "the hash covers every cell of the big board");
         }
 
-        [TestCase(23, 28)]
-        [TestCase(22, 29)]
+        [TestCase(37, 36)]
+        [TestCase(36, 37)]
         public void Build_RefusesBoardsOverTheLimit(int width, int height)
         {
             BasePicture picture = Plain(width, height);

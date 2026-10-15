@@ -156,6 +156,21 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void LargestFinishedBoardMatchesTheColorOnlyGameplayAndDoesNotLoadTileIcons()
+        {
+            (LevelDefinition level, BasePicture picture) = DevContent.Load(System.IO.Path.Combine(DevContent.RepositoryContentFolder,
+                "curated/dev/level-dev-mosaic-36x36.json"));
+            int iconReads = 0;
+            byte[] pixels = BoardPictures.Finished(level, picture, 12, false, out int w, out int h,
+                _ => { iconReads++; return null; });
+            Assert.That((w, h), Is.EqualTo((432, 432)));
+            Assert.That(pixels.Length, Is.EqualTo(w * h * 4));
+            Assert.That(iconReads, Is.Zero, "dense mosaic cells retain the gameplay's color-only style in win/collection");
+            byte[] tile = BoardPictures.PictureTile(32, BoardPictures.ColorOf(VariantId.Flower), "flower", null, TileStyle.BoardColor);
+            Assert.That(tile, Is.EqualTo(UiRaster.Tile(32, BoardPictures.ColorOf(VariantId.Flower), "flower", UiRaster.GameplayTileStyle(36, 36))));
+        }
+
+        [Test]
         public void AStoneObstacle_IsABlockWithAShadow_AndItsCrackFlips()
         {
             const int size = 124;

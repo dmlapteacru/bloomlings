@@ -198,27 +198,29 @@ namespace Bloomlings.Client.Tests
             }
         }
 
-        [Test]
-        public void TheBiggestBoard_FitsWithoutScrolling_AndItsLongestStraightTripIsNotSqueezed()
+        [TestCase(22, 28)]
+        [TestCase(24, 24)]
+        [TestCase(30, 32)]
+        [TestCase(36, 36)]
+        public void LargeBoardsFitWithoutScrollingAndTheirTripsAreNotSqueezed(int boardWidth, int boardHeight)
         {
-            // A big level's 22×28 board (spec 001 FR-008 as amended on 2026-10-06): every cell on screen, none tiny.
+            // FR-008: every cell fits on screen, through the extended 36×36 limit.
             foreach ((float w, float h, Insets insets) in Phones())
             {
                 ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, 6, 5);
-                BoardLayout layout = r.FitBoard(22, 28);
+                BoardLayout layout = r.FitBoard(boardWidth, boardHeight);
                 string at = w + "x" + h;
                 Assert.That(layout.Outer.Left, Is.GreaterThanOrEqualTo(r.Safe.Left - 1f), at);
                 Assert.That(layout.Outer.Right, Is.LessThanOrEqualTo(r.Safe.Right + 1f), at);
                 Assert.That(layout.Outer.Bottom, Is.LessThanOrEqualTo(r.Tray.Top + 1f), at);
-                Assert.That(layout.Cell, Is.GreaterThanOrEqualTo(r.W * 0.028f), at + ": a cell keeps about 3% of the width");
-                Box corner = layout.CellBox(21, 27);
+                Assert.That(layout.Cell, Is.GreaterThanOrEqualTo(r.W * 0.028f * 22f / boardWidth), at + ": cells scale with grid density");
+                Box corner = layout.CellBox(boardWidth - 1, boardHeight - 1);
                 Assert.That(corner.Top, Is.EqualTo(layout.Grid.Top).Within(0.01f), at);
                 Assert.That(corner.Right, Is.EqualTo(layout.Grid.Right).Within(0.01f), at);
             }
 
-            // The longest straight route across it, from a bottom corner entry to the far top corner, is 49 cells: its trip
-            // at the owner's calm pace fits a wave, so no trip is walked faster (both builds' cap).
-            float trip = ClearStyles.TripSeconds(22 + 28 - 1);
+            // The longest unobstructed corner-to-corner route keeps the owner's calm pace in both builds.
+            float trip = ClearStyles.TripSeconds(boardWidth + boardHeight - 1);
             Assert.That(Bloomlings.Client.Gameplay.Timeline.TimelinePlayer.MaxWaveSeconds, Is.GreaterThanOrEqualTo(trip + Bloomlings.Client.Gameplay.Timeline.TimelinePlayer.RestoreSeconds));
         }
 

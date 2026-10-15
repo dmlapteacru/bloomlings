@@ -78,7 +78,7 @@ namespace Bloomlings.Playtest
     {
         // The clearing pace is the clearing styles' (ClearStyles.TripSeconds: Colony Flow's ants' walk since the owner's
         // video of 2026-10-08, the calm acts of 2026-10-06): every style takes the same time for a tile, and no wave
-        // squeezes a trip. The cap is far above a straight route across the biggest board, 22×28 (49 cells, about 6.3 s).
+        // squeezes a trip. The cap is far above a straight route across the biggest board, 36×36 (71 cells, about 9.2 s).
         public const float RestoreSeconds = 0.2f;
         public const float MinWaveSeconds = 1.2f;
         public const float MaxWaveSeconds = 60f;

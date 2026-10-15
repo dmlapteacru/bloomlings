@@ -415,6 +415,7 @@ namespace Bloomlings.Playtest.Design
             p.Mark("tile.picture");
             int w = Math.Max(1, picture.Width);
             int h = Math.Max(1, picture.Height);
+            TileStyle pictureStyle = UiRaster.GameplayTileStyle(w, h);
             const float thin = 0.3f;
             float rim = BoardLayout.Gap + thin;
             float cell = Math.Min(box.Width / (w + (2f * rim)), box.Height / (h + (2f * rim)));
@@ -446,7 +447,7 @@ namespace Bloomlings.Playtest.Design
                     (VariantId? variant, int value) = PictureCell(definition, picture, x, y);
                     if (variant.HasValue)
                     {
-                        Kit.CandyTile(p, full.Inset(cell * TileInset), variant.Value, TileStyle.Board);
+                        Kit.CandyTile(p, full.Inset(cell * TileInset), variant.Value, pictureStyle);
                     }
                     else if (value == BasePicture.Stone)
                     {

@@ -187,3 +187,19 @@ Before a base picture enters the library:
 - recognizable in each intended role → variant mapping?
 - restored cells clearly different from active tiles?
 - no three extremely similar shades in one board?
+
+## Extended board support (owner amendment, 2026-10-15)
+
+The supported ceiling is **36×36 (1296 cells)**, including 24×24, 30×32 and 36×36. This supersedes the older
+22×28 format ceiling in the earlier sections. Tutorial boards remain 11×12–12×12. From L11 the standard profiles
+accept large art without changing the existing catalog. Small grids use simple, recognizable subjects; unusual
+story compositions use 22×28 or large grids. The launch still requires 2500 unique compositions used once each.
+
+Runtime coordinates, JSON readers/schemas, generation, solver/validation, packs and the clients share this ceiling.
+Counts/work/duration scale only above the old 616-cell profile anchor; thresholds through 616 cells remain pinned
+to the previous calculation, then scale for larger areas. Five slots, variant limits, mechanic unlocks and hidden-layer
+fairness still apply. Existing definitions and production pictures are not regenerated.
+
+The three restored engineering fixtures and their exact local generation recipes are documented in
+`content/pictures/dev/README.md`. Their pictures are separate from the production library and explicitly included
+only in the tester/desktop preview. Dense-board completed images retain their gameplay tile style in win/Collection.

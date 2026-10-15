@@ -42,7 +42,7 @@ namespace Bloomlings.Core.Definitions
 
     /// <summary>
     /// A base picture of the picture library (FR-006; contracts/base-picture.schema.json; data-model §1.2).
-    /// Width and height: "7 ≤ width ≤ 22, 8 ≤ height ≤ 28" (the format limits; FR-008 as amended on 2026-10-06 raised them
+    /// Width and height: "7 ≤ width ≤ 36, 8 ≤ height ≤ 36" (the format limits; FR-008 as amended on 2026-10-06 raised them
     /// from 14 × 16 for the big levels, and the level band rules pick the sizes a level may use). Roles: "At least 2 roles; each role has exactly one
     /// color group". <see cref="Grid"/> rows run bottom (index 0) to top; each value is a role index,
     /// <see cref="Empty"/> or <see cref="Stone"/>.
