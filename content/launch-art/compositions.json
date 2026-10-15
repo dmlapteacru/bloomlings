@@ -1082,20 +1082,20 @@
       }
     },
     {
-      "compositionId": "octopus_music_organ",
-      "pictureId": "octopus_music_organ",
+      "compositionId": "sailing_book_library",
+      "pictureId": "sailing_book_library",
       "version": 1,
-      "title": "Орган осьминога",
-      "width": 32,
-      "height": 32,
+      "title": "Плавучая книжная библиотека",
+      "width": 22,
+      "height": 28,
       "artStatus": "approved",
       "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
       "launchLevel": 63,
       "previewMapping": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "wood",
-        "petal": "violet_bud",
+        "wood": "acorn",
+        "petal": "flower",
         "light": "vine"
       }
     },
@@ -1749,38 +1749,38 @@
       }
     },
     {
-      "compositionId": "sailing_book_library",
-      "pictureId": "sailing_book_library",
+      "compositionId": "hero_sprig",
+      "pictureId": "hero_sprig",
       "version": 1,
-      "title": "Плавучая книжная библиотека",
-      "width": 22,
-      "height": 28,
+      "title": "Sprig",
+      "width": 36,
+      "height": 36,
       "artStatus": "approved",
-      "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
+      "approvalBasis": "owner-requested hero milestone; finished-board review and production checks",
       "launchLevel": 100,
       "previewMapping": {
         "sky": "dew",
-        "leaf": "moss",
-        "wood": "acorn",
-        "petal": "flower",
-        "light": "vine"
+        "leaf": "leaf",
+        "eyes": "wood",
+        "face": "vine",
+        "cheeks": "flower"
       }
     },
     {
-      "compositionId": "crocodile_floating_orchard",
-      "pictureId": "crocodile_floating_orchard",
+      "compositionId": "butternut_squash_flower_machine",
+      "pictureId": "butternut_squash_flower_machine",
       "version": 1,
-      "title": "Плавучий сад крокодила",
-      "width": 32,
-      "height": 32,
+      "title": "Butternut Squash Flower Machine",
+      "width": 22,
+      "height": 28,
       "artStatus": "approved",
       "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
       "launchLevel": 101,
       "previewMapping": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "acorn",
-        "petal": "violet_bud",
+        "wood": "wood",
+        "petal": "flower",
         "light": "vine"
       }
     },
@@ -2073,20 +2073,20 @@
       }
     },
     {
-      "compositionId": "butternut_squash_flower_machine",
-      "pictureId": "butternut_squash_flower_machine",
+      "compositionId": "crocodile_floating_orchard",
+      "pictureId": "crocodile_floating_orchard",
       "version": 1,
-      "title": "Butternut Squash Flower Machine",
-      "width": 22,
-      "height": 28,
+      "title": "Плавучий сад крокодила",
+      "width": 32,
+      "height": 32,
       "artStatus": "approved",
       "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
       "launchLevel": 118,
       "previewMapping": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "wood",
-        "petal": "flower",
+        "wood": "acorn",
+        "petal": "violet_bud",
         "light": "vine"
       }
     },
@@ -9003,6 +9003,24 @@
       }
     },
     {
+      "compositionId": "hero_bloom",
+      "pictureId": "hero_bloom",
+      "version": 1,
+      "title": "Bloom",
+      "width": 36,
+      "height": 36,
+      "artStatus": "approved",
+      "approvalBasis": "owner-requested hero milestone; finished-board review and production checks",
+      "launchLevel": 500,
+      "previewMapping": {
+        "sky": "moss",
+        "petals": "flower",
+        "shadow": "violet_bud",
+        "face": "vine",
+        "eyes": "wood"
+      }
+    },
+    {
       "compositionId": "rose_bud_seed_sorter",
       "pictureId": "rose_bud_seed_sorter",
       "version": 1,
@@ -9011,32 +9029,13 @@
       "height": 28,
       "artStatus": "approved",
       "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
-      "launchLevel": 500,
-      "previewMapping": {
-        "sky": "dew",
-        "leaf": "leaf",
-        "shadow": "moss",
-        "wood": "acorn",
-        "petal": "flower",
-        "light": "vine"
-      }
-    },
-    {
-      "compositionId": "pomegranate_bicycle",
-      "pictureId": "pomegranate_bicycle",
-      "version": 1,
-      "title": "Pomegranate Bicycle",
-      "width": 32,
-      "height": 32,
-      "artStatus": "approved",
-      "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
       "launchLevel": 501,
       "previewMapping": {
         "sky": "dew",
         "leaf": "leaf",
         "shadow": "moss",
         "wood": "acorn",
-        "petal": "violet_bud",
+        "petal": "flower",
         "light": "vine"
       }
     },
@@ -17923,20 +17922,22 @@
       }
     },
     {
-      "compositionId": "ink_blotter",
-      "pictureId": "ink_blotter",
+      "compositionId": "hero_drop",
+      "pictureId": "hero_drop",
       "version": 1,
-      "title": "Ink Blotter",
-      "width": 22,
-      "height": 26,
+      "title": "Drop",
+      "width": 36,
+      "height": 36,
       "artStatus": "approved",
-      "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
+      "approvalBasis": "owner-requested hero milestone; finished-board review and production checks",
       "launchLevel": 1000,
       "previewMapping": {
-        "sky": "dew",
-        "leaf": "leaf",
-        "wood": "acorn",
-        "petal": "flower"
+        "sky": "moss",
+        "body": "dew",
+        "shadow": "water",
+        "eyes": "wood",
+        "shine": "vine",
+        "cheeks": "flower"
       }
     },
     {
@@ -17959,21 +17960,20 @@
       }
     },
     {
-      "compositionId": "tortoise_cartographer",
-      "pictureId": "tortoise_cartographer",
+      "compositionId": "ink_blotter",
+      "pictureId": "ink_blotter",
       "version": 1,
-      "title": "Tortoise Cartographer",
-      "width": 32,
-      "height": 32,
+      "title": "Ink Blotter",
+      "width": 22,
+      "height": 26,
       "artStatus": "approved",
       "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
       "launchLevel": 1002,
       "previewMapping": {
         "sky": "dew",
         "leaf": "leaf",
-        "shadow": "moss",
-        "wood": "wood",
-        "light": "vine"
+        "wood": "acorn",
+        "petal": "flower"
       }
     },
     {
@@ -35570,20 +35570,19 @@
       }
     },
     {
-      "compositionId": "gramophone_waterwheel",
-      "pictureId": "gramophone_waterwheel",
+      "compositionId": "dolphin_music_maker",
+      "pictureId": "dolphin_music_maker",
       "version": 1,
-      "title": "Gramophone Water Wheel",
-      "width": 30,
-      "height": 32,
+      "title": "Dolphin Instrument Maker",
+      "width": 22,
+      "height": 28,
       "artStatus": "approved",
       "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
       "launchLevel": 1997,
       "previewMapping": {
         "sky": "dew",
         "leaf": "leaf",
-        "shadow": "moss",
-        "wood": "acorn",
+        "petal": "flower",
         "light": "vine"
       }
     },
@@ -35623,20 +35622,22 @@
       }
     },
     {
-      "compositionId": "dolphin_music_maker",
-      "pictureId": "dolphin_music_maker",
+      "compositionId": "hero_twig",
+      "pictureId": "hero_twig",
       "version": 1,
-      "title": "Dolphin Instrument Maker",
-      "width": 22,
-      "height": 28,
+      "title": "Twig",
+      "width": 36,
+      "height": 36,
       "artStatus": "approved",
-      "approvalBasis": "production quality checks and finished-board review under owner-approved art direction",
+      "approvalBasis": "owner-requested hero milestone; finished-board review and production checks",
       "launchLevel": 2000,
       "previewMapping": {
         "sky": "dew",
+        "cap": "acorn",
         "leaf": "leaf",
-        "petal": "flower",
-        "light": "vine"
+        "face": "vine",
+        "eyes": "wood",
+        "cheeks": "flower"
       }
     },
     {

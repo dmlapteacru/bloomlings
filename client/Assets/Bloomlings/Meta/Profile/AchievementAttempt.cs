@@ -115,7 +115,7 @@ namespace Bloomlings.Client.Meta.Profile
             // collection entry here lets progression's next save persist it together with achievement facts and the win.
             bool levelCollected = false;
             foreach (CollectionEntry entry in save.Collection)
-                if (entry.LevelNumber == levelNumber) { levelCollected = true; break; }
+                if (entry.LevelNumber == levelNumber && entry.PictureId == level.Picture.Id) { levelCollected = true; break; }
             if (!levelCollected)
                 save.Collection.Add(new CollectionEntry(level.Picture.Id, level.Picture.Version,
                     CollectionService.MappingHash(level.Mapping), levelNumber));

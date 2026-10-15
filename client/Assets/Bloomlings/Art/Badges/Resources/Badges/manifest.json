@@ -208,6 +208,42 @@
       "slot": "profile.achievement.sweet_life",
       "source": "owner",
       "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "hero_bloom.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "4fc0d4bbb2d5e18f4a648d95f2038e65a307c9230613ff6a261fab980a03fbe9",
+      "slot": "profile.achievement.hero_bloom",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "hero_drop.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "4abb31f89e5c53c55a39d358286bff29988866c985d4c1da8eb7b04738b898d1",
+      "slot": "profile.achievement.hero_drop",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "hero_sprig.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "29113e5a79d46c5ee597da16cbf29123f326e5437c4acba0f9696bb3257910e4",
+      "slot": "profile.achievement.hero_sprig",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
+    },
+    {
+      "path": "hero_twig.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "9663226318a0e4ac023bc2a0208395661beb7c3108855f75826ebc65cfdf4473",
+      "slot": "profile.achievement.hero_twig",
+      "source": "owner",
+      "record": "tools/badges/SOURCE.md"
     }
   ]
 }

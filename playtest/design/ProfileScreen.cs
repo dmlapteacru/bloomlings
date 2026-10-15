@@ -59,7 +59,7 @@ namespace Bloomlings.Playtest.Design
             Kit.Tabs(p,r.Tabs,labels,(int)editor.Tab,i=>{editor.Tab=ProfileEditor.Tabs[i];app.ProfileScrollOffset=0;},keys);
             Kit.CardFrame(p,r.Summary);
             Kit.Avatar(p,r.Preview,editor.Avatar,editor.Frame,editor.Badge,null);
-            ProfileGamePainter.Label(p,r.PreviewName,editor.Name??PlaytestText.F("profile.default_name",meta.Profile.DefaultNumber),ProfileGameDesign.Name,left:true);
+            ProfileGamePainter.Label(p,r.PreviewName,editor.Name??PlaytestText.F("profile.default_name",meta.Profile.DefaultNumber),ProfileGameDesign.Name);
             Kit.WoodSign(p,r.Level,PlaytestText.F("common.level",NumberText.Group(meta.CurrentLevel)),T.LevelPill);
             if(editor.Tab==ProfileTab.Name)
             {

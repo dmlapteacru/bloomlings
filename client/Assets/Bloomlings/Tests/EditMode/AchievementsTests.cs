@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Core.Progression;
 using NUnit.Framework;
 
 namespace Bloomlings.Client.Tests
@@ -13,8 +14,8 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void Catalog_ContainsEveryIllustratedBadge_WithUniqueStableIds()
         {
-            Assert.That(Achievements.All.Count, Is.EqualTo(23));
-            Assert.That(Achievements.All.Select(a => a.Id).Distinct().Count(), Is.EqualTo(23));
+            Assert.That(Achievements.All.Count, Is.EqualTo(27));
+            Assert.That(Achievements.All.Select(a => a.Id).Distinct().Count(), Is.EqualTo(27));
             foreach (AchievementDef def in Achievements.All)
             {
                 Assert.That(def.Tiers.Count, Is.GreaterThan(0), def.Id);
@@ -51,6 +52,26 @@ namespace Bloomlings.Client.Tests
             Assert.That((state.Value, state.Tier, state.Goal), Is.EqualTo((5L, 1, 25L)));
             Assert.That(Achievements.Unlocked(save, "key_keeper"), Is.True);
             Assert.That(Achievements.Unlocked(save, "unknown"), Is.False);
+        }
+
+        [Test]
+        public void HeroMedals_RequireTheExactMilestonePicture_NotADebugLevelOrOldArtwork()
+        {
+            foreach (HeroMilestone hero in HeroMilestones.All)
+            {
+                PlayerSave save = NewSave();
+                save.Progression.HighestCompletedLevel = 2500;
+                save.Collection.Add(new CollectionEntry("old_picture", 1, "old", hero.Level));
+                save.Collection.Add(new CollectionEntry(hero.PictureId, 1, "wrong-level", hero.Level - 1));
+                Assert.That(Achievements.Unlocked(save, hero.PictureId), Is.False, hero.Hero);
+                save.Collection.Add(new CollectionEntry(hero.PictureId, 1, "won", hero.Level));
+                Assert.That(Achievements.Unlocked(save, hero.PictureId), Is.True, hero.Hero);
+                var state = Achievements.Of(save).Single(s => s.Def.Id == hero.PictureId);
+                Assert.That((state.Value, state.Tier, state.Complete), Is.EqualTo((1L, 1, true)));
+                Assert.That(state.Def.BadgeId, Is.EqualTo("badge.achievement." + hero.PictureId));
+                Assert.That(Achievements.Of(SaveMerge.Merge(save, save)).Single(s => s.Def.Id == hero.PictureId).Value,
+                    Is.EqualTo(1), "replays and offline merges cannot multiply the medal");
+            }
         }
 
         [Test]

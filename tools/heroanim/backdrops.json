@@ -78,6 +78,22 @@
    "bytes": 163247
   },
   {
+   "name": "gameplay-fern.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "ace977d36b46b9bd79280dd91ae7898a39ac0e31ff0149c5335feaa8e932a6fb",
+   "sha256": "3c66f5e7ea53135ce9edb90171a2d4fa3558af0024543f54bf371bd4efadf11f",
+   "bytes": 183954
+  },
+  {
+   "name": "gameplay-willow.jpg",
+   "blur": true,
+   "dim": true,
+   "sourceSha256": "eca3e9c0f7053ff1efe17f1b4b260e436d57af62efa4dfb92693b7d562ff08c2",
+   "sha256": "0e5c44aaec452a838bd2d0a0f64d6ea6aad51760b0cc97ca5d7881da28aeb31c",
+   "bytes": 194142
+  },
+  {
    "name": "wardrobe.jpg",
    "blur": true,
    "dim": true,

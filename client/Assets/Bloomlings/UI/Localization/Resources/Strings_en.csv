@@ -385,3 +385,8 @@ purchase.failed,Purchase could not be completed. Try again.
 purchase.price_pending,Price is not available yet.
 settings.privacy_policy,Privacy policy
 settings.privacy_mock,Privacy policy will be added here.
+
+profile.achievement.hero_sprig,Sprig · 100
+profile.achievement.hero_bloom,Bloom · 500
+profile.achievement.hero_drop,Drop · 1000
+profile.achievement.hero_twig,Twig · 2000

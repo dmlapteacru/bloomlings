@@ -53,7 +53,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._tabs=UiKit.Tabs("Tabs",screen._tabsBox,labels,i=>screen.SelectTab(ProfileEditor.Tabs[i]),keys);
             screen._summary=UiKit.CardFrame("ProfileSummary",root.transform);
             screen._preview=ProfileAvatar.Create("Preview",root.transform);
-            screen._previewName=ProfileGameView.Label("Name",root.transform,"",ProfileGameDesign.Name,align:TextAlignmentOptions.Left);
+            screen._previewName=ProfileGameView.Label("Name",root.transform,"",ProfileGameDesign.Name);
             screen._levelSign=UiKit.WoodSign("Level",root.transform,"",T.LevelPill);
             Image viewport=UiFactory.CreateImage("CatalogViewport",root.transform,null,Color.clear,raycast:true);screen._viewport=viewport.rectTransform;viewport.gameObject.AddComponent<RectMask2D>();screen._content=UiFactory.CreateRect("Catalog",viewport.transform);
             screen._scroll=viewport.gameObject.AddComponent<ScrollRect>();screen._scroll.viewport=screen._viewport;screen._scroll.content=screen._content;screen._scroll.horizontal=false;screen._scroll.vertical=true;screen._scroll.movementType=ScrollRect.MovementType.Clamped;screen._scroll.inertia=true;screen._scroll.decelerationRate=.015f;screen._scroll.scrollSensitivity=40;

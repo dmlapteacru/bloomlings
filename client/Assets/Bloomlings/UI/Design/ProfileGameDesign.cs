@@ -53,8 +53,8 @@ namespace Bloomlings.Client.UI.Design
             Box tabs=new Box(left,top,right,top+w*.09f);
             Box summary=new Box(left,tabs.Bottom+w*.025f,right,tabs.Bottom+w*.345f);
             Box preview=Box.FromCenter(summary.Left+summary.Width*.19f,summary.CenterY,w*.245f,w*.245f);
-            Box name=In(summary,.38f,.15f,.95f,.46f);
-            Box level=In(summary,.39f,.52f,.88f,.85f);
+            Box name=In(summary,.39f,.15f,.95f,.46f);
+            Box level=In(summary,.39f,.52f,.95f,.85f);
             Box button=new Box(safe.Left+w*.12f,safe.Bottom-w*.20f,safe.Right-w*.12f,safe.Bottom-w*.045f);
             Box grid=new Box(left,summary.Bottom+w*.025f,right,button.Top-w*.035f);
             return new ProfileGameEditRegions(safe,w,store.Header,tabs,summary,preview,name,level,grid,button);

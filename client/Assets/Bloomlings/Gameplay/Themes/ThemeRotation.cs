@@ -12,7 +12,7 @@ namespace Bloomlings.Client.Gameplay.Themes
     /// Background themes by level band (FR-066, T146): daylight garden, pond, orchard and moonlit garden. Before
     /// <see cref="StartLevel"/> (the roadmap's <c>system.theme_rotation</c>, L100) every level uses the first theme; from
     /// there the next theme starts every <see cref="BandLength"/> levels (L100 pond, L150 orchard, L200 moonlit garden,
-    /// L250 daylight garden again, ...). Visual only: there are no areas to navigate, and
+    /// L250 fern glade, L300 willow brook, L350 daylight garden again, ...). Visual only: there are no areas to navigate, and
     /// every theme keeps a light background so tiles and pods stay readable. <see cref="Default"/> mirrors
     /// <c>content/roadmap/themes.json</c>. Engine-free.
     /// </summary>
@@ -42,6 +42,8 @@ namespace Bloomlings.Client.Gameplay.Themes
             new BackgroundTheme("pond", "Pond", "#E8F1F2", "#CFE3E8"),
             new BackgroundTheme("orchard", "Orchard", "#F6EDE2", "#EAD8C3"),
             new BackgroundTheme("moonlit_garden", "Moonlit Garden", "#E3E3F0", "#CACBE3"),
+            new BackgroundTheme("fern", "Fern Glade", "#E5F0E9", "#CDE4D8"),
+            new BackgroundTheme("willow", "Willow Brook", "#E5F0EF", "#C9E3DD"),
         });
 
         public BackgroundTheme ThemeFor(int level)

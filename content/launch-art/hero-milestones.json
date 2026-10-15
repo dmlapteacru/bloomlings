@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "levels": [
+    {
+      "level": 100,
+      "hero": "sprig",
+      "pictureId": "hero_sprig",
+      "width": 36,
+      "height": 36,
+      "badgeId": "badge.achievement.hero_sprig"
+    },
+    {
+      "level": 500,
+      "hero": "bloom",
+      "pictureId": "hero_bloom",
+      "width": 36,
+      "height": 36,
+      "badgeId": "badge.achievement.hero_bloom"
+    },
+    {
+      "level": 1000,
+      "hero": "drop",
+      "pictureId": "hero_drop",
+      "width": 36,
+      "height": 36,
+      "badgeId": "badge.achievement.hero_drop"
+    },
+    {
+      "level": 2000,
+      "hero": "twig",
+      "pictureId": "hero_twig",
+      "width": 36,
+      "height": 36,
+      "badgeId": "badge.achievement.hero_twig"
+    }
+  ],
+  "relocations": [
+    {
+      "level": 63,
+      "previousLevel": 100,
+      "pictureId": "sailing_book_library"
+    },
+    {
+      "level": 101,
+      "previousLevel": 118,
+      "pictureId": "butternut_squash_flower_machine"
+    },
+    {
+      "level": 118,
+      "previousLevel": 101,
+      "pictureId": "crocodile_floating_orchard"
+    },
+    {
+      "level": 501,
+      "previousLevel": 500,
+      "pictureId": "rose_bud_seed_sorter"
+    },
+    {
+      "level": 1002,
+      "previousLevel": 1000,
+      "pictureId": "ink_blotter"
+    },
+    {
+      "level": 1997,
+      "previousLevel": 2000,
+      "pictureId": "dolphin_music_maker"
+    }
+  ],
+  "changedLevels": [
+    63,
+    100,
+    101,
+    118,
+    500,
+    501,
+    1000,
+    1002,
+    1997,
+    2000
+  ],
+  "unchangedLevels": 2490,
+  "previousGeometryHash": "f7c18f1af7632c77bed7aea5730e126be1184f46d3315d2b4df547b6f360ba30"
+}

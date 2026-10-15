@@ -1,0 +1,36 @@
+{
+  "artworkReady": true,
+  "uniqueLaunchPictures": 2500,
+  "changedSlots": [
+    63,
+    100,
+    101,
+    118,
+    500,
+    501,
+    1000,
+    1002,
+    1997,
+    2000
+  ],
+  "generatedAndSolved": 10,
+  "puzzleErrors": 0,
+  "generatorTests": 145,
+  "clientFocusedTests": 43,
+  "contentTests": 2440,
+  "coreTests": 148,
+  "solverTests": 22,
+  "pipelineTests": 21,
+  "clientKnownBaselineFailures": [
+    "TheWinScreen_StacksSignPictureHeroRewardAndNext",
+    "PodGrid_InTheTrayArea_IsTheReferenceGrid",
+    "TheStoneBorder_RingsTheGrid_WithCornersAndRuns"
+  ],
+  "cacheSmoke": {
+    "generated": 0,
+    "resumed": 30,
+    "errors": 0
+  },
+  "fullPuzzleGeneration": "owner computer",
+  "geometryHash": "8bf0b16545f436877311225197980069e3964dabcdcf793068d6fa4ddbd790be"
+}

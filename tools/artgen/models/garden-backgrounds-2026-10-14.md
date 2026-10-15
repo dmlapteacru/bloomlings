@@ -22,3 +22,7 @@ Production preparation: opaque RGB, normalized to the existing 852 × 1846 canva
 | `tools/heroanim/backgrounds/win.jpg` | `exec-ebaa23a0-648c-4424-b95c-e4395d170d06.png` | `e83586fc5211a586b4bf0289227fa172801769161c47dec083b832e5cd489a0f` |
 
 Runtime files use exactly the same filenames under `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`. The Android and preview project globs include them automatically. No transparent full-screen duplicates or animation frames were added.
+
+## Additional gameplay scenes, 2026-10-15
+
+Owner requested two more backgrounds matching the approved palette. ImageGen edited the owned daylight reference into Fern Glade (`exec-3af0f7cf-561e-425c-b754-08d2ff6a6578.png`) and Willow Brook (`exec-69353082-d8fd-449d-84a2-1a69955b5792.png`). Both reserve a broad featureless teal center. Production sources are opaque 852×1846 optimized JPEGs, prepared with the same normalization and deterministic finish described above. Runtime images total about 370 KiB; full-resolution generator PNGs are not APK assets.

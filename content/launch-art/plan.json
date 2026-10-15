@@ -26,10 +26,10 @@
       "quotas": [0, 440, 1320, 440]
     }
   ],
-  "geometryHash": "f7c18f1af7632c77bed7aea5730e126be1184f46d3315d2b4df547b6f360ba30",
+  "geometryHash": "8bf0b16545f436877311225197980069e3964dabcdcf793068d6fa4ddbd790be",
   "levelCount": 2500,
   "registeredCompositions": 2500,
-  "registryHash": "6359d1460e15007b69a4921b5b30d8c7e5cd8aa66a734367edce82a03275f1d1",
+  "registryHash": "51f116eb9d69b363f5dc812acfc937370abb9d25c5fb3890b589529ee619acd8",
   "scheduleSeed": 2969612560,
   "seed": 1,
   "sizePins": [
@@ -94,6 +94,16 @@
       "width": 18
     },
     {
+      "height": 36,
+      "level": 100,
+      "width": 36
+    },
+    {
+      "height": 36,
+      "level": 500,
+      "width": 36
+    },
+    {
       "height": 24,
       "level": 601,
       "width": 24
@@ -111,6 +121,16 @@
     {
       "height": 36,
       "level": 751,
+      "width": 36
+    },
+    {
+      "height": 36,
+      "level": 1000,
+      "width": 36
+    },
+    {
+      "height": 36,
+      "level": 2000,
       "width": 36
     }
   ],
@@ -1108,20 +1128,20 @@
       "width": 28
     },
     {
-      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain"],
+      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain"],
       "artKind": "story",
       "artStatus": "approved",
-      "compositionId": "octopus_music_organ",
-      "definitionVersion": 2,
+      "compositionId": "sailing_book_library",
+      "definitionVersion": 3,
       "difficulty": "super_hard",
-      "height": 32,
+      "height": 28,
       "level": 63,
-      "pace": "long",
-      "pictureId": "octopus_music_organ",
+      "pace": "standard",
+      "pictureId": "sailing_book_library",
       "requiredMechanic": null,
-      "sizeGroup": "xl",
+      "sizeGroup": "large",
       "variantCount": [5, 5],
-      "width": 32
+      "width": 22
     },
     {
       "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain"],
@@ -1700,36 +1720,36 @@
       "width": 21
     },
     {
-      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain"],
-      "artKind": "story",
-      "artStatus": "approved",
-      "compositionId": "sailing_book_library",
-      "definitionVersion": 2,
-      "difficulty": "normal",
-      "height": 28,
-      "level": 100,
-      "pace": "standard",
-      "pictureId": "sailing_book_library",
-      "requiredMechanic": null,
-      "sizeGroup": "large",
-      "variantCount": [5, 5],
-      "width": 22
-    },
-    {
       "allowedMechanics": ["stone", "connected_pair", "gate", "fountain"],
       "artKind": "story",
       "artStatus": "approved",
-      "compositionId": "crocodile_floating_orchard",
-      "definitionVersion": 2,
-      "difficulty": "super_hard",
-      "height": 32,
-      "level": 101,
+      "compositionId": "hero_sprig",
+      "definitionVersion": 3,
+      "difficulty": "normal",
+      "height": 36,
+      "level": 100,
       "pace": "long",
-      "pictureId": "crocodile_floating_orchard",
+      "pictureId": "hero_sprig",
       "requiredMechanic": null,
       "sizeGroup": "xl",
+      "variantCount": [5, 5],
+      "width": 36
+    },
+    {
+      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain"],
+      "artKind": "story",
+      "artStatus": "approved",
+      "compositionId": "butternut_squash_flower_machine",
+      "definitionVersion": 3,
+      "difficulty": "super_hard",
+      "height": 28,
+      "level": 101,
+      "pace": "standard",
+      "pictureId": "butternut_squash_flower_machine",
+      "requiredMechanic": null,
+      "sizeGroup": "large",
       "variantCount": [5, 6],
-      "width": 32
+      "width": 22
     },
     {
       "allowedMechanics": ["stone", "key", "locked_pod", "connected_pair", "layered_tile", "gate", "fountain", "locked_slot", "mystery_tile"],
@@ -1988,20 +2008,20 @@
       "width": 24
     },
     {
-      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain"],
+      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain"],
       "artKind": "story",
       "artStatus": "approved",
-      "compositionId": "butternut_squash_flower_machine",
-      "definitionVersion": 2,
+      "compositionId": "crocodile_floating_orchard",
+      "definitionVersion": 3,
       "difficulty": "hard",
-      "height": 28,
+      "height": 32,
       "level": 118,
-      "pace": "standard",
-      "pictureId": "butternut_squash_flower_machine",
+      "pace": "long",
+      "pictureId": "crocodile_floating_orchard",
       "requiredMechanic": null,
-      "sizeGroup": "large",
+      "sizeGroup": "xl",
       "variantCount": [5, 6],
-      "width": 22
+      "width": 32
     },
     {
       "allowedMechanics": ["stone", "key", "locked_pod", "connected_pair", "layered_tile", "gate", "fountain", "locked_slot", "mystery_tile", "counted_stack"],
@@ -8100,36 +8120,36 @@
       "width": 24
     },
     {
+      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain", "chest", "environment_2"],
+      "artKind": "story",
+      "artStatus": "approved",
+      "compositionId": "hero_bloom",
+      "definitionVersion": 3,
+      "difficulty": "normal",
+      "height": 36,
+      "level": 500,
+      "pace": "long",
+      "pictureId": "hero_bloom",
+      "requiredMechanic": null,
+      "sizeGroup": "xl",
+      "variantCount": [5, 6],
+      "width": 36
+    },
+    {
       "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2"],
       "artKind": "story",
       "artStatus": "approved",
       "compositionId": "rose_bud_seed_sorter",
-      "definitionVersion": 2,
+      "definitionVersion": 3,
       "difficulty": "normal",
       "height": 28,
-      "level": 500,
+      "level": 501,
       "pace": "standard",
       "pictureId": "rose_bud_seed_sorter",
       "requiredMechanic": null,
       "sizeGroup": "large",
-      "variantCount": [5, 6],
-      "width": 24
-    },
-    {
-      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain", "chest", "environment_2"],
-      "artKind": "story",
-      "artStatus": "approved",
-      "compositionId": "pomegranate_bicycle",
-      "definitionVersion": 2,
-      "difficulty": "normal",
-      "height": 32,
-      "level": 501,
-      "pace": "long",
-      "pictureId": "pomegranate_bicycle",
-      "requiredMechanic": null,
-      "sizeGroup": "xl",
       "variantCount": [4, 6],
-      "width": 32
+      "width": 24
     },
     {
       "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2", "connected_triple"],
@@ -16100,20 +16120,20 @@
       "width": 24
     },
     {
-      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2", "connected_triple", "counted_stack"],
-      "artKind": "simple",
+      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain", "chest", "environment_2", "connected_triple"],
+      "artKind": "story",
       "artStatus": "approved",
-      "compositionId": "ink_blotter",
-      "definitionVersion": 2,
+      "compositionId": "hero_drop",
+      "definitionVersion": 3,
       "difficulty": "hard",
-      "height": 26,
+      "height": 36,
       "level": 1000,
-      "pace": "standard",
-      "pictureId": "ink_blotter",
+      "pace": "long",
+      "pictureId": "hero_drop",
       "requiredMechanic": null,
-      "sizeGroup": "medium",
+      "sizeGroup": "xl",
       "variantCount": [4, 6],
-      "width": 22
+      "width": 36
     },
     {
       "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2", "counted_stack"],
@@ -16132,20 +16152,20 @@
       "width": 24
     },
     {
-      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain", "chest", "environment_2"],
-      "artKind": "story",
+      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2", "counted_stack"],
+      "artKind": "simple",
       "artStatus": "approved",
-      "compositionId": "tortoise_cartographer",
-      "definitionVersion": 2,
+      "compositionId": "ink_blotter",
+      "definitionVersion": 3,
       "difficulty": "normal",
-      "height": 32,
+      "height": 26,
       "level": 1002,
-      "pace": "long",
-      "pictureId": "tortoise_cartographer",
+      "pace": "standard",
+      "pictureId": "ink_blotter",
       "requiredMechanic": null,
-      "sizeGroup": "xl",
+      "sizeGroup": "medium",
       "variantCount": [4, 6],
-      "width": 32
+      "width": 22
     },
     {
       "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2", "counted_stack"],
@@ -32052,20 +32072,20 @@
       "width": 24
     },
     {
-      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain", "chest", "environment_2"],
+      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2"],
       "artKind": "story",
       "artStatus": "approved",
-      "compositionId": "gramophone_waterwheel",
-      "definitionVersion": 2,
+      "compositionId": "dolphin_music_maker",
+      "definitionVersion": 3,
       "difficulty": "normal",
-      "height": 32,
+      "height": 28,
       "level": 1997,
-      "pace": "long",
-      "pictureId": "gramophone_waterwheel",
+      "pace": "standard",
+      "pictureId": "dolphin_music_maker",
       "requiredMechanic": null,
-      "sizeGroup": "xl",
+      "sizeGroup": "large",
       "variantCount": [4, 6],
-      "width": 30
+      "width": 22
     },
     {
       "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2", "connected_triple"],
@@ -32100,20 +32120,20 @@
       "width": 24
     },
     {
-      "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2"],
+      "allowedMechanics": ["stone", "connected_pair", "gate", "fountain", "chest", "environment_2"],
       "artKind": "story",
       "artStatus": "approved",
-      "compositionId": "dolphin_music_maker",
-      "definitionVersion": 2,
+      "compositionId": "hero_twig",
+      "definitionVersion": 3,
       "difficulty": "normal",
-      "height": 28,
+      "height": 36,
       "level": 2000,
-      "pace": "standard",
-      "pictureId": "dolphin_music_maker",
+      "pace": "long",
+      "pictureId": "hero_twig",
       "requiredMechanic": null,
-      "sizeGroup": "large",
+      "sizeGroup": "xl",
       "variantCount": [4, 6],
-      "width": 22
+      "width": 36
     },
     {
       "allowedMechanics": ["stone", "connected_pair", "layered_tile", "gate", "fountain", "chest", "environment_2", "connected_triple"],

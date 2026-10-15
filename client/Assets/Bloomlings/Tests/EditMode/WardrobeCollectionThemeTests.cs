@@ -242,6 +242,10 @@ namespace Bloomlings.Client.Tests
             Assert.That((entry.PictureId, entry.PictureVersion, entry.LevelNumber), Is.EqualTo((level.Picture.Id, level.Picture.Version, 1)));
             Assert.That(entry.MappingHash, Has.Length.EqualTo(16));
             Assert.That(CollectionService.MappingHash(level.Mapping.Reverse().ToDictionary(p => p.Key, p => p.Value)), Is.EqualTo(entry.MappingHash), "independent of key order");
+            LevelDefinition updated = level with { Picture = level.Picture with { Id = "hero_sprig" } };
+            Assert.That(collection.Add(updated, 1), Is.True, "new launch art can replace previously completed art");
+            Assert.That(collection.Add(updated, 1), Is.False, "replaying the new art still counts only once");
+            Assert.That(collection.Count, Is.EqualTo(2), "the old collected picture is retained");
         }
 
         [Test]
@@ -250,7 +254,7 @@ namespace Bloomlings.Client.Tests
             ThemeRotation rotation = ThemeRotation.Default;
             Assert.That(new[] { 1, 99, 100, 149, 150, 200, 250, 300 }.Select(l => rotation.ThemeFor(l).Id), Is.EqualTo(new[]
             {
-                "daylight_garden", "daylight_garden", "pond", "pond", "orchard", "moonlit_garden", "daylight_garden", "pond",
+                "daylight_garden", "daylight_garden", "pond", "pond", "orchard", "moonlit_garden", "fern", "willow",
             }));
 
             ThemeRotation file = ThemeRotation.Parse(File.ReadAllText(Path.Combine(DevContent.RepositoryContentFolder, "roadmap", "themes.json")));

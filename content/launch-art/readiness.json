@@ -7,10 +7,10 @@
   "uniquePictureIds": 2500,
   "missingArt": [],
   "artErrors": [],
-  "geometryHash": "f7c18f1af7632c77bed7aea5730e126be1184f46d3315d2b4df547b6f360ba30",
-  "registrySha256": "3cf47abe856a29c27976410913ea8c1b737c500dbc039b7357ee95dce207f97a",
-  "canonicalLibrarySha256": "b6446c45d2e81933f0fd3a2e6507ead294f935929f838e6b6391cdca59328469",
-  "canonicalLibraryBytes": 8814729,
+  "geometryHash": "8bf0b16545f436877311225197980069e3964dabcdcf793068d6fa4ddbd790be",
+  "registrySha256": "419b78ffc484fa5cdaefee266f1b9d2bb059021ed1e2354cdef9db7b7d2711fa",
+  "canonicalLibrarySha256": "9ab0120cfbb976d40c50837fba7931dafb9b7d46f750f0345c4cf43ec00329f8",
+  "canonicalLibraryBytes": 8818325,
   "readabilityPolicyRevision": 3,
   "review": "Finished BoardPainter cell grids inspected for each staged batch; source detail was reduced for remaining production batches. Earlier detailed artwork retained.",
   "puzzleCatalogReady": false,
@@ -58,7 +58,24 @@
     651,
     701,
     702,
-    751
+    751,
+    63,
+    100,
+    101,
+    118,
+    500,
+    501,
+    1000,
+    1002,
+    1997,
+    2000
   ],
-  "localCommand": "pwsh ./tools/catalog/build-launch.ps1 -Jobs 2 -Install"
+  "localCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\tools\\catalog\\build-launch.ps1 -Jobs 12 -Install",
+  "canonicalLibraryHashRecipe": "SHA256 of sorted filename UTF-8 then file bytes, for each canonical JSON",
+  "heroMilestones": [
+    100,
+    500,
+    1000,
+    2000
+  ]
 }

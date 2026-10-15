@@ -149,6 +149,10 @@ namespace Bloomlings.Client.UI.Design
                 SmallOffer(nodes, new Box(pair.Left, pair.Top, split - gap * 0.5f, pair.Bottom), Offers[1], text, visible);
                 SmallOffer(nodes, new Box(split + gap * 0.5f, pair.Top, pair.Right, pair.Bottom), Offers[2], text, visible);
             }
+            Box packs = Next(0.56f);
+            SmallOffer(nodes, new Box(packs.Left, packs.Top, packs.CenterX - gap * 0.5f, packs.Bottom), Offers[3], text, visible);
+            SmallOffer(nodes, new Box(packs.CenterX + gap * 0.5f, packs.Top, packs.Right, packs.Bottom), Offers[4], text, visible);
+            Hero(nodes, Next(0.66f), Offers[5], text, visible);
             float cw = (w - gap) / 2;
             for (int row = 0; row < 3; row++)
             {
@@ -156,10 +160,6 @@ namespace Bloomlings.Client.UI.Design
                 for (int i = 0; i < 2; i++) Currency(nodes, new Box(coins.Left + i * (cw + gap), coins.Top, coins.Left + i * (cw + gap) + cw, coins.Bottom), Offers[6 + row * 2 + i], visible);
             }
             Boosters(nodes, Next(0.82f), boosterPrice, unlocked);
-            Box packs = Next(0.56f);
-            SmallOffer(nodes, new Box(packs.Left, packs.Top, packs.CenterX - gap * 0.5f, packs.Bottom), Offers[3], text, visible);
-            SmallOffer(nodes, new Box(packs.CenterX + gap * 0.5f, packs.Top, packs.Right, packs.Bottom), Offers[4], text, visible);
-            Hero(nodes, Next(0.66f), Offers[5], text, visible);
             return nodes;
         }
 

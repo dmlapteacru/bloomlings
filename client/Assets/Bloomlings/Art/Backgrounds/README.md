@@ -32,3 +32,5 @@ node tools/heroanim/check.mjs
 This verifies all source/output hashes, retained Home layers and hero frames. Do not run the legacy `layers.mjs` against an older Home layer pack when only updating backgrounds: it would replace the approved courtyard. The layer manifest records the newer source while preserving the original canvas and foreground placements.
 
 Generation provenance and original output hashes: `tools/artgen/models/garden-backgrounds-2026-10-14.md` and `tools/artgen/models/home-fountain-2026-10-15.md`; imported-resource records: `client/THIRD_PARTY_NOTICES.md`. Source generator PNGs and concept sheets are review artifacts and are not bundled in the game.
+
+Additional gameplay scenes: `gameplay-fern` (Fern Glade, L250) and `gameplay-willow` (Willow Brook, L300). The six themes rotate every 50 levels from L100; Daylight returns at L350. Both new backgrounds use the existing source/finish pipeline and quiet Shop palette.

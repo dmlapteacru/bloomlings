@@ -1,0 +1,68 @@
+{
+  "id": "hero_drop",
+  "version": 1,
+  "subject": "Drop",
+  "width": 36,
+  "height": 36,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "green",
+      "isBackground": true
+    },
+    {
+      "roleId": "body",
+      "name": "body",
+      "colorGroup": "blue_cyan"
+    },
+    {
+      "roleId": "shadow",
+      "name": "shadow",
+      "colorGroup": "blue_cyan"
+    },
+    {
+      "roleId": "eyes",
+      "name": "eyes",
+      "colorGroup": "brown_orange"
+    },
+    {
+      "roleId": "shine",
+      "name": "shine",
+      "colorGroup": "lime"
+    },
+    {
+      "roleId": "cheeks",
+      "name": "cheeks",
+      "colorGroup": "pink_purple"
+    }
+  ],
+  "legend": {
+    "0": "sky",
+    "1": "body",
+    "2": "shadow",
+    "3": "eyes",
+    "4": "shine",
+    "5": "cheeks"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original",
+      "hero-milestone"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/hero-milestones.png panel 3; exact 36x36 grid"
+  }
+}

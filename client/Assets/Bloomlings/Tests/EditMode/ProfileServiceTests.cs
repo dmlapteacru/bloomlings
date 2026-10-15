@@ -257,6 +257,22 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void HeroMedal_CanBeEquippedAndRestoredWithTheProfile()
+        {
+            _ = Service(out PlayerSave save, out EconomyService economy);
+            CosmeticCatalog catalog = CosmeticCatalog.Parse(File.ReadAllText(CatalogPath));
+            var wardrobe = new WardrobeService(save, catalog, new BundledRemoteConfigService(), () => { }, economy);
+            const string badge = "badge.achievement.hero_sprig";
+            Assert.That(wardrobe.Show(badge), Is.False, "the portrait must be completed first");
+            save.Collection.Add(new CollectionEntry("hero_sprig", 1, "won", 100));
+            Assert.That(wardrobe.Show(badge), Is.True);
+            PlayerSave restored = SaveSerializer.Read(SaveSerializer.Write(save));
+            Assert.That(Achievements.Unlocked(restored, "hero_sprig"), Is.True);
+            var reopened = new WardrobeService(restored, catalog, new BundledRemoteConfigService(), () => { });
+            Assert.That(reopened.Profile.Badge!.Id, Is.EqualTo(badge));
+        }
+
+        [Test]
         public void NoBadge_IsAnExplicitChoice_AndSurvivesARestart()
         {
             ProfileService profile = Service(out PlayerSave save, out EconomyService economy);

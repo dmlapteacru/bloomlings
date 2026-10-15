@@ -1241,30 +1241,30 @@
     },
     {
       "level": 63,
-      "compositionId": "octopus_music_organ",
-      "title": "Орган осьминога",
-      "displayName": "Octopus music organ",
-      "artBrief": "A huge pink octopus playing a broad orange floating pipe organ, four large green pipes, yellow keys; clear octopus bell and looping arms. Reduce to one coarse silhouette and one solid identifying shape.",
+      "compositionId": "sailing_book_library",
+      "title": "Плавучая книжная библиотека",
+      "displayName": "Sailing book library",
+      "artBrief": "An open orange book becomes a sailing library, broad green leaf sails, pink bookshelf cabin and large yellow porthole. Reduce to one coarse silhouette and one solid identifying shape.",
       "direction": "authored_first100",
       "paletteRoles": 5,
-      "width": 32,
-      "height": 32,
+      "width": 22,
+      "height": 28,
       "artKind": "story",
       "state": "registered",
       "palette": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "wood",
-        "petal": "violet_bud",
+        "wood": "acorn",
+        "petal": "flower",
         "light": "vine"
       },
-      "originalArtBrief": "A huge pink octopus playing a broad orange floating pipe organ, four large green pipes, yellow keys; clear octopus bell and looping arms.",
+      "originalArtBrief": "An open orange book becomes a sailing library, broad green leaf sails, pink bookshelf cabin and large yellow porthole.",
       "readabilityRevision": 3,
       "actualPalette": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "wood",
-        "petal": "violet_bud",
+        "wood": "acorn",
+        "petal": "flower",
         "light": "vine"
       }
     },
@@ -2298,11 +2298,31 @@
     },
     {
       "level": 100,
-      "compositionId": "sailing_book_library",
-      "title": "Плавучая книжная библиотека",
-      "displayName": "Sailing book library",
-      "artBrief": "An open orange book becomes a sailing library, broad green leaf sails, pink bookshelf cabin and large yellow porthole. Reduce to one coarse silhouette and one solid identifying shape.",
-      "direction": "authored_first100",
+      "compositionId": "hero_sprig",
+      "title": "Sprig",
+      "displayName": "Sprig",
+      "direction": "hero_milestone",
+      "artBrief": "One readable front-facing full-body portrait of our Sprig hero; broad color regions and no scene details.",
+      "artKind": "simple",
+      "width": 36,
+      "height": 36,
+      "state": "registered",
+      "actualPalette": {
+        "sky": "dew",
+        "leaf": "leaf",
+        "eyes": "wood",
+        "face": "vine",
+        "cheeks": "flower"
+      }
+    },
+    {
+      "compositionId": "butternut_squash_flower_machine",
+      "conceptKey": "butternut_squash:flower_machine",
+      "title": "Butternut Squash Flower Machine",
+      "displayName": "Butternut Squash Flower Machine",
+      "artBrief": "butternut squash with one giant flower-shaped gear on the object; one simple toy-like icon.",
+      "direction": "surreal_still_life",
+      "level": 101,
       "paletteRoles": 5,
       "width": 22,
       "height": 28,
@@ -2311,48 +2331,20 @@
       "palette": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "acorn",
+        "wood": "wood",
         "petal": "flower",
         "light": "vine"
       },
-      "originalArtBrief": "An open orange book becomes a sailing library, broad green leaf sails, pink bookshelf cabin and large yellow porthole.",
+      "originalArtBrief": "An unmistakable huge butternut squash in a surreal garden transformation: one enormous flower grows through the object and turns one broad gear. Keep the whole main silhouette and one clear secondary function.",
       "readabilityRevision": 3,
       "actualPalette": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "acorn",
+        "wood": "wood",
         "petal": "flower",
         "light": "vine"
-      }
-    },
-    {
-      "level": 101,
-      "compositionId": "crocodile_floating_orchard",
-      "title": "Плавучий сад крокодила",
-      "displayName": "Crocodile floating orchard",
-      "artBrief": "A friendly huge green crocodile holds a floating orange orchard platform across its open jaws, broad pink fruit and a yellow footbridge; clear crocodile silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
-      "direction": "authored_first100",
-      "paletteRoles": 5,
-      "width": 32,
-      "height": 32,
-      "artKind": "story",
-      "state": "registered",
-      "palette": {
-        "sky": "dew",
-        "leaf": "moss",
-        "wood": "acorn",
-        "petal": "violet_bud",
-        "light": "vine"
       },
-      "originalArtBrief": "A friendly huge green crocodile holds a floating orange orchard platform across its open jaws, broad pink fruit and a yellow footbridge; clear crocodile silhouette.",
-      "readabilityRevision": 3,
-      "actualPalette": {
-        "sky": "dew",
-        "leaf": "moss",
-        "wood": "acorn",
-        "petal": "violet_bud",
-        "light": "vine"
-      }
+      "targetGridReviewRevision": 2
     },
     {
       "level": 102,
@@ -2843,35 +2835,33 @@
       "targetGridReviewRevision": 2
     },
     {
-      "compositionId": "butternut_squash_flower_machine",
-      "conceptKey": "butternut_squash:flower_machine",
-      "title": "Butternut Squash Flower Machine",
-      "displayName": "Butternut Squash Flower Machine",
-      "artBrief": "butternut squash with one giant flower-shaped gear on the object; one simple toy-like icon.",
-      "direction": "surreal_still_life",
       "level": 118,
+      "compositionId": "crocodile_floating_orchard",
+      "title": "Плавучий сад крокодила",
+      "displayName": "Crocodile floating orchard",
+      "artBrief": "A friendly huge green crocodile holds a floating orange orchard platform across its open jaws, broad pink fruit and a yellow footbridge; clear crocodile silhouette. Reduce to one coarse silhouette and one solid identifying shape.",
+      "direction": "authored_first100",
       "paletteRoles": 5,
-      "width": 22,
-      "height": 28,
+      "width": 32,
+      "height": 32,
       "artKind": "story",
       "state": "registered",
       "palette": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "wood",
-        "petal": "flower",
+        "wood": "acorn",
+        "petal": "violet_bud",
         "light": "vine"
       },
-      "originalArtBrief": "An unmistakable huge butternut squash in a surreal garden transformation: one enormous flower grows through the object and turns one broad gear. Keep the whole main silhouette and one clear secondary function.",
+      "originalArtBrief": "A friendly huge green crocodile holds a floating orange orchard platform across its open jaws, broad pink fruit and a yellow footbridge; clear crocodile silhouette.",
       "readabilityRevision": 3,
       "actualPalette": {
         "sky": "dew",
         "leaf": "moss",
-        "wood": "wood",
-        "petal": "flower",
+        "wood": "acorn",
+        "petal": "violet_bud",
         "light": "vine"
-      },
-      "targetGridReviewRevision": 2
+      }
     },
     {
       "compositionId": "basketball_hoop",
@@ -14875,13 +14865,32 @@
       "targetGridReviewRevision": 2
     },
     {
+      "level": 500,
+      "compositionId": "hero_bloom",
+      "title": "Bloom",
+      "displayName": "Bloom",
+      "direction": "hero_milestone",
+      "artBrief": "One readable front-facing full-body portrait of our Bloom hero; broad color regions and no scene details.",
+      "artKind": "simple",
+      "width": 36,
+      "height": 36,
+      "state": "registered",
+      "actualPalette": {
+        "sky": "moss",
+        "petals": "flower",
+        "shadow": "violet_bud",
+        "face": "vine",
+        "eyes": "wood"
+      }
+    },
+    {
       "compositionId": "rose_bud_seed_sorter",
       "conceptKey": "rose_bud:seed_sorter",
       "title": "Rose Bud Seed Sorter",
       "displayName": "Rose Bud Seed Sorter",
       "artBrief": "rose bud with one huge seed-shaped slide; one simple toy-like icon.",
       "direction": "natural_mechanisms",
-      "level": 500,
+      "level": 501,
       "paletteRoles": 6,
       "width": 24,
       "height": 28,
@@ -14903,39 +14912,6 @@
         "shadow": "moss",
         "wood": "acorn",
         "petal": "flower",
-        "light": "vine"
-      },
-      "targetGridReviewRevision": 2
-    },
-    {
-      "compositionId": "pomegranate_bicycle",
-      "conceptKey": "pomegranate:bicycle",
-      "title": "Pomegranate Bicycle",
-      "displayName": "Pomegranate Bicycle",
-      "artBrief": "pomegranate with two solid round wheels; one simple toy-like icon.",
-      "direction": "unusual_travel",
-      "level": 501,
-      "paletteRoles": 6,
-      "width": 32,
-      "height": 32,
-      "artKind": "story",
-      "state": "registered",
-      "palette": {
-        "sky": "dew",
-        "leaf": "leaf",
-        "wood": "acorn",
-        "petal": "violet_bud",
-        "light": "vine",
-        "shadow": "moss"
-      },
-      "originalArtBrief": "A huge pomegranate transformed into a garden bicycle, with two huge wheels and a wide leaf saddle. The original pomegranate shape is unmistakable, complete side-view vehicle, sparse setting.",
-      "readabilityRevision": 3,
-      "actualPalette": {
-        "sky": "dew",
-        "leaf": "leaf",
-        "shadow": "moss",
-        "wood": "acorn",
-        "petal": "violet_bud",
         "light": "vine"
       },
       "targetGridReviewRevision": 2
@@ -30439,33 +30415,24 @@
       "targetGridReviewRevision": 2
     },
     {
-      "compositionId": "ink_blotter",
-      "conceptKey": "icon:ink_blotter",
-      "title": "Ink Blotter",
-      "displayName": "Ink Blotter",
-      "artBrief": "ink blotter: plain iconic silhouette with large solid color patches.",
-      "direction": "recognizable_objects",
       "level": 1000,
-      "paletteRoles": 4,
-      "width": 22,
-      "height": 26,
+      "compositionId": "hero_drop",
+      "title": "Drop",
+      "displayName": "Drop",
+      "direction": "hero_milestone",
+      "artBrief": "One readable front-facing full-body portrait of our Drop hero; broad color regions and no scene details.",
       "artKind": "simple",
+      "width": 36,
+      "height": 36,
       "state": "registered",
-      "palette": {
-        "sky": "dew",
-        "leaf": "leaf",
-        "wood": "acorn",
-        "petal": "flower"
-      },
-      "originalArtBrief": "One unmistakable chunky ink blotter, fully visible, with one broad leaf-shaped base or leaf attachment as the only garden cue. Use large color masses and keep the primary object immediately recognizable.",
-      "readabilityRevision": 3,
       "actualPalette": {
-        "sky": "dew",
-        "leaf": "leaf",
-        "wood": "acorn",
-        "petal": "flower"
-      },
-      "targetGridReviewRevision": 2
+        "sky": "moss",
+        "body": "dew",
+        "shadow": "water",
+        "eyes": "wood",
+        "shine": "vine",
+        "cheeks": "flower"
+      }
     },
     {
       "compositionId": "light_bulb_rocket",
@@ -30501,34 +30468,31 @@
       "targetGridReviewRevision": 2
     },
     {
-      "compositionId": "tortoise_cartographer",
-      "conceptKey": "tortoise:cartographer",
-      "title": "Tortoise Cartographer",
-      "displayName": "Tortoise Cartographer",
-      "artBrief": "tortoise with one oversized folded map; one simple toy-like icon.",
-      "direction": "little_professions",
+      "compositionId": "ink_blotter",
+      "conceptKey": "icon:ink_blotter",
+      "title": "Ink Blotter",
+      "displayName": "Ink Blotter",
+      "artBrief": "ink blotter: plain iconic silhouette with large solid color patches.",
+      "direction": "recognizable_objects",
       "level": 1002,
-      "paletteRoles": 6,
-      "width": 32,
-      "height": 32,
-      "artKind": "story",
+      "paletteRoles": 4,
+      "width": 22,
+      "height": 26,
+      "artKind": "simple",
       "state": "registered",
       "palette": {
         "sky": "dew",
         "leaf": "leaf",
-        "wood": "wood",
-        "petal": "flower",
-        "light": "vine",
-        "shadow": "moss"
+        "wood": "acorn",
+        "petal": "flower"
       },
-      "originalArtBrief": "A friendly large tortoise works as a cartographer, using one oversized folded map and leaf pointer. The animal and ONE oversized profession prop fill the panel; expressive whole-body pose, no clothing-only gag.",
+      "originalArtBrief": "One unmistakable chunky ink blotter, fully visible, with one broad leaf-shaped base or leaf attachment as the only garden cue. Use large color masses and keep the primary object immediately recognizable.",
       "readabilityRevision": 3,
       "actualPalette": {
         "sky": "dew",
         "leaf": "leaf",
-        "shadow": "moss",
-        "wood": "wood",
-        "light": "vine"
+        "wood": "acorn",
+        "petal": "flower"
       },
       "targetGridReviewRevision": 2
     },
@@ -61536,33 +61500,32 @@
       "targetGridReviewRevision": 2
     },
     {
-      "compositionId": "gramophone_waterwheel",
-      "conceptKey": "gramophone:waterwheel",
-      "title": "Gramophone Water Wheel",
-      "displayName": "Gramophone Water Wheel",
-      "artBrief": "gramophone with one huge paddle wheel attached to its side; one simple toy-like icon.",
-      "direction": "natural_mechanisms",
+      "compositionId": "dolphin_music_maker",
+      "conceptKey": "dolphin:music_maker",
+      "title": "Dolphin Instrument Maker",
+      "displayName": "Dolphin Instrument Maker",
+      "artBrief": "dolphin with one huge horn; one simple toy-like icon.",
+      "direction": "little_professions",
       "level": 1997,
       "paletteRoles": 6,
-      "width": 30,
-      "height": 32,
+      "width": 22,
+      "height": 28,
       "artKind": "story",
       "state": "registered",
       "palette": {
         "sky": "dew",
         "leaf": "leaf",
         "wood": "acorn",
-        "petal": "violet_bud",
+        "petal": "flower",
         "light": "vine",
         "shadow": "moss"
       },
-      "originalArtBrief": "A giant gramophone operates as a whimsical water wheel: a broad turning wheel scoops water from a leaf basin. Preserve the recognizable gramophone main form and one very large mechanical cue.",
+      "originalArtBrief": "A friendly large dolphin works as a instrument maker, using one huge horn and a broad music box. The animal and ONE oversized profession prop fill the panel; expressive whole-body pose, no clothing-only gag.",
       "readabilityRevision": 3,
       "actualPalette": {
         "sky": "dew",
         "leaf": "leaf",
-        "shadow": "moss",
-        "wood": "acorn",
+        "petal": "flower",
         "light": "vine"
       },
       "targetGridReviewRevision": 2
@@ -61629,35 +61592,24 @@
       "targetGridReviewRevision": 2
     },
     {
-      "compositionId": "dolphin_music_maker",
-      "conceptKey": "dolphin:music_maker",
-      "title": "Dolphin Instrument Maker",
-      "displayName": "Dolphin Instrument Maker",
-      "artBrief": "dolphin with one huge horn; one simple toy-like icon.",
-      "direction": "little_professions",
       "level": 2000,
-      "paletteRoles": 6,
-      "width": 22,
-      "height": 28,
-      "artKind": "story",
+      "compositionId": "hero_twig",
+      "title": "Twig",
+      "displayName": "Twig",
+      "direction": "hero_milestone",
+      "artBrief": "One readable front-facing full-body portrait of our Twig hero; broad color regions and no scene details.",
+      "artKind": "simple",
+      "width": 36,
+      "height": 36,
       "state": "registered",
-      "palette": {
-        "sky": "dew",
-        "leaf": "leaf",
-        "wood": "acorn",
-        "petal": "flower",
-        "light": "vine",
-        "shadow": "moss"
-      },
-      "originalArtBrief": "A friendly large dolphin works as a instrument maker, using one huge horn and a broad music box. The animal and ONE oversized profession prop fill the panel; expressive whole-body pose, no clothing-only gag.",
-      "readabilityRevision": 3,
       "actualPalette": {
         "sky": "dew",
+        "cap": "acorn",
         "leaf": "leaf",
-        "petal": "flower",
-        "light": "vine"
-      },
-      "targetGridReviewRevision": 2
+        "face": "vine",
+        "eyes": "wood",
+        "cheeks": "flower"
+      }
     },
     {
       "compositionId": "mango_desert_oasis",

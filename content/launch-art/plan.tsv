@@ -61,7 +61,7 @@ level	definitionVersion	width	height	sizeGroup	difficulty	pace	artKind	variantMi
 60	2	28	28	large	normal	standard	story	5	5	fountain	camera_glass_garden	approved
 61	2	18	20	medium	normal	standard	simple	5	5	fountain	petal_wind_chime	approved
 62	2	28	28	large	normal	standard	story	5	5		orange_peel_bakery_boat	approved
-63	2	32	32	xl	super_hard	long	story	5	5		octopus_music_organ	approved
+63	3	22	28	large	super_hard	standard	story	5	5		sailing_book_library	approved
 64	2	24	24	large	normal	relief	simple	5	5		leaf_cookie_tin	approved
 65	2	22	28	large	hard	standard	story	5	5		hand_crank_raincloud	approved
 66	2	22	28	large	normal	standard	story	5	5		cactus_train_station	approved
@@ -98,8 +98,8 @@ level	definitionVersion	width	height	sizeGroup	difficulty	pace	artKind	variantMi
 97	2	14	16	compact	normal	standard	simple	5	5		leaf_hand_mirror	approved
 98	2	28	28	large	normal	standard	story	5	5		rose_pottery_kiln	approved
 99	2	21	26	medium	hard	standard	simple	5	6		sun_claw_crab	approved
-100	2	22	28	large	normal	standard	story	5	5		sailing_book_library	approved
-101	2	32	32	xl	super_hard	long	story	5	6		crocodile_floating_orchard	approved
+100	3	36	36	xl	normal	long	story	5	5		hero_sprig	approved
+101	3	22	28	large	super_hard	standard	story	5	6		butternut_squash_flower_machine	approved
 102	2	14	16	compact	normal	relief	simple	5	5		drop_shaped_metronome	approved
 103	2	30	32	xl	normal	long	story	5	5		teacup_stone_staircase	approved
 104	2	21	26	medium	normal	standard	simple	5	5		leaf_strap_binoculars	approved
@@ -116,7 +116,7 @@ level	definitionVersion	width	height	sizeGroup	difficulty	pace	artKind	variantMi
 115	2	28	28	large	normal	standard	story	5	5		hamster_blacksmith	approved
 116	2	30	32	xl	normal	long	story	5	5		pineapple_desert_oasis	approved
 117	2	24	28	large	normal	standard	story	5	5		comet_garden_stair	approved
-118	2	22	28	large	hard	standard	story	5	6		butternut_squash_flower_machine	approved
+118	3	32	32	xl	hard	long	story	5	6		crocodile_floating_orchard	approved
 119	2	16	18	compact	normal	standard	simple	5	5		basketball_hoop	approved
 120	2	20	24	medium	normal	standard	simple	5	5		honeycomb_slab	approved
 121	2	28	28	large	normal	standard	story	5	5		nautilus_shell_planetarium	approved
@@ -498,8 +498,8 @@ level	definitionVersion	width	height	sizeGroup	difficulty	pace	artKind	variantMi
 497	2	22	26	medium	super_hard	standard	simple	5	6		cake_stand	approved
 498	2	24	24	large	normal	relief	simple	5	6		glockenspiel	approved
 499	2	24	24	large	normal	standard	story	5	6		bundt_pan_clockmaker	approved
-500	2	24	28	large	normal	standard	story	5	6		rose_bud_seed_sorter	approved
-501	2	32	32	xl	normal	long	story	4	6		pomegranate_bicycle	approved
+500	3	36	36	xl	normal	long	story	5	6		hero_bloom	approved
+501	3	24	28	large	normal	standard	story	4	6		rose_bud_seed_sorter	approved
 502	2	24	28	large	hard	standard	story	4	6		seal_clock_repairer	approved
 503	2	24	24	large	normal	standard	story	4	6		accordion_mountain_railway	approved
 504	2	22	26	medium	normal	standard	simple	4	6		branch_chess_knight	approved
@@ -998,9 +998,9 @@ level	definitionVersion	width	height	sizeGroup	difficulty	pace	artKind	variantMi
 997	2	30	32	xl	normal	long	story	4	6		ammonite_fossil_cloud_portal	approved
 998	2	24	28	large	normal	standard	story	4	6		harp_flower_market	approved
 999	2	24	24	large	normal	standard	story	4	6		compass_seed_press	approved
-1000	2	22	26	medium	hard	standard	simple	4	6		ink_blotter	approved
+1000	3	36	36	xl	hard	long	story	4	6		hero_drop	approved
 1001	2	24	24	large	normal	standard	story	4	6		light_bulb_rocket	approved
-1002	2	32	32	xl	normal	long	story	4	6		tortoise_cartographer	approved
+1002	3	22	26	medium	normal	standard	simple	4	6		ink_blotter	approved
 1003	2	24	24	large	normal	standard	story	4	6		teapot_mountain_railway	approved
 1004	2	28	28	large	normal	standard	story	4	6		rainbow_arc_leaf_ferry	approved
 1005	2	21	26	medium	normal	standard	simple	4	6		mallet	approved
@@ -1995,10 +1995,10 @@ level	definitionVersion	width	height	sizeGroup	difficulty	pace	artKind	variantMi
 1994	2	28	28	large	normal	standard	story	4	6		compass_river_pour	approved
 1995	2	21	26	medium	normal	standard	simple	4	6		mixing_bowl	approved
 1996	2	24	28	large	hard	standard	story	4	6		suitcase_post_office	approved
-1997	2	30	32	xl	normal	long	story	4	6		gramophone_waterwheel	approved
+1997	3	22	28	large	normal	standard	story	4	6		dolphin_music_maker	approved
 1998	2	28	28	large	super_hard	standard	story	4	6		typewriter_steamboat	approved
 1999	2	24	24	large	normal	relief	simple	4	6		melon_baller	approved
-2000	2	22	28	large	normal	standard	story	4	6		dolphin_music_maker	approved
+2000	3	36	36	xl	normal	long	story	4	6		hero_twig	approved
 2001	2	24	28	large	hard	standard	story	4	6		mango_desert_oasis	approved
 2002	2	22	26	medium	normal	standard	simple	4	6		oyster	approved
 2003	2	24	28	large	normal	standard	story	4	6		scallop_shell_island_unfold	approved

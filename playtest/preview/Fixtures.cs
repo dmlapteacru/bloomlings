@@ -121,7 +121,7 @@ namespace Bloomlings.Playtest.Preview
                 Scene(OwnerPictures.Profile, app.OpenProfile);
                 app.OpenProfileEdit(ProfileTab.Avatar); p.Slots.Clear(); Run(app, p, .1f);
                 Expect(p.Slots.Contains("bg.profile"), "the editor shares the profile's pond terrace");
-                foreach (string picture in new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit", OwnerPictures.Win })
+                foreach (string picture in new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit", "gameplay-fern", "gameplay-willow", OwnerPictures.Win })
                     Expect(p.HasSprite(PainterBase.BackgroundPrefix + picture), "theme and victory assets are bundled: " + picture);
 
                 // The new garden cover must reveal the incoming screen, rather than
@@ -136,6 +136,26 @@ namespace Bloomlings.Playtest.Preview
                 }
                 app.GoHome(); CloseAll(app); Run(app, p, .4f);
             });
+
+            yield return new Fixture(100, "hero-medals", "The four completed milestone heroes become wearable profile medals", (p, data) =>
+            {
+                var app = Progressed(App(data), content, 87); CloseAll(app);
+                foreach (var hero in Core.Progression.HeroMilestones.All)
+                    app.Meta.Save.Collection.Add(new CollectionEntry(hero.PictureId, 1, "preview", hero.Level));
+                app.OpenProfile(); Run(app, p, .1f);
+                var r = ProfileGameDesign.Page(p.Width, p.Height, p.Insets);
+                Tap(p, r.Achievements[1]); Run(app, p, .1f);
+                Expect(app.Meta.Wardrobe.Profile.Badge?.Id == "badge.achievement.hero_sprig", "the completed hero medal can be worn");
+            });
+
+            foreach (var garden in new[] { (Frame:101, Level:250, Name:"fern"), (Frame:102, Level:300, Name:"willow") })
+                yield return new Fixture(garden.Frame, "gameplay-"+garden.Name, "The quiet garden behind the real gameplay board", (p, data) =>
+                {
+                    var app = Progressed(App(data), content, garden.Level-1);
+                    app.LoadLevel(garden.Level); app.Level!.SkipGuide(); app.Level.CloseDemo(); CloseAll(app);
+                    Run(app, p, .4f);
+                    Expect(p.Slots.Contains("bg.theme."+garden.Name), "the level uses its new garden");
+                });
 
             yield return new Fixture(86, "gameplay-purchase-sizes", "Empty boosters show only their icons and refill plus", (p, data) =>
             {

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Core.Progression;
 
 namespace Bloomlings.Client.Meta.Profile
 {
-    public enum AchievementKind { LevelsWon, Pictures, DailyChallenges, WinFact, Prestige, Theme }
+    public enum AchievementKind { LevelsWon, Pictures, DailyChallenges, WinFact, Prestige, Theme, HeroPicture }
 
     /// <summary>A stable achievement line. Its id also names its badge image and profile cosmetic.</summary>
     public sealed record AchievementDef(string Id, AchievementKind Kind, string NameKey, IReadOnlyList<long> Tiers)
@@ -49,6 +50,10 @@ namespace Bloomlings.Client.Meta.Profile
         public static IReadOnlyList<AchievementDef> All { get; } = new[]
         {
             Def("first_bloom", AchievementKind.LevelsWon, 1),
+            Def("hero_sprig", AchievementKind.HeroPicture, 1),
+            Def("hero_bloom", AchievementKind.HeroPicture, 1),
+            Def("hero_drop", AchievementKind.HeroPicture, 1),
+            Def("hero_twig", AchievementKind.HeroPicture, 1),
             Def("natural_talent", AchievementKind.WinFact, 1, 10, 50, 250),
             Def("breathing_room", AchievementKind.WinFact, 1, 10, 50),
             Def("tough_bloom", AchievementKind.WinFact, 1, 10, 50),
@@ -99,6 +104,7 @@ namespace Bloomlings.Client.Meta.Profile
                     AchievementKind.DailyChallenges => Count(save, DailyCounter),
                     AchievementKind.Prestige => Math.Min(save.Progression.HighestCompletedLevel, def.Tiers[0]),
                     AchievementKind.Theme => SumGroup(save, ThemePrefix + ThemeOf[def.Id]),
+                    AchievementKind.HeroPicture => HeroCollected(save, def.Id) ? 1 : 0,
                     _ => SumGroup(save, FactPrefix + def.Id),
                 };
                 states.Add(new AchievementState(def, value));
@@ -115,6 +121,15 @@ namespace Bloomlings.Client.Meta.Profile
 
         public static long Count(PlayerSave save, string counter) =>
             save.Stats.Counters.TryGetValue(counter, out long value) ? value : 0;
+
+        private static bool HeroCollected(PlayerSave save, string id)
+        {
+            foreach (HeroMilestone hero in HeroMilestones.All)
+                if (hero.PictureId == id)
+                    foreach (CollectionEntry entry in save.Collection)
+                        if (entry.LevelNumber == hero.Level && entry.PictureId == hero.PictureId) return true;
+            return false;
+        }
 
         private static long SumGroup(PlayerSave save, string group)
         {

@@ -1,9 +1,9 @@
 {
-  "id": "pomegranate_bicycle",
+  "id": "hero_twig",
   "version": 1,
-  "subject": "Pomegranate Bicycle",
-  "width": 32,
-  "height": 32,
+  "subject": "Twig",
+  "width": 36,
+  "height": 36,
   "roles": [
     {
       "roleId": "sky",
@@ -12,45 +12,46 @@
       "isBackground": true
     },
     {
+      "roleId": "cap",
+      "name": "cap",
+      "colorGroup": "brown_orange"
+    },
+    {
       "roleId": "leaf",
       "name": "leaf",
       "colorGroup": "green"
     },
     {
-      "roleId": "shadow",
-      "name": "shadow",
-      "colorGroup": "green"
+      "roleId": "face",
+      "name": "face",
+      "colorGroup": "lime"
     },
     {
-      "roleId": "wood",
-      "name": "wood",
+      "roleId": "eyes",
+      "name": "eyes",
       "colorGroup": "brown_orange"
     },
     {
-      "roleId": "petal",
-      "name": "petal",
+      "roleId": "cheeks",
+      "name": "cheeks",
       "colorGroup": "pink_purple"
-    },
-    {
-      "roleId": "light",
-      "name": "light",
-      "colorGroup": "lime"
     }
   ],
   "legend": {
-    "s": "sky",
-    "g": "leaf",
-    "m": "shadow",
-    "a": "wood",
-    "p": "petal",
-    "y": "light"
+    "0": "sky",
+    "1": "cap",
+    "2": "leaf",
+    "3": "face",
+    "4": "eyes",
+    "5": "cheeks"
   },
   "finishedLook": {
     "mode": "auto"
   },
   "tags": {
     "themes": [
-      "launch-original"
+      "launch-original",
+      "hero-milestone"
     ],
     "bands": [
       "big"
@@ -62,6 +63,6 @@
   "source": {
     "kind": "generated_edited",
     "licence": "owned",
-    "origin": "content/launch-art/references/atlas-0050.png panel 16; quantized exact target-cell authoring grid"
+    "origin": "content/launch-art/references/hero-milestones.png panel 4; exact 36x36 grid"
   }
 }

@@ -45,8 +45,8 @@ def pack() -> None:
                 "source": "owner",
                 "record": "tools/badges/SOURCE.md",
             })
-    if count != 23 or packed_bytes > 3_000_000:
-        raise ValueError(f"Expected 23 badges within 3 MB; got {count} and {packed_bytes:,} bytes")
+    if count != 27 or packed_bytes > 3_000_000:
+        raise ValueError(f"Expected 27 badges within 3 MB; got {count} and {packed_bytes:,} bytes")
     (DESTINATION / "manifest.json").write_text(
         json.dumps({"tool": "tools/pack_badges.py", "version": 1, "files": entries}, indent=2) + "\n",
         encoding="utf-8",

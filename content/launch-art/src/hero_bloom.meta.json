@@ -1,0 +1,62 @@
+{
+  "id": "hero_bloom",
+  "version": 1,
+  "subject": "Bloom",
+  "width": 36,
+  "height": 36,
+  "roles": [
+    {
+      "roleId": "sky",
+      "name": "sky",
+      "colorGroup": "green",
+      "isBackground": true
+    },
+    {
+      "roleId": "petals",
+      "name": "petals",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "shadow",
+      "name": "shadow",
+      "colorGroup": "pink_purple"
+    },
+    {
+      "roleId": "face",
+      "name": "face",
+      "colorGroup": "lime"
+    },
+    {
+      "roleId": "eyes",
+      "name": "eyes",
+      "colorGroup": "brown_orange"
+    }
+  ],
+  "legend": {
+    "0": "sky",
+    "1": "petals",
+    "2": "shadow",
+    "3": "face",
+    "4": "eyes"
+  },
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "tags": {
+    "themes": [
+      "launch-original",
+      "hero-milestone"
+    ],
+    "bands": [
+      "big"
+    ]
+  },
+  "review": {
+    "status": "draft"
+  },
+  "source": {
+    "kind": "generated_edited",
+    "licence": "owned",
+    "origin": "content/launch-art/references/hero-milestones.png panel 2; exact 36x36 grid"
+  }
+}

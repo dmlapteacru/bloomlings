@@ -10,7 +10,8 @@ namespace Bloomlings.Client.Meta.Collection
 {
     /// <summary>
     /// The Collection (FR-065, T145): every won level adds its finished picture as
-    /// <c>{pictureId, pictureVersion, mappingHash, levelNumber}</c>, once per level. The mapping hash identifies the
+    /// <c>{pictureId, pictureVersion, mappingHash, levelNumber}</c>, once per picture at a level. A content update may
+    /// replace a level's art; both collected pictures are retained. The mapping hash identifies the
     /// colors the picture was finished in, so the Collection can redraw it. The Collection only shows pictures; it is
     /// never a level selector. Engine-free.
     /// </summary>
@@ -30,12 +31,12 @@ namespace Bloomlings.Client.Meta.Collection
 
         public int Count => _save.Collection.Count;
 
-        /// <summary>Adds the finished picture of a won level; false when that level is already in the Collection.</summary>
+        /// <summary>Adds the finished picture; false when this picture at this level is already collected.</summary>
         public bool Add(LevelDefinition definition, int levelNumber)
         {
             foreach (CollectionEntry existing in _save.Collection)
             {
-                if (existing.LevelNumber == levelNumber)
+                if (existing.LevelNumber == levelNumber && existing.PictureId == definition.Picture.Id)
                 {
                     return false;
                 }

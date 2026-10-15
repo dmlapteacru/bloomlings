@@ -1,9 +1,9 @@
 {
-  "id": "tortoise_cartographer",
+  "id": "hero_sprig",
   "version": 1,
-  "subject": "Tortoise Cartographer",
-  "width": 32,
-  "height": 32,
+  "subject": "Sprig",
+  "width": 36,
+  "height": 36,
   "roles": [
     {
       "roleId": "sky",
@@ -17,34 +17,35 @@
       "colorGroup": "green"
     },
     {
-      "roleId": "shadow",
-      "name": "shadow",
-      "colorGroup": "green"
-    },
-    {
-      "roleId": "wood",
-      "name": "wood",
+      "roleId": "eyes",
+      "name": "eyes",
       "colorGroup": "brown_orange"
     },
     {
-      "roleId": "light",
-      "name": "light",
+      "roleId": "face",
+      "name": "face",
       "colorGroup": "lime"
+    },
+    {
+      "roleId": "cheeks",
+      "name": "cheeks",
+      "colorGroup": "pink_purple"
     }
   ],
   "legend": {
-    "s": "sky",
-    "g": "leaf",
-    "m": "shadow",
-    "a": "wood",
-    "y": "light"
+    "0": "sky",
+    "1": "leaf",
+    "2": "eyes",
+    "3": "face",
+    "4": "cheeks"
   },
   "finishedLook": {
     "mode": "auto"
   },
   "tags": {
     "themes": [
-      "launch-original"
+      "launch-original",
+      "hero-milestone"
     ],
     "bands": [
       "big"
@@ -56,6 +57,6 @@
   "source": {
     "kind": "generated_edited",
     "licence": "owned",
-    "origin": "content/launch-art/references/atlas-0069.png panel 8; quantized exact target-cell authoring grid"
+    "origin": "content/launch-art/references/hero-milestones.png panel 1; exact 36x36 grid"
   }
 }

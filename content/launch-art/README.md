@@ -2,7 +2,7 @@
 
 The launch contains exactly 2500 different compositions. Each picture has one assigned level; scaling, mirroring,
 rotation and recoloring do not create another composition. L1–10 retain their distinct curated teaching pictures and
-definitions. L11–2500 replace the old catalog with definition version 2. Daily Challenge remains separate.
+definitions. L11–2500 replace the old catalog with definition version 2 (the ten hero-milestone revision slots use version 3). Daily Challenge remains separate.
 
 `compositions.json` is the inventory of real, reviewed cell grids. `production-briefs.json` contains the full authoring
 queue, including unfinished work. **2500 briefs do not mean 2500 finished pictures or generated puzzles.** Use the
@@ -36,6 +36,28 @@ The geometry hash excludes the artwork inventory. Adding an illustration must no
 `launch plan` refreshes only the inventory projection when the plan already exists. Do not delete the frozen plan to
 add pictures. Vine appears in the art at L45–46 and Berry at L200–201. Mechanic introductions/practice and the cell-size
 readability rules are validated independently of art quality.
+
+## Hero milestones (owner revision)
+
+| Level | Unique hero picture | Board | Wearable achievement badge |
+|---|---|---|---|
+| 100 | Sprig | 36×36 | `badge.achievement.hero_sprig` |
+| 500 | Bloom | 36×36 | `badge.achievement.hero_bloom` |
+| 1000 | Drop | 36×36 | `badge.achievement.hero_drop` |
+| 2000 | Twig | 36×36 | `badge.achievement.hero_twig` |
+
+`hero-milestones.json` records the four assignments and six relocations. Whole existing pictures moved with their
+original dimensions; none were resized or duplicated. This deliberate revision changes only L63, 100, 101, 118, 500,
+501, 1000, 1002, 1997 and 2000. Difficulty classes, all band quotas, mechanic introductions, relief levels and the first
+36×36 appearance at L85 stay intact. The ten changed definitions advance to version 3. Other 2490 slots and artwork
+are unchanged; valid cached recipes remain reusable. Do not delete `content/work/launch-catalog`.
+
+Let an already running build finish before pulling this revision. Then pull the branch and rerun the same generation
+command with `-Install`; fingerprints rebuild the changed slots and final validation certifies the whole catalog.
+A medal unlocks from the exact hero picture collected at its milestone, then can be equipped on the profile/leaderboard.
+A debug level change or a win using the previous picture does not unlock it. Old collected art remains in the save;
+winning the replacement picture adds it once. `references/hero-milestones.png` is owned ImageGen source artwork;
+`tools/catalog/import-hero-milestones.py` reads it into exact 36×36 grids for finished-board review.
 
 ## Generate on the owner's computer
 

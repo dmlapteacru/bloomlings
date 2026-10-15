@@ -41,6 +41,23 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void HeroMilestones_HaveFourUniqueMaximumBoards_AndKeepTheOtherPicturesUnique()
+        {
+            var doc = new LaunchArtDocument(LaunchArtDocument.DefaultRegistry, LaunchArtDocument.DefaultPlan);
+            foreach (HeroMilestone hero in HeroMilestones.All)
+            {
+                var slot = doc.Plan.Slots[hero.Level - 1];
+                var art = doc.Compositions[hero.Level];
+                Assert.That((slot.Width, slot.Height, slot.SizeGroup), Is.EqualTo((36, 36, "xl")));
+                Assert.That(art.PictureId, Is.EqualTo(hero.PictureId));
+                Assert.That(doc.Plan.Slots[hero.Level - 2].SizeGroup, Is.Not.EqualTo("xl"));
+                Assert.That(doc.Plan.Slots[hero.Level].SizeGroup, Is.Not.EqualTo("xl"));
+                Assert.That(doc.CheckArt(new[] { hero.Level }), Is.Empty);
+            }
+            Assert.That(doc.Compositions.Values.Select(c => c.PictureId).Distinct().Count(), Is.EqualTo(2500));
+        }
+
+        [Test]
         public void EntryCapacityUsesBottomFirstRowsAndOnlyCountsHiddenColors()
         {
             var doc=new LaunchArtDocument(LaunchArtDocument.DefaultRegistry,LaunchArtDocument.DefaultPlan);
