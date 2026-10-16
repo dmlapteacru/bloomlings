@@ -157,3 +157,30 @@ comparison, before cropping the indices. The bake records and checks the texture
 Only Bloom's 96 idle + 36 reaction frames are replaced, at their existing size, 24 fps, names, crop boxes and anchors.
 The other heroes, Sprig's separate animation lab, Home layers and backgrounds are retained. Large turns and rear views
 still inherit the original material; this pass targets the existing meta-screen animation set.
+
+## Owner's modular Sprig outfit study (2026-10-16)
+
+The owner supplied `SprigHero.fbx`, `SprigHero@Anims.fbx`, `SprigHero_Cap.fbx`,
+`SprigHero_Glasses.fbx`, `SprigHero_Backpack.fbx` in conversation to test one hero
+with equip/unequip. Source hashes and inspection are recorded in
+`output/sprig-outfit-study/source-inputs.json` and `build-report.json`.
+The assets and their supplied rig, weights, embedded textures, materials and CapOn
+head state are the owner's inputs for Bloomlings. Mesh topology/coordinates, UVs
+and skin weights remain unchanged in this assembly.
+
+`models/sprig-outfit-study.glb` is an offline review model: one shared 25-bone rig,
+four meshes (290,606 triangles total) and the owner's CapOn morph. Caps equip that
+exclusive prepared head state rather than stacking with the natural hairstyle.
+Glasses and backpack are independently visible. No runtime hero assets are replaced.
+
+The supplied animation FBX has four named clips with 259 curves each, but every
+curve has constant key values (max range 0). They are preserved as Source_* in the
+editable Blender assembly. Study_Idle, Study_Look, Study_Step and Study_Joy are new
+original procedural attachment-test motions authored for this study, not recovered
+or third-party animations. No external motion library is used.
+
+The review HTML embeds Three.js 0.160.0 (MIT license included), original materials
+and the GLB. Review PNG/MP4 files are real GLB renders. Model geometry was compared
+after reimport at twelve poses; reports and instructions are in
+`output/sprig-outfit-study/README.md`. Editable `.blend`, self-contained HTML and ZIP
+are generated under ignored `content/work/sprig-outfit-study/`.

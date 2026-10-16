@@ -1,0 +1,108 @@
+{
+  "reviewFiles": [
+    {
+      "file": "README.md",
+      "bytes": 7198,
+      "sha256": "b1e79f5175b7018d8b23d38dc9304a42b7bc9c1894a50cd4ddd40adb0e1e6106"
+    },
+    {
+      "file": "all-back.png",
+      "bytes": 246749,
+      "sha256": "8de5ae855c2075afb609934823ef4b2e021f04190c310d4322b8de156cafbe88"
+    },
+    {
+      "file": "all-front.png",
+      "bytes": 280770,
+      "sha256": "35e08270c465bce28d6de45280dd2608f301181db2a19e574ae24f7fe1761c34"
+    },
+    {
+      "file": "all-look.png",
+      "bytes": 276331,
+      "sha256": "29d90464ae2a0b09943307e106afe2493f48f723f309a358806d576a3465ebc1"
+    },
+    {
+      "file": "all-quarter.png",
+      "bytes": 260745,
+      "sha256": "7b2519364b863569e755e688800d7ffd9084371215de4103be2008876125e2e5"
+    },
+    {
+      "file": "backpack-back.png",
+      "bytes": 348905,
+      "sha256": "77dd3989c1291b33ba45740b2826c7f33b38a87cbde880f87a554a06871efe20"
+    },
+    {
+      "file": "base.png",
+      "bytes": 392062,
+      "sha256": "3e9e28c58988506b81124e7443f9dfb83969489d39e0722ce437b4d868bec4c9"
+    },
+    {
+      "file": "blender-controls-report.json",
+      "bytes": 1928,
+      "sha256": "c3c920b971d5e4a60137c5119d6676a16559b88e055ab6485bc07c99cd34babf"
+    },
+    {
+      "file": "build-report.json",
+      "bytes": 45208,
+      "sha256": "b97b58e5df39dc2ae395927002a866d72d3b6ef8e057b9762cb34aa6c1aec730"
+    },
+    {
+      "file": "cap.png",
+      "bytes": 284431,
+      "sha256": "c984e08fee778fd2db7cb02797d64d06ac9b4b40fba8a344fa1b9bb1fcc92f75"
+    },
+    {
+      "file": "glasses.png",
+      "bytes": 387642,
+      "sha256": "2986606857668ee4ca570ed326326fed911783145f40a620f7c1c2b64e29648c"
+    },
+    {
+      "file": "review-report.json",
+      "bytes": 800812,
+      "sha256": "049d831ed9be15b5cdb3e3e9df14b13cd4b642a9ca530987a09f76b02b16cd5c"
+    },
+    {
+      "file": "review.mp4",
+      "bytes": 545281,
+      "sha256": "4038f7bf3361f7bdaf3a956c09f5656de2b87c851334074b4aa8b9d5fb29e7ae"
+    },
+    {
+      "file": "roundtrip-report.json",
+      "bytes": 8421,
+      "sha256": "a8d5135c77c6095ca9913578266944716d1d23503e49edca944a0753ff006c22"
+    },
+    {
+      "file": "source-inputs.json",
+      "bytes": 1086,
+      "sha256": "2456a07bb7ac90e0eafca49e7718e2eb414fc4cdb3af359f6cc4d74ae3915e89"
+    },
+    {
+      "file": "viewer.png",
+      "bytes": 228886,
+      "sha256": "8f0110943d10382eb924692eb4a285d7d02fb2488deac689747cafca91d58778"
+    }
+  ],
+  "authoringFiles": [
+    {
+      "file": "sprig-outfit.blend",
+      "bytes": 11741649,
+      "sha256": "cdab648299df1dd6550b0e3d387ce9ddd4ddaea081cc08514abf844fe1af786b"
+    },
+    {
+      "file": "sprig-outfit.glb",
+      "bytes": 11849080,
+      "sha256": "10655aa4bd0befdf5e8e0eb795dccadd24c8b243676b5f271cd402532bff8eb8"
+    },
+    {
+      "file": "sprig-outfit-viewer.html",
+      "bytes": 17747029,
+      "sha256": "0fa5d0a7ce870ae248df4f8c7f8c7992d8e9332b2df137c02ce32274c382e12a"
+    }
+  ],
+  "zip": {
+    "file": "content/work/sprig-outfit-study/sprig-outfit-study.zip",
+    "entries": 15,
+    "bytes": 27827522,
+    "sha256": "57f2fbf1767b975c3b54b391188377ee103c1b5ee03440518cf24bbbdadf86ff",
+    "crcAndEntryHashesVerified": true
+  }
+}

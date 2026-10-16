@@ -1,0 +1,324 @@
+{
+  "restMaxErrors": {
+    "SprigHero": 7.282495516847121e-06,
+    "SprigHero_Cap": 2.384185791015625e-07,
+    "SprigHero_Glasses": 1.1920928955078125e-07,
+    "SprigHero_Backpack": 5.960464477539063e-08
+  },
+  "poses": [
+    {
+      "clip": "Study_Idle",
+      "frame": 1,
+      "meshes": {
+        "SprigHero": {
+          "max": 5.637017894556727e-07,
+          "p99": 4.868677353709588e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 2.384185791015625e-07,
+          "p99": 2.384185791015625e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Idle",
+      "frame": 17,
+      "meshes": {
+        "SprigHero": {
+          "max": 8.945662391068717e-07,
+          "p99": 4.887980222965827e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 4.777675730550706e-07,
+          "p99": 2.4027400458748785e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 2.457562461863554e-07,
+          "p99": 2.384185791015625e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Idle",
+      "frame": 45,
+      "meshes": {
+        "SprigHero": {
+          "max": 5.637017894556727e-07,
+          "p99": 4.868677353709588e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 3.5886748369909214e-07,
+          "p99": 2.4027400458748785e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 1.812804499357408e-07,
+          "p99": 1.228781230931777e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Look",
+      "frame": 1,
+      "meshes": {
+        "SprigHero": {
+          "max": 5.637017894556727e-07,
+          "p99": 4.868677353709588e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 2.384185791015625e-07,
+          "p99": 2.384185791015625e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Look",
+      "frame": 17,
+      "meshes": {
+        "SprigHero": {
+          "max": 1.7795879810236277e-05,
+          "p99": 5.206691656984735e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 3.8743019104003906e-07,
+          "p99": 2.7028258364226004e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 2.5463115409962923e-07,
+          "p99": 1.4600096599955427e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 9.77134484693706e-07,
+          "p99": 1.1944189326376765e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Look",
+      "frame": 45,
+      "meshes": {
+        "SprigHero": {
+          "max": 1.1666838439606661e-05,
+          "p99": 5.154400198170569e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 4.951133646320149e-07,
+          "p99": 2.7028258364226004e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 2.7314279645418166e-07,
+          "p99": 2.4755668231600746e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 6.330801780893803e-07,
+          "p99": 1.192101990420136e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Step",
+      "frame": 1,
+      "meshes": {
+        "SprigHero": {
+          "max": 5.637017894556727e-07,
+          "p99": 4.868677353709588e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 2.384185791015625e-07,
+          "p99": 2.384185791015625e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Step",
+      "frame": 11,
+      "meshes": {
+        "SprigHero": {
+          "max": 4.831378379731709e-06,
+          "p99": 6.921500585617812e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 4.768953623117584e-07,
+          "p99": 2.457562461863554e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 2.5288109106536417e-07,
+          "p99": 2.388837865275353e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 9.523928869530436e-07,
+          "p99": 1.2013700229374393e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Step",
+      "frame": 30,
+      "meshes": {
+        "SprigHero": {
+          "max": 3.129243850708008e-06,
+          "p99": 5.614182955973038e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 3.588868187107545e-07,
+          "p99": 2.4027400458748785e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 2.4755668231600746e-07,
+          "p99": 1.3328003749250113e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 6.06387554090494e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Joy",
+      "frame": 1,
+      "meshes": {
+        "SprigHero": {
+          "max": 5.637017894556727e-07,
+          "p99": 4.868677353709588e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 2.384185791015625e-07,
+          "p99": 2.384185791015625e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Joy",
+      "frame": 17,
+      "meshes": {
+        "SprigHero": {
+          "max": 3.7981595460662735e-06,
+          "p99": 5.077339719951397e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 3.7814907850174666e-07,
+          "p99": 2.669762502188819e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 2.669762502188819e-07,
+          "p99": 2.4755668231600746e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    },
+    {
+      "clip": "Study_Joy",
+      "frame": 45,
+      "meshes": {
+        "SprigHero": {
+          "max": 4.582294842121212e-06,
+          "p99": 5.177847915816751e-07,
+          "vertices": 40984
+        },
+        "SprigHero_Cap": {
+          "max": 4.851466594964178e-07,
+          "p99": 2.5463115409962923e-07,
+          "vertices": 39028
+        },
+        "SprigHero_Glasses": {
+          "max": 2.5636927089222153e-07,
+          "p99": 2.457562461863554e-07,
+          "vertices": 38077
+        },
+        "SprigHero_Backpack": {
+          "max": 1.1920928955078125e-07,
+          "p99": 1.1920928955078125e-07,
+          "vertices": 40674
+        }
+      }
+    }
+  ],
+  "tolerance": 0.0003,
+  "maxVertexError": 1.7795879810236277e-05
+}
