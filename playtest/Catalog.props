@@ -1,10 +1,20 @@
 <Project>
   <Import Project="../content/launch.props" />
   <ItemGroup>
+    <!-- The unique-art installer deliberately keeps L1–10 in curated, outside catalog/levels. -->
+    <_TutorialSource Include="$(MSBuildThisFileDirectory)../content/curated/level-*.json">
+      <Number>$([System.Int32]::Parse($([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '^level-', ''))))</Number>
+      <Ship Condition="'%(Number)' &lt;= '10' and '%(Number)' &lt;= '$(LaunchLevelCount)'">true</Ship>
+    </_TutorialSource>
     <_CatalogSource Include="$(MSBuildThisFileDirectory)../content/catalog/levels/*.json">
       <Number>$([System.Int32]::Parse($([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '^level-', ''))))</Number>
-      <Ship Condition="'%(Number)' &lt;= '$(LaunchLevelCount)'">true</Ship>
+      <Ship Condition="'%(Number)' &gt; '10' and '%(Number)' &lt;= '$(LaunchLevelCount)'">true</Ship>
     </_CatalogSource>
+    <LaunchCatalogLevel Include="@(_TutorialSource->WithMetadataValue('Ship', 'true'))" />
     <LaunchCatalogLevel Include="@(_CatalogSource->WithMetadataValue('Ship', 'true'))" />
   </ItemGroup>
+  <Target Name="CheckLaunchCatalogCount" BeforeTargets="PrepareForBuild">
+    <Error Condition="'@(LaunchCatalogLevel->Count())' != '$(LaunchLevelCount)'"
+           Text="Launch content must contain $(LaunchLevelCount) levels, including curated tutorials L1–10. Found @(LaunchCatalogLevel->Count())." />
+  </Target>
 </Project>

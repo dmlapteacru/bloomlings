@@ -30,13 +30,11 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 
 ## What the full playtest has
 
-- The first 2500 levels of the source catalog (the launch boundary in `content/launch.props`), carried from `content/catalog/levels/` (the owner's build of
-  2026-10-07 with `tools/catalog`, spec 001 T188): the curated Levels 1–10 on 11×12–12×12 boards, the mechanic
-  showcases and their practice levels (`content/showcase/`), and from L11 the generated levels on every board size from
-  14×16 to 22×28 (FR-008 as amended on 2026-10-07), all with approved pictures and validated. `PlaytestContent` reads a
-  level and its library picture only when a screen first asks for them (only their names are listed at start: parsing
-  the 2300 library pictures took about 0.6 s on .NET, more on a phone), so the start stays as quick as with 100 levels. A
-  new catalog build comes in with the next APK, with nothing to copy.
+- All 2500 launch levels (the boundary in `content/launch.props`): canonical L1–10 from `content/curated/`, then
+  generated L11–2500 from `content/catalog/levels/`. `Catalog.props` combines these sources and rejects a build with
+  an incomplete level count. The tutorial boards remain 11×12–12×12; later sizes follow `content/launch-art/plan.json`,
+  up to 36×36. `PlaytestContent` lists names at startup and reads a level/picture only on first use. Missing in-range
+  levels are errors, never silently substituted with later boards. A catalog installation reaches the next APK without copying files.
 
   The levels, the picture library and every picture are the APKs' assets (`AndroidAsset`, read through `PlaytestFiles`
   and `AndroidAssetFiles`), not embedded resources: an APK carries its assemblies once for each processor it runs on
@@ -205,4 +203,10 @@ predefined tick from Android 10, a soft pulse where the phone has amplitude cont
   `dotnet publish playtest/android -c Release -f net10.0-android` or the same for `playtest/tester`.
 - `dotnet run --project playtest/check` checks the animator and the meta layer without Android.
 
-The APKs and the preview take their levels from `content/catalog/levels/`, so a catalog build reaches them with no copy.
+The APKs and preview share `Catalog.props`: tutorials from `content/curated/` plus generated levels from
+`content/catalog/levels/`. The installer intentionally retains these as separate sources.
+
+`dotnet run -c Release --project playtest/preview -- --audit-launch --out content/work/launch-audit` audits the actual
+bundled catalog against canonical tutorials, the frozen picture/size plan and mechanic/variant availability. It does
+not generate levels or run the solver. Preview frame 107 checks the fresh L1 path and missing-level rejection.
+See `product/audits/onboarding-2026-10-16.md` for the diagnosed onboarding packaging regression.

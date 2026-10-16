@@ -292,9 +292,15 @@ namespace Bloomlings.Playtest.Design
         private string? _homeToast;
         private float _homeToastUntil;
 
-        /// <summary>A level number the playtest can play: its own content, repeating past the last level.</summary>
-        public int Resolve(int levelNumber) =>
-            Content.TryGetLevel(levelNumber, out _) ? levelNumber : Content.LevelNumbers[(levelNumber - 1) % Content.LevelCount];
+        /// <summary>Repeat only beyond the last bundled level; a missing level inside the catalog is a build error.</summary>
+        public int Resolve(int levelNumber)
+        {
+            if (levelNumber < 1) throw new ArgumentOutOfRangeException(nameof(levelNumber));
+            if (Content.TryGetLevel(levelNumber, out _)) return levelNumber;
+            if (Content.LevelCount == 0 || levelNumber <= Content.MaxLevel)
+                throw new ContentIntegrityException("levels", "Missing bundled level " + levelNumber + "; rebuild with the complete launch catalog and curated tutorials.");
+            return Content.LevelNumbers[(levelNumber - 1) % Content.LevelCount];
+        }
 
         // ---- Navigation ----
 

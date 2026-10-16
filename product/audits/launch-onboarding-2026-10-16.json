@@ -1,0 +1,404 @@
+{
+  "bundledLaunchLevels": 2500,
+  "expectedLaunchLevels": 2500,
+  "canonicalTutorials": 10,
+  "firstVariantLevels": {
+    "acorn": 8,
+    "berry": 200,
+    "dew": 9,
+    "flower": 2,
+    "leaf": 1,
+    "moss": 7,
+    "vine": 45,
+    "violet_bud": 8,
+    "water": 1,
+    "wood": 3
+  },
+  "firstMechanicLevels": {
+    "mechanic.chest": 150,
+    "mechanic.connected_pair": 18,
+    "mechanic.connected_triple": 400,
+    "mechanic.counted_stack": 110,
+    "mechanic.environment_2": 250,
+    "mechanic.fountain": 60,
+    "mechanic.gate": 35,
+    "mechanic.key": 8,
+    "mechanic.layered_tile": 28,
+    "mechanic.locked_pod": 16,
+    "mechanic.locked_slot": 80,
+    "mechanic.mystery_tile": 90,
+    "mechanic.stone": 11
+  },
+  "boardSizeCounts": {
+    "11x12": 4,
+    "12x12": 6,
+    "14x16": 27,
+    "16x18": 24,
+    "18x20": 23,
+    "20x24": 15,
+    "21x24": 154,
+    "21x26": 158,
+    "22x26": 143,
+    "22x28": 319,
+    "24x24": 474,
+    "24x28": 332,
+    "28x28": 345,
+    "30x32": 297,
+    "32x32": 133,
+    "36x36": 46
+  },
+  "first25Levels": [
+    {
+      "level": 1,
+      "picture": "sprout",
+      "width": 11,
+      "height": 12,
+      "variants": [
+        "leaf",
+        "water"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 2,
+      "picture": "tulip",
+      "width": 11,
+      "height": 12,
+      "variants": [
+        "flower",
+        "leaf",
+        "water"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 3,
+      "picture": "tree",
+      "width": 12,
+      "height": 12,
+      "variants": [
+        "leaf",
+        "water",
+        "wood"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 4,
+      "picture": "birdhouse",
+      "width": 12,
+      "height": 12,
+      "variants": [
+        "flower",
+        "water",
+        "wood"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 5,
+      "picture": "cactus",
+      "width": 12,
+      "height": 12,
+      "variants": [
+        "leaf",
+        "water",
+        "wood"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 6,
+      "picture": "sailboat",
+      "width": 11,
+      "height": 12,
+      "variants": [
+        "flower",
+        "water",
+        "wood"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 7,
+      "picture": "bush",
+      "width": 12,
+      "height": 12,
+      "variants": [
+        "leaf",
+        "moss",
+        "water"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 8,
+      "picture": "kite",
+      "width": 11,
+      "height": 12,
+      "variants": [
+        "acorn",
+        "violet_bud",
+        "water"
+      ],
+      "mechanics": [
+        "mechanic.key"
+      ]
+    },
+    {
+      "level": 9,
+      "picture": "snail",
+      "width": 12,
+      "height": 12,
+      "variants": [
+        "acorn",
+        "dew",
+        "leaf"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 10,
+      "picture": "butterfly",
+      "width": 12,
+      "height": 12,
+      "variants": [
+        "flower",
+        "violet_bud",
+        "water"
+      ],
+      "mechanics": []
+    },
+    {
+      "level": 11,
+      "picture": "crescent_lantern",
+      "width": 24,
+      "height": 24,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "moss"
+      ],
+      "mechanics": [
+        "mechanic.stone"
+      ]
+    },
+    {
+      "level": 12,
+      "picture": "garden_bell",
+      "width": 22,
+      "height": 28,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "leaf"
+      ],
+      "mechanics": [
+        "mechanic.stone"
+      ]
+    },
+    {
+      "level": 13,
+      "picture": "leaf_handle_umbrella",
+      "width": 14,
+      "height": 16,
+      "variants": [
+        "dew",
+        "moss",
+        "violet_bud",
+        "wood"
+      ],
+      "mechanics": [
+        "mechanic.key",
+        "mechanic.stone"
+      ]
+    },
+    {
+      "level": 14,
+      "picture": "garden_hose_reel",
+      "width": 14,
+      "height": 16,
+      "variants": [
+        "dew",
+        "leaf",
+        "wood"
+      ],
+      "mechanics": [
+        "mechanic.key"
+      ]
+    },
+    {
+      "level": 15,
+      "picture": "koi_water_leaf",
+      "width": 21,
+      "height": 26,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "moss"
+      ],
+      "mechanics": [
+        "mechanic.stone"
+      ]
+    },
+    {
+      "level": 16,
+      "picture": "acorn_bird_feeder",
+      "width": 20,
+      "height": 24,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "leaf"
+      ],
+      "mechanics": [
+        "mechanic.key",
+        "mechanic.locked_pod"
+      ]
+    },
+    {
+      "level": 17,
+      "picture": "cherry_leaf_charm",
+      "width": 14,
+      "height": 16,
+      "variants": [
+        "dew",
+        "moss",
+        "violet_bud",
+        "wood"
+      ],
+      "mechanics": [
+        "mechanic.key",
+        "mechanic.locked_pod"
+      ]
+    },
+    {
+      "level": 18,
+      "picture": "quill_ink_bottle",
+      "width": 14,
+      "height": 16,
+      "variants": [
+        "dew",
+        "leaf",
+        "violet_bud",
+        "wood"
+      ],
+      "mechanics": [
+        "mechanic.connected_pair"
+      ]
+    },
+    {
+      "level": 19,
+      "picture": "scallop_seaweed",
+      "width": 16,
+      "height": 18,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "moss"
+      ],
+      "mechanics": [
+        "mechanic.connected_pair"
+      ]
+    },
+    {
+      "level": 20,
+      "picture": "garden_compass",
+      "width": 20,
+      "height": 24,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "leaf"
+      ],
+      "mechanics": [
+        "mechanic.stone"
+      ]
+    },
+    {
+      "level": 21,
+      "picture": "watering_can_blossom",
+      "width": 24,
+      "height": 24,
+      "variants": [
+        "dew",
+        "moss",
+        "violet_bud",
+        "wood"
+      ],
+      "mechanics": [
+        "mechanic.connected_pair"
+      ]
+    },
+    {
+      "level": 22,
+      "picture": "leaf_pinwheel",
+      "width": 16,
+      "height": 18,
+      "variants": [
+        "dew",
+        "leaf",
+        "violet_bud",
+        "wood"
+      ],
+      "mechanics": [
+        "mechanic.key",
+        "mechanic.locked_pod"
+      ]
+    },
+    {
+      "level": 23,
+      "picture": "garden_book_stack",
+      "width": 20,
+      "height": 24,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "moss"
+      ],
+      "mechanics": [
+        "mechanic.key",
+        "mechanic.stone"
+      ]
+    },
+    {
+      "level": 24,
+      "picture": "leaf_seal_letter",
+      "width": 18,
+      "height": 20,
+      "variants": [
+        "acorn",
+        "dew",
+        "flower",
+        "leaf"
+      ],
+      "mechanics": [
+        "mechanic.key"
+      ]
+    },
+    {
+      "level": 25,
+      "picture": "garden_violin",
+      "width": 16,
+      "height": 18,
+      "variants": [
+        "dew",
+        "moss",
+        "violet_bud",
+        "wood"
+      ],
+      "mechanics": [
+        "mechanic.key"
+      ]
+    }
+  ],
+  "errors": [],
+  "scope": "Bundled identities, tutorial equality, frozen picture sizes, mechanic/variant availability; no solver or regeneration"
+}

@@ -148,6 +148,29 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Meta.Wardrobe.Profile.Badge?.Id == "badge.achievement.hero_sprig", "the completed hero medal can be worn");
             });
 
+            yield return new Fixture(107,"canonical-first-level","A fresh profile plays the actual small tutorial, never catalog L11",(p,data)=>
+            {
+                Expect(Enumerable.Range(1,2500).All(n=>content.LevelNumbers.Contains(n)),"every launch number, including tutorials, is bundled");
+                for(int n=1;n<=10;n++)
+                {
+                    var canonical=Content.Json.DefinitionJson.Read(File.ReadAllText(Path.Combine(root,$"content/curated/level-{n:0000}.json")));
+                    Expect(Content.Json.DefinitionJson.Write(content.GetLevel(n))==Content.Json.DefinitionJson.Write(canonical),"L"+n+" is its canonical tutorial");
+                }
+                var app=App(data);
+                Expect(app.Meta.CurrentLevel==1&&app.Resolve(1)==1,"fresh progress resolves to L1");
+                app.LoadLevel(1);
+                Expect(app.Level!.Session.Definition.LevelNumber==1,"displayed and actual level numbers match");
+                Expect(app.Level.Session.Picture.Width==11&&app.Level.Session.Picture.Height==12,"the real first board is 11x12");
+                Expect(app.Level.Session.Definition.Pods.All(pod=>pod.Variant==VariantId.Leaf||pod.Variant==VariantId.Water),"the first board only uses leaf and water");
+                Expect(Core.Progression.LevelMechanics.UnlocksUsed(app.Level.Session.Definition,app.Level.Session.Picture).Count==0,"L1 has no special mechanics");
+                var one=content.GetLevel(1);var eleven=content.GetLevel(11);
+                var sparse=new ContentSet(0,20000,new[]{one,eleven},new[]{content.GetPicture(one.Picture),content.GetPicture(eleven.Picture)});
+                var broken=new DesignApp(Path.Combine(data,"missing-level"),sparse,new Silence());
+                bool rejected=false;try{broken.Resolve(2);}catch(ContentIntegrityException){rejected=true;}
+                Expect(rejected,"a missing in-range level is rejected instead of silently substituted");
+                app.Level.SkipGuide();CloseAll(app);Run(app,p,.4f);
+            });
+
             yield return new Fixture(106,"hero-motion-lab","Four original Sprig motions in a reversible test bench",(p,data)=>
             {
                 var app=App(data);app.GoHome();CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);

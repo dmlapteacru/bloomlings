@@ -34,6 +34,7 @@ HashSet<int>? only = null;
 bool sounds = false;
 bool promoMotion = false;
 bool mosaicPilot = false;
+bool auditLaunch = false;
 string? shape = null;
 bool perf = false;
 string? csv = null;
@@ -41,7 +42,11 @@ float purchaseSize = ProfileGameDesign.PurchaseScale;
 string? purchaseComparison = null;
 for (int i = 0; i < args.Length; i++)
 {
-    if (args[i] == "--out" && i + 1 < args.Length)
+    if (args[i] == "--audit-launch")
+    {
+        auditLaunch = true;
+    }
+    else if (args[i] == "--out" && i + 1 < args.Length)
     {
         outDir = Path.GetFullPath(args[++i]);
     }
@@ -177,6 +182,7 @@ if (sounds)
 
 Directory.CreateDirectory(outDir);
 ContentSet content = PlaytestContent.Load();
+if (auditLaunch) return LaunchAudit.Run(content, root, outDir);
 var shapes = new (string Name, float Width, float Height, Insets Insets)[]
 {
     ("16x9", 1080, 1920, new Insets(63, 0)),
