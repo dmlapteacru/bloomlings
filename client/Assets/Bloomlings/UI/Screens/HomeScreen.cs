@@ -278,7 +278,7 @@ namespace Bloomlings.Client.UI.Screens
 
             // The four heroes (frames 2 and 3): on the owner's layered fountain, or around the drawn diorama's lotus
             // fountain with the player's hero at the left front; once the Wardrobe is open each in its outfit.
-            _stage.Place(r.Diorama, screen, BackdropScene.Home, outfitOf: look.Hero ? model.OutfitOf : null, front: look.Hero ? ProfileAvatar.HeroFamily : Family.Sprig);
+            _stage.Place(r.Diorama, screen, BackdropScene.Home, outfitOf: model.OutfitOf, front: look.Hero ? ProfileAvatar.HeroFamily : Family.Sprig);
 
             // The promo scenes under the header, and the Daily Challenge, the right column's first side button, under the
             // Daily Reward's scene.

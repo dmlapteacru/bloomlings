@@ -16,7 +16,7 @@ namespace Bloomlings.Playtest.Design
             if(!BottomNav.IsOpen(NavPlace.Wardrobe,look)){Locked(p,app,look);return;}
             var browse=app.WardrobeBrowse; var wardrobe=app.Meta.Wardrobe;
             WardrobeShelfRegions r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
-            var items=WardrobeShelfCatalog.Build(wardrobe,browse.Kind);
+            var items=WardrobeShelfCatalog.Build(wardrobe,browse.Kind,browse.Family);
             browse.SetOffset(browse.Offset,r.Maximum(items.Count));
             Outfit outfit=wardrobe.OutfitOf(browse.Family);
             p.Mark("ui.wardrobe.illustrations");p.Sprite(MetaScreenArt.Stage,r.Stage);
@@ -38,7 +38,7 @@ namespace Bloomlings.Playtest.Design
                 Skin(p,MetaScreenArt.Tag,WardrobeShelfDesign.Caption(cell));
                 if(WardrobeShelfDesign.Caption(cell).Within(r.Safe))
                     ProfileGamePainter.Label(p,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),item==null?PlaytestText.T("wardrobe.default"):MetaCards.ItemName(item),WardrobeShelfDesign.ItemName);
-                if(wardrobe.EquippedFor(browse.Family,browse.Kind)?.Id==item?.Id)ProfileGamePainter.Check(p,WardrobeShelfDesign.Check(cell));
+                if(WardrobeShelfCatalog.Chosen(wardrobe,browse.Family,browse.Kind,item))ProfileGamePainter.Check(p,WardrobeShelfDesign.Check(cell));
                 Box action=WardrobeShelfDesign.Action(cell);
                 if(card.State==WardrobeItemState.ForSale&&action.Within(r.Safe))ProfileGamePainter.Price(p,action,NumberText.Group(item!.Price));
                 if(card.State==WardrobeItemState.Reward&&action.Within(r.Safe))
@@ -86,7 +86,7 @@ namespace Bloomlings.Playtest.Design
         }
         private static void Choose(DesignApp app,Family family,CosmeticKind kind,WardrobeShelfItem card)
         {
-            var wardrobe=app.Meta.Wardrobe;CosmeticItem? item=card.Item;
+            var wardrobe=app.Meta.Wardrobe;CosmeticItem? item=card.Item;kind=item?.Kind??kind;
             if(card.State==WardrobeItemState.ForSale)
             {
                 void Refuse(){app.Sound.Play(SoundCue.Refused);app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));}
@@ -96,7 +96,7 @@ namespace Bloomlings.Playtest.Design
                     ()=>{if(wardrobe.TryBuy(item.Id))wardrobe.Equip(family,item.Id);else Refuse();});
                 return;
             }
-            if(item==null||wardrobe.EquippedFor(family,kind)?.Id==item.Id)wardrobe.Unequip(family,kind);else wardrobe.Equip(family,item.Id);
+            if(item==null&&kind==CosmeticKind.Hat)wardrobe.UnequipAccessories(family);else if(item==null||wardrobe.EquippedFor(family,kind)?.Id==item.Id)wardrobe.Unequip(family,kind);else wardrobe.Equip(family,item.Id);
             app.Sound.Play(SoundCue.Click);
         }
         private static void Locked(IPainter p,DesignApp app,HomeLook look)

@@ -780,7 +780,7 @@ namespace Bloomlings.Playtest.Design
             if (editor.NeedsBuying && Meta.Economy.Petals >= editor.Price)
             {
                 AvatarItem avatar = editor.Avatar;
-                Outfit? outfit = Meta.Wardrobe.IsAvailable ? Meta.Wardrobe.OutfitOf(avatar.Family) : (Outfit?)null;
+                Outfit? outfit = Meta.Wardrobe.OutfitOf(avatar.Family);
                 ConfirmPurchase(
                     PurchaseOffer.ForPetals(PlaytestText.T("purchase.avatar"), editor.Price),
                     (q, well) => Kit.AvatarPicture(q, well.Inset(well.Width * 0.08f), avatar, outfit),

@@ -184,3 +184,22 @@ and the GLB. Review PNG/MP4 files are real GLB renders. Model geometry was compa
 after reimport at twelve poses; reports and instructions are in
 `output/sprig-outfit-study/README.md`. Editable `.blend`, self-contained HTML and ZIP
 are generated under ignored `content/work/sprig-outfit-study/`.
+
+## Modular Sprig in-game equipment pilot (2026-10-17)
+
+At the owner's request, the new Sprig now replaces the displayed meta-screen Sprig. The offline study above remains
+historical provenance; the owner's Blender project is the sole authoring master. See
+`product/plans/hero-asset-workflow.md` for the updated geometry/texture/animation responsibilities.
+
+`bake-sprig-gear.mjs` renders `models/sprig-outfit-study.glb` using Three.js and headless Chromium. It retains the
+owner's embedded textures/materials, rig and CapOn morph. It does not create new texture paint or new skeletal actions.
+Six cropped PNG8 layers (natural/capped base and their depth-masked glasses/backpack overlays) and three standalone
+shop icons total 117,205 bytes. Depth-only body/cap renders occlude the accessories correctly. An independent rear
+view exposes the backpack's outward side for its shop icon.
+
+`sprig-gear.json` records the model hash, crop boxes, image hashes/sizes and generated `SprigGearData.cs` hash.
+`check.mjs` verifies all of them and their presence in the bundled HeroMotion folder. No FBX/GLB enters the APK.
+Free Sprig-only, meta-only equipment persists through the existing wardrobe save, shown on Home, Wardrobe and wins;
+the cap switches the exclusive prepared head. The current runtime pose has a restrained 2D breathing transform.
+The full skeletal animation/action feature is deferred, as requested. Existing legacy frames remain for compatibility;
+the other heroes and gameplay character art are retained.

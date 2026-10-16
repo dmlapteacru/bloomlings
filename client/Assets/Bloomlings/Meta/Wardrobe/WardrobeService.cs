@@ -9,11 +9,13 @@ using Bloomlings.Core.Variants;
 namespace Bloomlings.Client.Meta.Wardrobe
 {
     /// <summary>What one family wears: at most one item of each worn kind.</summary>
-    public sealed record Outfit(CosmeticItem? Skin, CosmeticItem? Hat, CosmeticItem? Trail, CosmeticItem? Expression)
+    public sealed record Outfit(CosmeticItem? Skin, CosmeticItem? Hat, CosmeticItem? Trail, CosmeticItem? Expression, CosmeticItem? Glasses = null, CosmeticItem? Backpack = null)
     {
         public static Outfit None { get; } = new Outfit(null, null, null, null);
 
-        public bool IsEmpty => Skin == null && Hat == null && Trail == null && Expression == null;
+        public bool IsEmpty => Skin == null && Hat == null && Trail == null && Expression == null && Glasses == null && Backpack == null;
+        public Outfit ForGameplay => new Outfit(Skin?.MetaOnly == true ? null : Skin, Hat?.MetaOnly == true ? null : Hat,
+            Trail?.MetaOnly == true ? null : Trail, Expression?.MetaOnly == true ? null : Expression);
 
         public CosmeticItem? Get(CosmeticKind kind) => kind switch
         {
@@ -21,6 +23,8 @@ namespace Bloomlings.Client.Meta.Wardrobe
             CosmeticKind.Hat => Hat,
             CosmeticKind.Trail => Trail,
             CosmeticKind.Expression => Expression,
+            CosmeticKind.Glasses => Glasses,
+            CosmeticKind.Backpack => Backpack,
             _ => null,
         };
     }
@@ -88,6 +92,27 @@ namespace Bloomlings.Client.Meta.Wardrobe
         public CosmeticCatalog Catalog => _catalog;
 
         public bool IsAvailable => _save.Unlocks.IsSet(UnlockId) && _config.Get(RemoteConfigKeys.WardrobeEnabled);
+        public bool HasFreeHeroItems
+        {
+            get
+            {
+                if (!_config.Get(RemoteConfigKeys.WardrobeEnabled)) return false;
+                foreach (var item in _catalog.Items) if (item.Free && item.MetaOnly && item.IsWorn) return true;
+                return false;
+            }
+        }
+
+        /// <summary>Free trial accessories remain listed after equipping; paid items retain their unlock.</summary>
+        public IReadOnlyList<CosmeticItem> ShopItems
+        {
+            get
+            {
+                var result = new List<CosmeticItem>();
+                if (HasFreeHeroItems) foreach (var item in _catalog.Items) if (item.Free && item.MetaOnly) result.Add(item);
+                if (IsAvailable) result.AddRange(ForSale);
+                return result;
+            }
+        }
 
         /// <summary>Whether the player owns an item: a free one always, any other once the save holds it.</summary>
         public bool Owns(CosmeticItem item) => item.Free || _save.Cosmetics.Owned.Contains(item.Id)
@@ -216,7 +241,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// <summary>Equips an owned worn item on one family, in its kind's slot; false when it is not owned or not wearable.</summary>
         public bool Equip(Family family, string itemId)
         {
-            if (!_save.Cosmetics.Owned.Contains(itemId) || !_catalog.TryGet(itemId, out CosmeticItem? item) || !item!.IsWorn)
+            if (!_catalog.TryGet(itemId, out CosmeticItem? item) || !Owns(item!) || !item!.IsWorn || !item.Fits(family))
             {
                 return false;
             }
@@ -237,14 +262,28 @@ namespace Bloomlings.Client.Meta.Wardrobe
             }
         }
 
+        public void UnequipAll(Family family)
+        {
+            bool changed=false;
+            foreach (var kind in new[] {CosmeticKind.Skin,CosmeticKind.Hat,CosmeticKind.Trail,CosmeticKind.Expression,CosmeticKind.Glasses,CosmeticKind.Backpack})
+                changed |= _save.Cosmetics.Equipped.Remove(Slot(family,kind));
+            if(changed){_persist();Changed?.Invoke();}
+        }
+        public void UnequipAccessories(Family family)
+        {
+            bool changed=false;
+            foreach(var kind in new[]{CosmeticKind.Hat,CosmeticKind.Glasses,CosmeticKind.Backpack})
+                changed |= _save.Cosmetics.Equipped.Remove(Slot(family,kind));
+            if(changed){_persist();Changed?.Invoke();}
+        }
+
         /// <summary>What a family wears of one kind, or null. Nothing is worn while the Wardrobe is switched off remotely.</summary>
         public CosmeticItem? EquippedFor(Family family, CosmeticKind kind)
         {
-            if (!IsAvailable
-                || !_save.Cosmetics.Equipped.TryGetValue(Slot(family, kind), out string? id)
-                || !_save.Cosmetics.Owned.Contains(id)
+            if (!_save.Cosmetics.Equipped.TryGetValue(Slot(family, kind), out string? id)
                 || !_catalog.TryGet(id, out CosmeticItem? item)
-                || item!.Kind != kind)
+                || !Owns(item!) || !item!.Fits(family) || item.Kind != kind
+                || (!IsAvailable && !(HasFreeHeroItems && item.Free && item.MetaOnly)))
             {
                 return null;
             }
@@ -253,13 +292,13 @@ namespace Bloomlings.Client.Meta.Wardrobe
         }
 
         /// <summary>Everything a family wears (presentation only; the workers and the Wardrobe draw it).</summary>
-        public Outfit OutfitOf(Family family) => IsAvailable
-            ? new Outfit(
+        public Outfit OutfitOf(Family family) => new Outfit(
                 EquippedFor(family, CosmeticKind.Skin),
                 EquippedFor(family, CosmeticKind.Hat),
                 EquippedFor(family, CosmeticKind.Trail),
-                EquippedFor(family, CosmeticKind.Expression))
-            : Outfit.None;
+                EquippedFor(family, CosmeticKind.Expression),
+                EquippedFor(family, CosmeticKind.Glasses),
+                EquippedFor(family, CosmeticKind.Backpack));
 
         /// <summary>
         /// Shows an owned frame, badge or marker on the profile (a free one also while the Wardrobe is closed); false when it

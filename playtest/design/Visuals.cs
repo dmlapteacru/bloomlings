@@ -70,6 +70,11 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Hero(IPainter p, Box box, Family family, Outfit? outfit)
         {
+            if (family == Family.Sprig && p.HasSprite(PainterBase.HeroMotionPrefix + SprigGearArt.Layer(null, 0)!.Value.Name))
+            {
+                Sprig(p, HeroMotion.Cell(box), outfit);
+                return;
+            }
             p.Mark(CharacterArt.HeroSlot(family));
             bool expression = outfit?.Expression != null;
             bool blank = expression && CharacterArt.HasMatchingBlank(family);
@@ -145,6 +150,11 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void MotionHero(IPainter p, Box cell, Family family, HeroPose pose, Outfit? outfit)
         {
+            if (family == Family.Sprig && p.HasSprite(PainterBase.HeroMotionPrefix + SprigGearArt.Layer(null, 0)!.Value.Name))
+            {
+                Sprig(p, SprigGearArt.PoseCell(cell, pose), outfit);
+                return;
+            }
             p.Mark(HeroMotion.Slot(family));
             HeroFrame frame = HeroMotion.Frame(family, pose.Clip, pose.Index);
             HeroFrame? from = pose.FromIdle >= 0 && pose.FromAlpha > 0f ? HeroMotion.Frame(family, pose.FromClip, pose.FromIdle) : (HeroFrame?)null;
@@ -181,6 +191,23 @@ namespace Bloomlings.Playtest.Design
                 Hat(p, box, outfit.Hat);
                 p.PopTransform();
             }
+        }
+
+        private static void Sprig(IPainter p, Box cell, Outfit? outfit)
+        {
+            p.Mark(HeroMotion.Slot(Family.Sprig));
+            if (outfit?.Trail != null) p.Shape(ShapeLibrary.CosmeticId(outfit.Trail.Shape), CharacterArt.TrailBox(cell), Tint(outfit.Trail));
+            for (int i = 0; i < SprigGearArt.LayerCount; i++)
+            {
+                HeroFrame? layer = SprigGearArt.Layer(outfit, i);
+                if (!layer.HasValue) continue;
+                string name = PainterBase.HeroMotionPrefix + layer.Value.Name;
+                Box picture = HeroMotion.PictureBox(cell, layer.Value);
+                p.Sprite(name, picture);
+                if (i == 0 && outfit?.Skin != null) p.SpriteSkin(name, picture, outfit.Skin.Shape, Tint(outfit.Skin).WithAlpha(CosmeticCatalog.SkinOpacity));
+            }
+            if (outfit?.Expression != null) ExpressionBadge(p, CharacterArt.ExpressionBadge(cell), ShapeLibrary.CosmeticId(outfit.Expression.Shape));
+            if (outfit?.Hat != null && !SprigGearArt.IsCap(outfit)) Hat(p, CharacterArt.HatOnHero(cell, Family.Sprig, outfit.Hat.Shape), outfit.Hat);
         }
 
         /// <summary>One hero frame in its cell, with the worn skin through the frame's own alpha.</summary>

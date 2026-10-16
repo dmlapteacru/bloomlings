@@ -1,0 +1,129 @@
+{
+  "model": "models/sprig-outfit-study.glb",
+  "modelSha256": "10655aa4bd0befdf5e8e0eb795dccadd24c8b243676b5f271cd402532bff8eb8",
+  "data": "client/Assets/Bloomlings/UI/Design/SprigGearData.cs",
+  "dataSha256": "674f46c92ae29e8c842b635bc7cf2195d3dd128ebe73fbef2ac38bef73bf4e30",
+  "cell": [
+    448,
+    504
+  ],
+  "outputs": [
+    {
+      "key": "base",
+      "file": "sprigmod-base.png",
+      "crop": [
+        17,
+        57,
+        414,
+        398
+      ],
+      "icon": false,
+      "bytes": 45484,
+      "sha256": "af7a844c5078aa0517f6e86e7604c1b08ca9bd3ae616dceab8d8eca501e16097"
+    },
+    {
+      "key": "cap",
+      "file": "sprigmod-cap.png",
+      "crop": [
+        39,
+        102,
+        372,
+        353
+      ],
+      "icon": false,
+      "bytes": 31701,
+      "sha256": "13a9b504d02fcd6eaa1267c8061a79f2050bdf262827581842a444d720c9e64f"
+    },
+    {
+      "key": "glasses",
+      "file": "sprigmod-glasses.png",
+      "crop": [
+        110,
+        238,
+        245,
+        80
+      ],
+      "icon": false,
+      "bytes": 4914,
+      "sha256": "10f8634aef03686a2da35af718905f78cc9ce4312d75fdcb3460614fb1169841"
+    },
+    {
+      "key": "cap-glasses",
+      "file": "sprigmod-cap-glasses.png",
+      "crop": [
+        110,
+        238,
+        245,
+        80
+      ],
+      "icon": false,
+      "bytes": 4914,
+      "sha256": "10f8634aef03686a2da35af718905f78cc9ce4312d75fdcb3460614fb1169841"
+    },
+    {
+      "key": "backpack",
+      "file": "sprigmod-backpack.png",
+      "crop": [
+        173,
+        341,
+        119,
+        101
+      ],
+      "icon": false,
+      "bytes": 2087,
+      "sha256": "215458757c8cc3831c45a14429bf5cf36b62f2aa4a801dfc00b0c9673f9323dc"
+    },
+    {
+      "key": "cap-backpack",
+      "file": "sprigmod-cap-backpack.png",
+      "crop": [
+        173,
+        341,
+        119,
+        101
+      ],
+      "icon": false,
+      "bytes": 2087,
+      "sha256": "215458757c8cc3831c45a14429bf5cf36b62f2aa4a801dfc00b0c9673f9323dc"
+    },
+    {
+      "key": "icon-hat",
+      "file": "sprigmod-icon-hat.png",
+      "crop": [
+        34,
+        63,
+        256,
+        174
+      ],
+      "icon": true,
+      "bytes": 8492,
+      "sha256": "b60312dfc232372c339d090c38456800ac8368681f191a52ccc8a341c8effa94"
+    },
+    {
+      "key": "icon-glasses",
+      "file": "sprigmod-icon-glasses.png",
+      "crop": [
+        41,
+        126,
+        234,
+        86
+      ],
+      "icon": true,
+      "bytes": 5031,
+      "sha256": "c4d9767764b99d14589f6a5aef253805e3bac425d2854be761717dc5ed64c1dc"
+    },
+    {
+      "key": "icon-backpack",
+      "file": "sprigmod-icon-backpack.png",
+      "crop": [
+        58,
+        44,
+        237,
+        238
+      ],
+      "icon": true,
+      "bytes": 12495,
+      "sha256": "5b46ce225c54395cdb53dfd0aa8fedaa97fa77c87640c12c49de59aaf5511ae6"
+    }
+  ]
+}

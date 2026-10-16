@@ -37,6 +37,7 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed class MilestoneCard : MonoBehaviour
     {
+        public Func<Family, Bloomlings.Client.Meta.Wardrobe.Outfit>? OutfitOf { get; set; }
         private readonly List<GameObject> _items = new List<GameObject>();
         private GameObject _root = null!;
         private RectTransform _rect = null!;
@@ -113,7 +114,8 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _sign.Text = Loc.F("common.level", NumberText.Group(grant.Level));
-            _celebration.ShowHero(level != null ? CharacterArt.CelebrantOf(level.LevelNumber) : (Family?)null, CharacterArt.CelebrationTurn(level?.LevelNumber ?? 0));
+            Family? celebrant=level!=null ? CharacterArt.CelebrantOf(level.LevelNumber) : (Family?)null;
+            _celebration.ShowHero(celebrant, CharacterArt.CelebrationTurn(level?.LevelNumber??0),celebrant.HasValue ? OutfitOf?.Invoke(celebrant.Value) : null);
             _confettiClip.gameObject.SetActive(level != null);
             if (level != null)
             {

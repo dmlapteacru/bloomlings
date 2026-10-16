@@ -4,6 +4,7 @@ using System.Globalization;
 using Bloomlings.Content.Json;
 using Bloomlings.Client.Meta.Profile;
 using Newtonsoft.Json.Linq;
+using Bloomlings.Core.Variants;
 
 namespace Bloomlings.Client.Meta.Wardrobe
 {
@@ -20,6 +21,8 @@ namespace Bloomlings.Client.Meta.Wardrobe
         Frame,
         Badge,
         Marker,
+        Glasses,
+        Backpack,
     }
 
     /// <summary>
@@ -30,12 +33,13 @@ namespace Bloomlings.Client.Meta.Wardrobe
     /// <see cref="Free"/> items (the five drawn profile frames, spec 005 FR-037 as amended 2026-10-06) are every player's
     /// from Level 1 without being stored in the save, and the profile's edit card lists them before the Wardrobe opens.
     /// </summary>
-    public sealed record CosmeticItem(string Id, CosmeticKind Kind, string Name, string Shape, string Tint, bool Starter, int Price = 0, int? MilestoneLevel = null, bool Free = false)
+    public sealed record CosmeticItem(string Id, CosmeticKind Kind, string Name, string Shape, string Tint, bool Starter, int Price = 0, int? MilestoneLevel = null, bool Free = false, Family? ForFamily = null, bool MetaOnly = false)
     {
-        /// <summary>Worn by Bloomlings on the board, so it must keep tiles, pods and workers readable.</summary>
+        /// <summary>Equipped on a hero; MetaOnly items are excluded from gameplay figures.</summary>
         public bool IsWorn => CosmeticCatalog.IsWornKind(Kind);
 
         public bool ForSale => Price > 0;
+        public bool Fits(Family family) => !ForFamily.HasValue || ForFamily.Value == family;
     }
 
     /// <summary>
@@ -73,6 +77,8 @@ namespace Bloomlings.Client.Meta.Wardrobe
             [CosmeticKind.Frame] = new[] { "frame", "wood_ring", "leaf_ring", "flower_wreath", "stone_ring", "golden_ribbon" },
             [CosmeticKind.Badge] = new[] { "badge" },
             [CosmeticKind.Marker] = new[] { "marker" },
+            [CosmeticKind.Glasses] = new[] { "round" },
+            [CosmeticKind.Backpack] = new[] { "leaf" },
         };
 
         private readonly Dictionary<string, CosmeticItem> _byId = new Dictionary<string, CosmeticItem>(StringComparer.Ordinal);
@@ -119,7 +125,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         }
 
         public static bool IsWornKind(CosmeticKind kind) =>
-            kind == CosmeticKind.Skin || kind == CosmeticKind.Hat || kind == CosmeticKind.Trail || kind == CosmeticKind.Expression;
+            kind == CosmeticKind.Skin || kind == CosmeticKind.Hat || kind == CosmeticKind.Trail || kind == CosmeticKind.Expression || kind == CosmeticKind.Glasses || kind == CosmeticKind.Backpack;
 
         /// <summary>A listed item, or a generated level badge or marker.</summary>
         public bool TryGet(string id, out CosmeticItem? item)
@@ -179,7 +185,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             {
                 string path = JsonDoc.Index("items", i);
                 JObject item = JsonDoc.Object(array[i], path);
-                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price", "free");
+                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price", "free", "family", "metaOnly");
                 JToken? starter = JsonDoc.Optional(item, "starter");
                 JToken? price = JsonDoc.Optional(item, "price");
                 JToken? free = JsonDoc.Optional(item, "free");
@@ -191,7 +197,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
                     JsonDoc.String(JsonDoc.Required(item, path, "tint"), JsonDoc.Join(path, "tint")),
                     starter != null && JsonDoc.Bool(starter, JsonDoc.Join(path, "starter")),
                     price == null ? 0 : JsonDoc.Int(price, JsonDoc.Join(path, "price"), min: 1),
-                    Free: free != null && JsonDoc.Bool(free, JsonDoc.Join(path, "free"))));
+                    Free: free != null && JsonDoc.Bool(free, JsonDoc.Join(path, "free")),
+                    ForFamily: JsonDoc.Optional(item, "family") is JToken family ? ParseFamily(JsonDoc.String(family, JsonDoc.Join(path, "family")), path) : null,
+                    MetaOnly: JsonDoc.Optional(item, "metaOnly") is JToken meta && JsonDoc.Bool(meta, JsonDoc.Join(path, "metaOnly"))));
             }
 
             return new CosmeticCatalog(items);
@@ -224,7 +232,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
                     problems.Add($"{item.Id}: a free item is everyone's from Level 1, neither given nor sold");
                 }
 
-                if (item.Free && item.IsWorn)
+                if (item.Free && item.IsWorn && !item.MetaOnly)
                 {
                     problems.Add($"{item.Id}: only profile items are free (the profile opens at Level 1, the Wardrobe later)");
                 }
@@ -241,7 +249,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 }
 
                 double saturation = Saturation(r, g, b);
-                if (item.IsWorn && saturation > MaxWornSaturation)
+                if (item.IsWorn && !item.MetaOnly && saturation > MaxWornSaturation)
                 {
                     problems.Add(string.Format(
                         CultureInfo.InvariantCulture,
@@ -264,6 +272,8 @@ namespace Bloomlings.Client.Meta.Wardrobe
             CosmeticKind.Expression => "expression",
             CosmeticKind.Frame => "frame",
             CosmeticKind.Badge => "badge",
+            CosmeticKind.Glasses => "glasses",
+            CosmeticKind.Backpack => "backpack",
             _ => "marker",
         };
 
@@ -306,7 +316,15 @@ namespace Bloomlings.Client.Meta.Wardrobe
             "frame" => CosmeticKind.Frame,
             "badge" => CosmeticKind.Badge,
             "marker" => CosmeticKind.Marker,
+            "glasses" => CosmeticKind.Glasses,
+            "backpack" => CosmeticKind.Backpack,
             _ => null,
+        };
+
+        private static Family ParseFamily(string text, string path) => text switch
+        {
+            "sprig" => Family.Sprig, "bloom" => Family.Bloom, "drop" => Family.Drop, "twig" => Family.Twig,
+            _ => throw new ContentFormatException(path, "Unknown cosmetic family"),
         };
 
         private static CosmeticKind ParseKind(string text, string path) => KindOfName(text)

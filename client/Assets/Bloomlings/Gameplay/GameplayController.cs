@@ -161,6 +161,7 @@ namespace Bloomlings.Client.Gameplay
             // top bar), so the pause card must cover the jam card (Settings, built when first opened, comes above it).
             _win = WinScreen.Create(root, Next);
             _milestoneCard = MilestoneCard.Create(root, Next);
+            if(wardrobe!=null){_win.OutfitOf=wardrobe.OutfitOf;_milestoneCard.OutfitOf=wardrobe.OutfitOf;}
             _jam = JamScreen.Create(root, RestartFromJam, OnRecovery, _hud.TopBar);
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave, OpenSettings);
             _banner = DifficultyBanner.Create(root);

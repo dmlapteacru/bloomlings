@@ -91,7 +91,7 @@ namespace Bloomlings.Client.Tests
             wardrobe.OnUnlock(WardrobeService.UnlockId);
             wardrobe.OnUnlock(WardrobeService.UnlockId);
             Assert.That(wardrobe.Owned.Where(i => !i.Free).Select(i => i.Id), Is.EqualTo(new[] { "hat.sprout_cap", "skin.speckles" }), "starter items are given once");
-            Assert.That(wardrobe.Owned.Where(i => i.Free).All(i => i.Kind == CosmeticKind.Frame), Is.True, "besides the free frames everyone owns");
+            Assert.That(wardrobe.Owned.Where(i => i.Free).All(i => i.Kind == CosmeticKind.Frame || i.MetaOnly), Is.True, "free frames and the owner's meta-only trial accessories are owned without grants");
 
             Assert.That(wardrobe.Equip(Family.Drop, "hat.leaf_cap"), Is.False, "not owned");
             save.Cosmetics.Owned.Add("hat.leaf_cap");

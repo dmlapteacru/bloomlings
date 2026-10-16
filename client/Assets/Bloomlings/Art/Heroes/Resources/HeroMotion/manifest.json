@@ -8100,6 +8100,87 @@
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-base.png",
+   "width": 414,
+   "height": 398,
+   "sha256": "af7a844c5078aa0517f6e86e7604c1b08ca9bd3ae616dceab8d8eca501e16097",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-cap.png",
+   "width": 372,
+   "height": 353,
+   "sha256": "13a9b504d02fcd6eaa1267c8061a79f2050bdf262827581842a444d720c9e64f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-glasses.png",
+   "width": 245,
+   "height": 80,
+   "sha256": "10f8634aef03686a2da35af718905f78cc9ce4312d75fdcb3460614fb1169841",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-cap-glasses.png",
+   "width": 245,
+   "height": 80,
+   "sha256": "10f8634aef03686a2da35af718905f78cc9ce4312d75fdcb3460614fb1169841",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-backpack.png",
+   "width": 119,
+   "height": 101,
+   "sha256": "215458757c8cc3831c45a14429bf5cf36b62f2aa4a801dfc00b0c9673f9323dc",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-cap-backpack.png",
+   "width": 119,
+   "height": 101,
+   "sha256": "215458757c8cc3831c45a14429bf5cf36b62f2aa4a801dfc00b0c9673f9323dc",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-icon-hat.png",
+   "width": 256,
+   "height": 174,
+   "sha256": "b60312dfc232372c339d090c38456800ac8368681f191a52ccc8a341c8effa94",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-icon-glasses.png",
+   "width": 234,
+   "height": 86,
+   "sha256": "c4d9767764b99d14589f6a5aef253805e3bac425d2854be761717dc5ed64c1dc",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigmod-icon-backpack.png",
+   "width": 237,
+   "height": 238,
+   "sha256": "5b46ce225c54395cdb53dfd0aa8fedaa97fa77c87640c12c49de59aaf5511ae6",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
   }
  ]
 }

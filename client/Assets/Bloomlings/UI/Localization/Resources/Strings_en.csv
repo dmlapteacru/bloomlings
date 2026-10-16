@@ -164,7 +164,13 @@ wardrobe.title,Wardrobe
 wardrobe.more,Milestones unlock more items
 wardrobe.tab_profile,Profile
 wardrobe.kind_skin,Skins
-wardrobe.kind_hat,Hats
+wardrobe.kind_hat,Accessories
+wardrobe.kind_glasses,Glasses
+wardrobe.kind_backpack,Backpacks
+wardrobe.remove,Remove
+cosmetic.hat.sprig_daisy,Daisy Cap
+cosmetic.glasses.sprig_round,Garden Glasses
+cosmetic.backpack.sprig_leaf,Leaf Backpack
 wardrobe.kind_trail,Trails
 wardrobe.kind_expression,Faces
 wardrobe.kind_frame,Frames

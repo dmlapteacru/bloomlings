@@ -44,6 +44,9 @@
     { "id": "trail.breeze", "kind": "trail", "name": "Breeze", "shape": "swirl", "tint": "#DDE2E0", "price": 220 },
     { "id": "expression.sleepy", "kind": "expression", "name": "Sleepy", "shape": "sleepy", "tint": "#4A4540", "price": 150 },
     { "id": "frame.bramble", "kind": "frame", "name": "Bramble Frame", "shape": "frame", "tint": "#B5A898", "price": 350 },
-    { "id": "badge.watering_can", "kind": "badge", "name": "Watering Can Badge", "shape": "badge", "tint": "#B0BCC4", "price": 300 }
+    { "id": "badge.watering_can", "kind": "badge", "name": "Watering Can Badge", "shape": "badge", "tint": "#B0BCC4", "price": 300 },
+    {"id": "hat.sprig_daisy", "kind": "hat", "name": "Daisy Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true},
+    {"id": "glasses.sprig_round", "kind": "glasses", "name": "Garden Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true},
+    {"id": "backpack.sprig_leaf", "kind": "backpack", "name": "Leaf Backpack", "shape": "leaf", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true}
   ]
 }

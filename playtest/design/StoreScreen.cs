@@ -74,7 +74,7 @@ namespace Bloomlings.Playtest.Design
 
             // The tabs: the Shop, the Cosmetics once the Wardrobe opens (L40), and the Animations (the clearing styles'
             // previews show from the Store's unlock; spec 005 FR-038).
-            bool cosmetics = meta.Wardrobe.IsAvailable;
+            bool cosmetics = meta.Wardrobe.IsAvailable || meta.Wardrobe.HasFreeHeroItems;
             var tabs = new List<string> { "store.tab_shop" };
             if (cosmetics)
             {
@@ -331,7 +331,7 @@ namespace Bloomlings.Playtest.Design
             Family family=families[selected];
             Box bar=ShopCatalogDesign.FamilyTabs(r);
             Kit.NavigationBar(p,bar,families.Count);
-            var items=new List<CosmeticItem?>{null};items.AddRange(wardrobe.ForSale);
+            var items=new List<CosmeticItem?>{null};foreach(var item in wardrobe.ShopItems)if(item.Fits(family))items.Add(item);
             Box area=ShopCatalogDesign.Viewport(r,true);Box viewport=ShopBodyDesign.ScrollViewport(r,area);
             float max=Math.Max(0,ShopCatalogDesign.CosmeticsHeight(area,items.Count)-area.Height);
             app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset));
@@ -341,10 +341,11 @@ namespace Bloomlings.Playtest.Design
                 CosmeticItem? item=items[i];
                 Box card=ShopCatalogDesign.CosmeticCard(area,i).Offset(0,-app.ShopScrollOffset);
                 if(card.Bottom<=viewport.Top||card.Top>=viewport.Bottom)continue;
-                bool chosen=item==null&&wardrobe.OutfitOf(family).IsEmpty;
+                bool chosen=item==null ? wardrobe.OutfitOf(family).IsEmpty : wardrobe.EquippedFor(family,item.Kind)?.Id==item.Id;
                 string name=item==null ? PlaytestText.T("wardrobe.default") : MetaCards.ItemName(item);
-                Action? tap=item==null ? (Action?)null : ()=>BuyCosmetic(app,family,item);
-                ShopCatalogPainter.Card(p,card,area,true,false,name,item==null ? chosen ? ClearingAction.Chosen : ClearingAction.Choose : ClearingAction.Buy,item?.Price??0,chosen,false,tap,well=>Preview(p,well,family,item),item==null ? PlaytestText.T(chosen ? "clearing.chosen" : "wardrobe.default") : null);
+                Action? tap=item==null ? ()=>wardrobe.UnequipAll(family) : ()=>BuyCosmetic(app,family,item);
+                var action=item==null||wardrobe.Owns(item) ? chosen ? ClearingAction.Chosen : ClearingAction.Choose : ClearingAction.Buy;
+                ShopCatalogPainter.Card(p,card,area,true,false,name,action,item?.Price??0,chosen,item?.Free==true,tap,well=>Preview(p,well,family,item),item==null ? PlaytestText.T(chosen ? "clearing.chosen" : "wardrobe.default") : item.Free&&chosen ? PlaytestText.T("wardrobe.remove") : null);
             }
             p.PopClip();
             p.VerticalScroll(viewport,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
@@ -357,6 +358,11 @@ namespace Bloomlings.Playtest.Design
         }
         private static void BuyCosmetic(DesignApp app,Family family,CosmeticItem item)
         {
+            if(app.Meta.Wardrobe.Owns(item))
+            {
+                if(app.Meta.Wardrobe.EquippedFor(family,item.Kind)?.Id==item.Id)app.Meta.Wardrobe.Unequip(family,item.Kind);else app.Meta.Wardrobe.Equip(family,item.Id);
+                return;
+            }
             if(app.Meta.Economy.Petals<item.Price){Refuse(app);return;}
             app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),(q,well)=>Preview(q,well,family,item),()=>{if(!app.Meta.Wardrobe.TryBuy(item.Id))Refuse(app);});
         }
@@ -440,6 +446,8 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         private static void Preview(IPainter p, Box well, Family family, CosmeticItem? item)
         {
+            HeroFrame? icon=item!=null ? SprigGearArt.Icon(item.Id) : null;
+            if(icon.HasValue){p.Sprite(PainterBase.HeroMotionPrefix+icon.Value.Name,PainterBase.Fit(well,icon.Value.Width,icon.Value.Height));return;}
             // The hero fills the well with its feet near the bottom; a hat sits above the picture, so with a hat the hero
             // is a little smaller and lower to keep the hat inside the well.
             bool hat = item != null && item.Kind == CosmeticKind.Hat;

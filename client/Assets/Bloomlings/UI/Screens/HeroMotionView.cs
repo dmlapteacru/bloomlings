@@ -51,6 +51,8 @@ namespace Bloomlings.Client.UI.Screens
         private int _shown = -1;
         private int _fadeShown = -1;
         private float _fadeAlpha = -1f;
+        private SprigGearView? _gear;
+        private bool _gearOn;
 
         /// <summary>A hero view under <paramref name="parent"/>; place its <see cref="Rect"/> at the frame cell.</summary>
         public static HeroMotionView Create(string name, Transform parent)
@@ -106,6 +108,7 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         public void Wear(Outfit? outfit)
         {
+            if (_gearOn) _gear!.Wear(outfit);
             CosmeticItem? trail = outfit?.Trail;
             _trail.gameObject.SetActive(trail != null);
             if (trail != null)
@@ -141,7 +144,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             CosmeticItem? hat = outfit?.Hat;
-            _wearsHat = hat != null;
+            _wearsHat = hat != null && !(_gearOn && SprigGearArt.IsCap(outfit));
             _hatShape = hat?.Shape;
             _hat.gameObject.SetActive(false);
             if (hat != null)
@@ -158,6 +161,12 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>Shows the pose at <paramref name="now"/> (unscaled seconds); a celebrating view calls it itself.</summary>
         public void Tick(float now)
         {
+            if (_gearOn && _player != null)
+            {
+                _gear!.Tick(_player.Pose(now));
+                if (_wearsHat && _set != null) PlaceHat(_set, SprigGearArt.Layer(null, 0)!.Value);
+                return;
+            }
             if (_held == null || _player == null)
             {
                 return;
@@ -240,6 +249,16 @@ namespace Bloomlings.Client.UI.Screens
 
         private void Bind(Family family)
         {
+            _gearOn = family == Family.Sprig;
+            if (_gearOn)
+            {
+                _gear ??= SprigGearView.Create(_cell);
+                _gear.Rect.SetSiblingIndex(_frame.rectTransform.GetSiblingIndex());
+                _gear.Rect.gameObject.SetActive(true);
+                _gear.Wear(null);
+                _frame.enabled = false; _fade.enabled = false; _skinMask.gameObject.SetActive(false);
+            }
+            else if (_gear != null) _gear.Rect.gameObject.SetActive(false);
             HeroFrameSet set = HeroFrames.Of(family);
             if (_set != set)
             {
@@ -270,6 +289,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>Holds the family's frames while the view shows (enabled), and lets them go when it hides.</summary>
         private void Hold(bool on)
         {
+            if (on && _gearOn) return;
             if (on && _held == null && _set != null)
             {
                 _held = _set;

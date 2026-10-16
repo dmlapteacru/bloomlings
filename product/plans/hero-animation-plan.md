@@ -1,8 +1,8 @@
 # Hero animation ideas — recorded 2026-10-16
 
-Owner-requested plan, not a completed feature or final pricing specification. Preserve this direction while the owner
-experiments with Meshy textures. The current Bloom is clearer but the owner finds it darker; Twig is the preferred
-reference for clean material/texture quality. Further texture experimentation belongs to the owner for now.
+Owner-requested plan, not a completed feature or final pricing specification. Twig is the preferred reference for clean
+material/texture quality. Updated responsibility split (2026-10-17): the owner maintains hero/accessory geometry in
+one Blender master; the assistant supplies textures and animations for import into it. See `hero-asset-workflow.md`.
 
 ## Free baseline
 
@@ -57,4 +57,5 @@ event rewards, but event design and implementation are deferred.
 Keep the game flat 2D: animate the rig offline, render sprites with attachment anchors, then play short clips and paths.
 Reuse short loops/holds/rest poses instead of baking every second of a long scene. Measure compressed frame payload,
 decoded frame-cache use and transition behaviour before expanding the library. Do not bake every clothing combination.
-Existing Sprig animation experiments: `tools/heroanim/LAB.md`. Texture work stays with the owner until new source is supplied.
+Existing Sprig animation experiments: `tools/heroanim/LAB.md`. Implement equipment first; the action menu and animation
+library are a separate feature after the current modular Sprig integration.

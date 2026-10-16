@@ -535,7 +535,7 @@ namespace Bloomlings.Playtest.Design
             s.HeroMoving = hero.Moving;
             if (hero.Moving)
             {
-                Visuals.MotionHero(p, HeroMotion.Cell(hero.Picture), family, CelebrationPose(family, CharacterArt.CelebrationTurn(s.Level), since), null);
+                Visuals.MotionHero(p, HeroMotion.Cell(hero.Picture), family, CelebrationPose(family, CharacterArt.CelebrationTurn(s.Level), since), s.Meta.Wardrobe.OutfitOf(family));
             }
             else if (hero.Cheer != null)
             {

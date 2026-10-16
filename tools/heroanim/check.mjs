@@ -35,9 +35,18 @@ for (const hero of manifest.heroes) {
     expect(fs.existsSync(file) && sha(file) === f.sha256, `${f.name}.png is missing or changed`);
   }
 }
+const gearFile=path.join(here,'sprig-gear.json');
+if(fs.existsSync(gearFile)){
+  const gear=JSON.parse(fs.readFileSync(gearFile));
+  expect(sha(path.join(here,gear.model))===gear.modelSha256,'Sprig gear source model changed');
+  expect(sha(path.join(repo,gear.data))===gear.dataSha256,'SprigGearData does not match bake');
+  for(const f of gear.outputs){listed.add(f.file);expect(fs.existsSync(path.join(framesDir,f.file))&&sha(path.join(framesDir,f.file))===f.sha256, f.file+' changed after gear bake');}
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
 expect(folderFiles.size === listed.size && [...listed].every(n => folderFiles.has(n)), 'HeroMotion/manifest.json does not list the baked frames');
+if(fs.existsSync(gearFile))for(const f of JSON.parse(fs.readFileSync(gearFile)).outputs)
+  expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
 for (const hero of manifest.heroes) for (const f of hero.frames) expect(folderFiles.get(f.name + '.png') === f.sha256, `HeroMotion/manifest.json: ${f.name}.png`);
 expect(folder.files.every(f => f.record && fs.existsSync(path.join(repo, f.record))), 'HeroMotion/manifest.json names a missing source record');
 for (const f of fs.readdirSync(framesDir)) {

@@ -139,6 +139,7 @@ namespace Bloomlings.Client.UI.Screens
         private readonly HeroMotionView _motion;
         private Family? _family;
         private int _turn;
+        private Bloomlings.Client.Meta.Wardrobe.Outfit? _outfit;
 
         internal CelebrationView(RectTransform card)
         {
@@ -166,10 +167,11 @@ namespace Bloomlings.Client.UI.Screens
         /// animated hero plays its celebration for its <paramref name="turn"/>-th win (<see cref="CharacterArt.CelebrationTurn"/>).
         /// Call <see cref="Place(Box, Box, float, float)"/> or <see cref="Place(WinRegions, Box, bool)"/> after it.
         /// </summary>
-        public void ShowHero(Family? family, int turn = 0)
+        public void ShowHero(Family? family, int turn = 0, Bloomlings.Client.Meta.Wardrobe.Outfit? outfit = null)
         {
             _family = family;
             _turn = turn;
+            _outfit = outfit;
         }
 
         /// <summary>
@@ -202,6 +204,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(_motion.Rect, HeroMotion.Cell(box), parent);
             _motion.Rect.gameObject.SetActive(true);
             _motion.Celebrate(_family.Value, _turn);
+            _motion.Wear(_outfit);
         }
 
         /// <summary>

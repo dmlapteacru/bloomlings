@@ -42,6 +42,7 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed class WinScreen : MonoBehaviour
     {
+        public Func<Family, Bloomlings.Client.Meta.Wardrobe.Outfit>? OutfitOf { get; set; }
         private const float RevealSeconds = 1.2f;
 
         /// <summary>How long the celebration takes to fade in over the revealed board.</summary>
@@ -198,7 +199,8 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             int won = session?.Definition.LevelNumber ?? 0;
-            _celebration.ShowHero(session != null ? CharacterArt.CelebrantOf(won) : (Family?)null, CharacterArt.CelebrationTurn(won));
+            Family? celebrant = session != null ? CharacterArt.CelebrantOf(won) : (Family?)null;
+            _celebration.ShowHero(celebrant, CharacterArt.CelebrationTurn(won), celebrant.HasValue ? OutfitOf?.Invoke(celebrant.Value) : null);
             _confettiClip.gameObject.SetActive(session != null);
             if (session != null)
             {

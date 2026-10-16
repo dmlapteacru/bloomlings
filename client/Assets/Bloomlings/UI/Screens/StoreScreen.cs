@@ -205,7 +205,7 @@ namespace Bloomlings.Client.UI.Screens
                 cosmetics |= item.Tab == StoreTab.Cosmetics;
             }
 
-            // The tabs: the Shop, the Cosmetics while there are any (L40), the Animations with the clearing styles.
+            // Cosmetics includes the free Sprig equipment before the paid Wardrobe unlock.
             var tabs = new List<StoreTab> { StoreTab.Shop };
             if (cosmetics)
             {
@@ -762,7 +762,7 @@ namespace Bloomlings.Client.UI.Screens
         // ---- The cosmetics in the reference Wardrobe's look (spec 005 §4.6) ----
 
         /// <summary>
-        /// Cosmetics: a fixed family row and a vertical two-column catalog of Default and items still for sale.
+        /// Cosmetics: a fixed family row and a two-column catalog of Default, free equipment and items still for sale.
         /// </summary>
         private void Outfits(List<StoreItem> shown,WardrobeService wardrobe)
         {
@@ -770,17 +770,21 @@ namespace Bloomlings.Client.UI.Screens
             IReadOnlyList<Family> families=WardrobeService.Families;
             _family=Mathf.Clamp(_family,0,families.Count-1);
             Family family=families[_family];
+            shown=shown.FindAll(i=>i.Cosmetic==null||i.Cosmetic.Fits(family));
             FamilyTabs(ShopCatalogDesign.FamilyTabs(r),r.OutfitPanel,families,wardrobe);
             Box area=ShopCatalogDesign.Viewport(r,true);
             Box content=CatalogContent(area,ShopCatalogDesign.CosmeticsHeight(area,shown.Count+1));
             bool chosen=wardrobe.OutfitOf(family).IsEmpty;
             string status=Loc.T(chosen ? "clearing.chosen" : "wardrobe.default");
-            RectTransform plain=ShopCatalogView.Create(_shopContent,true,false,Loc.T("wardrobe.default"),chosen ? ClearingAction.Chosen : ClearingAction.Choose,0,chosen,false,null,picture=>Preview(picture,family,null),status);
+            RectTransform plain=ShopCatalogView.Create(_shopContent,true,false,Loc.T("wardrobe.default"),chosen ? ClearingAction.Chosen : ClearingAction.Choose,0,chosen,false,()=>{wardrobe.UnequipAll(family);Refresh();},picture=>Preview(picture,family,null),status);
             UiKit.PlaceBox(plain,ShopCatalogDesign.CosmeticCard(area,0),content);
             for(int i=0;i<shown.Count;i++)
             {
                 StoreItem item=shown[i];
-                RectTransform card=ShopCatalogView.Create(_shopContent,true,false,item.Name??item.Title,ClearingAction.Buy,item.PetalPrice??0,false,false,item.Enabled ? ()=>Confirm(item) : (Action?)null,picture=>Preview(picture,family,item.Cosmetic));
+                CosmeticItem? cosmetic=item.Cosmetic;
+                bool owned=cosmetic!=null&&wardrobe.Owns(cosmetic),equipped=cosmetic!=null&&wardrobe.EquippedFor(family,cosmetic.Kind)?.Id==cosmetic.Id;
+                Action? tap=owned ? ()=>{if(equipped)wardrobe.Unequip(family,cosmetic!.Kind);else wardrobe.Equip(family,cosmetic!.Id);Refresh();} : item.Enabled ? ()=>Confirm(item) : (Action?)null;
+                RectTransform card=ShopCatalogView.Create(_shopContent,true,false,item.Name??item.Title,owned ? equipped ? ClearingAction.Chosen : ClearingAction.Choose : ClearingAction.Buy,item.PetalPrice??0,equipped,cosmetic?.Free==true,tap,picture=>Preview(picture,family,cosmetic),owned&&equipped ? Loc.T("wardrobe.remove") : null);
                 UiKit.PlaceBox(card,ShopCatalogDesign.CosmeticCard(area,i+1),content);
             }
         }
@@ -849,6 +853,12 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         private static void Preview(RectTransform picture, Family family, CosmeticItem? item)
         {
+            HeroFrame? icon=item!=null ? SprigGearArt.Icon(item.Id) : null;
+            if(icon.HasValue)
+            {
+                Image image=UiFactory.CreateImage("Accessory",picture,SprigGearView.Picture(icon.Value.Name),Color.white);
+                image.preserveAspect=true;image.raycastTarget=false;UiFactory.Stretch(image.rectTransform);return;
+            }
             if (item == null || item.IsWorn)
             {
                 Outfit? outfit = item == null ? null : item.Kind switch

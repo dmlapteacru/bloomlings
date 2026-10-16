@@ -322,7 +322,7 @@ namespace Bloomlings.Playtest.Design
             ScreenLayout.BottomNav(p.Width, p.Height, p.Insets, BottomNav.Order, active);
 
         /// <summary>The outfits Home's heroes wear: the player's, once the Wardrobe is open; else none.</summary>
-        public static Func<Family, Outfit>? OutfitsOf(DesignApp app) => Look(app).Wardrobe ? app.Meta.Wardrobe.OutfitOf : (Func<Family, Outfit>?)null;
+        public static Func<Family, Outfit>? OutfitsOf(DesignApp app) => app.Meta.Wardrobe.OutfitOf;
 
         /// <summary>
         /// How Home and the splash of <paramref name="scene"/> stand their heroes (<see cref="HomeStage.ShowsHeroes"/>):

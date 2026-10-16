@@ -30,12 +30,16 @@ namespace Bloomlings.Client.UI.Design
     public static class WardrobeShelfCatalog
     {
         /// <summary>Stable catalog order: equipping or buying never moves the tapped item to another row.</summary>
-        public static IReadOnlyList<WardrobeShelfItem> Build(WardrobeService wardrobe, CosmeticKind kind)
+        public static IReadOnlyList<WardrobeShelfItem> Build(WardrobeService wardrobe, CosmeticKind kind, Family? family = null)
         {
             var result = new List<WardrobeShelfItem> { new WardrobeShelfItem(null, WardrobeItemState.Default, null) };
-            foreach (CosmeticItem item in wardrobe.Catalog.Items)
+            var ordered=new List<CosmeticItem>();
+            foreach(var item in wardrobe.Catalog.Items)if(item.Free&&item.MetaOnly)ordered.Add(item);
+            foreach(var item in wardrobe.Catalog.Items)if(!(item.Free&&item.MetaOnly))ordered.Add(item);
+            foreach (CosmeticItem item in ordered)
             {
-                if (item.Kind != kind) continue;
+                if (item.Kind != kind && !(kind == CosmeticKind.Hat && (item.Kind == CosmeticKind.Glasses || item.Kind == CosmeticKind.Backpack))) continue;
+                if (family.HasValue && !item.Fits(family.Value)) continue;
                 WardrobeItemState state = wardrobe.Owns(item) ? WardrobeItemState.Owned :
                     item.ForSale ? WardrobeItemState.ForSale : WardrobeItemState.Reward;
                 int? cadence = null;
@@ -51,14 +55,20 @@ namespace Bloomlings.Client.UI.Design
             return result;
         }
 
-        public static Outfit Preview(Outfit outfit, CosmeticKind kind, CosmeticItem? item) => kind switch
+        public static Outfit Preview(Outfit outfit, CosmeticKind kind, CosmeticItem? item) => (item?.Kind ?? kind) switch
         {
             CosmeticKind.Skin => outfit with { Skin = item },
-            CosmeticKind.Hat => outfit with { Hat = item },
+            CosmeticKind.Hat => item == null ? outfit with { Hat = null, Glasses = null, Backpack = null } : outfit with { Hat = item },
             CosmeticKind.Trail => outfit with { Trail = item },
             CosmeticKind.Expression => outfit with { Expression = item },
+            CosmeticKind.Glasses => outfit with { Glasses = item },
+            CosmeticKind.Backpack => outfit with { Backpack = item },
             _ => outfit,
         };
+        public static bool Chosen(WardrobeService wardrobe, Family family, CosmeticKind filter, CosmeticItem? item) =>
+            item == null && filter == CosmeticKind.Hat
+                ? wardrobe.EquippedFor(family,CosmeticKind.Hat) == null && wardrobe.EquippedFor(family,CosmeticKind.Glasses) == null && wardrobe.EquippedFor(family,CosmeticKind.Backpack) == null
+                : wardrobe.EquippedFor(family,item?.Kind??filter)?.Id == item?.Id;
     }
 
     public sealed record WardrobeShelfRegions(Box Safe, float W, PageHeader Header, Box Stage, Box Hero,

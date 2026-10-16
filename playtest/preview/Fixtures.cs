@@ -137,6 +137,45 @@ namespace Bloomlings.Playtest.Preview
                 app.GoHome(); CloseAll(app); Run(app, p, .4f);
             });
 
+            yield return new Fixture(108,"sprig-gear-shop","Free modular Sprig accessories equip from Shop before L40",(p,data)=>
+            {
+                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;Run(app,p,.15f);
+                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
+                long before=app.Meta.Economy.Petals;
+                for(int i=1;i<=3;i++){Tap(p,ShopCatalogDesign.CosmeticCard(area,i));Run(app,p,.1f);}
+                Outfit look=app.Meta.Wardrobe.OutfitOf(Family.Sprig);
+                Expect(look.Hat?.Id==SprigGearArt.CapId&&look.Glasses?.Id==SprigGearArt.GlassesId&&look.Backpack?.Id==SprigGearArt.BackpackId,"all three actual shop taps equip independent slots");
+                Expect(app.Meta.Economy.Petals==before&&app.Overlays.Count==0,"free gear charges nothing and opens no purchase confirmation");
+                var restored=App(data).Meta.Wardrobe.OutfitOf(Family.Sprig);
+                Expect(restored.Glasses?.Id==look.Glasses?.Id&&restored.Backpack?.Id==look.Backpack?.Id&&restored.Hat?.Id==look.Hat?.Id,"gear survives an actual application save/reload");
+                Tap(p,ShopCatalogDesign.CosmeticCard(area,1));Run(app,p,.1f);
+                Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat==null&&app.Meta.Wardrobe.OutfitOf(Family.Sprig).Glasses!=null,"tapping Remove only removes the selected slot");
+                Tap(p,ShopCatalogDesign.CosmeticCard(area,1));Run(app,p,.1f);
+            });
+            foreach(var target in new[]{(109,"sprig-gear-home"),(110,"sprig-gear-wardrobe")})
+            {
+                var scene=target;
+                yield return new Fixture(scene.Item1,scene.Item2,"Modular Sprig outfit on "+scene.Item2,(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    foreach(var id in new[]{SprigGearArt.CapId,SprigGearArt.GlassesId,SprigGearArt.BackpackId})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"free Sprig gear equips");
+                    if(scene.Item1==110)app.OpenWardrobe();else app.GoHome();
+                    Run(app,p,.5f);
+                    Expect(p.HasSprite(PainterBase.HeroMotionPrefix+"sprigmod-cap"),"the actual APK sprite source is bundled");
+                });
+            }
+
+            yield return new Fixture(111,"sprig-gear-win","Sprig keeps the equipped cap, glasses and backpack after a real level win",(p,data)=>
+            {
+                var app=App(data);app.Meta.SkipTo(11);
+                foreach(var id in new[]{SprigGearArt.CapId,SprigGearArt.GlassesId,SprigGearArt.BackpackId})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"free Sprig gear equips before the wardrobe unlock");
+                app.LoadLevel(12);CloseDemo(app);Run(app,p,.1f);
+                SolveResult win=new Solver.Solver().Solve(Session(content,12),SolveOptions.Default);
+                Expect(win.Status==SolveStatus.Solvable,"the real level can be completed");
+                Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
+                Expect(app.Level!.Won&&app.Level.Animator.Settled&&app.Meta.CurrentLevel==13,"the actual level win and progression complete");
+            });
+
             yield return new Fixture(100, "hero-medals", "The four completed milestone heroes become wearable profile medals", (p, data) =>
             {
                 var app = Progressed(App(data), content, 87); CloseAll(app);
@@ -945,7 +984,9 @@ namespace Bloomlings.Playtest.Preview
                 Drag(p, top.CenterX, top.CenterY, below.CenterX, below.CenterY);
                 Expect(app.Overlays.Count == 0 && app.ShopScrollOffset == 0, "a downward catalog drag returns to the top");
                 Run(app, p, 0.1f);
-                Tap(p, top);
+                int paidIndex=1+app.Meta.Wardrobe.ShopItems.Where(i=>i.Fits(Family.Sprig)).ToList().FindIndex(i=>i.ForSale);
+                Drag(p, below.CenterX, below.CenterY, top.CenterX, top.CenterY);Run(app,p,.1f);
+                Tap(p, ShopCatalogDesign.CosmeticCard(area,paidIndex).Offset(0,-app.ShopScrollOffset));
                 Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer != null && app.Purchase.Offer.Petals > 0, "a tap on a card asks to buy it");
                 Expect(app.Back() && app.Overlays.Count == 0, "the system back cancels the confirmation");
                 Expect(app.Meta.Economy.Petals == balance && app.Meta.Save.Cosmetics.Owned.Count == owned, "nothing was bought");
@@ -1071,7 +1112,12 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
                 Expect(app.Screen == Design.Screen.Wardrobe, "the Collection page's Wardrobe opens the Wardrobe again");
                 Run(app, p, 0.1f);
-                Tap(p, WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets).Cell(1));
+                var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);
+                int starter=Enumerable.Range(0,shelf.Count).First(i=>shelf[i].Item?.Id=="hat.sprout_cap");
+                var shelfPage=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                float reveal=Math.Max(0,shelfPage.Cell(starter).Bottom-shelfPage.Area.Bottom)+shelfPage.W*.03f;
+                Drag(p,shelfPage.Area.CenterX,shelfPage.Area.CenterY,shelfPage.Area.CenterX,shelfPage.Area.CenterY-reveal);Run(app,p,.1f);
+                Tap(p, shelfPage.Cell(starter).Offset(0,-app.WardrobeBrowse.Offset));
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig, Client.Meta.Wardrobe.CosmeticKind.Hat)?.Id == "hat.sprout_cap", "a tap on an owned item's card wears it");
                 Run(app, p, 0.5f);
             });
@@ -1503,10 +1549,10 @@ namespace Bloomlings.Playtest.Preview
                 app.OpenStore();
                 Run(app, p, 0.1f);
 
-                // Before the Wardrobe (L40) the tabs are the Shop and the Animations.
+                // Free Sprig accessories add Cosmetics before L40; paid animations retain their lock.
                 Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
                 Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
-                Expect(app.StoreTab == 1, "a tap on the Animations tab shows the clearing styles");
+                Expect(app.StoreTab == 2, "a tap on the Animations tab shows the clearing styles");
                 Run(app, p, 0.1f);
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
                 Box bubbles = ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),ClearStyles.Free.Count+ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles));

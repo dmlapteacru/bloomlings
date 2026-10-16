@@ -120,7 +120,7 @@ namespace Bloomlings.Client.App.Home
                     DailyChallengePetals: DailyChallengeService.RewardPetals,
                     OutfitOf: wardrobe.OutfitOf,
                     Profile: wardrobe.Profile,
-                    AvatarOutfit: wardrobe.IsAvailable ? wardrobe.OutfitOf(profile.Avatar.Family) : null,
+                    AvatarOutfit: wardrobe.OutfitOf(profile.Avatar.Family),
                     NoAdsPromo: !ledger.RemoveAds,
                     DailyRewardPromo: daily.IsUnlocked,
                     DailyRewardWaiting: daily.CanClaim,
@@ -554,9 +554,9 @@ namespace Bloomlings.Client.App.Home
                     Name: Loc.F("store.booster_quantity", BoosterName(kind), EconomyService.PurchaseQuantity(kind))));
             }
 
-            if (wardrobe.IsAvailable)
+            if (wardrobe.IsAvailable || wardrobe.HasFreeHeroItems)
             {
-                foreach (CosmeticItem cosmetic in wardrobe.ForSale)
+                foreach (CosmeticItem cosmetic in wardrobe.ShopItems)
                 {
                     string id = cosmetic.Id;
                     items.Add(new StoreItem(

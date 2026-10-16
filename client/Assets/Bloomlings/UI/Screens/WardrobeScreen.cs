@@ -108,7 +108,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_hero.Rect,HomeStage.Figure(r.Hero.CenterX,r.Hero.Bottom,r.Hero.Height));
             _name.text=Loc.T("family."+WardrobeService.FamilyKey(_browse.Family));UiKit.PlaceScreen(_name.rectTransform,r.Name);
             UiKit.PlaceScreen((RectTransform)_previous.transform,r.Previous);UiKit.PlaceScreen((RectTransform)_next.transform,r.Next);
-            BuildFilters();_items=WardrobeShelfCatalog.Build(_wardrobe,_browse.Kind);_browse.SetOffset(_browse.Offset,r.Maximum(_items.Count));
+            BuildFilters();_items=WardrobeShelfCatalog.Build(_wardrobe,_browse.Kind,_browse.Family);_browse.SetOffset(_browse.Offset,r.Maximum(_items.Count));
             UiKit.PlaceScreen(_viewport,r.Viewport);
             _content.anchorMin=new Vector2(0,1);_content.anchorMax=new Vector2(1,1);_content.pivot=new Vector2(.5f,1);
             float height=r.ContentHeight(_items.Count)+r.Viewport.Height-r.Area.Height;
@@ -169,7 +169,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(MetaShelfView.Skin("NamePlate",hit.transform,MetaScreenArt.Tag).rectTransform,WardrobeShelfDesign.Caption(cell),cell);
             var name=MetaShelfView.Label("Name",hit.transform,item==null?Loc.T("wardrobe.default"):Name(item),WardrobeShelfDesign.ItemName);
             UiKit.PlaceBox(name.rectTransform,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),cell);
-            if(_wardrobe.EquippedFor(_browse.Family,_browse.Kind)?.Id==item?.Id)UiKit.PlaceBox(MetaShelfView.Check(hit.transform),WardrobeShelfDesign.Check(cell),cell);
+            if(WardrobeShelfCatalog.Chosen(_wardrobe,_browse.Family,_browse.Kind,item))UiKit.PlaceBox(MetaShelfView.Check(hit.transform),WardrobeShelfDesign.Check(cell),cell);
             if(card.State==WardrobeItemState.ForSale)UiKit.PlaceBox(MetaShelfView.Price(hit.transform,NumberText.Group(item!.Price)).rectTransform,ProfileGameDesign.PurchaseFace(WardrobeShelfDesign.Action(cell)),cell);
             if(card.State==WardrobeItemState.Reward)
             {
@@ -182,7 +182,7 @@ namespace Bloomlings.Client.UI.Screens
         }
         private void Choose(WardrobeShelfItem card)
         {
-            Family family=_browse.Family;CosmeticKind kind=_browse.Kind;CosmeticItem? item=card.Item;
+            Family family=_browse.Family;CosmeticKind kind=card.Item?.Kind??_browse.Kind;CosmeticItem? item=card.Item;
             if(card.State==WardrobeItemState.ForSale)
             {
                 _confirm.ShowPetals(PurchaseOffer.ForPetals(Name(item!),item!.Price),_petals?.Invoke()??0,well=>
@@ -191,7 +191,7 @@ namespace Bloomlings.Client.UI.Screens
                     figure.ShowHero(family,WardrobeShelfCatalog.Preview(_wardrobe.OutfitOf(family),kind,item));
                 },()=>{if(_wardrobe.TryBuy(item.Id))_wardrobe.Equip(family,item.Id);},()=>_toast.Show(Loc.T("gameplay.not_enough_petals")));return;
             }
-            if(item==null||_wardrobe.EquippedFor(family,kind)?.Id==item.Id)_wardrobe.Unequip(family,kind);else _wardrobe.Equip(family,item.Id);
+            if(item==null&&kind==CosmeticKind.Hat)_wardrobe.UnequipAccessories(family);else if(item==null||_wardrobe.EquippedFor(family,kind)?.Id==item.Id)_wardrobe.Unequip(family,kind);else _wardrobe.Equip(family,item.Id);
         }
         private void Update()
         {
@@ -205,7 +205,7 @@ namespace Bloomlings.Client.UI.Screens
             if(item.MilestoneLevel.HasValue)return Loc.F(item.Kind==CosmeticKind.Marker?"cosmetic.level_marker":"cosmetic.level_badge",item.MilestoneLevel.Value);
             return Loc.T("cosmetic."+item.Id,item.Name);
         }
-        public static Sprite Icon(CosmeticItem item)=>item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix,StringComparison.Ordinal)?
+        public static Sprite Icon(CosmeticItem item)=>SprigGearArt.Icon(item.Id) is HeroFrame gear ? SprigGearView.Picture(gear.Name)! : item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix,StringComparison.Ordinal)?
             OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length))??ProceduralSprites.Accessory(item.Shape):ProceduralSprites.Accessory(item.Shape);
         public static string KindLabel(CosmeticKind kind)=>Loc.T("wardrobe.kind_"+kind.ToString().ToLowerInvariant());
     }

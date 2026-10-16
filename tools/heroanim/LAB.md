@@ -52,7 +52,9 @@ Owner revision, 2026-10-16: a cap equips an exclusive prepared head state instea
 stacking with the natural hairstyle. The owner's new Sprig FBX already carries a
 `CapOn` morph for this. The isolated [outfit study](../../output/sprig-outfit-study/README.md)
 checks that switch plus independent glasses/backpack on one shared rig. It preserves
-the original meshes/weights and does not replace the old APK lab or production art.
+the original meshes/weights. The subsequent [in-game equipment pilot](../../product/plans/hero-asset-workflow.md)
+uses this Sprig on meta screens; the old APK animation lab remains a separate experiment. The owner's Blender project
+is the sole authoring master; the assistant supplies textures and actions for import into it.
 
 1. Freeze one approved, textured, rigged base per family. Version it. Work in Blender on copies; don't regenerate the
    whole hero for each Shop item. That would change the face, proportions, UVs and weights every time.

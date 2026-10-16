@@ -175,7 +175,7 @@ namespace Bloomlings.Client.UI.Screens
         private void Refresh()
         {
             AvatarItem avatar = _profile.Avatar;
-            _avatar.Show(_wardrobe.Profile with { Marker = null }, _wardrobe.IsAvailable ? _outfitOf?.Invoke(avatar.Family) : null, avatar);
+            _avatar.Show(_wardrobe.Profile with { Marker = null }, _outfitOf?.Invoke(avatar.Family), avatar);
             _name.text = NameOf(_profile);
             _id.text = Loc.F("profile.id", _profile.ShortId);
             _joined.text = Loc.F("profile.joined", _profile.JoinedMonth);

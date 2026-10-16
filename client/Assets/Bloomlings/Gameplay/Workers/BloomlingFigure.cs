@@ -4,6 +4,7 @@ using Bloomlings.Client.Art;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.UI.Screens;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,7 @@ namespace Bloomlings.Client.Gameplay.Workers
         private readonly Image _badge;
         private readonly Image _expression;
         private readonly Image _hat;
+        private SprigGearView? _gear;
 
         private BloomlingFigure(RectTransform root)
         {
@@ -76,6 +78,7 @@ namespace Bloomlings.Client.Gameplay.Workers
         /// </summary>
         public void ShowCharacter(VariantId variant, Outfit? outfit)
         {
+            outfit = outfit?.ForGameplay;
             bool expression = outfit?.Expression != null;
             Sprite? picture = CharacterSprites.Character(variant, expression ? CharacterMood.Blank : CharacterMood.Happy);
             bool known = VariantCatalog.Default.TryGet(variant, out VariantInfo info);
@@ -98,6 +101,16 @@ namespace Bloomlings.Client.Gameplay.Workers
             bool blank = expression && CharacterSprites.HasMatchingBlank(family);
             Sprite? picture = CharacterSprites.Hero(family, blank);
             Show(picture, family, HeroColor(family), outfit, CharacterArt.FaceCenterHero(family), (float)CharacterArt.HeroHeight / CharacterArt.HeroWidth, hero: true, badge: expression && !blank && picture != null);
+            if (family == Family.Sprig)
+            {
+                _gear ??= SprigGearView.Create(_body.transform);
+                _gear.Rect.SetAsFirstSibling();
+                _gear.Rect.gameObject.SetActive(true);
+                _gear.Wear(outfit);
+                _body.enabled = false;
+                _skinMask.gameObject.SetActive(false);
+                if (SprigGearArt.IsCap(outfit)) _hat.gameObject.SetActive(false);
+            }
         }
 
         public static Color Tint(CosmeticItem item) => ColorUtility.TryParseHtmlString(item.Tint, out Color color) ? color : Color.white;
@@ -117,6 +130,8 @@ namespace Bloomlings.Client.Gameplay.Workers
 
         private void Show(Sprite? picture, Family family, Color fallbackColor, Outfit? outfit, (float X, float Y) face, float aspect, bool hero = false, bool badge = false)
         {
+            _body.enabled = true;
+            if (_gear != null) _gear.Rect.gameObject.SetActive(false);
             // The figure's boxes in picture units (width 1, y down), placed relative to the picture's rect.
             var frame = new Box(0f, 0f, 1f, aspect);
             _fitter.aspectRatio = picture != null ? 1f / aspect : 1f;
