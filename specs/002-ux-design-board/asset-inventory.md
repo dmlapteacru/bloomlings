@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 97 | 0 | 97 |
+| UI kit | 97 | 1 | 98 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **261** | **40** | **301** |
+| **All** | **261** | **41** | **302** |
 
 ## Brand
 
@@ -320,6 +320,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.nav.lock` | Bottom menu: the padlock badge of a locked place | 2, 5, 6, 17 | Bottom menu (a locked place's icon on the plank); locked notice | locked; pressed (squashes with its icon) | Icon | no | Launch | the outfit cards' padlock badge (`Kit.LockBadge`): the switches' round cream button (`UiRaster.ToggleKnob`, spec 005 FR-048) in a `cream.line` ring with the brown `ui.lock`, over a soft shadow, 0.34 of the icon's side at its lower right inside the plank's band |
 | `ui.locked.notice` | Locked notice: "Available from level N" on a locked place's page | 5, 6, 17 | The Store, Wardrobe, Leaderboard and Collection pages (before their unlock) | Shop; Wardrobe; Leaderboard; Collection | Large | no | Launch | the place's owner icon (or its stand-in glyph) 0.4 of the area's width with the padlock badge on its lower right, then "Available from level N" in `type.title` `ink.brown` and "Keep playing to unlock it!" in `type.body` `ink.brown_soft`, centered, in the pages' wooden card frame with the corner flowers (spec 005 FR-049) |
 | `ui.avatar` | Profile avatar picture (the owner's `Avatars/*.jpg`, pictures.md I; spec 005 FR-037): it fills the avatar's whole disc inside a thin `cream.line` ring, on the cream lip (`AvatarLook`; the owner, 2026-10-06) | 2, 3, 5 | Home's avatar button; the profile page; its edit card; the player's own leaderboard row | each of the 14 avatars; owned; for sale (price pill); picked (check) | Small | no | Launch | the profile hero (`char.hero3d.bloom`) on the soft green middle while the picture is missing |
+| `ui.hero_lab` | Playtest hero animation lab | 106 | Settings; Hero lab | four clips; half speed; head attachment | Large | no | Later | HeroLab palette frames, baked from the owner’s Sprig rig by tools/heroanim/author-lab.py and bake-lab.mjs |
 | `ui.achievement` | Achievement tile (spec 005 FR-037) | 2 | The profile page's 3 × 3 Achievements grid | before bronze (padlock); bronze; silver; gold (check) | Small | no | Launch | a cream tile in a thin wooden rim (`ui.tile.framed`, spec 005 FR-047; no flowers since FR-049) filled by the achievement's illustrated badge (faded before bronze), with the count toward the next tier over its foot and the name under it |
 | `ui.promo.no_ads` | Home promo scene: No Ads (the owner's layers `Decor/promo-noads-*.png`: the short stand, Sprig, the crossed AD sign) | 2, 3 | Home (left, under the logo, until Remove Ads is owned); the Remove Ads card | idle; attention (Sprig shoves and tumbles the sign off the stand, hops, then resets); pressed | Medium | no | Launch | the label "No Ads" on a wooden sign (`ui.sign.wood`) until the pictures exist |
 | `ui.promo.daily` | Home promo scene: the Daily Reward (the owner's layers `Decor/promo-daily-*.png`: the stand, the album closed and open, the physical stamp, its lotus imprint, one warm glint) | 3 | Home (right, under the logo, from the Daily Reward's unlock) | idle; attention while the reward waits (the album opens, a large stamp presses and lifts to reveal its mark, the album closes); pressed | Medium | no | Launch | the label "Daily" on a wooden sign (`ui.sign.wood`) until the pictures exist |

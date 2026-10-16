@@ -60,6 +60,7 @@
       bytes (HeroFrameStore). Found by their names alone, as the backgrounds (PainterBase.HeroMotionPrefix).
     -->
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" Link="Assets/heromotion/%(Filename)%(Extension)" />
+    <AndroidAsset Include="../art/HeroLab/*.png" Link="Assets/heromotion/%(Filename)%(Extension)" Condition="'$(IncludeHeroMotionLab)' != 'false'" />
   </ItemGroup>
   <Import Project="../OptimizeAssets.targets" />
 </Project>

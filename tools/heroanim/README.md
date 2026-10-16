@@ -39,3 +39,5 @@ Outputs:
 
 The bake is deterministic on one machine (the same hashes twice); another GPU emulation may differ in the last bits, so
 `check.mjs` compares the committed files with the manifest rather than re-rendering them.
+
+For the owner-requested four-motion Sprig experiment, the Settings test viewer, and the recommended modular accessory workflow, see [LAB.md](LAB.md). Its separate source and frame set do not rebake the production heroes.

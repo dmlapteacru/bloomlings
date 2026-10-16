@@ -148,6 +148,29 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Meta.Wardrobe.Profile.Badge?.Id == "badge.achievement.hero_sprig", "the completed hero medal can be worn");
             });
 
+            yield return new Fixture(106,"hero-motion-lab","Four original Sprig motions in a reversible test bench",(p,data)=>
+            {
+                var app=App(data);app.GoHome();CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
+                string before=SaveSerializer.Write(app.Meta.Save);
+                Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("hero_lab.title")).Box);Run(app,p,.5f);
+                Expect(app.IsOpen(Overlay.HeroLab),"Settings opens the lab");
+                var r=ScreenLayout.Card(p.Width,p.Height,p.Insets,HeroLabScreen.Content);
+                for(int i=0;i<4;i++)
+                {
+                    Tap(p,HeroLabScreen.MotionButton(r.Body,p.Scale,i));Run(app,p,.9f);
+                    Expect(app.HeroLab.Motion==i,"the clicked motion is selected");
+                    var f=app.HeroLab.At(app.Now);
+                    Expect(p.HasSprite(PainterBase.HeroMotionPrefix+f.Name),"the selected frame is bundled");
+                }
+                Tap(p,p.Texts.First(t=>t.Text=="1×").Box);Run(app,p,.2f);
+                Expect(app.HeroLab.Slow,"slow playback is available");
+                Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("hero_lab.hat_off")).Box);Run(app,p,.2f);
+                Expect(app.HeroLab.Hat,"the attachment test can be toggled");
+                Expect(SaveSerializer.Write(app.Meta.Save)==before,"the lab never changes the profile or purchases");
+                Expect(app.Back()&&app.IsOpen(Overlay.Settings),"back returns to Settings");
+                app.OpenOverlay(Overlay.HeroLab);app.HeroLab.Select(1,app.Now);Run(app,p,1.6f);
+            });
+
             foreach (var garden in new[] { (Frame:101, Level:250, Name:"fern"), (Frame:102, Level:300, Name:"willow"), (Frame:103, Level:350, Name:"pear"), (Frame:104, Level:400, Name:"citrus"), (Frame:105, Level:450, Name:"plum") })
                 yield return new Fixture(garden.Frame, "gameplay-"+garden.Name, "The quiet garden behind the real gameplay board", (p, data) =>
                 {

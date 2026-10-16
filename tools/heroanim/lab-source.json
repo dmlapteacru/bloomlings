@@ -1,0 +1,17 @@
+{
+  "hero": "sprig",
+  "source": "models/heroes.glb",
+  "model": "models/sprig-lab.glb",
+  "fps": 20,
+  "seconds": 3,
+  "clips": [
+    "Lab_Sprig_Idle",
+    "Lab_Sprig_Look",
+    "Lab_Sprig_Hello",
+    "Lab_Sprig_Bow",
+    "Lab_Sprig_Bounce"
+  ],
+  "meshVertices": 6138,
+  "bones": 34,
+  "meshAndWeightsChanged": false
+}

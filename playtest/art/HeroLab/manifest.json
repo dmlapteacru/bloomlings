@@ -1,0 +1,7253 @@
+{
+ "tool": "tools/heroanim/bake-lab.mjs",
+ "source": "tools/heroanim/models/sprig-lab.glb",
+ "sourceSha256": "b755975efebf60478295f773dbd3608f45f1587f652b451fc9fcfd253f9fc80d",
+ "data": "client/Assets/Bloomlings/UI/Design/HeroLabData.cs",
+ "dataSha256": "2fb40251f92516eba5218173569a3979a84746b9e19af29c201ff7b6e4ff02cb",
+ "fps": 20,
+ "cell": [
+  256,
+  288
+ ],
+ "counts": {
+  "idle": 1,
+  "hello": 60,
+  "look": 60,
+  "bow": 60,
+  "bounce": 60
+ },
+ "files": [
+  {
+   "path": "lab-sprig-idle-00.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-00.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-01.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-02.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-03.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-04.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-05.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-06.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-07.png",
+   "sha256": "7a4fef543931e5904173be7f37880ee78d60aa1796d0f709cf62fd028d1f3c67",
+   "bytes": 14493,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-08.png",
+   "sha256": "5c45b3d517bb7617b82c947cef5ec0491b06753ac1f29dff9a42354ef37ee341",
+   "bytes": 14474,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-09.png",
+   "sha256": "9b4c73bfc92198c39016fe532233aeeb3b0e436a44ba113f9db3cb72c9968ac7",
+   "bytes": 14459,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-10.png",
+   "sha256": "e5fcfa0dcfe8ce15737725b52255e2d839d097fef61491777a7e93e83448d0d6",
+   "bytes": 14411,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-11.png",
+   "sha256": "2facfd908256c6c5f2960df11378ebc965256562a9ab4707f5b619c1e9c773a2",
+   "bytes": 14329,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-12.png",
+   "sha256": "8aab44b35641dbd4dbd5832ceed16e9dc307dbd6a2638ae3454b62da2edbd39d",
+   "bytes": 14343,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-13.png",
+   "sha256": "4a372e3397c4240acabdc5362446da9537b30a8fee2ee1de63ab8b26cb6f6356",
+   "bytes": 14325,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-14.png",
+   "sha256": "a82db65418b25ed702ca7fed7e6d2d16d2c14b447b84b7d04d91f3152c50a396",
+   "bytes": 14286,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-15.png",
+   "sha256": "29cea01899ae27e882ac9fe3f97de9a9e9366e751ba6b42230e189b3a160edf7",
+   "bytes": 14286,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-16.png",
+   "sha256": "3bef16675b85f7d7fea61f04c0cbebbe1cfc9dd15fdddde634347b6c731be883",
+   "bytes": 14279,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-17.png",
+   "sha256": "073f124e6bd0bdbf25f3617e3b7128897864c151ef5c6f7159760bb8e3b35ae1",
+   "bytes": 14272,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-18.png",
+   "sha256": "824bda0ae8cd95022d2d9eef2c8d9a08f3df6cddf4fcf46c4e946a682eb702fc",
+   "bytes": 14292,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-19.png",
+   "sha256": "6a6bc133c7627da79d7068c780900543d1e20c2a4e16ee6f745958939439103f",
+   "bytes": 14285,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-20.png",
+   "sha256": "a210602e9e743a72108e393d5a00b33f5e29a85d6476a3956b1a6687ecb2ce8e",
+   "bytes": 14259,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-21.png",
+   "sha256": "f9446fabe5652160e4de2b856a99d7292dcbe9341572279e68b1d0b03c94b34e",
+   "bytes": 14277,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-22.png",
+   "sha256": "212ff2b3e553dfbfe47ee67aea9283768106afec67d7f3229a6a0d3950ee1c98",
+   "bytes": 14279,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-23.png",
+   "sha256": "a2c738e010172c91bec50d092bcc29932263e7fad78be0f546e351be58c8d640",
+   "bytes": 14281,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-24.png",
+   "sha256": "8cd83a9fffa9da266ffaab37f36ec7c2c5c7c03166d725d3412082e8c03b9d0b",
+   "bytes": 14262,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-25.png",
+   "sha256": "480356cdff2ba53ad5bccc3c994cd8aa5fdbafeb26cba477c47d9e4a9fd1afa8",
+   "bytes": 14288,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-26.png",
+   "sha256": "8cd83a9fffa9da266ffaab37f36ec7c2c5c7c03166d725d3412082e8c03b9d0b",
+   "bytes": 14262,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-27.png",
+   "sha256": "a2c738e010172c91bec50d092bcc29932263e7fad78be0f546e351be58c8d640",
+   "bytes": 14281,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-28.png",
+   "sha256": "212ff2b3e553dfbfe47ee67aea9283768106afec67d7f3229a6a0d3950ee1c98",
+   "bytes": 14279,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-29.png",
+   "sha256": "f9446fabe5652160e4de2b856a99d7292dcbe9341572279e68b1d0b03c94b34e",
+   "bytes": 14277,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-30.png",
+   "sha256": "a210602e9e743a72108e393d5a00b33f5e29a85d6476a3956b1a6687ecb2ce8e",
+   "bytes": 14259,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-31.png",
+   "sha256": "6a6bc133c7627da79d7068c780900543d1e20c2a4e16ee6f745958939439103f",
+   "bytes": 14285,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-32.png",
+   "sha256": "824bda0ae8cd95022d2d9eef2c8d9a08f3df6cddf4fcf46c4e946a682eb702fc",
+   "bytes": 14292,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-33.png",
+   "sha256": "073f124e6bd0bdbf25f3617e3b7128897864c151ef5c6f7159760bb8e3b35ae1",
+   "bytes": 14272,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-34.png",
+   "sha256": "1ac9467feb066fe5563d4cdea9a5eacf404d86576005015bbb84300dd7f479e3",
+   "bytes": 14267,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-35.png",
+   "sha256": "db64f4136df945f442a16ae6682f52a0cb02bbe0fd973e425e95263524534165",
+   "bytes": 14274,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-36.png",
+   "sha256": "1ac9467feb066fe5563d4cdea9a5eacf404d86576005015bbb84300dd7f479e3",
+   "bytes": 14267,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-37.png",
+   "sha256": "073f124e6bd0bdbf25f3617e3b7128897864c151ef5c6f7159760bb8e3b35ae1",
+   "bytes": 14272,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-38.png",
+   "sha256": "824bda0ae8cd95022d2d9eef2c8d9a08f3df6cddf4fcf46c4e946a682eb702fc",
+   "bytes": 14292,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-39.png",
+   "sha256": "6a6bc133c7627da79d7068c780900543d1e20c2a4e16ee6f745958939439103f",
+   "bytes": 14285,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-40.png",
+   "sha256": "a210602e9e743a72108e393d5a00b33f5e29a85d6476a3956b1a6687ecb2ce8e",
+   "bytes": 14259,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-41.png",
+   "sha256": "f9446fabe5652160e4de2b856a99d7292dcbe9341572279e68b1d0b03c94b34e",
+   "bytes": 14277,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-42.png",
+   "sha256": "212ff2b3e553dfbfe47ee67aea9283768106afec67d7f3229a6a0d3950ee1c98",
+   "bytes": 14279,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-43.png",
+   "sha256": "a2c738e010172c91bec50d092bcc29932263e7fad78be0f546e351be58c8d640",
+   "bytes": 14281,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-44.png",
+   "sha256": "72c7a5ccc92640ff91d8f59dd1c6dd72fcb0eeda6235a8f41887e3951fbd4cec",
+   "bytes": 14266,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-45.png",
+   "sha256": "cf091ffd6a6fd218eb8a4be66b2a7f767c98b1bf5622a4b02c990ded9167ddce",
+   "bytes": 14276,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-46.png",
+   "sha256": "c72fbafb43ebbadf0a9bd611d51e6e064015679b3d4473e6b0c4fdc69250b4f6",
+   "bytes": 14282,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-47.png",
+   "sha256": "a1a8d5232d73772c43fc4430e1ce54261d599055ce7bf03f20836c9c86545026",
+   "bytes": 14410,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-48.png",
+   "sha256": "05d5faa27bfd5447299d61d0fd146b44b4a5154793de939d5d412475d8733731",
+   "bytes": 14392,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-49.png",
+   "sha256": "13129e830b8a5c55003b5c341f27f8f5651462740934d5b5218177849e7ecf4b",
+   "bytes": 14402,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-50.png",
+   "sha256": "2d50f4d23fffe275af29126470ca7c1b9e17862ff5ff75bba6b009d536e57667",
+   "bytes": 14428,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-51.png",
+   "sha256": "5ad3e1dc02dcf5c86a5a0f0bb2688260977ef229c6f5e6161d0f8853b466f100",
+   "bytes": 14421,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-52.png",
+   "sha256": "17ec79ca679b0f0b361c0532302fcae7acd919917dbe24901257c8d29258a070",
+   "bytes": 14459,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-53.png",
+   "sha256": "3c21026b62db2827913f7bf31d22d56e2cdf5ec715e21b8fd29c335f6dd5a2a6",
+   "bytes": 14495,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-54.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-55.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-56.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-57.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-58.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-hello-59.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-00.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-01.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-02.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-03.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-04.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-05.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-06.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-07.png",
+   "sha256": "6828de3a3c1f953b8bc5791fac56dc547f9cbb8c489fb5f9641290e9f844fa3e",
+   "bytes": 14460,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-08.png",
+   "sha256": "c67d905f73870e32f21e4a4f006e7236135e9d388d6caa5236f3e1ce85bf19b4",
+   "bytes": 14559,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-09.png",
+   "sha256": "7063a221539938dc4ab9370bd61f4b552fe8ac4e287c0e62065e168ee8c5a774",
+   "bytes": 14529,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-10.png",
+   "sha256": "b1a1cfeffcef8fdb8ab9cff98f35c6cce1c39783e59c4be476948ae5fda22a7c",
+   "bytes": 14433,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-11.png",
+   "sha256": "27280a8a2f2663aefdfc592c40f70e16798090e0a0ac38ca382c47dbcbc58c31",
+   "bytes": 14281,
+   "record": "tools/heroanim/LAB.md",
+   "width": 168,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-12.png",
+   "sha256": "a381a576120043ff6125bd4342969f6cc4b0db1aed97e7fb4e4da9c45461cec8",
+   "bytes": 14209,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-13.png",
+   "sha256": "7c75a89e970b72cded6cb87efd05ea06f185bc2e601ffc2e64e949bf356a8b4e",
+   "bytes": 14048,
+   "record": "tools/heroanim/LAB.md",
+   "width": 168,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-14.png",
+   "sha256": "ead2f46167527d7a7bc73222ff3799b80b26a6c47981f5f68ac2b1d4728785a4",
+   "bytes": 13956,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-15.png",
+   "sha256": "7ee2bd3dfec327a75dc13a6a12a51b6ab8296b064fefcc75eabdca5016abedf7",
+   "bytes": 13815,
+   "record": "tools/heroanim/LAB.md",
+   "width": 166,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-16.png",
+   "sha256": "ed1ae4c4184f25c4607598de16707d777522f089e4428e4a37e0c1a4979c81ec",
+   "bytes": 13820,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-17.png",
+   "sha256": "0432d7a47070963b16d91cc38c2d1b9c2b6d6071b7933b02b21ac82cd57e33a5",
+   "bytes": 13861,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-18.png",
+   "sha256": "0b46d433d792955ca6d6dcb65e1737cc05bb22e58d0a63390de075b5c4051c5a",
+   "bytes": 13873,
+   "record": "tools/heroanim/LAB.md",
+   "width": 168,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-19.png",
+   "sha256": "b4d023b88bb4f428343e2d2a88b4e3e535691a169effe244e0bf83719e5335c2",
+   "bytes": 13987,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-20.png",
+   "sha256": "1099bee5432b00473cfc8fe2ebf09c41e278cc5d763094042fd1c956529cde7f",
+   "bytes": 13998,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-21.png",
+   "sha256": "b816798fb308b2327cc20788a5b38704e997a26ea444e680a4229b637a3de901",
+   "bytes": 14121,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-22.png",
+   "sha256": "590f9bc150938cac677c9c44eeba48a8f9b539422d028150275d961a5d8d5449",
+   "bytes": 14238,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-23.png",
+   "sha256": "d1a9fd3e480602fcdd61a9eec8dd207bd267988f33ce0671107a7b2c4cb95eaa",
+   "bytes": 14240,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-24.png",
+   "sha256": "18e187c99a8ca5e7ea4fc3df567f0e994ddd814769b5ec1c9d8ab0b039da0dc6",
+   "bytes": 14405,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-25.png",
+   "sha256": "7fc5aab9b86eb0fe3a42ce33f445c3c95f2e7ae704f690436b70778d81a2d937",
+   "bytes": 14475,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-26.png",
+   "sha256": "b33b0eff03b0f681b99a54dd5473d35bc092f785546c64423f6b846995a1c5a7",
+   "bytes": 14493,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-27.png",
+   "sha256": "f7da2d1a884187dafbfd891ad401bc49078061e14250ddfb6411a283449a96f8",
+   "bytes": 14536,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-28.png",
+   "sha256": "6a86bdce573353cfc26337f4543046c4edfe15549579acb5f26a58d766f8c67a",
+   "bytes": 14476,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-29.png",
+   "sha256": "b29d51630c9d2ba14bcf14a236bedfae52766b116e9c4c4c40c4799617157b39",
+   "bytes": 14554,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-30.png",
+   "sha256": "7acfdeb6a281921305dba4a0ce6ed6307b10227eb35e6c98246372d77c955ce3",
+   "bytes": 14565,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-31.png",
+   "sha256": "f5e1d5113589b9c86f05fa556c73beaac19228053747affe845e39d46ffca43a",
+   "bytes": 14580,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-32.png",
+   "sha256": "41b69bb136bca6a986797c4bc3b8f9b186ecfd847f8b47209abef858f0027df3",
+   "bytes": 14572,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-33.png",
+   "sha256": "41e39fb29c83c706d0d7cb0e3a06959b55f6705019bb6f764c620e5d2ff4b8bb",
+   "bytes": 14648,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-34.png",
+   "sha256": "d5e9c4737b83af01325245e3bc39d1edeb98b207178f22ca8605c8d842c781f5",
+   "bytes": 14643,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-35.png",
+   "sha256": "b2f7e424d677296671b22a130b030330d1fc2a1c9684113c7dd5874961a9eb50",
+   "bytes": 14538,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-36.png",
+   "sha256": "fb0df4c040264b5dcb7f562d5e97ebce15faf846461a8a68a782b0d518f9cf7c",
+   "bytes": 14553,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-37.png",
+   "sha256": "a0c993660f56d9a71a08477f931e3fb151dede32dcb18ab8d24be52b205453fa",
+   "bytes": 14567,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-38.png",
+   "sha256": "0ddbe5a26e696a64abf911a0dc295220b4f08cf502dd47c5caf7a144a66e36b5",
+   "bytes": 14353,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-39.png",
+   "sha256": "76b4a03006ebe4593e838a170e90b4f043647f9df4baf22d613940d61b6eee8b",
+   "bytes": 14397,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-40.png",
+   "sha256": "c4935b9f62204405a5bc1685f1f1eb1725762a545135c6f35899217e71da07b6",
+   "bytes": 14425,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-41.png",
+   "sha256": "62162d6a6201b99b840496323243def25f4f65f90b10a9624c4f9d25e41e4adb",
+   "bytes": 14396,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-42.png",
+   "sha256": "a2a7dca9132f1a831e5fa09949aaafc3213a6e32b5000aa25557401c9efc0dd4",
+   "bytes": 14333,
+   "record": "tools/heroanim/LAB.md",
+   "width": 168,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-43.png",
+   "sha256": "ae26ff3242316717d6712399e1e8c2751e45fd836a9ee7ba030ba0fbf6538282",
+   "bytes": 14319,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-44.png",
+   "sha256": "63c2a1d26f16a1a63ef307fb5d00de9e8f092b3a91a69ff0cf1d8cb0482a0d13",
+   "bytes": 14169,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-45.png",
+   "sha256": "5bf76d9d7e9f6a4ac17ef50534402d31468a86af40a039c0dce2a6e7092290a0",
+   "bytes": 14169,
+   "record": "tools/heroanim/LAB.md",
+   "width": 165,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-46.png",
+   "sha256": "8639dd662b47f03af6c964e8424bdeb7536f60a35b68a175bb77a5fd4aeb0463",
+   "bytes": 14439,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-47.png",
+   "sha256": "5d85b3936254210a0327d2763e8e5c7eeea4244a912e9a9ae43736a588afe994",
+   "bytes": 14505,
+   "record": "tools/heroanim/LAB.md",
+   "width": 168,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-48.png",
+   "sha256": "fb7b69a4c17e0729c932cb701e3e28f32b281d7e94ea60dce058ed343dadea46",
+   "bytes": 14506,
+   "record": "tools/heroanim/LAB.md",
+   "width": 167,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-49.png",
+   "sha256": "82a2d76b710fe7a95c296b0aa8960256964c0e38a99ddee5d0773853fd56eb04",
+   "bytes": 14497,
+   "record": "tools/heroanim/LAB.md",
+   "width": 168,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-50.png",
+   "sha256": "ad649aa844a662f8a03e79f6be37d1dc1e9dba3a309ee60ce5329a893b17eca9",
+   "bytes": 14600,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-51.png",
+   "sha256": "82e555df2984b401becb0188892d52d9f9f4c9f49b48d433e519abd62829864c",
+   "bytes": 14569,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-52.png",
+   "sha256": "3f1a36ecb3c0b0fd8d264e54eacb011ef32892a488e938f1c5297ea480fc5c12",
+   "bytes": 14589,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-53.png",
+   "sha256": "e41e7f51c54ad63668af6481fe9692811a3b595b7b610e13063d13dcfa5776ab",
+   "bytes": 14508,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-54.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-55.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-56.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-57.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-58.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-look-59.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-00.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-01.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-02.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-03.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-04.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-05.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-06.png",
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087",
+   "bytes": 14540,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-07.png",
+   "sha256": "832a15fb6cc2e7f8492f4a433734e094c7a9b63f4504ec95d3e479bf9381ea59",
+   "bytes": 14550,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-08.png",
+   "sha256": "9905b6ec4b1ec73a1d8c4a4346f5350109f806ab29ce06bb294ff52541366281",
+   "bytes": 14466,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-09.png",
+   "sha256": "34a14b8f82b591f9303b98119bca59dc275db24da09679073e296fd6812da182",
+   "bytes": 14620,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-10.png",
+   "sha256": "08cd5970388c0ad1c8a9f910c988dcecc1df1dc6d743a18e7939d31739854c6c",
+   "bytes": 14612,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-11.png",
+   "sha256": "9a2e50e3e5e44d5b27e716f11deca782b3ef5322d5dbcd331b3f6c1b493c9a93",
+   "bytes": 14743,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-12.png",
+   "sha256": "a4005645dba17ec3d9aa10bce94897e98bee3e74174b4f8bed28d23d60307721",
+   "bytes": 14773,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-13.png",
+   "sha256": "fe85c16bf8bb94e6c2799f8ebbd38d25d4c7941ae26d13654f4664fb4d523a7e",
+   "bytes": 14962,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 225,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-14.png",
+   "sha256": "f38f9de05cc6d02637b865f115525aac76b633da6fe17597cd593831c2c5ee15",
+   "bytes": 14976,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 224,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-15.png",
+   "sha256": "5ef1c8c94f0545f8bc044cb6c132e116e419e7f564c851e6cb8c8e98ec9051ae",
+   "bytes": 14964,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 223,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-16.png",
+   "sha256": "0994c5689d81f556fcfd6789058e1d5a9e224aab7b19ae4f7057c96934d796bd",
+   "bytes": 14964,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 221,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-17.png",
+   "sha256": "35daca617aa333fe47cc36b94c04be18a7e3de5c06959f28d505c18576538c97",
+   "bytes": 15044,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 220,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-18.png",
+   "sha256": "80ee7f222a96dd1d190b6b2744f35241afb67e82c2d69092a2ac282d0405e6ce",
+   "bytes": 15003,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 219,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-19.png",
+   "sha256": "ba5270f92782d055a50b69216265ca4a957fb2d63d265bfdfc69692243056a01",
+   "bytes": 14798,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 218,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-20.png",
+   "sha256": "50e4975dfb720687d04833180464893ccd2a812455f3ff1f037600e99ffe5b15",
+   "bytes": 14891,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 217,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-21.png",
+   "sha256": "430ad76a50dfe23d58b652d10fdd6ea105443ce11d705c86ba1a5a1e9ba19a32",
+   "bytes": 14817,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 214,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-22.png",
+   "sha256": "63854091b5b23ff9ad7f54ce376bada9126d19d16ce1373fe28da2c35566f67e",
+   "bytes": 14774,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 213,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-23.png",
+   "sha256": "8cbc707eb01b17b29929a563f93a0b5ce3c17515add5aaab039dd35ba7bbb3d1",
+   "bytes": 14768,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 213,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-24.png",
+   "sha256": "fae10aa1ee23d50c670601f05a90360ce70b81b7a0de2071808e1fc2d855ee4e",
+   "bytes": 14722,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 212,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-25.png",
+   "sha256": "aed60f2c952823cefe91e8a685cb1bfd92f372a8ba166b2c62c1669b72c1dbe5",
+   "bytes": 14671,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 211,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-26.png",
+   "sha256": "e1abd7b974dc763964a8dacf80f7495d9cfcef344283f50ba08ebaecb9cccd14",
+   "bytes": 14594,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 209,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-27.png",
+   "sha256": "addc3e839d546104329ebc5d843a973fd6e9512bbae610a26a76134ad9225935",
+   "bytes": 14621,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 209,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-28.png",
+   "sha256": "a20d73462038700941e253453e3f6a1bac75fbcb8f20509774f9a8f15edaddfe",
+   "bytes": 14508,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 208,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-29.png",
+   "sha256": "6647cfc864b89ccf4e8b850fcb17c767e009fbc8a70ccde09ae381b774c6f1e6",
+   "bytes": 14600,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 208,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-30.png",
+   "sha256": "5a54763ec8b1063e584c0f2fcd533992fd3de6ffe817c2ecbbbba535f754f7d8",
+   "bytes": 14474,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 208,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-31.png",
+   "sha256": "dcb352f92104cfefb8a6b2b5b0bf709f8c86ec76dbb71306f20469e4339ce4dc",
+   "bytes": 14551,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 208,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-32.png",
+   "sha256": "a20d73462038700941e253453e3f6a1bac75fbcb8f20509774f9a8f15edaddfe",
+   "bytes": 14508,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 208,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-33.png",
+   "sha256": "addc3e839d546104329ebc5d843a973fd6e9512bbae610a26a76134ad9225935",
+   "bytes": 14621,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 209,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-34.png",
+   "sha256": "acc5c28250f62ad6ad26af805671e1bdec24de2334a783b22e1861e3b46dce15",
+   "bytes": 14600,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 209,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-35.png",
+   "sha256": "2bb10167415cd62a74b3f4589c722b0559f2991d3b2ec0f65566f03753aa7a9b",
+   "bytes": 14655,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 211,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-36.png",
+   "sha256": "fae10aa1ee23d50c670601f05a90360ce70b81b7a0de2071808e1fc2d855ee4e",
+   "bytes": 14722,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 212,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-37.png",
+   "sha256": "8cbc707eb01b17b29929a563f93a0b5ce3c17515add5aaab039dd35ba7bbb3d1",
+   "bytes": 14768,
+   "record": "tools/heroanim/LAB.md",
+   "width": 176,
+   "height": 213,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-38.png",
+   "sha256": "9202351f4fa95b006b8f5c93aa64fbeda0ed53ce8085a8f94d2e8c87015a89c5",
+   "bytes": 14792,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 213,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-39.png",
+   "sha256": "430ad76a50dfe23d58b652d10fdd6ea105443ce11d705c86ba1a5a1e9ba19a32",
+   "bytes": 14817,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 214,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-40.png",
+   "sha256": "50e4975dfb720687d04833180464893ccd2a812455f3ff1f037600e99ffe5b15",
+   "bytes": 14891,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 217,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-41.png",
+   "sha256": "ba5270f92782d055a50b69216265ca4a957fb2d63d265bfdfc69692243056a01",
+   "bytes": 14798,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 218,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-42.png",
+   "sha256": "5c2ea66871795e577af9295335777b6aadab3e656d80d63c2c44b62fb49e45cc",
+   "bytes": 15003,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 219,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-43.png",
+   "sha256": "1e2eef130289067316cf4c3dab3d0f251912695c108ea85271239e5d315a0cae",
+   "bytes": 15056,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 220,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-44.png",
+   "sha256": "20c741d1c04e5246cc2f16f2f55ff15718a4e5b998ffab2c290ee91dbb5880d4",
+   "bytes": 14945,
+   "record": "tools/heroanim/LAB.md",
+   "width": 174,
+   "height": 221,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-45.png",
+   "sha256": "d949659afd715807f70878143c71844b14180b7e332d8cddc45d7ea06addd952",
+   "bytes": 15003,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 223,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-46.png",
+   "sha256": "4761654cee120fe0da0390e80a5cdf4ee762ed476a2fb424f6a2bf64299dc7d5",
+   "bytes": 14998,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 224,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-47.png",
+   "sha256": "7aea438451d902d84e32502de31e822c42b246cc14a75dd7050371a185691157",
+   "bytes": 14993,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 225,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-48.png",
+   "sha256": "49e922149f194950e7ab39133344470a0914777a8a4058fab6bd4ec7ff148c98",
+   "bytes": 14807,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-49.png",
+   "sha256": "9a2e50e3e5e44d5b27e716f11deca782b3ef5322d5dbcd331b3f6c1b493c9a93",
+   "bytes": 14743,
+   "record": "tools/heroanim/LAB.md",
+   "width": 172,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-50.png",
+   "sha256": "08cd5970388c0ad1c8a9f910c988dcecc1df1dc6d743a18e7939d31739854c6c",
+   "bytes": 14612,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-51.png",
+   "sha256": "34a14b8f82b591f9303b98119bca59dc275db24da09679073e296fd6812da182",
+   "bytes": 14620,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-52.png",
+   "sha256": "9905b6ec4b1ec73a1d8c4a4346f5350109f806ab29ce06bb294ff52541366281",
+   "bytes": 14466,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-53.png",
+   "sha256": "832a15fb6cc2e7f8492f4a433734e094c7a9b63f4504ec95d3e479bf9381ea59",
+   "bytes": 14550,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-54.png",
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087",
+   "bytes": 14540,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-55.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-56.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-57.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-58.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bow-59.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-00.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-01.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-02.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-03.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-04.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-05.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-06.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-07.png",
+   "sha256": "fe3979ef2b729f8c8216176a00ccb18f2fb09c384afe33150f5fa380f7dc383e",
+   "bytes": 14541,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-08.png",
+   "sha256": "605d3b0e515b499b1c7395654cd8a16e8163af1099fd9e0855191d3cc9c922a1",
+   "bytes": 14470,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-09.png",
+   "sha256": "71992afe77094c157b8b0a8b5e732c09ce80c17d5b3c5af8d8a343a4bdd2d66b",
+   "bytes": 14553,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-10.png",
+   "sha256": "f67f9c46b494528ed34830d98d9999ba59f943782ec4899395e26760090d192c",
+   "bytes": 14444,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-11.png",
+   "sha256": "891f819ca16aed3361bf991ac9771c2acbc8ab823193069dc7cc6edcd36ddecc",
+   "bytes": 14514,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-12.png",
+   "sha256": "1ed39b83afe2901e1a7ef161ce8edf1b8d7ea6f669c1ea04a2b1027f8c8af0cb",
+   "bytes": 14439,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-13.png",
+   "sha256": "be5066d46eaf93bddd8c9df1c8c39c36485d067b030f0ba8a076f1404cd837fc",
+   "bytes": 14441,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-14.png",
+   "sha256": "f0b4c3ae4f4f4bf0a5d250c31ab0e131ae498f015dcfbec38378ef6bea1f7cdf",
+   "bytes": 14439,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-15.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-16.png",
+   "sha256": "81c49e84acfb5d3338f10eae58b324a9489c37275b54809264650295a2e1bdb3",
+   "bytes": 14472,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-17.png",
+   "sha256": "065c6f0feedcecf7c9d554e34d6c2846594adf88d883ab77e41d444b76b09e2d",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-18.png",
+   "sha256": "b4d031f6979db75d0ef9abc51c1357715ed5da1a22872873cc24c41d30dfa999",
+   "bytes": 14637,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-19.png",
+   "sha256": "18c05a4e79c1699d1501d37627f70a49d3fa35613d74f9cd0c038950f51f3e04",
+   "bytes": 14526,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-20.png",
+   "sha256": "2920f4528b6f415ec6333d5239c8ce0b9e37b794cd04c1abbb8497b923b5514f",
+   "bytes": 14565,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-21.png",
+   "sha256": "f98024806eab088d1a9764ac8925bea8b38e0ecc19ee84f0f17ae767096b2fc5",
+   "bytes": 14493,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-22.png",
+   "sha256": "9487de74aee6da727f04ce424b8c2def58a8ddc8d2359ed1bac824573e8e8a01",
+   "bytes": 14419,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-23.png",
+   "sha256": "9487de74aee6da727f04ce424b8c2def58a8ddc8d2359ed1bac824573e8e8a01",
+   "bytes": 14419,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-24.png",
+   "sha256": "b52ac17c6de5d449d1ba47a4af954ab910157b2dcc1b9700926667fc9078854f",
+   "bytes": 14504,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-25.png",
+   "sha256": "e7529659a08754e5925dfcad9af3fb72ab12f97468cdce9cd496e3546297345f",
+   "bytes": 14534,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-26.png",
+   "sha256": "17f95070b7a8cd6b7ae44a67cf96941c23f14bcf4cefec6c12f28fc547227907",
+   "bytes": 14523,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-27.png",
+   "sha256": "b4d031f6979db75d0ef9abc51c1357715ed5da1a22872873cc24c41d30dfa999",
+   "bytes": 14637,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-28.png",
+   "sha256": "065c6f0feedcecf7c9d554e34d6c2846594adf88d883ab77e41d444b76b09e2d",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-29.png",
+   "sha256": "3412f4177504d48a36ea4b6c1aebbdb466edcbbeca1b0505191a12f389ce6da7",
+   "bytes": 14492,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-30.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-31.png",
+   "sha256": "909804f56ff873109605f95aaa35e4a5583a90312b6aa5abe6c86824f0017c35",
+   "bytes": 14553,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-32.png",
+   "sha256": "a42cdccbd86b37aac4d04ebd71ad7063d5fe9b8b8cd2c4046dc8e5ff14172016",
+   "bytes": 14518,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-33.png",
+   "sha256": "1faa79199f89ad25e5f9e3795ba917544a7bf8bcd95d485c3af5e6d05e44e616",
+   "bytes": 14575,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-34.png",
+   "sha256": "28fa250f1eae7f43aeeb87fa782f8272f88f2107bc0047e92096745bffcfc1e8",
+   "bytes": 14498,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-35.png",
+   "sha256": "af796df3ab21f1bf5539ba7541135e3f33d4447889651b228fa20ebf7de2744e",
+   "bytes": 14569,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-36.png",
+   "sha256": "7a7545581d58b5f5e18f50f9dc62c1f24ec4aaec8cf5ab0de84a9e4662694b24",
+   "bytes": 14487,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-37.png",
+   "sha256": "c7f520e71fb0dccee5448e0355239e7a6ec30eaa7c430b3d8ab4bdf72956f752",
+   "bytes": 14547,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-38.png",
+   "sha256": "c7f520e71fb0dccee5448e0355239e7a6ec30eaa7c430b3d8ab4bdf72956f752",
+   "bytes": 14547,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-39.png",
+   "sha256": "3dc74000b2231db63bedb98d482850fd13295761ff1df9a381461aa0533ee91a",
+   "bytes": 14466,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 227,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-40.png",
+   "sha256": "67c2b59bee60e7aa5b60eabe84e07307abdd163602b7abdb26ed60f346850f59",
+   "bytes": 14520,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-41.png",
+   "sha256": "28fa250f1eae7f43aeeb87fa782f8272f88f2107bc0047e92096745bffcfc1e8",
+   "bytes": 14498,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-42.png",
+   "sha256": "a1ddd63ce6ff0985da165c34b7b9cd7e748c017b2a217380bdd6a06d21c11ee9",
+   "bytes": 14487,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-43.png",
+   "sha256": "d9ed9ac8835f51fd817715f311523bc5a15604f078c34c6e7a8f673061a9794a",
+   "bytes": 14446,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 226,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-44.png",
+   "sha256": "3fbb1599a257e4bcdd45f57a35c86569ffb2377899494aaa34d42f426ffa9171",
+   "bytes": 14588,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-45.png",
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087",
+   "bytes": 14540,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-46.png",
+   "sha256": "9d37317a53444c38eb9e7facd7017bf0b5c33d789b7191472d141ec2aa1888da",
+   "bytes": 14472,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-47.png",
+   "sha256": "e1d5f0f06bb809c8c9b913be4395e28c1a97b37c88685247cefe6f63dc79ce49",
+   "bytes": 14569,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-48.png",
+   "sha256": "38670b16d19c62b49ee81c64a0d8b2494e022fac21e837cc97519854b4dcf387",
+   "bytes": 14442,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-49.png",
+   "sha256": "f1adbb745d257a7e588d675832b59f3a28ffc033d0dd8b064d9190b96ec00163",
+   "bytes": 14624,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-50.png",
+   "sha256": "b3f10ffe36eec06b74002639eb9de9e21c0354729db36a94b73d82e7764fbeca",
+   "bytes": 14444,
+   "record": "tools/heroanim/LAB.md",
+   "width": 169,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-51.png",
+   "sha256": "59d3143a44934b128dff3796f3274e9b630d1db09cea4b33727f13096698b250",
+   "bytes": 14477,
+   "record": "tools/heroanim/LAB.md",
+   "width": 171,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-52.png",
+   "sha256": "b5c706cd4667521e0607ddad5476de1da8626ce05d2f5dba7f082500d20bff9b",
+   "bytes": 14498,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-53.png",
+   "sha256": "59587847ebe8b1f705fafb78882197a1d7f4683980d5188ea97465d183b52dd1",
+   "bytes": 14608,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-54.png",
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087",
+   "bytes": 14540,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-55.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-56.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-57.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-58.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  },
+  {
+   "path": "lab-sprig-bounce-59.png",
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb",
+   "bytes": 14545,
+   "record": "tools/heroanim/LAB.md",
+   "width": 170,
+   "height": 228,
+   "slot": "ui.hero_lab",
+   "source": "owner"
+  }
+ ],
+ "frames": [
+  {
+   "name": "lab-sprig-idle-00",
+   "clip": "idle",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-00",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-01",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-02",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-03",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-04",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-05",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-06",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-07",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4995703125,
+    0.4185763888888889
+   ],
+   "bytes": 14493,
+   "sha256": "7a4fef543931e5904173be7f37880ee78d60aa1796d0f709cf62fd028d1f3c67"
+  },
+  {
+   "name": "lab-sprig-hello-08",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.498359375,
+    0.4185763888888889
+   ],
+   "bytes": 14474,
+   "sha256": "5c45b3d517bb7617b82c947cef5ec0491b06753ac1f29dff9a42354ef37ee341"
+  },
+  {
+   "name": "lab-sprig-hello-09",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4965625,
+    0.4185763888888889
+   ],
+   "bytes": 14459,
+   "sha256": "9b4c73bfc92198c39016fe532233aeeb3b0e436a44ba113f9db3cb72c9968ac7"
+  },
+  {
+   "name": "lab-sprig-hello-10",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.494375,
+    0.4186111111111111
+   ],
+   "bytes": 14411,
+   "sha256": "e5fcfa0dcfe8ce15737725b52255e2d839d097fef61491777a7e93e83448d0d6"
+  },
+  {
+   "name": "lab-sprig-hello-11",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4919140625,
+    0.41868055555555556
+   ],
+   "bytes": 14329,
+   "sha256": "2facfd908256c6c5f2960df11378ebc965256562a9ab4707f5b619c1e9c773a2"
+  },
+  {
+   "name": "lab-sprig-hello-12",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.489375,
+    0.41874999999999996
+   ],
+   "bytes": 14343,
+   "sha256": "8aab44b35641dbd4dbd5832ceed16e9dc307dbd6a2638ae3454b62da2edbd39d"
+  },
+  {
+   "name": "lab-sprig-hello-13",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4869921875,
+    0.41885416666666664
+   ],
+   "bytes": 14325,
+   "sha256": "4a372e3397c4240acabdc5362446da9537b30a8fee2ee1de63ab8b26cb6f6356"
+  },
+  {
+   "name": "lab-sprig-hello-14",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.48484375,
+    0.4189583333333333
+   ],
+   "bytes": 14286,
+   "sha256": "a82db65418b25ed702ca7fed7e6d2d16d2c14b447b84b7d04d91f3152c50a396"
+  },
+  {
+   "name": "lab-sprig-hello-15",
+   "clip": "hello",
+   "crop": [
+    42,
+    34,
+    169,
+    227
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4831640625,
+    0.4190277777777778
+   ],
+   "bytes": 14286,
+   "sha256": "29cea01899ae27e882ac9fe3f97de9a9e9366e751ba6b42230e189b3a160edf7"
+  },
+  {
+   "name": "lab-sprig-hello-16",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.482109375,
+    0.41909722222222223
+   ],
+   "bytes": 14279,
+   "sha256": "3bef16675b85f7d7fea61f04c0cbebbe1cfc9dd15fdddde634347b6c731be883"
+  },
+  {
+   "name": "lab-sprig-hello-17",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14272,
+   "sha256": "073f124e6bd0bdbf25f3617e3b7128897864c151ef5c6f7159760bb8e3b35ae1"
+  },
+  {
+   "name": "lab-sprig-hello-18",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14292,
+   "sha256": "824bda0ae8cd95022d2d9eef2c8d9a08f3df6cddf4fcf46c4e946a682eb702fc"
+  },
+  {
+   "name": "lab-sprig-hello-19",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14285,
+   "sha256": "6a6bc133c7627da79d7068c780900543d1e20c2a4e16ee6f745958939439103f"
+  },
+  {
+   "name": "lab-sprig-hello-20",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14259,
+   "sha256": "a210602e9e743a72108e393d5a00b33f5e29a85d6476a3956b1a6687ecb2ce8e"
+  },
+  {
+   "name": "lab-sprig-hello-21",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14277,
+   "sha256": "f9446fabe5652160e4de2b856a99d7292dcbe9341572279e68b1d0b03c94b34e"
+  },
+  {
+   "name": "lab-sprig-hello-22",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14279,
+   "sha256": "212ff2b3e553dfbfe47ee67aea9283768106afec67d7f3229a6a0d3950ee1c98"
+  },
+  {
+   "name": "lab-sprig-hello-23",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14281,
+   "sha256": "a2c738e010172c91bec50d092bcc29932263e7fad78be0f546e351be58c8d640"
+  },
+  {
+   "name": "lab-sprig-hello-24",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14262,
+   "sha256": "8cd83a9fffa9da266ffaab37f36ec7c2c5c7c03166d725d3412082e8c03b9d0b"
+  },
+  {
+   "name": "lab-sprig-hello-25",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14288,
+   "sha256": "480356cdff2ba53ad5bccc3c994cd8aa5fdbafeb26cba477c47d9e4a9fd1afa8"
+  },
+  {
+   "name": "lab-sprig-hello-26",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14262,
+   "sha256": "8cd83a9fffa9da266ffaab37f36ec7c2c5c7c03166d725d3412082e8c03b9d0b"
+  },
+  {
+   "name": "lab-sprig-hello-27",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14281,
+   "sha256": "a2c738e010172c91bec50d092bcc29932263e7fad78be0f546e351be58c8d640"
+  },
+  {
+   "name": "lab-sprig-hello-28",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14279,
+   "sha256": "212ff2b3e553dfbfe47ee67aea9283768106afec67d7f3229a6a0d3950ee1c98"
+  },
+  {
+   "name": "lab-sprig-hello-29",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14277,
+   "sha256": "f9446fabe5652160e4de2b856a99d7292dcbe9341572279e68b1d0b03c94b34e"
+  },
+  {
+   "name": "lab-sprig-hello-30",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14259,
+   "sha256": "a210602e9e743a72108e393d5a00b33f5e29a85d6476a3956b1a6687ecb2ce8e"
+  },
+  {
+   "name": "lab-sprig-hello-31",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14285,
+   "sha256": "6a6bc133c7627da79d7068c780900543d1e20c2a4e16ee6f745958939439103f"
+  },
+  {
+   "name": "lab-sprig-hello-32",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14292,
+   "sha256": "824bda0ae8cd95022d2d9eef2c8d9a08f3df6cddf4fcf46c4e946a682eb702fc"
+  },
+  {
+   "name": "lab-sprig-hello-33",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14272,
+   "sha256": "073f124e6bd0bdbf25f3617e3b7128897864c151ef5c6f7159760bb8e3b35ae1"
+  },
+  {
+   "name": "lab-sprig-hello-34",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14267,
+   "sha256": "1ac9467feb066fe5563d4cdea9a5eacf404d86576005015bbb84300dd7f479e3"
+  },
+  {
+   "name": "lab-sprig-hello-35",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14274,
+   "sha256": "db64f4136df945f442a16ae6682f52a0cb02bbe0fd973e425e95263524534165"
+  },
+  {
+   "name": "lab-sprig-hello-36",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14267,
+   "sha256": "1ac9467feb066fe5563d4cdea9a5eacf404d86576005015bbb84300dd7f479e3"
+  },
+  {
+   "name": "lab-sprig-hello-37",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14272,
+   "sha256": "073f124e6bd0bdbf25f3617e3b7128897864c151ef5c6f7159760bb8e3b35ae1"
+  },
+  {
+   "name": "lab-sprig-hello-38",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14292,
+   "sha256": "824bda0ae8cd95022d2d9eef2c8d9a08f3df6cddf4fcf46c4e946a682eb702fc"
+  },
+  {
+   "name": "lab-sprig-hello-39",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14285,
+   "sha256": "6a6bc133c7627da79d7068c780900543d1e20c2a4e16ee6f745958939439103f"
+  },
+  {
+   "name": "lab-sprig-hello-40",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14259,
+   "sha256": "a210602e9e743a72108e393d5a00b33f5e29a85d6476a3956b1a6687ecb2ce8e"
+  },
+  {
+   "name": "lab-sprig-hello-41",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14277,
+   "sha256": "f9446fabe5652160e4de2b856a99d7292dcbe9341572279e68b1d0b03c94b34e"
+  },
+  {
+   "name": "lab-sprig-hello-42",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14279,
+   "sha256": "212ff2b3e553dfbfe47ee67aea9283768106afec67d7f3229a6a0d3950ee1c98"
+  },
+  {
+   "name": "lab-sprig-hello-43",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481796875,
+    0.4191319444444444
+   ],
+   "bytes": 14281,
+   "sha256": "a2c738e010172c91bec50d092bcc29932263e7fad78be0f546e351be58c8d640"
+  },
+  {
+   "name": "lab-sprig-hello-44",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.482109375,
+    0.41909722222222223
+   ],
+   "bytes": 14266,
+   "sha256": "72c7a5ccc92640ff91d8f59dd1c6dd72fcb0eeda6235a8f41887e3951fbd4cec"
+  },
+  {
+   "name": "lab-sprig-hello-45",
+   "clip": "hello",
+   "crop": [
+    42,
+    34,
+    169,
+    227
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4831640625,
+    0.4190277777777778
+   ],
+   "bytes": 14276,
+   "sha256": "cf091ffd6a6fd218eb8a4be66b2a7f767c98b1bf5622a4b02c990ded9167ddce"
+  },
+  {
+   "name": "lab-sprig-hello-46",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.48484375,
+    0.4189583333333333
+   ],
+   "bytes": 14282,
+   "sha256": "c72fbafb43ebbadf0a9bd611d51e6e064015679b3d4473e6b0c4fdc69250b4f6"
+  },
+  {
+   "name": "lab-sprig-hello-47",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4869921875,
+    0.41885416666666664
+   ],
+   "bytes": 14410,
+   "sha256": "a1a8d5232d73772c43fc4430e1ce54261d599055ce7bf03f20836c9c86545026"
+  },
+  {
+   "name": "lab-sprig-hello-48",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.489375,
+    0.41874999999999996
+   ],
+   "bytes": 14392,
+   "sha256": "05d5faa27bfd5447299d61d0fd146b44b4a5154793de939d5d412475d8733731"
+  },
+  {
+   "name": "lab-sprig-hello-49",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4919140625,
+    0.41868055555555556
+   ],
+   "bytes": 14402,
+   "sha256": "13129e830b8a5c55003b5c341f27f8f5651462740934d5b5218177849e7ecf4b"
+  },
+  {
+   "name": "lab-sprig-hello-50",
+   "clip": "hello",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.494375,
+    0.4186111111111111
+   ],
+   "bytes": 14428,
+   "sha256": "2d50f4d23fffe275af29126470ca7c1b9e17862ff5ff75bba6b009d536e57667"
+  },
+  {
+   "name": "lab-sprig-hello-51",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4965625,
+    0.4185763888888889
+   ],
+   "bytes": 14421,
+   "sha256": "5ad3e1dc02dcf5c86a5a0f0bb2688260977ef229c6f5e6161d0f8853b466f100"
+  },
+  {
+   "name": "lab-sprig-hello-52",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.498359375,
+    0.4185763888888889
+   ],
+   "bytes": 14459,
+   "sha256": "17ec79ca679b0f0b361c0532302fcae7acd919917dbe24901257c8d29258a070"
+  },
+  {
+   "name": "lab-sprig-hello-53",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4995703125,
+    0.4185763888888889
+   ],
+   "bytes": 14495,
+   "sha256": "3c21026b62db2827913f7bf31d22d56e2cdf5ec715e21b8fd29c335f6dd5a2a6"
+  },
+  {
+   "name": "lab-sprig-hello-54",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-55",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-56",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-57",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-58",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-hello-59",
+   "clip": "hello",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-00",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-01",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-02",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-03",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-04",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-05",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-06",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-07",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5004296875,
+    0.4185763888888889
+   ],
+   "bytes": 14460,
+   "sha256": "6828de3a3c1f953b8bc5791fac56dc547f9cbb8c489fb5f9641290e9f844fa3e"
+  },
+  {
+   "name": "lab-sprig-look-08",
+   "clip": "look",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.4999609375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5015625,
+    0.4185763888888889
+   ],
+   "bytes": 14559,
+   "sha256": "c67d905f73870e32f21e4a4f006e7236135e9d388d6caa5236f3e1ce85bf19b4"
+  },
+  {
+   "name": "lab-sprig-look-09",
+   "clip": "look",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4998828125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.503125,
+    0.4185416666666667
+   ],
+   "bytes": 14529,
+   "sha256": "7063a221539938dc4ab9370bd61f4b552fe8ac4e287c0e62065e168ee8c5a774"
+  },
+  {
+   "name": "lab-sprig-look-10",
+   "clip": "look",
+   "crop": [
+    41,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.499765625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.504609375,
+    0.4185416666666667
+   ],
+   "bytes": 14433,
+   "sha256": "b1a1cfeffcef8fdb8ab9cff98f35c6cce1c39783e59c4be476948ae5fda22a7c"
+  },
+  {
+   "name": "lab-sprig-look-11",
+   "clip": "look",
+   "crop": [
+    40,
+    33,
+    168,
+    228
+   ],
+   "head": [
+    0.4996484375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5055859375,
+    0.4185069444444445
+   ],
+   "bytes": 14281,
+   "sha256": "27280a8a2f2663aefdfc592c40f70e16798090e0a0ac38ca382c47dbcbc58c31"
+  },
+  {
+   "name": "lab-sprig-look-12",
+   "clip": "look",
+   "crop": [
+    39,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.49953125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.505625,
+    0.4184722222222222
+   ],
+   "bytes": 14209,
+   "sha256": "a381a576120043ff6125bd4342969f6cc4b0db1aed97e7fb4e4da9c45461cec8"
+  },
+  {
+   "name": "lab-sprig-look-13",
+   "clip": "look",
+   "crop": [
+    36,
+    33,
+    168,
+    228
+   ],
+   "head": [
+    0.499375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5044921875,
+    0.4184375
+   ],
+   "bytes": 14048,
+   "sha256": "7c75a89e970b72cded6cb87efd05ea06f185bc2e601ffc2e64e949bf356a8b4e"
+  },
+  {
+   "name": "lab-sprig-look-14",
+   "clip": "look",
+   "crop": [
+    35,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.4992578125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.502265625,
+    0.4184722222222222
+   ],
+   "bytes": 13956,
+   "sha256": "ead2f46167527d7a7bc73222ff3799b80b26a6c47981f5f68ac2b1d4728785a4"
+  },
+  {
+   "name": "lab-sprig-look-15",
+   "clip": "look",
+   "crop": [
+    34,
+    33,
+    166,
+    228
+   ],
+   "head": [
+    0.4991796875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4991796875,
+    0.4185763888888889
+   ],
+   "bytes": 13815,
+   "sha256": "7ee2bd3dfec327a75dc13a6a12a51b6ab8296b064fefcc75eabdca5016abedf7"
+  },
+  {
+   "name": "lab-sprig-look-16",
+   "clip": "look",
+   "crop": [
+    32,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.499140625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4956640625,
+    0.41878472222222224
+   ],
+   "bytes": 13820,
+   "sha256": "ed1ae4c4184f25c4607598de16707d777522f089e4428e4a37e0c1a4979c81ec"
+  },
+  {
+   "name": "lab-sprig-look-17",
+   "clip": "look",
+   "crop": [
+    31,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.499140625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4922265625,
+    0.41899305555555555
+   ],
+   "bytes": 13861,
+   "sha256": "0432d7a47070963b16d91cc38c2d1b9c2b6d6071b7933b02b21ac82cd57e33a5"
+  },
+  {
+   "name": "lab-sprig-look-18",
+   "clip": "look",
+   "crop": [
+    30,
+    34,
+    168,
+    227
+   ],
+   "head": [
+    0.4991796875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4891015625,
+    0.4192361111111111
+   ],
+   "bytes": 13873,
+   "sha256": "0b46d433d792955ca6d6dcb65e1737cc05bb22e58d0a63390de075b5c4051c5a"
+  },
+  {
+   "name": "lab-sprig-look-19",
+   "clip": "look",
+   "crop": [
+    30,
+    34,
+    169,
+    227
+   ],
+   "head": [
+    0.49921875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4864453125,
+    0.4194791666666667
+   ],
+   "bytes": 13987,
+   "sha256": "b4d023b88bb4f428343e2d2a88b4e3e535691a169effe244e0bf83719e5335c2"
+  },
+  {
+   "name": "lab-sprig-look-20",
+   "clip": "look",
+   "crop": [
+    29,
+    35,
+    170,
+    226
+   ],
+   "head": [
+    0.4992578125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4842578125,
+    0.41965277777777776
+   ],
+   "bytes": 13998,
+   "sha256": "1099bee5432b00473cfc8fe2ebf09c41e278cc5d763094042fd1c956529cde7f"
+  },
+  {
+   "name": "lab-sprig-look-21",
+   "clip": "look",
+   "crop": [
+    29,
+    35,
+    170,
+    226
+   ],
+   "head": [
+    0.499296875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.482734375,
+    0.41975694444444445
+   ],
+   "bytes": 14121,
+   "sha256": "b816798fb308b2327cc20788a5b38704e997a26ea444e680a4229b637a3de901"
+  },
+  {
+   "name": "lab-sprig-look-22",
+   "clip": "look",
+   "crop": [
+    30,
+    35,
+    170,
+    226
+   ],
+   "head": [
+    0.4993359375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4819140625,
+    0.4197916666666667
+   ],
+   "bytes": 14238,
+   "sha256": "590f9bc150938cac677c9c44eeba48a8f9b539422d028150275d961a5d8d5449"
+  },
+  {
+   "name": "lab-sprig-look-23",
+   "clip": "look",
+   "crop": [
+    30,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.4994140625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.481875,
+    0.4197222222222222
+   ],
+   "bytes": 14240,
+   "sha256": "d1a9fd3e480602fcdd61a9eec8dd207bd267988f33ce0671107a7b2c4cb95eaa"
+  },
+  {
+   "name": "lab-sprig-look-24",
+   "clip": "look",
+   "crop": [
+    31,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.4994921875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.482578125,
+    0.41958333333333336
+   ],
+   "bytes": 14405,
+   "sha256": "18e187c99a8ca5e7ea4fc3df567f0e994ddd814769b5ec1c9d8ab0b039da0dc6"
+  },
+  {
+   "name": "lab-sprig-look-25",
+   "clip": "look",
+   "crop": [
+    32,
+    33,
+    172,
+    228
+   ],
+   "head": [
+    0.4995703125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4840625,
+    0.419375
+   ],
+   "bytes": 14475,
+   "sha256": "7fc5aab9b86eb0fe3a42ce33f445c3c95f2e7ae704f690436b70778d81a2d937"
+  },
+  {
+   "name": "lab-sprig-look-26",
+   "clip": "look",
+   "crop": [
+    35,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.4996484375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.48625,
+    0.4191319444444444
+   ],
+   "bytes": 14493,
+   "sha256": "b33b0eff03b0f681b99a54dd5473d35bc092f785546c64423f6b846995a1c5a7"
+  },
+  {
+   "name": "lab-sprig-look-27",
+   "clip": "look",
+   "crop": [
+    36,
+    33,
+    172,
+    228
+   ],
+   "head": [
+    0.4997265625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4891015625,
+    0.41892361111111115
+   ],
+   "bytes": 14536,
+   "sha256": "f7da2d1a884187dafbfd891ad401bc49078061e14250ddfb6411a283449a96f8"
+  },
+  {
+   "name": "lab-sprig-look-28",
+   "clip": "look",
+   "crop": [
+    39,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.4998046875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.492421875,
+    0.41874999999999996
+   ],
+   "bytes": 14476,
+   "sha256": "6a86bdce573353cfc26337f4543046c4edfe15549579acb5f26a58d766f8c67a"
+  },
+  {
+   "name": "lab-sprig-look-29",
+   "clip": "look",
+   "crop": [
+    41,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.499921875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4961328125,
+    0.4186111111111111
+   ],
+   "bytes": 14554,
+   "sha256": "b29d51630c9d2ba14bcf14a236bedfae52766b116e9c4c4c40c4799617157b39"
+  },
+  {
+   "name": "lab-sprig-look-30",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14565,
+   "sha256": "7acfdeb6a281921305dba4a0ce6ed6307b10227eb35e6c98246372d77c955ce3"
+  },
+  {
+   "name": "lab-sprig-look-31",
+   "clip": "look",
+   "crop": [
+    46,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.500078125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5038671875,
+    0.4186111111111111
+   ],
+   "bytes": 14580,
+   "sha256": "f5e1d5113589b9c86f05fa556c73beaac19228053747affe845e39d46ffca43a"
+  },
+  {
+   "name": "lab-sprig-look-32",
+   "clip": "look",
+   "crop": [
+    47,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5001953125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.507578125,
+    0.41874999999999996
+   ],
+   "bytes": 14572,
+   "sha256": "41b69bb136bca6a986797c4bc3b8f9b186ecfd847f8b47209abef858f0027df3"
+  },
+  {
+   "name": "lab-sprig-look-33",
+   "clip": "look",
+   "crop": [
+    48,
+    33,
+    172,
+    228
+   ],
+   "head": [
+    0.5002734375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5108984375,
+    0.41892361111111115
+   ],
+   "bytes": 14648,
+   "sha256": "41e39fb29c83c706d0d7cb0e3a06959b55f6705019bb6f764c620e5d2ff4b8bb"
+  },
+  {
+   "name": "lab-sprig-look-34",
+   "clip": "look",
+   "crop": [
+    51,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5003515625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.51375,
+    0.4191319444444444
+   ],
+   "bytes": 14643,
+   "sha256": "d5e9c4737b83af01325245e3bc39d1edeb98b207178f22ca8605c8d842c781f5"
+  },
+  {
+   "name": "lab-sprig-look-35",
+   "clip": "look",
+   "crop": [
+    52,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.5004296875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5159375,
+    0.419375
+   ],
+   "bytes": 14538,
+   "sha256": "b2f7e424d677296671b22a130b030330d1fc2a1c9684113c7dd5874961a9eb50"
+  },
+  {
+   "name": "lab-sprig-look-36",
+   "clip": "look",
+   "crop": [
+    53,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.5005078125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.517421875,
+    0.41958333333333336
+   ],
+   "bytes": 14553,
+   "sha256": "fb0df4c040264b5dcb7f562d5e97ebce15faf846461a8a68a782b0d518f9cf7c"
+  },
+  {
+   "name": "lab-sprig-look-37",
+   "clip": "look",
+   "crop": [
+    54,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.5005859375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.518125,
+    0.4197222222222222
+   ],
+   "bytes": 14567,
+   "sha256": "a0c993660f56d9a71a08477f931e3fb151dede32dcb18ab8d24be52b205453fa"
+  },
+  {
+   "name": "lab-sprig-look-38",
+   "clip": "look",
+   "crop": [
+    56,
+    35,
+    170,
+    226
+   ],
+   "head": [
+    0.5006640625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5180859375,
+    0.4197916666666667
+   ],
+   "bytes": 14353,
+   "sha256": "0ddbe5a26e696a64abf911a0dc295220b4f08cf502dd47c5caf7a144a66e36b5"
+  },
+  {
+   "name": "lab-sprig-look-39",
+   "clip": "look",
+   "crop": [
+    57,
+    35,
+    170,
+    226
+   ],
+   "head": [
+    0.500703125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.517265625,
+    0.41975694444444445
+   ],
+   "bytes": 14397,
+   "sha256": "76b4a03006ebe4593e838a170e90b4f043647f9df4baf22d613940d61b6eee8b"
+  },
+  {
+   "name": "lab-sprig-look-40",
+   "clip": "look",
+   "crop": [
+    57,
+    35,
+    170,
+    226
+   ],
+   "head": [
+    0.5007421875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5157421875,
+    0.41965277777777776
+   ],
+   "bytes": 14425,
+   "sha256": "c4935b9f62204405a5bc1685f1f1eb1725762a545135c6f35899217e71da07b6"
+  },
+  {
+   "name": "lab-sprig-look-41",
+   "clip": "look",
+   "crop": [
+    57,
+    35,
+    169,
+    226
+   ],
+   "head": [
+    0.50078125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5135546875,
+    0.4194791666666667
+   ],
+   "bytes": 14396,
+   "sha256": "62162d6a6201b99b840496323243def25f4f65f90b10a9624c4f9d25e41e4adb"
+  },
+  {
+   "name": "lab-sprig-look-42",
+   "clip": "look",
+   "crop": [
+    58,
+    33,
+    168,
+    228
+   ],
+   "head": [
+    0.5008203125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5108984375,
+    0.4192361111111111
+   ],
+   "bytes": 14333,
+   "sha256": "a2a7dca9132f1a831e5fa09949aaafc3213a6e32b5000aa25557401c9efc0dd4"
+  },
+  {
+   "name": "lab-sprig-look-43",
+   "clip": "look",
+   "crop": [
+    58,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.500859375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5077734375,
+    0.41899305555555555
+   ],
+   "bytes": 14319,
+   "sha256": "ae26ff3242316717d6712399e1e8c2751e45fd836a9ee7ba030ba0fbf6538282"
+  },
+  {
+   "name": "lab-sprig-look-44",
+   "clip": "look",
+   "crop": [
+    57,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.500859375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5043359375,
+    0.41878472222222224
+   ],
+   "bytes": 14169,
+   "sha256": "63c2a1d26f16a1a63ef307fb5d00de9e8f092b3a91a69ff0cf1d8cb0482a0d13"
+  },
+  {
+   "name": "lab-sprig-look-45",
+   "clip": "look",
+   "crop": [
+    57,
+    33,
+    165,
+    228
+   ],
+   "head": [
+    0.5008203125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5008203125,
+    0.4185763888888889
+   ],
+   "bytes": 14169,
+   "sha256": "5bf76d9d7e9f6a4ac17ef50534402d31468a86af40a039c0dce2a6e7092290a0"
+  },
+  {
+   "name": "lab-sprig-look-46",
+   "clip": "look",
+   "crop": [
+    54,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.5007421875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.497734375,
+    0.4184722222222222
+   ],
+   "bytes": 14439,
+   "sha256": "8639dd662b47f03af6c964e8424bdeb7536f60a35b68a175bb77a5fd4aeb0463"
+  },
+  {
+   "name": "lab-sprig-look-47",
+   "clip": "look",
+   "crop": [
+    52,
+    33,
+    168,
+    228
+   ],
+   "head": [
+    0.500625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4955078125,
+    0.4184375
+   ],
+   "bytes": 14505,
+   "sha256": "5d85b3936254210a0327d2763e8e5c7eeea4244a912e9a9ae43736a588afe994"
+  },
+  {
+   "name": "lab-sprig-look-48",
+   "clip": "look",
+   "crop": [
+    50,
+    33,
+    167,
+    228
+   ],
+   "head": [
+    0.50046875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.494375,
+    0.4184722222222222
+   ],
+   "bytes": 14506,
+   "sha256": "fb7b69a4c17e0729c932cb701e3e28f32b281d7e94ea60dce058ed343dadea46"
+  },
+  {
+   "name": "lab-sprig-look-49",
+   "clip": "look",
+   "crop": [
+    48,
+    33,
+    168,
+    228
+   ],
+   "head": [
+    0.5003515625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4944140625,
+    0.4185069444444445
+   ],
+   "bytes": 14497,
+   "sha256": "82a2d76b710fe7a95c296b0aa8960256964c0e38a99ddee5d0773853fd56eb04"
+  },
+  {
+   "name": "lab-sprig-look-50",
+   "clip": "look",
+   "crop": [
+    46,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.500234375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.495390625,
+    0.4185416666666667
+   ],
+   "bytes": 14600,
+   "sha256": "ad649aa844a662f8a03e79f6be37d1dc1e9dba3a309ee60ce5329a893b17eca9"
+  },
+  {
+   "name": "lab-sprig-look-51",
+   "clip": "look",
+   "crop": [
+    45,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.5001171875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.496875,
+    0.4185416666666667
+   ],
+   "bytes": 14569,
+   "sha256": "82e555df2984b401becb0188892d52d9f9f4c9f49b48d433e519abd62829864c"
+  },
+  {
+   "name": "lab-sprig-look-52",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.500078125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4984375,
+    0.4185763888888889
+   ],
+   "bytes": 14589,
+   "sha256": "3f1a36ecb3c0b0fd8d264e54eacb011ef32892a488e938f1c5297ea480fc5c12"
+  },
+  {
+   "name": "lab-sprig-look-53",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4995703125,
+    0.4185763888888889
+   ],
+   "bytes": 14508,
+   "sha256": "e41e7f51c54ad63668af6481fe9692811a3b595b7b610e13063d13dcfa5776ab"
+  },
+  {
+   "name": "lab-sprig-look-54",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-55",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-56",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-57",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-58",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-look-59",
+   "clip": "look",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-00",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-01",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-02",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-03",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-04",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-05",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-06",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14540,
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087"
+  },
+  {
+   "name": "lab-sprig-bow-07",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4186111111111111
+   ],
+   "bytes": 14550,
+   "sha256": "832a15fb6cc2e7f8492f4a433734e094c7a9b63f4504ec95d3e479bf9381ea59"
+  },
+  {
+   "name": "lab-sprig-bow-08",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.41878472222222224
+   ],
+   "bytes": 14466,
+   "sha256": "9905b6ec4b1ec73a1d8c4a4346f5350109f806ab29ce06bb294ff52541366281"
+  },
+  {
+   "name": "lab-sprig-bow-09",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4191319444444444
+   ],
+   "bytes": 14620,
+   "sha256": "34a14b8f82b591f9303b98119bca59dc275db24da09679073e296fd6812da182"
+  },
+  {
+   "name": "lab-sprig-bow-10",
+   "clip": "bow",
+   "crop": [
+    43,
+    34,
+    170,
+    227
+   ],
+   "head": [
+    0.5,
+    0.6451388888888889
+   ],
+   "top": [
+    0.5,
+    0.4197916666666667
+   ],
+   "bytes": 14612,
+   "sha256": "08cd5970388c0ad1c8a9f910c988dcecc1df1dc6d743a18e7939d31739854c6c"
+  },
+  {
+   "name": "lab-sprig-bow-11",
+   "clip": "bow",
+   "crop": [
+    42,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.5,
+    0.6451736111111112
+   ],
+   "top": [
+    0.5,
+    0.42083333333333334
+   ],
+   "bytes": 14743,
+   "sha256": "9a2e50e3e5e44d5b27e716f11deca782b3ef5322d5dbcd331b3f6c1b493c9a93"
+  },
+  {
+   "name": "lab-sprig-bow-12",
+   "clip": "bow",
+   "crop": [
+    42,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.5,
+    0.6452430555555556
+   ],
+   "top": [
+    0.5,
+    0.42239583333333336
+   ],
+   "bytes": 14773,
+   "sha256": "a4005645dba17ec3d9aa10bce94897e98bee3e74174b4f8bed28d23d60307721"
+  },
+  {
+   "name": "lab-sprig-bow-13",
+   "clip": "bow",
+   "crop": [
+    42,
+    36,
+    172,
+    225
+   ],
+   "head": [
+    0.5,
+    0.6453472222222223
+   ],
+   "top": [
+    0.5,
+    0.4245138888888889
+   ],
+   "bytes": 14962,
+   "sha256": "fe85c16bf8bb94e6c2799f8ebbd38d25d4c7941ae26d13654f4664fb4d523a7e"
+  },
+  {
+   "name": "lab-sprig-bow-14",
+   "clip": "bow",
+   "crop": [
+    42,
+    37,
+    172,
+    224
+   ],
+   "head": [
+    0.5,
+    0.6455208333333333
+   ],
+   "top": [
+    0.5,
+    0.42725694444444445
+   ],
+   "bytes": 14976,
+   "sha256": "f38f9de05cc6d02637b865f115525aac76b633da6fe17597cd593831c2c5ee15"
+  },
+  {
+   "name": "lab-sprig-bow-15",
+   "clip": "bow",
+   "crop": [
+    42,
+    38,
+    172,
+    223
+   ],
+   "head": [
+    0.5,
+    0.6457291666666667
+   ],
+   "top": [
+    0.5,
+    0.43038194444444444
+   ],
+   "bytes": 14964,
+   "sha256": "5ef1c8c94f0545f8bc044cb6c132e116e419e7f564c851e6cb8c8e98ec9051ae"
+  },
+  {
+   "name": "lab-sprig-bow-16",
+   "clip": "bow",
+   "crop": [
+    41,
+    40,
+    174,
+    221
+   ],
+   "head": [
+    0.5,
+    0.6459722222222222
+   ],
+   "top": [
+    0.5,
+    0.43354166666666666
+   ],
+   "bytes": 14964,
+   "sha256": "0994c5689d81f556fcfd6789058e1d5a9e224aab7b19ae4f7057c96934d796bd"
+  },
+  {
+   "name": "lab-sprig-bow-17",
+   "clip": "bow",
+   "crop": [
+    41,
+    41,
+    174,
+    220
+   ],
+   "head": [
+    0.5,
+    0.6461805555555555
+   ],
+   "top": [
+    0.5,
+    0.4361111111111111
+   ],
+   "bytes": 15044,
+   "sha256": "35daca617aa333fe47cc36b94c04be18a7e3de5c06959f28d505c18576538c97"
+  },
+  {
+   "name": "lab-sprig-bow-18",
+   "clip": "bow",
+   "crop": [
+    41,
+    42,
+    174,
+    219
+   ],
+   "head": [
+    0.5,
+    0.6463541666666667
+   ],
+   "top": [
+    0.5,
+    0.4384375
+   ],
+   "bytes": 15003,
+   "sha256": "80ee7f222a96dd1d190b6b2744f35241afb67e82c2d69092a2ac282d0405e6ce"
+  },
+  {
+   "name": "lab-sprig-bow-19",
+   "clip": "bow",
+   "crop": [
+    41,
+    43,
+    174,
+    218
+   ],
+   "head": [
+    0.5,
+    0.6465277777777777
+   ],
+   "top": [
+    0.5,
+    0.4407638888888889
+   ],
+   "bytes": 14798,
+   "sha256": "ba5270f92782d055a50b69216265ca4a957fb2d63d265bfdfc69692243056a01"
+  },
+  {
+   "name": "lab-sprig-bow-20",
+   "clip": "bow",
+   "crop": [
+    41,
+    44,
+    174,
+    217
+   ],
+   "head": [
+    0.5,
+    0.6467361111111111
+   ],
+   "top": [
+    0.5,
+    0.443125
+   ],
+   "bytes": 14891,
+   "sha256": "50e4975dfb720687d04833180464893ccd2a812455f3ff1f037600e99ffe5b15"
+  },
+  {
+   "name": "lab-sprig-bow-21",
+   "clip": "bow",
+   "crop": [
+    41,
+    47,
+    174,
+    214
+   ],
+   "head": [
+    0.5,
+    0.6469097222222222
+   ],
+   "top": [
+    0.5,
+    0.4454166666666667
+   ],
+   "bytes": 14817,
+   "sha256": "430ad76a50dfe23d58b652d10fdd6ea105443ce11d705c86ba1a5a1e9ba19a32"
+  },
+  {
+   "name": "lab-sprig-bow-22",
+   "clip": "bow",
+   "crop": [
+    41,
+    48,
+    174,
+    213
+   ],
+   "head": [
+    0.5,
+    0.6470833333333333
+   ],
+   "top": [
+    0.5,
+    0.44763888888888886
+   ],
+   "bytes": 14774,
+   "sha256": "63854091b5b23ff9ad7f54ce376bada9126d19d16ce1373fe28da2c35566f67e"
+  },
+  {
+   "name": "lab-sprig-bow-23",
+   "clip": "bow",
+   "crop": [
+    40,
+    48,
+    176,
+    213
+   ],
+   "head": [
+    0.5,
+    0.6472916666666666
+   ],
+   "top": [
+    0.5,
+    0.44972222222222225
+   ],
+   "bytes": 14768,
+   "sha256": "8cbc707eb01b17b29929a563f93a0b5ce3c17515add5aaab039dd35ba7bbb3d1"
+  },
+  {
+   "name": "lab-sprig-bow-24",
+   "clip": "bow",
+   "crop": [
+    40,
+    49,
+    176,
+    212
+   ],
+   "head": [
+    0.5,
+    0.6474305555555556
+   ],
+   "top": [
+    0.5,
+    0.45163194444444443
+   ],
+   "bytes": 14722,
+   "sha256": "fae10aa1ee23d50c670601f05a90360ce70b81b7a0de2071808e1fc2d855ee4e"
+  },
+  {
+   "name": "lab-sprig-bow-25",
+   "clip": "bow",
+   "crop": [
+    40,
+    50,
+    176,
+    211
+   ],
+   "head": [
+    0.5,
+    0.6475694444444444
+   ],
+   "top": [
+    0.5,
+    0.45333333333333337
+   ],
+   "bytes": 14671,
+   "sha256": "aed60f2c952823cefe91e8a685cb1bfd92f372a8ba166b2c62c1669b72c1dbe5"
+  },
+  {
+   "name": "lab-sprig-bow-26",
+   "clip": "bow",
+   "crop": [
+    40,
+    52,
+    176,
+    209
+   ],
+   "head": [
+    0.5,
+    0.6477083333333333
+   ],
+   "top": [
+    0.5,
+    0.45479166666666665
+   ],
+   "bytes": 14594,
+   "sha256": "e1abd7b974dc763964a8dacf80f7495d9cfcef344283f50ba08ebaecb9cccd14"
+  },
+  {
+   "name": "lab-sprig-bow-27",
+   "clip": "bow",
+   "crop": [
+    40,
+    52,
+    176,
+    209
+   ],
+   "head": [
+    0.5,
+    0.6478125
+   ],
+   "top": [
+    0.5,
+    0.4559375
+   ],
+   "bytes": 14621,
+   "sha256": "addc3e839d546104329ebc5d843a973fd6e9512bbae610a26a76134ad9225935"
+  },
+  {
+   "name": "lab-sprig-bow-28",
+   "clip": "bow",
+   "crop": [
+    40,
+    53,
+    176,
+    208
+   ],
+   "head": [
+    0.5,
+    0.6478819444444445
+   ],
+   "top": [
+    0.5,
+    0.4568055555555556
+   ],
+   "bytes": 14508,
+   "sha256": "a20d73462038700941e253453e3f6a1bac75fbcb8f20509774f9a8f15edaddfe"
+  },
+  {
+   "name": "lab-sprig-bow-29",
+   "clip": "bow",
+   "crop": [
+    40,
+    53,
+    176,
+    208
+   ],
+   "head": [
+    0.5,
+    0.6479166666666667
+   ],
+   "top": [
+    0.5,
+    0.45729166666666665
+   ],
+   "bytes": 14600,
+   "sha256": "6647cfc864b89ccf4e8b850fcb17c767e009fbc8a70ccde09ae381b774c6f1e6"
+  },
+  {
+   "name": "lab-sprig-bow-30",
+   "clip": "bow",
+   "crop": [
+    40,
+    53,
+    176,
+    208
+   ],
+   "head": [
+    0.5,
+    0.6479513888888889
+   ],
+   "top": [
+    0.5,
+    0.4574652777777778
+   ],
+   "bytes": 14474,
+   "sha256": "5a54763ec8b1063e584c0f2fcd533992fd3de6ffe817c2ecbbbba535f754f7d8"
+  },
+  {
+   "name": "lab-sprig-bow-31",
+   "clip": "bow",
+   "crop": [
+    40,
+    53,
+    176,
+    208
+   ],
+   "head": [
+    0.5,
+    0.6479166666666667
+   ],
+   "top": [
+    0.5,
+    0.45729166666666665
+   ],
+   "bytes": 14551,
+   "sha256": "dcb352f92104cfefb8a6b2b5b0bf709f8c86ec76dbb71306f20469e4339ce4dc"
+  },
+  {
+   "name": "lab-sprig-bow-32",
+   "clip": "bow",
+   "crop": [
+    40,
+    53,
+    176,
+    208
+   ],
+   "head": [
+    0.5,
+    0.6478819444444445
+   ],
+   "top": [
+    0.5,
+    0.4568055555555556
+   ],
+   "bytes": 14508,
+   "sha256": "a20d73462038700941e253453e3f6a1bac75fbcb8f20509774f9a8f15edaddfe"
+  },
+  {
+   "name": "lab-sprig-bow-33",
+   "clip": "bow",
+   "crop": [
+    40,
+    52,
+    176,
+    209
+   ],
+   "head": [
+    0.5,
+    0.6478125
+   ],
+   "top": [
+    0.5,
+    0.4559375
+   ],
+   "bytes": 14621,
+   "sha256": "addc3e839d546104329ebc5d843a973fd6e9512bbae610a26a76134ad9225935"
+  },
+  {
+   "name": "lab-sprig-bow-34",
+   "clip": "bow",
+   "crop": [
+    40,
+    52,
+    176,
+    209
+   ],
+   "head": [
+    0.5,
+    0.6477083333333333
+   ],
+   "top": [
+    0.5,
+    0.45479166666666665
+   ],
+   "bytes": 14600,
+   "sha256": "acc5c28250f62ad6ad26af805671e1bdec24de2334a783b22e1861e3b46dce15"
+  },
+  {
+   "name": "lab-sprig-bow-35",
+   "clip": "bow",
+   "crop": [
+    40,
+    50,
+    176,
+    211
+   ],
+   "head": [
+    0.5,
+    0.6475694444444444
+   ],
+   "top": [
+    0.5,
+    0.45333333333333337
+   ],
+   "bytes": 14655,
+   "sha256": "2bb10167415cd62a74b3f4589c722b0559f2991d3b2ec0f65566f03753aa7a9b"
+  },
+  {
+   "name": "lab-sprig-bow-36",
+   "clip": "bow",
+   "crop": [
+    40,
+    49,
+    176,
+    212
+   ],
+   "head": [
+    0.5,
+    0.6474305555555556
+   ],
+   "top": [
+    0.5,
+    0.45163194444444443
+   ],
+   "bytes": 14722,
+   "sha256": "fae10aa1ee23d50c670601f05a90360ce70b81b7a0de2071808e1fc2d855ee4e"
+  },
+  {
+   "name": "lab-sprig-bow-37",
+   "clip": "bow",
+   "crop": [
+    40,
+    48,
+    176,
+    213
+   ],
+   "head": [
+    0.5,
+    0.6472916666666666
+   ],
+   "top": [
+    0.5,
+    0.44972222222222225
+   ],
+   "bytes": 14768,
+   "sha256": "8cbc707eb01b17b29929a563f93a0b5ce3c17515add5aaab039dd35ba7bbb3d1"
+  },
+  {
+   "name": "lab-sprig-bow-38",
+   "clip": "bow",
+   "crop": [
+    41,
+    48,
+    174,
+    213
+   ],
+   "head": [
+    0.5,
+    0.6470833333333333
+   ],
+   "top": [
+    0.5,
+    0.44763888888888886
+   ],
+   "bytes": 14792,
+   "sha256": "9202351f4fa95b006b8f5c93aa64fbeda0ed53ce8085a8f94d2e8c87015a89c5"
+  },
+  {
+   "name": "lab-sprig-bow-39",
+   "clip": "bow",
+   "crop": [
+    41,
+    47,
+    174,
+    214
+   ],
+   "head": [
+    0.5,
+    0.6469097222222222
+   ],
+   "top": [
+    0.5,
+    0.4454166666666667
+   ],
+   "bytes": 14817,
+   "sha256": "430ad76a50dfe23d58b652d10fdd6ea105443ce11d705c86ba1a5a1e9ba19a32"
+  },
+  {
+   "name": "lab-sprig-bow-40",
+   "clip": "bow",
+   "crop": [
+    41,
+    44,
+    174,
+    217
+   ],
+   "head": [
+    0.5,
+    0.6467361111111111
+   ],
+   "top": [
+    0.5,
+    0.443125
+   ],
+   "bytes": 14891,
+   "sha256": "50e4975dfb720687d04833180464893ccd2a812455f3ff1f037600e99ffe5b15"
+  },
+  {
+   "name": "lab-sprig-bow-41",
+   "clip": "bow",
+   "crop": [
+    41,
+    43,
+    174,
+    218
+   ],
+   "head": [
+    0.5,
+    0.6465277777777777
+   ],
+   "top": [
+    0.5,
+    0.4407638888888889
+   ],
+   "bytes": 14798,
+   "sha256": "ba5270f92782d055a50b69216265ca4a957fb2d63d265bfdfc69692243056a01"
+  },
+  {
+   "name": "lab-sprig-bow-42",
+   "clip": "bow",
+   "crop": [
+    41,
+    42,
+    174,
+    219
+   ],
+   "head": [
+    0.5,
+    0.6463541666666667
+   ],
+   "top": [
+    0.5,
+    0.4384375
+   ],
+   "bytes": 15003,
+   "sha256": "5c2ea66871795e577af9295335777b6aadab3e656d80d63c2c44b62fb49e45cc"
+  },
+  {
+   "name": "lab-sprig-bow-43",
+   "clip": "bow",
+   "crop": [
+    41,
+    41,
+    174,
+    220
+   ],
+   "head": [
+    0.5,
+    0.6461805555555555
+   ],
+   "top": [
+    0.5,
+    0.4361111111111111
+   ],
+   "bytes": 15056,
+   "sha256": "1e2eef130289067316cf4c3dab3d0f251912695c108ea85271239e5d315a0cae"
+  },
+  {
+   "name": "lab-sprig-bow-44",
+   "clip": "bow",
+   "crop": [
+    41,
+    40,
+    174,
+    221
+   ],
+   "head": [
+    0.5,
+    0.6459722222222222
+   ],
+   "top": [
+    0.5,
+    0.43354166666666666
+   ],
+   "bytes": 14945,
+   "sha256": "20c741d1c04e5246cc2f16f2f55ff15718a4e5b998ffab2c290ee91dbb5880d4"
+  },
+  {
+   "name": "lab-sprig-bow-45",
+   "clip": "bow",
+   "crop": [
+    42,
+    38,
+    172,
+    223
+   ],
+   "head": [
+    0.5,
+    0.6457291666666667
+   ],
+   "top": [
+    0.5,
+    0.43038194444444444
+   ],
+   "bytes": 15003,
+   "sha256": "d949659afd715807f70878143c71844b14180b7e332d8cddc45d7ea06addd952"
+  },
+  {
+   "name": "lab-sprig-bow-46",
+   "clip": "bow",
+   "crop": [
+    42,
+    37,
+    172,
+    224
+   ],
+   "head": [
+    0.5,
+    0.6455208333333333
+   ],
+   "top": [
+    0.5,
+    0.42725694444444445
+   ],
+   "bytes": 14998,
+   "sha256": "4761654cee120fe0da0390e80a5cdf4ee762ed476a2fb424f6a2bf64299dc7d5"
+  },
+  {
+   "name": "lab-sprig-bow-47",
+   "clip": "bow",
+   "crop": [
+    42,
+    36,
+    172,
+    225
+   ],
+   "head": [
+    0.5,
+    0.6453472222222223
+   ],
+   "top": [
+    0.5,
+    0.4245138888888889
+   ],
+   "bytes": 14993,
+   "sha256": "7aea438451d902d84e32502de31e822c42b246cc14a75dd7050371a185691157"
+  },
+  {
+   "name": "lab-sprig-bow-48",
+   "clip": "bow",
+   "crop": [
+    42,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.5,
+    0.6452430555555556
+   ],
+   "top": [
+    0.5,
+    0.42239583333333336
+   ],
+   "bytes": 14807,
+   "sha256": "49e922149f194950e7ab39133344470a0914777a8a4058fab6bd4ec7ff148c98"
+  },
+  {
+   "name": "lab-sprig-bow-49",
+   "clip": "bow",
+   "crop": [
+    42,
+    35,
+    172,
+    226
+   ],
+   "head": [
+    0.5,
+    0.6451736111111112
+   ],
+   "top": [
+    0.5,
+    0.42083333333333334
+   ],
+   "bytes": 14743,
+   "sha256": "9a2e50e3e5e44d5b27e716f11deca782b3ef5322d5dbcd331b3f6c1b493c9a93"
+  },
+  {
+   "name": "lab-sprig-bow-50",
+   "clip": "bow",
+   "crop": [
+    43,
+    34,
+    170,
+    227
+   ],
+   "head": [
+    0.5,
+    0.6451388888888889
+   ],
+   "top": [
+    0.5,
+    0.4197916666666667
+   ],
+   "bytes": 14612,
+   "sha256": "08cd5970388c0ad1c8a9f910c988dcecc1df1dc6d743a18e7939d31739854c6c"
+  },
+  {
+   "name": "lab-sprig-bow-51",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4191319444444444
+   ],
+   "bytes": 14620,
+   "sha256": "34a14b8f82b591f9303b98119bca59dc275db24da09679073e296fd6812da182"
+  },
+  {
+   "name": "lab-sprig-bow-52",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.41878472222222224
+   ],
+   "bytes": 14466,
+   "sha256": "9905b6ec4b1ec73a1d8c4a4346f5350109f806ab29ce06bb294ff52541366281"
+  },
+  {
+   "name": "lab-sprig-bow-53",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4186111111111111
+   ],
+   "bytes": 14550,
+   "sha256": "832a15fb6cc2e7f8492f4a433734e094c7a9b63f4504ec95d3e479bf9381ea59"
+  },
+  {
+   "name": "lab-sprig-bow-54",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14540,
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087"
+  },
+  {
+   "name": "lab-sprig-bow-55",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-56",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-57",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-58",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bow-59",
+   "clip": "bow",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-00",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-01",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-02",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-03",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-04",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-05",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-06",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-07",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5001171875,
+    0.6445486111111111
+   ],
+   "top": [
+    0.5003125,
+    0.4179861111111111
+   ],
+   "bytes": 14541,
+   "sha256": "fe3979ef2b729f8c8216176a00ccb18f2fb09c384afe33150f5fa380f7dc383e"
+  },
+  {
+   "name": "lab-sprig-bounce-08",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    227
+   ],
+   "head": [
+    0.500390625,
+    0.6429513888888888
+   ],
+   "top": [
+    0.5011328125,
+    0.4163888888888889
+   ],
+   "bytes": 14470,
+   "sha256": "605d3b0e515b499b1c7395654cd8a16e8163af1099fd9e0855191d3cc9c922a1"
+  },
+  {
+   "name": "lab-sprig-bounce-09",
+   "clip": "bounce",
+   "crop": [
+    43,
+    32,
+    171,
+    228
+   ],
+   "head": [
+    0.5008203125,
+    0.6408333333333334
+   ],
+   "top": [
+    0.5023046875,
+    0.4142013888888889
+   ],
+   "bytes": 14553,
+   "sha256": "71992afe77094c157b8b0a8b5e732c09ce80c17d5b3c5af8d8a343a4bdd2d66b"
+  },
+  {
+   "name": "lab-sprig-bounce-10",
+   "clip": "bounce",
+   "crop": [
+    45,
+    32,
+    169,
+    227
+   ],
+   "head": [
+    0.5012109375,
+    0.6387152777777777
+   ],
+   "top": [
+    0.5034375,
+    0.4120138888888889
+   ],
+   "bytes": 14444,
+   "sha256": "f67f9c46b494528ed34830d98d9999ba59f943782ec4899395e26760090d192c"
+  },
+  {
+   "name": "lab-sprig-bounce-11",
+   "clip": "bounce",
+   "crop": [
+    45,
+    31,
+    169,
+    228
+   ],
+   "head": [
+    0.5015234375,
+    0.6372222222222222
+   ],
+   "top": [
+    0.50421875,
+    0.41052083333333333
+   ],
+   "bytes": 14514,
+   "sha256": "891f819ca16aed3361bf991ac9771c2acbc8ab823193069dc7cc6edcd36ddecc"
+  },
+  {
+   "name": "lab-sprig-bounce-12",
+   "clip": "bounce",
+   "crop": [
+    45,
+    31,
+    169,
+    228
+   ],
+   "head": [
+    0.5015625,
+    0.6369444444444444
+   ],
+   "top": [
+    0.504375,
+    0.41020833333333334
+   ],
+   "bytes": 14439,
+   "sha256": "1ed39b83afe2901e1a7ef161ce8edf1b8d7ea6f669c1ea04a2b1027f8c8af0cb"
+  },
+  {
+   "name": "lab-sprig-bounce-13",
+   "clip": "bounce",
+   "crop": [
+    45,
+    31,
+    169,
+    228
+   ],
+   "head": [
+    0.501328125,
+    0.6381597222222222
+   ],
+   "top": [
+    0.5037109375,
+    0.4114583333333333
+   ],
+   "bytes": 14441,
+   "sha256": "be5066d46eaf93bddd8c9df1c8c39c36485d067b030f0ba8a076f1404cd837fc"
+  },
+  {
+   "name": "lab-sprig-bounce-14",
+   "clip": "bounce",
+   "crop": [
+    43,
+    32,
+    171,
+    228
+   ],
+   "head": [
+    0.50078125,
+    0.6409722222222222
+   ],
+   "top": [
+    0.5022265625,
+    0.41434027777777777
+   ],
+   "bytes": 14439,
+   "sha256": "f0b4c3ae4f4f4bf0a5d250c31ab0e131ae498f015dcfbec38378ef6bea1f7cdf"
+  },
+  {
+   "name": "lab-sprig-bounce-15",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-16",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.4990625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4973828125,
+    0.4185763888888889
+   ],
+   "bytes": 14472,
+   "sha256": "81c49e84acfb5d3338f10eae58b324a9489c37275b54809264650295a2e1bdb3"
+  },
+  {
+   "name": "lab-sprig-bounce-17",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4981640625,
+    0.6451388888888889
+   ],
+   "top": [
+    0.4948046875,
+    0.4186111111111111
+   ],
+   "bytes": 14545,
+   "sha256": "065c6f0feedcecf7c9d554e34d6c2846594adf88d883ab77e41d444b76b09e2d"
+  },
+  {
+   "name": "lab-sprig-bounce-18",
+   "clip": "bounce",
+   "crop": [
+    41,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.4973046875,
+    0.6451388888888889
+   ],
+   "top": [
+    0.4924609375,
+    0.41864583333333333
+   ],
+   "bytes": 14637,
+   "sha256": "b4d031f6979db75d0ef9abc51c1357715ed5da1a22872873cc24c41d30dfa999"
+  },
+  {
+   "name": "lab-sprig-bounce-19",
+   "clip": "bounce",
+   "crop": [
+    41,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4966015625,
+    0.6451736111111112
+   ],
+   "top": [
+    0.4905078125,
+    0.4187152777777778
+   ],
+   "bytes": 14526,
+   "sha256": "18c05a4e79c1699d1501d37627f70a49d3fa35613d74f9cd0c038950f51f3e04"
+  },
+  {
+   "name": "lab-sprig-bounce-20",
+   "clip": "bounce",
+   "crop": [
+    41,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4960546875,
+    0.6452083333333333
+   ],
+   "top": [
+    0.48890625,
+    0.41874999999999996
+   ],
+   "bytes": 14565,
+   "sha256": "2920f4528b6f415ec6333d5239c8ce0b9e37b794cd04c1abbb8497b923b5514f"
+  },
+  {
+   "name": "lab-sprig-bounce-21",
+   "clip": "bounce",
+   "crop": [
+    40,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.4956640625,
+    0.6452430555555556
+   ],
+   "top": [
+    0.4878125,
+    0.41878472222222224
+   ],
+   "bytes": 14493,
+   "sha256": "f98024806eab088d1a9764ac8925bea8b38e0ecc19ee84f0f17ae767096b2fc5"
+  },
+  {
+   "name": "lab-sprig-bounce-22",
+   "clip": "bounce",
+   "crop": [
+    40,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.49546875,
+    0.6452430555555556
+   ],
+   "top": [
+    0.487265625,
+    0.41881944444444447
+   ],
+   "bytes": 14419,
+   "sha256": "9487de74aee6da727f04ce424b8c2def58a8ddc8d2359ed1bac824573e8e8a01"
+  },
+  {
+   "name": "lab-sprig-bounce-23",
+   "clip": "bounce",
+   "crop": [
+    40,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.49546875,
+    0.6452430555555556
+   ],
+   "top": [
+    0.487265625,
+    0.41881944444444447
+   ],
+   "bytes": 14419,
+   "sha256": "9487de74aee6da727f04ce424b8c2def58a8ddc8d2359ed1bac824573e8e8a01"
+  },
+  {
+   "name": "lab-sprig-bounce-24",
+   "clip": "bounce",
+   "crop": [
+    40,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.4956640625,
+    0.6452430555555556
+   ],
+   "top": [
+    0.4878125,
+    0.41878472222222224
+   ],
+   "bytes": 14504,
+   "sha256": "b52ac17c6de5d449d1ba47a4af954ab910157b2dcc1b9700926667fc9078854f"
+  },
+  {
+   "name": "lab-sprig-bounce-25",
+   "clip": "bounce",
+   "crop": [
+    41,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4960546875,
+    0.6452083333333333
+   ],
+   "top": [
+    0.48890625,
+    0.41874999999999996
+   ],
+   "bytes": 14534,
+   "sha256": "e7529659a08754e5925dfcad9af3fb72ab12f97468cdce9cd496e3546297345f"
+  },
+  {
+   "name": "lab-sprig-bounce-26",
+   "clip": "bounce",
+   "crop": [
+    41,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4966015625,
+    0.6451736111111112
+   ],
+   "top": [
+    0.4905078125,
+    0.4187152777777778
+   ],
+   "bytes": 14523,
+   "sha256": "17f95070b7a8cd6b7ae44a67cf96941c23f14bcf4cefec6c12f28fc547227907"
+  },
+  {
+   "name": "lab-sprig-bounce-27",
+   "clip": "bounce",
+   "crop": [
+    41,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.4973046875,
+    0.6451388888888889
+   ],
+   "top": [
+    0.4924609375,
+    0.41864583333333333
+   ],
+   "bytes": 14637,
+   "sha256": "b4d031f6979db75d0ef9abc51c1357715ed5da1a22872873cc24c41d30dfa999"
+  },
+  {
+   "name": "lab-sprig-bounce-28",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4981640625,
+    0.6451388888888889
+   ],
+   "top": [
+    0.4948046875,
+    0.4186111111111111
+   ],
+   "bytes": 14545,
+   "sha256": "065c6f0feedcecf7c9d554e34d6c2846594adf88d883ab77e41d444b76b09e2d"
+  },
+  {
+   "name": "lab-sprig-bounce-29",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.4990625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.49734375,
+    0.4185763888888889
+   ],
+   "bytes": 14492,
+   "sha256": "3412f4177504d48a36ea4b6c1aebbdb466edcbbeca1b0505191a12f389ce6da7"
+  },
+  {
+   "name": "lab-sprig-bounce-30",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-31",
+   "clip": "bounce",
+   "crop": [
+    43,
+    32,
+    171,
+    228
+   ],
+   "head": [
+    0.5009375,
+    0.6401388888888889
+   ],
+   "top": [
+    0.50265625,
+    0.41350694444444447
+   ],
+   "bytes": 14553,
+   "sha256": "909804f56ff873109605f95aaa35e4a5583a90312b6aa5abe6c86824f0017c35"
+  },
+  {
+   "name": "lab-sprig-bounce-32",
+   "clip": "bounce",
+   "crop": [
+    45,
+    31,
+    169,
+    226
+   ],
+   "head": [
+    0.5018359375,
+    0.6354166666666666
+   ],
+   "top": [
+    0.5051953125,
+    0.4086458333333333
+   ],
+   "bytes": 14518,
+   "sha256": "a42cdccbd86b37aac4d04ebd71ad7063d5fe9b8b8cd2c4046dc8e5ff14172016"
+  },
+  {
+   "name": "lab-sprig-bounce-33",
+   "clip": "bounce",
+   "crop": [
+    45,
+    30,
+    170,
+    226
+   ],
+   "head": [
+    0.5026953125,
+    0.6311111111111111
+   ],
+   "top": [
+    0.5075390625,
+    0.40427083333333336
+   ],
+   "bytes": 14575,
+   "sha256": "1faa79199f89ad25e5f9e3795ba917544a7bf8bcd95d485c3af5e6d05e44e616"
+  },
+  {
+   "name": "lab-sprig-bounce-34",
+   "clip": "bounce",
+   "crop": [
+    46,
+    28,
+    169,
+    228
+   ],
+   "head": [
+    0.5033984375,
+    0.6274305555555555
+   ],
+   "top": [
+    0.50953125,
+    0.4005208333333333
+   ],
+   "bytes": 14498,
+   "sha256": "28fa250f1eae7f43aeeb87fa782f8272f88f2107bc0047e92096745bffcfc1e8"
+  },
+  {
+   "name": "lab-sprig-bounce-35",
+   "clip": "bounce",
+   "crop": [
+    46,
+    27,
+    169,
+    228
+   ],
+   "head": [
+    0.5039453125,
+    0.6245138888888889
+   ],
+   "top": [
+    0.51109375,
+    0.3975694444444444
+   ],
+   "bytes": 14569,
+   "sha256": "af796df3ab21f1bf5539ba7541135e3f33d4447889651b228fa20ebf7de2744e"
+  },
+  {
+   "name": "lab-sprig-bounce-36",
+   "clip": "bounce",
+   "crop": [
+    46,
+    27,
+    170,
+    227
+   ],
+   "head": [
+    0.5043359375,
+    0.6225
+   ],
+   "top": [
+    0.5121875,
+    0.3955208333333333
+   ],
+   "bytes": 14487,
+   "sha256": "7a7545581d58b5f5e18f50f9dc62c1f24ec4aaec8cf5ab0de84a9e4662694b24"
+  },
+  {
+   "name": "lab-sprig-bounce-37",
+   "clip": "bounce",
+   "crop": [
+    46,
+    26,
+    170,
+    228
+   ],
+   "head": [
+    0.50453125,
+    0.6214583333333333
+   ],
+   "top": [
+    0.512734375,
+    0.39447916666666666
+   ],
+   "bytes": 14547,
+   "sha256": "c7f520e71fb0dccee5448e0355239e7a6ec30eaa7c430b3d8ab4bdf72956f752"
+  },
+  {
+   "name": "lab-sprig-bounce-38",
+   "clip": "bounce",
+   "crop": [
+    46,
+    26,
+    170,
+    228
+   ],
+   "head": [
+    0.50453125,
+    0.6214583333333333
+   ],
+   "top": [
+    0.512734375,
+    0.39447916666666666
+   ],
+   "bytes": 14547,
+   "sha256": "c7f520e71fb0dccee5448e0355239e7a6ec30eaa7c430b3d8ab4bdf72956f752"
+  },
+  {
+   "name": "lab-sprig-bounce-39",
+   "clip": "bounce",
+   "crop": [
+    46,
+    27,
+    170,
+    227
+   ],
+   "head": [
+    0.5043359375,
+    0.6225
+   ],
+   "top": [
+    0.5121875,
+    0.3955208333333333
+   ],
+   "bytes": 14466,
+   "sha256": "3dc74000b2231db63bedb98d482850fd13295761ff1df9a381461aa0533ee91a"
+  },
+  {
+   "name": "lab-sprig-bounce-40",
+   "clip": "bounce",
+   "crop": [
+    46,
+    27,
+    169,
+    228
+   ],
+   "head": [
+    0.5039453125,
+    0.6245138888888889
+   ],
+   "top": [
+    0.51109375,
+    0.3975694444444444
+   ],
+   "bytes": 14520,
+   "sha256": "67c2b59bee60e7aa5b60eabe84e07307abdd163602b7abdb26ed60f346850f59"
+  },
+  {
+   "name": "lab-sprig-bounce-41",
+   "clip": "bounce",
+   "crop": [
+    46,
+    28,
+    169,
+    228
+   ],
+   "head": [
+    0.5033984375,
+    0.6274305555555555
+   ],
+   "top": [
+    0.50953125,
+    0.4005208333333333
+   ],
+   "bytes": 14498,
+   "sha256": "28fa250f1eae7f43aeeb87fa782f8272f88f2107bc0047e92096745bffcfc1e8"
+  },
+  {
+   "name": "lab-sprig-bounce-42",
+   "clip": "bounce",
+   "crop": [
+    45,
+    30,
+    170,
+    226
+   ],
+   "head": [
+    0.5026953125,
+    0.6311111111111111
+   ],
+   "top": [
+    0.5075390625,
+    0.40427083333333336
+   ],
+   "bytes": 14487,
+   "sha256": "a1ddd63ce6ff0985da165c34b7b9cd7e748c017b2a217380bdd6a06d21c11ee9"
+  },
+  {
+   "name": "lab-sprig-bounce-43",
+   "clip": "bounce",
+   "crop": [
+    45,
+    31,
+    169,
+    226
+   ],
+   "head": [
+    0.5018359375,
+    0.6354166666666666
+   ],
+   "top": [
+    0.5051953125,
+    0.4086458333333333
+   ],
+   "bytes": 14446,
+   "sha256": "d9ed9ac8835f51fd817715f311523bc5a15604f078c34c6e7a8f673061a9794a"
+  },
+  {
+   "name": "lab-sprig-bounce-44",
+   "clip": "bounce",
+   "crop": [
+    43,
+    32,
+    171,
+    228
+   ],
+   "head": [
+    0.5009375,
+    0.6402083333333333
+   ],
+   "top": [
+    0.5026171875,
+    0.41357638888888887
+   ],
+   "bytes": 14588,
+   "sha256": "3fbb1599a257e4bcdd45f57a35c86569ffb2377899494aaa34d42f426ffa9171"
+  },
+  {
+   "name": "lab-sprig-bounce-45",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14540,
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087"
+  },
+  {
+   "name": "lab-sprig-bounce-46",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.49921875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4977734375,
+    0.4185763888888889
+   ],
+   "bytes": 14472,
+   "sha256": "9d37317a53444c38eb9e7facd7017bf0b5c33d789b7191472d141ec2aa1888da"
+  },
+  {
+   "name": "lab-sprig-bounce-47",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.498671875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4962890625,
+    0.4185763888888889
+   ],
+   "bytes": 14569,
+   "sha256": "e1d5f0f06bb809c8c9b913be4395e28c1a97b37c88685247cefe6f63dc79ce49"
+  },
+  {
+   "name": "lab-sprig-bounce-48",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4984375,
+    0.6451388888888889
+   ],
+   "top": [
+    0.495625,
+    0.4186111111111111
+   ],
+   "bytes": 14442,
+   "sha256": "38670b16d19c62b49ee81c64a0d8b2494e022fac21e837cc97519854b4dcf387"
+  },
+  {
+   "name": "lab-sprig-bounce-49",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4984765625,
+    0.6451388888888889
+   ],
+   "top": [
+    0.49578125,
+    0.4185763888888889
+   ],
+   "bytes": 14624,
+   "sha256": "f1adbb745d257a7e588d675832b59f3a28ffc033d0dd8b064d9190b96ec00163"
+  },
+  {
+   "name": "lab-sprig-bounce-50",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    169,
+    228
+   ],
+   "head": [
+    0.4987890625,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4965625,
+    0.4185763888888889
+   ],
+   "bytes": 14444,
+   "sha256": "b3f10ffe36eec06b74002639eb9de9e21c0354729db36a94b73d82e7764fbeca"
+  },
+  {
+   "name": "lab-sprig-bounce-51",
+   "clip": "bounce",
+   "crop": [
+    42,
+    33,
+    171,
+    228
+   ],
+   "head": [
+    0.4991796875,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4976953125,
+    0.4185763888888889
+   ],
+   "bytes": 14477,
+   "sha256": "59d3143a44934b128dff3796f3274e9b630d1db09cea4b33727f13096698b250"
+  },
+  {
+   "name": "lab-sprig-bounce-52",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.499609375,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4988671875,
+    0.4185763888888889
+   ],
+   "bytes": 14498,
+   "sha256": "b5c706cd4667521e0607ddad5476de1da8626ce05d2f5dba7f082500d20bff9b"
+  },
+  {
+   "name": "lab-sprig-bounce-53",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.4998828125,
+    0.6451041666666666
+   ],
+   "top": [
+    0.4996875,
+    0.4185763888888889
+   ],
+   "bytes": 14608,
+   "sha256": "59587847ebe8b1f705fafb78882197a1d7f4683980d5188ea97465d183b52dd1"
+  },
+  {
+   "name": "lab-sprig-bounce-54",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14540,
+   "sha256": "197921880f7aec06edd58a15e6254b9b2774494aaf5156af32d3a075e2acc087"
+  },
+  {
+   "name": "lab-sprig-bounce-55",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-56",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-57",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-58",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  },
+  {
+   "name": "lab-sprig-bounce-59",
+   "clip": "bounce",
+   "crop": [
+    43,
+    33,
+    170,
+    228
+   ],
+   "head": [
+    0.5,
+    0.6451041666666666
+   ],
+   "top": [
+    0.5,
+    0.4185763888888889
+   ],
+   "bytes": 14545,
+   "sha256": "65dc0771454636fee79ee440f9f2dd59234b1c73973b43c7833af68c97ee1efb"
+  }
+ ]
+}

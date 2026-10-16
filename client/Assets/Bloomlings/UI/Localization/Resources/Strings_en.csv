@@ -390,3 +390,14 @@ profile.achievement.hero_sprig,Sprig · 100
 profile.achievement.hero_bloom,Bloom · 500
 profile.achievement.hero_drop,Drop · 1000
 profile.achievement.hero_twig,Twig · 2000
+
+hero_lab.title,Hero lab
+hero_lab.sprig,Sprig · Motion tests
+hero_lab.look,Look around
+hero_lab.hello,Say hello
+hero_lab.bow,Little bow
+hero_lab.bounce,Happy bounce
+hero_lab.replay,Replay
+hero_lab.hat_on,Hat: on
+hero_lab.hat_off,Hat: off
+hero_lab.note,Loops with a pause · Hat is a 2D attachment test

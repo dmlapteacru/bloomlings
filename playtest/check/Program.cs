@@ -25,6 +25,12 @@ foreach (string failure in Bloomlings.Playtest.Check.PictureWorkChecks.Run())
 }
 
 var pictures = Directory.GetFiles(Path.Combine(Root, "content/pictures/lib"), "*.json").Select(f => BasePictureJson.Read(File.ReadAllText(f))).Select(p => p with { Review = p.Review with { Status = ReviewStatus.Approved } }).ToDictionary(p => p.Id);
+// Showcase replays retain their own fixture art when a launch installation replaces the runtime library.
+foreach (string file in Directory.GetFiles(Path.Combine(Root, "content/showcase/pictures"), "*.json"))
+{
+    BasePicture picture = BasePictureJson.Read(File.ReadAllText(file));
+    pictures.TryAdd(picture.Id, picture);
+}
 var runs = new List<(string Name, LevelDefinition Level, BasePicture Picture, IReadOnlyList<Command> Commands, int Budget)>();
 foreach (string file in Directory.GetFiles(Path.Combine(Root, "core/tests/golden"), "*.golden.json"))
 {
@@ -188,7 +194,7 @@ if (sameSlot > 0 || together < working) { failures++; Console.WriteLine("FAIL tw
 // The owner's L1 (2026-10-04): all three pods tapped at once. A Bloomling sets off as soon as its own route is clear, so
 // the leaf pod's first Bloomlings walk while the first water pod's still play, not after it finishes.
 {
-    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/catalog/levels/level-00001.json")));
+    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/curated/level-0001.json")));
     LevelSession session = LevelSession.Load(l1, pictures[l1.Picture.Id], new SessionOptions(1, 20000));
     var animator = new LevelAnimator();
     animator.Reset(session.View);
@@ -222,7 +228,7 @@ if (sameSlot > 0 || together < working) { failures++; Console.WriteLine("FAIL tw
 // slots, not the rules', decide: right after L1's first water pod is tapped the rules have all five slots free again (its
 // 44 tiles settle at once), while the screen shows it working in one of them until its Bloomlings are done.
 {
-    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/catalog/levels/level-00001.json")));
+    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/curated/level-0001.json")));
     LevelSession session = LevelSession.Load(l1, pictures[l1.Picture.Id], new SessionOptions(1, 20000));
     var animator = new LevelAnimator();
     animator.Reset(session.View);

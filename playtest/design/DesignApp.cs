@@ -35,6 +35,7 @@ namespace Bloomlings.Playtest.Design
     {
         Pause,
         Settings,
+        HeroLab,
         PrivacyPolicy,
         DailyReward,
         DailyChallenge,
@@ -160,6 +161,11 @@ namespace Bloomlings.Playtest.Design
 
         public LevelScreen? Level { get; private set; }
 
+        /// <summary>Local state of the playtest motion bench; never persisted.</summary>
+        public HeroLabPlayback HeroLab { get; } = new HeroLabPlayback();
+        internal int HeroLabWarmed = -1;
+        internal int HeroLabWarmNext;
+
         /// <summary>Seconds since launch (menu motion and toasts).</summary>
         public float Now { get; private set; }
 
@@ -267,6 +273,7 @@ namespace Bloomlings.Playtest.Design
             || (Screen == Screen.Home && (_overlays.Count == 0 || HomeMoving))
             || (Screen == Screen.Store && StoreMoving)
             || IsOpen(Overlay.DailyReward)
+            || IsOpen(Overlay.HeroLab)
             || IsOpen(Overlay.Purchase);
 
         /// <summary>
@@ -575,6 +582,7 @@ namespace Bloomlings.Playtest.Design
 
         public void OpenOverlay(Overlay overlay)
         {
+            if(overlay==Overlay.HeroLab){HeroLab.Restart(Now);HeroLabWarmed=-1;}
             Sound.Play(SoundCue.Click);
             _overlays.Add((overlay, Now));
         }
@@ -934,6 +942,9 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.Settings:
                         MenuCards.Settings(p, this, since);
+                        break;
+                    case Overlay.HeroLab:
+                        HeroLabScreen.Draw(p,this,since);
                         break;
                     case Overlay.PrivacyPolicy:
                         MenuCards.PrivacyPolicy(p,this,since);

@@ -75,7 +75,10 @@ namespace Bloomlings.Playtest.Design
             float top = lines[lines.Length - 1].Bottom + p.U(20f);
             DevRow(p, app, new Box(r.Body.Left, top, r.Body.Right, top + p.U(DesignTokens.Size.TouchMin)));
             Box policy=ScreenLayout.CardButton(r.Body,top+p.U(DesignTokens.Size.TouchMin+24),false,p.Scale);
-            Kit.SecondaryButton(p,policy,PlaytestText.T("settings.privacy_policy"),()=>app.OpenOverlay(Overlay.PrivacyPolicy));
+            bool lab=p.HasSprite(PainterBase.HeroMotionPrefix+HeroLab.Idle.Name);
+            Box[] tools=ScreenLayout.Row(policy,lab ? 2 : 1,p.U(16),float.MaxValue,false);
+            Kit.SecondaryButton(p,tools[0],PlaytestText.T("settings.privacy_policy"),()=>app.OpenOverlay(Overlay.PrivacyPolicy),style:PopupDesign.Label);
+            if(lab)Kit.SecondaryButton(p,tools[1],PlaytestText.T("hero_lab.title"),()=>app.OpenOverlay(Overlay.HeroLab),style:PopupDesign.Label);
             Kit.EndCard(p);
         }
 

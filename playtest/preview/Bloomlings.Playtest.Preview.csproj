@@ -86,6 +86,7 @@
       bytes (HeroFrameStore). Embedded without the extension, as the backgrounds (PainterBase.HeroMotionPrefix).
     -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" LogicalName="heromotion/%(Filename)" />
+    <EmbeddedResource Include="../art/HeroLab/*.png" LogicalName="heromotion/%(Filename)" Condition="'$(IncludeHeroMotionLab)' != 'false'" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
     <EmbeddedResource Include="@(LaunchCatalogLevel)" LogicalName="levels/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../content/curated/dev/level-dev-mosaic-24x24.json" LogicalName="levels/level-05001.json" />
