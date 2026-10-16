@@ -234,3 +234,18 @@ The owner also requested preserving generated modeling references. `references/t
 bare-head baseline with two low woody ears, the acorn-head reference, and the four final olive/rust cap views.
 They were made with OpenAI image generation in this conversation from the owner's character/reference; they are
 authoring references, not additional APK assets or exact mesh orthographic projections. Rejected drafts are omitted.
+
+### Twig appearance correction
+
+After the pilot the owner reported angry/jagged brows, a dark face and a flattened/tight acorn hat. The current
+`textures/twig/front-color.png` is a new clean color projection reference made with OpenAI image generation from the
+actual pilot model render and the saved owner baseline: soft curved brows, light cream-gold skin, brown irises and
+tidy facial coloring. `prepare-twig-gear.py` adds a derived planar front UV layer and applies that image to visible
+front polygons. Hidden/rear surfaces retain the palette. Painted polygons use white vertex colors to avoid glTF
+multiplying the image by the old coarse paint. This is a current-front-pose cleanup, not final all-angle UV paint.
+
+The body coordinates, topology and weights remain unchanged. `twig-materials.json` also records the derived acorn
+fit: width/depth ×1.035, lift 0.06 and extra crown height up to 0.075. The base head, cap geometry and original FBX
+files are retained; no second Blender master is created. Softer neutral warm light removes the muddy face shading.
+`models/twig/build-report.json` distinguishes original and derived signatures and records the fit/paint. Texture,
+recipe and output hashes remain checked by `check.mjs`. The five runtime PNG8 images now total 124,390 bytes.

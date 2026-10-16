@@ -10,10 +10,13 @@ for in-game integration, renamed on disk without rewriting their contents:
 | `BaseHero_FlowerCap.fbx` | `source/TwigHero_FlowerCap.fbx` |
 | `BaseHero@Anims.fbx` | `source/TwigHero@Anims.fbx` |
 
-The meshes have no UV maps or texture images. `prepare-twig-gear.py` adds temporary vertex-colour materials in the
-existing Twig color direction without changing mesh coordinates, topology or weights. It renames imported objects
-in the derived render input to `TwigHero…`; original FBX internal names remain untouched. This temporary color pass
-is not a transplant of the legacy UV texture. The reusable recipe is `../../twig-materials.json`.
+The source meshes have no UV maps or texture images. The initial pilot used temporary vertex colours. The current
+appearance correction projects `textures/twig/front-color.png` onto a derived front UV layer, with clean palette
+materials on hidden/back surfaces. It preserves the body's mesh coordinates, topology and weights. The default acorn
+hat receives a recorded lift/crown/width adjustment in the render copy only, to improve its overly low, flattened fit.
+The cap geometry and all original FBX bytes remain unchanged. Imported objects in the derived input are named
+`TwigHero…`; original FBX internal names remain untouched. Recipe: `../../twig-materials.json`; texture notes:
+`../../textures/twig/README.md`.
 
 The body and both accessories share the same 25-bone rest rig. The animation-only export has the same bone names
 and hierarchy but different rest axes; its four actions contain motion and need retargeting before being used on the

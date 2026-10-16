@@ -8184,36 +8184,36 @@
   },
   {
    "path": "twigmod-base.png",
-   "width": 310,
-   "height": 359,
-   "sha256": "60caa8856f7e548d1bcc94c5c6d9799f4a10925d6cb43592d48b898f93f47812",
+   "width": 306,
+   "height": 354,
+   "sha256": "c417574b7c683cd232a2a1cb08913beedf49e57d17b2ae17c9be906d17191859",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
   },
   {
    "path": "twigmod-acorn.png",
-   "width": 335,
-   "height": 421,
-   "sha256": "5216d181ad1ee44702ec97d000b7d560e074e24a7c48bd939d083d538f649d3f",
+   "width": 342,
+   "height": 447,
+   "sha256": "a535d82bc69b2fe0ab89d986295853a328a8ac3b818b98c3a0820e597feb7692",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
   },
   {
    "path": "twigmod-cap.png",
-   "width": 317,
-   "height": 425,
-   "sha256": "6a8fee26052d8cb64519f55536fd7fb1ded953a6f81f9599a54ccf9382b23e36",
+   "width": 313,
+   "height": 419,
+   "sha256": "c959129f7a838b2ae62e26939da25d3926ceb4483d512322283ddef8ccce808b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
   },
   {
    "path": "twigmod-icon-acorn.png",
-   "width": 234,
-   "height": 161,
-   "sha256": "34823282dbeabc3790cd512070bf769a52d76003a52efb0bd011484fe76ff334",
+   "width": 233,
+   "height": 167,
+   "sha256": "2e05939ca8f973daeac8fbc20d974db846f79c41c81a47227f36a20ce5bbc13b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -8222,7 +8222,7 @@
    "path": "twigmod-icon-cap.png",
    "width": 243,
    "height": 148,
-   "sha256": "bda8d854cd574cb0364c806356e0c6f039d8fd70992e812a3a8269cbc47f54e7",
+   "sha256": "4f69950a73b78adde2a2ca86ca3e43242fef61090c7249d4f9ad3dcfd2651d6b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"

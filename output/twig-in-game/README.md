@@ -20,14 +20,23 @@ Final base/headwear references and the cap's four views are in
 [`tools/heroanim/references/twig`](../../tools/heroanim/references/twig/).
 The owner's Blender master remains the sole authoring project; no second master was created.
 
-These FBXs have no UV maps or texture images. The current appearance is a **temporary vertex-colour material pass**
-in Twig's warm game palette, with wood limbs/ears and olive/rust cap colors. It is not final texture paint, and the old
-UV atlas is not applied to an incompatible mesh. Geometry, topology and skin weights remain unchanged.
+These FBXs have no UV maps or texture images. The initial coarse vertex paint was replaced by a clean front color
+pass: bright cream-gold face, soft curved brows, brown irises, tidy eye whites and softer warm light. A derived planar
+UV layer carries the new front paint; rear/hidden surfaces keep palette materials. This targets the current frontal
+pose, not final all-angle PBR texture coverage. The body geometry and weights are preserved.
+
+The default acorn hat is slightly wider/deeper, raised and given more crown height in the derived render copy, so
+it leaves more forehead visible and looks less flattened. The exact fit is in `twig-materials.json`; original FBX
+files and the owner's Blender master remain untouched. Details: `tools/heroanim/textures/twig/README.md`.
 
 The animation-only export has real actions but different rest axes on import. Their source is preserved for later
 retargeting. This equipment stage uses the base pose plus subtle 2D breathing; full actions remain a separate feature.
 
 ## Checks
+
+The appearance correction reran fixtures 112–116 on all three shapes and passed the asset check. Body coordinates
+and all skin weights are verified against the source; only the recorded acorn fit changes derived coordinates.
+The equipment integration checks below remain documented for the unchanged selection/save behavior.
 
 - 49 focused client tests passed, including save round-trip, fitting restrictions, switching/removal, gameplay exclusion,
   existing Sprig gear, Wardrobe behavior/layout, hero-motion contracts, save merge and localization. Unity scripts
@@ -38,7 +47,7 @@ retargeting. This equipment stage uses the base pose plus subtle 2D breathing; f
 - Preview navigation checks passed for nine cold destinations and delayed resources. These are desktop runtime
   checks, not measurements on a physical Android phone. No APK was built here.
 - `node tools/heroanim/check.mjs` verifies source FBX/recipe hashes, all runtime images, generated crop data and the
-  saved reference images. Five new runtime PNG8 images total **131,088 bytes**. FBXs, GLB, references and these
+  saved reference images. Five new runtime PNG8 images total **124,390 bytes**. FBXs, GLB, references and these
   screenshots never enter the APK.
 
 Reproduce from the repository root:

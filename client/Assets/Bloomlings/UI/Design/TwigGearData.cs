@@ -5,10 +5,10 @@ namespace Bloomlings.Client.UI.Design
     {
         private static readonly HeroFrame[] Frames = new[]
         {
-            new HeroFrame("twigmod-base", 69, 96, 310, 359, .5f, .68f, .5f, .35f),
-            new HeroFrame("twigmod-acorn", 62, 34, 335, 421, .5f, .68f, .5f, .35f),
-            new HeroFrame("twigmod-cap", 67, 30, 317, 425, .5f, .68f, .5f, .35f),
-            new HeroFrame("twigmod-icon-acorn", 43, 81, 234, 161, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigmod-base", 71, 101, 306, 354, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigmod-acorn", 59, 8, 342, 447, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigmod-cap", 69, 36, 313, 419, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigmod-icon-acorn", 43, 78, 233, 167, .5f, .68f, .5f, .35f),
             new HeroFrame("twigmod-icon-cap", 36, 78, 243, 148, .5f, .68f, .5f, .35f),
         };
     }

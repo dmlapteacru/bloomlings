@@ -1,9 +1,54 @@
 {
-  "version": 1,
-  "note": "Temporary vertex-colour materials matching Twig's existing warm game palette. Source FBXs have no UVs; legacy albedo cannot be mapped unchanged. No source geometry/weights are altered.",
+  "version": 2,
+  "note": "Front color paint projected onto a derived UV layer; clean vertex colours remain on hidden/back surfaces. Source FBX bytes are retained. Acorn fit affects the derived render input only.",
   "colors": {
-    "gold": "#F2B94D", "wood": "#B9672C", "bib": "#FFD474", "eye": "#25150D",
-    "sclera": "#FFF6E7", "mouth": "#55170E", "tongue": "#ED6276", "blush": "#EF987A",
-    "olive": "#778342", "visor": "#AD5F30", "leaf": "#66A83D", "petal": "#FFF1D1", "pollen": "#F4BC42"
+    "gold": "#FFE1A0",
+    "wood": "#BD7137",
+    "bib": "#FFE6A8",
+    "eye": "#25150D",
+    "sclera": "#FFF6E7",
+    "mouth": "#55170E",
+    "tongue": "#ED6276",
+    "blush": "#EF987A",
+    "olive": "#778342",
+    "visor": "#AD5F30",
+    "leaf": "#66A83D",
+    "petal": "#FFF1D1",
+    "pollen": "#F4BC42"
+  },
+  "frontPaint": {
+    "path": "tools/heroanim/textures/twig/front-color.png",
+    "sourceCrop": [
+      69,
+      96,
+      310,
+      359
+    ],
+    "sourceHalfHeight": 1.065,
+    "sourceCameraY": 0.852,
+    "paintBox": [
+      8,
+      3,
+      1153,
+      1305
+    ]
+  },
+  "acornFit": {
+    "width": 1.035,
+    "depth": 1.035,
+    "lift": 0.06,
+    "crownLift": 0.075,
+    "crownStart": 0.9,
+    "crownEnd": 1.5
+  },
+  "render": {
+    "halfHeight": 1.08,
+    "cameraY": 0.864,
+    "hemisphere": 2.6,
+    "ground": "#FFF3DD",
+    "key": 1.0,
+    "fill": 0.65,
+    "rim": 0.3,
+    "roughness": 0.8
   }
 }

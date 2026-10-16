@@ -49,8 +49,9 @@ are retained without geometry edits. Acorn Hat and Daisy Cap are free Twig-only 
 one Hat slot switches them, and Remove/Default restores the bare model. The shared modular hero renderer now supports
 Sprig and Twig. Existing profile avatar pictures remain separate from the fitted in-game hero.
 
-The export has no UV maps/textures, so the initial appearance uses temporary vertex-colour materials. No mismatched
-legacy atlas is forced onto the new mesh. The animation-only FBX imports with different rest axes; preserve its
+The export has no UV maps/textures. The initial vertex-colour pass is now replaced on visible front surfaces by a
+clean projected front texture on a derived planar UV layer. Rear surfaces keep palette colors; no mismatched legacy
+atlas is forced onto the mesh. The acorn fit is lifted/relaxed in the render copy; original source FBXs are retained. The animation-only FBX imports with different rest axes; preserve its
 actions for later retargeting and use the base rest pose plus subtle breathing for the equipment pilot.
 
 Final references are saved in `tools/heroanim/references/twig/`: the bare short-body base, default acorn head and four

@@ -1,6 +1,7 @@
 """Derive a runtime render input from the owner's Twig exports; never a second Blender master.
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/prepare-twig-gear.py
-Only temporary vertex-colour materials are added. No mesh coordinates, topology, rest bones or weights change.
+Projects the clean front paint onto a derived UV layer and applies the recorded acorn fit.
+Original FBX files, body coordinates, topology, rest bones and weights are retained.
 """
 import hashlib
 import json
@@ -17,7 +18,8 @@ OUT = ROOT / 'content/work/twig-gear'
 SOURCE = HERE / 'models/twig/source'
 NAMES = ['TwigHero.fbx', 'TwigHero_AcornHat.fbx', 'TwigHero_FlowerCap.fbx', 'TwigHero@Anims.fbx']
 RECIPE = HERE / 'twig-materials.json'
-COLORS = json.loads(RECIPE.read_text())['colors']
+SETTINGS = json.loads(RECIPE.read_text())
+COLORS = SETTINGS['colors']
 
 
 def sha(file):
@@ -121,12 +123,67 @@ def paint(obj):
             attr.data[index].color = (*c, 1)
 
 
+def fit_acorn(obj):
+    fit = SETTINGS['acornFit']
+    inverse = obj.matrix_world.inverted()
+    for vertex in obj.data.vertices:
+        p = obj.matrix_world@vertex.co
+        p.x *= fit['width']; p.y *= fit['depth']
+        k = min(1., max(0., (p.z-fit['crownStart'])/(fit['crownEnd']-fit['crownStart'])))
+        p.z += fit['lift']+fit['crownLift']*k
+        vertex.co = inverse@p
+
+
+def project_front(obj):
+    """A dedicated planar UV pass for the current frontal meta pose; rear surfaces keep their base materials."""
+    recipe = SETTINGS['frontPaint']
+    image = bpy.data.images.load(str(ROOT/recipe['path']), check_existing=True)
+    image.pack()
+    width, height = image.size
+    pixels = np.array(image.pixels[:], dtype=np.float32).reshape((height, width, 4))
+    crop_x, crop_y, crop_w, crop_h = recipe['sourceCrop']
+    left, top, right, bottom = recipe['paintBox']
+    half = recipe['sourceHalfHeight']
+    uv = obj.data.uv_layers.new(name='TwigFrontColor')
+    def pixel(point):
+        x,y,z = point
+        screen_x = 224+x*504/(2*half)
+        screen_y = (recipe['sourceCameraY']+half-z)*504/(2*half)
+        return (left+(screen_x-crop_x)/crop_w*(right-left), top+(screen_y-crop_y)/crop_h*(bottom-top))
+    painted_slots = {}
+    for i, old in enumerate(list(obj.data.materials)):
+        mat = bpy.data.materials.new(old.name+'_FrontColor')
+        mat.use_nodes = True
+        bsdf = mat.node_tree.nodes.get('Principled BSDF')
+        bsdf.inputs['Roughness'].default_value = .38 if 'Eyes' in old.name else .84
+        tex = mat.node_tree.nodes.new('ShaderNodeTexImage'); tex.image = image; tex.extension = 'EXTEND'
+        coords = mat.node_tree.nodes.new('ShaderNodeUVMap'); coords.uv_map = uv.name
+        mat.node_tree.links.new(coords.outputs['UV'], tex.inputs['Vector'])
+        mat.node_tree.links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
+        painted_slots[i] = len(obj.data.materials); obj.data.materials.append(mat)
+    painted = 0
+    for poly in obj.data.polygons:
+        points = [obj.matrix_world@obj.data.vertices[obj.data.loops[i].vertex_index].co for i in poly.loop_indices]
+        for i, point in zip(poly.loop_indices, points):
+            x,y = pixel(point); uv.data[i].uv = (x/width, 1-y/height)
+        center = sum(points, Vector())/len(points)
+        x,y = pixel(center)
+        px,py = int(x),height-1-int(y)
+        facing = center.y < (-.18 if center.z > .5 else -.09)
+        if facing and 0 <= px < width and 0 <= py < height and pixels[py,px,3] > .5:
+            poly.material_index = painted_slots[poly.material_index]; painted += 1
+            # glTF exports COLOR_0 on all primitives: paint must not be multiplied by the old palette.
+            for loop in poly.loop_indices: obj.data.color_attributes['TwigTemporaryPalette'].data[loop].color = (1, 1, 1, 1)
+    return dict(texture=recipe['path'], textureSha256=sha(ROOT/recipe['path']), uv=uv.name, frontPolygons=painted,
+                coverage='Current front pose; rear/hidden surfaces retain clean palette materials')
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    report = dict(version=1, inputs=[], skeletonChecks=[], meshes={}, sourceAnimations=[],
+    report = dict(version=2, inputs=[], skeletonChecks=[], meshes={}, sourceAnimations=[], derivedFits={}, frontPaint={},
                   materialRecipe=str(RECIPE.relative_to(ROOT)), materialRecipeSha256=sha(RECIPE),
-                  sourceGeometryChanged=False, hasSourceUVs=False)
+                  originalSourceFilesChanged=False, hasSourceUVs=False)
     master = None
     meshes = []
     imported_actions = []
@@ -156,8 +213,15 @@ def main():
             for mod in obj.modifiers:
                 if mod.type == 'ARMATURE': mod.object = master
             paint(obj)
-            assert signature(obj) == sig, 'Changed source geometry/UV/weights'
-            report['meshes'][obj.name] = sig
+            assert signature(obj) == sig, 'Palette pass changed source geometry/UV/weights'
+            if obj.name == 'TwigHero': report['frontPaint'] = project_front(obj)
+            if obj.name == 'TwigHero_AcornHat':
+                fit_acorn(obj)
+                report['derivedFits'][obj.name] = SETTINGS['acornFit']
+            derived = signature(obj)
+            assert derived['weights'] == sig['weights'] and derived['vertices'] == sig['vertices'] and derived['triangles'] == sig['triangles']
+            if obj.name != 'TwigHero_AcornHat': assert derived['coordinates'] == sig['coordinates']
+            report['meshes'][obj.name] = dict(source=sig, derived=derived)
             meshes.append(obj)
         imported_actions.extend(sorted(set(bpy.data.actions)-actions_before, key=lambda a:a.name))
         if arm != master: bpy.data.objects.remove(arm, do_unlink=True)

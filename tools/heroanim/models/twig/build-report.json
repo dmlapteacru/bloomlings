@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "inputs": [
     {
       "path": "tools/heroanim/models/twig/source/TwigHero.fbx",
@@ -48,28 +48,58 @@
   ],
   "meshes": {
     "TwigHero": {
-      "vertices": 36109,
-      "triangles": 71200,
-      "coordinates": "f7c9fd42c35d66893cdf490cc35cd93ae8cd238561d00dcc494a0150ec5c9534",
-      "weights": "1673eb312b24aa24d61e215acc9a7b651db96b1477804dba90d6ac430d0b69d9",
-      "uvLayers": 0,
-      "unweighted": 0
+      "source": {
+        "vertices": 36109,
+        "triangles": 71200,
+        "coordinates": "f7c9fd42c35d66893cdf490cc35cd93ae8cd238561d00dcc494a0150ec5c9534",
+        "weights": "1673eb312b24aa24d61e215acc9a7b651db96b1477804dba90d6ac430d0b69d9",
+        "uvLayers": 0,
+        "unweighted": 0
+      },
+      "derived": {
+        "vertices": 36109,
+        "triangles": 71200,
+        "coordinates": "f7c9fd42c35d66893cdf490cc35cd93ae8cd238561d00dcc494a0150ec5c9534",
+        "weights": "1673eb312b24aa24d61e215acc9a7b651db96b1477804dba90d6ac430d0b69d9",
+        "uvLayers": 1,
+        "unweighted": 0
+      }
     },
     "TwigHero_AcornHat": {
-      "vertices": 25413,
-      "triangles": 50024,
-      "coordinates": "545529071a787b15387c9ee6a9d524bb32300a0364d49a91a433e5379b56c2d0",
-      "weights": "a158a941b89e28ffb0da791c8da670250731ce330df27f8430b0e31db4f3d246",
-      "uvLayers": 0,
-      "unweighted": 0
+      "source": {
+        "vertices": 25413,
+        "triangles": 50024,
+        "coordinates": "545529071a787b15387c9ee6a9d524bb32300a0364d49a91a433e5379b56c2d0",
+        "weights": "a158a941b89e28ffb0da791c8da670250731ce330df27f8430b0e31db4f3d246",
+        "uvLayers": 0,
+        "unweighted": 0
+      },
+      "derived": {
+        "vertices": 25413,
+        "triangles": 50024,
+        "coordinates": "a0ed1422b44b934e41d709ec0e0841b178100bb7395833ffed86490af0693949",
+        "weights": "a158a941b89e28ffb0da791c8da670250731ce330df27f8430b0e31db4f3d246",
+        "uvLayers": 0,
+        "unweighted": 0
+      }
     },
     "TwigHero_FlowerCap": {
-      "vertices": 24787,
-      "triangles": 49049,
-      "coordinates": "68273ce10e78c656617755f82143dd9b5a1a643d5f9a2a6b3b51c28b3b718f9c",
-      "weights": "abceedf59dbc80cb748604b03f9eb9833d74daee8a6549cb00227844d062b582",
-      "uvLayers": 0,
-      "unweighted": 0
+      "source": {
+        "vertices": 24787,
+        "triangles": 49049,
+        "coordinates": "68273ce10e78c656617755f82143dd9b5a1a643d5f9a2a6b3b51c28b3b718f9c",
+        "weights": "abceedf59dbc80cb748604b03f9eb9833d74daee8a6549cb00227844d062b582",
+        "uvLayers": 0,
+        "unweighted": 0
+      },
+      "derived": {
+        "vertices": 24787,
+        "triangles": 49049,
+        "coordinates": "68273ce10e78c656617755f82143dd9b5a1a643d5f9a2a6b3b51c28b3b718f9c",
+        "weights": "abceedf59dbc80cb748604b03f9eb9833d74daee8a6549cb00227844d062b582",
+        "uvLayers": 0,
+        "unweighted": 0
+      }
     }
   },
   "sourceAnimations": [
@@ -106,10 +136,27 @@
       "varyingCurves": 23
     }
   ],
+  "derivedFits": {
+    "TwigHero_AcornHat": {
+      "width": 1.035,
+      "depth": 1.035,
+      "lift": 0.06,
+      "crownLift": 0.075,
+      "crownStart": 0.9,
+      "crownEnd": 1.5
+    }
+  },
+  "frontPaint": {
+    "texture": "tools/heroanim/textures/twig/front-color.png",
+    "textureSha256": "7610315e158b2e2cc517b7a8d756ba3a1ebaf23694c8602f7f6a5da458476840",
+    "uv": "TwigFrontColor",
+    "frontPolygons": 37162,
+    "coverage": "Current front pose; rear/hidden surfaces retain clean palette materials"
+  },
   "materialRecipe": "tools/heroanim/twig-materials.json",
-  "materialRecipeSha256": "fd3960cd960bb9ed4468bd0fd219608e2644ff4f35d30f5eb456c5712983abbd",
-  "sourceGeometryChanged": false,
+  "materialRecipeSha256": "5574ea5e2be07a23a936c5b5de043783e26d40d26daea019d56c4c48b6e44c5a",
+  "originalSourceFilesChanged": false,
   "hasSourceUVs": false,
   "runtimePose": "Unchanged base rig rest pose; source animation axes require retargeting in later action feature",
-  "derivedGlbSha256": "fbe83a08405467a7f61b2837a730caaaf9c737906fa88bd6640355c7e8dc84fc"
+  "derivedGlbSha256": "052bb54b251857c8e8b16a08e4c376d82538a9ca65823ab3011c8c6d81d25787"
 }
