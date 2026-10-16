@@ -1,0 +1,118 @@
+{
+  "created": "2026-10-16",
+  "purpose": "Owner mesh custom skeletal animation prototype, no runtime asset replacement",
+  "ownerUploadSha256": "d29c3d737c7096bd240bb7a5da296287f507b3c589ba3efd6752b67a5fe6a76e",
+  "sourceModel": "tools/heroanim/models/sprig-plant-study.glb",
+  "files": [
+    {
+      "archivePath": "sprig-plant-rigged.glb",
+      "bytes": 23069320,
+      "sha256": "de092910d4887fc799f15226878bf224a4b84ae4dd300e41ca3adb9d2647a456"
+    },
+    {
+      "archivePath": "sprig-plant-rigged.blend",
+      "bytes": 15798101,
+      "sha256": "ecdccbe2cc7bdfdb015856e2841626e86e38f274794580de65ed68ecaeb6571b"
+    },
+    {
+      "archivePath": "README.md",
+      "bytes": 7752,
+      "sha256": "84ad05e06b8a3607dbaae13baa1ee05669774303967969dcc3a3e395358134e4"
+    },
+    {
+      "archivePath": "idle.mp4",
+      "bytes": 116188,
+      "sha256": "a78e5ca3d5dd9516d509ac3d5170f2e2e2cc04ee3b45e09038cff32480198c7d"
+    },
+    {
+      "archivePath": "idle.png",
+      "bytes": 300856,
+      "sha256": "634f3b891bd7b9f9d6bdb20f4227dfc74becf36db8b991c22deb96d129d9c9c6"
+    },
+    {
+      "archivePath": "inspection.json",
+      "bytes": 3484,
+      "sha256": "aa0df5da514b6a4f42cd26de992660a87c0ee823a4302c1dd9ac10895d503e3b"
+    },
+    {
+      "archivePath": "joy.mp4",
+      "bytes": 168639,
+      "sha256": "8ace765b7730e9999e1a11b476f3d83a76d8805f03a7162a43d1dcf145d0be21"
+    },
+    {
+      "archivePath": "joy.png",
+      "bytes": 303830,
+      "sha256": "72e875783da243383ef0576d053b047bb105d3e2a526c1d20ef5055deb977d22"
+    },
+    {
+      "archivePath": "render-report.json",
+      "bytes": 851,
+      "sha256": "baa6fad0e23fcbcb079fd49a4c90f3a873d627cd39f9c55f9b4e28d414e35879"
+    },
+    {
+      "archivePath": "review-checks.json",
+      "bytes": 502,
+      "sha256": "91310223c5f7ae2460740645fcc824575d1a63b341f9c7b62f98aad252c0055f"
+    },
+    {
+      "archivePath": "review.mp4",
+      "bytes": 578758,
+      "sha256": "a6b63dc934570bdd7fe44c2133e80c1f1ecaf7f3ddd0f6416c00a40a4290e74f"
+    },
+    {
+      "archivePath": "rig-report.json",
+      "bytes": 2022,
+      "sha256": "812e9cb371940e84ef5e4a6f8661e45d7170a708c960bef36b494b548196b8f3"
+    },
+    {
+      "archivePath": "roundtrip-report.json",
+      "bytes": 1588,
+      "sha256": "fab202e30b86894437a686967f6096fba50f8a92830ef4ae55c5dccbdd5c070e"
+    },
+    {
+      "archivePath": "video-report.json",
+      "bytes": 531,
+      "sha256": "e0b49694cd7764873226cffad9ef54a16367808b9f596aea1d06f00a01f4a14b"
+    },
+    {
+      "archivePath": "walk.mp4",
+      "bytes": 160206,
+      "sha256": "61ef814365c95e5c981679e1343e8672aee0642d793207b732229261a4cac1ab"
+    },
+    {
+      "archivePath": "walk.png",
+      "bytes": 300255,
+      "sha256": "bb926312ce2a22944d607b909c0d569294d13dd9eca398febde8ad9e7b5e7f47"
+    },
+    {
+      "archivePath": "wave-back.png",
+      "bytes": 274608,
+      "sha256": "e544a6a202f598c9d3e48e1bd8a57a17f1bd737b915828e365609f3ab1540ddb"
+    },
+    {
+      "archivePath": "wave-three-quarter.png",
+      "bytes": 275548,
+      "sha256": "1671a47f63da1fb3f9d8bc6df0e3ce6d5488b50322e3b340c9dc353844f6fb75"
+    },
+    {
+      "archivePath": "wave.mp4",
+      "bytes": 136132,
+      "sha256": "50c5507bc2fb6e05ad52a9feadc31712c435c058200c6bc18b0fca04795990ae"
+    },
+    {
+      "archivePath": "wave.png",
+      "bytes": 294367,
+      "sha256": "e631e827b68fbb28bbd0ac072ea24c24c44fb345736bf5abcb54cb98fdbe6bb7"
+    },
+    {
+      "archivePath": "scripts/plant-rig-study.py",
+      "bytes": 25699,
+      "sha256": "42f3f4c78d8bc0e813f412d9f6c3125cd708fd1e2041d9b144cc920bebad4152"
+    },
+    {
+      "archivePath": "scripts/render-plant-study.mjs",
+      "bytes": 8330,
+      "sha256": "1fab1e28aacd2038bcc16f4bc30cf10e2ecf652971c9d4d6209b8d87c1ed1b77"
+    }
+  ]
+}

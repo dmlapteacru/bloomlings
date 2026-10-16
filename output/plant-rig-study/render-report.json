@@ -1,0 +1,39 @@
+{
+  "renderer": "Three.js r160 / Chromium SwiftShader",
+  "fps": 24,
+  "cell": [
+    512,
+    576
+  ],
+  "glbSha256": "de092910d4887fc799f15226878bf224a4b84ae4dd300e41ca3adb9d2647a456",
+  "scriptSha256": "1fab1e28aacd2038bcc16f4bc30cf10e2ecf652971c9d4d6209b8d87c1ed1b77",
+  "clips": [
+    {
+      "name": "SprigStudy_Idle",
+      "start": 0.0416666679084301,
+      "seconds": 3.20833333209157
+    },
+    {
+      "name": "SprigStudy_Wave",
+      "start": 0.0416666679084301,
+      "seconds": 3.20833333209157
+    },
+    {
+      "name": "SprigStudy_Walk",
+      "start": 0.0416666679084301,
+      "seconds": 1.58333333209157
+    },
+    {
+      "name": "SprigStudy_Joy",
+      "start": 0.0416666679084301,
+      "seconds": 3.20833333209157
+    }
+  ],
+  "meshes": [
+    {
+      "name": "SprigPlant",
+      "vertices": 41843,
+      "bones": 25
+    }
+  ]
+}

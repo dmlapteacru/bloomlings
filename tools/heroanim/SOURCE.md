@@ -1,5 +1,19 @@
 # Source record: the owner's animated heroes and layered Home (spec 005 FR-028)
 
+## Separate owner model rigging study (2026-10-16)
+
+The owner supplied `plant+character+3d+model.zip` in conversation and asked to try rigging/animating it.
+Its `tripo_convert_2337d86d-c6b8-4010-9ac5-d18e2dc3ef72.fbx` has SHA-256
+`e8263bc9a77af4245a65c62056822b8a84427362ae9ddf9f11fa32282556eff6`, one 36,956-vertex,
+73,932-triangle mesh and textures, no bones/weights/actions. `plant-rig-study.py` authors a fitted
+25-bone skeleton, normalized weights and four original skeletal clips on that exact geometry/UVs.
+`models/sprig-plant-study.glb` is the resulting source-only model; its review, hashes, checks and
+limitations are recorded in `output/plant-rig-study/`. No external animation library or motion capture
+was used. Original textures are retained. This experiment does not replace `models/heroes.glb`,
+`heroes.json`, any production frames, or the existing Hero lab. No 3D source model enters the APK.
+
+## Production source history
+
 | Field | Value |
 |---|---|
 | Delivered | by the project owner on 2026-10-02, in conversation: four rigged and animated FBX models and `bloomlings_home_assets.zip` (the Home picture in five layers, with a README giving the layer order); on 2026-10-03 the same four models again, exported at 60 fps, to replace the first ones ("the same heroes but 60 fps. Just replace them"); on 2026-10-03 Twig's and Sprig's Blender models; on 2026-10-04 `Heroes.glb`, the four heroes in one Blender file, which replaces them all ("bake them all and update"; see "The owner's Heroes.glb" below) |

@@ -1,0 +1,151 @@
+{
+  "source": "tripo_convert_2337d86d-c6b8-4010-9ac5-d18e2dc3ef72.fbx",
+  "objects": [
+    {
+      "name": "tripo_node_2337d86d",
+      "type": "MESH",
+      "dimensions": [
+        0.7327881455421448,
+        0.4414063096046448,
+        0.980133056640625
+      ],
+      "location": [
+        -0.00030517578125,
+        -9.1552734375e-05,
+        0.0
+      ],
+      "rotation": [
+        -4.371138828673793e-08,
+        0.0,
+        0.0
+      ],
+      "vertices": 36956,
+      "faces": 73932,
+      "triangles": 73932,
+      "quads": 0,
+      "uvs": [
+        "UVMap"
+      ],
+      "groups": [],
+      "modifiers": []
+    }
+  ],
+  "images": [
+    {
+      "name": "plant_character_3d_model_basecolor",
+      "path": "/workspace/bloomlings/content/work/plant-rig/source/tripo_convert_2337d86d-c6b8-4010-9ac5-d18e2dc3ef72.fbm/plant_character_3d_model_basecolor.JPEG",
+      "size": [
+        8192,
+        8192
+      ]
+    },
+    {
+      "name": "plant_character_3d_model_metallic",
+      "path": "/workspace/bloomlings/content/work/plant-rig/source/tripo_convert_2337d86d-c6b8-4010-9ac5-d18e2dc3ef72.fbm/plant_character_3d_model_metallic.JPEG",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "plant_character_3d_model_normal",
+      "path": "/workspace/bloomlings/content/work/plant-rig/source/tripo_convert_2337d86d-c6b8-4010-9ac5-d18e2dc3ef72.fbm/plant_character_3d_model_normal.PNG",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "plant_character_3d_model_roughness",
+      "path": "/workspace/bloomlings/content/work/plant-rig/source/tripo_convert_2337d86d-c6b8-4010-9ac5-d18e2dc3ef72.fbm/plant_character_3d_model_roughness.JPEG",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "tripo_mat_2337d86d",
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "image": null
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "image": null
+        },
+        {
+          "type": "NORMAL_MAP",
+          "name": "Normal Map",
+          "image": null
+        },
+        {
+          "type": "TEX_IMAGE",
+          "name": "Image Texture",
+          "image": "plant_character_3d_model_basecolor"
+        },
+        {
+          "type": "TEX_IMAGE",
+          "name": "Image Texture.001",
+          "image": "plant_character_3d_model_normal"
+        },
+        {
+          "type": "TEX_IMAGE",
+          "name": "Image Texture.002",
+          "image": "plant_character_3d_model_roughness"
+        },
+        {
+          "type": "TEX_IMAGE",
+          "name": "Image Texture.003",
+          "image": "plant_character_3d_model_metallic"
+        }
+      ]
+    }
+  ],
+  "bounds": {
+    "min": [
+      -0.3666992485523224,
+      -0.2207946926355362,
+      1.4983776441823693e-09
+    ],
+    "max": [
+      0.3660888969898224,
+      0.22061163187026978,
+      0.980133056640625
+    ]
+  },
+  "resolvedImages": [
+    {
+      "name": "plant_character_3d_model_basecolor",
+      "size": [
+        8192,
+        8192
+      ]
+    },
+    {
+      "name": "plant_character_3d_model_metallic",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "plant_character_3d_model_normal",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "plant_character_3d_model_roughness",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ]
+}

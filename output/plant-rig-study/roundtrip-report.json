@@ -1,0 +1,74 @@
+{
+  "glbSha256": "de092910d4887fc799f15226878bf224a4b84ae4dd300e41ca3adb9d2647a456",
+  "clips": [
+    "Idle",
+    "Wave",
+    "Walk",
+    "Joy"
+  ],
+  "bones": 25,
+  "exportedVertices": 41843,
+  "sourceComparisonSamples": [
+    {
+      "clip": "Idle",
+      "offsetFrame": 0,
+      "maxVertexDistance": 1.3688452781934757e-05
+    },
+    {
+      "clip": "Idle",
+      "offsetFrame": 39,
+      "maxVertexDistance": 1.363006049359683e-05
+    },
+    {
+      "clip": "Idle",
+      "offsetFrame": 77,
+      "maxVertexDistance": 1.3688452781934757e-05
+    },
+    {
+      "clip": "Wave",
+      "offsetFrame": 0,
+      "maxVertexDistance": 1.3688452781934757e-05
+    },
+    {
+      "clip": "Wave",
+      "offsetFrame": 35,
+      "maxVertexDistance": 1.4765330888621975e-05
+    },
+    {
+      "clip": "Wave",
+      "offsetFrame": 77,
+      "maxVertexDistance": 1.3688452781934757e-05
+    },
+    {
+      "clip": "Walk",
+      "offsetFrame": 0,
+      "maxVertexDistance": 1.3746854165219702e-05
+    },
+    {
+      "clip": "Walk",
+      "offsetFrame": 12,
+      "maxVertexDistance": 1.4930313227523584e-05
+    },
+    {
+      "clip": "Walk",
+      "offsetFrame": 38,
+      "maxVertexDistance": 1.3746854165219702e-05
+    },
+    {
+      "clip": "Joy",
+      "offsetFrame": 0,
+      "maxVertexDistance": 1.3746854165219702e-05
+    },
+    {
+      "clip": "Joy",
+      "offsetFrame": 20,
+      "maxVertexDistance": 6.1465798353310674e-06
+    },
+    {
+      "clip": "Joy",
+      "offsetFrame": 77,
+      "maxVertexDistance": 1.3688452781934757e-05
+    }
+  ],
+  "maxVertexDistance": 1.4930313227523584e-05
+}

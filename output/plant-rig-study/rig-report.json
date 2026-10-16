@@ -1,0 +1,63 @@
+{
+  "source": "tripo_convert_2337d86d-c6b8-4010-9ac5-d18e2dc3ef72.fbx",
+  "sourceSha256": "e8263bc9a77af4245a65c62056822b8a84427362ae9ddf9f11fa32282556eff6",
+  "vertices": 36956,
+  "faces": 73932,
+  "triangles": 73932,
+  "meshTopologyChanged": false,
+  "uvChanged": false,
+  "sourceTexturesChanged": false,
+  "normalizedHeight": 2,
+  "rigBones": 25,
+  "deformBones": 17,
+  "connectedArmVertices": 3905,
+  "maxInfluences": 4,
+  "maxWeightSumError": 1.1102230246251565e-16,
+  "unweightedVertices": 0,
+  "restMaxError": 6.664001874625056e-08,
+  "protectedFaceVertices": 3943,
+  "fps": 24,
+  "clips": [
+    {
+      "clip": "SprigStudy_Idle",
+      "frames": 78,
+      "loopSeamMaxError": 0.0,
+      "maxEdgeStretch": 4.088452469319765,
+      "p99EdgeStretch": 1.2750592996349495,
+      "maxEdgeExtension": 0.0481307986696424,
+      "protectedFaceMaxError": 2.475925668377066e-07,
+      "minZ": -4.49707933114496e-08
+    },
+    {
+      "clip": "SprigStudy_Wave",
+      "frames": 78,
+      "loopSeamMaxError": 0.0,
+      "maxEdgeStretch": 4.447879722915592,
+      "p99EdgeStretch": 1.2864818118648957,
+      "maxEdgeExtension": 0.05601296745651124,
+      "protectedFaceMaxError": 2.353961969236984e-07,
+      "minZ": -4.49707933114496e-08
+    },
+    {
+      "clip": "SprigStudy_Walk",
+      "frames": 39,
+      "loopSeamMaxError": 0.0,
+      "maxEdgeStretch": 4.396114936859365,
+      "p99EdgeStretch": 1.4234005289935592,
+      "maxEdgeExtension": 0.07816503529792797,
+      "protectedFaceMaxError": 2.4703513257229304e-07,
+      "minZ": -1.3437777113267657e-07
+    },
+    {
+      "clip": "SprigStudy_Joy",
+      "frames": 78,
+      "loopSeamMaxError": 2.593576963588972e-05,
+      "maxEdgeStretch": 4.088448296632652,
+      "p99EdgeStretch": 1.412171044342352,
+      "maxEdgeExtension": 0.06010180310884124,
+      "protectedFaceMaxError": 2.401163461396294e-07,
+      "minZ": -5.987195095258357e-08
+    }
+  ],
+  "note": "Prototype fitted skin. Fingers follow rigid hand bones; face expression remains in the owner texture."
+}
