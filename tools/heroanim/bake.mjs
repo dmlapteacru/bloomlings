@@ -109,7 +109,8 @@ async function main() {
   fs.mkdirSync(framesDir, { recursive: true });
 
   const { server, port } = await serve();
-  const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+  const browser = await chromium.launch({ executablePath: process.env.HERO_ANIM_CHROMIUM || process.env.HERO_LAB_CHROMIUM || undefined,
+    args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   const page = await browser.newPage({ viewport: { width: 256, height: 256 } });
   page.on('pageerror', e => console.error('page error:', e.message));
   page.on('console', m => { if (m.type() === 'error' && !/404/.test(m.text())) console.error('page:', m.text()); });
@@ -125,6 +126,10 @@ async function main() {
       continue;
     }
     const t0 = Date.now();
+    const appearance = hero.appearance ? JSON.parse(fs.readFileSync(path.join(here, hero.appearance))) : {};
+    const texture = hero.texture ? fs.readFileSync(path.join(here, hero.texture)) : null;
+    const cellPalette = hero.paletteSpace === 'cell';
+    const homeFinish = appearance.finish ?? config.home;
     const job = {
       file: hero.file, mesh: hero.mesh || null, idle: hero.idle, react: hero.react, win: hero.win || null, head: hero.head || null,
       top: hero.top || null, topOffset: hero.topOffset || null, ground: hero.ground || null, breathe: hero.breathe || null, synth: hero.synth || null,
@@ -135,9 +140,10 @@ async function main() {
       idleBlend: config.idleBlend, reactIn: config.reactIn, reactOut: config.reactOut,
       yaw: hero.yaw, pitch: config.pitch, fov: config.fov,
       // A hero's own light settings (heroes.json `light`: hemi, key, fill, rim, exposure, lift) over the shared ones.
-      light: { ...config.light, ...(hero.light || {}) },
+      light: { ...config.light, ...(hero.light || {}), ...(appearance.light || {}) },
       // A hero's own color grade of its texture (heroes.json `color`: gamma, gain, saturation, warm), or none.
-      color: hero.color || null,
+      color: appearance.color ?? hero.color ?? null,
+      albedo: texture ? 'data:image/png;base64,' + texture.toString('base64') : null,
       cell: config.cell, feet: config.feet, fill: config.fill, margin: config.margin,
       width: Math.round(config.cell[0] * config.supersample), height: Math.round(config.cell[1] * config.supersample),
     };
@@ -160,8 +166,10 @@ async function main() {
       const b = bounds(png);
       if (!b) throw new Error(`${hero.family}: an empty frame`);
       // The Home set (its idle and reaction) gets heroes.json's `home` finish (post.mjs); the win's set stays as rendered.
-      const cropped = crop(png, b);
-      pictures.push(config.home && (f.clip === 'idle' || f.clip === 'react') ? finish(cropped, config.home) : cropped);
+      // Bloom's approved study quantizes the full cell, then crops the indices. Keep that sampling space so the
+      // shipped pixels match the reviewed frames exactly. Existing heroes keep their original crop-space palette.
+      const picture = cellPalette ? png : crop(png, b);
+      pictures.push(homeFinish && (f.clip === 'idle' || f.clip === 'react') ? finish(picture, homeFinish) : picture);
       frames.push({ name: frameName(hero.family, f.clip, index[f.clip]++), clip: f.clip, crop: b, head: share(f.head), top: share(f.top) });
     }
     // One palette for all the hero's frames (png8.mjs), so the files stay small and no color flickers; a hero baked twice
@@ -172,14 +180,24 @@ async function main() {
     const palWin = twice ? palette(pictures.filter((_, i) => winSet(frames[i]))) : palHome;
     frames.forEach((f, i) => {
       const pal = winSet(f) ? palWin : palHome;
-      const bytes = writePng8(pictures[i].width, pictures[i].height, indexed(pictures[i], pal), pal);
+      const picture = pictures[i];
+      const indices = indexed(picture, pal, { dither: appearance.dither ?? 1 });
+      let croppedIndices = indices;
+      if (cellPalette) {
+        croppedIndices = new Uint8Array(f.crop.w * f.crop.h);
+        for (let y = 0; y < f.crop.h; y++) croppedIndices.set(
+          indices.subarray((y + f.crop.y) * picture.width + f.crop.x, (y + f.crop.y) * picture.width + f.crop.x + f.crop.w), y * f.crop.w);
+      }
+      const bytes = writePng8(f.crop.w, f.crop.h, croppedIndices, pal);
       fs.writeFileSync(path.join(framesDir, f.name + '.png'), bytes);
       f.sha256 = sha256(bytes);
       f.bytes = bytes.length;
     });
     const total = frames.reduce((s, f) => s + f.bytes, 0);
     console.log(`${hero.family}: ${index.idle} idle + ${index.react} reaction${index.win ? ` + ${index.win} win` : ''}${index.win2 ? ` + ${index.win2} win2` : ''}${index.winidle ? ` + ${index.winidle} win idle` : ''} frames, ${(total / 1024 / 1024).toFixed(2)} MB, scale ${baked.scale.toFixed(3)}, ${((Date.now() - t0) / 1000).toFixed(1)} s`);
-    results.push({ family: hero.family, model: hero.file, modelSha256: sha256(fs.readFileSync(path.join(here, 'models', hero.file))), frames });
+    results.push({ family: hero.family, model: hero.file, modelSha256: sha256(fs.readFileSync(path.join(here, 'models', hero.file))),
+      ...(hero.appearance ? { appearance: { path: hero.appearance, sha256: sha256(fs.readFileSync(path.join(here, hero.appearance))) } } : {}),
+      ...(texture ? { texture: { path: hero.texture, sha256: sha256(texture) } } : {}), frames });
   }
   await browser.close();
   server.close();

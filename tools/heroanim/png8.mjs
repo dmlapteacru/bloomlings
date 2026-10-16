@@ -67,8 +67,10 @@ function nearest(centers, s) {
 }
 
 // Indexes a picture on the palette (premultiplied entries) with Floyd–Steinberg dithering of the opaque parts; fully
-// transparent pixels stay entry 0.
-export function indexed(p, pal) {
+// transparent pixels stay entry 0. Optional dither strength is for appearance studies; default 1 preserves the
+// production export byte for byte. A lower strength reduces grain at the cost of more visible color steps.
+export function indexed(p, pal, { dither = 1 } = {}) {
+  if (!Number.isFinite(dither) || dither < 0 || dither > 1) throw new Error('dither must be between 0 and 1');
   const W = p.width, H = p.height, idx = new Uint8Array(W * H);
   const err = new Float32Array((W + 2) * 2 * 4);
   const lut = new Map();
@@ -87,7 +89,7 @@ export function indexed(p, pal) {
       idx[y * W + x] = j + 1;
       const c = centers[j];
       for (let k = 0; k < 4; k++) {
-        const d = s[k] - c[k];
+        const d = (s[k] - c[k]) * dither;
         err[e + 4 + k] += d * 7 / 16;
         err[nxt + x * 4 + k] += d * 3 / 16;
         err[nxt + (x + 1) * 4 + k] += d * 5 / 16;

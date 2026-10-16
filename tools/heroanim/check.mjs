@@ -24,6 +24,10 @@ let frames = 0;
 for (const hero of manifest.heroes) {
   const model = path.join(here, 'models', hero.model);
   expect(fs.existsSync(model) && sha(model) === hero.modelSha256, `models/${hero.model} is not the model baked`);
+  for (const source of [hero.appearance, hero.texture].filter(Boolean)) {
+    const file = path.join(here, source.path);
+    expect(fs.existsSync(file) && sha(file) === source.sha256, `${source.path} changed since the bake`);
+  }
   for (const f of hero.frames) {
     const file = path.join(framesDir, f.name + '.png');
     listed.add(f.name + '.png');

@@ -1,0 +1,20 @@
+{
+  "adopted": true,
+  "changedBloomFrames": 132,
+  "otherHeroFramesUnchanged": 768,
+  "all132FramesPixelIdenticalToApprovedReview": true,
+  "frameNamesCropsAnchorsDurationsUnchanged": true,
+  "generatedPlaybackDataUnchanged": true,
+  "sourceModelUnchanged": true,
+  "sourceTextureChecked": true,
+  "sourceRecipeChecked": true,
+  "apkBuilt": false,
+  "androidAssetItemsChecked": 132,
+  "authoringTexturesExcludedFromAndroid": true,
+  "actualPackedBytes": 5716494,
+  "actualPackingPixelVerified": true,
+  "clientHeroTestsPassed": 20,
+  "previewScreensPassed": 5,
+  "previewNavigationChecksPassed": true,
+  "originalityTestsPassed": 3
+}

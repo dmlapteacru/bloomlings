@@ -137,3 +137,8 @@ asset) and a modified font is not sold or renamed as Nunito. The files are never
 | `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/collection.jpg` | Distinct garden page background | OpenAI ImageGen, generated for Bloomlings, 2026-10-14; finished by `tools/heroanim/backdrops.mjs` | Project-generated artwork | `tools/artgen/models/garden-backgrounds-2026-10-14.md` |
 
 Additional owned ImageGen assets (2026-10-15): `Art/Backgrounds/Resources/Backgrounds/gameplay-fern.jpg` and `gameplay-willow.jpg` (source record: `tools/artgen/models/garden-backgrounds-2026-10-14.md`); four `Art/Badges/Resources/Badges/hero_*.png` medals (source record: `tools/badges/SOURCE.md`); four canonical hero mosaics in `content/launch-art/library/hero_*.json` (source atlas and exact assignments in `content/launch-art/hero-milestones.json`). All were generated for this project from its own artwork.
+
+Bloom motion texture update (2026-10-16, owner approved): `Art/Heroes/Resources/HeroMotion/bloom-*.png` use the owner's
+original Meshy-derived model and a project-generated ImageGen paint cleanup baked onto its original UVs with Blender.
+Source texture, prompt and recipe: `tools/heroanim/textures/bloom-study/`; provenance: `tools/heroanim/SOURCE.md`.
+The source GLB and texture atlas are authoring data and are not included in APK assets.

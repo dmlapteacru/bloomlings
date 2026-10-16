@@ -127,3 +127,19 @@ files' hashes are in `layers.json`.
 | Frames | Sprig 96 idle, 72 reaction, 48 `win`, 72 `win2`; Bloom and Drop 96 idle and 36 reaction; Twig 72 idle, 36 reaction and 72 win: 732 frames, 32.7 MB in all |
 | Known | thin light seams along the texture islands of Drop and Twig (the bake left no margin round them): the owner's next export, with a 16 px margin; the Daily Challenge's round button (from level 50) touches Drop's tip on Home |
 
+
+## Bloom's approved texture cleanup (2026-10-16)
+
+The owner approved the comparison in `output/bloom-texture/` and requested replacing the game assets to test on device.
+The original `models/heroes.glb`, Bloom's 5,551-vertex mesh, 34-joint skeleton, skin weights and clips are unchanged.
+`textures/bloom-study/front-clean.png` is a project-generated ImageGen paint cleanup of an orthographic albedo render
+of that exact mesh; the prompt and original render are kept beside it. `bloom-projection.py` projects the paint onto
+the visible original surface and bakes it into the original UVs as `textures/bloom-study/basecolor.png` (2048×2048).
+The original paint remains on the back and hidden surfaces. The source is for offline rendering only, never an APK asset.
+
+Bloom's `heroes.json` entry now reads that texture and `textures/bloom-study/look.json`: neutral lights, no added glow,
+cleaner color/finish, 0.35 dithering strength. Its shared palette is sampled in the full 448×504 cell, as in the approved
+comparison, before cropping the indices. The bake records and checks the texture and appearance recipe hashes.
+Only Bloom's 96 idle + 36 reaction frames are replaced, at their existing size, 24 fps, names, crop boxes and anchors.
+The other heroes, Sprig's separate animation lab, Home layers and backgrounds are retained. Large turns and rear views
+still inherit the original material; this pass targets the existing meta-screen animation set.
