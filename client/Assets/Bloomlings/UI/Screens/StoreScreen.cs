@@ -853,10 +853,10 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         private static void Preview(RectTransform picture, Family family, CosmeticItem? item)
         {
-            HeroFrame? icon=item!=null ? SprigGearArt.Icon(item.Id) : null;
+            HeroFrame? icon=item!=null ? HeroGearArt.Icon(item.Id) : null;
             if(icon.HasValue)
             {
-                Image image=UiFactory.CreateImage("Accessory",picture,SprigGearView.Picture(icon.Value.Name),Color.white);
+                Image image=UiFactory.CreateImage("Accessory",picture,HeroGearView.Picture(icon.Value.Name),Color.white);
                 image.preserveAspect=true;image.raycastTarget=false;UiFactory.Stretch(image.rectTransform);return;
             }
             if (item == null || item.IsWorn)

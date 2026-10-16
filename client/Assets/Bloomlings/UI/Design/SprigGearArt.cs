@@ -29,9 +29,9 @@ namespace Bloomlings.Client.UI.Design
         public static bool IsTrial(string id) => id == CapId || id == GlassesId || id == BackpackId;
 
         /// <summary>One restrained shared breath until the separate action/animation feature is authored.</summary>
-        public static Box PoseCell(Box cell, HeroPose pose)
+        public static Box PoseCell(Box cell, HeroPose pose, Bloomlings.Core.Variants.Family family = Bloomlings.Core.Variants.Family.Sprig)
         {
-            int count = Math.Max(1, HeroMotion.FrameCount(Bloomlings.Core.Variants.Family.Sprig, pose.Clip));
+            int count = Math.Max(1, HeroMotion.FrameCount(family, pose.Clip));
             float wave = (float)Math.Sin(2 * Math.PI * pose.Index / count);
             float sx = 1 + wave * .003f, sy = 1 + wave * .006f;
             float foot = cell.Top + cell.Height * .9f;

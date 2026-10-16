@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "note": "Temporary vertex-colour materials matching Twig's existing warm game palette. Source FBXs have no UVs; legacy albedo cannot be mapped unchanged. No source geometry/weights are altered.",
+  "colors": {
+    "gold": "#F2B94D", "wood": "#B9672C", "bib": "#FFD474", "eye": "#25150D",
+    "sclera": "#FFF6E7", "mouth": "#55170E", "tongue": "#ED6276", "blush": "#EF987A",
+    "olive": "#778342", "visor": "#AD5F30", "leaf": "#66A83D", "petal": "#FFF1D1", "pollen": "#F4BC42"
+  }
+}

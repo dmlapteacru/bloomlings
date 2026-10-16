@@ -137,6 +137,44 @@ namespace Bloomlings.Playtest.Preview
                 app.GoHome(); CloseAll(app); Run(app, p, .4f);
             });
 
+            yield return new Fixture(112,"twig-gear-shop","Twig's two fitted headwear items equip free before L40 and survive restart",(p,data)=>
+            {
+                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.15f);
+                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
+                int balance=app.Meta.Economy.Petals;
+                foreach(var target in new[]{(1,TwigGearArt.AcornHatId),(2,TwigGearArt.FlowerCapId)})
+                {
+                    Tap(p,ShopCatalogDesign.CosmeticCard(area,target.Item1));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==target.Item2,"the actual Twig card equips its fitted headwear");
+                    Expect(app.Meta.Economy.Petals==balance&&app.Overlays.Count==0,"free headwear charges nothing");
+                }
+                Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==TwigGearArt.FlowerCapId,"Twig headwear survives app restart");
+                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
+                Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).IsEmpty,"Remove restores the bare base");
+                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
+            });
+            foreach(var target in new[]{(113,"twig-acorn-home",TwigGearArt.AcornHatId),(114,"twig-cap-home",TwigGearArt.FlowerCapId),(115,"twig-cap-wardrobe",TwigGearArt.FlowerCapId)})
+            {
+                var scene=target;
+                yield return new Fixture(scene.Item1,scene.Item2,"The owner's new Twig and fitted headwear on an actual game page",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    Expect(app.Meta.Wardrobe.Equip(Family.Twig,scene.Item3),"Twig headwear equips");
+                    if(scene.Item1==115){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
+                    Run(app,p,.5f);
+                    Expect(p.HasSprite(PainterBase.HeroMotionPrefix+"twigmod-cap"),"new Twig uses the bundled runtime assets");
+                });
+            }
+            yield return new Fixture(116,"twig-gear-win","Twig retains headwear after a solved level",(p,data)=>
+            {
+                var app=App(data);app.Meta.SkipTo(12);app.Meta.Wardrobe.Equip(Family.Twig,TwigGearArt.FlowerCapId);
+                app.LoadLevel(13);CloseDemo(app);Run(app,p,.1f);
+                SolveResult win=new Solver.Solver().Solve(Session(content,13),SolveOptions.Default);
+                Expect(win.Status==SolveStatus.Solvable,"the actual level is solvable");
+                Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
+                Expect(app.Level!.Won&&app.Meta.CurrentLevel==14,"Twig's win completes progression");
+            });
+
             yield return new Fixture(108,"sprig-gear-shop","Free modular Sprig accessories equip from Shop before L40",(p,data)=>
             {
                 var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;Run(app,p,.15f);
@@ -1059,7 +1097,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p,NavigationSkin.Segment(r.Families,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"returning to family restores its offset");
                 Tap(p,NavigationSkin.Segment(r.Categories,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Kind==CosmeticKind.Skin,"category filters the catalog");
                 Tap(p,NavigationSkin.Segment(r.Categories,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"category restores its own scroll");
-                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat);int bucket=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
+                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);int bucket=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
                 long before=app.Meta.Economy.Petals;Tap(p,r.Cell(bucket).Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
                 Expect(app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==before,"tap opens confirmation without spending");
                 Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Cancel);Run(app,p,.1f);
@@ -1071,7 +1109,7 @@ namespace Bloomlings.Playtest.Preview
                 var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
                 Drag(p,r.Area.CenterX,r.Area.CenterY,r.Area.CenterX,r.Area.Top-6000);Run(app,p,.1f);
                 float offset=app.WardrobeBrowse.Offset;
-                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat);
+                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);
                 int index=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
                 long balance=app.Meta.Economy.Petals;
                 Box bucket=r.Cell(index).Offset(0,-offset);

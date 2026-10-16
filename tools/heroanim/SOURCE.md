@@ -203,3 +203,34 @@ Free Sprig-only, meta-only equipment persists through the existing wardrobe save
 the cap switches the exclusive prepared head. The current runtime pose has a restrained 2D breathing transform.
 The full skeletal animation/action feature is deferred, as requested. Existing legacy frames remain for compatibility;
 the other heroes and gameplay character art are retained.
+
+## Owner's modular Twig and saved references (2026-10-17)
+
+The owner supplied `BaseHero.fbx`, `BaseHero@Anims.fbx`, `BaseHero_AcornHat.fbx` and `BaseHero_FlowerCap.fbx` to replace
+Twig on meta screens and test two free headwear items in the game. Original exchange bytes are retained under
+`models/twig/source/`, renamed `TwigHero.fbx`, `TwigHero@Anims.fbx`, `TwigHero_AcornHat.fbx`, `TwigHero_FlowerCap.fbx`.
+The owner creates/maintains these meshes and equipment in their single Blender master using Tripo. No second master
+is authored here. Original names, SHA-256 hashes, sizes, geometry/weight signatures and inspection are recorded in
+`models/twig/build-report.json`. Base mesh: 36,109 vertices; acorn hat: 25,413; flower cap: 24,787.
+
+All meshes lack UV maps and texture images. A legacy UV atlas therefore cannot be applied unchanged.
+`prepare-twig-gear.py` adds temporary vertex-colour materials in Twig's existing warm color direction using
+`twig-materials.json`: golden skin/bib, brown wood limbs/ears, dark eyes, olive/rust cap and cream/yellow daisy.
+This is a provisional material pass, not a reused UV texture or final hand-painted albedo. Source coordinates,
+topology, weights and source FBX bytes are unchanged. The actual flower surface is a separate connected component.
+
+Both accessories match the body's 25-bone rest rig. The animation-only FBX has the same bone names/hierarchy but
+different rest axes when imported; its four real moving Idle/Wave/Walk/Joy actions are preserved in the source FBX
+and require retargeting before use on this mesh rig. The current equipment pilot uses the base rest pose plus the
+shared restrained 2D breath, following the owner's separate-animation-feature decision.
+
+`bake-twig-gear.mjs` renders bare/acorn/cap states and two isolated shop icons as cropped PNG8 images, at the existing
+448×504 hero cell / 320×320 icon design sizes. Inputs, recipes, generated data and outputs are hashed in `twig-gear.json`
+and verified by `check.mjs`. Derived GLB/intermediates stay in ignored `content/work/twig-gear/`; only sprites enter APK
+assets. There is no runtime 3D. Headwear is free, Twig-only and meta-only, uses one mutually exclusive Hat slot,
+persists through restart and appears on Home, Wardrobe and Twig's win/milestone views. Removing it shows the bare base.
+
+The owner also requested preserving generated modeling references. `references/twig/` contains the final short-body,
+bare-head baseline with two low woody ears, the acorn-head reference, and the four final olive/rust cap views.
+They were made with OpenAI image generation in this conversation from the owner's character/reference; they are
+authoring references, not additional APK assets or exact mesh orthographic projections. Rejected drafts are omitted.

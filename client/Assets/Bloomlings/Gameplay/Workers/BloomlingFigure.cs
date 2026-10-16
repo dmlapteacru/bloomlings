@@ -31,7 +31,7 @@ namespace Bloomlings.Client.Gameplay.Workers
         private readonly Image _badge;
         private readonly Image _expression;
         private readonly Image _hat;
-        private SprigGearView? _gear;
+        private HeroGearView? _gear;
 
         private BloomlingFigure(RectTransform root)
         {
@@ -101,15 +101,15 @@ namespace Bloomlings.Client.Gameplay.Workers
             bool blank = expression && CharacterSprites.HasMatchingBlank(family);
             Sprite? picture = CharacterSprites.Hero(family, blank);
             Show(picture, family, HeroColor(family), outfit, CharacterArt.FaceCenterHero(family), (float)CharacterArt.HeroHeight / CharacterArt.HeroWidth, hero: true, badge: expression && !blank && picture != null);
-            if (family == Family.Sprig)
+            if (HeroGearArt.Supports(family))
             {
-                _gear ??= SprigGearView.Create(_body.transform);
+                _gear ??= HeroGearView.Create(_body.transform);
                 _gear.Rect.SetAsFirstSibling();
                 _gear.Rect.gameObject.SetActive(true);
-                _gear.Wear(outfit);
+                _gear.Wear(family, outfit);
                 _body.enabled = false;
                 _skinMask.gameObject.SetActive(false);
-                if (SprigGearArt.IsCap(outfit)) _hat.gameObject.SetActive(false);
+                if (HeroGearArt.HasBakedHat(family, outfit)) _hat.gameObject.SetActive(false);
             }
         }
 

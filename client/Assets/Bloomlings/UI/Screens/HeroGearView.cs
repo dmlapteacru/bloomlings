@@ -3,24 +3,26 @@ using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Bloomlings.Client.UI.Screens
 {
-    /// <summary>Six cropped shared sprites, loaded once; equipping creates no textures or outfit combinations.</summary>
-    public sealed class SprigGearView
+    /// <summary>Cropped shared hero sprites, loaded once; equipping creates no textures or outfit combinations.</summary>
+    public sealed class HeroGearView
     {
         private static readonly Dictionary<string, Sprite?> Pictures = new Dictionary<string, Sprite?>();
-        private readonly Image[] _parts = new Image[SprigGearArt.LayerCount];
+        private readonly Image[] _parts = new Image[HeroGearArt.LayerCount];
         private Outfit? _outfit;
+        private Family _family;
         private readonly Image _mask;
         private readonly Image _skin;
         public RectTransform Rect { get; }
         private static readonly Box Cell = new Box(0, 0, HeroMotion.CellWidth, HeroMotion.CellHeight);
-        private SprigGearView(Transform parent)
+        private HeroGearView(Transform parent)
         {
-            Rect = UiFactory.CreateRect("SprigGear", parent);
+            Rect = UiFactory.CreateRect("HeroGear", parent);
             UiFactory.Stretch(Rect);
             _mask = UiFactory.CreateImage("SkinMask", Rect, null, Color.white);
             _mask.raycastTarget = false;
@@ -36,7 +38,7 @@ namespace Bloomlings.Client.UI.Screens
             }
             _mask.rectTransform.SetSiblingIndex(1);
         }
-        public static SprigGearView Create(Transform parent) => new SprigGearView(parent);
+        public static HeroGearView Create(Transform parent) => new HeroGearView(parent);
         public static Sprite? Picture(string name)
         {
             if (!Pictures.TryGetValue(name, out Sprite? sprite))
@@ -46,12 +48,13 @@ namespace Bloomlings.Client.UI.Screens
             }
             return sprite;
         }
-        public void Wear(Outfit? outfit)
+        public void Wear(Family family, Outfit? outfit)
         {
+            _family = family;
             _outfit = outfit;
             for (int i = 0; i < _parts.Length; i++)
             {
-                HeroFrame? frame = SprigGearArt.Layer(outfit, i);
+                HeroFrame? frame = HeroGearArt.Layer(_family, outfit, i);
                 _parts[i].gameObject.SetActive(frame.HasValue);
                 if (frame.HasValue) _parts[i].sprite = Picture(frame.Value.Name);
             }
@@ -64,12 +67,12 @@ namespace Bloomlings.Client.UI.Screens
             }
             Place(Cell);
         }
-        public void Tick(HeroPose pose) => Place(SprigGearArt.PoseCell(Cell, pose));
+        public void Tick(HeroPose pose) => Place(HeroGearArt.PoseCell(Cell, pose, _family));
         private void Place(Box cell)
         {
             for (int i = 0; i < _parts.Length; i++)
             {
-                HeroFrame? frame = SprigGearArt.Layer(_outfit, i);
+                HeroFrame? frame = HeroGearArt.Layer(_family, _outfit, i);
                 if (!frame.HasValue) continue;
                 Box box = HeroMotion.PictureBox(cell, frame.Value);
                 UiFactory.Place(_parts[i].rectTransform, box.Left / Cell.Width, 1 - box.Bottom / Cell.Height,

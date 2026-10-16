@@ -205,7 +205,7 @@ namespace Bloomlings.Client.UI.Screens
             if(item.MilestoneLevel.HasValue)return Loc.F(item.Kind==CosmeticKind.Marker?"cosmetic.level_marker":"cosmetic.level_badge",item.MilestoneLevel.Value);
             return Loc.T("cosmetic."+item.Id,item.Name);
         }
-        public static Sprite Icon(CosmeticItem item)=>SprigGearArt.Icon(item.Id) is HeroFrame gear ? SprigGearView.Picture(gear.Name)! : item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix,StringComparison.Ordinal)?
+        public static Sprite Icon(CosmeticItem item)=>HeroGearArt.Icon(item.Id) is HeroFrame gear ? HeroGearView.Picture(gear.Name)! : item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix,StringComparison.Ordinal)?
             OwnerArt.Badge(item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length))??ProceduralSprites.Accessory(item.Shape):ProceduralSprites.Accessory(item.Shape);
         public static string KindLabel(CosmeticKind kind)=>Loc.T("wardrobe.kind_"+kind.ToString().ToLowerInvariant());
     }

@@ -446,7 +446,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         private static void Preview(IPainter p, Box well, Family family, CosmeticItem? item)
         {
-            HeroFrame? icon=item!=null ? SprigGearArt.Icon(item.Id) : null;
+            HeroFrame? icon=item!=null ? HeroGearArt.Icon(item.Id) : null;
             if(icon.HasValue){p.Sprite(PainterBase.HeroMotionPrefix+icon.Value.Name,PainterBase.Fit(well,icon.Value.Width,icon.Value.Height));return;}
             // The hero fills the well with its feet near the bottom; a hat sits above the picture, so with a hat the hero
             // is a little smaller and lower to keep the hat inside the well.

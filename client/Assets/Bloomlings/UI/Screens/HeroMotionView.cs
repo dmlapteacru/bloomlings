@@ -51,7 +51,7 @@ namespace Bloomlings.Client.UI.Screens
         private int _shown = -1;
         private int _fadeShown = -1;
         private float _fadeAlpha = -1f;
-        private SprigGearView? _gear;
+        private HeroGearView? _gear;
         private bool _gearOn;
 
         /// <summary>A hero view under <paramref name="parent"/>; place its <see cref="Rect"/> at the frame cell.</summary>
@@ -108,7 +108,7 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         public void Wear(Outfit? outfit)
         {
-            if (_gearOn) _gear!.Wear(outfit);
+            if (_gearOn) _gear!.Wear(_set!.Family, outfit);
             CosmeticItem? trail = outfit?.Trail;
             _trail.gameObject.SetActive(trail != null);
             if (trail != null)
@@ -144,7 +144,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             CosmeticItem? hat = outfit?.Hat;
-            _wearsHat = hat != null && !(_gearOn && SprigGearArt.IsCap(outfit));
+            _wearsHat = hat != null && !(_gearOn && HeroGearArt.HasBakedHat(_set!.Family, outfit));
             _hatShape = hat?.Shape;
             _hat.gameObject.SetActive(false);
             if (hat != null)
@@ -164,7 +164,7 @@ namespace Bloomlings.Client.UI.Screens
             if (_gearOn && _player != null)
             {
                 _gear!.Tick(_player.Pose(now));
-                if (_wearsHat && _set != null) PlaceHat(_set, SprigGearArt.Layer(null, 0)!.Value);
+                if (_wearsHat && _set != null) PlaceHat(_set, HeroGearArt.Layer(_set.Family, null, 0)!.Value);
                 return;
             }
             if (_held == null || _player == null)
@@ -249,13 +249,13 @@ namespace Bloomlings.Client.UI.Screens
 
         private void Bind(Family family)
         {
-            _gearOn = family == Family.Sprig;
+            _gearOn = HeroGearArt.Supports(family);
             if (_gearOn)
             {
-                _gear ??= SprigGearView.Create(_cell);
+                _gear ??= HeroGearView.Create(_cell);
                 _gear.Rect.SetSiblingIndex(_frame.rectTransform.GetSiblingIndex());
                 _gear.Rect.gameObject.SetActive(true);
-                _gear.Wear(null);
+                _gear.Wear(family, null);
                 _frame.enabled = false; _fade.enabled = false; _skinMask.gameObject.SetActive(false);
             }
             else if (_gear != null) _gear.Rect.gameObject.SetActive(false);

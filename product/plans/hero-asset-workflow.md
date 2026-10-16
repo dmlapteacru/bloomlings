@@ -41,3 +41,19 @@ new assistant-painted textures have not been delivered by this pilot.
 Verification: `SprigGearTests` covers all eight outfit combinations, family fitting, independent slots, save round-trip
 and gameplay exclusion. Preview fixtures 108–111 exercise real shop taps, app restart, removal, Home, Wardrobe and a
 solved level's win. `node tools/heroanim/check.mjs` checks every runtime image against the bake record.
+
+## Twig equipment pilot
+
+Owner delivery: `tools/heroanim/models/twig/source/TwigHero…fbx`. The base and two fitted, Head-weighted accessories
+are retained without geometry edits. Acorn Hat and Daisy Cap are free Twig-only items in Shop → Cosmetics → Twig;
+one Hat slot switches them, and Remove/Default restores the bare model. The shared modular hero renderer now supports
+Sprig and Twig. Existing profile avatar pictures remain separate from the fitted in-game hero.
+
+The export has no UV maps/textures, so the initial appearance uses temporary vertex-colour materials. No mismatched
+legacy atlas is forced onto the new mesh. The animation-only FBX imports with different rest axes; preserve its
+actions for later retargeting and use the base rest pose plus subtle breathing for the equipment pilot.
+
+Final references are saved in `tools/heroanim/references/twig/`: the bare short-body base, default acorn head and four
+olive/rust baseball-cap views. Use these for future authoring; keep the same face, nose, open smile and two low ears.
+The files are references rather than another geometry master. Future final texture work needs a stable UV layout
+from the owner's master or an agreed unwrap returned for import into it.

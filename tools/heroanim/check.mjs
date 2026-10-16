@@ -42,10 +42,22 @@ if(fs.existsSync(gearFile)){
   expect(sha(path.join(repo,gear.data))===gear.dataSha256,'SprigGearData does not match bake');
   for(const f of gear.outputs){listed.add(f.file);expect(fs.existsSync(path.join(framesDir,f.file))&&sha(path.join(framesDir,f.file))===f.sha256, f.file+' changed after gear bake');}
 }
+const twigFile=path.join(here,'twig-gear.json');
+if(fs.existsSync(twigFile)){
+  const twig=JSON.parse(fs.readFileSync(twigFile));
+  for(const source of twig.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,`${source.path} changed since Twig bake`);
+  expect(sha(path.join(repo,twig.data))===twig.dataSha256,'TwigGearData does not match bake');
+  for(const f of twig.outputs){listed.add(f.file);expect(fs.existsSync(path.join(framesDir,f.file))&&sha(path.join(framesDir,f.file))===f.sha256,f.file+' changed after Twig bake');}
+  const references=path.join(here,'references/twig');
+  for(const f of JSON.parse(fs.readFileSync(path.join(references,'manifest.json'))).files)
+    expect(fs.existsSync(path.join(references,f.path))&&sha(path.join(references,f.path))===f.sha256,`Twig reference ${f.path} is missing or changed`);
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
 expect(folderFiles.size === listed.size && [...listed].every(n => folderFiles.has(n)), 'HeroMotion/manifest.json does not list the baked frames');
 if(fs.existsSync(gearFile))for(const f of JSON.parse(fs.readFileSync(gearFile)).outputs)
+  expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
+if(fs.existsSync(twigFile))for(const f of JSON.parse(fs.readFileSync(twigFile)).outputs)
   expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
 for (const hero of manifest.heroes) for (const f of hero.frames) expect(folderFiles.get(f.name + '.png') === f.sha256, `HeroMotion/manifest.json: ${f.name}.png`);
 expect(folder.files.every(f => f.record && fs.existsSync(path.join(repo, f.record))), 'HeroMotion/manifest.json names a missing source record');
