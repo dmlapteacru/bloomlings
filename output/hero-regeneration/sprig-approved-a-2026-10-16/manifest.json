@@ -1,0 +1,21 @@
+{
+  "created": "2026-10-16",
+  "selectedDesign": "A (left on selection-board.png)",
+  "purpose": "Modeling reference, not runtime assets",
+  "files": [
+    {
+      "file": "selection-board.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1823059,
+      "sha256": "49c7c43fe1bd787a7b670762d0e517f9cfaede018caf9e98e7364b4968abaa03"
+    },
+    {
+      "file": "sprig-a-four-views.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1447389,
+      "sha256": "eb5573b1aded2b63a06919977df90f7481c7f11e159960ebab9afc2820a5b25f"
+    }
+  ]
+}
