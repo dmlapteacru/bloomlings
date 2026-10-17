@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "status": "modular-modeling-reference",
+  "source": "OpenAI image generation from the approved simplified Drop, 2026-10-17",
+  "files": [
+    {
+      "path": "base-full-front.png",
+      "sha256": "9e164d2badf1bdee2119a1e496db5b0fbb23806c3e84cdceca381974d0eb286b",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "with-default-crest-front.png",
+      "sha256": "cd369af50e4126e16a82534b5d9386548b061b9e239a17f035412b802f5c01fd",
+      "note": "Unchanged copy of the approved simplified Drop reference."
+    },
+    {
+      "path": "set/head-classic-drop.png",
+      "sha256": "197a2488752c59bf6ba86201e86c10345f1a1f218659b87891ea721a275a777d",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-side-wave.png",
+      "sha256": "302dd97cd7f18adbe3689fd924be7c815f9f9a6dbe89ee1a91a1e926f09d92b0",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-twin-ripples.png",
+      "sha256": "a8101c8ddb10542831590a76e82786282b9d352d33426d2affbd42a80ea1da57",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-whirlpool.png",
+      "sha256": "9b68dd7b386a52becd0047c42c09cbaf67021450d6bdc8f25e7d7c2400fe2f7b",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-panama.png",
+      "sha256": "6ce4fd24403d2aac664655c7459d9ffe1c5cdef541853daf7ed2d3be775ff575",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-garden-cap.png",
+      "sha256": "4345a3c13736f66876b99149589098ca8d196f734b8cf2a743f6cc518d2db868",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-beret.png",
+      "sha256": "36042b7c6a14e70eb294c769e43c5b572c6dd96c477158beade9970870188906",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-winter-earmuffs.png",
+      "sha256": "0383e3009115133d5e39d821d01a14911c5a2201922a2ff7c2ede71ec31ab7b1",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/head-holiday-hat.png",
+      "sha256": "5232d36ca50f54f0fc37619b66f2251fbce4afe68622470ad81d98996ae735d2",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/neck-scarf.png",
+      "sha256": "a4f4537f3829f59752d6f35ae044d9740b0add42333a27ad72b1298ab66d7256",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/neck-scarf-chunky.png",
+      "sha256": "451cf581b9e7261a35f0d84672d74467adba939070a09033120d6e2152d5da2b",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/clothes-winter-jacket.png",
+      "sha256": "15546ded81b6d57c44c77e70908af4715087adbc45ab47424d6f4973e38e06a7",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/clothes-autumn-coat.png",
+      "sha256": "92bcda5c552625d298a4975e080e1cd93c274f78dd40991e0330341737d1c2ff",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    },
+    {
+      "path": "set/clothes-garden-overalls.png",
+      "sha256": "69c0645a64e679cfad587bbd9eab00563f56b6d1b0764cafd1fb905be9739f47",
+      "note": "Original modeling reference. Fit extracted wearable geometry to the shared owner-maintained Drop base."
+    }
+  ]
+}

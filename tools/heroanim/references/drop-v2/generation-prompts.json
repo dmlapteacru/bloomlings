@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-17",
+  "items": [
+    {
+      "id": "base-full-front",
+      "path": "base-full-front.png",
+      "prompt": "Edit the approved Drop character reference into its BALD MODULAR MODELING BASE for Tripo. Keep the same adorable blue WATER creature: pale sky blue face, big friendly brown eyes looking directly forward, thin dark blue gentle eyebrows, tiny curved closed smile with no lips, soft blush, small separate short blue body with light blue oval belly, short blue arms and feet. Remove only the tall pointed water crest from the TOP of the head and replace it with a simple smooth low rounded bald dome. Preserve the lower face, cheek contour, eyes and face proportions; do NOT make head wider or flatten face. No ears, nose, human hair, headwear, accessories or clothing. The common rounded bald skull is a scaffold for detachable water hairstyles and hats. Body must stay SHORT and SLENDER, not fat, not tall; clearly separate head and body. Full character front view, arms slightly away from sides in symmetric relaxed A-pose, feet on ground. Single subject centered head to feet, broad empty margin, warm white studio background. Smooth clean opaque toy-like blue material, gentle blue gradients, soft even bright studio light. Simple mobile-game 3D render. No transparency, no realistic liquid refraction, no pores, no rough fibers, no grain, no text.",
+      "references": [
+        "../simple-heroes/drop.png"
+      ]
+    },
+    {
+      "id": "head-classic-drop",
+      "path": "set/head-classic-drop.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. Show the DEFAULT WATER HAIRSTYLE restoring Drop's familiar TEARDROP silhouette seen in the second reference: one smooth gently asymmetrical upward water crest, broad at crown and tapering to a softly rounded curved tip leaning toward viewer's left. The base of this detachable water crest cap hugs the rounded skull above eyebrows and blends smoothly into the blue face, same light blue color with gentle turquoise-blue shading. No fringe covering face, no extra little droplets floating around, no floral elements or headwear. Keep head/body distinct by showing head only. This is the stock hairstyle, simple and recognizable.",
+      "references": [
+        "base-full-front.png",
+        "../simple-heroes/drop.png"
+      ]
+    },
+    {
+      "id": "head-side-wave",
+      "path": "set/head-side-wave.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. One new hairstyle called SIDE WAVE: low compact rounded water-hair cap follows skull, three broad overlapping turquoise-blue wave locks flow smoothly from viewer's right toward viewer's left over crown. One wide cupped water forelock curls gently inward above left eyebrow in a low ocean-wave arc, rounded end. Two short thick soft side locks hug temples without hiding eyes or cheeks. Slightly deeper aqua than face so the hairstyle is readable. Calm cute side part, no towering crest, no spikes, no hats or other accessories. The whole style is a few simple sculpted continuous water ribbons.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-twin-ripples",
+      "path": "set/head-twin-ripples.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. One hairstyle called TWIN RIPPLES. A compact rounded aqua-blue water-hair cap hugs the crown, with TWO low broad curling wave lobes on the TOP FRONT forming a gentle symmetrical double curl: each thick wave rolls inward toward center in a rounded C shape, tips soft and blunt. A little smooth downward teardrop-shaped fringe between the two curls sits above eyebrows, two short rounded locks frame temples. Think cute little ocean ripples sculpted as hair, not a tall splash. Only two large rolls plus small central forelock, no separate dangling droplets, no tiny details. No horns, no animal ears, no high pigtails, no human hair, no other accessories.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-whirlpool",
+      "path": "set/head-whirlpool.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. One unusual cute hairstyle called LITTLE WHIRLPOOL: broad thick opaque turquoise-blue water ribbons spiral smoothly around a low rounded crown into a small OFF-CENTER rolled whorl, like a soft ocean whirlpool viewed partly from the front. Three or four broad cupped wave ridges, visibly curved spiral opening tilted toward camera above the forehead, with one broad rounded fringe sweeping diagonally over upper forehead and short smooth inward-curled side locks. The whorl is compact and low, shaped as water-hair integrated with the skull, not a tall ice cream stack or bun sitting on top. Slightly lighter cyan edges and deeper aqua hollows, clean simple volumes. No hats, jewelry, flowers, human hair, transparent glass or floating droplets.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-panama",
+      "path": "set/head-panama.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. Wear ONE properly fitted BUCKET HAT / PANAMA. Low rounded truncated-cone cream crown and continuous short downward-sloping round brim, smooth rounded outer edge with modest thickness. Muted ocean-blue broad band, tiny simple aqua waterdrop emblem centered on a small cream patch on viewer's right side. Subtle few broad seams, no texture noise or woven fibers. Snug and seated close around scalp, symmetric brim and clean single-piece form, not floating, not oversized.  Under the headwear, show a LITTLE VISIBLE WATER HAIR: one low softly swept rounded aqua-blue forelock below the front edge, plus two short broad rounded water locks at the temples. Slightly deeper aqua than the face, no human hair fibers. Hair emerges naturally from UNDER the hat and hugs skull, no bald side gaps. Do not put the tall stock droplet crest under or through the hat. Hat with its little water hair is ONE modular Head item. Keep forehead and eyes open. ",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-garden-cap",
+      "path": "set/head-garden-cap.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. Wear ONE low rounded OCEAN GARDEN BASEBALL CAP. Six broad muted ocean-blue crown panels making a soft shallow dome, a small cream button atop. Distinct short CREAM VISOR projects forward with rounded corners and a gentle smooth downward curve, clearly a baseball cap bill with its own thickness and neat connections at sides. Small cream wave emblem with one aqua droplet on viewer's right front panel. Simple blue/cream cap, broad clean form, only a few seams, snug and symmetric, not a flat bowl or bucket hat.  Under the headwear, show a LITTLE VISIBLE WATER HAIR: one low softly swept rounded aqua-blue forelock below the front edge, plus two short broad rounded water locks at the temples. Slightly deeper aqua than the face, no human hair fibers. Hair emerges naturally from UNDER the hat and hugs skull, no bald side gaps. Do not put the tall stock droplet crest under or through the hat. Hat with its little water hair is ONE modular Head item. Keep forehead and eyes open. ",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-beret",
+      "path": "set/head-beret.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. Wear ONE soft low tilted BERET in muted ocean blue, rounded broad lobe drapes gently toward viewer's left, narrow continuous fitted band around skull, a small fabric nub on top. Small simple cream wave pin and an aqua droplet on viewer's right side. Few broad soft folds only, clean smooth cloth rather than woven fibers. Recognizable low fabric beret, not a bowl, no visor.  Under the headwear, show a LITTLE VISIBLE WATER HAIR: one low softly swept rounded aqua-blue forelock below the front edge, plus two short broad rounded water locks at the temples. Slightly deeper aqua than the face, no human hair fibers. Hair emerges naturally from UNDER the hat and hugs skull, no bald side gaps. Do not put the tall stock droplet crest under or through the hat. Hat with its little water hair is ONE modular Head item. Keep forehead and eyes open. ",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-winter-earmuffs",
+      "path": "set/head-winter-earmuffs.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. Wear ONE pair of WINTER EARMUFFS: two cream rounded oval ear pads at the sides of the skull, each shaped from four or five large molded cushion lobes, linked by a single broad muted ocean-blue arch band hugging the head. Small aqua droplet insignia near one band joint. Pads are snug, symmetric height, thick and cozy but leave face open. No animal ears, horns, fuzz or individual fur strands. Include a calm low water-hair cap under the band, three broad aqua water locks sweep gently over upper forehead, short rounded locks hug the temples behind pads. No tall stock water crest. Earmuffs and compact water hair form one combined Head wearable. No scarf or other accessories.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-holiday-hat",
+      "path": "set/head-holiday-hat.png",
+      "prompt": "Use the first image as the EXACT common Drop base: same pale sky-blue rounded skull, lower face proportions, friendly big brown eyes looking straight ahead, thin gentle navy eyebrows and tiny closed curved smile. No lips, nose or ears. HEAD ONLY front-facing modeling portrait, no body. Clean smooth opaque satin blue toy material, simple premium mobile-game 3D render, even soft bright studio light, warm white background. Full head and whole accessory with generous empty margin, no text. Water hair is made of broad thick rounded sculptable volumes, never real water or transparent glass, no thin splash spikes or human hair strands. Wear ONE classic RED CHRISTMAS SANTA HAT: a soft curved conical red crown bends once toward viewer's right, a broad thick rounded cream cuff hugs skull and a cream spherical pompom at the bent tip. A small solid aqua-blue waterdrop charm is attached near the pompom, simple and cute, no tiny patterns. Broad smooth shapes with soft cloth volume; no detailed fur strands or glitter. Hat fully seated, whole crown and pompom in frame, not a huge tall cone.  Under the headwear, show a LITTLE VISIBLE WATER HAIR: one low softly swept rounded aqua-blue forelock below the front edge, plus two short broad rounded water locks at the temples. Slightly deeper aqua than the face, no human hair fibers. Hair emerges naturally from UNDER the hat and hugs skull, no bald side gaps. Do not put the tall stock droplet crest under or through the hat. Hat with its little water hair is ONE modular Head item. Keep forehead and eyes open. ",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "neck-scarf",
+      "path": "set/neck-scarf.png",
+      "prompt": "Use the approved full-body bald Drop base exactly: same friendly pale blue face, rounded bald skull, short SLENDER separate blue torso, pale blue oval belly marking, short blue arms, hands and bare feet, symmetric relaxed A-pose. Do not turn whole body into one droplet or elongate torso, do not make fat. Single full-body front-facing character, head to feet with margin, warm white studio background, gentle ground contact shadow, clean smooth simple toy-like mobile game 3D render, bright soft even lighting. No hair, no headwear, glasses, ears or extra accessories; the bald base is for Tripo segmentation. No fine fibers, pores, fuzz or noisy textures. Add ONLY a compact cream SCARF. One softly rounded wrap sits around neck under chin, two short flat rounded ends hang over upper chest, one a little longer. Broad muted ocean-blue and pale aqua stripes near the ends, a few large blunt rounded tassels. Slight large knit-like sculpted ridges only, no real thread texture. Neat light scarf, modest volume, face and mouth fully open, arms clear, belly marking visible below. Not a sweater or coat. No clothing or any other items.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "neck-scarf-chunky",
+      "path": "set/neck-scarf-chunky.png",
+      "prompt": "Use the approved full-body bald Drop base exactly: same friendly pale blue face, rounded bald skull, short SLENDER separate blue torso, pale blue oval belly marking, short blue arms, hands and bare feet, symmetric relaxed A-pose. Do not turn whole body into one droplet or elongate torso, do not make fat. Single full-body front-facing character, head to feet with margin, warm white studio background, gentle ground contact shadow, clean smooth simple toy-like mobile game 3D render, bright soft even lighting. No hair, no headwear, glasses, ears or extra accessories; the bald base is for Tripo segmentation. No fine fibers, pores, fuzz or noisy textures. Add ONLY a BIG COZY CHUNKY WINTER SCARF. Two thick softly rounded PALE ICY AQUA wrapped coils rest on shoulders below chin, visibly generous and massive compared with a narrow scarf. Large sculpted cable-knit braids made from broad interlocking rounded loops, smooth satin toy material, no real yarn fibers. One wide heavy tail tossed over viewer's right shoulder drops along side of upper torso to hip height; another shorter broad end rests on chest. Cream end panels with muted navy accent bands, five or six large blunt rounded tassels per end. Scarf physically rests on shoulders, not floating. Face, mouth, hands and feet stay clear, do not widen body. This is only a detachable scarf, no sweater or coat.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "clothes-winter-jacket",
+      "path": "set/clothes-winter-jacket.png",
+      "prompt": "Use the approved full-body bald Drop base exactly: same friendly pale blue face, rounded bald skull, short SLENDER separate blue torso, pale blue oval belly marking, short blue arms, hands and bare feet, symmetric relaxed A-pose. Do not turn whole body into one droplet or elongate torso, do not make fat. Single full-body front-facing character, head to feet with margin, warm white studio background, gentle ground contact shadow, clean smooth simple toy-like mobile game 3D render, bright soft even lighting. No hair, no headwear, glasses, ears or extra accessories; the bald base is for Tripo segmentation. No fine fibers, pores, fuzz or noisy textures. Dress ONLY in a compact CREAM WINTER PUFFER JACKET. Short padded torso, two or three broad horizontal quilted sections, rounded full sleeves, muted ocean-blue low collar / wide cuffs / lower hem. Two broad muted navy-blue rounded patch pockets, two large warm honey wooden toggle fastenings down front. A small simple cream droplet insignia on one pocket. Jacket ends above short legs and leaves blue hands and bare feet visible. No hood, scarf, boots or any other accessory. Low collar leaves room for a separate scarf later. Broad clean garment forms, slightly fitted not bulky/fat, no fine sewing or detailed fabric weave.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "clothes-autumn-coat",
+      "path": "set/clothes-autumn-coat.png",
+      "prompt": "Use the approved full-body bald Drop base exactly: same friendly pale blue face, rounded bald skull, short SLENDER separate blue torso, pale blue oval belly marking, short blue arms, hands and bare feet, symmetric relaxed A-pose. Do not turn whole body into one droplet or elongate torso, do not make fat. Single full-body front-facing character, head to feet with margin, warm white studio background, gentle ground contact shadow, clean smooth simple toy-like mobile game 3D render, bright soft even lighting. No hair, no headwear, glasses, ears or extra accessories; the bald base is for Tripo segmentation. No fine fibers, pores, fuzz or noisy textures.  Dress this exact base in a short muted teal autumn coat: rounded cream folded collar below chin, cream turned cuffs, three large honey-colored round wooden buttons along center front, two simple rounded dark ocean blue patch pockets, tiny cream waterdrop badge on one pocket. Straight slightly A-shaped short coat ending at upper thighs, not bulky. Broad smooth seams, simple stylized fabric; no hood, scarf, trousers or boots. Preserve the reference head shape and short slender proportions, blue hands and bare blue feet clearly visible. Clothing is a separate removable modeling part. Single full-body FRONT view, no text.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "clothes-garden-overalls",
+      "path": "set/clothes-garden-overalls.png",
+      "prompt": "Use the approved full-body bald Drop base exactly: same friendly pale blue face, rounded bald skull, short SLENDER separate blue torso, pale blue oval belly marking, short blue arms, hands and bare feet, symmetric relaxed A-pose. Do not turn whole body into one droplet or elongate torso, do not make fat. Single full-body front-facing character, head to feet with margin, warm white studio background, gentle ground contact shadow, clean smooth simple toy-like mobile game 3D render, bright soft even lighting. No hair, no headwear, glasses, ears or extra accessories; the bald base is for Tripo segmentation. No fine fibers, pores, fuzz or noisy textures.  Dress this exact base in spring/summer gardener short overalls over a cream short-sleeved shirt. Muted ocean-blue short dungarees with two wide shoulder straps, two round honey wooden fastening buttons, a rounded pale aqua bib pocket with a small cream waterdrop emblem, two simple little side pockets. Short legs end above knees with soft cream rolled hems; leave blue hands and bare blue feet visible. No hat, scarf, tools or other accessories. Preserve the very short slender separate torso and original head shape. Simple broad construction seams and smooth matte toy-like fabric, no fine fibers. Clothing is a separate removable modeling part. Single full-body FRONT view, no text.",
+      "references": [
+        "base-full-front.png"
+      ]
+    }
+  ]
+}
