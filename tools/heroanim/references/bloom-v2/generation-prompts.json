@@ -97,6 +97,13 @@
       "references": [
         "base-full-front.png"
       ]
+    },
+    {
+      "id": "neck-scarf-chunky",
+      "prompt": "Edit this exact approved bald Bloom modeling base. Preserve her exact pale pink face/skull, friendly brown eyes looking straight ahead, little closed curved smile, coral pink short slender body, heart belly mark, short limbs and pink hands/feet. Add ONLY ONE NEW BIG CHUNKY WINTER SCARF as a detachable neck wearable. The scarf is deliberately generous and cozy: two thick softly rounded wrapped coils around the neck rest on shoulders, clearly bigger and more voluminous than a narrow little scarf, but wholly below chin and mouth. A broad substantial tail is tossed over viewer's right shoulder and hangs diagonally down the side of upper torso ending at hip height, with five or six large blunt rounded tassels; a second shorter broad end lies across upper chest. Warm cream main color with a few broad dusty-rose knitted bands at tail ends. Large sculpted cable-knit braids form thick soft interlocking loops, readable as simple broad rounded geometry, NOT photorealistic fine wool fibers. Smooth clean toy material, no fuzz, no pores, no noisy texture, no tiny stitches. Scarf has plausible continuous wrap and sits on shoulders, not floating. Keep hands, face and feet clear, don't make torso fat or taller. This is a SCARF only, not a sweater, poncho or coat. Front-facing full character modeling portrait, bald base for easy Tripo segmentation, no hairstyle, no headwear or other clothes. Bright soft even lighting, warm white studio background, gentle ground shadow. Same proportions and charming simple mobile-game 3D style. One complete character centered head to feet with margin, no text.",
+      "references": [
+        "base-full-front.png"
+      ]
     }
   ]
 }

@@ -67,6 +67,11 @@
       "path": "set/head-rosebud.png",
       "sha256": "bf32e292cfe53e3187420412d72d7c3a75765328a45b9e4b7e27fb29f0ec8442",
       "note": "Fourth hairstyle: rosebud spiral of broad cupped coral petals, curled temple locks, one green leaf. Offline modeling reference."
+    },
+    {
+      "path": "set/neck-scarf-chunky.png",
+      "sha256": "a462f536141999a37fcf5abbc3f7cbae64af7ee72d76e06ad1dfcd6435dcfb32",
+      "note": "Second Neck choice: generous cream cable-knit scarf with rose accents, thick shoulder wrap and broad asymmetric tails. Offline modeling reference."
     }
   ]
 }
