@@ -240,7 +240,7 @@
       "path": "hero_twig.png",
       "width": 256,
       "height": 256,
-      "sha256": "9663226318a0e4ac023bc2a0208395661beb7c3108855f75826ebc65cfdf4473",
+      "sha256": "ec118c3bb52f6dce8da7894fec65b05ae3d3dff70a988b94a212900c600c5bf1",
       "slot": "profile.achievement.hero_twig",
       "source": "owner",
       "record": "tools/badges/SOURCE.md"

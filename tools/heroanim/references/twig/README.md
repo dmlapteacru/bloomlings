@@ -1,3 +1,5 @@
+> Historical references. Current approved identity / modeling baseline: [../twig-v2/README.md](../twig-v2/README.md).
+
 # Twig — approved base and headwear references
 
 Saved from the owner's conversation, 2026-10-17. These are image-generation modeling references, not guaranteed

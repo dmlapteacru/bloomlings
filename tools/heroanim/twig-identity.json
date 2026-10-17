@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "path": "tools/heroanim/references/twig-v2/identity/avatar-default.png",
+      "sha256": "b9b86b07338570d9d7c57682e8a080c280820e6e97174d404797ca2ca6970beb"
+    },
+    {
+      "path": "tools/heroanim/references/twig-v2/identity/avatar-glasses-scarf.png",
+      "sha256": "37fc8acfa56321d1b8afbe42e6767e128feac982a6e8dfa95bdcb7e17715b38e"
+    },
+    {
+      "path": "tools/heroanim/references/twig-v2/identity/avatar-autumn-wreath.png",
+      "sha256": "377034b73d3befe1a21c88163db55a14464a1ba2e2979cb4dabfba83bc2471a0"
+    },
+    {
+      "path": "tools/heroanim/references/twig-v2/identity/hero-medal.png",
+      "sha256": "5c27358a845da16310d50be8014bc55171aeb3fba6e74a8e0b7b139894eca4ad"
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/simplehero-sprig.png",
+      "sha256": "d06cb0dd0a6970518b519eeab79fd3c5ccc33bca9c1ec25c286a4eb99c6ae5aa"
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/simplehero-bloom.png",
+      "sha256": "50dd162a40205e4dc75911a5ae94ad057d0c50036db577e40c89b08376bdcc7f"
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/simplehero-drop.png",
+      "sha256": "f6b1828c50aac6b5366a1725573984a0392bf7ad7c155d4a31a2b0016c5a6e38"
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/twigv2-base-pumpkinhat.png",
+      "sha256": "ab1aeea5cf32d682bfcafe6fb84e265b9252484cdfdc51eb60f85032d54c1617"
+    },
+    {
+      "path": "tools/heroanim/pack-twig-identity.py",
+      "sha256": "bd5554eb51721895db478167bf702db3c14b36aded6c83c554486b9d5ed04eee"
+    },
+    {
+      "path": "tools/heroanim/bake-twig-blank.mjs",
+      "sha256": "4c28abf5a6eee93c1d2b3a555a2ae200d597f3d449ff5ead4f9ca6a6ca13b0a7"
+    },
+    {
+      "path": "tools/heroanim/models/twig-v2/build-report.json",
+      "sha256": "8e56d7522e075cfdcff21de49d6e0eb85452235eb54bd66495cb3a455386ed0c"
+    },
+    {
+      "path": "tools/pack_badges.py",
+      "sha256": "27209d8a6d7ec966e49c1a8a8d97e8350d358c1f6d854b6ca25f295795e2d431"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/twig_default.jpg",
+      "sha256": "8e4bf1d78e8360bc07717cc0331c6df0e4180da77ba640bb32cdfc9e97104d88",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/twig_glasses_scarf_clay.jpg",
+      "sha256": "833766c81b6cdd1ab50942dba34ae5c2bb5f019e05f85d21fb1092e4d2619c0c",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/twig_autumn_wreath_3d.jpg",
+      "sha256": "90fd7bcea58599b1fb8b1d5530d8e1e8e6563b591c819bab52d2c8d483bf496f",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/twig.png",
+      "sha256": "77acf50887009f3d94e220f26e65a032175e712d62af6ff0063c250d7b03db06",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/twig-cheer.png",
+      "sha256": "77acf50887009f3d94e220f26e65a032175e712d62af6ff0063c250d7b03db06",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/twig-blank.png",
+      "sha256": "37f971fc9c0a33ebcdf8fab22037a031314c2ae027df743c90848872a66210fb",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/group.png",
+      "sha256": "abccae574c484a70b9a1fb76b3c397daa23d00f994373349d53e1beb98854a04",
+      "width": 1200,
+      "height": 720
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Badges/Resources/Badges/hero_twig.png",
+      "sha256": "ec118c3bb52f6dce8da7894fec65b05ae3d3dff70a988b94a212900c600c5bf1",
+      "width": 256,
+      "height": 256
+    }
+  ]
+}

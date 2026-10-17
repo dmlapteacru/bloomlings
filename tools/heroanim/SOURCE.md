@@ -382,3 +382,18 @@ Head, Glasses and Scarf slots save / reload independently; removing one preserve
 The common selection appears on Home, fitting stands, victory and other meta hero hosts. Meta-only parts remain out
 of gameplay workers and independently chosen profile avatars. `twig-v2.json`, `TwigV2Data.cs`, `build-report.json`
 and HeroMotion's manifest pin the source, conversion, dimensions and output hashes. Screens: `output/twig-v2-in-game/`.
+
+
+## Permanent Twig V2 identity migration — 2026-10-17
+
+The owner approved TwigHeroV2 in game and requested full replacement of the previous Twig. Current modeling references
+are preserved under `tools/heroanim/references/twig-v2/` with hashes. Full-resolution portrait / medal sources in its
+`identity/` folder were generated with OpenAI image generation from the approved new Twig reference. New runtime
+avatars retain their three previous IDs, prices and themes; `pack-twig-identity.py` downsamples them to 384px JPEGs.
+`pack_badges.py --only hero_twig` overrides the historical medal atlas with the new source, producing its 256px RGBA
+badge without changing achievement rules. Solo / cheer / group fallback pictures use current baked production sprites;
+Twig's blank-face fallback is derived from its actual mesh in an offline renderer without changing source texture.
+The old Twig frame library / fitted states are retired outside Resources in `tools/heroanim/archive/twig/` (263 PNGs,
+11,631,125 bytes). Only TwigHeroV2 is active; no previous Twig publisher may write to production. Existing saves map
+the retired flower cap to Panama without spending or resetting progress. The owner explicitly keeps L2000's mosaic
+unchanged. No source models / references enter APK resources. No APK is built here.

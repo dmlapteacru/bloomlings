@@ -1,3 +1,5 @@
+> Historical references. Current approved identity / modeling baseline: [../twig-v2/README.md](../twig-v2/README.md).
+
 # Twig: original in-game identity, bald base and two head references
 
 Owner direction, 2026-10-17: the old model looks better; restore it in the game and use it as the basis for a bald

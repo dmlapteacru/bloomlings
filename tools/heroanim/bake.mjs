@@ -209,7 +209,11 @@ async function main() {
   // The frames folder's own list, in tools/artgen's manifest shape: the content suite's originality test accepts exactly
   // these files under the folder's licence record (client/THIRD_PARTY_NOTICES.md), as owner pictures with this record.
   const files = results.flatMap(r => r.frames.map(f => ({ path: f.name + '.png', width: f.crop.w, height: f.crop.h, sha256: f.sha256, slot: `char.hero3d.motion.${r.family}`, source: 'owner', record: recordFile })));
-  fs.writeFileSync(path.join(framesDir, 'manifest.json'), JSON.stringify({ tool: 'tools/heroanim/bake.mjs', files }, null, 1) + '\n');
+  const folderManifest = path.join(framesDir, 'manifest.json');
+  const previous = fs.existsSync(folderManifest) ? JSON.parse(fs.readFileSync(folderManifest)).files : [];
+  const bakedFamilies = results.map(r => r.family);
+  const retained = previous.filter(f => !bakedFamilies.some(family => f.slot === `char.hero3d.motion.${family}`));
+  fs.writeFileSync(folderManifest, JSON.stringify({ tool: 'tools/heroanim/bake.mjs', files: [...retained, ...files] }, null, 1) + '\n');
   const all = results.flatMap(r => r.frames);
   console.log(`${all.length} frames, ${(all.reduce((s, f) => s + f.bytes, 0) / 1024 / 1024).toFixed(2)} MB`);
 }

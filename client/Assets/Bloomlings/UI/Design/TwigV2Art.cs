@@ -6,8 +6,8 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>Owner-aligned V2 parts, rendered as shared base and depth-masked accessory layers.</summary>
     public static partial class TwigV2Art
     {
-        public const string AcornId = TwigModularArt.AcornHatId;
-        public const string BucketId = TwigModularArt.PanamaHatId;
+        public const string AcornId = "hat.twig_acorn";
+        public const string BucketId = "hat.twig_panama";
         public const string HairId = "hat.twig_hair";
         public const string HatHairId = "hat.twig_hat_hair";
         public const string BeretId = "hat.twig_beret";

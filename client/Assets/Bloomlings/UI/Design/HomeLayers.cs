@@ -108,11 +108,9 @@ namespace Bloomlings.Client.UI.Design
         /// Where a hero stands, measured on the reference (its Home, look.md §6.4) and fitted to the layered fountain:
         /// its feet's middle as shares of the picture's width and height, and its seam pose's height as a share of the
         /// picture's width. Bloom stands behind the lotus, its feet hidden; Sprig on the left rim and Twig on the right
-        /// rim, their feet behind the fountain's front flowers. Twig's Blender model (2026-10-03) spreads its branches
-        /// wider than the Meshy one did, so it stands a little smaller and further in, inside a 21:9 screen. The owner's
-        /// Heroes.glb (2026-10-04) gives Bloom a wide crown of petals: Bloom stands a little smaller and Drop further right
-        /// and a little taller, so Drop's face shows beside the petals. Since the owner's tuning of 2026-10-05 Twig stands a
-        /// little further right, so more of Drop shows beside it. On the owner's fountain of 2026-10-08 (a smaller lotus on the
+        /// rim, their feet behind the fountain's front flowers. Twig V2 retains the approved stand scale and sits slightly
+        /// inward so its wider face stays inside a 21:9 screen. Bloom stands a little smaller and Drop further right
+        /// and a little taller, so Drop's face shows beside the petals. On the owner's fountain (a smaller lotus on the
         /// basin's pedestal) Bloom stands a little lower, so its feet stay behind the lotus's petals.
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
@@ -120,7 +118,7 @@ namespace Bloomlings.Client.UI.Design
             Family.Bloom => (0.5f, 0.505f, 0.40f),
             Family.Drop => (0.735f, 0.532f, 0.36f),
             Family.Sprig => (0.235f, 0.56f, 0.40f),
-            _ => (0.85f, 0.568f, 0.31f),
+            _ => (0.84f, 0.568f, 0.31f),
         };
 
         /// <summary>How far into its idle loop a hero starts (seconds), so the four do not breathe together.</summary>
@@ -170,7 +168,8 @@ namespace Bloomlings.Client.UI.Design
         public static Box HeroCell(Box picture, Family family)
         {
             (float x, float feet, float height) = Placement(family);
-            float fill = HeroMotion.Has(family) ? HeroMotion.Fill(family) : 0.8f;
+            // Preserve the owner-approved V2 stand scale; a shorter bald crop must not enlarge the whole outfit.
+            float fill = family == Family.Twig ? 0.773f : HeroMotion.Has(family) ? HeroMotion.Fill(family) : 0.8f;
             float cellHeight = height * HeroScale * picture.Width / Math.Max(0.05f, fill);
             float cellWidth = cellHeight * HeroMotion.CellWidth / HeroMotion.CellHeight;
             float fx = picture.Left + (x * picture.Width);

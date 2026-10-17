@@ -247,10 +247,10 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 return false;
             }
 
-            _save.Cosmetics.Equipped[Slot(family, item.Kind)] = itemId;
+            _save.Cosmetics.Equipped[Slot(family, item.Kind)] = item.Id;
             _persist();
             Changed?.Invoke();
-            Equipped?.Invoke(family, itemId);
+            Equipped?.Invoke(family, item.Id);
             return true;
         }
 

@@ -1,3 +1,6 @@
+> Archived FBX trial. Permanent Twig source / rebuild: [../twig-v2/README.md](../twig-v2/README.md).
+> Do not publish the old mesh or fitted states to game resources.
+
 # Owner's modular Twig exports
 
 **Archived integration study:** the owner restored the original Twig from `models/heroes.glb` on 2026-10-17.

@@ -98,7 +98,8 @@ namespace Bloomlings.Client.Tests
                         HeroFrame f = HeroMotion.Frame(family, clip, i);
                         string at = f.Name;
                         Assert.That(f.Name, Is.EqualTo(HeroMotion.FrameName(family, clip, i)));
-                        Assert.That(names.Add(f.Name), Is.True, at + " named once");
+                        bool unique = names.Add(f.Name);
+                        Assert.That(unique || family == Family.Twig, Is.True, at + " only the static V2 pose is shared across timings");
                         Assert.That(f.X >= 0 && f.Y >= 0 && f.Width > 0 && f.Height > 0, Is.True, at);
                         Assert.That(f.X + f.Width <= HeroMotion.CellWidth && f.Y + f.Height <= HeroMotion.CellHeight, Is.True, at + " inside the cell");
                         Assert.That(f.Top.Y, Is.LessThan(f.Head.Y), at + ": the brow above the chin");

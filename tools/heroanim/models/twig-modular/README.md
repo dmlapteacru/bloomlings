@@ -1,4 +1,8 @@
-# Current Twig: one bald base, Acorn Hat and Panama Hat
+> Archived Twig study. The owner permanently approved [TwigHeroV2](../twig-v2/README.md) on 2026-10-17.
+> Commands and captures below describe the historical trial. Old publishers only permit offline `--review` renders;
+> use `../../bake-twig-v2.mjs` for production. Retired outputs / metadata: `../../archive/twig/`.
+
+# Archived Twig: one bald base, Acorn Hat and Panama Hat
 
 Owner delivery, 2026-10-17. Original archives are preserved byte-for-byte under `source/`; original filenames / hashes
 are recorded in `source-manifest.json`:

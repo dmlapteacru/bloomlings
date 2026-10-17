@@ -97,6 +97,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>A frame's picture name: <c>sprig-idle-07</c>.</summary>
         public static string FrameName(Family family, MotionClip clip, int index) =>
+            family == Family.Twig ? TwigV2Art.Layer(null, 0)!.Value.Name :
             CharacterArt.FamilyName(family) + "-" + ClipName(clip) + "-" + index.ToString("00", CultureInfo.InvariantCulture);
 
         /// <summary>The asset slot of a family's frames: <c>char.hero3d.motion.sprig</c>.</summary>
@@ -145,13 +146,15 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Every frame picture's name, the families in <see cref="CharacterArt.Families"/> order.</summary>
         public static IEnumerable<string> AllFrames()
         {
+            var seen = new HashSet<string>(StringComparer.Ordinal);
             foreach (Family family in CharacterArt.Families)
             {
                 foreach (MotionClip clip in Clips)
                 {
                     for (int i = 0; i < FrameCount(family, clip); i++)
                     {
-                        yield return FrameName(family, clip, i);
+                        string name = Frame(family, clip, i).Name;
+                        if (seen.Add(name)) yield return name;
                     }
                 }
             }
@@ -250,8 +253,18 @@ namespace Bloomlings.Client.UI.Design
                 }
             }
 
+            foreach (ClipData data in TwigPresentation)
+                foreach (MotionClip clip in Clips)
+                    if (data.Clip == ClipName(clip)) index[((int)Family.Twig * ClipCount) + (int)clip] = data;
             return index;
         }
+
+        // Keep the approved 2D breath / reaction timing without loading any retired Twig frame.
+        // Skeletal action selection is a separate feature; all current Twig hosts share the V2 pose.
+        private static readonly ClipData[] TwigPresentation = new[]
+        {
+            new ClipData("idle", 72), new ClipData("react", 36), new ClipData("win", 72), new ClipData("winidle", 72),
+        };
 
         private const int ClipCount = 5;
 
@@ -260,6 +273,14 @@ namespace Bloomlings.Client.UI.Design
             private readonly short[] _crops;
             private readonly float[] _points;
             private readonly string[] _names;
+            private readonly HeroFrame? _still;
+            private readonly int _stillCount;
+
+            public ClipData(string clip, int count)
+            {
+                Family = "twig"; Clip = clip; _still = TwigV2Art.Layer(null, 0)!.Value; _stillCount = count;
+                _crops = Array.Empty<short>(); _points = Array.Empty<float>(); _names = Array.Empty<string>();
+            }
 
             public ClipData(string family, string clip, short[] crops, float[] points)
             {
@@ -283,9 +304,9 @@ namespace Bloomlings.Client.UI.Design
 
             public string Clip { get; }
 
-            public int Count => _crops.Length / 4;
+            public int Count => _still.HasValue ? _stillCount : _crops.Length / 4;
 
-            public HeroFrame Frame(int i) => new HeroFrame(
+            public HeroFrame Frame(int i) => _still ?? new HeroFrame(
                 _names[i],
                 _crops[i * 4],
                 _crops[(i * 4) + 1],

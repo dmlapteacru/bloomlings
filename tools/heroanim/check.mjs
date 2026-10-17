@@ -42,27 +42,6 @@ if(fs.existsSync(gearFile)){
   expect(sha(path.join(repo,gear.data))===gear.dataSha256,'SprigGearData does not match bake');
   for(const f of gear.outputs){listed.add(f.file);expect(fs.existsSync(path.join(framesDir,f.file))&&sha(path.join(framesDir,f.file))===f.sha256, f.file+' changed after gear bake');}
 }
-const twigFile=path.join(here,'twig-gear.json');
-if(fs.existsSync(twigFile)){
-  const twig=JSON.parse(fs.readFileSync(twigFile));
-  for(const source of twig.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,`${source.path} changed since Twig bake`);
-  expect(sha(path.join(repo,twig.data))===twig.dataSha256,'TwigGearData does not match bake');
-  for(const f of twig.outputs){
-    const file=path.join(framesDir,f.file);listed.add(f.file);
-    expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed after Twig bake');
-    if(fs.existsSync(file)&&twig.version>=2){
-      const png=fs.readFileSync(file);
-      expect(png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' dimensions differ from Twig crop');
-      expect(png[24]===8&&png[25]===6,f.file+' must retain full RGBA8 color for the quality pass');
-    }
-  }
-  for(const name of ['twig','twig-legacy']){
-    const references=path.join(here,'references',name),record=JSON.parse(fs.readFileSync(path.join(references,'manifest.json')));
-    for(const f of record.files)
-      expect(fs.existsSync(path.join(references,f.path))&&sha(path.join(references,f.path))===f.sha256,`${name} reference ${f.path} is missing or changed`);
-    if(record.sourceModel)expect(sha(path.join(repo,record.sourceModel.path))===record.sourceModel.sha256,`${name} model reference source changed`);
-  }
-}
 const simpleFile=path.join(here,'simple-heroes.json');
 if(fs.existsSync(simpleFile)){
  const simple=JSON.parse(fs.readFileSync(simpleFile));
@@ -77,19 +56,6 @@ if(fs.existsSync(simpleFile)){
   if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain full-color RGBA and declared crop size');}
  }
 }
-const fittedFile=path.join(here,'twig-modular.json');
-if(fs.existsSync(fittedFile)){
- const fitted=JSON.parse(fs.readFileSync(fittedFile));
- const referenceFolder=path.join(here,'references/twig-modular'),references=JSON.parse(fs.readFileSync(path.join(referenceFolder,'manifest.json')));
- for(const f of references.files)expect(fs.existsSync(path.join(referenceFolder,f.path))&&sha(path.join(referenceFolder,f.path))===f.sha256,'Modular Twig reference '+f.path+' is missing or changed');
- const build=JSON.parse(fs.readFileSync(path.join(here,'models/twig-modular/build-report.json')));
- expect(build.baseGeometryCheck.uvUnchanged&&build.baseGeometryCheck.maxWorldCoordinateDelta<1e-7,'Modular Twig base world geometry / UV changed');
- expect(build.scriptSha256===sha(path.join(here,'prepare-twig-modular.py'))&&build.fitSha256===sha(path.join(here,'twig-modular-fit.json')),'Modular Twig assembly report is stale');
- for(const source of fitted.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since modular Twig bake');
- expect(sha(path.join(repo,fitted.data))===fitted.dataSha256,'TwigModularData does not match bake');
- for(const f of fitted.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed after modular Twig bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain full RGBA and crop size');}}
- for(const [name,c]of Object.entries(fitted.sharedBaseChecks))expect(c.faceDifferent===0&&c.bodyDifferent===0,'Modular Twig '+name+' changed the common face or body pixels');
-}
 const v2File=path.join(here,'twig-v2.json');
 if(fs.existsSync(v2File)){
  const v2=JSON.parse(fs.readFileSync(v2File));
@@ -101,6 +67,15 @@ if(fs.existsSync(v2File)){
  expect(build.animationSource.actions.length===4,'Twig V2 source actions must be retained');
  for(const f of v2.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since V2 bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA pixels and crop size');}}
 }
+// Current references, derived identity outputs and the offline retirement record are pinned independently.
+for (const relative of ['references/twig-v2/manifest.json','archive/twig/manifest.json']) {
+ const recordPath=path.join(here,relative),record=JSON.parse(fs.readFileSync(recordPath));
+ for(const f of record.files){const file=path.join(path.dirname(recordPath),f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,relative+': '+f.path+' changed');}
+}
+const identity=JSON.parse(fs.readFileSync(path.join(here,'twig-identity.json')));
+for(const f of [...identity.sources,...identity.outputs]){const file=path.join(repo,f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,'Twig identity '+f.path+' changed');}
+expect(!manifest.heroes.some(h=>h.family==='twig'),'Legacy motion publisher must not include Twig');
+expect(!fs.readdirSync(framesDir).some(n=>/^(twig-(idle|react|win)|twigmod-|twigfit-|simplehero-twig)/.test(n)),'Retired Twig resources must stay outside runtime');
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const tripoStudy=path.join(here,'models/twig-tripo/study-manifest.json');
 if(fs.existsSync(tripoStudy)){
@@ -110,11 +85,8 @@ if(fs.existsSync(tripoStudy)){
 }
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
 if(fs.existsSync(v2File))for(const f of JSON.parse(fs.readFileSync(v2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
-if(fs.existsSync(fittedFile))for(const f of JSON.parse(fs.readFileSync(fittedFile)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 expect(folderFiles.size === listed.size && [...listed].every(n => folderFiles.has(n)), 'HeroMotion/manifest.json does not list the baked frames');
 if(fs.existsSync(gearFile))for(const f of JSON.parse(fs.readFileSync(gearFile)).outputs)
-  expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
-if(fs.existsSync(twigFile))for(const f of JSON.parse(fs.readFileSync(twigFile)).outputs)
   expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
 if(fs.existsSync(simpleFile))for(const f of JSON.parse(fs.readFileSync(simpleFile)).outputs)
  expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);

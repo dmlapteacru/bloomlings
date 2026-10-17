@@ -1,7 +1,7 @@
 # Simplified Tripo heroes — current in-game model trial
 
-**Twig update:** the newer shared bald base with Acorn / Panama is now active for Twig; see
-`../twig-modular/README.md`. Sprig / Bloom / Drop still use the models below. This record preserves the earlier four-hero trial.
+**Twig update:** TwigHeroV2 is permanently active for Twig; see
+`../twig-v2/README.md`. Sprig / Bloom / Drop still use the models below. This record preserves the earlier four-hero trial.
 
 Owner delivery, 2026-10-17: four FBX / texture ZIPs generated from the approved simplified character references.
 The originals are renamed without modifying bytes under `source/`; `source-manifest.json` records hashes and
@@ -31,11 +31,11 @@ node tools/heroanim/check.mjs
 ```
 
 Prepared embedded-texture GLBs live only in ignored `content/work/simple-tripo/build/`. The build report records source
-bounds, uniform scales, rig absence, polygon counts and hashes. The bake writes four cropped RGBA8 PNGs into
+bounds, uniform scales, rig absence, polygon counts and hashes. The current bake writes three cropped RGBA8 PNGs (Twig delegates to V2) into
 `Art/Heroes/Resources/HeroMotion/simplehero-*.png`, generates `SimpleHeroData.cs`, and records all inputs / outputs in
 `../../simple-heroes.json`. Front camera, original painted light plus a restrained 25% diffuse contribution (no PBR / specular pass), fixed
 448×504 logical cell, feet at 90%, 84% height
-fill, 3× supersampling with alpha-safe linear-light reduction. Total runtime bytes: 411,390.
+fill, 3× supersampling with alpha-safe linear-light reduction. The original four-hero trial totaled 411,390 bytes; the old Twig PNG is now retired.
 
 ## In-game behavior
 

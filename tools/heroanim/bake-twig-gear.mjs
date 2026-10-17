@@ -1,3 +1,4 @@
+if (!process.argv.includes('--review')) throw new Error('Retired Twig publisher: use tools/heroanim/bake-twig-v2.mjs. --review is offline only.');
 // Five small runtime images from the owner's Twig geometry, not a runtime 3D model.
 // First run: blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/prepare-twig-gear.py
 // Then: node tools/heroanim/bake-twig-gear.mjs

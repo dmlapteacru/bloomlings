@@ -392,10 +392,10 @@
       "path": "3d/group.png",
       "width": 1200,
       "height": 720,
-      "sha256": "10cac75855a60ad6b1c597c5f5335b7f80d3bc086ddbc6e3be698827d171e12a",
+      "sha256": "abccae574c484a70b9a1fb76b3c397daa23d00f994373349d53e1beb98854a04",
       "slot": "char.hero3d.group",
       "source": "owner",
-      "record": "tools/artgen/models/owner-pictures.md"
+      "record": "tools/heroanim/SOURCE.md"
     },
     {
       "path": "3d/sprig-blank.png",
@@ -426,26 +426,28 @@
       "path": "3d/twig-blank.png",
       "width": 512,
       "height": 576,
-      "sha256": "0ce9d2ca05005258c73f42a93e4d1ec3b3ea3f87f7b0388adb203728c861b7d7",
-      "slot": "char.hero3d.twig"
+      "sha256": "37f971fc9c0a33ebcdf8fab22037a031314c2ae027df743c90848872a66210fb",
+      "slot": "char.hero3d.twig",
+      "source": "owner",
+      "record": "tools/heroanim/SOURCE.md"
     },
     {
       "path": "3d/twig-cheer.png",
       "width": 512,
       "height": 576,
-      "sha256": "9f0929bdb31a8b478ca9faba5a5d48c989cd7e23cf47e64facabbfbeaa897cbe",
+      "sha256": "77acf50887009f3d94e220f26e65a032175e712d62af6ff0063c250d7b03db06",
       "slot": "char.hero3d.cheer.twig",
       "source": "owner",
-      "record": "tools/artgen/models/owner-pictures.md"
+      "record": "tools/heroanim/SOURCE.md"
     },
     {
       "path": "3d/twig.png",
       "width": 512,
       "height": 576,
-      "sha256": "6071a4b1c8cbff61a0eec2b0c950f543e5efd95ec7513d861c7853391638687c",
+      "sha256": "77acf50887009f3d94e220f26e65a032175e712d62af6ff0063c250d7b03db06",
       "slot": "char.hero3d.twig",
       "source": "owner",
-      "record": "tools/artgen/models/owner-pictures.md"
+      "record": "tools/heroanim/SOURCE.md"
     }
   ]
 }

@@ -20,7 +20,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- The shared engine-free kit: picture names (CharacterArt), colors and tokens, exactly as the clients use them. -->
-    <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" Link="Kit/%(Filename)%(Extension)" />
+    <!-- Only the art contract; compiling every screen also pulls in unrelated app / economy services. -->
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/CharacterArt.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/DesignTokens.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/Rgba.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/ScreenLayout.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/UiRaster.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/HomeLook.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/GardenLook.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/ShapeLibrary.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/ShapeRaster.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/VolumeRaster.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/FrameRaster.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/NavRaster.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/ProfileFrames.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/LaminateRaster.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/BottomNav.cs" Link="Kit/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" Link="Kit/%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>

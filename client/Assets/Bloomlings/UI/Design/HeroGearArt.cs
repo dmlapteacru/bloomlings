@@ -16,7 +16,7 @@ namespace Bloomlings.Client.UI.Design
         }
         public static bool HasBakedHat(Family family, Outfit? outfit) => family == Family.Twig && TwigV2Art.IsHead(outfit?.Hat?.Id);
         public static bool CanPreview(CosmeticItem item) => !item.MetaOnly || TwigV2Art.IsItem(item.Id);
-        // Keep the save intact. Only the previous model-specific 3D attachments are withheld from this trial.
+        // Keep the save intact. Only the previous model-specific 3D attachments are withheld from the current models.
         public static Outfit? DisplayOutfit(Outfit? outfit)
         {
             if (outfit == null) return null;
@@ -32,7 +32,7 @@ namespace Bloomlings.Client.UI.Design
                 Scarf = outfit.Scarf?.Id == TwigV2Art.ScarfId ? outfit.Scarf : null,
             };
         }
-        public static HeroFrame? Icon(string id) => TwigV2Art.Icon(id) ?? SprigGearArt.Icon(id) ?? TwigGearArt.Icon(id);
+        public static HeroFrame? Icon(string id) => TwigV2Art.Icon(CosmeticCatalog.CanonicalId(id)) ?? SprigGearArt.Icon(id);
         public static Box PoseCell(Box cell, HeroPose pose, Family family) => SprigGearArt.PoseCell(cell, pose, family);
     }
 }

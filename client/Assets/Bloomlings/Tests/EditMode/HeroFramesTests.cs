@@ -56,14 +56,12 @@ namespace Bloomlings.Client.Tests
             string folder = Path.Combine(ClientRoot, "Art", "Heroes", "Resources", HeroMotion.Folder);
             Assert.That(HeroMotionImporter.FramesFolder, Is.EqualTo("Assets/Bloomlings/Art/Heroes/Resources/" + HeroMotion.Folder + "/"));
             var expected = new HashSet<string>(HeroMotion.AllFrames());
-            Assert.That(expected, Has.Count.EqualTo(900), "the owner's Heroes.glb: Bloom and Drop with a 96-frame idle and a 36-frame reaction, Twig with 72, 36 and its 72-frame cheer (the bake's stand-ins), Sprig with 96, 72 and its 48-frame celebrate and 72-frame clap (24 fps); Twig and Sprig also with their win idle facing the player (72 and 96)");
+            Assert.That(expected, Has.Count.EqualTo(649), "648 original frames for the other three families and one shared Twig V2 base");
             expected.UnionWith(new[]
             {
                 "sprigmod-base", "sprigmod-cap", "sprigmod-glasses", "sprigmod-cap-glasses", "sprigmod-backpack",
                 "sprigmod-cap-backpack", "sprigmod-icon-hat", "sprigmod-icon-glasses", "sprigmod-icon-backpack",
-                "twigfit-base", "twigfit-acorn", "twigfit-panama", "twigfit-icon-acorn", "twigfit-icon-panama",
-                "simplehero-sprig", "simplehero-bloom", "simplehero-drop", "simplehero-twig",
-                "twigmod-base", "twigmod-acorn", "twigmod-cap", "twigmod-icon-acorn", "twigmod-icon-cap",
+                "simplehero-sprig", "simplehero-bloom", "simplehero-drop",
             });
             expected.UnionWith(TwigV2Art.AllFrames.Select(f => f.Name));
             foreach (string name in expected)

@@ -132,6 +132,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// <summary>A listed item, or a generated level badge or marker.</summary>
         public bool TryGet(string id, out CosmeticItem? item)
         {
+            id = CanonicalId(id);
             if (_byId.TryGetValue(id, out item))
             {
                 return true;
@@ -143,6 +144,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
 
         /// <summary>The generated badge of a milestone level (a profile reward that never runs out).</summary>
         public static string LevelBadgeId(int level) => LevelBadgePrefix + level.ToString(CultureInfo.InvariantCulture);
+
+        /// <summary>The retired free Daisy Cap becomes the current Panama without changing progress or purchases.</summary>
+        public static string CanonicalId(string id) => id == "hat.twig_flower_cap" ? "hat.twig_panama" : id;
 
         /// <summary>The generated leaderboard marker of a prestige milestone level.</summary>
         public static string LevelMarkerId(int level) => LevelMarkerPrefix + level.ToString(CultureInfo.InvariantCulture);

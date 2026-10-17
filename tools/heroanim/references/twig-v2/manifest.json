@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "status": "approved-current-identity",
+  "source": "OpenAI image generation in this conversation; preserved unchanged for owner modeling",
+  "files": [
+    {
+      "path": "base-full-front.png",
+      "sha256": "9649a7f09b574aef4d86c6d6a7b3687c6d4aceca96b8ee794568ca0cbda781ea",
+      "origin": "tools/heroanim/references/twig-modular/base-front.png",
+      "note": "Bald base body / head used to generate the shared mesh"
+    },
+    {
+      "path": "acorn-head-front.png",
+      "sha256": "b6b1e48163701abde1d7522915fb516532d59eacf8c992ac028a4e724efe0b7b",
+      "origin": "tools/heroanim/references/twig-modular/acorn-head-front.png",
+      "note": "Default cap"
+    },
+    {
+      "path": "panama-head-front.png",
+      "sha256": "179cb8811eeb8695513c33cb7d6528e9080dc260bbaa287f8ec72048a7a43842",
+      "origin": "tools/heroanim/references/twig-modular/panama-head-front.png",
+      "note": "Panama"
+    },
+    {
+      "path": "base-and-two-hairstyles.png",
+      "sha256": "6cffa8dd4e5c7dffd842bd99fdeaeefb926ae4f1e94c34fe7683daef50b61b3f",
+      "origin": "/workspace/generated_images/exec-671ff926-3880-42f4-96e0-79f9ec913e7b.png",
+      "note": "Base head and initial hairstyles"
+    },
+    {
+      "path": "acorn-hair.png",
+      "sha256": "e2f2deb5feee50796dafa41fe50d90a72ed1ffe4bbb421f422fc9ea36ad3b13f",
+      "origin": "/workspace/generated_images/exec-2ecec385-241d-427f-b911-80f96fe34b59.png",
+      "note": "Short hair under the default hat"
+    },
+    {
+      "path": "woodland-hairstyles.png",
+      "sha256": "889b9bb26bf4b1bcb87086e1ae6f4863f49ebf4d69e1718625e193ab5f3177f8",
+      "origin": "/workspace/generated_images/exec-95ea66a5-7cfe-4c78-a980-8ae4e44cf90b.png",
+      "note": "Woodland swirl hairstyle options"
+    },
+    {
+      "path": "glasses-clear.png",
+      "sha256": "23fff15fbe93941776276f6a96916d01e15fd4d3fb2eb8c9a0333d748378862f",
+      "origin": "/workspace/generated_images/exec-c8068eb6-7bf6-4737-9a68-83122767713f.png",
+      "note": "Green round glasses"
+    },
+    {
+      "path": "glasses-sun.png",
+      "sha256": "c32e6821ed73cd732ae4427ff54bfe3d636560c0af9c768a9e6522bf93142b47",
+      "origin": "/workspace/generated_images/exec-35f6cc6c-dcd1-402e-b094-3cd01d3c2f7f.png",
+      "note": "Chestnut sunglasses option, not in current ZIP"
+    },
+    {
+      "path": "beret-scarf.png",
+      "sha256": "16cf5d8007cd7f791e490f4e627c9a0b0cad345256f4c18ecb0be29c85356814",
+      "origin": "/workspace/generated_images/exec-69780f2b-8866-4cbf-b00e-a029449575cb.png",
+      "note": "Beret with leaf and golden scarf"
+    },
+    {
+      "path": "earmuffs-hair.png",
+      "sha256": "fb29f186712e7e58bc60fded187c5784e0f4d6b0957e75b4c77cade86d0754a6",
+      "origin": "/workspace/generated_images/exec-22932cf9-17a7-4e31-b707-697f4794f1f1.png",
+      "note": "Earmuffs combined with calm short hair"
+    },
+    {
+      "path": "holiday-hat.png",
+      "sha256": "ca243aa8b533b4f554c5f7759d3bc96d3242e11d626e232b0dc8f5d35d50ddcf",
+      "origin": "/workspace/generated_images/exec-84725a3f-f60c-46c9-839d-26656a19a8a5.png",
+      "note": "Santa cap with acorn and short fringe"
+    },
+    {
+      "path": "seasonal-clothes.png",
+      "sha256": "d25c9fe56a73496c882b691f7b55b9da2ab6de368a7ccb0db0b0c8a6eb927530",
+      "origin": "/workspace/generated_images/exec-e31e7aba-ddf1-45a1-b5c8-3762d932fced.png",
+      "note": "Clothing concepts, not yet delivered as meshes"
+    },
+    {
+      "path": "identity/avatar-autumn-wreath.png",
+      "sha256": "377034b73d3befe1a21c88163db55a14464a1ba2e2979cb4dabfba83bc2471a0",
+      "origin": "OpenAI image generation, current conversation",
+      "note": "New Twig V2 identity; pack with pack-twig-identity.py"
+    },
+    {
+      "path": "identity/avatar-default.png",
+      "sha256": "b9b86b07338570d9d7c57682e8a080c280820e6e97174d404797ca2ca6970beb",
+      "origin": "OpenAI image generation, current conversation",
+      "note": "New Twig V2 identity; pack with pack-twig-identity.py"
+    },
+    {
+      "path": "identity/avatar-glasses-scarf.png",
+      "sha256": "37fc8acfa56321d1b8afbe42e6767e128feac982a6e8dfa95bdcb7e17715b38e",
+      "origin": "OpenAI image generation, current conversation",
+      "note": "New Twig V2 identity; pack with pack-twig-identity.py"
+    },
+    {
+      "path": "identity/hero-medal.png",
+      "sha256": "5c27358a845da16310d50be8014bc55171aeb3fba6e74a8e0b7b139894eca4ad",
+      "origin": "OpenAI image generation, current conversation",
+      "note": "New Twig V2 identity; pack with pack-twig-identity.py"
+    },
+    {
+      "path": "contact-sheet.jpg",
+      "sha256": "c7283aa3bf7c4e773a272d3a8c9fdd33d4bfe141103ca9993853f1a410558c7f",
+      "origin": "Contact sheet of the 12 unchanged modeling references",
+      "note": "Overview only; original PNGs are authoritative"
+    }
+  ]
+}

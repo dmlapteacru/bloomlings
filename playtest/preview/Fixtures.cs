@@ -157,14 +157,14 @@ namespace Bloomlings.Playtest.Preview
                     var app=App(data);if(scene.Item1!=117)app=Progressed(app,content,87);CloseAll(app);
                     if(scene.Item3)
                     {
-                        Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigGearArt.FlowerCapId),"legacy Twig selection is retained");
+                        Expect(app.Meta.Wardrobe.Equip(Family.Twig,"hat.twig_flower_cap"),"legacy Twig selection is retained");
                         foreach(string id in new[]{SprigGearArt.CapId,SprigGearArt.GlassesId,SprigGearArt.BackpackId})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"legacy Sprig selections are retained");
                         if(scene.Item1==114){app=App(data);CloseAll(app);}
                     }
                     app.GoHome();p.DrawnSprites.Clear();Run(app,p,.5f);
                     foreach(Family family in CharacterArt.Families)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),0)!.Value.Name),"Home draws new "+family);
                     Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"sprigmod-",StringComparison.Ordinal)||n.StartsWith(PainterBase.HeroMotionPrefix+"twigmod-",StringComparison.Ordinal)),"previous fitted meshes cannot override the new models");
-                    if(scene.Item3)Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==TwigGearArt.FlowerCapId,"displaying the new base never erases saved gear");
+                    if(scene.Item3)Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==TwigV2Art.BucketId,"displaying the new base never erases saved gear");
                 });
             }
             foreach(var target in new[]{(110,"simple-sprig-wardrobe",Family.Sprig),(115,"simple-twig-wardrobe",Family.Twig),(118,"simple-bloom-wardrobe",Family.Bloom),(119,"simple-drop-wardrobe",Family.Drop)})
@@ -197,7 +197,7 @@ namespace Bloomlings.Playtest.Preview
                 var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.15f);
                 var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
                 long before=app.Meta.Economy.Petals;
-                foreach(var item in new[]{(1,TwigModularArt.AcornHatId),(2,TwigModularArt.PanamaHatId)})
+                foreach(var item in new[]{(1,TwigV2Art.AcornId),(2,TwigV2Art.BucketId)})
                 {
                     Tap(p,ShopCatalogDesign.CosmeticCard(area,item.Item1));Run(app,p,.1f);
                     Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==item.Item2,"actual free Shop card selects the fitted hat");
@@ -209,7 +209,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
                 Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-icon-buckethat"),"Shop uses the extracted Panama icon");
             });
-            foreach(var target in new[]{(121,"twig-modular-home-acorn",TwigModularArt.AcornHatId),(122,"twig-modular-home-panama",TwigModularArt.PanamaHatId),(123,"twig-modular-wardrobe-panama",TwigModularArt.PanamaHatId)})
+            foreach(var target in new[]{(121,"twig-modular-home-acorn",TwigV2Art.AcornId),(122,"twig-modular-home-panama",TwigV2Art.BucketId),(123,"twig-modular-wardrobe-panama",TwigV2Art.BucketId)})
             {
                 var scene=target;
                 yield return new Fixture(scene.Item1,scene.Item2,"The same Twig base wears the selected fitted headwear",(p,data)=>
@@ -223,7 +223,7 @@ namespace Bloomlings.Playtest.Preview
             }
             yield return new Fixture(124,"twig-modular-win-panama","The Panama remains on Twig after a solved level",(p,data)=>
             {
-                var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigModularArt.PanamaHatId),"Panama equips before L40");
+                var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.BucketId),"Panama equips before L40");
                 Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.GlassesId)&&app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.ScarfId),"glasses and scarf equip independently");
                 app.LoadLevel(13);CloseDemo(app);Run(app,p,.1f);
                 SolveResult win=new Solver.Solver().Solve(Session(content,13),SolveOptions.Default);Expect(win.Status==SolveStatus.Solvable,"actual L13 is solvable");

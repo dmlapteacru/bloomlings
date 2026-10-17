@@ -252,14 +252,14 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// Where a 3D hero's face is (between the eyes and the mouth), as a share of its solo picture: measured on the
         /// owner's heroes (spec 005 pictures.md A1 to A4; tools/artgen's check notes that an owner's hero is set by hand).
-        /// The heroes stand slightly turned, so Sprig's and Twig's faces are right of center.
+        /// The current Twig V2 fallback faces straight ahead; legacy family face points remain unchanged.
         /// </summary>
         public static (float X, float Y) FaceCenterHero(Family family) => family switch
         {
             Family.Sprig => (0.6f, 0.55f),
             Family.Bloom => (0.51f, 0.57f),
             Family.Drop => (0.5f, 0.55f),
-            _ => (0.56f, 0.56f),
+            _ => (0.5f, 0.44f),
         };
 
         /// <summary>
@@ -270,10 +270,10 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The families whose blank twin (<c>3d/{family}-blank</c>, no eyes and no mouth) is the owner's picture
-        /// (pictures.md A5); none yet, so the blanks are still the generated heroes (the art check keeps this list equal
-        /// to the manifest).
+        /// (pictures.md A5). Twig V2 has an offline-rendered blank twin; the other families still use generated
+        /// placeholders (the art check keeps this list equal to the manifest).
         /// </summary>
-        public static IReadOnlyList<Family> OwnerBlanks { get; } = Array.Empty<Family>();
+        public static IReadOnlyList<Family> OwnerBlanks { get; } = new[] { Family.Twig };
 
         /// <summary>
         /// Whether a family's blank twin is the same character as its solo hero (both the owner's or both generated), so a

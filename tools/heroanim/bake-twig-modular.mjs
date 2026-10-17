@@ -1,3 +1,4 @@
+if (!process.argv.includes('--review')) throw new Error('Retired Twig publisher: use tools/heroanim/bake-twig-v2.mjs. --review is offline only.');
 // New shared bald Twig and two headwear surfaces, rendered offline with the approved light paint treatment.
 import fs from 'node:fs';import path from 'node:path';import http from 'node:http';
 import {fileURLToPath} from 'node:url';import {createHash} from 'node:crypto';

@@ -7,6 +7,7 @@ Resources and the playtest packages.
 from pathlib import Path
 import hashlib
 import json
+import argparse
 from PIL import Image
 
 
@@ -16,7 +17,7 @@ DESTINATION = ROOT / "client" / "Assets" / "Bloomlings" / "Art" / "Badges" / "Re
 SIZE = 256
 
 
-def pack() -> None:
+def pack(only: str | None = None) -> None:
     DESTINATION.mkdir(parents=True, exist_ok=True)
     source_bytes = 0
     packed_bytes = 0
@@ -24,6 +25,10 @@ def pack() -> None:
     entries = []
     for category in ("achievements", "prestige", "collections"):
         for source in sorted((SOURCE / category).glob("*.png")):
+            if source.name == "hero_twig.png":
+                source = ROOT / "tools/heroanim/references/twig-v2/identity/hero-medal.png"
+            if only and ("hero_twig" if source.name == "hero-medal.png" else source.stem) != only:
+                continue
             with Image.open(source) as original:
                 image = original.convert("RGBA")
             image.thumbnail((SIZE, SIZE), Image.Resampling.LANCZOS)
@@ -31,7 +36,7 @@ def pack() -> None:
             canvas.alpha_composite(image, ((SIZE - image.width) // 2, (SIZE - image.height) // 2))
             # Keep smooth translucent outlines. PNG optimization removes redundant data
             # without baking lossy artifacts into the only runtime copy.
-            target = DESTINATION / source.name
+            target = DESTINATION / ("hero_twig.png" if source.name == "hero-medal.png" else source.name)
             canvas.save(target, format="PNG", optimize=True, compress_level=9)
             source_bytes += source.stat().st_size
             packed_bytes += target.stat().st_size
@@ -45,8 +50,12 @@ def pack() -> None:
                 "source": "owner",
                 "record": "tools/badges/SOURCE.md",
             })
-    if count != 27 or packed_bytes > 3_000_000:
+    if (not only and count != 27) or packed_bytes > 3_000_000 or (only and count != 1):
         raise ValueError(f"Expected 27 badges within 3 MB; got {count} and {packed_bytes:,} bytes")
+    if only:
+        previous = json.loads((DESTINATION / "manifest.json").read_text(encoding="utf-8"))
+        updated = {entry["path"]: entry for entry in entries}
+        entries = [updated.get(entry["path"], entry) for entry in previous["files"]]
     (DESTINATION / "manifest.json").write_text(
         json.dumps({"tool": "tools/pack_badges.py", "version": 1, "files": entries}, indent=2) + "\n",
         encoding="utf-8",
@@ -55,4 +64,6 @@ def pack() -> None:
 
 
 if __name__ == "__main__":
-    pack()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--only", help="Repack a single existing badge and retain other runtime files")
+    pack(parser.parse_args().only)

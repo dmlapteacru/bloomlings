@@ -1,3 +1,4 @@
+if (!process.argv.includes('--review')) throw new Error('Retired Twig publisher: use tools/heroanim/bake-twig-v2.mjs. --review is offline only.');
 // Active Twig bake: five small 2D images from the segmented Tripo base and fitted hats.
 // First: blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/twig-tripo-study.py
 // Then: node tools/heroanim/bake-twig-tripo.mjs

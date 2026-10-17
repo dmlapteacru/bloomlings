@@ -224,22 +224,17 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `UiKit.PurchaseCard`); never spend Petals or start a store purchase without it. Pages that scroll register their lists
   (the playtest's `IPainter.Scroll`, Unity's `UiKit.Scrolls`): there a drag past `touch.slop` (10 dp, `TouchGesture`)
   never taps and a swipe turns the page. Preview frame 49 shows the confirmation over the Store's Animations tab.
-- The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
-  renders the owner's animated heroes offline into flat 24 fps frames, all four from the owner's `Heroes.glb`
-  (2026-10-04; `heroes.json` picks each hero's mesh in it): Sprig with its 4 s idle, 3 s wave and the win's 2 s celebrate
-  and 3 s clap, Bloom and Drop with a 4 s idle and a 1.5 s jump (Drop's breath added by the bake), and Twig, delivered
-  without clips, with the bake's stand-ins (a 3 s idle, a 1.5 s hop, the win's 3 s jumps) until its own come, in
-  `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in
-  `Art/Backgrounds/Resources/Backgrounds/`; since 2026-10-08 the fountain is the owner's three pictures of that day, the
-  basin, the lotus at 0.72 on its pedestal and the front bushes at 0.82 in the corners, fitted by hand and recorded in
-  `tools/heroanim/layers.json`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
-  place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the
-  reference (idling, taking turns to react, reacting to a tap); the win and the milestone show the level's celebrant,
-  Twig and Sprig by turns (`CharacterArt.CelebrantOf`; Sprig alternates its celebrate and clap, `HeroMotion.WinClip`),
-  celebrating (`HeroMotionPlayer.Celebrate`), then idling, facing the player (their win set is baked a second time front
-  on, `winYaw` and the `winidle` clip; Home's heroes stay turned toward the fountain's middle by their `yaw`). The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
-  scene or camera in the game, only these flat pictures on meta screens. Frames load when first drawn into a bounded
-  cache, never all.
+- Current hero sources (owner approval, 2026-10-17): TwigHeroV2 is the permanent Twig identity; source ZIP, rig,
+  aligned accessories and rebuild: `tools/heroanim/models/twig-v2/README.md`. Modeling / texture references including
+  the bald base: `tools/heroanim/references/twig-v2/README.md`. Sprig / Bloom / Drop retain the simplified Tripo models.
+  Meta screens use static 2D renders plus breathing; skeletal actions / action selection remain separate future work.
+  Old Twig motion and fitted resources / helpers are archived off runtime in `tools/heroanim/archive/twig/`.
+  Never publish old Twig from the legacy bake. Old item IDs resolve compatibly (flower cap → Panama). The three Twig
+  avatar IDs, medal and solo / group fallback art use V2. L2000 mosaic is deliberately unchanged by owner request.
+  The owner's Blender project remains the sole editable master; no second maintained `.blend`.
+  Home layers and backgrounds remain recorded in `tools/heroanim/layers.json` / `backdrops.json`. Runtime remains
+  strictly 2D: PNGs / JPEGs only, no source ZIP, FBX, GLB, model, scene or camera in the game. Frames load on demand
+  into a bounded cache. Mandatory art verification: `node tools/heroanim/check.mjs`.
 - The profile page (spec 005 FR-037, the owner, 2026-10-05; after the reference game's): Home's avatar opens it (no
   bottom menu), and its "Edit profile" card picks the avatar, frame, badge and name. The owner's 14 avatar pictures are
   opaque 384 px JPEG in `client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/` (`AvatarCatalog`: four free, ten for

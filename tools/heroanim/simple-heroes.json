@@ -27,7 +27,7 @@
     },
     {
       "path": "tools/heroanim/bake-simple-heroes.mjs",
-      "sha256": "532e9188f42eacfcd4eb6e7b68eadd7c4c300cfe3b210a08cefa9f4a24dba5b2"
+      "sha256": "7ed6d93509bf53c57b451bed425075fa307f0d1e1fe59ec6d5009628d33f7348"
     }
   ],
   "models": [
@@ -121,7 +121,7 @@
     }
   ],
   "data": "client/Assets/Bloomlings/UI/Design/SimpleHeroData.cs",
-  "dataSha256": "7c7dd19e8b495b635cd4fbcd47c96d72c9c9adab82bdfd84566cbe5097239bdf",
+  "dataSha256": "33b27a947c093b700b7fe7f32205a31a47937f4466cd96c370ee6e616d1b39e0",
   "cell": [
     448,
     504
@@ -173,18 +173,6 @@
       ],
       "bytes": 67297,
       "sha256": "f6b1828c50aac6b5366a1725573984a0392bf7ad7c155d4a31a2b0016c5a6e38"
-    },
-    {
-      "family": "twig",
-      "file": "simplehero-twig.png",
-      "crop": [
-        87,
-        29,
-        274,
-        426
-      ],
-      "bytes": 117046,
-      "sha256": "a3436a9e7824a26a231e0c8a88910fd1e1e56b5533e36d93d069168f5b3b3c32"
     }
   ]
 }

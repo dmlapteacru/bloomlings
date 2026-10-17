@@ -27,7 +27,7 @@ namespace Bloomlings.Playtest.Preview
                     {
                         HeroFrame frame = HeroMotion.Frame(family, clip, i);
                         string name = Visuals.MotionFrame(frame);
-                        string? problem = Check(assembly, name, frame);
+                        string? problem = Check(assembly, name, frame, allowFullColor: family == Family.Twig);
                         if (problem != null)
                         {
                             yield return "hero frame " + name + ": " + problem;
@@ -46,31 +46,6 @@ namespace Bloomlings.Playtest.Preview
                 string name = Visuals.MotionFrame(frame);
                 string? problem = Check(assembly, name, frame, allowFullColor: true);
                 if (problem != null) yield return "Twig V2 sprite " + name + ": " + problem;
-            }
-            var fitted = new List<HeroFrame> { TwigModularArt.Frame(null) };
-            foreach (string id in new[] { TwigModularArt.AcornHatId, TwigModularArt.PanamaHatId })
-            {
-                var hat = new CosmeticItem(id, CosmeticKind.Hat, id, "", "#FFFFFF", false);
-                fitted.Add(TwigModularArt.Frame(Outfit.None with { Hat = hat }));
-                fitted.Add(TwigModularArt.Icon(id)!.Value);
-            }
-            foreach (HeroFrame frame in fitted)
-            {
-                string? problem = Check(assembly, Visuals.MotionFrame(frame), frame, allowFullColor: true);
-                if (problem != null) yield return "fitted Twig " + frame.Name + ": " + problem;
-            }
-            var twig = new List<HeroFrame> { TwigGearArt.Frame(null) };
-            foreach (string id in new[] { TwigGearArt.AcornHatId, TwigGearArt.FlowerCapId })
-            {
-                var hat = new CosmeticItem(id, CosmeticKind.Hat, id, "", "#FFFFFF", false);
-                twig.Add(TwigGearArt.Frame(Outfit.None with { Hat = hat }));
-                twig.Add(TwigGearArt.Icon(id)!.Value);
-            }
-            foreach (HeroFrame frame in twig)
-            {
-                string name = Visuals.MotionFrame(frame);
-                string? problem = Check(assembly, name, frame, allowFullColor: true);
-                if (problem != null) yield return "Twig sprite " + name + ": " + problem;
             }
         }
 
