@@ -13,10 +13,11 @@ the only editable master; no second `.blend` is maintained here.
 
 [ITEMS.md](ITEMS.md) lists all **12** fitted items and their stable game IDs: **7 Head, 1 Glasses, 3 Clothes, 1 Neck**.
 Head choices include hair, hair-with-hat and earmuffs-with-hair. The acorn hat is the stock in-game appearance; the bald mesh is only a modeling base. The Clothes choices
-are Winter Jacket, Autumn Coat and Garden Overalls. All twelve are temporarily free in Shop → Cosmetics → Twig and
-in the Wardrobe accessories shelf, including before L40. Clothes, Head, Glasses and Neck save independently and
-follow Home / fitting stands / victory. Removing one slot preserves the others; Default clears the whole outfit.
-Profile avatars, frames and badges remain independently selected. Meta-only clothes never reach puzzle workers.
+are Winter Jacket, Autumn Coat and Garden Overalls. All twelve are temporarily free and are now fitted in Wardrobe
+under Head / Face / Body / Accessories. Shop no longer has Cosmetics. Clothes, Head, Glasses and Neck save independently and
+follow Home / fitting stands / victory. Removing an item or using Default preserves the other slots.
+Default removes only the selected category's item. Profile avatars, frames and badges remain independently selected.
+Meta-only clothes never reach puzzle workers.
 
 ## Rebuild
 

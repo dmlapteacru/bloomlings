@@ -1,0 +1,648 @@
+{
+  "version": 1,
+  "scriptSha256": "cb83c2794a7b7e175c8fff3cae2c3dd827504e2aafd1f08d66f40aaa28d90bf1",
+  "archives": [
+    {
+      "path": "source/SprigHeroV2_BucketHat_part_1.zip",
+      "sha256": "73b6517aca2966e2a8a7b89af0fc08ddfb66e7a9ee66afaeeba4e4ee8d536fd6"
+    },
+    {
+      "path": "source/SprigHeroV2_HairSwirl_part_2.zip",
+      "sha256": "f501139df195b64d09cd094c74d830dc8caa5e2ce8cbdc8319c579619326e6dd"
+    }
+  ],
+  "parts": [
+    {
+      "key": "base",
+      "file": "SprigHeroV2.fbx",
+      "sha256": "3f06f64d1f5132c0e199081a5d48ddcf312abcf5fc74cd462571221317f13311",
+      "vertices": 49895,
+      "faces": 99786,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.3703766167163849,
+          0.3701019585132599
+        ],
+        [
+          -0.31256094574928284,
+          0.31256118416786194
+        ],
+        [
+          1.2635397617088984e-8,
+          0.977691650390625
+        ]
+      ],
+      "materials": [
+        {
+          "name": "tripo_mat_bd65e45b",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Beret",
+      "file": "SprigHeroV2_Beret.fbx",
+      "sha256": "2edf2f48bae4130bd5bd0f7590f3193dd58f3fa033c6ffb552e5c46a4b5665fc",
+      "vertices": 29400,
+      "faces": 57232,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.3393878936767578,
+          0.4626140594482422
+        ],
+        [
+          -0.35765340924263,
+          0.41974568367004395
+        ],
+        [
+          0.6088830232620239,
+          1.1427170038223267
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_2.006",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.010",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_4.010",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "BucketHat",
+      "file": "SprigHeroV2_BucketHat.fbx",
+      "sha256": "235aab0bdaee9ab970ad87b102b73c61f0419dcc616e14c9781db19e60c30e36",
+      "vertices": 35410,
+      "faces": 68280,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.49054718017578125,
+          0.4903144836425781
+        ],
+        [
+          -0.4271586537361145,
+          0.4655066132545471
+        ],
+        [
+          0.49392348527908325,
+          1.1274895668029785
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_2.005",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.006",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Cap",
+      "file": "SprigHeroV2_Cap.fbx",
+      "sha256": "52489aa305f0c974a5228ed3450e8357216442e3d0da73d564e4ed9140d3e6e4",
+      "vertices": 30441,
+      "faces": 59996,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.402801513671875,
+          0.40291595458984375
+        ],
+        [
+          -0.42806246876716614,
+          0.38025590777397156
+        ],
+        [
+          0.5308020114898682,
+          1.1289023160934448
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.005",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.004",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Coat",
+      "file": "SprigHeroV2_Coat.fbx",
+      "sha256": "88782c76b33fc15facfcc29a6ddb54af71dea40c0b3f0d8b20753bd8d8c012f2",
+      "vertices": 16954,
+      "faces": 33396,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.2713279724121094,
+          0.27131080627441406
+        ],
+        [
+          -0.2245306670665741,
+          0.1411743015050888
+        ],
+        [
+          0.09146157652139664,
+          0.38601356744766235
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_1",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "EarmuffHair",
+      "file": "SprigHeroV2_EarmuffHair.fbx",
+      "sha256": "35e5741f83a6a49cc3dd7a3171eee0a297d8efda9e297b34c68f237a3d0d3313",
+      "vertices": 29184,
+      "faces": 56899,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.5046157836914062,
+          0.5034141540527344
+        ],
+        [
+          -0.35724619030952454,
+          0.333444207906723
+        ],
+        [
+          0.4458695650100708,
+          1.0760810375213623
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_2.012",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Glasses",
+      "file": "SprigHeroV2_Glasses.fbx",
+      "sha256": "ad8d2a315f3979b7f46999420fa189844048b579464e086a450e451f3370dd2e",
+      "vertices": 8480,
+      "faces": 16359,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.3488121032714844,
+          0.35387611389160156
+        ],
+        [
+          -0.31621313095092773,
+          -0.03091646544635296
+        ],
+        [
+          0.45920178294181824,
+          0.7145140171051025
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Glasses_Brown",
+          "color": [
+            0.43415364623069763,
+            0.1946178376674652,
+            0.06480326503515244,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "HairLeafy",
+      "file": "SprigHeroV2_HairLeafy.fbx",
+      "sha256": "64d66b4e3b5d67205451612de1ca76162813601746f6902ec36463d8dbcac57b",
+      "vertices": 32296,
+      "faces": 63836,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.46370887756347656,
+          0.4303474426269531
+        ],
+        [
+          -0.3566020131111145,
+          0.39293524622917175
+        ],
+        [
+          0.604771614074707,
+          1.202803373336792
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.015",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "HairRosette",
+      "file": "SprigHeroV2_HairRosette.fbx",
+      "sha256": "cad735ce5faa5b8d7ab718d90efad3c3c68a6506eb7ee6242707dcc4b277e622",
+      "vertices": 29272,
+      "faces": 57828,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.5607547760009766,
+          0.43255043029785156
+        ],
+        [
+          -0.3688582479953766,
+          0.4195840060710907
+        ],
+        [
+          0.6669110059738159,
+          1.2210948467254639
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.016",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "HairSwirl",
+      "file": "SprigHeroV2_HairSwirl.fbx",
+      "sha256": "a7ebe6958c5f1d2e44430424f3503538cdffe6245c5dbce4b0b86ba433057b52",
+      "vertices": 29636,
+      "faces": 58350,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4310874938964844,
+          0.46480560302734375
+        ],
+        [
+          -0.34978413581848145,
+          0.2543082535266876
+        ],
+        [
+          0.631580650806427,
+          1.3273457288742065
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_3.013",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Jacket",
+      "file": "SprigHeroV2_Jacket.fbx",
+      "sha256": "7861c8c9a317957b0cd652092e5ff4136dc5a44ee904e5f57fca28c1807910c9",
+      "vertices": 14670,
+      "faces": 28775,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.2836647033691406,
+          0.2847251892089844
+        ],
+        [
+          -0.2516040503978729,
+          0.12694776058197021
+        ],
+        [
+          0.09013313800096512,
+          0.4549696445465088
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_27.001",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Overalls",
+      "file": "SprigHeroV2_Overalls.fbx",
+      "sha256": "c6488d46516abdbac7ec553b5b0a36d61a96162c51a136b7954990655e6252f1",
+      "vertices": 14381,
+      "faces": 28369,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.2370014190673828,
+          0.2371692657470703
+        ],
+        [
+          -0.1855662316083908,
+          0.11007868498563766
+        ],
+        [
+          0.07932186871767044,
+          0.3811376094818115
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_28",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Scarf",
+      "file": "SprigHeroV2_Scarf.fbx",
+      "sha256": "fd1d97186bc694442bd179a9edf5ed3aa268ae99a66c3ce3315e41e380898c41",
+      "vertices": 8247,
+      "faces": 15990,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.16463470458984375,
+          0.1641368865966797
+        ],
+        [
+          -0.27602848410606384,
+          0.11768381297588348
+        ],
+        [
+          0.1823020875453949,
+          0.5112146735191345
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_2.001",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.001",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": [
+        "Basis",
+        "Over_Jacket",
+        "Over_Coat",
+        "Over_Overalls"
+      ]
+    },
+    {
+      "key": "XmasHat",
+      "file": "SprigHeroV2_XmasHat.fbx",
+      "sha256": "7ea2f280e735863af2ab7d28495c4eae6d45524155653b909bfd202a648d6ddd",
+      "vertices": 31471,
+      "faces": 61817,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4101448059082031,
+          0.5839958190917969
+        ],
+        [
+          -0.343182235956192,
+          0.40621092915534973
+        ],
+        [
+          0.5523115992546082,
+          1.2357581853866577
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.003",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    }
+  ],
+  "clips": [
+    "Idle",
+    "Joy",
+    "Walk",
+    "Wave"
+  ],
+  "additions": [],
+  "layerSeparation": {
+    "clothingTop": 0.4549696445465088,
+    "headwearBottom": 0.4458695650100708,
+    "scarfTop": 0.5112146735191345,
+    "glassesBottom": 0.45920178294181824,
+    "headwearClearsClothesAndScarf": false,
+    "glassesClearClothes": true
+  },
+  "animationSource": {
+    "file": "SprigHeroV2@Anims.fbx",
+    "sha256": "7fffdc9524581ede3b717b9020bbb6d689f5f13c196a64655321736a8715f0ec",
+    "actions": [
+      {
+        "name": "SprigHeroV2Rig|SprigHeroV2_Idle",
+        "range": [
+          1,
+          78
+        ]
+      },
+      {
+        "name": "SprigHeroV2Rig|SprigHeroV2_Joy",
+        "range": [
+          1,
+          78
+        ]
+      },
+      {
+        "name": "SprigHeroV2Rig|SprigHeroV2_Walk",
+        "range": [
+          1,
+          39
+        ]
+      },
+      {
+        "name": "SprigHeroV2Rig|SprigHeroV2_Wave",
+        "range": [
+          1,
+          78
+        ]
+      }
+    ]
+  },
+  "export": {
+    "file": "SprigHeroV2.glb",
+    "sha256": "9c36774e061f1f4d9c6da1f26ea978125cb1519c9fd9ff2feefce4d03573f137",
+    "bytes": 26337060
+  }
+}

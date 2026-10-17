@@ -1,3 +1,4 @@
+using Bloomlings.Client.Meta.Wardrobe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,10 +41,10 @@ namespace Bloomlings.Playtest.Preview
                     ("twig-home", () => { app.Meta.Wardrobe.Equip(Family.Twig, TwigV2Art.BucketId); app.GoHome(); }),
                     ("shop", () => app.Navigate(NavPlace.Shop)),
                     ("shop-packs-scroll", () => app.ShopScrollOffset = 900f),
-                    ("cosmetics", () => { app.StoreTab = 1; app.ShopScrollOffset = 0; }),
-                    ("twig-cosmetics", () => app.StoreFamily = 3),
-                    ("animations", () => { app.StoreTab = 2; app.StoreFamily = 0; app.ShopScrollOffset = 0; }),
-                    ("wardrobe", () => app.Navigate(NavPlace.Wardrobe)),
+                    ("sprig-fit", () => { app.Navigate(NavPlace.Wardrobe); app.WardrobeBrowse.Select(Family.Sprig); }),
+                    ("sprig-fit-body", () => app.WardrobeBrowse.Select(CosmeticKind.Clothes)),
+                    ("animations", () => { app.Navigate(NavPlace.Shop); app.StoreTab = 1; app.ShopScrollOffset = 0; }),
+                    ("wardrobe-scarf", () => { app.Navigate(NavPlace.Wardrobe); app.WardrobeBrowse.Select(CosmeticKind.Scarf); }),
                     ("leaderboard", () => app.Navigate(NavPlace.Leaderboard)),
                     ("collection", () => app.Navigate(NavPlace.Collection)),
                     ("profile", app.OpenProfile),
@@ -67,7 +68,7 @@ namespace Bloomlings.Playtest.Preview
                 }
                 if (delayed != steps.Length) failures.Add("navigation loading: every cold destination must exercise a delayed dependency");
                 Console.WriteLine($"navigation loading: {steps.Length} cold destinations, {draws} staged frames, {probe.Loaded.Count} resources; previous page retained until complete");
-                app.OpenStore(); app.StoreTab = 2;
+                app.OpenStore(); app.StoreTab = 1;
                 probe.HoldOnlyTransient = true;
                 for (int i = 0; i < 100; i++)
                 {

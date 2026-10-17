@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "archives": [
+    {
+      "path": "source/SprigHeroV2_BucketHat_part_1.zip",
+      "sha256": "73b6517aca2966e2a8a7b89af0fc08ddfb66e7a9ee66afaeeba4e4ee8d536fd6"
+    },
+    {
+      "path": "source/SprigHeroV2_HairSwirl_part_2.zip",
+      "sha256": "f501139df195b64d09cd094c74d830dc8caa5e2ce8cbdc8319c579619326e6dd"
+    }
+  ],
+  "exportManifest": "SprigHeroV2.manifest.json",
+  "stockHead": "HairLeafy"
+}

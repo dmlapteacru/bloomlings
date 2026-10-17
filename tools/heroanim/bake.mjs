@@ -105,6 +105,7 @@ function csharp(config, results) {
 async function main() {
   const config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
   const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1] : null;
+  if (only === 'sprig' || only === 'twig') throw Error('Use the modular V2 baker for this retired hero');
   const old = fs.existsSync(manifestFile) ? JSON.parse(fs.readFileSync(manifestFile, 'utf8')) : null;
   fs.mkdirSync(framesDir, { recursive: true });
 

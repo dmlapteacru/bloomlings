@@ -74,13 +74,8 @@ namespace Bloomlings.Playtest.Design
 
             // The tabs: the Shop, the Cosmetics once the Wardrobe opens (L40), and the Animations (the clearing styles'
             // previews show from the Store's unlock; spec 005 FR-038).
-            bool cosmetics = meta.Wardrobe.IsAvailable || meta.Wardrobe.HasFreeHeroItems;
+            // Hero equipment belongs only to Wardrobe.
             var tabs = new List<string> { "store.tab_shop" };
-            if (cosmetics)
-            {
-                tabs.Add("store.tab_cosmetics");
-            }
-
             tabs.Add("store.tab_animations");
             int tab = Math.Max(0, Math.Min(tabs.Count - 1, app.StoreTab));
             ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);

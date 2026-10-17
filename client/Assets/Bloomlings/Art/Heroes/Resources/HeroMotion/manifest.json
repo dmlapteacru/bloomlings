@@ -2,3462 +2,6 @@
  "tool": "tools/heroanim/bake.mjs",
  "files": [
   {
-   "path": "sprig-idle-00.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3332baf666a9a4d5c65beac24400bdac663e4306c423acf69595d16e8e5da330",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-01.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "00ac57a0371298300efac3be788fe9b251507a85c8676ba3434934cd760dfe66",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-02.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "c282cdcbba4dad719f3bb953fcb3d19fc8375215e1e204fc39dc885d7c9d2316",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-03.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "0a77d6f1f56fbe46f26c338a588e4cba4886833629a657e60fd2a64afa617e4d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-04.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "dab1190cb3c7b40e78052fd316b115a6c8a875c7b6df488ede75b2b0d54143fb",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-05.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "7a516fe3bce7f0002a7d9cbd2c5d0049c3b59ddb3ddbd36713bf31c58b560fd5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-06.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "883709a6a7768843384863d171bfac3f67537f6e60cab2a4654473fe13b4e686",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-07.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "fa1ca4b32ef2c05d7016feabb6f62f3a8fb29bb5169c42b05c42bc3376b209cb",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-08.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "e4ca79a6b6d79cf3e66ecd46ca7c4a3e20ea6532b18e3dde6b01a0c5e51867d8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-09.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9e704bfadd8da458e632c79f3468dad1e54611f99aa2625d388f779e715b5ace",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-10.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3f101ac4c808823a14e37d8d159cd014152b4f9dbd96c559995e8a706f435f72",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-11.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "efe6a1d8856f546127a0db8d7d5f5bb2dcae31a2d1d3929713fb672f2f6411a8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-12.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "345dd18271510ae712f09fb0bd643cb99ac7e7b1335ab6b35b52088ea632c16d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-13.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "5e28b0753ad9f4a118b9de7ff34e568c870ffc7b5afacb8e29b754f92544f7a5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-14.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "b143c5f9449b736cd45dd3905cb18a841dd4e1e15d30adec88143a76b812241f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-15.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "b599e6ebab77ae10b6f90c9dbff99ce47edbfe505cafbc3e13fc9b0db53b3352",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-16.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "76011a821967f59e50296f2a3f3ce794d1e2a28d886ff7683926f1bf386ce50a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-17.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "59d2143dbe12b87cc2c20f639d1bab6af916d801c7b46f7d1157a422db742e4f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-18.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "16b32492160a12bd1ff9133d2ffe3845cd66ddaab4fa721953407392c3b9eb09",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-19.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "a932f2bea4780e4d24386e99a07e65671bddbe3ce0a49d6cd8cfda3067c33e84",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-20.png",
-   "width": 297,
-   "height": 400,
-   "sha256": "85a0da417ae8b3f83af8b35fe8c45e70c09ed8240a4d7a82b04d6cd5088a47d8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-21.png",
-   "width": 297,
-   "height": 400,
-   "sha256": "46fe33dcf4ee965f0d9ec5ea7193f4d356337fd7bdddedf8816da2f94d91c8a8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-22.png",
-   "width": 297,
-   "height": 401,
-   "sha256": "010263fcd490ce5afb20a7b7a1d739f03a131c63aa5500fd421122e363d64f03",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-23.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "1997b31d598a756ab8b2774a101383fea4057db79d58771eb6a4ec0853aa7cd8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-24.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "347eb34a6e150a30653e63d851185e66dd02df0d4ddad562823b680fbe793809",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-25.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "4a0c1674b1fbb102e7427272a13e2030c0d346546c92b6ddc24b04cf7afa0892",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-26.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "515ff4a0a52ee0778d30a87db8c8bb20ad005c9ff96adb26d7d398aeaa35a514",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-27.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "e6d9dcf81a9bb5c96dde79432fcca0104777e90316151c9b5adc69991e49c8ec",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-28.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "c72b9f77e91d492142bf39c09de179565ff50ac6d26b5494633b37c0bc158f59",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-29.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "99dd60444971c9aa700840a6ef7f7f3492afc21e5008469e627d1c6746f3f5c4",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-30.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "4180d224f117e52121676419de9d151c6363f365bb61ad8af8e2dff9512a9c41",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-31.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "118611b6c45a7984220e6ac57877498120c694a37cf5653057dae5b18468c454",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-32.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "6d379bdd2e92f9b907dcbed60718518529bdcb17af55f50e2c206492c3c0d597",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-33.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "cd1beaca01497e5addd2cd6784e82e0d79b33415fbae3fe5b9a221065a938322",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-34.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "ef6ddd161d42221387582b3dee10d75b3dac088a484b6adbe9a3ff697ad4cd4a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-35.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "97bd5646799c13bd96cc0887cb66a66fa2f65216ea35aae5ea402847ce1832cd",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-36.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "137530210db2d673b059a0453683e045d8e0ba3404a2e2d194a8f7ea93e87757",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-37.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "4a39eeacd5ef100fb09d02027224d5ac8af6a24159a9831cb088e9f1ba65eaa2",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-38.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "0ed6d303f4ae34e9c1ce88f3f8c3815f0168a475d61e6aaef5c8e149897556df",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-39.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "f6674cee8ae1d8cc8239e81ebd1495c6c056a007892fe719e96ea663fdcb4405",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-40.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "42d6518c9914f5736445a12941dba45735337da3a4e1df52b574398e8bb98c1f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-41.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "8eecf9cc6483930b033d379d969699fc662759319bb3fa8027ca91c968735acd",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-42.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "e69222dc6eb51712399f9bd511d5d168bade04247cf4ab88d6ca198fa8ad0809",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-43.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "58a4deb6023e647bc4605199b2735dd82ee7113d5e21a36d91ae3b7747d0cf5f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-44.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "885432862a9725a39f7593518d088ef7b748965746cbc728491016a87eea2872",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-45.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "26d0506254ce01097737a72456ed438d21f5e4ff20aa2bb33305a74761967393",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-46.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "fe7e0c8c690b8e8ef91d070ac039ed0c36ac3db365242adc153088f692a1b499",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-47.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "a9f7eb4d60537e779c2e640e7216fe7f25930b58c9733524ed89c63f7150f311",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-48.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "5fa5d078b56188f0d9e4dfe99fba9b577bb12cb3c1c35f4d8adf1bea90781a36",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-49.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "568e80420bf98719bb6307f0192698f032eaee85b4db1fce02c8eee22350de46",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-50.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "74a9e22b3c85c7ed47018f87440970745002984d883473c8411727bf184e7ba0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-51.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "97bd5646799c13bd96cc0887cb66a66fa2f65216ea35aae5ea402847ce1832cd",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-52.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "6acebde636a79a27363e4fce32acd785bacb0cf30eb8d72c3ba2a9248f5f7f6a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-53.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "eeaa93bbaa4fa1cf2f818e3de3a7c47f0fa9d947176e59adf17282b4f7f5e3e3",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-54.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "126f773807e8a2aaffa3e90697542e5210db87ea92909ea96e8930c76cd9b213",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-55.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "3121ee59982876d85afe70beb2f1e744ba21a098389465571036c9a1d1f7d255",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-56.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "871308b40d7fc21adf615885603131c005a42a18eafb574f39f1e688e3255e4d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-57.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "1d3f3ede6205dd8e2c4181da74c58b800ef24f103dc1154a481e11715ae2a8b9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-58.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "c948289e1e0e47252b965dc90ef7fd9d1f94e4927d9bcfd4c2d6a1c1c2059858",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-59.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "bf3c6d47c98d0a8ea378bac7e9073df5bdbed45407a831a2f3dcb06574c6329f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-60.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "c72b9f77e91d492142bf39c09de179565ff50ac6d26b5494633b37c0bc158f59",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-61.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "6549242496cf7b77d98ac18d09ec0243228aecaaff80737f135a61d8bbad6d58",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-62.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "51e3bfafd95114400c82083544ce73d9c5468242c2fd0338be03bd0b1a5e4fb4",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-63.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "f80386d87012268310174a21cfb952c67b726da9ae9293702ec7bd13def8140e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-64.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "2e03588d7d3c2b9080be99260f008c25f9d18656ec9bd5edb1d6b0fa37cf900c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-65.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "c96fe71fb4f0f91968b5b8fdc32fce618c37b589c641105c5d384556cc9755ad",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-66.png",
-   "width": 296,
-   "height": 401,
-   "sha256": "8f3174a43bf1e4e365fe653439b12d12a2c15171517ab2716411e2eccd46fac5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-67.png",
-   "width": 297,
-   "height": 401,
-   "sha256": "9f60c49f7e092a5c6ac5f06b19e8d787623b6232c29c54f61e344bc0f5eda3b2",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-68.png",
-   "width": 297,
-   "height": 401,
-   "sha256": "fc4a09fc6349337c6b7aa08b920ccfe4101f25e4cf0e6f295c3b1210d25bf229",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-69.png",
-   "width": 297,
-   "height": 400,
-   "sha256": "46fe33dcf4ee965f0d9ec5ea7193f4d356337fd7bdddedf8816da2f94d91c8a8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-70.png",
-   "width": 297,
-   "height": 400,
-   "sha256": "8213a134a4b8667639d23659d3554d7a7a6ce9b2f0fec15d536d658578013d8f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-71.png",
-   "width": 297,
-   "height": 400,
-   "sha256": "391aa1218e9ffa2b43744e5a3d80cb60cc115f84cecae90d49591a016f556ffb",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-72.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "d432fe339fddb5959d8919eda948a71d7c2cc7c00c86b697f3542bc10b808705",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-73.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "5b1d11fde56cc4803c9b678a5f8f6326779bc3b5b1ea289a96936fad01666970",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-74.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "520cac613cb915d4498676f960f8f9f23eeff2c6bfb31bbb1c30f049f5559ba4",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-75.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "38cd5af746e3f46c1dc0d00b95255a614f5980e5d9ac9dda4e75f749d037019a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-76.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "301ff47e6be505e39f263a4cede8d76bdc9e8a17493673efe7353e06f40f3aa0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-77.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9aade13a2d00d1253a3098baa049bbe525779bef0d5cb5c5d1af62e0a88cd90b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-78.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "b143c5f9449b736cd45dd3905cb18a841dd4e1e15d30adec88143a76b812241f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-79.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "80acce8420783e4ddc6217337394321f4568f92b31a0c795d18039790b5a3bab",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-80.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "dec1bcc301cdb2c5d78f654a6b8d4306448922a24094cd38a1683da6ef1a34b8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-81.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "eb68aa26b003f6c28b2df2062b0665f17412295c6cf627d3f9eedfa5b5b38255",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-82.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9320a1914e9d05f8ac0f3f45bdf6a0730bea7bdae052a7c2027740cd558a7d43",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-83.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9438aec021610df385fb774db2d57dc9aadf83a5f9debace1805b101e14b612a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-84.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "ba879006e2de1c8c1034b7343a90c10e24dc744627a26dc7ab040be94ccab0a2",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-85.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3672566d8fbd48ea83fbb0e261bf4b9285300411475aaf90b1d20a2b25eca48c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-86.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9d56754f84995a3ca5307efe84969bf4494b6b3d6634f58ece05776832655f14",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-87.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "28f19d7660af5a947762f583ebc018c1661c8a82b5ecbdb7480a18abf000152f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-88.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "853d1f9bc0cf3ffbe2e4fb4baf3f0f4b508a5e8cfd0420569a0312a1db4888ca",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-89.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "f4294c4f00991314274d4e0e53d422221268139a04e60f8f5c4e1ea97b2dbc1a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-90.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "4a0ea6bb3d951247902b704a9f967ecc9b1a13a97c54c6a81f4c2f2479e1f90f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-91.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "115660b40ff7ce41cd97c0dcc990397b6c3dd4c20ed0bfea5ae53bfe56504dab",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-92.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "851f1bdbcee5886f1629915e6d69342e4691e332ee5d9cc2278132e569d2e84b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-93.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "45e4616c770e2760cc5a802fc22625800761aeebe212bff98d27e8c069ad88d7",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-94.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3332baf666a9a4d5c65beac24400bdac663e4306c423acf69595d16e8e5da330",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-idle-95.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3dcae21c638e0e181ffb13289aa1c7299f462340d6b6eaf66dd4154ef152b833",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-00.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3332baf666a9a4d5c65beac24400bdac663e4306c423acf69595d16e8e5da330",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-01.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "05adf7dd309cab4fd0e97f6571ac9934adae836f1ae477301e8a6d7e1e946e4f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-02.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "ebfb314160e4783d616136f3263d968cf348d1ea62ee93f6e90a7de3398ea8a7",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-03.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "68b4d7aaa26c073b314e6d540f9ead899310b111c7ae98cb5acc28cbc9e695f6",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-04.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "00570e28e3f27f3981da7779a0da2392072bfc687426e19c09eba8af4b65cfb9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-05.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "f30736c8b03bef852ed94237b153f06d562fac416a4540b34101a39a1023b584",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-06.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "a48f34d09361de1a4c40e073ca38a562817fb07891e29f42da1a8c77f806d0ff",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-07.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "ef4b7b8651608d6c526b3421d9b5363918320996b36a4a68843d838634cd0d0a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-08.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "41e3378c55a3a403fbcacc225a66d642454ad6dc50455525d80e3b074f0ab04d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-09.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "2d5c56c6640af92bac1cc8ea69c98f9c25e29e3fb1ada06b53597ce96687d6c0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-10.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "629e6597bd55710484995fcdb6362b40c6aa9a1f1e5e9dbcc1afdacf24a4dd5e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-11.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "7de9509620313a74bc40a6182614889cb475fa56a2984ad660b9db8ecbf58359",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-12.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "55c07b17a72d2ee3ea4d8717f4c23475289c562c7667775c44ba5b3460f9a36b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-13.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "65ab7359498a14e9a4d1ae7127bcf16252fe66aa1afaecf58a47bba6329522e3",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-14.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "931050230857da8814b76b4785bf70c5dd925641f7f99ab31e915e6c56005cfa",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-15.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "055a844f2bfa852047ac37af5aaf2ac7004b78e8f5208ead06b4a2f4deb774af",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-16.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "10cc4682cef62c4de2aadce5bedf769f8184c455ef46448c9d00d788109567ca",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-17.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "7c9ad4fd151daa5c003c84ef5726866f393e5814444758709ab14266ba97becc",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-18.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9125e4427dc2e3e65af055293b9461105782e660be707aea5986bd11b0b6537c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-19.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "cb3f4d9d918f50c20493f6194d63f6e78a8bb7e93094cdefe4b803ed5c53a0ff",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-20.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "5dc6b9a90bbffae8d8d9f4fd2528386bda794fbd37a123663fb84b0d4dcf6d6d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-21.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "c7c8f933a790c956d04786b315d5f81ba34cde9e2bf4ec916abeb37dc29fda37",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-22.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "948edab0ec0e991b9f15e69c4eb6eee7c905da7f085070eb353ea694ab615c44",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-23.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "e227c88f3c204d00cbf1d739693178965a096953979a06f7463e9cb56427c89b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-24.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "b68638b198c73715557f33d9ff93870caec64aa6ad31f02a2cb648dc43cbf062",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-25.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "e227c88f3c204d00cbf1d739693178965a096953979a06f7463e9cb56427c89b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-26.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "ee495175674b06689db2e4124f0068e153a05323b2059276103bed6476e0b08a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-27.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "e2151ddffbd977132df25f90bb4aab925966a195b448c448512d9b5bb8828217",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-28.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "05a150bdcaf6d8fb3d16193293ce6fc0f558627c7d5708900b91b1dab3588036",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-29.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "d446c3acacabc509c141de6fd359047c7bda16e75c80c574359203d588bdfa08",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-30.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9125e4427dc2e3e65af055293b9461105782e660be707aea5986bd11b0b6537c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-31.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "d480cb70367be9a04937a066df8476ef7c9192cba3ef0e333d1c2b0d15d7a0b6",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-32.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "6e7105464e7b2ff5293724d849156487e87fd898731ed4bf9b0c02289788af3a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-33.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "98ac23694ff8ab828b4068b7d967d9d99b6500dc33403fd7f3f3f19ad182e0fa",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-34.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3a764138bfa9e20ae3df30f2a7e22200c904a24a60a29f5dfeabb217a1d94bc9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-35.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "b338a1a5bfe4cc06df038d828985b254ce8884a95f2c901b1c4771e2d4659dd9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-36.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "7588ee560ac8be1d29a0a9277d69ff0413bf1c80f762c20a32d41e60eacb76d8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-37.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "5e9236e74e15e984842ef00511c0aa80c638ef39cd717c90799afb8a05029a0b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-38.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "8194654e07927c627fabcc22b818558013bd02893921ffe015e0984d47a02d09",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-39.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "57200d9146c2ef9516b7b691499950d61a2eb857175d9017a648854175fa0d22",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-40.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "055a844f2bfa852047ac37af5aaf2ac7004b78e8f5208ead06b4a2f4deb774af",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-41.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "05a150bdcaf6d8fb3d16193293ce6fc0f558627c7d5708900b91b1dab3588036",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-42.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "e15c13ff7b803a34e39ba8ee2078bdd3601b1c3dd07732f1e0b511c45bd804c0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-43.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9125e4427dc2e3e65af055293b9461105782e660be707aea5986bd11b0b6537c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-44.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "d446c3acacabc509c141de6fd359047c7bda16e75c80c574359203d588bdfa08",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-45.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "05a150bdcaf6d8fb3d16193293ce6fc0f558627c7d5708900b91b1dab3588036",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-46.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "2b9d3e2b4c719269c4218eff4beedd72c2e231be7ab4b48c2a6a370ae32ebb3c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-47.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "6f91934ee0e3c817f944a81a1e340ebcff634e453c89658c289caae7ea26bb27",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-48.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "cbb34638812f0c0e5af8e5d1acfe6e8ce263ed89bfc33889d5febbba208e91da",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-49.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "a9abd5e3c9aac736af672c8214b3a51a2fb447c452adedff10ccb9d76d8c57b0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-50.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "3fa134cf0c6c13bca745836a7736d852a62f862c4ffc2e8f3ad964293580008a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-51.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "cb79a86dbcfed5b07c2f9e418b87ce8de845a9a05d0cd4c43b17ffe706f1b77a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-52.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "8e2e8fbe2c618eba7492d6e8268cde993497db41cb0c60cbe0caa1774f22906c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-53.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "07c33b45cc8b0378892bc41a5103f4afa6052306d335812e6ccaa9c1bb71e622",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-54.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "07c33b45cc8b0378892bc41a5103f4afa6052306d335812e6ccaa9c1bb71e622",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-55.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "b2d0e320ce5507d431a66f835bd0d0d5d60717b3d96b85600b56545b2b1e891d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-56.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "0478265ae41244b7ef0e9bdd1656edb10b5eacdb4f542a787d612c8fe8734e78",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-57.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "8bb168931e323c2aae6694bf830eea2ab91e7d397ba467558d645b9c987b359a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-58.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "22399b470f58e06ac07f4f1cfe90341c25f14775d19b178715ee748815e7ef6b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-59.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "5a95f4031f2da864d886fc58945dcf576f27a9d225bb5b5cfb341e8831df492b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-60.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "504b79320e4f89af9c68383d96f64d1d85a511b425945de527d1ec5c68c135ae",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-61.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "a1a5b49624661a02b04ef6fad4866d170c5842c4176455d6b92d24fe55746ff5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-62.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9c62c2a2e36afdba4a295ccb62a40ee0ff7eb286427efbd8afe1cd50fb681b5d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-63.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "8cc1a097065dc785caac6a191fc6845eea46a2ac02b0792d0f91511ca8433b9b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-64.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "621099e58ac0e1d64ff7a52b55fd7867196d0c4f4b9c2d30103a3747377ee9db",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-65.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "5efac2e2b9b2cba8f5ea651dd3f6b2085ea87e88a78e48779c7587d7b3000ac9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-66.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9b8f702edfe3859ac2cb6a0c125995667e35accc8203390d20dff77fba360191",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-67.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "0ca8538bd35d86f625a1cabbc7f7de8ce002004691e77bb31dedd4d8ea13c3fb",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-68.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "1e1b5d4531a5479e2d87b34481ea6f05c17d95824032e8fbcf730d17b6dc5fe8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-69.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "87b44b84addc9bd90949f131cee231768cc7f6c55e36009f26bce0d088a88f93",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-70.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "db8f899890a153cdddaa13b5843587d415a806a41d4039f55bc5262f1bc2186a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-react-71.png",
-   "width": 296,
-   "height": 400,
-   "sha256": "9d89c11d57168a645fe42d39b9280dff587339da1df50df2a90b4752c6d632d0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-00.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-01.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "fb21648c4fae19c31ed9fb5c43251483a88f255c7dcb66c5615f39628d08903e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-02.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8cdb0a4046a3930a5907cd6a6184b6bdfcea314cd42a3c33b96235f022e15dbc",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-03.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "82bec5ddf7c312b95c5a61f2e7e73126f0b7524a4a8bf91ac140f3be8182b1c8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-04.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "55a304795b176d5ecec338369a4875d48b8701de28b2e5b5a1c0593fcec1a550",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-05.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "80be160466b2051862129a58608b7509c84a9e48e17df4a921fc2dd6371aad20",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-06.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "99c91379ca92da13213a2238849155150f7ed4f29c6b84b39c1dc1bb3b86e529",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-07.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8b975255c6ccb4bd0b70428f9d13ab7ddd95e147d10ce0d6a25520a509ab945d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-08.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0107af33e7e3e296861aa8a66ea37d3ce9e748de555d8769e4e875ec788ae7ac",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-09.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "c1e848dd8779d9ab3277c7a82ae916463752aa4ccfd1aae0b7f5dfb5c449278e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-10.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "6c02dced5497ab8196f42d6edb5c00df739eadbaca59eb4050bff8db2e43b2b5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-11.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "a093c07921ab1e7fcc05bfaa4b76bfdfeb1a904c58f97d53a59fcaf43171893e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-12.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "9f91f6f5ecb4a9055d6ac901495932d30a4ebbfb974e2025cf91484412d915e9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-13.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "c74a34dcff9c47f11fe2cd654b60c58e6b46ce1321e8d6f4bc817223ed3e1437",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-14.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "19d1cadedbef6911e870aa3a1be7403eb4fc9f18f0a5a81546095727be28108e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-15.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "b120c4637483fdb1311531c731a2e231a506c2f86ae4cd0841712ded43bc074e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-16.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "90f4d1fae1b77184b7758be5fea647789045139ebb428f22470f8c4dccf27fbd",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-17.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "f68675b71725901ed728dd1cebc0ce9f79b80f5a0cd78fecc6bfd0d9cc005911",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-18.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "19a381c9b23be9d23d4c203ed277c300fb931d8cff57c2abfe24511c73b48bde",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-19.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "e2d7e8365f1032af99ffd3e4bcbe58d6e84c8d5caf89c06e00f15d688feff6d0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-20.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "fb2e16ad51843e0e8510dcdd4c3c266fb36ee8e435c304f12d11214f09f4585c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-21.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "83689c2100978c2d6bb798a41b7285aa8c12e0d31f48be2eed9ddd94e53313ec",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-22.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "4ef143af140f455a24b6aeefa89f58118b54494ca71bd244600765307e536b2d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-23.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "b8891862d7ee51030ecaed84b566a9f6f7630f1eb3f48bf0683e5df7c01d8ae8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-24.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "bea05fe873a90ef55926cea050fd5a41bd5fecc2b11ae4ba162c284872558bd6",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-25.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "b1cffd78957c7538dd90fcb14cfdc1b00dadba13d9598c032471e506e085349d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-26.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "bdde1748f148bf7708e3b1b5178a01db73a479c16b40a0cb4aef2dbb8d1e3725",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-27.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "833994d13ddc7970fbb79a95a16c74dcf54b72ccb6a863eb4c272f87bb169ff7",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-28.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "863e87570aa98a1117e98ae02da6cc9ee03c78e60bbf55cd188db5427a66f7f9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-29.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "d40f46ec560a694866b7a6901f4b8578fdc84a435a917f4451db6d0e850c72fa",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-30.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "2253f99f13bbfe02a13faac1d28ccaf6b9946b83f6bb9eee91f6aa903bf86eac",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-31.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "7ca84a6fcc6e78f8b3b554dcd1ca067b18f42c1533d04522cb090241be3f718a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-32.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "7a0b2677005f6ca94bb9a479e23213273fc375ef47bef8fc4a84ef0ea19b00cc",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-33.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "c82b939eb9397d305d1b375fb3594039650bbad0b6277db6b89fe9076e74e008",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-34.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "4867f9cf315e9bb08ecdf45944ced5e111c38f1c9f9e133f0f1b9ad750cf1533",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-35.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "7853622a6d6c5b38fbcf2905c0d5e5ef95597ca541bce2cb44f394e86d6b27bb",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-36.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "9a49b198e776bae285fed39c8cea533cf335ed6e39ee38a9cbad16ad4217ba9e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-37.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "7c39be63a3cc6e38f177600f40765821e48222553c79f8657bb34327c835859f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-38.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "8fccb896533bd1a557e3197476ab5f44ae23c32de2ea48c2a8dde528c781d923",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-39.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "50390068e9a01ed15c9b39eaa9e9ea621881c543444cfb85b2e3e84a56948771",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-40.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "5f1fcd0a0dd7aa326b76fa3ae193da73bfc7be73ceabe0fb1031b6346d0cb5f4",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-41.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "39059024df0b56e92c26ed08da711deca001462a2f558e7d044a2bccf11bf67c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-42.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "8c7d4607769fa2cd8615d585f8a6ef90daa278a016f57331ad7b2ffdd2ef9d89",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-43.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "806f4e163781ea0be53348403436c3a117660a30d6c902acd0060ed93ea70218",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-44.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "5b607d20a14f71d8ed02e9f656ec76f2629b1febdc6b56039104ad5d3f5daf29",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-45.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "2415b6f8ac14a4ee3731c065b6aaa143a18e4ef58e25605488a8d8ba1703e594",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-46.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "08418cd49a3b6e0aad28f557214f7f55d1bfdddd88b4ffad9587ec96002637f2",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-47.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "a27fde47ee24e26f391514e05af4511aecd0f2c401e6ae67753b6da9ec0ac84a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-48.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "913cd4aec6599fb50516d36b9646a11a5aad2f049ba6ff5954702d9bcea0b2e1",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-49.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "417a01e69b9002711318c0cd94d3e1e5c300446d9d2ff515b9d54bb8d4a7bb53",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-50.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "e7e338aada26ec4280b3718bc3a6122ada95e39450ed1d2a4245e71184448d03",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-51.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "7853622a6d6c5b38fbcf2905c0d5e5ef95597ca541bce2cb44f394e86d6b27bb",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-52.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "401ef5db27f07a43d49139deaf518e9b4f0ae6605b32ff5f3c9a9c14b149c7f8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-53.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "3ee2e430f6e1e73fa47f4b01e201ccbb2d2055901e88e597517c753b0182b49f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-54.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "071ff5105317e87df56e5ab61fed9f3c524af03307ad1b6d292a48cafcecc751",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-55.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "c6f5d2eff6794bd61ba1015c136202ebf5889d45aba2ef7915a338cb58914704",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-56.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "d5dcd7e07f3fc2d230c5e4b4b12ce8dfc4984fc4cbf64a6de21bb3410655a121",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-57.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "19b71fe3942d436eca4f4d475fd35aebe02e23ff16eea96577e8e5a188c26e2f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-58.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "61571bc0601a4d98bdc104a16a3a5d328fe2c66b82f992dbf5d65fc33b752095",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-59.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "8fdf973f7d6b1b3940f85fccd8355cacdce521b2b1a887a3457a6574c8e60b99",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-60.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "863e87570aa98a1117e98ae02da6cc9ee03c78e60bbf55cd188db5427a66f7f9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-61.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "520c70918a2deabcab4052dde29f5a75db2a7e599ffab4c71c6bf1ca0e4febaf",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-62.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "7b6372545a81f9b20c43870c14fa174815ae7cc908eba7bad641cc74c1051d3c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-63.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "e91d98a8997d4d54f9990c2f30857b3c4f724fa11825941124070cd35c45d6c0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-64.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "7d7b12c44c517a5f82ab09e92d0010a6a9e59ea27b4562a8d469f784a35976ea",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-65.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "3c3b686c3c6bad1521912ff581d684200d6d97ef8ff242ac02d56cd61dcdd284",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-66.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "b444308a31ef72317739520ddaa2971642e5d7748b07a5d6cb4ac55362d574f7",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-67.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8e2908aa8b4b68ab3cf6bf502969cc564e3785fe2d1df3ed84c9cad6d9967adf",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-68.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "5df63105d4db3552a80f2b157e8fe4eb8af67b98eab5865d07368031f333159c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-69.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "83689c2100978c2d6bb798a41b7285aa8c12e0d31f48be2eed9ddd94e53313ec",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-70.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "471c94b8ad0be03819fbb17ef461557ab157583156f27a6a1efcd5a056e4410a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-71.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "cb538e81af4d005459ad835fa72aa13e5bbba0752f5582e37483a9df7f8a26b5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-72.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8369bcfb1db8ebbf10134663ca49161035cc10205df8a599a7ace3fe5080cee6",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-73.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "00642d9683b91510e3bd1205776052e6ed000aa25199242e80e4a35f41d3c3ba",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-74.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "23baedaeaed4b6ce2f7b18c0c959bfbcb57bd8603cb02d673175b686b08b3a78",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-75.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "362f7cbecbaece9dd77b2e8c8ee5090579b299fd02f2728ecdb67185dbc5df23",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-76.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "76c8102dafd5a98adf1fb3d861613e9b7ddf253a44489fd4fe541cd185873c1c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-77.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "c121b07fbc4b89c4aeec3421db1ee8f92829f61014912ab72fa83c27a1fe67a3",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-78.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "19d1cadedbef6911e870aa3a1be7403eb4fc9f18f0a5a81546095727be28108e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-79.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "071c9389ef5d33e824e1c91873ccbc240376f7fbf274a8f18bdb0e1474987c7a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-80.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "5a4393c891dacbf7caf695fd763b381624e1e43f99cd0837ec4de67b85ce7568",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-81.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "248b0ceca25b2bf9b26499a2524d3c2266e4d8583837d4698619cb670934201c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-82.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "ebe689526ad2acf3bfbd5cfc48b2f8bcafc33b5184873c53688c9fe41c1e6423",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-83.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "48cb20f2683849b1d2a0fe17f9e9b64b6ca80b7f920c81147f7c8ca010f7f822",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-84.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "87802bbfe2caf4051000e71c1622bf9afc31e443804be05c9692ccb0c2eb7b0b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-85.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "f1397f2fee722951a27a3244df313f4baf6d0736a72cdb43647817aba578b33d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-86.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "99affba2ed4b04bebf582ac6de83769f274cc3d15d97e9d2054c6340470f8aee",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-87.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "263dce05545d469baf052461f6936e89988873679425cae7e6696da3645268da",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-88.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "70b50f0825a0d165d57b0c613785add746b005eced0afbd8daae01c40b3cb9d0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-89.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "1191244d599acd306fb47537c758ca689d20b0ef18f2c7122772a211e9cf0e92",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-90.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8f6ef723fb2c7b3e27ac01215d09860210556b6b516831eee405c6d25b29bd74",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-91.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d9dfbc37a0a7883c853243f6f296745aaf1830b863c2648524e658548fc7d803",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-92.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "29edc67eb37e7131d17ce82c3fa14887ab8ead163dd5131a9bb8c316d27aa16d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-93.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "bcb69c854eb8c747323087a3a06a5f8470fc7221b0829646e67a9ac2c8f46748",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-94.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "1baa8bbe674b9e12653d34abd3f85f8fdd11d0940a4225308fd5f9bab40d45d5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-winidle-95.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-00.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-01.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "2eef444617b9cae67e43af269e91da72cbe426eecd577621a98b99767fca4705",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-02.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "6ee4d7766e96a00952dcae59e048c2573b5717a825aaf8955848a831304b2c99",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-03.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "7bb18862db1f7e50fe0d0103d41d1972cdc12b0b7cfcf13437b30160f4b4a8e5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-04.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "85da0265d45c1e403847856874e1aa8371109a612d27b8f766ea55912f3507f7",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-05.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "4b9cd2a0c8051ad37c79dd4f02c87c760ed1d98a42e4c93a58be3f11affd0384",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-06.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "c77781c76e1db1b6e08d4f73981c7225c906e70181f2fd5746c2152c72784148",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-07.png",
-   "width": 300,
-   "height": 398,
-   "sha256": "c9cfa126ec0bec75f9bd25bbb582a1c1a7deaa2b1f8851ba3f7b2defef34ab29",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-08.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "339c770bd6a610840bdd69d73e0b8f63c690cc9350b69951811cf1fe4f78ece3",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-09.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "9562524bff1c8f3ac694a4495930cfa790fdd9f507152c8d79cf366bce327f78",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-10.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "646392b6499a286f087e9aeca8d4ffb6da84de1663a077d31e64c5dc181b6dd0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-11.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "3d4e51c5dfc25f7473b0b2729c40789294544df60c4a4e19935a3bec9f2d3d95",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-12.png",
-   "width": 300,
-   "height": 401,
-   "sha256": "d5dd35bab93df991a6b3744bf4492ab4948a5747ecf580241dad35d2292687ec",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-13.png",
-   "width": 300,
-   "height": 401,
-   "sha256": "58d826d6177bca092cd27dae742d7181abff0bfb8d0351ff1bfe6b5b19558de5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-14.png",
-   "width": 300,
-   "height": 403,
-   "sha256": "f0bb4c3b06237baad0c86294b009fbfb78f3ab890aedc5410e4ea753d3510c51",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-15.png",
-   "width": 300,
-   "height": 402,
-   "sha256": "4780499c704f5aa01703b4e7ae476985474743389f65902c213d50b566137edd",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-16.png",
-   "width": 300,
-   "height": 402,
-   "sha256": "6d9c12b8e8e3b31116be7dd335f63d479b15405c56435e0a08de6d552e5de50d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-17.png",
-   "width": 300,
-   "height": 402,
-   "sha256": "4dd3b34a507e5074c89ff80b395741e68e8dbe1b4aeb413530865e3f877333ae",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-18.png",
-   "width": 300,
-   "height": 401,
-   "sha256": "bbf8fe28b604769a54cbae46525b83039d4921aa5eb8dd2fc35892ff9a5b706e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-19.png",
-   "width": 300,
-   "height": 402,
-   "sha256": "ab9c9635b10a41c7fd229d4ff94ac8064809ca9b44579698de2ec060387fbaba",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-20.png",
-   "width": 300,
-   "height": 401,
-   "sha256": "bbf8fe28b604769a54cbae46525b83039d4921aa5eb8dd2fc35892ff9a5b706e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-21.png",
-   "width": 300,
-   "height": 402,
-   "sha256": "4dd3b34a507e5074c89ff80b395741e68e8dbe1b4aeb413530865e3f877333ae",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-22.png",
-   "width": 300,
-   "height": 402,
-   "sha256": "b17c46f58c214548743161a66d9a9420705c802e4c55336adccc7240e96f2417",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-23.png",
-   "width": 300,
-   "height": 402,
-   "sha256": "20c0b008f408d41901ba4b3da2cd73df0e6d4996543272b5ada43a5d48d608dd",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-24.png",
-   "width": 300,
-   "height": 403,
-   "sha256": "651dd76d48393259371562c2b0ca28ae0a2f8d497a39999e38be846bc75eeb0e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-25.png",
-   "width": 300,
-   "height": 401,
-   "sha256": "0204358c8c940ae20c7428098aca615c094f6648efa93868780e89d56c74bb61",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-26.png",
-   "width": 300,
-   "height": 401,
-   "sha256": "39ea5f166ffb00809029d563d389c458c2994a1937da31f28a147d35b3c78044",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-27.png",
-   "width": 298,
-   "height": 400,
-   "sha256": "6c9f79f28d5b0d014203524705a69792f13f4e10acb5a77b8c72703fe8f687a5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-28.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "ef7ce7345b6eb3846b57d124d818af969e96f27285a07e0cf251cea673f0d2c8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-29.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d1bb2fa31ff334fd961d274972512e1826d167294c3d3ffa71413c71b4785f4b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-30.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "519f04fb6516a32fcb00dd89d8d32deeb6a1baf3d7e1c31ed6a8009bd22f1657",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-31.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "7b38b70fc58c060ea90c95be010c31280c58f1f4f518c301de0727798ee94f8e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-32.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "11b0cb19f6d7fcf24960aa320726489de59119ccbde9d35df96e1dd36d383c46",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-33.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "cd7c76b6ad4ddac4fd04c83d0676ab6c554625147a0488ee6df5ac1f39568322",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-34.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "872600cb67cddd6a899a8ce94451d691c64ab88600f1f0d87742cc606da1602a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-35.png",
-   "width": 300,
-   "height": 399,
-   "sha256": "4e12552ecdb31e6e423ed7d772bc938f8d2bc18beb36ede64dafdf9fcdd2b964",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-36.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "3fbfeb0434400e6813a20d5db30d8e8a905034bb1d4408fc10879baded00c6b0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-37.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "3a021c3c610104a19580c138b3c947d4f21c41eeffcd6b3079dd793f28edfcf4",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-38.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "54422aab4e7d9a44bcb66292de887e428c352e185d5addbd6faf242030ae20db",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-39.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "9b57cccfcd5a2fbdba6e4f10cb2f0b3c293ba08f7a2152ea9f0fa9c6c12bcd6d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-40.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "ea4b8381084abb8930acdda05e13acce96da667605025294b06add2421bb0eef",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-41.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-42.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-43.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-44.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-45.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-46.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win-47.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-00.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-01.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "1adf8f1d857d16e69b0d01c4bd96149860858a455752ae35f2e84ec56cd58bc5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-02.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "fa2d47f30b9994bec0ac5a70db38e8444d33e3e284224f176a206bbf0bc4de9f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-03.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "94b5443a25c5d4417e5ae557eb6528dbea5dc4d469a21b81fcdabb99a0f5fc88",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-04.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "eb08b19bdf1be9b4d5be5dd4eaf08b680d4c05c06b7ed9f7a7d1837c6dae48ba",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-05.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "6e448a6fd38e8f4b1ddc5da1216bb3b5a6f40f418de1b3e262e88dc956276396",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-06.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "e9b253f90f1c9e8d73cd5ae232180de1d68720e0424a4b36c71aa9324faeb4ad",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-07.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "09ee08d7868eae4aad4a2036b99fe0ebe3f328d8490d2852c40dcd8409ddd9b3",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-08.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "08e0d3b1ee37a332c16b322a2c54628748550b87f75f24d3c1aa27a0b84b6620",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-09.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "56d08bcc66a1ae78a0e0fb2d32a649c4656a1cc3a504df98b3c8ad9917dafd1c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-10.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "638f690d3e5c410d62eb09173f787200c3619ea213141564808efb95e29b2623",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-11.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "de0715f9c2890c551eee8c0674dae135048fa141b57596cdefe4ff48ea84c75c",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-12.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "ee7cd136ed399d4b4670f1baaf7780c85f85859b0664363948168451e7229427",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-13.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8e4f0ec26b69f509adfcdbab0f0967a85f53a08020f6cfc80879dcefdaacf5e1",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-14.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "ecc0626d0bceb05693094cbd2471e711a60492db0ecd4ba44e32794d21baaf3a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-15.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "7ad2f91816ad16a8f0e2f7306ba0859b09b1020d2d20bf64c967de259938d06b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-16.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8d2ad75ce29e73db13255946e625ca01a4c01c73e6f9d140f9e7b6f0a036cc26",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-17.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "cd56bd4e85fe84ef42ec2fdcbf185939f46d0f3a940d0fb303e803071282a2a1",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-18.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "21c7e6ee29629e65f0d8a29e402a609804dda4a605a4a22dc4dfdd2901ef252d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-19.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "893d7a4d9c4d888588811884646b4ccbb12be79d0844316a08fd57f3ebacf248",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-20.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "708e000e890f578ad6d5a2451f1236ef79799a7ef24212713aa04e27e0f6111e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-21.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "cfdfa12be0a84c085465c10dc4175d170497b513c8b0faad4446db9673c77bba",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-22.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0290757678c36ddf39b35c080a3fee964fb364cc572f515b6ef21500909396f6",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-23.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "325d90897c09a4ae792da289de5d00b392682f767dfbb0c796ba9bf464617fc4",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-24.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "5e0fc965ecd6503f74726607ab3748ebdf0a44a63b68ba776309e853fca3796e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-25.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "fbfadfe5118b576291b328358e184df6ad9b035165d9797446884d26f1ca8166",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-26.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "51bdc9e6118758788d16b37c7f132abf97ac8f665f916dd2db0075903f3fa3a9",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-27.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8fcddc135ae5b060e66ca8e39987c5f4fea775f1daf0e15adc791cfae3c10ee4",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-28.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "763ce445143bec434f5fa1692fc30e1185fcce715d060f1f1253c9379fd63b9a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-29.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "e01c30271b408ac773d68480be18194266f81c58fd12cfa8d4c2f506650a6238",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-30.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "5e05aac9a6bde520b2c6468093b62ccd9413f8a37c3df0fa972f776dfba7383e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-31.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "6a588a9bd4f26155820d909a61f8df63d1ef1dc5f73f18e8bf961be88a08f613",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-32.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "3360cda3320b5b9d8503243cad59e68cfea22b1a92b25ca5dad4841e9c4f1f44",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-33.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "2d0d2fd22057cb6ec2b7a0854c8683a4baf39fd0a9a99274323d1dd1fa693aec",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-34.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "c55153c2e07a1381c92ba6bb14ad6892c5e18f203fe7dab8174f3fc4455c6a0f",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-35.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "605c697a850a72f60ff61ffc8b4cec6b09d325f1aa45838722398c31a3f71612",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-36.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "d59c7110481e57907063d132dd45094f755f7880357a6df36679f90e33e37007",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-37.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0a87a094758ac444b80a34c887f6ed5876937cd5ec7bb4529bb4418f7efe5a73",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-38.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "5e0fc965ecd6503f74726607ab3748ebdf0a44a63b68ba776309e853fca3796e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-39.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0b382e29a81060d0e67e6fee09f53fcccf6edf26517c5dfe102d437dba113cf6",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-40.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0712a8458124d3479c4b1923eeb2cb01d26d0b07e2b2a53617efb68b11d02b28",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-41.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "1c34c61a39361d3a3d413014e85ed94f372d6da64362085a1283c7a5111f2dea",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-42.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "7728d3a5703fdf8cb2157cee8fec2203101cb5fd7ede1b88f35c9252990eb1d5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-43.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "6a588a9bd4f26155820d909a61f8df63d1ef1dc5f73f18e8bf961be88a08f613",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-44.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "a53821c579148396656828049bf2060cce7ad734bcd8d37c231bd612233fb9df",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-45.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0972e5d1a9e117c78fcaa6cefc51b9102740af9f81ea8cc005e0c9a4a3c2125b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-46.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "763ce445143bec434f5fa1692fc30e1185fcce715d060f1f1253c9379fd63b9a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-47.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0ec35c5e56b3b3da46aef7351b796e94e4060fbedfd70831889e231ee351b8a7",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-48.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "decc3e4c26bdfac935d1fa714e8abb0129042ed325226f4efa4107db85acad6e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-49.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "29cfc2799bfc004c2f94c59991879a70ea77764c00624a7b073d4c3ba0c27880",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-50.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "55fe14a833c631ea3f61352addc01d0cb8747555c2d706861de802158a60886d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-51.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "37d7aa110751948d65e59df45b24c54ade43b308eb0e44a938d8bffb0bbdf505",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-52.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "6b285d316fbfe6980c6ea804f2f8d9d1474617d6f638624e3b15b540975c8fbe",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-53.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "24568479206958c823777058e33e6fcc4052ade4ad87380dd1f5a8ebb6c0f4f2",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-54.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "48946a01b3b537a205d5e4bb95338418887dc54b5c9446a7f62099d24ee2c2b1",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-55.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "1c34c61a39361d3a3d413014e85ed94f372d6da64362085a1283c7a5111f2dea",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-56.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0890d926677e010608133328a18326df71b6efab5d159d8818478404b4bae8e0",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-57.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "505f44965a84ab0be28dad4542f7338c12b91e662efdad8e4be265ebabd8263a",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-58.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "f31114e9bc39f6f2bb25a8350cc165e3ebf2516448f8dfffabc4312bc71768ca",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-59.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "3ab762d2f87061081256acc23eb980c158ba0d1dec1fe8f86d4eea715a1186e8",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-60.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "30fbb3495da3913dff744c06409bc6944a2ebaa17274bd953150c36c4b3e4dae",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-61.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "1117c0c28f47835fc8544a055d292916c91192e8811fe2cd520fde58edcbe3c5",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-62.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "7751c8672c561295325a7decd5ab3f5698f866de43a10bf2aa201899a5e24a83",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-63.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "a0a2157445d6c1b42a5ba85e28ad3f469429ab7b10e61b1ac8c459dbb296eaec",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-64.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "b941209f5c2535469fdf8d6d56ce09edf5724657bc22eb32992829d18027e866",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-65.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "32307fc2d63ae8aec206e7df39b72d6341703c6801d166f61bfa0c29e51c96bf",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-66.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "0f89544671dd36e4ca7c9cf24c5f9f504d5fc2f4bd8759ff7a929b5d2465015e",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-67.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "8b06e76e3b685becfe98385d719e3daba79c34e34136baee1ac5a0c17cce82ba",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-68.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "b0c423b4d55104e159fdfe4d395ed55eb195cb409cc093db12885af6db539aae",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-69.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "65b87858c9c5a50022045ae696b4007eb7f5e139c5c86103b5cb44035e9cbc82",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-70.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "e07af9c140b7d4340fea03410b2c654a947bf238b28dbed8cf955d39ef38e65b",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
-   "path": "sprig-win2-71.png",
-   "width": 298,
-   "height": 399,
-   "sha256": "06bcff374310a092ea498b9c8f3c2ec7b450af5cec2b2ac632c7295a4fd5916d",
-   "slot": "char.hero3d.motion.sprig",
-   "source": "owner",
-   "record": "tools/heroanim/SOURCE.md"
-  },
-  {
    "path": "bloom-idle-00.png",
    "width": 406,
    "height": 415,
@@ -6253,6 +2797,1419 @@
    "height": 158,
    "sha256": "04820b8e8278d51ee454809338caa0a50ac5e430860fd8ff0bed7bf319d8e298",
    "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-none.png",
+   "width": 262,
+   "height": 345,
+   "sha256": "b3802e5b9198ae1cb5411c770735fa0f2529fc96158cf6d2210a1476aec09b75",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-hairleafy.png",
+   "width": 316,
+   "height": 424,
+   "sha256": "c3d0d7200685130ef49a09c6e03589bcc42b6ae3337423b3bf68b59a6eccfbc8",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-hairrosette.png",
+   "width": 351,
+   "height": 430,
+   "sha256": "6a79d21e2986652ca734a75cb8ef35861f638b194de187cdad3bafac7495b67a",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-hairswirl.png",
+   "width": 316,
+   "height": 467,
+   "sha256": "85edd127b07e53f78ce2407edf78b77fabf1416b9194f4fef451ef9d27dabda2",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-buckethat.png",
+   "width": 346,
+   "height": 397,
+   "sha256": "960fade97c7b8ea104d459c1451f3df1275ad3d9ac9aeaf86c17ed80546f08ed",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-cap.png",
+   "width": 284,
+   "height": 398,
+   "sha256": "df0b99dd3499adf9fd4866b65e49d8e8566e25f7eff18c10d3de0aaa94dca8af",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-beret.png",
+   "width": 294,
+   "height": 403,
+   "sha256": "671de75ffbd5f8d4655da80ca87b84834b6e4601ab3447dec111674bc6298940",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-earmuffhair.png",
+   "width": 356,
+   "height": 379,
+   "sha256": "7c2211158f99e948ccfbf7cd8a157cde7a5b884aa62810a694884b66744fae79",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-base-xmashat.png",
+   "width": 351,
+   "height": 435,
+   "sha256": "ebc476e96fde57f6e5043c90586e72ad38adc0a845beb5c0fb573fc4f0b2d2ff",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-none-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-none-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-none-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairleafy-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairleafy-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairleafy-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairrosette-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairrosette-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairrosette-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairswirl-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairswirl-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-hairswirl-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-buckethat-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-buckethat-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-buckethat-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-cap-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-cap-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-cap-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-beret-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-beret-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-beret-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-earmuffhair-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-earmuffhair-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-earmuffhair-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-xmashat-jacket.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "e7b35fd3d1e257fb90b93230dbbd6c60c3d0360497c2b1262fd24d8f2f0bb8e7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-xmashat-coat.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-clothes-xmashat-overalls.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "76260415ef31064c488bbef58fa814991648e28eadb3c347e8187c579edb7a51",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-none-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-none-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-none-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-none-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairleafy-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairleafy-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairleafy-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairleafy-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairrosette-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairrosette-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairrosette-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairrosette-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairswirl-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairswirl-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairswirl-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-hairswirl-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-buckethat-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-buckethat-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-buckethat-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-buckethat-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-cap-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-cap-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-cap-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-cap-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-beret-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-beret-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-beret-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-beret-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-earmuffhair-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-earmuffhair-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-earmuffhair-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-earmuffhair-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-xmashat-none.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "a29fc4621cf8f1a16690bf1c91fd8462d7cfe6efc3cccee08fba68e89077aa32",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-xmashat-jacket.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "0c0cfa50e6f100e84b9c303703dbe77d87662e58ac491d2b65bb577cc7d98557",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-xmashat-coat.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "6eb2330f83b275337593764813765f6dad56c04f46caa49f5c5ebe3fd1772f57",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-scarf-xmashat-overalls.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "78fba91d9dd9083eb0d5949db1afd67118370b410b08f719517135a2bcaaef0f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-none-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairleafy-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairrosette-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-hairswirl-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-buckethat-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-cap-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-beret-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-none-bare.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-none-scarf.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-jacket-bare.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-jacket-scarf.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-coat-bare.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-coat-scarf.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-overalls-bare.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-earmuffhair-overalls-scarf.png",
+   "width": 242,
+   "height": 92,
+   "sha256": "b8c4a413e820f6b25d1bf323252264034a5a4d7b51f4364fd2c863533249d46c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-none-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-none-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-jacket-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-jacket-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-coat-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-coat-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-overalls-bare.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-glasses-xmashat-overalls-scarf.png",
+   "width": 247,
+   "height": 92,
+   "sha256": "389e1171aed0f734910316b3bee0ee88846d976431b0cdbf537ff8d5e1b2709d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-hairleafy.png",
+   "width": 233,
+   "height": 153,
+   "sha256": "8345c3b28abfaa9c677201bf4e91b6862dd5e32aed4682382581d2f4924cf157",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-hairrosette.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "be95aeec2099d07aa01f27ec81c91ef9d0d7122613361eea290982411e741530",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-hairswirl.png",
+   "width": 234,
+   "height": 173,
+   "sha256": "6a24e459bdd8646ce073f2bdbc18123f057c7987143fbb4b11d6181c61b386af",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-buckethat.png",
+   "width": 231,
+   "height": 138,
+   "sha256": "fe40d17009a57cf33c94dc0d4dd34c0fe1a334da17a15a909262f7631134f93f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-cap.png",
+   "width": 231,
+   "height": 164,
+   "sha256": "b385a48788feb7047fef780680da060c20e2fd2e5d897fab69f216acb1769afa",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-beret.png",
+   "width": 229,
+   "height": 150,
+   "sha256": "6e1007665c726ee126434d6d3cf32334429665a804f2620b2bc1dc07d7794efa",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-earmuffhair.png",
+   "width": 232,
+   "height": 147,
+   "sha256": "262fb4ebad9548cdcba7ba746267fd5345c1a3548aae736fd82e1895884f78dc",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-xmashat.png",
+   "width": 226,
+   "height": 151,
+   "sha256": "d3bbdc5689072724249f29560fb7a9796b4bc0270f37e04fb2e7f2577e892329",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-glasses.png",
+   "width": 231,
+   "height": 86,
+   "sha256": "3ae6e83df2173a110769910756ce64f9b62296db579dc6e4685ee859097082fd",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-scarf.png",
+   "width": 203,
+   "height": 190,
+   "sha256": "d49612d41048e78acbc1b4450496f0efe48eba6b98f056bf29afe60aff9bcaab",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-jacket.png",
+   "width": 228,
+   "height": 162,
+   "sha256": "a9418a0ca252dfcad10a36b0c62578e708cb3d5f001370eb492664fc8889bf8e",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-coat.png",
+   "width": 228,
+   "height": 129,
+   "sha256": "23b4d520dcb50302d2102be3f17f8f3c9374d502ce801b9463de46dcb6e8151d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "sprigv2-icon-overalls.png",
+   "width": 229,
+   "height": 154,
+   "sha256": "5f3e47c9e66c0e8bb75237fa6761bb27e859343ec8aabf7c8e961fc3ce6eeddf",
+   "slot": "char.hero3d.motion.sprig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
   }

@@ -137,17 +137,15 @@ namespace Bloomlings.Playtest.Preview
                 app.GoHome(); CloseAll(app); Run(app, p, .4f);
             });
 
-            foreach(var target in new[]{(108,"simple-sprig-shop",0),(112,"simple-twig-shop",3)})
+            foreach(var target in new[]{(108,"sprig-wardrobe-preview",Family.Sprig),(112,"twig-wardrobe-preview",Family.Twig)})
             {
                 var scene=target;
-                yield return new Fixture(scene.Item1,scene.Item2,"Shop shows the new base and withholds accessories fitted to the old model",(p,data)=>
+                yield return new Fixture(scene.Item1,scene.Item2,"Fitted equipment is available in Wardrobe",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=scene.Item3;
+                    var app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();app.WardrobeBrowse.Select(scene.Item3);
                     p.DrawnSprites.Clear();Run(app,p,.15f);
-                    string family=scene.Item3==0?"sprig":"twig";
-                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+(scene.Item3==3 ? "twigv2-base-pumpkinhat" : "simplehero-"+family)),"Shop draws the new family base");
-                    Expect(!p.DrawnSprites.Any(n=>n.Contains("mod-icon-",StringComparison.Ordinal)),"unfitted old accessories are absent from Shop");
-                    if(scene.Item3==3)Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-none"),"default Twig is never bald in Shop");
+                    var frame=HeroGearArt.Layer(scene.Item3,app.Meta.Wardrobe.OutfitOf(scene.Item3),0)!.Value;
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Name),"Wardrobe draws new stock family base");
                 });
             }
             foreach(var target in new[]{(109,"simple-heroes-home",false),(113,"simple-heroes-saved-outfit",true),(114,"simple-heroes-reloaded",true),(117,"simple-heroes-fresh-home",false)})
@@ -177,7 +175,7 @@ namespace Bloomlings.Playtest.Preview
                     var app=Progressed(App(data),content,87);CloseAll(app);app.WardrobeBrowse.Select(scene.Item3);app.OpenWardrobe();
                     p.DrawnSprites.Clear();Run(app,p,.5f);
                     Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(scene.Item3,app.Meta.Wardrobe.OutfitOf(scene.Item3),0)!.Value.Name),"Wardrobe draws the new base");
-                    Expect(!WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,scene.Item3).Any(c=>c.Item?.MetaOnly==true&&!TwigV2Art.IsItem(c.Item.Id)),"unfitted previous 3D attachments are withheld from the shelf");
+                    Expect(!WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,scene.Item3).Any(c=>c.Item?.MetaOnly==true&&!HeroGearArt.CanPreview(c.Item)),"unfitted previous 3D attachments are withheld from the shelf");
                     if(scene.Item3==Family.Twig)Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-none"),"the wardrobe Default preview restores the stock hat");
                 });
             }
@@ -195,22 +193,31 @@ namespace Bloomlings.Playtest.Preview
                 });
             }
 
-            yield return new Fixture(120,"twig-modular-shop","Acorn and Panama equip through actual free Shop cards",(p,data)=>
+            yield return new Fixture(120,"twig-modular-wardrobe-trial","Wardrobe fits and persists every delivered Twig item",(p,data)=>
             {
-                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.15f);
-                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
-                long before=app.Meta.Economy.Petals;
-                foreach(var item in new[]{(1,TwigV2Art.AcornId),(2,TwigV2Art.BucketId)})
+                var app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Twig);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                long petals=app.Meta.Economy.Petals;
+                void Choose(string id)
                 {
-                    Tap(p,ShopCatalogDesign.CosmeticCard(area,item.Item1));Run(app,p,.1f);
-                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==item.Item2,"actual free Shop card selects the fitted hat");
-                    Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==item.Item2,"hat survives a real application save/reload");
+                    app.Meta.Wardrobe.Catalog.TryGet(id,out var item);app.WardrobeBrowse.Select(item!.Kind);
+                    var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,item.Kind,Family.Twig).ToList();
+                    int index=shelf.FindIndex(c=>c.Item?.Id==id);Expect(index>0,"item is present in its Wardrobe category");
+                    var card=r.Cell(index);app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(shelf.Count));Run(app,p,.1f);
+                    Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.EquippedFor(Family.Twig,item.Kind)?.Id==id,"actual shelf card equips "+id);
+                    Expect(App(data).Meta.Wardrobe.EquippedFor(Family.Twig,item.Kind)?.Id==id,"restart retains "+id);
                 }
-                Expect(app.Meta.Economy.Petals==before&&app.Overlays.Count==0,"choosing free headwear spends nothing");
-                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
-                Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat==null&&App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat==null,"Remove persists the bare base across restart");
-                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
-                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-icon-buckethat"),"Shop uses the extracted Panama icon");
+                foreach(string id in TwigV2Art.ItemIds)Choose(id);
+                foreach(var kind in CosmeticCatalog.WornKinds)
+                {
+                    app.WardrobeBrowse.Select(kind);app.WardrobeBrowse.SetOffset(0,0);Run(app,p,.1f);
+                    Outfit before=app.Meta.Wardrobe.OutfitOf(Family.Twig);Tap(p,r.Cell(0));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Get(kind)==null,"Default clears only "+kind);
+                    foreach(var other in CosmeticCatalog.WornKinds)if(other!=kind)Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Get(other)?.Id==before.Get(other)?.Id,"other slots survive Default");
+                }
+                Choose(TwigV2Art.BeretId);Choose(TwigV2Art.GlassesId);Choose(TwigV2Art.ScarfId);Choose(TwigV2Art.CoatId);
+                Expect(app.Meta.Economy.Petals==petals&&app.Overlays.Count==0,"free trial spends nothing");
             });
             foreach(var target in new[]{(121,"twig-modular-home-acorn",TwigV2Art.AcornId),(122,"twig-modular-home-panama",TwigV2Art.BucketId),(123,"twig-modular-wardrobe-panama",TwigV2Art.BucketId)})
             {
@@ -237,39 +244,31 @@ namespace Bloomlings.Playtest.Preview
                 for(int layer=1;layer<HeroGearArt.LayerCount;layer++)if(HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer) is HeroFrame worn)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+worn.Name),"victory keeps the saved accessory layer");
             });
 
-            yield return new Fixture(125,"twig-v2-shop","Every delivered V2 part equips and removes through the actual Shop",(p,data)=>
+            yield return new Fixture(125,"twig-v2-wardrobe-trial","Wardrobe fits and persists every delivered Twig item",(p,data)=>
             {
-                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.1f);
-                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
-                var items=app.Meta.Wardrobe.ShopItems.Where(i=>i.Fits(Family.Twig)&&HeroGearArt.CanPreview(i)).ToList();
+                var app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Twig);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
                 long petals=app.Meta.Economy.Petals;
-                using var fixedHeader=SkiaSharp.SKBitmap.Decode(p.Png());
-                void Choose(string? id)
+                void Choose(string id)
                 {
-                    int index=id==null?0:items.FindIndex(i=>i.Id==id)+1;Expect(id==null||index>0,"item is present in Shop");
-                    var card=ShopCatalogDesign.CosmeticCard(area,index);
-                    app.ShopScrollOffset=Math.Max(0,card.Top-area.Top-area.Height*.1f);Run(app,p,.1f);
-                    Tap(p,card.Offset(0,-app.ShopScrollOffset));Run(app,p,.1f);
-                }
-                foreach(string id in TwigV2Art.ItemIds)
-                {
-                    Choose(id);app.Meta.Wardrobe.Catalog.TryGet(id,out var item);
-                    Expect(app.Meta.Wardrobe.EquippedFor(Family.Twig,item!.Kind)?.Id==id,"actual card equips "+id);
+                    app.Meta.Wardrobe.Catalog.TryGet(id,out var item);app.WardrobeBrowse.Select(item!.Kind);
+                    var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,item.Kind,Family.Twig).ToList();
+                    int index=shelf.FindIndex(c=>c.Item?.Id==id);Expect(index>0,"item is present in its Wardrobe category");
+                    var card=r.Cell(index);app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(shelf.Count));Run(app,p,.1f);
+                    Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.EquippedFor(Family.Twig,item.Kind)?.Id==id,"actual shelf card equips "+id);
                     Expect(App(data).Meta.Wardrobe.EquippedFor(Family.Twig,item.Kind)?.Id==id,"restart retains "+id);
                 }
-                Choose(TwigV2Art.OverallsId);
-                Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Clothes==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat!=null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Scarf!=null,"Remove garment preserves headwear and scarf");
-                Choose(TwigV2Art.JacketId);
-                Choose(TwigV2Art.ScarfId);Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Scarf==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Glasses!=null,"Remove scarf keeps glasses");
-                Choose(TwigV2Art.GlassesId);Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Glasses==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat!=null,"Remove glasses keeps headwear");
-                Choose(null);Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).IsEmpty,"Default removes every slot and persists");
+                foreach(string id in TwigV2Art.ItemIds)Choose(id);
+                foreach(var kind in CosmeticCatalog.WornKinds)
+                {
+                    app.WardrobeBrowse.Select(kind);app.WardrobeBrowse.SetOffset(0,0);Run(app,p,.1f);
+                    Outfit before=app.Meta.Wardrobe.OutfitOf(Family.Twig);Tap(p,r.Cell(0));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Get(kind)==null,"Default clears only "+kind);
+                    foreach(var other in CosmeticCatalog.WornKinds)if(other!=kind)Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Get(other)?.Id==before.Get(other)?.Id,"other slots survive Default");
+                }
                 Choose(TwigV2Art.BeretId);Choose(TwigV2Art.GlassesId);Choose(TwigV2Art.ScarfId);Choose(TwigV2Art.CoatId);
-                Expect(app.Meta.Economy.Petals==petals&&app.Overlays.Count==0,"free trial spends nothing and opens no purchase dialogs");
-                using var afterScroll=SkiaSharp.SKBitmap.Decode(p.Png());
-                var fixedRow=ShopCatalogDesign.FamilyTabs(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true));
-                for(int y=(int)fixedRow.Top-8;y<(int)area.Top-2;y+=5)
-                for(int x=(int)area.Left;x<(int)area.Right;x+=7)
-                    Expect(fixedHeader.GetPixel(x,y)==afterScroll.GetPixel(x,y),"scrolling equipment must not paint behind the fixed family row");
+                Expect(app.Meta.Economy.Petals==petals&&app.Overlays.Count==0,"free trial spends nothing");
             });
             foreach(var target in new[]{(126,"twig-v2-home-beret",TwigV2Art.BeretId,false),(127,"twig-v2-home-winter",TwigV2Art.EarmuffsId,true),(128,"twig-v2-wardrobe-holiday",TwigV2Art.XmasId,false)})
             {
@@ -305,6 +304,65 @@ namespace Bloomlings.Playtest.Preview
                     }
                 });
             }
+
+            foreach(var selection in new[]{(135,"sprig-v2-home-stock",SprigV2Art.LeafyId,""),(136,"sprig-v2-home-winter",SprigV2Art.EarmuffsId,SprigV2Art.JacketId),(137,"sprig-v2-home-summer",SprigV2Art.BucketId,SprigV2Art.OverallsId)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"New Sprig and aligned wearables appear on Home",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    Expect(app.Meta.Wardrobe.Equip(Family.Sprig,scene.Item3),"new head equips");
+                    if(scene.Item4.Length>0){app.Meta.Wardrobe.Equip(Family.Sprig,scene.Item4);app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.GlassesId);}
+                    if(scene.Item1==136)app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.ScarfId);
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                    var outfit=app.Meta.Wardrobe.OutfitOf(Family.Sprig);
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Sprig,outfit,i) is HeroFrame layer)
+                        Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws saved Sprig layer "+i);
+                    Expect(!p.DrawnSprites.Any(n=>n.Contains("sprig-idle-",StringComparison.Ordinal)||n.Contains("sprigmod-",StringComparison.Ordinal)),"retired Sprig cannot replace V2");
+                });
+            }
+            foreach(var selection in new[]{(138,"sprig-v2-wardrobe-head",CosmeticKind.Hat),(139,"sprig-v2-wardrobe-face",CosmeticKind.Glasses),(140,"sprig-v2-wardrobe-body",CosmeticKind.Clothes),(141,"sprig-v2-wardrobe-accessories",CosmeticKind.Scarf)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"Wardrobe categories isolate equip and Default actions",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    foreach(string id in new[]{SprigV2Art.SwirlId,SprigV2Art.CoatId,SprigV2Art.GlassesId,SprigV2Art.ScarfId})app.Meta.Wardrobe.Equip(Family.Sprig,id);
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Sprig);app.WardrobeBrowse.Select(scene.Item3);Run(app,p,.1f);
+                    var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                    Outfit before=app.Meta.Wardrobe.OutfitOf(Family.Sprig);
+                    Tap(p,r.Cell(0));Run(app,p,.1f);
+                    var reset=App(data).Meta.Wardrobe.OutfitOf(Family.Sprig);
+                    Expect(reset.Get(scene.Item3)==null,"Default persists only current slot");
+                    foreach(var other in CosmeticCatalog.WornKinds)if(other!=scene.Item3)Expect(reset.Get(other)?.Id==before.Get(other)?.Id,"Default preserves "+other);
+                    foreach(string label in new[]{"Head","Face","Body","Accessories"})Expect(Shows(p,label),"category label "+label);
+                    Expect(!Shows(p,"Skins")&&!Shows(p,"Trails")&&!Shows(p,"Faces"),"unused categories are hidden");
+                    Tap(p,r.Cell(1));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Get(scene.Item3)!=null,"category item equips through real tap");
+                });
+            }
+            yield return new Fixture(143,"sprig-v2-victory-outfit","New Sprig retains its complete outfit on victory",(p,data)=>
+            {
+                var app=App(data);app.Meta.SkipTo(11);
+                foreach(string id in new[]{SprigV2Art.SwirlId,SprigV2Art.OverallsId,SprigV2Art.GlassesId,SprigV2Art.ScarfId})
+                    Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"Sprig outfit equips before victory");
+                app.LoadLevel(12);CloseDemo(app);Run(app,p,.1f);
+                SolveResult win=new Solver.Solver().Solve(Session(content,12),SolveOptions.Default);
+                Expect(win.Status==SolveStatus.Solvable,"actual L12 is solvable");
+                Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);p.DrawnSprites.Clear();Run(app,p,1.1f);
+                Expect(app.Level!.Won&&app.Meta.CurrentLevel==13,"victory preserves progression");
+                for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Sprig,app.Meta.Wardrobe.OutfitOf(Family.Sprig),i) is HeroFrame layer)
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"victory draws saved Sprig layer "+i);
+            });
+            yield return new Fixture(142,"shop-without-cosmetics","Shop contains Shop and Animations only",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);CloseAll(app);app.OpenStore();Run(app,p,.1f);
+                Expect(!Shows(p,PlaytestText.T("store.tab_cosmetics")),"Cosmetics tab is absent");
+                Box tabs=ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets).Tabs;
+                Tap(p,NavigationSkin.Segment(tabs,1,2));Run(app,p,.2f);
+                Expect(app.StoreTab==1&&app.StoreMoving,"second tab opens animation previews");
+                Expect(!Shows(p,PlaytestText.T("store.tab_cosmetics")),"Cosmetics stays absent");
+            });
 
             yield return new Fixture(100, "hero-medals", "The four completed milestone heroes become wearable profile medals", (p, data) =>
             {
@@ -474,7 +532,7 @@ namespace Bloomlings.Playtest.Preview
                 p.InputTime = null; Run(app, p, .18f);
                 Expect(app.ShopScrollOffset > waitingOffset, "coasting resumes after the ready page is revealed");
                 p.TouchCancel();
-                app.StoreTab = 2; app.CloseStore(); Run(app, p, .1f);
+                app.StoreTab = 1; app.CloseStore(); Run(app, p, .1f);
                 Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets).Petals);
                 Expect(app.Screen == Design.Screen.Store && app.StoreTab == 0, "Home Petals always opens the Shop tab");
                 Run(app, p, .1f);
@@ -1073,85 +1131,30 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.2f);
             });
             yield return new Fixture(24, "bloomlings", "Extra: Bloomlings", (p, data) => Bloomlings(p));
-            yield return new Fixture(26, "store-cosmetics", "Extra: Store cosmetics (the Wardrobe look)", (p, data) =>
+            yield return new Fixture(26,"wardrobe-purchases","Wardrobe purchases confirm before spending",(p,data)=>
             {
-                // The Store page from the Wardrobe's Petals "+"; its back returns to the Wardrobe, then the page again on
-                // its Cosmetics tab.
-                DesignApp app = Progressed(App(data), content, 49);
-                CloseAll(app);
-                app.OpenWardrobe();
-                Run(app, p, 0.1f);
-                Box petals = ScreenLayout.ReferenceWardrobe(p.Width, p.Height, p.Insets).Petals;
-                Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
-                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Wardrobe, "the Wardrobe's Petals \"+\" opens the Store page");
-                Run(app, p, 0.1f);
-                Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);
-                Expect(app.Screen == Design.Screen.Wardrobe, "the Store page's back returns to the Wardrobe");
-                Run(app, p, 0.1f);
-                Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
-                Expect(app.Screen == Design.Screen.Store, "the Wardrobe's Petals \"+\" opens the Store page again");
-                Run(app, p, 0.1f);
-                // The tabs: Shop, Cosmetics (from L40) and Animations.
-                Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
-                Tap(p, Box.FromCenter(tabs.CenterX, tabs.CenterY, 1f, 1f));
-                Expect(app.StoreTab == 1, "a tap on the Cosmetics tab shows the cosmetics");
-                Run(app, p, 0.1f);
-
-                // Tap or scroll (FR-041, the owner's request of 2026-10-06): a drag over the cards buys nothing and opens
-                // nothing; a swipe up turns to the next page and a swipe down back; a tap on a card asks to buy it (FR-040),
-                // and the system back cancels without spending.
-                ReferenceStoreRegions store = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-                int balance = app.Meta.Economy.Petals;
-                int owned = app.Meta.Save.Cosmetics.Owned.Count;
-                Box area=ShopCatalogDesign.Viewport(store,true);
-                Box top=ShopCatalogDesign.CosmeticCard(area,1);
-                Box below=ShopCatalogDesign.CosmeticCard(area,3);
-                Drag(p, top.CenterX, top.CenterY, top.CenterX + (top.Width * 0.6f), top.CenterY + (top.Height * 0.1f));
-                Expect(app.Overlays.Count == 0 && app.StorePage == 0, "a sideways drag over a card taps nothing (and there is no page before)");
-                Drag(p, below.CenterX, below.CenterY, top.CenterX, top.CenterY);
-                Expect(app.Overlays.Count == 0 && app.ShopScrollOffset > 0, "an upward catalog drag scrolls without buying");
-                Run(app, p, 0.1f);
-                Drag(p, top.CenterX, top.CenterY, below.CenterX, below.CenterY);
-                Expect(app.Overlays.Count == 0 && app.ShopScrollOffset == 0, "a downward catalog drag returns to the top");
-                Run(app, p, 0.1f);
-                int paidIndex=1+app.Meta.Wardrobe.ShopItems.Where(i=>i.Fits(Family.Sprig)).ToList().FindIndex(i=>i.ForSale);
-                Drag(p, below.CenterX, below.CenterY, top.CenterX, top.CenterY);Run(app,p,.1f);
-                Tap(p, ShopCatalogDesign.CosmeticCard(area,paidIndex).Offset(0,-app.ShopScrollOffset));
-                Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer != null && app.Purchase.Offer.Petals > 0, "a tap on a card asks to buy it");
-                Expect(app.Back() && app.Overlays.Count == 0, "the system back cancels the confirmation");
-                Expect(app.Meta.Economy.Petals == balance && app.Meta.Save.Cosmetics.Owned.Count == owned, "nothing was bought");
-                Run(app, p, 0.5f);
+                var app=Progressed(App(data),content,87);app.Meta.Economy.Grant(12000,null);CloseAll(app);app.OpenWardrobe();Run(app,p,.1f);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
+                int index=shelf.FindIndex(c=>c.State==WardrobeItemState.ForSale);Expect(index>0,"paid head item remains available");
+                var card=r.Cell(index);app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(shelf.Count));Run(app,p,.1f);
+                long petals=app.Meta.Economy.Petals;Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                Expect(app.IsOpen(Overlay.Purchase),"Wardrobe asks before buying");Expect(app.Meta.Economy.Petals==petals,"opening confirmation spends nothing");
+                app.Back();Run(app,p,.1f);Expect(app.Meta.Economy.Petals==petals,"cancel spends nothing");
             });
-            yield return new Fixture(55,"store-cosmetics-bottom","Game Shop: final cosmetic items and scroll-safe purchases",(p,data)=>
+            yield return new Fixture(55,"wardrobe-bottom","Wardrobe scroll reaches its last item above the menu",(p,data)=>
             {
-                DesignApp app=Progressed(App(data),content,49);app.Meta.Economy.Grant(1000,null);
-                CloseAll(app);app.OpenStore();Run(app,p,.1f);
-                ReferenceStoreRegions r=ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets);
-                Tap(p,NavigationSkin.Segment(r.Tabs,1,3));Run(app,p,.1f);
-                Box area=ShopCatalogDesign.Viewport(r,true);
-                int petals=app.Meta.Economy.Petals,owned=app.Meta.Save.Cosmetics.Owned.Count;
-                Drag(p,area.CenterX,area.CenterY,area.CenterX,area.Top-6000);Run(app,p,.1f);
-                Expect(app.ShopScrollOffset>0&&app.Overlays.Count==0,"scroll reaches final items without tapping");
-                Expect(Shows(p,"Bramble Frame")&&Shows(p,"Watering Can Badge"),"the frame and badge remain reachable");
-                Box frame=ShopCatalogDesign.CosmeticCard(area,9).Offset(0,-app.ShopScrollOffset);
-                Tap(p,frame);Expect(app.IsOpen(Overlay.Purchase),"the frame asks before spending");
-                Expect(app.Meta.Economy.Petals==petals,"opening confirmation spends nothing");
-                app.Back();Run(app,p,.1f);
-                Box badge=ShopCatalogDesign.CosmeticCard(area,10).Offset(0,-app.ShopScrollOffset);
-                Tap(p,badge);Expect(app.IsOpen(Overlay.Purchase),"the badge is purchasable at the bottom");
-                app.Back();Run(app,p,.1f);
-                Expect(app.Meta.Economy.Petals==petals&&app.Meta.Save.Cosmetics.Owned.Count==owned,"cancelling both spends nothing");
-                Tap(p,frame);Run(app,p,.3f);
-                Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Confirm);Run(app,p,.1f);
-                Expect(app.Meta.Save.Cosmetics.Owned.Contains("frame.bramble")&&app.Meta.Economy.Petals==petals-350,"confirmed frame purchase charges the existing price once");
+                var app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);
+                app.WardrobeBrowse.SetOffset(r.Maximum(shelf.Count),r.Maximum(shelf.Count));Run(app,p,.1f);
+                Expect(r.Cell(shelf.Count-1).Bottom-app.WardrobeBrowse.Offset<=r.NavTop,"last item clears menu");
+                Expect(app.Overlays.Count==0,"scroll opens no purchase");
             });
-            yield return new Fixture(56,"store-cosmetics-bloom","Game Shop: Bloom accessories",(p,data)=>
+            yield return new Fixture(56,"wardrobe-bloom","Wardrobe family switching preserves category",(p,data)=>
             {
-                DesignApp app=Progressed(App(data),content,49);CloseAll(app);app.OpenStore();Run(app,p,.1f);
-                ReferenceStoreRegions r=ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets);
-                Tap(p,NavigationSkin.Segment(r.Tabs,1,3));Run(app,p,.1f);
-                Tap(p,NavigationSkin.Segment(ShopCatalogDesign.FamilyTabs(r),1,4));Run(app,p,.1f);
-                Expect(app.StoreFamily==1&&app.ShopScrollOffset==0,"family switch resets only the catalog scroll");
+                var app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();app.WardrobeBrowse.Select(CosmeticKind.Glasses);Run(app,p,.1f);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);Tap(p,NavigationSkin.Segment(r.Families,1,4));Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.Family==Family.Bloom&&app.WardrobeBrowse.Kind==CosmeticKind.Glasses,"family switch retains selected slot");
             });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
             yield return new Fixture(73, "leaderboard-customized", "Leaderboard: saved avatars, frames, badges and long names", (p,data) =>
@@ -1665,8 +1668,8 @@ namespace Bloomlings.Playtest.Preview
                 app.OpenStore();
                 Run(app, p, 0.1f);
                 Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
-                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 6f), tabs.CenterY, 1f, 1f));
-                Expect(app.StoreTab == 2, "a tap on the Animations tab shows the clearing styles");
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
+                Expect(app.StoreTab == 1, "a tap on the Animations tab shows the clearing styles");
                 Run(app, p, 6f);
                 Expect(p.Slots.Contains("ui.card.clearing") && p.Slots.Contains("fx.clear.fireflies"), "the cards' live previews");
             });
@@ -1682,7 +1685,7 @@ namespace Bloomlings.Playtest.Preview
                 // Free Sprig accessories add Cosmetics before L40; paid animations retain their lock.
                 Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
                 Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
-                Expect(app.StoreTab == 2, "a tap on the Animations tab shows the clearing styles");
+                Expect(app.StoreTab == 1, "a tap on the Animations tab shows the clearing styles");
                 Run(app, p, 0.1f);
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
                 Box bubbles = ShopCatalogDesign.AnimationCard(ShopCatalogDesign.Viewport(r,false),ClearStyles.Free.Count+ClearStyles.Bought.ToList().IndexOf(ClearStyle.Bubbles));
@@ -1740,8 +1743,8 @@ namespace Bloomlings.Playtest.Preview
                 app.OpenStore();
                 Run(app, p, 0.1f);
                 Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
-                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 6f), tabs.CenterY, 1f, 1f));
-                Expect(app.StoreTab == 2, "the Animations tab");
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
+                Expect(app.StoreTab == 1, "the Animations tab");
                 Run(app, p, 0.2f);
                 Expect(app.NeedsFrames && app.StoreMoving, "the live previews keep the host drawing");
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);

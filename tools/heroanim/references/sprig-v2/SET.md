@@ -1,7 +1,7 @@
 # Sprig — complete modular reference set
 
-Prepared for the next Tripo / Blender modeling pass. These are modeling references; the current in-game Sprig and
-its catalog stay unchanged until the owner supplies the fitted 3D parts.
+Prepared for the next Tripo / Blender modeling pass. These modeling references now accompany the delivered fitted SprigHeroV2.
+The current in-game preview and source files are documented in `../../models/sprig-v2/README.md`.
 
 **13 planned fitted definitions:** 8 Head (including the stock leaf style), 1 reused Glasses, 1 Neck, 3 Clothes.
 The bald base is a modeling scaffold, never the intended in-game default. Hairstyles and headwear share one slot.

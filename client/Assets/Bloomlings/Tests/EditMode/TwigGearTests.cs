@@ -34,7 +34,9 @@ namespace Bloomlings.Client.Tests
             Assert.That(HeroGearArt.Layer(Family.Twig, shown, 3)!.Value.Name, Is.EqualTo("twigv2-glasses-pumpkinhat"), "eyewear uses the stock hat's matching mask");
             Assert.That(shown!.Clothes?.Id, Is.EqualTo(TwigV2Art.CoatId));
             var reset = WardrobeShelfCatalog.Preview(shown, CosmeticKind.Hat, null);
-            Assert.That(reset.IsEmpty, Is.True);
+            Assert.That(reset.Hat, Is.Null);
+            Assert.That(reset.Clothes?.Id, Is.EqualTo(TwigV2Art.CoatId));
+            Assert.That(reset.Glasses?.Id, Is.EqualTo(TwigV2Art.GlassesId));
             Assert.That(HeroGearArt.Layer(Family.Twig, reset, 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
             wardrobe.UnequipAccessories(Family.Twig);
             var loaded = new WardrobeService(SaveSerializer.Read(SaveSerializer.ToJObject(save)), Catalog, new BundledRemoteConfigService(), () => {});
@@ -97,12 +99,11 @@ namespace Bloomlings.Client.Tests
             var economy = new EconomyService(save, EconomyConfig.From(config), () => {});
             var wardrobe = new WardrobeService(save, Catalog, config, () => {}, economy);
             long petals = economy.Petals;
-            var shelf = WardrobeShelfCatalog.Build(wardrobe, CosmeticKind.Hat, Family.Twig);
             foreach (string id in TwigV2Art.ItemIds)
             {
                 Assert.That(Catalog.TryGet(id, out var item), Is.True, id);
                 Assert.That(item!.Free && item.MetaOnly && HeroGearArt.CanPreview(item), Is.True, id);
-                Assert.That(shelf.Any(cell => cell.Item?.Id == id), Is.True, id);
+                Assert.That(WardrobeShelfCatalog.Build(wardrobe, item.Kind, Family.Twig).Any(cell => cell.Item?.Id == id), Is.True, id);
                 Assert.That(TwigV2Art.Icon(id), Is.Not.Null, id);
                 Assert.That(wardrobe.Equip(Family.Sprig, id), Is.False, id);
                 Assert.That(wardrobe.Equip(Family.Twig, id), Is.True, id);
@@ -143,7 +144,7 @@ namespace Bloomlings.Client.Tests
                 if (clothes.Length > 0) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 1)!.Value.Name, Is.EqualTo("twigv2-clothes-" + garment));
                 if (scarf) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2)!.Value.Name, Is.EqualTo("twigv2-scarf-" + garment), "scarf mask follows the selected garment");
                 Assert.That(shown.ForGameplay.IsEmpty, Is.True);
-                Assert.That(WardrobeShelfCatalog.Chosen(loaded, Family.Twig, CosmeticKind.Hat, null), Is.EqualTo(head.Length == 0 && clothes.Length == 0 && !glasses && !scarf));
+                Assert.That(WardrobeShelfCatalog.Chosen(loaded, Family.Twig, CosmeticKind.Hat, null), Is.EqualTo(head.Length == 0));
                 if (clothes.Length > 0)
                 {
                     Assert.That(CosmeticCatalog.KindOfName(CosmeticCatalog.KindName(CosmeticKind.Clothes)), Is.EqualTo(CosmeticKind.Clothes));
@@ -155,7 +156,11 @@ namespace Bloomlings.Client.Tests
                 if (scarf)
                 {
                     Assert.That(CosmeticCatalog.KindOfName(CosmeticCatalog.KindName(CosmeticKind.Scarf)), Is.EqualTo(CosmeticKind.Scarf));
-                    Assert.That(WardrobeShelfCatalog.Preview(shown, CosmeticKind.Hat, null).IsEmpty, Is.True);
+                    var headReset = WardrobeShelfCatalog.Preview(shown, CosmeticKind.Hat, null);
+                    Assert.That(headReset.Hat, Is.Null);
+                    Assert.That(headReset.Clothes, Is.EqualTo(shown.Clothes));
+                    Assert.That(headReset.Glasses, Is.EqualTo(shown.Glasses));
+                    Assert.That(headReset.Scarf, Is.EqualTo(shown.Scarf));
                     loaded.Unequip(Family.Twig, CosmeticKind.Scarf);
                     Assert.That(loaded.OutfitOf(Family.Twig).Scarf, Is.Null);
                     Assert.That(loaded.OutfitOf(Family.Twig).Glasses?.Id, Is.EqualTo(glasses ? TwigV2Art.GlassesId : null));

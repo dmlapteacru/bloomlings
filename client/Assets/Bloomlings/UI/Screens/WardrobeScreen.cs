@@ -132,7 +132,7 @@ namespace Bloomlings.Client.UI.Screens
             string[] labels=new string[4],keys=new string[4];
             for(int i=0;i<4;i++){var k=CosmeticCatalog.WornKinds[i];labels[i]=KindLabel(k);keys[i]="wardrobe.kind_"+k.ToString().ToLowerInvariant();}
             TabsView kinds=UiKit.Tabs("Categories",_filters,labels,i=>Select(CosmeticCatalog.WornKinds[i]),keys);
-            UiKit.PlaceScreen((RectTransform)kinds.transform,_regions.Categories);kinds.Select((int)_browse.Kind);
+            UiKit.PlaceScreen((RectTransform)kinds.transform,_regions.Categories);int selected=0;for(int i=0;i<4;i++)if(CosmeticCatalog.WornKinds[i]==_browse.Kind)selected=i;kinds.Select(selected);
         }
         private void ClearCells()
         {
@@ -191,7 +191,7 @@ namespace Bloomlings.Client.UI.Screens
                     figure.ShowHero(family,WardrobeShelfCatalog.Preview(_wardrobe.OutfitOf(family),kind,item));
                 },()=>{if(_wardrobe.TryBuy(item.Id))_wardrobe.Equip(family,item.Id);},()=>_toast.Show(Loc.T("gameplay.not_enough_petals")));return;
             }
-            if(item==null&&kind==CosmeticKind.Hat)_wardrobe.UnequipAccessories(family);else if(item==null||_wardrobe.EquippedFor(family,kind)?.Id==item.Id)_wardrobe.Unequip(family,kind);else _wardrobe.Equip(family,item.Id);
+            if(item==null||_wardrobe.EquippedFor(family,kind)?.Id==item.Id)_wardrobe.Unequip(family,kind);else _wardrobe.Equip(family,item.Id);
         }
         private void Update()
         {

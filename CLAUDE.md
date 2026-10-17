@@ -226,10 +226,13 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   never taps and a swipe turns the page. Preview frame 49 shows the confirmation over the Store's Animations tab.
 - Current hero sources (owner approval, 2026-10-17): TwigHeroV2 is the permanent Twig identity; source ZIP, rig,
   aligned accessories and rebuild: `tools/heroanim/models/twig-v2/README.md`. Modeling / texture references including
-  the bald base: `tools/heroanim/references/twig-v2/README.md`. Sprig / Bloom / Drop retain the simplified Tripo models.
+  the bald base: `tools/heroanim/references/twig-v2/README.md`. SprigHeroV2 is the new modular Sprig preview:
+  `tools/heroanim/models/sprig-v2/README.md` (13 fitted items; stock HairLeafy, never bald in game; scarf garment fits).
+  Bloom / Drop retain the simplified Tripo models. Wardrobe uses Head / Face / Body / Accessories, with category-local
+  Default and independent saved slots. Cosmetics has been removed from Shop by owner request; equipment lives only in Wardrobe.
   Twig has 12 fitted items: seven Head choices, one Glasses, three Clothes, one Neck; `models/twig-v2/ITEMS.md` lists IDs.
   Stock Twig always wears the Acorn Hat, including fresh / removed / Default states; the bald base is for modeling only.
-  Sprig modular-base generation reference: `tools/heroanim/references/sprig-v2/README.md` (not yet a game replacement).
+  Sprig modular-base generation reference: `tools/heroanim/references/sprig-v2/README.md`.
   The latest source includes four additional FBXs alongside the original ZIP. Clothes saves independently; 35
   sprites cover 128 outfits. Warm brown eyewear / Panama materials: `tools/heroanim/twig-v2-look.json`.
   Meta screens use static 2D renders plus breathing; skeletal actions / action selection remain separate future work.

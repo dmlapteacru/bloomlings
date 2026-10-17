@@ -98,6 +98,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A frame's picture name: <c>sprig-idle-07</c>.</summary>
         public static string FrameName(Family family, MotionClip clip, int index) =>
             family == Family.Twig ? TwigV2Art.Layer(null, 0)!.Value.Name :
+            family == Family.Sprig ? SprigV2Art.Layer(null, 0)!.Value.Name :
             CharacterArt.FamilyName(family) + "-" + ClipName(clip) + "-" + index.ToString("00", CultureInfo.InvariantCulture);
 
         /// <summary>The asset slot of a family's frames: <c>char.hero3d.motion.sprig</c>.</summary>
@@ -256,8 +257,17 @@ namespace Bloomlings.Client.UI.Design
             foreach (ClipData data in TwigPresentation)
                 foreach (MotionClip clip in Clips)
                     if (data.Clip == ClipName(clip)) index[((int)Family.Twig * ClipCount) + (int)clip] = data;
+            foreach (ClipData data in SprigPresentation)
+                foreach (MotionClip clip in Clips)
+                    if (data.Clip == ClipName(clip)) index[((int)Family.Sprig * ClipCount) + (int)clip] = data;
             return index;
         }
+
+        private static readonly ClipData[] SprigPresentation = new[]
+        {
+            new ClipData("sprig", "idle", 96), new ClipData("sprig", "react", 72),
+            new ClipData("sprig", "win", 48), new ClipData("sprig", "win2", 72), new ClipData("sprig", "winidle", 96),
+        };
 
         // Keep the approved 2D breath / reaction timing without loading any retired Twig frame.
         // Skeletal action selection is a separate feature; all current Twig hosts share the V2 pose.
@@ -279,6 +289,12 @@ namespace Bloomlings.Client.UI.Design
             public ClipData(string clip, int count)
             {
                 Family = "twig"; Clip = clip; _still = TwigV2Art.Layer(null, 0)!.Value; _stillCount = count;
+                _crops = Array.Empty<short>(); _points = Array.Empty<float>(); _names = Array.Empty<string>();
+            }
+
+            public ClipData(string family, string clip, int count)
+            {
+                Family = family; Clip = clip; _still = SprigV2Art.Layer(null, 0)!.Value; _stillCount = count;
                 _crops = Array.Empty<short>(); _points = Array.Empty<float>(); _names = Array.Empty<string>();
             }
 

@@ -1,5 +1,16 @@
 # Source record: the owner's animated heroes and layered Home (spec 005 FR-028)
 
+## SprigHeroV2 modular preview (2026-10-17)
+
+The owner supplied two original ZIPs containing the aligned bald Sprig base, rig, four actions, eight Head items,
+Glasses, Scarf and three Body garments. Originals and hashes: `models/sprig-v2/source-manifest.json`.
+`prepare-sprig-v2.py` preserves world geometry / UVs and scarf fit shape keys; `bake-sprig-v2.mjs` renders cropped
+RGBA8 layers with the delivered albedo and the same gentle lighting as Twig V2. `sprig-v2.json` pins every source,
+the generated `SprigV2Data.cs` and all 157 PNGs (3,288,169 bytes). The stock in-game head is HairLeafy.
+Source files / GLB derivatives remain offline; no runtime 3D or APK build is introduced. The 384 previous motion
+PNGs are retained outside runtime under `archive/sprig/`. Wardrobe now separates Head, Face, Body and Accessories;
+all 13 fitted Sprig parts are temporarily free there. Shop no longer includes Cosmetics.
+
 ## Separate owner model rigging study (2026-10-16)
 
 The owner supplied `plant+character+3d+model.zip` in conversation and asked to try rigging/animating it.

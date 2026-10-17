@@ -1,0 +1,1542 @@
+{
+  "retiredAtCommit": "50fa00fa",
+  "reason": "Replaced by owner-aligned SprigHeroV2; legacy animation PNGs stay outside runtime.",
+  "files": [
+    {
+      "path": "motion/sprig-idle-00.png",
+      "sha256": "3332baf666a9a4d5c65beac24400bdac663e4306c423acf69595d16e8e5da330"
+    },
+    {
+      "path": "motion/sprig-idle-01.png",
+      "sha256": "00ac57a0371298300efac3be788fe9b251507a85c8676ba3434934cd760dfe66"
+    },
+    {
+      "path": "motion/sprig-idle-02.png",
+      "sha256": "c282cdcbba4dad719f3bb953fcb3d19fc8375215e1e204fc39dc885d7c9d2316"
+    },
+    {
+      "path": "motion/sprig-idle-03.png",
+      "sha256": "0a77d6f1f56fbe46f26c338a588e4cba4886833629a657e60fd2a64afa617e4d"
+    },
+    {
+      "path": "motion/sprig-idle-04.png",
+      "sha256": "dab1190cb3c7b40e78052fd316b115a6c8a875c7b6df488ede75b2b0d54143fb"
+    },
+    {
+      "path": "motion/sprig-idle-05.png",
+      "sha256": "7a516fe3bce7f0002a7d9cbd2c5d0049c3b59ddb3ddbd36713bf31c58b560fd5"
+    },
+    {
+      "path": "motion/sprig-idle-06.png",
+      "sha256": "883709a6a7768843384863d171bfac3f67537f6e60cab2a4654473fe13b4e686"
+    },
+    {
+      "path": "motion/sprig-idle-07.png",
+      "sha256": "fa1ca4b32ef2c05d7016feabb6f62f3a8fb29bb5169c42b05c42bc3376b209cb"
+    },
+    {
+      "path": "motion/sprig-idle-08.png",
+      "sha256": "e4ca79a6b6d79cf3e66ecd46ca7c4a3e20ea6532b18e3dde6b01a0c5e51867d8"
+    },
+    {
+      "path": "motion/sprig-idle-09.png",
+      "sha256": "9e704bfadd8da458e632c79f3468dad1e54611f99aa2625d388f779e715b5ace"
+    },
+    {
+      "path": "motion/sprig-idle-10.png",
+      "sha256": "3f101ac4c808823a14e37d8d159cd014152b4f9dbd96c559995e8a706f435f72"
+    },
+    {
+      "path": "motion/sprig-idle-11.png",
+      "sha256": "efe6a1d8856f546127a0db8d7d5f5bb2dcae31a2d1d3929713fb672f2f6411a8"
+    },
+    {
+      "path": "motion/sprig-idle-12.png",
+      "sha256": "345dd18271510ae712f09fb0bd643cb99ac7e7b1335ab6b35b52088ea632c16d"
+    },
+    {
+      "path": "motion/sprig-idle-13.png",
+      "sha256": "5e28b0753ad9f4a118b9de7ff34e568c870ffc7b5afacb8e29b754f92544f7a5"
+    },
+    {
+      "path": "motion/sprig-idle-14.png",
+      "sha256": "b143c5f9449b736cd45dd3905cb18a841dd4e1e15d30adec88143a76b812241f"
+    },
+    {
+      "path": "motion/sprig-idle-15.png",
+      "sha256": "b599e6ebab77ae10b6f90c9dbff99ce47edbfe505cafbc3e13fc9b0db53b3352"
+    },
+    {
+      "path": "motion/sprig-idle-16.png",
+      "sha256": "76011a821967f59e50296f2a3f3ce794d1e2a28d886ff7683926f1bf386ce50a"
+    },
+    {
+      "path": "motion/sprig-idle-17.png",
+      "sha256": "59d2143dbe12b87cc2c20f639d1bab6af916d801c7b46f7d1157a422db742e4f"
+    },
+    {
+      "path": "motion/sprig-idle-18.png",
+      "sha256": "16b32492160a12bd1ff9133d2ffe3845cd66ddaab4fa721953407392c3b9eb09"
+    },
+    {
+      "path": "motion/sprig-idle-19.png",
+      "sha256": "a932f2bea4780e4d24386e99a07e65671bddbe3ce0a49d6cd8cfda3067c33e84"
+    },
+    {
+      "path": "motion/sprig-idle-20.png",
+      "sha256": "85a0da417ae8b3f83af8b35fe8c45e70c09ed8240a4d7a82b04d6cd5088a47d8"
+    },
+    {
+      "path": "motion/sprig-idle-21.png",
+      "sha256": "46fe33dcf4ee965f0d9ec5ea7193f4d356337fd7bdddedf8816da2f94d91c8a8"
+    },
+    {
+      "path": "motion/sprig-idle-22.png",
+      "sha256": "010263fcd490ce5afb20a7b7a1d739f03a131c63aa5500fd421122e363d64f03"
+    },
+    {
+      "path": "motion/sprig-idle-23.png",
+      "sha256": "1997b31d598a756ab8b2774a101383fea4057db79d58771eb6a4ec0853aa7cd8"
+    },
+    {
+      "path": "motion/sprig-idle-24.png",
+      "sha256": "347eb34a6e150a30653e63d851185e66dd02df0d4ddad562823b680fbe793809"
+    },
+    {
+      "path": "motion/sprig-idle-25.png",
+      "sha256": "4a0c1674b1fbb102e7427272a13e2030c0d346546c92b6ddc24b04cf7afa0892"
+    },
+    {
+      "path": "motion/sprig-idle-26.png",
+      "sha256": "515ff4a0a52ee0778d30a87db8c8bb20ad005c9ff96adb26d7d398aeaa35a514"
+    },
+    {
+      "path": "motion/sprig-idle-27.png",
+      "sha256": "e6d9dcf81a9bb5c96dde79432fcca0104777e90316151c9b5adc69991e49c8ec"
+    },
+    {
+      "path": "motion/sprig-idle-28.png",
+      "sha256": "c72b9f77e91d492142bf39c09de179565ff50ac6d26b5494633b37c0bc158f59"
+    },
+    {
+      "path": "motion/sprig-idle-29.png",
+      "sha256": "99dd60444971c9aa700840a6ef7f7f3492afc21e5008469e627d1c6746f3f5c4"
+    },
+    {
+      "path": "motion/sprig-idle-30.png",
+      "sha256": "4180d224f117e52121676419de9d151c6363f365bb61ad8af8e2dff9512a9c41"
+    },
+    {
+      "path": "motion/sprig-idle-31.png",
+      "sha256": "118611b6c45a7984220e6ac57877498120c694a37cf5653057dae5b18468c454"
+    },
+    {
+      "path": "motion/sprig-idle-32.png",
+      "sha256": "6d379bdd2e92f9b907dcbed60718518529bdcb17af55f50e2c206492c3c0d597"
+    },
+    {
+      "path": "motion/sprig-idle-33.png",
+      "sha256": "cd1beaca01497e5addd2cd6784e82e0d79b33415fbae3fe5b9a221065a938322"
+    },
+    {
+      "path": "motion/sprig-idle-34.png",
+      "sha256": "ef6ddd161d42221387582b3dee10d75b3dac088a484b6adbe9a3ff697ad4cd4a"
+    },
+    {
+      "path": "motion/sprig-idle-35.png",
+      "sha256": "97bd5646799c13bd96cc0887cb66a66fa2f65216ea35aae5ea402847ce1832cd"
+    },
+    {
+      "path": "motion/sprig-idle-36.png",
+      "sha256": "137530210db2d673b059a0453683e045d8e0ba3404a2e2d194a8f7ea93e87757"
+    },
+    {
+      "path": "motion/sprig-idle-37.png",
+      "sha256": "4a39eeacd5ef100fb09d02027224d5ac8af6a24159a9831cb088e9f1ba65eaa2"
+    },
+    {
+      "path": "motion/sprig-idle-38.png",
+      "sha256": "0ed6d303f4ae34e9c1ce88f3f8c3815f0168a475d61e6aaef5c8e149897556df"
+    },
+    {
+      "path": "motion/sprig-idle-39.png",
+      "sha256": "f6674cee8ae1d8cc8239e81ebd1495c6c056a007892fe719e96ea663fdcb4405"
+    },
+    {
+      "path": "motion/sprig-idle-40.png",
+      "sha256": "42d6518c9914f5736445a12941dba45735337da3a4e1df52b574398e8bb98c1f"
+    },
+    {
+      "path": "motion/sprig-idle-41.png",
+      "sha256": "8eecf9cc6483930b033d379d969699fc662759319bb3fa8027ca91c968735acd"
+    },
+    {
+      "path": "motion/sprig-idle-42.png",
+      "sha256": "e69222dc6eb51712399f9bd511d5d168bade04247cf4ab88d6ca198fa8ad0809"
+    },
+    {
+      "path": "motion/sprig-idle-43.png",
+      "sha256": "58a4deb6023e647bc4605199b2735dd82ee7113d5e21a36d91ae3b7747d0cf5f"
+    },
+    {
+      "path": "motion/sprig-idle-44.png",
+      "sha256": "885432862a9725a39f7593518d088ef7b748965746cbc728491016a87eea2872"
+    },
+    {
+      "path": "motion/sprig-idle-45.png",
+      "sha256": "26d0506254ce01097737a72456ed438d21f5e4ff20aa2bb33305a74761967393"
+    },
+    {
+      "path": "motion/sprig-idle-46.png",
+      "sha256": "fe7e0c8c690b8e8ef91d070ac039ed0c36ac3db365242adc153088f692a1b499"
+    },
+    {
+      "path": "motion/sprig-idle-47.png",
+      "sha256": "a9f7eb4d60537e779c2e640e7216fe7f25930b58c9733524ed89c63f7150f311"
+    },
+    {
+      "path": "motion/sprig-idle-48.png",
+      "sha256": "5fa5d078b56188f0d9e4dfe99fba9b577bb12cb3c1c35f4d8adf1bea90781a36"
+    },
+    {
+      "path": "motion/sprig-idle-49.png",
+      "sha256": "568e80420bf98719bb6307f0192698f032eaee85b4db1fce02c8eee22350de46"
+    },
+    {
+      "path": "motion/sprig-idle-50.png",
+      "sha256": "74a9e22b3c85c7ed47018f87440970745002984d883473c8411727bf184e7ba0"
+    },
+    {
+      "path": "motion/sprig-idle-51.png",
+      "sha256": "97bd5646799c13bd96cc0887cb66a66fa2f65216ea35aae5ea402847ce1832cd"
+    },
+    {
+      "path": "motion/sprig-idle-52.png",
+      "sha256": "6acebde636a79a27363e4fce32acd785bacb0cf30eb8d72c3ba2a9248f5f7f6a"
+    },
+    {
+      "path": "motion/sprig-idle-53.png",
+      "sha256": "eeaa93bbaa4fa1cf2f818e3de3a7c47f0fa9d947176e59adf17282b4f7f5e3e3"
+    },
+    {
+      "path": "motion/sprig-idle-54.png",
+      "sha256": "126f773807e8a2aaffa3e90697542e5210db87ea92909ea96e8930c76cd9b213"
+    },
+    {
+      "path": "motion/sprig-idle-55.png",
+      "sha256": "3121ee59982876d85afe70beb2f1e744ba21a098389465571036c9a1d1f7d255"
+    },
+    {
+      "path": "motion/sprig-idle-56.png",
+      "sha256": "871308b40d7fc21adf615885603131c005a42a18eafb574f39f1e688e3255e4d"
+    },
+    {
+      "path": "motion/sprig-idle-57.png",
+      "sha256": "1d3f3ede6205dd8e2c4181da74c58b800ef24f103dc1154a481e11715ae2a8b9"
+    },
+    {
+      "path": "motion/sprig-idle-58.png",
+      "sha256": "c948289e1e0e47252b965dc90ef7fd9d1f94e4927d9bcfd4c2d6a1c1c2059858"
+    },
+    {
+      "path": "motion/sprig-idle-59.png",
+      "sha256": "bf3c6d47c98d0a8ea378bac7e9073df5bdbed45407a831a2f3dcb06574c6329f"
+    },
+    {
+      "path": "motion/sprig-idle-60.png",
+      "sha256": "c72b9f77e91d492142bf39c09de179565ff50ac6d26b5494633b37c0bc158f59"
+    },
+    {
+      "path": "motion/sprig-idle-61.png",
+      "sha256": "6549242496cf7b77d98ac18d09ec0243228aecaaff80737f135a61d8bbad6d58"
+    },
+    {
+      "path": "motion/sprig-idle-62.png",
+      "sha256": "51e3bfafd95114400c82083544ce73d9c5468242c2fd0338be03bd0b1a5e4fb4"
+    },
+    {
+      "path": "motion/sprig-idle-63.png",
+      "sha256": "f80386d87012268310174a21cfb952c67b726da9ae9293702ec7bd13def8140e"
+    },
+    {
+      "path": "motion/sprig-idle-64.png",
+      "sha256": "2e03588d7d3c2b9080be99260f008c25f9d18656ec9bd5edb1d6b0fa37cf900c"
+    },
+    {
+      "path": "motion/sprig-idle-65.png",
+      "sha256": "c96fe71fb4f0f91968b5b8fdc32fce618c37b589c641105c5d384556cc9755ad"
+    },
+    {
+      "path": "motion/sprig-idle-66.png",
+      "sha256": "8f3174a43bf1e4e365fe653439b12d12a2c15171517ab2716411e2eccd46fac5"
+    },
+    {
+      "path": "motion/sprig-idle-67.png",
+      "sha256": "9f60c49f7e092a5c6ac5f06b19e8d787623b6232c29c54f61e344bc0f5eda3b2"
+    },
+    {
+      "path": "motion/sprig-idle-68.png",
+      "sha256": "fc4a09fc6349337c6b7aa08b920ccfe4101f25e4cf0e6f295c3b1210d25bf229"
+    },
+    {
+      "path": "motion/sprig-idle-69.png",
+      "sha256": "46fe33dcf4ee965f0d9ec5ea7193f4d356337fd7bdddedf8816da2f94d91c8a8"
+    },
+    {
+      "path": "motion/sprig-idle-70.png",
+      "sha256": "8213a134a4b8667639d23659d3554d7a7a6ce9b2f0fec15d536d658578013d8f"
+    },
+    {
+      "path": "motion/sprig-idle-71.png",
+      "sha256": "391aa1218e9ffa2b43744e5a3d80cb60cc115f84cecae90d49591a016f556ffb"
+    },
+    {
+      "path": "motion/sprig-idle-72.png",
+      "sha256": "d432fe339fddb5959d8919eda948a71d7c2cc7c00c86b697f3542bc10b808705"
+    },
+    {
+      "path": "motion/sprig-idle-73.png",
+      "sha256": "5b1d11fde56cc4803c9b678a5f8f6326779bc3b5b1ea289a96936fad01666970"
+    },
+    {
+      "path": "motion/sprig-idle-74.png",
+      "sha256": "520cac613cb915d4498676f960f8f9f23eeff2c6bfb31bbb1c30f049f5559ba4"
+    },
+    {
+      "path": "motion/sprig-idle-75.png",
+      "sha256": "38cd5af746e3f46c1dc0d00b95255a614f5980e5d9ac9dda4e75f749d037019a"
+    },
+    {
+      "path": "motion/sprig-idle-76.png",
+      "sha256": "301ff47e6be505e39f263a4cede8d76bdc9e8a17493673efe7353e06f40f3aa0"
+    },
+    {
+      "path": "motion/sprig-idle-77.png",
+      "sha256": "9aade13a2d00d1253a3098baa049bbe525779bef0d5cb5c5d1af62e0a88cd90b"
+    },
+    {
+      "path": "motion/sprig-idle-78.png",
+      "sha256": "b143c5f9449b736cd45dd3905cb18a841dd4e1e15d30adec88143a76b812241f"
+    },
+    {
+      "path": "motion/sprig-idle-79.png",
+      "sha256": "80acce8420783e4ddc6217337394321f4568f92b31a0c795d18039790b5a3bab"
+    },
+    {
+      "path": "motion/sprig-idle-80.png",
+      "sha256": "dec1bcc301cdb2c5d78f654a6b8d4306448922a24094cd38a1683da6ef1a34b8"
+    },
+    {
+      "path": "motion/sprig-idle-81.png",
+      "sha256": "eb68aa26b003f6c28b2df2062b0665f17412295c6cf627d3f9eedfa5b5b38255"
+    },
+    {
+      "path": "motion/sprig-idle-82.png",
+      "sha256": "9320a1914e9d05f8ac0f3f45bdf6a0730bea7bdae052a7c2027740cd558a7d43"
+    },
+    {
+      "path": "motion/sprig-idle-83.png",
+      "sha256": "9438aec021610df385fb774db2d57dc9aadf83a5f9debace1805b101e14b612a"
+    },
+    {
+      "path": "motion/sprig-idle-84.png",
+      "sha256": "ba879006e2de1c8c1034b7343a90c10e24dc744627a26dc7ab040be94ccab0a2"
+    },
+    {
+      "path": "motion/sprig-idle-85.png",
+      "sha256": "3672566d8fbd48ea83fbb0e261bf4b9285300411475aaf90b1d20a2b25eca48c"
+    },
+    {
+      "path": "motion/sprig-idle-86.png",
+      "sha256": "9d56754f84995a3ca5307efe84969bf4494b6b3d6634f58ece05776832655f14"
+    },
+    {
+      "path": "motion/sprig-idle-87.png",
+      "sha256": "28f19d7660af5a947762f583ebc018c1661c8a82b5ecbdb7480a18abf000152f"
+    },
+    {
+      "path": "motion/sprig-idle-88.png",
+      "sha256": "853d1f9bc0cf3ffbe2e4fb4baf3f0f4b508a5e8cfd0420569a0312a1db4888ca"
+    },
+    {
+      "path": "motion/sprig-idle-89.png",
+      "sha256": "f4294c4f00991314274d4e0e53d422221268139a04e60f8f5c4e1ea97b2dbc1a"
+    },
+    {
+      "path": "motion/sprig-idle-90.png",
+      "sha256": "4a0ea6bb3d951247902b704a9f967ecc9b1a13a97c54c6a81f4c2f2479e1f90f"
+    },
+    {
+      "path": "motion/sprig-idle-91.png",
+      "sha256": "115660b40ff7ce41cd97c0dcc990397b6c3dd4c20ed0bfea5ae53bfe56504dab"
+    },
+    {
+      "path": "motion/sprig-idle-92.png",
+      "sha256": "851f1bdbcee5886f1629915e6d69342e4691e332ee5d9cc2278132e569d2e84b"
+    },
+    {
+      "path": "motion/sprig-idle-93.png",
+      "sha256": "45e4616c770e2760cc5a802fc22625800761aeebe212bff98d27e8c069ad88d7"
+    },
+    {
+      "path": "motion/sprig-idle-94.png",
+      "sha256": "3332baf666a9a4d5c65beac24400bdac663e4306c423acf69595d16e8e5da330"
+    },
+    {
+      "path": "motion/sprig-idle-95.png",
+      "sha256": "3dcae21c638e0e181ffb13289aa1c7299f462340d6b6eaf66dd4154ef152b833"
+    },
+    {
+      "path": "motion/sprig-react-00.png",
+      "sha256": "3332baf666a9a4d5c65beac24400bdac663e4306c423acf69595d16e8e5da330"
+    },
+    {
+      "path": "motion/sprig-react-01.png",
+      "sha256": "05adf7dd309cab4fd0e97f6571ac9934adae836f1ae477301e8a6d7e1e946e4f"
+    },
+    {
+      "path": "motion/sprig-react-02.png",
+      "sha256": "ebfb314160e4783d616136f3263d968cf348d1ea62ee93f6e90a7de3398ea8a7"
+    },
+    {
+      "path": "motion/sprig-react-03.png",
+      "sha256": "68b4d7aaa26c073b314e6d540f9ead899310b111c7ae98cb5acc28cbc9e695f6"
+    },
+    {
+      "path": "motion/sprig-react-04.png",
+      "sha256": "00570e28e3f27f3981da7779a0da2392072bfc687426e19c09eba8af4b65cfb9"
+    },
+    {
+      "path": "motion/sprig-react-05.png",
+      "sha256": "f30736c8b03bef852ed94237b153f06d562fac416a4540b34101a39a1023b584"
+    },
+    {
+      "path": "motion/sprig-react-06.png",
+      "sha256": "a48f34d09361de1a4c40e073ca38a562817fb07891e29f42da1a8c77f806d0ff"
+    },
+    {
+      "path": "motion/sprig-react-07.png",
+      "sha256": "ef4b7b8651608d6c526b3421d9b5363918320996b36a4a68843d838634cd0d0a"
+    },
+    {
+      "path": "motion/sprig-react-08.png",
+      "sha256": "41e3378c55a3a403fbcacc225a66d642454ad6dc50455525d80e3b074f0ab04d"
+    },
+    {
+      "path": "motion/sprig-react-09.png",
+      "sha256": "2d5c56c6640af92bac1cc8ea69c98f9c25e29e3fb1ada06b53597ce96687d6c0"
+    },
+    {
+      "path": "motion/sprig-react-10.png",
+      "sha256": "629e6597bd55710484995fcdb6362b40c6aa9a1f1e5e9dbcc1afdacf24a4dd5e"
+    },
+    {
+      "path": "motion/sprig-react-11.png",
+      "sha256": "7de9509620313a74bc40a6182614889cb475fa56a2984ad660b9db8ecbf58359"
+    },
+    {
+      "path": "motion/sprig-react-12.png",
+      "sha256": "55c07b17a72d2ee3ea4d8717f4c23475289c562c7667775c44ba5b3460f9a36b"
+    },
+    {
+      "path": "motion/sprig-react-13.png",
+      "sha256": "65ab7359498a14e9a4d1ae7127bcf16252fe66aa1afaecf58a47bba6329522e3"
+    },
+    {
+      "path": "motion/sprig-react-14.png",
+      "sha256": "931050230857da8814b76b4785bf70c5dd925641f7f99ab31e915e6c56005cfa"
+    },
+    {
+      "path": "motion/sprig-react-15.png",
+      "sha256": "055a844f2bfa852047ac37af5aaf2ac7004b78e8f5208ead06b4a2f4deb774af"
+    },
+    {
+      "path": "motion/sprig-react-16.png",
+      "sha256": "10cc4682cef62c4de2aadce5bedf769f8184c455ef46448c9d00d788109567ca"
+    },
+    {
+      "path": "motion/sprig-react-17.png",
+      "sha256": "7c9ad4fd151daa5c003c84ef5726866f393e5814444758709ab14266ba97becc"
+    },
+    {
+      "path": "motion/sprig-react-18.png",
+      "sha256": "9125e4427dc2e3e65af055293b9461105782e660be707aea5986bd11b0b6537c"
+    },
+    {
+      "path": "motion/sprig-react-19.png",
+      "sha256": "cb3f4d9d918f50c20493f6194d63f6e78a8bb7e93094cdefe4b803ed5c53a0ff"
+    },
+    {
+      "path": "motion/sprig-react-20.png",
+      "sha256": "5dc6b9a90bbffae8d8d9f4fd2528386bda794fbd37a123663fb84b0d4dcf6d6d"
+    },
+    {
+      "path": "motion/sprig-react-21.png",
+      "sha256": "c7c8f933a790c956d04786b315d5f81ba34cde9e2bf4ec916abeb37dc29fda37"
+    },
+    {
+      "path": "motion/sprig-react-22.png",
+      "sha256": "948edab0ec0e991b9f15e69c4eb6eee7c905da7f085070eb353ea694ab615c44"
+    },
+    {
+      "path": "motion/sprig-react-23.png",
+      "sha256": "e227c88f3c204d00cbf1d739693178965a096953979a06f7463e9cb56427c89b"
+    },
+    {
+      "path": "motion/sprig-react-24.png",
+      "sha256": "b68638b198c73715557f33d9ff93870caec64aa6ad31f02a2cb648dc43cbf062"
+    },
+    {
+      "path": "motion/sprig-react-25.png",
+      "sha256": "e227c88f3c204d00cbf1d739693178965a096953979a06f7463e9cb56427c89b"
+    },
+    {
+      "path": "motion/sprig-react-26.png",
+      "sha256": "ee495175674b06689db2e4124f0068e153a05323b2059276103bed6476e0b08a"
+    },
+    {
+      "path": "motion/sprig-react-27.png",
+      "sha256": "e2151ddffbd977132df25f90bb4aab925966a195b448c448512d9b5bb8828217"
+    },
+    {
+      "path": "motion/sprig-react-28.png",
+      "sha256": "05a150bdcaf6d8fb3d16193293ce6fc0f558627c7d5708900b91b1dab3588036"
+    },
+    {
+      "path": "motion/sprig-react-29.png",
+      "sha256": "d446c3acacabc509c141de6fd359047c7bda16e75c80c574359203d588bdfa08"
+    },
+    {
+      "path": "motion/sprig-react-30.png",
+      "sha256": "9125e4427dc2e3e65af055293b9461105782e660be707aea5986bd11b0b6537c"
+    },
+    {
+      "path": "motion/sprig-react-31.png",
+      "sha256": "d480cb70367be9a04937a066df8476ef7c9192cba3ef0e333d1c2b0d15d7a0b6"
+    },
+    {
+      "path": "motion/sprig-react-32.png",
+      "sha256": "6e7105464e7b2ff5293724d849156487e87fd898731ed4bf9b0c02289788af3a"
+    },
+    {
+      "path": "motion/sprig-react-33.png",
+      "sha256": "98ac23694ff8ab828b4068b7d967d9d99b6500dc33403fd7f3f3f19ad182e0fa"
+    },
+    {
+      "path": "motion/sprig-react-34.png",
+      "sha256": "3a764138bfa9e20ae3df30f2a7e22200c904a24a60a29f5dfeabb217a1d94bc9"
+    },
+    {
+      "path": "motion/sprig-react-35.png",
+      "sha256": "b338a1a5bfe4cc06df038d828985b254ce8884a95f2c901b1c4771e2d4659dd9"
+    },
+    {
+      "path": "motion/sprig-react-36.png",
+      "sha256": "7588ee560ac8be1d29a0a9277d69ff0413bf1c80f762c20a32d41e60eacb76d8"
+    },
+    {
+      "path": "motion/sprig-react-37.png",
+      "sha256": "5e9236e74e15e984842ef00511c0aa80c638ef39cd717c90799afb8a05029a0b"
+    },
+    {
+      "path": "motion/sprig-react-38.png",
+      "sha256": "8194654e07927c627fabcc22b818558013bd02893921ffe015e0984d47a02d09"
+    },
+    {
+      "path": "motion/sprig-react-39.png",
+      "sha256": "57200d9146c2ef9516b7b691499950d61a2eb857175d9017a648854175fa0d22"
+    },
+    {
+      "path": "motion/sprig-react-40.png",
+      "sha256": "055a844f2bfa852047ac37af5aaf2ac7004b78e8f5208ead06b4a2f4deb774af"
+    },
+    {
+      "path": "motion/sprig-react-41.png",
+      "sha256": "05a150bdcaf6d8fb3d16193293ce6fc0f558627c7d5708900b91b1dab3588036"
+    },
+    {
+      "path": "motion/sprig-react-42.png",
+      "sha256": "e15c13ff7b803a34e39ba8ee2078bdd3601b1c3dd07732f1e0b511c45bd804c0"
+    },
+    {
+      "path": "motion/sprig-react-43.png",
+      "sha256": "9125e4427dc2e3e65af055293b9461105782e660be707aea5986bd11b0b6537c"
+    },
+    {
+      "path": "motion/sprig-react-44.png",
+      "sha256": "d446c3acacabc509c141de6fd359047c7bda16e75c80c574359203d588bdfa08"
+    },
+    {
+      "path": "motion/sprig-react-45.png",
+      "sha256": "05a150bdcaf6d8fb3d16193293ce6fc0f558627c7d5708900b91b1dab3588036"
+    },
+    {
+      "path": "motion/sprig-react-46.png",
+      "sha256": "2b9d3e2b4c719269c4218eff4beedd72c2e231be7ab4b48c2a6a370ae32ebb3c"
+    },
+    {
+      "path": "motion/sprig-react-47.png",
+      "sha256": "6f91934ee0e3c817f944a81a1e340ebcff634e453c89658c289caae7ea26bb27"
+    },
+    {
+      "path": "motion/sprig-react-48.png",
+      "sha256": "cbb34638812f0c0e5af8e5d1acfe6e8ce263ed89bfc33889d5febbba208e91da"
+    },
+    {
+      "path": "motion/sprig-react-49.png",
+      "sha256": "a9abd5e3c9aac736af672c8214b3a51a2fb447c452adedff10ccb9d76d8c57b0"
+    },
+    {
+      "path": "motion/sprig-react-50.png",
+      "sha256": "3fa134cf0c6c13bca745836a7736d852a62f862c4ffc2e8f3ad964293580008a"
+    },
+    {
+      "path": "motion/sprig-react-51.png",
+      "sha256": "cb79a86dbcfed5b07c2f9e418b87ce8de845a9a05d0cd4c43b17ffe706f1b77a"
+    },
+    {
+      "path": "motion/sprig-react-52.png",
+      "sha256": "8e2e8fbe2c618eba7492d6e8268cde993497db41cb0c60cbe0caa1774f22906c"
+    },
+    {
+      "path": "motion/sprig-react-53.png",
+      "sha256": "07c33b45cc8b0378892bc41a5103f4afa6052306d335812e6ccaa9c1bb71e622"
+    },
+    {
+      "path": "motion/sprig-react-54.png",
+      "sha256": "07c33b45cc8b0378892bc41a5103f4afa6052306d335812e6ccaa9c1bb71e622"
+    },
+    {
+      "path": "motion/sprig-react-55.png",
+      "sha256": "b2d0e320ce5507d431a66f835bd0d0d5d60717b3d96b85600b56545b2b1e891d"
+    },
+    {
+      "path": "motion/sprig-react-56.png",
+      "sha256": "0478265ae41244b7ef0e9bdd1656edb10b5eacdb4f542a787d612c8fe8734e78"
+    },
+    {
+      "path": "motion/sprig-react-57.png",
+      "sha256": "8bb168931e323c2aae6694bf830eea2ab91e7d397ba467558d645b9c987b359a"
+    },
+    {
+      "path": "motion/sprig-react-58.png",
+      "sha256": "22399b470f58e06ac07f4f1cfe90341c25f14775d19b178715ee748815e7ef6b"
+    },
+    {
+      "path": "motion/sprig-react-59.png",
+      "sha256": "5a95f4031f2da864d886fc58945dcf576f27a9d225bb5b5cfb341e8831df492b"
+    },
+    {
+      "path": "motion/sprig-react-60.png",
+      "sha256": "504b79320e4f89af9c68383d96f64d1d85a511b425945de527d1ec5c68c135ae"
+    },
+    {
+      "path": "motion/sprig-react-61.png",
+      "sha256": "a1a5b49624661a02b04ef6fad4866d170c5842c4176455d6b92d24fe55746ff5"
+    },
+    {
+      "path": "motion/sprig-react-62.png",
+      "sha256": "9c62c2a2e36afdba4a295ccb62a40ee0ff7eb286427efbd8afe1cd50fb681b5d"
+    },
+    {
+      "path": "motion/sprig-react-63.png",
+      "sha256": "8cc1a097065dc785caac6a191fc6845eea46a2ac02b0792d0f91511ca8433b9b"
+    },
+    {
+      "path": "motion/sprig-react-64.png",
+      "sha256": "621099e58ac0e1d64ff7a52b55fd7867196d0c4f4b9c2d30103a3747377ee9db"
+    },
+    {
+      "path": "motion/sprig-react-65.png",
+      "sha256": "5efac2e2b9b2cba8f5ea651dd3f6b2085ea87e88a78e48779c7587d7b3000ac9"
+    },
+    {
+      "path": "motion/sprig-react-66.png",
+      "sha256": "9b8f702edfe3859ac2cb6a0c125995667e35accc8203390d20dff77fba360191"
+    },
+    {
+      "path": "motion/sprig-react-67.png",
+      "sha256": "0ca8538bd35d86f625a1cabbc7f7de8ce002004691e77bb31dedd4d8ea13c3fb"
+    },
+    {
+      "path": "motion/sprig-react-68.png",
+      "sha256": "1e1b5d4531a5479e2d87b34481ea6f05c17d95824032e8fbcf730d17b6dc5fe8"
+    },
+    {
+      "path": "motion/sprig-react-69.png",
+      "sha256": "87b44b84addc9bd90949f131cee231768cc7f6c55e36009f26bce0d088a88f93"
+    },
+    {
+      "path": "motion/sprig-react-70.png",
+      "sha256": "db8f899890a153cdddaa13b5843587d415a806a41d4039f55bc5262f1bc2186a"
+    },
+    {
+      "path": "motion/sprig-react-71.png",
+      "sha256": "9d89c11d57168a645fe42d39b9280dff587339da1df50df2a90b4752c6d632d0"
+    },
+    {
+      "path": "motion/sprig-winidle-00.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-winidle-01.png",
+      "sha256": "fb21648c4fae19c31ed9fb5c43251483a88f255c7dcb66c5615f39628d08903e"
+    },
+    {
+      "path": "motion/sprig-winidle-02.png",
+      "sha256": "8cdb0a4046a3930a5907cd6a6184b6bdfcea314cd42a3c33b96235f022e15dbc"
+    },
+    {
+      "path": "motion/sprig-winidle-03.png",
+      "sha256": "82bec5ddf7c312b95c5a61f2e7e73126f0b7524a4a8bf91ac140f3be8182b1c8"
+    },
+    {
+      "path": "motion/sprig-winidle-04.png",
+      "sha256": "55a304795b176d5ecec338369a4875d48b8701de28b2e5b5a1c0593fcec1a550"
+    },
+    {
+      "path": "motion/sprig-winidle-05.png",
+      "sha256": "80be160466b2051862129a58608b7509c84a9e48e17df4a921fc2dd6371aad20"
+    },
+    {
+      "path": "motion/sprig-winidle-06.png",
+      "sha256": "99c91379ca92da13213a2238849155150f7ed4f29c6b84b39c1dc1bb3b86e529"
+    },
+    {
+      "path": "motion/sprig-winidle-07.png",
+      "sha256": "8b975255c6ccb4bd0b70428f9d13ab7ddd95e147d10ce0d6a25520a509ab945d"
+    },
+    {
+      "path": "motion/sprig-winidle-08.png",
+      "sha256": "0107af33e7e3e296861aa8a66ea37d3ce9e748de555d8769e4e875ec788ae7ac"
+    },
+    {
+      "path": "motion/sprig-winidle-09.png",
+      "sha256": "c1e848dd8779d9ab3277c7a82ae916463752aa4ccfd1aae0b7f5dfb5c449278e"
+    },
+    {
+      "path": "motion/sprig-winidle-10.png",
+      "sha256": "6c02dced5497ab8196f42d6edb5c00df739eadbaca59eb4050bff8db2e43b2b5"
+    },
+    {
+      "path": "motion/sprig-winidle-11.png",
+      "sha256": "a093c07921ab1e7fcc05bfaa4b76bfdfeb1a904c58f97d53a59fcaf43171893e"
+    },
+    {
+      "path": "motion/sprig-winidle-12.png",
+      "sha256": "9f91f6f5ecb4a9055d6ac901495932d30a4ebbfb974e2025cf91484412d915e9"
+    },
+    {
+      "path": "motion/sprig-winidle-13.png",
+      "sha256": "c74a34dcff9c47f11fe2cd654b60c58e6b46ce1321e8d6f4bc817223ed3e1437"
+    },
+    {
+      "path": "motion/sprig-winidle-14.png",
+      "sha256": "19d1cadedbef6911e870aa3a1be7403eb4fc9f18f0a5a81546095727be28108e"
+    },
+    {
+      "path": "motion/sprig-winidle-15.png",
+      "sha256": "b120c4637483fdb1311531c731a2e231a506c2f86ae4cd0841712ded43bc074e"
+    },
+    {
+      "path": "motion/sprig-winidle-16.png",
+      "sha256": "90f4d1fae1b77184b7758be5fea647789045139ebb428f22470f8c4dccf27fbd"
+    },
+    {
+      "path": "motion/sprig-winidle-17.png",
+      "sha256": "f68675b71725901ed728dd1cebc0ce9f79b80f5a0cd78fecc6bfd0d9cc005911"
+    },
+    {
+      "path": "motion/sprig-winidle-18.png",
+      "sha256": "19a381c9b23be9d23d4c203ed277c300fb931d8cff57c2abfe24511c73b48bde"
+    },
+    {
+      "path": "motion/sprig-winidle-19.png",
+      "sha256": "e2d7e8365f1032af99ffd3e4bcbe58d6e84c8d5caf89c06e00f15d688feff6d0"
+    },
+    {
+      "path": "motion/sprig-winidle-20.png",
+      "sha256": "fb2e16ad51843e0e8510dcdd4c3c266fb36ee8e435c304f12d11214f09f4585c"
+    },
+    {
+      "path": "motion/sprig-winidle-21.png",
+      "sha256": "83689c2100978c2d6bb798a41b7285aa8c12e0d31f48be2eed9ddd94e53313ec"
+    },
+    {
+      "path": "motion/sprig-winidle-22.png",
+      "sha256": "4ef143af140f455a24b6aeefa89f58118b54494ca71bd244600765307e536b2d"
+    },
+    {
+      "path": "motion/sprig-winidle-23.png",
+      "sha256": "b8891862d7ee51030ecaed84b566a9f6f7630f1eb3f48bf0683e5df7c01d8ae8"
+    },
+    {
+      "path": "motion/sprig-winidle-24.png",
+      "sha256": "bea05fe873a90ef55926cea050fd5a41bd5fecc2b11ae4ba162c284872558bd6"
+    },
+    {
+      "path": "motion/sprig-winidle-25.png",
+      "sha256": "b1cffd78957c7538dd90fcb14cfdc1b00dadba13d9598c032471e506e085349d"
+    },
+    {
+      "path": "motion/sprig-winidle-26.png",
+      "sha256": "bdde1748f148bf7708e3b1b5178a01db73a479c16b40a0cb4aef2dbb8d1e3725"
+    },
+    {
+      "path": "motion/sprig-winidle-27.png",
+      "sha256": "833994d13ddc7970fbb79a95a16c74dcf54b72ccb6a863eb4c272f87bb169ff7"
+    },
+    {
+      "path": "motion/sprig-winidle-28.png",
+      "sha256": "863e87570aa98a1117e98ae02da6cc9ee03c78e60bbf55cd188db5427a66f7f9"
+    },
+    {
+      "path": "motion/sprig-winidle-29.png",
+      "sha256": "d40f46ec560a694866b7a6901f4b8578fdc84a435a917f4451db6d0e850c72fa"
+    },
+    {
+      "path": "motion/sprig-winidle-30.png",
+      "sha256": "2253f99f13bbfe02a13faac1d28ccaf6b9946b83f6bb9eee91f6aa903bf86eac"
+    },
+    {
+      "path": "motion/sprig-winidle-31.png",
+      "sha256": "7ca84a6fcc6e78f8b3b554dcd1ca067b18f42c1533d04522cb090241be3f718a"
+    },
+    {
+      "path": "motion/sprig-winidle-32.png",
+      "sha256": "7a0b2677005f6ca94bb9a479e23213273fc375ef47bef8fc4a84ef0ea19b00cc"
+    },
+    {
+      "path": "motion/sprig-winidle-33.png",
+      "sha256": "c82b939eb9397d305d1b375fb3594039650bbad0b6277db6b89fe9076e74e008"
+    },
+    {
+      "path": "motion/sprig-winidle-34.png",
+      "sha256": "4867f9cf315e9bb08ecdf45944ced5e111c38f1c9f9e133f0f1b9ad750cf1533"
+    },
+    {
+      "path": "motion/sprig-winidle-35.png",
+      "sha256": "7853622a6d6c5b38fbcf2905c0d5e5ef95597ca541bce2cb44f394e86d6b27bb"
+    },
+    {
+      "path": "motion/sprig-winidle-36.png",
+      "sha256": "9a49b198e776bae285fed39c8cea533cf335ed6e39ee38a9cbad16ad4217ba9e"
+    },
+    {
+      "path": "motion/sprig-winidle-37.png",
+      "sha256": "7c39be63a3cc6e38f177600f40765821e48222553c79f8657bb34327c835859f"
+    },
+    {
+      "path": "motion/sprig-winidle-38.png",
+      "sha256": "8fccb896533bd1a557e3197476ab5f44ae23c32de2ea48c2a8dde528c781d923"
+    },
+    {
+      "path": "motion/sprig-winidle-39.png",
+      "sha256": "50390068e9a01ed15c9b39eaa9e9ea621881c543444cfb85b2e3e84a56948771"
+    },
+    {
+      "path": "motion/sprig-winidle-40.png",
+      "sha256": "5f1fcd0a0dd7aa326b76fa3ae193da73bfc7be73ceabe0fb1031b6346d0cb5f4"
+    },
+    {
+      "path": "motion/sprig-winidle-41.png",
+      "sha256": "39059024df0b56e92c26ed08da711deca001462a2f558e7d044a2bccf11bf67c"
+    },
+    {
+      "path": "motion/sprig-winidle-42.png",
+      "sha256": "8c7d4607769fa2cd8615d585f8a6ef90daa278a016f57331ad7b2ffdd2ef9d89"
+    },
+    {
+      "path": "motion/sprig-winidle-43.png",
+      "sha256": "806f4e163781ea0be53348403436c3a117660a30d6c902acd0060ed93ea70218"
+    },
+    {
+      "path": "motion/sprig-winidle-44.png",
+      "sha256": "5b607d20a14f71d8ed02e9f656ec76f2629b1febdc6b56039104ad5d3f5daf29"
+    },
+    {
+      "path": "motion/sprig-winidle-45.png",
+      "sha256": "2415b6f8ac14a4ee3731c065b6aaa143a18e4ef58e25605488a8d8ba1703e594"
+    },
+    {
+      "path": "motion/sprig-winidle-46.png",
+      "sha256": "08418cd49a3b6e0aad28f557214f7f55d1bfdddd88b4ffad9587ec96002637f2"
+    },
+    {
+      "path": "motion/sprig-winidle-47.png",
+      "sha256": "a27fde47ee24e26f391514e05af4511aecd0f2c401e6ae67753b6da9ec0ac84a"
+    },
+    {
+      "path": "motion/sprig-winidle-48.png",
+      "sha256": "913cd4aec6599fb50516d36b9646a11a5aad2f049ba6ff5954702d9bcea0b2e1"
+    },
+    {
+      "path": "motion/sprig-winidle-49.png",
+      "sha256": "417a01e69b9002711318c0cd94d3e1e5c300446d9d2ff515b9d54bb8d4a7bb53"
+    },
+    {
+      "path": "motion/sprig-winidle-50.png",
+      "sha256": "e7e338aada26ec4280b3718bc3a6122ada95e39450ed1d2a4245e71184448d03"
+    },
+    {
+      "path": "motion/sprig-winidle-51.png",
+      "sha256": "7853622a6d6c5b38fbcf2905c0d5e5ef95597ca541bce2cb44f394e86d6b27bb"
+    },
+    {
+      "path": "motion/sprig-winidle-52.png",
+      "sha256": "401ef5db27f07a43d49139deaf518e9b4f0ae6605b32ff5f3c9a9c14b149c7f8"
+    },
+    {
+      "path": "motion/sprig-winidle-53.png",
+      "sha256": "3ee2e430f6e1e73fa47f4b01e201ccbb2d2055901e88e597517c753b0182b49f"
+    },
+    {
+      "path": "motion/sprig-winidle-54.png",
+      "sha256": "071ff5105317e87df56e5ab61fed9f3c524af03307ad1b6d292a48cafcecc751"
+    },
+    {
+      "path": "motion/sprig-winidle-55.png",
+      "sha256": "c6f5d2eff6794bd61ba1015c136202ebf5889d45aba2ef7915a338cb58914704"
+    },
+    {
+      "path": "motion/sprig-winidle-56.png",
+      "sha256": "d5dcd7e07f3fc2d230c5e4b4b12ce8dfc4984fc4cbf64a6de21bb3410655a121"
+    },
+    {
+      "path": "motion/sprig-winidle-57.png",
+      "sha256": "19b71fe3942d436eca4f4d475fd35aebe02e23ff16eea96577e8e5a188c26e2f"
+    },
+    {
+      "path": "motion/sprig-winidle-58.png",
+      "sha256": "61571bc0601a4d98bdc104a16a3a5d328fe2c66b82f992dbf5d65fc33b752095"
+    },
+    {
+      "path": "motion/sprig-winidle-59.png",
+      "sha256": "8fdf973f7d6b1b3940f85fccd8355cacdce521b2b1a887a3457a6574c8e60b99"
+    },
+    {
+      "path": "motion/sprig-winidle-60.png",
+      "sha256": "863e87570aa98a1117e98ae02da6cc9ee03c78e60bbf55cd188db5427a66f7f9"
+    },
+    {
+      "path": "motion/sprig-winidle-61.png",
+      "sha256": "520c70918a2deabcab4052dde29f5a75db2a7e599ffab4c71c6bf1ca0e4febaf"
+    },
+    {
+      "path": "motion/sprig-winidle-62.png",
+      "sha256": "7b6372545a81f9b20c43870c14fa174815ae7cc908eba7bad641cc74c1051d3c"
+    },
+    {
+      "path": "motion/sprig-winidle-63.png",
+      "sha256": "e91d98a8997d4d54f9990c2f30857b3c4f724fa11825941124070cd35c45d6c0"
+    },
+    {
+      "path": "motion/sprig-winidle-64.png",
+      "sha256": "7d7b12c44c517a5f82ab09e92d0010a6a9e59ea27b4562a8d469f784a35976ea"
+    },
+    {
+      "path": "motion/sprig-winidle-65.png",
+      "sha256": "3c3b686c3c6bad1521912ff581d684200d6d97ef8ff242ac02d56cd61dcdd284"
+    },
+    {
+      "path": "motion/sprig-winidle-66.png",
+      "sha256": "b444308a31ef72317739520ddaa2971642e5d7748b07a5d6cb4ac55362d574f7"
+    },
+    {
+      "path": "motion/sprig-winidle-67.png",
+      "sha256": "8e2908aa8b4b68ab3cf6bf502969cc564e3785fe2d1df3ed84c9cad6d9967adf"
+    },
+    {
+      "path": "motion/sprig-winidle-68.png",
+      "sha256": "5df63105d4db3552a80f2b157e8fe4eb8af67b98eab5865d07368031f333159c"
+    },
+    {
+      "path": "motion/sprig-winidle-69.png",
+      "sha256": "83689c2100978c2d6bb798a41b7285aa8c12e0d31f48be2eed9ddd94e53313ec"
+    },
+    {
+      "path": "motion/sprig-winidle-70.png",
+      "sha256": "471c94b8ad0be03819fbb17ef461557ab157583156f27a6a1efcd5a056e4410a"
+    },
+    {
+      "path": "motion/sprig-winidle-71.png",
+      "sha256": "cb538e81af4d005459ad835fa72aa13e5bbba0752f5582e37483a9df7f8a26b5"
+    },
+    {
+      "path": "motion/sprig-winidle-72.png",
+      "sha256": "8369bcfb1db8ebbf10134663ca49161035cc10205df8a599a7ace3fe5080cee6"
+    },
+    {
+      "path": "motion/sprig-winidle-73.png",
+      "sha256": "00642d9683b91510e3bd1205776052e6ed000aa25199242e80e4a35f41d3c3ba"
+    },
+    {
+      "path": "motion/sprig-winidle-74.png",
+      "sha256": "23baedaeaed4b6ce2f7b18c0c959bfbcb57bd8603cb02d673175b686b08b3a78"
+    },
+    {
+      "path": "motion/sprig-winidle-75.png",
+      "sha256": "362f7cbecbaece9dd77b2e8c8ee5090579b299fd02f2728ecdb67185dbc5df23"
+    },
+    {
+      "path": "motion/sprig-winidle-76.png",
+      "sha256": "76c8102dafd5a98adf1fb3d861613e9b7ddf253a44489fd4fe541cd185873c1c"
+    },
+    {
+      "path": "motion/sprig-winidle-77.png",
+      "sha256": "c121b07fbc4b89c4aeec3421db1ee8f92829f61014912ab72fa83c27a1fe67a3"
+    },
+    {
+      "path": "motion/sprig-winidle-78.png",
+      "sha256": "19d1cadedbef6911e870aa3a1be7403eb4fc9f18f0a5a81546095727be28108e"
+    },
+    {
+      "path": "motion/sprig-winidle-79.png",
+      "sha256": "071c9389ef5d33e824e1c91873ccbc240376f7fbf274a8f18bdb0e1474987c7a"
+    },
+    {
+      "path": "motion/sprig-winidle-80.png",
+      "sha256": "5a4393c891dacbf7caf695fd763b381624e1e43f99cd0837ec4de67b85ce7568"
+    },
+    {
+      "path": "motion/sprig-winidle-81.png",
+      "sha256": "248b0ceca25b2bf9b26499a2524d3c2266e4d8583837d4698619cb670934201c"
+    },
+    {
+      "path": "motion/sprig-winidle-82.png",
+      "sha256": "ebe689526ad2acf3bfbd5cfc48b2f8bcafc33b5184873c53688c9fe41c1e6423"
+    },
+    {
+      "path": "motion/sprig-winidle-83.png",
+      "sha256": "48cb20f2683849b1d2a0fe17f9e9b64b6ca80b7f920c81147f7c8ca010f7f822"
+    },
+    {
+      "path": "motion/sprig-winidle-84.png",
+      "sha256": "87802bbfe2caf4051000e71c1622bf9afc31e443804be05c9692ccb0c2eb7b0b"
+    },
+    {
+      "path": "motion/sprig-winidle-85.png",
+      "sha256": "f1397f2fee722951a27a3244df313f4baf6d0736a72cdb43647817aba578b33d"
+    },
+    {
+      "path": "motion/sprig-winidle-86.png",
+      "sha256": "99affba2ed4b04bebf582ac6de83769f274cc3d15d97e9d2054c6340470f8aee"
+    },
+    {
+      "path": "motion/sprig-winidle-87.png",
+      "sha256": "263dce05545d469baf052461f6936e89988873679425cae7e6696da3645268da"
+    },
+    {
+      "path": "motion/sprig-winidle-88.png",
+      "sha256": "70b50f0825a0d165d57b0c613785add746b005eced0afbd8daae01c40b3cb9d0"
+    },
+    {
+      "path": "motion/sprig-winidle-89.png",
+      "sha256": "1191244d599acd306fb47537c758ca689d20b0ef18f2c7122772a211e9cf0e92"
+    },
+    {
+      "path": "motion/sprig-winidle-90.png",
+      "sha256": "8f6ef723fb2c7b3e27ac01215d09860210556b6b516831eee405c6d25b29bd74"
+    },
+    {
+      "path": "motion/sprig-winidle-91.png",
+      "sha256": "d9dfbc37a0a7883c853243f6f296745aaf1830b863c2648524e658548fc7d803"
+    },
+    {
+      "path": "motion/sprig-winidle-92.png",
+      "sha256": "29edc67eb37e7131d17ce82c3fa14887ab8ead163dd5131a9bb8c316d27aa16d"
+    },
+    {
+      "path": "motion/sprig-winidle-93.png",
+      "sha256": "bcb69c854eb8c747323087a3a06a5f8470fc7221b0829646e67a9ac2c8f46748"
+    },
+    {
+      "path": "motion/sprig-winidle-94.png",
+      "sha256": "1baa8bbe674b9e12653d34abd3f85f8fdd11d0940a4225308fd5f9bab40d45d5"
+    },
+    {
+      "path": "motion/sprig-winidle-95.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-00.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-01.png",
+      "sha256": "2eef444617b9cae67e43af269e91da72cbe426eecd577621a98b99767fca4705"
+    },
+    {
+      "path": "motion/sprig-win-02.png",
+      "sha256": "6ee4d7766e96a00952dcae59e048c2573b5717a825aaf8955848a831304b2c99"
+    },
+    {
+      "path": "motion/sprig-win-03.png",
+      "sha256": "7bb18862db1f7e50fe0d0103d41d1972cdc12b0b7cfcf13437b30160f4b4a8e5"
+    },
+    {
+      "path": "motion/sprig-win-04.png",
+      "sha256": "85da0265d45c1e403847856874e1aa8371109a612d27b8f766ea55912f3507f7"
+    },
+    {
+      "path": "motion/sprig-win-05.png",
+      "sha256": "4b9cd2a0c8051ad37c79dd4f02c87c760ed1d98a42e4c93a58be3f11affd0384"
+    },
+    {
+      "path": "motion/sprig-win-06.png",
+      "sha256": "c77781c76e1db1b6e08d4f73981c7225c906e70181f2fd5746c2152c72784148"
+    },
+    {
+      "path": "motion/sprig-win-07.png",
+      "sha256": "c9cfa126ec0bec75f9bd25bbb582a1c1a7deaa2b1f8851ba3f7b2defef34ab29"
+    },
+    {
+      "path": "motion/sprig-win-08.png",
+      "sha256": "339c770bd6a610840bdd69d73e0b8f63c690cc9350b69951811cf1fe4f78ece3"
+    },
+    {
+      "path": "motion/sprig-win-09.png",
+      "sha256": "9562524bff1c8f3ac694a4495930cfa790fdd9f507152c8d79cf366bce327f78"
+    },
+    {
+      "path": "motion/sprig-win-10.png",
+      "sha256": "646392b6499a286f087e9aeca8d4ffb6da84de1663a077d31e64c5dc181b6dd0"
+    },
+    {
+      "path": "motion/sprig-win-11.png",
+      "sha256": "3d4e51c5dfc25f7473b0b2729c40789294544df60c4a4e19935a3bec9f2d3d95"
+    },
+    {
+      "path": "motion/sprig-win-12.png",
+      "sha256": "d5dd35bab93df991a6b3744bf4492ab4948a5747ecf580241dad35d2292687ec"
+    },
+    {
+      "path": "motion/sprig-win-13.png",
+      "sha256": "58d826d6177bca092cd27dae742d7181abff0bfb8d0351ff1bfe6b5b19558de5"
+    },
+    {
+      "path": "motion/sprig-win-14.png",
+      "sha256": "f0bb4c3b06237baad0c86294b009fbfb78f3ab890aedc5410e4ea753d3510c51"
+    },
+    {
+      "path": "motion/sprig-win-15.png",
+      "sha256": "4780499c704f5aa01703b4e7ae476985474743389f65902c213d50b566137edd"
+    },
+    {
+      "path": "motion/sprig-win-16.png",
+      "sha256": "6d9c12b8e8e3b31116be7dd335f63d479b15405c56435e0a08de6d552e5de50d"
+    },
+    {
+      "path": "motion/sprig-win-17.png",
+      "sha256": "4dd3b34a507e5074c89ff80b395741e68e8dbe1b4aeb413530865e3f877333ae"
+    },
+    {
+      "path": "motion/sprig-win-18.png",
+      "sha256": "bbf8fe28b604769a54cbae46525b83039d4921aa5eb8dd2fc35892ff9a5b706e"
+    },
+    {
+      "path": "motion/sprig-win-19.png",
+      "sha256": "ab9c9635b10a41c7fd229d4ff94ac8064809ca9b44579698de2ec060387fbaba"
+    },
+    {
+      "path": "motion/sprig-win-20.png",
+      "sha256": "bbf8fe28b604769a54cbae46525b83039d4921aa5eb8dd2fc35892ff9a5b706e"
+    },
+    {
+      "path": "motion/sprig-win-21.png",
+      "sha256": "4dd3b34a507e5074c89ff80b395741e68e8dbe1b4aeb413530865e3f877333ae"
+    },
+    {
+      "path": "motion/sprig-win-22.png",
+      "sha256": "b17c46f58c214548743161a66d9a9420705c802e4c55336adccc7240e96f2417"
+    },
+    {
+      "path": "motion/sprig-win-23.png",
+      "sha256": "20c0b008f408d41901ba4b3da2cd73df0e6d4996543272b5ada43a5d48d608dd"
+    },
+    {
+      "path": "motion/sprig-win-24.png",
+      "sha256": "651dd76d48393259371562c2b0ca28ae0a2f8d497a39999e38be846bc75eeb0e"
+    },
+    {
+      "path": "motion/sprig-win-25.png",
+      "sha256": "0204358c8c940ae20c7428098aca615c094f6648efa93868780e89d56c74bb61"
+    },
+    {
+      "path": "motion/sprig-win-26.png",
+      "sha256": "39ea5f166ffb00809029d563d389c458c2994a1937da31f28a147d35b3c78044"
+    },
+    {
+      "path": "motion/sprig-win-27.png",
+      "sha256": "6c9f79f28d5b0d014203524705a69792f13f4e10acb5a77b8c72703fe8f687a5"
+    },
+    {
+      "path": "motion/sprig-win-28.png",
+      "sha256": "ef7ce7345b6eb3846b57d124d818af969e96f27285a07e0cf251cea673f0d2c8"
+    },
+    {
+      "path": "motion/sprig-win-29.png",
+      "sha256": "d1bb2fa31ff334fd961d274972512e1826d167294c3d3ffa71413c71b4785f4b"
+    },
+    {
+      "path": "motion/sprig-win-30.png",
+      "sha256": "519f04fb6516a32fcb00dd89d8d32deeb6a1baf3d7e1c31ed6a8009bd22f1657"
+    },
+    {
+      "path": "motion/sprig-win-31.png",
+      "sha256": "7b38b70fc58c060ea90c95be010c31280c58f1f4f518c301de0727798ee94f8e"
+    },
+    {
+      "path": "motion/sprig-win-32.png",
+      "sha256": "11b0cb19f6d7fcf24960aa320726489de59119ccbde9d35df96e1dd36d383c46"
+    },
+    {
+      "path": "motion/sprig-win-33.png",
+      "sha256": "cd7c76b6ad4ddac4fd04c83d0676ab6c554625147a0488ee6df5ac1f39568322"
+    },
+    {
+      "path": "motion/sprig-win-34.png",
+      "sha256": "872600cb67cddd6a899a8ce94451d691c64ab88600f1f0d87742cc606da1602a"
+    },
+    {
+      "path": "motion/sprig-win-35.png",
+      "sha256": "4e12552ecdb31e6e423ed7d772bc938f8d2bc18beb36ede64dafdf9fcdd2b964"
+    },
+    {
+      "path": "motion/sprig-win-36.png",
+      "sha256": "3fbfeb0434400e6813a20d5db30d8e8a905034bb1d4408fc10879baded00c6b0"
+    },
+    {
+      "path": "motion/sprig-win-37.png",
+      "sha256": "3a021c3c610104a19580c138b3c947d4f21c41eeffcd6b3079dd793f28edfcf4"
+    },
+    {
+      "path": "motion/sprig-win-38.png",
+      "sha256": "54422aab4e7d9a44bcb66292de887e428c352e185d5addbd6faf242030ae20db"
+    },
+    {
+      "path": "motion/sprig-win-39.png",
+      "sha256": "9b57cccfcd5a2fbdba6e4f10cb2f0b3c293ba08f7a2152ea9f0fa9c6c12bcd6d"
+    },
+    {
+      "path": "motion/sprig-win-40.png",
+      "sha256": "ea4b8381084abb8930acdda05e13acce96da667605025294b06add2421bb0eef"
+    },
+    {
+      "path": "motion/sprig-win-41.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-42.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-43.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-44.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-45.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-46.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win-47.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win2-00.png",
+      "sha256": "d268e9043a44b7278cd700cca39ddde05d86155330289b01eb595215718e86be"
+    },
+    {
+      "path": "motion/sprig-win2-01.png",
+      "sha256": "1adf8f1d857d16e69b0d01c4bd96149860858a455752ae35f2e84ec56cd58bc5"
+    },
+    {
+      "path": "motion/sprig-win2-02.png",
+      "sha256": "fa2d47f30b9994bec0ac5a70db38e8444d33e3e284224f176a206bbf0bc4de9f"
+    },
+    {
+      "path": "motion/sprig-win2-03.png",
+      "sha256": "94b5443a25c5d4417e5ae557eb6528dbea5dc4d469a21b81fcdabb99a0f5fc88"
+    },
+    {
+      "path": "motion/sprig-win2-04.png",
+      "sha256": "eb08b19bdf1be9b4d5be5dd4eaf08b680d4c05c06b7ed9f7a7d1837c6dae48ba"
+    },
+    {
+      "path": "motion/sprig-win2-05.png",
+      "sha256": "6e448a6fd38e8f4b1ddc5da1216bb3b5a6f40f418de1b3e262e88dc956276396"
+    },
+    {
+      "path": "motion/sprig-win2-06.png",
+      "sha256": "e9b253f90f1c9e8d73cd5ae232180de1d68720e0424a4b36c71aa9324faeb4ad"
+    },
+    {
+      "path": "motion/sprig-win2-07.png",
+      "sha256": "09ee08d7868eae4aad4a2036b99fe0ebe3f328d8490d2852c40dcd8409ddd9b3"
+    },
+    {
+      "path": "motion/sprig-win2-08.png",
+      "sha256": "08e0d3b1ee37a332c16b322a2c54628748550b87f75f24d3c1aa27a0b84b6620"
+    },
+    {
+      "path": "motion/sprig-win2-09.png",
+      "sha256": "56d08bcc66a1ae78a0e0fb2d32a649c4656a1cc3a504df98b3c8ad9917dafd1c"
+    },
+    {
+      "path": "motion/sprig-win2-10.png",
+      "sha256": "638f690d3e5c410d62eb09173f787200c3619ea213141564808efb95e29b2623"
+    },
+    {
+      "path": "motion/sprig-win2-11.png",
+      "sha256": "de0715f9c2890c551eee8c0674dae135048fa141b57596cdefe4ff48ea84c75c"
+    },
+    {
+      "path": "motion/sprig-win2-12.png",
+      "sha256": "ee7cd136ed399d4b4670f1baaf7780c85f85859b0664363948168451e7229427"
+    },
+    {
+      "path": "motion/sprig-win2-13.png",
+      "sha256": "8e4f0ec26b69f509adfcdbab0f0967a85f53a08020f6cfc80879dcefdaacf5e1"
+    },
+    {
+      "path": "motion/sprig-win2-14.png",
+      "sha256": "ecc0626d0bceb05693094cbd2471e711a60492db0ecd4ba44e32794d21baaf3a"
+    },
+    {
+      "path": "motion/sprig-win2-15.png",
+      "sha256": "7ad2f91816ad16a8f0e2f7306ba0859b09b1020d2d20bf64c967de259938d06b"
+    },
+    {
+      "path": "motion/sprig-win2-16.png",
+      "sha256": "8d2ad75ce29e73db13255946e625ca01a4c01c73e6f9d140f9e7b6f0a036cc26"
+    },
+    {
+      "path": "motion/sprig-win2-17.png",
+      "sha256": "cd56bd4e85fe84ef42ec2fdcbf185939f46d0f3a940d0fb303e803071282a2a1"
+    },
+    {
+      "path": "motion/sprig-win2-18.png",
+      "sha256": "21c7e6ee29629e65f0d8a29e402a609804dda4a605a4a22dc4dfdd2901ef252d"
+    },
+    {
+      "path": "motion/sprig-win2-19.png",
+      "sha256": "893d7a4d9c4d888588811884646b4ccbb12be79d0844316a08fd57f3ebacf248"
+    },
+    {
+      "path": "motion/sprig-win2-20.png",
+      "sha256": "708e000e890f578ad6d5a2451f1236ef79799a7ef24212713aa04e27e0f6111e"
+    },
+    {
+      "path": "motion/sprig-win2-21.png",
+      "sha256": "cfdfa12be0a84c085465c10dc4175d170497b513c8b0faad4446db9673c77bba"
+    },
+    {
+      "path": "motion/sprig-win2-22.png",
+      "sha256": "0290757678c36ddf39b35c080a3fee964fb364cc572f515b6ef21500909396f6"
+    },
+    {
+      "path": "motion/sprig-win2-23.png",
+      "sha256": "325d90897c09a4ae792da289de5d00b392682f767dfbb0c796ba9bf464617fc4"
+    },
+    {
+      "path": "motion/sprig-win2-24.png",
+      "sha256": "5e0fc965ecd6503f74726607ab3748ebdf0a44a63b68ba776309e853fca3796e"
+    },
+    {
+      "path": "motion/sprig-win2-25.png",
+      "sha256": "fbfadfe5118b576291b328358e184df6ad9b035165d9797446884d26f1ca8166"
+    },
+    {
+      "path": "motion/sprig-win2-26.png",
+      "sha256": "51bdc9e6118758788d16b37c7f132abf97ac8f665f916dd2db0075903f3fa3a9"
+    },
+    {
+      "path": "motion/sprig-win2-27.png",
+      "sha256": "8fcddc135ae5b060e66ca8e39987c5f4fea775f1daf0e15adc791cfae3c10ee4"
+    },
+    {
+      "path": "motion/sprig-win2-28.png",
+      "sha256": "763ce445143bec434f5fa1692fc30e1185fcce715d060f1f1253c9379fd63b9a"
+    },
+    {
+      "path": "motion/sprig-win2-29.png",
+      "sha256": "e01c30271b408ac773d68480be18194266f81c58fd12cfa8d4c2f506650a6238"
+    },
+    {
+      "path": "motion/sprig-win2-30.png",
+      "sha256": "5e05aac9a6bde520b2c6468093b62ccd9413f8a37c3df0fa972f776dfba7383e"
+    },
+    {
+      "path": "motion/sprig-win2-31.png",
+      "sha256": "6a588a9bd4f26155820d909a61f8df63d1ef1dc5f73f18e8bf961be88a08f613"
+    },
+    {
+      "path": "motion/sprig-win2-32.png",
+      "sha256": "3360cda3320b5b9d8503243cad59e68cfea22b1a92b25ca5dad4841e9c4f1f44"
+    },
+    {
+      "path": "motion/sprig-win2-33.png",
+      "sha256": "2d0d2fd22057cb6ec2b7a0854c8683a4baf39fd0a9a99274323d1dd1fa693aec"
+    },
+    {
+      "path": "motion/sprig-win2-34.png",
+      "sha256": "c55153c2e07a1381c92ba6bb14ad6892c5e18f203fe7dab8174f3fc4455c6a0f"
+    },
+    {
+      "path": "motion/sprig-win2-35.png",
+      "sha256": "605c697a850a72f60ff61ffc8b4cec6b09d325f1aa45838722398c31a3f71612"
+    },
+    {
+      "path": "motion/sprig-win2-36.png",
+      "sha256": "d59c7110481e57907063d132dd45094f755f7880357a6df36679f90e33e37007"
+    },
+    {
+      "path": "motion/sprig-win2-37.png",
+      "sha256": "0a87a094758ac444b80a34c887f6ed5876937cd5ec7bb4529bb4418f7efe5a73"
+    },
+    {
+      "path": "motion/sprig-win2-38.png",
+      "sha256": "5e0fc965ecd6503f74726607ab3748ebdf0a44a63b68ba776309e853fca3796e"
+    },
+    {
+      "path": "motion/sprig-win2-39.png",
+      "sha256": "0b382e29a81060d0e67e6fee09f53fcccf6edf26517c5dfe102d437dba113cf6"
+    },
+    {
+      "path": "motion/sprig-win2-40.png",
+      "sha256": "0712a8458124d3479c4b1923eeb2cb01d26d0b07e2b2a53617efb68b11d02b28"
+    },
+    {
+      "path": "motion/sprig-win2-41.png",
+      "sha256": "1c34c61a39361d3a3d413014e85ed94f372d6da64362085a1283c7a5111f2dea"
+    },
+    {
+      "path": "motion/sprig-win2-42.png",
+      "sha256": "7728d3a5703fdf8cb2157cee8fec2203101cb5fd7ede1b88f35c9252990eb1d5"
+    },
+    {
+      "path": "motion/sprig-win2-43.png",
+      "sha256": "6a588a9bd4f26155820d909a61f8df63d1ef1dc5f73f18e8bf961be88a08f613"
+    },
+    {
+      "path": "motion/sprig-win2-44.png",
+      "sha256": "a53821c579148396656828049bf2060cce7ad734bcd8d37c231bd612233fb9df"
+    },
+    {
+      "path": "motion/sprig-win2-45.png",
+      "sha256": "0972e5d1a9e117c78fcaa6cefc51b9102740af9f81ea8cc005e0c9a4a3c2125b"
+    },
+    {
+      "path": "motion/sprig-win2-46.png",
+      "sha256": "763ce445143bec434f5fa1692fc30e1185fcce715d060f1f1253c9379fd63b9a"
+    },
+    {
+      "path": "motion/sprig-win2-47.png",
+      "sha256": "0ec35c5e56b3b3da46aef7351b796e94e4060fbedfd70831889e231ee351b8a7"
+    },
+    {
+      "path": "motion/sprig-win2-48.png",
+      "sha256": "decc3e4c26bdfac935d1fa714e8abb0129042ed325226f4efa4107db85acad6e"
+    },
+    {
+      "path": "motion/sprig-win2-49.png",
+      "sha256": "29cfc2799bfc004c2f94c59991879a70ea77764c00624a7b073d4c3ba0c27880"
+    },
+    {
+      "path": "motion/sprig-win2-50.png",
+      "sha256": "55fe14a833c631ea3f61352addc01d0cb8747555c2d706861de802158a60886d"
+    },
+    {
+      "path": "motion/sprig-win2-51.png",
+      "sha256": "37d7aa110751948d65e59df45b24c54ade43b308eb0e44a938d8bffb0bbdf505"
+    },
+    {
+      "path": "motion/sprig-win2-52.png",
+      "sha256": "6b285d316fbfe6980c6ea804f2f8d9d1474617d6f638624e3b15b540975c8fbe"
+    },
+    {
+      "path": "motion/sprig-win2-53.png",
+      "sha256": "24568479206958c823777058e33e6fcc4052ade4ad87380dd1f5a8ebb6c0f4f2"
+    },
+    {
+      "path": "motion/sprig-win2-54.png",
+      "sha256": "48946a01b3b537a205d5e4bb95338418887dc54b5c9446a7f62099d24ee2c2b1"
+    },
+    {
+      "path": "motion/sprig-win2-55.png",
+      "sha256": "1c34c61a39361d3a3d413014e85ed94f372d6da64362085a1283c7a5111f2dea"
+    },
+    {
+      "path": "motion/sprig-win2-56.png",
+      "sha256": "0890d926677e010608133328a18326df71b6efab5d159d8818478404b4bae8e0"
+    },
+    {
+      "path": "motion/sprig-win2-57.png",
+      "sha256": "505f44965a84ab0be28dad4542f7338c12b91e662efdad8e4be265ebabd8263a"
+    },
+    {
+      "path": "motion/sprig-win2-58.png",
+      "sha256": "f31114e9bc39f6f2bb25a8350cc165e3ebf2516448f8dfffabc4312bc71768ca"
+    },
+    {
+      "path": "motion/sprig-win2-59.png",
+      "sha256": "3ab762d2f87061081256acc23eb980c158ba0d1dec1fe8f86d4eea715a1186e8"
+    },
+    {
+      "path": "motion/sprig-win2-60.png",
+      "sha256": "30fbb3495da3913dff744c06409bc6944a2ebaa17274bd953150c36c4b3e4dae"
+    },
+    {
+      "path": "motion/sprig-win2-61.png",
+      "sha256": "1117c0c28f47835fc8544a055d292916c91192e8811fe2cd520fde58edcbe3c5"
+    },
+    {
+      "path": "motion/sprig-win2-62.png",
+      "sha256": "7751c8672c561295325a7decd5ab3f5698f866de43a10bf2aa201899a5e24a83"
+    },
+    {
+      "path": "motion/sprig-win2-63.png",
+      "sha256": "a0a2157445d6c1b42a5ba85e28ad3f469429ab7b10e61b1ac8c459dbb296eaec"
+    },
+    {
+      "path": "motion/sprig-win2-64.png",
+      "sha256": "b941209f5c2535469fdf8d6d56ce09edf5724657bc22eb32992829d18027e866"
+    },
+    {
+      "path": "motion/sprig-win2-65.png",
+      "sha256": "32307fc2d63ae8aec206e7df39b72d6341703c6801d166f61bfa0c29e51c96bf"
+    },
+    {
+      "path": "motion/sprig-win2-66.png",
+      "sha256": "0f89544671dd36e4ca7c9cf24c5f9f504d5fc2f4bd8759ff7a929b5d2465015e"
+    },
+    {
+      "path": "motion/sprig-win2-67.png",
+      "sha256": "8b06e76e3b685becfe98385d719e3daba79c34e34136baee1ac5a0c17cce82ba"
+    },
+    {
+      "path": "motion/sprig-win2-68.png",
+      "sha256": "b0c423b4d55104e159fdfe4d395ed55eb195cb409cc093db12885af6db539aae"
+    },
+    {
+      "path": "motion/sprig-win2-69.png",
+      "sha256": "65b87858c9c5a50022045ae696b4007eb7f5e139c5c86103b5cb44035e9cbc82"
+    },
+    {
+      "path": "motion/sprig-win2-70.png",
+      "sha256": "e07af9c140b7d4340fea03410b2c654a947bf238b28dbed8cf955d39ef38e65b"
+    },
+    {
+      "path": "motion/sprig-win2-71.png",
+      "sha256": "06bcff374310a092ea498b9c8f3c2ec7b450af5cec2b2ac632c7295a4fd5916d"
+    }
+  ]
+}

@@ -6,9 +6,9 @@ namespace Bloomlings.Client.UI.Design
     {
         public static HeroFrame Frame(Family family) => family switch
         {
-            Family.Sprig => new HeroFrame("simplehero-sprig", 85, 29, 278, 426, .5f, .62f, .5f, .30f),
             Family.Bloom => new HeroFrame("simplehero-bloom", 55, 29, 338, 426, .5f, .62f, .5f, .30f),
             Family.Drop => new HeroFrame("simplehero-drop", 97, 29, 254, 426, .5f, .62f, .5f, .30f),
+            Family.Sprig => SprigV2Art.Layer(null, 0)!.Value,
             Family.Twig => TwigV2Art.Layer(null, 0)!.Value,
             _ => throw new System.ArgumentOutOfRangeException(nameof(family)),
         };

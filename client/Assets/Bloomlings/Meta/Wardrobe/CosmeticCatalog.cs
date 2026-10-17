@@ -105,7 +105,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         }
 
         /// <summary>The worn kinds, in Wardrobe order.</summary>
-        public static IReadOnlyList<CosmeticKind> WornKinds { get; } = new[] { CosmeticKind.Skin, CosmeticKind.Hat, CosmeticKind.Trail, CosmeticKind.Expression };
+        public static IReadOnlyList<CosmeticKind> WornKinds { get; } = new[] { CosmeticKind.Hat, CosmeticKind.Glasses, CosmeticKind.Clothes, CosmeticKind.Scarf };
 
         /// <summary>The profile kinds, in Wardrobe order.</summary>
         public static IReadOnlyList<CosmeticKind> ProfileKinds { get; } = new[] { CosmeticKind.Frame, CosmeticKind.Badge, CosmeticKind.Marker };

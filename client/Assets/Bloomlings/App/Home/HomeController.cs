@@ -554,31 +554,6 @@ namespace Bloomlings.Client.App.Home
                     Name: Loc.F("store.booster_quantity", BoosterName(kind), EconomyService.PurchaseQuantity(kind))));
             }
 
-            if (wardrobe.IsAvailable || wardrobe.HasFreeHeroItems)
-            {
-                foreach (CosmeticItem cosmetic in wardrobe.ShopItems)
-                {
-                    string id = cosmetic.Id;
-                    items.Add(new StoreItem(
-                        id,
-                        Loc.F("store.cosmetic", WardrobeScreen.Name(cosmetic), WardrobeScreen.KindLabel(cosmetic.Kind)),
-                        cosmetic.Price.ToString(CultureInfo.InvariantCulture) + " ✿",
-                        wardrobe.IsBuyable(cosmetic) && economy.Petals >= cosmetic.Price,
-                        () =>
-                        {
-                            wardrobe.TryBuy(id);
-                            reopen();
-                            refreshHome();
-                        },
-                        StoreTab.Cosmetics,
-                        WardrobeScreen.Icon(cosmetic),
-                        Gameplay.Workers.BloomlingFigure.Tint(cosmetic),
-                        cosmetic.Price,
-                        Cosmetic: cosmetic,
-                        Name: WardrobeScreen.Name(cosmetic)));
-                }
-            }
-
             return items;
         }
 

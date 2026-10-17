@@ -164,8 +164,8 @@ wardrobe.title,Wardrobe
 wardrobe.more,Milestones unlock more items
 wardrobe.tab_profile,Profile
 wardrobe.kind_skin,Skins
-wardrobe.kind_hat,Accessories
-wardrobe.kind_glasses,Glasses
+wardrobe.kind_hat,Head
+wardrobe.kind_glasses,Face
 wardrobe.kind_backpack,Backpacks
 wardrobe.remove,Remove
 cosmetic.hat.sprig_daisy,Daisy Cap
@@ -416,7 +416,19 @@ cosmetic.hat.twig_earmuffs,Winter Earmuffs
 cosmetic.hat.twig_xmas,Holiday Hat
 cosmetic.glasses.twig_round,Twig Glasses
 cosmetic.scarf.twig_knit,Golden Scarf
-wardrobe.kind_scarf,Scarves
+wardrobe.kind_scarf,Accessories
 cosmetic.clothes.twig_jacket,Winter Jacket
 cosmetic.clothes.twig_coat,Autumn Coat
 cosmetic.clothes.twig_overalls,Garden Overalls
+wardrobe.kind_clothes,Body
+cosmetic.hat.sprig_leafy,Leafy Hair
+cosmetic.hat.sprig_rosette,Leaf Rosette
+cosmetic.hat.sprig_swirl,Leaf Swirl
+cosmetic.hat.sprig_panama,Garden Panama
+cosmetic.hat.sprig_beret,Garden Beret
+cosmetic.hat.sprig_earmuffs,Winter Earmuffs
+cosmetic.hat.sprig_xmas,Holiday Hat
+cosmetic.scarf.sprig_knit,Garden Scarf
+cosmetic.clothes.sprig_jacket,Winter Jacket
+cosmetic.clothes.sprig_coat,Autumn Coat
+cosmetic.clothes.sprig_overalls,Garden Overalls

@@ -21,7 +21,7 @@ namespace Bloomlings.Client.Tests
         public void EachFamilyAndCategory_RemembersItsOwnClampedScroll()
         {
             var state=new WardrobeBrowseState();
-            state.SetOffset(180,500);state.Select(CosmeticKind.Trail);state.SetOffset(90,500);
+            state.SetOffset(180,500);state.Select(CosmeticKind.Glasses);state.SetOffset(90,500);
             state.Select(Family.Drop);Assert.That(state.Offset,Is.Zero);
             state.SetOffset(900,300);Assert.That(state.Offset,Is.EqualTo(300));
             state.Select(Family.Sprig);Assert.That(state.Offset,Is.EqualTo(90));

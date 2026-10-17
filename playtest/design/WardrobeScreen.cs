@@ -96,7 +96,7 @@ namespace Bloomlings.Playtest.Design
                     ()=>{if(wardrobe.TryBuy(item.Id))wardrobe.Equip(family,item.Id);else Refuse();});
                 return;
             }
-            if(item==null&&kind==CosmeticKind.Hat)wardrobe.UnequipAccessories(family);else if(item==null||wardrobe.EquippedFor(family,kind)?.Id==item.Id)wardrobe.Unequip(family,kind);else wardrobe.Equip(family,item.Id);
+            if(item==null||wardrobe.EquippedFor(family,kind)?.Id==item.Id)wardrobe.Unequip(family,kind);else wardrobe.Equip(family,item.Id);
             app.Sound.Play(SoundCue.Click);
         }
         private static void Locked(IPainter p,DesignApp app,HomeLook look)

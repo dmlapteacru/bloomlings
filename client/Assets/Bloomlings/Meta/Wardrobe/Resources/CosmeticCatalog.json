@@ -1,5 +1,5 @@
 {
-  "note": "Cosmetics (FR-063, T143). No gameplay effect. Worn items (skin, hat, trail, expression) use neutral tints (HSV saturation <= 0.3) so they never read as a variant color, and skins are thin patterns over the variant-colored body; frames, badges and markers decorate the profile only. Items with a price are sold for Petals in the Store after the Wardrobe unlock (FR-051); milestone items come from content/roadmap/milestones.json and are never sold. Level badges and markers (badge.level_N, marker.level_N) are generated, not listed. Free items (the five drawn profile frames, spec 005 FR-037 as amended 2026-10-06) are everyone's from Level 1: never stored as owned, never given or sold; their tint is the plain ring's stand-in color.",
+  "note": "Cosmetics (FR-063, T143). No gameplay effect. Worn items (skin, hat, trail, expression) use neutral tints (HSV saturation <= 0.3) so they never read as a variant color, and skins are thin patterns over the variant-colored body; frames, badges and markers decorate the profile only. Items with a price are sold for Petals in the Wardrobe after its unlock (FR-051); milestone items come from content/roadmap/milestones.json and are never sold. Level badges and markers (badge.level_N, marker.level_N) are generated, not listed. Free items (the five drawn profile frames, spec 005 FR-037 as amended 2026-10-06) are everyone's from Level 1: never stored as owned, never given or sold; their tint is the plain ring's stand-in color.",
   "items": [
     { "id": "frame.wood_ring", "kind": "frame", "name": "Wooden Frame", "shape": "wood_ring", "tint": "#F1CD98", "free": true },
     { "id": "frame.leaf_ring", "kind": "frame", "name": "Leaf Frame", "shape": "leaf_ring", "tint": "#6DBE45", "free": true },
@@ -59,6 +59,17 @@
     {"id": "scarf.twig_knit", "kind": "scarf", "name": "Golden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
     {"id": "clothes.twig_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
     {"id": "clothes.twig_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
-    {"id": "clothes.twig_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true}
+    {"id": "clothes.twig_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    { "id": "hat.sprig_leafy", "kind": "hat", "name": "Leafy Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "hat.sprig_rosette", "kind": "hat", "name": "Leaf Rosette", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "hat.sprig_swirl", "kind": "hat", "name": "Leaf Swirl", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "hat.sprig_panama", "kind": "hat", "name": "Garden Panama", "shape": "brim", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "hat.sprig_beret", "kind": "hat", "name": "Garden Beret", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "hat.sprig_earmuffs", "kind": "hat", "name": "Winter Earmuffs", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "hat.sprig_xmas", "kind": "hat", "name": "Holiday Hat", "shape": "nightcap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "scarf.sprig_knit", "kind": "scarf", "name": "Garden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "clothes.sprig_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "clothes.sprig_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    { "id": "clothes.sprig_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true }
   ]
 }

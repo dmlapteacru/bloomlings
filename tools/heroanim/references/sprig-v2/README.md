@@ -2,7 +2,8 @@
 
 [base-full-front.png](base-full-front.png) is the requested bald Sprig base for Tripo / Meshy generation: approved
 face / lime palette / short body, relaxed symmetric arms, with the leaf hairstyle removed. It is an offline modeling
-reference, not a replacement for the current in-game Sprig. The owner will supply the new fitted model and items.
+reference. The owner has now supplied the fitted SprigHeroV2 model and items; see
+[the source and rebuild guide](../../models/sprig-v2/README.md) for the current in-game preview.
 
 [with-default-leaves-front.png](with-default-leaves-front.png) preserves the currently approved Sprig appearance.
 The final game hero needs a default leafy head style; the bald base is for modeling / interchangeable head parts.

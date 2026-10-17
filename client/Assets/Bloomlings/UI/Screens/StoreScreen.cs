@@ -199,18 +199,8 @@ namespace Bloomlings.Client.UI.Screens
             _clearing = clearing;
             _level = level;
             _clearingChanged = clearingChanged;
-            bool cosmetics = false;
-            foreach (StoreItem item in items)
-            {
-                cosmetics |= item.Tab == StoreTab.Cosmetics;
-            }
-
-            // Cosmetics includes the free Sprig equipment before the paid Wardrobe unlock.
+            // Hero items are fitted and purchased only in Wardrobe.
             var tabs = new List<StoreTab> { StoreTab.Shop };
-            if (cosmetics)
-            {
-                tabs.Add(StoreTab.Cosmetics);
-            }
 
             if (clearing != null)
             {
