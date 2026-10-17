@@ -1,100 +1,103 @@
 {
   "version": 2,
+  "sourceKind": "segmented Tripo; shared base/head; static pose without rig",
   "sources": [
     {
-      "path": "tools/heroanim/models/twig/source/TwigHero.fbx",
-      "sha256": "04db56bd7787d9482725ec151fc4ca0a3b838ba6e94539ff566ee8c070776d52"
+      "path": "tools/heroanim/models/twig-tripo/source/TwigHero_Base_Tripo.zip",
+      "sha256": "430025ee78116bb326e21f764367fbcf284ad4d2643816f8accc6db07d342be7"
     },
     {
-      "path": "tools/heroanim/models/twig/source/TwigHero_AcornHat.fbx",
-      "sha256": "56edb7e8e5f0fa7bd7452bf939c4bbf2dff22c7c2797b6e47ff030db91ea1645"
+      "path": "tools/heroanim/models/twig-tripo/source/TwigHero_Acorn_Tripo.zip",
+      "sha256": "f3c240514a65e1d0a5b564a5c576dd2a778100cbe82e65153032d56d4c2e7d33"
     },
     {
-      "path": "tools/heroanim/models/twig/source/TwigHero_FlowerCap.fbx",
-      "sha256": "3e8d8c2f598158947cba5cd01f3d508cf4f7fe957ff3635d0584a73fba741cd6"
+      "path": "tools/heroanim/models/twig-tripo/source/TwigHero_Cap_Tripo.zip",
+      "sha256": "ddbb8db505f641b7eab72b14c37c6208562601cb40cec4ff947cbcdddd9d0e29"
     },
     {
-      "path": "tools/heroanim/models/twig/source/TwigHero@Anims.fbx",
-      "sha256": "95bbd5892c89c89e9b285ac88e82dc9853637ff5d1de4c8e2f8ecbd09df03103"
+      "path": "tools/heroanim/twig-tripo-study.py",
+      "sha256": "c81dec0007171b8743275c61df2e2ca26b6043d662a5bd90cb7093ca522e96a3"
     },
     {
-      "path": "tools/heroanim/prepare-twig-gear.py",
-      "sha256": "6ba8bb8e1263b37c56474452952922569268394a17882b45c98996c205e9dc68"
+      "path": "tools/heroanim/twig-tripo-fit.json",
+      "sha256": "a1920e770eda92a6ed1992b8023115d87af5f0e756df6d307c5210bc44fe3531"
     },
     {
-      "path": "tools/heroanim/bake-twig-gear.mjs",
-      "sha256": "143d20a431dd354b1bf2bce1fdc8020689f12adfbcd25b068d69d3ae511a36ba"
-    },
-    {
-      "path": "tools/heroanim/twig-materials.json",
-      "sha256": "7fed1aae8a1abe10c00ad2100c1ca3be404da960cb23aecc014e31a7b78388b8"
-    },
-    {
-      "path": "tools/heroanim/textures/twig/front-color.png",
-      "sha256": "7610315e158b2e2cc517b7a8d756ba3a1ebaf23694c8602f7f6a5da458476840"
+      "path": "tools/heroanim/bake-twig-tripo.mjs",
+      "sha256": "1d523ce8452f2fbf964fdba0840463bfad8f922c6f38e625d8c36811e110cafb"
     }
   ],
-  "derivedGlbSha256": "438cfd9f9674245d3161b7c70fd4464c83b7261d0cc75bc8d3c269641cc38fcf",
+  "derivedGlbSha256": "24d1f2bd9da6f5eede368293da9ce8339ac0e558048f306600a232ee9ba4ba32",
   "data": "client/Assets/Bloomlings/UI/Design/TwigGearData.cs",
-  "dataSha256": "2fceaa3c1c1926510aecbba372c4287f9b1b817246359525927975f7e2798fc9",
+  "dataSha256": "5c4bb39640e992be42e34b052ab13665e98b3e6a76619f6c3096d1fff09d23cc",
   "cell": [
     448,
     504
   ],
   "encoding": "RGBA8 lossless PNG; no palette or dithering",
   "supersample": 3,
+  "render": {
+    "ground": "#f0e7d5",
+    "hemisphere": 1.2,
+    "key": 1.2,
+    "fill": 0.6,
+    "environment": 0.45,
+    "halfHeight": 0.7,
+    "cameraY": 0.59,
+    "supersample": 3
+  },
   "outputs": [
     {
       "key": "base",
       "file": "twigmod-base.png",
       "crop": [
-        71,
-        100,
-        306,
+        90,
+        111,
+        268,
         355
       ],
       "icon": false,
-      "bytes": 111970,
-      "sha256": "3db23eec85026a4b7efc291daf48efa9e2c0b932b1737be9b08de696f2af8dac"
+      "bytes": 100291,
+      "sha256": "6b2801ba6ae6160a22c88a6e6db2cefcb663a0ef54d58dc545278ee836b02aec"
     },
     {
       "key": "acorn",
       "file": "twigmod-acorn.png",
       "crop": [
-        59,
-        8,
-        342,
-        447
+        79,
+        35,
+        290,
+        431
       ],
       "icon": false,
-      "bytes": 158336,
-      "sha256": "359f3131fd0e3c8c0c65f7ac096dc1c6fe8ae1c791a9274c81aeb044b587894d"
+      "bytes": 132616,
+      "sha256": "e835cabf74d4be99a5e29f0b46c73218509b0748325957fe4ee3ffd44a0440b9"
     },
     {
       "key": "cap",
       "file": "twigmod-cap.png",
       "crop": [
-        69,
-        35,
-        313,
-        420
+        76,
+        62,
+        295,
+        404
       ],
       "icon": false,
-      "bytes": 141183,
-      "sha256": "cd6fe7e7f38ecf609057e90e62be7847a1a983e1e8696eb393b0ceb2ce2bbc2f"
+      "bytes": 129200,
+      "sha256": "bf9ba367f6cec58f866ec2f3896501494493c110e420770adb9f91223829eb9c"
     },
     {
       "key": "icon-acorn",
       "file": "twigmod-icon-acorn.png",
       "crop": [
         43,
-        78,
-        234,
-        168
+        70,
+        232,
+        167
       ],
       "icon": true,
-      "bytes": 37146,
-      "sha256": "a9ee9f2198deede4278275359caed0ea65506e7bb089791034cc526fa30a8be9"
+      "bytes": 39691,
+      "sha256": "c1251a7e9db8d00634a7a89059dbc7088f6afe8a7d9b9bbecbeff49959f4c566"
     },
     {
       "key": "icon-cap",
@@ -102,12 +105,12 @@
       "crop": [
         36,
         78,
-        243,
-        148
+        238,
+        147
       ],
       "icon": true,
-      "bytes": 31028,
-      "sha256": "8f2de747feedce162c5080b85115f8227072220a95103e3524847d06dd5b5959"
+      "bytes": 36764,
+      "sha256": "d6e092fab41f5676c85082a35482c957e1e89798360b1ab41aa3eb41e6fd4e8e"
     }
   ]
 }

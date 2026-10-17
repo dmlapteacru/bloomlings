@@ -2,7 +2,7 @@ using Bloomlings.Client.Meta.Wardrobe;
 
 namespace Bloomlings.Client.UI.Design
 {
-    /// <summary>Archived FBX pilot states, retained for asset checks; runtime uses the original animated Twig.</summary>
+    /// <summary>Segmented Tripo Twig with one shared base and mutually exclusive fitted headwear; rendered offline.</summary>
     public static partial class TwigGearArt
     {
         public const string AcornHatId = "hat.twig_acorn";

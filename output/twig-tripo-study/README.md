@@ -12,5 +12,6 @@ The original ZIPs are preserved under `tools/heroanim/models/twig-tripo/source/`
 and reproducible checks: [source record](../../tools/heroanim/models/twig-tripo/README.md).
 
 This is a static fitting study: the delivered models have no skeleton / animations, and their original generated
-paint still contains gray eye whites and small facial / surface artifacts. The restored Twig in the game remains
-active. No APK is built or changed by this study, and no separate editable Blender master is created.
+paint still contains gray eye whites and small facial / surface artifacts. The same assembled base / hats are now used for the owner-requested runtime integration; actual game captures are
+in `../twig-tripo-in-game/`. These study pictures remain offline 3D renders. No APK was built here, and no separate
+editable Blender master is created.

@@ -44,3 +44,11 @@ For the owner-requested four-motion Sprig experiment, the Settings test viewer, 
 
 For the Bloom texture cleanup prototype, projected back onto the original animated mesh and compared at production
 resolution, see [textures/bloom-study/README.md](textures/bloom-study/README.md). It writes review artifacts only.
+
+### Current segmented Twig equipment bake
+
+The active Twig meta-screen art comes from the owner’s segmented Tripo delivery, using one unchanged base and
+two fitted hats. See `models/twig-tripo/README.md` for source rebuild / Blender exchange. Publish its five small
+runtime sprites with `node tools/heroanim/bake-twig-tripo.mjs`, then `node tools/heroanim/check.mjs`. Both hats are
+free under Shop → Cosmetics → Twig. The source is unrigged; this pilot uses static poses and shared 2D breathing.
+`bake-twig-gear.mjs` is the retired earlier FBX pilot, not the current publisher.

@@ -80,3 +80,17 @@ and both whole-head GLBs retain exactly the same head / ear / mouth geometry, UV
 GLBs are also delivered. Five files import into Blender with embedded color textures and a common head pivot. This
 is a static authoring exchange without a skeleton, not a new master project or an in-game replacement. Current review:
 `output/twig-tripo-study/`.
+
+### Segmented Tripo trial enabled in the game (2026-10-17)
+
+At the owner's request, the assembled shared-face Tripo Twig now replaces the old meta-screen Twig. The active
+`tools/heroanim/bake-twig-tripo.mjs` renders the real fitted model into five RGBA8 PNGs totaling 438,562 bytes.
+Home, Wardrobe, Shop preview and victory share the saved outfit through `HeroGearArt`. Shop → Cosmetics → Twig
+has free Acorn Hat and Daisy Cap cards; one Hat slot selects either, and Remove / Default shows the bare base.
+The existing Wardrobe unlock stays; free Shop gear can be tested earlier. Both item IDs from the old pilot are reused,
+so existing selections resolve again. Sprig gear, other heroes and separately chosen profile avatars are retained.
+
+This static source has no rig; the pilot uses 2D breathing and pose movement, pending the animation feature.
+Source Tripo paint is provisional. Only small baked sprites are shipped, with full-color Android loading / warming;
+FBXs, GLBs and source ZIPs stay authoring-only. No APK is built here. Actual page captures and verification are in
+`output/twig-tripo-in-game/`.

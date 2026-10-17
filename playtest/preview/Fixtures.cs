@@ -137,36 +137,49 @@ namespace Bloomlings.Playtest.Preview
                 app.GoHome(); CloseAll(app); Run(app, p, .4f);
             });
 
-            yield return new Fixture(112,"twig-restored-shop","Twig's retired replacement hats do not appear in Shop",(p,data)=>
+            yield return new Fixture(112,"twig-tripo-shop","Free fitted Twig hats equip from actual Shop cards before L40",(p,data)=>
             {
-                var app=Progressed(App(data),content,87);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.15f);
-                Expect(!app.Meta.Wardrobe.ShopItems.Any(i=>TwigGearArt.IsHat(i.Id)),"unfitted replacement hats are absent from the shop");
-                Expect(app.Meta.Wardrobe.ShopItems.Any(i=>i.Id==SprigGearArt.CapId),"Sprig accessories remain available");
+                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.15f);
+                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
+                long before=app.Meta.Economy.Petals;
+                foreach(var item in new[]{(1,TwigGearArt.AcornHatId),(2,TwigGearArt.FlowerCapId)})
+                {
+                    Tap(p,ShopCatalogDesign.CosmeticCard(area,item.Item1));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==item.Item2,"actual Shop tap selects the fitted Twig hat");
+                    Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==item.Item2,"Twig headwear survives application save/reload");
+                }
+                Expect(app.Meta.Economy.Petals==before&&app.Overlays.Count==0,"free hats spend nothing and need no confirmation");
+                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
+                Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat==null,"Remove returns to the bare shared base");
+                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
+                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-icon-acorn")&&p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-icon-cap"),"Shop uses actual fitted headwear icons");
             });
-            foreach(var target in new[]{(113,"twig-restored-home",(string?)null),(114,"twig-restored-saved-cap",TwigGearArt.FlowerCapId),(115,"twig-restored-wardrobe",TwigGearArt.AcornHatId)})
+            foreach(var target in new[]{(113,"twig-tripo-home-acorn",TwigGearArt.AcornHatId),(114,"twig-tripo-home-cap",TwigGearArt.FlowerCapId),(115,"twig-tripo-wardrobe",TwigGearArt.FlowerCapId),(117,"twig-tripo-home-base",(string?)null)})
             {
                 var scene=target;
-                yield return new Fixture(scene.Item1,scene.Item2,"The original Twig survives page changes and obsolete saved headwear",(p,data)=>
+                yield return new Fixture(scene.Item1,scene.Item2,"Every meta screen draws the saved segmented Twig outfit",(p,data)=>
                 {
                     var app=Progressed(App(data),content,87);CloseAll(app);
-                    if(scene.Item3!=null)app.Meta.Save.Cosmetics.Equipped["twig.hat"]=scene.Item3;
-                    if(scene.Item1==115){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
+                    if(scene.Item3!=null)Expect(app.Meta.Wardrobe.Equip(Family.Twig,scene.Item3),"the chosen fitted hat equips");
+                    if(scene.Item1==115){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}
+                    else app.GoHome();
                     p.DrawnSprites.Clear();Run(app,p,.5f);
-                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat==null,"retired pilot headwear does not cover the restored hero");
-                    Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twigmod-",StringComparison.Ordinal)),"the replacement mesh does not draw");
-                    if(scene.Item1!=115)Expect(p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twig-idle-",StringComparison.Ordinal)),"Home draws the original Twig animation");
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==scene.Item3,"navigation retains headwear");
+                    string state=scene.Item3==null?"base":scene.Item3==TwigGearArt.AcornHatId?"acorn":"cap";
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-"+state),"the actual page draws the selected Tripo state");
+                    Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twig-idle-",StringComparison.Ordinal)),"the retired animated model cannot cover the selected outfit");
                 });
             }
-            yield return new Fixture(116,"twig-restored-win","The original Twig celebrates after a solved level",(p,data)=>
+            yield return new Fixture(116,"twig-tripo-win","The selected Twig cap remains visible after a solved level",(p,data)=>
             {
-                var app=App(data);app.Meta.SkipTo(12);app.Meta.Save.Cosmetics.Equipped["twig.hat"]=TwigGearArt.FlowerCapId;
+                var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigGearArt.FlowerCapId),"cap equips before playing");
                 app.LoadLevel(13);CloseDemo(app);Run(app,p,.1f);
                 SolveResult win=new Solver.Solver().Solve(Session(content,13),SolveOptions.Default);
                 Expect(win.Status==SolveStatus.Solvable,"the actual level is solvable");
                 p.DrawnSprites.Clear();Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
                 Expect(app.Level!.Won&&app.Meta.CurrentLevel==14,"Twig's win completes progression");
-                Expect(p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twig-win-",StringComparison.Ordinal)),"the old Twig celebration is back");
-                Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twigmod-",StringComparison.Ordinal)),"the new static model cannot override the win");
+                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-cap"),"victory draws the selected Tripo cap");
+                Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twig-win-",StringComparison.Ordinal)),"victory does not substitute the retired Twig");
             });
 
             yield return new Fixture(108,"sprig-gear-shop","Free modular Sprig accessories equip from Shop before L40",(p,data)=>

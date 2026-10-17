@@ -34,7 +34,11 @@ In Blender: **File → Import → glTF 2.0**. Import the base. To use a whole-he
 empty roots afterwards. Do not scale each file independently or import both hats visibly at the same time. Texture
 images are embedded in the GLBs. Later rigging / weights and animation fitting happen in the same master.
 
-The study does not replace the owner's restored original Twig in the game. No 3D exports or source ZIPs enter the APK.
+The owner subsequently requested this assembled Twig in the game. `bake-twig-tripo.mjs` now publishes five small
+2D images (bare / acorn / cap plus two Shop icons) from `TwigHero_Review.glb`. The game routes Twig through the
+shared equipment renderer on Home, Wardrobe and victory. Both hats are free Twig-only items; saved selection
+persists across those screens. Profile avatar pictures remain separately selected. No 3D exports or source ZIPs enter the APK.
+The static source pose uses the existing 2D breathing; skeletal actions are deferred.
 
 ## Rebuild and verify
 
@@ -52,3 +56,16 @@ Each render uses the same camera and body placement. `twig-tripo-check.mjs` chec
 normals, UVs, triangle indices, embedded base-color images, world transforms and neck pivot against the base GLB.
 Original archive hashes and unchanged source geometry / UV signatures are checked as well. Actual review and the
 Blender import package: `output/twig-tripo-study/`.
+
+## Publish the runtime images
+
+After rebuilding and checking the fitted GLBs above:
+
+```sh
+node tools/heroanim/bake-twig-tripo.mjs
+node tools/heroanim/check.mjs
+```
+
+The active bake records source hashes in `../../twig-gear.json`, generates `TwigGearData.cs` and updates the five
+`twigmod-*` RGBA8 PNGs plus their asset manifest. `bake-twig-gear.mjs` belongs to the retired earlier FBX pilot;
+do not use it to publish the current Tripo hero. Current game captures: `output/twig-tripo-in-game/`.

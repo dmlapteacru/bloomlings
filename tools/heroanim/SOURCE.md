@@ -290,3 +290,18 @@ Five embedded-texture GLBs passed a real Blender round-trip import, including th
 fixed-camera renders and source / delivery hashes are in `output/twig-tripo-study/` and `models/twig-tripo/`. The
 owner imports these exchange files into the existing master; no separate `.blend` is saved. No production sprites,
 gameplay, cosmetics or APK assets are changed; the previously restored original Twig remains active in the game.
+
+## Segmented Tripo Twig enabled in game — 2026-10-17
+
+The owner clarified that the assembled study should be playable. `bake-twig-tripo.mjs` now renders the actual
+`TwigHero_Review.glb` with its unchanged base, fitted acorn / cap groups and original color maps. It publishes three
+full-body states and two headwear-only icons, 438,562 bytes total, RGBA8 with alpha-safe linear-light downsampling.
+Source ZIP / assembly / fit / bake hashes are recorded in `twig-gear.json`. The five existing `twigmod-*` names are
+reused; legacy animation pixels remain archived, but shared runtime routing uses the new states on meta screens.
+Both free Twig-only catalog entries return, with saved selections and Remove / Default. Profile avatar pictures
+remain independent. The static source has no rig; breathing uses the existing 2D transform. Final UV paint and
+skeletal actions remain separate work. No source models are runtime assets, and no APK is built for this change.
+
+Current game captures: `output/twig-tripo-in-game/`; model imports / segmentation proofs remain unchanged under
+`output/twig-tripo-study/` and `models/twig-tripo/`. The earlier `bake-twig-gear.mjs` is archived tooling for the old
+untextured FBX pilot, not the current publisher.
