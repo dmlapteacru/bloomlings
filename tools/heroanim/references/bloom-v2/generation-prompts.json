@@ -18,24 +18,33 @@
     },
     {
       "id": "head-panama",
-      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing one snug BUCKET HAT / Panama. Low rounded truncated-cone crown, continuous short downward-sloping annular brim, gently oval around head and symmetric, smooth cream/off-white main fabric, muted dusty rose band, small simple five-petal coral flower with warm yellow center and a tiny sage leaf on viewer's right of band. Broad clean seams only. Hat is fully seated close around skull, no floating gap. Completely remove stock flower halo/petals/stamens, no hair protruding. No other accessories. Full head and entire brim visible with margin.",
+      "prompt": "Edit this EXACT existing Bloom headwear reference. Preserve the hat's exact shape, color, flower decoration, size, fitted position, face, eyes, smile, head shape, framing, ivory background and smooth simple mobile-game 3D render. The only design change: add a clearly visible compact coral-pink PETAL HAIRSTYLE emerging naturally from UNDER the headwear. A small softly side-swept fringe of three broad rounded pink petals rests along upper forehead below the hat edge, stopping above eyebrows. Two short overlapping rounded petal locks on EACH temple peek from under the sides, curve inward close to cheek edges and end around the upper cheeks. Petals slightly darker coral than the pale pink face so they read as floral hair. Broad soft shapes with rounded tips, no human hair strands, no spikes. These petals emerge from beneath hat and are softly compressed by it, not glued on hat exterior. Leave face and eye area open. Do not restore the large default flower halo, don't enlarge skull or lift hat. Single front-facing head-only portrait. Hat PLUS the visible small petal hair is one modular Head item; don't show a bald gap at sides. No text. Keep the bucket hat's whole brim intact; the short side petal locks remain clearly visible below brim ends.",
       "references": [
-        "base-full-front.png"
-      ]
+        "set/head-panama.png"
+      ],
+      "inputGitCommit": "0ad86d18af039018da31abdb199311a507325aaa",
+      "inputSha256": "b532d9aef66c6476519f468d05d4f5c284e3a1e1b8d8c630350840bb31e3546f",
+      "revision": "Visible petal hair under headwear; approved headwear shapes retained."
     },
     {
       "id": "head-garden-cap",
-      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing one neatly fitted rounded GARDEN BASEBALL CAP. Six broad soft dusty-rose crown panels make a low rounded dome. A separate unmistakable forward-projecting SHORT ROUNDED CREAM VISOR curves gently down, with continuous smooth shallow arc, clear thickness and smooth side attachments. Small cream button atop. One simple cream daisy with warm yellow center on viewer's right front panel; tiny sage leaf. Cap is symmetrical, fully seated, neither flattened nor oversized. No stock flower halo, no hair, no extra petals under cap, no ears or other accessories. Whole cap and head in frame with margin. Model-friendly smooth forms, just a few seams.",
+      "prompt": "Edit this EXACT existing Bloom headwear reference. Preserve the hat's exact shape, color, flower decoration, size, fitted position, face, eyes, smile, head shape, framing, ivory background and smooth simple mobile-game 3D render. The only design change: add a clearly visible compact coral-pink PETAL HAIRSTYLE emerging naturally from UNDER the headwear. A small softly side-swept fringe of three broad rounded pink petals rests along upper forehead below the hat edge, stopping above eyebrows. Two short overlapping rounded petal locks on EACH temple peek from under the sides, curve inward close to cheek edges and end around the upper cheeks. Petals slightly darker coral than the pale pink face so they read as floral hair. Broad soft shapes with rounded tips, no human hair strands, no spikes. These petals emerge from beneath hat and are softly compressed by it, not glued on hat exterior. Leave face and eye area open. Do not restore the large default flower halo, don't enlarge skull or lift hat. Single front-facing head-only portrait. Hat PLUS the visible small petal hair is one modular Head item; don't show a bald gap at sides. No text. Keep the short cream visor intact and visible; fringe peeks just below visor and side petal locks below crown.",
       "references": [
-        "base-full-front.png"
-      ]
+        "set/head-garden-cap.png"
+      ],
+      "inputGitCommit": "0ad86d18af039018da31abdb199311a507325aaa",
+      "inputSha256": "e4913d494d2932a79738875c142819faf4afd5b29db44951067feeabaa2ed41c",
+      "revision": "Visible petal hair under headwear; approved headwear shapes retained."
     },
     {
       "id": "head-beret",
-      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing a soft low rounded BERET in muted dusty rose, with one broad gently draped lobe tilted to viewer's left, continuous narrow fitted lower band close to bald skull, a tiny centered fabric nub. A small three-dimensional cream flower with yellow center and a single sage leaf pinned on viewer's right. Beret silhouette clearly rounded fabric cap, not a baseball cap or turban, smooth broad fabric folds only, no woven fiber detail. No stock flower petals or hair underneath, no other accessories. Whole beret and same head centered with margin.",
+      "prompt": "Edit this EXACT existing Bloom headwear reference. Preserve the hat's exact shape, color, flower decoration, size, fitted position, face, eyes, smile, head shape, framing, ivory background and smooth simple mobile-game 3D render. The only design change: add a clearly visible compact coral-pink PETAL HAIRSTYLE emerging naturally from UNDER the headwear. A small softly side-swept fringe of three broad rounded pink petals rests along upper forehead below the hat edge, stopping above eyebrows. Two short overlapping rounded petal locks on EACH temple peek from under the sides, curve inward close to cheek edges and end around the upper cheeks. Petals slightly darker coral than the pale pink face so they read as floral hair. Broad soft shapes with rounded tips, no human hair strands, no spikes. These petals emerge from beneath hat and are softly compressed by it, not glued on hat exterior. Leave face and eye area open. Do not restore the large default flower halo, don't enlarge skull or lift hat. Single front-facing head-only portrait. Hat PLUS the visible small petal hair is one modular Head item; don't show a bald gap at sides. No text. Keep beret's low side drape and fitted band. Visible short floral fringe is below band, short side petals frame temples.",
       "references": [
-        "base-full-front.png"
-      ]
+        "set/head-beret.png"
+      ],
+      "inputGitCommit": "0ad86d18af039018da31abdb199311a507325aaa",
+      "inputSha256": "ea7cb63a6edeee646506ea9b42d6b2fa62355d37973ae1d1e24059322e68fa1c",
+      "revision": "Visible petal hair under headwear; approved headwear shapes retained."
     },
     {
       "id": "head-winter-earmuffs",
@@ -46,10 +55,13 @@
     },
     {
       "id": "head-holiday-hat",
-      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing a classic CHRISTMAS SANTA HAT. A red soft curved conical fabric crown tilts and folds once toward viewer's right, a broad rounded cream cuff hugs head all around, matching round cream pompom at folded tip. Small simple coral-pink flower with yellow center and one sage leaf sits at side of cuff, not in the eye line. Broad smooth toy-like cloth shapes, no detailed fur or glitter. Hat fully seated and snug, whole crown/pompom visible, no oversized empty cone. Remove all stock flower halo/petals/stamens; bald base beneath hat, no hair or other accessories. Clear red and cream seasonal palette.",
+      "prompt": "Edit this EXACT existing Bloom headwear reference. Preserve the hat's exact shape, color, flower decoration, size, fitted position, face, eyes, smile, head shape, framing, ivory background and smooth simple mobile-game 3D render. The only design change: add a clearly visible compact coral-pink PETAL HAIRSTYLE emerging naturally from UNDER the headwear. A small softly side-swept fringe of three broad rounded pink petals rests along upper forehead below the hat edge, stopping above eyebrows. Two short overlapping rounded petal locks on EACH temple peek from under the sides, curve inward close to cheek edges and end around the upper cheeks. Petals slightly darker coral than the pale pink face so they read as floral hair. Broad soft shapes with rounded tips, no human hair strands, no spikes. These petals emerge from beneath hat and are softly compressed by it, not glued on hat exterior. Leave face and eye area open. Do not restore the large default flower halo, don't enlarge skull or lift hat. Single front-facing head-only portrait. Hat PLUS the visible small petal hair is one modular Head item; don't show a bald gap at sides. No text. Keep Santa hat's red folded cone and cream cuff and pompom exactly. Visible short floral fringe is below cream cuff, short side petal locks around temples.",
       "references": [
-        "base-full-front.png"
-      ]
+        "set/head-holiday-hat.png"
+      ],
+      "inputGitCommit": "0ad86d18af039018da31abdb199311a507325aaa",
+      "inputSha256": "a7cec2e12d51756824ad6858b0f03bd055734a7322548c479cb6bcceca9dcca1",
+      "revision": "Visible petal hair under headwear; approved headwear shapes retained."
     },
     {
       "id": "neck-scarf",
