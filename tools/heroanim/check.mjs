@@ -91,7 +91,7 @@ if(fs.existsSync(v2File)){
  for(const f of v2.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since V2 bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA pixels and crop size');}}
 }
 // Current references, derived identity outputs and the offline retirement record are pinned independently.
-for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','archive/twig/manifest.json','archive/sprig/manifest.json','archive/bloom/manifest.json','models/drop-clothing-study/manifest.json']) {
+for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','archive/twig/manifest.json','archive/sprig/manifest.json','archive/bloom/manifest.json','models/drop-clothing-study/manifest.json','models/drop-v2/manifest.json']) {
  const recordPath=path.join(here,relative),record=JSON.parse(fs.readFileSync(recordPath));
  for(const f of record.files){const file=path.join(path.dirname(recordPath),f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,relative+': '+f.path+' changed');}
 }

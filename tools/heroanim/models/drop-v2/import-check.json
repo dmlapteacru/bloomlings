@@ -1,0 +1,13 @@
+{
+  "complete": true,
+  "rigs": 1,
+  "meshes": 23,
+  "actions": 5,
+  "headChoices": 9,
+  "bodyChoices": 4,
+  "scarfChoices": 3,
+  "glassesChoices": 2,
+  "packedImages": 15,
+  "visibilityDrivers": true,
+  "scarfFitDrivers": true
+}

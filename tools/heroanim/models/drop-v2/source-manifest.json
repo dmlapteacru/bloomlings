@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "key": "head_2",
+      "path": "source/head_2.zip",
+      "originalName": "blue+cartoon+head+3d+model (2).zip",
+      "sha256": "f387f4e42932d1118711df9e86a8e3712ef6508f0dc65f9f90dd2e7ae5c53850"
+    },
+    {
+      "key": "character_4",
+      "path": "source/character_4.zip",
+      "originalName": "blue+cartoon+character+3d+model (4).zip",
+      "sha256": "06c28ae6ee34319bba8c3aa0940cf33ccfb69d35a77f31f67198c17f998886b1"
+    },
+    {
+      "key": "beret",
+      "path": "source/beret.zip",
+      "originalName": "blue+beret+character+3d+model.zip",
+      "sha256": "17a49f63e1353d545be7a0f05edc5c0bd6481b50bf9affcfb26daa24f33f371a"
+    },
+    {
+      "key": "character_1",
+      "path": "source/character_1.zip",
+      "originalName": "blue+cartoon+character+3d+model (1).zip",
+      "sha256": "c1a76a7cee5ff2bd18dcb478903f0b7fec023381d6fd811843b8cb5e8f2fa260"
+    },
+    {
+      "key": "emoji",
+      "path": "source/emoji.zip",
+      "originalName": "smiling+blue+emoji+3d+model.zip",
+      "sha256": "8d67a99ae69f9de26c85201d379ea8493a84222affb58023f8fa822c025dc0b7"
+    },
+    {
+      "key": "character_2",
+      "path": "source/character_2.zip",
+      "originalName": "blue+cartoon+character+3d+model (2).zip",
+      "sha256": "366623da2cf3c7f12b54d8a779164bd442bce96ef6e0ab8921bc11b3ed3c249e"
+    },
+    {
+      "key": "head_1",
+      "path": "source/head_1.zip",
+      "originalName": "blue+cartoon+head+3d+model (1).zip",
+      "sha256": "3a9cb4747cfb6e6b2044a263e2ac4e5552413105e0c3b13e32521701151c408b"
+    },
+    {
+      "key": "droplet",
+      "path": "source/droplet.zip",
+      "originalName": "blue+droplet+3d+model.zip",
+      "sha256": "17c41a4a12a677dfa54bf5f8d330d9ae258dbe3cc8ac88891e547da961f7247f"
+    },
+    {
+      "key": "cute_blue_1",
+      "path": "source/cute_blue_1.zip",
+      "originalName": "cute+blue+character+3d+model (1).zip",
+      "sha256": "5cb03f695ec9f9fbc5a4fd4aa8db3e4aa24f498b90ec8d29036a2d5db5815730"
+    },
+    {
+      "key": "character",
+      "path": "source/character.zip",
+      "originalName": "blue+cartoon+character+3d+model.zip",
+      "sha256": "d327eaed374d3ec39371b966469649cf3905b4dfafd0e5ddf849357b9e2fdb99"
+    },
+    {
+      "key": "head",
+      "path": "source/head.zip",
+      "originalName": "blue+cartoon+head+3d+model.zip",
+      "sha256": "9dd3bc83ed276ff34efee6314704a753a817cce7540f019047752b978e540407"
+    },
+    {
+      "key": "cute_cartoon_3",
+      "path": "source/cute_cartoon_3.zip",
+      "originalName": "cute+cartoon+character+3d+model (3).zip",
+      "sha256": "8f8c4500a7dda55aa2d02ab3e1d310ce460a4a4cd8929a83903729a6d88da75d"
+    },
+    {
+      "key": "cute_blue",
+      "path": "source/cute_blue.zip",
+      "originalName": "cute+blue+character+3d+model.zip",
+      "sha256": "52df660011cb195c7df59cf04e68ba1d283e15c515bf8ba2808cb6917dec9efb"
+    },
+    {
+      "key": "base",
+      "path": "../drop-clothing-study/source/Drop_Base_Source.zip",
+      "sha256": "8345351c6da1e0c588f2f324382cf663d2e86a4dd6de5f6dd588f9a57aa72b6b"
+    },
+    {
+      "key": "overalls",
+      "path": "../drop-clothing-study/products/Drop_Overalls_Fitted.fbx",
+      "sha256": "5bca3b5f81cc479c18d076789264254f23a71e230c043e159e0b6be602b4f7b2"
+    },
+    {
+      "key": "glasses",
+      "path": "../twig-v2/source/additions-2026-10-17/TwigHeroV2_Glasses.fbx",
+      "sha256": "63f1407770b78b6fb7db4f0d5266b2888d09897eb14e9eb4f0a3f8b98ffd40df"
+    }
+  ]
+}

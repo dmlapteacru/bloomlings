@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "FBX/DropHeroV2.fbx",
+      "sha256": "7a10802becad886471922f39aa1a0dfb97e4669a4351819827e87dd34a927932",
+      "meshes": [
+        "DropHeroV2_Base_Body",
+        "DropHeroV2_Base_Leg_R",
+        "DropHeroV2_Base_Arm_R",
+        "DropHeroV2_Base_Tail",
+        "DropHeroV2_Base_Leg_L",
+        "DropHeroV2_Base_Arm_L",
+        "DropHeroV2_Base_Head",
+        "DropHeroV2_Base_Neck"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_Beret.fbx",
+      "sha256": "604a64c7d31773ddf62d7605d9b3c628703f9c017d9167ea9d46d8a5acd677f4",
+      "meshes": [
+        "DropHeroV2_Beret"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_BucketHat.fbx",
+      "sha256": "63c1c548d671db35892ed52713377f701f61ce73b5da0913d792f8daef3ba1b0",
+      "meshes": [
+        "DropHeroV2_BucketHat"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_Cap.fbx",
+      "sha256": "e63b8abe2a92ce099afd0f3e018a646b8983d998862c9bce82a64643f7b55a9f",
+      "meshes": [
+        "DropHeroV2_Cap"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_Coat.fbx",
+      "sha256": "8a926cc467308f4c21c68bdd4353389f89798a5ff534302bdd3b8e2e21e0dc00",
+      "meshes": [
+        "DropHeroV2_Coat"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_EarmuffHair.fbx",
+      "sha256": "21eb98abf1af4b8b0f0da54c4228d94e16bb4b2b912d1f104cb86810e61a4d3a",
+      "meshes": [
+        "DropHeroV2_EarmuffHair"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_Glasses.fbx",
+      "sha256": "ec3ddc02d56d7a921c82b9f4c9366eee09f4a69ed471e3b5504f4bb3bffe0b01",
+      "meshes": [
+        "DropHeroV2_Glasses"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_HairSideWave.fbx",
+      "sha256": "651fae11065329e3026ac5fe615f914faa8073bda23b531ab4ece89bf220e04e",
+      "meshes": [
+        "DropHeroV2_HairSideWave"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_HairTwinRipples.fbx",
+      "sha256": "2bd52e07ca07e8a1e48e211b7ebf63544953684689e2e9c9b40d20a199f2a153",
+      "meshes": [
+        "DropHeroV2_HairTwinRipples"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_HairWhirlpool.fbx",
+      "sha256": "4390c833dc3342b2d615450532a354430b58865ca12bfdd4fd684573fd56b6aa",
+      "meshes": [
+        "DropHeroV2_HairWhirlpool"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_Jacket.fbx",
+      "sha256": "f80d91aa4ef4a81d8cc97208b3ca47a311f15494b0b8d61e6de0f321f0ff5575",
+      "meshes": [
+        "DropHeroV2_Jacket"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_NativeDrop.fbx",
+      "sha256": "4d2a0052723beda76fe75e591ff8a8ffe2da48bd57c72f22c4a612dce4c6df8a",
+      "meshes": [
+        "DropHeroV2_NativeDrop"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_Overalls.fbx",
+      "sha256": "34dda4dcdf28858c615bf3f4d3338994c628d01c2be6db08f4a4db1a82d5c8b7",
+      "meshes": [
+        "DropHeroV2_Overalls"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_ScarfKnit.fbx",
+      "sha256": "e170a10cc8223179fb66f75fa6591e0ec79c6a883a5acd0bece603fb27984e60",
+      "meshes": [
+        "DropHeroV2_ScarfKnit"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_ScarfStripe.fbx",
+      "sha256": "6ef3d4344174589e16228688aa8831aa80deb6d01933092c4a7fd0a5ae7d1ae1",
+      "meshes": [
+        "DropHeroV2_ScarfStripe"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2_XmasHat.fbx",
+      "sha256": "d9c6ccd1df0085ab9832668acc4fe65495a43b79afc134390bd21f340e1c20e3",
+      "meshes": [
+        "DropHeroV2_XmasHat"
+      ]
+    },
+    {
+      "path": "FBX/DropHeroV2@Anims.fbx",
+      "sha256": "f61daece0f195bda0c7b3d8129c72feac3152d0b8310da355e32bcf2d0a55122",
+      "meshes": []
+    }
+  ],
+  "animationNames": [
+    "Drop_Idle",
+    "Drop_Joy",
+    "Drop_Sad",
+    "Drop_Walk",
+    "Drop_Wave"
+  ]
+}
