@@ -13,8 +13,8 @@
     },
     {
       "path": "heads-three-hairstyles.png",
-      "sha256": "c37b0fb7060f28de0ab62e0efaa9aa03fa8bd950fa43d79eb0239f504732e073",
-      "note": "Three requested leaf hairstyle references on the common Sprig head: signature crest, low side-part, curled forelock. Modeling concepts, not runtime assets."
+      "sha256": "ffa66ccb9ec1bc28f482f54fc9798c09db64eb381a266ed6383b51e028f1d3f2",
+      "note": "Requested revision: 1 soft rounded leaf cap with short forelock, 2 compact side-part, 3 curled forelock. Common Sprig head; offline modeling concepts."
     }
   ]
 }

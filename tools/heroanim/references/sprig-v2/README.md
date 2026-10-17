@@ -8,4 +8,6 @@ reference, not a replacement for the current in-game Sprig. The owner will suppl
 The final game hero needs a default leafy head style; the bald base is for modeling / interchangeable head parts.
 `manifest.json` pins both reference images. Neither enters application resources.
 
-[heads-three-hairstyles.png](heads-three-hairstyles.png) shows the requested three headwear concepts on the common base: 1 signature leaf crest, 2 compact side-part leaf crop, 3 curled leaf forelock. They are front-view modeling references; no new mesh or game replacement is included.
+[heads-three-hairstyles.png](heads-three-hairstyles.png) shows the requested three headwear concepts on the common base: 1 soft rounded leaf cap with short forelock, 2 compact side-part leaf crop, 3 curled leaf forelock. They are front-view modeling references; no new mesh or game replacement is included.
+
+The owner replaced the first tall crest with a softer, cuter rounded leaf cap. The earlier crest is retained in Git history.
