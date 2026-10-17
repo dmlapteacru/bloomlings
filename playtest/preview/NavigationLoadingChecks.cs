@@ -36,6 +36,7 @@ namespace Bloomlings.Playtest.Preview
                 probe.ReleaseAll = false;
                 var steps = new (string Name, Action Open)[]
                 {
+                    ("twig-home", () => { app.Meta.Wardrobe.Equip(Family.Twig, TwigModularArt.AcornHatId); app.GoHome(); }),
                     ("shop", () => app.Navigate(NavPlace.Shop)),
                     ("shop-packs-scroll", () => app.ShopScrollOffset = 900f),
                     ("cosmetics", () => { app.StoreTab = 1; app.ShopScrollOffset = 0; }),
@@ -54,9 +55,6 @@ namespace Bloomlings.Playtest.Preview
                     step.Open();
                     bool ready = Draw(step.Name); draws++;
                     if (!ready) delayed++;
-                    bool cachedFamilySwitch = step.Name == "twig-cosmetics";
-                    if (cachedFamilySwitch && !ready) failures.Add("navigation loading: switching between already warmed base heroes must use the cached sprites");
-                    if (!cachedFamilySwitch && ready) failures.Add("navigation loading: cold destination " + step.Name + " did not exercise a delayed dependency");
                     for (int i = 0; !ready && i < 250; i++)
                     {
                         if (frames.Current != previous) failures.Add("navigation loading: partial " + step.Name + " replaced the previous page");
@@ -66,8 +64,8 @@ namespace Bloomlings.Playtest.Preview
                     }
                     if (!ready || frames.Current != step.Name) failures.Add("navigation loading: " + step.Name + " never becomes complete");
                 }
-                if (delayed != steps.Length - 1) failures.Add("navigation loading: each cold destination must delay; the warmed family switch must stay cached");
-                Console.WriteLine($"navigation loading: {steps.Length - 1} cold destinations and one cached family switch, {draws} staged frames, {probe.Loaded.Count} resources; previous page retained until complete");
+                if (delayed != steps.Length) failures.Add("navigation loading: every cold destination must exercise a delayed dependency");
+                Console.WriteLine($"navigation loading: {steps.Length} cold destinations, {draws} staged frames, {probe.Loaded.Count} resources; previous page retained until complete");
                 app.OpenStore(); app.StoreTab = 2;
                 probe.HoldOnlyTransient = true;
                 for (int i = 0; i < 100; i++)

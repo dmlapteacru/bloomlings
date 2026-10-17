@@ -77,6 +77,19 @@ if(fs.existsSync(simpleFile)){
   if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain full-color RGBA and declared crop size');}
  }
 }
+const fittedFile=path.join(here,'twig-modular.json');
+if(fs.existsSync(fittedFile)){
+ const fitted=JSON.parse(fs.readFileSync(fittedFile));
+ const referenceFolder=path.join(here,'references/twig-modular'),references=JSON.parse(fs.readFileSync(path.join(referenceFolder,'manifest.json')));
+ for(const f of references.files)expect(fs.existsSync(path.join(referenceFolder,f.path))&&sha(path.join(referenceFolder,f.path))===f.sha256,'Modular Twig reference '+f.path+' is missing or changed');
+ const build=JSON.parse(fs.readFileSync(path.join(here,'models/twig-modular/build-report.json')));
+ expect(build.baseGeometryCheck.uvUnchanged&&build.baseGeometryCheck.maxWorldCoordinateDelta<1e-7,'Modular Twig base world geometry / UV changed');
+ expect(build.scriptSha256===sha(path.join(here,'prepare-twig-modular.py'))&&build.fitSha256===sha(path.join(here,'twig-modular-fit.json')),'Modular Twig assembly report is stale');
+ for(const source of fitted.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since modular Twig bake');
+ expect(sha(path.join(repo,fitted.data))===fitted.dataSha256,'TwigModularData does not match bake');
+ for(const f of fitted.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed after modular Twig bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain full RGBA and crop size');}}
+ for(const [name,c]of Object.entries(fitted.sharedBaseChecks))expect(c.faceDifferent===0&&c.bodyDifferent===0,'Modular Twig '+name+' changed the common face or body pixels');
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const tripoStudy=path.join(here,'models/twig-tripo/study-manifest.json');
 if(fs.existsSync(tripoStudy)){
@@ -85,6 +98,7 @@ if(fs.existsSync(tripoStudy)){
     expect(fs.existsSync(path.join(repo,entry.path))&&sha(path.join(repo,entry.path))===entry.sha256,`Twig Tripo study ${entry.path} is missing or changed`);
 }
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
+if(fs.existsSync(fittedFile))for(const f of JSON.parse(fs.readFileSync(fittedFile)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 expect(folderFiles.size === listed.size && [...listed].every(n => folderFiles.has(n)), 'HeroMotion/manifest.json does not list the baked frames');
 if(fs.existsSync(gearFile))for(const f of JSON.parse(fs.readFileSync(gearFile)).outputs)
   expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);

@@ -41,6 +41,18 @@ namespace Bloomlings.Playtest.Preview
                 string? problem = Check(assembly, Visuals.MotionFrame(frame), frame, allowFullColor: true);
                 if (problem != null) yield return "simplified hero " + family + ": " + problem;
             }
+            var fitted = new List<HeroFrame> { TwigModularArt.Frame(null) };
+            foreach (string id in new[] { TwigModularArt.AcornHatId, TwigModularArt.PanamaHatId })
+            {
+                var hat = new CosmeticItem(id, CosmeticKind.Hat, id, "", "#FFFFFF", false);
+                fitted.Add(TwigModularArt.Frame(Outfit.None with { Hat = hat }));
+                fitted.Add(TwigModularArt.Icon(id)!.Value);
+            }
+            foreach (HeroFrame frame in fitted)
+            {
+                string? problem = Check(assembly, Visuals.MotionFrame(frame), frame, allowFullColor: true);
+                if (problem != null) yield return "fitted Twig " + frame.Name + ": " + problem;
+            }
             var twig = new List<HeroFrame> { TwigGearArt.Frame(null) };
             foreach (string id in new[] { TwigGearArt.AcornHatId, TwigGearArt.FlowerCapId })
             {

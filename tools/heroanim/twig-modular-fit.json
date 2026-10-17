@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "note": "Derived headwear trimmed from single-mesh head generations; one unchanged bald base. Blender Z up, front -Y.",
+  "acorn": {
+    "cutPlane": [
+      0,
+      0.24,
+      1,
+      0.38
+    ],
+    "scale": [
+      0.93,
+      1.05,
+      0.88
+    ],
+    "translation": [
+      0,
+      0,
+      0.4
+    ]
+  },
+  "panama": {
+    "cutPlane": [
+      0,
+      0.2,
+      1,
+      0.3
+    ],
+    "scale": [
+      0.93,
+      1.0,
+      0.9
+    ],
+    "translation": [
+      0,
+      0,
+      0.46
+    ]
+  },
+  "render": {
+    "halfHeight": 0.72,
+    "cameraY": 0.576,
+    "supersample": 3,
+    "albedoShare": 0.75
+  }
+}

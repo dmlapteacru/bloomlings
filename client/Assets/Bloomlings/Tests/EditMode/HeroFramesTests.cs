@@ -61,6 +61,7 @@ namespace Bloomlings.Client.Tests
             {
                 "sprigmod-base", "sprigmod-cap", "sprigmod-glasses", "sprigmod-cap-glasses", "sprigmod-backpack",
                 "sprigmod-cap-backpack", "sprigmod-icon-hat", "sprigmod-icon-glasses", "sprigmod-icon-backpack",
+                "twigfit-base", "twigfit-acorn", "twigfit-panama", "twigfit-icon-acorn", "twigfit-icon-panama",
                 "simplehero-sprig", "simplehero-bloom", "simplehero-drop", "simplehero-twig",
                 "twigmod-base", "twigmod-acorn", "twigmod-cap", "twigmod-icon-acorn", "twigmod-icon-cap",
             });

@@ -1,5 +1,8 @@
 # Simplified Tripo heroes — current in-game model trial
 
+**Twig update:** the newer shared bald base with Acorn / Panama is now active for Twig; see
+`../twig-modular/README.md`. Sprig / Bloom / Drop still use the models below. This record preserves the earlier four-hero trial.
+
 Owner delivery, 2026-10-17: four FBX / texture ZIPs generated from the approved simplified character references.
 The originals are renamed without modifying bytes under `source/`; `source-manifest.json` records hashes and
 original names. Reference illustrations are preserved in `../../references/simple-heroes/`.

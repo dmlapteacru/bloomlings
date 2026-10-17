@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "path": "tools/heroanim/models/twig-modular/source/TwigHero_AcornHead_Tripo.zip",
+      "sha256": "3357fce2c428a3a5a43382dff25bf2826d784e1ed0ad06696bdad0053c80fef1"
+    },
+    {
+      "path": "tools/heroanim/models/twig-modular/source/TwigHero_PanamaHead_Tripo.zip",
+      "sha256": "e563671eed74e1a574bbbe391b8758557137baddf83ae03e7afdb8d268d0e1aa"
+    },
+    {
+      "path": "tools/heroanim/models/twig-modular/source/TwigHero_BaldBase_Tripo.zip",
+      "sha256": "1ca48b7739c7f5af5b0c6114998763ff0899a2f158c8b3ea25fb6c69a2ac1698"
+    },
+    {
+      "path": "tools/heroanim/models/twig-modular/source-manifest.json",
+      "sha256": "c169d7bf1251ca50194e8d859ad8f40669fd1905f31a9ba82a28602c8edc316b"
+    },
+    {
+      "path": "tools/heroanim/prepare-twig-modular.py",
+      "sha256": "9c8a6027edd8b1321ff6325615f65e741e3d5ed779677dd49b61c70813756c0e"
+    },
+    {
+      "path": "tools/heroanim/twig-modular-fit.json",
+      "sha256": "bac9e82aaf5165688ddfd895fd6ac3e775bdc8555c57e24010096f7c7a569bb6"
+    },
+    {
+      "path": "tools/heroanim/bake-twig-modular.mjs",
+      "sha256": "9ac75b34c279a295dafdcea2feac620f751e72396845d35a8056c478c60677b4"
+    }
+  ],
+  "data": "client/Assets/Bloomlings/UI/Design/TwigModularData.cs",
+  "dataSha256": "4c11ec91a06ca0b1335be0ac2dfe67edc5cdacab9425a19a40eee928d07d4ae8",
+  "cell": [
+    448,
+    504
+  ],
+  "encoding": "RGBA8 lossless PNG",
+  "render": {
+    "halfHeight": 0.72,
+    "cameraY": 0.576,
+    "supersample": 3,
+    "albedoShare": 0.75
+  },
+  "sharedBaseChecks": {
+    "acorn": {
+      "faceDifferent": 0,
+      "bodyDifferent": 0
+    },
+    "panama": {
+      "faceDifferent": 0,
+      "bodyDifferent": 0
+    }
+  },
+  "outputs": [
+    {
+      "key": "base",
+      "file": "twigfit-base.png",
+      "crop": [
+        78,
+        109,
+        292,
+        346
+      ],
+      "icon": false,
+      "bytes": 84543,
+      "sha256": "b6efb08c8cf7bb890af03a7f2c4435f0a0de8e8067862f4104ff22ba3c82b544"
+    },
+    {
+      "key": "acorn",
+      "file": "twigfit-acorn.png",
+      "crop": [
+        77,
+        10,
+        296,
+        445
+      ],
+      "icon": false,
+      "bytes": 122608,
+      "sha256": "5657cdf0e699e7ae89d3fb45aaec1fb56e133e6bfb852db9cee315afcf66c1c9"
+    },
+    {
+      "key": "panama",
+      "file": "twigfit-panama.png",
+      "crop": [
+        63,
+        53,
+        322,
+        402
+      ],
+      "icon": false,
+      "bytes": 112190,
+      "sha256": "22f685a0c62981f947566b64c44fbbb9ad0ff85d95d1080a7f491d1fea9e3f9d"
+    },
+    {
+      "key": "icon-acorn",
+      "file": "twigfit-icon-acorn.png",
+      "crop": [
+        47,
+        78,
+        224,
+        148
+      ],
+      "icon": true,
+      "bytes": 32122,
+      "sha256": "97dc5cc33023cae1553c2115b5ba157328058b90629150a1a6eb8386cf568c82"
+    },
+    {
+      "key": "icon-panama",
+      "file": "twigfit-icon-panama.png",
+      "crop": [
+        47,
+        99,
+        226,
+        107
+      ],
+      "icon": true,
+      "bytes": 19775,
+      "sha256": "d2ba58c420a2f34dd7d2367535d999a812d42643d3eaf1dc5cf491d46b2e45a6"
+    }
+  ]
+}

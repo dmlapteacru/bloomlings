@@ -49,6 +49,7 @@
     {"id": "glasses.sprig_round", "kind": "glasses", "name": "Garden Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true},
     {"id": "backpack.sprig_leaf", "kind": "backpack", "name": "Leaf Backpack", "shape": "leaf", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true},
     {"id": "hat.twig_acorn", "kind": "hat", "name": "Acorn Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
-    {"id": "hat.twig_flower_cap", "kind": "hat", "name": "Daisy Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true}
+    {"id": "hat.twig_flower_cap", "kind": "hat", "name": "Daisy Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "hat.twig_panama", "kind": "hat", "name": "Panama Hat", "shape": "brim", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true}
   ]
 }

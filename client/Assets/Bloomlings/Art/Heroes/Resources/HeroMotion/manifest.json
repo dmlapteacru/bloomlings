@@ -8262,6 +8262,51 @@
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigfit-base.png",
+   "width": 292,
+   "height": 346,
+   "sha256": "b6efb08c8cf7bb890af03a7f2c4435f0a0de8e8067862f4104ff22ba3c82b544",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigfit-acorn.png",
+   "width": 296,
+   "height": 445,
+   "sha256": "5657cdf0e699e7ae89d3fb45aaec1fb56e133e6bfb852db9cee315afcf66c1c9",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigfit-panama.png",
+   "width": 322,
+   "height": 402,
+   "sha256": "22f685a0c62981f947566b64c44fbbb9ad0ff85d95d1080a7f491d1fea9e3f9d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigfit-icon-acorn.png",
+   "width": 224,
+   "height": 148,
+   "sha256": "97dc5cc33023cae1553c2115b5ba157328058b90629150a1a6eb8386cf568c82",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigfit-icon-panama.png",
+   "width": 226,
+   "height": 107,
+   "sha256": "d2ba58c420a2f34dd7d2367535d999a812d42643d3eaf1dc5cf491d46b2e45a6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
   }
  ]
 }

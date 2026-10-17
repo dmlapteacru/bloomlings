@@ -116,3 +116,17 @@ Previous model-specific cap / glasses / backpack pieces are withheld from Shop /
 until refitted; old service / save selections remain intact. Generic 2D cosmetics and independent profile avatar /
 frame / badge choices stay supported. No source models ship in APKs and no APK is built here. Current captures:
 `output/simple-heroes-in-game/`.
+
+### Current Twig shared base and two fitted hats (2026-10-17)
+
+The owner's next delivery replaces only Twig's complete base and supplies acorn / panama head generations. Keep the
+complete bald base unchanged and use only extracted headwear from the other generations. Current source / fit / bake:
+`tools/heroanim/models/twig-modular/README.md`. Preserve the latest light-color treatment and keep one face / ears /
+body across outfits. Five static sprites / icons total 371,238 bytes; the current face / body comparison regions are
+pixel-identical when headwear changes. The source models are unrigged; actions remain a later feature.
+
+Free Acorn Hat (`hat.twig_acorn`, existing ID) and Panama Hat (`hat.twig_panama`) are available in Shop → Cosmetics →
+Twig; one exclusive Hat slot, Remove / Default returns to bald. Existing selections / application restart are
+supported, including an earlier saved Acorn choice. Home / Wardrobe / victory share the selection; fitted headwear
+stays out of gameplay figures. Old unrefitted Daisy Cap / Sprig equipment IDs remain saved but withheld. The other
+three simplified models and independent profile appearances remain. Current captures: `output/twig-modular-in-game/`.

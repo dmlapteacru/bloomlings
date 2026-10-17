@@ -59,3 +59,9 @@ All four meta-screen bases now come from the owner's latest simplified Tripo ZIP
 `prepare-simple-heroes.py` and `bake-simple-heroes.mjs`, then `check.mjs`; source, behavior and rebuild details are in
 `models/simple-tripo/README.md`. The Sprig / Twig fitted-part bakes above remain archived until those parts are fitted
 to the new models. The runtime draws four small static sprites with 2D breathing, not the heavy source meshes.
+
+### Current Twig fitted headwear (other three simplified heroes stay as above)
+
+Twig now uses the owner's new complete bald base with extracted Acorn / Panama hats. Run `prepare-twig-modular.py`,
+then `bake-twig-modular.mjs` (`--review` for work-directory renders), then `check.mjs`. Source / fitting / save behavior
+and import details: `models/twig-modular/README.md`. This retains one common face and the approved light-color look.
