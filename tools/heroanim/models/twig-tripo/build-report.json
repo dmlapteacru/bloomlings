@@ -1,0 +1,353 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "key": "base",
+      "file": "TwigHero_Base_Tripo.zip",
+      "original": "1-cute-cartoon-character-3d-model.zip",
+      "sha256": "430025ee78116bb326e21f764367fbcf284ad4d2643816f8accc6db07d342be7",
+      "bytes": 8556324,
+      "fbxSha256": "d2c5e5643dc0eaf7f4477baceb732bd55ff027dd48d3ace3b973ba9a16733eec",
+      "rigged": false
+    },
+    {
+      "key": "acorn",
+      "file": "TwigHero_Acorn_Tripo.zip",
+      "original": "2-pumpkin-head-3d-model.zip",
+      "sha256": "f3c240514a65e1d0a5b564a5c576dd2a778100cbe82e65153032d56d4c2e7d33",
+      "bytes": 8645034,
+      "fbxSha256": "1359585b742c98440ee70ea3f456069a476fd4aa5d735cebb16946effd65382f",
+      "rigged": false
+    },
+    {
+      "key": "cap",
+      "file": "TwigHero_Cap_Tripo.zip",
+      "original": "3-cute-emoji-head-3d-model.zip",
+      "sha256": "ddbb8db505f641b7eab72b14c37c6208562601cb40cec4ff947cbcdddd9d0e29",
+      "bytes": 7355387,
+      "fbxSha256": "98e079075c82c258cd509f80ea14f725f96b5c52b08268cc37d487f5bb4ef482",
+      "rigged": false
+    }
+  ],
+  "parts": {
+    "TwigHero_base_part_1": {
+      "source": {
+        "vertices": 4058,
+        "triangles": 7992,
+        "coordinates": "bb5acc97044376a7dd6db4ce178fa256a944aee47cb3098223a5399f4c0a6e7f",
+        "uv": "a06189de51c187150042fe190278e6e80fe87ba526c9be40d58b637c81aafa11"
+      },
+      "derived": {
+        "vertices": 4058,
+        "triangles": 7992,
+        "coordinates": "bb5acc97044376a7dd6db4ce178fa256a944aee47cb3098223a5399f4c0a6e7f",
+        "uv": "a06189de51c187150042fe190278e6e80fe87ba526c9be40d58b637c81aafa11"
+      }
+    },
+    "TwigHero_base_part_3": {
+      "source": {
+        "vertices": 5998,
+        "triangles": 11854,
+        "coordinates": "e14aff3eb3c7e774decb0e1afcd829aa2e5717b2097eaf134751c32561f403f5",
+        "uv": "8a9e0f0d4b59e08e8e78857dede180809ecc6c87ef1c1e2ea1c4166c86d63ef2"
+      },
+      "derived": {
+        "vertices": 5998,
+        "triangles": 11854,
+        "coordinates": "e14aff3eb3c7e774decb0e1afcd829aa2e5717b2097eaf134751c32561f403f5",
+        "uv": "8a9e0f0d4b59e08e8e78857dede180809ecc6c87ef1c1e2ea1c4166c86d63ef2"
+      }
+    },
+    "TwigHero_base_part_4": {
+      "source": {
+        "vertices": 896,
+        "triangles": 1667,
+        "coordinates": "b17b987a52b6d61607db1be03d36a1aa5969b91d45a4c608856231150c2039b3",
+        "uv": "63663d54ea870cc92dae77117e85c59842e763aaa1c9f1a272902b6154cb0442"
+      },
+      "derived": {
+        "vertices": 896,
+        "triangles": 1667,
+        "coordinates": "b17b987a52b6d61607db1be03d36a1aa5969b91d45a4c608856231150c2039b3",
+        "uv": "63663d54ea870cc92dae77117e85c59842e763aaa1c9f1a272902b6154cb0442"
+      }
+    },
+    "TwigHero_base_part_6": {
+      "source": {
+        "vertices": 3828,
+        "triangles": 7546,
+        "coordinates": "1c717ac2b4dcee64851947b220d3859f1beffd0a285fd490e543471268a25702",
+        "uv": "21f5ef678edbcecf60768b9e3fd62f546a51f0ac96fd8678a1150c4f1f62982e"
+      },
+      "derived": {
+        "vertices": 3828,
+        "triangles": 7546,
+        "coordinates": "1c717ac2b4dcee64851947b220d3859f1beffd0a285fd490e543471268a25702",
+        "uv": "21f5ef678edbcecf60768b9e3fd62f546a51f0ac96fd8678a1150c4f1f62982e"
+      }
+    },
+    "TwigHero_base_part_2": {
+      "source": {
+        "vertices": 6461,
+        "triangles": 12356,
+        "coordinates": "2ceda0dd5c24bb674519e16a54809b696d354faeef008a3f34ff1d5ae2889d5d",
+        "uv": "2b25d5f02b6ccdc1e0711424f090357818a1df19addafaacbf1bd701589ce969"
+      },
+      "derived": {
+        "vertices": 6461,
+        "triangles": 12356,
+        "coordinates": "2ceda0dd5c24bb674519e16a54809b696d354faeef008a3f34ff1d5ae2889d5d",
+        "uv": "2b25d5f02b6ccdc1e0711424f090357818a1df19addafaacbf1bd701589ce969"
+      }
+    },
+    "TwigHero_base_part_0": {
+      "source": {
+        "vertices": 27920,
+        "triangles": 55501,
+        "coordinates": "9ec95f3ff4c7f8f167bbe691e0cb6ff2f24a4a10d3d26b209d9683ba8e223bb0",
+        "uv": "f7d1fe9779b7d56bc26daff3312594eacd468edbd5307f85980c05afb59660b7"
+      },
+      "derived": {
+        "vertices": 27920,
+        "triangles": 55501,
+        "coordinates": "9ec95f3ff4c7f8f167bbe691e0cb6ff2f24a4a10d3d26b209d9683ba8e223bb0",
+        "uv": "f7d1fe9779b7d56bc26daff3312594eacd468edbd5307f85980c05afb59660b7"
+      }
+    },
+    "TwigHero_base_part_5": {
+      "source": {
+        "vertices": 717,
+        "triangles": 1386,
+        "coordinates": "12050bc5420544f351ae536de8021f449bfaa7637614f6c732ff3bdf047324ef",
+        "uv": "bc0e2eb9632ec0a72a20d6083c36d53460c42a461827262c73654ae21c3adf5d"
+      },
+      "derived": {
+        "vertices": 717,
+        "triangles": 1386,
+        "coordinates": "12050bc5420544f351ae536de8021f449bfaa7637614f6c732ff3bdf047324ef",
+        "uv": "bc0e2eb9632ec0a72a20d6083c36d53460c42a461827262c73654ae21c3adf5d"
+      }
+    },
+    "TwigHero_base_part_7": {
+      "source": {
+        "vertices": 313,
+        "triangles": 570,
+        "coordinates": "9b53be1fd90f18aea44aecf607ed757df3028f1f78d508317a0ed667a69693fd",
+        "uv": "e654bfff7ba0dedb571b53e1ae20c78bb29f7e0ee0c9b8c737ad0bd68e635de4"
+      },
+      "derived": {
+        "vertices": 313,
+        "triangles": 570,
+        "coordinates": "9b53be1fd90f18aea44aecf607ed757df3028f1f78d508317a0ed667a69693fd",
+        "uv": "e654bfff7ba0dedb571b53e1ae20c78bb29f7e0ee0c9b8c737ad0bd68e635de4"
+      }
+    },
+    "TwigHero_acorn_part_2": {
+      "source": {
+        "vertices": 3998,
+        "triangles": 7899,
+        "coordinates": "4e9e74d9b2e4f6a920fdc35e6c5e545317cff8274ee77f737ea1b84d9ccf769d",
+        "uv": "f7a2db65b4a2743b8f121f82d4142ef95a627720d718783b793e6a087352f51c"
+      },
+      "derived": {
+        "vertices": 3998,
+        "triangles": 7899,
+        "coordinates": "4e9e74d9b2e4f6a920fdc35e6c5e545317cff8274ee77f737ea1b84d9ccf769d",
+        "uv": "f7a2db65b4a2743b8f121f82d4142ef95a627720d718783b793e6a087352f51c"
+      }
+    },
+    "TwigHero_acorn_part_1": {
+      "source": {
+        "vertices": 21179,
+        "triangles": 41809,
+        "coordinates": "cdc7d22d680f65cace3054c5c43023155289db50a18d63d7cbaab37f774830a4",
+        "uv": "e3aa553a97abbb5717c2c0e675949cc54c5bd30abebe9557ade3cf1d481450f9"
+      },
+      "derived": {
+        "vertices": 21179,
+        "triangles": 41809,
+        "coordinates": "cdc7d22d680f65cace3054c5c43023155289db50a18d63d7cbaab37f774830a4",
+        "uv": "e3aa553a97abbb5717c2c0e675949cc54c5bd30abebe9557ade3cf1d481450f9"
+      }
+    },
+    "TwigHero_cap_part_6": {
+      "source": {
+        "vertices": 1566,
+        "triangles": 3022,
+        "coordinates": "090f959c1574b11751f6c564f165d9480190ba6e6b505945904abb299e62bc3e",
+        "uv": "d307372faaafb76ef27bfcb26b1425cd1ced26aac3f4be02d8f061cb78511c35"
+      },
+      "derived": {
+        "vertices": 1566,
+        "triangles": 3022,
+        "coordinates": "090f959c1574b11751f6c564f165d9480190ba6e6b505945904abb299e62bc3e",
+        "uv": "d307372faaafb76ef27bfcb26b1425cd1ced26aac3f4be02d8f061cb78511c35"
+      }
+    },
+    "TwigHero_cap_part_8": {
+      "source": {
+        "vertices": 4979,
+        "triangles": 9602,
+        "coordinates": "8454f3698aebe7db8e6451c4b2d3f315ef8f9da1baa75cd577a3473789414089",
+        "uv": "41fcd3767fbc8de7b9103b7dc91c94e1cda578bbbc3e42529953c3bd6b9b20b3"
+      },
+      "derived": {
+        "vertices": 4979,
+        "triangles": 9602,
+        "coordinates": "8454f3698aebe7db8e6451c4b2d3f315ef8f9da1baa75cd577a3473789414089",
+        "uv": "41fcd3767fbc8de7b9103b7dc91c94e1cda578bbbc3e42529953c3bd6b9b20b3"
+      }
+    },
+    "TwigHero_cap_part_0": {
+      "source": {
+        "vertices": 16280,
+        "triangles": 31942,
+        "coordinates": "ce5f70127614ab29754ea64e5d23b9cbb290ff246d8c5090127fff472368ee12",
+        "uv": "c3f4d15a5998a7244a44d421eee1b2f3049347684166d07ddd4f2b3f9dd8d706"
+      },
+      "derived": {
+        "vertices": 16280,
+        "triangles": 31942,
+        "coordinates": "ce5f70127614ab29754ea64e5d23b9cbb290ff246d8c5090127fff472368ee12",
+        "uv": "c3f4d15a5998a7244a44d421eee1b2f3049347684166d07ddd4f2b3f9dd8d706"
+      }
+    },
+    "TwigHero_cap_part_10": {
+      "source": {
+        "vertices": 398,
+        "triangles": 731,
+        "coordinates": "72093b970f875689aa414c870b0f08ef6c7c19031c438afcdab82fef298005f7",
+        "uv": "f14b2b3db9147c21d98f781150ba4c7f1e5f21a44a0d721f89008778e6a1bcb9"
+      },
+      "derived": {
+        "vertices": 398,
+        "triangles": 731,
+        "coordinates": "72093b970f875689aa414c870b0f08ef6c7c19031c438afcdab82fef298005f7",
+        "uv": "f14b2b3db9147c21d98f781150ba4c7f1e5f21a44a0d721f89008778e6a1bcb9"
+      }
+    }
+  },
+  "excludedParts": {
+    "base": [],
+    "acorn": [
+      0
+    ],
+    "cap": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      11,
+      12,
+      13,
+      14
+    ]
+  },
+  "exports": [
+    {
+      "file": "TwigHero_Base.glb",
+      "sha256": "aaf54274510dbdcfec9e8005d9ddc2aec3d836795044d5e164bda92ec4405d8d",
+      "bytes": 3213748
+    },
+    {
+      "file": "TwigHero_AcornHead.glb",
+      "sha256": "7e16132c8e97dcca8f5cc61cd237b707c08720d2089b6cee548a59f735aecded",
+      "bytes": 3403476
+    },
+    {
+      "file": "TwigHero_AcornHat.glb",
+      "sha256": "fd2e479e039ffb1dfb6ee0f1a4277ceb8bbd4d8d08b55b5b4d62b0b69a39f1a0",
+      "bytes": 1395164
+    },
+    {
+      "file": "TwigHero_FlowerCapHead.glb",
+      "sha256": "ad104b6d3fd8eb5881f7c9b811c753aa71176330314ba0f3da00ce5d983fb3b8",
+      "bytes": 3359284
+    },
+    {
+      "file": "TwigHero_FlowerCapHat.glb",
+      "sha256": "b9e2756225aa859a9ee77ddad29c589f0c8dba7604ca8967b98490237b3bb24c",
+      "bytes": 1350960
+    },
+    {
+      "file": "TwigHero_Review.glb",
+      "sha256": "24d1f2bd9da6f5eede368293da9ce8339ac0e558048f306600a232ee9ba4ba32",
+      "bytes": 5958888
+    }
+  ],
+  "rigs": [],
+  "recipeSha256": "a1920e770eda92a6ed1992b8023115d87af5f0e756df6d307c5210bc44fe3531",
+  "scriptSha256": "c81dec0007171b8743275c61df2e2ca26b6043d662a5bd90cb7093ca522e96a3",
+  "runtimeAssetsChanged": false,
+  "originalSourceFilesChanged": false,
+  "baseGeometryChanged": false,
+  "eyeMaterials": {
+    "glossPolygons": 7564,
+    "textureRepainted": false
+  },
+  "headParts": [
+    "TwigHero_base_part_0",
+    "TwigHero_base_part_4",
+    "TwigHero_base_part_7"
+  ],
+  "headPivot": [
+    0,
+    0,
+    0.35
+  ],
+  "fitting": {
+    "acorn": {
+      "parts": [
+        1,
+        2
+      ],
+      "scale": [
+        1.36,
+        1.4,
+        1.3
+      ],
+      "translation": [
+        0,
+        0,
+        -0.084
+      ]
+    },
+    "cap": {
+      "parts": [
+        0,
+        6,
+        8,
+        10
+      ],
+      "scale": [
+        1.3,
+        1.3,
+        1.1
+      ],
+      "translation": [
+        0,
+        -0.058,
+        0.04
+      ],
+      "rotationDegrees": [
+        -7,
+        0,
+        0
+      ],
+      "rotationPivot": [
+        0,
+        0,
+        0.85
+      ]
+    }
+  },
+  "notes": [
+    "All variants share the same base head, ears and mouth geometry / UV / textures.",
+    "Only headwear extracted from head generations; hallucinated bodies / faces are excluded.",
+    "No rig or animations in source exports. This is a static fitting study, not an animated integration.",
+    "No new editable Blender master is saved. Import exchange GLBs into the owner master."
+  ]
+}

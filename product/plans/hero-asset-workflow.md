@@ -71,3 +71,12 @@ olive daisy baseball cap), plus an actual frontal render of the original source 
 image-generation authoring references, not new rigged meshes or final textures. The game stays on the original model
 until the owner generates / fits the new base and heads in the same Blender master. Preserve head origin, neck join,
 scale and facial attachment landmarks across head variants; do not change the face to fit a hat.
+
+### Segmented Tripo trial (2026-10-17)
+
+The owner's next three segmented exports make a shared face possible: take the base from the first archive and only
+headwear from the other two. `tools/heroanim/models/twig-tripo/` records the extraction and fitting. The derived base
+and both whole-head GLBs retain exactly the same head / ear / mouth geometry, UV and scale; separate headwear-only
+GLBs are also delivered. Five files import into Blender with embedded color textures and a common head pivot. This
+is a static authoring exchange without a skeleton, not a new master project or an in-game replacement. Current review:
+`output/twig-tripo-study/`.

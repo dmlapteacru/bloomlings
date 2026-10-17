@@ -64,6 +64,12 @@ if(fs.existsSync(twigFile)){
   }
 }
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
+const tripoStudy=path.join(here,'models/twig-tripo/study-manifest.json');
+if(fs.existsSync(tripoStudy)){
+  const study=JSON.parse(fs.readFileSync(tripoStudy));
+  for(const entry of [...study.sources,...study.outputs])
+    expect(fs.existsSync(path.join(repo,entry.path))&&sha(path.join(repo,entry.path))===entry.sha256,`Twig Tripo study ${entry.path} is missing or changed`);
+}
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
 expect(folderFiles.size === listed.size && [...listed].every(n => folderFiles.has(n)), 'HeroMotion/manifest.json does not list the baked frames');
 if(fs.existsSync(gearFile))for(const f of JSON.parse(fs.readFileSync(gearFile)).outputs)

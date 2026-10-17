@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "path": "tools/heroanim/models/twig-tripo/source/TwigHero_Acorn_Tripo.zip",
+      "sha256": "f3c240514a65e1d0a5b564a5c576dd2a778100cbe82e65153032d56d4c2e7d33"
+    },
+    {
+      "path": "tools/heroanim/models/twig-tripo/source/TwigHero_Base_Tripo.zip",
+      "sha256": "430025ee78116bb326e21f764367fbcf284ad4d2643816f8accc6db07d342be7"
+    },
+    {
+      "path": "tools/heroanim/models/twig-tripo/source/TwigHero_Cap_Tripo.zip",
+      "sha256": "ddbb8db505f641b7eab72b14c37c6208562601cb40cec4ff947cbcdddd9d0e29"
+    },
+    {
+      "path": "tools/heroanim/models/twig-tripo/source-manifest.json",
+      "sha256": "0b6183149b40b185736b8165964e8916f27461602bbeab0d27a39482a9c2ba4a"
+    },
+    {
+      "path": "tools/heroanim/twig-tripo-check.mjs",
+      "sha256": "cdae9d2b3ba38528ceb67ea9d7c907b9d5fcbeeff984dbd1499b27985566691e"
+    },
+    {
+      "path": "tools/heroanim/twig-tripo-fit.json",
+      "sha256": "a1920e770eda92a6ed1992b8023115d87af5f0e756df6d307c5210bc44fe3531"
+    },
+    {
+      "path": "tools/heroanim/twig-tripo-review.mjs",
+      "sha256": "350b8d525050b40e9d1fcf3878f998b6e468295e5d4d32499d3f1cc96255f305"
+    },
+    {
+      "path": "tools/heroanim/twig-tripo-study.py",
+      "sha256": "c81dec0007171b8743275c61df2e2ca26b6043d662a5bd90cb7093ca522e96a3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "output/twig-tripo-study/TwigHero_Tripo_Blender_Import.zip",
+      "sha256": "be1d59b5c905f3bbb53ad8a037f8748838bab419a53a4f74472bd913622674c7"
+    },
+    {
+      "path": "output/twig-tripo-study/acorn-back.png",
+      "sha256": "7c36ba6f0be7c86ffb3fdd26b78317120364a213b8d0a58028fe61bceda80db6"
+    },
+    {
+      "path": "output/twig-tripo-study/acorn-front.png",
+      "sha256": "becd2a44832fc376f2a2d002750b6ab00e347ade33fb079c4190c88558faa1c0"
+    },
+    {
+      "path": "output/twig-tripo-study/acorn-side.png",
+      "sha256": "f2ecfea785d83675bde58eb5f2a4518c98cb69f434bc59a1dfead5bcc9f833c4"
+    },
+    {
+      "path": "output/twig-tripo-study/angles.png",
+      "sha256": "6cab89324acebf1c9dac476e59f43fa0383610ea118770c2192b8ee09a6acdab"
+    },
+    {
+      "path": "output/twig-tripo-study/base-front.png",
+      "sha256": "5930e71b7e21b3e105312f74c6c3ca1a3021fa618f4d983af9246a5beaeea9af"
+    },
+    {
+      "path": "output/twig-tripo-study/cap-back.png",
+      "sha256": "a2406c0da15c6ca096dd1aac85c461557047c329dd6acca6aae33764fa4c2b69"
+    },
+    {
+      "path": "output/twig-tripo-study/cap-front.png",
+      "sha256": "0a6aaf2f8587879ed8d7f5830b6e8e06684cba2a50a6d7856bea28b4ae3093b2"
+    },
+    {
+      "path": "output/twig-tripo-study/cap-side.png",
+      "sha256": "632d5435a45bf18859d1666443a53d46d74d7bb5ec5a1f17d8c71dce42fee0ed"
+    },
+    {
+      "path": "output/twig-tripo-study/comparison.png",
+      "sha256": "68c46c3758bc9fd3e0c9d0604e6445a095bbb725ffdb1e8ec577a097a0766ea1"
+    },
+    {
+      "path": "tools/heroanim/models/twig-tripo/blender-import-check.json",
+      "sha256": "ab2d14f5ca31b15b55e528b75f77e603c631dfb3b3fcd0edaf626ab8ded4a296"
+    },
+    {
+      "path": "tools/heroanim/models/twig-tripo/build-report.json",
+      "sha256": "f357f48045b58cf4a9c6474f62957b8cdc47dc99e9642babb08ed5a9b33cefe1"
+    }
+  ]
+}

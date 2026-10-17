@@ -273,3 +273,20 @@ item. The replacement FBX sources and rendering study remain archived; they do n
 references: bald body, acorn head, olive/rust daisy-cap head. The heads derive from the same new bald reference. They
 are not new runtime meshes or approved UV maps. Future geometry stays in the owner's single Blender master. Actual
 restored game captures and checks are recorded in `output/twig-restored/`.
+
+## Segmented Tripo Twig fitting study — 2026-10-17
+
+The owner supplied three segmented FBX / texture ZIPs and asked to try assembling them. Original archives, names and
+hashes are preserved under `models/twig-tripo/`. The bare base has 8 segments; the acorn generation has 3, including an
+unwanted full body / face; the cap generation has 15, including a different head and a clothed body. None has a rig.
+
+`twig-tripo-study.py` keeps the base geometry / UVs and extracts only acorn segments 1/2 and cap segments 0/6/8/10.
+The fitting recipe scales / places those objects on one common head. Both whole-head exports reuse the same base
+head, ears and mouth; `twig-tripo-check.mjs` verifies their actual GLB geometry, UV, paint and world transforms against
+the base. Generated metallic / normal shading is removed on the derived copy and eyes receive a gloss material;
+the original color maps are retained. This is a static study with provisional Tripo paint, not final surface work.
+
+Five embedded-texture GLBs passed a real Blender round-trip import, including the shared neck pivot. The import ZIP,
+fixed-camera renders and source / delivery hashes are in `output/twig-tripo-study/` and `models/twig-tripo/`. The
+owner imports these exchange files into the existing master; no separate `.blend` is saved. No production sprites,
+gameplay, cosmetics or APK assets are changed; the previously restored original Twig remains active in the game.

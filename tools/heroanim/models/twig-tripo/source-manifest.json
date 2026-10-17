@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "key": "base",
+      "file": "TwigHero_Base_Tripo.zip",
+      "original": "1-cute-cartoon-character-3d-model.zip",
+      "sha256": "430025ee78116bb326e21f764367fbcf284ad4d2643816f8accc6db07d342be7",
+      "bytes": 8556324
+    },
+    {
+      "key": "acorn",
+      "file": "TwigHero_Acorn_Tripo.zip",
+      "original": "2-pumpkin-head-3d-model.zip",
+      "sha256": "f3c240514a65e1d0a5b564a5c576dd2a778100cbe82e65153032d56d4c2e7d33",
+      "bytes": 8645034
+    },
+    {
+      "key": "cap",
+      "file": "TwigHero_Cap_Tripo.zip",
+      "original": "3-cute-emoji-head-3d-model.zip",
+      "sha256": "ddbb8db505f641b7eab72b14c37c6208562601cb40cec4ff947cbcdddd9d0e29",
+      "bytes": 7355387
+    }
+  ]
+}

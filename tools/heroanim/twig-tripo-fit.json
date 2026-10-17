@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "note": "Extract headwear only; all three previews use exactly the same base head, ears and mouth. Blender Z up; imported source coordinates are retained.",
+  "headParts": [0, 4, 7],
+  "headPivot": [0, 0, 0.35],
+  "acorn": {"parts": [1, 2], "scale": [1.36, 1.4, 1.3], "translation": [0, 0, -0.084]},
+  "cap": {"parts": [0, 6, 8, 10], "scale": [1.3, 1.3, 1.1], "translation": [0, -0.058, 0.04], "rotationDegrees": [-7, 0, 0], "rotationPivot": [0, 0, 0.85]},
+  "material": {"roughness": 0.65, "metallic": 0, "useGeneratedNormalMaps": false, "polishEyes": true}
+}
