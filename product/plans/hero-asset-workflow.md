@@ -84,7 +84,7 @@ is a static authoring exchange without a skeleton, not a new master project or a
 ### Segmented Tripo trial enabled in the game (2026-10-17)
 
 At the owner's request, the assembled shared-face Tripo Twig now replaces the old meta-screen Twig. The active
-`tools/heroanim/bake-twig-tripo.mjs` renders the real fitted model into five RGBA8 PNGs totaling 438,562 bytes.
+`tools/heroanim/bake-twig-tripo.mjs` renders the real fitted model into five RGBA8 PNGs totaling 426,263 bytes after the head-width correction below.
 Home, Wardrobe, Shop preview and victory share the saved outfit through `HeroGearArt`. Shop → Cosmetics → Twig
 has free Acorn Hat and Daisy Cap cards; one Hat slot selects either, and Remove / Default shows the bare base.
 The existing Wardrobe unlock stays; free Shop gear can be tested earlier. Both item IDs from the old pilot are reused,
@@ -94,3 +94,11 @@ This static source has no rig; the pilot uses 2D breathing and pose movement, pe
 Source Tripo paint is provisional. Only small baked sprites are shipped, with full-color Android loading / warming;
 FBXs, GLBs and source ZIPs stay authoring-only. No APK is built here. Actual page captures and verification are in
 `output/twig-tripo-in-game/`.
+
+### Twig head proportion correction (2026-10-17)
+
+Owner feedback: the new Tripo Twig face is wider / flatter than the previous version. Its render-only shared head
+pivot now uses X scale 0.88, with ears, mouth and both hats following the same transform. Body proportions, camera,
+height and foot position stay unchanged; no runtime sprite stretching or new gameplay logic is introduced. The
+original Tripo source and earlier Blender exchange remain intact. Record the same transform in the owner's master
+if adopting it there later; current bake setting is `look.headWidthScale` in `bake-twig-tripo.mjs`.

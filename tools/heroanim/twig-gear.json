@@ -24,12 +24,12 @@
     },
     {
       "path": "tools/heroanim/bake-twig-tripo.mjs",
-      "sha256": "1d523ce8452f2fbf964fdba0840463bfad8f922c6f38e625d8c36811e110cafb"
+      "sha256": "6d66f01d42055fc16b8eb8bf998129fd7eb35b6ee1f4b887d51ed3d5f33eafe2"
     }
   ],
   "derivedGlbSha256": "24d1f2bd9da6f5eede368293da9ce8339ac0e558048f306600a232ee9ba4ba32",
   "data": "client/Assets/Bloomlings/UI/Design/TwigGearData.cs",
-  "dataSha256": "5c4bb39640e992be42e34b052ab13665e98b3e6a76619f6c3096d1fff09d23cc",
+  "dataSha256": "62eabe423f9212f347959f997cf8c7bcaf095b25842dda16ce15eb7e6444b0d9",
   "cell": [
     448,
     504
@@ -44,7 +44,8 @@
     "environment": 0.45,
     "halfHeight": 0.7,
     "cameraY": 0.59,
-    "supersample": 3
+    "supersample": 3,
+    "headWidthScale": 0.88
   },
   "outputs": [
     {
@@ -57,60 +58,60 @@
         355
       ],
       "icon": false,
-      "bytes": 100291,
-      "sha256": "6b2801ba6ae6160a22c88a6e6db2cefcb663a0ef54d58dc545278ee836b02aec"
+      "bytes": 95212,
+      "sha256": "3298c861de5259d2329cc3722ac6e8ff4517729ebd64dc00454ee2a1aa9d6930"
     },
     {
       "key": "acorn",
       "file": "twigmod-acorn.png",
       "crop": [
-        79,
+        90,
         35,
-        290,
+        268,
         431
       ],
       "icon": false,
-      "bytes": 132616,
-      "sha256": "e835cabf74d4be99a5e29f0b46c73218509b0748325957fe4ee3ffd44a0440b9"
+      "bytes": 124355,
+      "sha256": "e8621b2733adc33d76fce603c3cd6719354cea86e6aaa1371fede8c100b34928"
     },
     {
       "key": "cap",
       "file": "twigmod-cap.png",
       "crop": [
-        76,
+        90,
         62,
-        295,
+        268,
         404
       ],
       "icon": false,
-      "bytes": 129200,
-      "sha256": "bf9ba367f6cec58f866ec2f3896501494493c110e420770adb9f91223829eb9c"
+      "bytes": 121077,
+      "sha256": "01d6ccae5e8bf8e8907ea03bc1fd5ccde12124ae2f8d712ed75254b1294e1db2"
     },
     {
       "key": "icon-acorn",
       "file": "twigmod-icon-acorn.png",
       "crop": [
-        43,
-        70,
-        232,
-        167
+        42,
+        58,
+        234,
+        189
       ],
       "icon": true,
-      "bytes": 39691,
-      "sha256": "c1251a7e9db8d00634a7a89059dbc7088f6afe8a7d9b9bbecbeff49959f4c566"
+      "bytes": 44548,
+      "sha256": "f62646c7af31d36b7ce8c1a9ffd110e099e1beffb45e49a02f1c9eacc1007cb4"
     },
     {
       "key": "icon-cap",
       "file": "twigmod-icon-cap.png",
       "crop": [
-        36,
-        78,
-        238,
-        147
+        34,
+        67,
+        241,
+        167
       ],
       "icon": true,
-      "bytes": 36764,
-      "sha256": "d6e092fab41f5676c85082a35482c957e1e89798360b1ab41aa3eb41e6fd4e8e"
+      "bytes": 41071,
+      "sha256": "9ee7dcaa0eda7286e00c6654898031c811c0863cee6890505f75d90b3e61b4ab"
     }
   ]
 }

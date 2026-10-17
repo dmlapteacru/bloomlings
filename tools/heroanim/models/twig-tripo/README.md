@@ -69,3 +69,15 @@ node tools/heroanim/check.mjs
 The active bake records source hashes in `../../twig-gear.json`, generates `TwigGearData.cs` and updates the five
 `twigmod-*` RGBA8 PNGs plus their asset manifest. `bake-twig-gear.mjs` belongs to the retired earlier FBX pilot;
 do not use it to publish the current Tripo hero. Current game captures: `output/twig-tripo-in-game/`.
+
+### Head proportions (owner feedback, 2026-10-17)
+
+The source Tripo face read too wide / flat beside the previous Twig. The runtime bake now uses
+`look.headWidthScale = 0.88` on the shared `TwigHero_HeadPivot` in its Three.js render copy. Face, ears, mouth and both
+headwear groups follow together; the body, model height, camera and foot line stay unchanged. Source ZIPs, assembly
+GLBs and the Blender exchange delivery stay intact. If matching this adjustment in the owner's master later,
+apply X scale 0.88 to the shared head hierarchy once, including its child hat groups; do not scale the full character
+or scale headwear a second time. The exported Blender study remains the original-width baseline.
+
+Current in-game captures are in `output/twig-tripo-in-game/`; before / after review is in
+`output/twig-head-proportions/`. The five runtime images now total 426,263 bytes.

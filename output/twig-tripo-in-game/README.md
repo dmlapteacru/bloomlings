@@ -11,19 +11,17 @@ The new source has no skeleton, so this equipment pilot uses its static pose wit
 movement. The Tripo color maps remain provisional. Source models are not runtime assets. Profile avatar pictures
 remain independently selected. No APK was built here.
 
-## Verification (2026-10-17)
+## Verification after the head correction (2026-10-17)
 
-- 48 client checks passed: Twig / Sprig equipment, save round-trip, family fitting, free selection before Wardrobe
-  unlock, gameplay exclusion, hero metadata / motion, Wardrobe and localization.
-- `node tools/heroanim/check.mjs` and `twig-tripo-check.mjs` passed: sources, identical shared face / ears / UV / paint /
-  scale, fitted exports and all runtime art hashes.
-- Preview fixtures 108, 112–117 passed with original images at 19.5:9 and packed assets at 16:9, 19.5:9 and 21:9.
-  They tap the actual Shop cards, equip / swap / remove, restart the application, draw Home / Wardrobe and solve L13
-  through victory. Sprig equipment remains usable.
-- All five packed Twig payloads equal the original full-color PNG bytes (438,562 bytes total).
-- Each preview run also checked all 900 legacy frames plus five full-color Twig images, 11 cold navigation
-  destinations over 117 staged draws (the previous complete page stays until resources are ready), and 100 live
-  effect frames with delayed effects. These are desktop renderer / loading checks, not device performance measurements.
+The shared head / ears / mouth and both hats are 12% narrower on the derived render copy. Source / Blender exchange
+files remain intact. Body pixels below the head, height and foot position match the preceding bake exactly.
+
+- Client equipment / save / art metadata / motion / localization checks passed.
+- `node tools/heroanim/check.mjs` and `twig-tripo-check.mjs` passed.
+- Current preview fixtures 112–117 passed at 19.5:9: Shop taps, save / reload, remove, Home (bare / acorn / cap),
+  Wardrobe and a real solved L13 victory. The run also checked 900 legacy frames and five full-color Twig images,
+  11 cold destinations (117 staged frames), and 100 live-effect frames with delayed dependencies.
+- These are desktop renderer / loading checks; no APK is built here.
 
 Reproduce from repository root:
 
@@ -31,7 +29,7 @@ Reproduce from repository root:
 node tools/heroanim/check.mjs
 node tools/heroanim/twig-tripo-check.mjs
 dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj --no-restore --filter 'FullyQualifiedName~TwigGearTests|FullyQualifiedName~SprigGearTests|FullyQualifiedName~HeroFramesTests|FullyQualifiedName~HeroMotionTests|FullyQualifiedName~Wardrobe|FullyQualifiedName~LocalizationTests'
-dotnet run --project playtest/preview --no-restore -- --frames 108,112,113,114,115,116,117 --out content/work/twig-tripo-in-game
+dotnet run --project playtest/preview --no-restore -- --frames 112,113,114,115,116,117 --shape 19.5x9 --out content/work/twig-tripo-in-game
 ```
 
 Source assembly / Blender import: `tools/heroanim/models/twig-tripo/README.md`.

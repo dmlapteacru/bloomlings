@@ -14,7 +14,7 @@ const model=path.join(buildDir,'TwigHero_Review.glb'),report=JSON.parse(fs.readF
 const three=path.join(here,'node_modules/three');
 const dir=path.join(repo,'client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion');
 const dataFile=path.join(repo,'client/Assets/Bloomlings/UI/Design/TwigGearData.cs');
-const look={ground:'#f0e7d5',hemisphere:1.2,key:1.2,fill:.6,environment:.45,halfHeight:.7,cameraY:.59,supersample:3};
+const look={ground:'#f0e7d5',hemisphere:1.2,key:1.2,fill:.6,environment:.45,halfHeight:.7,cameraY:.59,supersample:3,headWidthScale:.88};
 const review=process.argv.includes('--review');
 const reviewDir=path.join(repo,'content/work/twig-tripo-runtime');
 fs.mkdirSync(reviewDir,{recursive:true});
@@ -27,6 +27,10 @@ const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuf
 const scene=new T.Scene();scene.add(new T.HemisphereLight(0xffffff,'${look.ground}',${look.hemisphere}));for(const [p,k]of [[[-3,4,5],${look.key}],[[3,2,4],${look.fill}]]){const l=new T.DirectionalLight(0xffffff,k);l.position.set(...p);scene.add(l);}
 const room=new RoomEnvironment(),pmrem=new T.PMREMGenerator(renderer),environment=pmrem.fromScene(room,.04);scene.environment=environment.texture;room.dispose();pmrem.dispose();
 const gltf=await new GLTFLoader().loadAsync('/model.glb');scene.add(gltf.scene);
+// Correct the broad Tripo head on the render copy only. Its ears, mouth and both hats share this pivot.
+const head=gltf.scene.getObjectByName('TwigHero_HeadPivot');
+if(!head)throw Error('Shared head pivot missing');
+head.scale.x*=${look.headWidthScale};
 const bodyParts=[];gltf.scene.traverse(o=>{if(o.name.startsWith('TwigHero_base_part_'))bodyParts.push(o);});
 const acorn=gltf.scene.getObjectByName('TwigHero_AcornHat'),cap=gltf.scene.getObjectByName('TwigHero_FlowerCap');
 gltf.scene.traverse(o=>{if(o.isMesh){o.frustumCulled=false;for(const m of (Array.isArray(o.material)?o.material:[o.material]))m.envMapIntensity=${look.environment};}});

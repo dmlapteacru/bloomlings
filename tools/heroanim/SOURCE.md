@@ -305,3 +305,12 @@ skeletal actions remain separate work. No source models are runtime assets, and 
 Current game captures: `output/twig-tripo-in-game/`; model imports / segmentation proofs remain unchanged under
 `output/twig-tripo-study/` and `models/twig-tripo/`. The earlier `bake-twig-gear.mjs` is archived tooling for the old
 untextured FBX pilot, not the current publisher.
+
+## Twig head width correction — 2026-10-17
+
+The owner found the new head too wide / flattened. `bake-twig-tripo.mjs` now applies X scale 0.88 to the shared
+head pivot on its derived render copy, including ears, mouth and either fitted hat. Body geometry, render camera,
+height and feet are unchanged. Source archives / fitted GLBs / Blender study delivery remain intact; no new master
+is created. All five full-color PNGs are rebaked (426,263 bytes total), including matching Shop icons. Their source /
+output hashes and crop rectangles are refreshed in `twig-gear.json`, `TwigGearData.cs` and the runtime art manifest.
+Actual game comparison: `output/twig-head-proportions/`; current game captures: `output/twig-tripo-in-game/`.
