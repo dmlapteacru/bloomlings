@@ -145,7 +145,7 @@ namespace Bloomlings.Playtest.Preview
                     var app=Progressed(App(data),content,87);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=scene.Item3;
                     p.DrawnSprites.Clear();Run(app,p,.15f);
                     string family=scene.Item3==0?"sprig":"twig";
-                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+(scene.Item3==3 ? "twigfit-base" : "simplehero-"+family)),"Shop draws the new family base");
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+(scene.Item3==3 ? "twigv2-base-none" : "simplehero-"+family)),"Shop draws the new family base");
                     Expect(!p.DrawnSprites.Any(n=>n.Contains("mod-icon-",StringComparison.Ordinal)),"unfitted old accessories are absent from Shop");
                 });
             }
@@ -175,7 +175,7 @@ namespace Bloomlings.Playtest.Preview
                     var app=Progressed(App(data),content,87);CloseAll(app);app.WardrobeBrowse.Select(scene.Item3);app.OpenWardrobe();
                     p.DrawnSprites.Clear();Run(app,p,.5f);
                     Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(scene.Item3,app.Meta.Wardrobe.OutfitOf(scene.Item3),0)!.Value.Name),"Wardrobe draws the new base");
-                    Expect(!WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,scene.Item3).Any(c=>c.Item?.MetaOnly==true&&!TwigModularArt.IsHat(c.Item.Id)),"unfitted previous 3D attachments are withheld from the shelf");
+                    Expect(!WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,scene.Item3).Any(c=>c.Item?.MetaOnly==true&&!TwigV2Art.IsItem(c.Item.Id)),"unfitted previous 3D attachments are withheld from the shelf");
                 });
             }
             foreach(var target in new[]{(111,"simple-sprig-win",12,Family.Sprig),(116,"simple-twig-win",13,Family.Twig)})
@@ -207,7 +207,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
                 Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat==null&&App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat==null,"Remove persists the bare base across restart");
                 Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
-                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigfit-icon-panama"),"Shop uses the extracted Panama icon");
+                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-icon-buckethat"),"Shop uses the extracted Panama icon");
             });
             foreach(var target in new[]{(121,"twig-modular-home-acorn",TwigModularArt.AcornHatId),(122,"twig-modular-home-panama",TwigModularArt.PanamaHatId),(123,"twig-modular-wardrobe-panama",TwigModularArt.PanamaHatId)})
             {
@@ -217,19 +217,68 @@ namespace Bloomlings.Playtest.Preview
                     var app=Progressed(App(data),content,87);CloseAll(app);Expect(app.Meta.Wardrobe.Equip(Family.Twig,scene.Item3),"fitted hat equips");
                     if(scene.Item1==123){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
                     p.DrawnSprites.Clear();Run(app,p,.5f);
-                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+TwigModularArt.Frame(app.Meta.Wardrobe.OutfitOf(Family.Twig)).Name),"the actual host draws the selected new Twig state");
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),0)!.Value.Name),"the actual host draws the selected new Twig state");
                     foreach(Family family in CharacterArt.Families)if(scene.Item1!=123&&family!=Family.Twig)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+SimpleHeroArt.Frame(family).Name),"other simplified heroes remain");
                 });
             }
             yield return new Fixture(124,"twig-modular-win-panama","The Panama remains on Twig after a solved level",(p,data)=>
             {
                 var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigModularArt.PanamaHatId),"Panama equips before L40");
+                Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.GlassesId)&&app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.ScarfId),"glasses and scarf equip independently");
                 app.LoadLevel(13);CloseDemo(app);Run(app,p,.1f);
                 SolveResult win=new Solver.Solver().Solve(Session(content,13),SolveOptions.Default);Expect(win.Status==SolveStatus.Solvable,"actual L13 is solvable");
                 p.DrawnSprites.Clear();Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
                 Expect(app.Level!.Won&&app.Meta.CurrentLevel==14,"progression completes normally");
-                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigfit-panama"),"victory keeps the selected Panama");
+                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-buckethat"),"victory keeps the selected Panama");
+                for(int layer=1;layer<3;layer++)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer)!.Value.Name),"victory keeps the saved accessory layer");
             });
+
+            yield return new Fixture(125,"twig-v2-shop","Every delivered V2 part equips and removes through the actual Shop",(p,data)=>
+            {
+                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.1f);
+                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
+                var items=app.Meta.Wardrobe.ShopItems.Where(i=>i.Fits(Family.Twig)&&HeroGearArt.CanPreview(i)).ToList();
+                long petals=app.Meta.Economy.Petals;
+                using var fixedHeader=SkiaSharp.SKBitmap.Decode(p.Png());
+                void Choose(string? id)
+                {
+                    int index=id==null?0:items.FindIndex(i=>i.Id==id)+1;Expect(id==null||index>0,"item is present in Shop");
+                    var card=ShopCatalogDesign.CosmeticCard(area,index);
+                    app.ShopScrollOffset=Math.Max(0,card.Top-area.Top-area.Height*.1f);Run(app,p,.1f);
+                    Tap(p,card.Offset(0,-app.ShopScrollOffset));Run(app,p,.1f);
+                }
+                foreach(string id in TwigV2Art.ItemIds)
+                {
+                    Choose(id);app.Meta.Wardrobe.Catalog.TryGet(id,out var item);
+                    Expect(app.Meta.Wardrobe.EquippedFor(Family.Twig,item!.Kind)?.Id==id,"actual card equips "+id);
+                    Expect(App(data).Meta.Wardrobe.EquippedFor(Family.Twig,item.Kind)?.Id==id,"restart retains "+id);
+                }
+                Choose(TwigV2Art.ScarfId);Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Scarf==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Glasses!=null,"Remove scarf keeps glasses");
+                Choose(TwigV2Art.GlassesId);Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Glasses==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat!=null,"Remove glasses keeps headwear");
+                Choose(null);Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).IsEmpty,"Default removes every slot and persists");
+                Choose(TwigV2Art.BeretId);Choose(TwigV2Art.GlassesId);Choose(TwigV2Art.ScarfId);
+                Expect(app.Meta.Economy.Petals==petals&&app.Overlays.Count==0,"free trial spends nothing and opens no purchase dialogs");
+                using var afterScroll=SkiaSharp.SKBitmap.Decode(p.Png());
+                var fixedRow=ShopCatalogDesign.FamilyTabs(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true));
+                for(int y=(int)fixedRow.Top-8;y<(int)area.Top-2;y+=5)
+                for(int x=(int)area.Left;x<(int)area.Right;x+=7)
+                    Expect(fixedHeader.GetPixel(x,y)==afterScroll.GetPixel(x,y),"scrolling equipment must not paint behind the fixed family row");
+            });
+            foreach(var target in new[]{(126,"twig-v2-home-beret",TwigV2Art.BeretId,false),(127,"twig-v2-home-winter",TwigV2Art.EarmuffsId,true),(128,"twig-v2-wardrobe-holiday",TwigV2Art.XmasId,false)})
+            {
+                var scene=target;
+                yield return new Fixture(scene.Item1,scene.Item2,"V2 headwear and scarf share the saved appearance across hosts",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    Expect(app.Meta.Wardrobe.Equip(Family.Twig,scene.Item3)&&app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.ScarfId),"V2 outfit equips");
+                    if(scene.Item4)Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.GlassesId),"glasses combine with headwear");
+                    app=App(data);CloseAll(app);
+                    if(scene.Item1==128){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
+                    p.DrawnSprites.Clear();Run(app,p,.4f);
+                    for(int layer=0;layer<3;layer++)if(HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer) is HeroFrame frame)
+                        Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Name),"host draws saved "+frame.Name);
+                });
+            }
 
             yield return new Fixture(100, "hero-medals", "The four completed milestone heroes become wearable profile medals", (p, data) =>
             {

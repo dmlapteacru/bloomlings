@@ -357,3 +357,28 @@ two free fitted Twig hats; Remove shows the bare base, and saved selection follo
 Acorn ID is reused, Panama has a new ID; the unrefitted old Daisy Cap stays saved but withheld. Other simplified
 heroes and profile pictures are retained. No new skeletal actions, runtime 3D or APK build. Actual game captures:
 `output/twig-modular-in-game/`.
+
+
+## TwigHeroV2 — owner-aligned modular delivery, 2026-10-17
+
+The owner supplied `TwigHeroV2.zip`, retained byte-for-byte at `models/twig-v2/source/TwigHeroV2.zip` with its hash in
+`source-manifest.json`. It contains the common bald Twig mesh and 25-bone rig, four authored actions (Idle, Joy,
+Walk, Wave) and nine separately aligned wearable FBXs: PumpkinHat, BucketHat, Hair, HatHair (hat plus hair), Beret,
+EarmuffHair, XmasHat, Glasses and Scarf. The delivered manifest records Head / Face / Neck slots. The seven Head
+parts are exclusive; Face and Neck remain independent. The two previous Acorn / Panama item IDs are retained.
+
+`prepare-twig-v2.py` imports each aligned part without trimming, scaling, refitting or changing UV / world geometry;
+only its derived bake copy loses the rig and extra PBR maps. Original FBXs / embedded maps / rig / actions remain in
+the archive. No second editable Blender master is created. `bake-twig-v2.mjs` uses the approved 75% painted albedo /
+25% soft white diffuse treatment, original accessory colors / alpha, 3× alpha-safe supersampling and RGBA8 PNGs.
+The 448×504 logical camera cell and foot line retain the base's scale; padding above the cell fits the holiday hat.
+Eight base-with-head states, eight depth-masked scarves, eight masked glasses and nine isolated icons total 33 PNGs,
+1,614,285 bytes. Layers allow all 32 combinations without duplicating complete outfits. Only PNGs enter Android
+assets; the ~33 MB source archive and derived GLB are offline inputs. The game keeps its current subtle 2D breath;
+action selection / animation authoring remain a separate feature.
+
+All nine parts are temporarily free in Shop → Cosmetics → Twig, also available in the Wardrobe's accessories shelf.
+Head, Glasses and Scarf slots save / reload independently; removing one preserves the others. Default removes all.
+The common selection appears on Home, fitting stands, victory and other meta hero hosts. Meta-only parts remain out
+of gameplay workers and independently chosen profile avatars. `twig-v2.json`, `TwigV2Data.cs`, `build-report.json`
+and HeroMotion's manifest pin the source, conversion, dimensions and output hashes. Screens: `output/twig-v2-in-game/`.

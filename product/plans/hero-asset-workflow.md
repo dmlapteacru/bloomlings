@@ -130,3 +130,13 @@ Twig; one exclusive Hat slot, Remove / Default returns to bald. Existing selecti
 supported, including an earlier saved Acorn choice. Home / Wardrobe / victory share the selection; fitted headwear
 stays out of gameplay figures. Old unrefitted Daisy Cap / Sprig equipment IDs remain saved but withheld. The other
 three simplified models and independent profile appearances remain. Current captures: `output/twig-modular-in-game/`.
+
+
+### Twig V2 aligned wardrobe trial (2026-10-17)
+
+Use the owner's `TwigHeroV2.zip` as the current Twig source, preserving the single Blender master on their machine.
+All nine accessory parts are already fitted. Seven Head variants are exclusive (including Hair and the combined
+HatHair); Glasses and Scarf are separate optional saved slots. Scarf is appended to cosmetic kinds without changing
+existing enum values or save keys; the equipment dictionary uses `twig.scarf`. All parts are temporarily free.
+Keep render-only PNG layers in the game and rig / actions / source FBXs offline. Existing Idle / Joy / Walk / Wave
+sources are retained for the later action / animation feature. Details: `tools/heroanim/models/twig-v2/README.md`.

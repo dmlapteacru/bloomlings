@@ -332,7 +332,7 @@ namespace Bloomlings.Playtest.Design
             Box bar=ShopCatalogDesign.FamilyTabs(r);
             Kit.NavigationBar(p,bar,families.Count);
             var items=new List<CosmeticItem?>{null};foreach(var item in wardrobe.ShopItems)if(item.Fits(family)&&HeroGearArt.CanPreview(item))items.Add(item);
-            Box area=ShopCatalogDesign.Viewport(r,true);Box viewport=ShopBodyDesign.ScrollViewport(r,area);
+            Box area=ShopCatalogDesign.Viewport(r,true);Box viewport=ShopCatalogDesign.ScrollViewport(r,true);
             float max=Math.Max(0,ShopCatalogDesign.CosmeticsHeight(area,items.Count)-area.Height);
             app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset));
             p.PushClip(viewport);

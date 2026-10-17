@@ -38,7 +38,7 @@ namespace Bloomlings.Client.UI.Design
             foreach(var item in wardrobe.Catalog.Items)if(!(item.Free&&item.MetaOnly))ordered.Add(item);
             foreach (CosmeticItem item in ordered)
             {
-                if (item.Kind != kind && !(kind == CosmeticKind.Hat && (item.Kind == CosmeticKind.Glasses || item.Kind == CosmeticKind.Backpack))) continue;
+                if (item.Kind != kind && !(kind == CosmeticKind.Hat && (item.Kind == CosmeticKind.Glasses || item.Kind == CosmeticKind.Backpack || item.Kind == CosmeticKind.Scarf))) continue;
                 if (!HeroGearArt.CanPreview(item) || (family.HasValue && !item.Fits(family.Value))) continue;
                 WardrobeItemState state = wardrobe.Owns(item) ? WardrobeItemState.Owned :
                     item.ForSale ? WardrobeItemState.ForSale : WardrobeItemState.Reward;
@@ -58,11 +58,12 @@ namespace Bloomlings.Client.UI.Design
         public static Outfit Preview(Outfit outfit, CosmeticKind kind, CosmeticItem? item) => (item?.Kind ?? kind) switch
         {
             CosmeticKind.Skin => outfit with { Skin = item },
-            CosmeticKind.Hat => item == null ? outfit with { Hat = null, Glasses = null, Backpack = null } : outfit with { Hat = item },
+            CosmeticKind.Hat => item == null ? outfit with { Hat = null, Glasses = null, Backpack = null, Scarf = null } : outfit with { Hat = item },
             CosmeticKind.Trail => outfit with { Trail = item },
             CosmeticKind.Expression => outfit with { Expression = item },
             CosmeticKind.Glasses => outfit with { Glasses = item },
             CosmeticKind.Backpack => outfit with { Backpack = item },
+            CosmeticKind.Scarf => outfit with { Scarf = item },
             _ => outfit,
         };
         public static bool Chosen(WardrobeService wardrobe, Family family, CosmeticKind filter, CosmeticItem? item)
@@ -70,7 +71,7 @@ namespace Bloomlings.Client.UI.Design
             if (item == null && filter == CosmeticKind.Hat)
             {
                 Outfit shown = HeroGearArt.DisplayOutfit(wardrobe.OutfitOf(family))!;
-                return shown.Hat == null && shown.Glasses == null && shown.Backpack == null;
+                return shown.Hat == null && shown.Glasses == null && shown.Backpack == null && shown.Scarf == null;
             }
             return wardrobe.EquippedFor(family, item?.Kind ?? filter)?.Id == item?.Id;
         }

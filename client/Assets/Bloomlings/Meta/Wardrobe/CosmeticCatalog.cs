@@ -23,6 +23,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         Marker,
         Glasses,
         Backpack,
+        Scarf,
     }
 
     /// <summary>
@@ -79,6 +80,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             [CosmeticKind.Marker] = new[] { "marker" },
             [CosmeticKind.Glasses] = new[] { "round" },
             [CosmeticKind.Backpack] = new[] { "leaf" },
+            [CosmeticKind.Scarf] = new[] { "knit" },
         };
 
         private readonly Dictionary<string, CosmeticItem> _byId = new Dictionary<string, CosmeticItem>(StringComparer.Ordinal);
@@ -125,7 +127,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         }
 
         public static bool IsWornKind(CosmeticKind kind) =>
-            kind == CosmeticKind.Skin || kind == CosmeticKind.Hat || kind == CosmeticKind.Trail || kind == CosmeticKind.Expression || kind == CosmeticKind.Glasses || kind == CosmeticKind.Backpack;
+            kind == CosmeticKind.Skin || kind == CosmeticKind.Hat || kind == CosmeticKind.Trail || kind == CosmeticKind.Expression || kind == CosmeticKind.Glasses || kind == CosmeticKind.Backpack || kind == CosmeticKind.Scarf;
 
         /// <summary>A listed item, or a generated level badge or marker.</summary>
         public bool TryGet(string id, out CosmeticItem? item)
@@ -274,6 +276,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             CosmeticKind.Badge => "badge",
             CosmeticKind.Glasses => "glasses",
             CosmeticKind.Backpack => "backpack",
+            CosmeticKind.Scarf => "scarf",
             _ => "marker",
         };
 
@@ -318,6 +321,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             "marker" => CosmeticKind.Marker,
             "glasses" => CosmeticKind.Glasses,
             "backpack" => CosmeticKind.Backpack,
+            "scarf" => CosmeticKind.Scarf,
             _ => null,
         };
 

@@ -60,3 +60,5 @@ contain illumination, while the initial physical render applied another diffuse 
 bake uses a 75% original-albedo contribution plus 25% soft white diffuse light, without physical specular / metallic /
 normal shading. This keeps face and eye whites clean while retaining gentle volume. No albedo repaint, blanket
 exposure gain, UI tint or geometry change is used. Reproducible values are in `simple-heroes.json`'s render recipe.
+
+The current Twig source is now `../twig-v2/`; the three other simplified heroes retain this delivery.

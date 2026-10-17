@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "archive": {
+    "path": "source/TwigHeroV2.zip",
+    "bytes": 33106328,
+    "sha256": "1ba395e7ca80c5184ea995eeeeeaf60f9232b48625ddc9026fcb857ba11f9633"
+  },
+  "exportManifest": "TwigHeroV2/TwigHeroV2.manifest.json"
+}

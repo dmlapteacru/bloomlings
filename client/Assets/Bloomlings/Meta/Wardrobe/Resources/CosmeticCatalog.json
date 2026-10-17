@@ -50,6 +50,13 @@
     {"id": "backpack.sprig_leaf", "kind": "backpack", "name": "Leaf Backpack", "shape": "leaf", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true},
     {"id": "hat.twig_acorn", "kind": "hat", "name": "Acorn Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
     {"id": "hat.twig_flower_cap", "kind": "hat", "name": "Daisy Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
-    {"id": "hat.twig_panama", "kind": "hat", "name": "Panama Hat", "shape": "brim", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true}
+    {"id": "hat.twig_panama", "kind": "hat", "name": "Panama Hat", "shape": "brim", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "hat.twig_hair", "kind": "hat", "name": "Woodland Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "hat.twig_hat_hair", "kind": "hat", "name": "Acorn Hat & Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "hat.twig_beret", "kind": "hat", "name": "Autumn Beret", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "hat.twig_earmuffs", "kind": "hat", "name": "Winter Earmuffs", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "hat.twig_xmas", "kind": "hat", "name": "Holiday Hat", "shape": "nightcap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "glasses.twig_round", "kind": "glasses", "name": "Twig Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "scarf.twig_knit", "kind": "scarf", "name": "Golden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true}
   ]
 }

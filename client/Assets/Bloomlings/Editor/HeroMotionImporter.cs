@@ -53,7 +53,7 @@ namespace Bloomlings.Client.Editor
             importer.isReadable = false;
             // Static trial pictures retain full-color gradients and eye detail without block artifacts.
             // The animated libraries keep their existing compression and memory budget.
-            importer.textureCompression = (assetPath.StartsWith(FramesFolder + "twigmod-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "simplehero-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "twigfit-", StringComparison.Ordinal))
+            importer.textureCompression = (assetPath.StartsWith(FramesFolder + "twigmod-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "simplehero-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "twigfit-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "twigv2-", StringComparison.Ordinal))
                 ? TextureImporterCompression.Uncompressed
                 : assetPath.StartsWith(FramesFolder, StringComparison.Ordinal)
                 ? TextureImporterCompression.Compressed

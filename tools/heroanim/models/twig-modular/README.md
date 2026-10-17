@@ -55,3 +55,6 @@ frames / badges keep their behavior. Only small PNGs ship in APK assets; source 
 
 The approved generated modeling reference images are retained in `../../references/twig-modular/`. Current game
 captures: `output/twig-modular-in-game/`. No APK is built here; this trial uses static poses and existing 2D breathing.
+
+Superseded for active Twig rendering by the owner-aligned `../twig-v2/` delivery. This earlier source / fit / art
+library remains archived and reproducible. Active equipment keeps the same Acorn / Panama IDs.

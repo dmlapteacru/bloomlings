@@ -21,6 +21,12 @@ namespace Bloomlings.Client.UI.Design
             Box area=ShopBodyDesign.Bounds(r);
             return new Box(area.Left,cosmetics ? FamilyTabs(r).Bottom+r.W*.028f : r.Tabs.Bottom+r.W*.028f,area.Right,area.Bottom);
         }
+        /// <summary>Cosmetics scroll below the fixed family row, including when more equipment is added.</summary>
+        public static Box ScrollViewport(ReferenceStoreRegions r, bool cosmetics)
+        {
+            Box area=Viewport(r,cosmetics),viewport=ShopBodyDesign.ScrollViewport(r,area);
+            return cosmetics ? new Box(viewport.Left,area.Top,viewport.Right,viewport.Bottom) : viewport;
+        }
         public static Box CosmeticCard(Box area, int index)
         {
             float gap=area.Width*.028f, width=(area.Width-gap)*.5f, height=width*1.10f;

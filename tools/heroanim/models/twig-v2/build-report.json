@@ -1,0 +1,665 @@
+{
+  "version": 1,
+  "scriptSha256": "6d656d496c8a32bb0409f3d125009ed9346715863025b577d4d52f6cfd880814",
+  "archiveSha256": "1ba395e7ca80c5184ea995eeeeeaf60f9232b48625ddc9026fcb857ba11f9633",
+  "parts": [
+    {
+      "key": "base",
+      "file": "TwigHeroV2.fbx",
+      "sha256": "7b907022ca0c4442c33b2f11e3f1e1ec113918ce7a2aaf7cab23065526048d5b",
+      "vertices": 49782,
+      "faces": 99564,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4139709770679474,
+          0.4139709770679474
+        ],
+        [
+          -0.30401602387428284,
+          0.3040773272514343
+        ],
+        [
+          1.2549304706510611e-8,
+          0.9801329970359802
+        ]
+      ],
+      "materials": [
+        {
+          "name": "tripo_mat_f83e263c",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "Beret",
+      "file": "TwigHeroV2_Beret.fbx",
+      "sha256": "edaa2d2fbd08879ff413514a35f973149caadd751e89a65bb37db2166d5f737c",
+      "vertices": 24258,
+      "faces": 48318,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.5525379180908203,
+          0.5113258361816406
+        ],
+        [
+          -0.40748292207717896,
+          0.5323354601860046
+        ],
+        [
+          0.5309320688247681,
+          1.2565808296203613
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.007",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_5.005",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "BucketHat",
+      "file": "TwigHeroV2_BucketHat.fbx",
+      "sha256": "80af06b4e70907ee3648de9c4e90ae1ef86b14b0185be420616c41da6c1fb1e1",
+      "vertices": 33917,
+      "faces": 66953,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4604000151157379,
+          0.44851773977279663
+        ],
+        [
+          -0.4439394176006317,
+          0.4462147057056427
+        ],
+        [
+          0.611169695854187,
+          1.1203062534332275
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.004",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_2.004",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "EarmuffHair",
+      "file": "TwigHeroV2_EarmuffHair.fbx",
+      "sha256": "232a94e4f361db35c59eb2002e1f35d7605d64ee43b7ce3a48cad397a24006a0",
+      "vertices": 39913,
+      "faces": 78510,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.6001167297363281,
+          0.597747802734375
+        ],
+        [
+          -0.3027602732181549,
+          0.39025261998176575
+        ],
+        [
+          0.4819403290748596,
+          1.1831800937652588
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.008",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_2.008",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.008",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "Glasses",
+      "file": "TwigHeroV2_Glasses.fbx",
+      "sha256": "bc4b6ae9625205f11128530dd45c8347979e5b00539635e55c1ee3aa116c78ad",
+      "vertices": 36607,
+      "faces": 73210,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.3823312819004059,
+          0.3764358162879944
+        ],
+        [
+          -0.30263325572013855,
+          0.08720904588699341
+        ],
+        [
+          0.4904309809207916,
+          0.7335726022720337
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Summer_GlassesFrame",
+          "color": [
+            0.10000000149011612,
+            0.20000000298023224,
+            0.017999999225139618,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Summer_GlassesCream",
+          "color": [
+            0.8299999833106995,
+            0.7400000095367432,
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Summer_GlassesLens",
+          "color": [
+            0.019999999552965164,
+            0.07000000029802322,
+            0.029999999329447746,
+            1
+          ],
+          "alpha": 0.7200000286102295,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "Hair",
+      "file": "TwigHeroV2_Hair.fbx",
+      "sha256": "08e50bb21789daca26c514a7583f07ca0d8972c81b4db9650d4dc6e0695c9bb0",
+      "vertices": 25443,
+      "faces": 50298,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.3976898193359375,
+          0.3887481689453125
+        ],
+        [
+          -0.38094261288642883,
+          0.3841661810874939
+        ],
+        [
+          0.45494407415390015,
+          1.1198291778564453
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.006",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "HatHair",
+      "file": "TwigHeroV2_HatHair.fbx",
+      "sha256": "b267afcd433f93b4f3b515b9abdd15abe0ed6cce939f83bb0d12f2281157ad51",
+      "vertices": 25521,
+      "faces": 50418,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.3875083923339844,
+          0.41265869140625
+        ],
+        [
+          -0.3606296181678772,
+          0.3751944303512573
+        ],
+        [
+          0.4538753926753998,
+          1.222756028175354
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_6.004",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "PumpkinHat",
+      "file": "TwigHeroV2_PumpkinHat.fbx",
+      "sha256": "f563c5e286955c3be42481be8ee6d7d09b15a3c1787d846454d49be38a597189",
+      "vertices": 28636,
+      "faces": 55783,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4051290452480316,
+          0.40914928913116455
+        ],
+        [
+          -0.3932957947254181,
+          0.3825809061527252
+        ],
+        [
+          0.6059445738792419,
+          1.2600091695785522
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_1.002",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_2.002",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.002",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "Scarf",
+      "file": "TwigHeroV2_Scarf.fbx",
+      "sha256": "077a1af7eb4724c5bf5cdd91f7bf56996c307162699f1e86650183c8f4471232",
+      "vertices": 14901,
+      "faces": 29072,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.39220619201660156,
+          0.2613067626953125
+        ],
+        [
+          -0.34658053517341614,
+          0.21825675666332245
+        ],
+        [
+          0.07731100916862488,
+          0.44639089703559875
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_1.008",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.007",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_4.005",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    },
+    {
+      "key": "XmasHat",
+      "file": "TwigHeroV2_XmasHat.fbx",
+      "sha256": "bdfa7308c4b79f913dd8ad4b81d06db3df5f743a6d2fef0376b96841dea80cdc",
+      "vertices": 40078,
+      "faces": 78385,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4559783935546875,
+          0.5577449798583984
+        ],
+        [
+          -0.39672839641571045,
+          0.4907381236553192
+        ],
+        [
+          0.4491639733314514,
+          1.351460576057434
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material_tripo_part_0.009",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_2.009",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_3.009",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_4.006",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_5.006",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_6.005",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_7.003",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_8.003",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_9.003",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_10.003",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_11.003",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_12.002",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_13.001",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        },
+        {
+          "name": "Material_tripo_part_14.001",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ]
+    }
+  ],
+  "clips": [
+    "Idle",
+    "Joy",
+    "Walk",
+    "Wave"
+  ],
+  "animationSource": {
+    "file": "TwigHeroV2@Anims.fbx",
+    "sha256": "6c90ed39a1e092e1a8f6f857184a77ef8d42ab7a9f13457e8ea68c7d45a7f358",
+    "actions": [
+      {
+        "name": "TwigHeroV2Rig|TwigHeroV2_Idle",
+        "range": [
+          1,
+          78
+        ]
+      },
+      {
+        "name": "TwigHeroV2Rig|TwigHeroV2_Joy",
+        "range": [
+          1,
+          78
+        ]
+      },
+      {
+        "name": "TwigHeroV2Rig|TwigHeroV2_Walk",
+        "range": [
+          1,
+          39
+        ]
+      },
+      {
+        "name": "TwigHeroV2Rig|TwigHeroV2_Wave",
+        "range": [
+          1,
+          78
+        ]
+      }
+    ]
+  },
+  "export": {
+    "file": "TwigHeroV2.glb",
+    "sha256": "b68cc2704dc08b6251dc01c7eb5a961b18108db520b425afa769cb45b559e584",
+    "bytes": 20804560
+  }
+}

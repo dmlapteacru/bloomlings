@@ -320,12 +320,12 @@ namespace Bloomlings.Client.Services.Save
             ? new[] { "frame", "badge", "marker", AvatarKind }
             : owner == BoardOwner
                 ? new[] { ClearingKind }
-                : new[] { "skin", "hat", "trail", "expression", "glasses", "backpack" };
+                : new[] { "skin", "hat", "trail", "expression", "glasses", "backpack", "scarf" };
 
         public SortedSet<string> Owned { get; } = new SortedSet<string>(StringComparer.Ordinal);
 
         /// <summary>
-        /// Slot → item id. A slot is <c>owner.kind</c>: a family wears one skin, hat, trail, expression, glasses and backpack
+        /// Slot → item id. A slot is <c>owner.kind</c>: a family wears one skin, hat, trail, expression, glasses, backpack and scarf
         /// (<c>drop.hat</c>), the profile shows one frame, badge, marker and avatar (<c>profile.frame</c>,
         /// <c>profile.avatar</c>), and the board plays one bought clearing style (<c>board.clearing</c>). The bought avatars
         /// and clearing styles are in <see cref="Owned"/> by their ids (<c>avatar.drop_sailor_sticker</c>, <c>clear.bubbles</c>).

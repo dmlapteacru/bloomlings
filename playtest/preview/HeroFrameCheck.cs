@@ -41,6 +41,12 @@ namespace Bloomlings.Playtest.Preview
                 string? problem = Check(assembly, Visuals.MotionFrame(frame), frame, allowFullColor: true);
                 if (problem != null) yield return "simplified hero " + family + ": " + problem;
             }
+            foreach (HeroFrame frame in TwigV2Art.AllFrames)
+            {
+                string name = Visuals.MotionFrame(frame);
+                string? problem = Check(assembly, name, frame, allowFullColor: true);
+                if (problem != null) yield return "Twig V2 sprite " + name + ": " + problem;
+            }
             var fitted = new List<HeroFrame> { TwigModularArt.Frame(null) };
             foreach (string id in new[] { TwigModularArt.AcornHatId, TwigModularArt.PanamaHatId })
             {

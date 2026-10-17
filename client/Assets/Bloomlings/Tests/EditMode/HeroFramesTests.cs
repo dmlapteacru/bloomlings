@@ -65,6 +65,7 @@ namespace Bloomlings.Client.Tests
                 "simplehero-sprig", "simplehero-bloom", "simplehero-drop", "simplehero-twig",
                 "twigmod-base", "twigmod-acorn", "twigmod-cap", "twigmod-icon-acorn", "twigmod-icon-cap",
             });
+            expected.UnionWith(TwigV2Art.AllFrames.Select(f => f.Name));
             foreach (string name in expected)
             {
                 Assert.That(File.Exists(Path.Combine(folder, name + ".png")), Is.True, name + ".png");

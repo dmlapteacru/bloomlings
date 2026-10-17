@@ -8307,6 +8307,303 @@
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-none.png",
+   "width": 292,
+   "height": 346,
+   "sha256": "a76c95624e76476a59cf0b7a9196e40cf30ad46969dcdbd8e7c885d7dfb4e68f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-pumpkinhat.png",
+   "width": 292,
+   "height": 444,
+   "sha256": "ab1aeea5cf32d682bfcafe6fb84e265b9252484cdfdc51eb60f85032d54c1617",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-buckethat.png",
+   "width": 321,
+   "height": 395,
+   "sha256": "c650c2a387c8fd9c518397f1f8cba3b608a16319a1860fda472c250621fac74d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-hair.png",
+   "width": 292,
+   "height": 395,
+   "sha256": "4a32211a77f631d0170d93050979f812afd989974ea524dd2bfd12ce25bffc56",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-hathair.png",
+   "width": 292,
+   "height": 431,
+   "sha256": "9a7c4241264e04eacf24bd0f9cad76af3b1537301ef85425c1afe968af5732ac",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-beret.png",
+   "width": 375,
+   "height": 443,
+   "sha256": "0e036b6f5a935f93af56002515388f3c060b547408ec67d0cd66e50fae6e326e",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-earmuffhair.png",
+   "width": 422,
+   "height": 417,
+   "sha256": "3197f060c960f555ba9ecbe60620d3a35f59df1a8d81df2d35992b4526196652",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-base-xmashat.png",
+   "width": 358,
+   "height": 476,
+   "sha256": "4b96bdffb40ca2178b0047e9f89c4c877a720cf764dd0b8742fc5450e2992fcf",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-none.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-pumpkinhat.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-buckethat.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-hair.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-hathair.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-beret.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-earmuffhair.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-scarf-xmashat.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-none.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-pumpkinhat.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-buckethat.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-hair.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-hathair.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "d80c040b99c9e2d600001a15730d77db750d0e90c94c7c603168218367a0d3da",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-beret.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "42148412343da746e390e9a9cf9f93112f5a354ea745fe583659f22a613f3a9d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-earmuffhair.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "6e99ffbbb35ab2140c8ed303699eb11b936828fc113396b33a6179d9af787292",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-glasses-xmashat.png",
+   "width": 268,
+   "height": 88,
+   "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-pumpkinhat.png",
+   "width": 230,
+   "height": 175,
+   "sha256": "31470b213dda2fb51b828f323cc8cfb5b1a1de0de148ed4fb9d2bba66bf604f2",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-buckethat.png",
+   "width": 232,
+   "height": 117,
+   "sha256": "7c9e78a37bba0465f24e69d128b210f6b05a799568a38e4180f581a79c372846",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-hair.png",
+   "width": 226,
+   "height": 184,
+   "sha256": "99e104667cf7611c8ed2f55dc8e2ad7cec6164c6b5bead4e6efcf9913a4316f9",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-hathair.png",
+   "width": 227,
+   "height": 212,
+   "sha256": "93c797d2afe54e3a230a9f99344dcc7d902f7ed28f779db5a8326643c95aee80",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-beret.png",
+   "width": 234,
+   "height": 151,
+   "sha256": "337b5eddb8c8763689d7ec852566310217feeb62d97a3c852420d15b95519a66",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-earmuffhair.png",
+   "width": 228,
+   "height": 136,
+   "sha256": "653eaadc11b8e7b4986568f599f70cb8ebe349171788e960266b07df1749cb1f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-xmashat.png",
+   "width": 224,
+   "height": 200,
+   "sha256": "6451e5fe0bc44dab4a5cb930c0e36d6dae33d9a722e9d46587fea946d4a3b84a",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-glasses.png",
+   "width": 230,
+   "height": 78,
+   "sha256": "49c7288c2145777268382e89529e56837766864d00e4f740061617bfd93d7a74",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "twigv2-icon-scarf.png",
+   "width": 243,
+   "height": 149,
+   "sha256": "c2df07b763014633e3e3b024cce22f2f48d4f1fd2ce58f152669cdd4b781bd54",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
   }
  ]
 }

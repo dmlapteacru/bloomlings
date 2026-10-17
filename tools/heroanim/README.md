@@ -65,3 +65,7 @@ to the new models. The runtime draws four small static sprites with 2D breathing
 Twig now uses the owner's new complete bald base with extracted Acorn / Panama hats. Run `prepare-twig-modular.py`,
 then `bake-twig-modular.mjs` (`--review` for work-directory renders), then `check.mjs`. Source / fitting / save behavior
 and import details: `models/twig-modular/README.md`. This retains one common face and the approved light-color look.
+
+
+Current Twig trial: owner-aligned V2 base, seven Head parts, glasses and scarf. Source mapping, rebuild and test
+commands: `models/twig-v2/README.md`. Previous Twig trial art / source records remain archived.
