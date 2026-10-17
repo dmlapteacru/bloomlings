@@ -35,6 +35,12 @@ namespace Bloomlings.Playtest.Preview
                     }
                 }
             }
+            foreach (Family family in CharacterArt.Families)
+            {
+                HeroFrame frame = SimpleHeroArt.Frame(family);
+                string? problem = Check(assembly, Visuals.MotionFrame(frame), frame, allowFullColor: true);
+                if (problem != null) yield return "simplified hero " + family + ": " + problem;
+            }
             var twig = new List<HeroFrame> { TwigGearArt.Frame(null) };
             foreach (string id in new[] { TwigGearArt.AcornHatId, TwigGearArt.FlowerCapId })
             {

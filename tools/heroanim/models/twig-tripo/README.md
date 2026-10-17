@@ -1,5 +1,8 @@
 # Segmented Tripo Twig: one base face, fitted acorn / cap
 
+**Archived trial:** the owner subsequently supplied a new simplified four-hero set. Current in-game sources / bake:
+`../simple-tripo/README.md`. The files below remain the earlier authoring / fitting study.
+
 Owner delivery, 2026-10-17: three original Tripo ZIP exports, preserved byte-for-byte under `source/` with hashes in
 `source-manifest.json`. They contain segmented FBXs, UVs and color / normal / roughness / metallic textures.
 

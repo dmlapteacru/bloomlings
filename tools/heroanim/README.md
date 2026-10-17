@@ -52,3 +52,10 @@ two fitted hats. See `models/twig-tripo/README.md` for source rebuild / Blender 
 runtime sprites with `node tools/heroanim/bake-twig-tripo.mjs`, then `node tools/heroanim/check.mjs`. Both hats are
 free under Shop → Cosmetics → Twig. The source is unrigged; this pilot uses static poses and shared 2D breathing.
 `bake-twig-gear.mjs` is the retired earlier FBX pilot, not the current publisher.
+
+### Current four-hero simplified trial (supersedes the Twig-only trial above)
+
+All four meta-screen bases now come from the owner's latest simplified Tripo ZIPs. Use
+`prepare-simple-heroes.py` and `bake-simple-heroes.mjs`, then `check.mjs`; source, behavior and rebuild details are in
+`models/simple-tripo/README.md`. The Sprig / Twig fitted-part bakes above remain archived until those parts are fitted
+to the new models. The runtime draws four small static sprites with 2D breathing, not the heavy source meshes.

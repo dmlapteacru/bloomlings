@@ -8226,6 +8226,42 @@
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "simplehero-sprig.png",
+   "width": 278,
+   "height": 426,
+   "sha256": "d06cb0dd0a6970518b519eeab79fd3c5ccc33bca9c1ec25c286a4eb99c6ae5aa",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "simplehero-bloom.png",
+   "width": 338,
+   "height": 426,
+   "sha256": "50dd162a40205e4dc75911a5ae94ad057d0c50036db577e40c89b08376bdcc7f",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "simplehero-drop.png",
+   "width": 254,
+   "height": 426,
+   "sha256": "f6b1828c50aac6b5366a1725573984a0392bf7ad7c155d4a31a2b0016c5a6e38",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "simplehero-twig.png",
+   "width": 274,
+   "height": 426,
+   "sha256": "a3436a9e7824a26a231e0c8a88910fd1e1e56b5533e36d93d069168f5b3b3c32",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
   }
  ]
 }

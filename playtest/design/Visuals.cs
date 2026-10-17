@@ -195,6 +195,7 @@ namespace Bloomlings.Playtest.Design
 
         private static void ModularHero(IPainter p, Box cell, Family family, Outfit? outfit)
         {
+            outfit = HeroGearArt.DisplayOutfit(outfit);
             p.Mark(HeroMotion.Slot(family));
             if (outfit?.Trail != null) p.Shape(ShapeLibrary.CosmeticId(outfit.Trail.Shape), CharacterArt.TrailBox(cell), Tint(outfit.Trail));
             for (int i = 0; i < HeroGearArt.LayerCount; i++)

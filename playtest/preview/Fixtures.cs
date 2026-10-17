@@ -137,89 +137,60 @@ namespace Bloomlings.Playtest.Preview
                 app.GoHome(); CloseAll(app); Run(app, p, .4f);
             });
 
-            yield return new Fixture(112,"twig-tripo-shop","Free fitted Twig hats equip from actual Shop cards before L40",(p,data)=>
-            {
-                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=3;Run(app,p,.15f);
-                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
-                long before=app.Meta.Economy.Petals;
-                foreach(var item in new[]{(1,TwigGearArt.AcornHatId),(2,TwigGearArt.FlowerCapId)})
-                {
-                    Tap(p,ShopCatalogDesign.CosmeticCard(area,item.Item1));Run(app,p,.1f);
-                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==item.Item2,"actual Shop tap selects the fitted Twig hat");
-                    Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==item.Item2,"Twig headwear survives application save/reload");
-                }
-                Expect(app.Meta.Economy.Petals==before&&app.Overlays.Count==0,"free hats spend nothing and need no confirmation");
-                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
-                Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat==null,"Remove returns to the bare shared base");
-                Tap(p,ShopCatalogDesign.CosmeticCard(area,2));Run(app,p,.1f);
-                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-icon-acorn")&&p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-icon-cap"),"Shop uses actual fitted headwear icons");
-            });
-            foreach(var target in new[]{(113,"twig-tripo-home-acorn",TwigGearArt.AcornHatId),(114,"twig-tripo-home-cap",TwigGearArt.FlowerCapId),(115,"twig-tripo-wardrobe",TwigGearArt.FlowerCapId),(117,"twig-tripo-home-base",(string?)null)})
+            foreach(var target in new[]{(108,"simple-sprig-shop",0),(112,"simple-twig-shop",3)})
             {
                 var scene=target;
-                yield return new Fixture(scene.Item1,scene.Item2,"Every meta screen draws the saved segmented Twig outfit",(p,data)=>
+                yield return new Fixture(scene.Item1,scene.Item2,"Shop shows the new base and withholds accessories fitted to the old model",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
-                    if(scene.Item3!=null)Expect(app.Meta.Wardrobe.Equip(Family.Twig,scene.Item3),"the chosen fitted hat equips");
-                    if(scene.Item1==115){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}
-                    else app.GoHome();
+                    var app=Progressed(App(data),content,87);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=scene.Item3;
+                    p.DrawnSprites.Clear();Run(app,p,.15f);
+                    string family=scene.Item3==0?"sprig":"twig";
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"simplehero-"+family),"Shop draws the new family base");
+                    Expect(!p.DrawnSprites.Any(n=>n.Contains("mod-icon-",StringComparison.Ordinal)),"unfitted old accessories are absent from Shop");
+                });
+            }
+            foreach(var target in new[]{(109,"simple-heroes-home",false),(113,"simple-heroes-saved-outfit",true),(114,"simple-heroes-reloaded",true),(117,"simple-heroes-fresh-home",false)})
+            {
+                var scene=target;
+                yield return new Fixture(scene.Item1,scene.Item2,"All four new models draw on Home, including an existing equipment save",(p,data)=>
+                {
+                    var app=App(data);if(scene.Item1!=117)app=Progressed(app,content,87);CloseAll(app);
+                    if(scene.Item3)
+                    {
+                        Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigGearArt.FlowerCapId),"legacy Twig selection is retained");
+                        foreach(string id in new[]{SprigGearArt.CapId,SprigGearArt.GlassesId,SprigGearArt.BackpackId})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"legacy Sprig selections are retained");
+                        if(scene.Item1==114){app=App(data);CloseAll(app);}
+                    }
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.5f);
+                    foreach(Family family in CharacterArt.Families)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+SimpleHeroArt.Frame(family).Name),"Home draws new "+family);
+                    Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"sprigmod-",StringComparison.Ordinal)||n.StartsWith(PainterBase.HeroMotionPrefix+"twigmod-",StringComparison.Ordinal)),"previous fitted meshes cannot override the new models");
+                    if(scene.Item3)Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==TwigGearArt.FlowerCapId,"displaying the new base never erases saved gear");
+                });
+            }
+            foreach(var target in new[]{(110,"simple-sprig-wardrobe",Family.Sprig),(115,"simple-twig-wardrobe",Family.Twig),(118,"simple-bloom-wardrobe",Family.Bloom),(119,"simple-drop-wardrobe",Family.Drop)})
+            {
+                var scene=target;
+                yield return new Fixture(scene.Item1,scene.Item2,"The Wardrobe previews the owner's new "+scene.Item3,(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);app.WardrobeBrowse.Select(scene.Item3);app.OpenWardrobe();
                     p.DrawnSprites.Clear();Run(app,p,.5f);
-                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==scene.Item3,"navigation retains headwear");
-                    string state=scene.Item3==null?"base":scene.Item3==TwigGearArt.AcornHatId?"acorn":"cap";
-                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-"+state),"the actual page draws the selected Tripo state");
-                    Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twig-idle-",StringComparison.Ordinal)),"the retired animated model cannot cover the selected outfit");
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+SimpleHeroArt.Frame(scene.Item3).Name),"Wardrobe draws the new base");
+                    Expect(!WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,scene.Item3).Any(c=>c.Item?.MetaOnly==true),"unfitted previous 3D attachments are withheld from the shelf");
                 });
             }
-            yield return new Fixture(116,"twig-tripo-win","The selected Twig cap remains visible after a solved level",(p,data)=>
-            {
-                var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigGearArt.FlowerCapId),"cap equips before playing");
-                app.LoadLevel(13);CloseDemo(app);Run(app,p,.1f);
-                SolveResult win=new Solver.Solver().Solve(Session(content,13),SolveOptions.Default);
-                Expect(win.Status==SolveStatus.Solvable,"the actual level is solvable");
-                p.DrawnSprites.Clear();Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
-                Expect(app.Level!.Won&&app.Meta.CurrentLevel==14,"Twig's win completes progression");
-                Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigmod-cap"),"victory draws the selected Tripo cap");
-                Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"twig-win-",StringComparison.Ordinal)),"victory does not substitute the retired Twig");
-            });
-
-            yield return new Fixture(108,"sprig-gear-shop","Free modular Sprig accessories equip from Shop before L40",(p,data)=>
-            {
-                var app=Progressed(App(data),content,15);CloseAll(app);app.OpenStore();app.StoreTab=1;Run(app,p,.15f);
-                var area=ShopCatalogDesign.Viewport(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true),true);
-                long before=app.Meta.Economy.Petals;
-                for(int i=1;i<=3;i++){Tap(p,ShopCatalogDesign.CosmeticCard(area,i));Run(app,p,.1f);}
-                Outfit look=app.Meta.Wardrobe.OutfitOf(Family.Sprig);
-                Expect(look.Hat?.Id==SprigGearArt.CapId&&look.Glasses?.Id==SprigGearArt.GlassesId&&look.Backpack?.Id==SprigGearArt.BackpackId,"all three actual shop taps equip independent slots");
-                Expect(app.Meta.Economy.Petals==before&&app.Overlays.Count==0,"free gear charges nothing and opens no purchase confirmation");
-                var restored=App(data).Meta.Wardrobe.OutfitOf(Family.Sprig);
-                Expect(restored.Glasses?.Id==look.Glasses?.Id&&restored.Backpack?.Id==look.Backpack?.Id&&restored.Hat?.Id==look.Hat?.Id,"gear survives an actual application save/reload");
-                Tap(p,ShopCatalogDesign.CosmeticCard(area,1));Run(app,p,.1f);
-                Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat==null&&app.Meta.Wardrobe.OutfitOf(Family.Sprig).Glasses!=null,"tapping Remove only removes the selected slot");
-                Tap(p,ShopCatalogDesign.CosmeticCard(area,1));Run(app,p,.1f);
-            });
-            foreach(var target in new[]{(109,"sprig-gear-home"),(110,"sprig-gear-wardrobe")})
+            foreach(var target in new[]{(111,"simple-sprig-win",12,Family.Sprig),(116,"simple-twig-win",13,Family.Twig)})
             {
                 var scene=target;
-                yield return new Fixture(scene.Item1,scene.Item2,"Modular Sprig outfit on "+scene.Item2,(p,data)=>
+                yield return new Fixture(scene.Item1,scene.Item2,"A real solved level uses the new victory hero",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
-                    foreach(var id in new[]{SprigGearArt.CapId,SprigGearArt.GlassesId,SprigGearArt.BackpackId})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"free Sprig gear equips");
-                    if(scene.Item1==110)app.OpenWardrobe();else app.GoHome();
-                    Run(app,p,.5f);
-                    Expect(p.HasSprite(PainterBase.HeroMotionPrefix+"sprigmod-cap"),"the actual APK sprite source is bundled");
+                    var app=App(data);app.Meta.SkipTo(scene.Item3-1);app.LoadLevel(scene.Item3);CloseDemo(app);Run(app,p,.1f);
+                    SolveResult win=new Solver.Solver().Solve(Session(content,scene.Item3),SolveOptions.Default);
+                    Expect(win.Status==SolveStatus.Solvable,"the actual level is solvable");
+                    p.DrawnSprites.Clear();Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
+                    Expect(app.Level!.Won&&app.Meta.CurrentLevel==scene.Item3+1,"victory preserves progression");
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+SimpleHeroArt.Frame(scene.Item4).Name),"victory draws the new "+scene.Item4);
                 });
             }
-
-            yield return new Fixture(111,"sprig-gear-win","Sprig keeps the equipped cap, glasses and backpack after a real level win",(p,data)=>
-            {
-                var app=App(data);app.Meta.SkipTo(11);
-                foreach(var id in new[]{SprigGearArt.CapId,SprigGearArt.GlassesId,SprigGearArt.BackpackId})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"free Sprig gear equips before the wardrobe unlock");
-                app.LoadLevel(12);CloseDemo(app);Run(app,p,.1f);
-                SolveResult win=new Solver.Solver().Solve(Session(content,12),SolveOptions.Default);
-                Expect(win.Status==SolveStatus.Solvable,"the real level can be completed");
-                Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
-                Expect(app.Level!.Won&&app.Level.Animator.Settled&&app.Meta.CurrentLevel==13,"the actual level win and progression complete");
-            });
 
             yield return new Fixture(100, "hero-medals", "The four completed milestone heroes become wearable profile medals", (p, data) =>
             {

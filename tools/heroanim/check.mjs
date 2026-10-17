@@ -63,6 +63,20 @@ if(fs.existsSync(twigFile)){
     if(record.sourceModel)expect(sha(path.join(repo,record.sourceModel.path))===record.sourceModel.sha256,`${name} model reference source changed`);
   }
 }
+const simpleFile=path.join(here,'simple-heroes.json');
+if(fs.existsSync(simpleFile)){
+ const simple=JSON.parse(fs.readFileSync(simpleFile));
+ const referenceFolder=path.join(here,'references/simple-heroes');
+ const references=JSON.parse(fs.readFileSync(path.join(referenceFolder,'manifest.json')));
+ for(const f of references.files)expect(fs.existsSync(path.join(referenceFolder,f.path))&&sha(path.join(referenceFolder,f.path))===f.sha256,'Simplified hero reference '+f.path+' is missing or changed');
+ for(const source of simple.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since simplified hero bake');
+ expect(sha(path.join(repo,simple.data))===simple.dataSha256,'SimpleHeroData does not match bake');
+ for(const f of simple.outputs){
+  listed.add(f.file);const file=path.join(framesDir,f.file);
+  expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed after simplified hero bake');
+  if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain full-color RGBA and declared crop size');}
+ }
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const tripoStudy=path.join(here,'models/twig-tripo/study-manifest.json');
 if(fs.existsSync(tripoStudy)){
@@ -76,6 +90,8 @@ if(fs.existsSync(gearFile))for(const f of JSON.parse(fs.readFileSync(gearFile)).
   expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
 if(fs.existsSync(twigFile))for(const f of JSON.parse(fs.readFileSync(twigFile)).outputs)
   expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
+if(fs.existsSync(simpleFile))for(const f of JSON.parse(fs.readFileSync(simpleFile)).outputs)
+ expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for (const hero of manifest.heroes) for (const f of hero.frames) expect(folderFiles.get(f.name + '.png') === f.sha256, `HeroMotion/manifest.json: ${f.name}.png`);
 expect(folder.files.every(f => f.record && fs.existsSync(path.join(repo, f.record))), 'HeroMotion/manifest.json names a missing source record');
 for (const f of fs.readdirSync(framesDir)) {

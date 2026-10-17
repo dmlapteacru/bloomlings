@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "family": "bloom",
+      "file": "BloomHero_Tripo.zip",
+      "original": "1-pink-flower-character-3d-model.zip",
+      "bytes": 11293823,
+      "sha256": "752826ea183410c9b58d95c5bcd2b9826ef2d62d83cf6ce2c0e002d86e6e8237"
+    },
+    {
+      "family": "drop",
+      "file": "DropHero_Tripo.zip",
+      "original": "2-blue-droplet-3d-model.zip",
+      "bytes": 8658612,
+      "sha256": "fd9b200625168a8874aa55bae988660b701c8a9eea644e707d4b74eee7425d7a"
+    },
+    {
+      "family": "twig",
+      "file": "TwigHero_Tripo.zip",
+      "original": "3-acorn-character-3d-model-1-.zip",
+      "bytes": 6310973,
+      "sha256": "69e59ca7ec5e4dbd68bb8066906ec1206c29ee4a2a076bb52c7ae31aee946b0b"
+    },
+    {
+      "family": "sprig",
+      "file": "SprigHero_Tripo.zip",
+      "original": "4-cute-plant-character-3d-model.zip",
+      "bytes": 5745291,
+      "sha256": "d099c81010c678d1db421400ae2d657f5cac9c820eb458104dcd9396a3787d04"
+    }
+  ]
+}

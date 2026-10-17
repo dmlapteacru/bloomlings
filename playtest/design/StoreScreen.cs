@@ -331,7 +331,7 @@ namespace Bloomlings.Playtest.Design
             Family family=families[selected];
             Box bar=ShopCatalogDesign.FamilyTabs(r);
             Kit.NavigationBar(p,bar,families.Count);
-            var items=new List<CosmeticItem?>{null};foreach(var item in wardrobe.ShopItems)if(item.Fits(family))items.Add(item);
+            var items=new List<CosmeticItem?>{null};foreach(var item in wardrobe.ShopItems)if(item.Fits(family)&&HeroGearArt.CanPreview(item))items.Add(item);
             Box area=ShopCatalogDesign.Viewport(r,true);Box viewport=ShopBodyDesign.ScrollViewport(r,area);
             float max=Math.Max(0,ShopCatalogDesign.CosmeticsHeight(area,items.Count)-area.Height);
             app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset));
@@ -341,7 +341,7 @@ namespace Bloomlings.Playtest.Design
                 CosmeticItem? item=items[i];
                 Box card=ShopCatalogDesign.CosmeticCard(area,i).Offset(0,-app.ShopScrollOffset);
                 if(card.Bottom<=viewport.Top||card.Top>=viewport.Bottom)continue;
-                bool chosen=item==null ? wardrobe.OutfitOf(family).IsEmpty : wardrobe.EquippedFor(family,item.Kind)?.Id==item.Id;
+                bool chosen=item==null ? HeroGearArt.DisplayOutfit(wardrobe.OutfitOf(family))!.IsEmpty : wardrobe.EquippedFor(family,item.Kind)?.Id==item.Id;
                 string name=item==null ? PlaytestText.T("wardrobe.default") : MetaCards.ItemName(item);
                 Action? tap=item==null ? ()=>wardrobe.UnequipAll(family) : ()=>BuyCosmetic(app,family,item);
                 var action=item==null||wardrobe.Owns(item) ? chosen ? ClearingAction.Chosen : ClearingAction.Choose : ClearingAction.Buy;

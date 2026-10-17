@@ -51,9 +51,9 @@ namespace Bloomlings.Client.Editor
             importer.filterMode = FilterMode.Bilinear;
             importer.npotScale = TextureImporterNPOTScale.None;
             importer.isReadable = false;
-            // Only five static Twig pictures: retain full-color gradients and eye detail without block artifacts.
+            // Static trial pictures retain full-color gradients and eye detail without block artifacts.
             // The animated libraries keep their existing compression and memory budget.
-            importer.textureCompression = assetPath.StartsWith(FramesFolder + "twigmod-", StringComparison.Ordinal)
+            importer.textureCompression = (assetPath.StartsWith(FramesFolder + "twigmod-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "simplehero-", StringComparison.Ordinal))
                 ? TextureImporterCompression.Uncompressed
                 : assetPath.StartsWith(FramesFolder, StringComparison.Ordinal)
                 ? TextureImporterCompression.Compressed

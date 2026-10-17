@@ -108,6 +108,7 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         public void Wear(Outfit? outfit)
         {
+            outfit = HeroGearArt.DisplayOutfit(outfit);
             if (_gearOn) _gear!.Wear(_set!.Family, outfit);
             CosmeticItem? trail = outfit?.Trail;
             _trail.gameObject.SetActive(trail != null);

@@ -61,6 +61,7 @@ namespace Bloomlings.Client.Tests
             {
                 "sprigmod-base", "sprigmod-cap", "sprigmod-glasses", "sprigmod-cap-glasses", "sprigmod-backpack",
                 "sprigmod-cap-backpack", "sprigmod-icon-hat", "sprigmod-icon-glasses", "sprigmod-icon-backpack",
+                "simplehero-sprig", "simplehero-bloom", "simplehero-drop", "simplehero-twig",
                 "twigmod-base", "twigmod-acorn", "twigmod-cap", "twigmod-icon-acorn", "twigmod-icon-cap",
             });
             foreach (string name in expected)

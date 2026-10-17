@@ -102,3 +102,17 @@ pivot now uses X scale 0.88, with ears, mouth and both hats following the same t
 height and foot position stay unchanged; no runtime sprite stretching or new gameplay logic is introduced. The
 original Tripo source and earlier Blender exchange remain intact. Record the same transform in the owner's master
 if adopting it there later; current bake setting is `look.headWidthScale` in `bake-twig-tripo.mjs`.
+
+### Current simplified four-hero trial (2026-10-17)
+
+The owner generated simpler models from the approved clean-color references and requested them in the game.
+All four are now the base meta-screen heroes; source record and reproducible importer / bake instructions:
+`tools/heroanim/models/simple-tripo/README.md`. Original archives and reference pictures remain in the repository.
+The real meshes / base colors are rendered offline; four full-color sprites total 411,390 bytes. Source proportions
+are preserved through uniform scaling, including the new Twig; the earlier X=0.88 correction is archived.
+
+The source has no rig. Use existing subtle 2D breathing for this visual trial, pending the separate animation feature.
+Previous model-specific cap / glasses / backpack pieces are withheld from Shop / Wardrobe and the displayed outfit
+until refitted; old service / save selections remain intact. Generic 2D cosmetics and independent profile avatar /
+frame / badge choices stay supported. No source models ship in APKs and no APK is built here. Current captures:
+`output/simple-heroes-in-game/`.

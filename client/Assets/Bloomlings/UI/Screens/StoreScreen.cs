@@ -770,11 +770,11 @@ namespace Bloomlings.Client.UI.Screens
             IReadOnlyList<Family> families=WardrobeService.Families;
             _family=Mathf.Clamp(_family,0,families.Count-1);
             Family family=families[_family];
-            shown=shown.FindAll(i=>i.Cosmetic==null||i.Cosmetic.Fits(family));
+            shown=shown.FindAll(i=>i.Cosmetic==null||(i.Cosmetic.Fits(family)&&HeroGearArt.CanPreview(i.Cosmetic)));
             FamilyTabs(ShopCatalogDesign.FamilyTabs(r),r.OutfitPanel,families,wardrobe);
             Box area=ShopCatalogDesign.Viewport(r,true);
             Box content=CatalogContent(area,ShopCatalogDesign.CosmeticsHeight(area,shown.Count+1));
-            bool chosen=wardrobe.OutfitOf(family).IsEmpty;
+            bool chosen=HeroGearArt.DisplayOutfit(wardrobe.OutfitOf(family))!.IsEmpty;
             string status=Loc.T(chosen ? "clearing.chosen" : "wardrobe.default");
             RectTransform plain=ShopCatalogView.Create(_shopContent,true,false,Loc.T("wardrobe.default"),chosen ? ClearingAction.Chosen : ClearingAction.Choose,0,chosen,false,()=>{wardrobe.UnequipAll(family);Refresh();},picture=>Preview(picture,family,null),status);
             UiKit.PlaceBox(plain,ShopCatalogDesign.CosmeticCard(area,0),content);

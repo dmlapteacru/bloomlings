@@ -39,7 +39,7 @@ namespace Bloomlings.Client.UI.Design
             foreach (CosmeticItem item in ordered)
             {
                 if (item.Kind != kind && !(kind == CosmeticKind.Hat && (item.Kind == CosmeticKind.Glasses || item.Kind == CosmeticKind.Backpack))) continue;
-                if (family.HasValue && !item.Fits(family.Value)) continue;
+                if (!HeroGearArt.CanPreview(item) || (family.HasValue && !item.Fits(family.Value))) continue;
                 WardrobeItemState state = wardrobe.Owns(item) ? WardrobeItemState.Owned :
                     item.ForSale ? WardrobeItemState.ForSale : WardrobeItemState.Reward;
                 int? cadence = null;
@@ -65,10 +65,15 @@ namespace Bloomlings.Client.UI.Design
             CosmeticKind.Backpack => outfit with { Backpack = item },
             _ => outfit,
         };
-        public static bool Chosen(WardrobeService wardrobe, Family family, CosmeticKind filter, CosmeticItem? item) =>
-            item == null && filter == CosmeticKind.Hat
-                ? wardrobe.EquippedFor(family,CosmeticKind.Hat) == null && wardrobe.EquippedFor(family,CosmeticKind.Glasses) == null && wardrobe.EquippedFor(family,CosmeticKind.Backpack) == null
-                : wardrobe.EquippedFor(family,item?.Kind??filter)?.Id == item?.Id;
+        public static bool Chosen(WardrobeService wardrobe, Family family, CosmeticKind filter, CosmeticItem? item)
+        {
+            if (item == null && filter == CosmeticKind.Hat)
+            {
+                Outfit shown = HeroGearArt.DisplayOutfit(wardrobe.OutfitOf(family))!;
+                return shown.Hat == null && shown.Glasses == null && shown.Backpack == null;
+            }
+            return wardrobe.EquippedFor(family, item?.Kind ?? filter)?.Id == item?.Id;
+        }
     }
 
     public sealed record WardrobeShelfRegions(Box Safe, float W, PageHeader Header, Box Stage, Box Hero,

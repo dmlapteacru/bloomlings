@@ -7,20 +7,20 @@ namespace Bloomlings.Client.UI.Design
     public static class HeroGearArt
     {
         public const int LayerCount = 3;
-        // Modular heroes share saved outfits across every meta-screen host.
-        public static bool Supports(Family family) => family == Family.Sprig || family == Family.Twig;
-        public static HeroFrame? Layer(Family family, Outfit? outfit, int index) => family switch
+        // Owner's simplified-model trial. Legacy fitted parts remain archived until refitted to these bodies.
+        public static bool Supports(Family family) => family == Family.Sprig || family == Family.Bloom || family == Family.Drop || family == Family.Twig;
+        public static HeroFrame? Layer(Family family, Outfit? outfit, int index) => index == 0 && Supports(family) ? SimpleHeroArt.Frame(family) : (HeroFrame?)null;
+        public static bool HasBakedHat(Family family, Outfit? outfit) => false;
+        public static bool CanPreview(CosmeticItem item) => !item.MetaOnly;
+        // Keep the save intact. Only the previous model-specific 3D attachments are withheld from this trial.
+        public static Outfit? DisplayOutfit(Outfit? outfit)
         {
-            Family.Sprig => SprigGearArt.Layer(outfit, index),
-            Family.Twig when index == 0 => TwigGearArt.Frame(outfit),
-            _ => null,
-        };
-        public static bool HasBakedHat(Family family, Outfit? outfit) => family switch
-        {
-            Family.Sprig => SprigGearArt.IsCap(outfit),
-            Family.Twig => TwigGearArt.IsHat(outfit?.Hat?.Id),
-            _ => false,
-        };
+            if (outfit == null) return null;
+            bool unfitted = outfit.Skin?.MetaOnly == true || outfit.Hat?.MetaOnly == true
+                || outfit.Trail?.MetaOnly == true || outfit.Expression?.MetaOnly == true
+                || outfit.Glasses != null || outfit.Backpack != null;
+            return unfitted ? outfit.ForGameplay : outfit;
+        }
         public static HeroFrame? Icon(string id) => SprigGearArt.Icon(id) ?? TwigGearArt.Icon(id);
         public static Box PoseCell(Box cell, HeroPose pose, Family family) => SprigGearArt.PoseCell(cell, pose, family);
     }

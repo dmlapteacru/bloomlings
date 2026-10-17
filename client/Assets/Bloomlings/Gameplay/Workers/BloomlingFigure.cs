@@ -95,6 +95,7 @@ namespace Bloomlings.Client.Gameplay.Workers
         /// </summary>
         public void ShowHero(Family family, Outfit? outfit)
         {
+            outfit = HeroGearArt.DisplayOutfit(outfit);
             // The blank-faced twin only when it is the same character (CharacterSprites.HasMatchingBlank); else the hero
             // keeps its face and the expression goes on the badge.
             bool expression = outfit?.Expression != null;

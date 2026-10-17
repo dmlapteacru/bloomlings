@@ -314,3 +314,25 @@ height and feet are unchanged. Source archives / fitted GLBs / Blender study del
 is created. All five full-color PNGs are rebaked (426,263 bytes total), including matching Shop icons. Their source /
 output hashes and crop rectangles are refreshed in `twig-gear.json`, `TwigGearData.cs` and the runtime art manifest.
 Actual game comparison: `output/twig-head-proportions/`; current game captures: `output/twig-tripo-in-game/`.
+
+## Simplified four-hero Tripo trial — 2026-10-17
+
+The owner supplied new simplified Bloom, Drop, Twig and Sprig FBX / texture ZIPs and requested them in the game.
+Original archives / names / hashes are preserved under `models/simple-tripo/`; approved OpenAI-generated references
+from this conversation are saved under `references/simple-heroes/`. Each model is one textured unrigged mesh.
+
+`prepare-simple-heroes.py` retains geometry and UV / base color, uniformly normalizes the complete model, and removes
+noisy generated normal / metallic shading only on a derived copy. No previous Twig head-width correction is applied.
+`bake-simple-heroes.mjs` renders the actual meshes to four 448×504 logical-cell, full-color transparent PNGs
+(411,390 bytes together). Alpha-safe supersampling preserves clean edges without palette quantization. Camera / fill /
+foot placement are shared; no source silhouette is stretched. Inputs and art hashes are in `simple-heroes.json`.
+
+The shared meta-screen renderer now uses all four bases. Existing fitted Sprig / Twig 3D parts are withheld while
+unfitted to the new models, but their service / save selection remains intact. Generic 2D cosmetics, avatar pictures,
+frames and badges are retained. The trial has only the source static poses and existing 2D breathing; no new skeletal
+actions, runtime 3D models, or second Blender master. Actual game captures: `output/simple-heroes-in-game/`.
+
+Viewer brightness correction in the same four-hero trial: source paint already includes illumination. The final
+renderer replaces the extra PBR / specular pass with 75% original albedo + 25% soft diffuse light. This avoids the
+dark chin / cheeks and dirty eye whites seen in the first in-game review. Source textures are not repainted; there
+is no dark UI overlay to remove. Actual rendered comparison is in `output/simple-heroes-in-game/lighting-comparison.png`.

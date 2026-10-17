@@ -50,6 +50,7 @@ namespace Bloomlings.Client.UI.Screens
         }
         public void Wear(Family family, Outfit? outfit)
         {
+            outfit = HeroGearArt.DisplayOutfit(outfit);
             _family = family;
             _outfit = outfit;
             for (int i = 0; i < _parts.Length; i++)
