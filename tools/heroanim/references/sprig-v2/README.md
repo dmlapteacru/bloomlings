@@ -11,3 +11,5 @@ The final game hero needs a default leafy head style; the bald base is for model
 [heads-three-hairstyles.png](heads-three-hairstyles.png) shows the requested three headwear concepts on the common base: 1 soft rounded leaf cap with short forelock, 2 compact side-part leaf crop, 3 curled leaf forelock. They are front-view modeling references; no new mesh or game replacement is included.
 
 The owner replaced the first tall crest with a softer, cuter rounded leaf cap. The earlier crest is retained in Git history.
+
+[SET.md](SET.md) lists the complete requested modular set: three existing hair concepts, five additional Head variants, one scarf, three seasonal Clothes variants and the reused round glasses mesh (material adjustment later). New standalone generation references are under `set/`.

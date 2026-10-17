@@ -15,6 +15,51 @@
       "path": "heads-three-hairstyles.png",
       "sha256": "ffa66ccb9ec1bc28f482f54fc9798c09db64eb381a266ed6383b51e028f1d3f2",
       "note": "Requested revision: 1 soft rounded leaf cap with short forelock, 2 compact side-part, 3 curled forelock. Common Sprig head; offline modeling concepts."
+    },
+    {
+      "path": "set/head-panama.png",
+      "sha256": "d782bfcc52629706f1f23ff5ecafe9275d04d2708e1770fe004b8bde506b4fd3",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/head-garden-cap.png",
+      "sha256": "45dafddd65b193bfafb1aabcdff1742cd404a63b0e34f9ab2e56091b669132ce",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/head-beret.png",
+      "sha256": "b64d2c6b79397fa7802e083f17ba0cc8e5aa0ba0d31787e2d91ac51d01e129da",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/head-winter-earmuffs.png",
+      "sha256": "a6a669aeca5db5f8985afe1d1b340982e21f7f0377362a4dc6981b3874b9fae8",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/head-holiday-hat.png",
+      "sha256": "fd862756e8856013385a24a303e5aaf13b7f223beddc05f2ee85d76a9220f020",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/neck-scarf.png",
+      "sha256": "ceaaf3a47a8bd9f507ec6244da61dabab08bae4a8fc0c6424e0f20667010759e",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/clothes-winter-jacket.png",
+      "sha256": "91086e6c910b8b398950dc7d64ca64f595cf6db84b1680cb3a68f9bf6235a341",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/clothes-autumn-coat.png",
+      "sha256": "03ac73424d61b68706859b02a75a47abbf7b8988f7852b7bcf81f381fa03dd6e",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
+    },
+    {
+      "path": "set/clothes-garden-overalls.png",
+      "sha256": "918a1a6e2a2f95a099d2958d8615c45e77bfcd7d0d4480a6d4e9c429250c29fd",
+      "note": "Offline modeling reference; fit the wearable part onto the shared Sprig Blender base."
     }
   ]
 }
