@@ -227,6 +227,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - Current hero sources (owner approval, 2026-10-17): TwigHeroV2 is the permanent Twig identity; source ZIP, rig,
   aligned accessories and rebuild: `tools/heroanim/models/twig-v2/README.md`. Modeling / texture references including
   the bald base: `tools/heroanim/references/twig-v2/README.md`. Sprig / Bloom / Drop retain the simplified Tripo models.
+  Twig has 12 fitted items: seven Head choices, one Glasses, three Clothes, one Neck; `models/twig-v2/ITEMS.md` lists IDs.
+  The latest source includes four additional FBXs alongside the original ZIP. Clothes saves independently; 35
+  sprites cover 128 outfits. Warm brown eyewear / Panama materials: `tools/heroanim/twig-v2-look.json`.
   Meta screens use static 2D renders plus breathing; skeletal actions / action selection remain separate future work.
   Old Twig motion and fitted resources / helpers are archived off runtime in `tools/heroanim/archive/twig/`.
   Never publish old Twig from the legacy bake. Old item IDs resolve compatibly (flower cap → Panama). The three Twig

@@ -225,12 +225,13 @@ namespace Bloomlings.Playtest.Preview
             {
                 var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.BucketId),"Panama equips before L40");
                 Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.GlassesId)&&app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.ScarfId),"glasses and scarf equip independently");
+                Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.CoatId),"autumn coat equips on victory celebrant");
                 app.LoadLevel(13);CloseDemo(app);Run(app,p,.1f);
                 SolveResult win=new Solver.Solver().Solve(Session(content,13),SolveOptions.Default);Expect(win.Status==SolveStatus.Solvable,"actual L13 is solvable");
                 p.DrawnSprites.Clear();Play(app,p,win.Trace,win.Trace.Count);Settle(app,p);Run(app,p,1.1f);
                 Expect(app.Level!.Won&&app.Meta.CurrentLevel==14,"progression completes normally");
                 Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-buckethat"),"victory keeps the selected Panama");
-                for(int layer=1;layer<3;layer++)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer)!.Value.Name),"victory keeps the saved accessory layer");
+                for(int layer=1;layer<HeroGearArt.LayerCount;layer++)if(HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer) is HeroFrame worn)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+worn.Name),"victory keeps the saved accessory layer");
             });
 
             yield return new Fixture(125,"twig-v2-shop","Every delivered V2 part equips and removes through the actual Shop",(p,data)=>
@@ -253,10 +254,13 @@ namespace Bloomlings.Playtest.Preview
                     Expect(app.Meta.Wardrobe.EquippedFor(Family.Twig,item!.Kind)?.Id==id,"actual card equips "+id);
                     Expect(App(data).Meta.Wardrobe.EquippedFor(Family.Twig,item.Kind)?.Id==id,"restart retains "+id);
                 }
+                Choose(TwigV2Art.OverallsId);
+                Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Clothes==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat!=null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Scarf!=null,"Remove garment preserves headwear and scarf");
+                Choose(TwigV2Art.JacketId);
                 Choose(TwigV2Art.ScarfId);Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Scarf==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Glasses!=null,"Remove scarf keeps glasses");
                 Choose(TwigV2Art.GlassesId);Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Glasses==null&&app.Meta.Wardrobe.OutfitOf(Family.Twig).Hat!=null,"Remove glasses keeps headwear");
                 Choose(null);Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).IsEmpty,"Default removes every slot and persists");
-                Choose(TwigV2Art.BeretId);Choose(TwigV2Art.GlassesId);Choose(TwigV2Art.ScarfId);
+                Choose(TwigV2Art.BeretId);Choose(TwigV2Art.GlassesId);Choose(TwigV2Art.ScarfId);Choose(TwigV2Art.CoatId);
                 Expect(app.Meta.Economy.Petals==petals&&app.Overlays.Count==0,"free trial spends nothing and opens no purchase dialogs");
                 using var afterScroll=SkiaSharp.SKBitmap.Decode(p.Png());
                 var fixedRow=ShopCatalogDesign.FamilyTabs(ScreenLayout.ReferenceStore(p.Width,p.Height,p.Insets,true));
@@ -275,8 +279,27 @@ namespace Bloomlings.Playtest.Preview
                     app=App(data);CloseAll(app);
                     if(scene.Item1==128){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
                     p.DrawnSprites.Clear();Run(app,p,.4f);
-                    for(int layer=0;layer<3;layer++)if(HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer) is HeroFrame frame)
+                    for(int layer=0;layer<HeroGearArt.LayerCount;layer++)if(HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer) is HeroFrame frame)
                         Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Name),"host draws saved "+frame.Name);
+                });
+            }
+
+            foreach(var selection in new[]{(129,"twig-v2-winter-jacket",TwigV2Art.JacketId,TwigV2Art.EarmuffsId),(130,"twig-v2-autumn-coat",TwigV2Art.CoatId,TwigV2Art.BeretId),(131,"twig-v2-garden-overalls",TwigV2Art.OverallsId,TwigV2Art.BucketId),(132,"twig-v2-winter-jacket-fit",TwigV2Art.JacketId,TwigV2Art.EarmuffsId),(133,"twig-v2-autumn-coat-fit",TwigV2Art.CoatId,TwigV2Art.BeretId)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"Garment, headwear, glasses and scarf persist independently across hosts",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    foreach(string id in new[]{scene.Item3,scene.Item4,TwigV2Art.GlassesId})Expect(app.Meta.Wardrobe.Equip(Family.Twig,id),"outfit equips "+id);
+                    if(scene.Item1<131)Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.ScarfId),"scarf combines with garment");
+                    app=App(data);CloseAll(app);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Twig).Clothes?.Id==scene.Item3,"clothes survive restart");
+                    if(scene.Item1>=131){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
+                    p.DrawnSprites.Clear();Run(app,p,.4f);
+                    for(int layer=0;layer<HeroGearArt.LayerCount;layer++){
+                        HeroFrame? frame=HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer);
+                        if(frame.HasValue)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Value.Name),"host draws each saved layer");
+                    }
                 });
             }
 

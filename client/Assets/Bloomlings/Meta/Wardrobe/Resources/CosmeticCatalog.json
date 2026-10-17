@@ -56,6 +56,9 @@
     {"id": "hat.twig_earmuffs", "kind": "hat", "name": "Winter Earmuffs", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
     {"id": "hat.twig_xmas", "kind": "hat", "name": "Holiday Hat", "shape": "nightcap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
     {"id": "glasses.twig_round", "kind": "glasses", "name": "Twig Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
-    {"id": "scarf.twig_knit", "kind": "scarf", "name": "Golden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true}
+    {"id": "scarf.twig_knit", "kind": "scarf", "name": "Golden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "clothes.twig_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "clothes.twig_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true},
+    {"id": "clothes.twig_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true}
   ]
 }

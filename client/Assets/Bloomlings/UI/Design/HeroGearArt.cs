@@ -6,7 +6,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>Shared selection for the owner's modular heroes; the runtime still draws cropped 2D sprites.</summary>
     public static class HeroGearArt
     {
-        public const int LayerCount = 3;
+        public const int LayerCount = 4;
         // Twig V2 uses the owner's aligned parts; the other three retain their simplified bases.
         public static bool Supports(Family family) => family == Family.Sprig || family == Family.Bloom || family == Family.Drop || family == Family.Twig;
         public static HeroFrame? Layer(Family family, Outfit? outfit, int index)
@@ -22,7 +22,7 @@ namespace Bloomlings.Client.UI.Design
             if (outfit == null) return null;
             bool unfitted = outfit.Skin?.MetaOnly == true || outfit.Hat?.MetaOnly == true
                 || outfit.Trail?.MetaOnly == true || outfit.Expression?.MetaOnly == true
-                || outfit.Glasses != null || outfit.Backpack != null || outfit.Scarf != null;
+                || outfit.Glasses != null || outfit.Backpack != null || outfit.Scarf != null || outfit.Clothes != null;
             if (!unfitted) return outfit;
             Outfit shown = outfit.ForGameplay;
             return shown with
@@ -30,6 +30,7 @@ namespace Bloomlings.Client.UI.Design
                 Hat = TwigV2Art.IsHead(outfit.Hat?.Id) ? outfit.Hat : shown.Hat,
                 Glasses = outfit.Glasses?.Id == TwigV2Art.GlassesId ? outfit.Glasses : null,
                 Scarf = outfit.Scarf?.Id == TwigV2Art.ScarfId ? outfit.Scarf : null,
+                Clothes = TwigV2Art.IsClothes(outfit.Clothes?.Id) ? outfit.Clothes : null,
             };
         }
         public static HeroFrame? Icon(string id) => TwigV2Art.Icon(CosmeticCatalog.CanonicalId(id)) ?? SprigGearArt.Icon(id);

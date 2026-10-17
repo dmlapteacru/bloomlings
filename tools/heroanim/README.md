@@ -79,3 +79,5 @@ node tools/heroanim/check.mjs
 
 Only runtime images are published: three stable-ID avatars, the hero medal, solo / fallback / group art. Reference
 PNGs, FBXs, ZIPs and conversion GLBs remain outside application resources.
+
+Current additional delivery: 12 Twig items / 128 outfits / 35 sprites, including three Clothes choices. Full inventory and source mapping: [models/twig-v2/ITEMS.md](models/twig-v2/ITEMS.md). Warm accessory materials are in `twig-v2-look.json`.

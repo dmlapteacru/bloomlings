@@ -16,11 +16,11 @@ approved delivery in their own Blender project. Geometry, alignment and material
 | [acorn-hair.png](acorn-hair.png) | Hair under default acorn hat |
 | [woodland-hairstyles.png](woodland-hairstyles.png) | Additional woodland hair shapes |
 | [glasses-clear.png](glasses-clear.png) | Rounded green glasses |
-| [glasses-sun.png](glasses-sun.png) | Brown sunglasses concept; not a delivered V2 item |
+| [glasses-sun.png](glasses-sun.png) | Brown eyewear color reference; current replacement mesh is clear round glasses |
 | [beret-scarf.png](beret-scarf.png) | Autumn beret, leaf and golden scarf |
 | [earmuffs-hair.png](earmuffs-hair.png) | Winter earmuffs with restrained short hair |
 | [holiday-hat.png](holiday-hat.png) | Holiday hat with acorn ornament |
-| [seasonal-clothes.png](seasonal-clothes.png) | Winter / autumn / summer clothing concepts; not delivered yet |
+| [seasonal-clothes.png](seasonal-clothes.png) | Winter / autumn / summer clothing references; delivered as Jacket / Coat / Overalls |
 
 `identity/` holds the full-resolution new Twig avatar and medal sources. `pack-twig-identity.py` publishes the three
 384px JPEG avatars under their existing game IDs; `pack_badges.py --only hero_twig` publishes the 256px medal.

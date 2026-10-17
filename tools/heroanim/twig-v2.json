@@ -7,19 +7,39 @@
     },
     {
       "path": "tools/heroanim/models/twig-v2/source-manifest.json",
-      "sha256": "9545fe5670bf818fe275a9a9ede657f4b88c9054f83f297522b5cdd452e8323a"
+      "sha256": "12e1d153700e5c0d358a062c6d40fe60673d6803ba9b0ac3112b3e393cf04d01"
     },
     {
       "path": "tools/heroanim/prepare-twig-v2.py",
-      "sha256": "6d656d496c8a32bb0409f3d125009ed9346715863025b577d4d52f6cfd880814"
+      "sha256": "287293bb89a8422537ac8b56ecc776bff6885140a84784a37a7431f1a5361057"
     },
     {
       "path": "tools/heroanim/bake-twig-v2.mjs",
-      "sha256": "d84d8ff2fa411062d3a844ce320f22fa420fcad5258d84960878413eede2f811"
+      "sha256": "e7a6164a1e955f56e93110ee32ffab6009621a434c37d85425c4de21a890e46c"
+    },
+    {
+      "path": "tools/heroanim/twig-v2-look.json",
+      "sha256": "aea360af53474712c3a1a4b67fe2f22a695829dd46d1dbcf0070880f1482ef89"
+    },
+    {
+      "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Glasses.fbx",
+      "sha256": "63f1407770b78b6fb7db4f0d5266b2888d09897eb14e9eb4f0a3f8b98ffd40df"
+    },
+    {
+      "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Jacket.fbx",
+      "sha256": "70aa8afee5ab1e11ce8b0feaa1afa56fc236e9afe5784208f831d3e713df2992"
+    },
+    {
+      "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Coat.fbx",
+      "sha256": "2e02692d93391ff40023622e70c4f20c66bbe3b5d4741f4b20ea9900a73a2a0b"
+    },
+    {
+      "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Overalls.fbx",
+      "sha256": "15e8c5f0b0c4f9727a521fa3c9b920a05c55f4570df1ec702d4d5a3874570f2f"
     }
   ],
   "data": "client/Assets/Bloomlings/UI/Design/TwigV2Data.cs",
-  "dataSha256": "16cdf001fa5fa70befcabe51bc88186192ef9bae4231ea451b37fe1bd05beb40",
+  "dataSha256": "5ab97f35344cd2f06106233d1d08fa0b2c35346161f9e4868d4e494481d55707",
   "cell": [
     448,
     504
@@ -36,6 +56,12 @@
     "EarmuffHair",
     "XmasHat"
   ],
+  "clothes": [
+    "none",
+    "Jacket",
+    "Coat",
+    "Overalls"
+  ],
   "icons": [
     "PumpkinHat",
     "BucketHat",
@@ -45,7 +71,10 @@
     "EarmuffHair",
     "XmasHat",
     "Glasses",
-    "Scarf"
+    "Scarf",
+    "Jacket",
+    "Coat",
+    "Overalls"
   ],
   "outputs": [
     {
@@ -84,8 +113,8 @@
         395
       ],
       "icon": false,
-      "bytes": 110186,
-      "sha256": "c650c2a387c8fd9c518397f1f8cba3b608a16319a1860fda472c250621fac74d"
+      "bytes": 108523,
+      "sha256": "6fb1f7fc29784617a0045bededd9afbae16701efc6832cc90508dffbbe8b27b1"
     },
     {
       "key": "base-hair",
@@ -153,6 +182,45 @@
       "sha256": "4b96bdffb40ca2178b0047e9f89c4c877a720cf764dd0b8742fc5450e2992fcf"
     },
     {
+      "key": "clothes-jacket",
+      "file": "twigv2-clothes-jacket.png",
+      "crop": [
+        117,
+        309,
+        214,
+        98
+      ],
+      "icon": false,
+      "bytes": 26456,
+      "sha256": "a3a0f9f6a1746f4ac966f7bf36158409f2dd17871f8ab3f9ef82d42b38326421"
+    },
+    {
+      "key": "clothes-coat",
+      "file": "twigv2-clothes-coat.png",
+      "crop": [
+        124,
+        316,
+        198,
+        103
+      ],
+      "icon": false,
+      "bytes": 22592,
+      "sha256": "eee142482d545e44b52a22e67efdb13bf560b0e2ea88c50d270c7d055e7bca7e"
+    },
+    {
+      "key": "clothes-overalls",
+      "file": "twigv2-clothes-overalls.png",
+      "crop": [
+        136,
+        316,
+        175,
+        114
+      ],
+      "icon": false,
+      "bytes": 24505,
+      "sha256": "95f40cff9a3b574f014158979d75d08b430cfcfcd681fcc060ea8c93ca65eadc"
+    },
+    {
       "key": "scarf-none",
       "file": "twigv2-scarf-none.png",
       "crop": [
@@ -166,8 +234,8 @@
       "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
     },
     {
-      "key": "scarf-pumpkinhat",
-      "file": "twigv2-scarf-pumpkinhat.png",
+      "key": "scarf-jacket",
+      "file": "twigv2-scarf-jacket.png",
       "crop": [
         85,
         306,
@@ -175,12 +243,12 @@
         122
       ],
       "icon": false,
-      "bytes": 29362,
-      "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
+      "bytes": 29280,
+      "sha256": "01ed730ea5085f88a2356dd637c06e722ebf0bf4f433d5cd7ced0f3ca645ded6"
     },
     {
-      "key": "scarf-buckethat",
-      "file": "twigv2-scarf-buckethat.png",
+      "key": "scarf-coat",
+      "file": "twigv2-scarf-coat.png",
       "crop": [
         85,
         306,
@@ -188,12 +256,12 @@
         122
       ],
       "icon": false,
-      "bytes": 29362,
-      "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
+      "bytes": 29599,
+      "sha256": "24254a9495de9e23b13fed143570cb3d4a13fc06b6e355f17764f6b6152d45c7"
     },
     {
-      "key": "scarf-hair",
-      "file": "twigv2-scarf-hair.png",
+      "key": "scarf-overalls",
+      "file": "twigv2-scarf-overalls.png",
       "crop": [
         85,
         306,
@@ -201,164 +269,112 @@
         122
       ],
       "icon": false,
-      "bytes": 29362,
-      "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
-    },
-    {
-      "key": "scarf-hathair",
-      "file": "twigv2-scarf-hathair.png",
-      "crop": [
-        85,
-        306,
-        232,
-        122
-      ],
-      "icon": false,
-      "bytes": 29362,
-      "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
-    },
-    {
-      "key": "scarf-beret",
-      "file": "twigv2-scarf-beret.png",
-      "crop": [
-        85,
-        306,
-        232,
-        122
-      ],
-      "icon": false,
-      "bytes": 29362,
-      "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
-    },
-    {
-      "key": "scarf-earmuffhair",
-      "file": "twigv2-scarf-earmuffhair.png",
-      "crop": [
-        85,
-        306,
-        232,
-        122
-      ],
-      "icon": false,
-      "bytes": 29362,
-      "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
-    },
-    {
-      "key": "scarf-xmashat",
-      "file": "twigv2-scarf-xmashat.png",
-      "crop": [
-        85,
-        306,
-        232,
-        122
-      ],
-      "icon": false,
-      "bytes": 29362,
-      "sha256": "043694d51a6b4bfdf5847ff3cfb83d46c4606b6f4f68eea99ee4c349787e62fe"
+      "bytes": 29554,
+      "sha256": "c90f2025d975b89d6e2a05141f278db8634f9fb36b08b1ca6079053b8154c890"
     },
     {
       "key": "glasses-none",
       "file": "twigv2-glasses-none.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        103,
+        201,
+        243,
+        90
       ],
       "icon": false,
-      "bytes": 10063,
-      "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc"
+      "bytes": 8763,
+      "sha256": "1b9cb2eba9a03481fdc1bcfb337a24cf9c000f0ebb33c80641c12d0282d5ce97"
     },
     {
       "key": "glasses-pumpkinhat",
       "file": "twigv2-glasses-pumpkinhat.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        103,
+        201,
+        243,
+        90
       ],
       "icon": false,
-      "bytes": 10063,
-      "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc"
+      "bytes": 8763,
+      "sha256": "1b9cb2eba9a03481fdc1bcfb337a24cf9c000f0ebb33c80641c12d0282d5ce97"
     },
     {
       "key": "glasses-buckethat",
       "file": "twigv2-glasses-buckethat.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        103,
+        201,
+        243,
+        90
       ],
       "icon": false,
-      "bytes": 10063,
-      "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc"
+      "bytes": 8763,
+      "sha256": "1b9cb2eba9a03481fdc1bcfb337a24cf9c000f0ebb33c80641c12d0282d5ce97"
     },
     {
       "key": "glasses-hair",
       "file": "twigv2-glasses-hair.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        103,
+        201,
+        242,
+        90
       ],
       "icon": false,
-      "bytes": 10063,
-      "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc"
+      "bytes": 8709,
+      "sha256": "2e9a80566a3c3f7f76981acf7d82dc5c2a6e32cf8420d4f40d5efb22e793e71d"
     },
     {
       "key": "glasses-hathair",
       "file": "twigv2-glasses-hathair.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        103,
+        201,
+        242,
+        90
       ],
       "icon": false,
-      "bytes": 10066,
-      "sha256": "d80c040b99c9e2d600001a15730d77db750d0e90c94c7c603168218367a0d3da"
+      "bytes": 8725,
+      "sha256": "92985f05c46d9ccd8ddd3ae0af81f80b551e5c5e3baa7e73ad0727315614dcfa"
     },
     {
       "key": "glasses-beret",
       "file": "twigv2-glasses-beret.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        103,
+        201,
+        243,
+        90
       ],
       "icon": false,
-      "bytes": 10065,
-      "sha256": "42148412343da746e390e9a9cf9f93112f5a354ea745fe583659f22a613f3a9d"
+      "bytes": 8763,
+      "sha256": "1b9cb2eba9a03481fdc1bcfb337a24cf9c000f0ebb33c80641c12d0282d5ce97"
     },
     {
       "key": "glasses-earmuffhair",
       "file": "twigv2-glasses-earmuffhair.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        105,
+        201,
+        240,
+        90
       ],
       "icon": false,
-      "bytes": 10097,
-      "sha256": "6e99ffbbb35ab2140c8ed303699eb11b936828fc113396b33a6179d9af787292"
+      "bytes": 8603,
+      "sha256": "39649699b0aa25db12497cfc6ebdddc7b89cb90a34aff14e0bf4de4d2fd05d3a"
     },
     {
       "key": "glasses-xmashat",
       "file": "twigv2-glasses-xmashat.png",
       "crop": [
-        89,
-        195,
-        268,
-        88
+        103,
+        201,
+        242,
+        90
       ],
       "icon": false,
-      "bytes": 10063,
-      "sha256": "e1e02a72aefa9dcfbebd2b520f73547edae68d8c23979482a5c283437d21f9bc"
+      "bytes": 8748,
+      "sha256": "7962a9d301d8b52286144a25ee63758ef5972d980c2b8f6c1fd0b27cee0b17dd"
     },
     {
       "key": "icon-pumpkinhat",
@@ -383,8 +399,8 @@
         117
       ],
       "icon": true,
-      "bytes": 23558,
-      "sha256": "7c9e78a37bba0465f24e69d128b210f6b05a799568a38e4180f581a79c372846"
+      "bytes": 21966,
+      "sha256": "d409c67d66a503109b717b216b0a03402ecec20694ca9dd4a61754748fbc8fee"
     },
     {
       "key": "icon-hair",
@@ -455,14 +471,14 @@
       "key": "icon-glasses",
       "file": "twigv2-icon-glasses.png",
       "crop": [
-        44,
-        127,
-        230,
-        78
+        48,
+        121,
+        231,
+        86
       ],
       "icon": true,
-      "bytes": 8960,
-      "sha256": "49c7288c2145777268382e89529e56837766864d00e4f740061617bfd93d7a74"
+      "bytes": 8333,
+      "sha256": "416db9dbbb8a0a4943319474eb132a4e8205c91d4fe368c870ab4ae8f2a71a2b"
     },
     {
       "key": "icon-scarf",
@@ -476,6 +492,45 @@
       "icon": true,
       "bytes": 38832,
       "sha256": "c2df07b763014633e3e3b024cce22f2f48d4f1fd2ce58f152669cdd4b781bd54"
+    },
+    {
+      "key": "icon-jacket",
+      "file": "twigv2-icon-jacket.png",
+      "crop": [
+        49,
+        89,
+        227,
+        131
+      ],
+      "icon": true,
+      "bytes": 37649,
+      "sha256": "0646584153a6ceaf94e45044beb4328295d05a7a3c03233359fd802a19a00901"
+    },
+    {
+      "key": "icon-coat",
+      "file": "twigv2-icon-coat.png",
+      "crop": [
+        48,
+        90,
+        229,
+        134
+      ],
+      "icon": true,
+      "bytes": 35963,
+      "sha256": "a046bb56202ff0e05c6aa2bbb07af340706f2fda481db30038d800672c7b4583"
+    },
+    {
+      "key": "icon-overalls",
+      "file": "twigv2-icon-overalls.png",
+      "crop": [
+        50,
+        80,
+        228,
+        158
+      ],
+      "icon": true,
+      "bytes": 44821,
+      "sha256": "04820b8e8278d51ee454809338caa0a50ac5e430860fd8ff0bed7bf319d8e298"
     }
   ]
 }

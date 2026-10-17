@@ -59,11 +59,12 @@ if(fs.existsSync(simpleFile)){
 const v2File=path.join(here,'twig-v2.json');
 if(fs.existsSync(v2File)){
  const v2=JSON.parse(fs.readFileSync(v2File));
- expect(v2.outputs.length===33&&v2.heads.length===8&&v2.icons.length===9,'Twig V2 must include all delivered parts and masked layers');
+ expect(v2.outputs.length===35&&v2.heads.length===8&&v2.clothes.length===4&&v2.icons.length===12,'Twig V2 must include all delivered parts and masked layers');
  for(const source of v2.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since V2 bake');
  expect(sha(path.join(repo,v2.data))===v2.dataSha256,'TwigV2Data is stale');
  const build=JSON.parse(fs.readFileSync(path.join(here,'models/twig-v2/build-report.json')));
- expect(build.scriptSha256===sha(path.join(here,'prepare-twig-v2.py'))&&build.parts.length===10&&build.parts.every(p=>p.worldGeometryUnchanged&&p.uvUnchanged),'Twig V2 source alignment / UV proof is stale');
+ expect(build.scriptSha256===sha(path.join(here,'prepare-twig-v2.py'))&&build.parts.length===13&&build.parts.every(p=>p.worldGeometryUnchanged&&p.uvUnchanged),'Twig V2 source alignment / UV proof is stale');
+ expect(build.layerSeparation.headwearClearsClothesAndScarf&&build.layerSeparation.glassesClearClothes,'Twig garment / scarf / eyewear layer separation changed');
  expect(build.animationSource.actions.length===4,'Twig V2 source actions must be retained');
  for(const f of v2.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since V2 bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA pixels and crop size');}}
 }

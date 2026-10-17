@@ -5,5 +5,35 @@
     "bytes": 33106328,
     "sha256": "1ba395e7ca80c5184ea995eeeeeaf60f9232b48625ddc9026fcb857ba11f9633"
   },
-  "exportManifest": "TwigHeroV2/TwigHeroV2.manifest.json"
+  "exportManifest": "TwigHeroV2/TwigHeroV2.manifest.json",
+  "additions": [
+    {
+      "id": "Glasses",
+      "path": "source/additions-2026-10-17/TwigHeroV2_Glasses.fbx",
+      "sha256": "63f1407770b78b6fb7db4f0d5266b2888d09897eb14e9eb4f0a3f8b98ffd40df",
+      "bytes": 557020,
+      "operation": "replace"
+    },
+    {
+      "id": "Jacket",
+      "path": "source/additions-2026-10-17/TwigHeroV2_Jacket.fbx",
+      "sha256": "70aa8afee5ab1e11ce8b0feaa1afa56fc236e9afe5784208f831d3e713df2992",
+      "bytes": 2235276,
+      "operation": "add"
+    },
+    {
+      "id": "Coat",
+      "path": "source/additions-2026-10-17/TwigHeroV2_Coat.fbx",
+      "sha256": "2e02692d93391ff40023622e70c4f20c66bbe3b5d4741f4b20ea9900a73a2a0b",
+      "bytes": 2507580,
+      "operation": "add"
+    },
+    {
+      "id": "Overalls",
+      "path": "source/additions-2026-10-17/TwigHeroV2_Overalls.fbx",
+      "sha256": "15e8c5f0b0c4f9727a521fa3c9b920a05c55f4570df1ec702d4d5a3874570f2f",
+      "bytes": 2328748,
+      "operation": "add"
+    }
+  ]
 }

@@ -397,3 +397,22 @@ The old Twig frame library / fitted states are retired outside Resources in `too
 11,631,125 bytes). Only TwigHeroV2 is active; no previous Twig publisher may write to production. Existing saves map
 the retired flower cap to Panama without spending or resetting progress. The owner explicitly keeps L2000's mosaic
 unchanged. No source models / references enter APK resources. No APK is built here.
+
+## Twig clothing addition and warm accessory materials — 2026-10-17
+
+Owner supplied four separate FBXs after the expanded ZIP exceeded the attachment transfer limit. They are preserved
+byte-for-byte in `models/twig-v2/source/additions-2026-10-17/`, with hashes / roles in the source manifest. Glasses
+replaces the prior frame-plus-lenses mesh without changing `glasses.twig_round`. Its single material becomes soft
+warm brown. Jacket (winter green / cream), Coat (autumn orange / brown) and Overalls (cream / green shirt) add three
+free Clothes choices; `twig.clothes` is independent of Head, Glasses and Neck. Generic puzzle cosmetics / levels do
+not change. The owner's Blender project remains the single authoring master.
+
+`twig-v2-look.json` and `bake-twig-v2.mjs` author accessory materials during offline rendering: the Panama's non-cream
+fabric is graded continuously by luminance to warm brown; the separate daisy / cream trim and painted detail remain.
+No image synthesis, texture repaint, geometry / UV / alignment edit or runtime shader is introduced. The new glasses
+has open lens holes and no lens planes. The original source archives and FBXs remain unchanged.
+
+The source / geometry report proves headwear lies above clothes and scarf, and glasses above clothes. This allows
+35 RGBA sprites, 1,674,582 bytes, to cover 128 combinations with four on-demand layers, including garment-aware scarf
+occlusion. Default resets all worn items; individual removal leaves other slots intact. Save kinds and enum values
+are extended at the end. Exact inventory: `models/twig-v2/ITEMS.md`. No APK build; L2000 mosaic remains unchanged.

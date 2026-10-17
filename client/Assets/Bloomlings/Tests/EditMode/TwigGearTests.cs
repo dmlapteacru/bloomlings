@@ -87,10 +87,11 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void V2_EveryHeadGlassesScarfCombinationSurvivesReloadAndDrawsTheSavedLayers()
+        public void V2_All128HeadClothesGlassesScarfCombinationsSurvivesReloadAndDrawsTheSavedLayers()
         {
             string[] heads = new[] { "" }.Concat(TwigV2Art.HeadIds).ToArray();
             foreach (string head in heads)
+            foreach (string clothes in new[] { "" }.Concat(TwigV2Art.ClothesIds))
             foreach (bool glasses in new[] { false, true })
             foreach (bool scarf in new[] { false, true })
             {
@@ -98,6 +99,7 @@ namespace Bloomlings.Client.Tests
                 var config = new BundledRemoteConfigService();
                 var wardrobe = new WardrobeService(save, Catalog, config, () => {});
                 if (head.Length > 0) Assert.That(wardrobe.Equip(Family.Twig, head), Is.True);
+                if (clothes.Length > 0) Assert.That(wardrobe.Equip(Family.Twig, clothes), Is.True);
                 if (glasses) Assert.That(wardrobe.Equip(Family.Twig, TwigV2Art.GlassesId), Is.True);
                 if (scarf) Assert.That(wardrobe.Equip(Family.Twig, TwigV2Art.ScarfId), Is.True);
                 var reloadedSave = SaveSerializer.Read(SaveSerializer.ToJObject(save));
@@ -106,12 +108,25 @@ namespace Bloomlings.Client.Tests
                 Outfit shown = HeroGearArt.DisplayOutfit(worn)!;
                 Assert.That(shown.Hat?.Id, Is.EqualTo(head.Length == 0 ? null : head));
                 Assert.That(shown.Glasses?.Id, Is.EqualTo(glasses ? TwigV2Art.GlassesId : null));
+                Assert.That(shown.Clothes?.Id, Is.EqualTo(clothes.Length == 0 ? null : clothes));
                 Assert.That(shown.Scarf?.Id, Is.EqualTo(scarf ? TwigV2Art.ScarfId : null));
                 Assert.That(HeroGearArt.Layer(Family.Twig, shown, 0), Is.Not.Null);
-                Assert.That(HeroGearArt.Layer(Family.Twig, shown, 1).HasValue, Is.EqualTo(scarf));
-                Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2).HasValue, Is.EqualTo(glasses));
+                Assert.That(HeroGearArt.Layer(Family.Twig, shown, 1).HasValue, Is.EqualTo(clothes.Length > 0));
+                Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2).HasValue, Is.EqualTo(scarf));
+                Assert.That(HeroGearArt.Layer(Family.Twig, shown, 3).HasValue, Is.EqualTo(glasses));
+                string garment = clothes.Length == 0 ? "none" : clothes.Substring("clothes.twig_".Length);
+                if (clothes.Length > 0) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 1)!.Value.Name, Is.EqualTo("twigv2-clothes-" + garment));
+                if (scarf) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2)!.Value.Name, Is.EqualTo("twigv2-scarf-" + garment), "scarf mask follows the selected garment");
                 Assert.That(shown.ForGameplay.IsEmpty, Is.True);
-                Assert.That(WardrobeShelfCatalog.Chosen(loaded, Family.Twig, CosmeticKind.Hat, null), Is.EqualTo(head.Length == 0 && !glasses && !scarf));
+                Assert.That(WardrobeShelfCatalog.Chosen(loaded, Family.Twig, CosmeticKind.Hat, null), Is.EqualTo(head.Length == 0 && clothes.Length == 0 && !glasses && !scarf));
+                if (clothes.Length > 0)
+                {
+                    Assert.That(CosmeticCatalog.KindOfName(CosmeticCatalog.KindName(CosmeticKind.Clothes)), Is.EqualTo(CosmeticKind.Clothes));
+                    loaded.Unequip(Family.Twig, CosmeticKind.Clothes);
+                    Assert.That(loaded.OutfitOf(Family.Twig).Clothes, Is.Null);
+                    Assert.That(loaded.OutfitOf(Family.Twig).Hat?.Id, Is.EqualTo(head.Length == 0 ? null : head));
+                    Assert.That(loaded.OutfitOf(Family.Twig).Scarf?.Id, Is.EqualTo(scarf ? TwigV2Art.ScarfId : null));
+                }
                 if (scarf)
                 {
                     Assert.That(CosmeticCatalog.KindOfName(CosmeticCatalog.KindName(CosmeticKind.Scarf)), Is.EqualTo(CosmeticKind.Scarf));

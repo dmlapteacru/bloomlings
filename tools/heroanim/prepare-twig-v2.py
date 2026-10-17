@@ -15,12 +15,17 @@ with zipfile.ZipFile(archive) as z:
 delivery=json.loads((unpacked/record['exportManifest']).read_text()); folder=(unpacked/record['exportManifest']).parent
 bpy.ops.wm.read_factory_settings(use_empty=True)
 report=dict(version=1,scriptSha256=sha(__file__),archiveSha256=sha(archive),parts=[],clips=delivery['clips'])
-for key,file in [('base',delivery['model'])]+[(i['id'],i['file']) for i in delivery['items']]:
- previous=set(bpy.data.objects); path=folder/file; bpy.ops.import_scene.fbx(filepath=str(path))
+sources=[('base',folder/delivery['model'])]+[(i['id'],folder/i['file']) for i in delivery['items']]
+for addition in record.get('additions',[]):
+ path=SOURCE/addition['path']; assert sha(path)==addition['sha256']
+ sources=[s for s in sources if s[0]!=addition['id']]+[(addition['id'],path)]
+report['additions']=record.get('additions',[])
+for key,path in sources:
+ previous=set(bpy.data.objects); bpy.ops.import_scene.fbx(filepath=str(path))
  added=set(bpy.data.objects)-previous; meshes=[o for o in added if o.type=='MESH']; rigs=[o for o in added if o.type=='ARMATURE']
  assert len(meshes)==1 and len(rigs)==1,'Inspect changed export structure'
  obj=meshes[0]; rig=rigs[0]; rig.data.pose_position='REST'; bpy.context.view_layer.update()
- # This trial uses the owner's rest mesh; preserve world geometry / UV, remove only the bake copy's rig.
+ # The current game uses the owner's rest mesh; preserve world geometry / UV, remove only the bake copy's rig.
  world=obj.matrix_world.copy(); before=[tuple(world@v.co) for v in obj.data.vertices]
  uv=[tuple(l.uv) for l in obj.data.uv_layers.active.data] if obj.data.uv_layers.active else None
  obj.parent=None; obj.matrix_world=world
@@ -38,7 +43,18 @@ for key,file in [('base',delivery['model'])]+[(i['id'],i['file']) for i in deliv
  for extra in added:
   if extra!=obj and extra.name in bpy.data.objects: bpy.data.objects.remove(extra,do_unlink=True)
  bounds=[[min(v.co[i] for v in obj.data.vertices),max(v.co[i] for v in obj.data.vertices)] for i in range(3)]
- report['parts'].append(dict(key=key,file=file,sha256=sha(path),vertices=len(obj.data.vertices),faces=len(obj.data.polygons),worldGeometryUnchanged=True,uvUnchanged=True,bounds=bounds,materials=materials))
+ report['parts'].append(dict(key=key,file=path.name,sha256=sha(path),vertices=len(obj.data.vertices),faces=len(obj.data.polygons),worldGeometryUnchanged=True,uvUnchanged=True,bounds=bounds,materials=materials))
+# Front orthographic layers can share masks when their vertical extents cannot intersect.
+parts={p['key']:p for p in report['parts']}
+heads=[i['id'] for i in delivery['items'] if i['id'] not in ['Glasses','Scarf']]
+clothes=['Jacket','Coat','Overalls']
+cloth_top=max(parts[k]['bounds'][2][1] for k in clothes)
+head_bottom=min(parts[k]['bounds'][2][0] for k in heads)
+report['layerSeparation']=dict(clothingTop=cloth_top,headwearBottom=head_bottom,
+ scarfTop=parts['Scarf']['bounds'][2][1],glassesBottom=parts['Glasses']['bounds'][2][0],
+ headwearClearsClothesAndScarf=head_bottom>max(cloth_top,parts['Scarf']['bounds'][2][1]),
+ glassesClearClothes=parts['Glasses']['bounds'][2][0]>cloth_top)
+assert report['layerSeparation']['headwearClearsClothesAndScarf'] and report['layerSeparation']['glassesClearClothes'],'Changed overlap: rebake with additional masks'
 anim=folder/delivery['anims']; before=set(bpy.data.objects); bpy.ops.import_scene.fbx(filepath=str(anim))
 report['animationSource']=dict(file=anim.name,sha256=sha(anim),actions=[dict(name=a.name,range=list(a.frame_range)) for a in bpy.data.actions])
 assert len(report['animationSource']['actions'])==len(delivery['clips'])

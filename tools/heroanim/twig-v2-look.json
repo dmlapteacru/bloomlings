@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "note": "Warm cream/brown accessory materials requested 2026-10-17. Updated glasses are a single opaque frame with open lens holes, no lens texture. Source FBXs / UVs / alignment remain unchanged.",
+  "glasses": {
+    "Glasses_Brown": {
+      "color": "#B7804E",
+      "opacity": 1
+    }
+  },
+  "panama": {
+    "materialPrefix": "Material_tripo_part_0",
+    "linearHue": [
+      1.0,
+      0.52,
+      0.24
+    ],
+    "brightness": 1.25,
+    "preserve": "Preserve cream trim and the separate daisy; warm fabric and underside continuously by luminance, without hue-threshold speckles."
+  }
+}

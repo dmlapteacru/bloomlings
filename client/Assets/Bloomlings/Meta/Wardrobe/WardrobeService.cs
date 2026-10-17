@@ -9,11 +9,11 @@ using Bloomlings.Core.Variants;
 namespace Bloomlings.Client.Meta.Wardrobe
 {
     /// <summary>What one family wears: at most one item of each worn kind.</summary>
-    public sealed record Outfit(CosmeticItem? Skin, CosmeticItem? Hat, CosmeticItem? Trail, CosmeticItem? Expression, CosmeticItem? Glasses = null, CosmeticItem? Backpack = null, CosmeticItem? Scarf = null)
+    public sealed record Outfit(CosmeticItem? Skin, CosmeticItem? Hat, CosmeticItem? Trail, CosmeticItem? Expression, CosmeticItem? Glasses = null, CosmeticItem? Backpack = null, CosmeticItem? Scarf = null, CosmeticItem? Clothes = null)
     {
         public static Outfit None { get; } = new Outfit(null, null, null, null);
 
-        public bool IsEmpty => Skin == null && Hat == null && Trail == null && Expression == null && Glasses == null && Backpack == null && Scarf == null;
+        public bool IsEmpty => Skin == null && Hat == null && Trail == null && Expression == null && Glasses == null && Backpack == null && Scarf == null && Clothes == null;
         public Outfit ForGameplay => new Outfit(Skin?.MetaOnly == true ? null : Skin, Hat?.MetaOnly == true ? null : Hat,
             Trail?.MetaOnly == true ? null : Trail, Expression?.MetaOnly == true ? null : Expression);
 
@@ -26,6 +26,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             CosmeticKind.Glasses => Glasses,
             CosmeticKind.Backpack => Backpack,
             CosmeticKind.Scarf => Scarf,
+            CosmeticKind.Clothes => Clothes,
             _ => null,
         };
     }
@@ -266,14 +267,14 @@ namespace Bloomlings.Client.Meta.Wardrobe
         public void UnequipAll(Family family)
         {
             bool changed=false;
-            foreach (var kind in new[] {CosmeticKind.Skin,CosmeticKind.Hat,CosmeticKind.Trail,CosmeticKind.Expression,CosmeticKind.Glasses,CosmeticKind.Backpack,CosmeticKind.Scarf})
+            foreach (var kind in new[] {CosmeticKind.Skin,CosmeticKind.Hat,CosmeticKind.Trail,CosmeticKind.Expression,CosmeticKind.Glasses,CosmeticKind.Backpack,CosmeticKind.Scarf,CosmeticKind.Clothes})
                 changed |= _save.Cosmetics.Equipped.Remove(Slot(family,kind));
             if(changed){_persist();Changed?.Invoke();}
         }
         public void UnequipAccessories(Family family)
         {
             bool changed=false;
-            foreach(var kind in new[]{CosmeticKind.Hat,CosmeticKind.Glasses,CosmeticKind.Backpack,CosmeticKind.Scarf})
+            foreach(var kind in new[]{CosmeticKind.Hat,CosmeticKind.Glasses,CosmeticKind.Backpack,CosmeticKind.Scarf,CosmeticKind.Clothes})
                 changed |= _save.Cosmetics.Equipped.Remove(Slot(family,kind));
             if(changed){_persist();Changed?.Invoke();}
         }
@@ -300,7 +301,8 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 EquippedFor(family, CosmeticKind.Expression),
                 EquippedFor(family, CosmeticKind.Glasses),
                 EquippedFor(family, CosmeticKind.Backpack),
-                EquippedFor(family, CosmeticKind.Scarf));
+                EquippedFor(family, CosmeticKind.Scarf),
+                EquippedFor(family, CosmeticKind.Clothes));
 
         /// <summary>
         /// Shows an owned frame, badge or marker on the profile (a free one also while the Wardrobe is closed); false when it

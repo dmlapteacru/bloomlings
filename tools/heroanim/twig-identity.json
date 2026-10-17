@@ -39,11 +39,11 @@
     },
     {
       "path": "tools/heroanim/bake-twig-blank.mjs",
-      "sha256": "4c28abf5a6eee93c1d2b3a555a2ae200d597f3d449ff5ead4f9ca6a6ca13b0a7"
+      "sha256": "8d6e6c236b0439fb538b907ce4508fee061ca75e9e290960162e402e37d16842"
     },
     {
       "path": "tools/heroanim/models/twig-v2/build-report.json",
-      "sha256": "8e56d7522e075cfdcff21de49d6e0eb85452235eb54bd66495cb3a455386ed0c"
+      "sha256": "dfef67c4aaf29ddb2530bd277c45172a1a73e9da96f5ce13e9e40b4a7b5e28ba"
     },
     {
       "path": "tools/pack_badges.py",
