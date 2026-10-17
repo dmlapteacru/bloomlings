@@ -96,6 +96,9 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>Character pictures asked for that are not embedded (a check failure).</summary>
         public HashSet<string> MissingSprites { get; } = new HashSet<string>(StringComparer.Ordinal);
 
+        /// <summary>Sprite names drawn by the screen, for routing regressions (legacy versus modular heroes).</summary>
+        public HashSet<string> DrawnSprites { get; } = new HashSet<string>(StringComparer.Ordinal);
+
         /// <summary>Every touch target of the frame, in screen pixels.</summary>
         public List<Box> Targets { get; } = new List<Box>();
 
@@ -700,6 +703,7 @@ namespace Bloomlings.Playtest.Preview
 
         public override void Sprite(string name, Box box)
         {
+            DrawnSprites.Add(name);
             SKImage? image = LoadSprite(name);
             if (image == null)
             {

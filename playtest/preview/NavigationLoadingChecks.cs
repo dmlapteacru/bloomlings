@@ -36,7 +36,6 @@ namespace Bloomlings.Playtest.Preview
                 probe.ReleaseAll = false;
                 var steps = new (string Name, Action Open)[]
                 {
-                    ("twig-home", () => { app.Meta.Wardrobe.Equip(Family.Twig, TwigGearArt.AcornHatId); app.GoHome(); }),
                     ("shop", () => app.Navigate(NavPlace.Shop)),
                     ("shop-packs-scroll", () => app.ShopScrollOffset = 900f),
                     ("cosmetics", () => { app.StoreTab = 1; app.ShopScrollOffset = 0; }),

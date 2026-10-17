@@ -2,7 +2,7 @@ using Bloomlings.Client.Meta.Wardrobe;
 
 namespace Bloomlings.Client.UI.Design
 {
-    /// <summary>The owner's bare Twig and two fitted headwear states. The bald base is also the removal state.</summary>
+    /// <summary>Archived FBX pilot states, retained for asset checks; runtime uses the original animated Twig.</summary>
     public static partial class TwigGearArt
     {
         public const string AcornHatId = "hat.twig_acorn";

@@ -1,5 +1,9 @@
 # Owner's modular Twig exports
 
+**Archived integration study:** the owner restored the original Twig from `models/heroes.glb` on 2026-10-17.
+These exports / bakes are retained but no longer override the hero in the game. Current authoring references are in
+`tools/heroanim/references/twig-legacy/`.
+
 The owner's Blender project remains the single authoring master. These are original FBX exchange exports supplied
 for in-game integration, renamed on disk without rewriting their contents:
 

@@ -16,39 +16,31 @@ namespace Bloomlings.Client.Tests
         private static CosmeticCatalog Catalog => CosmeticCatalog.Parse(File.ReadAllText(Path.Combine(Application.dataPath,"Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json")));
 
         [Test]
-        public void FreeHeadwear_SwitchesOneSlot_PersistsAndRemovesToBareBase()
+        public void RestoredTwig_UsesOriginalAnimatedSet_AndKeepsSprigGear()
         {
-            var save=PlayerSave.CreateNew("twig",DateTime.UtcNow);
-            var wardrobe=new WardrobeService(save,Catalog,new BundledRemoteConfigService(),()=>{});
-            Assert.That(wardrobe.IsAvailable,Is.False);
-            foreach(string id in new[]{TwigGearArt.AcornHatId,TwigGearArt.FlowerCapId})
-            {
-                Assert.That(wardrobe.ShopItems.Any(i=>i.Id==id),Is.True);
-                Assert.That(wardrobe.Equip(Family.Sprig,id),Is.False,"headwear is fitted only to Twig");
-                Assert.That(wardrobe.Equip(Family.Twig,id),Is.True);
-                Assert.That(wardrobe.OutfitOf(Family.Twig).Hat?.Id,Is.EqualTo(id));
-                Assert.That(wardrobe.OutfitOf(Family.Twig).ForGameplay.IsEmpty,Is.True);
-            }
-            var restored=new WardrobeService(SaveSerializer.Read(SaveSerializer.ToJObject(save)),Catalog,new BundledRemoteConfigService(),()=>{});
-            Assert.That(restored.OutfitOf(Family.Twig).Hat?.Id,Is.EqualTo(TwigGearArt.FlowerCapId));
-            restored.Unequip(Family.Twig,CosmeticKind.Hat);
-            Assert.That(TwigGearArt.Frame(restored.OutfitOf(Family.Twig)).Name,Is.EqualTo("twigmod-base"));
-            Assert.That(WardrobeShelfCatalog.Build(restored,CosmeticKind.Hat,Family.Bloom).Any(i=>TwigGearArt.IsHat(i.Item?.Id)),Is.False);
+            Assert.That(HeroGearArt.Supports(Family.Twig), Is.False);
+            Assert.That(HeroGearArt.Layer(Family.Twig, Outfit.None, 0), Is.Null);
+            Assert.That(HeroMotion.Frame(Family.Twig, MotionClip.Idle, 0).Name, Does.StartWith("twig-idle-"));
+            Assert.That(HeroMotion.Frame(Family.Twig, MotionClip.Win, 0).Name, Does.StartWith("twig-win-"));
+            Assert.That(HeroMotion.FrameCount(Family.Twig, MotionClip.Idle), Is.EqualTo(72));
+            Assert.That(HeroGearArt.Supports(Family.Sprig), Is.True);
+            Assert.That(HeroGearArt.Layer(Family.Sprig, Outfit.None, 0), Is.Not.Null);
         }
 
-        [TestCase(TwigGearArt.AcornHatId,"twigmod-acorn")]
-        [TestCase(TwigGearArt.FlowerCapId,"twigmod-cap")]
-        public void SharedRenderer_UsesOneFittedStateAndItsActualShopIcon(string id,string frame)
+        [TestCase(TwigGearArt.AcornHatId)]
+        [TestCase(TwigGearArt.FlowerCapId)]
+        public void RetiredPilotHat_DoesNotOverrideRestoredTwig_OrEraseTheSave(string id)
         {
-            var wardrobe=new WardrobeService(PlayerSave.CreateNew("twig",DateTime.UtcNow),Catalog,new BundledRemoteConfigService(),()=>{});
-            wardrobe.Equip(Family.Twig,id);
-            Outfit look=wardrobe.OutfitOf(Family.Twig);
-            Assert.That(HeroGearArt.Layer(Family.Twig,look,0)!.Value.Name,Is.EqualTo(frame));
-            Assert.That(HeroGearArt.Layer(Family.Twig,look,1),Is.Null);
-            Assert.That(HeroGearArt.Layer(Family.Twig,look,2),Is.Null);
-            Assert.That(HeroGearArt.HasBakedHat(Family.Twig,look),Is.True,"a legacy procedural hat must not be drawn over the fitted mesh");
-            Assert.That(HeroGearArt.Icon(id),Is.Not.Null);
-            Assert.That(HeroGearArt.Supports(Family.Sprig),Is.True,"the existing Sprig path is preserved");
+            var save = PlayerSave.CreateNew("twig", DateTime.UtcNow);
+            save.Cosmetics.Equipped["twig.hat"] = id;
+            var restored = SaveSerializer.Read(SaveSerializer.ToJObject(save));
+            var wardrobe = new WardrobeService(restored, Catalog, new BundledRemoteConfigService(), () => {});
+            Assert.That(wardrobe.ShopItems.Any(i => i.Id == id), Is.False);
+            Assert.That(wardrobe.Equip(Family.Twig, id), Is.False);
+            Assert.That(wardrobe.OutfitOf(Family.Twig).Hat, Is.Null);
+            Assert.That(restored.Cosmetics.Equipped["twig.hat"], Is.EqualTo(id), "a study rollback must not rewrite player saves");
+            Assert.That(HeroGearArt.Icon(id), Is.Null);
+            Assert.That(wardrobe.ShopItems.Any(i => i.Id == SprigGearArt.CapId), Is.True);
         }
     }
 }

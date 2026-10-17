@@ -1,5 +1,8 @@
 # Twig in the game: base and two free hats
 
+**Archived pilot.** On 2026-10-17 the owner requested the original Twig back. Current captures and behavior are in
+[`../twig-restored/`](../twig-restored/); these screenshots document the retired replacement model.
+
 Actual game-screen renders using the new bundled sprites, not image-generation mockups.
 
 - [Shop: free Acorn Hat and Daisy Cap](112-twig-gear-shop-19.5x9.png)

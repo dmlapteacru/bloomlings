@@ -1,5 +1,9 @@
 # Hero surface quality
 
+**Current status (2026-10-17):** the owner prefers the original Twig. Its original model / animation frames are active
+again. The quality pilot below is archived study material, not the current in-game Twig. Use the identity references
+in `tools/heroanim/references/twig-legacy/` for the next bald base / head variants.
+
 Owner direction (2026-10-17): cute, smooth, vivid heroes like the approved pictures, with sharp eyes and clean broad
 color transitions. No photographic bark, pores, grit or artificial sharpening halos. Short bodies and approved anatomy
 remain. This is a surface / rendering pass, not a new character design.

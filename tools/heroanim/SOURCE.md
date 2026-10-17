@@ -261,3 +261,15 @@ This pass is a real model render, not a substituted image-generation illustratio
 provisional: final all-angle UV paint, removal of painted lighting and selective geometry cleanup are still needed
 before the later action-animation feature. Other heroes' animation libraries keep their existing format.
 Recipes, limits and budget: `product/plans/hero-surface-quality.md`; actual comparison: `output/twig-quality/`.
+
+## Original Twig restored — 2026-10-17
+
+The owner prefers the old model and requests its return, then a bald base and two head references. Runtime routing
+again uses Twig's original `Heroes.glb` motion set, with its existing texture, frame pixels and clips retained. The
+replacement-only free headwear entries are removed from the catalog; saved IDs remain intact but resolve to no worn
+item. The replacement FBX sources and rendering study remain archived; they do not override the restored hero.
+
+`references/twig-legacy/` preserves an actual original-mesh frontal render and three OpenAI image-generation modeling
+references: bald body, acorn head, olive/rust daisy-cap head. The heads derive from the same new bald reference. They
+are not new runtime meshes or approved UV maps. Future geometry stays in the owner's single Blender master. Actual
+restored game captures and checks are recorded in `output/twig-restored/`.

@@ -56,9 +56,12 @@ if(fs.existsSync(twigFile)){
       expect(png[24]===8&&png[25]===6,f.file+' must retain full RGBA8 color for the quality pass');
     }
   }
-  const references=path.join(here,'references/twig');
-  for(const f of JSON.parse(fs.readFileSync(path.join(references,'manifest.json'))).files)
-    expect(fs.existsSync(path.join(references,f.path))&&sha(path.join(references,f.path))===f.sha256,`Twig reference ${f.path} is missing or changed`);
+  for(const name of ['twig','twig-legacy']){
+    const references=path.join(here,'references',name),record=JSON.parse(fs.readFileSync(path.join(references,'manifest.json')));
+    for(const f of record.files)
+      expect(fs.existsSync(path.join(references,f.path))&&sha(path.join(references,f.path))===f.sha256,`${name} reference ${f.path} is missing or changed`);
+    if(record.sourceModel)expect(sha(path.join(repo,record.sourceModel.path))===record.sourceModel.sha256,`${name} model reference source changed`);
+  }
 }
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));

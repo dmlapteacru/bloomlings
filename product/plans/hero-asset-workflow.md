@@ -44,6 +44,10 @@ solved level's win. `node tools/heroanim/check.mjs` checks every runtime image a
 
 ## Twig equipment pilot
 
+**Superseded on 2026-10-17:** the owner prefers the old in-game Twig. The original `Heroes.glb` animation set is active
+again and the replacement-only Acorn Hat / Daisy Cap items are removed from the catalog. Saved IDs are preserved but
+ignored while absent. The following describes the archived pilot; its sources remain available for study.
+
 Owner delivery: `tools/heroanim/models/twig/source/TwigHero…fbx`. The base and two fitted, Head-weighted accessories
 are retained without geometry edits. Acorn Hat and Daisy Cap are free Twig-only items in Shop → Cosmetics → Twig;
 one Hat slot switches them, and Remove/Default restores the bare model. The shared modular hero renderer now supports
@@ -58,3 +62,12 @@ Final references are saved in `tools/heroanim/references/twig/`: the bare short-
 olive/rust baseball-cap views. Use these for future authoring; keep the same face, nose, open smile and two low ears.
 The files are references rather than another geometry master. Future final texture work needs a stable UV layout
 from the owner's master or an agreed unwrap returned for import into it.
+
+## Current Twig identity and next heads
+
+Use the old in-game Twig, keeping its face, short body, golden-orange limbs and cream leaf bib. Current references:
+`tools/heroanim/references/twig-legacy/` contains a bald full-body base and two matching head images (default acorn /
+olive daisy baseball cap), plus an actual frontal render of the original source model for comparison. They are
+image-generation authoring references, not new rigged meshes or final textures. The game stays on the original model
+until the owner generates / fits the new base and heads in the same Blender master. Preserve head origin, neck join,
+scale and facial attachment landmarks across head variants; do not change the face to fit a hat.
