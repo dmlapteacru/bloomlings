@@ -27,7 +27,7 @@
     },
     {
       "path": "tools/heroanim/bake-simple-heroes.mjs",
-      "sha256": "0bf7aa6a018fc3488666d785b9b18324cbb542da51e764ad0fa8b8c7201865fd"
+      "sha256": "3e9f334a79bf4de97c33533cf83ca418e6c843f054fcccbbedb7e666315ff060"
     }
   ],
   "models": [
@@ -121,7 +121,7 @@
     }
   ],
   "data": "client/Assets/Bloomlings/UI/Design/SimpleHeroData.cs",
-  "dataSha256": "752b0bc87a1abab7b5d44fdc522cc93cfa8c5af77919867e74b3c1eedc1f8670",
+  "dataSha256": "88c2af05ac7119c52fa5940c70862a4f0b3ea932ce11be7d9314b330a7153a47",
   "cell": [
     448,
     504

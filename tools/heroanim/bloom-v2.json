@@ -1,0 +1,3394 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "path": "tools/heroanim/models/bloom-v2/source/BloomHeroV2_Coat_part_1.zip",
+      "sha256": "b3b39580e350e5b5efb604f7fd27f0f580cccedd9b64a4a040e1efcc4489a836"
+    },
+    {
+      "path": "tools/heroanim/models/bloom-v2/source/BloomHeroV2_HairPeach_part_2.zip",
+      "sha256": "f1d3dec2f44f4d24150e5eabae64866671369c34ee3361841c76700e40b188b1"
+    },
+    {
+      "path": "tools/heroanim/models/bloom-v2/source-manifest.json",
+      "sha256": "3a745c79ca7175b3ea24afe6c841f7202e075d31e72a0188d8cd8f2642d1f01e"
+    },
+    {
+      "path": "tools/heroanim/prepare-bloom-v2.py",
+      "sha256": "20ae4bc0a57d8237f1e9192dd34f50529628a6f61c9dd58617a3ac1010751d06"
+    },
+    {
+      "path": "tools/heroanim/bake-bloom-v2.mjs",
+      "sha256": "a9afabc02baeac2d0d06b1f6cc068ff7626c881244e500c6caf28051907ce99c"
+    },
+    {
+      "path": "tools/heroanim/bloom-v2-look.json",
+      "sha256": "8c394f50f0fd45c946e78e9d4c8d958417ea8e338631133274211b83b720d33d"
+    }
+  ],
+  "data": "client/Assets/Bloomlings/UI/Design/BloomV2Data.cs",
+  "dataSha256": "1aea74247e7b5c937aea86176d5a18ccdcb11e19e22de02af5b568283420eb79",
+  "cell": [
+    448,
+    504
+  ],
+  "paddingTop": 96,
+  "encoding": "RGBA8 lossless PNG",
+  "heads": [
+    "none",
+    "HairPetals",
+    "HairBob",
+    "HairPeach",
+    "HairRose",
+    "BucketHat",
+    "Cap",
+    "Beret",
+    "EarmuffHair",
+    "XmasHat"
+  ],
+  "clothes": [
+    "none",
+    "Jacket",
+    "Coat",
+    "Overalls"
+  ],
+  "scarves": [
+    "none",
+    "ScarfKnit",
+    "ScarfStripe"
+  ],
+  "icons": [
+    "HairPetals",
+    "HairBob",
+    "HairPeach",
+    "HairRose",
+    "BucketHat",
+    "Cap",
+    "Beret",
+    "EarmuffHair",
+    "XmasHat",
+    "Glasses",
+    "ScarfKnit",
+    "ScarfStripe",
+    "Jacket",
+    "Coat",
+    "Overalls"
+  ],
+  "outputs": [
+    {
+      "key": "base-none",
+      "file": "bloomv2-base-none.png",
+      "crop": [
+        108,
+        130,
+        232,
+        325
+      ],
+      "icon": false,
+      "bytes": 69286,
+      "sha256": "83dfdf8e61cf8b95a47bc531b9dd081a9ecd35a71d9f9307502ec50ef97cff9b"
+    },
+    {
+      "key": "base-hairpetals",
+      "file": "bloomv2-base-hairpetals.png",
+      "crop": [
+        55,
+        19,
+        338,
+        436
+      ],
+      "icon": false,
+      "bytes": 118448,
+      "sha256": "a7e997b78e7356e04ee02c5f9f30eb5fddda54ff70313aa909733d2fab3d7efe"
+    },
+    {
+      "key": "base-hairbob",
+      "file": "bloomv2-base-hairbob.png",
+      "crop": [
+        62,
+        82,
+        318,
+        373
+      ],
+      "icon": false,
+      "bytes": 99662,
+      "sha256": "e2b7fa2195d343321141002e9f45ad60b8d2a82e499fc65ca04e88077749b456"
+    },
+    {
+      "key": "base-hairpeach",
+      "file": "bloomv2-base-hairpeach.png",
+      "crop": [
+        79,
+        71,
+        295,
+        384
+      ],
+      "icon": false,
+      "bytes": 99739,
+      "sha256": "b97507e4f214f8f69a3ec9b8ef168259a33e8cf6b9ee305198ba003b5b7dba12"
+    },
+    {
+      "key": "base-hairrose",
+      "file": "bloomv2-base-hairrose.png",
+      "crop": [
+        72,
+        36,
+        307,
+        419
+      ],
+      "icon": false,
+      "bytes": 122265,
+      "sha256": "3d0417e120f63e9a28f57dc16536b47eb30457f08a2eb039de5384f6eb3ddbef"
+    },
+    {
+      "key": "base-buckethat",
+      "file": "bloomv2-base-buckethat.png",
+      "crop": [
+        64,
+        77,
+        321,
+        378
+      ],
+      "icon": false,
+      "bytes": 107044,
+      "sha256": "28fa0166ca812604290a94dafb9a17f2cbe34f28a12cae3aa242e84aa913d2e5"
+    },
+    {
+      "key": "base-cap",
+      "file": "bloomv2-base-cap.png",
+      "crop": [
+        85,
+        68,
+        278,
+        387
+      ],
+      "icon": false,
+      "bytes": 104841,
+      "sha256": "833550493ed09dca44af915360845b003c6197ff810ad1cf1e1f716c1044d014"
+    },
+    {
+      "key": "base-beret",
+      "file": "bloomv2-base-beret.png",
+      "crop": [
+        57,
+        59,
+        313,
+        396
+      ],
+      "icon": false,
+      "bytes": 114633,
+      "sha256": "273c4ae5fe9751803c329e5d46d10e542b9795436cfecab4216e9fd313088bcf"
+    },
+    {
+      "key": "base-earmuffhair",
+      "file": "bloomv2-base-earmuffhair.png",
+      "crop": [
+        56,
+        103,
+        337,
+        352
+      ],
+      "icon": false,
+      "bytes": 105839,
+      "sha256": "12326ae18db2db84935aac40d68daa60c875d94e1f7803fbbcbdeb7b5e241b27"
+    },
+    {
+      "key": "base-xmashat",
+      "file": "bloomv2-base-xmashat.png",
+      "crop": [
+        84,
+        43,
+        328,
+        412
+      ],
+      "icon": false,
+      "bytes": 119713,
+      "sha256": "94686cbec84bd97b6ffa5e275dc5d6e47e3c175004a792e6aa2c45a0c89486d8"
+    },
+    {
+      "key": "clothes-none-jacket",
+      "file": "bloomv2-clothes-none-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-none-coat",
+      "file": "bloomv2-clothes-none-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-none-overalls",
+      "file": "bloomv2-clothes-none-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-hairpetals-jacket",
+      "file": "bloomv2-clothes-hairpetals-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-hairpetals-coat",
+      "file": "bloomv2-clothes-hairpetals-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-hairpetals-overalls",
+      "file": "bloomv2-clothes-hairpetals-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-hairbob-jacket",
+      "file": "bloomv2-clothes-hairbob-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-hairbob-coat",
+      "file": "bloomv2-clothes-hairbob-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-hairbob-overalls",
+      "file": "bloomv2-clothes-hairbob-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-hairpeach-jacket",
+      "file": "bloomv2-clothes-hairpeach-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-hairpeach-coat",
+      "file": "bloomv2-clothes-hairpeach-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-hairpeach-overalls",
+      "file": "bloomv2-clothes-hairpeach-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-hairrose-jacket",
+      "file": "bloomv2-clothes-hairrose-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-hairrose-coat",
+      "file": "bloomv2-clothes-hairrose-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-hairrose-overalls",
+      "file": "bloomv2-clothes-hairrose-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-buckethat-jacket",
+      "file": "bloomv2-clothes-buckethat-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-buckethat-coat",
+      "file": "bloomv2-clothes-buckethat-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-buckethat-overalls",
+      "file": "bloomv2-clothes-buckethat-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-cap-jacket",
+      "file": "bloomv2-clothes-cap-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-cap-coat",
+      "file": "bloomv2-clothes-cap-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-cap-overalls",
+      "file": "bloomv2-clothes-cap-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-beret-jacket",
+      "file": "bloomv2-clothes-beret-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-beret-coat",
+      "file": "bloomv2-clothes-beret-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-beret-overalls",
+      "file": "bloomv2-clothes-beret-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-earmuffhair-jacket",
+      "file": "bloomv2-clothes-earmuffhair-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-earmuffhair-coat",
+      "file": "bloomv2-clothes-earmuffhair-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-earmuffhair-overalls",
+      "file": "bloomv2-clothes-earmuffhair-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "clothes-xmashat-jacket",
+      "file": "bloomv2-clothes-xmashat-jacket.png",
+      "crop": [
+        124,
+        325,
+        200,
+        86
+      ],
+      "icon": false,
+      "bytes": 22576,
+      "sha256": "a0cb44557bb810e0b256623b5ebefb68ad80c1ff805dda40854df5c8d83b3abc"
+    },
+    {
+      "key": "clothes-xmashat-coat",
+      "file": "bloomv2-clothes-xmashat-coat.png",
+      "crop": [
+        127,
+        326,
+        194,
+        98
+      ],
+      "icon": false,
+      "bytes": 26486,
+      "sha256": "91d7806c854c37650b033f516695334dac9655d59d532987c2c909a2c5c98ba7"
+    },
+    {
+      "key": "clothes-xmashat-overalls",
+      "file": "bloomv2-clothes-xmashat-overalls.png",
+      "crop": [
+        143,
+        326,
+        162,
+        101
+      ],
+      "icon": false,
+      "bytes": 22316,
+      "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd"
+    },
+    {
+      "key": "scarf-none-none-scarfknit",
+      "file": "bloomv2-scarf-none-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-none-none-scarfstripe",
+      "file": "bloomv2-scarf-none-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-none-jacket-scarfknit",
+      "file": "bloomv2-scarf-none-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-none-jacket-scarfstripe",
+      "file": "bloomv2-scarf-none-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-none-coat-scarfknit",
+      "file": "bloomv2-scarf-none-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-none-coat-scarfstripe",
+      "file": "bloomv2-scarf-none-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-none-overalls-scarfknit",
+      "file": "bloomv2-scarf-none-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-none-overalls-scarfstripe",
+      "file": "bloomv2-scarf-none-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-hairpetals-none-scarfknit",
+      "file": "bloomv2-scarf-hairpetals-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-hairpetals-none-scarfstripe",
+      "file": "bloomv2-scarf-hairpetals-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-hairpetals-jacket-scarfknit",
+      "file": "bloomv2-scarf-hairpetals-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-hairpetals-jacket-scarfstripe",
+      "file": "bloomv2-scarf-hairpetals-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-hairpetals-coat-scarfknit",
+      "file": "bloomv2-scarf-hairpetals-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-hairpetals-coat-scarfstripe",
+      "file": "bloomv2-scarf-hairpetals-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-hairpetals-overalls-scarfknit",
+      "file": "bloomv2-scarf-hairpetals-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-hairpetals-overalls-scarfstripe",
+      "file": "bloomv2-scarf-hairpetals-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-hairbob-none-scarfknit",
+      "file": "bloomv2-scarf-hairbob-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-hairbob-none-scarfstripe",
+      "file": "bloomv2-scarf-hairbob-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-hairbob-jacket-scarfknit",
+      "file": "bloomv2-scarf-hairbob-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-hairbob-jacket-scarfstripe",
+      "file": "bloomv2-scarf-hairbob-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-hairbob-coat-scarfknit",
+      "file": "bloomv2-scarf-hairbob-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-hairbob-coat-scarfstripe",
+      "file": "bloomv2-scarf-hairbob-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-hairbob-overalls-scarfknit",
+      "file": "bloomv2-scarf-hairbob-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-hairbob-overalls-scarfstripe",
+      "file": "bloomv2-scarf-hairbob-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-hairpeach-none-scarfknit",
+      "file": "bloomv2-scarf-hairpeach-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-hairpeach-none-scarfstripe",
+      "file": "bloomv2-scarf-hairpeach-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-hairpeach-jacket-scarfknit",
+      "file": "bloomv2-scarf-hairpeach-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-hairpeach-jacket-scarfstripe",
+      "file": "bloomv2-scarf-hairpeach-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-hairpeach-coat-scarfknit",
+      "file": "bloomv2-scarf-hairpeach-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-hairpeach-coat-scarfstripe",
+      "file": "bloomv2-scarf-hairpeach-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-hairpeach-overalls-scarfknit",
+      "file": "bloomv2-scarf-hairpeach-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-hairpeach-overalls-scarfstripe",
+      "file": "bloomv2-scarf-hairpeach-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-hairrose-none-scarfknit",
+      "file": "bloomv2-scarf-hairrose-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-hairrose-none-scarfstripe",
+      "file": "bloomv2-scarf-hairrose-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-hairrose-jacket-scarfknit",
+      "file": "bloomv2-scarf-hairrose-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-hairrose-jacket-scarfstripe",
+      "file": "bloomv2-scarf-hairrose-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-hairrose-coat-scarfknit",
+      "file": "bloomv2-scarf-hairrose-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-hairrose-coat-scarfstripe",
+      "file": "bloomv2-scarf-hairrose-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-hairrose-overalls-scarfknit",
+      "file": "bloomv2-scarf-hairrose-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-hairrose-overalls-scarfstripe",
+      "file": "bloomv2-scarf-hairrose-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-buckethat-none-scarfknit",
+      "file": "bloomv2-scarf-buckethat-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-buckethat-none-scarfstripe",
+      "file": "bloomv2-scarf-buckethat-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-buckethat-jacket-scarfknit",
+      "file": "bloomv2-scarf-buckethat-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-buckethat-jacket-scarfstripe",
+      "file": "bloomv2-scarf-buckethat-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-buckethat-coat-scarfknit",
+      "file": "bloomv2-scarf-buckethat-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-buckethat-coat-scarfstripe",
+      "file": "bloomv2-scarf-buckethat-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-buckethat-overalls-scarfknit",
+      "file": "bloomv2-scarf-buckethat-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-buckethat-overalls-scarfstripe",
+      "file": "bloomv2-scarf-buckethat-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-cap-none-scarfknit",
+      "file": "bloomv2-scarf-cap-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-cap-none-scarfstripe",
+      "file": "bloomv2-scarf-cap-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-cap-jacket-scarfknit",
+      "file": "bloomv2-scarf-cap-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-cap-jacket-scarfstripe",
+      "file": "bloomv2-scarf-cap-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-cap-coat-scarfknit",
+      "file": "bloomv2-scarf-cap-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-cap-coat-scarfstripe",
+      "file": "bloomv2-scarf-cap-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-cap-overalls-scarfknit",
+      "file": "bloomv2-scarf-cap-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-cap-overalls-scarfstripe",
+      "file": "bloomv2-scarf-cap-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-beret-none-scarfknit",
+      "file": "bloomv2-scarf-beret-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-beret-none-scarfstripe",
+      "file": "bloomv2-scarf-beret-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-beret-jacket-scarfknit",
+      "file": "bloomv2-scarf-beret-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-beret-jacket-scarfstripe",
+      "file": "bloomv2-scarf-beret-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-beret-coat-scarfknit",
+      "file": "bloomv2-scarf-beret-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-beret-coat-scarfstripe",
+      "file": "bloomv2-scarf-beret-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-beret-overalls-scarfknit",
+      "file": "bloomv2-scarf-beret-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-beret-overalls-scarfstripe",
+      "file": "bloomv2-scarf-beret-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-earmuffhair-none-scarfknit",
+      "file": "bloomv2-scarf-earmuffhair-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-earmuffhair-none-scarfstripe",
+      "file": "bloomv2-scarf-earmuffhair-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-earmuffhair-jacket-scarfknit",
+      "file": "bloomv2-scarf-earmuffhair-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-earmuffhair-jacket-scarfstripe",
+      "file": "bloomv2-scarf-earmuffhair-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-earmuffhair-coat-scarfknit",
+      "file": "bloomv2-scarf-earmuffhair-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-earmuffhair-coat-scarfstripe",
+      "file": "bloomv2-scarf-earmuffhair-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-earmuffhair-overalls-scarfknit",
+      "file": "bloomv2-scarf-earmuffhair-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-earmuffhair-overalls-scarfstripe",
+      "file": "bloomv2-scarf-earmuffhair-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "scarf-xmashat-none-scarfknit",
+      "file": "bloomv2-scarf-xmashat-none-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29136,
+      "sha256": "32db412dfe2b4f52ad095a9dd9288eedf829dfe3fdb840c68188e34e02f00c41"
+    },
+    {
+      "key": "scarf-xmashat-none-scarfstripe",
+      "file": "bloomv2-scarf-xmashat-none-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19311,
+      "sha256": "820b6b0e3749da08d8c6d560419a5c9b979700d51a0a3618bcefb75d1cd81bd1"
+    },
+    {
+      "key": "scarf-xmashat-jacket-scarfknit",
+      "file": "bloomv2-scarf-xmashat-jacket-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29202,
+      "sha256": "7d5725b30e9956af1c5258f7067d9bc71d3662f638e42ccc3250730e70bacf43"
+    },
+    {
+      "key": "scarf-xmashat-jacket-scarfstripe",
+      "file": "bloomv2-scarf-xmashat-jacket-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19321,
+      "sha256": "1a3e9f468667c294f5f409d2c288391e565f101c4f20dbee693d381eba58c34d"
+    },
+    {
+      "key": "scarf-xmashat-coat-scarfknit",
+      "file": "bloomv2-scarf-xmashat-coat-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 28892,
+      "sha256": "7a8130fb955c863f65e8e9efd5ea5330882517bad16e65807671f37fc05eb9f1"
+    },
+    {
+      "key": "scarf-xmashat-coat-scarfstripe",
+      "file": "bloomv2-scarf-xmashat-coat-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19274,
+      "sha256": "b9309edac34c4c9c8c40dff917b987e27f98390d2c0892a96568b860e7680a84"
+    },
+    {
+      "key": "scarf-xmashat-overalls-scarfknit",
+      "file": "bloomv2-scarf-xmashat-overalls-scarfknit.png",
+      "crop": [
+        131,
+        309,
+        219,
+        121
+      ],
+      "icon": false,
+      "bytes": 29204,
+      "sha256": "94a723c8f4e6c933ad0ce0b8db79a842d64ecc340baaee0144725378fb336f5f"
+    },
+    {
+      "key": "scarf-xmashat-overalls-scarfstripe",
+      "file": "bloomv2-scarf-xmashat-overalls-scarfstripe.png",
+      "crop": [
+        148,
+        316,
+        152,
+        118
+      ],
+      "icon": false,
+      "bytes": 19324,
+      "sha256": "befb904febdcb4eaeecaf187313af3b9f86d7b49a66efc5cf1931055477dc56c"
+    },
+    {
+      "key": "glasses-none-none-none",
+      "file": "bloomv2-glasses-none-none-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-none-scarfknit",
+      "file": "bloomv2-glasses-none-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-none-scarfstripe",
+      "file": "bloomv2-glasses-none-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-jacket-none",
+      "file": "bloomv2-glasses-none-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-jacket-scarfknit",
+      "file": "bloomv2-glasses-none-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-jacket-scarfstripe",
+      "file": "bloomv2-glasses-none-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-coat-none",
+      "file": "bloomv2-glasses-none-coat-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-coat-scarfknit",
+      "file": "bloomv2-glasses-none-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-coat-scarfstripe",
+      "file": "bloomv2-glasses-none-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-overalls-none",
+      "file": "bloomv2-glasses-none-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-overalls-scarfknit",
+      "file": "bloomv2-glasses-none-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-none-overalls-scarfstripe",
+      "file": "bloomv2-glasses-none-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-none-none",
+      "file": "bloomv2-glasses-hairpetals-none-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-none-scarfknit",
+      "file": "bloomv2-glasses-hairpetals-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-none-scarfstripe",
+      "file": "bloomv2-glasses-hairpetals-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-jacket-none",
+      "file": "bloomv2-glasses-hairpetals-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-jacket-scarfknit",
+      "file": "bloomv2-glasses-hairpetals-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-jacket-scarfstripe",
+      "file": "bloomv2-glasses-hairpetals-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-coat-none",
+      "file": "bloomv2-glasses-hairpetals-coat-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-coat-scarfknit",
+      "file": "bloomv2-glasses-hairpetals-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-coat-scarfstripe",
+      "file": "bloomv2-glasses-hairpetals-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-overalls-none",
+      "file": "bloomv2-glasses-hairpetals-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-overalls-scarfknit",
+      "file": "bloomv2-glasses-hairpetals-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpetals-overalls-scarfstripe",
+      "file": "bloomv2-glasses-hairpetals-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairbob-none-none",
+      "file": "bloomv2-glasses-hairbob-none-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-none-scarfknit",
+      "file": "bloomv2-glasses-hairbob-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-none-scarfstripe",
+      "file": "bloomv2-glasses-hairbob-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-jacket-none",
+      "file": "bloomv2-glasses-hairbob-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-jacket-scarfknit",
+      "file": "bloomv2-glasses-hairbob-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-jacket-scarfstripe",
+      "file": "bloomv2-glasses-hairbob-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-coat-none",
+      "file": "bloomv2-glasses-hairbob-coat-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-coat-scarfknit",
+      "file": "bloomv2-glasses-hairbob-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-coat-scarfstripe",
+      "file": "bloomv2-glasses-hairbob-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-overalls-none",
+      "file": "bloomv2-glasses-hairbob-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-overalls-scarfknit",
+      "file": "bloomv2-glasses-hairbob-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairbob-overalls-scarfstripe",
+      "file": "bloomv2-glasses-hairbob-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7794,
+      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+    },
+    {
+      "key": "glasses-hairpeach-none-none",
+      "file": "bloomv2-glasses-hairpeach-none-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-none-scarfknit",
+      "file": "bloomv2-glasses-hairpeach-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-none-scarfstripe",
+      "file": "bloomv2-glasses-hairpeach-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-jacket-none",
+      "file": "bloomv2-glasses-hairpeach-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-jacket-scarfknit",
+      "file": "bloomv2-glasses-hairpeach-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-jacket-scarfstripe",
+      "file": "bloomv2-glasses-hairpeach-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-coat-none",
+      "file": "bloomv2-glasses-hairpeach-coat-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-coat-scarfknit",
+      "file": "bloomv2-glasses-hairpeach-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-coat-scarfstripe",
+      "file": "bloomv2-glasses-hairpeach-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-overalls-none",
+      "file": "bloomv2-glasses-hairpeach-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-overalls-scarfknit",
+      "file": "bloomv2-glasses-hairpeach-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairpeach-overalls-scarfstripe",
+      "file": "bloomv2-glasses-hairpeach-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-none-none",
+      "file": "bloomv2-glasses-hairrose-none-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-none-scarfknit",
+      "file": "bloomv2-glasses-hairrose-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-none-scarfstripe",
+      "file": "bloomv2-glasses-hairrose-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-jacket-none",
+      "file": "bloomv2-glasses-hairrose-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-jacket-scarfknit",
+      "file": "bloomv2-glasses-hairrose-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-jacket-scarfstripe",
+      "file": "bloomv2-glasses-hairrose-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-coat-none",
+      "file": "bloomv2-glasses-hairrose-coat-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-coat-scarfknit",
+      "file": "bloomv2-glasses-hairrose-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-coat-scarfstripe",
+      "file": "bloomv2-glasses-hairrose-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-overalls-none",
+      "file": "bloomv2-glasses-hairrose-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-overalls-scarfknit",
+      "file": "bloomv2-glasses-hairrose-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-hairrose-overalls-scarfstripe",
+      "file": "bloomv2-glasses-hairrose-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7746,
+      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+    },
+    {
+      "key": "glasses-buckethat-none-none",
+      "file": "bloomv2-glasses-buckethat-none-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-none-scarfknit",
+      "file": "bloomv2-glasses-buckethat-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-none-scarfstripe",
+      "file": "bloomv2-glasses-buckethat-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-jacket-none",
+      "file": "bloomv2-glasses-buckethat-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-jacket-scarfknit",
+      "file": "bloomv2-glasses-buckethat-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-jacket-scarfstripe",
+      "file": "bloomv2-glasses-buckethat-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-coat-none",
+      "file": "bloomv2-glasses-buckethat-coat-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-coat-scarfknit",
+      "file": "bloomv2-glasses-buckethat-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-coat-scarfstripe",
+      "file": "bloomv2-glasses-buckethat-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-overalls-none",
+      "file": "bloomv2-glasses-buckethat-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-overalls-scarfknit",
+      "file": "bloomv2-glasses-buckethat-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-buckethat-overalls-scarfstripe",
+      "file": "bloomv2-glasses-buckethat-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7876,
+      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+    },
+    {
+      "key": "glasses-cap-none-none",
+      "file": "bloomv2-glasses-cap-none-none.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-none-scarfknit",
+      "file": "bloomv2-glasses-cap-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-none-scarfstripe",
+      "file": "bloomv2-glasses-cap-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-jacket-none",
+      "file": "bloomv2-glasses-cap-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-jacket-scarfknit",
+      "file": "bloomv2-glasses-cap-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-jacket-scarfstripe",
+      "file": "bloomv2-glasses-cap-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-coat-none",
+      "file": "bloomv2-glasses-cap-coat-none.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-coat-scarfknit",
+      "file": "bloomv2-glasses-cap-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-coat-scarfstripe",
+      "file": "bloomv2-glasses-cap-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-overalls-none",
+      "file": "bloomv2-glasses-cap-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-overalls-scarfknit",
+      "file": "bloomv2-glasses-cap-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-cap-overalls-scarfstripe",
+      "file": "bloomv2-glasses-cap-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        223,
+        84
+      ],
+      "icon": false,
+      "bytes": 7632,
+      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+    },
+    {
+      "key": "glasses-beret-none-none",
+      "file": "bloomv2-glasses-beret-none-none.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-none-scarfknit",
+      "file": "bloomv2-glasses-beret-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-none-scarfstripe",
+      "file": "bloomv2-glasses-beret-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-jacket-none",
+      "file": "bloomv2-glasses-beret-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-jacket-scarfknit",
+      "file": "bloomv2-glasses-beret-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-jacket-scarfstripe",
+      "file": "bloomv2-glasses-beret-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-coat-none",
+      "file": "bloomv2-glasses-beret-coat-none.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-coat-scarfknit",
+      "file": "bloomv2-glasses-beret-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-coat-scarfstripe",
+      "file": "bloomv2-glasses-beret-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-overalls-none",
+      "file": "bloomv2-glasses-beret-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-overalls-scarfknit",
+      "file": "bloomv2-glasses-beret-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-beret-overalls-scarfstripe",
+      "file": "bloomv2-glasses-beret-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        222,
+        84
+      ],
+      "icon": false,
+      "bytes": 7614,
+      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+    },
+    {
+      "key": "glasses-earmuffhair-none-none",
+      "file": "bloomv2-glasses-earmuffhair-none-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-none-scarfknit",
+      "file": "bloomv2-glasses-earmuffhair-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-none-scarfstripe",
+      "file": "bloomv2-glasses-earmuffhair-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-jacket-none",
+      "file": "bloomv2-glasses-earmuffhair-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-jacket-scarfknit",
+      "file": "bloomv2-glasses-earmuffhair-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-jacket-scarfstripe",
+      "file": "bloomv2-glasses-earmuffhair-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-coat-none",
+      "file": "bloomv2-glasses-earmuffhair-coat-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-coat-scarfknit",
+      "file": "bloomv2-glasses-earmuffhair-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-coat-scarfstripe",
+      "file": "bloomv2-glasses-earmuffhair-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-overalls-none",
+      "file": "bloomv2-glasses-earmuffhair-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-overalls-scarfknit",
+      "file": "bloomv2-glasses-earmuffhair-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-earmuffhair-overalls-scarfstripe",
+      "file": "bloomv2-glasses-earmuffhair-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        227,
+        84
+      ],
+      "icon": false,
+      "bytes": 7782,
+      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+    },
+    {
+      "key": "glasses-xmashat-none-none",
+      "file": "bloomv2-glasses-xmashat-none-none.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-none-scarfknit",
+      "file": "bloomv2-glasses-xmashat-none-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-none-scarfstripe",
+      "file": "bloomv2-glasses-xmashat-none-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-jacket-none",
+      "file": "bloomv2-glasses-xmashat-jacket-none.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-jacket-scarfknit",
+      "file": "bloomv2-glasses-xmashat-jacket-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-jacket-scarfstripe",
+      "file": "bloomv2-glasses-xmashat-jacket-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-coat-none",
+      "file": "bloomv2-glasses-xmashat-coat-none.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-coat-scarfknit",
+      "file": "bloomv2-glasses-xmashat-coat-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-coat-scarfstripe",
+      "file": "bloomv2-glasses-xmashat-coat-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-overalls-none",
+      "file": "bloomv2-glasses-xmashat-overalls-none.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-overalls-scarfknit",
+      "file": "bloomv2-glasses-xmashat-overalls-scarfknit.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "glasses-xmashat-overalls-scarfstripe",
+      "file": "bloomv2-glasses-xmashat-overalls-scarfstripe.png",
+      "crop": [
+        111,
+        213,
+        219,
+        84
+      ],
+      "icon": false,
+      "bytes": 7505,
+      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+    },
+    {
+      "key": "icon-hairpetals",
+      "file": "bloomv2-icon-hairpetals.png",
+      "crop": [
+        53,
+        55,
+        227,
+        204
+      ],
+      "icon": true,
+      "bytes": 32903,
+      "sha256": "8d641c7168162aebfb67af99f3b227571e7235af99401b08832de21f4f748f82"
+    },
+    {
+      "key": "icon-hairbob",
+      "file": "bloomv2-icon-hairbob.png",
+      "crop": [
+        39,
+        72,
+        232,
+        173
+      ],
+      "icon": true,
+      "bytes": 36723,
+      "sha256": "9533f4a8d59a26cebaa37a388373510a79b13466bc03d51d8045b05fb4d45449"
+    },
+    {
+      "key": "icon-hairpeach",
+      "file": "bloomv2-icon-hairpeach.png",
+      "crop": [
+        41,
+        72,
+        234,
+        175
+      ],
+      "icon": true,
+      "bytes": 41729,
+      "sha256": "650e072628f0ef129cdee20f9c9f03c2e6d97e0870b11e83dc23e995dda02e99"
+    },
+    {
+      "key": "icon-hairrose",
+      "file": "bloomv2-icon-hairrose.png",
+      "crop": [
+        45,
+        60,
+        230,
+        206
+      ],
+      "icon": true,
+      "bytes": 47034,
+      "sha256": "73886b280edca220afd9750144ce64478d096d64c0b7275409cab6f9e27ea2c8"
+    },
+    {
+      "key": "icon-buckethat",
+      "file": "bloomv2-icon-buckethat.png",
+      "crop": [
+        45,
+        85,
+        230,
+        152
+      ],
+      "icon": true,
+      "bytes": 38230,
+      "sha256": "796687e40ba702628868cd9546b90672762debd5e18cf26a159f89d8e2010562"
+    },
+    {
+      "key": "icon-cap",
+      "file": "bloomv2-icon-cap.png",
+      "crop": [
+        44,
+        65,
+        229,
+        194
+      ],
+      "icon": true,
+      "bytes": 43383,
+      "sha256": "a5912dd003042b4b6209a4da106a63a426be5ab945e8c91d80cefca4db320987"
+    },
+    {
+      "key": "icon-beret",
+      "file": "bloomv2-icon-beret.png",
+      "crop": [
+        42,
+        63,
+        229,
+        186
+      ],
+      "icon": true,
+      "bytes": 46844,
+      "sha256": "2ce23dde2119fa268ea5b2e8ebb0aaca1ab5294623321f8893fefbf6738c1484"
+    },
+    {
+      "key": "icon-earmuffhair",
+      "file": "bloomv2-icon-earmuffhair.png",
+      "crop": [
+        47,
+        90,
+        229,
+        141
+      ],
+      "icon": true,
+      "bytes": 25933,
+      "sha256": "db30da82ed0c036f3fb338ddcd702778e70645d873bc8bcc0738187e75697e41"
+    },
+    {
+      "key": "icon-xmashat",
+      "file": "bloomv2-icon-xmashat.png",
+      "crop": [
+        43,
+        65,
+        233,
+        182
+      ],
+      "icon": true,
+      "bytes": 45809,
+      "sha256": "d6fcad43db39c04420e69424c47b5efcf12f613c0c0d15963dbac38ebf7fb243"
+    },
+    {
+      "key": "icon-glasses",
+      "file": "bloomv2-icon-glasses.png",
+      "crop": [
+        48,
+        121,
+        231,
+        87
+      ],
+      "icon": true,
+      "bytes": 8150,
+      "sha256": "e9f9e318d20652cb798efcda4a1f98930f70bfbe2892980ec82b6fc3bd0734e1"
+    },
+    {
+      "key": "icon-scarfknit",
+      "file": "bloomv2-icon-scarfknit.png",
+      "crop": [
+        71,
+        100,
+        169,
+        120
+      ],
+      "icon": true,
+      "bytes": 28728,
+      "sha256": "3da84b72b4a2478fb7394826f664322916818aac6f33fba8ce94336260dd0e6a"
+    },
+    {
+      "key": "icon-scarfstripe",
+      "file": "bloomv2-icon-scarfstripe.png",
+      "crop": [
+        35,
+        56,
+        239,
+        209
+      ],
+      "icon": true,
+      "bytes": 46442,
+      "sha256": "12f5f9843c98324647a7abd7d75b4454bbc179274dea3f60ffe876cf762ca4bd"
+    },
+    {
+      "key": "icon-jacket",
+      "file": "bloomv2-icon-jacket.png",
+      "crop": [
+        46,
+        103,
+        228,
+        112
+      ],
+      "icon": true,
+      "bytes": 33030,
+      "sha256": "a3e751e766065dadba74f9a2804ad9c08cea9798f2b2985faced025f89f75320"
+    },
+    {
+      "key": "icon-coat",
+      "file": "bloomv2-icon-coat.png",
+      "crop": [
+        49,
+        95,
+        228,
+        132
+      ],
+      "icon": true,
+      "bytes": 39645,
+      "sha256": "87eb16dfda5d51b1d024afa6abbe1e70d649b05ae1f26403fc2e5d9d8e5db528"
+    },
+    {
+      "key": "icon-overalls",
+      "file": "bloomv2-icon-overalls.png",
+      "crop": [
+        49,
+        81,
+        229,
+        155
+      ],
+      "icon": true,
+      "bytes": 45436,
+      "sha256": "79eb2905d24ed4ce301440e7c111553e59f833c6d882f9d1e1d11c11f3c93bda"
+    }
+  ]
+}

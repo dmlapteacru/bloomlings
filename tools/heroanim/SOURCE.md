@@ -1,5 +1,17 @@
 # Source record: the owner's animated heroes and layered Home (spec 005 FR-028)
 
+## BloomHeroV2 modular preview (2026-10-17)
+
+The owner supplied `BloomHeroV2_Coat_part_1.zip` and `BloomHeroV2_HairPeach_part_2.zip`: common bald Bloom,
+rig, four actions, nine Head choices, fitted Glasses, three Body garments and two Neck scarves.
+Original deliveries / hashes: `models/bloom-v2/source-manifest.json`. The unchanged source parts retain their
+world geometry, UVs and ScarfKnit garment fits in `prepare-bloom-v2.py`. `bake-bloom-v2.mjs` uses the delivered
+albedo and soft diffuse finish to create 255 cropped RGBA8 layers for 240 saved outfits / 216 distinct looks.
+`bloom-v2.json` pins sources, `BloomV2Data.cs` and runtime pixels. Stock Bloom always wears HairPetals.
+All 15 pieces are free in Wardrobe for fitting. Source ZIPs / rig / GLB stay offline; 132 old Bloom motion PNGs
+are archived outside runtime under `archive/bloom/`. Existing motion timing is retained with the new static pose;
+source skeletal actions and action selection remain a future feature. Profile portraits and mosaics are unchanged.
+
 ## SprigHeroV2 modular preview (2026-10-17)
 
 The owner supplied two original ZIPs containing the aligned bald Sprig base, rig, four actions, eight Head items,

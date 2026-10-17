@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "archives": [
+    {
+      "path": "source/BloomHeroV2_Coat_part_1.zip",
+      "sha256": "b3b39580e350e5b5efb604f7fd27f0f580cccedd9b64a4a040e1efcc4489a836"
+    },
+    {
+      "path": "source/BloomHeroV2_HairPeach_part_2.zip",
+      "sha256": "f1d3dec2f44f4d24150e5eabae64866671369c34ee3361841c76700e40b188b1"
+    }
+  ],
+  "exportManifest": "BloomHeroV2.manifest.json",
+  "stockHead": "HairPetals"
+}

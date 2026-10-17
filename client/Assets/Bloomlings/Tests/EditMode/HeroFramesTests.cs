@@ -56,7 +56,7 @@ namespace Bloomlings.Client.Tests
             string folder = Path.Combine(ClientRoot, "Art", "Heroes", "Resources", HeroMotion.Folder);
             Assert.That(HeroMotionImporter.FramesFolder, Is.EqualTo("Assets/Bloomlings/Art/Heroes/Resources/" + HeroMotion.Folder + "/"));
             var expected = new HashSet<string>(HeroMotion.AllFrames());
-            Assert.That(expected, Has.Count.EqualTo(266), "264 original Bloom/Drop frames plus shared Sprig and Twig V2 bases");
+            Assert.That(expected, Has.Count.EqualTo(135), "132 original Drop frames plus shared Sprig, Bloom and Twig V2 bases");
             expected.UnionWith(new[]
             {
                 "sprigmod-base", "sprigmod-cap", "sprigmod-glasses", "sprigmod-cap-glasses", "sprigmod-backpack",
@@ -65,6 +65,7 @@ namespace Bloomlings.Client.Tests
             });
             expected.UnionWith(TwigV2Art.AllFrames.Select(f => f.Name));
             expected.UnionWith(SprigV2Art.AllFrames.Select(f => f.Name));
+            expected.UnionWith(BloomV2Art.AllFrames.Select(f => f.Name));
             foreach (string name in expected)
             {
                 Assert.That(File.Exists(Path.Combine(folder, name + ".png")), Is.True, name + ".png");

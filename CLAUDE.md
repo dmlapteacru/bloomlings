@@ -228,7 +228,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   aligned accessories and rebuild: `tools/heroanim/models/twig-v2/README.md`. Modeling / texture references including
   the bald base: `tools/heroanim/references/twig-v2/README.md`. SprigHeroV2 is the new modular Sprig preview:
   `tools/heroanim/models/sprig-v2/README.md` (13 fitted items; stock HairLeafy, never bald in game; scarf garment fits).
-  Bloom / Drop retain the simplified Tripo models. Wardrobe uses Head / Face / Body / Accessories, with category-local
+  BloomHeroV2 is the modular Bloom preview: `tools/heroanim/models/bloom-v2/README.md` (15 fitted items;
+  stock HairPetals, never bald; two interchangeable scarves, knitted scarf garment fits). Drop retains the simplified
+  Tripo model. Wardrobe uses Head / Face / Body / Accessories, with category-local
   Default and independent saved slots. Shelf cards always preview only their own item on the stock hero; fitting changes
   only the main stand, never neighboring shelf previews. Cosmetics has been removed from Shop by owner request; equipment lives only in Wardrobe.
   Twig has 12 fitted items: seven Head choices, one Glasses, three Clothes, one Neck; `models/twig-v2/ITEMS.md` lists IDs.

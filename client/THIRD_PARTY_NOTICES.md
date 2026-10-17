@@ -138,7 +138,14 @@ asset) and a modified font is not sold or renamed as Nunito. The files are never
 
 Additional owned ImageGen assets (2026-10-15): `Art/Backgrounds/Resources/Backgrounds/gameplay-fern.jpg` and `gameplay-willow.jpg` (source record: `tools/artgen/models/garden-backgrounds-2026-10-14.md`); four `Art/Badges/Resources/Badges/hero_*.png` medals (source record: `tools/badges/SOURCE.md`); four canonical hero mosaics in `content/launch-art/library/hero_*.json` (source atlas and exact assignments in `content/launch-art/hero-milestones.json`). All were generated for this project from its own artwork.
 
-Bloom motion texture update (2026-10-16, owner approved): `Art/Heroes/Resources/HeroMotion/bloom-*.png` use the owner's
+Archived Bloom motion texture update (2026-10-16, owner approved): retired `bloom-*.png` now kept outside runtime in
+`tools/heroanim/archive/bloom/motion/` use the owner's
 original Meshy-derived model and a project-generated ImageGen paint cleanup baked onto its original UVs with Blender.
 Source texture, prompt and recipe: `tools/heroanim/textures/bloom-study/`; provenance: `tools/heroanim/SOURCE.md`.
 The source GLB and texture atlas are authoring data and are not included in APK assets.
+
+BloomHeroV2 modular preview (2026-10-17): `Art/Heroes/Resources/HeroMotion/bloomv2-*.png` are offline renders of the
+owner-supplied Tripo / Blender base and 15 fitted wearables. The two original archives are retained in
+`tools/heroanim/models/bloom-v2/source/`; hashes, unchanged alignment / UV checks and the bake recipe are in
+`tools/heroanim/bloom-v2.json` and `tools/heroanim/SOURCE.md`. Only cropped 2D PNG layers ship; no source model,
+rig, FBX, ZIP, GLB or generated modeling reference is packaged in the application.

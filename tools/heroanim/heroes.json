@@ -28,28 +28,6 @@
   "reactOut": 0.4,
   "heroes": [
     {
-      "family": "bloom",
-      "file": "heroes.glb",
-      "mesh": "GLB_Bloom_Model",
-      "idle": "GLB_Bloom_Breathing",
-      "react": "GLB_Bloom_SmallJump",
-      "head": "Head",
-      "top": "Head",
-      "topOffset": [
-        0,
-        0.33,
-        0
-      ],
-      "ground": "model",
-      "idleSeconds": null,
-      "reactSeconds": null,
-      "yaw": 0,
-      "note": "Owner-approved texture cleanup (2026-10-16): original mesh, rig and clips; projected albedo, neutral light and reduced dithering; see textures/bloom-study/README.md",
-      "appearance": "textures/bloom-study/look.json",
-      "texture": "textures/bloom-study/basecolor.png",
-      "paletteSpace": "cell"
-    },
-    {
       "family": "drop",
       "file": "heroes.glb",
       "mesh": "GLB_Drop_Model",

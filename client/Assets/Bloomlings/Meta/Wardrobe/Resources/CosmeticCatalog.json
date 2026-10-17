@@ -70,6 +70,21 @@
     { "id": "scarf.sprig_knit", "kind": "scarf", "name": "Garden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
     { "id": "clothes.sprig_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
     { "id": "clothes.sprig_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
-    { "id": "clothes.sprig_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true }
+    { "id": "clothes.sprig_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true },
+    {"id": "hat.bloom_petals", "kind": "hat", "name": "Petal Halo", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_bob", "kind": "hat", "name": "Petal Bob", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_peach", "kind": "hat", "name": "Petal Curl", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_rose", "kind": "hat", "name": "Rosebud Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_panama", "kind": "hat", "name": "Flower Panama", "shape": "brim", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_cap", "kind": "hat", "name": "Flower Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_beret", "kind": "hat", "name": "Flower Beret", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_earmuffs", "kind": "hat", "name": "Winter Earmuffs", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.bloom_xmas", "kind": "hat", "name": "Holiday Hat", "shape": "nightcap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "glasses.bloom_round", "kind": "glasses", "name": "Bloom Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "scarf.bloom_knit", "kind": "scarf", "name": "Chunky Flower Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "scarf.bloom_stripe", "kind": "scarf", "name": "Striped Garden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "clothes.bloom_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "clothes.bloom_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "clothes.bloom_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true}
   ]
 }

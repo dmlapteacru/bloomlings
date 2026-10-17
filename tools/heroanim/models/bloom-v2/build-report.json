@@ -1,0 +1,667 @@
+{
+  "version": 1,
+  "scriptSha256": "20ae4bc0a57d8237f1e9192dd34f50529628a6f61c9dd58617a3ac1010751d06",
+  "archives": [
+    {
+      "path": "source/BloomHeroV2_Coat_part_1.zip",
+      "sha256": "b3b39580e350e5b5efb604f7fd27f0f580cccedd9b64a4a040e1efcc4489a836"
+    },
+    {
+      "path": "source/BloomHeroV2_HairPeach_part_2.zip",
+      "sha256": "f1d3dec2f44f4d24150e5eabae64866671369c34ee3361841c76700e40b188b1"
+    }
+  ],
+  "parts": [
+    {
+      "key": "base",
+      "file": "BloomHeroV2.fbx",
+      "sha256": "5cb77979e465e6927563b693e7cd3f304719697086feb47ac48dd50dca5f5324",
+      "vertices": 48631,
+      "faces": 97258,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.34912109375,
+          0.34912109375
+        ],
+        [
+          -0.31494131684303284,
+          0.31494152545928955
+        ],
+        [
+          1.011604400247279e-8,
+          0.979736328125
+        ]
+      ],
+      "materials": [
+        {
+          "name": "tripo_mat_1ad48891",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Beret",
+      "file": "BloomHeroV2_Beret.fbx",
+      "sha256": "c382fd5e6c4ddcfd51bbd86f8f5b67bca0cfc89f4bd8cb690002291c527e20e3",
+      "vertices": 40313,
+      "faces": 79288,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.5022106170654297,
+          0.43857383728027344
+        ],
+        [
+          -0.36050549149513245,
+          0.46077364683151245
+        ],
+        [
+          0.42744746804237366,
+          1.1939020156860352
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.002",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "BucketHat",
+      "file": "BloomHeroV2_BucketHat.fbx",
+      "sha256": "c538d8ae60c67dd9bef1daff6bece823db7fdb89bb6f08b16cb5784476fb9ecd",
+      "vertices": 41914,
+      "faces": 83055,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.48183631896972656,
+          0.4837360382080078
+        ],
+        [
+          -0.4661615192890167,
+          0.41869276762008667
+        ],
+        [
+          0.4897044003009796,
+          1.1394119262695312
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.004",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Cap",
+      "file": "BloomHeroV2_Cap.fbx",
+      "sha256": "702d835d13a11ba9bdf1f2dbd409a4eaa6a2bf231d045a12272a5331292e433a",
+      "vertices": 37801,
+      "faces": 73518,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4186973571777344,
+          0.41872406005859375
+        ],
+        [
+          -0.4139381945133209,
+          0.3941380977630615
+        ],
+        [
+          0.5043728351593018,
+          1.1689565181732178
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.012",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Coat",
+      "file": "BloomHeroV2_Coat.fbx",
+      "sha256": "396e74cf4e077850fd4bd298b9b10cb44f9a3960d6c647abee7cfda2ddbc8c85",
+      "vertices": 16446,
+      "faces": 32431,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.2912750244140625,
+          0.2913684844970703
+        ],
+        [
+          -0.29252415895462036,
+          0.10932525247335434
+        ],
+        [
+          0.09509880840778351,
+          0.3930482864379883
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.003",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "EarmuffHair",
+      "file": "BloomHeroV2_EarmuffHair.fbx",
+      "sha256": "fc7a4b0dd701deb44f702542d3296954aec9db3e66a6050fca837a8a36fadfbf",
+      "vertices": 27932,
+      "faces": 54647,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.5053005218505859,
+          0.5078868865966797
+        ],
+        [
+          -0.30304545164108276,
+          0.2524367868900299
+        ],
+        [
+          0.4517877399921417,
+          1.0597604513168335
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.008",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Glasses",
+      "file": "BloomHeroV2_Glasses.fbx",
+      "sha256": "98707eabd9d936573a53e0b90a57a79132e05cdef6e99e52519fabb5280c189d",
+      "vertices": 8480,
+      "faces": 16359,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.3407421112060547,
+          0.3463573455810547
+        ],
+        [
+          -0.30863240361213684,
+          -0.027978934347629547
+        ],
+        [
+          0.4789195656776428,
+          0.7283162474632263
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Glasses_Brown",
+          "color": [
+            0.43415364623069763,
+            0.1946178376674652,
+            0.06480326503515244,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "HairBob",
+      "file": "BloomHeroV2_HairBob.fbx",
+      "sha256": "5d03c264dc5cf4084486942160ca694f9248522836bc81ee802b371ebe2e047d",
+      "vertices": 36217,
+      "faces": 71333,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4891014099121094,
+          0.46883201599121094
+        ],
+        [
+          -0.3689865469932556,
+          0.443034291267395
+        ],
+        [
+          0.40399354696273804,
+          1.1255332231521606
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.013",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "HairPeach",
+      "file": "BloomHeroV2_HairPeach.fbx",
+      "sha256": "4a326f30a3a1cd7670ee4ee85409ae7df8080ff699b03171ecfe314251affa36",
+      "vertices": 34286,
+      "faces": 67210,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.43639183044433594,
+          0.45282745361328125
+        ],
+        [
+          -0.35827845335006714,
+          0.4043595790863037
+        ],
+        [
+          0.44761574268341064,
+          1.158707618713379
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.006",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "HairPetals",
+      "file": "BloomHeroV2_HairPetals.fbx",
+      "sha256": "72b925531de2a4f44c2eb3e7639e4ebe061b31add86ea862452ab92e0f994f55",
+      "vertices": 26321,
+      "faces": 51649,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.5104427337646484,
+          0.5095424652099609
+        ],
+        [
+          -0.24743162095546722,
+          0.22444817423820496
+        ],
+        [
+          0.41808605194091797,
+          1.3158793449401855
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.009",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "HairRose",
+      "file": "BloomHeroV2_HairRose.fbx",
+      "sha256": "4f5882d5d6f4f00146e427bf35d276b3d2629cfe685445c8d5636f42f91170d4",
+      "vertices": 37611,
+      "faces": 74623,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.4578571319580078,
+          0.46779823303222656
+        ],
+        [
+          -0.3870495855808258,
+          0.42146870493888855
+        ],
+        [
+          0.46807223558425903,
+          1.26483154296875
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.001",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Jacket",
+      "file": "BloomHeroV2_Jacket.fbx",
+      "sha256": "127cf87d555ad9039ca93868cba802005b416aa67f619a161b19f65e247accad",
+      "vertices": 17757,
+      "faces": 34864,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.2996864318847656,
+          0.3004131317138672
+        ],
+        [
+          -0.25795778632164,
+          0.16840125620365143
+        ],
+        [
+          0.1315852552652359,
+          0.3896000385284424
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "Overalls",
+      "file": "BloomHeroV2_Overalls.fbx",
+      "sha256": "a2bc960ddee1b6a3e40e9338c758e2fc9a603e1718acfefb579895f1b856a1f5",
+      "vertices": 17753,
+      "faces": 34935,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.24316024780273438,
+          0.24071693420410156
+        ],
+        [
+          -0.2402946799993515,
+          0.10549251735210419
+        ],
+        [
+          0.0825570598244667,
+          0.38945338129997253
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.005",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "ScarfKnit",
+      "file": "BloomHeroV2_ScarfKnit.fbx",
+      "sha256": "aa852500e6b2820408d841123413414fd7c39aeb53cfd5491c3071e645f23bea",
+      "vertices": 19742,
+      "faces": 38522,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.2789592742919922,
+          0.3791465759277344
+        ],
+        [
+          -0.26500222086906433,
+          0.26909223198890686
+        ],
+        [
+          0.07466037571430206,
+          0.4731123745441437
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.010",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": [
+        "Basis",
+        "Over_Jacket",
+        "Over_Coat",
+        "Over_Overalls"
+      ]
+    },
+    {
+      "key": "ScarfStripe",
+      "file": "BloomHeroV2_ScarfStripe.fbx",
+      "sha256": "86f7a265308b1e7464de54d58143ce92b09ee331766cbdfb15ed38fef6100d50",
+      "vertices": 7601,
+      "faces": 14615,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.22749710083007812,
+          0.22518348693847656
+        ],
+        [
+          -0.2667519152164459,
+          0.15832923352718353
+        ],
+        [
+          0.06478621065616608,
+          0.4314742982387543
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.007",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    },
+    {
+      "key": "XmasHat",
+      "file": "BloomHeroV2_XmasHat.fbx",
+      "sha256": "1f311754010c98ff77b533338f702ad3d54f54cd5ad6dd815f349e7ac45baeaa",
+      "vertices": 38243,
+      "faces": 75344,
+      "worldGeometryUnchanged": true,
+      "uvUnchanged": true,
+      "bounds": [
+        [
+          -0.42053794860839844,
+          0.5664310455322266
+        ],
+        [
+          -0.35828420519828796,
+          0.404413640499115
+        ],
+        [
+          0.4468839466571808,
+          1.2448289394378662
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material.011",
+          "color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "alpha": 1,
+          "transmission": 0
+        }
+      ],
+      "shapeKeys": []
+    }
+  ],
+  "clips": [
+    "Idle",
+    "Joy",
+    "Walk",
+    "Wave"
+  ],
+  "additions": [],
+  "layerSeparation": {
+    "clothingTop": 0.3930482864379883,
+    "headwearBottom": 0.40399354696273804,
+    "scarfTop": 0.4731123745441437,
+    "glassesBottom": 0.4789195656776428,
+    "headwearClearsClothesAndScarf": false,
+    "glassesClearClothes": true
+  },
+  "animationSource": {
+    "file": "BloomHeroV2@Anims.fbx",
+    "sha256": "f25dc611e186099cba5637d92c5b250921c1543dc8161f9fdf16f9b2d2df41c0",
+    "actions": [
+      {
+        "name": "BloomHeroV2Rig|BloomHeroV2_Idle",
+        "range": [
+          1,
+          78
+        ]
+      },
+      {
+        "name": "BloomHeroV2Rig|BloomHeroV2_Joy",
+        "range": [
+          1,
+          78
+        ]
+      },
+      {
+        "name": "BloomHeroV2Rig|BloomHeroV2_Walk",
+        "range": [
+          1,
+          39
+        ]
+      },
+      {
+        "name": "BloomHeroV2Rig|BloomHeroV2_Wave",
+        "range": [
+          1,
+          78
+        ]
+      }
+    ]
+  },
+  "export": {
+    "file": "BloomHeroV2.glb",
+    "sha256": "91daa65a44422a373dd4262997def831c90b96c8f62f8a81319d90cc46202d2c",
+    "bytes": 36269100
+  }
+}

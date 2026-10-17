@@ -99,6 +99,7 @@ namespace Bloomlings.Client.UI.Design
         public static string FrameName(Family family, MotionClip clip, int index) =>
             family == Family.Twig ? TwigV2Art.Layer(null, 0)!.Value.Name :
             family == Family.Sprig ? SprigV2Art.Layer(null, 0)!.Value.Name :
+            family == Family.Bloom ? BloomV2Art.Layer(null, 0)!.Value.Name :
             CharacterArt.FamilyName(family) + "-" + ClipName(clip) + "-" + index.ToString("00", CultureInfo.InvariantCulture);
 
         /// <summary>The asset slot of a family's frames: <c>char.hero3d.motion.sprig</c>.</summary>
@@ -260,8 +261,16 @@ namespace Bloomlings.Client.UI.Design
             foreach (ClipData data in SprigPresentation)
                 foreach (MotionClip clip in Clips)
                     if (data.Clip == ClipName(clip)) index[((int)Family.Sprig * ClipCount) + (int)clip] = data;
+            foreach (ClipData data in BloomPresentation)
+                foreach (MotionClip clip in Clips)
+                    if (data.Clip == ClipName(clip)) index[((int)Family.Bloom * ClipCount) + (int)clip] = data;
             return index;
         }
+
+        private static readonly ClipData[] BloomPresentation = new[]
+        {
+            new ClipData("bloom", "idle", 96), new ClipData("bloom", "react", 36),
+        };
 
         private static readonly ClipData[] SprigPresentation = new[]
         {
@@ -294,7 +303,7 @@ namespace Bloomlings.Client.UI.Design
 
             public ClipData(string family, string clip, int count)
             {
-                Family = family; Clip = clip; _still = SprigV2Art.Layer(null, 0)!.Value; _stillCount = count;
+                Family = family; Clip = clip; _still = family == "bloom" ? BloomV2Art.Layer(null, 0)!.Value : SprigV2Art.Layer(null, 0)!.Value; _stillCount = count;
                 _crops = Array.Empty<short>(); _points = Array.Empty<float>(); _names = Array.Empty<string>();
             }
 

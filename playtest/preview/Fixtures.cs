@@ -341,7 +341,43 @@ namespace Bloomlings.Playtest.Preview
                     Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Get(scene.Item3)!=null,"category item equips through real tap");
                 });
             }
-            foreach(var selection in new[]{(144,"sprig-stable-wardrobe-shelves",Family.Sprig),(145,"twig-stable-wardrobe-shelves",Family.Twig)})
+            foreach(var selection in new[]{(146,"bloom-v2-home-stock",BloomV2Art.PetalsId,""),(147,"bloom-v2-home-winter",BloomV2Art.EarmuffsId,BloomV2Art.JacketId),(148,"bloom-v2-home-summer",BloomV2Art.BucketId,BloomV2Art.OverallsId)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"New Bloom and aligned wearables appear on Home",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    Expect(app.Meta.Wardrobe.Equip(Family.Bloom,scene.Item3),"new head equips");
+                    if(scene.Item4.Length>0){app.Meta.Wardrobe.Equip(Family.Bloom,scene.Item4);app.Meta.Wardrobe.Equip(Family.Bloom,BloomV2Art.GlassesId);}
+                    if(scene.Item1==147)app.Meta.Wardrobe.Equip(Family.Bloom,BloomV2Art.KnitId);
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                    var outfit=app.Meta.Wardrobe.OutfitOf(Family.Bloom);
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Bloom,outfit,i) is HeroFrame layer)
+                        Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws saved Bloom layer "+i);
+                    Expect(!p.DrawnSprites.Any(n=>n.Contains("bloom-idle-",StringComparison.Ordinal)||n.Contains("bloommod-",StringComparison.Ordinal)),"retired Bloom cannot replace V2");
+                });
+            }
+            foreach(var selection in new[]{(149,"bloom-v2-wardrobe-head",CosmeticKind.Hat),(150,"bloom-v2-wardrobe-face",CosmeticKind.Glasses),(151,"bloom-v2-wardrobe-body",CosmeticKind.Clothes),(152,"bloom-v2-wardrobe-accessories",CosmeticKind.Scarf)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"Wardrobe categories isolate equip and Default actions",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    foreach(string id in new[]{BloomV2Art.RoseId,BloomV2Art.CoatId,BloomV2Art.GlassesId,BloomV2Art.KnitId})app.Meta.Wardrobe.Equip(Family.Bloom,id);
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Bloom);app.WardrobeBrowse.Select(scene.Item3);Run(app,p,.1f);
+                    var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                    Outfit before=app.Meta.Wardrobe.OutfitOf(Family.Bloom);
+                    Tap(p,r.Cell(0));Run(app,p,.1f);
+                    var reset=App(data).Meta.Wardrobe.OutfitOf(Family.Bloom);
+                    Expect(reset.Get(scene.Item3)==null,"Default persists only current slot");
+                    foreach(var other in CosmeticCatalog.WornKinds)if(other!=scene.Item3)Expect(reset.Get(other)?.Id==before.Get(other)?.Id,"Default preserves "+other);
+                    foreach(string label in new[]{"Head","Face","Body","Accessories"})Expect(Shows(p,label),"category label "+label);
+                    Expect(!Shows(p,"Skins")&&!Shows(p,"Trails")&&!Shows(p,"Faces"),"unused categories are hidden");
+                    Tap(p,r.Cell(1));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Bloom).Get(scene.Item3)!=null,"category item equips through real tap");
+                });
+            }
+            foreach(var selection in new[]{(144,"sprig-stable-wardrobe-shelves",Family.Sprig),(145,"twig-stable-wardrobe-shelves",Family.Twig),(153,"bloom-stable-wardrobe-shelves",Family.Bloom)})
             {
                 var scene=selection;
                 yield return new Fixture(scene.Item1,scene.Item2,"Only the fitting stand changes while other shelf previews stay identical",(p,data)=>
@@ -350,6 +386,7 @@ namespace Bloomlings.Playtest.Preview
                     var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
                     string[] ids=scene.Item3==Family.Sprig
                         ?new[]{SprigV2Art.BucketId,SprigV2Art.GlassesId,SprigV2Art.JacketId,SprigV2Art.ScarfId}
+                        :scene.Item3==Family.Bloom?new[]{BloomV2Art.BucketId,BloomV2Art.GlassesId,BloomV2Art.JacketId,BloomV2Art.StripeId}
                         :new[]{TwigV2Art.BucketId,TwigV2Art.GlassesId,TwigV2Art.JacketId,TwigV2Art.ScarfId};
                     void Category(CosmeticKind kind)
                     {
@@ -399,6 +436,15 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Level!.Won&&app.Meta.CurrentLevel==13,"victory preserves progression");
                 for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Sprig,app.Meta.Wardrobe.OutfitOf(Family.Sprig),i) is HeroFrame layer)
                     Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"victory draws saved Sprig layer "+i);
+            });
+            yield return new Fixture(154,"bloom-v2-home-striped","Bloom wears the alternate scarf with her complete outfit on Home",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);CloseAll(app);
+                foreach(string id in new[]{BloomV2Art.RoseId,BloomV2Art.OverallsId,BloomV2Art.GlassesId,BloomV2Art.StripeId})
+                    Expect(app.Meta.Wardrobe.Equip(Family.Bloom,id),"Bloom outfit equips");
+                app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Bloom,app.Meta.Wardrobe.OutfitOf(Family.Bloom),i) is HeroFrame layer)
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws saved Bloom layer "+i);
             });
             yield return new Fixture(142,"shop-without-cosmetics","Shop contains Shop and Animations only",(p,data)=>
             {
