@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-17",
+  "items": [
+    {
+      "id": "base-full-front",
+      "prompt": "Edit this approved Bloom character into its BALD MODULAR MODELING BASE for Tripo. Preserve exactly the same adorable pink flower creature's face, broad rounded head shape, friendly brown eyes looking straight ahead, tiny closed curved smile, eyebrows, pale pink face, coral-pink short slim torso, pale heart-shaped belly marking, short arms and legs. Remove ALL five large flower petals and all three yellow stamens from around and above the head. Reveal a simple smooth rounded bald skull of the same pale pink skin. No hair, headwear, flower crown, ears, horns, accessories, clothing. Do not stretch the head sideways or make the body taller or chubbier. Full character centered head to feet, front orthographic-style view, arms slightly away from sides symmetrical relaxed A pose, cream studio background, soft even bright lighting, clean smooth toy-like mobile game 3D render. Geometry shapes broad and simple, no fuzz, no grain, no skin pores or cloth texture. This is the existing character with only the detachable petals removed, not a redesign. Single character, no text.",
+      "references": [
+        "../simple-heroes/bloom.png"
+      ]
+    },
+    {
+      "id": "heads-three-hairstyles",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Make a wide triptych of THREE SEPARATE front-facing HEAD ONLY portraits on the same baseline, same size, generous gaps, no body, no text. The second reference shows Bloom's original floral identity. Left: DEFAULT rounded flower halo hairstyle, five broad simple coral-pink petals around the back of the same head, small cluster of three yellow spheres above forehead, faithful to second reference, no green hair. Middle: a low soft petal bob, four or five broad blush/coral petals overlapping along crown and temples, asymmetric gently side-swept petal fringe and one tiny yellow bud pin; no human hair strands, cute and calm. Right: compact rosy petal crop with a single rounded curled petal forelock turned gently to one side, pale pink to coral color, one small green leaf tucked at side. All three are very cute, not punk, no spiky crest, no tall plumes, no hat. Every face is the SAME first-reference base. Three different detachable floral hairstyles fit the same bald skull.",
+      "references": [
+        "base-full-front.png",
+        "with-default-petals-front.png"
+      ]
+    },
+    {
+      "id": "head-panama",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing one snug BUCKET HAT / Panama. Low rounded truncated-cone crown, continuous short downward-sloping annular brim, gently oval around head and symmetric, smooth cream/off-white main fabric, muted dusty rose band, small simple five-petal coral flower with warm yellow center and a tiny sage leaf on viewer's right of band. Broad clean seams only. Hat is fully seated close around skull, no floating gap. Completely remove stock flower halo/petals/stamens, no hair protruding. No other accessories. Full head and entire brim visible with margin.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-garden-cap",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing one neatly fitted rounded GARDEN BASEBALL CAP. Six broad soft dusty-rose crown panels make a low rounded dome. A separate unmistakable forward-projecting SHORT ROUNDED CREAM VISOR curves gently down, with continuous smooth shallow arc, clear thickness and smooth side attachments. Small cream button atop. One simple cream daisy with warm yellow center on viewer's right front panel; tiny sage leaf. Cap is symmetrical, fully seated, neither flattened nor oversized. No stock flower halo, no hair, no extra petals under cap, no ears or other accessories. Whole cap and head in frame with margin. Model-friendly smooth forms, just a few seams.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-beret",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing a soft low rounded BERET in muted dusty rose, with one broad gently draped lobe tilted to viewer's left, continuous narrow fitted lower band close to bald skull, a tiny centered fabric nub. A small three-dimensional cream flower with yellow center and a single sage leaf pinned on viewer's right. Beret silhouette clearly rounded fabric cap, not a baseball cap or turban, smooth broad fabric folds only, no woven fiber detail. No stock flower petals or hair underneath, no other accessories. Whole beret and same head centered with margin.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-winter-earmuffs",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait. Make a winter EARMUFF HEADWEAR ASSET including minimal calm PETAL HAIR. Two broad rounded cream cushioned oval pads at the sides of the skull, connected by one smooth rose-pink arch band over crown. Pads have 4-5 large soft molded cushion lobes, not actual furry strands. Under band just three low overlapping pale rose petal shapes making a small smooth side-swept fringe hugging scalp; not the large default flower halo, no tall petals, no bows. One small pastel green leaf accent where band meets pad. Earmuffs snug against sides, symmetric pad height, face unobscured, entire band visible with margin. No body or scarf. Compact cute wearable, no actual animal ears.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "head-holiday-hat",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz. Single HEAD ONLY straight-on portrait wearing a classic CHRISTMAS SANTA HAT. A red soft curved conical fabric crown tilts and folds once toward viewer's right, a broad rounded cream cuff hugs head all around, matching round cream pompom at folded tip. Small simple coral-pink flower with yellow center and one sage leaf sits at side of cuff, not in the eye line. Broad smooth toy-like cloth shapes, no detailed fur or glitter. Hat fully seated and snug, whole crown/pompom visible, no oversized empty cone. Remove all stock flower halo/petals/stamens; bald base beneath hat, no hair or other accessories. Clear red and cream seasonal palette.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "neck-scarf",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz.  FULL BODY front orthographic-style modeling portrait of exactly the short slender baby-proportioned bald Bloom base in the reference. Keep pale pink smooth bald skull and face, coral-pink short torso, pink hands and short feet, arms slightly separated relaxed symmetric A-pose. Do not make torso taller, fat or human adult. One character centered from head to feet with clear margin, gentle ground contact shadow. No hair, no flower halo, no headwear, no glasses, no accessories except the single requested wearable. Simple sculptable forms, no fine fabric weave, no individual fur strands. Dress ONLY the neck in a small snug rounded SAGE GREEN SCARF. One soft wrapped ring around neck below chin, two short flat rounded ends hanging over upper chest, one slightly longer than other, with broad cream and dusty rose accent stripes near ends, a few large blunt tassels. Smooth large knit-like sculpted bands, no real knitted yarn texture. Scarf should not cover mouth or hide face and should not reach legs, compact enough to combine with a short jacket later. Base body remains uncovered otherwise, heart-shaped belly marking visible.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "clothes-winter-jacket",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz.  FULL BODY front orthographic-style modeling portrait of exactly the short slender baby-proportioned bald Bloom base in the reference. Keep pale pink smooth bald skull and face, coral-pink short torso, pink hands and short feet, arms slightly separated relaxed symmetric A-pose. Do not make torso taller, fat or human adult. One character centered from head to feet with clear margin, gentle ground contact shadow. No hair, no flower halo, no headwear, no glasses, no accessories except the single requested wearable. Simple sculptable forms, no fine fabric weave, no individual fur strands. Add ONLY a compact WINTER PUFFER JACKET. Cream/off-white padded short body, two broad horizontal quilted baffles, rounded full sleeves, muted dusty-rose low collar and wide cuffs and bottom hem, two broad sage-green patch pockets and two large light honey wooden toggle fastenings on front. Jacket ends above short legs, leaves pink hands and feet uncovered. No hood, scarf, hat or boots. Narrow low collar leaves face and chin clear for independent neck scarf later. Gentle small simple flower-shaped seam emblem on one pocket, no all-over patterns. Cute snug garment, not bulky fat body.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "clothes-autumn-coat",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz.  FULL BODY front orthographic-style modeling portrait of exactly the short slender baby-proportioned bald Bloom base in the reference. Keep pale pink smooth bald skull and face, coral-pink short torso, pink hands and short feet, arms slightly separated relaxed symmetric A-pose. Do not make torso taller, fat or human adult. One character centered from head to feet with clear margin, gentle ground contact shadow. No hair, no flower halo, no headwear, no glasses, no accessories except the single requested wearable. Simple sculptable forms, no fine fabric weave, no individual fur strands. Add ONLY a neat short AUTUMN COAT in muted SAGE GREEN. Slightly A-line rounded hem ends above feet on this very short body, cream broad folded Peter-Pan-style rounded collar, three large warm honey wooden round buttons down center, two rounded dusty-rose patch pockets shaped like simple petals. Full sleeves with small turned cream cuffs. Tiny ivory daisy emblem on one pocket only, yellow center. Smooth matte toy cloth, a few broad seams. Pink hands and feet visible, no boots, no hat, no scarf, no hood. Slim compact silhouette; don't make character fat, don't change body proportions.",
+      "references": [
+        "base-full-front.png"
+      ]
+    },
+    {
+      "id": "clothes-garden-overalls",
+      "prompt": "Use the first image as the EXACT shared Bloom base head: pale blush pink skin, friendly glossy brown eyes looking directly forward, gentle thin brown eyebrows, tiny closed curved smile. Retain face proportions and skull width; do not elongate, widen, age, add lips or ears. Premium simple smooth rounded mobile-game 3D character modeling reference, evenly lit, clean cream studio background, large readable volumes without microdetail/grain/fuzz.  FULL BODY front orthographic-style modeling portrait of exactly the short slender baby-proportioned bald Bloom base in the reference. Keep pale pink smooth bald skull and face, coral-pink short torso, pink hands and short feet, arms slightly separated relaxed symmetric A-pose. Do not make torso taller, fat or human adult. One character centered from head to feet with clear margin, gentle ground contact shadow. No hair, no flower halo, no headwear, no glasses, no accessories except the single requested wearable. Simple sculptable forms, no fine fabric weave, no individual fur strands. Add ONLY a SPRING/SUMMER GARDEN OUTFIT: short sage-green dungarees/overalls over a cream short-sleeved T-shirt. Rounded squared bib, two wide straps with large light honey wooden buttons, one broad dusty-rose petal-shaped chest pocket carrying a simple cream daisy with small yellow center, two small side pockets, short wide trouser legs with neat rolled cream cuffs ending above pink bare feet. Large simple shapes, no tiny stitching, no patterns. Keep torso very short and lightly built. Pink hands and feet uncovered. No hat, scarf, bag, boots or additional wearables. Cheerful soft spring palette, low contrast clean material.",
+      "references": [
+        "base-full-front.png"
+      ]
+    }
+  ]
+}

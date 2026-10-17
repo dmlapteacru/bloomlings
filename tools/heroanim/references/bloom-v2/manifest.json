@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "status": "modular-modeling-reference",
+  "source": "OpenAI image generation from the approved simplified Bloom, 2026-10-17",
+  "files": [
+    {
+      "path": "base-full-front.png",
+      "sha256": "9e53d244ca9241357214218a535de004794de7614b7a37847cbab56651729952",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "with-default-petals-front.png",
+      "sha256": "2d8f021f07fb97b0fccd11e80a8eb820065afc39469c98330768de37d1d300db",
+      "note": "Unchanged copy of the approved simplified Bloom reference."
+    },
+    {
+      "path": "heads-three-hairstyles.png",
+      "sha256": "31672ed1d47b348ca657e2ac66c3b276190e9e388aa7dfda79ec6fde05033254",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/head-panama.png",
+      "sha256": "b532d9aef66c6476519f468d05d4f5c284e3a1e1b8d8c630350840bb31e3546f",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/head-garden-cap.png",
+      "sha256": "e4913d494d2932a79738875c142819faf4afd5b29db44951067feeabaa2ed41c",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/head-beret.png",
+      "sha256": "ea7cb63a6edeee646506ea9b42d6b2fa62355d37973ae1d1e24059322e68fa1c",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/head-winter-earmuffs.png",
+      "sha256": "d1db3b024c8e70ef51254305e056004aa6e3603d3972566896baae6e9c6f7f6e",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/head-holiday-hat.png",
+      "sha256": "a7cec2e12d51756824ad6858b0f03bd055734a7322548c479cb6bcceca9dcca1",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/neck-scarf.png",
+      "sha256": "b39402cbf63031d84ff707c1e86ffa75946462f72c8e8bfe8b9b1b91f76ab789",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/clothes-winter-jacket.png",
+      "sha256": "b09ea00831334112c9f8fa58b43ba751bd0cca05ce541722ba43b71518d7a75d",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/clothes-autumn-coat.png",
+      "sha256": "d4fa1cbb867d9f63e6daac9a7510f02fd3ebdd5276aa7181d68d0ec8bb93f2dd",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/clothes-garden-overalls.png",
+      "sha256": "314f8d8d1b659fc81951ebe0f59175e54371c2d823f904dd8e7077c38e18b017",
+      "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    }
+  ]
+}
