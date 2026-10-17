@@ -21,24 +21,37 @@
     ],
     "previewShape": "19.5x9",
     "ownerArtCheck": "57 pictures / 13 adopted owner pictures OK",
-    "permanentAdoption": true
+    "permanentAdoption": true,
+    "spacingUpdate": {
+      "targetedClientTests": 10,
+      "previewFixtures": [
+        155,
+        156,
+        157
+      ],
+      "previewShapes": [
+        "16x9",
+        "19.5x9",
+        "21x9"
+      ]
+    }
   },
   "files": [
     {
       "path": "README.md",
-      "sha256": "81ac715ef9346e812c8959ff685bebeb7df111acfcfab8d1c5610bd6acb5104d"
+      "sha256": "c674374ad2036f8b7c2769759855f1dfe6034cef2f52630fedde9386f4f0a898"
     },
     {
       "path": "home-stock.jpg",
-      "sha256": "4276541fb65d7d3f6fd449c4125708ee60230920564f646e54a62f275a180352"
+      "sha256": "e7cea75075fda72c6bda52a652067cc22376e9b28a27ddc38da96113ed720c40"
     },
     {
       "path": "home-winter.jpg",
-      "sha256": "66d2b67800bcbe92205515d81332405e67ac0e333af6fc8b38ddce65de989db2"
+      "sha256": "f525bb6dbac3d29905095df1c73984ff71ab66345a4bc27eb97afe0f21b0dc7f"
     },
     {
       "path": "home-summer.jpg",
-      "sha256": "ac68e20419f35eec4ccf341cb7258516be9e8d787817bcc13738a08e341bfbee"
+      "sha256": "f0e417cc1cd54c0622bcae6cad794f9f34d0b6b6e984b2dd66245933c9d0a052"
     },
     {
       "path": "../../home-heroes.json",

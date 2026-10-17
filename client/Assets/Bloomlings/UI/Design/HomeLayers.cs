@@ -109,15 +109,16 @@ namespace Bloomlings.Client.UI.Design
         /// its feet's middle as shares of the picture's width and height, and its seam pose's height as a share of the
         /// picture's width. Bloom stands behind the lotus, its feet hidden; Sprig on the left rim and Twig on the right
         /// rim, their feet behind the fountain's front flowers. Twig V2 retains the approved stand scale and sits slightly
-        /// inward so its wider face stays inside a 21:9 screen. Bloom stands a little smaller and Drop further right
-        /// and a little taller, so Drop's face shows beside the petals. On the owner's fountain (a smaller lotus on the
+        /// inward so its wider face stays inside a 21:9 screen. Sprig and Bloom stand further left to open the space
+        /// around Drop's face beside the petals; Drop sits slightly inward, clear of Twig's headwear.
+        /// On the owner's fountain (a smaller lotus on the
         /// basin's pedestal) Bloom stands a little lower, so its feet stay behind the lotus's petals.
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
-            Family.Bloom => (0.5f, 0.505f, 0.40f),
-            Family.Drop => (0.735f, 0.532f, 0.36f),
-            Family.Sprig => (0.235f, 0.56f, 0.40f),
+            Family.Bloom => (0.43f, 0.505f, 0.40f),
+            Family.Drop => (0.71f, 0.532f, 0.36f),
+            Family.Sprig => (0.195f, 0.56f, 0.40f),
             _ => (0.84f, 0.568f, 0.352f),
         };
 

@@ -7,6 +7,10 @@ The front row faces inward; the back row faces the flower from behind. Selected
 headwear, glasses, clothes and scarves use the same angle and depth masks as the body.
 Frontal Wardrobe, shelf previews, portraits and victory views are retained.
 
+The fountain group leaves more room around Drop: Sprig and Bloom stand further
+left, and Drop sits slightly left of its old position to clear Twig's headwear.
+Hero sizes, heights and facing angles stay the same.
+
 The render recipe is `../../bake-home-heroes.mjs`; angles are in
 `../../home-heroes-look.json`. Prepared GLBs come from the existing V2 preparation
 scripts. No source FBX, rig, texture UV or owner Blender scene was changed.
@@ -24,7 +28,9 @@ Validation:
   every current output hash, image dimensions, generated C# and runtime manifests.
 
 `home-stock.jpg`, `home-winter.jpg`, `home-summer.jpg` are reduced actual game renders.
-Full PNGs are in ignored `content/work/hero-adoption/screens/`. The owner accepted the
+The spacing update is checked with stock, winter and summer outfits at 16:9,
+19.5:9 and 21:9, plus 10 Home layout and outfit mapping tests.
+Full PNGs are in ignored `content/work/home-spacing/screens/`. The owner accepted the
 quartet permanently; retired models, prototype frame libraries and old motion lab are
 removed from the current tree. The portraits and promo scene now depict current heroes.
 No APK was built and no levels were regenerated.
