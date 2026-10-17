@@ -350,7 +350,7 @@ base world geometry / UV remain unchanged. No separate `.blend` master is create
 runtime state; fixed face / body regions compare pixel-identical across the renders.
 
 `bake-twig-modular.mjs` uses the approved light painted-color treatment from the simplified heroes (75% albedo / 25%
-soft diffuse), 3× alpha-safe supersampling and RGBA8 output. Five small `twigfit-*` states / icons total 371,238 bytes.
+soft diffuse), 3× alpha-safe supersampling and RGBA8 output. Five small `twigfit-*` states / icons total 363,426 bytes.
 `twig-modular.json`, `TwigModularData.cs` and the HeroMotion manifest record hashes / crops. Shop / Wardrobe offer the
 two free fitted Twig hats; Remove shows the bare base, and saved selection follows Home / victory. The original
 Acorn ID is reused, Panama has a new ID; the unrefitted old Daisy Cap stays saved but withheld. Other simplified

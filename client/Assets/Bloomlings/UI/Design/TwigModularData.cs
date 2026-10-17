@@ -6,10 +6,10 @@ namespace Bloomlings.Client.UI.Design
         private static readonly HeroFrame[] Frames = new[]
         {
             new HeroFrame("twigfit-base", 78, 109, 292, 346, .5f, .68f, .5f, .35f),
-            new HeroFrame("twigfit-acorn", 77, 10, 296, 445, .5f, .68f, .5f, .35f),
-            new HeroFrame("twigfit-panama", 63, 53, 322, 402, .5f, .68f, .5f, .35f),
-            new HeroFrame("twigfit-icon-acorn", 47, 78, 224, 148, .5f, .68f, .5f, .35f),
-            new HeroFrame("twigfit-icon-panama", 47, 99, 226, 107, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigfit-acorn", 78, 23, 292, 432, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigfit-panama", 68, 65, 312, 390, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigfit-icon-acorn", 46, 75, 226, 154, .5f, .68f, .5f, .35f),
+            new HeroFrame("twigfit-icon-panama", 47, 97, 226, 110, .5f, .68f, .5f, .35f),
         };
     }
 }

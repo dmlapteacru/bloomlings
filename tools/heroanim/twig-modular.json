@@ -23,7 +23,7 @@
     },
     {
       "path": "tools/heroanim/twig-modular-fit.json",
-      "sha256": "bac9e82aaf5165688ddfd895fd6ac3e775bdc8555c57e24010096f7c7a569bb6"
+      "sha256": "ec3b05bde2c2488c1afd8ebb6b943a8a9dc7f9711d4bbaf979aa6d3d9ae14ef2"
     },
     {
       "path": "tools/heroanim/bake-twig-modular.mjs",
@@ -31,7 +31,7 @@
     }
   ],
   "data": "client/Assets/Bloomlings/UI/Design/TwigModularData.cs",
-  "dataSha256": "4c11ec91a06ca0b1335be0ac2dfe67edc5cdacab9425a19a40eee928d07d4ae8",
+  "dataSha256": "fb0f2526d0c413a5b90a58058b347f5c71b49d131d806cebbac5b8be5a59671d",
   "cell": [
     448,
     504
@@ -71,53 +71,53 @@
       "key": "acorn",
       "file": "twigfit-acorn.png",
       "crop": [
-        77,
-        10,
-        296,
-        445
+        78,
+        23,
+        292,
+        432
       ],
       "icon": false,
-      "bytes": 122608,
-      "sha256": "5657cdf0e699e7ae89d3fb45aaec1fb56e133e6bfb852db9cee315afcf66c1c9"
+      "bytes": 117800,
+      "sha256": "2ad24adfe512297697ef07be82fd959fc8673e09c4ab42b6f7e59ca07c9828a2"
     },
     {
       "key": "panama",
       "file": "twigfit-panama.png",
       "crop": [
-        63,
-        53,
-        322,
-        402
+        68,
+        65,
+        312,
+        390
       ],
       "icon": false,
-      "bytes": 112190,
-      "sha256": "22f685a0c62981f947566b64c44fbbb9ad0ff85d95d1080a7f491d1fea9e3f9d"
+      "bytes": 107548,
+      "sha256": "fef7cdfaec1c58323daf323021dbba77290426c29e4da5e493b36a01ee4d8ea1"
     },
     {
       "key": "icon-acorn",
       "file": "twigfit-icon-acorn.png",
       "crop": [
-        47,
-        78,
-        224,
-        148
+        46,
+        75,
+        226,
+        154
       ],
       "icon": true,
-      "bytes": 32122,
-      "sha256": "97dc5cc33023cae1553c2115b5ba157328058b90629150a1a6eb8386cf568c82"
+      "bytes": 33230,
+      "sha256": "62a2d43ac188885079f849e5beff45b8fb1950f2a632a9fdf265f8b86dd79c77"
     },
     {
       "key": "icon-panama",
       "file": "twigfit-icon-panama.png",
       "crop": [
         47,
-        99,
+        97,
         226,
-        107
+        110
       ],
       "icon": true,
-      "bytes": 19775,
-      "sha256": "d2ba58c420a2f34dd7d2367535d999a812d42643d3eaf1dc5cf491d46b2e45a6"
+      "bytes": 20305,
+      "sha256": "49d36ddfd3dc7387f0e6faf83de26c73ad215c505055c2ed230c3464b4910595"
     }
   ]
 }

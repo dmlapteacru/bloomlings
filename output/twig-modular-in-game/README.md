@@ -17,7 +17,7 @@ Both hats use the single Hat slot, can be equipped for free before the regular L
 reload, and can be removed back to the bald base. Existing old Daisy Cap / Sprig fitted parts stay saved but are
 withheld until refitted. Independent profile avatars and core gameplay figures retain their behavior.
 
-## Verification
+## Initial integration verification
 
 - 50 client tests passed: equipment / save round-trip, free selection, exclusive slot, removal, hidden unfitted parts,
   art metadata, hero motion, Wardrobe and localization.
@@ -33,3 +33,14 @@ This is an unrigged visual trial using static poses and existing subtle 2D breat
 outside Android assets. No APK was built; desktop renderer / packaging checks do not measure device frame times.
 
 Source mapping and rebuild commands: `tools/heroanim/models/twig-modular/README.md`.
+
+## Lower, closer fit
+
+Both hats are now 3.23% narrower and 0.035 world units lower (about 12 pixels in the logical camera cell).
+The complete bald base, head proportions, original paint, lighting, camera and foot position remain unchanged.
+`fit-before-after.png` compares the previous fit on the left and the updated fit on the right, at identical scale.
+The current five PNGs total 363,426 bytes. Updated source / fit / output hashes and shared-base pixel checks pass
+`node tools/heroanim/check.mjs`. Original delivery ZIPs and references are unchanged.
+The five updated game captures (fixtures 120–124) passed at 19.5:9, including Shop selection, both hats on Home,
+Wardrobe and a solved win. Loading checks again passed 11 cold destinations / 120 staged frames / 154 resources,
+with 100 live-preview frames continuing while transient effects were delayed. No application logic changed.
