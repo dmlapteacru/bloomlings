@@ -165,7 +165,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(MetaShelfView.Skin("Base",hit.transform,MetaScreenArt.Base).rectTransform,WardrobeShelfDesign.Pedestal(cell),cell);
             RectTransform picture=UiFactory.CreateRect("Preview",hit.transform);UiKit.PlaceBox(picture,WardrobeShelfDesign.Picture(cell),cell);
             var hero=BloomlingFigure.Create("Hero",picture);hero.Body.raycastTarget=false;
-            hero.ShowHero(_browse.Family,WardrobeShelfCatalog.Preview(_wardrobe.OutfitOf(_browse.Family),_browse.Kind,item));UiFactory.Stretch(hero.Rect);
+            hero.ShowHero(_browse.Family,WardrobeShelfCatalog.ShelfPreview(_browse.Kind,item));UiFactory.Stretch(hero.Rect);
             UiKit.PlaceBox(MetaShelfView.Skin("NamePlate",hit.transform,MetaScreenArt.Tag).rectTransform,WardrobeShelfDesign.Caption(cell),cell);
             var name=MetaShelfView.Label("Name",hit.transform,item==null?Loc.T("wardrobe.default"):Name(item),WardrobeShelfDesign.ItemName);
             UiKit.PlaceBox(name.rectTransform,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),cell);

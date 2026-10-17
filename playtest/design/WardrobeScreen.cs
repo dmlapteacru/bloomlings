@@ -34,7 +34,7 @@ namespace Bloomlings.Playtest.Design
                 Box cell=r.Cell(i).Offset(0,-browse.Offset);
                 if(cell.Bottom<=r.Viewport.Top||cell.Top>=r.Viewport.Bottom)continue;
                 p.Sprite(MetaScreenArt.Base,WardrobeShelfDesign.Pedestal(cell));
-                Preview(p,WardrobeShelfDesign.Picture(cell),browse.Family,WardrobeShelfCatalog.Preview(outfit,browse.Kind,item));
+                Preview(p,WardrobeShelfDesign.Picture(cell),browse.Family,WardrobeShelfCatalog.ShelfPreview(browse.Kind,item));
                 Skin(p,MetaScreenArt.Tag,WardrobeShelfDesign.Caption(cell));
                 if(WardrobeShelfDesign.Caption(cell).Within(r.Safe))
                     ProfileGamePainter.Label(p,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),item==null?PlaytestText.T("wardrobe.default"):MetaCards.ItemName(item),WardrobeShelfDesign.ItemName);

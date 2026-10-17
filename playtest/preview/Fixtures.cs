@@ -341,6 +341,52 @@ namespace Bloomlings.Playtest.Preview
                     Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Get(scene.Item3)!=null,"category item equips through real tap");
                 });
             }
+            foreach(var selection in new[]{(144,"sprig-stable-wardrobe-shelves",Family.Sprig),(145,"twig-stable-wardrobe-shelves",Family.Twig)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"Only the fitting stand changes while other shelf previews stay identical",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();app.WardrobeBrowse.Select(scene.Item3);Run(app,p,.1f);
+                    var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                    string[] ids=scene.Item3==Family.Sprig
+                        ?new[]{SprigV2Art.BucketId,SprigV2Art.GlassesId,SprigV2Art.JacketId,SprigV2Art.ScarfId}
+                        :new[]{TwigV2Art.BucketId,TwigV2Art.GlassesId,TwigV2Art.JacketId,TwigV2Art.ScarfId};
+                    void Category(CosmeticKind kind)
+                    {
+                        int index=CosmeticCatalog.WornKinds.ToList().IndexOf(kind);
+                        Tap(p,NavigationSkin.Segment(r.Categories,index,4));Run(app,p,.1f);
+                    }
+                    foreach(var kind in new[]{CosmeticKind.Hat,CosmeticKind.Glasses,CosmeticKind.Scarf,CosmeticKind.Clothes})
+                    {
+                        app.Meta.Wardrobe.UnequipAll(scene.Item3);Category(kind);app.WardrobeBrowse.SetOffset(0,0);Run(app,p,.1f);
+                        using var before=SkiaSharp.SKBitmap.Decode(p.Png());
+                        int count=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,kind,scene.Item3).Count;
+                        foreach(string id in ids)
+                        {
+                            app.Meta.Wardrobe.Catalog.TryGet(id,out var item);if(item!.Kind==kind)continue;
+                            Category(item.Kind);
+                            var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,item.Kind,scene.Item3).ToList();
+                            int index=shelf.FindIndex(c=>c.Item?.Id==id);Expect(index>0,"fitted item exists");
+                            Box card=r.Cell(index);app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(shelf.Count));Run(app,p,.1f);
+                            Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                            Expect(app.Meta.Wardrobe.EquippedFor(scene.Item3,item.Kind)?.Id==id,"real shelf tap equips item");
+                        }
+                        Category(kind);app.WardrobeBrowse.SetOffset(0,0);Run(app,p,.1f);
+                        using var after=SkiaSharp.SKBitmap.Decode(p.Png());
+                        for(int i=0;i<Math.Min(3,count);i++)
+                        {
+                            Box picture=WardrobeShelfDesign.Picture(r.Cell(i)).Inset(2);
+                            for(int y=(int)picture.Top;y<(int)picture.Bottom;y+=2)
+                            for(int x=(int)picture.Left;x<(int)picture.Right;x+=2)
+                                Expect(before.GetPixel(x,y)==after.GetPixel(x,y),"shelf preview stays unchanged after equipping other categories: "+kind+" item "+i);
+                        }
+                        bool changed=false;
+                        for(int y=(int)r.Hero.Top;y<(int)r.Hero.Bottom&&!changed;y+=2)
+                        for(int x=(int)r.Hero.Left;x<(int)r.Hero.Right;x+=2)if(before.GetPixel(x,y)!=after.GetPixel(x,y)){changed=true;break;}
+                        Expect(changed,"main fitting hero shows the combined outfit");
+                    }
+                });
+            }
             yield return new Fixture(143,"sprig-v2-victory-outfit","New Sprig retains its complete outfit on victory",(p,data)=>
             {
                 var app=App(data);app.Meta.SkipTo(11);

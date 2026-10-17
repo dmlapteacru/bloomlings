@@ -57,6 +57,9 @@ namespace Bloomlings.Client.UI.Design
             return result;
         }
 
+        /// <summary>A shelf card always shows only its own item on the stock hero, independently of fitted equipment.</summary>
+        public static Outfit ShelfPreview(CosmeticKind kind, CosmeticItem? item) => Preview(Outfit.None, kind, item);
+
         public static Outfit Preview(Outfit outfit, CosmeticKind kind, CosmeticItem? item) => (item?.Kind ?? kind) switch
         {
             CosmeticKind.Skin => outfit with { Skin = item },
