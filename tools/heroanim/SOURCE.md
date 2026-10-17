@@ -1,5 +1,15 @@
 # Source record: the owner's animated heroes and layered Home (spec 005 FR-028)
 
+## Drop garment fitting study (2026-10-17)
+
+The owner delivered two segmented unrigged Tripo FBX / texture ZIPs to fit the generated overalls onto a common bald
+base. Original names and SHA-256 pins: `models/drop-clothing-study/source-manifest.json`. Only the donor garment
+is deformed by `fit-drop-overalls.py`; the base world vertices and UVs remain unchanged. A single garment FBX with
+embedded original albedo is roundtrip-verified in Blender. Actual-model renders and a full-character GLB are
+review products, outside game Resources. Sources, scripts and outputs are pinned in the study's `manifest.json`.
+This is an offline static fitting example, not a new in-game Drop, rig or animation delivery. No `.blend` master,
+APK or level content is created. The owner's Blender project remains authoritative.
+
 ## BloomHeroV2 modular preview (2026-10-17)
 
 The owner supplied `BloomHeroV2_Coat_part_1.zip` and `BloomHeroV2_HairPeach_part_2.zip`: common bald Bloom,

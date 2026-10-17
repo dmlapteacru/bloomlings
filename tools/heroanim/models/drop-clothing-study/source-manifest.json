@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "status": "offline-garment-fit-study",
+  "files": [
+    {
+      "key": "a",
+      "path": "source/Drop_Base_Source.zip",
+      "originalName": "cute+blue+character+3d+model (2).zip",
+      "sha256": "8345351c6da1e0c588f2f324382cf663d2e86a4dd6de5f6dd588f9a57aa72b6b"
+    },
+    {
+      "key": "b",
+      "path": "source/Drop_Overalls_Source.zip",
+      "originalName": "blue+cartoon+character+3d+model (3).zip",
+      "sha256": "645ecd9c21e8a9dbb67fd46d1bfe860fa3e7dd9af973f8faea08208a9bece5d0"
+    }
+  ],
+  "base": "a",
+  "donor": "b",
+  "garmentObject": "tripo_part_21"
+}

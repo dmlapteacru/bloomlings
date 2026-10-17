@@ -1,0 +1,230 @@
+{
+  "renderer": "Three.js, source FBX geometry exported as GLB, Chromium SwiftShader",
+  "scriptSha256": "06d1c11a3b9acd6103593905acce171b108ccea8fb57141eb924af9bc82f4c04",
+  "frames": [
+    {
+      "file": "a-90.png",
+      "sha256": "1457a3d2e8d95120dea805c16ebfcc345b80c12bf9d93b237f09797f05f28c0f",
+      "bounds": [
+        147,
+        121,
+        703,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "a-125.png",
+      "sha256": "eda3fd982d0fc7f842f2c3775c3fe0e5ac0fef08bc0250d5987c0112626b2c26",
+      "bounds": [
+        149,
+        121,
+        685,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "a-180.png",
+      "sha256": "54d57f929c35acd3573f0ace2fae1036b2e81ce344319a5e36e5971689539748",
+      "bounds": [
+        197,
+        121,
+        653,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "a-270.png",
+      "sha256": "d251abc90df2b52bc3b84ef1880f6c975bcc9d8e7fc41893da280bad2c242b63",
+      "bounds": [
+        147,
+        121,
+        703,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "unfitted-90.png",
+      "sha256": "b7c2be13a160b67b77ef5abc712c61995b77a149c413381ee215bd32db27be84",
+      "bounds": [
+        147,
+        121,
+        703,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "unfitted-125.png",
+      "sha256": "ba0adb0ed636c816833f717760dd8869c60590e8aa1e0a3e136cb25c8c48f16f",
+      "bounds": [
+        149,
+        121,
+        685,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "unfitted-180.png",
+      "sha256": "59bf65e9ba3b56ba8d24339f4f70919ed3c2eb790afdd7327e2bb44553bcef69",
+      "bounds": [
+        197,
+        121,
+        653,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "unfitted-270.png",
+      "sha256": "63720bc0c856d51c5b6c6427be4be8127e6b7ac0b5d85f8dc1222fe65b19283f",
+      "bounds": [
+        147,
+        121,
+        703,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "fitted-90.png",
+      "sha256": "ccdd67180f8023839b1b7bba8e777b0eb8f316fa8da74de0ea1af95a223e6174",
+      "bounds": [
+        147,
+        121,
+        703,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "fitted-125.png",
+      "sha256": "77151408004dd30e9472b05bd0f4661aa5f6c211087289c1b9c0ceef3021d586",
+      "bounds": [
+        149,
+        121,
+        685,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "fitted-180.png",
+      "sha256": "eab584ecde164bc8893aeff2ff470d507b76328dc0e330adc6ab78c5147a523d",
+      "bounds": [
+        197,
+        121,
+        653,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "fitted-270.png",
+      "sha256": "1ea32e5ffd5138bd25120d7a7e39a0907db55fd2b6c6e0518003ef70c0e27143",
+      "bounds": [
+        147,
+        121,
+        703,
+        879
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "garment-90.png",
+      "sha256": "d856da9ac2f7164e97f845059978d6ff8706520daead43f7b79d0c66e52db0c4",
+      "bounds": [
+        102,
+        285,
+        748,
+        715
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "garment-125.png",
+      "sha256": "35b85d2e5a346cd1799b5c021bc19e22f352627ddb33c0a69bb7ff150352c728",
+      "bounds": [
+        161,
+        285,
+        736,
+        715
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "garment-180.png",
+      "sha256": "39a5e94885e6d0f57de8c27a0e88c836a962a9737af9065caad2b6069e601589",
+      "bounds": [
+        201,
+        285,
+        649,
+        714
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    },
+    {
+      "file": "garment-270.png",
+      "sha256": "945e27cb2c219fe23da769b90b55b380587505c9183923f598099cda5bd281e0",
+      "bounds": [
+        102,
+        285,
+        748,
+        715
+      ],
+      "size": [
+        850,
+        1000
+      ]
+    }
+  ]
+}

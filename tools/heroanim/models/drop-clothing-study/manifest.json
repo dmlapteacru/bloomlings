@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "status": "offline-static-garment-fit-study",
+  "files": [
+    {
+      "path": "../../fit-drop-overalls.py",
+      "sha256": "3f17c4ea086833a383dbff574329e4b41aa42fb1b84e1fbced2de9660eceadcf"
+    },
+    {
+      "path": "../../review-drop-clothing.mjs",
+      "sha256": "06d1c11a3b9acd6103593905acce171b108ccea8fb57141eb924af9bc82f4c04"
+    },
+    {
+      "path": "products/Before_After.png",
+      "sha256": "01ec4f7929846dda6eb123dd9a01f62a957c0c38cd3d10bf9c82eb29d36d39fa"
+    },
+    {
+      "path": "products/Drop_Overalls_Fitted.fbx",
+      "sha256": "5bca3b5f81cc479c18d076789264254f23a71e230c043e159e0b6be602b4f7b2"
+    },
+    {
+      "path": "products/Fitted_Back.png",
+      "sha256": "1ea32e5ffd5138bd25120d7a7e39a0907db55fd2b6c6e0518003ef70c0e27143"
+    },
+    {
+      "path": "products/Fitted_ThreeQuarter.png",
+      "sha256": "77151408004dd30e9472b05bd0f4661aa5f6c211087289c1b9c0ceef3021d586"
+    },
+    {
+      "path": "products/Preview_FullCharacter.glb",
+      "sha256": "82cc8be8f71ef86c994e842ad4772725f7407ff3ec8f857a4d64e15abc3e615d"
+    },
+    {
+      "path": "products/fit-report.json",
+      "sha256": "47c8ba9109627f636202e8cc29b6ec85f735e11450984ea23f5c9a19c46d353d"
+    },
+    {
+      "path": "products/render-checks.json",
+      "sha256": "8f6888bc77267cbb3e61701371236ed28f93131a36f948def77be4654df0e561"
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "f72d25604e9468198aa19e4d2e1399330743a6e1e932ef26a13ab4651cc0b1ee"
+    },
+    {
+      "path": "source/Drop_Base_Source.zip",
+      "sha256": "8345351c6da1e0c588f2f324382cf663d2e86a4dd6de5f6dd588f9a57aa72b6b"
+    },
+    {
+      "path": "source/Drop_Overalls_Source.zip",
+      "sha256": "645ecd9c21e8a9dbb67fd46d1bfe860fa3e7dd9af973f8faea08208a9bece5d0"
+    }
+  ]
+}
