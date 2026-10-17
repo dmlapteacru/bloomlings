@@ -62,6 +62,11 @@
       "path": "set/clothes-garden-overalls.png",
       "sha256": "314f8d8d1b659fc81951ebe0f59175e54371c2d823f904dd8e7077c38e18b017",
       "note": "Offline modeling reference; fit wearable geometry onto the shared owner-maintained Bloom base."
+    },
+    {
+      "path": "set/head-rosebud.png",
+      "sha256": "bf32e292cfe53e3187420412d72d7c3a75765328a45b9e4b7e27fb29f0ec8442",
+      "note": "Fourth hairstyle: rosebud spiral of broad cupped coral petals, curled temple locks, one green leaf. Offline modeling reference."
     }
   ]
 }

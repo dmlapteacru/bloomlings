@@ -90,6 +90,13 @@
       "references": [
         "base-full-front.png"
       ]
+    },
+    {
+      "id": "head-rosebud",
+      "prompt": "Edit this approved bald Bloom modeling base to showcase ONE NEW UNUSUAL FLORAL HAIRSTYLE called ROSEBUD. HEAD ONLY portrait, front view, no body, same exact pale pink rounded skull and face, friendly brown eyes looking straight at camera, small thin curved closed smile, gentle brown eyebrows, same head proportions and eye placement. Add a compact botanical rosebud hairstyle: five or six LARGE BROAD SOFT ROUNDED coral and blush pink petals overlap as a low sculptural spiral cap hugging the crown and back of the head, curling inward toward a single small off-center rosebud whorl above forehead. The spiral must be legible from the FRONT with a few thick cupped petal rims; think adorable stylized partly closed rose wrapping the skull as hair, not a flower sitting on top like a hat. Asymmetric sweeping scalloped petal fringe above eyebrows, two short softly curled petal side locks tucked close to cheeks. One small sage-green leaf nestled near the side of the bud. Restrained low compact silhouette, no high topknot, no punk spikes, no long hair, no huge halo, no added little flowers or stamens, no bow, no accessories. Cute playful clean simple mobile-game 3D render, smooth satin toy material, no pores, no fuzz, no micro veins, no detailed fabric texture. Large readable shapes easy to generate as a fitted 3D Head part. Single head centered and complete with generous margin, warm white studio background, even bright soft light, no text.",
+      "references": [
+        "base-full-front.png"
+      ]
     }
   ]
 }
