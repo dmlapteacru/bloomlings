@@ -12,7 +12,7 @@ lens image can obscure the eyes. Selection keeps the stable `glasses.twig_round`
 the only editable master; no second `.blend` is maintained here.
 
 [ITEMS.md](ITEMS.md) lists all **12** fitted items and their stable game IDs: **7 Head, 1 Glasses, 3 Clothes, 1 Neck**.
-Head choices include hair, hair-with-hat and earmuffs-with-hair. The bald base is a default state. The Clothes choices
+Head choices include hair, hair-with-hat and earmuffs-with-hair. The acorn hat is the stock in-game appearance; the bald mesh is only a modeling base. The Clothes choices
 are Winter Jacket, Autumn Coat and Garden Overalls. All twelve are temporarily free in Shop → Cosmetics → Twig and
 in the Wardrobe accessories shelf, including before L40. Clothes, Head, Glasses and Neck save independently and
 follow Home / fitting stands / victory. Removing one slot preserves the others; Default clears the whole outfit.
@@ -42,7 +42,7 @@ remain. The new glasses frame is soft brown. Base face / body textures and sourc
 Rendering retains 75% painted albedo plus 25% soft white diffuse, original alpha, and alpha-safe 3× supersampling.
 The logical 448×504 cell and foot line remain constant; extra space above fits the tall holiday hat.
 
-35 RGBA8 cropped PNGs total **1,674,582 bytes** and cover **128** combinations:
+35 RGBA8 cropped PNGs total **1,674,582 bytes** and cover **128** saved combinations (112 distinct looks, since an empty Head slot and explicit Acorn Hat match):
 
 - 8 shared base / Head states;
 - 3 depth-masked garments;
@@ -63,3 +63,5 @@ references, including the bald base. The old Twig runtime libraries are retired 
 Old Acorn / Panama IDs remain valid; the old Daisy Cap resolves to Panama. Existing saves retain progress, currency,
 profile cosmetics and outfit choices. Clothes is appended to enum values / save kinds without renumbering old ones.
 V2 avatars / medal and solo / group fallback images retain stable asset names. L2000's mosaic is deliberately unchanged.
+
+Stock-head rule: removing headwear, Default and a fresh profile always show the Acorn Hat. The empty saved Head slot means stock appearance, not a bald hero. Source bald geometry / references remain available for modeling.

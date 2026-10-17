@@ -145,8 +145,9 @@ namespace Bloomlings.Playtest.Preview
                     var app=Progressed(App(data),content,87);CloseAll(app);app.OpenStore();app.StoreTab=1;app.StoreFamily=scene.Item3;
                     p.DrawnSprites.Clear();Run(app,p,.15f);
                     string family=scene.Item3==0?"sprig":"twig";
-                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+(scene.Item3==3 ? "twigv2-base-none" : "simplehero-"+family)),"Shop draws the new family base");
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+(scene.Item3==3 ? "twigv2-base-pumpkinhat" : "simplehero-"+family)),"Shop draws the new family base");
                     Expect(!p.DrawnSprites.Any(n=>n.Contains("mod-icon-",StringComparison.Ordinal)),"unfitted old accessories are absent from Shop");
+                    if(scene.Item3==3)Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-none"),"default Twig is never bald in Shop");
                 });
             }
             foreach(var target in new[]{(109,"simple-heroes-home",false),(113,"simple-heroes-saved-outfit",true),(114,"simple-heroes-reloaded",true),(117,"simple-heroes-fresh-home",false)})
@@ -165,6 +166,7 @@ namespace Bloomlings.Playtest.Preview
                     foreach(Family family in CharacterArt.Families)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),0)!.Value.Name),"Home draws new "+family);
                     Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"sprigmod-",StringComparison.Ordinal)||n.StartsWith(PainterBase.HeroMotionPrefix+"twigmod-",StringComparison.Ordinal)),"previous fitted meshes cannot override the new models");
                     if(scene.Item3)Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==TwigV2Art.BucketId,"displaying the new base never erases saved gear");
+                    Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-none"),"Home never draws the modeling-only bald base");
                 });
             }
             foreach(var target in new[]{(110,"simple-sprig-wardrobe",Family.Sprig),(115,"simple-twig-wardrobe",Family.Twig),(118,"simple-bloom-wardrobe",Family.Bloom),(119,"simple-drop-wardrobe",Family.Drop)})
@@ -176,6 +178,7 @@ namespace Bloomlings.Playtest.Preview
                     p.DrawnSprites.Clear();Run(app,p,.5f);
                     Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(scene.Item3,app.Meta.Wardrobe.OutfitOf(scene.Item3),0)!.Value.Name),"Wardrobe draws the new base");
                     Expect(!WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,scene.Item3).Any(c=>c.Item?.MetaOnly==true&&!TwigV2Art.IsItem(c.Item.Id)),"unfitted previous 3D attachments are withheld from the shelf");
+                    if(scene.Item3==Family.Twig)Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-none"),"the wardrobe Default preview restores the stock hat");
                 });
             }
             foreach(var target in new[]{(111,"simple-sprig-win",12,Family.Sprig),(116,"simple-twig-win",13,Family.Twig)})

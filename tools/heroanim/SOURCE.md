@@ -416,3 +416,17 @@ The source / geometry report proves headwear lies above clothes and scarf, and g
 35 RGBA sprites, 1,674,582 bytes, to cover 128 combinations with four on-demand layers, including garment-aware scarf
 occlusion. Default resets all worn items; individual removal leaves other slots intact. Save kinds and enum values
 are extended at the end. Exact inventory: `models/twig-v2/ITEMS.md`. No APK build; L2000 mosaic remains unchanged.
+
+## Stock Twig head and Sprig modeling baseline — 2026-10-17
+
+The owner clarified that the Acorn Hat is Twig's permanent default in game. An empty / removed / reset Head slot now
+resolves to the Acorn Hat and its matching glasses mask; it never selects the bald image. Save entries remain empty
+for stock appearance, preserving the existing customization / reset semantics. Home fitting now measures the stock
+hat rather than the bald crop while preserving the approved body scale. Bald source geometry / references remain
+for offline modeling. Seven head looks give 112 distinct outfits; 128 serialized combinations still include both
+implicit stock and explicit Acorn Hat.
+
+The requested bald Sprig modeling reference is preserved in `references/sprig-v2/` alongside his approved default
+leafy reference, with hashes. OpenAI image generation removed only the leaf hairstyle while retaining the green
+palette, face and compact body. This is an offline Tripo / Meshy reference, not a replacement for the current in-game
+Sprig model. The owner will supply the new base / modular parts from their Blender master.

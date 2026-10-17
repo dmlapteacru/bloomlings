@@ -1,7 +1,8 @@
 # TwigHeroV2 — installed items
 
-Twelve fitted items. Hairstyles, hats, hair-with-hat and earmuffs-with-hair share one exclusive Head slot. The bald
-base is a default state, not an item. Clothes, glasses and neckwear are independent. All twelve remain free for testing.
+Twelve fitted definitions: the permanent stock Acorn Hat and eleven optional items. Hairstyles, hats, hair-with-hat
+and earmuffs-with-hair share one exclusive Head slot. An empty Head slot restores the Acorn Hat; the bald base is
+only for modeling. Clothes, glasses and neckwear are independent. The eleven optional items remain free for testing.
 
 | Slot | Count | Delivered items |
 | --- | ---: | --- |
@@ -10,7 +11,7 @@ base is a default state, not an item. Clothes, glasses and neckwear are independ
 | Clothes | 3 | Winter Jacket (green, cream trim); Autumn Coat (orange-brown, leaf pockets); Garden Overalls (cream, green shirt) |
 | Neck | 1 | Golden Scarf |
 | Backpack / other | 0 | None fitted to the current Twig base |
-| **Total** | **12** | 128 combinations including empty slots |
+| **Total** | **12** | 112 distinct looks; 128 saved combinations including explicit / implicit stock hat |
 
 | Delivered FBX suffix | Stable game ID |
 | --- | --- |
@@ -36,8 +37,10 @@ The new glasses are a single frame mesh, without lens planes or a lens texture. 
 daisy, texture detail and shading. The material recipe is applied during the offline bake, leaving source files,
 geometry, UVs, alignment and the base face / body textures untouched.
 
-35 cropped RGBA sprites (1,674,582 bytes) cover all 128 outfits without duplicating full outfits: eight bases,
+35 cropped RGBA sprites (1,674,582 bytes) cover all stored combinations without duplicating full outfits: eight bases,
 three garments, four garment-aware scarf masks, eight head-aware glasses and twelve Shop icons. The build report
 proves vertical separation allowing garment masks to be reused across headwear. Only four selected sprite layers
 load at a time. Default clears all worn accessories, while removing one slot preserves the rest. Meta-only clothing
 stays out of core puzzle workers. The L2000 mosaic remains unchanged.
+
+An empty / removed Head slot and Default always draw the stock Acorn Hat, including its matching glasses mask. Saved slots may remain empty without making Twig bald.

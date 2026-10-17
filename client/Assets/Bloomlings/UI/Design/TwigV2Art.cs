@@ -35,7 +35,9 @@ namespace Bloomlings.Client.UI.Design
         public static bool IsItem(string? id) => IsHead(id) || IsClothes(id) || id == GlassesId || id == ScarfId;
         public static HeroFrame? Layer(Outfit? outfit, int index)
         {
+            // No saved headwear means the stock acorn hat. The bald mesh is for offline modeling only.
             int head = HeadIndex(outfit?.Hat?.Id), clothes = ClothesIndex(outfit?.Clothes?.Id);
+            if (head == 0) head = 1;
             // Bake order: eight bases, three garments, four garment-aware scarves, eight head-aware glasses, 12 icons.
             return index switch
             {

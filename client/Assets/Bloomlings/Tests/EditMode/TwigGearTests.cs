@@ -17,6 +17,31 @@ namespace Bloomlings.Client.Tests
         private static CosmeticCatalog Catalog => CosmeticCatalog.Parse(File.ReadAllText(Path.Combine(Application.dataPath,"Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json")));
 
         [Test]
+        public void StockTwig_AlwaysWearsAcornHat_WhenFreshRemovedOrReset()
+        {
+            var save = PlayerSave.CreateNew("stock-twig", DateTime.UtcNow);
+            var wardrobe = new WardrobeService(save, Catalog, new BundledRemoteConfigService(), () => {});
+            Assert.That(wardrobe.OutfitOf(Family.Twig).IsEmpty, Is.True, "stock appearance needs no custom equipment entry");
+            Assert.That(HeroGearArt.Layer(Family.Twig, wardrobe.OutfitOf(Family.Twig), 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
+            Assert.That(SimpleHeroArt.Frame(Family.Twig).Name, Is.EqualTo("twigv2-base-pumpkinhat"));
+            Assert.That(HeroMotion.FrameName(Family.Twig, MotionClip.Idle, 0), Is.EqualTo("twigv2-base-pumpkinhat"));
+            wardrobe.Equip(Family.Twig, TwigV2Art.BucketId);
+            wardrobe.Equip(Family.Twig, TwigV2Art.GlassesId);
+            wardrobe.Equip(Family.Twig, TwigV2Art.CoatId);
+            wardrobe.Unequip(Family.Twig, CosmeticKind.Hat);
+            var shown = HeroGearArt.DisplayOutfit(wardrobe.OutfitOf(Family.Twig));
+            Assert.That(HeroGearArt.Layer(Family.Twig, shown, 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
+            Assert.That(HeroGearArt.Layer(Family.Twig, shown, 3)!.Value.Name, Is.EqualTo("twigv2-glasses-pumpkinhat"), "eyewear uses the stock hat's matching mask");
+            Assert.That(shown!.Clothes?.Id, Is.EqualTo(TwigV2Art.CoatId));
+            var reset = WardrobeShelfCatalog.Preview(shown, CosmeticKind.Hat, null);
+            Assert.That(reset.IsEmpty, Is.True);
+            Assert.That(HeroGearArt.Layer(Family.Twig, reset, 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
+            wardrobe.UnequipAccessories(Family.Twig);
+            var loaded = new WardrobeService(SaveSerializer.Read(SaveSerializer.ToJObject(save)), Catalog, new BundledRemoteConfigService(), () => {});
+            Assert.That(HeroGearArt.Layer(Family.Twig, loaded.OutfitOf(Family.Twig), 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
+        }
+
+        [Test]
         public void LegacyFlowerCap_ResolvesToPanamaWithoutLosingProgressOrChargingPetals()
         {
             var save = PlayerSave.CreateNew("legacy", DateTime.UtcNow);
@@ -35,7 +60,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(economy.Petals, Is.EqualTo(petals));
             loaded.UnequipAccessories(Family.Twig);
             Assert.That(loaded.OutfitOf(Family.Twig).IsEmpty, Is.True);
-            Assert.That(HeroGearArt.Layer(Family.Twig, loaded.OutfitOf(Family.Twig), 0)!.Value.Name, Is.EqualTo("twigv2-base-none"));
+            Assert.That(HeroGearArt.Layer(Family.Twig, loaded.OutfitOf(Family.Twig), 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
         }
 
         [TestCase(TwigV2Art.AcornId, "twigv2-base-pumpkinhat")]
@@ -61,7 +86,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(shown.ForGameplay.IsEmpty, Is.True);
             Assert.That(economy.Petals, Is.EqualTo(petals));
             loaded.Unequip(Family.Twig, CosmeticKind.Hat);
-            Assert.That(HeroGearArt.Layer(Family.Twig, loaded.OutfitOf(Family.Twig), 0)!.Value.Name, Is.EqualTo("twigv2-base-none"));
+            Assert.That(HeroGearArt.Layer(Family.Twig, loaded.OutfitOf(Family.Twig), 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
         }
 
         [Test]

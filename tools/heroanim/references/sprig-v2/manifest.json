@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "status": "modular-modeling-reference",
+  "source": "OpenAI image generation from the approved Sprig reference, 2026-10-17",
+  "files": [
+    {
+      "path": "base-full-front.png",
+      "sha256": "1c21feaf69a134ed061c72b7b45a4a82cbdc9c11b4ccf27c5ac9b2a1fded04bd"
+    },
+    {
+      "path": "with-default-leaves-front.png",
+      "sha256": "7aefd0ba5420bd8bbc997240b274eb7162ad84e99000aae0d5edf795001034fd"
+    }
+  ]
+}

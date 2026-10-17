@@ -118,7 +118,7 @@ namespace Bloomlings.Client.UI.Design
             Family.Bloom => (0.5f, 0.505f, 0.40f),
             Family.Drop => (0.735f, 0.532f, 0.36f),
             Family.Sprig => (0.235f, 0.56f, 0.40f),
-            _ => (0.84f, 0.568f, 0.31f),
+            _ => (0.84f, 0.568f, 0.352f),
         };
 
         /// <summary>How far into its idle loop a hero starts (seconds), so the four do not breathe together.</summary>
@@ -168,8 +168,8 @@ namespace Bloomlings.Client.UI.Design
         public static Box HeroCell(Box picture, Family family)
         {
             (float x, float feet, float height) = Placement(family);
-            // Preserve the owner-approved V2 stand scale; a shorter bald crop must not enlarge the whole outfit.
-            float fill = family == Family.Twig ? 0.773f : HeroMotion.Has(family) ? HeroMotion.Fill(family) : 0.8f;
+            // Twig placement includes the stock acorn hat; its body keeps the approved stand scale.
+            float fill = HeroMotion.Has(family) ? HeroMotion.Fill(family) : 0.8f;
             float cellHeight = height * HeroScale * picture.Width / Math.Max(0.05f, fill);
             float cellWidth = cellHeight * HeroMotion.CellWidth / HeroMotion.CellHeight;
             float fx = picture.Left + (x * picture.Width);
