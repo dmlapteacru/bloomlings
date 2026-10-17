@@ -1,6 +1,6 @@
 """Publish current Twig profile/fallback art. Sources remain outside runtime; item IDs are stable.
 
-Run the V2 and simple-hero bakes first, plus bake-twig-blank.mjs for the optional blank twin.
+Run the current V2 bakes first, plus bake-twig-blank.mjs for the matching blank twin.
 Does not touch level sources, catalog, or L2000 mosaic.
 """
 from pathlib import Path

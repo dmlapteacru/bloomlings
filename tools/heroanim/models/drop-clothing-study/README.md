@@ -1,3 +1,7 @@
+# Current Drop base and fitted overalls inputs
+
+These retained sources are required by the accepted Drop V2 rebuild: the base ZIP and fitted overalls FBX are pinned in `../drop-v2/source-manifest.json`. They are authoring dependencies of the CURRENT production hero, not an old in-game model or rollback library.
+
 # Drop overalls — offline fitting study
 
 The owner supplied two segmented, unrigged Tripo exports to test fitting generated clothing onto a common base.
@@ -41,5 +45,4 @@ remain (441 boundary edges, 442 non-manifold edges); the script does not claim a
 an animation-tested skin. Both source models are unrigged. Weight transfer and bending tests belong to the owner's
 rigged common base when available. No second maintained `.blend` is created.
 
-Nothing from this study is added to game Resources, Wardrobe, APKs or level content. The current in-game Drop is
-unchanged. The separate rounded bald base is still an authoring scaffold, not a selected stock gameplay appearance.
+No raw model or source archive from this study is added to Resources or APKs. Its base and garment are inputs to the accepted Drop V2 pipeline. Level content is unchanged. The separate rounded bald base is still an authoring scaffold, not a selected stock gameplay appearance.

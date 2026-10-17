@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "scriptSha256": "9079652db3a6d470d385f24b9940f22b78947830d8c4172af11d4f94ec2ffe02",
+  "outputs": [
+    {
+      "family": "sprig",
+      "modelSha256": "9c36774e061f1f4d9c6da1f26ea978125cb1519c9fd9ff2feefce4d03573f137",
+      "path": "tools/heroanim/references/current-identity/blanks/sprig.png",
+      "sha256": "04e5192aa23fc8925249a7a24a8a174f15770dd6bf9aeb524f51b914aa22b868"
+    },
+    {
+      "family": "bloom",
+      "modelSha256": "91daa65a44422a373dd4262997def831c90b96c8f62f8a81319d90cc46202d2c",
+      "path": "tools/heroanim/references/current-identity/blanks/bloom.png",
+      "sha256": "eef1db6c2bba11d0f2e8487304957ba613f026f4a61efad292916816fe4c3247"
+    },
+    {
+      "family": "drop",
+      "modelSha256": "48e0c9b1efb72e0fb79c01f6273a6ad69d1b800a65e5e1ed6096e7fe1dd38716",
+      "path": "tools/heroanim/references/current-identity/blanks/drop.png",
+      "sha256": "0aab369a05ac26e101ee8250467c6500663c3823014f2219535e40169c3da3e3"
+    }
+  ]
+}

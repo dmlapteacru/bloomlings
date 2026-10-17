@@ -57,12 +57,6 @@ namespace Bloomlings.Client.Tests
             Assert.That(HeroMotionImporter.FramesFolder, Is.EqualTo("Assets/Bloomlings/Art/Heroes/Resources/" + HeroMotion.Folder + "/"));
             var expected = new HashSet<string>(HeroMotion.AllFrames());
             Assert.That(expected, Has.Count.EqualTo(4), "all four families use their current modular base");
-            expected.UnionWith(new[]
-            {
-                "sprigmod-base", "sprigmod-cap", "sprigmod-glasses", "sprigmod-cap-glasses", "sprigmod-backpack",
-                "sprigmod-cap-backpack", "sprigmod-icon-hat", "sprigmod-icon-glasses", "sprigmod-icon-backpack",
-                "simplehero-sprig", "simplehero-bloom",
-            });
             expected.UnionWith(HomeHeroArt.AllFrames.Select(f => f.Name));
             expected.UnionWith(TwigV2Art.AllFrames.Select(f => f.Name));
             expected.UnionWith(SprigV2Art.AllFrames.Select(f => f.Name));

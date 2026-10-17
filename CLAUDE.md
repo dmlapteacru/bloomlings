@@ -109,13 +109,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Hard to the next level that is not a showcase, a practice or a milestone level, and `validate` refuses a Super Hard
   practice level. A Hard or Super Hard level has at most 3 Source stacks (FR-011 as amended on 2026-10-08,
   `BandGuidelines.Stacks`, `HardMaxStacks`); a Normal level keeps its band's 2–6.
-- `tools/heroanim` (Node 22, not in the solution; `tools/heroanim/README.md`) pre-renders the owner's animated FBX
-  heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
-  minutes; `--only <family>`), `node layers.mjs <folder>` (the owner's Home layers, into `tools/heroanim/backgrounds/`)
-  and `node backdrops.mjs` (spec 005 FR-049: the shown backgrounds, the owner's as delivered in `backgrounds/` blurred by
-  3 / 1080 of their width and 14% darker, Home's fountain layers darker only; a new background goes into `backgrounds/`
-  first). `node tools/heroanim/check.mjs` (no npm packages) must pass before committing hero frames, Home layers or
-  backgrounds.
+- `tools/heroanim` pre-renders the four permanently accepted modular V2 heroes (Sprig, Bloom, Drop, Twig) into 2D layers. See `tools/heroanim/README.md` for preparation and baking. `node tools/heroanim/bake.mjs` runs the current family bakes plus the gentle three-quarter Home views; `--only <family>` rebuilds one frontal family and Home. Old models, archived motion frames and the old Hero lab have been removed from the current tree. Keep the owner's Blender project as the only editable master. Current modeling references and source FBX/ZIPs remain outside Resources. `node tools/heroanim/check.mjs` must pass before committing hero art or backgrounds. Profile identity publication uses `pack-current-heroes.py`; stable avatar and cosmetic IDs retain saves / purchases. No APK or level generation is needed for art changes here.
 - `dotnet run --project tools/appicon` (not in the solution; `tools/appicon/README.md`) cuts the owner's app icon picture
   (`tools/appicon/source/app-icon.png`) into the Unity client's icon textures (`Art/Brand/AppIcon/`, set by
   `CiBuild.ApplyIcons`) and both playtest APKs' launcher mipmaps (`playtest/icon/`, adaptive, round and legacy).
@@ -228,9 +222,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   aligned accessories and rebuild: `tools/heroanim/models/twig-v2/README.md`. Modeling / texture references including
   the bald base: `tools/heroanim/references/twig-v2/README.md`. SprigHeroV2 is the new modular Sprig preview:
   `tools/heroanim/models/sprig-v2/README.md` (13 fitted items; stock HairLeafy, never bald in game; scarf garment fits).
-  BloomHeroV2 is the modular Bloom preview: `tools/heroanim/models/bloom-v2/README.md` (15 fitted items;
-  stock HairPetals, never bald; two interchangeable scarves, knitted scarf garment fits). Drop retains the simplified
-  Tripo model. Wardrobe uses Head / Face / Body / Accessories, with category-local
+  BloomHeroV2 is the accepted modular Bloom: `tools/heroanim/models/bloom-v2/README.md` (15 fitted items;
+  stock HairPetals, never bald; two interchangeable scarves, knitted scarf garment fits). DropHeroV2 is the accepted modular Drop; its final FBX handoff, fitted parts and source records are in `models/drop-v2/`. Wardrobe uses Head / Face / Body / Accessories, with category-local
   Default and independent saved slots. Shelf cards always preview only their own item on the stock hero; fitting changes
   only the main stand, never neighboring shelf previews. Cosmetics has been removed from Shop by owner request; equipment lives only in Wardrobe.
   Twig has 12 fitted items: seven Head choices, one Glasses, three Clothes, one Neck; `models/twig-v2/ITEMS.md` lists IDs.
@@ -239,8 +232,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   The latest source includes four additional FBXs alongside the original ZIP. Clothes saves independently; 35
   sprites cover 128 outfits. Warm brown eyewear / Panama materials: `tools/heroanim/twig-v2-look.json`.
   Meta screens use static 2D renders plus breathing; skeletal actions / action selection remain separate future work.
-  Old Twig motion and fitted resources / helpers are archived off runtime in `tools/heroanim/archive/twig/`.
-  Never publish old Twig from the legacy bake. Old item IDs resolve compatibly (flower cap → Panama). The three Twig
+  Old model meshes, motion libraries, prototype helpers and the old Hero lab are removed from the current tree.
+  The bake entry point publishes only the four accepted V2 families. Old item IDs resolve compatibly (flower cap → Panama). The three Twig
   avatar IDs, medal and solo / group fallback art use V2. L2000 mosaic is deliberately unchanged by owner request.
   The owner's Blender project remains the sole editable master; no second maintained `.blend`.
   Home layers and backgrounds remain recorded in `tools/heroanim/layers.json` / `backdrops.json`. Runtime remains

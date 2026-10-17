@@ -1,3 +1,4 @@
+using System;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Core.Variants;
 
@@ -33,7 +34,16 @@ namespace Bloomlings.Client.UI.Design
                 Clothes = TwigV2Art.IsClothes(outfit.Clothes?.Id) || SprigV2Art.IsClothes(outfit.Clothes?.Id) || BloomV2Art.IsClothes(outfit.Clothes?.Id) || DropV2Art.IsClothes(outfit.Clothes?.Id) ? outfit.Clothes : null,
             };
         }
-        public static HeroFrame? Icon(string id) => TwigV2Art.Icon(CosmeticCatalog.CanonicalId(id)) ?? SprigV2Art.Icon(id) ?? BloomV2Art.Icon(id) ?? DropV2Art.Icon(id) ?? SprigGearArt.Icon(id);
-        public static Box PoseCell(Box cell, HeroPose pose, Family family) => SprigGearArt.PoseCell(cell, pose, family);
+        public static HeroFrame? Icon(string id) => TwigV2Art.Icon(CosmeticCatalog.CanonicalId(id)) ?? SprigV2Art.Icon(id) ?? BloomV2Art.Icon(id) ?? DropV2Art.Icon(id);
+        /// <summary>A restrained common breath until the separate action feature is authored.</summary>
+        public static Box PoseCell(Box cell, HeroPose pose, Family family)
+        {
+            int count = Math.Max(1, HeroMotion.FrameCount(family, pose.Clip));
+            float wave = (float)Math.Sin(2 * Math.PI * pose.Index / count);
+            float sx = 1 + wave * .003f, sy = 1 + wave * .006f;
+            float foot = cell.Top + cell.Height * .9f;
+            return new Box(cell.CenterX - cell.Width * sx / 2, foot - (foot - cell.Top) * sy,
+                cell.CenterX + cell.Width * sx / 2, foot + (cell.Bottom - foot) * sy);
+        }
     }
 }

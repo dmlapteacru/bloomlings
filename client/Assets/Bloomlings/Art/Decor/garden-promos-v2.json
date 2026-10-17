@@ -17,11 +17,11 @@
   },
   {
     "file": "promo-noads-sprig.png",
-    "source": "exec-7616424b-ffb1-4d79-a9f3-e17f91acd1c8.png",
-    "sourceSHA256": "133a5c5c702150ebfbed4007eea8b3ab816dca11ae9ee58afd3c3ccfbe53ced0",
-    "sha256": "e45ab553a026dfab0ca05d89e0d83125ac7a427d213381500f345cabe2fc7bdb",
+    "source": "tools/heroanim/references/current-identity/props-atlas.png",
+    "sourceSHA256": "e285eea4e321e1baa37ae4896e14e945bf4cbe5a28aba0092e2b38c6a7b07bef",
+    "sha256": "2a1b38f729ab99b83ef2b3ee6264807eedbae65bd9acc35c022b9d6915e04175",
     "size": "512x512",
-    "bytes": 241620
+    "bytes": 193434
   },
   {
     "file": "promo-daily-book.png",
@@ -75,10 +75,11 @@
   },
   {
     "file": "promo-noads-sprig-push.png",
-    "source": "HEAD:client/Assets/Bloomlings/Art/Decor/Resources/Decor/promo-noads-sprig.png",
-    "sha256": "41e5b606d500009619767ce39bb0097d35cde14345a4cc956800b46b50c73c07",
-    "bytes": 212086,
+    "source": "tools/heroanim/references/current-identity/props-atlas.png",
+    "sha256": "718835eb3568eea03fb5886161922979a2f470d68d1a938a131bb290d48b0768",
+    "bytes": 191139,
     "revision": 3,
-    "sourceSHA256": "41e5b606d500009619767ce39bb0097d35cde14345a4cc956800b46b50c73c07"
+    "sourceSHA256": "e285eea4e321e1baa37ae4896e14e945bf4cbe5a28aba0092e2b38c6a7b07bef",
+    "size": "512x512"
   }
 ]

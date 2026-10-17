@@ -1,5 +1,10 @@
 {
   "version": 1,
-  "note": "Home only: real model yaw around the foot pivot, toward the central lotus. Wardrobe, icons and victory retain their frontal views. Positive yaw turns toward screen right.",
-  "yawDegrees": {"sprig": 70, "bloom": 15, "drop": -50, "twig": -65}
+  "note": "Home only: gentle three-quarter turns matching the former fountain composition, with both eyes visible; never a full side profile. Positive yaw turns toward screen right.",
+  "yawDegrees": {
+    "sprig": 30,
+    "bloom": 0,
+    "drop": -25,
+    "twig": -30
+  }
 }

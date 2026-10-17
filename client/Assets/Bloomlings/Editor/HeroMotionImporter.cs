@@ -5,14 +5,10 @@ using UnityEngine;
 namespace Bloomlings.Client.Editor
 {
     /// <summary>
-    /// Import settings for the owner's animated heroes and layered Home (spec 005 FR-028): the hero frames
-    /// <c>tools/heroanim</c> pre-renders into <c>Art/Heroes/Resources/HeroMotion/</c> (576 palette PNG files, loaded one
-    /// at a time by <c>HeroFrames</c>) and the Home layers in <c>Art/Backgrounds/Resources/Backgrounds/home-*.png</c> (the
-    /// fountain's back and front, the lotus, the shadow and the petals, loaded by <c>OwnerArt</c>). They are single
-    /// full-rect sprites drawn about their own size, so no mipmaps; alpha is transparency (no dark fringes on the cut-out
-    /// edges), edges clamp, sizes are kept as made and they keep no readable copy. They are compressed: the frames with the
-    /// normal quality (72 a family, four families on Home), the few large layers with the high one so their soft gradients
-    /// stay smooth. The five static Twig outfit pictures keep full RGBA without block compression.
+    /// Imports the accepted modular V2 outfit layers and Home views as full-rect RGBA sprites,
+    /// and the matching layered fountain pictures. Runtime contains flat pictures only; source
+    /// models and rigs stay outside Resources. Crops keep exact size, smooth alpha edges and
+    /// no mipmaps or readable texture copies. Current hero gradients remain uncompressed.
     /// </summary>
     public sealed class HeroMotionImporter : AssetPostprocessor
     {
@@ -53,7 +49,7 @@ namespace Bloomlings.Client.Editor
             importer.isReadable = false;
             // Current static pictures retain full-color gradients and eye detail without block artifacts.
             // The animated libraries keep their existing compression and memory budget.
-            importer.textureCompression = (assetPath.StartsWith(FramesFolder + "homehero-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "simplehero-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "twigv2-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "sprigv2-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "bloomv2-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "dropv2-", StringComparison.Ordinal))
+            importer.textureCompression = (assetPath.StartsWith(FramesFolder + "homehero-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "twigv2-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "sprigv2-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "bloomv2-", StringComparison.Ordinal) || assetPath.StartsWith(FramesFolder + "dropv2-", StringComparison.Ordinal))
                 ? TextureImporterCompression.Uncompressed
                 : assetPath.StartsWith(FramesFolder, StringComparison.Ordinal)
                 ? TextureImporterCompression.Compressed

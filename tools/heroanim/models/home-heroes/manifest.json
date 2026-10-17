@@ -2,45 +2,51 @@
   "version": 1,
   "description": "Actual game previews of the four V2 heroes facing the lotus; generated from their selected saved outfits.",
   "validation": {
-    "targetedClientTests": 29,
+    "targetedClientTests": 62,
     "previewFixtures": [
-      124,
-      143,
       155,
       156,
       157,
       158,
       160,
-      162
+      138,
+      149,
+      123,
+      40,
+      39,
+      100,
+      19,
+      32,
+      73
     ],
     "previewShape": "19.5x9",
-    "previewChecks": "OK",
-    "repeatBake": "Identical PNG hashes, crop rectangles, mappings and C# data after explicit crop-aware deduplication."
+    "ownerArtCheck": "57 pictures / 13 adopted owner pictures OK",
+    "permanentAdoption": true
   },
   "files": [
     {
       "path": "README.md",
-      "sha256": "727db8fc02fda6a6d57e638c47a7c5363d6b7f6fa0dcd8ec577555ab5ce98297"
+      "sha256": "81ac715ef9346e812c8959ff685bebeb7df111acfcfab8d1c5610bd6acb5104d"
     },
     {
       "path": "home-stock.jpg",
-      "sha256": "40c5add86ce90ea8cf16e48efefb102f2d39d63459c1d2d6285234279e44d26b"
+      "sha256": "4276541fb65d7d3f6fd449c4125708ee60230920564f646e54a62f275a180352"
     },
     {
       "path": "home-winter.jpg",
-      "sha256": "472693e276d1391bdba1f7a8c2c48c3ea316b2163cf2fa5dc14fb12a04553139"
+      "sha256": "66d2b67800bcbe92205515d81332405e67ac0e333af6fc8b38ddce65de989db2"
     },
     {
       "path": "home-summer.jpg",
-      "sha256": "925c65ac45fc32bb033a13fc177b8145c41fb927ed1bb189184b05ad4e6def38"
+      "sha256": "ac68e20419f35eec4ccf341cb7258516be9e8d787817bcc13738a08e341bfbee"
     },
     {
       "path": "../../home-heroes.json",
-      "sha256": "f713b479ed6dd59f14fdbcd6d27185c56da0b53209fcdefc9376e07e55107206"
+      "sha256": "c1ce0ec137b3b18396f67a73a34d5b6febc28b4f0bb56e3564d9f7c85fa3aef7"
     },
     {
       "path": "../../home-heroes-look.json",
-      "sha256": "9b1becc68d180321566ddda59c80ae4b19c28f13e19c964d1b9e228e5bcef4d9"
+      "sha256": "c67f145924fdfe16742d4892ba642ca99b7a42852fa08f06f71834209690e349"
     }
   ]
 }

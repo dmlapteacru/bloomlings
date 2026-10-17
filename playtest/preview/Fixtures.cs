@@ -157,7 +157,7 @@ namespace Bloomlings.Playtest.Preview
                     if(scene.Item3)
                     {
                         Expect(app.Meta.Wardrobe.Equip(Family.Twig,"hat.twig_flower_cap"),"legacy Twig selection is retained");
-                        foreach(string id in new[]{SprigGearArt.CapId,SprigGearArt.GlassesId,SprigGearArt.BackpackId})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"legacy Sprig selections are retained");
+                        foreach(string id in new[]{SprigV2Art.CapId,SprigV2Art.GlassesId,"backpack.sprig_leaf"})Expect(app.Meta.Wardrobe.Equip(Family.Sprig,id),"legacy Sprig selections are retained");
                         if(scene.Item1==114){app=App(data);CloseAll(app);}
                     }
                     app.GoHome();p.DrawnSprites.Clear();Run(app,p,.5f);
@@ -532,29 +532,6 @@ namespace Bloomlings.Playtest.Preview
                 bool rejected=false;try{broken.Resolve(2);}catch(ContentIntegrityException){rejected=true;}
                 Expect(rejected,"a missing in-range level is rejected instead of silently substituted");
                 app.Level.SkipGuide();CloseAll(app);Run(app,p,.4f);
-            });
-
-            yield return new Fixture(106,"hero-motion-lab","Four original Sprig motions in a reversible test bench",(p,data)=>
-            {
-                var app=App(data);app.GoHome();CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
-                string before=SaveSerializer.Write(app.Meta.Save);
-                Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("hero_lab.title")).Box);Run(app,p,.5f);
-                Expect(app.IsOpen(Overlay.HeroLab),"Settings opens the lab");
-                var r=ScreenLayout.Card(p.Width,p.Height,p.Insets,HeroLabScreen.Content);
-                for(int i=0;i<4;i++)
-                {
-                    Tap(p,HeroLabScreen.MotionButton(r.Body,p.Scale,i));Run(app,p,.9f);
-                    Expect(app.HeroLab.Motion==i,"the clicked motion is selected");
-                    var f=app.HeroLab.At(app.Now);
-                    Expect(p.HasSprite(PainterBase.HeroMotionPrefix+f.Name),"the selected frame is bundled");
-                }
-                Tap(p,p.Texts.First(t=>t.Text=="1×").Box);Run(app,p,.2f);
-                Expect(app.HeroLab.Slow,"slow playback is available");
-                Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("hero_lab.hat_off")).Box);Run(app,p,.2f);
-                Expect(app.HeroLab.Hat,"the attachment test can be toggled");
-                Expect(SaveSerializer.Write(app.Meta.Save)==before,"the lab never changes the profile or purchases");
-                Expect(app.Back()&&app.IsOpen(Overlay.Settings),"back returns to Settings");
-                app.OpenOverlay(Overlay.HeroLab);app.HeroLab.Select(1,app.Now);Run(app,p,1.6f);
             });
 
             foreach (var garden in new[] { (Frame:101, Level:250, Name:"fern"), (Frame:102, Level:300, Name:"willow"), (Frame:103, Level:350, Name:"pear"), (Frame:104, Level:400, Name:"citrus"), (Frame:105, Level:450, Name:"plum") })

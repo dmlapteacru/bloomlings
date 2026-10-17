@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "source": "OpenAI ImageGen based on accepted V2 game renders; offline GLB blank renders",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "39152078fee136e881d188333bc5baa4a30251036dea5b4cf7d6a6c0bc409e69"
+    },
+    {
+      "path": "avatar-atlas.png",
+      "sha256": "60341b2efca54184c1620c9e115c9c0db8bb5650747db199ab3402a8e932f082"
+    },
+    {
+      "path": "props-atlas.png",
+      "sha256": "e285eea4e321e1baa37ae4896e14e945bf4cbe5a28aba0092e2b38c6a7b07bef"
+    },
+    {
+      "path": "blanks/sprig.png",
+      "sha256": "04e5192aa23fc8925249a7a24a8a174f15770dd6bf9aeb524f51b914aa22b868"
+    },
+    {
+      "path": "blanks/bloom.png",
+      "sha256": "eef1db6c2bba11d0f2e8487304957ba613f026f4a61efad292916816fe4c3247"
+    },
+    {
+      "path": "blanks/drop.png",
+      "sha256": "0aab369a05ac26e101ee8250467c6500663c3823014f2219535e40169c3da3e3"
+    }
+  ]
+}

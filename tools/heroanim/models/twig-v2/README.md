@@ -60,7 +60,7 @@ Only PNGs enter app resources. ZIPs, FBXs, GLB derivatives and reference images 
 ## References and compatibility
 
 [../../references/twig-v2/README.md](../../references/twig-v2/README.md) indexes the preserved modeling / seasonal
-references, including the bald base. The old Twig runtime libraries are retired under `../../archive/twig/`.
+references, including the bald base. The old Twig runtime libraries and prototype models are removed from the current tree; earlier versions remain in Git history.
 Old Acorn / Panama IDs remain valid; the old Daisy Cap resolves to Panama. Existing saves retain progress, currency,
 profile cosmetics and outfit choices. Clothes is appended to enum values / save kinds without renumbering old ones.
 V2 avatars / medal and solo / group fallback images retain stable asset names. L2000's mosaic is deliberately unchanged.

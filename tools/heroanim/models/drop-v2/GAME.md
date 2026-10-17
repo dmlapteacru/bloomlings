@@ -1,4 +1,4 @@
-# Drop V2 in-game trial
+# Drop V2 — accepted production hero
 
 The game now uses the same fitted Drop as the FBX handoff. All four current heroes can be compared on Home and dressed in Wardrobe. Normal APK builds use committed PNGs and need no Blender / Tripo step.
 
@@ -7,7 +7,7 @@ The game now uses the same fitted Drop as the FBX handoff. All four current hero
 - The existing round glasses are reused. Opaque frame colors: Twig warm brown, Sprig leaf green, Bloom petal pink, Drop cream. There is no painted lens image.
 - Shared four-layer rendering preserves outfits across Home and Wardrobe; shelves preview only their own item on the stock hero.
 - 240 saved slot selections collapse to 216 distinct complete looks because Default and explicit NativeDrop show the same head.
-- 231 cropped RGBA8 PNGs, 4,599,103 bytes; previous Drop runtime pictures were 7,077,657 bytes. The previous 133 pictures remain under `tools/heroanim/archive/drop`, outside Resources, for comparison / rollback.
+- 231 cropped RGBA8 PNGs, 4,599,103 bytes; previous Drop runtime pictures were 7,077,657 bytes. The previous 133 pictures, legacy meshes and trial model sources are removed. The owner permanently accepted the complete V2 quartet.
 
 These are 2D game pictures with the established breathing / reaction presentation, like the other V2 heroes. The separate five skeletal actions remain in the FBX handoff; an action picker / outfit animation library is a later feature.
 

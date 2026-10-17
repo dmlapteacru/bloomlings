@@ -252,13 +252,13 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// Where a 3D hero's face is (between the eyes and the mouth), as a share of its solo picture: measured on the
         /// owner's heroes (spec 005 pictures.md A1 to A4; tools/artgen's check notes that an owner's hero is set by hand).
-        /// The current Twig V2 fallback faces straight ahead; legacy family face points remain unchanged.
+        /// All accepted V2 fallback portraits face straight ahead.
         /// </summary>
         public static (float X, float Y) FaceCenterHero(Family family) => family switch
         {
-            Family.Sprig => (0.6f, 0.55f),
-            Family.Bloom => (0.51f, 0.57f),
-            Family.Drop => (0.5f, 0.55f),
+            Family.Sprig => (0.5f, 0.42f),
+            Family.Bloom => (0.5f, 0.42f),
+            Family.Drop => (0.5f, 0.43f),
             _ => (0.5f, 0.44f),
         };
 
@@ -270,10 +270,10 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The families whose blank twin (<c>3d/{family}-blank</c>, no eyes and no mouth) is the owner's picture
-        /// (pictures.md A5). Twig V2 has an offline-rendered blank twin; the other families still use generated
-        /// placeholders (the art check keeps this list equal to the manifest).
+        /// (pictures.md A5). All four use an offline-rendered blank of their accepted V2 geometry
+        /// (the art check keeps this list equal to the manifest).
         /// </summary>
-        public static IReadOnlyList<Family> OwnerBlanks { get; } = new[] { Family.Twig };
+        public static IReadOnlyList<Family> OwnerBlanks { get; } = new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig };
 
         /// <summary>
         /// Whether a family's blank twin is the same character as its solo hero (both the owner's or both generated), so a
@@ -354,9 +354,9 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static (float X, float Y) HeadTopHero(Family family) => family switch
         {
-            Family.Sprig => (0.58f, 0.31f),
-            Family.Bloom => (0.51f, 0.31f),
-            Family.Drop => (0.5f, 0.27f),
+            Family.Sprig => (0.5f, 0.24f),
+            Family.Bloom => (0.5f, 0.26f),
+            Family.Drop => (0.5f, 0.23f),
             _ => (0.55f, 0.2f),
         };
 

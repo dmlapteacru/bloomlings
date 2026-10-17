@@ -30,7 +30,7 @@ namespace Bloomlings.Client.Meta.Profile
     }
 
     /// <summary>
-    /// The owner's avatar pictures (spec 005 FR-037, the owner's delivery of 2026-10-05): one free default per family,
+    /// The avatar catalog (spec 005 FR-037), with artwork of the four accepted V2 identities: one free default per family,
     /// then ten for Petals in three tiers, in the order the edit card lists them (free first, then by price). Avatars are
     /// pictures for the profile only (no gameplay effect, constitution V). Engine-free.
     /// </summary>

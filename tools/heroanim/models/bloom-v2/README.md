@@ -55,6 +55,5 @@ The orthographic bake uses 94% of Sprig's scale around the same foot line so Blo
 the logical hero cell. Every garment and head choice shares that camera; source geometry remains unchanged.
 Source ZIPs, FBXs, GLB, reference images and rigs stay outside application Resources and APKs.
 
-132 retired legacy Bloom motion PNGs (7,067,971 bytes) remain under `../../archive/bloom/`, outside runtime.
-The legacy baker cannot publish Bloom. Existing profile portraits and level mosaics remain unchanged.
+The owner permanently accepted Bloom V2. Previous Bloom meshes and archived motion PNGs are removed; Git history retains earlier versions. Profile portraits and medals now use the accepted identity, with stable IDs and purchases. Level mosaics are not regenerated.
 No APK or levels are generated here. Reference designs: `../../references/bloom-v2/`.

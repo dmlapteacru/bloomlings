@@ -35,27 +35,6 @@ for (const hero of manifest.heroes) {
     expect(fs.existsSync(file) && sha(file) === f.sha256, `${f.name}.png is missing or changed`);
   }
 }
-const gearFile=path.join(here,'sprig-gear.json');
-if(fs.existsSync(gearFile)){
-  const gear=JSON.parse(fs.readFileSync(gearFile));
-  expect(sha(path.join(here,gear.model))===gear.modelSha256,'Sprig gear source model changed');
-  expect(sha(path.join(repo,gear.data))===gear.dataSha256,'SprigGearData does not match bake');
-  for(const f of gear.outputs){listed.add(f.file);expect(fs.existsSync(path.join(framesDir,f.file))&&sha(path.join(framesDir,f.file))===f.sha256, f.file+' changed after gear bake');}
-}
-const simpleFile=path.join(here,'simple-heroes.json');
-if(fs.existsSync(simpleFile)){
- const simple=JSON.parse(fs.readFileSync(simpleFile));
- const referenceFolder=path.join(here,'references/simple-heroes');
- const references=JSON.parse(fs.readFileSync(path.join(referenceFolder,'manifest.json')));
- for(const f of references.files)expect(fs.existsSync(path.join(referenceFolder,f.path))&&sha(path.join(referenceFolder,f.path))===f.sha256,'Simplified hero reference '+f.path+' is missing or changed');
- for(const source of simple.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since simplified hero bake');
- expect(sha(path.join(repo,simple.data))===simple.dataSha256,'SimpleHeroData does not match bake');
- for(const f of simple.outputs){
-  listed.add(f.file);const file=path.join(framesDir,f.file);
-  expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed after simplified hero bake');
-  if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain full-color RGBA and declared crop size');}
- }
-}
 const v2File=path.join(here,'twig-v2.json');
 const sprigV2File=path.join(here,'sprig-v2.json');
 const bloomV2File=path.join(here,'bloom-v2.json');
@@ -119,11 +98,21 @@ for(const f of homeHeroes.outputs){
  expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since Home bake');
  if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its declared crop');}
 }
-// Current references, derived identity outputs and the offline retirement record are pinned independently.
-for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','archive/twig/manifest.json','archive/sprig/manifest.json','archive/bloom/manifest.json','archive/drop/manifest.json','models/drop-clothing-study/manifest.json','models/drop-v2/manifest.json','models/drop-v2/game-review.json','models/home-heroes/manifest.json']) {
+// Current accepted references, identity outputs and source proofs are pinned independently.
+for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','references/current-identity/manifest.json','models/drop-clothing-study/manifest.json','models/drop-v2/manifest.json','models/drop-v2/game-review.json','models/home-heroes/manifest.json']) {
  const recordPath=path.join(here,relative),record=JSON.parse(fs.readFileSync(recordPath));
  for(const f of record.files){const file=path.join(path.dirname(recordPath),f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,relative+': '+f.path+' changed');}
 }
+const currentIdentity=JSON.parse(fs.readFileSync(path.join(here,'current-identity.json')));
+for(const f of [...currentIdentity.sources,...currentIdentity.outputs])expect(fs.existsSync(path.join(repo,f.path))&&sha(path.join(repo,f.path))===f.sha256,'Accepted hero identity '+f.path+' changed');
+const blanks=JSON.parse(fs.readFileSync(path.join(here,'current-blanks.json')));
+expect(blanks.scriptSha256===sha(path.join(here,'bake-current-blanks.mjs')),'Current blank render recipe changed');
+for(const f of blanks.outputs){
+ const report=JSON.parse(fs.readFileSync(path.join(here,'models',f.family+'-v2',f.family==='drop'?'game-build.json':'build-report.json')));
+ expect(f.modelSha256===report.export.sha256&&sha(path.join(repo,f.path))===f.sha256,'Current blank '+f.family+' source changed');
+}
+for(const f of ['heroes.glb','sprig-lab.glb','sprig-outfit-study.glb','sprig-plant-study.glb'])expect(!fs.existsSync(path.join(here,'models',f)),'Retired model must not return: '+f);
+expect(!fs.readdirSync(framesDir).some(n=>/^(sprigmod-|simplehero-|(?:sprig|bloom|drop|twig)-(?:idle|react|win))/.test(n)),'Runtime can contain only accepted V2 and Home view sprites');
 const identity=JSON.parse(fs.readFileSync(path.join(here,'twig-identity.json')));
 for(const f of [...identity.sources,...identity.outputs]){const file=path.join(repo,f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,'Twig identity '+f.path+' changed');}
 expect(!manifest.heroes.some(h=>h.family==='twig'),'Legacy motion publisher must not include Twig');
@@ -133,12 +122,6 @@ expect(!manifest.heroes.some(h=>h.family==='bloom'),'Legacy motion publisher mus
 expect(!fs.readdirSync(framesDir).some(n=>/^bloom-(idle|react|win)/.test(n)),'Retired Bloom motion must stay outside runtime');
 expect(!fs.readdirSync(framesDir).some(n=>/^(twig-(idle|react|win)|twigmod-|twigfit-|simplehero-twig)/.test(n)),'Retired Twig resources must stay outside runtime');
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
-const tripoStudy=path.join(here,'models/twig-tripo/study-manifest.json');
-if(fs.existsSync(tripoStudy)){
-  const study=JSON.parse(fs.readFileSync(tripoStudy));
-  for(const entry of [...study.sources,...study.outputs])
-    expect(fs.existsSync(path.join(repo,entry.path))&&sha(path.join(repo,entry.path))===entry.sha256,`Twig Tripo study ${entry.path} is missing or changed`);
-}
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
 for(const f of homeHeroes.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(dropV2File))for(const f of JSON.parse(fs.readFileSync(dropV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
@@ -146,10 +129,6 @@ if(fs.existsSync(sprigV2File))for(const f of JSON.parse(fs.readFileSync(sprigV2F
 if(fs.existsSync(bloomV2File))for(const f of JSON.parse(fs.readFileSync(bloomV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(v2File))for(const f of JSON.parse(fs.readFileSync(v2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 expect(folderFiles.size === listed.size && [...listed].every(n => folderFiles.has(n)), 'HeroMotion/manifest.json does not list the baked frames');
-if(fs.existsSync(gearFile))for(const f of JSON.parse(fs.readFileSync(gearFile)).outputs)
-  expect(folderFiles.get(f.file)===f.sha256,`HeroMotion/manifest.json: ${f.file}`);
-if(fs.existsSync(simpleFile))for(const f of JSON.parse(fs.readFileSync(simpleFile)).outputs)
- expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for (const hero of manifest.heroes) for (const f of hero.frames) expect(folderFiles.get(f.name + '.png') === f.sha256, `HeroMotion/manifest.json: ${f.name}.png`);
 expect(folder.files.every(f => f.record && fs.existsSync(path.join(repo, f.record))), 'HeroMotion/manifest.json names a missing source record');
 for (const f of fs.readdirSync(framesDir)) {

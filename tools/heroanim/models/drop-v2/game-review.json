@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "purpose": "All four current heroes in game for owner acceptance; no APK / level generation",
+  "purpose": "Accepted permanent Drop V2 identity; prior trial proof retained for the same current geometry",
   "baseCommit": "db4b7da98e5e67f350ce9e059422bdd384537417",
   "runtimeDropPngBytes": 4599103,
   "previousRuntimeDropPngBytes": 7077657,
@@ -47,7 +47,7 @@
   "files": [
     {
       "path": "GAME.md",
-      "sha256": "6ba9dcde0a9830bff51f640ccc34adb06e447d1a1d6df6140f47413261f1cacf"
+      "sha256": "77553cd201027bb0d1b17c48814b5cfc1c43aa336d7050333f7e42eacdd4a807"
     },
     {
       "path": "game-build.json",
@@ -55,23 +55,23 @@
     },
     {
       "path": "game-preview/home-stock.jpg",
-      "sha256": "d482ff592fd7c55df1e46c27d013adf716491207590a7b5bc5b0d9458ce277cb"
+      "sha256": "4276541fb65d7d3f6fd449c4125708ee60230920564f646e54a62f275a180352"
     },
     {
       "path": "game-preview/home-summer.jpg",
-      "sha256": "21450e40188116afcd841dd54c22a4629c04841b994eb6b34a544c7865c6344a"
+      "sha256": "ac68e20419f35eec4ccf341cb7258516be9e8d787817bcc13738a08e341bfbee"
     },
     {
       "path": "game-preview/home-winter.jpg",
-      "sha256": "c3bc100aefce4a18f7d77f4b107deece611d6daefc30d7f2749db27a038779ae"
+      "sha256": "66d2b67800bcbe92205515d81332405e67ac0e333af6fc8b38ddce65de989db2"
     },
     {
       "path": "game-preview/wardrobe-body.jpg",
-      "sha256": "9056259c8ed9b111080573d744ff1a47e3573a40eada5a49ebf188511f7bec7e"
+      "sha256": "c6b7691a2e8a033f9d744c84db853c56a4b97856a9df9098603c4fc374f6c985"
     },
     {
       "path": "game-preview/wardrobe-head.jpg",
-      "sha256": "d542005b1ee3ba6625969f9b837e52ec0aeb4c655149ba161c3fbb13fc956c04"
+      "sha256": "33e7ce27323606fdc78f15e5674b5280cbd5092a3ae9df36aec8a8347c64f8f2"
     },
     {
       "path": "../../drop-v2.json",

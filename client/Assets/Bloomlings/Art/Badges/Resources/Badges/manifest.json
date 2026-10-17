@@ -213,7 +213,7 @@
       "path": "hero_bloom.png",
       "width": 256,
       "height": 256,
-      "sha256": "4fc0d4bbb2d5e18f4a648d95f2038e65a307c9230613ff6a261fab980a03fbe9",
+      "sha256": "e4246accb51336a64fb8bcfe6294aadb443b72477001d9c5b5c4a0d6f4455fed",
       "slot": "profile.achievement.hero_bloom",
       "source": "owner",
       "record": "tools/badges/SOURCE.md"
@@ -222,7 +222,7 @@
       "path": "hero_drop.png",
       "width": 256,
       "height": 256,
-      "sha256": "4abb31f89e5c53c55a39d358286bff29988866c985d4c1da8eb7b04738b898d1",
+      "sha256": "062bc273283e465bef31d35efbdc66eeb02234cfc6016e559ff93f4b1dd9cab1",
       "slot": "profile.achievement.hero_drop",
       "source": "owner",
       "record": "tools/badges/SOURCE.md"
@@ -231,7 +231,7 @@
       "path": "hero_sprig.png",
       "width": 256,
       "height": 256,
-      "sha256": "29113e5a79d46c5ee597da16cbf29123f326e5437c4acba0f9696bb3257910e4",
+      "sha256": "d0759140d7735225da35be1205f80e9d34ce1a26ded0d3cadd44b817a38ea967",
       "slot": "profile.achievement.hero_sprig",
       "source": "owner",
       "record": "tools/badges/SOURCE.md"

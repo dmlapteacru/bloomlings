@@ -1,0 +1,245 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "path": "tools/heroanim/pack-current-heroes.py",
+      "sha256": "4d4abef6b4ad8be761f39e4b68a95ecdeeb88734bc0e641d8655743b9477ab81"
+    },
+    {
+      "path": "tools/heroanim/twig-identity.json",
+      "sha256": "2614a98ecd25e456b7fdd4124f73b6d3dbc8ef232f13991862f5707afb3a81ae"
+    },
+    {
+      "path": "tools/heroanim/current-blanks.json",
+      "sha256": "5639780e4ed74f19765d3e907b379c907433ae6ab3f6e0cad7e95f0a475ffc55"
+    },
+    {
+      "path": "tools/heroanim/references/current-identity/avatar-atlas.png",
+      "sha256": "60341b2efca54184c1620c9e115c9c0db8bb5650747db199ab3402a8e932f082"
+    },
+    {
+      "path": "tools/heroanim/references/current-identity/props-atlas.png",
+      "sha256": "e285eea4e321e1baa37ae4896e14e945bf4cbe5a28aba0092e2b38c6a7b07bef"
+    },
+    {
+      "path": "tools/heroanim/sprig-v2.json",
+      "sha256": "5d4fc130f84e243f4ec24b4467302efbfb5350c928f47eb3b3025d908bed77a2"
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/sprigv2-base-hairleafy.png",
+      "sha256": "c3d0d7200685130ef49a09c6e03589bcc42b6ae3337423b3bf68b59a6eccfbc8"
+    },
+    {
+      "path": "tools/heroanim/references/current-identity/blanks/sprig.png",
+      "sha256": "04e5192aa23fc8925249a7a24a8a174f15770dd6bf9aeb524f51b914aa22b868"
+    },
+    {
+      "path": "tools/heroanim/bloom-v2.json",
+      "sha256": "1ff03cd253a7bb383385775915fe8ad1b0a1d5f69dd69e2da9708fe748381c42"
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/bloomv2-base-hairpetals.png",
+      "sha256": "a7e997b78e7356e04ee02c5f9f30eb5fddda54ff70313aa909733d2fab3d7efe"
+    },
+    {
+      "path": "tools/heroanim/references/current-identity/blanks/bloom.png",
+      "sha256": "eef1db6c2bba11d0f2e8487304957ba613f026f4a61efad292916816fe4c3247"
+    },
+    {
+      "path": "tools/heroanim/drop-v2.json",
+      "sha256": "5277e1ce56d094aa6d84e5bfd0d89ce182745e2150bee165187a5c846904658e"
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/dropv2-base-nativedrop.png",
+      "sha256": "ed48be7f85422ea0a62a54352dd9c8e1fcc71ae230567c9fc85dee93119a43a3"
+    },
+    {
+      "path": "tools/heroanim/references/current-identity/blanks/drop.png",
+      "sha256": "0aab369a05ac26e101ee8250467c6500663c3823014f2219535e40169c3da3e3"
+    },
+    {
+      "path": "tools/heroanim/references/twig-v2/identity/hero-medal.png",
+      "sha256": "5c27358a845da16310d50be8014bc55171aeb3fba6e74a8e0b7b139894eca4ad"
+    },
+    {
+      "path": "tools/pack_badges.py",
+      "sha256": "27209d8a6d7ec966e49c1a8a8d97e8350d358c1f6d854b6ca25f295795e2d431"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/sprig_default.jpg",
+      "sha256": "9b6bc8577fae8f0c93b90c72dda3adbf8409ee59bdc207b221ee681a77b072db",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/sprig_ladybug_watercolor.jpg",
+      "sha256": "029a1e372cf7b0e5628beddcbda6c8e59755c853f1907e9ac8538aef4e38e1a2",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/sprig_dewdrop_papercut.jpg",
+      "sha256": "6da16122a45ad6b3166d26a7cd3bbc6009e30e8e793812c8c06ceddd44ffa25b",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/sprig_flower_crown_3d.jpg",
+      "sha256": "b0d0a0cf9637f054fff64f7a6beab0999947e09c680bb7682a4ade9c745a3f5b",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/bloom_default.jpg",
+      "sha256": "85802727b525176bdc82324763292395c743fafa8ae0004ff957b71dd377ab6c",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/bloom_ribbon_plush.jpg",
+      "sha256": "ee35b49e857173c7d17f56aa6c6ee531487869a43a4098c234bdf89417750ec9",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/bloom_pearl_tiara_3d.jpg",
+      "sha256": "6f1901b2eab55dcc148a3e895b2677f6010e4e9419f63ceb37bc263f5b404615",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/bloom_jeweled_crown_magic.jpg",
+      "sha256": "98d0c3afbc92e205197eb205447fffdd82ccf626cbf3877c1d5baa98f5127150",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/drop_default.jpg",
+      "sha256": "3db9c05bde048bf234a2bb97689fc9f37b890b03b45895bf1855ef672df28d9c",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/drop_sailor_sticker.jpg",
+      "sha256": "2a4f9a45674db8cde03e45128b94324bcfd02d9c62f61aa21e86559acb26f063",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/drop_bubble_shell_3d.jpg",
+      "sha256": "b2f9648b4c9546b59d93a9185d123cfdf6a673b8981c00ddab8308d07c0d6527",
+      "width": 384,
+      "height": 384
+    },
+    {
+      "path": "output/badges-v1/achievements/hero_sprig.png",
+      "sha256": "010ce2305d81ad2196f7d2d15bbe7589f13fb6f55a3fb7ccfc31cafcfac2419c",
+      "width": 380,
+      "height": 407
+    },
+    {
+      "path": "output/badges-v1/achievements/hero_bloom.png",
+      "sha256": "f7eae8fcad0c4669eb59051d441890280110138d76b39494b712be516c28c6e5",
+      "width": 379,
+      "height": 404
+    },
+    {
+      "path": "output/badges-v1/achievements/hero_drop.png",
+      "sha256": "1357fec86fa7d80484a3644d26ced5b9494ce48377f0b50aad2ebf012900738e",
+      "width": 379,
+      "height": 408
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Decor/Resources/Decor/promo-noads-sprig.png",
+      "sha256": "2a1b38f729ab99b83ef2b3ee6264807eedbae65bd9acc35c022b9d6915e04175",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Decor/Resources/Decor/promo-noads-sprig-push.png",
+      "sha256": "718835eb3568eea03fb5886161922979a2f470d68d1a938a131bb290d48b0768",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/sprig.png",
+      "sha256": "554a97616d621cb511175b6b6476e598105995672f17927c0c00199bfcfa703b",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/sprig-cheer.png",
+      "sha256": "554a97616d621cb511175b6b6476e598105995672f17927c0c00199bfcfa703b",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/sprig-blank.png",
+      "sha256": "78ec69e7cf8a144e909df126b7cb85ea3e9f89b9c35c5c0af5f0b8bb0f0e1757",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/bloom.png",
+      "sha256": "8c0843339d30b3a344458c255e80e9c52e3fbe78caf121501328a496f777aa80",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/bloom-cheer.png",
+      "sha256": "8c0843339d30b3a344458c255e80e9c52e3fbe78caf121501328a496f777aa80",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/bloom-blank.png",
+      "sha256": "72438c5edcf7a49ea9afbd585d18d658bb5f39533f2c037eb17e8596ae6b1a9e",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/drop.png",
+      "sha256": "2d7fc6e964812b9d5c7aa12b4619d00ffb14e360e2664e3ec3929a563b3f685d",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/drop-cheer.png",
+      "sha256": "2d7fc6e964812b9d5c7aa12b4619d00ffb14e360e2664e3ec3929a563b3f685d",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/drop-blank.png",
+      "sha256": "11b25e542892defaae9b0780405ad5c4e23375a6b9da5de1465568eec947ebb6",
+      "width": 512,
+      "height": 576
+    },
+    {
+      "path": "output/badges-v1/achievements/hero_twig.png",
+      "sha256": "1672d37b4e44401efc14e45ae771dfb89d861ddc38c75e9a2515d56e802359f6",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Badges/Resources/Badges/hero_sprig.png",
+      "sha256": "d0759140d7735225da35be1205f80e9d34ce1a26ded0d3cadd44b817a38ea967",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Badges/Resources/Badges/hero_bloom.png",
+      "sha256": "e4246accb51336a64fb8bcfe6294aadb443b72477001d9c5b5c4a0d6f4455fed",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "path": "client/Assets/Bloomlings/Art/Badges/Resources/Badges/hero_drop.png",
+      "sha256": "062bc273283e465bef31d35efbdc66eeb02234cfc6016e559ff93f4b1dd9cab1",
+      "width": 256,
+      "height": 256
+    }
+  ]
+}

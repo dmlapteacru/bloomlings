@@ -49,5 +49,5 @@ scarf masks on Head + Body, and eyewear masks on Head + Body + scarf. The scarf'
 157 cropped RGBA8 PNGs (3,288,169 bytes) cover all 144 saved combinations / 128 distinct looks, including the
 modeling-only bald state. A selected outfit draws four small layers at most; no full-outfit atlas is loaded.
 Sources, reference PNGs, rig, ZIPs and the derived GLB stay outside application Resources and APKs.
-The 384 retired legacy motion PNGs are preserved under `../../archive/sprig/`, outside runtime.
-No APK or levels are generated here. Profile avatars and the milestone mosaic retain their existing identities.
+The owner permanently accepted Sprig V2. Previous meshes, trial sprites and archived motion PNGs are removed; earlier versions remain in Git history.
+No APK or levels are generated here. Profile avatar IDs retain their ownership and price; their art now depicts the accepted model. Level mosaics are not regenerated.

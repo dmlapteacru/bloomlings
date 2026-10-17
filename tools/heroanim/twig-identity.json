@@ -35,7 +35,7 @@
     },
     {
       "path": "tools/heroanim/pack-twig-identity.py",
-      "sha256": "9fd40907f48985a4736a1ac44a13520a09c304cbc0d9dab099ec6c5460e7dcc1"
+      "sha256": "b9c4ba82f3c202a771b291f382b7f8a5cd620874e7fdf1c1e63a80bfef803ec0"
     },
     {
       "path": "tools/heroanim/bake-twig-blank.mjs",

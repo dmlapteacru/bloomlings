@@ -24,3 +24,13 @@ the current files). PNG32 production derivatives 512×512. Existing original Spr
 from repository HEAD as `promo-noads-sprig-push.png`; its owner provenance remains
 `tools/artgen/models/owner-pictures.md`. `promo-daily-imprint.png` is a byte-for-byte copy of the existing owned
 `Icons/currency-lotus.png`; runtime scale flattens it onto the page. No generated animation frames.
+
+## Permanent hero adoption — 2026-10-17
+
+`promo-noads-sprig.png` and `promo-noads-sprig-push.png` now depict the accepted compact
+Sprig V2, with the same body / leaf hairstyle / pale belly as the game. Their authored wave
+and push poses come from `tools/heroanim/references/current-identity/props-atlas.png`, made
+with OpenAI ImageGen against the actual production model render. The old spiky-leaf Sprig
+pictures are replaced, not retained. Atlas extraction, alpha-safe resampling and hashes are
+recorded by `tools/heroanim/pack-current-heroes.py` and `current-identity.json`. Existing
+No Ads scene timing, sign movement and interactive action remain shared in `HomePromo`.
