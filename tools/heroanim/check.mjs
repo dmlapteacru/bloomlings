@@ -47,7 +47,15 @@ if(fs.existsSync(twigFile)){
   const twig=JSON.parse(fs.readFileSync(twigFile));
   for(const source of twig.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,`${source.path} changed since Twig bake`);
   expect(sha(path.join(repo,twig.data))===twig.dataSha256,'TwigGearData does not match bake');
-  for(const f of twig.outputs){listed.add(f.file);expect(fs.existsSync(path.join(framesDir,f.file))&&sha(path.join(framesDir,f.file))===f.sha256,f.file+' changed after Twig bake');}
+  for(const f of twig.outputs){
+    const file=path.join(framesDir,f.file);listed.add(f.file);
+    expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed after Twig bake');
+    if(fs.existsSync(file)&&twig.version>=2){
+      const png=fs.readFileSync(file);
+      expect(png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' dimensions differ from Twig crop');
+      expect(png[24]===8&&png[25]===6,f.file+' must retain full RGBA8 color for the quality pass');
+    }
+  }
   const references=path.join(here,'references/twig');
   for(const f of JSON.parse(fs.readFileSync(path.join(references,'manifest.json'))).files)
     expect(fs.existsSync(path.join(references,f.path))&&sha(path.join(references,f.path))===f.sha256,`Twig reference ${f.path} is missing or changed`);

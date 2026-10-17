@@ -20,6 +20,11 @@ and an additional crown lift up to 0.075 between original heights 0.9 and 1.5. I
 without changing the base head. This adjustment is applied only to the derived render copy, not the owner's FBX or
 Blender master. The recipe can be reproduced in that master. The cap's geometry is retained.
 
-Neutral warm lighting and less directional contrast keep the face clear and avoid green/muddy underside shading.
+The quality pass uses neutral studio environment lighting, filtered render normals and separate roughness for skin,
+eyes and accessories. Wider front coverage avoids the previous hard cheek material boundary. Threefold supersampling
+is reduced in linear light with premultiplied alpha; five full-color RGBA PNGs replace the shared 256-color palette and
+dithering. The source paint image itself has not been repainted in this pass. It remains a provisional front projection.
 The bake retains the original runtime resolution and five-state/icon structure. Source, recipe and runtime hashes are
 recorded by `twig-gear.json` and checked by `node tools/heroanim/check.mjs`.
+
+Measured budget, actual model comparison and the final UV / texture workflow: `product/plans/hero-surface-quality.md`.

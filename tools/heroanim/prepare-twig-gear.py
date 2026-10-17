@@ -1,6 +1,6 @@
 """Derive a runtime render input from the owner's Twig exports; never a second Blender master.
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/prepare-twig-gear.py
-Projects the clean front paint onto a derived UV layer and applies the recorded acorn fit.
+Projects the clean front paint onto a derived UV layer, applies the recorded acorn fit and filters render normals.
 Original FBX files, body coordinates, topology, rest bones and weights are retained.
 """
 import hashlib
@@ -110,7 +110,7 @@ def paint(obj):
         mat = bpy.data.materials.new(obj.name+('_Eyes' if 'Eye' in old.name else '_Temporary'))
         mat.use_nodes = True
         bsdf = mat.node_tree.nodes.get('Principled BSDF')
-        bsdf.inputs['Roughness'].default_value = .22 if 'Eye' in old.name else .78
+        bsdf.inputs['Roughness'].default_value = SETTINGS['materials']['eyes' if 'Eye' in old.name else 'accessories' if obj.name != 'TwigHero' else 'skin']
         node = mat.node_tree.nodes.new('ShaderNodeVertexColor'); node.layer_name = attr.name
         mat.node_tree.links.new(node.outputs['Color'], bsdf.inputs['Base Color'])
         obj.data.materials[i] = mat
@@ -134,6 +134,29 @@ def fit_acorn(obj):
         vertex.co = inverse@p
 
 
+def polish_normals(obj):
+    """Filter scanned surface noise in render normals only; retain vertices, weights and silhouette."""
+    recipe = SETTINGS['surface']
+    mesh = obj.data
+    # Imported custom split normals retain the generator's tiny dents. Start from smooth vertex normals.
+    normals = np.array([tuple(v.normal) for v in mesh.vertices], dtype=np.float64)
+    edges = np.array([tuple(e.vertices) for e in mesh.edges], dtype=np.int32)
+    a, b = edges[:, 0], edges[:, 1]
+    for _ in range(recipe['normalPasses']):
+        # Do not blend across a sharp feature or between disconnected surfaces (eyes / cap flower).
+        allowed = (normals[a]*normals[b]).sum(axis=1) > recipe['featureCosine']
+        left, right = a[allowed], b[allowed]
+        summed = normals.copy(); count = np.ones(len(normals))
+        np.add.at(summed, left, normals[right]); np.add.at(summed, right, normals[left])
+        np.add.at(count, left, 1); np.add.at(count, right, 1)
+        filtered = summed/count[:, None]
+        normals = normals*(1-recipe['normalBlend'])+filtered*recipe['normalBlend']
+        normals /= np.maximum(np.linalg.norm(normals, axis=1)[:, None], 1e-10)
+    for polygon in mesh.polygons: polygon.use_smooth = True
+    mesh.normals_split_custom_set_from_vertices(normals.tolist())
+    return dict(**recipe, scope='Derived render normals only; no geometry, weights or silhouette edits')
+
+
 def project_front(obj):
     """A dedicated planar UV pass for the current frontal meta pose; rear surfaces keep their base materials."""
     recipe = SETTINGS['frontPaint']
@@ -155,7 +178,7 @@ def project_front(obj):
         mat = bpy.data.materials.new(old.name+'_FrontColor')
         mat.use_nodes = True
         bsdf = mat.node_tree.nodes.get('Principled BSDF')
-        bsdf.inputs['Roughness'].default_value = .38 if 'Eyes' in old.name else .84
+        bsdf.inputs['Roughness'].default_value = SETTINGS['materials']['eyes' if 'Eyes' in old.name else 'skin']
         tex = mat.node_tree.nodes.new('ShaderNodeTexImage'); tex.image = image; tex.extension = 'EXTEND'
         coords = mat.node_tree.nodes.new('ShaderNodeUVMap'); coords.uv_map = uv.name
         mat.node_tree.links.new(coords.outputs['UV'], tex.inputs['Vector'])
@@ -169,7 +192,7 @@ def project_front(obj):
         center = sum(points, Vector())/len(points)
         x,y = pixel(center)
         px,py = int(x),height-1-int(y)
-        facing = center.y < (-.18 if center.z > .5 else -.09)
+        facing = center.y < (.05 if center.z > .5 else -.09)
         if facing and 0 <= px < width and 0 <= py < height and pixels[py,px,3] > .5:
             poly.material_index = painted_slots[poly.material_index]; painted += 1
             # glTF exports COLOR_0 on all primitives: paint must not be multiplied by the old palette.
@@ -181,7 +204,7 @@ def project_front(obj):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    report = dict(version=2, inputs=[], skeletonChecks=[], meshes={}, sourceAnimations=[], derivedFits={}, frontPaint={},
+    report = dict(version=3, inputs=[], skeletonChecks=[], meshes={}, sourceAnimations=[], derivedFits={}, frontPaint={}, surface={},
                   materialRecipe=str(RECIPE.relative_to(ROOT)), materialRecipeSha256=sha(RECIPE),
                   originalSourceFilesChanged=False, hasSourceUVs=False)
     master = None
@@ -218,6 +241,7 @@ def main():
             if obj.name == 'TwigHero_AcornHat':
                 fit_acorn(obj)
                 report['derivedFits'][obj.name] = SETTINGS['acornFit']
+            report['surface'][obj.name] = polish_normals(obj)
             derived = signature(obj)
             assert derived['weights'] == sig['weights'] and derived['vertices'] == sig['vertices'] and derived['triangles'] == sig['triangles']
             if obj.name != 'TwigHero_AcornHat': assert derived['coordinates'] == sig['coordinates']

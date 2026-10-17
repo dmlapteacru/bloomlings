@@ -718,7 +718,8 @@ namespace Bloomlings.Playtest.Droid
             if (IsHeroFrame(name))
             {
                 PalettePicture? frame = HeroFrames.Get(name);
-                return frame == null ? null : (frame.Width, frame.Height);
+                if (frame != null) return (frame.Width, frame.Height);
+                if (!HeroFrames.Has(name)) return null;
             }
 
             Bitmap? bitmap = LoadSprite(name);

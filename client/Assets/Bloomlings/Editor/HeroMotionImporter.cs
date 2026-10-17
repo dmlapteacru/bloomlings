@@ -12,7 +12,7 @@ namespace Bloomlings.Client.Editor
     /// full-rect sprites drawn about their own size, so no mipmaps; alpha is transparency (no dark fringes on the cut-out
     /// edges), edges clamp, sizes are kept as made and they keep no readable copy. They are compressed: the frames with the
     /// normal quality (72 a family, four families on Home), the few large layers with the high one so their soft gradients
-    /// stay smooth.
+    /// stay smooth. The five static Twig outfit pictures keep full RGBA without block compression.
     /// </summary>
     public sealed class HeroMotionImporter : AssetPostprocessor
     {
@@ -51,7 +51,11 @@ namespace Bloomlings.Client.Editor
             importer.filterMode = FilterMode.Bilinear;
             importer.npotScale = TextureImporterNPOTScale.None;
             importer.isReadable = false;
-            importer.textureCompression = assetPath.StartsWith(FramesFolder, StringComparison.Ordinal)
+            // Only five static Twig pictures: retain full-color gradients and eye detail without block artifacts.
+            // The animated libraries keep their existing compression and memory budget.
+            importer.textureCompression = assetPath.StartsWith(FramesFolder + "twigmod-", StringComparison.Ordinal)
+                ? TextureImporterCompression.Uncompressed
+                : assetPath.StartsWith(FramesFolder, StringComparison.Ordinal)
                 ? TextureImporterCompression.Compressed
                 : TextureImporterCompression.CompressedHQ;
         }

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Core.Variants;
 using Bloomlings.Playtest.Design;
 using SkiaSharp;
@@ -33,9 +35,22 @@ namespace Bloomlings.Playtest.Preview
                     }
                 }
             }
+            var twig = new List<HeroFrame> { TwigGearArt.Frame(null) };
+            foreach (string id in new[] { TwigGearArt.AcornHatId, TwigGearArt.FlowerCapId })
+            {
+                var hat = new CosmeticItem(id, CosmeticKind.Hat, id, "", "#FFFFFF", false);
+                twig.Add(TwigGearArt.Frame(Outfit.None with { Hat = hat }));
+                twig.Add(TwigGearArt.Icon(id)!.Value);
+            }
+            foreach (HeroFrame frame in twig)
+            {
+                string name = Visuals.MotionFrame(frame);
+                string? problem = Check(assembly, name, frame, allowFullColor: true);
+                if (problem != null) yield return "Twig sprite " + name + ": " + problem;
+            }
         }
 
-        private static string? Check(System.Reflection.Assembly assembly, string name, HeroFrame frame)
+        private static string? Check(System.Reflection.Assembly assembly, string name, HeroFrame frame, bool allowFullColor = false)
         {
             byte[] png;
             using (Stream? stream = PlaytestFiles.Open(PainterBase.SpriteResource(name)))
@@ -53,6 +68,17 @@ namespace Bloomlings.Playtest.Preview
             PalettePicture? own = PalettePng.Decode(png);
             if (own == null)
             {
+                if (allowFullColor)
+                {
+                    // Same fallback as the painters: the APK packer must preserve every RGBA pixel and its alpha.
+                    using var image = SKBitmap.Decode(png, new SKImageInfo(frame.Width, frame.Height, SKColorType.Rgba8888, SKAlphaType.Unpremul));
+                    using Stream? original = assembly.GetManifestResourceStream(PainterBase.SpriteResource(name));
+                    using var masterImage = original != null ? SKBitmap.Decode(original, new SKImageInfo(frame.Width, frame.Height, SKColorType.Rgba8888, SKAlphaType.Unpremul)) : null;
+                    using var codec = SKCodec.Create(new SKMemoryStream(png));
+                    if (image == null || masterImage == null || codec == null) return "full-color PNG does not decode";
+                    if (codec.Info.Width != frame.Width || codec.Info.Height != frame.Height) return "full-color dimensions differ from the kit";
+                    return image.Bytes.AsSpan().SequenceEqual(masterImage.Bytes) ? null : "full-color pixels differ after packaging";
+                }
                 return "not an 8-bit palette PNG";
             }
 

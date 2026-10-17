@@ -29,9 +29,20 @@ namespace Bloomlings.Playtest.Droid
                         using Stream stream = files.Open(name) ?? throw new InvalidDataException("Missing asset");
                         if (folder == "heromotion")
                         {
-                            PalettePicture picture = PalettePng.Decode(stream) ?? throw new InvalidDataException("Palette decode failed");
-                            if (picture.Width <= 0 || picture.Height <= 0 || picture.Pixels.Length != picture.Width * picture.Height)
-                                throw new InvalidDataException("Invalid hero dimensions");
+                            PalettePicture? picture = PalettePng.Decode(stream);
+                            if (picture != null)
+                            {
+                                if (picture.Width <= 0 || picture.Height <= 0 || picture.Pixels.Length != picture.Width * picture.Height)
+                                    throw new InvalidDataException("Invalid hero dimensions");
+                            }
+                            else
+                            {
+                                // Static outfit sprites may keep full RGBA instead of the animated palette format.
+                                using Stream original = files.Open(name) ?? throw new InvalidDataException("Missing hero asset");
+                                using Bitmap bitmap = BitmapFactory.DecodeStream(original) ?? throw new InvalidDataException("Android hero bitmap decode failed");
+                                if (bitmap.Width <= 0 || bitmap.Height <= 0) throw new InvalidDataException("Invalid hero bitmap dimensions");
+                                bitmaps++;
+                            }
                             heroes++;
                         }
                         else

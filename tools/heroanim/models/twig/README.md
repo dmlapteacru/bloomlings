@@ -18,6 +18,10 @@ The cap geometry and all original FBX bytes remain unchanged. Imported objects i
 `TwigHero…`; original FBX internal names remain untouched. Recipe: `../../twig-materials.json`; texture notes:
 `../../textures/twig/README.md`.
 
+The quality pass also filters render normals without moving vertices, uses separate skin / eye / accessory roughness,
+and renders with soft studio lighting. Runtime output retains full RGBA colors with 3× supersampling before reduction.
+See `product/plans/hero-surface-quality.md` for the measured budget and remaining all-angle UV / surface work.
+
 The body and both accessories share the same 25-bone rest rig. The animation-only export has the same bone names
 and hierarchy but different rest axes; its four actions contain motion and need retargeting before being used on the
 mesh rig. This equipment pilot uses the owner's base rest pose and the runtime's subtle 2D breath. Original animations

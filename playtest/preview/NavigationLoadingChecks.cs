@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
+using Bloomlings.Core.Variants;
 using Bloomlings.Playtest.Design;
 
 namespace Bloomlings.Playtest.Preview
@@ -35,10 +36,12 @@ namespace Bloomlings.Playtest.Preview
                 probe.ReleaseAll = false;
                 var steps = new (string Name, Action Open)[]
                 {
+                    ("twig-home", () => { app.Meta.Wardrobe.Equip(Family.Twig, TwigGearArt.AcornHatId); app.GoHome(); }),
                     ("shop", () => app.Navigate(NavPlace.Shop)),
                     ("shop-packs-scroll", () => app.ShopScrollOffset = 900f),
                     ("cosmetics", () => { app.StoreTab = 1; app.ShopScrollOffset = 0; }),
-                    ("animations", () => { app.StoreTab = 2; app.ShopScrollOffset = 0; }),
+                    ("twig-cosmetics", () => app.StoreFamily = 3),
+                    ("animations", () => { app.StoreTab = 2; app.StoreFamily = 0; app.ShopScrollOffset = 0; }),
                     ("wardrobe", () => app.Navigate(NavPlace.Wardrobe)),
                     ("leaderboard", () => app.Navigate(NavPlace.Leaderboard)),
                     ("collection", () => app.Navigate(NavPlace.Collection)),
@@ -85,6 +88,18 @@ namespace Bloomlings.Playtest.Preview
             public bool HoldOnlyTransient;
             public int TransientMisses;
             private bool _transient;
+            private readonly Dictionary<string, bool> _synchronousHeroes = new(StringComparer.Ordinal);
+            private bool SynchronousHero(string name)
+            {
+                if (!PainterBase.IsHeroFrame(name)) return false;
+                if (!_synchronousHeroes.TryGetValue(name, out bool indexed))
+                {
+                    using Stream? stream = PlaytestFiles.Open(PainterBase.SpriteResource(name));
+                    indexed = stream != null && PalettePng.Decode(stream) != null;
+                    _synchronousHeroes[name] = indexed;
+                }
+                return indexed;
+            }
             public void Transient(Action draw)
             {
                 bool previous = _transient; _transient = true;
@@ -102,8 +117,8 @@ namespace Bloomlings.Playtest.Preview
                 if (sprite || picture)
                 {
                     string key = (sprite ? "sprite/" : "picture/") + (string)args![0]!;
-                    // Hero frames already have a separate synchronous indexed decoder on Android.
-                    bool exists = !sprite || !PainterBase.IsHeroFrame((string)args![0]!) && Painter.HasSprite((string)args[0]!);
+                    // Indexed clips decode synchronously; full-color outfit sprites use the staged bitmap loader.
+                    bool exists = !sprite || !SynchronousHero((string)args![0]!) && Painter.HasSprite((string)args[0]!);
                     if (exists)
                     {
                         if (ReleaseAll || HoldOnlyTransient && !_transient) Loaded.Add(key);

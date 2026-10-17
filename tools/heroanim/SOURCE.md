@@ -249,3 +249,15 @@ fit: width/depth ×1.035, lift 0.06 and extra crown height up to 0.075. The base
 files are retained; no second Blender master is created. Softer neutral warm light removes the muddy face shading.
 `models/twig/build-report.json` distinguishes original and derived signatures and records the fit/paint. Texture,
 recipe and output hashes remain checked by `check.mjs`. The five runtime PNG8 images now total 124,390 bytes.
+## Twig surface quality — 2026-10-17
+
+The owner requested smooth, vivid, sharp hero surfaces like the approved references. The Twig pilot keeps the source
+FBXs and front paint image intact. A reproducible render-normal filter reduces small sculpt noise without moving the
+mesh or changing its silhouette / weights; the previously recorded acorn fit remains. Separate roughness and neutral
+studio lighting add soft volume. The bake supersamples 3× and reduces linear-light premultiplied samples into the same
+delivery dimensions. Five full-color RGBA8 PNGs (479,663 bytes) replace palette / dither output (124,390 bytes).
+
+This pass is a real model render, not a substituted image-generation illustration. Source front paint remains
+provisional: final all-angle UV paint, removal of painted lighting and selective geometry cleanup are still needed
+before the later action-animation feature. Other heroes' animation libraries keep their existing format.
+Recipes, limits and budget: `product/plans/hero-surface-quality.md`; actual comparison: `output/twig-quality/`.

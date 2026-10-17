@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "inputs": [
     {
       "path": "tools/heroanim/models/twig/source/TwigHero.fbx",
@@ -150,13 +150,33 @@
     "texture": "tools/heroanim/textures/twig/front-color.png",
     "textureSha256": "7610315e158b2e2cc517b7a8d756ba3a1ebaf23694c8602f7f6a5da458476840",
     "uv": "TwigFrontColor",
-    "frontPolygons": 37162,
+    "frontPolygons": 42874,
     "coverage": "Current front pose; rear/hidden surfaces retain clean palette materials"
   },
+  "surface": {
+    "TwigHero": {
+      "normalPasses": 12,
+      "normalBlend": 0.65,
+      "featureCosine": 0.65,
+      "scope": "Derived render normals only; no geometry, weights or silhouette edits"
+    },
+    "TwigHero_AcornHat": {
+      "normalPasses": 12,
+      "normalBlend": 0.65,
+      "featureCosine": 0.65,
+      "scope": "Derived render normals only; no geometry, weights or silhouette edits"
+    },
+    "TwigHero_FlowerCap": {
+      "normalPasses": 12,
+      "normalBlend": 0.65,
+      "featureCosine": 0.65,
+      "scope": "Derived render normals only; no geometry, weights or silhouette edits"
+    }
+  },
   "materialRecipe": "tools/heroanim/twig-materials.json",
-  "materialRecipeSha256": "5574ea5e2be07a23a936c5b5de043783e26d40d26daea019d56c4c48b6e44c5a",
+  "materialRecipeSha256": "7fed1aae8a1abe10c00ad2100c1ca3be404da960cb23aecc014e31a7b78388b8",
   "originalSourceFilesChanged": false,
   "hasSourceUVs": false,
   "runtimePose": "Unchanged base rig rest pose; source animation axes require retargeting in later action feature",
-  "derivedGlbSha256": "052bb54b251857c8e8b16a08e4c376d82538a9ca65823ab3011c8c6d81d25787"
+  "derivedGlbSha256": "438cfd9f9674245d3161b7c70fd4464c83b7261d0cc75bc8d3c269641cc38fcf"
 }

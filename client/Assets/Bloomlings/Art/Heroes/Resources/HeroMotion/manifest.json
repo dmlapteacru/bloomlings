@@ -8185,8 +8185,8 @@
   {
    "path": "twigmod-base.png",
    "width": 306,
-   "height": 354,
-   "sha256": "c417574b7c683cd232a2a1cb08913beedf49e57d17b2ae17c9be906d17191859",
+   "height": 355,
+   "sha256": "3db23eec85026a4b7efc291daf48efa9e2c0b932b1737be9b08de696f2af8dac",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -8195,7 +8195,7 @@
    "path": "twigmod-acorn.png",
    "width": 342,
    "height": 447,
-   "sha256": "a535d82bc69b2fe0ab89d986295853a328a8ac3b818b98c3a0820e597feb7692",
+   "sha256": "359f3131fd0e3c8c0c65f7ac096dc1c6fe8ae1c791a9274c81aeb044b587894d",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -8203,17 +8203,17 @@
   {
    "path": "twigmod-cap.png",
    "width": 313,
-   "height": 419,
-   "sha256": "c959129f7a838b2ae62e26939da25d3926ceb4483d512322283ddef8ccce808b",
+   "height": 420,
+   "sha256": "cd6fe7e7f38ecf609057e90e62be7847a1a983e1e8696eb393b0ceb2ce2bbc2f",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
   },
   {
    "path": "twigmod-icon-acorn.png",
-   "width": 233,
-   "height": 167,
-   "sha256": "2e05939ca8f973daeac8fbc20d974db846f79c41c81a47227f36a20ce5bbc13b",
+   "width": 234,
+   "height": 168,
+   "sha256": "a9ee9f2198deede4278275359caed0ea65506e7bb089791034cc526fa30a8be9",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -8222,7 +8222,7 @@
    "path": "twigmod-icon-cap.png",
    "width": 243,
    "height": 148,
-   "sha256": "4f69950a73b78adde2a2ca86ca3e43242fef61090c7249d4f9ad3dcfd2651d6b",
+   "sha256": "8f2de747feedce162c5080b85115f8227072220a95103e3524847d06dd5b5959",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
