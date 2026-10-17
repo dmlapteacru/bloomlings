@@ -1,5 +1,10 @@
 {
   "version": 1,
-  "glasses": {},
-  "note": "Preserve delivered albedo; 75 percent albedo / 25 percent diffuse lighting matches the approved Twig / Sprig finish."
+  "glasses": {
+    "Glasses_Brown": {
+      "color": "#CE849E",
+      "opacity": 1
+    }
+  },
+  "note": "Existing in-game round glasses, unchanged owner-fitted mesh. Family-specific opaque frame color; open lenses stay clear. Approved 75 percent albedo / 25 percent diffuse shading."
 }

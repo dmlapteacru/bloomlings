@@ -1,5 +1,28 @@
 # Source record: the owner's animated heroes and layered Home (spec 005 FR-028)
 
+## Drop V2 game trial and family eyewear (2026-10-17)
+
+The owner asked to try all four current modular heroes together in the game before approving the complete model
+replacement. Drop now uses the verified `models/drop-v2/products/DropHeroV2_FBX.zip` handoff (the 13 owner ZIPs,
+common rounded base, prior fitted overalls and existing Twig round frame are pinned by the offline manifest).
+`prepare-drop-v2-game.py` imports its final FBXs, preserves UVs and geometry under one global front rotation,
+and strips rigs only from the derived game bake. `bake-drop-v2.mjs` produces 231 cropped RGBA8 sprites for all
+15 items / 216 distinct complete looks. NativeDrop replaces the entire rounded modeling head; every other Head
+uses the shared face. Bald Drop is never exposed. Both scarves preserve their three garment-fit morphs.
+
+All four families now use their modular base in Home / Wardrobe and shared hero rendering. Drop's 132 previous
+motion frames plus its old simplified still are retained under `archive/drop/` for comparison, outside mobile
+Resources. The source rig's five actions remain in the handoff for the separate skeletal-animation feature;
+the current game's existing 2D breathing / reaction presentation stays consistent with the other V2 heroes.
+No FBX, GLB, source ZIP or second Blender master enters the game.
+
+Eyewear reuses the same existing 8,480-vertex round frame, with its owner-fitted transform for each face. No new
+frame or lens texture is generated. `*-v2-look.json` sets opaque, open-lens frame colors: Twig #B7804E (warm brown),
+Sprig #718F4A (leaf green), Bloom #CE849E (petal pink), Drop #E3D9B7 (cream). Sprig / Bloom's `--glasses-only` refresh
+updates their eyewear layers and icons while retaining all unrelated pixels and matching masks. The 75% albedo /
+25% diffuse finish is shared. All new Drop items are free and family-scoped in Wardrobe only; save / reload and
+per-slot defaults retain the other chosen pieces. Shelf cards always show their own item on the stock family.
+
 ## Drop garment fitting study (2026-10-17)
 
 The owner delivered two segmented unrigged Tripo FBX / texture ZIPs to fit the generated overalls onto a common bald

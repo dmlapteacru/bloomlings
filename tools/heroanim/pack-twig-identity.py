@@ -31,7 +31,7 @@ save(blank,chars/'3d/twig-blank.png',optimize=True,compress_level=9)
 # Group fallback uses current production renders; consistent foot line and no duplicate hero masters.
 group=Image.new('RGBA',(1200,720));foot=round(720*.62)
 for i,family in enumerate(['sprig','bloom','drop','twig']):
-    file=MOTION/('twigv2-base-pumpkinhat.png' if family=='twig' else 'simplehero-'+family+'.png')
+    file=MOTION/{'sprig':'sprigv2-base-hairleafy.png','bloom':'bloomv2-base-hairpetals.png','drop':'dropv2-base-nativedrop.png','twig':'twigv2-base-pumpkinhat.png'}[family]
     image=Image.open(file).convert('RGBA');image=image.crop(image.getbbox());height=round(720*(.62-.15));width=round(image.width*height/image.height)
     image=image.resize((width,height),Image.Resampling.LANCZOS)
     group.alpha_composite(image,(round(150+300*i-width/2),foot-height))
@@ -47,7 +47,7 @@ with Image.open(badge) as image:
     OUT.append({'path':str(badge.relative_to(ROOT)),'sha256':hashlib.sha256(badge.read_bytes()).hexdigest(),'width':image.width,'height':image.height})
 # Record outputs and every image input, including the temporary blank render's derivation.
 inputs=[REF/p for p in ['avatar-default.png','avatar-glasses-scarf.png','avatar-autumn-wreath.png','hero-medal.png']]
-inputs += [MOTION/f for f in ['simplehero-sprig.png','simplehero-bloom.png','simplehero-drop.png','twigv2-base-pumpkinhat.png']]
+inputs += [MOTION/f for f in ['sprigv2-base-hairleafy.png','bloomv2-base-hairpetals.png','dropv2-base-nativedrop.png','twigv2-base-pumpkinhat.png']]
 inputs += [HERE/p for p in ['pack-twig-identity.py','bake-twig-blank.mjs','models/twig-v2/build-report.json']]
 inputs.append(ROOT/'tools/pack_badges.py')
 (HERE/'twig-identity.json').write_text(json.dumps({'version':1,'sources':[{'path':str(p.relative_to(ROOT)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in inputs],'outputs':OUT},indent=2)+'\n')

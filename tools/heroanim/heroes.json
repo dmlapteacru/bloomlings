@@ -26,35 +26,5 @@
   "idleBlend": 0.75,
   "reactIn": 0.25,
   "reactOut": 0.4,
-  "heroes": [
-    {
-      "family": "drop",
-      "file": "heroes.glb",
-      "mesh": "GLB_Drop_Model",
-      "idle": "GLB_Drop_Breathing",
-      "react": "GLB_Drop_Jump",
-      "breathe": {
-        "bone": "Head",
-        "scale": 0.025,
-        "lift": 0.6
-      },
-      "head": "Head",
-      "top": "Head",
-      "topOffset": [
-        0,
-        0.4,
-        0
-      ],
-      "ground": "model",
-      "idleSeconds": null,
-      "reactSeconds": null,
-      "yaw": 10,
-      "note": "the owner's Heroes.glb (2026-10-04): its Drop_Breathing barely moves, so the bake adds a 2.5% breath of the body; a jump; each at its own length",
-      "color": {
-        "gamma": 0.92,
-        "gain": 1.02,
-        "saturation": 3.2
-      }
-    }
-  ]
+  "heroes": []
 }

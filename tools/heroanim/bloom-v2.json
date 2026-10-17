@@ -19,11 +19,11 @@
     },
     {
       "path": "tools/heroanim/bake-bloom-v2.mjs",
-      "sha256": "a9afabc02baeac2d0d06b1f6cc068ff7626c881244e500c6caf28051907ce99c"
+      "sha256": "6c57d3420eab80f8101734bcc3adcf14eef452fdb6126db0606f063fbbe750a7"
     },
     {
       "path": "tools/heroanim/bloom-v2-look.json",
-      "sha256": "8c394f50f0fd45c946e78e9d4c8d958417ea8e338631133274211b83b720d33d"
+      "sha256": "716d77865f0a4d391322371f321c6e482f8ea2e36f5b73bdb38b55f2a38f6ff8"
     }
   ],
   "data": "client/Assets/Bloomlings/UI/Design/BloomV2Data.cs",
@@ -1645,8 +1645,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-none-scarfknit",
@@ -1658,8 +1658,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-none-scarfstripe",
@@ -1671,8 +1671,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-jacket-none",
@@ -1684,8 +1684,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-jacket-scarfknit",
@@ -1697,8 +1697,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-jacket-scarfstripe",
@@ -1710,8 +1710,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-coat-none",
@@ -1723,8 +1723,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-coat-scarfknit",
@@ -1736,8 +1736,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-coat-scarfstripe",
@@ -1749,8 +1749,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-overalls-none",
@@ -1762,8 +1762,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-overalls-scarfknit",
@@ -1775,8 +1775,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-none-overalls-scarfstripe",
@@ -1788,8 +1788,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-none-none",
@@ -1801,8 +1801,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-none-scarfknit",
@@ -1814,8 +1814,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-none-scarfstripe",
@@ -1827,8 +1827,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-jacket-none",
@@ -1840,8 +1840,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-jacket-scarfknit",
@@ -1853,8 +1853,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-jacket-scarfstripe",
@@ -1866,8 +1866,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-coat-none",
@@ -1879,8 +1879,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-coat-scarfknit",
@@ -1892,8 +1892,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-coat-scarfstripe",
@@ -1905,8 +1905,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-overalls-none",
@@ -1918,8 +1918,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-overalls-scarfknit",
@@ -1931,8 +1931,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpetals-overalls-scarfstripe",
@@ -1944,8 +1944,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairbob-none-none",
@@ -1957,8 +1957,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-none-scarfknit",
@@ -1970,8 +1970,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-none-scarfstripe",
@@ -1983,8 +1983,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-jacket-none",
@@ -1996,8 +1996,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-jacket-scarfknit",
@@ -2009,8 +2009,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-jacket-scarfstripe",
@@ -2022,8 +2022,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-coat-none",
@@ -2035,8 +2035,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-coat-scarfknit",
@@ -2048,8 +2048,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-coat-scarfstripe",
@@ -2061,8 +2061,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-overalls-none",
@@ -2074,8 +2074,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-overalls-scarfknit",
@@ -2087,8 +2087,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairbob-overalls-scarfstripe",
@@ -2100,8 +2100,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7794,
-      "sha256": "8bfc382bea5bac79242529553ad9ec2414f2d204c13fdd190ca89aca0b1d02c7"
+      "bytes": 8118,
+      "sha256": "d3513c8980932ebc229f92d40dba3405b196ffb9eb8088354428966ec4cc6f91"
     },
     {
       "key": "glasses-hairpeach-none-none",
@@ -2113,8 +2113,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-none-scarfknit",
@@ -2126,8 +2126,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-none-scarfstripe",
@@ -2139,8 +2139,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-jacket-none",
@@ -2152,8 +2152,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-jacket-scarfknit",
@@ -2165,8 +2165,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-jacket-scarfstripe",
@@ -2178,8 +2178,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-coat-none",
@@ -2191,8 +2191,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-coat-scarfknit",
@@ -2204,8 +2204,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-coat-scarfstripe",
@@ -2217,8 +2217,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-overalls-none",
@@ -2230,8 +2230,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-overalls-scarfknit",
@@ -2243,8 +2243,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairpeach-overalls-scarfstripe",
@@ -2256,8 +2256,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-none-none",
@@ -2269,8 +2269,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-none-scarfknit",
@@ -2282,8 +2282,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-none-scarfstripe",
@@ -2295,8 +2295,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-jacket-none",
@@ -2308,8 +2308,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-jacket-scarfknit",
@@ -2321,8 +2321,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-jacket-scarfstripe",
@@ -2334,8 +2334,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-coat-none",
@@ -2347,8 +2347,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-coat-scarfknit",
@@ -2360,8 +2360,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-coat-scarfstripe",
@@ -2373,8 +2373,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-overalls-none",
@@ -2386,8 +2386,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-overalls-scarfknit",
@@ -2399,8 +2399,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-hairrose-overalls-scarfstripe",
@@ -2412,8 +2412,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7746,
-      "sha256": "47846b77a75c5719b3f324a68aa885d9fd886b371463f87073d0b92f5b8c34a4"
+      "bytes": 8114,
+      "sha256": "8b9792f252f713c62ee41ed4bc42ce66aa6ee93f797420b37a89fe90fe407d1f"
     },
     {
       "key": "glasses-buckethat-none-none",
@@ -2425,8 +2425,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-none-scarfknit",
@@ -2438,8 +2438,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-none-scarfstripe",
@@ -2451,8 +2451,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-jacket-none",
@@ -2464,8 +2464,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-jacket-scarfknit",
@@ -2477,8 +2477,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-jacket-scarfstripe",
@@ -2490,8 +2490,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-coat-none",
@@ -2503,8 +2503,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-coat-scarfknit",
@@ -2516,8 +2516,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-coat-scarfstripe",
@@ -2529,8 +2529,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-overalls-none",
@@ -2542,8 +2542,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-overalls-scarfknit",
@@ -2555,8 +2555,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-buckethat-overalls-scarfstripe",
@@ -2568,8 +2568,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7876,
-      "sha256": "2213489cf1e051b6f7ee8297e475c1e9707992de42e8a59a50db6a726966442f"
+      "bytes": 8218,
+      "sha256": "a23bf2965ff395971c88ecff74f48b5b5d6f9771fae3bbdd8c7cddd156c36308"
     },
     {
       "key": "glasses-cap-none-none",
@@ -2581,8 +2581,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-none-scarfknit",
@@ -2594,8 +2594,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-none-scarfstripe",
@@ -2607,8 +2607,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-jacket-none",
@@ -2620,8 +2620,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-jacket-scarfknit",
@@ -2633,8 +2633,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-jacket-scarfstripe",
@@ -2646,8 +2646,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-coat-none",
@@ -2659,8 +2659,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-coat-scarfknit",
@@ -2672,8 +2672,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-coat-scarfstripe",
@@ -2685,8 +2685,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-overalls-none",
@@ -2698,8 +2698,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-overalls-scarfknit",
@@ -2711,8 +2711,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-cap-overalls-scarfstripe",
@@ -2724,8 +2724,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7632,
-      "sha256": "1ccf42a9958fa51af8ab88878bb9d6385db054e859a17e03934ddf471451ad6e"
+      "bytes": 7988,
+      "sha256": "5a7f6c310ea112aeba0d2687dc4dc1b154a80ea7a7d423486d8cf08990d56da3"
     },
     {
       "key": "glasses-beret-none-none",
@@ -2737,8 +2737,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-none-scarfknit",
@@ -2750,8 +2750,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-none-scarfstripe",
@@ -2763,8 +2763,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-jacket-none",
@@ -2776,8 +2776,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-jacket-scarfknit",
@@ -2789,8 +2789,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-jacket-scarfstripe",
@@ -2802,8 +2802,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-coat-none",
@@ -2815,8 +2815,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-coat-scarfknit",
@@ -2828,8 +2828,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-coat-scarfstripe",
@@ -2841,8 +2841,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-overalls-none",
@@ -2854,8 +2854,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-overalls-scarfknit",
@@ -2867,8 +2867,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-beret-overalls-scarfstripe",
@@ -2880,8 +2880,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7614,
-      "sha256": "018b5f4ac803b792c46f928f2b60b11dbf0a1d527231293701423a155c117e74"
+      "bytes": 7971,
+      "sha256": "98d38d091677af7558d9d228cf125c2d022293a64bdc72c279ab85b4fa6b8edd"
     },
     {
       "key": "glasses-earmuffhair-none-none",
@@ -2893,8 +2893,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-none-scarfknit",
@@ -2906,8 +2906,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-none-scarfstripe",
@@ -2919,8 +2919,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-jacket-none",
@@ -2932,8 +2932,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-jacket-scarfknit",
@@ -2945,8 +2945,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-jacket-scarfstripe",
@@ -2958,8 +2958,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-coat-none",
@@ -2971,8 +2971,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-coat-scarfknit",
@@ -2984,8 +2984,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-coat-scarfstripe",
@@ -2997,8 +2997,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-overalls-none",
@@ -3010,8 +3010,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-overalls-scarfknit",
@@ -3023,8 +3023,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-earmuffhair-overalls-scarfstripe",
@@ -3036,8 +3036,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7782,
-      "sha256": "b4dd963033efeac1ad3072217db585571f7772e94a2cb2aaed3bf84eef22b77e"
+      "bytes": 8109,
+      "sha256": "23812a0a9f2f0f43e4bb409c1305e58357dbbe924cf67146ad7d12febf855876"
     },
     {
       "key": "glasses-xmashat-none-none",
@@ -3049,8 +3049,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-none-scarfknit",
@@ -3062,8 +3062,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-none-scarfstripe",
@@ -3075,8 +3075,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-jacket-none",
@@ -3088,8 +3088,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-jacket-scarfknit",
@@ -3101,8 +3101,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-jacket-scarfstripe",
@@ -3114,8 +3114,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-coat-none",
@@ -3127,8 +3127,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-coat-scarfknit",
@@ -3140,8 +3140,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-coat-scarfstripe",
@@ -3153,8 +3153,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-overalls-none",
@@ -3166,8 +3166,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-overalls-scarfknit",
@@ -3179,8 +3179,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "glasses-xmashat-overalls-scarfstripe",
@@ -3192,8 +3192,8 @@
         84
       ],
       "icon": false,
-      "bytes": 7505,
-      "sha256": "c120d041622caa5ef6930eac5707110b3c9fe84d8aae7e466143d45fb55d4652"
+      "bytes": 7853,
+      "sha256": "cd8f4f75473a32dc71d54746f55aa7650007b0e90ab59a466223a135a9cd1b24"
     },
     {
       "key": "icon-hairpetals",
@@ -3322,8 +3322,8 @@
         87
       ],
       "icon": true,
-      "bytes": 8150,
-      "sha256": "e9f9e318d20652cb798efcda4a1f98930f70bfbe2892980ec82b6fc3bd0734e1"
+      "bytes": 8570,
+      "sha256": "499cea035ee01a00416f5503b5f4baf68e4e59792d184c37fde6df85e635a705"
     },
     {
       "key": "icon-scarfknit",

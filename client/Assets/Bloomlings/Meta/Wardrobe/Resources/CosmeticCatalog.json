@@ -85,6 +85,21 @@
     {"id": "scarf.bloom_stripe", "kind": "scarf", "name": "Striped Garden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
     {"id": "clothes.bloom_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
     {"id": "clothes.bloom_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
-    {"id": "clothes.bloom_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true}
+    {"id": "clothes.bloom_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true},
+    {"id": "hat.drop_native", "kind": "hat", "name": "Classic Droplet", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_side_wave", "kind": "hat", "name": "Side Wave", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_twin_ripples", "kind": "hat", "name": "Twin Ripples", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_whirlpool", "kind": "hat", "name": "Whirlpool Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_panama", "kind": "hat", "name": "Seaside Panama", "shape": "brim", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_cap", "kind": "hat", "name": "Wave Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_beret", "kind": "hat", "name": "Seaside Beret", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_earmuffs", "kind": "hat", "name": "Winter Earmuffs", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "hat.drop_xmas", "kind": "hat", "name": "Holiday Hat", "shape": "nightcap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "glasses.drop_round", "kind": "glasses", "name": "Drop Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "scarf.drop_knit", "kind": "scarf", "name": "Chunky Seaside Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "scarf.drop_stripe", "kind": "scarf", "name": "Striped Seaside Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "clothes.drop_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "clothes.drop_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true},
+    {"id": "clothes.drop_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true}
   ]
 }

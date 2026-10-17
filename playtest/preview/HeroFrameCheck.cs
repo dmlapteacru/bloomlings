@@ -27,7 +27,7 @@ namespace Bloomlings.Playtest.Preview
                     {
                         HeroFrame frame = HeroMotion.Frame(family, clip, i);
                         string name = Visuals.MotionFrame(frame);
-                        string? problem = Check(assembly, name, frame, allowFullColor: family == Family.Twig || family == Family.Sprig || family == Family.Bloom);
+                        string? problem = Check(assembly, name, frame, allowFullColor: true);
                         if (problem != null)
                         {
                             yield return "hero frame " + name + ": " + problem;
@@ -41,7 +41,7 @@ namespace Bloomlings.Playtest.Preview
                 string? problem = Check(assembly, Visuals.MotionFrame(frame), frame, allowFullColor: true);
                 if (problem != null) yield return "simplified hero " + family + ": " + problem;
             }
-            foreach (var frames in new[] { TwigV2Art.AllFrames, SprigV2Art.AllFrames, BloomV2Art.AllFrames })
+            foreach (var frames in new[] { TwigV2Art.AllFrames, SprigV2Art.AllFrames, BloomV2Art.AllFrames, DropV2Art.AllFrames })
             foreach (HeroFrame frame in frames)
             {
                 string name = Visuals.MotionFrame(frame);

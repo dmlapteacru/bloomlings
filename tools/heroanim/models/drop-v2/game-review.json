@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "purpose": "All four current heroes in game for owner acceptance; no APK / level generation",
+  "baseCommit": "db4b7da98e5e67f350ce9e059422bdd384537417",
+  "runtimeDropPngBytes": 4599103,
+  "previousRuntimeDropPngBytes": 7077657,
+  "items": {
+    "Head": 9,
+    "Face": 1,
+    "Body": 3,
+    "Accessories": 2
+  },
+  "targetedClientTests": {
+    "passed": 22,
+    "failed": 0
+  },
+  "fullClientTests": {
+    "passed": 503,
+    "failed": 9,
+    "knownBaselineFailures": [
+      "ATapOnTheMemberOnTop_WaitsForItsPartner_AndSaysSo",
+      "Level54_HasAPairApart_EachUnderItsColumnsPlusN",
+      "TheGroups_TakeThePaletteInTheirOrder",
+      "TheFreeFrames_AreOwnedFromLevelOne_AndCanBePickedAndShown",
+      "TheWinScreen_StacksSignPictureHeroRewardAndNext",
+      "Replays_ShowEveryChangeInTheRulesOrder_AndEndOnTheRulesState",
+      "TwoQuickTaps_ShowOnTwoPlates_AndTheirWavesPlaySideBySide",
+      "PodGrid_InTheTrayArea_IsTheReferenceGrid",
+      "TheStoneBorder_RingsTheGrid_WithCornersAndRuns"
+    ]
+  },
+  "preview": {
+    "frames": [
+      142,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162
+    ],
+    "shape": "19.5x9",
+    "checks": "OK"
+  },
+  "files": [
+    {
+      "path": "GAME.md",
+      "sha256": "6ba9dcde0a9830bff51f640ccc34adb06e447d1a1d6df6140f47413261f1cacf"
+    },
+    {
+      "path": "game-build.json",
+      "sha256": "88869c259aa53b080521afd7f3eec138a6973f1f9f5cb91caefc6fd92faabfc7"
+    },
+    {
+      "path": "game-preview/home-stock.jpg",
+      "sha256": "d482ff592fd7c55df1e46c27d013adf716491207590a7b5bc5b0d9458ce277cb"
+    },
+    {
+      "path": "game-preview/home-summer.jpg",
+      "sha256": "21450e40188116afcd841dd54c22a4629c04841b994eb6b34a544c7865c6344a"
+    },
+    {
+      "path": "game-preview/home-winter.jpg",
+      "sha256": "c3bc100aefce4a18f7d77f4b107deece611d6daefc30d7f2749db27a038779ae"
+    },
+    {
+      "path": "game-preview/wardrobe-body.jpg",
+      "sha256": "9056259c8ed9b111080573d744ff1a47e3573a40eada5a49ebf188511f7bec7e"
+    },
+    {
+      "path": "game-preview/wardrobe-head.jpg",
+      "sha256": "d542005b1ee3ba6625969f9b837e52ec0aeb4c655149ba161c3fbb13fc956c04"
+    },
+    {
+      "path": "../../drop-v2.json",
+      "sha256": "5277e1ce56d094aa6d84e5bfd0d89ce182745e2150bee165187a5c846904658e"
+    },
+    {
+      "path": "../../twig-v2-look.json",
+      "sha256": "aea360af53474712c3a1a4b67fe2f22a695829dd46d1dbcf0070880f1482ef89"
+    },
+    {
+      "path": "../../sprig-v2-look.json",
+      "sha256": "f84d9e2161b93109956b969010f928269a445a0cf7c532fe095e5309abcc732c"
+    },
+    {
+      "path": "../../bloom-v2-look.json",
+      "sha256": "716d77865f0a4d391322371f321c6e482f8ea2e36f5b73bdb38b55f2a38f6ff8"
+    },
+    {
+      "path": "../../drop-v2-look.json",
+      "sha256": "a39cce158d087633dba136fd3247509da5107a5de7fec6fe8e06159e83a3a291"
+    }
+  ]
+}

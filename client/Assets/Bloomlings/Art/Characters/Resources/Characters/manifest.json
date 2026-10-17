@@ -392,7 +392,7 @@
       "path": "3d/group.png",
       "width": 1200,
       "height": 720,
-      "sha256": "abccae574c484a70b9a1fb76b3c397daa23d00f994373349d53e1beb98854a04",
+      "sha256": "c994f50bf41476d51a3942e95aefa1b350211465d7e1b44a48cfc4f705d6f6bd",
       "slot": "char.hero3d.group",
       "source": "owner",
       "record": "tools/heroanim/SOURCE.md"

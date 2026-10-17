@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "scriptSha256": "5820b6b520db47173159dbde2b2008cda4a29e0086d790b9c0b19df0fd54652c",
+  "archive": "tools/heroanim/models/drop-v2/products/DropHeroV2_FBX.zip",
+  "archiveSha256": "f11ec4cfe598c9126cb7afdd98ae2fe25482d93c874e9f254f3c192dcee2d5f0",
+  "parts": [
+    {
+      "key": "Base_Arm_L",
+      "vertices": 2281,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Base_Arm_R",
+      "vertices": 2502,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Base_Head",
+      "vertices": 34549,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Base_Leg_L",
+      "vertices": 2321,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Base_Neck",
+      "vertices": 222,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Base_Body",
+      "vertices": 5574,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Base_Leg_R",
+      "vertices": 2370,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Base_Tail",
+      "vertices": 751,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Beret",
+      "vertices": 35447,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "BucketHat",
+      "vertices": 40253,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Cap",
+      "vertices": 35984,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Coat",
+      "vertices": 16480,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "EarmuffHair",
+      "vertices": 28161,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Glasses",
+      "vertices": 8480,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "HairSideWave",
+      "vertices": 30667,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "HairTwinRipples",
+      "vertices": 23227,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "HairWhirlpool",
+      "vertices": 30471,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Jacket",
+      "vertices": 15875,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "NativeDrop",
+      "vertices": 48630,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "Overalls",
+      "vertices": 19311,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    },
+    {
+      "key": "ScarfKnit",
+      "vertices": 19740,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": [
+        "Basis",
+        "Over_Jacket",
+        "Over_Coat",
+        "Over_Overalls"
+      ]
+    },
+    {
+      "key": "ScarfStripe",
+      "vertices": 10213,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": [
+        "Basis",
+        "Over_Jacket",
+        "Over_Coat",
+        "Over_Overalls"
+      ]
+    },
+    {
+      "key": "XmasHat",
+      "vertices": 36165,
+      "sourceGeometryUnderGlobalRotation": true,
+      "uvUnchanged": true,
+      "shapeKeys": []
+    }
+  ],
+  "frontRotationDegrees": -90,
+  "animationClips": [
+    "Drop_Idle",
+    "Drop_Joy",
+    "Drop_Sad",
+    "Drop_Walk",
+    "Drop_Wave"
+  ],
+  "export": {
+    "file": "DropHeroV2.glb",
+    "sha256": "48e0c9b1efb72e0fb79c01f6273a6ad69d1b800a65e5e1ed6096e7fe1dd38716"
+  }
+}

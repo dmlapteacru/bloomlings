@@ -59,6 +59,17 @@ if(fs.existsSync(simpleFile)){
 const v2File=path.join(here,'twig-v2.json');
 const sprigV2File=path.join(here,'sprig-v2.json');
 const bloomV2File=path.join(here,'bloom-v2.json');
+const dropV2File=path.join(here,'drop-v2.json');
+if(fs.existsSync(dropV2File)){
+ const v2=JSON.parse(fs.readFileSync(dropV2File));
+ expect(v2.outputs.length===231&&v2.heads.length===9&&v2.clothes.length===4&&v2.scarves.length===3&&v2.icons.length===15,'Drop V2 must include all 15 fitted items and complete outfit masks');
+ for(const source of v2.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since Drop V2 bake');
+ expect(sha(path.join(repo,v2.data))===v2.dataSha256,'DropV2Data is stale');
+ const build=JSON.parse(fs.readFileSync(path.join(here,'models/drop-v2/game-build.json')));
+ expect(build.scriptSha256===sha(path.join(here,'prepare-drop-v2-game.py'))&&build.parts.length===23&&build.parts.every(p=>p.sourceGeometryUnderGlobalRotation&&p.uvUnchanged),'Drop FBX handoff geometry / UV proof is stale');
+ expect(build.animationClips.length===5&&build.parts.find(p=>p.key==='ScarfKnit').shapeKeys.length===4,'Drop handoff actions and scarf garment fits must remain available');
+ for(const f of v2.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since Drop V2 bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA pixels and crop size');}}
+}
 if(fs.existsSync(bloomV2File)){
  const v2=JSON.parse(fs.readFileSync(bloomV2File));
  expect(v2.outputs.length===255&&v2.heads.length===10&&v2.clothes.length===4&&v2.scarves.length===3&&v2.icons.length===15,'Bloom V2 must include all delivered items and outfit-aware masks for both scarves');
@@ -91,13 +102,15 @@ if(fs.existsSync(v2File)){
  for(const f of v2.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since V2 bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA pixels and crop size');}}
 }
 // Current references, derived identity outputs and the offline retirement record are pinned independently.
-for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','archive/twig/manifest.json','archive/sprig/manifest.json','archive/bloom/manifest.json','models/drop-clothing-study/manifest.json','models/drop-v2/manifest.json']) {
+for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','archive/twig/manifest.json','archive/sprig/manifest.json','archive/bloom/manifest.json','archive/drop/manifest.json','models/drop-clothing-study/manifest.json','models/drop-v2/manifest.json','models/drop-v2/game-review.json']) {
  const recordPath=path.join(here,relative),record=JSON.parse(fs.readFileSync(recordPath));
  for(const f of record.files){const file=path.join(path.dirname(recordPath),f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,relative+': '+f.path+' changed');}
 }
 const identity=JSON.parse(fs.readFileSync(path.join(here,'twig-identity.json')));
 for(const f of [...identity.sources,...identity.outputs]){const file=path.join(repo,f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,'Twig identity '+f.path+' changed');}
 expect(!manifest.heroes.some(h=>h.family==='twig'),'Legacy motion publisher must not include Twig');
+expect(!manifest.heroes.some(h=>h.family==='drop'),'Legacy motion publisher must not include Drop');
+expect(!fs.readdirSync(framesDir).some(n=>/^drop-(idle|react|win)|^simplehero-drop/.test(n)),'Retired Drop resources must stay outside runtime');
 expect(!manifest.heroes.some(h=>h.family==='bloom'),'Legacy motion publisher must not include Bloom');
 expect(!fs.readdirSync(framesDir).some(n=>/^bloom-(idle|react|win)/.test(n)),'Retired Bloom motion must stay outside runtime');
 expect(!fs.readdirSync(framesDir).some(n=>/^(twig-(idle|react|win)|twigmod-|twigfit-|simplehero-twig)/.test(n)),'Retired Twig resources must stay outside runtime');
@@ -109,6 +122,7 @@ if(fs.existsSync(tripoStudy)){
     expect(fs.existsSync(path.join(repo,entry.path))&&sha(path.join(repo,entry.path))===entry.sha256,`Twig Tripo study ${entry.path} is missing or changed`);
 }
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
+if(fs.existsSync(dropV2File))for(const f of JSON.parse(fs.readFileSync(dropV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(sprigV2File))for(const f of JSON.parse(fs.readFileSync(sprigV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(bloomV2File))for(const f of JSON.parse(fs.readFileSync(bloomV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(v2File))for(const f of JSON.parse(fs.readFileSync(v2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
@@ -150,4 +164,4 @@ if (problems.length) {
   for (const p of problems) console.error('FAIL ' + p);
   process.exit(1);
 }
-console.log(`heroanim check: OK (${frames} hero frames of ${manifest.heroes.length} heroes, ${layers.outputs.length} Home layers, ${backdrops.outputs.length} backgrounds finished)`);
+console.log(`heroanim check: OK (${listed.size} hero pictures, ${frames} legacy animation frames, ${layers.outputs.length} Home layers, ${backdrops.outputs.length} backgrounds finished)`);

@@ -377,7 +377,7 @@ namespace Bloomlings.Playtest.Preview
                     Expect(app.Meta.Wardrobe.OutfitOf(Family.Bloom).Get(scene.Item3)!=null,"category item equips through real tap");
                 });
             }
-            foreach(var selection in new[]{(144,"sprig-stable-wardrobe-shelves",Family.Sprig),(145,"twig-stable-wardrobe-shelves",Family.Twig),(153,"bloom-stable-wardrobe-shelves",Family.Bloom)})
+            foreach(var selection in new[]{(144,"sprig-stable-wardrobe-shelves",Family.Sprig),(145,"twig-stable-wardrobe-shelves",Family.Twig),(153,"bloom-stable-wardrobe-shelves",Family.Bloom),(162,"drop-stable-wardrobe-shelves",Family.Drop)})
             {
                 var scene=selection;
                 yield return new Fixture(scene.Item1,scene.Item2,"Only the fitting stand changes while other shelf previews stay identical",(p,data)=>
@@ -387,6 +387,7 @@ namespace Bloomlings.Playtest.Preview
                     string[] ids=scene.Item3==Family.Sprig
                         ?new[]{SprigV2Art.BucketId,SprigV2Art.GlassesId,SprigV2Art.JacketId,SprigV2Art.ScarfId}
                         :scene.Item3==Family.Bloom?new[]{BloomV2Art.BucketId,BloomV2Art.GlassesId,BloomV2Art.JacketId,BloomV2Art.StripeId}
+                        :scene.Item3==Family.Drop?new[]{DropV2Art.BucketId,DropV2Art.GlassesId,DropV2Art.JacketId,DropV2Art.StripeId}
                         :new[]{TwigV2Art.BucketId,TwigV2Art.GlassesId,TwigV2Art.JacketId,TwigV2Art.ScarfId};
                     void Category(CosmeticKind kind)
                     {
@@ -446,6 +447,46 @@ namespace Bloomlings.Playtest.Preview
                 for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Bloom,app.Meta.Wardrobe.OutfitOf(Family.Bloom),i) is HeroFrame layer)
                     Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws saved Bloom layer "+i);
             });
+            foreach(var selection in new[]{(155,"four-v2-home-stock",0),(156,"four-v2-home-winter",1),(157,"four-v2-home-summer",2)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"All four current heroes and family-colored round glasses share one Home",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    if(scene.Item3>0)
+                    {
+                        bool winter=scene.Item3==1;
+                        var looks=new[]{
+                            (Family.Sprig,new[]{winter?SprigV2Art.EarmuffsId:SprigV2Art.BucketId,SprigV2Art.GlassesId,winter?SprigV2Art.JacketId:SprigV2Art.OverallsId}),
+                            (Family.Bloom,new[]{winter?BloomV2Art.EarmuffsId:BloomV2Art.BucketId,BloomV2Art.GlassesId,winter?BloomV2Art.JacketId:BloomV2Art.OverallsId}),
+                            (Family.Drop,new[]{winter?DropV2Art.EarmuffsId:DropV2Art.BucketId,DropV2Art.GlassesId,winter?DropV2Art.JacketId:DropV2Art.OverallsId}),
+                            (Family.Twig,new[]{winter?TwigV2Art.EarmuffsId:TwigV2Art.BucketId,TwigV2Art.GlassesId,winter?TwigV2Art.JacketId:TwigV2Art.OverallsId})};
+                        foreach(var look in looks)foreach(string id in look.Item2)Expect(app.Meta.Wardrobe.Equip(look.Item1,id),"family gear equips "+id);
+                        if(winter)foreach(var scarf in new[]{(Family.Sprig,SprigV2Art.ScarfId),(Family.Bloom,BloomV2Art.KnitId),(Family.Drop,DropV2Art.KnitId),(Family.Twig,TwigV2Art.ScarfId)})
+                            Expect(app.Meta.Wardrobe.Equip(scarf.Item1,scarf.Item2),"scarf fits over winter clothing");
+                        app=App(data);CloseAll(app);
+                    }
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                    foreach(Family family in CharacterArt.Families)
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),i) is HeroFrame layer)
+                        Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws current saved layer "+layer.Name);
+                    Expect(!p.DrawnSprites.Any(n=>n.Contains("drop-idle-",StringComparison.Ordinal)||n.Contains("drop-react-",StringComparison.Ordinal)||n.Contains("simplehero-drop",StringComparison.Ordinal)),"legacy Drop never replaces the fitted model");
+                });
+            }
+            foreach(var selection in new[]{(158,"drop-v2-wardrobe-head",CosmeticKind.Hat),(159,"drop-v2-wardrobe-face",CosmeticKind.Glasses),(160,"drop-v2-wardrobe-body",CosmeticKind.Clothes),(161,"drop-v2-wardrobe-accessories",CosmeticKind.Scarf)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,scene.Item2,"Drop has separate fitted Head, Face, Body and Accessories",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    foreach(string id in new[]{DropV2Art.WhirlpoolId,DropV2Art.CoatId,DropV2Art.GlassesId,DropV2Art.StripeId})Expect(app.Meta.Wardrobe.Equip(Family.Drop,id),"Drop item equips");
+                    app=App(data);CloseAll(app);app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Drop);app.WardrobeBrowse.Select(scene.Item3);p.DrawnSprites.Clear();Run(app,p,.2f);
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Drop,app.Meta.Wardrobe.OutfitOf(Family.Drop),i) is HeroFrame layer)
+                        Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"fitting stand draws saved Drop layer "+i);
+                    foreach(string label in new[]{"Head","Face","Body","Accessories"})Expect(Shows(p,label),"category label "+label);
+                    Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"dropv2-base-none"),"bald scaffold is never a game look");
+                });
+            }
             yield return new Fixture(142,"shop-without-cosmetics","Shop contains Shop and Animations only",(p,data)=>
             {
                 var app=Progressed(App(data),content,87);CloseAll(app);app.OpenStore();Run(app,p,.1f);

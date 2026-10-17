@@ -6,7 +6,7 @@ namespace Bloomlings.Client.UI.Design
     {
         public static HeroFrame Frame(Family family) => family switch
         {
-            Family.Drop => new HeroFrame("simplehero-drop", 97, 29, 254, 426, .5f, .62f, .5f, .30f),
+            Family.Drop => DropV2Art.Layer(null, 0)!.Value,
             Family.Bloom => BloomV2Art.Layer(null, 0)!.Value,
             Family.Sprig => SprigV2Art.Layer(null, 0)!.Value,
             Family.Twig => TwigV2Art.Layer(null, 0)!.Value,
