@@ -372,7 +372,7 @@ namespace Bloomlings.Playtest.Design
                 Outfit? outfit = outfitOf?.Invoke(family);
                 if (Visuals.HasMotion(p, family))
                 {
-                    Visuals.MotionHero(p, cell, family, motion.Player(family).Pose(app.Now), outfit);
+                    Visuals.MotionHero(p, cell, family, motion.Player(family).Pose(app.Now), outfit, towardLotus: true);
                     moving = true;
                 }
                 else
@@ -434,7 +434,7 @@ namespace Bloomlings.Playtest.Design
                     continue;
                 }
 
-                Box seam = HeroMotion.PictureBox(HomeLayers.HeroCell(picture, family), HeroMotion.Frame(family, MotionClip.Idle, 0));
+                Box seam = HeroMotion.PictureBox(HomeLayers.HeroCell(picture, family), HomeHeroArt.Layer(family, HeroGearArt.DisplayOutfit(app.Meta.Wardrobe.OutfitOf(family)), 0) ?? HeroMotion.Frame(family, MotionClip.Idle, 0));
                 Box target = Clear(new Box(Math.Max(seam.Left, r.Safe.Left), Math.Max(seam.Top, r.Safe.Top), Math.Min(seam.Right, r.Safe.Right), Math.Min(seam.Bottom, r.Safe.Bottom)), taken);
                 if (target.Width < min || target.Height < min)
                 {

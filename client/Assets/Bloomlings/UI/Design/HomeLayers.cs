@@ -181,7 +181,7 @@ namespace Bloomlings.Client.UI.Design
         public static Box ShadowBox(Box picture, Family family)
         {
             Box cell = HeroCell(picture, family);
-            float width = cell.Width * (HeroMotion.Has(family) ? HeroMotion.SeamWidth(family) : 0.7f);
+            float width = cell.Width * (HeroMotion.Has(family) ? HomeHeroArt.Layer(family, null, 0)!.Value.Width / (float)HeroMotion.CellWidth : 0.7f);
             float height = width * Shadow.Height / Shadow.Width;
             float feet = cell.Top + (cell.Height * HeroMotion.FootLine);
             return Box.FromCenter(cell.CenterX, feet + (height * 0.08f), width, height);

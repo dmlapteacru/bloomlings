@@ -6201,6 +6201,987 @@
    "slot": "char.hero3d.motion.drop",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-000.png",
+   "width": 227,
+   "height": 345,
+   "sha256": "d261b67985bf94631a30e421616926d07fa537b54c08f6a1a3ad78fc5513b4cf",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-001.png",
+   "width": 270,
+   "height": 424,
+   "sha256": "9e3070be796f88d9dbdd46e29831c4f821e3be3e261995e77a6e35772710f091",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-002.png",
+   "width": 268,
+   "height": 430,
+   "sha256": "6f3faf23507631ac24470ffb04311ac837ec9f5c1bd36f455dd15d0b66affcdb",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-003.png",
+   "width": 233,
+   "height": 467,
+   "sha256": "f057215ee78010676146b2bb95332074ba63ee177b0329f0d5ad129e5d0cea73",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-004.png",
+   "width": 317,
+   "height": 397,
+   "sha256": "0c2276e9387e2153325baca27dfb46aad8051e2d42711e92d034acedc339d500",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-005.png",
+   "width": 290,
+   "height": 398,
+   "sha256": "f2cdcb6a7e97537815c765ae959c42bc4cd4fadebb3c995de0326cf7947d6b74",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-006.png",
+   "width": 294,
+   "height": 403,
+   "sha256": "9d8662f3bcbc389101152251a231454fbd00630c57b607de6bee7af47e4c1aa9",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-007.png",
+   "width": 243,
+   "height": 379,
+   "sha256": "12df7a5dea5370fc280896a1af9800ccd3aaa7a8e2154491cfdc5a9ff55d0c5e",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-008.png",
+   "width": 268,
+   "height": 435,
+   "sha256": "1ea7c41b8c5098a464f415382c4e3ea6167a3a01e1ead40e5ab8e18f334b07ad",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-009.png",
+   "width": 133,
+   "height": 120,
+   "sha256": "965ac14976a4705ab7e7ecbb19605a450701f3df87875e84af7dc84338fc0737",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-010.png",
+   "width": 128,
+   "height": 101,
+   "sha256": "a8672c20fe155214862a29ac97ff715fe05c8f8f4076ca7a3fd42e484b7dca44",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-011.png",
+   "width": 110,
+   "height": 106,
+   "sha256": "81d9b98faa925bd389c3a203c2ddb9f9ed50f65e43d2d840a2b71f5474419e6d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-012.png",
+   "width": 132,
+   "height": 73,
+   "sha256": "682d7fa8c7c247eccb14a9e0687c414ea5f276900464d8e0eaf8ad9b914f5491",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-013.png",
+   "width": 136,
+   "height": 73,
+   "sha256": "06654c2a7f5b7f5e1ec44014e854f1057a94940f274e690c8a8c8d6797827756",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-014.png",
+   "width": 132,
+   "height": 73,
+   "sha256": "b4c66829b53d433693b97ba7c05f161e9b7b03692129009bdf88156ef9f74ef6",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-015.png",
+   "width": 132,
+   "height": 73,
+   "sha256": "b337c49ea49eb827a270fbb663a9f94a7bf259d98b2348d6c721d5de9e05680b",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-016.png",
+   "width": 121,
+   "height": 92,
+   "sha256": "ccd8a6f002c96e683c6be59abcb510d145ac3fa759dd63f2f5c0ecb089e0681b",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-sprig-017.png",
+   "width": 106,
+   "height": 92,
+   "sha256": "05d9089f151761ca0619f5e8ffe6436371aaaecd1ee3e000a4331cfa99dd9c9d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-000.png",
+   "width": 232,
+   "height": 325,
+   "sha256": "07e222308a5f629551c09c00ac67f34db37216767110fcc59a7fc239bca4e104",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-001.png",
+   "width": 328,
+   "height": 436,
+   "sha256": "0d0b68b7eab72f45611451890e7d276dc82505898dfccb388ce01aae3ba695a9",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-002.png",
+   "width": 305,
+   "height": 373,
+   "sha256": "5f9f35eb822691dc569cd065698e75bc588ae53a2c0765ad21e9b55b3c7f3872",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-003.png",
+   "width": 290,
+   "height": 384,
+   "sha256": "9d75f96e101ba233f304c178544f4e0539c03c0dd4706f1483a712fac038baad",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-004.png",
+   "width": 302,
+   "height": 419,
+   "sha256": "d84015effc8a6129e74c91008fa4da9c744f6d0d4755754a5d36a524fa663fc3",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-005.png",
+   "width": 319,
+   "height": 378,
+   "sha256": "0ad6643b602fa711464a54cf1587ab646ca874dacd8d367f38138656dd421308",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-006.png",
+   "width": 274,
+   "height": 387,
+   "sha256": "7599a43adf1016d3613c769077d758a334fe4316401b97c93619651c32bce68c",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-007.png",
+   "width": 313,
+   "height": 396,
+   "sha256": "f94e07a95f1df9df6a12794b1c0e4d7cabd03c5abfbfc8354e03f4de0649ecb6",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-008.png",
+   "width": 332,
+   "height": 352,
+   "sha256": "a3c112d280cd941974e1f66cf47026fd6ed8ac5135c289725f698e6924be1897",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-009.png",
+   "width": 313,
+   "height": 412,
+   "sha256": "61b904c831d5c0f9f31b61de17406baab6c58c366345e7c5aa2eb97d35dd53f3",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-010.png",
+   "width": 195,
+   "height": 86,
+   "sha256": "cceb654f2447976ab92c2afed2eedcb4c9c919a8083d06e01a76c87b6c6627f2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-011.png",
+   "width": 191,
+   "height": 98,
+   "sha256": "830b04250c92e5a40ec2a9509a081cfa63752b926526346b53b75703d68f5530",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-012.png",
+   "width": 159,
+   "height": 102,
+   "sha256": "7fd8b69c9b7ec10027c8948a0b63fc557a4d6346994f4697ff933993104bd598",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-013.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "188aa9589e32f103920410645850cbc555396cfe5f2d00781e91b50e483aa515",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-014.png",
+   "width": 162,
+   "height": 118,
+   "sha256": "c000dafef43baf347f562b557057419f9229032d872c1881363fa10b5274b528",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-015.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "f0bf46bf8c751ccc717197a211f1e4af93a26b2aff848a15eab882228c91877c",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-016.png",
+   "width": 162,
+   "height": 118,
+   "sha256": "af9a5a017f3ab95f80e6c58b3cadeaaa593e24e330f361128d5bc13b638dec16",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-017.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "311c018ae6e00ce453ea0ab5d541cde287d18f2064f8f6ed207e241e20762fcb",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-018.png",
+   "width": 162,
+   "height": 118,
+   "sha256": "abe8ee84bfe14dcd53894ff342a388865adab4c9dec45825b62a3fd1ef515290",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-019.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "0288dcf473792b10746db596a63b532f6d4b68ef70c93ae0ca7c661053249592",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-020.png",
+   "width": 162,
+   "height": 118,
+   "sha256": "0689a11c458f6df4568a5db6e971cb08f933d0f3dcc6cdc31c9f3132d4cf285f",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-021.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "22d956522772f3177f7fc362333ff847d79c3685f7e543b4eb6d50b1bda7daf6",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-022.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "ea42f2d73e4ede2a4a3e9b133464a18028a941c7dc5b0347465779eec5644a45",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-023.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "92e3b323255d2f95ff2c6be1c637b29a631c1271fb6ca92e7699636772037a33",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-024.png",
+   "width": 226,
+   "height": 126,
+   "sha256": "8f2061085918c9b1addcae8ea62c18ece6affbd31c191ad408507f291dd37328",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-025.png",
+   "width": 222,
+   "height": 84,
+   "sha256": "bb7d654ba3f2ad0e531331c3e811eb7bb5a8c05d49cb2b528c4b304cfb86f6b8",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-026.png",
+   "width": 221,
+   "height": 84,
+   "sha256": "e05170a02d1c984ff39f252e3b089fa372a7870aeb91e910281204677244b7ed",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-027.png",
+   "width": 222,
+   "height": 84,
+   "sha256": "feb36d0ff93e971898eaf7a3c54f84266ca0aaf5f4a550e4a00a48dee913bd65",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-028.png",
+   "width": 218,
+   "height": 84,
+   "sha256": "47cced111504efb06ba0ec73d32b65bfdecdc7e1303f118c1456dab53273259c",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-029.png",
+   "width": 212,
+   "height": 84,
+   "sha256": "53bc618f9b3436f3272e8cefe3b61ea51484ae3591b58a5ee09b6a858774a039",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-030.png",
+   "width": 211,
+   "height": 84,
+   "sha256": "6441a17da32003d008250c6005208cd39de34623a9def8195d86f0946b45ad56",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-031.png",
+   "width": 217,
+   "height": 84,
+   "sha256": "3fe205f79133dab27da6078152e20da625694bf7aabc619a9ae217dfe3d4b428",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-bloom-032.png",
+   "width": 204,
+   "height": 84,
+   "sha256": "f80de4da3b93d82925dfe5f448dff504771b10d5f24eb9ca1f3ec16e70997fd2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-000.png",
+   "width": 227,
+   "height": 381,
+   "sha256": "34a7c86780261881f0ae29defbb9f5f39f5cea0cdd8509326507049483ad9499",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-001.png",
+   "width": 304,
+   "height": 432,
+   "sha256": "4f7697130d6c92d9efbee35d8cc4e0b0bee4bb9d2a05e1ec9347c2c3dab3f9b8",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-002.png",
+   "width": 244,
+   "height": 376,
+   "sha256": "0cb1102bc3f57202fc95c2ff02c39f01a1a768440332a2465f15043dbfd1470c",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-003.png",
+   "width": 273,
+   "height": 432,
+   "sha256": "c9e0b8dfb900bfd208f50b3736405f91ba8266bf92be25ac7b92f28b9934aad2",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-004.png",
+   "width": 318,
+   "height": 425,
+   "sha256": "0ac8fa59a30658c69c946b7035de05e4d2cf79a5e0ad8bc64c618083e753e74f",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-005.png",
+   "width": 289,
+   "height": 421,
+   "sha256": "a17db885ee6dd89498af5fc5c4bd1407154dcbf23d66d176ff790c91956d3284",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-006.png",
+   "width": 334,
+   "height": 443,
+   "sha256": "afe9eaf414167fcaf13260fc284e82561ed3f80aecc4e1d94fd8ba29a8169c59",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-007.png",
+   "width": 290,
+   "height": 384,
+   "sha256": "318ff3acb7168adf99002430e6f5515ddf84d1c1d725071923b2884dbd8e188c",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-008.png",
+   "width": 307,
+   "height": 467,
+   "sha256": "e90323dbdfb0b62296ff17bbf7912afa9a00641f7b5ce63f541aa302e104a327",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-009.png",
+   "width": 144,
+   "height": 96,
+   "sha256": "071d38e0f29719325c161aa60d6e8d69883510b5ca06fb0cb9a1a73161ccb9b3",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-010.png",
+   "width": 140,
+   "height": 98,
+   "sha256": "27e0a7e2fe2b12e5d901eceb7bc948359fd7c661f6e17009c3d983f0bd1e1eb0",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-011.png",
+   "width": 118,
+   "height": 101,
+   "sha256": "42adea33d5cffda270f9c4a33c3107adca66749a60063f4975843e81185b6970",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-012.png",
+   "width": 140,
+   "height": 98,
+   "sha256": "ef52cad6087f4965b5021cdb117ea5f6abc796fbc1f977e7549b376268c191c1",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-013.png",
+   "width": 118,
+   "height": 101,
+   "sha256": "8e27b9946524d60ee5f8a483db5e9547044e82a0a91d3925f7793a044c11491b",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-014.png",
+   "width": 156,
+   "height": 115,
+   "sha256": "7cb5737e3979db35e744c0f91fb21cc6f2d99cb285c087d07253d7d1f117a8f9",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-015.png",
+   "width": 130,
+   "height": 92,
+   "sha256": "a60038802d1e022cd027a1375043321184695796f0a10a8d78472683c1aa8928",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-016.png",
+   "width": 156,
+   "height": 115,
+   "sha256": "9f142b05fb5214724df5640a39b58b3cfaab8dd5d87427b04ec4b5126971f877",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-017.png",
+   "width": 130,
+   "height": 92,
+   "sha256": "38472242344c72d64017b9d9961b5e599e72bef9dc8455a1cd0ba0ec6e3cc554",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-018.png",
+   "width": 156,
+   "height": 115,
+   "sha256": "135e467e052b1013bf7984e20c919edcf423498c37b88ece9f524c318fea9b8b",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-019.png",
+   "width": 130,
+   "height": 92,
+   "sha256": "a68c1e37ed02717b7a013a2887ff0484e9e8e89865fb89a859ce1fc2ce7d31a7",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-020.png",
+   "width": 156,
+   "height": 115,
+   "sha256": "d075466bd78d80c1be7598962df09215442cf44ed4219fe43cff2a0a17c15524",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-021.png",
+   "width": 129,
+   "height": 92,
+   "sha256": "8fe1af3e4efb88db0e63d706a949ee74a012a4e9e39c3859bbdc82880fb70e1c",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-022.png",
+   "width": 156,
+   "height": 114,
+   "sha256": "4ce57c0fb6d03c8ad801a241e7990afc852ba928fc9cb714b993bbbc8bc39ab7",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-023.png",
+   "width": 130,
+   "height": 92,
+   "sha256": "2072dce37e45ca6ce069a9b7062f47909a60fbd215dd59a4ab2480ea85a9282e",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-024.png",
+   "width": 156,
+   "height": 114,
+   "sha256": "4ecae58dc3292876c3f0570e5cb8339c2f63e59007f5b136bf7aeeedbb7bdd7f",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-025.png",
+   "width": 130,
+   "height": 92,
+   "sha256": "6e9fd2ce35b9ef76127e6e9d5a6533a71887b5d261b7312fc7ff1e4d21c9fb62",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-026.png",
+   "width": 156,
+   "height": 114,
+   "sha256": "28ccfa59635d42b77a8bdb0a682881779b69fe73cad2f6bd29c8a6971acdeaae",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-027.png",
+   "width": 156,
+   "height": 114,
+   "sha256": "d02892044da88a0cd376b6a1895bb20da48e4bf9c17ddd956b9c324819baa8da",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-028.png",
+   "width": 129,
+   "height": 92,
+   "sha256": "d06dc9b9f4ae0c8829228eb25ad988991ff42fb23f67f1a8d7820fb4038e4265",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-029.png",
+   "width": 221,
+   "height": 89,
+   "sha256": "8de1fdf3a952ea2a9b6200450e8dbed367462ceeecb77208723e126601c40cbe",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-030.png",
+   "width": 218,
+   "height": 89,
+   "sha256": "2f5cf53944aff924fb126d9ac00d60f6448c1c33b04f6895f979527ec0efc418",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-031.png",
+   "width": 218,
+   "height": 89,
+   "sha256": "ed7a399de87906a68467fad11f4e80b3b5d04400394dc0a9ba39c9cae18619ad",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-032.png",
+   "width": 209,
+   "height": 89,
+   "sha256": "1fdd094a120fa5adf8c51d7322d9a87b0d52a21190ee68bbe98422b38ee9bbbd",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-033.png",
+   "width": 216,
+   "height": 89,
+   "sha256": "11cccc34bf39cd119b68d995a751575635dc80006f98fc4535a555e0ad15b594",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-034.png",
+   "width": 209,
+   "height": 89,
+   "sha256": "6d476b93bff7f7381d7c0764df7866e6177cf8610c21aaa92c828bca7591c90b",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-035.png",
+   "width": 218,
+   "height": 89,
+   "sha256": "7c8946f0bd1487f02fdb3423f7f06979e87c235906bfd84af9c4f05db168eff7",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-036.png",
+   "width": 209,
+   "height": 89,
+   "sha256": "d5a63be6104ef4f3fc098ccd4a4667ecab714e4f3598cb7c48d38aec75bf9350",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-drop-037.png",
+   "width": 218,
+   "height": 89,
+   "sha256": "9915ea33f10c54a101b97e8a696cbe28d937043e9c6bb375c159628401c67cfb",
+   "slot": "char.hero3d.motion.drop",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-000.png",
+   "width": 227,
+   "height": 346,
+   "sha256": "f756c9485a28ab95a7b45a865b3a61ba4a76cf3acb3d63a0cef042648c2c8ef9",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-001.png",
+   "width": 276,
+   "height": 444,
+   "sha256": "00d24e752a535ab24c566273f815ca0b30b06b17de75238fccc62c42904c6754",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-002.png",
+   "width": 314,
+   "height": 395,
+   "sha256": "edc9cf117487c558d60c3a5af0b7019f75a0bbb36165b3f218ca725777152af6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-003.png",
+   "width": 264,
+   "height": 395,
+   "sha256": "4a8a5e41740553111e00484c4dfcd8355d7aca1218ac74a7740354da9b35306b",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-004.png",
+   "width": 262,
+   "height": 431,
+   "sha256": "fe54e8eee6cc01757f81e8699fcd9461ea46fc5cf965ac0443d3c5f08f42748c",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-005.png",
+   "width": 359,
+   "height": 443,
+   "sha256": "92fb6c1e61e41d20d6bc228ed8f7ba2609058e70a1052df513a78549915b7b4e",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-006.png",
+   "width": 283,
+   "height": 417,
+   "sha256": "3e74808e7739ac57381220a91b6cdf13d9b8ef82e5a0a9da964452e58f749ddf",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-007.png",
+   "width": 313,
+   "height": 476,
+   "sha256": "8478319928f0fdb3a54af5ac8f0db9a3c5b77d199bb1a0181ac7ea24a7042c45",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-008.png",
+   "width": 168,
+   "height": 107,
+   "sha256": "1b7e8eb2da1ddf684fa29d902a61ed464b79684c991adc31b973e44aa70a369d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-009.png",
+   "width": 156,
+   "height": 106,
+   "sha256": "60b0c9fce5ad537686572ebf10753498dc7269a7bd5778b31ea4dc060c6f3643",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-010.png",
+   "width": 148,
+   "height": 113,
+   "sha256": "4d233961b04053a1cf7e9382fdec01a04de498f0362e726474ad2a4197c91efa",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-011.png",
+   "width": 228,
+   "height": 126,
+   "sha256": "1c0bff9afe6601cb039b55a639204808d069642f5d90efa37f7d264db45817a1",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-012.png",
+   "width": 228,
+   "height": 126,
+   "sha256": "367520f84c3446e76f67804dbb61731b3c836c3e27224eec6859fc230a8ea777",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-013.png",
+   "width": 228,
+   "height": 126,
+   "sha256": "633a11a8ea44f39014edf933db2cbb7c8e2b3ecf6e3b3524112d9a13ff82dbc3",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-014.png",
+   "width": 228,
+   "height": 126,
+   "sha256": "fba5cdffeeca87fe122160e7d4079fdc0cbe3e38e589ea35982731b6cbe6bda5",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-015.png",
+   "width": 169,
+   "height": 90,
+   "sha256": "5fc88f77ce2972e37f2db835e9d8a340f7cfb65d8631b19a486337c8ec733848",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-016.png",
+   "width": 146,
+   "height": 90,
+   "sha256": "9bba14ec8f8a013360e196a7abd7140789344a6839c936b23fa98683c0d3901f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-017.png",
+   "width": 146,
+   "height": 90,
+   "sha256": "e21e7a912def76edf039f3a3f132ff732d8425ce88b4d95b2aec65ae3372e899",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-018.png",
+   "width": 127,
+   "height": 90,
+   "sha256": "dde222ff6a98c78bf4775175c0b8615d7e28c773e1a9fd44abfbb1c1ee5a714a",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "homehero-twig-019.png",
+   "width": 161,
+   "height": 90,
+   "sha256": "a63d10a7a5fcffa66a4f0d460992f49a69fbd3642d8d69ce6701dc2d2380b470",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner",
+   "record": "tools/heroanim/SOURCE.md"
   }
  ]
 }

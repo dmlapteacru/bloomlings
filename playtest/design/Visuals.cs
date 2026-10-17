@@ -148,11 +148,11 @@ namespace Bloomlings.Playtest.Design
         /// turned with it (<see cref="HeroMotion.Hat"/>, between the two frames' while they cross-fade). Callers check
         /// <see cref="HasMotion"/> first.
         /// </summary>
-        public static void MotionHero(IPainter p, Box cell, Family family, HeroPose pose, Outfit? outfit)
+        public static void MotionHero(IPainter p, Box cell, Family family, HeroPose pose, Outfit? outfit, bool towardLotus = false)
         {
             if (HeroGearArt.Supports(family) && p.HasSprite(PainterBase.HeroMotionPrefix + HeroGearArt.Layer(family, null, 0)!.Value.Name))
             {
-                ModularHero(p, HeroGearArt.PoseCell(cell, pose, family), family, outfit);
+                ModularHero(p, HeroGearArt.PoseCell(cell, pose, family), family, outfit, towardLotus);
                 return;
             }
             p.Mark(HeroMotion.Slot(family));
@@ -193,14 +193,14 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        private static void ModularHero(IPainter p, Box cell, Family family, Outfit? outfit)
+        private static void ModularHero(IPainter p, Box cell, Family family, Outfit? outfit, bool towardLotus = false)
         {
             outfit = HeroGearArt.DisplayOutfit(outfit);
             p.Mark(HeroMotion.Slot(family));
             if (outfit?.Trail != null) p.Shape(ShapeLibrary.CosmeticId(outfit.Trail.Shape), CharacterArt.TrailBox(cell), Tint(outfit.Trail));
             for (int i = 0; i < HeroGearArt.LayerCount; i++)
             {
-                HeroFrame? layer = HeroGearArt.Layer(family, outfit, i);
+                HeroFrame? layer = towardLotus ? HomeHeroArt.Layer(family, outfit, i) : HeroGearArt.Layer(family, outfit, i);
                 if (!layer.HasValue) continue;
                 string name = PainterBase.HeroMotionPrefix + layer.Value.Name;
                 Box picture = HeroMotion.PictureBox(cell, layer.Value);

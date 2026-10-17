@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "note": "Home only: real model yaw around the foot pivot, toward the central lotus. Wardrobe, icons and victory retain their frontal views. Positive yaw turns toward screen right.",
+  "yawDegrees": {"sprig": 70, "bloom": 15, "drop": -50, "twig": -65}
+}

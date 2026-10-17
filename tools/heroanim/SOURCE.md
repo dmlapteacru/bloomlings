@@ -486,3 +486,24 @@ The requested bald Sprig modeling reference is preserved in `references/sprig-v2
 leafy reference, with hashes. OpenAI image generation removed only the leaf hairstyle while retaining the green
 palette, face and compact body. This is an offline Tripo / Meshy reference, not a replacement for the current in-game
 Sprig model. The owner will supply the new base / modular parts from their Blender master.
+
+### Home views of the four modular V2 heroes
+
+`bake-home-heroes.mjs` renders the existing prepared V2 GLBs at the Home-only yaws in
+`home-heroes-look.json`: Sprig +70°, Bloom +15°, Drop −50°, Twig −65°. They turn bodily
+around the lotus instead of reusing the frontal Wardrobe poses. Geometry, fitted accessories,
+UVs and source FBXs remain unchanged. The studio light rotates with each subject to retain the
+approved bright 75% albedo / 25% diffuse finish, including Twig's warm panama material.
+
+After preparing the four GLBs with their existing `prepare-*-v2.py` scripts (Drop uses
+`prepare-drop-v2-game.py`), run `node tools/heroanim/bake-home-heroes.mjs`, then
+`node tools/heroanim/check.mjs`. `--review` writes only the four stock views to ignored
+`content/work/home-heroes/review/`. The normal bake crops RGBA layers in the same 448×504 cell
+with 96 px top padding, applies scarf garment morphs and depth occlusion in the new view, and
+stores byte-identical layer/crop pairs once. `home-heroes.json` pins sources, GLB hashes,
+recipes, output pixels and generated `HomeHeroData.cs`.
+
+Only the layered fountain stage (Home and its shared splash stage) requests `HomeHeroArt`.
+Wardrobe fitting stand, shelf previews, icons, profile portraits and victory retain their
+frontal views. The selected saved outfit is the same in both views; Home's touch boxes and
+shadows follow its inward-facing sprites. The APK still contains 2D sprites only.

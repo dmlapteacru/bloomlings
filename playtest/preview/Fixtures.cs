@@ -161,7 +161,7 @@ namespace Bloomlings.Playtest.Preview
                         if(scene.Item1==114){app=App(data);CloseAll(app);}
                     }
                     app.GoHome();p.DrawnSprites.Clear();Run(app,p,.5f);
-                    foreach(Family family in CharacterArt.Families)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),0)!.Value.Name),"Home draws new "+family);
+                    foreach(Family family in CharacterArt.Families)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HomeHeroArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),0)!.Value.Name),"Home draws new "+family);
                     Expect(!p.DrawnSprites.Any(n=>n.StartsWith(PainterBase.HeroMotionPrefix+"sprigmod-",StringComparison.Ordinal)||n.StartsWith(PainterBase.HeroMotionPrefix+"twigmod-",StringComparison.Ordinal)),"previous fitted meshes cannot override the new models");
                     if(scene.Item3)Expect(App(data).Meta.Wardrobe.OutfitOf(Family.Twig).Hat?.Id==TwigV2Art.BucketId,"displaying the new base never erases saved gear");
                     Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+"twigv2-base-none"),"Home never draws the modeling-only bald base");
@@ -227,8 +227,8 @@ namespace Bloomlings.Playtest.Preview
                     var app=Progressed(App(data),content,87);CloseAll(app);Expect(app.Meta.Wardrobe.Equip(Family.Twig,scene.Item3),"fitted hat equips");
                     if(scene.Item1==123){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
                     p.DrawnSprites.Clear();Run(app,p,.5f);
-                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),0)!.Value.Name),"the actual host draws the selected new Twig state");
-                    foreach(Family family in CharacterArt.Families)if(scene.Item1!=123&&family!=Family.Twig)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+SimpleHeroArt.Frame(family).Name),"other simplified heroes remain");
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+(scene.Item1==123?HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),0):HomeHeroArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),0))!.Value.Name),"the actual host draws the selected new Twig state");
+                    foreach(Family family in CharacterArt.Families)if(scene.Item1!=123&&family!=Family.Twig)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HomeHeroArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),0)!.Value.Name),"other simplified heroes remain");
                 });
             }
             yield return new Fixture(124,"twig-modular-win-panama","The Panama remains on Twig after a solved level",(p,data)=>
@@ -281,7 +281,7 @@ namespace Bloomlings.Playtest.Preview
                     app=App(data);CloseAll(app);
                     if(scene.Item1==128){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
                     p.DrawnSprites.Clear();Run(app,p,.4f);
-                    for(int layer=0;layer<HeroGearArt.LayerCount;layer++)if(HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer) is HeroFrame frame)
+                    for(int layer=0;layer<HeroGearArt.LayerCount;layer++)if((scene.Item1==128?HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer):HomeHeroArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer)) is HeroFrame frame)
                         Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Name),"host draws saved "+frame.Name);
                 });
             }
@@ -299,7 +299,7 @@ namespace Bloomlings.Playtest.Preview
                     if(scene.Item1>=131){app.WardrobeBrowse.Select(Family.Twig);app.OpenWardrobe();}else app.GoHome();
                     p.DrawnSprites.Clear();Run(app,p,.4f);
                     for(int layer=0;layer<HeroGearArt.LayerCount;layer++){
-                        HeroFrame? frame=HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer);
+                        HeroFrame? frame=scene.Item1>=131?HeroGearArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer):HomeHeroArt.Layer(Family.Twig,app.Meta.Wardrobe.OutfitOf(Family.Twig),layer);
                         if(frame.HasValue)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Value.Name),"host draws each saved layer");
                     }
                 });
@@ -316,7 +316,7 @@ namespace Bloomlings.Playtest.Preview
                     if(scene.Item1==136)app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.ScarfId);
                     app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
                     var outfit=app.Meta.Wardrobe.OutfitOf(Family.Sprig);
-                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Sprig,outfit,i) is HeroFrame layer)
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HomeHeroArt.Layer(Family.Sprig,outfit,i) is HeroFrame layer)
                         Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws saved Sprig layer "+i);
                     Expect(!p.DrawnSprites.Any(n=>n.Contains("sprig-idle-",StringComparison.Ordinal)||n.Contains("sprigmod-",StringComparison.Ordinal)),"retired Sprig cannot replace V2");
                 });
@@ -352,7 +352,7 @@ namespace Bloomlings.Playtest.Preview
                     if(scene.Item1==147)app.Meta.Wardrobe.Equip(Family.Bloom,BloomV2Art.KnitId);
                     app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
                     var outfit=app.Meta.Wardrobe.OutfitOf(Family.Bloom);
-                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Bloom,outfit,i) is HeroFrame layer)
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HomeHeroArt.Layer(Family.Bloom,outfit,i) is HeroFrame layer)
                         Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws saved Bloom layer "+i);
                     Expect(!p.DrawnSprites.Any(n=>n.Contains("bloom-idle-",StringComparison.Ordinal)||n.Contains("bloommod-",StringComparison.Ordinal)),"retired Bloom cannot replace V2");
                 });
@@ -444,7 +444,7 @@ namespace Bloomlings.Playtest.Preview
                 foreach(string id in new[]{BloomV2Art.RoseId,BloomV2Art.OverallsId,BloomV2Art.GlassesId,BloomV2Art.StripeId})
                     Expect(app.Meta.Wardrobe.Equip(Family.Bloom,id),"Bloom outfit equips");
                 app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
-                for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(Family.Bloom,app.Meta.Wardrobe.OutfitOf(Family.Bloom),i) is HeroFrame layer)
+                for(int i=0;i<HeroGearArt.LayerCount;i++)if(HomeHeroArt.Layer(Family.Bloom,app.Meta.Wardrobe.OutfitOf(Family.Bloom),i) is HeroFrame layer)
                     Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws saved Bloom layer "+i);
             });
             foreach(var selection in new[]{(155,"four-v2-home-stock",0),(156,"four-v2-home-winter",1),(157,"four-v2-home-summer",2)})
@@ -468,8 +468,11 @@ namespace Bloomlings.Playtest.Preview
                     }
                     app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
                     foreach(Family family in CharacterArt.Families)
-                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),i) is HeroFrame layer)
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HomeHeroArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),i) is HeroFrame layer)
                         Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+layer.Name),"Home draws current saved layer "+layer.Name);
+                    foreach(Family family in CharacterArt.Families)
+                    for(int i=0;i<HeroGearArt.LayerCount;i++)if(HeroGearArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),i) is HeroFrame front)
+                        Expect(!p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+front.Name),"Home never substitutes a frontal outfit layer");
                     Expect(!p.DrawnSprites.Any(n=>n.Contains("drop-idle-",StringComparison.Ordinal)||n.Contains("drop-react-",StringComparison.Ordinal)||n.Contains("simplehero-drop",StringComparison.Ordinal)),"legacy Drop never replaces the fitted model");
                 });
             }

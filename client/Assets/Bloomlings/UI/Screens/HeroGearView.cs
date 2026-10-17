@@ -16,6 +16,7 @@ namespace Bloomlings.Client.UI.Screens
         private readonly Image[] _parts = new Image[HeroGearArt.LayerCount];
         private Outfit? _outfit;
         private Family _family;
+        private bool _towardLotus;
         private readonly Image _mask;
         private readonly Image _skin;
         public RectTransform Rect { get; }
@@ -48,14 +49,15 @@ namespace Bloomlings.Client.UI.Screens
             }
             return sprite;
         }
-        public void Wear(Family family, Outfit? outfit)
+        public void Wear(Family family, Outfit? outfit, bool towardLotus = false)
         {
             outfit = HeroGearArt.DisplayOutfit(outfit);
             _family = family;
+            _towardLotus = towardLotus;
             _outfit = outfit;
             for (int i = 0; i < _parts.Length; i++)
             {
-                HeroFrame? frame = HeroGearArt.Layer(_family, outfit, i);
+                HeroFrame? frame = Layer(i);
                 _parts[i].gameObject.SetActive(frame.HasValue);
                 if (frame.HasValue) _parts[i].sprite = Picture(frame.Value.Name);
             }
@@ -68,12 +70,13 @@ namespace Bloomlings.Client.UI.Screens
             }
             Place(Cell);
         }
+        private HeroFrame? Layer(int index) => _towardLotus ? HomeHeroArt.Layer(_family, _outfit, index) : HeroGearArt.Layer(_family, _outfit, index);
         public void Tick(HeroPose pose) => Place(HeroGearArt.PoseCell(Cell, pose, _family));
         private void Place(Box cell)
         {
             for (int i = 0; i < _parts.Length; i++)
             {
-                HeroFrame? frame = HeroGearArt.Layer(_family, _outfit, i);
+                HeroFrame? frame = Layer(i);
                 if (!frame.HasValue) continue;
                 Box box = HeroMotion.PictureBox(cell, frame.Value);
                 UiFactory.Place(_parts[i].rectTransform, box.Left / Cell.Width, 1 - box.Bottom / Cell.Height,

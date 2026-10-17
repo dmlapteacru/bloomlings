@@ -53,6 +53,7 @@ namespace Bloomlings.Client.UI.Screens
         private float _fadeAlpha = -1f;
         private HeroGearView? _gear;
         private bool _gearOn;
+        private bool _towardLotus;
 
         /// <summary>A hero view under <paramref name="parent"/>; place its <see cref="Rect"/> at the frame cell.</summary>
         public static HeroMotionView Create(string name, Transform parent)
@@ -75,10 +76,12 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// Shows <paramref name="family"/> in <paramref name="player"/>'s poses (Home: its <see cref="HomeMotion"/>'s
-        /// players); the owner calls <see cref="Tick"/> every frame.
+        /// players); the owner calls <see cref="Tick"/> every frame. Home sets <paramref name="towardLotus"/> to use
+        /// the inward-facing outfit layers; other hosts keep the frontal view.
         /// </summary>
-        public void Drive(Family family, HeroMotionPlayer player)
+        public void Drive(Family family, HeroMotionPlayer player, bool towardLotus = false)
         {
+            _towardLotus = towardLotus;
             Bind(family);
             _celebrates = false;
             _player = player;
@@ -92,6 +95,7 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         public void Celebrate(Family family, int turn = 0)
         {
+            _towardLotus = false;
             Bind(family);
             _celebrates = true;
             _turn = turn;
@@ -109,7 +113,7 @@ namespace Bloomlings.Client.UI.Screens
         public void Wear(Outfit? outfit)
         {
             outfit = HeroGearArt.DisplayOutfit(outfit);
-            if (_gearOn) _gear!.Wear(_set!.Family, outfit);
+            if (_gearOn) _gear!.Wear(_set!.Family, outfit, _towardLotus);
             CosmeticItem? trail = outfit?.Trail;
             _trail.gameObject.SetActive(trail != null);
             if (trail != null)
@@ -256,7 +260,7 @@ namespace Bloomlings.Client.UI.Screens
                 _gear ??= HeroGearView.Create(_cell);
                 _gear.Rect.SetSiblingIndex(_frame.rectTransform.GetSiblingIndex());
                 _gear.Rect.gameObject.SetActive(true);
-                _gear.Wear(family, null);
+                _gear.Wear(family, null, _towardLotus);
                 _frame.enabled = false; _fade.enabled = false; _skinMask.gameObject.SetActive(false);
             }
             else if (_gear != null) _gear.Rect.gameObject.SetActive(false);

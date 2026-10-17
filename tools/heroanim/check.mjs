@@ -101,8 +101,26 @@ if(fs.existsSync(v2File)){
  expect(build.animationSource.actions.length===4,'Twig V2 source actions must be retained');
  for(const f of v2.outputs){const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since V2 bake');if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA pixels and crop size');}}
 }
+// Home has an angled counterpart for every current outfit layer; icons stay frontal.
+const homeHeroes=JSON.parse(fs.readFileSync(path.join(here,'home-heroes.json')));
+for(const source of homeHeroes.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since Home bake');
+expect(sha(path.join(repo,homeHeroes.data))===homeHeroes.dataSha256,'HomeHeroData is stale');
+const homeLook=JSON.parse(fs.readFileSync(path.join(here,'home-heroes-look.json')));
+expect(homeHeroes.models.length===4,'Home must retain all four families');
+for(const model of homeHeroes.models){
+ const report=JSON.parse(fs.readFileSync(path.join(here,'models',model.family+'-v2',model.family==='drop'?'game-build.json':'build-report.json')));
+ expect(model.sha256===report.export.sha256&&model.yawDegrees===homeLook.yawDegrees[model.family],'Home '+model.family+' model / yaw provenance changed');
+}
+const homeByName=new Map(homeHeroes.outputs.map(f=>[f.file.slice(0,-4),f]));
+const frontLayers=[v2File,sprigV2File,bloomV2File,dropV2File].flatMap(file=>JSON.parse(fs.readFileSync(file)).outputs.filter(f=>!f.icon).map(f=>f.file.slice(0,-4)));
+expect(homeHeroes.mappings.length===frontLayers.length&&new Set(homeHeroes.mappings.map(m=>m.front)).size===frontLayers.length&&frontLayers.every(n=>homeHeroes.mappings.some(m=>m.front===n&&homeByName.has(m.home))),'Every fitted layer needs a Home view');
+for(const f of homeHeroes.outputs){
+ const file=path.join(framesDir,f.file);listed.add(f.file);
+ expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since Home bake');
+ if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its declared crop');}
+}
 // Current references, derived identity outputs and the offline retirement record are pinned independently.
-for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','archive/twig/manifest.json','archive/sprig/manifest.json','archive/bloom/manifest.json','archive/drop/manifest.json','models/drop-clothing-study/manifest.json','models/drop-v2/manifest.json','models/drop-v2/game-review.json']) {
+for (const relative of ['references/twig-v2/manifest.json','references/sprig-v2/manifest.json','references/bloom-v2/manifest.json','references/drop-v2/manifest.json','archive/twig/manifest.json','archive/sprig/manifest.json','archive/bloom/manifest.json','archive/drop/manifest.json','models/drop-clothing-study/manifest.json','models/drop-v2/manifest.json','models/drop-v2/game-review.json','models/home-heroes/manifest.json']) {
  const recordPath=path.join(here,relative),record=JSON.parse(fs.readFileSync(recordPath));
  for(const f of record.files){const file=path.join(path.dirname(recordPath),f.path);expect(fs.existsSync(file)&&sha(file)===f.sha256,relative+': '+f.path+' changed');}
 }
@@ -122,6 +140,7 @@ if(fs.existsSync(tripoStudy)){
     expect(fs.existsSync(path.join(repo,entry.path))&&sha(path.join(repo,entry.path))===entry.sha256,`Twig Tripo study ${entry.path} is missing or changed`);
 }
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
+for(const f of homeHeroes.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(dropV2File))for(const f of JSON.parse(fs.readFileSync(dropV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(sprigV2File))for(const f of JSON.parse(fs.readFileSync(sprigV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(bloomV2File))for(const f of JSON.parse(fs.readFileSync(bloomV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);

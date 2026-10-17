@@ -110,7 +110,7 @@ namespace Bloomlings.Client.UI.Screens
                 {
                     UiKit.PlaceBox(_heroes[i]!.Rect, cell, parent);
                     _heroes[i]!.Wear(outfit);
-                    touch = HeroMotion.PictureBox(cell, HeroFrames.Of(family).Frame(MotionClip.Idle, 0));
+                    touch = HeroMotion.PictureBox(cell, HomeHeroArt.Layer(family, HeroGearArt.DisplayOutfit(outfit), 0) ?? HeroFrames.Of(family).Frame(MotionClip.Idle, 0));
                 }
                 else if (_stills[i] != null)
                 {
@@ -163,7 +163,7 @@ namespace Bloomlings.Client.UI.Screens
                 if (HeroFrames.Has(family))
                 {
                     HeroMotionView hero = HeroMotionView.Create("Hero" + name, root);
-                    hero.Drive(family, _shared.Motion.Player(family));
+                    hero.Drive(family, _shared.Motion.Player(family), towardLotus: true);
                     _heroes[i] = hero;
                 }
                 else

@@ -63,6 +63,7 @@ namespace Bloomlings.Client.Tests
                 "sprigmod-cap-backpack", "sprigmod-icon-hat", "sprigmod-icon-glasses", "sprigmod-icon-backpack",
                 "simplehero-sprig", "simplehero-bloom",
             });
+            expected.UnionWith(HomeHeroArt.AllFrames.Select(f => f.Name));
             expected.UnionWith(TwigV2Art.AllFrames.Select(f => f.Name));
             expected.UnionWith(SprigV2Art.AllFrames.Select(f => f.Name));
             expected.UnionWith(BloomV2Art.AllFrames.Select(f => f.Name));
