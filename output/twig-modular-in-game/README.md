@@ -34,13 +34,25 @@ outside Android assets. No APK was built; desktop renderer / packaging checks do
 
 Source mapping and rebuild commands: `tools/heroanim/models/twig-modular/README.md`.
 
-## Lower, closer fit
+## Earlier lower, closer fit
 
-Both hats are now 3.23% narrower and 0.035 world units lower (about 12 pixels in the logical camera cell).
+Both hats were made 3.23% narrower and 0.035 world units lower (about 12 pixels in the logical camera cell).
 The complete bald base, head proportions, original paint, lighting, camera and foot position remain unchanged.
 `fit-before-after.png` compares the previous fit on the left and the updated fit on the right, at identical scale.
-The current five PNGs total 363,426 bytes. Updated source / fit / output hashes and shared-base pixel checks pass
+That version’s five PNGs totaled 363,426 bytes. Updated source / fit / output hashes and shared-base pixel checks pass
 `node tools/heroanim/check.mjs`. Original delivery ZIPs and references are unchanged.
 The five updated game captures (fixtures 120–124) passed at 19.5:9, including Shop selection, both hats on Home,
 Wardrobe and a solved win. Loading checks again passed 11 cold destinations / 120 staged frames / 154 resources,
 with 100 live-preview frames continuing while transient effects were delayed. No application logic changed.
+
+## Current Acorn rim fit
+
+The Acorn Hat is back at its original height (Z=0.40). Its lower band has an additional smooth X taper up to 9%,
+strongest below world Z=0.80, fading out at Z=1.00. The upper crown / leaf keep their volume. This addresses the
+lateral gap rather than lowering the whole hat. `rim-before-after.png` compares the previous lowered fit on the left
+with the restored height / tighter band on the right at the same camera scale. `variants.png` shows the current set.
+Base, face and body geometry remain unchanged. The bare base, Panama state and Panama icon are byte-identical to
+the previous version. Five current PNGs total 365,113 bytes. Original archives and textures are unchanged.
+`node tools/heroanim/check.mjs` and game fixtures 120–122 passed at 19.5:9: free Shop selection / save / removal,
+the corrected Acorn on Home and the unchanged Panama. The staged loading checks passed all 11 cold destinations,
+120 frames / 154 resources, with 100 live-preview frames continuing through delayed transient effects.

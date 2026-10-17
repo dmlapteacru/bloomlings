@@ -8275,8 +8275,8 @@
   {
    "path": "twigfit-acorn.png",
    "width": 292,
-   "height": 432,
-   "sha256": "2ad24adfe512297697ef07be82fd959fc8673e09c4ab42b6f7e59ca07c9828a2",
+   "height": 445,
+   "sha256": "2d771339a81e634951aa64a23c772e0a427e006051e9582964c8218076172321",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -8292,9 +8292,9 @@
   },
   {
    "path": "twigfit-icon-acorn.png",
-   "width": 226,
-   "height": 154,
-   "sha256": "62a2d43ac188885079f849e5beff45b8fb1950f2a632a9fdf265f8b86dd79c77",
+   "width": 223,
+   "height": 160,
+   "sha256": "a4df8ec8455bb0cdc279b9b323050bf744c0d08fd92d8a8625148337a2e8236f",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"

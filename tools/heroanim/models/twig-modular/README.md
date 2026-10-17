@@ -22,8 +22,11 @@ node tools/heroanim/check.mjs
 
 `twig-modular-fit.json` records slanted trimming planes and accessory-only scales / translations. The importer trims
 each accessory copy above its attachment seam, rejects remaining face paint / geometry using color, surface normal
-and spatial masks, and keeps the connected hat region. The refined fit lowers each hat by 0.035 world units (about 12 pixels in the 448×504 cell) and changes its X scale
-from 0.93 to 0.90, making it 3.23% narrower. Depth and vertical scale stay unchanged. The base is never trimmed or reshaped. Its imported world
+and spatial masks, and keeps the connected hat region. Both hats retain the X scale 0.90 (3.23% narrower than
+initial delivery). Panama retains its lowered position. Acorn returns to its original Z translation 0.40; only its
+lower band receives an additional smooth X taper, up to 9% below world Z=0.80, fading to zero at Z=1.00. This brings
+the rim closer to the head without squeezing the crown / leaf or lowering the forehead edge. Depth and vertical
+scale stay unchanged. The base is never trimmed or reshaped. Its imported world
 coordinates are checked within 1e-7 and its UV coordinates remain identical. Original sources and color images remain
 intact. No second editable `.blend` master is created; derived GLBs are only exchange / rendering outputs.
 
@@ -35,7 +38,7 @@ a later animation / attachment workflow still belongs in that master.
 The bake uses the approved 75% painted albedo + 25% soft white diffuse treatment, without the extra PBR / specular
 shading that darkened the previous review. No source texture repaint or base-head width correction is applied.
 Five transparent full-color PNGs are generated: bare / acorn / panama and two hat-only Shop icons. They share one
-448×504 logical camera cell and foot line, with 3× alpha-safe supersampling. Together they weigh 363,426 bytes.
+448×504 logical camera cell and foot line, with 3× alpha-safe supersampling. Together they weigh 365,113 bytes.
 `TwigModularData.cs` and `twig-modular.json` record crop rectangles and hashes. Fixed visible-face and body comparison
 regions have exactly the same pixels in all three states; publication fails if those regions differ.
 

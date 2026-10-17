@@ -16,8 +16,13 @@
     "translation": [
       0,
       0,
-      0.365
-    ]
+      0.4
+    ],
+    "rimTaper": {
+      "fullBelowZ": 0.8,
+      "fadeAboveZ": 1.0,
+      "widthScale": 0.91
+    }
   },
   "panama": {
     "cutPlane": [

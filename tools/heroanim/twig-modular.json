@@ -19,11 +19,11 @@
     },
     {
       "path": "tools/heroanim/prepare-twig-modular.py",
-      "sha256": "9c8a6027edd8b1321ff6325615f65e741e3d5ed779677dd49b61c70813756c0e"
+      "sha256": "e15719b200045cea0be1ec6f418e9b62c84e3dd241f1448219fe1e6a1d4dd7fd"
     },
     {
       "path": "tools/heroanim/twig-modular-fit.json",
-      "sha256": "ec3b05bde2c2488c1afd8ebb6b943a8a9dc7f9711d4bbaf979aa6d3d9ae14ef2"
+      "sha256": "beec4d0f28705a2593f8a042cd6c20cbec0b70121d3551093e0e1669826b9e28"
     },
     {
       "path": "tools/heroanim/bake-twig-modular.mjs",
@@ -31,7 +31,7 @@
     }
   ],
   "data": "client/Assets/Bloomlings/UI/Design/TwigModularData.cs",
-  "dataSha256": "fb0f2526d0c413a5b90a58058b347f5c71b49d131d806cebbac5b8be5a59671d",
+  "dataSha256": "d40c3984ed5b7f2feb648e45f03f901681c1251acaab4f759c0b476eb863f96c",
   "cell": [
     448,
     504
@@ -72,13 +72,13 @@
       "file": "twigfit-acorn.png",
       "crop": [
         78,
-        23,
+        10,
         292,
-        432
+        445
       ],
       "icon": false,
-      "bytes": 117800,
-      "sha256": "2ad24adfe512297697ef07be82fd959fc8673e09c4ab42b6f7e59ca07c9828a2"
+      "bytes": 118219,
+      "sha256": "2d771339a81e634951aa64a23c772e0a427e006051e9582964c8218076172321"
     },
     {
       "key": "panama",
@@ -98,13 +98,13 @@
       "file": "twigfit-icon-acorn.png",
       "crop": [
         46,
-        75,
-        226,
-        154
+        71,
+        223,
+        160
       ],
       "icon": true,
-      "bytes": 33230,
-      "sha256": "62a2d43ac188885079f849e5beff45b8fb1950f2a632a9fdf265f8b86dd79c77"
+      "bytes": 34498,
+      "sha256": "a4df8ec8455bb0cdc279b9b323050bf744c0d08fd92d8a8625148337a2e8236f"
     },
     {
       "key": "icon-panama",

@@ -70,6 +70,15 @@ for entry in json.loads((SOURCE/'source-manifest.json').read_text())['files']:
   bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS')
   bm.to_mesh(obj.data);bm.free();obj.data.update()
   obj.scale=fit['scale'];obj.location=fit['translation']
+  if 'rimTaper' in fit:
+   # Close the lateral opening around the head without squeezing the crown / leaf.
+   taper=fit['rimTaper'];assert taper['fadeAboveZ']>taper['fullBelowZ'] and 0<taper['widthScale']<=1
+   for vertex in obj.data.vertices:
+    height=vertex.co.z*obj.scale.z+obj.location.z
+    blend=max(0,min(1,(taper['fadeAboveZ']-height)/(taper['fadeAboveZ']-taper['fullBelowZ'])))
+    blend=blend*blend*(3-2*blend)
+    vertex.co.x*=1-(1-taper['widthScale'])*blend
+   obj.data.update()
  else:
   assert len(obj.data.vertices)==sourceVertices and len(obj.data.polygons)==sourceFaces
   derivedPosition=np.asarray([tuple(obj.matrix_world@v.co) for v in obj.data.vertices],dtype=np.float32)

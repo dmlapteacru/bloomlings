@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "scriptSha256": "9c8a6027edd8b1321ff6325615f65e741e3d5ed779677dd49b61c70813756c0e",
-  "fitSha256": "ec3b05bde2c2488c1afd8ebb6b943a8a9dc7f9711d4bbaf979aa6d3d9ae14ef2",
+  "scriptSha256": "e15719b200045cea0be1ec6f418e9b62c84e3dd241f1448219fe1e6a1d4dd7fd",
+  "fitSha256": "beec4d0f28705a2593f8a042cd6c20cbec0b70121d3551093e0e1669826b9e28",
   "sources": [
     {
       "key": "acorn",
@@ -60,8 +60,8 @@
   "exports": [
     {
       "file": "TwigHero_Modular.glb",
-      "sha256": "331b372705e89fc9557546097f123946e97584c12c2578c4480d26ca7c4aa747",
-      "bytes": 7150304
+      "sha256": "5777d472052f4e46f93625e8e61ae59760daf4df85affce12d768b3b7556951a",
+      "bytes": 7259936
     },
     {
       "file": "TwigHero_Base.glb",
@@ -70,8 +70,8 @@
     },
     {
       "file": "TwigHero_AcornHat.glb",
-      "sha256": "7f4a142090ee613d998cbb4c95e7105bdd2e40f7841ef0e868d0f6fc13692322",
-      "bytes": 1839732
+      "sha256": "7d3d46227294749926600d6112e874d833ab6c8ee971649b0dfafcb6d0ec85d2",
+      "bytes": 1949364
     },
     {
       "file": "TwigHero_PanamaHat.glb",

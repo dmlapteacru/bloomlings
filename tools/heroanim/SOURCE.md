@@ -345,12 +345,13 @@ archives / filenames / hashes are retained under `models/twig-modular/`; generat
 
 `prepare-twig-modular.py` retains the complete bald base, including head / ears / UV / paint. It derives accessory
 surfaces from the two head-only generations using the seam plane, paint / normal / spatial masks and the connected
-hat region, discarding their alternate faces. Only headwear is fitted with `twig-modular-fit.json`; source images and
+hat region, discarding their alternate faces. Only headwear is fitted with `twig-modular-fit.json`; Acorn restores its original height and smoothly tapers the
+lower band in X to close the lateral opening, leaving the upper crown / leaf and Panama fit intact. Source images and
 base world geometry / UV remain unchanged. No separate `.blend` master is created. The common base appears in each
 runtime state; fixed face / body regions compare pixel-identical across the renders.
 
 `bake-twig-modular.mjs` uses the approved light painted-color treatment from the simplified heroes (75% albedo / 25%
-soft diffuse), 3× alpha-safe supersampling and RGBA8 output. Five small `twigfit-*` states / icons total 363,426 bytes.
+soft diffuse), 3× alpha-safe supersampling and RGBA8 output. Five small `twigfit-*` states / icons total 365,113 bytes.
 `twig-modular.json`, `TwigModularData.cs` and the HeroMotion manifest record hashes / crops. Shop / Wardrobe offer the
 two free fitted Twig hats; Remove shows the bare base, and saved selection follows Home / victory. The original
 Acorn ID is reused, Panama has a new ID; the unrefitted old Daisy Cap stays saved but withheld. Other simplified
