@@ -1,0 +1,1086 @@
+{
+  "sourceRevision": "2b96f77ffdaa89ddc2947d2e7c684e7594de3c7c",
+  "inputFingerprint": "c7282460154abaa078fad343a2ff27ad08afba73e6e57a2c5638b5fd5d569372",
+  "levels": 2500,
+  "distinctMappedBaseGrids": 2500,
+  "randomRollouts": 128000,
+  "deterministicRollouts": 10000,
+  "all": {
+    "Normal": {
+      "levels": 1830,
+      "meanPods": 47.83169398907104,
+      "maxPods": 118,
+      "leftmost": {
+        "wins": 1521,
+        "levels": 1830,
+        "rate": 0.8311475409836065
+      },
+      "rightmost": {
+        "wins": 1488,
+        "levels": 1830,
+        "rate": 0.8131147540983606
+      },
+      "cycle": {
+        "wins": 1307,
+        "levels": 1830,
+        "rate": 0.7142076502732241
+      },
+      "visible_largest": {
+        "wins": 1828,
+        "levels": 1830,
+        "rate": 0.9989071038251366
+      },
+      "random": {
+        "wins": 35022,
+        "runs": 47040,
+        "macroRate": 0.7133644979508197
+      },
+      "visible_frontier": {
+        "wins": 47025,
+        "runs": 47040,
+        "macroRate": 0.9997758709016393
+      }
+    },
+    "Hard": {
+      "levels": 471,
+      "meanPods": 57.225053078556265,
+      "maxPods": 117,
+      "leftmost": {
+        "wins": 453,
+        "levels": 471,
+        "rate": 0.9617834394904459
+      },
+      "rightmost": {
+        "wins": 8,
+        "levels": 471,
+        "rate": 0.016985138004246284
+      },
+      "cycle": {
+        "wins": 20,
+        "levels": 471,
+        "rate": 0.04246284501061571
+      },
+      "visible_largest": {
+        "wins": 308,
+        "levels": 471,
+        "rate": 0.6539278131634819
+      },
+      "random": {
+        "wins": 956,
+        "runs": 12096,
+        "macroRate": 0.07411093418259024
+      },
+      "visible_frontier": {
+        "wins": 6146,
+        "runs": 12096,
+        "macroRate": 0.5469662287685775
+      }
+    },
+    "SuperHard": {
+      "levels": 199,
+      "meanPods": 62.69346733668342,
+      "maxPods": 116,
+      "leftmost": {
+        "wins": 193,
+        "levels": 199,
+        "rate": 0.9698492462311558
+      },
+      "rightmost": {
+        "wins": 2,
+        "levels": 199,
+        "rate": 0.010050251256281407
+      },
+      "cycle": {
+        "wins": 0,
+        "levels": 199,
+        "rate": 0.0
+      },
+      "visible_largest": {
+        "wins": 74,
+        "levels": 199,
+        "rate": 0.37185929648241206
+      },
+      "random": {
+        "wins": 306,
+        "runs": 4864,
+        "macroRate": 0.024556375628140704
+      },
+      "visible_frontier": {
+        "wins": 1260,
+        "runs": 4864,
+        "macroRate": 0.20787531407035176
+      }
+    }
+  },
+  "afterTutorial": {
+    "Normal": {
+      "levels": 1822,
+      "meanPods": 48.02360043907794,
+      "maxPods": 118,
+      "leftmost": {
+        "wins": 1513,
+        "levels": 1822,
+        "rate": 0.8304061470911087
+      },
+      "rightmost": {
+        "wins": 1480,
+        "levels": 1822,
+        "rate": 0.8122941822173436
+      },
+      "cycle": {
+        "wins": 1299,
+        "levels": 1822,
+        "rate": 0.7129527991218442
+      },
+      "visible_largest": {
+        "wins": 1820,
+        "levels": 1822,
+        "rate": 0.9989023051591658
+      },
+      "random": {
+        "wins": 32974,
+        "runs": 44992,
+        "macroRate": 0.7121059447036224
+      },
+      "visible_frontier": {
+        "wins": 44977,
+        "runs": 44992,
+        "macroRate": 0.9997748868002195
+      }
+    },
+    "Hard": {
+      "levels": 470,
+      "meanPods": 57.33191489361702,
+      "maxPods": 117,
+      "leftmost": {
+        "wins": 452,
+        "levels": 470,
+        "rate": 0.9617021276595744
+      },
+      "rightmost": {
+        "wins": 7,
+        "levels": 470,
+        "rate": 0.014893617021276596
+      },
+      "cycle": {
+        "wins": 20,
+        "levels": 470,
+        "rate": 0.0425531914893617
+      },
+      "visible_largest": {
+        "wins": 307,
+        "levels": 470,
+        "rate": 0.6531914893617021
+      },
+      "random": {
+        "wins": 755,
+        "runs": 11840,
+        "macroRate": 0.07259807180851063
+      },
+      "visible_frontier": {
+        "wins": 5890,
+        "runs": 11840,
+        "macroRate": 0.5460023271276596
+      }
+    },
+    "SuperHard": {
+      "levels": 198,
+      "meanPods": 62.974747474747474,
+      "maxPods": 116,
+      "leftmost": {
+        "wins": 192,
+        "levels": 198,
+        "rate": 0.9696969696969697
+      },
+      "rightmost": {
+        "wins": 1,
+        "levels": 198,
+        "rate": 0.005050505050505051
+      },
+      "cycle": {
+        "wins": 0,
+        "levels": 198,
+        "rate": 0.0
+      },
+      "visible_largest": {
+        "wins": 73,
+        "levels": 198,
+        "rate": 0.3686868686868687
+      },
+      "random": {
+        "wins": 130,
+        "runs": 4608,
+        "macroRate": 0.021208175505050504
+      },
+      "visible_frontier": {
+        "wins": 1004,
+        "runs": 4608,
+        "macroRate": 0.20387468434343434
+      }
+    }
+  },
+  "firstTen": [
+    {
+      "level": 1,
+      "class": "Normal",
+      "score": 0,
+      "width": 11,
+      "height": 12,
+      "pods": 3,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 2,
+      "class": "Normal",
+      "score": 0,
+      "width": 11,
+      "height": 12,
+      "pods": 4,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 3,
+      "class": "Normal",
+      "score": 0,
+      "width": 12,
+      "height": 12,
+      "pods": 5,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 4,
+      "class": "Normal",
+      "score": 0,
+      "width": 12,
+      "height": 12,
+      "pods": 5,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 5,
+      "class": "Hard",
+      "score": 0,
+      "width": 12,
+      "height": 12,
+      "pods": 7,
+      "exactTutorialRandomWinProbability": 0.7978395061728395
+    },
+    {
+      "level": 6,
+      "class": "Normal",
+      "score": 0,
+      "width": 11,
+      "height": 12,
+      "pods": 4,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 7,
+      "class": "Normal",
+      "score": 0,
+      "width": 12,
+      "height": 12,
+      "pods": 5,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 8,
+      "class": "Normal",
+      "score": 0,
+      "width": 11,
+      "height": 12,
+      "pods": 4,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 9,
+      "class": "Normal",
+      "score": 0,
+      "width": 12,
+      "height": 12,
+      "pods": 3,
+      "exactTutorialRandomWinProbability": 1
+    },
+    {
+      "level": 10,
+      "class": "SuperHard",
+      "score": 0,
+      "width": 12,
+      "height": 12,
+      "pods": 7,
+      "exactTutorialRandomWinProbability": 0.6743827160493826
+    }
+  ],
+  "doors": {
+    "tested": 396,
+    "validOriginals": 396,
+    "sameTraceWithClosedFootprint": 392,
+    "keyDoors": 13,
+    "keyDoorsSameTrace": 13,
+    "unprovenNecessityLevels": [
+      631,
+      689,
+      1593,
+      2161
+    ]
+  },
+  "bands": {
+    "1-10": {
+      "Normal": {
+        "levels": 8,
+        "meanPods": 4.125,
+        "maxPods": 5,
+        "leftmost": {
+          "wins": 8,
+          "levels": 8,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 8,
+          "levels": 8,
+          "rate": 1.0
+        },
+        "cycle": {
+          "wins": 8,
+          "levels": 8,
+          "rate": 1.0
+        },
+        "visible_largest": {
+          "wins": 8,
+          "levels": 8,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 2048,
+          "runs": 2048,
+          "macroRate": 1.0
+        },
+        "visible_frontier": {
+          "wins": 2048,
+          "runs": 2048,
+          "macroRate": 1.0
+        }
+      },
+      "Hard": {
+        "levels": 1,
+        "meanPods": 7,
+        "maxPods": 7,
+        "leftmost": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 1,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 201,
+          "runs": 256,
+          "macroRate": 0.78515625
+        },
+        "visible_frontier": {
+          "wins": 256,
+          "runs": 256,
+          "macroRate": 1.0
+        }
+      },
+      "SuperHard": {
+        "levels": 1,
+        "meanPods": 7,
+        "maxPods": 7,
+        "leftmost": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 1,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 176,
+          "runs": 256,
+          "macroRate": 0.6875
+        },
+        "visible_frontier": {
+          "wins": 256,
+          "runs": 256,
+          "macroRate": 1.0
+        }
+      }
+    },
+    "11-25": {
+      "Normal": {
+        "levels": 12,
+        "meanPods": 21.75,
+        "maxPods": 42,
+        "leftmost": {
+          "wins": 11,
+          "levels": 12,
+          "rate": 0.9166666666666666
+        },
+        "rightmost": {
+          "wins": 8,
+          "levels": 12,
+          "rate": 0.6666666666666666
+        },
+        "cycle": {
+          "wins": 12,
+          "levels": 12,
+          "rate": 1.0
+        },
+        "visible_largest": {
+          "wins": 12,
+          "levels": 12,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 2840,
+          "runs": 3072,
+          "macroRate": 0.9244791666666666
+        },
+        "visible_frontier": {
+          "wins": 3072,
+          "runs": 3072,
+          "macroRate": 1.0
+        }
+      },
+      "Hard": {
+        "levels": 2,
+        "meanPods": 33.5,
+        "maxPods": 40,
+        "leftmost": {
+          "wins": 2,
+          "levels": 2,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 2,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 2,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 1,
+          "levels": 2,
+          "rate": 0.5
+        },
+        "random": {
+          "wins": 48,
+          "runs": 512,
+          "macroRate": 0.09375
+        },
+        "visible_frontier": {
+          "wins": 245,
+          "runs": 512,
+          "macroRate": 0.478515625
+        }
+      },
+      "SuperHard": {
+        "levels": 1,
+        "meanPods": 37,
+        "maxPods": 37,
+        "leftmost": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 1,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 1,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 0,
+          "levels": 1,
+          "rate": 0.0
+        },
+        "random": {
+          "wins": 0,
+          "runs": 256,
+          "macroRate": 0.0
+        },
+        "visible_frontier": {
+          "wins": 28,
+          "runs": 256,
+          "macroRate": 0.109375
+        }
+      }
+    },
+    "26-50": {
+      "Normal": {
+        "levels": 18,
+        "meanPods": 37.388888888888886,
+        "maxPods": 59,
+        "leftmost": {
+          "wins": 13,
+          "levels": 18,
+          "rate": 0.7222222222222222
+        },
+        "rightmost": {
+          "wins": 17,
+          "levels": 18,
+          "rate": 0.9444444444444444
+        },
+        "cycle": {
+          "wins": 14,
+          "levels": 18,
+          "rate": 0.7777777777777778
+        },
+        "visible_largest": {
+          "wins": 18,
+          "levels": 18,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 3644,
+          "runs": 4608,
+          "macroRate": 0.7907986111111112
+        },
+        "visible_frontier": {
+          "wins": 4608,
+          "runs": 4608,
+          "macroRate": 1.0
+        }
+      },
+      "Hard": {
+        "levels": 6,
+        "meanPods": 39.333333333333336,
+        "maxPods": 78,
+        "leftmost": {
+          "wins": 6,
+          "levels": 6,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 6,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 6,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 4,
+          "levels": 6,
+          "rate": 0.6666666666666666
+        },
+        "random": {
+          "wins": 99,
+          "runs": 1536,
+          "macroRate": 0.064453125
+        },
+        "visible_frontier": {
+          "wins": 550,
+          "runs": 1536,
+          "macroRate": 0.3580729166666667
+        }
+      },
+      "SuperHard": {
+        "levels": 1,
+        "meanPods": 53,
+        "maxPods": 53,
+        "leftmost": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 1,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 1,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 1,
+          "levels": 1,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 0,
+          "runs": 256,
+          "macroRate": 0.0
+        },
+        "visible_frontier": {
+          "wins": 32,
+          "runs": 256,
+          "macroRate": 0.125
+        }
+      }
+    },
+    "51-100": {
+      "Normal": {
+        "levels": 36,
+        "meanPods": 45.861111111111114,
+        "maxPods": 111,
+        "leftmost": {
+          "wins": 31,
+          "levels": 36,
+          "rate": 0.8611111111111112
+        },
+        "rightmost": {
+          "wins": 35,
+          "levels": 36,
+          "rate": 0.9722222222222222
+        },
+        "cycle": {
+          "wins": 24,
+          "levels": 36,
+          "rate": 0.6666666666666666
+        },
+        "visible_largest": {
+          "wins": 36,
+          "levels": 36,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 6545,
+          "runs": 9216,
+          "macroRate": 0.7101779513888888
+        },
+        "visible_frontier": {
+          "wins": 9207,
+          "runs": 9216,
+          "macroRate": 0.9990234375
+        }
+      },
+      "Hard": {
+        "levels": 10,
+        "meanPods": 51.7,
+        "maxPods": 76,
+        "leftmost": {
+          "wins": 10,
+          "levels": 10,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 10,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 10,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 6,
+          "levels": 10,
+          "rate": 0.6
+        },
+        "random": {
+          "wins": 76,
+          "runs": 2560,
+          "macroRate": 0.0296875
+        },
+        "visible_frontier": {
+          "wins": 1108,
+          "runs": 2560,
+          "macroRate": 0.4328125
+        }
+      },
+      "SuperHard": {
+        "levels": 4,
+        "meanPods": 65.5,
+        "maxPods": 86,
+        "leftmost": {
+          "wins": 4,
+          "levels": 4,
+          "rate": 1.0
+        },
+        "rightmost": {
+          "wins": 1,
+          "levels": 4,
+          "rate": 0.25
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 4,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 2,
+          "levels": 4,
+          "rate": 0.5
+        },
+        "random": {
+          "wins": 67,
+          "runs": 1024,
+          "macroRate": 0.0654296875
+        },
+        "visible_frontier": {
+          "wins": 322,
+          "runs": 1024,
+          "macroRate": 0.314453125
+        }
+      }
+    },
+    "101-300": {
+      "Normal": {
+        "levels": 147,
+        "meanPods": 47.02040816326531,
+        "maxPods": 113,
+        "leftmost": {
+          "wins": 123,
+          "levels": 147,
+          "rate": 0.8367346938775511
+        },
+        "rightmost": {
+          "wins": 141,
+          "levels": 147,
+          "rate": 0.9591836734693877
+        },
+        "cycle": {
+          "wins": 122,
+          "levels": 147,
+          "rate": 0.8299319727891157
+        },
+        "visible_largest": {
+          "wins": 147,
+          "levels": 147,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 1925,
+          "runs": 2352,
+          "macroRate": 0.8184523809523809
+        },
+        "visible_frontier": {
+          "wins": 2352,
+          "runs": 2352,
+          "macroRate": 1.0
+        }
+      },
+      "Hard": {
+        "levels": 37,
+        "meanPods": 55.351351351351354,
+        "maxPods": 91,
+        "leftmost": {
+          "wins": 33,
+          "levels": 37,
+          "rate": 0.8918918918918919
+        },
+        "rightmost": {
+          "wins": 1,
+          "levels": 37,
+          "rate": 0.02702702702702703
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 37,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 24,
+          "levels": 37,
+          "rate": 0.6486486486486487
+        },
+        "random": {
+          "wins": 29,
+          "runs": 592,
+          "macroRate": 0.048986486486486486
+        },
+        "visible_frontier": {
+          "wins": 262,
+          "runs": 592,
+          "macroRate": 0.44256756756756754
+        }
+      },
+      "SuperHard": {
+        "levels": 16,
+        "meanPods": 55.6875,
+        "maxPods": 71,
+        "leftmost": {
+          "wins": 14,
+          "levels": 16,
+          "rate": 0.875
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 16,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 16,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 6,
+          "levels": 16,
+          "rate": 0.375
+        },
+        "random": {
+          "wins": 5,
+          "runs": 256,
+          "macroRate": 0.01953125
+        },
+        "visible_frontier": {
+          "wins": 33,
+          "runs": 256,
+          "macroRate": 0.12890625
+        }
+      }
+    },
+    "301-1000": {
+      "Normal": {
+        "levels": 511,
+        "meanPods": 50.900195694716245,
+        "maxPods": 118,
+        "leftmost": {
+          "wins": 413,
+          "levels": 511,
+          "rate": 0.8082191780821918
+        },
+        "rightmost": {
+          "wins": 431,
+          "levels": 511,
+          "rate": 0.8434442270058709
+        },
+        "cycle": {
+          "wins": 342,
+          "levels": 511,
+          "rate": 0.6692759295499021
+        },
+        "visible_largest": {
+          "wins": 509,
+          "levels": 511,
+          "rate": 0.9960861056751468
+        },
+        "random": {
+          "wins": 5535,
+          "runs": 8176,
+          "macroRate": 0.6769814090019569
+        },
+        "visible_frontier": {
+          "wins": 8175,
+          "runs": 8176,
+          "macroRate": 0.9998776908023483
+        }
+      },
+      "Hard": {
+        "levels": 134,
+        "meanPods": 62.134328358208954,
+        "maxPods": 117,
+        "leftmost": {
+          "wins": 126,
+          "levels": 134,
+          "rate": 0.9402985074626866
+        },
+        "rightmost": {
+          "wins": 2,
+          "levels": 134,
+          "rate": 0.014925373134328358
+        },
+        "cycle": {
+          "wins": 9,
+          "levels": 134,
+          "rate": 0.06716417910447761
+        },
+        "visible_largest": {
+          "wins": 85,
+          "levels": 134,
+          "rate": 0.6343283582089553
+        },
+        "random": {
+          "wins": 172,
+          "runs": 2144,
+          "macroRate": 0.08022388059701492
+        },
+        "visible_frontier": {
+          "wins": 1172,
+          "runs": 2144,
+          "macroRate": 0.5466417910447762
+        }
+      },
+      "SuperHard": {
+        "levels": 55,
+        "meanPods": 66,
+        "maxPods": 93,
+        "leftmost": {
+          "wins": 53,
+          "levels": 55,
+          "rate": 0.9636363636363636
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 55,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 55,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 21,
+          "levels": 55,
+          "rate": 0.38181818181818183
+        },
+        "random": {
+          "wins": 8,
+          "runs": 880,
+          "macroRate": 0.00909090909090909
+        },
+        "visible_frontier": {
+          "wins": 166,
+          "runs": 880,
+          "macroRate": 0.18863636363636363
+        }
+      }
+    },
+    "1001-2500": {
+      "Normal": {
+        "levels": 1098,
+        "meanPods": 47.35154826958106,
+        "maxPods": 117,
+        "leftmost": {
+          "wins": 922,
+          "levels": 1098,
+          "rate": 0.8397085610200364
+        },
+        "rightmost": {
+          "wins": 848,
+          "levels": 1098,
+          "rate": 0.7723132969034608
+        },
+        "cycle": {
+          "wins": 785,
+          "levels": 1098,
+          "rate": 0.714936247723133
+        },
+        "visible_largest": {
+          "wins": 1098,
+          "levels": 1098,
+          "rate": 1.0
+        },
+        "random": {
+          "wins": 12485,
+          "runs": 17568,
+          "macroRate": 0.7106671220400729
+        },
+        "visible_frontier": {
+          "wins": 17563,
+          "runs": 17568,
+          "macroRate": 0.9997153916211293
+        }
+      },
+      "Hard": {
+        "levels": 281,
+        "meanPods": 56.05693950177936,
+        "maxPods": 114,
+        "leftmost": {
+          "wins": 275,
+          "levels": 281,
+          "rate": 0.9786476868327402
+        },
+        "rightmost": {
+          "wins": 4,
+          "levels": 281,
+          "rate": 0.014234875444839857
+        },
+        "cycle": {
+          "wins": 11,
+          "levels": 281,
+          "rate": 0.03914590747330961
+        },
+        "visible_largest": {
+          "wins": 187,
+          "levels": 281,
+          "rate": 0.6654804270462633
+        },
+        "random": {
+          "wins": 331,
+          "runs": 4496,
+          "macroRate": 0.07362099644128114
+        },
+        "visible_frontier": {
+          "wins": 2553,
+          "runs": 4496,
+          "macroRate": 0.567838078291815
+        }
+      },
+      "SuperHard": {
+        "levels": 121,
+        "meanPods": 62.77685950413223,
+        "maxPods": 116,
+        "leftmost": {
+          "wins": 119,
+          "levels": 121,
+          "rate": 0.9834710743801653
+        },
+        "rightmost": {
+          "wins": 0,
+          "levels": 121,
+          "rate": 0.0
+        },
+        "cycle": {
+          "wins": 0,
+          "levels": 121,
+          "rate": 0.0
+        },
+        "visible_largest": {
+          "wins": 43,
+          "levels": 121,
+          "rate": 0.35537190082644626
+        },
+        "random": {
+          "wins": 50,
+          "runs": 1936,
+          "macroRate": 0.025826446280991736
+        },
+        "visible_frontier": {
+          "wins": 423,
+          "runs": 1936,
+          "macroRate": 0.2184917355371901
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Logical core, settled commands; no phone timing, paid items, boosts or rescues.",
+    "Macro rates give each level equal weight. Monte Carlo results are not human first-attempt rates.",
+    "Door experiment suppresses only its administrative trigger goal/key pair and keeps its footprint blocked as stone.",
+    "An unsuccessful frozen-door replay does not prove no alternate solution exists.",
+    "Distinct mapped grids do not establish distinct semantic ideas or human art quality.",
+    "Colony Flow origin could not be reached: cloud proxy CONNECT denied with HTTP 403; no live competitor claims."
+  ]
+}

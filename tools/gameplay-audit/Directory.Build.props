@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)../../content/work/gameplay-audit/build</ArtifactsPath>
+  </PropertyGroup>
+</Project>
