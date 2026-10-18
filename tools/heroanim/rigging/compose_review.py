@@ -29,11 +29,11 @@ canvas.save(OUT/'rig-comparison.jpg',quality=92)
 args=['ffmpeg','-hide_banner','-loglevel','error','-y']
 args+=['-framerate','12','-i',str(WORK/'twig/video/%05d.png')]
 filters=[]
-filters.append('[0:v]pad=iw:ih+40:0:0:color=0xf3ead9,drawtext=text=Twig:x=12:y=12:fontsize=22:fontcolor=0x3f2d1d[grid]')
+filters.append('[0:v]pad=iw:ih+40:0:0:color=0xf3ead9,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=Twig:x=12:y=12:fontsize=22:fontcolor=0x3f2d1d[grid]')
 label='[grid]'
 for index,s in enumerate(sequences):
     target=f'[clip{index}]'
-    filters.append(label+f"drawtext=text={s['clip']}:x=(w-tw)/2:y=h-30:fontsize=22:fontcolor=0x3f2d1d:enable='between(t,{s['start']/12},{(s['end']+1)/12-.001})'"+target)
+    filters.append(label+f"drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text={s['clip']}:x=(w-tw)/2:y=h-30:fontsize=22:fontcolor=0x3f2d1d:enable='between(t,{s['start']/12},{(s['end']+1)/12-.001})'"+target)
     label=target
 args+=['-filter_complex',';'.join(filters),'-map',label,'-frames:v',str(sequences[-1]['end']+1),'-an','-c:v','libx264','-threads','2','-filter_complex_threads','2','-crf','22','-pix_fmt','yuv420p','-movflags','+faststart',str(OUT/'baseline-actions.mp4')]
 subprocess.run(args,check=True)

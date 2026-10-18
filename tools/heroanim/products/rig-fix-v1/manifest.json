@@ -1,0 +1,372 @@
+{
+  "version": 1,
+  "package": "Bloomlings_RigFix_v1",
+  "families": {
+    "twig": {
+      "bones": 33,
+      "parts": 13,
+      "fbxFiles": 14,
+      "clips": [
+        {
+          "name": "Twig_Idle",
+          "seconds": 4.0,
+          "frames": 97,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Twig_Walk",
+          "seconds": 1.6666666666666667,
+          "frames": 41,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Twig_Wave",
+          "seconds": 3.2083333333333335,
+          "frames": 78,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Twig_Joy",
+          "seconds": 2.5,
+          "frames": 61,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Twig_Sad",
+          "seconds": 3.7916666666666665,
+          "frames": 92,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Twig_Curiosity",
+          "seconds": 3.4166666666666665,
+          "frames": 83,
+          "loop": false,
+          "qaOnly": false
+        }
+      ],
+      "restMaxError": 2.2018088272762748e-07,
+      "uvMaxError": 0,
+      "panelMaxDrift": 1.7943374186568327e-07,
+      "loopMaxErrors": {
+        "Idle": 0.0,
+        "Walk": 0.0
+      },
+      "roundtripMaxMotionError": 6.941067659941655e-07,
+      "sampledPoses": 117,
+      "armPanelDriftBefore": 0.011963117809765562,
+      "armPanelDriftAfter": 1.7943374186568327e-07,
+      "roundtripPoses": 18,
+      "complete": true
+    },
+    "sprig": {
+      "bones": 33,
+      "parts": 14,
+      "fbxFiles": 15,
+      "clips": [
+        {
+          "name": "Sprig_Idle",
+          "seconds": 4.0,
+          "frames": 97,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Sprig_Walk",
+          "seconds": 1.6666666666666667,
+          "frames": 41,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Sprig_Wave",
+          "seconds": 3.2083333333333335,
+          "frames": 78,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Sprig_Joy",
+          "seconds": 2.5,
+          "frames": 61,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Sprig_Sad",
+          "seconds": 3.7916666666666665,
+          "frames": 92,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Sprig_Curiosity",
+          "seconds": 3.4166666666666665,
+          "frames": 83,
+          "loop": false,
+          "qaOnly": false
+        }
+      ],
+      "restMaxError": 2.1625207530413804e-07,
+      "uvMaxError": 0,
+      "panelMaxDrift": 2.2401357262379404e-07,
+      "loopMaxErrors": {
+        "Idle": 0.0,
+        "Walk": 0.0
+      },
+      "roundtripMaxMotionError": 6.708035447469515e-07,
+      "sampledPoses": 117,
+      "armPanelDriftBefore": 1.7943374184954607e-07,
+      "armPanelDriftAfter": 2.2401357262379404e-07,
+      "roundtripPoses": 18,
+      "complete": true
+    },
+    "bloom": {
+      "bones": 33,
+      "parts": 16,
+      "fbxFiles": 17,
+      "clips": [
+        {
+          "name": "Bloom_Idle",
+          "seconds": 4.0,
+          "frames": 97,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Bloom_Walk",
+          "seconds": 1.6666666666666667,
+          "frames": 41,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Bloom_Wave",
+          "seconds": 3.2083333333333335,
+          "frames": 78,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Bloom_Joy",
+          "seconds": 2.5,
+          "frames": 61,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Bloom_Sad",
+          "seconds": 3.7916666666666665,
+          "frames": 92,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Bloom_Curiosity",
+          "seconds": 3.4166666666666665,
+          "frames": 83,
+          "loop": false,
+          "qaOnly": false
+        }
+      ],
+      "restMaxError": 2.1438396417827743e-07,
+      "uvMaxError": 0,
+      "panelMaxDrift": 1.645887049764279e-07,
+      "loopMaxErrors": {
+        "Idle": 0.0,
+        "Walk": 0.0
+      },
+      "roundtripMaxMotionError": 6.563901939528319e-07,
+      "sampledPoses": 117,
+      "armPanelDriftBefore": 1.7943374184954607e-07,
+      "armPanelDriftAfter": 1.645887049764279e-07,
+      "roundtripPoses": 18,
+      "complete": true
+    },
+    "drop": {
+      "bones": 33,
+      "parts": 23,
+      "fbxFiles": 17,
+      "clips": [
+        {
+          "name": "Drop_Idle",
+          "seconds": 4.0,
+          "frames": 97,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Drop_Walk",
+          "seconds": 1.6666666666666667,
+          "frames": 41,
+          "loop": true,
+          "qaOnly": false
+        },
+        {
+          "name": "Drop_Wave",
+          "seconds": 3.2083333333333335,
+          "frames": 78,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Drop_Joy",
+          "seconds": 2.5,
+          "frames": 61,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Drop_Sad",
+          "seconds": 3.7916666666666665,
+          "frames": 92,
+          "loop": false,
+          "qaOnly": false
+        },
+        {
+          "name": "Drop_Curiosity",
+          "seconds": 3.4166666666666665,
+          "frames": 83,
+          "loop": false,
+          "qaOnly": false
+        }
+      ],
+      "restMaxError": 2.2531272059200802e-07,
+      "uvMaxError": 0,
+      "panelMaxDrift": 7.81423485432323e-08,
+      "loopMaxErrors": {
+        "Idle": 0.0,
+        "Walk": 0.0
+      },
+      "roundtripMaxMotionError": 6.518255379725089e-07,
+      "sampledPoses": 117,
+      "armPanelDriftBefore": 0.0019348621252667096,
+      "armPanelDriftAfter": 7.81423485432323e-08,
+      "roundtripPoses": 18,
+      "complete": true
+    }
+  },
+  "tools": {
+    ".gitignore": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b",
+    "Import_Rigged_Heroes.py": "c2e53a3b4a1ea84c2e15af8abe5e6858f6a6891a4668d5d617ac6df4441545de",
+    "README.md": "5ed04de63f2ee79bc31f7801bfee0756bea948ca0856765d4de2d4e242efb45c",
+    "assemble.py": "73464b0ccd10719efb575bbc47fd8961a46c31b21d426f3272f9179e454f2592",
+    "assess.py": "28622a82e37faec2a3ed311d7c39dd2bf62e8e3900cd20dcdecda1f2183fbbff",
+    "body_masks.py": "e7f4fdb917a4c5efcc8914d819e42d40b5118a3c770c74476205170523ca4dd5",
+    "build.py": "a968fcd031acfcfdc85ad51879cbebe8cf6f3f3ec5ec94e84a998a64951e4cec",
+    "check.mjs": "3b0d848150d0fe64331ab9b2d627ecf5f88d702ac999e2d69f4035c0c98e18bb",
+    "compose_review.py": "9b9709c5bedd8d8d5c1552ec53763f91f085ccf5b79421fa71e4b0d704bd93e1",
+    "export.py": "0b270758c7d07caa9463dacffd7057d32e3103e73d22d0bb7eefb285e6905925",
+    "legs.py": "23fa2658ea5aeffd3dffad2f7450d4be5931ead698c1dd1f423408c5ada7c095",
+    "package.py": "c13749b6e9238583b8f92b3b7ce18163121b7357ef9b4a1415a3c6ef302d5a5c",
+    "review.mjs": "1d3e3c07dc99d7f387bad74d0f656d96fc29fcc09c405237e4efedd24ec7496d",
+    "roundtrip.py": "a67082ad2878aaefc0b31023d49d1f09b5fe9a31351cc1d2826d775fd9b73d64",
+    "skinning.py": "4bfaebdc62f8d566eb413cc94e5aefe17922fbcef898dd852fcedd27a6f1942e",
+    "test_skinning.py": "a8f683dd4efd4209b14618b48a362eed5d1fd716a85fac2d229b7039d77befe9",
+    "verify_owner_import.py": "efc8b087bcbda159c626994d033335723add2fe2b19ce5232ed4993861a5747f"
+  },
+  "files": [
+    {
+      "path": "twig-rigged-v1.zip",
+      "sha256": "f045ad2148926e12bebde8187a483fb7650b92f36c36e97d86e021998029da63",
+      "bytes": 26968219
+    },
+    {
+      "path": "sprig-rigged-v1.zip",
+      "sha256": "d9bb6267203ff508bf75f1e47ce5a96188cd605b195cd37d5ab0f39f835266c2",
+      "bytes": 28728093
+    },
+    {
+      "path": "bloom-rigged-v1.zip",
+      "sha256": "ee0db412ccdafba9790379f2bc8e14c72c1a88eae9d862d1c481140c78cb3033",
+      "bytes": 39944108
+    },
+    {
+      "path": "drop-rigged-v1.zip",
+      "sha256": "1f5131ae54996e2892f0a5124f9753616e3a85c28de5f086b86ef4311178b3b4",
+      "bytes": 38486010
+    }
+  ],
+  "inputs": {
+    "twig": [
+      {
+        "path": "tools/heroanim/models/twig-v2/source/TwigHeroV2.zip",
+        "sha256": "1ba395e7ca80c5184ea995eeeeeaf60f9232b48625ddc9026fcb857ba11f9633"
+      },
+      {
+        "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Glasses.fbx",
+        "sha256": "63f1407770b78b6fb7db4f0d5266b2888d09897eb14e9eb4f0a3f8b98ffd40df"
+      },
+      {
+        "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Jacket.fbx",
+        "sha256": "70aa8afee5ab1e11ce8b0feaa1afa56fc236e9afe5784208f831d3e713df2992"
+      },
+      {
+        "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Coat.fbx",
+        "sha256": "2e02692d93391ff40023622e70c4f20c66bbe3b5d4741f4b20ea9900a73a2a0b"
+      },
+      {
+        "path": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Overalls.fbx",
+        "sha256": "15e8c5f0b0c4f9727a521fa3c9b920a05c55f4570df1ec702d4d5a3874570f2f"
+      }
+    ],
+    "sprig": [
+      {
+        "path": "tools/heroanim/models/sprig-v2/source/SprigHeroV2_BucketHat_part_1.zip",
+        "sha256": "73b6517aca2966e2a8a7b89af0fc08ddfb66e7a9ee66afaeeba4e4ee8d536fd6"
+      },
+      {
+        "path": "tools/heroanim/models/sprig-v2/source/SprigHeroV2_HairSwirl_part_2.zip",
+        "sha256": "f501139df195b64d09cd094c74d830dc8caa5e2ce8cbdc8319c579619326e6dd"
+      }
+    ],
+    "bloom": [
+      {
+        "path": "tools/heroanim/models/bloom-v2/source/BloomHeroV2_Coat_part_1.zip",
+        "sha256": "b3b39580e350e5b5efb604f7fd27f0f580cccedd9b64a4a040e1efcc4489a836"
+      },
+      {
+        "path": "tools/heroanim/models/bloom-v2/source/BloomHeroV2_HairPeach_part_2.zip",
+        "sha256": "f1d3dec2f44f4d24150e5eabae64866671369c34ee3361841c76700e40b188b1"
+      }
+    ],
+    "drop": [
+      {
+        "path": "tools/heroanim/models/drop-v2/products/DropHeroV2_FBX.zip",
+        "sha256": "f11ec4cfe598c9126cb7afdd98ae2fe25482d93c874e9f254f3c192dcee2d5f0"
+      }
+    ]
+  },
+  "ownerImportCheck": {
+    "complete": true,
+    "blender": "4.3.2",
+    "rigs": 4,
+    "meshes": 66,
+    "importerSha256": "c2e53a3b4a1ea84c2e15af8abe5e6858f6a6891a4668d5d617ac6df4441545de",
+    "inventories": {
+      "twig": "eade5441ea67039bd25c51565c2f21989dd59e10de5e1f2991fbcf84baa484f4",
+      "sprig": "772828feaff8779fc5a75d5b1cc4640dbf1aefe52aefc2db9f18c84c1d85ad6a",
+      "bloom": "a5d8a8a170def5d65234e8775e1f9ccf0f8534ca154db70628365eac67a0d8ca",
+      "drop": "4d2b936fe457bdab1e61e290ace4c343d630013133f3f668fdda04427c32c6af"
+    },
+    "styleChecks": 83,
+    "maxMotionError": 0.00010028865691485452
+  },
+  "previews": [
+    {
+      "path": "rig-comparison.jpg",
+      "sha256": "62811e674c89033d1ad10b04c2f1fc5dcb698537c8edb146f5363917186b91e1",
+      "bytes": 162325
+    },
+    {
+      "path": "baseline-actions.mp4",
+      "sha256": "8a0f506202545f284390c1d618d7b4b51a1adb935d9eb55006846d174f3b55a0",
+      "bytes": 44529
+    }
+  ]
+}
