@@ -96,7 +96,8 @@ namespace Bloomlings.Client.UI.Design
             "hair" => 0, "panama" => 10, "cap" => 20, "beret" => 30, "straw_hat" => 40,
             "acorn_hat" => 50, "mushroom_hat" => 60, "crown" => 70, "nightcap" => 80,
             "earmuffs" => 90, "holiday_hat" => 100,
-            "glasses" => 0, "overalls" => 0, "coat" => 10, "jacket" => 20,
+            "flower_hat" => 55, "headscarf" => 65,
+            "glasses" => 0, "overalls" => 0, "top" => 3, "dress" => 5, "coat" => 10, "jacket" => 20,
             "striped_scarf" => 0, "knit_scarf" => 10, _ => 1000,
         };
 

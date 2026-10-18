@@ -1374,6 +1374,50 @@ namespace Bloomlings.Playtest.Preview
                 foreach(var family in new[]{Family.Sprig,Family.Bloom,Family.Twig})
                     Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HomeHeroArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),3)!.Value.Name),"equipped eyewear remains on Home");
             });
+            foreach(var selection in new[]{
+                (178,"boater","hat.bloom_boater",CosmeticKind.Hat),
+                (179,"buckethatgreen","hat.bloom_bucket_green",CosmeticKind.Hat),
+                (180,"crownhair","hat.bloom_crown",CosmeticKind.Hat),
+                (181,"dresspurple","clothes.bloom_dress_purple",CosmeticKind.Clothes),
+                (182,"flowerhat","hat.bloom_flower_hat",CosmeticKind.Hat),
+                (183,"headscarf","hat.bloom_headscarf",CosmeticKind.Hat),
+                (184,"nightcap","hat.bloom_nightcap",CosmeticKind.Hat),
+                (185,"panama","hat.bloom_summer_panama",CosmeticKind.Hat),
+                (186,"topflower","clothes.bloom_top_flower",CosmeticKind.Clothes)})
+            {
+                var item=selection;
+                yield return new Fixture(item.Item1,"bloom-extra-"+item.Item2,"Bloom fitted item: selection, Home and return",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    app.Meta.Wardrobe.Equip(Family.Bloom,EyewearArt.BloomHeartId);
+                    if(item.Item4==CosmeticKind.Hat)app.Meta.Wardrobe.Equip(Family.Bloom,"clothes.bloom_dress_purple");
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Bloom);app.WardrobeBrowse.Select(item.Item4);Run(app,p,.1f);
+                    var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,item.Item4,Family.Bloom).ToList();
+                    int index=cards.FindIndex(c=>c.Item?.Id==item.Item3);Expect(index>0,"new Bloom item appears in its category");
+                    var card=r.Cell(index);app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(cards.Count));Run(app,p,.1f);
+                    Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Bloom).Get(item.Item4)?.Id==item.Item3,"new item equips from its real card");
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                    for(int layer=0;layer<HeroGearArt.LayerCount;layer++)
+                    {
+                        var frame=HomeHeroArt.Layer(Family.Bloom,app.Meta.Wardrobe.OutfitOf(Family.Bloom),layer);
+                        if(frame.HasValue)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Value.Name),"Home draws the complete new outfit");
+                    }
+                    app.OpenWardrobe();Run(app,p,.1f);
+                });
+            }
+            yield return new Fixture(187,"bloom-extra-outfit","Bloom crown, dress, heart glasses and scarf",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);CloseAll(app);
+                foreach(string id in new[]{"hat.bloom_crown","clothes.bloom_dress_purple",EyewearArt.BloomHeartId,BloomV2Art.KnitId})Expect(app.Meta.Wardrobe.Equip(Family.Bloom,id),"combined Bloom outfit equips");
+                app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Bloom);app.WardrobeBrowse.Select(CosmeticKind.Clothes);Run(app,p,.1f);
+            });
+            yield return new Fixture(188,"bloom-extra-home","Fitted Bloom accessories on Home",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);CloseAll(app);
+                foreach(string id in new[]{"hat.bloom_flower_hat","clothes.bloom_top_flower",EyewearArt.BloomHeartId,BloomV2Art.StripeId})Expect(app.Meta.Wardrobe.Equip(Family.Bloom,id),"combined Home outfit equips");
+                app.GoHome();Run(app,p,.4f);
+            });
             yield return new Fixture(170,"wardrobe-fitting","Wardrobe: temporary fittings never leak into saved outfits",(p,data)=>
             {
                 var app=Progressed(App(data),content,87);app.Meta.Economy.Grant(12000,null);CloseAll(app);app.OpenWardrobe();

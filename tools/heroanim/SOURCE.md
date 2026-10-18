@@ -24,6 +24,10 @@ scene in the repository. Raw deliveries are authoring inputs, never mobile game 
   Sprig, Bloom and Twig. [Fit and rebuild record](models/eyewear-v1/README.md). Existing
   round IDs are retained; square, heart and octagon alternatives add three Face choices.
 
+- `models/bloom-extras-v1/source/`: nine additional unchanged owner FBXs. Their derived
+  [fitted Head / Body handoff](models/bloom-extras-v1/README.md) retains UVs and skin weights,
+  with declared head fits and local garment edge smoothing. Existing Bloom geometry stays fixed.
+
 The owner generated / supplied these models and textures through Tripo / Meshy and their
 own Blender project. Source manifests retain original filenames and SHA-256 values. No
 third-party model or motion library was substituted. Fitting, weight transfer, scripted

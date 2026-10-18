@@ -1,0 +1,247 @@
+{
+  "version": 1,
+  "scriptSha256": "c8d0261d6db855e1396a53a38114622cd0600c37e893589cc9bfc23ab576bcda",
+  "fitSha256": "7bb5b3fa733cd8a2c85d3c75c9de509cedeaaf511b44b7ed7e0ed822337277ce",
+  "acceptedModelSha256": "91daa65a44422a373dd4262997def831c90b96c8f62f8a81319d90cc46202d2c",
+  "acceptedGeometryUnchanged": true,
+  "items": [
+    {
+      "key": "Boater",
+      "id": "hat.bloom_boater",
+      "vertices": 35576,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.7881393432617188e-07,
+      "bounds": [
+        [
+          -0.4885215759277344,
+          0.4894275665283203
+        ],
+        [
+          -0.5046412348747253,
+          0.4760013520717621
+        ],
+        [
+          0.4730948805809021,
+          1.1510112285614014
+        ]
+      ],
+      "fbx": "BloomHeroV2_Boater.fbx",
+      "fbxSha256": "4defc63d2860b75ef663afdddf7c7881a99f2e8fd0ef6f03ad1d0c8ce48417e0"
+    },
+    {
+      "key": "BucketHatGreen",
+      "id": "hat.bloom_bucket_green",
+      "vertices": 34714,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.6763806343078613e-07,
+      "bounds": [
+        [
+          -0.4854545593261719,
+          0.4869403839111328
+        ],
+        [
+          -0.49554669857025146,
+          0.46198371052742004
+        ],
+        [
+          0.4775612950325012,
+          1.1787545680999756
+        ]
+      ],
+      "fbx": "BloomHeroV2_BucketHatGreen.fbx",
+      "fbxSha256": "3fd68be618e5339b2d511bf2529caa6c0860b8a2a621b8ebc3b99221e078d3c7"
+    },
+    {
+      "key": "CrownHair",
+      "id": "hat.bloom_crown",
+      "vertices": 35107,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": true,
+      "maxFitDisplacement": 0.018302284642244364,
+      "fbxRoundTripError": 1.7881393432617188e-07,
+      "bounds": [
+        [
+          -0.44412142038345337,
+          0.45376428961753845
+        ],
+        [
+          -0.3614446520805359,
+          0.39448708295822144
+        ],
+        [
+          0.4600721597671509,
+          1.2600890398025513
+        ]
+      ],
+      "fbx": "BloomHeroV2_CrownHair.fbx",
+      "fbxSha256": "b60ddc888bd6158d9359e52bce661f39404007177fda8802118a921770e3b596"
+    },
+    {
+      "key": "DressPurple",
+      "id": "clothes.bloom_dress_purple",
+      "vertices": 12332,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": false,
+      "maxFitDisplacement": 0.028418415186290822,
+      "fbxRoundTripError": 7.450580596923828e-08,
+      "bounds": [
+        [
+          -0.2000293731689453,
+          0.197509765625
+        ],
+        [
+          -0.2548989951610565,
+          0.17621594667434692
+        ],
+        [
+          0.08255711942911148,
+          0.3992288410663605
+        ]
+      ],
+      "fbx": "BloomHeroV2_DressPurple.fbx",
+      "fbxSha256": "ec02455d6aaa08b55602729e88210907052858a0e97b2a22d4047b29a3b84186"
+    },
+    {
+      "key": "FlowerHat",
+      "id": "hat.bloom_flower_hat",
+      "vertices": 36438,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": true,
+      "maxFitDisplacement": 0.025598315098880504,
+      "fbxRoundTripError": 1.6763806343078613e-07,
+      "bounds": [
+        [
+          -0.4829443395137787,
+          0.4608508050441742
+        ],
+        [
+          -0.4296768307685852,
+          0.48565393686294556
+        ],
+        [
+          0.48599308729171753,
+          1.1939020156860352
+        ]
+      ],
+      "fbx": "BloomHeroV2_FlowerHat.fbx",
+      "fbxSha256": "cad7ef84337ca939475604148d7b58b2f295726f27474776c53bb59a6c2b40a0"
+    },
+    {
+      "key": "Headscarf",
+      "id": "hat.bloom_headscarf",
+      "vertices": 32702,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": true,
+      "maxFitDisplacement": 0.025472847185403623,
+      "fbxRoundTripError": 1.6391277313232422e-07,
+      "bounds": [
+        [
+          -0.4646463394165039,
+          0.4578278362751007
+        ],
+        [
+          -0.3518781065940857,
+          0.4222053289413452
+        ],
+        [
+          0.25326916575431824,
+          1.1205332279205322
+        ]
+      ],
+      "fbx": "BloomHeroV2_Headscarf.fbx",
+      "fbxSha256": "95391c33e25753f7e5efb1114e3928df4f7dfbae55233e93fd1f56327f598068"
+    },
+    {
+      "key": "Nightcap",
+      "id": "hat.bloom_nightcap",
+      "vertices": 32845,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": true,
+      "maxFitDisplacement": 0.03574907831032882,
+      "fbxRoundTripError": 1.7881393432617188e-07,
+      "bounds": [
+        [
+          -0.39530566334724426,
+          0.5324451923370361
+        ],
+        [
+          -0.38967621326446533,
+          0.43349912762641907
+        ],
+        [
+          0.43688395619392395,
+          1.2808387279510498
+        ]
+      ],
+      "fbx": "BloomHeroV2_Nightcap.fbx",
+      "fbxSha256": "cdebece8c50a9659ba12e760ff04b6555e701cb91e010fcd1862de7d2140a747"
+    },
+    {
+      "key": "Panama",
+      "id": "hat.bloom_summer_panama",
+      "vertices": 35263,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": true,
+      "maxFitDisplacement": 0.019503370098812204,
+      "fbxRoundTripError": 1.7881393432617188e-07,
+      "bounds": [
+        [
+          -0.4625628590583801,
+          0.46438658237457275
+        ],
+        [
+          -0.44750818610191345,
+          0.40193796157836914
+        ],
+        [
+          0.4897043704986572,
+          1.2072136402130127
+        ]
+      ],
+      "fbx": "BloomHeroV2_Panama.fbx",
+      "fbxSha256": "da340e48fea168c18ece5eff6af31e2cbe54642cdf526b29c992f9e967f12964"
+    },
+    {
+      "key": "TopFlower",
+      "id": "clothes.bloom_top_flower",
+      "vertices": 11702,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "rigidHead": false,
+      "maxFitDisplacement": 0.02598884270816692,
+      "fbxRoundTripError": 7.450580596923828e-08,
+      "bounds": [
+        [
+          -0.20770645141601562,
+          0.20526504516601562
+        ],
+        [
+          -0.2700760066509247,
+          0.16261686384677887
+        ],
+        [
+          0.0825570747256279,
+          0.3883594274520874
+        ]
+      ],
+      "fbx": "BloomHeroV2_TopFlower.fbx",
+      "fbxSha256": "de339dcfadecf5bc86e80c10aed320545cf37e6c1da053293260aa4c863f7af8"
+    }
+  ],
+  "export": {
+    "file": "BloomExtras.glb",
+    "sha256": "a08e4dcfaeb94d7983bbfdfea7f691a6660892ab26fbf05b7f3bba18e5dcb2e3"
+  }
+}

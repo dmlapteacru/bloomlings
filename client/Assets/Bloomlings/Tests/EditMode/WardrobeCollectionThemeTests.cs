@@ -40,7 +40,7 @@ namespace Bloomlings.Client.Tests
             {
                 [Family.Sprig]=new[]{SprigV2Art.LeafyId,SprigV2Art.RosetteId,SprigV2Art.SwirlId,SprigV2Art.BucketId,SprigV2Art.CapId,SprigV2Art.BeretId,SprigV2Art.EarmuffsId,SprigV2Art.XmasId},
                 [Family.Twig]=new[]{TwigV2Art.HairId,TwigV2Art.BucketId,TwigV2Art.BeretId,TwigV2Art.AcornId,TwigV2Art.HatHairId,TwigV2Art.EarmuffsId,TwigV2Art.XmasId},
-                [Family.Bloom]=new[]{BloomV2Art.PetalsId,BloomV2Art.BobId,BloomV2Art.PeachId,BloomV2Art.RoseId,BloomV2Art.BucketId,BloomV2Art.CapId,BloomV2Art.BeretId,BloomV2Art.EarmuffsId,BloomV2Art.XmasId},
+                [Family.Bloom]=new[]{BloomV2Art.PetalsId,BloomV2Art.BobId,BloomV2Art.PeachId,BloomV2Art.RoseId,BloomV2Art.BucketId,"hat.bloom_bucket_green","hat.bloom_summer_panama",BloomV2Art.CapId,BloomV2Art.BeretId,"hat.bloom_boater","hat.bloom_flower_hat","hat.bloom_headscarf","hat.bloom_crown","hat.bloom_nightcap",BloomV2Art.EarmuffsId,BloomV2Art.XmasId},
                 [Family.Drop]=new[]{DropV2Art.NativeId,DropV2Art.WaveId,DropV2Art.RipplesId,DropV2Art.WhirlpoolId,DropV2Art.BucketId,DropV2Art.CapId,DropV2Art.BeretId,DropV2Art.EarmuffsId,DropV2Art.XmasId},
             };
             foreach(var pair in expected)
@@ -54,7 +54,7 @@ namespace Bloomlings.Client.Tests
                 if(paid!=null){Assert.That(wardrobe.TryBuy(paid.Id),Is.True);wardrobe.Equip(pair.Key,paid.Id);}
                 Assert.That(WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Hat,pair.Key).Select(c=>c.Item?.Id),Is.EqualTo(before),"buying and equipping do not move items");
                 var body=WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Clothes,pair.Key).Where(c=>c.Item!=null).Select(c=>c.Item!.Shape);
-                Assert.That(body,Is.EqualTo(new[]{"overalls","coat","jacket"}),"everyday, autumn, winter");
+                Assert.That(body,Is.EqualTo(pair.Key==Family.Bloom?new[]{"overalls","top","dress","coat","jacket"}:new[]{"overalls","coat","jacket"}),"everyday classes, autumn, winter");
             }
         }
         [Test]

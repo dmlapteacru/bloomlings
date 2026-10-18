@@ -138,8 +138,28 @@ for(const f of eyewear.outputs){
  const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since eyewear bake');
  if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its declared crop');}
 }
+// Additional Bloom Head / Body items include masks for every affected scarf and eyewear combination.
+const bloomExtras=JSON.parse(fs.readFileSync(path.join(here,'bloom-extras-v1.json')));
+for(const source of bloomExtras.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since Bloom extras bake');
+expect(sha(path.join(repo,bloomExtras.data))===bloomExtras.dataSha256,'BloomExtrasData is stale');
+const extrasFit=JSON.parse(fs.readFileSync(path.join(here,'models/bloom-extras-v1/fit.json'))),extrasProof=JSON.parse(fs.readFileSync(path.join(here,'models/bloom-extras-v1/build-report.json')));
+expect(extrasFit.items.length===9&&extrasFit.items.filter(i=>i.slot==='Head').length===7&&extrasFit.items.filter(i=>i.slot==='Body').length===2,'Bloom extras must retain seven Head and two Body items');
+expect(extrasProof.acceptedGeometryUnchanged&&extrasProof.acceptedModelSha256===JSON.parse(fs.readFileSync(path.join(here,'models/bloom-v2/build-report.json'))).export.sha256,'Bloom accepted geometry changed under fitted additions');
+expect(extrasProof.scriptSha256===sha(path.join(here,'prepare-bloom-extras-v1.py'))&&extrasProof.fitSha256===sha(path.join(here,'models/bloom-extras-v1/fit.json')),'Bloom fitting proof is stale');
+expect(extrasProof.items.length===9&&extrasProof.items.every(i=>i.uvUnchanged&&i.weightsUnchanged&&i.fbxRoundTripError<1e-5),'Bloom fitted FBX geometry / UV / weight proof failed');
+expect(bloomExtras.heads.length===16&&bloomExtras.bodies.length===6&&bloomExtras.scarves.length===3,'Bloom extras outfit axes are incomplete');
+for(const view of ['front','home']){
+ expect(bloomExtras[view].length===288&&bloomExtras[view].filter(Boolean).length===180,'Bloom extras '+view+' outfit coverage is incomplete');
+ for(const row of bloomExtras[view].filter(Boolean))expect(row.length===5&&row.every(i=>i===-1||bloomExtras.outputs[i]?.view===view),'Bloom extras '+view+' has a wrong layer');
+}
+expect(Object.keys(bloomExtras.icons).length===9&&Object.values(bloomExtras.icons).every(i=>bloomExtras.outputs[i]?.view==='icon'),'Bloom extras must have nine isolated item icons');
+for(const f of bloomExtras.outputs){
+ const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since Bloom extras bake');
+ if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its crop');}
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
+for(const f of bloomExtras.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of eyewear.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of homeHeroes.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(dropV2File))for(const f of JSON.parse(fs.readFileSync(dropV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);

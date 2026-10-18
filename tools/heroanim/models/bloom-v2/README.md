@@ -57,3 +57,6 @@ Source ZIPs, FBXs, GLB, reference images and rigs stay outside application Resou
 
 The owner permanently accepted Bloom V2. Previous Bloom meshes and archived motion PNGs are removed; Git history retains earlier versions. Profile portraits and medals now use the accepted identity, with stable IDs and purchases. Level mosaics are not regenerated.
 No APK or levels are generated here. Reference designs: `../../references/bloom-v2/`.
+
+Additional Head and Body choices: [fitted owner additions](../bloom-extras-v1/README.md).
+Their separate extension preserves the original preparation and baked recipe indices.

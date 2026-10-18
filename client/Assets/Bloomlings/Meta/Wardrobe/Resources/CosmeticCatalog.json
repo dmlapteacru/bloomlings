@@ -103,6 +103,15 @@
     {"id": "glasses.sprig_square", "kind": "glasses", "name": "Square Garden Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "glasses"},
     {"id": "glasses.bloom_heart", "kind": "glasses", "name": "Heart Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "glasses"},
     {"id": "glasses.twig_octagon", "kind": "glasses", "name": "Octagon Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "glasses"},
-    {"id": "clothes.drop_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "overalls"}
+    {"id": "clothes.drop_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "overalls"},
+    {"id": "hat.bloom_boater", "kind": "hat", "name": "Ribbon Boater", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "straw_hat"},
+    {"id": "hat.bloom_bucket_green", "kind": "hat", "name": "Green Bucket Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "panama"},
+    {"id": "hat.bloom_crown", "kind": "hat", "name": "Petal Crown", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "crown"},
+    {"id": "clothes.bloom_dress_purple", "kind": "clothes", "name": "Purple Garden Dress", "shape": "dress", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "dress"},
+    {"id": "hat.bloom_flower_hat", "kind": "hat", "name": "Flower Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "flower_hat"},
+    {"id": "hat.bloom_headscarf", "kind": "hat", "name": "Garden Headscarf", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "headscarf"},
+    {"id": "hat.bloom_nightcap", "kind": "hat", "name": "Dreamy Nightcap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "nightcap"},
+    {"id": "hat.bloom_summer_panama", "kind": "hat", "name": "Summer Panama", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "panama"},
+    {"id": "clothes.bloom_top_flower", "kind": "clothes", "name": "Flower Top", "shape": "top", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "top"}
   ]
 }

@@ -7380,6 +7380,735 @@
    "slot": "char.hero3d.motion.twig",
    "source": "owner-eyewear",
    "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "bloomextra-000.png",
+   "width": 133,
+   "height": 102,
+   "sha256": "5d36efb816c9e986da823ed0261a85d6403f541ff5ae8aab1a0b62af58b49841",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-001.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "a57e86f63dd40597c73752759b7c13a38d9d14a2852f3590b18462dfc1df7228",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-002.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "14e0e26e4d8abe85a523d023088fa10bb7a4f7c5b35c6c889f46b9f32dff3918",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-003.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "164edab70e3f778fc52ecc4b8ad4e42d27bf7845af47383a4d0e5fb8169e6cd8",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-004.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "7a741125638a70c9a75e1cfc2b9538cf3e764919474e2ab6a6551f1ca8e2e8e2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-005.png",
+   "width": 139,
+   "height": 102,
+   "sha256": "294a2683a41ade7ece72577a495ab23d3a2fc16e2c0cd0545a657e527b84c90d",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-006.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "07ed8667e1357566ff223bba4df7ace627107978ad9ecde45b7edd9a35a9aacd",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-007.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "4185feddc663bf50028f224590637d3ed6c0491cba421d19e47cb1ba295c50e0",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-008.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "2df132650c1024de75bc95d942c1f0773c9d4e7078ad8419cbe71f49fc48cb45",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-009.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "5ac9f679f9de26d72e5028ac8f481e8cb9bed778afcad7c43ac9f5ad5b7066f2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-010.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "3d22a0fc34d1bbdc00f9ad5a75b4524311fbdd81442241ff1be93a21033fbcdc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-011.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "f691b456e64391d814a2694afcf2d34773bb16e345eed12b06fcb23d72aad978",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-012.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "6c9f6461b82f4e09f65e99dd73c57c2814cdf7921993e598b54c75c62ea941bc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-013.png",
+   "width": 324,
+   "height": 382,
+   "sha256": "16e35c94991c6319484eb2115ef504b819517f9bd3fb9d81781540a350eef9e5",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-014.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "64cca01c46957fd3b0df019a8dfe001fcf44e8e82d081820ea5ebe271bd476b4",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-015.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "9a4e88c0399756885db229651ea893166a74d4f9f70451266f795beb171ec44c",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-016.png",
+   "width": 200,
+   "height": 86,
+   "sha256": "bb81c0337a3f3354c4beba9f70534f160b1ef67e0497388f935dbe94a0fa279c",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-017.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "194c68d69f3ca526e6558d4f556bbc8e1a0091cb5deea254ed6af9b8fe01fe6d",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-018.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "cbb5b55f8db4c161d47364ab517fc772356cb9b44bda5ef4c09b3a86e246a567",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-019.png",
+   "width": 194,
+   "height": 98,
+   "sha256": "6a2686a7ab354f9d72f8113e67686e3972aa4fb97674069d891fa90c59a57b63",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-020.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "8274caeaf09075a2ff28c4c0b05e3bcd96707f1e6b1db122b8e0f4ca9487907a",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-021.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "463a1ad6c7ce4daed6b646a6e67b10e4bdfc141ff2d798db5c7e1966a7dcd7fe",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-022.png",
+   "width": 162,
+   "height": 101,
+   "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-023.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "6b3a1b8b912d72ce699d1b0b0808313477473cbc67c24988ccffab71be2daabb",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-024.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "4e986e777580a791cabb20b7967381dca1fc1a3ec92d1384a3761b72f8dafd08",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-025.png",
+   "width": 323,
+   "height": 391,
+   "sha256": "55552cb754ce40ef557c190dd0c5ce5dffd981aef0931a3491be8b0fc43a31a5",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-026.png",
+   "width": 299,
+   "height": 417,
+   "sha256": "6d74ac5d370d09ea16abb3770bd00e3cc10b2eba080f06ed953e0c257bd3c96e",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-027.png",
+   "width": 313,
+   "height": 396,
+   "sha256": "6677f618a77f84b603ca16b057441c6e2556f09fc2fd03307b4ad87914953100",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-028.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "d5eb06d74f626e6b4a585bfb37f9603173968002f82a77c19fae31974b00f586",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-029.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "53f9bae8be1e3b452fff61f8a85641ec5a71a55dc26009ed81dde4ce48c4fc74",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-030.png",
+   "width": 306,
+   "height": 372,
+   "sha256": "a28fd1d7fdc97cba13c7f12c64b39c119ee8d2b3d40bee1a45761957c1ce1927",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-031.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "84a2d0dad2f58f7712e43b265c4f465ad21f55329c1e80a97d38cc7040660864",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-032.png",
+   "width": 309,
+   "height": 424,
+   "sha256": "1193d77349df88043ca0282abde5b4246b95ad6343490a49d8d9a7bf0f28c01d",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-033.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "82edf35cf6fe27c420d3358fc235f3f52bc143090e2572abfd5246e702b2d07e",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-034.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "0283b9c716ad0c75a7f4e123a968ed27a354c3e8c770b7ac2d94f97a55fd2144",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-035.png",
+   "width": 308,
+   "height": 400,
+   "sha256": "123c76b1684efb9729f9a9bc592b58f2e299972bb3469f3c2a45089e213bb0e9",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-036.png",
+   "width": 133,
+   "height": 102,
+   "sha256": "5d36efb816c9e986da823ed0261a85d6403f541ff5ae8aab1a0b62af58b49841",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-037.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "a57e86f63dd40597c73752759b7c13a38d9d14a2852f3590b18462dfc1df7228",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-038.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "14e0e26e4d8abe85a523d023088fa10bb7a4f7c5b35c6c889f46b9f32dff3918",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-039.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "164edab70e3f778fc52ecc4b8ad4e42d27bf7845af47383a4d0e5fb8169e6cd8",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-040.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "7a741125638a70c9a75e1cfc2b9538cf3e764919474e2ab6a6551f1ca8e2e8e2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-041.png",
+   "width": 139,
+   "height": 102,
+   "sha256": "294a2683a41ade7ece72577a495ab23d3a2fc16e2c0cd0545a657e527b84c90d",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-042.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "07ed8667e1357566ff223bba4df7ace627107978ad9ecde45b7edd9a35a9aacd",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-043.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "4185feddc663bf50028f224590637d3ed6c0491cba421d19e47cb1ba295c50e0",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-044.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "2df132650c1024de75bc95d942c1f0773c9d4e7078ad8419cbe71f49fc48cb45",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-045.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "5ac9f679f9de26d72e5028ac8f481e8cb9bed778afcad7c43ac9f5ad5b7066f2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-046.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "3d22a0fc34d1bbdc00f9ad5a75b4524311fbdd81442241ff1be93a21033fbcdc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-047.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "f691b456e64391d814a2694afcf2d34773bb16e345eed12b06fcb23d72aad978",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-048.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "6c9f6461b82f4e09f65e99dd73c57c2814cdf7921993e598b54c75c62ea941bc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-049.png",
+   "width": 324,
+   "height": 382,
+   "sha256": "16e35c94991c6319484eb2115ef504b819517f9bd3fb9d81781540a350eef9e5",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-050.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "64cca01c46957fd3b0df019a8dfe001fcf44e8e82d081820ea5ebe271bd476b4",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-051.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "9a4e88c0399756885db229651ea893166a74d4f9f70451266f795beb171ec44c",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-052.png",
+   "width": 200,
+   "height": 86,
+   "sha256": "bb81c0337a3f3354c4beba9f70534f160b1ef67e0497388f935dbe94a0fa279c",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-053.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "194c68d69f3ca526e6558d4f556bbc8e1a0091cb5deea254ed6af9b8fe01fe6d",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-054.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "cbb5b55f8db4c161d47364ab517fc772356cb9b44bda5ef4c09b3a86e246a567",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-055.png",
+   "width": 194,
+   "height": 98,
+   "sha256": "6a2686a7ab354f9d72f8113e67686e3972aa4fb97674069d891fa90c59a57b63",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-056.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "8274caeaf09075a2ff28c4c0b05e3bcd96707f1e6b1db122b8e0f4ca9487907a",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-057.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "463a1ad6c7ce4daed6b646a6e67b10e4bdfc141ff2d798db5c7e1966a7dcd7fe",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-058.png",
+   "width": 162,
+   "height": 101,
+   "sha256": "9d43c4717b0656d4feabf33c74c3ea12e3d4fdd8c7e2fcee084b75d73a2216bd",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-059.png",
+   "width": 219,
+   "height": 121,
+   "sha256": "6b3a1b8b912d72ce699d1b0b0808313477473cbc67c24988ccffab71be2daabb",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-060.png",
+   "width": 152,
+   "height": 118,
+   "sha256": "4e986e777580a791cabb20b7967381dca1fc1a3ec92d1384a3761b72f8dafd08",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-061.png",
+   "width": 323,
+   "height": 391,
+   "sha256": "55552cb754ce40ef557c190dd0c5ce5dffd981aef0931a3491be8b0fc43a31a5",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-062.png",
+   "width": 299,
+   "height": 417,
+   "sha256": "6d74ac5d370d09ea16abb3770bd00e3cc10b2eba080f06ed953e0c257bd3c96e",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-063.png",
+   "width": 313,
+   "height": 396,
+   "sha256": "6677f618a77f84b603ca16b057441c6e2556f09fc2fd03307b4ad87914953100",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-064.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "d5eb06d74f626e6b4a585bfb37f9603173968002f82a77c19fae31974b00f586",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-065.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "53f9bae8be1e3b452fff61f8a85641ec5a71a55dc26009ed81dde4ce48c4fc74",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-066.png",
+   "width": 306,
+   "height": 372,
+   "sha256": "a28fd1d7fdc97cba13c7f12c64b39c119ee8d2b3d40bee1a45761957c1ce1927",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-067.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "84a2d0dad2f58f7712e43b265c4f465ad21f55329c1e80a97d38cc7040660864",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-068.png",
+   "width": 309,
+   "height": 424,
+   "sha256": "1193d77349df88043ca0282abde5b4246b95ad6343490a49d8d9a7bf0f28c01d",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-069.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "82edf35cf6fe27c420d3358fc235f3f52bc143090e2572abfd5246e702b2d07e",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-070.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "0283b9c716ad0c75a7f4e123a968ed27a354c3e8c770b7ac2d94f97a55fd2144",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-extra-071.png",
+   "width": 308,
+   "height": 400,
+   "sha256": "123c76b1684efb9729f9a9bc592b58f2e299972bb3469f3c2a45089e213bb0e9",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-072.png",
+   "width": 232,
+   "height": 145,
+   "sha256": "ebffdeb04735783de0d874dc1eb3f096a3dc641c0d61bed299513eff7d0ca333",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-073.png",
+   "width": 231,
+   "height": 158,
+   "sha256": "ea182978e71b829ff9d2a46c539a7e5955ce70274aeaaa7b792c85f9d138a38d",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-074.png",
+   "width": 227,
+   "height": 193,
+   "sha256": "531f5a0ba1b8626e460a39d2b3b4d5a2fc4ed321275035f955acd89a7da2bde6",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-075.png",
+   "width": 232,
+   "height": 200,
+   "sha256": "e94a2ef27158f05e7988e470ae05232bcfc8f1a1703c67b7e822420c907d4122",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-076.png",
+   "width": 227,
+   "height": 166,
+   "sha256": "494fa0dcd86a95869f4997d86e93727c85baa23c709f626287276af06e929548",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-077.png",
+   "width": 235,
+   "height": 218,
+   "sha256": "1099977dd7c5b49b504a270ac0d4ae2c0c85e238a50af83c4772703af721956a",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-078.png",
+   "width": 224,
+   "height": 203,
+   "sha256": "834b0b97b6455c2cc4ac900af00f66ce502dfb2b81b5c29a1b51f874c4fce290",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-079.png",
+   "width": 230,
+   "height": 171,
+   "sha256": "f3c9a881296018588c5638dab041cd324971ca3cdf7d0bfae13dd61909df65f1",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "bloomextra-080.png",
+   "width": 230,
+   "height": 187,
+   "sha256": "3d756632e60952fbefb271591d133e0389785c5a3b73f3ce9590fba6143e3edb",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-bloom-extras",
+   "record": "tools/heroanim/models/bloom-extras-v1/README.md"
   }
  ]
 }

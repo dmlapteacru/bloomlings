@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "key": "Boater",
+      "id": "hat.bloom_boater",
+      "name": "Ribbon Boater",
+      "slot": "Head",
+      "wardrobeClass": "straw_hat",
+      "source": "source/BloomHeroV2_Boater.fbx",
+      "sha256": "09d2b99c065edd22dae17dad9d0104526f24b0d323444f97da00a8af67be70b6",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "key": "BucketHatGreen",
+      "id": "hat.bloom_bucket_green",
+      "name": "Green Bucket Hat",
+      "slot": "Head",
+      "wardrobeClass": "panama",
+      "source": "source/BloomHeroV2_BucketHatGreen.fbx",
+      "sha256": "2bc7baeafe7c9079594ae08867fe1e0a9cded82e557af3176ad7862d90a8330b",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "key": "CrownHair",
+      "id": "hat.bloom_crown",
+      "name": "Petal Crown",
+      "slot": "Head",
+      "wardrobeClass": "crown",
+      "source": "source/BloomHeroV2_CrownHair.fbx",
+      "sha256": "71be38c1e5e3cb9ca53c1c61a8ed1e7afb9c4a728fd17ea2d5a55b93cfda4961",
+      "scale": [
+        0.97,
+        0.96,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        -0.008
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "key": "DressPurple",
+      "id": "clothes.bloom_dress_purple",
+      "name": "Purple Garden Dress",
+      "slot": "Body",
+      "wardrobeClass": "dress",
+      "source": "source/BloomHeroV2_DressPurple.fbx",
+      "sha256": "b9ac1ea6ebddb81dc91f7ce92823c9d2297c9374943ef257867027d56a592007",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "rearSmooth": {
+        "startY": 0.02,
+        "fullY": 0.11,
+        "iterations": 12,
+        "strength": 0.55
+      }
+    },
+    {
+      "key": "FlowerHat",
+      "id": "hat.bloom_flower_hat",
+      "name": "Flower Hat",
+      "slot": "Head",
+      "wardrobeClass": "flower_hat",
+      "source": "source/BloomHeroV2_FlowerHat.fbx",
+      "sha256": "7cdef6fe9d143cbfa3d5268c0a2d6534400dccef4ba9e0b48ce07e33a2256147",
+      "scale": [
+        0.96,
+        0.95,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "key": "Headscarf",
+      "id": "hat.bloom_headscarf",
+      "name": "Garden Headscarf",
+      "slot": "Head",
+      "wardrobeClass": "headscarf",
+      "source": "source/BloomHeroV2_Headscarf.fbx",
+      "sha256": "329fd9915e1d6512622838d4a7428a339b18d5cab6d22030b170497fb1690560",
+      "scale": [
+        0.95,
+        0.95,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        -0.005
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "key": "Nightcap",
+      "id": "hat.bloom_nightcap",
+      "name": "Dreamy Nightcap",
+      "slot": "Head",
+      "wardrobeClass": "nightcap",
+      "source": "source/BloomHeroV2_Nightcap.fbx",
+      "sha256": "ee428dac37156164ffa8101b42a5e251b4fbb8d34cbf19d1ec1baf5d44540e3d",
+      "scale": [
+        0.94,
+        0.95,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        -0.01
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "key": "Panama",
+      "id": "hat.bloom_summer_panama",
+      "name": "Summer Panama",
+      "slot": "Head",
+      "wardrobeClass": "panama",
+      "source": "source/BloomHeroV2_Panama.fbx",
+      "sha256": "283867fedb1f4697b32d35a2b56ac2b5df9e85b733ec03ca7a63a90fcd9ce4cd",
+      "scale": [
+        0.96,
+        0.96,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "key": "TopFlower",
+      "id": "clothes.bloom_top_flower",
+      "name": "Flower Top",
+      "slot": "Body",
+      "wardrobeClass": "top",
+      "source": "source/BloomHeroV2_TopFlower.fbx",
+      "sha256": "0617fe6c568c761cbe8f9a1b238c39395315101040753ee51cc3b0948a59e5db",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "rearSmooth": {
+        "startY": 0.02,
+        "fullY": 0.11,
+        "iterations": 8,
+        "strength": 0.55
+      }
+    }
+  ]
+}

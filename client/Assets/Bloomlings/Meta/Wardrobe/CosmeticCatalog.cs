@@ -85,7 +85,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             [CosmeticKind.Glasses] = new[] { "round" },
             [CosmeticKind.Backpack] = new[] { "leaf" },
             [CosmeticKind.Scarf] = new[] { "knit" },
-            [CosmeticKind.Clothes] = new[] { "jacket", "coat", "overalls" },
+            [CosmeticKind.Clothes] = new[] { "jacket", "coat", "overalls", "top", "dress" },
         };
 
         private readonly Dictionary<string, CosmeticItem> _byId = new Dictionary<string, CosmeticItem>(StringComparer.Ordinal);
