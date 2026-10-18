@@ -30,6 +30,8 @@ namespace Bloomlings.Client.UI.Screens
         private static readonly Box UnitCell = new Box(0f, 0f, HeroMotion.CellWidth, HeroMotion.CellHeight);
 
         private RectTransform _cell = null!;
+        private RectTransform _visual = null!;
+        private float _celebrationAt;
         private CanvasGroup _group = null!;
         private Image _trail = null!;
         private Image _frame = null!;
@@ -166,6 +168,15 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>Shows the pose at <paramref name="now"/> (unscaled seconds); a celebrating view calls it itself.</summary>
         public void Tick(float now)
         {
+            float elapsed = now - _celebrationAt;
+            float hop = 0f;
+            if (_celebrates && elapsed >= 0f)
+            {
+                if (elapsed < .70f) hop = Mathf.Sin(Mathf.PI * elapsed / .70f) * .07f;
+                else if (elapsed >= .92f && elapsed < 1.52f)
+                    hop = Mathf.Sin(Mathf.PI * (elapsed - .92f) / .60f) * .045f;
+            }
+            _visual.anchoredPosition = new Vector2(0f, _cell.rect.height * hop);
             if (_gearOn && _player != null)
             {
                 _gear!.Tick(_player.Pose(now));
@@ -228,6 +239,10 @@ namespace Bloomlings.Client.UI.Screens
             _group = cell.gameObject.AddComponent<CanvasGroup>();
             _group.blocksRaycasts = false;
             _group.interactable = false;
+            // Move the complete outfit together: no skeletal deformation is needed for the victory hop.
+            _visual = UiFactory.CreateRect("Visual", cell);
+            UiFactory.Stretch(_visual);
+            cell = _visual;
 
             // Back to front: the trail, the frame, the skin through the frame's alpha, the cross-fade, the badge, the hat.
             _trail = Part("Trail", cell);
@@ -257,7 +272,7 @@ namespace Bloomlings.Client.UI.Screens
             _gearOn = HeroGearArt.Supports(family);
             if (_gearOn)
             {
-                _gear ??= HeroGearView.Create(_cell);
+                _gear ??= HeroGearView.Create(_visual);
                 _gear.Rect.SetSiblingIndex(_frame.rectTransform.GetSiblingIndex());
                 _gear.Rect.gameObject.SetActive(true);
                 _gear.Wear(family, null, _towardLotus);
@@ -283,6 +298,7 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
+            _celebrationAt = now;
             // Alone on the stage it faces the player (its win set, baked front on).
             _player = new HeroMotionPlayer(_set.Family, now, front: true);
             _player.Celebrate(now, turn: _turn);
