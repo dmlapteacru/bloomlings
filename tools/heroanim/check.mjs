@@ -180,8 +180,34 @@ for(const f of additions.outputs){
  const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since additions bake');
  if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its crop');}
 }
+// Every repaired garment and Drop addition uses the same validated FBX rest mesh in-game.
+const finish=JSON.parse(fs.readFileSync(path.join(here,'wardrobe-finish-v1.json')));
+for(const source of finish.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since garment repair bake');
+expect(sha(path.join(repo,finish.data))===finish.dataSha256,'WardrobeFinishData is stale');
+expect(finish.sets.length===4&&Object.keys(finish.icons).length===26,'All 19 garments and seven new Drop Head items must be present');
+const baseProof=JSON.parse(fs.readFileSync(path.join(here,'models/wardrobe-finish-v1/base-validation.json')));
+expect(baseProof.scriptSha256===sha(path.join(here,'validate-wardrobe-finish-v1.py'))&&baseProof.families.length===4&&baseProof.families.every(f=>f.checks.length===({sprig:9,bloom:10,twig:8,drop:17}[f.family])&&f.checks.every(c=>c.polygonCount>0&&c.worldGeometryAndUvUnchanged)),'Independent base / Head geometry and UV validation failed');
+for(const set of finish.sets){
+ const proof=JSON.parse(fs.readFileSync(path.join(here,'models/wardrobe-finish-v1/'+set.family+'-build-report.json')));
+ expect(proof.baseGeometryUnchanged&&proof.scriptSha256===sha(path.join(here,'prepare-wardrobe-finish-v1.py'))&&proof.cleanupSha256===sha(path.join(here,'garment_cleanup.py')),'Garment geometry proof is stale: '+set.family);
+ expect(proof.items.every(i=>i.fbxRoundTripError<1e-5&&(i.slot!=='Body'||i.normalizedWeights&&i.rimVertices>0&&i.vertices>0&&i.uvLoops>0)),'Garment FBX round trip, UVs, weights or rim failed: '+set.family);
+ const size=set.heads.length*set.bodies.length*set.scarves.length;
+ for(const view of ['front','home']){
+  expect(set[view].length===size,'Repaired outfit table is incomplete: '+set.family+'/'+view);
+  for(let head=0;head<set.heads.length;head++)for(let body=0;body<set.bodies.length;body++)for(let scarf=0;scarf<set.scarves.length;scarf++){
+   const row=set[view][(head*set.bodies.length+body)*set.scarves.length+scarf],affected=body>0||set.family==='drop'&&head>=9;
+   expect(Boolean(row)===affected,'Missing repaired outfit: '+set.family+'/'+view+'/'+head+'/'+body+'/'+scarf);
+   if(row)expect(row.length===5&&row.every(i=>i===-1||finish.outputs[i]?.family===set.family&&finish.outputs[i]?.view===view),'Wrong repair layer family or view');
+  }
+ }
+}
+for(const f of finish.outputs){
+ const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since repair bake');
+ if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its crop');}
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
+for(const f of finish.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of additions.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of bloomExtras.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of eyewear.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);

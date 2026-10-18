@@ -1,0 +1,254 @@
+{
+  "version": 1,
+  "scriptSha256": "5167fbcbea2535701a52d43fdcbe0040fb544a9c41f3d350e28b0a7128ae6a12",
+  "families": [
+    {
+      "family": "sprig",
+      "acceptedModelSha256": "9c36774e061f1f4d9c6da1f26ea978125cb1519c9fd9ff2feefce4d03573f137",
+      "finishedModelSha256": "b44bea1b7ce899e63c874e81bf5a9bfabfbecdf358854f4f9d2aa1b59f735a5b",
+      "checks": [
+        {
+          "part": "Finish_base",
+          "polygonCount": 99786,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HairLeafy",
+          "polygonCount": 63836,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HairRosette",
+          "polygonCount": 57828,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HairSwirl",
+          "polygonCount": 58350,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_BucketHat",
+          "polygonCount": 68280,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_Cap",
+          "polygonCount": 59996,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_Beret",
+          "polygonCount": 57232,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_EarmuffHair",
+          "polygonCount": 56899,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_XmasHat",
+          "polygonCount": 61817,
+          "worldGeometryAndUvUnchanged": true
+        }
+      ]
+    },
+    {
+      "family": "bloom",
+      "acceptedModelSha256": "91daa65a44422a373dd4262997def831c90b96c8f62f8a81319d90cc46202d2c",
+      "finishedModelSha256": "4e483899d60b2edef39af951815e6dbbf5a37b4f97c1da820e0a4e45a55a6a07",
+      "checks": [
+        {
+          "part": "Finish_base",
+          "polygonCount": 97258,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HairPetals",
+          "polygonCount": 51649,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HairBob",
+          "polygonCount": 71333,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HairPeach",
+          "polygonCount": 67210,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HairRose",
+          "polygonCount": 74623,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_BucketHat",
+          "polygonCount": 83055,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_Cap",
+          "polygonCount": 73518,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_Beret",
+          "polygonCount": 79288,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_EarmuffHair",
+          "polygonCount": 54647,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_XmasHat",
+          "polygonCount": 75344,
+          "worldGeometryAndUvUnchanged": true
+        }
+      ]
+    },
+    {
+      "family": "twig",
+      "acceptedModelSha256": "08556c5fb6e3b1122ef00c8cb96aca227fd2a12c95bb659a5b2757308d9fdef8",
+      "finishedModelSha256": "361dffe41239c4738b39f7a59e97d9292611e7e049ccbcf2862b485a819239ce",
+      "checks": [
+        {
+          "part": "Finish_base",
+          "polygonCount": 99564,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_PumpkinHat",
+          "polygonCount": 55783,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_BucketHat",
+          "polygonCount": 66953,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_Hair",
+          "polygonCount": 50298,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_HatHair",
+          "polygonCount": 50418,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_Beret",
+          "polygonCount": 48318,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_EarmuffHair",
+          "polygonCount": 78510,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "Finish_XmasHat",
+          "polygonCount": 78385,
+          "worldGeometryAndUvUnchanged": true
+        }
+      ]
+    },
+    {
+      "family": "drop",
+      "acceptedModelSha256": "48e0c9b1efb72e0fb79c01f6273a6ad69d1b800a65e5e1ed6096e7fe1dd38716",
+      "finishedModelSha256": "0f96dc231fb88b56918d8cc9f51f459a23d47ed92d23826edac1a9ea8efff73e",
+      "checks": [
+        {
+          "part": "DropHeroV2_Base_Arm_L",
+          "polygonCount": 4461,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Base_Arm_R",
+          "polygonCount": 4901,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Base_Body",
+          "polygonCount": 10674,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Base_Head",
+          "polygonCount": 68872,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Base_Leg_L",
+          "polygonCount": 4547,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Base_Leg_R",
+          "polygonCount": 4654,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Base_Neck",
+          "polygonCount": 440,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Base_Tail",
+          "polygonCount": 1459,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_NativeDrop",
+          "polygonCount": 96116,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_HairSideWave",
+          "polygonCount": 60410,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_HairTwinRipples",
+          "polygonCount": 44962,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_HairWhirlpool",
+          "polygonCount": 60155,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_BucketHat",
+          "polygonCount": 78960,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Cap",
+          "polygonCount": 70180,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_Beret",
+          "polygonCount": 69448,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_EarmuffHair",
+          "polygonCount": 55272,
+          "worldGeometryAndUvUnchanged": true
+        },
+        {
+          "part": "DropHeroV2_XmasHat",
+          "polygonCount": 70531,
+          "worldGeometryAndUvUnchanged": true
+        }
+      ]
+    }
+  ]
+}

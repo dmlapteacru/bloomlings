@@ -1474,6 +1474,55 @@ namespace Bloomlings.Playtest.Preview
                 foreach(var item in new[]{(Family.Sprig,"hat.sprig_clover"),(Family.Sprig,"clothes.sprig_explorer_vest"),(Family.Sprig,SprigV2Art.GlassesId),(Family.Twig,"hat.twig_pinecone"),(Family.Twig,"clothes.twig_explorer_vest"),(Family.Twig,TwigV2Art.GlassesId)})Expect(app.Meta.Wardrobe.Equip(item.Item1,item.Item2),"new Home outfit equips");
                 app.GoHome();Run(app,p,.4f);
             });
+            foreach(var selection in new[]{
+                (209,"nightcap",Family.Drop,"hat.drop_nightcap",CosmeticKind.Hat),
+                (210,"topsailor",Family.Drop,"clothes.drop_sailor_top",CosmeticKind.Clothes),
+                (211,"hairshell",Family.Drop,"hat.drop_shell",CosmeticKind.Hat),
+                (212,"sailorhat",Family.Drop,"hat.drop_sailor_hat",CosmeticKind.Hat),
+                (213,"headscarf",Family.Drop,"hat.drop_headscarf",CosmeticKind.Hat),
+                (214,"shirtmint",Family.Drop,"clothes.drop_mint_shirt",CosmeticKind.Clothes),
+                (215,"explorerhat",Family.Drop,"hat.drop_explorer",CosmeticKind.Hat),
+                (216,"boater",Family.Drop,"hat.drop_boater",CosmeticKind.Hat),
+                (217,"rainhat",Family.Drop,"hat.drop_rain_hat",CosmeticKind.Hat)})
+            {
+                var item=selection;
+                yield return new Fixture(item.Item1,"drop-extra-"+item.Item2,"Fitted Drop item: select, Home, return",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    app.Meta.Wardrobe.Equip(item.Item3,DropV2Art.GlassesId);
+                    if(item.Item5==CosmeticKind.Hat)app.Meta.Wardrobe.Equip(item.Item3,"clothes.drop_sailor_top");
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(item.Item3);app.WardrobeBrowse.Select(item.Item5);Run(app,p,.1f);
+                    var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,item.Item5,item.Item3).ToList();
+                    int index=cards.FindIndex(c=>c.Item?.Id==item.Item4);Expect(index>0,"new item has its own card");var card=r.Cell(index);
+                    app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(cards.Count));Run(app,p,.1f);
+                    Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(item.Item3).Get(item.Item5)?.Id==item.Item4,"new item equips in its correct slot");
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                    for(int layer=0;layer<HeroGearArt.LayerCount;layer++)
+                    {
+                        var frame=HomeHeroArt.Layer(item.Item3,app.Meta.Wardrobe.OutfitOf(item.Item3),layer);
+                        if(frame.HasValue)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Value.Name),"Home keeps every fitted outfit layer");
+                    }
+                    app.OpenWardrobe();Run(app,p,.1f);
+                });
+            }
+            foreach(var combo in new[]{(218,Family.Sprig,"hat.sprig_clover","clothes.sprig_explorer_vest",EyewearArt.SprigSquareId,SprigV2Art.ScarfId),(219,Family.Twig,"hat.twig_pinecone","clothes.twig_coat",EyewearArt.TwigOctagonId,TwigV2Art.ScarfId),(220,Family.Bloom,"hat.bloom_crown","clothes.bloom_dress_purple",EyewearArt.BloomHeartId,BloomV2Art.KnitId),(221,Family.Drop,"hat.drop_boater","clothes.drop_mint_shirt",DropV2Art.GlassesId,DropV2Art.StripeId)})
+            {
+                var look=combo;
+                yield return new Fixture(look.Item1,"clothes-finish-"+look.Item2.ToString().ToLowerInvariant(),"Cleaned garments with Head, Face and scarf",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    foreach(string id in new[]{look.Item3,look.Item4,look.Item5,look.Item6})Expect(app.Meta.Wardrobe.Equip(look.Item2,id),"cleaned outfit equips");
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(look.Item2);app.WardrobeBrowse.Select(CosmeticKind.Clothes);Run(app,p,.1f);
+                });
+            }
+            yield return new Fixture(222,"clothes-finish-home","Accepted quartet with cleaned garments and Drop additions",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);CloseAll(app);
+                foreach(var look in new[]{(Family.Sprig,"hat.sprig_clover","clothes.sprig_explorer_vest",EyewearArt.SprigSquareId),(Family.Bloom,"hat.bloom_crown","clothes.bloom_top_flower",EyewearArt.BloomHeartId),(Family.Drop,"hat.drop_rain_hat","clothes.drop_sailor_top",DropV2Art.GlassesId),(Family.Twig,"hat.twig_pinecone","clothes.twig_explorer_shirt",EyewearArt.TwigOctagonId)})
+                    foreach(string id in new[]{look.Item2,look.Item3,look.Item4})Expect(app.Meta.Wardrobe.Equip(look.Item1,id),"Home outfit equips");
+                app.GoHome();Run(app,p,.4f);
+            });
             yield return new Fixture(170,"wardrobe-fitting","Wardrobe: temporary fittings never leak into saved outfits",(p,data)=>
             {
                 var app=Progressed(App(data),content,87);app.Meta.Economy.Grant(12000,null);CloseAll(app);app.OpenWardrobe();

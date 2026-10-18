@@ -129,6 +129,15 @@
     {"id": "clothes.twig_explorer_shirt", "kind": "clothes", "name": "Explorer Shirt", "shape": "top", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "top"},
     {"id": "hat.twig_boater", "kind": "hat", "name": "Ribbon Boater", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "straw_hat"},
     {"id": "hat.twig_bowler", "kind": "hat", "name": "Bowler Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "bowler"},
-    {"id": "hat.twig_explorer", "kind": "hat", "name": "Explorer Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "explorer"}
+    {"id": "hat.twig_explorer", "kind": "hat", "name": "Explorer Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "explorer"},
+    {"id": "hat.drop_nightcap", "kind": "hat", "name": "Starry Nightcap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "nightcap"},
+    {"id": "clothes.drop_sailor_top", "kind": "clothes", "name": "Sailor Top", "shape": "top", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "top"},
+    {"id": "hat.drop_shell", "kind": "hat", "name": "Seashell Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "hair"},
+    {"id": "hat.drop_sailor_hat", "kind": "hat", "name": "Sailor Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "cap"},
+    {"id": "hat.drop_headscarf", "kind": "hat", "name": "Navy Bandana", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "headscarf"},
+    {"id": "clothes.drop_mint_shirt", "kind": "clothes", "name": "Mint Shirt", "shape": "top", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "top"},
+    {"id": "hat.drop_explorer", "kind": "hat", "name": "Explorer Helmet", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "explorer"},
+    {"id": "hat.drop_boater", "kind": "hat", "name": "Ribbon Boater", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "straw_hat"},
+    {"id": "hat.drop_rain_hat", "kind": "hat", "name": "Sunshine Rain Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "panama"}
   ]
 }

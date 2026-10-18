@@ -1,0 +1,680 @@
+{
+  "version": 1,
+  "families": {
+    "sprig": {
+      "heads": [
+        "HairLeafy",
+        "HairRosette",
+        "HairSwirl",
+        "BucketHat",
+        "Cap",
+        "Beret",
+        "EarmuffHair",
+        "XmasHat",
+        "BowlerHat",
+        "ExplorerHat",
+        "HairClover",
+        "HairSprout",
+        "Headscarf",
+        "Nightcap",
+        "Boater"
+      ],
+      "bodies": [
+        "none",
+        "Jacket",
+        "Coat",
+        "Overalls",
+        "VestExplorer"
+      ],
+      "scarves": [
+        "none",
+        "Scarf"
+      ],
+      "headIds": [
+        "hat.sprig_leafy",
+        "hat.sprig_rosette",
+        "hat.sprig_swirl",
+        "hat.sprig_panama",
+        "hat.sprig_daisy",
+        "hat.sprig_beret",
+        "hat.sprig_earmuffs",
+        "hat.sprig_xmas",
+        "hat.sprig_bowler",
+        "hat.sprig_explorer",
+        "hat.sprig_clover",
+        "hat.sprig_sprout",
+        "hat.sprig_headscarf",
+        "hat.sprig_nightcap",
+        "hat.sprig_boater"
+      ],
+      "bodyIds": [
+        "",
+        "clothes.sprig_jacket",
+        "clothes.sprig_coat",
+        "clothes.sprig_overalls",
+        "clothes.sprig_explorer_vest"
+      ],
+      "scarfIds": [
+        "",
+        "scarf.sprig_knit"
+      ],
+      "faces": [
+        "glasses.sprig_round",
+        "glasses.sprig_square"
+      ],
+      "model": "content/work/wardrobe-additions-v1/build/sprig/WardrobeAdditions.glb",
+      "scale": 1
+    },
+    "twig": {
+      "heads": [
+        "PumpkinHat",
+        "BucketHat",
+        "Hair",
+        "HatHair",
+        "Beret",
+        "EarmuffHair",
+        "XmasHat",
+        "HairPinecone",
+        "Headscarf",
+        "MushroomCap",
+        "Nightcap",
+        "Boater",
+        "BowlerHat",
+        "ExplorerHat"
+      ],
+      "bodies": [
+        "none",
+        "Jacket",
+        "Coat",
+        "Overalls",
+        "VestExplorer",
+        "ShirtExplorer"
+      ],
+      "scarves": [
+        "none",
+        "Scarf"
+      ],
+      "headIds": [
+        "hat.twig_acorn",
+        "hat.twig_panama",
+        "hat.twig_hair",
+        "hat.twig_hat_hair",
+        "hat.twig_beret",
+        "hat.twig_earmuffs",
+        "hat.twig_xmas",
+        "hat.twig_pinecone",
+        "hat.twig_headscarf",
+        "hat.twig_mushroom",
+        "hat.twig_nightcap",
+        "hat.twig_boater",
+        "hat.twig_bowler",
+        "hat.twig_explorer"
+      ],
+      "bodyIds": [
+        "",
+        "clothes.twig_jacket",
+        "clothes.twig_coat",
+        "clothes.twig_overalls",
+        "clothes.twig_explorer_vest",
+        "clothes.twig_explorer_shirt"
+      ],
+      "scarfIds": [
+        "",
+        "scarf.twig_knit"
+      ],
+      "faces": [
+        "glasses.twig_round",
+        "glasses.twig_octagon"
+      ],
+      "model": "content/work/wardrobe-additions-v1/build/twig/WardrobeAdditions.glb",
+      "scale": 1
+    },
+    "bloom": {
+      "heads": [
+        "HairPetals",
+        "HairBob",
+        "HairPeach",
+        "HairRose",
+        "BucketHat",
+        "Cap",
+        "Beret",
+        "EarmuffHair",
+        "XmasHat",
+        "Boater",
+        "BucketHatGreen",
+        "CrownHair",
+        "FlowerHat",
+        "Headscarf",
+        "Nightcap",
+        "Panama"
+      ],
+      "bodies": [
+        "none",
+        "Jacket",
+        "Coat",
+        "Overalls",
+        "DressPurple",
+        "TopFlower"
+      ],
+      "scarves": [
+        "none",
+        "ScarfKnit",
+        "ScarfStripe"
+      ],
+      "headIds": [
+        "hat.bloom_petals",
+        "hat.bloom_bob",
+        "hat.bloom_peach",
+        "hat.bloom_rose",
+        "hat.bloom_panama",
+        "hat.bloom_cap",
+        "hat.bloom_beret",
+        "hat.bloom_earmuffs",
+        "hat.bloom_xmas",
+        "hat.bloom_boater",
+        "hat.bloom_bucket_green",
+        "hat.bloom_crown",
+        "hat.bloom_flower_hat",
+        "hat.bloom_headscarf",
+        "hat.bloom_nightcap",
+        "hat.bloom_summer_panama"
+      ],
+      "bodyIds": [
+        "",
+        "clothes.bloom_jacket",
+        "clothes.bloom_coat",
+        "clothes.bloom_overalls",
+        "clothes.bloom_dress_purple",
+        "clothes.bloom_top_flower"
+      ],
+      "scarfIds": [
+        "",
+        "scarf.bloom_knit",
+        "scarf.bloom_stripe"
+      ],
+      "faces": [
+        "glasses.bloom_round",
+        "glasses.bloom_heart"
+      ],
+      "model": "content/work/bloom-v2/build/BloomHeroV2.glb",
+      "scale": 0.94
+    },
+    "drop": {
+      "heads": [
+        "NativeDrop",
+        "HairSideWave",
+        "HairTwinRipples",
+        "HairWhirlpool",
+        "BucketHat",
+        "Cap",
+        "Beret",
+        "EarmuffHair",
+        "XmasHat",
+        "Nightcap",
+        "HairShell",
+        "SailorHat",
+        "Headscarf",
+        "ExplorerHat",
+        "Boater",
+        "RainHat"
+      ],
+      "bodies": [
+        "none",
+        "Jacket",
+        "Coat",
+        "Overalls",
+        "TopSailor",
+        "ShirtMint"
+      ],
+      "scarves": [
+        "none",
+        "ScarfKnit",
+        "ScarfStripe"
+      ],
+      "headIds": [
+        "hat.drop_native",
+        "hat.drop_side_wave",
+        "hat.drop_twin_ripples",
+        "hat.drop_whirlpool",
+        "hat.drop_panama",
+        "hat.drop_cap",
+        "hat.drop_beret",
+        "hat.drop_earmuffs",
+        "hat.drop_xmas",
+        "hat.drop_nightcap",
+        "hat.drop_shell",
+        "hat.drop_sailor_hat",
+        "hat.drop_headscarf",
+        "hat.drop_explorer",
+        "hat.drop_boater",
+        "hat.drop_rain_hat"
+      ],
+      "bodyIds": [
+        "",
+        "clothes.drop_jacket",
+        "clothes.drop_coat",
+        "clothes.drop_overalls",
+        "clothes.drop_sailor_top",
+        "clothes.drop_mint_shirt"
+      ],
+      "scarfIds": [
+        "",
+        "scarf.drop_knit",
+        "scarf.drop_stripe"
+      ],
+      "faces": [
+        "glasses.drop_round",
+        "glasses.drop_round"
+      ],
+      "model": "content/work/drop-v2/game/DropHeroV2.glb",
+      "scale": 1
+    }
+  },
+  "items": [
+    {
+      "family": "sprig",
+      "key": "Jacket",
+      "id": "clothes.sprig_jacket",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/sprig-v2/source/SprigHeroV2_HairSwirl_part_2.zip",
+      "entry": "SprigHeroV2_Jacket.fbx",
+      "sourceSha256": "f501139df195b64d09cd094c74d830dc8caa5e2ce8cbdc8319c579619326e6dd"
+    },
+    {
+      "family": "sprig",
+      "key": "Coat",
+      "id": "clothes.sprig_coat",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/sprig-v2/source/SprigHeroV2_BucketHat_part_1.zip",
+      "entry": "SprigHeroV2_Coat.fbx",
+      "sourceSha256": "73b6517aca2966e2a8a7b89af0fc08ddfb66e7a9ee66afaeeba4e4ee8d536fd6"
+    },
+    {
+      "family": "sprig",
+      "key": "Overalls",
+      "id": "clothes.sprig_overalls",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/sprig-v2/source/SprigHeroV2_HairSwirl_part_2.zip",
+      "entry": "SprigHeroV2_Overalls.fbx",
+      "sourceSha256": "f501139df195b64d09cd094c74d830dc8caa5e2ce8cbdc8319c579619326e6dd"
+    },
+    {
+      "key": "VestExplorer",
+      "id": "clothes.sprig_explorer_vest",
+      "slot": "Body",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "family": "sprig",
+      "archive": "tools/heroanim/models/wardrobe-additions-v1/source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_VestExplorer.fbx",
+      "sourceSha256": "f6d9231acb14264a636c89ddb7e0be1a0b83f15fdbd88fb61cfc55419ae16b55"
+    },
+    {
+      "family": "twig",
+      "key": "Jacket",
+      "id": "clothes.twig_jacket",
+      "slot": "Body",
+      "source": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Jacket.fbx",
+      "sourceSha256": "70aa8afee5ab1e11ce8b0feaa1afa56fc236e9afe5784208f831d3e713df2992"
+    },
+    {
+      "family": "twig",
+      "key": "Coat",
+      "id": "clothes.twig_coat",
+      "slot": "Body",
+      "source": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Coat.fbx",
+      "sourceSha256": "2e02692d93391ff40023622e70c4f20c66bbe3b5d4741f4b20ea9900a73a2a0b"
+    },
+    {
+      "family": "twig",
+      "key": "Overalls",
+      "id": "clothes.twig_overalls",
+      "slot": "Body",
+      "source": "tools/heroanim/models/twig-v2/source/additions-2026-10-17/TwigHeroV2_Overalls.fbx",
+      "sourceSha256": "15e8c5f0b0c4f9727a521fa3c9b920a05c55f4570df1ec702d4d5a3874570f2f"
+    },
+    {
+      "key": "VestExplorer",
+      "id": "clothes.twig_explorer_vest",
+      "slot": "Body",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "family": "twig",
+      "archive": "tools/heroanim/models/wardrobe-additions-v1/source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "TwigHeroV2_VestExplorer.fbx",
+      "sourceSha256": "f6d9231acb14264a636c89ddb7e0be1a0b83f15fdbd88fb61cfc55419ae16b55"
+    },
+    {
+      "key": "ShirtExplorer",
+      "id": "clothes.twig_explorer_shirt",
+      "slot": "Body",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "family": "twig",
+      "archive": "tools/heroanim/models/wardrobe-additions-v1/source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_ShirtExplorer.fbx",
+      "sourceSha256": "ba36cdede04f429c0082ff4d08842d5326797dd3c273e5a4dd215b6161526f20"
+    },
+    {
+      "family": "bloom",
+      "key": "Jacket",
+      "id": "clothes.bloom_jacket",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/bloom-v2/source/BloomHeroV2_HairPeach_part_2.zip",
+      "entry": "BloomHeroV2_Jacket.fbx",
+      "sourceSha256": "f1d3dec2f44f4d24150e5eabae64866671369c34ee3361841c76700e40b188b1"
+    },
+    {
+      "family": "bloom",
+      "key": "Coat",
+      "id": "clothes.bloom_coat",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/bloom-v2/source/BloomHeroV2_Coat_part_1.zip",
+      "entry": "BloomHeroV2_Coat.fbx",
+      "sourceSha256": "b3b39580e350e5b5efb604f7fd27f0f580cccedd9b64a4a040e1efcc4489a836"
+    },
+    {
+      "family": "bloom",
+      "key": "Overalls",
+      "id": "clothes.bloom_overalls",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/bloom-v2/source/BloomHeroV2_HairPeach_part_2.zip",
+      "entry": "BloomHeroV2_Overalls.fbx",
+      "sourceSha256": "f1d3dec2f44f4d24150e5eabae64866671369c34ee3361841c76700e40b188b1"
+    },
+    {
+      "key": "DressPurple",
+      "id": "clothes.bloom_dress_purple",
+      "slot": "Body",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "family": "bloom",
+      "source": "tools/heroanim/models/bloom-extras-v1/source/BloomHeroV2_DressPurple.fbx",
+      "sourceSha256": "b9ac1ea6ebddb81dc91f7ce92823c9d2297c9374943ef257867027d56a592007"
+    },
+    {
+      "key": "TopFlower",
+      "id": "clothes.bloom_top_flower",
+      "slot": "Body",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "family": "bloom",
+      "source": "tools/heroanim/models/bloom-extras-v1/source/BloomHeroV2_TopFlower.fbx",
+      "sourceSha256": "0617fe6c568c761cbe8f9a1b238c39395315101040753ee51cc3b0948a59e5db"
+    },
+    {
+      "family": "drop",
+      "key": "Jacket",
+      "id": "clothes.drop_jacket",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/drop-v2/products/DropHeroV2_FBX.zip",
+      "entry": "DropHeroV2/FBX/DropHeroV2_Jacket.fbx",
+      "sourceSha256": "f11ec4cfe598c9126cb7afdd98ae2fe25482d93c874e9f254f3c192dcee2d5f0"
+    },
+    {
+      "family": "drop",
+      "key": "Coat",
+      "id": "clothes.drop_coat",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/drop-v2/products/DropHeroV2_FBX.zip",
+      "entry": "DropHeroV2/FBX/DropHeroV2_Coat.fbx",
+      "sourceSha256": "f11ec4cfe598c9126cb7afdd98ae2fe25482d93c874e9f254f3c192dcee2d5f0"
+    },
+    {
+      "family": "drop",
+      "key": "Overalls",
+      "id": "clothes.drop_overalls",
+      "slot": "Body",
+      "archive": "tools/heroanim/models/drop-v2/products/DropHeroV2_FBX.zip",
+      "entry": "DropHeroV2/FBX/DropHeroV2_Overalls.fbx",
+      "sourceSha256": "f11ec4cfe598c9126cb7afdd98ae2fe25482d93c874e9f254f3c192dcee2d5f0"
+    }
+  ],
+  "newHeadIds": [
+    "hat.drop_nightcap",
+    "hat.drop_shell",
+    "hat.drop_sailor_hat",
+    "hat.drop_headscarf",
+    "hat.drop_explorer",
+    "hat.drop_boater",
+    "hat.drop_rain_hat"
+  ],
+  "newItems": [
+    {
+      "key": "Nightcap",
+      "id": "hat.drop_nightcap",
+      "name": "Starry Nightcap",
+      "slot": "Head",
+      "wardrobeClass": "nightcap",
+      "source": "source/item-01.zip",
+      "sha256": "953f77768a0cf01ec0f52f380db6d4bdf00efea41feed9e7ff724d00d5d9295e",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "TopSailor",
+      "id": "clothes.drop_sailor_top",
+      "name": "Sailor Top",
+      "slot": "Body",
+      "wardrobeClass": "top",
+      "source": "source/item-02.zip",
+      "sha256": "082deaa8a569c21a297939e0457659c256d318c1ce1bd56f6069759b2b2dd6bf",
+      "scale": [
+        1,
+        1,
+        0.9
+      ],
+      "translation": [
+        0,
+        0,
+        0.09
+      ]
+    },
+    {
+      "key": "HairShell",
+      "id": "hat.drop_shell",
+      "name": "Seashell Hair",
+      "slot": "Head",
+      "wardrobeClass": "hair",
+      "source": "source/item-03.zip",
+      "sha256": "8df721a276ebd0f25240574b086cbfffb01bf76d5723d38de48f1b9021af5c84",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "SailorHat",
+      "id": "hat.drop_sailor_hat",
+      "name": "Sailor Hat",
+      "slot": "Head",
+      "wardrobeClass": "cap",
+      "source": "source/item-04.zip",
+      "sha256": "2503e72a3ec01ecac19da3c3ba019395bafd009e01756811b433135dc872171b",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "Headscarf",
+      "id": "hat.drop_headscarf",
+      "name": "Navy Bandana",
+      "slot": "Head",
+      "wardrobeClass": "headscarf",
+      "source": "source/item-05.zip",
+      "sha256": "04708ba710c0166bf33fead1c25a4543ec081bce352779b7bb41d9fd897c45be",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "ShirtMint",
+      "id": "clothes.drop_mint_shirt",
+      "name": "Mint Shirt",
+      "slot": "Body",
+      "wardrobeClass": "top",
+      "source": "source/item-06.zip",
+      "sha256": "c83dbe4ac147827997d65602ec2f93c062c1188e2df55cfba0c1ce06fd7c71ce",
+      "scale": [
+        1,
+        1,
+        0.9
+      ],
+      "translation": [
+        0,
+        0,
+        0.09
+      ]
+    },
+    {
+      "key": "ExplorerHat",
+      "id": "hat.drop_explorer",
+      "name": "Explorer Helmet",
+      "slot": "Head",
+      "wardrobeClass": "explorer",
+      "source": "source/item-07.zip",
+      "sha256": "6f7aa6dfc07138a59468a3fc1420f5a22abfeb54a7be69c344a24ed54e4264f4",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "Boater",
+      "id": "hat.drop_boater",
+      "name": "Ribbon Boater",
+      "slot": "Head",
+      "wardrobeClass": "straw_hat",
+      "source": "source/item-08.zip",
+      "sha256": "35a5c9cb0a77cb2b0de649bf4dc3a5f25b8542cb335c42487135cffd5685403e",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "RainHat",
+      "id": "hat.drop_rain_hat",
+      "name": "Sunshine Rain Hat",
+      "slot": "Head",
+      "wardrobeClass": "panama",
+      "source": "source/item-09.zip",
+      "sha256": "737ef9d0116b0ae423950877110a3deab0fa9154338a6aecbe6fd070b3718f5f",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    }
+  ]
+}

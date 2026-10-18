@@ -13,13 +13,14 @@ namespace Bloomlings.Client.UI.Design
         public static HeroFrame? Layer(Family family, Outfit? outfit, int index)
         {
             if (!Supports(family)) return null;
+            if (WardrobeFinishArt.TryLayer(family,outfit,index,false,out var finished)) return finished;
             if (WardrobeAdditionsArt.TryLayer(family,outfit,index,false,out var addition)) return addition;
             if (family == Family.Bloom && BloomExtrasArt.TryLayer(outfit,index,false,out var extra)) return extra;
             if (index == 3 && EyewearArt.IsItem(outfit?.Glasses?.Id)) return EyewearArt.Layer(family,outfit,false);
             return family == Family.Twig ? TwigV2Art.Layer(outfit, index) : family == Family.Sprig ? SprigV2Art.Layer(outfit, index) : family == Family.Bloom ? BloomV2Art.Layer(outfit, index) : DropV2Art.Layer(outfit, index);
         }
-        public static bool HasBakedHat(Family family, Outfit? outfit) => WardrobeAdditionsArt.HasHead(family,outfit?.Hat?.Id) || family == Family.Twig && TwigV2Art.IsHead(outfit?.Hat?.Id) || family == Family.Sprig && SprigV2Art.IsHead(outfit?.Hat?.Id) || family == Family.Bloom && (BloomV2Art.IsHead(outfit?.Hat?.Id) || BloomExtrasArt.IsHead(outfit?.Hat?.Id)) || family == Family.Drop && DropV2Art.IsHead(outfit?.Hat?.Id);
-        public static bool CanPreview(CosmeticItem item) => !item.MetaOnly || WardrobeAdditionsArt.IsItem(item.Id) || BloomExtrasArt.IsItem(item.Id) || EyewearArt.IsItem(item.Id) || TwigV2Art.IsItem(item.Id) || SprigV2Art.IsItem(item.Id) || BloomV2Art.IsItem(item.Id) || DropV2Art.IsItem(item.Id);
+        public static bool HasBakedHat(Family family, Outfit? outfit) => WardrobeFinishArt.HasHead(family,outfit?.Hat?.Id) || WardrobeAdditionsArt.HasHead(family,outfit?.Hat?.Id) || family == Family.Twig && TwigV2Art.IsHead(outfit?.Hat?.Id) || family == Family.Sprig && SprigV2Art.IsHead(outfit?.Hat?.Id) || family == Family.Bloom && (BloomV2Art.IsHead(outfit?.Hat?.Id) || BloomExtrasArt.IsHead(outfit?.Hat?.Id)) || family == Family.Drop && DropV2Art.IsHead(outfit?.Hat?.Id);
+        public static bool CanPreview(CosmeticItem item) => !item.MetaOnly || WardrobeFinishArt.IsItem(item.Id) || WardrobeAdditionsArt.IsItem(item.Id) || BloomExtrasArt.IsItem(item.Id) || EyewearArt.IsItem(item.Id) || TwigV2Art.IsItem(item.Id) || SprigV2Art.IsItem(item.Id) || BloomV2Art.IsItem(item.Id) || DropV2Art.IsItem(item.Id);
         // Keep the save intact. Only the previous model-specific 3D attachments are withheld from the current models.
         public static Outfit? DisplayOutfit(Outfit? outfit)
         {
@@ -31,13 +32,13 @@ namespace Bloomlings.Client.UI.Design
             Outfit shown = outfit.ForGameplay;
             return shown with
             {
-                Hat = WardrobeAdditionsArt.IsHead(outfit.Hat?.Id) || BloomExtrasArt.IsHead(outfit.Hat?.Id) || TwigV2Art.IsHead(outfit.Hat?.Id) || SprigV2Art.IsHead(outfit.Hat?.Id) || BloomV2Art.IsHead(outfit.Hat?.Id) || DropV2Art.IsHead(outfit.Hat?.Id) ? outfit.Hat : shown.Hat,
+                Hat = WardrobeFinishArt.IsHead(outfit.Hat?.Id) || WardrobeAdditionsArt.IsHead(outfit.Hat?.Id) || BloomExtrasArt.IsHead(outfit.Hat?.Id) || TwigV2Art.IsHead(outfit.Hat?.Id) || SprigV2Art.IsHead(outfit.Hat?.Id) || BloomV2Art.IsHead(outfit.Hat?.Id) || DropV2Art.IsHead(outfit.Hat?.Id) ? outfit.Hat : shown.Hat,
                 Glasses = EyewearArt.IsItem(outfit.Glasses?.Id) || outfit.Glasses?.Id == TwigV2Art.GlassesId || outfit.Glasses?.Id == SprigV2Art.GlassesId || outfit.Glasses?.Id == BloomV2Art.GlassesId || outfit.Glasses?.Id == DropV2Art.GlassesId ? outfit.Glasses : null,
                 Scarf = outfit.Scarf?.Id == TwigV2Art.ScarfId || outfit.Scarf?.Id == SprigV2Art.ScarfId || BloomV2Art.IsScarf(outfit.Scarf?.Id) || DropV2Art.IsScarf(outfit.Scarf?.Id) ? outfit.Scarf : null,
-                Clothes = WardrobeAdditionsArt.IsClothes(outfit.Clothes?.Id) || BloomExtrasArt.IsClothes(outfit.Clothes?.Id) || TwigV2Art.IsClothes(outfit.Clothes?.Id) || SprigV2Art.IsClothes(outfit.Clothes?.Id) || BloomV2Art.IsClothes(outfit.Clothes?.Id) || DropV2Art.IsClothes(outfit.Clothes?.Id) ? outfit.Clothes : null,
+                Clothes = WardrobeFinishArt.IsClothes(outfit.Clothes?.Id) || WardrobeAdditionsArt.IsClothes(outfit.Clothes?.Id) || BloomExtrasArt.IsClothes(outfit.Clothes?.Id) || TwigV2Art.IsClothes(outfit.Clothes?.Id) || SprigV2Art.IsClothes(outfit.Clothes?.Id) || BloomV2Art.IsClothes(outfit.Clothes?.Id) || DropV2Art.IsClothes(outfit.Clothes?.Id) ? outfit.Clothes : null,
             };
         }
-        public static HeroFrame? Icon(string id) => WardrobeAdditionsArt.Icon(CosmeticCatalog.CanonicalId(id)) ?? BloomExtrasArt.Icon(CosmeticCatalog.CanonicalId(id)) ?? EyewearArt.Icon(CosmeticCatalog.CanonicalId(id)) ?? TwigV2Art.Icon(CosmeticCatalog.CanonicalId(id)) ?? SprigV2Art.Icon(id) ?? BloomV2Art.Icon(id) ?? DropV2Art.Icon(id);
+        public static HeroFrame? Icon(string id) => WardrobeFinishArt.Icon(CosmeticCatalog.CanonicalId(id)) ?? WardrobeAdditionsArt.Icon(CosmeticCatalog.CanonicalId(id)) ?? BloomExtrasArt.Icon(CosmeticCatalog.CanonicalId(id)) ?? EyewearArt.Icon(CosmeticCatalog.CanonicalId(id)) ?? TwigV2Art.Icon(CosmeticCatalog.CanonicalId(id)) ?? SprigV2Art.Icon(id) ?? BloomV2Art.Icon(id) ?? DropV2Art.Icon(id);
         /// <summary>A restrained common breath until the separate action feature is authored.</summary>
         public static Box PoseCell(Box cell, HeroPose pose, Family family)
         {

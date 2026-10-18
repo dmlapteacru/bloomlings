@@ -32,7 +32,7 @@ namespace Bloomlings.Client.Tests
             var shown = HeroGearArt.DisplayOutfit(wardrobe.OutfitOf(Family.Twig));
             Assert.That(HeroGearArt.Layer(Family.Twig, shown, 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
             var stockGlasses=HeroGearArt.Layer(Family.Twig,shown,3)!.Value;
-            Assert.That(stockGlasses.Name,Does.StartWith("eyewear-twig-"));
+            Assert.That(stockGlasses.Name,Does.StartWith("wardrobefinish-twig-"));
             Catalog.TryGet(TwigV2Art.AcornId,out var stockHat);
             Assert.That(HeroGearArt.Layer(Family.Twig,shown! with {Hat=stockHat},3),Is.EqualTo(stockGlasses),"implicit stock Head uses the explicit acorn hat’s matching eyewear mask");
             Assert.That(shown!.Clothes?.Id, Is.EqualTo(TwigV2Art.CoatId));
@@ -144,8 +144,8 @@ namespace Bloomlings.Client.Tests
                 Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2).HasValue, Is.EqualTo(scarf));
                 Assert.That(HeroGearArt.Layer(Family.Twig, shown, 3).HasValue, Is.EqualTo(glasses));
                 string garment = clothes.Length == 0 ? "none" : clothes.Substring("clothes.twig_".Length);
-                if (clothes.Length > 0) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 1)!.Value.Name, Is.EqualTo("twigv2-clothes-" + garment));
-                if (scarf) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2)!.Value.Name, Is.EqualTo("twigv2-scarf-" + garment), "scarf mask follows the selected garment");
+                if (clothes.Length > 0) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 1)!.Value.Name, Does.StartWith("wardrobefinish-twig-"), "the repaired garment is drawn after reload");
+                if (scarf) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2)!.Value.Name, clothes.Length > 0 ? Does.StartWith("wardrobefinish-twig-") : Is.EqualTo("twigv2-scarf-" + garment), "scarf mask follows the selected garment");
                 Assert.That(shown.ForGameplay.IsEmpty, Is.True);
                 Assert.That(WardrobeShelfCatalog.Chosen(loaded, Family.Twig, CosmeticKind.Hat, null), Is.EqualTo(head.Length == 0));
                 if (clothes.Length > 0)

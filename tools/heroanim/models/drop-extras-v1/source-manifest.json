@@ -1,0 +1,236 @@
+[
+  {
+    "key": "item-01",
+    "originalName": "blue+cartoon+emoji+3d+model.zip",
+    "path": "source/item-01.zip",
+    "sha256": "953f77768a0cf01ec0f52f380db6d4bdf00efea41feed9e7ff724d00d5d9295e",
+    "parts": [
+      {
+        "name": "tripo_node_65a6e61b",
+        "verts": 34056,
+        "bounds": [
+          [
+            -0.400482177734375,
+            0.400421142578125
+          ],
+          [
+            -0.4884033203125,
+            0.4884033501148224
+          ],
+          [
+            2.375459384751366e-09,
+            0.782928466796875
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-02",
+    "originalName": "adorable+blue+character+3d+model.zip",
+    "path": "source/item-02.zip",
+    "sha256": "082deaa8a569c21a297939e0457659c256d318c1ce1bd56f6069759b2b2dd6bf",
+    "parts": [
+      {
+        "name": "tripo_node_d849bdc0",
+        "verts": 12966,
+        "bounds": [
+          [
+            -0.1419525146484375,
+            0.18798828125
+          ],
+          [
+            -0.244384765625,
+            0.250030517578125
+          ],
+          [
+            -3.2838485403141604e-11,
+            0.2687797546386719
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-03",
+    "originalName": "blue+cartoon+head+3d+model.zip",
+    "path": "source/item-03.zip",
+    "sha256": "8df721a276ebd0f25240574b086cbfffb01bf76d5723d38de48f1b9021af5c84",
+    "parts": [
+      {
+        "name": "tripo_node_f77779ab",
+        "verts": 32085,
+        "bounds": [
+          [
+            -0.452239990234375,
+            0.45245361328125
+          ],
+          [
+            -0.4901427924633026,
+            0.4899902641773224
+          ],
+          [
+            2.3472064569762807e-11,
+            0.859344482421875
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-04",
+    "originalName": "cute+blue+character+3d+model (2).zip",
+    "path": "source/item-04.zip",
+    "sha256": "2503e72a3ec01ecac19da3c3ba019395bafd009e01756811b433135dc872171b",
+    "parts": [
+      {
+        "name": "tripo_node_5738cf9d",
+        "verts": 29851,
+        "bounds": [
+          [
+            -0.41650390625,
+            0.41650390625
+          ],
+          [
+            -0.4902953803539276,
+            0.491180419921875
+          ],
+          [
+            -1.5850847745468855e-08,
+            0.880828857421875
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-05",
+    "originalName": "cute+blue+3d+character.zip",
+    "path": "source/item-05.zip",
+    "sha256": "04708ba710c0166bf33fead1c25a4543ec081bce352779b7bb41d9fd897c45be",
+    "parts": [
+      {
+        "name": "tripo_node_e5d02e9c",
+        "verts": 28041,
+        "bounds": [
+          [
+            -0.413543701171875,
+            0.4134521484375
+          ],
+          [
+            -0.4898986518383026,
+            0.490020751953125
+          ],
+          [
+            -1.609162758597904e-08,
+            0.75982666015625
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-06",
+    "originalName": "cute+blue+character+3d+model (1).zip",
+    "path": "source/item-06.zip",
+    "sha256": "c83dbe4ac147827997d65602ec2f93c062c1188e2df55cfba0c1ce06fd7c71ce",
+    "parts": [
+      {
+        "name": "tripo_node_27182b40",
+        "verts": 14106,
+        "bounds": [
+          [
+            -0.134246826171875,
+            0.206817626953125
+          ],
+          [
+            -0.25384521484375,
+            0.2459869533777237
+          ],
+          [
+            1.1236159780381172e-09,
+            0.2952537536621094
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-07",
+    "originalName": "cute+3d+character.zip",
+    "path": "source/item-07.zip",
+    "sha256": "6f7aa6dfc07138a59468a3fc1420f5a22abfeb54a7be69c344a24ed54e4264f4",
+    "parts": [
+      {
+        "name": "tripo_node_9824b83d",
+        "verts": 34094,
+        "bounds": [
+          [
+            -0.457275390625,
+            0.457275390625
+          ],
+          [
+            -0.489990234375,
+            0.490020751953125
+          ],
+          [
+            -8.468680867679268e-09,
+            0.62060546875
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-08",
+    "originalName": "cute+blue+character+3d+model.zip",
+    "path": "source/item-08.zip",
+    "sha256": "35a5c9cb0a77cb2b0de649bf4dc3a5f25b8542cb335c42487135cffd5685403e",
+    "parts": [
+      {
+        "name": "tripo_node_aaae205b",
+        "verts": 33350,
+        "bounds": [
+          [
+            -0.483734130859375,
+            0.4837646484375
+          ],
+          [
+            -0.48992919921875,
+            0.48974609375
+          ],
+          [
+            7.925756939641815e-09,
+            0.5083236694335938
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "key": "item-09",
+    "originalName": "blue+emoji+3d+model.zip",
+    "path": "source/item-09.zip",
+    "sha256": "737ef9d0116b0ae423950877110a3deab0fa9154338a6aecbe6fd070b3718f5f",
+    "parts": [
+      {
+        "name": "tripo_node_ec857e57",
+        "verts": 31157,
+        "bounds": [
+          [
+            -0.427093505859375,
+            0.4271240234375
+          ],
+          [
+            -0.489959716796875,
+            0.490020751953125
+          ],
+          [
+            -1.7805316249175362e-11,
+            0.736358642578125
+          ]
+        ]
+      }
+    ]
+  }
+]

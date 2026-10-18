@@ -41,7 +41,7 @@ namespace Bloomlings.Client.Tests
                 [Family.Sprig]=new[]{SprigV2Art.LeafyId,SprigV2Art.RosetteId,SprigV2Art.SwirlId,"hat.sprig_clover","hat.sprig_sprout",SprigV2Art.BucketId,SprigV2Art.CapId,SprigV2Art.BeretId,"hat.sprig_bowler","hat.sprig_boater","hat.sprig_explorer","hat.sprig_headscarf","hat.sprig_nightcap",SprigV2Art.EarmuffsId,SprigV2Art.XmasId},
                 [Family.Twig]=new[]{TwigV2Art.HairId,"hat.twig_pinecone",TwigV2Art.BucketId,TwigV2Art.BeretId,"hat.twig_bowler","hat.twig_boater","hat.twig_explorer",TwigV2Art.AcornId,TwigV2Art.HatHairId,"hat.twig_mushroom","hat.twig_headscarf","hat.twig_nightcap",TwigV2Art.EarmuffsId,TwigV2Art.XmasId},
                 [Family.Bloom]=new[]{BloomV2Art.PetalsId,BloomV2Art.BobId,BloomV2Art.PeachId,BloomV2Art.RoseId,BloomV2Art.BucketId,"hat.bloom_bucket_green","hat.bloom_summer_panama",BloomV2Art.CapId,BloomV2Art.BeretId,"hat.bloom_boater","hat.bloom_flower_hat","hat.bloom_headscarf","hat.bloom_crown","hat.bloom_nightcap",BloomV2Art.EarmuffsId,BloomV2Art.XmasId},
-                [Family.Drop]=new[]{DropV2Art.NativeId,DropV2Art.WaveId,DropV2Art.RipplesId,DropV2Art.WhirlpoolId,DropV2Art.BucketId,DropV2Art.CapId,DropV2Art.BeretId,DropV2Art.EarmuffsId,DropV2Art.XmasId},
+                [Family.Drop]=new[]{DropV2Art.NativeId,DropV2Art.WaveId,DropV2Art.RipplesId,DropV2Art.WhirlpoolId,"hat.drop_shell",DropV2Art.BucketId,"hat.drop_rain_hat",DropV2Art.CapId,"hat.drop_sailor_hat",DropV2Art.BeretId,"hat.drop_boater","hat.drop_explorer","hat.drop_headscarf","hat.drop_nightcap",DropV2Art.EarmuffsId,DropV2Art.XmasId},
             };
             foreach(var pair in expected)
             {
@@ -54,7 +54,7 @@ namespace Bloomlings.Client.Tests
                 if(paid!=null){Assert.That(wardrobe.TryBuy(paid.Id),Is.True);wardrobe.Equip(pair.Key,paid.Id);}
                 Assert.That(WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Hat,pair.Key).Select(c=>c.Item?.Id),Is.EqualTo(before),"buying and equipping do not move items");
                 var body=WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Clothes,pair.Key).Where(c=>c.Item!=null).Select(c=>c.Item!.Shape);
-                Assert.That(body,Is.EqualTo(pair.Key switch { Family.Bloom=>new[]{"overalls","top","dress","coat","jacket"},Family.Sprig=>new[]{"overalls","vest","coat","jacket"},Family.Twig=>new[]{"overalls","top","vest","coat","jacket"},_=>new[]{"overalls","coat","jacket"}}),"everyday classes, autumn, winter");
+                Assert.That(body,Is.EqualTo(pair.Key switch { Family.Bloom=>new[]{"overalls","top","dress","coat","jacket"},Family.Sprig=>new[]{"overalls","vest","coat","jacket"},Family.Twig=>new[]{"overalls","top","vest","coat","jacket"},_=>new[]{"overalls","top","top","coat","jacket"}}),"everyday classes, autumn, winter");
             }
         }
         [Test]

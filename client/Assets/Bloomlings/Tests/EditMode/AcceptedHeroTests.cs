@@ -14,7 +14,7 @@ namespace Bloomlings.Client.Tests
         {
             string dir=Path.Combine(Application.dataPath,"Bloomlings/Art/Heroes/Resources/HeroMotion");
             string[] allowed={"sprigv2-","bloomv2-","dropv2-","twigv2-","homehero-"};
-            Assert.That(Directory.GetFiles(dir,"*.png").Select(Path.GetFileName).Where(n=>!allowed.Any(p=>n!.StartsWith(p,System.StringComparison.Ordinal))&&!EyewearArt.AllFrames.Any(f=>f.Name+".png"==n)&&!BloomExtrasArt.AllFrames.Any(f=>f.Name+".png"==n)&&!WardrobeAdditionsArt.AllFrames.Any(f=>f.Name+".png"==n)),Is.Empty);
+            Assert.That(Directory.GetFiles(dir,"*.png").Select(Path.GetFileName).Where(n=>!allowed.Any(p=>n!.StartsWith(p,System.StringComparison.Ordinal))&&!EyewearArt.AllFrames.Any(f=>f.Name+".png"==n)&&!BloomExtrasArt.AllFrames.Any(f=>f.Name+".png"==n)&&!WardrobeFinishArt.AllFrames.Any(f=>f.Name+".png"==n)&&!WardrobeAdditionsArt.AllFrames.Any(f=>f.Name+".png"==n)),Is.Empty);
             string root=Path.GetFullPath(Path.Combine(Application.dataPath,"..",".."));
             foreach(string file in new[]{"heroes.glb","sprig-lab.glb","sprig-plant-study.glb","sprig-outfit-study.glb"})
                 Assert.That(File.Exists(Path.Combine(root,"tools/heroanim/models",file)),Is.False,"retired model "+file);

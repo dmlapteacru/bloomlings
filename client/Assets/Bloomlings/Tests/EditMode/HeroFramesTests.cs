@@ -65,6 +65,7 @@ namespace Bloomlings.Client.Tests
             expected.UnionWith(EyewearArt.AllFrames.Select(f => f.Name));
             expected.UnionWith(BloomExtrasArt.AllFrames.Select(f => f.Name));
             expected.UnionWith(WardrobeAdditionsArt.AllFrames.Select(f => f.Name));
+            expected.UnionWith(WardrobeFinishArt.AllFrames.Select(f => f.Name));
             foreach (string name in expected)
             {
                 Assert.That(File.Exists(Path.Combine(folder, name + ".png")), Is.True, name + ".png");

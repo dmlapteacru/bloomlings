@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "key": "Nightcap",
+      "id": "hat.drop_nightcap",
+      "name": "Starry Nightcap",
+      "slot": "Head",
+      "wardrobeClass": "nightcap",
+      "source": "source/item-01.zip",
+      "sha256": "953f77768a0cf01ec0f52f380db6d4bdf00efea41feed9e7ff724d00d5d9295e",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "TopSailor",
+      "id": "clothes.drop_sailor_top",
+      "name": "Sailor Top",
+      "slot": "Body",
+      "wardrobeClass": "top",
+      "source": "source/item-02.zip",
+      "sha256": "082deaa8a569c21a297939e0457659c256d318c1ce1bd56f6069759b2b2dd6bf",
+      "scale": [
+        1,
+        1,
+        0.9
+      ],
+      "translation": [
+        0,
+        0,
+        0.09
+      ]
+    },
+    {
+      "key": "HairShell",
+      "id": "hat.drop_shell",
+      "name": "Seashell Hair",
+      "slot": "Head",
+      "wardrobeClass": "hair",
+      "source": "source/item-03.zip",
+      "sha256": "8df721a276ebd0f25240574b086cbfffb01bf76d5723d38de48f1b9021af5c84",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "SailorHat",
+      "id": "hat.drop_sailor_hat",
+      "name": "Sailor Hat",
+      "slot": "Head",
+      "wardrobeClass": "cap",
+      "source": "source/item-04.zip",
+      "sha256": "2503e72a3ec01ecac19da3c3ba019395bafd009e01756811b433135dc872171b",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "Headscarf",
+      "id": "hat.drop_headscarf",
+      "name": "Navy Bandana",
+      "slot": "Head",
+      "wardrobeClass": "headscarf",
+      "source": "source/item-05.zip",
+      "sha256": "04708ba710c0166bf33fead1c25a4543ec081bce352779b7bb41d9fd897c45be",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    },
+    {
+      "key": "ShirtMint",
+      "id": "clothes.drop_mint_shirt",
+      "name": "Mint Shirt",
+      "slot": "Body",
+      "wardrobeClass": "top",
+      "source": "source/item-06.zip",
+      "sha256": "c83dbe4ac147827997d65602ec2f93c062c1188e2df55cfba0c1ce06fd7c71ce",
+      "scale": [
+        1,
+        1,
+        0.9
+      ],
+      "translation": [
+        0,
+        0,
+        0.09
+      ]
+    },
+    {
+      "key": "ExplorerHat",
+      "id": "hat.drop_explorer",
+      "name": "Explorer Helmet",
+      "slot": "Head",
+      "wardrobeClass": "explorer",
+      "source": "source/item-07.zip",
+      "sha256": "6f7aa6dfc07138a59468a3fc1420f5a22abfeb54a7be69c344a24ed54e4264f4",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.545
+      ]
+    },
+    {
+      "key": "Boater",
+      "id": "hat.drop_boater",
+      "name": "Ribbon Boater",
+      "slot": "Head",
+      "wardrobeClass": "straw_hat",
+      "source": "source/item-08.zip",
+      "sha256": "35a5c9cb0a77cb2b0de649bf4dc3a5f25b8542cb335c42487135cffd5685403e",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.625
+      ]
+    },
+    {
+      "key": "RainHat",
+      "id": "hat.drop_rain_hat",
+      "name": "Sunshine Rain Hat",
+      "slot": "Head",
+      "wardrobeClass": "panama",
+      "source": "source/item-09.zip",
+      "sha256": "737ef9d0116b0ae423950877110a3deab0fa9154338a6aecbe6fd070b3718f5f",
+      "scale": [
+        0.88,
+        0.88,
+        0.88
+      ],
+      "translation": [
+        0,
+        0,
+        0.49
+      ]
+    }
+  ]
+}

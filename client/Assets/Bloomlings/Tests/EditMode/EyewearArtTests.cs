@@ -41,8 +41,8 @@ namespace Bloomlings.Client.Tests
                     Is.EqualTo(new[]{original.Hat?.Id,original.Clothes?.Id,original.Scarf?.Id}),"Face selection preserves the fitted outfit");
                 var front=HeroGearArt.Layer(family,outfit,3);var home=HomeHeroArt.Layer(family,outfit,3);
                 Assert.That(front.HasValue&&home.HasValue,Is.True);
-                Assert.That(front!.Value.Name,Does.StartWith("eyewear-"+family.ToString().ToLowerInvariant()+"-"));
-                Assert.That(home!.Value.Name,Does.StartWith("homehero-"+family.ToString().ToLowerInvariant()+"-eyewear-"));
+                Assert.That(front!.Value.Name,Does.StartWith("wardrobefinish-"+family.ToString().ToLowerInvariant()+"-"));
+                Assert.That(home!.Value.Name,Does.StartWith("homehero-"+family.ToString().ToLowerInvariant()+"-finish-"));
                 Assert.That(HomeHeroArt.AllFrames.Any(f=>f.Name==home.Value.Name),Is.True);
                 loaded.Unequip(family,CosmeticKind.Glasses);
                 Assert.That(HeroGearArt.Layer(family,loaded.OutfitOf(family),3),Is.Null);
