@@ -18,7 +18,7 @@ namespace Bloomlings.Client.Tests
         [TestCase(Family.Twig,9,2,"twigv2-base-pumpkinhat")]
         public void DeliveredItemsStayInTheirFamilyAndSlotAndPersistWithEyewearAndScarf(Family family,int total,int bodies,string stock)
         {
-            var save=PlayerSave.CreateNew("wardrobe-additions",DateTime.UtcNow);var config=new BundledRemoteConfigService();
+            var save=WardrobeArtInventory.Create("wardrobe-additions",DateTime.UtcNow);var config=new BundledRemoteConfigService();
             var wardrobe=new WardrobeService(save,Catalog,config,()=>{});
             var items=Catalog.Items.Where(i=>WardrobeAdditionsArt.IsItem(i.Id)&&i.Fits(family)).ToArray();
             Assert.That(items.Length,Is.EqualTo(total));
@@ -29,7 +29,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(wardrobe.Equip(family,face)&&wardrobe.Equip(family,scarf),Is.True);
             foreach(var item in items)
             {
-                Assert.That(item.Free&&item.MetaOnly&&HeroGearArt.CanPreview(item),Is.True,item.Id);
+                Assert.That((item.Free||item.ForSale)&&item.MetaOnly&&HeroGearArt.CanPreview(item),Is.True,item.Id);
                 Assert.That(WardrobeShelfCatalog.Build(wardrobe,item.Kind,family).Any(c=>c.Item?.Id==item.Id),Is.True);
                 Assert.That(wardrobe.Equip(Family.Bloom,item.Id),Is.False);
                 Assert.That(wardrobe.Equip(family,item.Id),Is.True);

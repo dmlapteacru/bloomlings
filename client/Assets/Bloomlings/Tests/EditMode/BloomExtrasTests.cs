@@ -15,9 +15,9 @@ namespace Bloomlings.Client.Tests
     {
         private static CosmeticCatalog Catalog => CosmeticCatalog.Parse(File.ReadAllText(Path.Combine(Application.dataPath,"Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json")));
         [Test]
-        public void NineNewItemsAreFreeSeparateHeadAndBodyChoicesAndKeepTheirSelection()
+        public void NineNewItemsAreSeparateHeadAndBodyChoicesAndKeepTheirSelection()
         {
-            var save=PlayerSave.CreateNew("bloom-extras",DateTime.UtcNow);
+            var save=WardrobeArtInventory.Create("bloom-extras",DateTime.UtcNow);
             var config=new BundledRemoteConfigService();var wardrobe=new WardrobeService(save,Catalog,config,()=>{});
             Assert.That(BloomExtrasArt.HeadIds.Length,Is.EqualTo(7));
             Assert.That(BloomExtrasArt.ClothesIds.Length,Is.EqualTo(2));
@@ -26,7 +26,7 @@ namespace Bloomlings.Client.Tests
             foreach(string id in BloomExtrasArt.ItemIds)
             {
                 Assert.That(Catalog.TryGet(id,out var item),Is.True);
-                Assert.That(item!.Free&&item.MetaOnly&&HeroGearArt.CanPreview(item),Is.True,id);
+                Assert.That((item!.Free||item.ForSale)&&item.MetaOnly&&HeroGearArt.CanPreview(item),Is.True,id);
                 Assert.That(item.Kind,Is.EqualTo(BloomExtrasArt.IsHead(id)?CosmeticKind.Hat:CosmeticKind.Clothes));
                 Assert.That(WardrobeShelfCatalog.Build(wardrobe,item.Kind,Family.Bloom).Any(c=>c.Item?.Id==id),Is.True);
                 Assert.That(wardrobe.Equip(Family.Sprig,id),Is.False);

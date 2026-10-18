@@ -492,3 +492,6 @@ cosmetic.clothes.drop_mint_shirt,Mint Shirt
 cosmetic.hat.drop_explorer,Explorer Helmet
 cosmetic.hat.drop_boater,Ribbon Boater
 cosmetic.hat.drop_rain_hat,Sunshine Rain Hat
+
+settings.petals_label,Petals
+wardrobe.unlock_level,Level {0}

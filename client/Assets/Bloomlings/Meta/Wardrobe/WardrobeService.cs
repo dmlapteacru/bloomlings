@@ -79,6 +79,16 @@ namespace Bloomlings.Client.Meta.Wardrobe
             _config = config;
             _persist = persist;
             _economy = economy;
+            // Trial items used to be implicitly free. Preserve the user's saved
+            // fitted outfit when introducing prices; never grant the whole trial catalog.
+            bool migrated = false;
+            foreach (string id in new List<string>(_save.Cosmetics.Owned))
+                if (_catalog.TryGet(id, out var owned) && owned!.Id != id)
+                    migrated |= _save.Cosmetics.Owned.Add(owned.Id);
+            foreach (string id in _save.Cosmetics.Equipped.Values)
+                if (_catalog.TryGet(id, out var item) && item!.IsWorn && item.MetaOnly && !item.Retired && !item.Free)
+                    migrated |= _save.Cosmetics.Owned.Add(item.Id);
+            if (migrated) _persist();
         }
 
         public event Action? Changed;
@@ -98,19 +108,19 @@ namespace Bloomlings.Client.Meta.Wardrobe
         {
             get
             {
-                if (!_config.Get(RemoteConfigKeys.WardrobeEnabled)) return false;
-                foreach (var item in _catalog.Items) if (item.Free && item.MetaOnly && item.IsWorn) return true;
+                if (!IsAvailable) return false;
+                foreach (var item in _catalog.Items) if (item.Free && item.MetaOnly && item.IsWorn && !item.Retired && !item.DefaultLook) return true;
                 return false;
             }
         }
 
-        /// <summary>Free trial accessories remain listed after equipping; paid items retain their unlock.</summary>
+        /// <summary>Current starter accessories and purchasable items, after the Wardrobe opens.</summary>
         public IReadOnlyList<CosmeticItem> ShopItems
         {
             get
             {
                 var result = new List<CosmeticItem>();
-                if (HasFreeHeroItems) foreach (var item in _catalog.Items) if (item.Free && item.MetaOnly) result.Add(item);
+                if (HasFreeHeroItems) foreach (var item in _catalog.Items) if (item.Free && item.MetaOnly && !item.Retired && !item.DefaultLook) result.Add(item);
                 if (IsAvailable) result.AddRange(ForSale);
                 return result;
             }
@@ -132,7 +142,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 var owned = new List<CosmeticItem>();
                 foreach (CosmeticItem item in _catalog.Items)
                 {
-                    if (Owns(item))
+                    if (!item.Retired && Owns(item))
                     {
                         owned.Add(item);
                     }
@@ -185,7 +195,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 var items = new List<CosmeticItem>();
                 foreach (CosmeticItem item in _catalog.Items)
                 {
-                    if (item.ForSale && !_save.Cosmetics.Owned.Contains(item.Id))
+                    if (item.ForSale && !Owns(item) && !IsLevelLocked(item))
                     {
                         items.Add(item);
                     }
@@ -205,7 +215,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
 
             foreach (CosmeticItem item in _catalog.Items)
             {
-                if (item.Starter)
+                if (item.Starter && !item.Retired)
                 {
                     _save.Cosmetics.Owned.Add(item.Id);
                 }
@@ -216,8 +226,10 @@ namespace Bloomlings.Client.Meta.Wardrobe
             Changed?.Invoke();
         }
 
-        /// <summary>Whether the Store can sell this item now: the Wardrobe is open, it has a price, and it is not owned.</summary>
-        public bool IsBuyable(CosmeticItem item) => IsAvailable && item.ForSale && !Owns(item) && _economy != null;
+        /// <summary>Whether this unowned item requires a higher current level. Owned equipment stays usable.</summary>
+        public bool IsLevelLocked(CosmeticItem item) => !Owns(item) && _save.Progression.CurrentLevel < item.UnlockLevel;
+        /// <summary>Can be purchased now; the UI may still let a locked item be tried on.</summary>
+        public bool IsBuyable(CosmeticItem item) => IsAvailable && item.ForSale && !Owns(item) && !IsLevelLocked(item) && _economy != null;
 
         /// <summary>Buys a Store cosmetic with Petals; false when it cannot be bought or the Petals are short.</summary>
         public bool TryBuy(string itemId)
@@ -243,7 +255,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// <summary>Equips an owned worn item on one family, in its kind's slot; false when it is not owned or not wearable.</summary>
         public bool Equip(Family family, string itemId)
         {
-            if (!_catalog.TryGet(itemId, out CosmeticItem? item) || !Owns(item!) || !item!.IsWorn || !item.Fits(family))
+            if (!IsAvailable || !_catalog.TryGet(itemId, out CosmeticItem? item) || !Owns(item!) || item!.Retired || !item.IsWorn || !item.Fits(family))
             {
                 return false;
             }
@@ -284,8 +296,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         {
             if (!_save.Cosmetics.Equipped.TryGetValue(Slot(family, kind), out string? id)
                 || !_catalog.TryGet(id, out CosmeticItem? item)
-                || !Owns(item!) || !item!.Fits(family) || item.Kind != kind
-                || (!IsAvailable && !(HasFreeHeroItems && item.Free && item.MetaOnly)))
+                || !Owns(item!) || item!.Retired || !item.Fits(family) || item.Kind != kind || !IsAvailable)
             {
                 return null;
             }

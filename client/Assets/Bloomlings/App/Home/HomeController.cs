@@ -409,7 +409,7 @@ namespace Bloomlings.Client.App.Home
                     if(delta>0) progression.FastForward(progression.HighestCompletedLevel+delta);
                     else {save.Progression.HighestCompletedLevel=delta==0 ? 0 : Math.Max(0,progression.HighestCompletedLevel-1);saves.Save();}
                     Refresh();
-                }));
+                }),new PetalActions(()=>economy.Petals,delta=>economy.AdjustPetalsForTesting(delta==0?-economy.Petals:delta)));
             store = StoreScreen.Create(root, Navigate, NavLook);
             removeAds = RemoveAdsCard.Create(root, done => purchases.Buy("remove_ads", result => {Refresh();done(result);}), () => ledger.RemoveAds);
             Refresh();

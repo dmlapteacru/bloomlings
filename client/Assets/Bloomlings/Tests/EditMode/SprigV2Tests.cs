@@ -16,16 +16,16 @@ namespace Bloomlings.Client.Tests
         private static CosmeticCatalog Catalog => CosmeticCatalog.Parse(File.ReadAllText(Path.Combine(Application.dataPath,"Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json")));
 
         [Test]
-        public void AllDeliveredItemsAreFreeFittedAndListedOnlyInTheirOwnCategory()
+        public void AllDeliveredItemsAreFittedAndListedOnlyInTheirOwnCategory()
         {
-            var wardrobe = new WardrobeService(PlayerSave.CreateNew("sprig-v2",DateTime.UtcNow),Catalog,new BundledRemoteConfigService(),()=>{});
+            var wardrobe = new WardrobeService(WardrobeArtInventory.Create("sprig-v2",DateTime.UtcNow),Catalog,new BundledRemoteConfigService(),()=>{});
             Assert.That(CosmeticCatalog.WornKinds, Is.EqualTo(new[]{CosmeticKind.Hat,CosmeticKind.Glasses,CosmeticKind.Clothes,CosmeticKind.Scarf}));
             foreach (string id in SprigV2Art.ItemIds)
             {
                 Assert.That(Catalog.TryGet(id,out var item),Is.True,id);
-                Assert.That(item!.Free && item.MetaOnly && HeroGearArt.CanPreview(item),Is.True,id);
+                Assert.That((item!.Free || item.ForSale) && item.MetaOnly && HeroGearArt.CanPreview(item),Is.True,id);
                 foreach(var kind in CosmeticCatalog.WornKinds)
-                    Assert.That(WardrobeShelfCatalog.Build(wardrobe,kind,Family.Sprig).Any(c=>c.Item?.Id==id),Is.EqualTo(item.Kind==kind),id+" "+kind);
+                    Assert.That(WardrobeShelfCatalog.Build(wardrobe,kind,Family.Sprig).Any(c=>c.Item?.Id==id),Is.EqualTo(item.Kind==kind&&!item.DefaultLook),id+" "+kind);
                 Assert.That(wardrobe.Equip(Family.Twig,id),Is.False);
                 Assert.That(SprigV2Art.Icon(id),Is.Not.Null,id);
             }
@@ -39,7 +39,7 @@ namespace Bloomlings.Client.Tests
             foreach(bool scarf in new[]{false,true})
             foreach(bool glasses in new[]{false,true})
             {
-                var save=PlayerSave.CreateNew("sprig-combo",DateTime.UtcNow);
+                var save=WardrobeArtInventory.Create("sprig-combo",DateTime.UtcNow);
                 var config=new BundledRemoteConfigService();
                 var wardrobe=new WardrobeService(save,Catalog,config,()=>{});
                 foreach(string id in new[]{head,body,scarf?SprigV2Art.ScarfId:"",glasses?SprigV2Art.GlassesId:""})

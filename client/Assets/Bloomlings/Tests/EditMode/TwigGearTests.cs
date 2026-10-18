@@ -19,7 +19,7 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void StockTwig_AlwaysWearsAcornHat_WhenFreshRemovedOrReset()
         {
-            var save = PlayerSave.CreateNew("stock-twig", DateTime.UtcNow);
+            var save = WardrobeArtInventory.Create("stock-twig", DateTime.UtcNow);
             var wardrobe = new WardrobeService(save, Catalog, new BundledRemoteConfigService(), () => {});
             Assert.That(wardrobe.OutfitOf(Family.Twig).IsEmpty, Is.True, "stock appearance needs no custom equipment entry");
             Assert.That(HeroGearArt.Layer(Family.Twig, wardrobe.OutfitOf(Family.Twig), 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
@@ -49,7 +49,7 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void LegacyFlowerCap_ResolvesToPanamaWithoutLosingProgressOrChargingPetals()
         {
-            var save = PlayerSave.CreateNew("legacy", DateTime.UtcNow);
+            var save = WardrobeArtInventory.Create("legacy", DateTime.UtcNow);
             save.Cosmetics.Equipped["twig.hat"] = "hat.twig_flower_cap";
             var config = new BundledRemoteConfigService();
             var economy = new EconomyService(save, EconomyConfig.From(config), () => {});
@@ -70,14 +70,14 @@ namespace Bloomlings.Client.Tests
 
         [TestCase(TwigV2Art.AcornId, "twigv2-base-pumpkinhat")]
         [TestCase(TwigV2Art.BucketId, "twigv2-base-buckethat")]
-        public void RefittedTwigHats_AreFreeSaveableExclusiveAndStayOnTheNewBase(string id, string frame)
+        public void RefittedTwigHats_AreSaveableExclusiveAndStayOnTheNewBase(string id, string frame)
         {
-            var save = PlayerSave.CreateNew("fitted", DateTime.UtcNow);
+            var save = WardrobeArtInventory.Create("fitted", DateTime.UtcNow);
             var config = new BundledRemoteConfigService();
             var economy = new EconomyService(save, EconomyConfig.From(config), () => {});
             var wardrobe = new WardrobeService(save, Catalog, config, () => {}, economy);
             long petals = economy.Petals;
-            Assert.That(wardrobe.IsAvailable, Is.False);
+            Assert.That(wardrobe.IsAvailable, Is.True);
             Assert.That(wardrobe.Equip(Family.Bloom, id), Is.False);
             Assert.That(wardrobe.Equip(Family.Twig, TwigV2Art.AcornId), Is.True);
             Assert.That(wardrobe.Equip(Family.Twig, id), Is.True);
@@ -95,9 +95,9 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void V2_AllDeliveredItemsAreFreeVisibleAndRestrictedToTwig()
+        public void V2_AllDeliveredItemsAreVisibleAndRestrictedToTwig()
         {
-            var save = PlayerSave.CreateNew("v2-items", DateTime.UtcNow);
+            var save = WardrobeArtInventory.Create("v2-items", DateTime.UtcNow);
             var config = new BundledRemoteConfigService();
             var economy = new EconomyService(save, EconomyConfig.From(config), () => {});
             var wardrobe = new WardrobeService(save, Catalog, config, () => {}, economy);
@@ -105,14 +105,14 @@ namespace Bloomlings.Client.Tests
             foreach (string id in TwigV2Art.ItemIds)
             {
                 Assert.That(Catalog.TryGet(id, out var item), Is.True, id);
-                Assert.That(item!.Free && item.MetaOnly && HeroGearArt.CanPreview(item), Is.True, id);
-                Assert.That(WardrobeShelfCatalog.Build(wardrobe, item.Kind, Family.Twig).Any(cell => cell.Item?.Id == id), Is.True, id);
+                Assert.That((item!.Free || item.ForSale) && item.MetaOnly && HeroGearArt.CanPreview(item), Is.True, id);
+                Assert.That(WardrobeShelfCatalog.Build(wardrobe, item.Kind, Family.Twig).Any(cell => cell.Item?.Id == id), Is.EqualTo(!item.DefaultLook), id);
                 Assert.That(TwigV2Art.Icon(id), Is.Not.Null, id);
                 Assert.That(wardrobe.Equip(Family.Sprig, id), Is.False, id);
                 Assert.That(wardrobe.Equip(Family.Twig, id), Is.True, id);
             }
             Assert.That(economy.Petals, Is.EqualTo(petals));
-            Assert.That(wardrobe.IsAvailable, Is.False, "all free delivered parts work before L40");
+            Assert.That(wardrobe.IsAvailable, Is.True, "art fixture owns the delivered parts after unlock");
         }
 
         [Test]
@@ -124,7 +124,7 @@ namespace Bloomlings.Client.Tests
             foreach (bool glasses in new[] { false, true })
             foreach (bool scarf in new[] { false, true })
             {
-                var save = PlayerSave.CreateNew("v2-combo", DateTime.UtcNow);
+                var save = WardrobeArtInventory.Create("v2-combo", DateTime.UtcNow);
                 var config = new BundledRemoteConfigService();
                 var wardrobe = new WardrobeService(save, Catalog, config, () => {});
                 if (head.Length > 0) Assert.That(wardrobe.Equip(Family.Twig, head), Is.True);
@@ -147,7 +147,7 @@ namespace Bloomlings.Client.Tests
                 if (clothes.Length > 0) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 1)!.Value.Name, Does.StartWith("wardrobefinish-twig-"), "the repaired garment is drawn after reload");
                 if (scarf) Assert.That(HeroGearArt.Layer(Family.Twig, shown, 2)!.Value.Name, clothes.Length > 0 ? Does.StartWith("wardrobefinish-twig-") : Is.EqualTo("twigv2-scarf-" + garment), "scarf mask follows the selected garment");
                 Assert.That(shown.ForGameplay.IsEmpty, Is.True);
-                Assert.That(WardrobeShelfCatalog.Chosen(loaded, Family.Twig, CosmeticKind.Hat, null), Is.EqualTo(head.Length == 0));
+                Assert.That(WardrobeShelfCatalog.Chosen(loaded, Family.Twig, CosmeticKind.Hat, null), Is.EqualTo(head.Length == 0 || head == TwigV2Art.AcornId));
                 if (clothes.Length > 0)
                 {
                     Assert.That(CosmeticCatalog.KindOfName(CosmeticCatalog.KindName(CosmeticKind.Clothes)), Is.EqualTo(CosmeticKind.Clothes));

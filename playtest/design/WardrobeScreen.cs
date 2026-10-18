@@ -30,7 +30,7 @@ namespace Bloomlings.Playtest.Design
                 WardrobeShelfItem card=items[i]; CosmeticItem? item=card.Item;
                 Box cell=r.Cell(i).Offset(0,-browse.Offset);
                 if(cell.Bottom<=r.Viewport.Top||cell.Top>=r.Viewport.Bottom)continue;
-                bool selected=browse.Selected(wardrobe,item),hasAction=card.State==WardrobeItemState.ForSale||card.State==WardrobeItemState.Reward;
+                bool selected=browse.Selected(wardrobe,item),hasAction=card.State==WardrobeItemState.ForSale||card.State==WardrobeItemState.Reward||card.State==WardrobeItemState.LevelLocked;
                 p.Picture("wardrobe.card/"+selected,cell,(w,h)=>WardrobeShelfDesign.CardSurface(w,h,selected));
                 string? asset=WardrobeShelfDesign.ItemPicture(browse.Family,browse.Kind,item);
                 Box picture=WardrobeShelfDesign.Picture(cell,hasAction);
@@ -43,11 +43,11 @@ namespace Bloomlings.Playtest.Design
                 if(cell.Within(r.Area))p.Hit(cell,()=>{browse.TryOn(wardrobe,item);app.Sound.Play(SoundCue.Click);});
                 if(card.State==WardrobeItemState.ForSale)
                     ProfileGamePainter.Price(p,action,NumberText.Group(item!.Price),WardrobeShelfDesign.PurchaseTouch(cell).Within(r.Area)?()=>Buy(app,browse.Family,browse.Kind,card):(Action?)null,touch:WardrobeShelfDesign.PurchaseTouch(cell));
-                if(card.State==WardrobeItemState.Reward&&action.Within(r.Safe))
+                if((card.State==WardrobeItemState.Reward||card.State==WardrobeItemState.LevelLocked)&&action.Within(r.Safe))
                 {
                     Skin(p,MetaScreenArt.Tag,action);
                     Kit.LockBadge(p,action.Left+action.Height*.4f,action.CenterY,action.Height*.8f);
-                    string text=card.RewardCadence.HasValue?PlaytestText.F("wardrobe.milestone_every",card.RewardCadence.Value):PlaytestText.T("wardrobe.milestone_reward");
+                    string text=card.State==WardrobeItemState.LevelLocked?PlaytestText.F("wardrobe.unlock_level",item!.UnlockLevel):card.RewardCadence.HasValue?PlaytestText.F("wardrobe.milestone_every",card.RewardCadence.Value):PlaytestText.T("wardrobe.milestone_reward");
                     ProfileGamePainter.Label(p,new Box(action.Left+action.Height,action.Top,action.Right-action.Height*.12f,action.Bottom),text,WardrobeShelfDesign.Status);
                 }
             }
@@ -96,7 +96,7 @@ namespace Bloomlings.Playtest.Design
         }
         private static void Buy(DesignApp app,Family family,CosmeticKind kind,WardrobeShelfItem card)
         {
-            var wardrobe=app.Meta.Wardrobe;CosmeticItem? item=card.Item;if(item==null||wardrobe.Owns(item))return;
+            var wardrobe=app.Meta.Wardrobe;CosmeticItem? item=card.Item;if(item==null||!wardrobe.IsBuyable(item))return;
             app.WardrobeBrowse.TryOn(wardrobe,item);
             void Refuse(){app.Sound.Play(SoundCue.Refused);app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));}
             if(app.Meta.Economy.Petals<item.Price){Refuse();return;}

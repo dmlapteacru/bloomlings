@@ -50,6 +50,15 @@ namespace Bloomlings.Client.Services.Economy
 
         public int Petals => _save.Wallet.Petals;
 
+        /// <summary>Settings tester control; changes only the wallet, clamps safely and persists once.</summary>
+        public void AdjustPetalsForTesting(int delta)
+        {
+            int next = (int)Math.Max(0L, Math.Min(int.MaxValue, (long)Petals + delta));
+            if (next == Petals) return;
+            _save.Wallet.SetPetals(next);
+            Save();
+        }
+
         public int Charges(BoosterKind kind) => _save.Boosters.Get(kind);
 
         public int Price(BoosterKind kind) => Config.Price(kind);

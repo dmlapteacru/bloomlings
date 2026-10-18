@@ -43,7 +43,12 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// <summary>Wardrobe display classification only; neither field changes ownership or event availability.</summary>
         public string? WardrobeClass { get; init; }
         public string? WardrobeEvent { get; init; }
-        public bool ForSale => Price > 0;
+        /// <summary>Retained for save compatibility, excluded from current catalogs and grants.</summary>
+        public bool Retired { get; init; }
+        /// <summary>Hidden shelf duplicate of the Default card; still resolves saved stock selections.</summary>
+        public bool DefaultLook { get; init; }
+        public int UnlockLevel { get; init; }
+        public bool ForSale => Price > 0 && !Retired;
         public bool Fits(Family family) => !ForFamily.HasValue || ForFamily.Value == family;
     }
 
@@ -196,7 +201,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             {
                 string path = JsonDoc.Index("items", i);
                 JObject item = JsonDoc.Object(array[i], path);
-                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price", "free", "family", "metaOnly", "wardrobeClass", "wardrobeEvent");
+                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price", "free", "family", "metaOnly", "wardrobeClass", "wardrobeEvent", "retired", "defaultLook", "unlockLevel");
                 JToken? starter = JsonDoc.Optional(item, "starter");
                 JToken? price = JsonDoc.Optional(item, "price");
                 JToken? free = JsonDoc.Optional(item, "free");
@@ -214,6 +219,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 {
                     WardrobeClass = JsonDoc.Optional(item, "wardrobeClass") is JToken wardrobeClass ? JsonDoc.String(wardrobeClass, JsonDoc.Join(path, "wardrobeClass")) : null,
                     WardrobeEvent = JsonDoc.Optional(item, "wardrobeEvent") is JToken wardrobeEvent ? JsonDoc.String(wardrobeEvent, JsonDoc.Join(path, "wardrobeEvent")) : null,
+                    Retired = JsonDoc.Optional(item, "retired") is JToken retired && JsonDoc.Bool(retired, JsonDoc.Join(path, "retired")),
+                    DefaultLook = JsonDoc.Optional(item, "defaultLook") is JToken defaultLook && JsonDoc.Bool(defaultLook, JsonDoc.Join(path, "defaultLook")),
+                    UnlockLevel = JsonDoc.Optional(item, "unlockLevel") is JToken unlock ? JsonDoc.Int(unlock, JsonDoc.Join(path, "unlockLevel"), min: 1) : 0,
                 });
             }
 

@@ -20,7 +20,7 @@ namespace Bloomlings.Client.Tests
         public void EveryFittedOutfitHasAllItsHomeLayersWithoutChangingTheSavedLook(Family family)
         {
             var catalog = CosmeticCatalog.Parse(File.ReadAllText(Path.Combine(Application.dataPath,"Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json")));
-            var save = PlayerSave.CreateNew("home-angle",DateTime.UtcNow);
+            var save = WardrobeArtInventory.Create("home-angle",DateTime.UtcNow);
             var wardrobe = new WardrobeService(save,catalog,new BundledRemoteConfigService(),()=>{});
             string[] Choices(CosmeticKind kind) => new[]{""}.Concat(catalog.Items.Where(i=>i.Fits(family)&&i.Kind==kind&&i.MetaOnly&&HeroGearArt.CanPreview(i)).Select(i=>i.Id)).ToArray();
             foreach(string head in Choices(CosmeticKind.Hat))

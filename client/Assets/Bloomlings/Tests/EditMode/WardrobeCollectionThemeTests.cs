@@ -38,10 +38,10 @@ namespace Bloomlings.Client.Tests
             var wardrobe=new WardrobeService(save,Catalog,config,()=>{},economy);
             var expected=new Dictionary<Family,string[]>
             {
-                [Family.Sprig]=new[]{SprigV2Art.LeafyId,SprigV2Art.RosetteId,SprigV2Art.SwirlId,"hat.sprig_clover","hat.sprig_sprout",SprigV2Art.BucketId,SprigV2Art.CapId,SprigV2Art.BeretId,"hat.sprig_bowler","hat.sprig_boater","hat.sprig_explorer","hat.sprig_headscarf","hat.sprig_nightcap",SprigV2Art.EarmuffsId,SprigV2Art.XmasId},
-                [Family.Twig]=new[]{TwigV2Art.HairId,"hat.twig_pinecone",TwigV2Art.BucketId,TwigV2Art.BeretId,"hat.twig_bowler","hat.twig_boater","hat.twig_explorer",TwigV2Art.AcornId,TwigV2Art.HatHairId,"hat.twig_mushroom","hat.twig_headscarf","hat.twig_nightcap",TwigV2Art.EarmuffsId,TwigV2Art.XmasId},
-                [Family.Bloom]=new[]{BloomV2Art.PetalsId,BloomV2Art.BobId,BloomV2Art.PeachId,BloomV2Art.RoseId,BloomV2Art.BucketId,"hat.bloom_bucket_green","hat.bloom_summer_panama",BloomV2Art.CapId,BloomV2Art.BeretId,"hat.bloom_boater","hat.bloom_flower_hat","hat.bloom_headscarf","hat.bloom_crown","hat.bloom_nightcap",BloomV2Art.EarmuffsId,BloomV2Art.XmasId},
-                [Family.Drop]=new[]{DropV2Art.NativeId,DropV2Art.WaveId,DropV2Art.RipplesId,DropV2Art.WhirlpoolId,"hat.drop_shell",DropV2Art.BucketId,"hat.drop_rain_hat",DropV2Art.CapId,"hat.drop_sailor_hat",DropV2Art.BeretId,"hat.drop_boater","hat.drop_explorer","hat.drop_headscarf","hat.drop_nightcap",DropV2Art.EarmuffsId,DropV2Art.XmasId},
+                [Family.Sprig]=new[]{SprigV2Art.RosetteId,SprigV2Art.SwirlId,"hat.sprig_clover","hat.sprig_sprout",SprigV2Art.BucketId,SprigV2Art.CapId,SprigV2Art.BeretId,"hat.sprig_bowler","hat.sprig_boater","hat.sprig_explorer","hat.sprig_headscarf","hat.sprig_nightcap",SprigV2Art.EarmuffsId,SprigV2Art.XmasId},
+                [Family.Twig]=new[]{TwigV2Art.HairId,"hat.twig_pinecone",TwigV2Art.BucketId,TwigV2Art.BeretId,"hat.twig_bowler","hat.twig_boater","hat.twig_explorer",TwigV2Art.HatHairId,"hat.twig_mushroom","hat.twig_headscarf","hat.twig_nightcap",TwigV2Art.EarmuffsId,TwigV2Art.XmasId},
+                [Family.Bloom]=new[]{BloomV2Art.BobId,BloomV2Art.PeachId,BloomV2Art.RoseId,BloomV2Art.BucketId,"hat.bloom_bucket_green","hat.bloom_summer_panama",BloomV2Art.CapId,BloomV2Art.BeretId,"hat.bloom_boater","hat.bloom_flower_hat","hat.bloom_headscarf","hat.bloom_crown","hat.bloom_nightcap",BloomV2Art.EarmuffsId,BloomV2Art.XmasId},
+                [Family.Drop]=new[]{DropV2Art.WaveId,DropV2Art.RipplesId,DropV2Art.WhirlpoolId,"hat.drop_shell",DropV2Art.BucketId,"hat.drop_rain_hat",DropV2Art.CapId,"hat.drop_sailor_hat",DropV2Art.BeretId,"hat.drop_boater","hat.drop_explorer","hat.drop_headscarf","hat.drop_nightcap",DropV2Art.EarmuffsId,DropV2Art.XmasId},
             };
             foreach(var pair in expected)
             {
@@ -131,26 +131,20 @@ namespace Bloomlings.Client.Tests
             save.Unlocks.Flags[WardrobeService.UnlockId] = true;
             wardrobe.OnUnlock(WardrobeService.UnlockId);
             wardrobe.OnUnlock(WardrobeService.UnlockId);
-            Assert.That(wardrobe.Owned.Where(i => !i.Free).Select(i => i.Id), Is.EqualTo(new[] { "hat.sprout_cap", "skin.speckles" }), "starter items are given once");
-            Assert.That(wardrobe.Owned.Where(i => i.Free).All(i => i.Kind == CosmeticKind.Frame || i.MetaOnly), Is.True, "free frames and the owner's meta-only trial accessories are owned without grants");
-
-            Assert.That(wardrobe.Equip(Family.Drop, "hat.leaf_cap"), Is.False, "not owned");
+            Assert.That(wardrobe.Owned.Where(i => !i.Free), Is.Empty, "retired trial starters are never granted");
+            Assert.That(wardrobe.Owned.Count(i=>i.IsWorn&&!i.DefaultLook), Is.EqualTo(12));
+            Assert.That(wardrobe.Equip(Family.Drop, "hat.drop_side_wave"), Is.True);
+            Assert.That(wardrobe.Equip(Family.Drop, "clothes.drop_overalls"), Is.True);
+            Assert.That(wardrobe.Equip(Family.Drop, "glasses.drop_round"), Is.True);
+            Assert.That(wardrobe.Equip(Family.Drop, "hat.leaf_cap"), Is.False, "retired and not owned");
             save.Cosmetics.Owned.Add("hat.leaf_cap");
-            save.Cosmetics.Owned.Add("frame.daisy");
-            save.Cosmetics.Owned.Add("expression.wink");
-            Assert.That(wardrobe.Equip(Family.Drop, "frame.daisy"), Is.False, "a frame is not worn by Bloomlings");
-            Assert.That(wardrobe.Equip(Family.Drop, "hat.sprout_cap"), Is.True);
-            Assert.That(wardrobe.Equip(Family.Drop, "hat.leaf_cap"), Is.True);
-            Assert.That(wardrobe.Equip(Family.Drop, "skin.speckles"), Is.True);
-            Assert.That(wardrobe.Equip(Family.Drop, "expression.wink"), Is.True);
-            Outfit drop = wardrobe.OutfitOf(Family.Drop);
-            Assert.That((drop.Skin?.Id, drop.Hat?.Id, drop.Trail, drop.Expression?.Id), Is.EqualTo(("skin.speckles", "hat.leaf_cap", (CosmeticItem?)null, "expression.wink")), "one item of each kind");
-            Assert.That(wardrobe.OutfitOf(Family.Sprig).IsEmpty, Is.True);
-            Assert.That(save.Cosmetics.Equipped.Keys, Is.EqualTo(new[] { "drop.expression", "drop.hat", "drop.skin" }));
-
-            wardrobe.Unequip(Family.Drop, CosmeticKind.Hat);
-            Assert.That(wardrobe.EquippedFor(Family.Drop, CosmeticKind.Hat), Is.Null);
-            Assert.That(wardrobe.EquippedFor(Family.Drop, CosmeticKind.Skin)!.Id, Is.EqualTo("skin.speckles"));
+            Assert.That(wardrobe.Equip(Family.Drop, "hat.leaf_cap"), Is.False, "old ownership is retained but cannot restore placeholder art");
+            Outfit drop=wardrobe.OutfitOf(Family.Drop);
+            Assert.That((drop.Hat?.Id,drop.Clothes?.Id,drop.Glasses?.Id),Is.EqualTo(("hat.drop_side_wave","clothes.drop_overalls","glasses.drop_round")));
+            Assert.That(wardrobe.OutfitOf(Family.Sprig).IsEmpty,Is.True);
+            wardrobe.Unequip(Family.Drop,CosmeticKind.Hat);
+            Assert.That(wardrobe.EquippedFor(Family.Drop,CosmeticKind.Hat),Is.Null);
+            Assert.That(wardrobe.EquippedFor(Family.Drop,CosmeticKind.Clothes)!.Id,Is.EqualTo("clothes.drop_overalls"));
 
             PlayerSave read = SaveSerializer.Read(SaveSerializer.Write(save));
             Assert.That(read.Cosmetics.Equipped, Is.EqualTo(save.Cosmetics.Equipped), "the save schema accepts the slots");
@@ -207,19 +201,21 @@ namespace Bloomlings.Client.Tests
             PlayerSave save = PlayerSave.CreateNew("p1", DateTime.UtcNow);
             var economy = new EconomyService(save, EconomyConfig.From(new BundledRemoteConfigService()), () => { });
             var wardrobe = new WardrobeService(save, Catalog, new BundledRemoteConfigService(), () => { }, economy);
-            CosmeticItem spots = wardrobe.ForSale.Single(i => i.Id == "skin.spots");
+            Catalog.TryGet("hat.sprig_daisy", out var cap);
+            CosmeticItem spots=cap!;
             save.Wallet.AddPetals(spots.Price + 10);
 
             Assert.That(wardrobe.TryBuy(spots.Id), Is.False, "the Wardrobe is not open yet");
             save.Unlocks.Flags[WardrobeService.UnlockId] = true;
+            save.Progression.HighestCompletedLevel=39;
             Assert.That(wardrobe.TryBuy("hat.leaf_cap"), Is.False, "milestone items are not sold");
             Assert.That(wardrobe.TryBuy(spots.Id), Is.True);
             Assert.That(economy.Petals, Is.EqualTo(10));
-            Assert.That(wardrobe.OwnedOf(CosmeticKind.Skin).Select(i => i.Id), Does.Contain("skin.spots"));
-            Assert.That(wardrobe.ForSale.Select(i => i.Id), Does.Not.Contain("skin.spots"));
+            Assert.That(wardrobe.OwnedOf(CosmeticKind.Hat).Select(i => i.Id), Does.Contain(spots.Id));
+            Assert.That(wardrobe.ForSale.Select(i => i.Id), Does.Not.Contain(spots.Id));
             Assert.That(wardrobe.TryBuy(spots.Id), Is.False, "owned");
 
-            CosmeticItem stripes = wardrobe.ForSale.Single(i => i.Id == "skin.stripes");
+            CosmeticItem stripes = wardrobe.ForSale.Single(i => i.Id == "hat.sprig_panama");
             Assert.That(wardrobe.TryBuy(stripes.Id), Is.False, "Petals are short");
             Assert.That((economy.Petals, save.Cosmetics.Owned.Contains(stripes.Id)), Is.EqualTo((10, false)));
         }
@@ -236,8 +232,8 @@ namespace Bloomlings.Client.Tests
                 Assert.That(catalog.Items.Any(i => i.Kind == kind), Is.True, kind.ToString());
             }
 
-            Assert.That(catalog.Items.Any(i => i.Kind == CosmeticKind.Skin && i.ForSale), Is.True, "skins in the Store");
-            Assert.That(MilestoneTable.Default.Cadences.Where(c => c.Tier == MilestoneTier.Prestige).SelectMany(c => c.Items).Any(id => id.StartsWith("skin.", StringComparison.Ordinal)), Is.True, "a prestige skin");
+            Assert.That(catalog.Items.Any(i => i.Kind == CosmeticKind.Skin && i.ForSale), Is.False, "unfitted skins are retired");
+            Assert.That(MilestoneTable.Default.Cadences.Where(c => c.Tier == MilestoneTier.Prestige).SelectMany(c => c.Items).Any(id => id.StartsWith("skin.", StringComparison.Ordinal)), Is.False, "no placeholder prestige skins");
 
             Assert.That(catalog.TryGet("badge.level_350", out CosmeticItem? badge), Is.True);
             Assert.That((badge!.Kind, badge.MilestoneLevel, badge.IsWorn), Is.EqualTo((CosmeticKind.Badge, (int?)350, false)));

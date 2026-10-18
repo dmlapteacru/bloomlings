@@ -1294,11 +1294,11 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(74, "wardrobe-scroll", "Wardrobe: drag, filter memory and purchase confirmation", (p,data) =>
             {
                 DesignApp app=Progressed(App(data),content,87);CloseAll(app);app.OpenWardrobe();
-                app.Meta.Wardrobe.Equip(Family.Sprig,"hat.sprout_cap");Run(app,p,.1f);
+                app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.RosetteId);Run(app,p,.1f);
                 var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
                 Drag(p,r.Area.CenterX,r.Area.CenterY,r.Area.CenterX,r.Area.Top-6000);Run(app,p,.1f);
                 float offset=app.WardrobeBrowse.Offset;Expect(offset>0,"a long inventory scrolls to the last shelf");
-                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.sprout_cap","swiping cannot equip or buy an item");
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id==SprigV2Art.RosetteId,"swiping cannot equip or buy an item");
                 Drag(p,r.Categories.CenterX,r.Categories.CenterY,r.Categories.CenterX,r.Categories.CenterY-r.W*.2f);Run(app,p,.1f);
                 Expect(app.WardrobeBrowse.Offset==offset,"filters intercept drags");
                 var nav=HomeScreen.Nav(p,NavPlace.Wardrobe);Box menu=GameNavigationDesign.NavButton(nav,1);
@@ -1308,7 +1308,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p,NavigationSkin.Segment(r.Families,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"returning to family restores its offset");
                 Tap(p,NavigationSkin.Segment(r.Categories,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Kind==CosmeticKind.Glasses,"category filters the catalog");
                 Tap(p,NavigationSkin.Segment(r.Categories,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"category restores its own scroll");
-                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);int bucket=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
+                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);int bucket=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id==SprigV2Art.BucketId);
                 Box bucketBox=r.Cell(bucket);app.WardrobeBrowse.SetOffset(bucketBox.Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);offset=app.WardrobeBrowse.Offset;
                 long before=app.Meta.Economy.Petals;Tap(p,WardrobeShelfDesign.Action(bucketBox.Offset(0,-offset)));Run(app,p,.1f);
                 Expect(app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==before,"tap opens confirmation without spending");
@@ -1322,21 +1322,21 @@ namespace Bloomlings.Playtest.Preview
                 Drag(p,r.Area.CenterX,r.Area.CenterY,r.Area.CenterX,r.Area.Top-6000);Run(app,p,.1f);
                 float offset=app.WardrobeBrowse.Offset;
                 var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);
-                int index=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
+                int index=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id==SprigV2Art.BucketId);
                 long balance=app.Meta.Economy.Petals;
                 app.WardrobeBrowse.SetOffset(r.Cell(index).Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);offset=app.WardrobeBrowse.Offset;
                 Box bucket=r.Cell(index).Offset(0,-offset);
                 Tap(p,bucket);Run(app,p,.1f);
-                Expect(!app.IsOpen(Overlay.Purchase)&&app.WardrobeBrowse.PreviewItem?.Id=="hat.bucket_hat","unowned card is a free temporary fitting");
+                Expect(!app.IsOpen(Overlay.Purchase)&&app.WardrobeBrowse.PreviewItem?.Id==SprigV2Art.BucketId,"unowned card is a free temporary fitting");
                 Tap(p,WardrobeShelfDesign.Action(bucket));Run(app,p,.1f);
                 Expect(app.IsOpen(Overlay.Purchase),"green price button asks for confirmation");
                 Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Confirm);Run(app,p,.1f);
-                Expect(app.Meta.Save.Cosmetics.Owned.Contains("hat.bucket_hat")&&app.Meta.Economy.Petals==balance-200,"confirmation buys at the catalog price once");
-                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.WardrobeBrowse.Offset==offset,"purchase equips without moving the shelves");
+                Expect(app.Meta.Save.Cosmetics.Owned.Contains(SprigV2Art.BucketId)&&app.Meta.Economy.Petals==balance-650,"confirmation buys at the catalog price once");
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id==SprigV2Art.BucketId&&app.WardrobeBrowse.Offset==offset,"purchase equips without moving the shelves");
                 Tap(p,bucket);Run(app,p,.1f);
-                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.Meta.Economy.Petals==balance-200,"owned item stays equipped without another charge");
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id==SprigV2Art.BucketId&&app.Meta.Economy.Petals==balance-650,"owned item stays equipped without another charge");
                 Tap(p,bucket);Run(app,p,.1f);
-                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.Overlays.Count==0,"owned item equips immediately");
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id==SprigV2Art.BucketId&&app.Overlays.Count==0,"owned item equips immediately");
             });
             foreach(var selection in new[]{
                 (171,"sprig-round",Family.Sprig,SprigV2Art.GlassesId),(172,"sprig-square",Family.Sprig,EyewearArt.SprigSquareId),
@@ -1346,7 +1346,7 @@ namespace Bloomlings.Playtest.Preview
                 var scene=selection;
                 yield return new Fixture(scene.Item1,"eyewear-"+scene.Item2,"Owner eyewear: real Face card equips and persists in both views",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                     if(scene.Item1%2==0)
                         foreach(string id in scene.Item3 switch {
                             Family.Sprig=>new[]{SprigV2Art.EarmuffsId,SprigV2Art.JacketId,SprigV2Art.ScarfId},
@@ -1367,7 +1367,7 @@ namespace Bloomlings.Playtest.Preview
             }
             yield return new Fixture(177,"eyewear-home","New square, heart and octagon glasses on the fountain heroes",(p,data)=>
             {
-                var app=Progressed(App(data),content,87);CloseAll(app);
+                var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                 foreach(var pair in new[]{(Family.Sprig,EyewearArt.SprigSquareId),(Family.Bloom,EyewearArt.BloomHeartId),(Family.Twig,EyewearArt.TwigOctagonId)})
                     Expect(app.Meta.Wardrobe.Equip(pair.Item1,pair.Item2),"new Face item equips");
                 app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
@@ -1388,7 +1388,7 @@ namespace Bloomlings.Playtest.Preview
                 var item=selection;
                 yield return new Fixture(item.Item1,"bloom-extra-"+item.Item2,"Bloom fitted item: selection, Home and return",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                     app.Meta.Wardrobe.Equip(Family.Bloom,EyewearArt.BloomHeartId);
                     if(item.Item4==CosmeticKind.Hat)app.Meta.Wardrobe.Equip(Family.Bloom,"clothes.bloom_dress_purple");
                     app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Bloom);app.WardrobeBrowse.Select(item.Item4);Run(app,p,.1f);
@@ -1408,13 +1408,13 @@ namespace Bloomlings.Playtest.Preview
             }
             yield return new Fixture(187,"bloom-extra-outfit","Bloom crown, dress, heart glasses and scarf",(p,data)=>
             {
-                var app=Progressed(App(data),content,87);CloseAll(app);
+                var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                 foreach(string id in new[]{"hat.bloom_crown","clothes.bloom_dress_purple",EyewearArt.BloomHeartId,BloomV2Art.KnitId})Expect(app.Meta.Wardrobe.Equip(Family.Bloom,id),"combined Bloom outfit equips");
                 app.OpenWardrobe();app.WardrobeBrowse.Select(Family.Bloom);app.WardrobeBrowse.Select(CosmeticKind.Clothes);Run(app,p,.1f);
             });
             yield return new Fixture(188,"bloom-extra-home","Fitted Bloom accessories on Home",(p,data)=>
             {
-                var app=Progressed(App(data),content,87);CloseAll(app);
+                var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                 foreach(string id in new[]{"hat.bloom_flower_hat","clothes.bloom_top_flower",EyewearArt.BloomHeartId,BloomV2Art.StripeId})Expect(app.Meta.Wardrobe.Equip(Family.Bloom,id),"combined Home outfit equips");
                 app.GoHome();Run(app,p,.4f);
             });
@@ -1440,7 +1440,7 @@ namespace Bloomlings.Playtest.Preview
                 var item=selection;
                 yield return new Fixture(item.Item1,"addition-"+item.Item2,"Fitted Sprig/Twig item: select, Home, return",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                     app.Meta.Wardrobe.Equip(item.Item3,item.Item3==Family.Sprig?EyewearArt.SprigSquareId:EyewearArt.TwigOctagonId);
                     if(item.Item5==CosmeticKind.Hat)app.Meta.Wardrobe.Equip(item.Item3,item.Item3==Family.Sprig?"clothes.sprig_explorer_vest":"clothes.twig_explorer_vest");
                     app.OpenWardrobe();app.WardrobeBrowse.Select(item.Item3);app.WardrobeBrowse.Select(item.Item5);Run(app,p,.1f);
@@ -1463,14 +1463,14 @@ namespace Bloomlings.Playtest.Preview
                 var look=combo;
                 yield return new Fixture(look.Item1,"addition-outfit-"+look.Item2.ToString().ToLowerInvariant(),"Fitted Head, Body, Face and scarf",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                     foreach(string id in new[]{look.Item3,look.Item4,look.Item5,look.Item6})Expect(app.Meta.Wardrobe.Equip(look.Item2,id),"combined outfit equips");
                     app.OpenWardrobe();app.WardrobeBrowse.Select(look.Item2);app.WardrobeBrowse.Select(CosmeticKind.Clothes);Run(app,p,.1f);
                 });
             }
             yield return new Fixture(208,"addition-home","New Sprig and Twig outfits around the lotus",(p,data)=>
             {
-                var app=Progressed(App(data),content,87);CloseAll(app);
+                var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                 foreach(var item in new[]{(Family.Sprig,"hat.sprig_clover"),(Family.Sprig,"clothes.sprig_explorer_vest"),(Family.Sprig,SprigV2Art.GlassesId),(Family.Twig,"hat.twig_pinecone"),(Family.Twig,"clothes.twig_explorer_vest"),(Family.Twig,TwigV2Art.GlassesId)})Expect(app.Meta.Wardrobe.Equip(item.Item1,item.Item2),"new Home outfit equips");
                 app.GoHome();Run(app,p,.4f);
             });
@@ -1488,7 +1488,7 @@ namespace Bloomlings.Playtest.Preview
                 var item=selection;
                 yield return new Fixture(item.Item1,"drop-extra-"+item.Item2,"Fitted Drop item: select, Home, return",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                     app.Meta.Wardrobe.Equip(item.Item3,DropV2Art.GlassesId);
                     if(item.Item5==CosmeticKind.Hat)app.Meta.Wardrobe.Equip(item.Item3,"clothes.drop_sailor_top");
                     app.OpenWardrobe();app.WardrobeBrowse.Select(item.Item3);app.WardrobeBrowse.Select(item.Item5);Run(app,p,.1f);
@@ -1511,22 +1511,98 @@ namespace Bloomlings.Playtest.Preview
                 var look=combo;
                 yield return new Fixture(look.Item1,"clothes-finish-"+look.Item2.ToString().ToLowerInvariant(),"Cleaned garments with Head, Face and scarf",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                     foreach(string id in new[]{look.Item3,look.Item4,look.Item5,look.Item6})Expect(app.Meta.Wardrobe.Equip(look.Item2,id),"cleaned outfit equips");
                     app.OpenWardrobe();app.WardrobeBrowse.Select(look.Item2);app.WardrobeBrowse.Select(CosmeticKind.Clothes);Run(app,p,.1f);
                 });
             }
             yield return new Fixture(222,"clothes-finish-home","Accepted quartet with cleaned garments and Drop additions",(p,data)=>
             {
-                var app=Progressed(App(data),content,87);CloseAll(app);
+                var app=Progressed(App(data),content,87);CloseAll(app);OwnHeroGear(app);
                 foreach(var look in new[]{(Family.Sprig,"hat.sprig_clover","clothes.sprig_explorer_vest",EyewearArt.SprigSquareId),(Family.Bloom,"hat.bloom_crown","clothes.bloom_top_flower",EyewearArt.BloomHeartId),(Family.Drop,"hat.drop_rain_hat","clothes.drop_sailor_top",DropV2Art.GlassesId),(Family.Twig,"hat.twig_pinecone","clothes.twig_explorer_shirt",EyewearArt.TwigOctagonId)})
                     foreach(string id in new[]{look.Item2,look.Item3,look.Item4})Expect(app.Meta.Wardrobe.Equip(look.Item1,id),"Home outfit equips");
                 app.GoHome();Run(app,p,.4f);
             });
+            yield return new Fixture(223,"wardrobe-release-before-40","Wardrobe remains locked before Level 40",(p,data)=>
+            {
+                var app=Progressed(App(data),content,38);CloseAll(app);app.OpenWardrobe();Run(app,p,.3f);
+                Expect(!app.Meta.Wardrobe.IsAvailable&&!app.Meta.Wardrobe.HasFreeHeroItems,"starter gear cannot bypass the L40 gate");
+            });
+            foreach(var sample in new[]{(224,40,Family.Sprig,CosmeticKind.Hat),(225,40,Family.Bloom,CosmeticKind.Clothes),(226,60,Family.Twig,CosmeticKind.Hat),(227,80,Family.Drop,CosmeticKind.Hat),(228,100,Family.Bloom,CosmeticKind.Hat)})
+            {
+                var scene=sample;
+                yield return new Fixture(scene.Item1,"wardrobe-release-l"+scene.Item2+"-"+scene.Item3.ToString().ToLowerInvariant(),"Release assortment: starters, prices and level locks",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,scene.Item2-1);CloseAll(app);app.OpenWardrobe();app.WardrobeBrowse.Select(scene.Item3);app.WardrobeBrowse.Select(scene.Item4);Run(app,p,.3f);
+                    var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,scene.Item4,scene.Item3);
+                    Expect(cards.All(c=>c.Item==null||(!c.Item.Retired&&!c.Item.DefaultLook)),"only fitted, distinct gear appears");
+                    Expect(cards.Any(c=>c.State==WardrobeItemState.ForSale),"new players see affordable choices");
+                    Expect(Shows(p,"350")||Shows(p,"650")||Shows(p,"850")||Shows(p,NumberText.Group(1000)),"available price is drawn");
+                    if(scene.Item2<100)Expect(cards.Any(c=>c.State==WardrobeItemState.LevelLocked),"later gear remains visibly locked");
+                    else Expect(cards.All(c=>c.State!=WardrobeItemState.LevelLocked),"all choices are open by L100");
+                });
+            }
+            yield return new Fixture(229,"wardrobe-release-buy","Real card: try, cancel, buy, reload, re-tap",(p,data)=>
+            {
+                var app=Progressed(App(data),content,39);CloseAll(app);app.OpenWardrobe();Run(app,p,.2f);
+                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
+                int index=cards.FindIndex(c=>c.Item?.Id==SprigV2Art.CapId);var item=cards[index].Item!;
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);Box cell=r.Cell(index);
+                app.WardrobeBrowse.SetOffset(cell.Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);cell=cell.Offset(0,-app.WardrobeBrowse.Offset);
+                int balance=app.Meta.Economy.Petals;
+                Tap(p,cell);Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.PreviewItem?.Id==item.Id&&app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat==null,"unowned tap only fits");
+                Tap(p,WardrobeShelfDesign.Action(cell));Run(app,p,.3f);
+                Expect(app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==balance,"green Petal button asks first");
+                app.Back();Run(app,p,.1f);Expect(!app.Meta.Wardrobe.Owns(item),"cancel keeps item unowned");
+                Tap(p,WardrobeShelfDesign.Action(cell));Run(app,p,.3f);Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Confirm);Run(app,p,.1f);
+                Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat?.Id==item.Id&&app.Meta.Economy.Petals==balance-item.Price,"confirmation pays exact catalog price and equips");
+                Tap(p,cell);Run(app,p,.1f);Expect(app.Meta.Economy.Petals==balance-item.Price,"owned tap never charges again");
+                var restored=App(data);Expect(restored.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat?.Id==item.Id&&restored.Meta.Economy.Petals==balance-item.Price,"purchase and outfit survive disk reload");
+                app.GoHome();Run(app,p,.1f);app.OpenWardrobe();Run(app,p,.1f);
+            });
+            foreach(var sample in new[]{(230,false),(231,true)})
+            {
+                var scene=sample;
+                yield return new Fixture(scene.Item1,"settings-petals-"+(scene.Item2?"pause":"home"),"Petal controls persist without resetting progress or outfit",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,39);CloseAll(app);
+                    app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.RosetteId);
+                    if(scene.Item2){app.LoadLevel(12);CloseDemo(app);Run(app,p,.1f);app.OpenOverlay(Overlay.Pause);}
+                    app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
+                    int level=app.Meta.CurrentLevel,initial=app.Meta.Economy.Petals;
+                    Tap(p,p.Texts.First(t=>t.Text=="+1000").Box);Run(app,p,.1f);
+                    Expect(app.Meta.Economy.Petals==initial+1000,"+1000 credits the live wallet");
+                    Tap(p,p.Texts.First(t=>t.Text=="+100").Box);Run(app,p,.1f);
+                    Tap(p,p.Texts.First(t=>t.Text=="−100").Box);Run(app,p,.1f);
+                    Expect(app.Meta.Economy.Petals==initial+1000,"plus and minus are balanced");
+                    Tap(p,p.Texts.Where(t=>t.Text=="Reset").OrderBy(t=>t.Box.CenterY).Last().Box);Run(app,p,.1f);
+                    Tap(p,p.Texts.First(t=>t.Text=="−100").Box);Run(app,p,.1f);
+                    Expect(app.Meta.Economy.Petals==0&&app.Meta.CurrentLevel==level,"wallet reset and subtract at zero leave level intact");
+                    Expect(app.IsOpen(Overlay.Settings)&&app.Screen==(scene.Item2?Design.Screen.Level:Design.Screen.Home),"wallet buttons keep the current screen and Settings open");
+                    Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat?.Id==SprigV2Art.RosetteId,"wallet changes preserve outfit");
+                    Tap(p,p.Texts.First(t=>t.Text=="+1000").Box);Run(app,p,.1f);
+                    var restored=App(data);Expect(restored.Meta.Economy.Petals==1000&&restored.Meta.CurrentLevel==level,"balance persists to disk");
+                    Expect(Shows(p,PlaytestText.T("settings.petals_label")+" "+NumberText.Group(1000)),"label refreshes on the same card");
+                });
+            }
+            yield return new Fixture(232,"wardrobe-release-locked-preview","Locked item can be tried on without purchase or saved changes",(p,data)=>
+            {
+                var app=Progressed(App(data),content,39);CloseAll(app);app.OpenWardrobe();Run(app,p,.2f);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
+                int index=cards.FindIndex(c=>c.State==WardrobeItemState.LevelLocked);var item=cards[index].Item!;int petals=app.Meta.Economy.Petals;
+                Box cell=r.Cell(index);app.WardrobeBrowse.SetOffset(cell.Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);cell=cell.Offset(0,-app.WardrobeBrowse.Offset);
+                Tap(p,cell);Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.ShownOutfit(app.Meta.Wardrobe).Hat?.Id==item.Id,"locked gear appears on the fitting stand");
+                Tap(p,WardrobeShelfDesign.Action(cell));Run(app,p,.1f);
+                Expect(!app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==petals&&!app.Meta.Wardrobe.TryBuy(item.Id),"level lock has no active price button and cannot be bypassed");
+                Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat==null,"fitting never persists");
+                Expect(Shows(p,PlaytestText.F("wardrobe.unlock_level",item.UnlockLevel)),"lock explains its exact level");
+            });
             yield return new Fixture(170,"wardrobe-fitting","Wardrobe: temporary fittings never leak into saved outfits",(p,data)=>
             {
                 var app=Progressed(App(data),content,87);app.Meta.Economy.Grant(12000,null);CloseAll(app);app.OpenWardrobe();
-                app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.BucketId);Run(app,p,.1f);
+                app.Meta.Save.Cosmetics.Owned.Add(SprigV2Art.BucketId);app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.BucketId);Run(app,p,.1f);
                 var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
                 var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
                 int index=cards.FindIndex(c=>c.State==WardrobeItemState.ForSale);var item=cards[index].Item!;
@@ -2433,6 +2509,13 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>A profile at Level <paramref name="highest"/>+1 with some Petals and pictures in its Collection, on Home.</summary>
+        // Art-only fixtures own their gear explicitly. Release purchase/unlock fixtures use fresh inventories.
+        private static void OwnHeroGear(DesignApp app)
+        {
+            foreach(var item in app.Meta.Wardrobe.Catalog.Items)
+                if(item.ForFamily.HasValue&&!item.Retired)app.Meta.Save.Cosmetics.Owned.Add(item.Id);
+        }
+
         private static DesignApp Progressed(DesignApp app, ContentSet content, int highest)
         {
             app.Meta.SkipTo(highest);

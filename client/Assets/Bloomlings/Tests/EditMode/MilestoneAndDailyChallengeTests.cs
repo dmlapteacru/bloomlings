@@ -78,8 +78,8 @@ namespace Bloomlings.Client.Tests
             Assert.That(grant.Cadence.Every, Is.EqualTo(100));
             Assert.That(_economy.Petals, Is.EqualTo(300), "not 50 + 100 + 300");
             Assert.That(grant.Boosters, Is.EqualTo(new BoosterGrant(1, 1, 1, 1)), "one charge of each booster");
-            Assert.That(grant.Item, Is.EqualTo("hat.straw_hat"));
-            Assert.That(_save.Cosmetics.Owned, Does.Contain("hat.straw_hat"));
+            Assert.That(grant.Item, Is.EqualTo("frame.ivy"));
+            Assert.That(_save.Cosmetics.Owned, Does.Contain("frame.ivy"));
             Assert.That(MilestoneTable.Default.CadenceFor(1000)!.Every, Is.EqualTo(1000));
             Assert.That(MilestoneTable.Default.CadenceFor(750)!.Every, Is.EqualTo(250));
             Assert.That(MilestoneTable.Default.CadenceFor(1500)!.Every, Is.EqualTo(500));
@@ -88,8 +88,8 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void Items_SkipWhatIsOwned_AndTheBundleBoosterGoesToTheFewestCharges()
         {
-            _save.Cosmetics.Owned.Add("hat.leaf_cap");
-            Assert.That(_milestones.OnLevelCompleted(50)!.Item, Is.EqualTo("trail.petal_sparkle"));
+            _save.Cosmetics.Owned.Add("frame.daisy");
+            Assert.That(_milestones.OnLevelCompleted(50)!.Item, Is.EqualTo("badge.sprout"));
 
             _save.Boosters.Add(BoosterKind.ExtraSlot, 3);
             _save.Boosters.Add(BoosterKind.Shuffle, 3);

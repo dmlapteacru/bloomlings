@@ -18,6 +18,7 @@ namespace Bloomlings.Client.UI.Screens
     /// <param name="Status">"Local profile", "Signed in" or the linked identity.</param>
     /// <param name="Link">Links a platform identity; <paramref name="Link"/>'s callback reports success.</param>
     public sealed record LevelActions(Func<int> Current, Action<int> Change);
+    public sealed record PetalActions(Func<int> Current, Action<int> Change);
 
     public sealed record AccountActions(Func<string> Status, bool CanLinkApple, bool CanLinkGooglePlayGames, Action<LinkProvider, Action<bool>> Link);
 
@@ -39,6 +40,8 @@ namespace Bloomlings.Client.UI.Screens
         private Func<string>? _accountStatus;
         private TextMeshProUGUI? _levelLabel;
         private LevelActions? _levels;
+        private TextMeshProUGUI? _petalLabel;
+        private PetalActions? _petals;
         private Button _privacy = null!;
         private IConsentService? _consent;
         private GameObject _policyRoot=null!;
@@ -52,14 +55,16 @@ namespace Bloomlings.Client.UI.Screens
             Action persist,
             AccountActions? account = null,
             IConsentService? consent = null,
-            LevelActions? levels = null)
+            LevelActions? levels = null,
+            PetalActions? petals = null)
         {
             bool links = account != null && (account.CanLinkApple || account.CanLinkGooglePlayGames);
             float content = 12f + (2f * RowUnits) + RowGapUnits
                 + (account != null ? ButtonGapUnits + StatusUnits : 0f)
                 + (links ? 16f + DesignTokens.Size.SecondaryHeight : 0f)
                 + (consent != null && consent.PrivacyOptionsRequired ? ButtonGapUnits + DesignTokens.Size.SecondaryHeight : 0f)
-                + (levels != null ? 20f + DesignTokens.Size.TouchMin : 0f) + ButtonGapUnits + DesignTokens.Size.SecondaryHeight + 30f;
+                + (levels != null ? 20f + DesignTokens.Size.TouchMin : 0f)
+                + (petals != null ? 12f + DesignTokens.Size.TouchMin : 0f) + ButtonGapUnits + DesignTokens.Size.SecondaryHeight + 30f;
 
             SettingsScreen screen = null!;
             CardView view = UiKit.Card("SettingsScreen", parent, Loc.T("settings.title"), content, () => screen.Hide(), T.Title);
@@ -68,7 +73,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._root = root;
             screen._settings = settings;
             screen._persist = persist;
-            screen._consent = consent; screen._levels=levels;
+            screen._consent = consent; screen._levels=levels;screen._petals=petals;
 
             Box body = view.Regions.Body;
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
@@ -116,6 +121,16 @@ namespace Bloomlings.Client.UI.Screens
                 for(int i=0;i<cells.Length;i++) { int delta=deltas[i]; Button action=UiKit.SecondaryButton("Level"+i,view.Body,labels[i],()=>{levels.Change(delta);screen.Refresh();},style:PopupDesign.Label);UiKit.PlaceBox((RectTransform)action.transform,cells[i],body); }
                 y=dev.Bottom;
             }
+            if(petals != null)
+            {
+                y+=12f*u;Box row=new Box(body.Left,y,body.Right,y+DesignTokens.Size.TouchMin*u);
+                screen._petalLabel=UiKit.Label("Petals",view.Body,string.Empty,T.Caption,UiTheme.Of(C.InkBrownSoft));
+                float left=row.Left+row.Width*.30f;UiKit.PlaceBox(screen._petalLabel.rectTransform,new Box(row.Left,row.Top,left,row.Bottom),body);
+                Box[] cells=ScreenLayout.Row(new Box(left,row.Top,row.Right,row.Bottom),4,10*u,float.MaxValue,false);
+                string[] labels={"−100","+100","+1000","Reset"};int[] deltas={-100,100,1000,0};
+                for(int i=0;i<cells.Length;i++){int delta=deltas[i];Button action=UiKit.SecondaryButton("Petals"+i,view.Body,labels[i],()=>{petals.Change(delta);screen.Refresh();},style:PopupDesign.Label);UiKit.PlaceBox((RectTransform)action.transform,cells[i],body);}
+                y=row.Bottom;
+            }
             y += ButtonGapUnits * u;
             Box policyBox=Pair(new Box(body.Left,y,body.Right,y+DesignTokens.Size.SecondaryHeight*u),1,u)[0];
             Button policy=UiKit.SecondaryButton("PrivacyPolicy",view.Body,Loc.T("settings.privacy_policy"),()=>screen._policyRoot.SetActive(true));
@@ -144,6 +159,7 @@ namespace Bloomlings.Client.UI.Screens
             _sfx.text = Loc.T("settings.sound_label");
             _haptics.text = Loc.T("settings.haptics_label");
             if(_levelLabel != null && _levels != null) _levelLabel.text="Level "+_levels.Current();
+            if(_petalLabel != null && _petals != null) _petalLabel.text=Loc.T("settings.petals_label")+" "+NumberText.Group(_petals.Current());
             foreach ((ToggleView view, Func<bool> on) in _toggles)
             {
                 view.Show(on());

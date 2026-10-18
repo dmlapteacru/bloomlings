@@ -17,9 +17,9 @@ namespace Bloomlings.Client.Tests
         [TestCase(Family.Sprig)]
         [TestCase(Family.Bloom)]
         [TestCase(Family.Twig)]
-        public void BothDeliveredFramesAreFreeSeparateFaceChoicesAndPersistWithoutChangingOtherSlots(Family family)
+        public void BothDeliveredFramesAreSeparateFaceChoicesAndPersistWithoutChangingOtherSlots(Family family)
         {
-            var save=PlayerSave.CreateNew("eyewear",DateTime.UtcNow);
+            var save=WardrobeArtInventory.Create("eyewear",DateTime.UtcNow);
             var wardrobe=new WardrobeService(save,Catalog,new BundledRemoteConfigService(),()=>{});
             foreach(var kind in new[]{CosmeticKind.Hat,CosmeticKind.Clothes,CosmeticKind.Scarf})
             {
@@ -32,7 +32,7 @@ namespace Bloomlings.Client.Tests
             var images=faces.Select(f=>HeroGearArt.Icon(f.Id)!.Value.Name).ToArray();Assert.That(images.Distinct().Count(),Is.EqualTo(2));
             foreach(var face in faces)
             {
-                Assert.That(face.Free&&face.MetaOnly&&face.Fits(family),Is.True);
+                Assert.That((face.Free||face.ForSale)&&face.MetaOnly&&face.Fits(family),Is.True);
                 Assert.That(wardrobe.Equip(family,face.Id),Is.True);
                 var loaded=new WardrobeService(SaveSerializer.Read(SaveSerializer.ToJObject(save)),Catalog,new BundledRemoteConfigService(),()=>{});
                 var outfit=loaded.OutfitOf(family);Assert.That(outfit.Glasses?.Id,Is.EqualTo(face.Id));

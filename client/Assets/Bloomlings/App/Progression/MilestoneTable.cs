@@ -57,17 +57,15 @@ namespace Bloomlings.Client.App.Progression
             new MilestoneCadence(25, MilestoneTier.Bundle, 50, 1, 0, Array.Empty<string>()),
             new MilestoneCadence(50, MilestoneTier.Cosmetic, 100, 0, 0, new[]
             {
-                "hat.leaf_cap", "trail.petal_sparkle", "expression.wink", "frame.daisy", "hat.acorn_cap", "trail.dew_sparkle",
-                "expression.smile", "badge.sprout",
+                "frame.daisy", "badge.sprout",
             }),
             new MilestoneCadence(100, MilestoneTier.Major, 300, 0, 1, new[]
             {
-                "hat.straw_hat", "hat.flower_crown", "expression.starry_eyes", "trail.leaf_swirl", "hat.mushroom_cap",
-                "frame.ivy", "hat.night_cap", "trail.moon_dust",
+                "frame.ivy",
             }),
-            new MilestoneCadence(250, MilestoneTier.Prestige, 500, 0, 0, new[] { "frame.silver_vine", "skin.moon_frost", "marker.silver_leaf", "frame.silver_bloom" }),
-            new MilestoneCadence(500, MilestoneTier.Prestige, 500, 0, 0, new[] { "badge.golden_leaf", "skin.golden_petals", "hat.golden_crown", "badge.golden_bloom" }),
-            new MilestoneCadence(1000, MilestoneTier.Prestige, 500, 0, 0, new[] { "marker.crown", "frame.aurora", "hat.star_crown" }),
+            new MilestoneCadence(250, MilestoneTier.Prestige, 500, 0, 0, new[] { "frame.silver_vine", "marker.silver_leaf", "frame.silver_bloom" }),
+            new MilestoneCadence(500, MilestoneTier.Prestige, 500, 0, 0, new[] { "badge.golden_leaf", "badge.golden_bloom" }),
+            new MilestoneCadence(1000, MilestoneTier.Prestige, 500, 0, 0, new[] { "marker.crown", "frame.aurora" }),
         });
 
         /// <summary>The cadence whose reward <paramref name="level"/> grants: the largest one it is a multiple of, or null.</summary>

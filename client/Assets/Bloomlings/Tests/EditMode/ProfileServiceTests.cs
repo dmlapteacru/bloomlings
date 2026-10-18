@@ -212,7 +212,7 @@ namespace Bloomlings.Client.Tests
             IReadOnlyList<CosmeticItem> free = catalog.FreeOf(CosmeticKind.Frame);
             Assert.That(free.Select(i => i.Id), Is.EqualTo(FreeFrames));
             Assert.That(free.Select(i => ProfileFrames.StyleOf(i.Shape)), Is.EqualTo(ProfileFrames.All.Cast<ProfileFrameStyle?>()), "five different drawn frames");
-            Assert.That(catalog.Items.Where(i => i.Free).All(i => i.Kind == CosmeticKind.Frame && !i.ForSale && !i.Starter), Is.True);
+            Assert.That(catalog.Items.Where(i => i.Free && !i.IsWorn).All(i => i.Kind == CosmeticKind.Frame && !i.ForSale && !i.Starter), Is.True);
             Assert.That(catalog.Items.Where(i => i.Kind == CosmeticKind.Frame && !i.Free).Select(i => i.Shape).Distinct(), Is.EqualTo(new[] { "frame" }), "the earlier frames keep their plain ring");
 
             // Level 1: the Wardrobe closed, nothing stored, every free frame owned, none shown yet.

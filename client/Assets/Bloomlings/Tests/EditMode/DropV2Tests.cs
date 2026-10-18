@@ -16,16 +16,16 @@ namespace Bloomlings.Client.Tests
         private static CosmeticCatalog Catalog => CosmeticCatalog.Parse(File.ReadAllText(Path.Combine(Application.dataPath,"Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json")));
 
         [Test]
-        public void AllDeliveredItemsAreFreeFittedAndListedOnlyInTheirOwnCategory()
+        public void AllDeliveredItemsAreFittedAndListedOnlyInTheirOwnCategory()
         {
-            var wardrobe = new WardrobeService(PlayerSave.CreateNew("drop-v2",DateTime.UtcNow),Catalog,new BundledRemoteConfigService(),()=>{});
+            var wardrobe = new WardrobeService(WardrobeArtInventory.Create("drop-v2",DateTime.UtcNow),Catalog,new BundledRemoteConfigService(),()=>{});
             Assert.That(CosmeticCatalog.WornKinds, Is.EqualTo(new[]{CosmeticKind.Hat,CosmeticKind.Glasses,CosmeticKind.Clothes,CosmeticKind.Scarf}));
             foreach (string id in DropV2Art.ItemIds)
             {
                 Assert.That(Catalog.TryGet(id,out var item),Is.True,id);
-                Assert.That(item!.Free && item.MetaOnly && HeroGearArt.CanPreview(item),Is.True,id);
+                Assert.That((item!.Free || item.ForSale) && item.MetaOnly && HeroGearArt.CanPreview(item),Is.True,id);
                 foreach(var kind in CosmeticCatalog.WornKinds)
-                    Assert.That(WardrobeShelfCatalog.Build(wardrobe,kind,Family.Drop).Any(c=>c.Item?.Id==id),Is.EqualTo(item.Kind==kind),id+" "+kind);
+                    Assert.That(WardrobeShelfCatalog.Build(wardrobe,kind,Family.Drop).Any(c=>c.Item?.Id==id),Is.EqualTo(item.Kind==kind&&!item.DefaultLook),id+" "+kind);
                 Assert.That(wardrobe.Equip(Family.Twig,id),Is.False);
                 Assert.That(DropV2Art.Icon(id),Is.Not.Null,id);
             }
@@ -40,7 +40,7 @@ namespace Bloomlings.Client.Tests
             foreach(string scarf in new[]{""}.Concat(DropV2Art.ScarfIds))
             foreach(bool glasses in new[]{false,true})
             {
-                var save=PlayerSave.CreateNew("drop-combo",DateTime.UtcNow);
+                var save=WardrobeArtInventory.Create("drop-combo",DateTime.UtcNow);
                 var config=new BundledRemoteConfigService();
                 var wardrobe=new WardrobeService(save,Catalog,config,()=>{});
                 foreach(string id in new[]{head,body,scarf,glasses?DropV2Art.GlassesId:""})

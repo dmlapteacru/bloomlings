@@ -146,7 +146,7 @@ namespace Bloomlings.Client.UI.Screens
             var card=_items[index];CosmeticItem? item=card.Item;Box cell=_regions.Cell(index);
             Image hit=UiFactory.CreateImage("Item"+index,_content,null,Color.clear,raycast:true);UiKit.PlaceBox(hit.rectTransform,cell,ContentBox);
             UiKit.TapTarget(hit,()=>Choose(card));
-            bool selected=_browse.Selected(_wardrobe,item),hasAction=card.State==WardrobeItemState.ForSale||card.State==WardrobeItemState.Reward;
+            bool selected=_browse.Selected(_wardrobe,item),hasAction=card.State==WardrobeItemState.ForSale||card.State==WardrobeItemState.Reward||card.State==WardrobeItemState.LevelLocked;
             var frame=UiFactory.CreateImage("Frame",hit.transform,null,Color.white);
             PictureFit.On(frame,(w,h)=>ProceduralSprites.Picture("wardrobe.card/"+selected,w,h,(pw,ph)=>WardrobeShelfDesign.CardSurface(pw,ph,selected)));
             UiFactory.Stretch(frame.rectTransform);
@@ -167,7 +167,7 @@ namespace Bloomlings.Client.UI.Screens
                 Image buy=UiFactory.CreateImage("BuyTouch",hit.transform,null,Color.clear,raycast:true);
                 UiKit.PlaceBox(buy.rectTransform,WardrobeShelfDesign.PurchaseTouch(cell),cell);UiKit.TapTarget(buy,()=>Buy(card));
             }
-            if(card.State==WardrobeItemState.Reward)
+            if(card.State==WardrobeItemState.Reward||card.State==WardrobeItemState.LevelLocked)
             {
                 Box action=WardrobeShelfDesign.Action(cell);UiKit.PlaceBox(MetaShelfView.Skin("Reward",hit.transform,MetaScreenArt.Tag).rectTransform,action,cell);
                 UiKit.PlaceBox(UiKit.LockBadge("Lock",hit.transform),Box.FromCenter(action.Left+action.Height*.4f,action.CenterY,action.Height*.8f,action.Height*.8f),cell);
@@ -184,7 +184,7 @@ namespace Bloomlings.Client.UI.Screens
         }
         private void Buy(WardrobeShelfItem card)
         {
-            CosmeticItem? item=card.Item;if(item==null||_wardrobe.Owns(item))return;
+            CosmeticItem? item=card.Item;if(item==null||!_wardrobe.IsBuyable(item))return;
             Choose(card);Family family=_browse.Family;CosmeticKind kind=_browse.Kind;
             _confirm.ShowPetals(PurchaseOffer.ForPetals(Name(item),item.Price),_petals?.Invoke()??0,well=>
             {
@@ -203,7 +203,7 @@ namespace Bloomlings.Client.UI.Screens
             if(_petals!=null&&_header.Petals!=null){long now=_petals();if(now!=_shownPetals){_header.Petals.Show(now,_store&&(_look==null||_look().Store));_shownPetals=now;}}
             if(!_locked&&_regions!=null&&Mathf.Abs(_content.anchoredPosition.y*UiKit.PixelsPerUnit-_lastOffset)>.2f)UpdateVisible();
         }
-        public static string RewardText(WardrobeShelfItem item)=>item.RewardCadence.HasValue?Loc.F("wardrobe.milestone_every",item.RewardCadence.Value):Loc.T("wardrobe.milestone_reward");
+        public static string RewardText(WardrobeShelfItem item)=>item.State==WardrobeItemState.LevelLocked?Loc.F("wardrobe.unlock_level",item.Item!.UnlockLevel):item.RewardCadence.HasValue?Loc.F("wardrobe.milestone_every",item.RewardCadence.Value):Loc.T("wardrobe.milestone_reward");
         public static string Name(CosmeticItem item)
         {
             if(item.Id.StartsWith(CosmeticCatalog.AchievementBadgePrefix,StringComparison.Ordinal))return Loc.T("profile.achievement."+item.Id.Substring(CosmeticCatalog.AchievementBadgePrefix.Length));

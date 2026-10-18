@@ -26,7 +26,7 @@ namespace Bloomlings.Playtest.Preview
                 var probe = (DelayedPictures)(object)proxy;
                 probe.Painter = painter; probe.Frames = frames;
                 var app = new DesignApp(folder, content, new Silence(), false);
-                app.Meta.SkipTo(87); app.Meta.Collection.Add(content.GetLevel(11), 11); app.GoHome();
+                app.Meta.SkipTo(87); app.Meta.Save.Cosmetics.Owned.Add(TwigV2Art.BucketId); app.Meta.Collection.Add(content.GetLevel(11), 11); app.GoHome();
                 bool Draw(string label)
                 {
                     frames.Begin(); painter.BeginFrame(); app.Draw(proxy, 0f);

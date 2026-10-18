@@ -1306,7 +1306,7 @@ namespace Bloomlings.Client.Gameplay
                     if(delta>0 && AppServices.Current.TryGet(out Bloomlings.Client.App.Progression.ProgressionService? progression)) progression!.FastForward(save.Progression.HighestCompletedLevel+delta);
                     else {save.Progression.HighestCompletedLevel=delta==0 ? 0 : Math.Max(0,save.Progression.HighestCompletedLevel-1);saves!.Save();}
                     _settings?.Hide();Leave();
-                }));
+                }),petals:AppServices.Current.TryGet(out EconomyService? economy)?new PetalActions(()=>economy!.Petals,delta=>economy!.AdjustPetalsForTesting(delta==0?-economy.Petals:delta)):null);
             }
 
             _settings?.Show();

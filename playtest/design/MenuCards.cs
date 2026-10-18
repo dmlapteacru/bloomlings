@@ -74,7 +74,9 @@ namespace Bloomlings.Playtest.Design
 
             float top = lines[lines.Length - 1].Bottom + p.U(20f);
             DevRow(p, app, new Box(r.Body.Left, top, r.Body.Right, top + p.U(DesignTokens.Size.TouchMin)));
-            Box policy=ScreenLayout.CardButton(r.Body,top+p.U(DesignTokens.Size.TouchMin+24),false,p.Scale);
+            float petalTop=top+p.U(DesignTokens.Size.TouchMin+12);
+            PetalRow(p,app,new Box(r.Body.Left,petalTop,r.Body.Right,petalTop+p.U(DesignTokens.Size.TouchMin)));
+            Box policy=ScreenLayout.CardButton(r.Body,petalTop+p.U(DesignTokens.Size.TouchMin+24),false,p.Scale);
             Kit.SecondaryButton(p,policy,PlaytestText.T("settings.privacy_policy"),()=>app.OpenOverlay(Overlay.PrivacyPolicy),style:PopupDesign.Label);
             Kit.EndCard(p);
         }
@@ -105,6 +107,23 @@ namespace Bloomlings.Playtest.Design
             var lines=EndCards.Lines(p,PlaytestText.T("settings.privacy_mock"),T.Body,r.Body.Width,2);
             float line=p.U(60),y=r.Body.CenterY-(lines.Count-1)*line/2;
             foreach(string text in lines){p.Text(text,r.Body.CenterX,y,T.Body,C.InkBrown,r.Body.Width);y+=line;}Kit.EndCard(p);
+        }
+        private static void PetalRow(IPainter p, DesignApp app, Box row)
+        {
+            string[] labels={"−100","+100","+1000","Reset"};
+            int[] deltas={-100,100,1000,0};
+            string caption=PlaytestText.T("settings.petals_label")+" "+NumberText.Group(app.Meta.Economy.Petals);
+            float label=row.Width*.30f;
+            p.TextLeft(caption,row.Left,row.CenterY,T.Caption,C.InkBrownSoft,label);
+            Box[] cells=ScreenLayout.Row(new Box(row.Left+label,row.Top,row.Right,row.Bottom),4,row.Height*.1f,float.MaxValue,square:false);
+            for(int i=0;i<cells.Length;i++)
+            {
+                Box pill=Box.FromCenter(cells[i].CenterX,cells[i].CenterY,cells[i].Width,cells[i].Height*.78f);
+                Kit.RaisedRow(p,pill,pill.Height/2f);
+                p.Text(labels[i],pill.CenterX,pill.CenterY-pill.Height*.03f,T.ButtonSecondary,C.InkBrown,pill.Width*.86f,.8f,TextLook.Plain(C.InkBrown));
+                int delta=deltas[i];
+                p.Hit(cells[i],()=>app.Meta.Economy.AdjustPetalsForTesting(delta==0?-app.Meta.Economy.Petals:delta));
+            }
         }
         private static void DevRow(IPainter p, DesignApp app, Box row)
         {

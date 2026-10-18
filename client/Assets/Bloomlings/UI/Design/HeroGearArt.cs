@@ -20,7 +20,7 @@ namespace Bloomlings.Client.UI.Design
             return family == Family.Twig ? TwigV2Art.Layer(outfit, index) : family == Family.Sprig ? SprigV2Art.Layer(outfit, index) : family == Family.Bloom ? BloomV2Art.Layer(outfit, index) : DropV2Art.Layer(outfit, index);
         }
         public static bool HasBakedHat(Family family, Outfit? outfit) => WardrobeFinishArt.HasHead(family,outfit?.Hat?.Id) || WardrobeAdditionsArt.HasHead(family,outfit?.Hat?.Id) || family == Family.Twig && TwigV2Art.IsHead(outfit?.Hat?.Id) || family == Family.Sprig && SprigV2Art.IsHead(outfit?.Hat?.Id) || family == Family.Bloom && (BloomV2Art.IsHead(outfit?.Hat?.Id) || BloomExtrasArt.IsHead(outfit?.Hat?.Id)) || family == Family.Drop && DropV2Art.IsHead(outfit?.Hat?.Id);
-        public static bool CanPreview(CosmeticItem item) => !item.MetaOnly || WardrobeFinishArt.IsItem(item.Id) || WardrobeAdditionsArt.IsItem(item.Id) || BloomExtrasArt.IsItem(item.Id) || EyewearArt.IsItem(item.Id) || TwigV2Art.IsItem(item.Id) || SprigV2Art.IsItem(item.Id) || BloomV2Art.IsItem(item.Id) || DropV2Art.IsItem(item.Id);
+        public static bool CanPreview(CosmeticItem item) => !item.Retired && (!item.MetaOnly || WardrobeFinishArt.IsItem(item.Id) || WardrobeAdditionsArt.IsItem(item.Id) || BloomExtrasArt.IsItem(item.Id) || EyewearArt.IsItem(item.Id) || TwigV2Art.IsItem(item.Id) || SprigV2Art.IsItem(item.Id) || BloomV2Art.IsItem(item.Id) || DropV2Art.IsItem(item.Id));
         // Keep the save intact. Only the previous model-specific 3D attachments are withheld from the current models.
         public static Outfit? DisplayOutfit(Outfit? outfit)
         {

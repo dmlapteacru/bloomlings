@@ -46,7 +46,7 @@ namespace Bloomlings.Client.UI.Design
         public void Drag(float delta, float maximum) => SetOffset(Offset - delta, maximum);
     }
 
-    public enum WardrobeItemState { Default, Owned, ForSale, Reward }
+    public enum WardrobeItemState { Default, Owned, ForSale, Reward, LevelLocked }
     public sealed record WardrobeShelfItem(CosmeticItem? Item, WardrobeItemState State, int? RewardCadence);
 
     public static class WardrobeShelfCatalog
@@ -57,7 +57,7 @@ namespace Bloomlings.Client.UI.Design
             var result = new List<WardrobeShelfItem> { new WardrobeShelfItem(null, WardrobeItemState.Default, null) };
             var ordered=new List<(CosmeticItem Item,int Position)>();
             foreach(var item in wardrobe.Catalog.Items)
-                if(item.Kind==kind&&HeroGearArt.CanPreview(item)&&(!family.HasValue||item.Fits(family.Value)))
+                if(item.Kind==kind&&!item.DefaultLook&&HeroGearArt.CanPreview(item)&&(!family.HasValue||item.Fits(family.Value)))
                     ordered.Add((item,ordered.Count));
             ordered.Sort((a,b)=>
             {
@@ -70,7 +70,7 @@ namespace Bloomlings.Client.UI.Design
             foreach (var entry in ordered)
             {
                 CosmeticItem item=entry.Item;
-                WardrobeItemState state = wardrobe.Owns(item) ? WardrobeItemState.Owned :
+                WardrobeItemState state = wardrobe.Owns(item) ? WardrobeItemState.Owned : wardrobe.IsLevelLocked(item) ? WardrobeItemState.LevelLocked :
                     item.ForSale ? WardrobeItemState.ForSale : WardrobeItemState.Reward;
                 int? cadence = null;
                 foreach (MilestoneCadence reward in MilestoneTable.Default.Cadences)
@@ -118,7 +118,8 @@ namespace Bloomlings.Client.UI.Design
         };
         public static bool Chosen(WardrobeService wardrobe, Family family, CosmeticKind filter, CosmeticItem? item)
         {
-            return wardrobe.EquippedFor(family, item?.Kind ?? filter)?.Id == item?.Id;
+            var equipped=wardrobe.EquippedFor(family,item?.Kind??filter);
+            return item==null ? equipped==null||equipped.DefaultLook : equipped?.Id==item.Id;
         }
     }
 
