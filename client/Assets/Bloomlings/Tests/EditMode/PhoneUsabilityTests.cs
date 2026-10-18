@@ -50,7 +50,7 @@ namespace Bloomlings.Client.Tests
         [TestCase(1080, 1920)]
         [TestCase(1080, 2340)]
         [TestCase(720, 1680)]
-        public void PurchaseFaces_AreLargeEnoughWithoutDependingOnInvisibleHitPadding(int width, int height)
+        public void PurchaseControls_StayReadableAndTouchableAcrossLayouts(int width, int height)
         {
             var store = ScreenLayout.ReferenceStore(width, height, Insets.None, true);
             Box area = ShopBodyDesign.Bounds(store);
@@ -76,7 +76,8 @@ namespace Bloomlings.Client.Tests
                 Assert.That(plus.Bottom, Is.LessThan(gameplay.PodRow.Top), "the plus never covers the pod below");
             }
             var wardrobe = WardrobeShelfDesign.Page(width, height, Insets.None);
-            Assert.That(ProfileGameDesign.PurchaseFace(WardrobeShelfDesign.Action(wardrobe.Cell(0))).Height, Is.GreaterThan(width * .09f));
+            Assert.That(ProfileGameDesign.PurchaseFace(WardrobeShelfDesign.Action(wardrobe.Cell(0))).Height, Is.GreaterThan(width * .06f),"three-column Wardrobe keeps its price readable");
+            Assert.That(WardrobeShelfDesign.PurchaseTouch(wardrobe.Cell(0)).Height, Is.GreaterThanOrEqualTo(DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width,height)));
         }
 
         [Test]

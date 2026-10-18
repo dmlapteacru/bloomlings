@@ -18,41 +18,37 @@ namespace Bloomlings.Playtest.Design
             WardrobeShelfRegions r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
             var items=WardrobeShelfCatalog.Build(wardrobe,browse.Kind,browse.Family);
             browse.SetOffset(browse.Offset,r.Maximum(items.Count));
-            Outfit outfit=wardrobe.OutfitOf(browse.Family);
-            p.Mark("ui.wardrobe.illustrations");p.Sprite(MetaScreenArt.Stage,r.Stage);
+            Outfit outfit=browse.ShownOutfit(wardrobe);
+            p.Mark("ui.wardrobe.illustrations");p.Sprite(MetaScreenArt.Base,r.Stage);
             Visuals.Hero(p,HomeStage.Figure(r.Hero.CenterX,r.Hero.Bottom,r.Hero.Height),browse.Family,outfit);
-            ProfileGamePainter.Label(p,r.Name,PlaytestText.T("family."+WardrobeService.FamilyKey(browse.Family)),WardrobeShelfDesign.FamilyName);
-            void Turn(int step){int index=0;for(int i=0;i<4;i++)if(WardrobeService.Families[i]==browse.Family)index=i;browse.Select(WardrobeService.Families[(index+step+4)%4]);}
-            Kit.ArrowButton(p,r.Previous.CenterX,r.Previous.CenterY,r.Previous.Width,false,()=>Turn(-1));
-            Kit.ArrowButton(p,r.Next.CenterX,r.Next.CenterY,r.Next.Width,true,()=>Turn(1));
+            Skin(p,MetaScreenArt.Plank,r.Name.Inset(-r.Name.Width*.16f,-r.Name.Height*.12f));
+            ProfileGamePainter.Label(p,r.Name,PlaytestText.T("family."+WardrobeService.FamilyKey(browse.Family))+(browse.PreviewItem!=null?" · "+PlaytestText.T("wardrobe.preview"):""),WardrobeShelfDesign.FamilyName);
             p.PushClip(r.Viewport);
             var window=r.Visible(items.Count,browse.Offset);
-            for(int row=window.First/3;row<=window.Last/3;row++)p.Sprite(MetaScreenArt.Shelf,r.Row(row).Offset(0,-browse.Offset));
             for(int i=window.First;i<=window.Last;i++)
             {
                 WardrobeShelfItem card=items[i]; CosmeticItem? item=card.Item;
                 Box cell=r.Cell(i).Offset(0,-browse.Offset);
                 if(cell.Bottom<=r.Viewport.Top||cell.Top>=r.Viewport.Bottom)continue;
-                p.Sprite(MetaScreenArt.Base,WardrobeShelfDesign.Pedestal(cell));
-                Preview(p,WardrobeShelfDesign.Picture(cell),browse.Family,WardrobeShelfCatalog.ShelfPreview(browse.Kind,item));
-                Skin(p,MetaScreenArt.Tag,WardrobeShelfDesign.Caption(cell));
-                if(WardrobeShelfDesign.Caption(cell).Within(r.Safe))
-                    ProfileGamePainter.Label(p,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),item==null?PlaytestText.T("wardrobe.default"):MetaCards.ItemName(item),WardrobeShelfDesign.ItemName);
-                if(WardrobeShelfCatalog.Chosen(wardrobe,browse.Family,browse.Kind,item))ProfileGamePainter.Check(p,WardrobeShelfDesign.Check(cell));
+                bool selected=browse.Selected(wardrobe,item),hasAction=card.State==WardrobeItemState.ForSale||card.State==WardrobeItemState.Reward;
+                p.Picture("wardrobe.card/"+selected,cell,(w,h)=>WardrobeShelfDesign.CardSurface(w,h,selected));
+                string? asset=WardrobeShelfDesign.ItemPicture(browse.Family,browse.Kind,item);
+                Box picture=WardrobeShelfDesign.Picture(cell,hasAction);
+                if(asset!=null)p.Sprite(asset,FitItem(asset,picture,item));
+                else p.Shape(item!=null?ShapeLibrary.CosmeticId(item.Shape):"ui.close",item!=null?picture:Box.FromCenter(picture.CenterX,picture.CenterY,cell.Width*.24f,cell.Width*.24f),item!=null?Visuals.Tint(item):ShopBodyDesign.InsetBorder.Line);
+                ProfileGamePainter.Label(p,WardrobeShelfDesign.Caption(cell,hasAction),item==null?PlaytestText.T("wardrobe.default"):MetaCards.ItemName(item),WardrobeShelfDesign.ItemName);
+                if(selected&&browse.PreviewItem==null)ProfileGamePainter.Check(p,WardrobeShelfDesign.Check(cell));
                 Box action=WardrobeShelfDesign.Action(cell);
-                if(card.State==WardrobeItemState.ForSale&&action.Within(r.Safe))ProfileGamePainter.Price(p,action,NumberText.Group(item!.Price));
+                // Register the cell before its purchase button: the nested button takes precedence.
+                if(cell.Within(r.Area))p.Hit(cell,()=>{browse.TryOn(wardrobe,item);app.Sound.Play(SoundCue.Click);});
+                if(card.State==WardrobeItemState.ForSale)
+                    ProfileGamePainter.Price(p,action,NumberText.Group(item!.Price),WardrobeShelfDesign.PurchaseTouch(cell).Within(r.Area)?()=>Buy(app,browse.Family,browse.Kind,card):(Action?)null,touch:WardrobeShelfDesign.PurchaseTouch(cell));
                 if(card.State==WardrobeItemState.Reward&&action.Within(r.Safe))
                 {
                     Skin(p,MetaScreenArt.Tag,action);
                     Kit.LockBadge(p,action.Left+action.Height*.4f,action.CenterY,action.Height*.8f);
                     string text=card.RewardCadence.HasValue?PlaytestText.F("wardrobe.milestone_every",card.RewardCadence.Value):PlaytestText.T("wardrobe.milestone_reward");
                     ProfileGamePainter.Label(p,new Box(action.Left+action.Height,action.Top,action.Right-action.Height*.12f,action.Bottom),text,WardrobeShelfDesign.Status);
-                }
-                // No hidden or partially occluded item can be purchased while touching filters/menu.
-                if(cell.Within(r.Area)&&card.State!=WardrobeItemState.Reward)
-                {
-                    Family family=browse.Family;CosmeticKind kind=browse.Kind;
-                    p.Hit(cell,()=>Choose(app,family,kind,card));
                 }
             }
             p.PopClip();
@@ -84,20 +80,29 @@ namespace Bloomlings.Playtest.Design
         {
             Visuals.Hero(p,HomeStage.Figure(well.CenterX,well.Bottom,well.Height),family,outfit);
         }
-        private static void Choose(DesignApp app,Family family,CosmeticKind kind,WardrobeShelfItem card)
+        private static Box FitItem(string asset,Box box,CosmeticItem? item)
         {
-            var wardrobe=app.Meta.Wardrobe;CosmeticItem? item=card.Item;kind=item?.Kind??kind;
-            if(card.State==WardrobeItemState.ForSale)
-            {
-                void Refuse(){app.Sound.Play(SoundCue.Refused);app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));}
-                if(app.Meta.Economy.Petals<item!.Price){Refuse();return;}
-                app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),
-                    (q,well)=>Preview(q,well,family,WardrobeShelfCatalog.Preview(wardrobe.OutfitOf(family),kind,item)),
-                    ()=>{if(wardrobe.TryBuy(item.Id))wardrobe.Equip(family,item.Id);else Refuse();});
-                return;
-            }
-            if(item==null||wardrobe.EquippedFor(family,kind)?.Id==item.Id)wardrobe.Unequip(family,kind);else wardrobe.Equip(family,item.Id);
-            app.Sound.Play(SoundCue.Click);
+            HeroFrame? frame=item!=null?HeroGearArt.Icon(item.Id):null;
+            if(!frame.HasValue&&asset.StartsWith(PainterBase.HeroMotionPrefix,StringComparison.Ordinal))
+                foreach(var family in WardrobeService.Families)
+                {
+                    string? stock=WardrobeShelfDesign.ItemPicture(family,CosmeticKind.Hat,null);
+                    if(stock!=asset)continue;
+                    string id=family==Family.Sprig?SprigV2Art.LeafyId:family==Family.Bloom?BloomV2Art.PetalsId:family==Family.Drop?DropV2Art.NativeId:TwigV2Art.AcornId;
+                    frame=HeroGearArt.Icon(id);break;
+                }
+            if(frame.HasValue)return CharacterArt.FitBox(box,frame.Value.Width,frame.Value.Height);
+            return MetaScreenArt.Is(asset)?MetaScreenArt.FitHat(asset,box):box;
+        }
+        private static void Buy(DesignApp app,Family family,CosmeticKind kind,WardrobeShelfItem card)
+        {
+            var wardrobe=app.Meta.Wardrobe;CosmeticItem? item=card.Item;if(item==null||wardrobe.Owns(item))return;
+            app.WardrobeBrowse.TryOn(wardrobe,item);
+            void Refuse(){app.Sound.Play(SoundCue.Refused);app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));}
+            if(app.Meta.Economy.Petals<item.Price){Refuse();return;}
+            app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),
+                (q,well)=>Preview(q,well,family,WardrobeShelfCatalog.Preview(wardrobe.OutfitOf(family),kind,item)),
+                ()=>{if(wardrobe.TryBuy(item.Id)){app.WardrobeBrowse.ResetPreview();wardrobe.Equip(family,item.Id);}else Refuse();});
         }
         private static void Locked(IPainter p,DesignApp app,HomeLook look)
         {

@@ -22,10 +22,10 @@ namespace Bloomlings.Client.UI.Screens
         private readonly WardrobeBrowseState _browse=new WardrobeBrowseState();
         private WardrobeShelfRegions _regions=null!;
         private PageHeaderView _header=null!;
-        private Image _stage=null!,_thumb=null!,_lockedFrame=null!;
+        private Image _stage=null!,_namePlate=null!,_thumb=null!,_lockedFrame=null!;
         private BloomlingFigure _hero=null!;
         private TextMeshProUGUI _name=null!;
-        private Button _previous=null!,_next=null!;
+        private bool _choosing;
         private RectTransform _filters=null!,_viewport=null!,_content=null!;
         private ScrollRect _scroll=null!;
         private LockedNoticeView _notice=null!;
@@ -37,7 +37,6 @@ namespace Bloomlings.Client.UI.Screens
         private bool _store,_locked;
         private long _shownPetals=-1;
         private readonly Dictionary<int,GameObject> _cells=new Dictionary<int,GameObject>();
-        private readonly Dictionary<int,Image> _shelves=new Dictionary<int,Image>();
         private IReadOnlyList<WardrobeShelfItem> _items=Array.Empty<WardrobeShelfItem>();
         private float _lastOffset=-1;
         public bool IsOpen=>_root.activeSelf;
@@ -56,11 +55,10 @@ namespace Bloomlings.Client.UI.Screens
             s._scroll=viewport.gameObject.AddComponent<ScrollRect>();s._scroll.viewport=s._viewport;s._scroll.content=s._content;
             s._scroll.horizontal=false;s._scroll.vertical=true;s._scroll.inertia=true;s._scroll.decelerationRate=.015f;s._scroll.scrollSensitivity=30;
             s._scroll.movementType=ScrollRect.MovementType.Clamped;
-            s._stage=MetaShelfView.Skin("FittingArch",root.transform,MetaScreenArt.Stage);
+            s._stage=MetaShelfView.Skin("FittingPedestal",root.transform,MetaScreenArt.Base);
             s._hero=BloomlingFigure.Create("Hero",root.transform);s._hero.Body.raycastTarget=false;
+            s._namePlate=MetaShelfView.Skin("NamePlate",root.transform,MetaScreenArt.Plank);
             s._name=MetaShelfView.Label("FamilyName",root.transform,"",WardrobeShelfDesign.FamilyName);
-            s._previous=UiKit.PageArrow("PreviousFamily",root.transform,false,()=>s.Turn(-1));
-            s._next=UiKit.PageArrow("NextFamily",root.transform,true,()=>s.Turn(1));
             s._filters=UiFactory.CreateRect("FixedFilters",root.transform);
             s._thumb=UiKit.RoundRect("ScrollThumb",root.transform,UiTheme.Of(ShopBodyDesign.Card.Face),b=>b.Width*.5f);
             s._lockedFrame=UiKit.CardFrame("LockedFrame",root.transform,false);s._notice=UiKit.LockedNotice("Locked",root.transform);
@@ -70,11 +68,11 @@ namespace Bloomlings.Client.UI.Screens
         }
         public void Show()
         {
-            _root.SetActive(true);_locked=false;_shownPetals=-1;
+            _browse.ResetPreview();_root.SetActive(true);_locked=false;_shownPetals=-1;
             _wardrobe.Changed-=Changed;_wardrobe.Changed+=Changed;Refresh();
         }
         public void ShowProfile()=>Show();
-        public void Hide(){Remember();_confirm.Cancel();_root.SetActive(false);}
+        public void Hide(){Remember();_browse.ResetPreview();_confirm.Cancel();_root.SetActive(false);}
         public void ShowLocked(int level)
         {
             _root.SetActive(true);_locked=true;_shownPetals=-1;SetContent(false);ClearCells();
@@ -83,31 +81,26 @@ namespace Bloomlings.Client.UI.Screens
             _notice.gameObject.SetActive(true);UiKit.PlaceScreen((RectTransform)_notice.transform,r.Notice);_notice.Show(NavPlace.Wardrobe,level);
             _nav?.Show(NavPlace.Wardrobe,_look?.Invoke()??HomeLook.All);
         }
-        private void OnDisable(){if(_wardrobe!=null)_wardrobe.Changed-=Changed;}
+        private void OnDisable(){_browse.ResetPreview();if(_wardrobe!=null)_wardrobe.Changed-=Changed;}
         private void OnDestroy()=>OnDisable();
-        private void Changed(){if(IsOpen&&!_locked){Remember();Refresh();}}
+        private void Changed(){if(IsOpen&&!_locked&&!_choosing){Remember();Refresh();}}
         private void Remember(){if(_regions!=null&&!_locked)_browse.SetOffset(_content.anchoredPosition.y*UiKit.PixelsPerUnit,_regions.Maximum(_items.Count));}
         private void Select(Family family){Remember();_browse.Select(family);_scroll.StopMovement();Refresh();}
         private void Select(CosmeticKind kind){Remember();_browse.Select(kind);_scroll.StopMovement();Refresh();}
-        private void Turn(int step)
-        {
-            int index=0;for(int i=0;i<4;i++)if(WardrobeService.Families[i]==_browse.Family)index=i;
-            Select(WardrobeService.Families[(index+step+4)%4]);
-        }
         private void SetContent(bool show)
         {
-            foreach(GameObject go in new[]{_viewport.gameObject,_stage.gameObject,_hero.Rect.gameObject,_name.gameObject,
-                _previous.gameObject,_next.gameObject,_filters.gameObject,_thumb.gameObject})go.SetActive(show);
+            foreach(GameObject go in new[]{_viewport.gameObject,_stage.gameObject,_hero.Rect.gameObject,_namePlate.gameObject,_name.gameObject,
+                _filters.gameObject,_thumb.gameObject})go.SetActive(show);
         }
         private void Refresh()
         {
             var f=UiKit.ScreenFrame();_regions=WardrobeShelfDesign.Page(f.Width,f.Height,f.Insets);var r=_regions;
             SetContent(true);_lockedFrame.gameObject.SetActive(false);_notice.gameObject.SetActive(false);
             _header.Place(r.Header);_nav?.Show(NavPlace.Wardrobe,_look?.Invoke()??HomeLook.All);
-            UiKit.PlaceScreen(_stage.rectTransform,r.Stage);_hero.ShowHero(_browse.Family,_wardrobe.OutfitOf(_browse.Family));
+            UiKit.PlaceScreen(_stage.rectTransform,r.Stage);_hero.ShowHero(_browse.Family,_browse.ShownOutfit(_wardrobe));
             UiKit.PlaceScreen(_hero.Rect,HomeStage.Figure(r.Hero.CenterX,r.Hero.Bottom,r.Hero.Height));
-            _name.text=Loc.T("family."+WardrobeService.FamilyKey(_browse.Family));UiKit.PlaceScreen(_name.rectTransform,r.Name);
-            UiKit.PlaceScreen((RectTransform)_previous.transform,r.Previous);UiKit.PlaceScreen((RectTransform)_next.transform,r.Next);
+            UiKit.PlaceScreen(_namePlate.rectTransform,r.Name.Inset(-r.Name.Width*.16f,-r.Name.Height*.12f));
+            _name.text=Loc.T("family."+WardrobeService.FamilyKey(_browse.Family))+(_browse.PreviewItem!=null?" · "+Loc.T("wardrobe.preview"):"");UiKit.PlaceScreen(_name.rectTransform,r.Name);
             BuildFilters();_items=WardrobeShelfCatalog.Build(_wardrobe,_browse.Kind,_browse.Family);_browse.SetOffset(_browse.Offset,r.Maximum(_items.Count));
             UiKit.PlaceScreen(_viewport,r.Viewport);
             _content.anchorMin=new Vector2(0,1);_content.anchorMax=new Vector2(1,1);_content.pivot=new Vector2(.5f,1);
@@ -137,7 +130,6 @@ namespace Bloomlings.Client.UI.Screens
         private void ClearCells()
         {
             foreach(GameObject go in _cells.Values){go.SetActive(false);Destroy(go);}_cells.Clear();
-            foreach(Image im in _shelves.Values){im.gameObject.SetActive(false);Destroy(im.gameObject);}_shelves.Clear();
         }
         private void UpdateVisible()
         {
@@ -146,31 +138,35 @@ namespace Bloomlings.Client.UI.Screens
             var remove=new List<int>();
             foreach(var p in _cells)if(p.Key<window.First||p.Key>window.Last)remove.Add(p.Key);
             foreach(int i in remove){_cells[i].SetActive(false);Destroy(_cells[i]);_cells.Remove(i);}
-            remove.Clear();
-            foreach(var p in _shelves)if(p.Key<window.First/3||p.Key>window.Last/3)remove.Add(p.Key);
-            foreach(int i in remove){_shelves[i].gameObject.SetActive(false);Destroy(_shelves[i].gameObject);_shelves.Remove(i);}
-            for(int row=window.First/3;row<=window.Last/3;row++)if(!_shelves.ContainsKey(row))
-            {
-                Image shelf=MetaShelfView.Skin("Shelf"+row,_content,MetaScreenArt.Shelf);UiKit.PlaceBox(shelf.rectTransform,r.Row(row),ContentBox);
-                shelf.transform.SetAsFirstSibling();_shelves[row]=shelf;
-            }
             for(int i=window.First;i<=window.Last;i++)if(!_cells.ContainsKey(i))_cells[i]=CreateItem(i);
             _thumb.gameObject.SetActive(r.Maximum(_items.Count)>0);UiKit.PlaceScreen(_thumb.rectTransform,r.Thumb(_items.Count,offset));_lastOffset=offset;
         }
         private GameObject CreateItem(int index)
         {
             var card=_items[index];CosmeticItem? item=card.Item;Box cell=_regions.Cell(index);
-            Image hit=UiFactory.CreateImage("Item"+index,_content,null,Color.clear,raycast:card.State!=WardrobeItemState.Reward);UiKit.PlaceBox(hit.rectTransform,cell,ContentBox);
-            if(card.State!=WardrobeItemState.Reward)UiKit.TapTarget(hit,()=>Choose(card));
-            UiKit.PlaceBox(MetaShelfView.Skin("Base",hit.transform,MetaScreenArt.Base).rectTransform,WardrobeShelfDesign.Pedestal(cell),cell);
-            RectTransform picture=UiFactory.CreateRect("Preview",hit.transform);UiKit.PlaceBox(picture,WardrobeShelfDesign.Picture(cell),cell);
-            var hero=BloomlingFigure.Create("Hero",picture);hero.Body.raycastTarget=false;
-            hero.ShowHero(_browse.Family,WardrobeShelfCatalog.ShelfPreview(_browse.Kind,item));UiFactory.Stretch(hero.Rect);
-            UiKit.PlaceBox(MetaShelfView.Skin("NamePlate",hit.transform,MetaScreenArt.Tag).rectTransform,WardrobeShelfDesign.Caption(cell),cell);
+            Image hit=UiFactory.CreateImage("Item"+index,_content,null,Color.clear,raycast:true);UiKit.PlaceBox(hit.rectTransform,cell,ContentBox);
+            UiKit.TapTarget(hit,()=>Choose(card));
+            bool selected=_browse.Selected(_wardrobe,item),hasAction=card.State==WardrobeItemState.ForSale||card.State==WardrobeItemState.Reward;
+            var frame=UiFactory.CreateImage("Frame",hit.transform,null,Color.white);
+            PictureFit.On(frame,(w,h)=>ProceduralSprites.Picture("wardrobe.card/"+selected,w,h,(pw,ph)=>WardrobeShelfDesign.CardSurface(pw,ph,selected)));
+            UiFactory.Stretch(frame.rectTransform);
+            string? asset=WardrobeShelfDesign.ItemPicture(_browse.Family,_browse.Kind,item);
+            Sprite? sprite=asset!=null ? (asset.StartsWith("heromotion/",StringComparison.Ordinal)?HeroGearView.Picture(asset.Substring(11)):ShopArt.Get(asset))
+                : item!=null ? Icon(item) : ProceduralSprites.Shape("ui.close");
+            Image picture=UiFactory.CreateImage("ItemOnly",hit.transform,sprite,Color.white);picture.preserveAspect=true;
+            Box pictureBox=WardrobeShelfDesign.Picture(cell,hasAction);
+            if(item==null&&_browse.Kind!=CosmeticKind.Hat){picture.color=UiTheme.Of(ShopBodyDesign.InsetBorder.Line);pictureBox=Box.FromCenter(pictureBox.CenterX,pictureBox.CenterY,cell.Width*.24f,cell.Width*.24f);}
+            UiKit.PlaceBox(picture.rectTransform,pictureBox,cell);
             var name=MetaShelfView.Label("Name",hit.transform,item==null?Loc.T("wardrobe.default"):Name(item),WardrobeShelfDesign.ItemName);
-            UiKit.PlaceBox(name.rectTransform,WardrobeShelfDesign.Caption(cell).Inset(cell.Width*.06f,0),cell);
-            if(WardrobeShelfCatalog.Chosen(_wardrobe,_browse.Family,_browse.Kind,item))UiKit.PlaceBox(MetaShelfView.Check(hit.transform),WardrobeShelfDesign.Check(cell),cell);
-            if(card.State==WardrobeItemState.ForSale)UiKit.PlaceBox(MetaShelfView.Price(hit.transform,NumberText.Group(item!.Price)).rectTransform,ProfileGameDesign.PurchaseFace(WardrobeShelfDesign.Action(cell)),cell);
+            UiKit.PlaceBox(name.rectTransform,WardrobeShelfDesign.Caption(cell,hasAction),cell);
+            if(selected&&_browse.PreviewItem==null)UiKit.PlaceBox(MetaShelfView.Check(hit.transform),WardrobeShelfDesign.Check(cell),cell);
+            if(card.State==WardrobeItemState.ForSale)
+            {
+                Image price=MetaShelfView.Price(hit.transform,NumberText.Group(item!.Price));
+                UiKit.PlaceBox(price.rectTransform,ProfileGameDesign.PurchaseFace(WardrobeShelfDesign.Action(cell)),cell);
+                Image buy=UiFactory.CreateImage("BuyTouch",hit.transform,null,Color.clear,raycast:true);
+                UiKit.PlaceBox(buy.rectTransform,WardrobeShelfDesign.PurchaseTouch(cell),cell);UiKit.TapTarget(buy,()=>Buy(card));
+            }
             if(card.State==WardrobeItemState.Reward)
             {
                 Box action=WardrobeShelfDesign.Action(cell);UiKit.PlaceBox(MetaShelfView.Skin("Reward",hit.transform,MetaScreenArt.Tag).rectTransform,action,cell);
@@ -182,16 +178,25 @@ namespace Bloomlings.Client.UI.Screens
         }
         private void Choose(WardrobeShelfItem card)
         {
-            Family family=_browse.Family;CosmeticKind kind=card.Item?.Kind??_browse.Kind;CosmeticItem? item=card.Item;
-            if(card.State==WardrobeItemState.ForSale)
+            Remember();_choosing=true;
+            try{_browse.TryOn(_wardrobe,card.Item);}finally{_choosing=false;}
+            Refresh();
+        }
+        private void Buy(WardrobeShelfItem card)
+        {
+            CosmeticItem? item=card.Item;if(item==null||_wardrobe.Owns(item))return;
+            Choose(card);Family family=_browse.Family;CosmeticKind kind=_browse.Kind;
+            _confirm.ShowPetals(PurchaseOffer.ForPetals(Name(item),item.Price),_petals?.Invoke()??0,well=>
             {
-                _confirm.ShowPetals(PurchaseOffer.ForPetals(Name(item!),item!.Price),_petals?.Invoke()??0,well=>
-                {
-                    var figure=BloomlingFigure.Create("Preview",well);UiFactory.Stretch(figure.Rect);
-                    figure.ShowHero(family,WardrobeShelfCatalog.Preview(_wardrobe.OutfitOf(family),kind,item));
-                },()=>{if(_wardrobe.TryBuy(item.Id))_wardrobe.Equip(family,item.Id);},()=>_toast.Show(Loc.T("gameplay.not_enough_petals")));return;
-            }
-            if(item==null||_wardrobe.EquippedFor(family,kind)?.Id==item.Id)_wardrobe.Unequip(family,kind);else _wardrobe.Equip(family,item.Id);
+                var figure=BloomlingFigure.Create("Preview",well);UiFactory.Stretch(figure.Rect);
+                figure.ShowHero(family,WardrobeShelfCatalog.Preview(_wardrobe.OutfitOf(family),kind,item));
+            },()=>
+            {
+                _choosing=true;
+                try{if(_wardrobe.TryBuy(item.Id)){_browse.ResetPreview();_wardrobe.Equip(family,item.Id);}}
+                finally{_choosing=false;}
+                Refresh();
+            },()=>_toast.Show(Loc.T("gameplay.not_enough_petals")));
         }
         private void Update()
         {

@@ -156,7 +156,12 @@ namespace Bloomlings.Playtest.Design
 
         public PlaytestMeta Meta { get; private set; }
 
-        public Screen Screen { get; private set; }
+        private Screen _screen;
+        public Screen Screen
+        {
+            get => _screen;
+            private set { if (_screen == Screen.Wardrobe && value != _screen) WardrobeBrowse.ResetPreview(); _screen = value; }
+        }
 
         public LevelScreen? Level { get; private set; }
 
@@ -377,6 +382,7 @@ namespace Bloomlings.Playtest.Design
         {
             Sound.Play(SoundCue.Click);
             ClearOverlays();
+            WardrobeBrowse.ResetPreview();
             Screen = Screen.Wardrobe;
         }
 

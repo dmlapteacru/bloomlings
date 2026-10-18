@@ -1251,7 +1251,10 @@ namespace Bloomlings.Playtest.Preview
                 var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
                 int index=shelf.FindIndex(c=>c.State==WardrobeItemState.ForSale);Expect(index>0,"paid head item remains available");
                 var card=r.Cell(index);app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(shelf.Count));Run(app,p,.1f);
-                long petals=app.Meta.Economy.Petals;Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                long petals=app.Meta.Economy.Petals;
+                Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                Expect(!app.IsOpen(Overlay.Purchase)&&app.WardrobeBrowse.PreviewItem?.Id==shelf[index].Item?.Id,"card tap only fits the item");
+                Tap(p,WardrobeShelfDesign.Action(card.Offset(0,-app.WardrobeBrowse.Offset)));Run(app,p,.1f);
                 Expect(app.IsOpen(Overlay.Purchase),"Wardrobe asks before buying");Expect(app.Meta.Economy.Petals==petals,"opening confirmation spends nothing");
                 app.Back();Run(app,p,.1f);Expect(app.Meta.Economy.Petals==petals,"cancel spends nothing");
             });
@@ -1300,13 +1303,14 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.WardrobeBrowse.Offset==offset,"filters intercept drags");
                 var nav=HomeScreen.Nav(p,NavPlace.Wardrobe);Box menu=GameNavigationDesign.NavButton(nav,1);
                 Drag(p,menu.CenterX,menu.CenterY,menu.CenterX,menu.CenterY-r.W*.2f);Run(app,p,.1f);
-                Expect(app.WardrobeBrowse.Offset==offset&&app.Screen==Design.Screen.Wardrobe,"selected menu intercepts drags");
-                Tap(p,NavigationSkin.Segment(r.Families,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==0,"new family starts at its own offset");
+                Expect(app.WardrobeBrowse.Offset==offset&&app.Screen==Design.Screen.Wardrobe&&app.Overlays.Count==0,"dragging off the menu never scrolls, fits or opens a purchase");
+                Tap(p,NavigationSkin.Segment(r.Families,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Family==Family.Bloom&&app.WardrobeBrowse.Offset==0,"new family starts at its own offset");
                 Tap(p,NavigationSkin.Segment(r.Families,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"returning to family restores its offset");
-                Tap(p,NavigationSkin.Segment(r.Categories,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Kind==CosmeticKind.Skin,"category filters the catalog");
-                Tap(p,NavigationSkin.Segment(r.Categories,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"category restores its own scroll");
+                Tap(p,NavigationSkin.Segment(r.Categories,1,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Kind==CosmeticKind.Glasses,"category filters the catalog");
+                Tap(p,NavigationSkin.Segment(r.Categories,0,4));Run(app,p,.1f);Expect(app.WardrobeBrowse.Offset==offset,"category restores its own scroll");
                 var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);int bucket=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
-                long before=app.Meta.Economy.Petals;Tap(p,r.Cell(bucket).Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                Box bucketBox=r.Cell(bucket);app.WardrobeBrowse.SetOffset(bucketBox.Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);offset=app.WardrobeBrowse.Offset;
+                long before=app.Meta.Economy.Petals;Tap(p,WardrobeShelfDesign.Action(bucketBox.Offset(0,-offset)));Run(app,p,.1f);
                 Expect(app.IsOpen(Overlay.Purchase)&&app.Meta.Economy.Petals==before,"tap opens confirmation without spending");
                 Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Cancel);Run(app,p,.1f);
                 Expect(app.Meta.Economy.Petals==before&&app.WardrobeBrowse.Offset==offset,"cancel preserves balance and scroll");
@@ -1320,16 +1324,45 @@ namespace Bloomlings.Playtest.Preview
                 var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);
                 int index=Enumerable.Range(0,cards.Count).First(i=>cards[i].Item?.Id=="hat.bucket_hat");
                 long balance=app.Meta.Economy.Petals;
+                app.WardrobeBrowse.SetOffset(r.Cell(index).Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);offset=app.WardrobeBrowse.Offset;
                 Box bucket=r.Cell(index).Offset(0,-offset);
                 Tap(p,bucket);Run(app,p,.1f);
-                Expect(app.IsOpen(Overlay.Purchase),"unowned item asks for confirmation");
+                Expect(!app.IsOpen(Overlay.Purchase)&&app.WardrobeBrowse.PreviewItem?.Id=="hat.bucket_hat","unowned card is a free temporary fitting");
+                Tap(p,WardrobeShelfDesign.Action(bucket));Run(app,p,.1f);
+                Expect(app.IsOpen(Overlay.Purchase),"green price button asks for confirmation");
                 Tap(p,ScreenLayout.PurchaseConfirm(p.Width,p.Height,p.Insets).Confirm);Run(app,p,.1f);
                 Expect(app.Meta.Save.Cosmetics.Owned.Contains("hat.bucket_hat")&&app.Meta.Economy.Petals==balance-200,"confirmation buys at the catalog price once");
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.WardrobeBrowse.Offset==offset,"purchase equips without moving the shelves");
                 Tap(p,bucket);Run(app,p,.1f);
-                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)==null&&app.Meta.Economy.Petals==balance-200,"owned item toggles without another charge");
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.Meta.Economy.Petals==balance-200,"owned item stays equipped without another charge");
                 Tap(p,bucket);Run(app,p,.1f);
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.Overlays.Count==0,"owned item equips immediately");
+            });
+            yield return new Fixture(170,"wardrobe-fitting","Wardrobe: temporary fittings never leak into saved outfits",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);app.Meta.Economy.Grant(12000,null);CloseAll(app);app.OpenWardrobe();
+                app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.BucketId);Run(app,p,.1f);
+                var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);
+                var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
+                int index=cards.FindIndex(c=>c.State==WardrobeItemState.ForSale);var item=cards[index].Item!;
+                Box card=r.Cell(index);app.WardrobeBrowse.SetOffset(card.Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);
+                void Fit(){Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);}
+                long balance=app.Meta.Economy.Petals;Fit();
+                Expect(app.WardrobeBrowse.ShownOutfit(app.Meta.Wardrobe).Hat?.Id==item.Id,"stand shows the selected unowned item");
+                Expect(app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat?.Id==SprigV2Art.BucketId,"saved outfit stays intact");
+                Expect(app.Meta.Economy.Petals==balance&&!app.Meta.Wardrobe.Owns(item)&&app.Overlays.Count==0,"fitting spends nothing and opens no modal");
+                Tap(p,NavigationSkin.Segment(r.Categories,1,4));Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.PreviewItem==null,"category switch ends the fitting");
+                Tap(p,NavigationSkin.Segment(r.Categories,0,4));Run(app,p,.1f);Fit();
+                Tap(p,NavigationSkin.Segment(r.Families,1,4));Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.PreviewItem==null,"family switch ends the fitting");
+                Tap(p,NavigationSkin.Segment(r.Families,0,4));Run(app,p,.1f);Fit();
+                app.OpenStore();app.CloseStore();Run(app,p,.1f);
+                Expect(app.Screen==Design.Screen.Wardrobe&&app.WardrobeBrowse.PreviewItem==null,"leaving for Shop and returning restores the saved outfit");
+                Fit();app.CloseWardrobe();app.OpenWardrobe();Run(app,p,.1f);
+                Expect(app.WardrobeBrowse.PreviewItem==null&&app.Meta.Wardrobe.OutfitOf(Family.Sprig).Hat?.Id==SprigV2Art.BucketId,"reopening discards the fitting");
+                Expect(!p.DrawnSprites.Contains(MetaScreenArt.Stage)&&!p.DrawnSprites.Contains(MetaScreenArt.Shelf),"new layout has no arch or shelves");
+                Fit(); // Render the temporary preview state, including its label and green purchase button.
             });
             yield return new Fixture(27, "wardrobe", "Extra: Wardrobe (spec 005 FR-025)", (p, data) =>
             {

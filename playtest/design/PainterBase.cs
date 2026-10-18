@@ -111,7 +111,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A finger goes down (spec 005 FR-041): on a page that scrolls (an uncovered <see cref="Scroll"/> area of the
-        /// last frame under it) the touch may become a drag; everywhere else it taps where it lifts, as before.
+        /// last frame under it) the touch may become a drag. A tap only reaches a control containing both down and up.
         /// </summary>
         public void TouchDown(float x, float y)
         {
@@ -163,6 +163,14 @@ namespace Bloomlings.Playtest.Design
             switch (end.Kind)
             {
                 case GestureKind.Tap:
+                    // Fixed controls are outside scroll areas, but moving off a menu/filter must not click
+                    // another control on release (especially a price below it). Match Unity's captured tap.
+                    for (int i = _hits.Count - 1; i >= 0; i--)
+                    {
+                        if (!_hits[i].Box.Contains(x, y)) continue;
+                        if (!_hits[i].Box.Contains(_gesture.Start.X, _gesture.Start.Y)) return false;
+                        break;
+                    }
                     return Dispatch(x, y);
                 case GestureKind.Drag:
                     if (_verticalDrag != null)

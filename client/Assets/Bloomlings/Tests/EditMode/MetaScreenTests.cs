@@ -60,6 +60,69 @@ namespace Bloomlings.Client.Tests
             Assert.That(preview.Hat,Is.Null);Assert.That(preview.Skin,Is.SameAs(skin));
         }
         [Test]
+        public void FittingUnownedItems_NeverWritesOrCharges_AndTabsRestoreSavedOutfit()
+        {
+            var save=PlayerSave.CreateNew("fitting",DateTime.UtcNow);
+            save.Unlocks.Flags[WardrobeService.UnlockId]=true;
+            var owned=new CosmeticItem("hat.owned",CosmeticKind.Hat,"Owned","cap","#999999",false);
+            var paid=new CosmeticItem("hat.paid",CosmeticKind.Hat,"Paid","cap","#999999",false,200);
+            var reward=new CosmeticItem("hat.reward",CosmeticKind.Hat,"Reward","cap","#999999",false);
+            var wardrobe=new WardrobeService(save,new CosmeticCatalog(new[]{owned,paid,reward}),new BundledRemoteConfigService(),()=>{});
+            save.Cosmetics.Owned.Add(owned.Id);wardrobe.Equip(Family.Sprig,owned.Id);
+            string before=SaveSerializer.Write(save);var fitting=new WardrobeBrowseState();
+            fitting.TryOn(wardrobe,paid);
+            Assert.That(fitting.ShownOutfit(wardrobe).Hat,Is.SameAs(paid));
+            Assert.That(wardrobe.OutfitOf(Family.Sprig).Hat,Is.SameAs(owned));
+            Assert.That(fitting.Selected(wardrobe,paid),Is.True);
+            Assert.That(fitting.Selected(wardrobe,owned),Is.False);
+            fitting.Select(CosmeticKind.Hat);
+            Assert.That(fitting.PreviewItem,Is.SameAs(paid),"the active tab does not discard a fitting");
+            fitting.Select(CosmeticKind.Glasses);
+            Assert.That(fitting.PreviewItem,Is.Null);
+            Assert.That(fitting.ShownOutfit(wardrobe).Hat,Is.SameAs(owned));
+            fitting.Select(CosmeticKind.Hat);fitting.TryOn(wardrobe,reward);
+            Assert.That(fitting.ShownOutfit(wardrobe).Hat,Is.SameAs(reward),"locked rewards can be tried on");
+            fitting.Select(Family.Drop);fitting.Select(Family.Sprig);
+            Assert.That(fitting.PreviewItem,Is.Null);
+            fitting.TryOn(wardrobe,paid);fitting.ResetPreview();
+            Assert.That(fitting.ShownOutfit(wardrobe).Hat,Is.SameAs(owned));
+            Assert.That(SaveSerializer.Write(save),Is.EqualTo(before),"neither ownership, wallet nor equipped save changes during fitting");
+        }
+        [Test]
+        public void OwnedCell_TapsEquipOnce_AndDefaultOnlyClearsItsSlot()
+        {
+            var save=PlayerSave.CreateNew("fitting",DateTime.UtcNow);save.Unlocks.Flags[WardrobeService.UnlockId]=true;
+            var hat=new CosmeticItem("hat.owned",CosmeticKind.Hat,"Owned","cap","#999999",false);
+            var glasses=new CosmeticItem("glasses.owned",CosmeticKind.Glasses,"Glasses","round","#999999",false);
+            int writes=0;var wardrobe=new WardrobeService(save,new CosmeticCatalog(new[]{hat,glasses}),new BundledRemoteConfigService(),()=>writes++);
+            save.Cosmetics.Owned.Add(hat.Id);save.Cosmetics.Owned.Add(glasses.Id);
+            wardrobe.Equip(Family.Sprig,glasses.Id);var fitting=new WardrobeBrowseState();
+            fitting.TryOn(wardrobe,hat);int equippedWrites=writes;fitting.TryOn(wardrobe,hat);
+            Assert.That(writes,Is.EqualTo(equippedWrites),"repeated selection does not toggle or rewrite the outfit");
+            Assert.That(wardrobe.OutfitOf(Family.Sprig).Hat,Is.SameAs(hat));
+            fitting.TryOn(wardrobe,null);
+            Assert.That(wardrobe.OutfitOf(Family.Sprig).Hat,Is.Null);
+            Assert.That(wardrobe.OutfitOf(Family.Sprig).Glasses,Is.SameAs(glasses));
+            Assert.That(fitting.PreviewItem,Is.Null);
+        }
+        [TestCase(1080,1920)]
+        [TestCase(1080,2340)]
+        [TestCase(1080,2520)]
+        public void ItemGrid_HasLargeHero_ThreeColumns_AndClipsBeforeFiltersAndMenu(int width,int height)
+        {
+            var r=WardrobeShelfDesign.Page(width,height,new Insets(80,40));
+            Assert.That(r.Hero.Height,Is.GreaterThan(width*.40f));
+            Assert.That(r.Cell(0).Top,Is.EqualTo(r.Cell(2).Top));
+            Assert.That(r.Cell(3).Top,Is.GreaterThan(r.Cell(2).Bottom));
+            Assert.That(r.Cell(0).Width,Is.GreaterThan(width*.29f));
+            if(height>=2340)Assert.That(r.Cell(8).Within(r.Area),Is.True,"long phones show three complete item rows");
+            Assert.That(r.Viewport,Is.EqualTo(r.Area));
+            Assert.That(r.Viewport.Top,Is.GreaterThan(r.Categories.Bottom));
+            Assert.That(r.Viewport.Bottom,Is.LessThan(r.NavTop));
+            Assert.That(WardrobeShelfDesign.PurchaseTouch(r.Cell(0)).Height,Is.GreaterThanOrEqualTo(DesignTokens.Size.TouchMin));
+            Assert.That(r.Visible(10000,500).Last-r.Visible(10000,500).First,Is.LessThan(24));
+        }
+        [Test]
         public void LongNames_KeepCompleteGraphemes_AndTheModelRetainsFullName()
         {
             string full="Garden 👩‍🌾👩‍🌾👩‍🌾 Gardener with a very long name";
