@@ -1418,6 +1418,62 @@ namespace Bloomlings.Playtest.Preview
                 foreach(string id in new[]{"hat.bloom_flower_hat","clothes.bloom_top_flower",EyewearArt.BloomHeartId,BloomV2Art.StripeId})Expect(app.Meta.Wardrobe.Equip(Family.Bloom,id),"combined Home outfit equips");
                 app.GoHome();Run(app,p,.4f);
             });
+            foreach(var selection in new[]{
+                (189,"sprig-bowlerhat",Family.Sprig,"hat.sprig_bowler",CosmeticKind.Hat),
+                (190,"sprig-explorerhat",Family.Sprig,"hat.sprig_explorer",CosmeticKind.Hat),
+                (191,"sprig-hairclover",Family.Sprig,"hat.sprig_clover",CosmeticKind.Hat),
+                (192,"sprig-hairsprout",Family.Sprig,"hat.sprig_sprout",CosmeticKind.Hat),
+                (193,"sprig-headscarf",Family.Sprig,"hat.sprig_headscarf",CosmeticKind.Hat),
+                (194,"sprig-nightcap",Family.Sprig,"hat.sprig_nightcap",CosmeticKind.Hat),
+                (195,"sprig-vestexplorer",Family.Sprig,"clothes.sprig_explorer_vest",CosmeticKind.Clothes),
+                (196,"twig-vestexplorer",Family.Twig,"clothes.twig_explorer_vest",CosmeticKind.Clothes),
+                (197,"sprig-boater",Family.Sprig,"hat.sprig_boater",CosmeticKind.Hat),
+                (198,"twig-hairpinecone",Family.Twig,"hat.twig_pinecone",CosmeticKind.Hat),
+                (199,"twig-headscarf",Family.Twig,"hat.twig_headscarf",CosmeticKind.Hat),
+                (200,"twig-mushroomcap",Family.Twig,"hat.twig_mushroom",CosmeticKind.Hat),
+                (201,"twig-nightcap",Family.Twig,"hat.twig_nightcap",CosmeticKind.Hat),
+                (202,"twig-shirtexplorer",Family.Twig,"clothes.twig_explorer_shirt",CosmeticKind.Clothes),
+                (203,"twig-boater",Family.Twig,"hat.twig_boater",CosmeticKind.Hat),
+                (204,"twig-bowlerhat",Family.Twig,"hat.twig_bowler",CosmeticKind.Hat),
+                (205,"twig-explorerhat",Family.Twig,"hat.twig_explorer",CosmeticKind.Hat)})
+            {
+                var item=selection;
+                yield return new Fixture(item.Item1,"addition-"+item.Item2,"Fitted Sprig/Twig item: select, Home, return",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    app.Meta.Wardrobe.Equip(item.Item3,item.Item3==Family.Sprig?EyewearArt.SprigSquareId:EyewearArt.TwigOctagonId);
+                    if(item.Item5==CosmeticKind.Hat)app.Meta.Wardrobe.Equip(item.Item3,item.Item3==Family.Sprig?"clothes.sprig_explorer_vest":"clothes.twig_explorer_vest");
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(item.Item3);app.WardrobeBrowse.Select(item.Item5);Run(app,p,.1f);
+                    var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,item.Item5,item.Item3).ToList();
+                    int index=cards.FindIndex(c=>c.Item?.Id==item.Item4);Expect(index>0,"new item has its own card");var card=r.Cell(index);
+                    app.WardrobeBrowse.SetOffset(card.Top-r.Area.Top-r.Area.Height*.08f,r.Maximum(cards.Count));Run(app,p,.1f);
+                    Tap(p,card.Offset(0,-app.WardrobeBrowse.Offset));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(item.Item3).Get(item.Item5)?.Id==item.Item4,"new item equips in its correct slot");
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                    for(int layer=0;layer<HeroGearArt.LayerCount;layer++)
+                    {
+                        var frame=HomeHeroArt.Layer(item.Item3,app.Meta.Wardrobe.OutfitOf(item.Item3),layer);
+                        if(frame.HasValue)Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+frame.Value.Name),"Home keeps every fitted outfit layer");
+                    }
+                    app.OpenWardrobe();Run(app,p,.1f);
+                });
+            }
+            foreach(var combo in new[]{(206,Family.Sprig,"hat.sprig_headscarf","clothes.sprig_explorer_vest",EyewearArt.SprigSquareId,SprigV2Art.ScarfId),(207,Family.Twig,"hat.twig_mushroom","clothes.twig_explorer_shirt",EyewearArt.TwigOctagonId,TwigV2Art.ScarfId)})
+            {
+                var look=combo;
+                yield return new Fixture(look.Item1,"addition-outfit-"+look.Item2.ToString().ToLowerInvariant(),"Fitted Head, Body, Face and scarf",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    foreach(string id in new[]{look.Item3,look.Item4,look.Item5,look.Item6})Expect(app.Meta.Wardrobe.Equip(look.Item2,id),"combined outfit equips");
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(look.Item2);app.WardrobeBrowse.Select(CosmeticKind.Clothes);Run(app,p,.1f);
+                });
+            }
+            yield return new Fixture(208,"addition-home","New Sprig and Twig outfits around the lotus",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);CloseAll(app);
+                foreach(var item in new[]{(Family.Sprig,"hat.sprig_clover"),(Family.Sprig,"clothes.sprig_explorer_vest"),(Family.Sprig,SprigV2Art.GlassesId),(Family.Twig,"hat.twig_pinecone"),(Family.Twig,"clothes.twig_explorer_vest"),(Family.Twig,TwigV2Art.GlassesId)})Expect(app.Meta.Wardrobe.Equip(item.Item1,item.Item2),"new Home outfit equips");
+                app.GoHome();Run(app,p,.4f);
+            });
             yield return new Fixture(170,"wardrobe-fitting","Wardrobe: temporary fittings never leak into saved outfits",(p,data)=>
             {
                 var app=Progressed(App(data),content,87);app.Meta.Economy.Grant(12000,null);CloseAll(app);app.OpenWardrobe();

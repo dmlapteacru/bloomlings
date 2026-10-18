@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "family": "sprig",
+  "inspection": false,
+  "scriptSha256": "e32146ec6f9012f47cd0560980aaa3e8a830cb38a868d15e4d6f996f40fa0403",
+  "fitSha256": "188bb8509f9f86d88bcab73e09cc73112908edaad42ef5671f579883574cbcd1",
+  "acceptedModelSha256": "9c36774e061f1f4d9c6da1f26ea978125cb1519c9fd9ff2feefce4d03573f137",
+  "acceptedGeometryUnchanged": true,
+  "items": [
+    {
+      "key": "BowlerHat",
+      "id": "hat.sprig_bowler",
+      "vertices": 33194,
+      "bounds": [
+        [
+          -0.5007953643798828,
+          0.4904212951660156
+        ],
+        [
+          -0.43550488352775574,
+          0.46908843517303467
+        ],
+        [
+          0.4939234256744385,
+          1.1264643669128418
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.6391277313232422e-07,
+      "fbx": "SprigHeroV2_BowlerHat.fbx",
+      "fbxSha256": "4f9840b31b8818caa6d64afa61a269dce670f8b3715a465e0c17c77c5741d5e7"
+    },
+    {
+      "key": "ExplorerHat",
+      "id": "hat.sprig_explorer",
+      "vertices": 31723,
+      "bounds": [
+        [
+          -0.49054718017578125,
+          0.4903144836425781
+        ],
+        [
+          -0.44363152980804443,
+          0.4819789230823517
+        ],
+        [
+          0.49392348527908325,
+          1.1652806997299194
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.6391277313232422e-07,
+      "fbx": "SprigHeroV2_ExplorerHat.fbx",
+      "fbxSha256": "0dce62f62052526fcfb49994410f95f8b8ab146fcc9f8e83c2306486295df414"
+    },
+    {
+      "key": "HairClover",
+      "id": "hat.sprig_clover",
+      "vertices": 32518,
+      "bounds": [
+        [
+          -0.4637107849121094,
+          0.4303474426269531
+        ],
+        [
+          -0.40778279304504395,
+          0.4441160261631012
+        ],
+        [
+          0.604771614074707,
+          1.3423435688018799
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.862645149230957e-07,
+      "fbx": "SprigHeroV2_HairClover.fbx",
+      "fbxSha256": "276d720e38fc26528c4a6fd09a2c8168f6f4314abd3a7891bc848f62f32ad27d"
+    },
+    {
+      "key": "HairSprout",
+      "id": "hat.sprig_sprout",
+      "vertices": 33228,
+      "bounds": [
+        [
+          -0.4419078826904297,
+          0.4675559997558594
+        ],
+        [
+          -0.41700688004493713,
+          0.37598133087158203
+        ],
+        [
+          0.6056625843048096,
+          1.359209656715393
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.9371509552001953e-07,
+      "fbx": "SprigHeroV2_HairSprout.fbx",
+      "fbxSha256": "1f7b9b9ac5661f398d1073e40253c12a6fc43dae2cce0bb669511496990dc507"
+    },
+    {
+      "key": "Headscarf",
+      "id": "hat.sprig_headscarf",
+      "vertices": 17787,
+      "bounds": [
+        [
+          -0.40990638732910156,
+          0.4417084753513336
+        ],
+        [
+          -0.41527774930000305,
+          0.3435359299182892
+        ],
+        [
+          0.5023908615112305,
+          1.2573456764221191
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.07555476267801725,
+      "fbxRoundTripError": 1.7881393432617188e-07,
+      "fbx": "SprigHeroV2_Headscarf.fbx",
+      "fbxSha256": "209565fb36b5be00cfa502da36ff45936ce2cb33fc601f6670244daf2d6ee679"
+    },
+    {
+      "key": "Nightcap",
+      "id": "hat.sprig_nightcap",
+      "vertices": 32984,
+      "bounds": [
+        [
+          -0.3855361044406891,
+          0.5489560961723328
+        ],
+        [
+          -0.34411028027534485,
+          0.40083590149879456
+        ],
+        [
+          0.5173115730285645,
+          1.3061244487762451
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.05667416824353366,
+      "fbxRoundTripError": 1.862645149230957e-07,
+      "fbx": "SprigHeroV2_Nightcap.fbx",
+      "fbxSha256": "a31c1eee3964824634e38e7b610f5fcc3432695951a29a881137f27483be550f"
+    },
+    {
+      "key": "VestExplorer",
+      "id": "clothes.sprig_explorer_vest",
+      "vertices": 11075,
+      "bounds": [
+        [
+          -0.2103748321533203,
+          0.21154403686523438
+        ],
+        [
+          -0.2784663140773773,
+          0.1801680624485016
+        ],
+        [
+          0.09013311564922333,
+          0.4529188871383667
+        ]
+      ],
+      "rigidHead": false,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.013260072475282818,
+      "fbxRoundTripError": 8.195638656616211e-08,
+      "fbx": "SprigHeroV2_VestExplorer.fbx",
+      "fbxSha256": "51cabb1394b214e261955c51193fea0898a00a7c028c724b99528ce396af553d"
+    },
+    {
+      "key": "Boater",
+      "id": "hat.sprig_boater",
+      "vertices": 33528,
+      "bounds": [
+        [
+          -0.5227671265602112,
+          0.5242213606834412
+        ],
+        [
+          -0.4839437007904053,
+          0.4975084066390991
+        ],
+        [
+          0.5639199018478394,
+          1.0739119052886963
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.07081975479052144,
+      "fbxRoundTripError": 1.6391277313232422e-07,
+      "fbx": "SprigHeroV2_Boater.fbx",
+      "fbxSha256": "12ea03ac86bfe79fc8a163f0a8f0171822eb5e0dfa97f108efa22c93e38f937e"
+    }
+  ],
+  "export": {
+    "file": "WardrobeAdditions.glb",
+    "sha256": "f03853eb958ac38d0b87565d5534a1e7af8cddf3157e57a3b737f484ef41d6c5"
+  }
+}

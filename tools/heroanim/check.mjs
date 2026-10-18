@@ -157,8 +157,32 @@ for(const f of bloomExtras.outputs){
  const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since Bloom extras bake');
  if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its crop');}
 }
+// Archive-delivered additions for Sprig and Twig retain all fitted outfit/view counterparts.
+const additions=JSON.parse(fs.readFileSync(path.join(here,'wardrobe-additions-v1.json'))),additionFit=JSON.parse(fs.readFileSync(path.join(here,'models/wardrobe-additions-v1/fit.json')));
+for(const source of additions.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since wardrobe additions bake');
+expect(sha(path.join(repo,additions.data))===additions.dataSha256,'WardrobeAdditionsData is stale');
+expect(additionFit.items.length===17&&additionFit.archives.length===2&&additions.sets.length===2,'All 17 archive-delivered additions must be retained');
+for(const set of additions.sets){
+ const proof=JSON.parse(fs.readFileSync(path.join(here,'models/wardrobe-additions-v1/'+set.family+'-build-report.json'))),accepted=JSON.parse(fs.readFileSync(path.join(here,'models/'+set.family+'-v2/build-report.json')));
+ expect(!proof.inspection&&proof.acceptedGeometryUnchanged&&proof.acceptedModelSha256===accepted.export.sha256,'Accepted '+set.family+' geometry changed under additions');
+ expect(proof.scriptSha256===sha(path.join(here,'prepare-wardrobe-additions-v1.py'))&&proof.fitSha256===sha(path.join(here,'models/wardrobe-additions-v1/fit.json')),'Wardrobe fitting proof is stale: '+set.family);
+ const items=additionFit.items.filter(i=>i.family===set.family);
+ expect(items.filter(i=>i.slot==='Head').length===7&&proof.items.length===(set.family==='sprig'?8:9),'Missing additions for '+set.family);
+ expect(proof.items.every(i=>i.uvUnchanged&&i.weightsUnchanged&&i.fbxRoundTripError<1e-5&&(items.find(j=>j.id===i.id)?.slot!=='Head'||i.rigidHead)),'Fitted FBX UV, weights or rest geometry failed: '+set.family);
+ const count=set.heads.length*set.bodies.length*set.scarves.length,affected=set.family==='sprig'?86:112;
+ for(const view of ['front','home']){
+  expect(set[view].length===count&&set[view].filter(Boolean).length===affected,'Incomplete additions coverage: '+set.family+'/'+view);
+  for(const row of set[view].filter(Boolean))expect(row.length===5&&row.every(i=>i===-1||(additions.outputs[i]?.family===set.family&&additions.outputs[i]?.view===view)),'Wrong additions family or view: '+set.family);
+ }
+}
+expect(Object.keys(additions.icons).length===17&&Object.values(additions.icons).every(i=>additions.outputs[i]?.view==='icon'),'Every new item needs an isolated icon');
+for(const f of additions.outputs){
+ const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since additions bake');
+ if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its crop');}
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
+for(const f of additions.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of bloomExtras.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of eyewear.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of homeHeroes.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);

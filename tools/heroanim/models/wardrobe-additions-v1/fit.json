@@ -1,0 +1,522 @@
+{
+  "version": 1,
+  "archives": [
+    {
+      "path": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "sha256": "f6d9231acb14264a636c89ddb7e0be1a0b83f15fdbd88fb61cfc55419ae16b55"
+    },
+    {
+      "path": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "sha256": "ba36cdede04f429c0082ff4d08842d5326797dd3c273e5a4dd215b6161526f20"
+    }
+  ],
+  "items": [
+    {
+      "family": "sprig",
+      "key": "BowlerHat",
+      "id": "hat.sprig_bowler",
+      "name": "Bowler Hat",
+      "slot": "Head",
+      "wardrobeClass": "bowler",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_BowlerHat.fbx",
+      "sha256": "1015dcdd5bea4e9ba70dc8034c840867f32db840429fc4d6cb0b24bc8d0665fe",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "sprig",
+      "key": "ExplorerHat",
+      "id": "hat.sprig_explorer",
+      "name": "Explorer Hat",
+      "slot": "Head",
+      "wardrobeClass": "explorer",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_ExplorerHat.fbx",
+      "sha256": "734ccf6b77b05cd585787963834af629d0fd16ab4c772da9412cfc858f01ef25",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "sprig",
+      "key": "HairClover",
+      "id": "hat.sprig_clover",
+      "name": "Clover Hair",
+      "slot": "Head",
+      "wardrobeClass": "hair",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_HairClover.fbx",
+      "sha256": "c5802d2e932284559fa5666ccfe57321dd813e92a470587ec8becb8ad1f19e2f",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "sprig",
+      "key": "HairSprout",
+      "id": "hat.sprig_sprout",
+      "name": "Sprout Hair",
+      "slot": "Head",
+      "wardrobeClass": "hair",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_HairSprout.fbx",
+      "sha256": "99abab512c81a57d2ec6b7600385fd8126fc63cbd5ae3733f38a7c68b4effbdb",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "sprig",
+      "key": "Headscarf",
+      "id": "hat.sprig_headscarf",
+      "name": "Garden Headscarf",
+      "slot": "Head",
+      "wardrobeClass": "headscarf",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_Headscarf.fbx",
+      "sha256": "522f098626310cea9b54804543d99ca8b29db511fdd2d4fba5b64083bf8b6d1f",
+      "scale": [
+        0.95,
+        0.94,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        -0.07
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "sprig",
+      "key": "Nightcap",
+      "id": "hat.sprig_nightcap",
+      "name": "Dreamy Nightcap",
+      "slot": "Head",
+      "wardrobeClass": "nightcap",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_Nightcap.fbx",
+      "sha256": "d5d2bddbfdf90e73fb1dbdf596a5b32400d76d7c4ba7d89385f39b8ccc336f02",
+      "scale": [
+        0.94,
+        0.9,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        -0.035
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "sprig",
+      "key": "VestExplorer",
+      "id": "clothes.sprig_explorer_vest",
+      "name": "Explorer Vest",
+      "slot": "Body",
+      "wardrobeClass": "vest",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_VestExplorer.fbx",
+      "sha256": "99411cb1c4eb299478d0981b1a9f7474966d1cbd1f23282866065b22799d68a0",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "boundarySmooth": {
+        "iterations": 8,
+        "strength": 0.5
+      }
+    },
+    {
+      "family": "twig",
+      "key": "VestExplorer",
+      "id": "clothes.twig_explorer_vest",
+      "name": "Explorer Vest",
+      "slot": "Body",
+      "wardrobeClass": "vest",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "TwigHeroV2_VestExplorer.fbx",
+      "sha256": "8d92e9cdc8b4a6c0fc51e93726c68ace9c7bd85a4657be689cf5e990de6c3ab0",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "boundarySmooth": {
+        "iterations": 8,
+        "strength": 0.5
+      }
+    },
+    {
+      "family": "sprig",
+      "key": "Boater",
+      "id": "hat.sprig_boater",
+      "name": "Ribbon Boater",
+      "slot": "Head",
+      "wardrobeClass": "straw_hat",
+      "archive": "source/SprigHeroV2_BowlerHat_part2.zip",
+      "entry": "SprigHeroV2_Boater.fbx",
+      "sha256": "b67d1b97584a3c07333dcc1f154f9f1408b9611ffc3d8036df27b8150f6e7dff",
+      "scale": [
+        0.98,
+        0.98,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0.07
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "HairPinecone",
+      "id": "hat.twig_pinecone",
+      "name": "Pinecone Hair",
+      "slot": "Head",
+      "wardrobeClass": "hair",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_HairPinecone.fbx",
+      "sha256": "b98105b09a11fec038abb749fb61f52abe117b5422beef2a08bdc083b9cb50f9",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "Headscarf",
+      "id": "hat.twig_headscarf",
+      "name": "Garden Headscarf",
+      "slot": "Head",
+      "wardrobeClass": "headscarf",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_Headscarf.fbx",
+      "sha256": "56f858bc1da209c62c2db9bd279d3eee445a7a54409bb2e7e957e6ff1a404571",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "MushroomCap",
+      "id": "hat.twig_mushroom",
+      "name": "Mushroom Cap",
+      "slot": "Head",
+      "wardrobeClass": "mushroom_hat",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_MushroomCap.fbx",
+      "sha256": "2dc934532996cee0b8426dd490142c87fd2ac7ce83fbf76dbd808e50d7503e17",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "Nightcap",
+      "id": "hat.twig_nightcap",
+      "name": "Dreamy Nightcap",
+      "slot": "Head",
+      "wardrobeClass": "nightcap",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_Nightcap.fbx",
+      "sha256": "2136c6cdf6bc9fa9a993dbb893fd3dea58fbb5564a468d3e7113042d5742df3f",
+      "scale": [
+        0.96,
+        0.93,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0.01
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "ShirtExplorer",
+      "id": "clothes.twig_explorer_shirt",
+      "name": "Explorer Shirt",
+      "slot": "Body",
+      "wardrobeClass": "top",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_ShirtExplorer.fbx",
+      "sha256": "aac84b335cd5e44fc3b95e13ae19ed65b2768e4dd080d8b38b4337c6e18d69b0",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.25
+      ],
+      "boundarySmooth": {
+        "iterations": 8,
+        "strength": 0.5
+      }
+    },
+    {
+      "family": "twig",
+      "key": "Boater",
+      "id": "hat.twig_boater",
+      "name": "Ribbon Boater",
+      "slot": "Head",
+      "wardrobeClass": "straw_hat",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_Boater.fbx",
+      "sha256": "df31fa66c1f89718dc46d7f9e20349362b0639bde0adb746f879f52ba26843d9",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "BowlerHat",
+      "id": "hat.twig_bowler",
+      "name": "Bowler Hat",
+      "slot": "Head",
+      "wardrobeClass": "bowler",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_BowlerHat.fbx",
+      "sha256": "f5b0c43b7271e5c7d5a677d1641c9eb5fd62b33612a42678c73813242c1229e9",
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "ExplorerHat",
+      "id": "hat.twig_explorer",
+      "name": "Explorer Hat",
+      "slot": "Head",
+      "wardrobeClass": "explorer",
+      "archive": "source/TwigHeroV2_HairPinecone_part1.zip",
+      "entry": "TwigHeroV2_ExplorerHat.fbx",
+      "sha256": "509de8f862278b2db2e796c7abd65d168d129240c801e2b77865f3cb3d7f786a",
+      "scale": [
+        0.97,
+        0.94,
+        1
+      ],
+      "translation": [
+        0,
+        0,
+        -0.075
+      ],
+      "pivot": [
+        0,
+        0,
+        0.68
+      ]
+    }
+  ],
+  "families": {
+    "sprig": {
+      "legacyHeads": [
+        "hat.sprig_leafy",
+        "hat.sprig_rosette",
+        "hat.sprig_swirl",
+        "hat.sprig_panama",
+        "hat.sprig_daisy",
+        "hat.sprig_beret",
+        "hat.sprig_earmuffs",
+        "hat.sprig_xmas"
+      ],
+      "legacyBodies": [
+        "",
+        "clothes.sprig_jacket",
+        "clothes.sprig_coat",
+        "clothes.sprig_overalls"
+      ],
+      "legacyScarves": [
+        "",
+        "scarf.sprig_knit"
+      ],
+      "faces": [
+        "glasses.sprig_round",
+        "glasses.sprig_square"
+      ]
+    },
+    "twig": {
+      "legacyHeads": [
+        "hat.twig_acorn",
+        "hat.twig_panama",
+        "hat.twig_hair",
+        "hat.twig_hat_hair",
+        "hat.twig_beret",
+        "hat.twig_earmuffs",
+        "hat.twig_xmas"
+      ],
+      "legacyBodies": [
+        "",
+        "clothes.twig_jacket",
+        "clothes.twig_coat",
+        "clothes.twig_overalls"
+      ],
+      "legacyScarves": [
+        "",
+        "scarf.twig_knit"
+      ],
+      "faces": [
+        "glasses.twig_round",
+        "glasses.twig_octagon"
+      ]
+    }
+  }
+}

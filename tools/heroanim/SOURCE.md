@@ -28,6 +28,10 @@ scene in the repository. Raw deliveries are authoring inputs, never mobile game 
   [fitted Head / Body handoff](models/bloom-extras-v1/README.md) retains UVs and skin weights,
   with declared head fits and local garment edge smoothing. Existing Bloom geometry stays fixed.
 
+- `models/wardrobe-additions-v1/source/`: two unchanged owner archives, 17 Sprig / Twig
+  FBXs. [Fit and handoff record](models/wardrobe-additions-v1/README.md) assigns the Twig
+  vest from the Sprig ZIP correctly and retains UVs, skin weights and accepted hero bases.
+
 The owner generated / supplied these models and textures through Tripo / Meshy and their
 own Blender project. Source manifests retain original filenames and SHA-256 values. No
 third-party model or motion library was substituted. Fitting, weight transfer, scripted

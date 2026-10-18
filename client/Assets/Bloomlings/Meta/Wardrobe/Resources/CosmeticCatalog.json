@@ -112,6 +112,23 @@
     {"id": "hat.bloom_headscarf", "kind": "hat", "name": "Garden Headscarf", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "headscarf"},
     {"id": "hat.bloom_nightcap", "kind": "hat", "name": "Dreamy Nightcap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "nightcap"},
     {"id": "hat.bloom_summer_panama", "kind": "hat", "name": "Summer Panama", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "panama"},
-    {"id": "clothes.bloom_top_flower", "kind": "clothes", "name": "Flower Top", "shape": "top", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "top"}
+    {"id": "clothes.bloom_top_flower", "kind": "clothes", "name": "Flower Top", "shape": "top", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "top"},
+    {"id": "hat.sprig_bowler", "kind": "hat", "name": "Bowler Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "bowler"},
+    {"id": "hat.sprig_explorer", "kind": "hat", "name": "Explorer Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "explorer"},
+    {"id": "hat.sprig_clover", "kind": "hat", "name": "Clover Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "hair"},
+    {"id": "hat.sprig_sprout", "kind": "hat", "name": "Sprout Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "hair"},
+    {"id": "hat.sprig_headscarf", "kind": "hat", "name": "Garden Headscarf", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "headscarf"},
+    {"id": "hat.sprig_nightcap", "kind": "hat", "name": "Dreamy Nightcap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "nightcap"},
+    {"id": "clothes.sprig_explorer_vest", "kind": "clothes", "name": "Explorer Vest", "shape": "vest", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "vest"},
+    {"id": "clothes.twig_explorer_vest", "kind": "clothes", "name": "Explorer Vest", "shape": "vest", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "vest"},
+    {"id": "hat.sprig_boater", "kind": "hat", "name": "Ribbon Boater", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "straw_hat"},
+    {"id": "hat.twig_pinecone", "kind": "hat", "name": "Pinecone Hair", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "hair"},
+    {"id": "hat.twig_headscarf", "kind": "hat", "name": "Garden Headscarf", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "headscarf"},
+    {"id": "hat.twig_mushroom", "kind": "hat", "name": "Mushroom Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "mushroom_hat"},
+    {"id": "hat.twig_nightcap", "kind": "hat", "name": "Dreamy Nightcap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "nightcap"},
+    {"id": "clothes.twig_explorer_shirt", "kind": "clothes", "name": "Explorer Shirt", "shape": "top", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "top"},
+    {"id": "hat.twig_boater", "kind": "hat", "name": "Ribbon Boater", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "straw_hat"},
+    {"id": "hat.twig_bowler", "kind": "hat", "name": "Bowler Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "bowler"},
+    {"id": "hat.twig_explorer", "kind": "hat", "name": "Explorer Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "explorer"}
   ]
 }

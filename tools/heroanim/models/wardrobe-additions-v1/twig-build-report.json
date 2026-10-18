@@ -1,0 +1,249 @@
+{
+  "version": 1,
+  "family": "twig",
+  "inspection": false,
+  "scriptSha256": "e32146ec6f9012f47cd0560980aaa3e8a830cb38a868d15e4d6f996f40fa0403",
+  "fitSha256": "188bb8509f9f86d88bcab73e09cc73112908edaad42ef5671f579883574cbcd1",
+  "acceptedModelSha256": "08556c5fb6e3b1122ef00c8cb96aca227fd2a12c95bb659a5b2757308d9fdef8",
+  "acceptedGeometryUnchanged": true,
+  "items": [
+    {
+      "key": "VestExplorer",
+      "id": "clothes.twig_explorer_vest",
+      "vertices": 11523,
+      "bounds": [
+        [
+          -0.19152069091796875,
+          0.19151878356933594
+        ],
+        [
+          -0.23107998073101044,
+          0.19572077691555023
+        ],
+        [
+          0.11319399625062943,
+          0.392301470041275
+        ]
+      ],
+      "rigidHead": false,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.019922277049581973,
+      "fbxRoundTripError": 7.450580596923828e-08,
+      "fbx": "TwigHeroV2_VestExplorer.fbx",
+      "fbxSha256": "cf8fdd7bee718a4389d61092e0ad3fbb499746a8ce656fb46dbf598d048fc321"
+    },
+    {
+      "key": "HairPinecone",
+      "id": "hat.twig_pinecone",
+      "vertices": 35325,
+      "bounds": [
+        [
+          -0.4869384765625,
+          0.486572265625
+        ],
+        [
+          -0.4011465311050415,
+          0.3956643044948578
+        ],
+        [
+          0.4547823369503021,
+          1.06211519241333
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.5273690223693848e-07,
+      "fbx": "TwigHeroV2_HairPinecone.fbx",
+      "fbxSha256": "426467a2f8af7c382aa487da9329985b444e7f65cc180a6ac489f8e9756af99e"
+    },
+    {
+      "key": "Headscarf",
+      "id": "hat.twig_headscarf",
+      "vertices": 33459,
+      "bounds": [
+        [
+          -0.39840126037597656,
+          0.5395126342773438
+        ],
+        [
+          -0.3154156506061554,
+          0.3357990086078644
+        ],
+        [
+          0.46294155716896057,
+          1.1198291778564453
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.6391277313232422e-07,
+      "fbx": "TwigHeroV2_Headscarf.fbx",
+      "fbxSha256": "a0e302eddca0519cfe359475bd17e58c6f2987824e80588263eb1574cc7b4aa1"
+    },
+    {
+      "key": "MushroomCap",
+      "id": "hat.twig_mushroom",
+      "vertices": 30829,
+      "bounds": [
+        [
+          -0.4118499755859375,
+          0.41994285583496094
+        ],
+        [
+          -0.4089299738407135,
+          0.4123481810092926
+        ],
+        [
+          0.598915159702301,
+          1.1803796291351318
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.6763806343078613e-07,
+      "fbx": "TwigHeroV2_MushroomCap.fbx",
+      "fbxSha256": "a3b3db016601cea815107048ee467cecbc85d1dabe79c6060deeffbebec43219"
+    },
+    {
+      "key": "Nightcap",
+      "id": "hat.twig_nightcap",
+      "vertices": 31608,
+      "bounds": [
+        [
+          -0.4565771520137787,
+          0.535618245601654
+        ],
+        [
+          -0.3649466335773468,
+          0.4439220428466797
+        ],
+        [
+          0.45916396379470825,
+          1.2586525678634644
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.03488535131743532,
+      "fbxRoundTripError": 1.7881393432617188e-07,
+      "fbx": "TwigHeroV2_Nightcap.fbx",
+      "fbxSha256": "73f315985f031923e3c5873bdfeb8e4efd75229e5f93986640308c7f66b491ca"
+    },
+    {
+      "key": "ShirtExplorer",
+      "id": "clothes.twig_explorer_shirt",
+      "vertices": 13586,
+      "bounds": [
+        [
+          -0.2599468231201172,
+          0.2599620819091797
+        ],
+        [
+          -0.23911511898040771,
+          0.19620905816555023
+        ],
+        [
+          0.11319400370121002,
+          0.4287622570991516
+        ]
+      ],
+      "rigidHead": false,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.015166290029895646,
+      "fbxRoundTripError": 8.195638656616211e-08,
+      "fbx": "TwigHeroV2_ShirtExplorer.fbx",
+      "fbxSha256": "5ecbb18951f3cb42e16f02d48a4f6d6c99877e4cf98a9358b257c154e181ce53"
+    },
+    {
+      "key": "Boater",
+      "id": "hat.twig_boater",
+      "vertices": 33026,
+      "bounds": [
+        [
+          -0.4910011291503906,
+          0.4925193786621094
+        ],
+        [
+          -0.46258702874183655,
+          0.479276180267334
+        ],
+        [
+          0.6088792681694031,
+          1.033483862876892
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.4901161193847656e-07,
+      "fbx": "TwigHeroV2_Boater.fbx",
+      "fbxSha256": "5fb4e22e979b1988a7d9d038960c84bcce71b8446b11f4a20978a0064afbbacd"
+    },
+    {
+      "key": "BowlerHat",
+      "id": "hat.twig_bowler",
+      "vertices": 32973,
+      "bounds": [
+        [
+          -0.4603996276855469,
+          0.448516845703125
+        ],
+        [
+          -0.46160459518432617,
+          0.46388018131256104
+        ],
+        [
+          0.6111697554588318,
+          1.1539292335510254
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.0,
+      "fbxRoundTripError": 1.6391277313232422e-07,
+      "fbx": "TwigHeroV2_BowlerHat.fbx",
+      "fbxSha256": "05dfd6ebbc43f39d7e584b4edec3e62b5561ec5edf9fe3caa765ac645f66cc8d"
+    },
+    {
+      "key": "ExplorerHat",
+      "id": "hat.twig_explorer",
+      "vertices": 30672,
+      "bounds": [
+        [
+          -0.4465876519680023,
+          0.43506136536598206
+        ],
+        [
+          -0.3750396966934204,
+          0.37717875838279724
+        ],
+        [
+          0.536169707775116,
+          1.1590726375579834
+        ]
+      ],
+      "rigidHead": true,
+      "uvUnchanged": true,
+      "weightsUnchanged": true,
+      "maxFitDisplacement": 0.07876960465741352,
+      "fbxRoundTripError": 1.6391277313232422e-07,
+      "fbx": "TwigHeroV2_ExplorerHat.fbx",
+      "fbxSha256": "e165639c0578000566ddab31282cdf40beb3f8cfcaaf914df5a0d7e6aca30513"
+    }
+  ],
+  "export": {
+    "file": "WardrobeAdditions.glb",
+    "sha256": "2dc9ee1572da11e355b8b4821cddbfb14f9ec1726da566722ad0d307c470a16c"
+  }
+}

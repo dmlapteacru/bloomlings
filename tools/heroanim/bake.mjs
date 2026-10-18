@@ -11,5 +11,6 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
  for(const family of families){const r=spawnSync(process.execPath,[path.join(here,'bake-'+family+'-v2.mjs')],{stdio:'inherit'});if(r.status!==0)process.exit(r.status??1);}
  const home=spawnSync(process.execPath,[path.join(here,'bake-home-heroes.mjs')],{stdio:'inherit'});if(home.status!==0)process.exit(home.status??1);
  const eyewear=spawnSync(process.execPath,[path.join(here,'bake-eyewear-v1.mjs')],{stdio:'inherit'});if(eyewear.status!==0)process.exit(eyewear.status??1);
- const extras=spawnSync(process.execPath,[path.join(here,'bake-bloom-extras-v1.mjs')],{stdio:'inherit'});process.exit(extras.status??1);
+ const extras=spawnSync(process.execPath,[path.join(here,'bake-bloom-extras-v1.mjs')],{stdio:'inherit'});if(extras.status!==0)process.exit(extras.status??1);
+ const additions=spawnSync(process.execPath,[path.join(here,'bake-wardrobe-additions-v1.mjs')],{stdio:'inherit'});process.exit(additions.status??1);
 }

@@ -51,3 +51,6 @@ modeling-only bald state. A selected outfit draws four small layers at most; no 
 Sources, reference PNGs, rig, ZIPs and the derived GLB stay outside application Resources and APKs.
 The owner permanently accepted Sprig V2. Previous meshes, trial sprites and archived motion PNGs are removed; earlier versions remain in Git history.
 No APK or levels are generated here. Profile avatar IDs retain their ownership and price; their art now depicts the accepted model. Level mosaics are not regenerated.
+
+Additional fitted Head / Body items: [owner archive additions](../wardrobe-additions-v1/README.md).
+The separate extension preserves the accepted original bake and its recipe indices.

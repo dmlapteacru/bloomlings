@@ -8109,6 +8109,1059 @@
    "slot": "char.hero3d.motion.bloom",
    "source": "owner-bloom-extras",
    "record": "tools/heroanim/models/bloom-extras-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-000.png",
+   "width": 150,
+   "height": 104,
+   "sha256": "0cb1e5ecf0d99eed3fc480b00700146bc8c0bde56e2d333dec0e5bbfdd825fa1",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-001.png",
+   "width": 243,
+   "height": 74,
+   "sha256": "c1252c490549a4685001983efca2388f4f5c4dc8997bd713c2a77bed4b0774a4",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-002.png",
+   "width": 243,
+   "height": 76,
+   "sha256": "5327041273eeb05b76f1061656b232ea51e1c9629561ada8a4d56edce10f89e1",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-003.png",
+   "width": 126,
+   "height": 69,
+   "sha256": "f71cf0e04eb4190e88ac4118f1f856972db89b2945ef4ccf15baec8b141691da",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-004.png",
+   "width": 350,
+   "height": 397,
+   "sha256": "c7eba6592f7f74ad06ac23a968ede0190d7e78117147a014800932ca8ec534c1",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-005.png",
+   "width": 118,
+   "height": 71,
+   "sha256": "48ef841d33f12e1e00c1bcefdcffd8a00813842dd5f013e39832f85269c966bf",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-006.png",
+   "width": 202,
+   "height": 107,
+   "sha256": "dfc99b8bc7b2c269ef961e1f4a4069e05cce486e0a10c34af2db02fe01e37410",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-007.png",
+   "width": 130,
+   "height": 74,
+   "sha256": "1981653f5812f4a3be61dd9195f48b9dea3dbfe09c1c671117c448ed415ccbd1",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-008.png",
+   "width": 192,
+   "height": 102,
+   "sha256": "d5457cd2c2bfe645afc739d0316a609f4f6d2223d3af07d93d6c972d310c5e55",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-009.png",
+   "width": 120,
+   "height": 71,
+   "sha256": "1f1903af2f6ed32dab0059749f9ccc332536cfd9dc15d443e526b27531d9d671",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-010.png",
+   "width": 168,
+   "height": 106,
+   "sha256": "8f59b4d96e349523978e7ca3acaacda390dac7842a1b983ddcc327a46e3bb9ef",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-011.png",
+   "width": 126,
+   "height": 72,
+   "sha256": "89a0aa403bb943e6d256bce478b9fe89244fedd0947cdce4d311d8c85fb94f7e",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-012.png",
+   "width": 346,
+   "height": 411,
+   "sha256": "242c2dc8bf027623e2d1daf8fc1282b22a142c8350b4b9d03a6dec1dee2f1cdd",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-013.png",
+   "width": 316,
+   "height": 473,
+   "sha256": "c9f67e84c3621462b93a5f1446920965ff6e2a9dbc6426be27ea149ea3b147ab",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-014.png",
+   "width": 321,
+   "height": 479,
+   "sha256": "cd63eac05ff310629c8f79023335f9603b4194bbfa1d0aca3301c0a57ccd4b05",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-015.png",
+   "width": 301,
+   "height": 443,
+   "sha256": "ef3773082f4005fd55f64ef10e0a23d32f512c1c70b3b2e9c3f59b6b597bcf5b",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-016.png",
+   "width": 330,
+   "height": 460,
+   "sha256": "7931e9001ef53f77f76f8b8b03dd055dd5a6087cefc8744192f0b15729e9bd24",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-017.png",
+   "width": 369,
+   "height": 379,
+   "sha256": "7cbc1e5db6052fc9c352d97c4b6b95299a1b59aa0df103184ba8e300bab73094",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-018.png",
+   "width": 152,
+   "height": 107,
+   "sha256": "6072cfacf33fbbc468a2a88e867a362233ae9c3d4fa73886c34fc8c9c2ed4266",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-019.png",
+   "width": 232,
+   "height": 74,
+   "sha256": "5fa0fd6af16156a132d0402c09ee0b314dd5773729220a647b521dd9800def88",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-020.png",
+   "width": 230,
+   "height": 76,
+   "sha256": "89f34df6e95f48b3f39c9b2c32a3d48922be751938599440ff4b78ddd7dccc1b",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-021.png",
+   "width": 136,
+   "height": 69,
+   "sha256": "0041908de1d16bd77823d918b0954ebbc4a27c7281572bcc4b6006f6b93b4140",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-022.png",
+   "width": 228,
+   "height": 74,
+   "sha256": "54cd09735340d9062d3cea1186bba45cbe60b587dafe570baeb9e9764c6037bc",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-023.png",
+   "width": 230,
+   "height": 76,
+   "sha256": "a3c4563d921ae6237e5537ae1e0446b969c8ea34de10de8f67b79e1c5597b63c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-024.png",
+   "width": 346,
+   "height": 397,
+   "sha256": "5f590cee97ed3699d1697931cce4780f58532cdcf6c75bd9de42452a65d6aec9",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-025.png",
+   "width": 134,
+   "height": 72,
+   "sha256": "13d2f4e9859dabfc77caa6eadcbdb2148c9c704842f182665d04efbcbb55485a",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-026.png",
+   "width": 185,
+   "height": 109,
+   "sha256": "6a080f00e311ac5f182bea3355b86372bd11d5cca93524f377aca57df2707510",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-027.png",
+   "width": 125,
+   "height": 69,
+   "sha256": "8d8d4ec46421d8192cab5fdfb5544b604c1003fa0a6323f71f82abfc91e2b1b8",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-028.png",
+   "width": 176,
+   "height": 102,
+   "sha256": "4e6d77b3d19d5f5547d7b87b443ccae0193e57a92988e4a56e13b5f385c3fc87",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-029.png",
+   "width": 134,
+   "height": 72,
+   "sha256": "fbb87ea4fb0594d1152151667e46dd36be0f86648e0c67a7d63eb6dd0b7b80c7",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-030.png",
+   "width": 156,
+   "height": 106,
+   "sha256": "d13743bb7a3748fdd42b611d3996b6969466103bb47b3b2c23fd54d3867d0853",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-031.png",
+   "width": 136,
+   "height": 72,
+   "sha256": "92141c7b224a7916d05f9f04e23551e6c90b8aa1dc0c66bb94b660aaa78be6ec",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-032.png",
+   "width": 340,
+   "height": 411,
+   "sha256": "4684c4d4dc8aaef2f25d488b930ab2e8e861b716418b5fd66834dd4d538aef19",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-033.png",
+   "width": 312,
+   "height": 473,
+   "sha256": "512121861bd89d1c92e1ae7a465ae0740d82d923ada6cb1dd5fa5b9304bc0427",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-034.png",
+   "width": 308,
+   "height": 479,
+   "sha256": "c7c1aaad030f188791b80fa0bc851be79cc7414965644c1aeb1f38a4a6254508",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-035.png",
+   "width": 307,
+   "height": 443,
+   "sha256": "f89ec3d028d0eef6532efc6710a98317906c603a22a2502aa76913b7b92de8c4",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-036.png",
+   "width": 344,
+   "height": 460,
+   "sha256": "f97517e4176f6264e0623b5baac578a774ab0fe6cc80bf9f9bcf5a87b9f12430",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-addition-037.png",
+   "width": 361,
+   "height": 379,
+   "sha256": "95abf4aac14ffd9dd35455b1e5fa9209acfd470e366845746b604c43ecf1723d",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-038.png",
+   "width": 229,
+   "height": 138,
+   "sha256": "1272240c6328948aa0f8ee9270246f5963a3f4271a16b99b0a430d3d0295116f",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-039.png",
+   "width": 231,
+   "height": 149,
+   "sha256": "97bb5bc9d2e3e9c3de3e8c1317bfff435765a9879bedfdabc1c0211b1172d835",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-040.png",
+   "width": 235,
+   "height": 182,
+   "sha256": "9a4259f79eb1a32363679a59f0d8682cb8f4a4d3d2e8ed1f62f6d174eb15a5d0",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-041.png",
+   "width": 224,
+   "height": 181,
+   "sha256": "db804bbad6be9b041fbdfd14b358290a1d78cc4a810981a458c34322a69bc896",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-042.png",
+   "width": 231,
+   "height": 194,
+   "sha256": "c1132f125eab1fdbf8f5c5e7a6f08f029e8684031e5ee4760cb1fd6769e392e9",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-043.png",
+   "width": 217,
+   "height": 186,
+   "sha256": "25006d9199c90329d13e510eb8a94b2815128ceb2f228c26e44cfc8c5b65da8e",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-044.png",
+   "width": 233,
+   "height": 215,
+   "sha256": "c1ada81503ca57483bb64690e2c5bd3dbf2f76d5429e5ad952c9300660aca311",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-sprig-045.png",
+   "width": 231,
+   "height": 99,
+   "sha256": "57b223db1bf45a5e8f2980fec6d27fcf3b5619ba8e0dba362a8e01ba3911de12",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-046.png",
+   "width": 136,
+   "height": 98,
+   "sha256": "5358396ae913c60c9633e48a0ba6bfd054385a5c7c933195d8f17e3cdd105f86",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-047.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "dbcc343e09d5727d8a94bfa5d464e972ad880e8a9ea22719c0d01fddd5a50c25",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-048.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "e0dc140e2e5f86e86712365be9af23e32855d74fce968fb0016484a0d88ac4b6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-049.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "02336ebf70af4a9eeb61a37fd1e50bdbc0368e744b1df105adee78d46a708b74",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-050.png",
+   "width": 184,
+   "height": 99,
+   "sha256": "8ab92e49453c880b4693cd11fa24ff35d6f427bcd3b22aa649f3e3e9315b40d7",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-051.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "302d19034a03b99e1b91ac6c233de5e52ed18932ebed12d68a43dd81b7c2a171",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-052.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "8503df18708b038b5b3a72184956678da5f472dc55b880da470e57283d7893a3",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-053.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "15a646484f949230182641b36f45fe2430255dfb63b20fbaf490104f2b2142ff",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-054.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "19c24149c0415884ad705f37476baacdfa6660c1d97ab7caef1e5b093b213ce5",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-055.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "9d7bb711530b0383c6d4de8f55d0bd2811e7adacef165f813225f015ef2f2a7e",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-056.png",
+   "width": 344,
+   "height": 375,
+   "sha256": "9f44a1d04ac05ccb2a3037f50c75f92c9c611443532b99e2836ef42f6091956d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-057.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "d465985a08d96cdf45024e892175eb7104a2a9ea9c04274e0c6efcdf5f03aebd",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-058.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "b68a65771671da332651f1724f42762ac45fa153907f255769a738edf8565f7f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-059.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "29892cf8a1ff750064b2f4eb1c66526ba3b0425b4250dd889740eba8c8c13836",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-060.png",
+   "width": 214,
+   "height": 98,
+   "sha256": "d9f6b1dee06e711045898b99a1feda6d2c425a36d5348efd0b992cedfd1aff41",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-061.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "9788d121f30099b52d6e26ae52f2f01a1306daedc6ec35d2716cf7f73ec734a4",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-062.png",
+   "width": 198,
+   "height": 103,
+   "sha256": "eee142482d545e44b52a22e67efdb13bf560b0e2ea88c50d270c7d055e7bca7e",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-063.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "9518f3113b5a2e22c5b7e96ff6d35955863ec6371553496334fa772e6e6a8183",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-064.png",
+   "width": 175,
+   "height": 114,
+   "sha256": "63c29a01aabd880d97eb1780efee89b3e3f7bb4ab26cf9397c3b9cdeb40e8858",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-065.png",
+   "width": 232,
+   "height": 122,
+   "sha256": "ff11d21c76acff9a1f0dc2dabdd3fb3aa547c038fa34efb5a1486fafb76949cb",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-066.png",
+   "width": 336,
+   "height": 395,
+   "sha256": "7eecf56d919bdd5e7cab831d093d7f7baca9c04578ef0ed492f2ce28a7f4b739",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-067.png",
+   "width": 294,
+   "height": 416,
+   "sha256": "5adc1b2a3e5eb93c54e2b30e713dc53431b7699e6d7c961a2520f46d0bd14496",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-068.png",
+   "width": 350,
+   "height": 443,
+   "sha256": "e30be09d65e9331b67f9804255b80e88ade5db18b3b71c64026d49241f74312c",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-069.png",
+   "width": 347,
+   "height": 365,
+   "sha256": "d5a9b82f5499e59533d573e907cc23be9d87eadb5a13a7f6550d27518077c1fc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-070.png",
+   "width": 321,
+   "height": 407,
+   "sha256": "3a0da5e67f1499525d626c4952405bd82541f7e7f80180dd5eb65fcecb55eb1e",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-071.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "13fa765ff35c7021d35839b30984953ff465aed11b77af345339b748b02c6c38",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-072.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "18e2d0081c90ea2ad75fd20892917452fe9da1724a7b44c207f6532a748d7349",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-073.png",
+   "width": 312,
+   "height": 409,
+   "sha256": "ee11c342974336de0acf56a171dfc488617db2283fa8a35e2b85fa48dc8f4003",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-074.png",
+   "width": 135,
+   "height": 100,
+   "sha256": "f68466a14703dc3dcf03992683a10a19e68fa04d1105a6d9e47d1b1175d05de3",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-075.png",
+   "width": 241,
+   "height": 80,
+   "sha256": "6dda6074fbd60c0c108a24a41d448b2876490099df94d8dd3c17cc3b98328bde",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-076.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "0cad19dc6a58d91299d8a594b9f38fa7db06b4f3f47dcc0de5eb98a7fce4f0d6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-077.png",
+   "width": 248,
+   "height": 124,
+   "sha256": "bdf271f29bd2b18b4a0dfe908edfed9f115e078a6b8785363fcc6d87ef867e4f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-078.png",
+   "width": 172,
+   "height": 102,
+   "sha256": "b147a7aa37f50fe6fa9bce6c00018cdf1a409b38f5894bfcf756b302d688cf5f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-079.png",
+   "width": 248,
+   "height": 124,
+   "sha256": "ce349cff57fc0fd32c9ecb9e12af8db4a04e0d28e26f71b506e488746667680c",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-080.png",
+   "width": 237,
+   "height": 80,
+   "sha256": "8c969b9ad54d4a929a4b3133f017871c8123369fc26f30faf6aca5440e943e68",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-081.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "44eb1b4c8ddd95a30c60d9e2b879861a352b86d5c578b2cd143860bf6c781752",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-082.png",
+   "width": 236,
+   "height": 80,
+   "sha256": "1f93bdae262603ec4de9d66e4f140f7b5cd6334bceb33b2fa15e83e3058b8bdd",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-083.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "c7007607e39ea8588d5d2cf7d9d19f118fa90016678f88ca2a29e0952989b335",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-084.png",
+   "width": 232,
+   "height": 80,
+   "sha256": "91c35f426f9cfb50d96bde949563780364eb69e1212648576c79b6ee7f7a400f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-085.png",
+   "width": 230,
+   "height": 80,
+   "sha256": "e388de49a157722874f0359cf30392684b6859bdc8c21e992ec36b05df7be8f6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-086.png",
+   "width": 241,
+   "height": 80,
+   "sha256": "5f06cf6b863afcbac1e965df699803b5f72b2162b813ac06355e49d3eb9941dc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-087.png",
+   "width": 305,
+   "height": 375,
+   "sha256": "189fd93797310f8f9c1679039ff13a2a468cffc8897e8bbb3e1d0d3b337c22fb",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-088.png",
+   "width": 225,
+   "height": 80,
+   "sha256": "07f191a6d2ce1be707f0770130ccb69174e3a8782ad21ca751ed66a1928d681d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-089.png",
+   "width": 217,
+   "height": 80,
+   "sha256": "6660ab259175b349036f0978aa02c24e0686ab86cd8c14e6a5369453b022f15d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-090.png",
+   "width": 248,
+   "height": 124,
+   "sha256": "38b2b6ccc086528d4f0a4c09ef313d340dd6500742433f284f1fac448ba8a477",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-091.png",
+   "width": 196,
+   "height": 100,
+   "sha256": "d0acd3ec50f49c1f4282d51b8688da087f443f1a471371e79c25996f6d378fdf",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-092.png",
+   "width": 248,
+   "height": 124,
+   "sha256": "ac25707fc6a8a170eb478a2826b6c8a8396b2c95dee64e4d77cf43cae9bb5571",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-093.png",
+   "width": 183,
+   "height": 106,
+   "sha256": "4a1592b5b227d40bb9a104d6e3e916a55b654f4d4f65bed01663f2b338b39667",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-094.png",
+   "width": 248,
+   "height": 124,
+   "sha256": "61be3372d2d2f978883b4007e7384d41e32298477ed347bcd203375aadd0c6dc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-095.png",
+   "width": 160,
+   "height": 115,
+   "sha256": "e7f8fa0303b92597027ccbaa59d16f3886f18ff752e4045e6c5e2dda58468306",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-096.png",
+   "width": 248,
+   "height": 124,
+   "sha256": "cedc4eba5ec1bdc7edf43b48b330669f8c72ddb48bfa066f29fab8bc5ece1896",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-097.png",
+   "width": 342,
+   "height": 395,
+   "sha256": "114ae0972d176f420276be93969d28dcdeeb83a3d83a4199b87bbf892f8f98b7",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-098.png",
+   "width": 241,
+   "height": 80,
+   "sha256": "3e5e744a45c268d1fa99d715842871a1c85423b1a110703045040a1551d049c3",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-099.png",
+   "width": 297,
+   "height": 416,
+   "sha256": "1f111bdd6c8f581274ac6e355570f23df9f576046a7d0614769d9428a6528cf7",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-100.png",
+   "width": 312,
+   "height": 443,
+   "sha256": "d51b0ec8689384c27dab03811011438d0959af2fab68e26f54c3af7c87cece4d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-101.png",
+   "width": 239,
+   "height": 80,
+   "sha256": "697e471efa561eff8e20f9bcf35aea5bd61c070a944a953d77055447835ffab6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-102.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "1df05d85da3af0f1d4cb1011d0c05380074def3d4366a10a093d4ab18e90d57d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-103.png",
+   "width": 344,
+   "height": 365,
+   "sha256": "12f5522b503ddb6cd89c8789bcb66c862f67524974601cf78411b2701c073016",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-104.png",
+   "width": 322,
+   "height": 407,
+   "sha256": "17a2628ea220baee9995c7d6a47b62cf0dee763868380c9c3f5a07229832c7d1",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-105.png",
+   "width": 219,
+   "height": 80,
+   "sha256": "4c8a849fa94ead4685f89b685bfc1e0433e65cc7cbfdfa9697140945d67592de",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-106.png",
+   "width": 232,
+   "height": 80,
+   "sha256": "1371fd4da712fa72c77bb06520a837be3ba2cba8c7f23f71ca106c4f849cbfcd",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-addition-107.png",
+   "width": 299,
+   "height": 409,
+   "sha256": "532676e3151acd7022d9a2910d0cdc75f403d4208d9693362a516d77ff0905c6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-108.png",
+   "width": 230,
+   "height": 186,
+   "sha256": "ab8abab18d8b582c197b6dd90e7610b9f9a675864902088d22731f4444cd874a",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-109.png",
+   "width": 228,
+   "height": 139,
+   "sha256": "0219ddc475cdf72995a5b92a0fc4f8cc08d83fcc7c099c188edb134d32fa6120",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-110.png",
+   "width": 237,
+   "height": 161,
+   "sha256": "b318002416c02777943dc7a99a10e36c50425f38e1197df4bcd053ab4134cab5",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-111.png",
+   "width": 232,
+   "height": 152,
+   "sha256": "0cbdfb53ddc6f2b3b38161ac44a3e2f00b04a8a98a9996c4d70de8746d243ad4",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-112.png",
+   "width": 226,
+   "height": 179,
+   "sha256": "68c6e28ff6f83c2477c648dd69874d80eb17fb5aaaf19fe683d5035941d8c2fb",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-113.png",
+   "width": 230,
+   "height": 157,
+   "sha256": "452520bcd0877c8ebec479b16c9eaa720d7428838806371df913d4987f7317eb",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-114.png",
+   "width": 230,
+   "height": 84,
+   "sha256": "e0c6298544c3a8ed0100991fd2176f3ef64061002197f77fe9a4e8bb7401b5a7",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-115.png",
+   "width": 231,
+   "height": 147,
+   "sha256": "fb1eb5ed29319c52997923dd800b508beed611d1ff33503ba83bffb0ef99c289",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
+  },
+  {
+   "path": "wardrobeadd-twig-116.png",
+   "width": 229,
+   "height": 154,
+   "sha256": "33b0cc2e0e544c26d47659d7635173aee8f2bdf1a13065b09b8058501a27352a",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-wardrobe-additions",
+   "record": "tools/heroanim/models/wardrobe-additions-v1/README.md"
   }
  ]
 }

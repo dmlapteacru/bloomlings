@@ -41,7 +41,7 @@ namespace Bloomlings.Playtest.Preview
                 string? problem = Check(assembly, Visuals.MotionFrame(frame), frame, allowFullColor: true);
                 if (problem != null) yield return "simplified hero " + family + ": " + problem;
             }
-            foreach (var frames in new[] { BloomExtrasArt.AllFrames, EyewearArt.AllFrames, HomeHeroArt.AllFrames, TwigV2Art.AllFrames, SprigV2Art.AllFrames, BloomV2Art.AllFrames, DropV2Art.AllFrames })
+            foreach (var frames in new[] { WardrobeAdditionsArt.AllFrames, BloomExtrasArt.AllFrames, EyewearArt.AllFrames, HomeHeroArt.AllFrames, TwigV2Art.AllFrames, SprigV2Art.AllFrames, BloomV2Art.AllFrames, DropV2Art.AllFrames })
             foreach (HeroFrame frame in frames)
             {
                 string name = Visuals.MotionFrame(frame);

@@ -66,3 +66,6 @@ profile cosmetics and outfit choices. Clothes is appended to enum values / save 
 V2 avatars / medal and solo / group fallback images retain stable asset names. L2000's mosaic is deliberately unchanged.
 
 Stock-head rule: removing headwear, Default and a fresh profile always show the Acorn Hat. The empty saved Head slot means stock appearance, not a bald hero. Source bald geometry / references remain available for modeling.
+
+Additional fitted Head / Body items: [owner archive additions](../wardrobe-additions-v1/README.md).
+The separate extension preserves the accepted original bake and its recipe indices.
