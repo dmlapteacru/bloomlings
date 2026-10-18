@@ -80,6 +80,16 @@ for family,rig in rigs.items():
         rig['glasses']=index;update(rig)
         assert parts['Glasses'].hide_render==(index==0)
         report['styleChecks']+=1
+    masked_materials={mat for obj in parts.values() for mat in obj.data.materials if mat and '_RigMask_' in mat.name}
+    assert masked_materials,(family,'missing sleeve visibility masks')
+    for index,body in enumerate(module['BODIES']):
+        rig['body_style']=index;update(rig)
+        for mat in masked_materials:
+            bs=next(n for n in mat.node_tree.nodes if n.type=='BSDF_PRINCIPLED')
+            alpha=bs.inputs['Alpha']
+            expected=index not in (1,2) if '_RigMask_forearm_' in mat.name else index==0
+            assert not alpha.is_linked and abs(alpha.default_value-float(expected))<1e-6,(family,body,mat.name,'skin mask')
+        report['styleChecks']+=1
     for key,obj in parts.items():
         if key.startswith('Scarf') and obj.data.shape_keys:
             for index,body in enumerate(module['BODIES']):

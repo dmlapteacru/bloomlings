@@ -162,4 +162,5 @@ if (problems.length) {
   for (const p of problems) console.error('FAIL ' + p);
   process.exit(1);
 }
+if(fs.existsSync(path.join(here,'products/rig-fix-v1/manifest.json')))await import('./rigging/check.mjs');
 console.log(`heroanim check: OK (${listed.size} hero pictures, ${frames} legacy animation frames, ${layers.outputs.length} Home layers, ${backdrops.outputs.length} backgrounds finished)`);

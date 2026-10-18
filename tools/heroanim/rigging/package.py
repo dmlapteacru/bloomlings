@@ -18,6 +18,7 @@ TEXT='''Bloomlings — исправленные риги V1
 3. Появится новая коллекция Bloomlings_RigFix_v1. Старые объекты скрипт не удаляет.
    Для сравнения скрой прежнюю коллекцию героя.
 4. В окне 3D нажми N → Bloomlings. Выбери героя, Head, Body, Neck, Glasses и действие.
+   Для одежды включи Material Preview / Rendered: маски скрывают кожу под рукавами.
 5. Обычный режим проигрывает запечённые переносимые анимации. Editable leg IK включает
    восстановленные контроллеры ног для редактирования новых движений.
 
@@ -26,8 +27,8 @@ Idle / Walk / Wave / Joy / Sad / Curiosity. Исходная частота — 
 импортёр подстраивает Actions к FPS твоего проекта. Default Head всегда надет.
 
 Лица, тела, UV героев, головные уборы, очки и fit-морфы шарфов сохранены.
-У одежды исправлены веса и проблемные стыки: новые ровные рукава/манжеты,
-внутренняя ткань и опорные кости. Это анимация тела; новая лицевая мимика,
+У одежды исправлены веса корпуса, рукавов и манжет; добавлены опорные кости
+и маски под одеждой. Сетка, UV и цветовые текстуры всех вещей сохранены. Это анимация тела; новая лицевая мимика,
 отдельные пальцы и симуляция ткани в этот пакет не входят.
 
 Добавляй результат в тот же мастер .blend. Генерируемые служебные .blend не нужны.
@@ -59,6 +60,7 @@ def publish():
         assessment=json.loads((root/'assessment.json').read_text())
         roundtrip=json.loads((root/'roundtrip.json').read_text())
         inventory=json.loads((root/'handoff/inventory.json').read_text())
+        assert inventory.get('animationBindPose'),family+' animation FBX must share the actual rest rig'
         assert owner['inventories'][family]==SHA(root/'handoff/inventory.json'),family+' owner test stale'
         manifest['inputs'][family]=json.loads((root/'assembly.json').read_text())['sources']
         for entry in manifest['inputs'][family]:
@@ -73,6 +75,8 @@ def publish():
                  'clips':inventory['clips'],'restMaxError':assessment['restMaxError'],'uvMaxError':assessment['uvMaxError'],
                  'panelMaxDrift':assessment['protectedPanelMaxDrift'],'loopMaxErrors':assessment['loopMaxErrors'],
                  'roundtripMaxMotionError':roundtrip['maxMotionError'],'sampledPoses':len(assessment['measurements']['after']),
+                 'armPanelDriftBefore':max(p.get('torsoPanelDrift',0)for row in assessment['measurements']['before']for p in row['parts'].values()),
+                 'armPanelDriftAfter':assessment['protectedPanelMaxDrift'],
                  'roundtripPoses':len(roundtrip['samples']),'complete':True}
         archive=PRODUCTS/(family+'-rigged-v1.zip')
         with zipfile.ZipFile(archive,'w') as z:
@@ -88,6 +92,8 @@ def publish():
     for file in sorted(HERE.glob('*')):
         if file.is_file():
             manifest['tools'][file.name]=SHA(file)
+    manifest['previews']=[{'path':name,'sha256':SHA(PRODUCTS/name),'bytes':(PRODUCTS/name).stat().st_size}
+                          for name in ('rig-comparison.jpg','baseline-actions.mp4')]
     (PRODUCTS/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print('Published 4 validated family ZIPs')
 

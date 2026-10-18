@@ -74,21 +74,13 @@ for obj in set(bpy.data.objects) - before:
 bpy.context.view_layer.update()
 rest = {key: coords(o) for key, o in parts.items()}
 source_rest = {key: (coords(o), np.array([v.uv[:] for v in o.data.uv_layers.active.data])) for key, o in original.items()}
-seams = json.loads((ROOT / "garment-seams.json").read_text())
 edges, lengths, core, head, sole = {}, {}, {}, {}, {}
 report = {"family": FAMILY, "restMaxError": 0, "uvMaxError": 0, "parts": {}, "measurements": {}, "summary": {}}
 report['rigReportSha256']=hashlib.sha256((ROOT/'rig-report.json').read_bytes()).hexdigest()
 for key, obj in parts.items():
     a = rest[key]
-    if key in seams:
-        mapping = np.array(seams[key]['newToOld'])
-        retained = mapping >= 0
-        error = float(np.max(np.abs(a[retained] - source_rest[key][0][mapping[retained]])))
-        source_indices=seams[key].get('sourceUvIndices',list(range(seams[key]['oldUvLoops'])))
-        uv_error = float(np.max(np.abs(np.array([v.uv[:] for v in obj.data.uv_layers.active.data])[:seams[key]['oldUvLoops']] - source_rest[key][1][source_indices])))
-    else:
-        error = float(np.max(np.abs(a - source_rest[key][0])))
-        uv_error = float(np.max(np.abs(np.array([v.uv[:] for v in obj.data.uv_layers.active.data]) - source_rest[key][1])))
+    error = float(np.max(np.abs(a - source_rest[key][0])))
+    uv_error = float(np.max(np.abs(np.array([v.uv[:] for v in obj.data.uv_layers.active.data]) - source_rest[key][1])))
     report["restMaxError"] = max(report["restMaxError"], error)
     report["uvMaxError"] = max(report["uvMaxError"], uv_error)
     assert error < 2e-6 and uv_error < 1e-7, (FAMILY, key, "rest geometry / UV changed")
@@ -120,8 +112,6 @@ for version, objects in [("before", original), ("after", parts)]:
         active_edges[key], active_lengths[key] = e[valid], length[valid]
         u, d, z = canonical(a, FAMILY).T
         active_core[key] = (np.abs(u) <= (.11 if FAMILY == "drop" else .15)) & (z > .14) & (z < .40) if key in ("Jacket", "Coat", "Overalls") else np.zeros(len(a), bool)
-        if version == 'after' and key in seams:
-            active_core[key] &= np.array(seams[key]['newToOld']) >= 0
         active_sole[key] = (z < .025) & (key == "base" or key.startswith("Base_Leg_"))
     arm.data.pose_position = "POSE"
     measurements = []

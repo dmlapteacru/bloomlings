@@ -28,6 +28,15 @@ UVs and aligned model coordinates are verified by the preparation reports.
 
 ## Runtime sprite derivation
 
+The [shared rig repair](rigging/README.md) derives a separate, checked authoring handoff
+from these same deliveries. It preserves all hero and garment rest geometry, topology,
+UVs, albedo textures and accessories. Normalized linear skinning,
+half-angle support bones, outfit occlusion materials and six authored body actions are
+validated before publishing [four family archives](products/rig-fix-v1/README.md).
+Their manifest pins raw input hashes and a real FBX export / import check, including the
+owner importer. This package is the next rig authoring baseline; existing runtime bakes
+remain pinned to their original static deliveries until the separate animation feature.
+
 `prepare-{family}-v2.py` imports current FBXs into a disposable GLB cache. Drop's game
 prepare step imports its final handoff and applies one common −90° front rotation. Bakes
 use Three.js with an orthographic camera and soft studio lighting, preserving a bright

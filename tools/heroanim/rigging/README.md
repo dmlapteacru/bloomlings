@@ -4,11 +4,13 @@ Offline authoring tools for the four accepted V2 heroes. The owner's Blender pro
 is the single editable master. Original deliveries are read-only inputs; all `.blend`
 files here are disposable caches under ignored `content/work/rigging/`.
 
-The repair preserves hero rest vertices / UVs, source headwear, glasses and scarf fit
-morphs. Generated garments with fused armpits need more than repainting weights:
-their broken internal sleeve / side connections are replaced by overlapping inner
-fabric and clean sleeve tubes. Surviving torso UV loops and material slots are kept.
-Sleeve fabric colors come from the delivered atlas, with rounded cream cuffs.
+The repair preserves every part's rest vertices, topology, UVs and source albedo textures,
+including garment sleeves / cuffs, headwear, glasses and scarf fit morphs. Clothing
+panels and hems lose accidental arm / leg influences; cuffs follow the forearm rather
+than wrist twists. Sleeve ownership is never clipped by height, which would pin a
+lower cuff vertex to the torso and stretch its trim. No garment surface is rebuilt.
+Surface shading follows the accepted game finish: nonmetallic, roughness .68, without
+the generated normal / roughness maps. Color atlases and their assignments are retained.
 
 The same existing main bones remain. Eight half-angle support bones improve linear
 FBX skinning at shoulders, elbows, knees and ankles. Planted foot IK has explicit
@@ -31,6 +33,7 @@ in `tools/heroanim/node_modules`. No APK or level catalog generation is involved
 python3 -m unittest discover -s tools/heroanim/rigging -p 'test_*.py'
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/rigging/assemble.py -- twig
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/rigging/build.py -- twig
+blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/rigging/body_masks.py -- twig
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/rigging/assess.py -- twig
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/rigging/export.py -- twig
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/rigging/roundtrip.py -- twig
@@ -48,6 +51,9 @@ retained rest coordinates, UVs, weight normalization and maximum four influences
 bones / rest hierarchy, UVs, embedded albedos, fit morphs and animated vertex positions
 at 18 nontrivial sample poses. Same-position seam vertices are matched by both their
 coordinate and bone weights. A successful export by itself is not validation.
+Animation-only FBXs explicitly carry the same BindPose as their meshes; the native
+exporter otherwise omits that block and can turn a slightly solved IK pose into a
+different rest skeleton. No duplicate base mesh is added to the animation file.
 
 ## Owner handoff
 
@@ -57,6 +63,9 @@ It imports into a new **Bloomlings_RigFix_v1** collection, merges matching armat
 packs only the imported images and installs an optional **N → Bloomlings** review panel.
 Choose a hero, Head / Body / Neck / Glasses and an action. Hide the old hero collection
 when comparing; the script never deletes or edits the owner's existing meshes.
+Use Material Preview or Rendered shading for outfits: torso / upper-arm / forearm masks
+hide the areas covered by clothing and short or long sleeves, leaving hands and the bare body
+visible as appropriate. These masks change material visibility, never body vertices.
 
 Re-running the script reuses these imported rigs. Actions are retimed to the existing
 scene FPS. Legacy and slotted Actions (Blender 4.4+ / 5.x) are supported by the importer;
@@ -65,6 +74,26 @@ The normal state plays portable baked FK actions; **Editable leg IK** enables th
 restored authoring constraints. Half-angle helper drivers are restored in both cases.
 The baseline authoring mesh may be bald, but stock Head is always selected in review.
 
+For the actual before / after review, run `review.mjs FAMILY --quick --outfits` for
+all four families. Run `review.mjs twig --video` for the arm movement demo, then
+`python tools/heroanim/rigging/compose_review.py` (Pillow and FFmpeg). Source hashes prevent
+composing previews from stale model renders. The short video shows the Wave action;
+the gallery also exercises bare arms, all garments and bulky neck / head combinations.
+`--video --all-actions` renders all six body actions when a full movie is needed.
+
 Accept the corrected parts into the same master, rather than maintaining a second
 `.blend`. These repair recipes describe the original V2 deliveries; already repaired
 FBXs should retain their weights when authoring the next actions, not be repaired twice.
+
+The reviewed products are in [products/rig-fix-v1](../products/rig-fix-v1/README.md).
+After pulling the repository, assemble one ZIP without Blender or dependencies:
+
+```sh
+node tools/heroanim/rigging/check.mjs
+python tools/heroanim/rigging/package.py
+```
+
+Output: `content/work/rigging/Bloomlings_RigFix_v1.zip`. To publish new products after
+rebuilding all four families, run `verify_owner_import.py` with Blender, then
+`python tools/heroanim/rigging/package.py --publish`. Publishing rejects stale source,
+rig, FBX and owner-import checks.

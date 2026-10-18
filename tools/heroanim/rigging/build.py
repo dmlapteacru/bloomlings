@@ -16,7 +16,6 @@ from mathutils import Quaternion, Vector
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from skinning import fields, canonical, world_vector, smooth
-from garments import split_sleeves
 from legs import LegSurface
 
 REPO = HERE.parents[2]
@@ -34,7 +33,7 @@ arm.data.pose_position = "REST"
 bpy.context.view_layer.update()
 report = {"version": 1, "family": FAMILY, "fps": 24, "parts": [], "clips": [], "rig": arm.name}
 report['tools'] = {name:hashlib.sha256((HERE/name).read_bytes()).hexdigest()
-                   for name in ('build.py','skinning.py','garments.py','legs.py','sleeves.py')}
+                   for name in ('build.py','skinning.py','legs.py')}
 report['assemblySha256'] = hashlib.sha256((OUT/'assembly.json').read_bytes()).hexdigest()
 
 
@@ -303,28 +302,16 @@ def export_review(name):
 export_review("before.glb")
 arm.data.pose_position = "REST"
 leg_surface = LegSurface(parts)
-seams = {}
 for key, obj in parts.items():
     before = positions(obj)
-    head = np.zeros(len(before))
     original = {g.name: np.zeros(len(before)) for g in obj.vertex_groups}
     group_names = [g.name for g in obj.vertex_groups]
     for vertex in obj.data.vertices:
         for g in vertex.groups:
             original[group_names[g.group]][vertex.index] = g.weight
-    zones = None
     if key == 'Overalls':
         original, report['shortsLegVerticesTransferred'] = leg_surface.transfer(obj, original)
-    if key in ("Jacket", "Coat", "Overalls"):
-        original, zones, seams[key] = split_sleeves(obj, FAMILY, original)
-        before = positions(obj)
-        head = np.zeros(len(before))
-    group = obj.vertex_groups.get("Head")
-    if group and zones is None:
-        for v in obj.data.vertices:
-            head[v.index] = sum(g.weight for g in v.groups if g.group == group.index)
-    names, weights = fields(before, FAMILY, key, original=original, helpers=True, zones=zones,
-                            arm_parameters=np.array(seams[key]['armParameters']) if zones is not None else None)
+    names, weights = fields(before, FAMILY, key, original=original, helpers=True)
     assert set(names) <= set(b.name for b in arm.data.bones)
     for g in list(obj.vertex_groups):
         obj.vertex_groups.remove(g)
@@ -345,5 +332,4 @@ reset()
 scene.frame_set(1)
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT / "rig-cache.blend"))
 (OUT / "rig-report.json").write_text(json.dumps(report, indent=2) + "\n")
-(OUT / "garment-seams.json").write_text(json.dumps(seams, indent=2) + "\n")
 print("REPAIRED", FAMILY, len(parts), "parts, six baseline actions and three stress clips", flush=True)

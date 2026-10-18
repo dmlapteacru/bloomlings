@@ -5,7 +5,7 @@ from skinning import fields, world_vector, normalized, joint_blends
 
 
 class SkinningTests(unittest.TestCase):
-    def sample(self, family, part, points, head=None, original=None, helpers=False, zones=None):
+    def sample(self, family, part, points, head=None, original=None, helpers=False):
         world = np.array([world_vector(v, family) for v in points])
         if original is None:
             x = np.array(points)[:, 0]
@@ -14,7 +14,7 @@ class SkinningTests(unittest.TestCase):
             if head is not None:
                 original = {n: w * (1-head) for n, w in original.items()}
                 original['Head'] = head
-        return fields(world, family, part, original=original, helpers=helpers, zones=zones)
+        return fields(world, family, part, original=original, helpers=helpers)
 
     def test_front_back_and_centre_panels_do_not_follow_arms(self):
         for family in ("twig", "sprig", "bloom", "drop"):
@@ -67,15 +67,6 @@ class SkinningTests(unittest.TestCase):
                     mirrored_name = name[:-1] + ("R" if name.endswith(".L") else "L") if name.endswith((".L", ".R")) else name
                     np.testing.assert_allclose(w[:, i], mirror_w[:, mirror_names.index(mirrored_name)], atol=1e-7)
 
-    def test_closed_sleeves_do_not_share_arm_weights_with_the_torso(self):
-        for family in ('twig','sprig','bloom','drop'):
-            points=[(.18,.03,.25),(.24,.03,.26),(-.24,.03,.26)]
-            names,w=self.sample(family,'Jacket',points,zones=np.array([0,1,2]),helpers=True)
-            arm=[i for i,n in enumerate(names)if n.startswith(('UpperArm','Forearm','Hand','ShoulderBlend','ElbowBlend'))]
-            self.assertEqual(0,float(w[0,arm].sum()))
-            self.assertAlmostEqual(1,float(w[1,arm].sum()))
-            self.assertAlmostEqual(1,float(w[2,arm].sum()))
-
     def test_half_angle_support_reduces_joint_volume_loss(self):
         names,w=normalized(joint_blends({'Chest':np.array([.5]),'UpperArm.L':np.array([.5])}))
         rotations={'Chest':0,'UpperArm.L':np.pi/2,'ShoulderBlend.L':np.pi/4}
@@ -90,13 +81,11 @@ class SkinningTests(unittest.TestCase):
             names,w=self.sample('drop','Base_Arm_L',points,helpers=True)
             np.testing.assert_allclose(w[0],w[1],atol=1e-6)
 
-    def test_clean_sleeve_ring_has_uniform_weights_and_no_hand_ownership(self):
+    def test_cuff_perimeter_is_not_pinned_to_the_torso_by_height(self):
         for family in ('twig','sprig','bloom','drop'):
-            points=np.array([world_vector(v,family) for v in [(.20,.01,.29),(.25,.09,.24)]])
-            original={'Chest':np.ones(2)}
-            names,w=fields(points,family,'Jacket',original=original,helpers=True,zones=np.array([6,6]),arm_parameters=np.array([.5,.5]))
+            names,w=self.sample(family,'Jacket',[(.27,.15,.16),(.27,-.08,.30)],helpers=True)
             np.testing.assert_allclose(w[0],w[1],atol=1e-7)
-            self.assertEqual(0,float(w[:,names.index('Hand.L')].max()))
+            self.assertGreater(float(w[:,names.index('Forearm.L')].min()),.99)
 
 
 if __name__ == "__main__":

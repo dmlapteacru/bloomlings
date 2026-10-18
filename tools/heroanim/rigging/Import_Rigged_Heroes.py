@@ -120,6 +120,14 @@ for family in FAMILIES:
     property(rig,'glasses',0,1,'Face accessory')
     property(rig,'live_ik',0,1,'Optional editable planted-foot IK; off plays the portable baked actions')
     for key,obj in parts.items():
+        for mat in obj.data.materials:
+            if mat and '_RigMask_' in mat.name:
+                bs=next(n for n in mat.node_tree.nodes if n.type=='BSDF_PRINCIPLED')
+                for link in list(bs.inputs['Alpha'].links):mat.node_tree.links.remove(link)
+                if hasattr(mat,'surface_render_method'):mat.surface_render_method='DITHERED'
+                elif hasattr(mat,'blend_method'):mat.blend_method='HASHED'
+                expression='0 if style == 1 or style == 2 else 1' if '_RigMask_forearm_' in mat.name else '1 if style == 0 else 0'
+                driver(bs.inputs['Alpha'],'default_value',None,rig,'body_style',expression)
         if key in HEADS[family]:
             expression='style != '+str(HEADS[family].index(key));prop='head_style'
         elif key in BODIES:
@@ -205,6 +213,7 @@ class BLOOMLINGS_PT_RigReview(bpy.types.Panel):
         for clip in ('Idle','Walk','Wave','Joy','Sad','Curiosity'):
             grid.operator('bloomlings.rig_action',text=clip).clip=clip
         layout.prop(rig,'["live_ik"]',text='Editable leg IK')
+        layout.label(text='Material Preview shows outfit masks',icon='MATERIAL_DATA')
 
 
 for cls in (BLOOMLINGS_OT_RigAction,BLOOMLINGS_PT_RigReview):
