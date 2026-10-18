@@ -11,6 +11,7 @@ using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Json;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
@@ -27,6 +28,46 @@ namespace Bloomlings.Client.Tests
         private static string CatalogPath => Path.Combine(Application.dataPath, "Bloomlings", "Meta", "Wardrobe", "Resources", "CosmeticCatalog.json");
 
         private static CosmeticCatalog Catalog => CosmeticCatalog.Parse(File.ReadAllText(CatalogPath));
+
+        [Test]
+        public void Wardrobe_GroupsEveryHerosHairBeforeHats_ThenWinterAndNewYear()
+        {
+            var save=PlayerSave.CreateNew("sorting",DateTime.UtcNow);save.Unlocks.Flags[WardrobeService.UnlockId]=true;
+            var config=new BundledRemoteConfigService();var economy=new EconomyService(save,EconomyConfig.From(config),()=>{});
+            save.Wallet.AddPetals(20000);
+            var wardrobe=new WardrobeService(save,Catalog,config,()=>{},economy);
+            var expected=new Dictionary<Family,string[]>
+            {
+                [Family.Sprig]=new[]{SprigV2Art.LeafyId,SprigV2Art.RosetteId,SprigV2Art.SwirlId,SprigV2Art.BucketId,SprigV2Art.CapId,SprigV2Art.BeretId,SprigV2Art.EarmuffsId,SprigV2Art.XmasId},
+                [Family.Twig]=new[]{TwigV2Art.HairId,TwigV2Art.BucketId,TwigV2Art.BeretId,TwigV2Art.AcornId,TwigV2Art.HatHairId,TwigV2Art.EarmuffsId,TwigV2Art.XmasId},
+                [Family.Bloom]=new[]{BloomV2Art.PetalsId,BloomV2Art.BobId,BloomV2Art.PeachId,BloomV2Art.RoseId,BloomV2Art.BucketId,BloomV2Art.CapId,BloomV2Art.BeretId,BloomV2Art.EarmuffsId,BloomV2Art.XmasId},
+                [Family.Drop]=new[]{DropV2Art.NativeId,DropV2Art.WaveId,DropV2Art.RipplesId,DropV2Art.WhirlpoolId,DropV2Art.BucketId,DropV2Art.CapId,DropV2Art.BeretId,DropV2Art.EarmuffsId,DropV2Art.XmasId},
+            };
+            foreach(var pair in expected)
+            {
+                var rows=WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Hat,pair.Key);
+                Assert.That(rows[0].Item,Is.Null,"Default stays first");
+                Assert.That(rows.Where(c=>c.Item?.ForFamily==pair.Key).Select(c=>c.Item!.Id),Is.EqualTo(pair.Value),pair.Key.ToString());
+                Assert.That(rows.Where(c=>c.Item!=null).All(c=>!string.IsNullOrEmpty(c.Item!.WardrobeClass)),Is.True,"every visible item has a class");
+                var before=rows.Select(c=>c.Item?.Id).ToArray();
+                var paid=rows.FirstOrDefault(c=>c.State==WardrobeItemState.ForSale)?.Item;
+                if(paid!=null){Assert.That(wardrobe.TryBuy(paid.Id),Is.True);wardrobe.Equip(pair.Key,paid.Id);}
+                Assert.That(WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Hat,pair.Key).Select(c=>c.Item?.Id),Is.EqualTo(before),"buying and equipping do not move items");
+                var body=WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Clothes,pair.Key).Where(c=>c.Item!=null).Select(c=>c.Item!.Shape);
+                Assert.That(body,Is.EqualTo(new[]{"overalls","coat","jacket"}),"everyday, autumn, winter");
+            }
+        }
+        [Test]
+        public void WardrobeClassification_IsOptional_AndFutureEventsStayGroupedAndVisible()
+        {
+            var parsed=CosmeticCatalog.Parse("{\"items\":[{\"id\":\"hat.hair\",\"kind\":\"hat\",\"name\":\"Hair\",\"shape\":\"cap\",\"tint\":\"#999999\",\"wardrobeClass\":\"hair\",\"wardrobeEvent\":\"future_event\"}]}");
+            Assert.That(parsed.Items[0].WardrobeClass,Is.EqualTo("hair"));
+            Assert.That(parsed.Items[0].WardrobeEvent,Is.EqualTo("future_event"));
+            CosmeticItem Item(string id,string? type,string? season=null)=>new CosmeticItem("hat."+id,CosmeticKind.Hat,id,"cap","#999999",false){WardrobeClass=type,WardrobeEvent=season};
+            var items=new[]{Item("zcap","cap","z_event"),Item("bcap","cap","b_event"),Item("zhair","hair","z_event"),Item("winter","earmuffs","winter"),Item("cap","cap"),Item("hair","hair"),Item("unknown",null),Item("newyear","holiday_hat","new_year")};
+            var wardrobe=new WardrobeService(PlayerSave.CreateNew("sorting",DateTime.UtcNow),new CosmeticCatalog(items),new BundledRemoteConfigService(),()=>{});
+            Assert.That(WardrobeShelfCatalog.Build(wardrobe,CosmeticKind.Hat).Skip(1).Select(c=>c.Item!.Id),Is.EqualTo(new[]{"hat.hair","hat.cap","hat.unknown","hat.winter","hat.newyear","hat.bcap","hat.zhair","hat.zcap"}));
+        }
 
         [Test]
         public void Cosmetics_PassTheReadabilityCheck()

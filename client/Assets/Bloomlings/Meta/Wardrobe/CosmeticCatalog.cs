@@ -40,6 +40,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// <summary>Equipped on a hero; MetaOnly items are excluded from gameplay figures.</summary>
         public bool IsWorn => CosmeticCatalog.IsWornKind(Kind);
 
+        /// <summary>Wardrobe display classification only; neither field changes ownership or event availability.</summary>
+        public string? WardrobeClass { get; init; }
+        public string? WardrobeEvent { get; init; }
         public bool ForSale => Price > 0;
         public bool Fits(Family family) => !ForFamily.HasValue || ForFamily.Value == family;
     }
@@ -193,7 +196,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             {
                 string path = JsonDoc.Index("items", i);
                 JObject item = JsonDoc.Object(array[i], path);
-                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price", "free", "family", "metaOnly");
+                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price", "free", "family", "metaOnly", "wardrobeClass", "wardrobeEvent");
                 JToken? starter = JsonDoc.Optional(item, "starter");
                 JToken? price = JsonDoc.Optional(item, "price");
                 JToken? free = JsonDoc.Optional(item, "free");
@@ -207,7 +210,11 @@ namespace Bloomlings.Client.Meta.Wardrobe
                     price == null ? 0 : JsonDoc.Int(price, JsonDoc.Join(path, "price"), min: 1),
                     Free: free != null && JsonDoc.Bool(free, JsonDoc.Join(path, "free")),
                     ForFamily: JsonDoc.Optional(item, "family") is JToken family ? ParseFamily(JsonDoc.String(family, JsonDoc.Join(path, "family")), path) : null,
-                    MetaOnly: JsonDoc.Optional(item, "metaOnly") is JToken meta && JsonDoc.Bool(meta, JsonDoc.Join(path, "metaOnly"))));
+                    MetaOnly: JsonDoc.Optional(item, "metaOnly") is JToken meta && JsonDoc.Bool(meta, JsonDoc.Join(path, "metaOnly")))
+                {
+                    WardrobeClass = JsonDoc.Optional(item, "wardrobeClass") is JToken wardrobeClass ? JsonDoc.String(wardrobeClass, JsonDoc.Join(path, "wardrobeClass")) : null,
+                    WardrobeEvent = JsonDoc.Optional(item, "wardrobeEvent") is JToken wardrobeEvent ? JsonDoc.String(wardrobeEvent, JsonDoc.Join(path, "wardrobeEvent")) : null,
+                });
             }
 
             return new CosmeticCatalog(items);

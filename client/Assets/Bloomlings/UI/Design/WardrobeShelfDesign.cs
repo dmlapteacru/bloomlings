@@ -55,13 +55,21 @@ namespace Bloomlings.Client.UI.Design
         public static IReadOnlyList<WardrobeShelfItem> Build(WardrobeService wardrobe, CosmeticKind kind, Family? family = null)
         {
             var result = new List<WardrobeShelfItem> { new WardrobeShelfItem(null, WardrobeItemState.Default, null) };
-            var ordered=new List<CosmeticItem>();
-            foreach(var item in wardrobe.Catalog.Items)if(item.Free&&item.MetaOnly)ordered.Add(item);
-            foreach(var item in wardrobe.Catalog.Items)if(!(item.Free&&item.MetaOnly))ordered.Add(item);
-            foreach (CosmeticItem item in ordered)
+            var ordered=new List<(CosmeticItem Item,int Position)>();
+            foreach(var item in wardrobe.Catalog.Items)
+                if(item.Kind==kind&&HeroGearArt.CanPreview(item)&&(!family.HasValue||item.Fits(family.Value)))
+                    ordered.Add((item,ordered.Count));
+            ordered.Sort((a,b)=>
             {
-                if (item.Kind != kind) continue;
-                if (!HeroGearArt.CanPreview(item) || (family.HasValue && !item.Fits(family.Value))) continue;
+                int group=EventRank(a.Item.WardrobeEvent).CompareTo(EventRank(b.Item.WardrobeEvent));
+                if(group==0)group=StringComparer.Ordinal.Compare(a.Item.WardrobeEvent??"",b.Item.WardrobeEvent??"");
+                if(group==0)group=ClassRank(a.Item.WardrobeClass).CompareTo(ClassRank(b.Item.WardrobeClass));
+                if(group==0)group=StringComparer.Ordinal.Compare(a.Item.WardrobeClass??"",b.Item.WardrobeClass??"");
+                return group!=0?group:a.Position.CompareTo(b.Position);
+            });
+            foreach (var entry in ordered)
+            {
+                CosmeticItem item=entry.Item;
                 WardrobeItemState state = wardrobe.Owns(item) ? WardrobeItemState.Owned :
                     item.ForSale ? WardrobeItemState.ForSale : WardrobeItemState.Reward;
                 int? cadence = null;
@@ -76,6 +84,21 @@ namespace Bloomlings.Client.UI.Design
             }
             return result;
         }
+
+        // Everyday classes first; seasonal/event collections remain together after them.
+        // Unknown classes/events sort deterministically and never disappear from the catalog.
+        private static int EventRank(string? key) => key switch
+        {
+            null => 0, "" => 0, "autumn" => 10, "winter" => 20, "new_year" => 30, _ => 100,
+        };
+        private static int ClassRank(string? key) => key switch
+        {
+            "hair" => 0, "panama" => 10, "cap" => 20, "beret" => 30, "straw_hat" => 40,
+            "acorn_hat" => 50, "mushroom_hat" => 60, "crown" => 70, "nightcap" => 80,
+            "earmuffs" => 90, "holiday_hat" => 100,
+            "glasses" => 0, "overalls" => 0, "coat" => 10, "jacket" => 20,
+            "striped_scarf" => 0, "knit_scarf" => 10, _ => 1000,
+        };
 
         /// <summary>Legacy isolated-outfit helper for reference fixtures; live item cards use ItemPicture instead.</summary>
         public static Outfit ShelfPreview(CosmeticKind kind, CosmeticItem? item) => Preview(Outfit.None, kind, item);
