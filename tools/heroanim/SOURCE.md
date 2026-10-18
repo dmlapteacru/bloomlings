@@ -20,6 +20,10 @@ scene in the repository. Raw deliveries are authoring inputs, never mobile game 
   because its unchanged base ZIP and fitted overalls FBX are CURRENT Drop build inputs,
   pinned in `models/drop-v2/source-manifest.json`; it is not a fallback to an old game hero.
 
+- `models/eyewear-v1/source/`: six unchanged owner FBXs, two separate frames each for
+  Sprig, Bloom and Twig. [Fit and rebuild record](models/eyewear-v1/README.md). Existing
+  round IDs are retained; square, heart and octagon alternatives add three Face choices.
+
 The owner generated / supplied these models and textures through Tripo / Meshy and their
 own Blender project. Source manifests retain original filenames and SHA-256 values. No
 third-party model or motion library was substituted. Fitting, weight transfer, scripted

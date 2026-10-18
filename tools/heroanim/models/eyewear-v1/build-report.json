@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "scriptSha256": "5cdfe4a68bff9838a031892962e5dfadd9f13accfbf56128cd2da1503200bf0e",
+  "manifestSha256": "c0a40ed36d6fc84a03b19954d22f482dd826547441a6c2610b53d4622ffedd2f",
+  "variants": [
+    {
+      "id": "glasses.sprig_round",
+      "key": "SprigHeroV2_GlassesRoundGreen",
+      "sourceSha256": "04db53bd2db1cd08cf258af555a63573d3f07a1cdc904c97e6d4ee590337a32b",
+      "vertices": 33868,
+      "faces": 67386,
+      "rigidHeadWeights": true,
+      "uvUnchanged": true,
+      "geometryError": 0.0,
+      "bounds": [
+        [
+          -0.3413200378417969,
+          0.3435211181640625
+        ],
+        [
+          -0.334213525056839,
+          -0.14831241965293884
+        ],
+        [
+          0.48543694615364075,
+          0.68827885389328
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "file": "SprigHeroV2_GlassesRoundGreen.glb",
+      "sha256": "ac6be949fff1401518a82981f0406b8bc856c39272d597e449e1a5d5b0b2e032"
+    },
+    {
+      "id": "glasses.sprig_square",
+      "key": "SprigHeroV2_GlassesSquare",
+      "sourceSha256": "6194b1cca60b405b86d4f1addb9d791aa08fc4b8e233c58ca0ca7d658a2290b4",
+      "vertices": 29934,
+      "faces": 58037,
+      "rigidHeadWeights": true,
+      "uvUnchanged": true,
+      "geometryError": 0.0,
+      "bounds": [
+        [
+          -0.34131813049316406,
+          0.3435211181640625
+        ],
+        [
+          -0.3382120430469513,
+          -0.16117744147777557
+        ],
+        [
+          0.48273155093193054,
+          0.690984308719635
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "file": "SprigHeroV2_GlassesSquare.glb",
+      "sha256": "9f1e07cf5161446f14901611ca9180ee6a2d1eb95b72cc99d578c9531f5b5d76"
+    },
+    {
+      "id": "glasses.bloom_round",
+      "key": "BloomHeroV2_GlassesPink",
+      "sourceSha256": "4836690ff4eda3097a811329ce984bbf762661b800c0e571aa244d0fafb354e5",
+      "vertices": 26020,
+      "faces": 51149,
+      "rigidHeadWeights": true,
+      "uvUnchanged": true,
+      "geometryError": 0.0,
+      "bounds": [
+        [
+          -0.33397865295410156,
+          0.33562660217285156
+        ],
+        [
+          -0.3286186754703522,
+          -0.14677444100379944
+        ],
+        [
+          0.4950462281703949,
+          0.7121793031692505
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "file": "BloomHeroV2_GlassesPink.glb",
+      "sha256": "8af85303d11504e6990b296197d835bca0e2fbae4df9a6e34717f05c67e8c84e"
+    },
+    {
+      "id": "glasses.bloom_heart",
+      "key": "BloomHeroV2_GlassesHeart",
+      "sourceSha256": "3d9e30fc8ece8d7cbe19081b96daf84d0aba4c04e55dada218911068e3a4ced5",
+      "vertices": 34095,
+      "faces": 67941,
+      "rigidHeadWeights": true,
+      "uvUnchanged": true,
+      "geometryError": 0.0,
+      "bounds": [
+        [
+          -0.33397865295410156,
+          0.33562660217285156
+        ],
+        [
+          -0.3286309540271759,
+          -0.12944932281970978
+        ],
+        [
+          0.4834539592266083,
+          0.723781943321228
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "file": "BloomHeroV2_GlassesHeart.glb",
+      "sha256": "afb90e7ece9731dd448b3086e4111ef1f5bc3ff306e0bb9d3d0b9bac4fafeca0"
+    },
+    {
+      "id": "glasses.twig_round",
+      "key": "TwigHeroV2_GlassesBrown",
+      "sourceSha256": "ad34d5dd78871540a35d9c64871eba075542baf458e33874da0f715dd782516a",
+      "vertices": 27643,
+      "faces": 53688,
+      "rigidHeadWeights": true,
+      "uvUnchanged": true,
+      "geometryError": 0.0,
+      "bounds": [
+        [
+          -0.3355216979980469,
+          0.3366355895996094
+        ],
+        [
+          -0.3283749520778656,
+          -0.09187572449445724
+        ],
+        [
+          0.48273345828056335,
+          0.7039706110954285
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "file": "TwigHeroV2_GlassesBrown.glb",
+      "sha256": "9c02572ddafcc82142922dba56cb0f54290c5ccc8561a6b9067a08c634fa914d"
+    },
+    {
+      "id": "glasses.twig_octagon",
+      "key": "TwigHeroV2_GlassesOctagon",
+      "sourceSha256": "9c1b6054a3693a2ac03b2f5c5dfdd9b894d9a0bfba629590cb21c4e107d7356f",
+      "vertices": 32309,
+      "faces": 64112,
+      "rigidHeadWeights": true,
+      "uvUnchanged": true,
+      "geometryError": 0.0,
+      "bounds": [
+        [
+          -0.3355216979980469,
+          0.3366355895996094
+        ],
+        [
+          -0.32437506318092346,
+          -0.033307284116744995
+        ],
+        [
+          0.4833109676837921,
+          0.7033930420875549
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "file": "TwigHeroV2_GlassesOctagon.glb",
+      "sha256": "8c49ba857e6242cdcffaf529a6471324dc4e07b63db621852a80c890229e1bf7"
+    }
+  ]
+}

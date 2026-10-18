@@ -7011,6 +7011,375 @@
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
+  },
+  {
+   "path": "eyewear-sprig-000.png",
+   "width": 243,
+   "height": 74,
+   "sha256": "c1252c490549a4685001983efca2388f4f5c4dc8997bd713c2a77bed4b0774a4",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-eyewear-001.png",
+   "width": 232,
+   "height": 74,
+   "sha256": "5fa0fd6af16156a132d0402c09ee0b314dd5773729220a647b521dd9800def88",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-eyewear-002.png",
+   "width": 228,
+   "height": 74,
+   "sha256": "54cd09735340d9062d3cea1186bba45cbe60b587dafe570baeb9e9764c6037bc",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-sprig-003.png",
+   "width": 233,
+   "height": 73,
+   "sha256": "a6c5cbb29a5218dd5e444dc4b417826d131dd1021a3ad2de10bd82d36797d468",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-sprig-004.png",
+   "width": 243,
+   "height": 76,
+   "sha256": "5327041273eeb05b76f1061656b232ea51e1c9629561ada8a4d56edce10f89e1",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-eyewear-005.png",
+   "width": 230,
+   "height": 76,
+   "sha256": "89f34df6e95f48b3f39c9b2c32a3d48922be751938599440ff4b78ddd7dccc1b",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-sprig-eyewear-006.png",
+   "width": 230,
+   "height": 76,
+   "sha256": "a3c4563d921ae6237e5537ae1e0446b969c8ea34de10de8f67b79e1c5597b63c",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-sprig-007.png",
+   "width": 231,
+   "height": 74,
+   "sha256": "702a923f28f14fe85ad2e0d63b14fc879171794b4d88280fc4c1f9abd0017d1e",
+   "slot": "char.hero3d.motion.sprig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-008.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "a57e86f63dd40597c73752759b7c13a38d9d14a2852f3590b18462dfc1df7228",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-009.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "5ac9f679f9de26d72e5028ac8f481e8cb9bed778afcad7c43ac9f5ad5b7066f2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-eyewear-010.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "a57e86f63dd40597c73752759b7c13a38d9d14a2852f3590b18462dfc1df7228",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-eyewear-011.png",
+   "width": 223,
+   "height": 74,
+   "sha256": "5ac9f679f9de26d72e5028ac8f481e8cb9bed778afcad7c43ac9f5ad5b7066f2",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-012.png",
+   "width": 230,
+   "height": 78,
+   "sha256": "92e781f009ce70d6a470bf01e1da0791499036f8f6d48a7c097e03d3c90f056f",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-013.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "14e0e26e4d8abe85a523d023088fa10bb7a4f7c5b35c6c889f46b9f32dff3918",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-014.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "2df132650c1024de75bc95d942c1f0773c9d4e7078ad8419cbe71f49fc48cb45",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-015.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "3d22a0fc34d1bbdc00f9ad5a75b4524311fbdd81442241ff1be93a21033fbcdc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-016.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "f691b456e64391d814a2694afcf2d34773bb16e345eed12b06fcb23d72aad978",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-017.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "6c9f6461b82f4e09f65e99dd73c57c2814cdf7921993e598b54c75c62ea941bc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-eyewear-018.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "14e0e26e4d8abe85a523d023088fa10bb7a4f7c5b35c6c889f46b9f32dff3918",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-eyewear-019.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "2df132650c1024de75bc95d942c1f0773c9d4e7078ad8419cbe71f49fc48cb45",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-eyewear-020.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "3d22a0fc34d1bbdc00f9ad5a75b4524311fbdd81442241ff1be93a21033fbcdc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-eyewear-021.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "f691b456e64391d814a2694afcf2d34773bb16e345eed12b06fcb23d72aad978",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-bloom-eyewear-022.png",
+   "width": 223,
+   "height": 82,
+   "sha256": "6c9f6461b82f4e09f65e99dd73c57c2814cdf7921993e598b54c75c62ea941bc",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-bloom-023.png",
+   "width": 234,
+   "height": 87,
+   "sha256": "6b1faa451ce481f8ff48c5e3c287f618f93d3ae38322ce58dc9390d70cad0472",
+   "slot": "char.hero3d.motion.bloom",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-024.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "dbcc343e09d5727d8a94bfa5d464e972ad880e8a9ea22719c0d01fddd5a50c25",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-025.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "8503df18708b038b5b3a72184956678da5f472dc55b880da470e57283d7893a3",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-026.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "15a646484f949230182641b36f45fe2430255dfb63b20fbaf490104f2b2142ff",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-027.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "19c24149c0415884ad705f37476baacdfa6660c1d97ab7caef1e5b093b213ce5",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-028.png",
+   "width": 241,
+   "height": 80,
+   "sha256": "6dda6074fbd60c0c108a24a41d448b2876490099df94d8dd3c17cc3b98328bde",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-029.png",
+   "width": 237,
+   "height": 80,
+   "sha256": "8c969b9ad54d4a929a4b3133f017871c8123369fc26f30faf6aca5440e943e68",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-030.png",
+   "width": 236,
+   "height": 80,
+   "sha256": "1f93bdae262603ec4de9d66e4f140f7b5cd6334bceb33b2fa15e83e3058b8bdd",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-031.png",
+   "width": 232,
+   "height": 80,
+   "sha256": "91c35f426f9cfb50d96bde949563780364eb69e1212648576c79b6ee7f7a400f",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-032.png",
+   "width": 241,
+   "height": 80,
+   "sha256": "5f06cf6b863afcbac1e965df699803b5f72b2162b813ac06355e49d3eb9941dc",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-033.png",
+   "width": 236,
+   "height": 81,
+   "sha256": "d5c23047a2d02104c0f04fad1059caa9ce5f46a03eda52ccf68f80d5b908a499",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-034.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "e0dc140e2e5f86e86712365be9af23e32855d74fce968fb0016484a0d88ac4b6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-035.png",
+   "width": 238,
+   "height": 80,
+   "sha256": "9d7bb711530b0383c6d4de8f55d0bd2811e7adacef165f813225f015ef2f2a7e",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-036.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "0cad19dc6a58d91299d8a594b9f38fa7db06b4f3f47dcc0de5eb98a7fce4f0d6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-037.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "44eb1b4c8ddd95a30c60d9e2b879861a352b86d5c578b2cd143860bf6c781752",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-038.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "c7007607e39ea8588d5d2cf7d9d19f118fa90016678f88ca2a29e0952989b335",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "homehero-twig-eyewear-039.png",
+   "width": 230,
+   "height": 80,
+   "sha256": "e388de49a157722874f0359cf30392684b6859bdc8c21e992ec36b05df7be8f6",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
+  },
+  {
+   "path": "eyewear-twig-040.png",
+   "width": 233,
+   "height": 80,
+   "sha256": "cb0b8df158ac44fca0158e2cf6a486634c88d8697cf2293578c316b504a2275d",
+   "slot": "char.hero3d.motion.twig",
+   "source": "owner-eyewear",
+   "record": "tools/heroanim/models/eyewear-v1/README.md"
   }
  ]
 }

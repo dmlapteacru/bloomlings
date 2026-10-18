@@ -1338,6 +1338,42 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p,bucket);Run(app,p,.1f);
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig,CosmeticKind.Hat)?.Id=="hat.bucket_hat"&&app.Overlays.Count==0,"owned item equips immediately");
             });
+            foreach(var selection in new[]{
+                (171,"sprig-round",Family.Sprig,SprigV2Art.GlassesId),(172,"sprig-square",Family.Sprig,EyewearArt.SprigSquareId),
+                (173,"bloom-pink",Family.Bloom,BloomV2Art.GlassesId),(174,"bloom-heart",Family.Bloom,EyewearArt.BloomHeartId),
+                (175,"twig-brown",Family.Twig,TwigV2Art.GlassesId),(176,"twig-octagon",Family.Twig,EyewearArt.TwigOctagonId)})
+            {
+                var scene=selection;
+                yield return new Fixture(scene.Item1,"eyewear-"+scene.Item2,"Owner eyewear: real Face card equips and persists in both views",(p,data)=>
+                {
+                    var app=Progressed(App(data),content,87);CloseAll(app);
+                    if(scene.Item1%2==0)
+                        foreach(string id in scene.Item3 switch {
+                            Family.Sprig=>new[]{SprigV2Art.EarmuffsId,SprigV2Art.JacketId,SprigV2Art.ScarfId},
+                            Family.Bloom=>new[]{BloomV2Art.RoseId,BloomV2Art.CoatId,BloomV2Art.KnitId},
+                            _=>new[]{TwigV2Art.BucketId,TwigV2Art.CoatId,TwigV2Art.ScarfId}})
+                            Expect(app.Meta.Wardrobe.Equip(scene.Item3,id),"headwear, clothes and scarf fit together with new eyewear");
+                    app.OpenWardrobe();app.WardrobeBrowse.Select(scene.Item3);app.WardrobeBrowse.Select(CosmeticKind.Glasses);Run(app,p,.1f);
+                    var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Glasses,scene.Item3).ToList();
+                    int index=cards.FindIndex(c=>c.Item?.Id==scene.Item4);Expect(index>0,"delivered Face item appears");Tap(p,r.Cell(index));Run(app,p,.1f);
+                    Expect(app.Meta.Wardrobe.OutfitOf(scene.Item3).Glasses?.Id==scene.Item4,"Face card equips without changing Head");
+                    app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                    var home=HomeHeroArt.Layer(scene.Item3,app.Meta.Wardrobe.OutfitOf(scene.Item3),3)!.Value;
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+home.Name),"Home draws the new angled eyewear");
+                    app.OpenWardrobe();p.DrawnSprites.Clear();Run(app,p,.1f);
+                    var front=HeroGearArt.Layer(scene.Item3,app.Meta.Wardrobe.OutfitOf(scene.Item3),3)!.Value;
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+front.Name),"fitting stand draws the new frontal eyewear");
+                });
+            }
+            yield return new Fixture(177,"eyewear-home","New square, heart and octagon glasses on the fountain heroes",(p,data)=>
+            {
+                var app=Progressed(App(data),content,87);CloseAll(app);
+                foreach(var pair in new[]{(Family.Sprig,EyewearArt.SprigSquareId),(Family.Bloom,EyewearArt.BloomHeartId),(Family.Twig,EyewearArt.TwigOctagonId)})
+                    Expect(app.Meta.Wardrobe.Equip(pair.Item1,pair.Item2),"new Face item equips");
+                app.GoHome();p.DrawnSprites.Clear();Run(app,p,.4f);
+                foreach(var family in new[]{Family.Sprig,Family.Bloom,Family.Twig})
+                    Expect(p.DrawnSprites.Contains(PainterBase.HeroMotionPrefix+HomeHeroArt.Layer(family,app.Meta.Wardrobe.OutfitOf(family),3)!.Value.Name),"equipped eyewear remains on Home");
+            });
             yield return new Fixture(170,"wardrobe-fitting","Wardrobe: temporary fittings never leak into saved outfits",(p,data)=>
             {
                 var app=Progressed(App(data),content,87);app.Meta.Economy.Grant(12000,null);CloseAll(app);app.OpenWardrobe();

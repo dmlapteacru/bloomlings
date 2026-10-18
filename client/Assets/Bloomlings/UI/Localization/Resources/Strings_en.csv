@@ -169,7 +169,7 @@ wardrobe.kind_glasses,Face
 wardrobe.kind_backpack,Backpacks
 wardrobe.remove,Remove
 cosmetic.hat.sprig_daisy,Daisy Cap
-cosmetic.glasses.sprig_round,Garden Glasses
+cosmetic.glasses.sprig_round,Round Leaf Glasses
 cosmetic.backpack.sprig_leaf,Leaf Backpack
 wardrobe.kind_trail,Trails
 wardrobe.kind_expression,Faces
@@ -405,7 +405,7 @@ cosmetic.hat.twig_hat_hair,Acorn Hat & Hair
 cosmetic.hat.twig_beret,Autumn Beret
 cosmetic.hat.twig_earmuffs,Winter Earmuffs
 cosmetic.hat.twig_xmas,Holiday Hat
-cosmetic.glasses.twig_round,Twig Glasses
+cosmetic.glasses.twig_round,Chestnut Glasses
 cosmetic.scarf.twig_knit,Golden Scarf
 wardrobe.kind_scarf,Accessories
 cosmetic.clothes.twig_jacket,Winter Jacket
@@ -432,7 +432,7 @@ cosmetic.hat.bloom_cap,Flower Cap
 cosmetic.hat.bloom_beret,Flower Beret
 cosmetic.hat.bloom_earmuffs,Winter Earmuffs
 cosmetic.hat.bloom_xmas,Holiday Hat
-cosmetic.glasses.bloom_round,Bloom Glasses
+cosmetic.glasses.bloom_round,Pink Petal Glasses
 cosmetic.scarf.bloom_knit,Chunky Flower Scarf
 cosmetic.scarf.bloom_stripe,Striped Garden Scarf
 cosmetic.clothes.bloom_jacket,Winter Jacket
@@ -454,3 +454,6 @@ cosmetic.scarf.drop_stripe,Striped Seaside Scarf
 cosmetic.clothes.drop_jacket,Winter Jacket
 cosmetic.clothes.drop_coat,Autumn Coat
 cosmetic.clothes.drop_overalls,Garden Overalls
+cosmetic.glasses.sprig_square,Square Garden Glasses
+cosmetic.glasses.bloom_heart,Heart Glasses
+cosmetic.glasses.twig_octagon,Octagon Glasses

@@ -121,8 +121,26 @@ expect(!fs.readdirSync(framesDir).some(n=>/^drop-(idle|react|win)|^simplehero-dr
 expect(!manifest.heroes.some(h=>h.family==='bloom'),'Legacy motion publisher must not include Bloom');
 expect(!fs.readdirSync(framesDir).some(n=>/^bloom-(idle|react|win)/.test(n)),'Retired Bloom motion must stay outside runtime');
 expect(!fs.readdirSync(framesDir).some(n=>/^(twig-(idle|react|win)|twigmod-|twigfit-|simplehero-twig)/.test(n)),'Retired Twig resources must stay outside runtime');
+// Separate owner eyewear has its own complete front/Home mask table; base bakes remain pinned.
+const eyewear=JSON.parse(fs.readFileSync(path.join(here,'eyewear-v1.json')));
+expect(eyewear.sets.length===6,'All six owner eyewear variants must be available');
+for(const source of eyewear.sources)expect(fs.existsSync(path.join(repo,source.path))&&sha(path.join(repo,source.path))===source.sha256,source.path+' changed since eyewear bake');
+expect(sha(path.join(repo,eyewear.data))===eyewear.dataSha256,'EyewearData is stale');
+const eyeProof=JSON.parse(fs.readFileSync(path.join(here,'models/eyewear-v1/build-report.json')));
+expect(eyeProof.variants.length===6&&eyeProof.variants.every(v=>v.rigidHeadWeights&&v.uvUnchanged&&v.geometryError<1e-6),'Eyewear Head binding / geometry / UV proof is invalid');
+for(const set of eyewear.sets){
+ const base=JSON.parse(fs.readFileSync(path.join(here,set.family+'-v2.json'))),count=(base.heads.length-1)*base.clothes.length*(base.scarves?.length??2);
+ expect(set.front.length===count&&set.home.length===count,'Incomplete eyewear masks: '+set.id);
+ for(const view of ['front','home'])expect(set[view].every(i=>eyewear.outputs[i]?.family===set.family&&eyewear.outputs[i]?.view===view),'Wrong eyewear view / family: '+set.id);
+ expect(eyewear.outputs[set.icon]?.view==='icon','Missing isolated eyewear icon: '+set.id);
+}
+for(const f of eyewear.outputs){
+ const file=path.join(framesDir,f.file);listed.add(f.file);expect(fs.existsSync(file)&&sha(file)===f.sha256,f.file+' changed since eyewear bake');
+ if(fs.existsSync(file)){const png=fs.readFileSync(file);expect(png[24]===8&&png[25]===6&&png.readUInt32BE(16)===f.crop[2]&&png.readUInt32BE(20)===f.crop[3],f.file+' must retain RGBA and its declared crop');}
+}
 const folder = JSON.parse(fs.readFileSync(path.join(framesDir, 'manifest.json'), 'utf8'));
 const folderFiles = new Map(folder.files.map(f => [f.path, f.sha256]));
+for(const f of eyewear.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 for(const f of homeHeroes.outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(dropV2File))for(const f of JSON.parse(fs.readFileSync(dropV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);
 if(fs.existsSync(sprigV2File))for(const f of JSON.parse(fs.readFileSync(sprigV2File)).outputs)expect(folderFiles.get(f.file)===f.sha256,'HeroMotion/manifest.json: '+f.file);

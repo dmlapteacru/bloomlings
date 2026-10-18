@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "note": "Owner-supplied separate eyewear, rigidly weighted to Head. Reuse existing round IDs; add one alternate shape per delivered family. Source files remain unchanged. Transforms are in the owner Blender world (Z up).",
+  "variants": [
+    {
+      "family": "sprig",
+      "key": "SprigHeroV2_GlassesRoundGreen",
+      "id": "glasses.sprig_round",
+      "name": "Round Leaf Glasses",
+      "source": "source/SprigHeroV2_GlassesRoundGreen.fbx",
+      "sha256": "04db53bd2db1cd08cf258af555a63573d3f07a1cdc904c97e6d4ee590337a32b",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "family": "sprig",
+      "key": "SprigHeroV2_GlassesSquare",
+      "id": "glasses.sprig_square",
+      "name": "Square Garden Glasses",
+      "source": "source/SprigHeroV2_GlassesSquare.fbx",
+      "sha256": "6194b1cca60b405b86d4f1addb9d791aa08fc4b8e233c58ca0ca7d658a2290b4",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "family": "bloom",
+      "key": "BloomHeroV2_GlassesPink",
+      "id": "glasses.bloom_round",
+      "name": "Pink Petal Glasses",
+      "source": "source/BloomHeroV2_GlassesPink.fbx",
+      "sha256": "4836690ff4eda3097a811329ce984bbf762661b800c0e571aa244d0fafb354e5",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "family": "bloom",
+      "key": "BloomHeroV2_GlassesHeart",
+      "id": "glasses.bloom_heart",
+      "name": "Heart Glasses",
+      "source": "source/BloomHeroV2_GlassesHeart.fbx",
+      "sha256": "3d9e30fc8ece8d7cbe19081b96daf84d0aba4c04e55dada218911068e3a4ced5",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "TwigHeroV2_GlassesBrown",
+      "id": "glasses.twig_round",
+      "name": "Brown Round Glasses",
+      "source": "source/TwigHeroV2_GlassesBrown.fbx",
+      "sha256": "ad34d5dd78871540a35d9c64871eba075542baf458e33874da0f715dd782516a",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "family": "twig",
+      "key": "TwigHeroV2_GlassesOctagon",
+      "id": "glasses.twig_octagon",
+      "name": "Octagon Glasses",
+      "source": "source/TwigHeroV2_GlassesOctagon.fbx",
+      "sha256": "9c1b6054a3693a2ac03b2f5c5dfdd9b894d9a0bfba629590cb21c4e107d7356f",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ]
+}

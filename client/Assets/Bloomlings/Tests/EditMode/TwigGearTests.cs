@@ -31,7 +31,10 @@ namespace Bloomlings.Client.Tests
             wardrobe.Unequip(Family.Twig, CosmeticKind.Hat);
             var shown = HeroGearArt.DisplayOutfit(wardrobe.OutfitOf(Family.Twig));
             Assert.That(HeroGearArt.Layer(Family.Twig, shown, 0)!.Value.Name, Is.EqualTo("twigv2-base-pumpkinhat"));
-            Assert.That(HeroGearArt.Layer(Family.Twig, shown, 3)!.Value.Name, Is.EqualTo("twigv2-glasses-pumpkinhat"), "eyewear uses the stock hat's matching mask");
+            var stockGlasses=HeroGearArt.Layer(Family.Twig,shown,3)!.Value;
+            Assert.That(stockGlasses.Name,Does.StartWith("eyewear-twig-"));
+            Catalog.TryGet(TwigV2Art.AcornId,out var stockHat);
+            Assert.That(HeroGearArt.Layer(Family.Twig,shown! with {Hat=stockHat},3),Is.EqualTo(stockGlasses),"implicit stock Head uses the explicit acorn hat’s matching eyewear mask");
             Assert.That(shown!.Clothes?.Id, Is.EqualTo(TwigV2Art.CoatId));
             var reset = WardrobeShelfCatalog.Preview(shown, CosmeticKind.Hat, null);
             Assert.That(reset.Hat, Is.Null);

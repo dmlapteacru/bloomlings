@@ -13,10 +13,12 @@ items, rigs, clips, UVs, source hashes and rebuild instructions are in:
 - [Bloom V2](models/bloom-v2/README.md)
 - [Drop V2](models/drop-v2/README.md), including the final FBX handoff ZIP
 - [Twig V2](models/twig-v2/README.md)
+- [Separate owner eyewear](models/eyewear-v1/README.md): two Face choices for Sprig, Bloom and Twig
 
 Current generation references, including bald modeling bases, are in `references/{family}-v2/`.
 A bald base is never a stock game appearance. Stock Head is Leafy / Petals / NativeDrop /
-Acorn. The shared round glasses have four family-specific material colors. Wardrobe combines
+Acorn. Separate owner-fitted glasses provide two Face choices for Sprig, Bloom and Twig;
+Drop retains the shared round shape in its family color. Wardrobe combines
 Head, Face, Body and Accessories; Shop has no Cosmetics tab.
 
 ## Prepare and bake
@@ -29,12 +31,13 @@ blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/p
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/prepare-bloom-v2.py
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/prepare-twig-v2.py
 blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/prepare-drop-v2-game.py
+blender -b --factory-startup -t 2 --python-exit-code 1 --python tools/heroanim/prepare-eyewear-v1.py
 node tools/heroanim/bake.mjs
 node tools/heroanim/check.mjs
 ```
 
 `bake.mjs --only sprig|bloom|drop|twig` rebuilds one frontal family followed by the four
-Home views. Each `bake-{family}-v2.mjs` can also run directly. Frontal sprites serve Wardrobe,
+Home views and the separate eyewear extension. Each `bake-{family}-v2.mjs` can also run directly. Frontal sprites serve Wardrobe,
 icons and victory. Home uses gentle three-quarter views toward the lotus: Sprig +30°,
 Bloom 0°, Drop −25°, Twig −30°, in `home-heroes-look.json`. `bake-home-heroes.mjs --review`
 writes the four stock views to ignored work files; normal baking covers every outfit recipe,

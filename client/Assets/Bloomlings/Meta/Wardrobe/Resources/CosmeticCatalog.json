@@ -46,7 +46,7 @@
     { "id": "frame.bramble", "kind": "frame", "name": "Bramble Frame", "shape": "frame", "tint": "#B5A898", "price": 350 },
     { "id": "badge.watering_can", "kind": "badge", "name": "Watering Can Badge", "shape": "badge", "tint": "#B0BCC4", "price": 300 },
     {"id": "hat.sprig_daisy", "kind": "hat", "name": "Daisy Cap", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "cap"},
-    {"id": "glasses.sprig_round", "kind": "glasses", "name": "Garden Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "glasses"},
+    {"id": "glasses.sprig_round", "kind": "glasses", "name": "Round Leaf Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "glasses"},
     {"id": "backpack.sprig_leaf", "kind": "backpack", "name": "Leaf Backpack", "shape": "leaf", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true},
     {"id": "hat.twig_acorn", "kind": "hat", "name": "Acorn Hat", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "acorn_hat"},
     {"id": "hat.twig_panama", "kind": "hat", "name": "Panama Hat", "shape": "brim", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "panama"},
@@ -55,7 +55,7 @@
     {"id": "hat.twig_beret", "kind": "hat", "name": "Autumn Beret", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "beret"},
     {"id": "hat.twig_earmuffs", "kind": "hat", "name": "Winter Earmuffs", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "earmuffs", "wardrobeEvent": "winter"},
     {"id": "hat.twig_xmas", "kind": "hat", "name": "Holiday Hat", "shape": "nightcap", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "holiday_hat", "wardrobeEvent": "new_year"},
-    {"id": "glasses.twig_round", "kind": "glasses", "name": "Twig Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "glasses"},
+    {"id": "glasses.twig_round", "kind": "glasses", "name": "Chestnut Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "glasses"},
     {"id": "scarf.twig_knit", "kind": "scarf", "name": "Golden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "knit_scarf", "wardrobeEvent": "autumn"},
     {"id": "clothes.twig_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "jacket", "wardrobeEvent": "winter"},
     {"id": "clothes.twig_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "coat", "wardrobeEvent": "autumn"},
@@ -80,7 +80,7 @@
     {"id": "hat.bloom_beret", "kind": "hat", "name": "Flower Beret", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "beret"},
     {"id": "hat.bloom_earmuffs", "kind": "hat", "name": "Winter Earmuffs", "shape": "cap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "earmuffs", "wardrobeEvent": "winter"},
     {"id": "hat.bloom_xmas", "kind": "hat", "name": "Holiday Hat", "shape": "nightcap", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "holiday_hat", "wardrobeEvent": "new_year"},
-    {"id": "glasses.bloom_round", "kind": "glasses", "name": "Bloom Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "glasses"},
+    {"id": "glasses.bloom_round", "kind": "glasses", "name": "Pink Petal Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "glasses"},
     {"id": "scarf.bloom_knit", "kind": "scarf", "name": "Chunky Flower Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "knit_scarf", "wardrobeEvent": "winter"},
     {"id": "scarf.bloom_stripe", "kind": "scarf", "name": "Striped Garden Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "striped_scarf"},
     {"id": "clothes.bloom_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "jacket", "wardrobeEvent": "winter"},
@@ -100,6 +100,9 @@
     {"id": "scarf.drop_stripe", "kind": "scarf", "name": "Striped Seaside Scarf", "shape": "knit", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "striped_scarf"},
     {"id": "clothes.drop_jacket", "kind": "clothes", "name": "Winter Jacket", "shape": "jacket", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "jacket", "wardrobeEvent": "winter"},
     {"id": "clothes.drop_coat", "kind": "clothes", "name": "Autumn Coat", "shape": "coat", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "coat", "wardrobeEvent": "autumn"},
+    {"id": "glasses.sprig_square", "kind": "glasses", "name": "Square Garden Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "sprig", "metaOnly": true, "wardrobeClass": "glasses"},
+    {"id": "glasses.bloom_heart", "kind": "glasses", "name": "Heart Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "bloom", "metaOnly": true, "wardrobeClass": "glasses"},
+    {"id": "glasses.twig_octagon", "kind": "glasses", "name": "Octagon Glasses", "shape": "round", "tint": "#FFFFFF", "free": true, "family": "twig", "metaOnly": true, "wardrobeClass": "glasses"},
     {"id": "clothes.drop_overalls", "kind": "clothes", "name": "Garden Overalls", "shape": "overalls", "tint": "#FFFFFF", "free": true, "family": "drop", "metaOnly": true, "wardrobeClass": "overalls"}
   ]
 }
