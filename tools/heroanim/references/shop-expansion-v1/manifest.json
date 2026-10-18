@@ -72,6 +72,102 @@
       "width": 1536,
       "height": 1024,
       "sha256": "d5f7f66f59b4a6729f3071499984d23a330dacd334c0e651f1d66b6863b52b8d"
+    },
+    {
+      "family": "sprig",
+      "code": "F01",
+      "path": "eyewear/sprig-F01.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "05286926135519d7c9cad8af9ae76ed30e54b9122134bb3fe6e032c41425e44c",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "sprig-face-body.png"
+    },
+    {
+      "family": "sprig",
+      "code": "F02",
+      "path": "eyewear/sprig-F02.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "b5dcabba6c6566e4d85032c7d8b6934cac56b491efc09473ed784db63d3787ba",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "sprig-face-body.png"
+    },
+    {
+      "family": "bloom",
+      "code": "F01",
+      "path": "eyewear/bloom-F01.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "cc5bf004133ffa4dd68a1e024f681d7b118c3a3ce1c51b0c8cc1c6b70fa551db",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "bloom-face-body.png"
+    },
+    {
+      "family": "bloom",
+      "code": "F02",
+      "path": "eyewear/bloom-F02.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "10a586a3b660ff0d7cbb7256619c4b385923465a076d3766ff7c49ce204d6aaf",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "bloom-face-body.png"
+    },
+    {
+      "family": "twig",
+      "code": "F01",
+      "path": "eyewear/twig-F01.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "ee08adc372a03fa65aa828f0046c9e24e9af9195d7b8f95da9ef1b023f573200",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "twig-face-body.png"
+    },
+    {
+      "family": "twig",
+      "code": "F02",
+      "path": "eyewear/twig-F02.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "bf383b50c6290303e61265bacda5ae01f6775645f7df4bbe431b8ea8c4293107",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "twig-face-body.png"
+    },
+    {
+      "family": "drop",
+      "code": "F01",
+      "path": "eyewear/drop-F01.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "56f03ea713485d44cdc78e8bdc7136abd30a00cbdceafd9d535bee639205f4fe",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "drop-face-body.png"
+    },
+    {
+      "family": "drop",
+      "code": "F02",
+      "path": "eyewear/drop-F02.png",
+      "kind": "isolated-eyewear",
+      "width": 1254,
+      "height": 1254,
+      "sha256": "7530037c3e08ad2ea95888a32d42ac7d5d5b5bb8027752b8f754d68bae846e07",
+      "lenses": false,
+      "objectOnly": true,
+      "sourceConcept": "drop-face-body.png"
     }
   ],
   "items": [
@@ -153,7 +249,9 @@
       "name": "Солнечные прямоугольные",
       "description": "Толстая оливковая оправа с кремовыми дужками, мягкие углы, спокойные чистые линзы.",
       "sheet": "sprig-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/sprig-F01.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "sprig-F02",
@@ -163,7 +261,9 @@
       "name": "Листовые очки",
       "description": "Две широкие листовидные линзы в зелёной оправе, кремовая переносица, округлые концы.",
       "sheet": "sprig-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/sprig-F02.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "sprig-B01",
@@ -263,7 +363,9 @@
       "name": "Лепестковые cat-eye",
       "description": "Розово-кремовая оправа с мягко приподнятыми округлыми внешними углами, прозрачные линзы.",
       "sheet": "bloom-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/bloom-F01.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "bloom-F02",
@@ -273,7 +375,9 @@
       "name": "Солнечные сердечки",
       "description": "Толстая приглушённо-розовая оправа в форме двух округлых сердец, спокойная сливовая тонировка.",
       "sheet": "bloom-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/bloom-F02.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "bloom-B01",
@@ -373,7 +477,9 @@
       "name": "Плавательные очки",
       "description": "Две овальные мягкие голубые рамки, кремовая переносица, короткая синяя лента; чистое прозрачное стекло.",
       "sheet": "drop-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/drop-F01.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "drop-F02",
@@ -383,7 +489,9 @@
       "name": "Солнечная волна",
       "description": "Округло-овальная тёмно-синяя оправа со спокойной волной на внешних углах, кремовые дужки.",
       "sheet": "drop-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/drop-F02.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "drop-B01",
@@ -483,7 +591,9 @@
       "name": "Солнечные wayfarer",
       "description": "Мягкая прямоугольная кремово-коричневая оправа, медовая тонировка линз, широкие дужки.",
       "sheet": "twig-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/twig-F01.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "twig-F02",
@@ -493,7 +603,9 @@
       "name": "Очки мастера",
       "description": "Крупные мягко-восьмиугольные линзы, кремовый ободок с каштановыми дужками, прозрачные линзы.",
       "sheet": "twig-face-body.png",
-      "uniqueToHero": false
+      "uniqueToHero": false,
+      "modelingReference": "eyewear/twig-F02.png",
+      "sheetUsage": "fit-preview-only"
     },
     {
       "id": "twig-B01",
@@ -542,6 +654,7 @@
     "H01–H05 are five shared design families, adapted to each hero; H06/H07 are individual.",
     "BASE portraits and bald clothes references are authoring scaffolds, never stock game appearances.",
     "Front concept references; original Blender base remains the size/fit authority.",
-    "No game/shop integration, rig changes or APK build."
+    "No game/shop integration, rig changes or APK build.",
+    "Eyewear modeling uses isolated lens-free frames in eyewear/. Character boards are only fit previews; add lenses as separate geometry later."
   ]
 }
