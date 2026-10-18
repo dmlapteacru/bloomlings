@@ -1,0 +1,547 @@
+{
+  "version": 1,
+  "status": "modeling-references-only",
+  "date": "2026-10-18",
+  "itemCount": 44,
+  "counts": {
+    "Head": 28,
+    "Face": 8,
+    "Body": 8
+  },
+  "files": [
+    {
+      "path": "sprig-head.png",
+      "family": "sprig",
+      "kind": "head",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "7198257d53b478de79c6249474bafa18d121dc308dd4ac3105f43bee88350203"
+    },
+    {
+      "path": "sprig-face-body.png",
+      "family": "sprig",
+      "kind": "face-body",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "296475fefc5d1ffd1862ed69e28cd1cb5b66d7f5e2dc4f5a857b48b108b7bf60"
+    },
+    {
+      "path": "bloom-head.png",
+      "family": "bloom",
+      "kind": "head",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "a7d7529eeb7cf5013b23a249a68b747c7e47c40487a3ee417531e1a5493be646"
+    },
+    {
+      "path": "bloom-face-body.png",
+      "family": "bloom",
+      "kind": "face-body",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "43594bd09d797a403c797955374645101d89e87625f0952b4e9db5ba976e9a66"
+    },
+    {
+      "path": "drop-head.png",
+      "family": "drop",
+      "kind": "head",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "a27c9c57e85f78abb1a49371a69f1918da30b65154122b0125be91a59caa981b"
+    },
+    {
+      "path": "drop-face-body.png",
+      "family": "drop",
+      "kind": "face-body",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "208fe3aea45d6e97abb1470d806cbce650e1c90f7f74d874088de0e3e0cde265"
+    },
+    {
+      "path": "twig-head.png",
+      "family": "twig",
+      "kind": "head",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "46f9bfd4d1b338985d62ea0e03c8502261dbfdeb3f4e403542595dacd313e1b2"
+    },
+    {
+      "path": "twig-face-body.png",
+      "family": "twig",
+      "kind": "face-body",
+      "width": 1536,
+      "height": 1024,
+      "sha256": "d5f7f66f59b4a6729f3071499984d23a330dacd334c0e651f1d66b6863b52b8d"
+    }
+  ],
+  "items": [
+    {
+      "id": "sprig-H01",
+      "family": "sprig",
+      "slot": "Head",
+      "code": "H01",
+      "name": "Соломенный канотье",
+      "description": "Низкая овальная тулья, широкие плоские округлённые поля, широкая лента и маленький бант сбоку.",
+      "sheet": "sprig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-H02",
+      "family": "sprig",
+      "slot": "Head",
+      "code": "H02",
+      "name": "Сонный колпак",
+      "description": "Низкий мягкий колпак с одним боковым изгибом, широким отворотом и крупной звёздочкой на конце.",
+      "sheet": "sprig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-H03",
+      "family": "sprig",
+      "slot": "Head",
+      "code": "H03",
+      "name": "Садовая косынка",
+      "description": "Цельная мягкая косынка по форме черепа, широкий передний край, компактный узел и два коротких хвостика сзади.",
+      "sheet": "sprig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-H04",
+      "family": "sprig",
+      "slot": "Head",
+      "code": "H04",
+      "name": "Шляпа исследователя",
+      "description": "Низкий округлый купол, короткие плотные поля с небольшим подъёмом по бокам, широкая лента и один значок.",
+      "sheet": "sprig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-H05",
+      "family": "sprig",
+      "slot": "Head",
+      "code": "H05",
+      "name": "Дождевик на голову",
+      "description": "Гладкая низкая тулья, слитные наклонные поля с удлинением сзади, широкая окантовка.",
+      "sheet": "sprig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-H06",
+      "family": "sprig",
+      "slot": "Head",
+      "code": "H06",
+      "name": "Клевер",
+      "description": "Низкая розетка из нескольких широких округлых листьев клевера, короткая листовая чёлка.",
+      "sheet": "sprig-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "sprig-H07",
+      "family": "sprig",
+      "slot": "Head",
+      "code": "H07",
+      "name": "Папоротник",
+      "description": "Один низкий асимметричный завиток молодого папоротника и три широких округлых листа, уложенные набок.",
+      "sheet": "sprig-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "sprig-F01",
+      "family": "sprig",
+      "slot": "Face",
+      "code": "F01",
+      "name": "Солнечные прямоугольные",
+      "description": "Толстая оливковая оправа с кремовыми дужками, мягкие углы, спокойные чистые линзы.",
+      "sheet": "sprig-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-F02",
+      "family": "sprig",
+      "slot": "Face",
+      "code": "F02",
+      "name": "Листовые очки",
+      "description": "Две широкие листовидные линзы в зелёной оправе, кремовая переносица, округлые концы.",
+      "sheet": "sprig-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-B01",
+      "family": "sprig",
+      "slot": "Body",
+      "code": "B01",
+      "name": "Льняной жилет",
+      "description": "Короткий кремовый жилет без рукавов, шалфейные карманы и две крупные пуговицы.",
+      "sheet": "sprig-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "sprig-B02",
+      "family": "sprig",
+      "slot": "Body",
+      "code": "B02",
+      "name": "Фартук садовника",
+      "description": "Короткий шалфейный фартук с широкими лямками поверх кремовой футболки, один округлый карман.",
+      "sheet": "sprig-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-H01",
+      "family": "bloom",
+      "slot": "Head",
+      "code": "H01",
+      "name": "Соломенный канотье",
+      "description": "Низкая овальная тулья, широкие плоские округлённые поля, широкая лента и маленький бант сбоку.",
+      "sheet": "bloom-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-H02",
+      "family": "bloom",
+      "slot": "Head",
+      "code": "H02",
+      "name": "Сонный колпак",
+      "description": "Низкий мягкий колпак с одним боковым изгибом, широким отворотом и крупной звёздочкой на конце.",
+      "sheet": "bloom-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-H03",
+      "family": "bloom",
+      "slot": "Head",
+      "code": "H03",
+      "name": "Садовая косынка",
+      "description": "Цельная мягкая косынка по форме черепа, широкий передний край, компактный узел и два коротких хвостика сзади.",
+      "sheet": "bloom-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-H04",
+      "family": "bloom",
+      "slot": "Head",
+      "code": "H04",
+      "name": "Шляпа исследователя",
+      "description": "Низкий округлый купол, короткие плотные поля с небольшим подъёмом по бокам, широкая лента и один значок.",
+      "sheet": "bloom-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-H05",
+      "family": "bloom",
+      "slot": "Head",
+      "code": "H05",
+      "name": "Дождевик на голову",
+      "description": "Гладкая низкая тулья, слитные наклонные поля с удлинением сзади, широкая окантовка.",
+      "sheet": "bloom-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-H06",
+      "family": "bloom",
+      "slot": "Head",
+      "code": "H06",
+      "name": "Лепестковая корона",
+      "description": "Низкий тёплый золотистый ободок, три округлых лепестковых зубца, один розовый камень, короткая лепестковая чёлка.",
+      "sheet": "bloom-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "bloom-H07",
+      "family": "bloom",
+      "slot": "Head",
+      "code": "H07",
+      "name": "Колокольчик",
+      "description": "Кремовый перевёрнутый бутон из пяти широких округлых лепестков, маленький шалфейный бант; розовые прядки у лица.",
+      "sheet": "bloom-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "bloom-F01",
+      "family": "bloom",
+      "slot": "Face",
+      "code": "F01",
+      "name": "Лепестковые cat-eye",
+      "description": "Розово-кремовая оправа с мягко приподнятыми округлыми внешними углами, прозрачные линзы.",
+      "sheet": "bloom-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-F02",
+      "family": "bloom",
+      "slot": "Face",
+      "code": "F02",
+      "name": "Солнечные сердечки",
+      "description": "Толстая приглушённо-розовая оправа в форме двух округлых сердец, спокойная сливовая тонировка.",
+      "sheet": "bloom-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-B01",
+      "family": "bloom",
+      "slot": "Body",
+      "code": "B01",
+      "name": "Летняя блуза",
+      "description": "Короткая кремовая блуза без рукавов, небольшой розовый воротничок и две цветочные пуговицы.",
+      "sheet": "bloom-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "bloom-B02",
+      "family": "bloom",
+      "slot": "Body",
+      "code": "B02",
+      "name": "Лёгкий сарафан",
+      "description": "Короткий лавандовый сарафан на двух широких лямках, чуть расширенный низ до бёдер, маленький цветочный карман.",
+      "sheet": "bloom-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-H01",
+      "family": "drop",
+      "slot": "Head",
+      "code": "H01",
+      "name": "Соломенный канотье",
+      "description": "Низкая овальная тулья, широкие плоские округлённые поля, широкая лента и маленький бант сбоку.",
+      "sheet": "drop-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-H02",
+      "family": "drop",
+      "slot": "Head",
+      "code": "H02",
+      "name": "Сонный колпак",
+      "description": "Низкий мягкий колпак с одним боковым изгибом, широким отворотом и крупной звёздочкой на конце.",
+      "sheet": "drop-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-H03",
+      "family": "drop",
+      "slot": "Head",
+      "code": "H03",
+      "name": "Садовая косынка",
+      "description": "Цельная мягкая косынка по форме черепа, широкий передний край, компактный узел и два коротких хвостика сзади.",
+      "sheet": "drop-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-H04",
+      "family": "drop",
+      "slot": "Head",
+      "code": "H04",
+      "name": "Шляпа исследователя",
+      "description": "Низкий округлый купол, короткие плотные поля с небольшим подъёмом по бокам, широкая лента и один значок.",
+      "sheet": "drop-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-H05",
+      "family": "drop",
+      "slot": "Head",
+      "code": "H05",
+      "name": "Дождевик на голову",
+      "description": "Гладкая низкая тулья, слитные наклонные поля с удлинением сзади, широкая окантовка.",
+      "sheet": "drop-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-H06",
+      "family": "drop",
+      "slot": "Head",
+      "code": "H06",
+      "name": "Морячок",
+      "description": "Кремовая бескозырка с низкой круглой тульей, тёмно-синим широким ободком и двумя короткими лентами сзади.",
+      "sheet": "drop-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "drop-H07",
+      "family": "drop",
+      "slot": "Head",
+      "code": "H07",
+      "name": "Ракушка",
+      "description": "Низкая голубовато-кремовая шапочка-ракушка с пятью широкими округлыми рёбрами, компактная водяная чёлка.",
+      "sheet": "drop-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "drop-F01",
+      "family": "drop",
+      "slot": "Face",
+      "code": "F01",
+      "name": "Плавательные очки",
+      "description": "Две овальные мягкие голубые рамки, кремовая переносица, короткая синяя лента; чистое прозрачное стекло.",
+      "sheet": "drop-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-F02",
+      "family": "drop",
+      "slot": "Face",
+      "code": "F02",
+      "name": "Солнечная волна",
+      "description": "Округло-овальная тёмно-синяя оправа со спокойной волной на внешних углах, кремовые дужки.",
+      "sheet": "drop-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-B01",
+      "family": "drop",
+      "slot": "Body",
+      "code": "B01",
+      "name": "Матросская футболка",
+      "description": "Короткая кремовая футболка с плоским синим матросским воротником и одной широкой синей полосой.",
+      "sheet": "drop-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "drop-B02",
+      "family": "drop",
+      "slot": "Body",
+      "code": "B02",
+      "name": "Морская рубашка",
+      "description": "Лёгкая мятно-голубая рубашка с короткими рукавами, низким открытым воротом и двумя кремовыми пуговицами.",
+      "sheet": "drop-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-H01",
+      "family": "twig",
+      "slot": "Head",
+      "code": "H01",
+      "name": "Соломенный канотье",
+      "description": "Низкая овальная тулья, широкие плоские округлённые поля, широкая лента и маленький бант сбоку.",
+      "sheet": "twig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-H02",
+      "family": "twig",
+      "slot": "Head",
+      "code": "H02",
+      "name": "Сонный колпак",
+      "description": "Низкий мягкий колпак с одним боковым изгибом, широким отворотом и крупной звёздочкой на конце.",
+      "sheet": "twig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-H03",
+      "family": "twig",
+      "slot": "Head",
+      "code": "H03",
+      "name": "Садовая косынка",
+      "description": "Цельная мягкая косынка по форме черепа, широкий передний край, компактный узел и два коротких хвостика сзади.",
+      "sheet": "twig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-H04",
+      "family": "twig",
+      "slot": "Head",
+      "code": "H04",
+      "name": "Шляпа исследователя",
+      "description": "Низкий округлый купол, короткие плотные поля с небольшим подъёмом по бокам, широкая лента и один значок.",
+      "sheet": "twig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-H05",
+      "family": "twig",
+      "slot": "Head",
+      "code": "H05",
+      "name": "Дождевик на голову",
+      "description": "Гладкая низкая тулья, слитные наклонные поля с удлинением сзади, широкая окантовка.",
+      "sheet": "twig-head.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-H06",
+      "family": "twig",
+      "slot": "Head",
+      "code": "H06",
+      "name": "Боровичок",
+      "description": "Низкий тёплый каштановый грибной купол, четыре кремовых округлых пятна и толстый светлый нижний ободок.",
+      "sheet": "twig-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "twig-H07",
+      "family": "twig",
+      "slot": "Head",
+      "code": "H07",
+      "name": "Шишка",
+      "description": "Компактная причёска из нескольких рядов широких округлых древесных чешуек с маленьким зелёным листиком сбоку.",
+      "sheet": "twig-head.png",
+      "uniqueToHero": true
+    },
+    {
+      "id": "twig-F01",
+      "family": "twig",
+      "slot": "Face",
+      "code": "F01",
+      "name": "Солнечные wayfarer",
+      "description": "Мягкая прямоугольная кремово-коричневая оправа, медовая тонировка линз, широкие дужки.",
+      "sheet": "twig-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-F02",
+      "family": "twig",
+      "slot": "Face",
+      "code": "F02",
+      "name": "Очки мастера",
+      "description": "Крупные мягко-восьмиугольные линзы, кремовый ободок с каштановыми дужками, прозрачные линзы.",
+      "sheet": "twig-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-B01",
+      "family": "twig",
+      "slot": "Body",
+      "code": "B01",
+      "name": "Песочный жилет",
+      "description": "Короткий тонкий песочный жилет без рукавов, два плоских каштановых кармана, две большие пуговицы.",
+      "sheet": "twig-face-body.png",
+      "uniqueToHero": false
+    },
+    {
+      "id": "twig-B02",
+      "family": "twig",
+      "slot": "Body",
+      "code": "B02",
+      "name": "Летняя рубашка",
+      "description": "Кремовая рубашка с короткими рукавами, терракотовой планкой и маленьким листовым значком.",
+      "sheet": "twig-face-body.png",
+      "uniqueToHero": false
+    }
+  ],
+  "baseReferences": [
+    {
+      "family": "sprig",
+      "path": "../sprig-v2/base-full-front.png"
+    },
+    {
+      "family": "bloom",
+      "path": "../bloom-v2/base-full-front.png"
+    },
+    {
+      "family": "drop",
+      "path": "../drop-v2/base-full-front.png"
+    },
+    {
+      "family": "twig",
+      "path": "../twig-v2/base-full-front.png"
+    }
+  ],
+  "inspiration": [
+    "../../../../client/Assets/Bloomlings/Art/Shop/Resources/Shop/meta-hats-atlas-v1.png",
+    "../../../../client/Assets/Bloomlings/Art/Shop/Resources/Shop/catalog-accessories-v1.png"
+  ],
+  "notes": [
+    "H01–H05 are five shared design families, adapted to each hero; H06/H07 are individual.",
+    "BASE portraits and bald clothes references are authoring scaffolds, never stock game appearances.",
+    "Front concept references; original Blender base remains the size/fit authority.",
+    "No game/shop integration, rig changes or APK build."
+  ]
+}
