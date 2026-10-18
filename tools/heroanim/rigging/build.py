@@ -1,7 +1,8 @@
 """Repair the four accepted rigs and author baseline actions on their existing bones.
 
 Generated Blender files are disposable caches, not another maintained master. Originals,
-world rest vertices, UVs, fitted positions and scarf fit morphs are preserved.
+identity, exterior UVs, fitted positions and scarf fit morphs are preserved.
+Local arm/torso contact corrections are explicitly recorded in the build report.
 """
 import bpy
 import hashlib
@@ -15,7 +16,8 @@ from mathutils import Quaternion, Vector
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from skinning import fields, canonical, world_vector, smooth
+from skinning import fields, owned_fields, canonical, world_vector, smooth
+from contact_blender import repair as repair_contact
 from legs import LegSurface
 
 REPO = HERE.parents[2]
@@ -31,9 +33,10 @@ for obj in parts.values():
             key.value = 0.0
 arm.data.pose_position = "REST"
 bpy.context.view_layer.update()
-report = {"version": 1, "family": FAMILY, "fps": 24, "parts": [], "clips": [], "rig": arm.name}
+report = {"version": 2, "family": FAMILY, "fps": 24, "parts": [], "clips": [], "rig": arm.name}
 report['tools'] = {name:hashlib.sha256((HERE/name).read_bytes()).hexdigest()
-                   for name in ('build.py','skinning.py','legs.py')}
+                   for name in ('build.py','skinning.py','legs.py','contact.py','contact_blender.py',
+                                'cuff_ownership.py','cuff_ownership.json','contact_lining.py')}
 report['assemblySha256'] = hashlib.sha256((OUT/'assembly.json').read_bytes()).hexdigest()
 
 
@@ -311,7 +314,9 @@ for key, obj in parts.items():
             original[group_names[g.group]][vertex.index] = g.weight
     if key == 'Overalls':
         original, report['shortsLegVerticesTransferred'] = leg_surface.transfer(obj, original)
-    names, weights = fields(before, FAMILY, key, original=original, helpers=True)
+    original, ownership, contact = repair_contact(obj, FAMILY, key, original)
+    repaired = positions(obj)
+    names, weights = owned_fields(repaired, FAMILY, key, original, ownership) if ownership is not None else fields(repaired, FAMILY, key, original=original, helpers=True)
     assert set(names) <= set(b.name for b in arm.data.bones)
     for g in list(obj.vertex_groups):
         obj.vertex_groups.remove(g)
@@ -322,8 +327,9 @@ for key, obj in parts.items():
     for m in obj.modifiers:
         if m.type == "ARMATURE":
             m.use_deform_preserve_volume = False
-    assert np.max(np.abs(positions(obj) - before)) < 1e-8
-    report["parts"].append({"key": key, "vertices": len(before), "groups": names,
+    if not contact or not contact["geometryChanged"]:
+        assert np.max(np.abs(positions(obj) - before)) < 1e-8
+    report["parts"].append({"key": key, "vertices": len(repaired), "sourceVertices": len(before), "contactRepair": contact, "groups": names,
                             "maxInfluences": int((weights > 0).sum(axis=1).max()),
                             "maxNormalizationError": float(np.abs(weights.sum(axis=1) - 1).max())})
 export_review("after.glb")

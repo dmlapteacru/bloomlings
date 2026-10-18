@@ -9,7 +9,7 @@ import math
 import re
 from pathlib import Path
 
-PACKAGE = 'Bloomlings_RigFix_v1'
+PACKAGE = 'Bloomlings_RigFix_v2'
 FAMILIES = ('twig','sprig','bloom','drop')
 HEADS = {
     'twig':['PumpkinHat','Hair','HatHair','BucketHat','Beret','EarmuffHair','XmasHat'],
@@ -64,10 +64,16 @@ def action_curves(action):
 
 
 for family in FAMILIES:
+    inventory_file=ROOT/family/'inventory.json'
+    inventory_digest=hashlib.sha256(inventory_file.read_bytes()).hexdigest()
     if family in RIGS:
+        if RIGS[family].get('rig_fix_inventory_sha256')!=inventory_digest:
+            raise RuntimeError(f'{family.title()}: this collection contains a different rig revision. '
+                               f'Keep your master file and import the new release into a new collection; '
+                               f'do not reuse older {PACKAGE} objects.')
         COLLECTIONS[family]=next(c for c in RIGS[family].users_collection if c.name.startswith(PACKAGE))
         continue
-    inventory=json.loads((ROOT/family/'inventory.json').read_text())
+    inventory=json.loads(inventory_file.read_text())
     collection=bpy.data.collections.new(PACKAGE+'_'+family)
     parent.children.link(collection);COLLECTIONS[family]=collection
     rig=None;parts={};new_images=set(bpy.data.images);new_actions=set(bpy.data.actions)
@@ -103,7 +109,8 @@ for family in FAMILIES:
             bpy.data.objects.remove(current,do_unlink=True)
     actions={}
     for action in set(bpy.data.actions)-new_actions:
-        clip=next((c for c in ('Idle','Walk','Wave','Joy','Sad','Curiosity') if action.name.endswith(family.title()+'_'+c)),None)
+        imported_name=re.sub(r'\.\d{3}$','',action.name)
+        clip=next((c for c in ('Idle','Walk','Wave','Joy','Sad','Curiosity') if imported_name.endswith(family.title()+'_'+c)),None)
         if not clip:
             continue
         action.name=PACKAGE+'_'+family+'_'+clip;action.use_fake_user=True
@@ -114,6 +121,7 @@ for family in FAMILIES:
         action['source_fps']=24;actions[clip]=action.name
     assert len(actions)==6
     rig['rig_fix_package']=PACKAGE;rig['rig_fix_family']=family;rig['review_actions']=json.dumps(actions)
+    rig['rig_fix_inventory_sha256']=inventory_digest
     property(rig,'head_style',0,len(HEADS[family])-1,'Headwear / hairstyle; stock is always present')
     property(rig,'body_style',0,3,'0 none, 1 Jacket, 2 Coat, 3 Overalls')
     property(rig,'scarf_style',0,len(SCARVES[family])-1,'Independent neck accessory')
@@ -201,7 +209,7 @@ class BLOOMLINGS_OT_RigAction(bpy.types.Operator):
 
 
 class BLOOMLINGS_PT_RigReview(bpy.types.Panel):
-    bl_label='Rig & animation review';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='Bloomlings'
+    bl_label='Rig & animation review · V2';bl_space_type='VIEW_3D';bl_region_type='UI';bl_category='Bloomlings'
     def draw(self,context):
         layout=self.layout;layout.prop(context.scene,'bloomlings_rig_family',text='Hero')
         family=context.scene.bloomlings_rig_family;rig=RIGS[family]

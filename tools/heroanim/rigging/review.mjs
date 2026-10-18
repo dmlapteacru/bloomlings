@@ -18,10 +18,11 @@ const partKeys=JSON.parse(fs.readFileSync(path.join(root,'assembly.json'))).part
 const video=process.argv.includes('--video');
 const quick=process.argv.includes('--quick');
 const stress=process.argv.includes('--stress');
+const detail=process.argv.includes('--detail');
 const sourceHashes=Object.fromEntries(['before','after'].map(v=>[v,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,v+'.glb'))).digest('hex')]));
 const recipeSha256=crypto.createHash('sha256').update(fs.readFileSync(fileURLToPath(import.meta.url))).digest('hex');
-const options={video,quick,stress,allActions:process.argv.includes('--all-actions'),outfits:process.argv.includes('--outfits'),afterOnly:process.argv.includes('--after-only')};
-const recordFile=path.join(out,video?'video.json':'review.json');
+const options={video,quick,stress,detail,allActions:process.argv.includes('--all-actions'),outfits:process.argv.includes('--outfits'),afterOnly:process.argv.includes('--after-only')};
+const recordFile=path.join(out,video?'video.json':detail?'detail.json':'review.json');
 if(fs.existsSync(recordFile)){
  const old=JSON.parse(fs.readFileSync(recordFile));
  let files=old.captures?.map(c=>path.join(out,c.file))||[];
@@ -34,7 +35,7 @@ const html=`<script type="importmap">{"imports":{"three":"/three/build/three.mod
 import * as T from 'three';
 import {GLTFLoader} from '/three/examples/jsm/loaders/GLTFLoader.js';
 const r=new T.WebGLRenderer({antialias:true,alpha:false,preserveDrawingBuffer:true});
-r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.NoToneMapping;r.setSize(400,480);r.setClearColor(0xf3ead9);
+r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.NoToneMapping;r.setSize(${detail?'600,600':'400,480'});r.setClearColor(0xf3ead9);
 const scene=new T.Scene();scene.add(new T.HemisphereLight(0xffffff,0xffffff,1.7));
 for(const [p,i] of [[[-3,4,5],1.1],[[3,2,4],.5]]){let l=new T.DirectionalLight(0xffffff,i);l.position.set(...p);scene.add(l);}
 let model,mixer,clips,parts,skinMasks=[];
@@ -46,7 +47,7 @@ window.load=async (version)=>{
   if(o.isMesh){const multi=Array.isArray(o.material);const mats=(multi?o.material:[o.material]).map(m=>{const n=new T.MeshLambertMaterial({map:m.map,color:m.color.clone().multiplyScalar(.25),emissiveMap:m.map,emissive:m.color.clone().multiplyScalar(.75),side:T.DoubleSide,transparent:m.opacity<1,opacity:m.opacity,depthWrite:m.opacity>=1});if(m.name.includes('_RigMask_'))skinMasks.push({material:n,upper:!m.name.includes('_RigMask_forearm_')});return n;});o.material=multi?mats:mats[0];o.frustumCulled=false;}});
  return {parts:Object.keys(parts),clips:clips.map(a=>({name:a.name,duration:a.duration}))};
 };
-const cam=new T.OrthographicCamera(-.64,.64,.768,-.768,.01,30);
+const cam=new T.OrthographicCamera(${detail?'-.45,.45,.45,-.45':'-.64,.64,.768,-.768'},.01,30);
 window.resize=(w,h)=>r.setSize(w,h);
 window.frame=({body='Jacket',head='',scarf='none',glasses=true,clip='Wave',time=1.5,yaw=15,weights=false}={})=>{
  const stock={twig:'PumpkinHat',sprig:'HairLeafy',bloom:'HairPetals',drop:'NativeDrop'}['${family}'];head=head||stock;
@@ -56,7 +57,7 @@ window.frame=({body='Jacket',head='',scarf='none',glasses=true,clip='Wave',time=
  for(const entry of skinMasks){const hidden=entry.upper?body!=='none':body==='Jacket'||body==='Coat';const m=entry.material;m.opacity=hidden?0:1;if(m.transparent!==hidden){m.transparent=hidden;m.needsUpdate=true;}m.depthWrite=!hidden;}
  for(const [key,o]of Object.entries(parts))if(key.startsWith('Scarf'))o.traverse(o=>{if(o.morphTargetInfluences){o.morphTargetInfluences.fill(0);const i=o.morphTargetDictionary['Over_'+body];if(i!==undefined)o.morphTargetInfluences[i]=1;}});
  mixer.stopAllAction();if(clip!=='Rest'){const c=clips.find(c=>c.name==='${title}_'+clip||c.name.endsWith('${title}_'+clip));if(!c)throw Error('Missing clip '+clip);mixer.clipAction(c).reset().setLoop(T.LoopOnce,1).play();mixer.setTime(time);}
- const a=(yaw+${family==='drop'?90:0})*Math.PI/180;cam.position.set(Math.sin(a)*5,.64,Math.cos(a)*5);cam.lookAt(0,.64,0);cam.updateProjectionMatrix();model.updateMatrixWorld(true);r.render(scene,cam);return r.domElement.toDataURL().split(',')[1];
+ const a=(yaw+${family==='drop'?90:0})*Math.PI/180;cam.position.set(Math.sin(a)*5,${detail?'.29':'.64'},Math.cos(a)*5);cam.lookAt(0,${detail?'.29':'.64'},0);cam.updateProjectionMatrix();model.updateMatrixWorld(true);r.render(scene,cam);return r.domElement.toDataURL().split(',')[1];
 };window.ready=true;
 </script>`;
 const server=http.createServer((q,s)=>{const url=new URL(q.url,'http://local').pathname;if(url==='/'){s.end(html);return;}
@@ -80,8 +81,8 @@ try{
     }sequences.push({clip,body,start,end:index-1});console.log(family,clip,'captured');
    }fs.writeFileSync(path.join(folder,'sequences.json'),JSON.stringify(sequences,null,2)+'\n');
   }else{
-   for(const body of (stress?['Jacket']:['none','Jacket','Coat','Overalls']))for(const [clip,time]of (stress?[['QA_ArmLift',1]]:quick?[['Rest',0],['QA_ArmLift',1],['Wave',1.6]]:[['Rest',0],['QA_ArmLift',1],['QA_Forward',1],['Walk',.35],['Wave',1.6],['Joy',.8],['Sad',1.8]]))for(const yaw of (quick||stress?[0,45]:[0,45,180])){
-    const options={clip,time,body,yaw};const file=version+'-'+body+'-'+clip+'-'+yaw+'.png';
+   for(const body of (stress?['Jacket']:['none','Jacket','Coat','Overalls']))for(const [clip,time]of (detail?[['QA_ArmLift',1],['QA_Forward',1],['Wave',1.6],['Walk',.35]]:stress?[['QA_ArmLift',1]]:quick?[['Rest',0],['QA_ArmLift',1],['Wave',1.6]]:[['Rest',0],['QA_ArmLift',1],['QA_Forward',1],['Walk',.35],['Wave',1.6],['Joy',.8],['Sad',1.8]]))for(const yaw of (detail?[30,90,180]:quick||stress?[0,45]:[0,45,180])){
+    const options={clip,time,body,yaw};const file=(detail?'detail-':'')+version+'-'+body+'-'+clip+'-'+yaw+'.png';
     fs.writeFileSync(path.join(out,file),Buffer.from(await page.evaluate(o=>window.frame(o),options),'base64'));captures.push({file,...options,version});if(captures.length%21===0)console.log('Captured',captures.length,'poses');
    }
    if(process.argv.includes('--outfits'))for(const [head,body]of [['EarmuffHair','Coat'],['XmasHat','Jacket']])for(const [clip,time]of [['QA_Forward',1],['Walk',.35]]){

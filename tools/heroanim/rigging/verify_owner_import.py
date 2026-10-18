@@ -49,17 +49,37 @@ scene=bpy.context.scene;scene.render.fps=30;scene.render.fps_base=1;scene.frame_
 mesh=bpy.data.meshes.new('OwnerMesh');mesh.from_pydata([(0,0,0),(.1,0,0),(0,.1,0)],[],[(0,1,2)])
 sentinel=bpy.data.objects.new('OwnerScene_DoNotModify',mesh);scene.collection.objects.link(sentinel);sentinel['owner_value']=42
 owner_image=bpy.data.images.new('OwnerTexture_DoNotPack',width=16,height=16);owner_image.use_fake_user=True
+owner_action=bpy.data.actions.new('TwigHeroV2Rig|Twig_Idle');owner_action.use_fake_user=True
+owner_action['owner_value']=42
+owner_curve=owner_action.fcurves.new('["owner_value"]')
+owner_curve.keyframe_points.insert(9,.25);owner_curve.keyframe_points.insert(39,.75)
+owner_action_keys=[tuple(point.co) for point in owner_curve.keyframe_points]
 original_owner_vertices=[tuple(v.co)for v in mesh.vertices]
+# A prior release must remain intact and must never satisfy the new import's reuse path.
+legacy_collection=bpy.data.collections.new('Bloomlings_RigFix_v1')
+scene.collection.children.link(legacy_collection)
+legacy_data=bpy.data.armatures.new('PreviousRelease_RigData')
+legacy_rig=bpy.data.objects.new('PreviousRelease_Twig',legacy_data)
+legacy_collection.objects.link(legacy_rig)
+legacy_rig['rig_fix_package']='Bloomlings_RigFix_v1';legacy_rig['rig_fix_family']='twig'
+legacy_rig['owner_note']='Keep the prior release for comparison'
 module=runpy.run_path(str(script))
 rigs=module['RIGS'];collections=module['COLLECTIONS']
+assert module['PACKAGE']=='Bloomlings_RigFix_v2'
 assert len(rigs)==4
-assert sum(1 for o in bpy.data.objects if o.type=='ARMATURE')==4
+assert sum(1 for o in bpy.data.objects if o.type=='ARMATURE')==5
+assert legacy_rig not in rigs.values() and legacy_rig.data==legacy_data
+assert tuple(legacy_rig.users_collection)==(legacy_collection,)
+assert legacy_rig['owner_note']=='Keep the prior release for comparison'
 assert sum(1 for o in bpy.data.objects if o.type=='MESH' and o!=sentinel)==66
 assert scene.render.fps==30 and scene.render.fps_base==1 and scene.frame_start==7 and scene.frame_end==133 and scene.frame_current==23
 assert bpy.data.objects.get(sentinel.name)==sentinel and sentinel['owner_value']==42
 assert [tuple(v.co)for v in sentinel.data.vertices]==original_owner_vertices
 assert owner_image.packed_file is None
-report={'complete':False,'blender':bpy.app.version_string,'rigs':4,'meshes':66,'importerSha256':SHA(script),'inventories':{},'styleChecks':0,'maxMotionError':0}
+assert bpy.data.actions.get('TwigHeroV2Rig|Twig_Idle')==owner_action and owner_action['owner_value']==42
+assert [tuple(point.co) for point in owner_curve.keyframe_points]==owner_action_keys
+report={'complete':False,'package':module['PACKAGE'],'previousReleasePreserved':True,
+        'blender':bpy.app.version_string,'rigs':4,'meshes':66,'importerSha256':SHA(script),'inventories':{},'styleChecks':0,'maxMotionError':0}
 
 
 def update(rig):
@@ -68,6 +88,7 @@ def update(rig):
 
 for family,rig in rigs.items():
     report['inventories'][family]=SHA(WORK/family/'handoff/inventory.json')
+    assert rig['rig_fix_inventory_sha256']==report['inventories'][family]
     scene.bloomlings_rig_family=family
     parts={o.get('part_key'):o for o in rig.children_recursive if o.type=='MESH'}
     for prop,items in [('head_style',module['HEADS'][family]),('body_style',module['BODIES']),('scarf_style',module['SCARVES'][family])]:
@@ -129,6 +150,25 @@ objects_before=set(bpy.data.objects);actions_before=set(bpy.data.actions);images
 runpy.run_path(str(script))
 assert set(bpy.data.objects)==objects_before and set(bpy.data.actions)==actions_before and set(bpy.data.images)==images_before,'second import duplicated data'
 assert bpy.data.objects.get(sentinel.name)==sentinel and owner_image.packed_file is None
+assert bpy.data.actions.get('TwigHeroV2Rig|Twig_Idle')==owner_action and owner_action['owner_value']==42
+assert [tuple(point.co) for point in owner_curve.keyframe_points]==owner_action_keys
+assert bpy.data.objects.get(legacy_rig.name)==legacy_rig and legacy_rig.data==legacy_data
+assert tuple(legacy_rig.users_collection)==(legacy_collection,)
+# An edited inventory must fail explicitly rather than silently reusing stale v2 objects.
+probe=folder/'twig/inventory.json';original_inventory=probe.read_bytes()
+try:
+    probe.write_bytes(original_inventory+b'\n')
+    try:
+        runpy.run_path(str(script))
+    except RuntimeError as error:
+        assert 'different rig revision' in str(error),str(error)
+    else:
+        raise AssertionError('Changed inventory silently reused an older rig')
+finally:
+    probe.write_bytes(original_inventory)
+assert set(bpy.data.objects)==objects_before and set(bpy.data.actions)==actions_before and set(bpy.data.images)==images_before
+report['staleRevisionRejected']=True
+report['ownerActionsPreserved']=True
 report['complete']=True
 (WORK/'owner-import-check.json').write_text(json.dumps(report,indent=2)+'\n')
 print('OWNER IMPORT OK',report['styleChecks'],'style states, existing scene preserved, max motion error',report['maxMotionError'],flush=True)

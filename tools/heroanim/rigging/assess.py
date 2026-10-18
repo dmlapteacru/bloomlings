@@ -10,6 +10,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from skinning import canonical
+from surface_integrity import verify as verify_surface, attribute
 
 FAMILY = sys.argv[sys.argv.index("--") + 1]
 ROOT = HERE.parents[2] / "content/work/rigging" / FAMILY
@@ -75,15 +76,19 @@ bpy.context.view_layer.update()
 rest = {key: coords(o) for key, o in parts.items()}
 source_rest = {key: (coords(o), np.array([v.uv[:] for v in o.data.uv_layers.active.data])) for key, o in original.items()}
 edges, lengths, core, head, sole = {}, {}, {}, {}, {}
+cuff = {}
+from cuff_ownership import profile as cuff_profile
 report = {"family": FAMILY, "restMaxError": 0, "uvMaxError": 0, "parts": {}, "measurements": {}, "summary": {}}
+rig_report=json.loads((ROOT/'rig-report.json').read_text())
+contracts={p['key']:p.get('contactRepair') for p in rig_report['parts']}
+report['assessmentScriptSha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+report['surfaceIntegritySha256']=hashlib.sha256((HERE/'surface_integrity.py').read_bytes()).hexdigest()
 report['rigReportSha256']=hashlib.sha256((ROOT/'rig-report.json').read_bytes()).hexdigest()
 for key, obj in parts.items():
     a = rest[key]
-    error = float(np.max(np.abs(a - source_rest[key][0])))
-    uv_error = float(np.max(np.abs(np.array([v.uv[:] for v in obj.data.uv_layers.active.data]) - source_rest[key][1])))
+    error, uv_error, contact_check = verify_surface(obj, original[key], a, source_rest[key][0], contracts[key], FAMILY)
     report["restMaxError"] = max(report["restMaxError"], error)
     report["uvMaxError"] = max(report["uvMaxError"], uv_error)
-    assert error < 2e-6 and uv_error < 1e-7, (FAMILY, key, "rest geometry / UV changed")
     names, w = fixed[key]
     assert np.isfinite(w).all() and (w >= 0).all()
     assert np.max(np.abs(w.sum(axis=1) - 1)) < 1e-5
@@ -98,20 +103,48 @@ for key, obj in parts.items():
     core[key] = (np.abs(u) <= width) & (z > .14) & (z < .40) if key in ("Jacket", "Coat", "Overalls") else np.zeros(len(a), bool)
     head[key] = np.array([names.index("Head") in np.flatnonzero(row > .99999) if "Head" in names else False for row in w])
     sole[key] = (z < .025) & (key == "base" or key.startswith("Base_Leg_"))
+    cuff[key] = np.zeros(len(a), bool)
+    authored = cuff_profile(original[key], FAMILY, key)
+    if key in ('Jacket', 'Coat', 'Overalls'):
+        source_names, source_weights = weights_of(original[key])
+        fore = sum((source_weights[:, i] for i, n in enumerate(source_names) if n.startswith(('Forearm.', 'Hand.'))), np.zeros(len(source_weights)))
+        source_indices = np.flatnonzero(fore > .98)
+        used = np.zeros(len(a), bool)
+        used[np.unique(np.concatenate([np.array(p.vertices[:]) for p in obj.data.polygons]))] = True
+        cuff[key][source_indices] = True
+        if authored is not None:
+            assert contracts[key]['authoredCuffOwnership'] == authored
+            authored_ids = authored['vertexIds']
+            source_arm = sum((source_weights[:, i] for i, n in enumerate(source_names)
+                              if n.startswith(('UpperArm.', 'Forearm.', 'Hand.'))), np.zeros(len(source_weights)))
+            assert int((source_arm[authored_ids] < 1e-6).sum()) == authored['originalZeroArmVertices']
+            assert np.all(used[authored_ids]), 'An authored cuff vertex was removed'
+            cuff[key][authored_ids] = True
+        cuff[key] &= used
+    torso_columns = [i for i, n in enumerate(names) if n in ('Hips','Spine','Chest')]
+    cuff_torso = float(w[cuff[key]][:, torso_columns].sum(1).max(initial=0))
+    assert cuff_torso < 1e-5, (FAMILY, key, 'source cuff pinned to torso', cuff_torso)
+    hand_columns = [i for i, n in enumerate(names) if n.startswith('Hand.')]
+    assert float(w[cuff[key]][:, hand_columns].sum(1).max(initial=0)) < 1e-5
     report["parts"][key] = {"vertices": len(a), "restMaxError": error, "uvMaxError": uv_error,
-                            "coreVertices": int(core[key].sum()), "rigidHeadVertices": int(head[key].sum())}
+                            "coreVertices": int(core[key].sum()), "rigidHeadVertices": int(head[key].sum()), "contactRepair": contact_check, "sourceCuffVertices": int(cuff[key].sum()), "cuffMaxTorsoWeight": cuff_torso,
+                            "authoredCuffVertices": len(authored['vertexIds']) if authored else 0,
+                            "authoredCuffOriginallyZeroArmVertices": authored['originalZeroArmVertices'] if authored else 0}
 
 for version, objects in [("before", original), ("after", parts)]:
     active_rest = {key: coords(o) for key, o in objects.items()}
-    active_edges, active_lengths, active_core, active_sole = {}, {}, {}, {}
+    active_edges, active_lengths, active_core, active_sole, active_cuff_edges = {}, {}, {}, {}, {}
     for key, obj in objects.items():
         a = active_rest[key]
         e = np.array([e.vertices[:] for e in obj.data.edges])
         length = np.linalg.norm(a[e[:, 0]] - a[e[:, 1]], axis=1)
         valid = length > .0001
         active_edges[key], active_lengths[key] = e[valid], length[valid]
+        active_cuff_edges[key] = np.all(cuff[key][:len(a)][e[valid]], axis=1)
         u, d, z = canonical(a, FAMILY).T
         active_core[key] = (np.abs(u) <= (.11 if FAMILY == "drop" else .15)) & (z > .14) & (z < .40) if key in ("Jacket", "Coat", "Overalls") else np.zeros(len(a), bool)
+        if version == 'after' and 'rig_arm_ownership' in obj.data.attributes:
+            active_core[key] &= attribute(obj.data, 'rig_arm_ownership') < .001
         active_sole[key] = (z < .025) & (key == "base" or key.startswith("Base_Leg_"))
     arm.data.pose_position = "POSE"
     measurements = []
@@ -131,6 +164,8 @@ for version, objects in [("before", original), ("after", parts)]:
                 p = {"p01": float(np.quantile(ratio, .01)), "p99": float(np.quantile(ratio, .99)),
                      "max": float(ratio.max()), "min": float(ratio.min()),
                      "maxEdgeLengthChange": float(np.max(np.abs(length - active_lengths[key])))}
+                if active_cuff_edges[key].any():
+                    p['cuffMaxEdgeLengthChange'] = float(np.max(np.abs(length-active_lengths[key])[active_cuff_edges[key]]))
                 if "QA_ArmLift" in action.name or "QA_Forward" in action.name:
                     mask = active_core[key]
                     p["torsoPanelDrift"] = float(np.linalg.norm(a[mask] - active_rest[key][mask], axis=1).max()) if mask.any() else 0.0

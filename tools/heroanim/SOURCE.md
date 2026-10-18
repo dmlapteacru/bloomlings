@@ -29,10 +29,14 @@ UVs and aligned model coordinates are verified by the preparation reports.
 ## Runtime sprite derivation
 
 The [shared rig repair](rigging/README.md) derives a separate, checked authoring handoff
-from these same deliveries. It preserves all hero and garment rest geometry, topology,
-UVs, albedo textures and accessories. Normalized linear skinning,
+from these same deliveries. It retains accepted proportions, main albedo textures and
+accessories. Local fused arm / torso contacts in bodies and garments are separated with recorded source
+surface and UV correspondence; unchanged parts retain their topology. Sprig's Jacket
+and Bloom's Coat have a separately recorded cleanup of baked occlusion on their inner
+contact seams; original atlases remain available, and unchanged pixels are independently
+verified against the source. Normalized linear skinning,
 half-angle support bones, outfit occlusion materials and six authored body actions are
-validated before publishing [four family archives](products/rig-fix-v1/README.md).
+validated before publishing [four family archives](products/rig-fix-v2/README.md).
 Their manifest pins raw input hashes and a real FBX export / import check, including the
 owner importer. This package is the next rig authoring baseline; existing runtime bakes
 remain pinned to their original static deliveries until the separate animation feature.

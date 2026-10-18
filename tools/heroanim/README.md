@@ -56,4 +56,4 @@ lab has been removed. See [source and rights](SOURCE.md).
 The [shared rig repair and six baseline actions](rigging/README.md) provide a checked
 FBX handoff for all four accepted heroes and their equipment. This authoring package
 imports into the owner's existing Blender master; it does not alter the pinned mobile
-sprite library. [Download / reassemble the package](products/rig-fix-v1/README.md).
+sprite library. [Download / reassemble the package](products/rig-fix-v2/README.md).

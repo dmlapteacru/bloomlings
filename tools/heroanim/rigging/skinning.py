@@ -147,3 +147,37 @@ def fields(points, family, part, original=None, helpers=False):
         return normalized(joint_blends(rows) if helpers else rows)
 
     raise ValueError("Body and garment repair requires the supplied anatomical weights")
+
+
+def owned_fields(points, family, part, original, ownership, helpers=True):
+    """Skin a verified sleeve/body ownership without a position gate across its cuff."""
+    x, depth, z = canonical(points, family).T
+    amount = np.asarray(ownership, dtype=float)
+    count = len(amount)
+    clothes = part in ('Jacket', 'Coat', 'Overalls')
+    arms = {}
+    for suffix, mask in [('L', x >= 0), ('R', x < 0)]:
+        hand = np.zeros(count)
+        if not clothes:
+            previous = sum((original.get(n+suffix, np.zeros(count)) for n in ('UpperArm.', 'Forearm.', 'Hand.')), np.zeros(count))
+            hand = np.divide(original.get('Hand.'+suffix, np.zeros(count)), previous, out=np.zeros(count), where=previous > 1e-8)
+        rows = anatomical_arm(points, family, {'UpperArm.'+suffix: amount*mask*(1-hand), 'Hand.'+suffix: amount*mask*hand}, suffix)
+        if clothes:
+            rows['Forearm.'+suffix] += rows['Hand.'+suffix]
+            rows['Hand.'+suffix] *= 0
+        arms.update(rows)
+    if clothes:
+        legs = {n: w.copy() for n, w in original.items() if part == 'Overalls' and n.startswith(('Thigh.', 'Shin.', 'Foot.'))}
+        leg_total = sum(legs.values(), np.zeros(count))
+        scale = np.minimum(1, np.divide(1-amount, leg_total, out=np.ones(count), where=leg_total > 1e-8))
+        legs = {n: w*scale for n, w in legs.items()}
+        rows = {n: w*np.maximum(0, 1-amount-leg_total*scale) for n, w in torso(z, family).items()}
+        rows.update(legs)
+    else:
+        others = {n: w for n, w in original.items() if not n.startswith(('UpperArm.', 'Forearm.', 'Hand.'))}
+        total = sum(others.values(), np.zeros(count))
+        rows = {n: np.divide(w, total, out=np.zeros(count), where=total > 1e-8)*(1-amount) for n, w in others.items()}
+        for n, w in torso(z, family).items():
+            rows[n] = rows.get(n, np.zeros(count)) + np.where(total < 1e-8, (1-amount)*w, 0)
+    rows.update(arms)
+    return normalized(joint_blends(rows) if helpers else rows)

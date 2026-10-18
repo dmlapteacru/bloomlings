@@ -1,4 +1,4 @@
-"""Postprocess a completed rig with modular clothing skin masks, without changing geometry."""
+"""Postprocess a completed rig with modular clothing skin masks, after contact repair, with overlap inside clothing hems."""
 import bpy
 import hashlib
 import json
@@ -34,16 +34,19 @@ for obj in list(bpy.context.scene.objects):
             counts[existing.name.split('_RigMask_')[1].split('_')[0]]+=1
             continue
         ids=list(polygon.vertices)
-        if hand_weight[ids].mean()>.60 or points[ids,2].max()>.40:
+        # Open armholes expose the flank. Keep an overlapping skin surface there.
+        if torso_weight[ids].mean()>.55 and np.abs(points[ids,0]).min() > (.09 if FAMILY=='drop' else .12) and points[ids,2].max()>.19 and points[ids,2].min()<.38:
             continue
-        if torso_weight[ids].mean()>.55 and points[ids,2].mean()>.105 and points[ids,2].max()<.375:
+        if hand_weight[ids].mean()>.25 or points[ids,2].max()>.40:
+            continue
+        if torso_weight[ids].mean()>.55 and points[ids,2].min()>.175 and points[ids,2].max()<.375:
             region='torso'
         else:
-            at=float(t[ids].mean())
+            at=float(t[ids].max())
             # Keep skin beyond the short / long cuff and every hand.
-            if arm_weight[ids].mean()<.30 or at>.78:
+            if arm_weight[ids].mean()<.30 or at>.25:
                 continue
-            region='upper' if at<.38 else 'forearm'
+            region='upper' if at<.15 else 'forearm'
         original=polygon.material_index
         key=(original,region)
         if key not in materials:
@@ -60,7 +63,7 @@ for obj in list(bpy.context.scene.objects):
             d.expression='0 if style == 1 or style == 2 else 1' if region=='forearm' else '1 if style == 0 else 0'
             obj.data.materials.append(mat);materials[key]=len(obj.data.materials)-1
         polygon.material_index=materials[key];counts[region]+=1
-assert counts['upper']>0 and counts['forearm']>0,(FAMILY,'missing body masks',counts)
+assert counts['torso']>0,(FAMILY,'missing body masks',counts)
 arm.data.pose_position='POSE'
 for p in arm.pose.bones:
     p.location=(0,0,0);p.rotation_quaternion=(1,0,0,0);p.scale=(1,1,1)

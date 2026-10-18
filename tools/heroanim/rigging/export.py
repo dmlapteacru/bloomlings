@@ -16,6 +16,12 @@ TITLE = FAMILY.title() + 'HeroV2'
 bpy.ops.wm.open_mainfile(filepath=str(ROOT / 'rig-cache.blend'))
 arm = next(o for o in bpy.context.scene.objects if o.type == 'ARMATURE')
 parts = {o['part_key']: o for o in bpy.context.scene.objects if o.type == 'MESH'}
+# Generated contact atlases are packed. Give them distinct portable filenames:
+# the native exporter deduplicates embedded media by the resolved filepath.
+for image in bpy.data.images:
+    if image.packed_file and not image.filepath:
+        image.filepath_raw = '//' + image.name
+
 for action in list(bpy.data.actions):
     if '_QA_' in action.name:
         bpy.data.actions.remove(action)
