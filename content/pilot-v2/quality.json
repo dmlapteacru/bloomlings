@@ -1,0 +1,1362 @@
+{
+  "version": "pilot-30-v2",
+  "catalogHash": "880916b84588564db8f57d55ca712d3e5ebc8a1f2532c76192ba6e7513ffa9a1",
+  "complete": true,
+  "limits": [
+    "Policy samples are not human win probabilities.",
+    "Held-slot lower bounds and decision losses are exact only when the bounded search completes.",
+    "Mystery fairness covers every assignment consistent with the two equal-count hidden capsules and public exact work totals."
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "attempt": 0,
+      "pods": 9,
+      "units": 9,
+      "groups": 0,
+      "mystery": 0,
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 2,
+      "attempt": 0,
+      "pods": 9,
+      "units": 9,
+      "groups": 0,
+      "mystery": 0,
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 3,
+      "attempt": 0,
+      "pods": 10,
+      "units": 10,
+      "groups": 0,
+      "mystery": 0,
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 4,
+      "attempt": 0,
+      "pods": 10,
+      "units": 10,
+      "groups": 0,
+      "mystery": 0,
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 5,
+      "attempt": 0,
+      "pods": 12,
+      "units": 12,
+      "groups": 0,
+      "mystery": 0,
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 6,
+      "attempt": 0,
+      "pods": 14,
+      "units": 14,
+      "groups": 0,
+      "mystery": 2,
+      "referencePeak": 1,
+      "referenceWaitingTurns": 4,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 55,
+          "trials": 64,
+          "rate": 0.859375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 57,
+          "trials": 64,
+          "rate": 0.890625
+        }
+      }
+    },
+    {
+      "id": 7,
+      "attempt": 3,
+      "pods": 14,
+      "units": 14,
+      "groups": 0,
+      "mystery": 2,
+      "referencePeak": 1,
+      "referenceWaitingTurns": 5,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 28,
+          "trials": 64,
+          "rate": 0.4375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 23,
+          "trials": 64,
+          "rate": 0.359375
+        }
+      }
+    },
+    {
+      "id": 8,
+      "attempt": 0,
+      "pods": 14,
+      "units": 14,
+      "groups": 0,
+      "mystery": 0,
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 63,
+          "trials": 64,
+          "rate": 0.984375
+        }
+      }
+    },
+    {
+      "id": 9,
+      "attempt": 9,
+      "pods": 14,
+      "units": 14,
+      "groups": 0,
+      "mystery": 2,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 10,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 54,
+          "trials": 64,
+          "rate": 0.84375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 10,
+      "attempt": 4,
+      "pods": 18,
+      "units": 17,
+      "groups": 1,
+      "mystery": 0,
+      "referencePeak": 3,
+      "referenceWaitingTurns": 8,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 11,
+      "attempt": 19,
+      "pods": 18,
+      "units": 16,
+      "groups": 2,
+      "mystery": 2,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 8,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 15,
+          "trials": 64,
+          "rate": 0.234375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 13,
+          "trials": 64,
+          "rate": 0.203125
+        }
+      }
+    },
+    {
+      "id": 12,
+      "attempt": 56,
+      "pods": 18,
+      "units": 16,
+      "groups": 2,
+      "mystery": 0,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 3,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 27,
+          "trials": 64,
+          "rate": 0.421875
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 44,
+          "trials": 64,
+          "rate": 0.6875
+        },
+        "two-then-random": {
+          "wins": 37,
+          "trials": 64,
+          "rate": 0.578125
+        }
+      }
+    },
+    {
+      "id": 13,
+      "attempt": 183,
+      "pods": 18,
+      "units": 16,
+      "groups": 2,
+      "mystery": 2,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 4,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 20,
+          "trials": 64,
+          "rate": 0.3125
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 42,
+          "trials": 64,
+          "rate": 0.65625
+        },
+        "two-then-random": {
+          "wins": 17,
+          "trials": 64,
+          "rate": 0.265625
+        }
+      }
+    },
+    {
+      "id": 14,
+      "attempt": 127,
+      "pods": 18,
+      "units": 16,
+      "groups": 2,
+      "mystery": 2,
+      "referencePeak": 3,
+      "referenceWaitingTurns": 6,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 16,
+          "trials": 64,
+          "rate": 0.25
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 14,
+          "trials": 64,
+          "rate": 0.21875
+        }
+      }
+    },
+    {
+      "id": 15,
+      "attempt": 2601,
+      "pods": 20,
+      "units": 17,
+      "groups": 3,
+      "mystery": 0,
+      "referencePeak": 3,
+      "referenceWaitingTurns": 14,
+      "minimumPeakAtLeast": 3,
+      "decisionEpisodes": 2,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 1,
+          "trials": 64,
+          "rate": 0.015625
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "two-then-random": {
+          "wins": 1,
+          "trials": 64,
+          "rate": 0.015625
+        }
+      }
+    },
+    {
+      "id": 16,
+      "attempt": 0,
+      "pods": 18,
+      "units": 17,
+      "groups": 1,
+      "mystery": 0,
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 60,
+          "trials": 64,
+          "rate": 0.9375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 17,
+      "attempt": 114,
+      "pods": 20,
+      "units": 18,
+      "groups": 2,
+      "mystery": 2,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 14,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 26,
+          "trials": 64,
+          "rate": 0.40625
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "two-then-random": {
+          "wins": 19,
+          "trials": 64,
+          "rate": 0.296875
+        }
+      }
+    },
+    {
+      "id": 18,
+      "attempt": 0,
+      "pods": 20,
+      "units": 19,
+      "groups": 1,
+      "mystery": 0,
+      "referencePeak": 3,
+      "referenceWaitingTurns": 5,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 26,
+          "trials": 64,
+          "rate": 0.40625
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 28,
+          "trials": 64,
+          "rate": 0.4375
+        }
+      }
+    },
+    {
+      "id": 19,
+      "attempt": 6,
+      "pods": 20,
+      "units": 18,
+      "groups": 2,
+      "mystery": 0,
+      "referencePeak": 5,
+      "referenceWaitingTurns": 11,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": true,
+      "policies": {
+        "random": {
+          "wins": 3,
+          "trials": 64,
+          "rate": 0.046875
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 24,
+          "trials": 64,
+          "rate": 0.375
+        },
+        "two-then-random": {
+          "wins": 5,
+          "trials": 64,
+          "rate": 0.078125
+        }
+      }
+    },
+    {
+      "id": 20,
+      "attempt": 0,
+      "pods": 18,
+      "units": 17,
+      "groups": 1,
+      "mystery": 0,
+      "referencePeak": 1,
+      "referenceWaitingTurns": 2,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 60,
+          "trials": 64,
+          "rate": 0.9375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 62,
+          "trials": 64,
+          "rate": 0.96875
+        }
+      }
+    },
+    {
+      "id": 21,
+      "attempt": 197,
+      "pods": 20,
+      "units": 18,
+      "groups": 2,
+      "mystery": 2,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 4,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 13,
+          "trials": 64,
+          "rate": 0.203125
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 49,
+          "trials": 64,
+          "rate": 0.765625
+        },
+        "two-then-random": {
+          "wins": 5,
+          "trials": 64,
+          "rate": 0.078125
+        }
+      }
+    },
+    {
+      "id": 22,
+      "attempt": 37,
+      "pods": 22,
+      "units": 19,
+      "groups": 3,
+      "mystery": 0,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 7,
+      "minimumPeakAtLeast": 3,
+      "decisionEpisodes": 2,
+      "bridgeChoiceChangesContinuation": true,
+      "policies": {
+        "random": {
+          "wins": 1,
+          "trials": 64,
+          "rate": 0.015625
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "two-then-random": {
+          "wins": 1,
+          "trials": 64,
+          "rate": 0.015625
+        }
+      }
+    },
+    {
+      "id": 23,
+      "attempt": 23,
+      "pods": 22,
+      "units": 20,
+      "groups": 2,
+      "mystery": 2,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 6,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 14,
+          "trials": 64,
+          "rate": 0.21875
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 31,
+          "trials": 64,
+          "rate": 0.484375
+        },
+        "two-then-random": {
+          "wins": 30,
+          "trials": 64,
+          "rate": 0.46875
+        }
+      }
+    },
+    {
+      "id": 24,
+      "attempt": 3,
+      "pods": 22,
+      "units": 20,
+      "groups": 2,
+      "mystery": 0,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 7,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": true,
+      "policies": {
+        "random": {
+          "wins": 3,
+          "trials": 64,
+          "rate": 0.046875
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        }
+      }
+    },
+    {
+      "id": 25,
+      "attempt": 854,
+      "pods": 22,
+      "units": 19,
+      "groups": 3,
+      "mystery": 0,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 9,
+      "minimumPeakAtLeast": 3,
+      "decisionEpisodes": 2,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 5,
+          "trials": 64,
+          "rate": 0.078125
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "two-then-random": {
+          "wins": 5,
+          "trials": 64,
+          "rate": 0.078125
+        }
+      }
+    },
+    {
+      "id": 26,
+      "attempt": 65,
+      "pods": 22,
+      "units": 20,
+      "groups": 2,
+      "mystery": 2,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 5,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 7,
+          "trials": 64,
+          "rate": 0.109375
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 36,
+          "trials": 64,
+          "rate": 0.5625
+        },
+        "two-then-random": {
+          "wins": 4,
+          "trials": 64,
+          "rate": 0.0625
+        }
+      }
+    },
+    {
+      "id": 27,
+      "attempt": 43,
+      "pods": 22,
+      "units": 20,
+      "groups": 2,
+      "mystery": 0,
+      "referencePeak": 4,
+      "referenceWaitingTurns": 7,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": true,
+      "policies": {
+        "random": {
+          "wins": 1,
+          "trials": 64,
+          "rate": 0.015625
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "two-then-random": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        }
+      }
+    },
+    {
+      "id": 28,
+      "attempt": 0,
+      "pods": 18,
+      "units": 17,
+      "groups": 1,
+      "mystery": 0,
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 29,
+      "attempt": 39,
+      "pods": 22,
+      "units": 19,
+      "groups": 3,
+      "mystery": 0,
+      "referencePeak": 5,
+      "referenceWaitingTurns": 7,
+      "minimumPeakAtLeast": 3,
+      "decisionEpisodes": 2,
+      "bridgeChoiceChangesContinuation": true,
+      "policies": {
+        "random": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "two-then-random": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        }
+      }
+    },
+    {
+      "id": 30,
+      "attempt": 0,
+      "pods": 18,
+      "units": 17,
+      "groups": 1,
+      "mystery": 2,
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "minimumPeakAtLeast": null,
+      "decisionEpisodes": 0,
+      "bridgeChoiceChangesContinuation": null,
+      "policies": {
+        "random": {
+          "wins": 54,
+          "trials": 64,
+          "rate": 0.84375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    }
+  ]
+}

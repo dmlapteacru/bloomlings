@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-19",
+  "javascript": {
+    "version": "pilot-30-v2",
+    "catalogHash": "880916b84588564db8f57d55ca712d3e5ebc8a1f2532c76192ba6e7513ffa9a1",
+    "rulesHash": "cc555d982347002a5bf3bbbc24191a0e275921cda3845e1f0af105a77228d08a",
+    "levels": 30,
+    "winningCertificates": 30,
+    "minimumCapsules": 9,
+    "minimumSelectableUnits": 8,
+    "firstFiveChoicesCannotEmptyQueue": true,
+    "hardLevels": [
+      15,
+      22,
+      25,
+      29
+    ],
+    "hardMinimumOccupiedSlotsAtLeast": 3,
+    "provenLosingBranches": 8,
+    "mysteryInformationPolicies": 11,
+    "nonCosmeticBridgeChoices": 5,
+    "zeroWorkReservationStates": 742,
+    "transcriptCases": 460,
+    "acceptedActions": 4806,
+    "jsAccounting": true,
+    "inputImmutability": true,
+    "atomicPairAdmission": true,
+    "coReservation": true,
+    "exactMaterial": true,
+    "bridgeRescuesFullSlots": true,
+    "limits": [
+      "Policy samples do not measure human difficulty.",
+      "Co-reservation and bridge are explicit experimental adapters; production Core and catalog are unchanged.",
+      "No real phone or APK performance test."
+    ]
+  },
+  "native": {
+    "passed": true,
+    "transcriptCases": 460,
+    "acceptedActions": 4806,
+    "bridgeActions": 69,
+    "transcriptsSha256": "2966619fd348b7a7ba3d3ac3091c1501ea8b9d3668da4f6d60fda773d814bea7",
+    "actualCore": [
+      "exact material work",
+      "age-ordered allocation",
+      "atomic group admission",
+      "mystery reveal",
+      "source tray"
+    ],
+    "explicitAdapters": [
+      "co-reserved pair slots until both complete",
+      "one-use bridge",
+      "pilot status"
+    ],
+    "shippingCoreChanged": false,
+    "buildWarnings": 0,
+    "buildErrors": 0
+  },
+  "browser": {
+    "passed": true,
+    "htmlSha256": "5bf74a5a5a98ef772b37f0de5e4c9e7d6629bd63a5dd6b0edb49934e6484bb32",
+    "playthroughs": 30,
+    "layoutChecks": 61,
+    "saveRestore": true,
+    "levelSwitch": true,
+    "freeRetry": true,
+    "realResultsDownload": true,
+    "animationInputGuard": true,
+    "saveBeforeAnimation": true,
+    "mysteryDomNeutral": true,
+    "autoFastAfterQueueOnly": true,
+    "pairReservationVisible": true,
+    "noExternalRequests": true,
+    "noBrowserErrors": true,
+    "screenshots": 7
+  },
+  "viewports": [
+    [
+      320,
+      640
+    ],
+    [
+      360,
+      640
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      1280,
+      900
+    ]
+  ]
+}
