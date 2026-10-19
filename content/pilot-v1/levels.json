@@ -1,0 +1,3575 @@
+{
+  "version": "pilot-30-v1",
+  "hash": "2cb0f212e5fa1096635ee4f478dabd6ae15de37fea76020cbacc31f6a4e59255",
+  "levels": [
+    {
+      "id": 1,
+      "w": 11,
+      "h": 12,
+      "title": "Листочек и капля",
+      "subject": "sprout",
+      "lesson": "Sprig и Drop собирают каждый свой материал.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBB",
+        "BBBBBBBBBBB",
+        "BBBBBGBBBBB",
+        "BBBBBGBBBBB",
+        "BBBBBGBBBBB",
+        "BBBGBGBBBBB",
+        "BBGGGGBGBBB",
+        "BGGGGBGGGBB",
+        "BBGGGGGGGBB",
+        "BBBBGBGGGBB",
+        "BBBBBBBBGBB",
+        "BBBBBBBBBBB"
+      ],
+      "entries": [
+        5
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 102
+        },
+        {
+          "color": "G",
+          "count": 29
+        },
+        {
+          "color": "B",
+          "count": 1
+        }
+      ],
+      "tray": [
+        [
+          0,
+          2
+        ],
+        [
+          1
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 2,
+      "w": 11,
+      "h": 13,
+      "title": "Лист на воде",
+      "subject": "leaf",
+      "lesson": "Крупная капсула может освободить путь следующему цвету.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBB",
+        "BBBBBBBBBBB",
+        "BBBBBGBBBBB",
+        "BBBBGGGBBBB",
+        "BBBGGBGGBBB",
+        "BBGGGBGGBBB",
+        "BBGGGBGGGBB",
+        "BBGGGBGGGBB",
+        "BBGGGBGGGBB",
+        "BBGGGGGGBBB",
+        "BBBGGGGGBBB",
+        "BBBBGBBBBBB",
+        "BBBBBBBBBBB"
+      ],
+      "entries": [
+        5
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 61
+        },
+        {
+          "color": "B",
+          "count": 34
+        },
+        {
+          "color": "G",
+          "count": 43
+        },
+        {
+          "color": "B",
+          "count": 5
+        }
+      ],
+      "tray": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 3,
+      "w": 12,
+      "h": 13,
+      "title": "Кувшинка",
+      "subject": "lily",
+      "lesson": "Остаток капсулы ждёт, пока появится доступ к её клеткам.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBB",
+        "BBBBBBBBBBBB",
+        "BBBBGGGBBBBB",
+        "BBGGGGGBBBBB",
+        "BGGGGGBBGGBB",
+        "BGGGGBBGGGBB",
+        "BGGBBBBGGGBB",
+        "BGGGBBGGGGBB",
+        "BBGGGGGGGBBB",
+        "BBBGGGGGBBBB",
+        "BBBBBBBBBBBB",
+        "BBBBBBBBBBBB",
+        "BBBBBBBBBBBB"
+      ],
+      "entries": [
+        6
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 43
+        },
+        {
+          "color": "B",
+          "count": 31
+        },
+        {
+          "color": "B",
+          "count": 36
+        },
+        {
+          "color": "G",
+          "count": 23
+        },
+        {
+          "color": "G",
+          "count": 23
+        }
+      ],
+      "tray": [
+        [
+          0
+        ],
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 4,
+      "w": 12,
+      "h": 14,
+      "title": "Первый цветок Bloom",
+      "subject": "flower",
+      "lesson": "Новая команда и розовый материал.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBB",
+        "BBBBBBBBBBBB",
+        "BBBBBBBGGBBB",
+        "BBBGGBGGGGBB",
+        "BBGGGGBGGGBB",
+        "BBGGGBBBBBBB",
+        "BBBBPPPPBBBB",
+        "BBBPPPPPPBBB",
+        "BBBPPPPPPBBB",
+        "BBBPPBBPPBBB",
+        "BBPPPBBPPPBB",
+        "BBBPPPPPPBBB",
+        "BBBPPPPPPBBB",
+        "BBBBBPPBBBBB"
+      ],
+      "entries": [
+        6
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 37
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 8
+        },
+        {
+          "color": "B",
+          "count": 41
+        },
+        {
+          "color": "P",
+          "count": 40
+        },
+        {
+          "color": "G",
+          "count": 18
+        },
+        {
+          "color": "B",
+          "count": 2
+        }
+      ],
+      "tray": [
+        [
+          0,
+          2,
+          3,
+          5
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          4
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 5,
+      "w": 13,
+      "h": 14,
+      "title": "Тюльпан после дождя",
+      "subject": "tulip",
+      "lesson": "Очередь видна заранее: подумай, что откроется следующим.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBB",
+        "BBBBBBBBBBBBB",
+        "BBBBBBGBBBBBB",
+        "BBBBBBGGBBBBB",
+        "BBBBBGGGGGBBB",
+        "BBBBGGGBGGBBB",
+        "BBBGGBGBBGBBB",
+        "BBBGBPPPPBGBB",
+        "BBBBPPPPPPBBB",
+        "BBBBPPPPPPBBB",
+        "BBBBPPPPBPBBB",
+        "BBBPBBPBBPBBB",
+        "BBBBBBPBBBBBB",
+        "BBBBBBBBBBBBB"
+      ],
+      "entries": [
+        6
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 50
+        },
+        {
+          "color": "B",
+          "count": 43
+        },
+        {
+          "color": "B",
+          "count": 35
+        },
+        {
+          "color": "B",
+          "count": 8
+        },
+        {
+          "color": "P",
+          "count": 25
+        },
+        {
+          "color": "B",
+          "count": 2
+        },
+        {
+          "color": "G",
+          "count": 19
+        }
+      ],
+      "tray": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          4,
+          5,
+          6
+        ],
+        [
+          3
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 6,
+      "w": 13,
+      "h": 15,
+      "title": "Бабочка над садом",
+      "subject": "butterfly",
+      "lesson": "Пять мест общие для всех команд.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBB",
+        "BBBBBBBBBBBBB",
+        "BBGGGGGGGGGBB",
+        "BBGGGGGGGGGBB",
+        "BBGGGGGGGGGBB",
+        "BBGGGGGGGGGBB",
+        "BBGGGGGGGGGBB",
+        "BBPPPPGPPPPBB",
+        "BPPPPPGPPPPPB",
+        "BPPGGPGPGGPPB",
+        "BPPGGPGPGGGPB",
+        "BPPGGGGPPGPPB",
+        "BBPPPGBPPPPBB",
+        "BBBBBGBBBBBBB",
+        "BBBBBBBBBBBBB"
+      ],
+      "entries": [
+        6
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 56
+        },
+        {
+          "color": "B",
+          "count": 17
+        },
+        {
+          "color": "B",
+          "count": 15
+        },
+        {
+          "color": "G",
+          "count": 35
+        },
+        {
+          "color": "G",
+          "count": 27
+        },
+        {
+          "color": "P",
+          "count": 42
+        },
+        {
+          "color": "G",
+          "count": 3
+        }
+      ],
+      "tray": [
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          3,
+          6
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 7,
+      "w": 14,
+      "h": 15,
+      "title": "Глиняный сад Twig",
+      "subject": "pot",
+      "lesson": "Четвёртый герой приносит янтарный материал.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBB",
+        "BBBBAAAAAABBBB",
+        "BBBBAAAAAABBBB",
+        "BBBBAAAAAAABBB",
+        "BBBAAAAAAAABBB",
+        "BBBAAAAAAAABBB",
+        "BBBBGBGGBGGGBB",
+        "BBBBGGGGGGGGBB",
+        "BBBBGGGGBGBGBB",
+        "BBPPPPPBBBBBBB",
+        "BBPPPPPBBPBBBB",
+        "BBPPBPBBBPBBBB",
+        "BBPPBPPBBBBBBB",
+        "BBPPPPPBBBBBBB",
+        "BBBBPPBBBBBBBB"
+      ],
+      "entries": [
+        7
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 41
+        },
+        {
+          "color": "B",
+          "count": 28
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 28
+        },
+        {
+          "color": "B",
+          "count": 7
+        },
+        {
+          "color": "B",
+          "count": 6
+        },
+        {
+          "color": "P",
+          "count": 26
+        },
+        {
+          "color": "A",
+          "count": 35
+        },
+        {
+          "color": "G",
+          "count": 20
+        },
+        {
+          "color": "B",
+          "count": 3
+        }
+      ],
+      "tray": [
+        [
+          1,
+          3,
+          7
+        ],
+        [
+          0,
+          5,
+          9
+        ],
+        [
+          2,
+          6,
+          8
+        ],
+        [
+          4
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 8,
+      "w": 14,
+      "h": 16,
+      "title": "Жёлудь с листиком",
+      "subject": "acorn",
+      "lesson": "Одинаковый цвет встречается в разных частях рисунка.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBB",
+        "BBBBBAAAABBBBB",
+        "BBBBAAAAAABBBB",
+        "BBBAAAAAAAABBB",
+        "BBBAAAAAAAABBB",
+        "BBBAAAAAAAABBB",
+        "BBBAABAAAAABBB",
+        "BBBAAAAAAAABBB",
+        "BBBAGGGGGGABBB",
+        "BBGGGGGGGGGGBB",
+        "BBGGGGGGGGGGBB",
+        "BBBGGGGAGGGBBB",
+        "BBBBBBGGGGGGBB",
+        "BBBBBBBGGGGGBB",
+        "BBBBBBBBGGGGBB"
+      ],
+      "entries": [
+        7
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 33
+        },
+        {
+          "color": "B",
+          "count": 20
+        },
+        {
+          "color": "B",
+          "count": 35
+        },
+        {
+          "color": "B",
+          "count": 19
+        },
+        {
+          "color": "A",
+          "count": 11
+        },
+        {
+          "color": "A",
+          "count": 18
+        },
+        {
+          "color": "G",
+          "count": 26
+        },
+        {
+          "color": "G",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 17
+        },
+        {
+          "color": "A",
+          "count": 23
+        }
+      ],
+      "tray": [
+        [
+          2,
+          4,
+          5,
+          8
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          9
+        ],
+        [
+          1,
+          3,
+          6
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 9,
+      "w": 15,
+      "h": 17,
+      "title": "Ветка ягод",
+      "subject": "berries",
+      "lesson": "Иногда сначала стоит освободить маленькую капсулу.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBB",
+        "BBBBBBBPPPBBBBB",
+        "BBBABBPPPPPBBBB",
+        "BBBABBPPPPPBBBB",
+        "BBBABBPPPPPBBBB",
+        "BBBABPPPPPPPBBB",
+        "BBBABPPPPPPPPBB",
+        "BBBABPBPPPPPPBB",
+        "BBBGGPPPPPBPPBB",
+        "BBGGGGPPBPPPBBB",
+        "BBGGGGGBBGGBBBB",
+        "BBGGGGBGGGGGBBB",
+        "BBBBBGGGGGGGGBB",
+        "BBBBBBBGGGGGGBB",
+        "BBBBBBBGGGGGGBB",
+        "BBBBBBBGGGGGBBB",
+        "BBBBBBBBBBBGBBB"
+      ],
+      "entries": [
+        7
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 66
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 9
+        },
+        {
+          "color": "B",
+          "count": 26
+        },
+        {
+          "color": "B",
+          "count": 24
+        },
+        {
+          "color": "P",
+          "count": 16
+        },
+        {
+          "color": "P",
+          "count": 36
+        },
+        {
+          "color": "G",
+          "count": 48
+        },
+        {
+          "color": "B",
+          "count": 2
+        },
+        {
+          "color": "A",
+          "count": 6
+        }
+      ],
+      "tray": [
+        [
+          4,
+          7
+        ],
+        [
+          2,
+          3,
+          5,
+          9
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          8
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 10,
+      "w": 16,
+      "h": 18,
+      "title": "Гриб у ручья",
+      "subject": "mushroom",
+      "lesson": "Попробуй спланировать несколько шагов самостоятельно.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBB",
+        "BGGGGGGGGGGGGGGB",
+        "BGGGGGBAAGGGGGGB",
+        "BGGGGGBAAAGGGGGB",
+        "BGGGGGBAAABGGBGB",
+        "BGBBBGBAAABBBBGB",
+        "BGBBBBBAAABBBBGB",
+        "BGBBPPPPPPPPBBGB",
+        "BGPPPPPPPPPPPPGB",
+        "BGPPPPPPPPPPPPGB",
+        "BGPPPPPPPPBPPPGB",
+        "BGBPPPPPPBBPPPGB",
+        "BGBPPBBPPPBPPBGB",
+        "BGBBPBPPPPPPPBGB",
+        "BGBBBPPPPPPBBBGB",
+        "BGBBBBPPPBBBBBGB",
+        "BGGGGGGGGGGGGGGB",
+        "BBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        8
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 46
+        },
+        {
+          "color": "B",
+          "count": 46
+        },
+        {
+          "color": "G",
+          "count": 22
+        },
+        {
+          "color": "G",
+          "count": 32
+        },
+        {
+          "color": "G",
+          "count": 26
+        },
+        {
+          "color": "P",
+          "count": 42
+        },
+        {
+          "color": "P",
+          "count": 34
+        },
+        {
+          "color": "B",
+          "count": 18
+        },
+        {
+          "color": "B",
+          "count": 8
+        },
+        {
+          "color": "A",
+          "count": 14
+        }
+      ],
+      "tray": [
+        [
+          0,
+          7,
+          8,
+          9
+        ],
+        [
+          6
+        ],
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 11,
+      "w": 17,
+      "h": 18,
+      "title": "Лодка с цветным парусом",
+      "subject": "boat",
+      "lesson": "Крупный рисунок всё ещё не требует десятков одинаковых тапов.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBB",
+        "BPPPPPPPPPPPPPPPB",
+        "BPBBBAAAAAAAABBPB",
+        "BPBBBBAAAAABBBBPB",
+        "BPBABBAAAAABBABPB",
+        "BPBAAAAAAAAAAAAPB",
+        "BPBBBBBBABBBBBBPB",
+        "BPBPPPPBABGGGGBPB",
+        "BPBPPPPBABGGGGBPB",
+        "BPBBPPPBABGGGBBPB",
+        "BPBBBPPBABGGBBBPB",
+        "BPBBBPPBABGBBBBPB",
+        "BPBBBBPBABGBBBBPB",
+        "BPBBBBPBABBBBBBPB",
+        "BPBBBBBBABBBBBBPB",
+        "BPBBBBBBABBBBBBPB",
+        "BPPPPPPPPPPPPPPPB",
+        "BBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        8
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 87
+        },
+        {
+          "color": "B",
+          "count": 19
+        },
+        {
+          "color": "B",
+          "count": 25
+        },
+        {
+          "color": "P",
+          "count": 24
+        },
+        {
+          "color": "P",
+          "count": 25
+        },
+        {
+          "color": "P",
+          "count": 18
+        },
+        {
+          "color": "B",
+          "count": 7
+        },
+        {
+          "color": "B",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 8
+        },
+        {
+          "color": "A",
+          "count": 16
+        },
+        {
+          "color": "A",
+          "count": 26
+        },
+        {
+          "color": "P",
+          "count": 8
+        },
+        {
+          "color": "G",
+          "count": 15
+        }
+      ],
+      "tray": [
+        [
+          8
+        ],
+        [
+          1,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          2,
+          11,
+          12
+        ],
+        [
+          0,
+          7,
+          9,
+          10,
+          13
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 12,
+      "w": 18,
+      "h": 18,
+      "title": "Чашка с цветком",
+      "subject": "cup",
+      "lesson": "Жемчужный материал — отдельная команда Drop.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBB",
+        "BAAAAAAAAAAAAAAAAB",
+        "BABBBBBBBBBBBBBBAB",
+        "BABBBAAAAAAAAAAAAB",
+        "BABBBCCCCCCCAABAAB",
+        "BABBACCCCCCCABBBAB",
+        "BABBACBCCBCBABBBAB",
+        "BABBACCCCCCCABBBAB",
+        "BABBCCCCCCCCABBAAB",
+        "BABBAAAAGAAAAAAAAB",
+        "BABBBBGPPBPBBBBBAB",
+        "BABBGGPPPPPPBBBBAB",
+        "BABBGGPPPPPPBBBBAB",
+        "BABBBGPPCCPPPBBBAB",
+        "BABBBPPPCCPPPBBBAB",
+        "BABBBBPPPPPPPBBBAB",
+        "BAAAAAAAAAAAAAAAAB",
+        "BBBBBBBBPPBBBBBBBB"
+      ],
+      "entries": [
+        9
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 23
+        },
+        {
+          "color": "B",
+          "count": 14
+        },
+        {
+          "color": "A",
+          "count": 24
+        },
+        {
+          "color": "A",
+          "count": 17
+        },
+        {
+          "color": "A",
+          "count": 26
+        },
+        {
+          "color": "G",
+          "count": 3
+        },
+        {
+          "color": "B",
+          "count": 19
+        },
+        {
+          "color": "B",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 34
+        },
+        {
+          "color": "G",
+          "count": 4
+        },
+        {
+          "color": "P",
+          "count": 35
+        },
+        {
+          "color": "C",
+          "count": 37
+        },
+        {
+          "color": "A",
+          "count": 26
+        },
+        {
+          "color": "B",
+          "count": 41
+        }
+      ],
+      "tray": [
+        [
+          2,
+          3,
+          7,
+          11,
+          13
+        ],
+        [
+          4,
+          5,
+          8,
+          10
+        ],
+        [
+          1,
+          6,
+          9,
+          12
+        ],
+        [
+          0
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 13,
+      "w": 18,
+      "h": 19,
+      "title": "Сапожок-сад",
+      "subject": "boot",
+      "lesson": "Две капсулы одного героя могут собирать разные материалы.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBB",
+        "BBBAPPPPPPPPPPPABB",
+        "BBBAPPPPPPPPPPPABB",
+        "BBBAAAAAAAAAAAAABB",
+        "BBBBAAABAAAAAAAABB",
+        "BBBBAAABAAAAAAAABB",
+        "BBBBAACCCCCABBBBBB",
+        "BBBBAACCCCCABBBBBB",
+        "BBBBAACCCCCABBBBBB",
+        "BBBBAACGGGCABBBBBB",
+        "BBBBBAGGGGGABBBBBB",
+        "BBBBBACGGGGABBBBBB",
+        "BBBBBACCGGCABBBBBB",
+        "BBBBBAAAAAAABBBBBB",
+        "BBBBBAAAAAAABBBBBB",
+        "BBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        9
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 20
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 15
+        },
+        {
+          "color": "B",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 33
+        },
+        {
+          "color": "B",
+          "count": 38
+        },
+        {
+          "color": "B",
+          "count": 14
+        },
+        {
+          "color": "A",
+          "count": 37
+        },
+        {
+          "color": "A",
+          "count": 34
+        },
+        {
+          "color": "P",
+          "count": 22
+        },
+        {
+          "color": "C",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 21
+        },
+        {
+          "color": "G",
+          "count": 14
+        }
+      ],
+      "tray": [
+        [
+          0,
+          7,
+          10
+        ],
+        [
+          9,
+          12,
+          13
+        ],
+        [
+          1,
+          2,
+          6,
+          8,
+          11
+        ],
+        [
+          3,
+          4,
+          5
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 14,
+      "w": 19,
+      "h": 19,
+      "title": "Письмо с листиком",
+      "subject": "letter",
+      "lesson": "Смотри на доступную работу и оставшиеся места.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBB",
+        "BAAAAAAAAAAAAAAAAAB",
+        "BABBBGGBBBBBBBBBBAB",
+        "BABGGGGGBBBBBBBBBAB",
+        "BAAAGGGGAAAAAAAAAAB",
+        "BAACGGGGCCCCCCCCAAB",
+        "BAACCAACCCCCCCCCAAB",
+        "BAACCCCACACCCCCCAAB",
+        "BAACCCCCAAACCCCCAAB",
+        "BAACCCCACCCACCCCAAB",
+        "BAACCCACCCCPAPCCAAB",
+        "BAACCACCCCPPPPPCAAB",
+        "BAACCCCCCCPPGPPCAAB",
+        "BAAAAAAAAPPPGPPPAAB",
+        "BABBBBBBBPPPPPPPBAB",
+        "BABBBBBBBBBPPPBBBAB",
+        "BABBBBBBBBBBPBBBBAB",
+        "BAAAAAAAAAAAAAAAAAB",
+        "BBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        9
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 47
+        },
+        {
+          "color": "B",
+          "count": 57
+        },
+        {
+          "color": "A",
+          "count": 35
+        },
+        {
+          "color": "A",
+          "count": 34
+        },
+        {
+          "color": "A",
+          "count": 20
+        },
+        {
+          "color": "A",
+          "count": 19
+        },
+        {
+          "color": "C",
+          "count": 35
+        },
+        {
+          "color": "C",
+          "count": 29
+        },
+        {
+          "color": "C",
+          "count": 12
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 3
+        },
+        {
+          "color": "P",
+          "count": 28
+        },
+        {
+          "color": "G",
+          "count": 17
+        },
+        {
+          "color": "A",
+          "count": 3
+        }
+      ],
+      "tray": [
+        [
+          11,
+          13
+        ],
+        [
+          0,
+          1,
+          3,
+          9,
+          10
+        ],
+        [
+          5,
+          8,
+          12
+        ],
+        [
+          2,
+          4,
+          6,
+          7
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 15,
+      "w": 19,
+      "h": 20,
+      "title": "Чайник для маленького сада",
+      "subject": "teapot",
+      "lesson": "Некоторые краски пока закрыты другими.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBB",
+        "BGGGGGGGGGGGGGGGGGB",
+        "BGBBBBBBBBBBBBBBBGB",
+        "BGBBBAAAAAABBBBBBGB",
+        "BGBBAACCCCAABBBBBGB",
+        "BGBAACCCCCCCABBBBGB",
+        "BGBACCCCCCCCABBBBGB",
+        "BGBACCCCGGCCCAAAAGB",
+        "BGACCCGGGGGCCABBAGB",
+        "BGBCCCPGGGGCCABBAGB",
+        "BGBAACPGGGCCCABBBGB",
+        "BGBAACCCCCCCAABBAGB",
+        "BGAAACCCCCCABAAAAGB",
+        "BGAABAACCAABBBAABGB",
+        "BGABBAAAAAAABBBBBGB",
+        "BGBBBBBPPBBBBBBBBGB",
+        "BGBBBBBPPBBBBBBBBGB",
+        "BGBBBBBBBBBBBBBBBGB",
+        "BGGGGGGGGGGGGGGGGGB",
+        "BBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        9
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 75
+        },
+        {
+          "color": "B",
+          "count": 24
+        },
+        {
+          "color": "B",
+          "count": 56
+        },
+        {
+          "color": "G",
+          "count": 27
+        },
+        {
+          "color": "G",
+          "count": 39
+        },
+        {
+          "color": "A",
+          "count": 29
+        },
+        {
+          "color": "B",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 2
+        },
+        {
+          "color": "B",
+          "count": 4
+        },
+        {
+          "color": "C",
+          "count": 21
+        },
+        {
+          "color": "C",
+          "count": 34
+        },
+        {
+          "color": "A",
+          "count": 28
+        },
+        {
+          "color": "G",
+          "count": 14
+        },
+        {
+          "color": "P",
+          "count": 6
+        }
+      ],
+      "tray": [
+        [
+          0,
+          4,
+          9,
+          11,
+          12
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          2,
+          7,
+          13
+        ],
+        [
+          6,
+          8,
+          10
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 16,
+      "w": 20,
+      "h": 20,
+      "title": "Камера с цветком",
+      "subject": "camera",
+      "lesson": "Hard: учитывай остатки и то, что скрывается глубже в очереди.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBB",
+        "BAAAAAAAAAAAAAAAAAAB",
+        "BACCCCCCCCCCCCCCCCAB",
+        "BACBBBBBBBBBBBBBBCAB",
+        "BACAAAAAAAAAAAAAACAB",
+        "BACCCCAAPPPPAACCCCAB",
+        "BACCCCAPPAAPPACCCCAB",
+        "BACCCAPPAAAAPPACCCAB",
+        "BACCCAPAACCAAPACCCAB",
+        "BACCCAPAACCAAPACCCAB",
+        "BACCCAPPAAAAPPACCCAB",
+        "BACCCCAPPAAPPAGGCCAB",
+        "BACCCCAAPPPPAACCCCAB",
+        "BACAAAAAAAAAAAAAACAB",
+        "BACAAAAAAAAAAPPPACAB",
+        "BACBAGGABBBBBPPPBCAB",
+        "BACBGGGGBBBBBBBBBCAB",
+        "BACCCCCCCCCCCCCCCCAB",
+        "BAAAAAAAAAAAAAAAAAAB",
+        "BBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        10
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 33
+        },
+        {
+          "color": "B",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 27
+        },
+        {
+          "color": "A",
+          "count": 13
+        },
+        {
+          "color": "A",
+          "count": 9
+        },
+        {
+          "color": "C",
+          "count": 1
+        },
+        {
+          "color": "C",
+          "count": 39
+        },
+        {
+          "color": "C",
+          "count": 1
+        },
+        {
+          "color": "C",
+          "count": 8
+        },
+        {
+          "color": "A",
+          "count": 48
+        },
+        {
+          "color": "A",
+          "count": 30
+        },
+        {
+          "color": "A",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 34
+        },
+        {
+          "color": "B",
+          "count": 17
+        },
+        {
+          "color": "A",
+          "count": 40
+        },
+        {
+          "color": "G",
+          "count": 8
+        },
+        {
+          "color": "C",
+          "count": 53
+        }
+      ],
+      "tray": [
+        [
+          8,
+          11,
+          10,
+          1,
+          9
+        ],
+        [
+          6,
+          14,
+          5,
+          0
+        ],
+        [
+          4,
+          16,
+          2,
+          15
+        ],
+        [
+          7,
+          3,
+          12,
+          13
+        ]
+      ],
+      "difficulty": "Hard"
+    },
+    {
+      "id": 17,
+      "w": 20,
+      "h": 21,
+      "title": "Лейка с ростком",
+      "subject": "watering",
+      "lesson": "Спокойнее после первой трудной задачи.",
+      "rowsBottomFirst": [
+        "CCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCC",
+        "CCPCCBBBBBBBBBCCCCCC",
+        "CCPCCBBBBBBBBBCCCCCC",
+        "CCCCCBBBBBBBBBCCCCCC",
+        "CCCCCBBBPPPPBBCCCCCC",
+        "CCCCCBBBPPPPBBCCCCCC",
+        "CCCCCBBBPCCPBBAAAACC",
+        "CCCCBBBPPPPPPBBCCACC",
+        "CCCBBBBBGPPGBBBCCAAC",
+        "CCCBBBBBBBGGBBBCCCAC",
+        "CCBBBBBBBBBBBBBCCCAC",
+        "CBBBBAAAAAAAAACCCAAC",
+        "CBBBCCCCCCCCCCACAACC",
+        "CBBCCCCCCCCCCCAAACCC",
+        "CCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCC"
+      ],
+      "entries": [
+        10
+      ],
+      "pods": [
+        {
+          "color": "C",
+          "count": 97
+        },
+        {
+          "color": "C",
+          "count": 33
+        },
+        {
+          "color": "C",
+          "count": 4
+        },
+        {
+          "color": "C",
+          "count": 11
+        },
+        {
+          "color": "C",
+          "count": 28
+        },
+        {
+          "color": "C",
+          "count": 31
+        },
+        {
+          "color": "C",
+          "count": 55
+        },
+        {
+          "color": "C",
+          "count": 7
+        },
+        {
+          "color": "C",
+          "count": 12
+        },
+        {
+          "color": "B",
+          "count": 24
+        },
+        {
+          "color": "B",
+          "count": 27
+        },
+        {
+          "color": "B",
+          "count": 36
+        },
+        {
+          "color": "C",
+          "count": 3
+        },
+        {
+          "color": "A",
+          "count": 26
+        },
+        {
+          "color": "P",
+          "count": 20
+        },
+        {
+          "color": "C",
+          "count": 2
+        },
+        {
+          "color": "G",
+          "count": 4
+        }
+      ],
+      "tray": [
+        [
+          7,
+          13
+        ],
+        [
+          3,
+          6,
+          8,
+          12,
+          14,
+          15
+        ],
+        [
+          2,
+          4,
+          10,
+          11,
+          16
+        ],
+        [
+          0,
+          1,
+          5,
+          9
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 18,
+      "w": 21,
+      "h": 21,
+      "title": "Улитка с цветком",
+      "subject": "snail",
+      "lesson": "Доступ к центру раковины появляется постепенно.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBB",
+        "BPPPPPPPPPPPPPPPPPPPB",
+        "BPBGGGGGGGGGGGGGGGBPB",
+        "BPGGGGGGGGGGGGGGGGBPB",
+        "BPGGGGGGGGGGGGGGGBBPB",
+        "BPGGGGBBAAAAAAABBBBPB",
+        "BPGGGGBACCCCCCAABBBPB",
+        "BPAGGAACCCPPPCCABBBPB",
+        "BPAGGAACPPPPPPCCABBPB",
+        "BPABBACCPAAAAPCCABBPB",
+        "BPPPBPCCPACCAPPCABBPB",
+        "BPPBBPCCPACCAPPCABBPB",
+        "BPBBBACCPPAAAPCCABBPB",
+        "BPBBBAACCPPPPPCCABBPB",
+        "BPBBBBACCCPPCCCABBBPB",
+        "BPBBBBBAACCCCCAABBBPB",
+        "BPBBBBBBAAAAAABBBBBPB",
+        "BPBBBBBBBBBBBBBBBBBPB",
+        "BPBBBBBBBBBBBBBBBBBPB",
+        "BPPPPPPPPPPPPPPPPPPPB",
+        "BBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        10
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 25
+        },
+        {
+          "color": "B",
+          "count": 45
+        },
+        {
+          "color": "B",
+          "count": 31
+        },
+        {
+          "color": "P",
+          "count": 48
+        },
+        {
+          "color": "P",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 20
+        },
+        {
+          "color": "B",
+          "count": 18
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "G",
+          "count": 20
+        },
+        {
+          "color": "G",
+          "count": 38
+        },
+        {
+          "color": "A",
+          "count": 24
+        },
+        {
+          "color": "C",
+          "count": 17
+        },
+        {
+          "color": "C",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 26
+        },
+        {
+          "color": "A",
+          "count": 27
+        },
+        {
+          "color": "C",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 26
+        }
+      ],
+      "tray": [
+        [
+          16
+        ],
+        [
+          2,
+          3,
+          5,
+          7,
+          11,
+          12
+        ],
+        [
+          0,
+          1,
+          13,
+          15
+        ],
+        [
+          4,
+          6,
+          8,
+          9,
+          10,
+          14
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 19,
+      "w": 21,
+      "h": 22,
+      "title": "Солнечный цветок",
+      "subject": "sunflower",
+      "lesson": "Большие группы работы требуют места на время ожидания.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBB",
+        "BGGGGGGGGGGGGGGGGGGGB",
+        "BGBBBBBBBBBBBBGGGBBGB",
+        "BGBBBGGBBBGBGGGGGGBGB",
+        "BGBBGGGGGBGGGGGGGGGGB",
+        "BGGGGGGGGGGGGGGGGGGGB",
+        "BGGGGGGGGGGBGGGGGGBGB",
+        "BGGGGGGGGGGBGGGGGGBGB",
+        "BGBGGGCCCCGCCCCGGGBGB",
+        "BGBGGCCCCCCCCCCCBBBGB",
+        "BGBBBCCCCCCCCCCCBBBGB",
+        "BGBBCCCCCCCCCCCCCBBGB",
+        "BGBBCCCCCCCCCCCCCBBGB",
+        "BGBBBCCCCPPPCCCCBBBGB",
+        "BGBBCCCCPPAPPCCCCBBGB",
+        "BGBCCCCCPAAAPCCCCCBGB",
+        "BGBCCCCCPPAPPCCCCCBGB",
+        "BGBCCCCCCPPPCCCCCCBGB",
+        "BGBCCCCCCCCCCCCCCCBGB",
+        "BGBBCCCCCCCCCCCCCBBGB",
+        "BGGGGGGGGGGGGGGGGGGGB",
+        "BBBBBBBCCCCCCCBBBBBBB"
+      ],
+      "entries": [
+        10
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 35
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 23
+        },
+        {
+          "color": "G",
+          "count": 21
+        },
+        {
+          "color": "G",
+          "count": 19
+        },
+        {
+          "color": "G",
+          "count": 29
+        },
+        {
+          "color": "G",
+          "count": 21
+        },
+        {
+          "color": "G",
+          "count": 43
+        },
+        {
+          "color": "G",
+          "count": 23
+        },
+        {
+          "color": "C",
+          "count": 41
+        },
+        {
+          "color": "C",
+          "count": 27
+        },
+        {
+          "color": "C",
+          "count": 39
+        },
+        {
+          "color": "C",
+          "count": 32
+        },
+        {
+          "color": "B",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 45
+        },
+        {
+          "color": "P",
+          "count": 16
+        },
+        {
+          "color": "A",
+          "count": 5
+        }
+      ],
+      "tray": [
+        [
+          5,
+          15,
+          16
+        ],
+        [
+          0,
+          1,
+          3,
+          4,
+          11,
+          12
+        ],
+        [
+          2,
+          7,
+          8,
+          9,
+          10,
+          14
+        ],
+        [
+          6,
+          13
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 20,
+      "w": 22,
+      "h": 22,
+      "title": "Жёлудь-фонарь",
+      "subject": "lantern",
+      "lesson": "Тёмный контур Twig — шестой самостоятельный материал.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBDDDDBBBBBBBBB",
+        "BBPPPBBDDDAADDDBBBBBBB",
+        "BBPCPBDDAAAAAADDBBBBBB",
+        "BPPCPPDAAAAAAAADDBBBBB",
+        "BPPPPPAACCCCCCAADBBBBB",
+        "BBBPDAAACCCCCCAAADBBBB",
+        "BBBBDAAACCCCCCAAADBBBB",
+        "BBBBDAAAAAAAAAAAADBBBB",
+        "BBBBDAAACCCCCCAAADBBBB",
+        "BBBBDAAACCCCCCAAADBBBB",
+        "BBBBDAAAACCCCAAAADBBBB",
+        "BBBBBDADDDCCDDDADBBBBB",
+        "BBBBDDDDDAAAADDDDDBBBB",
+        "BBBDDAAAAAAAAAAAADDBBB",
+        "BBBDAAAAAAAAAAAAAADBBB",
+        "BBBBDAAAAAAAAAAGADBBBB",
+        "BBBBBBDAAAAAAGGGGBBBBB",
+        "BBBBBBBBBBAGGGGGGGGBBB",
+        "BBBBBBBBBBAGGGGGGGGBBB",
+        "BBBBBBBBBBBBGGGGGGBBBB",
+        "BBBBBBBBBBBBGGGGGGBBBB"
+      ],
+      "entries": [
+        11
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 40
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 27
+        },
+        {
+          "color": "B",
+          "count": 24
+        },
+        {
+          "color": "B",
+          "count": 46
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 18
+        },
+        {
+          "color": "B",
+          "count": 39
+        },
+        {
+          "color": "G",
+          "count": 33
+        },
+        {
+          "color": "D",
+          "count": 23
+        },
+        {
+          "color": "D",
+          "count": 34
+        },
+        {
+          "color": "A",
+          "count": 22
+        },
+        {
+          "color": "A",
+          "count": 26
+        },
+        {
+          "color": "A",
+          "count": 26
+        },
+        {
+          "color": "A",
+          "count": 24
+        },
+        {
+          "color": "A",
+          "count": 17
+        },
+        {
+          "color": "C",
+          "count": 25
+        },
+        {
+          "color": "P",
+          "count": 15
+        },
+        {
+          "color": "C",
+          "count": 13
+        }
+      ],
+      "tray": [
+        [
+          0,
+          11,
+          14
+        ],
+        [
+          2,
+          5,
+          7,
+          10,
+          13
+        ],
+        [
+          1,
+          3,
+          8,
+          9,
+          17
+        ],
+        [
+          4,
+          6,
+          12,
+          15,
+          16,
+          18
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 21,
+      "w": 22,
+      "h": 23,
+      "title": "Совёнок на ветке",
+      "subject": "owl",
+      "lesson": "Светлые детали и тёмный контур помогают читать картинку.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "BAAAAAAAAAAAAAAAAAAAAB",
+        "BAAAAAAAAAAAAAAAAGGGAB",
+        "BABBBBBBDDCCDDBBGGGGAB",
+        "BABBBBBDACCCCADBGGGGAB",
+        "BABBBBDACCCCCCADGGGGAB",
+        "BABBBDAACCCCCCAADBBBAB",
+        "BABBBDAACCCCCCAADBBBAB",
+        "BABBDAAAACCCCAAAADBBAB",
+        "BABBDAAAAAPPAAAAADBBAB",
+        "BABBDACCCCAACCCCADBBAB",
+        "BABBDACCDCCACCDCCDBBAB",
+        "BABBDACDDCCCCDDCCDBBAB",
+        "BABBBACDDCCCCDDCCBBBAB",
+        "BABBBDCCCCCCCCCCCBBBAB",
+        "BABBBACCCCAACCCCABBBAB",
+        "BABBBAAACAAAAACAABBBAB",
+        "BABBBAAADAAAADAAABBBAB",
+        "BABBBAABBBDDBBBAABBBAB",
+        "BABBBABBBBBBBBBBABBBAB",
+        "BABBBBBBBBBBBBBBBBBBAB",
+        "BAAAAAAAAAAAAAAAAAAAAB",
+        "BBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        11
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 38
+        },
+        {
+          "color": "B",
+          "count": 53
+        },
+        {
+          "color": "B",
+          "count": 58
+        },
+        {
+          "color": "A",
+          "count": 79
+        },
+        {
+          "color": "A",
+          "count": 23
+        },
+        {
+          "color": "A",
+          "count": 23
+        },
+        {
+          "color": "G",
+          "count": 15
+        },
+        {
+          "color": "B",
+          "count": 40
+        },
+        {
+          "color": "B",
+          "count": 6
+        },
+        {
+          "color": "B",
+          "count": 11
+        },
+        {
+          "color": "B",
+          "count": 6
+        },
+        {
+          "color": "A",
+          "count": 6
+        },
+        {
+          "color": "A",
+          "count": 22
+        },
+        {
+          "color": "C",
+          "count": 22
+        },
+        {
+          "color": "C",
+          "count": 28
+        },
+        {
+          "color": "C",
+          "count": 29
+        },
+        {
+          "color": "D",
+          "count": 37
+        },
+        {
+          "color": "A",
+          "count": 8
+        },
+        {
+          "color": "P",
+          "count": 2
+        }
+      ],
+      "tray": [
+        [
+          1,
+          3,
+          9,
+          12,
+          14,
+          17
+        ],
+        [
+          4,
+          5,
+          7
+        ],
+        [
+          0,
+          6,
+          8,
+          10,
+          13,
+          18
+        ],
+        [
+          2,
+          11,
+          15,
+          16
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 22,
+      "w": 23,
+      "h": 23,
+      "title": "Воздушный сад",
+      "subject": "balloon",
+      "lesson": "Открытая капсула не обязана закончиться сразу.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBB",
+        "BPPPPPPPPPPPPPPPPPPPPPB",
+        "BPBBBBAAAAAAAAAAABBBBPB",
+        "BPBBBBAACCCCCCCAABBBBPB",
+        "BPBBBBAAAAAAAAAAABBBBPB",
+        "BPBBBBABBBBBBBBBABBBBPB",
+        "BPBBBBABBBBBBBBBABBBBPB",
+        "BPBBBBABBBBBBBBBABBBBPB",
+        "BPBBBBABBBDDDBBBABBBBPB",
+        "BPBBBBBDDPPCPPDDBBBBBPB",
+        "BPBBBBDPPPCCCPPPDBBBBPB",
+        "BPBBBDPPPCCCCCPPPDBBBPB",
+        "BPBBDPPPPCCCCCPPPPDBBPB",
+        "BPBBDPPPPCCCCCPPPPDBBPB",
+        "BPBBDPPPPCCCCCPPPPDBBPB",
+        "BPBBDPPPPCCCCCPPPPDBBPB",
+        "BPBBDPPPPCCCCCPPPPDBBPB",
+        "BPBBDPPPPCCCCCPPPPDBBPB",
+        "BPBBBDPPPCCCCCPPPDBGBPB",
+        "BPGGGBDPPCCCCCPPDGGGGPB",
+        "BPGGGGBDPPCCCPPDBGGGGPB",
+        "BPPPPPPPPPPPPPPPPPPPPPB",
+        "BBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        11
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 122
+        },
+        {
+          "color": "B",
+          "count": 28
+        },
+        {
+          "color": "B",
+          "count": 27
+        },
+        {
+          "color": "P",
+          "count": 45
+        },
+        {
+          "color": "P",
+          "count": 40
+        },
+        {
+          "color": "P",
+          "count": 32
+        },
+        {
+          "color": "P",
+          "count": 41
+        },
+        {
+          "color": "B",
+          "count": 35
+        },
+        {
+          "color": "B",
+          "count": 7
+        },
+        {
+          "color": "B",
+          "count": 5
+        },
+        {
+          "color": "B",
+          "count": 3
+        },
+        {
+          "color": "B",
+          "count": 4
+        },
+        {
+          "color": "C",
+          "count": 16
+        },
+        {
+          "color": "C",
+          "count": 40
+        },
+        {
+          "color": "A",
+          "count": 34
+        },
+        {
+          "color": "D",
+          "count": 29
+        },
+        {
+          "color": "B",
+          "count": 2
+        },
+        {
+          "color": "C",
+          "count": 3
+        },
+        {
+          "color": "G",
+          "count": 16
+        }
+      ],
+      "tray": [
+        [
+          4,
+          8,
+          9,
+          12,
+          14,
+          16
+        ],
+        [
+          0,
+          7,
+          10,
+          17
+        ],
+        [
+          1,
+          5,
+          11,
+          15,
+          18
+        ],
+        [
+          2,
+          3,
+          6,
+          13
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 23,
+      "w": 23,
+      "h": 24,
+      "title": "Ракушка с жемчужиной",
+      "subject": "shell",
+      "lesson": "Hard: не занимай все места преждевременной работой.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBB",
+        "BDDDDDDDDDDDDDDDDDDDDDB",
+        "BDPPPPPPPPPPPPPPPPPPPDB",
+        "BDPGGBBBBBDDDBBBBBBBPDB",
+        "BDPGGBBBBDDDDDBBBBBBPDB",
+        "BDPBBDDDDDCCCDDDDDBBPDB",
+        "BDPBDDPPPDCCCDPPPDDBPDB",
+        "BDPDDPPPPDCCCDPPPPDDPDB",
+        "BDPDPPPPPPDDDPPPPPPDPDB",
+        "BDPDPCCCPPAAAPCCCCPPPDB",
+        "BDPDPPCCPPAAAPCCCPPDPDB",
+        "BDPDPPCCPPAAAPCCCPPDPDB",
+        "BDPDPPCCPPAAAPCCCPPDPDB",
+        "BDPDPPCCPPAAAPCCCPPDPDB",
+        "BDPDDPPCPPAAAPCCPPDDPDB",
+        "BDPBDPPCPPAAPPCPPDDBPDB",
+        "BDPBDDPPPPAAPPPPDDDBPDB",
+        "BDPBBDDPPPPAPPPDDDBBPDB",
+        "BDPBBBDDPPPPPPDDDBBBPDB",
+        "BDPBBBBDDPPDDDDDBBBBPDB",
+        "BDPBBBBBDDDDDDBBBBBBPDB",
+        "BDPPPPPPPPPPPPPPPPPPPDB",
+        "BDDDDDDDDDDDDDDDDDDDDDB",
+        "BBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        11
+      ],
+      "pods": [
+        {
+          "color": "B",
+          "count": 50
+        },
+        {
+          "color": "B",
+          "count": 23
+        },
+        {
+          "color": "B",
+          "count": 39
+        },
+        {
+          "color": "D",
+          "count": 4
+        },
+        {
+          "color": "D",
+          "count": 40
+        },
+        {
+          "color": "P",
+          "count": 3
+        },
+        {
+          "color": "P",
+          "count": 44
+        },
+        {
+          "color": "P",
+          "count": 43
+        },
+        {
+          "color": "P",
+          "count": 8
+        },
+        {
+          "color": "P",
+          "count": 63
+        },
+        {
+          "color": "P",
+          "count": 11
+        },
+        {
+          "color": "C",
+          "count": 36
+        },
+        {
+          "color": "D",
+          "count": 110
+        },
+        {
+          "color": "D",
+          "count": 7
+        },
+        {
+          "color": "B",
+          "count": 3
+        },
+        {
+          "color": "B",
+          "count": 36
+        },
+        {
+          "color": "C",
+          "count": 5
+        },
+        {
+          "color": "A",
+          "count": 23
+        },
+        {
+          "color": "G",
+          "count": 4
+        }
+      ],
+      "tray": [
+        [
+          8,
+          6,
+          13,
+          12,
+          3
+        ],
+        [
+          15,
+          14,
+          18,
+          11,
+          17
+        ],
+        [
+          10,
+          2,
+          0,
+          1,
+          4
+        ],
+        [
+          5,
+          16,
+          7,
+          9
+        ]
+      ],
+      "difficulty": "Hard"
+    },
+    {
+      "id": 24,
+      "w": 24,
+      "h": 24,
+      "title": "Кит с садом",
+      "subject": "whale",
+      "lesson": "Один крупный силуэт, знакомые правила.",
+      "rowsBottomFirst": [
+        "CCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCDDDDDDCCCCCCCCCC",
+        "CCCCCCDDDDDDDBBDDCCCCCCC",
+        "CCCCDCCCCCCCBBBDDDDCCCCC",
+        "CCCDCCCCCCCBBBBBCDDDDCCC",
+        "CCCDBCCCCCCCCCCCBBDBBDDC",
+        "CCDBBBBCCCCCCCBBBBDDBBDC",
+        "CCDBBBBBBBBBBBBBBBDDBBDC",
+        "CCCBBBBDBBBBBBBBBBDBBDDC",
+        "CCCDBBBBBBBBBBBBBBDDBDDC",
+        "CCCCDBBBBBBBBBBBBDCDBDDC",
+        "CCCCCDBBBBBBBBBBDCCCDDCC",
+        "CCCCCCCDDBAAAADCCCCCDDCC",
+        "CCCCCCCCCCAAAACCCCCCCCCC",
+        "CCCCCCCCCCAGGAGGCCCCCCCC",
+        "CCCCCCCCCCCGGGGGGCCCCCCC",
+        "CCCCCCCCCCPPPPGGGGCCCCCC",
+        "CCCCCCCCCCPPPPGGGCCCCCCC",
+        "CCCCCCCCCPPCCPPGGCCCCCCC",
+        "CCCCCCCCCPPPPPPCCCCCCCCC",
+        "CCCCCCCCCCCPPCCCCCCCCCCC",
+        "CCCCCCCCCCCPPCCCCCCCCCCC"
+      ],
+      "entries": [
+        12
+      ],
+      "pods": [
+        {
+          "color": "C",
+          "count": 37
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "C",
+          "count": 27
+        },
+        {
+          "color": "C",
+          "count": 39
+        },
+        {
+          "color": "C",
+          "count": 34
+        },
+        {
+          "color": "C",
+          "count": 38
+        },
+        {
+          "color": "C",
+          "count": 43
+        },
+        {
+          "color": "C",
+          "count": 18
+        },
+        {
+          "color": "C",
+          "count": 23
+        },
+        {
+          "color": "A",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 21
+        },
+        {
+          "color": "C",
+          "count": 31
+        },
+        {
+          "color": "P",
+          "count": 22
+        },
+        {
+          "color": "G",
+          "count": 19
+        },
+        {
+          "color": "B",
+          "count": 66
+        },
+        {
+          "color": "B",
+          "count": 31
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "D",
+          "count": 39
+        }
+      ],
+      "tray": [
+        [
+          0,
+          3,
+          8,
+          10,
+          11,
+          13
+        ],
+        [
+          1,
+          5,
+          7,
+          12
+        ],
+        [
+          2,
+          6,
+          15,
+          17,
+          18
+        ],
+        [
+          4,
+          9,
+          14,
+          16
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 25,
+      "w": 24,
+      "h": 26,
+      "title": "Два берега сада",
+      "subject": "pond",
+      "lesson": "Sprig может вырастить мостик у очищенного берега.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBGGGGGGGGGGBBBBBBB",
+        "BBBBBBGGGGGGGGGGGGBBBBBB",
+        "BBBBBGGGGGGCCGGGGGGBBBBB",
+        "BBBBGGGGGGGCDCGGGGGGBBBB",
+        "BBBBGGGGGGGCCGGGGGGGBBBB",
+        "BBBBBGGGGGGGCGGGGGGBBBBB",
+        "BBBBBBGGGGGGGGGGGGBBBBBB",
+        "BBBBBBBBBGGGGGGBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "########################",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBGGGGGAAAAAAAGGGGBBBB",
+        "BBBBGGGGGAAAAAAAGGGGBBBB",
+        "BBBBGGGGGGPPPPPGGGGGBBBB",
+        "BBBBGGGGGPPPPPPGGGGGBBBB",
+        "BBBBGGGGGGPPCPPGGGGGBBBB",
+        "BBBBGGGGGPPCCCPPGGGGBBBB",
+        "BBBBGGGGGPPPCPPPGGGGBBBB",
+        "BBBBBBBBBPPPPPPPBBBBBBBB",
+        "BBBBBBBBBBBPPPBBBBBBBBBB",
+        "BBBBBBBBBBBBPBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 300,
+            "anchor": 276,
+            "label": "Мостик"
+          }
+        ]
+      },
+      "pods": [
+        {
+          "color": "B",
+          "count": 25
+        },
+        {
+          "color": "B",
+          "count": 44
+        },
+        {
+          "color": "B",
+          "count": 62
+        },
+        {
+          "color": "B",
+          "count": 32
+        },
+        {
+          "color": "B",
+          "count": 49
+        },
+        {
+          "color": "B",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 12
+        },
+        {
+          "color": "B",
+          "count": 24
+        },
+        {
+          "color": "B",
+          "count": 37
+        },
+        {
+          "color": "B",
+          "count": 9
+        },
+        {
+          "color": "B",
+          "count": 39
+        },
+        {
+          "color": "G",
+          "count": 53
+        },
+        {
+          "color": "G",
+          "count": 66
+        },
+        {
+          "color": "G",
+          "count": 33
+        },
+        {
+          "color": "G",
+          "count": 8
+        },
+        {
+          "color": "P",
+          "count": 36
+        },
+        {
+          "color": "A",
+          "count": 14
+        },
+        {
+          "color": "C",
+          "count": 12
+        },
+        {
+          "color": "D",
+          "count": 1
+        }
+      ],
+      "tray": [
+        [
+          1,
+          5,
+          10,
+          15
+        ],
+        [
+          2,
+          3,
+          6,
+          19
+        ],
+        [
+          4,
+          8,
+          9,
+          12,
+          14,
+          16
+        ],
+        [
+          0,
+          7,
+          11,
+          13,
+          17,
+          18
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 26,
+      "w": 24,
+      "h": 26,
+      "title": "Домик за ручьём",
+      "subject": "cottage",
+      "lesson": "Подготовь подход к месту мостика.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBAAAAAAAAAAAAGGAABBBB",
+        "BBBBAPPPPPAAAAGGGGGABBBB",
+        "BBBBPPPPPPAAAGGGGGGGBBBB",
+        "BBBBPPPCPPBBBGGGGGGGBBBB",
+        "BBBBPPCCPPPBBBGGGGGGBBBB",
+        "BBBBPPPPPPPBBBGGGGGBBBBB",
+        "BBBBBPPPPPBBBBBBBGGBBBBB",
+        "BBBBBBPPBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "########################",
+        "BBBBBDCCCCPPPCCCCCDBBBBB",
+        "BBBBBDCCCCPPPCCCCCDBBBBB",
+        "BBBBBDCCCCPPPCCCCCDBBBBB",
+        "BBBBBDCBBCCCCCCBBCDBBBBB",
+        "BBBBBDCBBCCCCCCBBCDBBBBB",
+        "BBBBBDCCCCCCCCCCCCDBGBBB",
+        "BBBBAAAAAAAAAAAAAAGGGGBB",
+        "BBBBBAAAAAAAAAAAAAGGGGGB",
+        "BBBBBBBAAAAAAAAAABBGGGBB",
+        "BBBBBBBBAAAAAAAABBBBGGBB",
+        "BBBBBBBBBAAAAABBBBBBBBBB",
+        "BBBBBBBBBBBAABBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 300,
+            "anchor": 276,
+            "label": "Мостик"
+          }
+        ]
+      },
+      "pods": [
+        {
+          "color": "B",
+          "count": 69
+        },
+        {
+          "color": "B",
+          "count": 51
+        },
+        {
+          "color": "B",
+          "count": 61
+        },
+        {
+          "color": "B",
+          "count": 61
+        },
+        {
+          "color": "B",
+          "count": 43
+        },
+        {
+          "color": "P",
+          "count": 41
+        },
+        {
+          "color": "G",
+          "count": 34
+        },
+        {
+          "color": "C",
+          "count": 22
+        },
+        {
+          "color": "A",
+          "count": 23
+        },
+        {
+          "color": "P",
+          "count": 3
+        },
+        {
+          "color": "C",
+          "count": 25
+        },
+        {
+          "color": "C",
+          "count": 11
+        },
+        {
+          "color": "A",
+          "count": 52
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 6
+        },
+        {
+          "color": "B",
+          "count": 3
+        },
+        {
+          "color": "B",
+          "count": 25
+        },
+        {
+          "color": "G",
+          "count": 15
+        },
+        {
+          "color": "D",
+          "count": 12
+        }
+      ],
+      "tray": [
+        [
+          5,
+          6,
+          13,
+          14,
+          15,
+          17
+        ],
+        [
+          8,
+          11,
+          18
+        ],
+        [
+          0,
+          4,
+          7,
+          12,
+          19
+        ],
+        [
+          1,
+          2,
+          3,
+          9,
+          10,
+          16
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 27,
+      "w": 25,
+      "h": 27,
+      "title": "Черепаший сад",
+      "subject": "turtle",
+      "lesson": "Мостик открывает путь к оставшейся работе.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBGGGGGGGGGGBBBBBBBB",
+        "BBBBBGGGGGPPPPPGGGGBBBBBB",
+        "BBBBGGGGGPPPPPPGGGGGBBBBB",
+        "BBBBGGGGGGPPCPPGGGGGBBBBB",
+        "BBBBBGGGGPPCCPPPGGGBBBBBB",
+        "BBBBBBGGGPPPCPPPGGBBBBBBB",
+        "BBBBBBBBBPPPPPPBBBBBBBBBB",
+        "BBBBBBBBBBBPPPBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "#########################",
+        "BBBBBCCCBBBBBBBBCCCBBBBBB",
+        "BBBBBCCCCDDDDDDCCCCBBBBBB",
+        "BBBBBCCCCGGGGGGCCCCBBBBBB",
+        "BBBBBBCCGGGGAGGGCCDGGGGBB",
+        "BBBBBDDGGGAAAAAGGGDGGGGBB",
+        "BBBBBDGGGAACCCAAGGGGGDGBB",
+        "BBBBBDGGGAACCCAAGGGGGDGBB",
+        "BBBBBDGGGAACCCAAGGGGGGGBB",
+        "BBBBBBGGGGAACAAGGGGBGGBBB",
+        "BBBBBBDGGGGAAAGGGGDBBBBBB",
+        "BBBBBBBDGGGGGGGGGDBBBBBBB",
+        "BBBBBBBBBDDGGGDDBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 312,
+            "anchor": 287,
+            "label": "Мостик"
+          }
+        ]
+      },
+      "pods": [
+        {
+          "color": "B",
+          "count": 90
+        },
+        {
+          "color": "B",
+          "count": 28
+        },
+        {
+          "color": "B",
+          "count": 42
+        },
+        {
+          "color": "B",
+          "count": 44
+        },
+        {
+          "color": "B",
+          "count": 48
+        },
+        {
+          "color": "B",
+          "count": 18
+        },
+        {
+          "color": "P",
+          "count": 35
+        },
+        {
+          "color": "G",
+          "count": 76
+        },
+        {
+          "color": "B",
+          "count": 5
+        },
+        {
+          "color": "C",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 43
+        },
+        {
+          "color": "B",
+          "count": 29
+        },
+        {
+          "color": "B",
+          "count": 8
+        },
+        {
+          "color": "B",
+          "count": 33
+        },
+        {
+          "color": "B",
+          "count": 2
+        },
+        {
+          "color": "G",
+          "count": 49
+        },
+        {
+          "color": "G",
+          "count": 12
+        },
+        {
+          "color": "A",
+          "count": 25
+        },
+        {
+          "color": "D",
+          "count": 23
+        },
+        {
+          "color": "C",
+          "count": 10
+        }
+      ],
+      "tray": [
+        [
+          2,
+          5,
+          6,
+          14,
+          19
+        ],
+        [
+          0,
+          7,
+          8,
+          10,
+          13,
+          17
+        ],
+        [
+          1,
+          4,
+          15,
+          18
+        ],
+        [
+          3,
+          9,
+          11,
+          12,
+          16
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 28,
+      "w": 26,
+      "h": 28,
+      "title": "Сады двух берегов",
+      "subject": "bouquets",
+      "lesson": "Один мостик: сначала выбери, где его построить.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BCCCCCCCCCCCCCCCCCCCCCCCCB",
+        "BCBBBGGGGBBBBBBBBBAAABBBCB",
+        "BCBGGGGGGGGBBBBBAAAAAAABCB",
+        "BCGGGGGGGGGGBBBAAAAAAAAACB",
+        "BCGGGGGGGGGGBBBAAAAAAAAACB",
+        "BCGGGGGGGGGGBBBAAAAAAAAACB",
+        "BCGGGGGGGGGGBBBBAAAAAAAACB",
+        "BCBGGGGGGGGBBBBBBAAAAAABCB",
+        "BCBBBBGGBBBBBBBBBBBABBBBCB",
+        "BCBBBBBBBBBBBBBBBBBBBBBBCB",
+        "BCBBBBBBBBBBBBBBBBBBBBBBCB",
+        "BCBBBBBBBBBBBBBBBBBBBBBBCB",
+        "##########################",
+        "BCBBBBBBBBBBBBBBBBBBBBBBCB",
+        "BCBAAAAAAABBCCGGDDDDDDDGCG",
+        "BCBAAAAAAABBCCGGDDDDDDDGCG",
+        "BCBAAAAAAABBCCGGDDDDDDDGCG",
+        "BCPPPPPPPPPBCCGGAAAAAAAACG",
+        "BCPPPPPPPPPBCCGAAAAAAAAACG",
+        "BCPPPPPPPPPBCCGAAAAAAAAACG",
+        "BCPPPCCCPPPBCCGAAAAPPAAACG",
+        "BCPPPCCCPPPPCCGAAAPPPAAACG",
+        "BCPPPCCCPPPPCCAAAAPPPAAACG",
+        "BCPPPPPPPPPPCCAAAAAAAAAACG",
+        "BCPPPPPPPPPBCCGAAAAAAAAACG",
+        "BCCCCCCCCCCCCCCCCCCCCCCCCG",
+        "BBBBBPPPBBBBCCGGGGAAAAGGGG"
+      ],
+      "entries": [
+        13
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 344,
+            "anchor": 318,
+            "label": "Левый мостик"
+          },
+          {
+            "cell": 357,
+            "anchor": 331,
+            "label": "Правый мостик"
+          }
+        ]
+      },
+      "pods": [
+        {
+          "color": "B",
+          "count": 101
+        },
+        {
+          "color": "C",
+          "count": 59
+        },
+        {
+          "color": "B",
+          "count": 66
+        },
+        {
+          "color": "B",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 46
+        },
+        {
+          "color": "G",
+          "count": 32
+        },
+        {
+          "color": "G",
+          "count": 30
+        },
+        {
+          "color": "A",
+          "count": 52
+        },
+        {
+          "color": "B",
+          "count": 6
+        },
+        {
+          "color": "C",
+          "count": 34
+        },
+        {
+          "color": "C",
+          "count": 29
+        },
+        {
+          "color": "G",
+          "count": 36
+        },
+        {
+          "color": "A",
+          "count": 31
+        },
+        {
+          "color": "A",
+          "count": 30
+        },
+        {
+          "color": "A",
+          "count": 29
+        },
+        {
+          "color": "P",
+          "count": 47
+        },
+        {
+          "color": "P",
+          "count": 30
+        },
+        {
+          "color": "C",
+          "count": 5
+        },
+        {
+          "color": "D",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 4
+        }
+      ],
+      "tray": [
+        [
+          3,
+          9,
+          12,
+          14,
+          17,
+          18
+        ],
+        [
+          0,
+          1,
+          4,
+          8,
+          10,
+          11
+        ],
+        [
+          2,
+          5,
+          6,
+          13,
+          16,
+          19
+        ],
+        [
+          7,
+          15
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 29,
+      "w": 24,
+      "h": 26,
+      "title": "Почтовый домик",
+      "subject": "mailbox",
+      "lesson": "Hard: учти очередь и выбор перехода через ручей.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BAAAAAAAAAAAAAAAAAAAAAAB",
+        "BABBGGGBBBBAABBPPPPPPBAB",
+        "BAGGGGGGBBBAABBPPPPPPBAB",
+        "BAGGGGGGGBBAABPPPCCPPPAB",
+        "BAGGGGGGGBBAABPPPCCPPPAB",
+        "BAGGGGGGGBBAABBPPPPPPBAB",
+        "BAGGGGGGGBBBBBBBPPPPBBAB",
+        "BABBGGGGBBBBBBBBBPPBBBAB",
+        "BABBBBBBBBBBBBBBBBBBBBAB",
+        "BABBBBBBBBBBBBBBBBBBBBAB",
+        "BABBBBBBBBBBBBBBBBBBBBAB",
+        "########################",
+        "BABBBBBBBBBBBBBBBBBBBBAB",
+        "BABBDDAAAAAAAAAAAADDBBAB",
+        "BABBDDAAAAAAAAAAAADDBBAB",
+        "BABBDDAACCCCCCCAAADDBBAB",
+        "BABBDDAACCCPCCCAAADDBBAB",
+        "BABBDDAACCCCCPCAAADDBBAB",
+        "BABBDDAACCCCCCCAAADDBBAB",
+        "BABBDDDDAAAAAAADDADDBBAB",
+        "BABBDDDAAAAAAAAADDDDPPAB",
+        "BABBDDDAAAAAAAAADDDDPPAB",
+        "BABBDDDDDAAAAAADDDDDPPAB",
+        "BAAAAAAAAAAAAAAAAAAAAAAB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 294,
+            "anchor": 270,
+            "label": "Левый мостик"
+          },
+          {
+            "cell": 306,
+            "anchor": 282,
+            "label": "Правый мостик"
+          }
+        ]
+      },
+      "pods": [
+        {
+          "color": "B",
+          "count": 54
+        },
+        {
+          "color": "A",
+          "count": 52
+        },
+        {
+          "color": "A",
+          "count": 53
+        },
+        {
+          "color": "B",
+          "count": 52
+        },
+        {
+          "color": "B",
+          "count": 65
+        },
+        {
+          "color": "B",
+          "count": 45
+        },
+        {
+          "color": "G",
+          "count": 41
+        },
+        {
+          "color": "P",
+          "count": 36
+        },
+        {
+          "color": "B",
+          "count": 7
+        },
+        {
+          "color": "B",
+          "count": 8
+        },
+        {
+          "color": "A",
+          "count": 12
+        },
+        {
+          "color": "A",
+          "count": 24
+        },
+        {
+          "color": "A",
+          "count": 21
+        },
+        {
+          "color": "A",
+          "count": 10
+        },
+        {
+          "color": "C",
+          "count": 30
+        },
+        {
+          "color": "D",
+          "count": 29
+        },
+        {
+          "color": "D",
+          "count": 27
+        },
+        {
+          "color": "B",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 12
+        },
+        {
+          "color": "P",
+          "count": 8
+        }
+      ],
+      "tray": [
+        [
+          10,
+          19,
+          8,
+          14,
+          11
+        ],
+        [
+          9,
+          4,
+          7,
+          18,
+          13
+        ],
+        [
+          15,
+          2,
+          12,
+          1,
+          3
+        ],
+        [
+          16,
+          5,
+          17,
+          6,
+          0
+        ]
+      ],
+      "difficulty": "Hard"
+    },
+    {
+      "id": 30,
+      "w": 26,
+      "h": 28,
+      "title": "Сад в стекле",
+      "subject": "bottle",
+      "lesson": "Последний уровень пилота: проверь всё, что освоил.",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BGGGGGGGGGGGGGGGGGGGGGGGGB",
+        "BGBBBBBBBBBBBBBBBBBBBBBBGB",
+        "BGBBDDDDDDDDDDDDDDDDDDBBGB",
+        "BGBBDDDDDDGGGGGGDDDDDDBBGB",
+        "BGBBDDCCGGGGGGGGGGCCDDBBGB",
+        "BGBBDDCGGGGGGGGGGGGCDDBBGB",
+        "BGBBDDCCGGPPPPPPGGCCDDBBGB",
+        "BGBBBDCCGGPPPPPPCCCCDBBBGB",
+        "BGBBBDGGGGPPCCPPCCCCDBBBGB",
+        "BGBBBDGGGPPPCCPPPCCCDBBBGB",
+        "BGBBBDCGGPPPPPPPPCCCDBBBGB",
+        "BGBBBDCGGGPPPPPPCCCCDBBBGB",
+        "##########################",
+        "BGBBBDDCCCCCCCCCCCCDDBBBGB",
+        "BGBBBDDCCCCCCCCCCCCDDBBBGB",
+        "BGBBBDDCCCCCCCCCCCCDDBBBGB",
+        "BGBBBDDDDCCCCCCCCDDDDBBBGB",
+        "BGBBBBBDDDCCCCCCDDDBBBBBGB",
+        "BGBBBBBBDDDCCCCDDDBBBBBBGB",
+        "BGBBBBBBBDDCCCCDDBBBBBBBGB",
+        "BGBBBBBBBBDCCCCDBBBBBBBBGB",
+        "BGBBBBBBBBDDDDDDBBBBBBBBGB",
+        "BGBBBBBBBBDDDDDDBBBBBBBBGB",
+        "BGBBBBBBBBAAAAAAABBBBBBBGB",
+        "BGBBBBBBBBAAAAAAABBBBBBBGB",
+        "BGGGGGGGGGGGGGGGGGGGGGGGGB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 344,
+            "anchor": 318,
+            "label": "Левый мостик"
+          },
+          {
+            "cell": 357,
+            "anchor": 331,
+            "label": "Правый мостик"
+          }
+        ]
+      },
+      "pods": [
+        {
+          "color": "B",
+          "count": 98
+        },
+        {
+          "color": "G",
+          "count": 46
+        },
+        {
+          "color": "B",
+          "count": 18
+        },
+        {
+          "color": "B",
+          "count": 54
+        },
+        {
+          "color": "D",
+          "count": 26
+        },
+        {
+          "color": "D",
+          "count": 36
+        },
+        {
+          "color": "C",
+          "count": 32
+        },
+        {
+          "color": "G",
+          "count": 46
+        },
+        {
+          "color": "P",
+          "count": 36
+        },
+        {
+          "color": "D",
+          "count": 40
+        },
+        {
+          "color": "A",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 43
+        },
+        {
+          "color": "B",
+          "count": 29
+        },
+        {
+          "color": "B",
+          "count": 31
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "C",
+          "count": 44
+        },
+        {
+          "color": "C",
+          "count": 22
+        },
+        {
+          "color": "G",
+          "count": 48
+        },
+        {
+          "color": "B",
+          "count": 4
+        },
+        {
+          "color": "B",
+          "count": 13
+        }
+      ],
+      "tray": [
+        [
+          5,
+          6,
+          16,
+          18
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          11,
+          13
+        ],
+        [
+          7,
+          10,
+          12,
+          15,
+          19
+        ],
+        [
+          0,
+          8,
+          9,
+          14,
+          17
+        ]
+      ],
+      "difficulty": "Normal"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "version": "pilot-validation-1",
+  "date": "2026-10-19",
+  "catalogHash": "2cb0f212e5fa1096635ee4f478dabd6ae15de37fea76020cbacc31f6a4e59255",
+  "rulesHash": "7296fdac7c04f4e90491c98b9fc3382f011e04fb4a73cad24d44e2c493450432",
+  "javascript": {
+    "version": "pilot-30-v1",
+    "catalogHash": "2cb0f212e5fa1096635ee4f478dabd6ae15de37fea76020cbacc31f6a4e59255",
+    "rulesHash": "7296fdac7c04f4e90491c98b9fc3382f011e04fb4a73cad24d44e2c493450432",
+    "levels": 30,
+    "winningCertificates": 30,
+    "decisionProofs": 6,
+    "transcriptCases": 662,
+    "acceptedActions": 8282,
+    "jsAccounting": true,
+    "refusedMovesImmutable": true,
+    "bridgeFullSlots": true,
+    "exactMaterial": true,
+    "limits": "Human difficulty is not measured by automated checks."
+  },
+  "nativeComparison": {
+    "passed": true,
+    "framework": "net10.0",
+    "cases": 662,
+    "acceptedActions": 8282,
+    "bridgeAdapterActions": 108,
+    "coreSourceFiles": 55,
+    "coreSourceTreeHash": "858d5ff380e82e1a09b39487d2efa4bdb0e189e0fd2e11f7930388678ee6b08b",
+    "compilation": "0 warnings, 0 errors; actual Core sources in a test-only assembly"
+  },
+  "browser": {
+    "passed": true,
+    "htmlSha256": "36266cc36ba61fa1b2754a358642c21caeb7563fa858727711f96770c49c93c0",
+    "playthroughs": 30,
+    "layoutChecks": 31,
+    "saveRestore": true,
+    "levelSwitch": true,
+    "freeRetry": true,
+    "realResultsDownload": true,
+    "animationInputGuard": true,
+    "saveBeforeAnimation": true,
+    "noExternalRequests": true,
+    "noBrowserErrors": true,
+    "screenshots": 3
+  },
+  "limits": [
+    "Chromium emulation, not a physical iPhone or Android device.",
+    "No Unity performance or final production UI validation in this HTML test.",
+    "Automated policy wins do not measure human difficulty.",
+    "Bridge and six-channel catalog are prototype adapters, not shipping client features."
+  ]
+}

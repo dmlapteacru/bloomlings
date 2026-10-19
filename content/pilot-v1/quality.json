@@ -1,0 +1,931 @@
+{
+  "version": "pilot-30-v1",
+  "catalogHash": "2cb0f212e5fa1096635ee4f478dabd6ae15de37fea76020cbacc31f6a4e59255",
+  "complete": true,
+  "limits": [
+    "Random and visible policy rates are deterministic simulation samples, not measured human win rates.",
+    "Decision proofs use exhaustive continuation only for the listed losing branches; the entire game tree is not claimed to be enumerated."
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "attempt": 0,
+      "pods": 3,
+      "cells": 132,
+      "palette": [
+        "B",
+        "G"
+      ],
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 2,
+      "attempt": 0,
+      "pods": 4,
+      "cells": 143,
+      "palette": [
+        "B",
+        "G"
+      ],
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 3,
+      "attempt": 0,
+      "pods": 5,
+      "cells": 156,
+      "palette": [
+        "B",
+        "G"
+      ],
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 4,
+      "attempt": 0,
+      "pods": 7,
+      "cells": 168,
+      "palette": [
+        "B",
+        "P",
+        "G"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 5,
+      "attempt": 0,
+      "pods": 7,
+      "cells": 182,
+      "palette": [
+        "B",
+        "P",
+        "G"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 6,
+      "attempt": 0,
+      "pods": 7,
+      "cells": 195,
+      "palette": [
+        "B",
+        "G",
+        "P"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 7,
+      "attempt": 0,
+      "pods": 10,
+      "cells": 210,
+      "palette": [
+        "B",
+        "P",
+        "A",
+        "G"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 8,
+      "attempt": 0,
+      "pods": 10,
+      "cells": 224,
+      "palette": [
+        "B",
+        "A",
+        "G"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 9,
+      "attempt": 0,
+      "pods": 10,
+      "cells": 255,
+      "palette": [
+        "B",
+        "P",
+        "G",
+        "A"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 2,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 10,
+      "attempt": 1,
+      "pods": 10,
+      "cells": 288,
+      "palette": [
+        "B",
+        "G",
+        "P",
+        "A"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 2,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 11,
+      "attempt": 0,
+      "pods": 14,
+      "cells": 306,
+      "palette": [
+        "B",
+        "P",
+        "A",
+        "G"
+      ],
+      "referencePeak": 3,
+      "referenceWaitingTurns": 4,
+      "random": {
+        "wins": 114,
+        "trials": 160,
+        "rate": 0.7125
+      },
+      "visible": {
+        "wins": 45,
+        "trials": 48,
+        "rate": 0.9375
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 12,
+      "attempt": 0,
+      "pods": 14,
+      "cells": 324,
+      "palette": [
+        "B",
+        "A",
+        "G",
+        "P",
+        "C"
+      ],
+      "referencePeak": 2,
+      "referenceWaitingTurns": 7,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 13,
+      "attempt": 0,
+      "pods": 14,
+      "cells": 342,
+      "palette": [
+        "B",
+        "A",
+        "P",
+        "C",
+        "G"
+      ],
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 14,
+      "attempt": 0,
+      "pods": 14,
+      "cells": 361,
+      "palette": [
+        "B",
+        "A",
+        "C",
+        "P",
+        "G"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 4,
+      "random": {
+        "wins": 123,
+        "trials": 160,
+        "rate": 0.76875
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": false,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 15,
+      "attempt": 0,
+      "pods": 14,
+      "cells": 380,
+      "palette": [
+        "B",
+        "G",
+        "A",
+        "C",
+        "P"
+      ],
+      "referencePeak": 3,
+      "referenceWaitingTurns": 4,
+      "random": {
+        "wins": 114,
+        "trials": 160,
+        "rate": 0.7125
+      },
+      "visible": {
+        "wins": 46,
+        "trials": 48,
+        "rate": 0.9583333333333334
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 16,
+      "attempt": 73,
+      "pods": 17,
+      "cells": 400,
+      "palette": [
+        "B",
+        "A",
+        "C",
+        "P",
+        "G"
+      ],
+      "referencePeak": 3,
+      "referenceWaitingTurns": 12,
+      "random": {
+        "wins": 22,
+        "trials": 160,
+        "rate": 0.1375
+      },
+      "visible": {
+        "wins": 11,
+        "trials": 48,
+        "rate": 0.22916666666666666
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": false
+      },
+      "provenDecisions": 2
+    },
+    {
+      "id": 17,
+      "attempt": 0,
+      "pods": 17,
+      "cells": 420,
+      "palette": [
+        "C",
+        "B",
+        "A",
+        "P",
+        "G"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 3,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 18,
+      "attempt": 0,
+      "pods": 17,
+      "cells": 441,
+      "palette": [
+        "B",
+        "P",
+        "G",
+        "A",
+        "C"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 9,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 19,
+      "attempt": 0,
+      "pods": 17,
+      "cells": 462,
+      "palette": [
+        "B",
+        "G",
+        "C",
+        "P",
+        "A"
+      ],
+      "referencePeak": 1,
+      "referenceWaitingTurns": 1,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 20,
+      "attempt": 0,
+      "pods": 19,
+      "cells": 484,
+      "palette": [
+        "B",
+        "G",
+        "D",
+        "A",
+        "C",
+        "P"
+      ],
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "random": {
+        "wins": 145,
+        "trials": 160,
+        "rate": 0.90625
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 21,
+      "attempt": 0,
+      "pods": 19,
+      "cells": 506,
+      "palette": [
+        "B",
+        "A",
+        "G",
+        "C",
+        "D",
+        "P"
+      ],
+      "referencePeak": 2,
+      "referenceWaitingTurns": 7,
+      "random": {
+        "wins": 153,
+        "trials": 160,
+        "rate": 0.95625
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 22,
+      "attempt": 0,
+      "pods": 19,
+      "cells": 529,
+      "palette": [
+        "B",
+        "P",
+        "C",
+        "A",
+        "D",
+        "G"
+      ],
+      "referencePeak": 3,
+      "referenceWaitingTurns": 4,
+      "random": {
+        "wins": 149,
+        "trials": 160,
+        "rate": 0.93125
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 23,
+      "attempt": 274,
+      "pods": 19,
+      "cells": 552,
+      "palette": [
+        "B",
+        "D",
+        "P",
+        "C",
+        "A",
+        "G"
+      ],
+      "referencePeak": 2,
+      "referenceWaitingTurns": 8,
+      "random": {
+        "wins": 24,
+        "trials": 160,
+        "rate": 0.15
+      },
+      "visible": {
+        "wins": 15,
+        "trials": 48,
+        "rate": 0.3125
+      },
+      "bots": {
+        "left": false,
+        "right": false,
+        "cycle": false
+      },
+      "provenDecisions": 2
+    },
+    {
+      "id": 24,
+      "attempt": 0,
+      "pods": 19,
+      "cells": 576,
+      "palette": [
+        "C",
+        "A",
+        "D",
+        "P",
+        "G",
+        "B"
+      ],
+      "referencePeak": 0,
+      "referenceWaitingTurns": 0,
+      "random": {
+        "wins": 160,
+        "trials": 160,
+        "rate": 1
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 25,
+      "attempt": 0,
+      "pods": 20,
+      "cells": 600,
+      "palette": [
+        "B",
+        "G",
+        "P",
+        "A",
+        "C",
+        "D"
+      ],
+      "referencePeak": 2,
+      "referenceWaitingTurns": 2,
+      "random": {
+        "wins": 159,
+        "trials": 160,
+        "rate": 0.99375
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 26,
+      "attempt": 2,
+      "pods": 20,
+      "cells": 600,
+      "palette": [
+        "B",
+        "P",
+        "G",
+        "C",
+        "A",
+        "D"
+      ],
+      "referencePeak": 4,
+      "referenceWaitingTurns": 10,
+      "random": {
+        "wins": 75,
+        "trials": 160,
+        "rate": 0.46875
+      },
+      "visible": {
+        "wins": 42,
+        "trials": 48,
+        "rate": 0.875
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 27,
+      "attempt": 0,
+      "pods": 20,
+      "cells": 650,
+      "palette": [
+        "B",
+        "P",
+        "G",
+        "C",
+        "A",
+        "D"
+      ],
+      "referencePeak": 4,
+      "referenceWaitingTurns": 6,
+      "random": {
+        "wins": 140,
+        "trials": 160,
+        "rate": 0.875
+      },
+      "visible": {
+        "wins": 47,
+        "trials": 48,
+        "rate": 0.9791666666666666
+      },
+      "bots": {
+        "left": false,
+        "right": true,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 28,
+      "attempt": 0,
+      "pods": 20,
+      "cells": 702,
+      "palette": [
+        "B",
+        "C",
+        "G",
+        "A",
+        "P",
+        "D"
+      ],
+      "referencePeak": 3,
+      "referenceWaitingTurns": 12,
+      "random": {
+        "wins": 91,
+        "trials": 160,
+        "rate": 0.56875
+      },
+      "visible": {
+        "wins": 47,
+        "trials": 48,
+        "rate": 0.9791666666666666
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    },
+    {
+      "id": 29,
+      "attempt": 1,
+      "pods": 20,
+      "cells": 600,
+      "palette": [
+        "B",
+        "A",
+        "G",
+        "P",
+        "C",
+        "D"
+      ],
+      "referencePeak": 4,
+      "referenceWaitingTurns": 14,
+      "random": {
+        "wins": 38,
+        "trials": 160,
+        "rate": 0.2375
+      },
+      "visible": {
+        "wins": 29,
+        "trials": 48,
+        "rate": 0.6041666666666666
+      },
+      "bots": {
+        "left": false,
+        "right": false,
+        "cycle": false
+      },
+      "provenDecisions": 2
+    },
+    {
+      "id": 30,
+      "attempt": 1,
+      "pods": 20,
+      "cells": 702,
+      "palette": [
+        "B",
+        "G",
+        "D",
+        "C",
+        "P",
+        "A"
+      ],
+      "referencePeak": 2,
+      "referenceWaitingTurns": 11,
+      "random": {
+        "wins": 99,
+        "trials": 160,
+        "rate": 0.61875
+      },
+      "visible": {
+        "wins": 48,
+        "trials": 48,
+        "rate": 1
+      },
+      "bots": {
+        "left": true,
+        "right": false,
+        "cycle": true
+      },
+      "provenDecisions": 0
+    }
+  ]
+}
