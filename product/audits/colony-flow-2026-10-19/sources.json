@@ -1,0 +1,118 @@
+{
+  "capturedDateUtc": "2026-10-19",
+  "method": "Public fan walkthrough text, board previews and selected walkthrough still sequences, cross-checked against official store listings; no interactive client play.",
+  "uniqueLevelPages": 160,
+  "continuousLevelRange": [
+    1,
+    150
+  ],
+  "laterSample": [
+    170,
+    200,
+    225,
+    250,
+    300,
+    400,
+    500,
+    600,
+    750,
+    1000
+  ],
+  "downloadedImages": 499,
+  "boardPreviews": 160,
+  "walkthroughStills": 339,
+  "multiFrameCases": [
+    1,
+    5,
+    10,
+    15,
+    20,
+    23,
+    25,
+    30,
+    35,
+    40,
+    46,
+    50,
+    55,
+    57,
+    60,
+    61,
+    81,
+    100,
+    121,
+    125,
+    150,
+    250,
+    400,
+    500,
+    600,
+    1000
+  ],
+  "reviewFocus": [
+    1,
+    5,
+    8,
+    10,
+    15,
+    30,
+    31,
+    46,
+    57,
+    61,
+    81,
+    121,
+    125,
+    150,
+    200,
+    250,
+    400,
+    500,
+    600,
+    1000
+  ],
+  "sourceDiscrepancies": [
+    {
+      "level": 150,
+      "preview": "cat by the sea with counted target",
+      "walkthrough": "curled sleeping cat"
+    },
+    {
+      "level": 200,
+      "preview": "witch riding a broom",
+      "walkthrough": "crystal ball with keys"
+    },
+    {
+      "level": 600,
+      "preview": "cat with ramen",
+      "walkthrough": "butterfly with keys"
+    },
+    {
+      "level": 46,
+      "text": "overview describes green key",
+      "stills": "green, yellow and cyan keys visible"
+    },
+    {
+      "level": 121,
+      "text": "says no special mechanics",
+      "stills": "three counted board targets marked 30 visible"
+    }
+  ],
+  "storeSources": [
+    {
+      "url": "https://play.google.com/store/apps/details?id=com.abi.colony.flow&hl=en",
+      "htmlSha256": "d9cb5be3acf96f16b29fde7121332f33b6d422b0ed7f9f841359ae3757ad0c48"
+    },
+    {
+      "url": "https://apps.apple.com/us/app/colony-flow/id6779167923",
+      "htmlSha256": "aea262cac3220b240fcb64659212d3294b139f0b00ae2d08dea0a0c59e57f44f"
+    }
+  ],
+  "limits": [
+    "YouTube watch pages/media remain blocked by the cloud proxy; linked videos were not watched.",
+    "No interactive game, no measurement of human/random win rates for Colony Flow.",
+    "Page numbers and old stills do not establish the latest game version unlock schedule.",
+    "A still can show occupancy graphics but cannot prove every hidden input or resource rule.",
+    "CSV indexes contain source metadata and hashes, not a copy of the complete articles."
+  ]
+}
