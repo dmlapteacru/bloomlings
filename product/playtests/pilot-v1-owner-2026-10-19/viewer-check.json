@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "attemptEndStatesChecked": 32,
+  "levels": 30,
+  "phoneWidths": [
+    320,
+    390,
+    768
+  ],
+  "l26BeforeFailureFourOccupied": true,
+  "planDownloadExact": true,
+  "noExternalRequests": true,
+  "noBrowserErrors": true
+}

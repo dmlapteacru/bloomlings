@@ -1,0 +1,2245 @@
+{
+  "format": "bloomlings-pilot-results-1",
+  "exportedAt": "2026-10-19T11:31:14.522Z",
+  "pilotVersion": "pilot-30-v1",
+  "catalogHash": "2cb0f212e5fa1096635ee4f478dabd6ae15de37fea76020cbacc31f6a4e59255",
+  "rulesHash": "7296fdac7c04f4e90491c98b9fc3382f011e04fb4a73cad24d44e2c493450432",
+  "settings": {
+    "fast": false,
+    "symbols": null
+  },
+  "attempts": [
+    {
+      "id": 1,
+      "level": 1,
+      "startedAt": "2026-10-19T11:16:34.239Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        }
+      ],
+      "elapsedMs": 10826.60000000894,
+      "outcome": "abandoned",
+      "rating": null,
+      "art": null,
+      "note": "",
+      "updatedAt": "2026-10-19T11:16:51.575Z",
+      "endedAt": "2026-10-19T11:16:59.195Z"
+    },
+    {
+      "id": 2,
+      "level": 1,
+      "startedAt": "2026-10-19T11:16:59.195Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 6023.4000000059605,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "Я могу все 3 сразу тапнуть и сразу включится x2. А хотелось бы как то подержать юзера тут",
+      "updatedAt": "2026-10-19T11:17:05.227Z",
+      "endedAt": "2026-10-19T11:17:05.227Z"
+    },
+    {
+      "id": 3,
+      "level": 2,
+      "startedAt": "2026-10-19T11:18:01.789Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 9959.09999999404,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "Тоже самое что и в первом",
+      "updatedAt": "2026-10-19T11:18:11.764Z",
+      "endedAt": "2026-10-19T11:18:11.764Z"
+    },
+    {
+      "id": 4,
+      "level": 3,
+      "startedAt": "2026-10-19T11:18:30.556Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        }
+      ],
+      "elapsedMs": 8733.199999988079,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:18:39.301Z",
+      "endedAt": "2026-10-19T11:18:39.301Z"
+    },
+    {
+      "id": 5,
+      "level": 4,
+      "startedAt": "2026-10-19T11:18:46.908Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        }
+      ],
+      "elapsedMs": 13579.40000000596,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "Картинка узнается концептуально ",
+      "updatedAt": "2026-10-19T11:19:07.656Z",
+      "endedAt": "2026-10-19T11:19:07.656Z"
+    },
+    {
+      "id": 6,
+      "level": 5,
+      "startedAt": "2026-10-19T11:19:42.263Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 10443,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:19:52.719Z",
+      "endedAt": "2026-10-19T11:19:52.719Z"
+    },
+    {
+      "id": 7,
+      "level": 6,
+      "startedAt": "2026-10-19T11:19:55.080Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        }
+      ],
+      "elapsedMs": 15772.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:20:21.534Z",
+      "endedAt": "2026-10-19T11:20:21.534Z"
+    },
+    {
+      "id": 8,
+      "level": 7,
+      "startedAt": "2026-10-19T11:20:24.320Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        }
+      ],
+      "elapsedMs": 12181.40000000596,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:20:38.744Z",
+      "endedAt": "2026-10-19T11:20:38.744Z"
+    },
+    {
+      "id": 9,
+      "level": 8,
+      "startedAt": "2026-10-19T11:20:43.743Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        }
+      ],
+      "elapsedMs": 11737.89999999106,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:20:55.492Z",
+      "endedAt": "2026-10-19T11:20:55.492Z"
+    },
+    {
+      "id": 10,
+      "level": 9,
+      "startedAt": "2026-10-19T11:21:02.652Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "elapsedMs": 12683.70000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:21:15.346Z",
+      "endedAt": "2026-10-19T11:21:15.346Z"
+    },
+    {
+      "id": 11,
+      "level": 10,
+      "startedAt": "2026-10-19T11:21:20.180Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "elapsedMs": 12014.70000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:21:32.206Z",
+      "endedAt": "2026-10-19T11:21:32.206Z"
+    },
+    {
+      "id": 12,
+      "level": 11,
+      "startedAt": "2026-10-19T11:21:38.184Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        }
+      ],
+      "elapsedMs": 16441.70000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:21:54.636Z",
+      "endedAt": "2026-10-19T11:21:54.636Z"
+    },
+    {
+      "id": 13,
+      "level": 12,
+      "startedAt": "2026-10-19T11:21:56.746Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        }
+      ],
+      "elapsedMs": 15008.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:22:14.559Z",
+      "endedAt": "2026-10-19T11:22:14.560Z"
+    },
+    {
+      "id": 14,
+      "level": 13,
+      "startedAt": "2026-10-19T11:22:19.314Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        }
+      ],
+      "elapsedMs": 14305.20000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:22:33.632Z",
+      "endedAt": "2026-10-19T11:22:33.632Z"
+    },
+    {
+      "id": 15,
+      "level": 14,
+      "startedAt": "2026-10-19T11:22:35.559Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        }
+      ],
+      "elapsedMs": 15419,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:22:50.989Z",
+      "endedAt": "2026-10-19T11:22:50.989Z"
+    },
+    {
+      "id": 16,
+      "level": 15,
+      "startedAt": "2026-10-19T11:22:55.761Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        }
+      ],
+      "elapsedMs": 12448.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:23:08.222Z",
+      "endedAt": "2026-10-19T11:23:08.222Z"
+    },
+    {
+      "id": 17,
+      "level": 16,
+      "startedAt": "2026-10-19T11:23:10.667Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "elapsedMs": 28453.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:23:39.995Z",
+      "endedAt": "2026-10-19T11:23:39.995Z"
+    },
+    {
+      "id": 18,
+      "level": 17,
+      "startedAt": "2026-10-19T11:23:47.863Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "elapsedMs": 17313.90000000596,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:24:05.188Z",
+      "endedAt": "2026-10-19T11:24:05.188Z"
+    },
+    {
+      "id": 19,
+      "level": 18,
+      "startedAt": "2026-10-19T11:24:08.336Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        }
+      ],
+      "elapsedMs": 12129.79999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:24:20.477Z",
+      "endedAt": "2026-10-19T11:24:20.477Z"
+    },
+    {
+      "id": 20,
+      "level": 19,
+      "startedAt": "2026-10-19T11:24:23.636Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        }
+      ],
+      "elapsedMs": 11493.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:24:35.141Z",
+      "endedAt": "2026-10-19T11:24:35.141Z"
+    },
+    {
+      "id": 21,
+      "level": 20,
+      "startedAt": "2026-10-19T11:24:37.863Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        }
+      ],
+      "elapsedMs": 19487.79999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:24:59.367Z",
+      "endedAt": "2026-10-19T11:24:59.367Z"
+    },
+    {
+      "id": 22,
+      "level": 21,
+      "startedAt": "2026-10-19T11:25:01.948Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        }
+      ],
+      "elapsedMs": 14763.20000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:25:16.726Z",
+      "endedAt": "2026-10-19T11:25:16.726Z"
+    },
+    {
+      "id": 23,
+      "level": 22,
+      "startedAt": "2026-10-19T11:25:19.504Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        }
+      ],
+      "elapsedMs": 13891.79999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:25:33.409Z",
+      "endedAt": "2026-10-19T11:25:33.409Z"
+    },
+    {
+      "id": 24,
+      "level": 23,
+      "startedAt": "2026-10-19T11:25:37.550Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "elapsedMs": 15862.800000011921,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:25:53.425Z",
+      "endedAt": "2026-10-19T11:25:53.425Z"
+    },
+    {
+      "id": 25,
+      "level": 24,
+      "startedAt": "2026-10-19T11:25:56.366Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        }
+      ],
+      "elapsedMs": 14994.79999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:26:11.373Z",
+      "endedAt": "2026-10-19T11:26:11.373Z"
+    },
+    {
+      "id": 26,
+      "level": 25,
+      "startedAt": "2026-10-19T11:26:17.029Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        }
+      ],
+      "elapsedMs": 24519.40000000596,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:26:50.347Z",
+      "endedAt": "2026-10-19T11:26:50.347Z"
+    },
+    {
+      "id": 27,
+      "level": 26,
+      "startedAt": "2026-10-19T11:26:58.650Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        }
+      ],
+      "elapsedMs": 14180.09999999404,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "note": "",
+      "updatedAt": "2026-10-19T11:27:12.844Z",
+      "endedAt": "2026-10-19T11:27:12.844Z"
+    },
+    {
+      "id": 28,
+      "level": 26,
+      "startedAt": "2026-10-19T11:27:16.475Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        }
+      ],
+      "elapsedMs": 30830.29999999702,
+      "outcome": "won",
+      "rating": "good",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:27:47.317Z",
+      "endedAt": "2026-10-19T11:27:47.317Z"
+    },
+    {
+      "id": 29,
+      "level": 27,
+      "startedAt": "2026-10-19T11:27:55.003Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        }
+      ],
+      "elapsedMs": 32763.10000000894,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "note": "",
+      "updatedAt": "2026-10-19T11:28:27.781Z",
+      "endedAt": "2026-10-19T11:28:27.781Z"
+    },
+    {
+      "id": 30,
+      "level": 28,
+      "startedAt": "2026-10-19T11:28:31.710Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        }
+      ],
+      "elapsedMs": 45425.10000000894,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:29:20.744Z",
+      "endedAt": "2026-10-19T11:29:20.744Z"
+    },
+    {
+      "id": 31,
+      "level": 29,
+      "startedAt": "2026-10-19T11:29:28.466Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        }
+      ],
+      "elapsedMs": 36428.59999999404,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:30:04.909Z",
+      "endedAt": "2026-10-19T11:30:04.909Z"
+    },
+    {
+      "id": 32,
+      "level": 30,
+      "startedAt": "2026-10-19T11:30:10.613Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        }
+      ],
+      "elapsedMs": 40847.90000000596,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "no",
+      "note": "",
+      "updatedAt": "2026-10-19T11:30:51.477Z",
+      "endedAt": "2026-10-19T11:30:51.477Z"
+    }
+  ]
+}
