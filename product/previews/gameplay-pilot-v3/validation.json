@@ -1,0 +1,139 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-19",
+  "javascript": {
+    "version": "pilot-30-v3",
+    "catalogHash": "a663e3b0eb201d78c555134f5bb247c9de5940b036cb19fe47de3bc699938323",
+    "rulesHash": "17269d41d24a8a37f32bae7f818cc686b72937a0f9c1b85c73ed79e1332c0d64",
+    "timelineHash": "55d99b299e51be93e004c9e2ec70002f73e0dd2a35e02e2f5b58e513d1791532",
+    "levels": 30,
+    "winningConfigurations": 39,
+    "retainedControlLevels": 18,
+    "hardLosingBranches": 8,
+    "earlyTeachingBranches": 3,
+    "informationPolicies": 14,
+    "nonCosmeticBridgeChoices": 5,
+    "transcriptCases": 392,
+    "acceptedActions": 4159,
+    "allTopsKnownBeforeSelection": true,
+    "inputImmutable": true,
+    "limits": [
+      "Human enjoyment and timing still need the next playtest.",
+      "Capacity, co-reservation, top reveal and bridge are explicit experimental adapters; shipping Core/catalog unchanged."
+    ]
+  },
+  "timeline": {
+    "passed": true,
+    "winningTimelinePaths": 78,
+    "acceptedCommands": 1188,
+    "checkpointsRestored": 1570,
+    "busyRefusals": 11369,
+    "fullWorkingRowStates": 11858,
+    "completedHalfStates": 1997,
+    "bridgeVisibilityWaits": 203,
+    "frameChunkingInvariant": true,
+    "twoTimesSameWork": true,
+    "pendingWinDelayed": true,
+    "pairedPlacesHeld": true,
+    "bridgeRescuesFullRow": true,
+    "newTopRevealsImmediately": true,
+    "staleCheckpointRejected": true
+  },
+  "native": {
+    "passed": true,
+    "transcriptCases": 392,
+    "acceptedActions": 4159,
+    "bridgeActions": 53,
+    "transcriptsSha256": "187ca0be94fbc449a6b9f76ea3e79b3e9425bc25ea782f9f34d653d870076054",
+    "actualCore": [
+      "exact material work",
+      "age-ordered allocation",
+      "atomic group admission",
+      "source tray",
+      "mystery reveal"
+    ],
+    "explicitAdapters": [
+      "capacity 3/4/5",
+      "new top reveal before selection",
+      "co-reserved pair places until both complete",
+      "one-use bridge",
+      "pilot outcome"
+    ],
+    "shippingCoreChanged": false,
+    "buildWarnings": 0,
+    "buildErrors": 0
+  },
+  "browser": {
+    "passed": true,
+    "htmlSha256": "3b3a8554b05013fb313f98874635abf5096c8ecbba468a200ded298712e4658e",
+    "playthroughs": 39,
+    "layoutChecks": 70,
+    "rapidAdmission": true,
+    "fullWorkingRowWaits": true,
+    "pendingWorkRestored": true,
+    "modalPausesWork": true,
+    "pairReservationRestored": true,
+    "topRevealsBeforeTap": true,
+    "topRevealedDuringWork": true,
+    "delayedFinishes": 39,
+    "capacityProfilesIndependent": true,
+    "lateCapacityFive": true,
+    "levelSwitch": true,
+    "freeRetry": true,
+    "realResultsDownload": true,
+    "autoFastOnExhaustionOnly": true,
+    "manualSpeedPersists": true,
+    "realTouchDuringWork": true,
+    "noExternalRequests": true,
+    "noBrowserErrors": true,
+    "screenshots": 12
+  },
+  "rebuild": {
+    "deterministicCatalog": true,
+    "deterministicCertificates": true,
+    "deterministicQuality": true,
+    "frozenV2HashesUnchanged": true
+  },
+  "viewports": [
+    [
+      320,
+      640
+    ],
+    [
+      360,
+      640
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      1280,
+      900
+    ]
+  ],
+  "downloads": {
+    "html": {
+      "filename": "Bloomlings-Pilot-v3-30.html",
+      "bytes": 1322072,
+      "sha256": "3b3a8554b05013fb313f98874635abf5096c8ecbba468a200ded298712e4658e"
+    },
+    "zip": {
+      "filename": "Bloomlings-Pilot-v3-30.zip",
+      "bytes": 825669,
+      "sha256": "479d476c917438ab3a93a5a0c7d04f12c45c03eeca4cda103d3781aad3f8067c"
+    }
+  },
+  "limits": [
+    "Human difficulty, enjoyment and picture recognition await the owner playtest.",
+    "Browser layout and touch emulation do not measure Unity/APK performance on a physical phone."
+  ]
+}

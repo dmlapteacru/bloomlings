@@ -1,0 +1,587 @@
+{
+  "version": "pilot-30-v3",
+  "catalogHash": "a663e3b0eb201d78c555134f5bb247c9de5940b036cb19fe47de3bc699938323",
+  "complete": true,
+  "limits": [
+    "Policy samples are construction diagnostics, not human win probabilities.",
+    "Control puzzles are retained; 3/4 places are an early experimental configuration."
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "attempt": 0,
+      "change": "early queue and capacity",
+      "referencePeak": 1,
+      "preparatoryTaps": 0,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 2,
+      "attempt": 0,
+      "change": "early queue and capacity",
+      "referencePeak": 0,
+      "preparatoryTaps": 0,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 3,
+      "attempt": 1,
+      "change": "early queue and capacity",
+      "referencePeak": 1,
+      "preparatoryTaps": 0,
+      "policies": {
+        "random": {
+          "wins": 55,
+          "trials": 64,
+          "rate": 0.859375
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 4,
+      "attempt": 3,
+      "change": "early queue and capacity",
+      "referencePeak": 1,
+      "preparatoryTaps": 0,
+      "policies": {
+        "random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        }
+      }
+    },
+    {
+      "id": 5,
+      "attempt": 9,
+      "change": "early queue and capacity",
+      "referencePeak": 2,
+      "preparatoryTaps": 3,
+      "policies": {
+        "random": {
+          "wins": 12,
+          "trials": 64,
+          "rate": 0.1875
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 34,
+          "trials": 64,
+          "rate": 0.53125
+        },
+        "two-then-random": {
+          "wins": 20,
+          "trials": 64,
+          "rate": 0.3125
+        }
+      }
+    },
+    {
+      "id": 6,
+      "attempt": 0,
+      "change": "early queue and capacity",
+      "referencePeak": 1,
+      "preparatoryTaps": 1,
+      "policies": {
+        "random": {
+          "wins": 20,
+          "trials": 64,
+          "rate": 0.3125
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 44,
+          "trials": 64,
+          "rate": 0.6875
+        }
+      }
+    },
+    {
+      "id": 7,
+      "attempt": 6,
+      "change": "early queue and capacity",
+      "referencePeak": 2,
+      "preparatoryTaps": 2,
+      "policies": {
+        "random": {
+          "wins": 24,
+          "trials": 64,
+          "rate": 0.375
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 47,
+          "trials": 64,
+          "rate": 0.734375
+        },
+        "two-then-random": {
+          "wins": 35,
+          "trials": 64,
+          "rate": 0.546875
+        }
+      }
+    },
+    {
+      "id": 8,
+      "attempt": 5,
+      "change": "early queue and capacity",
+      "referencePeak": 1,
+      "preparatoryTaps": 1,
+      "policies": {
+        "random": {
+          "wins": 50,
+          "trials": 64,
+          "rate": 0.78125
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 53,
+          "trials": 64,
+          "rate": 0.828125
+        },
+        "two-then-random": {
+          "wins": 45,
+          "trials": 64,
+          "rate": 0.703125
+        }
+      }
+    },
+    {
+      "id": 9,
+      "attempt": 6,
+      "change": "early queue and capacity",
+      "referencePeak": 2,
+      "preparatoryTaps": 2,
+      "policies": {
+        "random": {
+          "wins": 13,
+          "trials": 64,
+          "rate": 0.203125
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 44,
+          "trials": 64,
+          "rate": 0.6875
+        },
+        "two-then-random": {
+          "wins": 30,
+          "trials": 64,
+          "rate": 0.46875
+        }
+      }
+    },
+    {
+      "id": 10,
+      "change": "v2 control",
+      "referencePeak": 3,
+      "preparatoryTaps": 1
+    },
+    {
+      "id": 11,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 3
+    },
+    {
+      "id": 12,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 3
+    },
+    {
+      "id": 13,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 3
+    },
+    {
+      "id": 14,
+      "change": "v2 control",
+      "referencePeak": 3,
+      "preparatoryTaps": 2
+    },
+    {
+      "id": 15,
+      "change": "v2 control",
+      "referencePeak": 3,
+      "preparatoryTaps": 1
+    },
+    {
+      "id": 16,
+      "change": "v2 control",
+      "referencePeak": 0,
+      "preparatoryTaps": 0
+    },
+    {
+      "id": 17,
+      "attempt": 0,
+      "change": "redrawn picture",
+      "referencePeak": 4,
+      "preparatoryTaps": 4,
+      "policies": {
+        "random": {
+          "wins": 43,
+          "trials": 64,
+          "rate": 0.671875
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 50,
+          "trials": 64,
+          "rate": 0.78125
+        }
+      }
+    },
+    {
+      "id": 18,
+      "change": "v2 control",
+      "referencePeak": 3,
+      "preparatoryTaps": 3
+    },
+    {
+      "id": 19,
+      "change": "v2 control",
+      "referencePeak": 5,
+      "preparatoryTaps": 1
+    },
+    {
+      "id": 20,
+      "change": "v2 control",
+      "referencePeak": 1,
+      "preparatoryTaps": 0
+    },
+    {
+      "id": 21,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 2
+    },
+    {
+      "id": 22,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 1
+    },
+    {
+      "id": 23,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 3
+    },
+    {
+      "id": 24,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 2
+    },
+    {
+      "id": 25,
+      "attempt": 20,
+      "change": "redrawn picture",
+      "referencePeak": 3,
+      "preparatoryTaps": 3,
+      "policies": {
+        "random": {
+          "wins": 7,
+          "trials": 64,
+          "rate": 0.109375
+        },
+        "leftmost": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "largest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "smallest": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "release": {
+          "wins": 0,
+          "trials": 64,
+          "rate": 0
+        },
+        "two-then-random": {
+          "wins": 7,
+          "trials": 64,
+          "rate": 0.109375
+        }
+      }
+    },
+    {
+      "id": 26,
+      "attempt": 0,
+      "change": "redrawn picture",
+      "referencePeak": 2,
+      "preparatoryTaps": 1,
+      "policies": {
+        "random": {
+          "wins": 45,
+          "trials": 64,
+          "rate": 0.703125
+        },
+        "leftmost": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "largest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "smallest": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "release": {
+          "wins": 64,
+          "trials": 64,
+          "rate": 1
+        },
+        "two-then-random": {
+          "wins": 42,
+          "trials": 64,
+          "rate": 0.65625
+        }
+      }
+    },
+    {
+      "id": 27,
+      "change": "v2 control",
+      "referencePeak": 4,
+      "preparatoryTaps": 4
+    },
+    {
+      "id": 28,
+      "change": "v2 control",
+      "referencePeak": 0,
+      "preparatoryTaps": 0
+    },
+    {
+      "id": 29,
+      "change": "v2 control",
+      "referencePeak": 5,
+      "preparatoryTaps": 2
+    },
+    {
+      "id": 30,
+      "change": "v2 control",
+      "referencePeak": 1,
+      "preparatoryTaps": 1
+    }
+  ]
+}
