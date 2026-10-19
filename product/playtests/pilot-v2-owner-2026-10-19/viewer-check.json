@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "htmlSha256": "db207fb0908b079482b4bcf4ee35bbd79f9120445a642278b1b83302ce325e68",
+  "attemptsReplayed": 50,
+  "layouts": 4,
+  "unknownColoursStayHidden": true,
+  "completedHalfRendered": true,
+  "fatalJumpAndStepControls": true,
+  "planDownloadMatches": true,
+  "noBrowserErrors": true,
+  "noExternalRequests": true
+}

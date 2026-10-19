@@ -1,0 +1,3365 @@
+{
+  "format": "bloomlings-pilot-results-2",
+  "exportedAt": "2026-10-19T15:30:00.122Z",
+  "pilotVersion": "pilot-30-v2",
+  "catalogHash": "880916b84588564db8f57d55ca712d3e5ebc8a1f2532c76192ba6e7513ffa9a1",
+  "rulesHash": "cc555d982347002a5bf3bbbc24191a0e275921cda3845e1f0af105a77228d08a",
+  "settings": {
+    "fast": false,
+    "symbols": false
+  },
+  "attempts": [
+    {
+      "id": 1,
+      "level": 1,
+      "startedAt": "2026-10-19T13:19:39.271Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        }
+      ],
+      "elapsedMs": 20025.70000001788,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "Лучше стало. Но не надо забывать, что я могу в игре несколько лотов выбрать сразу и заполнить все слоты. Так как лотов теперь больше, играется чуть дольше. Может уменьшить количество слотов, даже если юзер будет идти по цветам, и на первых уровнях не страшно, то юзер по крайней мере должен ждать освобождение цвета, из слота, а не сразу 5 штук заполнить и потом еще 5 и готово.",
+      "autoFastAtAction": 9,
+      "updatedAt": "2026-10-19T13:20:06.278Z",
+      "endedAt": "2026-10-19T13:20:06.278Z"
+    },
+    {
+      "id": 2,
+      "level": 2,
+      "startedAt": "2026-10-19T13:22:42.363Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 16337.79999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "Тоже самое что и первый уровень. ",
+      "autoFastAtAction": 9,
+      "updatedAt": "2026-10-19T13:22:58.718Z",
+      "endedAt": "2026-10-19T13:22:58.718Z"
+    },
+    {
+      "id": 3,
+      "level": 3,
+      "startedAt": "2026-10-19T13:23:14.935Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        }
+      ],
+      "elapsedMs": 14423,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 10,
+      "updatedAt": "2026-10-19T13:24:11.127Z",
+      "endedAt": "2026-10-19T13:24:11.127Z"
+    },
+    {
+      "id": 4,
+      "level": 4,
+      "startedAt": "2026-10-19T13:24:20.790Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        }
+      ],
+      "elapsedMs": 11932,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 10,
+      "updatedAt": "2026-10-19T13:24:32.731Z",
+      "endedAt": "2026-10-19T13:24:32.731Z"
+    },
+    {
+      "id": 5,
+      "level": 5,
+      "startedAt": "2026-10-19T13:24:40.810Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 42171.70000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "Слегка думал об очереди, но в основном по цветам",
+      "autoFastAtAction": 12,
+      "updatedAt": "2026-10-19T13:25:23.986Z",
+      "endedAt": "2026-10-19T13:25:23.986Z"
+    },
+    {
+      "id": 6,
+      "level": 6,
+      "startedAt": "2026-10-19T13:25:46.370Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        }
+      ],
+      "elapsedMs": 31176.20000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "planned",
+      "note": "Ноооо, тут конечно странно. Неизвестыне лоты должны быть жо верхнего уровня, на верхних уровнях все должно быть прозрачно, по крайней мере первые раунды точно. Где-то после 100 можем и такое делать, но в начале это перебор",
+      "autoFastAtAction": 14,
+      "updatedAt": "2026-10-19T13:26:18.542Z",
+      "endedAt": "2026-10-19T13:26:18.542Z"
+    },
+    {
+      "id": 7,
+      "level": 7,
+      "startedAt": "2026-10-19T13:27:34.196Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        }
+      ],
+      "elapsedMs": 16954.10000000894,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 14,
+      "updatedAt": "2026-10-19T13:27:51.166Z",
+      "endedAt": "2026-10-19T13:27:51.166Z"
+    },
+    {
+      "id": 8,
+      "level": 8,
+      "startedAt": "2026-10-19T13:27:57.322Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        }
+      ],
+      "elapsedMs": 19773.29999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 14,
+      "updatedAt": "2026-10-19T13:28:27.063Z",
+      "endedAt": "2026-10-19T13:28:27.063Z"
+    },
+    {
+      "id": 9,
+      "level": 9,
+      "startedAt": "2026-10-19T13:28:32.358Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "elapsedMs": 19543.59999999404,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 14,
+      "updatedAt": "2026-10-19T13:28:51.914Z",
+      "endedAt": "2026-10-19T13:28:51.915Z"
+    },
+    {
+      "id": 10,
+      "level": 10,
+      "startedAt": "2026-10-19T13:28:54.619Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        }
+      ],
+      "elapsedMs": 30898.69999998808,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 17,
+      "updatedAt": "2026-10-19T13:29:26.252Z",
+      "endedAt": "2026-10-19T13:29:26.252Z"
+    },
+    {
+      "id": 11,
+      "level": 11,
+      "startedAt": "2026-10-19T13:29:30.055Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        }
+      ],
+      "elapsedMs": 42693.89999999106,
+      "outcome": "won",
+      "rating": "good",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 16,
+      "updatedAt": "2026-10-19T13:30:12.761Z",
+      "endedAt": "2026-10-19T13:30:12.761Z"
+    },
+    {
+      "id": 12,
+      "level": 12,
+      "startedAt": "2026-10-19T13:30:19.864Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        }
+      ],
+      "elapsedMs": 41250.70000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "planned",
+      "note": "Думал, но мало",
+      "autoFastAtAction": 16,
+      "updatedAt": "2026-10-19T13:31:01.132Z",
+      "endedAt": "2026-10-19T13:31:01.132Z"
+    },
+    {
+      "id": 13,
+      "level": 13,
+      "startedAt": "2026-10-19T13:31:10.530Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 21831.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "Вообще не думал",
+      "autoFastAtAction": 16,
+      "updatedAt": "2026-10-19T13:31:32.381Z",
+      "endedAt": "2026-10-19T13:31:32.381Z"
+    },
+    {
+      "id": 14,
+      "level": 14,
+      "startedAt": "2026-10-19T13:31:43.173Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        }
+      ],
+      "elapsedMs": 27075.20000000298,
+      "outcome": "jammed",
+      "rating": "good",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T13:32:10.264Z",
+      "endedAt": "2026-10-19T13:32:10.264Z"
+    },
+    {
+      "id": 15,
+      "level": 14,
+      "startedAt": "2026-10-19T13:32:20.352Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        }
+      ],
+      "elapsedMs": 39273.09999999404,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 16,
+      "updatedAt": "2026-10-19T13:32:59.639Z",
+      "endedAt": "2026-10-19T13:32:59.639Z"
+    },
+    {
+      "id": 16,
+      "level": 15,
+      "startedAt": "2026-10-19T13:33:05.629Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        }
+      ],
+      "elapsedMs": 17152.79999999702,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T13:33:23.599Z",
+      "endedAt": "2026-10-19T13:33:23.599Z"
+    },
+    {
+      "id": 17,
+      "level": 15,
+      "startedAt": "2026-10-19T13:33:25.586Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        }
+      ],
+      "elapsedMs": 29487.09999999404,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T13:33:55.087Z",
+      "endedAt": "2026-10-19T13:33:55.087Z"
+    },
+    {
+      "id": 18,
+      "level": 15,
+      "startedAt": "2026-10-19T13:33:56.067Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        }
+      ],
+      "elapsedMs": 25758.89999999106,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T13:34:21.841Z",
+      "endedAt": "2026-10-19T13:34:21.841Z"
+    },
+    {
+      "id": 19,
+      "level": 15,
+      "startedAt": "2026-10-19T13:34:22.865Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        }
+      ],
+      "elapsedMs": 8552,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T13:34:31.429Z",
+      "endedAt": "2026-10-19T13:34:31.429Z"
+    },
+    {
+      "id": 20,
+      "level": 15,
+      "startedAt": "2026-10-19T13:34:32.663Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        }
+      ],
+      "elapsedMs": 57885.10000000894,
+      "outcome": "won",
+      "rating": "good",
+      "art": "yes",
+      "planning": "planned",
+      "note": "4 раза проходил. Этот удачный уровень очень",
+      "autoFastAtAction": 17,
+      "updatedAt": "2026-10-19T13:38:26.555Z",
+      "endedAt": "2026-10-19T13:38:26.555Z"
+    },
+    {
+      "id": 21,
+      "level": 16,
+      "startedAt": "2026-10-19T13:38:49.292Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        }
+      ],
+      "elapsedMs": 24287.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 17,
+      "updatedAt": "2026-10-19T13:58:36.547Z",
+      "endedAt": "2026-10-19T13:58:36.547Z"
+    },
+    {
+      "id": 22,
+      "level": 17,
+      "startedAt": "2026-10-19T13:58:41.699Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        }
+      ],
+      "elapsedMs": 59549.79999999702,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T13:59:41.270Z",
+      "endedAt": "2026-10-19T13:59:41.270Z"
+    },
+    {
+      "id": 23,
+      "level": 17,
+      "startedAt": "2026-10-19T13:59:43.787Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        }
+      ],
+      "elapsedMs": 30344.90000002086,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:07:24.167Z",
+      "endedAt": "2026-10-19T15:07:24.167Z"
+    },
+    {
+      "id": 24,
+      "level": 17,
+      "startedAt": "2026-10-19T15:07:26.319Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        }
+      ],
+      "elapsedMs": 32254.59999999404,
+      "outcome": "won",
+      "rating": "good",
+      "art": "no",
+      "planning": "planned",
+      "note": "Слабо думал",
+      "autoFastAtAction": 18,
+      "updatedAt": "2026-10-19T15:07:58.586Z",
+      "endedAt": "2026-10-19T15:07:58.587Z"
+    },
+    {
+      "id": 25,
+      "level": 18,
+      "startedAt": "2026-10-19T15:08:09.992Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        }
+      ],
+      "elapsedMs": 46740.60000000894,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 20,
+      "updatedAt": "2026-10-19T15:08:57.779Z",
+      "endedAt": "2026-10-19T15:08:57.779Z"
+    },
+    {
+      "id": 26,
+      "level": 19,
+      "startedAt": "2026-10-19T15:09:04.172Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        }
+      ],
+      "elapsedMs": 28786.59999999404,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:09:39.549Z",
+      "endedAt": "2026-10-19T15:09:39.549Z"
+    },
+    {
+      "id": 27,
+      "level": 19,
+      "startedAt": "2026-10-19T15:10:04.758Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        }
+      ],
+      "elapsedMs": 37622.59999999404,
+      "outcome": "won",
+      "rating": "good",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 19,
+      "updatedAt": "2026-10-19T15:10:42.394Z",
+      "endedAt": "2026-10-19T15:10:42.394Z"
+    },
+    {
+      "id": 28,
+      "level": 20,
+      "startedAt": "2026-10-19T15:10:48.789Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        }
+      ],
+      "elapsedMs": 38441.40000000596,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 17,
+      "updatedAt": "2026-10-19T15:11:29.337Z",
+      "endedAt": "2026-10-19T15:11:29.337Z"
+    },
+    {
+      "id": 29,
+      "level": 21,
+      "startedAt": "2026-10-19T15:11:33.533Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        }
+      ],
+      "elapsedMs": 42338.29999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 18,
+      "updatedAt": "2026-10-19T15:12:15.887Z",
+      "endedAt": "2026-10-19T15:12:15.887Z"
+    },
+    {
+      "id": 30,
+      "level": 22,
+      "startedAt": "2026-10-19T15:12:20.806Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        }
+      ],
+      "elapsedMs": 44746.59999999404,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:13:05.569Z",
+      "endedAt": "2026-10-19T15:13:05.569Z"
+    },
+    {
+      "id": 31,
+      "level": 22,
+      "startedAt": "2026-10-19T15:13:06.971Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 60768.70000000298,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:14:07.755Z",
+      "endedAt": "2026-10-19T15:14:07.755Z"
+    },
+    {
+      "id": 32,
+      "level": 22,
+      "startedAt": "2026-10-19T15:14:09.469Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        }
+      ],
+      "elapsedMs": 44515.69999998808,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:14:53.999Z",
+      "endedAt": "2026-10-19T15:14:53.999Z"
+    },
+    {
+      "id": 33,
+      "level": 22,
+      "startedAt": "2026-10-19T15:14:55.202Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        }
+      ],
+      "elapsedMs": 49623,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:15:44.838Z",
+      "endedAt": "2026-10-19T15:15:44.838Z"
+    },
+    {
+      "id": 34,
+      "level": 22,
+      "startedAt": "2026-10-19T15:15:46.064Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "elapsedMs": 50734,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:16:36.812Z",
+      "endedAt": "2026-10-19T15:16:36.812Z"
+    },
+    {
+      "id": 35,
+      "level": 22,
+      "startedAt": "2026-10-19T15:16:38.058Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "elapsedMs": 60013.09999999404,
+      "outcome": "won",
+      "rating": "hard",
+      "art": "yes",
+      "planning": "planned",
+      "note": "Шикарный уровень ",
+      "autoFastAtAction": 20,
+      "updatedAt": "2026-10-19T15:18:55.429Z",
+      "endedAt": "2026-10-19T15:18:55.429Z"
+    },
+    {
+      "id": 36,
+      "level": 23,
+      "startedAt": "2026-10-19T15:19:07.856Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 20
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        }
+      ],
+      "elapsedMs": 36596.70000000298,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "colour-only",
+      "note": "",
+      "autoFastAtAction": 20,
+      "updatedAt": "2026-10-19T15:19:44.474Z",
+      "endedAt": "2026-10-19T15:19:44.474Z"
+    },
+    {
+      "id": 37,
+      "level": 24,
+      "startedAt": "2026-10-19T15:19:47.446Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        }
+      ],
+      "elapsedMs": 80249.5,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:21:07.713Z",
+      "endedAt": "2026-10-19T15:21:07.713Z"
+    },
+    {
+      "id": 38,
+      "level": 24,
+      "startedAt": "2026-10-19T15:21:09.102Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        }
+      ],
+      "elapsedMs": 23533.29999999702,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:21:32.646Z",
+      "endedAt": "2026-10-19T15:21:32.646Z"
+    },
+    {
+      "id": 39,
+      "level": 24,
+      "startedAt": "2026-10-19T15:21:34.104Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        }
+      ],
+      "elapsedMs": 23401.29999999702,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:21:57.522Z",
+      "endedAt": "2026-10-19T15:21:57.522Z"
+    },
+    {
+      "id": 40,
+      "level": 24,
+      "startedAt": "2026-10-19T15:21:58.822Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 20
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        }
+      ],
+      "elapsedMs": 43166.59999999404,
+      "outcome": "won",
+      "rating": "good",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 21,
+      "updatedAt": "2026-10-19T15:22:42.003Z",
+      "endedAt": "2026-10-19T15:22:42.003Z"
+    },
+    {
+      "id": 41,
+      "level": 25,
+      "startedAt": "2026-10-19T15:22:46.189Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        }
+      ],
+      "elapsedMs": 56275.70000000298,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:23:42.480Z",
+      "endedAt": "2026-10-19T15:23:42.480Z"
+    },
+    {
+      "id": 42,
+      "level": 25,
+      "startedAt": "2026-10-19T15:23:43.889Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        }
+      ],
+      "elapsedMs": 32791.5,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:24:16.696Z",
+      "endedAt": "2026-10-19T15:24:16.696Z"
+    },
+    {
+      "id": 43,
+      "level": 25,
+      "startedAt": "2026-10-19T15:24:17.738Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        }
+      ],
+      "elapsedMs": 51874.09999999404,
+      "outcome": "won",
+      "rating": "good",
+      "art": "no",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 19,
+      "updatedAt": "2026-10-19T15:25:09.627Z",
+      "endedAt": "2026-10-19T15:25:09.627Z"
+    },
+    {
+      "id": 44,
+      "level": 26,
+      "startedAt": "2026-10-19T15:25:17.064Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 20
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        }
+      ],
+      "elapsedMs": 32060.30000001192,
+      "outcome": "won",
+      "rating": "good",
+      "art": "no",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 20,
+      "updatedAt": "2026-10-19T15:25:49.138Z",
+      "endedAt": "2026-10-19T15:25:49.139Z"
+    },
+    {
+      "id": 45,
+      "level": 27,
+      "startedAt": "2026-10-19T15:25:56.160Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "bridge",
+          "choice": 1
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 20
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        }
+      ],
+      "elapsedMs": 74297.5,
+      "outcome": "won",
+      "rating": "good",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 21,
+      "updatedAt": "2026-10-19T15:27:10.473Z",
+      "endedAt": "2026-10-19T15:27:10.473Z"
+    },
+    {
+      "id": 46,
+      "level": 28,
+      "startedAt": "2026-10-19T15:27:14.227Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        }
+      ],
+      "elapsedMs": 21377.29999999702,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 17,
+      "updatedAt": "2026-10-19T15:27:35.623Z",
+      "endedAt": "2026-10-19T15:27:35.623Z"
+    },
+    {
+      "id": 47,
+      "level": 29,
+      "startedAt": "2026-10-19T15:27:38.783Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        }
+      ],
+      "elapsedMs": 37390.60000000894,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:28:16.188Z",
+      "endedAt": "2026-10-19T15:28:16.188Z"
+    },
+    {
+      "id": 48,
+      "level": 29,
+      "startedAt": "2026-10-19T15:28:17.237Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        }
+      ],
+      "elapsedMs": 37834.80000001192,
+      "outcome": "jammed",
+      "rating": null,
+      "art": null,
+      "planning": null,
+      "note": "",
+      "autoFastAtAction": null,
+      "updatedAt": "2026-10-19T15:28:55.089Z",
+      "endedAt": "2026-10-19T15:28:55.089Z"
+    },
+    {
+      "id": 49,
+      "level": 29,
+      "startedAt": "2026-10-19T15:28:56.158Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 18
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "bridge",
+          "choice": 0
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        }
+      ],
+      "elapsedMs": 31526.5,
+      "outcome": "won",
+      "rating": "good",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 20,
+      "updatedAt": "2026-10-19T15:29:27.698Z",
+      "endedAt": "2026-10-19T15:29:27.698Z"
+    },
+    {
+      "id": 50,
+      "level": 30,
+      "startedAt": "2026-10-19T15:29:32.194Z",
+      "commands": [
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 16
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        }
+      ],
+      "elapsedMs": 22159.5,
+      "outcome": "won",
+      "rating": "easy",
+      "art": "yes",
+      "planning": "planned",
+      "note": "",
+      "autoFastAtAction": 17,
+      "updatedAt": "2026-10-19T15:29:54.370Z",
+      "endedAt": "2026-10-19T15:29:54.370Z"
+    }
+  ]
+}
