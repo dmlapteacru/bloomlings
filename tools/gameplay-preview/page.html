@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f3e9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23e6edd7'/%3E%3Cpath d='M9 24Q2 7 25 6Q29 24 9 24' fill='%2388aa58'/%3E%3Cpath d='M8 26L22 11' stroke='%23fffbe8' stroke-width='2'/%3E%3C/svg%3E">
+  <meta name="description" content="Визуальное предложение для Bloomlings: рост бордов, палитра и участие героев.">
+  <title>Bloomlings — как растёт игра</title>
+  <style>/*__STYLE__*/</style>
+</head>
+<body>
+  <a class="skip" href="#journey">К примерам уровней</a>
+  <header class="cover wrap">
+    <div class="eyebrow"><span class="brand-seed" aria-hidden="true">✦</span> BLOOMLINGS <span class="edition">Концепт · 19 октября</span></div>
+    <div class="cover-copy"><p class="kicker">Герои. Картинки. Решения.</p><h1>Как растёт<br>наш маленький мир</h1><p class="lead">От первых листочков до больших мозаик. Герои знакомят с цветами, ведут свои команды и иногда меняют саму задачу.</p></div>
+    <div class="hero-parade" aria-label="Наши четыре героя">
+      <figure><img data-hero="sprig" alt="Sprig" width="145" height="212"><figcaption>Sprig</figcaption></figure>
+      <figure><img data-hero="bloom" alt="Bloom" width="169" height="218"><figcaption>Bloom</figcaption></figure>
+      <figure><img data-hero="drop" alt="Drop" width="153" height="216"><figcaption>Drop</figcaption></figure>
+      <figure><img data-hero="twig" alt="Twig" width="142" height="222"><figcaption>Twig</figcaption></figure>
+    </div>
+    <div class="cover-facts"><span><strong>22×22</strong> уже к L20</span><span><strong>4 героя</strong> больше четырёх красок</span><span><strong>1 действие</strong> для первого прототипа</span></div>
+    <p class="prototype-note">Предложение для обсуждения. Это визуальные примеры и схемы; опубликованные уровни игры пока не менялись.</p>
+  </header>
+
+  <nav class="section-nav" aria-label="Разделы страницы"><div class="nav-inner"><a href="#journey">Рост бордов</a><a href="#heroes">Герои и цвета</a><a href="#action">Попробовать</a><a href="#roadmap">План</a></div></nav>
+
+  <main class="wrap">
+    <section id="journey" class="section">
+      <div class="section-heading"><span class="chapter">01 / ПУТЬ ИГРОКА</span><h2>Большая картинка появляется рано</h2><p>До L20 увеличиваем поле каждый уровень. Потом чередуем размеры, силуэты и задачи — красота и сложность растут вместе, но не обязаны совпадать.</p></div>
+      <div class="stage-picker" id="stagePicker" role="group" aria-label="Примеры этапов"></div>
+      <div class="journey-grid">
+        <div class="phone-card">
+          <div class="ad-space" aria-label="Место будущего верхнего баннера"><span>Место баннера</span><span class="ad-size">отдельно от кнопок</span></div>
+          <div class="game-header"><div><span class="small-label">BLOOMLINGS</span><h3 id="levelLabel">Уровень 1</h3></div><span class="difficulty" id="difficultyLabel">Знакомство</span></div>
+          <div class="game-board-wrap"><canvas id="mainBoard" width="720" height="760" role="img" aria-label="Пример мозаики"></canvas><span id="boardMilestone" class="board-milestone" hidden>Мозаика героя</span></div>
+          <div class="board-tools"><button type="button" id="symbolsToggle" aria-pressed="true">Символы: вкл.</button><button type="button" id="gridToggle" aria-pressed="false">Показать сетку</button></div>
+          <div class="waiting-row" aria-label="Пять мест ожидания"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="capsule-row" id="capsuleRow" aria-label="Примеры цветовых капсул"></div>
+          <p class="screen-caption">Капсулы показаны как образцы интерфейса. Это не очередь с рассчитанным решением.</p>
+        </div>
+        <div class="stage-story" aria-live="polite">
+          <p class="kicker" id="stageRange"></p><h3 id="stageTitle"></h3><p id="stageDescription"></p>
+          <div class="stage-stats"><div><strong id="stageSize"></strong><span>размер поля</span></div><div><strong id="stageColors"></strong><span>цветовых каналов</span></div><div><strong id="stageCells"></strong><span>клеток в примере</span></div></div>
+          <div class="why-box"><span class="small-label">ЧТО МЕНЯЕТСЯ</span><p id="stageLesson"></p></div>
+          <div class="stage-hero"><img id="stageHeroImage" alt="" width="66" height="92"><div><strong id="stageHeroName"></strong><p id="stageHeroLine"></p></div></div>
+          <p class="art-note" id="stageArtNote"></p>
+        </div>
+      </div>
+      <details class="size-details"><summary>Весь рост L1–25 и ритм до L2500</summary><div class="size-ladder" id="sizeLadder"></div><p>Дальше: L26–50 — обычно 22×24–26×28; L51–100 — обычно 24×26–28×30. Праздничный портрет Sprig на L100 — 36×36. После L300 остаются средние 21–26 и большие 30–36; компактные поля 14×16–16×18 не возвращаем.</p><p>Размер матрицы и число цветных клеток считаем отдельно. Ранний рост должен увеличивать сам рисунок, а не пустые поля вокруг него.</p></details>
+      <div class="art-gallery-heading"><h3>Девять примеров, девять разных идей</h3><p>Здесь показываем направление. В каталоге по-прежнему планируем 2500 уникальных изображений.</p></div><div class="art-gallery" id="artGallery"></div>
+    </section>
+
+    <section id="heroes" class="section">
+      <div class="section-heading"><span class="chapter">02 / ГЕРОИ И ПАЛИТРА</span><h2>Четыре команды.<br>Больше свободы для картинки.</h2><p>В начале один герой связан с одним цветом. Позже его команда работает и с другими материалами. У каждой капсулы остаётся точный цвет, свой символ и свой остаток.</p></div>
+      <div class="hero-tabs" id="heroTabs" role="tablist" aria-label="Команды героев"></div>
+      <div class="hero-detail" id="heroDetail" role="tabpanel" aria-labelledby="hero-tab-sprig">
+        <div class="hero-portrait"><img id="heroPortrait" alt="" width="190" height="270"><span class="portrait-halo"></span></div>
+        <div class="hero-info"><p class="kicker" id="heroIntro"></p><h3 id="heroTitle"></h3><p id="heroDescription"></p><div class="material-swatches" id="heroSwatches"></div><p class="muted" id="heroRule"></p></div>
+      </div>
+      <div class="principle-grid"><article><span class="principle-icon">01</span><h3>Кто работает?</h3><p>Герой и его знак показывают команду. Образ героя сохраняется, его не перекрашиваем под каждую новую краску.</p></article><article><span class="principle-icon">02</span><h3>Что собирает?</h3><p>Точный цвет капсулы совпадает с материалом на поле. Две капсулы Sprig разных оттенков собирают разные каналы.</p></article><article><span class="principle-icon">03</span><h3>Зачем одевать?</h3><p>Купленный образ виден на главной, в победе и крупном появлении героя. Wardrobe открывается на L40; сила от одежды не зависит.</p></article></div>
+      <div class="palette-road"><span><b>L1</b> зелёный + голубой</span><i>→</i><span><b>L4 / L7</b> розовый + янтарный</span><i>→</i><span><b>Около L12</b> светлый материал</span><i>→</i><span><b>Около L20</b> тёмный контур</span></div>
+    </section>
+
+    <section id="action" class="section">
+      <div class="section-heading"><span class="chapter">03 / ВЛИЯНИЕ НА РЕШЕНИЕ</span><h2>Герой делает больше,<br>чем красивый «вжух»</h2><p>На некоторых уровнях действие героя меняет доступ к ресурсу. Оно заранее входит в задачу и не зависит от одежды, доната или количества поражений.</p></div>
+      <div class="demo-tabs" role="tablist" aria-label="Варианты действия"><button id="demo-tab-bridge" class="selected" type="button" role="tab" aria-selected="true" aria-controls="demoPanel" data-demo="bridge">Sprig · мостик <span>первый прототип</span></button><button id="demo-tab-swap" type="button" role="tab" aria-selected="false" aria-controls="demoPanel" data-demo="swap" tabindex="-1">Bloom · обмен цвета <span>вариант для обсуждения</span></button></div>
+      <div class="action-grid" id="demoPanel" role="tabpanel" aria-labelledby="demo-tab-bridge">
+        <div class="demo-stage"><div class="demo-board-frame"><canvas id="actionBoard" width="720" height="540" role="img" aria-label="Демонстрация действия героя"></canvas><img id="actionHero" class="action-hero" alt="" width="94" height="135"><span id="demoEffect" class="demo-effect" aria-hidden="true">✦</span></div><div class="demo-slots" id="demoSlots" aria-label="Состояние пяти мест ожидания"></div><div class="demo-counter" id="demoCounter"></div></div>
+        <div class="demo-copy"><p class="kicker" id="demoKicker"></p><h3 id="demoTitle"></h3><p id="demoDescription"></p><ol id="demoSteps" class="demo-steps"></ol><div class="demo-controls"><button class="primary" id="sendCapsule" type="button">Запустить капсулу</button><button class="hero-action" id="useHero" type="button">Вырастить мостик</button><button class="reset" id="resetDemo" type="button">Начать заново</button></div><p id="demoStatus" class="demo-status" role="status" aria-live="polite"></p></div>
+      </div>
+      <p class="prototype-note">Это интерактивные схемы одной зависимости, а не готовые Hard-уровни. Для игры ещё нужны согласованные маршруты, очереди и проверка решаемости. Ни один из вариантов пока не добавлен в игру.</p>
+      <div class="future-heading"><h3>Куда можно развить идею</h3><p>В первый срез предлагаем только мостик Sprig. Остальные действия сначала обсуждаем и проверяем отдельно.</p></div><div class="future-grid" id="futureCards"></div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <div class="section-heading"><span class="chapter">04 / ОТ КОНЦЕПТА К ИГРЕ</span><h2>Сначала доказать на малом наборе</h2><p>Размер сам по себе не делает уровень интересным. Проверяем, что картинка читается, выбор имеет последствия, а повторная попытка помогает найти решение.</p></div>
+      <div class="roadmap"><article><span>1</span><div><p class="kicker">ПЕРВЫЙ ШАГ</p><h3>Палитра, слоты, настоящее влияние</h3><p>Проверить светлый и тёмный материалы, стоимость ожидания капсулы, полезность ключа и один мостик Sprig. Герои уже приняты; новые риги для этого не нужны.</p></div></article><article><span>2</span><div><p class="kicker">РУЧНОЙ СРЕЗ</p><h3>30 показательных уровней</h3><p>Обучение, Normal, настоящие Hard и Super Hard, примеры механизмов. Это выборка из разных участков прогрессии; Super Hard не помещаем в первую десятку.</p></div></article><article><span>3</span><div><p class="kicker">ПРОВЕРКА НА ТЕЛЕФОНЕ</p><h3>Читаемость и честные ретраи</h3><p>Убрать универсальную победу по левому столбцу. Проверить крупные счётчики, ясные отказы, сохранение попытки и верхний баннер без наложения на кнопки.</p></div></article><article><span>4</span><div><p class="kicker">ПЕРВЫЕ 100 → ВЕСЬ КАТАЛОГ</p><h3>Генератор и 2500 уникальных уровней</h3><p>После хорошего среза обновить генератор. Полную пересборку запускать на твоём компьютере, сохранив прогресс, покупки и 2500 разных изображений. Мозаику Twig L2000 сейчас не меняем.</p></div></article></div>
+      <div class="keep-box"><h3>Что сохраняем</h3><p>Нынешние цены и бесплатные выдачи бустеров, повторные попытки, Wardrobe L40, Daily Challenge L50 и четырёх принятых героев. За жалобу «сложно» награды автоматически не увеличиваем.</p><p>Первый Hard — кандидат около L16. Первый Super Hard — после освоения основ, ориентир L40–50. Новый механизм сначала появляется на обычном понятном уровне.</p></div>
+      <details id="fullPlan" class="full-plan"><summary><span>Подробный план целиком</span><small>Все разделы Markdown, включая проверки и ограничения</small></summary><div class="plan-actions"><button type="button" id="downloadPlan">Скачать текст .md</button><button type="button" id="printPage">Печать / PDF</button></div><article class="markdown">/*__PLAN__*/</article></details>
+    </section>
+    <footer><strong>Bloomlings · визуальный план</strong><p>Один HTML-файл. Работает без интернета и установки. Примеры иллюстрируют предложение, а не текущие уровни.</p><a href="#">Вернуться наверх ↑</a></footer>
+  </main>
+  <script id="previewAssets" type="application/json">/*__ASSETS__*/</script>
+  <script id="planSource" type="application/json">/*__PLAN_SOURCE__*/</script>
+  <script>/*__SCRIPT__*/</script>
+</body>
+</html>
