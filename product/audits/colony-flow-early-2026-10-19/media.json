@@ -1,0 +1,1052 @@
+[
+  {
+    "level": 1,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/ab6e407f-d104-491e-a1d7-6d7dcafd5148.webp",
+    "sha256": "3b1a1e66c529f05e4fbb740788f14e8b072733e4f9284b5230933beb8f6b0db4",
+    "bytes": 23250,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/6bcbc0ab-fc32-4c4e-82d7-cbe001b993fa.webp",
+    "sha256": "8f59ea8fa84840741ad32c70c0b392bd857dd07a1a19f0879685f78937ffb2f5",
+    "bytes": 60228,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-02",
+    "url": "https://gl.imgbear.xyz/b14b9934-2582-47a1-a7a7-73f1305e3657.webp",
+    "sha256": "b11d7b52dae789f51fc1da722464c3714ccb18a8bd546c93f1816fd69143bef7",
+    "bytes": 65490,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-03",
+    "url": "https://gl.imgbear.xyz/4833dc7c-60aa-432b-ab17-7f49a381d07b.webp",
+    "sha256": "502576e201f253d43a44fe5ab60aff6c730fe939f84f4ec957eb8298a2c626c4",
+    "bytes": 62028,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-04",
+    "url": "https://gl.imgbear.xyz/9401f185-41a9-4e55-9bf3-8cfd16f3c83a.webp",
+    "sha256": "e379846468ed617658806a3bff3e541bd3e19f82ed7a7b419a7c2308036bb533",
+    "bytes": 62272,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-05",
+    "url": "https://gl.imgbear.xyz/fee660ee-4773-4f14-913b-e1c8243efd4f.webp",
+    "sha256": "4779d3a2e29d00a275cd8c70e5c7964bd66dc23959ff3b19eccca46e6bb84d46",
+    "bytes": 70164,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-06",
+    "url": "https://gl.imgbear.xyz/49dd7ed2-01d7-4b33-9957-f467467b626c.webp",
+    "sha256": "eceac27a51d4ec8ce2886db3bd9a0d56ca2953ceb173d6c99c7b0ff1093493bc",
+    "bytes": 67248,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-07",
+    "url": "https://gl.imgbear.xyz/fd77f426-d8de-4b21-8ff4-9db9f36e9c8f.webp",
+    "sha256": "0e64aba804684c412dff7739a3c018b2a3efe20d798b2d68875f8c8c670a589e",
+    "bytes": 58644,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 1,
+    "kind": "step-08",
+    "url": "https://gl.imgbear.xyz/3518a257-a417-41de-a5aa-b0921f78f60b.webp",
+    "sha256": "fba950e618d45a205d267f0ac6a42eefa1478da541ec72c62bf59c52e329cb0c",
+    "bytes": 43972,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 2,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/946956f8-3796-4156-a443-5d2100e89326.webp",
+    "sha256": "afebe78b57f844b0af4c4cf36116cc85cb74ea1b56ebcbac48e03339944d37dd",
+    "bytes": 33026,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 2,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/b747046a-13a3-47d0-ab66-85bf5ad552b1.webp",
+    "sha256": "4f5385a48522d5c96fa8a5ce270e68e3476879db5d0f5115a83463fbba4a9c9c",
+    "bytes": 71008,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 3,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/7a6165e5-cde3-4180-96df-f2bae5706a6e.webp",
+    "sha256": "18e8cede2c720c0bee46968e03da523d48c652b94cf8d39d31bc1ba7d4631c79",
+    "bytes": 36346,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 3,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/dc4d4ea6-1f92-40d0-8c2a-f63ed3538d15.webp",
+    "sha256": "a92574c134d035ef6247a11c6167df34ff785efb326f8d3d90ae1bf79bff3873",
+    "bytes": 72354,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 4,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/3d7b46eb-ed66-4515-a714-858ca1afc072.webp",
+    "sha256": "42e6de70fb9779e315b7c56388c2ea246c0f37a7762ec7d402fa44bbba554c95",
+    "bytes": 50990,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 4,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/4ffcca6b-739c-4650-8919-b4e335bdef55.webp",
+    "sha256": "5f7e35dd8c3f68b45cd4745da9d1ed42aed06049796b227b42f12aea6f8491bc",
+    "bytes": 85700,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 4,
+    "kind": "step-02",
+    "url": "https://gl.imgbear.xyz/f4ddb8ed-6ce4-4e31-b8a5-e5ff9c3aecbd.webp",
+    "sha256": "c080e416d011b98294ac9aae5df10e79cd3e23daebcc9f7558ee06341326bdce",
+    "bytes": 103768,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 4,
+    "kind": "step-03",
+    "url": "https://gl.imgbear.xyz/aa8411c8-e2f7-4aa5-bae0-f16e4f6fc956.webp",
+    "sha256": "7d9a4790e28f49ab341fcb30b826757a2f7723eb4932063f857e84b9f9893231",
+    "bytes": 106680,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 4,
+    "kind": "step-04",
+    "url": "https://gl.imgbear.xyz/f38da976-bf74-4a23-b437-c18c5cbc6a5e.webp",
+    "sha256": "d4f0dce2f8331d78fb3ede86f9d7125fea39984480996ec84c490cb2823f8c7d",
+    "bytes": 106140,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 4,
+    "kind": "step-05",
+    "url": "https://gl.imgbear.xyz/cb6355d7-fbf3-4db0-b133-d9ef4b12be45.webp",
+    "sha256": "172d0ebe0d3e779542cb1af667dded6eea726fb889592e5b113e6a0b3b5c3f77",
+    "bytes": 107288,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 4,
+    "kind": "step-06",
+    "url": "https://gl.imgbear.xyz/acc8e73d-cb1e-4a40-a0e8-28f2071ff8ce.webp",
+    "sha256": "3a7ebff9359cc16c37f1f422c515f6d3972c793dfb015a36bfcd00f8ea590698",
+    "bytes": 111566,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 4,
+    "kind": "step-07",
+    "url": "https://gl.imgbear.xyz/aba75e5b-ea04-4655-9021-cdbbb392dbc9.webp",
+    "sha256": "2eea981ce42850c7d8be81ab1cd64dc8bebadb3075d94c4a48d2b5989a7042f6",
+    "bytes": 100696,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 4,
+    "kind": "step-08",
+    "url": "https://gl.imgbear.xyz/7360f090-23a0-4291-beb1-8a4fba913921.webp",
+    "sha256": "f6a8be4c225d0490133ed30f50c90c2a48962dc811fc13fc42d227a560cf94af",
+    "bytes": 43818,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 5,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/a4dd66b0-2c64-4129-b5e2-16834406967f.webp",
+    "sha256": "6d663353154ea7685ab11b5878f400153345f5157e456739ff92ca2619bf842e",
+    "bytes": 49828,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 5,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/ee366f30-8bb1-4847-8c5a-7d2d3fb16e37.webp",
+    "sha256": "69ba968659ef51184e4a6e492cc707beb27c190aeee77bfcec42bc4cd6a0e6fe",
+    "bytes": 84762,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 5,
+    "kind": "step-02",
+    "url": "https://gl.imgbear.xyz/cf856492-d7dd-41d4-bf21-be9e64add049.webp",
+    "sha256": "8d7098b05daf6429bf52dc655ed1ee4814756ac4d8c12e422dbeecc82243d01a",
+    "bytes": 103862,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 5,
+    "kind": "step-03",
+    "url": "https://gl.imgbear.xyz/1a1f10fd-2a38-4105-8acd-43ade5587f75.webp",
+    "sha256": "ebd77eeac6ba5484d4253d89e1d8f0da15a242bb1d6ae6ae3612f48333ce4c06",
+    "bytes": 83934,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 5,
+    "kind": "step-04",
+    "url": "https://gl.imgbear.xyz/ddd89d7f-c82e-443e-ad45-a9b1fc81eb33.webp",
+    "sha256": "2a79ee4f4fb189464a6241cce70789a976a6d5e9919204394d8f942df7b9764b",
+    "bytes": 79920,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 5,
+    "kind": "step-05",
+    "url": "https://gl.imgbear.xyz/b1c52a51-50d6-44a6-8ae7-b500ed71417d.webp",
+    "sha256": "c97655b421eb8b653a5850f07447cced293282d4150000965c52a9a5a5d98d83",
+    "bytes": 92642,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 5,
+    "kind": "step-06",
+    "url": "https://gl.imgbear.xyz/eea490d0-827b-45bb-b666-8dccd70ea1d2.webp",
+    "sha256": "b0f03ba8c7064128f28c0afecc12c4e6b0d877794183b36c31202480538d734d",
+    "bytes": 49100,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 6,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/6e329b64-d5cc-471d-a721-a018e2025fd2.webp",
+    "sha256": "2b52a9aa723d059efbefdf4e83bfaaf25d1f7bd921828879c5200ada7dd65d70",
+    "bytes": 27584,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 6,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/6927cd75-fc20-46bb-816d-f2edd9d283d8.webp",
+    "sha256": "1337f0b4ca0cf03ed227993130eb9c4fd94430e7a2fe444c709c82fd0ad32b60",
+    "bytes": 70254,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 7,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/b4af3f11-40b5-4a46-8039-55650caa78ec.webp",
+    "sha256": "73f5bf500869f3ce9b39977de91c0e6015c7f7e6bd9faa51a7227765dae80a77",
+    "bytes": 36256,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 7,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/26fc19c6-150f-4313-82d1-f8f10170aec5.webp",
+    "sha256": "13a51210d5fae79e8c28382866ccae761972cf69b3a67971252e84a7d2be3cb5",
+    "bytes": 76372,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 8,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/523fc381-bb51-454d-b7f3-93059d4b4462.webp",
+    "sha256": "970727f46ff0997915a9bd85455f90c65856b49bf84e4ff4f8d57416c0672052",
+    "bytes": 49162,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 8,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/cc3661e1-e174-4a9f-b367-d78acf773b54.webp",
+    "sha256": "79287461c63bc3009c65677d9d3f658bbb256f52493fc54dd49a7cb150fe4c72",
+    "bytes": 86766,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 8,
+    "kind": "step-02",
+    "url": "https://gl.imgbear.xyz/82cce3bf-8cd3-405b-ac1e-4efa4fb9ad57.webp",
+    "sha256": "c0829846237b751db24c8b700b7acfeaa428ddcdf8aa014243d026f3c1a6faa6",
+    "bytes": 105042,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 8,
+    "kind": "step-03",
+    "url": "https://gl.imgbear.xyz/401fd012-9973-4ace-9822-053cff69d687.webp",
+    "sha256": "8a4f5d556f346efb76e1217b3eed4aeeb020fb0aba27b64978032d50d656e5f9",
+    "bytes": 108346,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 8,
+    "kind": "step-04",
+    "url": "https://gl.imgbear.xyz/1e8ecf2c-974d-4cc4-8276-519d891eecab.webp",
+    "sha256": "bc0d6e94daee7e9154cafe78da53f9a7f37de4256a647408dc16bbafacca313f",
+    "bytes": 93894,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 8,
+    "kind": "step-05",
+    "url": "https://gl.imgbear.xyz/18c74506-9e5a-43a7-b356-70692f9e4356.webp",
+    "sha256": "15997796348f3f5f4622cd2ec59f2bd21703b4aea24d69f7b6db38838c34fd45",
+    "bytes": 98968,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 8,
+    "kind": "step-06",
+    "url": "https://gl.imgbear.xyz/c17297fb-06d8-43c3-a163-0e2f31c3fbc2.webp",
+    "sha256": "c7ff4643e26be94ceed3475a6286ccd4c296657b2568363703482e4879324ddf",
+    "bytes": 87116,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 8,
+    "kind": "step-07",
+    "url": "https://gl.imgbear.xyz/eb285949-45d5-4b09-9475-ecd00b32cc0e.webp",
+    "sha256": "ada9d5d1fa4cac4b89846fa5d0ea86a53419f13571341d81648cfdaa75ca8131",
+    "bytes": 48748,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 9,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/0c607a44-b432-44a1-8627-b7b6e92e9036.webp",
+    "sha256": "a49d62e7a4e5a5a24a4a746501afd05b799b6d642240178474e927ee11bcddea",
+    "bytes": 31866,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 9,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/22fb0c4c-86a9-4325-b0a9-71ac441e5ea2.webp",
+    "sha256": "0bf362d7af6894a57648fbf844d5f816e5729ebf17ee3e4f8c2184a830aacdff",
+    "bytes": 72312,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/73c98cad-9b36-4a64-86b0-7f04654cefe7.webp",
+    "sha256": "3d806c149158a9f986a1748b02af64c094aa4ba299b4ee05c784ce502ee0f9ff",
+    "bytes": 47198,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/51e36f89-a726-4a20-a9ce-4fa5ee255eac.webp",
+    "sha256": "6d7b94aa2985b9ade151c66e99ccd4a3e274698b17c14e507504f08da29a2d5b",
+    "bytes": 87596,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-02",
+    "url": "https://gl.imgbear.xyz/813c40b0-aaae-408a-b958-9365e28f67b8.webp",
+    "sha256": "4becbeb68d9d00fe0615f3ba26bfe39b146e5e457d38c69fbf4363afac270094",
+    "bytes": 96872,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-03",
+    "url": "https://gl.imgbear.xyz/512639c5-46c4-4ca1-b0e0-68764d561cf2.webp",
+    "sha256": "8f55f2f99c5abd834f4e12d052f4a8fe9af3483a2b7816386ffb643ba3007d24",
+    "bytes": 96498,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-04",
+    "url": "https://gl.imgbear.xyz/6d9fe171-b5ef-485d-b939-76e516846dc7.webp",
+    "sha256": "5e4d714d5f868f33b658f4713984725a5c2d64d227efaf6b9e68fb518478c090",
+    "bytes": 103594,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-05",
+    "url": "https://gl.imgbear.xyz/f3fd5a63-282e-464c-81a2-1bb78d152af6.webp",
+    "sha256": "3e04a011d235042e17915c6a50d51b21211aa7f455533ab2464165278c6a9419",
+    "bytes": 103284,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-06",
+    "url": "https://gl.imgbear.xyz/715e2c08-8bf6-4d94-8ff5-0e1b7d79f876.webp",
+    "sha256": "7a2f66be669356c8073b1220ae1db4eec71d430b7e75880c577ced55ee0a5cb1",
+    "bytes": 98140,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-07",
+    "url": "https://gl.imgbear.xyz/acb7121d-126b-446e-a764-e266f875c830.webp",
+    "sha256": "422fc68d1207db99056e7867ec355c2a824a098f8bd570def6e0f6c67c24b409",
+    "bytes": 91852,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 10,
+    "kind": "step-08",
+    "url": "https://gl.imgbear.xyz/119260e3-d492-4751-be26-59d6deb8f263.webp",
+    "sha256": "7de04eb6d3db40274568e13b97f40844605fe316a8d5509ace87e8fa2e2a4b47",
+    "bytes": 54128,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 11,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/f0876029-1d1b-4a69-bd1b-6039ca6aad5c.webp",
+    "sha256": "dbb75b2fde685b610335ecc86136fff57b98766eeecd1035b10329e8e986033a",
+    "bytes": 40754,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 11,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/42fb0438-e063-4d56-9da2-8b3a221605f5.webp",
+    "sha256": "b03a2bf41a395476726577bf186f4b3189fde3ae25622d28c0778ea5055f68e5",
+    "bytes": 77664,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 11,
+    "kind": "step-02",
+    "url": "https://gl.imgbear.xyz/6e270bb4-6bb3-4e76-bd7f-e6e5e058e1a3.webp",
+    "sha256": "560424c421f5b42d8b2093c9228e9399e6dd1ec5d588eb06e2428461c272bc13",
+    "bytes": 101822,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 11,
+    "kind": "step-03",
+    "url": "https://gl.imgbear.xyz/b9988ff8-ce5f-4065-8118-5cba6f4cb41a.webp",
+    "sha256": "c2fb22ed6f3204d39e9123a4fee7874439661392826db715ca83a0f41fdfd5d6",
+    "bytes": 93630,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 11,
+    "kind": "step-04",
+    "url": "https://gl.imgbear.xyz/83dc20ff-fce4-4594-9bde-8db3d67e51f6.webp",
+    "sha256": "13cdea3ed0db22c5968b945c829f0cfe11ffd975ed66071985019c473c89cbc7",
+    "bytes": 98540,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 11,
+    "kind": "step-05",
+    "url": "https://gl.imgbear.xyz/629e58ed-0799-4ab3-8669-1f12a89988d3.webp",
+    "sha256": "714f19959f7c5bf5b75c96e1389bbe29037d72f6456f20d778c5c469a497859c",
+    "bytes": 93362,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 11,
+    "kind": "step-06",
+    "url": "https://gl.imgbear.xyz/9e7cf825-729b-4daa-85ba-1b6d168dfe7a.webp",
+    "sha256": "981bc3a9340cd32cd63fadde2b8265bba9ca71d025f89224124d9a51359934b2",
+    "bytes": 99426,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 11,
+    "kind": "step-07",
+    "url": "https://gl.imgbear.xyz/cb64cb1e-d7c2-46c2-8c0f-dd9856c881a9.webp",
+    "sha256": "2eea2bca4c136d6a88d29ec99afa09fab9d023d125a56326fde58ed8108b6ad8",
+    "bytes": 41354,
+    "width": 1000,
+    "height": 1801,
+    "capture": "fresh-http"
+  },
+  {
+    "level": 12,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/52deae32-eb99-4ee8-a6c4-cf44b77e0f5c.webp",
+    "sha256": "797bec9ef18d8658bd49411ba7dd90cba5958c9d8c1427963694a00e5915bb29",
+    "bytes": 50310,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 12,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/2dd320b3-42a2-4464-b2e8-f686f6f61a15.webp",
+    "sha256": "1872588e7971c6c7e6043e21249cced94f456a49c2f6feb6acd2eddaeaed9465",
+    "bytes": 91394,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 13,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/a5e52662-4685-429f-9d8f-af49e34dd824.webp",
+    "sha256": "84a5fe04183e8e62ec16d3ab8a86a2cc21d8694374a754667c46f7d74e6d0a04",
+    "bytes": 37740,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 13,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/6c09a2ad-1eac-4526-9572-4441b1aa0068.webp",
+    "sha256": "6dd02872e639e20da965c801589ae45ed47bef022f77ff393f794005f1a62ee9",
+    "bytes": 84602,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 14,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/c6c121f2-a397-4640-90ac-0025920f65a3.webp",
+    "sha256": "304764ce1be7c2e42ada806d2e66b80e21feee34424b23dfb38a128783706da6",
+    "bytes": 32434,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 14,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/c7bac3da-b43e-49ad-a42c-1c5dfd633473.webp",
+    "sha256": "d522b7ead7584ead72a888e988e0d2706912b9bb22cb6e9dde071d65992cf30a",
+    "bytes": 73062,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/0754e184-d4e4-4f99-8a76-cdb6385b2100.webp",
+    "sha256": "295c8080e2059bd88ca4dca1d8f6363abacd5813d942769e47f566f27095990d",
+    "bytes": 55716,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/da40d20d-c18a-4428-b3db-155d4c58a7b8.webp",
+    "sha256": "c28c55293c4bbd02981b6344707e97b73de8264afd89e5b695f78c3ec96eb62b",
+    "bytes": 91552,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-02",
+    "url": "https://gl.imgbear.xyz/eeef48ee-b041-46d3-bec3-eb4e9e91dfe7.webp",
+    "sha256": "77b3b223e58c70b7be5eb52d5fe40fa383fc9264dbfa3c5828dd45e200a644de",
+    "bytes": 107636,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-03",
+    "url": "https://gl.imgbear.xyz/653ec731-390b-4d36-8440-a185af2fc053.webp",
+    "sha256": "53e31b2c173c766ab5f63f97a1e9a01cc0a8872b196f9c864af043c2119acfca",
+    "bytes": 106998,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-04",
+    "url": "https://gl.imgbear.xyz/57cf9681-c432-4c83-bb03-3e051415d4c5.webp",
+    "sha256": "c930b3c50b403ef55f336842160866640693543556bbed1d064b6b3767e3e8a1",
+    "bytes": 100404,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-05",
+    "url": "https://gl.imgbear.xyz/7d98fd53-3129-4732-986d-56887f21a06c.webp",
+    "sha256": "b20de94deafba3514ec9661a290940e1242c40deeac3e1948afd94e89b1544ed",
+    "bytes": 93430,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-06",
+    "url": "https://gl.imgbear.xyz/2c0459fc-36ba-442b-8ff3-9f2714ea7cf6.webp",
+    "sha256": "1af33c47bb3b476d29eb02831e73f97d25d7f5aff7a8901a096bff9134269388",
+    "bytes": 84884,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-07",
+    "url": "https://gl.imgbear.xyz/a6ea3a98-a4b1-4cfd-8ee5-73544059e11c.webp",
+    "sha256": "21925a025d56c4329a6116853e4f38ae66ae8e383b334b3cbf54b511f6454c2d",
+    "bytes": 80216,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 15,
+    "kind": "step-08",
+    "url": "https://gl.imgbear.xyz/467bfaa8-d9bd-45d4-b268-e2ab5dae5a40.webp",
+    "sha256": "56342080f00cca867f34d1f107025a9f97321e13f6cf50eb4cec794427c13aad",
+    "bytes": 42820,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 16,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/4ec811c4-2c70-4e91-80eb-c55935bff211.webp",
+    "sha256": "1fff0939ec356005702d5d8854897030fba01389ccadf14532933ad3eb274328",
+    "bytes": 40110,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 16,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/a9c85619-81b2-44fe-bccf-1ba229d7ea50.webp",
+    "sha256": "ee472af1a0cd453b047ed4e97cc08106fe8c0b743c1d7dd12d403be41f0d1be1",
+    "bytes": 80058,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 17,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/6c81aa4b-131f-477c-b402-fcfb6ad64765.webp",
+    "sha256": "47c413fb0ef1893170e6fde9d9c1c25e674b3707db04ec22192c372e60816acb",
+    "bytes": 30376,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 17,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/448bfa7d-2cf2-4b8d-b837-09bddb7eebf0.webp",
+    "sha256": "a28347b0b3fda29f1d1de59ee68f464f4fe78d5301a7c7ca53b22f4e67d3f5b4",
+    "bytes": 74278,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 18,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/bba8f304-d973-4966-85e5-90a672415c6f.webp",
+    "sha256": "b271422ad27df6d385ca3cc56cc49b42820ab6d0e023829ef287a04a069706d1",
+    "bytes": 48766,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 18,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/8f5b6c4f-746c-44c3-878d-a539e4748ed6.webp",
+    "sha256": "7de4618135866bc57aee5928004b704945386fdabe2bc7eac448492ca96844d6",
+    "bytes": 91856,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 19,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/1152fb21-0e52-47e1-9c4f-2ebbdf049736.webp",
+    "sha256": "c7bfb277d10fea84c2cafeb4fe65a9686cb7efa712ea6ad44ad9eb1750f03e3f",
+    "bytes": 34702,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 19,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/a558d303-f29f-4f47-b4c3-e34f5c3dd3d8.webp",
+    "sha256": "489536ce4c99d73d53b38622b7f00573e12d14a3acecbdc35c19a4754d280993",
+    "bytes": 77196,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 20,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/613ff35a-6663-4f0d-9785-d6b7bcc687e7.webp",
+    "sha256": "91d0719bda7682aa64378b4dd9129416bd489d344fb0f32441a5470d495abd20",
+    "bytes": 68156,
+    "width": 1000,
+    "height": 867,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 20,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/ee4f5f8c-5386-4dad-8d62-fc822abf2113.webp",
+    "sha256": "12a81c47baa459eed393f7faa6af3f84599f22110c105b2cf0697c8596998662",
+    "bytes": 104494,
+    "width": 1000,
+    "height": 1801,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 21,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/5b0e5fa2-1450-4c28-8196-f3d8f02fd973.webp",
+    "sha256": "a7b7367dd2876d1e20b5ab34d8b266c9f838653de1a19605212510f0ce6ba69e",
+    "bytes": 43574,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 21,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/c7f3a798-5639-4c85-a3cc-bb7ad084d06d.webp",
+    "sha256": "555dca49fc2ebb62a90e9c5f819faec31ac7e87b5882f46a2cc1fa5ecc162727",
+    "bytes": 82562,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 22,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/94549a87-9743-46f6-b5f9-78255106f2e2.webp",
+    "sha256": "66932bf74a240c8b2f55509e4c71b8b0c13bc624d04208605e86bb1bd179b2a1",
+    "bytes": 39796,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 22,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/081e7fa2-2aab-4de9-8c56-509d585d10ec.webp",
+    "sha256": "f38f0aa7d75ac3ff4902745cd5ed9a6233ed56154782eae657b83398cf95ba6e",
+    "bytes": 83072,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 23,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/c8d3dd9d-12f3-4623-ac27-2e543f8d4f3c.webp",
+    "sha256": "074899bf22aa3ff0804940918e69b10824a2477ef076c4ce2a14a02129773a07",
+    "bytes": 47056,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 23,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/7aabdcbe-ee70-4f80-8e9b-b4d70c7df73a.webp",
+    "sha256": "341d73bd6c2aa332cab181f2a8df54d662ee5f139efaa30cc776f9f717cfa046",
+    "bytes": 86428,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 24,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/75df201c-6009-466b-b320-81bd2bc91d1e.webp",
+    "sha256": "43767abead4acb701e454e2fe359fd01f280fe51bef231760f918c65a26b4918",
+    "bytes": 65018,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 24,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/14979e39-9a9c-4dbb-aa31-03770ec3218b.webp",
+    "sha256": "2381efc3db0b99b23b86d7107bc483b665e61b39854d0c9bd3f84382d09afad7",
+    "bytes": 101778,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 25,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/039ab38a-ace5-48e7-a5c9-a6a74913dde2.webp",
+    "sha256": "3d916e7d5fc189bfc783f73ef8a6af1022d51d959ff593b85de0d7d61304009b",
+    "bytes": 66674,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 25,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/200164b8-1793-4175-a573-b00fe2260872.webp",
+    "sha256": "11edea5f77be6dae0f28284393707f2163463b7e15eb8465e946f8557a922b73",
+    "bytes": 103776,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 26,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/75cdf375-42f4-455a-9461-a39c9d825432.webp",
+    "sha256": "112e8c67342ac12dd0c7900f22ef7e61abc255976ec0a837db0033adaba2fc53",
+    "bytes": 80686,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 26,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/9b8748d9-9f5d-43bc-ad36-3585dcf1ca4c.webp",
+    "sha256": "09327d27c32d943f7ca91b044b995067697bf565d3f05511f7d215dda54bc5c4",
+    "bytes": 110498,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 27,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/1baf474f-659d-443e-b3d2-b3e9a280bfc2.webp",
+    "sha256": "a98db55052d10bfbdcc1662a3a48e4c7b8722196b879cbaa49fe5188021cc63c",
+    "bytes": 42424,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 27,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/5d2cae74-1e14-4754-a216-e02abf34024c.webp",
+    "sha256": "32a9a616e3f616cb33ca01c94a75050d0f6b423d95464f6777fd4702f535c807",
+    "bytes": 82572,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 28,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/55ac220b-732f-4e06-829f-ed200abb0a9b.webp",
+    "sha256": "f8bd657bccae515ea8d12e594fde4a229c055d809d25b0e69ad29ab8a1920987",
+    "bytes": 57368,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 28,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/115fde7b-6ba4-45a4-948a-1b99e26b28c7.webp",
+    "sha256": "7733e8e83ae6b1e89285c83220d3729f89566cc564aa9455293f8d1495e8af6f",
+    "bytes": 95714,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 29,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/57b7db8d-dcda-4dcc-a536-afad722b9fa9.webp",
+    "sha256": "ede860363ce0149b99bf226f53031073d827c1728b511e9371e50aaaf2de2a6e",
+    "bytes": 41798,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 29,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/4ab7849e-2814-46b4-b106-3e00ac99ce71.webp",
+    "sha256": "dc7042bae42df8c07482c80b15fd305523816f569e73ab067182909d3e16ed4b",
+    "bytes": 84396,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 30,
+    "kind": "board",
+    "url": "https://gl.imgbear.xyz/7f7fc96e-eecc-4027-98e8-4c3585860530.webp",
+    "sha256": "4a823ee33a4f630e9a3e27618afb089ac6830aa76bbfb8e5d00405d565164770",
+    "bytes": 62572,
+    "width": 1000,
+    "height": 870,
+    "capture": "verified-cache-same-url"
+  },
+  {
+    "level": 30,
+    "kind": "step-01",
+    "url": "https://gl.imgbear.xyz/e47959ec-8f4b-48c4-acba-b81d8b40ba03.webp",
+    "sha256": "e64917fa9b0a92767aa2467551afa9273610342101770235087acbc6c78b635f",
+    "bytes": 95824,
+    "width": 1000,
+    "height": 1817,
+    "capture": "verified-cache-same-url"
+  }
+]

@@ -1,0 +1,741 @@
+{
+  "palette": [
+    {
+      "id": "G",
+      "name": "Лист",
+      "family": "Sprig",
+      "hex": "#5B9A43",
+      "symbol": "♧",
+      "text": "#000000",
+      "textContrast": 6.15,
+      "views": {
+        "normal": "#5B9A43",
+        "protan": "#9F8E3B",
+        "deutan": "#968949",
+        "tritan": "#589587"
+      }
+    },
+    {
+      "id": "P",
+      "name": "Коралловый лепесток",
+      "family": "Bloom",
+      "hex": "#E46F95",
+      "symbol": "✿",
+      "text": "#000000",
+      "textContrast": 7.01,
+      "views": {
+        "normal": "#E46F95",
+        "protan": "#828796",
+        "deutan": "#A09D92",
+        "tritan": "#F4657D"
+      }
+    },
+    {
+      "id": "B",
+      "name": "Лазурь",
+      "family": "Drop",
+      "hex": "#36B7DA",
+      "symbol": "◆",
+      "text": "#000000",
+      "textContrast": 8.94,
+      "views": {
+        "normal": "#36B7DA",
+        "protan": "#A2B2DC",
+        "deutan": "#8CA2DA",
+        "tritan": "#00C2C2"
+      }
+    },
+    {
+      "id": "A",
+      "name": "Янтарь",
+      "family": "Twig",
+      "hex": "#C4873E",
+      "symbol": "●",
+      "text": "#000000",
+      "textContrast": 6.88,
+      "views": {
+        "normal": "#C4873E",
+        "protan": "#9B8B36",
+        "deutan": "#AA9940",
+        "tritan": "#D57877"
+      }
+    },
+    {
+      "id": "C",
+      "name": "Жемчуг",
+      "family": "Drop",
+      "hex": "#F7E8BB",
+      "symbol": "◇",
+      "text": "#000000",
+      "textContrast": 17.22,
+      "views": {
+        "normal": "#F7E8BB",
+        "protan": "#F2E6B8",
+        "deutan": "#F6EABC",
+        "tritan": "#FFE1DC"
+      }
+    },
+    {
+      "id": "D",
+      "name": "Тёмная земля",
+      "family": "Twig",
+      "hex": "#334B48",
+      "symbol": "▰",
+      "text": "#FFFFFF",
+      "textContrast": 9.37,
+      "views": {
+        "normal": "#334B48",
+        "protan": "#494848",
+        "deutan": "#444548",
+        "tritan": "#2B4C4A"
+      }
+    },
+    {
+      "id": "V",
+      "name": "Слива",
+      "family": "Bloom",
+      "hex": "#8056AE",
+      "symbol": "✦",
+      "text": "#FFFFFF",
+      "textContrast": 5.44,
+      "views": {
+        "normal": "#8056AE",
+        "protan": "#3B69B1",
+        "deutan": "#476AAC",
+        "tritan": "#78667A"
+      }
+    }
+  ],
+  "pairs": {
+    "normal": [
+      {
+        "pair": [
+          "A",
+          "C"
+        ],
+        "deltaE76": 43.03
+      },
+      {
+        "pair": [
+          "P",
+          "V"
+        ],
+        "deltaE76": 47.21
+      },
+      {
+        "pair": [
+          "B",
+          "D"
+        ],
+        "deltaE76": 49.09
+      },
+      {
+        "pair": [
+          "G",
+          "C"
+        ],
+        "deltaE76": 51.48
+      },
+      {
+        "pair": [
+          "G",
+          "A"
+        ],
+        "deltaE76": 54.18
+      },
+      {
+        "pair": [
+          "G",
+          "D"
+        ],
+        "deltaE76": 55.78
+      },
+      {
+        "pair": [
+          "P",
+          "A"
+        ],
+        "deltaE76": 56.88
+      },
+      {
+        "pair": [
+          "B",
+          "C"
+        ],
+        "deltaE76": 60.03
+      },
+      {
+        "pair": [
+          "D",
+          "V"
+        ],
+        "deltaE76": 61.85
+      },
+      {
+        "pair": [
+          "A",
+          "D"
+        ],
+        "deltaE76": 63.49
+      },
+      {
+        "pair": [
+          "P",
+          "C"
+        ],
+        "deltaE76": 63.68
+      },
+      {
+        "pair": [
+          "B",
+          "V"
+        ],
+        "deltaE76": 64.57
+      },
+      {
+        "pair": [
+          "P",
+          "D"
+        ],
+        "deltaE76": 67.27
+      },
+      {
+        "pair": [
+          "C",
+          "D"
+        ],
+        "deltaE76": 67.56
+      },
+      {
+        "pair": [
+          "G",
+          "B"
+        ],
+        "deltaE76": 68.81
+      },
+      {
+        "pair": [
+          "P",
+          "B"
+        ],
+        "deltaE76": 78.05
+      },
+      {
+        "pair": [
+          "B",
+          "A"
+        ],
+        "deltaE76": 85.03
+      },
+      {
+        "pair": [
+          "C",
+          "V"
+        ],
+        "deltaE76": 88.24
+      },
+      {
+        "pair": [
+          "A",
+          "V"
+        ],
+        "deltaE76": 91.63
+      },
+      {
+        "pair": [
+          "G",
+          "P"
+        ],
+        "deltaE76": 94.3
+      },
+      {
+        "pair": [
+          "G",
+          "V"
+        ],
+        "deltaE76": 108.29
+      }
+    ],
+    "protan": [
+      {
+        "pair": [
+          "G",
+          "A"
+        ],
+        "deltaE76": 1.41
+      },
+      {
+        "pair": [
+          "P",
+          "B"
+        ],
+        "deltaE76": 21.77
+      },
+      {
+        "pair": [
+          "P",
+          "D"
+        ],
+        "deltaE76": 27.21
+      },
+      {
+        "pair": [
+          "B",
+          "V"
+        ],
+        "deltaE76": 35.23
+      },
+      {
+        "pair": [
+          "P",
+          "V"
+        ],
+        "deltaE76": 37.44
+      },
+      {
+        "pair": [
+          "G",
+          "C"
+        ],
+        "deltaE76": 38.87
+      },
+      {
+        "pair": [
+          "A",
+          "C"
+        ],
+        "deltaE76": 40.27
+      },
+      {
+        "pair": [
+          "D",
+          "V"
+        ],
+        "deltaE76": 46.41
+      },
+      {
+        "pair": [
+          "P",
+          "C"
+        ],
+        "deltaE76": 47.62
+      },
+      {
+        "pair": [
+          "B",
+          "D"
+        ],
+        "deltaE76": 48.04
+      },
+      {
+        "pair": [
+          "B",
+          "C"
+        ],
+        "deltaE76": 50.59
+      },
+      {
+        "pair": [
+          "A",
+          "D"
+        ],
+        "deltaE76": 53.51
+      },
+      {
+        "pair": [
+          "G",
+          "D"
+        ],
+        "deltaE76": 53.56
+      },
+      {
+        "pair": [
+          "G",
+          "P"
+        ],
+        "deltaE76": 54.47
+      },
+      {
+        "pair": [
+          "P",
+          "A"
+        ],
+        "deltaE76": 55.11
+      },
+      {
+        "pair": [
+          "C",
+          "D"
+        ],
+        "deltaE76": 64.89
+      },
+      {
+        "pair": [
+          "G",
+          "B"
+        ],
+        "deltaE76": 70.24
+      },
+      {
+        "pair": [
+          "B",
+          "A"
+        ],
+        "deltaE76": 71.15
+      },
+      {
+        "pair": [
+          "C",
+          "V"
+        ],
+        "deltaE76": 82.53
+      },
+      {
+        "pair": [
+          "G",
+          "V"
+        ],
+        "deltaE76": 90.93
+      },
+      {
+        "pair": [
+          "A",
+          "V"
+        ],
+        "deltaE76": 91.41
+      }
+    ],
+    "deutan": [
+      {
+        "pair": [
+          "G",
+          "A"
+        ],
+        "deltaE76": 14.02
+      },
+      {
+        "pair": [
+          "B",
+          "V"
+        ],
+        "deltaE76": 23.6
+      },
+      {
+        "pair": [
+          "G",
+          "P"
+        ],
+        "deltaE76": 30.69
+      },
+      {
+        "pair": [
+          "P",
+          "C"
+        ],
+        "deltaE76": 33.18
+      },
+      {
+        "pair": [
+          "P",
+          "D"
+        ],
+        "deltaE76": 36.42
+      },
+      {
+        "pair": [
+          "P",
+          "B"
+        ],
+        "deltaE76": 37.46
+      },
+      {
+        "pair": [
+          "G",
+          "C"
+        ],
+        "deltaE76": 37.78
+      },
+      {
+        "pair": [
+          "A",
+          "C"
+        ],
+        "deltaE76": 38.3
+      },
+      {
+        "pair": [
+          "D",
+          "V"
+        ],
+        "deltaE76": 40.99
+      },
+      {
+        "pair": [
+          "P",
+          "A"
+        ],
+        "deltaE76": 42.2
+      },
+      {
+        "pair": [
+          "G",
+          "D"
+        ],
+        "deltaE76": 46.86
+      },
+      {
+        "pair": [
+          "B",
+          "D"
+        ],
+        "deltaE76": 47.51
+      },
+      {
+        "pair": [
+          "P",
+          "V"
+        ],
+        "deltaE76": 50.24
+      },
+      {
+        "pair": [
+          "A",
+          "D"
+        ],
+        "deltaE76": 60.74
+      },
+      {
+        "pair": [
+          "B",
+          "C"
+        ],
+        "deltaE76": 61.03
+      },
+      {
+        "pair": [
+          "G",
+          "B"
+        ],
+        "deltaE76": 67.75
+      },
+      {
+        "pair": [
+          "C",
+          "D"
+        ],
+        "deltaE76": 68.61
+      },
+      {
+        "pair": [
+          "G",
+          "V"
+        ],
+        "deltaE76": 76.66
+      },
+      {
+        "pair": [
+          "B",
+          "A"
+        ],
+        "deltaE76": 79.61
+      },
+      {
+        "pair": [
+          "C",
+          "V"
+        ],
+        "deltaE76": 79.87
+      },
+      {
+        "pair": [
+          "A",
+          "V"
+        ],
+        "deltaE76": 90.08
+      }
+    ],
+    "tritan": [
+      {
+        "pair": [
+          "P",
+          "A"
+        ],
+        "deltaE76": 20.92
+      },
+      {
+        "pair": [
+          "G",
+          "B"
+        ],
+        "deltaE76": 24.63
+      },
+      {
+        "pair": [
+          "D",
+          "V"
+        ],
+        "deltaE76": 29.0
+      },
+      {
+        "pair": [
+          "G",
+          "D"
+        ],
+        "deltaE76": 29.81
+      },
+      {
+        "pair": [
+          "G",
+          "V"
+        ],
+        "deltaE76": 37.98
+      },
+      {
+        "pair": [
+          "A",
+          "V"
+        ],
+        "deltaE76": 38.43
+      },
+      {
+        "pair": [
+          "A",
+          "C"
+        ],
+        "deltaE76": 41.92
+      },
+      {
+        "pair": [
+          "G",
+          "C"
+        ],
+        "deltaE76": 47.93
+      },
+      {
+        "pair": [
+          "C",
+          "V"
+        ],
+        "deltaE76": 48.65
+      },
+      {
+        "pair": [
+          "B",
+          "D"
+        ],
+        "deltaE76": 50.04
+      },
+      {
+        "pair": [
+          "P",
+          "V"
+        ],
+        "deltaE76": 53.94
+      },
+      {
+        "pair": [
+          "B",
+          "C"
+        ],
+        "deltaE76": 55.8
+      },
+      {
+        "pair": [
+          "P",
+          "C"
+        ],
+        "deltaE76": 56.59
+      },
+      {
+        "pair": [
+          "B",
+          "V"
+        ],
+        "deltaE76": 56.76
+      },
+      {
+        "pair": [
+          "A",
+          "D"
+        ],
+        "deltaE76": 60.56
+      },
+      {
+        "pair": [
+          "G",
+          "A"
+        ],
+        "deltaE76": 61.37
+      },
+      {
+        "pair": [
+          "C",
+          "D"
+        ],
+        "deltaE76": 66.27
+      },
+      {
+        "pair": [
+          "P",
+          "D"
+        ],
+        "deltaE76": 78.34
+      },
+      {
+        "pair": [
+          "B",
+          "A"
+        ],
+        "deltaE76": 80.87
+      },
+      {
+        "pair": [
+          "G",
+          "P"
+        ],
+        "deltaE76": 81.52
+      },
+      {
+        "pair": [
+          "P",
+          "B"
+        ],
+        "deltaE76": 100.08
+      }
+    ]
+  },
+  "model": "sRGB linear transform; Machado 2009 severity-100 matrices; CIELAB D65 Euclidean deltaE76 (not CIEDE2000).",
+  "limits": [
+    "Diagnostic approximation, not clinical simulation or an accessibility certification.",
+    "Numeric colour separation is not proof of legibility on phones or under colour-vision deficiency.",
+    "Hero portrait and material symbol on capsules remain; optional symbols/patterns on tiles are required for ambiguous pairs."
+  ],
+  "minimumNormalDeltaE76": {
+    "pair": [
+      "A",
+      "C"
+    ],
+    "deltaE76": 43.03
+  },
+  "cvdRiskPairsUnder20": {
+    "protan": [
+      {
+        "pair": [
+          "G",
+          "A"
+        ],
+        "deltaE76": 1.41
+      }
+    ],
+    "deutan": [
+      {
+        "pair": [
+          "G",
+          "A"
+        ],
+        "deltaE76": 14.02
+      }
+    ],
+    "tritan": []
+  }
+}

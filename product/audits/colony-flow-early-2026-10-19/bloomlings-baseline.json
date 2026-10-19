@@ -1,0 +1,675 @@
+{
+  "catalogVersion": "pilot-30-v3",
+  "humanTimingVersion": "pilot-30-v2",
+  "levels": [
+    {
+      "level": 1,
+      "grid": [
+        16,
+        18
+      ],
+      "materialCounts": {
+        "B": 193,
+        "G": 95
+      },
+      "materialCount": 2,
+      "workCells": 288,
+      "dominantShare": 0.6701,
+      "capsules": 9,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 20.026,
+      "ownerV2Notes": [
+        "Лучше стало. Но не надо забывать, что я могу в игре несколько лотов выбрать сразу и заполнить все слоты. Так как лотов теперь больше, играется чуть дольше. Может уменьшить количество слотов, даже если юзер будет идти по цветам, и на первых уровнях не страшно, то юзер по крайней мере должен ждать освобождение цвета, из слота, а не сразу 5 штук заполнить и потом еще 5 и готово."
+      ]
+    },
+    {
+      "level": 2,
+      "grid": [
+        16,
+        18
+      ],
+      "materialCounts": {
+        "B": 88,
+        "G": 200
+      },
+      "materialCount": 2,
+      "workCells": 288,
+      "dominantShare": 0.6944,
+      "capsules": 9,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 16.338,
+      "ownerV2Notes": [
+        "Тоже самое что и первый уровень. "
+      ]
+    },
+    {
+      "level": 3,
+      "grid": [
+        16,
+        18
+      ],
+      "materialCounts": {
+        "B": 182,
+        "G": 38,
+        "P": 68
+      },
+      "materialCount": 3,
+      "workCells": 288,
+      "dominantShare": 0.6319,
+      "capsules": 10,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 14.423,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 4,
+      "grid": [
+        18,
+        20
+      ],
+      "materialCounts": {
+        "B": 155,
+        "G": 32,
+        "P": 173
+      },
+      "materialCount": 3,
+      "workCells": 360,
+      "dominantShare": 0.4806,
+      "capsules": 10,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 11.932,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 5,
+      "grid": [
+        18,
+        20
+      ],
+      "materialCounts": {
+        "A": 111,
+        "B": 215,
+        "G": 18,
+        "P": 16
+      },
+      "materialCount": 4,
+      "workCells": 360,
+      "dominantShare": 0.5972,
+      "capsules": 12,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 42.172,
+      "ownerV2Notes": [
+        "Слегка думал об очереди, но в основном по цветам"
+      ]
+    },
+    {
+      "level": 6,
+      "grid": [
+        18,
+        20
+      ],
+      "materialCounts": {
+        "A": 70,
+        "B": 189,
+        "G": 14,
+        "P": 87
+      },
+      "materialCount": 4,
+      "workCells": 360,
+      "dominantShare": 0.525,
+      "capsules": 14,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 31.176,
+      "ownerV2Notes": [
+        "Ноооо, тут конечно странно. Неизвестыне лоты должны быть жо верхнего уровня, на верхних уровнях все должно быть прозрачно, по крайней мере первые раунды точно. Где-то после 100 можем и такое делать, но в начале это перебор"
+      ]
+    },
+    {
+      "level": 7,
+      "grid": [
+        20,
+        22
+      ],
+      "materialCounts": {
+        "A": 70,
+        "B": 211,
+        "G": 30,
+        "P": 129
+      },
+      "materialCount": 4,
+      "workCells": 440,
+      "dominantShare": 0.4795,
+      "capsules": 14,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 16.954,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 8,
+      "grid": [
+        20,
+        22
+      ],
+      "materialCounts": {
+        "A": 84,
+        "B": 215,
+        "C": 108,
+        "P": 33
+      },
+      "materialCount": 4,
+      "workCells": 440,
+      "dominantShare": 0.4886,
+      "capsules": 14,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 19.773,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 9,
+      "grid": [
+        20,
+        22
+      ],
+      "materialCounts": {
+        "A": 86,
+        "B": 158,
+        "C": 170,
+        "G": 14,
+        "P": 12
+      },
+      "materialCount": 5,
+      "workCells": 440,
+      "dominantShare": 0.3864,
+      "capsules": 14,
+      "capacity": 3,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 19.544,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 10,
+      "grid": [
+        20,
+        22
+      ],
+      "materialCounts": {
+        "A": 97,
+        "B": 206,
+        "C": 5,
+        "G": 10,
+        "P": 122
+      },
+      "materialCount": 5,
+      "workCells": 440,
+      "dominantShare": 0.4682,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 30.899,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 11,
+      "grid": [
+        22,
+        24
+      ],
+      "materialCounts": {
+        "A": 100,
+        "B": 276,
+        "C": 44,
+        "G": 108
+      },
+      "materialCount": 4,
+      "workCells": 528,
+      "dominantShare": 0.5227,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 42.694,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 12,
+      "grid": [
+        22,
+        24
+      ],
+      "materialCounts": {
+        "A": 140,
+        "B": 287,
+        "C": 86,
+        "G": 13,
+        "P": 2
+      },
+      "materialCount": 5,
+      "workCells": 528,
+      "dominantShare": 0.5436,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 41.251,
+      "ownerV2Notes": [
+        "Думал, но мало"
+      ]
+    },
+    {
+      "level": 13,
+      "grid": [
+        22,
+        24
+      ],
+      "materialCounts": {
+        "A": 83,
+        "B": 306,
+        "C": 8,
+        "P": 131
+      },
+      "materialCount": 4,
+      "workCells": 528,
+      "dominantShare": 0.5795,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 21.831,
+      "ownerV2Notes": [
+        "Вообще не думал"
+      ]
+    },
+    {
+      "level": 14,
+      "grid": [
+        22,
+        24
+      ],
+      "materialCounts": {
+        "A": 135,
+        "B": 276,
+        "C": 84,
+        "P": 33
+      },
+      "materialCount": 4,
+      "workCells": 528,
+      "dominantShare": 0.5227,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 2,
+      "ownerV2ActiveSeconds": 66.348,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 15,
+      "grid": [
+        22,
+        24
+      ],
+      "materialCounts": {
+        "A": 88,
+        "B": 278,
+        "C": 48,
+        "G": 6,
+        "P": 108
+      },
+      "materialCount": 5,
+      "workCells": 528,
+      "dominantShare": 0.5265,
+      "capsules": 20,
+      "capacity": 5,
+      "ownerV2Attempts": 5,
+      "ownerV2ActiveSeconds": 138.836,
+      "ownerV2Notes": [
+        "4 раза проходил. Этот удачный уровень очень"
+      ]
+    },
+    {
+      "level": 16,
+      "grid": [
+        24,
+        26
+      ],
+      "materialCounts": {
+        "A": 70,
+        "B": 404,
+        "C": 30,
+        "G": 10,
+        "P": 110
+      },
+      "materialCount": 5,
+      "workCells": 624,
+      "dominantShare": 0.6474,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 24.288,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 17,
+      "grid": [
+        24,
+        26
+      ],
+      "materialCounts": {
+        "A": 92,
+        "B": 322,
+        "C": 41,
+        "G": 147,
+        "P": 22
+      },
+      "materialCount": 5,
+      "workCells": 624,
+      "dominantShare": 0.516,
+      "capsules": 20,
+      "capacity": 5,
+      "ownerV2Attempts": 3,
+      "ownerV2ActiveSeconds": 122.149,
+      "ownerV2Notes": [
+        "Слабо думал"
+      ]
+    },
+    {
+      "level": 18,
+      "grid": [
+        24,
+        26
+      ],
+      "materialCounts": {
+        "A": 160,
+        "B": 219,
+        "C": 55,
+        "G": 71,
+        "P": 89
+      },
+      "materialCount": 5,
+      "workCells": 594,
+      "dominantShare": 0.3687,
+      "capsules": 20,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 46.741,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 19,
+      "grid": [
+        24,
+        26
+      ],
+      "materialCounts": {
+        "A": 120,
+        "B": 293,
+        "C": 26,
+        "G": 83,
+        "P": 72
+      },
+      "materialCount": 5,
+      "workCells": 594,
+      "dominantShare": 0.4933,
+      "capsules": 20,
+      "capacity": 5,
+      "ownerV2Attempts": 2,
+      "ownerV2ActiveSeconds": 66.409,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 20,
+      "grid": [
+        24,
+        26
+      ],
+      "materialCounts": {
+        "A": 34,
+        "B": 340,
+        "C": 110,
+        "D": 106,
+        "G": 34
+      },
+      "materialCount": 5,
+      "workCells": 624,
+      "dominantShare": 0.5449,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 38.441,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 21,
+      "grid": [
+        24,
+        26
+      ],
+      "materialCounts": {
+        "B": 312,
+        "C": 16,
+        "D": 82,
+        "G": 214
+      },
+      "materialCount": 4,
+      "workCells": 624,
+      "dominantShare": 0.5,
+      "capsules": 20,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 42.338,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 22,
+      "grid": [
+        25,
+        27
+      ],
+      "materialCounts": {
+        "A": 125,
+        "B": 267,
+        "C": 33,
+        "D": 123,
+        "G": 76,
+        "P": 20
+      },
+      "materialCount": 6,
+      "workCells": 644,
+      "dominantShare": 0.4146,
+      "capsules": 22,
+      "capacity": 5,
+      "ownerV2Attempts": 6,
+      "ownerV2ActiveSeconds": 310.401,
+      "ownerV2Notes": [
+        "Шикарный уровень "
+      ]
+    },
+    {
+      "level": 23,
+      "grid": [
+        24,
+        26
+      ],
+      "materialCounts": {
+        "A": 46,
+        "B": 295,
+        "C": 73,
+        "D": 98,
+        "P": 112
+      },
+      "materialCount": 5,
+      "workCells": 624,
+      "dominantShare": 0.4728,
+      "capsules": 22,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 36.597,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 24,
+      "grid": [
+        26,
+        28
+      ],
+      "materialCounts": {
+        "A": 141,
+        "B": 276,
+        "C": 41,
+        "D": 101,
+        "G": 137
+      },
+      "materialCount": 5,
+      "workCells": 696,
+      "dominantShare": 0.3966,
+      "capsules": 22,
+      "capacity": 5,
+      "ownerV2Attempts": 4,
+      "ownerV2ActiveSeconds": 170.351,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 25,
+      "grid": [
+        26,
+        28
+      ],
+      "materialCounts": {
+        "A": 152,
+        "B": 302,
+        "C": 71,
+        "D": 169,
+        "G": 20,
+        "P": 14
+      },
+      "materialCount": 6,
+      "workCells": 728,
+      "dominantShare": 0.4148,
+      "capsules": 22,
+      "capacity": 5,
+      "ownerV2Attempts": 3,
+      "ownerV2ActiveSeconds": 140.941,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 26,
+      "grid": [
+        26,
+        28
+      ],
+      "materialCounts": {
+        "A": 124,
+        "B": 454,
+        "C": 7,
+        "D": 45,
+        "G": 98
+      },
+      "materialCount": 5,
+      "workCells": 728,
+      "dominantShare": 0.6236,
+      "capsules": 22,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 32.06,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 27,
+      "grid": [
+        26,
+        28
+      ],
+      "materialCounts": {
+        "A": 66,
+        "B": 115,
+        "C": 334,
+        "D": 88,
+        "G": 81,
+        "P": 12
+      },
+      "materialCount": 6,
+      "workCells": 696,
+      "dominantShare": 0.4799,
+      "capsules": 22,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 74.297,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 28,
+      "grid": [
+        28,
+        30
+      ],
+      "materialCounts": {
+        "A": 4,
+        "B": 317,
+        "C": 17,
+        "D": 115,
+        "G": 44,
+        "P": 343
+      },
+      "materialCount": 6,
+      "workCells": 840,
+      "dominantShare": 0.4083,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 21.377,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 29,
+      "grid": [
+        26,
+        28
+      ],
+      "materialCounts": {
+        "A": 145,
+        "B": 297,
+        "C": 40,
+        "D": 134,
+        "G": 80
+      },
+      "materialCount": 5,
+      "workCells": 696,
+      "dominantShare": 0.4267,
+      "capsules": 22,
+      "capacity": 5,
+      "ownerV2Attempts": 3,
+      "ownerV2ActiveSeconds": 106.752,
+      "ownerV2Notes": []
+    },
+    {
+      "level": 30,
+      "grid": [
+        28,
+        30
+      ],
+      "materialCounts": {
+        "A": 2,
+        "B": 378,
+        "C": 250,
+        "D": 164,
+        "G": 21,
+        "P": 25
+      },
+      "materialCount": 6,
+      "workCells": 840,
+      "dominantShare": 0.45,
+      "capsules": 18,
+      "capacity": 5,
+      "ownerV2Attempts": 1,
+      "ownerV2ActiveSeconds": 22.16,
+      "ownerV2Notes": []
+    }
+  ],
+  "limits": [
+    "v3 has not been human-tested in the supplied records. V2 timings are not v3 timings.",
+    "V2 and v3 L1–9/L17/L25/L26 differ in board or queue. L15/L22 are retained control puzzles."
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "capturedAtUtc": "2026-10-19T22:10:03.011517+00:00",
+  "scope": {
+    "freshPages": 30,
+    "imagesChecked": 105,
+    "newImageDownloads": 19,
+    "verifiedCachedImages": 86,
+    "mobileClientPlayedByResearcher": false,
+    "videoTimingMeasured": false
+  },
+  "ownerObservations": [
+    {
+      "level": 4,
+      "elapsedSeconds": 91,
+      "source": "Owner stopwatch reported in chat",
+      "boardScreenshotProvided": false,
+      "attemptCountAndSpeedUnspecified": true
+    },
+    {
+      "source": "Owner report",
+      "finding": "Similarity of some shades is irritating; colour accessibility is a product constraint, not a measured frequency among store reviews."
+    }
+  ],
+  "cases": [
+    {
+      "level": 1,
+      "materialsObserved": [
+        "orange",
+        "yellow",
+        "white"
+      ],
+      "materialCount": 3,
+      "evidence": "L01-start.webp; coloured capsules and board",
+      "finding": "Three materials already in the first illustrated board; screenshot starts after an orange pod was admitted."
+    },
+    {
+      "level": 4,
+      "materialsObserved": [
+        "cyan",
+        "grass green",
+        "red/magenta",
+        "yellow",
+        "brown",
+        "cream",
+        "white",
+        "dark outline"
+      ],
+      "materialCount": 8,
+      "evidence": "L04-start.webp; full series linked in pages.json",
+      "finding": "Object anatomy and palette create distinct work; not a measured internal grid or exact dependency graph."
+    },
+    {
+      "level": 5,
+      "materialCount": null,
+      "evidence": "L05-start.webp; source page/5",
+      "finding": "Multiple nested rings, orange/cream regions and a multicolour core. More than six visible material groups; exact game palette not extracted."
+    },
+    {
+      "level": 8,
+      "evidence": "L08-start.webp; L08-queue.jpg",
+      "finding": "Question-mark pods in depth; colours are visible later. Exact reveal trigger not established by discontinuous stills."
+    },
+    {
+      "level": 15,
+      "evidence": "L15-start.webp; L15-queue.jpg; previous case-linked-slots.jpg",
+      "finding": "Cross-colour and same-colour connected pairs. Finished coloured halves remain pictured beside unfinished partners; exact admission rule is inferred, not exercised in client."
+    }
+  ],
+  "limits": [
+    "Fan guide warns layouts may change between game versions.",
+    "No competitor win-rate, unique-solution claim, complete queue length or exact unlock table inferred from prose.",
+    "Still series cannot measure worker speed, worker concurrency, release instant or reveal trigger.",
+    "L4 owner timing is one observation and is not pinned to the pictured mushroom-house version.",
+    "Near-shade complaint is the owner report; the existing 17-review archive is not used as frequency evidence for this complaint."
+  ]
+}

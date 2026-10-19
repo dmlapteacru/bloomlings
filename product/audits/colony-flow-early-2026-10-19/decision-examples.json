@@ -1,0 +1,109 @@
+{
+  "source": "content/pilot-v3/certificates.json; verified by the existing v3 native/JS checks",
+  "scope": "Counterfactuals in these exact prefix states only; not universal advice about a colour or bridge bank.",
+  "examples": [
+    {
+      "level": 15,
+      "prefix": [],
+      "afterActions": 0,
+      "winningAlternative": {
+        "type": "tap",
+        "pod": 0
+      },
+      "fatalAlternative": {
+        "type": "tap",
+        "pod": 1
+      },
+      "winningImmediateClears": 15,
+      "fatalImmediateClears": 23,
+      "sharesMaterial": true,
+      "proofNodes": 11
+    },
+    {
+      "level": 15,
+      "prefix": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 9
+        }
+      ],
+      "afterActions": 3,
+      "winningAlternative": {
+        "type": "tap",
+        "pod": 14
+      },
+      "fatalAlternative": {
+        "type": "tap",
+        "pod": 1
+      },
+      "winningImmediateClears": 8,
+      "fatalImmediateClears": 23,
+      "sharesMaterial": false,
+      "proofNodes": 3
+    },
+    {
+      "level": 22,
+      "prefix": [
+        {
+          "type": "tap",
+          "pod": 10
+        }
+      ],
+      "afterActions": 1,
+      "winningAlternative": {
+        "type": "tap",
+        "pod": 3
+      },
+      "fatalAlternative": {
+        "type": "tap",
+        "pod": 14
+      },
+      "winningImmediateClears": 29,
+      "fatalImmediateClears": 30,
+      "sharesMaterial": true,
+      "proofNodes": 36
+    },
+    {
+      "level": 22,
+      "prefix": [
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 0
+        }
+      ],
+      "afterActions": 4,
+      "winningAlternative": {
+        "type": "bridge",
+        "choice": 1
+      },
+      "fatalAlternative": {
+        "type": "bridge",
+        "choice": 0
+      },
+      "winningImmediateClears": 15,
+      "fatalImmediateClears": 33,
+      "sharesMaterial": false,
+      "proofNodes": 6
+    }
+  ]
+}

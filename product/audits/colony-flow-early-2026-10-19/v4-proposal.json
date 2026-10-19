@@ -1,0 +1,582 @@
+{
+  "version": "v4-plan-1",
+  "levels": [
+    {
+      "level": 1,
+      "grid": [
+        16,
+        18
+      ],
+      "activeMaterials": 3,
+      "unlockedMaterials": 3,
+      "targetSeconds1x": "15–25",
+      "goal": "3 героя и 3 материала; простой цветной силуэт",
+      "tier": "Normal",
+      "capsuleRange": [
+        8,
+        10
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 2,
+      "grid": [
+        18,
+        20
+      ],
+      "activeMaterials": 3,
+      "unlockedMaterials": 4,
+      "targetSeconds1x": "20–35",
+      "goal": "Bloom присоединяется; всего открыты 4 базовых цвета",
+      "tier": "Normal",
+      "capsuleRange": [
+        9,
+        12
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 3,
+      "grid": [
+        20,
+        22
+      ],
+      "activeMaterials": 4,
+      "unlockedMaterials": 5,
+      "targetSeconds1x": "25–45",
+      "goal": "Жемчужный материал Drop; контрастные большие детали",
+      "tier": "Normal",
+      "capsuleRange": [
+        10,
+        13
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 4,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 6,
+      "targetSeconds1x": "60–100",
+      "goal": "Тёмный контур Twig; первое богатое поле и длинная работа",
+      "tier": "Normal",
+      "capsuleRange": [
+        12,
+        16
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 5,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 6,
+      "targetSeconds1x": "65–110",
+      "goal": "Первая заметная задача: внешняя область, внутренний цвет, резерв",
+      "tier": "Challenge",
+      "capsuleRange": [
+        13,
+        17
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 6,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 6,
+      "targetSeconds1x": "45–75",
+      "goal": "Скрытая глубина; известный верх, фиксированное содержимое",
+      "tier": "Teach",
+      "capsuleRange": [
+        12,
+        16
+      ],
+      "mechanics": "hidden",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 7,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 6,
+      "targetSeconds1x": "55–90",
+      "goal": "Закрепление скрытых; два пути раскрытия рисунка",
+      "tier": "Normal",
+      "capsuleRange": [
+        13,
+        17
+      ],
+      "mechanics": "hidden",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 8,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 6,
+      "targetSeconds1x": "40–70",
+      "goal": "Одна связка одинакового материала, оба места до конца",
+      "tier": "Teach",
+      "capsuleRange": [
+        12,
+        16
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 9,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 6,
+      "targetSeconds1x": "60–100",
+      "goal": "Связка двух разных материалов и цена её ожидания",
+      "tier": "Normal",
+      "capsuleRange": [
+        14,
+        18
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 10,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 6,
+      "targetSeconds1x": "80–130",
+      "goal": "Первый кандидат Hard на знакомых цветах и связке",
+      "tier": "Hard candidate",
+      "capsuleRange": [
+        16,
+        20
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 11,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "40–75",
+      "goal": "Передышка; сливовый материал Bloom, всего 7 открытых",
+      "tier": "Normal",
+      "capsuleRange": [
+        13,
+        17
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 12,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "65–105",
+      "goal": "Скрытая глубина и знакомая связка вместе",
+      "tier": "Normal",
+      "capsuleRange": [
+        15,
+        19
+      ],
+      "mechanics": "hidden+pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 13,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "55–90",
+      "goal": "Свободный силуэт, отдельные детали и счётчики",
+      "tier": "Normal",
+      "capsuleRange": [
+        14,
+        18
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 14,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "65–110",
+      "goal": "Подготовить материал перед долгой парой",
+      "tier": "Normal",
+      "capsuleRange": [
+        16,
+        20
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 15,
+      "grid": [
+        22,
+        24
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "Measure",
+      "goal": "Контроль: существующие поле, очередь и группы L15",
+      "tier": "Hard control",
+      "capsuleRange": [
+        20,
+        20
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 16,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "40–70",
+      "goal": "Передышка без новых оттенков и правил",
+      "tier": "Normal",
+      "capsuleRange": [
+        12,
+        16
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 17,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "55–95",
+      "goal": "Читаемый сапог: узнаваемость важнее мелких деталей",
+      "tier": "Normal",
+      "capsuleRange": [
+        15,
+        19
+      ],
+      "mechanics": "hidden",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 18,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "65–110",
+      "goal": "Знакомая одноцветная связка пересекает две области",
+      "tier": "Normal",
+      "capsuleRange": [
+        16,
+        20
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 19,
+      "grid": [
+        28,
+        30
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "70–110",
+      "goal": "Подготовка внутренней области, без мостика",
+      "tier": "Normal",
+      "capsuleRange": [
+        16,
+        21
+      ],
+      "mechanics": "hidden+pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 20,
+      "grid": [
+        24,
+        26
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "45–80",
+      "goal": "Sprig впервые выращивает один мостик; простая демонстрация",
+      "tier": "Teach",
+      "capsuleRange": [
+        12,
+        16
+      ],
+      "mechanics": "bridge",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 21,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "65–105",
+      "goal": "Практика выбора между двумя берегами",
+      "tier": "Normal",
+      "capsuleRange": [
+        15,
+        19
+      ],
+      "mechanics": "bridge",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 22,
+      "grid": [
+        25,
+        27
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "Measure",
+      "goal": "Контроль: существующие поле, очередь, связки и два берега L22",
+      "tier": "Hard control",
+      "capsuleRange": [
+        22,
+        22
+      ],
+      "mechanics": "bridge+pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 23,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "45–80",
+      "goal": "Передышка: красивый силуэт и читаемая работа",
+      "tier": "Normal",
+      "capsuleRange": [
+        14,
+        18
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 24,
+      "grid": [
+        28,
+        30
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "75–120",
+      "goal": "Мост открывает работу ожидающей связке",
+      "tier": "Normal",
+      "capsuleRange": [
+        17,
+        22
+      ],
+      "mechanics": "bridge+pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 25,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "80–130",
+      "goal": "Котёнок: новый кандидат Hard только после проверки",
+      "tier": "Hard candidate",
+      "capsuleRange": [
+        18,
+        22
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 26,
+      "grid": [
+        28,
+        30
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "60–100",
+      "goal": "Подсолнух: крупные лепестки, глубина очереди",
+      "tier": "Normal",
+      "capsuleRange": [
+        16,
+        20
+      ],
+      "mechanics": "hidden",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 27,
+      "grid": [
+        28,
+        30
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "75–120",
+      "goal": "Второй вход и разные направления доступа, без новой механики",
+      "tier": "Normal",
+      "capsuleRange": [
+        18,
+        22
+      ],
+      "mechanics": "pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 28,
+      "grid": [
+        26,
+        28
+      ],
+      "activeMaterials": 5,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "45–80",
+      "goal": "Передышка; никаких новых цветов",
+      "tier": "Normal",
+      "capsuleRange": [
+        14,
+        18
+      ],
+      "mechanics": "—",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 29,
+      "grid": [
+        28,
+        30
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "90–140",
+      "goal": "Сочетание знакомых зависимостей, кандидат Hard",
+      "tier": "Hard candidate",
+      "capsuleRange": [
+        20,
+        24
+      ],
+      "mechanics": "bridge+pair",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    },
+    {
+      "level": 30,
+      "grid": [
+        28,
+        30
+      ],
+      "activeMaterials": 6,
+      "unlockedMaterials": 7,
+      "targetSeconds1x": "65–110",
+      "goal": "Завершение главы с четырьмя героями; без новой механики",
+      "tier": "Normal",
+      "capsuleRange": [
+        18,
+        22
+      ],
+      "mechanics": "hidden",
+      "capacity": 5,
+      "status": "proposal; not generated or certified"
+    }
+  ],
+  "timingStatus": "Design targets for active successful attempts at explicit 1x, not competitor or human measurements; auto2x tail logged separately.",
+  "controlLevels": [
+    15,
+    22
+  ],
+  "paletteLimit": 7,
+  "capacityStatus": "Five for palette/tempo experiment; v3 early 3/4 comparisons preserved separately, not an approved release unlock."
+}

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "htmlSha256": "f1467fb7ecbb98b4cd33aa6ecbe061760f5328b8a19e3e6d595ec5e6e3f347b4",
+  "caseImages": 5,
+  "queueSheets": 3,
+  "proposalLevels": 30,
+  "sourceLinks": 30,
+  "paletteModes": 4,
+  "protanRiskVisible": true,
+  "threeSixColourIllustration": true,
+  "tempoArithmetic": true,
+  "tempoAnimation": true,
+  "roadmapFilters": true,
+  "layouts": 4,
+  "noExternalRequests": true,
+  "noBrowserErrors": true,
+  "limits": [
+    "Browser inspection of an analysis page, not a playtest of new levels.",
+    "Colour simulation is diagnostic, not a real-device accessibility certification."
+  ],
+  "evidenceChecks": {
+    "freshPages": 30,
+    "checkedMedia": 105,
+    "newImageDownloads": 19,
+    "sourceImageHashesMatch": true,
+    "proposalRows": 30,
+    "capsuleTextContrastAtLeast45": true,
+    "ownDecisionExamples": 4
+  },
+  "downloads": {
+    "html": {
+      "filename": "Bloomlings-V4-Plan.html",
+      "bytes": 748620,
+      "sha256": "f1467fb7ecbb98b4cd33aa6ecbe061760f5328b8a19e3e6d595ec5e6e3f347b4"
+    },
+    "zip": {
+      "filename": "Bloomlings-V4-Plan.zip",
+      "bytes": 558289,
+      "sha256": "7a83679688cd92353e5feae28d4fb6d182183936a8452a8ae19a0cc296d0e5d8"
+    }
+  }
+}
