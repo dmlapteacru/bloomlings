@@ -1,0 +1,253 @@
+{
+  "capturedDateUtc": "2026-10-19",
+  "method": "Visible public review cards: 4 App Store listing reviews, 10 additional App Store reviews, 3 Google Play reviews. Responsive duplicates deduplicated by Apple review ID. Short excerpts only.",
+  "limits": [
+    "Convenience sample, not a random sample or complete review export; do not derive complaint prevalence.",
+    "Statements about impossible levels, ads, support and reset behavior are player reports, not reproduced client defects.",
+    "Dates come from Apple time datetime attributes; no inferred Google review dates or authors.",
+    "Different versions, progression, regions and ad availability can produce different experiences."
+  ],
+  "sources": [
+    {
+      "url": "https://apps.apple.com/us/app/colony-flow/id6779167923",
+      "htmlSha256": "aea262cac3220b240fcb64659212d3294b139f0b00ae2d08dea0a0c59e57f44f"
+    },
+    {
+      "url": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "htmlSha256": "820e49d12d794262020b2522e5e8e35ade9424d7c1b6644e99a74ea184b1ced0"
+    },
+    {
+      "url": "https://play.google.com/store/apps/details?id=com.abi.colony.flow&hl=en",
+      "htmlSha256": "d9cb5be3acf96f16b29fde7121332f33b6d422b0ed7f9f841359ae3757ad0c48"
+    }
+  ],
+  "uniqueReviewCount": 17,
+  "reviews": [
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/colony-flow/id6779167923",
+      "reviewId": "14360075818",
+      "author": "DeeAnn77",
+      "dateUtc": "2026-07-28T22:15:58.000Z",
+      "ratingLabel": "5 Stars",
+      "title": "Deleting This Very Fun FIVE STAR Game",
+      "excerpt": "accidentally touched the screen and activated a boost",
+      "themes": [
+        "accidental-booster",
+        "support"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/colony-flow/id6779167923",
+      "reviewId": "14631860745",
+      "author": "~Willow_Dawn~",
+      "dateUtc": "2026-10-05T20:08:08.000Z",
+      "ratingLabel": "4 Stars",
+      "title": "Genuine Review!",
+      "excerpt": "I love watching the ants go back and forth",
+      "themes": [
+        "calming-core",
+        "ads-vary"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/colony-flow/id6779167923",
+      "reviewId": "14317504839",
+      "author": "Reedear",
+      "dateUtc": "2026-07-18T08:35:14.000Z",
+      "ratingLabel": "2 Stars",
+      "title": "This game keeps updating.",
+      "excerpt": "if you’re stuck on a level you can’t play to get coins",
+      "themes": [
+        "recovery-economy",
+        "purchase-popups"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/colony-flow/id6779167923",
+      "reviewId": "14566758071",
+      "author": "Jmie919",
+      "dateUtc": "2026-09-19T03:40:17.000Z",
+      "ratingLabel": "5 Stars",
+      "title": "best game",
+      "excerpt": "you don’t need to spend any money at all",
+      "themes": [
+        "free-progression-counterexample",
+        "calming-core"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14679151503",
+      "author": "tinypoca",
+      "dateUtc": "2026-10-17T21:48:59.000Z",
+      "ratingLabel": "5 Stars",
+      "title": "So fun!! One suggestion",
+      "excerpt": "dress up my ant avatar",
+      "themes": [
+        "cosmetic-demand"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14597740143",
+      "author": "dr_pepper_gurl",
+      "dateUtc": "2026-09-27T01:35:49.000Z",
+      "ratingLabel": "5 Stars",
+      "title": "Great game to relax to",
+      "excerpt": "On level 11 and have gotten ZERO ADS SO FAR!",
+      "themes": [
+        "calming-core",
+        "ads-vary"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14666435591",
+      "author": "Morp Lafayette",
+      "dateUtc": "2026-10-14T17:38:30.000Z",
+      "ratingLabel": "3 Stars",
+      "title": "Becomes impossible",
+      "excerpt": "I am at a level I’ve done more than 10 times unsuccessfully",
+      "themes": [
+        "perceived-paywall",
+        "recovery"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14639862393",
+      "author": "LGaydos12",
+      "dateUtc": "2026-10-07T22:49:14.000Z",
+      "ratingLabel": "3 Stars",
+      "title": "Noticing impossible levels",
+      "excerpt": "I am currently on level 165",
+      "themes": [
+        "perceived-paywall"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14536858112",
+      "author": "Kanjigirl5",
+      "dateUtc": "2026-09-11T12:34:47.000Z",
+      "ratingLabel": "4 Stars",
+      "title": "Fun but ads are not child friendly",
+      "excerpt": "I keep getting ads for romantic roleplay apps",
+      "themes": [
+        "ad-content"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14387660819",
+      "author": "Justagame77",
+      "dateUtc": "2026-08-04T17:18:25.000Z",
+      "ratingLabel": "4 Stars",
+      "title": "Fun but frustrating",
+      "excerpt": "it’s not fun if I have to wait a couple of days",
+      "themes": [
+        "recovery-economy"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14430559434",
+      "author": "cornbread_21",
+      "dateUtc": "2026-08-15T12:16:26.000Z",
+      "ratingLabel": "4 Stars",
+      "title": "Pop up ads",
+      "excerpt": "the app will change to my internet browser",
+      "themes": [
+        "ad-browser-open"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14352213946",
+      "author": "eyrecura",
+      "dateUtc": "2026-07-26T23:52:39.000Z",
+      "ratingLabel": "4 Stars",
+      "title": "Some levels are genuinely unplayable without spending money",
+      "excerpt": "Right now I’m stuck on 694",
+      "themes": [
+        "perceived-paywall",
+        "recovery-economy"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14677872679",
+      "author": "CharisesPieces",
+      "dateUtc": "2026-10-17T15:08:17.000Z",
+      "ratingLabel": "4 Stars",
+      "title": "Super fun and challenging.. but",
+      "excerpt": "if I’m gone too long, the level resets",
+      "themes": [
+        "attempt-persistence"
+      ]
+    },
+    {
+      "store": "App Store US",
+      "sourceUrl": "https://apps.apple.com/us/app/6779167923?see-all=reviews&platform=iphone",
+      "reviewId": "14541401467",
+      "author": "MyGirlz#1Mom",
+      "dateUtc": "2026-09-12T15:14:20.000Z",
+      "ratingLabel": "5 Stars",
+      "title": "Great game, mostly relaxing, sometimes frustrating",
+      "excerpt": "I like watching the ants scurry around.",
+      "themes": [
+        "calming-core",
+        "interesting-pathfinding"
+      ]
+    },
+    {
+      "store": "Google Play",
+      "sourceUrl": "https://play.google.com/store/apps/details?id=com.abi.colony.flow&hl=en",
+      "visibleReviewOrdinal": 1,
+      "author": null,
+      "dateUtc": null,
+      "excerpt": "it will bypass certain colors until you get stuck",
+      "themes": [
+        "unclear-blockage",
+        "perceived-paywall",
+        "ads"
+      ]
+    },
+    {
+      "store": "Google Play",
+      "sourceUrl": "https://play.google.com/store/apps/details?id=com.abi.colony.flow&hl=en",
+      "visibleReviewOrdinal": 2,
+      "author": null,
+      "dateUtc": null,
+      "excerpt": "I'm nearing level 100 and you absolutely do not need the items.",
+      "themes": [
+        "free-progression-counterexample"
+      ]
+    },
+    {
+      "store": "Google Play",
+      "sourceUrl": "https://play.google.com/store/apps/details?id=com.abi.colony.flow&hl=en",
+      "visibleReviewOrdinal": 3,
+      "author": null,
+      "dateUtc": null,
+      "excerpt": "and you can only buy helps in sets of 3.",
+      "themes": [
+        "recovery-economy",
+        "booster-bundle-only"
+      ]
+    }
+  ]
+}
