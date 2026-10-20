@@ -1,0 +1,13 @@
+{
+  "html": {
+    "sha256": "f7ea19f6940d462f63143ee1bb48bb2b4dd094b95394d3bb09a21245e9c025ac",
+    "bytes": 1339210
+  },
+  "zip": {
+    "sha256": "ce88ad8550bb2e409ddd45350e60e4e6b8c56719d07cac3625bc24d9ca0bef03",
+    "bytes": 830296
+  },
+  "embeddedHTMLIdentical": true,
+  "zipIntegrity": true,
+  "v5SHA256": "b4f37031e08dbdff5674c3952a5d3606991e6f7fd431846f0b10a8b0707d0711"
+}

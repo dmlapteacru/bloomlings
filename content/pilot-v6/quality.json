@@ -1,0 +1,1520 @@
+{
+  "version": "pilot-30-v6",
+  "catalogHash": "efe9b35fa2d30753d619ca82d7279bcb29ca714d49ba986d29c686b3e943d48d",
+  "complete": true,
+  "sourceHash": "1ac38d7d2701fbe3f6648dd1d339bcf6e1150d0484da03c0d4b4badc02906b09",
+  "changedLevels": [
+    4,
+    5,
+    7,
+    13,
+    16,
+    18,
+    19
+  ],
+  "controls": [
+    10,
+    15,
+    21,
+    22,
+    25,
+    29
+  ],
+  "limits": [
+    "Policies are construction diagnostics, not human win rates.",
+    "Idle certificates prove existence of a real v6 winning route; they do not prove every timing wins.",
+    "Same-colour scheduling can change outcomes with concurrent input. No native C# parity claimed."
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 130300,
+        "peak": 1,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "burstReference": {
+        "modelMs": 40275,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      }
+    },
+    {
+      "id": 2,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 122400,
+        "peak": 1,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "burstReference": {
+        "modelMs": 49100,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      }
+    },
+    {
+      "id": 3,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 160425,
+        "peak": 2,
+        "stalled": 1,
+        "preparations": 1
+      },
+      "burstReference": {
+        "modelMs": 62150,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      }
+    },
+    {
+      "id": 4,
+      "changed": true,
+      "ownerFunControl": false,
+      "attempt": 1,
+      "reference": {
+        "modelMs": 280575,
+        "peak": 1,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "burstReference": {
+        "modelMs": 79825,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      }
+    },
+    {
+      "id": 5,
+      "changed": true,
+      "ownerFunControl": false,
+      "attempt": 4,
+      "reference": {
+        "modelMs": 255775,
+        "peak": 5,
+        "stalled": 11,
+        "preparations": 4
+      },
+      "burstReference": {
+        "modelMs": 104175,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 13,
+          "trials": 32,
+          "rate": 0.40625
+        },
+        "visible": {
+          "wins": 24,
+          "trials": 32,
+          "rate": 0.75
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 7,
+        "trials": 16,
+        "rate": 0.4375
+      }
+    },
+    {
+      "id": 6,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 202125,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 4
+      },
+      "burstReference": {
+        "modelMs": 97625,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 11,
+          "trials": 32,
+          "rate": 0.34375
+        },
+        "visible": {
+          "wins": 26,
+          "trials": 32,
+          "rate": 0.8125
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 6,
+        "trials": 16,
+        "rate": 0.375
+      }
+    },
+    {
+      "id": 7,
+      "changed": true,
+      "ownerFunControl": false,
+      "attempt": 19,
+      "reference": {
+        "modelMs": 261075,
+        "peak": 5,
+        "stalled": 17,
+        "preparations": 5
+      },
+      "burstReference": {
+        "modelMs": 105750,
+        "peak": 5,
+        "stalled": 1,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 13,
+          "trials": 32,
+          "rate": 0.40625
+        },
+        "visible": {
+          "wins": 26,
+          "trials": 32,
+          "rate": 0.8125
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 10,
+        "trials": 16,
+        "rate": 0.625
+      }
+    },
+    {
+      "id": 8,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 181325,
+        "peak": 2,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "burstReference": {
+        "modelMs": 30500,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 28,
+          "trials": 32,
+          "rate": 0.875
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 13,
+        "trials": 16,
+        "rate": 0.8125
+      }
+    },
+    {
+      "id": 9,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 240675,
+        "peak": 5,
+        "stalled": 7,
+        "preparations": 2
+      },
+      "burstReference": {
+        "modelMs": 104975,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 7,
+          "trials": 32,
+          "rate": 0.21875
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 2,
+        "trials": 16,
+        "rate": 0.125
+      }
+    },
+    {
+      "id": 10,
+      "changed": false,
+      "ownerFunControl": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 271250,
+        "peak": 5,
+        "stalled": 12,
+        "preparations": 4
+      },
+      "burstReference": null,
+      "policies": {
+        "random": {
+          "wins": 1,
+          "trials": 32,
+          "rate": 0.03125
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      }
+    },
+    {
+      "id": 11,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 330125,
+        "peak": 2,
+        "stalled": 3,
+        "preparations": 0
+      },
+      "burstReference": {
+        "modelMs": 96150,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 28,
+          "trials": 32,
+          "rate": 0.875
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 14,
+        "trials": 16,
+        "rate": 0.875
+      }
+    },
+    {
+      "id": 12,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 235350,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 3
+      },
+      "burstReference": {
+        "modelMs": 93550,
+        "peak": 5,
+        "stalled": 3,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 14,
+          "trials": 32,
+          "rate": 0.4375
+        },
+        "visible": {
+          "wins": 24,
+          "trials": 32,
+          "rate": 0.75
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 4,
+        "trials": 16,
+        "rate": 0.25
+      }
+    },
+    {
+      "id": 13,
+      "changed": true,
+      "ownerFunControl": false,
+      "attempt": 46,
+      "reference": {
+        "modelMs": 144550,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 2
+      },
+      "burstReference": {
+        "modelMs": 36500,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 7,
+          "trials": 32,
+          "rate": 0.21875
+        },
+        "visible": {
+          "wins": 24,
+          "trials": 32,
+          "rate": 0.75
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 3,
+        "trials": 16,
+        "rate": 0.1875
+      }
+    },
+    {
+      "id": 14,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 345550,
+        "peak": 5,
+        "stalled": 11,
+        "preparations": 4
+      },
+      "burstReference": {
+        "modelMs": 232500,
+        "peak": 5,
+        "stalled": 1,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 27,
+          "trials": 32,
+          "rate": 0.84375
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 7,
+        "trials": 16,
+        "rate": 0.4375
+      }
+    },
+    {
+      "id": 15,
+      "changed": false,
+      "ownerFunControl": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 196350,
+        "peak": 4,
+        "stalled": 14,
+        "preparations": 1
+      },
+      "burstReference": {
+        "modelMs": 99700,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 1,
+          "trials": 32,
+          "rate": 0.03125
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 3,
+        "trials": 16,
+        "rate": 0.1875
+      }
+    },
+    {
+      "id": 16,
+      "changed": true,
+      "ownerFunControl": false,
+      "attempt": 2,
+      "reference": {
+        "modelMs": 148600,
+        "peak": 2,
+        "stalled": 2,
+        "preparations": 1
+      },
+      "burstReference": {
+        "modelMs": 26950,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      }
+    },
+    {
+      "id": 17,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 286400,
+        "peak": 5,
+        "stalled": 6,
+        "preparations": 3
+      },
+      "burstReference": {
+        "modelMs": 132725,
+        "peak": 5,
+        "stalled": 2,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 10,
+          "trials": 32,
+          "rate": 0.3125
+        },
+        "visible": {
+          "wins": 25,
+          "trials": 32,
+          "rate": 0.78125
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 2,
+        "trials": 16,
+        "rate": 0.125
+      }
+    },
+    {
+      "id": 18,
+      "changed": true,
+      "ownerFunControl": false,
+      "attempt": 8,
+      "reference": {
+        "modelMs": 311975,
+        "peak": 5,
+        "stalled": 7,
+        "preparations": 4
+      },
+      "burstReference": {
+        "modelMs": 112500,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 18,
+          "trials": 32,
+          "rate": 0.5625
+        },
+        "visible": {
+          "wins": 24,
+          "trials": 32,
+          "rate": 0.75
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 6,
+        "trials": 16,
+        "rate": 0.375
+      }
+    },
+    {
+      "id": 19,
+      "changed": true,
+      "ownerFunControl": false,
+      "attempt": 2,
+      "reference": {
+        "modelMs": 345175,
+        "peak": 5,
+        "stalled": 5,
+        "preparations": 3
+      },
+      "burstReference": {
+        "modelMs": 151575,
+        "peak": 5,
+        "stalled": 3,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 5,
+          "trials": 32,
+          "rate": 0.15625
+        },
+        "visible": {
+          "wins": 14,
+          "trials": 32,
+          "rate": 0.4375
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      }
+    },
+    {
+      "id": 20,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 351925,
+        "peak": 3,
+        "stalled": 6,
+        "preparations": 0
+      },
+      "burstReference": {
+        "modelMs": 131100,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 21,
+          "trials": 32,
+          "rate": 0.65625
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 11,
+        "trials": 16,
+        "rate": 0.6875
+      }
+    },
+    {
+      "id": 21,
+      "changed": false,
+      "ownerFunControl": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 362650,
+        "peak": 5,
+        "stalled": 8,
+        "preparations": 2
+      },
+      "burstReference": {
+        "modelMs": 163475,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 4,
+          "trials": 32,
+          "rate": 0.125
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 4,
+        "trials": 16,
+        "rate": 0.25
+      }
+    },
+    {
+      "id": 22,
+      "changed": false,
+      "ownerFunControl": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 361500,
+        "peak": 5,
+        "stalled": 7,
+        "preparations": 1
+      },
+      "burstReference": {
+        "modelMs": 143250,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      }
+    },
+    {
+      "id": 23,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 187875,
+        "peak": 2,
+        "stalled": 1,
+        "preparations": 1
+      },
+      "burstReference": {
+        "modelMs": 48150,
+        "peak": 5,
+        "stalled": 1,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 11,
+          "trials": 32,
+          "rate": 0.34375
+        },
+        "visible": {
+          "wins": 20,
+          "trials": 32,
+          "rate": 0.625
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 7,
+        "trials": 16,
+        "rate": 0.4375
+      }
+    },
+    {
+      "id": 24,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 457475,
+        "peak": 5,
+        "stalled": 5,
+        "preparations": 1
+      },
+      "burstReference": {
+        "modelMs": 192525,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 11,
+          "trials": 32,
+          "rate": 0.34375
+        },
+        "visible": {
+          "wins": 16,
+          "trials": 32,
+          "rate": 0.5
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 2,
+        "trials": 16,
+        "rate": 0.125
+      }
+    },
+    {
+      "id": 25,
+      "changed": false,
+      "ownerFunControl": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 474525,
+        "peak": 5,
+        "stalled": 9,
+        "preparations": 3
+      },
+      "burstReference": {
+        "modelMs": 119000,
+        "peak": 5,
+        "stalled": 3,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 3,
+          "trials": 32,
+          "rate": 0.09375
+        },
+        "visible": {
+          "wins": 4,
+          "trials": 32,
+          "rate": 0.125
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      }
+    },
+    {
+      "id": 26,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 313275,
+        "peak": 2,
+        "stalled": 2,
+        "preparations": 1
+      },
+      "burstReference": {
+        "modelMs": 105625,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      }
+    },
+    {
+      "id": 27,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 372625,
+        "peak": 5,
+        "stalled": 11,
+        "preparations": 4
+      },
+      "burstReference": {
+        "modelMs": 174750,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 6,
+          "trials": 32,
+          "rate": 0.1875
+        },
+        "visible": {
+          "wins": 19,
+          "trials": 32,
+          "rate": 0.59375
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      }
+    },
+    {
+      "id": 28,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 224050,
+        "peak": 1,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "burstReference": {
+        "modelMs": 42975,
+        "peak": 5,
+        "stalled": 0,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      }
+    },
+    {
+      "id": 29,
+      "changed": false,
+      "ownerFunControl": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 478325,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 1
+      },
+      "burstReference": null,
+      "policies": {
+        "random": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      }
+    },
+    {
+      "id": 30,
+      "changed": false,
+      "ownerFunControl": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 201325,
+        "peak": 5,
+        "stalled": 18,
+        "preparations": 5
+      },
+      "burstReference": {
+        "modelMs": 99775,
+        "peak": 5,
+        "stalled": 4,
+        "preparations": 0
+      },
+      "policies": {
+        "random": {
+          "wins": 15,
+          "trials": 32,
+          "rate": 0.46875
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 6,
+        "trials": 16,
+        "rate": 0.375
+      }
+    }
+  ]
+}

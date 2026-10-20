@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "htmlSHA256": "f7ea19f6940d462f63143ee1bb48bb2b4dd094b95394d3bb09a21245e9c025ac",
+  "domWinningPlaythroughs": 30,
+  "responsiveLayouts": 36,
+  "checkpointReloads": 2,
+  "noExternalRequests": true,
+  "noBrowserErrors": true,
+  "exportReplayed": true,
+  "dispatchCountsAndReleaseTimesVerified": true,
+  "releasesBeforeReturnObserved": true,
+  "limits": [
+    "Browser clock accelerated for QA; these are not human playtest timings."
+  ]
+}

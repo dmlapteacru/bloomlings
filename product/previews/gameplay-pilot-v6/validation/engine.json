@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "catalogHash": "efe9b35fa2d30753d619ca82d7279bcb29ca714d49ba986d29c686b3e943d48d",
+  "winningRoutes": 46,
+  "acceptedCertificateActions": 535,
+  "hiddenInformationPolicies": 8,
+  "concurrentRandomRuns": 240,
+  "liveClears": 74501,
+  "restoredCheckpoints": 1113,
+  "frameInvarianceChecks": 1,
+  "retainedDefinitions": 23,
+  "ownerFunControls": [
+    10,
+    15,
+    21,
+    22,
+    25,
+    29
+  ],
+  "slotReusedBeforeArrival": true,
+  "sameColourParallelDispatch": true,
+  "pairReleaseAtomic": true,
+  "fullWorkingRowSurvives": true,
+  "conservation": true,
+  "limits": [
+    "Winning certificates use idle decisions. They do not cover all possible real-time choices.",
+    "Policy rates are not human difficulty. No native Core equivalence claim."
+  ]
+}
