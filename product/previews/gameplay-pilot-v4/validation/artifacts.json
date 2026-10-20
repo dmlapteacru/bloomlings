@@ -1,0 +1,10 @@
+{
+  "htmlSha256": "a5f98ed8f653660f295af97153e3c13217933ad1cac3fb7a60de3b5a2cbeed68",
+  "htmlBytes": 1331514,
+  "zipSha256": "34d719ee4d4a7a436d4636333598217fc9ceb02b1779521564d3cf5cbb541203",
+  "zipBytes": 827885,
+  "zipIntegrity": true,
+  "htmlIdenticalInsideZip": true,
+  "catalogHash": "93a1f5b3d1f3b4f1321dff3416f8e0a901b7865ee6335116da44edde70bbac9f",
+  "v3HtmlUnchangedSha256": "3b3a8554b05013fb313f98874635abf5096c8ecbba468a200ded298712e4658e"
+}

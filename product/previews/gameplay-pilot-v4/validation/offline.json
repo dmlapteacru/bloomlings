@@ -1,0 +1,11 @@
+{
+  "embeddedAssets": true,
+  "externalScripts": false,
+  "externalFontsOrCss": false,
+  "fileProtocolTest": {
+    "status": "blocked by managed Chromium policy",
+    "error": "net::ERR_BLOCKED_BY_ADMINISTRATOR",
+    "attempted": "direct local HTML navigation",
+    "scope": "Cloud browser restriction; no bypass attempted. Full runtime test uses local HTTP with all assets embedded and zero external requests. Actual phone opening still needs owner test."
+  }
+}

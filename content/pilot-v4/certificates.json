@@ -1,0 +1,5450 @@
+[
+  {
+    "id": 1,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": null
+  },
+  {
+    "id": 2,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": null
+  },
+  {
+    "id": 3,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": null
+  },
+  {
+    "id": 4,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 3,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          }
+        ],
+        "wrong": {
+          "type": "tap",
+          "pod": 0
+        },
+        "correct": {
+          "type": "tap",
+          "pod": 15
+        },
+        "badClears": 0,
+        "delayed": true
+      }
+    ],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 6,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          }
+        ],
+        "wrong": {
+          "type": "tap",
+          "pod": 13
+        },
+        "correct": {
+          "type": "tap",
+          "pod": 4
+        },
+        "badClears": 0,
+        "delayed": true
+      }
+    ],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 2,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          }
+        ],
+        "wrong": {
+          "type": "tap",
+          "pod": 2
+        },
+        "correct": {
+          "type": "tap",
+          "pod": 9
+        },
+        "badClears": 0,
+        "delayed": true
+      }
+    ],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 3,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 10
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 5
+        },
+        "goodClears": 111,
+        "badClears": 78,
+        "sameColourChoice": true,
+        "proofNodes": 4
+      },
+      {
+        "at": 7,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 6
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 2
+        },
+        "goodClears": 39,
+        "badClears": 45,
+        "sameColourChoice": true,
+        "proofNodes": 3
+      }
+    ],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": null
+  },
+  {
+    "id": 14,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 0,
+        "prefix": [],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 0
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 1
+        },
+        "goodClears": 15,
+        "badClears": 23,
+        "sameColourChoice": true,
+        "proofNodes": 11
+      },
+      {
+        "at": 3,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 14
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 1
+        },
+        "goodClears": 8,
+        "badClears": 23,
+        "sameColourChoice": false,
+        "proofNodes": 3
+      }
+    ],
+    "bridge": null,
+    "fairness": null
+  },
+  {
+    "id": 16,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "bridge",
+        "choice": 0
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "bridge",
+        "choice": 0
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": {
+      "at": 6,
+      "selected": 0,
+      "alternative": 1,
+      "bothReady": true,
+      "sameOrderWins": false,
+      "alternateWinning": true,
+      "alternateActions": [
+        {
+          "type": "tap",
+          "pod": 0
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 5
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 14
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        }
+      ],
+      "proofNodes": 11
+    },
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "bridge",
+        "choice": 1
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 1,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 10
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "bridge",
+            "choice": 1
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 3
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 14
+        },
+        "goodClears": 29,
+        "badClears": 30,
+        "sameColourChoice": true,
+        "proofNodes": 36
+      },
+      {
+        "at": 4,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          }
+        ],
+        "continuation": [
+          {
+            "type": "bridge",
+            "choice": 1
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          }
+        ],
+        "correct": {
+          "type": "bridge",
+          "choice": 1
+        },
+        "wrong": {
+          "type": "bridge",
+          "choice": 0
+        },
+        "goodClears": 15,
+        "badClears": 33,
+        "sameColourChoice": false,
+        "proofNodes": 6
+      }
+    ],
+    "bridge": {
+      "at": 4,
+      "selected": 1,
+      "alternative": 0,
+      "bothReady": true,
+      "sameOrderWins": false,
+      "alternateWinning": false,
+      "alternateActions": [],
+      "proofNodes": 6
+    },
+    "fairness": null
+  },
+  {
+    "id": 23,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "bridge",
+        "choice": 0
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": {
+      "at": 3,
+      "selected": 0,
+      "alternative": 1,
+      "bothReady": true,
+      "sameOrderWins": false,
+      "alternateWinning": true,
+      "alternateActions": [
+        {
+          "type": "tap",
+          "pod": 9
+        },
+        {
+          "type": "tap",
+          "pod": 2
+        },
+        {
+          "type": "tap",
+          "pod": 7
+        },
+        {
+          "type": "tap",
+          "pod": 15
+        },
+        {
+          "type": "tap",
+          "pod": 11
+        },
+        {
+          "type": "tap",
+          "pod": 6
+        },
+        {
+          "type": "tap",
+          "pod": 19
+        },
+        {
+          "type": "tap",
+          "pod": 1
+        },
+        {
+          "type": "tap",
+          "pod": 13
+        },
+        {
+          "type": "tap",
+          "pod": 8
+        },
+        {
+          "type": "tap",
+          "pod": 4
+        },
+        {
+          "type": "tap",
+          "pod": 10
+        },
+        {
+          "type": "tap",
+          "pod": 21
+        },
+        {
+          "type": "tap",
+          "pod": 12
+        },
+        {
+          "type": "tap",
+          "pod": 17
+        },
+        {
+          "type": "tap",
+          "pod": 20
+        },
+        {
+          "type": "tap",
+          "pod": 3
+        }
+      ],
+      "proofNodes": 17
+    },
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "bridge",
+        "choice": 1
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 4,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 19
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 17
+        },
+        "goodClears": 56,
+        "badClears": 29,
+        "sameColourChoice": false,
+        "proofNodes": 53
+      },
+      {
+        "at": 7,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          }
+        ],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 6
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 17
+        },
+        "goodClears": 71,
+        "badClears": 29,
+        "sameColourChoice": true,
+        "proofNodes": 4
+      }
+    ],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": null,
+    "capacities": {},
+    "losing": null
+  },
+  {
+    "id": 29,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "bridge",
+        "choice": 1
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 23
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      }
+    ],
+    "decisionProofs": [
+      {
+        "at": 0,
+        "prefix": [],
+        "continuation": [
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "bridge",
+            "choice": 1
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 23
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          }
+        ],
+        "correct": {
+          "type": "tap",
+          "pod": 6
+        },
+        "wrong": {
+          "type": "tap",
+          "pod": 5
+        },
+        "goodClears": 60,
+        "badClears": 52,
+        "sameColourChoice": true,
+        "proofNodes": 73
+      },
+      {
+        "at": 5,
+        "prefix": [
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          }
+        ],
+        "continuation": [
+          {
+            "type": "bridge",
+            "choice": 1
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 18
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 23
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          }
+        ],
+        "correct": {
+          "type": "bridge",
+          "choice": 1
+        },
+        "wrong": {
+          "type": "bridge",
+          "choice": 0
+        },
+        "goodClears": 73,
+        "badClears": 7,
+        "sameColourChoice": false,
+        "proofNodes": 1
+      }
+    ],
+    "bridge": {
+      "at": 5,
+      "selected": 1,
+      "alternative": 0,
+      "bothReady": true,
+      "sameOrderWins": false,
+      "alternateWinning": false,
+      "alternateActions": [],
+      "proofNodes": 1
+    },
+    "fairness": null,
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "bridge",
+        "choice": 0
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "actions": [
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      }
+    ],
+    "decisionProofs": [],
+    "bridge": null,
+    "fairness": {
+      "worlds": 2,
+      "routes": [
+        [
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          }
+        ],
+        [
+          {
+            "type": "tap",
+            "pod": 2
+          },
+          {
+            "type": "tap",
+            "pod": 6
+          },
+          {
+            "type": "tap",
+            "pod": 9
+          },
+          {
+            "type": "tap",
+            "pod": 3
+          },
+          {
+            "type": "tap",
+            "pod": 17
+          },
+          {
+            "type": "tap",
+            "pod": 21
+          },
+          {
+            "type": "tap",
+            "pod": 10
+          },
+          {
+            "type": "tap",
+            "pod": 15
+          },
+          {
+            "type": "tap",
+            "pod": 14
+          },
+          {
+            "type": "tap",
+            "pod": 7
+          },
+          {
+            "type": "tap",
+            "pod": 20
+          },
+          {
+            "type": "tap",
+            "pod": 5
+          },
+          {
+            "type": "tap",
+            "pod": 8
+          },
+          {
+            "type": "tap",
+            "pod": 1
+          },
+          {
+            "type": "tap",
+            "pod": 0
+          },
+          {
+            "type": "tap",
+            "pod": 16
+          },
+          {
+            "type": "tap",
+            "pod": 11
+          },
+          {
+            "type": "tap",
+            "pod": 4
+          },
+          {
+            "type": "tap",
+            "pod": 12
+          },
+          {
+            "type": "tap",
+            "pod": 13
+          },
+          {
+            "type": "tap",
+            "pod": 19
+          }
+        ]
+      ]
+    },
+    "capacities": {},
+    "losing": [
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      }
+    ]
+  }
+]

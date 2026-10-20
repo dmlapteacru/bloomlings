@@ -1,0 +1,212 @@
+{
+  "passed": true,
+  "profile": {
+    "outPerCell": 10,
+    "returnPerCell": 8,
+    "act": 40,
+    "minOut": 60,
+    "minReturn": 50,
+    "departureGap": 35,
+    "maxWorkers": 2
+  },
+  "winningTimelinePaths": 60,
+  "acceptedCommands": 1000,
+  "checkpointsRestored": 1265,
+  "routeChecks": 129257,
+  "busyRefusals": 32016,
+  "fullWorkingRowStates": 32811,
+  "completedHalfStates": 10753,
+  "bridgeVisibilityWaits": 637,
+  "movingCourierStates": 2793,
+  "returningCourierStates": 1180,
+  "maxCouriers": 10,
+  "frameChunkingInvariant": true,
+  "twoTimesSameWork": true,
+  "pendingWinDelayedUntilReturn": true,
+  "pairedPlacesHeld": true,
+  "bridgeRescuesFullRow": true,
+  "newTopRevealsImmediately": true,
+  "staleCheckpointRejected": true,
+  "timings": [
+    {
+      "level": 1,
+      "serialMs": 45813,
+      "burstMs": 17692,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 2,
+      "serialMs": 58749,
+      "burstMs": 25520,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 3,
+      "serialMs": 87089,
+      "burstMs": 47371,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 4,
+      "serialMs": 119793,
+      "burstMs": 56990,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 5,
+      "serialMs": 114112,
+      "burstMs": 55068,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 6,
+      "serialMs": 129924,
+      "burstMs": 69057,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 7,
+      "serialMs": 103600,
+      "burstMs": 67608,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 8,
+      "serialMs": 56537,
+      "burstMs": 20960,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 9,
+      "serialMs": 132245,
+      "burstMs": 56111,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 10,
+      "serialMs": 153788,
+      "burstMs": 98837,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 11,
+      "serialMs": 149848,
+      "burstMs": 66762,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 12,
+      "serialMs": 152966,
+      "burstMs": 79591,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 13,
+      "serialMs": 68718,
+      "burstMs": 27203,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 14,
+      "serialMs": 166349,
+      "burstMs": 121044,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 15,
+      "serialMs": 112403,
+      "burstMs": 83718,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 16,
+      "serialMs": 49916,
+      "burstMs": 27012,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 17,
+      "serialMs": 162597,
+      "burstMs": 79110,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 18,
+      "serialMs": 147338,
+      "burstMs": 54812,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 19,
+      "serialMs": 191028,
+      "burstMs": 130074,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 20,
+      "serialMs": 134172,
+      "burstMs": 65303,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 21,
+      "serialMs": 182049,
+      "burstMs": 92267,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 22,
+      "serialMs": 163536,
+      "burstMs": 80697,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 23,
+      "serialMs": 89593,
+      "burstMs": 34518,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 24,
+      "serialMs": 225617,
+      "burstMs": 102590,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 25,
+      "serialMs": 177358,
+      "burstMs": 98254,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 26,
+      "serialMs": 188079,
+      "burstMs": 91444,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 27,
+      "serialMs": 172436,
+      "burstMs": 94486,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 28,
+      "serialMs": 97276,
+      "burstMs": 43980,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 29,
+      "serialMs": 217029,
+      "burstMs": 99305,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    },
+    {
+      "level": 30,
+      "serialMs": 84460,
+      "burstMs": 37862,
+      "note": "Automated zero-think reference routes; burst includes auto2x tail, serial waits at 1x after each command. Not human timings."
+    }
+  ]
+}

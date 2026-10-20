@@ -1,0 +1,851 @@
+{
+  "palettes": {
+    "normal": {
+      "materials": {
+        "G": {
+          "color": "#78C04A",
+          "dark": "#568a35",
+          "light": "#a9d78b",
+          "text": "#000000",
+          "contrast": 9.437351159173746,
+          "name": "Лист",
+          "mark": "♧",
+          "hero": "sprig"
+        },
+        "P": {
+          "color": "#EB799C",
+          "dark": "#a95770",
+          "light": "#f2a9c0",
+          "text": "#000000",
+          "contrast": 7.747442404453993,
+          "name": "Лепесток",
+          "mark": "✿",
+          "hero": "bloom"
+        },
+        "B": {
+          "color": "#36B7DA",
+          "dark": "#27849d",
+          "light": "#7ed1e7",
+          "text": "#000000",
+          "contrast": 8.942639595957818,
+          "name": "Вода",
+          "mark": "◆",
+          "hero": "drop"
+        },
+        "A": {
+          "color": "#A45F28",
+          "dark": "#76441d",
+          "light": "#c59975",
+          "text": "#FFFFFF",
+          "contrast": 4.945800554869865,
+          "name": "Янтарь",
+          "mark": "●",
+          "hero": "twig"
+        },
+        "C": {
+          "color": "#F5E6BD",
+          "dark": "#b0a688",
+          "light": "#f9efd5",
+          "text": "#000000",
+          "contrast": 16.936045833258085,
+          "name": "Жемчуг",
+          "mark": "◇",
+          "hero": "drop"
+        },
+        "D": {
+          "color": "#334B48",
+          "dark": "#253634",
+          "light": "#7c8c8a",
+          "text": "#FFFFFF",
+          "contrast": 9.3717860070391,
+          "name": "Земля",
+          "mark": "▰",
+          "hero": "twig"
+        },
+        "V": {
+          "color": "#7851A5",
+          "dark": "#563a77",
+          "light": "#a990c5",
+          "text": "#FFFFFF",
+          "contrast": 5.967759991320772,
+          "name": "Слива",
+          "mark": "✦",
+          "hero": "bloom"
+        }
+      },
+      "pairs": {
+        "normal": [
+          {
+            "pair": "PV",
+            "deltaE76": 48.88
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 49.09
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 50.19
+          },
+          {
+            "pair": "AC",
+            "deltaE76": 54.62
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 54.98
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 57.42
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 58.36
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 59.24
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 59.32
+          },
+          {
+            "pair": "BV",
+            "deltaE76": 63.93
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 66.36
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 67.32
+          },
+          {
+            "pair": "GA",
+            "deltaE76": 71.24
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 74.25
+          },
+          {
+            "pair": "PB",
+            "deltaE76": 76.44
+          },
+          {
+            "pair": "GB",
+            "deltaE76": 81.17
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 82.3
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 86.12
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 86.55
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 103.4
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 122.12
+          }
+        ],
+        "protan": [
+          {
+            "pair": "PB",
+            "deltaE76": 20.22
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 30.06
+          },
+          {
+            "pair": "GA",
+            "deltaE76": 35.46
+          },
+          {
+            "pair": "BV",
+            "deltaE76": 36.41
+          },
+          {
+            "pair": "PV",
+            "deltaE76": 39.27
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 41.21
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 42.29
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 42.69
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 44.31
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 48.04
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 48.47
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 49.89
+          },
+          {
+            "pair": "AC",
+            "deltaE76": 50.41
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 63.62
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 68.78
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 69.17
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 72.76
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 80.77
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 82.02
+          },
+          {
+            "pair": "GB",
+            "deltaE76": 83.14
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 106.9
+          }
+        ],
+        "deutan": [
+          {
+            "pair": "GA",
+            "deltaE76": 20.8
+          },
+          {
+            "pair": "BV",
+            "deltaE76": 25.62
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 28.93
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 33.49
+          },
+          {
+            "pair": "PB",
+            "deltaE76": 37.8
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 38.97
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 39.4
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 40.84
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 41.2
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 47.51
+          },
+          {
+            "pair": "AC",
+            "deltaE76": 47.6
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 49.92
+          },
+          {
+            "pair": "PV",
+            "deltaE76": 51.97
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 59.05
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 64.03
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 67.31
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 76.68
+          },
+          {
+            "pair": "GB",
+            "deltaE76": 78.58
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 78.65
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 82.54
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 90.37
+          }
+        ],
+        "tritan": [
+          {
+            "pair": "GB",
+            "deltaE76": 19.77
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 23.18
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 26.8
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 40.53
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 41.13
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 42.83
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 46.24
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 50.04
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 50.56
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 53.0
+          },
+          {
+            "pair": "PV",
+            "deltaE76": 55.13
+          },
+          {
+            "pair": "AC",
+            "deltaE76": 55.17
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 55.98
+          },
+          {
+            "pair": "BV",
+            "deltaE76": 57.06
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 59.56
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 65.99
+          },
+          {
+            "pair": "GA",
+            "deltaE76": 71.7
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 78.1
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 81.52
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 88.55
+          },
+          {
+            "pair": "PB",
+            "deltaE76": 98.13
+          }
+        ]
+      },
+      "forcedPatterns": false
+    },
+    "accessible": {
+      "materials": {
+        "G": {
+          "color": "#009E73",
+          "dark": "#007253",
+          "light": "#5cc1a5",
+          "text": "#000000",
+          "contrast": 6.1383048833516805,
+          "name": "Лист",
+          "mark": "♧",
+          "hero": "sprig"
+        },
+        "P": {
+          "color": "#CC79A7",
+          "dark": "#935778",
+          "light": "#dea9c7",
+          "text": "#000000",
+          "contrast": 6.860426817125674,
+          "name": "Лепесток",
+          "mark": "✿",
+          "hero": "bloom"
+        },
+        "B": {
+          "color": "#56B4E9",
+          "dark": "#3e82a8",
+          "light": "#93cff1",
+          "text": "#000000",
+          "contrast": 9.100828435876672,
+          "name": "Вода",
+          "mark": "◆",
+          "hero": "drop"
+        },
+        "A": {
+          "color": "#E69F00",
+          "dark": "#a67200",
+          "light": "#efc25c",
+          "text": "#000000",
+          "contrast": 9.323853664396687,
+          "name": "Янтарь",
+          "mark": "●",
+          "hero": "twig"
+        },
+        "C": {
+          "color": "#F0E442",
+          "dark": "#ada430",
+          "light": "#f5ee86",
+          "text": "#000000",
+          "contrast": 15.881083520828598,
+          "name": "Жемчуг",
+          "mark": "◇",
+          "hero": "drop"
+        },
+        "D": {
+          "color": "#333333",
+          "dark": "#252525",
+          "light": "#7c7c7c",
+          "text": "#FFFFFF",
+          "contrast": 12.63465434445799,
+          "name": "Земля",
+          "mark": "▰",
+          "hero": "twig"
+        },
+        "V": {
+          "color": "#0072B2",
+          "dark": "#005280",
+          "light": "#5ca5ce",
+          "text": "#FFFFFF",
+          "contrast": 5.185446345779855,
+          "name": "Слива",
+          "mark": "✦",
+          "hero": "bloom"
+        }
+      },
+      "pairs": {
+        "normal": [
+          {
+            "pair": "BV",
+            "deltaE76": 26.43
+          },
+          {
+            "pair": "AC",
+            "deltaE76": 35.09
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 48.27
+          },
+          {
+            "pair": "PV",
+            "deltaE76": 53.64
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 56.4
+          },
+          {
+            "pair": "PB",
+            "deltaE76": 56.72
+          },
+          {
+            "pair": "GB",
+            "deltaE76": 59.51
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 59.89
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 60.94
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 70.12
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 77.24
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 87.51
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 88.6
+          },
+          {
+            "pair": "GA",
+            "deltaE76": 88.72
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 91.02
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 102.36
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 104.31
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 111.9
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 113.1
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 120.18
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 124.98
+          }
+        ],
+        "protan": [
+          {
+            "pair": "PB",
+            "deltaE76": 20.66
+          },
+          {
+            "pair": "PV",
+            "deltaE76": 22.73
+          },
+          {
+            "pair": "AC",
+            "deltaE76": 24.71
+          },
+          {
+            "pair": "BV",
+            "deltaE76": 24.81
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 36.19
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 40.5
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 43.43
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 47.39
+          },
+          {
+            "pair": "GA",
+            "deltaE76": 51.56
+          },
+          {
+            "pair": "GB",
+            "deltaE76": 51.73
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 58.17
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 60.51
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 69.92
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 83.48
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 87.66
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 101.42
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 104.76
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 106.44
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 109.52
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 115.41
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 127.29
+          }
+        ],
+        "deutan": [
+          {
+            "pair": "AC",
+            "deltaE76": 17.04
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 17.88
+          },
+          {
+            "pair": "BV",
+            "deltaE76": 24.91
+          },
+          {
+            "pair": "PB",
+            "deltaE76": 31.4
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 35.83
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 42.4
+          },
+          {
+            "pair": "PV",
+            "deltaE76": 42.64
+          },
+          {
+            "pair": "GB",
+            "deltaE76": 48.86
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 50.4
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 55.69
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 60.07
+          },
+          {
+            "pair": "GA",
+            "deltaE76": 66.18
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 72.09
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 80.87
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 84.26
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 89.64
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 100.12
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 111.35
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 113.04
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 121.65
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 126.44
+          }
+        ],
+        "tritan": [
+          {
+            "pair": "GB",
+            "deltaE76": 16.05
+          },
+          {
+            "pair": "GV",
+            "deltaE76": 16.97
+          },
+          {
+            "pair": "PA",
+            "deltaE76": 17.18
+          },
+          {
+            "pair": "BV",
+            "deltaE76": 24.8
+          },
+          {
+            "pair": "AC",
+            "deltaE76": 35.25
+          },
+          {
+            "pair": "PC",
+            "deltaE76": 38.1
+          },
+          {
+            "pair": "DV",
+            "deltaE76": 40.58
+          },
+          {
+            "pair": "GD",
+            "deltaE76": 53.0
+          },
+          {
+            "pair": "PD",
+            "deltaE76": 56.06
+          },
+          {
+            "pair": "BC",
+            "deltaE76": 59.6
+          },
+          {
+            "pair": "GC",
+            "deltaE76": 60.45
+          },
+          {
+            "pair": "CV",
+            "deltaE76": 61.13
+          },
+          {
+            "pair": "BD",
+            "deltaE76": 64.15
+          },
+          {
+            "pair": "AD",
+            "deltaE76": 67.69
+          },
+          {
+            "pair": "PV",
+            "deltaE76": 69.16
+          },
+          {
+            "pair": "CD",
+            "deltaE76": 69.47
+          },
+          {
+            "pair": "GP",
+            "deltaE76": 76.76
+          },
+          {
+            "pair": "AV",
+            "deltaE76": 79.1
+          },
+          {
+            "pair": "PB",
+            "deltaE76": 79.77
+          },
+          {
+            "pair": "GA",
+            "deltaE76": 83.69
+          },
+          {
+            "pair": "BA",
+            "deltaE76": 86.85
+          }
+        ]
+      },
+      "forcedPatterns": true
+    }
+  },
+  "limits": [
+    "CVD matrices are an approximation; ΔE76 is a diagnostic, not a universal readability threshold.",
+    "Both palettes can have similar simulated hues. Unique material symbols are always on capsules; accessible mode forces symbols on board tiles.",
+    "Real phone and colour-vision user testing still required."
+  ]
+}
