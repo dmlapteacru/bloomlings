@@ -1,0 +1,1 @@
+PASS: 381 C#/JavaScript transcript cases, 4249 accepted actions, 54 bridge actions. Native exact work, atomic groups, reveals and tray agree; explicit adapters agree on capacity, top reveal, co-reserved slots, age order, bridge and status. Shipping Core is unchanged.

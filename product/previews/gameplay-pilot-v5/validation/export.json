@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "format": "bloomlings-pilot-results-5",
+  "winningAttempts": 30,
+  "everyAssignmentHasOneDepartureArrivalClearAndReturn": true,
+  "allReleaseEventsFollowGroupReturns": true,
+  "physicalFrontierPositiveAtEveryDeparture": true,
+  "initialSettingsRecorded": true,
+  "bucketSumsMatch": true,
+  "scope": "Automated QA export, not human timing measurements."
+}

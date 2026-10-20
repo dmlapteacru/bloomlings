@@ -1,0 +1,252 @@
+{
+  "passed": true,
+  "catalogHash": "1ac38d7d2701fbe3f6648dd1d339bcf6e1150d0484da03c0d4b4badc02906b09",
+  "oldCatalogHash": "93a1f5b3d1f3b4f1321dff3416f8e0a901b7865ee6335116da44edde70bbac9f",
+  "ownerReplays": 40,
+  "wins": 22,
+  "losses": 18,
+  "sameActionsAndOutcomes": true,
+  "timestampScope": "Action order preserved, with waits for v5 physical availability. V4 wall/model timings are not replayed.",
+  "cases": [
+    {
+      "attempt": 1,
+      "level": 1,
+      "outcome": "won",
+      "modelMs": 14221
+    },
+    {
+      "attempt": 2,
+      "level": 2,
+      "outcome": "won",
+      "modelMs": 17245
+    },
+    {
+      "attempt": 3,
+      "level": 3,
+      "outcome": "won",
+      "modelMs": 24995
+    },
+    {
+      "attempt": 4,
+      "level": 4,
+      "outcome": "won",
+      "modelMs": 29541
+    },
+    {
+      "attempt": 10,
+      "level": 10,
+      "outcome": "jammed",
+      "modelMs": 11342
+    },
+    {
+      "attempt": 11,
+      "level": 10,
+      "outcome": "jammed",
+      "modelMs": 11342
+    },
+    {
+      "attempt": 12,
+      "level": 10,
+      "outcome": "jammed",
+      "modelMs": 11342
+    },
+    {
+      "attempt": 13,
+      "level": 10,
+      "outcome": "jammed",
+      "modelMs": 12318
+    },
+    {
+      "attempt": 14,
+      "level": 10,
+      "outcome": "jammed",
+      "modelMs": 11483
+    },
+    {
+      "attempt": 15,
+      "level": 10,
+      "outcome": "won",
+      "modelMs": 62272
+    },
+    {
+      "attempt": 16,
+      "level": 11,
+      "outcome": "won",
+      "modelMs": 36756
+    },
+    {
+      "attempt": 17,
+      "level": 12,
+      "outcome": "won",
+      "modelMs": 45029
+    },
+    {
+      "attempt": 19,
+      "level": 14,
+      "outcome": "won",
+      "modelMs": 38767
+    },
+    {
+      "attempt": 20,
+      "level": 15,
+      "outcome": "jammed",
+      "modelMs": 2580
+    },
+    {
+      "attempt": 21,
+      "level": 15,
+      "outcome": "jammed",
+      "modelMs": 12755
+    },
+    {
+      "attempt": 22,
+      "level": 15,
+      "outcome": "jammed",
+      "modelMs": 15398
+    },
+    {
+      "attempt": 23,
+      "level": 15,
+      "outcome": "won",
+      "modelMs": 45861
+    },
+    {
+      "attempt": 24,
+      "level": 16,
+      "outcome": "won",
+      "modelMs": 12069
+    },
+    {
+      "attempt": 26,
+      "level": 18,
+      "outcome": "won",
+      "modelMs": 36032
+    },
+    {
+      "attempt": 27,
+      "level": 19,
+      "outcome": "won",
+      "modelMs": 55299
+    },
+    {
+      "attempt": 29,
+      "level": 21,
+      "outcome": "jammed",
+      "modelMs": 7320
+    },
+    {
+      "attempt": 30,
+      "level": 21,
+      "outcome": "jammed",
+      "modelMs": 7472
+    },
+    {
+      "attempt": 31,
+      "level": 21,
+      "outcome": "jammed",
+      "modelMs": 7472
+    },
+    {
+      "attempt": 32,
+      "level": 21,
+      "outcome": "jammed",
+      "modelMs": 7472
+    },
+    {
+      "attempt": 33,
+      "level": 21,
+      "outcome": "jammed",
+      "modelMs": 7472
+    },
+    {
+      "attempt": 34,
+      "level": 21,
+      "outcome": "won",
+      "modelMs": 50130
+    },
+    {
+      "attempt": 35,
+      "level": 22,
+      "outcome": "won",
+      "modelMs": 55086
+    },
+    {
+      "attempt": 36,
+      "level": 23,
+      "outcome": "won",
+      "modelMs": 18300
+    },
+    {
+      "attempt": 37,
+      "level": 24,
+      "outcome": "jammed",
+      "modelMs": 8589
+    },
+    {
+      "attempt": 38,
+      "level": 24,
+      "outcome": "won",
+      "modelMs": 67339
+    },
+    {
+      "attempt": 39,
+      "level": 25,
+      "outcome": "stuck",
+      "modelMs": 44678
+    },
+    {
+      "attempt": 40,
+      "level": 25,
+      "outcome": "stuck",
+      "modelMs": 44573
+    },
+    {
+      "attempt": 41,
+      "level": 25,
+      "outcome": "jammed",
+      "modelMs": 0
+    },
+    {
+      "attempt": 42,
+      "level": 25,
+      "outcome": "won",
+      "modelMs": 46155
+    },
+    {
+      "attempt": 43,
+      "level": 26,
+      "outcome": "won",
+      "modelMs": 47366
+    },
+    {
+      "attempt": 44,
+      "level": 27,
+      "outcome": "won",
+      "modelMs": 59651
+    },
+    {
+      "attempt": 45,
+      "level": 28,
+      "outcome": "won",
+      "modelMs": 18268
+    },
+    {
+      "attempt": 46,
+      "level": 29,
+      "outcome": "stuck",
+      "modelMs": 8693
+    },
+    {
+      "attempt": 47,
+      "level": 29,
+      "outcome": "won",
+      "modelMs": 57608
+    },
+    {
+      "attempt": 48,
+      "level": 30,
+      "outcome": "won",
+      "modelMs": 30436
+    }
+  ]
+}

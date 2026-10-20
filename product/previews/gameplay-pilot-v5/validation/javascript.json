@@ -1,0 +1,21 @@
+{
+  "version": "pilot-30-v5",
+  "catalogHash": "1ac38d7d2701fbe3f6648dd1d339bcf6e1150d0484da03c0d4b4badc02906b09",
+  "rulesHash": "34a9a217a97a5393c9f98e817058286c9c5938fa4fb920ba822f4b180daa4d4d",
+  "timelineHash": "7d3648e998cc5c9fa8c0af8a9cf11d48370aefa63aa83274fa70927bb4ff1feb",
+  "levels": 30,
+  "winningConfigurations": 30,
+  "retainedControlLevels": 22,
+  "hardLosingBranches": 10,
+  "earlyTeachingBranches": 6,
+  "informationPolicies": 8,
+  "nonCosmeticBridgeChoices": 4,
+  "transcriptCases": 381,
+  "acceptedActions": 4249,
+  "allTopsKnownBeforeSelection": true,
+  "inputImmutable": true,
+  "limits": [
+    "Human enjoyment and timing still need the next playtest.",
+    "Capacity, co-reservation, top reveal and bridge are explicit experimental adapters; shipping Core/catalog unchanged."
+  ]
+}
