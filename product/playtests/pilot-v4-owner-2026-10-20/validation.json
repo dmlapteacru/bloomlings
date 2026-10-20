@@ -1,0 +1,19 @@
+{
+  "htmlSha256": "42026d24a661fd5c806ac41dfe1fc10ee7562f8d5eedd9595daa9bded9e474b6",
+  "levels": 30,
+  "filters": {
+    "fun": 6,
+    "boring": 7,
+    "unrecognizedArt": 2
+  },
+  "viewportWidths": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "noHorizontalOverflow": true,
+  "touchTargets44px": true,
+  "noBrowserErrors": true,
+  "noExternalRequests": true
+}

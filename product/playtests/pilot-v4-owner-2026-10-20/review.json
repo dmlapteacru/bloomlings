@@ -1,0 +1,5809 @@
+{
+  "format": "bloomlings-pilot-review-4",
+  "sourceSha256": "44f2b37e127433b644c7bff31d0c02d76958dc39a78759ed1d3c29281094f873",
+  "catalogHash": "93a1f5b3d1f3b4f1321dff3416f8e0a901b7865ee6335116da44edde70bbac9f",
+  "rulesHash": "3edc4fc6ce063b6474d7d2f49c4f1f326d12b77942c952bc0ec0b8633564a92c",
+  "timelineHash": "a08f78fc3bbb125b172f7a34577c735b94210c37fc97f1e1586a524998dc57e3",
+  "paletteHash": "6e85a2f71e713a38818e8aade608f9b7d43ba1189e51b26a0ed5c44e2c655da6",
+  "validation": {
+    "attemptsReplayed": 48,
+    "acceptedActions": 617,
+    "rejectedInputs": 103,
+    "rejectionReasons": {
+      "visual-places-busy": 88,
+      "partner-not-exposed": 7,
+      "pair-needs-two-slots": 8
+    },
+    "tripPlansReproduced": 20762,
+    "physicalInputsAndClockReproduced": true,
+    "outcomesMatch": true,
+    "automaticSpeedTriggersMatch": true,
+    "timeBucketSumsMatch": true,
+    "unknownSearches": []
+  },
+  "summary": {
+    "participantCount": 1,
+    "attempts": 48,
+    "wins": 30,
+    "losses": 18,
+    "unfinished": 0,
+    "firstAttemptWins": 24,
+    "recordedMs": 2413530.2999999523,
+    "winningRecordedMs": 1886794.5,
+    "medianWinningRecordedMs": 69630.89999999851,
+    "winningTimeBuckets": {
+      "choice": 1136426.0999999642,
+      "blockedWorking": 396499.9999999702,
+      "autoTail": 353868.40000006557,
+      "stalled": 0
+    },
+    "ratings": {
+      "difficulty": {
+        "easy": 17,
+        "normal": 11,
+        "hard": 2
+      },
+      "interest": {
+        "okay": 17,
+        "boring": 7,
+        "fun": 6
+      },
+      "art": {
+        "yes": 28,
+        "no": 2
+      },
+      "planning": {
+        "colour-only": 17,
+        "planned": 13
+      },
+      "pace": {
+        "okay": 3,
+        "fast": 1,
+        "slow": 1
+      }
+    },
+    "funLevels": [
+      10,
+      15,
+      21,
+      22,
+      25,
+      29
+    ],
+    "boringLevels": [
+      2,
+      7,
+      8,
+      9,
+      13,
+      16,
+      17
+    ],
+    "unrecognizedArt": [
+      17,
+      20
+    ],
+    "planningLevels": [
+      3,
+      5,
+      6,
+      9,
+      10,
+      15,
+      21,
+      22,
+      24,
+      25,
+      26,
+      29,
+      30
+    ],
+    "speedEvents": [
+      {
+        "attempt": 9,
+        "level": 9,
+        "atMs": 64187.70000000298,
+        "fast": true
+      }
+    ]
+  },
+  "levels": [
+    {
+      "level": 1,
+      "title": "Большой лист",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 24417.69999998808,
+      "win": {
+        "id": 1,
+        "level": 1,
+        "title": "Большой лист",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 24417.69999998808,
+        "actions": 9,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 16175.999999985099,
+          "blockedWorking": 0,
+          "autoTail": 8241.70000000298,
+          "stalled": 0
+        },
+        "workActiveMs": 20550.10000000894,
+        "autoFastAtMs": 16175.999999985099,
+        "autoTailShare": 0.3375297427688523,
+        "blockedOrTailShare": 0.3375297427688523,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": "okay"
+        },
+        "note": "",
+        "peakLogicalHeld": 0,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 288,
+        "tripCount": 288,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 16175.999999985099,
+            "toMs": 24417.69999998808
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 2,
+      "title": "Капелька",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 41692.09999999404,
+      "win": {
+        "id": 2,
+        "level": 2,
+        "title": "Капелька",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 41692.09999999404,
+        "actions": 10,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 29181.09999999404,
+          "blockedWorking": 4972.0999999940395,
+          "autoTail": 7538.9000000059605,
+          "stalled": 0
+        },
+        "workActiveMs": 37527.80000001192,
+        "autoFastAtMs": 34153.19999998808,
+        "autoTailShare": 0.1808232255033217,
+        "blockedOrTailShare": 0.30008083066100744,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "boring",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": "fast"
+        },
+        "note": "Тут уже странно что слишком по 1 отправлялось из лотов. Надо по сути отправлять столько сколько могут найти себе клеток по траектории. Просто сама отправка не должна быть сразу 30 из лота выпустить и сжечь клетки, а выпускать по очереди все 30 с маленьким интервалом, как будто они друг за дружкой выходят. Но только если они могут сжечь клетку. То есть если на данный момент клетка одна, то выпускается только 1 из 30, как только сжигается клетка и на пути пояаляется еще одна, то еще один выпусает",
+        "peakLogicalHeld": 0,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 360,
+        "tripCount": 360,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 34153.19999998808,
+            "toMs": 41692.09999999404
+          }
+        ]
+      },
+      "notes": [
+        {
+          "id": 2,
+          "note": "Тут уже странно что слишком по 1 отправлялось из лотов. Надо по сути отправлять столько сколько могут найти себе клеток по траектории. Просто сама отправка не должна быть сразу 30 из лота выпустить и сжечь клетки, а выпускать по очереди все 30 с маленьким интервалом, как будто они друг за дружкой выходят. Но только если они могут сжечь клетку. То есть если на данный момент клетка одна, то выпускается только 1 из 30, как только сжигается клетка и на пути пояаляется еще одна, то еще один выпусает"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "title": "Цветок Bloom",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 56780.29999999702,
+      "win": {
+        "id": 3,
+        "level": 3,
+        "title": "Цветок Bloom",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 56780.29999999702,
+        "actions": 12,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 36561.89999997616,
+          "blockedWorking": 12775.800000011921,
+          "autoTail": 7442.600000008941,
+          "stalled": 0
+        },
+        "workActiveMs": 51039.70000000298,
+        "autoFastAtMs": 49337.69999998808,
+        "autoTailShare": 0.13107715175878484,
+        "blockedOrTailShare": 0.35608124648904504,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "planned",
+          "pace": "okay"
+        },
+        "note": "Та же история с сжиганием и очередью и иногда кажется что они не идут паралельно из лотов, а должны. Если это ограничение html, не страшно. Главное чтоб мы помнили это в игре",
+        "peakLogicalHeld": 1,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 440,
+        "tripCount": 440,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 49337.69999998808,
+            "toMs": 56780.29999999702
+          }
+        ]
+      },
+      "notes": [
+        {
+          "id": 3,
+          "note": "Та же история с сжиганием и очередью и иногда кажется что они не идут паралельно из лотов, а должны. Если это ограничение html, не страшно. Главное чтоб мы помнили это в игре"
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "title": "Бабочка",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 79074.5,
+      "win": {
+        "id": 4,
+        "level": 4,
+        "title": "Бабочка",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 79074.5,
+        "actions": 15,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 49869.90000000596,
+          "blockedWorking": 11691.09999999404,
+          "autoTail": 17513.5,
+          "stalled": 0
+        },
+        "workActiveMs": 69017.70000000298,
+        "autoFastAtMs": 61561,
+        "autoTailShare": 0.22148100841611393,
+        "blockedOrTailShare": 0.36933018861951755,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": "okay"
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 624,
+        "tripCount": 624,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 26988.5,
+            "toMs": 32878
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 61561,
+            "toMs": 79074.5
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 5,
+      "title": "Жёлудь Twig",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 69732,
+      "win": {
+        "id": 5,
+        "level": 5,
+        "title": "Жёлудь Twig",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 69732,
+        "actions": 16,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 25792.10000000894,
+          "blockedWorking": 23023.89999999106,
+          "autoTail": 20916,
+          "stalled": 0
+        },
+        "workActiveMs": 63147.60000000894,
+        "autoFastAtMs": 48816,
+        "autoTailShare": 0.2999483737738771,
+        "blockedOrTailShare": 0.6301253370044034,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "planned",
+          "pace": "slow"
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 624,
+        "tripCount": 624,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 21612.69999998808,
+            "toMs": 31538.19999998808
+          },
+          {
+            "kind": "blockedWorking",
+            "fromMs": 37595,
+            "toMs": 43928.79999999702
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 48816,
+            "toMs": 69732
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 6,
+      "title": "Красный гриб",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 77382.69999998808,
+      "win": {
+        "id": 6,
+        "level": 6,
+        "title": "Красный гриб",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 77382.69999998808,
+        "actions": 14,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 34331.5,
+          "blockedWorking": 17958.09999999404,
+          "autoTail": 25093.09999999404,
+          "stalled": 0
+        },
+        "workActiveMs": 71043.19999998808,
+        "autoFastAtMs": 52289.59999999404,
+        "autoTailShare": 0.32427273796336786,
+        "blockedOrTailShare": 0.5563414044740583,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 624,
+        "tripCount": 624,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 30198.79999999702,
+            "toMs": 37328
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 52289.59999999404,
+            "toMs": 77382.69999998808
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 7,
+      "title": "Клубника",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 69316.80000001192,
+      "win": {
+        "id": 7,
+        "level": 7,
+        "title": "Клубника",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 69316.80000001192,
+        "actions": 16,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 37785.40000002086,
+          "blockedWorking": 23009.39999999106,
+          "autoTail": 8522,
+          "stalled": 0
+        },
+        "workActiveMs": 60853.70000000298,
+        "autoFastAtMs": 60794.80000001192,
+        "autoTailShare": 0.12294277866258302,
+        "blockedOrTailShare": 0.4548882810514282,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "boring",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 624,
+        "tripCount": 624,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 31974.80000001192,
+            "toMs": 38965.30000001192
+          },
+          {
+            "kind": "blockedWorking",
+            "fromMs": 40257.30000001192,
+            "toMs": 48297.10000000894
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 60794.80000001192,
+            "toMs": 69316.80000001192
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 8,
+      "title": "Чашка с цветком",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 34943.89999999106,
+      "win": {
+        "id": 8,
+        "level": 8,
+        "title": "Чашка с цветком",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 34943.89999999106,
+        "actions": 13,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 26268.4999999851,
+          "blockedWorking": 2842.300000011921,
+          "autoTail": 5833.0999999940395,
+          "stalled": 0
+        },
+        "workActiveMs": 28998.29999999702,
+        "autoFastAtMs": 29110.79999999702,
+        "autoTailShare": 0.16692756103341447,
+        "blockedOrTailShare": 0.24826650717315984,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "boring",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 1,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 314,
+        "tripCount": 314,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 29110.79999999702,
+            "toMs": 34943.89999999106
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 9,
+      "title": "Письмо",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 75741.59999999404,
+      "win": {
+        "id": 9,
+        "level": 9,
+        "title": "Письмо",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 75741.59999999404,
+        "actions": 15,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 55955.40000002086,
+          "blockedWorking": 16549.09999997914,
+          "autoTail": 3237.0999999940395,
+          "stalled": 0
+        },
+        "workActiveMs": 67612,
+        "autoFastAtMs": 72504.5,
+        "autoTailShare": 0.04273873274388572,
+        "blockedOrTailShare": 0.2612329287996918,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "boring",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 3,
+        "boardCells": 624,
+        "tripCount": 624,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 50152.40000000596,
+            "toMs": 57328.79999999702
+          },
+          {
+            "kind": "blockedWorking",
+            "fromMs": 60519.90000000596,
+            "toMs": 66509.5
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 10,
+      "title": "Рыбка",
+      "difficulty": "Hard",
+      "attempts": 6,
+      "losses": 5,
+      "recordedMs": 262974.8000000119,
+      "win": {
+        "id": 15,
+        "level": 10,
+        "title": "Рыбка",
+        "difficulty": "Hard",
+        "outcome": "won",
+        "elapsedMs": 82969.60000000894,
+        "actions": 15,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 42069.90000000596,
+          "blockedWorking": 22382.5,
+          "autoTail": 18517.20000000298,
+          "stalled": 0
+        },
+        "workActiveMs": 63840.20000000298,
+        "autoFastAtMs": 64452.40000000596,
+        "autoTailShare": 0.22318053841408161,
+        "blockedOrTailShare": 0.4929480195155644,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "fun",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "Хороший уровень в плане интереса",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 4,
+        "boardCells": 728,
+        "tripCount": 728,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 35746.40000000596,
+            "toMs": 42722
+          },
+          {
+            "kind": "blockedWorking",
+            "fromMs": 49340.20000000298,
+            "toMs": 58538.90000000596
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 64452.40000000596,
+            "toMs": 82969.60000000894
+          }
+        ]
+      },
+      "notes": [
+        {
+          "id": 15,
+          "note": "Хороший уровень в плане интереса"
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "title": "Черепаха",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 57732.09999999404,
+      "win": {
+        "id": 16,
+        "level": 11,
+        "title": "Черепаха",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 57732.09999999404,
+        "actions": 15,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 41224.39999999106,
+          "blockedWorking": 800.2999999970198,
+          "autoTail": 15707.40000000596,
+          "stalled": 0
+        },
+        "workActiveMs": 48619.59999999404,
+        "autoFastAtMs": 42024.69999998808,
+        "autoTailShare": 0.2720739415335244,
+        "blockedOrTailShare": 0.2859362469060485,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 1,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 624,
+        "tripCount": 624,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 42024.69999998808,
+            "toMs": 57732.09999999404
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 12,
+      "title": "Сова",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 74508,
+      "win": {
+        "id": 17,
+        "level": 12,
+        "title": "Сова",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 74508,
+        "actions": 16,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 52776.39999999106,
+          "blockedWorking": 3211.9000000059605,
+          "autoTail": 18519.70000000298,
+          "stalled": 0
+        },
+        "workActiveMs": 57201.5000000149,
+        "autoFastAtMs": 55988.29999999702,
+        "autoTailShare": 0.2485598861867582,
+        "blockedOrTailShare": 0.2916680088045437,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 4,
+        "boardCells": 728,
+        "tripCount": 728,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 55988.29999999702,
+            "toMs": 74508
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 13,
+      "title": "Зонтик",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 24359.20000000298,
+      "win": {
+        "id": 18,
+        "level": 13,
+        "title": "Зонтик",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 24359.20000000298,
+        "actions": 17,
+        "rejectedInputs": 3,
+        "timeBuckets": {
+          "choice": 17819.70000000298,
+          "blockedWorking": 1776.7999999970198,
+          "autoTail": 4762.70000000298,
+          "stalled": 0
+        },
+        "workActiveMs": 17497.20000000298,
+        "autoFastAtMs": 19596.5,
+        "autoTailShare": 0.19551955729262036,
+        "blockedOrTailShare": 0.2684611974120332,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "boring",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 0,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 299,
+        "tripCount": 299,
+        "firstFatal": null,
+        "waitIntervals5s": []
+      },
+      "notes": []
+    },
+    {
+      "level": 14,
+      "title": "Чайник",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 83227.10000000894,
+      "win": {
+        "id": 19,
+        "level": 14,
+        "title": "Чайник",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 83227.10000000894,
+        "actions": 17,
+        "rejectedInputs": 14,
+        "timeBuckets": {
+          "choice": 50272.70000001788,
+          "blockedWorking": 31139.39999999106,
+          "autoTail": 1815,
+          "stalled": 0
+        },
+        "workActiveMs": 63955.70000000298,
+        "autoFastAtMs": 81412.10000000894,
+        "autoTailShare": 0.021807800584182375,
+        "blockedOrTailShare": 0.3959575667058869,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 0,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 728,
+        "tripCount": 728,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 52212.90000000596,
+            "toMs": 64431.10000000894
+          },
+          {
+            "kind": "blockedWorking",
+            "fromMs": 64522.70000000298,
+            "toMs": 80661.5
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 15,
+      "title": "Клубничный торт",
+      "difficulty": "Hard",
+      "attempts": 4,
+      "losses": 3,
+      "recordedMs": 153434.19999998808,
+      "win": {
+        "id": 23,
+        "level": 15,
+        "title": "Клубничный торт",
+        "difficulty": "Hard",
+        "outcome": "won",
+        "elapsedMs": 88409.20000000298,
+        "actions": 17,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 70178.09999999404,
+          "blockedWorking": 12955,
+          "autoTail": 5276.100000008941,
+          "stalled": 0
+        },
+        "workActiveMs": 45405,
+        "autoFastAtMs": 83133.09999999404,
+        "autoTailShare": 0.059678178289236446,
+        "blockedOrTailShare": 0.20621270184560347,
+        "ratings": {
+          "difficulty": "hard",
+          "interest": "fun",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 14,
+        "boardCells": 528,
+        "tripCount": 528,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 64651.29999999702,
+            "toMs": 72074.5
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 83133.09999999404,
+            "toMs": 88409.20000000298
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 16,
+      "title": "Воздушный змей",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 19585.10000000894,
+      "win": {
+        "id": 24,
+        "level": 16,
+        "title": "Воздушный змей",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 19585.10000000894,
+        "actions": 16,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 16760.10000000894,
+          "blockedWorking": 418.09999999403954,
+          "autoTail": 2406.9000000059605,
+          "stalled": 0
+        },
+        "workActiveMs": 11763,
+        "autoFastAtMs": 17178.20000000298,
+        "autoTailShare": 0.12289444526731351,
+        "blockedOrTailShare": 0.1442423066514192,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "boring",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 220,
+        "tripCount": 220,
+        "firstFatal": null,
+        "waitIntervals5s": []
+      },
+      "notes": []
+    },
+    {
+      "level": 17,
+      "title": "Садовый сапог",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 71761,
+      "win": {
+        "id": 25,
+        "level": 17,
+        "title": "Садовый сапог",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 71761,
+        "actions": 18,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 48853.09999999404,
+          "blockedWorking": 16667.40000000596,
+          "autoTail": 6240.5,
+          "stalled": 0
+        },
+        "workActiveMs": 55539.59999999404,
+        "autoFastAtMs": 65520.5,
+        "autoTailShare": 0.08696227756023467,
+        "blockedOrTailShare": 0.3192249271889461,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "boring",
+          "art": "no",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 1,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 728,
+        "tripCount": 728,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 34022.5,
+            "toMs": 45074.40000000596
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 65520.5,
+            "toMs": 71761
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 18,
+      "title": "Грибной домик",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 60304.20000000298,
+      "win": {
+        "id": 26,
+        "level": 18,
+        "title": "Грибной домик",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 60304.20000000298,
+        "actions": 18,
+        "rejectedInputs": 5,
+        "timeBuckets": {
+          "choice": 28624.30000001192,
+          "blockedWorking": 16209.79999999702,
+          "autoTail": 15470.09999999404,
+          "stalled": 0
+        },
+        "workActiveMs": 49406.5000000149,
+        "autoFastAtMs": 44834.10000000894,
+        "autoTailShare": 0.25653437074023494,
+        "blockedOrTailShare": 0.5253348854638564,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 728,
+        "tripCount": 728,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 36013.5,
+            "toMs": 41218.70000000298
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 44834.10000000894,
+            "toMs": 60304.20000000298
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 19,
+      "title": "Цветок в горшке",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 85251.60000000894,
+      "win": {
+        "id": 27,
+        "level": 19,
+        "title": "Цветок в горшке",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 85251.60000000894,
+        "actions": 19,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 38566.09999997914,
+          "blockedWorking": 36174.20000001788,
+          "autoTail": 10511.300000011921,
+          "stalled": 0
+        },
+        "workActiveMs": 69430.5000000149,
+        "autoFastAtMs": 74740.29999999702,
+        "autoTailShare": 0.12329739265903301,
+        "blockedOrTailShare": 0.5476202206178524,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 14,
+        "boardCells": 840,
+        "tripCount": 840,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 28446,
+            "toMs": 40866.29999999702
+          },
+          {
+            "kind": "blockedWorking",
+            "fromMs": 42053.10000000894,
+            "toMs": 55175.90000000596
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 74740.29999999702,
+            "toMs": 85251.60000000894
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 20,
+      "title": "Пингвин",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 58409.90000000596,
+      "win": {
+        "id": 28,
+        "level": 20,
+        "title": "Пингвин",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 58409.90000000596,
+        "actions": 15,
+        "rejectedInputs": 9,
+        "timeBuckets": {
+          "choice": 26278.09999999404,
+          "blockedWorking": 11825.20000000298,
+          "autoTail": 20306.60000000894,
+          "stalled": 0
+        },
+        "workActiveMs": 43451.89999999106,
+        "autoFastAtMs": 38103.29999999702,
+        "autoTailShare": 0.3476568184504145,
+        "blockedOrTailShare": 0.5501088000494546,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "no",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 594,
+        "tripCount": 594,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 24515,
+            "toMs": 31266.79999999702
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 38103.29999999702,
+            "toMs": 58409.90000000596
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 21,
+      "title": "Груша",
+      "difficulty": "Normal",
+      "attempts": 6,
+      "losses": 5,
+      "recordedMs": 157297.69999997318,
+      "win": {
+        "id": 34,
+        "level": 21,
+        "title": "Груша",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 69529.79999999702,
+        "actions": 18,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 39045.60000002384,
+          "blockedWorking": 18652.899999976158,
+          "autoTail": 11831.29999999702,
+          "stalled": 0
+        },
+        "workActiveMs": 53242.19999997318,
+        "autoFastAtMs": 57698.5,
+        "autoTailShare": 0.1701615710098048,
+        "blockedOrTailShare": 0.438433592502416,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "fun",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "Хороший уровень ",
+        "peakLogicalHeld": 4,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 696,
+        "tripCount": 696,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 57698.5,
+            "toMs": 69529.79999999702
+          }
+        ]
+      },
+      "notes": [
+        {
+          "id": 34,
+          "note": "Хороший уровень "
+        }
+      ]
+    },
+    {
+      "level": 22,
+      "title": "Домик у ручья",
+      "difficulty": "Hard",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 90495.09999999404,
+      "win": {
+        "id": 35,
+        "level": 22,
+        "title": "Домик у ручья",
+        "difficulty": "Hard",
+        "outcome": "won",
+        "elapsedMs": 90495.09999999404,
+        "actions": 20,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 53891.59999999404,
+          "blockedWorking": 10322.40000000596,
+          "autoTail": 26281.09999999404,
+          "stalled": 0
+        },
+        "workActiveMs": 56859.29999996722,
+        "autoFastAtMs": 64214,
+        "autoTailShare": 0.29041461913402794,
+        "blockedOrTailShare": 0.4044804635831378,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "fun",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 4,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 2,
+        "boardCells": 644,
+        "tripCount": 644,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 40395.09999999404,
+            "toMs": 45420.40000000596
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 64214,
+            "toMs": 90495.09999999404
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 23,
+      "title": "Воздушный шар",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 42003.59999999404,
+      "win": {
+        "id": 36,
+        "level": 23,
+        "title": "Воздушный шар",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 42003.59999999404,
+        "actions": 16,
+        "rejectedInputs": 17,
+        "timeBuckets": {
+          "choice": 25125.399999976158,
+          "blockedWorking": 8094.500000014901,
+          "autoTail": 8783.70000000298,
+          "stalled": 0
+        },
+        "workActiveMs": 27223.89999999106,
+        "autoFastAtMs": 33219.89999999106,
+        "autoTailShare": 0.20911778990382315,
+        "blockedOrTailShare": 0.4018274624084668,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 368,
+        "tripCount": 368,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 33219.89999999106,
+            "toMs": 42003.59999999404
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 24,
+      "title": "Улитка у ручья",
+      "difficulty": "Normal",
+      "attempts": 2,
+      "losses": 1,
+      "recordedMs": 106748.59999999404,
+      "win": {
+        "id": 38,
+        "level": 24,
+        "title": "Улитка у ручья",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 77425.70000000298,
+        "actions": 21,
+        "rejectedInputs": 18,
+        "timeBuckets": {
+          "choice": 29218.90000000596,
+          "blockedWorking": 27710.9999999851,
+          "autoTail": 20495.80000001192,
+          "stalled": 0
+        },
+        "workActiveMs": 71348.59999999404,
+        "autoFastAtMs": 56929.89999999106,
+        "autoTailShare": 0.26471572100750956,
+        "blockedOrTailShare": 0.6226201377578138,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 10,
+        "boardCells": 806,
+        "tripCount": 806,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 56929.89999999106,
+            "toMs": 77425.70000000298
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 25,
+      "title": "Котёнок",
+      "difficulty": "Hard",
+      "attempts": 4,
+      "losses": 3,
+      "recordedMs": 178626.89999999106,
+      "win": {
+        "id": 42,
+        "level": 25,
+        "title": "Котёнок",
+        "difficulty": "Hard",
+        "outcome": "won",
+        "elapsedMs": 58935.29999999702,
+        "actions": 19,
+        "rejectedInputs": 1,
+        "timeBuckets": {
+          "choice": 41807.39999997616,
+          "blockedWorking": 7940.500000029802,
+          "autoTail": 9187.39999999106,
+          "stalled": 0
+        },
+        "workActiveMs": 49028.29999998212,
+        "autoFastAtMs": 49747.90000000596,
+        "autoTailShare": 0.15588959418195078,
+        "blockedOrTailShare": 0.2906220889691192,
+        "ratings": {
+          "difficulty": "hard",
+          "interest": "fun",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 4,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 11,
+        "boardCells": 728,
+        "tripCount": 728,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 49747.90000000596,
+            "toMs": 58935.29999999702
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 26,
+      "title": "Подсолнух",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 82635.70000000298,
+      "win": {
+        "id": 43,
+        "level": 26,
+        "title": "Подсолнух",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 82635.70000000298,
+        "actions": 22,
+        "rejectedInputs": 7,
+        "timeBuckets": {
+          "choice": 50474.20000000298,
+          "blockedWorking": 12758.5,
+          "autoTail": 19403,
+          "stalled": 0
+        },
+        "workActiveMs": 71726.4999999851,
+        "autoFastAtMs": 63232.70000000298,
+        "autoTailShare": 0.23480166562392887,
+        "blockedOrTailShare": 0.38919619486491724,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 2,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 840,
+        "tripCount": 840,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 50449.10000000894,
+            "toMs": 57482.60000000894
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 63232.70000000298,
+            "toMs": 82635.70000000298
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 27,
+      "title": "Кит с садом",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 71731.29999999702,
+      "win": {
+        "id": 44,
+        "level": 27,
+        "title": "Кит с садом",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 71731.29999999702,
+        "actions": 20,
+        "rejectedInputs": 3,
+        "timeBuckets": {
+          "choice": 35614.09999997914,
+          "blockedWorking": 24384.10000000894,
+          "autoTail": 11733.10000000894,
+          "stalled": 0
+        },
+        "workActiveMs": 58844.90000002086,
+        "autoFastAtMs": 59998.19999998808,
+        "autoTailShare": 0.1635701569609003,
+        "blockedOrTailShare": 0.5035068373223318,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 4,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 840,
+        "tripCount": 840,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 50047.19999998808,
+            "toMs": 58491.09999999404
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 59998.19999998808,
+            "toMs": 71731.29999999702
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 28,
+      "title": "Яблоко",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 32889.90000000596,
+      "win": {
+        "id": 45,
+        "level": 28,
+        "title": "Яблоко",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 32889.90000000596,
+        "actions": 18,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 24847.70000000298,
+          "blockedWorking": 803,
+          "autoTail": 7239.20000000298,
+          "stalled": 0
+        },
+        "workActiveMs": 28623.19999998808,
+        "autoFastAtMs": 25650.70000000298,
+        "autoTailShare": 0.220104044098695,
+        "blockedOrTailShare": 0.24451883404940492,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "colour-only",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 1,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 462,
+        "tripCount": 462,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "autoTail",
+            "fromMs": 25650.70000000298,
+            "toMs": 32889.90000000596
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 29,
+      "title": "Садовый фонарь",
+      "difficulty": "Hard",
+      "attempts": 2,
+      "losses": 1,
+      "recordedMs": 128550,
+      "win": {
+        "id": 47,
+        "level": 29,
+        "title": "Садовый фонарь",
+        "difficulty": "Hard",
+        "outcome": "won",
+        "elapsedMs": 83626.79999999702,
+        "actions": 22,
+        "rejectedInputs": 2,
+        "timeBuckets": {
+          "choice": 54161.70000000298,
+          "blockedWorking": 18026.9999999851,
+          "autoTail": 11438.10000000894,
+          "stalled": 0
+        },
+        "workActiveMs": 60520.39999999106,
+        "autoFastAtMs": 72188.69999998808,
+        "autoTailShare": 0.1367755312891244,
+        "blockedOrTailShare": 0.35234039805415357,
+        "ratings": {
+          "difficulty": "normal",
+          "interest": "fun",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 5,
+        "peakPhysicalHeld": 5,
+        "finishedPairHalfActionStates": 0,
+        "boardCells": 806,
+        "tripCount": 806,
+        "firstFatal": null,
+        "waitIntervals5s": [
+          {
+            "kind": "blockedWorking",
+            "fromMs": 42837.89999999106,
+            "toMs": 48319.59999999404
+          },
+          {
+            "kind": "blockedWorking",
+            "fromMs": 60898.89999999106,
+            "toMs": 67875.69999998808
+          },
+          {
+            "kind": "autoTail",
+            "fromMs": 72188.69999998808,
+            "toMs": 83626.79999999702
+          }
+        ]
+      },
+      "notes": []
+    },
+    {
+      "level": 30,
+      "title": "Зайчик",
+      "difficulty": "Normal",
+      "attempts": 1,
+      "losses": 0,
+      "recordedMs": 41922.70000000298,
+      "win": {
+        "id": 48,
+        "level": 30,
+        "title": "Зайчик",
+        "difficulty": "Normal",
+        "outcome": "won",
+        "elapsedMs": 41922.70000000298,
+        "actions": 21,
+        "rejectedInputs": 0,
+        "timeBuckets": {
+          "choice": 36894.80000001192,
+          "blockedWorking": 1423.699999988079,
+          "autoTail": 3604.2000000029802,
+          "stalled": 0
+        },
+        "workActiveMs": 30685.89999999106,
+        "autoFastAtMs": 38318.5,
+        "autoTailShare": 0.0859725160832371,
+        "blockedOrTailShare": 0.11993263792624764,
+        "ratings": {
+          "difficulty": "easy",
+          "interest": "okay",
+          "art": "yes",
+          "planning": "planned",
+          "pace": null
+        },
+        "note": "",
+        "peakLogicalHeld": 3,
+        "peakPhysicalHeld": 4,
+        "finishedPairHalfActionStates": 14,
+        "boardCells": 462,
+        "tripCount": 462,
+        "firstFatal": null,
+        "waitIntervals5s": []
+      },
+      "notes": []
+    }
+  ],
+  "attempts": [
+    {
+      "id": 1,
+      "level": 1,
+      "title": "Большой лист",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 24417.69999998808,
+      "actions": 9,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 16175.999999985099,
+        "blockedWorking": 0,
+        "autoTail": 8241.70000000298,
+        "stalled": 0
+      },
+      "workActiveMs": 20550.10000000894,
+      "autoFastAtMs": 16175.999999985099,
+      "autoTailShare": 0.3375297427688523,
+      "blockedOrTailShare": 0.3375297427688523,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "peakLogicalHeld": 0,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 288,
+      "tripCount": 288,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 16175.999999985099,
+          "toMs": 24417.69999998808
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "level": 2,
+      "title": "Капелька",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 41692.09999999404,
+      "actions": 10,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 29181.09999999404,
+        "blockedWorking": 4972.0999999940395,
+        "autoTail": 7538.9000000059605,
+        "stalled": 0
+      },
+      "workActiveMs": 37527.80000001192,
+      "autoFastAtMs": 34153.19999998808,
+      "autoTailShare": 0.1808232255033217,
+      "blockedOrTailShare": 0.30008083066100744,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "fast"
+      },
+      "note": "Тут уже странно что слишком по 1 отправлялось из лотов. Надо по сути отправлять столько сколько могут найти себе клеток по траектории. Просто сама отправка не должна быть сразу 30 из лота выпустить и сжечь клетки, а выпускать по очереди все 30 с маленьким интервалом, как будто они друг за дружкой выходят. Но только если они могут сжечь клетку. То есть если на данный момент клетка одна, то выпускается только 1 из 30, как только сжигается клетка и на пути пояаляется еще одна, то еще один выпусает",
+      "peakLogicalHeld": 0,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 360,
+      "tripCount": 360,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 34153.19999998808,
+          "toMs": 41692.09999999404
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "level": 3,
+      "title": "Цветок Bloom",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 56780.29999999702,
+      "actions": 12,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 36561.89999997616,
+        "blockedWorking": 12775.800000011921,
+        "autoTail": 7442.600000008941,
+        "stalled": 0
+      },
+      "workActiveMs": 51039.70000000298,
+      "autoFastAtMs": 49337.69999998808,
+      "autoTailShare": 0.13107715175878484,
+      "blockedOrTailShare": 0.35608124648904504,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "Та же история с сжиганием и очередью и иногда кажется что они не идут паралельно из лотов, а должны. Если это ограничение html, не страшно. Главное чтоб мы помнили это в игре",
+      "peakLogicalHeld": 1,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 440,
+      "tripCount": 440,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 49337.69999998808,
+          "toMs": 56780.29999999702
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "level": 4,
+      "title": "Бабочка",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 79074.5,
+      "actions": 15,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 49869.90000000596,
+        "blockedWorking": 11691.09999999404,
+        "autoTail": 17513.5,
+        "stalled": 0
+      },
+      "workActiveMs": 69017.70000000298,
+      "autoFastAtMs": 61561,
+      "autoTailShare": 0.22148100841611393,
+      "blockedOrTailShare": 0.36933018861951755,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 624,
+      "tripCount": 624,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 26988.5,
+          "toMs": 32878
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 61561,
+          "toMs": 79074.5
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "level": 5,
+      "title": "Жёлудь Twig",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 69732,
+      "actions": 16,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 25792.10000000894,
+        "blockedWorking": 23023.89999999106,
+        "autoTail": 20916,
+        "stalled": 0
+      },
+      "workActiveMs": 63147.60000000894,
+      "autoFastAtMs": 48816,
+      "autoTailShare": 0.2999483737738771,
+      "blockedOrTailShare": 0.6301253370044034,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "slow"
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 624,
+      "tripCount": 624,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 21612.69999998808,
+          "toMs": 31538.19999998808
+        },
+        {
+          "kind": "blockedWorking",
+          "fromMs": 37595,
+          "toMs": 43928.79999999702
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 48816,
+          "toMs": 69732
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "level": 6,
+      "title": "Красный гриб",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 77382.69999998808,
+      "actions": 14,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 34331.5,
+        "blockedWorking": 17958.09999999404,
+        "autoTail": 25093.09999999404,
+        "stalled": 0
+      },
+      "workActiveMs": 71043.19999998808,
+      "autoFastAtMs": 52289.59999999404,
+      "autoTailShare": 0.32427273796336786,
+      "blockedOrTailShare": 0.5563414044740583,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 624,
+      "tripCount": 624,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 30198.79999999702,
+          "toMs": 37328
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 52289.59999999404,
+          "toMs": 77382.69999998808
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "level": 7,
+      "title": "Клубника",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 69316.80000001192,
+      "actions": 16,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 37785.40000002086,
+        "blockedWorking": 23009.39999999106,
+        "autoTail": 8522,
+        "stalled": 0
+      },
+      "workActiveMs": 60853.70000000298,
+      "autoFastAtMs": 60794.80000001192,
+      "autoTailShare": 0.12294277866258302,
+      "blockedOrTailShare": 0.4548882810514282,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 624,
+      "tripCount": 624,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 31974.80000001192,
+          "toMs": 38965.30000001192
+        },
+        {
+          "kind": "blockedWorking",
+          "fromMs": 40257.30000001192,
+          "toMs": 48297.10000000894
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 60794.80000001192,
+          "toMs": 69316.80000001192
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "level": 8,
+      "title": "Чашка с цветком",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 34943.89999999106,
+      "actions": 13,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 26268.4999999851,
+        "blockedWorking": 2842.300000011921,
+        "autoTail": 5833.0999999940395,
+        "stalled": 0
+      },
+      "workActiveMs": 28998.29999999702,
+      "autoFastAtMs": 29110.79999999702,
+      "autoTailShare": 0.16692756103341447,
+      "blockedOrTailShare": 0.24826650717315984,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 1,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 314,
+      "tripCount": 314,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 29110.79999999702,
+          "toMs": 34943.89999999106
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "level": 9,
+      "title": "Письмо",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 75741.59999999404,
+      "actions": 15,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 55955.40000002086,
+        "blockedWorking": 16549.09999997914,
+        "autoTail": 3237.0999999940395,
+        "stalled": 0
+      },
+      "workActiveMs": 67612,
+      "autoFastAtMs": 72504.5,
+      "autoTailShare": 0.04273873274388572,
+      "blockedOrTailShare": 0.2612329287996918,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 3,
+      "boardCells": 624,
+      "tripCount": 624,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 50152.40000000596,
+          "toMs": 57328.79999999702
+        },
+        {
+          "kind": "blockedWorking",
+          "fromMs": 60519.90000000596,
+          "toMs": 66509.5
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "level": 10,
+      "title": "Рыбка",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 41386.90000000596,
+      "actions": 7,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 41386.90000000596,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 8974.39999999106,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 7,
+      "boardCells": 728,
+      "tripCount": 166,
+      "firstFatal": {
+        "action": 1,
+        "chosen": {
+          "type": "tap",
+          "pod": 9
+        },
+        "immediateClears": 55,
+        "statusAfter": "Playing",
+        "atMs": 4871.20000000298,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 4
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 17
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 11,
+      "level": 10,
+      "title": "Рыбка",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 36937.80000001192,
+      "actions": 6,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 36937.80000001192,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 9230.300000011921,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 3,
+      "finishedPairHalfActionStates": 6,
+      "boardCells": 728,
+      "tripCount": 166,
+      "firstFatal": {
+        "action": 1,
+        "chosen": {
+          "type": "tap",
+          "pod": 5
+        },
+        "immediateClears": 55,
+        "statusAfter": "Playing",
+        "atMs": 7203.20000000298,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 4
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 17
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 12,
+      "level": 10,
+      "title": "Рыбка",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 43566.39999999106,
+      "actions": 6,
+      "rejectedInputs": 5,
+      "timeBuckets": {
+        "choice": 43566.39999999106,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 8202.09999999404,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 6,
+      "boardCells": 728,
+      "tripCount": 152,
+      "firstFatal": {
+        "action": 1,
+        "chosen": {
+          "type": "tap",
+          "pod": 9
+        },
+        "immediateClears": 55,
+        "statusAfter": "Playing",
+        "atMs": 7627.899999991059,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 4
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 17
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 13,
+      "level": 10,
+      "title": "Рыбка",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 41993.89999999106,
+      "actions": 7,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 41993.89999999106,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 8869.79999999702,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 3,
+      "boardCells": 728,
+      "tripCount": 166,
+      "firstFatal": {
+        "action": 5,
+        "chosen": {
+          "type": "tap",
+          "pod": 9
+        },
+        "immediateClears": 55,
+        "statusAfter": "Playing",
+        "atMs": 36077.39999999106,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 3
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 14,
+      "level": 10,
+      "title": "Рыбка",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 16120.20000000298,
+      "actions": 6,
+      "rejectedInputs": 2,
+      "timeBuckets": {
+        "choice": 16120.20000000298,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 7212.699999988079,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 4,
+      "boardCells": 728,
+      "tripCount": 152,
+      "firstFatal": {
+        "action": 3,
+        "chosen": {
+          "type": "tap",
+          "pod": 9
+        },
+        "immediateClears": 68,
+        "statusAfter": "Playing",
+        "atMs": 4991.20000000298,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 4
+            },
+            "immediateClears": 13,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 15,
+      "level": 10,
+      "title": "Рыбка",
+      "difficulty": "Hard",
+      "outcome": "won",
+      "elapsedMs": 82969.60000000894,
+      "actions": 15,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 42069.90000000596,
+        "blockedWorking": 22382.5,
+        "autoTail": 18517.20000000298,
+        "stalled": 0
+      },
+      "workActiveMs": 63840.20000000298,
+      "autoFastAtMs": 64452.40000000596,
+      "autoTailShare": 0.22318053841408161,
+      "blockedOrTailShare": 0.4929480195155644,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "Хороший уровень в плане интереса",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 4,
+      "boardCells": 728,
+      "tripCount": 728,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 35746.40000000596,
+          "toMs": 42722
+        },
+        {
+          "kind": "blockedWorking",
+          "fromMs": 49340.20000000298,
+          "toMs": 58538.90000000596
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 64452.40000000596,
+          "toMs": 82969.60000000894
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "level": 11,
+      "title": "Черепаха",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 57732.09999999404,
+      "actions": 15,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 41224.39999999106,
+        "blockedWorking": 800.2999999970198,
+        "autoTail": 15707.40000000596,
+        "stalled": 0
+      },
+      "workActiveMs": 48619.59999999404,
+      "autoFastAtMs": 42024.69999998808,
+      "autoTailShare": 0.2720739415335244,
+      "blockedOrTailShare": 0.2859362469060485,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 1,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 624,
+      "tripCount": 624,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 42024.69999998808,
+          "toMs": 57732.09999999404
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "level": 12,
+      "title": "Сова",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 74508,
+      "actions": 16,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 52776.39999999106,
+        "blockedWorking": 3211.9000000059605,
+        "autoTail": 18519.70000000298,
+        "stalled": 0
+      },
+      "workActiveMs": 57201.5000000149,
+      "autoFastAtMs": 55988.29999999702,
+      "autoTailShare": 0.2485598861867582,
+      "blockedOrTailShare": 0.2916680088045437,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 4,
+      "boardCells": 728,
+      "tripCount": 728,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 55988.29999999702,
+          "toMs": 74508
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "level": 13,
+      "title": "Зонтик",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 24359.20000000298,
+      "actions": 17,
+      "rejectedInputs": 3,
+      "timeBuckets": {
+        "choice": 17819.70000000298,
+        "blockedWorking": 1776.7999999970198,
+        "autoTail": 4762.70000000298,
+        "stalled": 0
+      },
+      "workActiveMs": 17497.20000000298,
+      "autoFastAtMs": 19596.5,
+      "autoTailShare": 0.19551955729262036,
+      "blockedOrTailShare": 0.2684611974120332,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 0,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 299,
+      "tripCount": 299,
+      "firstFatal": null,
+      "waitIntervals5s": []
+    },
+    {
+      "id": 19,
+      "level": 14,
+      "title": "Чайник",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 83227.10000000894,
+      "actions": 17,
+      "rejectedInputs": 14,
+      "timeBuckets": {
+        "choice": 50272.70000001788,
+        "blockedWorking": 31139.39999999106,
+        "autoTail": 1815,
+        "stalled": 0
+      },
+      "workActiveMs": 63955.70000000298,
+      "autoFastAtMs": 81412.10000000894,
+      "autoTailShare": 0.021807800584182375,
+      "blockedOrTailShare": 0.3959575667058869,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 0,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 728,
+      "tripCount": 728,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 52212.90000000596,
+          "toMs": 64431.10000000894
+        },
+        {
+          "kind": "blockedWorking",
+          "fromMs": 64522.70000000298,
+          "toMs": 80661.5
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "level": 15,
+      "title": "Клубничный торт",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 17132.09999999404,
+      "actions": 3,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 17132.09999999404,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 1361.699999988079,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 3,
+      "boardCells": 528,
+      "tripCount": 34,
+      "firstFatal": {
+        "action": 1,
+        "chosen": {
+          "type": "tap",
+          "pod": 10
+        },
+        "immediateClears": 23,
+        "statusAfter": "Playing",
+        "atMs": 8276.79999999702,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 0
+            },
+            "immediateClears": 15,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 21,
+      "level": 15,
+      "title": "Клубничный торт",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 30447.79999999702,
+      "actions": 7,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 30447.79999999702,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 8730,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 7,
+      "boardCells": 528,
+      "tripCount": 136,
+      "firstFatal": {
+        "action": 6,
+        "chosen": {
+          "type": "tap",
+          "pod": 10
+        },
+        "immediateClears": 23,
+        "statusAfter": "Playing",
+        "atMs": 24874.10000000894,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 4
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 18
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 22,
+      "level": 15,
+      "title": "Клубничный торт",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 17445.09999999404,
+      "actions": 7,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 9550.700000017881,
+        "blockedWorking": 7894.399999976158,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 9485.499999955297,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0.4525282170912666,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 7,
+      "boardCells": 528,
+      "tripCount": 136,
+      "firstFatal": {
+        "action": 2,
+        "chosen": {
+          "type": "tap",
+          "pod": 10
+        },
+        "immediateClears": 23,
+        "statusAfter": "Playing",
+        "atMs": 4072.2999999970198,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 14
+            },
+            "immediateClears": 8,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 8
+            },
+            "immediateClears": 28,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 23,
+      "level": 15,
+      "title": "Клубничный торт",
+      "difficulty": "Hard",
+      "outcome": "won",
+      "elapsedMs": 88409.20000000298,
+      "actions": 17,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 70178.09999999404,
+        "blockedWorking": 12955,
+        "autoTail": 5276.100000008941,
+        "stalled": 0
+      },
+      "workActiveMs": 45405,
+      "autoFastAtMs": 83133.09999999404,
+      "autoTailShare": 0.059678178289236446,
+      "blockedOrTailShare": 0.20621270184560347,
+      "ratings": {
+        "difficulty": "hard",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 14,
+      "boardCells": 528,
+      "tripCount": 528,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 64651.29999999702,
+          "toMs": 72074.5
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 83133.09999999404,
+          "toMs": 88409.20000000298
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "level": 16,
+      "title": "Воздушный змей",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 19585.10000000894,
+      "actions": 16,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 16760.10000000894,
+        "blockedWorking": 418.09999999403954,
+        "autoTail": 2406.9000000059605,
+        "stalled": 0
+      },
+      "workActiveMs": 11763,
+      "autoFastAtMs": 17178.20000000298,
+      "autoTailShare": 0.12289444526731351,
+      "blockedOrTailShare": 0.1442423066514192,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 220,
+      "tripCount": 220,
+      "firstFatal": null,
+      "waitIntervals5s": []
+    },
+    {
+      "id": 25,
+      "level": 17,
+      "title": "Садовый сапог",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 71761,
+      "actions": 18,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 48853.09999999404,
+        "blockedWorking": 16667.40000000596,
+        "autoTail": 6240.5,
+        "stalled": 0
+      },
+      "workActiveMs": 55539.59999999404,
+      "autoFastAtMs": 65520.5,
+      "autoTailShare": 0.08696227756023467,
+      "blockedOrTailShare": 0.3192249271889461,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "no",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 1,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 728,
+      "tripCount": 728,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 34022.5,
+          "toMs": 45074.40000000596
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 65520.5,
+          "toMs": 71761
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "level": 18,
+      "title": "Грибной домик",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 60304.20000000298,
+      "actions": 18,
+      "rejectedInputs": 5,
+      "timeBuckets": {
+        "choice": 28624.30000001192,
+        "blockedWorking": 16209.79999999702,
+        "autoTail": 15470.09999999404,
+        "stalled": 0
+      },
+      "workActiveMs": 49406.5000000149,
+      "autoFastAtMs": 44834.10000000894,
+      "autoTailShare": 0.25653437074023494,
+      "blockedOrTailShare": 0.5253348854638564,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 728,
+      "tripCount": 728,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 36013.5,
+          "toMs": 41218.70000000298
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 44834.10000000894,
+          "toMs": 60304.20000000298
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "level": 19,
+      "title": "Цветок в горшке",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 85251.60000000894,
+      "actions": 19,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 38566.09999997914,
+        "blockedWorking": 36174.20000001788,
+        "autoTail": 10511.300000011921,
+        "stalled": 0
+      },
+      "workActiveMs": 69430.5000000149,
+      "autoFastAtMs": 74740.29999999702,
+      "autoTailShare": 0.12329739265903301,
+      "blockedOrTailShare": 0.5476202206178524,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 14,
+      "boardCells": 840,
+      "tripCount": 840,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 28446,
+          "toMs": 40866.29999999702
+        },
+        {
+          "kind": "blockedWorking",
+          "fromMs": 42053.10000000894,
+          "toMs": 55175.90000000596
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 74740.29999999702,
+          "toMs": 85251.60000000894
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "level": 20,
+      "title": "Пингвин",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 58409.90000000596,
+      "actions": 15,
+      "rejectedInputs": 9,
+      "timeBuckets": {
+        "choice": 26278.09999999404,
+        "blockedWorking": 11825.20000000298,
+        "autoTail": 20306.60000000894,
+        "stalled": 0
+      },
+      "workActiveMs": 43451.89999999106,
+      "autoFastAtMs": 38103.29999999702,
+      "autoTailShare": 0.3476568184504145,
+      "blockedOrTailShare": 0.5501088000494546,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "no",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 594,
+      "tripCount": 594,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 24515,
+          "toMs": 31266.79999999702
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 38103.29999999702,
+          "toMs": 58409.90000000596
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "level": 21,
+      "title": "Груша",
+      "difficulty": "Normal",
+      "outcome": "jammed",
+      "elapsedMs": 31128.89999999106,
+      "actions": 6,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 31128.89999999106,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 6734.899999991059,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 696,
+      "tripCount": 125,
+      "firstFatal": {
+        "action": 2,
+        "chosen": {
+          "type": "tap",
+          "pod": 1
+        },
+        "immediateClears": 30,
+        "statusAfter": "Playing",
+        "atMs": 14655.699999988079,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 9
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 16
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 30,
+      "level": 21,
+      "title": "Груша",
+      "difficulty": "Normal",
+      "outcome": "jammed",
+      "elapsedMs": 11855.29999999702,
+      "actions": 5,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 11855.29999999702,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 4468.399999991059,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 696,
+      "tripCount": 100,
+      "firstFatal": {
+        "action": 2,
+        "chosen": {
+          "type": "tap",
+          "pod": 1
+        },
+        "immediateClears": 30,
+        "statusAfter": "Playing",
+        "atMs": 3452.699999988079,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 9
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 16
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 31,
+      "level": 21,
+      "title": "Груша",
+      "difficulty": "Normal",
+      "outcome": "jammed",
+      "elapsedMs": 21232.89999999106,
+      "actions": 6,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 20260.59999999404,
+        "blockedWorking": 972.2999999970198,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 6441.699999988079,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0.04579214332462495,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 696,
+      "tripCount": 119,
+      "firstFatal": {
+        "action": 3,
+        "chosen": {
+          "type": "tap",
+          "pod": 1
+        },
+        "immediateClears": 30,
+        "statusAfter": "Playing",
+        "atMs": 13769.59999999404,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 12
+            },
+            "immediateClears": 19,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 16
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 16
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 32,
+      "level": 21,
+      "title": "Груша",
+      "difficulty": "Normal",
+      "outcome": "jammed",
+      "elapsedMs": 14188,
+      "actions": 5,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 14188,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 3770,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 696,
+      "tripCount": 100,
+      "firstFatal": {
+        "action": 2,
+        "chosen": {
+          "type": "tap",
+          "pod": 4
+        },
+        "immediateClears": 0,
+        "statusAfter": "Playing",
+        "atMs": 3299.8999999910593,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 16
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "bridge",
+                "choice": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 33,
+      "level": 21,
+      "title": "Груша",
+      "difficulty": "Normal",
+      "outcome": "jammed",
+      "elapsedMs": 9362.79999999702,
+      "actions": 5,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 6368.699999988079,
+        "blockedWorking": 2994.1000000089407,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 3769,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0.3197868159108273,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 696,
+      "tripCount": 100,
+      "firstFatal": {
+        "action": 2,
+        "chosen": {
+          "type": "tap",
+          "pod": 5
+        },
+        "immediateClears": 0,
+        "statusAfter": "Playing",
+        "atMs": 3015.0999999940395,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 16
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "bridge",
+                "choice": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 34,
+      "level": 21,
+      "title": "Груша",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 69529.79999999702,
+      "actions": 18,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 39045.60000002384,
+        "blockedWorking": 18652.899999976158,
+        "autoTail": 11831.29999999702,
+        "stalled": 0
+      },
+      "workActiveMs": 53242.19999997318,
+      "autoFastAtMs": 57698.5,
+      "autoTailShare": 0.1701615710098048,
+      "blockedOrTailShare": 0.438433592502416,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "Хороший уровень ",
+      "peakLogicalHeld": 4,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 696,
+      "tripCount": 696,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 57698.5,
+          "toMs": 69529.79999999702
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "level": 22,
+      "title": "Домик у ручья",
+      "difficulty": "Hard",
+      "outcome": "won",
+      "elapsedMs": 90495.09999999404,
+      "actions": 20,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 53891.59999999404,
+        "blockedWorking": 10322.40000000596,
+        "autoTail": 26281.09999999404,
+        "stalled": 0
+      },
+      "workActiveMs": 56859.29999996722,
+      "autoFastAtMs": 64214,
+      "autoTailShare": 0.29041461913402794,
+      "blockedOrTailShare": 0.4044804635831378,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 4,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 2,
+      "boardCells": 644,
+      "tripCount": 644,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 40395.09999999404,
+          "toMs": 45420.40000000596
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 64214,
+          "toMs": 90495.09999999404
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "level": 23,
+      "title": "Воздушный шар",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 42003.59999999404,
+      "actions": 16,
+      "rejectedInputs": 17,
+      "timeBuckets": {
+        "choice": 25125.399999976158,
+        "blockedWorking": 8094.500000014901,
+        "autoTail": 8783.70000000298,
+        "stalled": 0
+      },
+      "workActiveMs": 27223.89999999106,
+      "autoFastAtMs": 33219.89999999106,
+      "autoTailShare": 0.20911778990382315,
+      "blockedOrTailShare": 0.4018274624084668,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 368,
+      "tripCount": 368,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 33219.89999999106,
+          "toMs": 42003.59999999404
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "level": 24,
+      "title": "Улитка у ручья",
+      "difficulty": "Normal",
+      "outcome": "jammed",
+      "elapsedMs": 29322.89999999106,
+      "actions": 8,
+      "rejectedInputs": 3,
+      "timeBuckets": {
+        "choice": 29322.89999999106,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 8374.90000000596,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 806,
+      "tripCount": 163,
+      "firstFatal": {
+        "action": 4,
+        "chosen": {
+          "type": "tap",
+          "pod": 2
+        },
+        "immediateClears": 21,
+        "statusAfter": "Playing",
+        "atMs": 14130.39999999106,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 7
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 21
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 20
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 0
+            },
+            "immediateClears": 42,
+            "continuation": [
+              {
+                "type": "bridge",
+                "choice": 0
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 15
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 13
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 21
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 20
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 38,
+      "level": 24,
+      "title": "Улитка у ручья",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 77425.70000000298,
+      "actions": 21,
+      "rejectedInputs": 18,
+      "timeBuckets": {
+        "choice": 29218.90000000596,
+        "blockedWorking": 27710.9999999851,
+        "autoTail": 20495.80000001192,
+        "stalled": 0
+      },
+      "workActiveMs": 71348.59999999404,
+      "autoFastAtMs": 56929.89999999106,
+      "autoTailShare": 0.26471572100750956,
+      "blockedOrTailShare": 0.6226201377578138,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 10,
+      "boardCells": 806,
+      "tripCount": 806,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 56929.89999999106,
+          "toMs": 77425.70000000298
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "level": 25,
+      "title": "Котёнок",
+      "difficulty": "Hard",
+      "outcome": "stuck",
+      "elapsedMs": 57105.90000000596,
+      "actions": 12,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 44436.70000001788,
+        "blockedWorking": 12669.199999988079,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 32917.9999999702,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0.22185448438754587,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 4,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 5,
+      "boardCells": 728,
+      "tripCount": 444,
+      "firstFatal": {
+        "action": 5,
+        "chosen": {
+          "type": "tap",
+          "pod": 17
+        },
+        "immediateClears": 29,
+        "statusAfter": "Playing",
+        "atMs": 23234.10000000894,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 0
+            },
+            "immediateClears": 15,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 21
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              }
+            ]
+          },
+          {
+            "action": {
+              "type": "tap",
+              "pod": 19
+            },
+            "immediateClears": 56,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 0
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 21
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 45191.20000000298,
+          "toMs": 53321
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "level": 25,
+      "title": "Котёнок",
+      "difficulty": "Hard",
+      "outcome": "stuck",
+      "elapsedMs": 43729.29999999702,
+      "actions": 12,
+      "rejectedInputs": 2,
+      "timeBuckets": {
+        "choice": 31042.59999999404,
+        "blockedWorking": 12686.70000000298,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 31930.09999999404,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0.2901189820098617,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 4,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 5,
+      "boardCells": 728,
+      "tripCount": 444,
+      "firstFatal": {
+        "action": 7,
+        "chosen": {
+          "type": "tap",
+          "pod": 17
+        },
+        "immediateClears": 29,
+        "statusAfter": "Playing",
+        "atMs": 13796.20000000298,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 0
+            },
+            "immediateClears": 27,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 21
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 29995.90000000596,
+          "toMs": 38125.90000000596
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "level": 25,
+      "title": "Котёнок",
+      "difficulty": "Hard",
+      "outcome": "jammed",
+      "elapsedMs": 18856.39999999106,
+      "actions": 3,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 18856.39999999106,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 0,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 728,
+      "tripCount": 0,
+      "firstFatal": {
+        "action": 2,
+        "chosen": {
+          "type": "tap",
+          "pod": 15
+        },
+        "immediateClears": 0,
+        "statusAfter": "Playing",
+        "atMs": 16756.79999999702,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 1
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 20
+              },
+              {
+                "type": "tap",
+                "pod": 6
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 8
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 21
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              },
+              {
+                "type": "tap",
+                "pod": 17
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 42,
+      "level": 25,
+      "title": "Котёнок",
+      "difficulty": "Hard",
+      "outcome": "won",
+      "elapsedMs": 58935.29999999702,
+      "actions": 19,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 41807.39999997616,
+        "blockedWorking": 7940.500000029802,
+        "autoTail": 9187.39999999106,
+        "stalled": 0
+      },
+      "workActiveMs": 49028.29999998212,
+      "autoFastAtMs": 49747.90000000596,
+      "autoTailShare": 0.15588959418195078,
+      "blockedOrTailShare": 0.2906220889691192,
+      "ratings": {
+        "difficulty": "hard",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 4,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 11,
+      "boardCells": 728,
+      "tripCount": 728,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 49747.90000000596,
+          "toMs": 58935.29999999702
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "level": 26,
+      "title": "Подсолнух",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 82635.70000000298,
+      "actions": 22,
+      "rejectedInputs": 7,
+      "timeBuckets": {
+        "choice": 50474.20000000298,
+        "blockedWorking": 12758.5,
+        "autoTail": 19403,
+        "stalled": 0
+      },
+      "workActiveMs": 71726.4999999851,
+      "autoFastAtMs": 63232.70000000298,
+      "autoTailShare": 0.23480166562392887,
+      "blockedOrTailShare": 0.38919619486491724,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 2,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 840,
+      "tripCount": 840,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 50449.10000000894,
+          "toMs": 57482.60000000894
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 63232.70000000298,
+          "toMs": 82635.70000000298
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "level": 27,
+      "title": "Кит с садом",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 71731.29999999702,
+      "actions": 20,
+      "rejectedInputs": 3,
+      "timeBuckets": {
+        "choice": 35614.09999997914,
+        "blockedWorking": 24384.10000000894,
+        "autoTail": 11733.10000000894,
+        "stalled": 0
+      },
+      "workActiveMs": 58844.90000002086,
+      "autoFastAtMs": 59998.19999998808,
+      "autoTailShare": 0.1635701569609003,
+      "blockedOrTailShare": 0.5035068373223318,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 4,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 840,
+      "tripCount": 840,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 50047.19999998808,
+          "toMs": 58491.09999999404
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 59998.19999998808,
+          "toMs": 71731.29999999702
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "level": 28,
+      "title": "Яблоко",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 32889.90000000596,
+      "actions": 18,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 24847.70000000298,
+        "blockedWorking": 803,
+        "autoTail": 7239.20000000298,
+        "stalled": 0
+      },
+      "workActiveMs": 28623.19999998808,
+      "autoFastAtMs": 25650.70000000298,
+      "autoTailShare": 0.220104044098695,
+      "blockedOrTailShare": 0.24451883404940492,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 1,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 462,
+      "tripCount": 462,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "autoTail",
+          "fromMs": 25650.70000000298,
+          "toMs": 32889.90000000596
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "level": 29,
+      "title": "Садовый фонарь",
+      "difficulty": "Hard",
+      "outcome": "stuck",
+      "elapsedMs": 44923.20000000298,
+      "actions": 6,
+      "rejectedInputs": 1,
+      "timeBuckets": {
+        "choice": 44923.20000000298,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "workActiveMs": 6185.599999979138,
+      "autoFastAtMs": null,
+      "autoTailShare": 0,
+      "blockedOrTailShare": 0,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 4,
+      "peakPhysicalHeld": 3,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 806,
+      "tripCount": 140,
+      "firstFatal": {
+        "action": 4,
+        "chosen": {
+          "type": "bridge",
+          "choice": 0
+        },
+        "immediateClears": 0,
+        "statusAfter": "Playing",
+        "atMs": 39563.20000000298,
+        "winningAlternatives": [
+          {
+            "action": {
+              "type": "tap",
+              "pod": 17
+            },
+            "immediateClears": 0,
+            "continuation": [
+              {
+                "type": "tap",
+                "pod": 14
+              },
+              {
+                "type": "bridge",
+                "choice": 1
+              },
+              {
+                "type": "tap",
+                "pod": 5
+              },
+              {
+                "type": "tap",
+                "pod": 1
+              },
+              {
+                "type": "tap",
+                "pod": 21
+              },
+              {
+                "type": "tap",
+                "pod": 11
+              },
+              {
+                "type": "tap",
+                "pod": 18
+              },
+              {
+                "type": "tap",
+                "pod": 7
+              },
+              {
+                "type": "tap",
+                "pod": 20
+              },
+              {
+                "type": "tap",
+                "pod": 10
+              },
+              {
+                "type": "tap",
+                "pod": 2
+              },
+              {
+                "type": "tap",
+                "pod": 19
+              },
+              {
+                "type": "tap",
+                "pod": 9
+              },
+              {
+                "type": "tap",
+                "pod": 16
+              },
+              {
+                "type": "tap",
+                "pod": 3
+              },
+              {
+                "type": "tap",
+                "pod": 23
+              },
+              {
+                "type": "tap",
+                "pod": 4
+              },
+              {
+                "type": "tap",
+                "pod": 12
+              }
+            ]
+          }
+        ],
+        "unknownAlternatives": [],
+        "scope": "Full actual state, not proof that consequences were inferable from the visible queue."
+      },
+      "waitIntervals5s": []
+    },
+    {
+      "id": 47,
+      "level": 29,
+      "title": "Садовый фонарь",
+      "difficulty": "Hard",
+      "outcome": "won",
+      "elapsedMs": 83626.79999999702,
+      "actions": 22,
+      "rejectedInputs": 2,
+      "timeBuckets": {
+        "choice": 54161.70000000298,
+        "blockedWorking": 18026.9999999851,
+        "autoTail": 11438.10000000894,
+        "stalled": 0
+      },
+      "workActiveMs": 60520.39999999106,
+      "autoFastAtMs": 72188.69999998808,
+      "autoTailShare": 0.1367755312891244,
+      "blockedOrTailShare": 0.35234039805415357,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 5,
+      "peakPhysicalHeld": 5,
+      "finishedPairHalfActionStates": 0,
+      "boardCells": 806,
+      "tripCount": 806,
+      "firstFatal": null,
+      "waitIntervals5s": [
+        {
+          "kind": "blockedWorking",
+          "fromMs": 42837.89999999106,
+          "toMs": 48319.59999999404
+        },
+        {
+          "kind": "blockedWorking",
+          "fromMs": 60898.89999999106,
+          "toMs": 67875.69999998808
+        },
+        {
+          "kind": "autoTail",
+          "fromMs": 72188.69999998808,
+          "toMs": 83626.79999999702
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "level": 30,
+      "title": "Зайчик",
+      "difficulty": "Normal",
+      "outcome": "won",
+      "elapsedMs": 41922.70000000298,
+      "actions": 21,
+      "rejectedInputs": 0,
+      "timeBuckets": {
+        "choice": 36894.80000001192,
+        "blockedWorking": 1423.699999988079,
+        "autoTail": 3604.2000000029802,
+        "stalled": 0
+      },
+      "workActiveMs": 30685.89999999106,
+      "autoFastAtMs": 38318.5,
+      "autoTailShare": 0.0859725160832371,
+      "blockedOrTailShare": 0.11993263792624764,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": null
+      },
+      "note": "",
+      "peakLogicalHeld": 3,
+      "peakPhysicalHeld": 4,
+      "finishedPairHalfActionStates": 14,
+      "boardCells": 462,
+      "tripCount": 462,
+      "firstFatal": null,
+      "waitIntervals5s": []
+    }
+  ],
+  "limits": [
+    "One returning player, not audience win rates or retention. Prior familiarity affects retained L15/L22.",
+    "Manual 2x enabled during L9 and persists afterwards; raw seconds are not normalized 1x comparisons.",
+    "clockTick(true) on visibility return may include hidden-tab dwell as active time; export has no visibility log to subtract it exactly. Times are recorded browser values, not verified pure active play or thinking.",
+    "choice means any legally admissible input, not proof that a useful/winning input existed. blockedWorking + autoTail is structurally unavailable input, not automatically boredom.",
+    "Full-state fatal-branch diagnosis does not prove the player could predict hidden-depth consequences. Difficulty, interest, art and pace are separate ratings; pace supplied for only five levels."
+  ]
+}
