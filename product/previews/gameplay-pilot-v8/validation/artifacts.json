@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "catalogHash": "d82ccc56145147f9a419ea3c45958bbbe1429d814918b2e7759424d619cbd196",
+  "html": {
+    "file": "Bloomlings-Pilot-v8-30.html",
+    "bytes": 1343658,
+    "sha256": "99a4345934a4f2198acae6a30eb025f3625b5bc77ddaa9c3596423d9a530888e"
+  },
+  "zip": {
+    "file": "Bloomlings-Pilot-v8-30.zip",
+    "bytes": 858430,
+    "sha256": "5055b3e84c1401a27852623a849087e340c86d5174af730a57c886640a15b27f"
+  },
+  "zipIntegrity": true,
+  "zipHtmlMatchesSource": true,
+  "v7Html": {
+    "file": "index.html",
+    "bytes": 1339507,
+    "sha256": "c88483135ac8499b76cc858a56b3569929aad10d71c32f1c6e95d6ed4daace36"
+  }
+}

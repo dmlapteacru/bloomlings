@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "catalogHash": "d82ccc56145147f9a419ea3c45958bbbe1429d814918b2e7759424d619cbd196",
+  "sourceSHA256": "6aa0941bf4ec73a7d2e73f8b89a3571c022e38ec1cb01403dd5dd17776830bac",
+  "unchangedControls": [
+    1,
+    2,
+    3,
+    10,
+    11,
+    13,
+    18,
+    20,
+    21,
+    22,
+    24,
+    27,
+    29
+  ],
+  "realOwnerAttemptsReplayed": 21,
+  "inputsMatched": 301,
+  "tripPlansMatched": 9309,
+  "limits": [
+    "Only unchanged levels are compared. This is a deterministic regression, not a new human playtest."
+  ]
+}

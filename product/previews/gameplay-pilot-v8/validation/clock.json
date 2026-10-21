@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "hiddenDwellExcluded": true,
+  "dialogDwellExcluded": true,
+  "previousStateUsedOnTransition": true,
+  "reloadStartsPaused": true,
+  "clockRegressionRejected": true
+}

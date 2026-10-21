@@ -1,0 +1,6 @@
+(function(root,factory){const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BloomPilotPalette=api;})(globalThis,function(){
+ const codes='GPBACDVYO',names=['Лист','Лепесток','Вода','Янтарь','Жемчуг','Земля','Слива','Солнце','Тыква'],marks=['♧','✿','◆','●','◇','▰','✦','☀','▲'],heroes=['sprig','bloom','drop','twig','drop','twig','bloom','sprig','twig'];
+ const normal=['#78C04A','#EB799C','#36B7DA','#A45F28','#F5E6BD','#334B48','#7851A5','#F4C744','#EF8A32'],accessible=['#009E73','#CC79A7','#56B4E9','#E69F00','#F0E442','#333333','#0072B2','#FFFFFF','#D55E00'];
+ function palette(mode='normal'){const a=mode==='accessible'?accessible:normal,out={};codes.split('').forEach((c,i)=>{const rgb=a[i].slice(1).match(/../g).map(x=>parseInt(x,16)),l=rgb.map(x=>{x/=255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4;}),lum=l[0]*.2126+l[1]*.7152+l[2]*.0722,text=(lum+.05)/.05>=1.05/(lum+.05)?'#000000':'#FFFFFF',shade=f=>'#'+rgb.map(x=>Math.max(0,Math.min(255,Math.round(f(x)))).toString(16).padStart(2,'0')).join('');out[c]={color:a[i],dark:shade(x=>x*.72),light:shade(x=>x+(255-x)*.36),text,contrast:Math.max((lum+.05)/.05,1.05/(lum+.05)),name:names[i],mark:marks[i],hero:heroes[i]};});out['?']={color:'#d8d4c5',text:'#000000',name:'Скрытый цвет',mark:'?'};return out;}
+ return {codes,palette,modes:['normal','accessible']};
+});

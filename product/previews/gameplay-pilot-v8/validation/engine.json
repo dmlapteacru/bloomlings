@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "catalogHash": "d82ccc56145147f9a419ea3c45958bbbe1429d814918b2e7759424d619cbd196",
+  "winningRoutes": 50,
+  "acceptedCertificateActions": 564,
+  "hiddenInformationPolicies": 10,
+  "concurrentRandomRuns": 240,
+  "liveClears": 85549,
+  "restoredCheckpoints": 1255,
+  "frameInvarianceChecks": 1,
+  "retainedDefinitions": 13,
+  "ownerFunControls": [
+    10,
+    20,
+    22,
+    29
+  ],
+  "slotReusedBeforeArrival": true,
+  "sameColourParallelDispatch": true,
+  "pairReleaseAtomic": true,
+  "fullWorkingRowSurvives": true,
+  "conservation": true,
+  "sealedAdmissionAndCheckpointVerified": true,
+  "rejectedPairKeepsSecrets": true,
+  "legacyDepthRevealPreserved": true,
+  "guessOnlyPuzzleRejected": true,
+  "limits": [
+    "Winning certificates use idle decisions. They do not cover all possible real-time choices.",
+    "Policy rates are not human difficulty. No native Core equivalence claim."
+  ]
+}
