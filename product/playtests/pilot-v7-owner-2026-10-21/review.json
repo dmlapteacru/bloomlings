@@ -1,0 +1,1968 @@
+{
+  "source": "content/pilot-v7/Bloomlings-pilot-v7-results-2026-10-21.json",
+  "sourceSHA256": "6aa0941bf4ec73a7d2e73f8b89a3571c022e38ec1cb01403dd5dd17776830bac",
+  "catalogHash": "08bd1abec48f8b0e57f57db169c358b846eaa49d387f047858eaa76fd8a94a2f",
+  "validation": {
+    "replayedAttempts": 41,
+    "terminalOutcomesMatched": 38,
+    "acceptedInputs": 611,
+    "rejectedInputs": 73,
+    "rejectionReasons": {
+      "no-slot": 66,
+      "pair-needs-two-slots": 5,
+      "partner-not-exposed": 2
+    },
+    "tripPlansMatched": 20154,
+    "physicalInputStatesMatched": true,
+    "timeBucketSumsMatch": true
+  },
+  "summary": {
+    "participantCount": 1,
+    "attempts": 41,
+    "outcomes": {
+      "won": 30,
+      "jammed": 6,
+      "stuck": 2,
+      "abandoned": 3
+    },
+    "firstAttemptWins": 25,
+    "recordedMinutes": 51.0715758333331,
+    "winningMinutes": 39.539845833333274,
+    "medianWinSeconds": 80.98164999999851,
+    "ratings": {
+      "difficulty": {
+        "easy": 13,
+        "normal": 15,
+        "hard": 2
+      },
+      "interest": {
+        "okay": 21,
+        "boring": 5,
+        "fun": 4
+      },
+      "art": {
+        "yes": 29,
+        "no": 1
+      },
+      "planning": {
+        "colour-only": 14,
+        "planned": 16
+      },
+      "pace": {
+        "okay": 30
+      }
+    },
+    "fun": [
+      10,
+      20,
+      22,
+      29
+    ],
+    "boring": [
+      8,
+      16,
+      23,
+      26,
+      28
+    ],
+    "unrecognized": [
+      15
+    ],
+    "winningTimeSeconds": {
+      "choice": 1390.257550000051,
+      "blockedWorking": 536.1849499999582,
+      "autoTail": 445.94824999998696,
+      "stalled": 0
+    },
+    "speedEvents": [
+      {
+        "attempt": 5,
+        "level": 5,
+        "atMs": 66401.19999999925,
+        "manualFast": true,
+        "effectiveSpeed": 2
+      },
+      {
+        "attempt": 5,
+        "level": 5,
+        "atMs": 84683.19999999739,
+        "manualFast": false,
+        "effectiveSpeed": 2
+      },
+      {
+        "attempt": 7,
+        "level": 7,
+        "atMs": 88423.19999999553,
+        "manualFast": true,
+        "effectiveSpeed": 2
+      },
+      {
+        "attempt": 7,
+        "level": 7,
+        "atMs": 103859.59999999776,
+        "manualFast": false,
+        "effectiveSpeed": 1
+      },
+      {
+        "attempt": 11,
+        "level": 10,
+        "atMs": 79581.5,
+        "manualFast": true,
+        "effectiveSpeed": 2
+      },
+      {
+        "attempt": 15,
+        "level": 10,
+        "atMs": 86500.29999999702,
+        "manualFast": false,
+        "effectiveSpeed": 1
+      },
+      {
+        "attempt": 15,
+        "level": 10,
+        "atMs": 90419.5,
+        "manualFast": true,
+        "effectiveSpeed": 2
+      },
+      {
+        "attempt": 15,
+        "level": 10,
+        "atMs": 96839.5,
+        "manualFast": false,
+        "effectiveSpeed": 1
+      },
+      {
+        "attempt": 17,
+        "level": 12,
+        "atMs": 30603.39999999851,
+        "manualFast": true,
+        "effectiveSpeed": 2
+      },
+      {
+        "attempt": 19,
+        "level": 14,
+        "atMs": 8207.90000000596,
+        "manualFast": false,
+        "effectiveSpeed": 1
+      },
+      {
+        "attempt": 19,
+        "level": 14,
+        "atMs": 12022.10000000149,
+        "manualFast": true,
+        "effectiveSpeed": 2
+      }
+    ]
+  },
+  "hiddenLevels": [
+    {
+      "level": 6,
+      "title": "Красный гриб",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 24,
+      "totalWork": 624,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 4,
+          "color": "B",
+          "count": 12,
+          "afterAction": 1,
+          "atMs": 4746.10000000149,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 9,
+          "color": "C",
+          "count": 12,
+          "afterAction": 11,
+          "atMs": 35012.60000000149,
+          "modelMs": 30266.5,
+          "clearedFraction": 0.4599358974358974,
+          "freeAfter": 0,
+          "sourceLeft": 3
+        }
+      ],
+      "taps": [
+        {
+          "pod": 4,
+          "atMs": 6304.5,
+          "modelMs": 1558.3999999985099,
+          "revealedBeforeTap": true,
+          "freeBefore": 4,
+          "clearedFraction": 0.003205128205128205,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 9,
+          "atMs": 59573.10000000149,
+          "modelMs": 54827,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.7483974358974359,
+          "sourceLeft": 1
+        }
+      ]
+    },
+    {
+      "level": 7,
+      "title": "Клубника",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 26,
+      "totalWork": 624,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 7,
+          "color": "B",
+          "count": 13,
+          "afterAction": 1,
+          "atMs": 5366.699999999255,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 21
+        },
+        {
+          "pod": 0,
+          "color": "G",
+          "count": 13,
+          "afterAction": 7,
+          "atMs": 16833.699999999255,
+          "modelMs": 10912.300000000745,
+          "clearedFraction": 0.10096153846153846,
+          "freeAfter": 0,
+          "sourceLeft": 15
+        }
+      ],
+      "taps": [
+        {
+          "pod": 7,
+          "atMs": 5921.39999999851,
+          "modelMs": 0,
+          "revealedBeforeTap": true,
+          "freeBefore": 4,
+          "clearedFraction": 0,
+          "sourceLeft": 21
+        },
+        {
+          "pod": 0,
+          "atMs": 44596.599999997765,
+          "modelMs": 38289.10000000149,
+          "revealedBeforeTap": true,
+          "freeBefore": 4,
+          "clearedFraction": 0.3573717948717949,
+          "sourceLeft": 14
+        }
+      ]
+    },
+    {
+      "level": 12,
+      "title": "Сова",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 18,
+      "totalWork": 728,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 2,
+          "color": "B",
+          "count": 9,
+          "afterAction": 3,
+          "atMs": 16131.69999999553,
+          "modelMs": 1226.5,
+          "clearedFraction": 0.0013736263736263737,
+          "freeAfter": 1,
+          "sourceLeft": 14
+        },
+        {
+          "pod": 7,
+          "color": "A",
+          "count": 9,
+          "afterAction": 6,
+          "atMs": 41643.89999999851,
+          "modelMs": 37779.20000000298,
+          "clearedFraction": 0.2129120879120879,
+          "freeAfter": 0,
+          "sourceLeft": 10
+        }
+      ],
+      "taps": [
+        {
+          "pod": 2,
+          "atMs": 28287.29999999702,
+          "modelMs": 13382.10000000149,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.04532967032967033,
+          "sourceLeft": 14
+        },
+        {
+          "pod": 7,
+          "atMs": 53668.60000000149,
+          "modelMs": 61828.60000000894,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.41895604395604397,
+          "sourceLeft": 10
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "title": "Чайник",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 24,
+      "totalWork": 728,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 15,
+          "color": "V",
+          "count": 12,
+          "afterAction": 5,
+          "atMs": 19126.90000000596,
+          "modelMs": 28190.60000001639,
+          "clearedFraction": 0.23763736263736263,
+          "freeAfter": 0,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 5,
+          "color": "A",
+          "count": 12,
+          "afterAction": 15,
+          "atMs": 44324.60000000149,
+          "modelMs": 78586.00000000745,
+          "clearedFraction": 0.6332417582417582,
+          "freeAfter": 0,
+          "sourceLeft": 2
+        }
+      ],
+      "taps": [
+        {
+          "pod": 15,
+          "atMs": 32143.20000000298,
+          "modelMs": 54223.20000001043,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0.3475274725274725,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 5,
+          "atMs": 48546.40000000596,
+          "modelMs": 87029.60000001639,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.760989010989011,
+          "sourceLeft": 1
+        }
+      ]
+    },
+    {
+      "level": 17,
+      "title": "Садовая лейка",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 24,
+      "totalWork": 728,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 13,
+          "color": "D",
+          "count": 12,
+          "afterAction": 1,
+          "atMs": 12137.59999999404,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 17
+        },
+        {
+          "pod": 5,
+          "color": "B",
+          "count": 12,
+          "afterAction": 2,
+          "atMs": 15008.59999999404,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 3,
+          "sourceLeft": 16
+        }
+      ],
+      "taps": [
+        {
+          "pod": 5,
+          "atMs": 15711.59999999404,
+          "modelMs": 0,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0,
+          "sourceLeft": 16
+        },
+        {
+          "pod": 13,
+          "atMs": 22348.29999999702,
+          "modelMs": 4400,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0.016483516483516484,
+          "sourceLeft": 15
+        }
+      ]
+    },
+    {
+      "level": 19,
+      "title": "Цветок в горшке",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 16,
+      "totalWork": 840,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 21,
+          "color": "D",
+          "count": 8,
+          "afterAction": 6,
+          "atMs": 35032.70000000298,
+          "modelMs": 34575,
+          "clearedFraction": 0.14642857142857144,
+          "freeAfter": 0,
+          "sourceLeft": 18
+        },
+        {
+          "pod": 8,
+          "color": "B",
+          "count": 8,
+          "afterAction": 15,
+          "atMs": 70186,
+          "modelMs": 104881.59999999404,
+          "clearedFraction": 0.555952380952381,
+          "freeAfter": 1,
+          "sourceLeft": 9
+        }
+      ],
+      "taps": [
+        {
+          "pod": 21,
+          "atMs": 52620.70000000298,
+          "modelMs": 69751,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.27380952380952384,
+          "sourceLeft": 18
+        },
+        {
+          "pod": 8,
+          "atMs": 75851.60000000149,
+          "modelMs": 116212.79999999702,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.7202380952380952,
+          "sourceLeft": 6
+        }
+      ]
+    },
+    {
+      "level": 26,
+      "title": "Подсолнух",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 20,
+      "totalWork": 840,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 11,
+          "color": "A",
+          "count": 10,
+          "afterAction": 9,
+          "atMs": 16983,
+          "modelMs": 28342.19999998808,
+          "clearedFraction": 0.26785714285714285,
+          "freeAfter": 0,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 17,
+          "color": "D",
+          "count": 10,
+          "afterAction": 10,
+          "atMs": 20753,
+          "modelMs": 35882.19999998808,
+          "clearedFraction": 0.3547619047619048,
+          "freeAfter": 1,
+          "sourceLeft": 12
+        }
+      ],
+      "taps": [
+        {
+          "pod": 17,
+          "atMs": 22801.5,
+          "modelMs": 39979.19999998808,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.4,
+          "sourceLeft": 11
+        },
+        {
+          "pod": 11,
+          "atMs": 31005.90000000596,
+          "modelMs": 56388,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0.6011904761904762,
+          "sourceLeft": 7
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "title": "Зайчик",
+      "hard": false,
+      "hiddenCount": 2,
+      "hiddenWork": 32,
+      "totalWork": 462,
+      "attempts": 1,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "reveals": [
+        {
+          "pod": 15,
+          "color": "D",
+          "count": 16,
+          "afterAction": 1,
+          "atMs": 4179.5,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 21
+        },
+        {
+          "pod": 7,
+          "color": "C",
+          "count": 16,
+          "afterAction": 10,
+          "atMs": 22736.29999999702,
+          "modelMs": 35018.79999999702,
+          "clearedFraction": 0.42207792207792205,
+          "freeAfter": 1,
+          "sourceLeft": 11
+        }
+      ],
+      "taps": [
+        {
+          "pod": 15,
+          "atMs": 14521.19999999553,
+          "modelMs": 18588.59999999404,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.26406926406926406,
+          "sourceLeft": 15
+        },
+        {
+          "pod": 7,
+          "atMs": 23490.29999999702,
+          "modelMs": 36526.79999999702,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.43722943722943725,
+          "sourceLeft": 11
+        }
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "id": 1,
+      "level": 1,
+      "outcome": "won",
+      "elapsedMs": 36361.199999999255,
+      "actions": 9,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 18642.000000003725,
+        "blockedWorking": 8356.69999999553,
+        "autoTail": 9362.5,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 2,
+      "level": 2,
+      "outcome": "won",
+      "elapsedMs": 57055.60000000149,
+      "actions": 10,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 22265.000000003725,
+        "blockedWorking": 28281.39999999851,
+        "autoTail": 6509.199999999255,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 3,
+      "level": 3,
+      "outcome": "won",
+      "elapsedMs": 57674.19999999739,
+      "actions": 12,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 39170.300000000745,
+        "blockedWorking": 4340.099999997765,
+        "autoTail": 14163.799999998882,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 4,
+      "level": 4,
+      "outcome": "won",
+      "elapsedMs": 94549.84999999963,
+      "actions": 22,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 72881.89999999851,
+        "blockedWorking": 8124.000000003725,
+        "autoTail": 13543.949999997392,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 5,
+      "level": 5,
+      "outcome": "won",
+      "elapsedMs": 94024.39999999665,
+      "actions": 22,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 68936.64999999292,
+        "blockedWorking": 13548.750000003725,
+        "autoTail": 11539,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 6,
+      "level": 6,
+      "outcome": "won",
+      "elapsedMs": 75009.45000000112,
+      "actions": 14,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 37102.39999999851,
+        "blockedWorking": 22470.70000000298,
+        "autoTail": 15436.349999999627,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [
+        {
+          "pod": 4,
+          "color": "B",
+          "count": 12,
+          "afterAction": 1,
+          "atMs": 4746.10000000149,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 9,
+          "color": "C",
+          "count": 12,
+          "afterAction": 11,
+          "atMs": 35012.60000000149,
+          "modelMs": 30266.5,
+          "clearedFraction": 0.4599358974358974,
+          "freeAfter": 0,
+          "sourceLeft": 3
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 4,
+          "atMs": 6304.5,
+          "modelMs": 1558.3999999985099,
+          "revealedBeforeTap": true,
+          "freeBefore": 4,
+          "clearedFraction": 0.003205128205128205,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 9,
+          "atMs": 59573.10000000149,
+          "modelMs": 54827,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.7483974358974359,
+          "sourceLeft": 1
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "level": 7,
+      "outcome": "won",
+      "elapsedMs": 113915.39999999292,
+      "actions": 22,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 63634.800000008196,
+        "blockedWorking": 41124.19999998808,
+        "autoTail": 9156.399999996647,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [
+        {
+          "pod": 7,
+          "color": "B",
+          "count": 13,
+          "afterAction": 1,
+          "atMs": 5366.699999999255,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 21
+        },
+        {
+          "pod": 0,
+          "color": "G",
+          "count": 13,
+          "afterAction": 7,
+          "atMs": 16833.699999999255,
+          "modelMs": 10912.300000000745,
+          "clearedFraction": 0.10096153846153846,
+          "freeAfter": 0,
+          "sourceLeft": 15
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 7,
+          "atMs": 5921.39999999851,
+          "modelMs": 0,
+          "revealedBeforeTap": true,
+          "freeBefore": 4,
+          "clearedFraction": 0,
+          "sourceLeft": 21
+        },
+        {
+          "pod": 0,
+          "atMs": 44596.599999997765,
+          "modelMs": 38289.10000000149,
+          "revealedBeforeTap": true,
+          "freeBefore": 4,
+          "clearedFraction": 0.3573717948717949,
+          "sourceLeft": 14
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "level": 8,
+      "outcome": "won",
+      "elapsedMs": 111409.30000000447,
+      "actions": 13,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 100892.80000000447,
+        "blockedWorking": 5479,
+        "autoTail": 5037.5,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 9,
+      "level": 9,
+      "outcome": "won",
+      "elapsedMs": 85891.74999999814,
+      "actions": 14,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 46844.89999999851,
+        "blockedWorking": 19084.199999999255,
+        "autoTail": 19962.650000000373,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 10,
+      "level": 10,
+      "outcome": "jammed",
+      "elapsedMs": 44330.89999999851,
+      "actions": 6,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 44330.89999999851,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 11,
+      "level": 10,
+      "outcome": "stuck",
+      "elapsedMs": 131529.8999999985,
+      "actions": 10,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 79504.80000000075,
+        "blockedWorking": 52025.099999997765,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 12,
+      "level": 10,
+      "outcome": "jammed",
+      "elapsedMs": 27209.89999999851,
+      "actions": 6,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 24396.09999999404,
+        "blockedWorking": 2813.8000000044703,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 13,
+      "level": 10,
+      "outcome": "abandoned",
+      "elapsedMs": 16483.39999999851,
+      "actions": 1,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 16483.39999999851,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 14,
+      "level": 10,
+      "outcome": "stuck",
+      "elapsedMs": 135002,
+      "actions": 10,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 98029,
+        "blockedWorking": 36973,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 15,
+      "level": 10,
+      "outcome": "won",
+      "elapsedMs": 133147.55000000075,
+      "actions": 15,
+      "ratings": {
+        "difficulty": "hard",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "Очень хороший уровень. Ьам в моменте прям надо было только один лот выбрать розовыый хотя мог оба, но из-за того что они паралельно двигаются, то пришлось выбрать один и ждать иначе бы оба не исчезли, а мне надо было чтоб хотя бы один полностью отработал. Супер",
+      "timeBuckets": {
+        "choice": 63723.19999999553,
+        "blockedWorking": 55260.70000000298,
+        "autoTail": 14163.650000002235,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 16,
+      "level": 11,
+      "outcome": "won",
+      "elapsedMs": 86993.05000000447,
+      "actions": 15,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 36789.39999999851,
+        "blockedWorking": 29951.00000000745,
+        "autoTail": 20252.64999999851,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 17,
+      "level": 12,
+      "outcome": "won",
+      "elapsedMs": 87292.19999999553,
+      "actions": 16,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 45027.10000000894,
+        "blockedWorking": 22224.49999999255,
+        "autoTail": 20040.59999999404,
+        "stalled": 0
+      },
+      "initialFast": false,
+      "reveals": [
+        {
+          "pod": 2,
+          "color": "B",
+          "count": 9,
+          "afterAction": 3,
+          "atMs": 16131.69999999553,
+          "modelMs": 1226.5,
+          "clearedFraction": 0.0013736263736263737,
+          "freeAfter": 1,
+          "sourceLeft": 14
+        },
+        {
+          "pod": 7,
+          "color": "A",
+          "count": 9,
+          "afterAction": 6,
+          "atMs": 41643.89999999851,
+          "modelMs": 37779.20000000298,
+          "clearedFraction": 0.2129120879120879,
+          "freeAfter": 0,
+          "sourceLeft": 10
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 2,
+          "atMs": 28287.29999999702,
+          "modelMs": 13382.10000000149,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.04532967032967033,
+          "sourceLeft": 14
+        },
+        {
+          "pod": 7,
+          "atMs": 53668.60000000149,
+          "modelMs": 61828.60000000894,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.41895604395604397,
+          "sourceLeft": 10
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "level": 13,
+      "outcome": "won",
+      "elapsedMs": 31942.20000000298,
+      "actions": 21,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 23757.70000000298,
+        "blockedWorking": 2197,
+        "autoTail": 5987.5,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 19,
+      "level": 14,
+      "outcome": "won",
+      "elapsedMs": 67474.60000000149,
+      "actions": 17,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 39053.20000001788,
+        "blockedWorking": 9493.199999988079,
+        "autoTail": 18928.19999999553,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [
+        {
+          "pod": 15,
+          "color": "V",
+          "count": 12,
+          "afterAction": 5,
+          "atMs": 19126.90000000596,
+          "modelMs": 28190.60000001639,
+          "clearedFraction": 0.23763736263736263,
+          "freeAfter": 0,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 5,
+          "color": "A",
+          "count": 12,
+          "afterAction": 15,
+          "atMs": 44324.60000000149,
+          "modelMs": 78586.00000000745,
+          "clearedFraction": 0.6332417582417582,
+          "freeAfter": 0,
+          "sourceLeft": 2
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 15,
+          "atMs": 32143.20000000298,
+          "modelMs": 54223.20000001043,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0.3475274725274725,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 5,
+          "atMs": 48546.40000000596,
+          "modelMs": 87029.60000001639,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.760989010989011,
+          "sourceLeft": 1
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "level": 15,
+      "outcome": "abandoned",
+      "elapsedMs": 34072.29999999702,
+      "actions": 6,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 29184.89999999851,
+        "blockedWorking": 4887.39999999851,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 21,
+      "level": 15,
+      "outcome": "won",
+      "elapsedMs": 54152.20000000298,
+      "actions": 17,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "no",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "Картинка ужасная прям. Не обязательно торт. Можно вообще жругое",
+      "timeBuckets": {
+        "choice": 22792.20000001788,
+        "blockedWorking": 26109.79999998212,
+        "autoTail": 5250.20000000298,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 22,
+      "level": 16,
+      "outcome": "won",
+      "elapsedMs": 22717.80000000447,
+      "actions": 20,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "Нам надо подумать. Мы в целом можем делать время от времени легкие уровни. Как передышку. Но концептуально 16 уровень...прям легкий и скучный",
+      "timeBuckets": {
+        "choice": 16630.20000000298,
+        "blockedWorking": 1277,
+        "autoTail": 4810.60000000149,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 23,
+      "level": 17,
+      "outcome": "won",
+      "elapsedMs": 80256.39999999851,
+      "actions": 17,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "Об очереди думал мало. Но вот такое лучше , чем зонтик 16. Это легко, но интереснее , чем 16. Но рисунок похож на чайник((",
+      "timeBuckets": {
+        "choice": 49246.59999999404,
+        "blockedWorking": 5781.60000000149,
+        "autoTail": 25228.20000000298,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [
+        {
+          "pod": 13,
+          "color": "D",
+          "count": 12,
+          "afterAction": 1,
+          "atMs": 12137.59999999404,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 17
+        },
+        {
+          "pod": 5,
+          "color": "B",
+          "count": 12,
+          "afterAction": 2,
+          "atMs": 15008.59999999404,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 3,
+          "sourceLeft": 16
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 5,
+          "atMs": 15711.59999999404,
+          "modelMs": 0,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0,
+          "sourceLeft": 16
+        },
+        {
+          "pod": 13,
+          "atMs": 22348.29999999702,
+          "modelMs": 4400,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0.016483516483516484,
+          "sourceLeft": 15
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "level": 18,
+      "outcome": "won",
+      "elapsedMs": 81706.89999999851,
+      "actions": 23,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 51837.09999999404,
+        "blockedWorking": 14659.00000000745,
+        "autoTail": 15210.79999999702,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 25,
+      "level": 19,
+      "outcome": "won",
+      "elapsedMs": 97661,
+      "actions": 24,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 64214.30000000447,
+        "blockedWorking": 19912.99999999255,
+        "autoTail": 13533.70000000298,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [
+        {
+          "pod": 21,
+          "color": "D",
+          "count": 8,
+          "afterAction": 6,
+          "atMs": 35032.70000000298,
+          "modelMs": 34575,
+          "clearedFraction": 0.14642857142857144,
+          "freeAfter": 0,
+          "sourceLeft": 18
+        },
+        {
+          "pod": 8,
+          "color": "B",
+          "count": 8,
+          "afterAction": 15,
+          "atMs": 70186,
+          "modelMs": 104881.59999999404,
+          "clearedFraction": 0.555952380952381,
+          "freeAfter": 1,
+          "sourceLeft": 9
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 21,
+          "atMs": 52620.70000000298,
+          "modelMs": 69751,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.27380952380952384,
+          "sourceLeft": 18
+        },
+        {
+          "pod": 8,
+          "atMs": 75851.60000000149,
+          "modelMs": 116212.79999999702,
+          "revealedBeforeTap": true,
+          "freeBefore": 1,
+          "clearedFraction": 0.7202380952380952,
+          "sourceLeft": 6
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "level": 20,
+      "outcome": "won",
+      "elapsedMs": 76941.29999999702,
+      "actions": 15,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 41601.79999998957,
+        "blockedWorking": 7902.000000007451,
+        "autoTail": 27437.5,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 27,
+      "level": 21,
+      "outcome": "won",
+      "elapsedMs": 114143.39999999851,
+      "actions": 18,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 61953.89999999851,
+        "blockedWorking": 18171.60000000149,
+        "autoTail": 34017.89999999851,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 28,
+      "level": 22,
+      "outcome": "jammed",
+      "elapsedMs": 87629,
+      "actions": 7,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 79229,
+        "blockedWorking": 8400,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 29,
+      "level": 22,
+      "outcome": "won",
+      "elapsedMs": 104554,
+      "actions": 20,
+      "ratings": {
+        "difficulty": "hard",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "Хороший. Я так много проходил его, что уже наизусть знаю)) но все ок. Хорошиий. Оставляем",
+      "timeBuckets": {
+        "choice": 63408.90000001341,
+        "blockedWorking": 10512.29999998957,
+        "autoTail": 30632.79999999702,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 30,
+      "level": 23,
+      "outcome": "won",
+      "elapsedMs": 29938.39999999851,
+      "actions": 16,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 16838.40000000596,
+        "blockedWorking": 4123.999999992549,
+        "autoTail": 8976,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 31,
+      "level": 24,
+      "outcome": "won",
+      "elapsedMs": 123312.80000000447,
+      "actions": 21,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 74721.79999999702,
+        "blockedWorking": 33872.50000000745,
+        "autoTail": 14718.5,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 32,
+      "level": 25,
+      "outcome": "jammed",
+      "elapsedMs": 36959.5,
+      "actions": 7,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 30372,
+        "blockedWorking": 6587.5,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 33,
+      "level": 25,
+      "outcome": "abandoned",
+      "elapsedMs": 101593.70000000298,
+      "actions": 12,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 76780.89999999851,
+        "blockedWorking": 24812.80000000447,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 34,
+      "level": 25,
+      "outcome": "won",
+      "elapsedMs": 72459,
+      "actions": 19,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "Хотелось бы сложнее. Все таки 25 уровень. Не хватает еще неизвестных.",
+      "timeBuckets": {
+        "choice": 48999.79999999702,
+        "blockedWorking": 15934.20000000298,
+        "autoTail": 7525,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 35,
+      "level": 26,
+      "outcome": "won",
+      "elapsedMs": 59393.5,
+      "actions": 22,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "Тапал все подряд",
+      "timeBuckets": {
+        "choice": 23939.5,
+        "blockedWorking": 18274.10000000149,
+        "autoTail": 17179.89999999851,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [
+        {
+          "pod": 11,
+          "color": "A",
+          "count": 10,
+          "afterAction": 9,
+          "atMs": 16983,
+          "modelMs": 28342.19999998808,
+          "clearedFraction": 0.26785714285714285,
+          "freeAfter": 0,
+          "sourceLeft": 13
+        },
+        {
+          "pod": 17,
+          "color": "D",
+          "count": 10,
+          "afterAction": 10,
+          "atMs": 20753,
+          "modelMs": 35882.19999998808,
+          "clearedFraction": 0.3547619047619048,
+          "freeAfter": 1,
+          "sourceLeft": 12
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 17,
+          "atMs": 22801.5,
+          "modelMs": 39979.19999998808,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.4,
+          "sourceLeft": 11
+        },
+        {
+          "pod": 11,
+          "atMs": 31005.90000000596,
+          "modelMs": 56388,
+          "revealedBeforeTap": true,
+          "freeBefore": 3,
+          "clearedFraction": 0.6011904761904762,
+          "sourceLeft": 7
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "level": 27,
+      "outcome": "won",
+      "elapsedMs": 109016.89999999851,
+      "actions": 20,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 60175.69999999553,
+        "blockedWorking": 28298,
+        "autoTail": 20543.20000000298,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 37,
+      "level": 28,
+      "outcome": "won",
+      "elapsedMs": 31051.5,
+      "actions": 18,
+      "ratings": {
+        "difficulty": "easy",
+        "interest": "boring",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 12491.39999999851,
+        "blockedWorking": 10172.60000000149,
+        "autoTail": 8387.5,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 38,
+      "level": 29,
+      "outcome": "jammed",
+      "elapsedMs": 39313.89999999851,
+      "actions": 6,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 36538.89999999851,
+        "blockedWorking": 2775,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 39,
+      "level": 29,
+      "outcome": "jammed",
+      "elapsedMs": 37779.29999999702,
+      "actions": 5,
+      "ratings": {
+        "difficulty": null,
+        "interest": null,
+        "art": null,
+        "planning": null,
+        "pace": null
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 37779.29999999702,
+        "blockedWorking": 0,
+        "autoTail": 0,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 40,
+      "level": 29,
+      "outcome": "won",
+      "elapsedMs": 130279.20000000298,
+      "actions": 22,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "fun",
+        "art": "yes",
+        "planning": "planned",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 67918.10000000894,
+        "blockedWorking": 39198.59999999404,
+        "autoTail": 23162.5,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [],
+      "hiddenTaps": []
+    },
+    {
+      "id": 41,
+      "level": 30,
+      "outcome": "won",
+      "elapsedMs": 52065.69999999553,
+      "actions": 21,
+      "ratings": {
+        "difficulty": "normal",
+        "interest": "okay",
+        "art": "yes",
+        "planning": "colour-only",
+        "pace": "okay"
+      },
+      "note": "",
+      "timeBuckets": {
+        "choice": 34766.5,
+        "blockedWorking": 12049.19999999553,
+        "autoTail": 5250,
+        "stalled": 0
+      },
+      "initialFast": true,
+      "reveals": [
+        {
+          "pod": 15,
+          "color": "D",
+          "count": 16,
+          "afterAction": 1,
+          "atMs": 4179.5,
+          "modelMs": 0,
+          "clearedFraction": 0,
+          "freeAfter": 4,
+          "sourceLeft": 21
+        },
+        {
+          "pod": 7,
+          "color": "C",
+          "count": 16,
+          "afterAction": 10,
+          "atMs": 22736.29999999702,
+          "modelMs": 35018.79999999702,
+          "clearedFraction": 0.42207792207792205,
+          "freeAfter": 1,
+          "sourceLeft": 11
+        }
+      ],
+      "hiddenTaps": [
+        {
+          "pod": 15,
+          "atMs": 14521.19999999553,
+          "modelMs": 18588.59999999404,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.26406926406926406,
+          "sourceLeft": 15
+        },
+        {
+          "pod": 7,
+          "atMs": 23490.29999999702,
+          "modelMs": 36526.79999999702,
+          "revealedBeforeTap": true,
+          "freeBefore": 2,
+          "clearedFraction": 0.43722943722943725,
+          "sourceLeft": 11
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "One returning owner, not audience win rates. Familiarity especially affects L22.",
+    "Recorded active time mixes 1x and 2x; not normalized durations or measured thinking time.",
+    "Hidden slots reveal on reaching the top, before selection. Reveal timing is descriptive, not proof that a choice mattered.",
+    "Abandoned attempts are checked through recorded telemetry, not counted as losses.",
+    "logicalOutcome is a stale legacy field in this export; actual terminal outcomes are replayed from the authoritative timeline."
+  ]
+}
