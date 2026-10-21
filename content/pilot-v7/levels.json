@@ -1,0 +1,4540 @@
+{
+  "version": "pilot-30-v7",
+  "hash": "08bd1abec48f8b0e57f57db169c358b846eaa49d387f047858eaa76fd8a94a2f",
+  "levels": [
+    {
+      "id": 1,
+      "w": 16,
+      "h": 18,
+      "subject": "leaf",
+      "title": "Большой лист",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBB",
+        "BBABBBBBBBBBBBBB",
+        "BBGABBBBBBBBBBBB",
+        "BBBGABBBBBBBBBBB",
+        "BBBGAGGGGBBBBBBB",
+        "BBBGGAAAAAGBBBBB",
+        "BBBGGAAGGGGGBBBB",
+        "BBBGGAGAGGGGBBBB",
+        "BBBGGAGAGGGGGBBB",
+        "BBBGGAGGAAAAGBBB",
+        "BBBGGGGGAAGGGBBB",
+        "BBBBGGGGAGAGGBBB",
+        "BBBBGGGGAGAGGGBB",
+        "BBBBBGGGGGGAGGBB",
+        "BBBBBBGGGGGGAGBB",
+        "BBBBBBBBBGGGGGBB",
+        "BBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        8
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 33
+        },
+        {
+          "color": "G",
+          "count": 47
+        },
+        {
+          "color": "B",
+          "count": 45
+        },
+        {
+          "color": "B",
+          "count": 35
+        },
+        {
+          "color": "B",
+          "count": 33
+        },
+        {
+          "color": "B",
+          "count": 35
+        },
+        {
+          "color": "B",
+          "count": 32
+        },
+        {
+          "color": "A",
+          "count": 15
+        },
+        {
+          "color": "A",
+          "count": 13
+        }
+      ],
+      "tray": [
+        [
+          8,
+          3,
+          5
+        ],
+        [
+          0,
+          2,
+          6
+        ],
+        [
+          4,
+          7,
+          1
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 2,
+      "w": 18,
+      "h": 20,
+      "subject": "drop",
+      "title": "Капелька",
+      "rowsBottomFirst": [
+        "GGGGGGGGGGGGGGGGGG",
+        "GGGGGBBBBBBBBGGGGG",
+        "GGGGBBBBBBBBBBGGGG",
+        "GGGBBBBBAABBBBBGGG",
+        "GGGBPBBBBBBBBPBGGG",
+        "GGGBBBABBBBABBBGGG",
+        "GGGBGBABBBBABBBGGG",
+        "GGGBGBBBBBBBBBBGGG",
+        "GGGBBGBBBBBBBBBGGG",
+        "GGGGBGBBBBBBBBGGGG",
+        "GGGGBBBBBBBBBBGGGG",
+        "GGGGGBBBBBBBBGGGGG",
+        "GGGGGGBBBBBBGGGGGG",
+        "GGGGGGBBBBBBGGGGGG",
+        "GGGGGGGBBBBGGGGGGG",
+        "GGGGGGGGBBGGGGGGGG",
+        "GGGGGGGGBBGGGGGGGG",
+        "GGGGGGGGBBGGGGGGGG",
+        "GGGGGGGGGGGGGGGGGG",
+        "GGGGGGGGGGGGGGGGGG"
+      ],
+      "entries": [
+        9
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 42
+        },
+        {
+          "color": "G",
+          "count": 46
+        },
+        {
+          "color": "G",
+          "count": 36
+        },
+        {
+          "color": "G",
+          "count": 55
+        },
+        {
+          "color": "G",
+          "count": 45
+        },
+        {
+          "color": "P",
+          "count": 2
+        },
+        {
+          "color": "B",
+          "count": 49
+        },
+        {
+          "color": "B",
+          "count": 47
+        },
+        {
+          "color": "B",
+          "count": 32
+        },
+        {
+          "color": "A",
+          "count": 6
+        }
+      ],
+      "tray": [
+        [
+          0,
+          1,
+          7,
+          8
+        ],
+        [
+          3,
+          6,
+          9
+        ],
+        [
+          4,
+          2,
+          5
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 3,
+      "w": 20,
+      "h": 22,
+      "subject": "flower",
+      "title": "Цветок Bloom",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBGGBGBBBBBBB",
+        "BBBBBBBBBGGGGGGBBBBB",
+        "BBBBBBGGGGGGGGGGBBBB",
+        "BBBBBGGGGGGBGGGGBBBB",
+        "BBBBGGGGBGGBBBGGBBBB",
+        "BBBBGGGBBPPBBBBBBBBB",
+        "BBBBBBBBPPPPBBBBBBBB",
+        "BBBBBBPBPPPPBPBBBBBB",
+        "BBBBPPPPPPPPPPPPBBBB",
+        "BBBBPPPPPPPPPPPPBBBB",
+        "BBBBPPPPPCCPPPPPBBBB",
+        "BBBBPPPPCCCCPPPPBBBB",
+        "BBBBBPPBCAACBPPBBBBB",
+        "BBBBPPPPCCCCPPPPBBBB",
+        "BBBBPPPPPCCPPPPPBBBB",
+        "BBBBPPPPPPPPPPPPBBBB",
+        "BBBBPPPPPPPPPPPPBBBB",
+        "BBBBBBPBPPPPBPBBBBBB",
+        "BBBBBBBBPPPPBBBBBBBB",
+        "BBBBBBBBBPPBBBBBBBBB"
+      ],
+      "entries": [
+        10
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 12
+        },
+        {
+          "color": "G",
+          "count": 15
+        },
+        {
+          "color": "G",
+          "count": 13
+        },
+        {
+          "color": "P",
+          "count": 61
+        },
+        {
+          "color": "P",
+          "count": 51
+        },
+        {
+          "color": "B",
+          "count": 48
+        },
+        {
+          "color": "B",
+          "count": 47
+        },
+        {
+          "color": "B",
+          "count": 52
+        },
+        {
+          "color": "B",
+          "count": 56
+        },
+        {
+          "color": "B",
+          "count": 69
+        },
+        {
+          "color": "A",
+          "count": 2
+        },
+        {
+          "color": "C",
+          "count": 14
+        }
+      ],
+      "tray": [
+        [
+          11,
+          4,
+          5,
+          2
+        ],
+        [
+          8,
+          1,
+          10,
+          7
+        ],
+        [
+          9,
+          0,
+          3,
+          6
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 4,
+      "w": 24,
+      "h": 26,
+      "subject": "butterfly",
+      "title": "Бабочка",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBDDDDBBBBBBDDDDBBBBB",
+        "BBBBDDPPPDBBBBDPPPDDBBBB",
+        "BBBBDPPPPPDBBDPPPPPDBBBB",
+        "BBBDPPGGPPDDDDPPGGPPDBBB",
+        "BBBDPGGGGPDDDDPGGGGPDBBB",
+        "BBBDPGGGGPPDDPPGGGGPDBBB",
+        "BBBDPPGGPPDDDDPPGGPPDBBB",
+        "BBBDPPGPPPDDDDPPPGPPDBBB",
+        "BBBBDPPPPPDDDDPPPPPDBBBB",
+        "BBBBDPPPPDBDDBDPPPPDBBBB",
+        "BBBDPPPPPDBDDBDPPPPPDBBB",
+        "BBDPPPPPPDBDDBDPPPPPPDBB",
+        "BBDPPPPPPPDDDDPPPPPPPDBB",
+        "BDPPPCCPPPDDDDPPPCCPPPDB",
+        "BDPPCCCCPPDDDDPPCCCCPPDB",
+        "BDPPCCCCPPDDDDPPCCCCPPDB",
+        "BDPPCCCCPPDDDDPPCCCCPPDB",
+        "BDPPCCCCPPDAADPPCCCCPPDB",
+        "BBDPCCCCPPDAADPPCCCCPDBB",
+        "BBDPPPPPPDDBBDDPPPPPPDBB",
+        "BBBDPPPPDDDBBDDDPPPPDBBB",
+        "BBBBDDDDDDBBBBDDDDDDBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 8
+        },
+        {
+          "color": "G",
+          "count": 9
+        },
+        {
+          "color": "G",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 36
+        },
+        {
+          "color": "P",
+          "count": 33
+        },
+        {
+          "color": "P",
+          "count": 28
+        },
+        {
+          "color": "P",
+          "count": 37
+        },
+        {
+          "color": "P",
+          "count": 42
+        },
+        {
+          "color": "B",
+          "count": 35
+        },
+        {
+          "color": "B",
+          "count": 34
+        },
+        {
+          "color": "B",
+          "count": 28
+        },
+        {
+          "color": "B",
+          "count": 22
+        },
+        {
+          "color": "B",
+          "count": 34
+        },
+        {
+          "color": "B",
+          "count": 24
+        },
+        {
+          "color": "B",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 33
+        },
+        {
+          "color": "A",
+          "count": 4
+        },
+        {
+          "color": "C",
+          "count": 21
+        },
+        {
+          "color": "C",
+          "count": 23
+        },
+        {
+          "color": "D",
+          "count": 47
+        },
+        {
+          "color": "D",
+          "count": 39
+        },
+        {
+          "color": "D",
+          "count": 48
+        }
+      ],
+      "tray": [
+        [
+          6,
+          4,
+          21,
+          1,
+          3,
+          2,
+          20,
+          9
+        ],
+        [
+          11,
+          19,
+          16,
+          17,
+          5,
+          7,
+          15
+        ],
+        [
+          13,
+          0,
+          10,
+          8,
+          18,
+          12,
+          14
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 5,
+      "w": 24,
+      "h": 26,
+      "subject": "acorn",
+      "title": "Жёлудь Twig",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBDDBBBBBBPPPBB",
+        "BBBBBBBBBBDDDDBBBBPPCPBB",
+        "BBBBBBBBDDAAAADDBBBPPBBB",
+        "BBBBBBBBDAAAAAADBBBBBBBB",
+        "BBBBBBBDDAAAAAADDBBBBBBB",
+        "BBBBBBBDAAAAAAAADBBBBBBB",
+        "BBBBBBDACCAAAAAAADBBBBBB",
+        "BBBBBBDACCAAAAAAADBBBBBB",
+        "BBBBBBDACCAAAAAAADBBBBBB",
+        "BBBBBBDACAAAAAAAADBBBBBB",
+        "BBBBBBDACAAAAAAAADBBBBBB",
+        "BBBBBBDDDDDDDDDDDDBBBBBB",
+        "BBBBBDDDAAAAAAAADDDBBBBB",
+        "BBBBDDDDDDDDDDDDDDDDBBBB",
+        "BBBBDAAAAAAAAAAAAAADBBBB",
+        "BBBBDAAAAAAACAACAAADBBBB",
+        "BBBBDAAACAACAAACAAADBBBB",
+        "BBBBBDDCAAACAACAADDBBBBB",
+        "BBBBBBBBDDDDDDDDBBBBBBBB",
+        "BBBBBBBBBBBABGGGGGBBBBBB",
+        "BBBBBBBBBBBABGGGGGBBBBBB",
+        "BBBBBBBBBBDABBGGGGGBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 5
+        },
+        {
+          "color": "G",
+          "count": 10
+        },
+        {
+          "color": "P",
+          "count": 4
+        },
+        {
+          "color": "P",
+          "count": 4
+        },
+        {
+          "color": "B",
+          "count": 131
+        },
+        {
+          "color": "B",
+          "count": 68
+        },
+        {
+          "color": "B",
+          "count": 60
+        },
+        {
+          "color": "B",
+          "count": 88
+        },
+        {
+          "color": "B",
+          "count": 20
+        },
+        {
+          "color": "B",
+          "count": 15
+        },
+        {
+          "color": "A",
+          "count": 37
+        },
+        {
+          "color": "A",
+          "count": 5
+        },
+        {
+          "color": "A",
+          "count": 16
+        },
+        {
+          "color": "A",
+          "count": 27
+        },
+        {
+          "color": "A",
+          "count": 36
+        },
+        {
+          "color": "C",
+          "count": 5
+        },
+        {
+          "color": "C",
+          "count": 12
+        },
+        {
+          "color": "D",
+          "count": 22
+        },
+        {
+          "color": "D",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 7
+        },
+        {
+          "color": "D",
+          "count": 27
+        },
+        {
+          "color": "D",
+          "count": 15
+        }
+      ],
+      "tray": [
+        [
+          15,
+          20,
+          10,
+          3,
+          11,
+          4,
+          14,
+          7
+        ],
+        [
+          16,
+          6,
+          2,
+          9,
+          19,
+          8,
+          18
+        ],
+        [
+          13,
+          0,
+          17,
+          5,
+          21,
+          1,
+          12
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 6,
+      "w": 24,
+      "h": 26,
+      "subject": "mushroom",
+      "title": "Красный гриб",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBGGGGBDDDDDDDDBBBBBBBB",
+        "BBBBGBGGDDDDDDDDDBBBBBBB",
+        "BBBBGBBGDDCCACCDBBBBBBBB",
+        "BBBBBBBBDDCCACDDBBBBBBBB",
+        "BBBBBBBBBDCCACDBBBBBBBBB",
+        "BBBBBBBBBDDCADDBBBBBBBBB",
+        "BBBBBBBBBBDCADBBBBBBBBBB",
+        "BBBBBBBBBBDCCDBBBBBBBBBB",
+        "BBBBBBBBBBDCCDDBBBBBBBBB",
+        "BBBBBBBBBDDCCDDBBBBBBBBB",
+        "BDDDDDDDDDDDDDDDDDDDDDDB",
+        "BBDPPPPPPPPPPPPPPPPPPDBB",
+        "BBDPPPPPPPPPPPPPCCCPPDBB",
+        "BBDPPPCCPPPPPPPPCCCPPDBB",
+        "BBDDPPCCPPPPPPPPPCPPDDBB",
+        "BBBDPPCCPPPPPPPPPPPPDBBB",
+        "BBBBDPPPPPPPCCPPPPPDBBBB",
+        "BBBBDDPPPPPPCCCPPPDDBBBB",
+        "BBBBBDDPPPPPCCCPPDDBBBBB",
+        "BBBBBBBDDDPPPCDDDBBBBBBB",
+        "BBBBBBBBBDDDDDDBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 51
+        },
+        {
+          "color": "P",
+          "count": 39
+        },
+        {
+          "color": "P",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 12,
+          "mystery": true
+        },
+        {
+          "color": "B",
+          "count": 97
+        },
+        {
+          "color": "B",
+          "count": 72
+        },
+        {
+          "color": "B",
+          "count": 188
+        },
+        {
+          "color": "A",
+          "count": 5
+        },
+        {
+          "color": "C",
+          "count": 12,
+          "mystery": true
+        },
+        {
+          "color": "C",
+          "count": 28
+        },
+        {
+          "color": "D",
+          "count": 18
+        },
+        {
+          "color": "D",
+          "count": 45
+        },
+        {
+          "color": "D",
+          "count": 34
+        }
+      ],
+      "tray": [
+        [
+          5,
+          4,
+          12,
+          7,
+          0
+        ],
+        [
+          3,
+          8,
+          13,
+          11,
+          9
+        ],
+        [
+          10,
+          1,
+          6,
+          2
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 7,
+      "w": 24,
+      "h": 26,
+      "subject": "strawberry",
+      "title": "Клубника",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBDDDDBBBBBBBBBB",
+        "BBBBBBBBBDDPPDDBBBBBBBBB",
+        "BBBBBBBBDDPPPPDDBBBBBBBB",
+        "BBBBBBBDDPPCCPPDDBBBBBBB",
+        "BBBBBBDDPPPPPPPPDDBBBBBB",
+        "BBBBBDDPPPPPPPPPPDDBBBBB",
+        "BBBBBDPPPPPPPPPPPPDBBBBB",
+        "BBBBDDPPCCPPPPCCPPDDBBBB",
+        "BBBBDPPPPPPPPPPPPPPDBBBB",
+        "BBBDDPPPPPPPPPPPPPPDDBBB",
+        "BBBDPPPPPPPPPPPPPPPPDBBB",
+        "BBBDPPPPPPPPCPPPPPPPDBBB",
+        "BBBDPPPCPPPPCPPPPCPPDBBB",
+        "BBBDPPPCPPPPPPPPPCPPDBBB",
+        "BBBDPPPPPPPPPPPPPPPPDDBB",
+        "BBDDPPPPPPPGGPPPPPPPDBBB",
+        "BBBDDPPGGGGGGGGGGPPPDBBB",
+        "BBBDDDGGGGGGGGGGGGDDDBBB",
+        "BBBBBGGGDGGGGGGDGGGBBBBB",
+        "BBBBBBBBBGGGGGGBBBBBBBBB",
+        "BBBBBBBBBGGGGGGBBBBBBBBB",
+        "BBBBBBBBBGBBABGGBBBBBBBB",
+        "BBBBBBBBBBBBABBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 13,
+          "mystery": true
+        },
+        {
+          "color": "G",
+          "count": 23
+        },
+        {
+          "color": "G",
+          "count": 15
+        },
+        {
+          "color": "P",
+          "count": 23
+        },
+        {
+          "color": "P",
+          "count": 11
+        },
+        {
+          "color": "P",
+          "count": 41
+        },
+        {
+          "color": "P",
+          "count": 94
+        },
+        {
+          "color": "B",
+          "count": 13,
+          "mystery": true
+        },
+        {
+          "color": "B",
+          "count": 71
+        },
+        {
+          "color": "B",
+          "count": 88
+        },
+        {
+          "color": "B",
+          "count": 8
+        },
+        {
+          "color": "B",
+          "count": 60
+        },
+        {
+          "color": "B",
+          "count": 21
+        },
+        {
+          "color": "B",
+          "count": 68
+        },
+        {
+          "color": "A",
+          "count": 2
+        },
+        {
+          "color": "C",
+          "count": 5
+        },
+        {
+          "color": "C",
+          "count": 7
+        },
+        {
+          "color": "D",
+          "count": 18
+        },
+        {
+          "color": "D",
+          "count": 5
+        },
+        {
+          "color": "D",
+          "count": 17
+        },
+        {
+          "color": "D",
+          "count": 6
+        },
+        {
+          "color": "D",
+          "count": 15
+        }
+      ],
+      "tray": [
+        [
+          21,
+          16,
+          20,
+          2,
+          5,
+          13,
+          12,
+          17
+        ],
+        [
+          18,
+          3,
+          9,
+          11,
+          15,
+          0,
+          8
+        ],
+        [
+          19,
+          7,
+          14,
+          10,
+          4,
+          1,
+          6
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 8,
+      "w": 24,
+      "h": 26,
+      "subject": "mug",
+      "title": "Чашка с цветком",
+      "rowsBottomFirst": [
+        "........................",
+        "........................",
+        "....GGGGGGGGGGGGG.......",
+        "..GGGGGGGGGGGGGGGG......",
+        ".......DDDDDD...........",
+        ".....DDDCCCCDDD.........",
+        "....DDCCCCCCCCCD........",
+        "...DDCCCCCCCCCCDD.......",
+        "...DDCCCPCCPCCCCDDDDD...",
+        "...DDCCPPPPPPCCCDAAADD..",
+        "...DDCCPPPPPPCCCD...AD..",
+        "...DDCCPPCCCPCCCD...AAD.",
+        "...DDCPPPCCPPPCCD....AD.",
+        "...DDCCPPPPPPPCCD....AD.",
+        "...DDCCCCPPCCCCCD...AAD.",
+        "...DDCCCCPPCCCCCDA.AAD..",
+        "...DDCCCCCCCCCCCDAAAD...",
+        "...DAAAAAAAAAAAADDDD....",
+        "...AADDDDDDDDDDAA.......",
+        "....AAAAAAAAAAAA........",
+        "........................",
+        ".......B...B............",
+        ".......B...B............",
+        "........B...B...........",
+        "............B...........",
+        "........................"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 8
+        },
+        {
+          "color": "G",
+          "count": 11
+        },
+        {
+          "color": "G",
+          "count": 10
+        },
+        {
+          "color": "P",
+          "count": 15
+        },
+        {
+          "color": "P",
+          "count": 19
+        },
+        {
+          "color": "B",
+          "count": 7
+        },
+        {
+          "color": "A",
+          "count": 22
+        },
+        {
+          "color": "A",
+          "count": 22
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "C",
+          "count": 19
+        },
+        {
+          "color": "C",
+          "count": 17
+        },
+        {
+          "color": "D",
+          "count": 44,
+          "group": "A"
+        },
+        {
+          "color": "D",
+          "count": 30,
+          "group": "A"
+        }
+      ],
+      "tray": [
+        [
+          9,
+          4,
+          10,
+          8,
+          2
+        ],
+        [
+          0,
+          12,
+          6,
+          11,
+          5
+        ],
+        [
+          1,
+          13,
+          3,
+          7
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 9,
+      "w": 24,
+      "h": 26,
+      "subject": "letter",
+      "title": "Письмо",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBDDDDDDDDDDDDDDDDDDDDBB",
+        "BBDACCCCCCCCCCCCCCCCADBB",
+        "BBDCACCCCCCCCCCCCCCACDBB",
+        "BBDCCACCCCCCCCCCCCACCDBB",
+        "BBDCCCACCCCPPCCCCACCCDBB",
+        "BBDCCCCAACPPPPCAACCCCDBB",
+        "BBDCCCCCAPPPPPPACCCCCDBB",
+        "BBDCCCCCCPPPPPPCCCCCCDBB",
+        "BBDCCCCCCAACCAACCCCCCDBB",
+        "BBDCCCCCACCCCCCACCCCCDBB",
+        "BBDCCCCACCCCCCCCACCCCDBB",
+        "BBDCCAACCCCCCCCCCAACCDBB",
+        "BBDCAACCCCCCCCCCCCAACDBB",
+        "BBDDDDDDDDDDDDDDDDDDDDBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBABBBBBBBB",
+        "BBBBBBBBBBBBBBBBAABBBBBB",
+        "BBBBBBBBBBBBBBBBGAABBBBB",
+        "BBBBBBBBBBBBBBBGGGAGGGBB",
+        "BBBBBBBBBBBBBBBBGGBGGGBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 12
+        },
+        {
+          "color": "P",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 9
+        },
+        {
+          "color": "B",
+          "count": 54
+        },
+        {
+          "color": "B",
+          "count": 74
+        },
+        {
+          "color": "B",
+          "count": 70,
+          "group": "B"
+        },
+        {
+          "color": "B",
+          "count": 128
+        },
+        {
+          "color": "A",
+          "count": 12,
+          "group": "A"
+        },
+        {
+          "color": "A",
+          "count": 12
+        },
+        {
+          "color": "A",
+          "count": 12
+        },
+        {
+          "color": "C",
+          "count": 79,
+          "group": "A"
+        },
+        {
+          "color": "C",
+          "count": 34,
+          "group": "B"
+        },
+        {
+          "color": "C",
+          "count": 55
+        },
+        {
+          "color": "D",
+          "count": 21
+        },
+        {
+          "color": "D",
+          "count": 27
+        },
+        {
+          "color": "D",
+          "count": 16
+        }
+      ],
+      "tray": [
+        [
+          13,
+          1,
+          15,
+          14,
+          8,
+          0
+        ],
+        [
+          7,
+          5,
+          9,
+          6,
+          12
+        ],
+        [
+          10,
+          11,
+          3,
+          4,
+          2
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 10,
+      "w": 26,
+      "h": 28,
+      "subject": "fish",
+      "title": "Рыбка",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBGGBBBBBBBDDDDBBBBBBBBBBB",
+        "BBGGBBBBBBBDPPDBBBBBBBBBBB",
+        "BBGGGGGBBBDDPPDDBBBBBBBBBB",
+        "BBGGGGGGBDDPPPPDBBBBBBBBBB",
+        "BBGGGGGDDDPPPPPDDDBBBBBBBB",
+        "BBGGBBDDPDDDDDDDPDDBBBDDDB",
+        "BBBBBDDPPPPPPPPPPPDDBDDPDB",
+        "BBBBBDPPPPPPPPPPPPPDDDPPDB",
+        "BBBBDDPPPPPPPPPPPPPPDPPPDB",
+        "BBBBBPPPPPPPPPPPPPPDDPPPDB",
+        "BBBBBBBPPPPPPPPPPPDDPPPPDB",
+        "BBBBBPPPPPPPPPPPPPDPPPPPDB",
+        "BBBBDPPCCPPPPPPPPPDPPPPPDB",
+        "BBBBDPPCACPPPPPPPPDDPPPPDB",
+        "BBBBDPPCACPPPPPPPPPDDPPPDB",
+        "BBBBDDPCCPPPPPPPPPPDDPPPDB",
+        "BBBBBDDPPPPPPPPPPPPDDDPPDB",
+        "BBBBBBDDPDDDDDDDPPDDBDDPDB",
+        "BBBBBBBDDDPPPPPDDDDBBBDDDB",
+        "BBBBBBBBDDDPPPPDDBBBBBBBBB",
+        "BBBBBBBBBBDPPPDDBBBBBBBBBB",
+        "BBBBBBBBBBDDPPDBBBBBBBBBBB",
+        "BBBBBBBBBBBDDDDBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 8
+        },
+        {
+          "color": "G",
+          "count": 14
+        },
+        {
+          "color": "P",
+          "count": 56
+        },
+        {
+          "color": "P",
+          "count": 16,
+          "group": "A"
+        },
+        {
+          "color": "P",
+          "count": 18
+        },
+        {
+          "color": "P",
+          "count": 70,
+          "group": "B"
+        },
+        {
+          "color": "P",
+          "count": 39
+        },
+        {
+          "color": "B",
+          "count": 31
+        },
+        {
+          "color": "B",
+          "count": 151,
+          "group": "C"
+        },
+        {
+          "color": "B",
+          "count": 55,
+          "group": "B"
+        },
+        {
+          "color": "B",
+          "count": 74
+        },
+        {
+          "color": "B",
+          "count": 13
+        },
+        {
+          "color": "B",
+          "count": 55
+        },
+        {
+          "color": "A",
+          "count": 2,
+          "group": "A"
+        },
+        {
+          "color": "C",
+          "count": 8
+        },
+        {
+          "color": "D",
+          "count": 68
+        },
+        {
+          "color": "D",
+          "count": 40,
+          "group": "C"
+        },
+        {
+          "color": "D",
+          "count": 10
+        }
+      ],
+      "tray": [
+        [
+          5,
+          2,
+          8,
+          15,
+          12
+        ],
+        [
+          9,
+          6,
+          16,
+          14,
+          0
+        ],
+        [
+          4,
+          1,
+          3,
+          7
+        ],
+        [
+          17,
+          10,
+          13,
+          11
+        ]
+      ],
+      "difficulty": "Hard"
+    },
+    {
+      "id": 11,
+      "w": 24,
+      "h": 26,
+      "subject": "turtle",
+      "title": "Черепаха",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBDDDDDDBBBBDDDDDDBBBBB",
+        "BBBDGGGGDDBBBDGGGGDBBBBB",
+        "BBBDGGGGGDBAADGGGGDBBBBB",
+        "BBBDGGGGDDDDDDGGGGDBBBBB",
+        "BBBDDGGDDDGGGDDGGDDBBBBB",
+        "BBBBDDDDGGGCGGDDDDDDDDDB",
+        "BBBBBDDGGGCVCGGGGDDGGGDD",
+        "BBBBBDGGGCVVVVCGGDGGGGGD",
+        "BBGBBDGGCVVVVVVGGDGGGGGD",
+        "BBGGBDGGCVVVVVVGGDGGGGGD",
+        "BBGGBDGGCVVVVVVGGDGGGAGD",
+        "BBBBBDGGCVVVVVVGGDDGGGGD",
+        "BBBBBDGGCVVVVVVCGGDDGDDD",
+        "BBBBBDGGGCVVVVCGGDDDDDBB",
+        "BBBBBDDGGGCVVCGGGDBBBBBB",
+        "BBBBBBDDGGGCGGGGDDBBBBBB",
+        "BBBBBBBDDDGGGGDDDBBBBBBB",
+        "BBBBBBBBBDDDDDDBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 52
+        },
+        {
+          "color": "G",
+          "count": 37
+        },
+        {
+          "color": "G",
+          "count": 34
+        },
+        {
+          "color": "B",
+          "count": 116
+        },
+        {
+          "color": "B",
+          "count": 127
+        },
+        {
+          "color": "B",
+          "count": 94
+        },
+        {
+          "color": "A",
+          "count": 3
+        },
+        {
+          "color": "C",
+          "count": 6
+        },
+        {
+          "color": "C",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 37
+        },
+        {
+          "color": "D",
+          "count": 11
+        },
+        {
+          "color": "D",
+          "count": 31
+        },
+        {
+          "color": "D",
+          "count": 25
+        },
+        {
+          "color": "V",
+          "count": 21
+        },
+        {
+          "color": "V",
+          "count": 20
+        }
+      ],
+      "tray": [
+        [
+          1,
+          2,
+          5,
+          8
+        ],
+        [
+          12,
+          3,
+          6,
+          11
+        ],
+        [
+          4,
+          13,
+          0,
+          7
+        ],
+        [
+          14,
+          10,
+          9
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 12,
+      "w": 26,
+      "h": 28,
+      "subject": "owl",
+      "title": "Сова",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBAAAAAAAAAAAAAAAAAAAABBB",
+        "BBBAAAAAAAAAAAAAAAAAAAABBB",
+        "BBBBBBBBBAAAVVAAABBGGGGGBB",
+        "BBBBBBBBAAVVVVVVAAGGGGGGGB",
+        "BBBBBBBAAAVVVVVVVAABGGGGBB",
+        "BBBBBBBAAAVVVVVVVAABBBBBBB",
+        "BBBBBBAAAAVVVVVVAAAABBBBBB",
+        "BBBBBBAAAAAVVVVAAAAABBBBBB",
+        "BBBBBAAAAAAAPPAAAAAAABBBBB",
+        "BBBBBAAAAAAPPPPAAAAAABBBBB",
+        "BBBBBAAACCCCAAACCCAAABBBBB",
+        "BBBBBAACCCCCCACCCCCAABBBBB",
+        "BBBBBAACCAACCCCCACCCABBBBB",
+        "BBBBBACCCAACCCCAAACCABBBBB",
+        "BBBBBACCCAACCCCAAACCABBBBB",
+        "BBBBBBCCCAACCCCCAACCBBBBBB",
+        "BBBBBBACCCCCCCCCCCCCBBBBBB",
+        "BBBBBBBCCCCCCACCCCCAABBBBB",
+        "BBBBBAAACCCAAAACCCAAABBBBB",
+        "BBBBBAAAAAAAAAAAAAAAABBBBB",
+        "BBBBBAAAAAAAAAAABAAAABBBBB",
+        "BBBBBAAABBBBBBBBBBAAABBBBB",
+        "BBBBBAABBBBBBBBBBBBAABBBBB",
+        "BBBBBABBBBBBBBBBBBBBABBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 16
+        },
+        {
+          "color": "P",
+          "count": 6
+        },
+        {
+          "color": "B",
+          "count": 9,
+          "mystery": true
+        },
+        {
+          "color": "B",
+          "count": 117
+        },
+        {
+          "color": "B",
+          "count": 62
+        },
+        {
+          "color": "B",
+          "count": 117
+        },
+        {
+          "color": "B",
+          "count": 84
+        },
+        {
+          "color": "A",
+          "count": 9,
+          "mystery": true
+        },
+        {
+          "color": "A",
+          "count": 51
+        },
+        {
+          "color": "A",
+          "count": 59,
+          "group": "A"
+        },
+        {
+          "color": "A",
+          "count": 43
+        },
+        {
+          "color": "A",
+          "count": 37
+        },
+        {
+          "color": "C",
+          "count": 11
+        },
+        {
+          "color": "C",
+          "count": 11,
+          "group": "A"
+        },
+        {
+          "color": "C",
+          "count": 38,
+          "group": "B"
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "V",
+          "count": 12,
+          "group": "B"
+        },
+        {
+          "color": "V",
+          "count": 20
+        }
+      ],
+      "tray": [
+        [
+          9,
+          10,
+          1,
+          15,
+          8
+        ],
+        [
+          13,
+          7,
+          12,
+          3,
+          11
+        ],
+        [
+          14,
+          6,
+          5,
+          2
+        ],
+        [
+          16,
+          0,
+          4,
+          17
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 13,
+      "w": 26,
+      "h": 28,
+      "subject": "umbrella",
+      "title": "Зонтик",
+      "rowsBottomFirst": [
+        "..........................",
+        ".........AAA..............",
+        "........AAAAA.............",
+        ".......AAABAA.............",
+        ".......AABBBAA............",
+        ".......AABBBAA............",
+        ".......AABBBAA............",
+        ".......AA...AA............",
+        "............AA............",
+        "............AA............",
+        "............AA............",
+        "............AA............",
+        "..DDDDDDDDDDAADDDDDDDDDD..",
+        "..DPPPPPPPPPAAPPPPPPPPPD..",
+        "..DPPPPPPPPPPPPPPPPPPPPD..",
+        "..DPPPPPPPCPPPVVPPPPPPPD..",
+        "..DPPPPPPPCCPVVVPPPPPPPD..",
+        "..DPPPPPPPPCPVVPPPPPPPPD..",
+        "..DDPPPPPPPCPVVPPPPPPPDD..",
+        "...DPPPPPPPCPVVPPPPPPPD...",
+        "...DDPPPPPPCCVPPPPPPPDD...",
+        "....DDPPPPPPCVPPPPPPDD....",
+        ".....DDPPPPPCVPPPPPDD.....",
+        "......DDDPPPCPPPPDDD......",
+        "........DDDDDDDDDD........",
+        "..........................",
+        "..........................",
+        ".........................."
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "difficulty": "Normal",
+      "pods": [
+        {
+          "color": "P",
+          "count": 24
+        },
+        {
+          "color": "P",
+          "count": 18
+        },
+        {
+          "color": "P",
+          "count": 22
+        },
+        {
+          "color": "P",
+          "count": 24
+        },
+        {
+          "color": "P",
+          "count": 11
+        },
+        {
+          "color": "P",
+          "count": 8
+        },
+        {
+          "color": "P",
+          "count": 20
+        },
+        {
+          "color": "P",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 23,
+          "group": "A"
+        },
+        {
+          "color": "B",
+          "count": 5,
+          "group": "A"
+        },
+        {
+          "color": "B",
+          "count": 5
+        },
+        {
+          "color": "A",
+          "count": 11
+        },
+        {
+          "color": "A",
+          "count": 17
+        },
+        {
+          "color": "A",
+          "count": 13
+        },
+        {
+          "color": "C",
+          "count": 5
+        },
+        {
+          "color": "C",
+          "count": 6
+        },
+        {
+          "color": "D",
+          "count": 20
+        },
+        {
+          "color": "D",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 9
+        },
+        {
+          "color": "D",
+          "count": 25
+        },
+        {
+          "color": "V",
+          "count": 5
+        },
+        {
+          "color": "V",
+          "count": 9
+        }
+      ],
+      "tray": [
+        [
+          1,
+          11,
+          6,
+          3,
+          4,
+          15,
+          0,
+          19
+        ],
+        [
+          10,
+          8,
+          16,
+          17,
+          5,
+          13,
+          7
+        ],
+        [
+          20,
+          9,
+          12,
+          14,
+          21,
+          2,
+          18
+        ]
+      ]
+    },
+    {
+      "id": 14,
+      "w": 26,
+      "h": 28,
+      "subject": "teapot",
+      "title": "Чайник",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBAAAAAAAAABBBBBBBB",
+        "BBBBBAAAAAAAAAAAAAAAABBBBB",
+        "BBBBBBBAAAAAAAAAAAADBBBBBB",
+        "BBBBBBBDDCCCCCCCCCCDDBBBBB",
+        "BBBBBBDDCCCCCCCCCCCCDBBBBB",
+        "BBBBBBDDDCCCCCCCCCCCAAABBB",
+        "BBBBBDDCDCCVVCVVCCCAAAAABB",
+        "BBBDDDCCDCVVVVVVVCAAABAAAB",
+        "BBDDCCCCDCVVVVVVVCAABBBAAB",
+        "BDDCCCCDDCVVPPPVVCAABBBBAB",
+        "BDCCCCCDCCVVPPPVVVAABBBBAB",
+        "BDCCCCCDCCVVVVVVVCAABBBBAB",
+        "BDCCCCCDCCVVVVVVVCAABBBAAB",
+        "DDCCCCDDCCCCVVVCCCAABBBAAB",
+        "DCCCCDDDCCCCCVCCCCCAABAAAB",
+        "DCCCDDBDDAAAAAAAAACAAAAABB",
+        "DDDDDBBAAAAAAAAAAAAABBBBBB",
+        "BBBBBBAAAAAAAAAAAAAABBBBBB",
+        "BBBBBBBBBAAAAAAAAABBBBBBBB",
+        "BBBBBBBBBBBBAAABBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "P",
+          "count": 6
+        },
+        {
+          "color": "B",
+          "count": 107
+        },
+        {
+          "color": "B",
+          "count": 124
+        },
+        {
+          "color": "B",
+          "count": 97
+        },
+        {
+          "color": "B",
+          "count": 62
+        },
+        {
+          "color": "A",
+          "count": 12,
+          "mystery": true
+        },
+        {
+          "color": "A",
+          "count": 52
+        },
+        {
+          "color": "A",
+          "count": 36
+        },
+        {
+          "color": "A",
+          "count": 30
+        },
+        {
+          "color": "C",
+          "count": 28
+        },
+        {
+          "color": "C",
+          "count": 10
+        },
+        {
+          "color": "C",
+          "count": 28,
+          "group": "A"
+        },
+        {
+          "color": "C",
+          "count": 10
+        },
+        {
+          "color": "C",
+          "count": 32,
+          "group": "B"
+        },
+        {
+          "color": "D",
+          "count": 49
+        },
+        {
+          "color": "V",
+          "count": 12,
+          "mystery": true
+        },
+        {
+          "color": "V",
+          "count": 12,
+          "group": "B"
+        },
+        {
+          "color": "V",
+          "count": 11,
+          "group": "A"
+        },
+        {
+          "color": "V",
+          "count": 10
+        }
+      ],
+      "tray": [
+        [
+          18,
+          2,
+          0,
+          11,
+          5
+        ],
+        [
+          1,
+          4,
+          10,
+          17,
+          12
+        ],
+        [
+          9,
+          13,
+          15,
+          6,
+          3
+        ],
+        [
+          8,
+          16,
+          14,
+          7
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 15,
+      "w": 22,
+      "h": 24,
+      "subject": "cake",
+      "title": "Клубничный торт",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBAAAAAABBBBBBBB",
+        "BBBAAAAAAAAAAAAAAAABBB",
+        "BBBAAAAAAAAAAAAAAAABBB",
+        "BBBACCCAAPAAPAACCCABBB",
+        "BBBACPPPPPPPPPPPPCABBB",
+        "BBBACCCCPPPPPPCCCCABBB",
+        "BBBACCCCPPCCPPCCCCABBB",
+        "BBBACCCPPPCCPPPCCCABBB",
+        "BBBACCCPPPPPPPPCCCABBB",
+        "BBBACCCCPPPPPPCCCCABBB",
+        "BBBAPPPPPPPPPPPPPPABBB",
+        "BBBAPPPPPPPPPPPPPPABBB",
+        "BBBAPPPPPAAAAPPPPPABBB",
+        "BBBBPPPPAAPPAAPPPPBBBB",
+        "BBBBBBPPAPPPPAPPBBBBBB",
+        "BBBBBBBBAPPPPABBBBBBBB",
+        "BBBBBBBBAPGGPABBBBBBBB",
+        "BBBBBBBBAGGGGABBBBBBBB",
+        "BBBBBBBBAAPPAABBBBBBBB",
+        "BBBBBBBBBAAAABBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        11
+      ],
+      "pods": [
+        {
+          "color": "G",
+          "count": 6,
+          "group": "C"
+        },
+        {
+          "color": "P",
+          "count": 9,
+          "group": "A"
+        },
+        {
+          "color": "P",
+          "count": 10
+        },
+        {
+          "color": "P",
+          "count": 49,
+          "group": "B"
+        },
+        {
+          "color": "P",
+          "count": 10
+        },
+        {
+          "color": "P",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 25
+        },
+        {
+          "color": "B",
+          "count": 150
+        },
+        {
+          "color": "B",
+          "count": 28
+        },
+        {
+          "color": "B",
+          "count": 37
+        },
+        {
+          "color": "B",
+          "count": 23,
+          "group": "A"
+        },
+        {
+          "color": "B",
+          "count": 15,
+          "group": "C"
+        },
+        {
+          "color": "A",
+          "count": 11,
+          "group": "B"
+        },
+        {
+          "color": "A",
+          "count": 37
+        },
+        {
+          "color": "A",
+          "count": 8
+        },
+        {
+          "color": "A",
+          "count": 32
+        },
+        {
+          "color": "C",
+          "count": 19
+        },
+        {
+          "color": "C",
+          "count": 9
+        },
+        {
+          "color": "C",
+          "count": 11
+        },
+        {
+          "color": "C",
+          "count": 9
+        }
+      ],
+      "tray": [
+        [
+          1,
+          3,
+          19,
+          15,
+          5
+        ],
+        [
+          10,
+          12,
+          17,
+          13,
+          16
+        ],
+        [
+          0,
+          14,
+          6,
+          4,
+          7
+        ],
+        [
+          11,
+          8,
+          9,
+          18,
+          2
+        ]
+      ],
+      "difficulty": "Hard",
+      "capacity": 5
+    },
+    {
+      "id": 16,
+      "w": 24,
+      "h": 26,
+      "subject": "kite",
+      "title": "Воздушный змей",
+      "rowsBottomFirst": [
+        "........................",
+        "..........A.............",
+        "..........A.............",
+        ".......G..A.G...........",
+        ".......GGGGGG...........",
+        ".......GG...A...........",
+        "........................",
+        "..........DDDD..........",
+        ".........DDPCDD.........",
+        "........DDPPCPDD........",
+        ".......DDPPPCPPDD.......",
+        "......DDPPPPCPPPDD......",
+        ".....DDPPPPPCPPPPDD.....",
+        "....DDPPPPPPCPPPPPDD....",
+        "...DDPPPPPPPCPPPPPPDD...",
+        "...DCCCCCCCCCCCCCCCCD...",
+        "...DPPPPPPPPCVVVVVVVD...",
+        "...DDPPPPPPPCVVVVVPDD...",
+        "....DDPPPPPPCVVVVPDD....",
+        ".....DDPPPPPCVVVPDD.....",
+        "......DDPPPPVVVPDD......",
+        ".......DDPPPVVPDD.......",
+        "........DDDPVDDD........",
+        "..........DDDD..........",
+        "........................",
+        "........................"
+      ],
+      "entries": [
+        12
+      ],
+      "capacity": 5,
+      "difficulty": "Normal",
+      "pods": [
+        {
+          "color": "G",
+          "count": 10
+        },
+        {
+          "color": "P",
+          "count": 11
+        },
+        {
+          "color": "P",
+          "count": 19
+        },
+        {
+          "color": "P",
+          "count": 12
+        },
+        {
+          "color": "P",
+          "count": 14
+        },
+        {
+          "color": "P",
+          "count": 14
+        },
+        {
+          "color": "P",
+          "count": 18
+        },
+        {
+          "color": "A",
+          "count": 4
+        },
+        {
+          "color": "C",
+          "count": 7
+        },
+        {
+          "color": "C",
+          "count": 7
+        },
+        {
+          "color": "C",
+          "count": 5
+        },
+        {
+          "color": "C",
+          "count": 8
+        },
+        {
+          "color": "D",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 11
+        },
+        {
+          "color": "D",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 13
+        },
+        {
+          "color": "D",
+          "count": 7
+        },
+        {
+          "color": "D",
+          "count": 15
+        },
+        {
+          "color": "V",
+          "count": 12
+        },
+        {
+          "color": "V",
+          "count": 13
+        }
+      ],
+      "tray": [
+        [
+          2,
+          19,
+          13,
+          9,
+          7,
+          6,
+          18
+        ],
+        [
+          16,
+          14,
+          4,
+          17,
+          10,
+          1,
+          8
+        ],
+        [
+          3,
+          0,
+          15,
+          5,
+          12,
+          11
+        ]
+      ]
+    },
+    {
+      "id": 17,
+      "w": 26,
+      "h": 28,
+      "subject": "wateringcan",
+      "title": "Садовая лейка",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBDDDDDDDDDDBBBBBBBBB",
+        "BBBBBBDDGGGGGGGGDDBBBBBBBB",
+        "BBBBBBDGGGGGGGGGGDBBBBBBBB",
+        "BBBBBBDGGGGGGGGGGDBBBBBBBB",
+        "BBBBBBDDGGGGGGGGGDBBBBBBBB",
+        "BBBBBBDGGGGGGGGGGDBBBBBBBB",
+        "BBBBBDDGGVVVVVVGGDDDDBBBBB",
+        "BBBBDDDGCCVVVVVGGDDDDDDBBB",
+        "BBBBDGDGCCVCCVVGGDGGGDDDBB",
+        "BBBDDGDGCCVCCVVVGDGGGGDDBB",
+        "BBDDGGDGCCVVCVVVGDBBBGGDDB",
+        "BBDGGGDGCCVVVVVGGDBBBGGDDB",
+        "BBDGGGDGCCGVVVGGGDBBBBGDDB",
+        "BDDGGGDGCCGGGGGGGDBBBBGDDB",
+        "BDGGGGDDDDDDDDDDDDDBBGGDDB",
+        "BDGGGGDAAAAAAAAAAADBBGGDDB",
+        "BDDDDDDAAAAAAAAAAADGGGDDBB",
+        "BDCCDDDDDDAAAAADDDDGGDDDBB",
+        "BDCCCDBBBBBAAABDDDDDDDDBBB",
+        "BDCCCDBBBBBBBBBBBDDDDBBBBB",
+        "BDDDDDBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 14
+        },
+        {
+          "color": "G",
+          "count": 32
+        },
+        {
+          "color": "G",
+          "count": 14
+        },
+        {
+          "color": "G",
+          "count": 22,
+          "group": "A"
+        },
+        {
+          "color": "G",
+          "count": 38
+        },
+        {
+          "color": "B",
+          "count": 12,
+          "mystery": true
+        },
+        {
+          "color": "B",
+          "count": 204
+        },
+        {
+          "color": "B",
+          "count": 96
+        },
+        {
+          "color": "B",
+          "count": 71
+        },
+        {
+          "color": "A",
+          "count": 9
+        },
+        {
+          "color": "A",
+          "count": 21
+        },
+        {
+          "color": "C",
+          "count": 12
+        },
+        {
+          "color": "C",
+          "count": 15,
+          "group": "A"
+        },
+        {
+          "color": "D",
+          "count": 12,
+          "mystery": true
+        },
+        {
+          "color": "D",
+          "count": 37
+        },
+        {
+          "color": "D",
+          "count": 88
+        },
+        {
+          "color": "V",
+          "count": 14
+        },
+        {
+          "color": "V",
+          "count": 17
+        }
+      ],
+      "tray": [
+        [
+          3,
+          10,
+          8,
+          7,
+          6
+        ],
+        [
+          12,
+          1,
+          9,
+          11,
+          2
+        ],
+        [
+          17,
+          5,
+          15,
+          16
+        ],
+        [
+          4,
+          13,
+          0,
+          14
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 18,
+      "w": 26,
+      "h": 28,
+      "subject": "mushroomhouse",
+      "title": "Грибной домик",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBDDDDDDDDDDDDDDBBBBBB",
+        "BBBBBBDCCCCVVVVVCCGGGGGGBB",
+        "BBBBBBDCCCCVVVVVCGGGGGGGGB",
+        "BBBBBBDCCCCVVVVVCCCGGGGGGB",
+        "BBBBBBDCCCCVVVVVCCCDBBBBBB",
+        "BBBBBBDCCCCVVVVVCCCDBBBBBB",
+        "BBBBBBDAAAAVVVVVCCCDBBBBBB",
+        "BBBBBBDABBAVVVVVCCCDBBBBBB",
+        "BBBBBBDABBACCCCCCCCDBBBBBB",
+        "BBBBBBDABBACCCCCCCCDBBBBBB",
+        "BBBBBBDAAAACCCCCCCCDBBBBBB",
+        "BDDDDDDDDDDDDDDDDDDDDDDDDB",
+        "BDPPPPPPPPPPPPPPPPPPPPPPDB",
+        "BDPPPPPPPPPPPPPPPPPPPPPPDB",
+        "BDPPPPPPPPPPPPPPPPPCCPPPDB",
+        "BDDPPPPCCPPPPPPPPPCCCCPDDB",
+        "BBDPPPCCCPPPPPPPPPPCCPPDBB",
+        "BBDPPPCCCCPPPPPCCPPPCPPDBB",
+        "BBDDPPCCCPPPPPCCCCPPPPDDBB",
+        "BBBDDPPCPPPPPPCCCCPPPDDBBB",
+        "BBBBDDPPPPPPPPCCCCPPDDBBBB",
+        "BBBBBDDPPPPPPPPPPPPDDBBBBB",
+        "BBBBBBDDDPPPPPPPPDDDBBBBBB",
+        "BBBBBBBBDDDDDDDDDDBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "difficulty": "Normal",
+      "pods": [
+        {
+          "color": "G",
+          "count": 7
+        },
+        {
+          "color": "G",
+          "count": 5
+        },
+        {
+          "color": "G",
+          "count": 8
+        },
+        {
+          "color": "P",
+          "count": 45,
+          "group": "A"
+        },
+        {
+          "color": "P",
+          "count": 31
+        },
+        {
+          "color": "P",
+          "count": 15
+        },
+        {
+          "color": "P",
+          "count": 30,
+          "group": "A"
+        },
+        {
+          "color": "P",
+          "count": 37
+        },
+        {
+          "color": "B",
+          "count": 53,
+          "group": "B"
+        },
+        {
+          "color": "B",
+          "count": 66
+        },
+        {
+          "color": "B",
+          "count": 73
+        },
+        {
+          "color": "B",
+          "count": 50
+        },
+        {
+          "color": "B",
+          "count": 60
+        },
+        {
+          "color": "A",
+          "count": 5
+        },
+        {
+          "color": "A",
+          "count": 9,
+          "group": "B"
+        },
+        {
+          "color": "C",
+          "count": 29
+        },
+        {
+          "color": "C",
+          "count": 19
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "C",
+          "count": 24
+        },
+        {
+          "color": "D",
+          "count": 17
+        },
+        {
+          "color": "D",
+          "count": 34
+        },
+        {
+          "color": "D",
+          "count": 21
+        },
+        {
+          "color": "D",
+          "count": 29
+        },
+        {
+          "color": "V",
+          "count": 12
+        },
+        {
+          "color": "V",
+          "count": 23
+        }
+      ],
+      "tray": [
+        [
+          4,
+          1,
+          24,
+          8,
+          15,
+          19,
+          23,
+          7,
+          2
+        ],
+        [
+          0,
+          18,
+          22,
+          14,
+          20,
+          3,
+          9,
+          11
+        ],
+        [
+          5,
+          10,
+          13,
+          17,
+          16,
+          6,
+          21,
+          12
+        ]
+      ]
+    },
+    {
+      "id": 19,
+      "w": 28,
+      "h": 30,
+      "subject": "flowerpot",
+      "title": "Цветок в горшке",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBAAAAAAAAAAAABBBBBBBB",
+        "BBBBBBBBAAAAAAAAAAAABBBBBBBB",
+        "BBBBBBBBAAAAAAAAAAAABBBBBBBB",
+        "BBBBBBBVVVVVVVVVVVVVVBBBBBBB",
+        "BBBBBBBVVVVVVVVVVVVVVBBBBBBB",
+        "BBBBDDDDDDDDDDDDDDDDDDDDBBBB",
+        "BBBBDCCCCCCCCCCCCCCCCCCDBBBB",
+        "BBBBDCCCCCCCCCCCCCCCCCCDBBBB",
+        "BBBBDDDDDDDDDDDDDDDDDDDDGBBB",
+        "BBBBBGGGGGGBBGGGGGGGGGGGGBBB",
+        "BBBBGGGGGGGGGGGBBGGGGGGGBBBB",
+        "BBBGGGGGGGGGGGGBBBBGGBBBBBBB",
+        "BBBBGGGGGGGGGGGBBBBBBBBBBBBB",
+        "BBBBBBGGGPPPPPPPPPPBBBBBBBBB",
+        "BBBBBBBBPPPPPPPPPPPPBBBBBBBB",
+        "BBBBBBBBPPPPPPPPPPPPBBBBBBBB",
+        "BBBBBBBBPPPPPPPPPPPPBBBBBBBB",
+        "BBBBBBBBPPPPPPPPPPPPBBBBBBBB",
+        "BBBBBBBBPPPPCCCCPPPPBBBBBBBB",
+        "BBBBBBBPPPPPCCCCPPPPPBBBBBBB",
+        "BBBBBBPPPPPPCCCCPPPPPPBBBBBB",
+        "BBBBBBPPPPPPCCCCPPPPPPBBBBBB",
+        "BBBBBBPPPPPPPCCPPPPPPPBBBBBB",
+        "BBBBBBBPPPPPPPPPPPPPPBBBBBBB",
+        "BBBBBBBPPPPPPPPPPPPPPBBBBBBB",
+        "BBBBBBBBBPPPPPPPPPPBBBBBBBBB",
+        "BBBBBBBBBBBPPPPPPBBBBBBBBBBB",
+        "BBBBBBBBBBBPPPPPPBBBBBBBBBBB",
+        "BBBBBBBBBBBBPPPPBBBBBBBBBBBB"
+      ],
+      "entries": [
+        14
+      ],
+      "capacity": 5,
+      "difficulty": "Normal",
+      "pods": [
+        {
+          "color": "G",
+          "count": 23
+        },
+        {
+          "color": "G",
+          "count": 42,
+          "group": "A"
+        },
+        {
+          "color": "P",
+          "count": 42
+        },
+        {
+          "color": "P",
+          "count": 12
+        },
+        {
+          "color": "P",
+          "count": 35
+        },
+        {
+          "color": "P",
+          "count": 16
+        },
+        {
+          "color": "P",
+          "count": 18
+        },
+        {
+          "color": "P",
+          "count": 45
+        },
+        {
+          "color": "B",
+          "count": 8,
+          "mystery": true
+        },
+        {
+          "color": "B",
+          "count": 59,
+          "group": "A"
+        },
+        {
+          "color": "B",
+          "count": 47
+        },
+        {
+          "color": "B",
+          "count": 83
+        },
+        {
+          "color": "B",
+          "count": 99,
+          "group": "B"
+        },
+        {
+          "color": "B",
+          "count": 32
+        },
+        {
+          "color": "B",
+          "count": 84
+        },
+        {
+          "color": "B",
+          "count": 33
+        },
+        {
+          "color": "A",
+          "count": 8,
+          "group": "B"
+        },
+        {
+          "color": "A",
+          "count": 16
+        },
+        {
+          "color": "A",
+          "count": 12
+        },
+        {
+          "color": "C",
+          "count": 30
+        },
+        {
+          "color": "C",
+          "count": 24
+        },
+        {
+          "color": "D",
+          "count": 8,
+          "mystery": true
+        },
+        {
+          "color": "D",
+          "count": 20
+        },
+        {
+          "color": "D",
+          "count": 16
+        },
+        {
+          "color": "V",
+          "count": 9
+        },
+        {
+          "color": "V",
+          "count": 19
+        }
+      ],
+      "tray": [
+        [
+          0,
+          17,
+          1,
+          7,
+          15,
+          8,
+          10,
+          13,
+          6
+        ],
+        [
+          2,
+          12,
+          9,
+          21,
+          14,
+          23,
+          25,
+          22,
+          4
+        ],
+        [
+          3,
+          16,
+          19,
+          24,
+          18,
+          11,
+          20,
+          5
+        ]
+      ]
+    },
+    {
+      "id": 20,
+      "w": 24,
+      "h": 26,
+      "subject": "pumpkin",
+      "title": "Тыква у ручья",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBGGGGGGGGGBBAAAAAAAAABB",
+        "BBGGGGGGGGGBBAAAAAAAAABB",
+        "BBGGGGGGGGGBBAAAAAAAAABB",
+        "########################",
+        "AAAAAAAAAAA##GGGGGGGGGGG",
+        "AAAAAAAAAAA##GGGGGGGGGGG",
+        "AAAAAAAAAAA##GGGGGGGGGGG",
+        "BBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBDDDDDDDDDDDDDDBBBBB",
+        "BBBDDDDDDACCCCADDDDDDBBB",
+        "BBDDADDAACADDDCAADDADDBB",
+        "BDDAADAACDDAADDCAADAADDB",
+        "BDAADDAACAAAAAADAADDAADB",
+        "BDAADAAACAAAAAAAAAADAADB",
+        "BDAADAADCAAAAAAADAADAADB",
+        "BDAADADDCAAAAAAADDADAADB",
+        "BDDADDADCAAAAAAADADDADDB",
+        "BBDDADAACAAAAAACAADADDBB",
+        "BBBDDDDDACDDDDDDDDDDDBBB",
+        "BBBBDDDDDDDDDDGGGGGDDDDB",
+        "BBBBBBBBBDDDGGGGGGGGGGDB",
+        "BBBBBBBBBDGDDDGGGGGGGDDB",
+        "BBBBBBBBBDDDDDDDDDDDDDBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 126,
+            "anchor": 102,
+            "label": "Левый мостик"
+          }
+        ]
+      },
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 53
+        },
+        {
+          "color": "G",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 27
+        },
+        {
+          "color": "B",
+          "count": 62
+        },
+        {
+          "color": "B",
+          "count": 26
+        },
+        {
+          "color": "B",
+          "count": 77
+        },
+        {
+          "color": "A",
+          "count": 38
+        },
+        {
+          "color": "A",
+          "count": 38
+        },
+        {
+          "color": "A",
+          "count": 16
+        },
+        {
+          "color": "A",
+          "count": 70
+        },
+        {
+          "color": "C",
+          "count": 16
+        },
+        {
+          "color": "D",
+          "count": 47
+        },
+        {
+          "color": "D",
+          "count": 54
+        },
+        {
+          "color": "D",
+          "count": 40
+        }
+      ],
+      "tray": [
+        [
+          5,
+          4,
+          11,
+          12
+        ],
+        [
+          9,
+          13,
+          10,
+          7
+        ],
+        [
+          8,
+          6,
+          0
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 21,
+      "w": 26,
+      "h": 28,
+      "subject": "pear",
+      "title": "Груша",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBGGGGGGGGGGBBAAAAAAAAAABB",
+        "BBGGGGGGGGGGBBAAAAAAAAAABB",
+        "BBGGGGGGGGGGBBAAAAAAAAAABB",
+        "##########################",
+        "AAAAAAAAAAAA##GGGGGGGGGGGG",
+        "AAAAAAAAAAAA##GGGGGGGGGGGG",
+        "AAAAAAAAAAAA##GGGGGGGGGGGG",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBDDDDDDDDDDBBBBBBBB",
+        "BBBBBBDDDGGGGGGGGDDDBBBBBB",
+        "BBBBBDDGGGGGGGGGGGGDDBBBBB",
+        "BBBBDDGGGGGGGGGGGGGGDDBBBB",
+        "BBBBDGGGCCGGGGGGGGGGGDBBBB",
+        "BBBBDGGCCCGGGGGGGGGGGDBBBB",
+        "BBBBDGGCCCGGGGGGGGGGGDBBBB",
+        "BBBBDDGGCCGGGGGGGGGGDDBBBB",
+        "BBBBBDDGGGGGGGGGGGGDDBBBBB",
+        "BBBBBBDDGGGGGGGGGGDDBBBBBB",
+        "BBBBBBBDGGGGGGGGGGDBBBBBBB",
+        "BBBBBBBBGGGGGGGGGGBBBBBBBB",
+        "BBBBBBBBBGGGADDDDDDDDDDBBB",
+        "BBBBBBBBBBGGDDGGGGGGGGDDBB",
+        "BBBBBBBBBBBBDGGGGGGGGGGDBB",
+        "BBBBBBBBBBBBDDDDDGGGGDDDBB",
+        "BBBBBBBBBBBBBBBBDDDDDDBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 136,
+            "anchor": 110,
+            "label": "Левый мостик"
+          },
+          {
+            "cell": 149,
+            "anchor": 123,
+            "label": "Правый мостик"
+          }
+        ]
+      },
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 32
+        },
+        {
+          "color": "G",
+          "count": 32,
+          "group": "A"
+        },
+        {
+          "color": "G",
+          "count": 39
+        },
+        {
+          "color": "G",
+          "count": 30
+        },
+        {
+          "color": "G",
+          "count": 40
+        },
+        {
+          "color": "G",
+          "count": 33
+        },
+        {
+          "color": "G",
+          "count": 15
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 79
+        },
+        {
+          "color": "B",
+          "count": 75
+        },
+        {
+          "color": "B",
+          "count": 72
+        },
+        {
+          "color": "B",
+          "count": 82
+        },
+        {
+          "color": "A",
+          "count": 19
+        },
+        {
+          "color": "A",
+          "count": 25
+        },
+        {
+          "color": "A",
+          "count": 23
+        },
+        {
+          "color": "C",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 41
+        },
+        {
+          "color": "D",
+          "count": 33,
+          "group": "A"
+        }
+      ],
+      "tray": [
+        [
+          1,
+          4,
+          10,
+          6,
+          7
+        ],
+        [
+          17,
+          5,
+          15,
+          14,
+          2
+        ],
+        [
+          8,
+          9,
+          12,
+          11
+        ],
+        [
+          16,
+          13,
+          3,
+          0
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 22,
+      "w": 25,
+      "h": 27,
+      "subject": "cottage",
+      "title": "Домик у ручья",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBGGGGGGGGGBBAAAAAAAAAABB",
+        "BBGGGGGGGGGBBAAAAAAAAAABB",
+        "BBGGGGGGGGGBBAAAAAAAAAABB",
+        "#########################",
+        "AAAAAAAAAAA##GGGGGGGGGGGG",
+        "AAAAAAAAAAA##GGGGGGGGGGGG",
+        "AAAAAAAAAAA##GGGGGGGGGGGG",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBDDDDDDDDDDDDDDDDDBBBB",
+        "BBGGDCCCCCDPPPPDCCCCDBBBB",
+        "GGGGGGCCCCDPPPPDCCCCDBBBB",
+        "BGGGGGCCCCDPPPPDCCCCDBBBB",
+        "BBBBDCDDDDDPPPPDDDDDDBBBB",
+        "BBBBDCDBBBDPPPPDBBBDDBBBB",
+        "BBBBDCDBBBDDDDDDBBBDDBBBB",
+        "BBBBDCDBBBDCCCCDBBBDDBBBB",
+        "BBDDDDDDDDDDDDDDDDDDDDDBB",
+        "BBDAAAAAAAAAAAAAAAAAAADBB",
+        "BBDDDAAAAAAAAAAADDDDDDDBB",
+        "BBBBDDAAAAAAAAAADAADDBBBB",
+        "BBBBBDDDAAAAAAAADAADBBBBB",
+        "BBBBBBBDDDAAAAADDAADBBBBB",
+        "BBBBBBBBBDDAAADDDDDDBBBBB",
+        "BBBBBBBBBBDDDDDBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        12
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 131,
+            "anchor": 106,
+            "label": "Левый мостик"
+          },
+          {
+            "cell": 143,
+            "anchor": 118,
+            "label": "Правый мостик"
+          }
+        ]
+      },
+      "pods": [
+        {
+          "color": "G",
+          "count": 22
+        },
+        {
+          "color": "G",
+          "count": 14,
+          "group": "A"
+        },
+        {
+          "color": "G",
+          "count": 11,
+          "group": "B"
+        },
+        {
+          "color": "G",
+          "count": 20,
+          "group": "C"
+        },
+        {
+          "color": "G",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 6
+        },
+        {
+          "color": "P",
+          "count": 14
+        },
+        {
+          "color": "B",
+          "count": 51
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 146
+        },
+        {
+          "color": "B",
+          "count": 54
+        },
+        {
+          "color": "A",
+          "count": 9,
+          "group": "B"
+        },
+        {
+          "color": "A",
+          "count": 12
+        },
+        {
+          "color": "A",
+          "count": 9,
+          "group": "C"
+        },
+        {
+          "color": "A",
+          "count": 76
+        },
+        {
+          "color": "A",
+          "count": 19
+        },
+        {
+          "color": "C",
+          "count": 16
+        },
+        {
+          "color": "C",
+          "count": 17
+        },
+        {
+          "color": "D",
+          "count": 55
+        },
+        {
+          "color": "D",
+          "count": 19
+        },
+        {
+          "color": "D",
+          "count": 34,
+          "group": "A"
+        },
+        {
+          "color": "D",
+          "count": 15
+        }
+      ],
+      "tray": [
+        [
+          3,
+          0,
+          1,
+          8,
+          5,
+          6
+        ],
+        [
+          13,
+          21,
+          20,
+          12,
+          17,
+          9
+        ],
+        [
+          10,
+          14,
+          2,
+          7,
+          4
+        ],
+        [
+          18,
+          15,
+          11,
+          16,
+          19
+        ]
+      ],
+      "difficulty": "Hard",
+      "capacity": 5
+    },
+    {
+      "id": 23,
+      "w": 26,
+      "h": 28,
+      "subject": "balloon",
+      "title": "Воздушный шар",
+      "rowsBottomFirst": [
+        ".......DDDDDDDDDDDDD......",
+        ".......DAAAAAAAAAAAD......",
+        ".......DAAAAAAAAAAAD......",
+        ".......DACCCCCCCCAAD......",
+        ".......DAAAAAAAAAAAD......",
+        ".......DDDDDDDDDDDDD......",
+        ".......A..........A.......",
+        ".......A..........A.......",
+        ".......A..........A.......",
+        ".......A..........A.......",
+        "........DDDDDDDDDD........",
+        "......DDDPPPVVPPPDDD......",
+        ".....DDPPPPVVVVPPPPDD.....",
+        ".....DPPPPPVVVVPPPPPD.....",
+        "....DDPPPPVVVVVVPPPPDD....",
+        "....DPPPPPVVVVVVPPPPPD....",
+        "...DDPPPPPVVVVVVPPPPPDD...",
+        "...DPPPPPPVVVVVVPPPPPPD...",
+        "...DPPPPPPVVVVVVPPPPPPD...",
+        "...DPPPPPPVVVVVVPPPPPPD...",
+        "...DDPPPPPVVVVVVPPPPPDD...",
+        "....DPPPPPVVVVVVPPPPPD....",
+        "....DDPPPPVVVVVVPPPPDD....",
+        ".....DPPPPPVVVVPPPPPD.....",
+        ".....DDDPPPVVVVPPPDDD.....",
+        ".......DDPPPVVPPPDD.......",
+        "........DDDDDDDDDD........",
+        ".........................."
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "P",
+          "count": 44
+        },
+        {
+          "color": "P",
+          "count": 24
+        },
+        {
+          "color": "P",
+          "count": 41
+        },
+        {
+          "color": "P",
+          "count": 29
+        },
+        {
+          "color": "A",
+          "count": 23
+        },
+        {
+          "color": "A",
+          "count": 21
+        },
+        {
+          "color": "C",
+          "count": 8
+        },
+        {
+          "color": "D",
+          "count": 29
+        },
+        {
+          "color": "D",
+          "count": 25
+        },
+        {
+          "color": "D",
+          "count": 29
+        },
+        {
+          "color": "D",
+          "count": 21
+        },
+        {
+          "color": "V",
+          "count": 14
+        },
+        {
+          "color": "V",
+          "count": 23
+        },
+        {
+          "color": "V",
+          "count": 9
+        },
+        {
+          "color": "V",
+          "count": 10
+        },
+        {
+          "color": "V",
+          "count": 18
+        }
+      ],
+      "tray": [
+        [
+          2,
+          9,
+          10,
+          7
+        ],
+        [
+          5,
+          15,
+          13,
+          0
+        ],
+        [
+          6,
+          1,
+          4,
+          3
+        ],
+        [
+          11,
+          8,
+          12,
+          14
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 24,
+      "w": 28,
+      "h": 30,
+      "subject": "snail",
+      "title": "Улитка у ручья",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "############################",
+        "AAAAAAAAAAAAA##GGGGGGGGGGGGG",
+        "AAAAAAAAAAAAA##GGGGGGGGGGGGG",
+        "AAAAAAAAAAAAA##GGGGGGGGGGGGG",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBDDDDDDDDDDDDDDDDDDDBBBBB",
+        "BBDDDDDGGGGGGGGGGGGGGGDDDBBB",
+        "BDDGGGDDGGGGGGGGGGGGGGGGDBBB",
+        "BDGGGGGDGGGGGGGGGGGGGGDDDBBB",
+        "BDGGGGGDDDDDDDDDDDDDDDDBBBBB",
+        "BDGGGGGGDDAAAAAAAAAADDDBBBBB",
+        "BDGGGGGDDAAACCCCCCCAAADDBBBB",
+        "BDDGGGGDAAACCCVVVCCCAAADBBBB",
+        "BBDGDDGDAACCVVVVVVVCCAADDBBB",
+        "BBDDBBDAAACCVVVVVVVCCAAADBBB",
+        "BBDDBBDDAACCVVVVVVVCCAADDBBB",
+        "BBBBBBDDAACCCVVVVVCCCAADBBBB",
+        "BBBBBBBDAAACCCCCCCCCAADDBBBB",
+        "BBBBBBBDDDAAAACCCAAAADDBBBBB",
+        "BBBBBBBBBDDDAAAAAAADDDBBBBBB",
+        "BBBBBBBBBBBDDDDDDDDDBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        14
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 175,
+            "anchor": 147,
+            "label": "Левый мостик"
+          },
+          {
+            "cell": 189,
+            "anchor": 161,
+            "label": "Правый мостик"
+          }
+        ]
+      },
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 42
+        },
+        {
+          "color": "G",
+          "count": 43
+        },
+        {
+          "color": "G",
+          "count": 21
+        },
+        {
+          "color": "G",
+          "count": 19
+        },
+        {
+          "color": "G",
+          "count": 33
+        },
+        {
+          "color": "B",
+          "count": 42
+        },
+        {
+          "color": "B",
+          "count": 44
+        },
+        {
+          "color": "B",
+          "count": 63,
+          "group": "A"
+        },
+        {
+          "color": "B",
+          "count": 36
+        },
+        {
+          "color": "B",
+          "count": 60
+        },
+        {
+          "color": "B",
+          "count": 29
+        },
+        {
+          "color": "B",
+          "count": 48
+        },
+        {
+          "color": "A",
+          "count": 37
+        },
+        {
+          "color": "A",
+          "count": 37
+        },
+        {
+          "color": "A",
+          "count": 39
+        },
+        {
+          "color": "A",
+          "count": 30,
+          "group": "B"
+        },
+        {
+          "color": "C",
+          "count": 18,
+          "group": "B"
+        },
+        {
+          "color": "C",
+          "count": 25
+        },
+        {
+          "color": "D",
+          "count": 41,
+          "group": "A"
+        },
+        {
+          "color": "D",
+          "count": 43
+        },
+        {
+          "color": "D",
+          "count": 27
+        },
+        {
+          "color": "V",
+          "count": 29
+        }
+      ],
+      "tray": [
+        [
+          7,
+          15,
+          11,
+          19,
+          13,
+          4
+        ],
+        [
+          18,
+          16,
+          1,
+          10,
+          21,
+          12
+        ],
+        [
+          14,
+          0,
+          17,
+          20,
+          3
+        ],
+        [
+          5,
+          9,
+          2,
+          6,
+          8
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 25,
+      "w": 26,
+      "h": 28,
+      "subject": "cat",
+      "title": "Котёнок",
+      "rowsBottomFirst": [
+        "BBBBBDDDDDDDDDDDDDDDBBBBBB",
+        "BBBBBDCCCCCCDCCCCCCDDDBBBB",
+        "BBBBBDCCCCCCDCCCCCCDADDDBB",
+        "BBBBBDDDDDDDDDDDDDDDAAADBB",
+        "BBBBBBBDAACCCCCAAADAAAADDB",
+        "BBBBBBBDAACCCCCCAADBBBAADB",
+        "BBBBBBBDAACCCCCAAADBBBBDDB",
+        "BBBBBBBDAACCCCCAAADBBBADBB",
+        "BBBBBBBDGGGGGGGGGGDAADDDBB",
+        "BBBBBBBBGGGGGGGGGGDDDDBBBB",
+        "BBBBBBDDDAAAAAAAADDDBBBBBB",
+        "BBBDDDDDAACCDDCAAADDDDDBBB",
+        "BBBBBDDAACCCDDCCAAADDBBBBB",
+        "BBBBBDAAACCCCCCCCAAADBBBBB",
+        "BBDDDDDDACCCPPCCAADDDDDDBB",
+        "BBBBDAAAAACCCCCADAAAADBBBB",
+        "BBBBDAAAADDAAAADDAAAADBBBB",
+        "BBBBDDAAADDAAAADDAAADDBBBB",
+        "BBBBBDAAADAAAAAADAAADBBBBB",
+        "BBBBBDPAAAAAAAAAAAAPDDBBBB",
+        "BBBBBDPPAAAAAAAAAAPPADBBBB",
+        "BBBBDDPPDAAAAAAAADPPADBBBB",
+        "BBBBDAPADDDAAAADDDAPADBBBB",
+        "BBBBDAAADDDDDDDDBDDAADBBBB",
+        "BBBBDAADDBBBBBBBBBDDADBBBB",
+        "BBBBDADDBBBBBBBBBBBDDDBBBB",
+        "BBBBDDDBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 15,
+          "group": "B"
+        },
+        {
+          "color": "G",
+          "count": 5
+        },
+        {
+          "color": "P",
+          "count": 14,
+          "group": "B"
+        },
+        {
+          "color": "B",
+          "count": 72
+        },
+        {
+          "color": "B",
+          "count": 54
+        },
+        {
+          "color": "B",
+          "count": 56
+        },
+        {
+          "color": "B",
+          "count": 40,
+          "group": "C"
+        },
+        {
+          "color": "B",
+          "count": 53
+        },
+        {
+          "color": "B",
+          "count": 12
+        },
+        {
+          "color": "B",
+          "count": 15,
+          "group": "A"
+        },
+        {
+          "color": "A",
+          "count": 22
+        },
+        {
+          "color": "A",
+          "count": 13
+        },
+        {
+          "color": "A",
+          "count": 51
+        },
+        {
+          "color": "A",
+          "count": 29,
+          "group": "A"
+        },
+        {
+          "color": "A",
+          "count": 37
+        },
+        {
+          "color": "C",
+          "count": 31,
+          "group": "C"
+        },
+        {
+          "color": "C",
+          "count": 11
+        },
+        {
+          "color": "C",
+          "count": 29
+        },
+        {
+          "color": "D",
+          "count": 17
+        },
+        {
+          "color": "D",
+          "count": 56
+        },
+        {
+          "color": "D",
+          "count": 79
+        },
+        {
+          "color": "D",
+          "count": 17
+        }
+      ],
+      "tray": [
+        [
+          16,
+          17,
+          9,
+          12,
+          10,
+          14
+        ],
+        [
+          0,
+          6,
+          13,
+          3,
+          18,
+          11
+        ],
+        [
+          2,
+          15,
+          8,
+          5,
+          21
+        ],
+        [
+          1,
+          7,
+          20,
+          19,
+          4
+        ]
+      ],
+      "difficulty": "Hard"
+    },
+    {
+      "id": 26,
+      "w": 28,
+      "h": 30,
+      "subject": "sunflower",
+      "title": "Подсолнух",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBGGGGGBBBBBB",
+        "BBBBBBBBBBBBBGGGGGGGGGGGBBBB",
+        "BBBBBBBBBBBBBGGGGGGGGGGGGGBB",
+        "BBBBGGGGGGBBBGGGGGGGGGGGGGBB",
+        "BBBGGGGGGGGGBGGBBGGGGGGGGBBB",
+        "BBGGGGGGGGGGGGGBBBBGGVVBVBBB",
+        "BBGGGGGGGGGGGGGBBBBBVVVVVVBB",
+        "BBBBGGGGGGGGGGGBBBBBVVVVVVBB",
+        "BBBBBBBGGGGBBGGBBBBBVVPPVVVB",
+        "BBBBBBBBBBBBBAABBBBBVVPPVVVB",
+        "BBBBBBBBBAABAAAABAABVVVVVVVB",
+        "BBBBBBBBAAAAAAAAAAAABBVVVBBB",
+        "BBBBBBBBAAAAAAAAAAAABBVVBBBB",
+        "BBBBBBBBAAAAAAAAAAAABBBBBBBB",
+        "BBBBBBAAAAAADDDDAAAAAABBBBBB",
+        "BBBBBAAAAAADDDDDDAAAAAABBBBB",
+        "BBBBBAAAAADDDDDDDDAAAAABBBBB",
+        "BBBBBBAAAADDDDDDDDAAAABBBBBB",
+        "BBBBBBBAAADDDDDDDDAAABBBBBBB",
+        "BBBBBBAAAADCCCDDDDAAAABBBBBB",
+        "BBBBBAAAAADCCCDDDDAAAAABBBBB",
+        "BBBBBAAAAAADDDDDDAAAAAABBBBB",
+        "BBBBBBAAAAAADDDDAAAAAABBBBBB",
+        "BBBBBBBBAAAAAAAAAAAABBBBBBBB",
+        "BBBBBBBBAAAAAAAAAAAABBBBBBBB",
+        "BBBBBBBBAAAAAAAAAAAABBBBBBBB",
+        "BBBBBBBBBAABAAAABAABBBBBBBBB",
+        "BBBBBBBBBBBBBAABBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        14
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 11
+        },
+        {
+          "color": "G",
+          "count": 26
+        },
+        {
+          "color": "G",
+          "count": 40
+        },
+        {
+          "color": "G",
+          "count": 35
+        },
+        {
+          "color": "P",
+          "count": 4
+        },
+        {
+          "color": "B",
+          "count": 61
+        },
+        {
+          "color": "B",
+          "count": 58
+        },
+        {
+          "color": "B",
+          "count": 99
+        },
+        {
+          "color": "B",
+          "count": 45
+        },
+        {
+          "color": "B",
+          "count": 68
+        },
+        {
+          "color": "B",
+          "count": 114
+        },
+        {
+          "color": "A",
+          "count": 10,
+          "mystery": true
+        },
+        {
+          "color": "A",
+          "count": 26
+        },
+        {
+          "color": "A",
+          "count": 47
+        },
+        {
+          "color": "A",
+          "count": 42
+        },
+        {
+          "color": "A",
+          "count": 57
+        },
+        {
+          "color": "C",
+          "count": 6
+        },
+        {
+          "color": "D",
+          "count": 10,
+          "mystery": true
+        },
+        {
+          "color": "D",
+          "count": 44
+        },
+        {
+          "color": "V",
+          "count": 15
+        },
+        {
+          "color": "V",
+          "count": 11
+        },
+        {
+          "color": "V",
+          "count": 11
+        }
+      ],
+      "tray": [
+        [
+          5,
+          14,
+          2,
+          11,
+          10,
+          18
+        ],
+        [
+          9,
+          1,
+          15,
+          6,
+          17,
+          7
+        ],
+        [
+          4,
+          3,
+          13,
+          20,
+          21
+        ],
+        [
+          8,
+          19,
+          12,
+          16,
+          0
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 27,
+      "w": 28,
+      "h": 30,
+      "subject": "whale",
+      "title": "Кит с садом",
+      "rowsBottomFirst": [
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCDDDCCCCCCCCC",
+        "CCCCCCCCDDDDDDDDDBDCCCCCCCCC",
+        "CCCCCCDDDBBBBBDBBBDDCCCCCCCC",
+        "CCCCDDDBBCCCCDDBBBDDDCCCCCCC",
+        "CCCDDBCCCCCCCDBBBBDDDDCCCCCC",
+        "CCCDBBCCCCCCCDBBBBBDBDDCCCCC",
+        "CCDDBBCCCCCCCDDDBBBDBBDCCCCC",
+        "CCDBBBBCCCCCCCCDDDDDBBDDCCCC",
+        "CCDBBBBBBBBBBBBBBBBBBBDDDDCC",
+        "CCDBBBBBBBBBBBBBBBBBBBDBBDDC",
+        "CCDBBBBBBBBBBBBBBBBBBBDBBBDC",
+        "CCDBBBBBDBBBBBBBBBBBBBDBBBDC",
+        "CCDBBBBBDBBBBBBBBBBBBBDBBBDC",
+        "CCDDBBBBBBBBBBBBBBBBBDDBBBDD",
+        "CCCDDBBBBBBBBBBBBBBBDDBBBBBD",
+        "CCCCDDBBBBBBBBBBBBBDDDBBBBBD",
+        "CCCCCDDDBBBBBGGBBDDDCDBBBBBD",
+        "CCCCCCCDDDDDDGGDGGGCCDDBBDBD",
+        "CCCCCCCCCCCCCGGGGGGGGCDBBDDD",
+        "CCCCCCCCCCCVVVVGGGGGGGDBBDCC",
+        "CCCCCCCCCCVVVVVVGGGGGCDDBDCC",
+        "CCCCCCCCCCVVVVVVCCCCCCCDBDCC",
+        "CCCCCCCCCCVVPPVVCCCCCCCDDDCC",
+        "CCCCCCCCCVVVPPVVCCCCCCCCCCCC",
+        "CCCCCCCCCCVVVVVVCCCCCCCCCCCC",
+        "CCCCCCCCCCCVVVCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+      ],
+      "entries": [
+        9,
+        18
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 7
+        },
+        {
+          "color": "G",
+          "count": 11
+        },
+        {
+          "color": "G",
+          "count": 9
+        },
+        {
+          "color": "P",
+          "count": 4
+        },
+        {
+          "color": "B",
+          "count": 66
+        },
+        {
+          "color": "B",
+          "count": 25,
+          "group": "B"
+        },
+        {
+          "color": "B",
+          "count": 30
+        },
+        {
+          "color": "B",
+          "count": 102
+        },
+        {
+          "color": "C",
+          "count": 51
+        },
+        {
+          "color": "C",
+          "count": 80
+        },
+        {
+          "color": "C",
+          "count": 58,
+          "group": "A"
+        },
+        {
+          "color": "C",
+          "count": 55
+        },
+        {
+          "color": "C",
+          "count": 26,
+          "group": "B"
+        },
+        {
+          "color": "C",
+          "count": 67
+        },
+        {
+          "color": "C",
+          "count": 32
+        },
+        {
+          "color": "C",
+          "count": 59
+        },
+        {
+          "color": "D",
+          "count": 18
+        },
+        {
+          "color": "D",
+          "count": 60
+        },
+        {
+          "color": "D",
+          "count": 46,
+          "group": "A"
+        },
+        {
+          "color": "V",
+          "count": 13
+        },
+        {
+          "color": "V",
+          "count": 12
+        },
+        {
+          "color": "V",
+          "count": 9
+        }
+      ],
+      "tray": [
+        [
+          8,
+          10,
+          5,
+          15,
+          16,
+          9
+        ],
+        [
+          20,
+          18,
+          12,
+          0,
+          2,
+          4
+        ],
+        [
+          3,
+          13,
+          14,
+          11,
+          21
+        ],
+        [
+          19,
+          6,
+          7,
+          1,
+          17
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 28,
+      "w": 26,
+      "h": 28,
+      "subject": "apple",
+      "title": "Яблоко",
+      "rowsBottomFirst": [
+        "..........................",
+        "..........................",
+        "......DDDPPD..PPPDDD......",
+        "....DDDPPPPPPPPPPPPDD.....",
+        "...DDPPPPPPPPPPPPPPPDD....",
+        "...DPPPPPPPPPPPPPPPPPDD...",
+        "..DDPPPPPPPPPPPPPPPPPPDD..",
+        "..DPPPPPPPPPPPPPPPPPPPPD..",
+        "..DPPPPPPPPPPPPPPPPPPPPD..",
+        ".DDPPPPPPPPPPPPPPPPPPPPD..",
+        ".DPPPPPPPPPPPPPPPPPPPPPD..",
+        ".DPPPPCCPPPPPPPPPPPPPPPD..",
+        ".DPPPPCCPPPPPPPPPPPPPPPD..",
+        ".DPPPPCCPDPPPPPPPPPPPPPD..",
+        ".DDPPPCCPDDPPPPPPPPPPPPD..",
+        "..DPPPCCPPDPPPPPPPPPPPPD..",
+        "..DPPPCCPPDPPPPPPPPPPPPD..",
+        "..DDPPCCPPDDPPPPPPPPPPDD..",
+        "...DPPPPPPPDPPPPPPPPPDD...",
+        "...DDPPPPPPDAAPPPDDDPD....",
+        "....DDDPPPPDADDDDDGDDD....",
+        "......DDDDDDDDGGGGGGGDDDD.",
+        "............DGGGGGGGGGGGD.",
+        "............DGGGGGGGGGGGD.",
+        "............DDDDGGGGGGGDD.",
+        "...............DDDDDDDDD..",
+        "..........................",
+        ".........................."
+      ],
+      "entries": [
+        13
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 22
+        },
+        {
+          "color": "G",
+          "count": 15
+        },
+        {
+          "color": "P",
+          "count": 59
+        },
+        {
+          "color": "P",
+          "count": 15
+        },
+        {
+          "color": "P",
+          "count": 42
+        },
+        {
+          "color": "P",
+          "count": 46
+        },
+        {
+          "color": "P",
+          "count": 41
+        },
+        {
+          "color": "P",
+          "count": 61
+        },
+        {
+          "color": "P",
+          "count": 34
+        },
+        {
+          "color": "A",
+          "count": 3
+        },
+        {
+          "color": "C",
+          "count": 5
+        },
+        {
+          "color": "C",
+          "count": 9
+        },
+        {
+          "color": "D",
+          "count": 26
+        },
+        {
+          "color": "D",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 25
+        },
+        {
+          "color": "D",
+          "count": 16
+        },
+        {
+          "color": "D",
+          "count": 19
+        },
+        {
+          "color": "D",
+          "count": 14
+        }
+      ],
+      "tray": [
+        [
+          6,
+          0,
+          8,
+          9,
+          5
+        ],
+        [
+          14,
+          2,
+          15,
+          7,
+          4
+        ],
+        [
+          3,
+          13,
+          16,
+          1
+        ],
+        [
+          11,
+          17,
+          10,
+          12
+        ]
+      ],
+      "difficulty": "Normal"
+    },
+    {
+      "id": 29,
+      "w": 28,
+      "h": 30,
+      "subject": "lantern",
+      "title": "Садовый фонарь",
+      "rowsBottomFirst": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "BBGGGGGGGGGGGBBAAAAAAAAAAABB",
+        "############################",
+        "AAAAAAAAAAAAA##GGGGGGGGGGGGG",
+        "AAAAAAAAAAAAA##GGGGGGGGGGGGG",
+        "AAAAAAAAAAAAA##GGGGGGGGGGGGG",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "BBBBBDDDDDDDDDDDDDDDDDDBBBBB",
+        "BBBBBDAAAAAAAAAAAAAAAADBBBBB",
+        "BBBBBDDDDDDDDDDDDDDDDDDBBBBB",
+        "BBBBBDADDDDDDAADDDDDDADBBBBB",
+        "BBBBBDADCCCCCAACCCCCDADBBBBB",
+        "BBBBBDADCCCCCAACCCCCDADBBBBB",
+        "BBBBBDADCCCCCAACCCCCDADBBBBB",
+        "BBBBBDAAAAAAAAAAAAAAAADBBBBB",
+        "BBBBBDADCVVVVAACCCCCDADBBBBB",
+        "BBBBBDADCVVVVAACCCCCDADBBBBB",
+        "BBBBBDADCVVVVAACCCCCDADBBBBB",
+        "BBBDDDDDDDDDDDDDDDDDDDDDDBBB",
+        "BBBDAAAAAAAAAAAAAAAAAAAADBBB",
+        "BBBDDDAAAAAADDDDAAAAAADDDBBB",
+        "BBBBBDDAAAADDBBDDAAADDDBBBBB",
+        "BBBBBBDDDDDDBBBBDDDGGGGGBBBB",
+        "BBBBBBBBBBBDDBBDDBGGGGGGGGGB",
+        "BBBBBBBBBBBBBDDBBBBBBGGGGBBB",
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "entries": [
+        14
+      ],
+      "hero": {
+        "id": "sprig-bridge",
+        "choices": [
+          {
+            "cell": 175,
+            "anchor": 147,
+            "label": "Левый мостик"
+          },
+          {
+            "cell": 189,
+            "anchor": 161,
+            "label": "Правый мостик"
+          }
+        ]
+      },
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 61,
+          "group": "C"
+        },
+        {
+          "color": "G",
+          "count": 12
+        },
+        {
+          "color": "G",
+          "count": 28
+        },
+        {
+          "color": "B",
+          "count": 34
+        },
+        {
+          "color": "B",
+          "count": 37
+        },
+        {
+          "color": "B",
+          "count": 52
+        },
+        {
+          "color": "B",
+          "count": 60
+        },
+        {
+          "color": "B",
+          "count": 29,
+          "group": "A"
+        },
+        {
+          "color": "B",
+          "count": 35,
+          "group": "C"
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 64
+        },
+        {
+          "color": "A",
+          "count": 48
+        },
+        {
+          "color": "A",
+          "count": 58
+        },
+        {
+          "color": "A",
+          "count": 16
+        },
+        {
+          "color": "A",
+          "count": 35
+        },
+        {
+          "color": "A",
+          "count": 25,
+          "group": "A"
+        },
+        {
+          "color": "C",
+          "count": 12
+        },
+        {
+          "color": "C",
+          "count": 6,
+          "group": "B"
+        },
+        {
+          "color": "C",
+          "count": 30
+        },
+        {
+          "color": "D",
+          "count": 28
+        },
+        {
+          "color": "D",
+          "count": 33
+        },
+        {
+          "color": "D",
+          "count": 47
+        },
+        {
+          "color": "D",
+          "count": 28,
+          "group": "B"
+        },
+        {
+          "color": "V",
+          "count": 12
+        }
+      ],
+      "tray": [
+        [
+          18,
+          7,
+          20,
+          10,
+          16,
+          3
+        ],
+        [
+          5,
+          15,
+          9,
+          23,
+          4,
+          12
+        ],
+        [
+          6,
+          0,
+          17,
+          1,
+          21,
+          11
+        ],
+        [
+          13,
+          8,
+          22,
+          14,
+          2,
+          19
+        ]
+      ],
+      "difficulty": "Hard"
+    },
+    {
+      "id": 30,
+      "w": 28,
+      "h": 30,
+      "subject": "bunny",
+      "title": "Зайчик",
+      "rowsBottomFirst": [
+        "....DDDCCCDDDDDDDDCCCCDD....",
+        "....DCCCCCCCDCCCDCCCCCCD....",
+        "....DDCCCCCCDCCCDCCCCCCD....",
+        ".....DDDDDDDDCCCDDDDDDDD....",
+        ".......DCCCCCCCCCCCCD.......",
+        ".......DCCCCCCCCCCGCD.......",
+        ".......DCGGGGCCCGGGCD.......",
+        ".......DCGGGGGCGGGGCD.......",
+        ".......DDGGCCCCCCGGCD.......",
+        ".......DDDCCCCCCCCDDDD......",
+        "......DDCDDDCCDCDDDCCD......",
+        "......DCPPPDDDDDDCPPPDD.....",
+        "......DCCPCCCAACCCCPCCD.....",
+        "......DCCCCCCCCCCCCCCCD.....",
+        "......DCCCDDCCCCCDCCCCD.....",
+        "......DCCCDDCCCCCDCCCCD.....",
+        "......DCCCCDCCCCCDCCCCD.....",
+        "......DCCCCCCCCCCCCCCDD.....",
+        "......DDCCCCCCCCCCCCCDD.....",
+        "......DDDCCCCCCCCCCCDDD.....",
+        "......DCDDCCCCCCCCCDDCD.....",
+        "......DCPDDDCCCCCDDDCCD.....",
+        "......DCPPPDDDDDDDPPCCD.....",
+        "......DCPPPCD..DCCPPCCD.....",
+        "......DCCPCCD..DCCPPCCD.....",
+        "......DCCPCCD..DDCPPCDD.....",
+        "......DDCCCDD...DCCCCD......",
+        ".......DCCCD....DDCCDD......",
+        ".......DDDDD.....DDDD.......",
+        "............................"
+      ],
+      "entries": [
+        14
+      ],
+      "capacity": 5,
+      "pods": [
+        {
+          "color": "G",
+          "count": 5
+        },
+        {
+          "color": "G",
+          "count": 10
+        },
+        {
+          "color": "G",
+          "count": 6
+        },
+        {
+          "color": "P",
+          "count": 6
+        },
+        {
+          "color": "P",
+          "count": 8
+        },
+        {
+          "color": "P",
+          "count": 11,
+          "group": "A"
+        },
+        {
+          "color": "A",
+          "count": 2
+        },
+        {
+          "color": "C",
+          "count": 16,
+          "mystery": true
+        },
+        {
+          "color": "C",
+          "count": 26
+        },
+        {
+          "color": "C",
+          "count": 15
+        },
+        {
+          "color": "C",
+          "count": 45
+        },
+        {
+          "color": "C",
+          "count": 31
+        },
+        {
+          "color": "C",
+          "count": 43
+        },
+        {
+          "color": "C",
+          "count": 28
+        },
+        {
+          "color": "C",
+          "count": 46
+        },
+        {
+          "color": "D",
+          "count": 16,
+          "mystery": true
+        },
+        {
+          "color": "D",
+          "count": 24
+        },
+        {
+          "color": "D",
+          "count": 12
+        },
+        {
+          "color": "D",
+          "count": 36,
+          "group": "A"
+        },
+        {
+          "color": "D",
+          "count": 31
+        },
+        {
+          "color": "D",
+          "count": 29
+        },
+        {
+          "color": "D",
+          "count": 16
+        }
+      ],
+      "tray": [
+        [
+          2,
+          6,
+          9,
+          3,
+          17,
+          21
+        ],
+        [
+          5,
+          1,
+          4,
+          12,
+          13,
+          19
+        ],
+        [
+          18,
+          8,
+          0,
+          16,
+          11
+        ],
+        [
+          10,
+          15,
+          14,
+          7,
+          20
+        ]
+      ],
+      "difficulty": "Normal"
+    }
+  ]
+}

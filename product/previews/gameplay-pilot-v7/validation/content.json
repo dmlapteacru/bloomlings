@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "repaintedLevels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "retainedLevels": 21,
+  "sizesEntrancesDifficultyAndCapacityUnchanged": true,
+  "podAndPairCountsUnchanged": true,
+  "materialIntroductionAndHiddenCountsUnchanged": true,
+  "materialSetChanges": [
+    {
+      "level": 6,
+      "before": [
+        "A",
+        "B",
+        "D",
+        "G",
+        "P"
+      ],
+      "after": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "G",
+        "P"
+      ]
+    },
+    {
+      "level": 7,
+      "before": [
+        "A",
+        "B",
+        "D",
+        "G",
+        "P"
+      ],
+      "after": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "G",
+        "P"
+      ]
+    },
+    {
+      "level": 8,
+      "before": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "P"
+      ],
+      "after": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "G",
+        "P"
+      ]
+    }
+  ]
+}
