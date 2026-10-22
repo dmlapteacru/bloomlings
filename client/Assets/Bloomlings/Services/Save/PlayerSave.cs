@@ -28,6 +28,12 @@ namespace Bloomlings.Client.Services.Save
 
         public string? DeviceId { get; set; }
 
+        /// <summary>Stable backend owner. Never inferred from a name or the current phone account.</summary>
+        public string? CloudOwnerId { get; internal set; }
+
+        /// <summary>Fingerprint of the last acknowledged cloud snapshot; persisted for offline reconciliation.</summary>
+        public string? CloudBaseHash { get; internal set; }
+
         /// <summary>ISO 8601 UTC time of the last write, for example <c>2026-09-29T12:00:00Z</c>.</summary>
         public string UpdatedAt { get; internal set; } = string.Empty;
 
@@ -79,6 +85,8 @@ namespace Bloomlings.Client.Services.Save
             LocalPlayerId = source.LocalPlayerId;
             LinkedIdentity = source.LinkedIdentity;
             DeviceId = source.DeviceId;
+            CloudOwnerId = source.CloudOwnerId;
+            CloudBaseHash = source.CloudBaseHash;
             UpdatedAt = source.UpdatedAt;
             Progression.HighestCompletedLevel = source.Progression.HighestCompletedLevel;
             Progression.ContentVersionSeen = source.Progression.ContentVersionSeen;

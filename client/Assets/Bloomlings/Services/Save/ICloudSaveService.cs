@@ -6,7 +6,23 @@ namespace Bloomlings.Client.Services.Save
     /// <summary>The answer of a cloud load: <see cref="Ok"/> with the stored document, or null when nothing is stored yet.</summary>
     public sealed record CloudLoadResult(bool Ok, string? Json)
     {
+        public string? WriteLock { get; init; }
         public static CloudLoadResult Failed { get; } = new CloudLoadResult(false, null);
+    }
+
+    public enum CloudStoreResult { Stored, Conflict, AccountChanged, Failed, NeedsInitialization }
+
+    /// <summary>
+    /// Required by account sync. Every request is scoped to the expected authenticated owner AND session.
+    /// Stores must atomically compare the load's write lock, including create-if-absent for a null lock.
+    /// A provider unable to guarantee creation returns NeedsInitialization, never an unconditional write.
+    /// </summary>
+    public interface IAccountCloudSaveService : ICloudSaveService
+    {
+        string? PlayerId { get; }
+        long SessionVersion { get; }
+        IEnumerator LoadFor(string owner, long session, Action<CloudLoadResult> done);
+        IEnumerator StoreFor(string owner, long session, string json, string? writeLock, Action<CloudStoreResult> done);
     }
 
     /// <summary>

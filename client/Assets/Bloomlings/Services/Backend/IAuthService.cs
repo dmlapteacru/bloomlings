@@ -3,6 +3,13 @@ using System.Collections;
 
 namespace Bloomlings.Client.Services.Backend
 {
+    public enum AccountLinkResult { None, Linked, ExistingAccount, Cancelled, Failed, Busy }
+
+    public interface IAccountLinkStatus
+    {
+        AccountLinkResult LastLinkResult { get; }
+    }
+
     /// <summary>A platform identity that can be linked to the anonymous player.</summary>
     public enum LinkProvider
     {

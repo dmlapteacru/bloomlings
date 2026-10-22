@@ -33,18 +33,22 @@ namespace Bloomlings.Client.Services.Backend
         private readonly IRemoteConfigService _config;
         private readonly IClock _clock;
         private readonly Action _persist;
+        private readonly IAuthService? _auth;
         private string _commandLogHash = string.Empty;
         private int _contentVersion = 1;
         private bool _submitting;
 
-        public LeaderboardClient(PlayerSave save, ILeaderboardService service, IRemoteConfigService config, IClock clock, Action persist)
+        public LeaderboardClient(PlayerSave save, ILeaderboardService service, IRemoteConfigService config, IClock clock, Action persist, IAuthService? auth = null)
         {
             _save = save;
             _service = service;
             _config = config;
             _clock = clock;
             _persist = persist;
+            _auth = auth;
         }
+
+        private bool OwnerMatches => _auth == null || (_auth.IsSignedIn && _save.CloudOwnerId != null && _save.CloudOwnerId == _auth.PlayerId);
 
         public event Action? Updated;
 
@@ -85,12 +89,13 @@ namespace Bloomlings.Client.Services.Backend
         /// <summary>Coroutine: submits the highest completed level if it was not submitted yet.</summary>
         public IEnumerator SubmitPending()
         {
-            if (!IsUnlocked || !HasPendingSubmission || !_service.IsAvailable || _submitting)
+            if (!OwnerMatches || !IsUnlocked || !HasPendingSubmission || !_service.IsAvailable || _submitting)
             {
                 yield break;
             }
 
             _submitting = true;
+            string? requestOwner = _save.CloudOwnerId;
             int level = _save.Progression.HighestCompletedLevel;
             SubmitResult? result = null;
             LeaderboardAppearance appearance = LeaderboardAppearance.FromSave(_save);
@@ -98,7 +103,7 @@ namespace Bloomlings.Client.Services.Backend
                 yield return styled.SubmitAppearance(level,_contentVersion,_commandLogHash,appearance,r=>result=r);
             else yield return _service.Submit(level, _contentVersion, _commandLogHash, r => result = r);
             _submitting = false;
-            if (result != null && result.Accepted)
+            if (OwnerMatches && requestOwner == _save.CloudOwnerId && result != null && result.Accepted)
             {
                 _save.Stats.Counters[SubmittedCounter] = Math.Max(SubmittedLevel, level);
                 if (_service is ILeaderboardAppearanceService) _save.Stats.Counters[AppearanceCounter] = appearance.Fingerprint;
@@ -111,18 +116,23 @@ namespace Bloomlings.Client.Services.Backend
         /// <summary>Coroutine: submits what is pending, then reads the player's rank and neighbours.</summary>
         public IEnumerator Refresh()
         {
-            if (!IsUnlocked)
+            if (!OwnerMatches)
             {
+                LastPage = null;
+                IsStale = true;
+                Updated?.Invoke();
                 yield break;
             }
-
+            if (!IsUnlocked) yield break;
+            string? requestOwner = _save.CloudOwnerId;
             yield return SubmitPending();
             LeaderboardPage? page = null;
-            if (_service.IsAvailable)
+            if (OwnerMatches && _service.IsAvailable)
             {
                 yield return _service.Fetch(Neighbours, p => page = p);
             }
 
+            if (!OwnerMatches || requestOwner != _save.CloudOwnerId) { LastPage = null; page = null; }
             if (page != null)
             {
                 LastPage = page;

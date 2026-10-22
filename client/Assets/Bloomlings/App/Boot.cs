@@ -59,8 +59,10 @@ namespace Bloomlings.Client.App
             var remote = new UgsRemoteConfigService();
             services.Register<IRemoteConfigService>(remote);
 
-            SaveService saves = new SaveService(System.IO.Path.Combine(Application.persistentDataPath, SaveService.FolderName), clock);
-            PlayerSave save = saves.Load();
+            var profiles = new AccountProfiles(System.IO.Path.Combine(Application.persistentDataPath, SaveService.FolderName), clock);
+            services.Register(profiles);
+            SaveService saves = profiles.Current;
+            PlayerSave save = saves.Current;
             bool firstLaunch = saves.IsFirstLaunch;
             services.Register(saves);
             services.Register(save);
@@ -181,14 +183,16 @@ namespace Bloomlings.Client.App
             ILeaderboardService board = ServiceProviders.Leaderboard?.Invoke() ?? new OfflineLeaderboardService();
             var sync = new CloudSaveSync(save, saves.Save, cloud);
             saves.Saved += sync.MarkDirty;
+            profiles.Changing += sync.InvalidateSession;
             sync.Merged += () =>
             {
                 // A merge can move progression forward: replay the unlocks it brought and refresh the economy view.
                 progression.Initialize();
                 Debug.Log($"[CloudSave] Merged: Level {progression.CurrentLevel}, {economy.Petals} Petals.");
             };
-            var leaderboard = new LeaderboardClient(save, board, remote, clock, saves.Save);
+            var leaderboard = new LeaderboardClient(save, board, remote, clock, saves.Save, auth);
             services.Register(auth);
+            services.Register<ICloudSaveService>(cloud);
             services.Register(sync);
             services.Register(leaderboard);
             services.Register(this);

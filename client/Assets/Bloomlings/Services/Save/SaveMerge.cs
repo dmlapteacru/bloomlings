@@ -25,6 +25,10 @@ namespace Bloomlings.Client.Services.Save
     {
         public static PlayerSave Merge(PlayerSave local, PlayerSave remote)
         {
+            // Historical offline migration only. Account-bound saves use revisioned snapshot sync;
+            // unioning inventory with a different wallet can refund a spent balance.
+            if (local.CloudOwnerId != null || remote.CloudOwnerId != null)
+                throw new InvalidOperationException("Account saves must use CloudSaveSync, not legacy union merge.");
             bool localIsBase = CompareProgress(local, remote) >= 0;
             PlayerSave merged = Clone(localIsBase ? local : remote);
             PlayerSave other = localIsBase ? remote : local;

@@ -23,6 +23,9 @@ namespace Bloomlings.Integrations.Ugs
     internal static class UgsBootstrap
     {
         private static Task? _signIn;
+        private static bool _authEvents;
+        internal static long AuthSessionVersion { get; private set; }
+        internal static void InvalidateAuthSession() => AuthSessionVersion++;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
@@ -53,6 +56,7 @@ namespace Bloomlings.Integrations.Ugs
 
             if (_signIn == null || _signIn.IsCompleted)
             {
+                InvalidateAuthSession();
                 _signIn = SignInAsync();
             }
 
@@ -77,6 +81,12 @@ namespace Bloomlings.Integrations.Ugs
                 await UnityServices.InitializeAsync();
             }
 
+            if (!_authEvents)
+            {
+                AuthenticationService.Instance.SignedIn += InvalidateAuthSession;
+                AuthenticationService.Instance.SignedOut += InvalidateAuthSession;
+                _authEvents = true;
+            }
             if (!AuthenticationService.Instance.IsSignedIn)
             {
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();

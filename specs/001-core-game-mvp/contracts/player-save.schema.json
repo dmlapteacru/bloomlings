@@ -5,12 +5,15 @@
   "description": "Local save document, mirrored to Cloud Save (spec FR-087, FR-088; research R15). Written atomically; never mid-level.",
   "type": "object",
   "additionalProperties": false,
+  "dependentRequired": { "cloudBaseHash": ["cloudOwnerId"] },
   "required": ["schemaVersion", "localPlayerId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings"],
   "properties": {
     "schemaVersion": { "const": 1 },
     "localPlayerId": { "type": "string" },
     "linkedIdentity": { "enum": ["apple", "google_play_games", null] },
     "deviceId": { "type": "string" },
+    "cloudOwnerId": { "type": "string", "minLength": 1, "description": "Stable UGS owner, assigned once; unrelated to display name." },
+    "cloudBaseHash": { "type": "string", "pattern": "^[a-f0-9]{64}$", "description": "Local sync ancestor fingerprint; requires cloudOwnerId." },
     "updatedAt": { "type": "string", "format": "date-time" },
     "progression": {
       "type": "object",

@@ -381,23 +381,12 @@ namespace Bloomlings.Client.App.Home
                 }),
                 features,
                 Navigate);
-            var account = new AccountActions(
-                () => save.LinkedIdentity != null
-                    ? (save.LinkedIdentity == "apple" ? Loc.T("account.linked_apple") : Loc.T("account.linked_google"))
-                    : (auth.IsSignedIn ? Loc.T("account.signed_in") : Loc.T("account.local")),
-                auth.CanLink(LinkProvider.Apple),
-                auth.CanLink(LinkProvider.GooglePlayGames),
-                (provider, done) => RunInBackground(auth.Link(provider, ok =>
-                {
-                    if (ok)
-                    {
-                        save.LinkedIdentity = LinkedIdentities.Name(provider);
-                        saves.Save();
-                        RunInBackground(sync.Sync(_ => Refresh()));
-                    }
-
-                    done(ok);
-                })));
+            var accountPanel = new AccountPanel(new CloudAccountPanelGateway(save, saves, auth,
+                services.Get<ICloudSaveService>(), sync, services.Get<Bloomlings.Client.Services.Clock.IClock>(),
+                RunInBackground, () => { progression.Initialize(); Refresh(); }));
+            var accountScreen = Bloomlings.Client.UI.Screens.AccountScreen.Create((RectTransform)root, accountPanel);
+            var account = new AccountActions(() => Loc.T(accountPanel.StatusKey), false, false,
+                (_, done) => done(false), accountScreen.Show);
             settings = SettingsScreen.Create(
                 root,
                 save.Settings,

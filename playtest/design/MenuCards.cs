@@ -76,7 +76,9 @@ namespace Bloomlings.Playtest.Design
             DevRow(p, app, new Box(r.Body.Left, top, r.Body.Right, top + p.U(DesignTokens.Size.TouchMin)));
             float petalTop=top+p.U(DesignTokens.Size.TouchMin+12);
             PetalRow(p,app,new Box(r.Body.Left,petalTop,r.Body.Right,petalTop+p.U(DesignTokens.Size.TouchMin)));
-            Box policy=ScreenLayout.CardButton(r.Body,petalTop+p.U(DesignTokens.Size.TouchMin+24),false,p.Scale);
+            Box account=ScreenLayout.CardButton(r.Body,petalTop+p.U(DesignTokens.Size.TouchMin+24),false,p.Scale);
+            Kit.SecondaryButton(p,account,PlaytestText.T("account.panel.title"),()=>app.OpenOverlay(Overlay.Account),style:PopupDesign.Label);
+            Box policy=ScreenLayout.CardButton(r.Body,account.Bottom+p.U(18),false,p.Scale);
             Kit.SecondaryButton(p,policy,PlaytestText.T("settings.privacy_policy"),()=>app.OpenOverlay(Overlay.PrivacyPolicy),style:PopupDesign.Label);
             Kit.EndCard(p);
         }
