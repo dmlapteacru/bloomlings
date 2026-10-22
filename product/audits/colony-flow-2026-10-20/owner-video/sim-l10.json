@@ -1,0 +1,235 @@
+{
+ "L10": {
+  "size": "29x30",
+  "pods": 29,
+  "fixes": [],
+  "errs": [],
+  "runs": {
+   "random": {
+    "wins": 359,
+    "n": 2000,
+    "rate": 0.179,
+    "firstLoss": "S40 g8 Y30 c22 W20 O30 S40 S40 S40 W49"
+   },
+   "visible": {
+    "wins": 220,
+    "n": 2000,
+    "rate": 0.11,
+    "firstLoss": "S40 S40 S37 T43 S40 S40 S40 Y30 P20 g8 R6"
+   },
+   "leftmost": {
+    "wins": 0,
+    "n": 1,
+    "rate": 0,
+    "firstLoss": "S40 g8 Y30 c22 W20 O30 W49"
+   },
+   "rightmost": {
+    "wins": 1,
+    "n": 1,
+    "rate": 1,
+    "firstLoss": null
+   },
+   "leftVisible": {
+    "wins": 1,
+    "n": 1,
+    "rate": 1,
+    "firstLoss": null
+   },
+   "biggestVisible": {
+    "wins": 0,
+    "n": 1,
+    "rate": 0,
+    "firstLoss": "S40 S40 S40 S40 S40 S37 T43 Y30 P20 g8 O58"
+   },
+   "mostWorkNow": {
+    "wins": 1,
+    "n": 1,
+    "rate": 1,
+    "firstLoss": null
+   }
+  },
+  "exactRandom": {
+   "p": 0.17876360202737557,
+   "states": 232927
+  },
+  "decisions": {
+   "solvable": true,
+   "steps": [
+    {
+     "tap": "S40",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "S40",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "S40",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "S40",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "S40",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "S37",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "T43",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "g8",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "Y30",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "c22",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "W20",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "R6",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "#10",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "O30",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "W49",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "T25",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "G25",
+     "legal": 3,
+     "keepWin": 3,
+     "losing": []
+    },
+    {
+     "tap": "P24",
+     "legal": 2,
+     "keepWin": 2,
+     "losing": []
+    },
+    {
+     "tap": "G28",
+     "legal": 2,
+     "keepWin": 2,
+     "losing": []
+    },
+    {
+     "tap": "P25",
+     "legal": 2,
+     "keepWin": 2,
+     "losing": []
+    },
+    {
+     "tap": "#57",
+     "legal": 2,
+     "keepWin": 2,
+     "losing": []
+    },
+    {
+     "tap": "R15",
+     "legal": 2,
+     "keepWin": 2,
+     "losing": []
+    },
+    {
+     "tap": "Y30",
+     "legal": 1,
+     "keepWin": 1,
+     "losing": []
+    },
+    {
+     "tap": "P20",
+     "legal": 1,
+     "keepWin": 1,
+     "losing": []
+    },
+    {
+     "tap": "O58",
+     "legal": 1,
+     "keepWin": 1,
+     "losing": []
+    },
+    {
+     "tap": "W35",
+     "legal": 1,
+     "keepWin": 1,
+     "losing": []
+    },
+    {
+     "tap": "c22",
+     "legal": 1,
+     "keepWin": 1,
+     "losing": []
+    },
+    {
+     "tap": "#45",
+     "legal": 1,
+     "keepWin": 1,
+     "losing": []
+    },
+    {
+     "tap": "S6",
+     "legal": 1,
+     "keepWin": 1,
+     "losing": []
+    }
+   ]
+  }
+ }
+}

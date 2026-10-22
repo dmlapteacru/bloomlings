@@ -1,0 +1,551 @@
+{
+ "L1": {
+  "w": 13,
+  "h": 13,
+  "tiles": 99,
+  "legend": {
+   "Y": {
+    "name": "жёлтый",
+    "hex": "#ffe255",
+    "cells": 45,
+    "depth": {
+     "1": 45
+    }
+   },
+   "O": {
+    "name": "оранжевый",
+    "hex": "#fe982c",
+    "cells": 42,
+    "depth": {
+     "0": 42
+    }
+   },
+   "W": {
+    "name": "белый",
+    "hex": "#eef4f6",
+    "cells": 12,
+    "depth": {
+     "2": 12
+    }
+   }
+  },
+  "rows": [
+   "......O......",
+   ".....OYO.....",
+   ".....OYO.....",
+   "....OYYYO....",
+   "OOOOOYYYOOOOO",
+   "OYYYYYWYYYYYO",
+   ".OYYWWWWWYYO.",
+   "..OYYWWWYYO..",
+   "...OYWWWYO...",
+   "..OYYYYYYYO..",
+   "..OYYYOYYYO..",
+   ".OYYOO.OOYYO.",
+   ".OOO.....OOO."
+  ]
+ },
+ "L2": {
+  "w": 19,
+  "h": 19,
+  "tiles": 248,
+  "legend": {
+   "C": {
+    "name": "голубой",
+    "hex": "#59ddf8",
+    "cells": 112,
+    "depth": {
+     "0": 112
+    }
+   },
+   "P": {
+    "name": "розовый",
+    "hex": "#ff78da",
+    "cells": 111,
+    "depth": {
+     "0": 111
+    }
+   },
+   "Y": {
+    "name": "жёлтый",
+    "hex": "#fee255",
+    "cells": 25,
+    "depth": {
+     "1": 25
+    }
+   }
+  },
+  "rows": [
+   "...PPPP.....PPPP...",
+   "..PPPPPP...PPPPPP..",
+   ".PPPPPPPP.PPPPPPPP.",
+   "PPPCCPPPPPPPPPCCPPP",
+   "PPCCCCPPPPPPPCCCCPP",
+   "PCCCCCCPPPPPCCCCCCP",
+   "CCCCCCCCCPCCCCCCCCC",
+   "CCCCCCCYCCCYCCCCCCC",
+   "CCCCCCYYYCYYYCCCCCC",
+   ".CCCCYYYYYYYYYCCCC.",
+   ".CCCCCYYYCYYYCCCCC.",
+   "..CCCCCYCCCYCCCCC..",
+   "...PPPCCCCCCCPPP...",
+   "....PPPPPCPPPPP....",
+   ".....PPPPPPPPP.....",
+   "......PPPPPPP......",
+   ".......PPPPP.......",
+   "........PPP........",
+   ".........P........."
+  ]
+ },
+ "L3": {
+  "w": 18,
+  "h": 18,
+  "tiles": 267,
+  "legend": {
+   "R": {
+    "name": "малиновый",
+    "hex": "#e03555",
+    "cells": 136,
+    "depth": {
+     "1": 136
+    }
+   },
+   "#": {
+    "name": "тёмный контур",
+    "hex": "#5e4b67",
+    "cells": 54,
+    "depth": {
+     "0": 54
+    }
+   },
+   "L": {
+    "name": "лайм",
+    "hex": "#b7f05d",
+    "cells": 28,
+    "depth": {
+     "1": 22,
+     "2": 6
+    }
+   },
+   "G": {
+    "name": "зелёный",
+    "hex": "#58d068",
+    "cells": 23,
+    "depth": {
+     "1": 21,
+     "2": 2
+    }
+   },
+   "s": {
+    "name": "лососевый (блик)",
+    "hex": "#f85e68",
+    "cells": 21,
+    "depth": {
+     "2": 21
+    }
+   },
+   "W": {
+    "name": "белый",
+    "hex": "#eef4f6",
+    "cells": 5,
+    "depth": {
+     "2": 5
+    }
+   }
+  },
+  "rows": [
+   ".......####....##.",
+   ".....##GLLL##.#LL#",
+   "...##RRRGLLLG#LLL#",
+   "..#RRsssRGGGGLLL#.",
+   ".#RRsssRRRGLGLL#..",
+   ".#RsssWWRRGLLGGG#.",
+   "#RssssWWRRGLLLGL#.",
+   "#RssWRRRRRGGGGGLL#",
+   "#RssRRRRRRRRRRGLL#",
+   "#RsRRRRRRRRRRRRGL#",
+   "#RsRRRRRRRRRRRRRG#",
+   "#RsRRRRRRRRRRRRR#.",
+   "#RsRRRRRRRRRRRRR#.",
+   "#RRRRRRRRRRRRRR#..",
+   ".#RRRRRRRRRRRRR#..",
+   ".#RRRRRRRRRRRR#...",
+   "..##RRRRRRRR##....",
+   "....########......"
+  ]
+ },
+ "L4": {
+  "w": 27,
+  "h": 26,
+  "tiles": 637,
+  "legend": {
+   "R": {
+    "name": "красный",
+    "hex": "#e63559",
+    "cells": 165,
+    "depth": {
+     "1": 165
+    }
+   },
+   "C": {
+    "name": "голубой",
+    "hex": "#59ddf8",
+    "cells": 126,
+    "depth": {
+     "0": 126
+    }
+   },
+   "#": {
+    "name": "тёмный контур",
+    "hex": "#5e4a67",
+    "cells": 125,
+    "depth": {
+     "0": 25,
+     "1": 69,
+     "2": 17,
+     "3": 14
+    }
+   },
+   "Y": {
+    "name": "жёлтый",
+    "hex": "#fee255",
+    "cells": 87,
+    "depth": {
+     "1": 7,
+     "2": 80
+    }
+   },
+   "G": {
+    "name": "зелёный",
+    "hex": "#58d068",
+    "cells": 46,
+    "depth": {
+     "0": 46
+    }
+   },
+   "p": {
+    "name": "персиковый",
+    "hex": "#ffddba",
+    "cells": 44,
+    "depth": {
+     "2": 44
+    }
+   },
+   "W": {
+    "name": "белый",
+    "hex": "#eef4f6",
+    "cells": 29,
+    "depth": {
+     "2": 29
+    }
+   },
+   "b": {
+    "name": "коричневый",
+    "hex": "#b7614c",
+    "cells": 15,
+    "depth": {
+     "3": 15
+    }
+   }
+  },
+  "rows": [
+   ".................#####.....",
+   "...........#####.#YYY#.....",
+   ".........##RRRRR##YYY#.....",
+   ".......##RRRppRRRR##Y#.....",
+   "CCCCCC#RRRRppppRRRRR##CCCCC",
+   "CCCC##RRRRRpp#pRRRRRR##CCCC",
+   "CCC#ppRRRRRRppRRRRRRRRR#CCC",
+   "CC#ppppRRRRRRRRRRRppRRRR#CC",
+   "CC#pp#pRRRRRRRRRRppppRRR#CC",
+   "C#RRppRRRppRRRRRRpp#pRRRR#C",
+   "C#RRRRRRppppRRRRRRppRRRRR#C",
+   "C#RRRRRRpp#pRRRRRRRRRRRRR#C",
+   "C#RRRRRRRppRRRRRRRRRRRRRR#C",
+   "C#RRRRRR###########RRRRRR#C",
+   "CC#RRR##YYYYYYYYYYY##RRR#CC",
+   "CCC###YYYYYYYYYYYYYYY###CCC",
+   "CCCCC#YYYYY#####YYYYY#CCCCC",
+   "CCCCC#YYYY#WWWWW#YYYY#CCCCC",
+   "CCCCC#YYY#WWWWWWW#YYY#CCCCC",
+   "CCCCC#YYY#WWbbbWW#YYY#CCCCC",
+   "CCCCC#YYY#Wbb#bbW#YYY#CCCCC",
+   "CCCCC#YYY#Wbb#bbW#YYY#CCCCC",
+   "CCCCG#YYY#Wbb#bbW#YYY#GCGCC",
+   "CCGGG#YYY#WWWWWWW#YYY#GGGCC",
+   "CGGGGG###############GGGGGC",
+   "GGGGGGGGGGGGGGGGGGGGGGGGGGG"
+  ]
+ },
+ "L5": {
+  "w": 24,
+  "h": 24,
+  "tiles": 484,
+  "legend": {
+   "O": {
+    "name": "оранжевый",
+    "hex": "#ea812b",
+    "cells": 117,
+    "depth": {
+     "3": 40,
+     "4": 33,
+     "5": 35,
+     "6": 3,
+     "7": 6
+    }
+   },
+   "V": {
+    "name": "фиолетовый",
+    "hex": "#5b4dc3",
+    "cells": 92,
+    "depth": {
+     "0": 92
+    }
+   },
+   "C": {
+    "name": "голубой",
+    "hex": "#5be4f4",
+    "cells": 88,
+    "depth": {
+     "1": 88
+    }
+   },
+   "c": {
+    "name": "кремовый",
+    "hex": "#f5e28e",
+    "cells": 59,
+    "depth": {
+     "3": 17,
+     "4": 40,
+     "5": 2
+    }
+   },
+   "#": {
+    "name": "тёмный",
+    "hex": "#52405b",
+    "cells": 52,
+    "depth": {
+     "2": 52
+    }
+   },
+   "P": {
+    "name": "розовый",
+    "hex": "#e150c2",
+    "cells": 19,
+    "depth": {
+     "4": 2,
+     "5": 2,
+     "6": 15
+    }
+   },
+   "l": {
+    "name": "светло-розовый",
+    "hex": "#e9b2d6",
+    "cells": 20,
+    "depth": {
+     "3": 4,
+     "5": 4,
+     "6": 12
+    }
+   },
+   "Y": {
+    "name": "жёлтый",
+    "hex": "#f8b926",
+    "cells": 16,
+    "depth": {
+     "4": 10,
+     "5": 5,
+     "6": 1
+    }
+   },
+   "G": {
+    "name": "зелёный",
+    "hex": "#58df60",
+    "cells": 16,
+    "depth": {
+     "5": 8,
+     "6": 8
+    }
+   },
+   "M": {
+    "name": "пурпурный",
+    "hex": "",
+    "cells": 5,
+    "depth": {
+     "5": 1,
+     "6": 1,
+     "7": 3
+    }
+   }
+  },
+  "rows": [
+   ".......VVVVVVVVVV.......",
+   ".....VVVCCCCCCCCVVV.....",
+   "....VVCCCC####CCCCVV....",
+   "...VVCC###OOOO###CCVV...",
+   "..VVCC#OOccccccOO#CCVV..",
+   ".VVCC#lccOYcOOOYcl#CCVV.",
+   ".VCC#OccOOOcOOOYccO#CCV.",
+   "VVC#OccOYOOOOOOOOccO#CVV",
+   "VCC#OYYllGGPPGGllYcO#CCV",
+   "VC#OcOOOGPPOMPPGOOOcO#CV",
+   "VC#OcOOOGPOllOPGOOYcO#CV",
+   "VC#OcOOOPOlMlllPOcccO#CV",
+   "VC#OcccOlMlllMOPOOOcO#CV",
+   "VC#OcYOOGPOllOPGOOOcO#CV",
+   "VC#OcOOOGPPMOPPGOOOcO#CV",
+   "VCC#OcOYOGGPPGGOcYYO#CCV",
+   "VVC#OccOcOOOcOOYOccO#CVV",
+   ".VCC#OccYOOOcOOOccO#CCV.",
+   ".VVCC#lcYOOOcYOccl#CCVV.",
+   "..VVCC#OOccccccOO#CCVV..",
+   "...VVCC###OOOO###CCVV...",
+   "....VVCCCC####CCCCVV....",
+   ".....VVVCCCCCCCCVVV.....",
+   ".......VVVVVVVVVV......."
+  ]
+ },
+ "L10": {
+  "w": 29,
+  "h": 30,
+  "tiles": 870,
+  "legend": {
+   "S": {
+    "name": "голубой (небо)",
+    "hex": "#59ddf8",
+    "cells": 243,
+    "depth": {
+     "0": 237,
+     "2": 6
+    }
+   },
+   "#": {
+    "name": "тёмный контур",
+    "hex": "#5d4b67",
+    "cells": 112,
+    "depth": {
+     "0": 1,
+     "1": 102,
+     "3": 9
+    }
+   },
+   "W": {
+    "name": "белый",
+    "hex": "#eef4f6",
+    "cells": 104,
+    "depth": {
+     "1": 80,
+     "2": 24
+    }
+   },
+   "O": {
+    "name": "оранжевый",
+    "hex": "#fe972c",
+    "cells": 88,
+    "depth": {
+     "2": 82,
+     "3": 4,
+     "4": 2
+    }
+   },
+   "P": {
+    "name": "розовый",
+    "hex": "#f857ae",
+    "cells": 69,
+    "depth": {
+     "1": 67,
+     "3": 2
+    }
+   },
+   "T": {
+    "name": "бирюзовый",
+    "hex": "#00aeb8",
+    "cells": 68,
+    "depth": {
+     "0": 14,
+     "1": 20,
+     "2": 16,
+     "3": 18
+    }
+   },
+   "Y": {
+    "name": "жёлтый",
+    "hex": "#febe23",
+    "cells": 60,
+    "depth": {
+     "1": 19,
+     "2": 34,
+     "3": 7
+    }
+   },
+   "G": {
+    "name": "зелёный",
+    "hex": "#58d067",
+    "cells": 53,
+    "depth": {
+     "0": 46,
+     "1": 6,
+     "2": 1
+    }
+   },
+   "c": {
+    "name": "кремовый",
+    "hex": "#fee998",
+    "cells": 44,
+    "depth": {
+     "0": 36,
+     "2": 8
+    }
+   },
+   "R": {
+    "name": "красный",
+    "hex": "#e53559",
+    "cells": 21,
+    "depth": {
+     "1": 18,
+     "3": 3
+    }
+   },
+   "g": {
+    "name": "тёмно-зелёный",
+    "hex": "#238b5d",
+    "cells": 8,
+    "depth": {
+     "1": 8
+    }
+   }
+  },
+  "rows": [
+   "SSSSSSSSSSSSSS#SSSSSSSSSSSSSS",
+   "SSSSSSSSSSSSS#Y#SSSSSSSSSSSSS",
+   "SSSSSSSSSSSSS#Y#SSSSSSSSSSSSS",
+   "SSSSSS#SSSSS#YYY#SSSSS#SSSSSS",
+   "SSSSS#Y#SSS##YYY##SSS#Y#SSSSS",
+   "SSSSS#O#SSS#YYYYY#SSS#O#SSSSS",
+   "SSSS#OOO#SS#OOOOO#SS#OOO#SSSS",
+   "SSSS#OOO#SS#OOOOO#SS#OOO##SSS",
+   "SSS#OOOOO#S#YYYYY#S#OOOOO#SSS",
+   "SSS#YOYOG#S##OOO##S#YOYOY#SSS",
+   "SS#YOYOYOY#S#ORO#S#YOYOYOY#SS",
+   "SS#WWTTTWW#S#ORO#S#WWTTTWW#SS",
+   "SS#WWTTTWW#S#OYO#S#WWTTTWW#SS",
+   "SS#WWTTTWW###ORO###WWTTTWW#SS",
+   "SS#OOOOOYO#Y#OYO#Y#OYOOOOO#SS",
+   "SSS#WWWYYYYYYYYYYYYYYYWWW#SSS",
+   "SSS#WWWOOO#########OOOWWW#SSS",
+   "SSS#WWWWOOOOOOOOOOOOOWWWW#SSS",
+   "SSG#WWTWWPPPPPPPPPPPWWTWW#GSS",
+   "SGgGWTTTWPPPPPPPPPPPWTTTWGgGS",
+   "SGGGWTTTWPPcPPPPPcPPWTTTWGGGS",
+   "GgGGGTTTWPcPcPcPcPcPWTTTGGGgG",
+   "GGGgGYYYWPPcPcccPcPPWYYYGgGGG",
+   "SGGGGWWWWPPPcccccPPPWWWWGGGGS",
+   "GGgGGWTTWRRRc###cRRRWTTWGGgGG",
+   "SGPGWWTTWPPPc###cPPPWTTWWGPGS",
+   "SSP#WWTTWRRRc###cRRRWTTWW#PSS",
+   "SSP#WWTTWPPPcccccPPPWTTWW#PSS",
+   "SGPGWWWWWRRRcccccRRRWWWWWGPGS",
+   "SSTTTTTTTcccccccccccTTTTTTTSS"
+  ]
+ }
+}
