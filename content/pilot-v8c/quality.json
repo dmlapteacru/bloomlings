@@ -1,0 +1,2078 @@
+{
+  "version": "pilot-30-v8c",
+  "catalogHash": "62b5374fd504b3b07f2e3e7b66c4df52b060607f51c1eedb6213c3342bcc0508",
+  "sourceHash": "d82ccc56145147f9a419ea3c45958bbbe1429d814918b2e7759424d619cbd196",
+  "complete": true,
+  "changedLevels": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "controls": [
+    10,
+    22,
+    29
+  ],
+  "roles": {
+    "relief": {
+      "label": "Normal",
+      "random": [
+        0.6,
+        0.9
+      ],
+      "visible": [
+        0.85,
+        1
+      ],
+      "patterns": 6,
+      "sensible": 4
+    },
+    "normal": {
+      "label": "Normal",
+      "random": [
+        0.35,
+        0.65
+      ],
+      "visible": [
+        0.7,
+        0.95
+      ],
+      "patterns": 4,
+      "sensible": 3
+    },
+    "task": {
+      "label": "Normal",
+      "random": [
+        0.2,
+        0.4
+      ],
+      "visible": [
+        0.45,
+        0.75
+      ],
+      "patterns": 2,
+      "sensible": 2
+    },
+    "hard": {
+      "label": "Hard",
+      "random": [
+        0.15,
+        0.25
+      ],
+      "visible": [
+        0.2,
+        0.5
+      ],
+      "patterns": 1,
+      "sensible": 1
+    },
+    "superHard": {
+      "label": "Super Hard",
+      "random": [
+        0.06,
+        0.13
+      ],
+      "visible": [
+        0,
+        0.25
+      ],
+      "patterns": 0,
+      "sensible": 0
+    }
+  },
+  "roleOf": {
+    "5": "normal",
+    "6": "relief",
+    "7": "normal",
+    "8": "task",
+    "9": "normal",
+    "10": "superHard",
+    "11": "relief",
+    "12": "normal",
+    "13": "normal",
+    "14": "task",
+    "15": "hard",
+    "16": "relief",
+    "17": "normal",
+    "18": "task",
+    "19": "normal",
+    "20": "task",
+    "21": "normal",
+    "22": "superHard",
+    "23": "relief",
+    "24": "task",
+    "25": "hard",
+    "26": "normal",
+    "27": "task",
+    "28": "relief",
+    "29": "superHard",
+    "30": "normal"
+  },
+  "limits": [
+    "Bot rates are construction diagnostics, not human win rates.",
+    "Patient player: every command settles before the next; live concurrent input can change same-colour allocation.",
+    "Controls L10, L22, L29 are kept from v8 at the owner's request and are harder than the Super Hard window.",
+    "Bridge levels: bots build a bridge as soon as one is offered."
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "role": "tutorial",
+      "source": "v8",
+      "changed": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 113350,
+        "preparations": 0,
+        "partialTurns": 2,
+        "peak": 2,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      },
+      "bots": null
+    },
+    {
+      "id": 2,
+      "role": "tutorial",
+      "source": "v8",
+      "changed": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 126600,
+        "preparations": 0,
+        "partialTurns": 0,
+        "peak": 1,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      },
+      "bots": null
+    },
+    {
+      "id": 3,
+      "role": "tutorial",
+      "source": "v8",
+      "changed": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 158800,
+        "preparations": 0,
+        "partialTurns": 0,
+        "peak": 1,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 16,
+        "trials": 16,
+        "rate": 1
+      },
+      "bots": null
+    },
+    {
+      "id": 4,
+      "role": "tutorial",
+      "source": "v8",
+      "changed": false,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 288175,
+        "preparations": 0,
+        "partialTurns": 7,
+        "peak": 3,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 31,
+          "trials": 32,
+          "rate": 0.96875
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 14,
+        "trials": 16,
+        "rate": 0.875
+      },
+      "bots": null
+    },
+    {
+      "id": 5,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 2,
+      "reference": {
+        "modelMs": 239400,
+        "preparations": 5,
+        "partialTurns": 0,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 16,
+          "trials": 32,
+          "rate": 0.5
+        },
+        "visible": {
+          "wins": 27,
+          "trials": 32,
+          "rate": 0.84375
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 9,
+        "trials": 16,
+        "rate": 0.5625
+      },
+      "bots": {
+        "random": 0.5333333333333333,
+        "visible": 0.9533333333333334,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка справа до конца",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "role": "relief",
+      "source": "v8C scene",
+      "changed": true,
+      "attempt": 14,
+      "reference": {
+        "modelMs": 246275,
+        "preparations": 4,
+        "partialTurns": 4,
+        "peak": 5,
+        "reveals": [
+          {
+            "pod": 11,
+            "at": 1,
+            "mode": "depth",
+            "freeBefore": 5,
+            "clearedFraction": 0
+          },
+          {
+            "pod": 2,
+            "at": 6,
+            "mode": "depth",
+            "freeBefore": 3,
+            "clearedFraction": 0.21794871794871795
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 20,
+          "trials": 32,
+          "rate": 0.625
+        },
+        "visible": {
+          "wins": 31,
+          "trials": 32,
+          "rate": 0.96875
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 9,
+        "trials": 16,
+        "rate": 0.5625
+      },
+      "bots": {
+        "random": 0.6333333333333333,
+        "visible": 0.9666666666666667,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 10,
+      "reference": {
+        "modelMs": 312325,
+        "preparations": 4,
+        "partialTurns": 0,
+        "peak": 5,
+        "reveals": [
+          {
+            "pod": 0,
+            "at": 6,
+            "mode": "depth",
+            "freeBefore": 2,
+            "clearedFraction": 0.13942307692307693
+          },
+          {
+            "pod": 9,
+            "at": 7,
+            "mode": "depth",
+            "freeBefore": 2,
+            "clearedFraction": 0.1794871794871795
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 15,
+          "trials": 32,
+          "rate": 0.46875
+        },
+        "visible": {
+          "wins": 28,
+          "trials": 32,
+          "rate": 0.875
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 9,
+        "trials": 16,
+        "rate": 0.5625
+      },
+      "bots": {
+        "random": 0.5433333333333333,
+        "visible": 0.9066666666666666,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд справа налево",
+          "змейка",
+          "самое маленькое число"
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "role": "task",
+      "source": "v8C scene",
+      "changed": true,
+      "attempt": 35,
+      "reference": {
+        "modelMs": 137750,
+        "preparations": 2,
+        "partialTurns": 1,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 8,
+          "trials": 32,
+          "rate": 0.25
+        },
+        "visible": {
+          "wins": 24,
+          "trials": 32,
+          "rate": 0.75
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 4,
+        "trials": 16,
+        "rate": 0.25
+      },
+      "bots": {
+        "random": 0.20666666666666667,
+        "visible": 0.7533333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": []
+      }
+    },
+    {
+      "id": 9,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 41,
+      "reference": {
+        "modelMs": 267350,
+        "preparations": 2,
+        "partialTurns": 2,
+        "peak": 4,
+        "reveals": [
+          {
+            "pod": 16,
+            "at": 7,
+            "mode": "depth",
+            "freeBefore": 4,
+            "clearedFraction": 0.34455128205128205
+          },
+          {
+            "pod": 9,
+            "at": 10,
+            "mode": "depth",
+            "freeBefore": 5,
+            "clearedFraction": 0.5865384615384616
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 22,
+          "trials": 32,
+          "rate": 0.6875
+        },
+        "visible": {
+          "wins": 29,
+          "trials": 32,
+          "rate": 0.90625
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 11,
+        "trials": 16,
+        "rate": 0.6875
+      },
+      "bots": {
+        "random": 0.51,
+        "visible": 0.8933333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "ряд слева направо",
+          "середина, потом края",
+          "по две из колонки"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "role": "superHard",
+      "source": "v8 control",
+      "changed": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 271250,
+        "preparations": 4,
+        "partialTurns": 6,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 1,
+          "trials": 32,
+          "rate": 0.03125
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      },
+      "bots": {
+        "random": 0.023333333333333334,
+        "visible": 0,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "role": "relief",
+      "source": "v8C scene",
+      "changed": true,
+      "attempt": 11,
+      "reference": {
+        "modelMs": 273050,
+        "preparations": 0,
+        "partialTurns": 4,
+        "peak": 3,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 20,
+          "trials": 32,
+          "rate": 0.625
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 11,
+        "trials": 16,
+        "rate": 0.6875
+      },
+      "bots": {
+        "random": 0.66,
+        "visible": 1,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "ряд слева направо",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число"
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 133,
+      "reference": {
+        "modelMs": 228875,
+        "preparations": 4,
+        "partialTurns": 0,
+        "peak": 5,
+        "reveals": [
+          {
+            "pod": 11,
+            "at": 5,
+            "mode": "depth",
+            "freeBefore": 1,
+            "clearedFraction": 0
+          },
+          {
+            "pod": 2,
+            "at": 10,
+            "mode": "depth",
+            "freeBefore": 5,
+            "clearedFraction": 0.385989010989011
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 25,
+          "trials": 32,
+          "rate": 0.78125
+        },
+        "visible": {
+          "wins": 29,
+          "trials": 32,
+          "rate": 0.90625
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 6,
+        "trials": 16,
+        "rate": 0.375
+      },
+      "bots": {
+        "random": 0.5433333333333333,
+        "visible": 0.85,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд справа налево",
+          "змейка",
+          "самое большое число"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "role": "normal",
+      "source": "v8C scene",
+      "changed": true,
+      "attempt": 284,
+      "reference": {
+        "modelMs": 219275,
+        "preparations": 1,
+        "partialTurns": 0,
+        "peak": 2,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 17,
+          "trials": 32,
+          "rate": 0.53125
+        },
+        "visible": {
+          "wins": 25,
+          "trials": 32,
+          "rate": 0.78125
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 12,
+        "trials": 16,
+        "rate": 0.75
+      },
+      "bots": {
+        "random": 0.49333333333333335,
+        "visible": 0.8966666666666666,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "самое маленькое число"
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "role": "task",
+      "source": "v8",
+      "changed": true,
+      "attempt": 0,
+      "reference": {
+        "modelMs": 266475,
+        "preparations": 4,
+        "partialTurns": 0,
+        "peak": 5,
+        "reveals": [
+          {
+            "pod": 0,
+            "at": 2,
+            "mode": "depth",
+            "freeBefore": 4,
+            "clearedFraction": 0
+          },
+          {
+            "pod": 5,
+            "at": 8,
+            "mode": "depth",
+            "freeBefore": 4,
+            "clearedFraction": 0.28983516483516486
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 12,
+          "trials": 32,
+          "rate": 0.375
+        },
+        "visible": {
+          "wins": 19,
+          "trials": 32,
+          "rate": 0.59375
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 13,
+        "trials": 16,
+        "rate": 0.8125
+      },
+      "bots": {
+        "random": 0.37666666666666665,
+        "visible": 0.6133333333333333,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое большое число"
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "role": "hard",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 8,
+      "reference": {
+        "modelMs": 214575,
+        "preparations": 4,
+        "partialTurns": 1,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 7,
+          "trials": 32,
+          "rate": 0.21875
+        },
+        "visible": {
+          "wins": 12,
+          "trials": 32,
+          "rate": 0.375
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 6,
+        "trials": 16,
+        "rate": 0.375
+      },
+      "bots": {
+        "random": 0.22666666666666666,
+        "visible": 0.39,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "role": "relief",
+      "source": "v8C scene",
+      "changed": true,
+      "attempt": 4,
+      "reference": {
+        "modelMs": 444450,
+        "preparations": 1,
+        "partialTurns": 8,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 20,
+          "trials": 32,
+          "rate": 0.625
+        },
+        "visible": {
+          "wins": 30,
+          "trials": 32,
+          "rate": 0.9375
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 12,
+        "trials": 16,
+        "rate": 0.75
+      },
+      "bots": {
+        "random": 0.68,
+        "visible": 0.98,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края"
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 13,
+      "reference": {
+        "modelMs": 323900,
+        "preparations": 1,
+        "partialTurns": 7,
+        "peak": 5,
+        "reveals": [
+          {
+            "pod": 15,
+            "at": 8,
+            "mode": "depth",
+            "freeBefore": 3,
+            "clearedFraction": 0.5013736263736264
+          },
+          {
+            "pod": 10,
+            "at": 10,
+            "mode": "depth",
+            "freeBefore": 3,
+            "clearedFraction": 0.5645604395604396
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 12,
+          "trials": 32,
+          "rate": 0.375
+        },
+        "visible": {
+          "wins": 23,
+          "trials": 32,
+          "rate": 0.71875
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        }
+      },
+      "burstRandom": {
+        "wins": 3,
+        "trials": 16,
+        "rate": 0.1875
+      },
+      "bots": {
+        "random": 0.37,
+        "visible": 0.7933333333333333,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "самое большое число"
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "role": "task",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 59,
+      "reference": {
+        "modelMs": 322600,
+        "preparations": 3,
+        "partialTurns": 2,
+        "peak": 4,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 8,
+          "trials": 32,
+          "rate": 0.25
+        },
+        "visible": {
+          "wins": 15,
+          "trials": 32,
+          "rate": 0.46875
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 1,
+        "trials": 16,
+        "rate": 0.0625
+      },
+      "bots": {
+        "random": 0.28,
+        "visible": 0.5666666666666667,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "по две из колонки"
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 56,
+      "reference": {
+        "modelMs": 351800,
+        "preparations": 1,
+        "partialTurns": 0,
+        "peak": 2,
+        "reveals": [
+          {
+            "pod": 0,
+            "at": 6,
+            "mode": "depth",
+            "freeBefore": 5,
+            "clearedFraction": 0.15357142857142858
+          },
+          {
+            "pod": 14,
+            "at": 6,
+            "mode": "depth",
+            "freeBefore": 5,
+            "clearedFraction": 0.15357142857142858
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 17,
+          "trials": 32,
+          "rate": 0.53125
+        },
+        "visible": {
+          "wins": 30,
+          "trials": 32,
+          "rate": 0.9375
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 12,
+        "trials": 16,
+        "rate": 0.75
+      },
+      "bots": {
+        "random": 0.44,
+        "visible": 0.8366666666666667,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "по две из колонки"
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "role": "task",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 65,
+      "reference": {
+        "modelMs": 257400,
+        "preparations": 4,
+        "partialTurns": 7,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 7,
+          "trials": 32,
+          "rate": 0.21875
+        },
+        "visible": {
+          "wins": 22,
+          "trials": 32,
+          "rate": 0.6875
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 6,
+        "trials": 16,
+        "rate": 0.375
+      },
+      "bots": {
+        "random": 0.35,
+        "visible": 0.7,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "ряд справа налево",
+          "змейка"
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 28,
+      "reference": {
+        "modelMs": 326075,
+        "preparations": 3,
+        "partialTurns": 5,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 14,
+          "trials": 32,
+          "rate": 0.4375
+        },
+        "visible": {
+          "wins": 23,
+          "trials": 32,
+          "rate": 0.71875
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 2,
+        "trials": 16,
+        "rate": 0.125
+      },
+      "bots": {
+        "random": 0.5,
+        "visible": 0.7566666666666667,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое маленькое число"
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "role": "superHard",
+      "source": "v8 control",
+      "changed": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 361500,
+        "preparations": 1,
+        "partialTurns": 7,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      },
+      "bots": {
+        "random": 0.02666666666666667,
+        "visible": 0.07333333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      }
+    },
+    {
+      "id": 23,
+      "role": "relief",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 3,
+      "reference": {
+        "modelMs": 329275,
+        "preparations": 4,
+        "partialTurns": 0,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 18,
+          "trials": 32,
+          "rate": 0.5625
+        },
+        "visible": {
+          "wins": 31,
+          "trials": 32,
+          "rate": 0.96875
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 8,
+        "trials": 16,
+        "rate": 0.5
+      },
+      "bots": {
+        "random": 0.6033333333333334,
+        "visible": 0.9666666666666667,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки"
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "role": "task",
+      "source": "v8",
+      "changed": false,
+      "attempt": 0,
+      "reference": {
+        "modelMs": 457475,
+        "preparations": 2,
+        "partialTurns": 2,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 11,
+          "trials": 32,
+          "rate": 0.34375
+        },
+        "visible": {
+          "wins": 16,
+          "trials": 32,
+          "rate": 0.5
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 2,
+        "trials": 16,
+        "rate": 0.125
+      },
+      "bots": {
+        "random": 0.22666666666666666,
+        "visible": 0.4766666666666667,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      }
+    },
+    {
+      "id": 25,
+      "role": "hard",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 7,
+      "reference": {
+        "modelMs": 269550,
+        "preparations": 2,
+        "partialTurns": 3,
+        "peak": 5,
+        "reveals": [
+          {
+            "pod": 10,
+            "at": 2,
+            "mode": "depth",
+            "freeBefore": 4,
+            "clearedFraction": 0
+          },
+          {
+            "pod": 16,
+            "at": 6,
+            "mode": "depth",
+            "freeBefore": 3,
+            "clearedFraction": 0.21565934065934067
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 8,
+          "trials": 32,
+          "rate": 0.25
+        },
+        "visible": {
+          "wins": 16,
+          "trials": 32,
+          "rate": 0.5
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      },
+      "bots": {
+        "random": 0.21333333333333335,
+        "visible": 0.47333333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "по две из колонки"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 21,
+      "reference": {
+        "modelMs": 346600,
+        "preparations": 2,
+        "partialTurns": 0,
+        "peak": 3,
+        "reveals": [
+          {
+            "pod": 0,
+            "at": 2,
+            "mode": "depth",
+            "freeBefore": 4,
+            "clearedFraction": 0
+          },
+          {
+            "pod": 20,
+            "at": 3,
+            "mode": "depth",
+            "freeBefore": 3,
+            "clearedFraction": 0
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 17,
+          "trials": 32,
+          "rate": 0.53125
+        },
+        "visible": {
+          "wins": 30,
+          "trials": 32,
+          "rate": 0.9375
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 8,
+        "trials": 16,
+        "rate": 0.5
+      },
+      "bots": {
+        "random": 0.58,
+        "visible": 0.8,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "по две из колонки",
+          "самое маленькое число"
+        ]
+      }
+    },
+    {
+      "id": 27,
+      "role": "task",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 126,
+      "reference": {
+        "modelMs": 330825,
+        "preparations": 2,
+        "partialTurns": 6,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 12,
+          "trials": 32,
+          "rate": 0.375
+        },
+        "visible": {
+          "wins": 25,
+          "trials": 32,
+          "rate": 0.78125
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 5,
+        "trials": 16,
+        "rate": 0.3125
+      },
+      "bots": {
+        "random": 0.31,
+        "visible": 0.6733333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "по две из колонки"
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "role": "relief",
+      "source": "v8C scene",
+      "changed": true,
+      "attempt": 9,
+      "reference": {
+        "modelMs": 359025,
+        "preparations": 0,
+        "partialTurns": 0,
+        "peak": 1,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 27,
+          "trials": 32,
+          "rate": 0.84375
+        },
+        "visible": {
+          "wins": 32,
+          "trials": 32,
+          "rate": 1
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 14,
+        "trials": 16,
+        "rate": 0.875
+      },
+      "bots": {
+        "random": 0.86,
+        "visible": 1,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое маленькое число"
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "role": "superHard",
+      "source": "v8 control",
+      "changed": true,
+      "attempt": -1,
+      "reference": {
+        "modelMs": 478325,
+        "preparations": 1,
+        "partialTurns": 4,
+        "peak": 5,
+        "reveals": []
+      },
+      "policies": {
+        "random": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "visible": {
+          "wins": 0,
+          "trials": 32,
+          "rate": 0
+        },
+        "left": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 0,
+        "trials": 16,
+        "rate": 0
+      },
+      "bots": {
+        "random": 0,
+        "visible": 0,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      }
+    },
+    {
+      "id": 30,
+      "role": "normal",
+      "source": "v8C tray",
+      "changed": true,
+      "attempt": 3,
+      "reference": {
+        "modelMs": 193475,
+        "preparations": 2,
+        "partialTurns": 9,
+        "peak": 4,
+        "reveals": [
+          {
+            "pod": 7,
+            "at": 5,
+            "mode": "depth",
+            "freeBefore": 3,
+            "clearedFraction": 0.09956709956709957
+          },
+          {
+            "pod": 15,
+            "at": 14,
+            "mode": "depth",
+            "freeBefore": 4,
+            "clearedFraction": 0.6363636363636364
+          }
+        ]
+      },
+      "policies": {
+        "random": {
+          "wins": 9,
+          "trials": 32,
+          "rate": 0.28125
+        },
+        "visible": {
+          "wins": 24,
+          "trials": 32,
+          "rate": 0.75
+        },
+        "left": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "right": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
+        }
+      },
+      "burstRandom": {
+        "wins": 8,
+        "trials": 16,
+        "rate": 0.5
+      },
+      "bots": {
+        "random": 0.44333333333333336,
+        "visible": 0.86,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "по две из колонки",
+          "самое маленькое число"
+        ]
+      }
+    }
+  ]
+}
