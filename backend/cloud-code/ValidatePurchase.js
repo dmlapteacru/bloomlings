@@ -1,4 +1,8 @@
 /**
+ * LEGACY BILLING BOUNDARY: global get→set below is not an atomic cross-player receipt claim.
+ * This endpoint does not credit economy_v1. Do not use it for authoritative funded-wallet credits until
+ * store verification, unique ownership and recoverable crediting are implemented (economy/README.md).
+ *
  * ValidatePurchase — UGS Cloud Code (contracts/backend-services.md, FR-089, research R13; T132).
  *
  * Input:  platform ("google" | "apple"), receipt (the Unity IAP receipt JSON string), productId.

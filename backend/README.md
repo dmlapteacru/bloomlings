@@ -6,6 +6,7 @@ defaults and local save (contracts/backend-services.md).
 | Path | What it is |
 |---|---|
 | `remote-config/defaults.json` | Every Remote Config key with its default and range, mirrored from `RemoteConfigKeys.cs` (a client test keeps them in step). Import these into the UGS Remote Config environment. |
+| `cloud-code/ExecuteEconomy.js` | Generated authoritative wallet operations; protected snapshot, conditional writes and replay protection. See [economy/README.md](economy/README.md) for supported operations, verification and rollout gates. |
 | `cloud-code/ValidatePurchase.js` | Validates a store receipt and claims its transaction once for the whole game, so a receipt cannot be replayed on another account (FR-089). |
 | `cloud-code/GetStarterPackOffer.js` | The one-time starter pack offer flag, kept in protected player data. |
 | `cloud-code/SubmitProgress.js` | Leaderboard submission with the sanity checks (monotonic level, plausible jump, supported content version) and the time-encoded score (FR-062). Rejections are logged, not banned. |
@@ -15,11 +16,18 @@ no reset. Players write their scores only through `SubmitProgress` (the client n
 project **Access Control** policy that denies the `Player` principal writes to the Leaderboards scores, so a modified
 client cannot post a score directly. The player save lives in Cloud Save player data under `player_save_v1`.
 
+The new server economy is prepared but not enabled in either mobile host. Its wallet must remain authoritative once
+connected; a network failure must not fall back to a local grant. Existing `ValidatePurchase` global receipt claims
+use non-atomic get→set and must not be treated as safe credits for the new wallet before the billing work described
+in [economy/README.md](economy/README.md).
+
 Server-owned state is never in player-writable data:
 
 | Where | Key | Written by |
 |---|---|---|
 | Custom data `purchases` (game-wide) | `tx_<transactionId>` | `ValidatePurchase` (service token) |
+| Protected player data | `economy_v1` | `ExecuteEconomy`, initialized through a separately verified provisioning path |
+| Protected player data | `economy_auth_<SHA256(ticketId)>` | Trusted gameplay/ad validators (issuers pending integration) |
 | Protected player data | `starter_pack_used` | `ValidatePurchase` (service token) |
 | Protected player data | `leaderboard_progress` | `SubmitProgress` (service token) |
 
