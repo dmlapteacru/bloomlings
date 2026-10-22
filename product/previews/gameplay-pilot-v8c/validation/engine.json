@@ -4,18 +4,18 @@
     {
       "id": 5,
       "role": "normal",
-      "random": 0.5333333333333333,
-      "visible": 0.9533333333333334,
+      "random": 0.4666666666666667,
+      "visible": 0.8066666666666666,
       "patternWins": 4,
       "sensibleWins": 3
     },
     {
       "id": 6,
       "role": "relief",
-      "random": 0.6333333333333333,
+      "random": 0.67,
       "visible": 0.9666666666666667,
-      "patternWins": 6,
-      "sensibleWins": 2
+      "patternWins": 4,
+      "sensibleWins": 1
     },
     {
       "id": 7,
@@ -84,18 +84,18 @@
     {
       "id": 15,
       "role": "hard",
-      "random": 0.22666666666666666,
-      "visible": 0.39,
-      "patternWins": 1,
-      "sensibleWins": 0
+      "random": 0.18333333333333332,
+      "visible": 0.4,
+      "patternWins": 0,
+      "sensibleWins": 1
     },
     {
       "id": 16,
       "role": "relief",
-      "random": 0.68,
-      "visible": 0.98,
-      "patternWins": 5,
-      "sensibleWins": 3
+      "random": 0.6933333333333334,
+      "visible": 1,
+      "patternWins": 2,
+      "sensibleWins": 4
     },
     {
       "id": 17,
@@ -210,13 +210,28 @@
       "sensibleWins": 3
     }
   ],
-  "catalogHash": "62b5374fd504b3b07f2e3e7b66c4df52b060607f51c1eedb6213c3342bcc0508",
+  "patternShare": {
+    "колонка слева до конца": 8,
+    "ряд справа налево": 7,
+    "змейка": 6,
+    "самое большое число": 6,
+    "колонка справа до конца": 9,
+    "середина, потом края": 5,
+    "самое маленькое число": 7,
+    "ряд слева направо": 4,
+    "по две из колонки": 10
+  },
+  "hardPatternShare": {
+    "колонка справа до конца": 1,
+    "по две из колонки": 1
+  },
+  "catalogHash": "e6f1ebbaffd3ded59c679054ea3af56f1e80543287b039f459ecfe6ae32442bc",
   "winningRoutes": 50,
   "acceptedCertificateActions": 564,
   "hiddenInformationPolicies": 10,
   "concurrentRandomRuns": 240,
-  "liveClears": 80495,
-  "restoredCheckpoints": 1224,
+  "liveClears": 75802,
+  "restoredCheckpoints": 1156,
   "frameInvarianceChecks": 1,
   "retainedDefinitions": 5,
   "ownerFunControls": [

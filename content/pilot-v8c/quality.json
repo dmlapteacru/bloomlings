@@ -1,6 +1,6 @@
 {
   "version": "pilot-30-v8c",
-  "catalogHash": "62b5374fd504b3b07f2e3e7b66c4df52b060607f51c1eedb6213c3342bcc0508",
+  "catalogHash": "e6f1ebbaffd3ded59c679054ea3af56f1e80543287b039f459ecfe6ae32442bc",
   "sourceHash": "d82ccc56145147f9a419ea3c45958bbbe1429d814918b2e7759424d619cbd196",
   "complete": true,
   "changedLevels": [
@@ -98,7 +98,7 @@
         0,
         0.25
       ],
-      "patterns": 0,
+      "patterns": 1,
       "sensible": 0
     }
   },
@@ -130,10 +130,12 @@
     "29": "superHard",
     "30": "normal"
   },
+  "patternShare": 0.4,
+  "hardPatternLevels": 1,
   "limits": [
     "Bot rates are construction diagnostics, not human win rates.",
     "Patient player: every command settles before the next; live concurrent input can change same-colour allocation.",
-    "Controls L10, L22, L29 are kept from v8 at the owner's request and are harder than the Super Hard window.",
+    "Controls L10, L22, L29 are kept from v8 at the owner's request; good levels are not rebuilt for a neater percentage.",
     "Bridge levels: bots build a bridge as soon as one is offered."
   ],
   "levels": [
@@ -330,34 +332,37 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 2,
+      "attempt": 9073,
+      "banned": [
+        "колонка справа до конца"
+      ],
       "reference": {
-        "modelMs": 239400,
-        "preparations": 5,
-        "partialTurns": 0,
-        "peak": 5,
+        "modelMs": 255375,
+        "preparations": 4,
+        "partialTurns": 9,
+        "peak": 4,
         "reveals": []
       },
       "policies": {
         "random": {
-          "wins": 16,
+          "wins": 18,
           "trials": 32,
-          "rate": 0.5
+          "rate": 0.5625
         },
         "visible": {
-          "wins": 27,
+          "wins": 26,
           "trials": 32,
-          "rate": 0.84375
+          "rate": 0.8125
         },
         "left": {
-          "wins": 0,
-          "trials": 1,
-          "rate": 0
-        },
-        "right": {
           "wins": 1,
           "trials": 1,
           "rate": 1
+        },
+        "right": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
         },
         "large": {
           "wins": 1,
@@ -366,25 +371,25 @@
         }
       },
       "burstRandom": {
-        "wins": 9,
+        "wins": 7,
         "trials": 16,
-        "rate": 0.5625
+        "rate": 0.4375
       },
       "bots": {
-        "random": 0.5333333333333333,
-        "visible": 0.9533333333333334,
-        "left": 0,
-        "right": 1,
+        "random": 0.4666666666666667,
+        "visible": 0.8066666666666666,
+        "left": 1,
+        "right": 0,
         "leftVisible": 1,
-        "biggestVisible": 1,
+        "biggestVisible": 0,
         "smallestVisible": 1,
-        "mostWork": 0,
+        "mostWork": 1,
         "sensibleWins": 3,
         "patternWins": [
-          "колонка справа до конца",
-          "по две из колонки",
-          "самое большое число",
-          "самое маленькое число"
+          "колонка слева до конца",
+          "ряд справа налево",
+          "змейка",
+          "самое большое число"
         ]
       }
     },
@@ -393,34 +398,37 @@
       "role": "relief",
       "source": "v8C scene",
       "changed": true,
-      "attempt": 14,
+      "attempt": 6103,
+      "banned": [
+        "по две из колонки"
+      ],
       "reference": {
-        "modelMs": 246275,
+        "modelMs": 202150,
         "preparations": 4,
-        "partialTurns": 4,
+        "partialTurns": 11,
         "peak": 5,
         "reveals": [
           {
-            "pod": 11,
-            "at": 1,
+            "pod": 6,
+            "at": 3,
             "mode": "depth",
-            "freeBefore": 5,
+            "freeBefore": 3,
             "clearedFraction": 0
           },
           {
-            "pod": 2,
-            "at": 6,
+            "pod": 0,
+            "at": 12,
             "mode": "depth",
-            "freeBefore": 3,
-            "clearedFraction": 0.21794871794871795
+            "freeBefore": 4,
+            "clearedFraction": 0.5657051282051282
           }
         ]
       },
       "policies": {
         "random": {
-          "wins": 20,
+          "wins": 23,
           "trials": 32,
-          "rate": 0.625
+          "rate": 0.71875
         },
         "visible": {
           "wins": 31,
@@ -433,38 +441,36 @@
           "rate": 0
         },
         "right": {
-          "wins": 0,
-          "trials": 1,
-          "rate": 0
-        },
-        "large": {
           "wins": 1,
           "trials": 1,
           "rate": 1
+        },
+        "large": {
+          "wins": 0,
+          "trials": 1,
+          "rate": 0
         }
       },
       "burstRandom": {
-        "wins": 9,
+        "wins": 8,
         "trials": 16,
-        "rate": 0.5625
+        "rate": 0.5
       },
       "bots": {
-        "random": 0.6333333333333333,
+        "random": 0.67,
         "visible": 0.9666666666666667,
         "left": 0,
-        "right": 0,
+        "right": 1,
         "leftVisible": 0,
-        "biggestVisible": 1,
+        "biggestVisible": 0,
         "smallestVisible": 1,
         "mostWork": 0,
-        "sensibleWins": 2,
+        "sensibleWins": 1,
         "patternWins": [
-          "ряд слева направо",
+          "колонка справа до конца",
           "ряд справа налево",
-          "змейка",
           "середина, потом края",
-          "по две из колонки",
-          "самое большое число"
+          "самое маленькое число"
         ]
       }
     },
@@ -473,7 +479,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 10,
+      "attempt": 9,
       "reference": {
         "modelMs": 312325,
         "preparations": 4,
@@ -551,7 +557,7 @@
       "role": "task",
       "source": "v8C scene",
       "changed": true,
-      "attempt": 35,
+      "attempt": 34,
       "reference": {
         "modelMs": 137750,
         "preparations": 2,
@@ -609,7 +615,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 41,
+      "attempt": 40,
       "reference": {
         "modelMs": 267350,
         "preparations": 2,
@@ -746,7 +752,7 @@
       "role": "relief",
       "source": "v8C scene",
       "changed": true,
-      "attempt": 11,
+      "attempt": 10,
       "reference": {
         "modelMs": 273050,
         "preparations": 0,
@@ -810,7 +816,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 133,
+      "attempt": 132,
       "reference": {
         "modelMs": 228875,
         "preparations": 4,
@@ -888,7 +894,7 @@
       "role": "normal",
       "source": "v8C scene",
       "changed": true,
-      "attempt": 284,
+      "attempt": 283,
       "reference": {
         "modelMs": 219275,
         "preparations": 1,
@@ -949,7 +955,7 @@
       "role": "task",
       "source": "v8",
       "changed": true,
-      "attempt": 0,
+      "attempt": -1,
       "reference": {
         "modelMs": 266475,
         "preparations": 4,
@@ -1025,24 +1031,27 @@
       "role": "hard",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 8,
+      "attempt": 12022,
+      "banned": [
+        "колонка справа до конца"
+      ],
       "reference": {
-        "modelMs": 214575,
-        "preparations": 4,
-        "partialTurns": 1,
-        "peak": 5,
+        "modelMs": 232625,
+        "preparations": 2,
+        "partialTurns": 0,
+        "peak": 3,
         "reveals": []
       },
       "policies": {
         "random": {
-          "wins": 7,
+          "wins": 2,
           "trials": 32,
-          "rate": 0.21875
+          "rate": 0.0625
         },
         "visible": {
-          "wins": 12,
+          "wins": 9,
           "trials": 32,
-          "rate": 0.375
+          "rate": 0.28125
         },
         "left": {
           "wins": 0,
@@ -1050,9 +1059,9 @@
           "rate": 0
         },
         "right": {
-          "wins": 1,
+          "wins": 0,
           "trials": 1,
-          "rate": 1
+          "rate": 0
         },
         "large": {
           "wins": 0,
@@ -1061,23 +1070,21 @@
         }
       },
       "burstRandom": {
-        "wins": 6,
+        "wins": 3,
         "trials": 16,
-        "rate": 0.375
+        "rate": 0.1875
       },
       "bots": {
-        "random": 0.22666666666666666,
-        "visible": 0.39,
+        "random": 0.18333333333333332,
+        "visible": 0.4,
         "left": 0,
-        "right": 1,
+        "right": 0,
         "leftVisible": 0,
         "biggestVisible": 0,
         "smallestVisible": 0,
-        "mostWork": 0,
-        "sensibleWins": 0,
-        "patternWins": [
-          "колонка справа до конца"
-        ]
+        "mostWork": 1,
+        "sensibleWins": 1,
+        "patternWins": []
       }
     },
     {
@@ -1085,62 +1092,62 @@
       "role": "relief",
       "source": "v8C scene",
       "changed": true,
-      "attempt": 4,
+      "attempt": 3035,
+      "banned": [
+        "колонка справа до конца"
+      ],
       "reference": {
-        "modelMs": 444450,
+        "modelMs": 304200,
         "preparations": 1,
-        "partialTurns": 8,
-        "peak": 5,
+        "partialTurns": 6,
+        "peak": 3,
         "reveals": []
       },
       "policies": {
         "random": {
-          "wins": 20,
+          "wins": 18,
           "trials": 32,
-          "rate": 0.625
+          "rate": 0.5625
         },
         "visible": {
-          "wins": 30,
+          "wins": 32,
           "trials": 32,
-          "rate": 0.9375
+          "rate": 1
         },
         "left": {
-          "wins": 0,
-          "trials": 1,
-          "rate": 0
-        },
-        "right": {
           "wins": 1,
           "trials": 1,
           "rate": 1
         },
-        "large": {
+        "right": {
           "wins": 0,
           "trials": 1,
           "rate": 0
+        },
+        "large": {
+          "wins": 1,
+          "trials": 1,
+          "rate": 1
         }
       },
       "burstRandom": {
-        "wins": 12,
+        "wins": 7,
         "trials": 16,
-        "rate": 0.75
+        "rate": 0.4375
       },
       "bots": {
-        "random": 0.68,
-        "visible": 0.98,
-        "left": 0,
-        "right": 1,
+        "random": 0.6933333333333334,
+        "visible": 1,
+        "left": 1,
+        "right": 0,
         "leftVisible": 1,
         "biggestVisible": 1,
         "smallestVisible": 1,
-        "mostWork": 0,
-        "sensibleWins": 3,
+        "mostWork": 1,
+        "sensibleWins": 4,
         "patternWins": [
-          "колонка справа до конца",
-          "ряд слева направо",
-          "ряд справа налево",
-          "змейка",
-          "середина, потом края"
+          "колонка слева до конца",
+          "самое большое число"
         ]
       }
     },
@@ -1149,7 +1156,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 13,
+      "attempt": 12,
       "reference": {
         "modelMs": 323900,
         "preparations": 1,
@@ -1225,7 +1232,7 @@
       "role": "task",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 59,
+      "attempt": 58,
       "reference": {
         "modelMs": 322600,
         "preparations": 3,
@@ -1285,7 +1292,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 56,
+      "attempt": 55,
       "reference": {
         "modelMs": 351800,
         "preparations": 1,
@@ -1361,7 +1368,7 @@
       "role": "task",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 65,
+      "attempt": 64,
       "reference": {
         "modelMs": 257400,
         "preparations": 4,
@@ -1422,7 +1429,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 28,
+      "attempt": 27,
       "reference": {
         "modelMs": 326075,
         "preparations": 3,
@@ -1541,7 +1548,7 @@
       "role": "relief",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 3,
+      "attempt": 2,
       "reference": {
         "modelMs": 329275,
         "preparations": 4,
@@ -1605,7 +1612,7 @@
       "role": "task",
       "source": "v8",
       "changed": false,
-      "attempt": 0,
+      "attempt": -1,
       "reference": {
         "modelMs": 457475,
         "preparations": 2,
@@ -1665,7 +1672,7 @@
       "role": "hard",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 7,
+      "attempt": 6,
       "reference": {
         "modelMs": 269550,
         "preparations": 2,
@@ -1740,7 +1747,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 21,
+      "attempt": 20,
       "reference": {
         "modelMs": 346600,
         "preparations": 2,
@@ -1818,7 +1825,7 @@
       "role": "task",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 126,
+      "attempt": 125,
       "reference": {
         "modelMs": 330825,
         "preparations": 2,
@@ -1878,7 +1885,7 @@
       "role": "relief",
       "source": "v8C scene",
       "changed": true,
-      "attempt": 9,
+      "attempt": 8,
       "reference": {
         "modelMs": 359025,
         "preparations": 0,
@@ -2001,7 +2008,7 @@
       "role": "normal",
       "source": "v8C tray",
       "changed": true,
-      "attempt": 3,
+      "attempt": 2,
       "reference": {
         "modelMs": 193475,
         "preparations": 2,

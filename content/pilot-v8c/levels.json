@@ -1,6 +1,6 @@
 {
   "version": "pilot-30-v8c",
-  "hash": "62b5374fd504b3b07f2e3e7b66c4df52b060607f51c1eedb6213c3342bcc0508",
+  "hash": "e6f1ebbaffd3ded59c679054ea3af56f1e80543287b039f459ecfe6ae32442bc",
   "levels": [
     {
       "id": 1,
@@ -490,7 +490,11 @@
       "pods": [
         {
           "color": "G",
-          "count": 15
+          "count": 6
+        },
+        {
+          "color": "G",
+          "count": 9
         },
         {
           "color": "P",
@@ -498,43 +502,35 @@
         },
         {
           "color": "B",
-          "count": 20
-        },
-        {
-          "color": "B",
           "count": 73
         },
         {
           "color": "B",
-          "count": 50
+          "count": 53
         },
         {
           "color": "B",
-          "count": 73
+          "count": 31
         },
         {
           "color": "B",
-          "count": 48
+          "count": 53
         },
         {
           "color": "B",
-          "count": 61
+          "count": 82
         },
         {
           "color": "B",
-          "count": 57
+          "count": 90
         },
         {
           "color": "A",
-          "count": 10
+          "count": 29
         },
         {
           "color": "A",
-          "count": 17
-        },
-        {
-          "color": "A",
-          "count": 20
+          "count": 18
         },
         {
           "color": "C",
@@ -546,11 +542,15 @@
         },
         {
           "color": "D",
-          "count": 34
+          "count": 32
         },
         {
           "color": "D",
-          "count": 34
+          "count": 17
+        },
+        {
+          "color": "D",
+          "count": 19
         },
         {
           "color": "D",
@@ -558,53 +558,53 @@
         },
         {
           "color": "Y",
-          "count": 4
-        },
-        {
-          "color": "Y",
-          "count": 4
+          "count": 8
         },
         {
           "color": "O",
-          "count": 23
+          "count": 24
         },
         {
           "color": "O",
-          "count": 21
+          "count": 14
         },
         {
           "color": "O",
-          "count": 30
+          "count": 24
+        },
+        {
+          "color": "O",
+          "count": 12
         }
       ],
       "tray": [
         [
-          2,
+          18,
+          16,
+          11,
+          8,
+          12,
+          20,
+          6,
+          10
+        ],
+        [
+          0,
+          15,
+          14,
           9,
           7,
-          12,
+          2,
+          3
+        ],
+        [
           21,
-          0,
-          3,
-          18
-        ],
-        [
           5,
-          15,
-          11,
-          13,
-          17,
-          16,
-          4
-        ],
-        [
-          8,
-          10,
-          1,
-          20,
-          14,
           19,
-          6
+          13,
+          4,
+          1,
+          17
         ]
       ],
       "difficulty": "Normal"
@@ -650,32 +650,41 @@
       "pods": [
         {
           "color": "G",
-          "count": 51
-        },
-        {
-          "color": "G",
-          "count": 44
-        },
-        {
-          "color": "P",
-          "count": 23,
+          "count": 24,
           "mystery": "depth"
         },
         {
+          "color": "G",
+          "count": 25
+        },
+        {
+          "color": "G",
+          "count": 46
+        },
+        {
           "color": "P",
-          "count": 90
+          "count": 46
+        },
+        {
+          "color": "P",
+          "count": 19
+        },
+        {
+          "color": "P",
+          "count": 48
         },
         {
           "color": "B",
-          "count": 41
+          "count": 24,
+          "mystery": "depth"
         },
         {
           "color": "B",
-          "count": 108
+          "count": 143
         },
         {
           "color": "B",
-          "count": 60
+          "count": 42
         },
         {
           "color": "A",
@@ -683,28 +692,19 @@
         },
         {
           "color": "C",
-          "count": 24
-        },
-        {
-          "color": "C",
-          "count": 16
-        },
-        {
-          "color": "C",
-          "count": 22
-        },
-        {
-          "color": "D",
-          "count": 23,
-          "mystery": "depth"
-        },
-        {
-          "color": "D",
-          "count": 28
-        },
-        {
-          "color": "D",
           "count": 62
+        },
+        {
+          "color": "D",
+          "count": 20
+        },
+        {
+          "color": "D",
+          "count": 33
+        },
+        {
+          "color": "D",
+          "count": 60
         },
         {
           "color": "Y",
@@ -717,26 +717,26 @@
       ],
       "tray": [
         [
-          3,
-          11,
-          14,
-          5,
-          2,
-          7
-        ],
-        [
-          6,
-          1,
-          15,
           8,
-          13
+          4,
+          10,
+          6,
+          5,
+          3
         ],
         [
-          10,
-          0,
+          9,
+          1,
+          2,
           12,
-          4,
-          9
+          11
+        ],
+        [
+          15,
+          0,
+          13,
+          7,
+          14
         ]
       ],
       "difficulty": "Normal"
@@ -1984,75 +1984,71 @@
         },
         {
           "color": "P",
-          "count": 14
+          "count": 5
+        },
+        {
+          "color": "P",
+          "count": 9
         },
         {
           "color": "B",
-          "count": 82
+          "count": 47
         },
         {
           "color": "B",
-          "count": 8
+          "count": 17
         },
         {
           "color": "B",
-          "count": 44
-        },
-        {
-          "color": "B",
-          "count": 44
-        },
-        {
-          "color": "B",
-          "count": 74
-        },
-        {
-          "color": "B",
-          "count": 34
-        },
-        {
-          "color": "B",
-          "count": 13
+          "count": 91
         },
         {
           "color": "B",
           "count": 14
         },
         {
-          "color": "A",
-          "count": 4
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 52
+        },
+        {
+          "color": "B",
+          "count": 76
         },
         {
           "color": "A",
+          "count": 10
+        },
+        {
+          "color": "C",
+          "count": 35
+        },
+        {
+          "color": "D",
+          "count": 16
+        },
+        {
+          "color": "D",
+          "count": 10
+        },
+        {
+          "color": "D",
+          "count": 29
+        },
+        {
+          "color": "D",
           "count": 6
         },
         {
-          "color": "C",
-          "count": 7
-        },
-        {
-          "color": "C",
-          "count": 28
+          "color": "D",
+          "count": 12
         },
         {
           "color": "D",
-          "count": 72
-        },
-        {
-          "color": "D",
-          "count": 7
-        },
-        {
-          "color": "D",
-          "count": 11
-        },
-        {
-          "color": "Y",
-          "count": 8
-        },
-        {
-          "color": "Y",
-          "count": 23
+          "count": 17
         },
         {
           "color": "Y",
@@ -2060,7 +2056,11 @@
         },
         {
           "color": "Y",
-          "count": 22
+          "count": 27
+        },
+        {
+          "color": "Y",
+          "count": 26
         },
         {
           "color": "O",
@@ -2069,32 +2069,32 @@
       ],
       "tray": [
         [
-          8,
-          10,
-          14,
-          21,
-          3,
-          20,
-          1,
-          2
-        ],
-        [
-          13,
-          4,
-          16,
           15,
+          8,
+          0,
+          1,
           7,
-          17,
-          9
+          19,
+          14,
+          17
         ],
         [
-          6,
-          19,
-          0,
+          2,
+          20,
+          5,
+          4,
+          21,
+          9,
+          10
+        ],
+        [
           12,
           18,
-          5,
-          11
+          13,
+          6,
+          11,
+          16,
+          3
         ]
       ],
       "difficulty": "Hard"
@@ -2140,43 +2140,39 @@
       "pods": [
         {
           "color": "G",
-          "count": 24
+          "count": 49
         },
         {
           "color": "G",
-          "count": 35
+          "count": 34
         },
         {
           "color": "G",
-          "count": 39
-        },
-        {
-          "color": "G",
-          "count": 36
-        },
-        {
-          "color": "P",
-          "count": 43
-        },
-        {
-          "color": "P",
           "count": 51
         },
         {
-          "color": "B",
-          "count": 62
+          "color": "P",
+          "count": 31
+        },
+        {
+          "color": "P",
+          "count": 63
         },
         {
           "color": "B",
-          "count": 65
+          "count": 21
         },
         {
           "color": "B",
-          "count": 30
+          "count": 87
         },
         {
           "color": "B",
-          "count": 71
+          "count": 45
+        },
+        {
+          "color": "B",
+          "count": 75
         },
         {
           "color": "A",
@@ -2184,67 +2180,71 @@
         },
         {
           "color": "C",
-          "count": 6
-        },
-        {
-          "color": "C",
-          "count": 4
-        },
-        {
-          "color": "C",
           "count": 7
         },
         {
-          "color": "D",
-          "count": 23
+          "color": "C",
+          "count": 10
         },
         {
           "color": "D",
-          "count": 12
+          "count": 20
         },
         {
           "color": "D",
-          "count": 33
+          "count": 30
+        },
+        {
+          "color": "D",
+          "count": 18
         },
         {
           "color": "Y",
-          "count": 13
-        },
-        {
-          "color": "Y",
-          "count": 35
+          "count": 48
         },
         {
           "color": "O",
-          "count": 31
+          "count": 8
+        },
+        {
+          "color": "O",
+          "count": 6
+        },
+        {
+          "color": "O",
+          "count": 8
+        },
+        {
+          "color": "O",
+          "count": 9
         }
       ],
       "tray": [
         [
-          11,
-          4,
-          17,
           0,
+          6,
+          13,
+          14,
+          2,
+          16,
+          17
+        ],
+        [
+          10,
+          3,
           12,
           19,
-          18
+          18,
+          11,
+          9
         ],
         [
-          3,
+          4,
           5,
-          10,
           15,
-          14,
-          16,
-          6
-        ],
-        [
-          2,
-          9,
           7,
-          13,
-          8,
-          1
+          1,
+          8
         ]
       ],
       "difficulty": "Normal"
