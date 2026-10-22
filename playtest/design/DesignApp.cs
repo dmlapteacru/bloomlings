@@ -36,6 +36,7 @@ namespace Bloomlings.Playtest.Design
         Pause,
         Settings,
         PrivacyPolicy,
+        Account,
         DailyReward,
         DailyChallenge,
 
@@ -129,12 +130,17 @@ namespace Bloomlings.Playtest.Design
         private readonly List<(Overlay Overlay, float OpenedAt)> _overlays = new List<(Overlay, float)>();
         private readonly bool _firstLaunch;
 
-        public DesignApp(string dataFolder, ContentSet content, ISoundOut sound, bool showSplash = true)
+        public DesignApp(string dataFolder, ContentSet content, ISoundOut sound, bool showSplash = true, IAccountPanelGateway? accountGateway = null)
         {
             _dataFolder = dataFolder;
             Content = content;
             Sound = sound;
             Meta = new PlaytestMeta(dataFolder);
+            Account = new AccountPanel(accountGateway ?? new DelegateAccountPanelGateway(
+                () => new AccountPanelSnapshot(Meta.Save.LocalPlayerId, Meta.Save.UpdatedAt,
+                    Meta.Save.Profile.Name ?? "", Meta.CurrentLevel, Meta.Economy.Petals,
+                    "account.panel.guest", AccountSaveState.Device),
+                (_, __, done) => done(new AccountPanelReply("account.panel.unavailable"))));
             _firstLaunch = Meta.FirstLaunch;
             Screen = showSplash ? Screen.Splash : Screen.Home;
             StartHomeMotion();
@@ -155,6 +161,8 @@ namespace Bloomlings.Playtest.Design
         public ProfileEditor? ProfileEditor { get; private set; }
 
         public PlaytestMeta Meta { get; private set; }
+
+        public AccountPanel Account { get; }
 
         private Screen _screen;
         public Screen Screen
@@ -273,7 +281,8 @@ namespace Bloomlings.Playtest.Design
             || (Screen == Screen.Home && (_overlays.Count == 0 || HomeMoving))
             || (Screen == Screen.Store && StoreMoving)
             || IsOpen(Overlay.DailyReward)
-            || IsOpen(Overlay.Purchase);
+            || IsOpen(Overlay.Purchase)
+            || (IsOpen(Overlay.Account) && Account.Busy);
 
         /// <summary>
         /// Whether the only motion left is slow: the open win or milestone card's (turning rays, falling petals, Next
@@ -588,6 +597,7 @@ namespace Bloomlings.Playtest.Design
 
         public void OpenOverlay(Overlay overlay)
         {
+            if (overlay == Overlay.Account) Account.Open();
             Sound.Play(SoundCue.Click);
             _overlays.Add((overlay, Now));
         }
@@ -596,6 +606,7 @@ namespace Bloomlings.Playtest.Design
         {
             if (_overlays.Count > 0)
             {
+                if (_overlays[_overlays.Count - 1].Overlay == Overlay.Account) Account.Close();
                 bool purchase = _overlays[_overlays.Count - 1].Overlay == Overlay.Purchase;
                 _overlays.RemoveAt(_overlays.Count - 1);
                 Sound.Play(SoundCue.Click);
@@ -947,6 +958,9 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.Settings:
                         MenuCards.Settings(p, this, since);
+                        break;
+                    case Overlay.Account:
+                        AccountScreen.Draw(p, this, since);
                         break;
                     case Overlay.PrivacyPolicy:
                         MenuCards.PrivacyPolicy(p,this,since);

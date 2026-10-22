@@ -20,7 +20,7 @@ namespace Bloomlings.Client.UI.Screens
     public sealed record LevelActions(Func<int> Current, Action<int> Change);
     public sealed record PetalActions(Func<int> Current, Action<int> Change);
 
-    public sealed record AccountActions(Func<string> Status, bool CanLinkApple, bool CanLinkGooglePlayGames, Action<LinkProvider, Action<bool>> Link);
+    public sealed record AccountActions(Func<string> Status, bool CanLinkApple, bool CanLinkGooglePlayGames, Action<LinkProvider, Action<bool>> Link, Action? Open = null);
 
     /// <summary>Sound and Haptics, optional account/privacy actions and retained level controls on one calm card.</summary>
     public sealed class SettingsScreen : MonoBehaviour
@@ -61,7 +61,7 @@ namespace Bloomlings.Client.UI.Screens
             bool links = account != null && (account.CanLinkApple || account.CanLinkGooglePlayGames);
             float content = 12f + (2f * RowUnits) + RowGapUnits
                 + (account != null ? ButtonGapUnits + StatusUnits : 0f)
-                + (links ? 16f + DesignTokens.Size.SecondaryHeight : 0f)
+                + (links || account?.Open != null ? 16f + DesignTokens.Size.SecondaryHeight : 0f)
                 + (consent != null && consent.PrivacyOptionsRequired ? ButtonGapUnits + DesignTokens.Size.SecondaryHeight : 0f)
                 + (levels != null ? 20f + DesignTokens.Size.TouchMin : 0f)
                 + (petals != null ? 12f + DesignTokens.Size.TouchMin : 0f) + ButtonGapUnits + DesignTokens.Size.SecondaryHeight + 30f;
@@ -89,7 +89,14 @@ namespace Bloomlings.Client.UI.Screens
                 screen._account = UiKit.Label("Account", view.Body, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft));
                 UiKit.PlaceBox(screen._account.rectTransform, new Box(body.Left, y, body.Right, y + (StatusUnits * u)), body);
                 y += StatusUnits * u;
-                if (links)
+                if (account.Open != null)
+                {
+                    y += 16f * u;
+                    Button open = UiKit.SecondaryButton("AccountDetails", view.Body, Loc.T("account.panel.title"), account.Open);
+                    UiKit.PlaceBox((RectTransform)open.transform, Pair(new Box(body.Left, y, body.Right, y + DesignTokens.Size.SecondaryHeight * u), 1, u)[0], body);
+                    y += DesignTokens.Size.SecondaryHeight * u;
+                }
+                else if (links)
                 {
                     y += 16f * u;
                     var row = new Box(body.Left, y, body.Right, y + (DesignTokens.Size.SecondaryHeight * u));

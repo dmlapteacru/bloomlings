@@ -2387,6 +2387,53 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>
+        /// <summary>Scripted service states only in this PNG renderer, never a simulated SDK in the game.</summary>
+        public static IEnumerable<Fixture> Accounts(ContentSet content)
+        {
+            foreach (var example in new[] {
+                (240, "account-settings", AccountSaveState.Device),
+                (241, "account-device", AccountSaveState.Device),
+                (242, "account-pending", AccountSaveState.Pending),
+                (243, "account-conflict", AccountSaveState.Conflict),
+                (244, "account-restore", AccountSaveState.Conflict),
+                (245, "account-cloud", AccountSaveState.Cloud),
+                (246, "account-unavailable", AccountSaveState.Unavailable),
+                (247, "account-retry", AccountSaveState.Conflict) })
+            {
+                var frame = example;
+                yield return new Fixture(frame.Item1, frame.Item2, "Account & progress: " + frame.Item3, (p, data) =>
+                {
+                    bool configured = frame.Item3 != AccountSaveState.Device && frame.Item3 != AccountSaveState.Unavailable;
+                    var state = new AccountPanelSnapshot("preview:A:1", "one", "Rosie", 45, 1240,
+                        configured ? "account.linked_google" : "account.panel.guest", frame.Item3,
+                        CanSync: configured, CanReviewCloud: frame.Item3 == AccountSaveState.Conflict);
+                    IAccountPanelGateway gateway = new DelegateAccountPanelGateway(() => state,
+                        (action, __, done) => done(action == AccountPanelAction.ReviewCloud ? new AccountPanelReply("account.panel.restore_detail", new AccountCloudPreview("preview-token", "Rosie", 51, 700)) : new AccountPanelReply("account.panel.retry")));
+                    var app = new DesignApp(data, content, new Silence(), false, frame.Item1 == 240 || frame.Item1 == 241 ? null : gateway);
+                    app.Meta.SkipTo(44); app.Meta.Save.Profile.Name = "Rosie"; app.GoHome();
+                    app.OpenOverlay(Overlay.Settings);
+                    if (frame.Item1 == 240)
+                    {
+                        Run(app, p, .6f);
+                        var card = ScreenLayout.Card(p.Width, p.Height, p.Insets, PopupDesign.SettingsContent);
+                        // The new account row is a reachable native button, including on the short phone.
+                        float top = card.Body.Top + p.U(12 + 2*126 + 12 + 20 + DesignTokens.Size.TouchMin + 12 + DesignTokens.Size.TouchMin + 24);
+                        Tap(p, ScreenLayout.CardButton(card.Body, top, false, p.Scale));
+                        Expect(app.IsOpen(Overlay.Account), "Settings opens the real account card");
+                        app.Back();
+                    }
+                    else
+                    {
+                        app.OpenOverlay(Overlay.Account);
+                        if (frame.Item1 == 244) app.Account.Run(AccountPanelAction.ReviewCloud);
+                        if (frame.Item1 == 247) app.Account.Run(AccountPanelAction.Sync);
+                    }
+                    Run(app, p, .6f);
+                    Expect(Shows(p, PlaytestText.T(frame.Item1 == 240 ? "account.panel.title" : frame.Item1 == 244 ? "account.panel.restore_title" : "account.panel.title")), "Account title is localized");
+                });
+            }
+        }
+
         private static void Run(DesignApp app, SkiaPainter p, float seconds)
         {
             int frames = Math.Max(1, (int)(seconds / Frame));

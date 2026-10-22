@@ -192,6 +192,7 @@ namespace Bloomlings.Client.App
             };
             var leaderboard = new LeaderboardClient(save, board, remote, clock, saves.Save, auth);
             services.Register(auth);
+            services.Register<ICloudSaveService>(cloud);
             services.Register(sync);
             services.Register(leaderboard);
             services.Register(this);

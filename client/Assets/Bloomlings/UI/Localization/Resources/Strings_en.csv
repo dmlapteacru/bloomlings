@@ -503,3 +503,33 @@ account.cloud_not_ready,Cloud saves are not connected yet. Progress is saved on 
 account.sync_retry,Cloud save failed. Your local progress will be retried.
 account.saved_local,Saved on this device
 account.saved_cloud,Saved to the cloud
+
+account.panel.title,Account & progress
+account.panel.guest,Guest profile
+account.panel.player,Garden friend
+account.panel.progress,Level {0} · {1} Petals
+account.panel.saved_device,Saved on this device
+account.panel.saved_cloud,Saved in the cloud
+account.panel.syncing,Saving your progress…
+account.panel.working,Please wait…
+account.panel.pending,Waiting to sync
+account.panel.conflict,Two saves need your attention
+account.panel.unavailable,Cloud saving is currently unavailable
+account.panel.device_detail,Your progress is kept on this device. Connect an account when cloud saving is available to restore it on another device.
+account.panel.cloud_detail,Your latest progress is backed up. You can restore it with the same account on another device.
+account.panel.pending_detail,You can keep playing. Your progress will sync when a connection is available.
+account.panel.conflict_detail,Your device and cloud saves differ. Review them before restoring. Petals and items are never combined.
+account.panel.sync,Save to cloud
+account.panel.review,Review cloud save
+account.panel.coming_soon,Cloud saving coming soon
+account.panel.restore_title,Restore cloud save?
+account.panel.restore_detail,The cloud profile will replace the profile on this device. The current device save will be kept as a backup.
+account.panel.on_device,On this device
+account.panel.in_cloud,In the cloud
+account.panel.restore,Use cloud save
+account.panel.keep_device,Keep device save
+account.panel.changed,Your profile changed. Please review the save again.
+account.panel.retry,We could not connect. Your device progress is safe. Please try again.
+account.panel.linked,Account connected. Your progress is ready to sync.
+account.panel.existing,This account already has a game profile. Your device progress has not been moved.
+account.panel.restored,Cloud profile restored. Your previous device save was kept as a backup.

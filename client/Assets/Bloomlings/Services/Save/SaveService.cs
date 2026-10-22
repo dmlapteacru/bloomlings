@@ -66,6 +66,9 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>Raised after every successful write (the cloud sync queues the change).</summary>
         public event Action? Saved;
 
+        /// <summary>In-process revision after successful durable writes, for inexpensive UI invalidation.</summary>
+        public long WriteVersion { get; private set; }
+
         /// <summary>Test seam: runs between the temp write and the swap, to simulate a crash.</summary>
         internal Action? AfterTempWrite { get; set; }
 
@@ -134,6 +137,7 @@ namespace Bloomlings.Client.Services.Save
                 File.Move(TempPath, MainPath);
             }
 
+            WriteVersion++;
             Saved?.Invoke();
         }
 
