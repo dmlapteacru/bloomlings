@@ -1,0 +1,1421 @@
+{
+  "catalog": {
+    "version": "economy-1-8660ce6477a42ce3",
+    "cosmetics": {
+      "frame.wood_ring": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "frame.leaf_ring": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "frame.flower_wreath": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "frame.stone_ring": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "frame.golden_ribbon": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "frame.daisy": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "badge.sprout": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "frame.ivy": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "frame.silver_vine": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "marker.silver_leaf": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "frame.silver_bloom": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "badge.golden_leaf": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "badge.golden_bloom": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "marker.crown": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "frame.aurora": {
+        "price": 0,
+        "free": false,
+        "minLevel": 40
+      },
+      "frame.bramble": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "badge.watering_can": {
+        "price": 300,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.sprig_daisy": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "glasses.sprig_round": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.twig_panama": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.twig_hair": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.twig_hat_hair": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.twig_beret": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.twig_earmuffs": {
+        "price": 1200,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.twig_xmas": {
+        "price": 2000,
+        "free": false,
+        "minLevel": 100
+      },
+      "glasses.twig_round": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "scarf.twig_knit": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.twig_jacket": {
+        "price": 1500,
+        "free": false,
+        "minLevel": 80
+      },
+      "clothes.twig_coat": {
+        "price": 1000,
+        "free": false,
+        "minLevel": 60
+      },
+      "clothes.twig_overalls": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.sprig_rosette": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.sprig_swirl": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.sprig_panama": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.sprig_beret": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.sprig_earmuffs": {
+        "price": 1200,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.sprig_xmas": {
+        "price": 2000,
+        "free": false,
+        "minLevel": 100
+      },
+      "scarf.sprig_knit": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.sprig_jacket": {
+        "price": 1500,
+        "free": false,
+        "minLevel": 80
+      },
+      "clothes.sprig_coat": {
+        "price": 1000,
+        "free": false,
+        "minLevel": 60
+      },
+      "clothes.sprig_overalls": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.bloom_bob": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.bloom_peach": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_rose": {
+        "price": 2500,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.bloom_panama": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_cap": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_beret": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_earmuffs": {
+        "price": 1200,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.bloom_xmas": {
+        "price": 2000,
+        "free": false,
+        "minLevel": 100
+      },
+      "glasses.bloom_round": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "scarf.bloom_knit": {
+        "price": 500,
+        "free": false,
+        "minLevel": 80
+      },
+      "scarf.bloom_stripe": {
+        "price": 250,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.bloom_jacket": {
+        "price": 1500,
+        "free": false,
+        "minLevel": 80
+      },
+      "clothes.bloom_coat": {
+        "price": 1000,
+        "free": false,
+        "minLevel": 60
+      },
+      "clothes.bloom_overalls": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.drop_side_wave": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.drop_twin_ripples": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_whirlpool": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_panama": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_cap": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_beret": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_earmuffs": {
+        "price": 1200,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.drop_xmas": {
+        "price": 2000,
+        "free": false,
+        "minLevel": 100
+      },
+      "glasses.drop_round": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "scarf.drop_knit": {
+        "price": 500,
+        "free": false,
+        "minLevel": 80
+      },
+      "scarf.drop_stripe": {
+        "price": 250,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.drop_jacket": {
+        "price": 1500,
+        "free": false,
+        "minLevel": 80
+      },
+      "clothes.drop_coat": {
+        "price": 1000,
+        "free": false,
+        "minLevel": 60
+      },
+      "glasses.sprig_square": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "glasses.bloom_heart": {
+        "price": 450,
+        "free": false,
+        "minLevel": 40
+      },
+      "glasses.twig_octagon": {
+        "price": 450,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.drop_overalls": {
+        "price": 0,
+        "free": true,
+        "minLevel": 40
+      },
+      "hat.bloom_boater": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_bucket_green": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_crown": {
+        "price": 3500,
+        "free": false,
+        "minLevel": 100
+      },
+      "clothes.bloom_dress_purple": {
+        "price": 1000,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_flower_hat": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.bloom_headscarf": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.bloom_nightcap": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.bloom_summer_panama": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.bloom_top_flower": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.sprig_bowler": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.sprig_explorer": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.sprig_clover": {
+        "price": 2500,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.sprig_sprout": {
+        "price": 350,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.sprig_headscarf": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.sprig_nightcap": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.sprig_explorer_vest": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.twig_explorer_vest": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.sprig_boater": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.twig_pinecone": {
+        "price": 2500,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.twig_headscarf": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.twig_mushroom": {
+        "price": 2500,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.twig_nightcap": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.twig_explorer_shirt": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.twig_boater": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.twig_bowler": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.twig_explorer": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.drop_nightcap": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "clothes.drop_sailor_top": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_shell": {
+        "price": 2500,
+        "free": false,
+        "minLevel": 80
+      },
+      "hat.drop_sailor_hat": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_headscarf": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "clothes.drop_mint_shirt": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_explorer": {
+        "price": 850,
+        "free": false,
+        "minLevel": 60
+      },
+      "hat.drop_boater": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "hat.drop_rain_hat": {
+        "price": 650,
+        "free": false,
+        "minLevel": 40
+      },
+      "avatar.sprig_default": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "avatar.bloom_default": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "avatar.drop_default": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "avatar.twig_default": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      },
+      "avatar.sprig_ladybug_watercolor": {
+        "price": 300,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.bloom_ribbon_plush": {
+        "price": 300,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.drop_sailor_sticker": {
+        "price": 300,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.twig_glasses_scarf_clay": {
+        "price": 300,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.sprig_dewdrop_papercut": {
+        "price": 600,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.sprig_flower_crown_3d": {
+        "price": 600,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.drop_bubble_shell_3d": {
+        "price": 600,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.twig_autumn_wreath_3d": {
+        "price": 600,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.bloom_pearl_tiara_3d": {
+        "price": 1200,
+        "free": false,
+        "minLevel": 1
+      },
+      "avatar.bloom_jeweled_crown_magic": {
+        "price": 1200,
+        "free": false,
+        "minLevel": 1
+      },
+      "clear.blossom": {
+        "price": 2500,
+        "free": false,
+        "minLevel": 40
+      },
+      "clear.fireflies": {
+        "price": 3500,
+        "free": false,
+        "minLevel": 40
+      },
+      "clear.bubbles": {
+        "price": 3500,
+        "free": false,
+        "minLevel": 40
+      },
+      "clear.pushers": {
+        "price": 3500,
+        "free": false,
+        "minLevel": 40
+      },
+      "clear.fireworks": {
+        "price": 5000,
+        "free": false,
+        "minLevel": 40
+      },
+      "clear.parade": {
+        "price": 5000,
+        "free": false,
+        "minLevel": 40
+      },
+      "clear.munchers": {
+        "price": 0,
+        "free": true,
+        "minLevel": 1
+      }
+    },
+    "boosters": {
+      "extraSlot": {
+        "price": 1200,
+        "quantity": 3,
+        "minLevel": 3
+      },
+      "shuffle": {
+        "price": 1200,
+        "quantity": 3,
+        "minLevel": 4
+      },
+      "return": {
+        "price": 1500,
+        "quantity": 3,
+        "minLevel": 6
+      },
+      "bloomBurst": {
+        "price": 1000,
+        "quantity": 1,
+        "minLevel": 9
+      }
+    }
+  },
+  "initialState": {
+    "schemaVersion": 1,
+    "ownerId": "alice",
+    "catalogVersion": "economy-1-8660ce6477a42ce3",
+    "revision": 0,
+    "petals": 10000,
+    "highestCompletedLevel": 100,
+    "boosters": {
+      "extraSlot": 0,
+      "shuffle": 0,
+      "return": 0,
+      "bloomBurst": 0
+    },
+    "owned": [],
+    "milestones": [],
+    "daily": {
+      "date": null,
+      "step": 0
+    },
+    "challengeDate": null,
+    "boosterAdDate": null
+  },
+  "operation": {
+    "kind": "buy_cosmetic",
+    "installationId": "fixture-phone",
+    "sequence": 1,
+    "catalogVersion": "economy-1-8660ce6477a42ce3",
+    "itemId": "hat.twig_nightcap"
+  },
+  "read": {
+    "ok": true,
+    "code": "loaded",
+    "consumed": false,
+    "retryable": false,
+    "catalogVersion": "economy-1-8660ce6477a42ce3",
+    "catalog": {
+      "cosmetics": {
+        "frame.wood_ring": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "frame.leaf_ring": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "frame.flower_wreath": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "frame.stone_ring": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "frame.golden_ribbon": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "frame.daisy": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "badge.sprout": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "frame.ivy": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "frame.silver_vine": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "marker.silver_leaf": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "frame.silver_bloom": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "badge.golden_leaf": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "badge.golden_bloom": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "marker.crown": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "frame.aurora": {
+          "price": 0,
+          "free": false,
+          "minLevel": 40
+        },
+        "frame.bramble": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "badge.watering_can": {
+          "price": 300,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.sprig_daisy": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "glasses.sprig_round": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.twig_panama": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.twig_hair": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.twig_hat_hair": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.twig_beret": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.twig_earmuffs": {
+          "price": 1200,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.twig_xmas": {
+          "price": 2000,
+          "free": false,
+          "minLevel": 100
+        },
+        "glasses.twig_round": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "scarf.twig_knit": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.twig_jacket": {
+          "price": 1500,
+          "free": false,
+          "minLevel": 80
+        },
+        "clothes.twig_coat": {
+          "price": 1000,
+          "free": false,
+          "minLevel": 60
+        },
+        "clothes.twig_overalls": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.sprig_rosette": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.sprig_swirl": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.sprig_panama": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.sprig_beret": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.sprig_earmuffs": {
+          "price": 1200,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.sprig_xmas": {
+          "price": 2000,
+          "free": false,
+          "minLevel": 100
+        },
+        "scarf.sprig_knit": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.sprig_jacket": {
+          "price": 1500,
+          "free": false,
+          "minLevel": 80
+        },
+        "clothes.sprig_coat": {
+          "price": 1000,
+          "free": false,
+          "minLevel": 60
+        },
+        "clothes.sprig_overalls": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.bloom_bob": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.bloom_peach": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_rose": {
+          "price": 2500,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.bloom_panama": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_cap": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_beret": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_earmuffs": {
+          "price": 1200,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.bloom_xmas": {
+          "price": 2000,
+          "free": false,
+          "minLevel": 100
+        },
+        "glasses.bloom_round": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "scarf.bloom_knit": {
+          "price": 500,
+          "free": false,
+          "minLevel": 80
+        },
+        "scarf.bloom_stripe": {
+          "price": 250,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.bloom_jacket": {
+          "price": 1500,
+          "free": false,
+          "minLevel": 80
+        },
+        "clothes.bloom_coat": {
+          "price": 1000,
+          "free": false,
+          "minLevel": 60
+        },
+        "clothes.bloom_overalls": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.drop_side_wave": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.drop_twin_ripples": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_whirlpool": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_panama": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_cap": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_beret": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_earmuffs": {
+          "price": 1200,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.drop_xmas": {
+          "price": 2000,
+          "free": false,
+          "minLevel": 100
+        },
+        "glasses.drop_round": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "scarf.drop_knit": {
+          "price": 500,
+          "free": false,
+          "minLevel": 80
+        },
+        "scarf.drop_stripe": {
+          "price": 250,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.drop_jacket": {
+          "price": 1500,
+          "free": false,
+          "minLevel": 80
+        },
+        "clothes.drop_coat": {
+          "price": 1000,
+          "free": false,
+          "minLevel": 60
+        },
+        "glasses.sprig_square": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "glasses.bloom_heart": {
+          "price": 450,
+          "free": false,
+          "minLevel": 40
+        },
+        "glasses.twig_octagon": {
+          "price": 450,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.drop_overalls": {
+          "price": 0,
+          "free": true,
+          "minLevel": 40
+        },
+        "hat.bloom_boater": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_bucket_green": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_crown": {
+          "price": 3500,
+          "free": false,
+          "minLevel": 100
+        },
+        "clothes.bloom_dress_purple": {
+          "price": 1000,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_flower_hat": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.bloom_headscarf": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.bloom_nightcap": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.bloom_summer_panama": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.bloom_top_flower": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.sprig_bowler": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.sprig_explorer": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.sprig_clover": {
+          "price": 2500,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.sprig_sprout": {
+          "price": 350,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.sprig_headscarf": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.sprig_nightcap": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.sprig_explorer_vest": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.twig_explorer_vest": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.sprig_boater": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.twig_pinecone": {
+          "price": 2500,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.twig_headscarf": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.twig_mushroom": {
+          "price": 2500,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.twig_nightcap": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.twig_explorer_shirt": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.twig_boater": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.twig_bowler": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.twig_explorer": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.drop_nightcap": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "clothes.drop_sailor_top": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_shell": {
+          "price": 2500,
+          "free": false,
+          "minLevel": 80
+        },
+        "hat.drop_sailor_hat": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_headscarf": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "clothes.drop_mint_shirt": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_explorer": {
+          "price": 850,
+          "free": false,
+          "minLevel": 60
+        },
+        "hat.drop_boater": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "hat.drop_rain_hat": {
+          "price": 650,
+          "free": false,
+          "minLevel": 40
+        },
+        "avatar.sprig_default": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "avatar.bloom_default": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "avatar.drop_default": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "avatar.twig_default": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        },
+        "avatar.sprig_ladybug_watercolor": {
+          "price": 300,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.bloom_ribbon_plush": {
+          "price": 300,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.drop_sailor_sticker": {
+          "price": 300,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.twig_glasses_scarf_clay": {
+          "price": 300,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.sprig_dewdrop_papercut": {
+          "price": 600,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.sprig_flower_crown_3d": {
+          "price": 600,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.drop_bubble_shell_3d": {
+          "price": 600,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.twig_autumn_wreath_3d": {
+          "price": 600,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.bloom_pearl_tiara_3d": {
+          "price": 1200,
+          "free": false,
+          "minLevel": 1
+        },
+        "avatar.bloom_jeweled_crown_magic": {
+          "price": 1200,
+          "free": false,
+          "minLevel": 1
+        },
+        "clear.blossom": {
+          "price": 2500,
+          "free": false,
+          "minLevel": 40
+        },
+        "clear.fireflies": {
+          "price": 3500,
+          "free": false,
+          "minLevel": 40
+        },
+        "clear.bubbles": {
+          "price": 3500,
+          "free": false,
+          "minLevel": 40
+        },
+        "clear.pushers": {
+          "price": 3500,
+          "free": false,
+          "minLevel": 40
+        },
+        "clear.fireworks": {
+          "price": 5000,
+          "free": false,
+          "minLevel": 40
+        },
+        "clear.parade": {
+          "price": 5000,
+          "free": false,
+          "minLevel": 40
+        },
+        "clear.munchers": {
+          "price": 0,
+          "free": true,
+          "minLevel": 1
+        }
+      },
+      "boosters": {
+        "extraSlot": {
+          "price": 1200,
+          "quantity": 3,
+          "minLevel": 3
+        },
+        "shuffle": {
+          "price": 1200,
+          "quantity": 3,
+          "minLevel": 4
+        },
+        "return": {
+          "price": 1500,
+          "quantity": 3,
+          "minLevel": 6
+        },
+        "bloomBurst": {
+          "price": 1000,
+          "quantity": 1,
+          "minLevel": 9
+        }
+      }
+    },
+    "state": {
+      "schemaVersion": 1,
+      "ownerId": "alice",
+      "catalogVersion": "economy-1-8660ce6477a42ce3",
+      "revision": 0,
+      "petals": 10000,
+      "highestCompletedLevel": 100,
+      "boosters": {
+        "extraSlot": 0,
+        "shuffle": 0,
+        "return": 0,
+        "bloomBurst": 0
+      },
+      "owned": [],
+      "milestones": [],
+      "daily": {
+        "date": null,
+        "step": 0
+      },
+      "challengeDate": null,
+      "boosterAdDate": null
+    },
+    "nextSequence": 1
+  },
+  "purchase": {
+    "ok": true,
+    "code": "purchased",
+    "effects": {
+      "petals": -650,
+      "itemId": "hat.twig_nightcap"
+    },
+    "consumed": true,
+    "retryable": false,
+    "replayed": false,
+    "catalogVersion": "economy-1-8660ce6477a42ce3",
+    "state": {
+      "schemaVersion": 1,
+      "ownerId": "alice",
+      "catalogVersion": "economy-1-8660ce6477a42ce3",
+      "revision": 1,
+      "petals": 9350,
+      "highestCompletedLevel": 100,
+      "boosters": {
+        "extraSlot": 0,
+        "shuffle": 0,
+        "return": 0,
+        "bloomBurst": 0
+      },
+      "owned": [
+        "hat.twig_nightcap"
+      ],
+      "milestones": [],
+      "daily": {
+        "date": null,
+        "step": 0
+      },
+      "challengeDate": null,
+      "boosterAdDate": null
+    },
+    "nextSequence": 2
+  }
+}

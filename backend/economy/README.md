@@ -3,6 +3,9 @@
 Status: implemented and tested against a strict conditional-write stand-in; **not enabled in the game or verified
 against live UGS**. No credentials or dashboard setup are needed to build or test this code.
 
+Client follow-up: [cached catalog, per-owner snapshots and durable outbox](../../client/Assets/Bloomlings/Services/Economy/Online/README.md)
+are implemented and tested independently of SDK setup. Runtime migration/activation remains opt-in.
+
 ## Operations
 
 `ExecuteEconomy` accepts `action=read|execute` and `expectedOwnerId`. The actual owner always comes from authenticated

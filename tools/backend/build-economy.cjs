@@ -41,6 +41,18 @@ const catalog = {
 catalog.version = 'economy-1-' + crypto.createHash('sha256').update(JSON.stringify(catalog)).digest('hex').slice(0, 16);
 const catalogJson = JSON.stringify(catalog, null, 2) + '\n';
 const outputs = new Map([['backend/economy/catalog.json', catalogJson]]);
+const publicCatalog={version:catalog.version,cosmetics:catalog.cosmetics,boosters:catalog.boosters};
+outputs.set('client/Assets/Bloomlings/Services/Economy/Resources/ServerEconomyCatalog.json',JSON.stringify(publicCatalog,null,2)+'\n');
+const core=require('../../backend/economy/core.js');
+const initial=core.emptyState('alice',catalog);initial.petals=10000;initial.highestCompletedLevel=100;
+const operation={kind:'buy_cosmetic',installationId:'fixture-phone',sequence:1,catalogVersion:catalog.version,itemId:'hat.twig_nightcap'};
+const applied=core.execute(initial,operation,catalog,null,Date.UTC(2026,9,22));
+outputs.set('backend/tests/fixtures/economy-client.json',JSON.stringify({
+  catalog:publicCatalog,initialState:core.snapshot(initial),operation,
+  read:{ok:true,code:'loaded',consumed:false,retryable:false,catalogVersion:catalog.version,catalog:{cosmetics:catalog.cosmetics,boosters:catalog.boosters},state:core.snapshot(initial),nextSequence:1},
+  purchase:{...applied.result,consumed:true,retryable:false,replayed:false,catalogVersion:catalog.version,state:core.snapshot(applied.next),nextSequence:2}
+},null,2)+'\n');
+
 const files = ['core.js', 'service.js', 'ugs-store.js', 'endpoint.js'];
 const modules = files.map(name => `${JSON.stringify('./' + name)}: function(module, exports, require) {\n${fs.readFileSync(path.join(root, 'backend/economy', name), 'utf8')}\n}`);
 modules.push(`"./catalog.json": function(module) { module.exports = ${JSON.stringify(catalog)}; }`);
