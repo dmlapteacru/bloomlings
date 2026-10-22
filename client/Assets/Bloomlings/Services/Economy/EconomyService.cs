@@ -103,6 +103,12 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>Pays a newly completed level: Petals and, on every Nth level, one booster charge.</summary>
         public LevelReward GrantLevelReward(int level, DifficultyClass difficulty, int boostersUsed)
         {
+            if (level < 1) throw new ArgumentOutOfRangeException(nameof(level));
+            string claim = "reward.level." + level.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            if (_save.Unlocks.IsSet(claim)) return new LevelReward(0, null);
+            // Claim and payout are part of the same persisted snapshot. A repeated completion callback
+            // (including after restart) cannot pay this level twice.
+            _save.Unlocks.Flags[claim] = true;
             int petals = WinPetals(difficulty, boostersUsed);
             _save.Wallet.AddPetals(petals);
             BoosterKind? drop = DropFor(level);

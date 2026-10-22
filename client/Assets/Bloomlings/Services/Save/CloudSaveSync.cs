@@ -4,28 +4,18 @@ using Bloomlings.Content.Json;
 
 namespace Bloomlings.Client.Services.Save
 {
-    /// <summary>The outcome of one sync.</summary>
     public enum CloudSyncResult
     {
-        /// <summary>Offline or signed out: the change stays queued.</summary>
-        Queued,
-
-        /// <summary>The cloud had no save; the local one was uploaded.</summary>
-        Uploaded,
-
-        /// <summary>Both saves were merged (R15), stored locally and uploaded.</summary>
+        Queued, Uploaded,
+        // Kept for source compatibility: now means a whole remote snapshot was restored, not a union.
         Merged,
-
-        /// <summary>The load or the upload failed; the change stays queued for the next attempt.</summary>
-        Failed,
+        Failed, Conflict, AccountChanged, NeedsInitialization, UnsupportedProvider, UpToDate,
     }
 
     /// <summary>
-    /// Keeps the local save and the cloud save in step (research R15, FR-087, T139). While offline or signed out,
-    /// changes are only queued (<see cref="IsDirty"/>). A sync loads the cloud document, merges it into the local save
-    /// in place (<see cref="SaveMerge"/>: the furthest progression, all entitlements, re-applied purchases), writes the
-    /// result locally and uploads it. Syncs run at sign-in, when Home opens and after a win, never in the middle of a
-    /// level. A cloud document this app cannot read is left untouched and never overwritten. Engine-free.
+    /// Owner-scoped, conditional snapshot sync. A durable ancestor fingerprint distinguishes a local-only change
+    /// from a remote-only change. Divergent snapshots stop for reconciliation; currency/inventory are NEVER unioned.
+    /// No timestamps or highest-level comparisons determine which wallet wins.
     /// </summary>
     public sealed class CloudSaveSync
     {
@@ -33,6 +23,7 @@ namespace Bloomlings.Client.Services.Save
         private readonly Action _persist;
         private readonly ICloudSaveService _cloud;
         private bool _running;
+        private long _epoch;
 
         public CloudSaveSync(PlayerSave save, Action persist, ICloudSaveService cloud)
         {
@@ -41,78 +32,113 @@ namespace Bloomlings.Client.Services.Save
             _cloud = cloud;
         }
 
-        /// <summary>The merge changed the local save (progression, wallet, unlocks); listeners refresh.</summary>
         public event Action? Merged;
-
-        /// <summary>A local change has not reached the cloud yet. Starts true so the first sync of a session runs.</summary>
+        public event Action? StateChanged;
         public bool IsDirty { get; private set; } = true;
-
+        public bool IsRunning => _running;
         public CloudSyncResult? LastResult { get; private set; }
-
-        /// <summary>Records a local change to upload with the next sync.</summary>
         public void MarkDirty() => IsDirty = true;
 
-        /// <summary>Coroutine: one load → merge → store round. Overlapping calls return at once.</summary>
+        /// <summary>Call before any explicit profile switch, including A → B → A.</summary>
+        public void InvalidateSession()
+        {
+            _epoch++;
+            IsDirty = true;
+            LastResult = CloudSyncResult.AccountChanged;
+            StateChanged?.Invoke();
+        }
+
         public IEnumerator Sync(Action<CloudSyncResult>? done = null)
         {
-            if (_running)
-            {
-                yield break;
-            }
-
+            if (_running) yield break;
             _running = true;
             try
             {
-                CloudSyncResult result = CloudSyncResult.Queued;
-                if (_cloud.IsAvailable)
+                if (!_cloud.IsAvailable) { Complete(CloudSyncResult.Queued, done); yield break; }
+                if (!(_cloud is IAccountCloudSaveService cloud))
+                { Complete(CloudSyncResult.UnsupportedProvider, done); yield break; }
+                string? owner = cloud.PlayerId;
+                long session = cloud.SessionVersion;
+                long epoch = _epoch;
+                string localId = _save.LocalPlayerId;
+                bool Current() => epoch == _epoch && localId == _save.LocalPlayerId
+                    && session == cloud.SessionVersion && owner == cloud.PlayerId
+                    && (_save.CloudOwnerId == null || owner == _save.CloudOwnerId);
+                if (string.IsNullOrWhiteSpace(owner) || !Current())
+                { Complete(CloudSyncResult.AccountChanged, done); yield break; }
+
+                CloudLoadResult? loaded = null;
+                yield return cloud.LoadFor(owner!, session, r => loaded = r);
+                if (!Current()) { Complete(CloudSyncResult.AccountChanged, done); yield break; }
+                if (loaded == null || !loaded.Ok) { Complete(CloudSyncResult.Failed, done); yield break; }
+                PlayerSave? remote = null;
+                if (loaded.Json != null)
                 {
-                    CloudLoadResult? loaded = null;
-                    yield return _cloud.Load(r => loaded = r);
-                    result = CloudSyncResult.Failed;
-                    if (loaded != null && loaded.Ok)
-                    {
-                        PlayerSave? remote = null;
-                        bool readable = true;
-                        if (loaded.Json != null)
-                        {
-                            try
-                            {
-                                remote = SaveSerializer.Read(loaded.Json);
-                            }
-                            catch (ContentFormatException)
-                            {
-                                // A newer schema or a damaged document: keep it for a newer app, never overwrite it.
-                                readable = false;
-                            }
-                        }
-
-                        if (readable)
-                        {
-                            if (remote != null)
-                            {
-                                _save.Assign(SaveMerge.Merge(_save, remote));
-                                _persist();
-                                Merged?.Invoke();
-                            }
-
-                            bool stored = false;
-                            yield return _cloud.Store(SaveSerializer.Write(_save, indented: false), ok => stored = ok);
-                            if (stored)
-                            {
-                                IsDirty = false;
-                                result = remote != null ? CloudSyncResult.Merged : CloudSyncResult.Uploaded;
-                            }
-                        }
-                    }
+                    try { remote = SaveSerializer.Read(loaded.Json); }
+                    catch (ContentFormatException) { Complete(CloudSyncResult.Failed, done); yield break; }
+                    // Legacy documents require deliberate migration; never adopt another profile by guesswork.
+                    if (remote.CloudOwnerId != owner)
+                    { Complete(CloudSyncResult.Conflict, done); yield break; }
                 }
+                if (_save.CloudOwnerId == null)
+                {
+                    if (remote != null) { Complete(CloudSyncResult.Conflict, done); yield break; }
+                    _save.CloudOwnerId = owner;
+                    _persist(); // bind durably BEFORE any first upload; a retry cannot give this guest to B
+                }
+                string localHash = CloudSnapshot.Fingerprint(_save);
+                string? remoteHash = remote == null ? null : CloudSnapshot.Fingerprint(remote);
+                if (remoteHash == localHash)
+                {
+                    _save.CloudBaseHash = localHash;
+                    _persist();
+                    IsDirty = CloudSnapshot.Fingerprint(_save) != localHash;
+                    Complete(CloudSyncResult.UpToDate, done);
+                    yield break;
+                }
+                if (remote != null && _save.CloudBaseHash == localHash)
+                {
+                    CloudSnapshot.Restore(_save, remote);
+                    _persist();
+                    IsDirty = CloudSnapshot.Fingerprint(_save) != remoteHash;
+                    Merged?.Invoke();
+                    Complete(CloudSyncResult.Merged, done);
+                    yield break;
+                }
+                if ((remote != null && remoteHash != _save.CloudBaseHash)
+                    || (remote == null && _save.CloudBaseHash != null))
+                { Complete(CloudSyncResult.Conflict, done); yield break; }
 
-                LastResult = result;
-                done?.Invoke(result);
+                // Capture BEFORE yielding. Local changes during upload remain dirty and keep their own data.
+                string snapshot = SaveSerializer.Write(_save, false);
+                CloudStoreResult stored = CloudStoreResult.Failed;
+                yield return cloud.StoreFor(owner!, session, snapshot, loaded.WriteLock, r => stored = r);
+                if (!Current()) { Complete(CloudSyncResult.AccountChanged, done); yield break; }
+                if (stored == CloudStoreResult.Stored)
+                {
+                    _save.CloudBaseHash = localHash;
+                    _persist();
+                    IsDirty = CloudSnapshot.Fingerprint(_save) != localHash;
+                    Complete(CloudSyncResult.Uploaded, done);
+                }
+                else Complete(stored switch
+                {
+                    CloudStoreResult.Conflict => CloudSyncResult.Conflict,
+                    CloudStoreResult.AccountChanged => CloudSyncResult.AccountChanged,
+                    CloudStoreResult.NeedsInitialization => CloudSyncResult.NeedsInitialization,
+                    _ => CloudSyncResult.Failed,
+                }, done);
             }
-            finally
-            {
-                _running = false;
-            }
+            finally { _running = false; }
+        }
+
+        private void Complete(CloudSyncResult result, Action<CloudSyncResult>? done)
+        {
+            LastResult = result;
+            if (result != CloudSyncResult.Uploaded && result != CloudSyncResult.Merged && result != CloudSyncResult.UpToDate)
+                IsDirty = true;
+            StateChanged?.Invoke();
+            done?.Invoke(result);
         }
     }
 }

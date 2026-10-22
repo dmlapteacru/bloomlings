@@ -381,13 +381,37 @@ namespace Bloomlings.Client.App.Home
                 }),
                 features,
                 Navigate);
-            var account = new AccountActions(
-                () => save.LinkedIdentity != null
+            string AccountStatus()
+            {
+                if (save.CloudOwnerId != null && auth.IsSignedIn && save.CloudOwnerId != auth.PlayerId)
+                    return Loc.T("account.other_active");
+                if (auth is IAccountLinkStatus link && link.LastLinkResult == AccountLinkResult.ExistingAccount)
+                    return Loc.T("account.existing");
+                if (auth is IAccountLinkStatus failure && failure.LastLinkResult == AccountLinkResult.Failed)
+                    return Loc.T("account.link_failed");
+                string identity = save.LinkedIdentity != null
                     ? (save.LinkedIdentity == "apple" ? Loc.T("account.linked_apple") : Loc.T("account.linked_google"))
-                    : (auth.IsSignedIn ? Loc.T("account.signed_in") : Loc.T("account.local")),
+                    : (auth.IsSignedIn ? Loc.T("account.signed_in") : Loc.T("account.local"));
+                string state = sync.LastResult switch
+                {
+                    CloudSyncResult.Conflict => "account.sync_conflict",
+                    CloudSyncResult.AccountChanged => "account.other_active",
+                    CloudSyncResult.NeedsInitialization => "account.cloud_not_ready",
+                    CloudSyncResult.UnsupportedProvider => "account.cloud_not_ready",
+                    CloudSyncResult.Failed => "account.sync_retry",
+                    _ => sync.IsDirty ? "account.saved_local" : "account.saved_cloud",
+                };
+                return identity + "\n" + Loc.T(state);
+            }
+            var account = new AccountActions(
+                AccountStatus,
                 auth.CanLink(LinkProvider.Apple),
                 auth.CanLink(LinkProvider.GooglePlayGames),
-                (provider, done) => RunInBackground(auth.Link(provider, ok =>
+                (provider, done) =>
+                {
+                    if (save.CloudOwnerId != null && auth.PlayerId != save.CloudOwnerId)
+                    { done(false); return; }
+                    RunInBackground(auth.Link(provider, ok =>
                 {
                     if (ok)
                     {
@@ -397,7 +421,8 @@ namespace Bloomlings.Client.App.Home
                     }
 
                     done(ok);
-                })));
+                }));
+                });
             settings = SettingsScreen.Create(
                 root,
                 save.Settings,

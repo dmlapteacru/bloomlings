@@ -13,11 +13,12 @@ namespace Bloomlings.Integrations.Ugs
     /// UGS Authentication (FR-087, T138): anonymous sign-in on the first launch, in the background, and optional linking
     /// of Sign in with Apple or Google Play Games from Settings. The platform tokens come from the platform sign-in
     /// plugins through <see cref="ServiceProviders.AppleIdToken"/> and <see cref="ServiceProviders.GooglePlayGamesAuthCode"/>.
-    /// An identity already linked to another player (a new device) signs in as that player instead; the cloud save
-    /// merge (R15) then brings its progress here.
+    /// An occupied identity never changes the signed-in player implicitly.
     /// </summary>
-    internal sealed class UgsAuthService : IAuthService
+    internal sealed class UgsAuthService : IAuthService, IAccountLinkStatus
     {
+        private bool _linking;
+        public AccountLinkResult LastLinkResult { get; private set; }
         public bool IsSignedIn => UgsBootstrap.IsSignedIn;
 
         public string? PlayerId => IsSignedIn ? AuthenticationService.Instance.PlayerId : null;
@@ -41,64 +42,46 @@ namespace Bloomlings.Integrations.Ugs
 
         public IEnumerator Link(LinkProvider provider, Action<bool> done)
         {
-            Func<Action<string?>, IEnumerator>? source = provider == LinkProvider.Apple ? ServiceProviders.AppleIdToken : ServiceProviders.GooglePlayGamesAuthCode;
-            string? token = null;
-            if (source != null)
+            if (_linking) { done(false); yield break; }
+            _linking = true;
+            LastLinkResult = AccountLinkResult.None;
+            try
             {
-                yield return source(t => token = t);
-            }
-
-            if (string.IsNullOrEmpty(token))
-            {
-                done(false);
-                yield break;
-            }
-
-            Exception? error = null;
-            yield return UgsBootstrap.Await(UgsBootstrap.EnsureSignedInAsync(), e => error = e);
-            if (error == null)
-            {
+                Exception? error = null;
+                yield return UgsBootstrap.Await(UgsBootstrap.EnsureSignedInAsync(), e => error = e);
+                if (error != null) { LastLinkResult = AccountLinkResult.Failed; done(false); yield break; }
+                string? owner = PlayerId;
+                long session = UgsBootstrap.AuthSessionVersion;
+                Func<Action<string?>, IEnumerator>? source = provider == LinkProvider.Apple ? ServiceProviders.AppleIdToken : ServiceProviders.GooglePlayGamesAuthCode;
+                string? token = null;
+                if (source != null) yield return source(t => token = t);
+                if (string.IsNullOrEmpty(token)) { LastLinkResult = AccountLinkResult.Cancelled; done(false); yield break; }
+                if (owner != PlayerId || session != UgsBootstrap.AuthSessionVersion)
+                { LastLinkResult = AccountLinkResult.Failed; done(false); yield break; }
                 yield return UgsBootstrap.Await(LinkAsync(provider, token!), e => error = e);
+                if (error != null || owner != PlayerId || session != UgsBootstrap.AuthSessionVersion)
+                {
+                    LastLinkResult = error is AuthenticationException authError && authError.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked
+                        ? AccountLinkResult.ExistingAccount : AccountLinkResult.Failed;
+                    done(false);
+                    yield break;
+                }
+                LinkedIdentity = LinkedIdentities.Name(provider);
+                LastLinkResult = AccountLinkResult.Linked;
+                done(true);
             }
-
-            if (error != null)
-            {
-                Debug.LogWarning($"[Auth] Linking {provider} failed: {error.Message}");
-                done(false);
-                yield break;
-            }
-
-            LinkedIdentity = LinkedIdentities.Name(provider);
-            done(true);
+            finally { _linking = false; }
         }
 
         private static async Task LinkAsync(LinkProvider provider, string token)
         {
             IAuthenticationService auth = AuthenticationService.Instance;
-            try
-            {
-                if (provider == LinkProvider.Apple)
-                {
-                    await auth.LinkWithAppleAsync(token);
-                }
-                else
-                {
-                    await auth.LinkWithGooglePlayGamesAsync(token);
-                }
-            }
-            catch (AuthenticationException ex) when (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
-            {
-                // The identity belongs to an existing player (another device): continue as that player.
-                auth.SignOut();
-                if (provider == LinkProvider.Apple)
-                {
-                    await auth.SignInWithAppleAsync(token);
-                }
-                else
-                {
-                    await auth.SignInWithGooglePlayGamesAsync(token);
-                }
-            }
+            // A link conflict is NOT permission to sign into that other player. Keep the current
+            // authenticated owner and let an explicit account-restore flow handle the conflict.
+            if (provider == LinkProvider.Apple)
+                await auth.LinkWithAppleAsync(token);
+            else
+                await auth.LinkWithGooglePlayGamesAsync(token);
         }
     }
 }

@@ -495,3 +495,11 @@ cosmetic.hat.drop_rain_hat,Sunshine Rain Hat
 
 settings.petals_label,Petals
 wardrobe.unlock_level,Level {0}
+account.other_active,Another game account is active. Progress has not been transferred.
+account.existing,This Google or Apple account already has a game profile. Your current progress is kept.
+account.link_failed,Could not link your account. Your progress is saved on this device.
+account.sync_conflict,Progress changed on another device. Both versions are kept for review.
+account.cloud_not_ready,Cloud saves are not connected yet. Progress is saved on this device.
+account.sync_retry,Cloud save failed. Your local progress will be retried.
+account.saved_local,Saved on this device
+account.saved_cloud,Saved to the cloud

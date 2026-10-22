@@ -27,7 +27,7 @@ namespace Bloomlings.Client.UI.Screens
     {
         private const float RowUnits = 126f;
         private const float RowGapUnits = 12f;
-        private const float StatusUnits = 56f;
+        private const float StatusUnits = 100f;
         private const float ButtonGapUnits = 24f;
 
         private GameObject _root = null!;

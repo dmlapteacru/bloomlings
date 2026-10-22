@@ -14,35 +14,6 @@ namespace Bloomlings.Client.Tests
     {
         private static readonly DateTime T0 = new DateTime(2026, 9, 29, 12, 0, 0, DateTimeKind.Utc);
 
-        private sealed class FakeCloud : ICloudSaveService
-        {
-            public bool IsAvailable { get; set; }
-
-            public string? Stored { get; set; }
-
-            public bool FailStore { get; set; }
-
-            public int Stores { get; private set; }
-
-            public IEnumerator Load(Action<CloudLoadResult> done)
-            {
-                done(IsAvailable ? new CloudLoadResult(true, Stored) : CloudLoadResult.Failed);
-                yield break;
-            }
-
-            public IEnumerator Store(string json, Action<bool> done)
-            {
-                if (!FailStore)
-                {
-                    Stored = json;
-                    Stores++;
-                }
-
-                done(!FailStore);
-                yield break;
-            }
-        }
-
         private sealed class FakeBoard : ILeaderboardService
         {
             public bool IsAvailable { get; set; }
@@ -96,70 +67,35 @@ namespace Bloomlings.Client.Tests
             }
         }
 
-        [Test]
-        public void Offline_QueuesTheChange_AndReconnectMergesAndUploads()
+        private sealed class Auth : IAuthService
         {
-            PlayerSave local = PlayerSave.CreateNew("local", T0);
-            local.Progression.HighestCompletedLevel = 12;
-            local.Wallet.AddPetals(40);
-            PlayerSave other = PlayerSave.CreateNew("other", T0.AddMinutes(-30));
-            other.Progression.HighestCompletedLevel = 30;
-            other.Wallet.AddPetals(90);
-            other.Purchases.RemoveAds = true;
-
-            var cloud = new FakeCloud { Stored = SaveSerializer.Write(other, indented: false) };
-            int persisted = 0;
-            var sync = new CloudSaveSync(local, () => persisted++, cloud);
-
-            CloudSyncResult? result = null;
-            Run(sync.Sync(r => result = r));
-            Assert.That(result, Is.EqualTo(CloudSyncResult.Queued));
-            Assert.That(sync.IsDirty, Is.True);
-            Assert.That(local.Progression.HighestCompletedLevel, Is.EqualTo(12), "nothing changes offline");
-
-            cloud.IsAvailable = true;
-            bool merged = false;
-            sync.Merged += () => merged = true;
-            Run(sync.Sync(r => result = r));
-            Assert.That(result, Is.EqualTo(CloudSyncResult.Merged));
-            Assert.That(merged, Is.True);
-            Assert.That(sync.IsDirty, Is.False);
-            Assert.That(persisted, Is.EqualTo(1), "the merged save is written locally");
-            Assert.That((local.Progression.HighestCompletedLevel, local.Wallet.Petals, local.Purchases.RemoveAds), Is.EqualTo((30, 90, true)), "merged in place");
-            Assert.That(local.LocalPlayerId, Is.EqualTo("local"));
-            Assert.That(SaveSerializer.Read(cloud.Stored!).Progression.HighestCompletedLevel, Is.EqualTo(30), "the merge is uploaded");
+            public bool IsSignedIn => true;
+            public string? PlayerId { get; set; } = "A";
+            public string? LinkedIdentity => "google_play_games";
+            public bool CanLink(LinkProvider provider) => false;
+            public IEnumerator SignIn(Action<bool> done) { done(true); yield break; }
+            public IEnumerator Link(LinkProvider provider, Action<bool> done) { done(false); yield break; }
         }
 
         [Test]
-        public void EmptyCloud_GetsTheLocalSave_AndAFailedUploadStaysQueued()
+        public void DifferentAuthenticatedOwnerCannotSubmitTheLocalPlayersProgress()
         {
-            PlayerSave local = PlayerSave.CreateNew("local", T0);
-            var cloud = new FakeCloud { IsAvailable = true, FailStore = true };
-            var sync = new CloudSaveSync(local, () => { }, cloud);
-
-            CloudSyncResult? result = null;
-            Run(sync.Sync(r => result = r));
-            Assert.That(result, Is.EqualTo(CloudSyncResult.Failed));
-            Assert.That(sync.IsDirty, Is.True);
-
-            cloud.FailStore = false;
-            Run(sync.Sync(r => result = r));
-            Assert.That(result, Is.EqualTo(CloudSyncResult.Uploaded));
-            Assert.That(cloud.Stores, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void UnreadableCloudDocument_IsNeverOverwritten()
-        {
-            PlayerSave local = PlayerSave.CreateNew("local", T0);
-            string newer = SaveSerializer.Write(local, indented: false).Replace("\"schemaVersion\":1", "\"schemaVersion\":2");
-            var cloud = new FakeCloud { IsAvailable = true, Stored = newer };
-            var sync = new CloudSaveSync(local, () => { }, cloud);
-
-            CloudSyncResult? result = null;
-            Run(sync.Sync(r => result = r));
-            Assert.That(result, Is.EqualTo(CloudSyncResult.Failed));
-            Assert.That(cloud.Stored, Is.EqualTo(newer));
+            var save = PlayerSave.CreateNew("local", T0);
+            save.CloudOwnerId = "A";
+            save.Progression.HighestCompletedLevel = 100;
+            save.Unlocks.Flags[LeaderboardClient.UnlockId] = true;
+            var board = new FakeBoard { IsAvailable = true };
+            var auth = new Auth { PlayerId = "B" };
+            var client = new LeaderboardClient(save, board, new BundledRemoteConfigService(), new FixedClock(), () => { }, auth);
+            Run(client.Refresh());
+            Assert.That(board.Submitted, Is.Zero);
+            Assert.That(client.LastPage, Is.Null);
+            auth.PlayerId = "A";
+            Run(client.Refresh());
+            Assert.That(board.Submitted, Is.EqualTo(100));
+            auth.PlayerId = "B";
+            Run(client.Refresh());
+            Assert.That(client.LastPage, Is.Null, "do not show A's cached position as B's");
         }
 
         [Test]

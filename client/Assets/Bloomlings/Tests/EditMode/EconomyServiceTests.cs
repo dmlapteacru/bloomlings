@@ -32,6 +32,17 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void ReplayedLevelRewardDoesNotPayTwiceAfterRestart()
+        {
+            _economy.GrantLevelReward(20, DifficultyClass.Hard, 0);
+            int petals = _economy.Petals;
+            var reloaded = SaveSerializer.Read(SaveSerializer.Write(_save));
+            var economy = new EconomyService(reloaded, EconomyConfig.Bundled, () => { });
+            Assert.That(economy.GrantLevelReward(20, DifficultyClass.Hard, 0).Petals, Is.Zero);
+            Assert.That(economy.Petals, Is.EqualTo(petals));
+        }
+
+        [Test]
         public void Win_PaysBasePlusCleanBonusPlusDifficultyBonus()
         {
             EconomyConfig c = EconomyConfig.Bundled;
