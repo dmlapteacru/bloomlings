@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.Services.Economy.Online;
 using Bloomlings.Content.Json;
 using Bloomlings.Core.Variants;
@@ -48,6 +49,70 @@ namespace Bloomlings.Client.Tests
             try { while(routine.MoveNext()) if(routine.Current is IEnumerator nested) Run(nested); }
             finally { (routine as IDisposable)?.Dispose(); }
         }
+        private PurchasePanel OpenPurchasePanel(string target = "hat.twig_nightcap")
+        {
+            var p = new PurchasePanel();
+            p.Open(PurchaseOffer.ForItem("Hat", 650, target), new OnlinePurchaseOperation(_client!, "buy_cosmetic", target, Run));
+            return p;
+        }
+        [Test] public void InGamePurchaseLostAcknowledgementChecksExactOperationWithoutSpendingTwice()
+        {
+            var p = OpenPurchasePanel(); Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Confirm));
+            _server.DropResponse = true; p.Confirm(); Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Pending));
+            string original = _server.Sent[0]; Assert.That(_server.Applied, Is.EqualTo(1));
+            _server.DropResponse = false; p.Check();
+            Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Complete)); Assert.That(_server.Applied, Is.EqualTo(1));
+            Assert.That(_server.Sent[1], Is.EqualTo(original)); Assert.That(_client!.Confirmed!.Petals, Is.EqualTo(9350));
+        }
+        [Test] public void InGameRepriceRequiresSecondTapBeforeSameSequenceMayExecute()
+        {
+            var p = OpenPurchasePanel(); _server.Catalog["version"] = "new-price";
+            _server.Catalog["cosmetics"]!["hat.twig_nightcap"]!["price"] = 800;
+            p.Confirm(); Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Reprice));
+            Assert.That(p.Offer!.Petals, Is.EqualTo(800)); Assert.That(_server.Applied, Is.Zero);
+            p.Confirm(); Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Complete)); Assert.That(_server.Applied, Is.EqualTo(1));
+            var first = JsonDoc.ParseObject(_server.Sent[0], "first"); var second = JsonDoc.ParseObject(_server.Sent[1], "second");
+            Assert.That((long)first["sequence"]!, Is.EqualTo((long)second["sequence"]!)); Assert.That(_client!.Confirmed!.Petals, Is.EqualTo(9200));
+        }
+        [Test] public void ReopenedGameChecksPendingPurchaseFromDiskWithoutAnotherPurchase()
+        {
+            var p = OpenPurchasePanel(); _server.DropResponse = true; p.Confirm(); p.Close();
+            string original = _server.Sent[0]; Open(); _server.DropResponse = false;
+            var resumed = OpenPurchasePanel(); Assert.That(resumed.Stage, Is.EqualTo(PurchaseStage.Complete));
+            Assert.That(_server.Applied, Is.EqualTo(1)); Assert.That(_server.Sent[1], Is.EqualTo(original));
+        }
+        [Test] public void PurchaseUiDoesNotClaimSuccessForConsumedRejection()
+        {
+            var p = OpenPurchasePanel(); _server.State["petals"] = 0; p.Confirm();
+            Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Failed)); Assert.That(p.Code, Is.EqualTo("insufficient-petals"));
+            Assert.That(_client!.PendingCount, Is.Zero); Assert.That(_client.Owns("hat.twig_nightcap"), Is.False);
+        }
+        [Test] public void OpeningOtherItemCannotReplayOrReplacePendingProduct()
+        {
+            var first = OpenPurchasePanel(); _server.DropResponse = true; first.Confirm(); first.Close();
+            int sent = _server.Sent.Count; var other = OpenPurchasePanel("hat.twig_boater");
+            Assert.That(other.Stage, Is.EqualTo(PurchaseStage.Failed)); Assert.That(_server.Sent.Count, Is.EqualTo(sent));
+            Assert.That(_client!.PendingPurchase!.Target, Is.EqualTo("hat.twig_nightcap"));
+        }
+        [Test] public void SessionSwitchDuringBuyCannotShowSuccessOrMutateOtherProfile()
+        {
+            var p = OpenPurchasePanel(); _server.DuringExecute = () => _server.SessionVersion++;
+            p.Confirm(); Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Failed)); Assert.That(p.Code, Is.EqualTo("account-changed"));
+            Assert.That(_client!.PendingCount, Is.EqualTo(1)); Assert.That(_client.Confirmed!.Petals, Is.EqualTo(10000));
+        }
+
+        [Test] public void ScheduledConsentCannotSpendAfterSessionChangesBeforeCoroutineStarts()
+        {
+            Ready(); IEnumerator? scheduled = null;
+            var operation = new OnlinePurchaseOperation(_client!, "buy_cosmetic", "hat.twig_nightcap", routine => scheduled = routine);
+            var p = new PurchasePanel(); p.Open(PurchaseOffer.ForItem("Hat", 650, "hat.twig_nightcap"), operation);
+            Run(scheduled!); Assert.That(p.CanBuy, Is.True); p.Confirm();
+            _client!.InvalidateSession(); Run(_client.Refresh()); // same owner, new verified client epoch
+            Run(scheduled!);
+            Assert.That(_server.Sent, Is.Empty); Assert.That(_client.PendingCount, Is.Zero);
+            Assert.That(p.Stage, Is.EqualTo(PurchaseStage.Failed)); Assert.That(p.Code, Is.EqualTo("account-changed"));
+        }
+
         private sealed class FakeTransport : IEconomyTransport
         {
             public bool IsAvailable { get; set; } = true;

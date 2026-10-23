@@ -214,12 +214,11 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), price), (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)), () =>
+            app.ConfirmPurchase(PurchaseOffer.ForBooster(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), price, kind.ToString()), (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)), () =>
             {
-                if (!app.Meta.Economy.TryBuy(kind))
-                {
-                    Refuse(app);
-                }
+                bool bought = app.Meta.Economy.TryBuy(kind);
+                if (!bought) Refuse(app);
+                return bought;
             });
         }
 
@@ -359,7 +358,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
             if(app.Meta.Economy.Petals<item.Price){Refuse(app);return;}
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),(q,well)=>Preview(q,well,family,item),()=>{if(!app.Meta.Wardrobe.TryBuy(item.Id))Refuse(app);});
+            app.ConfirmPurchase(PurchaseOffer.ForItem(MetaCards.ItemName(item),item.Price,item.Id),(q,well)=>Preview(q,well,family,item),()=>{bool bought=app.Meta.Wardrobe.TryBuy(item.Id);if(!bought)Refuse(app);return bought;});
         }
 
         /// <summary>
@@ -407,7 +406,7 @@ namespace Bloomlings.Playtest.Design
             ClearingService clearing = app.Meta.Clearing;
             if (clearing.Check(style, app.Meta.CurrentLevel) == ClearingTap.Bought)
             {
-                app.ConfirmPurchase(PurchaseOffer.ForPetals(name, clearing.PriceOf(style)), (q, well) => Kit.ClearingPreview(q, well, style), () => Tapped(app, clearing.Tap(style, app.Meta.CurrentLevel)));
+                app.ConfirmPurchase(PurchaseOffer.ForItem(name, clearing.PriceOf(style), ClearStyles.Id(style)), (q, well) => Kit.ClearingPreview(q, well, style), () => { var result = clearing.Tap(style, app.Meta.CurrentLevel); Tapped(app, result); return result == ClearingTap.Bought; });
                 return;
             }
 

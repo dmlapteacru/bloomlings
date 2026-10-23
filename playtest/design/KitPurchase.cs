@@ -25,7 +25,7 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="note"/> (the balance, or that the store confirms the payment next), the green "Buy" and the cream
         /// "Cancel". <paramref name="pop"/> is the card's pop scale (<see cref="Pop"/>).
         /// </summary>
-        public static void PurchaseCard(IPainter p, PurchaseOffer offer, Action<IPainter, Box>? picture, string note, Action onBuy, Action onCancel, float pop = 1f)
+        public static void PurchaseCard(IPainter p, PurchaseOffer offer, Action<IPainter, Box>? picture, string note, Action? onBuy, Action onCancel, float pop = 1f, string actionKey = "purchase.buy", bool showPrice = true, string cancelKey = "common.cancel")
         {
             p.Mark("ui.card.purchase");
             PurchaseConfirmRegions r = ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets);
@@ -35,9 +35,11 @@ namespace Bloomlings.Playtest.Design
             List<string> lines=EndCards.Lines(p,offer.Name,PopupDesign.Label,r.Question.Width,2);
             float lh=r.Question.Height/2;float y=r.Question.CenterY-(lines.Count-1)*lh/2;
             foreach(string text in lines) { p.Text(text,r.Question.CenterX,y,PopupDesign.Label,C.InkBrown,r.Question.Width,look:TextLook.Plain(C.InkBrown)); y+=lh; }
-            p.Text(note,r.Note.CenterX,r.Note.CenterY,T.Caption,C.InkBrownSoft,r.Note.Width);
-            PurchaseButton(p,r.Confirm,PlaytestText.T("purchase.buy")+"  "+offer.PriceText,onBuy,iconId:offer.RealMoney?null:"currency.petal");
-            SecondaryButton(p,r.Cancel.Inset(p.U(40f),0),PlaytestText.T("common.cancel"),onCancel,style:PopupDesign.Label);
+            var notes = EndCards.Lines(p, note, T.Caption, r.Note.Width, 2);
+            float noteY = r.Note.CenterY - (notes.Count - 1) * r.Note.Height / 4;
+            foreach (string line in notes) { p.Text(line,r.Note.CenterX,noteY,T.Caption,C.InkBrownSoft,r.Note.Width); noteY += r.Note.Height / 2; }
+            PurchaseButton(p,r.Confirm,PlaytestText.T(actionKey)+(showPrice ? "  "+offer.PriceText : ""),onBuy,iconId:showPrice && !offer.RealMoney?"currency.petal":null);
+            SecondaryButton(p,r.Cancel.Inset(p.U(40f),0),PlaytestText.T(cancelKey),onCancel,style:PopupDesign.Label);
             EndCard(p);
         }
     }

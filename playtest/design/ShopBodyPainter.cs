@@ -117,7 +117,7 @@ namespace Bloomlings.Playtest.Design
             BoosterKind kind = Parse(id);
             string icon = kind switch { BoosterKind.ExtraSlot => "extra_slot", BoosterKind.Shuffle => "shuffle", BoosterKind.Return => "return", _ => "bloom_burst" };
             string name = PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind));
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(name, app.Meta.Economy.Price(kind)), (p, well) => Kit.BoosterIcon(p, icon, well.Inset(well.Width * 0.1f)), () => app.Meta.Economy.TryBuy(kind));
+            app.ConfirmPurchase(PurchaseOffer.ForBooster(name, app.Meta.Economy.Price(kind), kind.ToString()), (p, well) => Kit.BoosterIcon(p, icon, well.Inset(well.Width * 0.1f)), () => app.Meta.Economy.TryBuy(kind));
         }
     }
 }

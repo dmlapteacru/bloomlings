@@ -32,6 +32,14 @@ namespace Bloomlings.Playtest.Droid
             var output = new SoundOut(sound);
             _app = new DesignApp(context.FilesDir!.AbsolutePath, PlaytestContent.Load(), output);
             output.App = _app;
+            long checkedNetworkAt = -1000;
+            bool networkAvailable = false;
+            _app.PurchaseNetworkAvailable = () =>
+            {
+                long now = SystemClock.UptimeMillis();
+                if (now - checkedNetworkAt >= 250) { networkAvailable = NetworkAvailable(context); checkedNetworkAt = now; }
+                return networkAvailable;
+            };
             _app.TextPrompt = new TextPrompt(context, this);
             sound.Enabled = _app.Meta.Save.Settings.Sfx;
             // A lawn rendered on a worker thread asks for the frame that shows it.
@@ -47,6 +55,18 @@ namespace Bloomlings.Playtest.Droid
 
             // The screen's density turns touch.slop and touch.swipe (dp) into pixels (160 dp to the inch).
             _painter.Dpi = (context.Resources?.DisplayMetrics?.Density ?? 0f) * 160f;
+        }
+
+        private static bool NetworkAvailable(Context context)
+        {
+            try
+            {
+                var manager = context.GetSystemService(Context.ConnectivityService) as Android.Net.ConnectivityManager;
+                var capabilities = manager?.GetNetworkCapabilities(manager.ActiveNetwork);
+                return capabilities?.HasCapability(Android.Net.NetCapability.Internet) == true
+                    && capabilities.HasCapability(Android.Net.NetCapability.Validated);
+            }
+            catch { return false; }
         }
 
         public override WindowInsets OnApplyWindowInsets(WindowInsets? insets)

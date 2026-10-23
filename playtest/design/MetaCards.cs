@@ -122,8 +122,21 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            string note = offer.RealMoney ? PlaytestText.T("purchase.store_next") : PlaytestText.F("purchase.balance", NumberText.Group(app.Meta.Economy.Petals));
-            Kit.PurchaseCard(p, offer, app.PurchasePicture, note, app.BuyConfirmed, app.CloseOverlay, Kit.Pop(since));
+            PurchasePanel panel = app.Purchase;
+            string note = !panel.IsOnline && panel.Stage != PurchaseStage.Loading ? PlaytestText.T("purchase.offline") : panel.Stage switch
+            {
+                PurchaseStage.Loading => PlaytestText.T("purchase.checking"),
+                PurchaseStage.Offline => PlaytestText.T("purchase.offline"),
+                PurchaseStage.Pending => PlaytestText.T("purchase.pending"),
+                PurchaseStage.Reprice => PlaytestText.T("purchase.price_changed"),
+                PurchaseStage.Failed => PlaytestText.T(panel.Code == "account-changed" ? "purchase.account_changed" : "purchase.failed"),
+                _ => panel.Code == "insufficient-funds" ? PlaytestText.T("gameplay.not_enough_petals") :
+                    offer.RealMoney ? PlaytestText.T("purchase.store_next") : PlaytestText.F("purchase.balance", NumberText.Group(panel.Balance ?? app.Meta.Economy.Petals)),
+            };
+            bool price = panel.Stage == PurchaseStage.Confirm || panel.Stage == PurchaseStage.Reprice;
+            string action = panel.Stage == PurchaseStage.Loading ? "purchase.checking_action" : price ? "purchase.buy" : "purchase.check_action";
+            Kit.PurchaseCard(p, offer, app.PurchasePicture, note, panel.CanBuy || panel.CanCheck ? app.BuyConfirmed : (Action?)null,
+                app.CloseOverlay, Kit.Pop(since), action, price, price ? "common.cancel" : "common.close");
         }
 
         /// <summary>An item's player-facing name (<c>cosmetic.{id}</c> in the string table), else its catalog name.</summary>

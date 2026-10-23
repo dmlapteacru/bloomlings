@@ -136,6 +136,7 @@ namespace Bloomlings.Playtest.Design
             Content = content;
             Sound = sound;
             Meta = new PlaytestMeta(dataFolder);
+            Purchase.Changed += PurchaseChanged;
             Account = new AccountPanel(accountGateway ?? new DelegateAccountPanelGateway(
                 () => new AccountPanelSnapshot(Meta.Save.LocalPlayerId, Meta.Save.UpdatedAt,
                     Meta.Save.Profile.Name ?? "", Meta.CurrentLevel, Meta.Economy.Petals,
@@ -243,7 +244,11 @@ namespace Bloomlings.Playtest.Design
         /// The purchase waiting for the player's answer (spec 005 FR-040, the owner's request of 2026-10-06: "Every purchase
         /// needs a confirmation popup"), shown by <see cref="Overlay.Purchase"/>.
         /// </summary>
-        public PurchaseConfirmation Purchase { get; } = new PurchaseConfirmation();
+        public PurchasePanel Purchase { get; } = new PurchasePanel();
+
+        /// <summary>The Android host supplies actual connectivity. Preview/local checks have an available network.</summary>
+        public Func<bool> PurchaseNetworkAvailable { get; set; } = () => true;
+        public UiRoutineQueue OnlineRoutines { get; } = new UiRoutineQueue();
 
         /// <summary>The asked item's picture in the confirmation's well, drawn each frame; none for a plain card.</summary>
         public Action<IPainter, Box>? PurchasePicture { get; private set; }
@@ -281,6 +286,7 @@ namespace Bloomlings.Playtest.Design
             || (Screen == Screen.Home && (_overlays.Count == 0 || HomeMoving))
             || (Screen == Screen.Store && StoreMoving)
             || IsOpen(Overlay.DailyReward)
+            || OnlineRoutines.HasWork
             || IsOpen(Overlay.Purchase)
             || (IsOpen(Overlay.Account) && Account.Busy);
 
@@ -618,11 +624,11 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>Closes every card; a purchase still asking is dropped, nothing bought.</summary>
+        /// <summary>Closes presentation; sent online purchases remain in their durable owner-scoped outbox.</summary>
         private void ClearOverlays()
         {
             _overlays.Clear();
-            Purchase.Cancel();
+            Purchase.Close();
             PurchasePicture = null;
             _purchaseCancelled = null;
         }
@@ -632,36 +638,60 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="picture"/>, its name and its price; <paramref name="buy"/> runs only on its Buy, and
         /// <paramref name="cancelled"/> when it is closed without (Cancel, the system back). Nothing is spent before.
         /// </summary>
-        public void ConfirmPurchase(PurchaseOffer offer, Action<IPainter, Box>? picture, Action buy, Action? cancelled = null)
+        public void ConfirmPurchase(PurchaseOffer offer, Action<IPainter, Box>? picture, Func<bool> buy, Action? cancelled = null,
+            Func<PurchaseOffer>? currentOffer = null)
         {
-            Purchase.Ask(offer, buy);
+            var operation = new LocalPurchaseOperation(() => Meta.Save.LocalPlayerId, () => PurchaseNetworkAvailable(),
+                () => Meta.Economy.Petals, currentOffer ?? (() => CurrentPurchaseOffer(offer)), buy);
+            ShowPurchase(offer, picture, operation, cancelled);
+        }
+
+        private PurchaseOffer CurrentPurchaseOffer(PurchaseOffer offer)
+        {
+            if ((offer.ProductKind == "buy_booster" || offer.ProductKind == "consume_booster") &&
+                Enum.TryParse(offer.ProductTarget, true, out Bloomlings.Client.Services.Save.BoosterKind kind))
+                return offer.WithPrice(Meta.Economy.Price(kind));
+            if (offer.ProductKind == "buy_cosmetic" && offer.ProductTarget != null)
+            {
+                if (PlaytestMeta.Cosmetics.TryGet(offer.ProductTarget, out CosmeticItem? item) && item != null) return offer.WithPrice(item.Price);
+                var avatar = AvatarCatalog.Get(offer.ProductTarget);
+                if (avatar != null) return offer.WithPrice(Meta.Profile.Price(avatar));
+                var style = ClearStyles.Parse(offer.ProductTarget);
+                if (style.HasValue) return offer.WithPrice(Meta.Clearing.PriceOf(style.Value));
+            }
+            return offer;
+        }
+
+        /// <summary>Used by a server-mode host after composing its authoritative wallet. Never runs local spending callbacks.</summary>
+        public void ShowPurchase(PurchaseOffer offer, Action<IPainter, Box>? picture, IPurchaseOperation operation, Action? cancelled = null)
+        {
             PurchasePicture = picture;
             _purchaseCancelled = cancelled;
-            if (_overlays.Count == 0 || _overlays[_overlays.Count - 1].Overlay != Overlay.Purchase)
-            {
-                OpenOverlay(Overlay.Purchase);
-            }
+            if (_overlays.Count == 0 || _overlays[_overlays.Count - 1].Overlay != Overlay.Purchase) OpenOverlay(Overlay.Purchase);
+            Purchase.Open(offer, operation);
         }
 
-        /// <summary>The confirmation's Buy: the card closes, then the purchase runs once.</summary>
         public void BuyConfirmed()
         {
-            if (_overlays.Count > 0 && _overlays[_overlays.Count - 1].Overlay == Overlay.Purchase)
-            {
-                _overlays.RemoveAt(_overlays.Count - 1);
-            }
-
-            PurchasePicture = null;
-            _purchaseCancelled = null;
             Sound.Play(SoundCue.Click);
-            Purchase.Confirm();
+            if (Purchase.CanCheck) Purchase.Check(); else Purchase.Confirm();
         }
 
-        /// <summary>A purchase closed without Buy: nothing is bought, and whoever asked hears of it.</summary>
+        private void PurchaseChanged()
+        {
+            if (Purchase.Stage != PurchaseStage.Complete) return;
+            if (_overlays.Count > 0 && _overlays[_overlays.Count - 1].Overlay == Overlay.Purchase)
+                _overlays.RemoveAt(_overlays.Count - 1);
+            PurchasePicture = null;
+            _purchaseCancelled = null;
+            Purchase.Close();
+        }
+
+        /// <summary>Dismisses the purchase presentation; a sent request is not undone by closing its window.</summary>
         private void DropPurchase()
         {
             Action? cancelled = _purchaseCancelled;
-            Purchase.Cancel();
+            Purchase.Close();
             PurchasePicture = null;
             _purchaseCancelled = null;
             cancelled?.Invoke();
@@ -792,9 +822,9 @@ namespace Bloomlings.Playtest.Design
                 AvatarItem avatar = editor.Avatar;
                 Outfit? outfit = Meta.Wardrobe.OutfitOf(avatar.Family);
                 ConfirmPurchase(
-                    PurchaseOffer.ForPetals(PlaytestText.T("purchase.avatar"), editor.Price),
+                    PurchaseOffer.ForItem(PlaytestText.T("purchase.avatar"), editor.Price, avatar.Id),
                     (q, well) => Kit.AvatarPicture(q, well.Inset(well.Width * 0.08f), avatar, outfit),
-                    () => FinishProfileEdit(editor));
+                    () => { FinishProfileEdit(editor); return Meta.Profile.Owns(avatar); });
                 return;
             }
 
@@ -856,6 +886,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Advances the clock and the level's animation, then draws the current screen and its cards.</summary>
         public void Draw(IPainter p, float dt)
         {
+            OnlineRoutines.Tick();
             Now += Math.Max(0f, Math.Min(0.1f, dt));
             IPictureWarmer? warmer = p is IPictureWarmer w && w.WarmsPictures ? w : null;
             _runtimePreparation = warmer != null;

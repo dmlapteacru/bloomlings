@@ -98,4 +98,5 @@
     <EmbeddedResource Include="@(LaunchInstalledPicture)" LogicalName="pictures/%(Filename)%(Extension)" Condition="'$(LaunchArtInstalled)' == 'true'" />
     <EmbeddedResource Include="../../content/pictures/dev/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
   </ItemGroup>
+  <Import Project="../OnlineServices.props" />
 </Project>

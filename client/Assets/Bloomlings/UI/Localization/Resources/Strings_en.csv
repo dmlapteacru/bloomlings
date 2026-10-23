@@ -533,3 +533,11 @@ account.panel.retry,We could not connect. Your device progress is safe. Please t
 account.panel.linked,Account connected. Your progress is ready to sync.
 account.panel.existing,This account already has a game profile. Your device progress has not been moved.
 account.panel.restored,Cloud profile restored. Your previous device save was kept as a backup.
+purchase.checking,Checking your purchase. Please wait…
+purchase.checking_action,Checking…
+purchase.offline,Connect to buy. Owned items and previews still work offline.
+purchase.pending,It may be complete. Check its status before buying again.
+purchase.price_changed,The price has been updated. Review it and confirm again to continue.
+purchase.account_changed,Your account changed. Reopen the item using the correct profile.
+purchase.failed,We could not complete this purchase. Check its status or try again later.
+purchase.check_action,Check purchase

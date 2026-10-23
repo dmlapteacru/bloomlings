@@ -30,6 +30,20 @@ namespace Bloomlings.Client.Services.Economy.Online
         public EconomySnapshot? Confirmed => _snapshot;
         public int PendingCount => _journal.PendingCount;
         public string? LastCode { get; private set; }
+        public bool IsOnline => !_disposed && Current;
+        public string SessionKey => OwnerId + ":" + _transport.SessionVersion.ToString(System.Globalization.CultureInfo.InvariantCulture) + ":" + _epoch.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        public long? NextOperationSequence => _journal.NextSequence;
+        public long? LastAcknowledgedSequence => (long?)_journal.Data["lastResult"]?["sequence"];
+        public bool? LastAcknowledgedOk => (bool?)_journal.Data["lastResult"]?["ok"];
+        public PendingEconomyPurchase? PendingPurchase
+        {
+            get
+            {
+                if (PendingCount == 0) return null;
+                JObject op = Operation((JObject)((JArray)_journal.Data["pending"]!)[0]);
+                return IsPurchase(op) ? new PendingEconomyPurchase((long)op["sequence"]!, (string)op["kind"]!, (string)(op["itemId"] ?? op["boosterKind"])!) : null;
+            }
+        }
         public string? LastAcknowledgedCode => _journal.Data["lastResult"] is JObject result ? (string?)result["code"] : null;
         public IReadOnlyList<string> UnsettledRewardIds => ((JObject)_journal.Data["rewards"]!).Properties().Where(p => (bool?)p.Value["settled"] != true).Select(p => p.Name).ToArray();
         public string RewardEvidence(string claimId) => _journal.ReadRewardEvidence(claimId);

@@ -1,0 +1,8 @@
+<Project>
+  <!-- Engine-free UGS REST transport, durable wallet and purchase adapter. No Unity SDK/runtime dependency.
+       Compilation does not enable server mode or create a guest/backend identity. -->
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Economy/Online/*.cs" Link="Shared/Online/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Economy/Resources/ServerEconomyCatalog.json" LogicalName="economy/ServerEconomyCatalog.json" />
+  </ItemGroup>
+</Project>

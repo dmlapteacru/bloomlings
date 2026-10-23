@@ -100,9 +100,9 @@ namespace Bloomlings.Playtest.Design
             app.WardrobeBrowse.TryOn(wardrobe,item);
             void Refuse(){app.Sound.Play(SoundCue.Refused);app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));}
             if(app.Meta.Economy.Petals<item.Price){Refuse();return;}
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),
+            app.ConfirmPurchase(PurchaseOffer.ForItem(MetaCards.ItemName(item),item.Price,item.Id),
                 (q,well)=>Preview(q,well,family,WardrobeShelfCatalog.Preview(wardrobe.OutfitOf(family),kind,item)),
-                ()=>{if(wardrobe.TryBuy(item.Id)){app.WardrobeBrowse.ResetPreview();wardrobe.Equip(family,item.Id);}else Refuse();});
+                ()=>{if(wardrobe.TryBuy(item.Id)){app.WardrobeBrowse.ResetPreview();wardrobe.Equip(family,item.Id);return true;}Refuse();return false;});
         }
         private static void Locked(IPainter p,DesignApp app,HomeLook look)
         {

@@ -2189,6 +2189,66 @@ namespace Bloomlings.Playtest.Preview
             });
         }
 
+        private sealed class PurchaseFixtureOperation : IPurchaseOperation
+        {
+            public string SessionKey => "preview:1";
+            public bool IsOnline { get; set; } = true;
+            public Action<PurchaseReply>? Pending;
+            public int Buys;
+            public string Next = "quoted";
+            public int Price = 650;
+            public void Refresh(Action<PurchaseReply> done)
+            {
+                if (Next == "loading") { Pending = done; return; }
+                done(new PurchaseReply("quoted", new PurchaseQuote("v1", Price, 10000)));
+            }
+            public void Buy(PurchaseQuote quote, Action<PurchaseReply> done)
+            {
+                Buys++;
+                if (Next == "reprice") { Price = 800; done(new PurchaseReply("price-changed", new PurchaseQuote("v2", Price, 10000))); }
+                else done(new PurchaseReply(Next == "quoted" ? "purchased" : Next));
+            }
+            public void Check(Action<PurchaseReply> done) => Refresh(done);
+        }
+        public static IEnumerable<Fixture> PurchaseStates(ContentSet content)
+        {
+            foreach (var example in new[] { (250, "offline"), (251, "loading"), (252, "pending"), (253, "reprice"), (254, "failed") })
+            {
+                var frame = example;
+                yield return new Fixture(frame.Item1, "purchase-" + frame.Item2, "In-game purchase: " + frame.Item2, (p, data) =>
+                {
+                    var app = Progressed(new DesignApp(data, content, new Silence(), false), content, 44); CloseAll(app); app.OpenStore();
+                    var operation = new PurchaseFixtureOperation { Next = frame.Item2, IsOnline = frame.Item2 != "offline" };
+                    var offer = PurchaseOffer.ForItem("Moonlight nightcap", 650, "hat.twig_nightcap");
+                    app.ShowPurchase(offer, (q, well) => Kit.BoosterIcon(q, "shuffle", well.Inset(well.Width*.1f)), operation);
+                    if (frame.Item2 == "pending" || frame.Item2 == "reprice" || frame.Item2 == "failed") app.BuyConfirmed();
+                    Run(app, p, .6f);
+                    Expect(app.IsOpen(Overlay.Purchase), "An unconfirmed purchase stays visible");
+                    if (frame.Item2 == "offline" || frame.Item2 == "loading") Expect(operation.Buys == 0 && !app.Purchase.CanBuy, "Unavailable purchase cannot dispatch");
+                    if (frame.Item2 == "pending") Expect(!app.Purchase.CanBuy && app.Purchase.CanCheck, "Unknown result exposes check, not buy");
+                    if (frame.Item2 == "reprice") Expect(app.Purchase.Offer!.Petals == 800 && operation.Buys == 1, "New price is shown without a second dispatch");
+                    Expect(Shows(p,PlaytestText.T("common.close")) || Shows(p,PlaytestText.T("common.cancel")), "Every purchase state can be dismissed");
+                });
+            }
+            yield return new Fixture(255, "purchase-local-safety", "Local purchase: refusal, offline and changed price", (p, data) =>
+            {
+                var app = Progressed(new DesignApp(data, content, new Silence(), false), content, 44); CloseAll(app); app.OpenStore();
+                app.Meta.Economy.Grant(10000, null);
+                int price = 650, calls = 0; long balance = app.Meta.Economy.Petals;
+                PurchaseOffer Current() => PurchaseOffer.ForItem("Nightcap", price, "hat.twig_nightcap");
+                app.PurchaseNetworkAvailable = () => false;
+                app.ConfirmPurchase(Current(), null, () => { calls++; return true; }); app.BuyConfirmed();
+                Expect(calls == 0 && app.Meta.Economy.Petals == balance, "Airplane mode never invokes local spending"); app.Back();
+                app.PurchaseNetworkAvailable = () => true;
+                app.ConfirmPurchase(Current(), null, () => { calls++; return false; }, currentOffer: Current);
+                price = 800; app.BuyConfirmed();
+                Expect(calls == 0 && app.Purchase.Stage == PurchaseStage.Reprice && app.Purchase.Offer!.Petals == 800, "Live local price changes require a new tap");
+                app.BuyConfirmed(); Expect(calls == 1 && app.Purchase.Stage == PurchaseStage.Failed, "Refused local callback is not a successful purchase");
+                app.BuyConfirmed(); Expect(calls == 1, "Checking a refused result cannot invoke spending again");
+                Run(app, p, .6f);
+            });
+        }
+
         /// <summary>The lotus iris (spec 005 FR-039): the splash opening on the first screen, and the win's Next to the next level.</summary>
         public static IEnumerable<Fixture> Loading(ContentSet content)
         {

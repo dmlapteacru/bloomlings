@@ -501,9 +501,9 @@ namespace Bloomlings.Playtest.Design
                 // bought and used only on its Buy (spec 005 FR-040); a cancel buys nothing and brings the jam card back.
                 string id = EndCards.IdOf(kind);
                 _app.ConfirmPurchase(
-                    PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind)),
+                    PurchaseOffer.ForBooster(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind), kind.ToString(), buyAndUse:true),
                     (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)),
-                    () => UseBooster(kind, command, confirmed: true),
+                    () => { int used = Session.BoostersUsed; UseBooster(kind, command, confirmed: true); return Session.BoostersUsed > used; },
                     () => JamHidden = false);
                 return;
             }
@@ -554,12 +554,14 @@ namespace Bloomlings.Playtest.Design
             JamHidden = false;
             string id = EndCards.IdOf(kind);
             _app.ConfirmPurchase(
-                PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind),
-                    Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind)),
+                PurchaseOffer.ForBooster(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind),
+                    Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind), kind.ToString()),
                 (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * .1f)),
                 () =>
                 {
-                    if (!Meta.Economy.TryBuy(kind)) Toast(PlaytestText.T("gameplay.not_enough_petals"));
+                    bool bought = Meta.Economy.TryBuy(kind);
+                    if (!bought) Toast(PlaytestText.T("gameplay.not_enough_petals"));
+                    return bought;
                 });
         }
 
