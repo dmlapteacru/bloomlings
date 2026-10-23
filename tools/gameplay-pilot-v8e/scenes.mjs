@@ -99,7 +99,7 @@ export const SCENES={
    {shape:body,color:'R',light:'P',sphere:[11,10,13],lightAt:.66,group:'berry'},
    ...dots([[9,9.5],[14,8.6],[19,9.5],[6.4,13.4],[11.4,12.8],[16.6,12.8],[21.6,13.4],[8.6,17.4],[14,16.8],[19.4,17.4],[11.2,21],[16.8,21],[14,24.4]].map(([x,y])=>[x+.5,y+.5]),.7,'Y'),
    {shape:union(poly([[14,6.4],[7,3.6],[10.6,7.8]]),poly([[14,6.4],[21,3.6],[17.4,7.8]]),poly([[14,6.4],[10.4,1.6],[15,5.2]]),poly([[14,6.4],[17.6,1.6],[13,5.2]]),ellipse(14,6.6,5,1.6)),color:'G',group:'leaf'},
-   {shape:box(14.4,1.4,.7,1.4),color:'A',group:'leaf'}]};}},
+   {shape:box(14.4,2.6,.8,2.4),color:'A',group:'leaf'}]};}},
  8:{title:'Чашка на завтраке',draw(W,H,ok){
   return {background:layer(checker('R','C',2,26),dotsBg('S','C',6)),parts:[
    ...[[10.5,1,6],[15.5,.5,6.6],[20.5,1.4,5]].map(([x,y,h])=>({shape:path([[x,y],[x+.9,y+h/3],[x-.6,y+2*h/3],[x+.4,y+h]],.75),color:'C',shade:'S',flat:true,outline:false})),
@@ -186,7 +186,7 @@ export const SCENES={
  16:{title:'Змей над холмом',draw(W,H,ok){
   const hill=(x,y)=>y>=19-Math.round(3*Math.exp(-(((x-15)/6)**2)))?(y>=H-1?'M':(y===19-Math.round(3*Math.exp(-(((x-15)/6)**2)))&&x%4===1?'L':'G')):null;
   return {background:layer(hill,skyBg(12,ok)),parts:[cloud(3,2.4,.6),cloud(21,16,.6),
-   {shape:path([[12,18],[10,20],[12,22],[10,24]],.45),color:'D',outline:false},
+   {shape:path([[12,18],[10,20],[12,22],[10,24]],.7),color:'D',outline:false},
    ...[[10.6,20],[11.2,23]].map(([x,y])=>({shape:union(poly([[x-1.4,y-1],[x,y],[x-1.4,y+1]]),poly([[x+1.4,y-1],[x,y],[x+1.4,y+1]])),color:'R',outline:false})),
    {shape:poly([[12,.6],[22,8.6],[12,18.4],[2,8.6]]),color:'Y',light:'C',shade:'O',flat:true,group:'kite'},
    {shape:meet(poly([[12,.6],[22,8.6],[12,18.4],[2,8.6]]),(x,y)=>((x<12)===(y<8.6))?-1:1),color:'R',light:'P',flat:true,group:'kite'},
@@ -312,7 +312,7 @@ export const SCENES={
    {shape:union(ellipse(9.8,6.8,2.8,6.6),ellipse(18.2,6.8,2.8,6.6)),color:'C',shade:'K',flat:true,group:'ears'},
    {shape:union(ellipse(9.8,7,1.2,4.8),ellipse(18.2,7,1.2,4.8)),color:'K',outline:false},
    {shape:ellipse(14,22.6,8.6,6.4),color:'C',shade:'K',sphere:[12,20,10],group:'body'},
-   {shape:ellipse(14,23.4,4.6,4.2),color:'K',outline:false},
+   {shape:ellipse(14,24,3.6,3.4),color:'K',outline:false},
    {shape:ellipse(14,14.2,7.6,6.8),color:'C',shade:'K',sphere:[12,12,9],group:'head'},
    ...[11,17].map(x=>({shape:ellipse(x,13.4,1,1.4),color:'D',outline:false})),...[8.8,19.2].map(x=>({shape:ellipse(x,16.2,1.3,.8),color:'K',outline:false})),
    {shape:poly([[13,15.8],[15,15.8],[14,17]]),color:'P',outline:false},

@@ -18,6 +18,7 @@ def board(lv, S=11):
     im = Image.new('RGB', (lv['w'] * S, lv['h'] * S), '#FFF8EA'); d = ImageDraw.Draw(im)
     for y, r in enumerate(lv['rowsBottomFirst'][::-1]):
         for x, c in enumerate(r):
+            if c == '.': continue  # open ground outside an object-only picture: no tile, the card shows through (as in Colony Flow)
             b = rgb(PAL[c]); x0, y0 = x * S, y * S
             d.rectangle([x0, y0 + 1, x0 + S - 2, y0 + S - 1], fill=tuple(int(v * .78) for v in b))
             d.rectangle([x0, y0, x0 + S - 2, y0 + S - 3], fill=b)
