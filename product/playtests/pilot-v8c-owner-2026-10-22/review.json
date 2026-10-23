@@ -1,0 +1,739 @@
+{
+ "source": "content/pilot-v8c/Bloomlings-pilot-v8C-results-2026-10-22.json",
+ "sourceSHA256": "8ec2ab3872573d264c91be5d22406375d977587314bcd8b8b466fc8ec2b27480",
+ "catalogHash": "62b5374fd504b3b07f2e3e7b66c4df52b060607f51c1eedb6213c3342bcc0508",
+ "catalogCommit": "0a0367e2",
+ "replay": {
+  "attempts": 39,
+  "matched": 39,
+  "acceptedCommands": 635,
+  "rejectedCommands": 0
+ },
+ "attempts": [
+  {
+   "attempt": 1,
+   "level": 1,
+   "role": "tutorial",
+   "outcome": "won",
+   "seconds": 22.2,
+   "taps": 9,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": null,
+   "patternWins": null
+  },
+  {
+   "attempt": 2,
+   "level": 2,
+   "role": "tutorial",
+   "outcome": "won",
+   "seconds": 27.7,
+   "taps": 10,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": null,
+   "patternWins": null
+  },
+  {
+   "attempt": 3,
+   "level": 3,
+   "role": "tutorial",
+   "outcome": "won",
+   "seconds": 31.7,
+   "taps": 12,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": null,
+   "patternWins": null
+  },
+  {
+   "attempt": 4,
+   "level": 4,
+   "role": "tutorial",
+   "outcome": "won",
+   "seconds": 53.3,
+   "taps": 22,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": null,
+   "patternWins": null
+  },
+  {
+   "attempt": 5,
+   "level": 5,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 53.2,
+   "taps": 22,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": null,
+   "uncertainty": null,
+   "note": "Вначале чуть думал о очереди, потом по цветам. Надо бы в эти ответы ввести что-то подробнее про очередь , а то либо да либо нет сложно.",
+   "bots": {
+    "random": 0.5333333333333333,
+    "visible": 0.9533333333333334,
+    "sensibleWins": 3
+   },
+   "patternWins": 4
+  },
+  {
+   "attempt": 6,
+   "level": 6,
+   "role": "relief",
+   "outcome": "won",
+   "seconds": 53.2,
+   "taps": 16,
+   "rating": "normal",
+   "interest": "boring",
+   "planning": "colour-only",
+   "uncertainty": "unnoticed",
+   "note": "Вообще не заметил что были \"?\"",
+   "bots": {
+    "random": 0.6333333333333333,
+    "visible": 0.9666666666666667,
+    "sensibleWins": 2
+   },
+   "patternWins": 6
+  },
+  {
+   "attempt": 7,
+   "level": 7,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 60.1,
+   "taps": 22,
+   "rating": "easy",
+   "interest": "boring",
+   "planning": "colour-only",
+   "uncertainty": "unnoticed",
+   "note": "Авто 2x кстати как будто быстрее надо сделать, так как по сути раунд завершен и надо просто быстро поле очистить и можно их очмщать с разных сторон, с больших, чем обычно",
+   "bots": {
+    "random": 0.5433333333333333,
+    "visible": 0.9066666666666666,
+    "sensibleWins": 1
+   },
+   "patternWins": 4
+  },
+  {
+   "attempt": 8,
+   "level": 8,
+   "role": "task",
+   "outcome": "won",
+   "seconds": 21.3,
+   "taps": 17,
+   "rating": "easy",
+   "interest": "boring",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.20666666666666667,
+    "visible": 0.7533333333333333,
+    "sensibleWins": 1
+   },
+   "patternWins": 0
+  },
+  {
+   "attempt": 9,
+   "level": 9,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 56.3,
+   "taps": 18,
+   "rating": "easy",
+   "interest": "boring",
+   "planning": "colour-only",
+   "uncertainty": "unnoticed",
+   "note": "0 влияния \"?\"",
+   "bots": {
+    "random": 0.51,
+    "visible": 0.8933333333333333,
+    "sensibleWins": 3
+   },
+   "patternWins": 3
+  },
+  {
+   "attempt": 10,
+   "level": 10,
+   "role": "superHard",
+   "outcome": "abandoned",
+   "seconds": 43.8,
+   "taps": 6,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.023333333333333334,
+    "visible": 0,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 11,
+   "level": 10,
+   "role": "superHard",
+   "outcome": "jammed",
+   "seconds": 70.7,
+   "taps": 9,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.023333333333333334,
+    "visible": 0,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 12,
+   "level": 10,
+   "role": "superHard",
+   "outcome": "won",
+   "seconds": 107.0,
+   "taps": 15,
+   "rating": "hard",
+   "interest": "fun",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.023333333333333334,
+    "visible": 0,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 13,
+   "level": 11,
+   "role": "relief",
+   "outcome": "won",
+   "seconds": 59.6,
+   "taps": 15,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "Общий коммент, значки вообще надо убрать полностью, они не к месту. Идем чисто по цветам",
+   "bots": {
+    "random": 0.66,
+    "visible": 1,
+    "sensibleWins": 4
+   },
+   "patternWins": 5
+  },
+  {
+   "attempt": 14,
+   "level": 12,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 65.7,
+   "taps": 16,
+   "rating": "easy",
+   "interest": "boring",
+   "planning": "colour-only",
+   "uncertainty": "unnoticed",
+   "note": "Вообще не думал ни про связки лотов, ни про \"?\" , просто по цветам шел какие видел у совы",
+   "bots": {
+    "random": 0.5433333333333333,
+    "visible": 0.85,
+    "sensibleWins": 2
+   },
+   "patternWins": 4
+  },
+  {
+   "attempt": 15,
+   "level": 13,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 66.3,
+   "taps": 21,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "Вначале задумался про цвета и очередь. Пока не открыл черные, потом подряд кликал. Но возможно так и норм, разве нет. Разве у колони не принцип что после разгадки там уже все равно. Но может мв можем делать загадки в загадках...хз",
+   "bots": {
+    "random": 0.49333333333333335,
+    "visible": 0.8966666666666666,
+    "sensibleWins": 3
+   },
+   "patternWins": 2
+  },
+  {
+   "attempt": 16,
+   "level": 14,
+   "role": "task",
+   "outcome": "jammed",
+   "seconds": 28.8,
+   "taps": 5,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.37666666666666665,
+    "visible": 0.6133333333333333,
+    "sensibleWins": 2
+   },
+   "patternWins": 2
+  },
+  {
+   "attempt": 17,
+   "level": 14,
+   "role": "task",
+   "outcome": "won",
+   "seconds": 70.7,
+   "taps": 17,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "planned",
+   "uncertainty": "guess",
+   "note": "",
+   "bots": {
+    "random": 0.37666666666666665,
+    "visible": 0.6133333333333333,
+    "sensibleWins": 2
+   },
+   "patternWins": 2
+  },
+  {
+   "attempt": 18,
+   "level": 15,
+   "role": "hard",
+   "outcome": "won",
+   "seconds": 52.7,
+   "taps": 22,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "Возможно то что я вижу все ряды лотов, мне помогает тапать цвета, потому что я вижу где какие в каком ряду и просто ряд тапаю весь",
+   "bots": {
+    "random": 0.22666666666666666,
+    "visible": 0.39,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 19,
+   "level": 16,
+   "role": "relief",
+   "outcome": "won",
+   "seconds": 61.0,
+   "taps": 20,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.68,
+    "visible": 0.98,
+    "sensibleWins": 3
+   },
+   "patternWins": 5
+  },
+  {
+   "attempt": 20,
+   "level": 17,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 77.3,
+   "taps": 17,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": "unnoticed",
+   "note": "Я просто затапал первый ряд полностью, а потом 2-3 рандомно. Пришлось просто ждать пока слот освобождается, но в основном просто выбирал подряд",
+   "bots": {
+    "random": 0.37,
+    "visible": 0.7933333333333333,
+    "sensibleWins": 3
+   },
+   "patternWins": 2
+  },
+  {
+   "attempt": 21,
+   "level": 18,
+   "role": "task",
+   "outcome": "won",
+   "seconds": 64.8,
+   "taps": 23,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "Тут и концептуально сложно понять, что значит думал об очереди и шел по цветам и на сколько это хорошо или плохо для нас. Потому что я в целом, думал об очереди пока шел по цветам, то есть вижу что нужен черный, нашел колонку и начал тапать пока черный не появился, и так с каждым цветом",
+   "bots": {
+    "random": 0.28,
+    "visible": 0.5666666666666667,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 22,
+   "level": 19,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 72.9,
+   "taps": 24,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": "unnoticed",
+   "note": "",
+   "bots": {
+    "random": 0.44,
+    "visible": 0.8366666666666667,
+    "sensibleWins": 3
+   },
+   "patternWins": 2
+  },
+  {
+   "attempt": 23,
+   "level": 20,
+   "role": "task",
+   "outcome": "won",
+   "seconds": 79.0,
+   "taps": 14,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "Вначале раз подумал про очередь, потом в середине когда увидел что светлый нужен или черный чтоб открыть там линию",
+   "bots": {
+    "random": 0.35,
+    "visible": 0.7,
+    "sensibleWins": 1
+   },
+   "patternWins": 2
+  },
+  {
+   "attempt": 24,
+   "level": 21,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 101.9,
+   "taps": 17,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "Думал вначале об очереди, я видел все ряды лотов и спланировал сразу какие ряды я буду тапать и цвета и потом уже не думал, просто кликал",
+   "bots": {
+    "random": 0.5,
+    "visible": 0.7566666666666667,
+    "sensibleWins": 1
+   },
+   "patternWins": 2
+  },
+  {
+   "attempt": 25,
+   "level": 22,
+   "role": "superHard",
+   "outcome": "jammed",
+   "seconds": 38.6,
+   "taps": 6,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.02666666666666667,
+    "visible": 0.07333333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 0
+  },
+  {
+   "attempt": 26,
+   "level": 22,
+   "role": "superHard",
+   "outcome": "won",
+   "seconds": 114.9,
+   "taps": 19,
+   "rating": "hard",
+   "interest": "fun",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.02666666666666667,
+    "visible": 0.07333333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 0
+  },
+  {
+   "attempt": 27,
+   "level": 23,
+   "role": "relief",
+   "outcome": "won",
+   "seconds": 71.1,
+   "taps": 22,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.6033333333333334,
+    "visible": 0.9666666666666667,
+    "sensibleWins": 4
+   },
+   "patternWins": 5
+  },
+  {
+   "attempt": 28,
+   "level": 24,
+   "role": "task",
+   "outcome": "won",
+   "seconds": 118.2,
+   "taps": 20,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.22666666666666666,
+    "visible": 0.4766666666666667,
+    "sensibleWins": 2
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 29,
+   "level": 25,
+   "role": "hard",
+   "outcome": "jammed",
+   "seconds": 21.7,
+   "taps": 6,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.21333333333333335,
+    "visible": 0.47333333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 30,
+   "level": 25,
+   "role": "hard",
+   "outcome": "jammed",
+   "seconds": 46.9,
+   "taps": 8,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.21333333333333335,
+    "visible": 0.47333333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 31,
+   "level": 25,
+   "role": "hard",
+   "outcome": "jammed",
+   "seconds": 34.9,
+   "taps": 6,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.21333333333333335,
+    "visible": 0.47333333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 32,
+   "level": 25,
+   "role": "hard",
+   "outcome": "won",
+   "seconds": 98.1,
+   "taps": 21,
+   "rating": "hard",
+   "interest": "fun",
+   "planning": "planned",
+   "uncertainty": "guess",
+   "note": "",
+   "bots": {
+    "random": 0.21333333333333335,
+    "visible": 0.47333333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 33,
+   "level": 26,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 63.0,
+   "taps": 24,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": "unnoticed",
+   "note": "",
+   "bots": {
+    "random": 0.58,
+    "visible": 0.8,
+    "sensibleWins": 3
+   },
+   "patternWins": 4
+  },
+  {
+   "attempt": 34,
+   "level": 27,
+   "role": "task",
+   "outcome": "jammed",
+   "seconds": 61.2,
+   "taps": 12,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.31,
+    "visible": 0.6733333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 35,
+   "level": 27,
+   "role": "task",
+   "outcome": "jammed",
+   "seconds": 61.1,
+   "taps": 12,
+   "rating": null,
+   "interest": null,
+   "planning": null,
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.31,
+    "visible": 0.6733333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 36,
+   "level": 27,
+   "role": "task",
+   "outcome": "won",
+   "seconds": 83.6,
+   "taps": 20,
+   "rating": "normal",
+   "interest": "fun",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "Интересный",
+   "bots": {
+    "random": 0.31,
+    "visible": 0.6733333333333333,
+    "sensibleWins": 0
+   },
+   "patternWins": 1
+  },
+  {
+   "attempt": 37,
+   "level": 28,
+   "role": "relief",
+   "outcome": "won",
+   "seconds": 58.5,
+   "taps": 22,
+   "rating": "easy",
+   "interest": "okay",
+   "planning": "colour-only",
+   "uncertainty": null,
+   "note": "",
+   "bots": {
+    "random": 0.86,
+    "visible": 1,
+    "sensibleWins": 4
+   },
+   "patternWins": 6
+  },
+  {
+   "attempt": 38,
+   "level": 29,
+   "role": "superHard",
+   "outcome": "won",
+   "seconds": 136.0,
+   "taps": 21,
+   "rating": "normal",
+   "interest": "fun",
+   "planning": "planned",
+   "uncertainty": null,
+   "note": "Спланировал с самого начала. Видел все лоты",
+   "bots": {
+    "random": 0,
+    "visible": 0,
+    "sensibleWins": 0
+   },
+   "patternWins": 0
+  },
+  {
+   "attempt": 39,
+   "level": 30,
+   "role": "normal",
+   "outcome": "won",
+   "seconds": 52.0,
+   "taps": 21,
+   "rating": "normal",
+   "interest": "okay",
+   "planning": "planned",
+   "uncertainty": "unnoticed",
+   "note": "",
+   "bots": {
+    "random": 0.44333333333333336,
+    "visible": 0.86,
+    "sensibleWins": 3
+   },
+   "patternWins": 4
+  }
+ ]
+}
