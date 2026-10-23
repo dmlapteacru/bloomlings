@@ -1,0 +1,725 @@
+{
+  "source": "owner recordings (Pixel 9, Colony Flow v1.0.79, 2026-10-20)",
+  "engine": "tools/gameplay-pilot-v8d, colour alphabet widened only",
+  "levels": {
+    "L1": {
+      "label": "Normal",
+      "size": "13x13",
+      "cells": 99,
+      "colours": 3,
+      "pods": 9,
+      "podMedian": 14,
+      "mysteries": 0,
+      "rows": 3,
+      "fixes": [],
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 9
+        },
+        "winsSeeingTopRowOnly": true,
+        "winsSeeingWholeTray": true,
+        "winsIfMysteriesWereKnown": null
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      },
+      "seconds": 3.66
+    },
+    "L2": {
+      "label": "Normal",
+      "size": "19x19",
+      "cells": 248,
+      "colours": 3,
+      "pods": 9,
+      "podMedian": 37,
+      "mysteries": 0,
+      "rows": 3,
+      "fixes": [],
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 9
+        },
+        "winsSeeingTopRowOnly": true,
+        "winsSeeingWholeTray": true,
+        "winsIfMysteriesWereKnown": null
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      },
+      "seconds": 8.864
+    },
+    "L3": {
+      "label": "Normal",
+      "size": "18x18",
+      "cells": 267,
+      "colours": 6,
+      "pods": 12,
+      "podMedian": 18,
+      "mysteries": 0,
+      "rows": 4,
+      "fixes": [],
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 12
+        },
+        "winsSeeingTopRowOnly": true,
+        "winsSeeingWholeTray": true,
+        "winsIfMysteriesWereKnown": null
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      },
+      "seconds": 12.268
+    },
+    "L4": {
+      "label": "Normal",
+      "size": "27x26",
+      "cells": 637,
+      "colours": 8,
+      "pods": 24,
+      "podMedian": 25,
+      "mysteries": 0,
+      "rows": 9,
+      "fixes": [],
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 24
+        },
+        "winsSeeingTopRowOnly": true,
+        "winsSeeingWholeTray": true,
+        "winsIfMysteriesWereKnown": null
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      },
+      "seconds": 70.181
+    },
+    "L5": {
+      "label": "Hard",
+      "size": "24x24",
+      "cells": 484,
+      "colours": 10,
+      "pods": 18,
+      "podMedian": 25,
+      "mysteries": 0,
+      "rows": 6,
+      "fixes": [
+        "l->P@14,11"
+      ],
+      "bots": {
+        "random": 0.24666666666666667,
+        "visible": 0.58,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 18
+        },
+        "winsSeeingTopRowOnly": false,
+        "winsSeeingWholeTray": true,
+        "winsIfMysteriesWereKnown": null
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 15,
+        "n": 30
+      },
+      "seconds": 25.497
+    },
+    "L10": {
+      "label": "Super Hard",
+      "size": "29x30",
+      "cells": 870,
+      "colours": 11,
+      "pods": 29,
+      "podMedian": 30,
+      "mysteries": 10,
+      "rows": 10,
+      "fixes": [],
+      "bots": {
+        "random": 0.12,
+        "visible": 0,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое большое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 29
+        },
+        "winsSeeingTopRowOnly": true,
+        "winsSeeingWholeTray": true,
+        "winsIfMysteriesWereKnown": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 27,
+        "n": 30
+      },
+      "seconds": 65.209
+    }
+  },
+  "v8d": {
+    "L1": {
+      "label": "Normal",
+      "size": "16x18",
+      "cells": 288,
+      "colours": 3,
+      "pods": 9,
+      "podMedian": 33,
+      "mysteries": 0,
+      "rows": 3,
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 9
+        },
+        "winsSeeingTopRowOnly": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      }
+    },
+    "L2": {
+      "label": "Normal",
+      "size": "18x20",
+      "cells": 360,
+      "colours": 4,
+      "pods": 10,
+      "podMedian": 45,
+      "mysteries": 0,
+      "rows": 4,
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 10
+        },
+        "winsSeeingTopRowOnly": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      }
+    },
+    "L3": {
+      "label": "Normal",
+      "size": "20x22",
+      "cells": 440,
+      "colours": 5,
+      "pods": 12,
+      "podMedian": 48,
+      "mysteries": 0,
+      "rows": 4,
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 12
+        },
+        "winsSeeingTopRowOnly": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      }
+    },
+    "L4": {
+      "label": "Normal",
+      "size": "24x26",
+      "cells": 624,
+      "colours": 7,
+      "pods": 22,
+      "podMedian": 30,
+      "mysteries": 0,
+      "rows": 8,
+      "bots": {
+        "random": 0.9433333333333334,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 22
+        },
+        "winsSeeingTopRowOnly": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 0,
+        "n": 30
+      }
+    },
+    "L5": {
+      "label": "Normal",
+      "size": "24x26",
+      "cells": 624,
+      "colours": 8,
+      "pods": 22,
+      "podMedian": 19,
+      "mysteries": 0,
+      "rows": 8,
+      "bots": {
+        "random": 0.4666666666666667,
+        "visible": 0.8066666666666666,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "ряд справа налево",
+          "змейка",
+          "самое большое число"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 22
+        },
+        "winsSeeingTopRowOnly": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 15,
+        "n": 30
+      }
+    },
+    "L10": {
+      "label": "Super Hard",
+      "size": "26x28",
+      "cells": 728,
+      "colours": 6,
+      "pods": 18,
+      "podMedian": 39,
+      "mysteries": 0,
+      "rows": 5,
+      "bots": {
+        "random": 0.023333333333333334,
+        "visible": 0,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 8,
+          "weight": 12,
+          "commands": 15
+        },
+        "winsSeeingTopRowOnly": false
+      },
+      "earlyFatal": {
+        "early": 12,
+        "lost": 29,
+        "n": 30
+      }
+    },
+    "L15": {
+      "label": "Hard",
+      "size": "22x24",
+      "cells": 528,
+      "colours": 8,
+      "pods": 22,
+      "podMedian": 16,
+      "mysteries": 0,
+      "rows": 8,
+      "bots": {
+        "random": 0.18333333333333332,
+        "visible": 0.4,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 1,
+        "patternWins": []
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 22
+        },
+        "winsSeeingTopRowOnly": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 27,
+        "n": 30
+      }
+    },
+    "L22": {
+      "label": "Super Hard",
+      "size": "25x27",
+      "cells": 644,
+      "colours": 6,
+      "pods": 22,
+      "podMedian": 17,
+      "mysteries": 0,
+      "rows": 6,
+      "bots": {
+        "random": 0.02666666666666667,
+        "visible": 0.07333333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 20
+        },
+        "winsSeeingTopRowOnly": false
+      },
+      "earlyFatal": {
+        "early": 6,
+        "lost": 30,
+        "n": 30
+      }
+    },
+    "L25": {
+      "label": "Hard",
+      "size": "26x28",
+      "cells": 728,
+      "colours": 6,
+      "pods": 24,
+      "podMedian": 25,
+      "mysteries": 3,
+      "rows": 8,
+      "bots": {
+        "random": 0.21333333333333335,
+        "visible": 0.47333333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "по две из колонки"
+        ]
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 21
+        },
+        "winsSeeingTopRowOnly": false
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 20,
+        "n": 30
+      }
+    },
+    "L29": {
+      "label": "Super Hard",
+      "size": "28x30",
+      "cells": 806,
+      "colours": 6,
+      "pods": 24,
+      "podMedian": 33,
+      "mysteries": 0,
+      "rows": 6,
+      "bots": {
+        "random": 0,
+        "visible": 0,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 22
+        },
+        "winsSeeingTopRowOnly": false
+      },
+      "earlyFatal": {
+        "early": 26,
+        "lost": 30,
+        "n": 30
+      }
+    }
+  }
+}
