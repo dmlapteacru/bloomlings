@@ -1,6 +1,6 @@
 {
-  "source": "owner recordings (Pixel 9, Colony Flow v1.0.79, 2026-10-20)",
-  "engine": "tools/gameplay-pilot-v8d, colour alphabet widened only",
+  "source": "owner recordings (Pixel 9, Colony Flow v1.0.79, 2026-10-20 and L20 on 2026-10-23)",
+  "engine": "tools/gameplay-pilot-v8d; colour alphabet widened and CF stacked links added, bots unchanged",
   "levels": {
     "L1": {
       "label": "Normal",
@@ -51,7 +51,7 @@
         "lost": 0,
         "n": 30
       },
-      "seconds": 3.66
+      "seconds": 3.126
     },
     "L2": {
       "label": "Normal",
@@ -102,7 +102,7 @@
         "lost": 0,
         "n": 30
       },
-      "seconds": 8.864
+      "seconds": 8.996
     },
     "L3": {
       "label": "Normal",
@@ -153,7 +153,7 @@
         "lost": 0,
         "n": 30
       },
-      "seconds": 12.268
+      "seconds": 11.076
     },
     "L4": {
       "label": "Normal",
@@ -204,7 +204,7 @@
         "lost": 0,
         "n": 30
       },
-      "seconds": 70.181
+      "seconds": 66.052
     },
     "L5": {
       "label": "Hard",
@@ -254,7 +254,7 @@
         "lost": 15,
         "n": 30
       },
-      "seconds": 25.497
+      "seconds": 26.167
     },
     "L10": {
       "label": "Super Hard",
@@ -298,7 +298,53 @@
         "lost": 27,
         "n": 30
       },
-      "seconds": 65.209
+      "seconds": 64.96
+    },
+    "L20": {
+      "label": "Super Hard",
+      "size": "36x36",
+      "cells": 1296,
+      "colours": 9,
+      "pods": 45,
+      "podMedian": 30,
+      "mysteries": 2,
+      "rows": 12,
+      "fixes": [],
+      "bots": {
+        "random": 0.11333333333333333,
+        "visible": 0.25333333333333335,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": []
+      },
+      "planner": {
+        "wins": true,
+        "settings": {
+          "rows": 4,
+          "depth": 4,
+          "weight": 12,
+          "commands": 36
+        },
+        "winsSeeingTopRowOnly": false,
+        "winsSeeingWholeTray": true,
+        "winsIfMysteriesWereKnown": true
+      },
+      "earlyFatal": {
+        "early": 0,
+        "lost": 29,
+        "n": 30
+      },
+      "ownerOrder": {
+        "won": true,
+        "status": "Won",
+        "taps": 36
+      },
+      "seconds": 147.919
     }
   },
   "v8d": {
