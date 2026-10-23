@@ -39,7 +39,7 @@ const tulip=(cx,cy,petal='R',s=1)=>[{deco:true,shape:seg(cx,cy,cx,cy+3.5*s,.55),
 const layer=(...fs)=>(x,y)=>{for(const f of fs){const c=f(x,y);if(c)return c;}return 'B';};
 const skyBg=(horizon,ok)=>(x,y)=>ok('S')&&(y>horizon||(y===horizon&&x%2===0))?'S':'B';
 const grassBg=(W,H,top,ok,wave=0)=>(x,y)=>{const t=top+Math.round(wave*Math.sin(x/4));if(y<t)return null;
- if(y>=H-1&&ok('M'))return 'M';if(ok('L')&&y===t&&x%5===2)return 'L';if(ok('M')&&(x*3+y*7)%17===0&&y>t+1)return 'M';return 'G';};
+ if(y>=H-1&&ok('M'))return 'M';if(ok('L')&&y===t&&x%5===2)return 'L';return 'G';};
 const checker=(a,b,size=2,top=0)=>(x,y)=>y<top?null:((Math.floor(x/size)+Math.floor((y-top)/size))%2?a:b);
 const planks=(a,b,top,h=3)=>(x,y)=>y<top?null:((y-top)%h===h-1||((x+(Math.floor((y-top)/h)*7))%11===0)?b:a);
 const stripesBg=(a,b,every=4)=>(x)=>x%every===0?b:a;
@@ -53,7 +53,7 @@ export const SCENES={
    {shape:union(seg(3.2,13.8,12.6,4.2,.45),seg(6,11,4.6,8.4,.38),seg(8.6,8.4,7.8,5.6,.38),seg(7,11.6,9.8,12.4,.38),seg(9.8,8.8,12.2,9.4,.38)),color:'A',outline:false},
    {shape:seg(1.5,15.8,3.6,13.4,.7),color:'A',group:'leaf'}]};}},
  2:{title:'Капелька в траве',outline:'A',draw(W,H,ok){
-  return {background:layer(()=> 'G'),parts:[...daisy(2.5,3,'P','B',.8),...daisy(15.5,4,'P','B',.8),...daisy(3,17.5,'B','P',.8),...daisy(15.5,17,'B','P',.8),
+  return {background:layer(()=> 'G'),parts:[...daisy(3,16.8,'P','A',1.2),...daisy(15,17.4,'P','A',1.2),...daisy(15.4,3.6,'B','P',1),
    {shape:union(circle(9,12.6,6.4),poly([[3,11],[15,11],[9,1.4]])),color:'B'},
    {shape:ellipse(6.6,12.2,.9,1.2),color:'A',outline:false},{shape:ellipse(11.4,12.2,.9,1.2),color:'A',outline:false},
    {shape:ellipse(5,14.6,1.1,.7),color:'P',outline:false},{shape:ellipse(13,14.6,1.1,.7),color:'P',outline:false},
@@ -101,17 +101,17 @@ export const SCENES={
    {shape:union(poly([[14,6.4],[7,3.6],[10.6,7.8]]),poly([[14,6.4],[21,3.6],[17.4,7.8]]),poly([[14,6.4],[10.4,1.6],[15,5.2]]),poly([[14,6.4],[17.6,1.6],[13,5.2]]),ellipse(14,6.6,5,1.6)),color:'G',group:'leaf'},
    {shape:box(14.4,1.4,.7,1.4),color:'A',group:'leaf'}]};}},
  8:{title:'Чашка на завтраке',draw(W,H,ok){
-  return {background:layer(checker('R','C',2,26),stripesBg('S','C',4)),parts:[
+  return {background:layer(checker('R','C',2,26),dotsBg('S','C',6)),parts:[
    ...[[10.5,1,6],[15.5,.5,6.6],[20.5,1.4,5]].map(([x,y,h])=>({shape:path([[x,y],[x+.9,y+h/3],[x-.6,y+2*h/3],[x+.4,y+h]],.75),color:'C',shade:'S',flat:true,outline:false})),
    {shape:ellipse(15,26.4,13.4,2.6),color:'C',shade:'Y',flat:true,group:'saucer'},
    {shape:union(box(13.5,18,9.5,7.4,2.6),ellipse(13.5,11.2,9.5,2)),color:'C',shade:'Y',flat:true,group:'cup'},
    {shape:cut(circle(24.6,17.4,4.4),circle(24.6,17.4,2.2)),color:'C',shade:'Y',flat:true,group:'handle'},
    {shape:ellipse(13.5,11.2,8.3,1.2),color:'A',outline:false},
    {shape:ring(13.5,18.4,2.8,5,2),color:'P',outline:false},{shape:circle(13.5,18.4,1.4),color:'Y',outline:false},
-   ...[[6.4,15],[20.6,15],[6.4,21.6],[20.6,21.6]].flatMap(([x,y])=>[{shape:leaf(x,y,4,1.4,.8),color:'M',outline:false}]),
+   ...dots([[7,15.6],[20,15.6],[7,21],[20,21]],1,'P'),
    {shape:mask(box(13.5,24.6,9.2,.6),(x)=>x%2===0),color:'R',outline:false}]};}},
  9:{title:'Письмо с печатью',draw(W,H,ok){
-  return {background:layer(planks('A','D',0,4)),parts:[
+  return {background:layer((x,y)=>(y%6===5?'D':(x+Math.floor(y/6)*5)%13===0?'O':'A')),parts:[
    {shape:seg(3,25.5,9,19.5,1.1),color:'Y',light:'C',shade:'O',flat:true,group:'pencil'},{shape:seg(2.2,26.3,3,25.5,1),color:'K',group:'pencil'},
    {shape:leaf(22,4.5,7,2.4,-.6),color:'G',shade:'M',flat:true,group:'twig'},{shape:leaf(25,8,6,2,.9),color:'G',shade:'M',flat:true,group:'twig'},{shape:seg(19,8,26.5,2,.6),color:'A',group:'twig'},
    {shape:box(14,15,12,8.4,1),color:'C',shade:'Y',flat:true,group:'env'},
@@ -138,7 +138,7 @@ export const SCENES={
    {shape:union(ellipse(3.6,13.4,3,2.6),seg(4.4,14.8,6.6,16.4,1.6)),color:'G',shade:'M',flat:true,group:'head'},...dots([[2.6,12.8]],.7,'D'),
    ...[[7,19.6],[18.6,19.8]].map(([x,y])=>({shape:ellipse(x,y,2,1.6),color:'G',shade:'M',flat:true,group:'leg'+x})),
    {shape:union(ellipse(13,13.8,10.2,7.4),box(13,17.4,10,1.6,1)),color:'M',light:'G',sphere:[10.6,11,11.6],group:'shell'},
-   {shape:mask(ellipse(13,13.4,8.4,6),(x,y)=>(x%4===1)||(y%3===0)),color:'V',outline:false},
+   {shape:mask(ellipse(13,13.4,8.4,6),(x,y)=>(x%4===1)||(y%3===0)),color:'G',outline:false},
    {shape:ellipse(13,18.8,10,.8),color:'Y',outline:false},
    {shape:ellipse(19,23.6,2,1),color:'G',outline:false},...daisy(18,23,'P','Y',.7),...daisy(2.5,23.4,'Y','O',.8)]};}},
  12:{title:'Сова ночью',draw(W,H,ok){
@@ -166,8 +166,8 @@ export const SCENES={
    {shape:poly([[3.4,15],[1.2,9.6],[3,9.2],[6.4,13.4]]),color:'C',shade:'S',flat:true,group:'pot'},
    {shape:cut(circle(23.8,17,4.8),circle(23.8,17,2.6)),color:'C',shade:'S',flat:true,group:'handle'},
    {shape:union(ellipse(13.6,17.4,9.6,8.4),box(13.6,24.6,7.4,1.6,1)),color:'C',shade:'S',sphere:[11,14,11],group:'pot'},
-   {shape:mask(ellipse(13.6,17.4,8.4,7.2),(x,y)=>((x+y)%5===0||(x-y+99)%5===0)),color:'B',outline:false},
-   {shape:ellipse(13.6,17.4,3.4,3),color:'N',outline:false},{shape:circle(13.6,17.4,1.6),color:'C',outline:false},
+   {shape:mask(ellipse(13.6,17.4,8.6,7.4),(x,y)=>y===12||y===23),color:'B',outline:false},
+   {shape:ring(13.6,17.6,2.4,5,1.7),color:'B',outline:false},{shape:circle(13.6,17.6,1.2),color:'Y',outline:false},
    {shape:ellipse(13.6,9.6,5.4,1.6),color:'N',light:'B',flat:true,group:'lid'},{shape:circle(13.6,7.4,1.4),color:'N',group:'lid'},
    {shape:union(box(25.4,24.6,3.2,2.6,1),cut(circle(29,24.6,1.8),circle(29,24.6,.8))),color:'C',shade:'S',flat:true,group:'cup'},
    {shape:ellipse(15,27.4,13.4,1.2),color:'S',outline:false}]};}},
@@ -281,9 +281,9 @@ export const SCENES={
    ...tulip(3,22,'R'),...tulip(25,22.6,'V')]};}},
  27:{title:'Кит с садом',draw(W,H,ok){
   const sea=(x,y)=>y<26?null:(y===26&&x%4!==1)||(y===27&&x%4===2)?'S':y>H-3?'N':'B';
-  return {background:layer(sea,skyBg(9,ok)),parts:[...sun(26,4,2.4),cloud(6,3.6,.8),
-   ...[[11,5.6],[13,3.4],[15,5.6]].map(([x,y])=>({shape:circle(x,y,1.2),color:'S',outline:false})),{shape:seg(13,8.6,13,6,.6),color:'S',outline:false},
-   {shape:union(ellipse(14,18,12.4,6.8),poly([[24,18],[29.6,11.6],[30.6,14],[27,19.4],[30.6,23],[29.4,24.6]])),color:'N',light:'B',sphere:[12,15,13],group:'whale'},
+  return {background:layer(sea,()=> 'S'),parts:[...sun(26,4,2.4),cloud(6,3.6,.8,'C','B'),
+   ...[[11,5.6],[13,3.4],[15,5.6]].map(([x,y])=>({shape:circle(x,y,1.2),color:'B',outline:false})),{shape:seg(13,8.6,13,6,.6),color:'B',outline:false},
+   {shape:union(ellipse(14,18,12.4,6.8),poly([[24,18],[29.6,11.6],[30.6,14],[27,19.4],[30.6,23],[29.4,24.6]])),color:'B',light:'S',shade:'N',sphere:[12,15,13],group:'whale'},
    {shape:meet(ellipse(14,18,12.4,6.8),(x,y)=>y>19.6?-1:1),color:'C',outline:false},
    {shape:mask(meet(ellipse(14,18,11.6,6.2),(x,y)=>y>20.2?-1:1),(x,y)=>y%2===0),color:'K',outline:false},
    {shape:circle(7,16.4,1.1),color:'D',outline:false},{shape:ellipse(5,19.4,1.6,.6),color:'K',outline:false},
