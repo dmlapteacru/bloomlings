@@ -8,6 +8,14 @@ export const SIZE={relief:[24,26],normal:[28,30],task:[30,32],hard:[32,34],super
 export const ROLE_OF={5:'normal',6:'relief',7:'normal',8:'task',9:'normal',10:'superHard',11:'relief',12:'normal',13:'normal',14:'task',15:'hard',16:'relief',17:'normal',18:'task',19:'normal',20:'task',21:'normal',22:'superHard',23:'relief',24:'task',25:'hard',26:'normal',27:'task',28:'relief',29:'superHard',30:'normal'};
 const TUTORIAL={1:[16,18],2:[18,20],3:[20,22],4:[24,26]};
 export const sizeOf=id=>TUTORIAL[id]||SIZE[ROLE_OF[id]];
+// The board each level is shown on (the owner, 2026-10-23: not every board grows; small relief boards and tall or
+// wide ones come and go, as in Colony Flow's first 30, where sizes run from 18x21 to 38x28).
+export const BOARD={1:[16,18],2:[18,20],3:[20,22],4:[24,26],5:[26,28],6:[20,22],7:[24,28],8:[30,32],9:[28,26],10:[34,36],
+ 11:[20,20],12:[28,30],13:[26,30],14:[30,30],15:[32,34],16:[18,22],17:[28,28],18:[30,32],19:[24,28],20:[30,32],
+ 21:[28,30],22:[34,36],23:[20,24],24:[30,32],25:[32,34],26:[26,30],27:[32,28],28:[22,22],29:[34,36],30:[26,28]};
+// Object-only pictures (no background, the empty cells are open ground), as in about a third to a half of Colony Flow's first
+// 30. Not L1 (its lesson needs three colours) nor the bridge levels (their stream is part of the picture).
+export const BARE=new Set([3,5,7,16,23,28,30]);
 // The level that introduces each colour: v8's nine by L11, the seven new tones one per level from L6.
 export const INTRO={G:1,B:1,A:1,P:2,C:3,D:4,Y:4,O:5,S:6,R:7,M:8,K:9,N:10,V:11,L:12,E:13};
 export const allowedAt=id=>Object.keys(INTRO).filter(c=>INTRO[c]<=id);
@@ -23,10 +31,10 @@ const ring=(cx,cy,r,n,pr,a0=-Math.PI/2)=>union(...Array.from({length:n},(_,i)=>c
 const mask=(shape,pred)=>(x,y)=>pred(Math.floor(x),Math.floor(y))?shape(x,y):1;
 const dots=(pts,r,color)=>pts.map(([x,y])=>({shape:circle(x,y,r),color,outline:false}));
 // ---- reusable parts ----
-const cloud=(cx,cy,s=1,color='C',shade='S')=>({shape:union(ellipse(cx,cy,4.4*s,1.9*s),circle(cx-2*s,cy-1.1*s,2*s),circle(cx+1.4*s,cy-1.6*s,2.5*s)),color,shade,sphere:[cx,cy-1.2*s,4.6*s],outline:false,band:1.2});
-const sun=(cx,cy,r)=>[{shape:ring(cx,cy,r+1.5,8,.9),color:'Y',outline:false},{shape:circle(cx,cy,r),color:'Y',light:'C',shade:'O',sphere:[cx,cy,r]}];
-const daisy=(cx,cy,petal='C',middle='Y',s=1)=>[{shape:ring(cx,cy,1.3*s,5,1*s),color:petal,outline:false},{shape:circle(cx,cy,.8*s),color:middle,outline:false}];
-const tulip=(cx,cy,petal='R',s=1)=>[{shape:seg(cx,cy,cx,cy+3.5*s,.55),color:'G',outline:false},{shape:union(ellipse(cx,cy,1.5*s,1.4*s),poly([[cx-1.5*s,cy-.2],[cx-1.1*s,cy-2*s],[cx,cy-.9*s],[cx+1.1*s,cy-2*s],[cx+1.5*s,cy-.2]])),color:petal,outline:false}];
+const cloud=(cx,cy,s=1,color='C',shade='S')=>({deco:true,shape:union(ellipse(cx,cy,4.4*s,1.9*s),circle(cx-2*s,cy-1.1*s,2*s),circle(cx+1.4*s,cy-1.6*s,2.5*s)),color,shade,sphere:[cx,cy-1.2*s,4.6*s],outline:false,band:1.2});
+const sun=(cx,cy,r)=>[{deco:true,shape:ring(cx,cy,r+1.5,8,.9),color:'Y',outline:false},{deco:true,shape:circle(cx,cy,r),color:'Y',light:'C',shade:'O',sphere:[cx,cy,r]}];
+const daisy=(cx,cy,petal='C',middle='Y',s=1)=>[{deco:true,shape:ring(cx,cy,1.3*s,5,1*s),color:petal,outline:false},{deco:true,shape:circle(cx,cy,.8*s),color:middle,outline:false}];
+const tulip=(cx,cy,petal='R',s=1)=>[{deco:true,shape:seg(cx,cy,cx,cy+3.5*s,.55),color:'G',outline:false},{deco:true,shape:union(ellipse(cx,cy,1.5*s,1.4*s),poly([[cx-1.5*s,cy-.2],[cx-1.1*s,cy-2*s],[cx,cy-.9*s],[cx+1.1*s,cy-2*s],[cx+1.5*s,cy-.2]])),color:petal,outline:false}];
 // ---- backgrounds (a function of the cell; null lets the next layer decide) ----
 const layer=(...fs)=>(x,y)=>{for(const f of fs){const c=f(x,y);if(c)return c;}return 'B';};
 const skyBg=(horizon,ok)=>(x,y)=>ok('S')&&(y>horizon||(y===horizon&&x%2===0))?'S':'B';
@@ -301,11 +309,11 @@ export const SCENES={
    ...tulip(4,23,'V',.8),...tulip(30,23.4,'K',.8)]};}},
  30:{title:'Зайчик с морковкой',draw(W,H,ok){
   return {background:layer(grassBg(W,H,H-5,ok,.5),skyBg(14,ok)),parts:[cloud(4,3,.8),...sun(24,3.6,2.2),
-   {shape:union(ellipse(9.8,6.8,2.8,6.6),ellipse(18.2,6.8,2.8,6.6)),color:'C',shade:'S',flat:true,group:'ears'},
+   {shape:union(ellipse(9.8,6.8,2.8,6.6),ellipse(18.2,6.8,2.8,6.6)),color:'C',shade:'K',flat:true,group:'ears'},
    {shape:union(ellipse(9.8,7,1.2,4.8),ellipse(18.2,7,1.2,4.8)),color:'K',outline:false},
-   {shape:ellipse(14,22.6,8.6,6.4),color:'C',shade:'S',sphere:[12,20,10],group:'body'},
+   {shape:ellipse(14,22.6,8.6,6.4),color:'C',shade:'K',sphere:[12,20,10],group:'body'},
    {shape:ellipse(14,23.4,4.6,4.2),color:'K',outline:false},
-   {shape:ellipse(14,14.2,7.6,6.8),color:'C',shade:'S',sphere:[12,12,9],group:'head'},
+   {shape:ellipse(14,14.2,7.6,6.8),color:'C',shade:'K',sphere:[12,12,9],group:'head'},
    ...[11,17].map(x=>({shape:ellipse(x,13.4,1,1.4),color:'D',outline:false})),...[8.8,19.2].map(x=>({shape:ellipse(x,16.2,1.3,.8),color:'K',outline:false})),
    {shape:poly([[13,15.8],[15,15.8],[14,17]]),color:'P',outline:false},
    {shape:poly([[19,19],[24.4,24.4],[22.6,25.6]]),color:'O',light:'Y',shade:'A',flat:true,group:'carrot'},
@@ -318,10 +326,20 @@ function streamLayout(id,W,H){const wall=H-6,mid=Math.floor(W/2),n=BRIDGES[id],x
  const walls=new Set();for(let x=0;x<W;x++)walls.add(wall*W+x);for(let y=wall-3;y<wall;y++)for(const x of [mid-1,mid])walls.add(y*W+x);
  const idx=(x,y)=>(H-1-y)*W+x;
  return {walls,hero:{id:'sprig-bridge',choices:xs.map((x,i)=>({cell:idx(x,wall),anchor:idx(x,wall+1),label:n===1?'Левый мостик':i?'Правый мостик':'Левый мостик'}))}};}
-export function sceneLevel(id){const s=SCENES[id];if(!s)return null;const [W,H]=sizeOf(id),allowed=allowedAt(id),ok=c=>allowed.includes(c);
- const spec=s.draw(W,H,ok),col=paint(W,H,{...spec,outline:s.outline||'D',allowed});let hero;
+// Draw at the authored size and sample at the board's: shapes and backgrounds are scaled, outlines stay one cell.
+// window: the authored rectangle [x0, y0, width, height] shown on the board.
+function scaled(spec,[x0,y0,w,h],W,H,bare){const sx=w/W,sy=h/H,k=(sx+sy)/2,X=x=>x0+x*sx,Y=y=>y0+y*sy;
+ return {background:bare?()=> '.':(x,y)=>spec.background(Math.floor(X(x+.5)),Math.floor(Y(y+.5))),
+  parts:spec.parts.filter(p=>!(bare&&p.deco)).map(p=>({...p,shape:(x,y)=>p.shape(X(x),Y(y))/k,...(p.sphere?{sphere:[(p.sphere[0]-x0)/sx,(p.sphere[1]-y0)/sy,p.sphere[2]/k]}:{})}))};}
+export function sceneLevel(id){const s=SCENES[id];if(!s)return null;const [w0,h0]=sizeOf(id),allowed=allowedAt(id),ok=c=>allowed.includes(c),bare=BARE.has(id);
+ let [W,H]=BOARD[id],win=[0,0,w0,h0];
+ if(bare){// An object-only picture fills its board: crop to the object (one cell of open ground round it), keep the height.
+  const full=paint(w0,h0,{...scaled(s.draw(w0,h0,ok),win,w0,h0,true),outline:s.outline||'D',allowed});let x1=w0,y1=h0,x2=-1,y2=-1;
+  full.forEach((r,y)=>r.forEach((c,x)=>{if(c!=='.'){x1=Math.min(x1,x);x2=Math.max(x2,x);y1=Math.min(y1,y);y2=Math.max(y2,y);}}));
+  win=[x1-1,y1-1,x2-x1+3,y2-y1+3];W=Math.max(12,Math.round(H*win[2]/win[3]));}
+ const spec=scaled(s.draw(w0,h0,ok),win,W,H,bare),col=paint(W,H,{...spec,outline:s.outline||'D',allowed});let hero;
  if(s.bridge){const st=streamLayout(id,W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(st.walls.has(y*W+x))col[y][x]='#';hero=st.hero;
   // The near bank (below the wall) is grass with a few flowers, as in v8.
   for(let y=H-5;y<H;y++)for(let x=0;x<W;x++)col[y][x]=y===H-1&&ok('M')?'M':((x*7+y*3)%13===0?'Y':'G');}
- const used=new Set(col.flat());for(const c of used)if(c!=='#'&&!allowed.includes(c))throw Error(`L${id} uses ${c} before it is introduced`);
+ const used=new Set(col.flat());for(const c of used)if(c!=='#'&&c!=='.'&&!allowed.includes(c))throw Error(`L${id} uses ${c} before it is introduced`);
  return {title:s.title,w:W,h:H,rowsBottomFirst:rows(col).reverse(),entries:[Math.floor(W/2)],...(hero?{hero}:{})};}
