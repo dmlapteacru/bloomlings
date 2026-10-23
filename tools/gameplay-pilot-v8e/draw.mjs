@@ -13,7 +13,8 @@ export const cut=(a,b)=>(x,y)=>Math.max(a(x,y),-b(x,y));
 export const meet=(a,b)=>(x,y)=>Math.max(a(x,y),b(x,y));
 // A part: {shape, color, light?, shade?, outline?: true (default), group?: parts of one group get no outline between
 // them, sphere?: [cx, cy, r] (round volume), flat?: true (volume from its edges)}. Later parts are drawn on top.
-export function paint(W,H,{background,parts,outline='D'}){
+export function paint(W,H,{background,parts,outline='D',allowed=null}){
+ const ok=c=>!allowed||allowed.includes(c);
  const id=Array.from({length:H},()=>new Int16Array(W).fill(-1)),col=Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>background(x,y)));
  parts.forEach((p,k)=>{for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(p.shape(x+.5,y+.5)<0)id[y][x]=k;});
  const area=parts.map(()=>0);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(id[y][x]>=0)area[id[y][x]]++;
@@ -29,7 +30,7 @@ export function paint(W,H,{background,parts,outline='D'}){
   if(p.sphere){const [cx,cy,r]=p.sphere,nx=(x+.5-cx)/r,ny=(y+.5-cy)/r,nz=Math.sqrt(Math.max(0,1-nx*nx-ny*ny)),lum=nx*LIGHT_DIR[0]+ny*LIGHT_DIR[1]+nz*LIGHT_DIR[2];
    lit=lum>(p.lightAt??.8)||(depth<1.5&&facing>.55);dark=depth<(p.band??2.2)&&facing<-.3;}
   else if(p.flat){lit=depth<(p.band??1.6)&&facing>.35;dark=depth<(p.band??1.6)&&facing<-.35;}
-  if(p.light&&lit)c=p.light;else if(p.shade&&dark)c=p.shade;
+  if(p.light&&lit&&ok(p.light))c=p.light;else if(p.shade&&dark&&ok(p.shade))c=p.shade;
   col[y][x]=c;}
  return col;
 }

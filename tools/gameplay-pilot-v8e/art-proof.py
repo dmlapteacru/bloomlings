@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """v8E art proof sheet: the 16-colour palette, v8D vs v8E pictures, and Colony Flow's L20 cover for scale.
-usage: python3 art-proof.py <proof.json from art-proof.mjs> <out.png> [cf-cover.png]"""
+usage: python3 art-proof.py <proof.json from art-proof.mjs> <out.png> [cf-cover.png]
+       python3 art-proof.py --contact <proof.json> <out.png>   (all v8E pictures, five per row)"""
 import json, re, sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
@@ -22,6 +23,15 @@ def board(lv, S=11):
             d.rectangle([x0, y0, x0 + S - 2, y0 + S - 3], fill=b)
             d.rectangle([x0 + 2, y0 + 1, x0 + S - 4, y0 + 2], fill=tuple(int(v + (255 - v) * .35) for v in b))
     return im
+if sys.argv[1] == '--contact':
+    data = json.load(open(sys.argv[2])); S, cols = 10, 5; cw, ch = 36 * S + 20, 36 * S + 44
+    sheet = Image.new('RGB', (cols * cw, 70 + ((len(data) + cols - 1) // cols) * ch), '#FFF8EA'); d = ImageDraw.Draw(sheet)
+    d.text((10, 16), 'v8E · все 30 картинок (поле по роли, цвета вводятся по одному)', font=big, fill='#34493d')
+    for k, e in enumerate(data):
+        lv = e['new']; x, y = (k % cols) * cw + 10, 70 + (k // cols) * ch
+        sheet.paste(board(lv, S), (x, y + 30))
+        d.text((x, y + 4), f"L{e['id']} · {lv['title']} · {lv['w']}×{lv['h']} · {len(set(''.join(lv['rowsBottomFirst'])) - set('.#'))} цв.", font=sm, fill='#34493d')
+    sheet.save(sys.argv[3]); print(sys.argv[3], sheet.size); sys.exit()
 data = json.load(open(sys.argv[1])); rows = (len(data) + 1) // 2
 sheet = Image.new('RGB', (1900, 230 + rows * 440 + (500 if len(sys.argv) > 3 else 0)), '#FFF8EA'); d = ImageDraw.Draw(sheet)
 d.text((30, 20), 'v8E · проба картинок: 16 цветов (по 4 на героя), поле по сложности, объём и ровный контур', font=big, fill='#34493d')
