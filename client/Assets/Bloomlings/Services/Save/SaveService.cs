@@ -29,6 +29,7 @@ namespace Bloomlings.Client.Services.Save
     public sealed class SaveService
     {
         public const string FileName = "player_save_v1.json";
+        public const string AuthoritySealName = "server-economy-owner";
 
         private readonly string _folder;
         private readonly IClock _clock;
@@ -97,6 +98,7 @@ namespace Bloomlings.Client.Services.Save
                 Source = SaveSource.New;
             }
 
+            CheckAuthoritySeal(create: Current.ServerEconomyOwnerId != null);
             return Current;
         }
 
@@ -110,6 +112,7 @@ namespace Bloomlings.Client.Services.Save
             }
 
             Directory.CreateDirectory(_folder);
+            CheckAuthoritySeal(create: Current.ServerEconomyOwnerId != null);
             Current.Touch(_clock.UtcNow);
             byte[] bytes = Encoding.UTF8.GetBytes(Envelope(Current));
             using (var stream = new FileStream(TempPath, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -139,6 +142,24 @@ namespace Bloomlings.Client.Services.Save
 
             WriteVersion++;
             Saved?.Invoke();
+        }
+
+        private void CheckAuthoritySeal(bool create)
+        {
+            string seal = Path.Combine(_folder, AuthoritySealName);
+            if (create && !File.Exists(seal))
+            {
+                if (Current.CloudOwnerId != Current.ServerEconomyOwnerId || string.IsNullOrWhiteSpace(Current.ServerEconomyOwnerId))
+                    throw new InvalidDataException("Invalid authoritative profile owner.");
+                byte[] bytes = Encoding.UTF8.GetBytes(Current.ServerEconomyOwnerId!);
+                using var stream = new FileStream(seal, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+                stream.Write(bytes, 0, bytes.Length); stream.Flush(true);
+            }
+            if (!File.Exists(seal)) return;
+            if (new FileInfo(seal).Length > 512) throw new InvalidDataException("Invalid authoritative profile seal.");
+            string owner = File.ReadAllText(seal, Encoding.UTF8);
+            if (string.IsNullOrWhiteSpace(owner) || owner != Current.ServerEconomyOwnerId || owner != Current.CloudOwnerId)
+                throw new InvalidDataException("Authoritative save recovery requires its matching account; files were preserved.");
         }
 
         /// <summary>Combines a synchronous operation's saves into one durable write when its outermost scope ends.</summary>

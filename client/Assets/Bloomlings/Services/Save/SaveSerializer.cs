@@ -64,7 +64,7 @@ namespace Bloomlings.Client.Services.Save
         {
             JObject root = (migrations ?? SaveMigrations.Default).Apply(document);
             const string p = "";
-            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats", "profile", "cloudOwnerId", "cloudBaseHash");
+            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats", "profile", "cloudOwnerId", "cloudBaseHash", "serverEconomyOwnerId");
 
             var save = new PlayerSave
             {
@@ -75,6 +75,9 @@ namespace Bloomlings.Client.Services.Save
 
             save.CloudOwnerId = OptionalString(root, p, "cloudOwnerId");
             save.CloudBaseHash = OptionalString(root, p, "cloudBaseHash");
+            save.ServerEconomyOwnerId = OptionalString(root, p, "serverEconomyOwnerId");
+            if (save.ServerEconomyOwnerId != null && (string.IsNullOrWhiteSpace(save.ServerEconomyOwnerId) || save.ServerEconomyOwnerId != save.CloudOwnerId))
+                throw new ContentFormatException("serverEconomyOwnerId", "must match the bound cloud owner");
             if (save.CloudOwnerId != null && string.IsNullOrWhiteSpace(save.CloudOwnerId))
                 throw new ContentFormatException("cloudOwnerId", "owner cannot be blank");
             if (save.CloudBaseHash != null && (save.CloudOwnerId == null || !System.Text.RegularExpressions.Regex.IsMatch(save.CloudBaseHash, "^[a-f0-9]{64}$")))
@@ -349,6 +352,7 @@ namespace Bloomlings.Client.Services.Save
             };
 
             if (save.CloudOwnerId != null) root["cloudOwnerId"] = save.CloudOwnerId;
+            if (save.ServerEconomyOwnerId != null) root["serverEconomyOwnerId"] = save.ServerEconomyOwnerId;
             if (save.CloudBaseHash != null) root["cloudBaseHash"] = save.CloudBaseHash;
 
             if (save.LinkedIdentity != null)

@@ -35,10 +35,16 @@ namespace Bloomlings.Client.Services.Economy
 
         private readonly PlayerSave _save;
         private readonly Action _persist;
+        private readonly IAuthoritativeEconomy? _authority;
+        public bool IsAuthoritative => _authority != null;
+        public IAuthoritativeEconomy? Authority => _authority;
 
-        public EconomyService(PlayerSave save, EconomyConfig config, Action persist)
+        public EconomyService(PlayerSave save, EconomyConfig config, Action persist, IAuthoritativeEconomy? authority = null)
         {
+            _authority = authority;
             _save = save ?? throw new ArgumentNullException(nameof(save));
+            if (save.ServerEconomyOwnerId != null && (authority == null || authority.OwnerId != save.ServerEconomyOwnerId))
+                throw new InvalidOperationException("This profile requires its authoritative economy adapter.");
             Config = config ?? throw new ArgumentNullException(nameof(config));
             _persist = persist ?? throw new ArgumentNullException(nameof(persist));
         }
@@ -48,20 +54,23 @@ namespace Bloomlings.Client.Services.Economy
 
         public EconomyConfig Config { get; set; }
 
-        public int Petals => _save.Wallet.Petals;
+        public int Petals => _authority?.Petals ?? _save.Wallet.Petals;
 
         /// <summary>Settings tester control; changes only the wallet, clamps safely and persists once.</summary>
         public void AdjustPetalsForTesting(int delta)
         {
+            if (IsAuthoritative) return;
             int next = (int)Math.Max(0L, Math.Min(int.MaxValue, (long)Petals + delta));
             if (next == Petals) return;
             _save.Wallet.SetPetals(next);
             Save();
         }
 
-        public int Charges(BoosterKind kind) => _save.Boosters.Get(kind);
+        public int Charges(BoosterKind kind) => _authority?.Charges(kind) ?? _save.Boosters.Get(kind);
 
-        public int Price(BoosterKind kind) => Config.Price(kind);
+        public int Price(BoosterKind kind) => _authority?.Price(kind) ?? Config.Price(kind);
+
+        public int ItemPrice(string id, int bundledPrice) => _authority?.ItemPrice(id) ?? bundledPrice;
 
         /// <summary>The number of charges in one Petal purchase of this booster.</summary>
         public static int PurchaseQuantity(BoosterKind kind) => kind == BoosterKind.BloomBurst ? 1 : 3;
@@ -103,6 +112,7 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>Pays a newly completed level: Petals and, on every Nth level, one booster charge.</summary>
         public LevelReward GrantLevelReward(int level, DifficultyClass difficulty, int boostersUsed)
         {
+            if (IsAuthoritative) return new LevelReward(0, null);
             if (level < 1) throw new ArgumentOutOfRangeException(nameof(level));
             string claim = "reward.level." + level.ToString(System.Globalization.CultureInfo.InvariantCulture);
             if (_save.Unlocks.IsSet(claim)) return new LevelReward(0, null);
@@ -158,6 +168,7 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>A basic booster unlock grants its free charge once; Bloom Burst's unlock grants none.</summary>
         public void OnUnlock(string unlockId)
         {
+            if (IsAuthoritative) return;
             foreach ((string id, BoosterKind kind) in BoosterUnlocks)
             {
                 if (id == unlockId && kind != BoosterKind.BloomBurst && !_save.Unlocks.IsSet(GrantedPrefix + id))
@@ -172,6 +183,7 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>Buys a three-charge pack, or one Bloom Burst, with Petals.</summary>
         public bool TryBuy(BoosterKind kind)
         {
+            if (IsAuthoritative) return false;
             if (!IsUnlocked(kind) || !_save.Wallet.TrySpendPetals(Price(kind)))
             {
                 return false;
@@ -185,6 +197,7 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>Spends Petals on something else the Store sells (a cosmetic); false when they are short.</summary>
         public bool TrySpend(int petals)
         {
+            if (IsAuthoritative) return false;
             if (petals <= 0 || !_save.Wallet.TrySpendPetals(petals))
             {
                 return false;
@@ -197,6 +210,7 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>Takes a charge for one use, buying it first if needed; false when neither is possible.</summary>
         public bool TryTakeCharge(BoosterKind kind)
         {
+            if (_authority != null) return IsUnlocked(kind) && _authority.TryTakeCharge(kind);
             if (!IsUnlocked(kind))
             {
                 return false;
@@ -215,6 +229,7 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>Gives back a charge whose use the level refused (the charge was taken optimistically).</summary>
         public void Refund(BoosterKind kind)
         {
+            if (IsAuthoritative) return;
             _save.Boosters.Add(kind, 1);
             Save();
         }
@@ -222,6 +237,7 @@ namespace Bloomlings.Client.Services.Economy
         /// <summary>Milestones, rewarded ads and purchases (FR-047).</summary>
         public void Grant(int petals, BoosterGrant? boosters)
         {
+            if (IsAuthoritative) return;
             if (petals > 0)
             {
                 _save.Wallet.AddPetals(petals);

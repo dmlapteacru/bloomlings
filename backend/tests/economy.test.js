@@ -29,7 +29,7 @@ class Store {
   ticket(level, overrides={}) { const name='level-'+level; this.tickets.set('alice:'+name, {ownerId:'alice',kind:'level',level,expiresAt:NOW+60000,catalogVersion:catalog.version,difficulty:'Normal',boostersUsed:0,...overrides}); return name; }
 }
 const service = store => createEconomyService(store,{clock:()=>NOW});
-const op = (kind, fields={}, sequence=1, installationId='phone-a') => ({kind,installationId,sequence,catalogVersion:catalog.version,...fields});
+const op = (kind, fields={}, sequence=1, installationId='phone-a') => ({kind,installationId,sequence,catalogVersion:catalog.version,...(['claim_daily','claim_booster_ad'].includes(kind)?{date:'2026-10-22'}:{}),...fields});
 const hat = 'hat.twig_nightcap';
 const hatPrice = catalog.cosmetics[hat].price;
 const initialized = (overrides={}) => { const s = new Store(); s.seed('alice',{petals:10000,highestCompletedLevel:100,...overrides}); return s; };
@@ -231,7 +231,7 @@ test('daily uses server UTC and strict step order; ad steps require protected au
   assert.equal((await handle('alice',op('claim_daily',{step:2,ticketId:'ad'},5))).ok,true);
   assert.equal(store.value().petals,50);assert.deepEqual(store.value().daily,{date:'2026-10-22',step:2});
   const tomorrow=createEconomyService(store,{clock:()=>NOW+86400000});
-  assert.equal((await tomorrow('alice',op('claim_daily',{step:1},6))).ok,true);
+  assert.equal((await tomorrow('alice',op('claim_daily',{step:1,date:'2026-10-23'},6))).ok,true);
   assert.equal(store.value().petals,70);
   assert.equal((await handle('alice',op('claim_daily',{step:1},7))).code,'server-date-regressed');
 });
@@ -373,4 +373,50 @@ test('consumed explicitly distinguishes remembered business rejection from unpro
   assert.equal((await handle('alice',op('buy_booster',{boosterKind:'shuffle'},3))).consumed,false);
   store.conflict=true;
   assert.equal((await handle('alice',op('buy_booster',{boosterKind:'shuffle'},2))).consumed,false);
+});
+
+const cancel = purchase => op('cancel_purchase',{purchaseJson:JSON.stringify(purchase)},purchase.sequence,purchase.installationId);
+test('cancellation wins atomically, replaying original never purchases, and sequence advances', async () => {
+  const store=initialized(), handle=service(store), buy=op('buy_cosmetic',{itemId:hat}), stop=cancel(buy);
+  const cancelled=await handle('alice',stop);
+  assert.equal(cancelled.code,'purchase-cancelled'); assert.equal(cancelled.consumed,true);
+  const replay=await handle('alice',buy);
+  assert.equal(replay.code,'purchase-cancelled'); assert.equal(replay.replayed,true);
+  assert.equal(store.value().petals,10000); assert.deepEqual(store.value().owned,[]); assert.equal(store.writes,1);
+  assert.equal((await handle('alice',op('buy_cosmetic',{itemId:hat},2))).ok,true);
+});
+test('purchase wins before cancellation: cancellation returns the committed purchase, no fake refund', async () => {
+  const store=initialized(), handle=service(store), buy=op('buy_cosmetic',{itemId:hat});
+  await handle('alice',buy); const result=await handle('alice',cancel(buy));
+  assert.equal(result.code,'purchased'); assert.equal(result.replayed,true);
+  assert.equal(store.value().petals,10000-hatPrice); assert.equal(store.writes,1);
+});
+test('concurrent cancellation and purchase have one terminal outcome', async () => {
+  for (const cancelFirst of [true,false]) {
+    const store=initialized(),handle=service(store),buy=op('buy_booster',{boosterKind:'shuffle'}),stop=cancel(buy);
+    const results=await Promise.all((cancelFirst?[stop,buy]:[buy,stop]).map(x=>handle('alice',x)));
+    assert.equal(results[0].code,results[1].code); assert.equal(store.writes,1);
+    const purchased=results[0].code==='purchased';
+    assert.equal(store.value().petals,purchased?8800:10000); assert.equal(store.value().boosters.shuffle,purchased?3:0);
+  }
+});
+test('cancellation needs exact matching purchase sequence and cannot cancel a reward or nested cancellation', async () => {
+  const store=initialized(),handle=service(store),buy=op('buy_cosmetic',{itemId:hat});
+  for (const value of [op('claim_milestone',{level:25}),cancel(buy),{...buy,sequence:2},op('consume_booster',{boosterKind:'shuffle'})])
+    assert.equal((await handle('alice',op('cancel_purchase',{purchaseJson:JSON.stringify(value)}))).code,'invalid-operation');
+  assert.equal(store.writes,0);
+});
+test('stale catalog cannot prevent cancelling, and unrelated old payload cannot reuse its sequence', async () => {
+  const store=initialized(),handle=service(store),buy=op('buy_cosmetic',{itemId:hat});
+  const stop=cancel(buy);stop.catalogVersion='stale-prices';
+  assert.equal((await handle('alice',stop)).code,'purchase-cancelled');
+  assert.equal((await handle('alice',op('buy_booster',{boosterKind:'return'}))).code,'sequence-reused');
+  assert.equal(store.writes,1);
+});
+test('daily and rewarded ad requests queued for yesterday cannot claim today', async () => {
+  const store=initialized(), handle=service(store);
+  for (const [index,kind] of ['claim_daily','claim_booster_ad'].entries()) {
+    const result=await handle('alice',op(kind,{...(kind==='claim_daily'?{step:1}:{ticketId:'ad'}),date:'2026-10-21'},index+1));
+    assert.equal(result.code,'reward-date-expired'); assert.equal(result.consumed,true);
+  }
 });

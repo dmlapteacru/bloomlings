@@ -81,6 +81,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             _economy = economy;
             // Trial items used to be implicitly free. Preserve the user's saved
             // fitted outfit when introducing prices; never grant the whole trial catalog.
+            if (_economy?.IsAuthoritative == true) return;
             bool migrated = false;
             foreach (string id in new List<string>(_save.Cosmetics.Owned))
                 if (_catalog.TryGet(id, out var owned) && owned!.Id != id)
@@ -195,7 +196,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 var items = new List<CosmeticItem>();
                 foreach (CosmeticItem item in _catalog.Items)
                 {
-                    if (item.ForSale && !Owns(item) && !IsLevelLocked(item))
+                    if (item.ForSale && PriceOf(item) > 0 && !Owns(item) && !IsLevelLocked(item))
                     {
                         items.Add(item);
                     }
@@ -208,6 +209,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// <summary>A roadmap unlock was reached: the Wardrobe's starter items are given once.</summary>
         public void OnUnlock(string unlockId)
         {
+            if (_economy?.IsAuthoritative == true) return;
             if (unlockId != UnlockId || _save.Unlocks.IsSet(StarterGrantedFlag))
             {
                 return;
@@ -229,7 +231,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
         /// <summary>Whether this unowned item requires a higher current level. Owned equipment stays usable.</summary>
         public bool IsLevelLocked(CosmeticItem item) => !Owns(item) && _save.Progression.CurrentLevel < item.UnlockLevel;
         /// <summary>Can be purchased now; the UI may still let a locked item be tried on.</summary>
-        public bool IsBuyable(CosmeticItem item) => IsAvailable && item.ForSale && !Owns(item) && !IsLevelLocked(item) && _economy != null;
+        public int PriceOf(CosmeticItem item) => _economy?.ItemPrice(item.Id, item.Price) ?? item.Price;
+
+        public bool IsBuyable(CosmeticItem item) => IsAvailable && item.ForSale && PriceOf(item) > 0 && !Owns(item) && !IsLevelLocked(item) && _economy != null;
 
         /// <summary>Buys a Store cosmetic with Petals; false when it cannot be bought or the Petals are short.</summary>
         public bool TryBuy(string itemId)

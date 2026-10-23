@@ -30,6 +30,7 @@ namespace Bloomlings.Client.Services.Economy.Online
         public EconomySnapshot? Confirmed => _snapshot;
         public int PendingCount => _journal.PendingCount;
         public string? LastCode { get; private set; }
+        public string? ServerUtcDate { get; private set; }
         public bool IsOnline => !_disposed && Current;
         public string SessionKey => OwnerId + ":" + _transport.SessionVersion.ToString(System.Globalization.CultureInfo.InvariantCulture) + ":" + _epoch.ToString(System.Globalization.CultureInfo.InvariantCulture);
         public long? NextOperationSequence => _journal.NextSequence;
@@ -41,7 +42,9 @@ namespace Bloomlings.Client.Services.Economy.Online
             {
                 if (PendingCount == 0) return null;
                 JObject op = Operation((JObject)((JArray)_journal.Data["pending"]!)[0]);
-                return IsPurchase(op) ? new PendingEconomyPurchase((long)op["sequence"]!, (string)op["kind"]!, (string)(op["itemId"] ?? op["boosterKind"])!) : null;
+                bool cancelling = (string?)op["kind"] == "cancel_purchase";
+                if (cancelling) op = JsonDoc.ParseObject((string)op["purchaseJson"]!, "cancelled purchase");
+                return IsPurchase(op) ? new PendingEconomyPurchase((long)op["sequence"]!, (string)op["kind"]!, (string)(op["itemId"] ?? op["boosterKind"])!, cancelling) : null;
             }
         }
         public string? LastAcknowledgedCode => _journal.Data["lastResult"] is JObject result ? (string?)result["code"] : null;
@@ -68,6 +71,7 @@ namespace Bloomlings.Client.Services.Economy.Online
             foreach (JObject entry in (JArray)_journal.Data["pending"]!)
             {
                 JObject op = Operation(entry);
+                if ((string?)op["kind"] == "cancel_purchase") op = JsonDoc.ParseObject((string)op["purchaseJson"]!, "cancelling booster reservation");
                 if ((string?)op["kind"] == "consume_booster" && (string?)op["boosterKind"] == kind) available--;
             }
             return Math.Max(0, available);
@@ -127,7 +131,7 @@ namespace Bloomlings.Client.Services.Economy.Online
                             doc["nextSequence"] = reply.NextSequence.HasValue ? new JValue(reply.NextSequence.Value) : JValue.CreateNull();
                     }
                 });
-                Reload(); _serverNextSequence = reply.NextSequence; _verifiedSession = session;
+                Reload(); _serverNextSequence = reply.NextSequence; _verifiedSession = session; ServerUtcDate = reply.ServerUtcDate;
                 Finish("loaded", done);
             }
             finally { _busy = false; }
@@ -142,7 +146,7 @@ namespace Bloomlings.Client.Services.Economy.Online
                 : new JObject { ["boosterKind"] = quote.Target };
             if (quote.Kind == "consume_booster") fields["autoBuy"] = true;
             long sequence = Enqueue(quote.Kind, fields, null);
-            yield return Drain(sequence, done); // explicit consent exists only in this invocation, never in a persisted flag
+            yield return Drain(sequence, done, sequence); // explicit consent exists only in this invocation, never in a persisted flag
         }
 
         public IEnumerator ConfirmPendingPurchase(EconomyQuote quote, Action<string>? done = null)
@@ -155,8 +159,8 @@ namespace Bloomlings.Client.Services.Economy.Online
             if (!IsPurchase(op) || !ValidQuote(quote) || (string?)op["kind"] != quote.Kind || (string?)(op["itemId"] ?? op["boosterKind"]) != quote.Target)
             { Finish("price-changed", done); yield break; }
             if ((bool)entry["attempted"]! && !(bool)entry["uncertain"]! && (string?)entry["blockCode"] != "catalog-changed")
-            { yield return Flush(done); yield break; } // unknown outcomes can only replay the ORIGINAL request
-            if (_serverNextSequence != sequence) { yield return Flush(done); yield break; }
+            { yield return CheckPendingPurchase(sequence, done); yield break; } // unknown outcomes can only replay the ORIGINAL request
+            if (_serverNextSequence != sequence) { yield return CheckPendingPurchase(sequence, done); yield break; }
             string prior = (string)entry["operation"]!;
             op["catalogVersion"] = Catalog.Version;
             string replacement = CanonicalJson.Write(op, false);
@@ -167,8 +171,58 @@ namespace Bloomlings.Client.Services.Economy.Online
                 if (replacement != prior) ((JArray)head["alternatives"]!).Add(prior);
                 head["operation"] = replacement; head["attempted"] = false; head["uncertain"] = false; head["blockCode"] = null;
             });
-            yield return Drain(sequence, done);
+            yield return Drain(sequence, done, sequence);
         }
+        /// <summary>Atomically races a cancellation tombstone against the original purchase at its same sequence.
+        /// Neither removing the request nor rewinding the channel is safe after a timeout.</summary>
+        public IEnumerator CancelPendingPurchase(Action<string>? done = null)
+        {
+            if (_busy || _disposed || !Current || PendingCount == 0) { Finish("refresh-required", done); yield break; }
+            JObject entry = (JObject)((JArray)_journal.Data["pending"]!)[0];
+            JObject original = Operation(entry);
+            if ((string?)original["kind"] == "cancel_purchase") { yield return CheckPendingPurchase((long)original["sequence"]!, done); yield break; }
+            if (!IsPurchase(original)) { Finish("not-a-purchase", done); yield break; }
+            string prior = (string)entry["operation"]!;
+            var cancellation = new JObject { ["kind"] = "cancel_purchase", ["installationId"] = original["installationId"]!.DeepClone(),
+                ["sequence"] = original["sequence"]!.DeepClone(), ["catalogVersion"] = Catalog.Version, ["purchaseJson"] = prior };
+            _journal.Commit(doc =>
+            {
+                JObject head = (JObject)((JArray)doc["pending"]!)[0];
+                ((JArray)head["alternatives"]!).Insert(0, prior);
+                head["operation"] = CanonicalJson.Write(cancellation, false); head["attempted"] = false; head["uncertain"] = false; head["blockCode"] = null;
+            });
+            yield return CheckPendingPurchase((long)original["sequence"]!, done);
+        }
+
+        public bool QueueMilestone(int level)
+        {
+            if (_disposed || level < 1 || level > (_snapshot?.HighestCompletedLevel ?? 0) || _snapshot!.HasMilestone(level)) return false;
+            return QueueOnce("claim_milestone", new JObject { ["level"] = level });
+        }
+        public bool QueueDaily(int step, string? ticketId = null)
+        {
+            if (_disposed || !Current || _verifiedSession != _transport.SessionVersion || ServerUtcDate == null || step < 1 || step > 5) return false;
+            int claimed = _snapshot?.DailyDate == ServerUtcDate ? _snapshot.DailyStep : 0;
+            if (step != claimed + 1 || (step != 1 && step != 4 && !EconomyProtocol.IsId(ticketId))) return false;
+            var fields = new JObject { ["step"] = step, ["date"] = ServerUtcDate };
+            if (ticketId != null) fields["ticketId"] = ticketId;
+            return QueueOnce("claim_daily", fields);
+        }
+        public bool QueueBoosterAd(string ticketId)
+        {
+            if (_disposed || !Current || _verifiedSession != _transport.SessionVersion || ServerUtcDate == null || !EconomyProtocol.IsId(ticketId)) return false;
+            return QueueOnce("claim_booster_ad", new JObject { ["ticketId"] = ticketId, ["date"] = ServerUtcDate });
+        }
+        private bool QueueOnce(string kind, JObject fields)
+        {
+            foreach (JObject entry in (JArray)_journal.Data["pending"]!)
+            {
+                JObject op = Operation(entry);
+                if ((string?)op["kind"] == kind && (kind == "claim_booster_ad" || (string?)op["level"] == (string?)fields["level"] && (string?)op["step"] == (string?)fields["step"])) return false;
+            }
+            Enqueue(kind, fields, null); return true;
+        }
+
         /// <summary>Rebind only a definitely rejected/unattempted NON-purchase after an online read.
         /// Reward callers obtain a fresh trusted ticket; the original request stays as a replay candidate.</summary>
         public IEnumerator ReconcileNonPurchase(string? freshTicketId = null, Action<string>? done = null)
@@ -200,7 +254,13 @@ namespace Bloomlings.Client.Services.Economy.Online
 
         public IEnumerator Flush(Action<string>? done = null) => Drain(null, done);
 
-        private IEnumerator Drain(long? permittedNewPurchase, Action<string>? done)
+        public IEnumerator CheckPendingPurchase(long sequence, Action<string>? done = null)
+        {
+            if (PendingPurchase?.Sequence != sequence) { Finish("result-unavailable", done); yield break; }
+            yield return Drain(null, done, sequence);
+        }
+
+        private IEnumerator Drain(long? permittedNewPurchase, Action<string>? done, long? stopAfterSequence = null)
         {
             if (_busy) { Finish("busy", done); yield break; }
             if (!Current || _disposed) { Finish("offline", done); yield break; }
@@ -251,6 +311,7 @@ namespace Bloomlings.Client.Services.Economy.Online
                         if (reply.CatalogVersion != null && reply.CatalogVersion != Catalog.Version) _verifiedSession = null;
                         // Do not add effects! The acknowledged snapshot already includes the transaction.
                         LastCode = reply.Code; Changed?.Invoke();
+                        if (stopAfterSequence == sequence) { done?.Invoke(reply.Code); yield break; }
                     }
                     else
                     {
@@ -291,7 +352,7 @@ namespace Bloomlings.Client.Services.Economy.Online
         private static bool IsPurchase(JObject op) => (string?)op["kind"] == "buy_cosmetic" || (string?)op["kind"] == "buy_booster" || ((string?)op["kind"] == "consume_booster" && (bool?)op["autoBuy"] == true);
         private void Reload() { _catalog = _journal.Catalog; _snapshot = _journal.Snapshot; }
         private void Finish(string code, Action<string>? done) { LastCode = code; Changed?.Invoke(); done?.Invoke(code); }
-        public void InvalidateSession() { _epoch++; _verifiedSession = null; }
+        public void InvalidateSession() { _epoch++; _verifiedSession = null; ServerUtcDate = null; }
         public void Dispose() { if (_disposed) return; _disposed = true; InvalidateSession(); _journal.Dispose(); }
 
         private static IEnumerator Request(Func<IEnumerator> make, Action failed)

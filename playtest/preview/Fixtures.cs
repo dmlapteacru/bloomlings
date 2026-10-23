@@ -1,4 +1,9 @@
 using System;
+using System.Collections;
+using Bloomlings.Client.Services.Economy.Online;
+using Bloomlings.Client.Services.Clock;
+using Bloomlings.Content.Json;
+using Newtonsoft.Json.Linq;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Meta.Wardrobe;
 using System.Collections.Generic;
@@ -952,6 +957,10 @@ namespace Bloomlings.Playtest.Preview
                 SolveResult win = new Solver.Solver().Solve(Session(content, 12), SolveOptions.Default);
                 Play(app, p, win.Trace, win.Trace.Count);
                 Settle(app, p);
+                var archived=new GuestWinArchive(Path.Combine(data,SaveService.FolderName,"guest-wins")).Read(12);
+                Expect(archived!=null,"real game archives the win before progression");
+                var verified=archived!.ValidateAndReplay(app.Level!.Session.Definition,app.Level.Session.Picture,app.Level.Session.Options);
+                Expect(verified.Level==12,"archived game commands replay against trusted level content");
                 // Long enough for the Petals to finish counting up (spec 003 FR-020), still within the confetti.
                 Run(app, p, 1.1f);
             });
@@ -2492,6 +2501,86 @@ namespace Bloomlings.Playtest.Preview
                     Expect(Shows(p, PlaytestText.T(frame.Item1 == 240 ? "account.panel.title" : frame.Item1 == 244 ? "account.panel.restore_title" : "account.panel.title")), "Account title is localized");
                 });
             }
+        }
+
+        private sealed class PendingPurchaseTransport : IEconomyTransport
+        {
+            private readonly JObject _catalog, _state;
+            private long _next = 1;
+            public bool IsAvailable => true;
+            public string? PlayerId => "alice";
+            public long SessionVersion => 1;
+            public PendingPurchaseTransport(JObject fixture)
+            {
+                _catalog=(JObject)fixture["catalog"]!.DeepClone();_state=(JObject)fixture["initialState"]!.DeepClone();
+                _state["highestCompletedLevel"]=44;_state["milestones"]=new JArray(25);
+            }
+            public IEnumerator Read(string owner,long session,string installation,Action<EconomyReply> done)
+            {
+                done(new EconomyReply(new JObject { ["ok"]=true,["code"]="loaded",["consumed"]=false,["retryable"]=false,
+                    ["state"]=_state.DeepClone(),["catalogVersion"]=_catalog["version"]!.DeepClone(),["catalog"]=_catalog.DeepClone(),
+                    ["nextSequence"]=_next,["serverUtcDate"]="2026-10-23" }));yield break;
+            }
+            public IEnumerator Execute(string owner,long session,string operation,Action<EconomyReply> done)
+            {
+                JObject op=JObject.Parse(operation);
+                if ((string?)op["kind"]!="cancel_purchase") { done(EconomyReply.Unavailable);yield break; }
+                _next=2;_state["revision"]=1;
+                done(new EconomyReply(new JObject { ["ok"]=true,["code"]="purchase-cancelled",["consumed"]=true,["retryable"]=false,
+                    ["state"]=_state.DeepClone(),["nextSequence"]=_next,["catalogVersion"]=_catalog["version"]!.DeepClone() }));
+            }
+        }
+        private static void CompleteRoutine(IEnumerator routine)
+        {
+            try { while(routine.MoveNext())if(routine.Current is IEnumerator child)CompleteRoutine(child); }
+            finally { (routine as IDisposable)?.Dispose(); }
+        }
+        public static IEnumerable<Fixture> ServerEconomyStates(ContentSet content,string root)
+        {
+            foreach(int number in new[]{261,262,263})
+                yield return new Fixture(number,number==261?"account-pending-purchase":number==262?"purchase-cancel-request":"purchase-cancelled","Server account pending purchase",(p,data)=>
+                {
+                    var saves=new SaveService(Path.Combine(data,SaveService.FolderName),new SystemClock());var save=saves.Load();
+                    save.CloudOwnerId="alice";save.Progression.HighestCompletedLevel=44;save.Profile.Name="Rosie";saves.Save();
+                    JObject fixture=JObject.Parse(File.ReadAllText(Path.Combine(root,"backend/tests/fixtures/economy-client.json")));
+                    var transport=new PendingPurchaseTransport(fixture);
+                    using var journal=new EconomyJournal(Path.Combine(data,"server-economy"),"alice",new EconomyCatalog((JObject)fixture["catalog"]!));
+                    using var client=new OnlineEconomyClient(journal,transport);CompleteRoutine(client.Refresh());
+                    using var app=new DesignApp(data,content,new Silence(),false,serverEconomy:client,activateServerEconomy:true);
+                    Run(app,p,.6f);CompleteRoutine(client.Purchase(client.Catalog.QuoteItem("hat.twig_nightcap")!));
+                    Expect(client.PendingPurchase!=null,"unavailable purchase is durable");
+                    app.OpenOverlay(Overlay.Account);Run(app,p,.6f);
+                    Expect(Shows(p,PlaytestText.T("account.panel.pending_purchase")),"account exposes pending purchase");
+                    if(number>=262)
+                    {
+                        // Use the actual action after its presence was checked; the purchase card itself is native.
+                        Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("account.panel.pending_purchase")).Box);Run(app,p,.6f);
+                        Expect(Shows(p,PlaytestText.T("purchase.cancel_pending")),"safe cancellation action is visible");
+                        Expect(app.Purchase.Stage==PurchaseStage.Pending,"opening does not silently replay the purchase");
+                        if(number==263)
+                        {
+                            Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("purchase.cancel_pending")).Box);Run(app,p,.6f);
+                            Expect(!app.IsOpen(Overlay.Purchase) && client.PendingCount==0,"native cancel button obtains the terminal cancellation ACK");
+                            Expect(!client.Owns("hat.twig_nightcap") && client.Confirmed!.Petals==10000,"cancelling does not buy or spend");
+                        }
+                    }
+                    int petals=app.Meta.Economy.Petals;app.Meta.Economy.AdjustPetalsForTesting(10000);app.ResetProfile();
+                    Expect(app.Meta.Economy.Petals==petals && app.Meta.Economy.IsAuthoritative,"tester controls cannot switch to local money");
+                });
+        }
+
+        public static IEnumerable<Fixture> Competition(ContentSet content)
+        {
+            yield return new Fixture(260,"leaderboard-rules","Leaderboard proposal in the game UI",(p,data)=>
+            {
+                var app = new DesignApp(data,content,new Silence(),false); app.Meta.SkipTo(44); app.GoHome(); app.OpenLeaderboard();
+                Run(app,p,.6f);
+                Tap(p,LeaderboardScreen.RulesButton(p));
+                Expect(app.IsOpen(Overlay.CompetitionRules),"rules button opens the real native card");
+                Run(app,p,.6f);
+                Expect(Shows(p,PlaytestText.T("leaderboard.rules_title")),"localized ranking rules");
+                Expect(!CompetitionRules.EnabledByDefault,"draft does not enable competitive submissions");
+            });
         }
 
         private static void Run(DesignApp app, SkiaPainter p, float seconds)

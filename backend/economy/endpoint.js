@@ -11,7 +11,7 @@ module.exports = async ({params, context}) => {
     if (!['read','execute'].includes(params.action)) return {ok:false, code:'invalid-action', consumed:false, retryable:false, state:null};
     let operation = null;
     if (params.action === 'execute') {
-      if (typeof params.operationJson !== 'string' || Buffer.byteLength(params.operationJson) > 2048)
+      if (typeof params.operationJson !== 'string' || Buffer.byteLength(params.operationJson) > 4096)
         return {ok:false, code:'invalid-operation', consumed:false, retryable:false, state:null};
       try { operation = JSON.parse(params.operationJson); }
       catch { return {ok:false, code:'invalid-operation', consumed:false, retryable:false, state:null}; }

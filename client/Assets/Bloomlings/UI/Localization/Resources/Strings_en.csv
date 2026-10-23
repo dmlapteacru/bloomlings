@@ -541,3 +541,23 @@ purchase.price_changed,The price has been updated. Review it and confirm again t
 purchase.account_changed,Your account changed. Reopen the item using the correct profile.
 purchase.failed,We could not complete this purchase. Check its status or try again later.
 purchase.check_action,Check purchase
+
+purchase.cancel_pending,Cancel request
+purchase.cancelled,Purchase request cancelled. No Petals spent.
+purchase.server_billing_unavailable,Store payments are not connected yet.
+purchase.server_reward_unavailable,This reward needs an online check or a verified ad.
+account.panel.pending_purchase,Pending purchase
+account.panel.server_account,Connected game account
+account.panel.economy_checked,Wallet checked. Gameplay progress remains saved on this device.
+leaderboard.rules,Ranking rules
+leaderboard.rules_title,Two ways to grow
+leaderboard.rules_progress,Progress board: your highest completed level. Replaying levels adds no progress.
+leaderboard.rules_week,Weekly competition proposal: the same daily puzzles for everyone. Best 5 days out of 7 count.
+leaderboard.rules_score,150 points without help; 125 with one assist; 100 with two. Everyone gets the same two free assists.
+leaderboard.rules_fair,No speed bonus or paid advantage. Equal scores share a place. Retry to improve your daily result.
+leaderboard.rules_pending,Weekly competition is not available yet. This preview does not affect your progress.
+win.reward_pending,Reward saved for online verification
+account.panel.check_wallet,Check wallet
+account.panel.server_pending,Purchases or rewards need an online check. Your progress is saved on this device.
+account.panel.server_detail,Your wallet and owned items are available offline. New purchases need a connection.
+account.panel.connect_to_check,Connect to check

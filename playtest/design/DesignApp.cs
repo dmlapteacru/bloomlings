@@ -1,5 +1,7 @@
 using System;
 using Bloomlings.Client.Services.Backend;
+using Bloomlings.Client.Services.Economy.Online;
+using Bloomlings.Client.Services.Clock;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Meta.DailyReward;
@@ -37,6 +39,7 @@ namespace Bloomlings.Playtest.Design
         Settings,
         PrivacyPolicy,
         Account,
+        CompetitionRules,
         DailyReward,
         DailyChallenge,
 
@@ -83,7 +86,7 @@ namespace Bloomlings.Playtest.Design
     /// services (<see cref="PlaytestMeta"/>). This class only navigates and draws. Engine-free: the APK hosts it in a
     /// <c>DesignView</c>, and the preview tool renders it to PNG files.
     /// </summary>
-    public sealed class DesignApp
+    public sealed class DesignApp : IDisposable
     {
         /// <summary>
         /// When the splash's lotus iris started to open on the first screen (spec 005 FR-039), or −1 while it loads: the
@@ -130,25 +133,33 @@ namespace Bloomlings.Playtest.Design
         private readonly List<(Overlay Overlay, float OpenedAt)> _overlays = new List<(Overlay, float)>();
         private readonly bool _firstLaunch;
 
-        public DesignApp(string dataFolder, ContentSet content, ISoundOut sound, bool showSplash = true, IAccountPanelGateway? accountGateway = null)
+        public DesignApp(string dataFolder, ContentSet content, ISoundOut sound, bool showSplash = true, IAccountPanelGateway? accountGateway = null, OnlineEconomyClient? serverEconomy = null, bool activateServerEconomy = false)
         {
             _dataFolder = dataFolder;
             Content = content;
             Sound = sound;
-            Meta = new PlaytestMeta(dataFolder);
+            ServerClient = serverEconomy;
+            _serverEconomy = serverEconomy == null ? null : new ServerEconomy(serverEconomy, OnlineRoutines.Run, activateServerEconomy);
+            Meta = new PlaytestMeta(dataFolder, new SystemClock(), _serverEconomy);
             Purchase.Changed += PurchaseChanged;
-            Account = new AccountPanel(accountGateway ?? new DelegateAccountPanelGateway(
+            Account = new AccountPanel(accountGateway ?? (serverEconomy != null ? ServerAccountGateway() : new DelegateAccountPanelGateway(
                 () => new AccountPanelSnapshot(Meta.Save.LocalPlayerId, Meta.Save.UpdatedAt,
                     Meta.Save.Profile.Name ?? "", Meta.CurrentLevel, Meta.Economy.Petals,
                     "account.panel.guest", AccountSaveState.Device),
-                (_, __, done) => done(new AccountPanelReply("account.panel.unavailable"))));
+                (_, __, done) => done(new AccountPanelReply("account.panel.unavailable")))));
             _firstLaunch = Meta.FirstLaunch;
             Screen = showSplash ? Screen.Splash : Screen.Home;
             StartHomeMotion();
+            _serverEconomy?.Synchronize();
             if (!showSplash)
             {
                 AfterSplash();
             }
+        }
+
+        public void Dispose()
+        {
+            OnlineRoutines.Dispose(); _serverEconomy?.Dispose(); Account.Close(); Purchase.Close();
         }
 
         public ContentSet Content { get; }
@@ -164,6 +175,8 @@ namespace Bloomlings.Playtest.Design
         public PlaytestMeta Meta { get; private set; }
 
         public AccountPanel Account { get; }
+        public OnlineEconomyClient? ServerClient { get; }
+        private readonly ServerEconomy? _serverEconomy;
 
         private Screen _screen;
         public Screen Screen
@@ -254,6 +267,7 @@ namespace Bloomlings.Playtest.Design
         public Action<IPainter, Box>? PurchasePicture { get; private set; }
 
         private Action? _purchaseCancelled;
+        private Action? _purchaseSucceeded;
 
         /// <summary>
         /// Whether the Store page's last frame drew the Animations tab, whose live previews loop all the time (spec 005
@@ -639,8 +653,15 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="cancelled"/> when it is closed without (Cancel, the system back). Nothing is spent before.
         /// </summary>
         public void ConfirmPurchase(PurchaseOffer offer, Action<IPainter, Box>? picture, Func<bool> buy, Action? cancelled = null,
-            Func<PurchaseOffer>? currentOffer = null)
+            Func<PurchaseOffer>? currentOffer = null, Action? onPurchased = null)
         {
+            if (ServerClient != null)
+            {
+                if (offer.RealMoney || offer.ProductKind == null || offer.ProductTarget == null)
+                { HomeToast(PlaytestText.T("purchase.server_billing_unavailable")); return; }
+                ShowPurchase(offer, picture, new OnlinePurchaseOperation(ServerClient, offer.ProductKind, offer.ProductTarget, OnlineRoutines.Run), cancelled, onPurchased);
+                return;
+            }
             var operation = new LocalPurchaseOperation(() => Meta.Save.LocalPlayerId, () => PurchaseNetworkAvailable(),
                 () => Meta.Economy.Petals, currentOffer ?? (() => CurrentPurchaseOffer(offer)), buy);
             ShowPurchase(offer, picture, operation, cancelled);
@@ -653,7 +674,8 @@ namespace Bloomlings.Playtest.Design
                 return offer.WithPrice(Meta.Economy.Price(kind));
             if (offer.ProductKind == "buy_cosmetic" && offer.ProductTarget != null)
             {
-                if (PlaytestMeta.Cosmetics.TryGet(offer.ProductTarget, out CosmeticItem? item) && item != null) return offer.WithPrice(item.Price);
+                if (ServerClient?.Catalog.QuoteItem(offer.ProductTarget) is EconomyQuote quote) return offer.WithPrice(quote.Price);
+                if (PlaytestMeta.Cosmetics.TryGet(offer.ProductTarget, out CosmeticItem? item) && item != null) return offer.WithPrice(Meta.Wardrobe.PriceOf(item));
                 var avatar = AvatarCatalog.Get(offer.ProductTarget);
                 if (avatar != null) return offer.WithPrice(Meta.Profile.Price(avatar));
                 var style = ClearStyles.Parse(offer.ProductTarget);
@@ -663,10 +685,11 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>Used by a server-mode host after composing its authoritative wallet. Never runs local spending callbacks.</summary>
-        public void ShowPurchase(PurchaseOffer offer, Action<IPainter, Box>? picture, IPurchaseOperation operation, Action? cancelled = null)
+        public void ShowPurchase(PurchaseOffer offer, Action<IPainter, Box>? picture, IPurchaseOperation operation, Action? cancelled = null, Action? onPurchased = null)
         {
             PurchasePicture = picture;
             _purchaseCancelled = cancelled;
+            _purchaseSucceeded = onPurchased;
             if (_overlays.Count == 0 || _overlays[_overlays.Count - 1].Overlay != Overlay.Purchase) OpenOverlay(Overlay.Purchase);
             Purchase.Open(offer, operation);
         }
@@ -679,12 +702,52 @@ namespace Bloomlings.Playtest.Design
 
         private void PurchaseChanged()
         {
-            if (Purchase.Stage != PurchaseStage.Complete) return;
+            if (Purchase.Stage != PurchaseStage.Complete && Purchase.Stage != PurchaseStage.Cancelled) return;
+            bool success = Purchase.Stage == PurchaseStage.Complete;
+            Action? finished = success ? _purchaseSucceeded : _purchaseCancelled;
             if (_overlays.Count > 0 && _overlays[_overlays.Count - 1].Overlay == Overlay.Purchase)
                 _overlays.RemoveAt(_overlays.Count - 1);
-            PurchasePicture = null;
-            _purchaseCancelled = null;
+            PurchasePicture = null; _purchaseCancelled = null; _purchaseSucceeded = null;
             Purchase.Close();
+            finished?.Invoke();
+            if (!success) HomeToast(PlaytestText.T("purchase.cancelled"));
+        }
+
+        public void OpenPendingPurchase()
+        {
+            PendingEconomyPurchase? pending = ServerClient?.PendingPurchase;
+            if (pending == null) return;
+            PurchaseOffer offer;
+            Action<IPainter, Box>? picture = null;
+            if (pending.Kind == "buy_cosmetic")
+            {
+                string name = PlaytestMeta.Cosmetics.TryGet(pending.Target, out CosmeticItem? item) && item != null ? MetaCards.ItemName(item) : pending.Target;
+                offer = PurchaseOffer.ForItem(name, ServerClient!.Catalog.QuoteItem(pending.Target)?.Price ?? 0, pending.Target);
+                if (item != null)
+                    picture = (p,well) => { string? asset = WardrobeShelfDesign.ItemPicture(item.ForFamily ?? Bloomlings.Core.Variants.Family.Twig, item.Kind, item);
+                        if (asset != null) { HeroFrame? icon = HeroGearArt.Icon(item.Id); Box area = well.Inset(well.Width*.12f);
+                            p.Sprite(asset, icon.HasValue ? CharacterArt.FitBox(area, icon.Value.Width, icon.Value.Height) : area); } };
+            }
+            else offer = PurchaseOffer.ForBooster(pending.Target, ServerClient!.Catalog.QuoteBooster(pending.Target)?.Price ?? 0, pending.Target, pending.Kind == "consume_booster");
+            PurchasePicture = picture; _purchaseCancelled = null; _purchaseSucceeded = null;
+            OpenOverlay(Overlay.Purchase);
+            Purchase.OpenPending(offer, new OnlinePurchaseOperation(ServerClient!, pending.Kind, pending.Target, OnlineRoutines.Run));
+        }
+
+        private IAccountPanelGateway ServerAccountGateway() => new DelegateAccountPanelGateway(
+            () => new AccountPanelSnapshot(ServerClient!.SessionKey, Meta.Save.UpdatedAt, Meta.Save.Profile.Name ?? "", Meta.CurrentLevel,
+                Meta.Economy.Petals, "account.panel.server_account", ServerClient.PendingCount > 0 || ServerClient.UnsettledRewardIds.Count > 0 ? AccountSaveState.Pending : AccountSaveState.Device,
+                CanSync: ServerClient.IsOnline),
+            (action, _, done) =>
+            {
+                if (action != AccountPanelAction.Sync) { done(new AccountPanelReply("account.panel.unavailable")); return; }
+                OnlineRoutines.Run(SyncAccount(done));
+            });
+        private System.Collections.IEnumerator SyncAccount(Action<AccountPanelReply> done)
+        {
+            yield return ServerClient!.Refresh();
+            if (ServerClient.LastCode == "loaded") yield return ServerClient.Flush();
+            done(new AccountPanelReply(ServerClient.PendingCount > 0 || ServerClient.UnsettledRewardIds.Count > 0 ? "account.panel.server_pending" : "account.panel.economy_checked"));
         }
 
         /// <summary>Dismisses the purchase presentation; a sent request is not undone by closing its window.</summary>
@@ -694,6 +757,7 @@ namespace Bloomlings.Playtest.Design
             Purchase.Close();
             PurchasePicture = null;
             _purchaseCancelled = null;
+            _purchaseSucceeded = null;
             cancelled?.Invoke();
         }
 
@@ -727,6 +791,12 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public void ClaimDailyStep(DailyRewardStep step)
         {
+            if (_serverEconomy != null)
+            {
+                bool queued = _serverEconomy.RequestDaily(step.Number);
+                HomeToast(PlaytestText.T(queued ? "account.panel.pending_detail" : "purchase.server_reward_unavailable"));
+                return;
+            }
             long before = Meta.Economy.Petals;
             if (Meta.DailyReward.Claim(step.Number, adWatched: step.Ad && DailyRewardService.AdStub) > 0)
             {
@@ -824,7 +894,7 @@ namespace Bloomlings.Playtest.Design
                 ConfirmPurchase(
                     PurchaseOffer.ForItem(PlaytestText.T("purchase.avatar"), editor.Price, avatar.Id),
                     (q, well) => Kit.AvatarPicture(q, well.Inset(well.Width * 0.08f), avatar, outfit),
-                    () => { FinishProfileEdit(editor); return Meta.Profile.Owns(avatar); });
+                    () => { FinishProfileEdit(editor); return Meta.Profile.Owns(avatar); }, onPurchased: () => FinishProfileEdit(editor));
                 return;
             }
 
@@ -877,6 +947,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Playtest control: a brand-new profile (Level 1, nothing unlocked).</summary>
         public void ResetProfile()
         {
+            if (ServerClient != null) return;
             Meta = PlaytestMeta.ResetProfile(_dataFolder);
             HomeToast("New profile");
         }
@@ -992,6 +1063,9 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.Account:
                         AccountScreen.Draw(p, this, since);
+                        break;
+                    case Overlay.CompetitionRules:
+                        LeaderboardScreen.Rules(p, this, since);
                         break;
                     case Overlay.PrivacyPolicy:
                         MenuCards.PrivacyPolicy(p,this,since);

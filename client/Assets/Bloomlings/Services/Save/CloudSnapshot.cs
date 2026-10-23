@@ -20,6 +20,8 @@ namespace Bloomlings.Client.Services.Save
 
         public static void Restore(PlayerSave local, PlayerSave remote)
         {
+            if (local.ServerEconomyOwnerId != null || remote.ServerEconomyOwnerId != null)
+                throw new System.InvalidOperationException("Authoritative economy profiles cannot use legacy whole-save restore.");
             string id = local.LocalPlayerId;
             string? device = local.DeviceId;
             string? linked = local.LinkedIdentity;

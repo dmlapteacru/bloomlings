@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.Services.Config;
+using Bloomlings.Client.Services.Clock;
+using Bloomlings.Core.Definitions;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.Services.Economy.Online;
 using Bloomlings.Content.Json;
@@ -136,7 +141,7 @@ namespace Bloomlings.Client.Tests
             private JObject Failure(string code,bool retryable=false) => new JObject { ["ok"]=false,["code"]=code,["consumed"]=false,["retryable"]=retryable,["state"]=null,["catalogVersion"]=Catalog["version"]!.DeepClone() };
             public IEnumerator Read(string owner,long session,string install,Action<EconomyReply> done)
             {
-                JObject read=OverrideRead ?? new JObject { ["ok"]=true,["code"]="loaded",["consumed"]=false,["retryable"]=false,["state"]=State.DeepClone(),["catalogVersion"]=Catalog["version"]!.DeepClone(),["catalog"]=new JObject { ["cosmetics"]=Catalog["cosmetics"]!.DeepClone(),["boosters"]=Catalog["boosters"]!.DeepClone() },["nextSequence"]=Next(install) };
+                JObject read=OverrideRead ?? new JObject { ["ok"]=true,["code"]="loaded",["consumed"]=false,["retryable"]=false,["state"]=State.DeepClone(),["catalogVersion"]=Catalog["version"]!.DeepClone(),["catalog"]=new JObject { ["cosmetics"]=Catalog["cosmetics"]!.DeepClone(),["boosters"]=Catalog["boosters"]!.DeepClone() },["nextSequence"]=Next(install), ["serverUtcDate"]="2026-10-22" };
                 DuringRead?.Invoke(); done(new EconomyReply(read)); yield break;
             }
             public IEnumerator Execute(string owner,long session,string json,Action<EconomyReply> done)
@@ -147,15 +152,18 @@ namespace Bloomlings.Client.Tests
                 JObject reply;
                 if(_receipts.TryGetValue(key,out var old))
                 {
-                    reply=old.Json==json ? (JObject)old.Reply.DeepClone() : Failure("sequence-reused");
-                    if(old.Json==json) { reply["state"]=State.DeepClone();reply["nextSequence"]=Next(install); }
+                    bool original = old.Json == json || ((string?)op["kind"] == "cancel_purchase" && (string?)op["purchaseJson"] == old.Json)
+                        || ((string?)JsonDoc.ParseObject(old.Json,"old")["kind"] == "cancel_purchase" && (string?)JsonDoc.ParseObject(old.Json,"old")["purchaseJson"] == json);
+                    reply=original ? (JObject)old.Reply.DeepClone() : Failure("sequence-reused");
+                    if(original) { reply["state"]=State.DeepClone();reply["nextSequence"]=Next(install); }
                 }
                 else if(seq!=Next(install)) reply=Failure("sequence-gap");
-                else if((string?)op["catalogVersion"]!=(string?)Catalog["version"]) reply=Failure("catalog-changed");
+                else if((string?)op["kind"]!="cancel_purchase" && (string?)op["catalogVersion"]!=(string?)Catalog["version"]) reply=Failure("catalog-changed");
                 else
                 {
                     bool ok=true;string code="purchased";
-                    if((string?)op["kind"]=="buy_cosmetic")
+                    if ((string?)op["kind"] == "cancel_purchase") code="purchase-cancelled";
+                    else if((string?)op["kind"]=="buy_cosmetic")
                     {
                         string item=(string)op["itemId"]!;int price=(int)Catalog["cosmetics"]![item]!["price"]!;
                         if(((JArray)State["owned"]!).Any(v=>(string?)v==item)){ok=false;code="already-owned";}
@@ -179,6 +187,97 @@ namespace Bloomlings.Client.Tests
             }
         }
 
+        [Test] public void PendingCardDoesNotReplayBeforeChoosingCheckOrCancel()
+        {
+            Ready(); _server.DuringExecute=()=>throw new IOException("before commit"); Run(_client!.Purchase(Hat()));
+            _server.DuringExecute=null; int calls=_server.Sent.Count;
+            var panel=new PurchasePanel(); panel.OpenPending(PurchaseOffer.ForItem("Hat",650,"hat.twig_nightcap"),new OnlinePurchaseOperation(_client,"buy_cosmetic","hat.twig_nightcap",Run));
+            Assert.That(_server.Sent.Count,Is.EqualTo(calls)); Assert.That(panel.CanCancelPurchase,Is.True);
+            panel.CancelPurchase(); Assert.That(panel.Stage,Is.EqualTo(PurchaseStage.Cancelled)); Assert.That(_client.Confirmed!.Petals,Is.EqualTo(10000));
+            Assert.That(_server.Applied,Is.Zero); Assert.That(_client.PendingCount,Is.Zero);
+        }
+        [Test] public void CancelAfterCommittedPurchaseReportsPurchaseAndNeverRefunds()
+        {
+            var panel=OpenPurchasePanel();_server.DropResponse=true;panel.Confirm();_server.DropResponse=false;
+            panel.CancelPurchase(); Assert.That(panel.Stage,Is.EqualTo(PurchaseStage.Complete));
+            Assert.That(_client!.Confirmed!.Petals,Is.EqualTo(9350));Assert.That(_server.Applied,Is.EqualTo(1));
+        }
+        [Test] public void CancellationKeepsOwnOutcomeWhenLaterBoosterUseIsQueued()
+        {
+            _server.State["boosters"]!["shuffle"]=1;Ready();_server.DuringExecute=()=>throw new IOException("before commit");Run(_client!.Purchase(Hat()));
+            _server.DuringExecute=null;Assert.That(_client.QueueBoosterUse("shuffle"),Is.True);
+            var panel=new PurchasePanel();panel.OpenPending(PurchaseOffer.ForItem("Hat",650,"hat.twig_nightcap"),new OnlinePurchaseOperation(_client,"buy_cosmetic","hat.twig_nightcap",Run));
+            panel.CancelPurchase();Assert.That(panel.Stage,Is.EqualTo(PurchaseStage.Cancelled));Assert.That(_client.PendingCount,Is.EqualTo(1));
+            Run(_client.Flush());Assert.That(_client.PendingCount,Is.Zero);Assert.That(_client.Confirmed!.Charges("shuffle"),Is.Zero);
+        }
+        [TestCase(false)] [TestCase(true)] public void ConfirmationReplayStopsBeforeLaterQueuedUses(bool recovered)
+        {
+            _server.State["boosters"]!["shuffle"]=1;Ready();_server.DropResponse=true;Run(_client!.Purchase(Hat()));_server.DropResponse=false;
+            Assert.That(_client.QueueBoosterUse("shuffle"),Is.True);
+            if(recovered)_journal!.Commit(doc=>{var head=(JObject)((JArray)doc["pending"]!)[0];head["attempted"]=false;head["uncertain"]=true;});
+            Ready();Run(_client.ConfirmPendingPurchase(Hat()));
+            Assert.That(_client.LastAcknowledgedSequence,Is.EqualTo(1));Assert.That(_client.LastAcknowledgedCode,Is.EqualTo("purchased"));Assert.That(_client.PendingCount,Is.EqualTo(1));
+        }
+        [Test] public void OldCancellationCannotCancelNextPurchaseOfSameItem()
+        {
+            Ready();_server.DuringExecute=()=>throw new IOException("before commit");Run(_client!.Purchase(Hat()));_server.DuringExecute=null;
+            var old=new OnlinePurchaseOperation(_client,"buy_cosmetic","hat.twig_nightcap",Run);
+            Run(_client.CancelPendingPurchase());Ready();_server.DuringExecute=()=>throw new IOException("before commit");Run(_client.Purchase(Hat()));_server.DuringExecute=null;
+            int calls=_server.Sent.Count;Assert.That(old.CanCancel,Is.False);PurchaseReply? result=null;old.Cancel(r=>result=r);
+            Assert.That(result!.Code,Is.EqualTo("result-unavailable"));Assert.That(_server.Sent.Count,Is.EqualTo(calls));Assert.That(_client.PendingPurchase!.Sequence,Is.EqualTo(2));
+        }
+        [Test] public void UnacknowledgedCancellationKeepsOriginalBoosterReserved()
+        {
+            _server.State["boosters"]!["shuffle"]=1;Ready();_server.DuringExecute=()=>throw new IOException("before commit");
+            Run(_client!.Purchase(_client.Catalog.QuoteBooster("shuffle",true)!));Assert.That(_client.AvailableCharges("shuffle"),Is.Zero);
+            Run(_client.CancelPendingPurchase());Assert.That(_client.PendingPurchase!.IsCancellation,Is.True);
+            Assert.That(_client.AvailableCharges("shuffle"),Is.Zero);Assert.That(_client.QueueBoosterUse("shuffle"),Is.False);
+            _server.DuringExecute=null;Run(_client.Flush());Assert.That(_client.AvailableCharges("shuffle"),Is.EqualTo(1));
+        }
+        [Test] public void LostCancellationAcknowledgementSurvivesRestart()
+        {
+            Ready();_server.DuringExecute=()=>throw new IOException("before commit");Run(_client!.Purchase(Hat()));_server.DuringExecute=null;
+            _server.DropResponse=true;Run(_client.CancelPendingPurchase());string exact=_server.Sent.Last();Open();Ready();_server.DropResponse=false;
+            var panel=new PurchasePanel();panel.OpenPending(PurchaseOffer.ForItem("Hat",650,"hat.twig_nightcap"),new OnlinePurchaseOperation(_client!,"buy_cosmetic","hat.twig_nightcap",Run));
+            panel.Check();Assert.That(panel.Stage,Is.EqualTo(PurchaseStage.Cancelled));Assert.That(_server.Sent.Last(),Is.EqualTo(exact));Assert.That(_server.Applied,Is.Zero);
+        }
+        [Test] public void DailyQueueUsesServerDayAndAdStubCannotAuthorizeAdSteps()
+        {
+            Ready();Assert.That(_client!.QueueDaily(2),Is.False);Assert.That(_client.QueueDaily(1),Is.True);Assert.That(_client.QueueDaily(1),Is.False);
+            var op=JObject.Parse((string)((JArray)_journal!.Data["pending"]!)[0]!["operation"]!);
+            Assert.That((string?)op["date"],Is.EqualTo("2026-10-22"));
+            _server.IsAvailable=false;Assert.That(_client.QueueDaily(1),Is.False);
+        }
+        [Test] public void ServerProjectionDisablesLegacyMoneyAndEntitlementMigrations()
+        {
+            Ready();var save=PlayerSave.CreateNew("local",DateTime.UtcNow);save.CloudOwnerId="alice";save.Progression.HighestCompletedLevel=100;
+            save.Wallet.SetPetals(999999);save.Cosmetics.Equipped["twig.hat"]="hat.twig_nightcap";
+            int projections=0;using var authority=new ServerEconomy(_client!,Run,activationApproved:true);authority.Bind(save,()=>projections++);
+            int initial=projections;Ready();Assert.That(projections,Is.EqualTo(initial),"unchanged quote/read must not persist the projected save again");
+            var economy=new EconomyService(save,EconomyConfig.Bundled,()=>{},authority);
+            economy.Grant(10000,null);economy.GrantLevelReward(101,DifficultyClass.SuperHard,0);economy.Refund(BoosterKind.Shuffle);economy.OnUnlock("booster.shuffle");economy.AdjustPetalsForTesting(10000);
+            Assert.That(economy.TryBuy(BoosterKind.Shuffle),Is.False);Assert.That(economy.TrySpend(1),Is.False);
+            var wardrobe=new WardrobeService(save,CosmeticCatalog.Parse(File.ReadAllText(Path.Combine(Repo(),"client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json"))),new BundledRemoteConfigService(),()=>{},economy);
+            Assert.That(save.Cosmetics.Owned.Contains("hat.twig_nightcap"),Is.False);Assert.That(save.Wallet.Petals,Is.EqualTo(10000));Assert.That(save.Boosters.Get(BoosterKind.Shuffle),Is.Zero);
+            var milestones=new Bloomlings.Client.App.Progression.MilestoneService(save,Bloomlings.Client.App.Progression.MilestoneTable.Default,economy,()=>{});
+            Assert.That(milestones.OnLevelCompleted(100),Is.Null);Assert.That(save.Milestones.IsClaimed(100),Is.False);
+            var daily=new Bloomlings.Client.Meta.DailyReward.DailyRewardService(save,new SystemClock(),new BundledRemoteConfigService(),economy,()=>{});
+            Assert.That(daily.Claim(2,adWatched:true),Is.Zero);Assert.That(_client!.PendingCount,Is.Zero,"ad stub must not queue an authorized reward");
+            var products=new Bloomlings.Client.Services.Purchases.ProductCatalog(new[]{new Bloomlings.Client.Services.Purchases.StoreProduct("remove_ads",Bloomlings.Client.Services.Purchases.ProductKind.NonConsumable,1000,null,true,false)});
+            var ledger=new Bloomlings.Client.Services.Purchases.PurchaseLedger(save,products,economy,new SystemClock(),()=>{});
+            Assert.That(ledger.Grant(new Bloomlings.Client.Services.Purchases.ValidatedPurchase("receipt","remove_ads")),Is.False);
+            Assert.That(save.Purchases.RemoveAds,Is.False);Assert.That(save.Purchases.Ledger,Is.Empty);
+            var serialized=SaveSerializer.Read(SaveSerializer.Write(save));Assert.That(serialized.ServerEconomyOwnerId,Is.EqualTo("alice"));
+            Assert.Throws<InvalidOperationException>(()=>new EconomyService(serialized,EconomyConfig.Bundled,()=>{}));
+            Assert.Throws<InvalidOperationException>(()=>CloudSnapshot.Restore(save,PlayerSave.CreateNew("other",DateTime.UtcNow)));
+        }
+        [Test] public void FirstServerActivationRequiresVerifiedProvisioningAndExplicitMigrationGate()
+        {
+            var save=PlayerSave.CreateNew("local",DateTime.UtcNow);save.CloudOwnerId="alice";save.Progression.HighestCompletedLevel=100;
+            using(var authority=new ServerEconomy(_client!,Run,true))Assert.Throws<InvalidOperationException>(()=>authority.Bind(save,()=>{}));
+            Ready();using(var authority=new ServerEconomy(_client!,Run))Assert.Throws<InvalidOperationException>(()=>authority.Bind(save,()=>{}));
+            Assert.That(save.ServerEconomyOwnerId,Is.Null);Assert.That(save.Wallet.Petals,Is.Zero);
+        }
         [Test] public void ParsesActualBackendContractAndBuiltInCatalog()
         {
             var read=new EconomyReply((JObject)_fixture["read"]!);

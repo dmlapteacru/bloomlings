@@ -76,7 +76,8 @@ namespace Bloomlings.Client.Meta.Clearing
         public event Action<string>? Chose;
 
         /// <summary>What a bought style costs in Petals: Blossom 2500, three standard styles 3500, two premium 5000.</summary>
-        public int PriceOf(ClearStyle style) => style switch
+        public int PriceOf(ClearStyle style) => _economy?.ItemPrice(ClearStyles.Id(style), BundledPrice(style)) ?? BundledPrice(style);
+        private int BundledPrice(ClearStyle style) => style switch
         {
             ClearStyle.Blossom => _config.Get(RemoteConfigKeys.PriceClearingIntro),
             ClearStyle.Fireworks or ClearStyle.Parade => _config.Get(RemoteConfigKeys.PriceClearingPremium),

@@ -52,7 +52,8 @@ namespace Bloomlings.Client.Meta.Profile
         public int Price(AvatarItem avatar)
         {
             IntKey? key = AvatarCatalog.PriceKey(avatar.Tier);
-            return key == null ? 0 : _config.Get(key);
+            int price = key == null ? 0 : _config.Get(key);
+            return _economy?.ItemPrice(avatar.Id, price) ?? price;
         }
 
         public bool Owns(AvatarItem avatar) => avatar.IsFree || _save.Cosmetics.Owned.Contains(avatar.Id);

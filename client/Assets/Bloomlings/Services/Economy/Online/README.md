@@ -128,7 +128,25 @@ request on Check. An operation is bound to its construction session; a coroutine
 not spend under the new session. No legacy purchase callback is retained by this adapter.
 
 `PendingPurchase` describes the head purchase for a host's recovery entry. Dismissing the panel preserves the outbox;
-it does not refund or discard a request. Server-mode cancellation/sequence completion and migration of every legacy
-economy path are still required before activation. `UiRoutineQueue` supplies a bounded UI-thread runner for the
+it does not refund or discard a request. `cancel_purchase` now atomically competes for the original sequence; it
+never rewinds the cursor or refunds an already completed purchase. `UiRoutineQueue` supplies a bounded UI-thread runner for the
 native host. The game's existing local/dev mode uses `LocalPurchaseOperation` explicitly, with real network gating,
 live local prices and explicit success/failure; it is never selected as a fallback from this adapter.
+
+## Authoritative host mode and evidence (2026-10-23)
+
+`ServerEconomy` composes one authoritative projection for the native host: prices, wallet, reservations, inventory,
+daily and milestone states. Local grants/spends and tester reset are disabled for that profile. A separate durable
+save seal prevents a legacy backup or corrupt save from silently reopening server money as a local wallet. First
+activation requires a verified provisioned snapshot and an explicit approved-migration host gate; this does not
+implement bootstrap or migrate a legacy wallet. See [current rollout and unresolved live gates](../../../../../../product/plans/server-economy-and-ranking-2026-10-23.md).
+
+Pending purchase review can be opened without replay, checked or cancelled. Cancellation preserves the original
+booster reservation until its terminal acknowledgement. Review/confirmation/cancellation stop at their own
+sequence so later queued operations cannot overwrite the result presented by that window.
+
+`WinEvidence` snapshots accepted commands and trusted-content fingerprints, and can replay them against caller-supplied
+trusted content. It is bounded preflight, not authorization or proof of paid booster ownership. Native first wins
+are archived before progression; server mode stores reward intents without minting money. `GuestWinArchive` keeps
+immutable checksum-checked first wins for future migration. Earlier guest wins do not acquire evidence retroactively.
+Actual replay/ticket issuance, attempt-bound booster recovery, billing/SSV and non-economic progress sync remain off.

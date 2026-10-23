@@ -2,7 +2,7 @@ using System;
 
 namespace Bloomlings.Client.UI.Design
 {
-    public enum PurchaseStage { Confirm, Loading, Offline, Pending, Reprice, Failed, Complete, Closed }
+    public enum PurchaseStage { Confirm, Loading, Offline, Pending, Reprice, Failed, Complete, Cancelled, Closed }
     public sealed record PurchaseQuote(string Version, int Price, long Balance);
     public sealed record PurchaseReply(string Code, PurchaseQuote? Quote = null);
     /// <summary>An operation belongs to one immutable profile/session. Check replays its durable pending request, never buys again.</summary>
@@ -13,6 +13,11 @@ namespace Bloomlings.Client.UI.Design
         void Refresh(Action<PurchaseReply> done);
         void Buy(PurchaseQuote quote, Action<PurchaseReply> done);
         void Check(Action<PurchaseReply> done);
+    }
+    public interface IPurchaseCancellation
+    {
+        bool CanCancel { get; }
+        void Cancel(Action<PurchaseReply> done);
     }
     /// <summary>Actual in-game purchase state: asynchronous quote, explicit price consent and safe unknown-result recovery.</summary>
     public sealed class PurchasePanel
@@ -29,6 +34,8 @@ namespace Bloomlings.Client.UI.Design
         public bool IsWorking => _working;
         public bool IsOnline => Current && _operation!.IsOnline;
         public bool CanBuy => !_working && (Stage == PurchaseStage.Confirm || Stage == PurchaseStage.Reprice) && _quote != null && Current && _operation!.IsOnline && _quote.Balance >= _quote.Price;
+        public bool CanCancelPurchase => !_working && Current && _operation is IPurchaseCancellation cancel && cancel.CanCancel;
+        public void CancelPurchase() { if (CanCancelPurchase) Request(done => ((IPurchaseCancellation)_operation!).Cancel(done), true); }
         public bool CanCheck => !_working && (Stage == PurchaseStage.Offline || Stage == PurchaseStage.Pending || Stage == PurchaseStage.Failed) && Current && _operation!.IsOnline;
         private bool Current => _operation != null && _operation.SessionKey == _session;
         public event Action? Changed;
@@ -36,6 +43,11 @@ namespace Bloomlings.Client.UI.Design
         {
             _generation++; _working = false; _operation = operation; _session = operation.SessionKey; Offer = offer; _quote = null;
             Stage = PurchaseStage.Loading; Code = ""; Refresh();
+        }
+        public void OpenPending(PurchaseOffer offer, IPurchaseOperation operation)
+        {
+            _generation++; _working = false; _operation = operation; _session = operation.SessionKey; Offer = offer; _quote = null;
+            Stage = PurchaseStage.Pending; Code = "pending"; Changed?.Invoke();
         }
         private void Refresh() => Request(done => _operation!.Refresh(done), false);
         public void Confirm()
@@ -79,6 +91,7 @@ namespace Bloomlings.Client.UI.Design
                 else Stage = reply.Code switch
                 {
                     "purchased" => PurchaseStage.Complete,
+                    "cancelled" => PurchaseStage.Cancelled,
                     "offline" => PurchaseStage.Offline,
                     "pending" => PurchaseStage.Pending,
                     _ => PurchaseStage.Failed,

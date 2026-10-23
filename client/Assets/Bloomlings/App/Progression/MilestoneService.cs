@@ -41,6 +41,7 @@ namespace Bloomlings.Client.App.Progression
         /// <summary>Grants the milestone of a newly completed level; null when there is none or it was already claimed.</summary>
         public MilestoneGrant? OnLevelCompleted(int level)
         {
+            if (_economy.IsAuthoritative) return null;
             MilestoneCadence? cadence = _table.CadenceFor(level);
             if (cadence == null || !_save.Milestones.TryClaim(level))
             {

@@ -31,6 +31,9 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>Stable backend owner. Never inferred from a name or the current phone account.</summary>
         public string? CloudOwnerId { get; internal set; }
 
+        /// <summary>Sticky economy mode: this profile must never reopen with local currency grants.</summary>
+        public string? ServerEconomyOwnerId { get; internal set; }
+
         /// <summary>Fingerprint of the last acknowledged cloud snapshot; persisted for offline reconciliation.</summary>
         public string? CloudBaseHash { get; internal set; }
 
@@ -86,6 +89,7 @@ namespace Bloomlings.Client.Services.Save
             LinkedIdentity = source.LinkedIdentity;
             DeviceId = source.DeviceId;
             CloudOwnerId = source.CloudOwnerId;
+            ServerEconomyOwnerId = source.ServerEconomyOwnerId;
             CloudBaseHash = source.CloudBaseHash;
             UpdatedAt = source.UpdatedAt;
             Progression.HighestCompletedLevel = source.Progression.HighestCompletedLevel;

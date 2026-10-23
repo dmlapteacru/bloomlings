@@ -136,7 +136,7 @@ namespace Bloomlings.Playtest.Design
             bool price = panel.Stage == PurchaseStage.Confirm || panel.Stage == PurchaseStage.Reprice;
             string action = panel.Stage == PurchaseStage.Loading ? "purchase.checking_action" : price ? "purchase.buy" : "purchase.check_action";
             Kit.PurchaseCard(p, offer, app.PurchasePicture, note, panel.CanBuy || panel.CanCheck ? app.BuyConfirmed : (Action?)null,
-                app.CloseOverlay, Kit.Pop(since), action, price, price ? "common.cancel" : "common.close");
+                panel.CanCancelPurchase ? panel.CancelPurchase : app.CloseOverlay, Kit.Pop(since), action, price, panel.CanCancelPurchase ? "purchase.cancel_pending" : price ? "common.cancel" : "common.close");
         }
 
         /// <summary>An item's player-facing name (<c>cosmetic.{id}</c> in the string table), else its catalog name.</summary>

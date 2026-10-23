@@ -42,6 +42,7 @@ namespace Bloomlings.Client.Services.Purchases
         /// <summary>Grants a validated purchase; false when this transaction was already granted or the product is unknown.</summary>
         public bool Grant(ValidatedPurchase purchase)
         {
+            if (_economy.IsAuthoritative) return false; // server billing grants atomically; never mark a local receipt paid
             if (!_catalog.TryGet(purchase.ProductId, out StoreProduct? product) || product == null)
             {
                 return false;

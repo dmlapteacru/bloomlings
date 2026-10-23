@@ -54,6 +54,7 @@ namespace Bloomlings.Client.Services.Save
             _running = true;
             try
             {
+                if (_save.ServerEconomyOwnerId != null) { Complete(CloudSyncResult.UnsupportedProvider, done); yield break; }
                 if (!_cloud.IsAvailable) { Complete(CloudSyncResult.Queued, done); yield break; }
                 if (!(_cloud is IAccountCloudSaveService cloud))
                 { Complete(CloudSyncResult.UnsupportedProvider, done); yield break; }
@@ -61,7 +62,7 @@ namespace Bloomlings.Client.Services.Save
                 long session = cloud.SessionVersion;
                 long epoch = _epoch;
                 string localId = _save.LocalPlayerId;
-                bool Current() => epoch == _epoch && localId == _save.LocalPlayerId
+                bool Current() => _save.ServerEconomyOwnerId == null && epoch == _epoch && localId == _save.LocalPlayerId
                     && session == cloud.SessionVersion && owner == cloud.PlayerId
                     && (_save.CloudOwnerId == null || owner == _save.CloudOwnerId);
                 if (string.IsNullOrWhiteSpace(owner) || !Current())
@@ -77,7 +78,7 @@ namespace Bloomlings.Client.Services.Save
                     try { remote = SaveSerializer.Read(loaded.Json); }
                     catch (ContentFormatException) { Complete(CloudSyncResult.Failed, done); yield break; }
                     // Legacy documents require deliberate migration; never adopt another profile by guesswork.
-                    if (remote.CloudOwnerId != owner)
+                    if (remote.CloudOwnerId != owner || remote.ServerEconomyOwnerId != null)
                     { Complete(CloudSyncResult.Conflict, done); yield break; }
                 }
                 if (_save.CloudOwnerId == null)

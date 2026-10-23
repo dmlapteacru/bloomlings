@@ -19,14 +19,15 @@ function createEconomyService(store, options = {}) {
         if (typeof stored.writeLock !== 'string' || !stored.writeLock.length) core.fail('missing-write-lock');
         const state = stored.value;
         const view = () => core.snapshot(state);
-        if (operation === null) return {ok: true, code: 'loaded', consumed: false, retryable: false, state: view(), catalogVersion: catalog.version, catalog: {cosmetics:catalog.cosmetics,boosters:catalog.boosters}, nextSequence: installationId === null ? null : core.nextSequenceOf(state,installationId)};
-        const previous = core.prior(state, operation, fingerprint);
-        if (previous) return {...previous, consumed: true, retryable: false, state: view(), catalogVersion: catalog.version, nextSequence: core.nextSequenceOf(state,operation.installationId)};
-        if (operation.catalogVersion !== catalog.version) core.fail('catalog-changed');
-        let ticket = null;
-        if (operation.ticketId !== undefined) ticket = await store.loadTicket(ownerId, operation.ticketId);
         const now = clock();
         if (!core.integer(now, 0, 8640000000000000)) core.fail('invalid-server-clock');
+        const serverUtcDate = new Date(now).toISOString().slice(0,10);
+        if (operation === null) return {ok: true, code: 'loaded', serverUtcDate, consumed: false, retryable: false, state: view(), catalogVersion: catalog.version, catalog: {cosmetics:catalog.cosmetics,boosters:catalog.boosters}, nextSequence: installationId === null ? null : core.nextSequenceOf(state,installationId)};
+        const previous = core.prior(state, operation, fingerprint);
+        if (previous) return {...previous, consumed: true, retryable: false, state: view(), catalogVersion: catalog.version, nextSequence: core.nextSequenceOf(state,operation.installationId)};
+        if (operation.kind !== 'cancel_purchase' && operation.catalogVersion !== catalog.version) core.fail('catalog-changed');
+        let ticket = null;
+        if (operation.ticketId !== undefined) ticket = await store.loadTicket(ownerId, operation.ticketId);
         const {next, result} = core.execute(state, operation, catalog, ticket, now);
         if (await store.replace(ownerId, stored.writeLock, next))
           return {...result, consumed: true, retryable: false, replayed: false, state: core.snapshot(next), catalogVersion: catalog.version, nextSequence: core.nextSequenceOf(next,operation.installationId)};

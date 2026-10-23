@@ -43,6 +43,7 @@
     <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneTable.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/IAuthoritativeEconomy.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" />

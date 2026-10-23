@@ -45,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/App/Progression/MilestoneService.cs" Link="Shared/MilestoneService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/App/Progression/MilestoneTable.cs" Link="Shared/MilestoneTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Economy/EconomyService.cs" Link="Shared/EconomyService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Economy/IAuthoritativeEconomy.cs" Link="Shared/IAuthoritativeEconomy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" Link="Shared/EconomyConfig.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" Link="Shared/IRemoteConfigService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" Link="Shared/RemoteConfigKeys.cs" />

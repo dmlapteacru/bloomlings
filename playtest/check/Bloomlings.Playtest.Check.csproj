@@ -35,6 +35,9 @@
     <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneTable.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/IAuthoritativeEconomy.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/Online/WinEvidence.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/Online/GuestWinArchive.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" />

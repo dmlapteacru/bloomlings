@@ -477,7 +477,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <param name="confirmed">The purchase confirmation's Buy already answered (spec 005 FR-040): a use without charges
         /// buys one for Petals only then; it asks first otherwise.</param>
-        public void UseBooster(BoosterKind kind, Command command, bool free = false, bool confirmed = false)
+        public void UseBooster(BoosterKind kind, Command command, bool free = false, bool confirmed = false, bool prepaid = false)
         {
             // A guided demo's forced use is free: the unlock's free charge stays (spec 001 FR-042 as amended on 2026-10-05).
             bool demo = Guide != null && Guide.Booster == kind && (Guide.Kind == GuideKind.Booster || Guide.Kind == GuideKind.BoosterTarget);
@@ -504,11 +504,11 @@ namespace Bloomlings.Playtest.Design
                     PurchaseOffer.ForBooster(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind), kind.ToString(), buyAndUse:true),
                     (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)),
                     () => { int used = Session.BoostersUsed; UseBooster(kind, command, confirmed: true); return Session.BoostersUsed > used; },
-                    () => JamHidden = false);
+                    () => JamHidden = false, onPurchased: () => UseBooster(kind, command, confirmed: true, prepaid: true));
                 return;
             }
 
-            if (!free && !Meta.Economy.TryTakeCharge(kind))
+            if (!free && !prepaid && !Meta.Economy.TryTakeCharge(kind))
             {
                 Toast(PlaytestText.T("gameplay.not_enough_petals"));
                 return;
@@ -682,7 +682,7 @@ namespace Bloomlings.Playtest.Design
             if (Won && Payout == null)
             {
                 Payout = Meta.CompleteLevel(Level, Session.Definition.Difficulty.Class, Session.BoostersUsed - DemoBoosterUses,
-                    Session.Definition, _app.Content.GetPicture(Session.Definition.Picture), _achievementAttempt) ?? new WinPayout(null, null);
+                    Session.Definition, _app.Content.GetPicture(Session.Definition.Picture), _achievementAttempt, Bloomlings.Client.Services.Economy.Online.WinEvidence.Create(Session).Write()) ?? new WinPayout(null, null);
             }
         }
 

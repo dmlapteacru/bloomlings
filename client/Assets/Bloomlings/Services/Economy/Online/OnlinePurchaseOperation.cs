@@ -5,10 +5,10 @@ using UiQuote = Bloomlings.Client.UI.Design.PurchaseQuote;
 
 namespace Bloomlings.Client.Services.Economy.Online
 {
-    public sealed record PendingEconomyPurchase(long Sequence, string Kind, string Target);
+    public sealed record PendingEconomyPurchase(long Sequence, string Kind, string Target, bool IsCancellation = false);
 
     /// <summary>In-game purchase adapter. Never invokes legacy/local spending or adds transaction effects to a wallet.</summary>
-    public sealed class OnlinePurchaseOperation : IPurchaseOperation
+    public sealed class OnlinePurchaseOperation : IPurchaseOperation, IPurchaseCancellation
     {
         private readonly OnlineEconomyClient _client;
         private readonly string _kind, _target, _boundSession;
@@ -23,6 +23,15 @@ namespace Bloomlings.Client.Services.Economy.Online
         }
         public string SessionKey => _client.SessionKey;
         public bool IsOnline => _client.IsOnline;
+        public bool CanCancel => !_busy && IsOnline && Matches(_client.PendingPurchase) && (!_sequence.HasValue || _sequence == _client.PendingPurchase?.Sequence) && _client.PendingPurchase?.IsCancellation != true && _boundSession == SessionKey;
+        public void Cancel(Action<PurchaseReply> done) => Start(CancelRoutine(done), done);
+        private IEnumerator CancelRoutine(Action<PurchaseReply> done)
+        {
+            if (!Matches(_client.PendingPurchase) || (_sequence.HasValue && _sequence != _client.PendingPurchase?.Sequence)) { done(new PurchaseReply("result-unavailable")); yield break; }
+            _sequence ??= _client.PendingPurchase!.Sequence;
+            yield return _client.CancelPendingPurchase();
+            Complete(done);
+        }
         public void Refresh(Action<PurchaseReply> done) => Start(Review(done), done);
         public void Check(Action<PurchaseReply> done) => Start(Review(done), done);
         public void Buy(UiQuote consent, Action<PurchaseReply> done) => Start(BuyRoutine(consent, done), done);
@@ -66,7 +75,7 @@ namespace Bloomlings.Client.Services.Economy.Online
                 if (!Matches(pending)) { done(new PurchaseReply("pending-operations")); yield break; }
                 if (_sequence.HasValue && pending!.Sequence != _sequence) { done(new PurchaseReply("result-unavailable")); yield break; }
                 _sequence = pending!.Sequence;
-                yield return _client.Flush(); // replay known dispatch; NEVER confirm an unsent/repriced purchase
+                yield return _client.CheckPendingPurchase(_sequence!.Value); // replay known dispatch; NEVER confirm an unsent/repriced purchase
                 if (session != SessionKey) { done(new PurchaseReply("account-changed")); yield break; }
                 if (_client.LastCode == "catalog-changed")
                 {
@@ -107,7 +116,7 @@ namespace Bloomlings.Client.Services.Economy.Online
         {
             if (_sequence.HasValue && _client.LastAcknowledgedSequence == _sequence)
             {
-                done(new PurchaseReply(_client.LastAcknowledgedOk == true ? "purchased" : _client.LastAcknowledgedCode ?? "unavailable")); return;
+                done(new PurchaseReply(_client.LastAcknowledgedCode == "purchase-cancelled" ? "cancelled" : _client.LastAcknowledgedOk == true ? "purchased" : _client.LastAcknowledgedCode ?? "unavailable")); return;
             }
             if (_client.PendingCount > 0) { done(new PurchaseReply("pending")); return; }
             if (_sequence.HasValue) { done(new PurchaseReply("result-unavailable")); return; }
