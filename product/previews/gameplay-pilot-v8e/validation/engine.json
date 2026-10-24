@@ -4,146 +4,146 @@
     {
       "id": 5,
       "role": "normal",
-      "random": 0.43666666666666665,
-      "visible": 0.71,
-      "patternWins": 2,
+      "random": 0.6666666666666666,
+      "visible": 0.9166666666666666,
+      "patternWins": 4,
       "sensibleWins": 2
     },
     {
       "id": 6,
       "role": "relief",
-      "random": 0.6966666666666667,
-      "visible": 1,
-      "patternWins": 6,
+      "random": 0.6166666666666667,
+      "visible": 0.9433333333333334,
+      "patternWins": 5,
       "sensibleWins": 4
     },
     {
       "id": 7,
       "role": "normal",
-      "random": 0.43666666666666665,
-      "visible": 0.75,
-      "patternWins": 1,
+      "random": 0.6133333333333333,
+      "visible": 0.9066666666666666,
+      "patternWins": 4,
       "sensibleWins": 2
     },
     {
       "id": 8,
       "role": "task",
-      "random": 0.24,
-      "visible": 0.56,
+      "random": 0.37666666666666665,
+      "visible": 0.61,
       "patternWins": 2,
-      "sensibleWins": 1
+      "sensibleWins": 2
     },
     {
       "id": 9,
       "role": "normal",
-      "random": 0.42333333333333334,
-      "visible": 0.95,
-      "patternWins": 3,
-      "sensibleWins": 3
+      "random": 0.53,
+      "visible": 0.7,
+      "patternWins": 4,
+      "sensibleWins": 2
     },
     {
       "id": 10,
       "role": "superHard",
-      "random": 0.07333333333333333,
-      "visible": 0.33666666666666667,
-      "patternWins": 0,
-      "sensibleWins": 0
+      "random": 0.10333333333333333,
+      "visible": 0.26,
+      "patternWins": 1,
+      "sensibleWins": 2
     },
     {
       "id": 11,
       "role": "relief",
-      "random": 0.8033333333333333,
+      "random": 0.8166666666666667,
       "visible": 1,
-      "patternWins": 5,
+      "patternWins": 4,
       "sensibleWins": 4
     },
     {
       "id": 12,
       "role": "normal",
-      "random": 0.5333333333333333,
-      "visible": 0.7933333333333333,
-      "patternWins": 3,
+      "random": 0.5533333333333333,
+      "visible": 0.9233333333333333,
+      "patternWins": 2,
       "sensibleWins": 3
     },
     {
       "id": 13,
       "role": "normal",
-      "random": 0.5966666666666667,
-      "visible": 0.8866666666666667,
+      "random": 0.6233333333333333,
+      "visible": 0.7333333333333333,
       "patternWins": 4,
-      "sensibleWins": 2
+      "sensibleWins": 3
     },
     {
       "id": 14,
       "role": "task",
-      "random": 0.33,
-      "visible": 0.44333333333333336,
+      "random": 0.25666666666666665,
+      "visible": 0.68,
       "patternWins": 1,
-      "sensibleWins": 2
+      "sensibleWins": 0
     },
     {
       "id": 15,
       "role": "hard",
-      "random": 0.13,
-      "visible": 0.41333333333333333,
-      "patternWins": 0,
+      "random": 0.19,
+      "visible": 0.37,
+      "patternWins": 3,
       "sensibleWins": 2
     },
     {
       "id": 16,
       "role": "relief",
-      "random": 0.6333333333333333,
-      "visible": 0.89,
-      "patternWins": 2,
+      "random": 0.8666666666666667,
+      "visible": 0.9833333333333333,
+      "patternWins": 6,
       "sensibleWins": 4
     },
     {
       "id": 17,
       "role": "normal",
-      "random": 0.3433333333333333,
-      "visible": 0.78,
-      "patternWins": 1,
-      "sensibleWins": 2
+      "random": 0.36333333333333334,
+      "visible": 0.75,
+      "patternWins": 3,
+      "sensibleWins": 3
     },
     {
       "id": 18,
       "role": "task",
-      "random": 0.21333333333333335,
-      "visible": 0.6066666666666667,
-      "patternWins": 1,
+      "random": 0.37,
+      "visible": 0.71,
+      "patternWins": 3,
       "sensibleWins": 2
     },
     {
       "id": 19,
       "role": "normal",
-      "random": 0.4,
-      "visible": 0.7233333333333334,
-      "patternWins": 2,
-      "sensibleWins": 3
+      "random": 0.46,
+      "visible": 0.73,
+      "patternWins": 4,
+      "sensibleWins": 2
     },
     {
       "id": 20,
       "role": "task",
-      "random": 0.3,
-      "visible": 0.6966666666666667,
-      "patternWins": 1,
-      "sensibleWins": 0
+      "random": 0.22666666666666666,
+      "visible": 0.58,
+      "patternWins": 0,
+      "sensibleWins": 1
     },
     {
       "id": 21,
       "role": "normal",
-      "random": 0.49333333333333335,
-      "visible": 0.71,
-      "patternWins": 1,
-      "sensibleWins": 1
+      "random": 0.62,
+      "visible": 0.88,
+      "patternWins": 3,
+      "sensibleWins": 2
     },
     {
       "id": 22,
       "role": "superHard",
-      "random": 0.07,
-      "visible": 0.45666666666666667,
-      "patternWins": 1,
-      "sensibleWins": 1
+      "random": 0.07333333333333333,
+      "visible": 0.18,
+      "patternWins": 2,
+      "sensibleWins": 2
     },
     {
       "id": 23,
@@ -156,39 +156,39 @@
     {
       "id": 24,
       "role": "task",
-      "random": 0.18333333333333332,
-      "visible": 0.51,
+      "random": 0.27666666666666667,
+      "visible": 0.77,
       "patternWins": 0,
       "sensibleWins": 1
     },
     {
       "id": 25,
       "role": "hard",
-      "random": 0.18333333333333332,
-      "visible": 0.4633333333333333,
-      "patternWins": 1,
-      "sensibleWins": 1
+      "random": 0.18666666666666668,
+      "visible": 0.18,
+      "patternWins": 2,
+      "sensibleWins": 0
     },
     {
       "id": 26,
       "role": "normal",
-      "random": 0.42,
-      "visible": 0.8933333333333333,
-      "patternWins": 4,
+      "random": 0.4,
+      "visible": 0.6833333333333333,
+      "patternWins": 2,
       "sensibleWins": 3
     },
     {
       "id": 27,
       "role": "task",
-      "random": 0.42,
-      "visible": 0.44666666666666666,
-      "patternWins": 3,
+      "random": 0.31666666666666665,
+      "visible": 0.5366666666666666,
+      "patternWins": 2,
       "sensibleWins": 1
     },
     {
       "id": 28,
       "role": "relief",
-      "random": 0.8,
+      "random": 0.7666666666666667,
       "visible": 1,
       "patternWins": 4,
       "sensibleWins": 4
@@ -196,10 +196,10 @@
     {
       "id": 29,
       "role": "superHard",
-      "random": 0.14,
-      "visible": 0.12,
+      "random": 0.08,
+      "visible": 0.37333333333333335,
       "patternWins": 0,
-      "sensibleWins": 0
+      "sensibleWins": 1
     },
     {
       "id": 30,
@@ -211,35 +211,86 @@
     }
   ],
   "patternShare": {
-    "колонка справа до конца": 10,
+    "колонка справа до конца": 9,
+    "ряд справа налево": 10,
+    "змейка": 6,
     "самое большое число": 10,
-    "колонка слева до конца": 9,
-    "ряд слева направо": 3,
-    "ряд справа налево": 5,
-    "змейка": 2,
-    "середина, потом края": 6,
-    "по две из колонки": 4,
-    "самое маленькое число": 6
+    "колонка слева до конца": 10,
+    "ряд слева направо": 4,
+    "середина, потом края": 8,
+    "по две из колонки": 5,
+    "самое маленькое число": 10
   },
   "hardPatternShare": {
+    "самое большое число": 1,
     "ряд слева направо": 1,
-    "самое маленькое число": 1
+    "ряд справа налево": 2,
+    "середина, потом края": 1,
+    "змейка": 2,
+    "по две из колонки": 1
   },
-  "catalogHash": "b0ff28eb1eb8fc16290ee5d036cd48b4b2585818a33c1451e37d05af66761874",
+  "catalogHash": "e6c2d2a75ff7e210a6ab02a387321c25f86a2c594663f03194f532c295c2f5b0",
   "winningRoutes": 30,
-  "acceptedCertificateActions": 699,
+  "acceptedCertificateActions": 557,
   "visibleHorizonPlannerRoutes": 30,
-  "plannerLeakChecks": 257,
+  "plannerLeakChecks": 154,
   "mysteryLevels": 5,
+  "bridges": [
+    {
+      "level": 20,
+      "sites": 1,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 21,
+      "sites": 2,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Правый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 22,
+      "sites": 2,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Правый мостик"
+    },
+    {
+      "level": 24,
+      "sites": 2,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 29,
+      "sites": 2,
+      "firstReadyAfterCommands": 1,
+      "readyThen": [
+        "Правый мостик"
+      ],
+      "chosen": "Левый мостик"
+    }
+  ],
   "visibleRows": 4,
   "autoTail": {
-    "departureGap": 0,
-    "speed": 4,
+    "departureGap": 250,
+    "speed": 3,
     "when": "queue-empty-and-no-bridge-to-choose"
   },
   "concurrentRandomRuns": 240,
-  "liveClears": 100747,
-  "restoredCheckpoints": 1257,
+  "liveClears": 71709,
+  "restoredCheckpoints": 1098,
   "frameInvarianceChecks": 1,
   "slotReusedBeforeArrival": true,
   "sameColourParallelDispatch": true,

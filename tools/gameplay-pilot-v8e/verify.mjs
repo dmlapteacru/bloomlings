@@ -27,7 +27,7 @@ const pair=structuredClone(broad);pair.pods.slice(0,2).forEach(p=>p.group='A');t
 // Narrow front cannot release a stream toward unopened cells.
 const narrow={...base,entries:[3],rowsBottomFirst:[...Array(7).fill('###G###'),'###.###'],pods:[{color:'G',count:4},{color:'G',count:3}],tray:[[0],[1]]};t=new Timeline(R.create(narrow));t.commit({type:'tap',pod:0});t.commit({type:'tap',pod:1});assert.equal(t.jobs.size,1);t.advance(749);assert.equal(t.pendingCells,1);assert.equal(t.state.remaining[1],3);drain(t);assert.equal(t.status,'Won');
 // Last released slot may be reused by a new pod while old couriers still walk.
-const reuse={...base,rowsBottomFirst:['GGGGGGG',...Array(7).fill('.......')],pods:[{color:'G',count:1},{color:'G',count:6}],tray:[[0,1],[]]};t=new Timeline(R.create(reuse));t.commit({type:'tap',pod:0});t.advance(300);assert(t.inFlight[0]>0);assert.equal(t.free,5);t.commit({type:'tap',pod:1});assert.equal(t.inFlight[0],1);assert(t.tail);assert.equal(t.inFlight[1],6,'The last capsule empties the queue: the auto-tail sends its whole quota');drain(t);assert.equal(t.status,'Won');
+const reuse={...base,rowsBottomFirst:['GGGGGGG',...Array(7).fill('.......')],pods:[{color:'G',count:1},{color:'G',count:6}],tray:[[0,1],[]]};t=new Timeline(R.create(reuse));t.commit({type:'tap',pod:0});t.advance(300);assert(t.inFlight[0]>0);assert.equal(t.free,5);t.commit({type:'tap',pod:1});assert.equal(t.inFlight[0],1);assert(t.tail);assert.equal(t.inFlight[1],1,'The tail keeps the departure gap');drain(t);assert.equal(t.status,'Won');
 // Full row with future clears must stay alive, even when nobody can depart now.
 const full={...base,rowsBottomFirst:['GGGGGGG','BBBBBBB',...Array(6).fill('.......')],pods:[{color:'G',count:7},...Array.from({length:4},(_,i)=>({color:'B',count:i===3?1:2}))],tray:[[0,1],[2,3],[4]]};t=new Timeline(R.create(full));for(const p of [0,2,4,1,3])t.commit({type:'tap',pod:p});assert.equal(t.free,0);assert.equal(t.status,'Working');const immutable=t.snapshot();assert(!t.commit({type:'tap',pod:999}).accepted);assert.deepEqual(t.snapshot(),immutable);drain(t);assert.equal(t.status,'Won');
 // Explicit terminal loss and bridge rescue (no premature Jammed during work).
@@ -44,12 +44,12 @@ t=new Timeline(R.create(sealedPair));for(const pod of [0,1,2,3])assert(t.commit(
 // Reject a guess-only puzzle even though an omniscient solver wins each world.
 const guessTrap={...base,capacity:3,rowsBottomFirst:['GGGGGGG','BBBBBBB','CC.....',...Array(5).fill('.......')],pods:[{color:'C',count:1},{color:'C',count:1},{color:'G',count:7,mystery:'sealed'},{color:'B',count:7,mystery:'sealed'}],tray:[[0,2],[1,3]]};
 assert.deepEqual(R.validate(guessTrap),[]);worlds=hiddenWorlds(guessTrap);assert(worlds.every(l=>solve(R.create(l),{budget:1000}).winning===true));assert.equal(fairSolve(guessTrap,{budget:1000}).winning,false,'Independent per-world solutions cannot certify hidden-information fairness');
-// v8D auto-tail: once the queue is empty, a pod sends every reachable courier at once (no departure gap).
+// v8E auto-tail: once the queue is empty the page plays at ×3; couriers keep leaving one after another.
 const tailFixture={...base,rowsBottomFirst:['GGGGGGG',...Array(7).fill('.......')],pods:[{color:'G',count:3},{color:'G',count:4}],tray:[[0,1],[]]};
 t=new Timeline(R.create(tailFixture));t.commit({type:'tap',pod:0});assert(!t.tail);assert.equal(t.jobs.size,1,'Gap kept while the queue has capsules');drain(t);
-t=new Timeline(R.create({...tailFixture,tray:[[0],[1]]}));t.commit({type:'tap',pod:0});assert.equal(t.jobs.size,1);t.commit({type:'tap',pod:1});assert(t.tail);assert.equal(t.jobs.size,1+4,'Tail sends the whole quota at once');assert.equal(t.state.remaining[1],0);
+t=new Timeline(R.create({...tailFixture,tray:[[0],[1]]}));t.commit({type:'tap',pod:0});assert.equal(t.jobs.size,1);t.commit({type:'tap',pod:1});assert(t.tail);assert.equal(t.jobs.size,1+1,'The tail keeps couriers leaving one after another');
 const tailSnap=clone(t);assert.deepEqual(tailSnap.snapshot(),t.snapshot());drain(t);assert.equal(t.status,'Won');
-assert.deepEqual({...TAIL},{departureGap:0,speed:4,when:'queue-empty-and-no-bridge-to-choose'});
+assert.deepEqual({...TAIL},{departureGap:250,speed:3,when:'queue-empty-and-no-bridge-to-choose'});
 const data=JSON.parse(fs.readFileSync('content/pilot-v8e/levels.json')),certs=JSON.parse(fs.readFileSync('content/pilot-v8e/certificates.json')),quality=JSON.parse(fs.readFileSync('content/pilot-v8e/quality.json'));
 assert.deepEqual(PROFILE,(await import('../gameplay-pilot-v7/timeline.cjs')).default.PROFILE);assert.equal(fs.readFileSync('tools/gameplay-pilot-v8e/clock.cjs','utf8'),fs.readFileSync('tools/gameplay-pilot-v7/clock.cjs','utf8'));
 assert.equal(data.hash,crypto.createHash('sha256').update(JSON.stringify(data.levels)).digest('hex'));assert.equal(quality.complete,true);assert.deepEqual(data.levels.map(l=>l.id),Array.from({length:30},(_,i)=>i+1));assert.equal(new Set(data.levels.map(l=>l.subject)).size,30);
@@ -60,9 +60,14 @@ for(const [c,id] of Object.entries(INTRO))assert(materials(data.levels[id-1]).in
 // Boards vary (small relief boards and object-only pictures between the big hard ones).
 assert(new Set(data.levels.map(l=>l.w+'x'+l.h)).size>=12);const roleOf=quality.roleOf;
 for(const l of data.levels)if(['hard','superHard'].includes(roleOf[l.id]))assert(l.w*l.h>=32*34,'Hard boards are big L'+l.id);
-const strip=l=>({...l,pods:l.pods.map(({mystery,...p})=>p)});let plannerRoutes=0,leakChecks=0,mysteryLevels=0;
+const strip=l=>({...l,pods:l.pods.map(({mystery,...p})=>p)});let plannerRoutes=0,leakChecks=0,mysteryLevels=0;const bridges=[];
 for(const l of data.levels){assert.deepEqual(R.validate(l),[]);
  const cert=certs[l.id-1];const result=execute(l,cert.actions);timings.push({level:l.id,serialReferenceSeconds:result.now/1000});
+ // Bridges are earned (the owner, 2026-10-24): none is ready at the start; record when the first one opens up and how
+ // many are ready then (a bed of the bridge's colour must be cleared first).
+ if(l.hero){let s=R.create(l),i=0;assert.equal(R.bridgeChoices(s).length,0,'A bridge is ready at the start L'+l.id);
+  while(!R.bridgeChoices(s).length&&i<cert.actions.length)s=R.step(s,cert.actions[i++]).state;
+  bridges.push({level:l.id,sites:l.hero.choices.length,firstReadyAfterCommands:i,readyThen:R.bridgeChoices(s).map(c=>c.label),chosen:l.hero.choices[cert.actions.find(a=>a.type==='bridge')?.choice]?.label??null});}
  // Fairness: the planner that sees only the visible rows replays the certificate exactly.
  assert.equal(cert.planner.rows,ROWS);const replay=playPlanner(l,cert.planner);assert(replay.won,'Planner L'+l.id);assert.deepEqual(replay.actions,cert.actions,'Planner route L'+l.id);plannerRoutes++;
  // ...and never reads what the player cannot see: swapping two unseen capsules (colour and count) never changes its command.
@@ -92,12 +97,12 @@ for(const l of data.levels){assert.deepEqual(R.validate(l),[]);
 const bots=await import('./botsc.mjs');const gates=[];
 for(const q of quality.levels){if(q.role==='tutorial')continue;const l=data.levels[q.id-1],t=quality.roles[q.role],b=q.bots;assert(b,'Bot report L'+q.id);
  const within=(v,[lo,hi])=>v>=lo-.03&&v<=hi+.03;
- if(['hard','superHard'].includes(q.role)){assert(q.earlyRisk<=quality.earlyLimit,'Early risk L'+q.id);assert.equal(bots.earlyRisk(l),q.earlyRisk,'Early risk replay L'+q.id);assert(q.seconds>=t.seconds[0],'Long enough L'+q.id);}
- assert(q.seconds<=t.seconds[1],'Not too long L'+q.id);
+ if(['hard','superHard'].includes(q.role)){assert(q.earlyRisk<=quality.earlyLimit,'Early risk L'+q.id);assert.equal(bots.earlyRisk(l),q.earlyRisk,'Early risk replay L'+q.id);assert(q.secondsAt1x>=t.seconds1x[0],'Long enough L'+q.id);}
+ assert(q.secondsAt1x<=t.seconds1x[1],'Not too long L'+q.id);
  {assert(within(b.random,t.random),'Random window L'+q.id);assert(within(b.visible,t.visible),'Visible window L'+q.id);assert(b.patternWins.length<=t.patterns,'Pattern wins L'+q.id);assert(b.sensibleWins<=t.sensible,'Sensible wins L'+q.id);}
  assert.deepEqual(bots.patternWins(l),b.patternWins,'Pattern replay L'+q.id);assert.equal(bots.sensible(l),b.sensibleWins,'Sensible replay L'+q.id);
  gates.push({id:q.id,role:q.role,random:b.random,visible:b.visible,patternWins:b.patternWins.length,sensibleWins:b.sensibleWins});}
 // Whole-pilot pattern limits: no pattern wins more than 40% of the levels from L5, nor more than two Hard/Super Hard levels.
 const counted=quality.levels.filter(q=>q.bots&&q.id>=5),share={},hardShare={};for(const q of counted)for(const p of q.bots.patternWins){share[p]=(share[p]||0)+1;if(['hard','superHard'].includes(q.role))hardShare[p]=(hardShare[p]||0)+1;}
 for(const [p,n] of Object.entries(share))assert(n<=quality.patternShare*counted.length,'Pattern wins too much of the game: '+p);for(const [p,n] of Object.entries(hardShare))assert(n<=quality.hardPatternLevels,'Pattern wins several Hard levels: '+p);
-const report={passed:true,botGates:gates,patternShare:share,hardPatternShare:hardShare,catalogHash:data.hash,winningRoutes:routes,acceptedCertificateActions:moves,visibleHorizonPlannerRoutes:plannerRoutes,plannerLeakChecks:leakChecks,mysteryLevels,visibleRows:ROWS,autoTail:TAIL,concurrentRandomRuns:randomRuns,liveClears,restoredCheckpoints:restores,frameInvarianceChecks:frameChecks,slotReusedBeforeArrival:true,sameColourParallelDispatch:true,pairReleaseAtomic:true,fullWorkingRowSurvives:true,conservation:true,sealedAdmissionAndCheckpointVerified:true,rejectedPairKeepsSecrets:true,legacyDepthRevealPreserved:true,guessOnlyPuzzleRejected:true,limits:['Winning certificates use idle decisions. They do not cover all possible real-time choices.','Policy rates are not human difficulty. No native Core equivalence claim.']};fs.writeFileSync(out+'/engine.json',JSON.stringify(report,null,2)+'\n');fs.writeFileSync(out+'/reference-times.json',JSON.stringify(timings,null,2)+'\n');console.log(report);
+const report={passed:true,botGates:gates,patternShare:share,hardPatternShare:hardShare,catalogHash:data.hash,winningRoutes:routes,acceptedCertificateActions:moves,visibleHorizonPlannerRoutes:plannerRoutes,plannerLeakChecks:leakChecks,mysteryLevels,bridges,visibleRows:ROWS,autoTail:TAIL,concurrentRandomRuns:randomRuns,liveClears,restoredCheckpoints:restores,frameInvarianceChecks:frameChecks,slotReusedBeforeArrival:true,sameColourParallelDispatch:true,pairReleaseAtomic:true,fullWorkingRowSurvives:true,conservation:true,sealedAdmissionAndCheckpointVerified:true,rejectedPairKeepsSecrets:true,legacyDepthRevealPreserved:true,guessOnlyPuzzleRejected:true,limits:['Winning certificates use idle decisions. They do not cover all possible real-time choices.','Policy rates are not human difficulty. No native Core equivalence claim.']};fs.writeFileSync(out+'/engine.json',JSON.stringify(report,null,2)+'\n');fs.writeFileSync(out+'/reference-times.json',JSON.stringify(timings,null,2)+'\n');console.log(report);

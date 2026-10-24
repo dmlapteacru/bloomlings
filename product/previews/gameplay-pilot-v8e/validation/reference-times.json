@@ -1,122 +1,122 @@
 [
   {
     "level": 1,
-    "serialReferenceSeconds": 71.35
+    "serialReferenceSeconds": 65.375
   },
   {
     "level": 2,
-    "serialReferenceSeconds": 73.45
+    "serialReferenceSeconds": 84.55
   },
   {
     "level": 3,
-    "serialReferenceSeconds": 65.85
+    "serialReferenceSeconds": 92.65
   },
   {
     "level": 4,
-    "serialReferenceSeconds": 167.925
+    "serialReferenceSeconds": 181.6
   },
   {
     "level": 5,
-    "serialReferenceSeconds": 60.2
+    "serialReferenceSeconds": 98.65
   },
   {
     "level": 6,
-    "serialReferenceSeconds": 126.1
+    "serialReferenceSeconds": 132.075
   },
   {
     "level": 7,
-    "serialReferenceSeconds": 64.175
+    "serialReferenceSeconds": 134.9
   },
   {
     "level": 8,
-    "serialReferenceSeconds": 294.675
+    "serialReferenceSeconds": 270.25
   },
   {
     "level": 9,
-    "serialReferenceSeconds": 202.45
+    "serialReferenceSeconds": 259.825
   },
   {
     "level": 10,
-    "serialReferenceSeconds": 367.675
+    "serialReferenceSeconds": 590.85
   },
   {
     "level": 11,
-    "serialReferenceSeconds": 113.55
+    "serialReferenceSeconds": 118
   },
   {
     "level": 12,
-    "serialReferenceSeconds": 249.025
+    "serialReferenceSeconds": 275.7
   },
   {
     "level": 13,
-    "serialReferenceSeconds": 244.6
+    "serialReferenceSeconds": 347.85
   },
   {
     "level": 14,
-    "serialReferenceSeconds": 273.15
+    "serialReferenceSeconds": 303.05
   },
   {
     "level": 15,
-    "serialReferenceSeconds": 324.875
+    "serialReferenceSeconds": 515.9
   },
   {
     "level": 16,
-    "serialReferenceSeconds": 41.575
+    "serialReferenceSeconds": 83
   },
   {
     "level": 17,
-    "serialReferenceSeconds": 217.275
+    "serialReferenceSeconds": 325.95
   },
   {
     "level": 18,
-    "serialReferenceSeconds": 288.9
+    "serialReferenceSeconds": 282.225
   },
   {
     "level": 19,
-    "serialReferenceSeconds": 182.35
+    "serialReferenceSeconds": 235.025
   },
   {
     "level": 20,
-    "serialReferenceSeconds": 515.925
+    "serialReferenceSeconds": 442.825
   },
   {
     "level": 21,
-    "serialReferenceSeconds": 424.55
+    "serialReferenceSeconds": 306.875
   },
   {
     "level": 22,
-    "serialReferenceSeconds": 796.775
+    "serialReferenceSeconds": 740.275
   },
   {
     "level": 23,
-    "serialReferenceSeconds": 56.825
+    "serialReferenceSeconds": 97.1
   },
   {
     "level": 24,
-    "serialReferenceSeconds": 461.4
+    "serialReferenceSeconds": 371.7
   },
   {
     "level": 25,
-    "serialReferenceSeconds": 328.825
+    "serialReferenceSeconds": 453.15
   },
   {
     "level": 26,
-    "serialReferenceSeconds": 268.775
+    "serialReferenceSeconds": 244.3
   },
   {
     "level": 27,
-    "serialReferenceSeconds": 281.85
+    "serialReferenceSeconds": 295.275
   },
   {
     "level": 28,
-    "serialReferenceSeconds": 74.425
+    "serialReferenceSeconds": 112.35
   },
   {
     "level": 29,
-    "serialReferenceSeconds": 539.975
+    "serialReferenceSeconds": 778.325
   },
   {
     "level": 30,
-    "serialReferenceSeconds": 94
+    "serialReferenceSeconds": 163.825
   }
 ]

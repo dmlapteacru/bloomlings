@@ -1,13 +1,13 @@
-/* V8E: 16 colours (4 per hero), the ants reach the board from its whole frame (no entry arrows), and an object-only
- * picture shows no tiles round the object. V8D: the tray shows 3 rows and the 4th row's edge (colour and number, as in Colony Flow); capsules are plain colour and number (symbols only in the
- * accessible palette); the auto-tail plays at ×4. V8: logical outcomes + a physical, resumable work timeline. */
+/* V8E: 16 colours (4 per hero); a fence with gates (tunnels) and a path round the picture, drawn as solid strips: the
+ * ants come in at a gate and walk the path to any side; the auto-tail plays at ×3. V8D: the tray shows 3 rows and the 4th row's edge (colour and number, as in Colony Flow); capsules are plain colour and number (symbols only in the
+ * accessible palette); the auto-tail plays at ×3 (×4 in v8D). V8: logical outcomes + a physical, resumable work timeline. */
 (() => {
  'use strict';
  const $=id=>document.getElementById(id),R=window.BloomPilotRules,T=window.BloomPilotTimeline;
  const data=JSON.parse($('pilotData').textContent),assets=JSON.parse($('pilotAssets').textContent);
  let palette=window.BloomPilotPalette.palette('normal');
  const LESSONS={
-  1:['Три героя, три материала','sprig','G','Sprig собирает лист, Drop — воду, Twig — янтарь. Отправляй верхние капсулы: курьеры заходят с краёв поля и собирают доступные клетки своего точного цвета, снаружи внутрь. Есть пять мест. Можно выбирать следующие команды во время работы; число показывает, сколько героев ещё не вышло. Место освобождается, когда вышла вся команда — курьеры могут ещё идти по полю.'],
+  1:['Три героя, три материала','sprig','G','Sprig собирает лист, Drop — воду, Twig — янтарь. Отправляй верхние капсулы: курьеры выходят из ворот, идут по дорожке вокруг картинки и собирают доступные клетки своего точного цвета, снаружи внутрь. Есть пять мест. Можно выбирать следующие команды во время работы; число показывает, сколько героев ещё не вышло. Место освобождается, когда вышла вся команда — курьеры могут ещё идти по полю.'],
   2:['Привет, Bloom!','bloom','P','Розовый лепесток собирает Bloom. Смотри не только на цвет: число показывает объём команды, а другие цвета могут закрывать путь к её клеткам.'],
   3:['Жемчужный материал Drop','drop','C','Кремовый жемчуг и голубая вода — разные задачи одного героя. Капсула — это только цвет и число. Если цвета трудно различать, в выборе уровней можно включить цвета с узорами и символами.'],
   4:['Солнечный материал Sprig','sprig','Y','Тёмная земля Twig рисует контур, янтарь — светлые детали. Жёлтые клетки собирает солнечная команда Sprig. Цвета — разные задачи: сравнивай доступные края рисунка с очередью. На каждую доступную клетку выходит отдельный курьер с небольшим интервалом. Чем шире фронт, тем больше героев в пути; следующий выход не ждёт возвращения предыдущего. Скорость можно переключить вручную.'],
@@ -93,7 +93,7 @@
  }
  function buildCards(){
   const depth=Math.min(VISIBLE_ROWS+1,Math.max(...state.level.tray.map(c=>c.length)));$('game').style.setProperty('--tray-height',Math.max(174,Math.min(232,87+(depth-1)*18))+'px');
-  entryMarkers.forEach(n=>n.remove());entryMarkers=(state.meta.entries.length>4?[]:state.meta.entries).map(()=>{const node=document.createElement('div');node.className='entry-marker';node.textContent='▲';node.setAttribute('aria-hidden','true');$('boardFrame').append(node);return node;});
+  entryMarkers.forEach(n=>n.remove());entryMarkers=[].map(()=>{const node=document.createElement('div');node.className='entry-marker';node.textContent='▲';node.setAttribute('aria-hidden','true');$('boardFrame').append(node);return node;});
   $('tray').replaceChildren();$('slots').replaceChildren();$('bridgeButtons').replaceChildren();$('tray').style.setProperty('--columns',state.level.tray.length);$('slots').style.setProperty('--places',attempt.capacity);
   columns=state.level.tray.map((_,c)=>{const node=document.createElement('div');node.className='column';node.setAttribute('aria-label',`Столбец ${c+1}`);$('tray').append(node);return node;});
   topCards=state.level.pods.map((pod,p)=>{const node=document.createElement('button');node.type='button';node.className='pod-top';node.dataset.pod=p;const image=document.createElement('img');image.alt='';image.draggable=false;const count=document.createElement('strong'),mark=document.createElement('span'),group=document.createElement('span');mark.className='channel-mark';group.className='pair-tag';node.append(image,count,mark,group);node.addEventListener('click',()=>act({type:'tap',pod:p}));return {node,image,count,mark,group};});
@@ -115,7 +115,7 @@
   });
   const ready=timeline.bridgeChoices().map(c=>c.choice);bridgeCards.forEach((b,i)=>{const used=state.bridge>=0,chosen=state.bridge===i;b.disabled=used||!ready.includes(i)||state.status!=='Playing';b.classList.toggle('chosen',chosen);b.textContent=chosen?'Мостик вырос ✓':used?'Второй недоступен':`Мостик${bridgeCards.length>1?i===0?' слева':' справа':''}${ready.includes(i)?' · готов':' · дойди до берега'}`;});
   $('statusLine').textContent=storageProblem||(attempt.elapsedMs<revealUntil?revealNotice:null)||(timeline.pending?(free?'Команды работают. Можно выбрать следующую.':'Места заняты, команды ещё работают.'):state.status==='Won'?'Картинка собрана!':state.status==='Jammed'?'Работа остановилась, все места заняты.':state.status==='Stuck'?'Следующей паре не хватает мест.':`${attempt.capacity-free} мест занято. Выбери верхнюю капсулу.`);
-  $('board').setAttribute('aria-label',`${level.title}, поле ${level.w} на ${level.h}, осталось ${s.board.reduce((n,c)=>n+(c>=0),0)} клеток. Муравьи заходят с краёв.`);draw();
+  $('board').setAttribute('aria-label',`${level.title}, поле ${level.w} на ${level.h}, осталось ${s.board.reduce((n,c)=>n+(c>=0),0)} клеток. Муравьи заходят через ворота и обходят картинку по дорожке.`);draw();
  }
  function act(action){
   if(dialogs.some(d=>d.open)||document.hidden)return false;syncTime();const before=measure(),speedBefore=speed(),result=timeline.commit(action);
@@ -186,6 +186,13 @@
     const original=s.meta.board;
     for(let y=l.h-1;y>=0;y--)for(let x=0;x<l.w;x++){
       const index=y*l.w+x,code=finished?original[index]:s.board[index],px=ox+x*cell,py=oy+(l.h-1-y)*cell;
+      // v8E garden: the fence (board edge, and the top row where the path is closed) and the path are drawn as solid
+      // strips, not tiles; a gate is a tunnel mouth in the fence. The stream keeps its water look.
+      const yTop=l.h-1-y,edgeCell=x===0||y===0||x===l.w-1||y===l.h-1,fenceRow=yTop===1&&l.rowsBottomFirst[y].slice(1,-1).split('').every(c=>c==='#');
+      if(code===R.WALL&&(edgeCell||fenceRow)){if(!finished){ctx.fillStyle='#5f8f52';ctx.fillRect(px-.3,py-.3,cell+.6,cell+.6);ctx.fillStyle='#4b7642';ctx.fillRect(px-.3,py+cell*.7,cell+.6,cell*.3+.3);}continue;}
+      if(original[index]===R.OPEN&&!finished){ctx.fillStyle='#eadcb5';ctx.fillRect(px-.3,py-.3,cell+.6,cell+.6);
+        if(l.entries.includes(index)){ctx.fillStyle='#3d5a37';ctx.beginPath();const r=cell*.42;ctx.arc(px+cell/2,py+cell*(y===0?.85:.5),r,0,Math.PI*2);ctx.fill();}
+        continue;}
       if(code===R.WALL){ctx.fillStyle='#b6d6cc';ctx.fillRect(px,py,cell+.1,cell+.1);ctx.strokeStyle='#d6ece2';ctx.lineWidth=Math.max(.7,cell*.08);ctx.beginPath();ctx.moveTo(px+cell*.15,py+cell*.55);ctx.quadraticCurveTo(px+cell*.55,py+cell*.25,px+cell*.88,py+cell*.55);ctx.stroke();continue;}
       if(code===R.OPEN){
         // v8E: cells that were open from the start (round an object-only picture) are not drawn: the card shows through.

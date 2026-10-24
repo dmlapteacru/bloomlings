@@ -15,11 +15,23 @@ F = ROOT / 'client/Assets/Bloomlings/UI/Fonts/Resources'
 big, mid, sm = (ImageFont.truetype(str(F / n), s) for n, s in (('Nunito-ExtraBold.ttf', 26), ('Nunito-ExtraBold.ttf', 20), ('Nunito-SemiBold.ttf', 17)))
 rgb = lambda h: tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
 def board(lv, S=11):
-    im = Image.new('RGB', (lv['w'] * S, lv['h'] * S), '#FFF8EA'); d = ImageDraw.Draw(im)
-    for y, r in enumerate(lv['rowsBottomFirst'][::-1]):
+    # The v8E garden as the page draws it: the fence (board edge, and the closed top row) is a solid hedge, the path and
+    # open ground solid sand, a gate a tunnel mouth in the fence, a bridge stream water; the picture is tiles.
+    W, H = lv['w'], lv['h']; rows = lv['rowsBottomFirst'][::-1]
+    im = Image.new('RGB', (W * S, H * S), '#FFF8EA'); d = ImageDraw.Draw(im)
+    fence_row = all(c == '#' for c in rows[1][1:-1])
+    for y, r in enumerate(rows):
         for x, c in enumerate(r):
-            if c == '.': continue  # open ground outside an object-only picture: no tile, the card shows through (as in Colony Flow)
-            b = rgb(PAL[c]); x0, y0 = x * S, y * S
+            x0, y0 = x * S, y * S; edge = x in (0, W - 1) or y in (0, H - 1)
+            if c == '#' and (edge or (y == 1 and fence_row)):
+                d.rectangle([x0, y0, x0 + S - 1, y0 + S - 1], fill='#5f8f52'); d.rectangle([x0, y0 + int(S * .7), x0 + S - 1, y0 + S - 1], fill='#4b7642'); continue
+            if c == '#':
+                d.rectangle([x0, y0, x0 + S - 1, y0 + S - 1], fill='#7fb6d6'); continue
+            if c == '.':
+                d.rectangle([x0, y0, x0 + S - 1, y0 + S - 1], fill='#eadcb5')
+                if edge: d.ellipse([x0 + 1, y0 + 1, x0 + S - 2, y0 + S - 2], fill='#3d5a37')
+                continue
+            b = rgb(PAL[c])
             d.rectangle([x0, y0 + 1, x0 + S - 2, y0 + S - 1], fill=tuple(int(v * .78) for v in b))
             d.rectangle([x0, y0, x0 + S - 2, y0 + S - 3], fill=b)
             d.rectangle([x0 + 2, y0 + 1, x0 + S - 4, y0 + 2], fill=tuple(int(v + (255 - v) * .35) for v in b))
@@ -27,7 +39,7 @@ def board(lv, S=11):
 if sys.argv[1] == '--contact':
     data = json.load(open(sys.argv[2])); S, cols = 10, 5; cw, ch = 36 * S + 20, 36 * S + 44
     sheet = Image.new('RGB', (cols * cw, 70 + ((len(data) + cols - 1) // cols) * ch), '#FFF8EA'); d = ImageDraw.Draw(sheet)
-    d.text((10, 16), 'v8E · все 30 картинок (поле по роли, цвета вводятся по одному)', font=big, fill='#34493d')
+    d.text((10, 16), 'v8E · все 30 картинок (забор, ворота и дорожка вокруг картинки)', font=big, fill='#34493d')
     for k, e in enumerate(data):
         lv = e['new']; x, y = (k % cols) * cw + 10, 70 + (k // cols) * ch
         sheet.paste(board(lv, S), (x, y + 30))

@@ -1,12 +1,13 @@
-/* v8D: the auto-tail. Once the queue is empty (and no bridge is still to choose) every command is given and the
- * outcome is fixed, so couriers leave without the departure gap and the page plays the rest at TAIL.speed.
+/* v8D/v8E: the auto-tail. Once the queue is empty (and no bridge is still to choose) every command is given and the
+ * outcome is fixed, so the page plays the rest at TAIL.speed (v8E: ×3, couriers still leave one after another).
  * v8 authoritative live simulation. A slot stores UNSENT quota. Targets are
  * reserved only at dispatch; walking jobs outlive the slot and can overlap
  * commands. No predicted clear ownership, reusable-worker cap or hidden speed. */
 (function(root,factory){const api=factory(typeof module!=='undefined'&&module.exports?require('./rules.cjs'):root.BloomPilotRules);if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.BloomPilotTimeline=api;})(globalThis,function(R){
  'use strict';
  const PROFILE=Object.freeze({outPerCell:100,returnPerCell:75,act:100,minOut:650,minReturn:400,departureGap:250,releaseLag:300,dispatch:'live-shared-frontier',release:'last-departure-plus-300ms',sameColour:'independent-cadence-oldest-tie'});
- const TAIL=Object.freeze({departureGap:0,speed:4,when:'queue-empty-and-no-bridge-to-choose'});
+ // v8E (the owner, 2026-10-24): the tail keeps the couriers leaving one after another, as before, and plays at ×3.
+ const TAIL=Object.freeze({departureGap:250,speed:3,when:'queue-empty-and-no-bridge-to-choose'});
  const tailOf=s=>R.queueEmpty(s)&&(!s.level.hero||s.bridge>=0);
  const fields=['board','remaining','heads','slots','ages','revealed'];
  const order={clear:0,arrive:1,return:2,release:3,check:4};

@@ -6,7 +6,7 @@
 // - Hard and Super Hard: random taps make the level unwinnable within the first two commands at most 10% of the time;
 // - links and "?" mostly on the hard levels; each Super Hard on its own axis (L10 "?", L22 links, L29 big capsules);
 // - every level is won by the planner that sees only the visible rows (v8D fairness);
-// - round length (owner's ×2 play, estimated): Normal 1-1.5 min, Hard ~2.5, Super Hard 3.5-4.
+// - round length at 1× (the default once ×2 is paid): Normal up to ~1.5 min, Hard ~2.5, Super Hard 3.5-4 (ROLES.seconds1x).
 // Usage: node fix.mjs level <id> [from]   (writes content/pilot-v8e/work/L<id>.json)
 //        node fix.mjs assemble            (pattern limits, then levels.json, certificates.json, quality.json)
 import fs from 'node:fs';import crypto from 'node:crypto';
@@ -16,14 +16,16 @@ import {rng,rate,sensible,report,earlyRisk,patternWins} from './botsc.mjs';impor
 import {MYSTERY,PLANNERS,planner,withMysteries,strip} from './fix-lib.mjs';
 const out='content/pilot-v8e',work=out+'/work';fs.mkdirSync(work,{recursive:true});
 export const ROLES={
- // seconds: estimated round length window; small boards may be short (the owner, 2026-10-23: boards needn't all be big),
- // so only Hard and Super Hard have a lower bound. order: the author's outside-in dial range (author.mjs).
- tutorial:{label:'Normal',random:[.95,1],visible:[.98,1],patterns:9,sensible:4,seconds:[0,70],order:[0,.3]},
- relief:{label:'Normal',random:[.60,.90],visible:[.85,1],patterns:6,sensible:4,seconds:[0,80],order:[0,2]},
- normal:{label:'Normal',random:[.35,.65],visible:[.70,.95],patterns:4,sensible:3,seconds:[0,110],order:[0,4]},
- task:{label:'Normal',random:[.20,.40],visible:[.45,.75],patterns:3,sensible:2,seconds:[0,130],order:[0,4]},
- hard:{label:'Hard',random:[.15,.25],visible:[.20,.65],patterns:3,sensible:2,seconds:[90,200],order:[0,3]},
- superHard:{label:'Super Hard',random:[.08,.15],visible:[0,.60],patterns:2,sensible:2,seconds:[140,290],order:[0,3]},
+ // seconds1x: the round length window at 1× (the default once ×2 is paid; the owner's targets of 2026-10-23: Normal
+ // 1-1.5 min, Hard 2.5, Super Hard 3.5-4; checked at 1× since the path round the picture lengthened the walks on
+ // 2026-10-24); small boards may be short, so only Hard and Super Hard have a lower bound. order: the author's
+ // outside-in dial range (author.mjs).
+ tutorial:{label:'Normal',random:[.95,1],visible:[.98,1],patterns:9,sensible:4,seconds1x:[0,60],order:[0,.3]},
+ relief:{label:'Normal',random:[.60,.90],visible:[.85,1],patterns:6,sensible:4,seconds1x:[0,60],order:[0,2]},
+ normal:{label:'Normal',random:[.35,.65],visible:[.70,.95],patterns:4,sensible:3,seconds1x:[0,100],order:[0,4]},
+ task:{label:'Normal',random:[.20,.40],visible:[.45,.75],patterns:3,sensible:2,seconds1x:[0,130],order:[0,4]},
+ hard:{label:'Hard',random:[.15,.25],visible:[.20,.65],patterns:3,sensible:2,seconds1x:[130,180],order:[0,3]},
+ superHard:{label:'Super Hard',random:[.08,.15],visible:[0,.60],patterns:2,sensible:2,seconds1x:[190,250],order:[0,3]},
 };
 export const PATTERN_SHARE=.40,HARD_PATTERN_LEVELS=2,EARLY_LIMIT=.10;
 const roleOf=id=>ROLE_OF[id]||'tutorial',isHard=id=>['hard','superHard'].includes(roleOf(id));
@@ -37,6 +39,8 @@ export function seconds(level,actions){const t=new Timeline(R.create(level));
 export function secondsAt1x(level,actions){const t=new Timeline(R.create(level));
  for(const a of actions){t.advance(1200);while(t.check(a)&&t.pending)t.advance(Math.max(1,t.steps[0].at-t.now));if(t.check(a))return null;t.commit(a);}
  const main=t.now;t.advance(1e9);return t.status==='Won'?Math.round((main+(t.now-main)/4)/1000):null;}
+// 1× length; when the brisk replay plays out differently, from the patient route (as in quality.json).
+const at1x=(level,actions)=>secondsAt1x(level,actions)??Math.round((patientSeconds(level,actions)??0)*.25/.6);
 function patientSeconds(level,actions){const t=new Timeline(R.create(level));for(const a of actions){if(t.check(a))return null;t.commit(a);t.advance(1e9);}return t.status==='Won'?Math.round(t.now/100)/10:null;}
 function fits(level,role,id,banned=[]){const t=ROLES[role];
  if(!inside(rate(level,'random',48,id*31),t.random,.08))return null;
@@ -56,7 +60,8 @@ export function search(id,{banned=[],from=0,limit=4000}={}){const role=roleOf(id
   let risk=null;if(isHard(id)){risk=earlyRisk(d);if(risk>EARLY_LIMIT){stats.early++;continue;}}
   let level=d,won=planner(d),mystery=null;if(!won){stats.planner++;continue;}
   if(MYSTERY[id]){try{const m=withMysteries(d,MYSTERY[id]);level=m.level;won=m.planner;mystery={hidden:m.hidden,keys:m.keys,reveals:m.reveals};}catch{stats.mystery++;continue;}}
-  const s=seconds(level,won.actions)??(patientSeconds(level,won.actions)??0)*.25;if(!inside(s,t.seconds)){stats.time++;continue;}
+  const s1=at1x(level,won.actions);if(!inside(s1,t.seconds1x)){stats.time++;continue;}
+  const s=seconds(level,won.actions)??(patientSeconds(level,won.actions)??0)*.25;
   return {id,role,attempt,level,actions:won.actions,planner:won.opts,mystery,seconds:s,earlyRisk:risk??earlyRisk(d),stats};
  }
  throw Error('No candidate for L'+id+' '+JSON.stringify(stats)+(banned.length?' without '+banned.join(', '):''));}
@@ -65,6 +70,10 @@ function finish(found){const {level,actions}=found,top=playPlanner(level,{...fou
 const [cmd,arg,arg2]=process.argv.slice(2);
 if(import.meta.url===`file://${process.argv[1]}`&&cmd==='level'){const id=+arg,t0=Date.now(),f=finish(search(id,{from:+(arg2||0)}));fs.writeFileSync(`${work}/L${id}.json`,JSON.stringify(f)+'\n');
  console.log('L'+id,f.role,'attempt',f.attempt,`${f.level.w}x${f.level.h}`,'pods',f.level.pods.length,f.bots?`random ${(f.bots.random*100).toFixed(0)}% visible ${(f.bots.visible*100).toFixed(0)}% patterns ${f.bots.patternWins.length}`:'',`~${f.seconds}s`,'early risk',f.earlyRisk,((Date.now()-t0)/1000).toFixed(0)+'s');}
+// One balancing step by hand (what assemble does for its pick), so several candidates can be searched in parallel:
+// node fix.mjs rebalance <id> <pattern>   (writes work/L<id>.out.json; move it over L<id>.json to adopt it)
+if(import.meta.url===`file://${process.argv[1]}`&&cmd==='rebalance'){const id=+arg,f=JSON.parse(fs.readFileSync(`${work}/L${id}.json`)),banned=[...(f.banned||[]),arg2];
+ const next={...finish(search(id,{banned,from:f.attempt+1})),banned};fs.writeFileSync(`${work}/L${id}.out.json`,JSON.stringify(next)+'\n');console.log('L'+id,'patterns',next.bots.patternWins.join(', '));}
 if(import.meta.url===`file://${process.argv[1]}`&&cmd==='assemble'){
  const found=Array.from({length:30},(_,i)=>JSON.parse(fs.readFileSync(`${work}/L${i+1}.json`)));
  for(let round=0;round<40;round++){

@@ -21,6 +21,8 @@ export const INTRO={G:1,B:1,A:1,P:2,C:3,D:4,Y:4,O:5,S:6,R:7,M:8,K:9,N:10,V:11,L:
 export const allowedAt=id=>Object.keys(INTRO).filter(c=>INTRO[c]<=id);
 // Bridge levels: how many of Sprig's bridge sites each one has (v8's).
 const BRIDGES={20:1,21:2,22:2,24:2,29:2};
+// Bridge levels' bank colours: the left near-bank bed and the right one (the far strips take them crossed).
+const BANKS={20:['G','A'],21:['M','O'],22:['G','A'],24:['L','E'],29:['M','A']};
 
 // ---- shapes ----
 const seg=(x1,y1,x2,y2,r)=>(x,y)=>{const ex=x2-x1,ey=y2-y1,t=Math.max(0,Math.min(1,((x-x1)*ex+(y-y1)*ey)/(ex*ex+ey*ey)));return Math.hypot(x-x1-ex*t,y-y1-ey*t)-r;};
@@ -322,12 +324,13 @@ export const SCENES={
    ...[[18,17.6,-.9],[19.6,17,-.3]].map(([x,y,a])=>({shape:leaf(x,y,3.6,1.1,a),color:'G',outline:false})),
    ...daisy(3,26,'Y','O',.8),...daisy(25,27,'P','Y',.8)]};}},
 };
-export const ACCESS='frame';
-// Bridge levels: the stream wall, the divider above it, and the bridge sites (cell on the wall, anchor below it).
-function streamLayout(id,W,H){const wall=H-6,mid=Math.floor(W/2),n=BRIDGES[id],xs=n===1?[Math.round(W*.25)]:[Math.round(W*.25),Math.round(W*.75)];
- const walls=new Set();for(let x=0;x<W;x++)walls.add(wall*W+x);for(let y=wall-3;y<wall;y++)for(const x of [mid-1,mid])walls.add(y*W+x);
- const idx=(x,y)=>(H-1-y)*W+x;
- return {walls,hero:{id:'sprig-bridge',choices:xs.map((x,i)=>({cell:idx(x,wall),anchor:idx(x,wall+1),label:n===1?'Левый мостик':i?'Правый мостик':'Левый мостик'}))}};}
+// The garden (the owner, 2026-10-24): a fence round the board with one or two gates (tunnels) and a one-cell path
+// between the fence and the picture. The ants come in at a gate and walk the path, so they can eat the picture from
+// every side the path runs along; the way from the gate is part of each trip. On a bridge level the stream cuts the
+// path too, so the far bank is reached only over Sprig's bridge, and then from all its sides.
+export const GATES={8:['l','r'],14:['b','l'],18:['l','r'],26:['l','r'],27:['b','r']};
+// 'u': no path along the top (the fence closes it), so the top of the picture is eaten last.
+export const PATH={10:'u',15:'u',25:'u'};
 // Draw at the authored size and sample at the board's: shapes and backgrounds are scaled, outlines stay one cell.
 // window: the authored rectangle [x0, y0, width, height] shown on the board.
 function scaled(spec,[x0,y0,w,h],W,H,bare){const sx=w/W,sy=h/H,k=(sx+sy)/2,X=x=>x0+x*sx,Y=y=>y0+y*sy;
@@ -335,19 +338,29 @@ function scaled(spec,[x0,y0,w,h],W,H,bare){const sx=w/W,sy=h/H,k=(sx+sy)/2,X=x=>
   parts:spec.parts.filter(p=>!(bare&&p.deco)).map(p=>({...p,shape:(x,y)=>p.shape(X(x),Y(y))/k,...(p.sphere?{sphere:[(p.sphere[0]-x0)/sx,(p.sphere[1]-y0)/sy,p.sphere[2]/k]}:{})}))};}
 export function sceneLevel(id){const s=SCENES[id];if(!s)return null;const [w0,h0]=sizeOf(id),allowed=allowedAt(id),ok=c=>allowed.includes(c),bare=BARE.has(id);
  let [W,H]=BOARD[id],win=[0,0,w0,h0];
- if(bare){// An object-only picture fills its board: crop to the object (one cell of open ground round it), keep the height.
+ let col;
+ if(bare){// An object-only picture keeps the previous composition (the owner, 2026-10-24: they were better before): the
+  // object cropped with one cell of open ground round it at the board's height, and only the fence is added round it;
+  // that ring of open ground is the path.
   const full=paint(w0,h0,{...scaled(s.draw(w0,h0,ok),win,w0,h0,true),outline:s.outline||'D',allowed});let x1=w0,y1=h0,x2=-1,y2=-1;
   full.forEach((r,y)=>r.forEach((c,x)=>{if(c!=='.'){x1=Math.min(x1,x);x2=Math.max(x2,x);y1=Math.min(y1,y);y2=Math.max(y2,y);}}));
-  win=[x1-1,y1-1,x2-x1+3,y2-y1+3];W=Math.max(12,Math.round(H*win[2]/win[3]));}
- const spec=scaled(s.draw(w0,h0,ok),win,W,H,bare),col=paint(W,H,{...spec,outline:s.outline||'D',allowed});let hero;
- if(s.bridge){const st=streamLayout(id,W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(st.walls.has(y*W+x))col[y][x]='#';hero=st.hero;
-  // The near bank (below the wall) is grass with a few flowers, as in v8.
-  for(let y=H-5;y<H;y++)for(let x=0;x<W;x++)col[y][x]=y===H-1&&ok('M')?'M':((x*7+y*3)%13===0?'Y':'G');}
+  win=[x1-1,y1-1,x2-x1+3,y2-y1+3];const H0=H,W0=Math.max(12,Math.round(H0*win[2]/win[3])),pic=paint(W0,H0,{...scaled(s.draw(w0,h0,ok),win,W0,H0,true),outline:s.outline||'D',allowed});
+  W=W0+2;H=H0+2;col=Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>x===0||y===0||x===W-1||y===H-1?'#':pic[y-1][x-1]));}
+ else{const W0=W-4,H0=H-4,pic=paint(W0,H0,{...scaled(s.draw(w0,h0,ok),win,W0,H0,false),outline:s.outline||'D',allowed});
+  col=Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>x===0||y===0||x===W-1||y===H-1?'#':x===1||y===1||x===W-2||y===H-2?'.':pic[y-2][x-2]));}
+ if(PATH[id]==='u')for(let x=1;x<W-1;x++)col[1][x]='#';
+ let hero,wall=-1;
+ if(s.bridge){wall=H-7;const mid=Math.floor(W/2),n=BRIDGES[id],xs=n===1?[Math.round(W*.25)]:[Math.round(W*.25),Math.round(W*.75)],idx=(x,y)=>(H-1-y)*W+x;
+  for(let x=1;x<W-1;x++)col[wall][x]='#';for(let y=wall-3;y<wall;y++)for(const x of [mid-1,mid])col[y][x]='#';
+  // The banks as in v8D (the owner, 2026-10-24: a bridge must be earned with a colour, and the choice must matter):
+  // each bridge's anchor sits in a near-bank bed of its own colour, and across it the far bank's strip takes the other
+  // colour (left bed P → left strip Q, right bed Q → right strip P), so which bridge to open depends on the tray.
+  const [P,Q]=BANKS[id];
+  for(let y=wall-3;y<wall;y++)for(let x=2;x<W-2;x++)if(x<mid-1)col[y][x]=Q;else if(x>mid)col[y][x]=P;
+  for(let y=wall+1;y<H-2;y++)for(let x=2;x<W-2;x++)col[y][x]=x<mid-1?P:x>mid?Q:'D';
+  hero={id:'sprig-bridge',choices:xs.map((x,i)=>({cell:idx(x,wall),anchor:idx(x,wall+1),label:n===1?'Левый мостик':i?'Правый мостик':'Левый мостик'}))};}
  const used=new Set(col.flat());for(const c of used)if(c!=='#'&&c!=='.'&&!allowed.includes(c))throw Error(`L${id} uses ${c} before it is introduced`);
- // Entries: the whole frame, as in Colony Flow (the ants run round the board and eat from the outside in). On a bridge
- // level only the near bank's frame, below the stream, so the far side still needs Sprig's bridge.
- const entries=[],wallRow=s.bridge?H-6:-1;
- const access=process.env.V8E_ACCESS||ACCESS;
- for(let y=0;y<H;y++)for(let x=0;x<W;x++){if(col[y][x]==='#'||y<=wallRow)continue;
-  const ok=access==='frame'?(x===0||y===0||x===W-1||y===H-1):access==='bottom'?y===H-1:(y===H-1&&x===Math.floor(W/2));if(ok)entries.push((H-1-y)*W+x);}
+ // Gates: bottom by default; side gates sit low (on the near bank of a bridge level).
+ const side=s.bridge?Math.floor((wall+H-2)/2):Math.round(H*.7),at={b:[Math.floor(W/2),H-1],l:[0,side],r:[W-1,side],t:[Math.floor(W/2),0]};
+ const entries=(GATES[id]||['b']).map(g=>{const [x,y]=at[g];col[y][x]='.';return (H-1-y)*W+x;});
  return {title:s.title,w:W,h:H,rowsBottomFirst:rows(col).reverse(),entries:entries.sort((a,b)=>a-b),...(hero?{hero}:{})};}
