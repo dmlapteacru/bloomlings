@@ -94,7 +94,7 @@ for(const l of data.levels){assert.deepEqual(R.validate(l),[]);
  }
 }
 // Changed experiments are checked against v9 gates; controls must remain byte-equivalent to current v8E.
-const baseCatalog=JSON.parse(fs.readFileSync('content/pilot-v8e/levels.json'));
+const baseCatalog=JSON.parse(fs.readFileSync('content/pilot-v9/baseline-v8e-c6b0bfd4/levels.json'));
 assert.equal(data.baseHash,baseCatalog.hash);assert.deepEqual(data.changedLevels,[4,10,12,13,16,25]);
 const gates=[];const bots=await import('./botsc.mjs');
 for(const q of quality.levels){const l=data.levels[q.id-1];

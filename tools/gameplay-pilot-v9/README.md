@@ -2,7 +2,7 @@
 
 See [design](../../product/audits/pilot-v9-plan-2026-10-24.md) and [playable pilot](../../product/previews/gameplay-pilot-v9/README.md).
 
-Only `generate.mjs` authors replacements. Source artwork: `scenes.mjs` plus `scene-overrides.mjs`; quotas/links: `author.mjs`; hidden placement: `fix-lib.mjs`. It replaces six explicit ids and copies all other definitions/certificates from current v8E. `assemble` rejects stale candidates outside current bounds.
+Only `generate.mjs` authors replacements. Source artwork: `scenes.mjs` plus `scene-overrides.mjs`; quotas/links: `author.mjs`; hidden placement: `fix-lib.mjs`. It replaces six explicit ids and copies all other definitions/certificates from v8E frozen at c6b0bfd4. `assemble` rejects stale candidates outside current bounds.
 
 `rules.cjs`, `timeline.cjs`, `idle-rules.cjs`, clock and palette retain v8E mechanics. `horizon.mjs` adds an optional reverse tie order, without additional visibility. `botsc.mjs` memoizes read-only authoring transitions; it does not affect the browser simulator. Cached result states must remain read-only.
 

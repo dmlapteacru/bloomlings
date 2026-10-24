@@ -1,6 +1,6 @@
 # Pilot v9
 
-Separate 30-level experiment based on current v8E; old catalogs are immutable controls.
+Separate 30-level experiment based on v8E frozen at c6b0bfd4; old catalogs are immutable controls.
 Only L4/L10/L12/L13/L16/L25 are replaced. Production catalog and APK are untouched.
 
 - `levels.json`: self-contained definitions, catalog hash, base hash and changed ids.

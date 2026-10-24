@@ -2,7 +2,7 @@
 
 These are automated model/browser checks, not human playtest results and not a proof of native Core equivalence.
 
-- `engine.json`: 30 patient live certificates, 30 visible-horizon replays, 202 hidden-data swap checks, 240 concurrent random runs, 1,047 checkpoint restores, conservation, slot reuse, pair release, frame invariance and explicit changed-level gates. The 24 controls match current v8E definitions exactly.
+- `engine.json`: 30 patient live certificates, 30 visible-horizon replays, 202 hidden-data swap checks, 240 concurrent random runs, 1,047 checkpoint restores, conservation, slot reuse, pair release, frame invariance and explicit changed-level gates. The 24 controls match v8E frozen at c6b0bfd4 definitions exactly.
 - `browser.json`: 30 wins through actual DOM inputs; real exported commands replay in the live model, counts/trip events/reservations/releases agree, three-row visibility/mysteries/accessibility and responsive touch targets are checked. Clock accelerated for QA.
 - `feedback.json`: all three waiting answers select, persist across reload and survive the real JSON download. Its HTML hash identifies the final artifact.
 - `lifecycle.json`: modal/visibility pauses, reload and stream event logging.

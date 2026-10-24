@@ -1,7 +1,7 @@
 // Reproduce v8E/v9 model diagnostics. Never interpret bot policy wins as human difficulty or retention.
 import fs from 'node:fs';import {compareRhythm} from './rhythm.mjs';
 const read=p=>JSON.parse(fs.readFileSync(p));
-const a=read('content/pilot-v8e/levels.json'),ac=read('content/pilot-v8e/certificates.json'),b=read('content/pilot-v9/levels.json'),bc=read('content/pilot-v9/certificates.json'),q=read('content/pilot-v9/quality.json');
+const a=read('content/pilot-v9/baseline-v8e-c6b0bfd4/levels.json'),ac=read('content/pilot-v9/baseline-v8e-c6b0bfd4/certificates.json'),b=read('content/pilot-v9/levels.json'),bc=read('content/pilot-v9/certificates.json'),q=read('content/pilot-v9/quality.json');
 const refs=read('product/audits/colony-flow-rounds/levels.json');
 const shape=l=>({coloredCells:l.pods.reduce((n,p)=>n+p.count,0),colors:new Set(l.pods.map(p=>p.color)).size,lots:l.pods.length,medianQuota:l.pods.map(p=>p.count).sort((a,b)=>a-b)[Math.floor(l.pods.length/2)],maxQuota:Math.max(...l.pods.map(p=>p.count)),links:new Set(l.pods.map(p=>p.group).filter(Boolean)).size,mysteries:l.pods.filter(p=>p.mystery).length});
 const brief=r=>Object.fromEntries(Object.entries(r).map(([key,x])=>[key,{won:x.won,status:x.status,...(x.won?{seconds:x.seconds,tailSeconds:x.tailSeconds,maxNoChoiceSeconds:x.maxNoChoiceSeconds,maxForcedLowProductivitySeconds:x.maxForcedLowProductivitySeconds,completedLinkedHeldSlotSeconds:x.completedLinkedHeldSlotSeconds}:{refusedAt:x.refusedAt,reason:x.reason})}]));

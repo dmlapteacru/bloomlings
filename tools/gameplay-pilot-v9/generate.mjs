@@ -54,7 +54,7 @@ export function search(id,{from=0,limit=1500,banned=[]}={}){
  throw Error('Search budget reached L'+id+' '+JSON.stringify(stats));
 }
 function assemble(){
- const base=JSON.parse(fs.readFileSync('content/pilot-v8e/levels.json')),bc=JSON.parse(fs.readFileSync('content/pilot-v8e/certificates.json')),bq=JSON.parse(fs.readFileSync('content/pilot-v8e/quality.json'));
+ const base=JSON.parse(fs.readFileSync('content/pilot-v9/baseline-v8e-c6b0bfd4/levels.json')),bc=JSON.parse(fs.readFileSync('content/pilot-v9/baseline-v8e-c6b0bfd4/certificates.json')),bq=JSON.parse(fs.readFileSync('content/pilot-v9/baseline-v8e-c6b0bfd4/quality.json'));
  const found=new Map(CHANGED.map(id=>[id,JSON.parse(fs.readFileSync(root+'/work/L'+id+'.json'))]));
  for(const [id,f] of found){const cfg=TARGETS[id];if(!inside(f.bots.random,cfg.random)||!inside(f.bots.visible,cfg.visible)||f.bots.patternWins.length>cfg.patterns||f.level.pods.some(p=>p.count>cfg.maxQuota)||!replayRhythm(f.level,f.actions,{schedule:'brisk'}).won||!replayRhythm(f.level,f.actions,{schedule:'brisk',manualSpeed:2}).won||([13,25].includes(id)&&f.bots.patternWins.includes('самое маленькое число')))throw Error('Stale or invalid finalist L'+id);}
  const levels=base.levels.map(l=>found.get(l.id)?.level||l),hash=crypto.createHash('sha256').update(JSON.stringify(levels)).digest('hex');
