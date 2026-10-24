@@ -8,15 +8,17 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public sealed class PurchaseOffer
     {
-        private PurchaseOffer(string name, int petals, string? moneyPrice)
+        private PurchaseOffer(string name, int petals, string? moneyPrice, string? kind = null, string? target = null)
         {
             Name = name;
             Petals = petals;
-            MoneyPrice = moneyPrice;
+            MoneyPrice = moneyPrice; ProductKind = kind; ProductTarget = target;
         }
 
         /// <summary>The item's player-facing name ("Fireflies", "Shuffle", "Bucket Hat").</summary>
         public string Name { get; }
+        public string? ProductKind { get; }
+        public string? ProductTarget { get; }
 
         /// <summary>The price in Petals (0 for a real-money purchase).</summary>
         public int Petals { get; }
@@ -32,6 +34,11 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>A purchase for <paramref name="price"/> Petals.</summary>
         public static PurchaseOffer ForPetals(string name, int price) => new PurchaseOffer(name, Math.Max(0, price), null);
+
+        public PurchaseOffer WithPrice(int price) => new PurchaseOffer(Name, Math.Max(0, price), MoneyPrice, ProductKind, ProductTarget);
+        public static PurchaseOffer ForItem(string name, int price, string id) => new PurchaseOffer(name, Math.Max(0, price), null, "buy_cosmetic", id);
+        public static PurchaseOffer ForBooster(string name, int price, string kind, bool buyAndUse = false) =>
+            new PurchaseOffer(name, Math.Max(0, price), null, buyAndUse ? "consume_booster" : "buy_booster", char.ToLowerInvariant(kind[0]) + kind.Substring(1));
 
         /// <summary>A real-money purchase at the store's localized <paramref name="price"/>.</summary>
         public static PurchaseOffer ForMoney(string name, string price) => new PurchaseOffer(name, 0, price);
@@ -92,7 +99,7 @@ namespace Bloomlings.Client.UI.Design
         public const float LineUnits = 56f;
         public const int QuestionLines = 2;
         public const float PriceUnits = 0f;
-        public const float NoteUnits = 52f;
+        public const float NoteUnits = 104f;
         public const float ContentUnits = 12f + PictureUnits + 12f + (QuestionLines * LineUnits) + NoteUnits + 28f + DesignTokens.Size.CardPrimaryHeight + 18f + DesignTokens.Size.CardSecondaryHeight + 16f;
         public float PriceMaxWidth => Card.Body.Width * .7f;
     }
@@ -105,7 +112,7 @@ namespace Bloomlings.Client.UI.Design
             float side=Math.Min(PurchaseConfirmRegions.PictureUnits*u,body.Width*.64f);
             Box picture=Box.FromCenter(body.CenterX,body.Top+12*u+side/2,side,side);
             Box question=new Box(body.Left,picture.Bottom+12*u,body.Right,picture.Bottom+124*u);
-            Box note=new Box(body.Left,question.Bottom,body.Right,question.Bottom+52*u);
+            Box note=new Box(body.Left,question.Bottom,body.Right,question.Bottom+PurchaseConfirmRegions.NoteUnits*u);
             Box confirm=CardButton(body,note.Bottom+28*u,true,u);
             Box cancel=CardButton(body,confirm.Bottom+18*u,false,u);
             return new PurchaseConfirmRegions(card,picture,question,new Box(body.CenterX,note.Top,body.CenterX,note.Top),note,confirm,cancel);

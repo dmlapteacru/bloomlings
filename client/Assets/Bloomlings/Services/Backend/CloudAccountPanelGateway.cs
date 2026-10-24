@@ -31,7 +31,7 @@ namespace Bloomlings.Client.Services.Backend
         { _save = save; _saves = saves; _auth = auth; _cloud = cloud; _sync = sync; _clock = clock; _run = run; _restored = restored; }
 
         private string Session => _save.LocalPlayerId + ":" + _auth.PlayerId + ":" +
-            (_cloud is IAccountCloudSaveService c ? c.SessionVersion.ToString(System.Globalization.CultureInfo.InvariantCulture) : "local");
+            (_cloud is IAccountCloudSaveService c ? c.SessionVersion.ToString(System.Globalization.CultureInfo.InvariantCulture) : "local") + ":" + (_save.ServerEconomyOwnerId ?? "local-economy");
         private bool SameOwner => _auth.IsSignedIn && !string.IsNullOrWhiteSpace(_auth.PlayerId) && (_save.CloudOwnerId == null || _save.CloudOwnerId == _auth.PlayerId)
             && _cloud is IAccountCloudSaveService c && c.PlayerId == _auth.PlayerId;
         public AccountPanelSnapshot Read()
@@ -41,7 +41,8 @@ namespace Bloomlings.Client.Services.Backend
                 _sync.LastResult == CloudSyncResult.Conflict ? AccountSaveState.Conflict :
                 _sync.LastResult == CloudSyncResult.NeedsInitialization || _sync.LastResult == CloudSyncResult.UnsupportedProvider ? AccountSaveState.Unavailable :
                 _sync.IsDirty || _sync.IsRunning ? AccountSaveState.Pending : AccountSaveState.Cloud;
-            bool canUse = !_busy && !_sync.IsRunning && !mismatch;
+            if (_save.ServerEconomyOwnerId != null) state = AccountSaveState.Unavailable;
+            bool canUse = _save.ServerEconomyOwnerId == null && !_busy && !_sync.IsRunning && !mismatch;
             return new AccountPanelSnapshot(Session, _saves.WriteVersion.ToString(System.Globalization.CultureInfo.InvariantCulture), _save.Profile.Name ?? "",
                 _save.Progression.HighestCompletedLevel + 1, _save.Wallet.Petals,
                 _save.LinkedIdentity == "apple" ? "account.linked_apple" : _save.LinkedIdentity == "google_play_games" ? "account.linked_google" : "account.panel.guest",
@@ -52,6 +53,7 @@ namespace Bloomlings.Client.Services.Backend
         }
         public void Execute(AccountPanelAction action, string? token, Action<AccountPanelReply> done)
         {
+            if (_save.ServerEconomyOwnerId != null) { done(new AccountPanelReply("account.panel.unavailable")); return; }
             if (_busy || _sync.IsRunning) { done(new AccountPanelReply("account.panel.retry")); return; }
             _busy = true;
             try { _run(Guard(Work(action, token, done), done)); }

@@ -477,7 +477,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <param name="confirmed">The purchase confirmation's Buy already answered (spec 005 FR-040): a use without charges
         /// buys one for Petals only then; it asks first otherwise.</param>
-        public void UseBooster(BoosterKind kind, Command command, bool free = false, bool confirmed = false)
+        public void UseBooster(BoosterKind kind, Command command, bool free = false, bool confirmed = false, bool prepaid = false)
         {
             // A guided demo's forced use is free: the unlock's free charge stays (spec 001 FR-042 as amended on 2026-10-05).
             bool demo = Guide != null && Guide.Booster == kind && (Guide.Kind == GuideKind.Booster || Guide.Kind == GuideKind.BoosterTarget);
@@ -501,14 +501,14 @@ namespace Bloomlings.Playtest.Design
                 // bought and used only on its Buy (spec 005 FR-040); a cancel buys nothing and brings the jam card back.
                 string id = EndCards.IdOf(kind);
                 _app.ConfirmPurchase(
-                    PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind)),
+                    PurchaseOffer.ForBooster(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind), kind.ToString(), buyAndUse:true),
                     (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)),
-                    () => UseBooster(kind, command, confirmed: true),
-                    () => JamHidden = false);
+                    () => { int used = Session.BoostersUsed; UseBooster(kind, command, confirmed: true); return Session.BoostersUsed > used; },
+                    () => JamHidden = false, onPurchased: () => UseBooster(kind, command, confirmed: true, prepaid: true));
                 return;
             }
 
-            if (!free && !Meta.Economy.TryTakeCharge(kind))
+            if (!free && !prepaid && !Meta.Economy.TryTakeCharge(kind))
             {
                 Toast(PlaytestText.T("gameplay.not_enough_petals"));
                 return;
@@ -554,12 +554,14 @@ namespace Bloomlings.Playtest.Design
             JamHidden = false;
             string id = EndCards.IdOf(kind);
             _app.ConfirmPurchase(
-                PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind),
-                    Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind)),
+                PurchaseOffer.ForBooster(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind),
+                    Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), Meta.Economy.Price(kind), kind.ToString()),
                 (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * .1f)),
                 () =>
                 {
-                    if (!Meta.Economy.TryBuy(kind)) Toast(PlaytestText.T("gameplay.not_enough_petals"));
+                    bool bought = Meta.Economy.TryBuy(kind);
+                    if (!bought) Toast(PlaytestText.T("gameplay.not_enough_petals"));
+                    return bought;
                 });
         }
 
@@ -680,7 +682,7 @@ namespace Bloomlings.Playtest.Design
             if (Won && Payout == null)
             {
                 Payout = Meta.CompleteLevel(Level, Session.Definition.Difficulty.Class, Session.BoostersUsed - DemoBoosterUses,
-                    Session.Definition, _app.Content.GetPicture(Session.Definition.Picture), _achievementAttempt) ?? new WinPayout(null, null);
+                    Session.Definition, _app.Content.GetPicture(Session.Definition.Picture), _achievementAttempt, Bloomlings.Client.Services.Economy.Online.WinEvidence.Create(Session).Write()) ?? new WinPayout(null, null);
             }
         }
 

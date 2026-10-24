@@ -34,12 +34,12 @@ namespace Bloomlings.Playtest.Design
                 Summary(p, new Box(r.Body.Left, y, r.Body.Right, y + p.U(158)), s.IdentityKey, s.Name, s.Level, s.Petals);
                 y += p.U(184);
                 Paragraph(p, r.Body, ref y, panel.StatusKey, 2, true);
-                Paragraph(p, r.Body, ref y, panel.MessageKey ?? panel.DetailKey, 3);
+                Paragraph(p, r.Body, ref y, panel.MessageKey ?? (app.ServerClient != null ? app.ServerClient.PendingCount > 0 || app.ServerClient.UnsettledRewardIds.Count > 0 ? "account.panel.server_pending" : "account.panel.server_detail" : panel.DetailKey), 3);
                 AccountPanelAction action = s.CanReviewCloud ? AccountPanelAction.ReviewCloud :
                     s.CanSync ? AccountPanelAction.Sync : s.CanApple ? AccountPanelAction.Apple : AccountPanelAction.Google;
-                string key = action switch { AccountPanelAction.ReviewCloud => "account.panel.review", AccountPanelAction.Sync => "account.panel.sync", AccountPanelAction.Apple => "settings.link_apple", _ => "settings.link_google" };
+                string key = action switch { AccountPanelAction.ReviewCloud => "account.panel.review", AccountPanelAction.Sync => app.ServerClient != null ? "account.panel.check_wallet" : "account.panel.sync", AccountPanelAction.Apple => "settings.link_apple", _ => "settings.link_google" };
                 bool enabled = panel.Can(action);
-                Kit.PrimaryButton(p, ScreenLayout.CardButton(r.Body, y, true, p.Scale), PlaytestText.T(panel.Busy ? "account.panel.working" : enabled ? key : "account.panel.coming_soon"),
+                Kit.PrimaryButton(p, ScreenLayout.CardButton(r.Body, y, true, p.Scale), PlaytestText.T(panel.Busy ? "account.panel.working" : enabled ? key : app.ServerClient != null ? "account.panel.connect_to_check" : "account.panel.coming_soon"),
                     enabled ? () => panel.Run(action) : null, set: enabled ? GardenLook.Green : GardenLook.Green.Disabled());
                 y += p.U(DesignTokens.Size.CardPrimaryHeight + 18);
                 if (s.CanSync && (s.CanGoogle || s.CanApple) && !s.CanReviewCloud)
@@ -48,6 +48,8 @@ namespace Bloomlings.Playtest.Design
                     Kit.SecondaryButton(p, ScreenLayout.CardButton(r.Body, y, false, p.Scale), PlaytestText.T(s.CanApple ? "settings.link_apple" : "settings.link_google"),
                         panel.Can(link) ? () => panel.Run(link) : null);
                 }
+                else if (app.ServerClient?.PendingPurchase != null)
+                    Kit.SecondaryButton(p, ScreenLayout.CardButton(r.Body, y, false, p.Scale), PlaytestText.T("account.panel.pending_purchase"), app.OpenPendingPurchase);
                 else Kit.SecondaryButton(p, ScreenLayout.CardButton(r.Body, y, false, p.Scale), PlaytestText.T("common.close"), app.CardClose);
             }
             Kit.EndCard(p);
@@ -60,7 +62,7 @@ namespace Bloomlings.Playtest.Design
             p.Text(string.IsNullOrWhiteSpace(name) ? PlaytestText.T("account.panel.player") : name, box.CenterX, box.Top + p.U(77), PopupDesign.Label, C.InkBrown, box.Width * .9f, look:TextLook.Plain(C.InkBrown));
             p.Text(PlaytestText.F("account.panel.progress", level, NumberText.Group(petals)), box.CenterX, box.Top + p.U(124), T.Caption, C.InkBrownSoft, box.Width * .9f);
         }
-        private static void Paragraph(IPainter p, Box body, ref float y, string key, int count, bool heading = false)
+        internal static void Paragraph(IPainter p, Box body, ref float y, string key, int count, bool heading = false)
         {
             var style = heading ? PopupDesign.Label : T.Body;
             var lines = EndCards.Lines(p, PlaytestText.T(key), style, body.Width * .94f, count);

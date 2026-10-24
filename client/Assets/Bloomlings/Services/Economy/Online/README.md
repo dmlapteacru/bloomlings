@@ -1,7 +1,9 @@
 # Cached economy and durable client outbox
 
 Prepared C# client component for `backend/cloud-code/ExecuteEconomy.js`. Runtime activation is deliberately **opt-in**:
-no boot hook or SDK detection switches the current local APK to a server wallet. Live UGS provisioning, trusted reward
+no boot hook or SDK detection switches the current local APK to a server wallet.
+The native .NET Android transport and in-game purchase UI are now prepared; see
+[the native-host integration notes](../../../../../../product/plans/native-ugs-purchases-2026-10-23.md). Live UGS provisioning, trusted reward
 issuers, billing and host/profile migration are still prerequisites for enabling authoritative economy.
 
 ## Offline behavior
@@ -77,8 +79,9 @@ recovery data. No proof upload/verification is faked by this component.
 
 Construct `EconomyJournal` with the bound/previously bound **UGS owner**, generated bundled catalog and an app-data
 root; then construct `OnlineEconomyClient` with an `IEconomyTransport`. `OfflineEconomyTransport` supports cached
-browsing. The guarded `UgsEconomyTransport` is prepared in Integrations/Ugs for the real endpoint but is not registered
-by default. No Unity/Google credentials are embedded.
+browsing. The guarded Unity `UgsEconomyTransport` and engine-free `UgsHttpEconomyTransport` target the real endpoint but are not registered
+by default. The .NET APK compiles the HTTP transport directly, without Unity SDK packages. Its authenticated memory-only
+`UgsPlayerSession` must come from a native authentication provider; it cannot be created from a local profile ID. No Unity/Google credentials are embedded.
 
 A new guest without a backend owner stays in the existing local/dev game. On first real binding, preserve guest
 progress/evidence through the explicit account migration; do not copy a journal into arbitrary platform identities.
@@ -115,3 +118,35 @@ The .NET suite compiles engine-free client logic against Unity stubs. It does no
 UGS adapter against real SDK packages or prove live UGS/device behavior. No APK is built for this task.
 
 Validation result for this revision: **106 client tests passed, 45 backend tests passed**, no failures/skips; generated files and `git diff --check` are current. Astra independently reviewed ACK/reprice/recovery behavior; reported issues were fixed and regression-tested.
+
+
+## In-game purchase UI (2026-10-23)
+
+`OnlinePurchaseOperation` implements `IPurchaseOperation` for the shared `PurchasePanel`. It refreshes prices, requires
+explicit confirmation, identifies a consumed result by sequence and success flag, and replays only the exact pending
+request on Check. An operation is bound to its construction session; a coroutine queued before a session change may
+not spend under the new session. No legacy purchase callback is retained by this adapter.
+
+`PendingPurchase` describes the head purchase for a host's recovery entry. Dismissing the panel preserves the outbox;
+it does not refund or discard a request. `cancel_purchase` now atomically competes for the original sequence; it
+never rewinds the cursor or refunds an already completed purchase. `UiRoutineQueue` supplies a bounded UI-thread runner for the
+native host. The game's existing local/dev mode uses `LocalPurchaseOperation` explicitly, with real network gating,
+live local prices and explicit success/failure; it is never selected as a fallback from this adapter.
+
+## Authoritative host mode and evidence (2026-10-23)
+
+`ServerEconomy` composes one authoritative projection for the native host: prices, wallet, reservations, inventory,
+daily and milestone states. Local grants/spends and tester reset are disabled for that profile. A separate durable
+save seal prevents a legacy backup or corrupt save from silently reopening server money as a local wallet. First
+activation requires a verified provisioned snapshot and an explicit approved-migration host gate; this does not
+implement bootstrap or migrate a legacy wallet. See [current rollout and unresolved live gates](../../../../../../product/plans/server-economy-and-ranking-2026-10-23.md).
+
+Pending purchase review can be opened without replay, checked or cancelled. Cancellation preserves the original
+booster reservation until its terminal acknowledgement. Review/confirmation/cancellation stop at their own
+sequence so later queued operations cannot overwrite the result presented by that window.
+
+`WinEvidence` snapshots accepted commands and trusted-content fingerprints, and can replay them against caller-supplied
+trusted content. It is bounded preflight, not authorization or proof of paid booster ownership. Native first wins
+are archived before progression; server mode stores reward intents without minting money. `GuestWinArchive` keeps
+immutable checksum-checked first wins for future migration. Earlier guest wins do not acquire evidence retroactively.
+Actual replay/ticket issuance, attempt-bound booster recovery, billing/SSV and non-economic progress sync remain off.

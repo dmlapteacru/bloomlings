@@ -62,4 +62,5 @@
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" Link="Assets/heromotion/%(Filename)%(Extension)" />
   </ItemGroup>
   <Import Project="../OptimizeAssets.targets" />
+  <Import Project="../OnlineServices.props" />
 </Project>

@@ -41,11 +41,28 @@ namespace Bloomlings.Playtest.Design
             p.VerticalScroll(r.Viewport,dy=>app.LeaderboardScrollOffset=Math.Max(0,Math.Min(r.Maximum(rows.Count),app.LeaderboardScrollOffset-dy)));
             var own=page?.Player??new LeaderboardEntry(0,PlaytestText.T("leaderboard.you"),app.Meta.Progression.HighestCompletedLevel,true);
             Row(p,r.Player,own,app);
-            ProfileGamePainter.Label(p,r.Status,PlaytestText.T("leaderboard.offline"),WardrobeShelfDesign.Status);
+            ProfileGamePainter.Label(p,new Box(r.Status.Left,r.Status.Top,r.Status.CenterX,r.Status.Bottom),PlaytestText.T("leaderboard.offline"),WardrobeShelfDesign.Status);
+            Kit.SecondaryButton(p, RulesButton(p), PlaytestText.T("leaderboard.rules"), () => app.OpenOverlay(Overlay.CompetitionRules));
             Kit.RoundButton(p,r.Refresh.CenterX,r.Refresh.CenterY,r.Refresh.Width,"ui.restart",()=>app.HomeToast(PlaytestText.T("leaderboard.offline_empty")));
             Kit.BottomNav(p,HomeScreen.Nav(p,NavPlace.Leaderboard),look,app.Navigate);
             Kit.PageHeader(p,r.Header,PlaytestText.T("leaderboard.title"),app.CloseLeaderboard,app.ShownPetals,look.Store?app.OpenStore:(Action?)null);
             if(app.HomeToastText!=null)Kit.Toast(p,r.Player,app.HomeToastText);
+        }
+        public static Box RulesButton(IPainter p)
+        {
+            var r = LeaderboardHonorDesign.Page(p.Width,p.Height,p.Insets);
+            return new Box(r.Status.CenterX, r.Status.CenterY-p.U(DesignTokens.Size.TouchMin)*.5f,
+                r.Refresh.Left-p.U(12), r.Status.CenterY+p.U(DesignTokens.Size.TouchMin)*.5f);
+        }
+        public static void Rules(IPainter p, DesignApp app, float since)
+        {
+            p.Mark("ui.leaderboard.rules");
+            CardRegions r = Kit.Card(p, 1160, PlaytestText.T("leaderboard.rules_title"), app.CardClose, Kit.Pop(since));
+            float y = r.Body.Top + p.U(10);
+            foreach (string key in new[] { "leaderboard.rules_progress", "leaderboard.rules_week", "leaderboard.rules_score", "leaderboard.rules_fair", "leaderboard.rules_pending" })
+                AccountScreen.Paragraph(p,r.Body,ref y,key,3);
+            Kit.PrimaryButton(p,ScreenLayout.CardButton(r.Body,y,true,p.Scale),PlaytestText.T("common.close"),app.CardClose);
+            Kit.EndCard(p);
         }
         private static void Skin(IPainter p,string asset,Box b)
         {

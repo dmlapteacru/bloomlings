@@ -84,7 +84,9 @@ namespace Bloomlings.Playtest.Design
             float rise = Kit.Ease((since - 0.15f) / DesignTokens.Motion.Reward.Seconds);
             p.PushAlpha(rise);
             p.PushTransform(0f, (1f - rise) * p.U(30f), 1f, 0f, 0f);
-            if (reward != null)
+            if (s.Payout?.PendingVerification == true)
+                ProfileGamePainter.Label(p,r.Reward,PlaytestText.T("win.reward_pending"),WardrobeShelfDesign.Status);
+            else if (reward != null)
             {
                 RewardPill(p, r.Reward, reward.Petals, since - 0.15f);
                 if (reward.DroppedBooster.HasValue)

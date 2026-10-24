@@ -108,6 +108,7 @@ namespace Bloomlings.Client.Meta.DailyReward
         {
             get
             {
+                if (_economy.IsAuthoritative) return _economy.Authority!.DailyClaimed;
                 string? last = _save.Daily.RewardLastClaimUtcDate;
                 if (DailyDates.IsLater(Today, last))
                 {
@@ -119,7 +120,7 @@ namespace Bloomlings.Client.Meta.DailyReward
         }
 
         /// <summary>A step can be claimed now (the unlock reached and a step of today left).</summary>
-        public bool CanClaim => IsUnlocked && ClaimedToday < StepCount;
+        public bool CanClaim => IsUnlocked && ClaimedToday < StepCount && (!_economy.IsAuthoritative || _economy.Authority!.CanClaimDaily);
 
         /// <summary>The step a claim now pays, or null when today's are all claimed.</summary>
         public DailyRewardStep? NextStep => ClaimedToday < StepCount ? Steps[ClaimedToday] : (DailyRewardStep?)null;
@@ -160,6 +161,7 @@ namespace Bloomlings.Client.Meta.DailyReward
         /// </summary>
         public int Claim(int number, bool adWatched = false)
         {
+            if (_economy.IsAuthoritative) { _economy.Authority!.RequestDaily(number); return 0; }
             DailyRewardStep? next = NextStep;
             if (!IsUnlocked || next == null || next.Value.Number != number || (next.Value.Ad && !adWatched))
             {
@@ -185,7 +187,7 @@ namespace Bloomlings.Client.Meta.DailyReward
         /// <summary>The whole minutes until today's steps give way to the next day's (the card's caption).</summary>
         public int MinutesToNextDay => DailyDates.MinutesToNextDay(_clock.UtcNow);
 
-        private string Today => DailyDates.Format(_clock.UtcToday);
+        private string Today => _economy.IsAuthoritative ? _economy.Authority!.UtcDay ?? _save.Daily.RewardLastClaimUtcDate ?? DailyDates.Format(_clock.UtcToday) : DailyDates.Format(_clock.UtcToday);
     }
 
     /// <summary>The <c>yyyy-MM-dd</c> UTC dates of the save's <c>daily</c> section.</summary>

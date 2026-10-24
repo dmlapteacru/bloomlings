@@ -42,7 +42,7 @@ namespace Bloomlings.Playtest.Design
                 // Register the cell before its purchase button: the nested button takes precedence.
                 if(cell.Within(r.Area))p.Hit(cell,()=>{browse.TryOn(wardrobe,item);app.Sound.Play(SoundCue.Click);});
                 if(card.State==WardrobeItemState.ForSale)
-                    ProfileGamePainter.Price(p,action,NumberText.Group(item!.Price),WardrobeShelfDesign.PurchaseTouch(cell).Within(r.Area)?()=>Buy(app,browse.Family,browse.Kind,card):(Action?)null,touch:WardrobeShelfDesign.PurchaseTouch(cell));
+                    ProfileGamePainter.Price(p,action,NumberText.Group(app.Meta.Wardrobe.PriceOf(item!)),WardrobeShelfDesign.PurchaseTouch(cell).Within(r.Area)?()=>Buy(app,browse.Family,browse.Kind,card):(Action?)null,touch:WardrobeShelfDesign.PurchaseTouch(cell));
                 if((card.State==WardrobeItemState.Reward||card.State==WardrobeItemState.LevelLocked)&&action.Within(r.Safe))
                 {
                     Skin(p,MetaScreenArt.Tag,action);
@@ -99,10 +99,10 @@ namespace Bloomlings.Playtest.Design
             var wardrobe=app.Meta.Wardrobe;CosmeticItem? item=card.Item;if(item==null||!wardrobe.IsBuyable(item))return;
             app.WardrobeBrowse.TryOn(wardrobe,item);
             void Refuse(){app.Sound.Play(SoundCue.Refused);app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));}
-            if(app.Meta.Economy.Petals<item.Price){Refuse();return;}
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),
+            if(app.Meta.Economy.Petals<wardrobe.PriceOf(item)){Refuse();return;}
+            app.ConfirmPurchase(PurchaseOffer.ForItem(MetaCards.ItemName(item),wardrobe.PriceOf(item),item.Id),
                 (q,well)=>Preview(q,well,family,WardrobeShelfCatalog.Preview(wardrobe.OutfitOf(family),kind,item)),
-                ()=>{if(wardrobe.TryBuy(item.Id)){app.WardrobeBrowse.ResetPreview();wardrobe.Equip(family,item.Id);}else Refuse();});
+                ()=>{if(wardrobe.TryBuy(item.Id)){app.WardrobeBrowse.ResetPreview();wardrobe.Equip(family,item.Id);return true;}Refuse();return false;}, onPurchased: ()=>{app.WardrobeBrowse.ResetPreview();wardrobe.Equip(family,item.Id);});
         }
         private static void Locked(IPainter p,DesignApp app,HomeLook look)
         {

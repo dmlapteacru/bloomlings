@@ -48,6 +48,7 @@ namespace Bloomlings.Client.Services.Economy.Online
         private readonly Dictionary<string, EconomyItemPrice> _items = new Dictionary<string, EconomyItemPrice>(StringComparer.Ordinal);
         private readonly Dictionary<string, EconomyBoosterPrice> _boosters = new Dictionary<string, EconomyBoosterPrice>(StringComparer.Ordinal);
         public string Version { get; }
+        public System.Collections.Generic.IEnumerable<EconomyItemPrice> Items => _items.Values;
         public EconomyCatalog(JObject json)
         {
             JsonDoc.AllowOnly(json, "catalog", "version", "cosmetics", "boosters");
@@ -112,6 +113,12 @@ namespace Bloomlings.Client.Services.Economy.Online
             EconomyProtocol.Day(json["challengeDate"]); EconomyProtocol.Day(json["boosterAdDate"]);
             _json = (JObject)json.DeepClone();
         }
+        public string? DailyDate => (string?)_json["daily"]!["date"];
+        public int DailyStep => (int)_json["daily"]!["step"]!;
+        public string? ChallengeDate => (string?)_json["challengeDate"];
+        public string? BoosterAdDate => (string?)_json["boosterAdDate"];
+        public bool HasMilestone(int level) { foreach (JToken n in (JArray)_json["milestones"]!) if ((int)n == level) return true; return false; }
+        public System.Collections.Generic.IEnumerable<string> OwnedIds => _owned;
         public bool Owns(string item) => _owned.Contains(item);
         public int Charges(string kind) => EconomyProtocol.Boosters.Contains(kind) ? (int)_json["boosters"]![kind]! : 0;
         internal JObject ToJson() => (JObject)_json.DeepClone();
@@ -127,9 +134,11 @@ namespace Bloomlings.Client.Services.Economy.Online
         public EconomySnapshot? State { get; }
         public EconomyCatalog? Catalog { get; }
         public string? CatalogVersion { get; }
+        public string? ServerUtcDate { get; }
         public EconomyReply(JObject json)
         {
-            JsonDoc.AllowOnly(json, "reply", "ok", "code", "consumed", "retryable", "replayed", "effects", "state", "nextSequence", "catalogVersion", "catalog");
+            JsonDoc.AllowOnly(json, "reply", "ok", "code", "consumed", "retryable", "replayed", "effects", "state", "nextSequence", "catalogVersion", "catalog", "serverUtcDate");
+            if (json["serverUtcDate"] != null) { EconomyProtocol.Day(json["serverUtcDate"]); ServerUtcDate = (string?)json["serverUtcDate"]; }
             Ok = EconomyProtocol.Bool(json["ok"]); Code = EconomyProtocol.Id(json["code"]);
             Consumed = EconomyProtocol.Bool(json["consumed"]); Retryable = EconomyProtocol.Bool(json["retryable"]);
             EconomyProtocol.Require(!Consumed || !Retryable, "ambiguous acknowledgement");

@@ -95,6 +95,7 @@ namespace Bloomlings.Client.Meta.DailyChallenge
         /// </summary>
         public int Complete(LevelAttempt attempt)
         {
+            if (_economy.IsAuthoritative) return 0; // verified replay must authorize the server reward
             string? date = attempt.DailyUtcDate;
             if (date == null || string.CompareOrdinal(date, _save.Daily.ChallengeLastCompletedUtcDate ?? string.Empty) <= 0)
             {

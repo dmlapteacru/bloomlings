@@ -14,16 +14,19 @@ price override, arbitrary grant, currency adjustment, refund or public initializ
 
 | kind | Operation-specific fields | Result |
 |---|---|---|
+| `cancel_purchase` | `purchaseJson` (exact original paid operation string, same installation/sequence) | Atomic cancellation tombstone; returns the committed purchase if it already won. Never refunds or rewinds sequence. |
 | `buy_cosmetic` | `itemId` | Server catalog price/level eligibility; includes wardrobe items, avatars and bought clearing styles. Already owned/free/milestone-only/retired/default duplicates cannot be bought again. |
 | `buy_booster` | `boosterKind` | Server pack price and quantity: three basic charges or one Bloom Burst. |
 | `consume_booster` | `boosterKind`, optional `autoBuy` boolean | Spend one charge. Explicit `autoBuy:true` may buy the pack and consume one charge atomically if empty. Client must obtain purchase consent first. |
 | `claim_level` | `level`, `ticketId` | Sequential verified completion. Server calculates normal/clean/hard rewards, unlock charges and regular booster drops. |
 | `claim_milestone` | `level` | Completed eligible milestone, largest cadence, current server inventory and charge counts; claimed once permanently. |
-| `claim_daily` | `step`, optional `ticketId` | Five ordered steps on the server UTC date; steps 2, 3, 5 require a verified ad ticket. |
+| `claim_daily` | `step`, `date`, optional `ticketId` | Five ordered steps on the server UTC date; steps 2, 3, 5 require a verified ad ticket. |
 | `claim_challenge` | `ticketId` | Verified Daily Challenge: current reward 50 Petals. A verified earlier puzzle may finish offline/overnight; dates only move forward, matching the existing client. |
-| `claim_booster_ad` | `ticketId` | Verified daily free-booster ad, once per server day; one of the first three unlocked boosters with fewest charges. |
+| `claim_booster_ad` | `ticketId`, `date` | Verified daily free-booster ad, once per server day; one of the first three unlocked boosters with fewest charges. |
 
 `boosterKind`: `extraSlot`, `shuffle`, `return`, `bloomBurst`.
+
+`read` also returns `serverUtcDate`. Daily/ad requests bind that day in `date`; a stale queued request is consumed with `reward-date-expired`, never turned into the next day’s reward. Cancellation is independent of catalog price changes and supports replay of the original request after a cancellation wins (and vice versa).
 
 Every operation also carries `installationId`, positive safe-integer `sequence` and `catalogVersion`. IDs are bounded
 ASCII identifiers. Unknown fields, unsafe numbers and prototype keys are rejected. An installation ID is a correlation

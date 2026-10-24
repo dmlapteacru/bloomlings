@@ -214,12 +214,11 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), price), (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)), () =>
+            app.ConfirmPurchase(PurchaseOffer.ForBooster(PlaytestText.F("store.booster_quantity", EndCards.BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind)), price, kind.ToString()), (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)), () =>
             {
-                if (!app.Meta.Economy.TryBuy(kind))
-                {
-                    Refuse(app);
-                }
+                bool bought = app.Meta.Economy.TryBuy(kind);
+                if (!bought) Refuse(app);
+                return bought;
             });
         }
 
@@ -340,7 +339,7 @@ namespace Bloomlings.Playtest.Design
                 string name=item==null ? PlaytestText.T("wardrobe.default") : MetaCards.ItemName(item);
                 Action? tap=item==null ? ()=>wardrobe.UnequipAll(family) : ()=>BuyCosmetic(app,family,item);
                 var action=item==null||wardrobe.Owns(item) ? chosen ? ClearingAction.Chosen : ClearingAction.Choose : ClearingAction.Buy;
-                ShopCatalogPainter.Card(p,card,area,true,false,name,action,item?.Price??0,chosen,item?.Free==true,tap,well=>Preview(p,well,family,item),item==null ? PlaytestText.T(chosen ? "clearing.chosen" : "wardrobe.default") : item.Free&&chosen ? PlaytestText.T("wardrobe.remove") : null);
+                ShopCatalogPainter.Card(p,card,area,true,false,name,action,item==null?0:app.Meta.Wardrobe.PriceOf(item),chosen,item?.Free==true,tap,well=>Preview(p,well,family,item),item==null ? PlaytestText.T(chosen ? "clearing.chosen" : "wardrobe.default") : item.Free&&chosen ? PlaytestText.T("wardrobe.remove") : null);
             }
             p.PopClip();
             p.VerticalScroll(viewport,dy=>app.ShopScrollOffset=Math.Max(0,Math.Min(max,app.ShopScrollOffset-dy)));
@@ -358,8 +357,8 @@ namespace Bloomlings.Playtest.Design
                 if(app.Meta.Wardrobe.EquippedFor(family,item.Kind)?.Id==item.Id)app.Meta.Wardrobe.Unequip(family,item.Kind);else app.Meta.Wardrobe.Equip(family,item.Id);
                 return;
             }
-            if(app.Meta.Economy.Petals<item.Price){Refuse(app);return;}
-            app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item),item.Price),(q,well)=>Preview(q,well,family,item),()=>{if(!app.Meta.Wardrobe.TryBuy(item.Id))Refuse(app);});
+            if(app.Meta.Economy.Petals<app.Meta.Wardrobe.PriceOf(item)){Refuse(app);return;}
+            app.ConfirmPurchase(PurchaseOffer.ForItem(MetaCards.ItemName(item),app.Meta.Wardrobe.PriceOf(item),item.Id),(q,well)=>Preview(q,well,family,item),()=>{bool bought=app.Meta.Wardrobe.TryBuy(item.Id);if(!bought)Refuse(app);return bought;});
         }
 
         /// <summary>
@@ -407,7 +406,7 @@ namespace Bloomlings.Playtest.Design
             ClearingService clearing = app.Meta.Clearing;
             if (clearing.Check(style, app.Meta.CurrentLevel) == ClearingTap.Bought)
             {
-                app.ConfirmPurchase(PurchaseOffer.ForPetals(name, clearing.PriceOf(style)), (q, well) => Kit.ClearingPreview(q, well, style), () => Tapped(app, clearing.Tap(style, app.Meta.CurrentLevel)));
+                app.ConfirmPurchase(PurchaseOffer.ForItem(name, clearing.PriceOf(style), ClearStyles.Id(style)), (q, well) => Kit.ClearingPreview(q, well, style), () => { var result = clearing.Tap(style, app.Meta.CurrentLevel); Tapped(app, result); return result == ClearingTap.Bought; }, onPurchased: () => clearing.Tap(style, app.Meta.CurrentLevel));
                 return;
             }
 

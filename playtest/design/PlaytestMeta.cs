@@ -10,6 +10,7 @@ using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.Services.Economy.Online;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
@@ -17,7 +18,7 @@ using Bloomlings.Core.Progression;
 namespace Bloomlings.Playtest
 {
     /// <summary>What a win paid, for the win card.</summary>
-    public sealed record WinPayout(LevelReward? Reward, MilestoneGrant? Milestone);
+    public sealed record WinPayout(LevelReward? Reward, MilestoneGrant? Milestone, bool PendingVerification = false);
 
     /// <summary>
     /// The playtest's meta layer on the Unity client's engine-free services (linked, not copied):
@@ -36,19 +37,25 @@ namespace Bloomlings.Playtest
     public sealed class PlaytestMeta
     {
         private readonly SaveService _saves;
+        private readonly GuestWinArchive _guestWins;
 
         public PlaytestMeta(string dataFolder)
             : this(dataFolder, new SystemClock())
         {
         }
 
-        public PlaytestMeta(string dataFolder, IClock clock)
+        public PlaytestMeta(string dataFolder, IClock clock, IAuthoritativeEconomy? authority = null)
         {
             _saves = new SaveService(Path.Combine(dataFolder, SaveService.FolderName), clock);
             Save = _saves.Load();
+            _guestWins = new GuestWinArchive(Path.Combine(dataFolder, SaveService.FolderName, "guest-wins"));
             FirstLaunch = _saves.IsFirstLaunch;
+            if (Save.ServerEconomyOwnerId != null && authority == null)
+                throw new InvalidOperationException("An authoritative profile requires its server economy adapter.");
+            Authority = authority;
+            authority?.Bind(Save, _saves.Save);
             var config = new BundledRemoteConfigService();
-            Economy = new EconomyService(Save, EconomyConfig.Bundled, _saves.Save);
+            Economy = new EconomyService(Save, EconomyConfig.Bundled, _saves.Save, authority);
             Milestones = new MilestoneService(Save, MilestoneTable.Default, Economy, _saves.Save);
             DailyReward = new DailyRewardService(Save, clock, config, Economy, _saves.Save);
             Collection = new CollectionService(Save, _saves.Save);
@@ -79,6 +86,8 @@ namespace Bloomlings.Playtest
 
         public EconomyService Economy { get; }
 
+        public IAuthoritativeEconomy? Authority { get; }
+
         public MilestoneService Milestones { get; }
 
         public DailyRewardService DailyReward { get; }
@@ -100,10 +109,17 @@ namespace Bloomlings.Playtest
         /// <summary>Records a win of the current level and pays it; null when the level was not the current one.</summary>
         /// <param name="definition">The level played: its finished picture joins the Collection (FR-065).</param>
         public WinPayout? CompleteLevel(int level, DifficultyClass difficulty, int boostersUsed, LevelDefinition? definition = null,
-            BasePicture? picture = null, AchievementAttempt? achievements = null)
+            BasePicture? picture = null, AchievementAttempt? achievements = null, string? evidenceJson = null)
         {
             NewUnlocks.Clear();
             if (level != Progression.CurrentLevel) return null;
+            // Preserve the accepted replay BEFORE local progression commits. Evidence alone never authorizes currency.
+            if (Authority != null)
+            {
+                if (evidenceJson == null || WinEvidence.Read(evidenceJson).Level != level) throw new InvalidOperationException("Server-mode wins require durable replay evidence.");
+                Authority.RecordWin("level:" + level.ToString(System.Globalization.CultureInfo.InvariantCulture), level, evidenceJson);
+            }
+            else if (evidenceJson != null && level <= 2500) _guestWins.Store(WinEvidence.Read(evidenceJson));
             using var saveBatch = _saves.Batch();
             if (definition != null && picture != null && achievements != null)
                 achievements.RecordWin(Save, level, definition, picture, boostersUsed);
@@ -119,7 +135,8 @@ namespace Bloomlings.Playtest
 
             LevelReward reward = Economy.GrantLevelReward(level, difficulty, boostersUsed);
             MilestoneGrant? grant = Milestones.LastGrant != null && Milestones.LastGrant.Level == level ? Milestones.LastGrant : null;
-            return new WinPayout(reward, grant);
+            Authority?.Synchronize();
+            return new WinPayout(Authority == null ? reward : null, grant, Authority != null);
         }
 
         public bool HasSeenDemo(string id) => Progression.HasSeenDemo(id);
@@ -131,6 +148,7 @@ namespace Bloomlings.Playtest
         /// <summary>Tester control: completes levels up to <paramref name="highestCompleted"/>, with their unlocks and rewards.</summary>
         public void SkipTo(int highestCompleted)
         {
+            if (Authority != null) return;
             NewUnlocks.Clear();
             Progression.FastForward(highestCompleted);
         }
@@ -138,6 +156,7 @@ namespace Bloomlings.Playtest
         /// <summary>Tester control: one level back (unlocks and Petals stay).</summary>
         public void StepBack()
         {
+            if (Authority != null) return;
             if (Save.Progression.HighestCompletedLevel > 0)
             {
                 Save.Progression.HighestCompletedLevel--;
@@ -149,8 +168,12 @@ namespace Bloomlings.Playtest
         public static PlaytestMeta ResetProfile(string dataFolder)
         {
             string folder = Path.Combine(dataFolder, SaveService.FolderName);
+            if (File.Exists(Path.Combine(folder, SaveService.AuthoritySealName)))
+                throw new InvalidOperationException("Account profiles require an explicit account transition, not tester reset.");
             if (Directory.Exists(folder))
             {
+                var existing = new SaveService(folder, new SystemClock()).Load();
+                if (existing.ServerEconomyOwnerId != null) throw new InvalidOperationException("Cannot reset a server profile as a guest.");
                 Directory.Delete(folder, recursive: true);
             }
 

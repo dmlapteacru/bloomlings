@@ -20,6 +20,9 @@ namespace Bloomlings.Client.Tests
             Assert.That(AssetSlots.All.Select(s => s.Id).Distinct().Count(), Is.EqualTo(AssetSlots.All.Count));
             string fixtures=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","playtest","preview","Fixtures.cs"));
             var knownFrames=Regex.Matches(File.ReadAllText(fixtures),@"new Fixture\((\d+)").Cast<Match>().Select(m=>int.Parse(m.Groups[1].Value)).ToHashSet();
+            // Account/purchase state fixtures are generated from explicit (frame, slug, state) tables.
+            foreach (Match entry in Regex.Matches(File.ReadAllText(fixtures), @"\((\d+),\s*""[a-z0-9-]+"",\s*(?:AccountSaveState|PurchaseStage)\."))
+                knownFrames.Add(int.Parse(entry.Groups[1].Value));
             Assert.That(knownFrames,Is.Not.Empty);
             foreach (AssetSlot slot in AssetSlots.All)
             {

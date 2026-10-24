@@ -148,7 +148,7 @@ namespace Bloomlings.Client.Services.Economy.Online
                     string rewardId = EconomyProtocol.Id(entry["rewardId"]);
                     EconomyProtocol.Require(((JObject)data["rewards"]!)[rewardId] is JObject, "queue references unknown reward");
                 }
-                foreach (JToken old in EconomyProtocol.Array(entry["alternatives"], 4))
+                foreach (JToken old in EconomyProtocol.Array(entry["alternatives"], 5))
                 {
                     JObject alternative = JsonDoc.ParseObject(old.Value<string>()!, "prior operation");
                     EconomyProtocol.Require((long?)alternative["sequence"] == sequence && (string?)alternative["installationId"] == installation, "invalid prior operation");
