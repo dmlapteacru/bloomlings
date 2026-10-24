@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "htmlSHA256": "38e61db41df23499d370568fb1c9995cb0b7cece45e71145c5873d0aed034bda",
+  "domWinningPlaythroughs": 30,
+  "responsiveLayouts": 36,
+  "checkpointReloads": 2,
+  "noExternalRequests": true,
+  "noBrowserErrors": true,
+  "exportReplayed": true,
+  "dispatchCountsAndReleaseTimesVerified": true,
+  "releasesBeforeReturnObserved": true,
+  "depthRevealsVerified": 8,
+  "visibleRowsChecked": true,
+  "mysteryCardsSeen": 81,
+  "autoTailAtTailSpeed": 30,
+  "noPortraitsOrSymbolsInNormalPalette": true,
+  "hiddenCheckpointReloads": 1,
+  "limits": [
+    "Browser clock accelerated for QA; these are not human playtest timings."
+  ]
+}

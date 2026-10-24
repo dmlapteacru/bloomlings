@@ -1,0 +1,257 @@
+{
+  "passed": true,
+  "botGates": [
+    {
+      "id": 5,
+      "role": "normal",
+      "random": 0.43666666666666665,
+      "visible": 0.71,
+      "patternWins": 2,
+      "sensibleWins": 2
+    },
+    {
+      "id": 6,
+      "role": "relief",
+      "random": 0.6966666666666667,
+      "visible": 1,
+      "patternWins": 6,
+      "sensibleWins": 4
+    },
+    {
+      "id": 7,
+      "role": "normal",
+      "random": 0.43666666666666665,
+      "visible": 0.75,
+      "patternWins": 1,
+      "sensibleWins": 2
+    },
+    {
+      "id": 8,
+      "role": "task",
+      "random": 0.24,
+      "visible": 0.56,
+      "patternWins": 2,
+      "sensibleWins": 1
+    },
+    {
+      "id": 9,
+      "role": "normal",
+      "random": 0.42333333333333334,
+      "visible": 0.95,
+      "patternWins": 3,
+      "sensibleWins": 3
+    },
+    {
+      "id": 10,
+      "role": "superHard",
+      "random": 0.07333333333333333,
+      "visible": 0.33666666666666667,
+      "patternWins": 0,
+      "sensibleWins": 0
+    },
+    {
+      "id": 11,
+      "role": "relief",
+      "random": 0.8033333333333333,
+      "visible": 1,
+      "patternWins": 5,
+      "sensibleWins": 4
+    },
+    {
+      "id": 12,
+      "role": "normal",
+      "random": 0.5333333333333333,
+      "visible": 0.7933333333333333,
+      "patternWins": 3,
+      "sensibleWins": 3
+    },
+    {
+      "id": 13,
+      "role": "normal",
+      "random": 0.5966666666666667,
+      "visible": 0.8866666666666667,
+      "patternWins": 4,
+      "sensibleWins": 2
+    },
+    {
+      "id": 14,
+      "role": "task",
+      "random": 0.33,
+      "visible": 0.44333333333333336,
+      "patternWins": 1,
+      "sensibleWins": 2
+    },
+    {
+      "id": 15,
+      "role": "hard",
+      "random": 0.13,
+      "visible": 0.41333333333333333,
+      "patternWins": 0,
+      "sensibleWins": 2
+    },
+    {
+      "id": 16,
+      "role": "relief",
+      "random": 0.6333333333333333,
+      "visible": 0.89,
+      "patternWins": 2,
+      "sensibleWins": 4
+    },
+    {
+      "id": 17,
+      "role": "normal",
+      "random": 0.3433333333333333,
+      "visible": 0.78,
+      "patternWins": 1,
+      "sensibleWins": 2
+    },
+    {
+      "id": 18,
+      "role": "task",
+      "random": 0.21333333333333335,
+      "visible": 0.6066666666666667,
+      "patternWins": 1,
+      "sensibleWins": 2
+    },
+    {
+      "id": 19,
+      "role": "normal",
+      "random": 0.4,
+      "visible": 0.7233333333333334,
+      "patternWins": 2,
+      "sensibleWins": 3
+    },
+    {
+      "id": 20,
+      "role": "task",
+      "random": 0.3,
+      "visible": 0.6966666666666667,
+      "patternWins": 1,
+      "sensibleWins": 0
+    },
+    {
+      "id": 21,
+      "role": "normal",
+      "random": 0.49333333333333335,
+      "visible": 0.71,
+      "patternWins": 1,
+      "sensibleWins": 1
+    },
+    {
+      "id": 22,
+      "role": "superHard",
+      "random": 0.07,
+      "visible": 0.45666666666666667,
+      "patternWins": 1,
+      "sensibleWins": 1
+    },
+    {
+      "id": 23,
+      "role": "relief",
+      "random": 0.77,
+      "visible": 1,
+      "patternWins": 3,
+      "sensibleWins": 4
+    },
+    {
+      "id": 24,
+      "role": "task",
+      "random": 0.18333333333333332,
+      "visible": 0.51,
+      "patternWins": 0,
+      "sensibleWins": 1
+    },
+    {
+      "id": 25,
+      "role": "hard",
+      "random": 0.18333333333333332,
+      "visible": 0.4633333333333333,
+      "patternWins": 1,
+      "sensibleWins": 1
+    },
+    {
+      "id": 26,
+      "role": "normal",
+      "random": 0.42,
+      "visible": 0.8933333333333333,
+      "patternWins": 4,
+      "sensibleWins": 3
+    },
+    {
+      "id": 27,
+      "role": "task",
+      "random": 0.42,
+      "visible": 0.44666666666666666,
+      "patternWins": 3,
+      "sensibleWins": 1
+    },
+    {
+      "id": 28,
+      "role": "relief",
+      "random": 0.8,
+      "visible": 1,
+      "patternWins": 4,
+      "sensibleWins": 4
+    },
+    {
+      "id": 29,
+      "role": "superHard",
+      "random": 0.14,
+      "visible": 0.12,
+      "patternWins": 0,
+      "sensibleWins": 0
+    },
+    {
+      "id": 30,
+      "role": "normal",
+      "random": 0.5966666666666667,
+      "visible": 0.7666666666666667,
+      "patternWins": 4,
+      "sensibleWins": 3
+    }
+  ],
+  "patternShare": {
+    "колонка справа до конца": 10,
+    "самое большое число": 10,
+    "колонка слева до конца": 9,
+    "ряд слева направо": 3,
+    "ряд справа налево": 5,
+    "змейка": 2,
+    "середина, потом края": 6,
+    "по две из колонки": 4,
+    "самое маленькое число": 6
+  },
+  "hardPatternShare": {
+    "ряд слева направо": 1,
+    "самое маленькое число": 1
+  },
+  "catalogHash": "b0ff28eb1eb8fc16290ee5d036cd48b4b2585818a33c1451e37d05af66761874",
+  "winningRoutes": 30,
+  "acceptedCertificateActions": 699,
+  "visibleHorizonPlannerRoutes": 30,
+  "plannerLeakChecks": 257,
+  "mysteryLevels": 5,
+  "visibleRows": 4,
+  "autoTail": {
+    "departureGap": 0,
+    "speed": 4,
+    "when": "queue-empty-and-no-bridge-to-choose"
+  },
+  "concurrentRandomRuns": 240,
+  "liveClears": 100747,
+  "restoredCheckpoints": 1257,
+  "frameInvarianceChecks": 1,
+  "slotReusedBeforeArrival": true,
+  "sameColourParallelDispatch": true,
+  "pairReleaseAtomic": true,
+  "fullWorkingRowSurvives": true,
+  "conservation": true,
+  "sealedAdmissionAndCheckpointVerified": true,
+  "rejectedPairKeepsSecrets": true,
+  "legacyDepthRevealPreserved": true,
+  "guessOnlyPuzzleRejected": true,
+  "limits": [
+    "Winning certificates use idle decisions. They do not cover all possible real-time choices.",
+    "Policy rates are not human difficulty. No native Core equivalence claim."
+  ]
+}

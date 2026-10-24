@@ -109,7 +109,8 @@ export const SCENES={
    {shape:ellipse(13.5,11.2,8.3,1.2),color:'A',outline:false},
    {shape:ring(13.5,18.4,2.8,5,2),color:'P',outline:false},{shape:circle(13.5,18.4,1.4),color:'Y',outline:false},
    ...dots([[7,15.6],[20,15.6],[7,21],[20,21]],1,'P'),
-   {shape:mask(box(13.5,24.6,9.2,.6),(x)=>x%2===0),color:'R',outline:false}]};}},
+   {shape:mask(box(13.5,24.6,9.2,.6),(x)=>x%2===0),color:'R',outline:false},
+   ...[[26,24.4,-.6],[27.6,23.4,.4]].map(([x,y,a])=>({shape:leaf(x,y,3.4,1.2,a),color:'M',outline:false}))]};}},
  9:{title:'Письмо с печатью',draw(W,H,ok){
   return {background:layer((x,y)=>(y%6===5?'D':(x+Math.floor(y/6)*5)%13===0?'O':'A')),parts:[
    {shape:seg(3,25.5,9,19.5,1.1),color:'Y',light:'C',shade:'O',flat:true,group:'pencil'},{shape:seg(2.2,26.3,3,25.5,1),color:'K',group:'pencil'},
@@ -140,7 +141,7 @@ export const SCENES={
    {shape:union(ellipse(13,13.8,10.2,7.4),box(13,17.4,10,1.6,1)),color:'M',light:'G',sphere:[10.6,11,11.6],group:'shell'},
    {shape:mask(ellipse(13,13.4,8.4,6),(x,y)=>(x%4===1)||(y%3===0)),color:'G',outline:false},
    {shape:ellipse(13,18.8,10,.8),color:'Y',outline:false},
-   {shape:ellipse(19,23.6,2,1),color:'G',outline:false},...daisy(18,23,'P','Y',.7),...daisy(2.5,23.4,'Y','O',.8)]};}},
+   {shape:ellipse(19,23.6,2,1),color:'G',outline:false},...daisy(18,23,'P','Y',.7),...daisy(2.5,23.4,'V','Y',.9),...daisy(22.5,22.6,'V','Y',.8)]};}},
  12:{title:'Сова ночью',draw(W,H,ok){
   const moon=cut(circle(23,5,3.4),circle(24.6,4,3));
   return {background:layer(nightBg([[2,3],[6,7],[10,2],[15,4],[27,10],[1,12],[26,15],[3,20],[19,2],[13,9]])),parts:[{shape:moon,color:'C',outline:false},
@@ -321,6 +322,7 @@ export const SCENES={
    ...[[18,17.6,-.9],[19.6,17,-.3]].map(([x,y,a])=>({shape:leaf(x,y,3.6,1.1,a),color:'G',outline:false})),
    ...daisy(3,26,'Y','O',.8),...daisy(25,27,'P','Y',.8)]};}},
 };
+export const ACCESS='frame';
 // Bridge levels: the stream wall, the divider above it, and the bridge sites (cell on the wall, anchor below it).
 function streamLayout(id,W,H){const wall=H-6,mid=Math.floor(W/2),n=BRIDGES[id],xs=n===1?[Math.round(W*.25)]:[Math.round(W*.25),Math.round(W*.75)];
  const walls=new Set();for(let x=0;x<W;x++)walls.add(wall*W+x);for(let y=wall-3;y<wall;y++)for(const x of [mid-1,mid])walls.add(y*W+x);
@@ -342,4 +344,10 @@ export function sceneLevel(id){const s=SCENES[id];if(!s)return null;const [w0,h0
   // The near bank (below the wall) is grass with a few flowers, as in v8.
   for(let y=H-5;y<H;y++)for(let x=0;x<W;x++)col[y][x]=y===H-1&&ok('M')?'M':((x*7+y*3)%13===0?'Y':'G');}
  const used=new Set(col.flat());for(const c of used)if(c!=='#'&&c!=='.'&&!allowed.includes(c))throw Error(`L${id} uses ${c} before it is introduced`);
- return {title:s.title,w:W,h:H,rowsBottomFirst:rows(col).reverse(),entries:[Math.floor(W/2)],...(hero?{hero}:{})};}
+ // Entries: the whole frame, as in Colony Flow (the ants run round the board and eat from the outside in). On a bridge
+ // level only the near bank's frame, below the stream, so the far side still needs Sprig's bridge.
+ const entries=[],wallRow=s.bridge?H-6:-1;
+ const access=process.env.V8E_ACCESS||ACCESS;
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){if(col[y][x]==='#'||y<=wallRow)continue;
+  const ok=access==='frame'?(x===0||y===0||x===W-1||y===H-1):access==='bottom'?y===H-1:(y===H-1&&x===Math.floor(W/2));if(ok)entries.push((H-1-y)*W+x);}
+ return {title:s.title,w:W,h:H,rowsBottomFirst:rows(col).reverse(),entries:entries.sort((a,b)=>a-b),...(hero?{hero}:{})};}
