@@ -1,23 +1,23 @@
 [
   {
     "level": 1,
-    "serialReferenceSeconds": 67.825
+    "serialReferenceSeconds": 41.05
   },
   {
     "level": 2,
-    "serialReferenceSeconds": 91
+    "serialReferenceSeconds": 51.5
   },
   {
     "level": 3,
-    "serialReferenceSeconds": 76.4
+    "serialReferenceSeconds": 72.15
   },
   {
     "level": 4,
-    "serialReferenceSeconds": 181.6
+    "serialReferenceSeconds": 180.275
   },
   {
     "level": 5,
-    "serialReferenceSeconds": 98.65
+    "serialReferenceSeconds": 138.8
   },
   {
     "level": 6,
@@ -33,19 +33,19 @@
   },
   {
     "level": 9,
-    "serialReferenceSeconds": 227.575
+    "serialReferenceSeconds": 227.875
   },
   {
     "level": 10,
-    "serialReferenceSeconds": 590.85
+    "serialReferenceSeconds": 537.4
   },
   {
     "level": 11,
-    "serialReferenceSeconds": 146.4
+    "serialReferenceSeconds": 100.025
   },
   {
     "level": 12,
-    "serialReferenceSeconds": 275.7
+    "serialReferenceSeconds": 273.6
   },
   {
     "level": 13,
@@ -53,23 +53,23 @@
   },
   {
     "level": 14,
-    "serialReferenceSeconds": 303.05
+    "serialReferenceSeconds": 300.625
   },
   {
     "level": 15,
-    "serialReferenceSeconds": 515.9
+    "serialReferenceSeconds": 514.5
   },
   {
     "level": 16,
-    "serialReferenceSeconds": 83
+    "serialReferenceSeconds": 68.875
   },
   {
     "level": 17,
-    "serialReferenceSeconds": 325.95
+    "serialReferenceSeconds": 374.35
   },
   {
     "level": 18,
-    "serialReferenceSeconds": 282.225
+    "serialReferenceSeconds": 293.7
   },
   {
     "level": 19,
@@ -77,7 +77,7 @@
   },
   {
     "level": 20,
-    "serialReferenceSeconds": 442.825
+    "serialReferenceSeconds": 439.5
   },
   {
     "level": 21,
@@ -85,27 +85,27 @@
   },
   {
     "level": 22,
-    "serialReferenceSeconds": 740.275
+    "serialReferenceSeconds": 653.15
   },
   {
     "level": 23,
-    "serialReferenceSeconds": 97.1
+    "serialReferenceSeconds": 95.3
   },
   {
     "level": 24,
-    "serialReferenceSeconds": 371.7
+    "serialReferenceSeconds": 372.725
   },
   {
     "level": 25,
-    "serialReferenceSeconds": 453.15
+    "serialReferenceSeconds": 438.925
   },
   {
     "level": 26,
-    "serialReferenceSeconds": 244.3
+    "serialReferenceSeconds": 253.15
   },
   {
     "level": 27,
-    "serialReferenceSeconds": 295.275
+    "serialReferenceSeconds": 330.8
   },
   {
     "level": 28,
@@ -113,10 +113,10 @@
   },
   {
     "level": 29,
-    "serialReferenceSeconds": 778.325
+    "serialReferenceSeconds": 462.325
   },
   {
     "level": 30,
-    "serialReferenceSeconds": 163.825
+    "serialReferenceSeconds": 159.125
   }
 ]

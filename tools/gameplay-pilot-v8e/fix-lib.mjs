@@ -2,7 +2,8 @@
 import R from './rules.cjs';import T from './timeline.cjs';const {Timeline}=T;import {playPlanner,ROWS,FULL_ROWS} from './horizon.mjs';
 // How many "?" capsules each level gets.
 // v8E: rare on Normal (CF ~11%), more on the hard levels (CF ~20-24%); L10 is the "?" Super Hard, like Colony Flow's L10.
-export const MYSTERY={6:1,10:3,19:1,25:2,30:1};
+// L10: five since the v8E playtest (the owner: "more unknowns").
+export const MYSTERY={6:1,10:5,19:1,25:2,30:1};
 // Planner settings tried in order; the first that wins is recorded in the certificate.
 export const PLANNERS=[{rows:ROWS,depth:4,weight:12},{rows:ROWS,depth:8,weight:12},{rows:ROWS,depth:6,weight:30}];
 // A key "?" reveals in the middle of the level; any other "?" neither at its very start nor at its very end.
@@ -30,7 +31,10 @@ export function withMysteries(level,k,{tries=60}={}){
  const candidates=level.pods.map((p,i)=>i).filter(p=>depthOf(p)>=FULL_ROWS).sort((a,b)=>isKey(level,b)-isKey(level,a)||level.pods[b].count-level.pods[a].count||a-b);
  let tried=0;
  for(const set of combos(candidates.slice(0,18),k)){
-  if(!set.some(p=>isKey(level,p))||new Set(set.map(columnOf)).size!==k)continue;if(++tried>tries)break;
+  // One "?" per column while there are columns enough; more than that (L10's five on four columns since the v8E
+  // playtest) at most two in a column, at least three capsules apart.
+  const cols=set.map(columnOf),spread=k<=level.tray.length?new Set(cols).size===k:set.every((p,i)=>cols.filter(c=>c===cols[i]).length<=2&&set.every((q,j)=>j===i||cols[j]!==cols[i]||Math.abs(depthOf(p)-depthOf(q))>=3));
+  if(!set.some(p=>isKey(level,p))||!spread)continue;if(++tried>tries)break;
   const candidate={...level,pods:level.pods.map((p,i)=>set.includes(i)?{...p,mystery:'depth'}:p)};if(R.validate(candidate).length)continue;
   const won=planner(candidate);if(!won)continue;const list=reveals(candidate,won.actions);
   if(!list||list.length!==k||!revealsFit(level,list))continue;

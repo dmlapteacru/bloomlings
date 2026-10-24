@@ -49,7 +49,7 @@ const tailFixture={...base,rowsBottomFirst:['GGGGGGG',...Array(7).fill('.......'
 t=new Timeline(R.create(tailFixture));t.commit({type:'tap',pod:0});assert(!t.tail);assert.equal(t.jobs.size,1,'Gap kept while the queue has capsules');drain(t);
 t=new Timeline(R.create({...tailFixture,tray:[[0],[1]]}));t.commit({type:'tap',pod:0});assert.equal(t.jobs.size,1);t.commit({type:'tap',pod:1});assert(t.tail);assert.equal(t.jobs.size,1+1,'The tail keeps couriers leaving one after another');
 const tailSnap=clone(t);assert.deepEqual(tailSnap.snapshot(),t.snapshot());drain(t);assert.equal(t.status,'Won');
-assert.deepEqual({...TAIL},{departureGap:250,speed:3,when:'queue-empty-and-no-bridge-to-choose'});
+assert.deepEqual({...TAIL},{departureGap:250,speed:2.5,when:'queue-empty-and-no-bridge-to-choose'});
 const data=JSON.parse(fs.readFileSync('content/pilot-v8e/levels.json')),certs=JSON.parse(fs.readFileSync('content/pilot-v8e/certificates.json')),quality=JSON.parse(fs.readFileSync('content/pilot-v8e/quality.json'));
 assert.deepEqual(PROFILE,(await import('../gameplay-pilot-v7/timeline.cjs')).default.PROFILE);assert.equal(fs.readFileSync('tools/gameplay-pilot-v8e/clock.cjs','utf8'),fs.readFileSync('tools/gameplay-pilot-v7/clock.cjs','utf8'));
 assert.equal(data.hash,crypto.createHash('sha256').update(JSON.stringify(data.levels)).digest('hex'));assert.equal(quality.complete,true);assert.deepEqual(data.levels.map(l=>l.id),Array.from({length:30},(_,i)=>i+1));assert.equal(new Set(data.levels.map(l=>l.subject)).size,30);
@@ -78,7 +78,7 @@ for(const l of data.levels){assert.deepEqual(R.validate(l),[]);
     const swapped={...l,pods:l.pods.map((p,j)=>j===a?{...l.pods[b],mystery:p.mystery}:j===b?{...l.pods[a],mystery:p.mystery}:p)};
     let w=Rv.create(swapped);for(const x of cert.actions.slice(0,i))w=Rv.step(w,x).state;assert.deepEqual(plan(w,cert.planner),plan(s,cert.planner),'Planner reads unseen capsules L'+l.id);leakChecks++;}}
   s=Rv.step(s,cert.actions[i]).state;}}
- // Rare, important "?": 1-3 on the listed levels only, below the 3 full rows at the start, at least one key colour, revealing mid-level.
+ // Rare, important "?": 1-3 on the listed levels only (L10: five since the v8E playtest), below the 3 full rows at the start, at least one key colour, revealing mid-level.
  const hidden=l.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);assert.equal(hidden.length,MYSTERY[l.id]||0,'Mystery count L'+l.id);
  if(hidden.length){mysteryLevels++;assert(hidden.every(p=>l.pods[p].mystery==='depth'&&l.tray.find(st=>st.includes(p)).indexOf(p)>=FULL_ROWS));assert(hidden.some(p=>isKey(strip(l),p)),'Key colour L'+l.id);
   const list=reveals(l,cert.actions);assert.equal(list.length,hidden.length);assert(revealsFit(l,list),'Mid-level reveal L'+l.id);}

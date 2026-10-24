@@ -4,10 +4,10 @@
     {
       "id": 5,
       "role": "normal",
-      "random": 0.6666666666666666,
-      "visible": 0.9166666666666666,
-      "patternWins": 4,
-      "sensibleWins": 2
+      "random": 0.43666666666666665,
+      "visible": 0.75,
+      "patternWins": 1,
+      "sensibleWins": 3
     },
     {
       "id": 6,
@@ -44,17 +44,17 @@
     {
       "id": 10,
       "role": "superHard",
-      "random": 0.10333333333333333,
-      "visible": 0.26,
-      "patternWins": 1,
-      "sensibleWins": 2
+      "random": 0.06,
+      "visible": 0.056666666666666664,
+      "patternWins": 0,
+      "sensibleWins": 0
     },
     {
       "id": 11,
       "role": "relief",
-      "random": 0.6566666666666666,
+      "random": 0.87,
       "visible": 1,
-      "patternWins": 3,
+      "patternWins": 6,
       "sensibleWins": 4
     },
     {
@@ -92,10 +92,10 @@
     {
       "id": 16,
       "role": "relief",
-      "random": 0.8666666666666667,
-      "visible": 0.9833333333333333,
-      "patternWins": 6,
-      "sensibleWins": 4
+      "random": 0.72,
+      "visible": 0.8666666666666667,
+      "patternWins": 4,
+      "sensibleWins": 1
     },
     {
       "id": 17,
@@ -140,10 +140,10 @@
     {
       "id": 22,
       "role": "superHard",
-      "random": 0.07333333333333333,
-      "visible": 0.18,
-      "patternWins": 2,
-      "sensibleWins": 2
+      "random": 0.10333333333333333,
+      "visible": 0.11333333333333333,
+      "patternWins": 0,
+      "sensibleWins": 0
     },
     {
       "id": 23,
@@ -164,10 +164,10 @@
     {
       "id": 25,
       "role": "hard",
-      "random": 0.18666666666666668,
-      "visible": 0.18,
+      "random": 0.22,
+      "visible": 0.2833333333333333,
       "patternWins": 2,
-      "sensibleWins": 0
+      "sensibleWins": 2
     },
     {
       "id": 26,
@@ -196,10 +196,10 @@
     {
       "id": 29,
       "role": "superHard",
-      "random": 0.08,
-      "visible": 0.37333333333333335,
-      "patternWins": 0,
-      "sensibleWins": 1
+      "random": 0.04,
+      "visible": 0.11,
+      "patternWins": 1,
+      "sensibleWins": 0
     },
     {
       "id": 30,
@@ -211,35 +211,34 @@
     }
   ],
   "patternShare": {
-    "колонка справа до конца": 9,
-    "ряд справа налево": 10,
-    "змейка": 6,
-    "самое большое число": 9,
     "колонка слева до конца": 9,
-    "ряд слева направо": 4,
+    "ряд слева направо": 5,
+    "ряд справа налево": 9,
+    "змейка": 4,
     "середина, потом края": 7,
-    "по две из колонки": 7,
-    "самое маленькое число": 10
+    "по две из колонки": 4,
+    "колонка справа до конца": 10,
+    "самое маленькое число": 10,
+    "самое большое число": 9
   },
   "hardPatternShare": {
-    "самое большое число": 1,
     "ряд слева направо": 1,
-    "ряд справа налево": 2,
+    "ряд справа налево": 1,
     "середина, потом края": 1,
-    "змейка": 2,
-    "по две из колонки": 1
+    "колонка справа до конца": 1,
+    "самое большое число": 2
   },
-  "catalogHash": "c545de3d68f04d3cb45abaf79369d5a74f1033c3b582fb07599bbc6450d926c2",
+  "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
   "winningRoutes": 30,
-  "acceptedCertificateActions": 556,
+  "acceptedCertificateActions": 558,
   "visibleHorizonPlannerRoutes": 30,
-  "plannerLeakChecks": 154,
+  "plannerLeakChecks": 212,
   "mysteryLevels": 5,
   "bridges": [
     {
       "level": 20,
       "sites": 1,
-      "firstReadyAfterCommands": 3,
+      "firstReadyAfterCommands": 4,
       "readyThen": [
         "Левый мостик"
       ],
@@ -257,11 +256,11 @@
     {
       "level": 22,
       "sites": 2,
-      "firstReadyAfterCommands": 3,
+      "firstReadyAfterCommands": 1,
       "readyThen": [
         "Левый мостик"
       ],
-      "chosen": "Правый мостик"
+      "chosen": "Левый мостик"
     },
     {
       "level": 24,
@@ -277,20 +276,20 @@
       "sites": 2,
       "firstReadyAfterCommands": 1,
       "readyThen": [
-        "Правый мостик"
+        "Левый мостик"
       ],
       "chosen": "Левый мостик"
     }
   ],
-  "visibleRows": 4,
+  "visibleRows": 3,
   "autoTail": {
     "departureGap": 250,
-    "speed": 3,
+    "speed": 2.5,
     "when": "queue-empty-and-no-bridge-to-choose"
   },
   "concurrentRandomRuns": 240,
-  "liveClears": 70619,
-  "restoredCheckpoints": 1090,
+  "liveClears": 70053,
+  "restoredCheckpoints": 1110,
   "frameInvarianceChecks": 1,
   "slotReusedBeforeArrival": true,
   "sameColourParallelDispatch": true,

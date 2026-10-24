@@ -6,7 +6,8 @@
 // on the same patient live rules as the game, and plays one command at a time in the patient game. Its win in every level is the
 // v8D fairness proof: a strategy that never looks deeper than the player wins.
 import Rules from './rules.cjs';import R from './idle-rules.cjs';
-export const ROWS=4,FULL_ROWS=3;
+// The owner, 2026-10-24 (v8E playtest): only 3 rows, the top one included; the half row under them is gone.
+export const ROWS=3,FULL_ROWS=3;
 // The visible tray: per column, rows 1..ROWS as {pod, color|null, count|null} (null: a "?"), the last one an edge.
 export function visibleTray(s,rows=ROWS){
  return s.level.tray.map((stack,c)=>stack.slice(s.heads[c],s.heads[c]+rows).map((p,k)=>s.revealed[p]?{pod:p,color:s.level.pods[p].color,count:s.remaining[p],edge:k>=FULL_ROWS}:{pod:p,color:null,count:null,edge:k>=FULL_ROWS}));

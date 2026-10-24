@@ -226,9 +226,10 @@
     }
     for(const p of level.pods)if(p.mystery!==undefined&&![true,'depth','sealed'].includes(p.mystery))errors.push('unknown mystery mode');
     const hidden=level.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);
-    // v8D: 1-3 depth capsules (each reveals on reaching the top). Sealed capsules keep the v6 two-world domain.
+    // v8D: 1-3 depth capsules (each reveals on reaching the top); up to 6 since the v8E playtest (L10 has five). Sealed
+    // capsules keep the v6 two-world domain.
     if(hidden.some(i=>level.pods[i].mystery!=='depth')){if(hidden.length!==2||level.pods[hidden[0]].count!==level.pods[hidden[1]].count||level.pods[hidden[0]].color===level.pods[hidden[1]].color)errors.push('two equal-count mystery colours required');}
-    else if(hidden.length>3)errors.push('at most three depth mysteries');
+    else if(hidden.length>6)errors.push('at most six depth mysteries');
     const n = level.w * level.h;
     if ((level.entries || [Math.floor(level.w / 2)]).some(i => !Number.isInteger(i) || i < 0 || i >= n)) errors.push('entry');
     if (level.hero) for (const choice of level.hero.choices) {

@@ -1,7 +1,7 @@
 // v8E levels: the new pictures (scenes.mjs) with capsules built to each level's role (author.mjs).
 // Rules agreed with the owner on 2026-10-23 after the Colony Flow comparison (product/audits/colony-flow-vs-v8d-bots-2026-10-23.md):
-// - Super Hard ~8-15% random taps, like CF L10 and L20 (11-12%); colour play may win (the owner: CF's Super Hards are
-//   playable by colours in the moment, one place is just held a long time), so visible-colour play may win up to 60%;
+// - Super Hard ~6-12% random taps (CF L10 and L20: 11-12%) and visible-colour play winning at most 30%: after the
+//   v8E playtest (L10 and L29 felt like Hard; L22, at 7% and 18%, was "a good level");
 // - Hard up to 3 mindless patterns, Super Hard up to 2; no pattern wins more than 40% of the pilot from L5;
 // - Hard and Super Hard: random taps make the level unwinnable within the first two commands at most 10% of the time;
 // - links and "?" mostly on the hard levels; each Super Hard on its own axis (L10 "?", L22 links, L29 big capsules);
@@ -25,7 +25,7 @@ export const ROLES={
  normal:{label:'Normal',random:[.35,.65],visible:[.70,.95],patterns:4,sensible:3,seconds1x:[0,100],order:[0,4]},
  task:{label:'Normal',random:[.20,.40],visible:[.45,.75],patterns:3,sensible:2,seconds1x:[0,130],order:[0,4]},
  hard:{label:'Hard',random:[.15,.25],visible:[.20,.65],patterns:3,sensible:2,seconds1x:[130,180],order:[0,3]},
- superHard:{label:'Super Hard',random:[.08,.15],visible:[0,.60],patterns:2,sensible:2,seconds1x:[190,250],order:[0,3]},
+ superHard:{label:'Super Hard',random:[.06,.12],visible:[0,.30],patterns:2,sensible:2,seconds1x:[190,250],order:[0,3]},
 };
 export const PATTERN_SHARE=.40,HARD_PATTERN_LEVELS=2,EARLY_LIMIT=.10;
 const roleOf=id=>ROLE_OF[id]||'tutorial',isHard=id=>['hard','superHard'].includes(roleOf(id));
@@ -71,8 +71,8 @@ const [cmd,arg,arg2]=process.argv.slice(2);
 if(import.meta.url===`file://${process.argv[1]}`&&cmd==='level'){const id=+arg,t0=Date.now(),f=finish(search(id,{from:+(arg2||0)}));fs.writeFileSync(`${work}/L${id}.json`,JSON.stringify(f)+'\n');
  console.log('L'+id,f.role,'attempt',f.attempt,`${f.level.w}x${f.level.h}`,'pods',f.level.pods.length,f.bots?`random ${(f.bots.random*100).toFixed(0)}% visible ${(f.bots.visible*100).toFixed(0)}% patterns ${f.bots.patternWins.length}`:'',`~${f.seconds}s`,'early risk',f.earlyRisk,((Date.now()-t0)/1000).toFixed(0)+'s');}
 // One balancing step by hand (what assemble does for its pick), so several candidates can be searched in parallel:
-// node fix.mjs rebalance <id> <pattern>   (writes work/L<id>.out.json; move it over L<id>.json to adopt it)
-if(import.meta.url===`file://${process.argv[1]}`&&cmd==='rebalance'){const id=+arg,f=JSON.parse(fs.readFileSync(`${work}/L${id}.json`)),banned=[...(f.banned||[]),arg2];
+// node fix.mjs rebalance <id> <pattern[|pattern...]>   (writes work/L<id>.out.json; move it over L<id>.json to adopt it)
+if(import.meta.url===`file://${process.argv[1]}`&&cmd==='rebalance'){const id=+arg,f=JSON.parse(fs.readFileSync(`${work}/L${id}.json`)),banned=[...(f.banned||[]),...arg2.split('|')];
  const next={...finish(search(id,{banned,from:f.attempt+1})),banned};fs.writeFileSync(`${work}/L${id}.out.json`,JSON.stringify(next)+'\n');console.log('L'+id,'patterns',next.bots.patternWins.join(', '));}
 if(import.meta.url===`file://${process.argv[1]}`&&cmd==='assemble'){
  const found=Array.from({length:30},(_,i)=>JSON.parse(fs.readFileSync(`${work}/L${i+1}.json`)));

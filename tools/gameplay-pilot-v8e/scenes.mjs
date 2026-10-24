@@ -14,8 +14,8 @@ export const BOARD={1:[16,18],2:[18,20],3:[20,22],4:[24,26],5:[26,28],6:[20,22],
  11:[20,20],12:[28,30],13:[26,30],14:[30,30],15:[32,34],16:[18,22],17:[28,28],18:[30,32],19:[24,28],20:[30,32],
  21:[28,30],22:[34,36],23:[20,24],24:[30,32],25:[32,34],26:[26,30],27:[32,28],28:[22,22],29:[34,36],30:[26,28]};
 // Object-only pictures (no background, the empty cells are open ground), as in about a third to a half of Colony Flow's first
-// 30. Not L1 (its lesson needs three colours) nor the bridge levels (their stream is part of the picture).
-export const BARE=new Set([3,5,7,16,23,28,30]);
+// 30, and all of Colony Flow's first three. Not the bridge levels (their stream is part of the picture).
+export const BARE=new Set([1,2,3,5,7,11,16,23,28,30]);
 // The level that introduces each colour: v8's nine by L11, the seven new tones one per level from L6.
 export const INTRO={G:1,B:1,A:1,P:2,C:3,D:4,Y:4,O:5,S:6,R:7,M:8,K:9,N:10,V:11,L:12,E:13};
 export const allowedAt=id=>Object.keys(INTRO).filter(c=>INTRO[c]<=id);
@@ -49,12 +49,13 @@ const dotsBg=(a,b,step=4)=>(x,y)=>(x%step===1&&y%step===(Math.floor(x/step)%2?1:
 const nightBg=(stars)=>(x,y)=>stars.some(([sx,sy])=>sx===x&&sy===y)?'Y':'N';
 
 export const SCENES={
- // L1-L3 (the owner, 2026-10-24: the first levels are the game's calling card; simple subjects that look good on a
- // small board): hand-drawn cell by cell, since the shape painter loses small shapes at 12-16 cells. A grid is the
- // picture inside the path (an object-only one includes its ring of open ground). Outline in amber: earth arrives at L4.
- 1:{title:'Кактус в горшке',grid:['BBBBBAABBBBB','BBBBAGGABBAB','BABBAGGABAGA','AGABAGGABAGA','AGABAGGABAGA','AGABAGGAAAGA','AGAAAGGGGGGA','AGGGGGGAAAAB','BAAAAGGABBBB','BBBBAGGABBBB','BBAAAAAAAABB','BBBAAAAAABBB','GGGAAAAAAGGG','GGGGAAAAGGGG']},
- 2:{title:'Поросёнок',grid:['BBBBBBBBBBBBBB','BAABBBBBBBBAAB','BAPAABBBBAAPAB','BAPPPAAAAPPPAB','BAPPPPPPPPPPAB','APPPPPPPPPPPPA','APPPAPPPPAPPPA','APPPAPPPPAPPPA','APPAAAAAAAAPPA','APPAPAPPAPAPPA','APPAPAPPAPAPPA','APPAAAAAAAAPPA','BAPPPPPPPPPPAB','GGAAPPPPPPAAGG','GGGGAAAAAAGGGG','GGGGGGGGGGGGGG']},
- 3:{title:'Капкейк',grid:['................','.......AAGG.....','......APCA......','......APPA......','....AAAAAAAA....','...ACPCCCCCCA...','...ACCCCCGCCA...','..ACCCBCCCCPCA..','..ACGCCCCBCCCA..','.ACPCCCGCCCCBCA.','.ACCCBCCCCGCCCA.','.AAAAAAAAAAAAAA.','..APPCPPPPCPPA..','..APPCPPPPCPPA..','...APCPPPPCPA...','...APCPPPPCPA...','....AAAAAAAA....','................']},
+ // L1-L3 (the owner, 2026-10-24, after the v8E playtest: "look at Colony Flow, theirs are small too but clear, you can
+ // see it is a star"): one big icon each, no background, in large solid colour zones, hand-drawn cell by cell (the
+ // shape painter loses small shapes at 12-16 cells). A grid is the picture inside the path; an object-only one
+ // includes its ring of open ground. Outline in amber: earth arrives at L4.
+ 1:{title:'Ёлочка',grid:['..............','......BB......','.....GGGG.....','....GGBGGG....','...GGGGGGGG...','.....GGGG.....','....GGGGBG....','...GBGGGGGG...','..GGGGGGBGGG..','....GGGGGG....','...GGBGGGGG...','..GGGGGGGBGG..','.GGBGGGGGGGGG.','.....AAAA.....','.....AAAA.....','..............']},
+ 2:{title:'Цветок',grid:['................','.......PP.......','.....PPPPPP.....','.....PPPPPP.....','...PP.PPPP.PP...','...PPPPAAPPPP...','..PPPPAAAAPPPP..','..PPPPAAAAPPPP..','...PPPPAAPPPP...','...PP.PPPP.PP...','.....PPPPPP.....','.....PPPPPP.....','.......PP.......','.......GG.......','....GGGGGGGG....','.....GGGGGG.....','.......GG.......','................']},
+ 3:{title:'Мороженое',grid:['......GG........','......AAAA......','.....APPPPA.....','....APPBPPPA....','....APPPPPPA....','....APPPPBPA....','...AAPPPPPPAA...','..ACCCCPPCCCCA..','.ACCBCCCCCCCCCA.','.ACCCCCCCCBCCCA.','..ACCCCCCCCCCA..','...AAAAAAAAAA...','....AACAACAA....','....ACACCACA....','.....AACCAA.....','......AAAA......','.......AA.......','................']},
  4:{title:'Бабочка на лугу',draw(W,H,ok){
   const wingL=union(ellipse(7,9,6,5.5),ellipse(7.6,17.4,4.6,4.4)),wingR=union(ellipse(17,9,6,5.5),ellipse(16.4,17.4,4.6,4.4));
   return {background:layer(grassBg(W,H,H-4,ok)),parts:[
@@ -110,8 +111,9 @@ export const SCENES={
    {shape:mask(body,(x,y)=>x>=15&&(x-15)%3===0),color:'Y',outline:false},
    {shape:circle(9.2,14.2,2.2),color:'C',group:'eye'},{shape:circle(8.8,14.6,1.1),color:'D',outline:false},
    {shape:ellipse(5.4,17.6,1.2,.7),color:'R',outline:false}]};}},
- // Hand-drawn (the owner, 2026-10-24: the shape version was hard to read): a turtle on the bank.
- 11:{title:'Черепаха у пруда',grid:['BBBBBBBBBBBBBBYY','BCCCBBBBBBBBBBYY','BBBBDDDDDDBBBBBB','BBBDMMMMMMDBBBBB','BBDMMGGGGMMDBDDB','BDMMGMMMMGMMDGGD','BDGGMMMMMMGGGGDD','DMMMGMMMMGMMGGGD','DMMMMGGGGMMMDDDD','DYYYYYYYYYYYYDSS','SDDGGDDDDGGDDSSS','GGDGGDGGDGGDGGGG','GGGDDGGGGDDGGGVG','BBBVBBBBBBBBVBBB','BBGGGBBNNBBGGGBB','NBBBBBBBBBBBBBBN']},
+ // Hand-drawn, no background (the owner, 2026-10-24: the turtle was still unclear without its title): grapes,
+ // which also bring the level's plum.
+ 11:{title:'Виноград',grid:['....................','.........A.GGGGG....','.........AGGMMMMGG..','.........AA.GGGGG...','..DDDDDDDDDDDDDDD...','.DKVVDKVVDKVVDKVVD..','.DVVVDVVVDVVVDVVVD..','.DVVVDVVVDVVVDVVVD..','..DDDDDDDDDDDDDDD...','...DKVVDKVVDKVVD....','...DVVVDVVVDVVVD....','...DVVVDVVVDVVVD....','....DDDDDDDDDDD.....','.....DKVVDKVVD......','.....DVVVDVVVD......','.....DVVVDVVVD......','......DDDDDDD.......','.......DKVVD........','.......DVVVD........','.......DVVVD........','........DDD.........','....................']},
  12:{title:'Сова ночью',draw(W,H,ok){
   const moon=cut(circle(23,5,3.4),circle(24.6,4,3));
   return {background:layer(nightBg([[2,3],[6,7],[10,2],[15,4],[27,10],[1,12],[26,15],[3,20],[19,2],[13,9]])),parts:[{shape:moon,color:'C',outline:false},

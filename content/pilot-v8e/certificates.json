@@ -4,18 +4,6 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 5
-      },
-      {
-        "type": "tap",
-        "pod": 1
-      },
-      {
-        "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
         "pod": 6
       },
       {
@@ -25,6 +13,18 @@
       {
         "type": "tap",
         "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 0
       },
       {
         "type": "tap",
@@ -41,12 +41,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -54,15 +54,11 @@
     "actions": [
       {
         "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
         "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 9
-      },
-      {
-        "type": "tap",
-        "pod": 3
       },
       {
         "type": "tap",
@@ -70,15 +66,7 @@
       },
       {
         "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
         "pod": 4
-      },
-      {
-        "type": "tap",
-        "pod": 2
       },
       {
         "type": "tap",
@@ -86,7 +74,19 @@
       },
       {
         "type": "tap",
-        "pod": 6
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 0
       },
       {
         "type": "tap",
@@ -95,12 +95,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -157,12 +157,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -178,26 +178,6 @@
       },
       {
         "type": "tap",
-        "pod": 11
-      },
-      {
-        "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 3
-      },
-      {
-        "type": "tap",
-        "pod": 14
-      },
-      {
-        "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
         "pod": 1
       },
       {
@@ -210,7 +190,19 @@
       },
       {
         "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
         "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 3
       },
       {
         "type": "tap",
@@ -218,7 +210,15 @@
       },
       {
         "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
         "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 0
       },
       {
         "type": "tap",
@@ -243,12 +243,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -256,23 +256,11 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 10
-      },
-      {
-        "type": "tap",
         "pod": 5
       },
       {
         "type": "tap",
-        "pod": 8
+        "pod": 0
       },
       {
         "type": "tap",
@@ -280,7 +268,11 @@
       },
       {
         "type": "tap",
-        "pod": 1
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 2
       },
       {
         "type": "tap",
@@ -288,7 +280,7 @@
       },
       {
         "type": "tap",
-        "pod": 7
+        "pod": 6
       },
       {
         "type": "tap",
@@ -296,21 +288,29 @@
       },
       {
         "type": "tap",
-        "pod": 6
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 1
       },
       {
         "type": "tap",
         "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 8
       }
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -367,12 +367,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -429,12 +429,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -547,12 +547,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -592,15 +592,11 @@
       },
       {
         "type": "tap",
-        "pod": 14
-      },
-      {
-        "type": "tap",
-        "pod": 17
-      },
-      {
-        "type": "tap",
         "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 14
       },
       {
         "type": "tap",
@@ -609,6 +605,10 @@
       {
         "type": "tap",
         "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 17
       },
       {
         "type": "tap",
@@ -625,12 +625,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -638,27 +638,15 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 30
-      },
-      {
-        "type": "tap",
         "pod": 32
       },
       {
         "type": "tap",
-        "pod": 13
+        "pod": 27
       },
       {
         "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 8
-      },
-      {
-        "type": "tap",
-        "pod": 17
+        "pod": 25
       },
       {
         "type": "tap",
@@ -666,75 +654,11 @@
       },
       {
         "type": "tap",
-        "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 33
-      },
-      {
-        "type": "tap",
-        "pod": 29
-      },
-      {
-        "type": "tap",
         "pod": 3
       },
       {
         "type": "tap",
-        "pod": 28
-      },
-      {
-        "type": "tap",
-        "pod": 6
-      },
-      {
-        "type": "tap",
-        "pod": 10
-      },
-      {
-        "type": "tap",
-        "pod": 24
-      },
-      {
-        "type": "tap",
-        "pod": 9
-      },
-      {
-        "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
-        "pod": 12
-      },
-      {
-        "type": "tap",
-        "pod": 18
-      },
-      {
-        "type": "tap",
-        "pod": 14
-      },
-      {
-        "type": "tap",
-        "pod": 15
-      },
-      {
-        "type": "tap",
-        "pod": 16
-      },
-      {
-        "type": "tap",
-        "pod": 19
-      },
-      {
-        "type": "tap",
-        "pod": 26
-      },
-      {
-        "type": "tap",
-        "pod": 20
+        "pod": 8
       },
       {
         "type": "tap",
@@ -746,49 +670,67 @@
       },
       {
         "type": "tap",
-        "pod": 25
+        "pod": 9
       },
       {
         "type": "tap",
-        "pod": 27
+        "pod": 17
       },
       {
         "type": "tap",
-        "pod": 1
+        "pod": 7
       },
       {
         "type": "tap",
-        "pod": 11
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 30
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 21
       },
       {
         "type": "tap",
         "pod": 22
-      }
-    ],
-    "schedule": "wait until work idle between commands",
-    "planner": {
-      "rows": 4,
-      "depth": 4,
-      "weight": 12
-    },
-    "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
-    }
-  },
-  {
-    "id": 11,
-    "actions": [
-      {
-        "type": "tap",
-        "pod": 3
       },
       {
         "type": "tap",
-        "pod": 5
+        "pod": 0
       },
       {
         "type": "tap",
-        "pod": 9
+        "pod": 28
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 23
+      },
+      {
+        "type": "tap",
+        "pod": 24
       },
       {
         "type": "tap",
@@ -800,7 +742,15 @@
       },
       {
         "type": "tap",
-        "pod": 10
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 33
       },
       {
         "type": "tap",
@@ -808,15 +758,33 @@
       },
       {
         "type": "tap",
-        "pod": 7
+        "pod": 12
       },
+      {
+        "type": "tap",
+        "pod": 15
+      }
+    ],
+    "schedule": "wait until work idle between commands",
+    "planner": {
+      "rows": 3,
+      "depth": 4,
+      "weight": 12
+    },
+    "fairness": {
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+    }
+  },
+  {
+    "id": 11,
+    "actions": [
       {
         "type": "tap",
         "pod": 0
       },
       {
         "type": "tap",
-        "pod": 8
+        "pod": 5
       },
       {
         "type": "tap",
@@ -824,17 +792,49 @@
       },
       {
         "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
         "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 7
       }
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -846,14 +846,6 @@
       },
       {
         "type": "tap",
-        "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 6
-      },
-      {
-        "type": "tap",
         "pod": 16
       },
       {
@@ -862,15 +854,23 @@
       },
       {
         "type": "tap",
-        "pod": 20
-      },
-      {
-        "type": "tap",
         "pod": 8
       },
       {
         "type": "tap",
         "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 20
       },
       {
         "type": "tap",
@@ -927,12 +927,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -968,15 +968,15 @@
       },
       {
         "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
         "pod": 1
       },
       {
         "type": "tap",
         "pod": 16
-      },
-      {
-        "type": "tap",
-        "pod": 7
       },
       {
         "type": "tap",
@@ -1013,12 +1013,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1034,11 +1034,11 @@
       },
       {
         "type": "tap",
-        "pod": 1
+        "pod": 5
       },
       {
         "type": "tap",
-        "pod": 5
+        "pod": 1
       },
       {
         "type": "tap",
@@ -1054,11 +1054,11 @@
       },
       {
         "type": "tap",
-        "pod": 18
+        "pod": 0
       },
       {
         "type": "tap",
-        "pod": 0
+        "pod": 18
       },
       {
         "type": "tap",
@@ -1066,19 +1066,11 @@
       },
       {
         "type": "tap",
-        "pod": 17
-      },
-      {
-        "type": "tap",
-        "pod": 23
-      },
-      {
-        "type": "tap",
         "pod": 22
       },
       {
         "type": "tap",
-        "pod": 21
+        "pod": 17
       },
       {
         "type": "tap",
@@ -1102,6 +1094,14 @@
       },
       {
         "type": "tap",
+        "pod": 23
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      },
+      {
+        "type": "tap",
         "pod": 10
       },
       {
@@ -1115,12 +1115,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1149,6 +1149,18 @@
       {
         "type": "tap",
         "pod": 29
+      },
+      {
+        "type": "tap",
+        "pod": 23
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 0
       },
       {
         "type": "tap",
@@ -1188,19 +1200,7 @@
       },
       {
         "type": "tap",
-        "pod": 23
-      },
-      {
-        "type": "tap",
         "pod": 18
-      },
-      {
-        "type": "tap",
-        "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 0
       },
       {
         "type": "tap",
@@ -1241,12 +1241,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
-      "depth": 4,
-      "weight": 12
+      "rows": 3,
+      "depth": 6,
+      "weight": 30
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1254,7 +1254,7 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 7
+        "pod": 2
       },
       {
         "type": "tap",
@@ -1262,15 +1262,11 @@
       },
       {
         "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
         "pod": 1
-      },
-      {
-        "type": "tap",
-        "pod": 3
-      },
-      {
-        "type": "tap",
-        "pod": 8
       },
       {
         "type": "tap",
@@ -1278,15 +1274,27 @@
       },
       {
         "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
         "pod": 0
-      },
-      {
-        "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 6
       },
       {
         "type": "tap",
@@ -1295,12 +1303,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1308,51 +1316,11 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 15
-      },
-      {
-        "type": "tap",
         "pod": 2
       },
       {
         "type": "tap",
         "pod": 4
-      },
-      {
-        "type": "tap",
-        "pod": 1
-      },
-      {
-        "type": "tap",
-        "pod": 12
-      },
-      {
-        "type": "tap",
-        "pod": 17
-      },
-      {
-        "type": "tap",
-        "pod": 16
-      },
-      {
-        "type": "tap",
-        "pod": 9
-      },
-      {
-        "type": "tap",
-        "pod": 14
-      },
-      {
-        "type": "tap",
-        "pod": 18
-      },
-      {
-        "type": "tap",
-        "pod": 5
-      },
-      {
-        "type": "tap",
-        "pod": 13
       },
       {
         "type": "tap",
@@ -1368,7 +1336,47 @@
       },
       {
         "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 14
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
         "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 5
       },
       {
         "type": "tap",
@@ -1385,12 +1393,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1418,10 +1426,6 @@
       },
       {
         "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
         "pod": 10
       },
       {
@@ -1431,6 +1435,10 @@
       {
         "type": "tap",
         "pod": 23
+      },
+      {
+        "type": "tap",
+        "pod": 0
       },
       {
         "type": "tap",
@@ -1446,23 +1454,19 @@
       },
       {
         "type": "tap",
-        "pod": 8
-      },
-      {
-        "type": "tap",
-        "pod": 5
-      },
-      {
-        "type": "tap",
-        "pod": 11
-      },
-      {
-        "type": "tap",
         "pod": 3
       },
       {
         "type": "tap",
         "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 11
       },
       {
         "type": "tap",
@@ -1474,7 +1478,11 @@
       },
       {
         "type": "tap",
-        "pod": 7
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 5
       },
       {
         "type": "tap",
@@ -1495,12 +1503,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1573,17 +1581,21 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
     "id": 20,
     "actions": [
+      {
+        "type": "tap",
+        "pod": 3
+      },
       {
         "type": "tap",
         "pod": 12
@@ -1615,10 +1627,6 @@
       {
         "type": "tap",
         "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 3
       },
       {
         "type": "tap",
@@ -1691,12 +1699,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 8,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1785,12 +1793,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1798,83 +1806,7 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 13
-      },
-      {
-        "type": "tap",
-        "pod": 4
-      },
-      {
-        "type": "tap",
-        "pod": 3
-      },
-      {
-        "type": "tap",
-        "pod": 16
-      },
-      {
-        "type": "tap",
-        "pod": 10
-      },
-      {
-        "type": "tap",
-        "pod": 9
-      },
-      {
-        "type": "bridge",
-        "choice": 1
-      },
-      {
-        "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
-        "pod": 31
-      },
-      {
-        "type": "tap",
         "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 17
-      },
-      {
-        "type": "tap",
-        "pod": 18
-      },
-      {
-        "type": "tap",
-        "pod": 12
-      },
-      {
-        "type": "tap",
-        "pod": 11
-      },
-      {
-        "type": "tap",
-        "pod": 1
-      },
-      {
-        "type": "tap",
-        "pod": 24
-      },
-      {
-        "type": "tap",
-        "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 22
-      },
-      {
-        "type": "tap",
-        "pod": 29
-      },
-      {
-        "type": "tap",
-        "pod": 21
       },
       {
         "type": "tap",
@@ -1882,15 +1814,35 @@
       },
       {
         "type": "tap",
-        "pod": 25
+        "pod": 5
       },
       {
         "type": "tap",
-        "pod": 20
+        "pod": 16
       },
       {
         "type": "tap",
-        "pod": 6
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 30
+      },
+      {
+        "type": "bridge",
+        "choice": 0
+      },
+      {
+        "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 1
       },
       {
         "type": "tap",
@@ -1898,11 +1850,19 @@
       },
       {
         "type": "tap",
-        "pod": 19
+        "pod": 13
       },
       {
         "type": "tap",
-        "pod": 30
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 9
       },
       {
         "type": "tap",
@@ -1910,21 +1870,69 @@
       },
       {
         "type": "tap",
-        "pod": 5
+        "pod": 17
       },
       {
         "type": "tap",
-        "pod": 32
+        "pod": 24
+      },
+      {
+        "type": "tap",
+        "pod": 26
+      },
+      {
+        "type": "tap",
+        "pod": 25
+      },
+      {
+        "type": "tap",
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 23
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 31
+      },
+      {
+        "type": "tap",
+        "pod": 27
+      },
+      {
+        "type": "tap",
+        "pod": 21
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 22
+      },
+      {
+        "type": "tap",
+        "pod": 6
       }
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -1960,19 +1968,19 @@
       },
       {
         "type": "tap",
-        "pod": 12
-      },
-      {
-        "type": "tap",
         "pod": 9
       },
       {
         "type": "tap",
-        "pod": 1
+        "pod": 3
       },
       {
         "type": "tap",
-        "pod": 3
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 1
       },
       {
         "type": "tap",
@@ -1989,12 +1997,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -2074,15 +2082,15 @@
       },
       {
         "type": "tap",
-        "pod": 20
-      },
-      {
-        "type": "tap",
         "pod": 18
       },
       {
         "type": "tap",
         "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 20
       },
       {
         "type": "tap",
@@ -2099,12 +2107,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -2112,11 +2120,7 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 11
-      },
-      {
-        "type": "tap",
-        "pod": 15
+        "pod": 10
       },
       {
         "type": "tap",
@@ -2124,19 +2128,31 @@
       },
       {
         "type": "tap",
-        "pod": 22
+        "pod": 19
       },
       {
         "type": "tap",
-        "pod": 21
+        "pod": 11
       },
       {
         "type": "tap",
-        "pod": 23
+        "pod": 4
       },
       {
         "type": "tap",
-        "pod": 8
+        "pod": 26
+      },
+      {
+        "type": "tap",
+        "pod": 25
+      },
+      {
+        "type": "tap",
+        "pod": 20
+      },
+      {
+        "type": "tap",
+        "pod": 5
       },
       {
         "type": "tap",
@@ -2148,55 +2164,7 @@
       },
       {
         "type": "tap",
-        "pod": 12
-      },
-      {
-        "type": "tap",
-        "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 26
-      },
-      {
-        "type": "tap",
-        "pod": 5
-      },
-      {
-        "type": "tap",
-        "pod": 14
-      },
-      {
-        "type": "tap",
-        "pod": 28
-      },
-      {
-        "type": "tap",
-        "pod": 19
-      },
-      {
-        "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 18
-      },
-      {
-        "type": "tap",
-        "pod": 3
-      },
-      {
-        "type": "tap",
-        "pod": 16
-      },
-      {
-        "type": "tap",
-        "pod": 13
+        "pod": 22
       },
       {
         "type": "tap",
@@ -2204,11 +2172,51 @@
       },
       {
         "type": "tap",
-        "pod": 4
+        "pod": 14
       },
       {
         "type": "tap",
-        "pod": 10
+        "pod": 3
+      },
+      {
+        "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 15
+      },
+      {
+        "type": "tap",
+        "pod": 28
+      },
+      {
+        "type": "tap",
+        "pod": 18
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 13
       },
       {
         "type": "tap",
@@ -2221,12 +2229,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -2282,19 +2290,19 @@
       },
       {
         "type": "tap",
-        "pod": 11
-      },
-      {
-        "type": "tap",
-        "pod": 12
-      },
-      {
-        "type": "tap",
         "pod": 2
       },
       {
         "type": "tap",
         "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 12
       },
       {
         "type": "tap",
@@ -2311,12 +2319,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -2328,7 +2336,19 @@
       },
       {
         "type": "tap",
+        "pod": 12
+      },
+      {
+        "type": "tap",
         "pod": 13
+      },
+      {
+        "type": "tap",
+        "pod": 5
+      },
+      {
+        "type": "tap",
+        "pod": 9
       },
       {
         "type": "tap",
@@ -2337,6 +2357,10 @@
       {
         "type": "tap",
         "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 3
       },
       {
         "type": "tap",
@@ -2352,19 +2376,7 @@
       },
       {
         "type": "tap",
-        "pod": 3
-      },
-      {
-        "type": "tap",
-        "pod": 12
-      },
-      {
-        "type": "tap",
-        "pod": 5
-      },
-      {
-        "type": "tap",
-        "pod": 9
+        "pod": 0
       },
       {
         "type": "tap",
@@ -2376,19 +2388,11 @@
       },
       {
         "type": "tap",
-        "pod": 23
-      },
-      {
-        "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
-        "pod": 7
-      },
-      {
-        "type": "tap",
         "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 23
       },
       {
         "type": "tap",
@@ -2397,6 +2401,10 @@
       {
         "type": "tap",
         "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 7
       },
       {
         "type": "tap",
@@ -2413,12 +2421,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
-      "depth": 4,
+      "rows": 3,
+      "depth": 8,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -2442,15 +2450,15 @@
       },
       {
         "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
         "pod": 6
       },
       {
         "type": "tap",
         "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 2
       },
       {
         "type": "tap",
@@ -2475,12 +2483,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -2488,15 +2496,7 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 4
-      },
-      {
-        "type": "tap",
-        "pod": 3
-      },
-      {
-        "type": "tap",
-        "pod": 18
+        "pod": 13
       },
       {
         "type": "tap",
@@ -2504,7 +2504,15 @@
       },
       {
         "type": "tap",
-        "pod": 6
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 0
+      },
+      {
+        "type": "tap",
+        "pod": 18
       },
       {
         "type": "bridge",
@@ -2512,11 +2520,7 @@
       },
       {
         "type": "tap",
-        "pod": 13
-      },
-      {
-        "type": "tap",
-        "pod": 16
+        "pod": 5
       },
       {
         "type": "tap",
@@ -2524,39 +2528,7 @@
       },
       {
         "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 17
-      },
-      {
-        "type": "tap",
-        "pod": 9
-      },
-      {
-        "type": "tap",
-        "pod": 19
-      },
-      {
-        "type": "tap",
-        "pod": 11
-      },
-      {
-        "type": "tap",
-        "pod": 5
-      },
-      {
-        "type": "tap",
-        "pod": 8
-      },
-      {
-        "type": "tap",
-        "pod": 14
-      },
-      {
-        "type": "tap",
-        "pod": 0
+        "pod": 3
       },
       {
         "type": "tap",
@@ -2565,16 +2537,52 @@
       {
         "type": "tap",
         "pod": 1
+      },
+      {
+        "type": "tap",
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 16
+      },
+      {
+        "type": "tap",
+        "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 17
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 10
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 19
+      },
+      {
+        "type": "tap",
+        "pod": 14
       }
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   },
   {
@@ -2598,10 +2606,6 @@
       },
       {
         "type": "tap",
-        "pod": 11
-      },
-      {
-        "type": "tap",
         "pod": 4
       },
       {
@@ -2615,6 +2619,10 @@
       {
         "type": "tap",
         "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 11
       },
       {
         "type": "tap",
@@ -2635,12 +2643,12 @@
     ],
     "schedule": "wait until work idle between commands",
     "planner": {
-      "rows": 4,
+      "rows": 3,
       "depth": 4,
       "weight": 12
     },
     "fairness": {
-      "scope": "visible-horizon planner: plans only with the 4 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
+      "scope": "visible-horizon planner: plans only with the 3 visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate"
     }
   }
 ]
