@@ -1,0 +1,26 @@
+{
+  "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+  "baseVersion": "pilot-30-v8e",
+  "baseHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+  "changedLevels": [
+    4,
+    10,
+    12,
+    13,
+    16,
+    25
+  ],
+  "exactControls": 24,
+  "htmlSHA256": "1ac703b5aee1ba3f4250ad877e0f250c1955a656cd52f1ba8330e26af4a972c3",
+  "zipSHA256": "dfd4db8c9939e9b85beff3ed86a27afb8f43a3ff17210439fbb22cdef42ee32b",
+  "runtimeSHA256": {
+    "rules.cjs": "e4ec80c4eaeb279205d64529ecbf406da0c4d4e73ce74537ad4e1ecfec7bf658",
+    "timeline.cjs": "305934c469a570bbb00626a356ef1f7772c20e428f4e1d44cc2e7f0144d2e04b",
+    "palette.cjs": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+    "clock.cjs": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e",
+    "ui.js": "f38479f3988d1763250e356f98190d9bc6c8643c8ff134ef66395ce91e11fe19"
+  },
+  "authoringMemoEquivalenceComparisons": 18,
+  "authoringMemoEquivalencePassed": true,
+  "scope": "Offline browser pilot. Automated QA, not human playtest or native Core equivalence."
+}

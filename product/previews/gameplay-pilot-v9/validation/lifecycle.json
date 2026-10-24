@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "dialogTimeExcluded": true,
+  "emulatedHiddenTimeExcluded": true,
+  "visibilityResumeLogged": true,
+  "reloadDuringStreamRestoresReservations": true,
+  "initialSpeedRecorded": true,
+  "actualWorkEventsRecorded": true,
+  "noBrowserErrors": true
+}
