@@ -12,6 +12,8 @@ node tools/gameplay-pilot-v9/verify.mjs
 node tools/gameplay-pilot-v9/authoring-check.mjs
 python3 tools/gameplay-pilot-v9/build.py
 node tools/gameplay-pilot-v9/comparison.mjs
+node tools/gameplay-pilot-v9/comparison.mjs --updated-v8e
+node tools/gameplay-pilot-v9/decision-diagnostics.mjs 1000
 node tools/gameplay-pilot-v9/clock-check.mjs
 node tools/gameplay-pilot-v9/browser-check.mjs
 node tools/gameplay-pilot-v9/browser-smoke.mjs

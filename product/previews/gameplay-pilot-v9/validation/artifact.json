@@ -12,7 +12,7 @@
   ],
   "exactControls": 24,
   "htmlSHA256": "1ac703b5aee1ba3f4250ad877e0f250c1955a656cd52f1ba8330e26af4a972c3",
-  "zipSHA256": "dfd4db8c9939e9b85beff3ed86a27afb8f43a3ff17210439fbb22cdef42ee32b",
+  "zipSHA256": "fb544f6003cf7cb8e2669abf02a67450539e57ac0f5d9d2717f6d8d5916c4272",
   "runtimeSHA256": {
     "rules.cjs": "e4ec80c4eaeb279205d64529ecbf406da0c4d4e73ce74537ad4e1ecfec7bf658",
     "timeline.cjs": "305934c469a570bbb00626a356ef1f7772c20e428f4e1d44cc2e7f0144d2e04b",
@@ -22,5 +22,17 @@
   },
   "authoringMemoEquivalenceComparisons": 18,
   "authoringMemoEquivalencePassed": true,
-  "scope": "Offline browser pilot. Automated QA, not human playtest or native Core equivalence."
+  "scope": "Offline browser pilot. Automated QA, not human playtest or native Core equivalence.",
+  "frozenBaselineCommit": "c6b0bfd467e4fb2ae28bc1b472a085530e8f1b9a",
+  "parallelUpdatedV8E": {
+    "commit": "38409123",
+    "hash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+    "v9ContentDifferences": 13
+  },
+  "decisionDiagnostic": {
+    "nodeBudgetPerAlternative": 1000,
+    "routesCompared": 27,
+    "unresolvedDecisions": 0,
+    "scope": "full-information patient continuations only"
+  }
 }

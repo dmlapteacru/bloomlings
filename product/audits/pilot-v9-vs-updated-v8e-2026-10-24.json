@@ -1,0 +1,3668 @@
+{
+  "baseInput": "content/pilot-v8e",
+  "comparisonType": "updated-v8e-vs-independent-v9",
+  "baseHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+  "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+  "changed": [
+    4,
+    10,
+    12,
+    13,
+    16,
+    25
+  ],
+  "assumptions": [
+    "Model wall time at stated reaction delay1200ms; not measured player time.",
+    "Patient and brisk schedules are different policies. Failed brisk schedules have no finished duration.",
+    "Productivity refers to occupied places, excludes released pods carrying work outside places.",
+    "Legal choice is not proof of a strategically safe move.",
+    "Observed competitor gaps include both thinking and forced waiting; these sources cannot separate them exactly."
+  ],
+  "observedColony": [
+    {
+      "level": 1,
+      "title": "звезда",
+      "difficulty": "Normal",
+      "coloredCellsKnown": 99,
+      "unresolvedCells": 0,
+      "lots": 9,
+      "totalQuota": 99,
+      "quotaMinusRecognizedCells": 0,
+      "medianQuota": 14,
+      "maxQuota": 15,
+      "rounds": []
+    },
+    {
+      "level": 2,
+      "title": "сердце",
+      "difficulty": "Normal",
+      "coloredCellsKnown": 248,
+      "unresolvedCells": 0,
+      "lots": 9,
+      "totalQuota": 248,
+      "quotaMinusRecognizedCells": 0,
+      "medianQuota": 37,
+      "maxQuota": 38,
+      "rounds": []
+    },
+    {
+      "level": 3,
+      "title": "яблоко",
+      "difficulty": "Normal",
+      "coloredCellsKnown": 267,
+      "unresolvedCells": 0,
+      "lots": 12,
+      "totalQuota": 267,
+      "quotaMinusRecognizedCells": 0,
+      "medianQuota": 18,
+      "maxQuota": 52,
+      "rounds": []
+    },
+    {
+      "level": 4,
+      "title": "грибной домик",
+      "difficulty": "Normal",
+      "coloredCellsKnown": 637,
+      "unresolvedCells": 0,
+      "lots": 24,
+      "totalQuota": 637,
+      "quotaMinusRecognizedCells": 0,
+      "medianQuota": 25,
+      "maxQuota": 50,
+      "rounds": []
+    },
+    {
+      "level": 5,
+      "title": "кольца",
+      "difficulty": "Hard",
+      "coloredCellsKnown": 484,
+      "unresolvedCells": 0,
+      "lots": 18,
+      "totalQuota": 484,
+      "quotaMinusRecognizedCells": 0,
+      "medianQuota": 25,
+      "maxQuota": 47,
+      "rounds": []
+    },
+    {
+      "level": 10,
+      "title": "замок",
+      "difficulty": "Super Hard",
+      "coloredCellsKnown": 870,
+      "unresolvedCells": 0,
+      "lots": 29,
+      "totalQuota": 870,
+      "quotaMinusRecognizedCells": 0,
+      "medianQuota": 30,
+      "maxQuota": 58,
+      "rounds": []
+    },
+    {
+      "level": 20,
+      "title": "торт с клубникой",
+      "difficulty": "Super Hard",
+      "coloredCellsKnown": 1296,
+      "unresolvedCells": 0,
+      "lots": 45,
+      "totalQuota": 1296,
+      "quotaMinusRecognizedCells": 0,
+      "medianQuota": 30,
+      "maxQuota": 38,
+      "rounds": [
+        {
+          "attempt": 1,
+          "outcome": "won",
+          "seconds": 397.75,
+          "taps": 36,
+          "afterLastTapSeconds": 9.75,
+          "medianInterTapSeconds": 10.75,
+          "maximumInterTapSeconds": 31.75
+        }
+      ]
+    },
+    {
+      "level": 25,
+      "title": "котёнок в клубнике",
+      "difficulty": "Hard",
+      "coloredCellsKnown": 1024,
+      "unresolvedCells": 0,
+      "lots": 30,
+      "totalQuota": 1026,
+      "quotaMinusRecognizedCells": 2,
+      "medianQuota": 34,
+      "maxQuota": 51,
+      "rounds": [
+        {
+          "attempt": 1,
+          "outcome": "lost",
+          "seconds": 76,
+          "taps": 9,
+          "afterLastTapSeconds": 23.5,
+          "medianInterTapSeconds": 3,
+          "maximumInterTapSeconds": 19.5
+        },
+        {
+          "attempt": 2,
+          "outcome": "won",
+          "seconds": 226.5,
+          "taps": 26,
+          "afterLastTapSeconds": 6,
+          "medianInterTapSeconds": 9.5,
+          "maximumInterTapSeconds": 33.5
+        }
+      ]
+    },
+    {
+      "level": 26,
+      "title": "корзина для пикника",
+      "difficulty": "Normal",
+      "coloredCellsKnown": 1188,
+      "unresolvedCells": 37,
+      "lots": 36,
+      "totalQuota": 1225,
+      "quotaMinusRecognizedCells": 37,
+      "medianQuota": 35,
+      "maxQuota": 47,
+      "rounds": [
+        {
+          "attempt": 1,
+          "outcome": "won",
+          "seconds": 315.5,
+          "taps": 32,
+          "afterLastTapSeconds": 6,
+          "medianInterTapSeconds": 9.5,
+          "maximumInterTapSeconds": 30
+        }
+      ]
+    }
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Ёлочка",
+        "coloredCells": 92,
+        "colors": 3,
+        "lots": 9,
+        "medianQuota": 11,
+        "maxQuota": 19,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 46.885,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 30.498,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 14.11,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 14.11,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Ёлочка",
+        "coloredCells": 92,
+        "colors": 3,
+        "lots": 9,
+        "medianQuota": 11,
+        "maxQuota": 19,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 46.885,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 30.498,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 14.11,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 14.11,
+            "tailSeconds": 3.31,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": null,
+      "heldOut": null
+    },
+    {
+      "id": 2,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Цветок",
+        "coloredCells": 106,
+        "colors": 3,
+        "lots": 10,
+        "medianQuota": 13,
+        "maxQuota": 17,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 58.67,
+            "tailSeconds": 3.22,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 36.945,
+            "tailSeconds": 3.22,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 15.05,
+            "tailSeconds": 3.05,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 15.08,
+            "tailSeconds": 3.08,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Цветок",
+        "coloredCells": 106,
+        "colors": 3,
+        "lots": 10,
+        "medianQuota": 13,
+        "maxQuota": 17,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 58.67,
+            "tailSeconds": 3.22,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 36.945,
+            "tailSeconds": 3.22,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 15.05,
+            "tailSeconds": 3.05,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 15.08,
+            "tailSeconds": 3.08,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": null,
+      "heldOut": null
+    },
+    {
+      "id": 3,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Мороженое",
+        "coloredCells": 136,
+        "colors": 5,
+        "lots": 12,
+        "medianQuota": 13,
+        "maxQuota": 16,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 84.36,
+            "tailSeconds": 1.46,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 50.11,
+            "tailSeconds": 1.46,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 16.62,
+            "tailSeconds": 2.22,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 15.86,
+            "tailSeconds": 1.46,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Мороженое",
+        "coloredCells": 136,
+        "colors": 5,
+        "lots": 12,
+        "medianQuota": 13,
+        "maxQuota": 16,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 84.36,
+            "tailSeconds": 1.46,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 50.11,
+            "tailSeconds": 1.46,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 16.62,
+            "tailSeconds": 2.22,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 15.86,
+            "tailSeconds": 1.46,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": null,
+      "heldOut": null
+    },
+    {
+      "id": 4,
+      "contentDiffers": true,
+      "changed": true,
+      "before": {
+        "title": "Бабочка на лугу",
+        "coloredCells": 440,
+        "colors": 6,
+        "lots": 18,
+        "medianQuota": 27,
+        "maxQuota": 38,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 194.33,
+            "tailSeconds": 5.03,
+            "maxNoChoiceSeconds": 7.3,
+            "maxForcedLowProductivitySeconds": 6.45,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 110.48,
+            "tailSeconds": 5.03,
+            "maxNoChoiceSeconds": 3.65,
+            "maxForcedLowProductivitySeconds": 3.225,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 53.05,
+            "tailSeconds": 5.5,
+            "maxNoChoiceSeconds": 23.65,
+            "maxForcedLowProductivitySeconds": 6.7,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 34.285,
+            "tailSeconds": 5.06,
+            "maxNoChoiceSeconds": 11.7,
+            "maxForcedLowProductivitySeconds": 3.175,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Бабочка",
+        "coloredCells": 224,
+        "colors": 5,
+        "lots": 12,
+        "medianQuota": 19,
+        "maxQuota": 28,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 117.275,
+            "tailSeconds": 2.75,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 67.213,
+            "tailSeconds": 2.75,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 19.99,
+            "tailSeconds": 3.44,
+            "maxNoChoiceSeconds": 3.05,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 17.15,
+            "tailSeconds": 2.75,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": {
+        "seed": 970127,
+        "trials": 200,
+        "random": 1,
+        "visible": 1
+      }
+    },
+    {
+      "id": 5,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Жёлудь Twig",
+        "coloredCells": 366,
+        "colors": 5,
+        "lots": 12,
+        "medianQuota": 22,
+        "maxQuota": 90,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 150.89,
+            "tailSeconds": 1.54,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 83.415,
+            "tailSeconds": 1.54,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 41.35,
+            "tailSeconds": 6.05,
+            "maxNoChoiceSeconds": 21.85,
+            "maxForcedLowProductivitySeconds": 2.4,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 26.495,
+            "tailSeconds": 5.57,
+            "maxNoChoiceSeconds": 7.5,
+            "maxForcedLowProductivitySeconds": 1.2,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Жёлудь Twig",
+        "coloredCells": 366,
+        "colors": 5,
+        "lots": 12,
+        "medianQuota": 22,
+        "maxQuota": 90,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 150.89,
+            "tailSeconds": 1.54,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 83.415,
+            "tailSeconds": 1.54,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 41.35,
+            "tailSeconds": 6.05,
+            "maxNoChoiceSeconds": 21.85,
+            "maxForcedLowProductivitySeconds": 2.4,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 26.495,
+            "tailSeconds": 5.57,
+            "maxNoChoiceSeconds": 7.5,
+            "maxForcedLowProductivitySeconds": 1.2,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.43666666666666665,
+        "visible": 0.75,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 6,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Грибок",
+        "coloredCells": 288,
+        "colors": 8,
+        "lots": 12,
+        "medianQuota": 23,
+        "maxQuota": 43,
+        "links": 0,
+        "mysteries": 1,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 147.055,
+            "tailSeconds": 3.58,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 82.518,
+            "tailSeconds": 3.58,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 31.29,
+            "tailSeconds": 4.64,
+            "maxNoChoiceSeconds": 15.3,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 23.475,
+            "tailSeconds": 3.65,
+            "maxNoChoiceSeconds": 5.375,
+            "maxForcedLowProductivitySeconds": 1.65,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Грибок",
+        "coloredCells": 288,
+        "colors": 8,
+        "lots": 12,
+        "medianQuota": 23,
+        "maxQuota": 43,
+        "links": 0,
+        "mysteries": 1,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 147.055,
+            "tailSeconds": 3.58,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 82.518,
+            "tailSeconds": 3.58,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 31.29,
+            "tailSeconds": 4.64,
+            "maxNoChoiceSeconds": 15.3,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 23.475,
+            "tailSeconds": 3.65,
+            "maxNoChoiceSeconds": 5.375,
+            "maxForcedLowProductivitySeconds": 1.65,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.9066666666666666,
+        "visible": 1,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 7,
+      "contentDiffers": true,
+      "changed": false,
+      "before": {
+        "title": "Клубника на скатерти",
+        "coloredCells": 316,
+        "colors": 6,
+        "lots": 13,
+        "medianQuota": 22,
+        "maxQuota": 53,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 155.535,
+            "tailSeconds": 4.51,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 87.823,
+            "tailSeconds": 4.51,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 34.28,
+            "tailSeconds": 4.58,
+            "maxNoChoiceSeconds": 14.5,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 22.23,
+            "tailSeconds": 4.38,
+            "maxNoChoiceSeconds": 4.625,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Клубника на скатерти",
+        "coloredCells": 316,
+        "colors": 6,
+        "lots": 12,
+        "medianQuota": 18,
+        "maxQuota": 75,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 144.17,
+            "tailSeconds": 3.42,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 80.995,
+            "tailSeconds": 3.42,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 36.98,
+            "tailSeconds": 4.63,
+            "maxNoChoiceSeconds": 21.45,
+            "maxForcedLowProductivitySeconds": 0.05,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 23.375,
+            "tailSeconds": 4.55,
+            "maxNoChoiceSeconds": 8.025,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.6133333333333333,
+        "visible": 0.9066666666666666,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд справа налево",
+          "середина, потом края",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 8,
+      "contentDiffers": true,
+      "changed": false,
+      "before": {
+        "title": "Чашка на завтраке",
+        "coloredCells": 728,
+        "colors": 8,
+        "lots": 25,
+        "medianQuota": 18,
+        "maxQuota": 111,
+        "links": 1,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 298.13,
+            "tailSeconds": 2.93,
+            "maxNoChoiceSeconds": 3.8,
+            "maxForcedLowProductivitySeconds": 1.25,
+            "completedLinkedHeldSlotSeconds": 1.95
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 164.93,
+            "tailSeconds": 2.93,
+            "maxNoChoiceSeconds": 1.9,
+            "maxForcedLowProductivitySeconds": 0.625,
+            "completedLinkedHeldSlotSeconds": 0.975
+          },
+          "brisk1x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 12,
+            "reason": "finished"
+          },
+          "brisk2x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 11,
+            "reason": "finished"
+          }
+        }
+      },
+      "after": {
+        "title": "Чашка на завтраке",
+        "coloredCells": 728,
+        "colors": 8,
+        "lots": 27,
+        "medianQuota": 17,
+        "maxQuota": 121,
+        "links": 1,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 297.025,
+            "tailSeconds": 2.95,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 53.625
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 165.588,
+            "tailSeconds": 2.95,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 28.612
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 70.09,
+            "tailSeconds": 10.19,
+            "maxNoChoiceSeconds": 30.9,
+            "maxForcedLowProductivitySeconds": 7,
+            "completedLinkedHeldSlotSeconds": 37.2
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 45.34,
+            "tailSeconds": 7.09,
+            "maxNoChoiceSeconds": 13.5,
+            "maxForcedLowProductivitySeconds": 3.225,
+            "completedLinkedHeldSlotSeconds": 18.425
+          }
+        }
+      },
+      "bots": {
+        "random": 0.37666666666666665,
+        "visible": 0.61,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка слева до конца",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 9,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Пончик",
+        "coloredCells": 528,
+        "colors": 11,
+        "lots": 18,
+        "medianQuota": 31,
+        "maxQuota": 66,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 233.905,
+            "tailSeconds": 8.78,
+            "maxNoChoiceSeconds": 4.9,
+            "maxForcedLowProductivitySeconds": 4.9,
+            "completedLinkedHeldSlotSeconds": 74.725
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 130.943,
+            "tailSeconds": 8.78,
+            "maxNoChoiceSeconds": 2.45,
+            "maxForcedLowProductivitySeconds": 2.45,
+            "completedLinkedHeldSlotSeconds": 39.162
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 60.08,
+            "tailSeconds": 8.78,
+            "maxNoChoiceSeconds": 26,
+            "maxForcedLowProductivitySeconds": 5.55,
+            "completedLinkedHeldSlotSeconds": 25.55
+          },
+          "brisk2x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 15,
+            "reason": "finished"
+          }
+        }
+      },
+      "after": {
+        "title": "Пончик",
+        "coloredCells": 528,
+        "colors": 11,
+        "lots": 18,
+        "medianQuota": 31,
+        "maxQuota": 66,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 233.905,
+            "tailSeconds": 8.78,
+            "maxNoChoiceSeconds": 4.9,
+            "maxForcedLowProductivitySeconds": 4.9,
+            "completedLinkedHeldSlotSeconds": 74.725
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 130.943,
+            "tailSeconds": 8.78,
+            "maxNoChoiceSeconds": 2.45,
+            "maxForcedLowProductivitySeconds": 2.45,
+            "completedLinkedHeldSlotSeconds": 39.162
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 60.08,
+            "tailSeconds": 8.78,
+            "maxNoChoiceSeconds": 26,
+            "maxForcedLowProductivitySeconds": 5.55,
+            "completedLinkedHeldSlotSeconds": 25.55
+          },
+          "brisk2x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 15,
+            "reason": "finished"
+          }
+        }
+      },
+      "bots": {
+        "random": 0.5666666666666667,
+        "visible": 0.8866666666666667,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "по две из колонки",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 10,
+      "contentDiffers": true,
+      "changed": true,
+      "before": {
+        "title": "Золотая рыбка",
+        "coloredCells": 960,
+        "colors": 13,
+        "lots": 34,
+        "medianQuota": 12,
+        "maxQuota": 154,
+        "links": 2,
+        "mysteries": 5,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 567.535,
+            "tailSeconds": 5.51,
+            "maxNoChoiceSeconds": 40.35,
+            "maxForcedLowProductivitySeconds": 40.35,
+            "completedLinkedHeldSlotSeconds": 183.6
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 305.723,
+            "tailSeconds": 5.51,
+            "maxNoChoiceSeconds": 20.175,
+            "maxForcedLowProductivitySeconds": 20.175,
+            "completedLinkedHeldSlotSeconds": 97.2
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 222.26,
+            "tailSeconds": 5.51,
+            "maxNoChoiceSeconds": 62.1,
+            "maxForcedLowProductivitySeconds": 62.1,
+            "completedLinkedHeldSlotSeconds": 79.95
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 122.485,
+            "tailSeconds": 5.51,
+            "maxNoChoiceSeconds": 31.025,
+            "maxForcedLowProductivitySeconds": 31.025,
+            "completedLinkedHeldSlotSeconds": 42.675
+          }
+        }
+      },
+      "after": {
+        "title": "Золотая рыбка",
+        "coloredCells": 960,
+        "colors": 13,
+        "lots": 34,
+        "medianQuota": 30,
+        "maxQuota": 60,
+        "links": 3,
+        "mysteries": 5,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 534.365,
+            "tailSeconds": 6.64,
+            "maxNoChoiceSeconds": 15.05,
+            "maxForcedLowProductivitySeconds": 15.05,
+            "completedLinkedHeldSlotSeconds": 326.9
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 289.103,
+            "tailSeconds": 6.64,
+            "maxNoChoiceSeconds": 7.525,
+            "maxForcedLowProductivitySeconds": 7.525,
+            "completedLinkedHeldSlotSeconds": 173.05
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 168.94,
+            "tailSeconds": 6.74,
+            "maxNoChoiceSeconds": 40.35,
+            "maxForcedLowProductivitySeconds": 33.2,
+            "completedLinkedHeldSlotSeconds": 114.45
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 91.74,
+            "tailSeconds": 6.74,
+            "maxNoChoiceSeconds": 19.625,
+            "maxForcedLowProductivitySeconds": 16.125,
+            "completedLinkedHeldSlotSeconds": 59.575
+          }
+        }
+      },
+      "bots": {
+        "random": 0.10333333333333333,
+        "visible": 0.11333333333333333,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка слева до конца"
+        ]
+      },
+      "heldOut": {
+        "seed": 970313,
+        "trials": 200,
+        "random": 0.105,
+        "visible": 0.1
+      }
+    },
+    {
+      "id": 11,
+      "contentDiffers": true,
+      "changed": false,
+      "before": {
+        "title": "Виноград",
+        "coloredCells": 205,
+        "colors": 6,
+        "lots": 12,
+        "medianQuota": 18,
+        "maxQuota": 66,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 111.735,
+            "tailSeconds": 3.56,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 64.848,
+            "tailSeconds": 3.56,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 19.52,
+            "tailSeconds": 5.12,
+            "maxNoChoiceSeconds": 0.95,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 18.06,
+            "tailSeconds": 3.66,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Виноград",
+        "coloredCells": 205,
+        "colors": 6,
+        "lots": 12,
+        "medianQuota": 13,
+        "maxQuota": 47,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 109.07,
+            "tailSeconds": 3.57,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 63.52,
+            "tailSeconds": 3.57,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 26.7,
+            "tailSeconds": 6.5,
+            "maxNoChoiceSeconds": 9.7,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 20.72,
+            "tailSeconds": 5.82,
+            "maxNoChoiceSeconds": 1.85,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.87,
+        "visible": 1,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "самое большое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 12,
+      "contentDiffers": true,
+      "changed": true,
+      "before": {
+        "title": "Сова ночью",
+        "coloredCells": 624,
+        "colors": 9,
+        "lots": 21,
+        "medianQuota": 17,
+        "maxQuota": 106,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 296.085,
+            "tailSeconds": 1.81,
+            "maxNoChoiceSeconds": 2.2,
+            "maxForcedLowProductivitySeconds": 2.2,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 161.548,
+            "tailSeconds": 1.81,
+            "maxNoChoiceSeconds": 1.1,
+            "maxForcedLowProductivitySeconds": 1.1,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 84.83,
+            "tailSeconds": 5.18,
+            "maxNoChoiceSeconds": 71.25,
+            "maxForcedLowProductivitySeconds": 9.3,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 48.265,
+            "tailSeconds": 4.24,
+            "maxNoChoiceSeconds": 17.775,
+            "maxForcedLowProductivitySeconds": 4.65,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Сова при луне",
+        "coloredCells": 624,
+        "colors": 7,
+        "lots": 21,
+        "medianQuota": 26,
+        "maxQuota": 60,
+        "links": 1,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 294.535,
+            "tailSeconds": 7.01,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 8.2
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 162.773,
+            "tailSeconds": 7.01,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 4.1
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 63.33,
+            "tailSeconds": 8.03,
+            "maxNoChoiceSeconds": 20.8,
+            "maxForcedLowProductivitySeconds": 7.4,
+            "completedLinkedHeldSlotSeconds": 10.9
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 38.86,
+            "tailSeconds": 7.01,
+            "maxNoChoiceSeconds": 7.125,
+            "maxForcedLowProductivitySeconds": 5,
+            "completedLinkedHeldSlotSeconds": 5.65
+          }
+        }
+      },
+      "bots": {
+        "random": 0.3466666666666667,
+        "visible": 0.8333333333333334,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца"
+        ]
+      },
+      "heldOut": {
+        "seed": 970375,
+        "trials": 200,
+        "random": 0.43,
+        "visible": 0.82
+      }
+    },
+    {
+      "id": 13,
+      "contentDiffers": true,
+      "changed": true,
+      "before": {
+        "title": "Зонтик под дождём",
+        "coloredCells": 572,
+        "colors": 13,
+        "lots": 20,
+        "medianQuota": 17,
+        "maxQuota": 107,
+        "links": 1,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 273.5,
+            "tailSeconds": 5.4,
+            "maxNoChoiceSeconds": 17.95,
+            "maxForcedLowProductivitySeconds": 8.85,
+            "completedLinkedHeldSlotSeconds": 37.45
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 150.85,
+            "tailSeconds": 5.4,
+            "maxNoChoiceSeconds": 8.975,
+            "maxForcedLowProductivitySeconds": 4.425,
+            "completedLinkedHeldSlotSeconds": 19.325
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 96.6,
+            "tailSeconds": 5.4,
+            "maxNoChoiceSeconds": 56.35,
+            "maxForcedLowProductivitySeconds": 27.4,
+            "completedLinkedHeldSlotSeconds": 11.25
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 53.325,
+            "tailSeconds": 5.4,
+            "maxNoChoiceSeconds": 13.4,
+            "maxForcedLowProductivitySeconds": 7.75,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Зонтик в луже",
+        "coloredCells": 572,
+        "colors": 8,
+        "lots": 20,
+        "medianQuota": 27,
+        "maxQuota": 58,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 237.045,
+            "tailSeconds": 6.37,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 1.1
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 132.508,
+            "tailSeconds": 6.37,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0.55
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 56.89,
+            "tailSeconds": 6.94,
+            "maxNoChoiceSeconds": 25.05,
+            "maxForcedLowProductivitySeconds": 8.15,
+            "completedLinkedHeldSlotSeconds": 2.35
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 37.32,
+            "tailSeconds": 6.37,
+            "maxNoChoiceSeconds": 12.525,
+            "maxForcedLowProductivitySeconds": 4.075,
+            "completedLinkedHeldSlotSeconds": 1.495
+          }
+        }
+      },
+      "bots": {
+        "random": 0.42,
+        "visible": 0.6833333333333333,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      },
+      "heldOut": {
+        "seed": 970406,
+        "trials": 200,
+        "random": 0.46,
+        "visible": 0.66
+      }
+    },
+    {
+      "id": 14,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Чайник с узором",
+        "coloredCells": 676,
+        "colors": 8,
+        "lots": 24,
+        "medianQuota": 26,
+        "maxQuota": 73,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 324.01,
+            "tailSeconds": 2.01,
+            "maxNoChoiceSeconds": 6.8,
+            "maxForcedLowProductivitySeconds": 4.45,
+            "completedLinkedHeldSlotSeconds": 78.425
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 176.21,
+            "tailSeconds": 2.01,
+            "maxNoChoiceSeconds": 3.4,
+            "maxForcedLowProductivitySeconds": 2.225,
+            "completedLinkedHeldSlotSeconds": 44.012
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 89.32,
+            "tailSeconds": 8.52,
+            "maxNoChoiceSeconds": 33.25,
+            "maxForcedLowProductivitySeconds": 5.55,
+            "completedLinkedHeldSlotSeconds": 24.03
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 51.065,
+            "tailSeconds": 9.44,
+            "maxNoChoiceSeconds": 15.425,
+            "maxForcedLowProductivitySeconds": 2.775,
+            "completedLinkedHeldSlotSeconds": 12.05
+          }
+        }
+      },
+      "after": {
+        "title": "Чайник с узором",
+        "coloredCells": 676,
+        "colors": 8,
+        "lots": 24,
+        "medianQuota": 26,
+        "maxQuota": 73,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 324.01,
+            "tailSeconds": 2.01,
+            "maxNoChoiceSeconds": 6.8,
+            "maxForcedLowProductivitySeconds": 4.45,
+            "completedLinkedHeldSlotSeconds": 78.425
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 176.21,
+            "tailSeconds": 2.01,
+            "maxNoChoiceSeconds": 3.4,
+            "maxForcedLowProductivitySeconds": 2.225,
+            "completedLinkedHeldSlotSeconds": 44.012
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 89.32,
+            "tailSeconds": 8.52,
+            "maxNoChoiceSeconds": 33.25,
+            "maxForcedLowProductivitySeconds": 5.55,
+            "completedLinkedHeldSlotSeconds": 24.03
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 51.065,
+            "tailSeconds": 9.44,
+            "maxNoChoiceSeconds": 15.425,
+            "maxForcedLowProductivitySeconds": 2.775,
+            "completedLinkedHeldSlotSeconds": 12.05
+          }
+        }
+      },
+      "bots": {
+        "random": 0.25666666666666665,
+        "visible": 0.68,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 15,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Пчёлка над цветком",
+        "coloredCells": 840,
+        "colors": 14,
+        "lots": 30,
+        "medianQuota": 17,
+        "maxQuota": 96,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 544.605,
+            "tailSeconds": 2.33,
+            "maxNoChoiceSeconds": 30.3,
+            "maxForcedLowProductivitySeconds": 24.05,
+            "completedLinkedHeldSlotSeconds": 285.3
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 290.268,
+            "tailSeconds": 2.33,
+            "maxNoChoiceSeconds": 15.15,
+            "maxForcedLowProductivitySeconds": 12.025,
+            "completedLinkedHeldSlotSeconds": 149.85
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 162.92,
+            "tailSeconds": 5.92,
+            "maxNoChoiceSeconds": 62.5,
+            "maxForcedLowProductivitySeconds": 36.85,
+            "completedLinkedHeldSlotSeconds": 144.55
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 89.025,
+            "tailSeconds": 5,
+            "maxNoChoiceSeconds": 29.225,
+            "maxForcedLowProductivitySeconds": 18.425,
+            "completedLinkedHeldSlotSeconds": 74.25
+          }
+        }
+      },
+      "after": {
+        "title": "Пчёлка над цветком",
+        "coloredCells": 840,
+        "colors": 14,
+        "lots": 30,
+        "medianQuota": 17,
+        "maxQuota": 96,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 544.605,
+            "tailSeconds": 2.33,
+            "maxNoChoiceSeconds": 30.3,
+            "maxForcedLowProductivitySeconds": 24.05,
+            "completedLinkedHeldSlotSeconds": 285.3
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 290.268,
+            "tailSeconds": 2.33,
+            "maxNoChoiceSeconds": 15.15,
+            "maxForcedLowProductivitySeconds": 12.025,
+            "completedLinkedHeldSlotSeconds": 149.85
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 162.92,
+            "tailSeconds": 5.92,
+            "maxNoChoiceSeconds": 62.5,
+            "maxForcedLowProductivitySeconds": 36.85,
+            "completedLinkedHeldSlotSeconds": 144.55
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 89.025,
+            "tailSeconds": 5,
+            "maxNoChoiceSeconds": 29.225,
+            "maxForcedLowProductivitySeconds": 18.425,
+            "completedLinkedHeldSlotSeconds": 74.25
+          }
+        }
+      },
+      "bots": {
+        "random": 0.19,
+        "visible": 0.37,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "ряд справа налево",
+          "середина, потом края"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 16,
+      "contentDiffers": true,
+      "changed": true,
+      "before": {
+        "title": "Змей над холмом",
+        "coloredCells": 146,
+        "colors": 5,
+        "lots": 12,
+        "medianQuota": 11,
+        "maxQuota": 35,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 77.08,
+            "tailSeconds": 4.13,
+            "maxNoChoiceSeconds": 7.35,
+            "maxForcedLowProductivitySeconds": 6.8,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 47.805,
+            "tailSeconds": 4.13,
+            "maxNoChoiceSeconds": 3.675,
+            "maxForcedLowProductivitySeconds": 3.4,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 26.58,
+            "tailSeconds": 4.13,
+            "maxNoChoiceSeconds": 10.45,
+            "maxForcedLowProductivitySeconds": 6.8,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 21.355,
+            "tailSeconds": 4.13,
+            "maxNoChoiceSeconds": 5.225,
+            "maxForcedLowProductivitySeconds": 3.4,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Воздушный змей",
+        "coloredCells": 241,
+        "colors": 5,
+        "lots": 16,
+        "medianQuota": 14,
+        "maxQuota": 27,
+        "links": 1,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 151.52,
+            "tailSeconds": 3.97,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 86.745,
+            "tailSeconds": 3.97,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 31.83,
+            "tailSeconds": 5.18,
+            "maxNoChoiceSeconds": 10.05,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 22.955,
+            "tailSeconds": 4.38,
+            "maxNoChoiceSeconds": 2.65,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 1,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": {
+        "seed": 970499,
+        "trials": 200,
+        "random": 1,
+        "visible": 1
+      }
+    },
+    {
+      "id": 17,
+      "contentDiffers": true,
+      "changed": false,
+      "before": {
+        "title": "Садовая лейка",
+        "coloredCells": 576,
+        "colors": 14,
+        "lots": 19,
+        "medianQuota": 15,
+        "maxQuota": 114,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 266.945,
+            "tailSeconds": 6.27,
+            "maxNoChoiceSeconds": 19.8,
+            "maxForcedLowProductivitySeconds": 7.3,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 148.008,
+            "tailSeconds": 6.27,
+            "maxNoChoiceSeconds": 9.9,
+            "maxForcedLowProductivitySeconds": 3.65,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 103.47,
+            "tailSeconds": 6.27,
+            "maxNoChoiceSeconds": 78.25,
+            "maxForcedLowProductivitySeconds": 15.85,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 59.72,
+            "tailSeconds": 6.27,
+            "maxNoChoiceSeconds": 39.125,
+            "maxForcedLowProductivitySeconds": 7.925,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Садовая лейка",
+        "coloredCells": 576,
+        "colors": 14,
+        "lots": 19,
+        "medianQuota": 24,
+        "maxQuota": 116,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 394.24,
+            "tailSeconds": 1.94,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 209.49,
+            "tailSeconds": 1.94,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 86.08,
+            "tailSeconds": 6.03,
+            "maxNoChoiceSeconds": 36.7,
+            "maxForcedLowProductivitySeconds": 7.5,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 49.505,
+            "tailSeconds": 6.03,
+            "maxNoChoiceSeconds": 16.55,
+            "maxForcedLowProductivitySeconds": 3.75,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.36333333333333334,
+        "visible": 0.75,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 18,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Грибной домик",
+        "coloredCells": 728,
+        "colors": 14,
+        "lots": 26,
+        "medianQuota": 25,
+        "maxQuota": 98,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 319.89,
+            "tailSeconds": 1.74,
+            "maxNoChoiceSeconds": 15.55,
+            "maxForcedLowProductivitySeconds": 12.6,
+            "completedLinkedHeldSlotSeconds": 84.775
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 175.215,
+            "tailSeconds": 1.74,
+            "maxNoChoiceSeconds": 7.775,
+            "maxForcedLowProductivitySeconds": 6.3,
+            "completedLinkedHeldSlotSeconds": 46.587
+          },
+          "brisk1x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 11,
+            "reason": "finished"
+          },
+          "brisk2x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 11,
+            "reason": "finished"
+          }
+        }
+      },
+      "after": {
+        "title": "Грибной домик",
+        "coloredCells": 728,
+        "colors": 14,
+        "lots": 26,
+        "medianQuota": 25,
+        "maxQuota": 98,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 319.89,
+            "tailSeconds": 1.74,
+            "maxNoChoiceSeconds": 15.55,
+            "maxForcedLowProductivitySeconds": 12.6,
+            "completedLinkedHeldSlotSeconds": 84.775
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 175.215,
+            "tailSeconds": 1.74,
+            "maxNoChoiceSeconds": 7.775,
+            "maxForcedLowProductivitySeconds": 6.3,
+            "completedLinkedHeldSlotSeconds": 46.587
+          },
+          "brisk1x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 11,
+            "reason": "finished"
+          },
+          "brisk2x": {
+            "won": false,
+            "status": "Jammed",
+            "refusedAt": 11,
+            "reason": "finished"
+          }
+        }
+      },
+      "bots": {
+        "random": 0.37,
+        "visible": 0.71,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд справа налево",
+          "середина, потом края",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 19,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Цветок на окне",
+        "coloredCells": 480,
+        "colors": 13,
+        "lots": 16,
+        "medianQuota": 35,
+        "maxQuota": 69,
+        "links": 0,
+        "mysteries": 1,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 250.22,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 18.55,
+            "maxForcedLowProductivitySeconds": 15.3,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 136.045,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 9.275,
+            "maxForcedLowProductivitySeconds": 7.65,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 81.09,
+            "tailSeconds": 2.84,
+            "maxNoChoiceSeconds": 57.85,
+            "maxForcedLowProductivitySeconds": 33.95,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 46.695,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 28.8,
+            "maxForcedLowProductivitySeconds": 17.4,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Цветок на окне",
+        "coloredCells": 480,
+        "colors": 13,
+        "lots": 16,
+        "medianQuota": 35,
+        "maxQuota": 69,
+        "links": 0,
+        "mysteries": 1,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 250.22,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 18.55,
+            "maxForcedLowProductivitySeconds": 15.3,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 136.045,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 9.275,
+            "maxForcedLowProductivitySeconds": 7.65,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 81.09,
+            "tailSeconds": 2.84,
+            "maxNoChoiceSeconds": 57.85,
+            "maxForcedLowProductivitySeconds": 33.95,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 46.695,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 28.8,
+            "maxForcedLowProductivitySeconds": 17.4,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.46,
+        "visible": 0.73,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд справа налево",
+          "змейка",
+          "самое большое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 20,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Тыква у ручья",
+        "coloredCells": 696,
+        "colors": 11,
+        "lots": 25,
+        "medianQuota": 19,
+        "maxQuota": 116,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 465.75,
+            "tailSeconds": 3.3,
+            "maxNoChoiceSeconds": 18.05,
+            "maxForcedLowProductivitySeconds": 5.2,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 250.125,
+            "tailSeconds": 3.3,
+            "maxNoChoiceSeconds": 9.025,
+            "maxForcedLowProductivitySeconds": 2.6,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 109.18,
+            "tailSeconds": 4.28,
+            "maxNoChoiceSeconds": 67.4,
+            "maxForcedLowProductivitySeconds": 6.15,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 61.23,
+            "tailSeconds": 4.43,
+            "maxNoChoiceSeconds": 33.975,
+            "maxForcedLowProductivitySeconds": 3.925,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Тыква у ручья",
+        "coloredCells": 696,
+        "colors": 11,
+        "lots": 25,
+        "medianQuota": 19,
+        "maxQuota": 116,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 465.75,
+            "tailSeconds": 3.3,
+            "maxNoChoiceSeconds": 18.05,
+            "maxForcedLowProductivitySeconds": 5.2,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 250.125,
+            "tailSeconds": 3.3,
+            "maxNoChoiceSeconds": 9.025,
+            "maxForcedLowProductivitySeconds": 2.6,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 109.18,
+            "tailSeconds": 4.28,
+            "maxNoChoiceSeconds": 67.4,
+            "maxForcedLowProductivitySeconds": 6.15,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 61.23,
+            "tailSeconds": 4.43,
+            "maxNoChoiceSeconds": 33.975,
+            "maxForcedLowProductivitySeconds": 3.925,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.22666666666666666,
+        "visible": 0.58,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": []
+      },
+      "heldOut": null
+    },
+    {
+      "id": 21,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Груша у ручья",
+        "coloredCells": 594,
+        "colors": 11,
+        "lots": 20,
+        "medianQuota": 26,
+        "maxQuota": 81,
+        "links": 1,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 315.89,
+            "tailSeconds": 9.99,
+            "maxNoChoiceSeconds": 5.1,
+            "maxForcedLowProductivitySeconds": 5.1,
+            "completedLinkedHeldSlotSeconds": 32.05
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 174.94,
+            "tailSeconds": 9.99,
+            "maxNoChoiceSeconds": 2.55,
+            "maxForcedLowProductivitySeconds": 2.55,
+            "completedLinkedHeldSlotSeconds": 16.025
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 93.59,
+            "tailSeconds": 10.09,
+            "maxNoChoiceSeconds": 60.85,
+            "maxForcedLowProductivitySeconds": 5.3,
+            "completedLinkedHeldSlotSeconds": 45.5
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 57.045,
+            "tailSeconds": 9.82,
+            "maxNoChoiceSeconds": 28.175,
+            "maxForcedLowProductivitySeconds": 3.55,
+            "completedLinkedHeldSlotSeconds": 22.75
+          }
+        }
+      },
+      "after": {
+        "title": "Груша у ручья",
+        "coloredCells": 594,
+        "colors": 11,
+        "lots": 20,
+        "medianQuota": 26,
+        "maxQuota": 81,
+        "links": 1,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 315.89,
+            "tailSeconds": 9.99,
+            "maxNoChoiceSeconds": 5.1,
+            "maxForcedLowProductivitySeconds": 5.1,
+            "completedLinkedHeldSlotSeconds": 32.05
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 174.94,
+            "tailSeconds": 9.99,
+            "maxNoChoiceSeconds": 2.55,
+            "maxForcedLowProductivitySeconds": 2.55,
+            "completedLinkedHeldSlotSeconds": 16.025
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 93.59,
+            "tailSeconds": 10.09,
+            "maxNoChoiceSeconds": 60.85,
+            "maxForcedLowProductivitySeconds": 5.3,
+            "completedLinkedHeldSlotSeconds": 45.5
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 57.045,
+            "tailSeconds": 9.82,
+            "maxNoChoiceSeconds": 28.175,
+            "maxForcedLowProductivitySeconds": 3.55,
+            "completedLinkedHeldSlotSeconds": 22.75
+          }
+        }
+      },
+      "bots": {
+        "random": 0.62,
+        "visible": 0.88,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд справа налево",
+          "середина, потом края",
+          "по две из колонки"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 22,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Домик у ручья",
+        "coloredCells": 924,
+        "colors": 15,
+        "lots": 33,
+        "medianQuota": 22,
+        "maxQuota": 70,
+        "links": 4,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 681.425,
+            "tailSeconds": 5.15,
+            "maxNoChoiceSeconds": 27.55,
+            "maxForcedLowProductivitySeconds": 27.55,
+            "completedLinkedHeldSlotSeconds": 248.425
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 361.288,
+            "tailSeconds": 5.15,
+            "maxNoChoiceSeconds": 13.775,
+            "maxForcedLowProductivitySeconds": 13.775,
+            "completedLinkedHeldSlotSeconds": 127.812
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 244.64,
+            "tailSeconds": 6.64,
+            "maxNoChoiceSeconds": 69.15,
+            "maxForcedLowProductivitySeconds": 20.95,
+            "completedLinkedHeldSlotSeconds": 170
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 131.71,
+            "tailSeconds": 5.26,
+            "maxNoChoiceSeconds": 34.3,
+            "maxForcedLowProductivitySeconds": 10.125,
+            "completedLinkedHeldSlotSeconds": 83
+          }
+        }
+      },
+      "after": {
+        "title": "Домик у ручья",
+        "coloredCells": 924,
+        "colors": 15,
+        "lots": 33,
+        "medianQuota": 22,
+        "maxQuota": 70,
+        "links": 4,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 681.425,
+            "tailSeconds": 5.15,
+            "maxNoChoiceSeconds": 27.55,
+            "maxForcedLowProductivitySeconds": 27.55,
+            "completedLinkedHeldSlotSeconds": 248.425
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 361.288,
+            "tailSeconds": 5.15,
+            "maxNoChoiceSeconds": 13.775,
+            "maxForcedLowProductivitySeconds": 13.775,
+            "completedLinkedHeldSlotSeconds": 127.812
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 244.64,
+            "tailSeconds": 6.64,
+            "maxNoChoiceSeconds": 69.15,
+            "maxForcedLowProductivitySeconds": 20.95,
+            "completedLinkedHeldSlotSeconds": 170
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 131.71,
+            "tailSeconds": 5.26,
+            "maxNoChoiceSeconds": 34.3,
+            "maxForcedLowProductivitySeconds": 10.125,
+            "completedLinkedHeldSlotSeconds": 83
+          }
+        }
+      },
+      "bots": {
+        "random": 0.10333333333333333,
+        "visible": 0.11333333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      },
+      "heldOut": null
+    },
+    {
+      "id": 23,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Воздушный шар",
+        "coloredCells": 242,
+        "colors": 7,
+        "lots": 14,
+        "medianQuota": 15,
+        "maxQuota": 41,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 108.095,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 6.25,
+            "maxForcedLowProductivitySeconds": 2.05,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 63.783,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 3.125,
+            "maxForcedLowProductivitySeconds": 1.025,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 30.57,
+            "tailSeconds": 4.87,
+            "maxNoChoiceSeconds": 14.65,
+            "maxForcedLowProductivitySeconds": 2.05,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 23.51,
+            "tailSeconds": 4.16,
+            "maxNoChoiceSeconds": 6.85,
+            "maxForcedLowProductivitySeconds": 1.025,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Воздушный шар",
+        "coloredCells": 242,
+        "colors": 7,
+        "lots": 14,
+        "medianQuota": 15,
+        "maxQuota": 41,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 108.095,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 6.25,
+            "maxForcedLowProductivitySeconds": 2.05,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 63.783,
+            "tailSeconds": 2.67,
+            "maxNoChoiceSeconds": 3.125,
+            "maxForcedLowProductivitySeconds": 1.025,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 30.57,
+            "tailSeconds": 4.87,
+            "maxNoChoiceSeconds": 14.65,
+            "maxForcedLowProductivitySeconds": 2.05,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 23.51,
+            "tailSeconds": 4.16,
+            "maxNoChoiceSeconds": 6.85,
+            "maxForcedLowProductivitySeconds": 1.025,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.77,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "самое большое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 24,
+      "contentDiffers": true,
+      "changed": false,
+      "before": {
+        "title": "Улитка у ручья",
+        "coloredCells": 696,
+        "colors": 12,
+        "lots": 26,
+        "medianQuota": 21,
+        "maxQuota": 98,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 664.635,
+            "tailSeconds": 4.81,
+            "maxNoChoiceSeconds": 13.15,
+            "maxForcedLowProductivitySeconds": 10,
+            "completedLinkedHeldSlotSeconds": 93.65
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 349.723,
+            "tailSeconds": 4.81,
+            "maxNoChoiceSeconds": 6.575,
+            "maxForcedLowProductivitySeconds": 5,
+            "completedLinkedHeldSlotSeconds": 49.225
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 134.35,
+            "tailSeconds": 13,
+            "maxNoChoiceSeconds": 45.95,
+            "maxForcedLowProductivitySeconds": 3.7,
+            "completedLinkedHeldSlotSeconds": 50.9
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 78.175,
+            "tailSeconds": 12.4,
+            "maxNoChoiceSeconds": 22.925,
+            "maxForcedLowProductivitySeconds": 2.9,
+            "completedLinkedHeldSlotSeconds": 29.4
+          }
+        }
+      },
+      "after": {
+        "title": "Улитка у ручья",
+        "coloredCells": 696,
+        "colors": 12,
+        "lots": 25,
+        "medianQuota": 21,
+        "maxQuota": 72,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 396.53,
+            "tailSeconds": 3.33,
+            "maxNoChoiceSeconds": 9.3,
+            "maxForcedLowProductivitySeconds": 9.3,
+            "completedLinkedHeldSlotSeconds": 110.775
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 214.33,
+            "tailSeconds": 3.33,
+            "maxNoChoiceSeconds": 4.65,
+            "maxForcedLowProductivitySeconds": 4.65,
+            "completedLinkedHeldSlotSeconds": 57.787
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 111.93,
+            "tailSeconds": 4.98,
+            "maxNoChoiceSeconds": 58.15,
+            "maxForcedLowProductivitySeconds": 10.15,
+            "completedLinkedHeldSlotSeconds": 13.2
+          },
+          "brisk2x": {
+            "won": false,
+            "status": "Playing",
+            "refusedAt": 7,
+            "reason": "no-slot"
+          }
+        }
+      },
+      "bots": {
+        "random": 0.27666666666666667,
+        "visible": 0.77,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 1,
+        "patternWins": []
+      },
+      "heldOut": null
+    },
+    {
+      "id": 25,
+      "contentDiffers": true,
+      "changed": true,
+      "before": {
+        "title": "Котёнок с клубком",
+        "coloredCells": 840,
+        "colors": 12,
+        "lots": 30,
+        "medianQuota": 21,
+        "maxQuota": 122,
+        "links": 3,
+        "mysteries": 2,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 467.005,
+            "tailSeconds": 2.88,
+            "maxNoChoiceSeconds": 5.55,
+            "maxForcedLowProductivitySeconds": 5.55,
+            "completedLinkedHeldSlotSeconds": 285.725
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 251.143,
+            "tailSeconds": 2.88,
+            "maxNoChoiceSeconds": 2.775,
+            "maxForcedLowProductivitySeconds": 2.775,
+            "completedLinkedHeldSlotSeconds": 150.063
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 154.4,
+            "tailSeconds": 2.95,
+            "maxNoChoiceSeconds": 35.15,
+            "maxForcedLowProductivitySeconds": 35.15,
+            "completedLinkedHeldSlotSeconds": 120.9
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 78.81,
+            "tailSeconds": 2.81,
+            "maxNoChoiceSeconds": 17.95,
+            "maxForcedLowProductivitySeconds": 17.95,
+            "completedLinkedHeldSlotSeconds": 63.075
+          }
+        }
+      },
+      "after": {
+        "title": "Котёнок с клубком",
+        "coloredCells": 840,
+        "colors": 12,
+        "lots": 30,
+        "medianQuota": 28,
+        "maxQuota": 50,
+        "links": 3,
+        "mysteries": 2,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 442.38,
+            "tailSeconds": 2.78,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 113.75
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 238.78,
+            "tailSeconds": 2.78,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 60.475
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 115.33,
+            "tailSeconds": 2.78,
+            "maxNoChoiceSeconds": 19.4,
+            "maxForcedLowProductivitySeconds": 3.6,
+            "completedLinkedHeldSlotSeconds": 34.25
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 63.455,
+            "tailSeconds": 2.78,
+            "maxNoChoiceSeconds": 9.675,
+            "maxForcedLowProductivitySeconds": 1.925,
+            "completedLinkedHeldSlotSeconds": 18.175
+          }
+        }
+      },
+      "bots": {
+        "random": 0.15666666666666668,
+        "visible": 0.22666666666666666,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое большое число"
+        ]
+      },
+      "heldOut": {
+        "seed": 970778,
+        "trials": 200,
+        "random": 0.135,
+        "visible": 0.205
+      }
+    },
+    {
+      "id": 26,
+      "contentDiffers": true,
+      "changed": false,
+      "before": {
+        "title": "Подсолнух у забора",
+        "coloredCells": 572,
+        "colors": 13,
+        "lots": 19,
+        "medianQuota": 27,
+        "maxQuota": 110,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 292.92,
+            "tailSeconds": 2.57,
+            "maxNoChoiceSeconds": 12.1,
+            "maxForcedLowProductivitySeconds": 9.25,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 159.145,
+            "tailSeconds": 2.57,
+            "maxNoChoiceSeconds": 6.05,
+            "maxForcedLowProductivitySeconds": 4.625,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 84.27,
+            "tailSeconds": 4.67,
+            "maxNoChoiceSeconds": 45,
+            "maxForcedLowProductivitySeconds": 8.05,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 49.255,
+            "tailSeconds": 4.23,
+            "maxNoChoiceSeconds": 21.35,
+            "maxForcedLowProductivitySeconds": 4.025,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Подсолнух у забора",
+        "coloredCells": 572,
+        "colors": 13,
+        "lots": 19,
+        "medianQuota": 26,
+        "maxQuota": 91,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 269.455,
+            "tailSeconds": 4.33,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 148.293,
+            "tailSeconds": 4.33,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 60.83,
+            "tailSeconds": 4.33,
+            "maxNoChoiceSeconds": 25.85,
+            "maxForcedLowProductivitySeconds": 2.3,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 36.055,
+            "tailSeconds": 4.33,
+            "maxNoChoiceSeconds": 9.8,
+            "maxForcedLowProductivitySeconds": 0.3,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.4,
+        "visible": 0.6833333333333333,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 27,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Кит с садом",
+        "coloredCells": 672,
+        "colors": 12,
+        "lots": 24,
+        "medianQuota": 14,
+        "maxQuota": 118,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 354.485,
+            "tailSeconds": 1.81,
+            "maxNoChoiceSeconds": 9.95,
+            "maxForcedLowProductivitySeconds": 9.15,
+            "completedLinkedHeldSlotSeconds": 85.175
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 191.348,
+            "tailSeconds": 1.81,
+            "maxNoChoiceSeconds": 4.975,
+            "maxForcedLowProductivitySeconds": 4.575,
+            "completedLinkedHeldSlotSeconds": 43.787
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 112.32,
+            "tailSeconds": 8.02,
+            "maxNoChoiceSeconds": 59.35,
+            "maxForcedLowProductivitySeconds": 9.45,
+            "completedLinkedHeldSlotSeconds": 69.68
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 66.635,
+            "tailSeconds": 8.06,
+            "maxNoChoiceSeconds": 28.475,
+            "maxForcedLowProductivitySeconds": 5.2,
+            "completedLinkedHeldSlotSeconds": 36.55
+          }
+        }
+      },
+      "after": {
+        "title": "Кит с садом",
+        "coloredCells": 672,
+        "colors": 12,
+        "lots": 24,
+        "medianQuota": 14,
+        "maxQuota": 118,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 354.485,
+            "tailSeconds": 1.81,
+            "maxNoChoiceSeconds": 9.95,
+            "maxForcedLowProductivitySeconds": 9.15,
+            "completedLinkedHeldSlotSeconds": 85.175
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 191.348,
+            "tailSeconds": 1.81,
+            "maxNoChoiceSeconds": 4.975,
+            "maxForcedLowProductivitySeconds": 4.575,
+            "completedLinkedHeldSlotSeconds": 43.787
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 112.32,
+            "tailSeconds": 8.02,
+            "maxNoChoiceSeconds": 59.35,
+            "maxForcedLowProductivitySeconds": 9.45,
+            "completedLinkedHeldSlotSeconds": 69.68
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 66.635,
+            "tailSeconds": 8.06,
+            "maxNoChoiceSeconds": 28.475,
+            "maxForcedLowProductivitySeconds": 5.2,
+            "completedLinkedHeldSlotSeconds": 36.55
+          }
+        }
+      },
+      "bots": {
+        "random": 0.31666666666666665,
+        "visible": 0.5366666666666666,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 28,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Яблоко на столе",
+        "coloredCells": 268,
+        "colors": 8,
+        "lots": 12,
+        "medianQuota": 23,
+        "maxQuota": 55,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 121.53,
+            "tailSeconds": 3.48,
+            "maxNoChoiceSeconds": 5.8,
+            "maxForcedLowProductivitySeconds": 5.8,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 69.705,
+            "tailSeconds": 3.48,
+            "maxNoChoiceSeconds": 2.9,
+            "maxForcedLowProductivitySeconds": 2.9,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 36.49,
+            "tailSeconds": 4.64,
+            "maxNoChoiceSeconds": 25.7,
+            "maxForcedLowProductivitySeconds": 13.8,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 23.045,
+            "tailSeconds": 4.02,
+            "maxNoChoiceSeconds": 10.15,
+            "maxForcedLowProductivitySeconds": 7.65,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Яблоко на столе",
+        "coloredCells": 268,
+        "colors": 8,
+        "lots": 12,
+        "medianQuota": 23,
+        "maxQuota": 55,
+        "links": 0,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 121.53,
+            "tailSeconds": 3.48,
+            "maxNoChoiceSeconds": 5.8,
+            "maxForcedLowProductivitySeconds": 5.8,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 69.705,
+            "tailSeconds": 3.48,
+            "maxNoChoiceSeconds": 2.9,
+            "maxForcedLowProductivitySeconds": 2.9,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 36.49,
+            "tailSeconds": 4.64,
+            "maxNoChoiceSeconds": 25.7,
+            "maxForcedLowProductivitySeconds": 13.8,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 23.045,
+            "tailSeconds": 4.02,
+            "maxNoChoiceSeconds": 10.15,
+            "maxForcedLowProductivitySeconds": 7.65,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.7666666666666667,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 29,
+      "contentDiffers": true,
+      "changed": false,
+      "before": {
+        "title": "Садовый фонарь",
+        "coloredCells": 924,
+        "colors": 14,
+        "lots": 21,
+        "medianQuota": 21,
+        "maxQuota": 213,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 520.305,
+            "tailSeconds": 3.28,
+            "maxNoChoiceSeconds": 53.3,
+            "maxForcedLowProductivitySeconds": 22.8,
+            "completedLinkedHeldSlotSeconds": 339.9
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 273.793,
+            "tailSeconds": 3.28,
+            "maxNoChoiceSeconds": 26.65,
+            "maxForcedLowProductivitySeconds": 11.4,
+            "completedLinkedHeldSlotSeconds": 174.15
+          },
+          "brisk1x": {
+            "won": false,
+            "status": "Playing",
+            "refusedAt": 5,
+            "reason": "no-slot"
+          },
+          "brisk2x": {
+            "won": false,
+            "status": "Playing",
+            "refusedAt": 5,
+            "reason": "no-slot"
+          }
+        }
+      },
+      "after": {
+        "title": "Садовый фонарь",
+        "coloredCells": 924,
+        "colors": 14,
+        "lots": 21,
+        "medianQuota": 31,
+        "maxQuota": 174,
+        "links": 2,
+        "mysteries": 0,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 480.235,
+            "tailSeconds": 4.06,
+            "maxNoChoiceSeconds": 43.55,
+            "maxForcedLowProductivitySeconds": 23.1,
+            "completedLinkedHeldSlotSeconds": 327.5
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 254.148,
+            "tailSeconds": 4.06,
+            "maxNoChoiceSeconds": 21.775,
+            "maxForcedLowProductivitySeconds": 11.55,
+            "completedLinkedHeldSlotSeconds": 170.95
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 223.63,
+            "tailSeconds": 13.63,
+            "maxNoChoiceSeconds": 90.65,
+            "maxForcedLowProductivitySeconds": 34.1,
+            "completedLinkedHeldSlotSeconds": 153.78
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 126.85,
+            "tailSeconds": 13.45,
+            "maxNoChoiceSeconds": 48.875,
+            "maxForcedLowProductivitySeconds": 21.4,
+            "completedLinkedHeldSlotSeconds": 88.375
+          }
+        }
+      },
+      "bots": {
+        "random": 0.04,
+        "visible": 0.11,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "самое большое число"
+        ]
+      },
+      "heldOut": null
+    },
+    {
+      "id": 30,
+      "contentDiffers": false,
+      "changed": false,
+      "before": {
+        "title": "Зайчик с морковкой",
+        "coloredCells": 306,
+        "colors": 7,
+        "lots": 13,
+        "medianQuota": 16,
+        "maxQuota": 96,
+        "links": 0,
+        "mysteries": 1,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 169.46,
+            "tailSeconds": 3.51,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 94.285,
+            "tailSeconds": 3.51,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 42.61,
+            "tailSeconds": 8.26,
+            "maxNoChoiceSeconds": 19.4,
+            "maxForcedLowProductivitySeconds": 6.9,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 28.665,
+            "tailSeconds": 7.34,
+            "maxNoChoiceSeconds": 8.85,
+            "maxForcedLowProductivitySeconds": 2.85,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "after": {
+        "title": "Зайчик с морковкой",
+        "coloredCells": 306,
+        "colors": 7,
+        "lots": 13,
+        "medianQuota": 16,
+        "maxQuota": 96,
+        "links": 0,
+        "mysteries": 1,
+        "rhythm": {
+          "patient1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 169.46,
+            "tailSeconds": 3.51,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "patient2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 94.285,
+            "tailSeconds": 3.51,
+            "maxNoChoiceSeconds": 0,
+            "maxForcedLowProductivitySeconds": 0,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk1x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 42.61,
+            "tailSeconds": 8.26,
+            "maxNoChoiceSeconds": 19.4,
+            "maxForcedLowProductivitySeconds": 6.9,
+            "completedLinkedHeldSlotSeconds": 0
+          },
+          "brisk2x": {
+            "won": true,
+            "status": "Won",
+            "seconds": 28.665,
+            "tailSeconds": 7.34,
+            "maxNoChoiceSeconds": 8.85,
+            "maxForcedLowProductivitySeconds": 2.85,
+            "completedLinkedHeldSlotSeconds": 0
+          }
+        }
+      },
+      "bots": {
+        "random": 0.5966666666666667,
+        "visible": 0.7666666666666667,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "середина, потом края",
+          "по две из колонки",
+          "самое маленькое число"
+        ]
+      },
+      "heldOut": null
+    }
+  ]
+}
