@@ -27,6 +27,13 @@
 /* v8D: the 4th row is only an edge (colour and number, half covered), as in Colony Flow; feedback in two columns */
 .column .pod-behind.pod-edge{flex:0 0 12px;min-height:12px;height:12px;align-items:flex-start;overflow:hidden;opacity:.85;-webkit-mask-image:linear-gradient(#000 45%,transparent);mask-image:linear-gradient(#000 45%,transparent)}
 .feedback-row.grid{display:grid;grid-template-columns:1fr 1fr}
+
+/* v8E (2026-10-25): links as tubes behind the capsules; a tapped capsule flies into its place */
+#tray,#slots{position:relative}#tray>.column,#slots>.slot{z-index:1}svg.tubes{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.slot.arriving>*{visibility:hidden}.slot.arriving{background:#eae3cd}
+.flying-pod{position:fixed;z-index:50;pointer-events:none;display:flex;align-items:center;justify-content:center;border:1px solid #a88b58;border-bottom:4px solid #a88b58;border-radius:15px;background:var(--color);color:var(--text,#fff);text-shadow:var(--text-shadow,0 1px 2px #0005);font:900 22px Nunito,system-ui,sans-serif;transform-origin:0 0;transition:transform .32s cubic-bezier(.3,.7,.4,1);box-shadow:0 6px 14px #0003}
+/* blocked or disabled capsules stay opaque so the tube behind them does not show through */
+.column .pod-top[aria-disabled=true]:not(:disabled),.column .pod-top:disabled{opacity:1;filter:saturate(.55) brightness(1.08)}
 </style></head><body>
 <main id="game" aria-label="Игровой пилот Bloomlings">
  <div class="ad-placeholder">Место верхнего баннера <span>в пилоте рекламы нет</span></div>
@@ -452,7 +459,7 @@
   7:['Ягода Bloom','bloom','R','Красная ягода — третий цвет Bloom, не розовый лепесток. Чем больше цветов на картинке, тем важнее смотреть, какой из них сейчас лежит снаружи.'],
   12:['Лайм Sprig','sprig','L','Светлый лайм — ещё один цвет Sprig, рядом с листом. Сравнивай оттенки: лайм светлее и желтее.'],
   13:['Кора Twig','twig','E','Тёмная кора — четвёртый цвет Twig. Теперь у каждого героя по четыре цвета.'],
-  8:['Две команды одного цвета','sprig','G','Одинаковая буква ↔ связывает две капсулы. Тап отправляет обе, нужны два свободных места и обе капсулы наверху. Даже готовая команда ждёт напарника: оба места освободятся вместе. Начинаем с пары одного цвета. Новый цвет — тёмный мох Sprig.'],
+  8:['Две команды одного цвета','sprig','G','Трубка связывает две капсулы. Тап отправляет обе, нужны два свободных места и обе капсулы наверху. Даже готовая команда ждёт напарника: оба места освободятся вместе. Начинаем с пары одного цвета. Новый цвет — тёмный мох Sprig.'],
   9:['Разные материалы в паре','bloom','P','Теперь две связки объединяют разные материалы. Обе пары вместе займут четыре места. Одна команда может закончить раньше, но её место останется занято пока обе команды не отправят всех героев. Подготовь путь для обеих. Новый цвет — нежный румянец Bloom.'],
   25:['Скрытый напарник','bloom','P','Здесь несколько капсул ?, и среди них ключевой цвет. Они откроются в середине уровня, когда поднимутся наверх. Пока их не видно, не занимай все места командами, которым некуда идти.'],
   10:['Первый Super Hard','drop','N','Большое поле, связки и пять капсул ? с ключевым цветом. Держи свободное место для того, что откроется. Новый цвет — синяя глубина Drop. Ретрай свободный.'],
@@ -537,6 +544,36 @@
   slotCards=Array.from({length:attempt.capacity},(_,i)=>{const node=document.createElement('div');node.className='slot empty';node.setAttribute('role','img');const image=document.createElement('img');image.alt='';const count=document.createElement('strong'),wait=document.createElement('span'),group=document.createElement('span');wait.className='slot-wait';group.className='pair-tag';node.append(image,count,wait,group);$('slots').append(node);return {node,image,count,wait,group};});
   $('heroBar').hidden=!state.level.hero;if(state.level.hero){$('heroActionPortrait').src=assets.sprig;bridgeCards=state.level.hero.choices.map((choice,i)=>{const button=document.createElement('button');button.type='button';button.dataset.bridge=i;button.addEventListener('click',()=>act({type:'bridge',choice:i}));$('bridgeButtons').append(button);return button;});}else bridgeCards=[];
  }
+ // v8E (the owner, 2026-10-25): a linked pair is joined by a tube, in the tray and in the waiting places, not by a letter,
+ // as in Colony Flow; a partner below the visible rows gets a tube running down into its column. A tapped capsule
+ // flies from its column into its place (a pair together).
+ const NS='http://www.w3.org/2000/svg',arriving=new Map();
+ function tubes(container,links,k=1){let svg=container.querySelector(':scope > svg.tubes');if(!svg){svg=document.createElementNS(NS,'svg');svg.setAttribute('class','tubes');svg.setAttribute('aria-hidden','true');container.prepend(svg);}
+  const box=container.getBoundingClientRect();svg.setAttribute('viewBox',`0 0 ${Math.max(1,box.width)} ${Math.max(1,box.height)}`);
+  const centre=n=>{const r=n.getBoundingClientRect();return [r.left+r.width/2-box.left,r.top+r.height/2-box.top];};
+  const parts=[];for(const [a,b] of links){const [x1,y1]=centre(a),[x2,y2]=Array.isArray(b)?b:centre(b);
+   for(const [w0,c] of [[11,'#5d452c'],[7,'#b98d5a'],[2.2,'#f1d9a8']]){const w=w0*k;const l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1-(w0<3?1.5*k:0));l.setAttribute('x2',x2);l.setAttribute('y2',y2-(w0<3?1.5*k:0));l.setAttribute('stroke',c);l.setAttribute('stroke-width',w);l.setAttribute('stroke-linecap','round');parts.push(l);}}
+  svg.replaceChildren(...parts);}
+ function drawTubes(level,s){
+  const shown=new Map();level.tray.forEach((stack,c)=>stack.slice(s.heads[c],s.heads[c]+VISIBLE_ROWS).forEach((p,k)=>shown.set(p,k===0?topCards[p].node:backCards[p].node)));
+  const groups=new Map();level.pods.forEach((pod,p)=>{if(pod.group&&s.slots.indexOf(p)<0&&s.remaining[p]>0&&level.tray.some((st,c)=>st.indexOf(p)>=s.heads[c]))(groups.get(pod.group)||groups.set(pod.group,[]).get(pod.group)).push(p);});
+  const trayLinks=[],box=$('tray').getBoundingClientRect();
+  for(const members of groups.values()){const seen=members.filter(p=>shown.has(p));
+   for(let i=1;i<seen.length;i++)trayLinks.push([shown.get(seen[i-1]),shown.get(seen[i])]);
+   for(const p of members.filter(p=>!shown.has(p))){const c=level.tray.findIndex(st=>st.includes(p)),col=columns[c].getBoundingClientRect(),from=seen[0];if(from===undefined)continue;
+    const stack=Array.from(columns[c].children),last=stack.length?stack.at(-1).getBoundingClientRect():col;trayLinks.push([shown.get(from),[col.left+col.width/2-box.left,Math.min(box.height-2,last.bottom-box.top+10)]]);}}
+  tubes($('tray'),trayLinks);
+  const placed=new Map(Array.from($('slots').children).filter(n=>n.dataset.slotPod!==undefined&&!n.classList.contains('arriving')).map(n=>[+n.dataset.slotPod,n])),slotLinks=[];
+  const slotGroups=new Map();for(const [p,n] of placed){const g=level.pods[p].group;if(g)(slotGroups.get(g)||slotGroups.set(g,[]).get(g)).push(n);}
+  for(const nodes of slotGroups.values())for(let i=1;i<nodes.length;i++)slotLinks.push([nodes[i-1],nodes[i]]);
+  tubes($('slots'),slotLinks,1.6);}
+ function fly(pods,from){if(reduced.matches)return;const until=performance.now()+340;
+  for(const p of pods){const src=from.get(p),slot=$('slots').querySelector(`.slot[data-slot-pod="${p}"]`);if(!src||!slot)continue;const dst=slot.getBoundingClientRect(),pod=state.level.pods[p];
+   const ghost=document.createElement('div');ghost.className='flying-pod';ghost.setAttribute('aria-hidden','true');colour(ghost,pod.color);ghost.textContent=visual.remaining[p];
+   Object.assign(ghost.style,{left:src.left+'px',top:src.top+'px',width:src.width+'px',height:src.height+'px'});document.body.append(ghost);
+   arriving.set(p,until);slot.classList.add('arriving');
+   requestAnimationFrame(()=>{ghost.style.transform=`translate(${dst.left-src.left}px,${dst.top-src.top}px) scale(${dst.width/src.width},${dst.height/src.height})`;});
+   setTimeout(()=>{ghost.remove();arriving.delete(p);render();},340);}}
  function render(){
   if(!state)return;needsRender=false;const s=timeline.shown,level=s.level,free=timeline.free,workers=timeline.workers;
   $('levelTitle').textContent=level.title;$('levelShort').textContent=`L${level.id}`;$('difficulty').textContent=level.difficulty;$('difficulty').className=level.difficulty==='Super Hard'?'hard super':level.difficulty==='Hard'?'hard':'';
@@ -545,20 +582,22 @@
   // v8E (the owner, 2026-10-24, as in Colony Flow): the waiting places close up, in tap order, so a pair sits side by side.
   const packed=[...Array.from(s.slots).filter(p=>p>=0).sort((a,b)=>s.ages[a]-s.ages[b]),...Array.from(s.slots).filter(p=>p<0)];
   slotCards.forEach(({node,image,count,wait,group},i)=>{const p=packed[i],filled=p>=0;node.className=`slot ${filled?'filled':'empty'}`;image.hidden=count.hidden=wait.hidden=!filled;group.hidden=!filled||!level.pods[p]?.group;
-   if(filled){const code=level.pods[p].color,ready=s.remaining[p]===0,paired=Boolean(level.pods[p].group),working=workers.has(p);colour(node,code);image.hidden=!symbols();if(image.dataset.hero!==palette[code].hero){image.src=assets[palette[code].hero];image.dataset.hero=palette[code].hero;}count.textContent=ready?'✓':s.remaining[p];wait.textContent=ready?(paired?'ждёт пару':'готово'):working?'в пути':'ждёт';group.textContent=level.pods[p].group||'';node.classList.toggle('pair-ready',ready&&paired);node.classList.toggle('working',working&&!reduced.matches);node.dataset.slotPod=p;node.setAttribute('aria-label',`Место ${i+1}: ${palette[code].name}, ${ready?(paired?'готово, ждёт напарника':'готово'):'осталось '+s.remaining[p]}`);}else{delete node.dataset.slotPod;node.setAttribute('aria-label',`Место ${i+1}: свободно`);}
+   if(filled){const code=level.pods[p].color,ready=s.remaining[p]===0,paired=Boolean(level.pods[p].group),working=workers.has(p);colour(node,code);image.hidden=!symbols();if(image.dataset.hero!==palette[code].hero){image.src=assets[palette[code].hero];image.dataset.hero=palette[code].hero;}count.textContent=ready?'✓':s.remaining[p];wait.textContent=ready?(paired?'ждёт пару':'готово'):working?'в пути':'ждёт';group.textContent=level.pods[p].group||'';node.classList.toggle('pair-ready',ready&&paired);node.classList.toggle('arriving',arriving.has(p));group.hidden=true;node.classList.toggle('working',working&&!reduced.matches);node.dataset.slotPod=p;node.setAttribute('aria-label',`Место ${i+1}: ${palette[code].name}, ${ready?(paired?'готово, ждёт напарника':'готово'):'осталось '+s.remaining[p]}`);}else{delete node.dataset.slotPod;node.setAttribute('aria-label',`Место ${i+1}: свободно`);}
   });
-  level.tray.forEach((stack,c)=>{const left=stack.slice(s.heads[c],s.heads[c]+VISIBLE_ROWS),node=columns[c];if(!left.length){node.replaceChildren();node.className='column empty';node.textContent='Пусто';return;}node.className='column';const nodes=left.map((p,k)=>{const card=k===0?topCards[p]:backCards[p],pod=level.pods[p],code=s.revealed[p]?pod.color:'?',unknown=code==='?';const edge=k===VISIBLE_ROWS;colour(card.node,code);card.node.classList.toggle('mystery',unknown);card.node.classList.toggle('pod-edge',edge);card.count.textContent=unknown?'':s.remaining[p];card.mark.textContent=palette[code].mark;card.mark.hidden=!(unknown||symbols()&&!edge);card.group.hidden=!pod.group;card.group.textContent=pod.group?`${pod.group} ↔`:'';card.node.dataset.group=pod.group||'';const reason=k===0?timeline.check({type:'tap',pod:p}):null;card.node.classList.toggle('pair-blocked',Boolean(reason));card.node.setAttribute('aria-label',unknown?'Скрытая капсула, дальше в очереди':edge?`${palette[code].name}: ${s.remaining[p]} клеток, край четвёртого ряда`:unknown?'Скрытая капсула, дальше в очереди':`${palette[code].name}: ${s.remaining[p]} клеток${pod.group?', пара '+pod.group+', нужны два места':''}${k?', дальше в очереди':''}`);card.group.hidden=!pod.group||edge;
+  level.tray.forEach((stack,c)=>{const left=stack.slice(s.heads[c],s.heads[c]+VISIBLE_ROWS),node=columns[c];if(!left.length){node.replaceChildren();node.className='column empty';node.textContent='Пусто';return;}node.className='column';const nodes=left.map((p,k)=>{const card=k===0?topCards[p]:backCards[p],pod=level.pods[p],code=s.revealed[p]?pod.color:'?',unknown=code==='?';const edge=k===VISIBLE_ROWS;colour(card.node,code);card.node.classList.toggle('mystery',unknown);card.node.classList.toggle('pod-edge',edge);card.count.textContent=unknown?'':s.remaining[p];card.mark.textContent=palette[code].mark;card.mark.hidden=!(unknown||symbols()&&!edge);card.group.hidden=!pod.group;card.group.textContent=pod.group?`${pod.group} ↔`:'';card.node.dataset.group=pod.group||'';const reason=k===0?timeline.check({type:'tap',pod:p}):null;card.node.classList.toggle('pair-blocked',Boolean(reason));card.node.setAttribute('aria-label',unknown?'Скрытая капсула, дальше в очереди':edge?`${palette[code].name}: ${s.remaining[p]} клеток, край четвёртого ряда`:unknown?'Скрытая капсула, дальше в очереди':`${palette[code].name}: ${s.remaining[p]} клеток${pod.group?', пара '+pod.group+', нужны два места':''}${k?', дальше в очереди':''}`);card.group.hidden=true;
     if(k===0){card.image.hidden=unknown||!symbols();if(unknown){card.image.removeAttribute('src');delete card.image.dataset.hero;}if(!unknown&&card.image.dataset.hero!==palette[code].hero){card.image.src=assets[palette[code].hero];card.image.dataset.hero=palette[code].hero;}card.node.disabled=timeline.status!=='Working'&&state.status!=='Playing';card.node.setAttribute('aria-disabled',String(Boolean(reason)||card.node.disabled));}return card.node;});
    if(node.childNodes.length!==nodes.length||nodes.some((n,i)=>node.childNodes[i]!==n))node.replaceChildren(...nodes);const n=left.length-1;if(n){const css=getComputedStyle(node),height=topCards[left[0]].node.getBoundingClientRect().height,margin=parseFloat(getComputedStyle(backCards[left[1]].node).marginTop);node.style.setProperty('--peek-height',Math.max(15,Math.min(20,Math.floor((node.clientHeight-parseFloat(css.paddingTop)-height-n*margin)/n)))+'px');}
   });
+  drawTubes(level,s);
   const ready=timeline.bridgeChoices().map(c=>c.choice);bridgeCards.forEach((b,i)=>{const used=state.bridge>=0,chosen=state.bridge===i;b.disabled=used||!ready.includes(i)||state.status!=='Playing';b.classList.toggle('chosen',chosen);b.textContent=chosen?'Мостик вырос ✓':used?'Второй недоступен':`Мостик${bridgeCards.length>1?i===0?' слева':' справа':''}${ready.includes(i)?' · готов':' · дойди до берега'}`;});
   $('statusLine').textContent=storageProblem||(attempt.elapsedMs<revealUntil?revealNotice:null)||(timeline.pending?(free?'Команды работают. Можно выбрать следующую.':'Места заняты, команды ещё работают.'):state.status==='Won'?'Картинка собрана!':state.status==='Jammed'?'Работа остановилась, все места заняты.':state.status==='Stuck'?'Следующей паре не хватает мест.':`${attempt.capacity-free} мест занято. Выбери верхнюю капсулу.`);
   $('board').setAttribute('aria-label',`${level.title}, поле ${level.w} на ${level.h}, осталось ${s.board.reduce((n,c)=>n+(c>=0),0)} клеток. Муравьи заходят через ворота и обходят картинку по дорожке.`);draw();
  }
  function act(action){
-  if(dialogs.some(d=>d.open)||document.hidden)return false;syncTime();const before=measure(),speedBefore=speed(),result=timeline.commit(action);
+  if(dialogs.some(d=>d.open)||document.hidden)return false;syncTime();const flyFrom=new Map();if(action.type==='tap'){const g=state.level.pods[action.pod]?.group;for(const p of g?state.level.pods.map((q,i)=>q.group===g?i:-1).filter(i=>i>=0):[action.pod]){const n=topCards[p]?.node;if(n?.isConnected)flyFrom.set(p,n.getBoundingClientRect());else{const b=backCards[p]?.node;if(b?.isConnected)flyFrom.set(p,b.getBoundingClientRect());}}}
+  const before=measure(),speedBefore=speed(),result=timeline.commit(action);
   attempt.inputEvents.push({atMs:attempt.elapsedMs,action:{...action},accepted:result.accepted,reason:result.reason||null,...before});
-  if(!result.accepted){const messages={'visual-places-busy':'Плашки ещё заняты работой. Дождись пустого места.','partner-not-exposed':'Сначала открой напарника с такой же буквой.','pair-needs-two-slots':'Для пары нужны два свободных места.','no-slot':'Нет свободного места.','visible-bridge-not-ready':'Команды ещё добираются до берега.','finished':timeline.pending?'Команды заканчивают работу.':'Попытка закончилась.'};render();$('statusLine').textContent=messages[result.reason]||'Эта команда сейчас недоступна.';save();return false;}
+  if(!result.accepted){const messages={'visual-places-busy':'Плашки ещё заняты работой. Дождись пустого места.','partner-not-exposed':'Сначала открой напарника — капсулу на другом конце трубки.','pair-needs-two-slots':'Для пары нужны два свободных места.','no-slot':'Нет свободного места.','visible-bridge-not-ready':'Команды ещё добираются до берега.','finished':timeline.pending?'Команды заканчивают работу.':'Попытка закончилась.'};render();$('statusLine').textContent=messages[result.reason]||'Эта команда сейчас недоступна.';save();return false;}
   state=timeline.state;visual=timeline.shown;recordWorkEvents();attempt.commands.push({...action,modelTimeMs:timeline.now});attempt.updatedAt=new Date().toISOString();attempt.logicalOutcome=state.status.toLowerCase();event('commit',{action:{...action},command:attempt.commands.length});
   for(const r of result.events.filter(e=>e.type==='reveal')){
    const record={pod:r.pod,mode:r.mode,color:r.color,count:state.level.pods[r.pod].count,atMs:attempt.elapsedMs,modelTimeMs:timeline.now,freeBefore:attempt.capacity-before.visualHeld,freeAfter:timeline.free,clearedFraction:timeline.processedCells/state.level.pods.reduce((n,p)=>n+p.count,0),command:attempt.commands.length};attempt.reveals.push(record);event('reveal',record);
@@ -566,7 +605,7 @@
   }
   if(R.queueEmpty(state)&&attempt.autoFastAtAction===null){attempt.autoFastAtAction=attempt.commands.length;attempt.autoFastAtMs=attempt.elapsedMs;event('queue-exhausted',{effectiveSpeed:speed()});}
   if(speedBefore!==(speed()))event('effective-speed',{from:speedBefore,to:speed(),reason:'queue-exhausted'});
-  save();render();finishAttempt();return true;
+  save();render();fly([...flyFrom.keys()],flyFrom);finishAttempt();return true;
  }
  function finishAttempt(){
   if(!timeline||timeline.pending||state.status==='Playing')return;
