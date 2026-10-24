@@ -12,7 +12,7 @@
 import fs from 'node:fs';import crypto from 'node:crypto';
 import R from './rules.cjs';import T from './timeline.cjs';const {Timeline}=T;
 import {sceneLevel,ROLE_OF} from './scenes.mjs';import {definition} from './author.mjs';
-import {rng,rate,sensible,report,earlyRisk,patternWins} from './botsc.mjs';import {ROWS,playPlanner} from './horizon.mjs';
+import {rng,rate,sensible,report,earlyRisk,patternWins,routeRisk} from './botsc.mjs';import {ROWS,playPlanner} from './horizon.mjs';
 import {MYSTERY,PLANNERS,planner,withMysteries,strip} from './fix-lib.mjs';
 const out='content/pilot-v8e',work=out+'/work';fs.mkdirSync(work,{recursive:true});
 export const ROLES={
@@ -28,6 +28,11 @@ export const ROLES={
  superHard:{label:'Super Hard',random:[.06,.12],visible:[0,.30],patterns:2,sensible:2,seconds1x:[190,250],order:[0,3]},
 };
 export const PATTERN_SHARE=.40,HARD_PATTERN_LEVELS=2,EARLY_LIMIT=.10;
+// Mistake moments on the certificate route (botsc.routeRisk), after the owner's v8E playtest and the CF rounds
+// (2026-10-25): a Super Hard at least 5 moments where some tap loses, 2 of them with a single winning tap; Hard 4 and 1;
+// a task level 2; a normal level from L9 with 15+ capsules 1 (the boring ones had none). Tutorials and reliefs stay calm.
+export const RISK={superHard:{risky:5,tight:2},hard:{risky:4,tight:1},task:{risky:2,tight:0},normal:{risky:1,tight:0}};
+export const riskNeed=(id,role,pods)=>role==='normal'&&(id<9||pods<15)?null:RISK[role]||null;
 const roleOf=id=>ROLE_OF[id]||'tutorial',isHard=id=>['hard','superHard'].includes(roleOf(id));
 const inside=(v,[lo,hi],slack=0)=>v>=lo-slack-1e-9&&v<=hi+slack+1e-9;
 // Round length as the owner plays (×2, commands as soon as a place frees, ~1.2 s to decide): calibrated on the owner's
@@ -61,8 +66,9 @@ export function search(id,{banned=[],from=0,limit=4000}={}){const role=roleOf(id
   let level=d,won=planner(d),mystery=null;if(!won){stats.planner++;continue;}
   if(MYSTERY[id]){try{const m=withMysteries(d,MYSTERY[id]);level=m.level;won=m.planner;mystery={hidden:m.hidden,keys:m.keys,reveals:m.reveals};}catch{stats.mystery++;continue;}}
   const s1=at1x(level,won.actions);if(!inside(s1,t.seconds1x)){stats.time++;continue;}
+  const need=riskNeed(id,role,level.pods.length);let rr=null;if(need){rr=routeRisk(level,won.actions);if(rr.risky<need.risky||rr.tight<need.tight){stats.risk=(stats.risk||0)+1;continue;}}
   const s=seconds(level,won.actions)??(patientSeconds(level,won.actions)??0)*.25;
-  return {id,role,attempt,level,actions:won.actions,planner:won.opts,mystery,seconds:s,earlyRisk:risk??earlyRisk(d),stats};
+  return {id,role,attempt,level,actions:won.actions,planner:won.opts,mystery,seconds:s,earlyRisk:risk??earlyRisk(d),routeRisk:rr??routeRisk(level,won.actions),stats};
  }
  throw Error('No candidate for L'+id+' '+JSON.stringify(stats)+(banned.length?' without '+banned.join(', '):''));}
 function finish(found){const {level,actions}=found,top=playPlanner(level,{...found.planner,rows:1}).won;
@@ -88,8 +94,8 @@ if(import.meta.url===`file://${process.argv[1]}`&&cmd==='assemble'){
  const levels=found.map(f=>f.level),hash=crypto.createHash('sha256').update(JSON.stringify(levels)).digest('hex');
  fs.writeFileSync(out+'/levels.json',JSON.stringify({version:'pilot-30-v8e',hash,levels},null,2)+'\n');
  fs.writeFileSync(out+'/certificates.json',JSON.stringify(found.map(f=>({id:f.id,actions:f.actions,schedule:'wait until work idle between commands',planner:f.planner,fairness:{scope:`visible-horizon planner: plans only with the ${ROWS} visible rows (the 4th is the edge), never a hidden colour or count; its route is the certificate`}})),null,2)+'\n');
- fs.writeFileSync(out+'/quality.json',JSON.stringify({version:'pilot-30-v8e',catalogHash:hash,complete:levels.length===30,roles:ROLES,roleOf:Object.fromEntries(found.map(f=>[f.id,f.role])),patternShare:PATTERN_SHARE,hardPatternLevels:HARD_PATTERN_LEVELS,earlyLimit:EARLY_LIMIT,mysteryLevels:MYSTERY,planners:PLANNERS,tail:T.TAIL,
+ fs.writeFileSync(out+'/quality.json',JSON.stringify({version:'pilot-30-v8e',catalogHash:hash,complete:levels.length===30,roles:ROLES,roleOf:Object.fromEntries(found.map(f=>[f.id,f.role])),patternShare:PATTERN_SHARE,hardPatternLevels:HARD_PATTERN_LEVELS,earlyLimit:EARLY_LIMIT,routeRiskNeed:RISK,mysteryLevels:MYSTERY,planners:PLANNERS,tail:T.TAIL,
   limits:['Bot rates are construction diagnostics, not human win rates.','seconds: an estimate of the owner\'s ×2 play, calibrated on the owner\'s v8C wins; secondsAt1x: the same brisk play at 1× (the default once ×2 is paid).','Patient player for the bots: every command settles before the next.'],
-  levels:found.map(f=>({id:f.id,role:f.role,title:f.level.title,board:`${f.level.w}x${f.level.h}`,pods:f.level.pods.length,attempt:f.attempt,banned:f.banned||[],seconds:f.seconds,secondsAt1x:secondsAt1x(f.level,f.actions)??Math.round(f.patient*.25/.6),secondsAt1xFrom:secondsAt1x(f.level,f.actions)===null?'patient route (a brisk replay of the same commands plays out differently)':'brisk replay',patientSeconds:f.patient,planner:{...f.planner,commands:f.actions.length,winsSeeingTopRowOnly:f.plannerTopRowOnly},mystery:f.mystery,earlyRisk:f.earlyRisk,bots:f.bots,search:f.stats}))},null,2)+'\n');
+  levels:found.map(f=>({id:f.id,role:f.role,title:f.level.title,board:`${f.level.w}x${f.level.h}`,pods:f.level.pods.length,attempt:f.attempt,banned:f.banned||[],seconds:f.seconds,secondsAt1x:secondsAt1x(f.level,f.actions)??Math.round(f.patient*.25/.6),secondsAt1xFrom:secondsAt1x(f.level,f.actions)===null?'patient route (a brisk replay of the same commands plays out differently)':'brisk replay',patientSeconds:f.patient,planner:{...f.planner,commands:f.actions.length,winsSeeingTopRowOnly:f.plannerTopRowOnly},mystery:f.mystery,earlyRisk:f.earlyRisk,routeRisk:f.routeRisk??routeRisk(f.level,f.actions),bots:f.bots,search:f.stats}))},null,2)+'\n');
  console.log('done',hash);
 }

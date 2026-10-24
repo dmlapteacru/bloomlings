@@ -20,18 +20,18 @@
     {
       "id": 7,
       "role": "normal",
-      "random": 0.6133333333333333,
-      "visible": 0.9066666666666666,
-      "patternWins": 4,
+      "random": 0.43666666666666665,
+      "visible": 0.75,
+      "patternWins": 1,
       "sensibleWins": 2
     },
     {
       "id": 8,
       "role": "task",
-      "random": 0.37666666666666665,
-      "visible": 0.61,
-      "patternWins": 2,
-      "sensibleWins": 2
+      "random": 0.39666666666666667,
+      "visible": 0.7466666666666667,
+      "patternWins": 1,
+      "sensibleWins": 1
     },
     {
       "id": 9,
@@ -52,9 +52,9 @@
     {
       "id": 11,
       "role": "relief",
-      "random": 0.87,
+      "random": 0.6766666666666666,
       "visible": 1,
-      "patternWins": 6,
+      "patternWins": 5,
       "sensibleWins": 4
     },
     {
@@ -68,10 +68,10 @@
     {
       "id": 13,
       "role": "normal",
-      "random": 0.6233333333333333,
-      "visible": 0.7333333333333333,
-      "patternWins": 4,
-      "sensibleWins": 3
+      "random": 0.5733333333333334,
+      "visible": 0.7566666666666667,
+      "patternWins": 3,
+      "sensibleWins": 2
     },
     {
       "id": 14,
@@ -100,8 +100,8 @@
     {
       "id": 17,
       "role": "normal",
-      "random": 0.36333333333333334,
-      "visible": 0.75,
+      "random": 0.43,
+      "visible": 0.85,
       "patternWins": 3,
       "sensibleWins": 3
     },
@@ -156,10 +156,10 @@
     {
       "id": 24,
       "role": "task",
-      "random": 0.27666666666666667,
-      "visible": 0.77,
-      "patternWins": 0,
-      "sensibleWins": 1
+      "random": 0.23333333333333334,
+      "visible": 0.6233333333333333,
+      "patternWins": 3,
+      "sensibleWins": 2
     },
     {
       "id": 25,
@@ -172,9 +172,9 @@
     {
       "id": 26,
       "role": "normal",
-      "random": 0.4,
-      "visible": 0.6833333333333333,
-      "patternWins": 2,
+      "random": 0.43666666666666665,
+      "visible": 0.8466666666666667,
+      "patternWins": 3,
       "sensibleWins": 3
     },
     {
@@ -196,9 +196,9 @@
     {
       "id": 29,
       "role": "superHard",
-      "random": 0.04,
-      "visible": 0.11,
-      "patternWins": 1,
+      "random": 0.05333333333333334,
+      "visible": 0.04,
+      "patternWins": 0,
       "sensibleWins": 0
     },
     {
@@ -211,26 +211,26 @@
     }
   ],
   "patternShare": {
-    "колонка слева до конца": 9,
-    "ряд слева направо": 5,
-    "ряд справа налево": 9,
-    "змейка": 4,
+    "колонка слева до конца": 10,
+    "ряд слева направо": 6,
+    "ряд справа налево": 7,
+    "змейка": 3,
     "середина, потом края": 7,
-    "по две из колонки": 4,
+    "по две из колонки": 5,
     "колонка справа до конца": 10,
-    "самое маленькое число": 10,
-    "самое большое число": 9
+    "самое маленькое число": 6,
+    "самое большое число": 10
   },
   "hardPatternShare": {
     "ряд слева направо": 1,
     "ряд справа налево": 1,
     "середина, потом края": 1,
     "колонка справа до конца": 1,
-    "самое большое число": 2
+    "самое большое число": 1
   },
-  "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+  "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
   "winningRoutes": 30,
-  "acceptedCertificateActions": 558,
+  "acceptedCertificateActions": 559,
   "visibleHorizonPlannerRoutes": 30,
   "plannerLeakChecks": 212,
   "mysteryLevels": 5,
@@ -265,16 +265,16 @@
     {
       "level": 24,
       "sites": 2,
-      "firstReadyAfterCommands": 3,
+      "firstReadyAfterCommands": 2,
       "readyThen": [
-        "Левый мостик"
+        "Правый мостик"
       ],
       "chosen": "Левый мостик"
     },
     {
       "level": 29,
       "sites": 2,
-      "firstReadyAfterCommands": 1,
+      "firstReadyAfterCommands": 2,
       "readyThen": [
         "Левый мостик"
       ],
@@ -288,8 +288,8 @@
     "when": "queue-empty-and-no-bridge-to-choose"
   },
   "concurrentRandomRuns": 240,
-  "liveClears": 70053,
-  "restoredCheckpoints": 1110,
+  "liveClears": 71657,
+  "restoredCheckpoints": 1135,
   "frameInvarianceChecks": 1,
   "slotReusedBeforeArrival": true,
   "sameColourParallelDispatch": true,

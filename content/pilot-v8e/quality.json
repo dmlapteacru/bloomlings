@@ -1,6 +1,6 @@
 {
   "version": "pilot-30-v8e",
-  "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+  "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
   "complete": true,
   "roles": {
     "tutorial": {
@@ -165,6 +165,24 @@
   "patternShare": 0.4,
   "hardPatternLevels": 2,
   "earlyLimit": 0.1,
+  "routeRiskNeed": {
+    "superHard": {
+      "risky": 5,
+      "tight": 2
+    },
+    "hard": {
+      "risky": 4,
+      "tight": 1
+    },
+    "task": {
+      "risky": 2,
+      "tight": 0
+    },
+    "normal": {
+      "risky": 1,
+      "tight": 0
+    }
+  },
   "mysteryLevels": {
     "6": 1,
     "10": 5,
@@ -221,6 +239,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 6,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": null,
       "search": {
         "tried": 1,
@@ -252,6 +276,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 7,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": null,
       "search": {
         "tried": 1,
@@ -283,6 +313,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 8,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": null,
       "search": {
         "tried": 1,
@@ -314,6 +350,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 12,
+        "risky": 1,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": null,
       "search": {
         "tried": 8,
@@ -349,6 +391,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.43666666666666665,
         "visible": 0.75,
@@ -407,6 +455,12 @@
         ]
       },
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 10,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.9066666666666666,
         "visible": 1,
@@ -440,42 +494,47 @@
       "role": "normal",
       "title": "Клубника на скатерти",
       "board": "24x30",
-      "pods": 12,
-      "attempt": 25,
-      "banned": [],
-      "seconds": 20.9,
-      "secondsAt1x": 33,
+      "pods": 13,
+      "attempt": 727,
+      "banned": [
+        "колонка справа до конца"
+      ],
+      "seconds": 18.5,
+      "secondsAt1x": 29,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 134.9,
+      "patientSeconds": 146.7,
       "planner": {
         "rows": 3,
         "depth": 4,
         "weight": 12,
-        "commands": 12,
-        "winsSeeingTopRowOnly": false
+        "commands": 13,
+        "winsSeeingTopRowOnly": true
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.6133333333333333,
-        "visible": 0.9066666666666666,
-        "left": 0,
-        "right": 1,
-        "leftVisible": 0,
-        "biggestVisible": 1,
-        "smallestVisible": 1,
-        "mostWork": 0,
+        "random": 0.43666666666666665,
+        "visible": 0.75,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 1,
         "sensibleWins": 2,
         "patternWins": [
-          "колонка справа до конца",
-          "ряд справа налево",
-          "середина, потом края",
-          "самое маленькое число"
+          "колонка слева до конца"
         ]
       },
       "search": {
-        "tried": 26,
-        "bots": 25,
+        "tried": 702,
+        "bots": 701,
         "early": 0,
         "planner": 0,
         "mystery": 0,
@@ -487,44 +546,50 @@
       "role": "task",
       "title": "Чашка на завтраке",
       "board": "30x32",
-      "pods": 27,
-      "attempt": 728,
+      "pods": 25,
+      "attempt": 978,
       "banned": [],
-      "seconds": 41.6,
-      "secondsAt1x": 65,
-      "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 270.3,
+      "seconds": 68.425,
+      "secondsAt1x": 114,
+      "secondsAt1xFrom": "patient route (a brisk replay of the same commands plays out differently)",
+      "patientSeconds": 273.7,
       "planner": {
         "rows": 3,
-        "depth": 4,
+        "depth": 8,
         "weight": 12,
-        "commands": 26,
-        "winsSeeingTopRowOnly": true
+        "commands": 24,
+        "winsSeeingTopRowOnly": false
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 21,
+        "risky": 2,
+        "tight": 2,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.37666666666666665,
-        "visible": 0.61,
-        "left": 1,
-        "right": 0,
-        "leftVisible": 1,
+        "random": 0.39666666666666667,
+        "visible": 0.7466666666666667,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
         "biggestVisible": 0,
         "smallestVisible": 1,
         "mostWork": 0,
-        "sensibleWins": 2,
+        "sensibleWins": 1,
         "patternWins": [
-          "колонка слева до конца",
-          "самое маленькое число"
+          "колонка справа до конца"
         ]
       },
       "search": {
-        "tried": 619,
-        "bots": 618,
+        "tried": 814,
+        "bots": 812,
         "early": 0,
         "planner": 0,
         "mystery": 0,
-        "time": 0
+        "time": 0,
+        "risk": 1
       }
     },
     {
@@ -552,6 +617,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 11,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.5666666666666667,
         "visible": 0.8866666666666667,
@@ -638,6 +709,12 @@
         ]
       },
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 26,
+        "risky": 10,
+        "tight": 3,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.06,
         "visible": 0.056666666666666664,
@@ -665,12 +742,14 @@
       "title": "Виноград",
       "board": "22x24",
       "pods": 12,
-      "attempt": 189,
-      "banned": [],
-      "seconds": 15.5,
-      "secondsAt1x": 23,
+      "attempt": 260,
+      "banned": [
+        "колонка справа до конца"
+      ],
+      "seconds": 11.1,
+      "secondsAt1x": 16,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 100,
+      "patientSeconds": 102.7,
       "planner": {
         "rows": 3,
         "depth": 4,
@@ -680,28 +759,33 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 8,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.87,
+        "random": 0.6766666666666666,
         "visible": 1,
-        "left": 0,
-        "right": 1,
+        "left": 1,
+        "right": 0,
         "leftVisible": 1,
         "biggestVisible": 1,
         "smallestVisible": 1,
         "mostWork": 1,
         "sensibleWins": 4,
         "patternWins": [
-          "колонка справа до конца",
+          "колонка слева до конца",
           "ряд слева направо",
-          "ряд справа налево",
-          "змейка",
           "середина, потом края",
+          "по две из колонки",
           "самое большое число"
         ]
       },
       "search": {
-        "tried": 190,
-        "bots": 189,
+        "tried": 71,
+        "bots": 70,
         "early": 0,
         "planner": 0,
         "mystery": 0,
@@ -729,6 +813,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 14,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.5533333333333333,
         "visible": 0.9233333333333333,
@@ -758,46 +848,54 @@
       "role": "normal",
       "title": "Зонтик под дождём",
       "board": "26x30",
-      "pods": 19,
-      "attempt": 52,
-      "banned": [],
-      "seconds": 50.3,
-      "secondsAt1x": 80,
+      "pods": 20,
+      "attempt": 795,
+      "banned": [
+        "колонка справа до конца"
+      ],
+      "seconds": 57.4,
+      "secondsAt1x": 93,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 347.9,
+      "patientSeconds": 258.8,
       "planner": {
         "rows": 3,
         "depth": 4,
         "weight": 12,
-        "commands": 18,
+        "commands": 19,
         "winsSeeingTopRowOnly": true
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 13,
+        "risky": 2,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.6233333333333333,
-        "visible": 0.7333333333333333,
-        "left": 0,
-        "right": 1,
+        "random": 0.5733333333333334,
+        "visible": 0.7566666666666667,
+        "left": 1,
+        "right": 0,
         "leftVisible": 0,
         "biggestVisible": 1,
         "smallestVisible": 1,
-        "mostWork": 1,
-        "sensibleWins": 3,
+        "mostWork": 0,
+        "sensibleWins": 2,
         "patternWins": [
-          "колонка справа до конца",
+          "колонка слева до конца",
           "ряд справа налево",
-          "самое большое число",
-          "самое маленькое число"
+          "самое большое число"
         ]
       },
       "search": {
-        "tried": 46,
-        "bots": 44,
+        "tried": 599,
+        "bots": 592,
         "early": 0,
         "planner": 0,
         "mystery": 0,
-        "time": 1
+        "time": 3,
+        "risk": 3
       }
     },
     {
@@ -821,6 +919,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 20,
+        "risky": 3,
+        "tight": 3,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.25666666666666665,
         "visible": 0.68,
@@ -865,6 +969,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 25,
+        "risky": 9,
+        "tight": 4,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.19,
         "visible": 0.37,
@@ -913,6 +1023,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 11,
+        "risky": 3,
+        "tight": 3,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.72,
         "visible": 0.8666666666666667,
@@ -945,12 +1061,12 @@
       "title": "Садовая лейка",
       "board": "28x28",
       "pods": 19,
-      "attempt": 45,
+      "attempt": 49,
       "banned": [],
-      "seconds": 51.1,
-      "secondsAt1x": 83,
+      "seconds": 59.4,
+      "secondsAt1x": 96,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 374.4,
+      "patientSeconds": 253.6,
       "planner": {
         "rows": 3,
         "depth": 4,
@@ -960,29 +1076,36 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 16,
+        "risky": 4,
+        "tight": 3,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.36333333333333334,
-        "visible": 0.75,
+        "random": 0.43,
+        "visible": 0.85,
         "left": 1,
-        "right": 0,
+        "right": 1,
         "leftVisible": 1,
-        "biggestVisible": 0,
-        "smallestVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
         "mostWork": 1,
         "sensibleWins": 3,
         "patternWins": [
           "колонка слева до конца",
-          "самое большое число",
-          "самое маленькое число"
+          "колонка справа до конца",
+          "самое большое число"
         ]
       },
       "search": {
-        "tried": 46,
-        "bots": 45,
+        "tried": 50,
+        "bots": 48,
         "early": 0,
         "planner": 0,
         "mystery": 0,
-        "time": 0
+        "time": 0,
+        "risk": 1
       }
     },
     {
@@ -1006,6 +1129,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 18,
+        "risky": 5,
+        "tight": 5,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.37,
         "visible": 0.71,
@@ -1066,6 +1195,12 @@
         ]
       },
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 15,
+        "risky": 4,
+        "tight": 4,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.46,
         "visible": 0.73,
@@ -1113,6 +1248,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 20,
+        "risky": 3,
+        "tight": 1,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.22666666666666666,
         "visible": 0.58,
@@ -1155,6 +1296,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 14,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.62,
         "visible": 0.88,
@@ -1201,6 +1348,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 28,
+        "risky": 5,
+        "tight": 3,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.10333333333333333,
         "visible": 0.11333333333333333,
@@ -1243,6 +1396,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 1,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.77,
         "visible": 1,
@@ -1273,41 +1432,52 @@
       "role": "task",
       "title": "Улитка у ручья",
       "board": "30x32",
-      "pods": 25,
-      "attempt": 95,
+      "pods": 26,
+      "attempt": 765,
       "banned": [],
-      "seconds": 66.6,
-      "secondsAt1x": 109,
+      "seconds": 80.2,
+      "secondsAt1x": 128,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 372.7,
+      "patientSeconds": 641.9,
       "planner": {
         "rows": 3,
         "depth": 4,
         "weight": 12,
-        "commands": 24,
-        "winsSeeingTopRowOnly": false
+        "commands": 25,
+        "winsSeeingTopRowOnly": true
       },
       "mystery": null,
-      "earlyRisk": 0,
+      "earlyRisk": 0.111,
+      "routeRisk": {
+        "decisions": 24,
+        "risky": 2,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.27666666666666667,
-        "visible": 0.77,
+        "random": 0.23333333333333334,
+        "visible": 0.6233333333333333,
         "left": 0,
         "right": 0,
         "leftVisible": 0,
-        "biggestVisible": 0,
+        "biggestVisible": 1,
         "smallestVisible": 0,
         "mostWork": 1,
-        "sensibleWins": 1,
-        "patternWins": []
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "середина, потом края",
+          "самое большое число"
+        ]
       },
       "search": {
-        "tried": 68,
-        "bots": 65,
+        "tried": 519,
+        "bots": 498,
         "early": 0,
         "planner": 0,
         "mystery": 0,
-        "time": 2
+        "time": 15,
+        "risk": 5
       }
     },
     {
@@ -1352,6 +1522,12 @@
         ]
       },
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 22,
+        "risky": 4,
+        "tight": 3,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.22,
         "visible": 0.2833333333333333,
@@ -1382,12 +1558,12 @@
       "title": "Подсолнух у забора",
       "board": "26x30",
       "pods": 19,
-      "attempt": 155,
+      "attempt": 300,
       "banned": [],
-      "seconds": 35.9,
-      "secondsAt1x": 58,
+      "seconds": 50,
+      "secondsAt1x": 81,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 253.2,
+      "patientSeconds": 274,
       "planner": {
         "rows": 3,
         "depth": 4,
@@ -1397,28 +1573,36 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 14,
+        "risky": 2,
+        "tight": 2,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.4,
-        "visible": 0.6833333333333333,
-        "left": 1,
-        "right": 0,
-        "leftVisible": 1,
-        "biggestVisible": 0,
+        "random": 0.43666666666666665,
+        "visible": 0.8466666666666667,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
         "smallestVisible": 1,
         "mostWork": 1,
         "sensibleWins": 3,
         "patternWins": [
-          "колонка слева до конца",
+          "колонка справа до конца",
+          "самое большое число",
           "самое маленькое число"
         ]
       },
       "search": {
-        "tried": 156,
-        "bots": 155,
+        "tried": 301,
+        "bots": 298,
         "early": 0,
         "planner": 0,
         "mystery": 0,
-        "time": 0
+        "time": 0,
+        "risk": 2
       }
     },
     {
@@ -1442,6 +1626,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 17,
+        "risky": 4,
+        "tight": 3,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.31666666666666665,
         "visible": 0.5366666666666666,
@@ -1487,6 +1677,12 @@
       },
       "mystery": null,
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.7666666666666667,
         "visible": 1,
@@ -1519,24 +1715,30 @@
       "title": "Садовый фонарь",
       "board": "34x36",
       "pods": 21,
-      "attempt": 105,
+      "attempt": 165,
       "banned": [],
-      "seconds": 133.8,
-      "secondsAt1x": 217,
-      "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 462.3,
+      "seconds": 125.3,
+      "secondsAt1x": 209,
+      "secondsAt1xFrom": "patient route (a brisk replay of the same commands plays out differently)",
+      "patientSeconds": 501.2,
       "planner": {
         "rows": 3,
         "depth": 4,
         "weight": 12,
         "commands": 20,
-        "winsSeeingTopRowOnly": false
+        "winsSeeingTopRowOnly": true
       },
       "mystery": null,
       "earlyRisk": 0.083,
+      "routeRisk": {
+        "decisions": 17,
+        "risky": 6,
+        "tight": 2,
+        "unknown": 0
+      },
       "bots": {
-        "random": 0.04,
-        "visible": 0.11,
+        "random": 0.05333333333333334,
+        "visible": 0.04,
         "left": 0,
         "right": 0,
         "leftVisible": 0,
@@ -1544,17 +1746,16 @@
         "smallestVisible": 0,
         "mostWork": 0,
         "sensibleWins": 0,
-        "patternWins": [
-          "самое большое число"
-        ]
+        "patternWins": []
       },
       "search": {
-        "tried": 71,
-        "bots": 63,
-        "early": 4,
+        "tried": 111,
+        "bots": 97,
+        "early": 6,
         "planner": 0,
         "mystery": 0,
-        "time": 3
+        "time": 4,
+        "risk": 3
       }
     },
     {
@@ -1592,6 +1793,12 @@
         ]
       },
       "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 8,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
       "bots": {
         "random": 0.5966666666666667,
         "visible": 0.7666666666666667,

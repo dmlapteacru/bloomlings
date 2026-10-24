@@ -94,9 +94,10 @@ for(const l of data.levels){assert.deepEqual(R.validate(l),[]);
  }
 }
 // v8E role gates (fix.mjs ROLES): every level keeps its role's windows (fixed seeds, the same bots as fix.mjs).
-const bots=await import('./botsc.mjs');const gates=[];
+const bots=await import('./botsc.mjs'),{riskNeed}=await import('./fix.mjs');const gates=[];
 for(const q of quality.levels){if(q.role==='tutorial')continue;const l=data.levels[q.id-1],t=quality.roles[q.role],b=q.bots;assert(b,'Bot report L'+q.id);
  const within=(v,[lo,hi])=>v>=lo-.03&&v<=hi+.03;
+ {const need=riskNeed(q.id,q.role,l.pods.length),rr=bots.routeRisk(l,certs[q.id-1].actions);assert.deepEqual(rr,q.routeRisk,'Route risk replay L'+q.id);if(need)assert(rr.risky>=need.risky&&rr.tight>=need.tight,'Mistake moments L'+q.id);}
  if(['hard','superHard'].includes(q.role)){assert(q.earlyRisk<=quality.earlyLimit,'Early risk L'+q.id);assert.equal(bots.earlyRisk(l),q.earlyRisk,'Early risk replay L'+q.id);assert(q.secondsAt1x>=t.seconds1x[0],'Long enough L'+q.id);}
  assert(q.secondsAt1x<=t.seconds1x[1],'Not too long L'+q.id);
  {assert(within(b.random,t.random),'Random window L'+q.id);assert(within(b.visible,t.visible),'Visible window L'+q.id);assert(b.patternWins.length<=t.patterns,'Pattern wins L'+q.id);assert(b.sensibleWins<=t.sensible,'Sensible wins L'+q.id);}

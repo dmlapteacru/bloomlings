@@ -48,6 +48,13 @@ export function playPattern(level,name){let s=R.create(level),k=0,g=0;const p=PA
 export function patternWins(level){return Object.keys(PATTERNS).filter(n=>playPattern(level,n));}
 // v8E: exact chance that random taps make the level unwinnable within the first two commands (full-information check;
 // a position the search cannot settle within its budget counts as winnable).
+// Mistake moments on a route (the certificate's, waiting for idle between commands): risky = some other tap would lose
+// the level here, tight = only one tap keeps it winnable. The owner's ratings follow it (v8E playtest, 2026-10-24:
+// L10 0 risky in 28 decisions felt "Hard, not Super Hard", L25 0 "normal", L12/L13/L16 0 "boring", L15 7 "fun";
+// product/audits/pilot-v8e-vs-colony-flow-rounds-2026-10-25.md).
+export function routeRisk(level,actions,budget=60000){let s=R.create(level),risky=0,tight=0,decisions=0,unknown=0;const win=x=>x.status==='Won'?true:x.status!=='Playing'?false:winnable(x,budget);
+ for(const a of actions){const moves=R.legal(s);if(moves.length>1){decisions++;const res=moves.map(m=>win(R.step(s,m).state)),good=res.filter(r=>r===true).length;if(res.includes(null))unknown++;else{if(good<moves.length)risky++;if(good===1)tight++;}}s=R.step(s,a).state;}
+ return {decisions,risky,tight,unknown};}
 export function earlyRisk(level,budget=60000){const memo=new Map(),win=s=>{const k=R.signature(s);if(!memo.has(k)){const w=winnable(s,budget);memo.set(k,w!==false);}return memo.get(k);};
  const start=R.create(level);if(!win(start))return 1;let risk=0;const m1=R.legal(start);
  for(const a of m1){const s1=R.step(start,a).state;if(!win(s1)){risk+=1/m1.length;continue;}if(s1.status!=='Playing')continue;const m2=R.legal(s1);for(const b of m2)if(!win(R.step(s1,b).state))risk+=1/m1.length/m2.length;}
