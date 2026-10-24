@@ -1,0 +1,110 @@
+[
+ {
+  "level": 1,
+  "title": "звезда",
+  "difficulty": "Normal",
+  "board": "13x13",
+  "cells": 99,
+  "colours": 3,
+  "capsules": 9,
+  "columns": 3,
+  "accounting": "exact",
+  "rounds": "storyboard text only"
+ },
+ {
+  "level": 2,
+  "title": "сердце",
+  "difficulty": "Normal",
+  "board": "19x19",
+  "cells": 248,
+  "colours": 3,
+  "capsules": 9,
+  "columns": 3,
+  "accounting": "exact",
+  "rounds": "storyboard text only"
+ },
+ {
+  "level": 3,
+  "title": "яблоко",
+  "difficulty": "Normal",
+  "board": "18x18",
+  "cells": 267,
+  "colours": 6,
+  "capsules": 12,
+  "columns": 3,
+  "accounting": "exact",
+  "rounds": "storyboard text only"
+ },
+ {
+  "level": 4,
+  "title": "грибной домик",
+  "difficulty": "Normal",
+  "board": "27x26",
+  "cells": 637,
+  "colours": 8,
+  "capsules": 24,
+  "columns": 3,
+  "accounting": "exact",
+  "rounds": "storyboard text only"
+ },
+ {
+  "level": 5,
+  "title": "кольца",
+  "difficulty": "Hard",
+  "board": "24x24",
+  "cells": 484,
+  "colours": 10,
+  "capsules": 18,
+  "columns": 3,
+  "accounting": "P 19/20, l 20/19",
+  "rounds": "storyboard text only"
+ },
+ {
+  "level": 10,
+  "title": "замок",
+  "difficulty": "Super Hard",
+  "board": "29x30",
+  "cells": 870,
+  "colours": 11,
+  "capsules": 29,
+  "columns": 3,
+  "accounting": "exact",
+  "rounds": "storyboard text only"
+ },
+ {
+  "level": 20,
+  "title": "торт с клубникой",
+  "difficulty": "Super Hard",
+  "board": "36x36",
+  "cells": 1296,
+  "colours": 9,
+  "capsules": 45,
+  "columns": 4,
+  "accounting": "exact",
+  "rounds": "won 36 taps"
+ },
+ {
+  "level": 25,
+  "title": "котёнок в клубнике",
+  "difficulty": "Hard",
+  "board": "32x32",
+  "cells": 1024,
+  "colours": 6,
+  "capsules": 30,
+  "columns": 4,
+  "accounting": "S 467/469",
+  "rounds": "lost 9 taps; won 26 taps"
+ },
+ {
+  "level": 26,
+  "title": "корзина для пикника",
+  "difficulty": "Normal",
+  "board": "35x35",
+  "cells": 1225,
+  "colours": 10,
+  "capsules": 36,
+  "columns": 3,
+  "accounting": "A 232/233, C 165/177, D 114/117, E 97/106, F 94/98, J 39/47 (board \"?\" 37, capsules +37)",
+  "rounds": "won 32 taps"
+ }
+]

@@ -1,0 +1,341 @@
+{
+ "events": 34,
+ "leftover": [],
+ "taps": [
+  {
+   "column": 1,
+   "pods": [
+    "c1:S35"
+   ],
+   "slots": 1,
+   "t": 2.5,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:S34:b",
+    "c2:S35:b"
+   ],
+   "slots": 2,
+   "t": 3.5,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:S30:d",
+    "c4:S35:d"
+   ],
+   "slots": 2,
+   "t": 4.25,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:B32"
+   ],
+   "slots": 1,
+   "t": 16.5,
+   "from": "slots"
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:S35:a",
+    "c1:G8:a"
+   ],
+   "slots": 2,
+   "t": 21.75,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:D25"
+   ],
+   "slots": 1,
+   "t": 22.75,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:Y30"
+   ],
+   "slots": 1,
+   "t": 36.5,
+   "from": "slots",
+   "shared": true
+  },
+  {
+   "column": 4,
+   "pods": [
+    "c4:Y36"
+   ],
+   "slots": 1,
+   "t": 36.5,
+   "from": "slots"
+  },
+  {
+   "column": 4,
+   "pods": [
+    "c4:R30"
+   ],
+   "slots": 1,
+   "t": 46.75,
+   "from": "slots"
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:R28"
+   ],
+   "slots": 1,
+   "t": 57,
+   "from": "tray"
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:S32"
+   ],
+   "slots": 1,
+   "t": 65,
+   "from": "slots"
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:R30:f",
+    "c1:B30:f"
+   ],
+   "slots": 2,
+   "t": 77.5,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:D25:c",
+    "c3:V10:c"
+   ],
+   "slots": 2,
+   "t": 109.25,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:P35"
+   ],
+   "slots": 1,
+   "t": 113.25,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:S35"
+   ],
+   "slots": 1,
+   "t": 126.25,
+   "from": "tray"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:S30"
+   ],
+   "slots": 1,
+   "t": 137.5,
+   "from": "tray"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:S30"
+   ],
+   "slots": 1,
+   "t": 148.25,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:P25"
+   ],
+   "slots": 1,
+   "t": 164,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:B36"
+   ],
+   "slots": 1,
+   "t": 187.75,
+   "from": "tray"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:S30?"
+   ],
+   "slots": 1,
+   "t": 202,
+   "from": "slots"
+  },
+  {
+   "column": 3,
+   "pods": [
+    "c3:B30"
+   ],
+   "slots": 1,
+   "t": 219.5,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:R20"
+   ],
+   "slots": 1,
+   "t": 229.5,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:D25"
+   ],
+   "slots": 1,
+   "t": 244.25,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:Y30"
+   ],
+   "slots": 1,
+   "t": 254.5,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:Y30?"
+   ],
+   "slots": 1,
+   "t": 265.25,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:D25"
+   ],
+   "slots": 1,
+   "t": 275.5,
+   "from": "slots"
+  },
+  {
+   "column": 4,
+   "pods": [
+    "c4:g20:e",
+    "c4:Y32:e"
+   ],
+   "slots": 2,
+   "t": 296.75,
+   "from": "slots"
+  },
+  {
+   "column": 4,
+   "pods": [
+    "c4:P38"
+   ],
+   "slots": 1,
+   "t": 319.5,
+   "from": "slots"
+  },
+  {
+   "column": 4,
+   "pods": [
+    "c4:S35:i",
+    "c4:Y36:i"
+   ],
+   "slots": 2,
+   "t": 340.5,
+   "from": "slots"
+  },
+  {
+   "column": 4,
+   "pods": [
+    "c4:S34:j",
+    "c4:S35:j"
+   ],
+   "slots": 2,
+   "t": 353,
+   "from": "slots"
+  },
+  {
+   "column": 4,
+   "pods": [
+    "c4:R32"
+   ],
+   "slots": 1,
+   "t": 354,
+   "from": "tray"
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:V11:h",
+    "c2:S35:h"
+   ],
+   "slots": 2,
+   "t": 356.75,
+   "from": "slots"
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:D20"
+   ],
+   "slots": 1,
+   "t": 378,
+   "from": "slots"
+  },
+  {
+   "column": 2,
+   "pods": [
+    "c2:P10"
+   ],
+   "slots": 1,
+   "t": 385,
+   "from": "slots"
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:B32"
+   ],
+   "slots": 1,
+   "t": 388,
+   "from": "slots",
+   "shared": true
+  },
+  {
+   "column": 1,
+   "pods": [
+    "c1:D25"
+   ],
+   "slots": 1,
+   "t": 388,
+   "from": "slots"
+  }
+ ]
+}

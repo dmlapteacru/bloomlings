@@ -1,0 +1,2289 @@
+{
+ "format": "colony-flow-rounds-1",
+ "built": "tools/colony-deep-research/rounds/build.mjs",
+ "tokens": "Tray columns list capsules top first: colour letter + count; \"?\" after the count = shown as \"?\" until it reaches the top; \":x\" = linked group x, one tap takes every capsule of the group. Board rows are top first; \".\" = no cube (open ground), \"?\" = a mystery tile on the board.",
+ "levels": [
+  {
+   "level": 1,
+   "difficulty": "Normal",
+   "title": "звезда",
+   "source": {
+    "video": "level-1-4.mp4",
+    "app": "Colony Flow v1.0.79",
+    "recorded": "2026-10-20",
+    "note": "transcribed in product/audits/colony-flow-levels-deep-dive-2026-10-20.md"
+   },
+   "board": {
+    "w": 13,
+    "h": 13,
+    "rows": [
+     "......O......",
+     ".....OYO.....",
+     ".....OYO.....",
+     "....OYYYO....",
+     "OOOOOYYYOOOOO",
+     "OYYYYYWYYYYYO",
+     ".OYYWWWWWYYO.",
+     "..OYYWWWYYO..",
+     "...OYWWWYO...",
+     "..OYYYYYYYO..",
+     "..OYYYOYYYO..",
+     ".OYYOO.OOYYO.",
+     ".OOO.....OOO."
+    ],
+    "legend": {
+     "Y": {
+      "name": "жёлтый",
+      "hex": "#ffe255"
+     },
+     "O": {
+      "name": "оранжевый",
+      "hex": "#fe982c"
+     },
+     "W": {
+      "name": "белый",
+      "hex": "#eef4f6"
+     }
+    },
+    "cells": 99
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "O14",
+     "Y15",
+     "W4"
+    ],
+    "c2": [
+     "Y15",
+     "W4",
+     "O14"
+    ],
+    "c3": [
+     "W4",
+     "O14",
+     "Y15"
+    ]
+   },
+   "rounds": null,
+   "storyboardText": "**Как шла партия** (≈30 с от старта до экрана победы):\n- 0 с: затемнение, рука на оранжевой 14 и подсказка «Tap a box to place into the slot». Других объяснений нет.\n- 2 с: оранжевая 14 (кол. 1). Муравьи выбегают из норки внизу, обходят рамку и едят оранжевый контур звезды.\n- 3–5 с: жёлтая 15 (кол. 1) и жёлтая 15 (кол. 2). Жёлтый под оранжевым, и он открывается по мере того, как уходит контур.\n- 7 с: оранжевая 14 закончилась, слот свободен. За 5 секунд одна капсула съела 14 клеток.\n- 9–12 с: белые 4 (кол. 1 и кол. 3). Белая серединка — слой 2.\n- 12 с: затемнение и рука на кнопке «×2»: «Use Speed Up to make ants go faster!». Ускорение включается с таймером 20:00.\n- 14–21 с: оставшиеся четыре капсулы. Одновременно занято не больше 4 слотов.\n- ~25 с: поле пустое; 32 с: «Victory!», +20 монет, два муравья-маскота.",
+   "accounting": {
+    "O": {
+     "board": 42,
+     "capsules": 42
+    },
+    "W": {
+     "board": 12,
+     "capsules": 12
+    },
+    "Y": {
+     "board": 45,
+     "capsules": 45
+    }
+   }
+  },
+  {
+   "level": 2,
+   "difficulty": "Normal",
+   "title": "сердце",
+   "source": {
+    "video": "level-1-4.mp4",
+    "app": "Colony Flow v1.0.79",
+    "recorded": "2026-10-20",
+    "note": "transcribed in product/audits/colony-flow-levels-deep-dive-2026-10-20.md"
+   },
+   "board": {
+    "w": 19,
+    "h": 19,
+    "rows": [
+     "...PPPP.....PPPP...",
+     "..PPPPPP...PPPPPP..",
+     ".PPPPPPPP.PPPPPPPP.",
+     "PPPCCPPPPPPPPPCCPPP",
+     "PPCCCCPPPPPPPCCCCPP",
+     "PCCCCCCPPPPPCCCCCCP",
+     "CCCCCCCCCPCCCCCCCCC",
+     "CCCCCCCYCCCYCCCCCCC",
+     "CCCCCCYYYCYYYCCCCCC",
+     ".CCCCYYYYYYYYYCCCC.",
+     ".CCCCCYYYCYYYCCCCC.",
+     "..CCCCCYCCCYCCCCC..",
+     "...PPPCCCCCCCPPP...",
+     "....PPPPPCPPPPP....",
+     ".....PPPPPPPPP.....",
+     "......PPPPPPP......",
+     ".......PPPPP.......",
+     "........PPP........",
+     ".........P........."
+    ],
+    "legend": {
+     "C": {
+      "name": "голубой",
+      "hex": "#59ddf8"
+     },
+     "P": {
+      "name": "розовый",
+      "hex": "#ff78da"
+     },
+     "Y": {
+      "name": "жёлтый",
+      "hex": "#fee255"
+     }
+    },
+    "cells": 248
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "P37",
+     "C37",
+     "Y8"
+    ],
+    "c2": [
+     "P37",
+     "C38",
+     "Y9"
+    ],
+    "c3": [
+     "P37",
+     "C37",
+     "Y8"
+    ]
+   },
+   "rounds": null,
+   "storyboardText": "**Как шла партия** (35 → 67 с, ≈32 с):\n- 36–37 с: три розовые 37 подряд. Розовые верх и низ сердца открыты сразу.\n- 37–44 с: два слота свободны, но ты ждёшь, пока розовые работают.\n- 45 и 47 с: голубые 37 и 38. Теперь все 5 слотов заняты, но **все работают**: полный ряд сам по себе не проигрыш.\n- 53 с: жёлтая 8. Жёлтый в середине, слой 1, он открылся, когда голубые прогрызли пояс.\n- 61–62 с: последние жёлтая 9, голубая 37 и жёлтая 8. Конец около 66 с.\n- Розовые 37 работали по 15–16 секунд каждая. Две из трёх простояли с остатком 4 около 5 секунд: последние розовые клетки нижнего острия открылись позже.",
+   "accounting": {
+    "C": {
+     "board": 112,
+     "capsules": 112
+    },
+    "P": {
+     "board": 111,
+     "capsules": 111
+    },
+    "Y": {
+     "board": 25,
+     "capsules": 25
+    }
+   }
+  },
+  {
+   "level": 3,
+   "difficulty": "Normal",
+   "title": "яблоко",
+   "source": {
+    "video": "level-1-4.mp4",
+    "app": "Colony Flow v1.0.79",
+    "recorded": "2026-10-20",
+    "note": "transcribed in product/audits/colony-flow-levels-deep-dive-2026-10-20.md"
+   },
+   "board": {
+    "w": 18,
+    "h": 18,
+    "rows": [
+     ".......####....##.",
+     ".....##GLLL##.#LL#",
+     "...##RRRGLLLG#LLL#",
+     "..#RRsssRGGGGLLL#.",
+     ".#RRsssRRRGLGLL#..",
+     ".#RsssWWRRGLLGGG#.",
+     "#RssssWWRRGLLLGL#.",
+     "#RssWRRRRRGGGGGLL#",
+     "#RssRRRRRRRRRRGLL#",
+     "#RsRRRRRRRRRRRRGL#",
+     "#RsRRRRRRRRRRRRRG#",
+     "#RsRRRRRRRRRRRRR#.",
+     "#RsRRRRRRRRRRRRR#.",
+     "#RRRRRRRRRRRRRR#..",
+     ".#RRRRRRRRRRRRR#..",
+     ".#RRRRRRRRRRRR#...",
+     "..##RRRRRRRR##....",
+     "....########......"
+    ],
+    "legend": {
+     "R": {
+      "name": "малиновый",
+      "hex": "#e03555"
+     },
+     "#": {
+      "name": "тёмный контур",
+      "hex": "#5e4b67"
+     },
+     "L": {
+      "name": "лайм",
+      "hex": "#b7f05d"
+     },
+     "G": {
+      "name": "зелёный",
+      "hex": "#58d068"
+     },
+     "s": {
+      "name": "лососевый (блик)",
+      "hex": "#f85e68"
+     },
+     "W": {
+      "name": "белый",
+      "hex": "#eef4f6"
+     }
+    },
+    "cells": 267
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "#26",
+     "s11",
+     "R52",
+     "G13"
+    ],
+    "c2": [
+     "#28",
+     "R18",
+     "L28",
+     "R16"
+    ],
+    "c3": [
+     "s10",
+     "R50",
+     "W5",
+     "G10"
+    ]
+   },
+   "rounds": null,
+   "storyboardText": "**Как шла партия** (76 → ≈125 с, ≈43 с от первого тапа):\n- 76–80 с: окно «открыт бустер» и рука на «+1 слот». Слот добавлен, играем на 6.\n- 82–83 с: тёмные 26 и 28 (кол. 1 и 2) — контур. Муравьи обходят рамку и прогрызают тёмный ободок со всех сторон.\n- 87 с: лососевая 11 (кол. 1). **15 секунд стоит на 11**: лососевый — это блик внутри красного, слой 2.\n- 90 с: малиновая 18 (кол. 2), 95 с: малиновая 52 (кол. 1).\n- 96–98 с: зелёная 13, лайм 28, лососевая 10. **Заняты все 6 слотов**, все работают, кроме лососевой.\n- 104–108 с: малиновые 16 и 50.\n- 112–119 с: слот свободен, но сверху лежит только белая 5 (тоже блик, слой 2), и ты ждёшь. 120 с: белая 5, 121 с: зелёная 10.\n- ≈125 с: конец, +20 монет.",
+   "accounting": {
+    "#": {
+     "board": 54,
+     "capsules": 54
+    },
+    "G": {
+     "board": 23,
+     "capsules": 23
+    },
+    "L": {
+     "board": 28,
+     "capsules": 28
+    },
+    "R": {
+     "board": 136,
+     "capsules": 136
+    },
+    "W": {
+     "board": 5,
+     "capsules": 5
+    },
+    "s": {
+     "board": 21,
+     "capsules": 21
+    }
+   }
+  },
+  {
+   "level": 4,
+   "difficulty": "Normal",
+   "title": "грибной домик",
+   "source": {
+    "video": "level-1-4.mp4, level-4~2.mp4",
+    "app": "Colony Flow v1.0.79",
+    "recorded": "2026-10-20",
+    "note": "transcribed in product/audits/colony-flow-levels-deep-dive-2026-10-20.md"
+   },
+   "board": {
+    "w": 27,
+    "h": 26,
+    "rows": [
+     ".................#####.....",
+     "...........#####.#YYY#.....",
+     ".........##RRRRR##YYY#.....",
+     ".......##RRRppRRRR##Y#.....",
+     "CCCCCC#RRRRppppRRRRR##CCCCC",
+     "CCCC##RRRRRpp#pRRRRRR##CCCC",
+     "CCC#ppRRRRRRppRRRRRRRRR#CCC",
+     "CC#ppppRRRRRRRRRRRppRRRR#CC",
+     "CC#pp#pRRRRRRRRRRppppRRR#CC",
+     "C#RRppRRRppRRRRRRpp#pRRRR#C",
+     "C#RRRRRRppppRRRRRRppRRRRR#C",
+     "C#RRRRRRpp#pRRRRRRRRRRRRR#C",
+     "C#RRRRRRRppRRRRRRRRRRRRRR#C",
+     "C#RRRRRR###########RRRRRR#C",
+     "CC#RRR##YYYYYYYYYYY##RRR#CC",
+     "CCC###YYYYYYYYYYYYYYY###CCC",
+     "CCCCC#YYYYY#####YYYYY#CCCCC",
+     "CCCCC#YYYY#WWWWW#YYYY#CCCCC",
+     "CCCCC#YYY#WWWWWWW#YYY#CCCCC",
+     "CCCCC#YYY#WWbbbWW#YYY#CCCCC",
+     "CCCCC#YYY#Wbb#bbW#YYY#CCCCC",
+     "CCCCC#YYY#Wbb#bbW#YYY#CCCCC",
+     "CCCCG#YYY#Wbb#bbW#YYY#GCGCC",
+     "CCGGG#YYY#WWWWWWW#YYY#GGGCC",
+     "CGGGGG###############GGGGGC",
+     "GGGGGGGGGGGGGGGGGGGGGGGGGGG"
+    ],
+    "legend": {
+     "R": {
+      "name": "красный",
+      "hex": "#e63559"
+     },
+     "C": {
+      "name": "голубой",
+      "hex": "#59ddf8"
+     },
+     "#": {
+      "name": "тёмный контур",
+      "hex": "#5e4a67"
+     },
+     "Y": {
+      "name": "жёлтый",
+      "hex": "#fee255"
+     },
+     "G": {
+      "name": "зелёный",
+      "hex": "#58d068"
+     },
+     "p": {
+      "name": "персиковый",
+      "hex": "#ffddba"
+     },
+     "W": {
+      "name": "белый",
+      "hex": "#eef4f6"
+     },
+     "b": {
+      "name": "коричневый",
+      "hex": "#b7614c"
+     }
+    },
+    "cells": 637
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "R15",
+     "C30",
+     "#25",
+     "R50",
+     "Y10",
+     "#35",
+     "p44",
+     "Y19",
+     "W14"
+    ],
+    "c2": [
+     "R15",
+     "Y8",
+     "C32",
+     "C32",
+     "#40",
+     "R35",
+     "G22",
+     "R35",
+     "b15"
+    ],
+    "c3": [
+     "G24",
+     "R15",
+     "C32",
+     "#25",
+     "W15",
+     "Y50"
+    ]
+   },
+   "rounds": null,
+   "storyboardText": "**Как шла партия** (запись `level-4~2`, ≈84 с; первая зелёная 24 тапнута до начала записи):\n\n```\nt, с           ||    |    |    |    |    |    |    |    |  \nзелён 24       |███                                        \nкрасн 15       | ░░░░░████████████                         \nголуб 32       | █████                                     \nтёмн 25        | █████                                     \nкрасн 15       |     ░█████████                            \nголуб 30       |      █████                                \nтёмн 25        |       ████                                \nбел 15         |       █████                               \nжёлт 50        |           ██████████                      \nкрасн 15       |            ████████████                   \nжёлт 8         |              ██                           \nкрасн 50       |              ░█████████████████           \nжёлт 10        |                 █████                     \nголуб 32       |                 ██████                    \nтёмн 35        |                        ██████             \nголуб 32       |                        ███████            \nперс 44        |                        ███████████████    \nжёлт 19        |                         ████████          \nбел 14         |                                  ████     \nтёмн 40        |                                  ███████  \nкрасн 35       |                                  ██████   \nзелён 22       |                                   ████    \nкрасн 35       |                                      ████ \nкорич 15       |                                        ░\n```\n\n- 2–3 с: красная 15, голубая 32 и тёмная 25 из правой колонки. Голубая и тёмная сразу работают.\n- **Красная 15 стоит на 15 с 2-й по 14-ю секунду**: красная шляпка за контуром. Потом ползёт: 11 → 5 → 3 → конец около 35 с. Капсула на 15 клеток держала слот 33 секунды.\n- 15–20, 28–30, 35–40, 51–58, 70–75 с: все пять слотов заняты, но всё работает.\n- 41–48 и 63–68 с: слоты свободны, ты ждёшь: сверху лежали тёмная 35 и голубая 32, потом белая 14 и тёмная 40.\n- Персиковая 44 (пятна на шляпке, слой 2) последние 8 клеток делала 12 секунд.\n- 81 с: последняя капсула, коричневая 15 (дверь, слой 3).",
+   "accounting": {
+    "#": {
+     "board": 125,
+     "capsules": 125
+    },
+    "C": {
+     "board": 126,
+     "capsules": 126
+    },
+    "G": {
+     "board": 46,
+     "capsules": 46
+    },
+    "R": {
+     "board": 165,
+     "capsules": 165
+    },
+    "W": {
+     "board": 29,
+     "capsules": 29
+    },
+    "Y": {
+     "board": 87,
+     "capsules": 87
+    },
+    "b": {
+     "board": 15,
+     "capsules": 15
+    },
+    "p": {
+     "board": 44,
+     "capsules": 44
+    }
+   }
+  },
+  {
+   "level": 5,
+   "difficulty": "Hard",
+   "title": "кольца",
+   "source": {
+    "video": "level-5.mp4",
+    "app": "Colony Flow v1.0.79",
+    "recorded": "2026-10-20",
+    "note": "transcribed in product/audits/colony-flow-levels-deep-dive-2026-10-20.md"
+   },
+   "board": {
+    "w": 24,
+    "h": 24,
+    "rows": [
+     ".......VVVVVVVVVV.......",
+     ".....VVVCCCCCCCCVVV.....",
+     "....VVCCCC####CCCCVV....",
+     "...VVCC###OOOO###CCVV...",
+     "..VVCC#OOccccccOO#CCVV..",
+     ".VVCC#lccOYcOOOYcl#CCVV.",
+     ".VCC#OccOOOcOOOYccO#CCV.",
+     "VVC#OccOYOOOOOOOOccO#CVV",
+     "VCC#OYYllGGPPGGllYcO#CCV",
+     "VC#OcOOOGPPOMPPGOOOcO#CV",
+     "VC#OcOOOGPOllOPGOOYcO#CV",
+     "VC#OcOOOPOlMlllPOcccO#CV",
+     "VC#OcccOlMlllMOPOOOcO#CV",
+     "VC#OcYOOGPOllOPGOOOcO#CV",
+     "VC#OcOOOGPPMOPPGOOOcO#CV",
+     "VCC#OcOYOGGPPGGOcYYO#CCV",
+     "VVC#OccOcOOOcOOYOccO#CVV",
+     ".VCC#OccYOOOcOOOccO#CCV.",
+     ".VVCC#lcYOOOcYOccl#CCVV.",
+     "..VVCC#OOccccccOO#CCVV..",
+     "...VVCC###OOOO###CCVV...",
+     "....VVCCCC####CCCCVV....",
+     ".....VVVCCCCCCCCVVV.....",
+     ".......VVVVVVVVVV......."
+    ],
+    "legend": {
+     "O": {
+      "name": "оранжевый",
+      "hex": "#ea812b"
+     },
+     "V": {
+      "name": "фиолетовый",
+      "hex": "#5b4dc3"
+     },
+     "C": {
+      "name": "голубой",
+      "hex": "#5be4f4"
+     },
+     "c": {
+      "name": "кремовый",
+      "hex": "#f5e28e"
+     },
+     "#": {
+      "name": "тёмный",
+      "hex": "#52405b"
+     },
+     "P": {
+      "name": "розовый",
+      "hex": "#e150c2"
+     },
+     "l": {
+      "name": "светло-розовый",
+      "hex": "#e9b2d6"
+     },
+     "Y": {
+      "name": "жёлтый",
+      "hex": "#f8b926"
+     },
+     "G": {
+      "name": "зелёный",
+      "hex": "#58df60"
+     },
+     "M": {
+      "name": "пурпурный",
+      "hex": ""
+     }
+    },
+    "cells": 484
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "c25",
+     "G16",
+     "#27",
+     "l19",
+     "c18",
+     "O34"
+    ],
+    "c2": [
+     "#25",
+     "V45",
+     "M5",
+     "Y16",
+     "O35",
+     "V47"
+    ],
+    "c3": [
+     "P20",
+     "C45",
+     "O35",
+     "O13",
+     "c16",
+     "C43"
+    ]
+   },
+   "rounds": null,
+   "storyboardText": "**Как шла партия** (запись обрывается на 103-й секунде, уровень не закончен):\n\n```\nt, с           ||    |    |    |    |    |    |    |    |    |    |  \nтёмн 25 сл.1   |████                                                 \nголуб 45 сл.4  |████                                                 \nроз 20 сл.3    |░░░░░░░░░░░██████████████████████                    \nоранж 35 сл.2  | ██████████                                          \nкрем 25 сл.1   |     █████                                           \nзелён 16 сл.1  |          █████████████░██████░███                   \nтёмн 27 сл.2   |          ████████░░░░░█████░███░░███░█████████████  \nоранж 13 сл.4  |                  ███                                \nкрем 16 сл.5   |                   ████████░░░░░░░░░░░░░░░░░░░██     \nголуб 43 сл.4  |                     ███████████████████████████████ \nпурп 5 сл.1    |                                     ██░░░░░░░░░███░ \nжёлт 16 сл.3   |                                      ██░░░░░░░░░░██ \nоранж 35 сл.5  |                                                ████ \nфиол 47 сл.2   |                                                  ██\n```\n\n- Первые четыре тапа пришлись на разрыв записи: тёмная 25, фиолетовая 45, розовая 20, голубая 45.\n- **Розовая 20 простояла на 20 больше 23 секунд**: розовое в самом центре. Потом 36 секунд ползла по клетке и закончилась на 64-й секунде.\n- Зелёная 16 (центр) взята на 20-й секунде, жила 47 секунд, с остатками 2 и 1 ещё 10 секунд.\n- Тёмная 27 (кольцо, слой 2, открывается кусками) — 80 секунд, по клетке за 3–4 секунды.\n- **Кремовая 16: с 52-й по 94-ю секунду остаток 2** — 42 секунды держала слот ради двух клеток.\n- Пурпурная 5 (центр): остаток 2 с 75-й по 98-ю секунду. Жёлтая 16: остаток 7 с 78-й по 102-ю.\n- **Все пять слотов заняты с 42-й по 63-ю и с 76-й по 94-ю секунду.** Ничего нельзя нажать, муравьи ползают по одному.\n- На 103-й секунде в очереди ещё 113 клеток работы.",
+   "accounting": {
+    "#": {
+     "board": 52,
+     "capsules": 52
+    },
+    "C": {
+     "board": 88,
+     "capsules": 88
+    },
+    "G": {
+     "board": 16,
+     "capsules": 16
+    },
+    "M": {
+     "board": 5,
+     "capsules": 5
+    },
+    "O": {
+     "board": 117,
+     "capsules": 117
+    },
+    "P": {
+     "board": 19,
+     "capsules": 20
+    },
+    "V": {
+     "board": 92,
+     "capsules": 92
+    },
+    "Y": {
+     "board": 16,
+     "capsules": 16
+    },
+    "c": {
+     "board": 59,
+     "capsules": 59
+    },
+    "l": {
+     "board": 20,
+     "capsules": 19
+    }
+   }
+  },
+  {
+   "level": 10,
+   "difficulty": "Super Hard",
+   "title": "замок",
+   "source": {
+    "video": "level-10-fail-part1/2.mp4, level-10-done-part1/2/3.mp4",
+    "app": "Colony Flow v1.0.79",
+    "recorded": "2026-10-20",
+    "note": "transcribed in product/audits/colony-flow-levels-deep-dive-2026-10-20.md"
+   },
+   "board": {
+    "w": 29,
+    "h": 30,
+    "rows": [
+     "SSSSSSSSSSSSSS#SSSSSSSSSSSSSS",
+     "SSSSSSSSSSSSS#Y#SSSSSSSSSSSSS",
+     "SSSSSSSSSSSSS#Y#SSSSSSSSSSSSS",
+     "SSSSSS#SSSSS#YYY#SSSSS#SSSSSS",
+     "SSSSS#Y#SSS##YYY##SSS#Y#SSSSS",
+     "SSSSS#O#SSS#YYYYY#SSS#O#SSSSS",
+     "SSSS#OOO#SS#OOOOO#SS#OOO#SSSS",
+     "SSSS#OOO#SS#OOOOO#SS#OOO##SSS",
+     "SSS#OOOOO#S#YYYYY#S#OOOOO#SSS",
+     "SSS#YOYOG#S##OOO##S#YOYOY#SSS",
+     "SS#YOYOYOY#S#ORO#S#YOYOYOY#SS",
+     "SS#WWTTTWW#S#ORO#S#WWTTTWW#SS",
+     "SS#WWTTTWW#S#OYO#S#WWTTTWW#SS",
+     "SS#WWTTTWW###ORO###WWTTTWW#SS",
+     "SS#OOOOOYO#Y#OYO#Y#OYOOOOO#SS",
+     "SSS#WWWYYYYYYYYYYYYYYYWWW#SSS",
+     "SSS#WWWOOO#########OOOWWW#SSS",
+     "SSS#WWWWOOOOOOOOOOOOOWWWW#SSS",
+     "SSG#WWTWWPPPPPPPPPPPWWTWW#GSS",
+     "SGgGWTTTWPPPPPPPPPPPWTTTWGgGS",
+     "SGGGWTTTWPPcPPPPPcPPWTTTWGGGS",
+     "GgGGGTTTWPcPcPcPcPcPWTTTGGGgG",
+     "GGGgGYYYWPPcPcccPcPPWYYYGgGGG",
+     "SGGGGWWWWPPPcccccPPPWWWWGGGGS",
+     "GGgGGWTTWRRRc###cRRRWTTWGGgGG",
+     "SGPGWWTTWPPPc###cPPPWTTWWGPGS",
+     "SSP#WWTTWRRRc###cRRRWTTWW#PSS",
+     "SSP#WWTTWPPPcccccPPPWTTWW#PSS",
+     "SGPGWWWWWRRRcccccRRRWWWWWGPGS",
+     "SSTTTTTTTcccccccccccTTTTTTTSS"
+    ],
+    "legend": {
+     "S": {
+      "name": "голубой (небо)",
+      "hex": "#59ddf8"
+     },
+     "#": {
+      "name": "тёмный контур",
+      "hex": "#5d4b67"
+     },
+     "W": {
+      "name": "белый",
+      "hex": "#eef4f6"
+     },
+     "O": {
+      "name": "оранжевый",
+      "hex": "#fe972c"
+     },
+     "P": {
+      "name": "розовый",
+      "hex": "#f857ae"
+     },
+     "T": {
+      "name": "бирюзовый",
+      "hex": "#00aeb8"
+     },
+     "Y": {
+      "name": "жёлтый",
+      "hex": "#febe23"
+     },
+     "G": {
+      "name": "зелёный",
+      "hex": "#58d067"
+     },
+     "c": {
+      "name": "кремовый",
+      "hex": "#fee998"
+     },
+     "R": {
+      "name": "красный",
+      "hex": "#e53559"
+     },
+     "g": {
+      "name": "тёмно-зелёный",
+      "hex": "#238b5d"
+     }
+    },
+    "cells": 870
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "S40",
+     "g8",
+     "Y30?",
+     "c22",
+     "W20",
+     "O30?",
+     "W49?",
+     "T25?",
+     "G25"
+    ],
+    "c2": [
+     "S40",
+     "S37?",
+     "T43",
+     "R6",
+     "#10?",
+     "P24?",
+     "G28",
+     "P25",
+     "#57",
+     "R15"
+    ],
+    "c3": [
+     "S40",
+     "S40",
+     "S40?",
+     "Y30",
+     "P20",
+     "O58",
+     "W35?",
+     "c22?",
+     "#45",
+     "S6"
+    ]
+   },
+   "rounds": null,
+   "storyboardText": "**Две партии рядом** (полосы — ключевые капсулы):\n\n```\nПРОИГРЫШ\nt, с           ||         |         |         |        \nголуб 40 ×5    | ██████████                            \nт-зелён 8      |        ░░░░░░░░░░░░░░███░░░░░███░░░░░░\nжёлт 30        |         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\nкрем 22        |         ████                          \nбирюз 43       |            ██░░░█████░░░░░░░░░░░░░░░░░\nкрасн 6        |            █                          \nголуб 40 (6-я) |              ██████████████           \nтёмн 10        |               ██                      \nбел 20         |                ███                    \nроз 24         |                    ████░░░░░░░░░░░░░░░\nзелён 28       |                            ███        \nроз 25 ✗       |                                      ░\nПОБЕДА\nt, с           ||         |         |         |         |         |         |         |   \nголуб 40 ×5    |█████████                                                                 \nголуб 40 (6-я) |     █████████████████                                                    \nбирюз 43       |         ███░░░░░░░░░░░░██░░██░░░░░░░░░░░░█████                           \nкрасн 6        |          ░░░░░░░░░░░░██                                                  \nтёмн 10        |          ██                                                              \nт-зелён 8      |                ░░░░░░░░░░░░░░░░███░░░░░░░░░░░░░░░░░░░░░░░██              \nжёлт 30        |                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██████████                   \nкрем 22        |                      ███                                                 \nбел 20         |                        ███                                               \nроз 24         |                              ███░░░░░░░░░░░░░░░░░░████                   \nзелён 28       |                              ████                                        \nоранж 30 ★     |                                       ██████████████                     \nбел 49 ★       |                                                  ██████                  \nостальные 12   |                                                        ██████████████████\n```\n\n**Проигрыш (≈115 с, 16 тапов):**\n1. 5–17 с: пять голубых 40/37 — небо уходит за 12 секунд (десятки муравьёв, около 3 клеток в секунду на капсулу).\n2. 24–27 с: тёмно-зелёная 8, жёлтая 30, кремовая 22. **Жёлтая 30 не сдвинулась до конца партии.** Тёмно-зелёная 8 простояла 45 секунд, потом остаток 2.\n3. 35–49 с: бирюзовая 43 (дальше застряла на 29, потом на 13), красная 6, голубая 40, тёмная 10, белая 20.\n4. 60 с (часть 2, 6 с): розовая 24 — съела 14 и встала на 10. **С этого момента все 5 слотов заняты.**\n5. 39–59 с второй части: один слот свободен, в слотах тёмно-зелёная 2, жёлтая 30, бирюзовая 13 и розовая 10, и никто не работает. Сверху лежат оранжевая 30, розовая 25 и жёлтая 30.\n6. **Тап 16: розовая 25** (под ней тёмная 57, нужная для контура). Розовой работы нет, и через полсекунды «Out of slots» → «Fail Offer $5.99» → «Level Failed». На экране проигрыша 4 сердца и таймер восстановления 17:37.\n\n**Победа (≈220 с, 29 тапов):**\n- Первые 15 тапов — **тот же набор капсул**, только в другом порядке: бирюзовую, красную и тёмную взял раньше тёмно-зелёной, жёлтой и кремовой.\n- Пришёл **в ту же позицию**: в слотах тёмно-зелёная 2, жёлтая 30, бирюзовая 13, розовая 10 и один свободный; сверху оранжевая 30, розовая 25, жёлтая 30. Здесь ты простоял около 14 секунд.\n- **Тап 16: оранжевая 30.** Она могла работать (оранжевые шпили открылись), и под ней раскрылась **белая 49**.\n- Оранжевая медленно открыла путь, ожили бирюзовая и жёлтая, бирюзовая закончилась, и на освободившийся слот ушла белая 49. Белые стены сняли блок с розовой и тёмно-зелёной.\n- После 165-й секунды осталось 12 капсул, и они прошли без остановок.",
+   "accounting": {
+    "#": {
+     "board": 112,
+     "capsules": 112
+    },
+    "G": {
+     "board": 53,
+     "capsules": 53
+    },
+    "O": {
+     "board": 88,
+     "capsules": 88
+    },
+    "P": {
+     "board": 69,
+     "capsules": 69
+    },
+    "R": {
+     "board": 21,
+     "capsules": 21
+    },
+    "S": {
+     "board": 243,
+     "capsules": 243
+    },
+    "T": {
+     "board": 68,
+     "capsules": 68
+    },
+    "W": {
+     "board": 104,
+     "capsules": 104
+    },
+    "Y": {
+     "board": 60,
+     "capsules": 60
+    },
+    "c": {
+     "board": 44,
+     "capsules": 44
+    },
+    "g": {
+     "board": 8,
+     "capsules": 8
+    }
+   }
+  },
+  {
+   "level": 20,
+   "difficulty": "Super Hard",
+   "title": "торт с клубникой",
+   "source": {
+    "video": "XRecorder_20261023_02.mp4",
+    "app": "Colony Flow v1.0.79",
+    "recorded": "2026-10-23",
+    "note": "won in one attempt (about 390 s); tap times detected automatically (slottaps.py, traytaps.py, align20.mjs), ±0.5 s"
+   },
+   "board": {
+    "w": 36,
+    "h": 36,
+    "rows": [
+     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+     "SSSSSSSSSSSSSSSSSSSSSSSgSgSSSSSSSSSS",
+     "SSSSSSSSSSSSSSSSSSSSSDDggGgSSSSSSSSS",
+     "SSSSSSSSSSSSSSSSSSSDDPPgGGGggSSSSSSS",
+     "SSSSSSSSSSSSSSSSSSDPSPgggGGgSSSSSSSS",
+     "SSSSSSSSSSSSSSSSSSDSSSPPPgGGgSSSSSSS",
+     "SSSSSSSSSSSSSSSSSDPPSPPPPggggSSSSSSS",
+     "SSSSSSSSSSDDDSSSSDSPPPPPPgRRgSSSSSSS",
+     "SSSSSSSSSDPPVDDDDDRSPPSPPRRRDSSSSSSS",
+     "SSSSSSSSDSPPVDPPPDRRPPPPRSRRDSSSSSSS",
+     "SSSSSSDDDPVVDSPPPPDRRRRRRRRDRDSSSSSS",
+     "SSSSSDSRDVVDSPPDPPVDSRRSRRRDRRDSSSSS",
+     "SSSSDSRRRDVDPVDDDVVDRRRRRDDRRRRDSSSS",
+     "SSSSDSRRRRDDVPPDPVVDDDDDDRRRRRRDSSSS",
+     "SSSSDRSRRRRRDVPVVVDRRRRRRRRRRSRDSSSS",
+     "SSSSDRPSSRRRRDVVVDRRRRRRRRRSSRRDSSSS",
+     "SSSSDRPPPSSSRRDDDRRRRRRRSSSPPRRDSSSS",
+     "SSSSDRRPPPPPSSSSSSSSSSSSPPPPPRRDSSSS",
+     "SSSSDRRPPPPRPPPPPPPPPRRPPPPPPRRDSSSS",
+     "SSSSDRRPPPRRRPPPPPPPRDDRRPPPRRDDSSSS",
+     "SSSSDDRRPRRDDRPPPPPRDYYDDRRRRDYDSSSS",
+     "SSSSDYDRRRDYYDRPPPPRDYYYYDRRDYYDSSSS",
+     "SSSBDYYDDDYYYDRRPPRDYYYYYYDDYYYDBSSS",
+     "SSBBDYYYYYYYYYDRRRRDYYYYYYYYYYYDBBSS",
+     "SBBBDYYYYYYYYYYDDDDYYYYYYYYYYYYDBBBS",
+     "BBBBDYYYYYYYYYYYYYYYYYYYYYYYYYYDBBBB",
+     "BBBBDYYYYYYYYYYYYYYYYYYYYYYYYYYDBBBB",
+     "BBBBBDYYYYYYYYYYYYYYYYYYYYYYYYDBBBBB",
+     "BBBBBBDYYYYYYYYYYYYYYYYYYYYYYDBBBBBB",
+     "SBBBBBBDDYYYYYYYYYYYYYYYYYYDDBBBBBBS",
+     "SSBBBBBBBDDDDYYYYYYYYYYDDDDBBBBBBBSS",
+     "SSSBBBBBBBBBBDDDDDDDDDDBBBBBBBBBBSSS",
+     "SSSSSBBBBBBBBBBBBBBBBBBBBBBBBBBSSSSS",
+     "SSSSSSSBBBBBBBBBBBBBBBBBBBBBBSSSSSSS",
+     "SSSSSSSSSSBBBBBBBBBBBBBBBBSSSSSSSSSS",
+     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+    ],
+    "legend": {
+     "S": {
+      "name": "pale pink (background)"
+     },
+     "Y": {
+      "name": "yellow (cake)"
+     },
+     "B": {
+      "name": "brown (plate)"
+     },
+     "D": {
+      "name": "dark (outline)"
+     },
+     "R": {
+      "name": "red (strawberry, icing)"
+     },
+     "P": {
+      "name": "pink (icing)"
+     },
+     "V": {
+      "name": "purple (berries)"
+     },
+     "g": {
+      "name": "dark green (leaves)"
+     },
+     "G": {
+      "name": "green (leaves)"
+     }
+    },
+    "cells": 1296
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "S35",
+     "S35:a",
+     "G8:a",
+     "R28",
+     "S32",
+     "R30:f",
+     "B30:f",
+     "V11:h",
+     "D20",
+     "B32",
+     "D25"
+    ],
+    "c2": [
+     "S34:b",
+     "S35:b",
+     "Y30",
+     "D25:c",
+     "S30",
+     "R20",
+     "D25",
+     "Y30",
+     "Y30?",
+     "D25",
+     "S35:h",
+     "P10"
+    ],
+    "c3": [
+     "S30:d",
+     "B32",
+     "D25",
+     "V10:c",
+     "P35",
+     "S35",
+     "S30",
+     "P25",
+     "B36",
+     "S30?",
+     "B30"
+    ],
+    "c4": [
+     "S35:d",
+     "Y36",
+     "R30",
+     "g20:e",
+     "Y32:e",
+     "P38",
+     "S35:i",
+     "Y36:i",
+     "S34:j",
+     "S35:j",
+     "R32"
+    ]
+   },
+   "linkNote": "Links: a, b, e, f, i, j join a capsule and the one right under it in the same column (one tap takes both); c and d join capsules at the same depth in two columns; h joins col 1 row 8 and col 2 row 11, so it waits until both are on top.",
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "won",
+     "start": 0,
+     "end": 397.75,
+     "taps": [
+      {
+       "t": 2.5,
+       "column": "c1",
+       "take": [
+        "c1 S35"
+       ],
+       "note": null
+      },
+      {
+       "t": 3.5,
+       "column": "c2",
+       "take": [
+        "c2 S34",
+        "c2 S35"
+       ],
+       "note": null
+      },
+      {
+       "t": 4.25,
+       "column": "c3",
+       "take": [
+        "c3 S30",
+        "c4 S35"
+       ],
+       "note": null
+      },
+      {
+       "t": 16.5,
+       "column": "c3",
+       "take": [
+        "c3 B32"
+       ],
+       "note": null
+      },
+      {
+       "t": 21.75,
+       "column": "c1",
+       "take": [
+        "c1 S35",
+        "c1 G8"
+       ],
+       "note": null
+      },
+      {
+       "t": 22.75,
+       "column": "c3",
+       "take": [
+        "c3 D25"
+       ],
+       "note": null
+      },
+      {
+       "t": 36.5,
+       "column": "c2",
+       "take": [
+        "c2 Y30"
+       ],
+       "note": "detected together with the next tap"
+      },
+      {
+       "t": 36.5,
+       "column": "c4",
+       "take": [
+        "c4 Y36"
+       ],
+       "note": null
+      },
+      {
+       "t": 46.75,
+       "column": "c4",
+       "take": [
+        "c4 R30"
+       ],
+       "note": null
+      },
+      {
+       "t": 57,
+       "column": "c1",
+       "take": [
+        "c1 R28"
+       ],
+       "note": null
+      },
+      {
+       "t": 65,
+       "column": "c1",
+       "take": [
+        "c1 S32"
+       ],
+       "note": null
+      },
+      {
+       "t": 77.5,
+       "column": "c1",
+       "take": [
+        "c1 R30",
+        "c1 B30"
+       ],
+       "note": null
+      },
+      {
+       "t": 109.25,
+       "column": "c2",
+       "take": [
+        "c2 D25",
+        "c3 V10"
+       ],
+       "note": null
+      },
+      {
+       "t": 113.25,
+       "column": "c3",
+       "take": [
+        "c3 P35"
+       ],
+       "note": null
+      },
+      {
+       "t": 126.25,
+       "column": "c3",
+       "take": [
+        "c3 S35"
+       ],
+       "note": null
+      },
+      {
+       "t": 137.5,
+       "column": "c3",
+       "take": [
+        "c3 S30"
+       ],
+       "note": null
+      },
+      {
+       "t": 148.25,
+       "column": "c2",
+       "take": [
+        "c2 S30"
+       ],
+       "note": null
+      },
+      {
+       "t": 164,
+       "column": "c3",
+       "take": [
+        "c3 P25"
+       ],
+       "note": null
+      },
+      {
+       "t": 187.75,
+       "column": "c3",
+       "take": [
+        "c3 B36"
+       ],
+       "note": null
+      },
+      {
+       "t": 202,
+       "column": "c3",
+       "take": [
+        "c3 S30"
+       ],
+       "note": null
+      },
+      {
+       "t": 219.5,
+       "column": "c3",
+       "take": [
+        "c3 B30"
+       ],
+       "note": null
+      },
+      {
+       "t": 229.5,
+       "column": "c2",
+       "take": [
+        "c2 R20"
+       ],
+       "note": null
+      },
+      {
+       "t": 244.25,
+       "column": "c2",
+       "take": [
+        "c2 D25"
+       ],
+       "note": null
+      },
+      {
+       "t": 254.5,
+       "column": "c2",
+       "take": [
+        "c2 Y30"
+       ],
+       "note": null
+      },
+      {
+       "t": 265.25,
+       "column": "c2",
+       "take": [
+        "c2 Y30"
+       ],
+       "note": null
+      },
+      {
+       "t": 275.5,
+       "column": "c2",
+       "take": [
+        "c2 D25"
+       ],
+       "note": null
+      },
+      {
+       "t": 296.75,
+       "column": "c4",
+       "take": [
+        "c4 g20",
+        "c4 Y32"
+       ],
+       "note": null
+      },
+      {
+       "t": 319.5,
+       "column": "c4",
+       "take": [
+        "c4 P38"
+       ],
+       "note": null
+      },
+      {
+       "t": 340.5,
+       "column": "c4",
+       "take": [
+        "c4 S35",
+        "c4 Y36"
+       ],
+       "note": null
+      },
+      {
+       "t": 353,
+       "column": "c4",
+       "take": [
+        "c4 S34",
+        "c4 S35"
+       ],
+       "note": null
+      },
+      {
+       "t": 354,
+       "column": "c4",
+       "take": [
+        "c4 R32"
+       ],
+       "note": null
+      },
+      {
+       "t": 356.75,
+       "column": "c1",
+       "take": [
+        "c1 V11",
+        "c2 S35"
+       ],
+       "note": null
+      },
+      {
+       "t": 378,
+       "column": "c1",
+       "take": [
+        "c1 D20"
+       ],
+       "note": null
+      },
+      {
+       "t": 385,
+       "column": "c2",
+       "take": [
+        "c2 P10"
+       ],
+       "note": null
+      },
+      {
+       "t": 388,
+       "column": "c1",
+       "take": [
+        "c1 B32"
+       ],
+       "note": "detected together with the next tap"
+      },
+      {
+       "t": 388,
+       "column": "c1",
+       "take": [
+        "c1 D25"
+       ],
+       "note": null
+      }
+     ],
+     "events": [
+      [
+       397.75,
+       "Victory screen"
+      ],
+      [
+       0,
+       "G8 (link a) waited about 250 s for green to open; D25+V10 (link c) about 180 s (deep dive of 2026-10-23)"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
+   "accounting": {
+    "B": {
+     "board": 160,
+     "capsules": 160
+    },
+    "D": {
+     "board": 145,
+     "capsules": 145
+    },
+    "G": {
+     "board": 8,
+     "capsules": 8
+    },
+    "P": {
+     "board": 108,
+     "capsules": 108
+    },
+    "R": {
+     "board": 140,
+     "capsules": 140
+    },
+    "S": {
+     "board": 500,
+     "capsules": 500
+    },
+    "V": {
+     "board": 21,
+     "capsules": 21
+    },
+    "Y": {
+     "board": 194,
+     "capsules": 194
+    },
+    "g": {
+     "board": 20,
+     "capsules": 20
+    }
+   }
+  },
+  {
+   "level": 25,
+   "difficulty": "Hard",
+   "title": "котёнок в клубнике",
+   "picture": "a dark kitten (green eyes in white rims, pink ears and cheeks) sitting in a red strawberry with white seeds, on a sky-blue background with white sparkles",
+   "source": {
+    "video": "XRecorder_20261024_02.mp4",
+    "app": "Colony Flow v1.0.81",
+    "recorded": "2026-10-24",
+    "length": "319 s",
+    "note": "two attempts: lost at 76 s, won at 309 s (Victory, +60 coins)"
+   },
+   "board": {
+    "w": 32,
+    "h": 32,
+    "rows": [
+     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+     "SSSSSSDDSSSSSSSSSSDDSSSSSWSSSSSS",
+     "SSSSSDDDDSSSSSSSDDDDDSSSSWSSSSSS",
+     "SSSSSDPPDDDSSSSDDDPPDSSSSWSSSSSS",
+     "SSSSSDPPPDDDDDDDDPPPDSSSWSWSSSSS",
+     "SSSSSDPDDDDDDDDDDDDPDSSSSWSSSSSS",
+     "SSSSSDDDDDDDDDDDDDDDDSSSSWSSSSSS",
+     "SSSSDDDDDDDDDDDDDDDDDDSSSWSSSSSS",
+     "SSSSDDDWWWDDDDDWWWDDDDDSSSSSSSSS",
+     "SSSDDDWGGGWDDDWGGGWDDDDSSSSSSSSS",
+     "SSSDDDWWGGWDDDWWGGWDDDDSSSSSWSSS",
+     "SSSDDDWGGGWDDDWGGGWDDDDSSSSWWWSS",
+     "SSSDPPWGGGWDDDWGGGWPPDDSSSSSWSSS",
+     "SSSDPPPWWWDDPDDWWWPPPDSSSSSSSSSS",
+     "SSSSDPPPDDDDDDDDDPPPDDDSSSSSSSSS",
+     "SSSSSDDDDDDDDDDDDDDDDDDDSSSSSSSS",
+     "SSSSSRRDDDDDDDDDDDDDRDDDDSSSSSSS",
+     "SSSSRRRRDDDDRRRRDDDDRRDDDSSDDSSS",
+     "SSSSRWRRDDDDRRRRDDDDRRRDDSSDDDSS",
+     "SSSRRWRRDDDDRRWRDDDDRRRDDSDDDDSS",
+     "SSSRRRRRDDDDRRWRDDDDRWRDSSDDDDSS",
+     "SSSRRRRRRDDRRRRRRDDRRWRDSDDDDSSS",
+     "SSSRRRRWRRRRRRRRRRRRRRRSSDDDDSSS",
+     "SSSSRRRWRRRRWRRWRRWRRRDDDDDDSSSS",
+     "SSSSRRRRRRRRWRRWRRWRRRDDDDDSSSSS",
+     "SSSSSRRRRWRRRRRRRRRRRDDDDSSSSSSS",
+     "SSSSWSRRRWRRRRRRRRRRSSSSSSSSWSSS",
+     "SSSSWSSRRRRRRWRRRRRSSSWSSSSWWWSS",
+     "SSSWWWSSSRRRRWRRRRSSSWWWSSSSWSSS",
+     "SSSSWSSSSSRRRRRRRSSSSSWSSSSSSSSS",
+     "SSSSWSSSSSSSRRRSSSSSSSWSSSSSSSSS",
+     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+    ],
+    "legend": {
+     "S": {
+      "name": "sky blue",
+      "hex": "#5cddf8"
+     },
+     "D": {
+      "name": "dark",
+      "hex": "#5e4c68"
+     },
+     "R": {
+      "name": "red",
+      "hex": "#f75d68"
+     },
+     "W": {
+      "name": "white",
+      "hex": "#f0f5f7"
+     },
+     "P": {
+      "name": "pink",
+      "hex": "#fe7ad8"
+     },
+     "G": {
+      "name": "green",
+      "hex": "#5cd06b"
+     }
+    },
+    "note": "Automatic cube recognition; sky blue reads 467 cells against 469 in the capsules (2 cells, probably on the frame edge); every other colour matches exactly.",
+    "cells": 1024
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "W28:a",
+     "R34",
+     "D30:b",
+     "S40",
+     "R30",
+     "D30"
+    ],
+    "c2": [
+     "W51:a",
+     "G22:b",
+     "S40",
+     "D30",
+     "R35:c",
+     "D24",
+     "S40",
+     "D30"
+    ],
+    "c3": [
+     "D30",
+     "S40",
+     "D30?",
+     "R34",
+     "D30:c",
+     "D30",
+     "S40?",
+     "S40"
+    ],
+    "c4": [
+     "R30",
+     "S40",
+     "S40?",
+     "S40",
+     "S40:d",
+     "P29:d",
+     "S35",
+     "S34"
+    ]
+   },
+   "linkNote": "a: c1 row 1 + c2 row 1 (side by side); b: c1 row 3 + c2 row 2 (drawn diagonally, both must be on top); c: c2 row 5 + c3 row 5; d: c4 row 5 + the pink right under it.",
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "lost",
+     "start": 0,
+     "end": 76,
+     "taps": [
+      {
+       "t": 4.5,
+       "column": "c3",
+       "take": [
+        "c3 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 5.5,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "c3 \"?\" reaches the top: dark 30"
+      },
+      {
+       "t": 8.5,
+       "column": "c4",
+       "take": [
+        "c4 R30"
+       ],
+       "note": null
+      },
+      {
+       "t": 9,
+       "column": "c4",
+       "take": [
+        "c4 S40"
+       ],
+       "note": "c4 \"?\" reaches the top: sky blue 40"
+      },
+      {
+       "t": 9.5,
+       "column": "c4",
+       "take": [
+        "c4 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 20,
+       "column": "c4",
+       "take": [
+        "c4 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 39.5,
+       "column": "c1",
+       "take": [
+        "c1 W28",
+        "c2 W51"
+       ],
+       "note": "pair a: white 28 + white 51"
+      },
+      {
+       "t": 40,
+       "column": "c1",
+       "take": [
+        "c1 R34"
+       ],
+       "note": null
+      },
+      {
+       "t": 52.5,
+       "column": "c1",
+       "take": [
+        "c2 G22",
+        "c1 D30"
+       ],
+       "note": "pair b: dark 30 + green 22"
+      }
+     ],
+     "events": [
+      [
+       0,
+       "Start. Visible rows: W28=W51 D30 R30 | R34 G22 S40 S40 | D30 S40 ? ?"
+      ],
+      [
+       9.5,
+       "All five slots full: D30 S27 R30 S38 S38"
+      ],
+      [
+       17.5,
+       "First sky blue done; 21 s the two S38 done; 22 s red 30 done"
+      ],
+      [
+       27.5,
+       "Dark 30 (tap 1) starts moving after 23 s at 30: its cells were behind the sky and red"
+      ],
+      [
+       52.5,
+       "Green 22 of pair b never moves: its cells are the eyes of the kitten, reachable only after the dark head around them is cleared"
+      ],
+      [
+       69.5,
+       "Last progress: dark 30 at 3, the white pair 40/9 and the dark/green pair 21/22 all wait"
+      ],
+      [
+       76,
+       "Loss: five slots full, nothing can move (slots D3, W40=W9, D21=G22). Fail Offer: revive for 2,700 coins or $5.99; Home / Try Again"
+      ]
+     ],
+     "trayLeft": 19
+    },
+    {
+     "attempt": 2,
+     "outcome": "won",
+     "start": 83,
+     "end": 309.5,
+     "taps": [
+      {
+       "t": 83.5,
+       "column": "c4",
+       "take": [
+        "c4 R30"
+       ],
+       "note": null
+      },
+      {
+       "t": 84,
+       "column": "c3",
+       "take": [
+        "c3 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 84.5,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "c3 \"?\" reaches the top: dark 30"
+      },
+      {
+       "t": 84.75,
+       "column": "c4",
+       "take": [
+        "c4 S40"
+       ],
+       "note": "c4 \"?\" reaches the top: sky blue 40"
+      },
+      {
+       "t": 86,
+       "column": "c4",
+       "take": [
+        "c4 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 98.5,
+       "column": "c4",
+       "take": [
+        "c4 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 102.5,
+       "column": "c1",
+       "take": [
+        "c1 W28",
+        "c2 W51"
+       ],
+       "note": "pair a: white 28 + white 51"
+      },
+      {
+       "t": 103.5,
+       "column": "c1",
+       "take": [
+        "c1 R34"
+       ],
+       "note": null
+      },
+      {
+       "t": 137,
+       "column": "c1",
+       "take": [
+        "c2 G22",
+        "c1 D30"
+       ],
+       "note": "pair b: dark 30 + green 22"
+      },
+      {
+       "t": 137.5,
+       "column": "c2",
+       "take": [
+        "c2 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 150.5,
+       "column": "c1",
+       "take": [
+        "c1 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 164,
+       "column": "c1",
+       "take": [
+        "c1 R30"
+       ],
+       "note": null
+      },
+      {
+       "t": 176,
+       "column": "c1",
+       "take": [
+        "c1 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 200,
+       "column": "c2",
+       "take": [
+        "c2 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 210.5,
+       "column": "c3",
+       "take": [
+        "c3 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 221.5,
+       "column": "c3",
+       "take": [
+        "c3 R34"
+       ],
+       "note": null
+      },
+      {
+       "t": 240,
+       "column": "c2",
+       "take": [
+        "c2 R35",
+        "c3 D30"
+       ],
+       "note": "pair c: red 35 + dark 30"
+      },
+      {
+       "t": 245.5,
+       "column": "c2",
+       "take": [
+        "c2 D24"
+       ],
+       "note": null
+      },
+      {
+       "t": 253,
+       "column": "c4",
+       "take": [
+        "c4 S40",
+        "c4 P29"
+       ],
+       "note": "pair d: sky blue 40 + pink 29 (one column)"
+      },
+      {
+       "t": 257,
+       "column": "c2",
+       "take": [
+        "c2 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 270,
+       "column": "c3",
+       "take": [
+        "c3 D30"
+       ],
+       "note": "c3 \"?\" reaches the top: sky blue 40"
+      },
+      {
+       "t": 279.5,
+       "column": "c2",
+       "take": [
+        "c2 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 290,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 290.5,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": null
+      },
+      {
+       "t": 300,
+       "column": "c4",
+       "take": [
+        "c4 S35"
+       ],
+       "note": null
+      },
+      {
+       "t": 303.5,
+       "column": "c4",
+       "take": [
+        "c4 S34"
+       ],
+       "note": null
+      }
+     ],
+     "events": [
+      [
+       83,
+       "Try Again: the same level and tray from the start"
+      ],
+      [
+       86,
+       "Five slots full again (R30 D30 S S S), the same opening as attempt 1 in another order"
+      ],
+      [
+       99.5,
+       "Red 30 and the three sky blues done by 99.5 s"
+      ],
+      [
+       103.5,
+       "The white pair takes two slots from 102.5 s to the win (the left one stays at 8 from 248 s to 300 s)"
+      ],
+      [
+       116,
+       "Dark 30 (tap 2) holds at 10, 7 and 4 for 20 s: its cells open only as the sky clears around the cats"
+      ],
+      [
+       137,
+       "Dark/green pair b: the dark half is done at 184 s and waits for the green, which starts at 213 s and ends at 233.5 s"
+      ],
+      [
+       176,
+       "Only column 2-4 left; column 1 is empty"
+      ],
+      [
+       253,
+       "Pink 29 holds at 8 from 268 s and at 1 from 284 s; the pair ends at 288.5 s"
+      ],
+      [
+       309.5,
+       "All slots empty: win. Victory screen at 315 s, +60 coins"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
+   "accounting": {
+    "D": {
+     "board": 264,
+     "capsules": 264
+    },
+    "G": {
+     "board": 22,
+     "capsules": 22
+    },
+    "P": {
+     "board": 29,
+     "capsules": 29
+    },
+    "R": {
+     "board": 163,
+     "capsules": 163
+    },
+    "S": {
+     "board": 467,
+     "capsules": 469
+    },
+    "W": {
+     "board": 79,
+     "capsules": 79
+    }
+   }
+  },
+  {
+   "level": 26,
+   "difficulty": "Normal",
+   "title": "корзина для пикника",
+   "picture": "a picnic basket (indigo weave, light-cyan trim, brown and white flecks) with a magenta-and-white checked cloth, a blue jar with an orange lid, on yellow and cream stripes; two grey \"?\" tile blocks",
+   "source": {
+    "video": "XRecorder_20261024_03.mp4",
+    "app": "Colony Flow v1.0.81",
+    "recorded": "2026-10-24",
+    "length": "325 s",
+    "note": "one attempt, won at 315.5 s (Victory, +20 coins)"
+   },
+   "board": {
+    "w": 35,
+    "h": 35,
+    "rows": [
+     "GGGGGGGGGGGGBBBBBAACDAGGGGGGGGGGGGB",
+     "GGGGGGGGGGBBBBBAACCCCDAGGGGGGGGGBBB",
+     "GGGGGGGGBBBBBAACCDAACDAGGGGGGGBBBBB",
+     "GGGGGGBBBBBAACCDAAEACDAGGGGGBBBBBBB",
+     "GGGGBBBBBAACCDAAEEFDACDAGGBBBBBBBBB",
+     "GGBBBBBAACCDAAEEFFDEACDABBBBBBBBBBB",
+     "BBBBBAACCDAAEEFFDEEFDACABBBBBBBBBBB",
+     "BBBAACCDAAEEJJDEEFFDEACDABBBBBBBBBB",
+     "BBACCDAAEEJJDEEFFDEEFACDABBBBBBAAAA",
+     "BACDAAEEJJDEEJJDEEFFDEACDABBFFADEEE",
+     "BAFDA????EEJJDEEFFDEEJACDAFFIADFFFC",
+     "BBACA????JJDEEJJDEEJJDEACAIIBADCCCC",
+     "BBACA????DEEJJDEEJJDEEJACDABBAFCCCC",
+     "GBACA????EJJDEEJJDEEJJDDADABBBAAFCC",
+     "GBAFD????JDEEJJDEEJJDDAACFAAABBIAAF",
+     "GBBACAJJDEEFFDEEJJDDAACFAADDDAABBIA",
+     "GGIAFADEEFFDEEJJDDAACCAACCAACDDABBB",
+     "GBIIAAAAADEEFFDDDACCFACCFFCCAACDAAB",
+     "BBAADDEEEAAFDDDAACFAACFCEECCCFAACDA",
+     "BAEEAAAAADEADAACCAACCCFCCC???ECCAAD",
+     "BADAFFIIIADAACCFACCCFCECFC???CCCFCA",
+     "BADAFFIIIADACFAACCFCECCCFC???FFCECA",
+     "BADAFFFFFADAAACFFCECCCFCEC???EECAAD",
+     "BAHDAAAAADHACFCEECCCFCECCC???CCADDF",
+     "BAHHDDDDDHHACFCCCFFCECCCCFE??ADDFFA",
+     "BAHHHHHHHHHAAECFCEECCCCFCECAADFFAAI",
+     "BAHHHHHHHHHADACFCCCCFFCECCADDFAAIII",
+     "BAHHHHHHHHHACDAECCFCEECCADDFFAIIIIB",
+     "BAHHHHHHHHHAACDACCFCCCCADFFAAIIIBBB",
+     "BAHHHHHHHHHAIACDACECCADDFAAIIIBBBBB",
+     "BAHHHHHHHHHAIIACDACADDFFAAIIIBBBBBB",
+     "BAHHHHHHHHHAIBIACDADFFAAIIIBBBBBBBB",
+     "BIAAHHHHHAAIIBBIACCFAAIIIIBBBBBBBBB",
+     "BBIIAAAAAIIIBBBBIAAAIIIIBBBBBBBBBBB",
+     "BBBBIIIIIIBBBBBBBIIIIIBBBBBBBBBBBBB"
+    ],
+    "legend": {
+     "A": {
+      "name": "dark",
+      "hex": "#5d4b67"
+     },
+     "B": {
+      "name": "yellow",
+      "hex": "#fee255"
+     },
+     "C": {
+      "name": "indigo",
+      "hex": "#665ece"
+     },
+     "D": {
+      "name": "light cyan",
+      "hex": "#c3f8fd"
+     },
+     "E": {
+      "name": "white",
+      "hex": "#eef4f5"
+     },
+     "F": {
+      "name": "brown",
+      "hex": "#b6614d"
+     },
+     "G": {
+      "name": "cream",
+      "hex": "#fee998"
+     },
+     "H": {
+      "name": "blue",
+      "hex": "#48a7fe"
+     },
+     "I": {
+      "name": "orange",
+      "hex": "#fdbe23"
+     },
+     "J": {
+      "name": "magenta",
+      "hex": "#d743fc"
+     }
+    },
+    "note": "\"?\" = a grey mystery tile on the board (37 cells in two blocks); its colour shows only when it is reached. The capsules hold exactly 37 cells more than the visible board, so the blocks hide: dark 1, indigo 12, light cyan 3, white 9, brown 4, magenta 8 (which cell is which is not visible before they open).",
+    "cells": 1225,
+    "mysteryTiles": 37
+   },
+   "capacity": 5,
+   "tray": {
+    "c1": [
+     "F25",
+     "E26",
+     "B45:a",
+     "D30",
+     "A38",
+     "E30:b",
+     "D27:b",
+     "C35",
+     "E25",
+     "H24",
+     "H25",
+     "B45:c"
+    ],
+    "c2": [
+     "H25",
+     "A40",
+     "I33:a",
+     "F25",
+     "C35:d",
+     "G43",
+     "J47",
+     "A40",
+     "G40",
+     "D30:c",
+     "C37",
+     "C35"
+    ],
+    "c3": [
+     "B45",
+     "C35",
+     "A35",
+     "A40",
+     "F25",
+     "A40:d",
+     "B45",
+     "F23",
+     "I35",
+     "E25",
+     "B42",
+     "D30"
+    ]
+   },
+   "linkNote": "a: c1 row 3 + c2 row 3; b: c1 white 30 + the light cyan 27 right under it; c: c1 row 12 + c2 row 10 (waits until both are on top); d: c2 row 5 + c3 row 6.",
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "won",
+     "start": 0,
+     "end": 315.5,
+     "taps": [
+      {
+       "t": 1,
+       "column": "c3",
+       "take": [
+        "c3 B45"
+       ],
+       "note": null
+      },
+      {
+       "t": 7,
+       "column": "c3",
+       "take": [
+        "c3 C35"
+       ],
+       "note": null
+      },
+      {
+       "t": 27.5,
+       "column": "c1",
+       "take": [
+        "c1 F25"
+       ],
+       "note": null
+      },
+      {
+       "t": 33.5,
+       "column": "c3",
+       "take": [
+        "c3 A35"
+       ],
+       "note": null
+      },
+      {
+       "t": 63.5,
+       "column": "c2",
+       "take": [
+        "c2 H25"
+       ],
+       "note": null
+      },
+      {
+       "t": 68.5,
+       "column": "c1",
+       "take": [
+        "c1 E26"
+       ],
+       "note": null
+      },
+      {
+       "t": 75.5,
+       "column": "c2",
+       "take": [
+        "c2 A40"
+       ],
+       "note": null
+      },
+      {
+       "t": 89.5,
+       "column": "c1",
+       "take": [
+        "c1 B45",
+        "c2 I33"
+       ],
+       "note": "pair a: yellow 45 + orange 33"
+      },
+      {
+       "t": 101,
+       "column": "c1",
+       "take": [
+        "c1 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 122.5,
+       "column": "c3",
+       "take": [
+        "c3 A40"
+       ],
+       "note": null
+      },
+      {
+       "t": 131,
+       "column": "c2",
+       "take": [
+        "c2 F25"
+       ],
+       "note": null
+      },
+      {
+       "t": 132.5,
+       "column": "c3",
+       "take": [
+        "c3 F25"
+       ],
+       "note": null
+      },
+      {
+       "t": 133,
+       "column": "c2",
+       "take": [
+        "c2 C35",
+        "c3 A40"
+       ],
+       "note": "pair d: indigo 35 + dark 40"
+      },
+      {
+       "t": 143.5,
+       "column": "c2",
+       "take": [
+        "c2 G43"
+       ],
+       "note": null
+      },
+      {
+       "t": 157.5,
+       "column": "c3",
+       "take": [
+        "c3 B45"
+       ],
+       "note": null
+      },
+      {
+       "t": 182,
+       "column": "c3",
+       "take": [
+        "c3 F23"
+       ],
+       "note": null
+      },
+      {
+       "t": 182.5,
+       "column": "c3",
+       "take": [
+        "c3 I35"
+       ],
+       "note": null
+      },
+      {
+       "t": 183.5,
+       "column": "c3",
+       "take": [
+        "c3 E25"
+       ],
+       "note": null
+      },
+      {
+       "t": 185.5,
+       "column": "c3",
+       "take": [
+        "c3 B42"
+       ],
+       "note": null
+      },
+      {
+       "t": 195.5,
+       "column": "c3",
+       "take": [
+        "c3 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 214,
+       "column": "c1",
+       "take": [
+        "c1 A38"
+       ],
+       "note": null
+      },
+      {
+       "t": 227.5,
+       "column": "c1",
+       "take": [
+        "c1 E30",
+        "c1 D27"
+       ],
+       "note": "pair b: white 30 + light cyan 27 (one column)"
+      },
+      {
+       "t": 229,
+       "column": "c1",
+       "take": [
+        "c1 C35"
+       ],
+       "note": null
+      },
+      {
+       "t": 241,
+       "column": "c1",
+       "take": [
+        "c1 E25"
+       ],
+       "note": null
+      },
+      {
+       "t": 242,
+       "column": "c1",
+       "take": [
+        "c1 H24"
+       ],
+       "note": null
+      },
+      {
+       "t": 251.5,
+       "column": "c1",
+       "take": [
+        "c1 H25"
+       ],
+       "note": null
+      },
+      {
+       "t": 261,
+       "column": "c2",
+       "take": [
+        "c2 J47"
+       ],
+       "note": null
+      },
+      {
+       "t": 272.5,
+       "column": "c2",
+       "take": [
+        "c2 A40"
+       ],
+       "note": null
+      },
+      {
+       "t": 273,
+       "column": "c2",
+       "take": [
+        "c2 G40"
+       ],
+       "note": null
+      },
+      {
+       "t": 292,
+       "column": "c1",
+       "take": [
+        "c2 D30",
+        "c1 B45"
+       ],
+       "note": "pair c: yellow 45 + light cyan 30"
+      },
+      {
+       "t": 309,
+       "column": "c2",
+       "take": [
+        "c2 C37"
+       ],
+       "note": null
+      },
+      {
+       "t": 309.5,
+       "column": "c2",
+       "take": [
+        "c2 C35"
+       ],
+       "note": null
+      }
+     ],
+     "events": [
+      [
+       0,
+       "Start. Visible rows: F25 H25 B45 | E26 A40 C35 | B45 I33 A35 (yellow 45 in c1 row 3 linked to orange 33 in c2 row 3)"
+      ],
+      [
+       7,
+       "Indigo 35 is slow: 20 left from 23 to 27 s, 18 from 28 to 37 s, done at 62.5 s"
+      ],
+      [
+       27.5,
+       "Brown 25 takes 60 s (done at 88 s): its cells open a few at a time"
+      ],
+      [
+       63.5,
+       "Blue 25 stays at 25 for 31 s (no blue reachable until the jar opens), then runs out in 8 s"
+      ],
+      [
+       95,
+       "Five slots full from 89.5 s; the yellow/orange pair: orange done at 99.5 s, waits for the yellow until 103.5 s"
+      ],
+      [
+       120,
+       "All slots empty from 120 to 122 s"
+      ],
+      [
+       133,
+       "Pair d holds two slots from 133 to 176 s; its indigo is done at 143.5 s and waits"
+      ],
+      [
+       132.5,
+       "Brown 25 (tap 12) waits at 19-13 from 140 to 190 s and at 9-7 until 244 s; done only near the end"
+      ],
+      [
+       205,
+       "Idle 9 s (205-214 s): three slots wait (brown 15, orange 6, brown 9), nothing on top helps"
+      ],
+      [
+       227.5,
+       "Pair b: light cyan 27 done at 235.5 s, waits for the white, which stays at 3 from 246 to 267 s"
+      ],
+      [
+       292,
+       "Pair c: light cyan done at 301.5 s, yellow at 1 from 305.5 to 307.5 s"
+      ],
+      [
+       315.5,
+       "All slots empty: win. Victory screen at 321 s, +20 coins"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
+   "accounting": {
+    "A": {
+     "board": 232,
+     "capsules": 233
+    },
+    "B": {
+     "board": 222,
+     "capsules": 222
+    },
+    "C": {
+     "board": 165,
+     "capsules": 177
+    },
+    "D": {
+     "board": 114,
+     "capsules": 117
+    },
+    "E": {
+     "board": 97,
+     "capsules": 106
+    },
+    "F": {
+     "board": 94,
+     "capsules": 98
+    },
+    "G": {
+     "board": 83,
+     "capsules": 83
+    },
+    "H": {
+     "board": 74,
+     "capsules": 74
+    },
+    "I": {
+     "board": 68,
+     "capsules": 68
+    },
+    "J": {
+     "board": 39,
+     "capsules": 47
+    }
+   }
+  }
+ ]
+}

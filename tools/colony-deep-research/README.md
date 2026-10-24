@@ -29,3 +29,11 @@ Paths inside point at the scratch folder they ran from; the videos stay in the o
   `ours.mjs` (our curated L1–10 in the same engine: reproduces the Core audit's 79.8% / 67.4%), `retray.mjs`
   (CF-style trays for pilot pictures), `flower.mjs` / `flowerfatal.mjs` (the proposed L5 sketch).
 - `timeline/` — the slot bars of L4, L5 and L10.
+
+## Reconstructed levels and rounds (2026-10-24)
+
+All recorded levels (L1–L5, L10, L20, L25, L26) as text in [`product/audits/colony-flow-rounds/`](../../product/audits/colony-flow-rounds/README.md).
+
+- `cfcells.py` — a board frame → letter grid that keeps every cube (gridmap.py treats the most common colour as background, which drops a sky covering the whole board); grey "?" board tiles show as `?`.
+- `slottaps.py`, `traytaps.py` — tap times from a recording: rises in the number of filled waiting slots, and bursts of movement in the tray.
+- `rounds/data-l25-l26.mjs` — L25 and L26 as transcribed from frames every 0.5 s; `rounds/align20.mjs` — L20's tap times (detected events matched to the owner's tap order, `rounds/detected/`); `rounds/build.mjs` — writes `levels.json` and the storyboards, checks the colour accounting and replays every round on its tray.
