@@ -3,6 +3,7 @@
 Открой `index.html` в браузере телефона. Всё встроено, сеть не нужна. Сохранение отдельное от v8D. Все уровни доступны через меню. После теста скачай JSON в «Результатах»: файл `Bloomlings-pilot-v8E-results-*.json`.
 
 - [`art-all.png`](art-all.png) — все 30 картинок.
+- [`cubes-all.png`](cubes-all.png) и [`cubes-closeup.png`](cubes-closeup.png) — те же картинки кубиками, как на борде игры, без иконок. Кубик перенесён один к одному из `UiRaster.Cube` (клиентский кит, spec 005 FR-044); забор нарисован камнями в цветах кита, дорожка — песком (приближение). Скрипт: `tools/gameplay-pilot-v8e/cubes.py`.
 - [`art-proof.png`](art-proof.png) — первая проба рядом с v8D и тортом Colony Flow L20.
 
 ## Что нового относительно v8D
