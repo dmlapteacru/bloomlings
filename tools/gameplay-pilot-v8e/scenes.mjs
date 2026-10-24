@@ -49,24 +49,12 @@ const dotsBg=(a,b,step=4)=>(x,y)=>(x%step===1&&y%step===(Math.floor(x/step)%2?1:
 const nightBg=(stars)=>(x,y)=>stars.some(([sx,sy])=>sx===x&&sy===y)?'Y':'N';
 
 export const SCENES={
- 1:{title:'Большой лист',outline:'A',draw(W,H,ok){
-  return {background:layer(grassBg(W,H,H-3,ok)),parts:[
-   {shape:leaf(8,8.5,15,4.6,-Math.PI/4),color:'G',group:'leaf'},
-   {shape:union(seg(3.2,13.8,12.6,4.2,.45),seg(6,11,4.6,8.4,.38),seg(8.6,8.4,7.8,5.6,.38),seg(7,11.6,9.8,12.4,.38),seg(9.8,8.8,12.2,9.4,.38)),color:'A',outline:false},
-   {shape:seg(1.5,15.8,3.6,13.4,.7),color:'A',group:'leaf'}]};}},
- 2:{title:'Капелька в траве',outline:'A',draw(W,H,ok){
-  return {background:layer(()=> 'G'),parts:[...daisy(3,16.8,'P','A',1.2),...daisy(15,17.4,'P','A',1.2),...daisy(15.4,3.6,'B','P',1),
-   {shape:union(circle(9,12.6,6.4),poly([[3,11],[15,11],[9,1.4]])),color:'B'},
-   {shape:ellipse(6.6,12.2,.9,1.2),color:'A',outline:false},{shape:ellipse(11.4,12.2,.9,1.2),color:'A',outline:false},
-   {shape:ellipse(5,14.6,1.1,.7),color:'P',outline:false},{shape:ellipse(13,14.6,1.1,.7),color:'P',outline:false},
-   {shape:seg(7.8,15.8,10.2,15.8,.55),color:'A',outline:false}]};}},
- 3:{title:'Цветок Bloom',outline:'A',draw(W,H,ok){
-  return {background:layer(grassBg(W,H,H-4,ok)),parts:[
-   {shape:box(10,17,.9,5),color:'G',group:'stem'},{shape:leaf(6.5,17.5,6,2.2,-.5),color:'G',group:'stem'},{shape:leaf(13.5,18,6,2.2,.5),color:'G',group:'stem'},
-   {shape:ring(10,9,5.2,6,3.5),color:'P',group:'fl'},
-   {shape:circle(10,9,3),color:'C',group:'mid'},
-   ...dots([[9,8],[11,8.4],[10,10],[8.6,9.8],[11.4,10.2]],.5,'A'),
-   ...daisy(3,19.5,'C','P',.9),...daisy(17,20,'P','C',.9)]};}},
+ // L1-L3 (the owner, 2026-10-24: the first levels are the game's calling card; simple subjects that look good on a
+ // small board): hand-drawn cell by cell, since the shape painter loses small shapes at 12-16 cells. A grid is the
+ // picture inside the path (an object-only one includes its ring of open ground). Outline in amber: earth arrives at L4.
+ 1:{title:'Кактус в горшке',grid:['BBBBBAABBBBB','BBBBAGGABBAB','BABBAGGABAGA','AGABAGGABAGA','AGABAGGABAGA','AGABAGGAAAGA','AGAAAGGGGGGA','AGGGGGGAAAAB','BAAAAGGABBBB','BBBBAGGABBBB','BBAAAAAAAABB','BBBAAAAAABBB','GGGAAAAAAGGG','GGGGAAAAGGGG']},
+ 2:{title:'Поросёнок',grid:['BBBBBBBBBBBBBB','BAABBBBBBBBAAB','BAPAABBBBAAPAB','BAPPPAAAAPPPAB','BAPPPPPPPPPPAB','APPPPPPPPPPPPA','APPPAPPPPAPPPA','APPPAPPPPAPPPA','APPAAAAAAAAPPA','APPAPAPPAPAPPA','APPAPAPPAPAPPA','APPAAAAAAAAPPA','BAPPPPPPPPPPAB','GGAAPPPPPPAAGG','GGGGAAAAAAGGGG','GGGGGGGGGGGGGG']},
+ 3:{title:'Капкейк',grid:['................','.......AAGG.....','......APCA......','......APPA......','....AAAAAAAA....','...ACPCCCCCCA...','...ACCCCCGCCA...','..ACCCBCCCCPCA..','..ACGCCCCBCCCA..','.ACPCCCGCCCCBCA.','.ACCCBCCCCGCCCA.','.AAAAAAAAAAAAAA.','..APPCPPPPCPPA..','..APPCPPPPCPPA..','...APCPPPPCPA...','...APCPPPPCPA...','....AAAAAAAA....','................']},
  4:{title:'Бабочка на лугу',draw(W,H,ok){
   const wingL=union(ellipse(7,9,6,5.5),ellipse(7.6,17.4,4.6,4.4)),wingR=union(ellipse(17,9,6,5.5),ellipse(16.4,17.4,4.6,4.4));
   return {background:layer(grassBg(W,H,H-4,ok)),parts:[
@@ -339,7 +327,9 @@ function scaled(spec,[x0,y0,w,h],W,H,bare){const sx=w/W,sy=h/H,k=(sx+sy)/2,X=x=>
 export function sceneLevel(id){const s=SCENES[id];if(!s)return null;const [w0,h0]=sizeOf(id),allowed=allowedAt(id),ok=c=>allowed.includes(c),bare=BARE.has(id);
  let [W,H]=BOARD[id],win=[0,0,w0,h0];
  let col;
- if(bare){// An object-only picture keeps the previous composition (the owner, 2026-10-24: they were better before): the
+ if(s.grid){const g=s.grid.map(r=>r.split(''));if(bare){W=g[0].length+2;H=g.length+2;}else if(g.length!==H-4||g[0].length!==W-4)throw Error(`L${id} grid size`);
+  const k=bare?1:2;col=Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>x===0||y===0||x===W-1||y===H-1?'#':x<k||y<k||x>=W-k||y>=H-k?'.':g[y-k][x-k]));}
+ else if(bare){// An object-only picture keeps the previous composition (the owner, 2026-10-24: they were better before): the
   // object cropped with one cell of open ground round it at the board's height, and only the fence is added round it;
   // that ring of open ground is the path.
   const full=paint(w0,h0,{...scaled(s.draw(w0,h0,ok),win,w0,h0,true),outline:s.outline||'D',allowed});let x1=w0,y1=h0,x2=-1,y2=-1;

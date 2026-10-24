@@ -1,28 +1,28 @@
 {
   "version": "pilot-30-v8e",
-  "hash": "e6c2d2a75ff7e210a6ab02a387321c25f86a2c594663f03194f532c295c2f5b0",
+  "hash": "df9227bec50b6540ae4ac521b613aaa7519ac5d641395efafdd5c1608851ade5",
   "levels": [
     {
-      "title": "Большой лист",
+      "title": "Кактус в горшке",
       "w": 16,
       "h": 18,
       "rowsBottomFirst": [
         "########.#######",
         "#..............#",
-        "#.GGGGGGGGGGGG.#",
-        "#.GAGGGGGGGGGG.#",
-        "#.BABBBBBBBBBB.#",
-        "#.BBAAAAABBBBB.#",
-        "#.BBAAGGAABBBB.#",
-        "#.BBAGAGGGABBB.#",
-        "#.BBAGGAGGGABB.#",
-        "#.BBAAGGAGGABB.#",
-        "#.BBBAGGGAGABB.#",
-        "#.BBBAGGGGAABB.#",
-        "#.BBBBAAGGGABB.#",
-        "#.BBBBBBAAAABB.#",
-        "#.BBBBBBBBBBBB.#",
-        "#.BBBBBBBBBBBB.#",
+        "#.GGGGAAAAGGGG.#",
+        "#.GGGAAAAAAGGG.#",
+        "#.BBBAAAAAABBB.#",
+        "#.BBAAAAAAAABB.#",
+        "#.BBBBAGGABBBB.#",
+        "#.BAAAAGGABBBB.#",
+        "#.AGGGGGGAAAAB.#",
+        "#.AGAAAGGGGGGA.#",
+        "#.AGABAGGAAAGA.#",
+        "#.AGABAGGABAGA.#",
+        "#.AGABAGGABAGA.#",
+        "#.BABBAGGABAGA.#",
+        "#.BBBBAGGABBAB.#",
+        "#.BBBBBAABBBBB.#",
         "#..............#",
         "################"
       ],
@@ -39,19 +39,11 @@
         },
         {
           "color": "G",
-          "count": 21
+          "count": 20
         },
         {
           "color": "B",
-          "count": 14
-        },
-        {
-          "color": "B",
-          "count": 19
-        },
-        {
-          "color": "B",
-          "count": 19
+          "count": 13
         },
         {
           "color": "B",
@@ -59,59 +51,67 @@
         },
         {
           "color": "B",
-          "count": 15
+          "count": 19
         },
         {
           "color": "A",
-          "count": 17
+          "count": 18
         },
         {
           "color": "A",
-          "count": 17
+          "count": 14
+        },
+        {
+          "color": "A",
+          "count": 19
+        },
+        {
+          "color": "A",
+          "count": 19
         }
       ],
       "tray": [
         [
-          2,
-          1,
-          4
-        ],
-        [
           6,
-          0,
-          7
+          2,
+          3
         ],
         [
           5,
-          3,
-          8
+          1,
+          0
+        ],
+        [
+          7,
+          8,
+          4
         ]
       ],
       "difficulty": "Normal"
     },
     {
-      "title": "Капелька в траве",
+      "title": "Поросёнок",
       "w": 18,
       "h": 20,
       "rowsBottomFirst": [
         "#########.########",
         "#................#",
-        "#.GGGGGGGGGGPPPG.#",
-        "#.GPPPAAAAAAPAPG.#",
-        "#.PPAABBBBBBAAPP.#",
-        "#.PPPABBAABBAPPG.#",
-        "#.GGAPPBBBBPPAGG.#",
-        "#.GGABBABBABBAGG.#",
-        "#.GGABAABBAABAGG.#",
-        "#.GGABBBBBBBBAGG.#",
-        "#.GGGABBBBBBAGGG.#",
-        "#.GGGABBBBBBAGGG.#",
-        "#.GGGGABBBBAGGGG.#",
-        "#.GGGGGABBAGGBBG.#",
-        "#.GGGGGGAAGGGBBG.#",
-        "#.GGGGGGAAGGBPBB.#",
-        "#.GGGGGGGGGGGBBG.#",
         "#.GGGGGGGGGGGGGG.#",
+        "#.GGGGAAAAAAGGGG.#",
+        "#.GGAAPPPPPPAAGG.#",
+        "#.BAPPPPPPPPPPAB.#",
+        "#.APPAAAAAAAAPPA.#",
+        "#.APPAPAPPAPAPPA.#",
+        "#.APPAPAPPAPAPPA.#",
+        "#.APPAAAAAAAAPPA.#",
+        "#.APPPAPPPPAPPPA.#",
+        "#.APPPAPPPPAPPPA.#",
+        "#.APPPPPPPPPPPPA.#",
+        "#.BAPPPPPPPPPPAB.#",
+        "#.BAPPPAAAAPPPAB.#",
+        "#.BAPAABBBBAAPAB.#",
+        "#.BAABBBBBBBBAAB.#",
+        "#.BBBBBBBBBBBBBB.#",
         "#................#",
         "##################"
       ],
@@ -124,94 +124,90 @@
       "pods": [
         {
           "color": "G",
-          "count": 24
+          "count": 12
         },
         {
           "color": "G",
-          "count": 26
-        },
-        {
-          "color": "G",
-          "count": 24
-        },
-        {
-          "color": "G",
-          "count": 28
+          "count": 14
         },
         {
           "color": "P",
-          "count": 6
+          "count": 21
         },
         {
           "color": "P",
-          "count": 7
+          "count": 22
         },
         {
           "color": "P",
-          "count": 9
+          "count": 20
+        },
+        {
+          "color": "P",
+          "count": 27
         },
         {
           "color": "B",
-          "count": 33
+          "count": 18
         },
         {
           "color": "B",
-          "count": 26
+          "count": 18
         },
         {
           "color": "A",
-          "count": 41
+          "count": 33
+        },
+        {
+          "color": "A",
+          "count": 39
         }
       ],
       "tray": [
         [
           7,
-          8,
-          4
+          9,
+          3
         ],
         [
-          3,
           1,
-          2,
-          9
+          0,
+          4,
+          2
         ],
         [
-          5,
-          0,
-          6
+          8,
+          6,
+          5
         ]
       ],
       "difficulty": "Normal"
     },
     {
-      "title": "Цветок Bloom",
-      "w": 19,
-      "h": 24,
+      "title": "Капкейк",
+      "w": 18,
+      "h": 20,
       "rowsBottomFirst": [
-        "#########.#########",
-        "#.................#",
-        "#........G........#",
-        "#........G...A....#",
-        "#...AAAA.G.AAGA...#",
-        "#...AGGA.GAGGGA...#",
-        "#...AGGGAAAGGAA...#",
-        "#....AGAPPPAA.....#",
-        "#...AAAPPPPPAAA...#",
-        "#..APPPPPPPPPPPA..#",
-        "#.APPPPPPPPPPPPPA.#",
-        "#.APPPPPAAAPPPPPA.#",
-        "#.APPPPACAAAPPPPA.#",
-        "#..APPPACCCAPPPA..#",
-        "#.APPPPAACAAPPPPA.#",
-        "#.APPPPAACAAPPPPA.#",
-        "#.APPPPPPAPPPPPPA.#",
-        "#.APPPPPPPPPPPPPA.#",
-        "#..AAAPPPPPPPAAA..#",
-        "#.....APPPPPA.....#",
-        "#......APPPA......#",
-        "#.......AAA.......#",
-        "#.................#",
-        "###################"
+        "#########.########",
+        "#................#",
+        "#....AAAAAAAA....#",
+        "#...APCPPPPCPA...#",
+        "#...APCPPPPCPA...#",
+        "#..APPCPPPPCPPA..#",
+        "#..APPCPPPPCPPA..#",
+        "#.AAAAAAAAAAAAAA.#",
+        "#.ACCCBCCCCGCCCA.#",
+        "#.ACPCCCGCCCCBCA.#",
+        "#..ACGCCCCBCCCA..#",
+        "#..ACCCBCCCCPCA..#",
+        "#...ACCCCCGCCA...#",
+        "#...ACPCCCCCCA...#",
+        "#....AAAAAAAA....#",
+        "#......APPA......#",
+        "#......APCA......#",
+        "#.......AAGG.....#",
+        "#................#",
+        "##################"
       ],
       "entries": [
         9
@@ -222,7 +218,7 @@
       "pods": [
         {
           "color": "G",
-          "count": 16
+          "count": 6
         },
         {
           "color": "P",
@@ -230,63 +226,63 @@
         },
         {
           "color": "P",
-          "count": 19
+          "count": 18
         },
         {
-          "color": "P",
-          "count": 20
+          "color": "B",
+          "count": 4
         },
         {
-          "color": "P",
-          "count": 20
+          "color": "A",
+          "count": 15
         },
         {
-          "color": "P",
+          "color": "A",
           "count": 14
         },
         {
-          "color": "P",
-          "count": 23
+          "color": "A",
+          "count": 11
         },
         {
           "color": "A",
-          "count": 18
-        },
-        {
-          "color": "A",
-          "count": 20
-        },
-        {
-          "color": "A",
-          "count": 21
-        },
-        {
-          "color": "A",
-          "count": 18
+          "count": 16
         },
         {
           "color": "C",
-          "count": 6
+          "count": 13
+        },
+        {
+          "color": "C",
+          "count": 15
+        },
+        {
+          "color": "C",
+          "count": 15
+        },
+        {
+          "color": "C",
+          "count": 15
         }
       ],
       "tray": [
         [
-          10,
-          9,
-          2,
-          1
-        ],
-        [
-          8,
-          5,
-          6,
-          3
-        ],
-        [
-          0,
           7,
+          0,
+          2,
+          8
+        ],
+        [
+          5,
           4,
-          11
+          9,
+          10
+        ],
+        [
+          6,
+          1,
+          11,
+          3
         ]
       ],
       "difficulty": "Normal"

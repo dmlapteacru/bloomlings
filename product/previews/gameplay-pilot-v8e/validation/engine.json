@@ -229,7 +229,7 @@
     "змейка": 2,
     "по две из колонки": 1
   },
-  "catalogHash": "e6c2d2a75ff7e210a6ab02a387321c25f86a2c594663f03194f532c295c2f5b0",
+  "catalogHash": "df9227bec50b6540ae4ac521b613aaa7519ac5d641395efafdd5c1608851ade5",
   "winningRoutes": 30,
   "acceptedCertificateActions": 557,
   "visibleHorizonPlannerRoutes": 30,
@@ -289,8 +289,8 @@
     "when": "queue-empty-and-no-bridge-to-choose"
   },
   "concurrentRandomRuns": 240,
-  "liveClears": 71709,
-  "restoredCheckpoints": 1098,
+  "liveClears": 71285,
+  "restoredCheckpoints": 1100,
   "frameInvarianceChecks": 1,
   "slotReusedBeforeArrival": true,
   "sameColourParallelDispatch": true,

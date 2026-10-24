@@ -1,6 +1,6 @@
 {
   "version": "pilot-30-v8e",
-  "catalogHash": "e6c2d2a75ff7e210a6ab02a387321c25f86a2c594663f03194f532c295c2f5b0",
+  "catalogHash": "df9227bec50b6540ae4ac521b613aaa7519ac5d641395efafdd5c1608851ade5",
   "complete": true,
   "roles": {
     "tutorial": {
@@ -203,15 +203,15 @@
     {
       "id": 1,
       "role": "tutorial",
-      "title": "Большой лист",
+      "title": "Кактус в горшке",
       "board": "16x18",
       "pods": 9,
       "attempt": 0,
       "banned": [],
-      "seconds": 8.5,
-      "secondsAt1x": 13,
+      "seconds": 7.9,
+      "secondsAt1x": 12,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 65.4,
+      "patientSeconds": 67.8,
       "planner": {
         "rows": 4,
         "depth": 4,
@@ -234,15 +234,15 @@
     {
       "id": 2,
       "role": "tutorial",
-      "title": "Капелька в траве",
+      "title": "Поросёнок",
       "board": "18x20",
       "pods": 10,
       "attempt": 0,
       "banned": [],
-      "seconds": 10.9,
-      "secondsAt1x": 16,
+      "seconds": 9.6,
+      "secondsAt1x": 14,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 84.6,
+      "patientSeconds": 91,
       "planner": {
         "rows": 4,
         "depth": 4,
@@ -265,15 +265,15 @@
     {
       "id": 3,
       "role": "tutorial",
-      "title": "Цветок Bloom",
-      "board": "19x24",
+      "title": "Капкейк",
+      "board": "18x20",
       "pods": 12,
       "attempt": 0,
       "banned": [],
-      "seconds": 10.6,
-      "secondsAt1x": 16,
+      "seconds": 9.3,
+      "secondsAt1x": 15,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 92.7,
+      "patientSeconds": 76.4,
       "planner": {
         "rows": 4,
         "depth": 4,

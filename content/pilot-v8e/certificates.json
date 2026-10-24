@@ -4,15 +4,7 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 6
-      },
-      {
-        "type": "tap",
-        "pod": 0
-      },
-      {
-        "type": "tap",
-        "pod": 2
+        "pod": 5
       },
       {
         "type": "tap",
@@ -20,15 +12,15 @@
       },
       {
         "type": "tap",
-        "pod": 4
+        "pod": 0
       },
       {
         "type": "tap",
-        "pod": 7
+        "pod": 6
       },
       {
         "type": "tap",
-        "pod": 5
+        "pod": 2
       },
       {
         "type": "tap",
@@ -36,7 +28,15 @@
       },
       {
         "type": "tap",
+        "pod": 7
+      },
+      {
+        "type": "tap",
         "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 4
       }
     ],
     "schedule": "wait until work idle between commands",
@@ -54,23 +54,7 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 3
-      },
-      {
-        "type": "tap",
         "pod": 7
-      },
-      {
-        "type": "tap",
-        "pod": 8
-      },
-      {
-        "type": "tap",
-        "pod": 1
-      },
-      {
-        "type": "tap",
-        "pod": 2
       },
       {
         "type": "tap",
@@ -78,11 +62,11 @@
       },
       {
         "type": "tap",
-        "pod": 4
+        "pod": 3
       },
       {
         "type": "tap",
-        "pod": 5
+        "pod": 1
       },
       {
         "type": "tap",
@@ -90,7 +74,23 @@
       },
       {
         "type": "tap",
+        "pod": 4
+      },
+      {
+        "type": "tap",
+        "pod": 2
+      },
+      {
+        "type": "tap",
+        "pod": 8
+      },
+      {
+        "type": "tap",
         "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 5
       }
     ],
     "schedule": "wait until work idle between commands",
@@ -108,23 +108,7 @@
     "actions": [
       {
         "type": "tap",
-        "pod": 10
-      },
-      {
-        "type": "tap",
-        "pod": 9
-      },
-      {
-        "type": "tap",
-        "pod": 8
-      },
-      {
-        "type": "tap",
-        "pod": 2
-      },
-      {
-        "type": "tap",
-        "pod": 1
+        "pod": 7
       },
       {
         "type": "tap",
@@ -132,11 +116,15 @@
       },
       {
         "type": "tap",
-        "pod": 6
+        "pod": 4
       },
       {
         "type": "tap",
-        "pod": 3
+        "pod": 9
+      },
+      {
+        "type": "tap",
+        "pod": 10
       },
       {
         "type": "tap",
@@ -144,15 +132,27 @@
       },
       {
         "type": "tap",
-        "pod": 7
+        "pod": 2
       },
       {
         "type": "tap",
-        "pod": 4
+        "pod": 8
+      },
+      {
+        "type": "tap",
+        "pod": 6
+      },
+      {
+        "type": "tap",
+        "pod": 1
       },
       {
         "type": "tap",
         "pod": 11
+      },
+      {
+        "type": "tap",
+        "pod": 3
       }
     ],
     "schedule": "wait until work idle between commands",
