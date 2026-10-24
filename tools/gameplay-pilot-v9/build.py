@@ -20,7 +20,7 @@ def script_json(value):
 
 def main():
     dataset = json.loads((ROOT / "content/pilot-v9/levels.json").read_text())
-    assert dataset["version"] == "pilot-30-v9", "Assemble all v9 finalists first"
+    assert dataset["version"] == "pilot-30-v9-synthesis", "Assemble all v9 finalists first"
     assert [level["id"] for level in dataset["levels"]] == list(range(1, 31))
     rules = (SOURCE / "rules.cjs").read_text()
     dataset["rulesHash"] = hashlib.sha256(rules.encode()).hexdigest()

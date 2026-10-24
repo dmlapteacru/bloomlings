@@ -1,0 +1,142 @@
+{
+  "passed": true,
+  "botGates": [
+    {
+      "id": 4,
+      "role": "tutorial",
+      "random": 1,
+      "visible": 1,
+      "maxWait": 3.05
+    },
+    {
+      "id": 10,
+      "role": "superHard",
+      "random": 0.10333333333333333,
+      "visible": 0.11333333333333333,
+      "maxWait": 40.35
+    },
+    {
+      "id": 12,
+      "role": "normal",
+      "random": 0.3466666666666667,
+      "visible": 0.8333333333333334,
+      "maxWait": 20.8
+    },
+    {
+      "id": 13,
+      "role": "normal",
+      "random": 0.42,
+      "visible": 0.6833333333333333,
+      "maxWait": 25.05
+    },
+    {
+      "id": 16,
+      "role": "relief",
+      "random": 1,
+      "visible": 1,
+      "maxWait": 10.05
+    },
+    {
+      "id": 25,
+      "role": "hard",
+      "random": 0.15666666666666668,
+      "visible": 0.22666666666666666,
+      "maxWait": 19.4
+    }
+  ],
+  "patternShare": {
+    "колонка слева до конца": 11,
+    "ряд слева направо": 5,
+    "ряд справа налево": 8,
+    "змейка": 4,
+    "середина, потом края": 8,
+    "по две из колонки": 5,
+    "колонка справа до конца": 11,
+    "самое маленькое число": 10,
+    "самое большое число": 8
+  },
+  "hardPatternShare": {
+    "колонка слева до конца": 1,
+    "ряд слева направо": 1,
+    "ряд справа налево": 1,
+    "середина, потом края": 1,
+    "колонка справа до конца": 1,
+    "самое большое число": 2
+  },
+  "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+  "winningRoutes": 30,
+  "acceptedCertificateActions": 553,
+  "visibleHorizonPlannerRoutes": 30,
+  "plannerLeakChecks": 202,
+  "mysteryLevels": 5,
+  "bridges": [
+    {
+      "level": 20,
+      "sites": 1,
+      "firstReadyAfterCommands": 4,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 21,
+      "sites": 2,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Правый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 22,
+      "sites": 2,
+      "firstReadyAfterCommands": 1,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 24,
+      "sites": 2,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 29,
+      "sites": 2,
+      "firstReadyAfterCommands": 1,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    }
+  ],
+  "visibleRows": 3,
+  "autoTail": {
+    "departureGap": 250,
+    "speed": 2.5,
+    "when": "queue-empty-and-no-bridge-to-choose"
+  },
+  "concurrentRandomRuns": 240,
+  "liveClears": 66313,
+  "restoredCheckpoints": 1047,
+  "frameInvarianceChecks": 1,
+  "slotReusedBeforeArrival": true,
+  "sameColourParallelDispatch": true,
+  "pairReleaseAtomic": true,
+  "fullWorkingRowSurvives": true,
+  "conservation": true,
+  "sealedAdmissionAndCheckpointVerified": true,
+  "rejectedPairKeepsSecrets": true,
+  "legacyDepthRevealPreserved": true,
+  "guessOnlyPuzzleRejected": true,
+  "limits": [
+    "Winning certificates use idle decisions. They do not cover all possible real-time choices.",
+    "Policy rates are not human difficulty. No native Core equivalence claim."
+  ]
+}

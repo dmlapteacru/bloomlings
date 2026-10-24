@@ -1,15 +1,24 @@
 {
-  "version": "pilot-30-v9",
-  "hash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+  "version": "pilot-30-v9-synthesis",
+  "hash": "4202ec1ef7218687f39dfa2371d03bc35eb60a7ae595b90110d7f05f0bb0cb6b",
   "baseVersion": "pilot-30-v8e",
-  "baseHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+  "baseHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+  "initialV9Hash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
   "changedLevels": [
-    4,
-    10,
+    7,
+    8,
+    11,
     12,
     13,
     16,
-    25
+    17,
+    18,
+    19,
+    24,
+    25,
+    26,
+    28,
+    29
   ],
   "levels": [
     {
@@ -673,11 +682,7 @@
         },
         {
           "color": "P",
-          "count": 8
-        },
-        {
-          "color": "P",
-          "count": 7
+          "count": 15
         },
         {
           "color": "A",
@@ -685,11 +690,15 @@
         },
         {
           "color": "D",
-          "count": 32
+          "count": 20
         },
         {
           "color": "D",
-          "count": 39
+          "count": 22
+        },
+        {
+          "color": "D",
+          "count": 29
         },
         {
           "color": "Y",
@@ -697,43 +706,48 @@
         },
         {
           "color": "R",
+          "count": 35
+        },
+        {
+          "color": "R",
           "count": 17
         },
         {
           "color": "R",
-          "count": 75
+          "count": 53
         },
         {
           "color": "R",
-          "count": 44
+          "count": 24
         },
         {
           "color": "R",
-          "count": 18
+          "count": 52
         },
         {
           "color": "R",
-          "count": 49
+          "count": 22
         }
       ],
       "tray": [
         [
-          2,
-          10,
-          1,
-          9
-        ],
-        [
-          7,
-          3,
-          4,
-          8
-        ],
-        [
           11,
           0,
           5,
+          3,
           6
+        ],
+        [
+          9,
+          1,
+          4,
+          2
+        ],
+        [
+          7,
+          12,
+          8,
+          10
         ]
       ],
       "difficulty": "Normal"
@@ -786,7 +800,11 @@
       "pods": [
         {
           "color": "P",
-          "count": 28
+          "count": 7
+        },
+        {
+          "color": "P",
+          "count": 25
         },
         {
           "color": "P",
@@ -794,140 +812,126 @@
         },
         {
           "color": "P",
+          "count": 10
+        },
+        {
+          "color": "A",
+          "count": 11
+        },
+        {
+          "color": "A",
           "count": 14
         },
         {
-          "color": "A",
-          "count": 5
-        },
-        {
-          "color": "A",
-          "count": 20
+          "color": "C",
+          "count": 16
         },
         {
           "color": "C",
-          "count": 66
+          "count": 51
         },
         {
           "color": "C",
-          "count": 10
+          "count": 43
         },
         {
           "color": "C",
-          "count": 27
+          "count": 28
         },
         {
           "color": "C",
-          "count": 65
-        },
-        {
-          "color": "C",
-          "count": 8
-        },
-        {
-          "color": "C",
-          "count": 8
-        },
-        {
-          "color": "C",
-          "count": 12
-        },
-        {
-          "color": "D",
-          "count": 24
-        },
-        {
-          "color": "D",
-          "count": 21
-        },
-        {
-          "color": "D",
-          "count": 47
-        },
-        {
-          "color": "Y",
-          "count": 8
-        },
-        {
-          "color": "Y",
-          "count": 4
-        },
-        {
-          "color": "Y",
-          "count": 5
-        },
-        {
-          "color": "M",
-          "count": 4
-        },
-        {
-          "color": "M",
-          "count": 4
-        },
-        {
-          "color": "R",
-          "count": 17,
-          "group": "A"
-        },
-        {
-          "color": "R",
-          "count": 33,
-          "group": "A"
-        },
-        {
-          "color": "S",
-          "count": 80
-        },
-        {
-          "color": "S",
-          "count": 10
-        },
-        {
-          "color": "S",
-          "count": 121
-        },
-        {
-          "color": "S",
-          "count": 21
-        },
-        {
-          "color": "S",
           "count": 58
+        },
+        {
+          "color": "D",
+          "count": 36
+        },
+        {
+          "color": "D",
+          "count": 15
+        },
+        {
+          "color": "D",
+          "count": 14,
+          "group": "A"
+        },
+        {
+          "color": "D",
+          "count": 27,
+          "group": "A"
+        },
+        {
+          "color": "Y",
+          "count": 11
+        },
+        {
+          "color": "Y",
+          "count": 6
+        },
+        {
+          "color": "M",
+          "count": 8
+        },
+        {
+          "color": "R",
+          "count": 22
+        },
+        {
+          "color": "R",
+          "count": 28
+        },
+        {
+          "color": "S",
+          "count": 18
+        },
+        {
+          "color": "S",
+          "count": 101
+        },
+        {
+          "color": "S",
+          "count": 111
+        },
+        {
+          "color": "S",
+          "count": 8
+        },
+        {
+          "color": "S",
+          "count": 52
         }
       ],
       "tray": [
         [
-          10,
-          20,
-          25,
-          23,
-          6,
-          14,
-          13,
-          4,
-          1
-        ],
-        [
-          26,
-          21,
-          22,
-          5,
+          9,
           8,
           18,
-          16,
+          20,
+          13,
+          15,
           0,
+          5,
           3
         ],
         [
-          24,
-          9,
           7,
-          11,
+          24,
+          10,
           19,
-          12,
-          15,
+          14,
           17,
+          1,
           2
+        ],
+        [
+          22,
+          21,
+          23,
+          6,
+          12,
+          11,
+          16,
+          4
         ]
       ],
       "difficulty": "Normal"
@@ -1358,7 +1362,11 @@
       "pods": [
         {
           "color": "G",
-          "count": 14
+          "count": 9
+        },
+        {
+          "color": "G",
+          "count": 5
         },
         {
           "color": "A",
@@ -1366,35 +1374,27 @@
         },
         {
           "color": "D",
-          "count": 46
+          "count": 66
         },
         {
           "color": "D",
-          "count": 47
+          "count": 27
         },
         {
           "color": "V",
-          "count": 16
+          "count": 21
         },
         {
           "color": "V",
-          "count": 11
+          "count": 19
         },
         {
           "color": "V",
-          "count": 13
+          "count": 22
         },
         {
           "color": "V",
           "count": 18
-        },
-        {
-          "color": "V",
-          "count": 11
-        },
-        {
-          "color": "V",
-          "count": 11
         },
         {
           "color": "M",
@@ -1402,27 +1402,31 @@
         },
         {
           "color": "K",
-          "count": 10
+          "count": 4
+        },
+        {
+          "color": "K",
+          "count": 6
         }
       ],
       "tray": [
         [
           0,
-          11,
-          6,
-          8
+          4,
+          2,
+          3
         ],
         [
           5,
-          4,
-          2,
-          9
+          9,
+          10,
+          8
         ],
         [
+          11,
+          7,
           1,
-          10,
-          3,
-          7
+          6
         ]
       ],
       "difficulty": "Normal"
@@ -1435,7 +1439,7 @@
         "##############.#############",
         "#..........................#",
         "#.BBBBBBBBBBBBBBBBBBBBBBBB.#",
-        "#.BLLLBBAAAAAAAAAAAABBLLLB.#",
+        "#.BLLLBBAADDDDDDDDAABBLLLB.#",
         "#.LLLLLBDDAACCCCAADDBLLLLL.#",
         "#.BLLLDDAACCCCCCCCAADDLLLB.#",
         "#.BBBDDDACCCCCCCCCCADDDBBB.#",
@@ -1450,9 +1454,9 @@
         "#.BBBDCCCDDCCCCCCDDCCCDBBB.#",
         "#.NNNDCCDDDDCCCCDDDDCCDNNN.#",
         "#.NNNDCCDCDDCCCCDCDDCCDNNN.#",
-        "#.NNNNCCCCDCCCCCCCDCCCNNNN.#",
-        "#.NNNNNCCCCCCAACCCCCCNNNNN.#",
-        "#.NNNNNCCCCCCAACCCCCCNNNNN.#",
+        "#.NNNNDCCCDCCCCCCCDCCDNNNN.#",
+        "#.NNNNNDCCCCCAACCCCCDNNNNN.#",
+        "#.NNNNNDCCCCCAACCCCCDNNNNN.#",
         "#.NNNNDAACCDAAAADCCAADNNNN.#",
         "#.NNNDAAAADNDDDDNDAAAADCNN.#",
         "#.NNNDAAAADNNNNNNDAAAADNNN.#",
@@ -1467,33 +1471,45 @@
         14
       ],
       "id": 12,
-      "subject": "v9-12",
+      "subject": "v9-synthesis-12",
       "capacity": 5,
       "pods": [
         {
           "color": "B",
-          "count": 38,
-          "group": "A"
+          "count": 19
         },
         {
           "color": "B",
-          "count": 44
+          "count": 27
+        },
+        {
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "B",
+          "count": 20,
+          "group": "B"
         },
         {
           "color": "A",
-          "count": 26
+          "count": 13
         },
         {
           "color": "A",
-          "count": 11
+          "count": 22
         },
         {
           "color": "A",
-          "count": 21
+          "count": 27
         },
         {
-          "color": "A",
-          "count": 12
+          "color": "C",
+          "count": 43
+        },
+        {
+          "color": "C",
+          "count": 27
         },
         {
           "color": "C",
@@ -1501,56 +1517,42 @@
         },
         {
           "color": "C",
-          "count": 60
-        },
-        {
-          "color": "C",
-          "count": 49
-        },
-        {
-          "color": "C",
-          "count": 32
-        },
-        {
-          "color": "D",
           "count": 43
         },
         {
-          "color": "D",
-          "count": 49,
-          "group": "A"
+          "color": "C",
+          "count": 22
         },
         {
           "color": "D",
-          "count": 26
+          "count": 28
         },
         {
           "color": "D",
-          "count": 18
+          "count": 58
+        },
+        {
+          "color": "D",
+          "count": 64
         },
         {
           "color": "Y",
-          "count": 6
+          "count": 6,
+          "group": "A"
         },
         {
           "color": "L",
-          "count": 15
-        },
-        {
-          "color": "L",
-          "count": 7
+          "count": 22,
+          "group": "B"
         },
         {
           "color": "N",
-          "count": 35
+          "count": 64
         },
         {
           "color": "N",
-          "count": 16
-        },
-        {
-          "color": "N",
-          "count": 52
+          "count": 39,
+          "group": "A"
         },
         {
           "color": "N",
@@ -1559,31 +1561,30 @@
       ],
       "tray": [
         [
-          0,
-          2,
-          13,
-          1,
-          12,
-          19,
-          7
-        ],
-        [
-          11,
-          4,
-          16,
-          17,
           15,
-          9,
-          14
-        ],
-        [
-          10,
+          1,
           3,
           6,
-          5,
-          20,
+          17,
+          9,
+          10
+        ],
+        [
           18,
+          19,
+          16,
+          4,
+          2,
+          11,
           8
+        ],
+        [
+          5,
+          0,
+          7,
+          14,
+          13,
+          12
         ]
       ],
       "difficulty": "Normal"
@@ -1628,120 +1629,125 @@
         13
       ],
       "id": 13,
-      "subject": "v9-13",
+      "subject": "v9-synthesis-13",
       "capacity": 5,
       "pods": [
         {
           "color": "B",
-          "count": 43,
-          "group": "B"
+          "count": 45
         },
         {
           "color": "B",
-          "count": 29
+          "count": 23
         },
         {
           "color": "B",
-          "count": 48
+          "count": 47
         },
         {
           "color": "B",
-          "count": 49
+          "count": 39
         },
         {
           "color": "B",
-          "count": 33
+          "count": 26
         },
         {
           "color": "B",
-          "count": 20
+          "count": 42
         },
         {
           "color": "C",
-          "count": 9
+          "count": 8
         },
         {
           "color": "C",
-          "count": 12
+          "count": 13,
+          "group": "A"
         },
         {
           "color": "D",
-          "count": 44
+          "count": 24
+        },
+        {
+          "color": "D",
+          "count": 20
         },
         {
           "color": "R",
-          "count": 9
+          "count": 45
         },
         {
-          "color": "R",
+          "color": "K",
           "count": 19
         },
         {
-          "color": "R",
-          "count": 17,
+          "color": "K",
+          "count": 7,
+          "group": "B"
+        },
+        {
+          "color": "K",
+          "count": 11,
           "group": "A"
         },
         {
           "color": "K",
-          "count": 58
+          "count": 21
         },
         {
           "color": "N",
-          "count": 16,
-          "group": "A"
-        },
-        {
-          "color": "N",
-          "count": 27
-        },
-        {
-          "color": "N",
-          "count": 36
-        },
-        {
-          "color": "N",
-          "count": 13
-        },
-        {
-          "color": "N",
-          "count": 22,
+          "count": 50,
           "group": "B"
         },
         {
+          "color": "N",
+          "count": 64
+        },
+        {
           "color": "S",
-          "count": 42
+          "count": 16
+        },
+        {
+          "color": "S",
+          "count": 26
         },
         {
           "color": "E",
-          "count": 26
+          "count": 10
+        },
+        {
+          "color": "E",
+          "count": 16
         }
       ],
       "tray": [
         [
-          18,
-          15,
-          10,
-          0,
-          7,
           11,
-          8
-        ],
-        [
-          2,
-          4,
-          9,
-          17,
-          14,
-          13
-        ],
-        [
-          16,
-          3,
-          5,
           12,
-          1,
-          6,
+          16,
+          7,
+          5,
+          9,
           19
+        ],
+        [
+          3,
+          15,
+          4,
+          13,
+          6,
+          0,
+          14
+        ],
+        [
+          8,
+          2,
+          18,
+          17,
+          20,
+          1,
+          10
         ]
       ],
       "difficulty": "Normal"
@@ -2153,22 +2159,22 @@
         "#............D...........#",
         "#...........CC...........#",
         "#..........DCCD..........#",
-        "#.........DRCCYD.........#",
-        "#........DRRCCYYD........#",
-        "#.......DRRRCCYYYD.......#",
-        "#......DRRRRCCYYYYD......#",
-        "#.....DRRRRRCCYYYYYD.....#",
-        "#....DRRRRRRCCYYYYYYD....#",
-        "#...DRRRRRRRCCYYYYYYYD...#",
+        "#.........DBCCRD.........#",
+        "#........DBBCCRRD........#",
+        "#.......DBBBCCRRRD.......#",
+        "#......DBBBBCCRRRRD......#",
+        "#.....DBBBBBCCRRRRRD.....#",
+        "#....DBBBBBBCCRRRRRRD....#",
+        "#...DBBBBBBBCCRRRRRRRD...#",
         "#..CCCCCCCCCCCCCCCCCCCC..#",
         "#..CCCCCCCCCCCCCCCCCCCC..#",
-        "#...DYYYYYYYCCRRRRRRRD...#",
-        "#....DYYYYYYCCRRRRRRD....#",
-        "#.....DYYYYYCCRRRRRD.....#",
-        "#......DYYYYCCRRRRD......#",
-        "#.......DYYYCCRRRD.......#",
-        "#........DYYCCRRD........#",
-        "#.........DYCCRD.........#",
+        "#...DYYYYYYYCCGGGGGGGD...#",
+        "#....DYYYYYYCCGGGGGGD....#",
+        "#.....DYYYYYCCGGGGGD.....#",
+        "#......DYYYYCCGGGGD......#",
+        "#.......DYYYCCGGGD.......#",
+        "#........DYYCCGGD........#",
+        "#.........DYCCGD.........#",
         "#..........DCCD..........#",
         "#...........CC...........#",
         "#........................#",
@@ -2179,98 +2185,98 @@
         13
       ],
       "id": 16,
-      "subject": "v9-16",
+      "subject": "v9-synthesis-16",
       "capacity": 5,
       "pods": [
         {
-          "color": "P",
+          "color": "G",
+          "count": 9
+        },
+        {
+          "color": "G",
+          "count": 6
+        },
+        {
+          "color": "G",
+          "count": 6
+        },
+        {
+          "color": "G",
           "count": 7
         },
         {
           "color": "P",
-          "count": 9
+          "count": 16
         },
         {
-          "color": "C",
-          "count": 27,
-          "group": "A"
-        },
-        {
-          "color": "C",
-          "count": 8
-        },
-        {
-          "color": "C",
-          "count": 27
-        },
-        {
-          "color": "C",
-          "count": 14,
-          "group": "A"
-        },
-        {
-          "color": "D",
-          "count": 9
-        },
-        {
-          "color": "D",
-          "count": 8
-        },
-        {
-          "color": "D",
-          "count": 20
-        },
-        {
-          "color": "Y",
-          "count": 10
-        },
-        {
-          "color": "Y",
+          "color": "B",
           "count": 12
         },
         {
-          "color": "Y",
-          "count": 14
+          "color": "B",
+          "count": 16
+        },
+        {
+          "color": "C",
+          "count": 24
+        },
+        {
+          "color": "C",
+          "count": 24
+        },
+        {
+          "color": "C",
+          "count": 28
+        },
+        {
+          "color": "D",
+          "count": 11
+        },
+        {
+          "color": "D",
+          "count": 26
         },
         {
           "color": "Y",
-          "count": 20
+          "count": 17,
+          "group": "A"
+        },
+        {
+          "color": "Y",
+          "count": 11,
+          "group": "A"
         },
         {
           "color": "R",
-          "count": 18
+          "count": 12
         },
         {
           "color": "R",
-          "count": 20
-        },
-        {
-          "color": "R",
-          "count": 18
+          "count": 16
         }
       ],
       "tray": [
         [
-          7,
-          2,
-          13,
-          0,
           4,
-          12
+          12,
+          10,
+          7,
+          5
         ],
         [
           3,
-          5,
-          6,
-          14,
+          13,
+          8,
+          2,
           9
         ],
         [
-          10,
-          1,
-          15,
+          6,
+          0,
+          14,
           11,
-          8
+          1,
+          15
         ]
       ],
       "difficulty": "Normal"
@@ -2313,16 +2319,16 @@
         14
       ],
       "id": 17,
-      "subject": "v8e-17",
+      "subject": "v9-synthesis-17",
       "capacity": 5,
       "pods": [
         {
           "color": "G",
-          "count": 60
+          "count": 44
         },
         {
           "color": "G",
-          "count": 24
+          "count": 40
         },
         {
           "color": "P",
@@ -2330,23 +2336,27 @@
         },
         {
           "color": "B",
-          "count": 51
+          "count": 39
         },
         {
           "color": "B",
-          "count": 116
+          "count": 64
+        },
+        {
+          "color": "B",
+          "count": 64
         },
         {
           "color": "C",
-          "count": 18
+          "count": 6
+        },
+        {
+          "color": "C",
+          "count": 12
         },
         {
           "color": "D",
-          "count": 13
-        },
-        {
-          "color": "D",
-          "count": 39
+          "count": 52
         },
         {
           "color": "V",
@@ -2378,46 +2388,42 @@
         },
         {
           "color": "N",
-          "count": 26
-        },
-        {
-          "color": "N",
-          "count": 35
+          "count": 61
         },
         {
           "color": "S",
-          "count": 73
+          "count": 61
         },
         {
           "color": "S",
-          "count": 41
+          "count": 53
         }
       ],
       "tray": [
         [
-          2,
-          4,
-          11,
-          10,
-          7,
-          6
-        ],
-        [
-          15,
           1,
-          12,
           17,
-          14,
-          18,
-          13
+          2,
+          5,
+          11,
+          3
         ],
         [
-          16,
-          9,
-          5,
-          3,
+          12,
+          7,
           0,
-          8
+          6,
+          9,
+          16
+        ],
+        [
+          13,
+          4,
+          10,
+          15,
+          18,
+          8,
+          14
         ]
       ],
       "difficulty": "Normal"
@@ -2465,65 +2471,60 @@
         299
       ],
       "id": 18,
-      "subject": "v8e-18",
+      "subject": "v9-synthesis-18",
       "capacity": 5,
       "pods": [
         {
           "color": "G",
-          "count": 47,
-          "group": "A"
+          "count": 43
         },
         {
           "color": "G",
-          "count": 26
+          "count": 30
         },
         {
           "color": "P",
+          "count": 19
+        },
+        {
+          "color": "B",
+          "count": 42
+        },
+        {
+          "color": "B",
+          "count": 45
+        },
+        {
+          "color": "A",
+          "count": 9
+        },
+        {
+          "color": "C",
           "count": 11
         },
         {
-          "color": "P",
-          "count": 8
-        },
-        {
-          "color": "B",
-          "count": 63
-        },
-        {
-          "color": "B",
-          "count": 24
-        },
-        {
-          "color": "A",
-          "count": 4
-        },
-        {
-          "color": "A",
-          "count": 5
+          "color": "C",
+          "count": 64
         },
         {
           "color": "C",
-          "count": 10
-        },
-        {
-          "color": "C",
-          "count": 35
-        },
-        {
-          "color": "C",
-          "count": 58
+          "count": 28
         },
         {
           "color": "D",
-          "count": 29
+          "count": 47
         },
         {
           "color": "D",
-          "count": 62
+          "count": 44
         },
         {
           "color": "V",
-          "count": 35
+          "count": 6
+        },
+        {
+          "color": "V",
+          "count": 29
         },
         {
           "color": "Y",
@@ -2531,17 +2532,16 @@
         },
         {
           "color": "Y",
-          "count": 8
+          "count": 8,
+          "group": "A"
         },
         {
           "color": "O",
-          "count": 1,
-          "group": "B"
+          "count": 1
         },
         {
           "color": "L",
-          "count": 5,
-          "group": "A"
+          "count": 5
         },
         {
           "color": "M",
@@ -2549,66 +2549,72 @@
         },
         {
           "color": "R",
-          "count": 31
+          "count": 9
         },
         {
           "color": "R",
-          "count": 98
+          "count": 48
         },
         {
-          "color": "S",
-          "count": 33,
+          "color": "R",
+          "count": 28
+        },
+        {
+          "color": "R",
+          "count": 44,
           "group": "B"
         },
         {
           "color": "S",
-          "count": 22
+          "count": 46,
+          "group": "B"
         },
         {
           "color": "S",
-          "count": 25
+          "count": 39
         },
         {
           "color": "S",
-          "count": 47
+          "count": 42
         },
         {
           "color": "E",
-          "count": 13
+          "count": 13,
+          "group": "A"
         }
       ],
       "tray": [
         [
-          24,
+          14,
+          20,
+          21,
+          17,
+          6,
           4,
-          22,
-          10,
-          25,
-          23,
-          3,
-          19,
-          7
+          16,
+          11,
+          12
         ],
         [
-          1,
-          0,
-          16,
+          25,
+          24,
+          22,
+          10,
           18,
-          12,
-          11,
-          14,
+          19,
+          1,
           2
         ],
         [
-          9,
-          17,
-          21,
           8,
-          5,
-          15,
-          20,
+          0,
+          23,
           13,
-          6
+          9,
+          3,
+          7,
+          5,
+          15
         ]
       ],
       "difficulty": "Normal"
@@ -2651,7 +2657,7 @@
         12
       ],
       "id": 19,
-      "subject": "v8e-19",
+      "subject": "v9-synthesis-19",
       "capacity": 5,
       "pods": [
         {
@@ -2660,11 +2666,11 @@
         },
         {
           "color": "P",
-          "count": 35
+          "count": 38
         },
         {
           "color": "P",
-          "count": 39
+          "count": 36
         },
         {
           "color": "B",
@@ -2680,12 +2686,12 @@
         },
         {
           "color": "D",
-          "count": 39
+          "count": 43,
+          "mystery": "depth"
         },
         {
           "color": "D",
-          "count": 51,
-          "mystery": "depth"
+          "count": 47
         },
         {
           "color": "Y",
@@ -2709,11 +2715,15 @@
         },
         {
           "color": "K",
-          "count": 69
+          "count": 41
         },
         {
           "color": "K",
-          "count": 62
+          "count": 53
+        },
+        {
+          "color": "K",
+          "count": 37
         },
         {
           "color": "S",
@@ -2722,26 +2732,27 @@
       ],
       "tray": [
         [
-          2,
-          6,
+          5,
+          7,
+          15,
           8,
-          9,
-          0,
-          10
+          9
         ],
         [
           14,
-          3,
-          4,
           12,
-          5
+          16,
+          3,
+          11,
+          10
         ],
         [
-          1,
           13,
-          15,
-          7,
-          11
+          2,
+          1,
+          6,
+          4,
+          0
         ]
       ],
       "difficulty": "Normal"
@@ -3540,8 +3551,16 @@
       "pods": [
         {
           "color": "G",
-          "count": 72,
-          "group": "B"
+          "count": 31,
+          "group": "A"
+        },
+        {
+          "color": "G",
+          "count": 14
+        },
+        {
+          "color": "G",
+          "count": 27
         },
         {
           "color": "P",
@@ -3549,19 +3568,15 @@
         },
         {
           "color": "B",
-          "count": 71
+          "count": 88
         },
         {
           "color": "B",
-          "count": 68
+          "count": 54
         },
         {
           "color": "B",
-          "count": 8
-        },
-        {
-          "color": "B",
-          "count": 19
+          "count": 24
         },
         {
           "color": "A",
@@ -3573,40 +3588,37 @@
         },
         {
           "color": "D",
-          "count": 46
+          "count": 21
         },
         {
           "color": "D",
-          "count": 24
+          "count": 14,
+          "group": "B"
+        },
+        {
+          "color": "D",
+          "count": 35
         },
         {
           "color": "Y",
-          "count": 16
+          "count": 14
         },
         {
           "color": "Y",
-          "count": 7
+          "count": 9
         },
         {
           "color": "O",
-          "count": 22
+          "count": 18,
+          "group": "B"
         },
         {
           "color": "O",
-          "count": 27,
-          "group": "A"
+          "count": 31
         },
         {
           "color": "L",
-          "count": 46
-        },
-        {
-          "color": "L",
-          "count": 37
-        },
-        {
-          "color": "L",
-          "count": 15
+          "count": 98
         },
         {
           "color": "R",
@@ -3614,68 +3626,72 @@
         },
         {
           "color": "S",
-          "count": 7
+          "count": 13
         },
         {
           "color": "S",
-          "count": 42,
-          "group": "B"
+          "count": 9
         },
         {
           "color": "S",
           "count": 21
         },
         {
-          "color": "E",
-          "count": 14
+          "color": "S",
+          "count": 27
         },
         {
           "color": "E",
-          "count": 38,
+          "count": 7
+        },
+        {
+          "color": "E",
+          "count": 52
+        },
+        {
+          "color": "E",
+          "count": 21
+        },
+        {
+          "color": "E",
+          "count": 30,
           "group": "A"
-        },
-        {
-          "color": "E",
-          "count": 47
-        },
-        {
-          "color": "E",
-          "count": 11
         }
       ],
       "tray": [
         [
-          21,
-          8,
-          13,
-          11,
-          7,
-          1
-        ],
-        [
-          9,
-          14,
-          22,
-          4,
-          2,
-          18
-        ],
-        [
-          15,
-          16,
           0,
-          5,
-          3,
-          12
+          10,
+          1,
+          12,
+          13,
+          6,
+          7
         ],
         [
-          24,
-          23,
-          19,
+          25,
+          14,
+          9,
+          21,
           20,
-          10,
-          17,
-          6
+          15,
+          3
+        ],
+        [
+          23,
+          24,
+          22,
+          8,
+          4,
+          17
+        ],
+        [
+          16,
+          11,
+          2,
+          19,
+          5,
+          18
         ]
       ],
       "difficulty": "Normal"
@@ -3724,33 +3740,21 @@
         16
       ],
       "id": 25,
-      "subject": "v9-25",
+      "subject": "v9-synthesis-25",
       "capacity": 5,
       "pods": [
         {
           "color": "P",
-          "count": 8
-        },
-        {
-          "color": "P",
-          "count": 6,
+          "count": 14,
           "group": "B"
         },
         {
           "color": "A",
+          "count": 12
+        },
+        {
+          "color": "A",
           "count": 13
-        },
-        {
-          "color": "A",
-          "count": 5
-        },
-        {
-          "color": "A",
-          "count": 7
-        },
-        {
-          "color": "C",
-          "count": 6
         },
         {
           "color": "C",
@@ -3758,47 +3762,54 @@
         },
         {
           "color": "C",
-          "count": 37
+          "count": 8
+        },
+        {
+          "color": "C",
+          "count": 35
         },
         {
           "color": "D",
-          "count": 50,
-          "mystery": "depth"
+          "count": 29
         },
         {
           "color": "D",
-          "count": 14,
-          "group": "A"
+          "count": 11,
+          "group": "C"
         },
         {
           "color": "D",
           "count": 50
         },
         {
-          "color": "V",
-          "count": 50
+          "color": "D",
+          "count": 24
         },
         {
           "color": "V",
-          "count": 16
+          "count": 23
+        },
+        {
+          "color": "V",
+          "count": 43
         },
         {
           "color": "Y",
-          "count": 14
+          "count": 14,
+          "group": "C"
         },
         {
           "color": "O",
-          "count": 25,
+          "count": 37,
           "group": "A"
         },
         {
           "color": "O",
-          "count": 33
+          "count": 13
         },
         {
           "color": "O",
-          "count": 30,
-          "group": "C"
+          "count": 38
         },
         {
           "color": "L",
@@ -3810,28 +3821,34 @@
         },
         {
           "color": "K",
-          "count": 50
+          "count": 43
         },
         {
           "color": "K",
-          "count": 28
+          "count": 12,
+          "group": "A"
+        },
+        {
+          "color": "K",
+          "count": 23
         },
         {
           "color": "S",
-          "count": 50,
+          "count": 12,
           "group": "B"
         },
         {
           "color": "S",
-          "count": 20
+          "count": 41
         },
         {
           "color": "S",
-          "count": 45
+          "count": 47,
+          "mystery": "depth"
         },
         {
           "color": "S",
-          "count": 50
+          "count": 36
         },
         {
           "color": "S",
@@ -3840,58 +3857,57 @@
         },
         {
           "color": "S",
-          "count": 50
+          "count": 42
         },
         {
           "color": "S",
-          "count": 50,
-          "group": "C"
+          "count": 38
+        },
+        {
+          "color": "S",
+          "count": 49
         },
         {
           "color": "E",
-          "count": 6
-        },
-        {
-          "color": "E",
-          "count": 6
+          "count": 12
         }
       ],
       "tray": [
         [
-          11,
-          23,
-          16,
-          25,
-          20,
-          10,
           18,
+          8,
+          22,
+          27,
+          2,
+          23,
           9,
-          15,
-          13
+          0,
+          6,
+          14
         ],
         [
-          22,
-          1,
-          27,
-          6,
-          12,
-          5,
-          2,
-          14,
-          4,
+          20,
+          24,
+          28,
+          13,
+          3,
+          15,
+          25,
+          21,
+          7,
           29
         ],
         [
+          5,
+          11,
+          10,
           19,
-          21,
-          26,
-          7,
-          8,
-          24,
-          0,
+          1,
           17,
-          3,
-          28
+          26,
+          4,
+          12,
+          16
         ]
       ],
       "difficulty": "Hard"
@@ -3937,7 +3953,7 @@
         233
       ],
       "id": 26,
-      "subject": "v8e-26",
+      "subject": "v9-synthesis-26",
       "capacity": 5,
       "pods": [
         {
@@ -3946,39 +3962,35 @@
         },
         {
           "color": "B",
-          "count": 91
+          "count": 51
+        },
+        {
+          "color": "B",
+          "count": 40
         },
         {
           "color": "A",
-          "count": 12
-        },
-        {
-          "color": "A",
-          "count": 13
+          "count": 25
         },
         {
           "color": "C",
-          "count": 41
+          "count": 49
         },
         {
           "color": "C",
-          "count": 26
-        },
-        {
-          "color": "C",
-          "count": 43
+          "count": 61
         },
         {
           "color": "D",
-          "count": 54
-        },
-        {
-          "color": "D",
-          "count": 18
+          "count": 37
         },
         {
           "color": "D",
           "count": 25
+        },
+        {
+          "color": "D",
+          "count": 35
         },
         {
           "color": "V",
@@ -4006,42 +4018,41 @@
         },
         {
           "color": "S",
-          "count": 76
+          "count": 37
+        },
+        {
+          "color": "S",
+          "count": 39
         },
         {
           "color": "E",
-          "count": 7
-        },
-        {
-          "color": "E",
-          "count": 10
+          "count": 17
         }
       ],
       "tray": [
         [
-          9,
-          7,
-          13,
-          6,
-          5,
-          18,
-          17
-        ],
-        [
-          8,
           4,
-          10,
-          1,
-          16,
-          2
+          13,
+          11,
+          5,
+          14,
+          3
         ],
         [
+          9,
           0,
-          11,
-          12,
+          10,
+          7,
           15,
-          3,
-          14
+          12
+        ],
+        [
+          2,
+          1,
+          6,
+          8,
+          16,
+          17
         ]
       ],
       "difficulty": "Normal"
@@ -4257,7 +4268,7 @@
         11
       ],
       "id": 28,
-      "subject": "v8e-28",
+      "subject": "v9-synthesis-28",
       "capacity": 5,
       "pods": [
         {
@@ -4266,19 +4277,15 @@
         },
         {
           "color": "P",
-          "count": 7
-        },
-        {
-          "color": "P",
-          "count": 9
+          "count": 16
         },
         {
           "color": "D",
-          "count": 23
+          "count": 26
         },
         {
           "color": "D",
-          "count": 23
+          "count": 20
         },
         {
           "color": "V",
@@ -4294,15 +4301,19 @@
         },
         {
           "color": "R",
-          "count": 42
+          "count": 40
         },
         {
           "color": "R",
-          "count": 55
+          "count": 40
         },
         {
           "color": "R",
-          "count": 52
+          "count": 40
+        },
+        {
+          "color": "R",
+          "count": 29
         },
         {
           "color": "E",
@@ -4311,22 +4322,22 @@
       ],
       "tray": [
         [
-          11,
-          7,
-          8,
-          10
-        ],
-        [
-          6,
           0,
-          4,
-          9
+          6,
+          11,
+          5
         ],
         [
-          2,
           1,
-          3,
-          5
+          8,
+          10,
+          3
+        ],
+        [
+          9,
+          2,
+          7,
+          4
         ]
       ],
       "difficulty": "Normal"
@@ -4392,43 +4403,53 @@
         ]
       },
       "id": 29,
-      "subject": "v8e-29",
+      "subject": "v9-synthesis-29",
       "capacity": 5,
       "pods": [
         {
           "color": "G",
-          "count": 48
+          "count": 59
         },
         {
           "color": "G",
-          "count": 22
+          "count": 11
         },
         {
           "color": "P",
-          "count": 4,
-          "group": "A"
+          "count": 4
         },
         {
           "color": "A",
-          "count": 14
+          "count": 16
         },
         {
           "color": "A",
-          "count": 107
+          "count": 45
+        },
+        {
+          "color": "A",
+          "count": 60
         },
         {
           "color": "C",
-          "count": 17,
-          "group": "B"
+          "count": 17
         },
         {
           "color": "D",
-          "count": 20,
-          "group": "B"
+          "count": 26
         },
         {
           "color": "D",
-          "count": 109
+          "count": 38
+        },
+        {
+          "color": "D",
+          "count": 49
+        },
+        {
+          "color": "D",
+          "count": 16,
+          "group": "B"
         },
         {
           "color": "V",
@@ -4436,7 +4457,12 @@
         },
         {
           "color": "Y",
-          "count": 40
+          "count": 20
+        },
+        {
+          "color": "Y",
+          "count": 20,
+          "group": "B"
         },
         {
           "color": "O",
@@ -4448,15 +4474,16 @@
         },
         {
           "color": "M",
-          "count": 31
+          "count": 60
         },
         {
           "color": "M",
-          "count": 72
+          "count": 43
         },
         {
           "color": "R",
-          "count": 9
+          "count": 9,
+          "group": "A"
         },
         {
           "color": "K",
@@ -4465,19 +4492,27 @@
         },
         {
           "color": "N",
-          "count": 32
+          "count": 51
         },
         {
           "color": "N",
-          "count": 174
+          "count": 60
         },
         {
           "color": "N",
-          "count": 81
+          "count": 60
         },
         {
           "color": "N",
-          "count": 64
+          "count": 60
+        },
+        {
+          "color": "N",
+          "count": 60
+        },
+        {
+          "color": "N",
+          "count": 60
         },
         {
           "color": "E",
@@ -4486,33 +4521,39 @@
       ],
       "tray": [
         [
-          13,
-          0,
-          9,
-          11,
-          2
-        ],
-        [
-          5,
-          7,
-          1,
-          16,
-          15,
-          10
-        ],
-        [
-          6,
-          3,
-          20,
           17,
-          8
+          4,
+          0,
+          18,
+          22,
+          2,
+          12
         ],
         [
-          12,
-          4,
-          18,
+          10,
+          7,
+          8,
           19,
+          20,
+          26,
+          11
+        ],
+        [
+          13,
+          5,
+          1,
+          21,
+          15,
+          24,
           14
+        ],
+        [
+          16,
+          3,
+          9,
+          6,
+          23,
+          25
         ]
       ],
       "difficulty": "Super Hard"

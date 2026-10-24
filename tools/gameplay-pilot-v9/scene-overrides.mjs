@@ -32,6 +32,9 @@ export function applyV9Scenes(S,BARE,BOARD){
   {shape:oval(12,20.3,5,4.2),color:'C'},
   {shape:either(oval(4.4,18,2.3,5.5),oval(19.6,18,2.3,5.5)),color:'D'},
   {shape:either(box(6,24,18,25),box(8,23,10,25),box(14,23,16,25)),color:'A'},
+  // CF L25 pattern: exterior moon white plus buried facial white. Close the owl silhouette
+  // after facial layers so white cannot leak through the rim into the sky.
+  {shape:(x,y)=>{const shell=either(oval(12,16.5,9.4,8.7),diamond(6,4.7,3.3,4),diamond(18,4.7,3.3,4),oval(12,13.2,9.1,8));return shell(x,y)&&[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>!shell(x+dx,y+dy));},color:'D'},
   // Lime arrives at L12: one coherent leaf cluster, not isolated speckles.
   {shape:either(oval(2.5,23.5,2.2,1.5),oval(21.5,23.5,2.2,1.5)),color:'L'},
  ])};
@@ -48,7 +51,7 @@ export function applyV9Scenes(S,BARE,BOARD){
  ])};
  // L16 stays a relief, but a larger, symmetric kite now has a readable string and bows.
  S[16]={title:'Воздушный змей',grid:raster(24,30,'.',[
-  {shape:diamond(12,11.7,10.7,10.6),color:(x,y)=>(x<12)===(y<12)?'Y':'R',outline:'D'},
+  {shape:diamond(12,11.7,10.7,10.6),color:(x,y)=>x<12?(y<12?'Y':'B'):(y<12?'G':'R'),outline:'D'},
   {shape:(x,y)=>diamond(12,11.7,10.7,10.6)(x,y)&&(Math.abs(x-12)<.6||Math.abs(y-12)<.6),color:'C'},
   {shape:(x,y)=>y>=22&&y<30&&Math.abs(x-(12+Math.sin((y-22)*.75)*1.5))<.7,color:'D'},
   ...[[13,25],[11,28]].map(([x,y])=>({shape:either(diamond(x-1.2,y,1.5,1),diamond(x+1.2,y,1.5,1)),color:'P'})),

@@ -16,3 +16,10 @@ for(const [speed,seconds] of [[1,4.01],[2,3.435]]){
 const bad=replayRhythm(two,[{type:'tap',pod:1}]);assert(!bad.won);assert.equal(bad.reason,'not-exposed');
 assert(!('tailSeconds' in bad),'an invalid schedule cannot acquire a fake finished duration');
 console.log('rhythm checks: OK (known 1x/2x/2.5 timing, zero-time command, idle occupancy, failed schedule)');
+
+// A reserve strategy can deliberately withhold a legal tap; report that waiting explicitly.
+const many={...one,rowsBottomFirst:['..GGGGG',...Array(7).fill('.......')],entries:[2,3,4,5,6],pods:Array.from({length:5},()=>({color:'G',count:1})),tray:[[0,3],[1,4],[2]]};
+const reserved=replayRhythm(many,[0,1,2,3,4].map(pod=>({type:'tap',pod})),{schedule:'reserve',thinkMs:0});
+assert(reserved.won);assert(reserved.reserveGuardSeconds>0);assert(reserved.maxReserveGuardSeconds>0);assert(reserved.reserveGuardSeconds<=reserved.seconds);
+assert.equal(replayRhythm(many,[0,1,2,3,4].map(pod=>({type:'tap',pod})),{schedule:'brisk',thinkMs:0}).reserveGuardSeconds,0);
+console.log('Reserve guard waiting is explicit: OK');

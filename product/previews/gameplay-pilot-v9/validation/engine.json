@@ -1,79 +1,312 @@
 {
   "passed": true,
-  "botGates": [
+  "all30ReviewGates": [
+    {
+      "id": 1,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 2,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 3,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
     {
       "id": 4,
-      "role": "tutorial",
-      "random": 1,
-      "visible": 1,
-      "maxWait": 3.05
+      "source": "initial-v9",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 5,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 6,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 7,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 8,
+      "source": "updated-v8e",
+      "primaryRisky": 2,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 9,
+      "source": "updated-v8e",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
     },
     {
       "id": 10,
-      "role": "superHard",
-      "random": 0.10333333333333333,
-      "visible": 0.11333333333333333,
-      "maxWait": 40.35
+      "source": "initial-v9",
+      "primaryRisky": 8,
+      "selectedRisky": 8,
+      "tight": 3,
+      "liveStrategy": "brisk",
+      "paceWarnings": [
+        "forced-one-two-working-places"
+      ]
+    },
+    {
+      "id": 11,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
     },
     {
       "id": 12,
-      "role": "normal",
-      "random": 0.3466666666666667,
-      "visible": 0.8333333333333334,
-      "maxWait": 20.8
+      "source": "new-queue",
+      "primaryRisky": 2,
+      "selectedRisky": 2,
+      "tight": 2,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
     },
     {
       "id": 13,
-      "role": "normal",
-      "random": 0.42,
-      "visible": 0.6833333333333333,
-      "maxWait": 25.05
+      "source": "new-queue",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 14,
+      "source": "updated-v8e",
+      "primaryRisky": 3,
+      "selectedRisky": 3,
+      "tight": 3,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 15,
+      "source": "updated-v8e",
+      "primaryRisky": 9,
+      "selectedRisky": 9,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": [
+        "continuous-no-input",
+        "forced-one-two-working-places"
+      ]
     },
     {
       "id": 16,
-      "role": "relief",
-      "random": 1,
-      "visible": 1,
-      "maxWait": 10.05
+      "source": "new-queue",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "reserve",
+      "paceWarnings": []
+    },
+    {
+      "id": 17,
+      "source": "new-queue",
+      "primaryRisky": 2,
+      "selectedRisky": 5,
+      "tight": 5,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 18,
+      "source": "new-queue",
+      "primaryRisky": 3,
+      "selectedRisky": 3,
+      "tight": 3,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 19,
+      "source": "new-queue",
+      "primaryRisky": 3,
+      "selectedRisky": 3,
+      "tight": 2,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 20,
+      "source": "updated-v8e",
+      "primaryRisky": 3,
+      "selectedRisky": 2,
+      "tight": 0,
+      "liveStrategy": "reserve",
+      "paceWarnings": []
+    },
+    {
+      "id": 21,
+      "source": "updated-v8e",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": [
+        "continuous-no-input"
+      ]
+    },
+    {
+      "id": 22,
+      "source": "updated-v8e",
+      "primaryRisky": 5,
+      "selectedRisky": 5,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 23,
+      "source": "updated-v8e",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 24,
+      "source": "updated-v8e",
+      "primaryRisky": 2,
+      "selectedRisky": 2,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
     },
     {
       "id": 25,
-      "role": "hard",
-      "random": 0.15666666666666668,
-      "visible": 0.22666666666666666,
-      "maxWait": 19.4
+      "source": "new-queue",
+      "primaryRisky": 5,
+      "selectedRisky": 8,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 26,
+      "source": "new-queue",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 27,
+      "source": "updated-v8e",
+      "primaryRisky": 4,
+      "selectedRisky": 4,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 28,
+      "source": "new-queue",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 29,
+      "source": "new-queue",
+      "primaryRisky": 8,
+      "selectedRisky": 8,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 30,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
     }
   ],
   "patternShare": {
-    "колонка слева до конца": 11,
-    "ряд слева направо": 5,
+    "колонка слева до конца": 10,
+    "ряд слева направо": 6,
     "ряд справа налево": 8,
     "змейка": 4,
-    "середина, потом края": 8,
+    "середина, потом края": 7,
     "по две из колонки": 5,
-    "колонка справа до конца": 11,
+    "колонка справа до конца": 9,
     "самое маленькое число": 10,
-    "самое большое число": 8
+    "самое большое число": 9
   },
   "hardPatternShare": {
-    "колонка слева до конца": 1,
+    "колонка слева до конца": 2,
     "ряд слева направо": 1,
     "ряд справа налево": 1,
-    "середина, потом края": 1,
-    "колонка справа до конца": 1,
-    "самое большое число": 2
+    "середина, потом края": 1
   },
-  "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+  "catalogHash": "4202ec1ef7218687f39dfa2371d03bc35eb60a7ae595b90110d7f05f0bb0cb6b",
   "winningRoutes": 30,
-  "acceptedCertificateActions": 553,
+  "acceptedCertificateActions": 558,
   "visibleHorizonPlannerRoutes": 30,
-  "plannerLeakChecks": 202,
+  "plannerLeakChecks": 207,
   "mysteryLevels": 5,
   "bridges": [
     {
       "level": 20,
       "sites": 1,
-      "firstReadyAfterCommands": 4,
+      "firstReadyAfterCommands": 7,
       "readyThen": [
         "Левый мостик"
       ],
@@ -91,7 +324,7 @@
     {
       "level": 22,
       "sites": 2,
-      "firstReadyAfterCommands": 1,
+      "firstReadyAfterCommands": 3,
       "readyThen": [
         "Левый мостик"
       ],
@@ -100,18 +333,18 @@
     {
       "level": 24,
       "sites": 2,
-      "firstReadyAfterCommands": 3,
+      "firstReadyAfterCommands": 2,
       "readyThen": [
-        "Левый мостик"
+        "Правый мостик"
       ],
       "chosen": "Левый мостик"
     },
     {
       "level": 29,
       "sites": 2,
-      "firstReadyAfterCommands": 1,
+      "firstReadyAfterCommands": 6,
       "readyThen": [
-        "Левый мостик"
+        "Правый мостик"
       ],
       "chosen": "Левый мостик"
     }
@@ -123,8 +356,8 @@
     "when": "queue-empty-and-no-bridge-to-choose"
   },
   "concurrentRandomRuns": 240,
-  "liveClears": 66313,
-  "restoredCheckpoints": 1047,
+  "liveClears": 72665,
+  "restoredCheckpoints": 1127,
   "frameInvarianceChecks": 1,
   "slotReusedBeforeArrival": true,
   "sameColourParallelDispatch": true,
@@ -136,6 +369,7 @@
   "legacyDepthRevealPreserved": true,
   "guessOnlyPuzzleRejected": true,
   "limits": [
+    "Risk describes patient full-information continuations; it is not universal live fairness.",
     "Winning certificates use idle decisions. They do not cover all possible real-time choices.",
     "Policy rates are not human difficulty. No native Core equivalence claim."
   ]

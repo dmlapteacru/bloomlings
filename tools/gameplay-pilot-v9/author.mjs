@@ -6,13 +6,13 @@ const pick=(a,r)=>a[Math.floor(r()*a.length)];
 const shuffle=(a,r)=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 // Links per level (Colony Flow: 70-80% of Hard and Super Hard levels have them, about a third of the others).
 // L8 teaches a same-colour pair, L9 mixed pairs; L22 is the links Super Hard.
-export const GROUPS={12:1,16:1,8:1,9:2,10:3,13:2,14:2,15:2,18:2,21:1,22:4,24:2,25:3,27:2,29:2};
+export const GROUPS={12:2,16:1,8:1,9:2,10:3,13:2,14:2,15:2,18:2,21:1,22:4,24:2,25:3,27:2,29:2};
 // Cells per capsule by role (fewer, larger capsules on relief levels).
 export const CELLS_PER_POD={tutorial:30,relief:34,normal:30,task:28,hard:28,superHard:28};
 const TUTORIAL_PODS={1:9,2:10,3:12,4:12,16:16};
 export const columnsOf=(id,role)=>role==='superHard'||id===24?4:3;
 // L29 is the big-capsule Super Hard: fewer, larger capsules (a big background with large capsules is its axis).
-const CELLS_PER_POD_OF={16:19,29:44};
+const CELLS_PER_POD_OF={16:19,29:34};
 export function podTarget(id,role,cells){return TUTORIAL_PODS[id]||Math.max(12,Math.round(cells/(CELLS_PER_POD_OF[id]||CELLS_PER_POD[role])));}
 // Layers of other colours between the entries and each colour's nearest cell (0: reachable at once).
 function colourLayers(art){const W=art.w,H=art.h,g=art.rowsBottomFirst.join(''),n=g.length,cost=new Int16Array(n).fill(32767),q=[];

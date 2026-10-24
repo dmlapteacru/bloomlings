@@ -26,3 +26,10 @@
 
 .level-choice{position:relative}.new-level{position:absolute;top:3px;right:3px;font-size:8px;font-weight:800;line-height:1;color:#28543e;background:#d9f4cc;border-radius:3px;padding:2px;pointer-events:none}
 .level-choice:has(.new-level){padding-top:17px}
+
+/* v8E (2026-10-25): links as tubes behind the capsules; a tapped capsule flies into its place */
+#tray,#slots{position:relative}#tray>.column,#slots>.slot{z-index:1}svg.tubes{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.slot.arriving>*{visibility:hidden}.slot.arriving{background:#eae3cd}
+.flying-pod{position:fixed;z-index:50;pointer-events:none;display:flex;align-items:center;justify-content:center;border:1px solid #a88b58;border-bottom:4px solid #a88b58;border-radius:15px;background:var(--color);color:var(--text,#fff);text-shadow:var(--text-shadow,0 1px 2px #0005);font:900 22px Nunito,system-ui,sans-serif;transform-origin:0 0;transition:transform .32s cubic-bezier(.3,.7,.4,1);box-shadow:0 6px 14px #0003}
+/* blocked or disabled capsules stay opaque so the tube behind them does not show through */
+.column .pod-top[aria-disabled=true]:not(:disabled),.column .pod-top:disabled{opacity:1;filter:saturate(.55) brightness(1.08)}

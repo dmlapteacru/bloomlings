@@ -93,26 +93,26 @@ for(const l of data.levels){assert.deepEqual(R.validate(l),[]);
   }assert(['Won','Jammed','Stuck'].includes(t.status));liveClears+=t.processedCells;randomRuns++;
  }
 }
-// Changed experiments are checked against v9 gates; controls must remain byte-equivalent to current v8E.
-const baseCatalog=JSON.parse(fs.readFileSync('content/pilot-v9/baseline-v8e-c6b0bfd4/levels.json'));
-assert.equal(data.baseHash,baseCatalog.hash);assert.deepEqual(data.changedLevels,[4,10,12,13,16,25]);
-const gates=[];const bots=await import('./botsc.mjs');
-for(const q of quality.levels){const l=data.levels[q.id-1];
- if(!q.changed){assert.deepEqual(l,baseCatalog.levels[q.id-1],'Control modified L'+q.id);continue;}
- const cfg=quality.targets[q.id],b=q.bots;assert(b,'Bot report L'+q.id);
- const within=(v,[lo,hi])=>v>=lo-1e-9&&v<=hi+1e-9;
- assert(within(b.random,cfg.random),'Random window L'+q.id);assert(within(b.visible,cfg.visible),'Visible window L'+q.id);
- assert(b.patternWins.length<=cfg.patterns,'Pattern count L'+q.id);
- if([13,25].includes(q.id))assert(!b.patternWins.includes('самое маленькое число'),'Smallest-number shortcut L'+q.id);
- assert.deepEqual(bots.patternWins(l),b.patternWins,'Pattern replay L'+q.id);
- assert(q.rhythm.brisk1x.won,'Concurrent certificate L'+q.id);assert(q.rhythm.brisk2x.won,'Concurrent x2 certificate L'+q.id);
- assert(q.rhythm.brisk1x.maxNoChoiceSeconds<=cfg.maxWait,'Forced wait L'+q.id);
- assert(q.rhythm.brisk1x.seconds<=cfg.maxSeconds,'Round length L'+q.id);
- assert(l.pods.every(p=>p.count<=cfg.maxQuota),'Quota cap L'+q.id);
- gates.push({id:q.id,role:q.role,random:b.random,visible:b.visible,maxWait:q.rhythm.brisk1x.maxNoChoiceSeconds});
+// Whole-30 synthesis: role, decision density, real timing strategies and pinned comparison inputs.
+const baseCatalog=JSON.parse(fs.readFileSync('content/pilot-v9/baseline-v8e-51c7bd76/levels.json'));
+const initialCatalog=JSON.parse(fs.readFileSync('content/pilot-v9-initial/levels.json'));
+assert.equal(data.version,'pilot-30-v9-synthesis');assert.equal(data.baseHash,baseCatalog.hash);
+assert.equal(data.initialV9Hash,initialCatalog.hash);assert.equal(quality.levels.length,30);
+assert.deepEqual(data.changedLevels,data.levels.filter((l,i)=>JSON.stringify(l)!==JSON.stringify(initialCatalog.levels[i])).map(l=>l.id));
+const gates=[],bots=await import('./botsc.mjs'),{diagnose}=await import('./decisions.mjs'),{compareRhythm}=await import('./rhythm.mjs');
+const rebuilt=[12,13,16,17,18,19,25,26,28,29];
+for(const q of quality.levels){const l=data.levels[q.id-1],cert=certs[q.id-1];
+ assert(q.cfReferences.rounds&&q.cfReferences.observed&&q.cfReferences.constructionCheck,'CF source L'+q.id);
+ if(rebuilt.includes(q.id))assert.equal(q.source,'new-queue','Rebuild missing L'+q.id);
+ const primary=diagnose(l,q.primaryActions,2000),selected=diagnose(l,cert.actions,2000),need=q.riskNeed;
+ for(const r of [primary,selected])assert.equal(r.unknown,0,'Unknown decision L'+q.id);assert(primary.risky>=need.risky&&primary.tight>=need.tight,'Primary decision density L'+q.id);
+ assert.equal(primary.risky,q.primaryDecision.risky);assert.equal(primary.tight,q.primaryDecision.tight);assert.equal(selected.risky,q.decision.risky);
+ const primaryReplay=playPlanner(l,q.primaryPlanner);assert(primaryReplay.won);assert.deepEqual(primaryReplay.actions,q.primaryActions);
+ const actual=compareRhythm(l,cert.actions);assert.deepEqual(actual,q.rhythm,'Timing replay L'+q.id);assert(['brisk','reserve'].includes(q.pacePolicy));assert(actual[q.pacePolicy+'1x'].won&&actual[q.pacePolicy+'2x'].won,'Live strategy L'+q.id);
+ assert.deepEqual(bots.patternWins(l),q.bots.patternWins,'Pattern replay L'+q.id);
+ if(q.source==='new-queue'){const cfg=quality.levelTargets[q.id],paced=actual[q.pacePolicy+'1x'];assert(paced.maxNoChoiceSeconds<=cfg.wait&&paced.maxForcedLowProductivitySeconds<=cfg.low&&paced.maxOneOrTwoProductiveSeconds<=cfg.low*2&&paced.maxReserveGuardSeconds<=cfg.wait&&paced.seconds<=cfg.seconds,'Measured pacing L'+q.id);assert(q.bots.random>=cfg.random[0]&&q.bots.random<=cfg.random[1]);assert(q.bots.visible>=cfg.visible[0]&&q.bots.visible<=cfg.visible[1]);assert(q.bots.patternWins.length<=cfg.patterns);assert.deepEqual(q.paceWarnings,[],'New pacing warnings L'+q.id);assert(q.heldOut&&q.heldOut.trials===200);if([25,29].includes(q.id)){const xs=primary.points.filter(p=>p.alternatives.some(a=>a.patientWin===false)).map(p=>p.clearedFraction);assert(new Set(xs.map(x=>Math.min(3,Math.floor(x*4)))).size>=2&&Math.max(...xs)-Math.min(...xs)>=.15,'Separated primary decisions L'+q.id);assert(q.opening&&q.opening.upperBound<=.10+1e-8);assert(!q.bots.patternWins.some(p=>['самое маленькое число','самое большое число'].includes(p)));}}
+ gates.push({id:q.id,source:q.source,primaryRisky:primary.risky,selectedRisky:selected.risky,tight:selected.tight,liveStrategy:q.pacePolicy,paceWarnings:q.paceWarnings});
 }
-const counted=quality.levels.filter(q=>q.bots&&q.id>=5),share={},hardShare={};
-for(const q of counted)for(const p of q.bots.patternWins){share[p]=(share[p]||0)+1;if(['hard','superHard'].includes(q.role))hardShare[p]=(hardShare[p]||0)+1;}
-for(const [p,n] of Object.entries(share))assert(n<=.45*counted.length,'Pattern wins too much of the game: '+p);
-for(const [p,n] of Object.entries(hardShare))assert(n<=2,'Pattern wins several Hard levels: '+p);
-const report={passed:true,botGates:gates,patternShare:share,hardPatternShare:hardShare,catalogHash:data.hash,winningRoutes:routes,acceptedCertificateActions:moves,visibleHorizonPlannerRoutes:plannerRoutes,plannerLeakChecks:leakChecks,mysteryLevels,bridges,visibleRows:ROWS,autoTail:TAIL,concurrentRandomRuns:randomRuns,liveClears,restoredCheckpoints:restores,frameInvarianceChecks:frameChecks,slotReusedBeforeArrival:true,sameColourParallelDispatch:true,pairReleaseAtomic:true,fullWorkingRowSurvives:true,conservation:true,sealedAdmissionAndCheckpointVerified:true,rejectedPairKeepsSecrets:true,legacyDepthRevealPreserved:true,guessOnlyPuzzleRejected:true,limits:['Winning certificates use idle decisions. They do not cover all possible real-time choices.','Policy rates are not human difficulty. No native Core equivalence claim.']};fs.writeFileSync(out+'/engine.json',JSON.stringify(report,null,2)+'\n');fs.writeFileSync(out+'/reference-times.json',JSON.stringify(timings,null,2)+'\n');console.log(report);
+const counted=quality.levels.filter(q=>q.id>=5),share={},hardShare={};for(const q of counted)for(const p of q.bots.patternWins){share[p]=(share[p]||0)+1;if(['hard','superHard'].includes(q.role))hardShare[p]=(hardShare[p]||0)+1;}
+for(const [p,n]of Object.entries(share))assert(n<=10,'Pattern too common '+p);for(const [p,n]of Object.entries(hardShare))assert(n<=2,'Hard pattern too common '+p);
+const report={passed:true,all30ReviewGates:gates,patternShare:share,hardPatternShare:hardShare,catalogHash:data.hash,winningRoutes:routes,acceptedCertificateActions:moves,visibleHorizonPlannerRoutes:plannerRoutes,plannerLeakChecks:leakChecks,mysteryLevels,bridges,visibleRows:ROWS,autoTail:TAIL,concurrentRandomRuns:randomRuns,liveClears,restoredCheckpoints:restores,frameInvarianceChecks:frameChecks,slotReusedBeforeArrival:true,sameColourParallelDispatch:true,pairReleaseAtomic:true,fullWorkingRowSurvives:true,conservation:true,sealedAdmissionAndCheckpointVerified:true,rejectedPairKeepsSecrets:true,legacyDepthRevealPreserved:true,guessOnlyPuzzleRejected:true,limits:['Risk describes patient full-information continuations; it is not universal live fairness.','Winning certificates use idle decisions. They do not cover all possible real-time choices.','Policy rates are not human difficulty. No native Core equivalence claim.']};fs.writeFileSync(out+'/engine.json',JSON.stringify(report,null,2)+'\n');fs.writeFileSync(out+'/reference-times.json',JSON.stringify(timings,null,2)+'\n');console.log(report);

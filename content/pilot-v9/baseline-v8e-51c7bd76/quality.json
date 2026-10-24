@@ -1,0 +1,1829 @@
+{
+  "version": "pilot-30-v8e",
+  "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+  "complete": true,
+  "roles": {
+    "tutorial": {
+      "label": "Normal",
+      "random": [
+        0.95,
+        1
+      ],
+      "visible": [
+        0.98,
+        1
+      ],
+      "patterns": 9,
+      "sensible": 4,
+      "seconds1x": [
+        0,
+        60
+      ],
+      "order": [
+        0,
+        0.3
+      ]
+    },
+    "relief": {
+      "label": "Normal",
+      "random": [
+        0.6,
+        0.9
+      ],
+      "visible": [
+        0.85,
+        1
+      ],
+      "patterns": 6,
+      "sensible": 4,
+      "seconds1x": [
+        0,
+        60
+      ],
+      "order": [
+        0,
+        2
+      ]
+    },
+    "normal": {
+      "label": "Normal",
+      "random": [
+        0.35,
+        0.65
+      ],
+      "visible": [
+        0.7,
+        0.95
+      ],
+      "patterns": 4,
+      "sensible": 3,
+      "seconds1x": [
+        0,
+        100
+      ],
+      "order": [
+        0,
+        4
+      ]
+    },
+    "task": {
+      "label": "Normal",
+      "random": [
+        0.2,
+        0.4
+      ],
+      "visible": [
+        0.45,
+        0.75
+      ],
+      "patterns": 3,
+      "sensible": 2,
+      "seconds1x": [
+        0,
+        130
+      ],
+      "order": [
+        0,
+        4
+      ]
+    },
+    "hard": {
+      "label": "Hard",
+      "random": [
+        0.15,
+        0.25
+      ],
+      "visible": [
+        0.2,
+        0.65
+      ],
+      "patterns": 3,
+      "sensible": 2,
+      "seconds1x": [
+        130,
+        180
+      ],
+      "order": [
+        0,
+        3
+      ]
+    },
+    "superHard": {
+      "label": "Super Hard",
+      "random": [
+        0.06,
+        0.12
+      ],
+      "visible": [
+        0,
+        0.3
+      ],
+      "patterns": 2,
+      "sensible": 2,
+      "seconds1x": [
+        190,
+        250
+      ],
+      "order": [
+        0,
+        3
+      ]
+    }
+  },
+  "roleOf": {
+    "1": "tutorial",
+    "2": "tutorial",
+    "3": "tutorial",
+    "4": "tutorial",
+    "5": "normal",
+    "6": "relief",
+    "7": "normal",
+    "8": "task",
+    "9": "normal",
+    "10": "superHard",
+    "11": "relief",
+    "12": "normal",
+    "13": "normal",
+    "14": "task",
+    "15": "hard",
+    "16": "relief",
+    "17": "normal",
+    "18": "task",
+    "19": "normal",
+    "20": "task",
+    "21": "normal",
+    "22": "superHard",
+    "23": "relief",
+    "24": "task",
+    "25": "hard",
+    "26": "normal",
+    "27": "task",
+    "28": "relief",
+    "29": "superHard",
+    "30": "normal"
+  },
+  "patternShare": 0.4,
+  "hardPatternLevels": 2,
+  "earlyLimit": 0.1,
+  "routeRiskNeed": {
+    "superHard": {
+      "risky": 5,
+      "tight": 2
+    },
+    "hard": {
+      "risky": 4,
+      "tight": 1
+    },
+    "task": {
+      "risky": 2,
+      "tight": 0
+    },
+    "normal": {
+      "risky": 1,
+      "tight": 0
+    }
+  },
+  "mysteryLevels": {
+    "6": 1,
+    "10": 5,
+    "19": 1,
+    "25": 2,
+    "30": 1
+  },
+  "planners": [
+    {
+      "rows": 3,
+      "depth": 4,
+      "weight": 12
+    },
+    {
+      "rows": 3,
+      "depth": 8,
+      "weight": 12
+    },
+    {
+      "rows": 3,
+      "depth": 6,
+      "weight": 30
+    }
+  ],
+  "tail": {
+    "departureGap": 250,
+    "speed": 2.5,
+    "when": "queue-empty-and-no-bridge-to-choose"
+  },
+  "limits": [
+    "Bot rates are construction diagnostics, not human win rates.",
+    "seconds: an estimate of the owner's ×2 play, calibrated on the owner's v8C wins; secondsAt1x: the same brisk play at 1× (the default once ×2 is paid).",
+    "Patient player for the bots: every command settles before the next."
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "role": "tutorial",
+      "title": "Ёлочка",
+      "board": "16x18",
+      "pods": 9,
+      "attempt": 0,
+      "banned": [],
+      "seconds": 7.8,
+      "secondsAt1x": 12,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 41.1,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 9,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 6,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": null,
+      "search": {
+        "tried": 1,
+        "bots": 0,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 2,
+      "role": "tutorial",
+      "title": "Цветок",
+      "board": "18x20",
+      "pods": 10,
+      "attempt": 0,
+      "banned": [],
+      "seconds": 8.4,
+      "secondsAt1x": 13,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 51.5,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 10,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 7,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": null,
+      "search": {
+        "tried": 1,
+        "bots": 0,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 3,
+      "role": "tutorial",
+      "title": "Мороженое",
+      "board": "18x20",
+      "pods": 12,
+      "attempt": 0,
+      "banned": [],
+      "seconds": 9.3,
+      "secondsAt1x": 15,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 72.2,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 12,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 8,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": null,
+      "search": {
+        "tried": 1,
+        "bots": 0,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 4,
+      "role": "tutorial",
+      "title": "Бабочка на лугу",
+      "board": "24x26",
+      "pods": 18,
+      "attempt": 7,
+      "banned": [],
+      "seconds": 31.2,
+      "secondsAt1x": 50,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 180.3,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 18,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 12,
+        "risky": 1,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": null,
+      "search": {
+        "tried": 8,
+        "bots": 7,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 5,
+      "role": "normal",
+      "title": "Жёлудь Twig",
+      "board": "25x30",
+      "pods": 12,
+      "attempt": 290,
+      "banned": [
+        "колонка справа до конца",
+        "ряд справа налево",
+        "самое большое число"
+      ],
+      "seconds": 22.1,
+      "secondsAt1x": 34,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 138.8,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 12,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.43666666666666665,
+        "visible": 0.75,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца"
+        ]
+      },
+      "search": {
+        "tried": 232,
+        "bots": 231,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 6,
+      "role": "relief",
+      "title": "Грибок",
+      "board": "20x22",
+      "pods": 12,
+      "attempt": 101,
+      "banned": [],
+      "seconds": 18.2,
+      "secondsAt1x": 28,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 138,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 12,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": {
+        "hidden": [
+          8
+        ],
+        "keys": [
+          8
+        ],
+        "reveals": [
+          {
+            "pod": 8,
+            "command": 9,
+            "clearedFraction": 0.628
+          }
+        ]
+      },
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 10,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.9066666666666666,
+        "visible": 1,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
+          "середина, потом края",
+          "по две из колонки"
+        ]
+      },
+      "search": {
+        "tried": 102,
+        "bots": 100,
+        "early": 0,
+        "planner": 0,
+        "mystery": 1,
+        "time": 0
+      }
+    },
+    {
+      "id": 7,
+      "role": "normal",
+      "title": "Клубника на скатерти",
+      "board": "24x30",
+      "pods": 13,
+      "attempt": 727,
+      "banned": [
+        "колонка справа до конца"
+      ],
+      "seconds": 18.5,
+      "secondsAt1x": 29,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 146.7,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 13,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.43666666666666665,
+        "visible": 0.75,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка слева до конца"
+        ]
+      },
+      "search": {
+        "tried": 702,
+        "bots": 701,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 8,
+      "role": "task",
+      "title": "Чашка на завтраке",
+      "board": "30x32",
+      "pods": 25,
+      "attempt": 978,
+      "banned": [],
+      "seconds": 68.425,
+      "secondsAt1x": 114,
+      "secondsAt1xFrom": "patient route (a brisk replay of the same commands plays out differently)",
+      "patientSeconds": 273.7,
+      "planner": {
+        "rows": 3,
+        "depth": 8,
+        "weight": 12,
+        "commands": 24,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 21,
+        "risky": 2,
+        "tight": 2,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.39666666666666667,
+        "visible": 0.7466666666666667,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      },
+      "search": {
+        "tried": 814,
+        "bots": 812,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0,
+        "risk": 1
+      }
+    },
+    {
+      "id": 9,
+      "role": "normal",
+      "title": "Пончик",
+      "board": "28x26",
+      "pods": 18,
+      "attempt": 168,
+      "banned": [
+        "колонка справа до конца",
+        "ряд справа налево",
+        "самое большое число"
+      ],
+      "seconds": 35.5,
+      "secondsAt1x": 56,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 227.9,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 16,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 11,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.5666666666666667,
+        "visible": 0.8866666666666667,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "по две из колонки",
+          "самое маленькое число"
+        ]
+      },
+      "search": {
+        "tried": 90,
+        "bots": 89,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 10,
+      "role": "superHard",
+      "title": "Золотая рыбка",
+      "board": "34x36",
+      "pods": 34,
+      "attempt": 2014,
+      "banned": [],
+      "seconds": 132.8,
+      "secondsAt1x": 219,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 537.4,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 32,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": {
+        "hidden": [
+          7,
+          18,
+          14,
+          20,
+          19
+        ],
+        "keys": [
+          7,
+          18,
+          14
+        ],
+        "reveals": [
+          {
+            "pod": 7,
+            "command": 8,
+            "clearedFraction": 0.258
+          },
+          {
+            "pod": 19,
+            "command": 13,
+            "clearedFraction": 0.556
+          },
+          {
+            "pod": 20,
+            "command": 14,
+            "clearedFraction": 0.56
+          },
+          {
+            "pod": 18,
+            "command": 20,
+            "clearedFraction": 0.668
+          },
+          {
+            "pod": 14,
+            "command": 27,
+            "clearedFraction": 0.88
+          }
+        ]
+      },
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 26,
+        "risky": 10,
+        "tight": 3,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.06,
+        "visible": 0.056666666666666664,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      },
+      "search": {
+        "tried": 11,
+        "bots": 10,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 11,
+      "role": "relief",
+      "title": "Виноград",
+      "board": "22x24",
+      "pods": 12,
+      "attempt": 260,
+      "banned": [
+        "колонка справа до конца"
+      ],
+      "seconds": 11.1,
+      "secondsAt1x": 16,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 102.7,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 12,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 8,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.6766666666666666,
+        "visible": 1,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "ряд слева направо",
+          "середина, потом края",
+          "по две из колонки",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 71,
+        "bots": 70,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 12,
+      "role": "normal",
+      "title": "Сова ночью",
+      "board": "28x30",
+      "pods": 21,
+      "attempt": 76,
+      "banned": [],
+      "seconds": 50.3,
+      "secondsAt1x": 82,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 273.6,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 21,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 14,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.5533333333333333,
+        "visible": 0.9233333333333333,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 77,
+        "bots": 76,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 13,
+      "role": "normal",
+      "title": "Зонтик под дождём",
+      "board": "26x30",
+      "pods": 20,
+      "attempt": 795,
+      "banned": [
+        "колонка справа до конца"
+      ],
+      "seconds": 57.4,
+      "secondsAt1x": 93,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 258.8,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 19,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 13,
+        "risky": 2,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.5733333333333334,
+        "visible": 0.7566666666666667,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка слева до конца",
+          "ряд справа налево",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 599,
+        "bots": 592,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 3,
+        "risk": 3
+      }
+    },
+    {
+      "id": 14,
+      "role": "task",
+      "title": "Чайник с узором",
+      "board": "30x30",
+      "pods": 24,
+      "attempt": 27,
+      "banned": [],
+      "seconds": 53.1,
+      "secondsAt1x": 85,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 300.6,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 22,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 20,
+        "risky": 3,
+        "tight": 3,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.25666666666666665,
+        "visible": 0.68,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": [
+          "колонка справа до конца"
+        ]
+      },
+      "search": {
+        "tried": 19,
+        "bots": 18,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 15,
+      "role": "hard",
+      "title": "Пчёлка над цветком",
+      "board": "32x34",
+      "pods": 30,
+      "attempt": 7,
+      "banned": [],
+      "seconds": 97.2,
+      "secondsAt1x": 160,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 514.5,
+      "planner": {
+        "rows": 3,
+        "depth": 6,
+        "weight": 30,
+        "commands": 28,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 25,
+        "risky": 9,
+        "tight": 4,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.19,
+        "visible": 0.37,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "ряд справа налево",
+          "середина, потом края"
+        ]
+      },
+      "search": {
+        "tried": 5,
+        "bots": 4,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 16,
+      "role": "relief",
+      "title": "Змей над холмом",
+      "board": "21x24",
+      "pods": 12,
+      "attempt": 300,
+      "banned": [
+        "самое маленькое число"
+      ],
+      "seconds": 15.3,
+      "secondsAt1x": 24,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 68.9,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 12,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 11,
+        "risky": 3,
+        "tight": 3,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.72,
+        "visible": 0.8666666666666667,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд слева направо",
+          "ряд справа налево",
+          "змейка"
+        ]
+      },
+      "search": {
+        "tried": 234,
+        "bots": 233,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 17,
+      "role": "normal",
+      "title": "Садовая лейка",
+      "board": "28x28",
+      "pods": 19,
+      "attempt": 49,
+      "banned": [],
+      "seconds": 59.4,
+      "secondsAt1x": 96,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 253.6,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 19,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 16,
+        "risky": 4,
+        "tight": 3,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.43,
+        "visible": 0.85,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 50,
+        "bots": 48,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0,
+        "risk": 1
+      }
+    },
+    {
+      "id": 18,
+      "role": "task",
+      "title": "Грибной домик",
+      "board": "30x32",
+      "pods": 26,
+      "attempt": 66,
+      "banned": [],
+      "seconds": 73.425,
+      "secondsAt1x": 122,
+      "secondsAt1xFrom": "patient route (a brisk replay of the same commands plays out differently)",
+      "patientSeconds": 293.7,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 24,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 18,
+        "risky": 5,
+        "tight": 5,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.37,
+        "visible": 0.71,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд справа налево",
+          "середина, потом края",
+          "самое маленькое число"
+        ]
+      },
+      "search": {
+        "tried": 49,
+        "bots": 48,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 19,
+      "role": "normal",
+      "title": "Цветок на окне",
+      "board": "24x28",
+      "pods": 16,
+      "attempt": 193,
+      "banned": [],
+      "seconds": 48,
+      "secondsAt1x": 79,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 235,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 16,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": {
+        "hidden": [
+          7
+        ],
+        "keys": [
+          7
+        ],
+        "reveals": [
+          {
+            "pod": 7,
+            "command": 10,
+            "clearedFraction": 0.598
+          }
+        ]
+      },
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 15,
+        "risky": 4,
+        "tight": 4,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.46,
+        "visible": 0.73,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка справа до конца",
+          "ряд справа налево",
+          "змейка",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 194,
+        "bots": 188,
+        "early": 0,
+        "planner": 0,
+        "mystery": 5,
+        "time": 0
+      }
+    },
+    {
+      "id": 20,
+      "role": "task",
+      "title": "Тыква у ручья",
+      "board": "30x32",
+      "pods": 25,
+      "attempt": 112,
+      "banned": [],
+      "seconds": 64.9,
+      "secondsAt1x": 106,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 439.5,
+      "planner": {
+        "rows": 3,
+        "depth": 8,
+        "weight": 12,
+        "commands": 26,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 20,
+        "risky": 3,
+        "tight": 1,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.22666666666666666,
+        "visible": 0.58,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": []
+      },
+      "search": {
+        "tried": 113,
+        "bots": 112,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 21,
+      "role": "normal",
+      "title": "Груша у ручья",
+      "board": "28x30",
+      "pods": 20,
+      "attempt": 92,
+      "banned": [],
+      "seconds": 55.7,
+      "secondsAt1x": 89,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 306.9,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 20,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 14,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.62,
+        "visible": 0.88,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд справа налево",
+          "середина, потом края",
+          "по две из колонки"
+        ]
+      },
+      "search": {
+        "tried": 75,
+        "bots": 70,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 4
+      }
+    },
+    {
+      "id": 22,
+      "role": "superHard",
+      "title": "Домик у ручья",
+      "board": "34x36",
+      "pods": 33,
+      "attempt": 164,
+      "banned": [],
+      "seconds": 146.2,
+      "secondsAt1x": 241,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 653.2,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 30,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 28,
+        "risky": 5,
+        "tight": 3,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.10333333333333333,
+        "visible": 0.11333333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      },
+      "search": {
+        "tried": 67,
+        "bots": 59,
+        "early": 2,
+        "planner": 0,
+        "mystery": 0,
+        "time": 5
+      }
+    },
+    {
+      "id": 23,
+      "role": "relief",
+      "title": "Воздушный шар",
+      "board": "22x26",
+      "pods": 14,
+      "attempt": 1297,
+      "banned": [],
+      "seconds": 14.9,
+      "secondsAt1x": 23,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 95.3,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 14,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 1,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.77,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 1298,
+        "bots": 1297,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 24,
+      "role": "task",
+      "title": "Улитка у ручья",
+      "board": "30x32",
+      "pods": 26,
+      "attempt": 765,
+      "banned": [],
+      "seconds": 80.2,
+      "secondsAt1x": 128,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 641.9,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 25,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0.111,
+      "routeRisk": {
+        "decisions": 24,
+        "risky": 2,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.23333333333333334,
+        "visible": 0.6233333333333333,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 1,
+        "sensibleWins": 2,
+        "patternWins": [
+          "ряд слева направо",
+          "середина, потом края",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 519,
+        "bots": 498,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 15,
+        "risk": 5
+      }
+    },
+    {
+      "id": 25,
+      "role": "hard",
+      "title": "Котёнок с клубком",
+      "board": "32x34",
+      "pods": 30,
+      "attempt": 30,
+      "banned": [],
+      "seconds": 92,
+      "secondsAt1x": 152,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 438.9,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 27,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": {
+        "hidden": [
+          22,
+          21
+        ],
+        "keys": [
+          22,
+          21
+        ],
+        "reveals": [
+          {
+            "pod": 21,
+            "command": 4,
+            "clearedFraction": 0.214
+          },
+          {
+            "pod": 22,
+            "command": 8,
+            "clearedFraction": 0.327
+          }
+        ]
+      },
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 22,
+        "risky": 4,
+        "tight": 3,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.22,
+        "visible": 0.2833333333333333,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 2,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое большое число"
+        ]
+      },
+      "search": {
+        "tried": 11,
+        "bots": 9,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 1
+      }
+    },
+    {
+      "id": 26,
+      "role": "normal",
+      "title": "Подсолнух у забора",
+      "board": "26x30",
+      "pods": 19,
+      "attempt": 300,
+      "banned": [],
+      "seconds": 50,
+      "secondsAt1x": 81,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 274,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 19,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 14,
+        "risky": 2,
+        "tight": 2,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.43666666666666665,
+        "visible": 0.8466666666666667,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "search": {
+        "tried": 301,
+        "bots": 298,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0,
+        "risk": 2
+      }
+    },
+    {
+      "id": 27,
+      "role": "task",
+      "title": "Кит с садом",
+      "board": "32x28",
+      "pods": 24,
+      "attempt": 364,
+      "banned": [],
+      "seconds": 66.9,
+      "secondsAt1x": 108,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 330.8,
+      "planner": {
+        "rows": 3,
+        "depth": 8,
+        "weight": 12,
+        "commands": 22,
+        "winsSeeingTopRowOnly": false
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 17,
+        "risky": 4,
+        "tight": 3,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.31666666666666665,
+        "visible": 0.5366666666666666,
+        "left": 0,
+        "right": 1,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 0,
+        "sensibleWins": 1,
+        "patternWins": [
+          "колонка справа до конца",
+          "самое маленькое число"
+        ]
+      },
+      "search": {
+        "tried": 241,
+        "bots": 240,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 28,
+      "role": "relief",
+      "title": "Яблоко на столе",
+      "board": "23x24",
+      "pods": 12,
+      "attempt": 51,
+      "banned": [],
+      "seconds": 21.3,
+      "secondsAt1x": 34,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 112.4,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 12,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 9,
+        "risky": 1,
+        "tight": 1,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.7666666666666667,
+        "visible": 1,
+        "left": 1,
+        "right": 1,
+        "leftVisible": 1,
+        "biggestVisible": 1,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 4,
+        "patternWins": [
+          "колонка слева до конца",
+          "колонка справа до конца",
+          "самое большое число",
+          "самое маленькое число"
+        ]
+      },
+      "search": {
+        "tried": 52,
+        "bots": 51,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    },
+    {
+      "id": 29,
+      "role": "superHard",
+      "title": "Садовый фонарь",
+      "board": "34x36",
+      "pods": 21,
+      "attempt": 165,
+      "banned": [],
+      "seconds": 125.3,
+      "secondsAt1x": 209,
+      "secondsAt1xFrom": "patient route (a brisk replay of the same commands plays out differently)",
+      "patientSeconds": 501.2,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 20,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": null,
+      "earlyRisk": 0.083,
+      "routeRisk": {
+        "decisions": 17,
+        "risky": 6,
+        "tight": 2,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.05333333333333334,
+        "visible": 0.04,
+        "left": 0,
+        "right": 0,
+        "leftVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 0,
+        "mostWork": 0,
+        "sensibleWins": 0,
+        "patternWins": []
+      },
+      "search": {
+        "tried": 111,
+        "bots": 97,
+        "early": 6,
+        "planner": 0,
+        "mystery": 0,
+        "time": 4,
+        "risk": 3
+      }
+    },
+    {
+      "id": 30,
+      "role": "normal",
+      "title": "Зайчик с морковкой",
+      "board": "21x30",
+      "pods": 13,
+      "attempt": 643,
+      "banned": [],
+      "seconds": 24.3,
+      "secondsAt1x": 37,
+      "secondsAt1xFrom": "brisk replay",
+      "patientSeconds": 159.1,
+      "planner": {
+        "rows": 3,
+        "depth": 4,
+        "weight": 12,
+        "commands": 13,
+        "winsSeeingTopRowOnly": true
+      },
+      "mystery": {
+        "hidden": [
+          8
+        ],
+        "keys": [
+          8
+        ],
+        "reveals": [
+          {
+            "pod": 8,
+            "command": 7,
+            "clearedFraction": 0.268
+          }
+        ]
+      },
+      "earlyRisk": 0,
+      "routeRisk": {
+        "decisions": 8,
+        "risky": 0,
+        "tight": 0,
+        "unknown": 0
+      },
+      "bots": {
+        "random": 0.5966666666666667,
+        "visible": 0.7666666666666667,
+        "left": 1,
+        "right": 0,
+        "leftVisible": 1,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
+        "mostWork": 1,
+        "sensibleWins": 3,
+        "patternWins": [
+          "колонка слева до конца",
+          "середина, потом края",
+          "по две из колонки",
+          "самое маленькое число"
+        ]
+      },
+      "search": {
+        "tried": 644,
+        "bots": 643,
+        "early": 0,
+        "planner": 0,
+        "mystery": 0,
+        "time": 0
+      }
+    }
+  ]
+}
