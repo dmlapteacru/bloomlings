@@ -74,15 +74,8 @@ export const SCENES={
    {shape:union(ellipse(14,19,9,8.6),poly([[6,18],[22,18],[14,28.6]])),color:'O',light:'Y',shade:'A',sphere:[12,16,11],lightAt:.72,group:'nut'},
    {shape:cap,color:'A',light:'O',flat:true,group:'cap'},
    {shape:mask(union(ellipse(14,11,9.2,4),box(14,13.2,8.8,1.2,1)),(x,y)=>(x+y)%3===0||(x-y+99)%3===0),color:'D',outline:false}]};}},
- 6:{title:'Грибы на поляне',draw(W,H,ok){
-  return {background:layer(grassBg(W,H,H-6,ok,.8),skyBg(11,ok)),parts:[cloud(19,3,.8),
-   {shape:box(8.8,17.6,2.6,4.8,1.2),color:'C',shade:'Y',flat:true,group:'s1'},
-   {shape:union(ellipse(9,9.6,8.4,5.6),box(9,12.4,8,1.4,1.2)),color:'P',light:'C',sphere:[7,7,10],group:'c1'},
-   ...dots([[5.6,8.4],[10,7],[13.2,10],[7.6,11.6]],1.2,'C'),
-   {shape:box(18.5,20.4,1.6,2.4,.8),color:'C',shade:'Y',flat:true,group:'s2'},
-   {shape:union(ellipse(18.5,16.8,4,2.8),box(18.5,18.2,3.8,.8,.6)),color:'O',light:'Y',shade:'A',sphere:[17.5,15.5,5],group:'c2'},
-   ...dots([[17.4,16.2]],.9,'C'),
-   ...daisy(3,22.6,'Y','O',.9),...daisy(22.4,23.2,'C','Y',.9),...daisy(13.6,24,'P','Y',.8)]};}},
+ // Hand-drawn (the owner, 2026-10-24: the shape version was hard to read): a mushroom with a face.
+ 6:{title:'Грибок',grid:['BCCBBBBBBBBBBCCB','CCCCBDDDDDDBCCCC','BBBDDYOCCOODDBBB','BBDOYOOCCOOOODBB','BDOCCOOOOOOCCODB','BDOCCOOOOOOCCODB','DOOOOOOOOOOOOOOD','DOOOOOOCCOOOOOOD','DDDDDDDDDDDDDDDD','SSSSDCCCCCCDSSSS','SSSSDCDCCDCDSSSS','SSSSDCDCCDCDSSSS','SSSSDPCCCCPDSSSS','GGGGDCCDDCCDGGGG','GYGGDCCCCCCDGGPG','GGGDCCCCCCCCDGGG','GGGDDDDDDDDDDGYG','GYGGGGGGGGGGGGGG']},
  7:{title:'Клубника на скатерти',draw(W,H,ok){
   const body=union(ellipse(14,12.6,11.2,8.4),poly([[3,13],[25,13],[17.6,26.4],[10.4,26.4]]),circle(14,25.4,3.4));
   return {background:layer(checker('R','C',2,22),skyBg(12,ok)),parts:[
@@ -101,14 +94,8 @@ export const SCENES={
    ...dots([[7,15.6],[20,15.6],[7,21],[20,21]],1,'P'),
    {shape:mask(box(13.5,24.6,9.2,.6),(x)=>x%2===0),color:'R',outline:false},
    ...[[26,24.4,-.6],[27.6,23.4,.4]].map(([x,y,a])=>({shape:leaf(x,y,3.4,1.2,a),color:'M',outline:false}))]};}},
- 9:{title:'Письмо с печатью',draw(W,H,ok){
-  return {background:layer((x,y)=>(y%6===5?'D':(x+Math.floor(y/6)*5)%13===0?'O':'A')),parts:[
-   {shape:seg(3,25.5,9,19.5,1.1),color:'Y',light:'C',shade:'O',flat:true,group:'pencil'},{shape:seg(2.2,26.3,3,25.5,1),color:'K',group:'pencil'},
-   {shape:leaf(22,4.5,7,2.4,-.6),color:'G',shade:'M',flat:true,group:'twig'},{shape:leaf(25,8,6,2,.9),color:'G',shade:'M',flat:true,group:'twig'},{shape:seg(19,8,26.5,2,.6),color:'A',group:'twig'},
-   {shape:box(14,15,12,8.4,1),color:'C',shade:'Y',flat:true,group:'env'},
-   {shape:union(seg(2.4,7.2,14,16.2,.55),seg(25.6,7.2,14,16.2,.55),seg(2.4,22.8,11,15.6,.5),seg(25.6,22.8,17,15.6,.5)),color:'A',outline:false},
-   {shape:box(22.5,10.4,2.4,2.6,.3),color:'K',group:'stamp'},{shape:circle(22.5,10.4,1.4),color:'Y',outline:false},
-   {shape:union(circle(12.8,16.4,2),circle(15.2,16.4,2),poly([[11,17.2],[17,17.2],[14,20.6]])),color:'R',light:'P',sphere:[13,15.5,4],group:'seal'}]};}},
+ // Hand-drawn (the owner, 2026-10-24: the letter was hard to read): a glazed donut on a picnic cloth.
+ 9:{title:'Пончик',grid:['SSSBBBSSSBBBSSSBBBSSSBBB','SSSBBBSSSBDDDSSBBBSSSBBB','SSSBBBDDDDKKKDDDDBSSSBBB','BBBSSDKCCKKKBKKKKDBBBSSS','BBBDDKCKYKKKKKKKGKDDBSSS','BBDKKKKKKKKKKKKKKKKKDSSS','SDKKKRKKKKRKKKYKKKKKKDBB','SDKBKKKGKKKKKKKKCKKRKDBB','DKKKKKKKKKDDDKKKKKKKKKDB','DKKKCKKKKDSSBDKKKKKKYKDS','DKKKKKKKDSSSBBDKKKBKKKDS','DKKKPYKKDSSSBBDKPKKKKPDS','DKKPOPKKKDDDDDKPOPKKKODB','DKPOOOPKPOOOPKPOOOPKPADB','SDOOOOOPOOOOOPOOOOOPODBB','BDAOOOOOOOOOOOOOOOOOADSS','BBDAAOOOOOOOOOOOOOAADSSS','BBBDDAOOOOOOOOOOOADDBSSS','SSSBBDAAAAOOOAAAADSSSBBB','SSSBBBDDDDAAADDDDBSSSBBB','SSSBBBSSSBDDDSSBBBSSSBBB','BBBSSSBBBSSSBBBSSSBBBSSS']},
  10:{title:'Золотая рыбка',draw(W,H,ok){
   const water=(x,y)=>y>=H-3?((x*5+y)%9===0?'P':'C'):y>=H-6?'N':y<5&&(x+y*2)%7===0?'S':'B';
   const weed=(x0,h,c='M')=>({shape:union(...Array.from({length:h},(_,i)=>circle(x0+Math.sin(i*.7)*1.3,H-3-i,1.5))),color:c,light:'G',flat:true,group:'w'+x0});
@@ -123,15 +110,8 @@ export const SCENES={
    {shape:mask(body,(x,y)=>x>=15&&(x-15)%3===0),color:'Y',outline:false},
    {shape:circle(9.2,14.2,2.2),color:'C',group:'eye'},{shape:circle(8.8,14.6,1.1),color:'D',outline:false},
    {shape:ellipse(5.4,17.6,1.2,.7),color:'R',outline:false}]};}},
- 11:{title:'Черепаха у пруда',draw(W,H,ok){
-  const pond=(x,y)=>ellipse(15,23.4,8,2.2)(x+.5,y+.5)<0?((x+y)%4===0?'S':'B'):null;
-  return {background:layer(pond,grassBg(W,H,H-6,ok,.6),skyBg(10,ok)),parts:[...sun(21,2.8,1.8),cloud(6,2.6,.7),
-   {shape:union(ellipse(3.6,13.4,3,2.6),seg(4.4,14.8,6.6,16.4,1.6)),color:'G',shade:'M',flat:true,group:'head'},...dots([[2.6,12.8]],.7,'D'),
-   ...[[7,19.6],[18.6,19.8]].map(([x,y])=>({shape:ellipse(x,y,2,1.6),color:'G',shade:'M',flat:true,group:'leg'+x})),
-   {shape:union(ellipse(13,13.8,10.2,7.4),box(13,17.4,10,1.6,1)),color:'M',light:'G',sphere:[10.6,11,11.6],group:'shell'},
-   {shape:mask(ellipse(13,13.4,8.4,6),(x,y)=>(x%4===1)||(y%3===0)),color:'G',outline:false},
-   {shape:ellipse(13,18.8,10,.8),color:'Y',outline:false},
-   {shape:ellipse(19,23.6,2,1),color:'G',outline:false},...daisy(18,23,'P','Y',.7),...daisy(2.5,23.4,'V','Y',.9),...daisy(22.5,22.6,'V','Y',.8)]};}},
+ // Hand-drawn (the owner, 2026-10-24: the shape version was hard to read): a turtle on the bank.
+ 11:{title:'Черепаха у пруда',grid:['BBBBBBBBBBBBBBYY','BCCCBBBBBBBBBBYY','BBBBDDDDDDBBBBBB','BBBDMMMMMMDBBBBB','BBDMMGGGGMMDBDDB','BDMMGMMMMGMMDGGD','BDGGMMMMMMGGGGDD','DMMMGMMMMGMMGGGD','DMMMMGGGGMMMDDDD','DYYYYYYYYYYYYDSS','SDDGGDDDDGGDDSSS','GGDGGDGGDGGDGGGG','GGGDDGGGGDDGGGVG','BBBVBBBBBBBBVBBB','BBGGGBBNNBBGGGBB','NBBBBBBBBBBBBBBN']},
  12:{title:'Сова ночью',draw(W,H,ok){
   const moon=cut(circle(23,5,3.4),circle(24.6,4,3));
   return {background:layer(nightBg([[2,3],[6,7],[10,2],[15,4],[27,10],[1,12],[26,15],[3,20],[19,2],[13,9]])),parts:[{shape:moon,color:'C',outline:false},

@@ -2,7 +2,7 @@
   "passed": true,
   "attempts": 32,
   "completedLevelsRestored": 30,
-  "compactStorageBytes": 3192964,
+  "compactStorageBytes": 3192091,
   "storageWriteAndFullReloadVerified": true,
   "hiddenFeedbackAndRevealsRestored": 5
 }

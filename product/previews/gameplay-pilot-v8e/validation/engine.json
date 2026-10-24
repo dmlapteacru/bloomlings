@@ -12,9 +12,9 @@
     {
       "id": 6,
       "role": "relief",
-      "random": 0.6166666666666667,
-      "visible": 0.9433333333333334,
-      "patternWins": 5,
+      "random": 0.9066666666666666,
+      "visible": 1,
+      "patternWins": 6,
       "sensibleWins": 4
     },
     {
@@ -36,9 +36,9 @@
     {
       "id": 9,
       "role": "normal",
-      "random": 0.53,
-      "visible": 0.7,
-      "patternWins": 4,
+      "random": 0.5666666666666667,
+      "visible": 0.8866666666666667,
+      "patternWins": 3,
       "sensibleWins": 2
     },
     {
@@ -52,9 +52,9 @@
     {
       "id": 11,
       "role": "relief",
-      "random": 0.8166666666666667,
+      "random": 0.6566666666666666,
       "visible": 1,
-      "patternWins": 4,
+      "patternWins": 3,
       "sensibleWins": 4
     },
     {
@@ -214,11 +214,11 @@
     "колонка справа до конца": 9,
     "ряд справа налево": 10,
     "змейка": 6,
-    "самое большое число": 10,
-    "колонка слева до конца": 10,
+    "самое большое число": 9,
+    "колонка слева до конца": 9,
     "ряд слева направо": 4,
-    "середина, потом края": 8,
-    "по две из колонки": 5,
+    "середина, потом края": 7,
+    "по две из колонки": 7,
     "самое маленькое число": 10
   },
   "hardPatternShare": {
@@ -229,9 +229,9 @@
     "змейка": 2,
     "по две из колонки": 1
   },
-  "catalogHash": "df9227bec50b6540ae4ac521b613aaa7519ac5d641395efafdd5c1608851ade5",
+  "catalogHash": "c545de3d68f04d3cb45abaf79369d5a74f1033c3b582fb07599bbc6450d926c2",
   "winningRoutes": 30,
-  "acceptedCertificateActions": 557,
+  "acceptedCertificateActions": 556,
   "visibleHorizonPlannerRoutes": 30,
   "plannerLeakChecks": 154,
   "mysteryLevels": 5,
@@ -289,8 +289,8 @@
     "when": "queue-empty-and-no-bridge-to-choose"
   },
   "concurrentRandomRuns": 240,
-  "liveClears": 71285,
-  "restoredCheckpoints": 1100,
+  "liveClears": 70619,
+  "restoredCheckpoints": 1090,
   "frameInvarianceChecks": 1,
   "slotReusedBeforeArrival": true,
   "sameColourParallelDispatch": true,

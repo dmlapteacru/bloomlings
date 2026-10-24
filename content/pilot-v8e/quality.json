@@ -1,6 +1,6 @@
 {
   "version": "pilot-30-v8e",
-  "catalogHash": "df9227bec50b6540ae4ac521b613aaa7519ac5d641395efafdd5c1608851ade5",
+  "catalogHash": "c545de3d68f04d3cb45abaf79369d5a74f1033c3b582fb07599bbc6450d926c2",
   "complete": true,
   "roles": {
     "tutorial": {
@@ -374,22 +374,20 @@
     {
       "id": 6,
       "role": "relief",
-      "title": "Грибы на поляне",
+      "title": "Грибок",
       "board": "20x22",
-      "pods": 13,
-      "attempt": 694,
-      "banned": [
-        "колонка справа до конца"
-      ],
-      "seconds": 15.7,
-      "secondsAt1x": 24,
+      "pods": 12,
+      "attempt": 101,
+      "banned": [],
+      "seconds": 18.2,
+      "secondsAt1x": 28,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 132.1,
+      "patientSeconds": 138,
       "planner": {
         "rows": 4,
         "depth": 4,
         "weight": 12,
-        "commands": 13,
+        "commands": 12,
         "winsSeeingTopRowOnly": true
       },
       "mystery": {
@@ -402,15 +400,15 @@
         "reveals": [
           {
             "pod": 8,
-            "command": 6,
-            "clearedFraction": 0.417
+            "command": 9,
+            "clearedFraction": 0.628
           }
         ]
       },
       "earlyRisk": 0,
       "bots": {
-        "random": 0.6166666666666667,
-        "visible": 0.9433333333333334,
+        "random": 0.9066666666666666,
+        "visible": 1,
         "left": 1,
         "right": 0,
         "leftVisible": 1,
@@ -421,17 +419,18 @@
         "patternWins": [
           "колонка слева до конца",
           "ряд слева направо",
+          "ряд справа налево",
+          "змейка",
           "середина, потом края",
-          "по две из колонки",
-          "самое большое число"
+          "по две из колонки"
         ]
       },
       "search": {
-        "tried": 456,
-        "bots": 453,
+        "tried": 102,
+        "bots": 100,
         "early": 0,
         "planner": 0,
-        "mystery": 2,
+        "mystery": 1,
         "time": 0
       }
     },
@@ -530,17 +529,17 @@
     {
       "id": 9,
       "role": "normal",
-      "title": "Письмо с печатью",
+      "title": "Пончик",
       "board": "28x26",
       "pods": 18,
-      "attempt": 153,
+      "attempt": 168,
       "banned": [
-        "самое большое число"
+        "ряд справа налево"
       ],
-      "seconds": 43.9,
-      "secondsAt1x": 70,
+      "seconds": 29.5,
+      "secondsAt1x": 46,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 259.8,
+      "patientSeconds": 227.6,
       "planner": {
         "rows": 4,
         "depth": 4,
@@ -551,25 +550,24 @@
       "mystery": null,
       "earlyRisk": 0,
       "bots": {
-        "random": 0.53,
-        "visible": 0.7,
+        "random": 0.5666666666666667,
+        "visible": 0.8866666666666667,
         "left": 0,
         "right": 0,
         "leftVisible": 0,
-        "biggestVisible": 1,
-        "smallestVisible": 0,
+        "biggestVisible": 0,
+        "smallestVisible": 1,
         "mostWork": 1,
         "sensibleWins": 2,
         "patternWins": [
           "ряд слева направо",
-          "ряд справа налево",
-          "змейка",
-          "середина, потом края"
+          "по две из колонки",
+          "самое маленькое число"
         ]
       },
       "search": {
-        "tried": 11,
-        "bots": 10,
+        "tried": 90,
+        "bots": 89,
         "early": 0,
         "planner": 0,
         "mystery": 0,
@@ -654,25 +652,25 @@
       "title": "Черепаха у пруда",
       "board": "20x20",
       "pods": 12,
-      "attempt": 28,
+      "attempt": 129,
       "banned": [],
-      "seconds": 18.9,
-      "secondsAt1x": 29,
+      "seconds": 14.3,
+      "secondsAt1x": 22,
       "secondsAt1xFrom": "brisk replay",
-      "patientSeconds": 118,
+      "patientSeconds": 146.4,
       "planner": {
         "rows": 4,
         "depth": 4,
         "weight": 12,
         "commands": 12,
-        "winsSeeingTopRowOnly": true
+        "winsSeeingTopRowOnly": false
       },
       "mystery": null,
       "earlyRisk": 0,
       "bots": {
-        "random": 0.8166666666666667,
+        "random": 0.6566666666666666,
         "visible": 1,
-        "left": 1,
+        "left": 0,
         "right": 1,
         "leftVisible": 1,
         "biggestVisible": 1,
@@ -680,15 +678,14 @@
         "mostWork": 1,
         "sensibleWins": 4,
         "patternWins": [
-          "колонка слева до конца",
           "колонка справа до конца",
-          "самое большое число",
-          "самое маленькое число"
+          "по две из колонки",
+          "самое большое число"
         ]
       },
       "search": {
-        "tried": 29,
-        "bots": 28,
+        "tried": 130,
+        "bots": 129,
         "early": 0,
         "planner": 0,
         "mystery": 0,

@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "htmlSHA256": "bb248748f16525690b0482b5c1036964c49394e79de0af05aacbe2166f5c812f",
+  "htmlSHA256": "feb4359cd8034d66cd5865182f2a9962c7f1cdae76e78433f8e0d7aaf62c26a2",
   "domWinningPlaythroughs": 30,
   "responsiveLayouts": 36,
   "checkpointReloads": 2,
@@ -11,7 +11,7 @@
   "releasesBeforeReturnObserved": true,
   "depthRevealsVerified": 8,
   "visibleRowsChecked": true,
-  "mysteryCardsSeen": 80,
+  "mysteryCardsSeen": 83,
   "autoTailAtTailSpeed": 30,
   "noPortraitsOrSymbolsInNormalPalette": true,
   "hiddenCheckpointReloads": 1,

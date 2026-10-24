@@ -1,6 +1,6 @@
 {
   "version": "pilot-30-v8e",
-  "hash": "df9227bec50b6540ae4ac521b613aaa7519ac5d641395efafdd5c1608851ade5",
+  "hash": "c545de3d68f04d3cb45abaf79369d5a74f1033c3b582fb07599bbc6450d926c2",
   "levels": [
     {
       "title": "Кактус в горшке",
@@ -542,30 +542,30 @@
       "difficulty": "Normal"
     },
     {
-      "title": "Грибы на поляне",
+      "title": "Грибок",
       "w": 20,
       "h": 22,
       "rowsBottomFirst": [
         "##########.#########",
         "#..................#",
-        "#.GGGGGGGGPPGGGGGG.#",
-        "#.GYYGGGGGPPGGGGCC.#",
-        "#.GYYGGDDGGGGCYGCC.#",
-        "#.GYYSDYYDGGGCYGGG.#",
-        "#.SSSSDCYDSSSCDGGS.#",
-        "#.SSSSDCYDSSDDADDS.#",
-        "#.SSSSDCYDSSDCOADS.#",
-        "#.SSSSDDDDSSDDDDSS.#",
-        "#.SDDDDPPDDDDSSSSS.#",
-        "#.SDPPCCPPPPDSSSSS.#",
-        "#.BDPPCCPPCPDBBBBB.#",
-        "#.DCCCPPPPCPPDBBBB.#",
-        "#.BDCCPPCPPPDBBBBB.#",
-        "#.BDDCCPCPPDDBBBBB.#",
-        "#.BBBDDDDDDBBBBBBB.#",
-        "#.BBBBBBBBBBBCSSSB.#",
-        "#.BBBBBBBBBBBCCSSB.#",
-        "#.BBBBBBBBBBBCCCCB.#",
+        "#.GYGGGGGGGGGGGGGG.#",
+        "#.GGGDDDDDDDDDDGYG.#",
+        "#.GGGDCCCCCCCCDGGG.#",
+        "#.GYGGDCCCCCCDGGPG.#",
+        "#.GGGGDCCDDCCDGGGG.#",
+        "#.SSSSDPCCCCPDSSSS.#",
+        "#.SSSSDCDCCDCDSSSS.#",
+        "#.SSSSDCDCCDCDSSSS.#",
+        "#.SSSSDCCCCCCDSSSS.#",
+        "#.DDDDDDDDDDDDDDDD.#",
+        "#.DOOOOOOCCOOOOOOD.#",
+        "#.DOOOOOOOOOOOOOOD.#",
+        "#.BDOCCOOOOOOCCODB.#",
+        "#.BDOCCOOOOOOCCODB.#",
+        "#.BBDOYOOCCOOOODBB.#",
+        "#.BBBDDYOCCOODDBBB.#",
+        "#.CCCCBDDDDDDBCCCC.#",
+        "#.BCCBBBBBBBBBBCCB.#",
         "#..................#",
         "####################"
       ],
@@ -578,77 +578,72 @@
       "pods": [
         {
           "color": "G",
-          "count": 41
+          "count": 40
         },
         {
           "color": "P",
-          "count": 12
-        },
-        {
-          "color": "P",
-          "count": 19
+          "count": 3
         },
         {
           "color": "B",
-          "count": 34
-        },
-        {
-          "color": "B",
-          "count": 16
-        },
-        {
-          "color": "B",
-          "count": 18
-        },
-        {
-          "color": "A",
-          "count": 2
+          "count": 28
         },
         {
           "color": "C",
-          "count": 33
+          "count": 41
+        },
+        {
+          "color": "C",
+          "count": 21
         },
         {
           "color": "D",
-          "count": 51,
-          "mystery": "depth"
-        },
-        {
-          "color": "Y",
-          "count": 13
-        },
-        {
-          "color": "O",
-          "count": 1
-        },
-        {
-          "color": "S",
           "count": 23
         },
         {
+          "color": "D",
+          "count": 43
+        },
+        {
+          "color": "Y",
+          "count": 5
+        },
+        {
+          "color": "O",
+          "count": 33,
+          "mystery": "depth"
+        },
+        {
+          "color": "O",
+          "count": 19
+        },
+        {
           "color": "S",
-          "count": 25
+          "count": 17
+        },
+        {
+          "color": "S",
+          "count": 15
         }
       ],
       "tray": [
         [
-          1,
-          4,
+          7,
+          6,
+          5,
+          1
+        ],
+        [
+          11,
+          0,
           9,
           8
         ],
         [
-          0,
-          12,
+          10,
           3,
           2,
-          10
-        ],
-        [
-          5,
-          11,
-          7,
-          6
+          4
         ]
       ],
       "difficulty": "Normal"
@@ -962,34 +957,34 @@
       "difficulty": "Normal"
     },
     {
-      "title": "Письмо с печатью",
+      "title": "Пончик",
       "w": 28,
       "h": 26,
       "rowsBottomFirst": [
         "##############.#############",
         "#..........................#",
-        "#.DDDDDDDDDDDDDDDDDDDDDDDD.#",
-        "#.AAAAAOAAAAAAAAAAOAAAAAAA.#",
-        "#.AKKAAOAAAAAAAAAAOAAAAAAA.#",
-        "#.AAKOAOAAAAAAAAAAOAAAAAAA.#",
-        "#.DDDCODDDDDDDDDDDDDDDDDDD.#",
-        "#.AAADDDDDDDDDDDDDDDDDDAAA.#",
-        "#.AADACCCCCCCCCCCCCCCCADAA.#",
-        "#.AADCAACCCCCDDCCCCCAACDAA.#",
-        "#.AADCCCACCCDPRDCCCACCCDAA.#",
-        "#.DDDCCCCAADRRRRDAACCCCDDD.#",
-        "#.AADCCCCCCDDDDDDCCCCCCDAA.#",
-        "#.AADCCCCCCAACCAACCCCCCDAA.#",
-        "#.AADCCCCCACCCCCCACKKKKDAA.#",
-        "#.DDDCCCAACCCCCCCCAKKYKDDD.#",
-        "#.AADCCACCCCCCCCCCCKYYKDMA.#",
-        "#.AADAACCCCCCCCCCCCKKKKDMA.#",
-        "#.AAADDDDDDDDDDDDDDDDDDAGA.#",
-        "#.AAAAAAAOAAAAAAAAGAAMGGAA.#",
-        "#.OAAAAAAAAAAOAAAAGGGAAAOA.#",
-        "#.OAAAAAAAAAAOAAAAAGGGAAOA.#",
-        "#.OAAAAAAAAAAOAAAAAAAGAAAA.#",
-        "#.OAAAAAAAAAAOAAAAAAAAAAOA.#",
+        "#.BBBSSSBBBSSSBBBSSSBBBSSS.#",
+        "#.SSSBBBSSSBDDDSSBBBSSSBBB.#",
+        "#.SSSBBBDDDDAAADDDDBSSSBBB.#",
+        "#.SSSBBDAAAAOOOAAAADSSSBBB.#",
+        "#.BBBDDAOOOOOOOOOOOADDBSSS.#",
+        "#.BBDAAOOOOOOOOOOOOOAADSSS.#",
+        "#.BDAOOOOOOOOOOOOOOOOOADSS.#",
+        "#.SDOOOOOPOOOOOPOOOOOPODBB.#",
+        "#.DKPOOOPKPOOOPKPOOOPKPADB.#",
+        "#.DKKPOPKKKDDDDDKPOPKKKODB.#",
+        "#.DKKKPYKKDSSSBBDKPKKKKPDS.#",
+        "#.DKKKKKKKDSSSBBDKKKBKKKDS.#",
+        "#.DKKKCKKKKDSSBDKKKKKKYKDS.#",
+        "#.DKKKKKKKKKDDDKKKKKKKKKDB.#",
+        "#.SDKBKKKGKKKKKKKKCKKRKDBB.#",
+        "#.SDKKKRKKKKRKKKYKKKKKKDBB.#",
+        "#.BBDKKKKKKKKKKKKKKKKKDSSS.#",
+        "#.BBBDDKCKYKKKKKKKGKDDBSSS.#",
+        "#.BBBSSDKCCKKKBKKKKDBBBSSS.#",
+        "#.SSSBBBDDDDKKKDDDDBSSSBBB.#",
+        "#.SSSBBBSSSBDDDSSBBBSSSBBB.#",
+        "#.SSSBBBSSSBBBSSSBBBSSSBBB.#",
         "#..........................#",
         "############################"
       ],
@@ -1002,105 +997,105 @@
       "pods": [
         {
           "color": "G",
-          "count": 11
+          "count": 2
         },
         {
           "color": "P",
-          "count": 1
+          "count": 17
+        },
+        {
+          "color": "B",
+          "count": 56,
+          "group": "A"
+        },
+        {
+          "color": "B",
+          "count": 43
         },
         {
           "color": "A",
-          "count": 30
-        },
-        {
-          "color": "A",
-          "count": 23
-        },
-        {
-          "color": "A",
-          "count": 55
-        },
-        {
-          "color": "A",
-          "count": 50
-        },
-        {
-          "color": "A",
-          "count": 19,
-          "group": "B"
-        },
-        {
-          "color": "A",
-          "count": 47
+          "count": 20
         },
         {
           "color": "C",
-          "count": 88
-        },
-        {
-          "color": "C",
-          "count": 35
+          "count": 5
         },
         {
           "color": "D",
-          "count": 75
+          "count": 31
         },
         {
           "color": "D",
-          "count": 47
+          "count": 41
         },
         {
           "color": "Y",
-          "count": 3,
+          "count": 4
+        },
+        {
+          "color": "O",
+          "count": 18,
           "group": "A"
         },
         {
           "color": "O",
-          "count": 8
-        },
-        {
-          "color": "O",
-          "count": 12,
-          "group": "A"
-        },
-        {
-          "color": "M",
-          "count": 3
+          "count": 54
         },
         {
           "color": "R",
-          "count": 5
+          "count": 3
+        },
+        {
+          "color": "K",
+          "count": 66
         },
         {
           "color": "K",
           "count": 16,
           "group": "B"
+        },
+        {
+          "color": "K",
+          "count": 55
+        },
+        {
+          "color": "S",
+          "count": 34,
+          "group": "B"
+        },
+        {
+          "color": "S",
+          "count": 46
+        },
+        {
+          "color": "S",
+          "count": 17
         }
       ],
       "tray": [
         [
-          2,
-          12,
+          16,
           6,
           3,
-          15,
-          1
-        ],
-        [
-          4,
-          14,
-          17,
-          5,
-          9,
-          8
+          2,
+          10,
+          5
         ],
         [
           13,
-          11,
-          10,
+          4,
           7,
+          9,
+          8,
+          11
+        ],
+        [
+          15,
+          14,
+          17,
           0,
-          16
+          1,
+          12
         ]
       ],
       "difficulty": "Normal"
@@ -1351,22 +1346,22 @@
       "rowsBottomFirst": [
         "##########.#########",
         "#..................#",
-        "#.MMMMMMMMMBSMMMMM.#",
-        "#.VYVGGBSBBBBPPGVV.#",
-        "#.GVGGGGGSBBSBBGVV.#",
-        "#.GGGGMDDDDDDDMMGG.#",
-        "#.SSYYYYYYYYYYYYYS.#",
-        "#.SSDMMMGMMMMGMMDS.#",
-        "#.SMDGGGGGGGGGGGDS.#",
-        "#.GGDGMMGMMMMGMMDS.#",
-        "#.SGDGGGGGGGGGGGDS.#",
-        "#.SSBDGMGMMMMGMMDB.#",
-        "#.BBBBDGGMMMMGDDBB.#",
-        "#.BBBBBDDDDDDDBBBB.#",
-        "#.BBBBBBBBBBBBYYYY.#",
-        "#.BBBBBBBBBBBBBOOB.#",
-        "#.BBCCSSBBBBBYBCYB.#",
-        "#.BBCCCCBBBBBBYBBY.#",
+        "#.NBBBBBBBBBBBBBBN.#",
+        "#.BBGGGBBNNBBGGGBB.#",
+        "#.BBBVBBBBBBBBVBBB.#",
+        "#.GGGDDGGGGDDGGGVG.#",
+        "#.GGDGGDGGDGGDGGGG.#",
+        "#.SDDGGDDDDGGDDSSS.#",
+        "#.DYYYYYYYYYYYYDSS.#",
+        "#.DMMMMGGGGMMMDDDD.#",
+        "#.DMMMGMMMMGMMGGGD.#",
+        "#.BDGGMMMMMMGGGGDD.#",
+        "#.BDMMGMMMMGMMDGGD.#",
+        "#.BBDMMGGGGMMDBDDB.#",
+        "#.BBBDMMMMMMDBBBBB.#",
+        "#.BBBBDDDDDDBBBBBB.#",
+        "#.BCCCBBBBBBBBBBYY.#",
+        "#.BBBBBBBBBBBBBBYY.#",
         "#..................#",
         "####################"
       ],
@@ -1379,71 +1374,71 @@
       "pods": [
         {
           "color": "G",
-          "count": 52
+          "count": 21
         },
         {
-          "color": "P",
-          "count": 2
-        },
-        {
-          "color": "B",
-          "count": 40
+          "color": "G",
+          "count": 35
         },
         {
           "color": "B",
-          "count": 32
+          "count": 85
         },
         {
           "color": "C",
-          "count": 7
+          "count": 3
         },
         {
           "color": "D",
           "count": 27
         },
         {
+          "color": "D",
+          "count": 16
+        },
+        {
           "color": "V",
-          "count": 7
+          "count": 3
         },
         {
           "color": "Y",
-          "count": 22
+          "count": 9
         },
         {
-          "color": "O",
-          "count": 2
-        },
-        {
-          "color": "M",
-          "count": 23
+          "color": "Y",
+          "count": 7
         },
         {
           "color": "M",
-          "count": 23
+          "count": 40
+        },
+        {
+          "color": "N",
+          "count": 4
         },
         {
           "color": "S",
-          "count": 19
+          "count": 6
         }
       ],
       "tray": [
         [
-          4,
-          11,
-          3,
-          1
-        ],
-        [
-          0,
-          9,
-          7,
-          8
-        ],
-        [
           10,
           6,
-          2,
-          5
+          7,
+          0
+        ],
+        [
+          3,
+          5,
+          9,
+          2
+        ],
+        [
+          11,
+          8,
+          4,
+          1
         ]
       ],
       "difficulty": "Normal"
