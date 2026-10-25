@@ -33,10 +33,14 @@ try{
    for(const p of R.topPods(t.state))assert.equal(before.visual.revealed[p],1,`Top capsule hidden L${id}`);
    if(hidden.length&&!hiddenReloads){await click('#levelsButton');await page.reload();const afterReload=await snap();assert.deepEqual(afterReload.visual.revealed,before.visual.revealed);assert.deepEqual(afterReload.signature,before.signature);hiddenReloads++;}
    const selector=a.type==='tap'?`.pod-top[data-pod="${a.pod}"]`:`[data-bridge="${a.choice}"]`;assert.equal(await page.locator(selector).evaluate(n=>n.disabled||n.getAttribute('aria-disabled')==='true'),false,`L${id} command ${count}`);
+   const places=()=>page.evaluate(()=>[...document.querySelectorAll('#slots .slot')].map(n=>n.dataset.slotPod===undefined?-1:+n.dataset.slotPod)),prev=await places();
    await click(selector);assert(t.commit(a).accepted);count++;
-   // v8E playtest: the waiting places close up in tap order, so a pair always sits side by side.
-   {await page.clock.runFor(32);const shown=await page.evaluate(()=>[...document.querySelectorAll('#slots .slot')].map(n=>n.dataset.slotPod===undefined?-1:+n.dataset.slotPod)),v=(await snap()).visual;
-    const firstEmpty=shown.indexOf(-1);if(firstEmpty>=0)assert(shown.slice(firstEmpty).every(p=>p<0),`Waiting places close up L${id}`);
+   // The waiting places (the owner, 2026-10-25): a single capsule takes the leftmost free place and nothing moves; a pair
+   // moves the others left (order kept) and stands right after them; a pair always sits side by side.
+   {await page.clock.runFor(32);const shown=await places(),v=(await snap()).visual,took=a.type==='tap'?(l.pods[a.pod].group?l.pods.map((q,j)=>q.group===l.pods[a.pod].group?j:-1).filter(j=>j>=0):[a.pod]):[];
+    const stay=prev.map(p=>p>=0&&shown.includes(p)?p:-1);
+    if(took.length===1){for(const [i,p] of stay.entries())if(p>=0)assert.equal(shown[i],p,`A place moved L${id}`);if(shown.includes(took[0]))assert.equal(shown.indexOf(took[0]),stay.indexOf(-1),`Leftmost free place L${id}`);}
+    else if(took.length>1&&took.every(p=>shown.includes(p))){const kept=stay.filter(p=>p>=0);assert.deepEqual(shown.slice(0,kept.length),kept,`Pair moves the others left L${id}`);}
     for(const [i,p] of shown.entries())if(p>=0&&l.pods[p].group){const mates=l.pods.map((q,j)=>j).filter(j=>j!==p&&l.pods[j].group===l.pods[p].group&&shown.includes(j));for(const m of mates)assert.equal(Math.abs(shown.indexOf(m)-i),1,`Pair side by side L${id}`);}
     assert.deepEqual(shown.filter(p=>p>=0).sort((x,y)=>x-y),v.slots.filter(p=>p>=0).sort((x,y)=>x-y));packedChecks++;}
    if(hidden.length){const after=await snap(),active=(await report()).attempts.at(-1);for(const p of hidden)if(after.visual.revealed[p]){assert(active.reveals.some(r=>r.pod===p&&r.mode==='depth'),`Depth reveal logged L${id}`);depthReveals++;}}assert.equal((await snap()).commands,count);

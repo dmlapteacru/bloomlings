@@ -574,13 +574,22 @@
    arriving.set(p,until);slot.classList.add('arriving');
    requestAnimationFrame(()=>{ghost.style.transform=`translate(${dst.left-src.left}px,${dst.top-src.top}px) scale(${dst.width/src.width},${dst.height/src.height})`;});
    setTimeout(()=>{ghost.remove();arriving.delete(p);render();},340);}}
+ // The waiting places on screen (the owner, 2026-10-25, as in Colony Flow): a capsule keeps its place; a single capsule
+ // takes the leftmost free one; a linked pair first moves everything left (order kept) and stands right after it, side
+ // by side; a finished capsule leaves its place empty and nothing moves. Kept in the attempt, so a reload keeps it.
+ function slotLayout(s,level){let lay=attempt.slotLayout;if(!Array.isArray(lay)||lay.length!==attempt.capacity)lay=attempt.slotLayout=new Array(attempt.capacity).fill(-1);
+  const live=new Set(Array.from(s.slots).filter(p=>p>=0));for(let i=0;i<lay.length;i++)if(lay[i]>=0&&!live.has(lay[i]))lay[i]=-1;
+  const fresh=[...live].filter(p=>!lay.includes(p)).sort((a,b)=>s.ages[a]-s.ages[b]||a-b);
+  while(fresh.length){const p=fresh.shift(),g=level.pods[p].group,mates=g?fresh.filter(q=>level.pods[q].group===g):[];
+   if(mates.length){for(const q of mates)fresh.splice(fresh.indexOf(q),1);const kept=lay.filter(q=>q>=0);lay.fill(-1);kept.forEach((q,i)=>{lay[i]=q;});[p,...mates].forEach((q,i)=>{lay[kept.length+i]=q;});}
+   else{const i=lay.indexOf(-1);if(i>=0)lay[i]=p;}}
+  return lay.slice();}
  function render(){
   if(!state)return;needsRender=false;const s=timeline.shown,level=s.level,free=timeline.free,workers=timeline.workers;
   $('levelTitle').textContent=level.title;$('levelShort').textContent=`L${level.id}`;$('difficulty').textContent=level.difficulty;$('difficulty').className=level.difficulty==='Super Hard'?'hard super':level.difficulty==='Hard'?'hard':'';
   $('boardSize').textContent=`${level.w}×${level.h}`;$('workLabel').textContent=`Осталось ${s.board.reduce((n,c)=>n+(c>=0),0)}`;$('slotsLabel').textContent=`${free} свободно из ${attempt.capacity}`;$('movesLabel').textContent=`${attempt.commands.filter(a=>a.type==='tap').length} тапов`;
   $('speedButton').textContent=speed()+'×';$('speedButton').dataset.auto=String(timeline.tail);$('speedButton').setAttribute('aria-pressed',String(fast()));$('speedButton').setAttribute('aria-label',timeline.tail?`Авто ×${T.TAIL.speed}: очередь закончилась`:'Переключить скорость работы');
-  // v8E (the owner, 2026-10-24, as in Colony Flow): the waiting places close up, in tap order, so a pair sits side by side.
-  const packed=[...Array.from(s.slots).filter(p=>p>=0).sort((a,b)=>s.ages[a]-s.ages[b]),...Array.from(s.slots).filter(p=>p<0)];
+  const packed=slotLayout(s,level);
   slotCards.forEach(({node,image,count,wait,group},i)=>{const p=packed[i],filled=p>=0;node.className=`slot ${filled?'filled':'empty'}`;image.hidden=count.hidden=wait.hidden=!filled;group.hidden=!filled||!level.pods[p]?.group;
    if(filled){const code=level.pods[p].color,ready=s.remaining[p]===0,paired=Boolean(level.pods[p].group),working=workers.has(p);colour(node,code);image.hidden=!symbols();if(image.dataset.hero!==palette[code].hero){image.src=assets[palette[code].hero];image.dataset.hero=palette[code].hero;}count.textContent=ready?'✓':s.remaining[p];wait.textContent=ready?(paired?'ждёт пару':'готово'):working?'в пути':'ждёт';group.textContent=level.pods[p].group||'';node.classList.toggle('pair-ready',ready&&paired);node.classList.toggle('arriving',arriving.has(p));group.hidden=true;node.classList.toggle('working',working&&!reduced.matches);node.dataset.slotPod=p;node.setAttribute('aria-label',`Место ${i+1}: ${palette[code].name}, ${ready?(paired?'готово, ждёт напарника':'готово'):'осталось '+s.remaining[p]}`);}else{delete node.dataset.slotPod;node.setAttribute('aria-label',`Место ${i+1}: свободно`);}
   });
