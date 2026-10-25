@@ -23,6 +23,10 @@
 python3 -I tools/level-stats/videoslots.py --yt <dir> --old <dir> --xrec <dir>   # места и поле с видео (~25 мин)
 node tools/level-stats/measure.mjs --part 0/3 & node tools/level-stats/measure.mjs --part 1/3 & node tools/level-stats/measure.mjs --part 2/3   # ~45 мин
 node tools/level-stats/assemble.mjs   # out/levels/*.json → out/data.json, levels.csv
+node tools/level-stats/validate-cf.mjs --scales 1x1,1.5x1,2x1,3x1,1x1.5   # сверка модели с видео (~15 мин)
+node tools/level-stats/plans.mjs CF-25 v8E-15 v9-22 v9-25                    # разные планы
+node tools/level-stats/measure.mjs --cf-gap 1.5 --out tools/level-stats/out/levels-cal --only <CF-уровни>   # калибровка
+node tools/level-stats/analysis2.mjs  # дополнительные проверки → out/data.json (extra)
 node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknowns.md → report.html
 ```
 
@@ -39,6 +43,10 @@ node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknown
 | `strategies.mjs` | простые стратегии |
 | `measure.mjs` | всё по одному уровню |
 | `supplement.mjs` | дописывает к старым результатам выигрышный путь в двух темпах |
+| `analysis2.mjs` | дополнительные проверки: сопоставимые группы, объём цвета по капсулам, форма связок, конец выборов, v8E против v9 |
+| `validate-cf.mjs` | повтор каждой записи Colony Flow на модели и сверка с видео кадр за кадром, в том числе с медленнее выходящими муравьями |
+| `plans.mjs` | разные выигрышные планы на нескольких уровнях |
+| `cf-engine/` | движок Colony Flow: наш v8E плюс связки Colony Flow, замки, ящики, шоколад, кувшины; масштаб скорости для калибровки |
 
 ## Отчёт
 

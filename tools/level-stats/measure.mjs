@@ -6,7 +6,9 @@ import fs from 'node:fs';import path from 'node:path';
 import {allRecords,root,parseToken} from './levels.mjs';import {engine} from './engines.mjs';import {run} from './trace.mjs';
 import {fromTrace,fromVideo} from './metrics.mjs';import {staticOf} from './static.mjs';import {solver} from './solve.mjs';import {STRATEGIES,ORDER} from './strategies.mjs';
 const arg=k=>{const i=process.argv.indexOf(k);return i>0?process.argv[i+1]:null;};
-const RANDOM=+(arg('--random')||100),BUDGET=+(arg('--budget')||60000),out=path.join(root,'tools/level-stats/out/levels');fs.mkdirSync(out,{recursive:true});
+const RANDOM=+(arg('--random')||100),BUDGET=+(arg('--budget')||60000),out=path.join(root,arg('--out')||'tools/level-stats/out/levels');fs.mkdirSync(out,{recursive:true});
+// --cf-gap k: Colony Flow's ants leave their capsule k times slower (the calibration of validate-cf.mjs); written apart (--out)
+const CF_GAP=+(arg('--cf-gap')||1);
 let recs=allRecords();if(arg('--only'))recs=recs.filter(r=>arg('--only').split(',').includes(r.key));
 if(arg('--part')){const [i,n]=arg('--part').split('/').map(Number);recs=recs.filter((r,k)=>k%n===i);}
 const observedDir=path.join(root,'tools/level-stats/observed');
@@ -27,6 +29,7 @@ function chooseModel(r,E){if(!r.models||r.models.length<2)return;const won=r.att
  else{r.model=null;r.modelNote='board objects reconstructed, but neither reconstruction is winnable on the model';}}
 for(const r of recs){const t0=Date.now(),res={key:r.key,game:r.game,set:r.set,level:r.level,difficulty:r.difficulty,title:r.title,app:r.app,source:r.source,capacity:r.capacity,capacityNote:r.capacityNote||null,
   mechanicsText:r.mechanicsText,uncertain:r.uncertain,boxes:r.boxes||false,modelNote:r.modelNote,model:!!r.model,board:r.board,tray:r.tray,static:staticOf(r),attempts:[],checks:null,strategies:null};
+ if(r.game==='CF'&&CF_GAP!==1){if(r.model)r.model={...r.model,gapScale:CF_GAP};if(r.models)r.models=r.models.map(m=>({...m,model:{...m.model,gapScale:CF_GAP}}));}
  if(r.models)chooseModel(r,await engine(r.game));res.model=!!r.model;res.modelNote=r.modelNote;
  const E=r.model?await engine(r.game):null,S=E?solver(E,BUDGET):null,cap=r.model?(r.model.capacity||5):r.capacity;
  // recorded attempts

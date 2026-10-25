@@ -43,7 +43,7 @@ const rows=L.map(l=>{const st=l.static,b=st.board,t=st.tray,ref=reference(l),m=r
 function obs(m,p){return {[p+'seconds']:m?.end??null,[p+'meanFree']:m?.buffer?.meanFree??null,[p+'minFree']:m?.buffer?.minFree??null,[p+'zeroFreeShare']:m?.buffer?.zeroFreeShare??null,[p+'oneFreeShare']:m?.buffer?.oneFreeShare??null,
  [p+'fullEpisodes']:m?.buffer?.fullEpisodes??null,[p+'tapGapMedian']:m?.time?.tapGaps?.median??null,[p+'stops']:m?.capsules?.stops??null,[p+'cascades']:m?.releases?.cascades??null,[p+'tail90']:m?.time?.tail90??null};}
 // similarity: z-scored features, nearest three; logic and rhythm apart
-const feats={logic:r=>[Math.log(r.cells||1),r.types,r.capsules,r.columns,r.countMean,r.countSd,r.linkSets,r.linkCapsules,r.hidden,r.risky,r.tight],
+const feats={logic:r=>[r.cells>0?Math.log(r.cells):null,r.types,r.capsules,r.columns,r.countMean,r.countSd,r.linkSets,r.linkCapsules,r.hidden,r.risky,r.tight],
  rhythm:(r,l)=>{const ref=l.checks?.routeLive||reference(l).m;const seg=ref?.segmentsByTime||[];return [...[0,1,2,3,4].map(i=>seg[i]?.meanFree??null),...[0,1,2,3,4].map(i=>seg[i]?.zeroFreeShare??null),ref?.time?.tapGaps?.median??null];}};
 const similar={};for(const [name,f] of Object.entries(feats)){const vecs=rows.map((r,i)=>f(r,L[i])),k=vecs[0].length;
  const mu=[...Array(k).keys()].map(j=>mean(vecs.map(v=>v[j]))),sd=[...Array(k).keys()].map(j=>Math.sqrt(mean(vecs.map(v=>v[j]==null?null:(v[j]-mu[j])**2))||1)||1);

@@ -2,7 +2,8 @@
 // capsule on top); `patient` variants wait until all current work has settled first. A player sees what the game shows:
 // the top capsules (their colour and number), the board; it never reads a hidden capsule below the top. "Direction" is
 // the order of choosing capsules (columns of the tray), not the direction the ants clear the board.
-// Ties: the leftmost column first. Bridges (v8E/v9 pictures with a choice of bridge): the first choice, the planner
+// Names say what they do: "top-down" takes the capsule whose colour lies highest on the board, "bottom-up" the lowest,
+// "diagonal" goes round the columns (c1, c2, c3, c1, …). Ties: the leftmost column first. Bridges (v8E/v9 pictures with a choice of bridge): the first choice, the planner
 // tries each.
 export const rng=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
 const columnOf=(s,p)=>s.level.tray.findIndex((stack,c)=>stack[s.heads[c]]===p);
@@ -16,9 +17,9 @@ const bridgeFirst=m=>m.find(a=>a.type==='bridge');
 export const STRATEGIES={
  'left-to-right':{label:'слева направо',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>columnOf(t.state,a.pod)-columnOf(t.state,b.pod))[0]},
  'right-to-left':{label:'справа налево',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>columnOf(t.state,b.pod)-columnOf(t.state,a.pod))[0]},
- 'top-down':{label:'сверху вниз (цвет выше на поле)',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>rowOf(t.state,a.pod)-rowOf(t.state,b.pod))[0]},
- 'bottom-up':{label:'снизу вверх (цвет ниже на поле)',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>rowOf(t.state,b.pod)-rowOf(t.state,a.pod))[0]},
- 'diagonal':{label:'по диагонали (колонки по кругу)',make:()=>{let k=0;return (t,m)=>{const b=bridgeFirst(m);if(b)return b;const tp=taps(m),n=t.state.level.tray.length;for(let j=0;j<n;j++){const c=(k+j)%n,a=tp.find(x=>columnOf(t.state,x.pod)===c);if(a){k=c+1;return a;}}return tp[0];};}},
+ 'top-down':{label:'цвет выше на поле — первым',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>rowOf(t.state,a.pod)-rowOf(t.state,b.pod))[0]},
+ 'bottom-up':{label:'цвет ниже на поле — первым',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>rowOf(t.state,b.pod)-rowOf(t.state,a.pod))[0]},
+ 'diagonal':{label:'колонки по кругу',make:()=>{let k=0;return (t,m)=>{const b=bridgeFirst(m);if(b)return b;const tp=taps(m),n=t.state.level.tray.length;for(let j=0;j<n;j++){const c=(k+j)%n,a=tp.find(x=>columnOf(t.state,x.pod)===c);if(a){k=c+1;return a;}}return tp[0];};}},
  'random':{label:'случайно',random:true,make:seed=>{const r=rng(seed);return (t,m)=>m[Math.floor(r()*m.length)];}},
  'small-first':{label:'маленькие сначала',make:()=>(t,m)=>bridgeFirst(m)||taps(m).reduce((x,a)=>groupLeft(t.state,a)<groupLeft(t.state,x)?a:x)},
  'big-first':{label:'большие сначала',make:()=>(t,m)=>bridgeFirst(m)||taps(m).reduce((x,a)=>groupLeft(t.state,a)>groupLeft(t.state,x)?a:x)},
