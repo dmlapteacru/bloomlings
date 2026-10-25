@@ -107,8 +107,11 @@
  const NS='http://www.w3.org/2000/svg',arriving=new Map();
  function tubes(container,links,k=1){let svg=container.querySelector(':scope > svg.tubes');if(!svg){svg=document.createElementNS(NS,'svg');svg.setAttribute('class','tubes');svg.setAttribute('aria-hidden','true');container.prepend(svg);}
   const box=container.getBoundingClientRect();svg.setAttribute('viewBox',`0 0 ${Math.max(1,box.width)} ${Math.max(1,box.height)}`);
-  const centre=n=>{const r=n.getBoundingClientRect();return [r.left+r.width/2-box.left,r.top+r.height/2-box.top];};
-  const parts=[];for(const [a,b] of links){const [x1,y1]=centre(a),[x2,y2]=Array.isArray(b)?b:centre(b);
+  // On top of the capsules, along their top edge (the owner, 2026-10-25): each end sits on the capsule's top edge, near
+  // the side facing the partner.
+  const edge=(n,toward)=>{const r=n.getBoundingClientRect(),cx=r.left+r.width/2-box.left,inset=r.height<30?3:Math.min(14,r.width/4);return [toward>=cx?r.right-box.left-inset:r.left-box.left+inset,r.top-box.top+Math.min(5,r.height/4)];};
+  const mid=n=>{const r=n.getBoundingClientRect();return r.left+r.width/2-box.left;};
+  const parts=[];for(const [a,b] of links){const bx=Array.isArray(b)?b[0]:mid(b),[x1,y1]=edge(a,bx),[x2,y2]=Array.isArray(b)?b:edge(b,mid(a));
    for(const [w0,c] of [[11,'#5d452c'],[7,'#b98d5a'],[2.2,'#f1d9a8']]){const w=w0*k;const l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1-(w0<3?1.5*k:0));l.setAttribute('x2',x2);l.setAttribute('y2',y2-(w0<3?1.5*k:0));l.setAttribute('stroke',c);l.setAttribute('stroke-width',w);l.setAttribute('stroke-linecap','round');parts.push(l);}}
   svg.replaceChildren(...parts);}
  function drawTubes(level,s){
@@ -123,7 +126,7 @@
   const placed=new Map(Array.from($('slots').children).filter(n=>n.dataset.slotPod!==undefined&&!n.classList.contains('arriving')).map(n=>[+n.dataset.slotPod,n])),slotLinks=[];
   const slotGroups=new Map();for(const [p,n] of placed){const g=level.pods[p].group;if(g)(slotGroups.get(g)||slotGroups.set(g,[]).get(g)).push(n);}
   for(const nodes of slotGroups.values())for(let i=1;i<nodes.length;i++)slotLinks.push([nodes[i-1],nodes[i]]);
-  tubes($('slots'),slotLinks,1.6);}
+  tubes($('slots'),slotLinks,1.3);}
  function fly(pods,from){if(reduced.matches)return;const until=performance.now()+340;
   for(const p of pods){const src=from.get(p),slot=$('slots').querySelector(`.slot[data-slot-pod="${p}"]`);if(!src||!slot)continue;const dst=slot.getBoundingClientRect(),pod=state.level.pods[p];
    const ghost=document.createElement('div');ghost.className='flying-pod';ghost.setAttribute('aria-hidden','true');colour(ghost,pod.color);ghost.textContent=visual.remaining[p];
