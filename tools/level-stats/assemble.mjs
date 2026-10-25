@@ -32,22 +32,27 @@ const rows=L.map(l=>{const st=l.static,b=st.board,t=st.tray,ref=reference(l),m=r
   linkSets:t.links.sets,linkCapsules:t.links.capsules,linkMaxSize:t.links.sizes.length?Math.max(...t.links.sizes):0,linkMaxLength:t.links.lengths.max??0,hidden:t.hidden.capsules,padlocks:t.padlocks,boxes:l.boxes||null,
   accountingOff:st.accounting?.off??null,model:l.model?(l.game==='CF'?'approximate':'exact'):'none',modelNote:l.modelNote,
   winnable:ch?.winnable??null,minCapacity:ch?.minCapacity?.min??null,minCapacityProven:ch?.minCapacity?.provenBelow??null,routeTaps:ch?.route?.taps??null,decisions:ch?.route?.decisions??null,risky:ch?.route?.risky??null,tight:ch?.route?.tight??null,
-  sequencesLog10:ch?.sequences?.log10??null,startTops:ch?.start?.tops??t.startTops,startUseful:ch?.start?.useful??null,
+  sequencesLog10:ch?.sequences?.log10??null,routeFastWins:ch?.routeFast?(ch.routeFast.status==='won'?1:0):null,startTops:ch?.start?.tops??t.startTops,startUseful:ch?.start?.useful??null,
   ...Object.fromEntries(STRATS.map(k=>['s_'+k,l.strategies?.[k]?.rate??null])),
   attempts:attempts.length,outcomes:attempts.map(a=>a.outcome[0]).join(''),firstWinAttempt:firstWin>=0?firstWin+1:null,
   wonSeconds:firstWin>=0?r2(seconds(attempts[firstWin])):null,secondsToFirstWin:firstWin>=0?r2(attempts.slice(0,firstWin+1).reduce((n,a)=>n+(seconds(a)||0),0)):null,
-  refSource:ref.source,refSeconds:m?.end??null,meanFree:m?.buffer?.meanFree??null,minFree:m?.buffer?.minFree??null,zeroFreeShare:m?.buffer?.zeroFreeShare??null,oneFreeShare:m?.buffer?.oneFreeShare??null,fullEpisodes:m?.buffer?.fullEpisodes??null,
-  tapGapMedian:m?.time?.tapGaps?.median??null,stops:m?.capsules?.stops??null,cascades:m?.releases?.cascades??null,tail90:m?.time?.tail90??null};});
+  // o_: the owner's/player's won attempt (video for Colony Flow when measured, else the model replay of its taps; the
+  // exact replay for v8E); none for v9. m_: the same model player on every level that runs on our engine (the
+  // winning route found by search, each tap as soon as it is possible), so the three games compare on one basis.
+  o_source:ref.source&&!/route/.test(ref.source)?ref.source:null,...obs(ref.source&&!/route/.test(ref.source)?m:null,'o_'),...obs(ch?.routeLive||null,'m_')};});
+function obs(m,p){return {[p+'seconds']:m?.end??null,[p+'meanFree']:m?.buffer?.meanFree??null,[p+'minFree']:m?.buffer?.minFree??null,[p+'zeroFreeShare']:m?.buffer?.zeroFreeShare??null,[p+'oneFreeShare']:m?.buffer?.oneFreeShare??null,
+ [p+'fullEpisodes']:m?.buffer?.fullEpisodes??null,[p+'tapGapMedian']:m?.time?.tapGaps?.median??null,[p+'stops']:m?.capsules?.stops??null,[p+'cascades']:m?.releases?.cascades??null,[p+'tail90']:m?.time?.tail90??null};}
 // similarity: z-scored features, nearest three; logic and rhythm apart
 const feats={logic:r=>[Math.log(r.cells||1),r.types,r.capsules,r.columns,r.countMean,r.countSd,r.linkSets,r.linkCapsules,r.hidden,r.risky,r.tight],
- rhythm:(r,l)=>{const ref=reference(l).m;const seg=ref?.segmentsByTime||[];return [...[0,1,2,3,4].map(i=>seg[i]?.meanFree??null),...[0,1,2,3,4].map(i=>seg[i]?.zeroFreeShare??null),ref?.time?.tapGaps?.median??null];}};
+ rhythm:(r,l)=>{const ref=l.checks?.routeLive||reference(l).m;const seg=ref?.segmentsByTime||[];return [...[0,1,2,3,4].map(i=>seg[i]?.meanFree??null),...[0,1,2,3,4].map(i=>seg[i]?.zeroFreeShare??null),ref?.time?.tapGaps?.median??null];}};
 const similar={};for(const [name,f] of Object.entries(feats)){const vecs=rows.map((r,i)=>f(r,L[i])),k=vecs[0].length;
  const mu=[...Array(k).keys()].map(j=>mean(vecs.map(v=>v[j]))),sd=[...Array(k).keys()].map(j=>Math.sqrt(mean(vecs.map(v=>v[j]==null?null:(v[j]-mu[j])**2))||1)||1);
  const z=vecs.map(v=>v.map((x,j)=>x==null?null:(x-mu[j])/sd[j]));
  for(let i=0;i<rows.length;i++){const d=[];for(let j=0;j<rows.length;j++){if(i===j)continue;let s=0,n=0;for(let q=0;q<k;q++)if(z[i][q]!=null&&z[j][q]!=null){s+=(z[i][q]-z[j][q])**2;n++;}if(n>=k*.6)d.push([rows[j].key,r2(Math.sqrt(s/n))]);}
   d.sort((a,b)=>a[1]-b[1]);(similar[rows[i].key]=similar[rows[i].key]||{})[name]=d.slice(0,3);}}
 // comparison per game and difficulty: lists of values for the charts and medians for the table
-const metrics=['cells','types','capsules','columns','countMean','countMedian','countMax','countSd','linkSets','linkCapsules','hidden','minCapacity','risky','tight','startUseful','meanFree','zeroFreeShare','oneFreeShare','fullEpisodes','tapGapMedian','refSeconds','wonSeconds','s_random','s_planner','s_left-to-right','s_most-now','s_fast-release'];
+const metrics=['cells','types','fill','patches','islands','capsules','columns','countMean','countMedian','countMax','countSd','smallVolumeShare','linkSets','linkCapsules','linkMaxLength','hidden','padlocks','minCapacity','risky','tight','decisions','startUseful','routeFastWins',
+ ...['o_','m_'].flatMap(p=>['seconds','meanFree','zeroFreeShare','oneFreeShare','fullEpisodes','tapGapMedian','stops','cascades','tail90'].map(k=>p+k)),'wonSeconds','secondsToFirstWin','firstWinAttempt',...STRATS.map(k=>'s_'+k)];
 const groupsOf=r=>[r.game,`${r.game}|${r.difficulty}`];const comparison={};
 for(const r of rows)for(const g of groupsOf(r)){const c=comparison[g]=comparison[g]||{levels:0,values:{}};c.levels++;for(const m of metrics)(c.values[m]=c.values[m]||[]).push(r[m]);}
 for(const c of Object.values(comparison)){c.median={};c.mean={};c.n={};for(const m of metrics){const v=c.values[m].filter(x=>x!=null);c.median[m]=r2(median(v));c.mean[m]=r2(mean(v));c.n[m]=v.length;}}

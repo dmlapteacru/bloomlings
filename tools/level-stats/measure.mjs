@@ -31,7 +31,10 @@ for(const r of recs){const t0=Date.now(),res={key:r.key,game:r.game,set:r.set,le
  // full-information checks and strategies on our engine
  if(r.model){const route=S.route(r.model,cap);res.checks={capacity:cap,winnable:route.win,searchNodes:route.nodes};
   if(route.route){const dec=S.decisions(r.model,cap,route.route);res.checks.route={taps:route.route.length,decisions:dec.decisions,risky:dec.risky,tight:dec.tight,unknown:dec.unknown,safeFromTap:dec.safeFrom,steps:dec.steps};
-   const live=run(E,r.model,{commands:route.route.map(a=>({t:0,action:a}))});res.checks.routeLive=fromTrace(live);}
+   // the route on the live timeline: patiently (the reference rhythm, same player everywhere) and as fast as possible
+   const cmds=route.route.map(a=>({t:0,action:a})),pat=run(E,r.model,{commands:cmds,patient:true}),fast=run(E,r.model,{commands:cmds}),fm=fromTrace(fast);
+   res.checks.routeLive=fromTrace(pat);res.checks.routeLive.kind='winning route, each tap after the work settles';
+   res.checks.routeFast={status:fast.status,end:fm.end,taps:fm.capsules.taps,routeTaps:route.route.length,cleared:Math.round(100*fm.clearedCells/fast.cells),zeroFreeShare:fm.buffer?.zeroFreeShare??null,meanFree:fm.buffer?.meanFree??null};}
   res.checks.sequences=S.count(r.model,cap,+(arg("--count-budget")||5000));res.checks.minCapacity=S.minCapacity(r.model,cap);
   // what is open at the start: tops that can be tapped, and those whose colour the ants can reach now
   {const s=E.R.create(r.model,cap),reach=new Set(E.R.reach(s).targets.map(i=>s.board[i])),tops=E.R.topPods(s);res.checks.start={tops:tops.length,tappable:E.R.legal(s).filter(a=>a.type==='tap').length,useful:tops.filter(p=>reach.has(s.meta.colours[p])).length,reachableCells:E.R.reach(s).targets.length};}

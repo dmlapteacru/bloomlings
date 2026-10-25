@@ -1,8 +1,9 @@
 // One attempt on the live timeline of our engine, recorded event by event: the buffer (free places, capsules working,
 // stopped with nothing to reach, finished but held by a partner), every tap and release, every cell's clear time and
 // every capsule's stops and resumes. Commands come either from a recording (times in model ms) or from a player
-// (strategies.mjs). Times are model milliseconds at ×1.
-export function run(E,level,{commands=null,player=null,capacity=null,limitMs=3.6e6,reactionMs=0}={}){
+// (strategies.mjs); `patient` waits until all work has settled before each recorded command. Times are model
+// milliseconds at ×1.
+export function run(E,level,{commands=null,player=null,capacity=null,limitMs=3.6e6,reactionMs=0,patient=false}={}){
  const {R,T}=E,state=R.create(level,capacity??level.capacity??5),t=new T.Timeline(state),s0=state;
  const n=level.pods.length,cap=t.state.slots.length,cells=[];for(let i=0;i<s0.board.length;i++)if(s0.board[i]>=0)cells.push(i);
  const clearAt=new Float64Array(s0.board.length).fill(-1),samples=[],taps=[],releases=[],refused=[];
@@ -34,7 +35,7 @@ export function run(E,level,{commands=null,player=null,capacity=null,limitMs=3.6
   const pods=action.type==='tap'?s.meta.groups[action.pod]:[];for(const p of pods)pod[p].tap=t.now;
   taps.push({t:t.now,action,pods,freeBefore:free,source});watch();record();return true;};
  record();
- if(commands){for(const c of commands){if(c.t>t.now)advanceTo(c.t);let guard=0;while(t.check(c.action)&&t.pending&&guard++<2000)advanceTo(Math.min(t.steps[0].at,t.now+100));doTap(c.action,'recorded');}
+ if(commands){for(const c of commands){if(c.t>t.now)advanceTo(c.t);if(patient)while(t.pending)advanceTo(t.steps[0].at);let guard=0;while(t.check(c.action)&&t.pending&&guard++<2000)advanceTo(Math.min(t.steps[0].at,t.now+100));doTap(c.action,'recorded');}
   advanceTo(t.now+limitMs);}
  else{let guard=0;while(guard++<5000){const st=t.status;if(st==='Won'||st==='Jammed'||st==='Stuck')break;
    const moves=R.legal(t.state).filter(a=>!t.check(a));const a=moves.length?player(t,moves):null;
