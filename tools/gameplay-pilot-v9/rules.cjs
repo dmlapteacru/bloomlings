@@ -109,6 +109,12 @@
     return topPods(state).some(p=>canTap(state,p)===null) ? 'Playing' : 'Stuck';
   }
 
+  // Repack only for an accepted linked admission; keep current left-to-right order.
+  function compactSlots(state) {
+    const held=Array.from(state.slots).filter(p=>p>=0);
+    state.slots.fill(-1);state.slots.set(held);
+  }
+
   function canTap(state,pod) {
     if(!Number.isInteger(pod)||pod<0||pod>=state.level.pods.length)return 'unknown-pod';
     const heads=topPods(state),group=state.meta.groups[pod];
@@ -166,6 +172,7 @@
     if (reason) return { accepted: false, reason, state, events: [] };
     const next = clone(state), events = captureEvents ? [] : null;
     if (action.type === 'tap') {
+      if(next.meta.groups[action.pod].length>1)compactSlots(next);
       for(const pod of next.meta.groups[action.pod]){
         const column=next.level.tray.findIndex((stack,c)=>stack[next.heads[c]]===pod);
         next.heads[column]++;const slot=next.slots.indexOf(-1);
@@ -252,5 +259,5 @@
   }
 
   return { CHANNELS, CAPACITY, OPEN, WALL, create, clone, reach, routeTo, bridgeChoices, topPods,
-    legal, check, canTap, step, signature, observation, view, queueEmpty, validate, assertAccounting, settle };
+    legal, check, canTap, compactSlots, step, signature, observation, view, queueEmpty, validate, assertAccounting, settle };
 });

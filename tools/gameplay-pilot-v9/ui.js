@@ -107,7 +107,7 @@
  const NS='http://www.w3.org/2000/svg',arriving=new Map();
  function tubes(container,links,k=1){let svg=container.querySelector(':scope > svg.tubes');if(!svg){svg=document.createElementNS(NS,'svg');svg.setAttribute('class','tubes');svg.setAttribute('aria-hidden','true');container.prepend(svg);}
   const box=container.getBoundingClientRect();svg.setAttribute('viewBox',`0 0 ${Math.max(1,box.width)} ${Math.max(1,box.height)}`);
-  const centre=n=>{const r=n.getBoundingClientRect();return [r.left+r.width/2-box.left,r.top+r.height/2-box.top];};
+  const centre=n=>{const r=n.getBoundingClientRect();return [r.left+r.width/2-box.left,r.top-box.top];};
   const parts=[];for(const [a,b] of links){const [x1,y1]=centre(a),[x2,y2]=Array.isArray(b)?b:centre(b);
    for(const [w0,c] of [[11,'#5d452c'],[7,'#b98d5a'],[2.2,'#f1d9a8']]){const w=w0*k;const l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1-(w0<3?1.5*k:0));l.setAttribute('x2',x2);l.setAttribute('y2',y2-(w0<3?1.5*k:0));l.setAttribute('stroke',c);l.setAttribute('stroke-width',w);l.setAttribute('stroke-linecap','round');parts.push(l);}}
   svg.replaceChildren(...parts);}
@@ -123,7 +123,7 @@
   const placed=new Map(Array.from($('slots').children).filter(n=>n.dataset.slotPod!==undefined&&!n.classList.contains('arriving')).map(n=>[+n.dataset.slotPod,n])),slotLinks=[];
   const slotGroups=new Map();for(const [p,n] of placed){const g=level.pods[p].group;if(g)(slotGroups.get(g)||slotGroups.set(g,[]).get(g)).push(n);}
   for(const nodes of slotGroups.values())for(let i=1;i<nodes.length;i++)slotLinks.push([nodes[i-1],nodes[i]]);
-  tubes($('slots'),slotLinks,1.6);}
+  tubes($('slots'),slotLinks);}
  function fly(pods,from){if(reduced.matches)return;const until=performance.now()+340;
   for(const p of pods){const src=from.get(p),slot=$('slots').querySelector(`.slot[data-slot-pod="${p}"]`);if(!src||!slot)continue;const dst=slot.getBoundingClientRect(),pod=state.level.pods[p];
    const ghost=document.createElement('div');ghost.className='flying-pod';ghost.setAttribute('aria-hidden','true');colour(ghost,pod.color);ghost.textContent=visual.remaining[p];
@@ -136,9 +136,9 @@
   $('levelTitle').textContent=level.title;$('levelShort').textContent=`L${level.id}`;$('difficulty').textContent=level.difficulty;$('difficulty').className=level.difficulty==='Super Hard'?'hard super':level.difficulty==='Hard'?'hard':'';
   $('boardSize').textContent=`${level.w}×${level.h}`;$('workLabel').textContent=`Осталось ${s.board.reduce((n,c)=>n+(c>=0),0)}`;$('slotsLabel').textContent=`${free} свободно из ${attempt.capacity}`;$('movesLabel').textContent=`${attempt.commands.filter(a=>a.type==='tap').length} тапов`;
   $('speedButton').textContent=speed()+'×';$('speedButton').dataset.auto=String(timeline.tail);$('speedButton').setAttribute('aria-pressed',String(fast()));$('speedButton').setAttribute('aria-label',timeline.tail?`Авто ×${T.TAIL.speed}: очередь закончилась`:'Переключить скорость работы');
-  // v8E (the owner, 2026-10-24, as in Colony Flow): the waiting places close up, in tap order, so a pair sits side by side.
-  const packed=[...Array.from(s.slots).filter(p=>p>=0).sort((a,b)=>s.ages[a]-s.ages[b]),...Array.from(s.slots).filter(p=>p<0)];
-  slotCards.forEach(({node,image,count,wait,group},i)=>{const p=packed[i],filled=p>=0;node.className=`slot ${filled?'filled':'empty'}`;image.hidden=count.hidden=wait.hidden=!filled;group.hidden=!filled||!level.pods[p]?.group;
+  // Slots stay fixed on release and single admission. Only an accepted pair compacts the model left.
+  const placed=Array.from(s.slots);
+  slotCards.forEach(({node,image,count,wait,group},i)=>{const p=placed[i],filled=p>=0;node.className=`slot ${filled?'filled':'empty'}`;image.hidden=count.hidden=wait.hidden=!filled;group.hidden=!filled||!level.pods[p]?.group;
    if(filled){const code=level.pods[p].color,ready=s.remaining[p]===0,paired=Boolean(level.pods[p].group),working=workers.has(p);colour(node,code);image.hidden=!symbols();if(image.dataset.hero!==palette[code].hero){image.src=assets[palette[code].hero];image.dataset.hero=palette[code].hero;}count.textContent=ready?'✓':s.remaining[p];wait.textContent=ready?(paired?'ждёт пару':'готово'):working?'в пути':'ждёт';group.textContent=level.pods[p].group||'';node.classList.toggle('pair-ready',ready&&paired);node.classList.toggle('arriving',arriving.has(p));group.hidden=true;node.classList.toggle('working',working&&!reduced.matches);node.dataset.slotPod=p;node.setAttribute('aria-label',`Место ${i+1}: ${palette[code].name}, ${ready?(paired?'готово, ждёт напарника':'готово'):'осталось '+s.remaining[p]}`);}else{delete node.dataset.slotPod;node.setAttribute('aria-label',`Место ${i+1}: свободно`);}
   });
   level.tray.forEach((stack,c)=>{const left=stack.slice(s.heads[c],s.heads[c]+VISIBLE_ROWS),node=columns[c];if(!left.length){node.replaceChildren();node.className='column empty';node.textContent='Пусто';return;}node.className='column';const nodes=left.map((p,k)=>{const card=k===0?topCards[p]:backCards[p],pod=level.pods[p],code=s.revealed[p]?pod.color:'?',unknown=code==='?';const edge=k===VISIBLE_ROWS;colour(card.node,code);card.node.classList.toggle('mystery',unknown);card.node.classList.toggle('pod-edge',edge);card.count.textContent=unknown?'':s.remaining[p];card.mark.textContent=palette[code].mark;card.mark.hidden=!(unknown||symbols()&&!edge);card.group.hidden=!pod.group;card.group.textContent=pod.group?`${pod.group} ↔`:'';card.node.dataset.group=pod.group||'';const reason=k===0?timeline.check({type:'tap',pod:p}):null;card.node.classList.toggle('pair-blocked',Boolean(reason));card.node.setAttribute('aria-label',unknown?'Скрытая капсула, дальше в очереди':edge?`${palette[code].name}: ${s.remaining[p]} клеток, край четвёртого ряда`:unknown?'Скрытая капсула, дальше в очереди':`${palette[code].name}: ${s.remaining[p]} клеток${pod.group?', пара '+pod.group+', нужны два места':''}${k?', дальше в очереди':''}`);card.group.hidden=true;
