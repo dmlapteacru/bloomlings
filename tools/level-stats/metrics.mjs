@@ -77,7 +77,10 @@ function pattern(tr,S){const w=tr.w,h=tr.h,end=S(tr.end);if(!tr.cells)return nul
   quartiles:[q(.25),q(.5),q(.75),q(.9),q(1)].map(r1)};}
 // a video observation (observed/<id>.json attempt): filled places and the board's remaining share over time
 export function fromVideo(a,taps,cap){
- const free=a.slots.map(([t,f])=>[t-a.start,cap-f]),end=a.end-a.start,progress=a.board?.map(([t,v])=>[t-a.start,1-v])||[];
+ // a frame under a card, a hint or the end screen reads null: the last seen state holds through it (counted apart);
+ // the number of places is the frame's own (L3 grows from 5 to 6)
+ const seen=a.slots.filter(s=>s[1]!=null),free=seen.map(([t,f,p])=>[t-a.start,(p?p.length:cap)-f]),end=a.end-a.start,progress=(a.board||[]).filter(b=>b[1]!=null).map(([t,v])=>[t-a.start,1-v]);
+ cap=Math.max(cap,...seen.map(s=>s[2]?.length||0));const hiddenFrames=a.slots.length-seen.length;
  const at=share=>{const p=progress.find(([,v])=>v>=share);return p?p[0]:null;};
  const tapT=taps.map(x=>x.t-a.start);
  const seg=(x,y,label)=>{if(x==null)return {label,reached:false};const b=buffer(free,x,y??end,cap);return {label,reached:true,from:r1(x),to:r1(y??end),...b,taps:tapT.filter(t=>t>=x&&t<(y??end)).length};};
@@ -86,4 +89,5 @@ export function fromVideo(a,taps,cap){
  const gaps=tapT.slice(1).map((t,i)=>t-tapT[i]);
  return {status:a.outcome,end:r1(end),capacity:cap,buffer:buffer(free,0,end,cap),segmentsByTime:byTime,segmentsByCleared:byCleared,
   time:{firstTap:r2(tapT[0]??null),lastTapToEnd:tapT.length?r1(end-tapT.at(-1)):null,tapGaps:stats(gaps.map(r2))},
+  frames:a.slots.length,framesHidden:hiddenFrames,
   series:{free:thin(free,800),cleared:progress.length?thin(progress.map(([t,v])=>[t,r2(v)]),400):null,taps:tapT.map(r2)}};}
