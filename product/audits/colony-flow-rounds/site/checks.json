@@ -39,6 +39,19 @@
   "rounds": "won 30 taps 216 s"
  },
  {
+  "id": "L37",
+  "difficulty": "Normal",
+  "board": "24x24",
+  "columns": 3,
+  "capsules": 25,
+  "cells": 576,
+  "padlocks": 0,
+  "links": 1,
+  "hidden": 0,
+  "boardOff": 45,
+  "rounds": "won 24 taps 99 s"
+ },
+ {
   "id": "L40",
   "difficulty": "Normal",
   "board": "30x30",
@@ -349,18 +362,5 @@
   "hidden": 0,
   "boardOff": 146,
   "rounds": "won 45 taps 391 s"
- },
- {
-  "id": "LX",
-  "difficulty": "Normal",
-  "board": "-",
-  "columns": 3,
-  "capsules": 25,
-  "cells": 576,
-  "padlocks": 0,
-  "links": 1,
-  "hidden": 0,
-  "boardOff": null,
-  "rounds": "won 24 taps 99 s"
  }
 ]

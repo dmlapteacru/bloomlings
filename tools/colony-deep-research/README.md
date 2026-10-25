@@ -46,5 +46,6 @@ All recorded levels (L1–L5, L10, L20, L25, L26) as text in [`product/audits/co
 - `ytsheets.py` — event storyboards of a 640×360 video: only the moments the tray moves (before, every 0.5 s during, after), the waiting places and tray enlarged, 32 frames a sheet.
 - `coverboard.py` — the site's cover picture → letter grid and palette: the beige panel inside the wooden frame, the cube field, every cube's top face, the watermark band repaired (it darkens by about 0.85; its white letters are left out).
 - `rounds/check-round.mjs` — checks one transcribed round (taps take top capsules and linked groups whole, padlocks `#<colour>` leave only on their `unlocks`, a won attempt empties the tray).
+- `rounds/videoboard.py` — a board read from a 640×360 video frame when there is no cover (L37).
 - `rounds/map-colours.py` — the cover's colour clusters → the round's colour letters (by colour name, then by the capsules' totals).
 - `rounds/build-site.mjs` — writes `site/levels.json`, the storyboards and `checks.json` from `rounds/site/`.

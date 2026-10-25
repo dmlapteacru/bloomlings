@@ -1,0 +1,185 @@
+{
+ "level": 37,
+ "difficulty": "Normal",
+ "video": "videoplayback.mp4",
+ "legend": {
+  "M": "maroon / dark red-brown (shading)",
+  "B": "brown (capybara body)",
+  "O": "orange-yellow",
+  "D": "dark purple-black (outline)",
+  "G": "lime green (grass)",
+  "W": "white (flowers)"
+ },
+ "columns": {
+  "c1": [
+   "M15",
+   "B25",
+   "O2",
+   "D30:a",
+   "G30:a",
+   "W15",
+   "B30",
+   "G30"
+  ],
+  "c2": [
+   "B30",
+   "B24",
+   "B28",
+   "M20",
+   "G30",
+   "G24",
+   "D30",
+   "W10"
+  ],
+  "c3": [
+   "G28",
+   "G28",
+   "B30",
+   "O4",
+   "B28",
+   "D25",
+   "G30",
+   "W10",
+   "M20"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 1.75,
+   "end": 100.5,
+   "taps": [
+    [
+     2.25,
+     "c3"
+    ],
+    [
+     2.75,
+     "c3"
+    ],
+    [
+     19.0,
+     "c3"
+    ],
+    [
+     19.5,
+     "c3"
+    ],
+    [
+     20.0,
+     "c3"
+    ],
+    [
+     20.5,
+     "c3"
+    ],
+    [
+     21.5,
+     "c3",
+     "all 5 slots full (30/1/28/22/30)"
+    ],
+    [
+     25.25,
+     "c3",
+     "c3 white 10; c3's last capsule (maroon 20) stays on top until 87.75"
+    ],
+    [
+     30.25,
+     "c1"
+    ],
+    [
+     37.25,
+     "c2"
+    ],
+    [
+     38.25,
+     "c2"
+    ],
+    [
+     39.5,
+     "c2"
+    ],
+    [
+     42.25,
+     "c1"
+    ],
+    [
+     55.75,
+     "c1"
+    ],
+    [
+     58.25,
+     "c1",
+     "pair a: vertical link in c1, dark 30 on top of green 30; one tap took both"
+    ],
+    [
+     63.0,
+     "c1"
+    ],
+    [
+     68.0,
+     "c2"
+    ],
+    [
+     75.5,
+     "c2"
+    ],
+    [
+     79.75,
+     "c2"
+    ],
+    [
+     82.25,
+     "c2"
+    ],
+    [
+     83.25,
+     "c2",
+     "c2 empties; columns re-centre"
+    ],
+    [
+     85.25,
+     "c1"
+    ],
+    [
+     86.25,
+     "c1",
+     "c1 empties"
+    ],
+    [
+     87.75,
+     "c3",
+     "tray empty"
+    ]
+   ],
+   "events": [
+    [
+     11.0,
+     "green slots finish; long static stretch 11-18.5 with all slots empty"
+    ],
+    [
+     100.0,
+     "all slots empty"
+    ],
+    [
+     100.5,
+     "win screen, +20 coins"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Vertical link: c1 rows 4-5 (dark 30 above green 30) joined by a short green bar in one column, visible from 42.25; the lower one came out with the upper one at 58.25 and both kept two joined slots.",
+  "Board (read from the video's frame at 2 s; the site's cover could not be downloaded): two grey patches of hidden '?' tiles on the capybara's lower body (left and right). No locks, keys or boxes seen."
+ ],
+ "uncertain": [
+  "M (maroon, c1 M15, c2 M20, c3 M20) vs B (brown): told apart by the clearly redder, darker shade",
+  "c1 row 3 O2 and c3 row 4 O4: orange-yellow, read as the same colour",
+  "The c2 brown 30 tap (37.25) fell outside the event sheets; read from extra frames 34-38 s",
+  "Tap times within \u00b10.25 s"
+ ],
+ "notes": [
+  "Level number and difficulty given by the owner on 2026-10-25 (the video file has neither)."
+ ]
+}

@@ -153,6 +153,7 @@
     "Links: horizontal (c2 Y8 - c3 Y10, a) and diagonal across rows (b: c1 R20 with c2 D15 two rows lower when first seen; c: c2 R20 - c3 D15; d: c2 R18 - c3 D15). A linked pair occupies two slots joined by a bar until both finish.",
     "When a column empties the remaining columns re-centre (positions shift), no other mechanic seen. Board: plain pixel picture, no boxes/locks."
    ],
+   "notes": [],
    "uncertain": [
     "c1 row 7 D18 and row 8 D15: never seen as '?', assumed not hidden (row 7 was behind the booster bar when c1 row 6 was still grey)",
     "tap times of the last three c1 taps (53.25, 53.75) are within 0.25 s"
@@ -622,6 +623,7 @@
     "Hidden capsules: grey '?' boxes (c3 row 3 -> dark 30 at 69.5, c2 row 7 -> white 32 at 104.75).",
     "A linked pair holds both slots until both are done: red 8 (linked to dark 28) waited from 3.0 to ~100 s."
    ],
+   "notes": [],
    "uncertain": [
     "c3 row 7 (dark 30): not seen as '?' in the frames, assumed open",
     "exact time pair a left the slots (between 92.75 and 100.5)"
@@ -1120,6 +1122,7 @@
     "Board (cover): grey '?' hidden tiles on the house's two pillars; no boxes, no locks or keys seen in the tray.",
     "When a column empties the remaining columns re-centre in the tray (seen at 129.0 and 136.5)."
    ],
+   "notes": [],
    "uncertain": [
     "c2 rows 2-4: three white 35s read from dim rows; the counts 35 confirmed in slots (35/34 at 47.75, 35 at 49.25 and 59.75)",
     "brown vs red: B30 (c1), B25/Y38 (c2), B26 (c3), B25/B30 (c4) are a dark red-brown clearly different from the red 18/15",
@@ -1636,6 +1639,526 @@
    }
   },
   {
+   "level": 37,
+   "id": "L37",
+   "difficulty": "Normal",
+   "title": "капибара",
+   "source": {
+    "video": "https://pub-dc09455922e746b0979cdaa7317edd10.r2.dev/videoplayback.mp4",
+    "site": "colony-flow.com walkthrough video (YouTube, 640x360)",
+    "given": "2026-10-25",
+    "cover": null,
+    "coverNote": null,
+    "start": "start/L37.jpg"
+   },
+   "board": {
+    "w": 24,
+    "h": 24,
+    "rows": [
+     "GGWWWGGGGGGGGGGGGGGGGGGG",
+     "GGGGGGDDDGDDDDDDDGDDDGGG",
+     "GGGGGGDMMDBBBBBBBDMMDGGG",
+     "GGGGGGDMMBBBBBBBBBMMDGGG",
+     "GGGGGGGDBBBBMMMBBBBDGGGG",
+     "GGGGGGGDBDBMMMMMBDBDGGGG",
+     "WWWWGGDBBDBMDDDMBDBDGGGG",
+     "WOOWWGDBBBBMMDMMBBBDGGGG",
+     "WWWWGGDBBBBMMDMMBBBDGGGG",
+     "GGGGGGDBBBBMMDMMBBBDGGGG",
+     "GGGGGDBDBBBMDMDMBBBDGGWW",
+     "GGGGDBBBBBBBMMMBBBDGGWWO",
+     "GGGDBBBBBBBBBBBBBBDGGGWW",
+     "GGGDBBBBBBBBBBBBBDBDGGGG",
+     "GGDBB????BBBBBBBBBBDGGGG",
+     "GGDBB????BBBBBBBB????GGG",
+     "GGDBB????BBBBBBBB????GGG",
+     "GGDBB????MMBBBBB?????GGG",
+     "GGDBBBBBBBBMBBBB??????GG",
+     "GGGDBBBBBBBBDBBMM?????GG",
+     "GGGGDBBBBBBMMDDMM?G??GGG",
+     "GGGGGDDBBBMMMDGDDGGGGGWW",
+     "GGWWWGGDDDDDDGGGGGGGWWOO",
+     "GWWOWWGGGGGGGGGGGGGGGWWW"
+    ],
+    "legend": {
+     "M": {
+      "name": "maroon / dark red-brown (shading)",
+      "hex": "#a75341"
+     },
+     "B": {
+      "name": "brown (capybara body)",
+      "hex": "#d17241"
+     },
+     "O": {
+      "name": "orange-yellow",
+      "hex": "#f4b22c"
+     },
+     "D": {
+      "name": "dark purple-black (outline)",
+      "hex": "#504052"
+     },
+     "G": {
+      "name": "lime green (grass)",
+      "hex": "#a6e551"
+     },
+     "W": {
+      "name": "white (flowers)",
+      "hex": "#e3ece8"
+     },
+     "?": {
+      "name": "mystery tile (grey \"?\")",
+      "hex": "#8a878e"
+     }
+    },
+    "accounting": {
+     "M": {
+      "board": 48,
+      "capsules": 55
+     },
+     "B": {
+      "board": 169,
+      "capsules": 195
+     },
+     "O": {
+      "board": 6,
+      "capsules": 6
+     },
+     "D": {
+      "board": 75,
+      "capsules": 85
+     },
+     "G": {
+      "board": 201,
+      "capsules": 200
+     },
+     "W": {
+      "board": 34,
+      "capsules": 35
+     }
+    },
+    "offBy": 45,
+    "mysteryTiles": 43,
+    "fromVideo": "frame at 2 s, videoboard.py"
+   },
+   "capacity": 5,
+   "legend": {
+    "M": "maroon / dark red-brown (shading)",
+    "B": "brown (capybara body)",
+    "O": "orange-yellow",
+    "D": "dark purple-black (outline)",
+    "G": "lime green (grass)",
+    "W": "white (flowers)"
+   },
+   "tray": {
+    "c1": [
+     "M15",
+     "B25",
+     "O2",
+     "D30:a",
+     "G30:a",
+     "W15",
+     "B30",
+     "G30"
+    ],
+    "c2": [
+     "B30",
+     "B24",
+     "B28",
+     "M20",
+     "G30",
+     "G24",
+     "D30",
+     "W10"
+    ],
+    "c3": [
+     "G28",
+     "G28",
+     "B30",
+     "O4",
+     "B28",
+     "D25",
+     "G30",
+     "W10",
+     "M20"
+    ]
+   },
+   "capsules": 25,
+   "padlocks": 0,
+   "totals": {
+    "M": 55,
+    "B": 195,
+    "O": 6,
+    "D": 85,
+    "G": 200,
+    "W": 35
+   },
+   "mechanics": [
+    "Vertical link: c1 rows 4-5 (dark 30 above green 30) joined by a short green bar in one column, visible from 42.25; the lower one came out with the upper one at 58.25 and both kept two joined slots.",
+    "Board (read from the video's frame at 2 s; the site's cover could not be downloaded): two grey patches of hidden '?' tiles on the capybara's lower body (left and right). No locks, keys or boxes seen."
+   ],
+   "notes": [
+    "Level number and difficulty given by the owner on 2026-10-25 (the video file has neither)."
+   ],
+   "uncertain": [
+    "M (maroon, c1 M15, c2 M20, c3 M20) vs B (brown): told apart by the clearly redder, darker shade",
+    "c1 row 3 O2 and c3 row 4 O4: orange-yellow, read as the same colour",
+    "The c2 brown 30 tap (37.25) fell outside the event sheets; read from extra frames 34-38 s",
+    "Tap times within ±0.25 s"
+   ],
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "won",
+     "start": 1.75,
+     "end": 100.5,
+     "taps": [
+      {
+       "t": 2.25,
+       "column": "c3",
+       "take": [
+        "c3 G28"
+       ],
+       "note": null
+      },
+      {
+       "t": 2.75,
+       "column": "c3",
+       "take": [
+        "c3 G28"
+       ],
+       "note": null
+      },
+      {
+       "t": 19,
+       "column": "c3",
+       "take": [
+        "c3 B30"
+       ],
+       "note": null
+      },
+      {
+       "t": 19.5,
+       "column": "c3",
+       "take": [
+        "c3 O4"
+       ],
+       "note": null
+      },
+      {
+       "t": 20,
+       "column": "c3",
+       "take": [
+        "c3 B28"
+       ],
+       "note": null
+      },
+      {
+       "t": 20.5,
+       "column": "c3",
+       "take": [
+        "c3 D25"
+       ],
+       "note": null
+      },
+      {
+       "t": 21.5,
+       "column": "c3",
+       "take": [
+        "c3 G30"
+       ],
+       "note": "all 5 slots full (30/1/28/22/30)"
+      },
+      {
+       "t": 25.25,
+       "column": "c3",
+       "take": [
+        "c3 W10"
+       ],
+       "note": "c3 white 10; c3's last capsule (maroon 20) stays on top until 87.75"
+      },
+      {
+       "t": 30.25,
+       "column": "c1",
+       "take": [
+        "c1 M15"
+       ],
+       "note": null
+      },
+      {
+       "t": 37.25,
+       "column": "c2",
+       "take": [
+        "c2 B30"
+       ],
+       "note": null
+      },
+      {
+       "t": 38.25,
+       "column": "c2",
+       "take": [
+        "c2 B24"
+       ],
+       "note": null
+      },
+      {
+       "t": 39.5,
+       "column": "c2",
+       "take": [
+        "c2 B28"
+       ],
+       "note": null
+      },
+      {
+       "t": 42.25,
+       "column": "c1",
+       "take": [
+        "c1 B25"
+       ],
+       "note": null
+      },
+      {
+       "t": 55.75,
+       "column": "c1",
+       "take": [
+        "c1 O2"
+       ],
+       "note": null
+      },
+      {
+       "t": 58.25,
+       "column": "c1",
+       "take": [
+        "c1 D30",
+        "c1 G30"
+       ],
+       "note": "pair a: vertical link in c1, dark 30 on top of green 30; one tap took both"
+      },
+      {
+       "t": 63,
+       "column": "c1",
+       "take": [
+        "c1 W15"
+       ],
+       "note": null
+      },
+      {
+       "t": 68,
+       "column": "c2",
+       "take": [
+        "c2 M20"
+       ],
+       "note": null
+      },
+      {
+       "t": 75.5,
+       "column": "c2",
+       "take": [
+        "c2 G30"
+       ],
+       "note": null
+      },
+      {
+       "t": 79.75,
+       "column": "c2",
+       "take": [
+        "c2 G24"
+       ],
+       "note": null
+      },
+      {
+       "t": 82.25,
+       "column": "c2",
+       "take": [
+        "c2 D30"
+       ],
+       "note": null
+      },
+      {
+       "t": 83.25,
+       "column": "c2",
+       "take": [
+        "c2 W10"
+       ],
+       "note": "c2 empties; columns re-centre"
+      },
+      {
+       "t": 85.25,
+       "column": "c1",
+       "take": [
+        "c1 B30"
+       ],
+       "note": null
+      },
+      {
+       "t": 86.25,
+       "column": "c1",
+       "take": [
+        "c1 G30"
+       ],
+       "note": "c1 empties"
+      },
+      {
+       "t": 87.75,
+       "column": "c3",
+       "take": [
+        "c3 M20"
+       ],
+       "note": "tray empty"
+      }
+     ],
+     "unlocks": [],
+     "events": [
+      [
+       11,
+       "green slots finish; long static stretch 11-18.5 with all slots empty"
+      ],
+      [
+       100,
+       "all slots empty"
+      ],
+      [
+       100.5,
+       "win screen, +20 coins"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
+   "storyboard": {
+    "fps": 4,
+    "trayMoves": [
+     [
+      1.75,
+      3.5
+     ],
+     [
+      5.25,
+      6
+     ],
+     [
+      11,
+      11.75
+     ],
+     [
+      16.5,
+      17.25
+     ],
+     [
+      18.5,
+      21.75
+     ],
+     [
+      22.25,
+      23
+     ],
+     [
+      24.75,
+      25.75
+     ],
+     [
+      27.75,
+      28.5
+     ],
+     [
+      29.75,
+      30.75
+     ],
+     [
+      33.25,
+      34
+     ],
+     [
+      37.75,
+      39
+     ],
+     [
+      39,
+      40.25
+     ],
+     [
+      41.75,
+      42.75
+     ],
+     [
+      44.5,
+      45.25
+     ],
+     [
+      55.25,
+      57
+     ],
+     [
+      57.75,
+      58.75
+     ],
+     [
+      61.25,
+      62
+     ],
+     [
+      62.5,
+      63.5
+     ],
+     [
+      67,
+      67.75
+     ],
+     [
+      67.5,
+      68.5
+     ],
+     [
+      72.5,
+      73.25
+     ],
+     [
+      75,
+      76
+     ],
+     [
+      78.25,
+      79
+     ],
+     [
+      79.25,
+      80.25
+     ],
+     [
+      81.75,
+      82.5
+     ],
+     [
+      82.75,
+      83.75
+     ],
+     [
+      83.75,
+      84.5
+     ],
+     [
+      84.75,
+      85.75
+     ],
+     [
+      85.75,
+      86.75
+     ],
+     [
+      87.25,
+      88.5
+     ],
+     [
+      100,
+      100.75
+     ],
+     [
+      100.5,
+      101.25
+     ]
+    ]
+   }
+  },
+  {
    "level": 40,
    "id": "L40",
    "difficulty": "Normal",
@@ -1821,6 +2344,7 @@
     "Board: 'capybara' picture on green, no board mechanics seen (no boxes, no ? tiles). Boosters bar shows 4 boosters x2, none used.",
     "When a column empties the tray recentres the remaining columns."
    ],
+   "notes": [],
    "uncertain": [
     "c3 bottom dark 40 (pair d): may have been hidden; first seen at 123.0 already showing dark 40",
     "c2 last green 40 and c2 green 40:b were seen as plain green in rows 2-3, assumed not hidden",
@@ -2363,6 +2887,7 @@
     "Columns recentre when one empties (4 -> 3 columns at 161.5 s); column names keep their original identity.",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "Colour split between orange-brown (O: 14, 15, 12) and rust (M: 19) is from shade only; they may be one colour",
     "Padlock opening times are approximate (72.25, 139.25, ~227 s)",
@@ -3015,6 +3540,7 @@
     "Hidden capsules (?) in c1, c2, c4; one diagonal link pair (c2 brown 30 - c3 dark 35).",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "Amber vs orange vs yellow: 40s and 44 read as amber/golden, 33/35 as deeper orange, 5/2/4 as lemon yellow; boundary between amber and orange is judged from shading only.",
     "Exact time each padlock opened is from the 0.5 s tiles; the yellow key's board location was not checked.",
@@ -3758,6 +4284,7 @@
     "Waiting slots compact to the left when one empties; the tray re-centres when a column empties (column identity tracked by contents).",
     "Hidden capsules (?) in c2 (2), c3, c4."
    ],
+   "notes": [],
    "uncertain": [
     "Last capsules of c3 (two navy 30) - whether the very last one started hidden is not visible.",
     "Pair a: before the pair formed, the bar from c1 dark 24 looked to point at c2 row 3; it became a clear bar to yellow 20 once both rose, so the group is dark 24 + yellow 20.",
@@ -4426,6 +4953,7 @@
     "No hidden '?' capsules, no locks/keys, no board boxes seen.",
     "When two columns emptied the tray re-centred its remaining columns (134.75)."
    ],
+   "notes": [],
    "uncertain": [
     "Red shades: c3 red 30, c2 red 10, c2 red 26 and c4 red 25 read as the same red (crimson); c1 44 looks lighter (pink-red/coral) and is given its own letter P; c2 26 / c4 25 could be the pink-red instead.",
     "Yellow vs orange: c2 30/50, c4 25/29 and c3 35 read as yellow (gold); c1 50 and c4 19 as orange.",
@@ -4980,6 +5508,7 @@
    "mechanics": [
     "No hidden capsules, links, locks or board boxes in this level: plain stacks of large counts (11-50). Columns re-centre as they empty (c2 first at 31 s, then c1 at 64 s)."
    ],
+   "notes": [],
    "uncertain": [
     "c2 row 4 W13: white vs very light grey (it is the only white capsule; its 13 cells took ~90 s to clear)",
     "exact order/time of the three c2 taps at 16.0-16.4 s and the paired taps at 1.25/1.5, 4.5/4.75, 83.5/83.75 s (0.25 s resolution)"
@@ -5520,6 +6049,7 @@
     "Hidden capsules (?) in c1 and c2.",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "c2 row 4 light blue 11 showed its number already at row 3 (marked ? because the start frame showed '?').",
     "Yellow key: the key icon near the ear seemed still visible around 128 s; the padlock opened anyway right after reaching the top, so its trigger is uncertain.",
@@ -6044,6 +6574,7 @@
     "No hidden '?' capsules seen.",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "c1 cyan 40 and cyan 48 (124.25 / 124.4) lifted out almost together; no bar was visible between them in the tray or in the places, so they are recorded as two separate quick taps, but they could be a vertical pair.",
     "c4 cyan 40 / cyan 40 (142.5 / 142.75) likewise recorded as two quick taps.",
@@ -6685,6 +7216,7 @@
     "Slots compact to the left when one frees up.",
     "No hidden capsules, locks or keys seen."
    ],
+   "notes": [],
    "uncertain": [
     "c3 row 6 (66): yellow-gold vs orange; in the slot it matched the yellow 40, so Y",
     "peach (C) vs light yellow (L) are close shades: c1 20 and c1 40 read peach, c1 45 / c2 20 / c4 25 read light yellow",
@@ -7335,6 +7867,7 @@
     "Columns recentre when one empties (5 -> 4 at 140.5, 3 at 179.5, 2 at 253.5).",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "N (brown-orange: c3 25, c1 40, c2 12 and 35) vs O (orange: 25, 26, 40) vs M (rust: 43, 50) shades judged by eye",
     "c3 dark 35 tap time: 33.25–34.5 (slot shows it at 34.5)",
@@ -8217,6 +8750,7 @@
     "Board: two dark brown chocolate-bar blocks with counters, 900 at the left edge and 500 at the bottom, plus a small '90' marker on the bear's ear (cover picture). They are not shown in the tray. The counters drop while green work runs: the bottom 500 block was already gone at 60 s, the left one read 362 at 60 s and was gone by 200 s.",
     "Columns re-centre when one empties (c3 at 452.75 s). No locks/keys in the tray."
    ],
+   "notes": [],
    "uncertain": [
     "Shade calls between medium green (G) and lime (L), and between brown-orange (N) and bright orange (O), read partly from dimmed rows; c1 O35 and c4 O50 bright orange, c4 N40 (both) brown-orange",
     "R83 given its own letter (maroon); it may be the same colour as N (brown-orange)",
@@ -9362,6 +9896,7 @@
     "No hidden capsules, locks or keys seen. Boosters x2 each, none used.",
     "When a column empties the tray recentres the remaining columns."
    ],
+   "notes": [],
    "uncertain": [
     "c4 white 34 first seen at 60.5 rising into row 1; it may have started hidden (row 3 at start was only partly visible)",
     "Fast bursts (0.5-1.5 c1, 15.75-16.25 c5, 48.6-49.25 c3, 172.25-172.75) tap times are approximate to 0.25 s; order within a burst follows the slot order",
@@ -9944,6 +10479,7 @@
     "No links and no hidden capsules in this level.",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "salmon (S34) vs crimson (R20, R37, R73) red: two shades, read from the slots",
     "the key carriers were read from the board: red Bloomlings carried the green key (45.25), green ones the cyan key (144.5); the yellow key carrier at ~71.75 read only from the slot icon",
@@ -10595,6 +11131,7 @@
     "Tray re-centres its remaining columns when a column empties (38.5, 66.5, 83.75).",
     "Fast play: the five places were full several times; the slots acted as the bottleneck (no loss)."
    ],
+   "notes": [],
    "uncertain": [
     "Exact tap times inside quick bursts (4.25-4.75, 11.5-11.75, 54.5-55.0, 60.0-60.25, 37.0-37.25) are to about 0.25 s; the order inside each burst is from which place each capsule took.",
     "Pinks: M (magenta, e.g. c2 16/15/18/15) vs P (light pink, c2 10, c3 10/16, c1 10) read clearly; c2 row 4 'M15' was in a magenta box.",
@@ -11433,6 +11970,7 @@
     "Columns re-centre when one empties (76.25, 114.5).",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "Padlocks are omitted from the column token lists (see mechanics); their positions: c2 between rows 1 and 2, c3 between rows 7 and 8",
     "Which colony collected each key is not visible in the tray crop; yellow padlock went right after a light-blue capsule finished (35.5), cyan padlock at 101.5",
@@ -12319,6 +12857,7 @@
     "No hidden '?' capsules, no padlocks/keys seen in the tray.",
     "Tray re-centres its columns when one empties (59.0, 104.25, 136.1)."
    ],
+   "notes": [],
    "uncertain": [
     "c4 black 34 / ice 35 (136.0 / 136.1) and c2 black 30 / green 35 (149.5 / 149.6) lifted out almost together; no bar was seen, so recorded as two quick taps each; they could be vertical pairs.",
     "The ice shades all read as one pale light blue (35, 36, 38, 40); white/light grey 26, 22, 20 kept as a separate colour.",
@@ -13134,6 +13673,7 @@
     "When a column empties, the tray recentres its remaining columns (names here stay the original ones).",
     "No hidden capsules, locks or keys."
    ],
+   "notes": [],
    "uncertain": [
     "red (R) vs crimson (M): c3 38 and c2 36 read darker crimson, the 40s and 43s read red; in the slots the pair i showed crimson 38 + red 43",
     "c1 has two identical vertical pairs cyan 45 + red 40 (rows 4-5 and 6-7): the second was only told apart because the slots refilled at 401.75 while the tray kept showing 45/40",
@@ -13622,6 +14162,7 @@
     "Waiting slots compact to the left; the tray re-centres as columns empty. No hidden (?) capsules were seen.",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "Group d (c2 red 20 + yellow 9 + c4 light blue 15): checked at 8 fps around 123 s - all three leave in the same frame (~123.0 s) joined by bars, so read as one group of three; the vertical red-yellow bar in c2 was visible from the start.",
     "Pair b: the dark bar from c3 dark 20 first looked as if it went to c4 dark 20, but c4 dark 20 left alone at 56.25 and the bar then joined c3 dark 20 to c4 red 20.",
@@ -14382,6 +14923,7 @@
     "Small counters '100' at three spots on the board (a small dark/brick block or opening under each: left of the body, right of the body, near the hat) also counted down (left 100 -> 38 at 45 s -> 22 at 58 s; right 100 -> 34 -> 18 -> gone by 58 s; hat one 52 at 20 s) - exact role unclear (seen only on the board, nothing in the tray).",
     "No hidden capsules, no links, no locks/keys. Columns re-centre as they empty (c3 at 41.5 s, c4 at 63.75 s)."
    ],
+   "notes": [],
    "uncertain": [
     "Brick vs orange shade of a few capsules read from dimmed rows: c3 row 6 B45 and row 7 B40 (brick), c1 row 7 O40 (orange), c2 row 4 O50 (orange)",
     "Role of the small '100' counters on the board (not tied to any tray capsule I could see)",
@@ -15073,6 +15615,7 @@
     "Board (cover): a small cluster of grey '?' hidden tiles on the left of the cake's cream layer. No locks, keys or boxes seen.",
     "Columns re-centre when one empties (60.5, 165.75, 171.5)."
    ],
+   "notes": [],
    "uncertain": [
     "C (cream / pale yellow) vs Y (bright yellow): c1 C28, c2 C25 ×2, c4 C25 read as the pale shade, c3 Y40 as the bright one",
     "Link b's lower end: read as c3 W30 from the horizontal bar at 128.5; before that the line's far end was hidden near the booster bar",
@@ -15822,6 +16365,7 @@
     "When a column empties the tray recentres. No hidden '?' capsules. Boosters not used.",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "Unlock times (112.5 cyan, 120.5 gold) good to ~0.5 s; the keys vanished from the board between 109-113 s and 119-121 s",
     "Light pink 10 (c3) vs hot pink 30 (c3): taken as different colours P and H; light pink 3 (c1) taken as the same P as the 10",
@@ -16946,6 +17490,7 @@
     "Columns recentre when one empties (5 -> 4 at 462.5, 3 at 509.5, 2 at 618.25).",
     "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
    ],
+   "notes": [],
    "uncertain": [
     "Grey vs white: all 'S' capsules look the same light grey; there may be two shades (white vs light grey) that the dimmed rows hide",
     "c4 fuchsia 1 (M) vs violet 4 (V) may be the same colour",
@@ -18037,6 +18582,7 @@
     "When a column empties, the tray recentres its remaining columns (column names here stay the original ones).",
     "No hidden capsules, locks, keys or boxes seen."
    ],
+   "notes": [],
    "uncertain": [
     "c3 43.125 dark 15: read as a separate quick tap 0.25 s after pair m (no bar seen between white 25 and dark 15); could be a 3-capsule group",
     "turquoise 2 (c4 row 5) read as a different colour from the pale light aqua capsules",
@@ -18687,6 +19233,7 @@
     "No hidden '?' capsules, no locks/keys, no board boxes seen. Boosters not used.",
     "When a column empties the tray recentres."
    ],
+   "notes": [],
    "uncertain": [
     "Two reds: crimson (R) vs coral (C) separated by eye; c2 crimson 24 (pair r), c1 crimson 25 (start row 3) and pair n (c5, the first of the two maybe coral) are the least sure",
     "Green 21 (c5 pair o) taken as G (medium green), not lime",
@@ -19329,436 +19876,6 @@
      [
       393,
       396
-     ]
-    ]
-   }
-  },
-  {
-   "level": null,
-   "id": "LX",
-   "difficulty": "Normal",
-   "title": "капибара",
-   "source": {
-    "video": "https://pub-dc09455922e746b0979cdaa7317edd10.r2.dev/videoplayback.mp4",
-    "site": "colony-flow.com walkthrough video (YouTube, 640x360)",
-    "given": "2026-10-25",
-    "cover": null,
-    "coverNote": null,
-    "start": "start/LX.jpg"
-   },
-   "board": null,
-   "capacity": 5,
-   "legend": {
-    "M": "maroon / dark red-brown (shading)",
-    "B": "brown (capybara body)",
-    "O": "orange-yellow",
-    "D": "dark purple-black (outline)",
-    "G": "lime green (grass)",
-    "W": "white (flowers)"
-   },
-   "tray": {
-    "c1": [
-     "M15",
-     "B25",
-     "O2",
-     "D30:a",
-     "G30:a",
-     "W15",
-     "B30",
-     "G30"
-    ],
-    "c2": [
-     "B30",
-     "B24",
-     "B28",
-     "M20",
-     "G30",
-     "G24",
-     "D30",
-     "W10"
-    ],
-    "c3": [
-     "G28",
-     "G28",
-     "B30",
-     "O4",
-     "B28",
-     "D25",
-     "G30",
-     "W10",
-     "M20"
-    ]
-   },
-   "capsules": 25,
-   "padlocks": 0,
-   "totals": {
-    "M": 55,
-    "B": 195,
-    "O": 6,
-    "D": 85,
-    "G": 200,
-    "W": 35
-   },
-   "mechanics": [
-    "Vertical link: c1 rows 4-5 (dark 30 above green 30) joined by a short green bar in one column, visible from 42.25; the lower one came out with the upper one at 58.25 and both kept two joined slots.",
-    "Board (start frame only, no cover): two grey patches of hidden '?' tiles on the capybara's lower body (left and right). No locks, keys or boxes seen."
-   ],
-   "uncertain": [
-    "Level number unknown (unnamed video); difficulty assumed Normal (no Hard marker seen)",
-    "M (maroon, c1 M15, c2 M20, c3 M20) vs B (brown): told apart by the clearly redder, darker shade",
-    "c1 row 3 O2 and c3 row 4 O4: orange-yellow, read as the same colour",
-    "The c2 brown 30 tap (37.25) fell outside the event sheets; read from extra frames 34-38 s",
-    "Tap times within ±0.25 s"
-   ],
-   "rounds": [
-    {
-     "attempt": 1,
-     "outcome": "won",
-     "start": 1.75,
-     "end": 100.5,
-     "taps": [
-      {
-       "t": 2.25,
-       "column": "c3",
-       "take": [
-        "c3 G28"
-       ],
-       "note": null
-      },
-      {
-       "t": 2.75,
-       "column": "c3",
-       "take": [
-        "c3 G28"
-       ],
-       "note": null
-      },
-      {
-       "t": 19,
-       "column": "c3",
-       "take": [
-        "c3 B30"
-       ],
-       "note": null
-      },
-      {
-       "t": 19.5,
-       "column": "c3",
-       "take": [
-        "c3 O4"
-       ],
-       "note": null
-      },
-      {
-       "t": 20,
-       "column": "c3",
-       "take": [
-        "c3 B28"
-       ],
-       "note": null
-      },
-      {
-       "t": 20.5,
-       "column": "c3",
-       "take": [
-        "c3 D25"
-       ],
-       "note": null
-      },
-      {
-       "t": 21.5,
-       "column": "c3",
-       "take": [
-        "c3 G30"
-       ],
-       "note": "all 5 slots full (30/1/28/22/30)"
-      },
-      {
-       "t": 25.25,
-       "column": "c3",
-       "take": [
-        "c3 W10"
-       ],
-       "note": "c3 white 10; c3's last capsule (maroon 20) stays on top until 87.75"
-      },
-      {
-       "t": 30.25,
-       "column": "c1",
-       "take": [
-        "c1 M15"
-       ],
-       "note": null
-      },
-      {
-       "t": 37.25,
-       "column": "c2",
-       "take": [
-        "c2 B30"
-       ],
-       "note": null
-      },
-      {
-       "t": 38.25,
-       "column": "c2",
-       "take": [
-        "c2 B24"
-       ],
-       "note": null
-      },
-      {
-       "t": 39.5,
-       "column": "c2",
-       "take": [
-        "c2 B28"
-       ],
-       "note": null
-      },
-      {
-       "t": 42.25,
-       "column": "c1",
-       "take": [
-        "c1 B25"
-       ],
-       "note": null
-      },
-      {
-       "t": 55.75,
-       "column": "c1",
-       "take": [
-        "c1 O2"
-       ],
-       "note": null
-      },
-      {
-       "t": 58.25,
-       "column": "c1",
-       "take": [
-        "c1 D30",
-        "c1 G30"
-       ],
-       "note": "pair a: vertical link in c1, dark 30 on top of green 30; one tap took both"
-      },
-      {
-       "t": 63,
-       "column": "c1",
-       "take": [
-        "c1 W15"
-       ],
-       "note": null
-      },
-      {
-       "t": 68,
-       "column": "c2",
-       "take": [
-        "c2 M20"
-       ],
-       "note": null
-      },
-      {
-       "t": 75.5,
-       "column": "c2",
-       "take": [
-        "c2 G30"
-       ],
-       "note": null
-      },
-      {
-       "t": 79.75,
-       "column": "c2",
-       "take": [
-        "c2 G24"
-       ],
-       "note": null
-      },
-      {
-       "t": 82.25,
-       "column": "c2",
-       "take": [
-        "c2 D30"
-       ],
-       "note": null
-      },
-      {
-       "t": 83.25,
-       "column": "c2",
-       "take": [
-        "c2 W10"
-       ],
-       "note": "c2 empties; columns re-centre"
-      },
-      {
-       "t": 85.25,
-       "column": "c1",
-       "take": [
-        "c1 B30"
-       ],
-       "note": null
-      },
-      {
-       "t": 86.25,
-       "column": "c1",
-       "take": [
-        "c1 G30"
-       ],
-       "note": "c1 empties"
-      },
-      {
-       "t": 87.75,
-       "column": "c3",
-       "take": [
-        "c3 M20"
-       ],
-       "note": "tray empty"
-      }
-     ],
-     "unlocks": [],
-     "events": [
-      [
-       11,
-       "green slots finish; long static stretch 11-18.5 with all slots empty"
-      ],
-      [
-       100,
-       "all slots empty"
-      ],
-      [
-       100.5,
-       "win screen, +20 coins"
-      ]
-     ],
-     "trayLeft": 0
-    }
-   ],
-   "storyboard": {
-    "fps": 4,
-    "trayMoves": [
-     [
-      1.75,
-      3.5
-     ],
-     [
-      5.25,
-      6
-     ],
-     [
-      11,
-      11.75
-     ],
-     [
-      16.5,
-      17.25
-     ],
-     [
-      18.5,
-      21.75
-     ],
-     [
-      22.25,
-      23
-     ],
-     [
-      24.75,
-      25.75
-     ],
-     [
-      27.75,
-      28.5
-     ],
-     [
-      29.75,
-      30.75
-     ],
-     [
-      33.25,
-      34
-     ],
-     [
-      37.75,
-      39
-     ],
-     [
-      39,
-      40.25
-     ],
-     [
-      41.75,
-      42.75
-     ],
-     [
-      44.5,
-      45.25
-     ],
-     [
-      55.25,
-      57
-     ],
-     [
-      57.75,
-      58.75
-     ],
-     [
-      61.25,
-      62
-     ],
-     [
-      62.5,
-      63.5
-     ],
-     [
-      67,
-      67.75
-     ],
-     [
-      67.5,
-      68.5
-     ],
-     [
-      72.5,
-      73.25
-     ],
-     [
-      75,
-      76
-     ],
-     [
-      78.25,
-      79
-     ],
-     [
-      79.25,
-      80.25
-     ],
-     [
-      81.75,
-      82.5
-     ],
-     [
-      82.75,
-      83.75
-     ],
-     [
-      83.75,
-      84.5
-     ],
-     [
-      84.75,
-      85.75
-     ],
-     [
-      85.75,
-      86.75
-     ],
-     [
-      87.25,
-      88.5
-     ],
-     [
-      100,
-      100.75
-     ],
-     [
-      100.5,
-      101.25
      ]
     ]
    }
