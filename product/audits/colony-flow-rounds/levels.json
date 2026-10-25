@@ -65,8 +65,139 @@
      "Y15"
     ]
    },
-   "rounds": null,
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "won",
+     "videos": [
+      "level-1-4.mp4"
+     ],
+     "start": 0,
+     "end": 31.5,
+     "taps": [
+      {
+       "t": 2.25,
+       "column": "c1",
+       "take": [
+        "c1 O14"
+       ],
+       "note": "orange 14, the tutorial hand's forced tap"
+      },
+      {
+       "t": 4.25,
+       "column": "c1",
+       "take": [
+        "c1 Y15"
+       ],
+       "note": "yellow 15"
+      },
+      {
+       "t": 5,
+       "column": "c2",
+       "take": [
+        "c2 Y15"
+       ],
+       "note": "yellow 15"
+      },
+      {
+       "t": 8.75,
+       "column": "c1",
+       "take": [
+        "c1 W4"
+       ],
+       "note": "white 4 (c1 now empty; tray re-centres on 2 columns)"
+      },
+      {
+       "t": 11.75,
+       "column": "c3",
+       "take": [
+        "c3 W4"
+       ],
+       "note": "white 4"
+      },
+      {
+       "t": 16,
+       "column": "c3",
+       "take": [
+        "c3 O14"
+       ],
+       "note": "orange 14"
+      },
+      {
+       "t": 20.25,
+       "column": "c2",
+       "take": [
+        "c2 W4"
+       ],
+       "note": "white 4"
+      },
+      {
+       "t": 20.75,
+       "column": "c3",
+       "take": [
+        "c3 Y15"
+       ],
+       "note": "yellow 15 (c3 empty)"
+      },
+      {
+       "t": 21,
+       "column": "c2",
+       "take": [
+        "c2 O14"
+       ],
+       "note": "orange 14 (tray empty)"
+      }
+     ],
+     "events": [
+      [
+       0,
+       "level-1-4.mp4 starts on Level 1: dimmed screen, hand on c1 orange 14, 'Tap a box to place into the slot.'"
+      ],
+      [
+       2.25,
+       "tutorial ends with the first tap; orange 14 counts 13 at 2.75, 9 at 4.0"
+      ],
+      [
+       8.5,
+       "orange 14 done (3 at 5.75, gone by 8.5); slot 1 free for white 4"
+      ],
+      [
+       12.25,
+       "dimmed hint over the speed button: 'Use Speed Up to make ants go faster!' (until ~14.25)"
+      ],
+      [
+       14.5,
+       "speed button green '2x' with a 20:00 timer: the rest of L1 runs at 2x"
+      ],
+      [
+       15,
+       "most slots in use: white 1, yellow 10, white 2 (max 4 slots used at once in L1)"
+      ],
+      [
+       21.75,
+       "tray empty; 3 capsules still working (yellow 13, white, orange 8)"
+      ],
+      [
+       31,
+       "all slots empty"
+      ],
+      [
+       31.5,
+       "win screen, +20 coins (Victory with two ant mascots)"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
    "storyboardText": "**Как шла партия** (≈30 с от старта до экрана победы):\n- 0 с: затемнение, рука на оранжевой 14 и подсказка «Tap a box to place into the slot». Других объяснений нет.\n- 2 с: оранжевая 14 (кол. 1). Муравьи выбегают из норки внизу, обходят рамку и едят оранжевый контур звезды.\n- 3–5 с: жёлтая 15 (кол. 1) и жёлтая 15 (кол. 2). Жёлтый под оранжевым, и он открывается по мере того, как уходит контур.\n- 7 с: оранжевая 14 закончилась, слот свободен. За 5 секунд одна капсула съела 14 клеток.\n- 9–12 с: белые 4 (кол. 1 и кол. 3). Белая серединка — слой 2.\n- 12 с: затемнение и рука на кнопке «×2»: «Use Speed Up to make ants go faster!». Ускорение включается с таймером 20:00.\n- 14–21 с: оставшиеся четыре капсулы. Одновременно занято не больше 4 слотов.\n- ~25 с: поле пустое; 32 с: «Victory!», +20 монет, два муравья-маскота.",
+   "mechanics": [
+    "Plain capsules only: no links, no hidden '?', no locks, no board mechanics.",
+    "Tutorial: a hand forces the first tap (c1 orange 14); then a hint at 12.25 s introduces Speed Up, which the player turned on (2x, 20:00 timer)."
+   ],
+   "uncertain": [
+    "Tap times ±0.25 s (frames every 0.25 s); a tap's time is the first frame where the capsule has left the tray.",
+    "Start set to 0.0 (the file opens on the tutorial overlay of Level 1)."
+   ],
    "accounting": {
     "O": {
      "board": 42,
@@ -150,8 +281,133 @@
      "Y8"
     ]
    },
-   "rounds": null,
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "won",
+     "videos": [
+      "level-1-4.mp4"
+     ],
+     "start": 35,
+     "end": 72.5,
+     "taps": [
+      {
+       "t": 36.25,
+       "column": "c1",
+       "take": [
+        "c1 P37"
+       ],
+       "note": "pink 37"
+      },
+      {
+       "t": 37,
+       "column": "c2",
+       "take": [
+        "c2 P37"
+       ],
+       "note": "pink 37"
+      },
+      {
+       "t": 37.5,
+       "column": "c3",
+       "take": [
+        "c3 P37"
+       ],
+       "note": "pink 37"
+      },
+      {
+       "t": 45,
+       "column": "c1",
+       "take": [
+        "c1 C37"
+       ],
+       "note": "cyan 37"
+      },
+      {
+       "t": 47.25,
+       "column": "c2",
+       "take": [
+        "c2 C38"
+       ],
+       "note": "cyan 38 (5th slot: all 5 slots in use)"
+      },
+      {
+       "t": 53.5,
+       "column": "c1",
+       "take": [
+        "c1 Y8"
+       ],
+       "note": "yellow 8 (c1 empty)"
+      },
+      {
+       "t": 61,
+       "column": "c2",
+       "take": [
+        "c2 Y9"
+       ],
+       "note": "yellow 9 (c2 empty)"
+      },
+      {
+       "t": 61.375,
+       "column": "c3",
+       "take": [
+        "c3 C37"
+       ],
+       "note": "cyan 37"
+      },
+      {
+       "t": 61.75,
+       "column": "c3",
+       "take": [
+        "c3 Y8"
+       ],
+       "note": "yellow 8 (tray empty)"
+      }
+     ],
+     "events": [
+      [
+       31.75,
+       "L1 win screen; loading screen 33-35 s"
+      ],
+      [
+       35,
+       "Level 2 board and tray shown, 1x speed"
+      ],
+      [
+       37.5,
+       "three pinks working; slots 4-5 free until 45 s while the player waits"
+      ],
+      [
+       47.25,
+       "all 5 slots occupied, all working"
+      ],
+      [
+       53,
+       "slot 1 free (a pink finished); pinks at 6 and 9, cyans 11 and 19"
+      ],
+      [
+       61,
+       "slots: pink 4, cyan 2 working; then the last three capsules in 0.75 s"
+      ],
+      [
+       72,
+       "all slots empty"
+      ],
+      [
+       72.5,
+       "win screen, +20 coins"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
    "storyboardText": "**Как шла партия** (35 → 67 с, ≈32 с):\n- 36–37 с: три розовые 37 подряд. Розовые верх и низ сердца открыты сразу.\n- 37–44 с: два слота свободны, но ты ждёшь, пока розовые работают.\n- 45 и 47 с: голубые 37 и 38. Теперь все 5 слотов заняты, но **все работают**: полный ряд сам по себе не проигрыш.\n- 53 с: жёлтая 8. Жёлтый в середине, слой 1, он открылся, когда голубые прогрызли пояс.\n- 61–62 с: последние жёлтая 9, голубая 37 и жёлтая 8. Конец около 66 с.\n- Розовые 37 работали по 15–16 секунд каждая. Две из трёх простояли с остатком 4 около 5 секунд: последние розовые клетки нижнего острия открылись позже.",
+   "mechanics": [
+    "Plain capsules only: no links, no hidden '?', no locks, no board mechanics. Played at 1x."
+   ],
+   "uncertain": [
+    "Tap times ±0.25 s (the 61.0-61.75 taps read at 0.125 s steps)."
+   ],
    "accounting": {
     "C": {
      "board": 112,
@@ -249,8 +505,175 @@
      "G10"
     ]
    },
-   "rounds": null,
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "won",
+     "videos": [
+      "level-1-4.mp4"
+     ],
+     "start": 75.25,
+     "end": 130.75,
+     "taps": [
+      {
+       "t": 82.5,
+       "column": "c1",
+       "take": [
+        "c1 #26"
+       ],
+       "note": "dark 26"
+      },
+      {
+       "t": 83,
+       "column": "c2",
+       "take": [
+        "c2 #28"
+       ],
+       "note": "dark 28"
+      },
+      {
+       "t": 87.5,
+       "column": "c1",
+       "take": [
+        "c1 s11"
+       ],
+       "note": "salmon 11"
+      },
+      {
+       "t": 90.5,
+       "column": "c2",
+       "take": [
+        "c2 R18"
+       ],
+       "note": "crimson 18"
+      },
+      {
+       "t": 95.25,
+       "column": "c1",
+       "take": [
+        "c1 R52"
+       ],
+       "note": "crimson 52"
+      },
+      {
+       "t": 96.25,
+       "column": "c1",
+       "take": [
+        "c1 G13"
+       ],
+       "note": "green 13 (c1 empty)"
+      },
+      {
+       "t": 96.5,
+       "column": "c2",
+       "take": [
+        "c2 L28"
+       ],
+       "note": "lime 28"
+      },
+      {
+       "t": 97.75,
+       "column": "c3",
+       "take": [
+        "c3 s10"
+       ],
+       "note": "salmon 10 (6th slot: all 6 slots in use)"
+      },
+      {
+       "t": 107.25,
+       "column": "c2",
+       "take": [
+        "c2 R16"
+       ],
+       "note": "crimson 16 (c2 empty)"
+      },
+      {
+       "t": 108.25,
+       "column": "c3",
+       "take": [
+        "c3 R50"
+       ],
+       "note": "crimson 50"
+      },
+      {
+       "t": 120.25,
+       "column": "c3",
+       "take": [
+        "c3 W5"
+       ],
+       "note": "white 5"
+      },
+      {
+       "t": 120.75,
+       "column": "c3",
+       "take": [
+        "c3 G10"
+       ],
+       "note": "green 10 (tray empty)"
+      }
+     ],
+     "events": [
+      [
+       73,
+       "L2 win screen; loading 73.5-75 s"
+      ],
+      [
+       75.25,
+       "Level 3 opens with a 'Booster Unlock' card: Extra Slot, 'Add 1 extra slot.', Claim"
+      ],
+      [
+       76.5,
+       "Claim tapped; booster bar shows the Extra Slot booster (count 2)"
+      ],
+      [
+       78.25,
+       "guided spotlight on the Extra Slot booster; the player taps it (~79.5-80.25)"
+      ],
+      [
+       80.75,
+       "6 waiting slots from here on (booster count 1 left)"
+      ],
+      [
+       87.25,
+       "darks at 11 and 15 working"
+      ],
+      [
+       91.25,
+       "salmon 11 stays at 11 from 87.5 until after 98.5 (6 left at 107.0): layer 2 inside the crimson; crimson 18 at 16-17"
+      ],
+      [
+       98,
+       "all 6 slots in use, all but the salmon working"
+      ],
+      [
+       109,
+       "6 slots: crimson 7, crimson 11, salmon 6, crimson 48, lime 5, salmon 10 (salmon 10 still untouched); only white 5 and green 10 left in c3"
+      ],
+      [
+       120,
+       "slots: crimson 2, crimson 16, salmon 5 + three free; white 5 and green 10 tapped"
+      ],
+      [
+       130.25,
+       "all slots empty"
+      ],
+      [
+       130.75,
+       "win screen, +20 coins"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
    "storyboardText": "**Как шла партия** (76 → ≈125 с, ≈43 с от первого тапа):\n- 76–80 с: окно «открыт бустер» и рука на «+1 слот». Слот добавлен, играем на 6.\n- 82–83 с: тёмные 26 и 28 (кол. 1 и 2) — контур. Муравьи обходят рамку и прогрызают тёмный ободок со всех сторон.\n- 87 с: лососевая 11 (кол. 1). **15 секунд стоит на 11**: лососевый — это блик внутри красного, слой 2.\n- 90 с: малиновая 18 (кол. 2), 95 с: малиновая 52 (кол. 1).\n- 96–98 с: зелёная 13, лайм 28, лососевая 10. **Заняты все 6 слотов**, все работают, кроме лососевой.\n- 104–108 с: малиновые 16 и 50.\n- 112–119 с: слот свободен, но сверху лежит только белая 5 (тоже блик, слой 2), и ты ждёшь. 120 с: белая 5, 121 с: зелёная 10.\n- ≈125 с: конец, +20 монет.",
+   "mechanics": [
+    "Plain capsules only: no links, no hidden '?', no locks, no board mechanics. Played at 1x.",
+    "Booster: Extra Slot unlocked at the start of L3 ('Booster Unlock' card, Claim), then a guided tap on it before the first capsule: the level is played with 6 waiting slots. Booster counter 2 -> 1."
+   ],
+   "uncertain": [
+    "Tap times ±0.25 s.",
+    "The exact moment of the booster tap is between 79.5 and 80.25 s (the guided spotlight hides the hand)."
+   ],
    "accounting": {
     "#": {
      "board": 54,
@@ -388,8 +811,285 @@
      "Y50"
     ]
    },
-   "rounds": null,
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "won",
+     "videos": [
+      "level-1-4.mp4",
+      "level-4~2.mp4"
+     ],
+     "start": 137,
+     "end": 230.19,
+     "taps": [
+      {
+       "t": 138.94,
+       "column": "c3",
+       "take": [
+        "c3 G24"
+       ],
+       "note": "green 24: tapped in the gap between the files (not filmed). At 0.0 s of level-4~2.mp4 it already shows 17 and green ants are on the board, so the tap was ~2 s before part 2 started"
+      },
+      {
+       "t": 140.94,
+       "column": "c3",
+       "take": [
+        "c3 R15"
+       ],
+       "note": "red 15"
+      },
+      {
+       "t": 141.44,
+       "column": "c3",
+       "take": [
+        "c3 C32"
+       ],
+       "note": "cyan 32"
+      },
+      {
+       "t": 141.94,
+       "column": "c3",
+       "take": [
+        "c3 #25"
+       ],
+       "note": "dark 25"
+      },
+      {
+       "t": 149.19,
+       "column": "c1",
+       "take": [
+        "c1 R15"
+       ],
+       "note": "red 15"
+      },
+      {
+       "t": 151.19,
+       "column": "c1",
+       "take": [
+        "c1 C30"
+       ],
+       "note": "cyan 30"
+      },
+      {
+       "t": 152.44,
+       "column": "c1",
+       "take": [
+        "c1 #25"
+       ],
+       "note": "dark 25"
+      },
+      {
+       "t": 153.69,
+       "column": "c3",
+       "take": [
+        "c3 W15"
+       ],
+       "note": "white 15 (5 slots full)"
+      },
+      {
+       "t": 160.69,
+       "column": "c3",
+       "take": [
+        "c3 Y50"
+       ],
+       "note": "yellow 50 (c3 empty)"
+      },
+      {
+       "t": 162.94,
+       "column": "c2",
+       "take": [
+        "c2 R15"
+       ],
+       "note": "red 15"
+      },
+      {
+       "t": 166.69,
+       "column": "c2",
+       "take": [
+        "c2 Y8"
+       ],
+       "note": "yellow 8"
+      },
+      {
+       "t": 168.19,
+       "column": "c1",
+       "take": [
+        "c1 R50"
+       ],
+       "note": "red 50"
+      },
+      {
+       "t": 173.94,
+       "column": "c2",
+       "take": [
+        "c2 C32"
+       ],
+       "note": "cyan 32"
+      },
+      {
+       "t": 174.19,
+       "column": "c1",
+       "take": [
+        "c1 Y10"
+       ],
+       "note": "yellow 10"
+      },
+      {
+       "t": 187.44,
+       "column": "c1",
+       "take": [
+        "c1 #35"
+       ],
+       "note": "dark 35"
+      },
+      {
+       "t": 187.94,
+       "column": "c2",
+       "take": [
+        "c2 C32"
+       ],
+       "note": "cyan 32"
+      },
+      {
+       "t": 188.19,
+       "column": "c1",
+       "take": [
+        "c1 p44"
+       ],
+       "note": "peach 44"
+      },
+      {
+       "t": 189.69,
+       "column": "c1",
+       "take": [
+        "c1 Y19"
+       ],
+       "note": "yellow 19"
+      },
+      {
+       "t": 207.69,
+       "column": "c1",
+       "take": [
+        "c1 W14"
+       ],
+       "note": "white 14 (c1 empty)"
+      },
+      {
+       "t": 207.94,
+       "column": "c2",
+       "take": [
+        "c2 #40"
+       ],
+       "note": "dark 40"
+      },
+      {
+       "t": 208.44,
+       "column": "c2",
+       "take": [
+        "c2 R35"
+       ],
+       "note": "red 35"
+      },
+      {
+       "t": 208.69,
+       "column": "c2",
+       "take": [
+        "c2 G22"
+       ],
+       "note": "green 22"
+      },
+      {
+       "t": 215.44,
+       "column": "c2",
+       "take": [
+        "c2 R35"
+       ],
+       "note": "red 35"
+      },
+      {
+       "t": 219.69,
+       "column": "c2",
+       "take": [
+        "c2 b15"
+       ],
+       "note": "brown 15 (tray empty)"
+      }
+     ],
+     "events": [
+      [
+       135.25,
+       "L3 win screen ends; loading"
+      ],
+      [
+       137,
+       "Level 4 board and full tray shown at the end of level-1-4.mp4; no tap before that file ends at 138.94"
+      ],
+      [
+       138.94,
+       "part 2 starts: level-4~2.mp4 (times below = 138.94 + its own time). Same attempt continued: tray still full except c3 green 24, already in slot 1 at 17; same Level 4, booster count 1 as before"
+      ],
+      [
+       142.19,
+       "slots: green 6, red 15 (c3, stuck at 15: red cap behind the outline), cyan 30, dark 25"
+      ],
+      [
+       148.94,
+       "green 24 done"
+      ],
+      [
+       153.94,
+       "all 5 slots occupied, all working except the first red 15"
+      ],
+      [
+       160.94,
+       "cyan 32 and dark 25 done; yellow 50 in slot 3"
+      ],
+      [
+       175.69,
+       "slots: red 44 (the 50), yellow 10, yellow 11, red 9, cyan 27 - all 5 in use"
+      ],
+      [
+       187.19,
+       "only red 26 left in the slots; 4 free while the player waited (from ~41 local)"
+      ],
+      [
+       190.44,
+       "all 5 slots in use"
+      ],
+      [
+       207.44,
+       "only peach 8 left in the slots (peach 44's last cells slow)"
+      ],
+      [
+       208.94,
+       "all 5 slots in use: white 10, dark 37, red 34, peach 7, green 22"
+      ],
+      [
+       220.44,
+       "last two capsules working: red 14, brown 8"
+      ],
+      [
+       229.69,
+       "all slots empty"
+      ],
+      [
+       230.19,
+       "win screen, +20 coins"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
    "storyboardText": "**Как шла партия** (запись `level-4~2`, ≈84 с; первая зелёная 24 тапнута до начала записи):\n\n```\nt, с           ||    |    |    |    |    |    |    |    |  \nзелён 24       |███                                        \nкрасн 15       | ░░░░░████████████                         \nголуб 32       | █████                                     \nтёмн 25        | █████                                     \nкрасн 15       |     ░█████████                            \nголуб 30       |      █████                                \nтёмн 25        |       ████                                \nбел 15         |       █████                               \nжёлт 50        |           ██████████                      \nкрасн 15       |            ████████████                   \nжёлт 8         |              ██                           \nкрасн 50       |              ░█████████████████           \nжёлт 10        |                 █████                     \nголуб 32       |                 ██████                    \nтёмн 35        |                        ██████             \nголуб 32       |                        ███████            \nперс 44        |                        ███████████████    \nжёлт 19        |                         ████████          \nбел 14         |                                  ████     \nтёмн 40        |                                  ███████  \nкрасн 35       |                                  ██████   \nзелён 22       |                                   ████    \nкрасн 35       |                                      ████ \nкорич 15       |                                        ░\n```\n\n- 2–3 с: красная 15, голубая 32 и тёмная 25 из правой колонки. Голубая и тёмная сразу работают.\n- **Красная 15 стоит на 15 с 2-й по 14-ю секунду**: красная шляпка за контуром. Потом ползёт: 11 → 5 → 3 → конец около 35 с. Капсула на 15 клеток держала слот 33 секунды.\n- 15–20, 28–30, 35–40, 51–58, 70–75 с: все пять слотов заняты, но всё работает.\n- 41–48 и 63–68 с: слоты свободны, ты ждёшь: сверху лежали тёмная 35 и голубая 32, потом белая 14 и тёмная 40.\n- Персиковая 44 (пятна на шляпке, слой 2) последние 8 клеток делала 12 секунд.\n- 81 с: последняя капсула, коричневая 15 (дверь, слой 3).",
+   "mechanics": [
+    "Plain capsules only: no links, no hidden '?', no locks, no board mechanics. Played at 1x; the Extra Slot booster (count 1) was not used.",
+    "level-4~2.mp4 is the continuation of the same L4 attempt, not a second attempt: level-1-4.mp4 ends with the untouched L4 board and full tray, and level-4~2.mp4 starts with the same tray minus green 24, which is already working (17 left) in slot 1."
+   ],
+   "uncertain": [
+    "The green 24 tap (c3) is not on video: it happened in the gap between the two files; its time is set to 138.94 (start of part 2). The gap's length is unknown, so part-2 times are concatenated per the file durations, not real elapsed time.",
+    "Tap times ±0.25 s.",
+    "Known tray kept unchanged; the video confirms every capsule, including c3 row 1 green 24 (seen in the slot at 17 and at the end of level-1-4.mp4)."
+   ],
    "accounting": {
     "#": {
      "board": 125,

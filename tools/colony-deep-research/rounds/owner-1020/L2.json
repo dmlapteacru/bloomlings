@@ -1,0 +1,125 @@
+{
+ "level": 2,
+ "difficulty": "Normal",
+ "video": "level-1-4.mp4",
+ "legend": {
+  "C": "голубой #59ddf8",
+  "P": "розовый #ff78da",
+  "Y": "жёлтый #fee255"
+ },
+ "columns": {
+  "c1": [
+   "P37",
+   "C37",
+   "Y8"
+  ],
+  "c2": [
+   "P37",
+   "C38",
+   "Y9"
+  ],
+  "c3": [
+   "P37",
+   "C37",
+   "Y8"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 35.0,
+   "end": 72.5,
+   "videos": [
+    "level-1-4.mp4"
+   ],
+   "taps": [
+    [
+     36.25,
+     "c1",
+     "pink 37"
+    ],
+    [
+     37.0,
+     "c2",
+     "pink 37"
+    ],
+    [
+     37.5,
+     "c3",
+     "pink 37"
+    ],
+    [
+     45.0,
+     "c1",
+     "cyan 37"
+    ],
+    [
+     47.25,
+     "c2",
+     "cyan 38 (5th slot: all 5 slots in use)"
+    ],
+    [
+     53.5,
+     "c1",
+     "yellow 8 (c1 empty)"
+    ],
+    [
+     61.0,
+     "c2",
+     "yellow 9 (c2 empty)"
+    ],
+    [
+     61.375,
+     "c3",
+     "cyan 37"
+    ],
+    [
+     61.75,
+     "c3",
+     "yellow 8 (tray empty)"
+    ]
+   ],
+   "events": [
+    [
+     31.75,
+     "L1 win screen; loading screen 33-35 s"
+    ],
+    [
+     35.0,
+     "Level 2 board and tray shown, 1x speed"
+    ],
+    [
+     37.5,
+     "three pinks working; slots 4-5 free until 45 s while the player waits"
+    ],
+    [
+     47.25,
+     "all 5 slots occupied, all working"
+    ],
+    [
+     53.0,
+     "slot 1 free (a pink finished); pinks at 6 and 9, cyans 11 and 19"
+    ],
+    [
+     61.0,
+     "slots: pink 4, cyan 2 working; then the last three capsules in 0.75 s"
+    ],
+    [
+     72.0,
+     "all slots empty"
+    ],
+    [
+     72.5,
+     "win screen, +20 coins"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Plain capsules only: no links, no hidden '?', no locks, no board mechanics. Played at 1x."
+ ],
+ "uncertain": [
+  "Tap times ±0.25 s (the 61.0-61.75 taps read at 0.125 s steps)."
+ ]
+}

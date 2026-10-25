@@ -1,0 +1,164 @@
+{
+ "level": 3,
+ "difficulty": "Normal",
+ "video": "level-1-4.mp4",
+ "legend": {
+  "R": "малиновый #e03555",
+  "#": "тёмный контур #5e4b67",
+  "L": "лайм #b7f05d",
+  "G": "зелёный #58d068",
+  "s": "лососевый (блик) #f85e68",
+  "W": "белый #eef4f6"
+ },
+ "columns": {
+  "c1": [
+   "#26",
+   "s11",
+   "R52",
+   "G13"
+  ],
+  "c2": [
+   "#28",
+   "R18",
+   "L28",
+   "R16"
+  ],
+  "c3": [
+   "s10",
+   "R50",
+   "W5",
+   "G10"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 75.25,
+   "end": 130.75,
+   "videos": [
+    "level-1-4.mp4"
+   ],
+   "taps": [
+    [
+     82.5,
+     "c1",
+     "dark 26"
+    ],
+    [
+     83.0,
+     "c2",
+     "dark 28"
+    ],
+    [
+     87.5,
+     "c1",
+     "salmon 11"
+    ],
+    [
+     90.5,
+     "c2",
+     "crimson 18"
+    ],
+    [
+     95.25,
+     "c1",
+     "crimson 52"
+    ],
+    [
+     96.25,
+     "c1",
+     "green 13 (c1 empty)"
+    ],
+    [
+     96.5,
+     "c2",
+     "lime 28"
+    ],
+    [
+     97.75,
+     "c3",
+     "salmon 10 (6th slot: all 6 slots in use)"
+    ],
+    [
+     107.25,
+     "c2",
+     "crimson 16 (c2 empty)"
+    ],
+    [
+     108.25,
+     "c3",
+     "crimson 50"
+    ],
+    [
+     120.25,
+     "c3",
+     "white 5"
+    ],
+    [
+     120.75,
+     "c3",
+     "green 10 (tray empty)"
+    ]
+   ],
+   "events": [
+    [
+     73.0,
+     "L2 win screen; loading 73.5-75 s"
+    ],
+    [
+     75.25,
+     "Level 3 opens with a 'Booster Unlock' card: Extra Slot, 'Add 1 extra slot.', Claim"
+    ],
+    [
+     76.5,
+     "Claim tapped; booster bar shows the Extra Slot booster (count 2)"
+    ],
+    [
+     78.25,
+     "guided spotlight on the Extra Slot booster; the player taps it (~79.5-80.25)"
+    ],
+    [
+     80.75,
+     "6 waiting slots from here on (booster count 1 left)"
+    ],
+    [
+     87.25,
+     "darks at 11 and 15 working"
+    ],
+    [
+     91.25,
+     "salmon 11 stays at 11 from 87.5 until after 98.5 (6 left at 107.0): layer 2 inside the crimson; crimson 18 at 16-17"
+    ],
+    [
+     98.0,
+     "all 6 slots in use, all but the salmon working"
+    ],
+    [
+     109.0,
+     "6 slots: crimson 7, crimson 11, salmon 6, crimson 48, lime 5, salmon 10 (salmon 10 still untouched); only white 5 and green 10 left in c3"
+    ],
+    [
+     120.0,
+     "slots: crimson 2, crimson 16, salmon 5 + three free; white 5 and green 10 tapped"
+    ],
+    [
+     130.25,
+     "all slots empty"
+    ],
+    [
+     130.75,
+     "win screen, +20 coins"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Plain capsules only: no links, no hidden '?', no locks, no board mechanics. Played at 1x.",
+  "Booster: Extra Slot unlocked at the start of L3 ('Booster Unlock' card, Claim), then a guided tap on it before the first capsule: the level is played with 6 waiting slots. Booster counter 2 -> 1."
+ ],
+ "uncertain": [
+  "Tap times ±0.25 s.",
+  "The exact moment of the booster tap is between 79.5 and 80.25 s (the guided spotlight hides the hand)."
+ ]
+}

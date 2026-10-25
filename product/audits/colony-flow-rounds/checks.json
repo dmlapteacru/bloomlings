@@ -9,7 +9,7 @@
   "capsules": 9,
   "columns": 3,
   "accounting": "exact",
-  "rounds": "storyboard text only"
+  "rounds": "won 9 taps"
  },
  {
   "level": 2,
@@ -21,7 +21,7 @@
   "capsules": 9,
   "columns": 3,
   "accounting": "exact",
-  "rounds": "storyboard text only"
+  "rounds": "won 9 taps"
  },
  {
   "level": 3,
@@ -33,7 +33,7 @@
   "capsules": 12,
   "columns": 3,
   "accounting": "exact",
-  "rounds": "storyboard text only"
+  "rounds": "won 12 taps"
  },
  {
   "level": 4,
@@ -45,7 +45,7 @@
   "capsules": 24,
   "columns": 3,
   "accounting": "exact",
-  "rounds": "storyboard text only"
+  "rounds": "won 24 taps"
  },
  {
   "level": 5,
