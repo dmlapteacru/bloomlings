@@ -1,0 +1,16 @@
+import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';import crypto from 'node:crypto';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..'),src=root+'/tools/gameplay-pilot-v8e',tmp=fs.mkdtempSync('/tmp/astra-cf-replay-');
+for(const f of ['rules.cjs','timeline.cjs','idle-rules.cjs','horizon.mjs'])fs.copyFileSync(src+'/'+f,tmp+'/'+f);
+let p=tmp+'/rules.cjs',s=fs.readFileSync(p,'utf8');const old="if(group.some(p=>!heads.includes(p)))return 'partner-not-exposed';";if(!s.includes(old))throw Error('no patch point');s=s.replace(old,"if(group.some(p=>!heads.includes(p)&&!state.level.tray.some((stack,c)=>{const at=stack.indexOf(p);return at>=state.heads[c]&&stack.slice(state.heads[c],at).every(q=>group.includes(q));})))return 'partner-not-exposed';");fs.writeFileSync(p,s);
+const R=(await import(tmp+'/idle-rules.cjs')).default,{playPlanner}=await import(tmp+'/horizon.mjs'),cf=JSON.parse(fs.readFileSync(root+'/product/audits/colony-flow-rounds/levels.json')).levels;
+const out=[];
+for(const l of cf.filter(l=>[1,2,3,4,10,20].includes(l.level))){
+ const syms=Object.keys(l.board.legend),map=Object.fromEntries(syms.map((c,i)=>[c,R.CHANNELS[i]])),w=l.board.w+2,h=l.board.h+2,blank='.'.repeat(w),pods=[],tray=Object.values(l.tray).map(col=>col.map(token=>{const match=token.match(/^(.)(\d+)(\?)?(?::(.+))?$/);if(!match)throw Error(token);pods.push({color:map[match[1]],count:Number(match[2]),label:token,...(match[3]?{mystery:'depth'}:{}),...(match[4]?{group:match[4]}:{})});return pods.length-1;}));
+ const level={id:l.level,w,h,rowsBottomFirst:[blank,...l.board.rows.map(row=>'.'+[...row].map(c=>c==='.'?'.':map[c]).join('')+'.'),blank].reverse(),entries:[Math.floor(w/2)],capacity:5,pods,tray};
+ const row={level:l.level,engine:'v8E patient timeline with stacked-link admission patch; zero timing fidelity claim',routes:[]};
+ if(l.level===20){let st=R.create(level),failure=null;const actions=[];for(const tap of l.rounds[0].taps){const c=Number(tap.column.slice(1))-1,pod=level.tray[c][st.heads[c]],a={type:'tap',pod:st.meta.groups[pod][0]},r=R.step(st,a);if(!r.accepted){failure={tap:actions.length+1,reason:r.reason};break;}actions.push(a);st=r.state;}row.owner={won:st.status==='Won',status:st.status,actions:actions.length,failure};}
+ for(const rows of [3,4]){const r=playPlanner(level,{rows,depth:4,weight:12});row.routes.push({rows,won:r.won,actions:r.actions.map(a=>{if(a.type!=='tap')return a;return {column:level.tray.findIndex(col=>col.includes(a.pod))+1,token:pods[a.pod].label};})});}
+ out.push(row);console.log(JSON.stringify(row));
+}
+fs.writeFileSync(root+'/product/audits/pilot-v9-colony-model-replays.json',JSON.stringify({sourceHash:crypto.createHash('sha256').update(fs.readFileSync(root+'/product/audits/colony-flow-rounds/levels.json')).digest('hex'),assumptions:['Player-level numbers are NOT Core level definitions.','One-cell open perimeter; v8E patient live simulation with stacked-link admission adaptation.','Not a replay of original tap timestamps; no timing or occupancy fidelity claim.','L5 is excluded because of one-cell accounting mismatch; L25/26 excluded because of unresolved geometry/quota.'],levels:out},null,2)+'\n');
+fs.rmSync(tmp,{recursive:true,force:true});

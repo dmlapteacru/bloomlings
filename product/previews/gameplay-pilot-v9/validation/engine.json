@@ -1,0 +1,376 @@
+{
+  "passed": true,
+  "all30ReviewGates": [
+    {
+      "id": 1,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 2,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 3,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 4,
+      "source": "initial-v9",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 5,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 6,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 7,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 8,
+      "source": "updated-v8e",
+      "primaryRisky": 2,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 9,
+      "source": "updated-v8e",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 10,
+      "source": "initial-v9",
+      "primaryRisky": 8,
+      "selectedRisky": 8,
+      "tight": 3,
+      "liveStrategy": "brisk",
+      "paceWarnings": [
+        "forced-one-two-working-places"
+      ]
+    },
+    {
+      "id": 11,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 12,
+      "source": "new-queue",
+      "primaryRisky": 2,
+      "selectedRisky": 2,
+      "tight": 2,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 13,
+      "source": "new-queue",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 14,
+      "source": "updated-v8e",
+      "primaryRisky": 3,
+      "selectedRisky": 3,
+      "tight": 3,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 15,
+      "source": "updated-v8e",
+      "primaryRisky": 9,
+      "selectedRisky": 9,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": [
+        "continuous-no-input",
+        "forced-one-two-working-places"
+      ]
+    },
+    {
+      "id": 16,
+      "source": "new-queue",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "reserve",
+      "paceWarnings": []
+    },
+    {
+      "id": 17,
+      "source": "new-queue",
+      "primaryRisky": 2,
+      "selectedRisky": 5,
+      "tight": 5,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 18,
+      "source": "new-queue",
+      "primaryRisky": 3,
+      "selectedRisky": 3,
+      "tight": 3,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 19,
+      "source": "new-queue",
+      "primaryRisky": 3,
+      "selectedRisky": 3,
+      "tight": 2,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 20,
+      "source": "updated-v8e",
+      "primaryRisky": 3,
+      "selectedRisky": 2,
+      "tight": 0,
+      "liveStrategy": "reserve",
+      "paceWarnings": []
+    },
+    {
+      "id": 21,
+      "source": "updated-v8e",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": [
+        "continuous-no-input"
+      ]
+    },
+    {
+      "id": 22,
+      "source": "updated-v8e",
+      "primaryRisky": 5,
+      "selectedRisky": 5,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 23,
+      "source": "updated-v8e",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 24,
+      "source": "updated-v8e",
+      "primaryRisky": 2,
+      "selectedRisky": 2,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 25,
+      "source": "new-queue",
+      "primaryRisky": 5,
+      "selectedRisky": 8,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 26,
+      "source": "new-queue",
+      "primaryRisky": 1,
+      "selectedRisky": 1,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 27,
+      "source": "updated-v8e",
+      "primaryRisky": 4,
+      "selectedRisky": 4,
+      "tight": 1,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 28,
+      "source": "new-queue",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 29,
+      "source": "new-queue",
+      "primaryRisky": 8,
+      "selectedRisky": 8,
+      "tight": 4,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    },
+    {
+      "id": 30,
+      "source": "updated-v8e",
+      "primaryRisky": 0,
+      "selectedRisky": 0,
+      "tight": 0,
+      "liveStrategy": "brisk",
+      "paceWarnings": []
+    }
+  ],
+  "patternShare": {
+    "колонка слева до конца": 10,
+    "ряд слева направо": 6,
+    "ряд справа налево": 8,
+    "змейка": 4,
+    "середина, потом края": 7,
+    "по две из колонки": 5,
+    "колонка справа до конца": 9,
+    "самое маленькое число": 10,
+    "самое большое число": 9
+  },
+  "hardPatternShare": {
+    "колонка слева до конца": 2,
+    "ряд слева направо": 1,
+    "ряд справа налево": 1,
+    "середина, потом края": 1
+  },
+  "catalogHash": "4202ec1ef7218687f39dfa2371d03bc35eb60a7ae595b90110d7f05f0bb0cb6b",
+  "winningRoutes": 30,
+  "acceptedCertificateActions": 558,
+  "visibleHorizonPlannerRoutes": 30,
+  "plannerLeakChecks": 207,
+  "mysteryLevels": 5,
+  "bridges": [
+    {
+      "level": 20,
+      "sites": 1,
+      "firstReadyAfterCommands": 7,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 21,
+      "sites": 2,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Правый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 22,
+      "sites": 2,
+      "firstReadyAfterCommands": 3,
+      "readyThen": [
+        "Левый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 24,
+      "sites": 2,
+      "firstReadyAfterCommands": 2,
+      "readyThen": [
+        "Правый мостик"
+      ],
+      "chosen": "Левый мостик"
+    },
+    {
+      "level": 29,
+      "sites": 2,
+      "firstReadyAfterCommands": 6,
+      "readyThen": [
+        "Правый мостик"
+      ],
+      "chosen": "Левый мостик"
+    }
+  ],
+  "visibleRows": 3,
+  "autoTail": {
+    "departureGap": 250,
+    "speed": 2.5,
+    "when": "queue-empty-and-no-bridge-to-choose"
+  },
+  "concurrentRandomRuns": 240,
+  "liveClears": 72665,
+  "restoredCheckpoints": 1127,
+  "frameInvarianceChecks": 1,
+  "slotReusedBeforeArrival": true,
+  "sameColourParallelDispatch": true,
+  "pairReleaseAtomic": true,
+  "fullWorkingRowSurvives": true,
+  "conservation": true,
+  "sealedAdmissionAndCheckpointVerified": true,
+  "rejectedPairKeepsSecrets": true,
+  "legacyDepthRevealPreserved": true,
+  "guessOnlyPuzzleRejected": true,
+  "limits": [
+    "Risk describes patient full-information continuations; it is not universal live fairness.",
+    "Winning certificates use idle decisions. They do not cover all possible real-time choices.",
+    "Policy rates are not human difficulty. No native Core equivalence claim."
+  ]
+}

@@ -1,0 +1,1077 @@
+{
+  "sourceHash": "a2b30f2f06b2e5c3621b9826d7f3bff33f65e8392ed4a5609cef54a6353aab92",
+  "assumptions": [
+    "Player-level numbers are NOT Core level definitions.",
+    "One-cell open perimeter; v8E patient live simulation with stacked-link admission adaptation.",
+    "Not a replay of original tap timestamps; no timing or occupancy fidelity claim.",
+    "L5 is excluded because of one-cell accounting mismatch; L25/26 excluded because of unresolved geometry/quota."
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "engine": "v8E patient timeline with stacked-link admission patch; zero timing fidelity claim",
+      "routes": [
+        {
+          "rows": 3,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "O14"
+            },
+            {
+              "column": 1,
+              "token": "Y15"
+            },
+            {
+              "column": 2,
+              "token": "Y15"
+            },
+            {
+              "column": 1,
+              "token": "W4"
+            },
+            {
+              "column": 2,
+              "token": "W4"
+            },
+            {
+              "column": 2,
+              "token": "O14"
+            },
+            {
+              "column": 3,
+              "token": "W4"
+            },
+            {
+              "column": 3,
+              "token": "O14"
+            },
+            {
+              "column": 3,
+              "token": "Y15"
+            }
+          ]
+        },
+        {
+          "rows": 4,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "O14"
+            },
+            {
+              "column": 1,
+              "token": "Y15"
+            },
+            {
+              "column": 2,
+              "token": "Y15"
+            },
+            {
+              "column": 1,
+              "token": "W4"
+            },
+            {
+              "column": 2,
+              "token": "W4"
+            },
+            {
+              "column": 2,
+              "token": "O14"
+            },
+            {
+              "column": 3,
+              "token": "W4"
+            },
+            {
+              "column": 3,
+              "token": "O14"
+            },
+            {
+              "column": 3,
+              "token": "Y15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "engine": "v8E patient timeline with stacked-link admission patch; zero timing fidelity claim",
+      "routes": [
+        {
+          "rows": 3,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "P37"
+            },
+            {
+              "column": 1,
+              "token": "C37"
+            },
+            {
+              "column": 2,
+              "token": "P37"
+            },
+            {
+              "column": 2,
+              "token": "C38"
+            },
+            {
+              "column": 1,
+              "token": "Y8"
+            },
+            {
+              "column": 2,
+              "token": "Y9"
+            },
+            {
+              "column": 3,
+              "token": "P37"
+            },
+            {
+              "column": 3,
+              "token": "C37"
+            },
+            {
+              "column": 3,
+              "token": "Y8"
+            }
+          ]
+        },
+        {
+          "rows": 4,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "P37"
+            },
+            {
+              "column": 1,
+              "token": "C37"
+            },
+            {
+              "column": 2,
+              "token": "P37"
+            },
+            {
+              "column": 2,
+              "token": "C38"
+            },
+            {
+              "column": 1,
+              "token": "Y8"
+            },
+            {
+              "column": 2,
+              "token": "Y9"
+            },
+            {
+              "column": 3,
+              "token": "P37"
+            },
+            {
+              "column": 3,
+              "token": "C37"
+            },
+            {
+              "column": 3,
+              "token": "Y8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "engine": "v8E patient timeline with stacked-link admission patch; zero timing fidelity claim",
+      "routes": [
+        {
+          "rows": 3,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "#26"
+            },
+            {
+              "column": 1,
+              "token": "s11"
+            },
+            {
+              "column": 1,
+              "token": "R52"
+            },
+            {
+              "column": 2,
+              "token": "#28"
+            },
+            {
+              "column": 1,
+              "token": "G13"
+            },
+            {
+              "column": 2,
+              "token": "R18"
+            },
+            {
+              "column": 2,
+              "token": "L28"
+            },
+            {
+              "column": 2,
+              "token": "R16"
+            },
+            {
+              "column": 3,
+              "token": "s10"
+            },
+            {
+              "column": 3,
+              "token": "R50"
+            },
+            {
+              "column": 3,
+              "token": "W5"
+            },
+            {
+              "column": 3,
+              "token": "G10"
+            }
+          ]
+        },
+        {
+          "rows": 4,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "#26"
+            },
+            {
+              "column": 1,
+              "token": "s11"
+            },
+            {
+              "column": 1,
+              "token": "R52"
+            },
+            {
+              "column": 2,
+              "token": "#28"
+            },
+            {
+              "column": 1,
+              "token": "G13"
+            },
+            {
+              "column": 2,
+              "token": "R18"
+            },
+            {
+              "column": 2,
+              "token": "L28"
+            },
+            {
+              "column": 2,
+              "token": "R16"
+            },
+            {
+              "column": 3,
+              "token": "s10"
+            },
+            {
+              "column": 3,
+              "token": "R50"
+            },
+            {
+              "column": 3,
+              "token": "W5"
+            },
+            {
+              "column": 3,
+              "token": "G10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "engine": "v8E patient timeline with stacked-link admission patch; zero timing fidelity claim",
+      "routes": [
+        {
+          "rows": 3,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "R15"
+            },
+            {
+              "column": 1,
+              "token": "C30"
+            },
+            {
+              "column": 1,
+              "token": "#25"
+            },
+            {
+              "column": 1,
+              "token": "R50"
+            },
+            {
+              "column": 1,
+              "token": "Y10"
+            },
+            {
+              "column": 1,
+              "token": "#35"
+            },
+            {
+              "column": 1,
+              "token": "p44"
+            },
+            {
+              "column": 1,
+              "token": "Y19"
+            },
+            {
+              "column": 2,
+              "token": "R15"
+            },
+            {
+              "column": 2,
+              "token": "Y8"
+            },
+            {
+              "column": 2,
+              "token": "C32"
+            },
+            {
+              "column": 2,
+              "token": "C32"
+            },
+            {
+              "column": 2,
+              "token": "#40"
+            },
+            {
+              "column": 2,
+              "token": "R35"
+            },
+            {
+              "column": 2,
+              "token": "G22"
+            },
+            {
+              "column": 2,
+              "token": "R35"
+            },
+            {
+              "column": 1,
+              "token": "W14"
+            },
+            {
+              "column": 2,
+              "token": "b15"
+            },
+            {
+              "column": 3,
+              "token": "G24"
+            },
+            {
+              "column": 3,
+              "token": "R15"
+            },
+            {
+              "column": 3,
+              "token": "C32"
+            },
+            {
+              "column": 3,
+              "token": "#25"
+            },
+            {
+              "column": 3,
+              "token": "W15"
+            },
+            {
+              "column": 3,
+              "token": "Y50"
+            }
+          ]
+        },
+        {
+          "rows": 4,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "R15"
+            },
+            {
+              "column": 1,
+              "token": "C30"
+            },
+            {
+              "column": 1,
+              "token": "#25"
+            },
+            {
+              "column": 1,
+              "token": "R50"
+            },
+            {
+              "column": 1,
+              "token": "Y10"
+            },
+            {
+              "column": 1,
+              "token": "#35"
+            },
+            {
+              "column": 1,
+              "token": "p44"
+            },
+            {
+              "column": 3,
+              "token": "G24"
+            },
+            {
+              "column": 1,
+              "token": "Y19"
+            },
+            {
+              "column": 2,
+              "token": "R15"
+            },
+            {
+              "column": 2,
+              "token": "Y8"
+            },
+            {
+              "column": 2,
+              "token": "C32"
+            },
+            {
+              "column": 2,
+              "token": "C32"
+            },
+            {
+              "column": 2,
+              "token": "#40"
+            },
+            {
+              "column": 2,
+              "token": "R35"
+            },
+            {
+              "column": 2,
+              "token": "G22"
+            },
+            {
+              "column": 1,
+              "token": "W14"
+            },
+            {
+              "column": 2,
+              "token": "R35"
+            },
+            {
+              "column": 3,
+              "token": "R15"
+            },
+            {
+              "column": 3,
+              "token": "C32"
+            },
+            {
+              "column": 2,
+              "token": "b15"
+            },
+            {
+              "column": 3,
+              "token": "#25"
+            },
+            {
+              "column": 3,
+              "token": "W15"
+            },
+            {
+              "column": 3,
+              "token": "Y50"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "engine": "v8E patient timeline with stacked-link admission patch; zero timing fidelity claim",
+      "routes": [
+        {
+          "rows": 3,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "S40"
+            },
+            {
+              "column": 1,
+              "token": "g8"
+            },
+            {
+              "column": 1,
+              "token": "Y30?"
+            },
+            {
+              "column": 1,
+              "token": "c22"
+            },
+            {
+              "column": 1,
+              "token": "W20"
+            },
+            {
+              "column": 1,
+              "token": "O30?"
+            },
+            {
+              "column": 2,
+              "token": "S40"
+            },
+            {
+              "column": 2,
+              "token": "S37?"
+            },
+            {
+              "column": 2,
+              "token": "T43"
+            },
+            {
+              "column": 1,
+              "token": "W49?"
+            },
+            {
+              "column": 1,
+              "token": "T25?"
+            },
+            {
+              "column": 1,
+              "token": "G25"
+            },
+            {
+              "column": 2,
+              "token": "R6"
+            },
+            {
+              "column": 2,
+              "token": "#10?"
+            },
+            {
+              "column": 2,
+              "token": "P24?"
+            },
+            {
+              "column": 2,
+              "token": "G28"
+            },
+            {
+              "column": 2,
+              "token": "P25"
+            },
+            {
+              "column": 2,
+              "token": "#57"
+            },
+            {
+              "column": 2,
+              "token": "R15"
+            },
+            {
+              "column": 3,
+              "token": "S40"
+            },
+            {
+              "column": 3,
+              "token": "S40"
+            },
+            {
+              "column": 3,
+              "token": "S40?"
+            },
+            {
+              "column": 3,
+              "token": "Y30"
+            },
+            {
+              "column": 3,
+              "token": "P20"
+            },
+            {
+              "column": 3,
+              "token": "O58"
+            },
+            {
+              "column": 3,
+              "token": "W35?"
+            },
+            {
+              "column": 3,
+              "token": "c22?"
+            },
+            {
+              "column": 3,
+              "token": "#45"
+            },
+            {
+              "column": 3,
+              "token": "S6"
+            }
+          ]
+        },
+        {
+          "rows": 4,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "S40"
+            },
+            {
+              "column": 1,
+              "token": "g8"
+            },
+            {
+              "column": 1,
+              "token": "Y30?"
+            },
+            {
+              "column": 1,
+              "token": "c22"
+            },
+            {
+              "column": 1,
+              "token": "W20"
+            },
+            {
+              "column": 1,
+              "token": "O30?"
+            },
+            {
+              "column": 2,
+              "token": "S40"
+            },
+            {
+              "column": 2,
+              "token": "S37?"
+            },
+            {
+              "column": 2,
+              "token": "T43"
+            },
+            {
+              "column": 1,
+              "token": "W49?"
+            },
+            {
+              "column": 1,
+              "token": "T25?"
+            },
+            {
+              "column": 1,
+              "token": "G25"
+            },
+            {
+              "column": 2,
+              "token": "R6"
+            },
+            {
+              "column": 2,
+              "token": "#10?"
+            },
+            {
+              "column": 2,
+              "token": "P24?"
+            },
+            {
+              "column": 2,
+              "token": "G28"
+            },
+            {
+              "column": 2,
+              "token": "P25"
+            },
+            {
+              "column": 2,
+              "token": "#57"
+            },
+            {
+              "column": 2,
+              "token": "R15"
+            },
+            {
+              "column": 3,
+              "token": "S40"
+            },
+            {
+              "column": 3,
+              "token": "S40"
+            },
+            {
+              "column": 3,
+              "token": "S40?"
+            },
+            {
+              "column": 3,
+              "token": "Y30"
+            },
+            {
+              "column": 3,
+              "token": "P20"
+            },
+            {
+              "column": 3,
+              "token": "O58"
+            },
+            {
+              "column": 3,
+              "token": "W35?"
+            },
+            {
+              "column": 3,
+              "token": "c22?"
+            },
+            {
+              "column": 3,
+              "token": "#45"
+            },
+            {
+              "column": 3,
+              "token": "S6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "engine": "v8E patient timeline with stacked-link admission patch; zero timing fidelity claim",
+      "routes": [
+        {
+          "rows": 3,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "S35"
+            },
+            {
+              "column": 2,
+              "token": "S34:b"
+            },
+            {
+              "column": 3,
+              "token": "S30:d"
+            },
+            {
+              "column": 2,
+              "token": "Y30"
+            },
+            {
+              "column": 1,
+              "token": "S35:a"
+            },
+            {
+              "column": 3,
+              "token": "B32"
+            },
+            {
+              "column": 1,
+              "token": "R28"
+            },
+            {
+              "column": 1,
+              "token": "S32"
+            },
+            {
+              "column": 3,
+              "token": "D25"
+            },
+            {
+              "column": 1,
+              "token": "R30:f"
+            },
+            {
+              "column": 2,
+              "token": "D25:c"
+            },
+            {
+              "column": 3,
+              "token": "P35"
+            },
+            {
+              "column": 2,
+              "token": "S30"
+            },
+            {
+              "column": 2,
+              "token": "R20"
+            },
+            {
+              "column": 2,
+              "token": "D25"
+            },
+            {
+              "column": 2,
+              "token": "Y30"
+            },
+            {
+              "column": 2,
+              "token": "Y30?"
+            },
+            {
+              "column": 3,
+              "token": "S35"
+            },
+            {
+              "column": 2,
+              "token": "D25"
+            },
+            {
+              "column": 1,
+              "token": "V11:h"
+            },
+            {
+              "column": 1,
+              "token": "D20"
+            },
+            {
+              "column": 1,
+              "token": "B32"
+            },
+            {
+              "column": 3,
+              "token": "S30"
+            },
+            {
+              "column": 3,
+              "token": "P25"
+            },
+            {
+              "column": 2,
+              "token": "P10"
+            },
+            {
+              "column": 1,
+              "token": "D25"
+            },
+            {
+              "column": 3,
+              "token": "B36"
+            },
+            {
+              "column": 4,
+              "token": "Y36"
+            },
+            {
+              "column": 3,
+              "token": "S30?"
+            },
+            {
+              "column": 3,
+              "token": "B30"
+            },
+            {
+              "column": 4,
+              "token": "R30"
+            },
+            {
+              "column": 4,
+              "token": "g20:e"
+            },
+            {
+              "column": 4,
+              "token": "P38"
+            },
+            {
+              "column": 4,
+              "token": "S35:i"
+            },
+            {
+              "column": 4,
+              "token": "S34:j"
+            },
+            {
+              "column": 4,
+              "token": "R32"
+            }
+          ]
+        },
+        {
+          "rows": 4,
+          "won": true,
+          "actions": [
+            {
+              "column": 1,
+              "token": "S35"
+            },
+            {
+              "column": 2,
+              "token": "S34:b"
+            },
+            {
+              "column": 3,
+              "token": "S30:d"
+            },
+            {
+              "column": 2,
+              "token": "Y30"
+            },
+            {
+              "column": 1,
+              "token": "S35:a"
+            },
+            {
+              "column": 3,
+              "token": "B32"
+            },
+            {
+              "column": 1,
+              "token": "R28"
+            },
+            {
+              "column": 1,
+              "token": "S32"
+            },
+            {
+              "column": 3,
+              "token": "D25"
+            },
+            {
+              "column": 1,
+              "token": "R30:f"
+            },
+            {
+              "column": 2,
+              "token": "D25:c"
+            },
+            {
+              "column": 3,
+              "token": "P35"
+            },
+            {
+              "column": 2,
+              "token": "S30"
+            },
+            {
+              "column": 2,
+              "token": "R20"
+            },
+            {
+              "column": 2,
+              "token": "D25"
+            },
+            {
+              "column": 2,
+              "token": "Y30"
+            },
+            {
+              "column": 2,
+              "token": "Y30?"
+            },
+            {
+              "column": 2,
+              "token": "D25"
+            },
+            {
+              "column": 3,
+              "token": "S35"
+            },
+            {
+              "column": 3,
+              "token": "S30"
+            },
+            {
+              "column": 3,
+              "token": "P25"
+            },
+            {
+              "column": 3,
+              "token": "B36"
+            },
+            {
+              "column": 3,
+              "token": "S30?"
+            },
+            {
+              "column": 3,
+              "token": "B30"
+            },
+            {
+              "column": 4,
+              "token": "Y36"
+            },
+            {
+              "column": 4,
+              "token": "R30"
+            },
+            {
+              "column": 4,
+              "token": "g20:e"
+            },
+            {
+              "column": 1,
+              "token": "V11:h"
+            },
+            {
+              "column": 1,
+              "token": "D20"
+            },
+            {
+              "column": 1,
+              "token": "B32"
+            },
+            {
+              "column": 1,
+              "token": "D25"
+            },
+            {
+              "column": 2,
+              "token": "P10"
+            },
+            {
+              "column": 4,
+              "token": "P38"
+            },
+            {
+              "column": 4,
+              "token": "S35:i"
+            },
+            {
+              "column": 4,
+              "token": "S34:j"
+            },
+            {
+              "column": 4,
+              "token": "R32"
+            }
+          ]
+        }
+      ],
+      "owner": {
+        "won": true,
+        "status": "Won",
+        "actions": 36,
+        "failure": null
+      }
+    }
+  ]
+}

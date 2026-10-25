@@ -1,0 +1,4070 @@
+{
+  "nodeBudgetPerAlternative": 1000,
+  "assumptions": [
+    "Patient continuation only; a false verdict does not exclude every timed strategy.",
+    "The chosen branch has the verified certificate continuation as a witness; other branches are searched with the stated node budget.",
+    "Null means unresolved, never a proven win or loss. Risky/tight match the incoming audit only for fully classified decisions.",
+    "Visible useful capsules at loss do not establish earlier information fairness.",
+    "These are policy-route diagnostics, not human difficulty or retention."
+  ],
+  "levels": [
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 4,
+      "inputHash": "52c2d0a4f01ddcd5154b2259cecc7eaabda2affc34a99b485ef0af1a016eeae7",
+      "decisions": 12,
+      "risky": 1,
+      "tight": 0,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 1,
+      "possibleRiskyUpperBound": 1,
+      "points": [
+        {
+          "command": 8,
+          "clearedFraction": 0.19545454545454544,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 10,
+      "inputHash": "684266f5b3b6d6474f8c094fd36833132638cd51def7dc93b72dec099945ccef",
+      "decisions": 26,
+      "risky": 10,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 10,
+      "possibleRiskyUpperBound": 10,
+      "points": [
+        {
+          "command": 4,
+          "clearedFraction": 0.007291666666666696,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 6,
+          "clearedFraction": 0.18125000000000002,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 8
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 7,
+          "clearedFraction": 0.24791666666666667,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 31
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 8,
+          "clearedFraction": 0.2583333333333333,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "clearedFraction": 0.3270833333333333,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 10,
+          "clearedFraction": 0.33854166666666663,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 12,
+          "clearedFraction": 0.38020833333333337,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 19,
+          "clearedFraction": 0.6541666666666667,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 20,
+          "clearedFraction": 0.6677083333333333,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 21,
+          "clearedFraction": 0.6875,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 12,
+      "inputHash": "47307feb7f4d62bc092de6a199461ad584ee8177259c9a46b72628910cb8acd3",
+      "decisions": 14,
+      "risky": 1,
+      "tight": 1,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 1,
+      "possibleRiskyUpperBound": 1,
+      "points": [
+        {
+          "command": 8,
+          "clearedFraction": 0.2483974358974359,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 20
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 13,
+      "inputHash": "d770d1cc03e74a6f347b25c6918f93fb0c3c3359e4af6040264aa868f242d356",
+      "decisions": 17,
+      "risky": 5,
+      "tight": 5,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 5,
+      "possibleRiskyUpperBound": 5,
+      "points": [
+        {
+          "command": 9,
+          "clearedFraction": 0.3671328671328671,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 10,
+          "clearedFraction": 0.4020979020979021,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 11,
+          "clearedFraction": 0.4178321678321678,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 12,
+          "clearedFraction": 0.548951048951049,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 13,
+          "clearedFraction": 0.6013986013986015,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 15,
+      "inputHash": "d759dc1ee79bcbe2e5e5110e370352e4c3c4afba13d7097446cfa32e46b4c83b",
+      "decisions": 25,
+      "risky": 9,
+      "tight": 4,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 9,
+      "possibleRiskyUpperBound": 9,
+      "points": [
+        {
+          "command": 14,
+          "clearedFraction": 0.5107142857142857,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 15,
+          "clearedFraction": 0.5166666666666666,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 21
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 17,
+          "clearedFraction": 0.5892857142857143,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 18,
+          "clearedFraction": 0.6273809523809524,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 19,
+          "clearedFraction": 0.6666666666666667,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 20,
+          "clearedFraction": 0.6714285714285715,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 21,
+          "clearedFraction": 0.7059523809523809,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 8
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 22,
+          "clearedFraction": 0.719047619047619,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 23,
+          "clearedFraction": 0.7357142857142858,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 16,
+      "inputHash": "597216496b90292d36f0face2d334d7eb4a5e29efaba57656199b67a40b574d9",
+      "decisions": 11,
+      "risky": 3,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 3,
+      "possibleRiskyUpperBound": 3,
+      "points": [
+        {
+          "command": 8,
+          "clearedFraction": 0.363013698630137,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "clearedFraction": 0.3972602739726028,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 10,
+          "clearedFraction": 0.3972602739726028,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 22,
+      "inputHash": "7c3d7e0f2c48d537123e85aa36c0f4881ac40c3d5f1b4d6f306cc5cc33f2a3ea",
+      "decisions": 28,
+      "risky": 5,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 5,
+      "possibleRiskyUpperBound": 5,
+      "points": [
+        {
+          "command": 4,
+          "clearedFraction": 0.06926406926406925,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 5,
+          "clearedFraction": 0.06926406926406925,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 12,
+          "clearedFraction": 0.38528138528138534,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 13,
+          "clearedFraction": 0.3928571428571429,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 17,
+          "clearedFraction": 0.6309523809523809,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 22
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 25,
+      "inputHash": "c8059ada33c2900fbf9a2bdbb8ac346c3107d8de8b5f26da61b5ae2680baedd3",
+      "decisions": 22,
+      "risky": 4,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 4,
+      "possibleRiskyUpperBound": 4,
+      "points": [
+        {
+          "command": 12,
+          "clearedFraction": 0.5547619047619048,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 14
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 22
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 13,
+          "clearedFraction": 0.6345238095238095,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 14
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 15,
+          "clearedFraction": 0.7511904761904762,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 16,
+          "clearedFraction": 0.7666666666666666,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 12
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "frozen-c6",
+      "catalogHash": "77a54762c1b39ed7d872e6646dc8e4e65070596e847afd1f08772af24d9abd30",
+      "id": 29,
+      "inputHash": "7c95205a42e165a7b2faf3dfef203eb0e6b085cf021b3a341c19d5bcdc97f65e",
+      "decisions": 18,
+      "risky": 6,
+      "tight": 1,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 6,
+      "possibleRiskyUpperBound": 6,
+      "points": [
+        {
+          "command": 4,
+          "clearedFraction": 0.12121212121212122,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 5,
+          "clearedFraction": 0.12121212121212122,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 6,
+          "clearedFraction": 0.12121212121212122,
+          "free": 0,
+          "alternatives": [
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "clearedFraction": 0.4632034632034632,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 10,
+          "clearedFraction": 0.4913419913419913,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 20
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 11,
+          "clearedFraction": 0.5551948051948052,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 4,
+      "inputHash": "1ca6a0cc011e0c598f927852158d4bc7f6edc1ca457136be2d1338e997660d0e",
+      "decisions": 8,
+      "risky": 0,
+      "tight": 0,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 0,
+      "possibleRiskyUpperBound": 0,
+      "points": []
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 10,
+      "inputHash": "ab55a4e0709ec4a55f69ae3d575fba8687fc29ee157dfcdbf685af7e6bdccfa5",
+      "decisions": 28,
+      "risky": 8,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 8,
+      "possibleRiskyUpperBound": 8,
+      "points": [
+        {
+          "command": 5,
+          "clearedFraction": 0.08750000000000002,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 31
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 11,
+          "clearedFraction": 0.27812499999999996,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 17,
+          "clearedFraction": 0.49583333333333335,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 32
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 21
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 18,
+          "clearedFraction": 0.5072916666666667,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 32
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 21
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 19,
+          "clearedFraction": 0.5291666666666667,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 32
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 21
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 20,
+          "clearedFraction": 0.553125,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 32
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 21,
+          "clearedFraction": 0.5666666666666667,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 32
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 22,
+          "clearedFraction": 0.64375,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 32
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 14
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 12,
+      "inputHash": "d9ccb2b6dd0e7fd0af13ee3bd9c024bb759e9d18e0da363dbd1354b66c72c7c2",
+      "decisions": 15,
+      "risky": 0,
+      "tight": 0,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 0,
+      "possibleRiskyUpperBound": 0,
+      "points": []
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 13,
+      "inputHash": "708a8da85fbd948ee7879d52ccb645267bccb55ac75eb00f0295c5ed89c5e1fa",
+      "decisions": 13,
+      "risky": 0,
+      "tight": 0,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 0,
+      "possibleRiskyUpperBound": 0,
+      "points": []
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 15,
+      "inputHash": "d759dc1ee79bcbe2e5e5110e370352e4c3c4afba13d7097446cfa32e46b4c83b",
+      "decisions": 25,
+      "risky": 9,
+      "tight": 4,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 9,
+      "possibleRiskyUpperBound": 9,
+      "points": [
+        {
+          "command": 14,
+          "clearedFraction": 0.5107142857142857,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 15,
+          "clearedFraction": 0.5166666666666666,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 21
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 17,
+          "clearedFraction": 0.5892857142857143,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 18,
+          "clearedFraction": 0.6273809523809524,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 19,
+          "clearedFraction": 0.6666666666666667,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 20,
+          "clearedFraction": 0.6714285714285715,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 21,
+          "clearedFraction": 0.7059523809523809,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 8
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 22,
+          "clearedFraction": 0.719047619047619,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 23,
+          "clearedFraction": 0.7357142857142858,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 16,
+      "inputHash": "ccc3bf376016917f1d69be23aa16e73ff1307718c674329fc1d48ee1c2f05944",
+      "decisions": 10,
+      "risky": 0,
+      "tight": 0,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 0,
+      "possibleRiskyUpperBound": 0,
+      "points": []
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 22,
+      "inputHash": "7c3d7e0f2c48d537123e85aa36c0f4881ac40c3d5f1b4d6f306cc5cc33f2a3ea",
+      "decisions": 28,
+      "risky": 5,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 5,
+      "possibleRiskyUpperBound": 5,
+      "points": [
+        {
+          "command": 4,
+          "clearedFraction": 0.06926406926406925,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 5,
+          "clearedFraction": 0.06926406926406925,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 12,
+          "clearedFraction": 0.38528138528138534,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 13,
+          "clearedFraction": 0.3928571428571429,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 17,
+          "clearedFraction": 0.6309523809523809,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 22
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 25,
+      "inputHash": "65fa1125709a1c5b7988a49a40301383f6f9484db07154b481b42af7220ba47c",
+      "decisions": 21,
+      "risky": 3,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 3,
+      "possibleRiskyUpperBound": 3,
+      "points": [
+        {
+          "command": 6,
+          "clearedFraction": 0.2607142857142857,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 26
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 7,
+          "clearedFraction": 0.3202380952380952,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 8,
+          "clearedFraction": 0.33690476190476193,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 8
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "v9",
+      "catalogHash": "88a35e7afdfbd84727c0fd752512102f7f5bbc5dac923ae1904f0f5bb74ca0f8",
+      "id": 29,
+      "inputHash": "7c95205a42e165a7b2faf3dfef203eb0e6b085cf021b3a341c19d5bcdc97f65e",
+      "decisions": 18,
+      "risky": 6,
+      "tight": 1,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 6,
+      "possibleRiskyUpperBound": 6,
+      "points": [
+        {
+          "command": 4,
+          "clearedFraction": 0.12121212121212122,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 5,
+          "clearedFraction": 0.12121212121212122,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 6,
+          "clearedFraction": 0.12121212121212122,
+          "free": 0,
+          "alternatives": [
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "clearedFraction": 0.4632034632034632,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 10,
+          "clearedFraction": 0.4913419913419913,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 20
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 11,
+          "clearedFraction": 0.5551948051948052,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 4,
+      "inputHash": "52c2d0a4f01ddcd5154b2259cecc7eaabda2affc34a99b485ef0af1a016eeae7",
+      "decisions": 12,
+      "risky": 1,
+      "tight": 0,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 1,
+      "possibleRiskyUpperBound": 1,
+      "points": [
+        {
+          "command": 8,
+          "clearedFraction": 0.19545454545454544,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 10,
+      "inputHash": "684266f5b3b6d6474f8c094fd36833132638cd51def7dc93b72dec099945ccef",
+      "decisions": 26,
+      "risky": 10,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 10,
+      "possibleRiskyUpperBound": 10,
+      "points": [
+        {
+          "command": 4,
+          "clearedFraction": 0.007291666666666696,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 6,
+          "clearedFraction": 0.18125000000000002,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 8
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 7,
+          "clearedFraction": 0.24791666666666667,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 31
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 8,
+          "clearedFraction": 0.2583333333333333,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "clearedFraction": 0.3270833333333333,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 10,
+          "clearedFraction": 0.33854166666666663,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 12,
+          "clearedFraction": 0.38020833333333337,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 19,
+          "clearedFraction": 0.6541666666666667,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 20,
+          "clearedFraction": 0.6677083333333333,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 21,
+          "clearedFraction": 0.6875,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 1
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 12,
+      "inputHash": "47307feb7f4d62bc092de6a199461ad584ee8177259c9a46b72628910cb8acd3",
+      "decisions": 14,
+      "risky": 1,
+      "tight": 1,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 1,
+      "possibleRiskyUpperBound": 1,
+      "points": [
+        {
+          "command": 8,
+          "clearedFraction": 0.2483974358974359,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 20
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 13,
+      "inputHash": "a720b12f478f5857846292a4667826b2795cca340f3abd6badfe0534ec4d11bd",
+      "decisions": 13,
+      "risky": 2,
+      "tight": 0,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 2,
+      "possibleRiskyUpperBound": 2,
+      "points": [
+        {
+          "command": 6,
+          "clearedFraction": 0.21328671328671334,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 9
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 7,
+          "clearedFraction": 0.22202797202797198,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 15,
+      "inputHash": "d759dc1ee79bcbe2e5e5110e370352e4c3c4afba13d7097446cfa32e46b4c83b",
+      "decisions": 25,
+      "risky": 9,
+      "tight": 4,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 9,
+      "possibleRiskyUpperBound": 9,
+      "points": [
+        {
+          "command": 14,
+          "clearedFraction": 0.5107142857142857,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 28
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 15,
+          "clearedFraction": 0.5166666666666666,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 21
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 17,
+          "clearedFraction": 0.5892857142857143,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 19
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 18,
+          "clearedFraction": 0.6273809523809524,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 19,
+          "clearedFraction": 0.6666666666666667,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 20,
+          "clearedFraction": 0.6714285714285715,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 24
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 21,
+          "clearedFraction": 0.7059523809523809,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 8
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 22,
+          "clearedFraction": 0.719047619047619,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 23,
+          "clearedFraction": 0.7357142857142858,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 16,
+      "inputHash": "597216496b90292d36f0face2d334d7eb4a5e29efaba57656199b67a40b574d9",
+      "decisions": 11,
+      "risky": 3,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 3,
+      "possibleRiskyUpperBound": 3,
+      "points": [
+        {
+          "command": 8,
+          "clearedFraction": 0.363013698630137,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 9,
+          "clearedFraction": 0.3972602739726028,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 10,
+          "clearedFraction": 0.3972602739726028,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 22,
+      "inputHash": "7c3d7e0f2c48d537123e85aa36c0f4881ac40c3d5f1b4d6f306cc5cc33f2a3ea",
+      "decisions": 28,
+      "risky": 5,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 5,
+      "possibleRiskyUpperBound": 5,
+      "points": [
+        {
+          "command": 4,
+          "clearedFraction": 0.06926406926406925,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 16
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 5,
+          "clearedFraction": 0.06926406926406925,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 4
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 11
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 12,
+          "clearedFraction": 0.38528138528138534,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 13,
+          "clearedFraction": 0.3928571428571429,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 17,
+          "clearedFraction": 0.6309523809523809,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 17
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 22
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 25,
+      "inputHash": "c8059ada33c2900fbf9a2bdbb8ac346c3107d8de8b5f26da61b5ae2680baedd3",
+      "decisions": 22,
+      "risky": 4,
+      "tight": 3,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 4,
+      "possibleRiskyUpperBound": 4,
+      "points": [
+        {
+          "command": 12,
+          "clearedFraction": 0.5547619047619048,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 14
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 22
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 13,
+          "clearedFraction": 0.6345238095238095,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 14
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            }
+          ]
+        },
+        {
+          "command": 15,
+          "clearedFraction": 0.7511904761904762,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 16,
+          "clearedFraction": 0.7666666666666666,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 12
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 7
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 18
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "catalog": "updated-v8e",
+      "catalogHash": "ca055898ae82cd151f45cf482ef6361a3528b81bcb97b1d32a530c24458e7737",
+      "id": 29,
+      "inputHash": "613025e201657f2d688ba8fdced5c12b1e88794326e8be8ba7fd37becc3eab83",
+      "decisions": 17,
+      "risky": 6,
+      "tight": 2,
+      "unknown": 0,
+      "confirmedRiskyLowerBound": 6,
+      "possibleRiskyUpperBound": 6,
+      "points": [
+        {
+          "command": 3,
+          "clearedFraction": 0.06060606060606055,
+          "free": 3,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 5
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 4,
+          "clearedFraction": 0.06926406926406925,
+          "free": 2,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 6
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 5,
+          "clearedFraction": 0.06926406926406925,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 2
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 6,
+          "clearedFraction": 0.08766233766233766,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 3
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 7,
+          "clearedFraction": 0.1298701298701299,
+          "free": 0,
+          "alternatives": [
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 0
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "bridge",
+                "choice": 1
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        },
+        {
+          "command": 8,
+          "clearedFraction": 0.21536796536796532,
+          "free": 1,
+          "alternatives": [
+            {
+              "action": {
+                "type": "tap",
+                "pod": 0
+              },
+              "patientWin": true,
+              "certificateChoice": true
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 10
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 13
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            },
+            {
+              "action": {
+                "type": "tap",
+                "pod": 20
+              },
+              "patientWin": false,
+              "certificateChoice": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
