@@ -69,6 +69,7 @@
   }
   commit(action){
    const reason=this.check(action);if(reason)return {accepted:false,reason,events:[]};this.clearLogs();const s=this.state,events=[];
+   if(action.type==='tap'&&s.meta.groups[action.pod].length>1)R.compactSlots(s);
    if(action.type==='tap')for(const pod of s.meta.groups[action.pod]){
     const column=s.level.tray.findIndex((stack,c)=>stack[s.heads[c]]===pod),slot=s.slots.indexOf(-1);
     s.heads[column]++;s.slots[slot]=pod;s.ages[pod]=++s.serial;events.push({type:'commit',pod,slot});if(!s.revealed[pod]){s.revealed[pod]=1;events.push({type:'reveal',pod,mode:'sealed',color:s.level.pods[pod].color});}

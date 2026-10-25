@@ -3,7 +3,8 @@
 Automated model/browser checks, not human playtest results or native Core equivalence. `artifact.json` identifies the exact final catalog, HTML and ZIP.
 
 - `engine.json`: all-30 review gates, 30 patient certificates and 30 visible-horizon planner replays; 207 hidden-data swap checks; 240 concurrent random runs; 1,127 checkpoint restores; conservation, slot reuse, pair release, frame invariance and mystery rejection/checkpoint fixtures. Primary-route decisions are checked independently of the selected timing route. All six timing reports are recomputed. Rebuilt queue bot bounds, held-out measurements, phase spread and number-only shortcut limits are checked.
-- `browser.json`: 30 wins through actual DOM input; exported commands replay in the live model; counts, trips, reservations and releases agree; three-row visibility, mysteries and 36 responsive layouts checked. Browser clock accelerated for QA.
+- `browser.json`: 30 wins through actual DOM input; exported commands replay in the live model; counts, trips, reservations, releases and exact fixed slot positions agree; three-row visibility, mysteries and 36 responsive layouts checked. Browser clock accelerated for QA.
+- `slot-layout.json`: valid isolated fixture checks release gaps, first-hole single admission, pair-only stable compaction, rejected pair atomicity, reload and top-edge tube anchors in the actual DOM.
 - `motion.json`: both linked pods fly together; decorative arrivals never commit again; tube strokes use neutral material rather than revealing hidden colors.
 - `feedback.json`: all waiting answers select, persist across reload and survive JSON download.
 - `lifecycle.json` / `clock.json`: modal/visibility pauses, reload during stream, event logging and clock regression checks.

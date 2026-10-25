@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "htmlSHA256": "47b41398bb608bf6b23738519243afc4354c27f3b52de254be7ce3e7d0f2d487",
+  "fixtureOnly": true,
+  "releasePreservesGaps": true,
+  "singleUsesFirstHole": true,
+  "pairCompactsOnlyOnAcceptedAdmission": true,
+  "existingLeftToRightOrderPreserved": true,
+  "rejectedPairDoesNotReorder": true,
+  "browserReloadPreservesGaps": true,
+  "linksAtTopEdge": true
+}

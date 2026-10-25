@@ -17,6 +17,7 @@ node tools/gameplay-pilot-v9/browser-check.mjs
 node tools/gameplay-pilot-v9/browser-smoke.mjs
 node tools/gameplay-pilot-v9/feedback-check.mjs
 node tools/gameplay-pilot-v9/motion-check.mjs
+node tools/gameplay-pilot-v9/slot-layout-check.mjs
 node tools/gameplay-pilot-v9/storage-check.mjs  # consumes current browser-check results
 python3 tools/gameplay-pilot-v9/package.py
 ```
@@ -28,3 +29,5 @@ For content authors only: `node synthesis.mjs audit` records retained-source ass
 `rhythm.mjs` measures actual ×1/×2/×2.5 wall clocks with explicit 1.2 s reaction time. Patient, brisk and reserve policies are each measured at ×1/×2. Reserve deliberately keeps one free place while work remains; this is a diagnostic player strategy, not a rule change. Its voluntary delays and unconditional one/two-productive-place intervals are disclosed. A failed schedule is never replaced with another schedule's time.
 
 Primary-route risk is checked before trying timing alternatives. Full-information patient continuation search distinguishes unknown from loss; unresolved branches are not proof. Chosen alternate routes may legitimately avoid risk. Held-out bot measurements are separate from search samples; neither predicts human retention. `rules.cjs`/`timeline.cjs` retain v8E mechanics. Memoization in `botsc.mjs` affects authoring only; cached states remain read-only. `compare-colony.mjs` replays model witnesses only for complete competitor inputs, without claiming identical competitor physics.
+
+Slot positions are authoritative: a single admission fills the first hole; release leaves gaps; only an accepted pair compacts occupants in current left-to-right order. `compactSlots` is shared by settled and live admission. The DOM draws those exact positions. `slot-layout-check.mjs` uses a separate accounting-valid fixture to exercise holes, single/pair branches, rejected admission, browser reload and top-edge tube anchors; it does not alter the 30 shipped definitions.
