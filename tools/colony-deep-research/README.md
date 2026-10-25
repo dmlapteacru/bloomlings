@@ -37,3 +37,14 @@ All recorded levels (L1–L5, L10, L20, L25, L26) as text in [`product/audits/co
 - `cfcells.py` — a board frame → letter grid that keeps every cube (gridmap.py treats the most common colour as background, which drops a sky covering the whole board); grey "?" board tiles show as `?`.
 - `slottaps.py`, `traytaps.py` — tap times from a recording: rises in the number of filled waiting slots, and bursts of movement in the tray.
 - `rounds/data-l25-l26.mjs` — L25 and L26 as transcribed from frames every 0.5 s; `rounds/align20.mjs` — L20's tap times (detected events matched to the owner's tap order, `rounds/detected/`); `rounds/build.mjs` — writes `levels.json` and the storyboards, checks the colour accounting and replays every round on its tray.
+
+## colony-flow.com walkthrough videos (2026-10-25)
+
+28 more levels (L19–L1270 and one unnumbered) from the site's videos, as text in
+[`product/audits/colony-flow-rounds/site/`](../../product/audits/colony-flow-rounds/site/README.md).
+
+- `ytsheets.py` — event storyboards of a 640×360 video: only the moments the tray moves (before, every 0.5 s during, after), the waiting places and tray enlarged, 32 frames a sheet.
+- `coverboard.py` — the site's cover picture → letter grid and palette: the beige panel inside the wooden frame, the cube field, every cube's top face, the watermark band repaired (it darkens by about 0.85; its white letters are left out).
+- `rounds/check-round.mjs` — checks one transcribed round (taps take top capsules and linked groups whole, padlocks `#<colour>` leave only on their `unlocks`, a won attempt empties the tray).
+- `rounds/map-colours.py` — the cover's colour clusters → the round's colour letters (by colour name, then by the capsules' totals).
+- `rounds/build-site.mjs` — writes `site/levels.json`, the storyboards and `checks.json` from `rounds/site/`.

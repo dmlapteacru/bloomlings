@@ -1,0 +1,120 @@
+{
+ "w": 35,
+ "h": 35,
+ "rows": [
+  "OOOOOOOOOOOOOAAAAAAAAAAOOOOOOOOOOOO",
+  "OOOOOOOOOOOOAAAADDDDAAAAOOOOOOOOOOO",
+  "OOOOOOOAAAAAAAADYRRRDAAAAAAOOOOOOOO",
+  "OOOOOOOAAAAAAADRRRYRRDAAAAAAOOOOOOO",
+  "OOOOAAAADDDDADRRYRRRRRDDDAAAAOOOOOO",
+  "OOOOAAADWWWWDYRRRRARYRDWWDAAAAOOOOO",
+  "OOOAAADWWWWWDRRYRRARRRRDWWDAAAAOOOO",
+  "OOOAAADWWWWDRYRRRW.RYRRDWWWDAAAOOOO",
+  "OOOAADPWWWWDRRRRYRRRRRYDWWWWDAAOOOO",
+  "OOAAADPPWWPDDRRRRRYRRDDDPWWPDAAOOOO",
+  "OAAAADPPPPDWWDDDRRRRDWWWDPPPDAAOOOO",
+  "AAADDWDPPDWWWWWPDDRDWWWWWDPPDAAOOOO",
+  "AADWWWWDDWWWWWWWPPDWWWWWWWDPDAAAOOO",
+  "ADWWWWWWDPWWWWWWPPPDWWWWWWPDWDAAOOO",
+  "DWWWWWWWDPPWWWWPPPPDPWWWWPPDWDAAAOO",
+  "DPPPWWWWWDPPPPPPPPDPPPPPPPPDWWDAAOO",
+  "DDDPPPPPWWDDPPPPDDWDDDPPPDDRWWDAAAO",
+  "DBBDDDDPPPPPDDDDWWWWWWDDDWWRWWWDAAO",
+  "DBBBBB.DWDWPPPPPPWWWWWWWWWBRWWWDAAA",
+  "DBBBBBBBWBBDDDDDPPPPPPPWWWR.WWWWDAA",
+  "ADPBBBBBWBBBBBBBDDDDDDPPPPPPWWWWDAA",
+  "ADPPPPBW.BBBBBBBBBBBBBDDDDDPPPWPPDA",
+  "ADPPPPPRRPPBBBBBBBBBBBBBBBBDDPPPDDA",
+  "ADPPPPPRRRPPPRRPPBBBBBBBBBBBBDDDBDA",
+  "AADBBBPRRPPPRRRRPPPPBBBBBBBBBBBBBDA",
+  "AADBBBBBBBBPPRRPPPPRRPPBBBYBBBBBBDA",
+  "AADBBBBBBBBBBBBPPPPRRRPPPRYPPBBBBDA",
+  "AADBBBBBBBBBBBBBBBBRRPPPR.WRPPPPPDA",
+  "AADBBBBBBBBBBBBBBBBBBBBPPY.PPPPPPDA",
+  "AAADDDBBBBBBBBBBBBBBBBBBBBBBBPPPPDA",
+  "AAAAAADDDDDBBBBBBBBBBBBBBBBBBBBBBDA",
+  "OOAAAAAAAAADDDDDBBBBBBBBBBBBBBBBBDA",
+  "OOOOAAAAAAAAAAAADDDDDDBBBBBBBBBBBDA",
+  "OOOOOOOOOAAAAAAAAAAAAADDDDDBBBBBBDA",
+  "OOOOOOOOOOOOOOAAAAAAAAAAAAADDDDDDAA"
+ ],
+ "legend": {
+  "A": {
+   "name": "amber / golden orange",
+   "hex": "#f9b828"
+  },
+  "B": {
+   "name": "brown (chocolate)",
+   "hex": "#a65047"
+  },
+  "D": {
+   "name": "dark (near-black purple)",
+   "hex": "#53405a"
+  },
+  "O": {
+   "name": "orange (deep)",
+   "hex": "#f5872e"
+  },
+  "P": {
+   "name": "pink",
+   "hex": "#fac0e6"
+  },
+  "R": {
+   "name": "red",
+   "hex": "#e63f5c"
+  },
+  "W": {
+   "name": "white / cream",
+   "hex": "#edf3f6"
+  },
+  "Y": {
+   "name": "yellow (bright lemon)",
+   "hex": "#f9e551"
+  }
+ },
+ "accounting": {
+  "A": {
+   "board": 206,
+   "capsules": 204
+  },
+  "B": {
+   "board": 236,
+   "capsules": 237
+  },
+  "D": {
+   "board": 184,
+   "capsules": 186
+  },
+  "O": {
+   "board": 173,
+   "capsules": 173
+  },
+  "P": {
+   "board": 165,
+   "capsules": 165
+  },
+  "R": {
+   "board": 86,
+   "capsules": 83
+  },
+  "W": {
+   "board": 155,
+   "capsules": 150
+  },
+  "Y": {
+   "board": 14,
+   "capsules": 11
+  }
+ },
+ "offBy": 16,
+ "clusters": {
+  "A": "A",
+  "B": "B",
+  "C": "O",
+  "D": "D",
+  "E": "P",
+  "F": "W",
+  "G": "R",
+  "H": "Y"
+ }
+}

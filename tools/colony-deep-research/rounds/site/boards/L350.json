@@ -1,0 +1,143 @@
+{
+ "w": 33,
+ "h": 35,
+ "rows": [
+  ".......RRRRRRRRRRRRRRRRRRR.......",
+  ".....RRYYYYYYYYYYYYYYYYYYYRR.....",
+  "...RRYYYYYRRRRYRRRYRRRRYYYYYRR...",
+  "..RYYYRYRRYYYYYYYYYYYYYRRYRYYYR..",
+  ".RYDDDDYYYRYYYDDDDDYYYRYYYDDDDYR.",
+  "RYDWWWSDRYYYDDBBBBBDDYYYRDSWWWDYR",
+  "RDLWWWOBDYDDBBOODOOBBDDYDBOWWWLDR",
+  "RDLDDW.BBDBOOODYYYDOOOBDBBWWDDLDR",
+  "RDLDDWSDBBOODYYYYYYYDOOBBDSWDDLDR",
+  "RDLLDDDBOODYYYDYDYDYYYDOOBDDDLLDR",
+  "RYDLLDBDOOYYDYYYYYYYDYYOODBDLLDYR",
+  "RYDLDBSSODYYYYDYDYDOYYYDOSOBDLDYR",
+  "RYYDBOOYYW..DYYYYYYYD..WYYOOBDYYR",
+  "RRYDDOOW.WWWWDYDYDYDWWWW..YODDYRR",
+  "RRYDDOODDDDDWDOSOBODWDDDDDOODDYRR",
+  "RDRDBOOBDBDDDWODDBOWDDDBDSOOBDLDR",
+  "RDDDBOOODDBBDSOBRSOODBBDDOOOBDDDR",
+  "RRDDBDBBDDDDDOOYWOOODDDDDBODBDDRR",
+  "RSSDBBOSWDDWDBYSWSSBLDWDWSSBBDSSR",
+  "RSSDDBOOYYSSDSODDDYODSSYYOSBDDSSR",
+  "RLSDDBBBBBOODOYDDDOODOOBBBBBDDSRR",
+  "RSSRLLBDDDBODOYSSSOODOBDDDBLDRSSR",
+  "RSSRDLLLLDBBDOOYOOYODBBDLLLLDRSSR",
+  "RSRDDLLLLLDBOSSSSSSSOBDLLLLLDDRSR",
+  "RLDSRDLLLLDBODDDDDDDYBDLLLLDRSDSR",
+  "RLSRDSDLLDODOWDDDDDWODODLLDSDRSWR",
+  ".RLDSSSDLDYDDWWDDDWWDDYDLDSSSDLR.",
+  "..RSSSLDDDWWWWWWDWWWWWWDDDSSSSR..",
+  "...RSLDSSRDWWWWDWDWWWWDLSSDLSR...",
+  "....RDSSSDSDDDDWWWDDDDSDSSSDR....",
+  "....RSSSDSSSDWWWWWWWDSSSDSSSR....",
+  ".....RSSSSSSDLLLLLLLDSSSSSSR.....",
+  "......RRWSSSSDDDDDDDSSSSWRR......",
+  "........RRWWSWWWWWWWSWWRR........",
+  "..........RRRRRRRRRRRRR.........."
+ ],
+ "legend": {
+  "B": {
+   "name": "brown",
+   "hex": "#a14f48"
+  },
+  "D": {
+   "name": "dark (near-black)",
+   "hex": "#503f56"
+  },
+  "L": {
+   "name": "light blue",
+   "hex": "#5bdbeb"
+  },
+  "N": {
+   "name": "navy / indigo blue"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f1852f"
+  },
+  "R": {
+   "name": "red",
+   "hex": "#26874f"
+  },
+  "S": {
+   "name": "skin / peach",
+   "hex": "#52d25a"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#e5edf0"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#f6b529"
+  }
+ },
+ "accounting": {
+  "B": {
+   "board": 78,
+   "capsules": 52
+  },
+  "D": {
+   "board": 273,
+   "capsules": 248
+  },
+  "L": {
+   "board": 69,
+   "capsules": 64
+  },
+  "N": {
+   "board": 0,
+   "capsules": 16
+  },
+  "O": {
+   "board": 93,
+   "capsules": 9
+  },
+  "R": {
+   "board": 147,
+   "capsules": 455
+  },
+  "S": {
+   "board": 121,
+   "capsules": 121
+  },
+  "W": {
+   "board": 89,
+   "capsules": 38
+  },
+  "Y": {
+   "board": 155,
+   "capsules": 9
+  }
+ },
+ "offBy": 661,
+ "clusters": {
+  "A": "D",
+  "B": "R",
+  "C": "W",
+  "D": "Y",
+  "E": "Y",
+  "F": "S",
+  "G": "O",
+  "H": "L",
+  "I": "D",
+  "J": "B",
+  "K": "R",
+  "L": "Y",
+  "M": "D",
+  "N": "S",
+  "O": "L",
+  "P": "R",
+  "Q": "S",
+  "R": "L",
+  "S": "L",
+  "T": "S",
+  "U": "B",
+  "V": "O",
+  "W": "D",
+  "X": "L"
+ }
+}

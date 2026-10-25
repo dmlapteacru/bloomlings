@@ -1,0 +1,306 @@
+{
+ "level": 55,
+ "difficulty": "Normal",
+ "video": "videoplayback_55.mp4",
+ "legend": {
+  "Y": "yellow (bright lemon)",
+  "A": "amber / golden orange",
+  "O": "orange (deep)",
+  "W": "white / cream",
+  "P": "pink",
+  "B": "brown (chocolate)",
+  "D": "dark (near-black purple)",
+  "R": "red"
+ },
+ "columns": {
+  "c1": [
+   "W30",
+   "A40",
+   "O35?",
+   "A40",
+   "#yellow",
+   "P40",
+   "B30",
+   "W30",
+   "#blue",
+   "B27",
+   "D35"
+  ],
+  "c2": [
+   "Y5",
+   "W30?",
+   "B30:a",
+   "O33",
+   "A40?",
+   "D40",
+   "B30",
+   "#red",
+   "P40",
+   "A40",
+   "O35",
+   "R25"
+  ],
+  "c3": [
+   "P40",
+   "D35:a",
+   "B30",
+   "Y2",
+   "P45",
+   "W30",
+   "Y4",
+   "B30",
+   "D40",
+   "R28"
+  ],
+  "c4": [
+   "A44",
+   "W30",
+   "B30",
+   "B30",
+   "#green",
+   "D36",
+   "O35",
+   "R30?",
+   "O35"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 6,
+   "end": 216.75,
+   "taps": [
+    [
+     7,
+     "c2"
+    ],
+    [
+     9.75,
+     "c2",
+     "c2 ? opened earlier at the top: white 30"
+    ],
+    [
+     10.25,
+     "c3"
+    ],
+    [
+     11.5,
+     "c2",
+     "pair a: brown 30 (c2) + dark 35 (c3), diagonal link"
+    ],
+    [
+     43.25,
+     "c3"
+    ],
+    [
+     44.5,
+     "c2",
+     "c2 ? opens: amber 40"
+    ],
+    [
+     56.25,
+     "c2"
+    ],
+    [
+     56.75,
+     "c2"
+    ],
+    [
+     67,
+     "c2",
+     "red padlock now on top of c2"
+    ],
+    [
+     74,
+     "c4"
+    ],
+    [
+     78.5,
+     "c4"
+    ],
+    [
+     79,
+     "c4"
+    ],
+    [
+     79.75,
+     "c4",
+     "green padlock now on top of c4"
+    ],
+    [
+     90,
+     "c4"
+    ],
+    [
+     90.5,
+     "c4",
+     "c4 ? opens: red 30"
+    ],
+    [
+     95.5,
+     "c1"
+    ],
+    [
+     97.25,
+     "c1",
+     "c1 ? opens: orange 35"
+    ],
+    [
+     103.75,
+     "c1"
+    ],
+    [
+     105.5,
+     "c2"
+    ],
+    [
+     112.75,
+     "c2"
+    ],
+    [
+     116.5,
+     "c2"
+    ],
+    [
+     121.25,
+     "c4"
+    ],
+    [
+     122.5,
+     "c4",
+     "c4 empty"
+    ],
+    [
+     133,
+     "c1",
+     "yellow padlock now on top of c1"
+    ],
+    [
+     134.5,
+     "c2",
+     "c2 empty"
+    ],
+    [
+     145.5,
+     "c3"
+    ],
+    [
+     146,
+     "c3"
+    ],
+    [
+     155,
+     "c3"
+    ],
+    [
+     158.5,
+     "c1"
+    ],
+    [
+     160,
+     "c1"
+    ],
+    [
+     161,
+     "c1",
+     "blue padlock now on top of c1"
+    ],
+    [
+     169.5,
+     "c1"
+    ],
+    [
+     178,
+     "c1",
+     "c1 empty"
+    ],
+    [
+     185,
+     "c3"
+    ],
+    [
+     189.25,
+     "c3"
+    ],
+    [
+     199,
+     "c3"
+    ],
+    [
+     204.75,
+     "c3",
+     "tray empty"
+    ]
+   ],
+   "events": [
+    [
+     78.5,
+     "green padlock visible in c4 row 3, already green (its key apparently collected before)"
+    ],
+    [
+     80.75,
+     "green padlock vanishes from the top of c4 without a tap; column shifts up"
+    ],
+    [
+     93,
+     "ants clear the board cell holding a red key; the key flies to the red padlock on top of c2"
+    ],
+    [
+     93.5,
+     "red padlock gone, c2 shifts up (pink 40 on top)"
+    ],
+    [
+     158,
+     "yellow padlock on top of c1 gone after its key was collected; pink 40 on top"
+    ],
+    [
+     161.25,
+     "blue key flies over the slots to the blue padlock on top of c1"
+    ],
+    [
+     161.75,
+     "blue padlock gone; brown 27 on top"
+    ],
+    [
+     216.75,
+     "dark win screen, coin button 60"
+    ]
+   ],
+   "unlocks": [
+    [
+     80.75,
+     "c4",
+     "green padlock opens"
+    ],
+    [
+     93.5,
+     "c2",
+     "red padlock opens"
+    ],
+    [
+     158,
+     "c1",
+     "yellow padlock opens"
+    ],
+    [
+     161.75,
+     "c1",
+     "blue padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Padlocks in the tray (keys on the board): a padlock tile (red, green, yellow, blue) takes its own place in a column like a capsule but cannot be tapped and blocks the column while on top. The board holds small keys of the same colours (red and green on the right of the cake, blue on the left, yellow somewhere). When the ants clear the cell holding a key, the key flies to the padlock of its colour and the padlock vanishes, the column shifting up (no tap).",
+  "Red padlock reached the top of c2 at 67.0 and opened at 93.5; yellow padlock top of c1 at 133.0, opened 158.0; blue top of c1 at 161.0, opened ~161.5; green padlock was already green (open) when first seen at 78.5 and vanished on reaching the top of c4 at ~80.5.",
+  "Hidden capsules (?) in c1, c2, c4; one diagonal link pair (c2 brown 30 - c3 dark 35).",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "Amber vs orange vs yellow: 40s and 44 read as amber/golden, 33/35 as deeper orange, 5/2/4 as lemon yellow; boundary between amber and orange is judged from shading only.",
+  "Exact time each padlock opened is from the 0.5 s tiles; the yellow key's board location was not checked.",
+  "Whether the green padlock had a separate green key collected earlier (assumed) or is a different 'open lock' state.",
+  "c1 W30 under the yellow padlock: not seen as '?', taken as normal."
+ ]
+}

@@ -1,0 +1,128 @@
+{
+ "w": 28,
+ "h": 28,
+ "rows": [
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAACCAAAAAAAAAAACCCAAAAAA",
+  "AAAAACBBCAAAAAAAAACBBBCAAAAA",
+  "AAAAACBBBCAAAAAAACBBBBCAAAAA",
+  "AAAAACBBBBCAAAAACBBBBBCABAAA",
+  "AAAAACBBBBBCCCCCBBBBBBCABAAA",
+  "AAAAACBBBCBBDBBBBCBBBBCB.AAA",
+  "AAAAACBBCBBDDBBBBBCBBBCAAAAA",
+  "AAAAAACCBBBDDBBBBBBCBBCAAAAA",
+  "AAAAAACBBBBDDBBBBBBBBCAAAAAA",
+  "AAAAAACBFFBDDBFFBBBBBCAAAAAA",
+  "AAAAACBBFFDDDDFFBBBBBBCAAAAA",
+  "AAAAACCCBDFFDDDBCCBBBBCAAAAA",
+  "AAAAACDDDDFFDDDDDDBBBBBCAAAA",
+  "AAAAACDDDCGCCDDDDDBBBBBCAAAA",
+  "AAAAAACDDGCDDDDDDDDDDFCAAAAA",
+  "AAAAAAACCGCDDDDDDDDDFCAAAAAA",
+  "AAAAAACCCGCCCDDDDDBBBBCAAAAA",
+  "AAAAACGGGGGGGCDDBBBBBBCAAAAA",
+  "AAAAACCCCCCCCCDFBBBBBBBCAAAA",
+  "AAAAACFEHEEHEFCDBBBBBBBCAAAA",
+  "AAAACDDHHHDDHCDDBBBBBBBCAAAA",
+  "AAAACDDEDEE.EDDDBBBBBBBCCAAA",
+  "AAAACDDEEEEEEDDDBBFBBBBBCAAA",
+  "AAAAACCHEHHEHDDDCFDBBBBBCAAA",
+  "AAAAAACEEEEEECCCDDDDBBBBCAAA",
+  "AAAAAAACCCCCCDDDDDDDBBBBCAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ],
+ "palette": [
+  {
+   "letter": "A",
+   "rgb": "#b1fe59",
+   "lab": [
+    92,
+    -48,
+    69
+   ],
+   "cells": 341
+  },
+  {
+   "letter": "B",
+   "rgb": "#f7b926",
+   "lab": [
+    79,
+    11,
+    75
+   ],
+   "cells": 173
+  },
+  {
+   "letter": "C",
+   "rgb": "#52405c",
+   "lab": [
+    30,
+    14,
+    -14
+   ],
+   "cells": 109
+  },
+  {
+   "letter": "D",
+   "rgb": "#eef4f5",
+   "lab": [
+    96,
+    -2,
+    -1
+   ],
+   "cells": 97
+  },
+  {
+   "letter": "E",
+   "rgb": "#583020",
+   "lab": [
+    25,
+    16,
+    18
+   ],
+   "cells": 22
+  },
+  {
+   "letter": "F",
+   "rgb": "#a64e44",
+   "lab": [
+    44,
+    35,
+    23
+   ],
+   "cells": 19
+  },
+  {
+   "letter": "G",
+   "rgb": "#c1fcfd",
+   "lab": [
+    95,
+    -18,
+    -7
+   ],
+   "cells": 11
+  },
+  {
+   "letter": "H",
+   "rgb": "#45271b",
+   "lab": [
+    19,
+    13,
+    14
+   ],
+   "cells": 10
+  }
+ ],
+ "band": 182,
+ "field": [
+  85,
+  55,
+  918,
+  787
+ ],
+ "pitch": [
+  29.79,
+  25.92
+ ],
+ "plain": false
+}

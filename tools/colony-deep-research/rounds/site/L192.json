@@ -1,0 +1,57 @@
+{
+ "level": 192, "difficulty": "Normal", "video": "videoplayback_192.mp4",
+ "legend": {"B": "sky blue (cyan)", "L": "pale light blue", "W": "white", "M": "maroon / brown-red", "O": "orange", "D": "dark (near black)"},
+ "columns": {
+  "c1": ["B43", "B40", "B50", "B45", "M8:a", "L31", "L40"],
+  "c2": ["W35", "B70", "B30", "B50", "L40:a", "B50", "W47"],
+  "c3": ["W30", "B75", "B50", "B30", "O27:a", "B50", "W25"],
+  "c4": ["B35", "W20", "B20", "W34", "D4:a", "B25"],
+  "c5": ["B55", "B48", "B35", "B45", "W30", "B25"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 0.25, "end": 185.75,
+  "taps": [
+   [0.5, "c1", "blue 43"],
+   [1.0, "c1", "blue 40"],
+   [1.25, "c1", "blue 50"],
+   [1.5, "c1", "blue 45; maroon 8 rises, long maroon link line down to c2"],
+   [2.75, "c4", "blue 35"],
+   [15.75, "c5", "blue 55"],
+   [15.75, "c5", "blue 48"],
+   [16.25, "c5", "blue 35"],
+   [16.25, "c5", "blue 45"],
+   [32.75, "c2", "white 35"],
+   [33.0, "c2", "blue 70"],
+   [33.25, "c2", "blue 30"],
+   [33.75, "c2", "blue 50; pale blue 40 rises, link with maroon 8 becomes horizontal"],
+   [48.6, "c3", "white 30"],
+   [48.75, "c3", "blue 75"],
+   [49.0, "c3", "blue 50"],
+   [49.25, "c3", "blue 30; orange 27 rises, joined to the chain, orange line down to c4"],
+   [60.5, "c4", "white 20"],
+   [60.75, "c4", "blue 20; white 34 on top, dark 4 under it joined to orange 27"],
+   [76.0, "c4", "white 34"],
+   [76.25, "c1", "group a of 4: maroon 8 + pale blue 40 + orange 27 + dark 4 (4 slots)"],
+   [88.25, "c2", "blue 50"],
+   [104.25, "c3", "blue 50"],
+   [121.75, "c2", "white 47; c2 empty, tray recentres"],
+   [142.0, "c3", "white 25; c3 empty"],
+   [163.5, "c5", "white 30"],
+   [172.25, "c1", "pale blue 31"],
+   [172.4, "c1", "pale blue 40"],
+   [172.5, "c4", "blue 25"],
+   [172.75, "c5", "blue 25; tray empty"]
+  ],
+  "events": [[3.25, "all 5 slots full (4 blue from c1 + blue 35)"], [76.75, "group a holds 4 slots; dark 4 stays at 4 and the others stall until ~165 (eyes/arms reachable only after the snowman body clears)"], [77.0, "only 1 free slot from 76 to ~165"], [171.75, "group a finished, 4 slots free"], [185.5, "win screen 'Sweet Meal', coin button 20 with multiplier bar x1-x100"]]}],
+ "mechanics": [
+  "4-capsule link chain (group a): c1 maroon 8, c2 pale blue 40, c3 orange 27, c4 dark 4, joined by coloured bars (diagonal lines while members were lower in their columns, horizontal once on top). Tapped as one when all four were on top; it occupied 4 waiting places for ~90 s because its dark/maroon/pale blue cells were not reachable yet.",
+  "Board counter tiles: three cells show a number (60 at the left arm tip, 80 above the head, 90 at the right arm tip). The numbers fall as tiles are cleared (right one 90 -> 83 at ~40 s -> 15 at ~50 s) and vanish at 0 (left one gone by ~15 s). Exact rule (what they count) not certain.",
+  "No hidden capsules, locks or keys seen. Boosters x2 each, none used.",
+  "When a column empties the tray recentres the remaining columns."
+ ],
+ "uncertain": [
+  "c4 white 34 first seen at 60.5 rising into row 1; it may have started hidden (row 3 at start was only partly visible)",
+  "Fast bursts (0.5-1.5 c1, 15.75-16.25 c5, 48.6-49.25 c3, 172.25-172.75) tap times are approximate to 0.25 s; order within a burst follows the slot order",
+  "Pale blue (31, 40) taken as a separate colour from sky blue; white capsules may also cover the grey scarf cells (no grey capsule seen)",
+  "Board counter tile rule (60/80/90) inferred from a few frames"
+ ]
+}

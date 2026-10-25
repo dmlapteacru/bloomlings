@@ -1,0 +1,95 @@
+{
+ "w": 30,
+ "h": 30,
+ "rows": [
+  "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+  "LLLLLLLLLLLLPPLLLLLLLLLLLLLLLL",
+  "LLLLLLLLLLLLLLPLLLLLLLLLLLLLLL",
+  "LLLLLLLLLLLLLPLLLLLLLLLLLLLLLL",
+  "LLLLLLLPPLLLLLLLLLLLLLLLLLLLLL",
+  "LLLLLLLLLPLLLPLLLLLLLLLLLLLLLL",
+  "LLLLLLLLPLLLLLLLLLLLLLLLLLLLLL",
+  "LLLPPLLLLLLLLPLDLLLLLPPLLLLLLL",
+  "LLLLLPLLPLLLLLDDDDLLLLLPLLLLLL",
+  "LLLLPLLLLLLDDDDDDLLLLLPLLLLLLL",
+  "LLLLLLLLLDDYYYYYYDDLLLLLLLLLLL",
+  "LLLLPLLLDYYYYYYYYYYDLLPLLLLLLL",
+  "LLLLLLLLDLLYYYYYYYYYDLLLLPPLLL",
+  "LLLLLLDDYLDLYYYYLLYYDLLLLLLPLL",
+  "LLLLLDYDYLLDDDYYLDLYYDLLLLPLLL",
+  "LLLLLDYLDLLOOODLLLLYYDLLLLLLLL",
+  "LLLLLLDLOOODODOODYYYYYDLLLPLLL",
+  "LLLLLDOOOOOOOOOOODYYDYDLLLLLLL",
+  "LLLLDOOOOOOOOOOOODYDDYYDLLLLLL",
+  "LLLLDOOOOOOOOOOOODDYYYYDLLLLLL",
+  "LLLLDOOOOOOOOOOOODYYYYDLLLLLLL",
+  "LLLLLDDOOOOOOOODDYYYDDLLLLLLLL",
+  "LLLLLLLDDDDDDDDYYYYYYDLLLLLLLL",
+  "LLLLLLLDYYYYYYYYYYYYYDDLLLLLLL",
+  "LLLLLLLDYYYYYYYYYYYYDYYDLLLLLL",
+  "LLLLLLLLDYYYYYYYYYYYDDDLLLLLLL",
+  "LLLLLLLLDDDYYYYYYDDDLLLLLLLLLL",
+  "LLLLLLLLDOODDDDDDOODLLLLLLLLLL",
+  "LLLLLLLLDDDLLLLLDDDLLLLLLLLLLL",
+  "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+ ],
+ "legend": {
+  "D": {
+   "name": "dark (black)",
+   "hex": "#52405c"
+  },
+  "L": {
+   "name": "light blue",
+   "hex": "#c2fdfd"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f3882d"
+  },
+  "P": {
+   "name": "purple",
+   "hex": "#c61df8"
+  },
+  "W": {
+   "name": "white"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#fae552"
+  }
+ },
+ "accounting": {
+  "D": {
+   "board": 100,
+   "capsules": 106
+  },
+  "L": {
+   "board": 593,
+   "capsules": 574
+  },
+  "O": {
+   "board": 68,
+   "capsules": 68
+  },
+  "P": {
+   "board": 26,
+   "capsules": 26
+  },
+  "W": {
+   "board": 0,
+   "capsules": 13
+  },
+  "Y": {
+   "board": 113,
+   "capsules": 113
+  }
+ },
+ "offBy": 38,
+ "clusters": {
+  "A": "L",
+  "B": "Y",
+  "C": "D",
+  "D": "O",
+  "E": "P"
+ }
+}

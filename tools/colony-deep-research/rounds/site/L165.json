@@ -1,0 +1,259 @@
+{
+ "level": 165,
+ "difficulty": "Normal",
+ "video": "videoplayback_165.mp4",
+ "legend": {
+  "D": "dark (near black)",
+  "O": "orange",
+  "N": "brown-orange (darker than orange)",
+  "M": "rust / reddish brown",
+  "W": "white",
+  "C": "cyan / light blue",
+  "B": "blue",
+  "Y": "golden yellow",
+  "P": "peach / skin"
+ },
+ "columns": {
+  "c1": [
+   "D6",
+   "C35?",
+   "B35?:a",
+   "W34",
+   "C50",
+   "#green",
+   "B40",
+   "N40"
+  ],
+  "c2": [
+   "O25",
+   "W50:a",
+   "Y75:b",
+   "#yellow",
+   "B20?",
+   "N12",
+   "N35"
+  ],
+  "c3": [
+   "O26",
+   "D35",
+   "B50",
+   "C50?:a",
+   "#cyan",
+   "N25",
+   "M43"
+  ],
+  "c4": [
+   "C25",
+   "B45?",
+   "B36",
+   "B20",
+   "M50:c",
+   "P35",
+   "C35"
+  ],
+  "c5": [
+   "B45",
+   "O40",
+   "D45:b",
+   "W40?",
+   "B50:c",
+   "B40?",
+   "B21"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 3,
+   "end": 301.5,
+   "taps": [
+    [
+     3.5,
+     "c4",
+     "c4 ? opens: blue 45"
+    ],
+    [
+     3.75,
+     "c5"
+    ],
+    [
+     5.75,
+     "c4"
+    ],
+    [
+     6.25,
+     "c4"
+    ],
+    [
+     8,
+     "c4"
+    ],
+    [
+     28,
+     "c1",
+     "c1 ? opens: cyan 35"
+    ],
+    [
+     29,
+     "c1",
+     "c1 ? opens: blue 35 (linked a)"
+    ],
+    [
+     33.25,
+     "c3"
+    ],
+    [
+     34.5,
+     "c3"
+    ],
+    [
+     36.75,
+     "c3",
+     "c3 ? opens: cyan 50 (linked a); cyan padlock under it"
+    ],
+    [
+     121.75,
+     "c2",
+     "white 50 of group a reaches the top after ~85 s of waiting"
+    ],
+    [
+     123.5,
+     "c1",
+     "group a (3 capsules): blue 35 c1 + white 50 c2 + cyan 50 c3; cyan padlock on top of c3 opens at once"
+    ],
+    [
+     139.5,
+     "c3"
+    ],
+    [
+     140.5,
+     "c3",
+     "c3 empty, tray recentres to 4 columns"
+    ],
+    [
+     155,
+     "c1"
+    ],
+    [
+     155,
+     "c1",
+     "green padlock on top of c1 opens ~0.5 s later"
+    ],
+    [
+     157,
+     "c1"
+    ],
+    [
+     179.5,
+     "c1",
+     "c1 empty, 3 columns"
+    ],
+    [
+     210.75,
+     "c5",
+     "dark 45 of group b reaches the top"
+    ],
+    [
+     211.25,
+     "c2",
+     "pair b: yellow 75 c2 + dark 45 c5; c5 ? opens: white 40; yellow padlock now on top of c2"
+    ],
+    [
+     224.25,
+     "c2",
+     "c2 ? (revealed blue 20 when the padlock opened at ~223.25)"
+    ],
+    [
+     225.25,
+     "c2"
+    ],
+    [
+     235,
+     "c5",
+     "c5 next: blue 50 (group c) on top, ? under it"
+    ],
+    [
+     253.5,
+     "c2",
+     "c2 empty, 2 columns"
+    ],
+    [
+     272.25,
+     "c4",
+     "pair c: rust 50 c4 + blue 50 c5; c5 ? opens: blue 40"
+    ],
+    [
+     274,
+     "c5"
+    ],
+    [
+     288.75,
+     "c4"
+    ],
+    [
+     290.5,
+     "c5"
+    ],
+    [
+     290.75,
+     "c4",
+     "tray empty"
+    ]
+   ],
+   "events": [
+    [
+     39.75,
+     "stuck: open tops are blue 35 (c1, group a), orange 25 (c2), cyan 50 (c3, group a), rust 50 (c4, group c), orange 40 (c5); the player waits ~80 s with 1–2 slots counting"
+    ],
+    [
+     123.75,
+     "cyan padlock vanishes as soon as it is on top"
+    ],
+    [
+     155.5,
+     "green key flies from the slot area to the green padlock, which opens"
+    ],
+    [
+     223.25,
+     "yellow padlock on top of c2 opens (yellow key on the spire reached) after ~12 s on top"
+    ],
+    [
+     301.25,
+     "win screen, +60 coins (Sweet Meal reward strip)"
+    ]
+   ],
+   "unlocks": [
+    [
+     123.75,
+     "c3",
+     "cyan padlock opens"
+    ],
+    [
+     155.5,
+     "c1",
+     "green padlock opens"
+    ],
+    [
+     223.25,
+     "c2",
+     "yellow padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Long-range links: capsules in different columns and rows joined by a coloured rope/stick drawn from one capsule down to the other(s). Group a is three capsules (c1 blue 35, c2 white 50, c3 cyan 50); group b yellow 75 (c2) + dark 45 (c5); group c rust 50 (c4) + blue 50 (c5). Ropes run behind the booster bar to deep capsules, so a group is visible long before it is tappable; once all members are on top they show a straight bar and one tap takes all of them into neighbouring slots joined by bars.",
+  "Hidden capsules (grey '?'): show colour and count when they reach the top (c4 blue 45, c1 cyan 35 and blue 35, c3 cyan 50, c5 white 40 and blue 40, c2 blue 20).",
+  "Padlocks with keys: cyan padlock in c3 (under cyan 50), green in c1 (under cyan 50), yellow in c2 (under yellow 75). A padlock fills a place in a column, cannot be tapped and blocks the column until its key (cover: yellow key on the spire top, green key at the left, cyan key at the lower right) is collected on the board; then it vanishes. Cyan and green opened within ~0.5 s of reaching the top (key already collected); yellow waited ~12 s on top.",
+  "Columns recentre when one empties (5 -> 4 at 140.5, 3 at 179.5, 2 at 253.5).",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "N (brown-orange: c3 25, c1 40, c2 12 and 35) vs O (orange: 25, 26, 40) vs M (rust: 43, 50) shades judged by eye",
+  "c3 dark 35 tap time: 33.25–34.5 (slot shows it at 34.5)",
+  "Order at 3.5 (c4 cyan 25 before c5 blue 45) and at 290.5 (c5 blue 21 before c4 cyan 35) from slot positions",
+  "Whether c4 blue 45 and c5 blue 45 are the same shade (both look mid blue)",
+  "Lock timing interpretation (key collected earlier vs at that moment) is inferred"
+ ]
+}

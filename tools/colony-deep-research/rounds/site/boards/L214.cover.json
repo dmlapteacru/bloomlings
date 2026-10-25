@@ -1,0 +1,273 @@
+{
+ "w": 33,
+ "h": 33,
+ "rows": [
+  "............AAA..................",
+  "...........AAAACCC...........CCC.",
+  "..........AAAAACHBC.CCCCCCC.CBHC.",
+  ".........AAAAAACHHBCDIIFIIRCBHHC.",
+  "........AAAAAAACDDQBDIFFFIDBQQQC.",
+  ".......AAAAAAAAAMDBBDFFFFFDBBDCC.",
+  "......AAAAAAAAAJDDQBDIFFFIDBQDRC.",
+  ".....AAAAAAAAAACHHPMDIIFIIDMBHHC.",
+  "....AAAAAAAAAAACHBMBCCCCCCCBMBHC.",
+  "...AAJJJJJAAAAACCMBKBBBBBBBEBMCC.",
+  "..AJJRRRRDJJAAAPBBKAKKKKKKE.EBBB.",
+  ".AJRHPPPPOFFCAAKKKAAAAAAAACCCEEE.",
+  "AJNDPPBBBRIFOJAAAAAAAAAAAJLLMC...",
+  "ACRBPDPBIROQFCGGGGGGGGGGGCEDHMC..",
+  "SFHBQITTIPTPQCJAGGAGAAGJJCPDPRCC.",
+  "CFHBDIFFFTPTTFCAAAAAAAJCCOPPPPPC.",
+  "CFIBROTTVFBHOFCAGAAGAS.IFVOBQMML.",
+  "CIFPQRHLHFPHHVCAGAGASCFFFFITPCLEA",
+  "NOFTPPPPPQPRBCJAAAAACPIFFFFITMBAG",
+  "BCIFTTTPTPPPPCAAGGJJCPQIFFFIOLEG.",
+  "BLCIFFFOQPPPNSAAAACLLDBQIFICNEG..",
+  "EBLOIIIIPPTTSUAAAACPPPPPOOOLEG...",
+  ".EBLLOOOTTCSKSUAAALHHPDPCLLEG....",
+  "..EBBLNLLLLUVKSUAABLHDDBCBEG.....",
+  "...EEBBBBBBMGVGJGAEBNHRPCEG......",
+  ".....BEBBEEBNGVKJGAEBMMNJG.......",
+  "...........BBNGVKJGAEEEEA........",
+  "............BBNGVGCGAAAA.........",
+  ".............BBMAHAJAAA..........",
+  "..............BBNGVACA...........",
+  "...............BBNGGN............",
+  "................BBMMB............",
+  ".................BBB............."
+ ],
+ "palette": [
+  {
+   "letter": "A",
+   "rgb": "#5cdfef",
+   "lab": [
+    83,
+    -31,
+    -18
+   ],
+   "cells": 155
+  },
+  {
+   "letter": "B",
+   "rgb": "#bb1cf3",
+   "lab": [
+    49,
+    84,
+    -72
+   ],
+   "cells": 81
+  },
+  {
+   "letter": "C",
+   "rgb": "#513e59",
+   "lab": [
+    29,
+    14,
+    -13
+   ],
+   "cells": 80
+  },
+  {
+   "letter": "D",
+   "rgb": "#f157cc",
+   "lab": [
+    62,
+    71,
+    -31
+   ],
+   "cells": 26
+  },
+  {
+   "letter": "E",
+   "rgb": "#9616ea",
+   "lab": [
+    43,
+    78,
+    -78
+   ],
+   "cells": 28
+  },
+  {
+   "letter": "F",
+   "rgb": "#f7b52a",
+   "lab": [
+    78,
+    13,
+    73
+   ],
+   "cells": 46
+  },
+  {
+   "letter": "G",
+   "rgb": "#58c2d7",
+   "lab": [
+    73,
+    -25,
+    -19
+   ],
+   "cells": 42
+  },
+  {
+   "letter": "H",
+   "rgb": "#f8bae5",
+   "lab": [
+    83,
+    29,
+    -13
+   ],
+   "cells": 26
+  },
+  {
+   "letter": "I",
+   "rgb": "#f48a2d",
+   "lab": [
+    68,
+    34,
+    63
+   ],
+   "cells": 33
+  },
+  {
+   "letter": "J",
+   "rgb": "#45435f",
+   "lab": [
+    30,
+    8,
+    -16
+   ],
+   "cells": 26
+  },
+  {
+   "letter": "K",
+   "rgb": "#6ad0f1",
+   "lab": [
+    79,
+    -21,
+    -25
+   ],
+   "cells": 15
+  },
+  {
+   "letter": "L",
+   "rgb": "#61287c",
+   "lab": [
+    28,
+    40,
+    -37
+   ],
+   "cells": 22
+  },
+  {
+   "letter": "M",
+   "rgb": "#583669",
+   "lab": [
+    29,
+    25,
+    -24
+   ],
+   "cells": 18
+  },
+  {
+   "letter": "N",
+   "rgb": "#5d2d71",
+   "lab": [
+    28,
+    34,
+    -30
+   ],
+   "cells": 13
+  },
+  {
+   "letter": "O",
+   "rgb": "#bc6544",
+   "lab": [
+    53,
+    32,
+    34
+   ],
+   "cells": 17
+  },
+  {
+   "letter": "P",
+   "rgb": "#c32be3",
+   "lab": [
+    51,
+    79,
+    -61
+   ],
+   "cells": 49
+  },
+  {
+   "letter": "Q",
+   "rgb": "#f257d8",
+   "lab": [
+    62,
+    73,
+    -36
+   ],
+   "cells": 15
+  },
+  {
+   "letter": "R",
+   "rgb": "#df57bd",
+   "lab": [
+    58,
+    64,
+    -27
+   ],
+   "cells": 15
+  },
+  {
+   "letter": "S",
+   "rgb": "#455469",
+   "lab": [
+    35,
+    0,
+    -14
+   ],
+   "cells": 8
+  },
+  {
+   "letter": "T",
+   "rgb": "#a93d8f",
+   "lab": [
+    44,
+    53,
+    -23
+   ],
+   "cells": 19
+  },
+  {
+   "letter": "U",
+   "rgb": "#5a9cb2",
+   "lab": [
+    61,
+    -15,
+    -18
+   ],
+   "cells": 4
+  },
+  {
+   "letter": "V",
+   "rgb": "#d9c0e4",
+   "lab": [
+    81,
+    16,
+    -15
+   ],
+   "cells": 9
+  }
+ ],
+ "band": 265,
+ "field": [
+  65,
+  65,
+  730,
+  633
+ ],
+ "pitch": [
+  20.18,
+  17.1
+ ],
+ "plain": true
+}

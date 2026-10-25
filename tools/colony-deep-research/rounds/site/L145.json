@@ -1,0 +1,57 @@
+{
+ "level": 145, "difficulty": "Normal", "video": "videoplayback_145.mp4",
+ "legend": {"D": "dark (black)", "C": "peach (pale orange)", "N": "brown (red-brown)", "G": "green", "P": "pink", "W": "white", "L": "light yellow", "Y": "yellow (gold)", "O": "orange", "B": "blue"},
+ "columns": {
+  "c1": ["D45:a", "C20", "N44:d", "G20", "P50", "W34:f", "L45", "C40:h"],
+  "c2": ["D50:a", "Y30:d", "P20:e", "Y40:e", "O44", "L20:f", "B35:g", "D70:h"],
+  "c3": ["D35:b", "O26", "Y40", "B30:c", "O30", "Y66", "D40", "Y40:g", "D30"],
+  "c4": ["D45:b", "Y45", "G34", "G40:c", "B27", "L25", "Y45", "D55"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 1.5, "end": 283.75,
+  "taps": [
+   [2.0, "c3", "pair b: dark 35 (c3) + dark 45 (c4)"],
+   [13.0, "c3", "orange 26"],
+   [21.5, "c3", "yellow 40"],
+   [21.5, "c4", "yellow 45 (right after)"],
+   [24.0, "c4", "green 34"],
+   [49.25, "c3", "pair c: blue 30 (c3) + green 40 (c4), diagonal link that became horizontal"],
+   [54.75, "c3", "orange 30"],
+   [54.75, "c3", "yellow 66 (right after)"],
+   [77.75, "c1", "pair a: dark 45 (c1) + dark 50 (c2)"],
+   [98.5, "c1", "peach 20"],
+   [126.25, "c3", "dark 40"],
+   [132.75, "c4", "blue 27"],
+   [134.0, "c4", "light yellow 25"],
+   [135.5, "c4", "yellow 45"],
+   [138.0, "c4", "dark 55, c4 empty"],
+   [143.5, "c1", "pair d: brown 44 (c1) + yellow 30 (c2), diagonal link from the start"],
+   [162.5, "c2", "vertical pair e: pink 20 + yellow 40"],
+   [175.5, "c2", "orange 44"],
+   [177.25, "c1", "green 20"],
+   [178.25, "c1", "pink 50"],
+   [193.0, "c1", "pair f: white 34 (c1) + light yellow 20 (c2)"],
+   [219.5, "c2", "pair g: blue 35 (c2) + yellow 40 (c3), long diagonal link seen since ~126 s"],
+   [259.5, "c3", "dark 30, c3 empty"],
+   [267.5, "c1", "light yellow 45"],
+   [269.25, "c1", "pair h: peach 40 (c1) + dark 70 (c2), tray empty"]
+  ],
+  "events": [
+   [77.25, "only green+blue pair c (blue at 19) in slots"],
+   [125.75, "only dark pair a (at 1) in slots"],
+   [143.0, "slots shift left to close gaps (blue 6, yellow 20, dark 44 then the new pair)"],
+   [162.0, "only pair d left in slots: yellow 30 done, brown 44 stuck at 7; brown stays at 6 from ~168 s to the end"],
+   [193.0, "pink 20 of pair e stuck at 6 until ~259 s"],
+   [282.75, "all slots empty"],
+   [283.75, "win screen (Sweet Meal reward strip), +100 coins"]
+  ]}],
+ "mechanics": [
+  "Links: horizontal bars (row 1 dark pairs), vertical bar in a column (c2 pink 20 + yellow 40), diagonal bars across rows and columns that become horizontal when both members reach row 1 (c1 brown 44 / c2 yellow 30; c3 blue 30 / c4 green 40; c2 blue 35 / c3 yellow 40 spanning 3 rows; c1 white 34 / c2 light yellow 20; c1 peach 40 / c2 dark 70). Each bar is coloured half in each member's colour.",
+  "Slots compact to the left when one frees up.",
+  "No hidden capsules, locks or keys seen."
+ ],
+ "uncertain": [
+  "c3 row 6 (66): yellow-gold vs orange; in the slot it matched the yellow 40, so Y",
+  "peach (C) vs light yellow (L) are close shades: c1 20 and c1 40 read peach, c1 45 / c2 20 / c4 25 read light yellow",
+  "tap at 138.0 (c4 dark 55) is between the 137.75 and 138.25 frames"
+ ]
+}

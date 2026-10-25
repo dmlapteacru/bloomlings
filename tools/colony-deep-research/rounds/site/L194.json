@@ -1,0 +1,271 @@
+{
+ "level": 194,
+ "difficulty": "Normal",
+ "video": "videoplayback_194.mp4",
+ "legend": {
+  "S": "salmon (light red)",
+  "R": "crimson (dark red)",
+  "O": "orange",
+  "G": "green",
+  "D": "dark (black)",
+  "P": "pink",
+  "C": "peach (pale orange)",
+  "Y": "yellow"
+ },
+ "columns": {
+  "c1": [
+   "S34",
+   "R20",
+   "C14",
+   "Y23",
+   "#cyan",
+   "D35",
+   "G25",
+   "G65"
+  ],
+  "c2": [
+   "O28",
+   "#yellow",
+   "D30",
+   "R20",
+   "G30",
+   "R73",
+   "G65",
+   "G32"
+  ],
+  "c3": [
+   "G20",
+   "G30",
+   "G35",
+   "G20",
+   "D29",
+   "G50",
+   "R37",
+   "G40"
+  ],
+  "c4": [
+   "G35",
+   "G50",
+   "G30",
+   "P17",
+   "#green",
+   "G45",
+   "G40",
+   "G40"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 3.25,
+   "end": 196,
+   "taps": [
+    [
+     3.625,
+     "c3",
+     "green 20"
+    ],
+    [
+     4,
+     "c3",
+     "green 30"
+    ],
+    [
+     4.375,
+     "c3",
+     "green 35"
+    ],
+    [
+     4.75,
+     "c3",
+     "green 20"
+    ],
+    [
+     5.125,
+     "c4",
+     "green 35 (5 slots full of green)"
+    ],
+    [
+     10.25,
+     "c4",
+     "green 50"
+    ],
+    [
+     11.25,
+     "c4",
+     "green 30; green padlock now 2nd in c4"
+    ],
+    [
+     16,
+     "c3",
+     "dark 29"
+    ],
+    [
+     16,
+     "c3",
+     "green 50 (right after)"
+    ],
+    [
+     21,
+     "c3",
+     "crimson 37"
+    ],
+    [
+     21.75,
+     "c3",
+     "green 40; c3 empty, the tray recentres to 3 columns"
+    ],
+    [
+     35.5,
+     "c1",
+     "salmon 34"
+    ],
+    [
+     36,
+     "c1",
+     "crimson 20"
+    ],
+    [
+     45.5,
+     "c4",
+     "pink 17; the green padlock is now on top of c4"
+    ],
+    [
+     46.75,
+     "c4",
+     "green 45 (rose after the green padlock vanished at 46.0)"
+    ],
+    [
+     54.75,
+     "c4",
+     "green 40"
+    ],
+    [
+     61,
+     "c4",
+     "green 40; c4 empty, tray recentres to 2 columns"
+    ],
+    [
+     71.5,
+     "c2",
+     "orange 28; yellow padlock now on top of c2"
+    ],
+    [
+     73.5,
+     "c2",
+     "dark 30 (yellow padlock vanished at 72.0)"
+    ],
+    [
+     74.5,
+     "c2",
+     "crimson 20"
+    ],
+    [
+     84.25,
+     "c2",
+     "green 30"
+    ],
+    [
+     95.75,
+     "c2",
+     "crimson 73"
+    ],
+    [
+     125.75,
+     "c2",
+     "green 65"
+    ],
+    [
+     132,
+     "c2",
+     "green 32; c2 empty"
+    ],
+    [
+     132.5,
+     "c1",
+     "peach 14; a cyan padlock appears under yellow 23"
+    ],
+    [
+     144.25,
+     "c1",
+     "yellow 23; cyan padlock on top of c1"
+    ],
+    [
+     149.75,
+     "c1",
+     "dark 35 (cyan padlock vanished at 145.0)"
+    ],
+    [
+     173.25,
+     "c1",
+     "green 25"
+    ],
+    [
+     180.25,
+     "c1",
+     "green 65, tray empty"
+    ]
+   ],
+   "events": [
+    [
+     5.125,
+     "all 5 slots busy (green 20, 30, 35, 20, 35)"
+    ],
+    [
+     45.75,
+     "the crimson 37 pod in slot 4 shows a key icon (its Bloomlings picked up the green key on the board); the green padlock in c4 vanishes at 46.0"
+    ],
+    [
+     71.75,
+     "the crimson 37 pod again shows a key icon (yellow key); the yellow padlock in c2 vanishes at 72.0"
+    ],
+    [
+     72,
+     "orange 28 stays at 28 from 71.5 to ~172 s (orange tiles not reachable), pink 17 stuck at 17 / 14 for a long time"
+    ],
+    [
+     145,
+     "cyan padlock in c1 vanishes: green Bloomlings (green 65 pod, slot 1) carried the cyan key from the board to the hole at 144.5"
+    ],
+    [
+     195.5,
+     "all slots empty"
+    ],
+    [
+     196,
+     "win screen (Sweet Meal strip), +20 coins"
+    ]
+   ],
+   "unlocks": [
+    [
+     46,
+     "c4",
+     "green padlock opens"
+    ],
+    [
+     72,
+     "c2",
+     "yellow padlock opens"
+    ],
+    [
+     145,
+     "c1",
+     "cyan padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Padlocks in the tray: a coloured padlock tile (yellow in c2 row 2, green in c4 row 5, cyan in c1 row 5) stands in a column like a capsule and cannot be tapped; it blocks the column. The board has matching keys (small key icons on the picture: yellow at right, cyan/blue at left, green lower left). When a pod's Bloomlings reach a key, they carry it to the hole under the board, the pod in the slot shows a key icon and the padlock of that colour vanishes; the capsules below rise.",
+  "When a column empties, the tray recentres its remaining columns (column names here stay the original ones).",
+  "No links and no hidden capsules in this level.",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "salmon (S34) vs crimson (R20, R37, R73) red: two shades, read from the slots",
+  "the key carriers were read from the board: red Bloomlings carried the green key (45.25), green ones the cyan key (144.5); the yellow key carrier at ~71.75 read only from the slot icon",
+  "the padlock positions are counted as their own stack places (not in the token list)",
+  "tap times in the 3.6-5.1 s burst read from an 8 fps cut"
+ ]
+}

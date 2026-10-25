@@ -1,0 +1,112 @@
+{
+ "w": 28,
+ "h": 28,
+ "rows": [
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGDDGGGGGGGGGGGDDDGGGGGG",
+  "GGGGGDOODGGGGGGGGGDOOODGGGGG",
+  "GGGGGDOOODGGGGGGGDOOOODGGGGG",
+  "GGGGGDOOOODGGGGGDOOOOODGOGGG",
+  "GGGGGDOOOOODDDDDOOOOOODGOGGG",
+  "GGGGGDOOODOOWOOOODOOOODO.GGG",
+  "GGGGGDOODOOWWOOOOODOOODGGGGG",
+  "GGGGGGDDOOOWWOOOOOODOODGGGGG",
+  "GGGGGGDOOOOWWOOOOOOOODGGGGGG",
+  "GGGGGGDORROWWORROOOOODGGGGGG",
+  "GGGGGDOORRWWWWRROOOOOODGGGGG",
+  "GGGGGDDDOWRRWWWODDOOOODGGGGG",
+  "GGGGGDWWWWRRWWWWWWOOOOODGGGG",
+  "GGGGGDWWWDLDDWWWWWOOOOODGGGG",
+  "GGGGGGDWWLDWWWWWWWWWWRDGGGGG",
+  "GGGGGGGDDLDWWWWWWWWWRDGGGGGG",
+  "GGGGGGDDDLDDDWWWWWOOOODGGGGG",
+  "GGGGGDLLLLLLLDWWOOOOOODGGGGG",
+  "GGGGGDDDDDDDDDWROOOOOOODGGGG",
+  "GGGGGDRBDBBDBRDWOOOOOOODGGGG",
+  "GGGGDWWDDDWWDDWWOOOOOOODGGGG",
+  "GGGGDWWBWBB.BWWWOOOOOOODDGGG",
+  "GGGGDWWBBBBBBWWWOOROOOOODGGG",
+  "GGGGGDDDBDDBDWWWDRWOOOOODGGG",
+  "GGGGGGDBBBBBBDDDWWWWOOOODGGG",
+  "GGGGGGGDDDDDDWWWWWWWOOOODGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ],
+ "legend": {
+  "B": {
+   "name": "brown",
+   "hex": "#583020"
+  },
+  "D": {
+   "name": "dark (near-black)",
+   "hex": "#52405c"
+  },
+  "G": {
+   "name": "lime green",
+   "hex": "#b1fe59"
+  },
+  "L": {
+   "name": "light blue",
+   "hex": "#c1fcfd"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f7b926"
+  },
+  "P": {
+   "name": "magenta pink"
+  },
+  "R": {
+   "name": "red",
+   "hex": "#a64e44"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#eef4f5"
+  }
+ },
+ "accounting": {
+  "B": {
+   "board": 22,
+   "capsules": 17
+  },
+  "D": {
+   "board": 119,
+   "capsules": 113
+  },
+  "G": {
+   "board": 341,
+   "capsules": 341
+  },
+  "L": {
+   "board": 11,
+   "capsules": 11
+  },
+  "O": {
+   "board": 173,
+   "capsules": 170
+  },
+  "P": {
+   "board": 0,
+   "capsules": 4
+  },
+  "R": {
+   "board": 19,
+   "capsules": 29
+  },
+  "W": {
+   "board": 97,
+   "capsules": 95
+  }
+ },
+ "offBy": 30,
+ "clusters": {
+  "A": "G",
+  "B": "O",
+  "C": "D",
+  "D": "W",
+  "E": "B",
+  "F": "R",
+  "G": "L",
+  "H": "D"
+ }
+}

@@ -1,0 +1,215 @@
+{
+ "level": 115,
+ "difficulty": "Normal",
+ "video": "videoplayback_115.mp4",
+ "legend": {
+  "I": "ice (very pale light blue)",
+  "B": "cyan blue",
+  "O": "orange",
+  "Y": "yellow",
+  "N": "indigo (dark blue)",
+  "W": "brown",
+  "R": "pink-red",
+  "K": "black (dark grey)"
+ },
+ "columns": {
+  "c1": [
+   "I10:a",
+   "O27:a",
+   "N39:b",
+   "W46:b",
+   "R36",
+   "R35",
+   "B40",
+   "B48"
+  ],
+  "c2": [
+   "B40:c",
+   "Y38:c",
+   "Y40:d",
+   "B40:d",
+   "O25",
+   "Y40:e",
+   "Y40:f",
+   "B40"
+  ],
+  "c3": [
+   "I10:g",
+   "O25:h",
+   "Y40:i",
+   "R35:i",
+   "#cyan",
+   "K45:e",
+   "K47:f"
+  ],
+  "c4": [
+   "B40:g",
+   "B40:h",
+   "R35:j",
+   "R35:j",
+   "#yellow",
+   "B40",
+   "B40"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 4.25,
+   "end": 210.25,
+   "taps": [
+    [
+     4.75,
+     "c2",
+     "vertical pair c: cyan 40 + yellow 38"
+    ],
+    [
+     7.25,
+     "c2",
+     "vertical pair d: yellow 40 + cyan 40"
+    ],
+    [
+     26.5,
+     "c3",
+     "horizontal pair g: c3 ice 10 + c4 cyan 40"
+    ],
+    [
+     27,
+     "c3",
+     "horizontal pair h: c3 orange 25 + c4 cyan 40; a yellow padlock tile now shows deep in c4"
+    ],
+    [
+     44.75,
+     "c1",
+     "vertical pair a: ice 10 + orange 27"
+    ],
+    [
+     71,
+     "c1",
+     "vertical pair b: indigo 39 + brown 46"
+    ],
+    [
+     75.75,
+     "c1",
+     "pink-red 36"
+    ],
+    [
+     96.75,
+     "c4",
+     "vertical pair j: pink-red 35 + pink-red 35; the yellow padlock tile is now the top of c4 and blocks it"
+    ],
+    [
+     123.5,
+     "c1",
+     "pink-red 35"
+    ],
+    [
+     124.25,
+     "c1",
+     "cyan 40 (40 and 48 rise almost together; no bar seen between them, so two quick taps)"
+    ],
+    [
+     124.4,
+     "c1",
+     "cyan 48; c1 empty, tray re-centres to 3 columns"
+    ],
+    [
+     142.5,
+     "c4",
+     "cyan 40 (yellow padlock removed at 140.4 by a yellow key from the board)"
+    ],
+    [
+     142.75,
+     "c4",
+     "cyan 40; c4 empty, tray re-centres to 2 columns"
+    ],
+    [
+     158.5,
+     "c3",
+     "vertical pair i: yellow 40 + pink-red 35; a cyan padlock tile rises to the top of c3 and is opened at once (159.0) by a cyan key flying from the board"
+    ],
+    [
+     160.75,
+     "c2",
+     "orange 25"
+    ],
+    [
+     184.5,
+     "c2",
+     "pair e: c2 yellow 40 + c3 black 45 (drawn diagonal while c2 orange 25 was above, horizontal now)"
+    ],
+    [
+     190,
+     "c2",
+     "pair f: c2 yellow 40 + c3 black 47"
+    ],
+    [
+     198.75,
+     "c2",
+     "cyan 40; tray empty"
+    ]
+   ],
+   "events": [
+    [
+     17,
+     "first pair c done; slots: yellow 40 / cyan 40 pair only"
+    ],
+    [
+     22.25,
+     "all places empty"
+    ],
+    [
+     39.5,
+     "all places empty again"
+    ],
+    [
+     84,
+     "slots: indigo/brown pair + pink-red 36 only"
+    ],
+    [
+     140,
+     "a yellow key is uncovered on the board, flies down via a waiting place to the yellow padlock in c4; padlock disappears at about 140.4"
+    ],
+    [
+     159,
+     "a cyan key flies from the board to the cyan padlock at the top of c3; padlock disappears, black 45 / 47 rise"
+    ],
+    [
+     209.75,
+     "all places empty"
+    ],
+    [
+     210.25,
+     "win screen, 60 coins (Sweet Meal multiplier)"
+    ]
+   ],
+   "unlocks": [
+    [
+     140.4,
+     "c4",
+     "yellow padlock opens"
+    ],
+    [
+     159,
+     "c3",
+     "cyan padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Padlock tiles in the tray (not capsules): a coloured padlock tile occupies a place in a column and blocks the capsules below it; it is never tapped and never goes to a waiting place. Its key is a small key icon of the same colour lying on the board picture; when the Bloomlings clear the cells around/at the key, the key flies to the padlock and the padlock vanishes. Yellow padlock: in c4 between row 4 (pink-red 35) and row 5 (cyan 40), on top of c4 from 96.75 until 140.4 (yellow key freed at about 140.0, after the 600 box was almost done). Cyan padlock: in c3 between row 4 (pink-red 35) and row 5 (black 45); reached the top at 158.5 and opened at 159.0 (cyan key freed then).",
+  "Board box '600' (chocolate bar block, top right of the picture): its number counts down as the Bloomlings clear cells (600 at start, 465 at 20 s, 328 at 45 s, 277 at 80 s, 122 at 120 s, 22 at 139 s, 10 at 140.5 s) and it is gone by 145 s, uncovering the cells beneath it.",
+  "Small board box '20' (brown, right edge of the picture, middle): visible at the start, shows a small icon by 80 s, gone by 120 s.",
+  "Links: vertical pairs inside one column (c1 rows 1-2, 3-4; c2 rows 1-2, 3-4; c3 rows 3-4; c4 rows 3-4), horizontal pairs between c3 and c4 (rows 1 and 2), and two cross-column links c2 yellow 40 (rows 6, 7) with c3 black 45 / 47 (rows 5, 6), drawn as diagonal bars while their rows differed.",
+  "No hidden '?' capsules seen.",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "c1 cyan 40 and cyan 48 (124.25 / 124.4) lifted out almost together; no bar was visible between them in the tray or in the places, so they are recorded as two separate quick taps, but they could be a vertical pair.",
+  "c4 cyan 40 / cyan 40 (142.5 / 142.75) likewise recorded as two quick taps.",
+  "What exactly frees a key (clearing the key's own cell vs. the box finishing) was not verified frame by frame; key icons were seen on the board picture (a blue one at the left, a yellow one near the bird's head).",
+  "Purpose of the small '20' box not read."
+ ]
+}

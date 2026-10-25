@@ -1,0 +1,141 @@
+{
+ "w": 36,
+ "h": 37,
+ "rows": [
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCRRCCRRRRCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCRRRRRRRRRRCCGGGGGGGCCCCC",
+  "CCCCCCCCCCCRRYRRRRYYRRGGYYYGGGGGCCCC",
+  "CCCCCCCCMMMRRRRRRRYYRRRYGGGGGGGGGCCC",
+  "CCCCCCCMRRRRRRRRRRRRRRRRRRGGGCCGGCCC",
+  "CCCCCCCRRYRRRRRRRRRRRRRRRRRGCCCCGCCC",
+  "CCCCCCMRRRRRRRRRRRRRRRRRRRRGCCCGGCCC",
+  "CCCCCMRRRRRRMMMMMMRRRRRRRRRRCCGGCCCC",
+  "CCCCMRRRRRRMYRRRRRMMRRRRRRLRMCCCCCCC",
+  "CCCCRRRRRRMYYRRRRYYYMRRRRRRRRCCCCCCC",
+  "CCCCRRRRRRMYRRRRYYYYYMRRRRRRRMCCCCCC",
+  "CCCCCRRRRROOORRYYYYYYMRRRRRRRRCCCCCC",
+  "CCCCCCRRROOOOORYYYYYYMRRRRRRRRCCCCCC",
+  "CCCCCMRRROOOOOOYYMYYYORRRRRRRNCCCCCC",
+  "CCCCCRRRMYOOOOOYYMMMYYMRRRRRNCCCCCCC",
+  "CCCCCRRMYYYOOOYYMMRRMYYRRRRRCCCCCCCC",
+  "CCCCCNMRNYYYYYYYOMMRMYNRRRRRNCCCCCCC",
+  "CCCCGG.RNNNYYYYYYYMLYYMRLRRRMCCCCCCC",
+  "NNCNMMNNNCCCYYYYYYYYYGCCRRRRCCCCCCCC",
+  "NNONLLNNNNNCNNNNNNNNNNCMRNNNCCCCCCCC",
+  "NNNNLNNNCNNCNNNNCMNNNRNMRNNCCCCCCCCC",
+  "NNNNNNNNNNNCNNNNNNNNNRRRRMMCCCCCCCCC",
+  "NNNNCCCCNNNCNNNMNNNNNRRRGNNNNGGNNNNN",
+  "NCCCCCCLNCCCNNNNNNNNNRRMGNNNCCLLNNNN",
+  "NNNNNCCCNNNCNNNNNNNNNYMMGNNNNCLLNNNN",
+  "NNNNNNNNNNNCNNNNNNNNNYYYGNNNCMMNNNNN",
+  "NNNNNNCNNNNCNNNNNNNNNYYYGNNNGGGGNNNN",
+  "NNNNNNCNNNNCNNNNNNNNNYMMGGGNGGGCNGGN",
+  "NCCCCCCCCCCCYYYYYYMMMMYYGNNNCGGNNNNN",
+  "NNNNNNNNNNNNLYYYYYYYYYYYGNNNNNNNNNNN",
+  "MMMMMMMMMMNNMLLLYYYYYYMMGNNNNGGNNNNN",
+  "CCCCCCCCCCOOOMMMNNNMMMOOGNNNNGGNNNNN",
+  "CCCCCCCCCOOOOOOOCCCOOOOOGNNNNGGNNNNN",
+  "CCCCCCCCCOOOOOOCCCCCOOOONNNNNNNNNNNN",
+  "CCCCCCCCCCCCCCCCCCCCCCCCNNNNNNNNNNNM"
+ ],
+ "legend": {
+  "C": {
+   "name": "cyan (light blue)",
+   "hex": "#5ce1f1"
+  },
+  "G": {
+   "name": "dark green",
+   "hex": "#2e8d55"
+  },
+  "L": {
+   "name": "light yellow",
+   "hex": "#fbfbf7"
+  },
+  "M": {
+   "name": "crimson (dark red)",
+   "hex": "#a94847"
+  },
+  "N": {
+   "name": "brown",
+   "hex": "#9b643b"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f2802b"
+  },
+  "R": {
+   "name": "red",
+   "hex": "#da2e54"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#f5de4d"
+  }
+ },
+ "accounting": {
+  "C": {
+   "board": 456,
+   "capsules": 707
+  },
+  "G": {
+   "board": 70,
+   "capsules": 54
+  },
+  "L": {
+   "board": 15,
+   "capsules": 26
+  },
+  "M": {
+   "board": 81,
+   "capsules": 74
+  },
+  "N": {
+   "board": 305,
+   "capsules": 80
+  },
+  "O": {
+   "board": 52,
+   "capsules": 52
+  },
+  "R": {
+   "board": 242,
+   "capsules": 206
+  },
+  "Y": {
+   "board": 110,
+   "capsules": 193
+  }
+ },
+ "offBy": 629,
+ "clusters": {
+  "A": "C",
+  "B": "R",
+  "C": "N",
+  "D": "G",
+  "E": "N",
+  "F": "N",
+  "G": "R",
+  "H": "Y",
+  "I": "C",
+  "J": "O",
+  "K": "Y",
+  "L": "N",
+  "M": "M",
+  "N": "M",
+  "O": "M",
+  "P": "N",
+  "Q": "O",
+  "R": "C",
+  "S": "Y",
+  "T": "M",
+  "U": "Y",
+  "V": "C",
+  "W": "L",
+  "X": "L",
+  "Y": "N",
+  "Z": "G",
+  "a": "N"
+ }
+}

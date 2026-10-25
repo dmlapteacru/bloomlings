@@ -1,0 +1,147 @@
+{
+ "w": 35,
+ "h": 36,
+ "rows": [
+  "BBBBBBBBCCWWCWCCBBCCBBBBBBBBWWWCCCB",
+  "BBBBBBBBBBBCCCWCDBYBBPBBBBBWWCCCBBB",
+  "BCCBBBB..BBBBBCDDY.B.BBBCWWCCBBBBBB",
+  "CCCCCBBBBBBBBBBDNYMBBBBCCCCCBBBBBBC",
+  "BBBBBBBBBB..BBDDNYMBBBBBBBBBBBBBCCC",
+  "CCCCCCCCCBBBBBDNNMMBBBBBBBBBBBBCCCW",
+  "CCCCWWCCCCCBBDDNYMMMBBBBBBBBBCCCWWC",
+  "WWCCCCWCCCCCDDNNNYMMBBBBCWWCCCCWWCC",
+  "WWWWWCCCWWWWDDNNNNNMMCBCCCCWWCWCWCW",
+  "WWWCCWCCCCWDDNNMMMNNMWCCCBCCBBCWWCC",
+  "CCWWCBBBBCDDDDDNMMMMNNMBCCCBCCWWCCB",
+  "BCCCWWCBBBDDDDDNMOOMNNMCBBCCCWWWCWB",
+  "BBBCWWCCBDDDDDNNMNOONOMMBBWWWWWWCWB",
+  "CCBBBBCCCDDNNNPPPMNNNONMWWWWWWBBBBB",
+  "CCCCBBBBDDDNNM.YYPPMMNOMPWCBWWBBBCC",
+  "BBCBBBBDDDNODNPYYYYNNNNNOMBBBBBCCWW",
+  "BBBBBBDDDNOODNYYOOYYYNNNNNBBBCBBCBB",
+  "BBBBBBDDNOYONMYYOOOOYYYPMNBBBCBBBBB",
+  "BBBBCCWMOYYONMYYPOOOYYYYMMBBBBBBBBB",
+  "BBBBBBDOYYPPDMPYMOOODMOYWMBBWBBCBCC",
+  "BBBBBBDOYYYODNPYOOWWDPOOWMBBBBCCBBB",
+  "BBBBBBDOYYYODNPYOODWDWMOYNBBBCCBBCB",
+  "BBBBBBDOYYYODMPYOODWDDWNYNBWWWCBBCC",
+  "BBBBBWDOYYYODMPYOO.WDDWDPMWWWWWCCCB",
+  "BBBBBYDOYYYODMYYOOO.WWWOYMWWWCCCBBB",
+  "BBBCWWDOYYYONMYYYOOOD..O.MCCCBBBBBB",
+  "CBBBW.DOYYONDMMYYYYOOOOOYMBBBBBBBBB",
+  "CBBBBBDOOONDNNNMMYYYYOOOWMBBBBBBBWC",
+  "CCCBBBDONNDDDNNNNMMYYYYYWMBCBBBBBCC",
+  "WCCCCBDDDDDMMDDNDNNMMWWWWMBCBBBBWCC",
+  "WCBBBBBDDMMMNMMNMNDNNMMMMMC.BBWWCCB",
+  "WWCWCBBBDMMMNMONONMNDNNNBBC.CCCCBBB",
+  "BBBCCCCCDMMNNMONMNMNMNDNBBBBBBBBBBB",
+  "BBBBBBBBDDNNNMONONONMNMNBBBBBBPBPPP",
+  "BBBBBBBBDDNNNMONONONMNMNBPPBBBBBBBB",
+  "PPPBPBBBDDNNNMONONONONONBBBBBPPPBBB"
+ ],
+ "legend": {
+  "B": {
+   "name": "blue",
+   "hex": "#49a0f6"
+  },
+  "C": {
+   "name": "cyan / light blue",
+   "hex": "#5edef0"
+  },
+  "D": {
+   "name": "dark (near black)",
+   "hex": "#4f3d59"
+  },
+  "M": {
+   "name": "rust / reddish brown",
+   "hex": "#ca6c46"
+  },
+  "N": {
+   "name": "brown-orange (darker than orange)",
+   "hex": "#a64e44"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f4842d"
+  },
+  "P": {
+   "name": "peach / skin",
+   "hex": "#fbd5ba"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#e9f0f3"
+  },
+  "Y": {
+   "name": "golden yellow",
+   "hex": "#f8b32a"
+  }
+ },
+ "accounting": {
+  "B": {
+   "board": 412,
+   "capsules": 402
+  },
+  "C": {
+   "board": 200,
+   "capsules": 195
+  },
+  "D": {
+   "board": 98,
+   "capsules": 86
+  },
+  "M": {
+   "board": 95,
+   "capsules": 93
+  },
+  "N": {
+   "board": 118,
+   "capsules": 112
+  },
+  "O": {
+   "board": 88,
+   "capsules": 91
+  },
+  "P": {
+   "board": 32,
+   "capsules": 35
+  },
+  "W": {
+   "board": 120,
+   "capsules": 124
+  },
+  "Y": {
+   "board": 82,
+   "capsules": 75
+  }
+ },
+ "offBy": 52,
+ "clusters": {
+  "A": "B",
+  "B": "C",
+  "C": "N",
+  "D": "M",
+  "E": "D",
+  "F": "W",
+  "G": "O",
+  "H": "B",
+  "I": "Y",
+  "J": "B",
+  "K": "W",
+  "L": "C",
+  "M": "W",
+  "N": "P",
+  "O": "B",
+  "P": "C",
+  "Q": "N",
+  "R": "D",
+  "S": "N",
+  "T": "Y",
+  "U": "C",
+  "V": "O",
+  "W": "P",
+  "X": "D",
+  "Y": "W",
+  "Z": "M"
+ }
+}

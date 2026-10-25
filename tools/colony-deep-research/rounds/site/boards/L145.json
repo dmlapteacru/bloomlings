@@ -1,0 +1,137 @@
+{
+ "w": 35,
+ "h": 35,
+ "rows": [
+  "NGGNGGNGGNGOYYYYLLLLLLOOGNGGNGGNGGN",
+  "GNGGNGGNGGOYYYYLYLLLLLLLOGNGGNGGNGG",
+  "GNGGNGGNGGOYYYYYYLYLLLLYYONGGNGGNGG",
+  "NGGNGGNGGOYYYYYLYYYYYYYYYOGGNGGNGGN",
+  "OOONGGNGGOYYYPYYYYLYYYDDYOGGNGGOOOO",
+  "YYYOOOGNGOYYYPYYPYYPYDBDDGNGOOOLLLL",
+  "LYLYYYOOGDDYYYPYPYPYDBBDDGOOLLLLLLY",
+  "YYYYLYYYDBBDDYPYPYPYDBDDDOLLLYYYYYY",
+  "YYYYYYLYDBDDDDPDDDDDBBBDBDLLLLYLYLY",
+  "YYYLYYYYDBDDDDDBBBBBBDBBBDDLYYYYYYY",
+  "YYYYYYYYDBDDDDDDDDDDDBDBDBDDYLYYLYY",
+  "YYYYYPYPDBDDDDDDNDNDDDDDDDDDDYYYYYY",
+  "YPPPYYPPDBBDBDDNNDNNDDDDDDDDDYPYLYY",
+  "YYYYPPPDBBDBDDDDDDDDDDDDDDDDDYPYYPY",
+  "LYYYYYPDBDBDDDDNNDNNDDDDDDDDDPYYPYY",
+  "YYYPPPPDBDDDDDDDNDNDDDDDDDDDBPYPYYL",
+  "LYYLYYLDBDDDDDDDDDDDDDDDDDDBWBPYLLO",
+  "LLLLLLLDBDDDDDDDDWDDDDDBDDDGGBPLOOG",
+  "OLLLLLLDBDWWDDPWDDBBPPDBDDDGWBLWWWW",
+  "GOOOLOLDBBDDDDDDDDDDDDBDDDDDDWWWOON",
+  "DDDDOYYPDBDDDBGGGGWGGODDDDDDBDYYYYO",
+  "DDDOYYYPDBDDDDBGGGGGOBDDDDDDBDWWWYY",
+  "DDOYYYYPPDBDDDDBBBBDBDDDDDOOBDYYYWW",
+  "DOYYYPPYPPDBBDDDDWWDDDDDDOOBBDPPPYY",
+  "DOYYPYYYPPPDDBWWWBBDDWDDDBBDDPYYYYY",
+  "DOYYYYPPYPPWWWDDDDDWWBBWBDDOOPPPYYY",
+  "DOYYYYYYYWWPPPPOOWWDDDDWDOOPPYYYPPY",
+  "DOYYYYLYYYYYYYYYWYLLLOWOOPPYPLYYYYY",
+  "DOLYYYYYYYLYGGYLLLLOLLWYYYYYYPYYYYY",
+  "DOLLYYYLYYYYDWYLLLODOLLLYYLYYYYLYYY",
+  "DDOLLYYYYYLLLLLLOODDDOLLLLYYYLYYYYL",
+  "BDOLLLLLLLLLLLOODDDDDDOOLLLLLLLLLLL",
+  "BDDOOLLLLLLOOODDDDDDDDDDOOLLLLLLLLO",
+  "BBDDDOOOOOODDDDDDDDDDDDDDDOOOOOOOOG",
+  "BBBBDDDDDDDDDDDDDDDBBDBDDDDDDGGGGGG"
+ ],
+ "legend": {
+  "B": {
+   "name": "blue",
+   "hex": "#5c4cc3"
+  },
+  "C": {
+   "name": "peach (pale orange)"
+  },
+  "D": {
+   "name": "dark (black)",
+   "hex": "#52405c"
+  },
+  "G": {
+   "name": "green",
+   "hex": "#288e53"
+  },
+  "L": {
+   "name": "light yellow",
+   "hex": "#fde993"
+  },
+  "N": {
+   "name": "brown (red-brown)",
+   "hex": "#a74f48"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f3872e"
+  },
+  "P": {
+   "name": "pink",
+   "hex": "#fbbfe6"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#eef3f6"
+  },
+  "Y": {
+   "name": "yellow (gold)",
+   "hex": "#f9b828"
+  }
+ },
+ "accounting": {
+  "B": {
+   "board": 87,
+   "capsules": 92
+  },
+  "C": {
+   "board": 0,
+   "capsules": 60
+  },
+  "D": {
+   "board": 354,
+   "capsules": 370
+  },
+  "G": {
+   "board": 92,
+   "capsules": 94
+  },
+  "L": {
+   "board": 147,
+   "capsules": 90
+  },
+  "N": {
+   "board": 44,
+   "capsules": 44
+  },
+  "O": {
+   "board": 100,
+   "capsules": 100
+  },
+  "P": {
+   "board": 73,
+   "capsules": 70
+  },
+  "W": {
+   "board": 40,
+   "capsules": 34
+  },
+  "Y": {
+   "board": 288,
+   "capsules": 306
+  }
+ },
+ "offBy": 167,
+ "clusters": {
+  "A": "Y",
+  "B": "D",
+  "C": "O",
+  "D": "L",
+  "E": "G",
+  "F": "B",
+  "G": "P",
+  "H": "L",
+  "I": "N",
+  "J": "W"
+ }
+}

@@ -1,0 +1,149 @@
+{
+ "w": 29,
+ "h": 29,
+ "rows": [
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAABBCBBBBAAAAAAAAAAAAAAAAAAA",
+  "ABBBBCBBBBBEIJAAAAAAAAAAAAAAA",
+  "ACGJBCBBBFBGJBBCAAAAAAAAAAAAA",
+  "ACEIECBBFFBBBBBCBFAAAAAAAAAAA",
+  "ACBJBCDDHFFBBBCBBHFBAAAAAAAAA",
+  "ACBBBECDEHFBBBCBDDGFBAAAAAAAA",
+  "AACBDDCIDDBBBCBEDDEGBCABAAAAA",
+  "AACBDDCEDDBBBCDDEIDDCBBBAAAAA",
+  "AACBHJCDEIBBCBDDEEDCBBBAAAAAA",
+  "AAACFGCDBIBBCBGEDDCFBBB.AAAAA",
+  "AAACBGHCIIBCBFFGDCHFFBJBBAAAA",
+  "AAACBFBCI.BCBBBBCBBBBJIEBAAAA",
+  "AAAACBBCBBCEHBBCBBBBBHJBCCAAA",
+  "AAAACABCBBCIJBCBBBBBBBCCBBAAA",
+  "AAAACBBCACBEBCBFFDDBCABBHJBAA",
+  "AAAAACACCCABCBBGEDCCHFFBJIEAA",
+  "AAAAACCCCACCBBBDCCIDDFFBBJBAA",
+  "AAAAACCCCCCCABCCDEEDDGHBBBFAA",
+  "AAAAAACCCCCACCBBEDDEGGBBBFFBA",
+  "AAAAAACCCCCCCABBBDDBBBBDDHFBA",
+  "AAAAAACCCCCCCCCCCCBBBBEDDEGBA",
+  "AACCCCCCCCCCABBBBJCCCCCEIDDBA",
+  "AAAAACCAAACCCBBBEIEBBDDCCCCCA",
+  "AAAACACAAAAAACCCBEHBBFEDDEBBA",
+  "AAACAACAAAAAAAAACCCBBFHDDBBBA",
+  "AAAAAACAAAAAAAAAAAACCCBBBBBAA",
+  "AAAAAAAAAAAAAAAAAAAAAACCCCBAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ],
+ "palette": [
+  {
+   "letter": "A",
+   "rgb": "#ebf5f6",
+   "lab": [
+    96,
+    -3,
+    -2
+   ],
+   "cells": 341
+  },
+  {
+   "letter": "B",
+   "rgb": "#16f1f6",
+   "lab": [
+    87,
+    -44,
+    -16
+   ],
+   "cells": 185
+  },
+  {
+   "letter": "C",
+   "rgb": "#b04642",
+   "lab": [
+    45,
+    43,
+    25
+   ],
+   "cells": 148
+  },
+  {
+   "letter": "D",
+   "rgb": "#db6ef9",
+   "lab": [
+    64,
+    63,
+    -52
+   ],
+   "cells": 52
+  },
+  {
+   "letter": "E",
+   "rgb": "#f690cd",
+   "lab": [
+    72,
+    46,
+    -15
+   ],
+   "cells": 30
+  },
+  {
+   "letter": "F",
+   "rgb": "#0d924f",
+   "lab": [
+    53,
+    -48,
+    26
+   ],
+   "cells": 28
+  },
+  {
+   "letter": "G",
+   "rgb": "#13ea55",
+   "lab": [
+    82,
+    -76,
+    58
+   ],
+   "cells": 13
+  },
+  {
+   "letter": "H",
+   "rgb": "#66ba5d",
+   "lab": [
+    69,
+    -44,
+    39
+   ],
+   "cells": 14
+  },
+  {
+   "letter": "I",
+   "rgb": "#fde789",
+   "lab": [
+    92,
+    -5,
+    49
+   ],
+   "cells": 15
+  },
+  {
+   "letter": "J",
+   "rgb": "#fabcea",
+   "lab": [
+    83,
+    29,
+    -14
+   ],
+   "cells": 13
+  }
+ ],
+ "band": 174,
+ "field": [
+  61,
+  47,
+  744,
+  641
+ ],
+ "pitch": [
+  23.59,
+  20.32
+ ],
+ "plain": false
+}

@@ -1,0 +1,203 @@
+{
+ "w": 32,
+ "h": 33,
+ "rows": [
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAGAAGAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAGAGFGGAGAAAAAAAAAAAA",
+  "AAAAAAAAAAGAGFFFFFGFAFAAAAAAAAAA",
+  "AAAAAAAAAAGGGGFFFFGFFAAAAAAAAAAA",
+  "AAAAAAAAAAAFGGGGGGFFFAAAAAAAAAAA",
+  "AAAAAAAAAAABFGGFFFFFAAAAAAAAAAAA",
+  "AAAAAAAAAAAIJJFFFFJJEAAAAAAAAAAA",
+  "BAAAAAAAAAAEKKJJJJKKEAAAAAAAAAAA",
+  "AAAAAAAAAAAEKJEKKEJKEAAAAAAAAAAA",
+  "ABAABBABBAABIJEKKEJEBAAAAAAAAAAA",
+  "BAAAAAAAAAAABEKKKKEBAAAAAAAAAAAA",
+  "BAAAAAAAAAAAIHEJJEHIAAAAAAAABGAA",
+  "BBBBBBBBBBBNHDHLLLDHMBBBBBBBBMBA",
+  "BBBBBBBBBBNLCDENNLDDLNBBBBBBF.BB",
+  "BJBBBBBBBBEDDLMBBNLDDEBBBBBBAABA",
+  "MEBBBBABBNHDDEB.MBEDDHNBBBBBBBBB",
+  ".KBBBBBANJJDCEAJMBEODHLNMBBBBBBA",
+  "MABBBBBBEDDDDEBAMBEDDDDEBBBBBBBA",
+  "BBBBBBBNLDDDDENBMNEDDDDHNBBBBBBA",
+  "BBBBBBBECDDCDEHNNLECDDCDEBBBBBBA",
+  "BBBBBBMLCDCCDECLLDECCDCCLMBBAAAB",
+  "BBBBBMLCCDCCDECCCDECCDDCDLMBBBBB",
+  "BBBBMLCCDCCCDECDCDECCCDCDDLMBBBA",
+  "BBBBECCCCCCCDECDCDECCCCDDDDEABBB",
+  "BBBBNOCCCCCDDECDCDECDCDDDDHNBBBB",
+  "ABBBBIHHCCDDDEOHOHECDDDDHHIAAAAA",
+  "BBBBBBNIBDDHHILLLLNHHDDHNNBABBBA",
+  "BBBBBBBBBHHIIMCDCCBIIHHIBABBBBBA",
+  "BBABBBA.KIIABCCDCCDAAIIBAAAAAAAA",
+  "BAABABAK.AAAADDHDHDAAAAAAAAAAAAA",
+  "AABBBBAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAABBAAAAAAABAAABAAAAAAAAAAAAAA"
+ ],
+ "palette": [
+  {
+   "letter": "A",
+   "rgb": "#58dc60",
+   "lab": [
+    79,
+    -60,
+    50
+   ],
+   "cells": 420
+  },
+  {
+   "letter": "B",
+   "rgb": "#52d058",
+   "lab": [
+    75,
+    -59,
+    49
+   ],
+   "cells": 231
+  },
+  {
+   "letter": "C",
+   "rgb": "#cf204c",
+   "lab": [
+    45,
+    66,
+    21
+   ],
+   "cells": 67
+  },
+  {
+   "letter": "D",
+   "rgb": "#b21a3d",
+   "lab": [
+    39,
+    59,
+    21
+   ],
+   "cells": 88
+  },
+  {
+   "letter": "E",
+   "rgb": "#513d57",
+   "lab": [
+    29,
+    14,
+    -12
+   ],
+   "cells": 46
+  },
+  {
+   "letter": "F",
+   "rgb": "#f2872d",
+   "lab": [
+    67,
+    35,
+    62
+   ],
+   "cells": 29
+  },
+  {
+   "letter": "G",
+   "rgb": "#f9e553",
+   "lab": [
+    90,
+    -9,
+    71
+   ],
+   "cells": 24
+  },
+  {
+   "letter": "H",
+   "rgb": "#a41f40",
+   "lab": [
+    37,
+    54,
+    15
+   ],
+   "cells": 28
+  },
+  {
+   "letter": "I",
+   "rgb": "#4b4452",
+   "lab": [
+    30,
+    6,
+    -7
+   ],
+   "cells": 17
+  },
+  {
+   "letter": "J",
+   "rgb": "#fbbcdd",
+   "lab": [
+    83,
+    28,
+    -8
+   ],
+   "cells": 18
+  },
+  {
+   "letter": "K",
+   "rgb": "#fad4b7",
+   "lab": [
+    88,
+    9,
+    19
+   ],
+   "cells": 17
+  },
+  {
+   "letter": "L",
+   "rgb": "#60324f",
+   "lab": [
+    28,
+    25,
+    -9
+   ],
+   "cells": 23
+  },
+  {
+   "letter": "M",
+   "rgb": "#57a560",
+   "lab": [
+    62,
+    -39,
+    28
+   ],
+   "cells": 17
+  },
+  {
+   "letter": "N",
+   "rgb": "#44464c",
+   "lab": [
+    30,
+    0,
+    -4
+   ],
+   "cells": 22
+  },
+  {
+   "letter": "O",
+   "rgb": "#c73d59",
+   "lab": [
+    47,
+    56,
+    15
+   ],
+   "cells": 4
+  }
+ ],
+ "band": 238,
+ "field": [
+  66,
+  47,
+  733,
+  633
+ ],
+ "pitch": [
+  20.88,
+  17.64
+ ],
+ "plain": false
+}

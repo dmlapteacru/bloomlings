@@ -1,0 +1,132 @@
+{
+ "w": 32,
+ "h": 32,
+ "rows": [
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAABBBBBBBBAAAAAAAAAAAAAA",
+  "AAAAAAABBBHHHHHHHHBBBAAAAAAAAAAA",
+  "AAAAAABEEEBBBBBBBBEEEBAAAAAAAAAA",
+  "AAAAABEEBBBBBBBBBBBBEEBAAAAAAAAA",
+  "AAAAABEBBBBBBBBBBBBBBEEBAAAAAAAA",
+  "AAAABEBBCCCBBBBDDDBBBBBEBAAAAAAA",
+  "AAABEBBBCCCCCCBDDBDDBDDBEBAAAAAA",
+  "AAABEBBBCCCCCCBDDBDDBDDBEBAAAAAA",
+  "AAABBBBCCCCCCCCBBCBBDDDBBBAAAAAA",
+  "AAABHBBCCCCCCCCCCCCCBBBBHCAAAAAA",
+  "AABEAEBCCCCCCCCCCCCCCCBEHCBAAAAA",
+  "ABEGAEBCCCCCCCCCCCCCCCBEACEBAAAA",
+  "ABEAAEBBCCBCCCCCCCBCCBBEC.EBAAAA",
+  "ABEEHEBCCCBCCCCCCCBCCCBEHEEBAAAA",
+  "AABEHEBBCCCCCCHCCCCCCBBEHEBAAAAA",
+  "AAABBBBCCCCCCCCCCCCCCCBBCCAAAAAA",
+  "AAAAAAACCCCCCCCCCCCCCBCCCCBBAAAA",
+  "AAAAAAABBBBBBBBBBBBBBBCBBBCDBAAA",
+  "AAAAAABDDDBFBDDDBFBDDBBDCDDDDBAA",
+  "AAAAABDBBBFFBBBBFFBBBGGGDDDCDBAA",
+  "AAAAABBCCBFBDDDBBBGGGBBBDCDBBAAA",
+  "AAAAABCCCCBDHCBGGGGGBCCCBBBAAAAA",
+  "AAAAABCCCCBCHGGGGGBBBCCCBAAAAAAA",
+  "AAAABDBBBBC.AGGGBBFFFBBBAAAAAAAA",
+  "AAAABDDBDBCA.CDBFFFFFBAAAAAAAAAA",
+  "AAAABDDDBDCCCCCDBFFFFBAAAAAAAAAA",
+  "AAAAABDDDCCCDDDBFFFFFBAAAAAAAAAA",
+  "AAAAABDDCCCBBBBBBBBBBBAAAAAAAAAA",
+  "AAAAAABDDCBCCCBCCCCCCBAAAAAAAAAA",
+  "AAAAAAABBBCCCCBCCCCCCBAAAAAAAAAA",
+  "AAAAAAAABBBBBBABBBBBBAAAAAAAAAAA"
+ ],
+ "palette": [
+  {
+   "letter": "A",
+   "rgb": "#fce992",
+   "lab": [
+    92,
+    -5,
+    44
+   ],
+   "cells": 398
+  },
+  {
+   "letter": "B",
+   "rgb": "#52405b",
+   "lab": [
+    30,
+    14,
+    -13
+   ],
+   "cells": 259
+  },
+  {
+   "letter": "C",
+   "rgb": "#eef4f6",
+   "lab": [
+    96,
+    -2,
+    -2
+   ],
+   "cells": 199
+  },
+  {
+   "letter": "D",
+   "rgb": "#ba1d42",
+   "lab": [
+    41,
+    61,
+    21
+   ],
+   "cells": 63
+  },
+  {
+   "letter": "E",
+   "rgb": "#cd6f47",
+   "lab": [
+    57,
+    33,
+    39
+   ],
+   "cells": 40
+  },
+  {
+   "letter": "F",
+   "rgb": "#5b4cc2",
+   "lab": [
+    40,
+    38,
+    -60
+   ],
+   "cells": 24
+  },
+  {
+   "letter": "G",
+   "rgb": "#a64f46",
+   "lab": [
+    45,
+    35,
+    22
+   ],
+   "cells": 20
+  },
+  {
+   "letter": "H",
+   "rgb": "#fae450",
+   "lab": [
+    90,
+    -8,
+    71
+   ],
+   "cells": 18
+  }
+ ],
+ "band": 239,
+ "field": [
+  81,
+  57,
+  917,
+  791
+ ],
+ "pitch": [
+  26.16,
+  22.77
+ ],
+ "plain": false
+}

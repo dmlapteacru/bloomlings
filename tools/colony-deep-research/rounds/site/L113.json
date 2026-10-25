@@ -1,0 +1,174 @@
+{
+ "level": 113,
+ "difficulty": "Normal",
+ "video": "videoplayback_113.mp4",
+ "legend": {
+  "W": "white",
+  "P": "magenta pink",
+  "D": "dark (near-black)",
+  "R": "red",
+  "G": "lime green",
+  "L": "light blue",
+  "B": "brown",
+  "O": "orange"
+ },
+ "columns": {
+  "c1": [
+   "W45",
+   "P4",
+   "D45",
+   "D33?",
+   "#yellow",
+   "W25",
+   "O20",
+   "O30"
+  ],
+  "c2": [
+   "R29",
+   "G35",
+   "G50",
+   "L11?",
+   "G45:a",
+   "G66:a",
+   "W25:b",
+   "O40:d"
+  ],
+  "c3": [
+   "B17",
+   "G30",
+   "D35",
+   "G35:c",
+   "G50:c",
+   "G30",
+   "O50:b",
+   "O30:d"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 4.75,
+   "end": 152.5,
+   "taps": [
+    [
+     5.25,
+     "c2"
+    ],
+    [
+     5.75,
+     "c2"
+    ],
+    [
+     6,
+     "c2"
+    ],
+    [
+     16.75,
+     "c2",
+     "c2 ? (opened at row 3 already): light blue 11"
+    ],
+    [
+     17,
+     "c2",
+     "pair a: vertical link green 45 over green 66 in c2"
+    ],
+    [
+     37.75,
+     "c3"
+    ],
+    [
+     38.25,
+     "c3"
+    ],
+    [
+     38.75,
+     "c3"
+    ],
+    [
+     50.25,
+     "c3",
+     "pair c: vertical link green 35 over green 50 in c3"
+    ],
+    [
+     67,
+     "c3"
+    ],
+    [
+     83,
+     "c2",
+     "pair b: white 25 (c2) + orange 50 (c3), diagonal then horizontal link"
+    ],
+    [
+     99,
+     "c2",
+     "pair d: orange 40 (c2) + orange 30 (c3); c2 and c3 empty"
+    ],
+    [
+     100.75,
+     "c1"
+    ],
+    [
+     120.75,
+     "c1"
+    ],
+    [
+     123.25,
+     "c1",
+     "c1 ? opens: dark 33; yellow padlock below"
+    ],
+    [
+     127.5,
+     "c1",
+     "yellow padlock now on top"
+    ],
+    [
+     138.5,
+     "c1"
+    ],
+    [
+     140.25,
+     "c1"
+    ],
+    [
+     140.75,
+     "c1",
+     "tray empty"
+    ]
+   ],
+   "events": [
+    [
+     37.25,
+     "pair a leaves the slots (both done)"
+    ],
+    [
+     127.75,
+     "yellow padlock vanishes from the top of c1 (key collected on the board), white 25 on top"
+    ],
+    [
+     152.5,
+     "dark win screen 'Sweet Meal', coin button 20"
+    ]
+   ],
+   "unlocks": [
+    [
+     127.75,
+     "c1",
+     "yellow padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Board box: a brown chocolate-bar block in the lower left of the picture shows '300'; the number counts down as the ants clear cells (241 at ~10 s, 132 at ~26 s, 57 at ~42 s) and the block is gone by ~58 s, uncovering cells underneath (a red/white cup area). Probably opens after 300 cleared cells.",
+  "Padlock in the tray: a yellow padlock takes its own place in c1 (below dark 33, above white 25). It reached the top at 127.5 and vanished at 127.75 without a tap; a small yellow key sits on the board near the cat's right ear.",
+  "Links: two vertical pairs in one column (c2 green 45/66, c3 green 35/50) and two cross-column pairs (c2-c3).",
+  "Hidden capsules (?) in c1 and c2.",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "c2 row 4 light blue 11 showed its number already at row 3 (marked ? because the start frame showed '?').",
+  "Yellow key: the key icon near the ear seemed still visible around 128 s; the padlock opened anyway right after reaching the top, so its trigger is uncertain.",
+  "Exact split of the 16.5-17.0 s taps (light blue 11 then the green pair) inside one 0.5 s tile."
+ ]
+}

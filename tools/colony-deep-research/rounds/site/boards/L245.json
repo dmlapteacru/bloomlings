@@ -1,0 +1,148 @@
+{
+ "w": 32,
+ "h": 33,
+ "rows": [
+  "LLLLLLLLLLLLLLLLLLLLLLLWWWWWWWLL",
+  "LLLLLLLLLWWLLLLLLLLLLLWWWWWWWWWL",
+  "LLLLLWWWWWWWLLLLCLLLWWWWWWWWWWWW",
+  "LWWWWWWWWWWWWLLCCLLLLWWWWWWWWWWW",
+  "LWWWWWWWWWWWWWL..LLLLLLWWWWWWWLL",
+  "WWWWWWWDWWWWWWLLDLLLLLLLLLLLLLLL",
+  "WWWWWWDYDWWWWWLDYDLLLLLLLLLLLLLL",
+  "WWWWWWDYYDDDDDDYYDLLLLLLLLLLLLLL",
+  "LLLWWWDYYOYOOYOYYDLLLLLLLLLLLLLL",
+  "LLLLLLDYYYYYYYYYYDLLLLLLLLDDDDLL",
+  "LLLLLDYYYCDYYDCYYYDLLLLLLDDYYDLL",
+  "LLLLLDYYYCDYYDCYYYDLLLLLDDOOODLL",
+  "LLLLLLDYYYYDDYYYYDLLLLLLDYODDDLL",
+  "LLLLLLDYYYYYYYYYYDLLLLLLDYDDNNLL",
+  "LLLLLLLFDYYYYYYFDLLLLLLLDODNNNNL",
+  "LLLLLLLDDFDDDDDDGDDLLLLLDODNNNNN",
+  "LLLLLLLLDFFFFYF.YFDDLLLNDODNNNNN",
+  "LLLNNNLLDYYYYYYYOYGDDLNNDYDNNNNN",
+  "LLNNNNNLDYYYYYYYOYYFDDNNDODNNNNN",
+  "LNNNNNNNDYYYYYYYYYOOFDNNDODNNNNN",
+  "DNNNNNNNDYFYFYDYYYOYYDNNDODNNDNN",
+  "NNKGKNNNDODYDODYYYYYYDNDYDNNKGKN",
+  "FFGGGFDDDYDYDYDYYYYYYDDDGDDFGGGF",
+  "GGGGGGFDGGGGGGGGGGGGGDDDDDFGGGGG",
+  "GGGGGFFDKDKDKDKYDDDDDDDDDFFFGGGG",
+  "GGGGGGFFFFFFFFFOFFFFFFFFFFFFGGGG",
+  "GGGFGGFFFFFFFF..GLLLLLLFFFFGGGGG",
+  "GGGGGGGGGGGGGGKLGLYWWYLGGGGGGGFG",
+  "GGGFGGGGGGGGGGGGGLYLLYLGFGGGGGGG",
+  "GGGGGGGGGGGGGGGGGLYLLGLGGGGGGGGG",
+  "GGFGGGGGGGGGGGGGGLYYYYLGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGLYYYYLGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGFFFFFFGGGGGGGGG"
+ ],
+ "legend": {
+  "C": {
+   "name": "bright cyan (cat eyes)",
+   "hex": "#5ce3f3"
+  },
+  "D": {
+   "name": "dark purple-black (cat outline)",
+   "hex": "#503e59"
+  },
+  "F": {
+   "name": "dark green (grass shade)",
+   "hex": "#24894d"
+  },
+  "G": {
+   "name": "green (grass)",
+   "hex": "#52d258"
+  },
+  "K": {
+   "name": "lime (light green spots)",
+   "hex": "#aedf79"
+  },
+  "L": {
+   "name": "light blue (sky)",
+   "hex": "#c0fdfd"
+  },
+  "N": {
+   "name": "indigo / navy (mountains)",
+   "hex": "#5648be"
+  },
+  "O": {
+   "name": "orange (cat stripes)",
+   "hex": "#f1882c"
+  },
+  "W": {
+   "name": "white (clouds)",
+   "hex": "#edf4f5"
+  },
+  "Y": {
+   "name": "yellow (cat)",
+   "hex": "#f9e252"
+  }
+ },
+ "accounting": {
+  "C": {
+   "board": 7,
+   "capsules": 4
+  },
+  "D": {
+   "board": 128,
+   "capsules": 103
+  },
+  "F": {
+   "board": 69,
+   "capsules": 60
+  },
+  "G": {
+   "board": 216,
+   "capsules": 215
+  },
+  "K": {
+   "board": 9,
+   "capsules": 13
+  },
+  "L": {
+   "board": 276,
+   "capsules": 257
+  },
+  "N": {
+   "board": 75,
+   "capsules": 75
+  },
+  "O": {
+   "board": 22,
+   "capsules": 18
+  },
+  "W": {
+   "board": 115,
+   "capsules": 113
+  },
+  "Y": {
+   "board": 134,
+   "capsules": 138
+  }
+ },
+ "offBy": 71,
+ "clusters": {
+  "A": "L",
+  "B": "G",
+  "C": "W",
+  "D": "Y",
+  "E": "D",
+  "F": "F",
+  "G": "N",
+  "H": "G",
+  "I": "D",
+  "J": "Y",
+  "K": "O",
+  "L": "L",
+  "M": "G",
+  "N": "G",
+  "O": "F",
+  "P": "F",
+  "Q": "G",
+  "R": "C",
+  "S": "K",
+  "T": "K",
+  "U": "D",
+  "V": "Y"
+ }
+}

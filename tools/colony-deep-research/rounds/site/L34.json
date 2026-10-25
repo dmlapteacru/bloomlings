@@ -1,0 +1,33 @@
+{
+ "level": 34, "difficulty": "Normal", "video": "videoplayback_34.mp4",
+ "legend": {"O": "orange", "Y": "yellow", "W": "white", "R": "red", "G": "green", "B": "brown (dark red-brown)"},
+ "columns": {
+  "c1": ["O35", "Y40", "O27", "O25", "R15:a", "B30", "Y40", "O32"],
+  "c2": ["O30", "W35", "W35", "W35", "Y40:a", "W35", "B25", "Y38"],
+  "c3": ["W35", "R18", "G24", "W36", "B26", "Y40:b", "O30", "Y40"],
+  "c4": ["Y40", "O35", "Y40", "R15", "B25", "B30:b", "W35", "W38"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 0.0, "end": 215.5,
+  "taps": [
+   [5.25, "c3"], [5.75, "c4"], [23.75, "c1"], [24.25, "c1"], [37.25, "c3"],
+   [47.25, "c2"], [47.5, "c2"], [49.25, "c2"], [59.75, "c2"], [71.5, "c1"], [77.25, "c1"],
+   [81.0, "c1", "pair a: red 15 (c1) + yellow 40 (c2), linked diagonally since 49.25, horizontal once both on row 1"],
+   [83.25, "c1"], [93.25, "c2"], [97.75, "c1"], [104.25, "c2"], [110.5, "c4"], [112.25, "c4"],
+   [124.0, "c3"], [124.25, "c3"], [125.75, "c3"], [129.0, "c2", "c2 empties; the remaining columns re-centre"],
+   [136.5, "c1", "c1 empties"], [139.5, "c4"], [141.0, "c4"],
+   [154.75, "c3", "pair b: yellow 40 (c3) + brown 30 (c4)"],
+   [163.0, "c4"], [175.25, "c3"], [201.75, "c3"], [203.75, "c4"]],
+  "events": [[16.5, "white 35 done; yellow 40 at 4"], [23.0, "all 5 slots empty"], [49.75, "red 18 done"],
+   [93.25, "pair a sits in two slots (yellow pill + red 5) until both done"], [204.25, "tray empty"],
+   [215.0, "all slots empty"], [215.5, "win screen, +20 coins"]]}],
+ "mechanics": [
+  "Links: two pairs. Pair a = c1 R15 (row 5) + c2 Y40 (row 5): drawn as a diagonal red/yellow line while one was lower, a horizontal bar when both were on top; one tap at 81.0 sent both to slots, which stayed joined until both were done. Pair b = c3 Y40 (row 6) + c4 B30 (row 6), same behaviour, tapped at 154.75.",
+  "Board (cover): grey '?' hidden tiles on the house's two pillars; no boxes, no locks or keys seen in the tray.",
+  "When a column empties the remaining columns re-centre in the tray (seen at 129.0 and 136.5)."
+ ],
+ "uncertain": [
+  "c2 rows 2-4: three white 35s read from dim rows; the counts 35 confirmed in slots (35/34 at 47.75, 35 at 49.25 and 59.75)",
+  "brown vs red: B30 (c1), B25/Y38 (c2), B26 (c3), B25/B30 (c4) are a dark red-brown clearly different from the red 18/15",
+  "Tap times within ±0.25 s (sheet spacing)"
+ ]
+}

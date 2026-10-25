@@ -1,0 +1,251 @@
+{
+ "level": 50,
+ "difficulty": "Normal",
+ "video": "videoplayback_50.mp4",
+ "legend": {
+  "D": "dark (near black)",
+  "W": "white",
+  "L": "light yellow / cream",
+  "Y": "bright yellow",
+  "P": "pink",
+  "O": "orange-brown",
+  "M": "rust / reddish brown",
+  "R": "red",
+  "U": "blue (violet blue)"
+ },
+ "columns": {
+  "c1": [
+   "D35",
+   "D35",
+   "L36",
+   "L40",
+   "#yellow",
+   "L35",
+   "L40:b",
+   "R32:b",
+   "D40"
+  ],
+  "c2": [
+   "W38:a",
+   "P4:a",
+   "O15",
+   "U24",
+   "L40",
+   "D40",
+   "#cyan",
+   "L40",
+   "W40",
+   "L40"
+  ],
+  "c3": [
+   "W36",
+   "L40",
+   "O14",
+   "R32",
+   "M19",
+   "L40:c",
+   "L7:c",
+   "D35",
+   "L40"
+  ],
+  "c4": [
+   "Y10",
+   "D40",
+   "W35",
+   "D38",
+   "#green",
+   "O12",
+   "W40"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 3.5,
+   "end": 311,
+   "taps": [
+    [
+     4,
+     "c4"
+    ],
+    [
+     4.5,
+     "c4"
+    ],
+    [
+     14.25,
+     "c3"
+    ],
+    [
+     14.25,
+     "c3"
+    ],
+    [
+     31.25,
+     "c3"
+    ],
+    [
+     31.25,
+     "c3"
+    ],
+    [
+     40.5,
+     "c1"
+    ],
+    [
+     64,
+     "c1"
+    ],
+    [
+     64,
+     "c1"
+    ],
+    [
+     71.75,
+     "c1",
+     "c1 now shows the yellow padlock on top"
+    ],
+    [
+     77.5,
+     "c1"
+    ],
+    [
+     100.25,
+     "c4"
+    ],
+    [
+     112,
+     "c2",
+     "vertical pair a: white 38 + pink 4"
+    ],
+    [
+     121.75,
+     "c4",
+     "c4 now shows the green padlock on top"
+    ],
+    [
+     129.25,
+     "c3"
+    ],
+    [
+     138.5,
+     "c3",
+     "vertical pair c: light yellow 40 + light yellow 7"
+    ],
+    [
+     160.25,
+     "c4"
+    ],
+    [
+     161.5,
+     "c4",
+     "c4 empty; the tray recentres to 3 columns"
+    ],
+    [
+     175,
+     "c3"
+    ],
+    [
+     195.75,
+     "c2"
+    ],
+    [
+     195.75,
+     "c2"
+    ],
+    [
+     204.5,
+     "c2"
+    ],
+    [
+     221.25,
+     "c2",
+     "c2 now shows the cyan padlock on top"
+    ],
+    [
+     259.5,
+     "c2"
+    ],
+    [
+     261.75,
+     "c2"
+    ],
+    [
+     282.25,
+     "c1",
+     "vertical pair b: light yellow 40 + red 32"
+    ],
+    [
+     287.6,
+     "c2"
+    ],
+    [
+     287.9,
+     "c1",
+     "c1 empty"
+    ],
+    [
+     300,
+     "c3",
+     "tray empty"
+    ]
+   ],
+   "events": [
+    [
+     4,
+     "yellow 10 sits in slot 1 and counts down only very slowly (10 until ~117 s, finishes ~299 s): its tiles are mostly unreachable early"
+    ],
+    [
+     72.25,
+     "yellow padlock on top of c1 opens and vanishes (yellow key on the board reached); c1 continues with light yellow 35"
+    ],
+    [
+     139.25,
+     "green padlock on top of c4 opens and vanishes (green key reached); c4 continues with orange 12"
+    ],
+    [
+     227,
+     "cyan padlock on top of c2 opens and vanishes (cyan key reached); c2 continues with light yellow 40"
+    ],
+    [
+     300.75,
+     "tray empty, slots finish counting"
+    ],
+    [
+     310.5,
+     "win screen, +100 coins"
+    ]
+   ],
+   "unlocks": [
+    [
+     72.25,
+     "c1",
+     "yellow padlock opens"
+    ],
+    [
+     139.25,
+     "c4",
+     "green padlock opens"
+    ],
+    [
+     227,
+     "c2",
+     "cyan padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Vertical links: two capsules in one column joined by a short bar (white 38 + pink 4 in c2, light yellow 40 + light yellow 7 in c3, light yellow 40 + red 32 in c1); one tap takes both, they hold two neighbouring slots joined by a bar.",
+  "Padlock capsules (keys and locks): a coloured padlock occupies a place in a column (yellow in c1 under light yellow 40, green in c4 under dark 38, cyan in c2 under dark 40). It cannot be tapped; it blocks the column until the matching coloured key on the board (cover: green key at the left headphone, cyan key at the right headphone, yellow key in the lower left) is reached by the Bloomlings, then it opens and disappears without a tap. The padlock is not a capsule token here; the capsule right under it is flagged !lock. Each opened a few seconds to ~18 s after reaching the top of its column.",
+  "Columns recentre when one empties (4 -> 3 columns at 161.5 s); column names keep their original identity.",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "Colour split between orange-brown (O: 14, 15, 12) and rust (M: 19) is from shade only; they may be one colour",
+  "Padlock opening times are approximate (72.25, 139.25, ~227 s)",
+  "Order of the two taps at 14.25 (c3 white 36 then light yellow 40) and 31.25 (orange 14 then red 32) and 195.75 (orange 15 then blue 24) inferred from stack order; both within the same 0.5 s",
+  "c2 row 8 'W40' looks pale grey-white, distinct from the light yellow 40s"
+ ]
+}

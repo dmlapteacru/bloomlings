@@ -1,0 +1,48 @@
+{
+ "level": 40, "difficulty": "Normal", "video": "videoplayback_40.mp4",
+ "legend": {"G": "green", "B": "brown (orange-brown)", "L": "light orange", "R": "maroon / red-brown", "D": "dark (near black)", "Y": "light yellow / cream"},
+ "columns": {
+  "c1": ["G38:a", "B25", "R20:b", "R20", "G40", "G40:c"],
+  "c2": ["B25", "L28:a", "G40?", "R25?", "G40:b", "D34?:c", "G40"],
+  "c3": ["G34", "B25:x", "G34?", "Y37?", "G40", "G40?:d", "D40:d"],
+  "c4": ["G40", "D40:x", "B30", "G40:y", "B30:y", "B30", "B25"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 2.0, "end": 152.0,
+  "taps": [
+   [2.5, "c3", "green 34"],
+   [3.0, "c4", "green 40"],
+   [5.75, "c3", "pair x: brown 25 (c3) + dark 40 (c4); diagonal link became horizontal after the c4 tap"],
+   [16.75, "c3", "c3 ? had opened as green 34 when it reached the top at ~6.0"],
+   [24.0, "c2", "brown 25; frees pair a (c1 green 38 + c2 light orange 28), diagonal link becomes horizontal"],
+   [30.25, "c4", "brown 30"],
+   [32.25, "c4", "vertical pair y: green 40 + brown 30 below it"],
+   [42.0, "c4", "brown 30"],
+   [48.75, "c4", "brown 25; c4 empty, the tray recentres to 3 columns"],
+   [53.5, "c1", "pair a: green 38 + light orange 28"],
+   [54.0, "c2", "c2 ? opened as green 40, tapped at once"],
+   [69.0, "c2", "c2 ? opened as maroon 25"],
+   [71.0, "c1", "brown 25; frees pair b (c1 maroon 20 + c2 green 40)"],
+   [80.0, "c1", "pair b: maroon 20 + green 40; c2 ? opens as dark 34, linked (grey line while hidden) to c1 row 3 green 40"],
+   [96.0, "c1", "maroon 20"],
+   [96.25, "c1", "green 40 (the unlinked one above the linked green 40)"],
+   [109.75, "c1", "pair c: green 40 (c1) + dark 34 (c2); c1 empty"],
+   [119.0, "c2", "green 40; c2 empty"],
+   [123.0, "c3", "light yellow 37"],
+   [123.5, "c3", "green 40; c3 ? opened as green 40 vertically linked to dark 40 below"],
+   [136.0, "c3", "vertical pair d: green 40 + dark 40; tray empty"]
+  ],
+  "events": [[5.75, "all 5 slots busy except one (34,40 counting + pair x)"], [53.5, "slots: 2 singles + pair a + green 40 = 5 full at 54.0"], [137.0, "tray empty, slots finishing"], [151.25, "all slots empty"], [151.75, "win screen, coin button 60"]]}],
+ "mechanics": [
+  "Links: horizontal bar between neighbours (pair x after rise, pair a/b/c), diagonal line across rows (c1 row1 green 38 to c2 row2 orange 28; c3 row2 brown 25 to c4 row2 dark 40 via diagonal after c3 top left; c1 row2 maroon 20 to c2 row3 green 40), and vertical bars within one column (c4 green 40 over brown 30; c3 green 40 over dark 40). A group is tapped only when all members are on top; a vertical pair leaves together.",
+  "Hidden capsules: grey '?' boxes reveal colour and count when they reach row 1. A hidden capsule that is linked shows a grey link line while hidden (c2 ? to c1 row 3 green 40, revealed as dark 34).",
+  "A linked pair occupies 2 waiting places until both finish; a finished member shows as a plain coloured blob without number.",
+  "Board: 'capybara' picture on green, no board mechanics seen (no boxes, no ? tiles). Boosters bar shows 4 boosters x2, none used.",
+  "When a column empties the tray recentres the remaining columns."
+ ],
+ "uncertain": [
+  "c3 bottom dark 40 (pair d): may have been hidden; first seen at 123.0 already showing dark 40",
+  "c2 last green 40 and c2 green 40:b were seen as plain green in rows 2-3, assumed not hidden",
+  "Brown 25 vs brown 30 tones taken as the same colour B; c2 25 at 69.0 taken as maroon (same as the 20s)",
+  "Tap at 96.25: second green 40 flew ~0.25 s after the maroon 20; time approximate"
+ ]
+}

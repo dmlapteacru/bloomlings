@@ -1,0 +1,62 @@
+{
+ "level": 1170, "difficulty": "Super Hard", "video": "videoplayback_1170_super_hard.mp4",
+ "legend": {"W": "white", "R": "brick red", "B": "blue", "A": "light aqua (pale cyan)", "T": "turquoise (bright cyan)", "G": "green", "L": "lime green", "E": "dark green", "P": "peach", "Y": "yellow-orange", "O": "orange", "D": "dark (black)"},
+ "columns": {
+  "c1": ["W24", "R25", "Y11:v", "A20:v", "B23:u", "A14:u", "G19:z", "D15:w"],
+  "c2": ["R25", "A18:x", "G20:x", "R15", "E11:y", "A20:y", "O13:z", "D13:w"],
+  "c3": ["B24", "A20", "O15:k", "W25:k", "O15:m", "W25:m", "D15", "D15"],
+  "c4": ["B25", "P12", "L20:p", "G20:p", "T2", "R24", "P14:q", "D14:r"],
+  "c5": ["R25", "L23:n", "A20:n", "P10", "R25:o", "B25:o", "P15:q", "D15:r"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 2.0, "end": 160.25,
+  "taps": [
+   [2.25, "c2", "red 25"],
+   [2.75, "c2", "vertical pair x: light aqua 18 + green 20"],
+   [3.375, "c4", "blue 25"],
+   [3.75, "c5", "red 25 (all 5 slots busy)"],
+   [10.25, "c5", "vertical pair n: lime 23 + light aqua 20"],
+   [11.25, "c3", "blue 24"],
+   [13.75, "c3", "light aqua 20"],
+   [17.0, "c2", "red 15"],
+   [22.0, "c2", "vertical pair y: dark green 11 + light aqua 20"],
+   [32.25, "c3", "vertical pair k: orange 15 + white 25"],
+   [42.875, "c3", "vertical pair m: orange 15 + white 25 (a second identical pair)"],
+   [43.125, "c3", "dark 15 (quick second tap)"],
+   [49.5, "c3", "dark 15; c3 empty, tray recentres to 4 columns"],
+   [67.25, "c4", "peach 12"],
+   [90.5, "c4", "vertical pair p: lime 20 + green 20"],
+   [91.5, "c5", "peach 10"],
+   [108.25, "c5", "vertical pair o: red 25 + blue 25"],
+   [109.5, "c4", "turquoise 2"],
+   [111.5, "c4", "red 24; now c4/c5 show peach 14-15 and dark 14-15 as two horizontal pairs"],
+   [116.75, "c1", "white 24"],
+   [118.75, "c4", "pair q: peach 14 (c4) + peach 15 (c5), diagonal link that became horizontal"],
+   [120.75, "c4", "pair r: dark 14 (c4) + dark 15 (c5); c4 and c5 empty, tray recentres to 2 columns"],
+   [127.5, "c1", "red 25"],
+   [139.0, "c1", "vertical pair v: yellow-orange 11 + light aqua 20"],
+   [140.5, "c1", "vertical pair u: blue 23 + light aqua 14"],
+   [149.25, "c1", "pair z: green 19 (c1) + orange 13 (c2): long diagonal link visible since ~22 s"],
+   [150.25, "c1", "pair w: dark 15 (c1) + dark 13 (c2): long diagonal link, tray empty"]
+  ],
+  "events": [
+   [3.75, "all 5 slots busy: red 21, pair x, blue 25, red 25"],
+   [22.0, "orange 13 on top of c2 shows a long orange bar down-left into c1 (partner green 19 deep in c1), and dark 13 under it a dark bar to c1's dark 15; c2 stays blocked until 140 s"],
+   [22.25, "light aqua + lime pair n keeps 2 slots for a long time (lime done, aqua slowly)"],
+   [33.0, "orange/white pair k holds slots from 32 to ~67 s (orange 13 then 9 waits long)"],
+   [68.0, "slot pair k still at orange 9 + white done; white 25 of pair m at 17-ish for a long time"],
+   [159.75, "all slots empty"],
+   [160.25, "win screen (Treetop Mission strip), +100 coins"]
+  ]}],
+ "mechanics": [
+  "Links: many vertical pairs inside a column (bar coloured half and half), and diagonal links across columns that become horizontal once both members are on top: c4 peach 14 / c5 peach 15 and c4 dark 14 / c5 dark 15 (rows 7-8), and two very long ones from c2 (orange 13, dark 13, rows 7-8) into c1 (green 19, dark 15, rows 7-8), visible as long bars from ~22 s while c1 still had 6 capsules above them.",
+  "When a column empties, the tray recentres its remaining columns (column names here stay the original ones).",
+  "No hidden capsules, locks, keys or boxes seen."
+ ],
+ "uncertain": [
+  "c3 43.125 dark 15: read as a separate quick tap 0.25 s after pair m (no bar seen between white 25 and dark 15); could be a 3-capsule group",
+  "turquoise 2 (c4 row 5) read as a different colour from the pale light aqua capsules",
+  "lime (L) vs green (G): c4 row 3 lime 20 and c4 row 4 green 20 told apart in slots (dark green 20 + lime 20)",
+  "white 25 (c3) vs white 24 (c1): same white assumed",
+  "rows below row 4 only read when they rose; c1/c2 rows 7-8 read at 139-141 s"
+ ]
+}

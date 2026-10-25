@@ -1,0 +1,124 @@
+{
+ "w": 29,
+ "h": 29,
+ "rows": [
+  "WWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+  "WWWCCRCCCCWWWWWWWWWWWWWWWWWWW",
+  "WCCCCRCCCCCHYPWWWWWWWWWWWWWWW",
+  "WRGPCRCCCDCGPCCRWWWWWWWWWWWWW",
+  "WRHYHRCCDDCCCCCRCDWWWWWWWWWWW",
+  "WRCPCRUUGDDCCCRCCGDCWWWWWWWWW",
+  "WRCCCHRUHGDCCCRCUUGDCWWWWWWWW",
+  "WWRCUURYUUCCCRCHUUHGCRWCWWWWW",
+  "WWRCUURHUUCCCRUUHYUURCCCWWWWW",
+  "WWRCGPRUHYCCRCUUHHURCCCWWWWWW",
+  "WWWRDGRUCYCCRCGHUURDCCC.WWWWW",
+  "WWWRCGGRYYCRCDDGURGDDCPCCWWWW",
+  "WWWRCDCRY.CRCCCCRCCCCPYHCWWWW",
+  "WWWWRCCRCCRHGCCRCCCCCGPCRRWWW",
+  "WWWWRWCRCCRYPCRCCCCCCCRRCCWWW",
+  "WWWWRCCRWRCHCRCDDUUCRWCCGPCWW",
+  "WWWWWRWRRRWCRCCGHURRGDDCPYHWW",
+  "WWWWWRRRRWRRCCCURRYUUDDCCPCWW",
+  "WWWWWRRRRRRRWCRRUHHUUGGCCCDWW",
+  "WWWWWWRRRRRWRRCCHUUHGGCCCDDCW",
+  "WWWWWWRRRRRRRWCCCUUCCCCUUGDCW",
+  "WWWWWWRRRRRRRRRRRRCCCCHUUHGCW",
+  "WWRRRRRRRRRRWCCCCPRRRRRHYUUCW",
+  "WWWWWRRWWWRRRCCCHYHCCUURRRRRW",
+  "WWWWRWRWWWWWWRRRCHGCCDHUUHCCW",
+  "WWWRWWRWWWWWWWWWRRRCCDGUUCCCW",
+  "WWWWWWRWWWWWWWWWWWWRRRCCCCCWW",
+  "WWWWWWWWWWWWWWWWWWWWWWRRRRCWW",
+  "WWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+ ],
+ "legend": {
+  "C": {
+   "name": "cyan",
+   "hex": "#16f1f6"
+  },
+  "D": {
+   "name": "dark green",
+   "hex": "#0d924f"
+  },
+  "G": {
+   "name": "green",
+   "hex": "#66ba5d"
+  },
+  "H": {
+   "name": "hot pink",
+   "hex": "#f690cd"
+  },
+  "P": {
+   "name": "light pink",
+   "hex": "#fabcea"
+  },
+  "R": {
+   "name": "red-brown",
+   "hex": "#b04642"
+  },
+  "U": {
+   "name": "purple / lavender",
+   "hex": "#db6ef9"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#ebf5f6"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#fde789"
+  }
+ },
+ "accounting": {
+  "C": {
+   "board": 185,
+   "capsules": 184
+  },
+  "D": {
+   "board": 28,
+   "capsules": 28
+  },
+  "G": {
+   "board": 27,
+   "capsules": 27
+  },
+  "H": {
+   "board": 30,
+   "capsules": 30
+  },
+  "P": {
+   "board": 13,
+   "capsules": 13
+  },
+  "R": {
+   "board": 148,
+   "capsules": 149
+  },
+  "U": {
+   "board": 52,
+   "capsules": 52
+  },
+  "W": {
+   "board": 341,
+   "capsules": 340
+  },
+  "Y": {
+   "board": 15,
+   "capsules": 10
+  }
+ },
+ "offBy": 8,
+ "clusters": {
+  "A": "W",
+  "B": "C",
+  "C": "R",
+  "D": "U",
+  "E": "H",
+  "F": "D",
+  "G": "G",
+  "H": "G",
+  "I": "Y",
+  "J": "P"
+ }
+}

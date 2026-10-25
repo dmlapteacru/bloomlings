@@ -1,0 +1,57 @@
+{
+ "level": 290, "difficulty": "Super Hard", "video": "videoplayback_290_super_hard.mp4",
+ "legend": {"C": "cyan (light blue)", "G": "dark green", "R": "red", "M": "crimson (dark red)", "N": "brown", "Y": "yellow", "L": "light yellow", "O": "orange"},
+ "columns": {
+  "c1": ["C45", "G28:f", "G26:f", "C45:g", "R40:g", "C45:h", "R40:h", "C40", "Y50"],
+  "c2": ["C45", "C45:a", "R40:a", "C45", "Y50:b", "M36:b", "O52:c", "C45:c"],
+  "c3": ["C45", "C45", "M38:i", "R43:i", "L26", "Y45:j", "C45:j", "C45"],
+  "c4": ["C45", "C42", "N40", "N40", "Y48:d", "C40:d", "R43:e", "C45:e"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 2.0, "end": 490.0,
+  "taps": [
+   [2.5, "c1", "cyan 45"],
+   [3.0, "c2", "cyan 45"],
+   [17.5, "c4", "cyan 45"],
+   [30.5, "c4", "cyan 42"],
+   [48.25, "c3", "cyan 45"],
+   [66.5, "c3", "cyan 45"],
+   [86.25, "c2", "vertical pair a: cyan 45 + red 40"],
+   [102.5, "c2", "cyan 45"],
+   [135.25, "c4", "brown 40"],
+   [145.75, "c2", "vertical pair b: yellow 50 + crimson 36"],
+   [207.5, "c2", "vertical pair c: orange 52 + cyan 45; c2 empty, tray recentres to 3 columns"],
+   [252.25, "c1", "vertical pair f: dark green 28 + dark green 26"],
+   [283.0, "c4", "brown 40"],
+   [283.75, "c4", "vertical pair d: yellow 48 + cyan 40"],
+   [315.75, "c3", "vertical pair i: crimson 38 + red 43"],
+   [350.0, "c1", "vertical pair g: cyan 45 + red 40"],
+   [401.75, "c1", "vertical pair h: cyan 45 + red 40 (a second identical pair under the first)"],
+   [440.0, "c1", "cyan 40"],
+   [457.0, "c4", "vertical pair e: red 43 + cyan 45; c4 empty"],
+   [471.5, "c1", "yellow 50; c1 empty"],
+   [473.0, "c3", "light yellow 26"],
+   [476.75, "c3", "vertical pair j: yellow 45 + cyan 45"],
+   [478.0, "c3", "cyan 45, tray empty"]
+  ],
+  "events": [
+   [17.0, "all slots empty: the first cyan pods finished; long waits between taps (the player taps one pod at a time)"],
+   [86.25, "pair a holds slots 1-2 until ~207 s: cyan done early, red 40 waits at 40 (red tiles covered by the boxes)"],
+   [145.75, "brown 40 (from 135.25) stays at 5 from ~200 s to ~350 s"],
+   [252.25, "green pair f stays at 3/2 from ~253 s to ~350 s (green tiles under the green crate)"],
+   [401.75, "crimson/red pair i stays at 2 from ~400 s to ~473 s"],
+   [489.5, "all slots empty"],
+   [490.0, "win screen (Sweet Meal strip), +100 coins"]
+  ]}],
+ "mechanics": [
+  "Boxes on the board (see cover and frames): a cyan crate with a number (397), a wooden box (500) and a green crate (48), each covering a block of tiles. The wooden box counted down with every tile cleared (500 -> 408 at 20 s -> 298 -> 200 -> 140 at 140 s, gone by ~200 s). The cyan crate counted down only with cyan tiles (397 -> 305 -> 195 -> 97 -> 40, unchanged from 140 to 200 s while no cyan was cleared, gone by ~250 s). The green crate stayed at 48 until the green pair was tapped (252 s), gone by ~300 s. When a box opens, the tiles under it become reachable (the red, crimson and green pods waiting in the slots then finish).",
+  "Links: all vertical pairs inside one column (two capsules on top of each other joined by a bar coloured half and half); a tap takes both, both stay in their slots until both are done.",
+  "When a column empties, the tray recentres its remaining columns (names here stay the original ones).",
+  "No hidden capsules, locks or keys."
+ ],
+ "uncertain": [
+  "red (R) vs crimson (M): c3 38 and c2 36 read darker crimson, the 40s and 43s read red; in the slots the pair i showed crimson 38 + red 43",
+  "c1 has two identical vertical pairs cyan 45 + red 40 (rows 4-5 and 6-7): the second was only told apart because the slots refilled at 401.75 while the tray kept showing 45/40",
+  "c3 Y45 (yellow) vs light yellow: in the slot it matched yellow 50",
+  "box counts read from sampled frames only (20, 60, 100, 140, 200, 250, 300 s)"
+ ]
+}

@@ -1,0 +1,100 @@
+{
+ "w": 30,
+ "h": 30,
+ "rows": [
+  "........B............B........",
+  ".......BBB..........BBB.......",
+  "....B..EBE..........EBE..B....",
+  "....E...E............E...E....",
+  ".........AAAAAAAAAAAA.........",
+  ".B.....AACCCCCCCCCCCCAA.....B.",
+  "BBB...ACCCCCCCCCCCCCCCCA...BBB",
+  "EBE...AAACCCCCCCCCCCCAAA...EBE",
+  ".E...ABBBAAAAAAAAAAAABBBA...E.",
+  ".....ABBBBBBBBAABBBBBBBBA.....",
+  "AAA.ABBBABBBBBAABBBBBABBBA.AAA",
+  "ACA.ABBBBABBBBAABBBBABBBBA.ACA",
+  ".AAACAAAAAAAAAAAAAAAAAAAACAAA.",
+  ".AAACCCCCCCCCCCCCCCCCCCCCCAAA.",
+  "..ADAAACCCCCCAAAACCCCCCAAADA..",
+  "..ADDCDACCCCAEEEEACCCCACCDDA..",
+  "..ADDAADACCCAEEEEACCCADACDDA..",
+  "..ADADDADAACCAAAACCAADADDADA..",
+  "..ADADDADDDACCCCCCADDDADDADA..",
+  "..ADDAADDDDDACCCCADDDDDAADDA..",
+  ".AADDDDDDDDDDAAAADDDDDDDDDDAA.",
+  ".ACAAAADDDDDDDDDDDDDDDDAAAACA.",
+  "..ACCACAAAAAAAAAAAAAAAACACCA..",
+  "...AAACACCCCCCCCCCCCCCACAAA...",
+  "...AAACAAAAAAAAAAAAAAAACAAA...",
+  "B..AAAAAA............AAAAAA..B",
+  "....AAAA..............AAAA....",
+  "..............................",
+  ".B..........................B.",
+  ".......B..............B......."
+ ],
+ "palette": [
+  {
+   "letter": "A",
+   "rgb": "#51405b",
+   "lab": [
+    30,
+    13,
+    -13
+   ],
+   "cells": 241
+  },
+  {
+   "letter": "B",
+   "rgb": "#f9c0e6",
+   "lab": [
+    84,
+    26,
+    -11
+   ],
+   "cells": 82
+  },
+  {
+   "letter": "C",
+   "rgb": "#eef4f6",
+   "lab": [
+    96,
+    -1,
+    -2
+   ],
+   "cells": 136
+  },
+  {
+   "letter": "D",
+   "rgb": "#278e53",
+   "lab": [
+    52,
+    -43,
+    23
+   ],
+   "cells": 83
+  },
+  {
+   "letter": "E",
+   "rgb": "#cd7fa0",
+   "lab": [
+    62,
+    35,
+    -5
+   ],
+   "cells": 22
+  }
+ ],
+ "band": 186,
+ "field": [
+  81,
+  57,
+  916,
+  790
+ ],
+ "pitch": [
+  27.87,
+  24.24
+ ],
+ "plain": true
+}

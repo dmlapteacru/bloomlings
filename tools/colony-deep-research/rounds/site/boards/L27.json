@@ -1,0 +1,94 @@
+{
+ "w": 30,
+ "h": 30,
+ "rows": [
+  "........P............P........",
+  ".......PPP..........PPP.......",
+  "....P..PPP..........PPP..P....",
+  "....P...P............P...P....",
+  ".........DDDDDDDDDDDD.........",
+  ".P.....DDWWWWWWWWWWWWDD.....P.",
+  "PPP...DWWWWWWWWWWWWWWWWD...PPP",
+  "PPP...DDDWWWWWWWWWWWWDDD...PPP",
+  ".P...DPPPDDDDDDDDDDDDPPPD...P.",
+  ".....DPPPPPPPPDDPPPPPPPPD.....",
+  "DDD.DPPPDPPPPPDDPPPPPDPPPD.DDD",
+  "DWD.DPPPPDPPPPDDPPPPDPPPPD.DWD",
+  ".DDDWDDDDDDDDDDDDDDDDDDDDWDDD.",
+  ".DDDWWWWWWWWWWWWWWWWWWWWWWDDD.",
+  "..DGDDDWWWWWWDDDDWWWWWWDDDGD..",
+  "..DGGWGDWWWWDPPPPDWWWWDWWGGD..",
+  "..DGGDDGDWWWDPPPPDWWWDGDWGGD..",
+  "..DGDGGDGDDWWDDDDWWDDGDGGDGD..",
+  "..DGDGGDGGGDWWWWWWDGGGDGGDGD..",
+  "..DGGDDGGGGGDWWWWDGGGGGDDGGD..",
+  ".DDGGGGGGGGGGDDDDGGGGGGGGGGDD.",
+  ".DWDDDDGGGGGGGGGGGGGGGGDDDDWD.",
+  "..DWWDWDDDDDDDDDDDDDDDDWDWWD..",
+  "...DDDWDWWWWWWWWWWWWWWDWDDD...",
+  "...DDDWDDDDDDDDDDDDDDDDWDDD...",
+  "P..DDDDDD............DDDDDD..P",
+  "....DDDD..............DDDD....",
+  "..............................",
+  ".P..........................P.",
+  ".......P..............P......."
+ ],
+ "legend": {
+  "D": {
+   "name": "dark (black)",
+   "hex": "#51405b"
+  },
+  "G": {
+   "name": "green",
+   "hex": "#278e53"
+  },
+  "P": {
+   "name": "pink",
+   "hex": "#f9c0e6"
+  },
+  "R": {
+   "name": "red"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#eef4f6"
+  },
+  "Y": {
+   "name": "yellow"
+  }
+ },
+ "accounting": {
+  "D": {
+   "board": 241,
+   "capsules": 238
+  },
+  "G": {
+   "board": 83,
+   "capsules": 78
+  },
+  "P": {
+   "board": 104,
+   "capsules": 82
+  },
+  "R": {
+   "board": 0,
+   "capsules": 8
+  },
+  "W": {
+   "board": 136,
+   "capsules": 132
+  },
+  "Y": {
+   "board": 0,
+   "capsules": 8
+  }
+ },
+ "offBy": 50,
+ "clusters": {
+  "A": "D",
+  "B": "P",
+  "C": "W",
+  "D": "G",
+  "E": "P"
+ }
+}

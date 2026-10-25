@@ -1,0 +1,122 @@
+{
+ "w": 30,
+ "h": 32,
+ "rows": [
+  "AAAAAAAACAAAAAAAAAAABCAAAAAAAA",
+  "AAAAAAAACCAAAAAAAAABBCAAAAAAAA",
+  "AAAAAAAACCBBCCCCCCCBCCAAAAAAAA",
+  "AAAAAAAACBBCCCCCCCCCCCAAAAAAAA",
+  "AAAAAAAABBBCCCCCCCCCCCAAAAAAAA",
+  "AAAAAAAABBCCCCCCCCCCCCAAAAAAAA",
+  "AAAAAAAABBBBBBBBBBBBCCBBAAAAAA",
+  "AAAAAAAABBBBBBBBBBBBBCBBAAAAAA",
+  "AACCAAAABBBBBBBBBBBBBCBBAAAAAA",
+  "AAGBAAAABBBCCBBCCBBBBCDDAAAAAA",
+  "AABBABBBBEEECCBCEEEEBCBBAAAAAA",
+  "AABBABBBBBEEEBCBEEEBBCBBAAAAAA",
+  "AAGBABGBBBBBBBCBBBBBBCBBAAAAAA",
+  "AABBABBBFFBBBCBBBBBGGCDDABBAAA",
+  "AABBBBGBFFFFFCBBGGGGGCBBABBAAA",
+  "AFBBBBBBFFGGFFFFGGGFGCBBFBBAAA",
+  "FBBBEBGBFFGGGGGGGGGFGCDEBBBBAA",
+  "BBBBBBBBFFGGFFFEFGFGGCBEBBBFAA",
+  "AFFFBBBBBGFGGGGGGGGGCCBBFBFAAA",
+  "AFFFBBBCCBGFGGGGGFGCCCCBFBFAAA",
+  "AFFFBCCCCBBFGGGGGFBCCCCCFBFAAA",
+  "AACCCCCCCCBBFFFFFCBCCCCCCCCAAA",
+  "AACCCCCCCCBBBBBBCCCCCCCCCCCAAA",
+  "AACCBCCBCCCCCBBCCCCCCCBCBCCAAA",
+  "AAACBCBDCCCCCBBCCCCCCDCCBCAAAA",
+  "AAACBBDDDDCCCCBCCCCDDDDBBCAAAA",
+  "AAAABDDDDDDDDDDDDDDDDDDDBAAAAA",
+  "AAAADDDDDDEEEEEEEEEDDDDDDAAAAA",
+  "AAAADDDDDEEBEBEBEBEEDDDDDAAAAA",
+  "AAAADDDDEEBBEBBBEBBEEDDDDAAAAA",
+  "AAAADDDDEBBBBBBBBBBBEDDDDAAAAA",
+  "AAAAADDDEBBBBBBBBBBBEDDDAAAAAA"
+ ],
+ "palette": [
+  {
+   "letter": "A",
+   "rgb": "#e7405d",
+   "lab": [
+    54,
+    65,
+    22
+   ],
+   "cells": 313
+  },
+  {
+   "letter": "B",
+   "rgb": "#52405c",
+   "lab": [
+    30,
+    13,
+    -13
+   ],
+   "cells": 243
+  },
+  {
+   "letter": "C",
+   "rgb": "#5b4dc3",
+   "lab": [
+    40,
+    38,
+    -60
+   ],
+   "cells": 175
+  },
+  {
+   "letter": "D",
+   "rgb": "#5ce4f4",
+   "lab": [
+    84,
+    -32,
+    -19
+   ],
+   "cells": 78
+  },
+  {
+   "letter": "E",
+   "rgb": "#eef3f6",
+   "lab": [
+    96,
+    -1,
+    -2
+   ],
+   "cells": 43
+  },
+  {
+   "letter": "F",
+   "rgb": "#a75045",
+   "lab": [
+    45,
+    35,
+    23
+   ],
+   "cells": 53
+  },
+  {
+   "letter": "G",
+   "rgb": "#fae353",
+   "lab": [
+    90,
+    -8,
+    70
+   ],
+   "cells": 55
+  }
+ ],
+ "band": 240,
+ "field": [
+  112,
+  57,
+  891,
+  788
+ ],
+ "pitch": [
+  26.0,
+  22.68
+ ],
+ "plain": false
+}

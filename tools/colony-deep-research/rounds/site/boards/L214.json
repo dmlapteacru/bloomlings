@@ -1,0 +1,124 @@
+{
+ "w": 33,
+ "h": 33,
+ "rows": [
+  "............CCC..................",
+  "...........CCCCKKK...........KKK.",
+  "..........CCCCCKPVK.KKKKKKK.KVPK.",
+  ".........CCCCCCKPPVKMOOYOOMKVPPK.",
+  "........CCCCCCCKMMMVMOYYYOMVMMMK.",
+  ".......CCCCCCCCCKMVVMYYYYYMVVMKK.",
+  "......CCCCCCCCCKMMMVMOYYYOMVMMMK.",
+  ".....CCCCCCCCCCKPPVKMOOYOOMKVPPK.",
+  "....CCCCCCCCCCCKPVKVKKKKKKKVKVPK.",
+  "...CCKKKKKCCCCCKKKVKVVVVVVVVVKKK.",
+  "..CKKMMMMMKKCCCVVVKCKKKKKKV.VVVV.",
+  ".CKMPVVVVPYYKCCKKKCCCCCCCCKKKVVV.",
+  "CKVMVVVVVMOYPKCCCCCCCCCCCKVVKK...",
+  "CKMVVMVVOMPMYKCCCCCCCCCCCKVMPKK..",
+  "CYPVMOMMOVMVMKKCCCCCCCCKKKVMVMKK.",
+  "KYPVMOYYYMVMMYKCCCCCCCKKKPVVVVVK.",
+  "KYOVMPMMKYVPPYKCCCCCCC.OYKPVMKKV.",
+  "KOYVMMPVPYVPPKKCCCCCCKYYYYOMVKVVC",
+  "VPYMVVVVVMVMVKKCCCCCKVOYYYYOMKVCC",
+  "VKOYMMMVMVVVVKCCCCKKKVMOYYYOPVVC.",
+  "VVKOYYYPMVVVVCCCCCKVVMVMOYOKVVC..",
+  "VVVPOOOOVVMMCCCCCCKVVVVVPPPVVC...",
+  ".VVVVPPPMMKCKCCCCCVPPVMVKVVVC....",
+  "..VVVVVVVVVCKKCCCCVVPMMVKVVC.....",
+  "...VVVVVVVVKCKCKCCVVVPMVKVC......",
+  ".....VVVVVVVVCKKKCCVVKKVKC.......",
+  "...........VVVCKKKCCVVVVC........",
+  "............VVVCKCKCCCCC.........",
+  ".............VVKCPCKCCC..........",
+  "..............VVVCKCKC...........",
+  "...............VVVCCV............",
+  "................VVKKV............",
+  ".................VVV............."
+ ],
+ "legend": {
+  "C": {
+   "name": "cyan",
+   "hex": "#5cdfef"
+  },
+  "K": {
+   "name": "black (dark grey)",
+   "hex": "#513e59"
+  },
+  "M": {
+   "name": "magenta pink",
+   "hex": "#f157cc"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f48a2d"
+  },
+  "P": {
+   "name": "light pink",
+   "hex": "#f8bae5"
+  },
+  "V": {
+   "name": "purple (violet)",
+   "hex": "#bb1cf3"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#f7b52a"
+  }
+ },
+ "accounting": {
+  "C": {
+   "board": 209,
+   "capsules": 213
+  },
+  "K": {
+   "board": 148,
+   "capsules": 143
+  },
+  "M": {
+   "board": 75,
+   "capsules": 64
+  },
+  "O": {
+   "board": 33,
+   "capsules": 37
+  },
+  "P": {
+   "board": 43,
+   "capsules": 46
+  },
+  "V": {
+   "board": 193,
+   "capsules": 141
+  },
+  "Y": {
+   "board": 46,
+   "capsules": 65
+  }
+ },
+ "offBy": 98,
+ "clusters": {
+  "A": "C",
+  "B": "V",
+  "C": "K",
+  "D": "M",
+  "E": "V",
+  "F": "Y",
+  "G": "C",
+  "H": "P",
+  "I": "O",
+  "J": "K",
+  "K": "K",
+  "L": "V",
+  "M": "K",
+  "N": "V",
+  "O": "P",
+  "P": "V",
+  "Q": "M",
+  "R": "M",
+  "S": "C",
+  "T": "M",
+  "U": "C",
+  "V": "K"
+ }
+}

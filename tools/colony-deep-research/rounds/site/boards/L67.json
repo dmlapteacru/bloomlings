@@ -1,0 +1,108 @@
+{
+ "w": 30,
+ "h": 32,
+ "rows": [
+  "RRRRRRRRNRRRRRRRRRRRDNRRRRRRRR",
+  "RRRRRRRRNNRRRRRRRRRDDNRRRRRRRR",
+  "RRRRRRRRNNDDNNNNNNNDNNRRRRRRRR",
+  "RRRRRRRRNDDNNNNNNNNNNNRRRRRRRR",
+  "RRRRRRRRDDDNNNNNNNNNNNRRRRRRRR",
+  "RRRRRRRRDDNNNNNNNNNNNNRRRRRRRR",
+  "RRRRRRRRDDDDDDDDDDDDNNDDRRRRRR",
+  "RRRRRRRRDDDDDDDDDDDDDNDDRRRRRR",
+  "RRNNRRRRDDDDDDDDDDDDDNDDRRRRRR",
+  "RRYDRRRRDDDNNDDNNDDDDNCCRRRRRR",
+  "RRDDRDDDDWWWNNDNWWWWDNDDRRRRRR",
+  "RRDDRDDDDDWWWDNDWWWDDNDDRRRRRR",
+  "RRYDRDYDDDDDDDNDDDDDDNDDRRRRRR",
+  "RRDDRDDDBBDDDNDDDDDYYNCCRDDRRR",
+  "RRDDDDYDBBBBBNDDYYYYYNDDRDDRRR",
+  "RBDDDDDDBBYYBBBBYYYBYNDDBDDRRR",
+  "BDDDWDYDBBYYYYYYYYYBYNCWDDDDRR",
+  "DDDDDDDDBBYYBBBWBYBYYNDWDDDBRR",
+  "RBBBDDDDDYBYYYYYYYYYNNDDBDBRRR",
+  "RBBBDDDNNDYBYYYYYBYNNNNDBDBRRR",
+  "RBBBDNNNNDDBYYYYYBDNNNNNBDBRRR",
+  "RRNNNNNNNNDDBBBBBNDNNNNNNNNRRR",
+  "RRNNNNNNNNDDDDDDNNNNNNNNNNNRRR",
+  "RRNNDNNDNNNNNDDNNNNNNNDNDNNRRR",
+  "RRRNDNDCNNNNNDDNNNNNNCNNDNRRRR",
+  "RRRNDDCCCCNNNNDNNNNCCCCDDNRRRR",
+  "RRRRDCCCCCCCCCCCCCCCCCCCDRRRRR",
+  "RRRRCCCCCCWWWWWWWWWCCCCCCRRRRR",
+  "RRRRCCCCCWWDWDWDWDWWCCCCCRRRRR",
+  "RRRRCCCCWWDDWDDDWDDWWCCCCRRRRR",
+  "RRRRCCCCWDDDDDDDDDDDWCCCCRRRRR",
+  "RRRRRCCCWDDDDDDDDDDDWCCCRRRRRR"
+ ],
+ "legend": {
+  "B": {
+   "name": "brown",
+   "hex": "#a75045"
+  },
+  "C": {
+   "name": "cyan / light blue",
+   "hex": "#5ce4f4"
+  },
+  "D": {
+   "name": "dark (near-black)",
+   "hex": "#52405c"
+  },
+  "N": {
+   "name": "navy / indigo blue",
+   "hex": "#5b4dc3"
+  },
+  "R": {
+   "name": "red",
+   "hex": "#e7405d"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#eef3f6"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#fae353"
+  }
+ },
+ "accounting": {
+  "B": {
+   "board": 53,
+   "capsules": 35
+  },
+  "C": {
+   "board": 78,
+   "capsules": 79
+  },
+  "D": {
+   "board": 243,
+   "capsules": 250
+  },
+  "N": {
+   "board": 175,
+   "capsules": 175
+  },
+  "R": {
+   "board": 313,
+   "capsules": 324
+  },
+  "W": {
+   "board": 43,
+   "capsules": 39
+  },
+  "Y": {
+   "board": 55,
+   "capsules": 58
+  }
+ },
+ "offBy": 44,
+ "clusters": {
+  "A": "R",
+  "B": "D",
+  "C": "N",
+  "D": "C",
+  "E": "W",
+  "F": "B",
+  "G": "Y"
+ }
+}

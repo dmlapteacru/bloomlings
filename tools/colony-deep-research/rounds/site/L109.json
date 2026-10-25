@@ -1,0 +1,22 @@
+{
+ "level": 109, "difficulty": "Normal", "video": "videoplayback_109.mp4",
+ "legend": {"L": "light blue", "O": "orange", "P": "purple", "Y": "yellow", "D": "dark (black)", "W": "white"},
+ "columns": {
+  "c1": ["L45", "Y25", "O25", "L30", "Y47", "D45", "L45", "L40", "L20"],
+  "c2": ["L45", "O43", "D11", "W13", "L20", "L45", "D50", "L50", "L24"],
+  "c3": ["P26", "Y21", "L40", "Y20", "L50", "L35", "L45", "L40"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 1.0, "end": 109.0,
+  "taps": [
+   [1.25, "c1"], [1.5, "c2"], [4.5, "c2"], [4.75, "c2"], [12.25, "c1"],
+   [16.0, "c2"], [16.25, "c2"], [16.375, "c2", "three quick taps on c2: white 13, light blue 20, light blue 45"],
+   [23.25, "c2"], [23.75, "c2"], [31.0, "c2", "c2 empty; tray re-centres to two columns"],
+   [39.25, "c1"], [39.75, "c1"], [49.5, "c1"], [52.25, "c1"], [54.75, "c1"], [58.0, "c1"],
+   [64.25, "c1", "c1 empty; only c3 left"], [69.0, "c3"], [70.5, "c3"], [71.0, "c3"], [74.25, "c3"],
+   [83.5, "c3"], [83.75, "c3"], [88.5, "c3"], [95.5, "c3", "last capsule"]],
+  "events": [[5.25, "four slots used (L,L,O,D)"], [16.75, "all 5 slots full"], [23.75, "slots full again (W13 stays in slot 1 a long time)"],
+   [96.25, "tray empty, 5 slots still counting down"], [108.5, "board cleared, slots empty"], [109.0, "win screen, +20 coins (Sweet Meal reward bar)"]]}],
+ "mechanics": ["No hidden capsules, links, locks or board boxes in this level: plain stacks of large counts (11-50). Columns re-centre as they empty (c2 first at 31 s, then c1 at 64 s)."],
+ "uncertain": ["c2 row 4 W13: white vs very light grey (it is the only white capsule; its 13 cells took ~90 s to clear)",
+  "exact order/time of the three c2 taps at 16.0-16.4 s and the paired taps at 1.25/1.5, 4.5/4.75, 83.5/83.75 s (0.25 s resolution)"]
+}

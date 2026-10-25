@@ -1,0 +1,52 @@
+{
+ "level": 100, "difficulty": "Normal", "video": "videoplayback_100.mp4",
+ "legend": {"K": "dark green", "G": "green", "L": "light green", "Y": "yellow (gold)", "O": "orange", "B": "brown", "R": "red (crimson)", "P": "pink-red (rose/coral)"},
+ "columns": {
+  "c1": ["K45:a", "O50:a", "B85:b", "L30:b", "G35", "K35:h", "P44:h"],
+  "c2": ["Y30:c", "Y50:c", "L10", "R26", "L33", "R10:g"],
+  "c3": ["R30:d", "G11:d", "K44:f", "Y35:f", "K40", "G45", "G40:g"],
+  "c4": ["Y25", "Y29", "K25:e", "O19:e", "K20", "R25"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 2.5, "end": 171.75,
+  "taps": [
+   [3.0, "c1", "vertical pair a: dark green 45 + orange 50"],
+   [9.25, "c1", "vertical pair b: brown 85 + light green 30"],
+   [21.5, "c4", "yellow 25"],
+   [37.75, "c4", "yellow 29"],
+   [56.25, "c2", "vertical pair c: yellow 30 + yellow 50"],
+   [61.75, "c1", "green 35"],
+   [74.25, "c3", "vertical pair d: red 30 + green 11"],
+   [86.75, "c4", "vertical pair e: dark green 25 + orange 19"],
+   [99.5, "c3", "vertical pair f: dark green 44 + yellow 35"],
+   [119.5, "c3", "dark green 40"],
+   [120.75, "c3", "green 45; c3 now holds only green 40, linked by a long diagonal bar to c2's red 10 (two rows down)"],
+   [122.0, "c2", "light green 10"],
+   [124.0, "c2", "red 26"],
+   [128.75, "c2", "light green 33; c2 red 10 and c3 green 40 now both on top, bar becomes horizontal"],
+   [132.25, "c4", "dark green 20"],
+   [134.75, "c2", "diagonal pair g: c2 red 10 + c3 green 40; tray re-centres to 2 columns"],
+   [141.0, "c4", "red 25"],
+   [161.25, "c1", "vertical pair h: dark green 35 + pink-red 44; tray empty"]
+  ],
+  "events": [
+   [9.75, "slots: dark green/orange pair, brown/light green pair (4 places used)"],
+   [21.5, "all 5 places used (pair a, pair b, yellow 25)"],
+   [55.75, "pair a done; only brown/light green pair left"],
+   [72.5, "only brown/light green pair left (brown at 1 from 95 s until about 112 s)"],
+   [117.25, "all places empty (pair b finished last)"],
+   [140.5, "slots: light green 18, green 22 + red (done)"],
+   [171.25, "all places empty"],
+   [171.75, "win screen, 100 coins (Sweet Meal multiplier x1..x100)"]
+  ]}],
+ "mechanics": [
+  "Links only: vertical pairs inside one column (c1 rows 1-2, 3-4, 6-7; c2 rows 1-2; c3 rows 1-2, 3-4; c4 rows 3-4), both go to two neighbouring places joined by a bar and keep both places until both are done.",
+  "One diagonal link across columns: c2 red 10 (row 6) with c3 green 40 (row 7, last of c3); drawn as a long bar from c3 down-left into c2 while c2 still had capsules above; tapped as one group once both were on top (134.75).",
+  "No hidden '?' capsules, no locks/keys, no board boxes seen.",
+  "When two columns emptied the tray re-centred its remaining columns (134.75)."
+ ],
+ "uncertain": [
+  "Red shades: c3 red 30, c2 red 10, c2 red 26 and c4 red 25 read as the same red (crimson); c1 44 looks lighter (pink-red/coral) and is given its own letter P; c2 26 / c4 25 could be the pink-red instead.",
+  "Yellow vs orange: c2 30/50, c4 25/29 and c3 35 read as yellow (gold); c1 50 and c4 19 as orange.",
+  "Green shades: c1 35 (row 5), c3 11, 45 and 40 read as medium green; c2 10 and 33 and c1 30 as light green."
+ ]
+}

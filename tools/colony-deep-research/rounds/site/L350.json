@@ -1,0 +1,336 @@
+{
+ "level": 350,
+ "difficulty": "Super Hard",
+ "video": "videoplayback_350_super_hard.mp4",
+ "legend": {
+  "D": "dark (near-black)",
+  "S": "skin / peach",
+  "R": "red",
+  "W": "white",
+  "Y": "yellow",
+  "O": "orange",
+  "B": "brown",
+  "L": "light blue",
+  "N": "navy / indigo blue"
+ },
+ "columns": {
+  "c1": [
+   "D20:a",
+   "R20",
+   "D20",
+   "R25",
+   "R20",
+   "D20",
+   "B15",
+   "L10:e",
+   "L14:e",
+   "#green",
+   "B22:g",
+   "S20:g",
+   "S20",
+   "D20"
+  ],
+  "c2": [
+   "S20:a",
+   "R25",
+   "R20:d",
+   "Y9:d",
+   "R25",
+   "R24:j",
+   "D28:j",
+   "R25",
+   "#blue",
+   "W15",
+   "D20",
+   "S20:k",
+   "S21:k",
+   "D20"
+  ],
+  "c3": [
+   "R25",
+   "R25",
+   "D20:b",
+   "R24:c",
+   "R20:c",
+   "R20:h",
+   "B15:h",
+   "L15",
+   "R20:i",
+   "N16:i",
+   "S20",
+   "D20",
+   "R25",
+   "R22"
+  ],
+  "c4": [
+   "W8",
+   "D20",
+   "R20:b",
+   "L10",
+   "L15:d",
+   "R20:f",
+   "O9:f",
+   "W15",
+   "#yellow",
+   "R25",
+   "R25",
+   "D20",
+   "D20"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 2,
+   "end": 284.5,
+   "taps": [
+    [
+     2.5,
+     "c1",
+     "pair a: dark 20 (c1) + peach 20 (c2), horizontal"
+    ],
+    [
+     3,
+     "c1"
+    ],
+    [
+     3.5,
+     "c2"
+    ],
+    [
+     3.5,
+     "c3",
+     "two red 25 flew in the same tile"
+    ],
+    [
+     14.5,
+     "c3"
+    ],
+    [
+     18,
+     "c1"
+    ],
+    [
+     18.5,
+     "c1"
+    ],
+    [
+     25.25,
+     "c1"
+    ],
+    [
+     34.5,
+     "c1"
+    ],
+    [
+     36.75,
+     "c1"
+    ],
+    [
+     55.5,
+     "c4"
+    ],
+    [
+     56.25,
+     "c4"
+    ],
+    [
+     64.25,
+     "c3",
+     "pair b: dark 20 (c3) + red 20 (c4), diagonal then horizontal"
+    ],
+    [
+     74.75,
+     "c1",
+     "pair e: vertical light blue 10 over 14 in c1; green padlock now on top of c1"
+    ],
+    [
+     110.25,
+     "c4"
+    ],
+    [
+     111.25,
+     "c3",
+     "pair c: vertical red 24 over red 20 in c3"
+    ],
+    [
+     123.25,
+     "c2",
+     "group d of three: red 20 over yellow 9 (vertical, c2) + light blue 15 (c4)"
+    ],
+    [
+     140.5,
+     "c2"
+    ],
+    [
+     159.5,
+     "c4",
+     "pair f: vertical red 20 over orange 9 in c4"
+    ],
+    [
+     175.5,
+     "c2",
+     "pair j: vertical red 24 over dark 28 in c2"
+    ],
+    [
+     194.75,
+     "c2",
+     "blue padlock now on top of c2"
+    ],
+    [
+     211.25,
+     "c4",
+     "yellow padlock now on top of c4"
+    ],
+    [
+     212,
+     "c4"
+    ],
+    [
+     212.5,
+     "c4"
+    ],
+    [
+     213,
+     "c4"
+    ],
+    [
+     213.75,
+     "c4",
+     "c4 empty"
+    ],
+    [
+     227.75,
+     "c1",
+     "pair g: vertical brown 22 over peach 20 in c1"
+    ],
+    [
+     229,
+     "c1"
+    ],
+    [
+     236.5,
+     "c1",
+     "c1 empty"
+    ],
+    [
+     245.25,
+     "c3",
+     "pair h: vertical red 20 over brown 15 in c3"
+    ],
+    [
+     246.25,
+     "c3"
+    ],
+    [
+     250.5,
+     "c3",
+     "pair i: vertical red 20 over navy 16 in c3"
+    ],
+    [
+     257.25,
+     "c3"
+    ],
+    [
+     257.75,
+     "c3"
+    ],
+    [
+     261.75,
+     "c3"
+    ],
+    [
+     263.75,
+     "c3",
+     "c3 empty"
+    ],
+    [
+     266.25,
+     "c2",
+     "right after the blue padlock opened"
+    ],
+    [
+     271.75,
+     "c2"
+    ],
+    [
+     272.25,
+     "c2",
+     "pair k: vertical peach 20 over peach 21 in c2"
+    ],
+    [
+     272.75,
+     "c2",
+     "tray empty"
+    ]
+   ],
+   "events": [
+    [
+     37.25,
+     "slots fill to 4 and drain; long waits follow (no tap 37-55, 75-110, 176-194)"
+    ],
+    [
+     168.25,
+     "green key flies from the board to the green padlock on top of c1"
+    ],
+    [
+     168.75,
+     "green padlock gone, brown 22 on top"
+    ],
+    [
+     211.5,
+     "yellow key reaches the yellow padlock on top of c4"
+    ],
+    [
+     212,
+     "yellow padlock gone"
+    ],
+    [
+     265.75,
+     "blue key flies to the blue padlock on top of c2"
+    ],
+    [
+     266.25,
+     "blue padlock gone"
+    ],
+    [
+     284.5,
+     "dark win screen 'Sweet Meal', coin button 100"
+    ]
+   ],
+   "unlocks": [
+    [
+     168.75,
+     "c1",
+     "green padlock opens"
+    ],
+    [
+     212,
+     "c4",
+     "yellow padlock opens"
+    ],
+    [
+     266.25,
+     "c2",
+     "blue padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Padlocks in the tray with keys on the board: green padlock in c1 (above brown 22), light-blue padlock in c2 (above white 15), yellow padlock in c4 (above red 25). Each takes its own place in the column, cannot be tapped and blocks the column while on top. Keys of the same colours sit on the board (green at the top of the picture, light blue on the face, yellow near the bottom). When the ants clear a key's cell, the key flies to its padlock and the padlock vanishes (column shifts up, no tap). Green: on top 74.75, opened 168.5 (~94 s blocked). Blue: on top 194.75, opened ~266. Yellow: on top 211.25, opened ~211.75.",
+  "Board chocolate block: a big brown chocolate bar in the lower left of the picture labelled 700, counting down as cells are cleared (602 at 5 s, 494, 445, 383, 366, 293, 245, 169, 141, 8 at ~230 s), gone by ~255 s, uncovering red cells under it.",
+  "Board crate: a wooden crate at the lower right with a light-blue gem and the number 50, counting down (50 until ~55 s, 32, 26, 19, 11, 1 from ~180 s to ~230 s), then gone, uncovering red cells. It seems to count something narrower than all cells (possibly light-blue cells); not certain.",
+  "Links: many vertical pairs inside one column (e, c, f, j, g, h, i, k), cross-column pairs (a, b) and one group of three (d: a vertical pair in c2 joined to c4's light blue 15).",
+  "Waiting slots compact to the left; the tray re-centres as columns empty. No hidden (?) capsules were seen.",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "Group d (c2 red 20 + yellow 9 + c4 light blue 15): checked at 8 fps around 123 s - all three leave in the same frame (~123.0 s) joined by bars, so read as one group of three; the vertical red-yellow bar in c2 was visible from the start.",
+  "Pair b: the dark bar from c3 dark 20 first looked as if it went to c4 dark 20, but c4 dark 20 left alone at 56.25 and the bar then joined c3 dark 20 to c4 red 20.",
+  "The two red 25 at 3.5 s (c2 and c3) flew in one tile; their order is unknown.",
+  "Row 3 at the start was partly behind the booster bar; whether any of those capsules started hidden is not certain (no grey '?' was seen).",
+  "c4: the two red 25 under the yellow padlock and the two dark 20 after them were read from row 2/3 while dim."
+ ]
+}

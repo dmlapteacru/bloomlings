@@ -1,0 +1,30 @@
+{
+ "level": 358, "difficulty": "Normal", "video": "videoplayback_358.mp4",
+ "legend": {"B": "brick red-brown", "O": "orange", "D": "dark navy/purple", "U": "blue", "K": "pink"},
+ "columns": {
+  "c1": ["B33", "U45", "U40", "D25", "B20", "D25", "O40", "B35", "U35", "U45"],
+  "c2": ["O45", "K50", "B30", "O50", "B45", "U30", "U30", "D30", "U20", "B45"],
+  "c3": ["D25", "U30", "B25", "D30", "O30", "B45", "B40", "U20", "U40"],
+  "c4": ["B40", "B35", "D8", "U30", "B35", "U40", "O41", "D50", "U30"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 3.0, "end": 116.75,
+  "taps": [
+   [3.5, "c1"], [4.0, "c1"], [4.5, "c1"], [10.25, "c4"], [10.75, "c4", "slots full"], [14.25, "c2"],
+   [17.75, "c4"], [18.0, "c4"], [23.5, "c3"], [24.5, "c3"], [26.0, "c3"], [29.5, "c3"], [31.0, "c3"], [31.5, "c3"],
+   [34.5, "c3"], [34.75, "c3"], [39.0, "c1"], [41.5, "c3", "c3 empty; tray re-centres to three columns"],
+   [47.0, "c1"], [47.25, "c1"], [48.5, "c1"], [56.0, "c4"], [56.25, "c4"], [57.25, "c4"], [62.75, "c4"],
+   [63.75, "c4", "c4 empty; two columns left"], [67.75, "c2", "pink 50 (the pink box's colour)"], [69.0, "c2"], [70.5, "c2"],
+   [78.5, "c1"], [78.75, "c1"], [90.375, "c2"], [90.625, "c2"], [90.75, "c2"], [90.875, "c2", "four quick c2 taps: B45, U30, U30, D30"],
+   [101.5, "c1"], [101.75, "c2"], [105.5, "c2", "last capsule"]],
+  "events": [[20.0, "orange-gem box counter 92 (from 100); pink-gem box stays 50"], [58.0, "orange box counter 2"],
+   [66.0, "orange box gone (opened)"], [72.0, "pink box counter 49 after pink 50 tapped"], [95.0, "pink box opening"],
+   [116.25, "board cleared, slots empty"], [116.75, "win screen, +20 coins (Sweet Meal reward bar)"]]}],
+ "mechanics": [
+  "Board boxes: two wooden crates on the board, each with a big counter and a coloured gem: left '100' with an orange gem, right '50' with a pink gem. The counter goes down as cells of the gem's colour are cleared by the Bloomlings (orange box 100 -> 92 at 20 s -> 25 at 45 s -> 2 at 58 s -> opened by 66 s while orange 45/30/40 worked; pink box stayed 50 until the only pink capsule K50 was tapped at 67.75 s, then 49 -> 34 at 80 s -> opened ~95 s). The crate covers board cells that are cleared after it opens.",
+  "Small counters '100' at three spots on the board (a small dark/brick block or opening under each: left of the body, right of the body, near the hat) also counted down (left 100 -> 38 at 45 s -> 22 at 58 s; right 100 -> 34 -> 18 -> gone by 58 s; hat one 52 at 20 s) - exact role unclear (seen only on the board, nothing in the tray).",
+  "No hidden capsules, no links, no locks/keys. Columns re-centre as they empty (c3 at 41.5 s, c4 at 63.75 s)."],
+ "uncertain": [
+  "Brick vs orange shade of a few capsules read from dimmed rows: c3 row 6 B45 and row 7 B40 (brick), c1 row 7 O40 (orange), c2 row 4 O50 (orange)",
+  "Role of the small '100' counters on the board (not tied to any tray capsule I could see)",
+  "Order inside near-simultaneous taps (47.0/47.25, 56.0/56.25, 78.5/78.75, 101.5/101.75 and the four c2 taps at 90.4-90.9)"]
+}

@@ -1,0 +1,342 @@
+{
+ "level": 185,
+ "difficulty": "Hard",
+ "video": "videoplayback_185_hard.mp4",
+ "legend": {
+  "G": "medium green",
+  "L": "lime / light green",
+  "E": "dark green",
+  "O": "bright orange",
+  "N": "brown-orange",
+  "R": "maroon / red-brown",
+  "D": "dark navy",
+  "Y": "bright yellow",
+  "C": "cream / pale yellow",
+  "K": "pink"
+ },
+ "columns": {
+  "c1": [
+   "G75:a",
+   "G45",
+   "E50",
+   "Y77:g",
+   "N46?:g",
+   "L50",
+   "D50:h",
+   "L45:i",
+   "O35",
+   "D49:m",
+   "L40"
+  ],
+  "c2": [
+   "G65:a",
+   "G55:c",
+   "C45",
+   "L48",
+   "C25",
+   "G55",
+   "E25",
+   "N35",
+   "L45:i",
+   "N30",
+   "R83:m"
+  ],
+  "c3": [
+   "G70:a",
+   "G50?:c",
+   "E45",
+   "C45",
+   "D25",
+   "L25",
+   "E45",
+   "G50:d",
+   "K18?:d",
+   "L30",
+   "G83:e",
+   "G83?:e",
+   "C19"
+  ],
+  "c4": [
+   "G55:b",
+   "G50:c",
+   "O50",
+   "E20",
+   "C35",
+   "N50",
+   "O1:h",
+   "E30?:j",
+   "N40:j",
+   "L50",
+   "L40",
+   "N40",
+   "G50:f"
+  ],
+  "c5": [
+   "G55:b",
+   "G35:b",
+   "L20",
+   "N45",
+   "E20",
+   "L25",
+   "L50?",
+   "N35",
+   "E20",
+   "Y45",
+   "G40?",
+   "E20:f"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 2.25,
+   "end": 528.25,
+   "taps": [
+    [
+     2.75,
+     "c4",
+     "group b: c4 G55 + c5 G55 (horizontal) + c5 G35 (vertical under c5 G55)"
+    ],
+    [
+     6.0,
+     "c5"
+    ],
+    [
+     20.75,
+     "c1",
+     "group a: c1 G75 + c2 G65 + c3 G70 (three in a row); c3 ? opens green 50"
+    ],
+    [
+     25.75,
+     "c1"
+    ],
+    [
+     44.25,
+     "c2",
+     "group c: c2 G55 + c3 G50 + c4 G50 (three in a row)"
+    ],
+    [
+     63.75,
+     "c2"
+    ],
+    [
+     64.0,
+     "c2"
+    ],
+    [
+     79.5,
+     "c3"
+    ],
+    [
+     89.75,
+     "c3"
+    ],
+    [
+     90.25,
+     "c3"
+    ],
+    [
+     91.0,
+     "c3"
+    ],
+    [
+     101.0,
+     "c5"
+    ],
+    [
+     104.75,
+     "c5"
+    ],
+    [
+     112.75,
+     "c5",
+     "c5 ? opens lime 50"
+    ],
+    [
+     121.25,
+     "c5"
+    ],
+    [
+     139.25,
+     "c5"
+    ],
+    [
+     140.25,
+     "c5"
+    ],
+    [
+     148.25,
+     "c3"
+    ],
+    [
+     156.75,
+     "c2"
+    ],
+    [
+     162.75,
+     "c2"
+    ],
+    [
+     185.75,
+     "c3",
+     "group d: c3 G50 + the ? under it (vertical), opens pink 18"
+    ],
+    [
+     188.0,
+     "c2"
+    ],
+    [
+     188.0,
+     "c2",
+     "two quick c2 taps: dark green 25, brown 35"
+    ],
+    [
+     204.25,
+     "c4"
+    ],
+    [
+     212.0,
+     "c3"
+    ],
+    [
+     223.25,
+     "c3",
+     "group e: c3 G83 + the ? under it (vertical), opens green 83"
+    ],
+    [
+     258.5,
+     "c5",
+     "c5 ? opens green 40"
+    ],
+    [
+     262.0,
+     "c5"
+    ],
+    [
+     270.75,
+     "c4"
+    ],
+    [
+     280.25,
+     "c4"
+    ],
+    [
+     281.75,
+     "c4"
+    ],
+    [
+     305.625,
+     "c1"
+    ],
+    [
+     306.375,
+     "c1",
+     "group g: c1 Y77 + the ? under it (vertical), opens brown-orange 46"
+    ],
+    [
+     310.25,
+     "c1"
+    ],
+    [
+     328.25,
+     "c1",
+     "group h: c1 D50 + c4 O1 (long line across the tray); c4 ? opens dark green 30"
+    ],
+    [
+     354.5,
+     "c1",
+     "group i: c1 L45 + c2 L45 (line seen since 188 s from c2 L45 down to c1 three rows lower)"
+    ],
+    [
+     378.5,
+     "c4",
+     "group j: c4 E30 + N40 (vertical)"
+    ],
+    [
+     379.0,
+     "c4"
+    ],
+    [
+     396.75,
+     "c4"
+    ],
+    [
+     412.0,
+     "c4"
+    ],
+    [
+     429.5,
+     "c2"
+    ],
+    [
+     452.75,
+     "c3",
+     "c3 empty; tray re-centres"
+    ],
+    [
+     466.75,
+     "c1"
+    ],
+    [
+     467.0,
+     "c1",
+     "group m: c1 D49 + c2 R83 (diagonal, then horizontal)"
+    ],
+    [
+     502.0,
+     "c4",
+     "group f: c4 G50 + c5 E20 (line from c5 E20 seen since 262 s)"
+    ],
+    [
+     516.75,
+     "c1",
+     "last capsule"
+    ]
+   ],
+   "events": [
+    [
+     2.75,
+     "first three slots taken by group b"
+    ],
+    [
+     20.25,
+     "all slots empty before group a"
+    ],
+    [
+     179.75,
+     "all slots empty, idle ~6 s"
+    ],
+    [
+     305.25,
+     "all slots empty before c1 taps"
+    ],
+    [
+     516.75,
+     "tray empty, slots finishing"
+    ],
+    [
+     527.75,
+     "board cleared, slots empty"
+    ],
+    [
+     528.75,
+     "win screen, +60 coins (Sweet Meal reward bar)"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Hidden capsules (grey '?'): 7 in total, revealed on reaching the top or when tapped as part of a vertical pair (c3 G50, c5 L50, c3 K18, c3 G83, c5 G40, c1 N46, c4 E30).",
+  "Links of many shapes: three in a row (a, c), an L-shaped three (b: two neighbours plus the capsule under one of them), vertical pairs in one column whose lower member is hidden (d, e, g) or visible (j), long diagonal lines spanning several rows and columns (i: c2 L45 to c1 L45 three rows lower; h: c4 O1 to c1 D50; f: c5 E20 to c4 G50; m: c1 D49 to c2 R83). A tapped group stays in joined slots until all members finish.",
+  "Unusual count: c4 holds an orange capsule with count 1 (O1, part of link h).",
+  "Board: two dark brown chocolate-bar blocks with counters, 900 at the left edge and 500 at the bottom, plus a small '90' marker on the bear's ear (cover picture). They are not shown in the tray. The counters drop while green work runs: the bottom 500 block was already gone at 60 s, the left one read 362 at 60 s and was gone by 200 s.",
+  "Columns re-centre when one empties (c3 at 452.75 s). No locks/keys in the tray."
+ ],
+ "uncertain": [
+  "Shade calls between medium green (G) and lime (L), and between brown-orange (N) and bright orange (O), read partly from dimmed rows; c1 O35 and c4 O50 bright orange, c4 N40 (both) brown-orange",
+  "R83 given its own letter (maroon); it may be the same colour as N (brown-orange)",
+  "Order of the two c2 taps at 188.0 s (E25 then N35) and of c1 O35 / group m at 466.75/467.0 s",
+  "Board blocks were only sampled at 60/200/330/470 s; what exactly lowers their counters (all cleared cells, or one colour) was not confirmed"
+ ]
+}

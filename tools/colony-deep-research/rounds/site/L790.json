@@ -1,0 +1,416 @@
+{
+ "level": 790,
+ "difficulty": "Super Hard",
+ "video": "videoplayback_790_super_hard.mp4",
+ "legend": {
+  "P": "medium pink",
+  "V": "violet / purple",
+  "L": "lavender",
+  "S": "light grey / white",
+  "Y": "bright yellow",
+  "A": "amber / orange-yellow",
+  "H": "hot pink / magenta-pink",
+  "K": "light pink",
+  "T": "teal",
+  "U": "dark purple",
+  "M": "fuchsia (brighter, pinker than violet)",
+  "C": "light cyan",
+  "O": "orange",
+  "B": "blue",
+  "G": "light green",
+  "I": "indigo / dark blue",
+  "Q": "peach / salmon"
+ },
+ "columns": {
+  "c1": [
+   "P60",
+   "S50",
+   "S50",
+   "#yellow",
+   "U46",
+   "S48",
+   "G13",
+   "H22:s",
+   "S50:s",
+   "K41",
+   "S50",
+   "S50",
+   "S50:r",
+   "K40:r"
+  ],
+  "c2": [
+   "V4",
+   "S45:a",
+   "K38:a",
+   "H36",
+   "T49:b",
+   "K40:b",
+   "S42",
+   "S50:c",
+   "K41:c",
+   "S50",
+   "C26",
+   "O4:d",
+   "S50:d",
+   "H20",
+   "Y34"
+  ],
+  "c3": [
+   "L40",
+   "H40",
+   "H22:e",
+   "T45:e",
+   "S50",
+   "K38",
+   "U40:f",
+   "K34:f",
+   "A8",
+   "S50",
+   "I5:g",
+   "Q2:g",
+   "S50",
+   "S50",
+   "S50"
+  ],
+  "c4": [
+   "S50",
+   "S50",
+   "K40",
+   "H20",
+   "#cyan",
+   "S50",
+   "M1",
+   "H25",
+   "S50:h",
+   "U42:h",
+   "U40",
+   "L30",
+   "S50",
+   "S50:i",
+   "H36:i"
+  ],
+  "c5": [
+   "Y32",
+   "S40",
+   "L20",
+   "H20",
+   "S50",
+   "H22",
+   "B26:j",
+   "S50:j",
+   "U40",
+   "K14",
+   "Y19:k",
+   "S50:k",
+   "T50",
+   "K2"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 3.5,
+   "end": 642.5,
+   "taps": [
+    [
+     4,
+     "c2"
+    ],
+    [
+     4.5,
+     "c2",
+     "vertical pair a: grey 45 + light pink 38"
+    ],
+    [
+     11.75,
+     "c2"
+    ],
+    [
+     27.25,
+     "c2",
+     "vertical pair b: teal 49 + light pink 40"
+    ],
+    [
+     44.5,
+     "c5"
+    ],
+    [
+     56.25,
+     "c4"
+    ],
+    [
+     72.25,
+     "c1"
+    ],
+    [
+     102,
+     "c4"
+    ],
+    [
+     112,
+     "c4"
+    ],
+    [
+     117.25,
+     "c1",
+     "yellow padlock now second in c1"
+    ],
+    [
+     123.75,
+     "c5"
+    ],
+    [
+     136,
+     "c4",
+     "cyan padlock reaches the top of c4 and opens at once (~136.5)"
+    ],
+    [
+     137.75,
+     "c4"
+    ],
+    [
+     153,
+     "c4"
+    ],
+    [
+     156,
+     "c4"
+    ],
+    [
+     165.25,
+     "c4",
+     "vertical pair h: grey 50 + dark purple 42"
+    ],
+    [
+     171.5,
+     "c2"
+    ],
+    [
+     184.25,
+     "c2",
+     "vertical pair c: grey 50 + light pink 41"
+    ],
+    [
+     187,
+     "c2"
+    ],
+    [
+     202.25,
+     "c5"
+    ],
+    [
+     210,
+     "c5"
+    ],
+    [
+     221.5,
+     "c5"
+    ],
+    [
+     234.25,
+     "c1",
+     "yellow padlock on top of c1"
+    ],
+    [
+     249.25,
+     "c3"
+    ],
+    [
+     250,
+     "c3"
+    ],
+    [
+     256,
+     "c3",
+     "vertical pair e: hot pink 22 + teal 45"
+    ],
+    [
+     276.75,
+     "c3"
+    ],
+    [
+     291.25,
+     "c3"
+    ],
+    [
+     303.75,
+     "c3",
+     "vertical pair f: dark purple 40 + light pink 34"
+    ],
+    [
+     316,
+     "c5"
+    ],
+    [
+     322.75,
+     "c4"
+    ],
+    [
+     343.25,
+     "c2"
+    ],
+    [
+     356.5,
+     "c2",
+     "vertical pair d: orange 4 + grey 50"
+    ],
+    [
+     379,
+     "c1"
+    ],
+    [
+     383.25,
+     "c1"
+    ],
+    [
+     400,
+     "c1"
+    ],
+    [
+     407.75,
+     "c1",
+     "vertical pair s: hot pink 22 + grey 50"
+    ],
+    [
+     425.25,
+     "c1"
+    ],
+    [
+     432,
+     "c1"
+    ],
+    [
+     447.25,
+     "c1"
+    ],
+    [
+     462.5,
+     "c1",
+     "vertical pair r: grey 50 + light pink 40; c1 empty, 4 columns"
+    ],
+    [
+     478,
+     "c5",
+     "vertical pair j: blue 26 + grey 50"
+    ],
+    [
+     483.25,
+     "c4"
+    ],
+    [
+     494,
+     "c4"
+    ],
+    [
+     509.5,
+     "c4",
+     "vertical pair i: grey 50 + hot pink 36; c4 empty, 3 columns"
+    ],
+    [
+     538.5,
+     "c5"
+    ],
+    [
+     590,
+     "c5"
+    ],
+    [
+     590.25,
+     "c5",
+     "vertical pair k: yellow 19 + grey 50"
+    ],
+    [
+     605.75,
+     "c2"
+    ],
+    [
+     606.25,
+     "c3"
+    ],
+    [
+     608.75,
+     "c3"
+    ],
+    [
+     614.5,
+     "c3",
+     "vertical pair g: indigo 5 + peach 2"
+    ],
+    [
+     617,
+     "c3"
+    ],
+    [
+     617.75,
+     "c3"
+    ],
+    [
+     618.25,
+     "c3",
+     "c3 empty, 2 columns"
+    ],
+    [
+     621.25,
+     "c5"
+    ],
+    [
+     624.75,
+     "c2",
+     "c2 empty"
+    ],
+    [
+     633,
+     "c5",
+     "tray empty"
+    ]
+   ],
+   "events": [
+    [
+     136.5,
+     "cyan padlock (c4) vanishes as soon as it is on top"
+    ],
+    [
+     331.5,
+     "yellow padlock on top of c1 opens after ~97 s on top; c1 continues with dark purple 46"
+    ],
+    [
+     618.75,
+     "four grey capsules counting in the slots at once"
+    ],
+    [
+     642.25,
+     "win screen, +100 coins (Sweet Meal reward strip)"
+    ]
+   ],
+   "unlocks": [
+    [
+     136.5,
+     "c4",
+     "cyan padlock opens"
+    ],
+    [
+     331.5,
+     "c1",
+     "yellow padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Vertical links only: 13 pairs, each a capsule joined by a short stem to the one right under it in the same column; one tap takes both into two neighbouring slots joined by a bar. Most pairs pair a grey 50 with a coloured capsule.",
+  "Padlocks with keys: a yellow padlock in c1 (between the third capsule, grey 50, and dark purple 46) and a cyan padlock in c4 (between hot pink 20 and grey 50). A padlock fills a place in its column, cannot be tapped and blocks the column until its key is collected on the board; the cover shows a cyan key in the right part of the balloon dog. The cyan padlock opened immediately on reaching the top (key already collected); the yellow one waited ~97 s on top (no yellow key visible on the cover, so its key may be hidden under tiles or behind the watermark).",
+  "Board box: the cover shows a wooden crate with a big number 230 at the lower left of the board. It is not visible in the tray crops; what opens it (probably 230 cleared tiles) was not checked.",
+  "Many grey/white 50s (27 S capsules): grey is the dominant background-like colour and the main slot pressure.",
+  "Columns recentre when one empties (5 -> 4 at 462.5, 3 at 509.5, 2 at 618.25).",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "Grey vs white: all 'S' capsules look the same light grey; there may be two shades (white vs light grey) that the dimmed rows hide",
+  "c4 fuchsia 1 (M) vs violet 4 (V) may be the same colour",
+  "c3 amber 8 (A) vs bright yellow (Y: 32, 19, 34) judged as different shades",
+  "Hot pink 20/22/25/36/40 (H) vs medium pink 60 (P) judged as different shades",
+  "c3 last three grey 50s (617.0, 617.75, 618.25): seen as three separate taps from slot fill; the third row was partly hidden",
+  "Yellow key location and the crate's role are not seen in the tray video"
+ ]
+}

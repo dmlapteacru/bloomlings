@@ -1,0 +1,72 @@
+{
+ "w": 25,
+ "h": 23,
+ "rows": [
+  "............DDD..........",
+  "...........DRRRD.........",
+  "........DDDDRRRRD........",
+  ".......DRRRRDRRRRD.......",
+  ".......DRRRRRDDRRRD......",
+  "........DDDRRRRDDRRD.....",
+  ".......DRRRRRRRRRRRRD....",
+  "......DRRRRRRRRRRRRRRD...",
+  "......DRRRRRRRRRRRRRRRD..",
+  ".....DRRRRRRRRRRRRRRRRRD.",
+  ".....DRRRRRRDDDDRRRRRDDD.",
+  "..D.DRRRRRRRRDDDDDRRDDDDD",
+  "DDWDWRRRRRRRRDWWDDDDDDDRD",
+  "DDDDDRRRRRRRRDWWWDWWDWDRD",
+  ".DDDDRRRRRRRRRDWWWDDWWDRD",
+  "...DDRRRRRRRRRRDDYYYDDRRD",
+  ".DD.DRRRRRRRRRRDYYYYYYDRD",
+  "....DRRRRRRWWWWDYYYYYYYDD",
+  ".....DRRRRWWWWWWDYYDDDDRD",
+  "......DRRWWWWWWWWDDDWWRD.",
+  ".......DWWWWWWWWWWWWWWD..",
+  "........DDWWWWWWWWWWWD...",
+  "..........DDDDDDDDDDD...."
+ ],
+ "legend": {
+  "D": {
+   "name": "dark (black)",
+   "hex": "#52405b"
+  },
+  "R": {
+   "name": "red",
+   "hex": "#e7405d"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#eef4f6"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#fae552"
+  }
+ },
+ "accounting": {
+  "D": {
+   "board": 127,
+   "capsules": 128
+  },
+  "R": {
+   "board": 173,
+   "capsules": 173
+  },
+  "W": {
+   "board": 60,
+   "capsules": 59
+  },
+  "Y": {
+   "board": 18,
+   "capsules": 18
+  }
+ },
+ "offBy": 2,
+ "clusters": {
+  "A": "R",
+  "B": "D",
+  "C": "W",
+  "D": "Y"
+ }
+}

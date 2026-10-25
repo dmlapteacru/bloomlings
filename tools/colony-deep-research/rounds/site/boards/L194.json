@@ -1,0 +1,124 @@
+{
+ "w": 32,
+ "h": 33,
+ "rows": [
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGYGGYGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGYGYOYYGYGGGGGGGGGGGG",
+  "GGGGGGGGGGYGYOOOOOYOGOGGGGGGGGGG",
+  "GGGGGGGGGGYYYYOOOOYOOGGGGGGGGGGG",
+  "GGGGGGGGGGGOYYYYYYOOOGGGGGGGGGGG",
+  "GGGGGGGGGGGGOYYOOOOOGGGGGGGGGGGG",
+  "GGGGGGGGGGGDPPOOOOPPDGGGGGGGGGGG",
+  "GGGGGGGGGGGDSSPPPPSSDGGGGGGGGGGG",
+  "GGGGGGGGGGGDSPDSSDPSDGGGGGGGGGGG",
+  "GGGGGGGGGGGGDPDSSDPDGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGDSSSSDGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGDRDPPDRDGGGGGGGGGYGG",
+  "GGGGGGGGGGGDRRRDDDRRGGGGGGGGGGGG",
+  "GGGGGGGGGGDDRRDDDDRRDDGGGGGGO.GG",
+  "GPGGGGGGGGDRRDGGGDDRRDGGGGGGGGGG",
+  "GDGGGGGGGDRRRDG.GGDRRRDGGGGGGGGG",
+  ".SGGGGGGDPPRRDGPGGDSRRDDGGGGGGGG",
+  "GGGGGGGGDRRRRDGGGGDRRRRDGGGGGGGG",
+  "GGGGGGGDDRRRRDDGGDDRRRRRDGGGGGGG",
+  "GGGGGGGDRRRRRDRDDDDRRRRRDGGGGGGG",
+  "GGGGGGGDRRRRRDRDDRDRRRRRDGGGGGGG",
+  "GGGGGGDRRRRRRDRRRRDRRRRRRDGGGGGG",
+  "GGGGGDRRRRRRRDRRRRDRRRRRRRDGGGGG",
+  "GGGGDRRRRRRRRDRRRRDRRRRRRRRDGGGG",
+  "GGGGDSRRRRRRRDRRRRDRRRRRRRRDGGGG",
+  "GGGGGDRRRRRRRDSRSRDRRRRRRRDGGGGG",
+  "GGGGGGDDGRRRRDDDDDDRRRRRDDGGGGGG",
+  "GGGGGGGGGRRDDGRRRRGDDRRDGGGGGGGG",
+  "GGGGGGG.SDDGGRRRRRRGGDDGGGGGGGGG",
+  "GGGGGGGS.GGGGRRRRRRGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ],
+ "legend": {
+  "C": {
+   "name": "peach (pale orange)"
+  },
+  "D": {
+   "name": "dark (black)",
+   "hex": "#513d57"
+  },
+  "G": {
+   "name": "green",
+   "hex": "#58dc60"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#f2872d"
+  },
+  "P": {
+   "name": "pink",
+   "hex": "#fbbcdd"
+  },
+  "R": {
+   "name": "crimson (dark red)",
+   "hex": "#b21a3d"
+  },
+  "S": {
+   "name": "salmon (light red)",
+   "hex": "#fad4b7"
+  },
+  "Y": {
+   "name": "yellow",
+   "hex": "#f9e553"
+  }
+ },
+ "accounting": {
+  "C": {
+   "board": 0,
+   "capsules": 14
+  },
+  "D": {
+   "board": 108,
+   "capsules": 94
+  },
+  "G": {
+   "board": 668,
+   "capsules": 652
+  },
+  "O": {
+   "board": 29,
+   "capsules": 28
+  },
+  "P": {
+   "board": 18,
+   "capsules": 17
+  },
+  "R": {
+   "board": 183,
+   "capsules": 150
+  },
+  "S": {
+   "board": 21,
+   "capsules": 34
+  },
+  "Y": {
+   "board": 24,
+   "capsules": 23
+  }
+ },
+ "offBy": 93,
+ "clusters": {
+  "A": "G",
+  "B": "G",
+  "C": "R",
+  "D": "R",
+  "E": "D",
+  "F": "O",
+  "G": "Y",
+  "H": "R",
+  "I": "D",
+  "J": "P",
+  "K": "S",
+  "L": "D",
+  "M": "G",
+  "N": "D",
+  "O": "S"
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "level": 27, "difficulty": "Normal", "video": "videoplayback_27.mp4",
+ "legend": {"D": "dark (black)", "R": "red", "Y": "yellow", "P": "pink", "G": "green", "W": "white"},
+ "columns": {
+  "c1": ["D30:b", "Y8:b", "W25", "G28", "W25", "P32:d", "D30"],
+  "c2": ["D28:a", "D30", "G25:c", "P25:c", "W25", "D30:d", "W32?"],
+  "c3": ["R8:a", "P25", "D30?", "G25", "D30:e", "W25:e", "D30"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 2.5, "end": 136.25,
+  "taps": [
+   [3.0, "c2", "pair a: dark 28 (c2) + red 8 (c3), horizontal bar"],
+   [14.5, "c2", "dark 30"],
+   [17.75, "c2", "vertical pair c: green 25 + pink 25"],
+   [38.25, "c1", "vertical pair b: dark 30 + yellow 8 (yellow bar)"],
+   [52.0, "c1", "white 25"],
+   [55.25, "c1", "green 28"],
+   [69.5, "c3", "pink 25; c3 ? opens: dark 30"],
+   [70.5, "c3", "dark 30"],
+   [73.0, "c3", "green 25"],
+   [81.25, "c1", "white 25"],
+   [92.25, "c3", "vertical pair e: dark 30 + white 25"],
+   [103.25, "c2", "white 25"],
+   [104.75, "c1", "pair d: pink 32 (c1) + dark 30 (c2), diagonal link that became horizontal; c2 ? opens: white 32"],
+   [109.5, "c3", "dark 30, c3 empty"],
+   [119.0, "c1", "dark 30, c1 empty"],
+   [124.25, "c2", "white 32, tray empty"]
+  ],
+  "events": [
+   [4.25, "dark 28 of pair a counts down while red 8 stays at 8 (red tiles not reachable yet); the pair keeps both slots"],
+   [27.75, "dark 28 finished but stays (grey-dark, no number) beside red 8"],
+   [37.75, "only pair a in slots (3 slots free)"],
+   [100.5, "pair a (red 8 + dark) finally done, both slots freed"],
+   [135.5, "all 5 slots empty"],
+   [136.25, "win screen, +20 coins"]
+  ]}],
+ "mechanics": [
+  "Links: horizontal bar between neighbours (c2 D28 + c3 R8), vertical bars inside a column (c1 D30+Y8, c2 G25+P25, c3 D30+W25), and a diagonal line from c1 P32 (row 3) to c2 D30 (row 2) that became horizontal when both rose to the same row.",
+  "Hidden capsules: grey '?' boxes (c3 row 3 -> dark 30 at 69.5, c2 row 7 -> white 32 at 104.75).",
+  "A linked pair holds both slots until both are done: red 8 (linked to dark 28) waited from 3.0 to ~100 s."
+ ],
+ "uncertain": [
+  "c3 row 7 (dark 30): not seen as '?' in the frames, assumed open",
+  "exact time pair a left the slots (between 92.75 and 100.5)"
+ ]
+}

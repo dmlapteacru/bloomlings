@@ -1,0 +1,173 @@
+{
+ "w": 28,
+ "h": 28,
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "ABBBAAABBBBBBBBBBBBBAAAABABB",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAADDAAWDDDDDDAADDAAAAAA",
+  "AAAAAADDRPDRYOPPP.DDYRDAWAAA",
+  "AAAAAADROROYYPYYYOPPORDAAAWW",
+  "AAAAAADROOOOYYOOOOYOPRDAAAWW",
+  "WWWAAAADOOROOYPPOYPRPDAAWWWW",
+  "GGWWAAADRRDRYPROPODDPDAWWWWW",
+  "GGGAAAADRRDDYRRRORDDRDAWAAAA",
+  "GGGGAADDRRDDODDDPRDDDDDAAAAA",
+  "GGGGGADDP.WDDDRRDDW.WWDAAAGG",
+  "LLGGLLEPPPWDDP.WDD.WW.WLLGGG",
+  "LLLLLEPDD.WWDPPWDWW..DPPLGLL",
+  "LLLLERRDDD.WWPP.WWWPDDRRELLL",
+  "LLLGRRDDDRD.......PDDRDROELL",
+  "GGGRRDDRRRDPPRRRPPDRPRDDROEL",
+  "GGRRRDDDP.DDPRRRRPD..RDDRORE",
+  "GRRRRRRDDPDRPWWWWDDPDDRPRRRR",
+  "RRRRRROORDRRDDDDDRRDRRORRRRP",
+  "RRRRRRRRROYOOOYOOOOOOPOORRRG",
+  "LPRRROORRRRRRRRRRRRRRROORRPG",
+  "LGPRRRRRRRRRRRRRRRRRRRRRRPGL",
+  "GGGGGGPRRRRRRRRRRRRRRRRPGGRL",
+  "GLLGLLLREGGERREGGRRPGLGGGGGG",
+  "GGGGGLLGGLLLGGLLLLLLGGGGGLLG"
+ ],
+ "legend": {
+  "A": {
+   "name": "light aqua (pale cyan)",
+   "hex": "#9ef6f8"
+  },
+  "B": {
+   "name": "blue",
+   "hex": "#109ff3"
+  },
+  "D": {
+   "name": "dark (black)",
+   "hex": "#4e3f5d"
+  },
+  "E": {
+   "name": "dark green",
+   "hex": "#4d7c37"
+  },
+  "G": {
+   "name": "green",
+   "hex": "#15c63c"
+  },
+  "L": {
+   "name": "lime green",
+   "hex": "#8fee2f"
+  },
+  "O": {
+   "name": "orange",
+   "hex": "#e06623"
+  },
+  "P": {
+   "name": "peach",
+   "hex": "#e8bda6"
+  },
+  "R": {
+   "name": "brick red",
+   "hex": "#a03931"
+  },
+  "T": {
+   "name": "turquoise (bright cyan)"
+  },
+  "W": {
+   "name": "white",
+   "hex": "#def0f4"
+  },
+  "Y": {
+   "name": "yellow-orange",
+   "hex": "#e77918"
+  }
+ },
+ "accounting": {
+  "A": {
+   "board": 112,
+   "capsules": 112
+  },
+  "B": {
+   "board": 103,
+   "capsules": 97
+  },
+  "D": {
+   "board": 102,
+   "capsules": 87
+  },
+  "E": {
+   "board": 10,
+   "capsules": 11
+  },
+  "G": {
+   "board": 69,
+   "capsules": 59
+  },
+  "L": {
+   "board": 50,
+   "capsules": 43
+  },
+  "O": {
+   "board": 45,
+   "capsules": 43
+  },
+  "P": {
+   "board": 51,
+   "capsules": 51
+  },
+  "R": {
+   "board": 161,
+   "capsules": 139
+  },
+  "T": {
+   "board": 0,
+   "capsules": 2
+  },
+  "W": {
+   "board": 44,
+   "capsules": 74
+  },
+  "Y": {
+   "board": 16,
+   "capsules": 11
+  }
+ },
+ "offBy": 100,
+ "clusters": {
+  "A": "A",
+  "B": "R",
+  "C": "B",
+  "D": "B",
+  "E": "G",
+  "F": "D",
+  "G": "L",
+  "H": "Y",
+  "I": "W",
+  "J": "R",
+  "K": "G",
+  "L": "P",
+  "M": "D",
+  "N": "D",
+  "O": "R",
+  "P": "O",
+  "Q": "O",
+  "R": "O",
+  "S": "L",
+  "T": "G",
+  "U": "P",
+  "V": "R",
+  "W": "L",
+  "X": "O",
+  "Y": "P",
+  "Z": "R",
+  "a": "P",
+  "b": "D",
+  "c": "R",
+  "d": "W",
+  "e": "D",
+  "f": "O",
+  "g": "R",
+  "h": "R",
+  "i": "E",
+  "j": "R",
+  "k": "O"
+ }
+}

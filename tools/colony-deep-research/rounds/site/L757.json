@@ -1,0 +1,376 @@
+{
+ "level": 757,
+ "difficulty": "Hard",
+ "video": "videoplayback_757_hard.mp4",
+ "legend": {
+  "C": "cyan",
+  "W": "white",
+  "R": "red-brown",
+  "G": "green",
+  "D": "dark green",
+  "Y": "yellow",
+  "P": "light pink",
+  "H": "hot pink",
+  "U": "purple / lavender"
+ },
+ "columns": {
+  "c1": [
+   "C15",
+   "P3",
+   "G13",
+   "W15",
+   "R15:j",
+   "W15:j",
+   "W15",
+   "G5",
+   "U15:k",
+   "W15:k",
+   "R15:k",
+   "W15",
+   "W15"
+  ],
+  "c2": [
+   "W15:p",
+   "C10:p",
+   "C15",
+   "#gold",
+   "W15:q",
+   "C15:q",
+   "R15",
+   "C14:r",
+   "W15:r",
+   "C15:r",
+   "C15",
+   "W15"
+  ],
+  "c3": [
+   "C15",
+   "G5:c",
+   "R20:c",
+   "R20",
+   "W15",
+   "Y10:e",
+   "W15:e",
+   "P10:f",
+   "W15:f",
+   "D15",
+   "C15",
+   "H30"
+  ],
+  "c4": [
+   "R15",
+   "R15:d",
+   "W15:d",
+   "W10",
+   "#cyan",
+   "C15",
+   "U10:h",
+   "W15:h",
+   "W15:i",
+   "G4:i",
+   "C15",
+   "W15"
+  ],
+  "c5": [
+   "W15",
+   "W15",
+   "W15:b",
+   "C15:b",
+   "U15",
+   "C10",
+   "D13:g",
+   "R18:g",
+   "R16",
+   "W15:f",
+   "W15",
+   "U12"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "won",
+   "start": 5.5,
+   "end": 362.75,
+   "taps": [
+    [
+     6,
+     "c5",
+     "white 15"
+    ],
+    [
+     6.5,
+     "c5",
+     "white 15"
+    ],
+    [
+     7,
+     "c2",
+     "vertical pair p: white 15 + cyan 10; gold padlock now 2nd in c2"
+    ],
+    [
+     11.5,
+     "c5",
+     "vertical pair b: white 15 + cyan 15"
+    ],
+    [
+     12.5,
+     "c4",
+     "red 15"
+    ],
+    [
+     23.25,
+     "c3",
+     "cyan 15"
+    ],
+    [
+     25.25,
+     "c3",
+     "vertical pair c: green 5 + red 20; slots full"
+    ],
+    [
+     41.75,
+     "c3",
+     "red 20"
+    ],
+    [
+     48,
+     "c4",
+     "vertical pair d: red 15 + white 15; cyan padlock now 2nd in c4"
+    ],
+    [
+     49.5,
+     "c1",
+     "cyan 15"
+    ],
+    [
+     55.75,
+     "c3",
+     "white 15"
+    ],
+    [
+     61.25,
+     "c3",
+     "vertical pair e: yellow 10 + white 15 (yellow stays in its slot until ~292)"
+    ],
+    [
+     72.25,
+     "c5",
+     "purple 15"
+    ],
+    [
+     82.75,
+     "c4",
+     "white 10; cyan padlock on top of c4"
+    ],
+    [
+     85.75,
+     "c5",
+     "cyan 10"
+    ],
+    [
+     86.75,
+     "c5",
+     "vertical pair g: dark green 13 + red 18"
+    ],
+    [
+     98.5,
+     "c2",
+     "cyan 15; gold padlock on top of c2"
+    ],
+    [
+     107,
+     "c5",
+     "red 16"
+    ],
+    [
+     114,
+     "c4",
+     "cyan 15 (the cyan padlock above it vanished at ~112.5 when the cyan key on the board was reached)"
+    ],
+    [
+     118.75,
+     "c4",
+     "vertical pair h: purple 10 + white 15"
+    ],
+    [
+     130.25,
+     "c4",
+     "vertical pair i: white 15 + green 4"
+    ],
+    [
+     130.75,
+     "c4",
+     "cyan 15"
+    ],
+    [
+     139,
+     "c2",
+     "vertical pair q: white 15 + cyan 15 (gold padlock vanished at ~120.5 when the gold key on the board was reached)"
+    ],
+    [
+     139.5,
+     "c2",
+     "red 15"
+    ],
+    [
+     151.25,
+     "c2",
+     "vertical triple r: cyan 14 + white 15 + cyan 15 (3 slots, held until ~216)"
+    ],
+    [
+     217.25,
+     "c4",
+     "white 15; c4 empty, tray recentres to 4 columns"
+    ],
+    [
+     222.75,
+     "c3",
+     "group f of 3: light pink 10 + white 15 under it (c3) + white 15 (c5, diagonal link)"
+    ],
+    [
+     227.75,
+     "c3",
+     "dark green 15"
+    ],
+    [
+     228.25,
+     "c3",
+     "cyan 15"
+    ],
+    [
+     228.75,
+     "c3",
+     "hot pink 30; c3 empty, 3 columns left"
+    ],
+    [
+     267.25,
+     "c5",
+     "white 15"
+    ],
+    [
+     272.75,
+     "c5",
+     "purple 12; c5 empty, 2 columns left"
+    ],
+    [
+     281.5,
+     "c1",
+     "light pink 3"
+    ],
+    [
+     293,
+     "c1",
+     "green 13"
+    ],
+    [
+     293.5,
+     "c1",
+     "white 15"
+    ],
+    [
+     300,
+     "c1",
+     "vertical pair j: red 15 + white 15"
+    ],
+    [
+     305,
+     "c1",
+     "white 15"
+    ],
+    [
+     305.5,
+     "c1",
+     "green 5"
+    ],
+    [
+     329.5,
+     "c2",
+     "cyan 15"
+    ],
+    [
+     345,
+     "c2",
+     "white 15; c2 empty, only c1 left"
+    ],
+    [
+     350.25,
+     "c1",
+     "vertical triple k: purple 15 + white 15 + red 15"
+    ],
+    [
+     351.5,
+     "c1",
+     "white 15"
+    ],
+    [
+     352,
+     "c1",
+     "white 15; tray empty"
+    ]
+   ],
+   "events": [
+    [
+     25.25,
+     "all 5 slots full"
+    ],
+    [
+     61.5,
+     "yellow 10 of pair e stalls at 9 (slots 1-2 held) until ~292"
+    ],
+    [
+     112.5,
+     "cyan padlock in c4 disappears (cyan key on the board collected)"
+    ],
+    [
+     120.5,
+     "gold padlock in c2 disappears (gold key on the board collected)"
+    ],
+    [
+     151.5,
+     "slots full: yellow pair e (2) + triple r (3); long wait 152-216 with no tap"
+    ],
+    [
+     216,
+     "triple r done, 3 slots free"
+    ],
+    [
+     292,
+     "pair e finally done"
+    ],
+    [
+     361.5,
+     "win screen 'Sweet Meal', coin button 60"
+    ]
+   ],
+   "unlocks": [
+    [
+     112.5,
+     "c4",
+     "cyan padlock opens"
+    ],
+    [
+     120.5,
+     "c2",
+     "gold padlock opens"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Vertical links: two or three capsules stacked in one column joined by a bar leave together with one tap (pairs p, b, c, d, e, g, h, i, j, q; triples r and k). The group keeps all its waiting places until every member is done.",
+  "Group f mixes a vertical link (c3 light pink 10 over white 15) with a long diagonal link from that white 15 to c5 white 15 (line drawn across c4); tapped when all three were on top.",
+  "Padlocks: a gold padlock (c2) and a cyan padlock (c4) sit in the columns as blocking items with no number; they cannot be tapped and block the capsules below. The board has a gold key and a cyan key icon; when the ants reach a key's cell the padlock of that colour vanishes and the column moves up (cyan ~112.5 s, gold ~120.5 s).",
+  "Long stalls: the yellow 10 (pair e) and the triple r held slots for a long time because their cells were not reachable yet; the player waited ~65 s (152-216) with no tap.",
+  "When a column empties the tray recentres. No hidden '?' capsules. Boosters not used.",
+  "Notation: a padlock is the column token \"#<colour>\"; the time it left the top of its column is in the attempt's \"unlocks\"."
+ ],
+ "uncertain": [
+  "Unlock times (112.5 cyan, 120.5 gold) good to ~0.5 s; the keys vanished from the board between 109-113 s and 119-121 s",
+  "Light pink 10 (c3) vs hot pink 30 (c3): taken as different colours P and H; light pink 3 (c1) taken as the same P as the 10",
+  "Green 5 (c1, 305.5) looked slightly lighter than green 13; both taken as G",
+  "Group f membership: the diagonal line from c5 white 15 seemed to end at c3's white 15 (it passed behind c4's capsules); c4 cyan 15 shown in that row at 86-108 was not part of it",
+  "Taps at 6.0/6.5 (two white 15 from c5) and 305.0/305.5 (c1) are 0.25-0.5 s apart; times approximate",
+  "Group r (c2) read as a vertical triple cyan 14 + white 15 + cyan 15 from the slot strip at 151.75"
+ ]
+}

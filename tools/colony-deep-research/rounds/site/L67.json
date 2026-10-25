@@ -1,0 +1,32 @@
+{
+ "level": 67, "difficulty": "Normal", "video": "videoplayback_67.mp4",
+ "legend": {"D": "dark (near-black)", "B": "brown", "R": "red", "N": "navy / indigo blue", "C": "cyan / light blue", "W": "white", "Y": "yellow"},
+ "columns": {
+  "c1": ["D28", "R32", "N25", "C26", "D24:a", "C25", "D30", "N30", "C28"],
+  "c2": ["B15", "R30", "D28?", "R30", "Y20:a", "D30", "R36?", "D30", "D25"],
+  "c3": ["R30", "R32", "N30", "W14:b", "R36", "N30?:c", "W10", "N30", "N30"],
+  "c4": ["B20", "W15?", "Y20", "R36:b", "R30", "Y18:c", "D30", "R32", "D25"]
+ },
+ "rounds": [{"attempt": 1, "outcome": "won", "start": 4.5, "end": 134.25,
+   "taps": [[5.0, "c3"], [5.5, "c3"], [6.0, "c1"], [6.5, "c1"], [19.0, "c1"], [19.5, "c1"],
+    [24.0, "c2"], [24.5, "c2"], [25.5, "c2", "c2 ? opened: dark 28"], [28.0, "c2"],
+    [33.5, "c3"], [37.0, "c1", "pair a: dark 24 (c1) + yellow 20 (c2), diagonal then horizontal link"],
+    [39.5, "c1"], [45.75, "c1"], [48.25, "c2", "c2 ? opens: red 36"], [59.25, "c2"], [66.75, "c2"],
+    [72.0, "c1"], [74.25, "c4", "c4 ? opens: white 15"], [74.75, "c4"], [75.75, "c4"],
+    [81.75, "c4", "pair b: white 14 (c3) + red 36 (c4), long diagonal link"], [84.25, "c4"],
+    [93.5, "c2", "c2 empty; tray re-centres on 3 columns"], [94.5, "c3", "c3 ? opens: navy 30, linked to c4 yellow 18"],
+    [101.75, "c1", "c1 empty; 2 columns left"], [104.5, "c4", "pair c: navy 30 (c3) + yellow 18 (c4)"],
+    [106.0, "c4"], [108.0, "c4"], [111.0, "c4", "c4 empty"], [118.0, "c3"], [118.5, "c3"], [119.0, "c3", "tray empty"]],
+   "events": [[16.5, "all slots empty (first wave of 4 done)"], [134.25, "dark win screen, coin button 20"]]}],
+ "mechanics": [
+  "Board counters: two '100' labels at the left and right edges of the picture's middle rows (same number on both). They count down together as the ants clear cells (98 at ~6 s, 77, 39, 1 at ~15 s) and disappear at about 16 s, i.e. after the first 100 cleared cells. What exactly they guarded (a gate, covered cells) is not visible in the tray view.",
+  "Links: three pairs; links can span columns diagonally across rows (c1 row 5 to c2 row 5 appears as a diagonal bar while the rows differ; c3 white 14 to c4 red 36 showed as a long diagonal bar for ~50 s).",
+  "Waiting slots compact to the left when one empties; the tray re-centres when a column empties (column identity tracked by contents).",
+  "Hidden capsules (?) in c2 (2), c3, c4."
+ ],
+ "uncertain": [
+  "Last capsules of c3 (two navy 30) - whether the very last one started hidden is not visible.",
+  "Pair a: before the pair formed, the bar from c1 dark 24 looked to point at c2 row 3; it became a clear bar to yellow 20 once both rose, so the group is dark 24 + yellow 20.",
+  "Board counter purpose (see mechanics)."
+ ]
+}
