@@ -6,7 +6,8 @@ import {stats} from './metrics.mjs';
 const r2=x=>x==null||!Number.isFinite(x)?null:Math.round(x*100)/100;
 export function staticOf(r){
  const out={board:null,tray:null};
- if(r.board){const rows=r.board.rows,h=rows.length,w=rows[0].length,isCell=c=>c!=='.'&&c!=='#'&&c!==' ';
+ if(r.board){// '#' is a wall on our boards and a colour (the dark outline) on Colony Flow's L3, L4, L5 and L10
+  const rows=r.board.rows,h=rows.length,w=rows[0].length,isCell=c=>c!=='.'&&c!==' '&&!(c==='#'&&r.board.walls);
   const cells=[];rows.forEach((s,y)=>[...s].forEach((c,x)=>{if(isCell(c))cells.push({x,y,c});}));
   const xs=cells.map(c=>c.x),ys=cells.map(c=>c.y),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
   const bw=maxX-minX+1,bh=maxY-minY+1,types={};for(const c of cells)types[c.c]=(types[c.c]||0)+1;

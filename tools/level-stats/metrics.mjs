@@ -51,6 +51,8 @@ export function fromTrace(tr,{start=0}={}){
    firstFreeAfterFull:afterFull?r1(afterFull[0]-firstFull):null},
   series:{free:thin(free,800),cleared:thin(cleared.map(([t,c])=>[t,r2(c/cells)]),400),working:thin(working,400),stalled:thin(stalled,400),taps:tapT.map(r2),releases:tr.releases.map(x=>[r2(S(x.t)),x.pods.length]),
    progressByTap:tr.taps.map(x=>r2(cleared.filter(c=>c[0]<=S(x.t)).at(-1)?.[1]/cells??0))},
+  // every capsule: tapped, released, its stops (from, to, cells left) — for the per-capsule timeline
+  timeline:pods.map(p=>[p.i,p.tap,p.release,p.stops.map(s=>[s.from,s.to,s.left])]),
   pattern:pattern(tr,S)};}
 // a step series thinned to about n points, keeping every change of value at the coarsest time step that fits
 export function thin(series,n){if(series.length<=n)return series.map(([t,v])=>[r2(t),v]);const span=series.at(-1)[0]-series[0][0],step=span/n,out=[];let lastT=-Infinity;
