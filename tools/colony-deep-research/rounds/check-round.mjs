@@ -3,13 +3,13 @@
 // node tools/colony-deep-research/rounds/check-round.mjs <L<n>.json>
 // File: {level, difficulty, video, legend:{X:"name"}, columns:{c1:[tokens top first],...}, rounds:[{attempt, outcome:
 // "won"|"lost"|"unfinished", start, end, taps:[[t, "c2", "note"?], ...], events:[[t, "text"], ...]}], mechanics:[...]}
-// Token: colour letter + count, then "?" (shown as "?" until it reaches the top), ":x" (linked group x), "!flag"
+// Token: colour letter (or "#", a colour of the 2026-10-20 levels) + count, then "?" (shown as "?" until it reaches the top), ":x" (linked group x), "!flag"
 // (as named in mechanics), e.g. "R20", "Y8?:a", "D15:b!flag"; a padlock is "#<colour>" ("#yellow"): it takes a place
 // in its column, is never tapped and leaves the column when its key on the board is reached, listed per attempt in
 // "unlocks": [[t, "c2"], ...] (the time it vanished from the top of that column).
 import fs from 'node:fs';
 const file=process.argv[2],L=JSON.parse(fs.readFileSync(file,'utf8'));
-const parse=t=>{const k=/^#([a-z]+)$/.exec(t);if(k)return {lock:k[1],n:0,token:t};const m=/^([A-Za-z])(\d+)(\?)?(?::([a-z]))?(?:!(\w+))?$/.exec(t);if(!m)throw Error('bad token '+t);return {c:m[1],n:+m[2],mystery:!!m[3],link:m[4]||null,flag:m[5]||null,token:t};};
+const parse=t=>{const k=/^#([a-z]+)$/.exec(t);if(k)return {lock:k[1],n:0,token:t};const m=/^([A-Za-z#])(\d+)(\?)?(?::([a-z]))?(?:!(\w+))?$/.exec(t);if(!m)throw Error('bad token '+t);return {c:m[1],n:+m[2],mystery:!!m[3],link:m[4]||null,flag:m[5]||null,token:t};};
 const errors=[],cols=Object.fromEntries(Object.entries(L.columns).map(([c,col])=>[c,col.map(parse)]));
 const totals={};for(const col of Object.values(cols))for(const p of col){if(p.lock)continue;totals[p.c]=(totals[p.c]||0)+p.n;if(!L.legend?.[p.c])errors.push(`colour ${p.c} not in legend`);}
 for(const col of Object.values(cols))for(const p of col)if(p.lock&&!(L.mechanics||[]).some(m=>/padlock/i.test(m)))errors.push('padlock without a mechanics note');

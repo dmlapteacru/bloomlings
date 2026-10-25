@@ -5,7 +5,7 @@
 //   the tray.
 // Sources: L1-L5, L10 (2026-10-20): owner-video/boards.json, sim/levels.json and the storyboards of
 // colony-flow-levels-deep-dive-2026-10-20.md; L20 (2026-10-23): sim/l20.json with tap times from align20.mjs;
-// L25, L26 (2026-10-24): data-l25-l26.mjs.
+// L25, L26 (2026-10-24): data-l25-l26.mjs; the tap-by-tap attempts of L1-L5, L10 (2026-10-25): owner-1020/.
 // node tools/colony-deep-research/rounds/build.mjs
 import fs from 'node:fs';
 import {L25,L26} from './data-l25-l26.mjs';
@@ -28,7 +28,12 @@ for(const n of [1,2,3,4,5,10]){const b=boards['L'+n],t=trays['L'+n];
  levels.push({level:n,difficulty:n===5?'Hard':n===10?'Super Hard':'Normal',title:NAMES[n],
   source:{video:n===10?'level-10-fail-part1/2.mp4, level-10-done-part1/2/3.mp4':n===5?'level-5.mp4':n===4?'level-1-4.mp4, level-4~2.mp4':'level-1-4.mp4',app:'Colony Flow v1.0.79',recorded:'2026-10-20',note:'transcribed in product/audits/colony-flow-levels-deep-dive-2026-10-20.md'},
   board:{w:b.w,h:b.h,rows:b.rows,legend:Object.fromEntries(Object.entries(b.legend).map(([k,v])=>[k,{name:v.name,hex:v.hex}]))},
-  capacity:t.capacity,tray,rounds:null,storyboardText:diveStory(n)});}
+  capacity:t.capacity,tray,rounds:null,storyboardText:diveStory(n)});
+ // the attempts tap by tap (2026-10-25, read from the recordings' event storyboards, ytsheets.py), when transcribed
+ const ru=new URL(`owner-1020/L${n}.json`,import.meta.url);if(fs.existsSync(ru)){const R=JSON.parse(fs.readFileSync(ru,'utf8')),L=levels.at(-1);
+  if(JSON.stringify(R.columns)!==JSON.stringify(L.tray)){L.trayBefore=L.tray;L.tray=R.columns;}
+  L.mechanics=R.mechanics;L.uncertain=R.uncertain;
+  L.rounds=R.rounds.map(r=>({attempt:r.attempt,outcome:r.outcome,videos:r.videos,start:r.start,end:r.end,taps:r.taps.map(([t,column,note])=>({t,column,take:null,note:note||null})),events:r.events}));}}
 levels.push({level:20,difficulty:'Super Hard',title:'торт с клубникой',source:{video:'XRecorder_20261023_02.mp4',app:'Colony Flow v1.0.79',recorded:'2026-10-23',note:'won in one attempt (about 390 s); tap times detected automatically (slottaps.py, traytaps.py, align20.mjs), ±0.5 s'},
  board:{w:l20.board.w,h:l20.board.h,rows:l20.board.rows,legend:Object.fromEntries(Object.entries(l20.legend).map(([k,v])=>[k,{name:v}]))},
  capacity:l20.capacity,tray:l20.pods,linkNote:l20.notes[0],
@@ -69,9 +74,13 @@ for(const L of levels){const name=`L${String(L.level).padStart(2,'0')}.md`,cols=
   'Верх колонки — первая строка. `?` — капсула закрыта, пока не станет верхней; `:x` — связка x (один тап берёт всю связку).','',
   '```',`ряд  ${cols.map(c=>c.padStart(7)).join('')}`,...Array.from({length:depth},(_,i)=>`${String(i+1).padStart(3)}  ${cols.map(c=>(L.tray[c][i]||'').padStart(7)).join('')}`),'```','',
   L.linkNote?`Связки: ${L.linkNote}`:'',''];
- if(L.rounds)for(const r of L.rounds){lines.push(`## Раунд ${r.attempt}: ${r.outcome==='won'?'победа':'проигрыш'}, ${r.start}–${r.end} с, ${r.taps.length} тапов`,'','| Время, с | Колонка | Берёт | Заметка |','|---:|---|---|---|',
+ if(L.trayBefore)lines.push('Очередь уточнена по видео 25.10 (раньше: '+JSON.stringify(L.trayBefore)+').','');
+ if(L.rounds)for(const r of L.rounds){lines.push(`## Раунд ${r.attempt}: ${r.outcome==='won'?'победа':'проигрыш'}, ${r.start}–${r.end} с, ${r.taps.length} тапов${r.videos?' ('+r.videos.join(' + ')+'; время от начала первого файла)':''}`,'','| Время, с | Колонка | Берёт | Заметка |','|---:|---|---|---|',
   ...r.taps.map(t=>`| ${t.t} | ${t.column} | ${t.take.join(' + ')} | ${t.note||''} |`),'','События:','',...r.events.slice().sort((a,b)=>a[0]-b[0]).map(([t,e])=>`- ${t} с — ${e}`),'');}
- else lines.push('## Как шли партии','',L.storyboardText||'Нет.','');
+ if(L.mechanics?.length)lines.push('## Механики и заметки','',...L.mechanics.map(m=>`- ${m}`),'');
+ if(L.uncertain?.length)lines.push('## Неуверенно','',...L.uncertain.map(m=>`- ${m}`),'');
+ if(L.storyboardText)lines.push(L.rounds?'## Как шли партии (разбор 20.10)':'## Как шли партии','',L.storyboardText,'');
+ else if(!L.rounds)lines.push('## Как шли партии','','Нет.','');
  fs.writeFileSync(new URL(out+name,root),lines.filter((l,i,a)=>!(l===''&&a[i-1]==='')).join('\n'));}
 console.table(report);
 fs.writeFileSync(new URL(out+'checks.json',root),JSON.stringify(report,null,1)+'\n');
