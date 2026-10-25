@@ -1,0 +1,213 @@
+{
+ "level": 5,
+ "difficulty": "Hard",
+ "video": "level-5.mp4",
+ "legend": {
+  "O": "оранжевый #ea812b",
+  "V": "фиолетовый #5b4dc3",
+  "C": "голубой #5be4f4",
+  "c": "кремовый #f5e28e",
+  "#": "тёмный #52405b",
+  "P": "розовый #e150c2",
+  "l": "светло-розовый #e9b2d6",
+  "Y": "жёлтый #f8b926",
+  "G": "зелёный #58df60",
+  "M": "пурпурный"
+ },
+ "columns": {
+  "c1": [
+   "c25",
+   "G16",
+   "#27",
+   "l19",
+   "c18",
+   "O34"
+  ],
+  "c2": [
+   "#25",
+   "V45",
+   "M5",
+   "Y16",
+   "O35",
+   "V47"
+  ],
+  "c3": [
+   "P20",
+   "C45",
+   "O35",
+   "O13",
+   "c16",
+   "C43"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "unfinished",
+   "start": 0.0,
+   "end": 103.72,
+   "videos": [
+    "level-5.mp4"
+   ],
+   "taps": [
+    [
+     0.0,
+     "c2",
+     "before the recording: dark 25 (slot 1); order of the first four taps inferred from their slots 1-4"
+    ],
+    [
+     0.0,
+     "c2",
+     "before the recording: violet 45 (slot 2), already finished when the recording starts"
+    ],
+    [
+     0.0,
+     "c3",
+     "before the recording: pink 20 (slot 3)"
+    ],
+    [
+     0.0,
+     "c3",
+     "before the recording: cyan 45 (slot 4)"
+    ],
+    [
+     2.0,
+     "c3",
+     "orange 35 -> slot 2"
+    ],
+    [
+     10.75,
+     "c1",
+     "cream 25 -> slot 1"
+    ],
+    [
+     19.7,
+     "c1",
+     "green 16 -> slot 1"
+    ],
+    [
+     20.0,
+     "c1",
+     "dark 27 -> slot 2 (as orange 35 leaves it, 0.3 s after the green)"
+    ],
+    [
+     35.75,
+     "c3",
+     "orange 13 -> slot 4"
+    ],
+    [
+     39.0,
+     "c3",
+     "cream 16 -> slot 5"
+    ],
+    [
+     42.25,
+     "c3",
+     "cyan 43 -> slot 4; c3 empty, all 5 slots full"
+    ],
+    [
+     74.5,
+     "c2",
+     "purple 5 -> slot 1"
+    ],
+    [
+     75.75,
+     "c2",
+     "yellow 16 -> slot 3; all 5 slots full"
+    ],
+    [
+     96.5,
+     "c2",
+     "orange 35 -> slot 5; all 5 slots full"
+    ],
+    [
+     101.5,
+     "c2",
+     "violet 47 -> slot 2; c2 empty"
+    ]
+   ],
+   "events": [
+    [
+     0.0,
+     "level-5.mp4 starts mid-attempt (the attempt's start and first four taps are not recorded): slots dark 9 | empty | pink 20 | cyan 8 | empty; tray tops cream 25, purple 5, orange 35"
+    ],
+    [
+     6.0,
+     "cyan 45 finished (slot 4 empties)"
+    ],
+    [
+     6.75,
+     "dark 25 finished (slot 1 empties)"
+    ],
+    [
+     10.25,
+     "slots: empty | orange 17 | pink 20 (untouched since the start) | empty | empty"
+    ],
+    [
+     19.5,
+     "cream 25 finished; orange 35 at 1"
+    ],
+    [
+     20.5,
+     "orange 35 finished"
+    ],
+    [
+     35.25,
+     "slots: green 10 | dark 20 | pink 13 | empty | empty"
+    ],
+    [
+     38.5,
+     "orange 13 at 4, finishes at about 41"
+    ],
+    [
+     42.25,
+     "all 5 slots full: green 8 | dark 20 | pink 10 | cyan 43 | cream 9"
+    ],
+    [
+     52.0,
+     "cream 16 down to 2, stays at 2 until about 96"
+    ],
+    [
+     64.0,
+     "pink 20 finished (slot 3 empties)"
+    ],
+    [
+     66.0,
+     "green 16 finished (after 2 and 1 left from about 56)"
+    ],
+    [
+     74.0,
+     "slots: empty | dark 12 | empty | cyan 22 | cream 2"
+    ],
+    [
+     75.75,
+     "all 5 slots full: purple 2 | dark 12 | yellow 16 | cyan 21 | cream 2"
+    ],
+    [
+     96.0,
+     "slots: purple 2 | dark 3 | yellow 7 | cyan 5 | empty (cream 16 finished)"
+    ],
+    [
+     101.0,
+     "dark 27 finished (slot 2 empties): purple 1 | empty | yellow 7 | cyan 1 | orange 5"
+    ],
+    [
+     102.0,
+     "orange 35 finished"
+    ],
+    [
+     103.5,
+     "recording ends: purple 1 | violet 34 | yellow 6 | empty | empty (cyan 43 finished); tray c1 still light pink 19, cream 18, orange 34; level not finished"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "No special mechanics: no links, locks or hidden capsules. Purple HARD LEVEL interface; a 2x speed button at the top right (not seen in use)."
+ ],
+ "uncertain": [
+  "The recording starts mid-attempt: the attempt's start time and the first four taps (dark 25, violet 45 from c2; pink 20, cyan 45 from c3) are not in the video; they are entered at t=0 and their order is inferred from slots 1-4 (only the order within each column is certain).",
+  "Outcome 'unfinished': the recording stops at 103.72 s with 3 capsules (light pink 19, cream 18, orange 34) still in c1; win or loss unknown.",
+  "Finish times in events are read from frames every 0.5-2 s (about +-1 s)."
+ ]
+}

@@ -75,7 +75,7 @@ for(const L of levels){const name=`L${String(L.level).padStart(2,'0')}.md`,cols=
   '```',`ряд  ${cols.map(c=>c.padStart(7)).join('')}`,...Array.from({length:depth},(_,i)=>`${String(i+1).padStart(3)}  ${cols.map(c=>(L.tray[c][i]||'').padStart(7)).join('')}`),'```','',
   L.linkNote?`Связки: ${L.linkNote}`:'',''];
  if(L.trayBefore)lines.push('Очередь уточнена по видео 25.10 (раньше: '+JSON.stringify(L.trayBefore)+').','');
- if(L.rounds)for(const r of L.rounds){lines.push(`## Раунд ${r.attempt}: ${r.outcome==='won'?'победа':'проигрыш'}, ${r.start}–${r.end} с, ${r.taps.length} тапов${r.videos?' ('+r.videos.join(' + ')+'; время от начала первого файла)':''}`,'','| Время, с | Колонка | Берёт | Заметка |','|---:|---|---|---|',
+ if(L.rounds)for(const r of L.rounds){lines.push(`## Раунд ${r.attempt}: ${r.outcome==='won'?'победа':r.outcome==='lost'?'проигрыш':'запись обрывается до конца'}, ${r.start}–${r.end} с, ${r.taps.length} тапов${r.videos?' ('+r.videos.join(' + ')+'; время от начала первого файла)':''}`,'','| Время, с | Колонка | Берёт | Заметка |','|---:|---|---|---|',
   ...r.taps.map(t=>`| ${t.t} | ${t.column} | ${t.take.join(' + ')} | ${t.note||''} |`),'','События:','',...r.events.slice().sort((a,b)=>a[0]-b[0]).map(([t,e])=>`- ${t} с — ${e}`),'');}
  if(L.mechanics?.length)lines.push('## Механики и заметки','',...L.mechanics.map(m=>`- ${m}`),'');
  if(L.uncertain?.length)lines.push('## Неуверенно','',...L.uncertain.map(m=>`- ${m}`),'');

@@ -1235,8 +1235,223 @@
      "C43"
     ]
    },
-   "rounds": null,
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "unfinished",
+     "videos": [
+      "level-5.mp4"
+     ],
+     "start": 0,
+     "end": 103.72,
+     "taps": [
+      {
+       "t": 0,
+       "column": "c2",
+       "take": [
+        "c2 #25"
+       ],
+       "note": "before the recording: dark 25 (slot 1); order of the first four taps inferred from their slots 1-4"
+      },
+      {
+       "t": 0,
+       "column": "c2",
+       "take": [
+        "c2 V45"
+       ],
+       "note": "before the recording: violet 45 (slot 2), already finished when the recording starts"
+      },
+      {
+       "t": 0,
+       "column": "c3",
+       "take": [
+        "c3 P20"
+       ],
+       "note": "before the recording: pink 20 (slot 3)"
+      },
+      {
+       "t": 0,
+       "column": "c3",
+       "take": [
+        "c3 C45"
+       ],
+       "note": "before the recording: cyan 45 (slot 4)"
+      },
+      {
+       "t": 2,
+       "column": "c3",
+       "take": [
+        "c3 O35"
+       ],
+       "note": "orange 35 -> slot 2"
+      },
+      {
+       "t": 10.75,
+       "column": "c1",
+       "take": [
+        "c1 c25"
+       ],
+       "note": "cream 25 -> slot 1"
+      },
+      {
+       "t": 19.7,
+       "column": "c1",
+       "take": [
+        "c1 G16"
+       ],
+       "note": "green 16 -> slot 1"
+      },
+      {
+       "t": 20,
+       "column": "c1",
+       "take": [
+        "c1 #27"
+       ],
+       "note": "dark 27 -> slot 2 (as orange 35 leaves it, 0.3 s after the green)"
+      },
+      {
+       "t": 35.75,
+       "column": "c3",
+       "take": [
+        "c3 O13"
+       ],
+       "note": "orange 13 -> slot 4"
+      },
+      {
+       "t": 39,
+       "column": "c3",
+       "take": [
+        "c3 c16"
+       ],
+       "note": "cream 16 -> slot 5"
+      },
+      {
+       "t": 42.25,
+       "column": "c3",
+       "take": [
+        "c3 C43"
+       ],
+       "note": "cyan 43 -> slot 4; c3 empty, all 5 slots full"
+      },
+      {
+       "t": 74.5,
+       "column": "c2",
+       "take": [
+        "c2 M5"
+       ],
+       "note": "purple 5 -> slot 1"
+      },
+      {
+       "t": 75.75,
+       "column": "c2",
+       "take": [
+        "c2 Y16"
+       ],
+       "note": "yellow 16 -> slot 3; all 5 slots full"
+      },
+      {
+       "t": 96.5,
+       "column": "c2",
+       "take": [
+        "c2 O35"
+       ],
+       "note": "orange 35 -> slot 5; all 5 slots full"
+      },
+      {
+       "t": 101.5,
+       "column": "c2",
+       "take": [
+        "c2 V47"
+       ],
+       "note": "violet 47 -> slot 2; c2 empty"
+      }
+     ],
+     "events": [
+      [
+       0,
+       "level-5.mp4 starts mid-attempt (the attempt's start and first four taps are not recorded): slots dark 9 | empty | pink 20 | cyan 8 | empty; tray tops cream 25, purple 5, orange 35"
+      ],
+      [
+       6,
+       "cyan 45 finished (slot 4 empties)"
+      ],
+      [
+       6.75,
+       "dark 25 finished (slot 1 empties)"
+      ],
+      [
+       10.25,
+       "slots: empty | orange 17 | pink 20 (untouched since the start) | empty | empty"
+      ],
+      [
+       19.5,
+       "cream 25 finished; orange 35 at 1"
+      ],
+      [
+       20.5,
+       "orange 35 finished"
+      ],
+      [
+       35.25,
+       "slots: green 10 | dark 20 | pink 13 | empty | empty"
+      ],
+      [
+       38.5,
+       "orange 13 at 4, finishes at about 41"
+      ],
+      [
+       42.25,
+       "all 5 slots full: green 8 | dark 20 | pink 10 | cyan 43 | cream 9"
+      ],
+      [
+       52,
+       "cream 16 down to 2, stays at 2 until about 96"
+      ],
+      [
+       64,
+       "pink 20 finished (slot 3 empties)"
+      ],
+      [
+       66,
+       "green 16 finished (after 2 and 1 left from about 56)"
+      ],
+      [
+       74,
+       "slots: empty | dark 12 | empty | cyan 22 | cream 2"
+      ],
+      [
+       75.75,
+       "all 5 slots full: purple 2 | dark 12 | yellow 16 | cyan 21 | cream 2"
+      ],
+      [
+       96,
+       "slots: purple 2 | dark 3 | yellow 7 | cyan 5 | empty (cream 16 finished)"
+      ],
+      [
+       101,
+       "dark 27 finished (slot 2 empties): purple 1 | empty | yellow 7 | cyan 1 | orange 5"
+      ],
+      [
+       102,
+       "orange 35 finished"
+      ],
+      [
+       103.5,
+       "recording ends: purple 1 | violet 34 | yellow 6 | empty | empty (cyan 43 finished); tray c1 still light pink 19, cream 18, orange 34; level not finished"
+      ]
+     ],
+     "trayLeft": 3
+    }
+   ],
    "storyboardText": "**Как шла партия** (запись обрывается на 103-й секунде, уровень не закончен):\n\n```\nt, с           ||    |    |    |    |    |    |    |    |    |    |  \nтёмн 25 сл.1   |████                                                 \nголуб 45 сл.4  |████                                                 \nроз 20 сл.3    |░░░░░░░░░░░██████████████████████                    \nоранж 35 сл.2  | ██████████                                          \nкрем 25 сл.1   |     █████                                           \nзелён 16 сл.1  |          █████████████░██████░███                   \nтёмн 27 сл.2   |          ████████░░░░░█████░███░░███░█████████████  \nоранж 13 сл.4  |                  ███                                \nкрем 16 сл.5   |                   ████████░░░░░░░░░░░░░░░░░░░██     \nголуб 43 сл.4  |                     ███████████████████████████████ \nпурп 5 сл.1    |                                     ██░░░░░░░░░███░ \nжёлт 16 сл.3   |                                      ██░░░░░░░░░░██ \nоранж 35 сл.5  |                                                ████ \nфиол 47 сл.2   |                                                  ██\n```\n\n- Первые четыре тапа пришлись на разрыв записи: тёмная 25, фиолетовая 45, розовая 20, голубая 45.\n- **Розовая 20 простояла на 20 больше 23 секунд**: розовое в самом центре. Потом 36 секунд ползла по клетке и закончилась на 64-й секунде.\n- Зелёная 16 (центр) взята на 20-й секунде, жила 47 секунд, с остатками 2 и 1 ещё 10 секунд.\n- Тёмная 27 (кольцо, слой 2, открывается кусками) — 80 секунд, по клетке за 3–4 секунды.\n- **Кремовая 16: с 52-й по 94-ю секунду остаток 2** — 42 секунды держала слот ради двух клеток.\n- Пурпурная 5 (центр): остаток 2 с 75-й по 98-ю секунду. Жёлтая 16: остаток 7 с 78-й по 102-ю.\n- **Все пять слотов заняты с 42-й по 63-ю и с 76-й по 94-ю секунду.** Ничего нельзя нажать, муравьи ползают по одному.\n- На 103-й секунде в очереди ещё 113 клеток работы.",
+   "mechanics": [
+    "No special mechanics: no links, locks or hidden capsules. Purple HARD LEVEL interface; a 2x speed button at the top right (not seen in use)."
+   ],
+   "uncertain": [
+    "The recording starts mid-attempt: the attempt's start time and the first four taps (dark 25, violet 45 from c2; pink 20, cyan 45 from c3) are not in the video; they are entered at t=0 and their order is inferred from slots 1-4 (only the order within each column is certain).",
+    "Outcome 'unfinished': the recording stops at 103.72 s with 3 capsules (light pink 19, cream 18, orange 34) still in c1; win or loss unknown.",
+    "Finish times in events are read from frames every 0.5-2 s (about +-1 s)."
+   ],
    "accounting": {
     "#": {
      "board": 52,
@@ -1411,8 +1626,547 @@
      "S6"
     ]
    },
-   "rounds": null,
+   "rounds": [
+    {
+     "attempt": 1,
+     "outcome": "lost",
+     "videos": [
+      "level-10-fail-part1.mp4",
+      "level-10-fail-part2.mp4"
+     ],
+     "start": 0.5,
+     "end": 118.55,
+     "taps": [
+      {
+       "t": 5.25,
+       "column": "c2",
+       "take": [
+        "c2 S40"
+       ],
+       "note": "sky 40 -> slot 1; c2 ? opens: sky 37"
+      },
+      {
+       "t": 7.75,
+       "column": "c2",
+       "take": [
+        "c2 S37"
+       ],
+       "note": "sky 37 -> slot 2"
+      },
+      {
+       "t": 8.25,
+       "column": "c1",
+       "take": [
+        "c1 S40"
+       ],
+       "note": "sky 40 -> slot 3"
+      },
+      {
+       "t": 8.6,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "sky 40 -> slot 4"
+      },
+      {
+       "t": 17,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "sky 40 -> slot 5; c3 ? opens: sky 40"
+      },
+      {
+       "t": 24,
+       "column": "c1",
+       "take": [
+        "c1 g8"
+       ],
+       "note": "dark green 8 -> slot 1; c1 ? opens: yellow 30"
+      },
+      {
+       "t": 27.15,
+       "column": "c1",
+       "take": [
+        "c1 Y30"
+       ],
+       "note": "yellow 30 -> slot 2"
+      },
+      {
+       "t": 27.4,
+       "column": "c1",
+       "take": [
+        "c1 c22"
+       ],
+       "note": "cream 22 -> slot 3"
+      },
+      {
+       "t": 35.25,
+       "column": "c2",
+       "take": [
+        "c2 T43"
+       ],
+       "note": "teal 43 -> slot 4"
+      },
+      {
+       "t": 35.75,
+       "column": "c2",
+       "take": [
+        "c2 R6"
+       ],
+       "note": "red 6 -> slot 5; c2 ? opens: dark 10"
+      },
+      {
+       "t": 42.25,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "sky 40 (the opened one) -> slot 3"
+      },
+      {
+       "t": 45.25,
+       "column": "c2",
+       "take": [
+        "c2 #10"
+       ],
+       "note": "dark 10 -> slot 5; c2 ? opens: pink 24"
+      },
+      {
+       "t": 49.25,
+       "column": "c1",
+       "take": [
+        "c1 W20"
+       ],
+       "note": "white 20 -> slot 5; c1 ? opens: orange 30"
+      },
+      {
+       "t": 63.05,
+       "column": "c2",
+       "take": [
+        "c2 P24"
+       ],
+       "note": "pink 24 -> slot 5 (part 2, 6.5 s); all 5 slots full"
+      },
+      {
+       "t": 86.55,
+       "column": "c2",
+       "take": [
+        "c2 G28"
+       ],
+       "note": "green 28 -> slot 3 (part 2, 30.0 s)"
+      },
+      {
+       "t": 115.95,
+       "column": "c2",
+       "take": [
+        "c2 P25"
+       ],
+       "note": "pink 25 -> slot 3 (part 2, 59.4 s): all 5 slots full and nothing can work -> Out of slots"
+      }
+     ],
+     "events": [
+      [
+       0,
+       "level-10-fail-part1.mp4 starts on the loading screen (98%)"
+      ],
+      [
+       0.5,
+       "Level 10 screen, full tray"
+      ],
+      [
+       1,
+       "SUPER HARD LEVEL banner until about 2.75; tray playable from 3.0"
+      ],
+      [
+       16.5,
+       "the first four sky capsules at 3, 9, 13, 15"
+      ],
+      [
+       23.5,
+       "first five sky capsules finished except slot 5 (sky 29)"
+      ],
+      [
+       35.5,
+       "cream 22 finished"
+      ],
+      [
+       41,
+       "red 6 finished"
+      ],
+      [
+       42.75,
+       "slots: dark green 8 | yellow 30 | sky 38 | teal 29 | empty (yellow 30 and dark green 8 do not move)"
+      ],
+      [
+       48,
+       "dark 10 finished"
+      ],
+      [
+       56.25,
+       "part 1 ends: dark green 8 | yellow 30 | sky 16 | teal 23 | empty; tray tops orange 30, pink 24, yellow 30"
+      ],
+      [
+       56.55,
+       "level-10-fail-part2.mp4 starts (offset 56.55): dark green 8 | yellow 30 | sky 12 | teal 15 | empty (white 20 finished just before)"
+      ],
+      [
+       86.05,
+       "sky 40 finished; slots dark green 6 | yellow 30 | empty | teal 13 | pink 10"
+      ],
+      [
+       115.8,
+       "by part 2 59.25 s green 28 finished: dark green 2 | yellow 30 | empty | teal 13 | pink 10, none working; tops orange 30, pink 25, yellow 30"
+      ],
+      [
+       116.55,
+       "Out of slots card (900 coins to clear slots) with Fail Offer $5.99; 4 hearts, 17m38s"
+      ],
+      [
+       118.55,
+       "Level Failed: Home / Try Again"
+      ],
+      [
+       119.55,
+       "Try Again pressed: loading screen"
+      ],
+      [
+       121.55,
+       "a new attempt opens on the full tray (SUPER HARD banner) and part 2 ends at 122.04 before any tap; not transcribed as a round"
+      ]
+     ],
+     "trayLeft": 13
+    },
+    {
+     "attempt": 2,
+     "outcome": "won",
+     "videos": [
+      "level-10-done-part1.mp4",
+      "level-10-done-part2.mp4",
+      "level-10-done-part3.mp4"
+     ],
+     "start": 0,
+     "end": 228.8,
+     "taps": [
+      {
+       "t": 1.45,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "sky 40 -> slot 1"
+      },
+      {
+       "t": 1.7,
+       "column": "c2",
+       "take": [
+        "c2 S40"
+       ],
+       "note": "sky 40 -> slot 2; c2 ? opens: sky 37"
+      },
+      {
+       "t": 1.85,
+       "column": "c1",
+       "take": [
+        "c1 S40"
+       ],
+       "note": "sky 40 -> slot 3"
+      },
+      {
+       "t": 2.7,
+       "column": "c2",
+       "take": [
+        "c2 S37"
+       ],
+       "note": "sky 37 -> slot 4"
+      },
+      {
+       "t": 2.85,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "sky 40 -> slot 5; c3 ? opens: sky 40"
+      },
+      {
+       "t": 16.5,
+       "column": "c3",
+       "take": [
+        "c3 S40"
+       ],
+       "note": "sky 40 (the opened one) -> slot 3"
+      },
+      {
+       "t": 29.5,
+       "column": "c2",
+       "take": [
+        "c2 T43"
+       ],
+       "note": "teal 43 -> slot 1"
+      },
+      {
+       "t": 30,
+       "column": "c2",
+       "take": [
+        "c2 R6"
+       ],
+       "note": "red 6 -> slot 2; c2 ? opens: dark 10"
+      },
+      {
+       "t": 30.75,
+       "column": "c2",
+       "take": [
+        "c2 #10"
+       ],
+       "note": "dark 10 -> slot 4; c2 ? opens: pink 24"
+      },
+      {
+       "t": 48.5,
+       "column": "c1",
+       "take": [
+        "c1 g8"
+       ],
+       "note": "dark green 8 -> slot 4; c1 ? opens: yellow 30"
+      },
+      {
+       "t": 49,
+       "column": "c1",
+       "take": [
+        "c1 Y30"
+       ],
+       "note": "yellow 30 -> slot 5"
+      },
+      {
+       "t": 66.14,
+       "column": "c1",
+       "take": [
+        "c1 c22"
+       ],
+       "note": "cream 22 -> slot 3 (part 2, 8.75 s)"
+      },
+      {
+       "t": 72.39,
+       "column": "c1",
+       "take": [
+        "c1 W20"
+       ],
+       "note": "white 20 -> slot 2; c1 ? opens: orange 30"
+      },
+      {
+       "t": 91.79,
+       "column": "c2",
+       "take": [
+        "c2 P24"
+       ],
+       "note": "pink 24 -> slot 2"
+      },
+      {
+       "t": 92.29,
+       "column": "c2",
+       "take": [
+        "c2 G28"
+       ],
+       "note": "green 28 -> slot 3"
+      },
+      {
+       "t": 116.89,
+       "column": "c1",
+       "take": [
+        "c1 O30"
+       ],
+       "note": "orange 30 -> slot 3 (part 2, 59.5 s): the position of the lost attempt, here the orange; c1 ? opens: white 49"
+      },
+      {
+       "t": 158,
+       "column": "c1",
+       "take": [
+        "c1 W49"
+       ],
+       "note": "white 49 -> slot 1 (part 3, 32.75 s); c1 ? opens: teal 25"
+      },
+      {
+       "t": 176.25,
+       "column": "c1",
+       "take": [
+        "c1 T25"
+       ],
+       "note": "teal 25 -> slot 1"
+      },
+      {
+       "t": 177.75,
+       "column": "c1",
+       "take": [
+        "c1 G25"
+       ],
+       "note": "green 25 -> slot 2; c1 empty"
+      },
+      {
+       "t": 179,
+       "column": "c2",
+       "take": [
+        "c2 P25"
+       ],
+       "note": "pink 25 -> slot 3"
+      },
+      {
+       "t": 180,
+       "column": "c2",
+       "take": [
+        "c2 #57"
+       ],
+       "note": "dark 57 -> slot 5"
+      },
+      {
+       "t": 190,
+       "column": "c2",
+       "take": [
+        "c2 R15"
+       ],
+       "note": "red 15 -> slot 1; c2 empty"
+      },
+      {
+       "t": 190.5,
+       "column": "c3",
+       "take": [
+        "c3 Y30"
+       ],
+       "note": "yellow 30 -> slot 4"
+      },
+      {
+       "t": 193,
+       "column": "c3",
+       "take": [
+        "c3 P20"
+       ],
+       "note": "pink 20 -> slot 3"
+      },
+      {
+       "t": 198.5,
+       "column": "c3",
+       "take": [
+        "c3 O58"
+       ],
+       "note": "orange 58 -> slot 5; c3 ? opens: white 35"
+      },
+      {
+       "t": 199.5,
+       "column": "c3",
+       "take": [
+        "c3 W35"
+       ],
+       "note": "white 35 -> slot 2; c3 ? opens: cream 22"
+      },
+      {
+       "t": 210.75,
+       "column": "c3",
+       "take": [
+        "c3 c22"
+       ],
+       "note": "cream 22 -> slot 2"
+      },
+      {
+       "t": 216.75,
+       "column": "c3",
+       "take": [
+        "c3 #45"
+       ],
+       "note": "dark 45 -> slot 1"
+      },
+      {
+       "t": 218.5,
+       "column": "c3",
+       "take": [
+        "c3 S6"
+       ],
+       "note": "sky 6 -> slot 2; tray empty"
+      }
+     ],
+     "events": [
+      [
+       0,
+       "level-10-done-part1.mp4 starts on Level 10 with the full tray (no loading screen, no banner, no ad banner at the bottom)"
+      ],
+      [
+       16,
+       "slots sky 7 | sky 2 | empty | sky 4 | sky 18"
+      ],
+      [
+       29,
+       "only sky 23 left in slot 3"
+      ],
+      [
+       48,
+       "dark 10 finished; slots teal 29 | red 6 | sky 8 | empty | empty"
+      ],
+      [
+       57,
+       "part 1 ends: teal 29 | red 6 | sky 3 | dark green 8 | yellow 30"
+      ],
+      [
+       57.39,
+       "level-10-done-part2.mp4 starts (offset 57.39): teal 29 | red 6 | empty | dark green 8 | yellow 30"
+      ],
+      [
+       71.89,
+       "red 6 finished"
+      ],
+      [
+       91.64,
+       "white 20 and cream 22 finished; slots teal 13 | empty | empty | dark green 8 | yellow 30"
+      ],
+      [
+       116.39,
+       "green 28 finished: teal 13 | pink 10 | empty | dark green 2 | yellow 30, tops orange 30, pink 25, yellow 30 (same position as the lost attempt)"
+      ],
+      [
+       124.89,
+       "part 2 ends: teal 13 | pink 10 | orange 26 | dark green 2 | yellow 30"
+      ],
+      [
+       125.25,
+       "level-10-done-part3.mp4 starts (offset 125.25): teal 13 | pink 10 | orange 24 | dark green 2 | yellow 30"
+      ],
+      [
+       145.25,
+       "teal 13 finished (slot 1 empty); yellow 30 working: 21"
+      ],
+      [
+       175.75,
+       "only dark green 2 left in the slots"
+      ],
+      [
+       189.5,
+       "slots empty | green 1 | pink 3 | empty | dark 26"
+      ],
+      [
+       223.25,
+       "only yellow 30 left at 5"
+      ],
+      [
+       225.75,
+       "last capsule finished, board empty"
+      ],
+      [
+       228.8,
+       "part 3 ends with the board empty and all slots free; the win screen itself is not in the recording"
+      ]
+     ],
+     "trayLeft": 0
+    }
+   ],
    "storyboardText": "**Две партии рядом** (полосы — ключевые капсулы):\n\n```\nПРОИГРЫШ\nt, с           ||         |         |         |        \nголуб 40 ×5    | ██████████                            \nт-зелён 8      |        ░░░░░░░░░░░░░░███░░░░░███░░░░░░\nжёлт 30        |         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\nкрем 22        |         ████                          \nбирюз 43       |            ██░░░█████░░░░░░░░░░░░░░░░░\nкрасн 6        |            █                          \nголуб 40 (6-я) |              ██████████████           \nтёмн 10        |               ██                      \nбел 20         |                ███                    \nроз 24         |                    ████░░░░░░░░░░░░░░░\nзелён 28       |                            ███        \nроз 25 ✗       |                                      ░\nПОБЕДА\nt, с           ||         |         |         |         |         |         |         |   \nголуб 40 ×5    |█████████                                                                 \nголуб 40 (6-я) |     █████████████████                                                    \nбирюз 43       |         ███░░░░░░░░░░░░██░░██░░░░░░░░░░░░█████                           \nкрасн 6        |          ░░░░░░░░░░░░██                                                  \nтёмн 10        |          ██                                                              \nт-зелён 8      |                ░░░░░░░░░░░░░░░░███░░░░░░░░░░░░░░░░░░░░░░░██              \nжёлт 30        |                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██████████                   \nкрем 22        |                      ███                                                 \nбел 20         |                        ███                                               \nроз 24         |                              ███░░░░░░░░░░░░░░░░░░████                   \nзелён 28       |                              ████                                        \nоранж 30 ★     |                                       ██████████████                     \nбел 49 ★       |                                                  ██████                  \nостальные 12   |                                                        ██████████████████\n```\n\n**Проигрыш (≈115 с, 16 тапов):**\n1. 5–17 с: пять голубых 40/37 — небо уходит за 12 секунд (десятки муравьёв, около 3 клеток в секунду на капсулу).\n2. 24–27 с: тёмно-зелёная 8, жёлтая 30, кремовая 22. **Жёлтая 30 не сдвинулась до конца партии.** Тёмно-зелёная 8 простояла 45 секунд, потом остаток 2.\n3. 35–49 с: бирюзовая 43 (дальше застряла на 29, потом на 13), красная 6, голубая 40, тёмная 10, белая 20.\n4. 60 с (часть 2, 6 с): розовая 24 — съела 14 и встала на 10. **С этого момента все 5 слотов заняты.**\n5. 39–59 с второй части: один слот свободен, в слотах тёмно-зелёная 2, жёлтая 30, бирюзовая 13 и розовая 10, и никто не работает. Сверху лежат оранжевая 30, розовая 25 и жёлтая 30.\n6. **Тап 16: розовая 25** (под ней тёмная 57, нужная для контура). Розовой работы нет, и через полсекунды «Out of slots» → «Fail Offer $5.99» → «Level Failed». На экране проигрыша 4 сердца и таймер восстановления 17:37.\n\n**Победа (≈220 с, 29 тапов):**\n- Первые 15 тапов — **тот же набор капсул**, только в другом порядке: бирюзовую, красную и тёмную взял раньше тёмно-зелёной, жёлтой и кремовой.\n- Пришёл **в ту же позицию**: в слотах тёмно-зелёная 2, жёлтая 30, бирюзовая 13, розовая 10 и один свободный; сверху оранжевая 30, розовая 25, жёлтая 30. Здесь ты простоял около 14 секунд.\n- **Тап 16: оранжевая 30.** Она могла работать (оранжевые шпили открылись), и под ней раскрылась **белая 49**.\n- Оранжевая медленно открыла путь, ожили бирюзовая и жёлтая, бирюзовая закончилась, и на освободившийся слот ушла белая 49. Белые стены сняли блок с розовой и тёмно-зелёной.\n- После 165-й секунды осталось 12 капсул, и они прошли без остановок.",
+   "mechanics": [
+    "Hidden capsules: 10 grey '?' capsules (c1 rows 3, 6, 7, 8; c2 rows 2, 5, 6; c3 rows 3, 7, 8) show their colour and count when they reach the top of their column; all values matched the known tray in both attempts.",
+    "No links, padlocks or keys. SUPER HARD LEVEL banner (red interface) at the start; an ad banner at the bottom in the lost attempt; the boosters bar (3 boosters, 1 each, 4th locked until Lv.16) and the 2x button were not used.",
+    "Loss flow: 'Out of slots' card (clear the slots for 900 coins) plus 'Fail Offer $5.99', then 'Level Failed' with Home / Try Again; lives shown as 4 hearts with a 17m38s timer."
+   ],
+   "uncertain": [
+    "The fail-part2 recording ends with a new attempt opening on the full tray (Try Again at about 119.5 s, tray at 121.55 s) and no taps; done-part1 starts on a fresh tray without the banner or the ad banner, so it may be that same restart or a later one; any attempts between are not recorded.",
+    "The win screen is not recorded: done-part3 stops about 3 s after the last capsule finishes; 'won' is from the empty board and empty slots.",
+    "Close taps (e.g. 8.25/8.6, 27.15/27.4 in the loss; 1.45/1.7/1.85, 2.7/2.85, 91.79/92.29 in the win) are read from 8 fps frames (about +-0.1 s); the others from 4 fps storyboards (about +-0.25 s).",
+    "Times of finished capsules in events are about +-1 s."
+   ],
    "accounting": {
     "#": {
      "board": 112,

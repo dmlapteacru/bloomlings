@@ -1,0 +1,458 @@
+{
+ "level": 10,
+ "difficulty": "Super Hard",
+ "video": "level-10-fail-part1.mp4, level-10-fail-part2.mp4, level-10-done-part1.mp4, level-10-done-part2.mp4, level-10-done-part3.mp4",
+ "legend": {
+  "S": "голубой (небо) #59ddf8",
+  "#": "тёмный контур #5d4b67",
+  "W": "белый #eef4f6",
+  "O": "оранжевый #fe972c",
+  "P": "розовый #f857ae",
+  "T": "бирюзовый #00aeb8",
+  "Y": "жёлтый #febe23",
+  "G": "зелёный #58d067",
+  "c": "кремовый #fee998",
+  "R": "красный #e53559",
+  "g": "тёмно-зелёный #238b5d"
+ },
+ "columns": {
+  "c1": [
+   "S40",
+   "g8",
+   "Y30?",
+   "c22",
+   "W20",
+   "O30?",
+   "W49?",
+   "T25?",
+   "G25"
+  ],
+  "c2": [
+   "S40",
+   "S37?",
+   "T43",
+   "R6",
+   "#10?",
+   "P24?",
+   "G28",
+   "P25",
+   "#57",
+   "R15"
+  ],
+  "c3": [
+   "S40",
+   "S40",
+   "S40?",
+   "Y30",
+   "P20",
+   "O58",
+   "W35?",
+   "c22?",
+   "#45",
+   "S6"
+  ]
+ },
+ "rounds": [
+  {
+   "attempt": 1,
+   "outcome": "lost",
+   "start": 0.5,
+   "end": 118.55,
+   "videos": [
+    "level-10-fail-part1.mp4",
+    "level-10-fail-part2.mp4"
+   ],
+   "taps": [
+    [
+     5.25,
+     "c2",
+     "sky 40 -> slot 1; c2 ? opens: sky 37"
+    ],
+    [
+     7.75,
+     "c2",
+     "sky 37 -> slot 2"
+    ],
+    [
+     8.25,
+     "c1",
+     "sky 40 -> slot 3"
+    ],
+    [
+     8.6,
+     "c3",
+     "sky 40 -> slot 4"
+    ],
+    [
+     17.0,
+     "c3",
+     "sky 40 -> slot 5; c3 ? opens: sky 40"
+    ],
+    [
+     24.0,
+     "c1",
+     "dark green 8 -> slot 1; c1 ? opens: yellow 30"
+    ],
+    [
+     27.15,
+     "c1",
+     "yellow 30 -> slot 2"
+    ],
+    [
+     27.4,
+     "c1",
+     "cream 22 -> slot 3"
+    ],
+    [
+     35.25,
+     "c2",
+     "teal 43 -> slot 4"
+    ],
+    [
+     35.75,
+     "c2",
+     "red 6 -> slot 5; c2 ? opens: dark 10"
+    ],
+    [
+     42.25,
+     "c3",
+     "sky 40 (the opened one) -> slot 3"
+    ],
+    [
+     45.25,
+     "c2",
+     "dark 10 -> slot 5; c2 ? opens: pink 24"
+    ],
+    [
+     49.25,
+     "c1",
+     "white 20 -> slot 5; c1 ? opens: orange 30"
+    ],
+    [
+     63.05,
+     "c2",
+     "pink 24 -> slot 5 (part 2, 6.5 s); all 5 slots full"
+    ],
+    [
+     86.55,
+     "c2",
+     "green 28 -> slot 3 (part 2, 30.0 s)"
+    ],
+    [
+     115.95,
+     "c2",
+     "pink 25 -> slot 3 (part 2, 59.4 s): all 5 slots full and nothing can work -> Out of slots"
+    ]
+   ],
+   "events": [
+    [
+     0.0,
+     "level-10-fail-part1.mp4 starts on the loading screen (98%)"
+    ],
+    [
+     0.5,
+     "Level 10 screen, full tray"
+    ],
+    [
+     1.0,
+     "SUPER HARD LEVEL banner until about 2.75; tray playable from 3.0"
+    ],
+    [
+     16.5,
+     "the first four sky capsules at 3, 9, 13, 15"
+    ],
+    [
+     23.5,
+     "first five sky capsules finished except slot 5 (sky 29)"
+    ],
+    [
+     35.5,
+     "cream 22 finished"
+    ],
+    [
+     41.0,
+     "red 6 finished"
+    ],
+    [
+     42.75,
+     "slots: dark green 8 | yellow 30 | sky 38 | teal 29 | empty (yellow 30 and dark green 8 do not move)"
+    ],
+    [
+     48.0,
+     "dark 10 finished"
+    ],
+    [
+     56.25,
+     "part 1 ends: dark green 8 | yellow 30 | sky 16 | teal 23 | empty; tray tops orange 30, pink 24, yellow 30"
+    ],
+    [
+     56.55,
+     "level-10-fail-part2.mp4 starts (offset 56.55): dark green 8 | yellow 30 | sky 12 | teal 15 | empty (white 20 finished just before)"
+    ],
+    [
+     86.05,
+     "sky 40 finished; slots dark green 6 | yellow 30 | empty | teal 13 | pink 10"
+    ],
+    [
+     115.8,
+     "by part 2 59.25 s green 28 finished: dark green 2 | yellow 30 | empty | teal 13 | pink 10, none working; tops orange 30, pink 25, yellow 30"
+    ],
+    [
+     116.55,
+     "Out of slots card (900 coins to clear slots) with Fail Offer $5.99; 4 hearts, 17m38s"
+    ],
+    [
+     118.55,
+     "Level Failed: Home / Try Again"
+    ],
+    [
+     119.55,
+     "Try Again pressed: loading screen"
+    ],
+    [
+     121.55,
+     "a new attempt opens on the full tray (SUPER HARD banner) and part 2 ends at 122.04 before any tap; not transcribed as a round"
+    ]
+   ]
+  },
+  {
+   "attempt": 2,
+   "outcome": "won",
+   "start": 0.0,
+   "end": 228.8,
+   "videos": [
+    "level-10-done-part1.mp4",
+    "level-10-done-part2.mp4",
+    "level-10-done-part3.mp4"
+   ],
+   "taps": [
+    [
+     1.45,
+     "c3",
+     "sky 40 -> slot 1"
+    ],
+    [
+     1.7,
+     "c2",
+     "sky 40 -> slot 2; c2 ? opens: sky 37"
+    ],
+    [
+     1.85,
+     "c1",
+     "sky 40 -> slot 3"
+    ],
+    [
+     2.7,
+     "c2",
+     "sky 37 -> slot 4"
+    ],
+    [
+     2.85,
+     "c3",
+     "sky 40 -> slot 5; c3 ? opens: sky 40"
+    ],
+    [
+     16.5,
+     "c3",
+     "sky 40 (the opened one) -> slot 3"
+    ],
+    [
+     29.5,
+     "c2",
+     "teal 43 -> slot 1"
+    ],
+    [
+     30.0,
+     "c2",
+     "red 6 -> slot 2; c2 ? opens: dark 10"
+    ],
+    [
+     30.75,
+     "c2",
+     "dark 10 -> slot 4; c2 ? opens: pink 24"
+    ],
+    [
+     48.5,
+     "c1",
+     "dark green 8 -> slot 4; c1 ? opens: yellow 30"
+    ],
+    [
+     49.0,
+     "c1",
+     "yellow 30 -> slot 5"
+    ],
+    [
+     66.14,
+     "c1",
+     "cream 22 -> slot 3 (part 2, 8.75 s)"
+    ],
+    [
+     72.39,
+     "c1",
+     "white 20 -> slot 2; c1 ? opens: orange 30"
+    ],
+    [
+     91.79,
+     "c2",
+     "pink 24 -> slot 2"
+    ],
+    [
+     92.29,
+     "c2",
+     "green 28 -> slot 3"
+    ],
+    [
+     116.89,
+     "c1",
+     "orange 30 -> slot 3 (part 2, 59.5 s): the position of the lost attempt, here the orange; c1 ? opens: white 49"
+    ],
+    [
+     158.0,
+     "c1",
+     "white 49 -> slot 1 (part 3, 32.75 s); c1 ? opens: teal 25"
+    ],
+    [
+     176.25,
+     "c1",
+     "teal 25 -> slot 1"
+    ],
+    [
+     177.75,
+     "c1",
+     "green 25 -> slot 2; c1 empty"
+    ],
+    [
+     179.0,
+     "c2",
+     "pink 25 -> slot 3"
+    ],
+    [
+     180.0,
+     "c2",
+     "dark 57 -> slot 5"
+    ],
+    [
+     190.0,
+     "c2",
+     "red 15 -> slot 1; c2 empty"
+    ],
+    [
+     190.5,
+     "c3",
+     "yellow 30 -> slot 4"
+    ],
+    [
+     193.0,
+     "c3",
+     "pink 20 -> slot 3"
+    ],
+    [
+     198.5,
+     "c3",
+     "orange 58 -> slot 5; c3 ? opens: white 35"
+    ],
+    [
+     199.5,
+     "c3",
+     "white 35 -> slot 2; c3 ? opens: cream 22"
+    ],
+    [
+     210.75,
+     "c3",
+     "cream 22 -> slot 2"
+    ],
+    [
+     216.75,
+     "c3",
+     "dark 45 -> slot 1"
+    ],
+    [
+     218.5,
+     "c3",
+     "sky 6 -> slot 2; tray empty"
+    ]
+   ],
+   "events": [
+    [
+     0.0,
+     "level-10-done-part1.mp4 starts on Level 10 with the full tray (no loading screen, no banner, no ad banner at the bottom)"
+    ],
+    [
+     16.0,
+     "slots sky 7 | sky 2 | empty | sky 4 | sky 18"
+    ],
+    [
+     29.0,
+     "only sky 23 left in slot 3"
+    ],
+    [
+     48.0,
+     "dark 10 finished; slots teal 29 | red 6 | sky 8 | empty | empty"
+    ],
+    [
+     57.0,
+     "part 1 ends: teal 29 | red 6 | sky 3 | dark green 8 | yellow 30"
+    ],
+    [
+     57.39,
+     "level-10-done-part2.mp4 starts (offset 57.39): teal 29 | red 6 | empty | dark green 8 | yellow 30"
+    ],
+    [
+     71.89,
+     "red 6 finished"
+    ],
+    [
+     91.64,
+     "white 20 and cream 22 finished; slots teal 13 | empty | empty | dark green 8 | yellow 30"
+    ],
+    [
+     116.39,
+     "green 28 finished: teal 13 | pink 10 | empty | dark green 2 | yellow 30, tops orange 30, pink 25, yellow 30 (same position as the lost attempt)"
+    ],
+    [
+     124.89,
+     "part 2 ends: teal 13 | pink 10 | orange 26 | dark green 2 | yellow 30"
+    ],
+    [
+     125.25,
+     "level-10-done-part3.mp4 starts (offset 125.25): teal 13 | pink 10 | orange 24 | dark green 2 | yellow 30"
+    ],
+    [
+     145.25,
+     "teal 13 finished (slot 1 empty); yellow 30 working: 21"
+    ],
+    [
+     175.75,
+     "only dark green 2 left in the slots"
+    ],
+    [
+     189.5,
+     "slots empty | green 1 | pink 3 | empty | dark 26"
+    ],
+    [
+     223.25,
+     "only yellow 30 left at 5"
+    ],
+    [
+     225.75,
+     "last capsule finished, board empty"
+    ],
+    [
+     228.8,
+     "part 3 ends with the board empty and all slots free; the win screen itself is not in the recording"
+    ]
+   ]
+  }
+ ],
+ "mechanics": [
+  "Hidden capsules: 10 grey '?' capsules (c1 rows 3, 6, 7, 8; c2 rows 2, 5, 6; c3 rows 3, 7, 8) show their colour and count when they reach the top of their column; all values matched the known tray in both attempts.",
+  "No links, padlocks or keys. SUPER HARD LEVEL banner (red interface) at the start; an ad banner at the bottom in the lost attempt; the boosters bar (3 boosters, 1 each, 4th locked until Lv.16) and the 2x button were not used.",
+  "Loss flow: 'Out of slots' card (clear the slots for 900 coins) plus 'Fail Offer $5.99', then 'Level Failed' with Home / Try Again; lives shown as 4 hearts with a 17m38s timer."
+ ],
+ "uncertain": [
+  "The fail-part2 recording ends with a new attempt opening on the full tray (Try Again at about 119.5 s, tray at 121.55 s) and no taps; done-part1 starts on a fresh tray without the banner or the ad banner, so it may be that same restart or a later one; any attempts between are not recorded.",
+  "The win screen is not recorded: done-part3 stops about 3 s after the last capsule finishes; 'won' is from the empty board and empty slots.",
+  "Close taps (e.g. 8.25/8.6, 27.15/27.4 in the loss; 1.45/1.7/1.85, 2.7/2.85, 91.79/92.29 in the win) are read from 8 fps frames (about +-0.1 s); the others from 4 fps storyboards (about +-0.25 s).",
+  "Times of finished capsules in events are about +-1 s."
+ ]
+}
