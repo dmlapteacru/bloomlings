@@ -11,12 +11,23 @@ let recs=allRecords();if(arg('--only'))recs=recs.filter(r=>arg('--only').split('
 if(arg('--part')){const [i,n]=arg('--part').split('/').map(Number);recs=recs.filter((r,k)=>k%n===i);}
 const observedDir=path.join(root,'tools/level-stats/observed');
 // a Colony Flow attempt's taps → engine commands (a tap on a column takes its top capsule and that capsule's group)
-function cfCommands(r,a){const tray=r.model.tray,pods=r.model.pods,heads=tray.map(()=>0),cmds=[];
- for(const tap of a.taps){const c=+tap.column.slice(1)-1,p=tray[c][heads[c]];if(p==null)return null;const g=pods[p].group?pods.map((q,i)=>i).filter(i=>pods[i].group===pods[p].group):[p];
-  for(const q of g){const qc=tray.findIndex(s=>s.includes(q));heads[qc]++;}cmds.push({t:Math.max(0,Math.round((tap.t-a.start)*1000)),action:{type:'tap',pod:g[0]}});}
+function cfCommands(r,a,model=r.model){const tray=model.tray,pods=model.pods,heads=tray.map(()=>0),cmds=[],ms=t=>Math.max(0,Math.round((t-a.start)*1000));
+ // padlock openings as recorded, in time order with the taps (the model's own key rule may open them at other times)
+ const evs=[...a.taps.map(x=>({t:x.t,c:+x.column.slice(1)-1})),...(a.unlocks||[]).map(u=>({t:u.t,c:+u.column.slice(1)-1,unlock:true}))].sort((x,y)=>x.t-y.t||!!y.unlock-!!x.unlock);
+ for(const e of evs){if(e.unlock){heads[e.c]++;cmds.push({t:ms(e.t),action:{type:'unlock',column:e.c}});continue;}
+  const p=tray[e.c][heads[e.c]];if(p==null||pods[p].lock)return null;const g=pods[p].group?pods.map((q,i)=>i).filter(i=>pods[i].group===pods[p].group):[p];
+  for(const q of g){const qc=tray.findIndex(s=>s.includes(q));heads[qc]++;}cmds.push({t:ms(e.t),action:{type:'tap',pod:g[0]}});}
  return cmds;}
+// Colony Flow levels with board objects have two reconstructions (levels.mjs): keep the one on which the recorded won
+// attempt replays to a win and the search finds a win; else the first that is winnable; else none
+function chooseModel(r,E){if(!r.models||r.models.length<2)return;const won=r.attempts.find(a=>a.outcome==='won');let pick=null;
+ for(const m of r.models){const S=solver(E,30000);if(S.route(m.model,m.model.capacity||5).win!==true){m.reject='not winnable on the model';continue;}
+  const cmds=won&&cfCommands(r,won,m.model),ok=cmds?run(E,m.model,{commands:cmds}).status==='won':null;m.replays=ok;if(ok){pick=m;break;}pick??=m;}
+ if(pick){Object.assign(r,{model:pick.model,modelNote:pick.modelNote+(pick.replays?'; the recorded attempt replays to a win':'; the recorded attempt does not replay to a win (physics or reconstruction)')});}
+ else{r.model=null;r.modelNote='board objects reconstructed, but neither reconstruction is winnable on the model';}}
 for(const r of recs){const t0=Date.now(),res={key:r.key,game:r.game,set:r.set,level:r.level,difficulty:r.difficulty,title:r.title,app:r.app,source:r.source,capacity:r.capacity,capacityNote:r.capacityNote||null,
   mechanicsText:r.mechanicsText,uncertain:r.uncertain,boxes:r.boxes||false,modelNote:r.modelNote,model:!!r.model,board:r.board,tray:r.tray,static:staticOf(r),attempts:[],checks:null,strategies:null};
+ if(r.models)chooseModel(r,await engine(r.game));res.model=!!r.model;res.modelNote=r.modelNote;
  const E=r.model?await engine(r.game):null,S=E?solver(E,BUDGET):null,cap=r.model?(r.model.capacity||5):r.capacity;
  // recorded attempts
  const obs=fs.existsSync(path.join(observedDir,r.key.replace(/^CF-/,'L')+'.json'))?JSON.parse(fs.readFileSync(path.join(observedDir,r.key.replace(/^CF-/,'L')+'.json'),'utf8')):null;

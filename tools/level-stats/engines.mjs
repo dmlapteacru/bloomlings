@@ -1,7 +1,6 @@
-// Our engine for each set: v8E as played (git archive of 8892a6f4), v9 as it is now, and Colony Flow on the played v8E
-// engine with CF's link rule (a linked capsule right under another member of its group in the same column comes out with
-// it). Two patches on every copy, for the checks only: 1–8 places (the pilots allow 3–5) so the smallest workable
-// buffer can be searched, and L3 of Colony Flow can have its six places.
+// Our engine for each set: v8E as played (git archive of 8892a6f4), v9 as it is now, and Colony Flow on cf-engine/ (the
+// played v8E engine with CF's link rule, padlocks, crates, chocolate and jars). One patch on the pilot copies, for the
+// checks only: 1–8 places (the pilots allow 3–5) so the smallest workable buffer can be searched.
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {execSync} from 'node:child_process';
 import {root,V8E_COMMIT} from './levels.mjs';
 const cache=new Map();
@@ -16,6 +15,6 @@ function copy(commit,dir,cf){
  fs.writeFileSync(p,a);return d;}
 export async function engine(set){
  if(cache.has(set))return cache.get(set);
- const d=set==='v9'?copy(null,'tools/gameplay-pilot-v9',false):copy(V8E_COMMIT,'tools/gameplay-pilot-v8e',set==='CF');
+ const d=set==='v9'?copy(null,'tools/gameplay-pilot-v9',false):set==='CF'?path.join(root,'tools/level-stats/cf-engine'):copy(V8E_COMMIT,'tools/gameplay-pilot-v8e',false);
  const E={dir:d,R:(await import(d+'/rules.cjs')).default,T:(await import(d+'/timeline.cjs')).default,bots:await import(d+'/botsc.mjs'),idle:(await import(d+'/idle-rules.cjs')).default};
  cache.set(set,E);return E;}

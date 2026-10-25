@@ -32,7 +32,7 @@ export function solver(E,budget=60000){
  function fatal(level,capacity,commands){const {R:RR,T}=E,t=new T.Timeline(RR.create(level,capacity));const wins=[];
   const settled=()=>{const c=new T.Timeline(RR.create(level,capacity),t.snapshot());c.advance(1e9);return winnable(c.state);};
   wins.push(settled());let lastAt=0;
-  for(const c of commands){if(c.t>t.now)t.advance(c.t-t.now);let g=0;while(t.check(c.action)&&t.pending&&g++<2000)t.advance(100);const r=t.commit(c.action);if(!r.accepted)return {error:r.reason,wins};lastAt=t.now;wins.push(settled());}
+  for(const c of commands){if(c.t>t.now)t.advance(c.t-t.now);if(c.action.type==='unlock'){if(t.forceUnlock)t.forceUnlock(c.action.column);continue;}let g=0;while(t.check(c.action)&&t.pending&&g++<2000)t.advance(100);const r=t.commit(c.action);if(!r.accepted)return {error:r.reason,wins};lastAt=t.now;wins.push(settled());}
   t.advance(1e9);const k=wins.findIndex((w,i)=>i>0&&w===false&&wins[i-1]!==false);
   return {wins,fatalTap:k>0?k:null,fatalAtMs:k>0?commands[k-1].t:null,lossAtMs:t.state.status==='Won'?null:t.now,tapsAfterFatal:k>0?commands.length-k:null,status:t.state.status};}
  return {route,count,decisions,minCapacity,fatal,winnable};}
