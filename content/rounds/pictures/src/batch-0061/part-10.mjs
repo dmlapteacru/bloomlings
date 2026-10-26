@@ -126,8 +126,10 @@ function upHouse(){
   [(x,y)=>{if(y<18||y>24)return 1;let d=9;for(const sx of [11,15,19,23]){const t=(y-18)/(24-18),cx=sx+(22.5-sx)*t;d=Math.min(d,Math.abs(x-cx)-.5);}return d;},'D'],   // strings
  ]);
  // balloons in order, each a round with its tie
- const order=[0,2,4,1,3,5,2,0,5,3,1,4];
- balloons.forEach(([bx,by],i)=>{const c=cols[order[i%order.length]];
+ // colours in turn, skipping any a touching balloon already wears, so no two neighbours merge
+ const worn=[];
+ balloons.forEach(([bx,by],i)=>{const near=new Set(balloons.slice(0,i).flatMap(([qx,qy],j)=>Math.hypot(qx-bx,qy-by)<6?[worn[j]]:[]));
+  let n=i%cols.length;while(near.has(cols[n]))n=(n+1)%cols.length;const c=worn[i]=cols[n];
   const s=circle(bx,by,2.35);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(s(x+.5,y+.5)<0)g[y][x]=c;});
  const house=raster(W,H,'.',[
   [box(23,25.5,1,2),'R'],                                      // chimney
