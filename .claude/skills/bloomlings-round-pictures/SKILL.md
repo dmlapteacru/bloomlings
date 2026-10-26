@@ -34,10 +34,14 @@ those rules; where this skill and 17 differ, 17 wins.
 | 1 — crown | exactly 138 | 3, volumes 63 / 37 / 38 |
 | 2 — ladybug 2C | exactly 240 | 4, volumes 120 / 97 / 19 / 4 |
 | 3 — bird 3B | exactly 281 | 6, volumes 76 / 70 / 69 / 51 / 13 / 2 |
-| 4–9 | 250–650 | 4–7 |
-| 10–24 | 350–1000 | 4–8 |
-| 25–60 | 400–1200 | 5–9 |
-| 61+ | 400–1400 | 5–9 |
+| 4–9 | 400–650 | 4–7 |
+| 10–24 | 550–1000 | 4–8 |
+| 25–60 | 550–1200 | 5–9 |
+| 61+ | 550–1400 | 5–9 |
+
+- **Where in the range (owner, 2026-10-26).** The floor is not a target. Spread sizes toward the middle of the range
+  and at times near its top. Quality comes first: use the room for a better, more detailed picture, not for more
+  background.
 
 - **Compact pictures.** After L25, compact pictures of 200–399 cells with 3–6 colours are allowed.
 - **Size mix.** Size does not grow with the level number. For every 30 pictures aim at about 6 of 200–499 cells,

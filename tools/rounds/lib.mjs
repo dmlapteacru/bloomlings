@@ -26,7 +26,7 @@ export function measure(pic){const vol={};let n=0;for(const r of pic.rows)for(co
 // stage ranges by level number (§2); compact 200–399 cells / 3–6 colours allowed after L25
 export function stageOf(level){
  if(level===1)return {cells:[138,138],colours:[3,3],fixed:'корона'};if(level===2)return {cells:[240,240],colours:[4,4],fixed:'божья коровка 2C'};if(level===3)return {cells:[281,281],colours:[6,6],fixed:'птичка 3B'};
- if(level<=9)return {cells:[250,650],colours:[4,7]};if(level<=24)return {cells:[350,1000],colours:[4,8]};if(level<=60)return {cells:[400,1200],colours:[5,9],compact:true};return {cells:[400,1400],colours:[5,9],compact:true};}
+ if(level<=9)return {cells:[400,650],colours:[4,7]};if(level<=24)return {cells:[550,1000],colours:[4,8]};if(level<=60)return {cells:[550,1200],colours:[5,9],compact:true};return {cells:[550,1400],colours:[5,9],compact:true};}
 export function fitsStage(m,level){const s=stageOf(level),wide=c=>c>=10&&c<=11;
  if(s.fixed)return m.N===s.cells[0]&&m.colours===s.colours[0];
  if(s.compact&&m.N>=200&&m.N<=399)return (m.colours>=3&&m.colours<=6)||wide(m.colours);

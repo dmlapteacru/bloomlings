@@ -1,5 +1,11 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner amendment · 2026-10-26 — picture size ranges
+
+- [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §2: stage ranges are now L4–9 400–650 cells,
+  L10–24 550–1000, L25–60 550–1200, L61+ 550–1400 (colours unchanged). The floor is not a target: sizes spread toward
+  the middle and at times the top of a range, quality first. Mirrored in `05`, the picture skill and `tools/rounds/lib.mjs`.
+
 ## Owner amendment · 2026-10-26 — level generation rules
 
 - Added [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md): the single base regulation for generating and

@@ -14,7 +14,7 @@
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
 import {PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag} from './lib.mjs';
 const cmd=process.argv[2];
-const idsFrom=args=>{const m=manifest(),st=arg('--status');let ids=args.filter(a=>/^P?\d+$/.test(a)).map(a=>a.startsWith('P')?a:pid(+a));
+const idsFrom=args=>{const m=manifest(),st=arg('--status');let ids=args.filter((a,i)=>/^P?\d+$/.test(a)&&!(args[i-1]||'').startsWith('--')).map(a=>a.startsWith('P')?a:pid(+a));
  if(!ids.length&&st)ids=m.pictures.filter(p=>p.status===st).map(p=>p.id);if(!ids.length)ids=m.pictures.map(p=>p.id);return ids;};
 async function load(file){return (await import(pathToFileURL(path.resolve(file)).href+'?t='+Date.now())).default;}
 function validRows(rows){if(!Array.isArray(rows)||!rows.length)return 'нет строк';const w=rows[0].length;if(rows.some(r=>r.length!==w))return 'строки разной длины';
@@ -26,6 +26,7 @@ const entryOf=p=>({id:p.id,seq:p.seq,version:p.version,title:p.title,theme:p.the
 function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(p);
  if(!fitsStage(m,p.forLevel))issues.push(s.fixed?`уровень ${p.forLevel} требует ${s.fixed}: ${s.cells[0]} клеток, ${s.colours[0]} цв.`:`вне диапазона этапа L${p.forLevel}: ${s.cells.join('–')} клеток, ${s.colours.join('–')} цв.${s.compact?' (или компактная 200–399 / 3–6)':''}`);
  if(m.N>1400)issues.push('больше 1400 клеток — расширенный набор');if(m.colours>11)issues.push('больше 11 цветов — расширенный набор');
+ if(!s.fixed&&m.N>=s.cells[0]&&m.N<s.cells[0]+(s.cells[1]-s.cells[0])/4)warn.push(`у нижней границы этапа (${s.cells.join('–')}): целиться ближе к середине`);
  if(m.colours>=10)warn.push('10–11 цветов: не больше 2 в любых 20 уровнях, цвет должен улучшать читаемость');
  for(const [c,v] of Object.entries(m.volumes))if(v<3)warn.push(`цвет ${c} (${PALETTE[c].name}): ${v} кл. — очень маленькая деталь`);
  if(p.w+4>48||p.h+4>48)issues.push('поле с рамкой больше 48×48');
