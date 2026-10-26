@@ -27,8 +27,10 @@
   "Y": 37,
   "R": 38
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0001",
  "createdAt": "2026-10-26",
- "history": []
+ "history": [],
+ "note": "Владелец: переделать, другие концепты/темы",
+ "decidedAt": "2026-10-26"
 }

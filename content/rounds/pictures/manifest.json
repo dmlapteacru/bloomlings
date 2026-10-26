@@ -12,9 +12,9 @@
    "h": 11,
    "N": 138,
    "colours": 3,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0001",
-   "note": null,
+   "note": "Владелец: переделать, другие концепты/темы",
    "usedBy": null
   },
   {
@@ -28,9 +28,9 @@
    "h": 16,
    "N": 240,
    "colours": 4,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0001",
-   "note": null,
+   "note": "Владелец: переделать, другие концепты/темы",
    "usedBy": null
   },
   {
@@ -44,9 +44,9 @@
    "h": 17,
    "N": 281,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0001",
-   "note": null,
+   "note": "Владелец: переделать, другие концепты/темы",
    "usedBy": null
   },
   {
