@@ -104,6 +104,8 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
   const P=base.pods.length,recipes=(arg('--recipes')||(fixed?'none':['none','links','hidden','links+hidden',...(hasBridge?['bridge','bridge+links']:[])].join(','))).split(',').filter(x=>x.split('+').every(t=>t==='none'||SUPPORTED.has(t)));
   for(const cls of fixed?['Normal']:classes)for(const recipe of recipes){if(fixed&&recipe!=='none')continue;
    for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'?[false,true]:[false]){
+    // resumable: a combination already searched (bank.searched) is skipped; the bank is saved after each one
+    const combo=`${cls}|${recipe}|${intro?'intro':''}`;bank.searched=bank.searched||[];if(bank.searched.some(x=>x.combo===combo)){console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
     let tried=0,found=0;const reasons={};
     for(let k=0;k<budgetN&&found<2;k++){tried++;const cols=fixed?3:columnsFor(m.N)[k%columnsFor(m.N).length];
      const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+recipes.indexOf(recipe)*131+(intro?17:0),intro);
@@ -122,6 +124,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
       linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
      found++;}
     console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');}}
+    bank.searched.push({combo,tried,found,reasons});writeJSON(bankFile,bank);
   writeJSON(bankFile,bank);}}
 
 // ---- place: calendar positions from the bank, with the variety rules of §11 and the windows of §2/§13 ----
