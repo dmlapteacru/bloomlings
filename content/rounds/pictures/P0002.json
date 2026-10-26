@@ -1,37 +1,44 @@
 {
  "id": "P0002",
  "seq": 2,
- "version": 2,
- "title": "Долька арбуза",
- "theme": "food",
+ "version": 3,
+ "title": "Божья коровка 2C",
+ "theme": "animals",
  "forLevel": 2,
- "w": 25,
- "h": 13,
+ "w": 17,
+ "h": 20,
  "rows": [
-  "GGGGRRRRRRRRRRRRRRRRRCGGG",
-  "GGGGRRRRRRRRRRRRRRRRRCGGG",
-  "GGGGRRRRRRRRRRRRRRRRRCGGG",
-  ".GGGRRRRDRRRRRRRDRRRRCGG.",
-  ".GGGGRRRRRRRRRRRRRRRCGGG.",
-  ".GGGGCRRRRRRRRRRRRRCGGGG.",
-  "..GGGCRRRRDRRRDRRRRCGGG..",
-  "...GGGCCRRRRRRRRRCCGGG...",
-  "...GGGGGCRRRRRRCCGGGGG...",
-  ".....GGGGGGCCCGGGGGG.....",
-  "......GGGGGGGGGGGGG......",
-  "........GGGGGGGGG........",
-  "........................."
+  "......DDDDD......",
+  ".....DCDDDCD.....",
+  "....DDCDDDCDD....",
+  "....DDDDDDDDD....",
+  "...RRDDDDDDDRR...",
+  "..RRRRDDDDDRRRR..",
+  "..RRDDRRDRRDDRR..",
+  "DDRDDDDRDRDDDDRDD",
+  ".RRDDDDRDRDDDDRR.",
+  ".RRRDDRRDRRDDRRR.",
+  ".RRRRRRRDRRRRRRR.",
+  ".RRRDDRRDRRDDRRR.",
+  "DDRDDDDRDRDDDDRDD",
+  ".RRRDDRRDRRDDRRR.",
+  "..RRRRRRDRRRRRR..",
+  "..RRRRRRDRRRRRR..",
+  "...RRRRRDRRRRRGGG",
+  ".....RRRRRRRGGGGG",
+  "........RGGGGGGG.",
+  ".........GGGG...."
  ],
  "N": 240,
  "colours": 4,
  "volumes": {
-  "G": 97,
+  "D": 97,
+  "C": 4,
   "R": 120,
-  "C": 19,
-  "D": 4
+  "G": 19
  },
- "status": "rejected",
- "batch": "batch-0001-v2",
+ "status": "approved",
+ "batch": "owner-0002-0003",
  "createdAt": "2026-10-26",
  "history": [
   {
@@ -57,8 +64,29 @@
     "GGGRRRRRRRRRGGG",
     "GGGGGRRRRRGGGGG"
    ]
+  },
+  {
+   "version": 2,
+   "title": "Долька арбуза",
+   "status": "rejected",
+   "note": "Владелец: переделать (2026-10-26)",
+   "rows": [
+    "GGGGRRRRRRRRRRRRRRRRRCGGG",
+    "GGGGRRRRRRRRRRRRRRRRRCGGG",
+    "GGGGRRRRRRRRRRRRRRRRRCGGG",
+    ".GGGRRRRDRRRRRRRDRRRRCGG.",
+    ".GGGGRRRRRRRRRRRRRRRCGGG.",
+    ".GGGGCRRRRRRRRRRRRRCGGGG.",
+    "..GGGCRRRRDRRRDRRRRCGGG..",
+    "...GGGCCRRRRRRRRRCCGGG...",
+    "...GGGGGCRRRRRRCCGGGGG...",
+    ".....GGGGGGCCCGGGGGG.....",
+    "......GGGGGGGGGGGGG......",
+    "........GGGGGGGGG........",
+    "........................."
+   ]
   }
  ],
- "note": "Владелец: переделать (2026-10-26)",
+ "note": null,
  "decidedAt": "2026-10-26"
 }
