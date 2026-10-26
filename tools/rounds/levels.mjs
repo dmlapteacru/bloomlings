@@ -100,10 +100,11 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+recipes.indexOf(recipe)*131+(intro?17:0),intro);
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
      const errs=checkPods(c.level.pods,m.volumes);if(errs.length){reasons['баланс']=(reasons['баланс']||0)+1;continue;}
-     const q=await quickShare(c.level,40);const target=intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,1],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
+     const tick=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{};const t0=Date.now();
+     const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,1],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
      if(q<target[0]-.15||q>target[1]+.15){reasons['не тот класс по быстрой оценке']=(reasons['не тот класс по быстрой оценке']||0)+1;continue;}
-     const sol=await solve(c.level);if(sol.win!==true||sol.replay!=='won'){reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']=(reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']||0)+1;continue;}
-     const rt=await randomTest(c.level);if(rt.cls==='too hard'){reasons['ниже 5 %']=(reasons['ниже 5 %']||0)+1;continue;}
+     const sol=await solve(c.level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won'){reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']=(reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']||0)+1;continue;}
+     const rt=await randomTest(c.level);tick('случайный тест '+rt.share);if(rt.cls==='too hard'){reasons['ниже 5 %']=(reasons['ниже 5 %']||0)+1;continue;}
      if(intro&&rt.share<.9){reasons['знакомство ниже 90 %']=(reasons['знакомство ниже 90 %']||0)+1;continue;}
      const dErr=dosesOk(c.level,rt.cls);if(dErr&&!intro){reasons['дозы не подходят фактическому классу: '+dErr]=(reasons['дозы не подходят фактическому классу: '+dErr]||0)+1;continue;}
      const fair=c.level.pods.some(p=>p.mystery)?await fairness(c.level,sol.route):{fair:true,checked:0};if(!fair.fair){reasons['честность скрытых не подтверждена']=(reasons['честность скрытых не подтверждена']||0)+1;continue;}

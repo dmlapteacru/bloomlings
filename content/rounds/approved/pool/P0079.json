@@ -1,0 +1,74 @@
+{
+ "code": "P0079",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Компас",
+ "theme": "batch-0061",
+ "family": "Багаж и навигация",
+ "subject": "круглый латунный компас с красно-белой стрелкой и петлёй крышки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 19,
+ "h": 24,
+ "N": 322,
+ "colours": 5,
+ "volumes": {
+  "N": {
+   "cells": 108,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 101,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 89,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 14,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 10,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........OOO........",
+  ".......OOOOO.......",
+  ".......O...O.......",
+  ".......O...O.......",
+  ".......OOOOO.......",
+  ".....YYYYYYYYY.....",
+  "....YYYYYYYYYYY....",
+  "..YYYYYOOOOOYYYYY..",
+  "..YYYOONNCNNOOYYY..",
+  ".YYYONNNNNNNNNOYYY.",
+  "YYYONNNNNNNNRRNOYYY",
+  "YYYONNNNNNNRRRNOYYO",
+  "YYONNNNNNNRRRNNNOOO",
+  "YYONNNNNNYRRNNNNOOO",
+  "YYOCNNNNYYYNNNNCOOO",
+  "YYONNNNCCYNNNNNNOOO",
+  "YYONNNCCCNNNNNNNOOO",
+  "YYYONCCCNNNNNNNOOOO",
+  "YYYONCCNNNNNNNNOOOO",
+  ".YYYONNNNNNNNNOOOO.",
+  "..YYYOONNCNNOOOOO..",
+  "..YYYYYOOOOOOOOOO..",
+  "....YYYOOOOOOOO....",
+  ".....YOOOOOOOO....."
+ ]
+}

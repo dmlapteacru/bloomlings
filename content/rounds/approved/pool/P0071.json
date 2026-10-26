@@ -1,0 +1,96 @@
+{
+ "code": "P0071",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Плюшевый мишка",
+ "theme": "batch-0061",
+ "family": "Игрушки и настольные игры",
+ "subject": "сидящий плюшевый мишка с галстуком-бабочкой и заплаткой на животе",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 40,
+ "N": 812,
+ "colours": 6,
+ "volumes": {
+  "A": {
+   "cells": 440,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 203,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 83,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 34,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 27,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 25,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".....AAA............AAA.....",
+  "....AAAAA..........AAAAA....",
+  "...AAACAAA.AAAAAA.AAACAAA...",
+  "...AACCCAAAAAAAAAAAACCCAA...",
+  "...AACCCCAAAAAAAAAACCCCAA...",
+  "...AAACCAAAAAAAAAAAACCAAE...",
+  "....AAAAAAAAAAAAAAAAAAEE....",
+  "......AAAAAAAAAAAAAAAA......",
+  ".....AAAAAAAAAAAAAAAAAE.....",
+  ".....AAAADAAAAAAAADAAAE.....",
+  ".....AAAADAAAAAAAADAAAE.....",
+  ".....AAAAAACCDDCCAAAAAE.....",
+  ".....AAAAACCDDDDCCAAAEE.....",
+  ".....AAAACCCCDDCCCCAAEE.....",
+  "......AAACCCCCDCCCCAEE......",
+  "......AAAACCCDCDCCAAEE......",
+  ".......AAAACCCCCCAAEE.......",
+  "........RRAAACCAAARR........",
+  "........RRRRADDARRRR........",
+  "..AAA...RRRRRDDRRRRR...AAA..",
+  ".AAAAA.ARRRRADDARRRRA.AAAAE.",
+  ".AAAAAAERRAAAAAAAARREAAAAAE.",
+  ".AAAAAAEAAAAACCAAAAAEAAAAAE.",
+  ".AAAAAAEAACCCCCCCCAAEAAAAAE.",
+  "AAAAAAAEACCCCCCCCCCAEAAAAAEE",
+  "AAAAAAAEACCCCCCCCCCAEAAAAAEE",
+  ".AAAAAAECCCCCCCCCCCCEAAAAAE.",
+  ".AAAAAAECCCCCCCCCCCCEAAAAAE.",
+  ".AAAAAAECCCCCDBBBBBDEAAAAEE.",
+  ".AAAAAEACCCCCCBBBBBCAEAAEEE.",
+  "..AAAEEACCCCCDBBBBBDAEEEEE..",
+  "....EEAACCCCCCBBBBBCAAEE....",
+  "....AAAAACCCCDBBBBBDAAAA....",
+  "..AAAAAAACCCCCCCCCCAAAAAAA..",
+  ".AAACCCAAACCCCCCCCAAACCCAAE.",
+  ".AACCCCCAAAAACCAAAAACCCCCAE.",
+  ".AACCCCCAAAAAAAAAAAACCCCCAE.",
+  ".AACCCCCAEEAAAEEEAAACCCCCEE.",
+  "..AACCCAEE........AAACCCEE..",
+  "....EEEE............EEEE...."
+ ]
+}

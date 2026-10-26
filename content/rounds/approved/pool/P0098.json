@@ -1,0 +1,89 @@
+{
+ "code": "P0098",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Луна на бельевой верёвке",
+ "theme": "batch-0061",
+ "family": "Времена года и погода",
+ "direction": "Уютный сюрреализм",
+ "subject": "месяц на прищепках рядом с носком и звездой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 27,
+ "N": 972,
+ "colours": 7,
+ "volumes": {
+  "N": {
+   "cells": 543,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 124,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 118,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 96,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 37,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 30,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 24,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "AAAANNNNNNNYNNNNNNNNNNNNNNNNNNNNAAAA",
+  "AAAANNNNNNYYYNNNNNNNNNNNNNNNNNNNAAAA",
+  "NAANNNNNNNNYNNNNNNNNNNNNNNNNNNNNNAAN",
+  "NAACCNNNNNNNNNNNNNNNNNNNNNNNNNNCCAAN",
+  "NAANNCAACCCNNNNNNNNNNNNNNCCCCCCNNAAN",
+  "NAANNNAANNNCCCCCCCCAACCCCNAANNNNNAAN",
+  "NAANNCCCCNNNNNNNNNNAANNNNNAANNNNNAAN",
+  "NAANNRRRRNNNNNYYYYNNNNNNNNYYNNNNNAAN",
+  "NAANNRRRRNNNYYYYYNNNNNNNNNYYNNNNNAAN",
+  "NAANNRRRRNNOYYYYNNNNNNNNNYYYYNNNNAAN",
+  "NAANNRRRRNNYYYYNNNNNNNYYYYYYYYYYNAAN",
+  "NARRRRRRRNOYYYYNNNNNNNNYYYYYYYYNNAAN",
+  "NARRRRRRRNOYYYYNNNNNNNNNYYYYYYNNNAAN",
+  "NARRRRRRRNOYYYNNNNNNNNNNYYYYYYNNNAAN",
+  "NAANNNNNNNOAYAYNNNNNNNNYYYNNYYYNNAAN",
+  "NAANNNNNNNOYAYYNNNNNNNNYYNNNNYYNNAAN",
+  "NAANNNNNNNOYYYYNNNNNNNNNNNNNNNNNNAAN",
+  "NAANNNNNNNOOYYYYNNNNNNNNNNNNNNNNNAAN",
+  "NAANNYNNNNNOOYYYYNNNNNNNNNNNNNNNNAAN",
+  "NAANYYYNNNNOOOYYYYNNNNNNNNNNNNNNNAAN",
+  "NAANNYNNNNNNOOOYYYYYYNNNNNYNNNNNNAAN",
+  "NAANNNNNNNNNNNOOOOOOONNNNYYYNNNNNAAN",
+  "NAANNNNNNNNNNNNNNNNNNNNNNNYNNNNNNAAN",
+  "MAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMAAM",
+  "MAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMAAM",
+  "MAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMAAM"
+ ]
+}

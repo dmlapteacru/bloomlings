@@ -110,7 +110,9 @@ the supported three.
    - Theme variety (`product/design/Bloomlings-picture-theme-catalog.md` §7, soft): in any 20 levels at least 8 families and 4 directions once the pool is
      large enough, one family at most twice in a row, one subject not again within 20, no run of the same container.
      Pictures carry `family` / `direction`; the tool does not enforce this yet, so check the placed run and swap free
-     pool pictures of the same class and stage when a run breaks it.
+     pool pictures of the same class and stage when a run breaks it. The same holds for motifs (`pictures.mjs motifs`:
+     fish, robots, cups …): one motif at most once in any 10 levels. Build only a varied set of pictures for a range, so
+     place cannot pick three fish in a row.
    - Watch for: a dull or overloaded finish (launches after 80 % W should be 1–4, up to 6 on a long Super Hard; last
      launch at about 80–92 % W), empty waiting, and Hard or Super Hard won by all simple strategies (check the
      marking).

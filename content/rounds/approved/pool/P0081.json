@@ -1,0 +1,90 @@
+{
+ "code": "P0081",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Барабан",
+ "theme": "batch-0061",
+ "family": "Музыка",
+ "subject": "маршевый барабан с зигзагом шнура и двумя скрещёнными палочками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 34,
+ "N": 734,
+ "colours": 6,
+ "volumes": {
+  "R": {
+   "cells": 252,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 182,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 78,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 72,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 40,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...RR....................RR...",
+  "..RRRR..................RRRR..",
+  "..RRRR..................RRRR..",
+  "..RRRAAA..............AAARRR..",
+  "......AAAA..........AAAA......",
+  "........AAAA......AAAA........",
+  "..........AAAA..AAAA..........",
+  "............AAAAAA............",
+  "............AAAAAA............",
+  "..........AAAARRAAAA..........",
+  "....RRRRAAAARRRRRRAAAARRRR....",
+  ".RRRRCAAAACCCCCCCCCCAAAACRRRR.",
+  "RRCCCAAACCCCCCCCCCCCCCAAACCCRR",
+  "RRCCCCCCCCCCCCCCCCCCCCCCCCCCRR",
+  "RRRRRCCCCCCCCCCCCCCCCCCCCRRRRR",
+  "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+  "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+  ".BRRRRRRRRRRRRRRRRRRRRRRRRRRN.",
+  ".BBBBBRRRRRRRRRRRRRRRRRRNNNNN.",
+  ".BBBBBYYBBBBBBYYBBBBBBYYNNNNN.",
+  ".BBBBBYYBBBBBBYYBBBBBBYYNNNNN.",
+  ".BBBBYYYYBBBBYYYYBBBBYYYYNNNN.",
+  ".BBBBYYYYBBBBYYYYBBBBYYYYNNNN.",
+  ".BBBBYBBYBBBBYBBYBBBBYBBYNNNN.",
+  ".YBBYYBBYYBBYYBBYYBBYYBBYYNNY.",
+  ".YBBYBBBBYBBYBBBBYBBYBBBNYNNY.",
+  ".YYYYBBBBYYYYBBBBYYYYBBBNYYYY.",
+  ".YYYYBBBBYYYYBBBBYYYYBBBNYYYY.",
+  "RBYYBBBBBBYYBBBBBBYYBBBBNNYYNR",
+  "RRRYBBBBBBYYBBBBBBYYBBBBNNYRRR",
+  "RRRRRRRBBBBBBBBBBBBBBBBRRRRRRR",
+  ".RRRRRRRRRRRRRRRRRRRRRRRRRRRR.",
+  "....RRRRRRRRRRRRRRRRRRRRRR....",
+  "...........RRRRRRRR..........."
+ ]
+}

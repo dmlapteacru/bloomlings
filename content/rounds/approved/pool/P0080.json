@@ -1,0 +1,97 @@
+{
+ "code": "P0080",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кот за клавиатурой",
+ "theme": "batch-0061",
+ "family": "Мемные животные и бытовые ситуации",
+ "subject": "кот за клавиатурой у монитора, сосредоточенный, лапы на клавишах",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 31,
+ "N": 889,
+ "colours": 8,
+ "volumes": {
+  "O": {
+   "cells": 303,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 159,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 144,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 120,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 69,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 59,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 22,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 13,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..................O..............O......",
+  "...........DDD....OO............OO......",
+  "....DDDDDDDDDD....OOO..........OOO......",
+  ".DDDDDDDDBBBBD....OOPOO.OOOO.OOPOO......",
+  ".DDBBBBBBBBBBD....OPPPOOOEEOOOPPPO......",
+  ".DBBBBBBBBBBBD....OOOOEOOEEOOEOOOO......",
+  ".DBBBBBBBBBBBD....OOOOOOOOOOOOOOOO......",
+  ".DBSSSSSSSSSBD....OOEEOOOOOOOOEEOO......",
+  ".DBBBBBBBBBBBD...OOOOOEOOOOOOEOOOOO.....",
+  ".DBBBBBBBBBBBD...OOODDCOOOOOODDCOOO.....",
+  ".DBBSSSSSSBBBD...OOODDDOOOOOODDDOOO.....",
+  ".DBBBBBBBBBBBD...OOOOOOOCCCCOOOOOOO.....",
+  ".DBBBBBBBBBBBD...OOOOOCCCPPCCCOOOOO.....",
+  ".DBSSSSSSSSSBD....OOOOCCCDDCCCOOOO..OO..",
+  ".DBBBBBBBBBBBD.....OOOOCDPPDCOOOO...OO..",
+  ".DBBBBBBBBBBBD....OOOOOOCPCCOOOOOO..OOO.",
+  ".DBBSSSSBBBBBD...OOOOOOOOOOOOOOOOOO.OOO.",
+  ".DBBBBBBBBBBBD...OOOOOOCCCCCCOOOOOO..OO.",
+  ".DBBBBBBBBBBBD..OEOOOOCCCCCCCCOOOOEO.OOO",
+  ".DDDDDDDDBBBBD..OEOOOOCCCCCCCCOOOOEO.OOO",
+  "....DDDDDDDDDD..OOEOOOCCCCCCCCOOOEOO.OO.",
+  "......DD...DDD..OOOOOOCCCCCCCCOOOOOOOOO.",
+  "......DD........OOOOOOCCCCCCCCOOOOOOOOO.",
+  "......DD.......DDDDOOOODDDDDDDDOOOODDDO.",
+  "......DD.......DSSOOOOOODSSDSSOOOOOODD..",
+  "......DD.......DDSOEOOEOSDSSDSOEOOEOSD..",
+  "...DDDDDDDD....DSSDSSSSSSSSSSSSSSSDSSD..",
+  "...............DDDDDDDDDDDDDDDDDDDDDDD..",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

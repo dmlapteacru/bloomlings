@@ -1,0 +1,96 @@
+{
+ "code": "P0102",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Билл Шифр",
+ "theme": "batch-0061",
+ "family": "Волшебные существа",
+ "subject": "жёлтый треугольник с глазом, цилиндром и бабочкой",
+ "source": "сторонняя вселенная",
+ "reference": "Гравити Фолз — Bill Cipher",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 44,
+ "N": 754,
+ "colours": 5,
+ "volumes": {
+  "D": {
+   "cells": 324,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 210,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 96,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 80,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "................DDDDDDDD................",
+  "................DDDDDDDD................",
+  "................DDDDDDDD................",
+  "................DDDDDDDD................",
+  "................DDDDDDDD................",
+  "................DDDDDDDD................",
+  ".............DDDDDDDDDDDDDD.............",
+  ".............DDDDDDDDDDDDDD.............",
+  "...................DD...................",
+  "..................DYYD..................",
+  ".................DYYYYD.................",
+  ".................DYYYYD.................",
+  "................DYYYYYYD................",
+  "................DYYYYYYD................",
+  "...............DYYYYYYYYD...............",
+  "..............DYYYYYYYYYYD..............",
+  "..............DYYYYYYYYYYD..............",
+  "..DD.........DYYYYYYYYYYYYD.........DD..",
+  ".DDDD........DYYYYYYYYYYYYD........DDDD.",
+  "..DDD.......DYYYDDDDDDDDYYYD.......DDD..",
+  "...DDD.....DYYYDDCCDDCCDDYYYD.....DDD...",
+  "....DDD....DYYDCCCCDDCCCCDYYD....DDD....",
+  "......DDD.DYYDCCCCCDDCCCCCDYYD.DDD......",
+  ".......DDDDYYDCCCCCDDCCCCCDYYDDDD.......",
+  "........DDYYYYDCCCCDDCCCCDYYYYDD........",
+  "........DYYYYYYDDCCDDCCDDYYYYYYD........",
+  "........DYYYYYYYDDDDDDDDYYYYYYYD........",
+  ".......DYYYYYYYYYYYYYYYYYYYYYYYYD.......",
+  ".......DYYYYYYDYYYYYYYYYYDYYYYYYD.......",
+  "......DYYYYYYYDDDDYDDYDDDDYYYYYYYD......",
+  ".....DYYYYYYYYDDDDDDDDDDDDYYYYYYYYD.....",
+  ".....DAAAAAAAADDDDADDADDDDAAAAAAAAD.....",
+  "....DOOOAOOOAODOAOOOAOOOADOOAOOOAOOD....",
+  "....DOOOAOOOAOOOAOOOAOOOAOOOAOOOAOOD....",
+  "...DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD...",
+  "..DOOOAOOOAOOOAOOOAOOOAOOOAOOOAOOOAOOD..",
+  "..DOOOAOOOAOOOAOOOAOOOAOOOAOOOAOOOAOOD..",
+  "...DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "..............DD........DD..............",
+  ".............DD..........DD.............",
+  ".............DD..........DD.............",
+  "..........DDDDD..........DDDDD..........",
+  "..........DDDDD..........DDDDD..........",
+  "........................................"
+ ]
+}

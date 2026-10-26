@@ -1,0 +1,90 @@
+{
+ "code": "P0078",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Самолётик",
+ "theme": "batch-0061",
+ "family": "Воздушный транспорт",
+ "subject": "маленький винтовой самолёт с пилотом в кабине среди облаков",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 29,
+ "N": 899,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 472,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 139,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 134,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 86,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 44,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 15,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 9,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSCCCSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSCCCCCSCC",
+  "SSSSSSSSSSSSSSSSSSSCCCSCCCCCCCC",
+  "SSSSSSSSSSSSSSSSSSCCCCCCCCCCCCC",
+  "SSSSSSSSSSSSSSSSSCCCCCCCCCCCCCC",
+  "SSSSSSSSSSSSSSSSSCCCCCCCCCCCCCC",
+  "SSSSSSSSSSSSSSSSSSCCCCCCCCCCCCS",
+  "SSRRSSSSSSSSSSSAAAASSSSSSSSSSSS",
+  "SSRRRSSSSSSSSSAAAAAASSSSSSSSSSS",
+  "SSRRRRSSSSSSSSAADDCDSSSSSSSDDSS",
+  "SSRRRRRSSSSSSSAAKKKKSSSSSSSDDSS",
+  "SSRRRRRRSSSCCCAKKKKKSSSSSSSDDSS",
+  "SSRRRRRRRRCCRDDDDDDDDRRRRSSDDSS",
+  "SSSRRRRRRRRRRRRRRRRRRRRRRYSDDSS",
+  "SSSSRRRRRRRRRRRRRRRRRRRRRYYDDSS",
+  "SSSSSRRRRRRRRRRRRRRRRRRRRYYDDSS",
+  "SYYYYYYYRRRRRRRRRRRRRRRRRYYDDSS",
+  "SYYYYYYRRRRRYYYYYYYYYYRRRYYDDSS",
+  "SSSYYYSSRRRYYYYYYYYYYRRRRYSDDSS",
+  "SSSSSSSSSRYYYYYYYYYYRRRRRSSDDSS",
+  "SSSSSSSSSYYYYYYYYYYSSSSDSSSDDSS",
+  "SSSSSSSSYYYYYYYYYYSSSSDDDSSDDSS",
+  "SSCCSSSYYYYYYYYYYSSSSSDDDSSSSSS",
+  "SCCCCSCCCSSSSSSSSSSSSSSSSSSSSSS",
+  "CCCCCCCCCCCSSSSSSSSSSSSSSSSSSSS",
+  "CCCCCCCCCCCCCSSSSSSSSSSSSSSSSSS",
+  "CCCCCCCCCCCCCCSSSSSSSSSSSSSSSSS",
+  "SCCCCCCCCCCCCSSSSSSSSSSSSSSSSSS"
+ ]
+}

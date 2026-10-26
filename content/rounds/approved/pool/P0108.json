@@ -1,0 +1,104 @@
+{
+ "code": "P0108",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "ВАЛЛ-И",
+ "theme": "batch-0061",
+ "family": "Роботы и механизмы",
+ "subject": "квадратный жёлтый робот с глазами-биноклем на шее, гусеницами и руками, держит маленький росток",
+ "source": "сторонняя вселенная",
+ "reference": "ВАЛЛ-И — WALL-E",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 37,
+ "N": 914,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 295,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 200,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 114,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 100,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 68,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 61,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 46,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 30,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".......CC......................CC.......",
+  ".......CCCCCCCCCC......CCCCCCCCCC.......",
+  ".......CDDDDNNDDDDC..CDDDDNNDDDDC.......",
+  ".......CDDDNCNNDDDC..CDDDCNNNDDDC.......",
+  ".......CDDDNNNNDDDC..CDDDNNNNDDDC.......",
+  ".......CDDDNNNNDDDC..CDDDNNNNDDDC.......",
+  ".......CDDDDNNDDDDC..CDDDDNNDDDDC.......",
+  ".......CCCCCCCCCCCAAAACCCCCCCCCCC.......",
+  "..................AAAA..................",
+  "...................DD...................",
+  "...................DD...................",
+  "...................DD...................",
+  "...................DD...................",
+  "........YYYYYYYYYYYYYYYYYYYYYOOO........",
+  "........OOOOOOOOOOOOOOOOOOOOOOOO........",
+  "........YYYYYYYYYYYYYYYYYYYYYOOO........",
+  "........YDDDDDDYYYYYYYYYYYYYYOOO........",
+  "........YDYYYDDYYYYYYYYYYYYYYOOO........",
+  "........YYYYYYGGGGGYYGGGGGYYYOOO........",
+  "EEEEEEEEYYYYYGGGGGGGGGGGGGGYYOOOEEEEEEEE",
+  "DDDDDDAAAYYYYYGGGGGGGGGGGGYYYOOAAADDDDDD",
+  "DDDDDDAAAAYYYYYYYYYGGYYYYYYYYOAAAADDDDDD",
+  "EEEEEEAAAAAAYYYYYYYGGYYYYYYYAAAAAAEEEEEE",
+  "DDDDDDDDYAAAAAYYYYYGGYYYYYAAAAAODDDDDDDD",
+  "DDDDDDDDYYYAAADDDYYGGYYDDDAAAOOODDDDDDDD",
+  "EEEEEEEEYYYYYADDDEEGGEEDDDAYYOOOEEEEEEEE",
+  "DDDDDDDDYYYYYYDDDEEEEEEDDDYYYOOODDDDDDDD",
+  "DDDDDDDDYYYYYYYYEEEEEEEEYYYYYOOODDDDDDDD",
+  "EEEEEEEEYYYYYYYYYYYYYYYYYYYYYOOOEEEEEEEE",
+  "DDDDDDDDAAAAAAAAAAAAAAAAAAAAAAAADDDDDDDD",
+  "DDDDDDDDAAAAAAAAAAAAAAAAAAAAAAAADDDDDDDD",
+  "EEEEEEEEE......................EEEEEEEEE",
+  "DDDDDDDDD......................DDDDDDDDD",
+  "DDDDDDDDD......................DDDDDDDDD",
+  "EEEEEEEEE......................EEEEEEEEE",
+  "DDDDDDDDD......................DDDDDDDDD",
+  "DDDDDDDDD......................DDDDDDDDD"
+ ]
+}

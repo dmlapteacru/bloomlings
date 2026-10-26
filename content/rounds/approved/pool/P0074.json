@@ -1,0 +1,86 @@
+{
+ "code": "P0074",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фонтан в парке",
+ "theme": "batch-0061",
+ "family": "Городские пространства",
+ "subject": "круглый каменный фонтан со струями воды, газон и два куста вокруг",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 346,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 165,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 130,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 114,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "M": {
+   "cells": 74,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 71,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSBBBBSBBSBBBBSSSSSSSSS",
+  "SSSSSSSSBBSSBBBBBBSSBBSSSSSSSS",
+  "SSSSSSSSBSSSSBBBBSSSSBSSSSSSSS",
+  "SSSSSSSBBSSSSBBBBSSSSBBSSSSSSS",
+  "SSSSSSSBSSSSSSBBSSSSSSBSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSCBBBBBBBBBBBBASSSSSSSS",
+  "SSSSSSSSCCCCCCCCCCCCAASSSSSSSS",
+  "SSSSSSSSSACCCCCCCCAAASSSSSSSSS",
+  "MMMMMSSSSSSSAAAAAASSSSSSSMMMMM",
+  "MMMMMGBGGGGGGCCAAGGGGGGBGMMMMM",
+  "MMMMMMBGGGGGGCCAAGGGGGGBMMMMMM",
+  "MMMMMBBGGGGGGCCAAGGGGGGBBMMMMM",
+  "MMMMMBMGGGGCCCCAACCGGGGMBMMMMM",
+  "MMMMBBCCCCCCCCCAACCCCCCCBBMMMM",
+  "MMCCBBBBBBBBBCCAABBBBBBBBBCCMM",
+  "MMCCBBBBBBBBBBBBBBBBBBBBBBCCMM",
+  "GMMCCCCCCCCCCCCCCCCCCCCCCCCMMG",
+  "GGACCCCACCCCCCCCCCCCCCACCCCAGG",
+  "GGACCCCACCCCACCCCACCCCACCCCAGG",
+  "GGACCCCACCCCACCCCACCCCACCCCAGG",
+  "GGACCCCACCCCACCCCACCCCACCCCAGG",
+  "GGGAAAAAAAAAAAAAAAAAAAAAAAAGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

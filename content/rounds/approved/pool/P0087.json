@@ -1,0 +1,98 @@
+{
+ "code": "P0087",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Водолаз",
+ "theme": "batch-0061",
+ "family": "Подводные экспедиции",
+ "subject": "водолаз в круглом латунном шлеме на морском дне с сундучком и пузырями",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 33,
+ "N": 1056,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 504,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 146,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 115,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 95,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 80,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 44,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 37,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "S": {
+   "cells": 35,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "BBBBSSBBBBBBBBBBBBBBDDBBSSBBBBBB",
+  "BBBBSSBBBBBBBBBBBBBDDBBBBBBBBBBB",
+  "BBBBBBBSBBBBBBBBBBBDDBBBBBSSSBBB",
+  "BBBBBBSSSBBBOOBBBBDDDBBBBBSSSBBB",
+  "BBBBBBBSBBOOOOOOBDDDBBBBBBBBBBBB",
+  "BBBBBBBBBOYYOOOOODDBBBBBBBBBBBBB",
+  "BBBBBBBBOODDDDOOOOBBBBBBSSBBBBBB",
+  "BBBBBBBBOODSSSDOOOBBBBBBSSBBBBBB",
+  "BBBBBBBBODSSSSDOOOBBBBBBBBBBBBBB",
+  "BBBBBBBBODSSSSDOOOBBBBBBBBBBBBBB",
+  "BBBBBBBBOODSSSDOOOBBBBBBBBBBBBBB",
+  "BBBBBBBBBODDDDOOOBBBBBBBBBBBBBBB",
+  "BBBBBBBOOOOOOOOOOOOBBBBBBBBBBBBB",
+  "BBBBBBBOODDDDDDDDOOBBBBBBBBBBBBB",
+  "BBBBBBBOYOOOOOOOOYOBBBBBBBBBBBBB",
+  "BBBBBBBOOOOOOOOOOOOBBBBBBBBBBBBB",
+  "BBBBBBBCCCCCCCCCCCCBBBBBBBBBBBBB",
+  "BGGBGBCCCCCCCCCCCCCCBBBBBBBBBBBB",
+  "BGGBGBCCCCCCCCCCCCCCBBBBBBBBBBBB",
+  "BBGBGCCCCCCCCCCCCCCCCBBBBAAAAAAA",
+  "BBGBCCCCBCCCCCCCCBCCCCBBAAAAAAAA",
+  "BBGGDDCBBDDDDDDDDBBCDDBBAYYYYYAA",
+  "BBGGDDCBBCCCCBCCCCBCDDBBYYYYYYYB",
+  "BBGBDDBBBCCCBBCCCCBBDDBBAAAAAAAB",
+  "BGGBGBBBCCCCBBCCCCBBBBBBDDDYYDDD",
+  "BGGGGBBBCCCCBBBCCCBBBBBBAAAYYAAB",
+  "BGGGGBBBCCCCBBBCCCCBBBBBAAAAAAAB",
+  "BGGBGBDDDDDBBBBCDDDDYYYYAAAAAAAB",
+  "BGGBGBDDDDDBBBBDDDDDDYYYYYYYYYYY",
+  "YYGYGGDDDDDYYYYDDDDDDYYYYYYYYYYY",
+  "YYGYGGYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+ ]
+}

@@ -1,0 +1,95 @@
+{
+ "code": "P0106",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Майк Вазовски",
+ "theme": "batch-0061",
+ "family": "Волшебные существа",
+ "subject": "круглый зелёный одноглазый монстр с маленькими рожками, широкой улыбкой, тонкими руками и ногами",
+ "source": "сторонняя вселенная",
+ "reference": "Корпорация монстров — Mike Wazowski",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 38,
+ "N": 735,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 405,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 125,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 108,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 44,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 43,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 10,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..........C..............C..........",
+  "..........CC............CC..........",
+  "..........CCC..GGGGGG..CCC..........",
+  "..........CCGGGGGGGGGGGGCC..........",
+  "..........GGGGGGCCCCGGGGGG..........",
+  ".........GGGGGCCCCCCCCGGGGG.........",
+  "........GGGGGCCCCCCCCCCGGGGG........",
+  ".......GGGGGCCCCBBBBCCCCGGGGM.......",
+  "......GGGGGCCCCBBBBBBCCCCGGGGM......",
+  "......GGGGGCCCBBCCDBBBCCCGGGGM......",
+  ".....GGGGGGCCCBBCDDDBBCCCGGGGMM.....",
+  ".....GGGGGGCCCBBDDDDBBCCCGGGGGM.....",
+  ".....GGGGGGCCCBBDDDDBBCCCGGGGGM.....",
+  "....GGGGGGGCCCBBBDDBBBCCCGGGGGMM....",
+  "....GGGGGGGCCCCBBBBBBCCCCGGGGGMM....",
+  "....GGGGGGGGCCCCBBBBCCCCGGGGGGMM....",
+  "....GGGGGGGGGCCCCCCCCCCGGGGGGGMM....",
+  "....GGGGGGGGGGCCCCCCCCGGGGGGGGMM....",
+  "....GGGGGGGGGGGGCCCCGGGGGGGGGMMM....",
+  "....GGGGGGGGGGGGGGGGGGGGGGGGGMMG....",
+  "....GGGGGGGGGGGGGGGGGGGGGGGGMMMG....",
+  "...GGGGGGDDGGGGGGGGGGGGGGDDGMMMGG...",
+  "...GG.GGGGDDDGGGGGGGGGGDDDGMMM.GG...",
+  "..GGG.GGGGGDDDDPPPPPPDDDDGMMMM.GGG..",
+  "..GG...GGGGGDDDDPPPPDDDDGMMMM...GG..",
+  ".GGG....GGGGGGGGDDDDGGGGMMMM....GGG.",
+  "GGG......MGGGGGGGGGGGGMMMMM......GGG",
+  "GGG.......MMMGGGGGGGMMMMMM......GGGG",
+  "GGG........GMMMMMMMMMMMMG........GGG",
+  "...........GGG.MMMMMM.GGG...........",
+  "...........GGG........GGG...........",
+  "...........GGG........GGG...........",
+  "...........GG..........GG...........",
+  "...........GG..........GG...........",
+  "...........GG..........GG...........",
+  "........MMMMMM........MMMMMM........",
+  "........MMMMMM........MMMMMM........",
+  ".........MMMM..........MMMM........."
+ ]
+}

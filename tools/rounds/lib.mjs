@@ -58,7 +58,8 @@ export function slotOf(n){const intro=INTRO.find(([,a,b])=>n===a||n===b);
 // cell below it, on the near bank). Level rows are bottom first, as the pilot engine reads them.
 export function boardOf(pic){const w=pic.w+4,h=pic.h+4,top=[];
  const wall='#'.repeat(w),ring='#'+'.'.repeat(w-2)+'#';top.push(wall,ring);
- for(const r of pic.rows)top.push('#.'+r.replace(/b/g,'#')+'.#');
+ // a stream row (only '#' and 'b' across the whole width) closes the open ring too, so the far bank needs a bridge
+ for(const r of pic.rows){const e=/^[#b]+$/.test(r)?'#':'.';top.push('#'+e+r.replace(/b/g,'#')+e+'#');}
  const mid=Math.floor(w/2);top.push(ring,wall.slice(0,mid)+'.'+wall.slice(mid+1));
  const rowsBottomFirst=top.slice().reverse(),choices=[];
  pic.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++)if(r[x]==='b'){const by=h-1-(y+2),bx=x+2,cell=by*w+bx,anchor=cell-w;choices.push({cell,anchor,label:bx<w/2?'Левый мостик':'Правый мостик'});}});

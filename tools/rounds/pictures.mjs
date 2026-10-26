@@ -15,6 +15,8 @@
 // node tools/rounds/pictures.mjs tag <ids…> [--family …] [--direction …] [--device …] [--subject …] [--source …] [--reference …]
 //   set a picture's theme catalog tags (metadata only, the matrix stays)
 // node tools/rounds/pictures.mjs status [--free|--used]   approved pictures by code: free, or the level that uses them
+// node tools/rounds/pictures.mjs motifs [--status approved] [--max 3]   recurring motifs (fish, lighthouse, watering a
+//   flower …) in titles and subjects, main or secondary; a motif at --max or more is not drawn again unless the owner asks
 // node tools/rounds/pictures.mjs verify <batch.mjs> [--cells a-b] [--colours a-b] [--target n] [--level n] [--out <png>]
 //   count and check a module's matrices without recording them (skill bloomlings-board-picture), sheet from the matrices
 // A batch module: export default {theme, pictures:[{title, theme?, forLevel?, family, direction?, device?, subject?, source?,
@@ -22,6 +24,15 @@
 // palette letters GPBACDVYOLMRKNSE, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it.
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
 import {usage,FIXED_VOLUMES,APPROVED,PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag} from './lib.mjs';
+// recurring motifs for the repeat guard (the owner, 2026-10-26: "не сильно повторяться, а то уже сколько рыб"): main or
+// secondary, matched in a picture's title and subject
+const E='(?![а-яё])';const re=x=>new RegExp(x.replace(/\$/g,E));
+const MOTIFS=[['рыбы',re('рыб(?!ак)|кит$|клоун')],['подводный мир',re('под вод|подвод|батискаф|водолаз|осьминог|аквариум|губка боб')],['маяки',re('маяк')],['космонавты и ракеты',re('космонавт|астероид|ракет|инопланет')],
+ ['полив цветка',re('полива|лейк')],['роботы',re('робот|валл|бимо')],['чайники',re('чайник')],['чашки и кружки',re('чашк|кружк|какао')],['совы',re('сов[аыу]$')],['пингвины',re('пингвин')],
+ ['кошки',re('(^| )(кот|кота|котик|котёнок)$|кошк')],['собаки',re('щен|собак')],['лисы',re('(^| )лис[аиёы]?$|лисён')],['медведи',re('медвед|мишк|тоторо')],['драконы',re('дракон')],['динозавры',re('динозавр')],
+ ['привидения и духи',re('привиден|дух$')],['единороги',re('единорог')],['лампы и фонари',re('лампа|лампочк|фонар')],['книги',re('книг')],['ретро-техника',re('ретро|автомат|фотоаппарат|телефон|радио|проигрыват')],
+ ['инструменты музыки',re('гитар|барабан|пластинк')],['торты и пончики',re('торт|пончик|капкейк')],['печенье и выпечка',re('печень|круассан|выпечк')],['сундуки',re('сундук')],['зонты',re('зонт')],
+ ['воздушные шары',re('воздушн[а-яё]* шар')],['корабли и лодки',re('корабл|лодк|парусник')],['облака с лицом',re('облако спит|облачко')],['цветок в горшке',re('в горшке|горшок')],['домики-сказки',re('домик|дом в|дом на')]];
 const cmd=process.argv[2];
 const idsFrom=args=>{const m=manifest(),st=arg('--status');let ids=args.filter((a,i)=>/^P?\d+$/.test(a)&&!(args[i-1]||'').startsWith('--')).map(a=>a.startsWith('P')?a:pid(+a));
  if(!ids.length&&st)ids=m.pictures.filter(p=>p.status===st).map(p=>p.id);if(!ids.length)ids=m.pictures.map(p=>p.id);return ids;};
@@ -50,8 +61,9 @@ function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(
  for(const [c,v] of Object.entries(m.volumes))if(v<3)warn.push(`цвет ${c} (${PALETTE[c].name}): ${v} кл. — очень маленькая деталь`);
  if(p.w+4>48||p.h+4>48)issues.push('поле с рамкой больше 48×48');
  // every coloured cell can be opened: it is joined to the frame through cells that are not walls
- const W=p.w+2,H=p.h+2,cell=(x,y)=>x<1||y<1||x>p.w||y>p.h?'.':p.rows[y-1][x-1],seen=new Set(['0,0']),q=[[0,0]];
- while(q.length){const [x,y]=q.pop();for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=W||v>=H||seen.has(u+','+v))continue;const c=cell(u,v);if(c==='#'||c==='b')continue;seen.add(u+','+v);q.push([u,v]);}}
+ // a stream row across the whole width closes the ring too (boardOf); a bridge site counts as passable, since one is built
+ const W=p.w+2,H=p.h+2,stream=y=>y>=1&&y<=p.h&&/^[#b]+$/.test(p.rows[y-1]),cell=(x,y)=>x<1||y<1||x>p.w||y>p.h?(stream(y)?'#':'.'):p.rows[y-1][x-1],start=(p.h+1)+'',seen=new Set(['0,'+start]),q=[[0,p.h+1]];
+ while(q.length){const [x,y]=q.pop();for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=W||v>=H||seen.has(u+','+v))continue;const c=cell(u,v);if(c==='#')continue;seen.add(u+','+v);q.push([u,v]);}}
  let shut=0;for(let y=1;y<=p.h;y++)for(let x=1;x<=p.w;x++)if(CODES.includes(cell(x,y))&&!seen.has(x+','+y))shut++;if(shut)issues.push(`${shut} цветных клеток отрезаны стенами`);
  const sites=p.rows.join('').split('b').length-1;if(sites&&sites!==2)issues.push(`мест моста ${sites}, нужно ровно 2`);
  return {id:p.id,seq:p.seq,forLevel:p.forLevel,N:m.N,colours:m.colours,size:sizeBin(m.N),ok:!issues.length,issues,warn};}
@@ -129,6 +141,10 @@ else if(cmd==='tag'){const ids=idsFrom(process.argv.slice(3).filter((a,i,all)=>!
  for(const id of ids){const p=picture(id);if(!p)continue;for(const k of TAGS){const v=arg('--'+k);if(v!==null)p[k]=v;}writeJSON(path.join(PICTURES,id+'.json'),p);
   m.pictures=m.pictures.filter(x=>x.id!==id).concat([entryOf(p)]);console.log(id,TAGS.map(k=>p[k]?`${k}=${p[k]}`:'').filter(Boolean).join(' · '));}
  saveManifest(m);publish();}
+else if(cmd==='motifs'){const st=arg('--status','approved'),max=+arg('--max',3),pics=manifest().pictures.filter(e=>!st||st==='all'||e.status===st).map(e=>picture(e.id)).filter(Boolean);
+ const hits={};for(const p of pics){const text=`${p.title} ${p.subject||''}`.toLowerCase();for(const [m,re] of MOTIFS)if(re.test(text))(hits[m]=hits[m]||[]).push(p.id);}
+ const rows=Object.entries(hits).sort((a,b)=>b[1].length-a[1].length);for(const [m,ids] of rows)console.log((ids.length>=max?'ХВАТИТ ':'       ')+m.padEnd(18),String(ids.length).padStart(3),ids.join(' '));
+ console.log(`${pics.length} картинок (${st}); «ХВАТИТ» — мотив уже есть ${max}+ раз: не рисовать снова ни главным, ни заметной второй деталью, пока владелец не попросит`);}
 else if(cmd==='publish'){console.log('approved/:',publish(),'утверждённых');}
 else if(cmd==='list'){const st=arg('--status');for(const p of manifest().pictures.filter(p=>!st||p.status===st))console.log(p.id,p.status.padEnd(8),`L${p.forLevel}`.padEnd(6),`${p.w}×${p.h}`.padEnd(6),String(p.N).padStart(5),'кл.',p.colours,'цв.',p.usedBy?'→ '+p.usedBy:'',p.title);}
 else{console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}

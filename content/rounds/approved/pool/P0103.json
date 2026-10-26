@@ -1,0 +1,103 @@
+{
+ "code": "P0103",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "БиМО",
+ "theme": "batch-0061",
+ "family": "Роботы и механизмы",
+ "subject": "робот-консоль с лицом на экране и кнопками",
+ "source": "сторонняя вселенная",
+ "reference": "Время приключений — BMO",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 41,
+ "N": 733,
+ "colours": 7,
+ "volumes": {
+  "B": {
+   "cells": 388,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "L": {
+   "cells": 156,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "N": {
+   "cells": 101,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 37,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 26,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 16,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 9,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...............................",
+  "......BBBBBBBBBBBBBBBBBBB......",
+  ".....BBBBBBBBBBBBBBBBBBBNN.....",
+  ".....BBBLLLLLLLLLLLLLLBBNN.....",
+  ".....BBLLLLLLLLLLLLLLLLBNN.....",
+  ".....BBLLLLLLLLLLLLLLLLBNN.....",
+  ".....BBLLLDDLLLLLLDDLLLBNN.....",
+  ".....BBLLLDDLLLLLLDDLLLBNN.....",
+  ".....BBLLLLLLLLLLLLLLLLBNN.....",
+  ".....BBLLLLLLLLLLLLLLLLBNN.....",
+  ".....BBLLLDDDDDDDDDDLLLBNN.....",
+  ".....BBLLLLDDDGGGDDLLLLBNN.....",
+  ".....BBLLLLLDDGGDDLLLLLBNN.....",
+  ".....BBLLLLLLLLLLLLLLLLBNN.....",
+  ".....BBBLLLLLLLLLLLLLLBBNN.....",
+  "..BBBBBBBBBBBBBBBBBBBBBBNNBBB..",
+  "..BBBBBBBBBBBBBBBBBBBBBBNNBBB..",
+  "..BBBBBDDDDDDDDDDBBBNNBBNNBBB..",
+  ".BB..BBBBBBBBBBBBBBBNNBBNN..BB.",
+  ".BB..BBBBBBBBBBBBBBBBBBBNN..BB.",
+  ".BB..BBBBYYYBBBBBBBBGGBBNN..BB.",
+  ".BB..BBBBYYYBBBBBNBBGGBBNN..BB.",
+  ".BB..BBYYYYYYYBBNNNBBBBBNN..BB.",
+  "BBB..BBYYYYYYYBBBBBBBBBBNN..BBB",
+  "BBB..BBBBYYYBBBBBBRRRBBBNN..BBB",
+  ".....BBBBYYYBBBBBRRRRRBBNN.....",
+  ".....BBBBBBBBBBBBRRRRRBBNN.....",
+  ".....BBBBBBBBBBBBBRRRBBBNN.....",
+  ".....BBBBBBBBBBBBBBBBBBBNN.....",
+  ".....BBBBBBBBBBBBBBBBBBBNN.....",
+  ".....BBBBBBBBBBBBBBBBBBBNN.....",
+  "......NNNNNNNNNNNNNNNNNNN......",
+  ".........BB.........BB.........",
+  ".........BB.........BB.........",
+  ".........BB.........BB.........",
+  ".........BB.........BB.........",
+  ".........BB.........BB.........",
+  ".......NNNN.........NNNN.......",
+  ".......NNNN.........NNNN.......",
+  "...............................",
+  "..............................."
+ ]
+}

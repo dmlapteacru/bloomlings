@@ -1,0 +1,65 @@
+{
+ "code": "P0100",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шахматный конь",
+ "theme": "batch-0061",
+ "family": "Игрушки и настольные игры",
+ "subject": "шахматный конь",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 20,
+ "h": 25,
+ "N": 336,
+ "colours": 3,
+ "volumes": {
+  "C": {
+   "cells": 181,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 108,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 47,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".........EE.........",
+  "........ECAE........",
+  ".......ECCAE........",
+  "......ECCCAAE.......",
+  ".....ECCCCEAAE......",
+  "....ECCCCCCCAAE.....",
+  "...ECCCCCCCCEAAE....",
+  "..ECCCEECCCCCAAE....",
+  ".ECCCCCCCCCCCCAAE...",
+  ".EECCCCCCCCCCEAAE...",
+  ".ECCCCCCCCCCCCAAE...",
+  "..EEEECCCCCCCCAAE...",
+  "...EEECCCCCCCEAAE...",
+  "......ECCCCCCCAAE...",
+  ".....ECCCCCCCCAAE...",
+  "....ECCCCCCCCCAAAE..",
+  "...ECCCCCCCCCCAAAE..",
+  "..ECCCCCCCCCCCAAAE..",
+  "..EEEEEEEEEEEEEEEE..",
+  "..ECCCCCCCCCCCAAAE..",
+  ".EEEEEEEEEEEEEEEEEE.",
+  ".ECCCCCCCCCCCCCAAAE.",
+  "ECCCCCCCCCCCCCCCAAAE",
+  "ECCCCCCCCCCCCCCCAAAE",
+  ".EEEEEEEEEEEEEEEEEE."
+ ]
+}

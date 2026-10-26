@@ -1,0 +1,94 @@
+{
+ "code": "P0069",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фонарь со светлячками",
+ "theme": "batch-0061",
+ "family": "Свет и домашний декор",
+ "direction": "Домашняя магия",
+ "subject": "стеклянный фонарь со светлячками внутри на фоне ночи, несколько светлячков снаружи",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 7,
+ "volumes": {
+  "N": {
+   "cells": 444,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 153,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 95,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 76,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 59,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "L": {
+   "cells": 52,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "Y": {
+   "cells": 17,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNLNNNNNNN",
+  "NNNNNNNNNNNNNAANNNNLYLNNNNNN",
+  "NNNNNNNNNNNAAAAAANNNLNNNNNNN",
+  "NNNLNNNNNNNAANNAANNNNNNNLNNN",
+  "NNLYLNNNNNAANNNNAANNNNNLYLNN",
+  "NNNLNNNNNNAANNNNAANNNNNNLNNN",
+  "NNNNNNNNNNAANAANAANNNNNNNNNN",
+  "NNNNNNNNNNNAAAAAANNNNNNNNNNN",
+  "NNNNNNNNNAAAAAAAAEENNNNNNNNN",
+  "NNNNNNNNAAAAAAAAAEEENNNNNNNN",
+  "NNNNNNNNAAAAAAAAAEEENNNNLNNN",
+  "NNNLNNNAAAAAAAAAAAAAANNLYLNN",
+  "NNLYLNAAANNNNNNNNNNEEENNLNNN",
+  "NNNLNNAAABBBBBBBBBBEEENNNNNN",
+  "NNNNNNAAABBLLBBBBLBEEENNNNNN",
+  "NNNNNNAAABLYYLBBLYLEEENNNNNN",
+  "NNNNNNAAABLYYLBBBLBEEENNNNNN",
+  "NNNNNNAAABBLLBBBBBBEEENNNLNN",
+  "NNNNNNAAABBBBBBBLLBEEENNLYLN",
+  "NNNNNNAAABBBBBBLYYLEEENNNLNN",
+  "NNLNNNAAABBLBBBLYYLEEENNNNNN",
+  "NLYLNNAAABLYLBBBLLBEEENNNNNN",
+  "NNLNNNAAABBLBBBBBBBEEENNNNNN",
+  "NNNNNNAAABBBBBBBBBBEEENNNNNN",
+  "NNNNNNAAAAAAAAAAAEEEEENNNNNN",
+  "NNNNNNNAAAAAAAAAAEEEENNNNNNN",
+  "NNNNNNNAAAAAAAAAAEEEENNNNNNN",
+  "NNNNNNNNNNAAAAAAAENNNNNNNNNN",
+  "NNNMMMMNNNAAAAAAAEMMMNNNMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+ ]
+}

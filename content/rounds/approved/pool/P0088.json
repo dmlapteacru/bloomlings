@@ -1,0 +1,109 @@
+{
+ "code": "P0088",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Единорог",
+ "theme": "batch-0061",
+ "family": "Волшебные существа",
+ "subject": "белый единорог с радужной гривой и золотым рогом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 39,
+ "N": 900,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 559,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 80,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "K": {
+   "cells": 55,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 52,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 41,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 39,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 38,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 32,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 4,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".....OO.....................................",
+  ".....OY.......C.............................",
+  "......YY......C.............................",
+  "......OOO....CCC............................",
+  "......OOOY...CCCBBV.........................",
+  "......OYYYCCCCCCBVVRR.......................",
+  "......CYCCCCCCCCVVRRRO......................",
+  ".....CCCCCCCCCCCVRRROOO.....................",
+  "....CCCCCCCCCCVVRRROOOYYG...................",
+  "...CCCCCCCCCCCCRRROOOYYGGG..................",
+  "..CCCCCCDDCCCCCCROOOYYGGGB..................",
+  ".CCCCCCCDDCCCCCCCOOYYGGGBBV.................",
+  "CCCCCCCCCCCCCCCCCCYYGGGBBVVV................",
+  "CCCCCCCCCCCCCCCCCCCGGGBBVVVRR...............",
+  "CCKCCCCCCCCCCCCCCCCCGBBVVVRROO..............",
+  "CCKCCCCCCCCC.CCCCCCCCCVVVRROOC.....BBB......",
+  ".CCCCCCCCCC..CCCCCCCCCCVRROOCCCCC.BBBVV.....",
+  "...CCC.......CCCCCCCCCCCROOCCCCCCCBBVVRR....",
+  ".............CCCCCCCCCCCCOCCCCCCCCCCVRRRO...",
+  ".............CCCCCCCCCCCCCCCCCCCCCCCRRROOY..",
+  "............CCCCCCCCCCCCCCCCCCCCCCCCCROOYYY.",
+  "............CCCCCCCCCCCCCCCCCCCCCCCCCOOYYYG.",
+  "...........CCCCCCCCCCCCCCCCCCCCCCCCCCCYYYGG.",
+  "...........CCCCCCCCCCCCCCCCCCCCCCCCCCCYYGGG.",
+  "............CCCCCCCCCCCCCCCCCCCCCCCCCYYGGGB.",
+  "............CCCCCCCCCCCCCCCCCCCCCCCCCYGGGBB.",
+  ".............CCCCCCCCCCCCCCCCCCCCCCC.GGGBBV.",
+  ".............CCCCCCCCCCCCCCCCCCCCCCK.GGBBVV.",
+  ".............CCCCCCCCCCCCCCCCCCCCCKK.GBBVVV.",
+  ".............CCCCCCCCCCCCCCCCCCCKKKK.BBVVVR.",
+  ".............CCCCCKKCCCCCCCCCCCCKKKK.BVVVRR.",
+  ".............CCCCCKKKK......CCCCKKKK.VVVRRO.",
+  ".............CCCCCKKKK......CCCCKKKK..VRROO.",
+  ".............CCCCCKKKK......CCCCKKKK...ROOO.",
+  ".............CCCCCKKKK......CCCCKKKK...OOOYY",
+  ".............CCCCCKKKK......CCCCKKKK...OOYYG",
+  ".............CCCCVVVVV......CCCCVVVVV...YYGG",
+  ".............VVVVVVVVV......VVVVVVVVV.......",
+  ".............VVVVV..........VVVV............"
+ ]
+}

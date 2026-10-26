@@ -1,0 +1,89 @@
+{
+ "code": "P0070",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сапог с цветком",
+ "theme": "batch-0061",
+ "family": "Одежда и аксессуары",
+ "direction": "Живая архитектура",
+ "subject": "резиновый сапог, из которого растёт цветок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 19,
+ "h": 33,
+ "N": 374,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 172,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 59,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 57,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 45,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 27,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 14,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "....PPPP...........",
+  "..PPPPPPPPP........",
+  ".PPPPPYPPPP........",
+  ".PPPPYYYPPP........",
+  "..PPPYYYPPP........",
+  "...PPPPPPP.........",
+  "..PPPPPPPP.........",
+  "GG.PPPPPPPGGG......",
+  "GGGG.GG.GGGG.......",
+  ".GGGGGGMMMMM.......",
+  "..MMMMGMMM.........",
+  "....MMG............",
+  ".....GG............",
+  "OOEEEGGEEEEO.......",
+  "OOOOOOOOOOOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOO.......",
+  ".YYYYYYYYYOOYY.....",
+  ".YYYYYYYYYOOYYYYY..",
+  ".YYYYYYYYYOOYYYYYY.",
+  ".YYYYYYYYYOOYYYYYYY",
+  ".YYYYYYYYYYYYYYYYYY",
+  ".YOOOOOOOOOOOOOOOO.",
+  "EEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEE"
+ ]
+}

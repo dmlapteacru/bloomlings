@@ -80,6 +80,13 @@ those rules; where this skill and 17 differ, 17 wins.
      - Keep the sequence varied by §7: in any 20 pictures at least 8 families and 4 directions once the set is large
        enough; one family at most twice in a row; one subject not again within 20; no run of the same container.
        Check recent tags with `pictures.mjs list` and `content/rounds/approved/README.md`.
+     - **Do not repeat motifs** (the owner, 2026-10-26: "быть осторожными, чтоб не сильно повторяться, а то уже сколько
+       рыб"). Run `node tools/rounds/pictures.mjs motifs` first: it counts recurring motifs (fish, the undersea world,
+       lighthouses, astronauts, watering a flower, robots, cups …) over the approved pictures, as the main subject or a
+       noticeable second element (fish in a picture's sea count too). A motif marked «ХВАТИТ» (3 or more already) is not
+       drawn again, neither as the subject nor as a visible extra, until the owner asks for it. Inside one batch a motif
+       appears at most once, and an environment does not lean on the same setting twice (the sea, a night sky). Prefer
+       families the approved set has least of. A new recurring motif goes into `MOTIFS` in `pictures.mjs`.
      - Size the idea to the budget of §6: 200–399 cells one object (plus at most one big attribute), 400–699 a hero and
        an object or two interacting objects, 700–999 a hero, an action and a small piece of setting, 1000–1400 a compact
        diorama with one centre. If the idea vanishes when simplified, pick another subject; do not inflate the grid.

@@ -14,6 +14,7 @@ node tools/rounds/pictures.mjs sheet --status draft --out content/rounds/picture
 node tools/rounds/pictures.mjs approve 31 32 33          # also rebuilds content/rounds/approved/ (locked/ L1–3, pool/)
 node tools/rounds/pictures.mjs publish
 node tools/rounds/pictures.mjs status --free           # approved codes not yet used by a placed level
+node tools/rounds/pictures.mjs motifs                   # recurring motifs (fish, robots …): «ХВАТИТ» at 3+, not drawn again
 node tools/rounds/pictures.mjs reject 34 --note "too small details"
 node tools/rounds/pictures.mjs replace P0034 content/rounds/pictures/src/batch-0031-fix.mjs
 # levels (17 §3–§14)

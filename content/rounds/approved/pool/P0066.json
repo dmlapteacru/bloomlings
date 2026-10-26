@@ -1,0 +1,69 @@
+{
+ "code": "P0066",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Круассан",
+ "theme": "batch-0061",
+ "family": "Хлеб и выпечка",
+ "subject": "золотистый круассан-полумесяц со слоистыми сегментами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 19,
+ "N": 378,
+ "colours": 5,
+ "volumes": {
+  "E": {
+   "cells": 150,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 88,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 80,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 57,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 3,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "................EE................",
+  "..............EEEEEE..............",
+  "...........E.EEOOOOEE.E...........",
+  ".........EEEEEOYYYYOEEEEE.........",
+  "........EOOOEOYCCYYYOEOOOE........",
+  ".......EOOYYEOYCYYYYOEYYOOE.......",
+  ".......EOYYEOOYYYYYYOOEYYOE.......",
+  "....EEEEOYYEOYYYYYYYYOEYYOEEEE....",
+  "....EOEOYYYEOYYYYYYYAOEYYAOEOE....",
+  "...EOYEOYYYYEAYYYYYAAEYYYAOEYOE...",
+  "...EOYYEAAYYEAAAYAAAAEYAAAEYYOE...",
+  "...EOYYEAAAAEEAAAAAAEEAAAAEYYOE...",
+  ".EEEAAYAEAAAAEAAAAAAEAAAAEYAAAEEE.",
+  "EEOEAAAAEEEAEEEEAAEEEEAEEEAAAAEOEE",
+  "EOYEEAAAAAEEE..EEEE..EEEAAAAAEEOOE",
+  "EOOOEEAAEE..............EEAAEEOOOE",
+  "EOAAAAEEE................EEEAAAAOE",
+  ".EEAEEE....................EEEAEE.",
+  "...EE........................EE..."
+ ]
+}

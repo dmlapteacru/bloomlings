@@ -1,0 +1,112 @@
+{
+ "code": "P0082",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мольберт и палитра",
+ "theme": "batch-0061",
+ "family": "Рисование и ремёсла",
+ "subject": "мольберт с картиной-цветком, палитра с красками и кисть",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 42,
+ "N": 871,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 296,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 252,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 147,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 84,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 48,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 20,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 8,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 8,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 8,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "............EE......................",
+  "............EE......................",
+  "............EE......................",
+  ".EEEEEEEEEEEEEEEEEEEEEEEE...........",
+  ".ECCCCCCCCCCPPCCCCCCCCCCE...........",
+  ".ECCCCCCCCCPPPPCCCCCCCCCE...........",
+  ".ECCCCCCCCCPPPPCCCCCCCCCE...........",
+  ".ECCCCCCPPPPPPPPPPCCCCCCE...........",
+  ".ECCCCCPPPPCYYCPPPPCCCCCE...........",
+  ".ECCCCCPPPPYYYYPPPPCCCCCE...........",
+  ".ECCCCCPPPPYYYYPPPPCCCCCE...........",
+  ".ECCCCCCCPPPYYPPPCCCCCCCE...........",
+  ".ECCCCCCCPPPPPPPPCCCCCCCE...........",
+  ".ECCCCCCCPPPPPPPPCCCCCCCE...........",
+  ".ECCCCCCCPPPPPPPPCCCCCCCE...........",
+  ".ECCCCCCCCCCGGCCCCCCCCCCE...........",
+  ".ECCCCCCCCCCGGCCCCCCCCCCE...........",
+  ".ECCCCCCCCCCGGCGGGGCCCCCE...........",
+  ".ECCCCCGGGGGGGGGGGGGCCCCE...........",
+  ".ECCCCCGGGGGGGCGGGGCCCCCE...........",
+  ".ECCCCCCCCCCGGCCCCCCCCCCE...........",
+  ".ECCCCCCCCCCGGCCCCCCCCCCE...........",
+  ".ECCCCCCCCCCGGCCCCCCCCCCE...........",
+  ".EEEEEEEEEEEEEEEEEEEEEEEE...........",
+  "....EE......EE......EE..............",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEE..........",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEE..........",
+  "...EE.......EE.......EE...........PP",
+  "...EE.......EE.......EE..........PPP",
+  "...EE.......EE....AAAEAAAYAAAA..PPP.",
+  "..EEEEEEEEEEEEEEAAAAAAAAYYYAAAACPP..",
+  "..EEEEEEEEEEEEEAAAAARRRAYYYAAACCCA..",
+  "..EE........EE.AAAAARRRAAYAAEEEABBA.",
+  "..EE........EE.AAAAAARRAAAAEEEABBBBA",
+  "..EE........EE.AAAAAAAAAAAEEEAAABBAA",
+  "..EE........EE.AAAAAAAAAAEEEAAAAAAAA",
+  "..EE........EE.AAA..AAAAEEEAAAAGGAAA",
+  ".EEE............A....AAEEEAAAAGGGAAA",
+  ".EE..............A..AAEEEVVVAAGGGAA.",
+  ".EE...............AAAEEEAVVVAAAAAA..",
+  ".EE................AEEEAAAVVAAAAA...",
+  "...................EE.AAAAAAAA......"
+ ]
+}

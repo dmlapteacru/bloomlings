@@ -1,0 +1,97 @@
+{
+ "code": "P0061",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Щенок с косточкой",
+ "theme": "batch-0061",
+ "family": "Домашние животные",
+ "subject": "весёлый щенок сидит с косточкой, висячие уши, виляющий хвост",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 36,
+ "N": 896,
+ "colours": 7,
+ "volumes": {
+  "O": {
+   "cells": 410,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 184,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 120,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 72,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 72,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 32,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 6,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........OOOOOOOOOOOOOO...........",
+  "..EEEE.OOOOOOOOOOOOOOOO.EEEE.....",
+  ".EEEEEOOOOOOOOOOOOOOOOOOEEEEE....",
+  "EEEEEEOOOOOOOOOOOOOOOOOOEEEEEE...",
+  "EEEEEEOOOOOOOOOOOOOOOOOOEEEEEE...",
+  "EEEEEOOOOOOOOOOOOOOOOOOOOEEEEE...",
+  "EEEEEOOOOCDOOOOOOOOCDOOOOEEEEE...",
+  "EEEEEOOOODDOOOOOOOODDOOOOEEEEE...",
+  "EEEEEOOOOOOOOOOOOOOOOOOOOEEEEE...",
+  "EEEEEOOOOOOCCCCCCCCOOOOOOEEEEE...",
+  ".EEEEOOOOOCCCDDDDCCCOOOOOEEEE....",
+  ".EEEEOOOOCCCCCDDCCCCCOOOOEEEE....",
+  ".EEEE.OOOCCCCCDDCCCCCOOO.EEEE....",
+  "..EE...OOCCDDDPPDDDCCOO...EE.....",
+  ".......OOOCCCPPPPCCCOOO.......CCC",
+  ".......RRRRRRRRRRRRRRRR.......CCC",
+  ".......RRRRRRRRRRRRRRRR.......CC.",
+  "......OOOOOOCCCCCCOOOOOO.....OOO.",
+  ".....OOOOOOOCCCCCCOOOOOOO....OOO.",
+  "....OOOOOOOOCCCCCCOOOOOOAA..OOO..",
+  "....OOOOOOOOCCCCCCOOOOOOAA.OOOO..",
+  "....OOOOAOOOCCCCCCOOOAOOAAOOOO...",
+  "...OOOOOAOOOCCCCCCOOOAOOOAAOO....",
+  "...OOOOOAOOOCCCCCCOOOAOOOAAO.....",
+  "..OOOOOOAOOOCCCCCCOOOAOOOOAA.....",
+  "..OOOOOOAOOOCCCCCCOOOAOOOOAA.....",
+  "..OOOOOOAOOOAAAAAAOOOAOOOOAA.....",
+  "..OOOOOOAOOOAAAAAAOOOAOOOOAA.....",
+  ".OOOOOOOAOOOAAAAAAOOOAOOOOOAA....",
+  ".OOOOOOACCCCAAAAAACCCCAOOOOAA....",
+  "..OODDDDCCCCAAAAAACCCCDDDDAA.....",
+  "...DCCCCDDDDDDDDDDDDDDCCCCD......",
+  "...DCCCCCCCCCCCCCCCCCCCCCCD......",
+  "...DCCCCCCCCCCCCCCCCCCCCCCD......",
+  "...DCCCCDDDDDDDDDDDDDDCCCCD......",
+  "....DDDD..............DDDD......."
+ ]
+}

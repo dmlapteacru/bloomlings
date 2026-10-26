@@ -1,0 +1,111 @@
+{
+ "code": "P0068",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Уютная книжная полка",
+ "theme": "batch-0061",
+ "family": "Мебель и уютные уголки",
+ "subject": "деревянная книжная полка с цветными корешками книг, цветком в горшке и маленькими часами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 41,
+ "N": 1016,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 356,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 169,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 97,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 94,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 93,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 80,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 60,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 56,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 11,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........GG........................",
+  "........GG........................",
+  "...GG..GGGM..GG...................",
+  "...GGGGGGGMGGGG...................",
+  "...GGGGGGGMGGGG...................",
+  "....MMMMGGMMMM....................",
+  ".....RRRRRRRR.....................",
+  "......RRRRRR......................",
+  "......RRRRRR......................",
+  "......RRRRRR......................",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  ".AAEEEBBEEEEEGGGBBEEEEEEEEVVVEEAA.",
+  ".AARRRYYEEEVVCCCEBBEEEEERRCCCEEAA.",
+  ".AACCCBBYYYCCGGGEEBBEEEEYYVVVYYAA.",
+  ".AARRRBBRRRVVGGGEEBBEEEERRVVVBBAA.",
+  ".AARRRBBYYYVVGGGEEEBBEEERRVVVYYAA.",
+  ".AARRRBBYYYVVGGGEEEBBEEERRVVVYYAA.",
+  ".AARRRBBYYYVVGGGEEEEBBEERRVVVYYAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAEEGGGEEEEEVVEEEEEEEYYYYYEEEEAA.",
+  ".AAYYCCCEEBBBCCEEEEEEYYCECYYEEEAA.",
+  ".AARRGGGRRYYYVVYYEEEEYCCECCYEEEAA.",
+  ".AAYYGGGCCBBBVVVVEEEEYCCEEEYEEEAA.",
+  ".AAYYGGGRRBBBVVYYEEEEYCCCCCYEEEAA.",
+  ".AAYYGGGRRBBBVVYYEEEEEYYCYYEEEEAA.",
+  ".AAYYGGGRRBBBVVYYEEEEEEYYYEEEEEAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAEEYYYYYYYEEEEVVVEEEEERREEEGGAA.",
+  ".AAERRRRRRRRREEEYYYGGEEECCBBBYYAA.",
+  ".AAECCCCCCCCCEEEVVVCCYYYRRYYYGGAA.",
+  ".AAERRRRRRRRREEEVVVGGRRRRRBBBGGAA.",
+  ".AABBBBBBBBBBBEEVVVGGYYYRRBBBGGAA.",
+  ".AACCCCCCCCCCCEEVVVGGYYYRRBBBGGAA.",
+  ".AABBBBBBBBBBBEEVVVGGYYYRRBBBGGAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  "..AAA........................AAA..",
+  "..AAA........................AAA.."
+ ]
+}

@@ -1,0 +1,100 @@
+{
+ "code": "P0075",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Подарки с бантами",
+ "theme": "batch-0061",
+ "family": "Ярмарки и праздники",
+ "subject": "стопка из трёх подарочных коробок с лентами и бантами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 39,
+ "N": 744,
+ "colours": 7,
+ "volumes": {
+  "N": {
+   "cells": 264,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 150,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 100,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 53,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 47,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 20,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".........RRRRPPRRRR.........",
+  ".........RRRRPPRRRR.........",
+  "..........RRRRRRRR..........",
+  "........OOOORRRROOOO........",
+  "........OOOORRRROOOO........",
+  ".........YYYYRRYYYY.........",
+  ".........YYYYRRYYYY.........",
+  ".........YYYYRRYYYY.........",
+  ".........YYYYRRYYYY.........",
+  "..CC.CC..YYYYRRYYYY.........",
+  ".CCCYCCC.YYYYRRYYYY.........",
+  ".CCCYCCC.YYYYRRYYYY.........",
+  "...C.C......................",
+  ".PCCCCCPPPPPPPPPPPP.........",
+  ".PPCCCPPPPPPPPPPPPP.........",
+  ".PPCCCPPPPPPPPPPPPP.........",
+  "..RCCCRRRRRRRRRRRR..........",
+  "..RCCCRRRRRRRRRRRR..........",
+  "..RCCCRRRRRRRRRRRR..........",
+  "..RCCCRRRRRRRRRRRR..........",
+  "..RCCCRRRRRRRRRRRR..........",
+  "..RCCCRRRRRRRRRRRRYYYOOYYY..",
+  "..RCCCRRRRRRRRRRRRYYYOOYYY..",
+  "..RCCCRRRRRRRRRRRR.YYYYYY...",
+  "BBBBBBBBBBBBBBBBBBBBYYYYBBBB",
+  "BBBBBBBBBBBBBBBBBBBBYYYYBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBYYBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBYYBBBBB",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNYYNNNN."
+ ]
+}

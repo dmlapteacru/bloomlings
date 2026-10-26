@@ -1,0 +1,86 @@
+{
+ "code": "P0096",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Старый телефон",
+ "theme": "batch-0061",
+ "family": "Ретро-техника и ностальгия",
+ "subject": "дисковый телефон с витым шнуром",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 35,
+ "N": 773,
+ "colours": 5,
+ "volumes": {
+  "R": {
+   "cells": 398,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 182,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 128,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 53,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "............................................",
+  "............................................",
+  "............................................",
+  ".........RRRRRRRRRRRRRRRRRRRRRR.............",
+  ".........RRKKKKKKKKKKKKKKKKKKRR.............",
+  ".....RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR.........",
+  "....RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR........",
+  "...RRRRRRRRRR..............RRRRRRRRRR.......",
+  "...RRRRRRRRRR..............RRRRRRRRRR.......",
+  "....RRRRRRRRDDDDDDDDDDDDDDDDRRRRRRRR........",
+  ".....RRRRRR.DDDDDDDDDDDDDDDD.RRRRRRD........",
+  "............DRRRRRRRRRRRRRRD........DD......",
+  "..........RRRRRRRRRRRRRRRRRRRR.....DD.......",
+  ".........RRRRRRRRRRRRRRRRRRRRRR......DD.....",
+  ".........KKRRRRRRRRRRRRRRRRRRRR.....DD......",
+  ".........KKRRRRRDDDDDDDDRRRRRRR.......DD....",
+  "........KKKRRRRDCCCCCCCCDRRRRRRR.....DD.....",
+  "........KKRRRRDCCCCCCCCCCDRRRRRR......DD....",
+  "........KKRRRDCCCCCCCCDDCCDRRRRR.....DD.....",
+  "........KKRRDCCCCCCCCCDDCCCDRRRR.......DD...",
+  ".......KKRRRDCCDDCCCCCCCCCCDRRRRR....DD.....",
+  ".......KKRRRDCCDDCCYYCCCDDCDRRRRR.....DD....",
+  ".......KKRRRDCCCCCYYYYCCDDCDRRRRR....DD.....",
+  "......KKKRRRDCDDCCYYYYCCCCCDRRRRRR...DD.....",
+  "......KKRRRRDCDDCCCYYCCCDDCDRRRRRR..DD......",
+  "......KKRRRRDCCCCCCCCCCCDDCDRRRRRR..DD......",
+  "......KKRRRRDCCCDDCCCCDDCCCDRRRRRRDD........",
+  ".....KKKRRRRRDCCDDCDDCDDCCDRRRRRRRRDD.......",
+  ".....KKRRRRRRRDCCCCDDCCCCDRRRRRRRRR.........",
+  ".....KKRRRRRRRRDCCCCCCCCDDRRRRRRRRR.........",
+  ".....RDDDDDDRRRRDDDDDDDDRRRRDDDDDDR.........",
+  "......DDDDDD................DDDDDD..........",
+  "......DDDDDD................DDDDDD..........",
+  "............................................",
+  "............................................"
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "code": "P0073",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Цветочная лавка",
+ "theme": "batch-0061",
+ "family": "Магазины и витрины",
+ "subject": "фасад маленькой лавки с полосатым навесом, горшками и вёдрами цветов, дверью и витриной",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 34,
+ "h": 37,
+ "N": 1210,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 307,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 274,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 248,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 145,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "S": {
+   "cells": 128,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 58,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 18,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 18,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 14,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "RRCCCRRRCCCRRRCCCRRRCCCRRRCCCRRRCC",
+  "RRCCCRRRCCCRRRCCCRRRCCCRRRCCCRRRCC",
+  "RRCCCRRRCCCRRRCCCRRRCCCRRRCCCRRRCC",
+  "RRCCCRRRCCCRRRCCCRRRCCCRRRCCCRRRCC",
+  "RRCCCRRRCCCRRRCCCRRRCCCRRRCCCRRRCC",
+  "RRCCCRRRCCCRRRCCCRRRCCCRRRCCCRRRCC",
+  "RRCCCMRRCCCRRRCCCRRRCCCRRRCCMRRRCC",
+  "RRCCCMRRCCMMRRCCMMRRCCMMRRCCMRRRCC",
+  ".MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.",
+  ".MMMMMMMMMMMMMMMMMMMMMCCCCCCCCCMM.",
+  ".MMCCCCCCCCCCCCCCMMMMMCAAAAAAACMM.",
+  ".MMCSSSSSSSSSSSSCMMMMMCASSSSSACMM.",
+  ".MMCCCCCCCCCCCCCCMMMMMCASSSSSACMM.",
+  ".MMCSSSSSSSSSSSSCMMMMMCASSSSSACMM.",
+  ".MMCSSSSSSSSSSSSCMMMMMCASSSSSACMM.",
+  ".MMCSSSYYSSRRSSSCMMMMMCASSSSSACMM.",
+  ".MMCPPSYYSSRRSPPCMMMMMCASSSSSACMM.",
+  ".MMCPPGGGGGGGGPPCMMMMMCASSSSSACMM.",
+  ".MMGGGGGGGGGGGGGGMMMMMCASSSSSACMM.",
+  ".MAAAAAAAAAAAAAAAAMMMMCAAAAAAACMM.",
+  ".MAAAAAAAAAAAAAAAAMMMMCAAAAAAACMM.",
+  ".MAAAAAAAAAAAAAAAAMMMMCYAAAAAACMM.",
+  ".MMPPPMMMMMMMMRRRMMMMMCYAAAAAACMM.",
+  ".MMPPPMMGGGGMMRRRMMMMMCACCCCCACMM.",
+  ".MRRGYYMGGGGMPPGYYMMMMCACAAACACMM.",
+  ".MRRGYYGGGGGGPPGYYMMMMCACAAACACMM.",
+  ".MGGGGGGGGGGGGGGGGMMMMCACAAACACMM.",
+  ".MCCCCCMGOGOMCCCCCMMMMCACCCCCACMM.",
+  ".MSSSSSMOOOOMSSSSSMMMMCAAAAAAACMM.",
+  ".MSSSSSMOOOOMSSSSSMMMMCAAAAAAACMM.",
+  ".MSSSSSMOOOOMSSSSSMMMMCAAAAAAACMM.",
+  ".MSSSSSMOOOOMSSSSSMMMMMMMMMMMMMMM.",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}
