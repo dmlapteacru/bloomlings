@@ -2016,6 +2016,24 @@
    "batch": "batch-0111",
    "note": null,
    "usedBy": null
+  },
+  {
+   "id": "P0113",
+   "seq": 113,
+   "version": 1,
+   "title": "Сова в дупле",
+   "theme": "batch-0113",
+   "family": "Птицы",
+   "direction": null,
+   "forLevel": 5,
+   "w": 24,
+   "h": 24,
+   "N": 576,
+   "colours": 7,
+   "status": "draft",
+   "batch": "batch-0113",
+   "note": null,
+   "usedBy": null
   }
  ]
 }

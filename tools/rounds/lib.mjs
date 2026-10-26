@@ -5,7 +5,7 @@ import fs from 'node:fs';import path from 'node:path';import zlib from 'node:zli
 export const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 export const ROUNDS=process.env.ROUNDS_DIR?path.resolve(process.env.ROUNDS_DIR):path.join(root,'content/rounds');
 export const APPROVED=path.join(ROUNDS,'approved'),PICTURES=path.join(ROUNDS,'pictures'),LEVELS=path.join(ROUNDS,'levels'),BANK=path.join(ROUNDS,'bank');
-const P=createRequire(import.meta.url)(path.join(root,'tools/gameplay-pilot-v9/palette.cjs'));
+const P=createRequire(import.meta.url)(path.join(root,'tools/rounds/engine/palette.cjs'));
 export const CODES=P.codes,PALETTE=P.palette('normal');
 export const readJSON=(f,d=null)=>fs.existsSync(f)?JSON.parse(fs.readFileSync(f,'utf8')):d;
 export const writeJSON=(f,o)=>{fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(o,null,1)+'\n');};

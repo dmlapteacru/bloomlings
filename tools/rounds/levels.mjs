@@ -94,7 +94,9 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro){const r=rnd
  return {level};}
 
 // ---- build: candidates for each picture, recipe and class, measured and banked ----
-async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),budgetN=+arg('--candidates',64),seed0=+arg('--seed',1);
+async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',1);
+ // §13.5: the start budget is up to 64 candidates for one picture and requested class
+ const budgetN=Math.min(64,+arg('--candidates',64));if(+arg('--candidates',64)>64)console.log('бюджет поиска ограничен 64 кандидатами (17 §13.5)');
  for(const id of ids){const pic=picture(id);if(!pic){console.log(id,'нет картинки');continue;}if(pic.status!=='approved'){console.log(id,'не утверждена — пропуск');continue;}
   const m=measure(pic),board=boardOf(pic),hasBridge=!!board.hero,W=m.N;
   const fixed=pic.locked||null,base=splitPods(m.volumes,W,fixed);const bankFile=path.join(BANK,id+'.json'),bank=readJSON(bankFile,{picture:id,candidates:[],rejected:[]});

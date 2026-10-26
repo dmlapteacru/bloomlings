@@ -1,7 +1,6 @@
 // Pilot v10: the first round levels of product/17_LEVEL_GENERATION_RULES.md (skill bloomlings-round-levels) as one
-// offline HTML. It is the pilot v9 page and UI with the round engine's rules (tools/rounds/engine.mjs roundRules: the
-// §8 link rule, boards up to 48×48, 4–5 places), so the page plays exactly what the levels were solved and measured on.
-// The v9 sources stay untouched: this script copies them with the patches listed below (each must match once).
+// offline HTML: this folder's page, UI and style with the round engine (tools/rounds/engine/: rules, timeline, palette,
+// clock), so the page plays exactly what the levels were solved and measured on.
 //
 // node tools/gameplay-pilot-v10/build.mjs [--from 1] [--to 20] [--preview <folder>]
 //   --preview: a folder of L####.json built the same way from draft pictures (ROUNDS_DIR trial run), used only for
@@ -11,11 +10,10 @@
 import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import zlib from 'node:zlib';
 import {createRequire} from 'node:module';
 import {root,LEVELS,readJSON,lid,arg} from '../rounds/lib.mjs';
-import {roundRules} from '../rounds/engine.mjs';
-const V9=path.join(root,'tools/gameplay-pilot-v9'),OUT=path.join(root,'product/previews/gameplay-pilot-v10');
+const SRC=path.dirname(new URL(import.meta.url).pathname),ENGINE=path.join(root,'tools/rounds/engine'),OUT=path.join(root,'product/previews/gameplay-pilot-v10');
 const from=+arg('--from',1),to=+arg('--to',20),preview=arg('--preview');
 const sha=t=>crypto.createHash('sha256').update(t).digest('hex'),read=f=>fs.readFileSync(f,'utf8');
-const P=createRequire(import.meta.url)(path.join(V9,'palette.cjs')).palette('normal');
+const P=createRequire(import.meta.url)(path.join(ENGINE,'palette.cjs')).palette('normal');
 const HERO={sprig:'Sprig',bloom:'Bloom',drop:'Drop',twig:'Twig'};
 
 // ---- levels ----
@@ -51,41 +49,21 @@ for(const L of levels){const used=[...new Set(L.pods.map(p=>p.color))],fresh=use
 
 const dataset={version:'pilot-v10-rounds',baseVersion:'pilot v9 UI · round engine (tools/rounds/engine.mjs)',changedLevels:drafts,levels,lessons,lessonTags:tags,cards};
 dataset.hash=sha(JSON.stringify(levels));
-const rules=roundRules(read(path.join(V9,'rules.cjs'))),timeline=read(path.join(V9,'timeline.cjs')),palette=read(path.join(V9,'palette.cjs')),clock=read(path.join(V9,'clock.cjs'));
+const [rules,timeline,palette,clock]=['rules','timeline','palette','clock'].map(n=>read(path.join(ENGINE,n+'.cjs')));
 Object.assign(dataset,{rulesHash:sha(rules),timelineHash:sha(timeline),paletteHash:sha(palette),clockHash:sha(clock)});
 
-// ---- the v9 UI and page with the v10 patches ----
-const swapAll=(text,pairs,name)=>{for(const [a,b] of pairs){const k=text.split(a).length-1;if(k<1)throw Error(`${name}: не найдено «${a.slice(0,60)}»`);text=text.split(a).join(b);}return text;};
-let ui=read(path.join(V9,'ui.js'));
-const a=ui.indexOf(' const LESSONS={'),b=ui.indexOf('\n };\n',a);if(a<0||b<0)throw Error('ui.js: LESSONS moved');
-ui=ui.slice(0,a)+' const LESSONS=data.lessons; // v10: built from the levels (build.mjs)'+ui.slice(b+4);
-const count=n=>'${data.levels.length}';
-ui=swapAll(ui,[
- ['bloomlings-pilot-v9:','bloomlings-pilot-v10:'],
- ["${id===10?'ПЕРВЫЙ SUPER HARD':'НОВЫЙ ШАГ'}","${(data.lessonTags&&data.lessonTags[id])||'НОВЫЙ ШАГ'}"],
- ["state.level.id===30?'Все 30 доступны в выборе уровней.","state.level.id===data.levels.length?`Все ${data.levels.length} доступны в выборе уровней.`+'"],
- ['state.level.id===30','state.level.id===data.levels.length'],
- ['`Пройдено ${won.size} из 30.','`Пройдено ${won.size} из '+count()+'.'],
- ["tag.textContent='НОВОЕ'","tag.textContent='ЧЕРНОВИК'"],
- ["', новый вариант'","', картинка-черновик'"],
- ["'bloomlings-pilot-results-9'","'bloomlings-pilot-results-10'"],
- ['Bloomlings-pilot-v9-synthesis-results-','Bloomlings-pilot-v10-results-']],'ui.js');
+// ---- page: the data-driven texts go into this folder's page.html markers ----
+const ui=read(path.join(SRC,'ui.js'));
 const intro=cards.filter(c=>c.intro),hard=cards.filter(c=>c.cls!=='Normal');
 const MECH={hidden:'капсулы ?',links:'связки',bridge:'мостик Sprig'};
 const welcome=`<h2>Первые ${levels.length} уровней по правилам 17</h2><div class="welcome-heroes" id="welcomeHeroes"></div><p>Новые раунды: картинки из утверждённого набора, очереди собраны генератором и решены. Класс каждого уровня измерен случайным тестом (100–400 партий): Normal — бот выигрывает от 50 %, Hard — 20–50 %, Super Hard — 5–20 %. Календарь: каждый 5-й уровень Hard, 15-й — Super Hard.</p><p>Знакомства: ${[...new Set(intro.map(c=>c.intro))].map(m=>`${MECH[m]} — L${intro.filter(c=>c.intro===m).map(c=>c.level).join(' и L')}`).join('; ')}. Сложные: ${hard.map(c=>`L${c.level} ${c.cls}`).join(', ')}.${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках (ждут утверждения) — в меню «ЧЕРНОВИК».`:''}</p><ol><li>Можно отправить несколько верхних капсул подряд, пока есть пустые места.</li><li>Команда собирает только точный материал своей капсулы.</li><li>Пока работа недоступна, остаток занимает место. Для пары нужны 2 места; оба освободятся после завершения всей пары.</li></ol><p class="subtle">Три ряда, пять мест, автоматическое ускорение ×2,5 в конце — как в v9. Внешний вид временный.</p>`;
-let page=read(path.join(V9,'page.html'));
-page=swapAll(page,[
- ['<title>Bloomlings · v9 сводная · 30 уровней</title>',`<title>Bloomlings · v10 · первые ${levels.length} раундов</title>`],
- ['V9 · СВОДНАЯ · 30 УРОВНЕЙ',`V10 · РАУНДЫ · ${levels.length} УРОВНЕЙ`],
- ['ПЕРВЫЕ 30',`ПЕРВЫЕ ${levels.length}`]],'page.html');
-const w0=page.indexOf('<h2>Сводная итерация 9</h2>'),w1=page.indexOf('<button class="primary" id="startButton"');if(w0<0||w1<0)throw Error('page.html: welcome moved');
-page=page.slice(0,w0)+welcome+page.slice(w1);
-
+let page=read(path.join(SRC,'page.html'));
+for(const [k,v] of Object.entries({'/*__TITLE__*/':`Bloomlings · v10 · первые ${levels.length} раундов`,'/*__LABEL__*/':`V10 · РАУНДЫ · ${levels.length} УРОВНЕЙ`,'/*__FIRST__*/':`ПЕРВЫЕ ${levels.length}`,'/*__WELCOME__*/':welcome})){if(page.split(k).length!==2)throw Error('page.html: '+k);page=page.split(k).join(v);}
 const uri=(f,m)=>`data:${m};base64,`+fs.readFileSync(f).toString('base64'),json=v=>JSON.stringify(v).replace(/</g,'\\u003c');
 const heroes=path.join(root,'client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion'),fonts=path.join(root,'client/Assets/Bloomlings/UI/Fonts/Resources');
 const assets=Object.fromEntries(['sprig','bloom','drop','twig'].map(n=>[n,uri(path.join(heroes,`homehero-${n}-001.png`),'image/png')]));
 assets.garden=uri(path.join(root,'client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/gameplay-orchard.jpg'),'image/jpeg');
-const css=read(path.join(V9,'style.css')).replace('__FONT__',uri(path.join(fonts,'Nunito-SemiBold.ttf'),'font/ttf')).replace('__FONT_BOLD__',uri(path.join(fonts,'Nunito-ExtraBold.ttf'),'font/ttf'));
+const css=read(path.join(SRC,'style.css')).replace('__FONT__',uri(path.join(fonts,'Nunito-SemiBold.ttf'),'font/ttf')).replace('__FONT_BOLD__',uri(path.join(fonts,'Nunito-ExtraBold.ttf'),'font/ttf'));
 const parts={'/*__STYLE__*/':css,'/*__ASSETS__*/':json(assets),'/*__DATA__*/':json(dataset),'/*__RULES__*/':rules,'/*__UI__*/':ui,'/*__TIMELINE__*/':timeline,'/*__PALETTE__*/':palette,'/*__CLOCK__*/':clock};
 for(const [k,v] of Object.entries(parts)){if(page.split(k).length!==2)throw Error('page.html: '+k);page=page.split(k).join(v);}
 if(page.includes('/*__'))throw Error('page.html: marker left');
