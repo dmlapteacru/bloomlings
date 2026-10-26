@@ -5,18 +5,19 @@ const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map
 
 // 1. Mike Wazowski: a round green ball with one big eye, two small horns, a wide grin, thin arms and legs.
 function mike(){
- const body=circle(18,17,13);
- const g=draw(36,40,1.06,[
-  [union(poly([[10.5,7],[13.5,5],[11,1.2]]),poly([[22.5,5],[25.5,7],[25,1.2]])),'C'],   // horns
-  [union(seg(7,20,2.5,27,1.1),seg(29,20,33.5,27,1.1)),'G'],                            // arms
-  [union(circle(2.5,28,1.8),circle(33.5,28,1.8)),'G'],                                  // hands
-  [union(seg(13,28,12.5,35,1.3),seg(23,28,23.5,35,1.3)),'G'],                           // legs
-  [union(ellipse(11.5,36.3,3.2,1.5),ellipse(24.5,36.3,3.2,1.5)),'M'],                   // feet
+ const X=19,body=circle(X,18,13.8);
+ const horn=s=>poly([[X+s*7.8,7.4],[X+s*4.6,5.4],[X+s*7,1.3]]);
+ const g=draw(38,42,1,[
+  [union(horn(-1),horn(1)),'C'],                                                        // horns
+  [union(seg(X-12,21,X-16.3,28.5,1.1),seg(X+12,21,X+16.3,28.5,1.1)),'G'],               // arms
+  [union(circle(X-16.3,29.5,1.8),circle(X+16.3,29.5,1.8)),'G'],                         // hands
+  [union(seg(X-5.5,29,X-6,37,1.3),seg(X+5.5,29,X+6,37,1.3)),'G'],                       // legs
+  [union(ellipse(X-7,38.4,3.3,1.5),ellipse(X+7,38.4,3.3,1.5)),'M'],                     // feet
   [body,'G'],
-  [cut(body,circle(16.3,15.3,13)),'M'],                                                 // shade, lower right
-  [circle(18,12.8,6.9),'C'],[circle(18,12.8,4.1),'B'],[circle(18,12.8,2),'D'],
-  [meet(cut(ellipse(18,21.5,8.5,5),ellipse(18,19.5,9.5,4.4)),box(18,24,9,4)),'D'],   // grin
-  [meet(ellipse(18,24.6,3.2,1.4),cut(ellipse(18,21.5,7.5,4),ellipse(18,19.5,9.5,4.4))),'P'],  // tongue
+  [cut(body,circle(X-1.8,16.2,13.8)),'M'],                                              // shade, lower right
+  [circle(X,13.5,7.2),'C'],[circle(X,13.5,4.3),'B'],[circle(X,13.5,2.1),'D'],
+  [meet(cut(ellipse(X,22.5,9,5.2),ellipse(X,20.4,10,4.6)),box(X,25,10,4)),'D'],        // grin
+  [meet(ellipse(X,25.8,3.4,1.5),cut(ellipse(X,22.5,8,4.2),ellipse(X,20.4,10,4.6))),'P'],  // tongue
  ]);
  put(g,'C',[[17,11],[18,11],[17,12]]);                                                  // gleam
  return str(g);}

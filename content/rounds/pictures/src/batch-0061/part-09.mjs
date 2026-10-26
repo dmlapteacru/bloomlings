@@ -22,7 +22,7 @@ function sponge(){
  for(const y of [7,13])g[y][4]='B';
  for(const y of [5,10,16])g[y][25]='B';
  // pores
- for(const [x,y] of [[5,3],[22,9],[5,15],[22,15]])stamp(g,x,y,['LL','LL','LL']);stamp(g,13,2,['LLL']);
+ for(const [x,y] of [[5,3],[22,9],[5,15],[22,15]])stamp(g,x,y,['LL','LL','LL']);
  // eyes with lashes
  const eye=['__CCC__','_CCCCC_','CCBBBCC','CCBDBCC','CCBBBCC','_CCCCC_','__CCC__'];
  stamp(g,8,5,eye);stamp(g,15,5,eye);
