@@ -55,38 +55,40 @@ function diver(){
 function unicorn(){
  const RB=['R','O','Y','G','B','V'];
  const rb=(x,y)=>RB[((Math.floor((x+y)/2.2)%6)+6)%6];
- const horn=poly([[6.8,8.6],[10.2,8],[4.4,0.6]]);
+ const horn=poly([[8.4,9.2],[11.4,8.2],[6,0.6]]);
  const hornStripe=(x,y)=>(Math.floor((x-y*0.6)*0.8)%2===0)?'O':'Y';
- const ear=poly([[11.8,8.6],[15,9],[14.2,3.8]]);
- const head=union(ellipse(10.8,12.2,5.4,4.3),ellipse(6.2,15.2,3.9,3));
- const neck=poly([[9,15],[13,8.5],[19.5,12.5],[24,18],[16,25],[11.5,19.5]]);
+ const ear=poly([[12,10],[16.4,10],[15.4,3.2]]);
+ const head=(x,y)=>poly([[10,7.6],[14.5,9.5],[15,13.8],[11.5,17],[6,18.2],[3.2,16.8],[3.4,14],[7.4,9.8]])(x,y)-0.6;
+ const neck=poly([[13,9],[18.5,11.5],[25,18],[18,26.5],[14.6,21.5],[13.4,16.5]]);
  const body=ellipse(23.5,23,11.2,7);
- const shade=meet(body,below(26.6));
- const mane=union(poly([[11,7.6],[16.5,7.4],[21.5,11.5],[26,16.4],[23,18.6],[18.6,14.6],[14.4,11.4],[12,10.6]]),ellipse(12.2,8.6,2.6,1.7));
+ const mane=poly([[15,7.2],[18.6,6.8],[23.6,10.6],[28.4,16],[24.4,19.6],[18.8,14.8],[15.6,12],[14.6,10]]);
  const tail=union(seg(33.5,18.5,37,22,2.3),seg(37,22,36.6,29.5,2.5),seg(36.6,29.5,38.2,33.6,1.9));
  const legsNear=union(box(15.8,31,2,5.6),box(28.2,31,2,5.6));
  const legsFar=union(box(19.4,30.6,1.9,5.2),box(31.8,30.6,1.9,5.2));
  const hooves=union(box(15.8,35.8,2.1,1.1),box(28.2,35.8,2.1,1.1),box(19.4,35,2,1.1),box(31.8,35,2,1.1));
- const g=draw(40,38,1.12,[[legsFar,'K'],[tail,rb],[body,'C'],[shade,'K'],[legsNear,'C'],[hooves,'V'],[neck,'C'],[head,'C'],[mane,rb],[ear,'C'],[horn,hornStripe],
-  [box(10.4,12.6,0.6,0.9),'D'],[circle(5.2,15.6,0.65),'K']]);
+ const g=draw(40,38,1.17,[[legsFar,'K'],[tail,rb],[body,'C'],[legsNear,'C'],[hooves,'V'],[neck,'C'],[head,'C'],[mane,rb],[ear,'C'],[horn,hornStripe],
+  [box(10,12.6,0.85,0.85),'D'],[circle(4.6,16.2,0.7),'K']]);
  return trim(str(g));}
 
 function crystalBall(){
  const W=34,H=42,cx=17,cy=16,r=15.5;
  const ball=circle(cx,cy,r),inner=circle(cx,cy,r-1);
- const hill=meet(inner,ellipse(cx,27,13,5.5));
- const keep=box(cx,18,3.5,5),towerL=box(cx-6,19,2,4.5),towerR=box(cx+6,19,2,4.5);
- const roofs=union(poly([[cx-4.5,13.2],[cx+4.5,13.2],[cx,6.5]]),poly([[cx-8.8,14.6],[cx-3.2,14.6],[cx-6,9.5]]),poly([[cx+3.2,14.6],[cx+8.8,14.6],[cx+6,9.5]]));
- const door=box(cx,21.5,1.4,1.6,0.8);
- const flag=box(cx+1.3,5.6,1.2,0.7);
- const shine=meet(inner,cut(circle(cx-1.5,cy-1.5,r-2.2),circle(cx+0.3,cy+0.3,r-2.2)));
- const collar=box(cx,32,7.5,1.3);
- const base=poly([[cx-11,40.5],[cx+11,40.5],[cx+7.5,33],[cx-7.5,33]]);
- const band=box(cx,37,9.2,0.7);
- const foot=box(cx,41,12,0.9,0.4);
- const g=raster(W,H,'.',[[ball,'B'],[inner,'S'],[shine,'C'],[hill,'G'],[towerL,'P'],[towerR,'P'],[keep,'P'],[roofs,'V'],[door,'V'],[flag,'Y'],
-  [base,'A'],[band,'Y'],[collar,'Y'],[foot,'A']]);
- put(g,'D',[]);
+ const hill=meet(inner,ellipse(cx,28,13.5,6.5));
+ const wall=box(cx,21,7.5,2.6);
+ const merlons=union(...[-7,-4.5,4.5,7].map(d=>box(cx+d,18,0.9,0.9)));
+ const keep=box(cx,17.6,3.4,6),towerL=box(cx-6.4,18.6,2.1,5),towerR=box(cx+6.4,18.6,2.1,5);
+ const roofs=union(poly([[cx-4.6,12],[cx+4.6,12],[cx,5.2]]),poly([[cx-9.3,14],[cx-3.5,14],[cx-6.4,8.6]]),poly([[cx+3.5,14],[cx+9.3,14],[cx+6.4,8.6]]));
+ const door=box(cx,21.6,1.5,2,0.9);
+ const windows=union(box(cx,15.2,0.6,1),box(cx-6.4,17.2,0.6,1),box(cx+6.4,17.2,0.6,1));
+ const pole=box(cx+0.5,4.2,0.6,1.6),flag=box(cx+2.2,3.4,1.2,0.8);
+ const shine=meet(cut(circle(cx,cy,r-2),circle(cx,cy,r-4)),poly([[cx,cy],[cx-30,cy-4],[cx-8,cy-30]]));
+ const cup=cut(poly([[cx-10.5,27.6],[cx+10.5,27.6],[cx+6.5,33.5],[cx-6.5,33.5]]),circle(cx,cy-0.2,r-0.2));
+ const rim=meet(cup,box(cx,30.6,12,0.7));
+ const stem=box(cx,34.8,3,1.6);
+ const base=poly([[cx-10.5,40.8],[cx+10.5,40.8],[cx+7,36],[cx-7,36]]);
+ const band=box(cx,38.3,8.9,0.65);
+ const g=raster(W,H,'.',[[ball,'B'],[inner,'S'],[shine,'C'],[hill,'G'],[wall,'P'],[merlons,'P'],[towerL,'P'],[towerR,'P'],[keep,'P'],[roofs,'V'],[door,'V'],[windows,'V'],[pole,'V'],[flag,'Y'],
+  [cup,'A'],[rim,'Y'],[stem,'Y'],[base,'A'],[band,'Y']]);
  return trim(str(g));}
 
 function treehouse(){
@@ -94,8 +96,8 @@ function treehouse(){
  const ground=below(33.4);
  const trunk=union(poly([[13,35],[23,35],[20,18],[16,18]]),seg(17,22,7,16,1.4),seg(20,21,28,17,1.3));
  const trunkShade=meet(trunk,poly([[18.5,17],[30,17],[30,36],[21,36]]));
- const canopy=union(circle(18,9,9),circle(9,11,6.5),circle(27,11,6.5),circle(12,5,5.5),circle(24,5,5.5));
- const canShade=meet(canopy,below(13.5));
+ const canopy=union(circle(18,9.5,9),circle(8.5,11.5,6.6),circle(27.5,11.5,6.6),circle(12,5.5,5.6),circle(24,5.5,5.6));
+ const canShade=cut(canopy,union(circle(17.3,8,9),circle(8,10,6.5),circle(26,10,6.5),circle(11,4,5.5),circle(23,4,5.5)));
  const platform=box(22,20.2,7.5,0.8);
  const house=box(22,16.3,5.5,3.3);
  const roof=poly([[15,13.6],[29,13.6],[22,7.5]]);

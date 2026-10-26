@@ -25,17 +25,17 @@ function croissant(){
 
 function cake(){
  const plate=box(20,38.2,18,1.1,1);
- const low=box(20,30.5,15,6.5,1),lowShade=meet(low,box(32.5,30.5,2.5,8));
- const top=box(20,18.5,11,5.5,1),topShade=meet(top,box(29,18.5,2,6));
+ const low=box(20,30.5,15,6.5,1),lowShade=meet(low,box(7,30.5,2,8));
+ const top=box(20,18.5,11,5.5,1),topShade=meet(top,box(11,18.5,2,6));
  const drips=(y,xs)=>union(...xs.map(([x,l])=>box(x,y+l/2,1,l/2+.3,1)));
- const lowIce=union(box(20,25,15.4,1.5,1),drips(25,[[7,3.5],[11.5,2],[16,4],[21,2.5],[26,4],[30.5,2.5]]));
- const topIce=union(box(20,13.6,11.4,1.5,1),drips(13.6,[[12,3.5],[16.5,2],[21,4],[25.5,2.5]]));
+ const lowIce=union(box(20,25,15.4,1.5,1),drips(25,[[7,4.5],[11.5,2.5],[16,5],[21,3],[26,5],[30.5,3]]));
+ const topIce=union(box(20,13.6,11.4,1.5,1),drips(13.6,[[12,4.5],[16.5,2.5],[21,5],[25.5,3]]));
  const bx=[[7.5,22.3],[12,22.3],[28,22.3],[32.5,22.3],[11,10.8],[29,10.8]];
  const berries=union(...bx.map(([x,y])=>circle(x,y,2)));
  const cand=[15,20,25];
  const candles=union(...cand.map(x=>box(x,9,1,4)));
  const flames=union(...cand.map(x=>union(circle(x,3.9,1.7),poly([[x-1.3,3.6],[x,0],[x+1.3,3.6]]))));
- const g=draw(40,40,1.07,[[plate,'B'],[low,'K'],[lowShade,'P'],[top,'K'],[topShade,'P'],[lowIce,'C'],[topIce,'C'],[berries,'R'],
+ const g=draw(40,40,1.07,[[plate,'B'],[low,'P'],[lowShade,'K'],[top,'P'],[topShade,'K'],[lowIce,'C'],[topIce,'C'],[berries,'R'],
   [candles,(x,y)=>Math.floor(y*1.07)%3===0?'C':'B'],[flames,'Y']]);
  const k=1.07;
  for(const x of cand){const c=Math.round(x*k);put(g,'O',[[c-1,4],[c,4],[c-1,5],[c,5]]);put(g,'D',[[c-1,6],[c,6]]);}

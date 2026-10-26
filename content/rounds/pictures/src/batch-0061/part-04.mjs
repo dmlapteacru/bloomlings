@@ -2,6 +2,8 @@
 import {circle,ellipse,box,poly,union,cut,meet} from '../../../../../tools/gameplay-pilot-v9/draw.mjs';
 import {raster,fit,str,put,ring4,scale,seg} from '../helpers.mjs';
 const all=()=>-1;
+// drop empty border rows and columns
+const trim=g=>{const H=g.length,W=g[0].length,rs=[...Array(H).keys()].filter(y=>g[y].some(c=>c!=='.')),cs=[...Array(W).keys()].filter(x=>g.some(r=>r[x]!=='.'));return g.slice(rs[0],rs.at(-1)+1).map(r=>r.slice(cs[0],cs.at(-1)+1));};
 const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map(([s,c])=>[scale(k,s),typeof c==='function'?(x,y,u)=>c(x/k,y/k,u):c]));
 const half=f=>(x,y)=>f(x,y)?-1:1; // a predicate as a shape
 const ring=(cx,cy,r1,r2)=>cut(circle(cx,cy,r1),circle(cx,cy,r2));
@@ -13,7 +15,7 @@ function locomotive(){
  const wheel=(cx,cy,r)=>[[circle(cx,cy,r),'D'],[circle(cx,cy,r-1),'R'],[circle(cx,cy,1.3),'Y']];
  const g=draw(W,H,k,[
   // the big chimney puff: soft clouds rising to the left
-  [union(circle(30.6,5.6,3.6),circle(25.2,4.2,3.2),circle(20.2,3.4,2.6),circle(35,3.6,2.6),circle(28,2.4,2.4)),'S'],
+  [union(circle(31,5,3.4),circle(34.4,6.2,2.2),circle(28.4,6.4,2),circle(24,3.6,2.5),circle(21.6,4.8,1.7),circle(18.2,3.6,1.5)),'S'],
   // the chimney: a flared top on a short stem
   [union(poly([[26.5,8.6],[35.5,8.6],[33.5,11.8],[28.5,11.8]]),box(31,13.8,2.4,3)),'D'],
   // the boiler with its round front, a brass dome and two bands
@@ -30,37 +32,41 @@ function locomotive(){
   [box(10,13.5,3.4,3,.5),'S'],
   // the chassis, the cowcatcher and the wheels joined by a rod
   [box(21.5,25,19.5,1.5),'D'],
-  [poly([[37.4,23.6],[39.8,23.6],[41.8,31.6],[36.4,31.6]]),'R'],
-  ...wheel(10,27,5.6),...wheel(24.5,28.4,4.2),...wheel(33.5,28.4,4.2),
-  [box(22,28.4,11.5,.6),'Y'],
+  [poly([[38.4,23.6],[40,23.6],[42.2,31.6],[38.4,31.6]]),'R'],
+  ...wheel(10,27,5.45),...wheel(24,28.4,4.1),...wheel(32.6,28.4,4.1),
+  [box(21.5,28.4,11,.6),'Y'],
  ]);
- return str(g);}
+ return str(trim(g));}
 
 function submarine(){
  const W=34,H=32;
  const sea=(x,y)=>y>=29?'C':'B';
+ const hull=union(ellipse(18.5,18,11.6,6.6),poly([[10,13.4],[4.4,16],[4.4,20],[10,22.6]]));
  const g=raster(W,H,'.',[
   [all,sea],
   [union(circle(4,30,2.6),circle(29.5,29.6,2.2)),'C'],
   // seaweed fronds
-  [union(seg(3,29,2,23,1.1),seg(2,23,3.5,18.5,1)),'G'],[union(seg(30,29,31.2,24,1.1),seg(31.2,24,30,20.5,1)),'G'],
-  // bubbles from the propeller
-  [union(circle(4.6,10.5,1.5),circle(2.6,6.2,1.1),circle(5.5,3,1.4)),'S'],
+  [union(seg(3.5,29,2.6,25,1.05),seg(2.6,25,3.8,22.6,1)),'G'],[union(seg(7.5,29,8.4,26.4,1),seg(8.4,26.4,7.4,24.8,.9)),'G'],
+  // bubbles rising from the propeller
+  [union(circle(4.4,11,1.6),circle(2.6,6.6,1.25),circle(5,2.6,1.6)),'S'],
   // periscope
-  [union(box(18.5,5,1,4),box(20.5,2,3,1.1)),'D'],
-  // tower, body and tail
-  [box(16.5,10.5,5.5,3.2,1.5),'Y'],
-  [poly([[3,13],[7,15],[7,21],[3,23]]),'O'],
-  [ellipse(17.5,18,12.2,6.6),'Y'],
-  [meet(ellipse(17.5,18,12.2,6.6),half((x,y)=>y>21.3)),'O'],
-  [box(1.8,18,1,4),'R'],[box(3.2,18,1.2,.8),'D'],
-  // three portholes
-  ...[11.5,18,24.5].flatMap(x=>[[circle(x,17.5,2.6),'D'],[circle(x,17.5,1.6),'S']]),
-  // two fish
-  [union(ellipse(28,6,2.8,1.8),poly([[30,6],[33,3.8],[33,8.2]])),'O'],
-  [union(ellipse(9,26,2.8,1.8),poly([[11,26],[14,23.8],[14,28.2]])),'R'],
+  [union(box(19,5,1,4),box(21,2,3,1.1)),'D'],
+  // tail fins, tower, hull with a shaded belly
+  [union(poly([[5,11.4],[8,11.4],[10.4,15],[6,15]]),poly([[5,24.6],[8,24.6],[10.4,21],[6,21]])),'O'],
+  [box(17.5,10.5,5.5,3.2,1.5),'Y'],
+  [box(17.5,7.8,4.6,.6,.3),'O'],
+  [hull,'Y'],
+  [meet(hull,half((x,y)=>y>21.3)),'O'],
+  // propeller: a hub and two blades
+  [box(3.6,18,1,.8),'D'],[box(2,18,1,4,.6),'R'],
+  // three portholes with a glint
+  ...[12.5,18.5,24.5].flatMap(x=>[[circle(x,17.5,2.6),'D'],[circle(x,17.5,1.6),'S']]),
  ]);
- put(g,'D',[[26,5],[7,25]]);
+ // two fish: an orange one swimming left, a red one swimming right
+ const fish=['..OOOO...O','.OOOOOO.OO','ODOOOOOOOO','.OOOOOO.OO','..OOOO...O'];
+ over(g,23,3,fish);
+ over(g,23,24,fish.map(r=>[...r].reverse().join('').replace(/O/g,'R')));
+ put(g,'C',[[11,16],[17,16],[23,16]]);
  return str(g);}
 
 function plane(){
@@ -108,8 +114,8 @@ function compass(){
   // four cream marks
   [union(box(cx,cy-5.4,.5,.9),box(cx,cy+5.4,.5,.9),box(cx-5.4,cy,.9,.5),box(cx+5.4,cy,.9,.5)),'C'],
   // the needle: red north, cream south
-  [poly([[cx,cy-4.9],[cx+1.6,cy],[cx-1.6,cy]]),'R'],
-  [poly([[cx,cy+4.9],[cx+1.6,cy],[cx-1.6,cy]]),'C'],
+  [poly([[cx,cy-5.6],[cx+2.2,cy],[cx-2.2,cy]]),'R'],
+  [poly([[cx,cy+5.6],[cx+2.2,cy],[cx-2.2,cy]]),'C'],
   [circle(cx,cy,.8),'Y'],
  ]);
  return str(g);}
