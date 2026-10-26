@@ -69,6 +69,24 @@ for(const [k,v] of Object.entries(parts)){if(page.split(k).length!==2)throw Erro
 if(page.includes('/*__'))throw Error('page.html: marker left');
 fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'index.html'),page);
 fs.writeFileSync(path.join(OUT,'levels.json'),JSON.stringify(dataset,null,1)+'\n');
+// README: the level table from the cards (17 §14), for the owner
+const pics=Object.fromEntries(cards.map(c=>[c.picture,readJSON(path.join(root,'content/rounds/pictures',c.picture+'.json'))]));
+const MECH_RU={none:'—',hidden:'скрытые',links:'связки',bridge:'мост','links+hidden':'связки + скрытые','bridge+links':'мост + связки'};
+const rows=cards.map(c=>`| ${c.level} | ${c.cls}${c.intro?` · знакомство: ${MECH_RU[c.intro]}`:''} | ${c.picture} «${pics[c.picture]?.title||''}»${c.draft?' (черновик)':''} | ${c.N} / ${c.colours} | ${c.P} / ${c.columns} | ${MECH_RU[c.recipe]||c.recipe}${c.linked?` (связанных ${c.linked})`:''}${c.hidden?` (скрытых ${c.hidden})`:''} | ${Math.round(c.random*100)} % из ${c.runs}${c.borderline?' (на границе)':''} | ${c.seconds} с |`).join('\n');
+fs.writeFileSync(path.join(OUT,'README.md'),`# Bloomlings v10 — первые ${levels.length} уровней раундов
+
+[Скачать ZIP для телефона](Bloomlings-pilot-v10.zip). Распакуй и открой [index.html](index.html). Сеть не нужна, все уровни открыты в меню. После игры: Уровни → Результаты → скачать JSON.
+
+Уровни построены скилом \`bloomlings-round-levels\` по [правилам 17](../../17_LEVEL_GENERATION_RULES.md) из утверждённых картинок (\`content/rounds/approved/\`) и сыграны в браузере их сохранёнными решениями. Страница играет тем же движком раундов (\`tools/rounds/engine/\`), на котором уровни решены и измерены.${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках, которые ждут утверждения, и помечены в меню «ЧЕРНОВИК».`:''}
+
+| Уровень | Класс | Картинка | Клетки / цвета | Поды / колонки | Механики | Случайный тест (§5) | Сохранённое решение, ×1 |
+|---|---|---|---|---|---|---|---|
+${rows}
+
+Случайный тест — доля побед бота, выбирающего равновероятно среди допустимых действий и ожидания (§5); это не человеческий винрейт. Время — сохранённое решение с ожиданием окончания работы (§12).
+
+Исходники: [\`tools/gameplay-pilot-v10\`](../../../tools/gameplay-pilot-v10/build.mjs), уровни: [\`content/rounds/levels\`](../../../content/rounds/levels/). Игра и APK не менялись.
+`);
 
 // ---- a stored ZIP (deflate) with the page and a short readme, fixed dates so the archive is reproducible ----
 const readme=Buffer.from(`Bloomlings v10 — первые ${levels.length} уровней раундов (правила 17)\n\nРаспакуй ZIP и открой index.html в браузере телефона. Сеть не нужна, все уровни открыты в меню.\nПосле игры: Уровни → Результаты → скачать JSON.\nЭто отдельный пилот: игра и предыдущие версии не меняются.\n`,'utf8');
