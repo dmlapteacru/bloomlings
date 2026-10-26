@@ -17,8 +17,8 @@ function astronaut(){
  const legL=box(9.7,19.2,1.45,2.1,0.5),legR=box(13.3,19.2,1.45,2.1,0.5);
  const armR=union(seg(14.2,12.4,16.8,10.2,1.15),circle(17.3,9.8,1.25));
  const can=box(19.6,8.6,2.2,1.9,0.6),handle=cut(circle(19.4,6.3,1.8),circle(19.4,6.3,0.75));
- const spout=seg(21.4,9.2,24.2,11.4,0.7),rose=circle(24.7,11.7,1.1);
- const planet=circle(31.5,5,2.6),ring=cut(ellipse(31.5,5.4,4.8,1.5),ellipse(31.5,5.0,3.0,0.6));
+ const spout=seg(21.4,9.2,24.6,11.2,0.7),rose=circle(25.1,11.5,1.1);
+ const planet=circle(31,5,2.7),ring=seg(26.2,7.2,35.8,2.8,0.55);
  const suit=part=>[[grow(part,0.95),'D'],[part,'C']];
  const g=raster(W,H,'N',[
   [rock,'E'],[meet(rock,rockLit),'A'],
@@ -28,20 +28,19 @@ function astronaut(){
   ...suit(helmet),[visor,'D'],
   [handle,'O'],[can,'O'],[spout,'O'],[rose,'O'],
   // a small ringed planet in the top right corner
-  [planet,'P'],[(x,y)=>ring(x,y)<0&&(planet(x,y)>0||y>5.4)?-1:1,'C'],
+  [planet,'P'],[ring,'C'],
  ]);
  // the flower, by hand: four round petals round an orange heart, on a stem with a leaf, growing from the rock
  const flower=['.PP.PP.','PPPPPPP','PPOOOPP','.POOOP.','PPOOOPP','PPPPPPP','.PP.PP.','...GG..','...GGGG','..GGGG.','...GG..'];
- stamp(g,24,12,flower);
- put(g,'C',[[11,5],[12,5],[11,6]]);                       // the visor's glint
- put(g,'C',[[25,13],[25,14],[23,14],[23,15]]);              // falling water drops
- for(const [x,y] of [[3,3],[22,2],[4,14],[33,15],[31,28],[25,4]])star(g,x,y,'Y');
+ stamp(g,27,14,flower);
+  put(g,'C',[[25,14],[25,15],[23,13],[23,14]]);              // falling water drops
+ for(const [x,y] of [[3,3],[23,2],[2,20],[33,10],[32,28],[2,29]])star(g,x,y,'Y');
  return str(g);
 }
 
 // 2. A penguin skating in a scarf on a rink: winter sky behind, light ice with skate lines below.
 function penguin(){
- const W=34,H=34,k=0.95,ox=0.6,oy=-1.2,horizon=21;
+ const W=33,H=35,k=0.95,ox=0.6,oy=0.4,horizon=22;
  const T=s=>(x,y)=>s((x-ox)/k,(y-oy)/k)*k;
  const body=union(ellipse(16,20,8.6,10.4),circle(18.4,8.6,6.4),poly([[11,14],[24.4,10],[24,20],[10,20]]));
  const belly=union(ellipse(19,21.4,5.8,8.2),circle(20.8,9.6,3.8),poly([[17,10],[24,10],[24.4,20],[15,20]]));
@@ -52,8 +51,8 @@ function penguin(){
  const scarf=union(meet(body,(x,y)=>Math.abs(y-(13.4-0.12*(x-17)))-1.05),knot);
  const tail=union(seg(12,13.2,6.5,11.2,1.15),seg(6.5,11.2,2.6,12.6,1.15));
  // the rink: two long curved skate lines on the ice
- const lineA=(x,y)=>Math.abs(y-(25.2+0.012*(x-6)*(x-6)))-0.5;
- const lineB=(x,y)=>Math.abs(y-(31.6-0.010*(x-30)*(x-30)))-0.5;
+ const lineA=(x,y)=>Math.abs(y-(26.2+0.010*(x-4)*(x-4)))-0.5;
+ const lineB=(x,y)=>Math.abs(y-(32.6-0.008*(x-30)*(x-30)))-0.5;
  const env=(x,y)=>y<horizon?'B':(lineA(x+.5,y+.5)<0&&x<30)||(lineB(x+.5,y+.5)<0&&x>3)?'B':'S';
  const g=raster(W,H,'.',[
   [()=>-1,(x,y)=>env(x,y)],
@@ -64,9 +63,11 @@ function penguin(){
   [T(beak),'O'],
  ]);
  // the skates, by hand: deep blue boots on dark blades with a curled toe; the back one raised behind
- stamp(g,11,26,['....OO......','...NNNN.....','...NNNNNNN..','...NNNNNNN..','....D....D.D','..DDDDDDDDD.']);
- stamp(g,0,20,['........OO','....NNNNO.','NNNNNNNN..','NNNNNNNN..','.D....D...','DDDDDDDDD.']);
- return {g,eye:[20,5]};
+ stamp(g,11,28,['....OO......','...NNNN.....','...NNNNNNN..','...NNNNNNN..','....D....D.D','..DDDDDDDDD.']);
+ stamp(g,0,22,['........OO','....NNNNO.','NNNNNNNN..','NNNNNNNN..','.D....D...','DDDDDDDDD.']);
+ ring4(g,['C'],'D','S');                                   // a dark rim where the white front meets the ice
+ for(const [x,y] of [[4,4],[11,2],[30,3],[29,12],[5,15]])star(g,x,y,'C');   // big snowflakes in the winter sky
+ return {g,eye:[20,6]};
 }
 function penguinRows(){const {g,eye}=penguin();put(g,'D',[eye,[eye[0],eye[1]+1]]);return str(g);}
 

@@ -43,14 +43,14 @@ function whale(){
  return str(g);}
 
 function lighthouse(){
- const W=28,H=33,sea=27;
- const k=0.78,dx=1.4,dy=-1.4;
+ const W=27,H=35,sea=30;
+ const k=0.78,dx=1.8,dy=-1.4;
  const tower=poly([[7,38],[23,38],[20.5,17],[9.5,17]]);
  const stripe=(x,y)=>Math.floor(((y+0.5-dy)/k-17)/4.2)%2===0?'R':'C';
- const rock=poly([[1,46],[3,40],[7,37],[12,36],[19,36],[24,37.5],[28,41],[30,46]]);
- const shade=meet(rock,poly([[18,47],[23,39],[30,39],[31,47]]));
+ const rock=poly([[0,48],[2,42],[5,38.5],[10,36.5],[20,36.5],[25,38],[28.5,42],[31,48]]);
+ const shade=meet(rock,poly([[19,49],[24,40],[32,40],[32,49]]));
  // two light beams from the lamp, widening to the edges of the sky
- const beams=union(poly([[15,12],[-4,8],[-4,16]]),poly([[15,12],[34,8],[34,16]]));
+ const beams=union(poly([[15,10.8],[-4,7.5],[-4,16.5],[15,13.2]]),poly([[15,10.8],[34,7.5],[34,16.5],[15,13.2]]));
  // sky above, sea below with rows of short cream foam dashes; the last rows wash over the foot of the rock
  const env=(x,y)=>{if(y<sea)return 'S';return ((y-sea)%3===1&&((x+3*(y-sea))%7<3))?'C':'B';};
  const g=raster(W,H,'.',[[all,env],...[[beams,'Y'],[rock,'A'],[shade,'E'],[tower,stripe],[box(15,35.5,1.6,2.5,1),'D'],[box(15,25,1,1.2),'D'],[box(15,16,8.5,1),'D'],[box(15,12.5,5.5,2.5),'D'],[box(15,12.5,3.5,1.5),'Y'],[poly([[8.5,10],[21.5,10],[15,4]]),'R'],[circle(15,4.5,1.2),'D']].map(([f,c])=>[T(k,dx,dy,f),c]),[(x,y)=>y>H-2.5?-1:1,env]]);
