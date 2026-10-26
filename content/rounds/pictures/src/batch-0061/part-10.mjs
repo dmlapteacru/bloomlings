@@ -113,7 +113,7 @@ function nemo(){
 
 // 5. The Up house: a little colourful house lifted into the sky by a big bunch of many-coloured balloons.
 function upHouse(){
- const W=34,H=40;
+ const W=34,H=38;
  const cols=['R','Y','B','G','P','O'];
  const balloons=[];
  const rowsY=[3.5,7.5,11.5,15.5,19];
@@ -123,14 +123,14 @@ function upHouse(){
   [box(W/2,H/2,W/2,H/2),'S'],
   [union(ellipse(5,34,4.2,1.8),circle(3.5,32.6,1.8),circle(6.5,32.3,2.1)),'C'],   // cloud left
   [union(ellipse(29.5,26,4.4,1.9),circle(28,24.4,2),circle(31,24.2,2.2)),'C'],   // cloud right
-  [(x,y)=>{if(y<19||y>27)return 1;let d=9;for(const sx of [11,15,19,23]){const t=(y-19)/(27-19),cx=sx+(19-sx)*t;d=Math.min(d,Math.abs(x-cx)-.5);}return d;},'D'],   // strings
+  [(x,y)=>{if(y<19||y>24)return 1;let d=9;for(const sx of [11,15,19,23]){const t=(y-19)/(24-19),cx=sx+(22.5-sx)*t;d=Math.min(d,Math.abs(x-cx)-.5);}return d;},'D'],   // strings
  ]);
  // balloons in order, each a round with its tie
  const order=[0,2,4,1,3,5,2,0,5,3,1,4];
  balloons.forEach(([bx,by],i)=>{const c=cols[order[i%order.length]];
   const s=circle(bx,by,2.35);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(s(x+.5,y+.5)<0)g[y][x]=c;});
  const house=raster(W,H,'.',[
-  [box(20,26,1.3,2),'R'],                                      // chimney
+  [box(23,25.5,1,2),'R'],                                      // chimney
   [poly([[9,30.5],[19,24],[29,30.5]]),'D'],                    // roof
   [box(19,34,8,3.6),'P'],                                      // walls
   [box(19,30.2,8.4,.5),'C'],                                   // eave trim
