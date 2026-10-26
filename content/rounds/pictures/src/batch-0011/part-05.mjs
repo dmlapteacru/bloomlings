@@ -41,7 +41,7 @@ function bicycle(){
   [circle(36.6,3,2.4),'C'],
   [union(box(32.6,4.4,.6,.6),box(40.6,4.4,.6,.6),box(36.6,3,.9,.9)),'Y'],
  ]);
- return str(g);
+ return str(trim(g));
 }
 
 // 2. A tiny sailboat floating on tea in a big teacup on a saucer.
@@ -79,12 +79,12 @@ function snowGlobe(){
   [meet(circle(9.5,9.2,9),(x,y)=>y>13.4?-1:1),'C'],
   [poly([[9.5,2],[13.2,7.2],[11.6,7.2],[14.6,11.8],[4.4,11.8],[7.4,7.2],[5.8,7.2]]),'G'],
   [meet(poly([[9.5,2],[13.2,7.2],[11.6,7.2],[14.6,11.8],[4.4,11.8],[7.4,7.2],[5.8,7.2]]),(x,y)=>x>9.5?-1:1),'M'],
-  [box(9.5,12.8,1,1),'E'],
+  [box(9.5,12.8,1.5,1),'E'],
   [poly([[2.4,16.6],[16.6,16.6],[18,22.6],[1,22.6]]),'A'],
   [box(9.5,19.6,8.4,1),'E'],
  ]);
  put(g,'C',[[4,5],[14,4],[3,9],[15,9],[6,2]]);
- return str(g);
+ return str(trim(g));
 }
 
 // 4. A glazed doughnut planet with a ring of sprinkles and a tiny flag on top.
@@ -107,21 +107,21 @@ function donutPlanet(){
   [hole,'A'],
   [meet(hole,(x,y)=>y>cy-3.9?-1:1),'.'],
   [front,sprinkle],
-  [box(cx+.4,5.6,.55,4.6),'D'],
-  [poly([[cx+1,1],[cx+6.8,2.9],[cx+1,4.8]]),'R'],
+  [box(cx+1,5.6,1,4.6),'D'],
+  [poly([[cx+2,1],[cx+7.6,2.9],[cx+2,4.8]]),'R'],
  ]);
  const sp=[[12,16,'Y',1],[16,12,'B',0],[27,12,'L',1],[31,15,'Y',0],[10,22,'L',0],[34,20,'B',1],[16,26,'Y',0],[28,26,'L',1],[21,10,'Y',0],[12,27,'L',1],[32,27,'Y',0],[24,30,'L',0]];
  for(const [x,y,c,v] of sp){if(g[y][x]==='P')g[y][x]=c;const [u,w]=v?[x,y+1]:[x+1,y];if(g[w]?.[u]==='P')g[w][u]=c;}
- return str(g);
+ return str(trim(g));
 }
 
 // 5. A floating island of earth and grass with a small house, a tree and roots below.
 function island(){
  const under=poly([[1.5,26],[42.5,26],[38.5,32],[32,37.5],[24,42.2],[15.5,38],[7,32.5]]);
- const g=raster(44,44,'.',[
+ const g=draw(44,44,1.02,[
   // earth underside and its shade side
   [union(under,ellipse(22,26.6,20.6,2.4)),'A'],
-  [meet(under,(x,y)=>x>21+(y-26)*.25?-1:1),'E'],
+  [meet(under,(x,y)=>x>24.5+(y-26)*.05?-1:1),'E'],
   // roots
   [union(seg(12,34,9.4,40.4,.85),seg(31,36,34,41.4,.85)),'E'],
   [seg(23.6,41,23.6,43.8,.85),'A'],
@@ -139,7 +139,7 @@ function island(){
   [union(circle(32.4,10,7.6),circle(27.6,13,4.8),circle(37.2,13,4.8)),'M'],
   [union(circle(30.6,8,4),circle(27.2,11.8,2.6)),'G'],
  ]);
- return str(g);
+ return str(trim(g));
 }
 
 export default {theme:'batch-0011',pictures:[

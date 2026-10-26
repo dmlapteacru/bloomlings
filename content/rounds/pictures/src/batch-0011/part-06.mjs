@@ -33,7 +33,7 @@ function radio(){
 
 // 2. Golden medallion: a loop on top, a gold disc with an orange rim, a red gem, two notched ribbon tails behind.
 function medallion(){
- const W=22,H=28;
+ const W=22,H=26;
  const g=R(W,H,[
   [circle(11,12,9),'O'],                           // rim
   [circle(11,12,7),'Y'],                           // disc
@@ -41,8 +41,8 @@ function medallion(){
  ]);
  put(g,'O',[[9,0],[10,0],[11,0],[12,0],[8,1],[9,1],[12,1],[13,1],[8,2],[9,2],[12,2],[13,2]]); // loop
  put(g,'C',[[10,9],[9,10],[10,10]]);               // gem shine
- const tail={18:[4,6],19:[4,7],20:[3,7],21:[3,7],22:[2,6],23:[2,6],24:[1,5],25:[1,5],26:[1,5],27:[1,5]};
- for(const [y,[a,b]] of Object.entries(tail))for(let x=a;x<=b;x++){if(+y>=26&&x===3)continue;for(const u of [x,21-x])if(g[y][u]==='.')g[y][u]='N';}
+ const tail={18:[4,6],19:[4,7],20:[3,7],21:[3,7],22:[2,6],23:[2,6],24:[1,5],25:[1,5]};
+ for(const [y,[a,b]] of Object.entries(tail))for(let x=a;x<=b;x++){if(+y>=24&&x===3)continue;for(const u of [x,21-x])if(g[y][u]==='.')g[y][u]='N';}
  return str(g);
 }
 
@@ -89,34 +89,36 @@ function ghost(){
  return str(g);
 }
 
-// 5. Sushi train: a salmon nigiri wagon, a wagon of two maki rolls, a locomotive (lying maki boiler, rice cab under a
-// tamago roof), wooden chassis and wheels.
+// 5. Sushi train: a salmon nigiri wagon, a standing maki wagon, a locomotive (rice cab under a tamago roof, lying maki
+// boiler with a funnel), wooden chassis and wheels.
 function sushiTrain(){
- const W=44,H=33;
+ const W=44,H=37;
  const salmon=(x,y)=>((x+y)%4===0)?'C':'O';
- const ae=(x,y)=>y>=27?'E':'A';
- // chassis rows 25-27
+ const ae=(x,y)=>y>=29?'E':'A';
  const g=R(W,H,[
   // wagon 1: salmon nigiri
-  [box(5.5,18.5,5,6,2),'C'],
-  [box(5.5,9,5.6,4.5,2),salmon],
-  // wagon 2: two maki rolls
-  [circle(17.5,20.6,5.4),'D'],[circle(17.5,20.6,4.1),'C'],[circle(17.5,20.6,1.9),'R'],
-  [circle(17.5,10,5.4),'D'],[circle(17.5,10,4.1),'C'],[circle(17.5,10,1.9),'G'],
+  [box(5.5,20.5,5.2,6.5,2),'C'],
+  [box(5.5,11.5,6,3.5,2),salmon],
+  // wagon 2: standing maki roll
+  [union(box(17.5,18.25,5.5,7.25,0),ellipse(17.5,25.5,5.5,1.3)),'D'],
+  [ellipse(17.5,11.5,5.5,2.6),'C'],[ellipse(17.5,11.5,2.6,1.3),'R'],
   // locomotive
-  [box(37,18,6.5,7.5,1.5),'D'],                    // boiler: lying maki
-  [ellipse(40.3,18,2.7,5.6),'C'],[ellipse(40.3,18,1.3,2.8),'O'], // cut end: rice and salmon
-  [box(35,8,1.5,3,0),'D'],[box(35,4.5,2.5,1,0.4),'C'], // funnel
-  [box(28,15.5,4.5,9.5,1),'C'],                    // cab: rice block
-  [box(28,18.5,4.5,1,0),'D'],                      // nori belt
-  [box(28,6,4.5,2,1),'Y'],                         // tamago roof
-  [box(28,11.5,2,1.8,0),'D'],                      // window
-  // chassis with couplers
-  [box(5.5,26.5,5.5,1.5,0),ae],[box(17.5,26.5,5.5,1.5,0),ae],[box(34,26.5,10,1.5,0),ae],
-  [box(11.5,26.5,0.5,0.6,0),'E'],[box(23.5,26.5,0.5,0.6,0),'E'],
+  [box(38,19,5.5,7.6,2),'D'],                      // boiler: lying maki
+  [ellipse(41.3,19,2.1,5.5),'C'],[ellipse(41.3,19,1,2.7),'O'], // cut end: rice and salmon
+  [box(37,8.5,1.5,3,0),'D'],[box(37,5,2.5,1,0.4),'C'], // funnel
+  [box(29.5,15.25,3.5,11.75,1),'C'],                   // cab: rice block
+  [box(29.5,19.5,3.5,1,0),'D'],                        // nori belt
+  [box(29.5,3,4.5,1.6,1),'Y'],                         // tamago roof
+  [box(29.5,10,1.5,2,0),'D'],                          // window
+  // chassis
+  [box(5.5,28.5,5.5,1.6,0),ae],[box(17.5,28.5,5.5,1.6,0),ae],[box(34,28.5,9.5,1.6,0),ae],
  ]);
+ put(g,'E',[[11,28],[23,28],[24,28]]);     // couplers
+ const stamp=(rows,x0,y0)=>rows.forEach((r,dy)=>[...r].forEach((c,dx)=>{if(c!=='.')g[y0+dy][x0+dx]=c;}));
  const wheel=['.DDD.','DDDDD','DDCDD','DDDDD','.DDD.'];
- for(const x0 of [0,6,12,18,25,31,37])wheel.forEach((r,dy)=>[...r].forEach((c,dx)=>{if(c!=='.')g[28+dy][x0+dx]=c;}));
+ const big=['..DDD..','.DDDDD.','DDDDDDD','DDDCDDD','DDDDDDD','.DDDDD.','..DDD..'];
+ for(const x0 of [0,6,12,18])stamp(wheel,x0,30);
+ for(const x0 of [26,35])stamp(big,x0,30);
  return str(trim(g));
 }
 

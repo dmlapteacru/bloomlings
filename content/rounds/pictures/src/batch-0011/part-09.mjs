@@ -6,7 +6,7 @@ const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map
 // 1. Honey jar: round golden jar, red dotted cloth lid tied with string, a ribbed dipper with a drip beside it.
 function honey(){
  const jar=union(box(10,16.6,8.2,6.2,4.4),box(10,10.6,5.2,1.6,0.6));
- const shade=cut(jar,box(8.7,15.7,8.2,6.4,4.4));
+ const shade=cut(jar,box(8.2,15.6,8.2,6.4,4.4));
  const dome=box(10,3.4,5.6,2.0,1.8);
  const skirt=union(poly([[3.6,5.2],[16.4,5.2],[18.2,8.6],[1.8,8.6]]),...[2.9,6.0,10,14,17.1].map(x=>circle(x,8.6,1.45)));
  const head=union(ellipse(21,18.6,2.5,3.4));
@@ -65,10 +65,10 @@ function van(){
   [box(19,0.6,6,0.9),'C'],
   [body,'B'],[meet(body,(x,y)=>y<20?-1:1),'C'],
   [box(21,29.6,19,1.0,0.5),'N'],
-  [box(17,18,8,3.5),'D'],[box(17,22,9.4,1),'A'],
-  [box(34.6,16.5,4.2,3.4,1.2),'S'],[box(6,16.5,2.6,3.4,1),'S'],
+  [box(17,17,8.5,4.5),'D'],[box(17,22.4,9.6,0.9),'A'],
+  [box(34.6,16.5,4.2,3.4,1.2),'S'],[box(4.5,17,1.6,3,0.8),'S'],
   [box(40.4,24.5,1,1.4),'Y'],
-  [union(box(17,13,10,1.4),...Array.from({length:6},(_,i)=>circle(8.7+i*3.32,14.4,1.75))),x=>Math.floor((x+.5-7)/3.32)%2===0?'R':'C'],
+  [union(box(17,14,10.5,1.5),...Array.from({length:7},(_,i)=>circle(8+i*3,15.6,1.5))),x=>Math.floor((x+.5-6.5)/3)%2===0?'R':'C'],[box(17,12,11,0.6),'R'],
   [circle(10,30.5,4.4),'D'],[circle(33,30.5,4.4),'D'],[circle(10,30.5,1.7),'C'],[circle(33,30.5,1.7),'C'],
  ]);
  return str(g);

@@ -37,27 +37,23 @@ function cloudChair(){const W=35,H=33;
  const front=box(17.5,27.8,15,2.2,1.2);
  const legs=union(box(5,31.2,1.3,1.6,.3),box(30,31.2,1.3,1.6,.3));
  const g=raster(W,H,'.',[[legs,'E'],[back,'O'],[front,'A'],[seat,'O'],[armL,'A'],[armR,'A']]);
- // the cloud by spans [row, from, to, ...]: three bumps on top, round sides, a sky-blue belly shade
- const spans=[[3,15,19],[4,13,21],[5,12,22],[6,11,23],[7,11,23],[8,6,9,11,23,25,28],[9,5,9,11,23,25,29],[10,5,29],
-  [11,4,30],[12,4,30],[13,4,30],[14,4,30],[15,4,30],[16,4,30],[17,4,30],[18,4,30],[19,4,30],[20,4,30],[21,5,29],[22,6,28]];
- for(const [y,...r] of spans)for(let i=0;i<r.length;i+=2)for(let x=r[i];x<=r[i+1];x++)g[y][x]='C';
- const shade=[[19,4,7],[19,27,30],[20,4,30],[21,5,29],[22,6,28],[18,29,30],[17,29,30],[16,29,30],[15,29,30],[14,29,30],[13,29,30],[12,29,30],[11,29,30],[10,28,29],[9,28,29],[8,27,28]];
- for(const [y,a,b] of shade)for(let x=a;x<=b;x++)if(g[y][x]==='C')g[y][x]='S';
+ // the cloud: a scalloped ring of puffs over a round body, a sky-blue belly shade on the lower right
+ const puffs=[circle(7.4,14.6,3.4),circle(10.4,9.8,3.6),circle(17.5,7,4.6),circle(24.6,9.8,3.6),circle(27.6,14.6,3.4),circle(5.6,19.4,3),circle(29.4,19.4,3)];
+ const cloud=union(...puffs,box(17.5,16.6,11.6,6,4));
+ const cg=raster(W,H,'.',[[cloud,'C'],[meet(cloud,(x,y)=>Math.min(21.2-y,(x-29.2)+(y-14)*.3>0?-1:1)),'S']]);
+ cg.forEach((r,y)=>r.forEach((c,x)=>{if(c!=='.')g[y][x]=c;}));
  put(g,'D',[[11,14],[12,15],[13,15],[14,14],[20,14],[21,15],[22,15],[23,14],[16,17],[17,17],[18,17]]);
  put(g,'K',[[9,16],[10,16],[24,16],[25,16]]);
  return g;}
 
-function skateboard(){const W=44,H=24,a=-0.12,cx=22,cy=10.5,hh=5,L=19.6;
- // the board in its own frame (u along, v across; origin at the centre); the ends lift a little (kicktails)
- const bend=u=>Math.max(0,Math.abs(u)-12)**2*.07;
- const local=(u,v)=>box(0,0,L,hh,hh)(u,v+bend(u));
+function skateboard(){const W=44,H=37,a=-0.6,cx=21.5,cy=18,hh=6.3,L=21.4;
+ // seen from above, turned on the board: the deck in its own frame (u along, v across), wheels peeking out at its sides
  const place=(sh)=>(x,y)=>{const c=Math.cos(a),s=Math.sin(a),dx=x-cx,dy=y-cy;return sh(dx*c+dy*s,-dx*s+dy*c);};
- const deck=place(local),edge=(x,y)=>deck(x,y-2);
- const truck=u=>place(box(u,hh+1.8,3.4,1,.3));
- const near=u=>place(box(u-1.6,hh+4,1.9,2.1,1)),far=u=>place(box(u+1.9,hh+3,1.9,2.1,1));
- const bolt=place(poly([[-13,2.2],[.4,-3.9],[-.6,-.7],[13.5,-2.2],[-.4,3.9],[.6,.7]]));
- const g=raster(W,H,'.',[[union(far(-12),far(12)),'A'],[union(truck(-12),truck(12)),'D'],[union(near(-12),near(12)),'O'],
-  [edge,'N'],[deck,'B'],[bolt,'Y']]);
+ const deck=place(box(0,0,L,hh,hh)),rim=(x,y)=>Math.max(deck(x,y),-1-deck(x,y));
+ const wheels=place(union(...[-14,14].flatMap(u=>[-1,1].map(sv=>box(u,sv*(hh+1.2),2.6,2.2,1)))));
+ const side=(x,y)=>deck(x-.9,y-1.6);
+ const bolt=place(poly([[-14.5,2.5],[.4,-4.5],[-.7,-.8],[15,-2.5],[-.4,4.5],[.7,.8]]));
+ const g=raster(W,H,'.',[[wheels,'O'],[side,'D'],[deck,'B'],[rim,'N'],[bolt,'Y']]);
  return str(g);}
 
 function robotFlower(){const W=44,H=37;

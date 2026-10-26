@@ -35,27 +35,29 @@ function yarn(){return [
  '.........NNNNN.............'];}
 
 // 2. A small astronaut on a round asteroid, watering one flower with a can.
+const grow=(f,d)=>(x,y)=>f(x,y)-d;
 function astronaut(){
- const rock=ellipse(22,34.5,15,9.5);
- const craters=union(ellipse(13,32,2.2,1.3),ellipse(21,37.5,3,1.6),ellipse(28.5,31,1.8,1.1),ellipse(15,39,1.6,1));
- const helmet=circle(15,8,6),visor=ellipse(16.4,8.4,4,3.2);
- const torso=box(15,18.2,4.6,4.6,1.8),pack=box(8.6,17,2.2,4.6,0.9);
- const legs=union(box(12.8,24.4,1.8,2.6,0.6),box(17.2,24.4,1.8,2.6,0.6));
- const armR=union(seg(18.5,15.5,21.5,12.5,1.5),circle(22,12,1.6));
- const armL=seg(11,16,10.2,21.5,1.45);
- const can=box(24.4,10.6,2.8,2.5,0.8),handle=cut(circle(24.2,7.6,2.3),circle(24.2,7.6,1.1));
- const spout=seg(26.5,11.5,30,14.2,0.85),rose=circle(30.6,14.6,1.4);
- const drops=union(box(32,17,0.5,0.5),box(33.5,16.4,0.5,0.5),box(31,18.6,0.5,0.5),box(34.6,17.8,0.5,0.5));
- const stem=box(33,25,0.6,3),leaf=ellipse(35,25.8,1.8,0.9),petals=union(circle(33,21.2,2.9)),centre=circle(33,21.2,1.1);
- const g=draw(40,45,1.0,[
-  [rock,'A'],[cut(rock,ellipse(20.6,33.2,15,9.5)),'E'],[meet(rock,craters),'E'],
-  [pack,'S'],[legs,'C'],[cut(legs,box(15.5,23.4,5,3.6)),'S'],[torso,'C'],[cut(torso,box(14.2,17.6,4.6,4.8,1.8)),'S'],
-  [armL,'C'],[armR,'C'],
-  [helmet,'C'],[cut(helmet,circle(14.2,7.2,6)),'S'],[visor,'N'],[box(15,6.6,0.5,0.5),'S'],[box(16,6.6,0.5,0.5),'S'],[box(15,7.6,0.5,0.5),'S'],
-  [box(15,18.4,1.6,1.2),'O'],
-  [handle,'O'],[can,'O'],[spout,'O'],[rose,'O'],[drops,'S'],
-  [stem,'G'],[leaf,'G'],[petals,'P'],[centre,'Y'],
+ const rock=union(ellipse(22,33.5,15,9.2),circle(10.5,31,4.5),circle(33.5,31.5,4.2),circle(22,38,6.5));
+ const craterAt=(cx,cy,rx,ry)=>[[ellipse(cx,cy,rx,ry),'E']];
+ const helmet=circle(15,7,6),visor=ellipse(16.4,7.4,4,3.2);
+ const torso=box(15,17.2,4.6,4.6,1.8),pack=box(8.8,16,2.4,4.6,0.9);
+ const legL=box(12.6,23.4,1.9,2.6,0.6),legR=box(17,23.4,1.9,2.6,0.6);
+ const armR=union(seg(18.5,14.5,21.5,11.5,1.5),circle(22,11,1.6));
+ const can=box(24.4,9.6,2.8,2.5,0.8),handle=cut(circle(24.2,6.6,2.3),circle(24.2,6.6,1.1));
+ const spout=seg(26.5,10.5,30,13.2,0.85),rose=circle(30.6,13.6,1.4);
+ const stem=box(33.5,26,0.6,3),leaf=ellipse(35.6,26.2,1.8,0.9),petals=union(...[0,1,2,3,4].map(i=>circle(33.5+2.5*Math.sin(i*1.2566),21-2.5*Math.cos(i*1.2566),1.75))),centre=circle(33.5,21,1.5);
+ const suit=part=>[[grow(part,1),'D'],[part,'C']];
+ const g=draw(40,44,1.0,[
+  [rock,'A'],[cut(rock,ellipse(20.6,32,15,9.2)),'E'],[cut(rock,union(ellipse(20.6,32,15,9.2),circle(9.5,30,4.5),circle(32.3,30.3,4.2),circle(20.8,36.8,6.5))),'E'],
+  ...craterAt(13,31.5,2.6,1.6),...craterAt(24.5,36.5,3,1.8),...craterAt(29.5,29.8,1.9,1.2),...craterAt(15.5,38,1.5,1.1),
+  [stem,'G'],[leaf,'G'],[petals,'P'],[centre,'O'],
+  ...suit(pack),...suit(legL),...suit(legR),...suit(torso),...suit(armR),
+  [box(15,17.4,1.6,1.2),'O'],
+  ...suit(helmet),[visor,'D'],
+  [handle,'O'],[can,'O'],[spout,'O'],[rose,'O'],
  ]);
+ put(g,'B',[[15,5],[16,5],[15,6]]);
+ put(g,'B',[[32,15],[32,16],[34,14],[34,15]]);
  return str(g);
 }
 
