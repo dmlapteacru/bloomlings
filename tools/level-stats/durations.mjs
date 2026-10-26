@@ -35,7 +35,7 @@ for(const r of allRecords().filter(x=>x.game==='v8E'&&x.model)){const row=rows[r
  process.stderr.write(r.key+' ');}
 // the owner's rounds as played: page time from the first tap to the last cell, by the mode of the round
 const human=res.attempts.filter(a=>a.outcome==='won').map(a=>{const row=rows['v8E-'+a.level],first=a.inputEvents.find(e=>e.accepted)?.atMs??0,manual=(a.speedEvents||[]).filter(e=>e.type==='manual-speed'),mode=!manual.length?(a.config.initialSettings.effectiveSpeed===2?2:1):'смешанный';
- return {key:'v8E-'+a.level,level:a.level,difficulty:row?.difficulty,cells:row?.cells,size:row?sizeBin(row.cells):null,mode,seconds:Math.round((a.elapsedMs-first)/100)/10,tailSeconds:a.autoFastAtMs!=null?Math.round((a.elapsedMs-a.autoFastAtMs)/100)/10:null};});
+ return {key:'v8E-'+a.level,level:a.level,difficulty:row?.difficulty,combo:runs.find(x=>x.key==='v8E-'+a.level)?.combo??null,cells:row?.cells,size:row?sizeBin(row.cells):null,mode,seconds:Math.round((a.elapsedMs-first)/100)/10,tailSeconds:a.autoFastAtMs!=null?Math.round((a.elapsedMs-a.autoFastAtMs)/100)/10:null};});
 const isNum=x=>typeof x==='number'&&Number.isFinite(x);
 const q=(a,p)=>{const i=(a.length-1)*p,k=Math.floor(i);return a[k]+(a[Math.min(k+1,a.length-1)]-a[k])*(i-k);};
 const summary=v=>{v=v.filter(isNum).sort((x,y)=>x-y);if(!v.length)return {n:0};const r1=x=>Math.round(x*10)/10;return {n:v.length,mean:r1(v.reduce((s,x)=>s+x,0)/v.length),median:r1(q(v,.5)),p25:r1(q(v,.25)),p75:r1(q(v,.75)),min:v[0],max:v.at(-1)};};
@@ -45,7 +45,7 @@ const auto=[];for(const set of Object.keys(SETS))for(const mode of MODES)for(con
 const hum=[];for(const mode of [1,2,'смешанный'])for(const [g,f] of groups){const sel=human.filter(x=>x.mode===mode);for(const v of [...new Set(sel.map(f))])hum.push({mode,group:g,value:v,...summary(sel.filter(x=>f(x)===v).map(x=>x.seconds))});}
 const RP='твои нажатия в те же секунды страницы',replay=runs.filter(x=>x.player===RP&&x.set==='before').map(x=>{const y=runs.find(z=>z.player===RP&&z.set==='after'&&z.key===x.key&&z.attempt===x.attempt);return {key:x.key,level:x.level,attempt:x.attempt,mode:x.mode,recorded:x.recorded,before:x.seconds,after:y?.seconds??null,afterStatus:y?.status??null};});
 fs.writeFileSync(path.join(out,'durations.json'),JSON.stringify({sets:SETS,reactionMs:REACT,runs,human,auto,humanSummary:hum,replay}));
-{const rp=runs.filter(x=>x.player==='твои нажатия в те же секунды страницы'&&x.set==='before'&&x.seconds!=null);console.log('replay check (before vs recorded): n',rp.length,'median |diff| s',(()=>{const d=rp.map(x=>Math.abs(x.seconds-x.recorded)).sort((a,b)=>a-b);return d[d.length>>1];})(),'max',Math.max(...rp.map(x=>Math.abs(x.seconds-x.recorded))));}
+{const rp=runs.filter(x=>x.player==='твои нажатия в те же секунды страницы'&&x.set==='before'&&x.seconds!=null);console.log('\nreplay check (before vs recorded): n',rp.length,'median |diff| s',(()=>{const d=rp.map(x=>Math.abs(x.seconds-x.recorded)).sort((a,b)=>a-b);return d[d.length>>1];})(),'max',Math.max(...rp.map(x=>Math.abs(x.seconds-x.recorded))));}
 console.log('\nruns',runs.length,'won',runs.filter(x=>x.status==='won').length,'human',human.length);
 for(const a of auto.filter(x=>x.group==='все уровни'))console.log(a.set,'×'+a.mode,a.player,JSON.stringify({n:a.n,lost:a.lost,mean:a.mean,median:a.median,p25:a.p25,p75:a.p75,min:a.min,max:a.max}));
 for(const h of hum.filter(x=>x.group==='все уровни'))console.log('human ×'+h.mode,JSON.stringify(h));

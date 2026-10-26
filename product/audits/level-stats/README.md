@@ -27,6 +27,10 @@ node tools/level-stats/validate-cf.mjs --scales 1x1,1.5x1,2x1,3x1,1x1.5   # св
 node tools/level-stats/plans.mjs CF-25 v8E-15 v9-22 v9-25                    # разные планы
 node tools/level-stats/measure.mjs --cf-gap 1.5 --out tools/level-stats/out/levels-cal --only <CF-уровни>   # калибровка
 node tools/level-stats/analysis2.mjs  # дополнительные проверки → out/data.json (extra)
+node tools/level-stats/random-reasons.mjs --part 0/2 & node tools/level-stats/random-reasons.mjs --part 1/2   # 100 случайных прогонов на уровень с причинами поражения (~20 мин)
+node tools/level-stats/calibrate.mjs  # калибровка скорости по трём записям Colony Flow (~1,5 мин) → out/calibrate.json
+node tools/level-stats/durations.mjs  # длительность уровней v8E до и после калибровки, ×1 и ×2 (~4 мин)
+node tools/level-stats/analysis3.mjs  # допы, сочетания, сложность, этапы → out/data.json (extra3)
 node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknowns.md → report.html
 ```
 
@@ -46,6 +50,10 @@ node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknown
 | `analysis2.mjs` | дополнительные проверки: сопоставимые группы, объём цвета по капсулам, форма связок, конец выборов, v8E против v9 |
 | `validate-cf.mjs` | повтор каждой записи Colony Flow на модели и сверка с видео кадр за кадром, в том числе с медленнее выходящими муравьями |
 | `plans.mjs` | разные выигрышные планы на нескольких уровнях |
+| `random-reasons.mjs` | 100 случайных допустимых прогонов на уровень, причина каждого поражения |
+| `calibrate.mjs` | повтор трёх записей Colony Flow с подтверждённой ×1 на нашем движке; подбор общей скорости на двух, проверка на третьей |
+| `durations.mjs` | длительность уровней v8E: автоматические игроки и твои тапы, до и после калибровки, ×1 и ×2 |
+| `analysis3.mjs` | допы и их сочетания, пересечения, появление, этапы очистки, связь со сложностью, случайные прогоны |
 | `cf-engine/` | движок Colony Flow: наш v8E плюс связки Colony Flow, замки, ящики, шоколад, кувшины; масштаб скорости для калибровки |
 
 ## Отчёт
@@ -58,6 +66,8 @@ node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknown
 - **Похожесть**;
 - **Время**;
 - **Полнота**;
+- **Допы и сложность** — виды допов, сочетания, связь со сложностью, случайные прогоны, свободные места и события по этапам;
+- **Скорость** — калибровка по Colony Flow, общая шкала очистки, мест и тапов, длительность раундов v8E;
 - **Выводы**.
 
 У каждого числа есть метка источника: раскладка, запись, повтор, модель или стратегия. «Неизвестно» не равно нулю. Каждый график сохраняется в SVG или PNG.
