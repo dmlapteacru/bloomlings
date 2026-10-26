@@ -1,36 +1,56 @@
 {
  "id": "P0001",
  "seq": 1,
- "version": 1,
- "title": "Корона",
- "theme": "objects",
+ "version": 2,
+ "title": "Долька апельсина",
+ "theme": "food",
  "forLevel": 1,
  "w": 13,
- "h": 11,
+ "h": 13,
  "rows": [
-  "..SSSSSSSSS..",
-  "SSSSSSYSSSSSS",
-  "SYSSSSYSSSSYS",
-  "SYYSSYRYSSYYS",
-  "SYRYSYRYSYRYS",
-  "SYRRYRRRYRRYS",
-  "SYRRRRRRRRRYS",
-  "SYRRRRRRRRRYS",
-  "SYRRRRRRRRRYS",
-  "SYYYYYYYYYYYS",
-  ".SSSSSSSSSSSS"
+  "....OOOOO....",
+  "..OOOOCOOOO..",
+  ".OOCCYYCCOOO.",
+  ".OCYYYCYYCOO.",
+  "OOCYYYCYYYCOO",
+  "OCYYYYCYYYCOO",
+  "OCYCCCCCCCCOO",
+  "OCYYYYCYYYCOO",
+  "OOCYYYCYYYCOO",
+  ".OOCYYCYYCOOO",
+  ".OOOCCCCCOOO.",
+  "..OOOOOOOOO..",
+  "....OOOOO...."
  ],
  "N": 138,
  "colours": 3,
  "volumes": {
-  "S": 63,
-  "Y": 37,
-  "R": 38
+  "O": 63,
+  "C": 37,
+  "Y": 38
  },
- "status": "rejected",
- "batch": "batch-0001",
+ "status": "draft",
+ "batch": "batch-0001-v2",
  "createdAt": "2026-10-26",
- "history": [],
- "note": "Владелец: переделать, другие концепты/темы",
- "decidedAt": "2026-10-26"
+ "history": [
+  {
+   "version": 1,
+   "title": "Корона",
+   "status": "rejected",
+   "note": "Владелец: переделать, другие концепты/темы",
+   "rows": [
+    "..SSSSSSSSS..",
+    "SSSSSSYSSSSSS",
+    "SYSSSSYSSSSYS",
+    "SYYSSYRYSSYYS",
+    "SYRYSYRYSYRYS",
+    "SYRRYRRRYRRYS",
+    "SYRRRRRRRRRYS",
+    "SYRRRRRRRRRYS",
+    "SYRRRRRRRRRYS",
+    "SYYYYYYYYYYYS",
+    ".SSSSSSSSSSSS"
+   ]
+  }
+ ]
 }

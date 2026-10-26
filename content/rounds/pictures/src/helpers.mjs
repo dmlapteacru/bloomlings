@@ -1,5 +1,8 @@
 // Shared drawing helpers of the round picture modules (skill bloomlings-round-pictures).
-export const raster=(W,H,bg,parts)=>Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>{let c=bg;for(const [shape,color] of parts)if(shape(x+.5,y+.5)<0)c=color;return c;}));
+// Layers of [shape, colour] drawn in order; a colour may be a function of the cell (stripes, patterns).
+export const raster=(W,H,bg,parts)=>Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>{let c=bg;for(const [shape,color] of parts)if(shape(x+.5,y+.5)<0)c=typeof color==='function'?color(x,y,c):color;return c;}));
+// A shape drawn in base units, scaled by k round the origin.
+export const scale=(k,shape)=>(x,y)=>shape(x/k,y/k)*k;
 export const count=(g,c)=>g.flat().filter(v=>v===c).length;
 export const N4=[[1,0],[-1,0],[0,1],[0,-1]];
 // Bring colour c to exactly n cells by trading edge cells with colour `from`: grow at the cells of `from` touching c

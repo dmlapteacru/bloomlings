@@ -9,10 +9,12 @@
 // node tools/rounds/pictures.mjs sheet [ids…|--status draft] --out <png> [--columns 5]   numbered contact sheet
 // node tools/rounds/pictures.mjs approve <ids…> | reject <ids…> [--note "…"]   record the owner's decision
 // node tools/rounds/pictures.mjs list [--status approved|draft|rejected]
+// node tools/rounds/pictures.mjs verify <batch.mjs> [--cells a-b] [--colours a-b] [--target n] [--level n] [--out <png>]
+//   count and check a module's matrices without recording them (skill bloomlings-board-picture), sheet from the matrices
 // A batch module: export default {theme, pictures:[{title, theme?, forLevel?, rows:[…top first…]}]}; rows use the
 // palette letters GPBACDVYOLMRKNSE, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it.
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
-import {PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag} from './lib.mjs';
+import {FIXED_VOLUMES,PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag} from './lib.mjs';
 const cmd=process.argv[2];
 const idsFrom=args=>{const m=manifest(),st=arg('--status');let ids=args.filter((a,i)=>/^P?\d+$/.test(a)&&!(args[i-1]||'').startsWith('--')).map(a=>a.startsWith('P')?a:pid(+a));
  if(!ids.length&&st)ids=m.pictures.filter(p=>p.status===st).map(p=>p.id);if(!ids.length)ids=m.pictures.map(p=>p.id);return ids;};
@@ -36,17 +38,17 @@ function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(
  let shut=0;for(let y=1;y<=p.h;y++)for(let x=1;x<=p.w;x++)if(CODES.includes(cell(x,y))&&!seen.has(x+','+y))shut++;if(shut)issues.push(`${shut} цветных клеток отрезаны стенами`);
  const sites=p.rows.join('').split('b').length-1;if(sites&&sites!==2)issues.push(`мест моста ${sites}, нужно ровно 2`);
  return {id:p.id,seq:p.seq,forLevel:p.forLevel,N:m.N,colours:m.colours,size:sizeBin(m.N),ok:!issues.length,issues,warn};}
-function sheet(ids,out,cols){const pics=ids.map(picture).filter(Boolean),cs=Math.max(4,Math.floor(216/Math.max(...pics.map(p=>Math.max(p.w,p.h)))));
+function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pics.map(p=>Math.max(p.w,p.h)))));
  const tw=Math.max(...pics.map(p=>p.w))*cs+16,lab=34,th=Math.max(...pics.map(p=>p.h))*cs+lab+16,C=Math.min(cols,pics.length),R=Math.ceil(pics.length/C),Wt=C*tw,Ht=R*th,px=Buffer.alloc(Wt*Ht*3,255);
  const put=(x,y,[r,g,b])=>{if(x<0||y<0||x>=Wt||y>=Ht)return;const i=(y*Wt+x)*3;px[i]=r;px[i+1]=g;px[i+2]=b;};
  const rect=(x0,y0,w,h,c)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)put(x,y,c);};
  const text=(s,x,y,k,c)=>{for(const ch of s){const f=FONT[ch]||FONT[' '];for(let j=0;j<5;j++)for(let i=0;i<3;i++)if(f[j*3+i]==='1')rect(x+i*k,y+j*k,k,k,c);x+=4*k;}};
  pics.forEach((p,n)=>{const ox=(n%C)*tw+8,oy=Math.floor(n/C)*th+8,ink=p.status==='approved'?[30,130,60]:p.status==='rejected'?[190,40,40]:[30,30,30];
-  text(String(p.seq),ox,oy,4,ink);text(`${p.N}/${p.colours}`,ox+4*4*(String(p.seq).length+1),oy+8,2,[90,90,90]);
-  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[238,236,230]:c==='#'?[70,70,70]:c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);}});
+  const name=String(p.label||p.seq);text(name,ox,oy,4,ink);text(`${p.N}/${p.colours}`,ox+4*4*(name.length+1),oy+8,2,[90,90,90]);
+  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[248,247,243]:c==='#'?[70,70,70]:c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);}});
   rect(ox-1,oy+lab-1,p.w*cs+2,1,[200,200,200]);rect(ox-1,oy+lab+p.h*cs,p.w*cs+2,1,[200,200,200]);});
  fs.mkdirSync(path.dirname(path.resolve(out)),{recursive:true});fs.writeFileSync(out,png(Wt,Ht,px));
- const md=out.replace(/\.png$/,'.md');fs.writeFileSync(md,`# Картинки на утверждение\n\nНомер на листе — порядковый номер картинки; рядом клетки/цвета. Ответь номерами: какие утвердить, какие переделать (и что поменять).\n\n| № | Название | Тема | Размер | Клеток | Цветов | Для уровня | Статус |\n|---:|---|---|---|---:|---:|---:|---|\n`+pics.map(p=>`| ${p.seq} | ${p.title} | ${p.theme||'—'} | ${p.w}×${p.h} | ${p.N} | ${p.colours} | ${p.forLevel} | ${p.status} |`).join('\n')+'\n');
+ const md=out.replace(/\.png$/,'.md');fs.writeFileSync(md,`# Картинки на утверждение\n\nНомер на листе — порядковый номер картинки; рядом клетки/цвета. Ответь номерами: какие утвердить, какие переделать (и что поменять).\n\n| № | Название | Тема | Размер | Клеток | Цветов | Объёмы | Для уровня | Статус |\n|---:|---|---|---|---:|---:|---|---:|---|\n`+pics.map(p=>`| ${p.label||p.seq} | ${p.title} | ${p.theme||'—'} | ${p.w}×${p.h} | ${p.N} | ${p.colours} | ${Object.entries(p.volumes||{}).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`${c} ${v}`).join(' · ')} | ${p.forLevel} | ${p.status||'—'} |`).join('\n')+'\n');
  return {out,md,count:pics.length};}
 if(cmd==='next'){console.log(nextSeq(manifest()));}
 else if(cmd==='render'){const b=await load(process.argv[3]);const m=manifest();let seq=+arg('--start',nextSeq(m));
@@ -57,10 +59,25 @@ else if(cmd==='replace'){const id=process.argv[3].startsWith('P')?process.argv[3
  const m=manifest();m.pictures=m.pictures.filter(p=>p.id!==id).concat([entryOf(pic)]);saveManifest(m);console.log(pic.id,'v'+pic.version,pic.title,pic.N,'кл.',pic.colours,'цв.');}
 else if(cmd==='check'){let bad=0;for(const id of idsFrom(process.argv.slice(3))){const p=picture(id);if(!p)continue;const r=check(p);if(!r.ok)bad++;
   console.log(`${r.ok?'OK ':'НЕТ'} ${r.id} L${r.forLevel} ${r.N} кл. ${r.colours} цв. (${r.size})${r.issues.length?' — '+r.issues.join('; '):''}${r.warn.length?' · '+r.warn.join('; '):''}`);}if(bad)process.exitCode=1;}
-else if(cmd==='sheet'){const r=sheet(idsFrom(process.argv.slice(3)),arg('--out','content/rounds/pictures/sheets/sheet.png'),+arg('--columns',5));console.log(r.out,r.md,r.count,'картинок');}
+else if(cmd==='sheet'){const r=sheet(idsFrom(process.argv.slice(3)).map(picture).filter(Boolean),arg('--out','content/rounds/pictures/sheets/sheet.png'),+arg('--columns',5));console.log(r.out,r.md,r.count,'картинок');}
 else if(cmd==='approve'||cmd==='reject'){const m=manifest(),note=arg('--note');for(const id of idsFrom(process.argv.slice(3).filter(a=>a!=='--note'&&a!==note))){const p=picture(id);if(!p)continue;
   if(cmd==='approve'&&!check(p).ok)throw Error(id+' не проходит проверку правил — сначала исправить');
   p.status=cmd==='approve'?'approved':'rejected';p.note=note;p.decidedAt=new Date().toISOString().slice(0,10);writeJSON(path.join(PICTURES,id+'.json'),p);
   m.pictures=m.pictures.filter(x=>x.id!==id).concat([entryOf(p)]);console.log(id,p.status);}saveManifest(m);}
+else if(cmd==='verify'){const b=await load(process.argv[3]),range=v=>v?v.split(/[-–]/).map(Number):null;
+ const cells=range(arg('--cells')),cols=range(arg('--colours')),target=arg('--target')?+arg('--target'):null,level=arg('--level')?+arg('--level'):null;let bad=0;
+ const pics=b.pictures.map((e,k)=>{const err=validRows(e.rows);if(err){bad++;console.log(`НЕТ #${k+1} «${e.title}»: ${err}`);return null;}
+  const p={...e,label:e.label||null,seq:e.forLevel||level||k+1,forLevel:e.forLevel||level||k+1,w:e.rows[0].length,h:e.rows.length,...measure(e)};
+  const r=check(p),issues=[...r.issues],sum=Object.values(p.volumes).reduce((a,v)=>a+v,0),occupied=e.rows.join('').replace(/[.#b]/g,'').length;
+  if(sum!==occupied)issues.push(`сумма объёмов ${sum} ≠ занятым клеткам ${occupied}`);
+  if(cells&&(p.N<cells[0]||p.N>cells[1]))issues.push(`клеток ${p.N}, задано ${cells.join('–')}`);
+  if(cols&&(p.colours<cols[0]||p.colours>cols[1]))issues.push(`цветов ${p.colours}, задано ${cols.join('–')}`);
+  const fixed=FIXED_VOLUMES[p.forLevel],have=Object.values(p.volumes).sort((a,b)=>b-a);
+  if(fixed&&have.join('/')!==fixed.join('/'))issues.push(`объёмы ${have.join('/')}, по §4 нужно ${fixed.join('/')}`);
+  if(issues.length)bad++;
+  console.log(`${issues.length?'НЕТ':'OK '} ${p.label||'#'+(k+1)} «${p.title}» L${p.forLevel} ${p.w}×${p.h}: ${p.N} кл., ${p.colours} цв.${target?` (цель ${target}, ${p.N-target>=0?'+':''}${p.N-target})`:''}${issues.length?' — '+issues.join('; '):''}${r.warn.length?' · '+r.warn.join('; '):''}`);
+  console.log('    '+Object.entries(p.volumes).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`${c} ${PALETTE[c].name} ${PALETTE[c].color} ${v}`).join(' · '));
+  return p;}).filter(Boolean);
+ const out=arg('--out');if(out&&pics.length)console.log(sheet(pics,out,+arg('--columns',5)).out);if(bad)process.exitCode=1;}
 else if(cmd==='list'){const st=arg('--status');for(const p of manifest().pictures.filter(p=>!st||p.status===st))console.log(p.id,p.status.padEnd(8),`L${p.forLevel}`.padEnd(6),`${p.w}×${p.h}`.padEnd(6),String(p.N).padStart(5),'кл.',p.colours,'цв.',p.usedBy?'→ '+p.usedBy:'',p.title);}
 else{console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}

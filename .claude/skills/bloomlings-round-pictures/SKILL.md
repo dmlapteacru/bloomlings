@@ -76,10 +76,9 @@ those rules; where this skill and 17 differ, 17 wins.
      two `b` sites.
 2. **Draw the batch as a module**, e.g. `content/rounds/pictures/src/batch-0475.mjs`:
    - `export default {theme, pictures:[{title, theme?, forLevel?, rows:[...top first...]}]}`.
-   - Draw with the shape painter `tools/gameplay-pilot-v9/draw.mjs` (`paint(W, H, {background, parts})`, then
-     `rows(...)`; shapes `circle, ellipse, box, poly, union, cut, meet`; light/shade tones per part), or write rows by
-     hand for small pictures.
-   - Keep each subject large (about 70–90 % of the picture) with a background of its own. The background is work too.
+   - Draw by the skill `bloomlings-board-picture` (the owner's brief of 2026-10-26), in its verified mode: one object,
+     flat colour areas, the space round the silhouette left empty (no coloured background), main details at least two
+     cells thick. Check each module with `node tools/rounds/pictures.mjs verify <module>` before rendering it.
 3. **Write and check.**
    - `node tools/rounds/pictures.mjs render content/rounds/pictures/src/batch-0475.mjs`, then
      `node tools/rounds/pictures.mjs check --status draft`.

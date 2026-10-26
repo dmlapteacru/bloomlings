@@ -4,7 +4,8 @@ Content made by the two skills that split process §13 of
 [`product/17_LEVEL_GENERATION_RULES.md`](../../product/17_LEVEL_GENERATION_RULES.md):
 
 1. **`bloomlings-round-pictures`** (`.claude/skills/bloomlings-round-pictures/`) draws pictures. They are numbered in
-   sequence and approved by the owner on a numbered contact sheet.
+   sequence and approved by the owner on a numbered contact sheet. How a picture looks and is counted is the skill
+   **`bloomlings-board-picture`**: one object, flat colours, empty space round it, a verified matrix.
 2. **`bloomlings-round-levels`** (`.claude/skills/bloomlings-round-levels/`) builds approved pictures into solved
    levels, measures their class and places them into the difficulty calendar. What is left goes to the bank and to
    `needs.json`.

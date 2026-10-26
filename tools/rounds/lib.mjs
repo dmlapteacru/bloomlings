@@ -25,12 +25,14 @@ export function measure(pic){const vol={};let n=0;for(const r of pic.rows)for(co
  return {N:n,colours:Object.keys(vol).length,volumes:vol};}
 // stage ranges by level number (§2); compact 200–399 cells / 3–6 colours allowed after L25
 export function stageOf(level){
- if(level===1)return {cells:[138,138],colours:[3,3],fixed:'корона'};if(level===2)return {cells:[240,240],colours:[4,4],fixed:'божья коровка 2C'};if(level===3)return {cells:[281,281],colours:[6,6],fixed:'птичка 3B'};
+ if(level===1)return {cells:[138,138],colours:[3,3],fixed:'объёмы §4'};if(level===2)return {cells:[240,240],colours:[4,4],fixed:'объёмы §4'};if(level===3)return {cells:[281,281],colours:[6,6],fixed:'объёмы §4'};
  if(level<=9)return {cells:[400,650],colours:[4,7]};if(level<=24)return {cells:[550,1000],colours:[4,8]};if(level<=60)return {cells:[550,1200],colours:[5,9],compact:true};return {cells:[550,1400],colours:[5,9],compact:true};}
 export function fitsStage(m,level){const s=stageOf(level),wide=c=>c>=10&&c<=11;
  if(s.fixed)return m.N===s.cells[0]&&m.colours===s.colours[0];
  if(s.compact&&m.N>=200&&m.N<=399)return (m.colours>=3&&m.colours<=6)||wide(m.colours);
  return m.N>=s.cells[0]&&m.N<=s.cells[1]&&((m.colours>=s.colours[0]&&m.colours<=s.colours[1])||wide(m.colours));}
+// the exact colour volumes of the first three levels (§4), largest first
+export const FIXED_VOLUMES={1:[63,38,37],2:[120,97,19,4],3:[76,70,69,51,13,2]};
 export const sizeBin=n=>n<500?'200–499':n<1000?'500–999':'1000–1400';
 // pod budget and columns by area (§3): budget P by W, columns by N
 export function budget(W){return W<400?[9,24]:W<700?[18,30]:W<1000?[24,40]:[30,48];}
@@ -66,5 +68,5 @@ const chunk=(t,d)=>{const len=Buffer.alloc(4);len.writeUInt32BE(d.length);const 
 export function png(W,H,px){const raw=Buffer.alloc((W*3+1)*H);for(let y=0;y<H;y++){raw[y*(W*3+1)]=0;px.copy(raw,y*(W*3+1)+1,y*W*3,(y+1)*W*3);}
  const ih=Buffer.alloc(13);ih.writeUInt32BE(W,0);ih.writeUInt32BE(H,4);ih[8]=8;ih[9]=2;
  return Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),chunk('IHDR',ih),chunk('IDAT',zlib.deflateSync(raw)),chunk('IEND',Buffer.alloc(0))]);}
-export const FONT={'0':'111101101101111','1':'010110010010111','2':'111001111100111','3':'111001111001111','4':'101101111001001','5':'111100111001111','6':'111100111101111','7':'111001001001001','8':'111101111101111','9':'111101111001111','·':'000000010000000','/':'001001010100100','x':'000101010101000',' ':'000000000000000','#':'101111101111101','?':'111001011000010','!':'010010010000010'};
+export const FONT={'A':'010101111101101','B':'110101110101110','C':'011100100100011','D':'110101101101110','0':'111101101101111','1':'010110010010111','2':'111001111100111','3':'111001111001111','4':'101101111001001','5':'111100111001111','6':'111100111101111','7':'111001001001001','8':'111101111101111','9':'111101111001111','·':'000000010000000','/':'001001010100100','x':'000101010101000',' ':'000000000000000','#':'101111101111101','?':'111001011000010','!':'010010010000010'};
 export const rgbOf=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];

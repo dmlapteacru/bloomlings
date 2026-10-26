@@ -7,6 +7,7 @@ Tools of the skills `bloomlings-round-pictures` and `bloomlings-round-levels`. T
 ```sh
 # pictures (17 §2)
 node tools/rounds/pictures.mjs next
+node tools/rounds/pictures.mjs verify content/rounds/pictures/src/batch-0031.mjs --out /tmp/check.png   # skill bloomlings-board-picture
 node tools/rounds/pictures.mjs render content/rounds/pictures/src/batch-0031.mjs
 node tools/rounds/pictures.mjs check --status draft
 node tools/rounds/pictures.mjs sheet --status draft --out content/rounds/pictures/sheets/batch-0031.png
