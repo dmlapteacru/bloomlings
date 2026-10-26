@@ -29,7 +29,7 @@
   "C": 37,
   "Y": 38
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0001-v2",
  "createdAt": "2026-10-26",
  "history": [
@@ -52,5 +52,7 @@
     ".SSSSSSSSSSSS"
    ]
   }
- ]
+ ],
+ "note": "Владелец: переделать (2026-10-26)",
+ "decidedAt": "2026-10-26"
 }

@@ -7,7 +7,7 @@ export const count=(g,c)=>g.flat().filter(v=>v===c).length;
 export const N4=[[1,0],[-1,0],[0,1],[0,-1]];
 // Bring colour c to exactly n cells by trading edge cells with colour `from`: grow at the cells of `from` touching c
 // nearest c's centre, shrink at the cells of c touching `from` farthest from it. Deterministic (ties by row, column).
-export function fit(g,c,n,from){const H=g.length,W=g[0].length;
+export function fit(g,c,n,from){if(process.env.DRYFIT)return g;const H=g.length,W=g[0].length;
  for(let guard=0;guard<2000;guard++){const have=count(g,c);if(have===n)return g;
   let sx=0,sy=0;g.forEach((r,y)=>r.forEach((v,x)=>{if(v===c){sx+=x;sy+=y;}}));const cx=sx/have,cy=sy/have,grow=have<n;let best=null;
   for(let y=0;y<H;y++)for(let x=0;x<W;x++){if(g[y][x]!==(grow?from:c))continue;

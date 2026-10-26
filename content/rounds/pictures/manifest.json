@@ -12,9 +12,9 @@
    "h": 13,
    "N": 138,
    "colours": 3,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0001-v2",
-   "note": null,
+   "note": "Владелец: переделать (2026-10-26)",
    "usedBy": null
   },
   {
@@ -28,9 +28,9 @@
    "h": 13,
    "N": 240,
    "colours": 4,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0001-v2",
-   "note": null,
+   "note": "Владелец: переделать (2026-10-26)",
    "usedBy": null
   },
   {
