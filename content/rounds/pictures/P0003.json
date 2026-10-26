@@ -1,0 +1,43 @@
+{
+ "id": "P0003",
+ "seq": 3,
+ "version": 1,
+ "title": "Птичка 3B",
+ "theme": "animals",
+ "forLevel": 3,
+ "w": 17,
+ "h": 17,
+ "rows": [
+  "...SSSSSBBBBSS...",
+  ".SSSSSSBBBBBBSSS.",
+  "SSSSSSBBBBBBDBOOS",
+  "SSSSSSBBBBBBDBOOO",
+  "SBSSSBBBBBBBCCOOS",
+  "SBBSBBBBBBBCCCCSS",
+  "SBBBBBBBBCCCCCCSS",
+  "SSBBBBBBBCCCCCCCS",
+  "SSSBBBBBCCCCCCCCS",
+  "SSSBBBBCCCCCCCCSS",
+  "SSSSBBBCCCCCCCSSS",
+  "SSSSSBBCCCCCCCSSS",
+  "GGSGSSSOCCOSSSGSG",
+  "GGGGGGOOGGOOGGGGG",
+  "GGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGG"
+ ],
+ "N": 281,
+ "colours": 6,
+ "volumes": {
+  "S": 76,
+  "B": 70,
+  "D": 2,
+  "O": 13,
+  "C": 51,
+  "G": 69
+ },
+ "status": "draft",
+ "batch": "batch-0001",
+ "createdAt": "2026-10-26",
+ "history": []
+}

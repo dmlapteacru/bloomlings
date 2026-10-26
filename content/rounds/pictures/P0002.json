@@ -1,0 +1,40 @@
+{
+ "id": "P0002",
+ "seq": 2,
+ "version": 1,
+ "title": "Божья коровка 2C",
+ "theme": "animals",
+ "forLevel": 2,
+ "w": 15,
+ "h": 16,
+ "rows": [
+  "GGGGGGGGGGGGGGG",
+  "GGGGGGDDDGGGGGG",
+  "GGGGGDCDCDGGGGG",
+  "GGGGGRCDCRGGGGG",
+  "GGGGRRRRRRRGGGG",
+  "GGGRRRRRRRRRGGG",
+  "GGRRRRRRRRRRRGG",
+  "GRRRDDRRRDDRRRG",
+  "GRRRDDRRRDDRRRG",
+  "GRRRRRRRRRRRRRG",
+  "GRRRRRRRRRRRRRG",
+  "GRRRDRRRRRDRRRG",
+  "GRRRDRRRRRDRRRG",
+  "GGRRRRRRRRRRRGG",
+  "GGGRRRRRRRRRGGG",
+  "GGGGGRRRRRGGGGG"
+ ],
+ "N": 240,
+ "colours": 4,
+ "volumes": {
+  "G": 97,
+  "D": 19,
+  "C": 4,
+  "R": 120
+ },
+ "status": "draft",
+ "batch": "batch-0001",
+ "createdAt": "2026-10-26",
+ "history": []
+}
