@@ -16,7 +16,7 @@ const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
 const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
 
 // ---- §3: pods of each material ----
-const FIXED={1:{split:[[21,21,21],[13,12,12],[13,13,12]]},2:{split:[[40,40,40],[33,32,32],[10,9],[4]]},3:{split:[[26,25,25],[24,23,23],[35,34],[26,25],[13],[2]]}};
+const FIXED={1:{split:[[26,26,26,25,25],[16,16,16],[5]]},2:{split:[[40,40,40],[33,32,32],[10,9],[4]]},3:{split:[[26,25,25],[24,23,23],[35,34],[26,25],[13],[2]]}};
 const even=(v,k)=>Array.from({length:k},(_,i)=>Math.floor(v/k)+(i<v%k?1:0));
 export function splitPods(volumes,W,level){
  if(FIXED[level]){const vs=Object.entries(volumes).sort((a,b)=>b[1]-a[1]),fx=FIXED[level].split.slice().sort((a,b)=>b.reduce((x,y)=>x+y)-a.reduce((x,y)=>x+y));

@@ -282,7 +282,7 @@ Reject if:
 
 - **Cells N** = coloured coordinates of the picture (hidden cells, cells under shutters/buds and stack positions count
   once; holes, key/well/bridge/canal areas do not). Work **W = N + E + D** (stack extra units, well deliveries).
-- **Stages (§2):** L1 crown 138 / 3 colours, L2 ladybug 2C 240 / 4, L3 bird 3B 281 / 6; L4–9 500–600 cells, 4–7 colours;
+- **Stages (§2):** L1 fox cub 181 / 3 colours (128 / 48 / 5; replaced the crown, owner, 2026-10-26), L2 ladybug 2C 240 / 4, L3 bird 3B 281 / 6; L4–9 500–600 cells, 4–7 colours;
   L10 500–600, 4–8; L11–24 550–1000, 4–8; L25–60 550–1200, 5–9; L61+ 550–1400, 5–9 (ranges updated by the owner on 2026-10-26: sizes
   spread toward the middle of a range and at times near its top, never by default at its floor; picture quality first). After L25 compact pictures of 200–399 cells with 3–6
   colours are allowed. Size does not grow with the level number; mix per 30 levels about 6 × 200–499, 15 × 500–999,
@@ -293,7 +293,7 @@ Reject if:
   30–48, 4. Pod numbers 1–60; a colour of 20+ has at least 2 pods, max pod = min(60, ceil(volume/2)); near-even split
   (±25 %). Columns 3 or 4 (first three levels 3); start heights differ by at most 2 pods.
 - **Slots:** 5; a level with Twig's repair starts with 4.
-- **Duration (§12, at ×1, first launch to last work):** crown 15–30 s; up to 399 cells 20–60 s; 400–699 40–100 s;
+- **Duration (§12, at ×1, first launch to last work):** L1 15–30 s; up to 399 cells 20–60 s; 400–699 40–100 s;
   700–999 70–160 s; 1000–1400 100–210 s. Guides, not timers.
 
 The tutorial boards, regular and big board ranges of §2 and the pod counts of §12–§13 here describe the earlier

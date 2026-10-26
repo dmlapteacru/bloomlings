@@ -2,6 +2,7 @@
 
 ## Owner amendment · 2026-10-26 — picture size ranges
 
+- Level 1 is the owner's fox cub (181 cells, 3 colours, 128 / 48 / 5) instead of the crown; levels 2–3 keep the ladybug 2C and the bird 3B (the owner's matrices). The fox's pod split (26+26+26+25+25; 16+16+16; 5) is a proposal, and whether L1 keeps the crown's nested first-open order is open.
 - Later the same day: levels 4–10 keep 500–600 cells (L4–9 4–7 colours, L10 4–8); L11–24 stay 550–1000.
 - [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §2: stage ranges are now L4–9 400–650 cells,
   L10–24 550–1000, L25–60 550–1200, L61+ 550–1400 (colours unchanged). The floor is not a target: sizes spread toward

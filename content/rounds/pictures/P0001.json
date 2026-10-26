@@ -1,36 +1,42 @@
 {
  "id": "P0001",
  "seq": 1,
- "version": 2,
- "title": "Долька апельсина",
- "theme": "food",
+ "version": 3,
+ "title": "Лисёнок",
+ "theme": "animals",
  "forLevel": 1,
- "w": 13,
- "h": 13,
+ "w": 14,
+ "h": 19,
  "rows": [
-  "....OOOOO....",
-  "..OOOOCOOOO..",
-  ".OOCCYYCCOOO.",
-  ".OCYYYCYYCOO.",
-  "OOCYYYCYYYCOO",
-  "OCYYYYCYYYCOO",
-  "OCYCCCCCCCCOO",
-  "OCYYYYCYYYCOO",
-  "OOCYYYCYYYCOO",
-  ".OOCYYCYYCOOO",
-  ".OOOCCCCCOOO.",
-  "..OOOOOOOOO..",
-  "....OOOOO...."
+  "OO.......OO...",
+  "OOO.OOO.OOO...",
+  "OCOOOOOOOCO...",
+  "OOOOOOOOOOO...",
+  "OOOEOOOEOOO...",
+  "OOOEOOOEOOO...",
+  "OOOOCCCOOOO...",
+  ".OOCCECCOO....",
+  ".OOCCCCCOO....",
+  "...OOCOO....O.",
+  "..OOOOOOO...OO",
+  "..OOOCOOO...OO",
+  ".OOOCCCOOO..OO",
+  ".OOCCCCCOO..OO",
+  ".OOCCCCCOO..OO",
+  "..OCCCCCO..OOO",
+  "..OOCCCOOOOOO.",
+  "...COCOC..OOO.",
+  ".CCCCOCCCC...."
  ],
- "N": 138,
+ "N": 181,
  "colours": 3,
  "volumes": {
-  "O": 63,
-  "C": 37,
-  "Y": 38
+  "O": 128,
+  "C": 48,
+  "E": 5
  },
- "status": "rejected",
- "batch": "batch-0001-v2",
+ "status": "approved",
+ "batch": "owner-0001",
  "createdAt": "2026-10-26",
  "history": [
   {
@@ -51,8 +57,29 @@
     "SYYYYYYYYYYYS",
     ".SSSSSSSSSSSS"
    ]
+  },
+  {
+   "version": 2,
+   "title": "Долька апельсина",
+   "status": "rejected",
+   "note": "Владелец: переделать (2026-10-26)",
+   "rows": [
+    "....OOOOO....",
+    "..OOOOCOOOO..",
+    ".OOCCYYCCOOO.",
+    ".OCYYYCYYCOO.",
+    "OOCYYYCYYYCOO",
+    "OCYYYYCYYYCOO",
+    "OCYCCCCCCCCOO",
+    "OCYYYYCYYYCOO",
+    "OOCYYYCYYYCOO",
+    ".OOCYYCYYCOOO",
+    ".OOOCCCCCOOO.",
+    "..OOOOOOOOO..",
+    "....OOOOO...."
+   ]
   }
  ],
- "note": "Владелец: переделать (2026-10-26)",
+ "note": null,
  "decidedAt": "2026-10-26"
 }

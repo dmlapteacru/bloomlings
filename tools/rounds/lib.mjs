@@ -25,14 +25,14 @@ export function measure(pic){const vol={};let n=0;for(const r of pic.rows)for(co
  return {N:n,colours:Object.keys(vol).length,volumes:vol};}
 // stage ranges by level number (§2); compact 200–399 cells / 3–6 colours allowed after L25
 export function stageOf(level){
- if(level===1)return {cells:[138,138],colours:[3,3],fixed:'объёмы §4'};if(level===2)return {cells:[240,240],colours:[4,4],fixed:'объёмы §4'};if(level===3)return {cells:[281,281],colours:[6,6],fixed:'объёмы §4'};
+ if(level===1)return {cells:[181,181],colours:[3,3],fixed:'объёмы §4'};if(level===2)return {cells:[240,240],colours:[4,4],fixed:'объёмы §4'};if(level===3)return {cells:[281,281],colours:[6,6],fixed:'объёмы §4'};
  if(level<=9)return {cells:[500,600],colours:[4,7]};if(level===10)return {cells:[500,600],colours:[4,8]};if(level<=24)return {cells:[550,1000],colours:[4,8]};if(level<=60)return {cells:[550,1200],colours:[5,9],compact:true};return {cells:[550,1400],colours:[5,9],compact:true};}
 export function fitsStage(m,level){const s=stageOf(level),wide=c=>c>=10&&c<=11;
  if(s.fixed)return m.N===s.cells[0]&&m.colours===s.colours[0];
  if(s.compact&&m.N>=200&&m.N<=399)return (m.colours>=3&&m.colours<=6)||wide(m.colours);
  return m.N>=s.cells[0]&&m.N<=s.cells[1]&&((m.colours>=s.colours[0]&&m.colours<=s.colours[1])||wide(m.colours));}
 // the exact colour volumes of the first three levels (§4), largest first
-export const FIXED_VOLUMES={1:[63,38,37],2:[120,97,19,4],3:[76,70,69,51,13,2]};
+export const FIXED_VOLUMES={1:[128,48,5],2:[120,97,19,4],3:[76,70,69,51,13,2]};
 export const sizeBin=n=>n<500?'200–499':n<1000?'500–999':'1000–1400';
 // pod budget and columns by area (§3): budget P by W, columns by N
 export function budget(W){return W<400?[9,24]:W<700?[18,30]:W<1000?[24,40]:[30,48];}

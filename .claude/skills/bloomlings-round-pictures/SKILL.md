@@ -31,7 +31,7 @@ those rules; where this skill and 17 differ, 17 wins.
 
 | Level | Cells N | Colours |
 |---|---:|---:|
-| 1 — crown | exactly 138 | 3, volumes 63 / 37 / 38 |
+| 1 — fox cub | exactly 181 | 3, volumes 128 / 48 / 5 |
 | 2 — ladybug 2C | exactly 240 | 4, volumes 120 / 97 / 19 / 4 |
 | 3 — bird 3B | exactly 281 | 6, volumes 76 / 70 / 69 / 51 / 13 / 2 |
 | 4–9 | 500–600 | 4–7 |
@@ -105,7 +105,7 @@ those rules; where this skill and 17 differ, 17 wins.
 
 ## The first three pictures
 
-L1–L3 are fixed by 17 §4: crown 138/3, ladybug 2C 240/4, bird 3B 281/6, with the exact colour volumes above.
+L1–L3 are fixed by 17 §4: fox cub 181/3, ladybug 2C 240/4, bird 3B 281/6, with the exact colour volumes above.
 - If the owner gives their matrices, enter them as rows.
 - Otherwise draw them to these exact counts.
 - The level skill rejects them if the volumes differ.
