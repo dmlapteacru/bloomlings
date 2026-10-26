@@ -71,7 +71,7 @@ function bookTree(){
  const pages=(x,y)=>inBook(x,19.6)?Math.max(top(x)-y,y-bot(x)):1;
  const edges=(x,y)=>inBook(x,19.6)?Math.max(bot(x)-y,y-(bot(x)+1.1)):1;
  const cover=(x,y)=>inBook(x,20.6)?Math.max(top(x)+1.5-y,y-(bot(x)+2.7)):1;
- const fold=(x,y)=>Math.abs(x-sx)<0.6&&y>top(x)?-1:1;
+ const fold=(x,y)=>Math.abs(x-sx)<0.6&&y>top(x)&&y<bot(x)+1.1?-1:1;
  const crown=ellipse(sx,12.2,13.4,12);
  const stem=poly([[sx-2.2,21],[sx+2.2,21],[sx+2.2,30],[sx+4.6,33.8],[sx-4.6,33.8],[sx-2.2,30]]);
  const g=raster(44,44,'.',[
@@ -84,13 +84,38 @@ function bookTree(){
  return str(g);
 }
 
+// 4. A penguin skating in a scarf, one foot raised behind on its skate.
+const stamp=(g,x0,y0,rows)=>rows.forEach((r,j)=>[...r].forEach((c,i)=>{if(c!=='.')g[y0+j][x0+i]=c;}));
+function penguin(){
+ const body=union(ellipse(16,20,8.6,10.4),circle(18.4,8.6,6.4),poly([[11,14],[24.4,10],[24,20],[10,20]]));
+ const belly=union(ellipse(19,21.4,5.8,8.2),circle(20.8,9.6,3.8),poly([[17,10],[24,10],[24.4,20],[15,20]]));
+ const flipBack=seg(10,18.5,3,18.8,1.7);
+ const flipFront=seg(21.5,17.5,27,23,1.6);
+ const beak=poly([[24.2,7.8],[29.2,9.4],[24.2,11]]);
+ const scarf=union(meet(body,(x,y)=>Math.abs(y-(13.4-0.12*(x-17)))-1.05),box(21.6,16.4,1.3,2.4,0.4));
+ const tail=union(seg(12,13.2,6.5,11.2,1.15),seg(6.5,11.2,2.6,12.6,1.15));
+ const g=draw(30,37,1.2,[
+  [tail,'R'],[meet(tail,(x,y)=>x-3.6>0?1:-1),'Y'],
+  [flipBack,'D'],
+  [body,'D'],[belly,'C'],[flipFront,'D'],
+  [scarf,'R'],[meet(box(21.6,16.4,1.3,2.4,0.4),(x,y)=>y-17.9>0?-1:1),'Y'],
+  [beak,'O'],
+ ]);
+ put(g,'D',[[25,8],[25,9]]);
+ // the skates, by hand: deep blue boots on dark blades with a curled toe; the back one raised behind; a patch of ice
+ stamp(g,10,42,['...SSSSSSSSSSSSSSSS...','.....SSSSSSSSSSSS.....'].map(r=>r));
+ stamp(g,14,36,['....OO......','...NNNN.....','...NNNNNNNN.','...NNNNNNNN.','....D....D.D','..DDDDDDDDD.']);
+ stamp(g,0,28,['.........OO','.....NNNNO.','.NNNNNNNN..','.NNNNNNNN..','D.D....D...','.DDDDDDDDD.']);
+ return str(g.slice(3,44));
+}
+
 // 5. Round cookie with chocolate chips and a bite out of its upper right.
 function cookie(){
- const cx=11,cy=11.5,r=10.4,bite=union(circle(20.6,7.0,3.4),circle(16.8,2.4,3.4));
+ const cx=11.5,cy=12,r=10.9,bite=union(circle(21,7.6,3.7),circle(17.4,2.4,3.7),circle(20.6,3.2,3));
  const body=cut(circle(cx,cy,r),bite);
- const chips=union(box(7,6,1,1),box(12,6,1,1),box(5,12,1,1),box(11,11,1,1),box(16,12,1,1),box(8,17,1,1),box(14,17,1,1),
-  box(4,9,0.6,0.6),box(11,19,0.6,0.6),box(8,13,0.6,0.6),box(13,14,0.6,0.6));
- const g=raster(22,23,'.',[
+ const chips=union(box(7,6,1,1),box(12,7,1,1),box(5,13,1,1),box(11,12,1,1),box(17,13,1,1),box(8,18,1,1),box(15,18,1,1),
+  box(4,9,0.6,0.6),box(8,14,0.6,0.6),box(14,15,0.6,0.6));
+ const g=raster(23,24,'.',[
   [body,'O'],
   [meet(body,cut(circle(cx,cy,r),circle(cx-1.4,cy-1.4,r))),'A'],
   [meet(body,cut(circle(cx,cy,r),circle(cx+1.2,cy+1.2,r))),'Y'],
@@ -100,9 +125,14 @@ function cookie(){
  return str(g);
 }
 
+// Cut empty rows and columns off the edges.
+const trim=rows=>{let r=rows.filter((_,i)=>rows.slice(0,i+1).some(x=>/[^.]/.test(x))&&rows.slice(i).some(x=>/[^.]/.test(x)));
+ const used=i=>r.some(x=>x[i]!=='.'),W=r[0].length;let a=0,b=W-1;while(!used(a))a++;while(!used(b))b--;return r.map(x=>x.slice(a,b+1));};
+
 export default {theme:'batch-0011',pictures:[
- {title:'Клубок с вязанием',forLevel:41,family:'Рисование и ремёсла',device:'простой предмет',subject:'клубок пряжи со спицами',source:'оригинальный',rows:yarn()},
- {title:'Космонавт поливает цветок на астероиде',forLevel:42,family:'Космос',direction:'Космическая повседневность',subject:'космонавт поливает цветок на астероиде',source:'оригинальный',rows:astronaut()},
- {title:'Книга выращивает дерево',forLevel:43,family:'Книги, учёба и открытия',direction:'Домашняя магия',subject:'из страниц раскрытой книги растёт дерево',source:'оригинальный',rows:bookTree()},
- {title:'Печенье с шоколадом',forLevel:45,family:'Хлеб и выпечка',device:'простой предмет',subject:'печенье с шоколадной крошкой',source:'оригинальный',rows:cookie()},
+ {title:'Клубок с вязанием',forLevel:41,family:'Рисование и ремёсла',subject:'клубок пряжи со спицами',source:'оригинальный',rows:trim(yarn())},
+ {title:'Космонавт поливает цветок на астероиде',forLevel:42,family:'Космос',direction:'Космическая повседневность',subject:'космонавт поливает цветок на астероиде',source:'оригинальный',rows:trim(astronaut())},
+ {title:'Книга выращивает дерево',forLevel:43,family:'Книги, учёба и открытия',direction:'Домашняя магия',subject:'из страниц раскрытой книги растёт дерево',source:'оригинальный',rows:trim(bookTree())},
+ {title:'Пингвин на коньках',forLevel:44,family:'Птицы',subject:'пингвин катается на коньках в шарфе',source:'оригинальный',rows:trim(penguin())},
+ {title:'Печенье с шоколадом',forLevel:45,family:'Хлеб и выпечка',subject:'печенье с шоколадной крошкой',source:'оригинальный',rows:trim(cookie())},
 ]};

@@ -82,26 +82,56 @@ function grumpyCloud(){
  const ribs=[1,9,17,25,33],cy=14;
  let canopy=meet(ellipse(17,cy,16,11.2),(x,y)=>y-cy);
  for(let i=0;i<4;i++){const m=(ribs[i]+ribs[i+1])/2;canopy=cut(canopy,circle(m,17.6,5.5));}
- const panel=(x,y)=>{const t=Math.atan2(x+.5-17,cy+2-(y+.5));return t>-1.12&&t<-.36?'K':'R';};
+ const gloss=union(seg(4.8,10.6,7.6,7,1),seg(7.6,7,11.6,4.8,1));
  const cloud=union(circle(8.4,27.6,5.2),circle(14.2,23.6,6.2),circle(21.4,23.2,6.4),circle(27.4,27.4,5.2),box(17.6,29.6,13,3.4,3.2));
  const shaft=union(box(17,10,1,7.6),box(17,2.2,.6,1.4));
- const drop=(x,y)=>union(circle(x,y,1.9),poly([[x-1.7,y-.7],[x,y-4.4],[x+1.7,y-.7]]));
- const g=raster(35,41,'.',[[shaft,'D'],[canopy,panel],[cloud,shade(cloud,'S','B',2.2,0,1)],
-  [union(drop(9,37.2),drop(17.6,38.6),drop(26.4,37.2)),'N']]);
+ const g=raster(35,42,'.',[[shaft,'D'],[canopy,'R'],[meet(gloss,canopy),'K'],[cloud,shade(cloud,'S','B',2.2,0,1)],
+]);
  rows(g,[
   // grumpy face: brows slanting down to the middle, eyes, a frown
   [21,10,'DD'],[22,12,'DD'],[21,23,'DD'],[22,21,'DD'],
   [24,11,'DDD'],[25,11,'DDD'],[24,21,'DDD'],[25,21,'DDD'],
   [28,15,'DDDDD'],[29,14,'D'],[29,20,'D'],
+  // three drops falling from the cloud itself
+  ...[[6,34],[15,37],[25,35]].flatMap(([x,y])=>[[y,x+2,'N'],[y+1,x+1,'NNN'],[y+2,x,'NNNNN'],[y+3,x,'NNNNN'],[y+4,x+1,'NNN']]),
+ ]);
+ return str(g);}
+
+// 5. «Робот-садовник»: a friendly gardening robot on wheels with a glass greenhouse dome full of plants on its back.
+function gardenRobot(){
+ const dome=meet(ellipse(16,22.6,12.3,14),(x,y)=>y-22.6),glass=meet(ellipse(16,22.6,11.1,12.9),(x,y)=>y-22.6);
+ const body=box(19,29,15,6.5,2.6),head=box(34,13,7,6,2.4),screen=box(35.6,13,4.4,3.6,1.4);
+ const wheels=[9.8,19.5,29.2].map(x=>[circle(x,38.4,4.4),circle(x,38.4,1.8)]);
+ const g=raster(44,43,'.',[
+  [box(33,5,.6,2.6),'D'],[circle(33,2.4,1.6),'Y'],[box(33,20.5,2.2,2),'D'],
+  [body,shade(body,'O','A',1.6,0,1)],[head,shade(head,'O','A',1.1,1,1)],[screen,'D'],
+  [dome,'D'],[glass,'S'],[box(16,21.5,11.4,1.5),'A'],
+  [box(19,35.6,14.6,1.3,.6),'D'],...wheels.flatMap(([t,h])=>[[t,'D'],[h,'C']]),
+  [box(19,29,5,2.2,1),'C']]);
+ rows(g,[
+  // happy face on the screen
+  [10,32,'SS'],[10,37,'SS'],[11,32,'SS'],[11,37,'SS'],[14,32,'S'],[14,39,'S'],[15,33,'SSSSSS'],
+  // buttons on the belly panel
+  [29,16,'YY'],[29,20,'PP'],
+  // a gleam on the glass
+  [11,11,'CC'],[12,10,'CC'],[13,9,'C'],
+ ]);
+ // plants in the greenhouse: a pink flower, a leafy bush, a yellow flower
+ rows(g,[
+  [14,8,'PPP'],[15,7,'PPYPP'],[16,8,'PPP'],[17,9,'MGG'],[18,7,'GGM'],[19,9,'M'],
+  [11,14,'GGGGG'],[12,13,'GGGGGGG'],[13,13,'GGGGGGM'],[14,13,'GGGGGMM'],[15,13,'GGGGMMM'],[16,13,'MGGMMMM'],[17,14,'MMMMM'],[18,16,'A'],[19,16,'A'],
+  [14,21,'YYY'],[15,20,'YYAYY'],[16,21,'YYY'],[17,20,'GGM'],[18,22,'MGG'],[19,22,'M'],
  ]);
  return str(g);}
 
 export default {theme:'batch-0011',pictures:[
- {title:'6–7',forLevel:56,family:'Числовой и фразовый абсурд',device:'персонаж из предмета',subject:'цифры 6 и 7 с лицами',
+ {title:'6–7',forLevel:56,family:'Числовой и фразовый абсурд',subject:'цифры 6 и 7 с лицами',
   source:'интернет-мем/тренд',reference:'6–7 / six-seven [T1]',rows:sixSeven()},
  {title:'Мастерская в ореховой скорлупе',forLevel:57,family:'Кафе и мастерские',direction:'Миниатюрные мастерские',
   subject:'мастерская в половинке грецкого ореха',source:'оригинальный',rows:walnutShop()},
  {title:'Енот в шарфе',forLevel:58,family:'Лесные и горные животные',subject:'енот в полосатом шарфе',source:'оригинальный',rows:raccoon()},
  {title:'Сердитое облачко с зонтом',forLevel:59,family:'Времена года и погода',direction:'Театр эмоций',
   subject:'хмурая дождевая тучка под красным зонтом',source:'оригинальный',rows:grumpyCloud()},
+ {title:'Робот-садовник',forLevel:60,family:'Роботы и механизмы',direction:'Доброе будущее',
+  subject:'робот-садовник с теплицей на спине',source:'оригинальный',rows:gardenRobot()},
 ]};
