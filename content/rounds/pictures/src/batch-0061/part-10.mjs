@@ -80,31 +80,32 @@ function walle(){
 
 // 4. Nemo: the orange clownfish with three white black-edged bands and a little lucky fin, by a pink sea anemone.
 function nemo(){
- const W=34,H=31;
- const body=ellipse(14.5,12.5,11,7.2);
- const tail=poly([[23,12.5],[30.5,5.2],[32.5,8.5],[30,12.5],[32.5,16.5],[30.5,19.8]]);
- const top=poly([[9,7],[12.5,2.4],[18.5,3],[21.5,8]]);
- const low=poly([[11,18.5],[14,22.3],[18.5,18.8]]);
+ const W=36,H=31;
+ const cy=12.5;
+ const body=ellipse(15,cy,12,7.8);
+ const tail=poly([[25,cy],[32.5,4.8],[34.8,8.5],[32,cy],[34.8,16.5],[32.5,20.2]]);
+ const top=poly([[9,6.5],[12.5,1.6],[19.5,2.2],[23,8]]);
+ const low=poly([[11,19.5],[14,23.3],[19,19.8]]);
  const fish=union(body,tail,top,low);
- const inner=(x,y)=>fish(x,y)+1;                               // the fish minus its dark edge
- const band=(cx,w)=>meet(inner,(x,y)=>Math.abs(x-cx-(y-12.5)*0.15)-w);
+ const fins=union(tail,top,low);
+ const finEdge=cut(fins,union(body,(x,y)=>fins(x,y)+1.1));      // dark rims on the fin tips only
+ // crisp bands: whole columns bent a little round the head, white in the middle, one dark cell each side
+ const bands=[[10,1],[18,1.5],[25.5,.5]];
+ const banded=(x,y,u)=>{const o=Math.round(1.3*((y-cy+.5)/8)**2);for(const [cx,h] of bands){const d=Math.abs(x+o-cx-(h%1?.5:0))-(h%1?.5:0);
+   if(d<=Math.floor(h))return 'C';if(d<=Math.floor(h)+1)return 'D';}return u;};
  const g=draw(W,H,1,[
   [box(W/2,H/2,W/2,H/2),'B'],
   [box(W/2,29.5,W/2,1.5),'Y'],                                 // sand
-  [ellipse(25,28.7,8.5,2.4),'V'],                              // anemone foot
-  [union(...[18,20.6,23.2,25.8,28.4,31].map((x,i)=>seg(x,28,x+(i%2?1:-1),22+(i%3),1.05))),'P'],
-  [union(...[18,20.6,23.2,25.8,28.4,31].map((x,i)=>circle(x+(i%2?1:-1),22+(i%3),1.35))),'K'],
-  [fish,'D'],
-  [inner,'O'],
-  [band(9.6,1.6),'D'],[band(9.6,.75),'C'],
-  [band(16.2,1.9),'D'],[band(16.2,1),'C'],
-  [band(23.6,1.5),'D'],[band(23.6,.7),'C'],
-  [meet(inner,(x,y)=>30.6-x),'D'],                              // dark tail tips
-  [ellipse(13,15.4,2.6,1.6),'D'],[ellipse(13.2,15.2,1.6,.9),'O'],   // the little lucky fin
-  [circle(6.4,10.8,2.1),'C'],[circle(6,10.8,1.15),'D'],
+  [ellipse(26,28.7,8.5,2.4),'V'],                              // anemone foot
+  [union(...[19,21.6,24.2,26.8,29.4,32].map((x,i)=>seg(x,28,x+(i%2?1:-1),23.5+(i%3),1.05))),'P'],
+  [union(...[19,21.6,24.2,26.8,29.4,32].map((x,i)=>circle(x+(i%2?1:-1),23.5+(i%3),1.35))),'K'],
+  [fish,'O'],
+  [finEdge,'D'],
+  [fish,banded],
+  [ellipse(14.5,15.6,2,1.5),'D'],[ellipse(14.7,15.4,1.1,.7),'O'],   // the little lucky fin
+  [circle(6,11,2.1),'C'],[circle(5.6,11,1.2),'D'],
  ]);
- put(g,'C',[[5,9]]);
- put(g,'S',[[4,2],[5,2],[4,3],[5,3],[2,5],[28,1],[29,1],[28,2],[29,2]]);   // bubbles
+ put(g,'S',[[4,2],[5,2],[4,3],[5,3],[2,5],[29,1],[30,1],[29,2],[30,2]]);   // bubbles
  return str(g);}
 
 // 5. The Up house: a little colourful house lifted into the sky by a big bunch of many-coloured balloons.

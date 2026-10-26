@@ -15,7 +15,7 @@ function locomotive(){
  const wheel=(cx,cy,r)=>[[circle(cx,cy,r),'D'],[circle(cx,cy,r-1),'R'],[circle(cx,cy,1.3),'Y']];
  const g=draw(W,H,k,[
   // the big chimney puff: soft clouds rising to the left
-  [union(circle(31,5,3.4),circle(34.4,6.2,2.2),circle(28.4,6.4,2),circle(24,3.6,2.5),circle(21.6,4.8,1.7),circle(18.2,3.6,1.5)),'S'],
+  [union(circle(31,5,3.4),circle(34.4,6.2,2.2),circle(28.4,6.4,2),circle(24,3.9,2.6)),'S'],
   // the chimney: a flared top on a short stem
   [union(poly([[26.5,8.6],[35.5,8.6],[33.5,11.8],[28.5,11.8]]),box(31,13.8,2.4,3)),'D'],
   // the boiler with its round front, a brass dome and two bands
@@ -36,7 +36,8 @@ function locomotive(){
   ...wheel(10,27,5.45),...wheel(24,28.4,4.1),...wheel(32.6,28.4,4.1),
   [box(21.5,28.4,11,.6),'Y'],
  ]);
- return str(trim(g));}
+ const t=trim(g);put(t,'.',[[21,1],[25,1],[21,4]]);
+ return str(t);}
 
 function submarine(){
  const W=34,H=32;
@@ -71,11 +72,25 @@ function submarine(){
 
 function plane(){
  const W=31,H=29;
- const g=raster(W,H,'.',[
-  [all,'S'],
-  // two big clouds, one above the nose and one under the tail
-  [union(circle(20.5,5.4,3),circle(25,3.6,3.6),circle(29.5,5.6,2.8),box(25,7,8,1.5,1.4)),'C'],
-  [union(circle(3,26,2.6),circle(7,24.8,3.2),circle(11,26.4,2.2),box(6.5,27.4,8,1.2,1.1)),'C'],
+ const g=raster(W,H,'.',[[all,'S']]);
+ // two big clouds, one above the nose and one under the tail
+ over(g,17,0,[
+'..............',
+'.......CCC....',
+'......CCCCC.CC',
+'..CCC.CCCCCCCC',
+'.CCCCCCCCCCCCC',
+'CCCCCCCCCCCCCC',
+'CCCCCCCCCCCCCC',
+'.CCCCCCCCCCCC.',
+ ]);
+ over(g,0,23,[
+'..CC..........',
+'.CCCC.CCC.....',
+'CCCCCCCCCCC...',
+'CCCCCCCCCCCCC.',
+'CCCCCCCCCCCCCC',
+'.CCCCCCCCCCCC.',
  ]);
  // the plane, nose to the right: tail fin, pilot with goggles and a scarf, cockpit rim, near wing, spinner, propeller, wheel
  over(g,0,6,[
