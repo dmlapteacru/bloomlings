@@ -1,5 +1,7 @@
 {
- "id": "P0001",
+ "code": "P0001",
+ "state": "free",
+ "usedBy": null,
  "version": 3,
  "title": "Лисёнок",
  "theme": "animals",

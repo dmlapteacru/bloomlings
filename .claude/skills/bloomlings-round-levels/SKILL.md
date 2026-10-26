@@ -20,6 +20,9 @@ Read 17 §1, §3, §5–§8, §10, §11 and §14 before building, and the sectio
 - `locked/L0001`–`L0003`: the pictures of levels 1–3, used there and nowhere else.
 - `pool/P####`: every other approved picture. They are interchangeable between rounds. A picture's number, its
   `forLevel` or the order of the pool never assigns it to a level.
+- Each code is **free** or **in a round** (`state`, `usedBy`; `pictures.mjs status --free`). Build and place use only free
+  codes. `place` marks a code as used by writing its level, then rebuilds the folder. A code becomes free again only when
+  its level file is removed or rebuilt with another picture.
 
 ## Principle
 

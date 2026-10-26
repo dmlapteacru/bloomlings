@@ -1,5 +1,7 @@
 {
- "id": "P0007",
+ "code": "P0007",
+ "state": "free",
+ "usedBy": null,
  "version": 5,
  "title": "Фотоаппарат",
  "theme": "objects",

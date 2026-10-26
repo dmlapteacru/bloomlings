@@ -1,5 +1,7 @@
 {
- "id": "P0010",
+ "code": "P0010",
+ "state": "free",
+ "usedBy": null,
  "version": 5,
  "title": "Дракончик на книге",
  "theme": "animals",

@@ -1,5 +1,7 @@
 {
- "id": "P0004",
+ "code": "P0004",
+ "state": "free",
+ "usedBy": null,
  "version": 5,
  "title": "Игровой автомат",
  "theme": "objects",

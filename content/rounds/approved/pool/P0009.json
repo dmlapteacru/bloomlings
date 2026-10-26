@@ -1,5 +1,7 @@
 {
- "id": "P0009",
+ "code": "P0009",
+ "state": "free",
+ "usedBy": null,
  "version": 5,
  "title": "Акустическая гитара",
  "theme": "objects",

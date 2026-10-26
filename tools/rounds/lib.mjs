@@ -19,6 +19,9 @@ export const manifest=()=>readJSON(MANIFEST,{format:'bloomlings-round-pictures-1
 export const saveManifest=m=>{m.pictures.sort((a,b)=>a.seq-b.seq);writeJSON(MANIFEST,m);};
 export const nextSeq=m=>m.pictures.reduce((n,p)=>Math.max(n,p.seq),0)+1;
 export const picture=id=>readJSON(path.join(PICTURES,id+'.json'));
+// which picture each placed level uses, read from content/rounds/levels/ (the truth of "in a round"): {P0007: 'L0023'}
+export function usage(){const u={};if(!fs.existsSync(LEVELS))return u;
+ for(const f of fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f)).sort()){const L=readJSON(path.join(LEVELS,f));if(L&&L.picture)u[L.picture]=f.replace('.json','');}return u;}
 
 // ---- picture measures (§2): N = coloured coordinates, colours and their volumes ----
 export function measure(pic){const vol={};let n=0;for(const r of pic.rows)for(const c of r)if(CODES.includes(c)){vol[c]=(vol[c]||0)+1;n++;}

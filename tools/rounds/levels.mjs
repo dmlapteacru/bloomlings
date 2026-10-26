@@ -10,7 +10,7 @@
 // node tools/rounds/levels.mjs bank                        the bank: candidates by picture and measured class
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
 import fs from 'node:fs';import path from 'node:path';
-import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf} from './lib.mjs';
+import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {randomTest,quickShare,solve,fairness,strategies,rhythm} from './measure.mjs';
 const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
 const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
@@ -117,7 +117,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
 // ---- place: calendar positions from the bank, with the variety rules of §11 and the windows of §2/§13 ----
 const lead=c=>(c.recipe||'none').split('+')[0];
 function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f)):[]){const L=readJSON(path.join(LEVELS,f));placed[L.level]=L;}
- const banks=fs.existsSync(BANK)?fs.readdirSync(BANK).map(f=>readJSON(path.join(BANK,f))):[];const pool=banks.flatMap(b=>b.candidates);const m=manifest(),usedPic=new Set(m.pictures.filter(p=>p.usedBy).map(p=>p.id));const needs=[];
+ const banks=fs.existsSync(BANK)?fs.readdirSync(BANK).map(f=>readJSON(path.join(BANK,f))):[];const pool=banks.flatMap(b=>b.candidates);const m=manifest(),usedPic=new Set(Object.keys(usage()));const needs=[];
  for(let n=from;n<=to;n++){if(placed[n])continue;const slot=slotOf(n),prev=[placed[n-1],placed[n-2]].filter(Boolean);
   const window=Object.values(placed).filter(L=>L.level>n-20&&L.level<n+20);
   const ok=pool.filter(c=>!usedPic.has(c.picture)&&c.cls===slot.cls&&fitsStage({N:c.N,colours:c.colours},n)
@@ -137,14 +137,14 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const e=m.pictures.find(p=>p.id===c.picture);if(e)e.usedBy=lid(n);const pf=path.join(PICTURES,c.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);
   for(const b of banks)if(b.picture===c.picture){b.candidates=b.candidates.filter(x=>x.id!==c.id);b.placed=(b.placed||[]).concat([c.id]);writeJSON(path.join(BANK,b.picture+'.json'),b);}
   console.log(lid(n),slot.cls.padEnd(10),slot.intro?'знакомство: '+MECH_RU[slot.intro]:'',c.picture,c.recipe,`случайный тест ${Math.round(c.random.share*100)} %`);}
- saveManifest(m);const nf=path.join(ROUNDS,'needs.json'),old=readJSON(nf,{needs:[]});const keep=old.needs.filter(x=>x.level<from||x.level>to);writeJSON(nf,{updated:new Date().toISOString().slice(0,10),needs:keep.concat(needs).sort((a,b)=>a.level-b.level)});
+ saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});const nf=path.join(ROUNDS,'needs.json'),old=readJSON(nf,{needs:[]});const keep=old.needs.filter(x=>x.level<from||x.level>to);writeJSON(nf,{updated:new Date().toISOString().slice(0,10),needs:keep.concat(needs).sort((a,b)=>a.level-b.level)});
  if(needs.length)console.log(`не заполнено ${needs.length}: ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+x.intro+')':''}`).join(', ')} → content/rounds/needs.json`);}
 
 function card(n){const L=readJSON(path.join(LEVELS,lid(n)+'.json'));if(!L)return console.log('нет уровня',n);
  console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden})\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}`);}
 
 if(cmd==='calendar'){const a=+process.argv[3]||1,b=+process.argv[4]||30;for(let n=a;n<=b;n++){const s=slotOf(n);console.log(lid(n),s.cls.padEnd(10),s.intro?('знакомство: '+MECH_RU[s.intro]+(SUPPORTED.has(s.intro)?'':' — НЕ ПОДДЕРЖИВАЕТСЯ ДВИЖКОМ')).padEnd(46):''.padEnd(46),'разрешены:',s.allowed.map(x=>MECH_RU[x]+(SUPPORTED.has(x)?'':' (нет в движке)')).join(', ')||'без допов');}}
-else if(cmd==='build'){const ids=flag('--approved')?manifest().pictures.filter(p=>p.status==='approved'&&!p.usedBy).map(p=>p.id):process.argv.slice(3).filter(a=>/^P\d+$/.test(a));await build(ids);}
+else if(cmd==='build'){const ids=flag('--approved')?(u=>manifest().pictures.filter(p=>p.status==='approved'&&!u[p.id]).map(p=>p.id))(usage()):process.argv.slice(3).filter(a=>/^P\d+$/.test(a));await build(ids);}
 else if(cmd==='place'){place(+process.argv[3],+process.argv[4]);}
 else if(cmd==='bank'){for(const f of fs.existsSync(BANK)?fs.readdirSync(BANK):[]){const b=readJSON(path.join(BANK,f));const by={};for(const c of b.candidates){const k=c.cls+(c.intro?' (знакомство)':'');(by[k]=by[k]||[]).push(`${c.recipe} ${Math.round(c.random.share*100)}%`);}console.log(b.picture,JSON.stringify(by),b.rejected.length?'отклонения: '+b.rejected.map(x=>x.reason).join('; '):'');}}
 else if(cmd==='card'){card(+process.argv[3]);}

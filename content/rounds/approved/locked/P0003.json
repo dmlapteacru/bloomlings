@@ -1,5 +1,7 @@
 {
- "id": "P0003",
+ "code": "P0003",
+ "state": "free",
+ "usedBy": null,
  "version": 3,
  "title": "Птичка 3B",
  "theme": "animals",

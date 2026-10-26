@@ -1,5 +1,7 @@
 {
- "id": "P0002",
+ "code": "P0002",
+ "state": "free",
+ "usedBy": null,
  "version": 3,
  "title": "Божья коровка 2C",
  "theme": "animals",

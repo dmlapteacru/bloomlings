@@ -108,12 +108,17 @@ those rules; where this skill and 17 differ, 17 wins.
      A pick from the owner's sheet is their decision.
 7. **Where approved pictures go.** There is one place: `content/rounds/approved/`. `approve` (and `reject`,
    `replace`) rebuild it with `node tools/rounds/pictures.mjs publish`. Never copy pictures there by hand.
-   - `approved/locked/L0001.json` … `L0003.json` (+ `.png`): the pictures locked to levels 1–3. Approving a
-     picture whose `forLevel` is 1–3 locks it to that level, and one level holds one locked picture.
+   - Every picture is known by its **code**, `P####`: the file name, the JSON's `code`, the number on the sheets.
+   - `approved/locked/P####.json` (+ `.png`): the pictures locked to levels 1–3. Approving a picture whose
+     `forLevel` is 1–3 locks it to that level, and one level holds one locked picture.
    - `approved/pool/P####.json` (+ `.png`): every other approved picture, with the stage ranges it fits. They are not
      ordered by level.
-   - `approved/README.md`: the index (generated).
-   Each JSON holds the matrix, its size, cells, colours and per-material volumes with HEX.
+   - `approved/README.md` (the index) and `approved/sheet.png`, both generated.
+   - **Free or in a round.** Each code's `state` is `free` until a placed level in `content/rounds/levels/` uses it,
+     then `used` with `usedBy` set to the level. The state is read from the placed levels, never set by hand.
+     `node tools/rounds/pictures.mjs status [--free|--used]` lists it. On `sheet.png` a green number is free and a
+     grey one is in a round (`#N` is its level).
+   Each JSON holds the code, state, matrix, size, cells, colours and per-material volumes with HEX.
 8. **Commit** the batch module, the picture JSONs, the manifest, the sheet and `content/rounds/approved/`, then
    suggest the next step: `bloomlings-round-levels` for the approved pictures.
 

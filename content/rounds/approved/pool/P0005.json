@@ -1,5 +1,7 @@
 {
- "id": "P0005",
+ "code": "P0005",
+ "state": "free",
+ "usedBy": null,
  "version": 5,
  "title": "Волшебная лампа",
  "theme": "objects",
