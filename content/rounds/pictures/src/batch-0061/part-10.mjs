@@ -1,12 +1,15 @@
 // Batch 0061, part 10: L106–L110, cartoon universes (Mike Wazowski, Totoro in the rain, WALL-E, Nemo, the Up house).
 import {circle,ellipse,box,poly,union,cut,meet} from '../../../../../tools/gameplay-pilot-v9/draw.mjs';
 import {raster,fit,str,put,ring4,scale,seg} from '../helpers.mjs';
+// Drop empty outer rows and columns.
+const trim=rows=>{const ys=rows.map((r,y)=>/[^.]/.test(r)?y:-1).filter(y=>y>=0),xs=[...rows[0]].map((_,x)=>rows.some(r=>r[x]!=='.')?x:-1).filter(x=>x>=0);
+ return rows.slice(ys[0],ys.at(-1)+1).map(r=>r.slice(xs[0],xs.at(-1)+1));};
 const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map(([s,c])=>[scale(k,s),typeof c==='function'?(x,y,u)=>c(x/k,y/k,u):c]));
 
 // 1. Mike Wazowski: a round green ball with one big eye, two small horns, a wide grin, thin arms and legs.
 function mike(){
  const X=19,body=circle(X,18,13.8);
- const horn=s=>poly([[X+s*7.8,7.4],[X+s*4.6,5.4],[X+s*7,1.3]]);
+ const horn=s=>poly([[X+s*8.2,7.2],[X+s*4.4,5.4],[X+s*7.6,1.8]]);
  const g=draw(38,42,1,[
   [union(horn(-1),horn(1)),'C'],                                                        // horns
   [union(seg(X-12,21,X-16.3,28.5,1.1),seg(X+12,21,X+16.3,28.5,1.1)),'G'],               // arms
@@ -81,7 +84,7 @@ function walle(){
 
 // 4. Nemo: the orange clownfish with three white black-edged bands and a little lucky fin, by a pink sea anemone.
 function nemo(){
- const W=36,H=31;
+ const W=36,H=29;
  const cy=12.5;
  const body=ellipse(15,cy,12,7.8);
  const tail=poly([[25,cy],[32.5,4.8],[34.8,8.5],[32,cy],[34.8,16.5],[32.5,20.2]]);
@@ -96,17 +99,16 @@ function nemo(){
    if(d<=Math.floor(h))return 'C';if(d<=Math.floor(h)+1)return 'D';}return u;};
  const g=draw(W,H,1,[
   [box(W/2,H/2,W/2,H/2),'B'],
-  [box(W/2,29.5,W/2,1.5),'Y'],                                 // sand
-  [ellipse(26,28.7,8.5,2.4),'V'],                              // anemone foot
-  [union(...[19,21.6,24.2,26.8,29.4,32].map((x,i)=>seg(x,28,x+(i%2?1:-1),23.5+(i%3),1.05))),'P'],
-  [union(...[19,21.6,24.2,26.8,29.4,32].map((x,i)=>circle(x+(i%2?1:-1),23.5+(i%3),1.35))),'K'],
+  [box(W/2,27.5,W/2,1.5),'Y'],                                 // sand
+  [ellipse(26,26.8,8.5,2.2),'V'],                              // anemone foot
+  [union(...[19,21.6,24.2,26.8,29.4,32].map((x,i)=>seg(x,26,x+(i%2?1:-1),22.2+(i%3)*.8,1.05))),'P'],
+  [union(...[19,21.6,24.2,26.8,29.4,32].map((x,i)=>circle(x+(i%2?1:-1),22.2+(i%3)*.8,1.35))),'K'],
   [fish,'O'],
   [finEdge,'D'],
   [fish,banded],
   [ellipse(14.5,15.6,2,1.5),'D'],[ellipse(14.7,15.4,1.1,.7),'O'],   // the little lucky fin
   [circle(6,11,2.1),'C'],[circle(5.6,11,1.2),'D'],
  ]);
- put(g,'S',[[4,2],[5,2],[4,3],[5,3],[2,5],[29,1],[30,1],[29,2],[30,2]]);   // bubbles
  return str(g);}
 
 // 5. The Up house: a little colourful house lifted into the sky by a big bunch of many-coloured balloons.
@@ -119,8 +121,8 @@ function upHouse(){
  rowsY.forEach((y,r)=>{const [a,b]=span[r],off=r%2?2.25:0;for(let x=a+off;x<=b+.01;x+=4.5)balloons.push([x,y]);});
  const g=draw(W,H,1,[
   [box(W/2,H/2,W/2,H/2),'S'],
-  [union(ellipse(5,27,4.2,1.8),circle(3.5,25.6,1.8),circle(6.5,25.3,2.1)),'C'],   // cloud left
-  [union(ellipse(29,37,4.6,1.9),circle(27.5,35.4,2),circle(30.6,35.2,2.3)),'C'],   // cloud right
+  [union(ellipse(5,34,4.2,1.8),circle(3.5,32.6,1.8),circle(6.5,32.3,2.1)),'C'],   // cloud left
+  [union(ellipse(29.5,26,4.4,1.9),circle(28,24.4,2),circle(31,24.2,2.2)),'C'],   // cloud right
   [(x,y)=>{if(y<19||y>27)return 1;let d=9;for(const sx of [11,15,19,23]){const t=(y-19)/(27-19),cx=sx+(19-sx)*t;d=Math.min(d,Math.abs(x-cx)-.5);}return d;},'D'],   // strings
  ]);
  // balloons in order, each a round with its tie
@@ -142,9 +144,9 @@ function upHouse(){
  return str(g);}
 
 export default {theme:'batch-0061',pictures:[
- {title:'Майк Вазовски',forLevel:106,family:'Волшебные существа',subject:'круглый зелёный одноглазый монстр с маленькими рожками, широкой улыбкой, тонкими руками и ногами',source:'сторонняя вселенная',reference:'Корпорация монстров — Mike Wazowski',rows:mike()},
+ {title:'Майк Вазовски',forLevel:106,family:'Волшебные существа',subject:'круглый зелёный одноглазый монстр с маленькими рожками, широкой улыбкой, тонкими руками и ногами',source:'сторонняя вселенная',reference:'Корпорация монстров — Mike Wazowski',rows:trim(mike())},
  {title:'Тоторо под дождём',forLevel:107,family:'Лесные и горные животные',subject:'большой Тоторо со светлым животом и шевронами, острыми ушами, держит лист над головой под дождём',source:'сторонняя вселенная',reference:'Мой сосед Тоторо — Totoro',rows:totoro()},
- {title:'ВАЛЛ-И',forLevel:108,family:'Роботы и механизмы',subject:'квадратный жёлтый робот с глазами-биноклем на шее, гусеницами и руками, держит маленький росток',source:'сторонняя вселенная',reference:'ВАЛЛ-И — WALL-E',rows:walle()},
+ {title:'ВАЛЛ-И',forLevel:108,family:'Роботы и механизмы',subject:'квадратный жёлтый робот с глазами-биноклем на шее, гусеницами и руками, держит маленький росток',source:'сторонняя вселенная',reference:'ВАЛЛ-И — WALL-E',rows:trim(walle())},
  {title:'Немо',forLevel:109,family:'Морские и пресноводные обитатели',subject:'оранжево-белая рыба-клоун с чёрной окантовкой и маленьким счастливым плавником у актинии',source:'сторонняя вселенная',reference:'В поисках Немо — Nemo',rows:nemo()},
  {title:'Дом на воздушных шарах',forLevel:110,family:'Воздушный транспорт',subject:'маленький цветной домик, поднятый в небо большой связкой разноцветных воздушных шаров, пара облаков',source:'сторонняя вселенная',reference:'Вверх — the house with balloons',rows:upHouse()},
 ]};

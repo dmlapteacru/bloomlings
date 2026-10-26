@@ -28,7 +28,7 @@ function sponge(){
  stamp(g,8,5,eye);stamp(g,15,5,eye);
  put(g,'D',[[9,3],[9,4],[11,3],[11,4],[13,4],[16,4],[18,3],[18,4],[20,3],[20,4]]);
  // nose, cheeks, smile, buck teeth
- put(g,'L',[[13,12],[16,12],[14,13],[15,13]]);
+ put(g,'L',[[14,12],[15,12]]);
  stamp(g,6,13,['KK______________KK','KK______________KK']);
  stamp(g,8,14,[
   'D____________D',
@@ -55,7 +55,7 @@ function sponge(){
 // 2. Bill Cipher: a yellow triangle with one eye, brick lower part, top hat, bow tie, thin black arms and legs.
 function bill(){
  const W=40,H=44,top=8,base=37;
- const tri=poly([[20,top],[38.5,base],[1.5,base]]);
+ const tri=poly([[20,top],[37.5,base],[2.5,base]]);
  const eyeO=meet(circle(20,26.7,8.2),circle(20,19.3,8.2));
  const eyeI=meet(circle(20,26.7,7.1),circle(20,19.3,7.1));
  const bricks=(x,y)=>{const yy=Math.floor(y),xx=Math.floor(x);if((yy-31)%3===0)return 'A';const row=Math.floor((yy-31)/3);return (xx+row*2)%4===0?'A':'O';};
