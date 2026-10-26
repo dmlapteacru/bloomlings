@@ -1,6 +1,7 @@
 # 03 — Tile & Target Variant System
 
 **Status:** LOCKED (2026-09-29)
+**Owner amendment · 2026-10-26:** tiles and board objects of new rounds follow [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §2 and §8.
 **Revision 2026-10-06 (product owner):** on a big level's icons board a layered tile hides its next layer (§7; spec
 `001` FR-036 as amended).
 
@@ -158,3 +159,13 @@ Do not rely on color alone, especially once 6 variants appear in one level.
 Leaf Sprig vs Moss Sprig must be as easy to distinguish as two unrelated colors.
 
 Shared family design must never reduce puzzle readability.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+- N counts coloured coordinates; hidden cells, cells under shutters or a bud and stack positions count once; holes and
+  the areas of keys, wells, bridges and canal exits do not.
+- Board objects of the approved set: acorn key (in an area without work), wooden shutters (exact-material counter),
+  closed bud (any-material counter), well (deliveries of one material), hidden cells (reveal on an open reachable
+  neighbour), stacks of one material (heights 2–4; grid not over 24×26). Object areas do not overlap.
+- Layered tiles, Stone, Gate, Chest and environmental objects of this document are not in the approved set of 12 types
+  for new rounds (`04_MECHANIC_CATALOG.md`).

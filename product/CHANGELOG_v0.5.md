@@ -1,5 +1,19 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner amendment · 2026-10-26 — level generation rules
+
+- Added [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md): the single base regulation for generating and
+  selecting levels of new rounds (base version v8). It covers the level model, picture sizes, palette and pod budgets,
+  the first three levels, the difficulty calendar and the random-test classes, queue building, the 12 mechanic types
+  with doses and rare four-type recipes, the introduction calendar, rhythm, pattern checks, speed, the process and
+  acceptance.
+- Process §13 is split into two skills: `bloomlings-round-pictures` (pictures numbered in sequence, approved by the
+  owner on a numbered contact sheet) and `bloomlings-round-levels` (approved pictures → solved levels → calendar, bank
+  for leftovers, needs for empty positions). Tools in `tools/rounds/`, content in `content/rounds/`.
+- Amended with a pointer to 17: 01, 02, 03, 04 (table of the 12 types), 05, 06, 07, 12, 13, 14, 16, the Locked Concept,
+  `CLAUDE.md` and spec `001`. Where they differ, 17 wins for new rounds; booster, store, meta and reward unlocks are
+  unchanged.
+
 ## Added
 
 ### `15_TECHNICAL_ARCHITECTURE.md`

@@ -1,6 +1,7 @@
 # 01 — Core Gameplay Rules
 
 **Status:** LOCKED (2026-09-29)
+**Owner amendment · 2026-10-26:** for new rounds the work unit, release and jam definitions of [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §1 apply.
 
 ## 1. Objective
 
@@ -261,3 +262,14 @@ Must verify:
 - true Jam;
 - key/lock resolution;
 - connected groups with multiple variants.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+- One character does one unit of work of its exact material: an ordinary cell, one unit of a stack, or one delivery
+  to a well (17 §1). Two shades of one hero are different materials.
+- A pod takes one slot; a group of 2, 3 or 4 takes 2, 3 or 4 slots and holds all of them until the last member has
+  issued its whole team; slots are released after the team is issued and a short delay, not after the couriers return.
+- A single pod takes the first free place on the left; a release leaves a hole; only an accepted group compacts the
+  occupied places to the left.
+- **A full buffer is not a loss by itself.** A dead end is when mandatory work remains and there is no legal action,
+  no launched work and no automatic event that could change the state (17 §1).

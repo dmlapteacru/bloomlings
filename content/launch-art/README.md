@@ -1,5 +1,7 @@
 # Launch art: 2500 unique compositions
 
+**Owner amendment · 2026-10-26:** new rounds take their pictures from the skill `bloomlings-round-pictures` and their levels from `bloomlings-round-levels`, under [`product/17_LEVEL_GENERATION_RULES.md`](../../product/17_LEVEL_GENERATION_RULES.md) (`content/rounds/`). This folder's sizes, difficulty and mechanic plan describe the existing launch catalog.
+
 The launch contains exactly 2500 different compositions. Each picture has one assigned level; scaling, mirroring,
 rotation and recoloring do not create another composition. L1–10 retain their distinct curated teaching pictures and
 definitions. L11–2500 replace the old catalog with definition version 2 (the ten hero-milestone revision slots use version 3). Daily Challenge remains separate.

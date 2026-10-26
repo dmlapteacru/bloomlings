@@ -2,6 +2,7 @@
 
 **Launch revision 2026-10-15:** the first release contains 2500 sequential levels. Long-run guidance and milestones beyond 2500 describe future content updates, not required launch content.
 **Status:** LOCKED (2026-09-29)
+**Owner amendment · 2026-10-26:** the **mechanic** unlock levels below are replaced by [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §9 for new rounds; booster, store, meta and reward unlocks stay as written.
 
 This document defines **what the player unlocks as the global level number increases**.
 
@@ -383,3 +384,15 @@ The exact Hard/Super Hard cadence should be irregular enough not to feel mechani
 - Exact leaderboard scope: global only vs weekly/global.
 - Exact cosmetic unlock at Level 40.
 - Which target variants enter at Levels 45/200/etc.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+Mechanic introductions (two meetings each, on Normal, alone): hidden pods 6/8, links 11/13, Sprig bridge 16/18,
+Twig latch + acorn key 51/53, Drop canal 101/103, Twig shutters 151/153, Twig repair of the fifth slot 201/203, Bloom
+bud 251/253, Bloom seed 301/303, Drop well 351/353, Drop hidden cells 401/403, stacks 451/453 ([`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §9).
+
+The roadmap entries for Key (L14), Locked Source Pod (L16), Connected Pair (L18), Layered Tile (L28), Garden Gate
+(L35), Fountain (L60), Locked Waiting Slot (L80), Mystery Tile (L90), Depth-3 Layers (L125), Chest (L150) and the
+like no longer set mechanic levels for new rounds. Layered tiles, Fountain, Chest, Statue and Stones are not in the
+approved set of 12 types (`04_MECHANIC_CATALOG.md`). Hard from L5 and Super Hard from L10 become the calendar of 17
+§5: L5 and L10 are Hard, L15 is the first Super Hard.

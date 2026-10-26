@@ -6,6 +6,14 @@
 
 **Status**: Draft
 
+**Owner amendment · 2026-10-26**: new rounds (the level line built on the pilot engine, base version v8) are generated
+and selected by [`product/17_LEVEL_GENERATION_RULES.md`](../../product/17_LEVEL_GENERATION_RULES.md) with the skills
+`bloomlings-round-pictures` and `bloomlings-round-levels`. For them it supersedes: FR-008 (board size → 17 §2: N up to
+1400 cells, L1 138 cells), FR-011 (stacks → 3–4 columns), FR-031 and the Unlock Roadmap mechanic levels (→ 17 §9),
+FR-059 (cadence → every 15th Super Hard, other multiples of 5 Hard, milestones keep their class), FR-079 and FR-082
+(process and class → 17 §13 and the random test of §5), FR-084 (round pictures are approved by the owner). The Unity
+launch catalog and its requirements are unchanged until a spec revision adopts 17 there.
+
 **Input**: User description: "мы будем делать концептуальную копию игры Colony Flow. в репозитории есть направление игры в папке "product". это скорее не правила которым надо следовать бесприкословно, а потенциальное направление , чтоб как-то отличить нас от Colony FLow. Но мы хотим сделать еще однку такую же игру, концепт геймлпея, идея, должна сохраниться, простота, развитие игры, уровней, лэйауты должны быть схожи своей простотой и удобством."
 
 ## Overview

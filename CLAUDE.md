@@ -17,9 +17,9 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   how it paces new levels and mechanics, and how simple and convenient its screen and level
   layouts are.
 - **Design docs: `product/` v0.5** (LOCKED on 2026-09-29, see `specs/001-core-game-mvp/gate.md`). `LOCKED_CONCEPT_v0.5.md` is the summary,
-  and `01`–`15` are the detailed documents: rules, tray/buffer, tiles and variants, mechanics,
+  and `01`–`17` are the detailed documents: rules, tray/buffer, tiles and variants, mechanics,
   level structure, generator/solver, difficulty, meta, boosters, economy, UX, art, unlock
-  roadmap, MVP scope and technical architecture. `CONCEPT.md` is the original v0.1 vision. Treat
+  roadmap, MVP scope, technical architecture, mechanics readability (16) and the level generation rules (17). `CONCEPT.md` is the original v0.1 vision. Treat
   the docs as the current design direction, not as immutable rules, and flag any conflicts to
   the user.
 - **Consolidated requirements: `specs/001-core-game-mvp/spec.md`.** Do not implement gameplay
@@ -27,6 +27,17 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
 - **Implementation plan: `specs/001-core-game-mvp/plan.md`** (+ `research.md`, `data-model.md`,
   `contracts/`, `quickstart.md`): monorepo `core/` (pure C# rules, solver, generator, pipeline CLI),
   `client/` (Unity 6.3 LTS), `content/`, `backend/`.
+- **Level generation rules (owner, 2026-10-26): `product/17_LEVEL_GENERATION_RULES.md`.** The single regulation for
+  generating new rounds (base version v8). Where older docs, spec 001 or the notes below on boards, difficulty schedule,
+  stacks and picture approval differ, 17 wins for new rounds. Its process §13 is split into two skills:
+  `bloomlings-round-pictures` draws pictures numbered in sequence (a new batch continues after the last number; a
+  rejected picture keeps its number). The owner approves them on a numbered contact sheet.
+  `bloomlings-round-levels` builds approved pictures into solved levels, measures the class with the §5 random test
+  (100 runs, 400 when the Wilson interval crosses a border) and places them by the calendar: every 15th level Super
+  Hard, other multiples of 5 Hard, the rest Normal. Leftovers stay in `content/rounds/bank/`; empty positions go to
+  `content/rounds/needs.json` for new pictures. Tools: `tools/rounds/` (`pictures.mjs`, `levels.mjs`, `measure.mjs`,
+  `engine.mjs`: pilot v9 rules with the §8 link rule). Only mechanics the round engine plays may be used. Today these
+  are hidden pods, links and the Sprig bridge; latch + key (L51) and later types need engine and pilot work first.
 - **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): passed on 2026-09-29, all docs are locked. Changes to
   locked docs now go through the product owner.
 - **Technical direction** (doc 15, locked): Unity + C#, a deterministic data-driven

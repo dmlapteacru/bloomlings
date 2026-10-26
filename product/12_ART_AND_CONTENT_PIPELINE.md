@@ -1,6 +1,7 @@
 # 12 — Art & Content Pipeline
 
 **Status:** LOCKED (2026-09-29)  
+**Owner amendment · 2026-10-26:** pictures of new rounds are made by the skill `bloomlings-round-pictures` under [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §2.
 **Revision 2026-09-29:** picture library and finished-picture reveal (§7, §10, §12–§14; spec `001` FR-006/FR-007).
 **Revision 2026-10-06 (product owner):** pictures of 224–288 cells from Level 11 and up to 22×28 for the rare big
 levels (spec `001` FR-008).
@@ -203,3 +204,12 @@ fairness still apply. Existing definitions and production pictures are not regen
 The three restored engineering fixtures and their exact local generation recipes are documented in
 `content/pictures/dev/README.md`. Their pictures are separate from the production library and explicitly included
 only in the tester/desktop preview. Dense-board completed images retain their gameplay tile style in win/Collection.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+- A picture is a cell matrix in a finite discrete palette (the pilot's 16 colours, 4 per hero) without semi-transparent
+  edge shades; the matrix goes to the generator.
+- Sizes by stage (17 §2): L1 crown 138 / 3, L2 ladybug 2C 240 / 4, L3 bird 3B 281 / 6; then 250–1400 cells with the
+  stage colour ranges; compact 200–399 / 3–6 after L25; up to 9 colours, 10–11 rarely.
+- Pictures are numbered in sequence, checked by `tools/rounds/pictures.mjs check`, shown on a numbered contact sheet
+  and approved or sent back by the owner. Approved pictures are not tied to a level or class.

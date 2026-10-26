@@ -1,6 +1,7 @@
 # 02 — Source Tray + Waiting Buffer
 
 **Status:** LOCKED (2026-09-29)
+**Owner amendment · 2026-10-26:** for new rounds the queue and slot rules of [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §1, §3 and §8 apply.
 
 ## 1. Reference model
 
@@ -155,3 +156,14 @@ Because boards may contain 100–300+ layers:
 There is no fixed UI row with four hero buttons.
 
 Target variety is expressed through actual Source Pods.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+- 3 or 4 columns (the first three levels 3); start heights differ by at most 2 pods by default; a latch is not a pod.
+- 5 slots; on a level with Twig's repair 4 at the start, the fifth opens when its requirement is done.
+- Groups of 2, 3 or 4 (pairs in ordinary generation; one triple at most in Super Hard after its own introduction; a
+  four only in a separate advanced profile). A group is available when no other pod or latch stands before any member;
+  members may stand over each other and leave together.
+- Hidden pods reveal material and count as soon as they reach the top, before a tap and regardless of free places; a
+  group's hidden members reveal when the whole group is available.
+- Pod numbers 1–60; a colour of 20+ has at least 2 pods; the largest pod is min(60, ceil(volume/2)).

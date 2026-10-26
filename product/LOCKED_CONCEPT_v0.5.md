@@ -1,5 +1,7 @@
 # Bloomlings — Locked Concept v0.5
 
+**Owner amendment · 2026-10-26:** level generation of new rounds follows [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) (base version v8; 12 mechanic types; calendar every 15th Super Hard, other multiples of 5 Hard).
+
 ## Structural reference
 
 Bloomlings intentionally uses Colony Flow as its product/gameplay structural reference:
@@ -111,3 +113,9 @@ Do not begin full implementation until:
 - this high-level Technical Architecture is locked.
 
 Only then move into implementation planning.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+New rounds: pictures by the skill `bloomlings-round-pictures`, levels by `bloomlings-round-levels`, under [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md).
+Materials are the pilot's 16 colours (4 per hero; up to 9 per level, 10–11 rarely), which supersedes the 8-variant
+launch pool for rounds.

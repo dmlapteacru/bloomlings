@@ -2,6 +2,7 @@
 
 **Launch revision 2026-10-15:** the first release contains 2500 sequential levels. Long-run guidance and milestones beyond 2500 describe future content updates, not required launch content.
 **Status:** LOCKED (2026-09-29)  
+**Owner amendment · 2026-10-26:** new rounds follow [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md); its difficulty calendar, class bands and mechanic introduction calendar replace §3–§15 here.
 **Revision 2026-09-29:** §4 aligned with the unlock roadmap in doc 13 and spec `001` (Hard label L5, Key L8, Stones L11).
 
 ## 1. Progression model
@@ -205,3 +206,27 @@ playtesting; the existing catalog and Daily retain their original difficulty thr
 
 Visual complexity does not increase with puzzle difficulty: the remaining pictures use large, sparse shapes, even on
 30–36-cell boards. Readability in the finished cell grid takes precedence over detail in a source illustration.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+Rules: [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §5, §9, §10. Supersedes this document where they differ.
+
+- **Calendar (§5).** Every 15th level is Super Hard; other multiples of 5 are Hard; the rest are Normal (5, 10, 20, 25
+  Hard; 15, 30 Super Hard). Round milestones 50, 100, 150 … keep their Hard or Super Hard. The calendar says which
+  verified class a position needs; it does not choose the picture size and does not turn a picture into a class.
+- **Classes by the random test (§5).** Win share of the extended random bot (100 runs, widened to 400 when the 95 %
+  Wilson interval crosses a border; ×1; waiting allowed only before a scheduled event): Normal 50–100 % (preferred
+  60–90 %), Hard 20 % to under 50 % (25–40 %), Super Hard 5 % to under 20 % (7–15 %). Below 5 % is not released at start.
+  The first Normal after a Hard or Super Hard aims at 75–95 % (90–100 % when it introduces a mechanic). The picture area
+  is not part of the class.
+- **Quality guides (§5).** Dangerous forks, forks with a single safe action, distinct winning plans and pods waiting
+  without work per class are tuning guides, not hard filters.
+- **Mechanic introduction (§9).** Two first meetings on Normal, alone, with a random-test target of 90–100 %: hidden
+  pods 6/8, links 11/13, Sprig bridge 16/18, consolidation 19–50, Twig latch + acorn key 51/53, Drop canal 101/103,
+  Twig shutters 151/153, Twig repair of the fifth slot 201/203, Bloom bud 251/253, Bloom seed 301/303, Drop well
+  351/353, Drop hidden cells 401/403, stacks 451/453; after 453 the full set and its combinations. A new mechanic never
+  first appears on Hard or Super Hard; three types need two separate meetings with each; four types only by the six
+  recipes of §7.
+- **Rhythm (§10).** Five segments of done work W (0–20 … 80–100 %); after 80 % W, 1–4 remaining launches (up to 6 on a
+  long Super Hard); no new mandatory mechanic or unexpected dependency in the last fifth.
+- **Levels 1–3 (§4).** Crown 138 cells / 3 colours, ladybug 2C 240 / 4, bird 3B 281 / 6; 3 columns, 5 slots, no extras.

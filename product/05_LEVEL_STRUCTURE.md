@@ -1,6 +1,7 @@
 # 05 — Level Structure
 
 **Status:** LOCKED (2026-09-29)  
+**Owner amendment · 2026-10-26:** board size, palette, pod budget, columns and duration for new rounds follow [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §2–§4 and §12.
 **Revision 2026-09-29:** levels are picture-first mosaics (§1, §4, §5, §6, §11, §18; spec `001` FR-006).  
 **Revision 2026-10-05 (product owner):** more, smaller cells from Level 1, so clearing takes longer from the start
 (§2, §3, §13, §15; spec `001` FR-008 and the Level Band Guidelines).
@@ -276,3 +277,23 @@ Reject if:
 - visible top layer not following the picture's role → variant mapping;
 - base picture reuse that breaks the limits in §5;
 - restored (open) cells hard to tell from active tiles.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+- **Cells N** = coloured coordinates of the picture (hidden cells, cells under shutters/buds and stack positions count
+  once; holes, key/well/bridge/canal areas do not). Work **W = N + E + D** (stack extra units, well deliveries).
+- **Stages (§2):** L1 crown 138 / 3 colours, L2 ladybug 2C 240 / 4, L3 bird 3B 281 / 6; L4–9 250–650 cells, 4–7 colours;
+  L10–24 350–1000, 4–8; L25–60 400–1200, 5–9; L61+ 400–1400, 5–9. After L25 compact pictures of 200–399 cells with 3–6
+  colours are allowed. Size does not grow with the level number; mix per 30 levels about 6 × 200–499, 15 × 500–999,
+  9 × 1000–1400, independent of class. Up to 9 colours; 10–11 colours at most twice in any 20 levels.
+- **Geometry:** real navigation from active entries, 4-neighbour; islands, holes and asymmetry are allowed if the
+  engine can open every cell.
+- **Pods (§3):** budget by W: 200–399 → 9–24 pods, 3 columns; 400–699 → 18–30, 3; 700–999 → 24–40, 3–4; 1000–1400 →
+  30–48, 4. Pod numbers 1–60; a colour of 20+ has at least 2 pods, max pod = min(60, ceil(volume/2)); near-even split
+  (±25 %). Columns 3 or 4 (first three levels 3); start heights differ by at most 2 pods.
+- **Slots:** 5; a level with Twig's repair starts with 4.
+- **Duration (§12, at ×1, first launch to last work):** crown 15–30 s; up to 399 cells 20–60 s; 400–699 40–100 s;
+  700–999 70–160 s; 1000–1400 100–210 s. Guides, not timers.
+
+The tutorial boards, regular and big board ranges of §2 and the pod counts of §12–§13 here describe the earlier
+catalog and do not apply to new rounds.

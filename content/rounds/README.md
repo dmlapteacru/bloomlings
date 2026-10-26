@@ -1,0 +1,34 @@
+# Rounds: pictures and levels by the generation rules
+
+Content made by the two skills that split process §13 of
+[`product/17_LEVEL_GENERATION_RULES.md`](../../product/17_LEVEL_GENERATION_RULES.md):
+
+1. **`bloomlings-round-pictures`** (`.claude/skills/bloomlings-round-pictures/`) draws pictures. They are numbered in
+   sequence and approved by the owner on a numbered contact sheet.
+2. **`bloomlings-round-levels`** (`.claude/skills/bloomlings-round-levels/`) builds approved pictures into solved
+   levels, measures their class and places them into the difficulty calendar. What is left goes to the bank and to
+   `needs.json`.
+
+Tools: `tools/rounds/` (see its README). Engine: the pilot v9 rules with the §8 link rule (`tools/rounds/engine.mjs`).
+
+## Layout
+
+| Path | What |
+|---|---|
+| `pictures/manifest.json` | every picture in sequence: id `P####`, version, title, theme, size, N, colours, status (`draft` / `approved` / `rejected`), level it is used by |
+| `pictures/P####.json` | one picture: rows top first in the pilot palette (`.` empty, `#` stream, `b` bridge site), measures, status, history of replaced versions |
+| `pictures/src/batch-####.mjs` | the drawing module of a batch (the source of the rows) |
+| `pictures/sheets/*.png`, `*.md` | numbered contact sheets for approval and their tables |
+| `bank/P####.json` | accepted candidates of a picture (definition, recipe, measured class, random test, solution, checks) and the reasons a picture or class did not work |
+| `levels/L####.json` | a placed level: the definition (pilot format) and its card (§14) |
+| `needs.json` | calendar positions still without a level: class, mechanic introduction, allowed types, stage |
+
+## Statuses and rules in short
+
+- A new batch always continues after the highest picture number. A rejected picture keeps its number and is redrawn
+  (`replace`).
+- Only `approved` pictures are built. A picture is used by at most one level.
+- The class is measured by the §5 random test, not chosen by size. The calendar asks for a class per position:
+  every 15th level Super Hard, other multiples of 5 Hard, the rest Normal.
+- Mechanics the engine does not play yet are not used. `levels.mjs calendar` marks the positions that need them.
+- Nothing here is installed into the production catalog (`content/catalog`, `content/launch-art`) or the Unity client.

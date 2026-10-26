@@ -1,5 +1,7 @@
 # Сюжетные мозаики для старта на 2500 уровней
 
+**Owner amendment · 2026-10-26:** new rounds take their pictures from the skill `bloomlings-round-pictures` and their levels from `bloomlings-round-levels`, under [`product/17_LEVEL_GENERATION_RULES.md`](../../product/17_LEVEL_GENERATION_RULES.md) (`content/rounds/`). This folder's sizes, difficulty and mechanic plan describe the existing launch catalog.
+
 Решение владельца от 15 октября 2026: стартовый каталог — 2500 уровней, новые уровни добавляются после запуска.
 Генерация уровней и проверка решателем остаются локальными. Цель для рисунков — запоминающиеся, необычные композиции,
 сопоставимые по разнообразию с выбранным владельцем ориентиром. Конкретные чужие картинки не копируем.

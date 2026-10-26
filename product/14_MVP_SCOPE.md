@@ -1,6 +1,7 @@
 # 14 — Launch / MVP Scope
 
 **Status:** LOCKED (2026-09-29)  
+**Owner amendment · 2026-10-26:** the mechanic set and calendar for new rounds are those of [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) (12 types, introduction calendar of §9).
 **Revision 2026-09-29:** picture-first levels and picture library (§4, §8, §9; spec `001` FR-006).
 
 > Revision 2026-10-15 supersedes v0.4: the launch contains **2500 sequential levels**, generated and solver-validated locally on the owner's computer. Additional levels follow after launch. Picture quality and distinctive composed scenes take priority over catalog size; see `content/pictures/art-direction.md`.
@@ -199,3 +200,10 @@ fairness still apply. Existing definitions and production pictures are not regen
 The three restored engineering fixtures and their exact local generation recipes are documented in
 `content/pictures/dev/README.md`. Their pictures are separate from the production library and explicitly included
 only in the tester/desktop preview. Dense-board completed images retain their gameplay tile style in win/Collection.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+The approved set has 12 types: hidden pods, links, latch + acorn key, wooden shutters, closed bud, well, hidden cells,
+stacks of one material, and the four hero mechanics (Sprig bridge, Drop canal, Twig repair of the fifth slot, Bloom
+seed). The round engine plays hidden pods, links and the bridge today; the others need engine and pilot work before
+the levels that introduce them (51 and later).

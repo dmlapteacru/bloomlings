@@ -1,5 +1,7 @@
 # Mechanics and board readability · 2026-10-15
 
+**Owner amendment · 2026-10-26:** doses, sizes and the approved set for new rounds are in [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md); the stack limit of 24×26 is kept there (§8).
+
 Owner direction: visible stacks contain one exact target type and show a decreasing count. Mechanics must stay
 readable across board sizes; a mechanic may be excluded from dense boards. New launch art follows the approved
 size distribution in `content/pictures/art-direction.md`.
@@ -78,3 +80,9 @@ readability before it becomes launch content. No timer, random refill or additio
   The tester has direct shortcuts and Unity's Play Dev Level menu has these fixtures. The ordinary APK excludes them.
 - Cross-size tests cover 14×16, 18×20, 21×26, 24×24, 22×28, 28×28, 30×32 and 36×36. The Unity-stub suite cannot execute uGUI or
   coroutines; actual client device/Editor checks remain required before release.
+
+## Owner amendment · 2026-10-26 — level generation rules
+
+Kept: stacks of one material, readable counters, grid not over 24×26 for stacks (17 §8, heights 2–4 in generation).
+Changed: the per-size mechanic table above, the hidden-layer rules, Gate, Fountain, Chest and Statue do not apply to
+new rounds; the proposals "Garden order", "Double seal" and "New Garden Entry" are not in the approved set.

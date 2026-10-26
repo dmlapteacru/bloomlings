@@ -1,5 +1,7 @@
 # Допы героев: варианты для Drop, Twig и Bloom
 
+**Superseded (owner, 2026-10-26):** the approved hero mechanics are the Sprig bridge, the Drop water canal, Twig's repair of the fifth slot and the Bloom seed; the general types include Twig's latch with the acorn key and wooden shutters, the Bloom closed bud and the Drop well and hidden cells. See [`product/04_MECHANIC_CATALOG.md`](../04_MECHANIC_CATALOG.md) and [`product/17_LEVEL_GENERATION_RULES.md`](../17_LEVEL_GENERATION_RULES.md) §8. This file is kept as the brainstorm it was.
+
 26.10.2026. Это предложение к обсуждению, а не решение. В закрытые документы (`product/04`, `product/16`) оно попадёт только после твоего выбора.
 
 ## Отправная точка: мост Sprig (пилот v8E)
