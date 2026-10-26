@@ -6,7 +6,7 @@ const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map
 // 1. Mike Wazowski: a round green ball with one big eye, two small horns, a wide grin, thin arms and legs.
 function mike(){
  const body=circle(18,17,13);
- const g=draw(36,40,1,[
+ const g=draw(36,40,1.06,[
   [union(poly([[10.5,7],[13.5,5],[11,1.2]]),poly([[22.5,5],[25.5,7],[25,1.2]])),'C'],   // horns
   [union(seg(7,20,2.5,27,1.1),seg(29,20,33.5,27,1.1)),'G'],                            // arms
   [union(circle(2.5,28,1.8),circle(33.5,28,1.8)),'G'],                                  // hands
@@ -14,20 +14,20 @@ function mike(){
   [union(ellipse(11.5,36.3,3.2,1.5),ellipse(24.5,36.3,3.2,1.5)),'M'],                   // feet
   [body,'G'],
   [cut(body,circle(16.3,15.3,13)),'M'],                                                 // shade, lower right
-  [circle(18,13,6.6),'C'],[circle(18,13,3.6),'B'],[circle(18,13,1.7),'D'],
+  [circle(18,12.8,6.9),'C'],[circle(18,12.8,4.1),'B'],[circle(18,12.8,2),'D'],
   [meet(cut(ellipse(18,21.5,8.5,5),ellipse(18,19.5,9.5,4.4)),box(18,24,9,4)),'D'],   // grin
   [meet(ellipse(18,24.6,3.2,1.4),cut(ellipse(18,21.5,7.5,4),ellipse(18,19.5,9.5,4.4))),'P'],  // tongue
  ]);
- put(g,'C',[[16,10],[17,10],[16,11]]);                                                  // gleam
+ put(g,'C',[[17,11],[18,11],[17,12]]);                                                  // gleam
  return str(g);}
 
 // 2. Totoro in the rain: the big blue-grey Totoro with a pale belly, chevrons and pointed ears, a leaf over its head.
 function totoro(){
  const W=34,H=37;
- const rain=(x,y)=>((x*2+y)%9===0&&y%6<4)?'B':'S';
+ const rain=(x,y)=>{x=Math.floor(x);y=Math.floor(y);return ((x+y)%7===0&&(y+3*Math.floor((x+y)/7))%5<2)?'B':'S';};
  const body=union(ellipse(17,26.5,13.5,10),ellipse(17,19,10.5,10));
  const ears=union(poly([[9,14],[13.5,12],[10.5,5]]),poly([[20.5,12],[25,14],[23.5,5]]));
- const leaf=union(ellipse(18,4.2,12,3),poly([[6,4.2],[2.5,5.2],[6.5,6]]));
+ const leaf=union(meet(ellipse(18,6.5,12.5,5),box(18,3,14,3.6)),poly([[6.5,5.5],[3,6.8],[7,6.6]]));
  const g=draw(W,H,1,[
   [box(W/2,H/2,W/2,H/2),rain],
   [box(W/2,35.5,W/2,1.5),'M'],                                // wet grass
@@ -36,7 +36,7 @@ function totoro(){
   [body,'N'],
   [seg(26,21,28.5,14.5,1.6),'N'],                             // raised arm holding the stalk
   [circle(28.5,14,1.9),'N'],
-  [leaf,'G'],[cut(leaf,ellipse(17,3.4,12.5,2.7)),'M'],[box(17,4.6,9,.45),'M'],
+  [leaf,'G'],[meet(leaf,box(18,6,14,.5)),'M'],[union(seg(18,2,18,6,.45),seg(18,4,12,6,.45),seg(18,4,24,6,.45)),'M'],
   [ellipse(17,27.5,10,8),'C'],                               // belly
   [union(ellipse(11.5,35.2,2.8,1.2),ellipse(22.5,35.2,2.8,1.2)),'N'],   // feet
  ]);
@@ -52,61 +52,59 @@ function totoro(){
 
 // 3. WALL-E: the boxy yellow robot on caterpillar tracks, binocular eyes on a neck, holding a small green sprout.
 function walle(){
- const W=40,H=37;
- const trackL=poly([[3,21],[11,21],[12.5,35],[1.5,35]]),trackR=poly([[29,21],[37,21],[38.5,35],[27.5,35]]);
+ const W=42,H=40;
  const treads=(x,y)=>(Math.floor(y)%3===0)?'E':'D';
+ const housing=(cx,tilt)=>poly([[cx-6,3-tilt],[cx+6,3+tilt],[cx+6,10],[cx-6,10]]);
  const g=draw(W,H,1,[
-  [union(trackL,trackR),treads],
-  [union(circle(7,25.5,2.2),circle(7,31,2.2),circle(33,25.5,2.2),circle(33,31,2.2)),'A'],
-  [box(20,7.5,1.2,4),'D'],                                   // neck
-  [box(20,12,3.5,1.2,.4),'A'],                               // neck joint
-  [union(box(13.5,5.5,5.5,3.8,1.4),box(26.5,5.5,5.5,3.8,1.4)),'C'],  // eye housings
-  [union(box(13.5,5.5,4.5,2.8,1),box(26.5,5.5,4.5,2.8,1)),'D'],
-  [union(circle(14,5.5,2.2),circle(26,5.5,2.2)),'N'],        // lenses
-  [box(20,22,9.5,8.5,.6),'Y'],                                // body
-  [box(28.3,22,1.2,8.5),'O'],                                 // shade side
-  [box(19,15.6,8.5,1.2),'O'],                                 // top panel
-  [box(20,29.5,9.5,1),'A'],                                   // lower seam
-  [union(box(8.5,23,2.6,1.3,.4),box(31.5,23,2.6,1.3,.4)),'A'],  // arm stubs
-  [union(seg(9,23,15,25.5,1.2),seg(31,23,25,25.5,1.2)),'A'],   // forearms reaching in
-  [union(box(15.5,25.5,1.6,1.6,.4),box(24.5,25.5,1.6,1.6,.4)),'D'], // claws
-  [box(20,26.2,3.2,2.2,.4),'A'],                              // soil clod / shoe
-  [box(20,22,.7,3.6),'M'],                                    // sprout stem
-  [union(ellipse(17.3,19.6,2.6,1.4),ellipse(22.7,19.6,2.6,1.4)),'G'],
+  [union(box(5.5,30,4.5,9,1.5),box(36.5,30,4.5,9,1.5)),treads],       // tracks
+  [box(21,12.5,1.2,3),'D'],                                            // neck
+  [union(housing(14,.7),housing(28,-.7)),'C'],                           // eye housings, sad tilt
+  [union(meet(housing(14,.7),box(14,6.6,5,2.6,.5)),meet(housing(28,-.7),box(28,6.6,5,2.6,.5))),'D'],
+  [union(circle(14,6.6,2.4),circle(28,6.6,2.4)),'N'],             // lenses
+  [box(21,9.6,2,1),'A'],                                               // eye hinge
+  [box(21,24,12,9,.6),'Y'],                                            // body
+  [box(31.5,24,1.5,9),'O'],                                            // shade side
+  [box(21,32,12,1),'A'],                                               // rusty foot rim
+  [box(21,16.5,12,.5),'O'],                                               // lid seam
+  [box(13,19,2.6,1),'D'],                                              // little gauge
+  [union(box(8.3,23.5,1.6,1.8,.3),box(33.7,23.5,1.6,1.8,.3)),'A'],     // shoulders
+  [union(seg(9,24,15.5,27,1.15),seg(33,24,26.5,27,1.15)),'A'],         // forearms
+  [box(21,28.6,3.6,1.8,.5),'E'],                                       // a clod of soil
+  [union(box(16.3,27.6,1.4,1.7,.3),box(25.7,27.6,1.4,1.7,.3)),'D'],    // claws
+  [box(21,24.5,.8,3.6),'G'],                                           // sprout stem
+  [union(ellipse(17.6,21.6,3.4,1.7),ellipse(24.4,21.6,3.4,1.7)),'G'],
  ]);
- put(g,'C',[[13,4],[25,4]]);                                  // lens glints
- put(g,'D',[[12,19],[13,19],[14,19],[15,19],[24,19],[25,19],[26,19],[27,19]]);  // grille hint
+ put(g,'C',[[13,5],[26,5]]);                                           // lens glints
+ put(g,'Y',[[11,19],[12,19],[13,19]]);                                 // gauge bars
  return str(g);}
 
 // 4. Nemo: the orange clownfish with three white black-edged bands and a little lucky fin, by a pink sea anemone.
 function nemo(){
- const W=33,H=31;
- const water=(x,y)=>'B';
- const body=ellipse(14,12.5,10.5,6.8);
- const tail=union(poly([[22,12.5],[30,5.5],[31.5,9],[29,12.5],[31.5,16],[30,19.5]]));
- const top=poly([[9,7],[13,2.6],[19,3.5],[21,8]]);
- const low=poly([[11,18],[14,22],[18,18.5]]);
- const band=(cx,w)=>meet(union(body,tail,top,low),(x,y)=>Math.abs(x-cx-(y-12.5)*0.12)-w);
+ const W=34,H=31;
+ const body=ellipse(14.5,12.5,11,7.2);
+ const tail=poly([[23,12.5],[30.5,5.2],[32.5,8.5],[30,12.5],[32.5,16.5],[30.5,19.8]]);
+ const top=poly([[9,7],[12.5,2.4],[18.5,3],[21.5,8]]);
+ const low=poly([[11,18.5],[14,22.3],[18.5,18.8]]);
+ const fish=union(body,tail,top,low);
+ const inner=(x,y)=>fish(x,y)+1;                               // the fish minus its dark edge
+ const band=(cx,w)=>meet(inner,(x,y)=>Math.abs(x-cx-(y-12.5)*0.15)-w);
  const g=draw(W,H,1,[
-  [box(W/2,H/2,W/2,H/2),water],
-  [box(W/2,29.5,W/2,1.5),'Y'],                                // sand
-  // anemone: a plum foot and pink fingers with blush tips
-  [ellipse(24,28.5,8,2.6),'V'],
-  [union(...[17,20,23,26,29,32].map((x,i)=>seg(x,28,x+(i%2?1:-1),21.5+(i%3),1.1))),'P'],
-  [union(...[17,20,23,26,29,32].map((x,i)=>circle(x+(i%2?1:-1),21.5+(i%3),1.3))),'K'],
-  [union(body,tail,top,low),'D'],
-  [cut(body,ellipse(14,12.5,11.5,7.8)),'D'],
-  [cut(union(body,tail,top,low),(x,y)=>-((union(body,tail,top,low))(x,y)+1)),'O'],
-  [meet(band(8.6,1.8),(x,y)=>(union(body,tail,top,low))(x,y)+1),'D'],
-  [meet(band(8.6,1),(x,y)=>(union(body,tail,top,low))(x,y)+1),'C'],
-  [meet(band(15.5,2),(x,y)=>(union(body,tail,top,low))(x,y)+1),'D'],
-  [meet(band(15.5,1.1),(x,y)=>(union(body,tail,top,low))(x,y)+1),'C'],
-  [meet(band(22.3,1.6),(x,y)=>(union(body,tail,top,low))(x,y)+1),'D'],
-  [meet(band(22.3,.8),(x,y)=>(union(body,tail,top,low))(x,y)+1),'C'],
-  [ellipse(12.5,14.5,2.2,1.3),'O'],                           // the little lucky fin
-  [circle(6.8,10.8,2),'C'],[circle(6.4,10.8,1.1),'D'],
+  [box(W/2,H/2,W/2,H/2),'B'],
+  [box(W/2,29.5,W/2,1.5),'Y'],                                 // sand
+  [ellipse(25,28.7,8.5,2.4),'V'],                              // anemone foot
+  [union(...[18,20.6,23.2,25.8,28.4,31].map((x,i)=>seg(x,28,x+(i%2?1:-1),22+(i%3),1.05))),'P'],
+  [union(...[18,20.6,23.2,25.8,28.4,31].map((x,i)=>circle(x+(i%2?1:-1),22+(i%3),1.35))),'K'],
+  [fish,'D'],
+  [inner,'O'],
+  [band(9.6,1.6),'D'],[band(9.6,.75),'C'],
+  [band(16.2,1.9),'D'],[band(16.2,1),'C'],
+  [band(23.6,1.5),'D'],[band(23.6,.7),'C'],
+  [meet(inner,(x,y)=>30.6-x),'D'],                              // dark tail tips
+  [ellipse(13,15.4,2.6,1.6),'D'],[ellipse(13.2,15.2,1.6,.9),'O'],   // the little lucky fin
+  [circle(6.4,10.8,2.1),'C'],[circle(6,10.8,1.15),'D'],
  ]);
- put(g,'S',[[4,3],[5,3],[4,4],[5,4],[2,6],[27,1],[28,1],[27,2],[28,2]]);   // bubbles
+ put(g,'C',[[5,9]]);
+ put(g,'S',[[4,2],[5,2],[4,3],[5,3],[2,5],[28,1],[29,1],[28,2],[29,2]]);   // bubbles
  return str(g);}
 
 // 5. The Up house: a little colourful house lifted into the sky by a big bunch of many-coloured balloons.

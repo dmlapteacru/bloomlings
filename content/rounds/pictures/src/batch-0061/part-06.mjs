@@ -90,8 +90,8 @@ function crystalBall(){
  const windows=union(box(cx,15.2,0.6,1),box(cx-6.4,17.2,0.6,1),box(cx+6.4,17.2,0.6,1));
  const pole=box(cx+0.5,4.2,0.6,1.6),flag=box(cx+2.2,3.4,1.2,0.8);
  const shine=meet(cut(circle(cx,cy,r-2),circle(cx,cy,r-4)),poly([[cx,cy],[cx-30,cy-4],[cx-8,cy-30]]));
- const cup=cut(poly([[cx-10.5,27.6],[cx+10.5,27.6],[cx+6.5,33.5],[cx-6.5,33.5]]),circle(cx,cy-0.2,r-0.2));
- const rim=meet(cup,box(cx,30.6,12,0.7));
+ const cup=poly([[cx-9.6,28],[cx+9.6,28],[cx+6.2,33.4],[cx-6.2,33.4]]);
+ const rim=meet(cup,box(cx,28.6,12,0.6));
  const stem=box(cx,34.8,3,1.6);
  const base=poly([[cx-10.5,40.8],[cx+10.5,40.8],[cx+7,36],[cx-7,36]]);
  const band=box(cx,38.3,8.9,0.65);

@@ -10,7 +10,7 @@ const band=(cx,y0,y1,rx,ry)=>union(ellipse(cx,y0,rx,ry),box(cx,(y0+y1)/2,rx,(y1-
 
 // 1. A marching drum: red rims, cream head, blue shell with a yellow zigzag rope, two crossed sticks above.
 function drum(){
- const cx=17,rx=14.5,ry=3.6,top=15,bot=34;
+ const cx=17,rx=14.5,ry=3.6,top=15,bot=32;
  const front=y0=>union(ellipse(cx,y0,rx+.6,ry),(x,y)=>y-y0);
  const shell=band(cx,top,bot,rx,ry);
  const rimT=band(cx,top,top+2.6,rx+.6,ry),rimB=cut(band(cx,bot-2.6,bot,rx+.6,ry),front(bot-2.6));
@@ -18,11 +18,11 @@ function drum(){
  // zigzag rope: a polyline between the rims
  const y0=top+2.6+ry+.4,y1=bot-2.6+ry-1.6,pts=[];for(let i=-4;i<=4;i++)pts.push([cx+i*4,i%2?y1:y0]);
  const rope=union(...pts.slice(1).map((p,i)=>seg(...pts[i],...p,.8)));
- const stickA=seg(4,3.5,26,14.5,1.05),stickB=seg(30,3.5,8,14.5,1.05);
+ const stickA=seg(6,4.5,26,14.5,1.05),stickB=seg(28,4.5,8,14.5,1.05);
  const g=raster(36,40,'.',[
   [shell,'B'],[meet(shell,(x,y)=>x>cx+9?-1:1),'N'],[meet(rope,shell),'Y'],
   [rimB,'R'],[rimT,'R'],[head,'C'],
-  [stickA,'A'],[stickB,'A'],[circle(4,3.5,1.9),'R'],[circle(30,3.5,1.9),'R']]);
+  [stickA,'A'],[stickB,'A'],[circle(5.6,4.3,2.1),'R'],[circle(28.4,4.3,2.1),'R']]);
  return str(trim(g));}
 
 // 2. An easel with a small flower painting, and a palette with paint blobs and a brush in front.
@@ -96,7 +96,7 @@ function hedgehog(){
   [box(23.4,32,1.2,1.4),'D'],[box(40.6,32,1.2,1.4),'D'],[box(32,39.6,5.6,.9),'D'],
   // steam
   [union(circle(35,24.4,1.4),circle(36.4,21.6,1.4),circle(35.2,19,1.3)),'S']]);
- put(g,'D',[[22,15],[22,16],[29,18],[30,18],[29,19],[30,19]]);put(g,'K',[[23,19],[24,19]]);
+ put(g,'D',[[22,15],[22,16],[28,19],[29,19],[28,20],[29,20]]);put(g,'K',[[23,19],[24,19]]);
  return str(trim(g));}
 
 // 5. A classic microscope: dark base, blue arm, light-blue tube, eyepiece, lens turret, a slide on the stage.

@@ -120,40 +120,44 @@ function compass(){
  return str(trim(g));}
 
 function cat(){
- const W=40,H=33;
- const keys=(x,y)=>{const r=Math.floor(y)-26;if(r<0||r>2)return false;const u=Math.floor(x)-16+(r===1?1:0);return u>=0&&Math.floor(x)<=36&&u%3!==2;};
+ const W=40,H=34;
  const g=raster(W,H,'.',[
-  // the desk
-  [box(20,31,20,1.6),'A'],
   // monitor at the left, turned toward the cat, on a stand
-  [union(box(7,26,1.2,3),box(7,28.6,4.2,.8,.4)),'D'],
-  [poly([[.6,5],[14,3],[14,24],[.6,22]]),'D'],
-  [poly([[2,6.6],[12.6,5],[12.6,22],[2,20.6]]),'B'],
+  [union(box(7,27,1.2,3),box(7,29.6,4.2,.8,.4)),'D'],
+  [poly([[.6,6],[14,4],[14,25],[.6,23]]),'D'],
+  [poly([[2,7.6],[12.6,6],[12.6,23],[2,21.6]]),'B'],
   // lines of code on the screen
-  [(x,y)=>{const r=Math.floor(y);const xs=Math.floor(x);return ([9,12,15,18].includes(r)&&xs>=3+(r%2)&&xs<=(r===12?9:r===18?7:11))?-1:1;},'S'],
+  [(x,y)=>{const r=Math.floor(y),xs=Math.floor(x);return ([10,13,16,19].includes(r)&&xs>=3+(r%2)&&xs<=(r===13?9:r===19?7:11))?-1:1;},'S'],
   // the cat: tail, body with a white chest, head, ears
-  [union(seg(36.6,28,38.4,21,1.3),seg(38.4,21,36.8,16.4,1.3)),'O'],
-  [ellipse(26,23,9.4,8.4),'O'],
-  [ellipse(26,24,4.4,6),'C'],
-  [union(ellipse(26,12.4,8.6,6.8),poly([[18,10],[18.4,1.8],[23.6,6.4]]),poly([[34,10],[33.6,1.8],[28.4,6.4]])),'O'],
-  [union(poly([[19.4,7.4],[19.6,4.4],[22,6.4]]),poly([[32.6,7.4],[32.4,4.4],[30,6.4]])),'P'],
-  [ellipse(26,15.4,3.8,2.5),'C'],
-  // keyboard on the desk with three rows of keys, two paws on it
-  [box(26,27.6,11.4,2.2,.6),'D'],
-  [(x,y)=>keys(x,y)?-1:1,'C'],
-  [union(ellipse(21.5,25.6,2.5,1.6),ellipse(30.5,25.6,2.5,1.6)),'O'],
+  [union(seg(36.6,29,38.4,22,1.3),seg(38.4,22,36.8,17.4,1.3)),'O'],
+  [ellipse(26,24,10,8.6),'O'],
+  [ellipse(26,23.6,3.9,5),'C'],
+  [union(ellipse(26,13.4,9.2,7),poly([[18,11],[18.4,2.8],[23.6,7.4]]),poly([[34,11],[33.6,2.8],[28.4,7.4]])),'O'],
+  [union(poly([[19.4,8.4],[19.6,5.4],[22,7.4]]),poly([[32.6,8.4],[32.4,5.4],[30,7.4]])),'P'],
+  [ellipse(26,16.4,3.8,2.5),'C'],
+  // the desk in front
+  [box(20,32.5,20,1.4),'A'],
  ]);
+ // keyboard with three rows of keys and a space bar, two paws on it
+ over(g,15,26,[
+'DDDDDDDDDDDDDDDDDDDDDDD',
+'DSSDSSDSSDSSDSSDSSDSSDD',
+'DDSSDSSDSSDSSDSSDSSDSSD',
+'DSSDSSSSSSSSSSSSSSSDSSD',
+'DDDDDDDDDDDDDDDDDDDDDDD',
+ ]);
+ over(g,18,26,['.OOOO.','OOOOOO','OEOOEO']);
+ over(g,30,26,['.OOOO.','OOOOOO','OEOOEO']);
  // tabby stripes on the forehead and the sides
- put(g,'E',[[25,6],[26,6],[25,7],[26,7],[22,7],[29,7],[17,20],[17,21],[18,22],[34,20],[34,21],[33,22]]);
+ put(g,'E',[[25,7],[26,7],[25,8],[26,8],[22,8],[29,8],[17,21],[17,22],[18,23],[34,21],[34,22],[33,23]]);
  // focused eyes glancing at the screen, nose, mouth and the tip of the tongue
- put(g,'D',[[21,11],[22,11],[21,12],[22,12],[28,11],[29,11],[28,12],[29,12]]);
- put(g,'C',[[22,11],[29,11]]);
- put(g,'P',[[25,14],[26,14]]);
- put(g,'D',[[25,15],[26,15],[24,16],[27,16]]);
- put(g,'P',[[25,16],[26,16],[25,17],[26,17]]);
- // toes on the paws
- put(g,'E',[[21,25],[30,25]]);
- return str(g);}
+ put(g,'D',[[20,12],[21,12],[22,12],[20,13],[21,13],[22,13],[29,12],[30,12],[31,12],[29,13],[30,13],[31,13]]);
+ put(g,'C',[[22,12],[31,12]]);
+ put(g,'E',[[20,10],[21,10],[22,11],[31,10],[30,10],[29,11]]);
+ put(g,'P',[[25,15],[26,15]]);
+ put(g,'D',[[25,16],[26,16],[24,17],[27,17]]);
+ put(g,'P',[[25,17],[26,17],[25,18]]);
+ return str(trim(g));}
 
 export default {theme:'batch-0061',pictures:[
  {title:'Паровозик',forLevel:76,family:'Наземный транспорт',subject:'паровозик с клубом дыма из трубы, кабиной и красными колёсами',source:'оригинальный',rows:locomotive()},
