@@ -9,7 +9,7 @@
 import fs from 'node:fs';import path from 'node:path';
 import {allRecords,root} from './levels.mjs';import {engine} from './engines.mjs';import {run} from './trace.mjs';import {STRATEGIES} from './strategies.mjs';
 const arg=k=>{const i=process.argv.indexOf(k);return i>0?process.argv[i+1]:null;};const RUNS=+(arg('--runs')||100),out=path.join(root,'tools/level-stats/out/random');fs.mkdirSync(out,{recursive:true});
-let recs=allRecords().filter(r=>r.model);if(arg('--part')){const [i,n]=arg('--part').split('/').map(Number);recs=recs.filter((r,k)=>k%n===i);}
+let recs=allRecords().filter(r=>r.model);if(arg('--only'))recs=recs.filter(r=>arg('--only').split(',').includes(r.key));if(arg('--part')){const [i,n]=arg('--part').split('/').map(Number);recs=recs.filter((r,k)=>k%n===i);}
 const saved=k=>{const f=path.join(root,'tools/level-stats/out/levels',k+'.json');return fs.existsSync(f)?JSON.parse(fs.readFileSync(f,'utf8')):null;};
 for(const r of recs){const s=saved(r.key);if(s&&!s.model)continue;const E=await engine(r.game),R=E.R;let level=r.model;
  if(r.models&&s){const pick=r.models.find(m=>s.modelNote?.startsWith(m.modelNote));if(pick)level=pick.model;}

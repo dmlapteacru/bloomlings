@@ -29,14 +29,14 @@ for(const r of ROWS){const l=LV[r.key],cols=Object.values(l.tray).map(col=>col.m
  for(const k of locks){const key=o?.keys?.find(x=>x.colour===k.colour);if(key&&board){const hole=key.trueHole||key.hole,h=board.rows.length,w=board.rows[0].length,xs=hole.map(c=>c[0]),ys=hole.map(c=>c[1]);
    k.key={x:r2((Math.min(...xs)+.5)/w),y:r2((Math.min(...ys)+.5)/h),edge:Math.min(...xs)<=1||Math.max(...xs)>=w-2||Math.min(...ys)<=1||Math.max(...ys)>=h-2};
    k.keyUnderBox=(o.objects||[]).filter(ob=>ob.kind!=='hidden').some(ob=>(ob.trueCells||ob.cells||[]).some(([x,y])=>hole.some(([a,b])=>Math.abs(a-x)+Math.abs(b-y)<=1)));}}
- const boxes=(o?.objects||[]).filter(ob=>ob.kind!=='hidden').map(ob=>({kind:ob.kind==='door'?'ящик (счёт работы своего цвета)':ob.kind==='chocolate'?'шоколад (счёт любой работы)':'кувшин (забирает работу своего цвета)',n:ob.n,cellsCovered:(ob.trueCells||ob.cells||[]).length,colour:ob.colour||null,under:ob.under||null}));
+ const boxes=(o?.objects||[]).filter(ob=>ob.kind!=='hidden').map(ob=>({kind:ob.kind==='door'?'ящик (счёт работы своего цвета)':ob.kind==='chocolate'?'шоколад (счёт любой работы)':'банка (забирает работу своего цвета)',n:ob.n,cellsCovered:(ob.trueCells||ob.cells||[]).length,colour:ob.colour||null,under:ob.under||null}));
  const kinds={hidden:pods.some(p=>p.hidden),links:G.length>0,locks:locks.length>0,boxes:boxes.length>0};
  per[r.key]={game:r.game,level:r.level,difficulty:r.difficulty,cells,capsules:caps,kinds,count:KINDS.filter(k=>kinds[k]).length,combo:KINDS.filter(k=>kinds[k]).map(k=>KIND_RU[k]).join(' + ')||'без допов',
   hidden:{count:pods.filter(p=>p.hidden).length,share:r2(pods.filter(p=>p.hidden).length/caps),depths:pods.filter(p=>p.hidden).map(p=>p.row),inLinks:pods.filter(p=>p.hidden&&p.link).length,unseenAtChoice:unseen.length},
   links:{groups:G.length,sizes:G.map(g=>g.length),pods:G.reduce((n,g)=>n+g.length,0),share:r2(G.reduce((n,g)=>n+g.length,0)/caps),sameColour:G.filter(g=>new Set(g.map(p=>p.color)).size===1).length,
    shapes:G.map(g=>new Set(g.map(p=>p.col)).size===1?'вертикальная':new Set(g.map(p=>p.row)).size===1?'горизонтальная':'диагональная'),rowSpread:G.map(g=>Math.max(...g.map(p=>p.row))-Math.min(...g.map(p=>p.row))),colSpread:G.map(g=>Math.max(...g.map(p=>p.col))-Math.min(...g.map(p=>p.col))),slots:G.map(g=>g.length)},
   locks,boxes,boxCoverShare:boxes.length&&isNum(cells)?r2(boxes.reduce((n,b)=>n+b.cellsCovered,0)/cells):null,
-  overlaps:{hiddenInLink:pods.filter(p=>p.hidden&&p.link).length,linkedBehindLock:locks.reduce((n,k)=>n+cols[k.col].slice(k.row+1).filter(x=>x.link).length,0),hiddenBehindLock:locks.reduce((n,k)=>n+cols[k.col].slice(k.row+1).filter(x=>x.hidden).length,0),keyUnderBox:locks.filter(k=>k.keyUnderBox).length}};}
+  overlaps:{hiddenInLink:pods.filter(p=>p.hidden&&p.link).length,linkedBehindLock:locks.reduce((n,k)=>n+cols[k.col].slice(k.row+1).filter(x=>x.link).length,0),hiddenBehindLock:locks.reduce((n,k)=>n+cols[k.col].slice(k.row+1).filter(x=>x.hidden).length,0),keyUnderBox:locks.filter(k=>k.keyUnderBox).length,keysLocated:locks.filter(k=>k.key).length,keysNotLocated:locks.filter(k=>!k.key).length}};}
 
 // ---- padlock blocks from the recordings: a padlock blocks its column from the tap that brings it on top to its opening ----
 const lockTimes={};
@@ -47,9 +47,9 @@ for(const r of ROWS.filter(x=>x.game==='CF'&&per[x.key].kinds.locks)){const rec=
   const groupsOf=new Map();cols.forEach((col,ci)=>col.forEach((p,ri)=>{if(p.link){if(!groupsOf.has(p.link))groupsOf.set(p.link,[]);groupsOf.get(p.link).push([ci,ri]);}}));
   for(const e of evs){if(e.unlock){const b=blocks.find(x=>x.col===e.c&&x.row===heads[e.c]&&x.to==null);if(b)b.to=e.t-a.start;heads[e.c]++;onTop(e.c,e.t);continue;}
    const p=cols[e.c][heads[e.c]];if(!p||p.lock)continue;const g=p.link?groupsOf.get(p.link):[[e.c,heads[e.c]]];for(const [ci] of g){heads[ci]++;onTop(ci,e.t);}}
-  const end=a.end-a.start;for(const b of blocks){if(b.to==null)b.to=end;b.duration=r2(b.to-b.from);}
-  let maxSim=0;for(const b of blocks){const t=b.from+1e-6;maxSim=Math.max(maxSim,blocks.filter(x=>x.from<=t&&x.to>t).length);}
-  return {attempt:a.attempt,blocks:blocks.map(b=>({...b,from:r2(b.from),to:r2(b.to)})),maxSimultaneous:maxSim,end:r2(end)};});}
+  const end=a.end-a.start;for(const b of blocks){b.openSeen=b.to!=null;b.duration=b.to!=null?r2(b.to-b.from):null;}
+  let maxSim=0;for(const b of blocks){const t=b.from+1e-6;maxSim=Math.max(maxSim,blocks.filter(x=>x.from<=t&&(x.to==null||x.to>t)).length);}
+  return {attempt:a.attempt,blocks:blocks.map(b=>({...b,from:r2(b.from),to:b.to!=null?r2(b.to):null})),maxSimultaneous:blocks.every(b=>b.openSeen)?maxSim:null,end:r2(end)};});}
 
 // ---- constraints still active by stage, and openings by stage: replay of the recorded won attempt on the model ----
 const STAGES=[0,.2,.4,.6,.8];const stageOf=[];
@@ -64,13 +64,15 @@ async function stages(r){const rec=recs[r.key],l=LV[r.key];if(!rec?.model||!l.mo
  const out=STAGES.map(()=>null);let k=0;const opens=STAGES.map(()=>({hidden:0,locks:0,boxes:0}));let prev=snap();
  const visit=()=>{const share=t.processedCells/total;while(k<STAGES.length&&share>=STAGES[k]-1e-9){out[k]=snap();k++;}const now=snap(),st=Math.max(0,k-1);
   if(now.hidden<prev.hidden)opens[st].hidden+=prev.hidden-now.hidden;if(now.locks<prev.locks)opens[st].locks+=prev.locks-now.locks;if(now.boxes<prev.boxes)opens[st].boxes+=prev.boxes-now.boxes;prev=now;};
- visit();for(const c of cmds){while(t.pending&&t.steps[0].at<=c.t){t.advance(t.steps[0].at-t.now);visit();}if(c.t>t.now)t.advance(c.t-t.now);
+ // one clock with the recording: the engine's clock stands still while nothing is pending, that time is kept in idle
+ let idle=0;const clock=()=>t.now+idle;
+ visit();for(const c of cmds){while(t.pending&&t.steps[0].at+idle<=c.t){t.advance(t.steps[0].at-t.now);visit();}if(c.t>clock()){if(t.pending)t.advance(c.t-clock());else idle+=c.t-clock();}
   if(c.action.type==='unlock'){t.forceUnlock?.(c.action.column);visit();continue;}let g=0;while(t.check(c.action)&&t.pending&&g++<3000){t.advance(Math.max(1,Math.min(100,t.steps[0].at-t.now)));visit();}if(!t.check(c.action))t.commit(c.action);visit();}
  while(t.pending){t.advance(t.steps[0].at-t.now);visit();}
  return {source:r.game==='v8E'?'точный повтор':'модель (приближённо)',active:out.map(x=>x?KINDS.filter(kk=>(x[kk]||0)>0).length:null),remaining:out,opens};}
-// the calibrated Colony Flow speed, if fitted
 const cal=fs.existsSync(path.join(root,'tools/level-stats/out/calibrate.json'))?JSON.parse(fs.readFileSync(path.join(root,'tools/level-stats/out/calibrate.json'),'utf8')):null;
-D.extra3prev={calibration:cal?{gapScale:cal.best.gap,tripScale:cal.best.trip,actScale:cal.best.act,releaseLagMs:cal.best.release}:{}};
+// the stages replay at the accepted speed: v8E as played (the fitted setting did not hold on the check round)
+D.extra3prev={calibration:{}};
 const stageData={};for(const r of ROWS.filter(x=>x.game!=='v9')){try{stageData[r.key]=await stages(r);}catch(e){stageData[r.key]={error:e.message};}}
 delete D.extra3prev;
 
@@ -100,7 +102,7 @@ const linkAgg=Object.fromEntries(games.map(g=>{const ps=Object.values(per).filte
   shapes:Object.fromEntries(['вертикальная','горизонтальная','диагональная'].map(s=>[s,shapes.filter(x=>x===s).length])),rowSpread:sum(ps.flatMap(p=>p.links.rowSpread)),colSpread:sum(ps.flatMap(p=>p.links.colSpread)),holdSeconds:sum(holds.map(r2)),holdSource:g==='v8E'?'точный повтор':g==='CF'?'модель по записанным нажатиям':'—'}];}));
 const lockAgg={pairs:Object.values(per).filter(p=>p.game==='CF').reduce((n,p)=>n+p.locks.length,0),levels:Object.values(per).filter(p=>p.game==='CF'&&p.locks.length).length,
  depth:sum(Object.values(per).flatMap(p=>p.locks.map(k=>k.row))),podsBehind:sum(Object.values(per).flatMap(p=>p.locks.map(k=>k.below))),cellsBehind:sum(Object.values(per).flatMap(p=>p.locks.map(k=>k.belowCells))),
- keysOnEdge:Object.values(per).flatMap(p=>p.locks.filter(k=>k.key?.edge)).length,keysLocated:Object.values(per).flatMap(p=>p.locks.filter(k=>k.key)).length,keyUnderBox:Object.values(per).reduce((n,p)=>n+p.overlaps.keyUnderBox,0),
+ keysOnEdge:Object.values(per).flatMap(p=>p.locks.filter(k=>k.key?.edge)).length,keysLocated:Object.values(per).flatMap(p=>p.locks.filter(k=>k.key)).length,keyUnderBox:Object.values(per).reduce((n,p)=>n+p.overlaps.keyUnderBox,0),blocksOpenUnknown:Object.values(lockTimes).flat().flatMap(a=>a.blocks.filter(b=>!b.openSeen)).length,
  blocks:sum(Object.values(lockTimes).flat().flatMap(a=>a.blocks.map(b=>b.duration))),blocksAtStart:Object.values(lockTimes).flat().flatMap(a=>a.blocks.map(b=>b.from)),
  maxSimultaneous:sum(Object.values(lockTimes).flat().map(a=>a.maxSimultaneous)),perLevel:lockTimes};
 const boxAgg={levels:Object.values(per).filter(p=>p.game==='CF'&&p.boxes.length).length,byKind:Object.fromEntries([...new Set(Object.values(per).flatMap(p=>p.boxes.map(b=>b.kind)))].map(k=>{const bs=Object.values(per).flatMap(p=>p.boxes.filter(b=>b.kind===k));return [k,{count:bs.length,counter:sum(bs.map(b=>b.n)),cellsCovered:sum(bs.map(b=>b.cellsCovered)),colourKnown:bs.filter(b=>b.colour).length}];})),
@@ -111,7 +113,7 @@ const stageAgg={};for(const g of ['CF','v8E'])for(const d of ['all',...diffs]){c
 // ---- difficulty: comparable boards and stage, correlations, random loss reasons ----
 const rank={Normal:0,Hard:1,'Super Hard':2};
 const spearman=(x,y)=>{const pts=x.map((v,i)=>[v,y[i]]).filter(([a,b])=>isNum(a)&&isNum(b));if(pts.length<5)return null;const rk=a=>{const s=a.map((v,i)=>[v,i]).sort((p,q)=>p[0]-q[0]);const r=Array(a.length);for(let i=0;i<s.length;){let j=i;while(j+1<s.length&&s[j+1][0]===s[i][0])j++;for(let k=i;k<=j;k++)r[s[k][1]]=(i+j)/2;i=j+1;}return r;};
- const a=rk(pts.map(p=>p[0])),b=rk(pts.map(p=>p[1])),ma=a.reduce((s,v)=>s+v,0)/a.length,mb=b.reduce((s,v)=>s+v,0)/b.length;let num=0,da=0,db=0;for(let i=0;i<a.length;i++){num+=(a[i]-ma)*(b[i]-mb);da+=(a[i]-ma)**2;db+=(b[i]-mb)**2;}return {rho:r2(num/Math.sqrt(da*db||1)),n:pts.length};};
+ const a=rk(pts.map(p=>p[0])),b=rk(pts.map(p=>p[1])),ma=a.reduce((s,v)=>s+v,0)/a.length,mb=b.reduce((s,v)=>s+v,0)/b.length;let num=0,da=0,db=0;for(let i=0;i<a.length;i++){num+=(a[i]-ma)*(b[i]-mb);da+=(a[i]-ma)**2;db+=(b[i]-mb)**2;}if(!da||!db)return {rho:null,n:pts.length,constant:true};return {rho:r2(num/Math.sqrt(da*db)),n:pts.length};};
 const FEAT=[['cells','клеток'],['types','цветов'],['capsules','капсул'],['columns','колонок'],['countSd','разброс чисел'],['linkSets','связок'],['hidden','скрытых'],['padlocks','замков'],['kinds','видов допов',r=>per[r.key].count],['risky','рискованных решений (модель)'],['s_random','доля побед случайного выбора (модель)'],['o_zeroFreeShare','время с полным буфером (человек)'],['wonSeconds','время победы (человек)'],['m_seconds','время маршрута (модель)']];
 const corr=Object.fromEntries(games.map(g=>{const rs=ROWS.filter(r=>r.game===g);return [g,FEAT.map(([k,t,f])=>({feature:t,withDifficulty:spearman(rs.map(r=>rank[r.difficulty]),rs.map(r=>f?f(r):r[k])),withWonSeconds:spearman(rs.map(r=>r.wonSeconds),rs.map(r=>f?f(r):r[k])),withRouteSeconds:spearman(rs.map(r=>r.m_seconds),rs.map(r=>f?f(r):r[k])),withRandomWin:spearman(rs.map(r=>r.s_random),rs.map(r=>f?f(r):r[k]))}))];}));
 // difficulty on comparable boards and stage
@@ -132,7 +134,36 @@ const stageBuf={};for(const g of games)for(const d of diffs){const ks=ROWS.filte
 // after 80 % by difficulty (human)
 const after80={};for(const c of D.extra?.choices||[]){const p=per[c.key];if(!p)continue;const k=p.game+'|'+p.difficulty;(after80[k]=after80[k]||[]).push(c);}
 const after80Agg=Object.fromEntries(Object.entries(after80).map(([k,v])=>[k,{attempts:v.length,tapsAfter80:sum(v.map(x=>x.tapsAfter80)),clearedAtLastTap:sum(v.map(x=>x.clearedAtLastTap)),lastTapToWin:sum(v.map(x=>x.game==='v8E'?x.realLastTapToWin:x.lastTapToWin))}]));
-D.extra3={built:'tools/level-stats/analysis3.mjs',per,combos,kindCount:Object.fromEntries(games.map(g=>[g,kindCount(g)])),byCompany,withWithout,intro,sequence,hiddenAgg,linkAgg,lockAgg,boxAgg,stageAgg,corr,diffTable,inter,randAgg,stageBuf,after80Agg,calibration:cal,
+// ---- one table of amounts: game → difficulty → observed stage → mechanic or combination → presence → amount ----
+const ITEMS=[['hidden','скрытые капсулы','капсул',p=>p.hidden.count],['links','связки','групп',p=>p.links.groups],['locks','замки (пара ключ — замок)','пар',p=>p.locks.length],
+ ['crate','ящики (счёт работы своего цвета)','шт.',p=>p.boxes.filter(b=>b.kind.startsWith('ящик')).length],['chocolate','шоколад (счёт любой работы)','шт.',p=>p.boxes.filter(b=>b.kind.startsWith('шоколад')).length],['jar','банки (забирают работу своего цвета)','шт.',p=>p.boxes.filter(b=>b.kind.startsWith('банка')).length]];
+const amountTable=[];for(const g of games)for(const d of diffs)for(const [sl,sp] of STAGE_G){const ps=Object.values(per).filter(p=>p.game===g&&p.difficulty===d&&sp(p));if(!ps.length)continue;
+ for(const [k,label,unit,f] of ITEMS){const w=ps.filter(p=>f(p)>0);amountTable.push({game:g,difficulty:d,stage:sl,kind:'механика',item:label,unit,present:w.length,n:ps.length,amount:sum(w.map(f)),capsules:k==='links'?sum(w.map(p=>p.links.pods)):null});}
+ for(const c of [...new Set(ps.map(p=>p.combo))].sort()){const w=ps.filter(p=>p.combo===c);amountTable.push({game:g,difficulty:d,stage:sl,kind:'сочетание',item:c,present:w.length,n:ps.length,
+  parts:KINDS.filter(k=>w[0].kinds[k]).map(k=>({kind:KIND_RU[k],amount:sum(w.map(p=>amount(p,k)))}))});}}
+// ---- which Colony Flow reconstructions are fit for model numbers, and how much the disputed ones move them ----
+const vfile=path.join(root,'tools/level-stats/out/validate-cf.json'),VAL=fs.existsSync(vfile)?JSON.parse(fs.readFileSync(vfile,'utf8')):null;
+const changedCells=note=>{let n=0;for(const re of [/(\d+) board cells recoloured/,/(\d+) cells trimmed/,/(\d+) board "\?" tiles given/,/tiles under them: (\d+)/])for(const m of String(note||'').matchAll(new RegExp(re,'g')))n+=+m[1];return n;};
+const fitness={};for(const r of ROWS.filter(x=>x.game==='CF')){const l=LV[r.key],reasons=[];if(!l.model){fitness[r.key]={status:'нет модели',reasons:[l.modelNote||'нет модели']};continue;}
+ const ch=changedCells(l.modelNote),share=isNum(r.cells)&&r.cells?ch/r.cells:null;if(share==null||share>0.02)reasons.push(`изменено или угадано ${ch} клеток (${share!=null?Math.round(share*1000)/10:'?'} %)`);
+ if(/a colour guessed/.test(l.modelNote||''))reasons.push('цвет банки угадан по суммам');
+ const v=VAL?.levels.filter(x=>x.key===r.key&&x.byScale?.['1x1']&&x.byScale['1x1'].outcome!=='unfinished');const bad=v?.filter(x=>x.byScale['1x1'].outcome!==x.byScale['1x1'].model)||[];
+ if(bad.length)reasons.push(`записанная попытка на модели кончается иначе (${bad.map(x=>x.byScale['1x1'].outcome+' → '+x.byScale['1x1'].model).join(', ')})`);
+ fitness[r.key]={status:reasons.length?'спорное':'пригодное',reasons,changed:ch,share:r2(share)};}
+const randOf=k=>rand[k]?rand[k].wins/rand[k].runs:null;
+function modelMetrics(keys){const rs=ROWS.filter(r=>keys.includes(r.key)),out={};const med=a=>r2(q(a,.5));
+ for(const d of diffs){const v=rs.filter(r=>r.difficulty===d);out[`уровней · ${d}`]=v.length;
+  out[`доля побед случайного выбора (100 прогонов), медиана · ${d}`]=med(v.map(r=>randOf(r.key)));out[`рискованных решений на пути решателя, медиана · ${d}`]=med(v.map(r=>r.risky));
+  for(const [k,t] of [['s_left-to-right','слева направо'],['s_top-down','сверху вниз'],['s_diagonal','по диагонали'],['s_planner','планировщик']])out[`${t}: доля побед, медиана · ${d}`]=med(v.map(r=>r[k]));}
+ for(const [k,t,f] of FEAT.filter(x=>['risky'].includes(x[0])).concat([['rand','доля побед случайного выбора (модель)',r=>randOf(r.key)]])){const c=spearman(rs.map(r=>rank[r.difficulty]),rs.map(r=>f?f(r):r[k]));out[`связь со сложностью: ${t}`]=c?.rho??null;}
+ let runs=0,full=0,link=0;for(const r of rs){const x=rand[r.key];if(!x)continue;const lost=x.runs-x.wins;runs+=lost;full+=x.reasons['буфер заполнен капсулами без доступной работы']||0;link+=x.reasons['связке не хватает свободных мест']||0;}
+ out['поражения случайного выбора: буфер забит без работы, доля']=runs?r2(full/runs):null;out['поражения случайного выбора: связке не хватает мест, доля']=runs?r2(link/runs):null;return out;}
+const modelled=Object.keys(fitness).filter(k=>fitness[k].status!=='нет модели'),fit=modelled.filter(k=>fitness[k].status==='пригодное'),disputed=modelled.filter(k=>fitness[k].status==='спорное');
+const mAll=modelMetrics(modelled),mFit=modelMetrics(fit),loo=Object.fromEntries(disputed.map(k=>[k,modelMetrics(modelled.filter(x=>x!==k))]));
+const sensitivity=Object.keys(mAll).map(name=>{const vals=disputed.map(k=>[k,loo[k][name]]).filter(([,v])=>isNum(v));const lo=vals.length?vals.reduce((a,b)=>b[1]<a[1]?b:a):null,hi=vals.length?vals.reduce((a,b)=>b[1]>a[1]?b:a):null;
+ return {name,all:mAll[name],fit:mFit[name],looMin:lo?.[1]??null,looMinWithout:lo?.[0]??null,looMax:hi?.[1]??null,looMaxWithout:hi?.[0]??null};});
+D.extra3={built:'tools/level-stats/analysis3.mjs',amountTable,fitness,sensitivity,fitKeys:fit,disputedKeys:disputed,per,combos,kindCount:Object.fromEntries(games.map(g=>[g,kindCount(g)])),byCompany,withWithout,intro,sequence,hiddenAgg,linkAgg,lockAgg,boxAgg,stageAgg,corr,diffTable,inter,randAgg,stageBuf,after80Agg,calibration:cal,
+ appCheck:Object.fromEntries([['3','app-check.json'],['2','app-check-tail2.json']].map(([k,f])=>[k,path.join(root,'tools/level-stats/out',f)]).filter(([,f])=>fs.existsSync(f)).map(([k,f])=>{const o=JSON.parse(fs.readFileSync(f,'utf8'));for(const r of Object.values(o.refs))delete r.series;return [k,o];})),
  durations:fs.existsSync(path.join(root,'tools/level-stats/out/durations.json'))?(({runs,...rest})=>rest)(JSON.parse(fs.readFileSync(path.join(root,'tools/level-stats/out/durations.json'),'utf8'))):null};
 fs.writeFileSync(file,JSON.stringify(D));
 console.log('combos',JSON.stringify(combos));console.log('kinds',JSON.stringify(D.extra3.kindCount));console.log('intro CF',JSON.stringify(intro.CF));

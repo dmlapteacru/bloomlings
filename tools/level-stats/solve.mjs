@@ -31,8 +31,9 @@ export function solver(E,budget=60000){
  // a recorded attempt on the live timeline: after each tap, settle a copy (the patient continuation) and search
  function fatal(level,capacity,commands){const {R:RR,T}=E,t=new T.Timeline(RR.create(level,capacity));const wins=[];
   const settled=()=>{const c=new T.Timeline(RR.create(level,capacity),t.snapshot());c.advance(1e9);return winnable(c.state);};
-  wins.push(settled());let lastAt=0;
-  for(const c of commands){if(c.t>t.now)t.advance(c.t-t.now);if(c.action.type==='unlock'){if(t.forceUnlock)t.forceUnlock(c.action.column);continue;}let g=0;while(t.check(c.action)&&t.pending&&g++<2000)t.advance(100);const r=t.commit(c.action);if(!r.accepted)return {error:r.reason,wins};lastAt=t.now;wins.push(settled());}
+  wins.push(settled());let lastAt=0,idle=0;
+  // one clock with the recording: while nothing is pending the engine's clock stands still and the time goes to idle
+  for(const c of commands){if(c.t>t.now+idle){if(t.pending){t.advance(c.t-t.now-idle);if(!t.pending&&t.now<c.t-idle)idle+=c.t-idle-t.now;}else idle+=c.t-t.now-idle;}if(c.action.type==='unlock'){if(t.forceUnlock)t.forceUnlock(c.action.column);continue;}let g=0;while(t.check(c.action)&&t.pending&&g++<2000)t.advance(100);const r=t.commit(c.action);if(!r.accepted)return {error:r.reason,wins};lastAt=t.now;wins.push(settled());}
   t.advance(1e9);const k=wins.findIndex((w,i)=>i>0&&w===false&&wins[i-1]!==false);
-  return {wins,fatalTap:k>0?k:null,fatalAtMs:k>0?commands[k-1].t:null,lossAtMs:t.state.status==='Won'?null:t.now,tapsAfterFatal:k>0?commands.length-k:null,status:t.state.status};}
+  return {wins,fatalTap:k>0?k:null,fatalAtMs:k>0?commands[k-1].t:null,lossAtMs:t.state.status==='Won'?null:t.now+idle,tapsAfterFatal:k>0?commands.length-k:null,status:t.state.status};}
  return {route,count,decisions,minCapacity,fatal,winnable};}

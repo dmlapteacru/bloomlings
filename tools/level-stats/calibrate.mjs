@@ -11,9 +11,13 @@ import {allRecords,root} from './levels.mjs';import {engine} from './engines.mjs
 const E=await engine('CF'),recs=Object.fromEntries(allRecords().map(r=>[r.key,r]));
 const r2=x=>x==null||!Number.isFinite(x)?null:Math.round(x*100)/100;
 // references: level, attempt, the ×2 stretches in video seconds (from the timer readings), the role
-const REFS=[{key:'CF-2',attempt:1,x2:[],role:'подбор',note:'level-1-4.mp4 35–72,5 с; ×1 целиком (таймер ×2 не тикал между L1 и L5)'},
- {key:'CF-26',attempt:1,x2:[],role:'подбор',note:'XRecorder_20261024_03.mp4; ×1 целиком (кнопка серая всю запись)'},
- {key:'CF-20',attempt:1,x2:[[9,15]],role:'проверка',note:'XRecorder_20261023_02.mp4; ×1, кроме ×2 примерно 9–15 с (таймер 17:47 → 17:41 к L25)'}];
+// The speed of each recording is read from the speed button frame by frame (4 frames a second, green = ×2 on; a green
+// button also shows the remaining ×2 time). After the last tap the game hides its top bar in every recording, so the
+// speed of the final clearing is not visible there; the timer readings before and after cover it where they exist.
+const REFS=[{key:'CF-2',attempt:1,x2:[],role:'подбор',speed:'×1',note:'level-1-4.mp4 35–72,5 с; кнопка серая до последнего тапа; таймер ×2 не менялся между L1 (19:58) и L5 (19:57), значит, и после последнего тапа ×1'},
+ {key:'CF-26',attempt:1,x2:[],role:'подбор',speed:'×1',note:'XRecorder_20261024_03.mp4; кнопка серая до последнего тапа (309,5 с), потом панель скрыта'},
+ {key:'CF-10',attempt:2,x2:[],role:'проверка',speed:'×1',note:'level-10-done-part1..3.mp4 (части подряд); кнопка серая во всех трёх частях до последнего тапа; скрытые капсулы'},
+ {key:'CF-20',attempt:1,x2:[[8.25,10.25]],role:'смешанный',speed:'×1 и ×2',note:'XRecorder_20261023_02.mp4; кнопка зелёная 8,25–10,25 с (×2), остальное время серая; в подборе и проверке не участвует'}];
 const MS=[.2,.4,.6,.8,1];
 // video seconds ↔ model ms with ×2 stretches (each video second at ×2 is two model seconds)
 const toModel=(t,x2)=>1000*(t+x2.reduce((n,[a,b])=>n+Math.max(0,Math.min(t,b)-a),0));
@@ -54,7 +58,7 @@ const V=Object.fromEntries(REFS.map(ref=>[ref.key,videoMeasures(ref)]));
 // last departure, the tail at ×3
 const BASE={gap:1,trip:1,act:1,release:300,tail:3};
 const grid=[];for(const gap of [1,1.25,1.5,1.75,2])for(const trip of [.75,1,1.25,1.5])for(const act of [1,2])for(const release of [300,800])for(const tail of [1,1.5,2,3])grid.push({gap,trip,act,release,tail});
-const fit=REFS.filter(r=>r.role==='подбор'),check=REFS.filter(r=>r.role==='проверка');
+const fit=REFS.filter(r=>r.role==='подбор'),check=REFS.filter(r=>r.role==='проверка'),mixed=REFS.filter(r=>r.role==='смешанный');
 let best=null;const tried=[];
 // each setting's parts on the fitting rounds (milestone error, filled-places error, share of taps kept waiting) and its
 // score on the check round, so the near-ties and their effect on the check round can be shown
@@ -68,7 +72,10 @@ best.score=tried.find(t=>t.set===best.set).score;
 for(const t of tried.slice(0,12)){const cs=check.map(ref=>compare(V[ref.key],modelMeasures(ref,t.set)));t.check={score:r2(cs.reduce((n,c)=>n+score(c),0)/cs.length),...parts(cs)};}
 const scoreOf=(set,refs)=>{const cs=refs.map(ref=>compare(V[ref.key],modelMeasures(ref,set)));return {score:r2(cs.reduce((n,c)=>n+score(c),0)/cs.length),...parts(cs)};};
 tried.sort((a,b)=>a.score-b.score);
-const result={refs:REFS,base:BASE,best:best.set,rule:'лучший счёт на раундах подбора; при почти равных (±0,01) — меньше нажатий, ждущих место, затем меньше изменений от v8E; раунд проверки в выборе не участвует',grid:grid.length,top:tried.slice(0,12),scores:{before:{fit:scoreOf(BASE,fit),check:scoreOf(BASE,check)},after:{fit:scoreOf(best.set,fit),check:scoreOf(best.set,check)}},byRef:{}};
+// named variants side by side: v8E as played, v8E with a slower tail only, and the fitted setting
+const VARIANTS=[['v8E как играли',BASE],['v8E, хвост ×2',{...BASE,tail:2}],['v8E, хвост ×1,5',{...BASE,tail:1.5}],['подобранная',best.set]].map(([name,set])=>({name,set,fit:scoreOf(set,fit),check:scoreOf(set,check),mixed:scoreOf(set,mixed),
+ refs:Object.fromEntries(REFS.map(ref=>{const c=compare(V[ref.key],modelMeasures(ref,set));return [ref.key,{total:c.total,tail:c.tail,ok:c.milestones.filter(x=>x.ok).length,mae:c.filledMae,delayed:c.taps.delayed}];}))}));
+const result={variants:VARIANTS,refs:REFS,base:BASE,best:best.set,rule:'лучший счёт на раундах подбора; при почти равных (±0,01) — меньше нажатий, ждущих место, затем меньше изменений от v8E; раунд проверки в выборе не участвует',grid:grid.length,top:tried.slice(0,12),scores:{before:{fit:scoreOf(BASE,fit),check:scoreOf(BASE,check),mixed:scoreOf(BASE,mixed)},after:{fit:scoreOf(best.set,fit),check:scoreOf(best.set,check),mixed:scoreOf(best.set,mixed)}},byRef:{}};
 for(const ref of REFS)result.byRef[ref.key]={role:ref.role,note:ref.note,video:{milestones:V[ref.key].milestones.map(r2),lastTap:r2(V[ref.key].lastTap),taps:V[ref.key].taps},
  before:compare(V[ref.key],modelMeasures(ref,BASE)),after:compare(V[ref.key],modelMeasures(ref,best.set)),
  series:(()=>{const a=recs[ref.key].attempts.find(x=>x.attempt===ref.attempt),t0=a.taps[0].t,thin=x=>x.filter((p,i,arr)=>i===0||i===arr.length-1||p[1]!==arr[i-1][1]);
@@ -76,5 +83,5 @@ for(const ref of REFS)result.byRef[ref.key]={role:ref.role,note:ref.note,video:{
    return {cleared:cl,filled:thin(m.filled).map(([t,f])=>[r2(t),f]),taps:m.tapTimes.map(r2),releases:m.releases.map(([t,k])=>[r2(t),k])};};
   return {video:{cleared:obs[ref.key].board.filter(b=>b[1]!=null).map(([t,v])=>[r2(t-t0),r2(1-v)]),filled:thin(V[ref.key].filled).map(([t,f])=>[r2(t),f]),taps:a.taps.map(x=>r2(x.t-t0)),x2:ref.x2.map(([u,v])=>[r2(u-t0),r2(v-t0)])},before:model(BASE),after:model(best.set)};})()};
 fs.writeFileSync(path.join(root,'tools/level-stats/out/calibrate.json'),JSON.stringify(result));
-console.log('best',JSON.stringify(best.set),'score',r2(best.score));console.log('top',JSON.stringify(tried.slice(0,12)));console.log('scores',JSON.stringify(result.scores));
+console.log('best',JSON.stringify(best.set),'score',r2(best.score));console.log('top',JSON.stringify(tried.slice(0,12)));console.log('scores',JSON.stringify(result.scores));for(const v of VARIANTS)console.log('variant',v.name,'fit',v.fit.score,'check',v.check.score,'mixed',v.mixed.score,JSON.stringify(Object.fromEntries(Object.entries(v.refs).map(([k,x])=>[k,[x.total.rel,x.tail.model,x.ok,x.mae,x.delayed]]))));
 for(const [k,v] of Object.entries(result.byRef)){console.log('\n##',k,v.role,'video milestones',JSON.stringify(v.video.milestones));for(const w of ['before','after']){const c=v[w];console.log(' ',w,'total',JSON.stringify(c.total),'tail',JSON.stringify(c.tail),'mae',c.filledMae,'releases',JSON.stringify(c.releases),'taps',JSON.stringify(c.taps),'ms',c.milestones.map(x=>`${x.share*100}%:${x.model}(${x.ok?'ok':'x'})`).join(' '));}}

@@ -28,7 +28,8 @@ node tools/level-stats/plans.mjs CF-25 v8E-15 v9-22 v9-25                    # �
 node tools/level-stats/measure.mjs --cf-gap 1.5 --out tools/level-stats/out/levels-cal --only <CF-уровни>   # калибровка
 node tools/level-stats/analysis2.mjs  # дополнительные проверки → out/data.json (extra)
 node tools/level-stats/random-reasons.mjs --part 0/2 & node tools/level-stats/random-reasons.mjs --part 1/2   # 100 случайных прогонов на уровень с причинами поражения (~20 мин)
-node tools/level-stats/calibrate.mjs  # калибровка скорости по трём записям Colony Flow (~1,5 мин) → out/calibrate.json
+node tools/level-stats/calibrate.mjs  # калибровка скорости по записям Colony Flow с проверенной скоростью: настройка L2, L26, проверка L10, L20 отдельно (~1,5 мин) → out/calibrate.json
+node tools/level-stats/app-check.mjs && node tools/level-stats/app-check.mjs --tail 2   # те же нажатия в приложении пилота v8E в Chromium (~3 мин)
 node tools/level-stats/durations.mjs  # длительность уровней v8E до и после калибровки, ×1 и ×2 (~4 мин)
 node tools/level-stats/analysis3.mjs  # допы, сочетания, сложность, этапы → out/data.json (extra3)
 node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknowns.md → report.html
@@ -40,7 +41,7 @@ node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknown
 |---|---|
 | `levels.mjs` | общий формат уровней трёх наборов |
 | `engines.mjs` | движок каждого набора |
-| `trace.mjs` | запись попытки на живой шкале времени |
+| `trace.mjs` | запись попытки на живой шкале времени; одна шкала с записью: время без работы тоже идёт |
 | `metrics.mjs` | показатели попытки и пять отрезков |
 | `static.mjs` | поле и лоток |
 | `solve.mjs` | перебор: проходимость, минимум мест, решения, роковой тап |
@@ -52,9 +53,10 @@ node tools/level-stats/report.mjs     # out/data.json + conclusions.md + unknown
 | `plans.mjs` | разные выигрышные планы на нескольких уровнях |
 | `random-reasons.mjs` | 100 случайных допустимых прогонов на уровень, причина каждого поражения |
 | `calibrate.mjs` | повтор трёх записей Colony Flow с подтверждённой ×1 на нашем движке; подбор общей скорости на двух, проверка на третьей |
+| `app-check.mjs` | страница пилота v8E с уровнем Colony Flow: настоящие нажатия, часы браузера, сравнение с движком и видео |
 | `durations.mjs` | длительность уровней v8E: автоматические игроки и твои тапы, до и после калибровки, ×1 и ×2 |
 | `analysis3.mjs` | допы и их сочетания, пересечения, появление, этапы очистки, связь со сложностью, случайные прогоны |
-| `cf-engine/` | движок Colony Flow: наш v8E плюс связки Colony Flow, замки, ящики, шоколад, кувшины; масштаб скорости для калибровки |
+| `cf-engine/` | движок Colony Flow: наш v8E плюс связки Colony Flow, замки, ящики, шоколад, банки; масштаб скорости для калибровки |
 
 ## Отчёт
 
