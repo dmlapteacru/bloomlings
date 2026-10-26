@@ -12,10 +12,13 @@
 // node tools/rounds/pictures.mjs publish   rebuild content/rounds/approved/ (approve, reject, replace and levels.mjs place
 //   run it too): locked/P####.* the pictures locked to levels 1–3, pool/P####.* every other approved picture, README.md
 //   the index with each code's state, free or in a round (read from content/rounds/levels/)
+// node tools/rounds/pictures.mjs tag <ids…> [--family …] [--direction …] [--device …] [--subject …] [--source …] [--reference …]
+//   set a picture's theme catalog tags (metadata only, the matrix stays)
 // node tools/rounds/pictures.mjs status [--free|--used]   approved pictures by code: free, or the level that uses them
 // node tools/rounds/pictures.mjs verify <batch.mjs> [--cells a-b] [--colours a-b] [--target n] [--level n] [--out <png>]
 //   count and check a module's matrices without recording them (skill bloomlings-board-picture), sheet from the matrices
-// A batch module: export default {theme, pictures:[{title, theme?, forLevel?, rows:[…top first…]}]}; rows use the
+// A batch module: export default {theme, pictures:[{title, theme?, forLevel?, family, direction?, device?, subject?, source?,
+// reference?, rows:[…top first…]}]} (tags: product/design/Bloomlings-picture-theme-catalog.md); rows use the
 // palette letters GPBACDVYOLMRKNSE, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it.
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
 import {usage,FIXED_VOLUMES,APPROVED,PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag} from './lib.mjs';
@@ -26,13 +29,23 @@ async function load(file){return (await import(pathToFileURL(path.resolve(file))
 function validRows(rows){if(!Array.isArray(rows)||!rows.length)return 'нет строк';const w=rows[0].length;if(rows.some(r=>r.length!==w))return 'строки разной длины';
  const bad=new Set(rows.join('').replace(new RegExp('['+CODES+'.#b]','g'),''));return bad.size?'чужие символы: '+[...bad].join(''):null;}
 function record(entry,seq,batch,version=1,history=[]){const err=validRows(entry.rows);if(err)throw Error(`#${seq} «${entry.title}»: ${err}`);
- const pic={id:pid(seq),seq,version,title:entry.title,theme:entry.theme||batch.theme||null,forLevel:entry.forLevel||seq,w:entry.rows[0].length,h:entry.rows.length,rows:entry.rows,...measure(entry),status:'draft',batch:batch.name||null,createdAt:new Date().toISOString().slice(0,10),history};
+ const pic={id:pid(seq),seq,version,title:entry.title,theme:entry.theme||batch.theme||null,...tagsOf(entry,batch),forLevel:entry.forLevel||seq,w:entry.rows[0].length,h:entry.rows.length,rows:entry.rows,...measure(entry),status:'draft',batch:batch.name||null,createdAt:new Date().toISOString().slice(0,10),history};
  writeJSON(path.join(PICTURES,pic.id+'.json'),pic);return pic;}
-const entryOf=p=>({id:p.id,seq:p.seq,version:p.version,title:p.title,theme:p.theme,forLevel:p.forLevel,w:p.w,h:p.h,N:p.N,colours:p.colours,status:p.status,batch:p.batch,note:p.note||null,usedBy:p.usedBy||null});
+// the theme catalog's tags (product/design/Bloomlings-picture-theme-catalog.md): family (one main theme family),
+// direction (creative direction), device (composition device), subject, source (оригинальный / Bloomlings / сторонняя
+// вселенная / интернет-мем/тренд, with the reference for the last two)
+const THEMES=JSON.parse(fs.readFileSync(new URL('./themes.json',import.meta.url),'utf8'));
+const FAMILIES=new Set([...THEMES.groups.flatMap(g=>g.families.map(f=>f.name)),...THEMES.internet.families]),DIRECTIONS=new Set(THEMES.directions.map(d=>d.name));
+const TAGS=['family','direction','device','subject','source','reference'];
+const tagsOf=(e,b={})=>Object.fromEntries(TAGS.map(k=>[k,e[k]??b[k]??null]).filter(([,v])=>v!==null));
+const entryOf=p=>({id:p.id,seq:p.seq,version:p.version,title:p.title,theme:p.theme,family:p.family||null,direction:p.direction||null,forLevel:p.forLevel,w:p.w,h:p.h,N:p.N,colours:p.colours,status:p.status,batch:p.batch,note:p.note||null,usedBy:p.usedBy||null});
 function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(p);
  if(!fitsStage(m,p.forLevel))issues.push(s.fixed?`уровень ${p.forLevel} требует ${s.fixed}: ${s.cells[0]} клеток, ${s.colours[0]} цв.`:`вне диапазона этапа L${p.forLevel}: ${s.cells.join('–')} клеток, ${s.colours.join('–')} цв.${s.compact?' (или компактная 200–399 / 3–6)':''}`);
  if(m.N>1400)issues.push('больше 1400 клеток — расширенный набор');if(m.colours>11)issues.push('больше 11 цветов — расширенный набор');
  if(!s.fixed&&m.N>=s.cells[0]&&m.N<s.cells[0]+(s.cells[1]-s.cells[0])/4)warn.push(`у нижней границы этапа (${s.cells.join('–')}): целиться ближе к середине`);
+ if(!p.family)warn.push('нет семейства каталога тем (family)');else if(!FAMILIES.has(p.family))warn.push(`семейство «${p.family}» не из каталога тем`);
+ if(p.direction&&!DIRECTIONS.has(p.direction))warn.push(`направление «${p.direction}» не из каталога тем`);
+ if(p.source&&/сторонн|мем|тренд/.test(p.source)&&!p.reference)warn.push('сторонний источник или мем без reference: нужна проверка прав (каталог тем §4, §10)');
  if(m.colours>=10)warn.push('10–11 цветов: не больше 2 в любых 20 уровнях, цвет должен улучшать читаемость');
  for(const [c,v] of Object.entries(m.volumes))if(v<3)warn.push(`цвет ${c} (${PALETTE[c].name}): ${v} кл. — очень маленькая деталь`);
  if(p.w+4>48||p.h+4>48)issues.push('поле с рамкой больше 48×48');
@@ -70,12 +83,12 @@ function publish(){const u=syncUsage(),m=manifest(),pics=m.pictures.filter(e=>e.
  const rows=[];
  for(const p of pics){const mm=measure(p),name=p.id,by=u[p.id]||null,dir=path.join(APPROVED,p.locked?'locked':'pool');
   const stages=p.locked?['L'+p.locked]:BANDS.filter(([,l])=>fitsStage(mm,l)||(stageOf(l).compact&&mm.N>=200&&mm.N<=399)).map(([b])=>b);
-  writeJSON(path.join(dir,name+'.json'),{code:p.id,state:by?'used':'free',usedBy:by,version:p.version,title:p.title,theme:p.theme,locked:p.locked||null,stages,w:p.w,h:p.h,N:mm.N,colours:mm.colours,
+  writeJSON(path.join(dir,name+'.json'),{code:p.id,state:by?'used':'free',usedBy:by,version:p.version,title:p.title,theme:p.theme,...tagsOf(p),locked:p.locked||null,stages,w:p.w,h:p.h,N:mm.N,colours:mm.colours,
    volumes:Object.fromEntries(Object.entries(mm.volumes).sort((a,b)=>b[1]-a[1]).map(([c,v])=>[c,{cells:v,name:PALETTE[c].name,hex:PALETTE[c].color}])),approvedAt:p.decidedAt||null,rows:p.rows});
   fs.writeFileSync(path.join(dir,name+'.png'),picturePng(p));
-  rows.push({key:(p.locked?0:1)+p.id,row:`| **${p.id}** | ${by?'в раунде '+by:'свободна'} | ${p.locked?'закреплена за L'+p.locked:'пул'} | [${p.title}](${p.locked?'locked':'pool'}/${name}.png) | v${p.version} | ${p.w}×${p.h} | ${mm.N} | ${mm.colours} | ${stages.join(', ')||'—'} |`});}
+  rows.push({key:(p.locked?0:1)+p.id,row:`| **${p.id}** | ${by?'в раунде '+by:'свободна'} | ${p.locked?'закреплена за L'+p.locked:'пул'} | [${p.title}](${p.locked?'locked':'pool'}/${name}.png) | ${p.family||'—'} | ${p.direction||'—'} | v${p.version} | ${p.w}×${p.h} | ${mm.N} | ${mm.colours} | ${stages.join(', ')||'—'} |`});}
  rows.sort((a,b)=>a.key.localeCompare(b.key));const nUsed=pics.filter(p=>u[p.id]).length;
- fs.writeFileSync(path.join(APPROVED,'README.md'),`# Approved round pictures\n\nGenerated by \`node tools/rounds/pictures.mjs publish\` (approve, reject, replace and \`levels.mjs place\` run it). Do not edit by\nhand.\n\nEvery picture has a code, \`P####\`: its file name, its JSON's \`code\` and the number on \`sheet.png\`. A code is **free** until a placed\nlevel in \`content/rounds/levels/\` uses it, then **in a round** (\`usedBy\`: the level). Free now: **${pics.length-nUsed}**, in rounds: **${nUsed}**.\n\n- \`locked/P####.*\`: the pictures locked to levels 1–3 (rule 17 §4); only that level may use them.\n- \`pool/P####.*\`: every other approved picture. They are interchangeable between rounds: a code does not assign a\n  level. \`bloomlings-round-levels\` places each one by its measured class and the stage ranges it fits (Stages).\n- \`sheet.png\`: all of them; a green number is free, a grey one is in a round (#N: its level).\n\nEach JSON holds the code, state, matrix (\`rows\`, top first, \`.\` empty), size, cell count, colours and the volume of each\nmaterial.\n\n| Code | State | Use | Picture | Version | Size | Cells | Colours | Stages |\n|---|---|---|---|---|---|---:|---:|---|\n${rows.map(r=>r.row).join('\n')}\n`);
+ fs.writeFileSync(path.join(APPROVED,'README.md'),`# Approved round pictures\n\nGenerated by \`node tools/rounds/pictures.mjs publish\` (approve, reject, replace and \`levels.mjs place\` run it). Do not edit by\nhand.\n\nEvery picture has a code, \`P####\`: its file name, its JSON's \`code\` and the number on \`sheet.png\`. A code is **free** until a placed\nlevel in \`content/rounds/levels/\` uses it, then **in a round** (\`usedBy\`: the level). Free now: **${pics.length-nUsed}**, in rounds: **${nUsed}**.\n\n- \`locked/P####.*\`: the pictures locked to levels 1–3 (rule 17 §4); only that level may use them.\n- \`pool/P####.*\`: every other approved picture. They are interchangeable between rounds: a code does not assign a\n  level. \`bloomlings-round-levels\` places each one by its measured class and the stage ranges it fits (Stages).\n- \`sheet.png\`: all of them; a green number is free, a grey one is in a round (#N: its level).\n\nEach JSON holds the code, state, matrix (\`rows\`, top first, \`.\` empty), size, cell count, colours and the volume of each\nmaterial.\n\n| Code | State | Use | Picture | Family | Direction | Version | Size | Cells | Colours | Stages |\n|---|---|---|---|---|---|---|---|---:|---:|---|\n${rows.map(r=>r.row).join('\n')}\n`);
  if(pics.length){sheet(pics.map(p=>({...p,label:String(p.seq),inUse:u[p.id]||null})),path.join(APPROVED,'sheet.png'),5);fs.rmSync(path.join(APPROVED,'sheet.md'),{force:true});}
  return pics.length;}
 if(cmd==='next'){console.log(nextSeq(manifest()));}
@@ -83,7 +96,7 @@ else if(cmd==='render'){const b=await load(process.argv[3]);const m=manifest();l
  if(m.pictures.some(p=>p.seq>=seq&&p.seq<seq+b.pictures.length))throw Error('номера заняты: используй next или replace');
  b.name=b.name||path.basename(process.argv[3],'.mjs');for(const e of b.pictures){const pic=record(e,seq++,b);m.pictures.push(entryOf(pic));console.log(pic.id,pic.title,`${pic.w}×${pic.h}`,pic.N,'кл.',pic.colours,'цв.');}saveManifest(m);}
 else if(cmd==='replace'){const id=process.argv[3].startsWith('P')?process.argv[3]:pid(+process.argv[3]),b=await load(process.argv[4]),k=+arg('--index',0),old=picture(id);if(!old)throw Error('нет '+id);
- b.name=b.name||path.basename(process.argv[4],'.mjs');const pic=record({forLevel:old.forLevel,...b.pictures[k]},old.seq,b,old.version+1,[...(old.history||[]),{version:old.version,title:old.title,status:old.status,note:old.note||null,rows:old.rows}]);
+ b.name=b.name||path.basename(process.argv[4],'.mjs');const pic=record({forLevel:old.forLevel,...tagsOf(old),...b.pictures[k]},old.seq,b,old.version+1,[...(old.history||[]),{version:old.version,title:old.title,status:old.status,note:old.note||null,rows:old.rows}]);
  const m=manifest();m.pictures=m.pictures.filter(p=>p.id!==id).concat([entryOf(pic)]);saveManifest(m);console.log(pic.id,'v'+pic.version,pic.title,pic.N,'кл.',pic.colours,'цв.');publish();}
 else if(cmd==='check'){let bad=0;for(const id of idsFrom(process.argv.slice(3))){const p=picture(id);if(!p)continue;const r=check(p);if(!r.ok)bad++;
   console.log(`${r.ok?'OK ':'НЕТ'} ${r.id} L${r.forLevel} ${r.N} кл. ${r.colours} цв. (${r.size})${r.issues.length?' — '+r.issues.join('; '):''}${r.warn.length?' · '+r.warn.join('; '):''}`);}if(bad)process.exitCode=1;}
@@ -112,6 +125,10 @@ else if(cmd==='verify'){const b=await load(process.argv[3]),range=v=>v?v.split(/
 else if(cmd==='status'){const u=publish()&&usage(),want=flag('--free')?'free':flag('--used')?'used':null;
  for(const e of manifest().pictures.filter(e=>e.status==='approved')){const p=picture(e.id),by=u[e.id]||null;if(want&&(want==='free')===!!by)continue;
   console.log(e.id,(by?'в раунде '+by:'свободна').padEnd(16),(p.locked?'L'+p.locked+' закреплена':'пул').padEnd(13),String(e.N).padStart(5),'кл.',e.colours,'цв.',e.title);}}
+else if(cmd==='tag'){const ids=idsFrom(process.argv.slice(3).filter((a,i,all)=>!a.startsWith('--')&&!(all[i-1]||'').startsWith('--')));const m=manifest();
+ for(const id of ids){const p=picture(id);if(!p)continue;for(const k of TAGS){const v=arg('--'+k);if(v!==null)p[k]=v;}writeJSON(path.join(PICTURES,id+'.json'),p);
+  m.pictures=m.pictures.filter(x=>x.id!==id).concat([entryOf(p)]);console.log(id,TAGS.map(k=>p[k]?`${k}=${p[k]}`:'').filter(Boolean).join(' · '));}
+ saveManifest(m);publish();}
 else if(cmd==='publish'){console.log('approved/:',publish(),'утверждённых');}
 else if(cmd==='list'){const st=arg('--status');for(const p of manifest().pictures.filter(p=>!st||p.status===st))console.log(p.id,p.status.padEnd(8),`L${p.forLevel}`.padEnd(6),`${p.w}×${p.h}`.padEnd(6),String(p.N).padStart(5),'кл.',p.colours,'цв.',p.usedBy?'→ '+p.usedBy:'',p.title);}
 else{console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}

@@ -5,6 +5,9 @@
  "version": 3,
  "title": "Лисёнок",
  "theme": "animals",
+ "family": "Лесные и горные животные",
+ "subject": "лисёнок",
+ "source": "оригинальный",
  "locked": 1,
  "stages": [
   "L1"

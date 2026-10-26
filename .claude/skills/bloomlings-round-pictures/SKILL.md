@@ -70,14 +70,34 @@ those rules; where this skill and 17 differ, 17 wins.
 1. **Find out what to draw.**
    - How many pictures: the owner's number, or the count of positions in `content/rounds/needs.json` when the owner
      asks for pictures for the needs.
-   - The themes: the owner's themes, else your choice. Vary the subjects (animals, food, plants, objects, scenes)
-     and avoid repeats of recent titles (`pictures.mjs list`).
+   - The themes come from the theme catalog
+     [`product/design/Bloomlings-picture-theme-catalog.md`](../../../product/design/Bloomlings-picture-theme-catalog.md)
+     (the owner's themes first, if they name some). Read its §1 (four levels), §2 (50 families), §3 (24 directions),
+     §5–§9, and §4 / §10 before a franchise or meme picture.
+     - For each picture fill the task card of §8: main family, creative direction (or a simple recognisable object),
+       composition device, subject, character source, meaning centre, 2–3 features that must survive, what not to add,
+       budget crossed with the stage range.
+     - Keep the sequence varied by §7: in any 20 pictures at least 8 families and 4 directions once the set is large
+       enough; one family at most twice in a row; one subject not again within 20; no run of the same container.
+       Check recent tags with `pictures.mjs list` and `content/rounds/approved/README.md`.
+     - Size the idea to the budget of §6: 200–399 cells one object (plus at most one big attribute), 400–699 a hero and
+       an object or two interacting objects, 700–999 a hero, an action and a small piece of setting, 1000–1400 a compact
+       diorama with one centre. If the idea vanishes when simplified, pick another subject; do not inflate the grid.
+     - The first new series after the chosen pictures leans on the six directions of §9: cosy surrealism, worlds inside
+       objects, everyday space, nature and technology, swapped roles, home magic.
+     - Memes and trends (§10): about 1–2 in 20; an exact reference and an own image in a meme direction are different
+       tasks; record the source and a fresh check date; digits that make the meme may be part of the matrix.
+     - Franchises (§4) and memes are references only, not for release, until the owner confirms a basis for use. Never
+       mask someone else's character as an original one.
    - The stages of the target numbers (table above).
    - For needs: match each need's stage and class. A Hard or Super Hard needs a picture that allows dependencies:
      enclosed areas, colours shielded by other colours. A bridge introduction needs a picture with a stream (`#`) and
      two `b` sites.
 2. **Draw the batch as a module**, e.g. `content/rounds/pictures/src/batch-0475.mjs`:
-   - `export default {theme, pictures:[{title, theme?, forLevel?, rows:[...top first...]}]}`.
+   - `export default {theme, pictures:[{title, theme?, forLevel?, family, direction?, device?, subject?, source?,
+     reference?, rows:[...top first...]}]}`. `family` is one of the catalog's families and `direction` one of its
+     directions (the lists are in `tools/rounds/themes.json`); `check` warns about a missing or unknown one, and about a
+     franchise or meme source without `reference`. Tags of existing pictures: `pictures.mjs tag <ids> --family …`.
    - Draw by the skill `bloomlings-board-picture` (the owner's brief of 2026-10-26), in its verified mode: one object,
      flat colour areas, the space round the silhouette left empty (no coloured background), main details at least two
      cells thick. Check each module with `node tools/rounds/pictures.mjs verify <module>` before rendering it.

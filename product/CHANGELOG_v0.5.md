@@ -1,5 +1,9 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner addition · 2026-10-26 — picture theme catalog
+
+- Added [`design/Bloomlings-picture-theme-catalog.md`](design/Bloomlings-picture-theme-catalog.md) (v0.2, the owner's proposal): 50 theme families, 24 creative directions, a franchise list for a separate catalogue with rights checks, internet culture and memes, budgets by cell range, soft variety rules and the task card. Pictures carry its tags (`family`, `direction`, `device`, `subject`, `source`); the picture skills choose subjects from it.
+
 ## Owner amendment · 2026-10-26 — picture size ranges
 
 - Level 1 is the owner's fox cub (181 cells, 3 colours, 128 / 48 / 5) instead of the crown; levels 2–3 keep the ladybug 2C and the bird 3B (the owner's matrices). Its pod split is 26+26+26+25+25; 16+16+16; 5 (§3). The owner dropped the crown's first-open order for L1.

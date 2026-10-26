@@ -5,6 +5,9 @@
  "version": 3,
  "title": "Божья коровка 2C",
  "theme": "animals",
+ "family": "Насекомые и маленькие существа",
+ "subject": "божья коровка",
+ "source": "оригинальный",
  "locked": 2,
  "stages": [
   "L2"

@@ -5,6 +5,9 @@
  "version": 5,
  "title": "Волшебная лампа",
  "theme": "objects",
+ "family": "Магические предметы",
+ "subject": "волшебная лампа",
+ "source": "оригинальный",
  "locked": null,
  "stages": [
   "4–9",

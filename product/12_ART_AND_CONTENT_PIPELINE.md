@@ -1,7 +1,7 @@
 # 12 — Art & Content Pipeline
 
 **Status:** LOCKED (2026-09-29)  
-**Owner amendment · 2026-10-26:** pictures of new rounds are made by the skill `bloomlings-round-pictures` under [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §2.
+**Owner amendment · 2026-10-26:** pictures of new rounds are made by the skill `bloomlings-round-pictures` under [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §2. Their subjects come from the theme catalog [`design/Bloomlings-picture-theme-catalog.md`](design/Bloomlings-picture-theme-catalog.md) (v0.2).
 **Revision 2026-09-29:** picture library and finished-picture reveal (§7, §10, §12–§14; spec `001` FR-006/FR-007).
 **Revision 2026-10-06 (product owner):** pictures of 224–288 cells from Level 11 and up to 22×28 for the rare big
 levels (spec `001` FR-008).

@@ -5,6 +5,9 @@
  "version": 5,
  "title": "Сундук с сокровищами",
  "theme": "objects",
+ "family": "Герои приключений",
+ "subject": "сундук с сокровищами",
+ "source": "оригинальный",
  "locked": null,
  "stages": [
   "4–9",

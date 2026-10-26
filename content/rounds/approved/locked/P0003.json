@@ -5,6 +5,9 @@
  "version": 3,
  "title": "Птичка 3B",
  "theme": "animals",
+ "family": "Птицы",
+ "subject": "птичка на ветке",
+ "source": "оригинальный",
  "locked": 3,
  "stages": [
   "L3"

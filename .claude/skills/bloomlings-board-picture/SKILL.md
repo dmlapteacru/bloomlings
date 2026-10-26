@@ -20,7 +20,7 @@ Fill each from the request. If one is missing, take the default.
 | Parameter | Meaning | Default |
 |---|---|---|
 | Level | the level number | — |
-| Subject | one object, animal or plant | the owner's, or your choice of a varied, clearly recognisable subject |
+| Subject | one object, animal or plant, or a task card of the theme catalog | the owner's, else from the theme catalog `product/design/Bloomlings-picture-theme-catalog.md` (§2 families, §3 directions, §8 card) |
 | Mode | `concept` or `verified` | `verified` |
 | Cells | occupied cells, min–max | the stage range of 17 §2 (L1–L3: their exact counts and volumes, §4) |
 | Target | the wished number of cells | the middle of the range; at times near the top. Never the floor by default |
@@ -40,6 +40,10 @@ Make an attractive silhouette that reads at once, for a calm casual game.
   sparkles or other decor; text or frames inside the board; game mechanics, pods, the queue or slots.
 - **Empty stays empty.** The space round the silhouette and in its holes is empty (`.`). Do not fill the rectangle
   with a coloured background.
+- **Meme exception** (theme catalog §10): digits or a short sign that make the meme itself may be part of the matrix; their
+  cells count like any other. Interface text, captions, watermarks and slogans stay out.
+- Keep the 2–3 features the task card names as must-survive; if they do not survive the simplification, change the
+  composition or the budget, not the caption.
 - Main thin details are preferably at least two cells thick. A meaningful single cell, such as an eye, is fine.
 - Shade with a second material of the same hue family on the far side, such as a darker band under a cap or the shadow
   side of a stem. Use it as a solid area, never as noise.

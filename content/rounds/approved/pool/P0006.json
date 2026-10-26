@@ -5,6 +5,9 @@
  "version": 5,
  "title": "Кроссовок",
  "theme": "objects",
+ "family": "Одежда и аксессуары",
+ "subject": "кроссовок",
+ "source": "оригинальный",
  "locked": null,
  "stages": [
   "4–9",

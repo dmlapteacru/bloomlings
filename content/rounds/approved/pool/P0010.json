@@ -5,6 +5,9 @@
  "version": 5,
  "title": "Дракончик на книге",
  "theme": "animals",
+ "family": "Волшебные существа",
+ "subject": "дракончик на книге",
+ "source": "оригинальный",
  "locked": null,
  "stages": [
   "10–24",

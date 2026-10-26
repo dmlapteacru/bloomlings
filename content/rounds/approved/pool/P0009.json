@@ -5,6 +5,9 @@
  "version": 5,
  "title": "Акустическая гитара",
  "theme": "objects",
+ "family": "Музыка",
+ "subject": "акустическая гитара",
+ "source": "оригинальный",
  "locked": null,
  "stages": [
   "4–9",
