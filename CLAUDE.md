@@ -36,7 +36,8 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   directions, memes and trends, rights checks for franchises; pictures carry its tags `family`, `direction`, `device`,
   `subject`, `source`, listed in `tools/rounds/themes.json`).
   How a picture looks and is counted is the skill `bloomlings-board-picture` (the owner's brief: one object, flat
-  colour areas, empty space round the silhouette, a verified matrix checked by `pictures.mjs verify`). Approved pictures
+  colour areas, empty space round the silhouette or, where it belongs, the subject's natural environment, a verified matrix
+  checked by `pictures.mjs verify`). Approved pictures
   live in one place, `content/rounds/approved/` (generated): `locked/` for levels 1–3, `pool/` for all others, which are
   interchangeable between rounds (a picture's number is no level). Each picture's code `P####` is free or in a round
   (`usedBy`, read from `content/rounds/levels/`; `pictures.mjs status`).

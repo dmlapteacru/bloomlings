@@ -36,10 +36,21 @@ Make an attractive silhouette that reads at once, for a calm casual game.
   palette. The outer contour is stepped.
 - **Use:** one main object; large, clear details; solid colour areas; well separated colours; a clean silhouette that
   reads at game scale.
-- **Do not add:** gradients, textures or random shades inside areas; smooth outlines over the grid; background clouds,
-  sparkles or other decor; text or frames inside the board; game mechanics, pods, the queue or slots.
-- **Empty stays empty.** The space round the silhouette and in its holes is empty (`.`). Do not fill the rectangle
-  with a coloured background.
+- **Do not add:** gradients, textures or random shades inside areas; smooth outlines over the grid; unrelated background
+  decor or sparkle clutter; text or frames inside the board; game mechanics, pods, the queue or slots.
+- **Empty by default, environment where it belongs** (the owner, 2026-10-26). By default the space round the silhouette
+  and in its holes is empty (`.`). Where it makes sense and makes the picture fuller (and above all the board fuller in
+  play), the picture carries the subject's natural environment instead: the sea round a fish or a whale, the deep sea round
+  a bathyscaphe, sky and sea round a lighthouse, a night sky round an owl, space round an astronaut, grass and sky round a
+  grazing animal, an ice rink round a skater.
+  - The environment is part of the work and of the cell count. Its cells count toward the stage range, so shrink the
+    subject until subject plus environment fit (a 30×30 full rectangle is already 900 cells).
+  - Draw it as one to three flat materials in clear areas: a horizon band, a sea and a sky, a ground strip, a round
+    vignette or the full rectangle. A simple regular pattern (wave rows, a few big stars) is fine; noise, gradients and
+    sparkle clutter are not.
+  - Its colours must stand apart from the subject's edge colours, so the silhouette stays the clear centre.
+  - Leave it out where it adds nothing (a cookie, a medallion, a mug), where the subject is its own container (a snow
+    globe, a fishbowl), or where it would push the picture over its range.
 - **Meme exception** (theme catalog §10): digits or a short sign that make the meme itself may be part of the matrix; their
   cells count like any other. Interface text, captions, watermarks and slogans stay out.
 - Keep the 2–3 features the task card names as must-survive; if they do not survive the simplification, change the

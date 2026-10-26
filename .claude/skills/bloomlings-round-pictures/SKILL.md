@@ -99,7 +99,8 @@ those rules; where this skill and 17 differ, 17 wins.
      directions (the lists are in `tools/rounds/themes.json`); `check` warns about a missing or unknown one, and about a
      franchise or meme source without `reference`. Tags of existing pictures: `pictures.mjs tag <ids> --family …`.
    - Draw by the skill `bloomlings-board-picture` (the owner's brief of 2026-10-26), in its verified mode: one object,
-     flat colour areas, the space round the silhouette left empty (no coloured background), main details at least two
+     flat colour areas, the space round the silhouette empty or, where it belongs, the subject's natural environment (the
+     owner, 2026-10-26: sea for fish, sky for a balloon…; its cells count toward the range), main details at least two
      cells thick. Check each module with `node tools/rounds/pictures.mjs verify <module>` before rendering it.
 3. **Write and check.**
    - `node tools/rounds/pictures.mjs render content/rounds/pictures/src/batch-0475.mjs`, then
