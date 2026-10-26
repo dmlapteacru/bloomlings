@@ -68,16 +68,16 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro){const r=rnd
  for(const [c,ds] of Object.entries(byColour)){ds.sort((a,b)=>a-b);const ps=pods.filter(p=>p.color===c);let k=0;for(const p of ps){const slice=ds.slice(k,k+p.count);k+=p.count;p.key=slice.reduce((a,b)=>a+b,0)/slice.length/maxD;}}
  const sigma={Normal:.06,Hard:.16,'Super Hard':.26}[cls];
  for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key+sigma*z;}
- // harder classes, with an intensity drawn per candidate (the measured class decides where a candidate may go):
- // §6.1 an early-needed colour moves deeper, so a place must be kept for it; §6.2 one or two deep colours come back
- // early, so those pods wait in a place until their cells open (a careless tap jams the places)
- if(cls!=='Normal'){const u=cls==='Hard'?.4+1.4*r():.8+1.6*r(),mean=c=>{const ps=pods.filter(p=>p.color===c);return ps.reduce((a,p)=>a+p.key,0)/ps.length;};
-  const cs=Object.keys(byColour).filter(c=>pods.some(p=>p.color===c)).sort((a,b)=>mean(a)-mean(b)),half=Math.ceil(cs.length/2);
-  const early=cs[Math.floor(r()*half)];pods.filter(p=>p.color===early).sort((a,b)=>a.order-b.order).slice(1).forEach(p=>p.order+=.3*u);
-  const deepCs=cs.slice(half).sort(()=>r()-.5).slice(0,cls==='Hard'?1:2);
-  for(const c of deepCs)pods.filter(p=>p.color===c).sort((a,b)=>a.order-b.order).forEach((p,i)=>{if(i%2===0)p.order-=.45*u;});}
+ // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
+ // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
+ // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
+ if(cls!=='Normal'){const t=cls==='Hard'?.25+.65*r():.45+.55*r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  const ord=pods.map((p,i)=>i).sort((a,b)=>pods[a].order-pods[b].order),tray=Array.from({length:cols},()=>[]);
  for(let i=0;i<ord.length;i+=cols){const row=ord.slice(i,i+cols),cs=[...Array(cols).keys()].sort(()=>r()-.5).sort((a,b)=>tray[a].length-tray[b].length);row.forEach((p,j)=>tray[cs[j]].push(p));}
+ // §6: at the start at least one visible launch has reachable work; else the shallowest pod swaps with a column's top
+ const frontier=new Set();for(let i=0;i<g.length;i++)if(CODES.includes(g[i])&&d[i]===0)frontier.add(g[i]);
+ if(!tray.some(st=>st.length&&frontier.has(pods[st[0]].color))){const best=ord.filter(i=>frontier.has(pods[i].color)).sort((a,b)=>pods[a].key-pods[b].key)[0];
+  if(best!==undefined){const c=Math.floor(r()*cols),[bc,bi]=(()=>{for(let k=0;k<cols;k++){const j=tray[k].indexOf(best);if(j>=0)return [k,j];}})();[tray[c][0],tray[bc][bi]]=[tray[bc][bi],tray[c][0]];}}
  const types=recipe==='none'?[]:recipe.split('+'),dz=doses(recipe,cls,pods.length,intro);if(dz.error)return {error:dz.error};
  if(types.includes('links')){const want=dz.links[0]+2*Math.floor(r()*((dz.links[1]-dz.links[0])/2+1)),pairs=[];const used=new Set();
   // pairs of neighbouring columns at the same depth; harder classes prefer a useful-now pod with a later one (§6.3)
@@ -123,8 +123,8 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      bank.candidates.push({id:`${id}-${cls[0]}${recipe}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:rt.cls,intro,recipe,level:c.level,N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
       linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
      found++;}
-    console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');}}
-    bank.searched.push({combo,tried,found,reasons});writeJSON(bankFile,bank);
+    console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
+    bank.searched.push({combo,tried,found,reasons});writeJSON(bankFile,bank);}}
   writeJSON(bankFile,bank);}}
 
 // ---- place: calendar positions from the bank, with the variety rules of §11 and the windows of §2/§13 ----
