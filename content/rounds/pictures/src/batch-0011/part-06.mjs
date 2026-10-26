@@ -44,7 +44,7 @@ function medallion(){
  put(g,'C',[[10,9],[9,10],[10,10]]);               // gem shine
  const tail={18:[4,6],19:[4,7],20:[3,7],21:[3,7],22:[2,6],23:[2,6],24:[1,5],25:[1,5]};
  for(const [y,[a,b]] of Object.entries(tail))for(let x=a;x<=b;x++){if(+y>=24&&x===3)continue;for(const u of [x,21-x])if(g[y][u]==='.')g[y][u]='N';}
- return str(g);
+ return str(trim(g));
 }
 
 // 3. Black cauldron with bubbling green potion, a wooden spoon and big bubbles.
@@ -64,7 +64,7 @@ function cauldron(){
   [circle(17.5,11,1.6),'G'],
   [circle(27,9.5,1.8),'G'],
  ]);
- return str(g);
+ return str(trim(g));
 }
 
 // 4. A friendly white ghost holding out a cup of tea with steam.
@@ -87,7 +87,8 @@ function ghost(){
  put(g,'D',[[9,12],[9,13],[10,12],[10,13],[16,12],[16,13],[17,12],[17,13]]); // eyes
  put(g,'D',[[11,16],[12,17],[13,17],[14,17],[15,16]]); // smile
  put(g,'K',[[7,15],[8,15],[18,15],[19,15]]);      // cheeks
- return str(g);
+ for(let x=0;x<g[0].length;x++)if(g[31][x]!=='.'&&g[31][x-1]==='.'&&g[31][x+1]==='.')g[31][x]='.'; // lone wave tips
+ return str(trim(g));
 }
 
 // 5. Sushi train: a salmon nigiri wagon, a standing maki wagon, a locomotive (rice cab under a tamago roof, lying maki

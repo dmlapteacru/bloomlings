@@ -62,6 +62,26 @@ function astronaut(){
  return str(g);
 }
 
+// 3. An open book with a small round leafy tree growing out of its pages.
+function bookTree(){
+ const sx=19;                                   // the spine
+ const top=x=>{const t=Math.min(1,Math.abs(x-sx)/16);return 29.2-4.6*t+1.4*t*t;};
+ const pages=(x,y)=>Math.abs(x-sx)>16.4?1:Math.max(top(x)-y,y-(top(x)+5.4));
+ const cover=(x,y)=>Math.abs(x-sx)>17.5?1:Math.max(top(x)+1.2-y,y-(top(x)+7.4));
+ const edges=(x,y)=>Math.abs(x-sx)>16.4||Math.abs(x-sx)<2?1:Math.max(top(x)+5.4-y,y-(top(x)+6.5));
+ const gutter=(x,y)=>Math.abs(x-sx)<0.5&&y>top(x)+0.4&&y<top(x)+6?-1:1;
+ const crown=circle(sx,11.6,11.6);
+ const trunk=poly([[sx-1.9,20],[sx+1.9,20],[sx+2.1,27],[sx+4.4,29.6],[sx-4.4,29.6],[sx-2.1,27]]);
+ const apples=union(...[[sx-4.5,8],[sx+5,6.5],[sx+2,13.5],[sx-6.5,15],[sx+7.5,13.5],[sx-1,19]].map(([x,y])=>box(x,y,1,1,0.3)));
+ const g=draw(38,38,1.155,[
+  [cover,'N'],[pages,'C'],[edges,'A'],[gutter,'A'],
+  [trunk,'E'],[meet(trunk,(x,y)=>x-(sx-0.7)),'A'],
+  [crown,'G'],[cut(crown,circle(sx-1.7,9.9,11.6)),'M'],[meet(crown,union(circle(sx-5.5,5.5,2.3),circle(sx-8.3,10,1.5),circle(sx-1.5,3,1.5))),'L'],
+  [meet(crown,apples),'R'],
+ ]);
+ return str(g);
+}
+
 // 5. Round cookie with chocolate chips and a bite out of its upper right.
 function cookie(){
  const cx=11,cy=11.5,r=10.4,bite=union(circle(20.6,7.0,3.4),circle(16.8,2.4,3.4));
@@ -81,5 +101,6 @@ function cookie(){
 export default {theme:'batch-0011',pictures:[
  {title:'Клубок с вязанием',forLevel:41,family:'Рисование и ремёсла',device:'простой предмет',subject:'клубок пряжи со спицами',source:'оригинальный',rows:yarn()},
  {title:'Космонавт поливает цветок на астероиде',forLevel:42,family:'Космос',direction:'Космическая повседневность',subject:'космонавт поливает цветок на астероиде',source:'оригинальный',rows:astronaut()},
+ {title:'Книга выращивает дерево',forLevel:43,family:'Книги, учёба и открытия',direction:'Домашняя магия',subject:'из страниц раскрытой книги растёт дерево',source:'оригинальный',rows:bookTree()},
  {title:'Печенье с шоколадом',forLevel:45,family:'Хлеб и выпечка',device:'простой предмет',subject:'печенье с шоколадной крошкой',source:'оригинальный',rows:cookie()},
 ]};

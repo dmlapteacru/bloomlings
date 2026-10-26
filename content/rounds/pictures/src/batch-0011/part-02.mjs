@@ -3,10 +3,12 @@ import {circle,ellipse,box,poly,union,cut,meet} from '../../../../../tools/gamep
 import {raster,fit,str,put,ring4,scale,seg} from '../helpers.mjs';
 const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map(([s,c])=>[scale(k,s),typeof c==='function'?(x,y,u)=>c(x/k,y/k,u):c]));
 const rot=(shape,a,cx,cy)=>{const c=Math.cos(a),s=Math.sin(a);return (x,y)=>{const dx=x-cx,dy=y-cy;return shape(cx+dx*c+dy*s,cy-dx*s+dy*c);};};
+const trim=rows=>{const has=r=>/[^.]/.test(r);while(!has(rows[0]))rows.shift();while(!has(rows[rows.length-1]))rows.pop();
+ let a=0,b=rows[0].length;while(rows.every(r=>r[a]==='.'))a++;while(rows.every(r=>r[b-1]==='.'))b--;return rows.map(r=>r.slice(a,b));};
 const hand=(g,rows,ox,oy)=>{rows.forEach((r,j)=>[...r].forEach((c,i)=>{if(c!==' ')g[oy+j][ox+i]=c;}));return g;};
 
 function pineapple(){const W=26,H=42,cx=13,cy=27.5;
- const body=ellipse(cx,cy,11.2,13.6);
+ const body=ellipse(cx,cy,10.8,13.3);
  const L1=poly([[13,-.2],[16.2,7],[15.6,16],[10.4,16],[9.8,7]]);             // middle
  const L2=poly([[4.6,2.2],[10,7],[13.4,16],[9,16.4],[5.6,9]]);               // left
  const L3=poly([[21.4,2.2],[16,7],[12.6,16],[17,16.4],[20.4,9]]);            // right
@@ -23,12 +25,10 @@ function ramen(){const W=42,H=31,cx=20,rimY=12;
  const soup=ellipse(cx,rimY,17.4,6.2),bed=ellipse(cx,rimY+.3,15.4,5);
  const chop1=seg(41.2,.6,16,12.4,.75),chop2=seg(41.2,3.6,14.4,13.6,.75);
  const egg=ellipse(27.4,11.6,4.7,3.7),yolk=ellipse(27.7,11.8,2.5,1.9);
- const naruto=ellipse(12.6,11.4,4.4,3.4);
- const swirl=(x,y)=>{const dx=x-12.6,dy=(y-11.4)*1.3,r=Math.hypot(dx,dy),a=Math.atan2(dy,dx);const t=((r-a*0.5)%2.8+2.8)%2.8;return (r<3.6&&r>.4&&t<1.2)||r<.9?-1:1;};
  const noodle=(x,y)=>{const v=((y+Math.round(Math.sin(x*0.85)*0.9))%3+3)%3;return v===0?'A':'Y';};
- const g=raster(W,H,'.',[[foot,'N'],[bowlLow,'B'],[meet(bowlLow,(x,y)=>rimY+9.6-y),'N'],[outer,'N'],
+ const g=raster(W,H,'.',[[foot,'N'],[bowlLow,'B'],[outer,'N'],
   [soup,'A'],[bed,noodle],[egg,'C'],[yolk,'O'],[chop1,'E'],[chop2,'E']]);
- hand(g,['.CCCCCCC.','CCPPPPPCC','CPCCCCCPC','CPCPPPCPC','CPCPCCCPC','CCCPPPPCC','.CCCCCCC.'],8,8);
+ hand(g,[' CCCCCCC ','CCPPPPPCC','CPCCCCCPC','CPCPPPCPC','CPCPCCCPC','CCCPPPPCC',' CCCCCCC '],8,8);
  return str(g);}
 
 function cloudChair(){const W=35,H=33;
@@ -40,18 +40,18 @@ function cloudChair(){const W=35,H=33;
  const g=raster(W,H,'.',[[legs,'E'],[back,'O'],[front,'A'],[seat,'O'],[armL,'A'],[armR,'A']]);
  // the cloud by spans [row, from, to, ...]: four puffs on top with notches between, round sides, a sky-blue shade
  const spans=[[3,12,16],[4,11,17],[5,10,18,21,23],[6,10,18,20,24],[7,10,25],[8,6,8,10,25,27,28],[9,5,8,10,25,27,29],[10,5,29],
-  [11,4,30],[12,4,30],[13,4,30],[14,3,31],[15,3,31],[16,3,31],[17,3,31],[18,4,30],[19,4,30],[20,4,30],[21,5,29],[22,7,27]];
+  [11,5,29],[12,5,29],[13,5,29],[14,4,30],[15,4,30],[16,4,30],[17,4,30],[18,5,29],[19,5,29],[20,5,29],[21,6,28],[22,7,27]];
  for(const [y,...r] of spans){for(let i=0;i<r.length;i+=2)for(let x=r[i];x<=r[i+1];x++)g[y][x]=y>=20?'S':'C';
   const e=r[r.length-1];if(y>=9&&y<20){g[y][e]='S';g[y][e-1]='S';}}
  put(g,'D',[[11,14],[12,15],[13,15],[14,14],[20,14],[21,15],[22,15],[23,14],[16,17],[17,17],[18,17]]);
  put(g,'K',[[9,16],[10,16],[24,16],[25,16]]);
  return g;}
 
-function skateboard(){const W=44,H=37,a=-0.6,cx=21.5,cy=18,hh=6.3,L=21.4;
+function skateboard(){const W=44,H=37,a=-0.6,cx=21.5,cy=18,hh=5.9,L=21;
  // seen from above, turned on the board: the deck in its own frame (u along, v across), wheels peeking out at its sides
  const place=(sh)=>(x,y)=>{const c=Math.cos(a),s=Math.sin(a),dx=x-cx,dy=y-cy;return sh(dx*c+dy*s,-dx*s+dy*c);};
  const deck=place(box(0,0,L,hh,hh)),rim=(x,y)=>Math.max(deck(x,y),-1-deck(x,y));
- const wheels=place(union(...[-14,14].flatMap(u=>[-1,1].map(sv=>box(u,sv*(hh+1.6),2.8,2.4,1)))));
+ const wheels=place(union(...[-14,14].flatMap(u=>[-1,1].map(sv=>circle(u,sv*(hh+1.3),2.7)))));
  const side=(x,y)=>deck(x-.9,y-1.6);
  const bolt=place(poly([[-15,3],[.8,-4.8],[-1.2,-.9],[15.5,-3],[-.8,4.8],[1.2,.9]]));
  const g=raster(W,H,'.',[[wheels,'O'],[side,'D'],[deck,'B'],[rim,'N'],[bolt,'Y']]);
@@ -74,17 +74,16 @@ function robotFlower(){const W=44,H=37;
  const leafL=ellipse(35,26.4,2.3,1.2),leafR=ellipse(40,25.6,2.3,1.2);
  const P=[0,1,2,3,4].map(i=>{const t=-Math.PI/2+i*2*Math.PI/5;return circle(37.5+Math.cos(t)*2.9,22.4+Math.sin(t)*2.9,2.1);});
  const petals=union(...P),centre=circle(37.5,22.4,1.6);
- const g=raster(W,H,'.',[[legs,'B'],[antenna,'B'],[bulb,'O'],[ear,'B'],[head,'S'],[meet(head,(x,y)=>x-14+(y-10)*.4>0?-1:1),'B'],
+ const g=draw(W,H,1.05,[[legs,'B'],[antenna,'B'],[bulb,'O'],[ear,'B'],[head,'S'],[meet(head,(x,y)=>x-14+(y-10)*.4>0?-1:1),'B'],
   [visor,'D'],[neck,'B'],[armL,'B'],[body,'S'],[meet(body,(x,y)=>15.5-x),'B'],[panel,'B'],
   [handle,'O'],[spout,'O'],[rose,'O'],[can,'O'],[armR,'B'],
   [drops,'B'],[stem,'G'],[leafL,'G'],[leafR,'G'],[petals,'P'],[centre,'Y'],[pot,'A'],[potRim,'A']]);
- put(g,'S',[[8,10],[9,10],[13,10],[14,10]]);
  return str(g);}
 
 export default {theme:'batch-0011',pictures:[
- {title:'Ананас',forLevel:16,family:'Фрукты и ягоды',subject:'ананас с короной листьев',source:'оригинальный',rows:pineapple()},
- {title:'Рамен',forLevel:17,family:'Блюда и напитки',subject:'миска рамена с яйцом, нарутомаки и палочками',source:'оригинальный',rows:ramen()},
- {title:'Облако спит в кресле',forLevel:18,family:'Мебель и уютные уголки',direction:'Уютный сюрреализм',subject:'спящее облако в кресле',source:'оригинальный',rows:str(cloudChair())},
- {title:'Скейтборд',forLevel:19,family:'Спорт и активные игры',subject:'скейтборд с молнией на деке',source:'оригинальный',rows:skateboard()},
- {title:'Робот поливает цветок',forLevel:20,family:'Роботы и механизмы',direction:'Природа и технология',subject:'робот с лейкой поливает цветок в горшке',source:'оригинальный',rows:robotFlower()},
+ {title:'Ананас',forLevel:16,family:'Фрукты и ягоды',subject:'ананас с короной листьев',source:'оригинальный',rows:trim(pineapple())},
+ {title:'Рамен',forLevel:17,family:'Блюда и напитки',subject:'миска рамена с яйцом, нарутомаки и палочками',source:'оригинальный',rows:trim(ramen())},
+ {title:'Облако спит в кресле',forLevel:18,family:'Мебель и уютные уголки',direction:'Уютный сюрреализм',subject:'спящее облако в кресле',source:'оригинальный',rows:trim(str(cloudChair()))},
+ {title:'Скейтборд',forLevel:19,family:'Спорт и активные игры',subject:'скейтборд с молнией на деке',source:'оригинальный',rows:trim(skateboard())},
+ {title:'Робот поливает цветок',forLevel:20,family:'Роботы и механизмы',direction:'Природа и технология',subject:'робот с лейкой поливает цветок в горшке',source:'оригинальный',rows:trim(robotFlower())},
 ]};

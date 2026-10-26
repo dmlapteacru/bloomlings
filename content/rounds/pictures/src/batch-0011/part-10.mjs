@@ -5,6 +5,8 @@ const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map
 // a colour that turns to `dark` in a band of width s on the far (lower right) side of shape f
 const shade=(f,lit,dark,s=1.6,dx=1,dy=1)=>(x,y)=>f(x+.5+s*dx,y+.5+s*dy)>=0?dark:lit;
 const seg=(x1,y1,x2,y2,r)=>(x,y)=>{const ex=x2-x1,ey=y2-y1,t=Math.max(0,Math.min(1,((x-x1)*ex+(y-y1)*ey)/(ex*ex+ey*ey)));return Math.hypot(x-x1-ex*t,y-y1-ey*t)-r;};
+// arc length along a polyline of the point nearest (x,y)
+const along=(pts,x,y)=>{let best=1e9,at=0,acc=0;for(let i=1;i<pts.length;i++){const [ax,ay]=pts[i-1],[bx,by]=pts[i],ex=bx-ax,ey=by-ay,L=Math.hypot(ex,ey),t=Math.max(0,Math.min(1,((x-ax)*ex+(y-ay)*ey)/(L*L))),d=Math.hypot(x-ax-ex*t,y-ay-ey*t);if(d<best){best=d;at=acc+t*L;}acc+=L;}return at;};
 const rows=(g,list)=>{for(const [y,x,s] of list)for(let i=0;i<s.length;i++)if(s[i]!==' ')g[y][x+i]=s[i];return g;};
 
 // 1. «6–7»: two chunky block digits as characters with faces and stubby legs; the 6 shrugs.
@@ -60,8 +62,8 @@ function raccoon(){
  const ears=union(poly([[6.6,9.5],[7.6,1.8],[13.4,5.6]]),poly([[25.4,9.5],[24.4,1.8],[18.6,5.6]]));
  const inEars=union(poly([[8.6,7.6],[9,4.4],[11.6,6]]),poly([[23.4,7.6],[23,4.4],[20.4,6]]));
  const body=ellipse(16,29,10.4,9);
- const tailPath=union(seg(22,35.5,29,34,3.2),seg(29,34,33.4,27.5,3.4),seg(33.4,27.5,33,19.5,3.3),circle(32.4,17.6,2.9));
- const tailCol=(x,y)=>{const t=Math.atan2(y+.5-28,x+.5-25);if(y<16)return 'D';return Math.floor((t+3.2)/.42)%2?'D':'A';};
+ const tailPath=union(seg(25,34.4,30.6,31.4,3),seg(30.6,31.4,32,18.6,3.5),circle(31.8,17.2,3.2));
+ const tailCol=(x,y)=>y<17?'D':Math.floor((y-17)/3)%2?'A':'D';
  const scarf=union(box(16,19.8,9.6,1.9,1.4),box(21.6,25.5,2.3,5,.6));
  const scarfCol=(x,y)=>y>=22?(Math.floor(y/2)%2?'R':'Y'):(Math.floor(x/2)%2?'R':'Y');
  const g=raster(38,39,'.',[[tailPath,tailCol],[ears,'A'],[inEars,'K'],[body,shade(body,'A','E',1.8,1,.3)],
@@ -70,9 +72,8 @@ function raccoon(){
   [union(ellipse(11.2,12.4,4.2,2.4),ellipse(20.8,12.4,4.2,2.4),box(16,10,1,3)),'D'],
   [ellipse(16,16.2,5,2.8),'C'],[scarf,scarfCol],[union(ellipse(12.2,27,2,1.5),ellipse(16.2,27.4,2,1.5)),'D']]);
  rows(g,[
-  [12,10,'C'],[12,21,'C'],[11,10,'CC'],[11,20,'CC'],
+  [11,10,'CC'],[12,10,'CD'],[11,20,'CC'],[12,20,'DC'],
   [14,15,'DD'],[15,15,'DD'],[16,14,'D'],[16,17,'D'],[17,15,'DD'],
-  [31,20,'YYYYY'],[32,20,'R.R.R'],
  ]);
  return str(g);}
 
