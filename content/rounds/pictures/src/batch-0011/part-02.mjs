@@ -23,7 +23,7 @@ function ramen(){const W=42,H=31,cx=20,rimY=12;
  const bowlLow=meet(ellipse(cx,rimY,19.5,15),(x,y)=>rimY-y);
  const foot=box(cx,27.6,7.5,1.6,.6);
  const soup=ellipse(cx,rimY,17.4,6.2),bed=ellipse(cx,rimY+.3,15.4,5);
- const chop1=seg(41.2,.6,16,12.4,.75),chop2=seg(41.2,3.6,14.4,13.6,.75);
+ const chop1=seg(41.2,.6,21,10.2,.75),chop2=seg(41.2,3.6,19.6,11.6,.75);
  const egg=ellipse(27.4,11.6,4.7,3.7),yolk=ellipse(27.7,11.8,2.5,1.9);
  const noodle=(x,y)=>{const v=((y+Math.round(Math.sin(x*0.85)*0.9))%3+3)%3;return v===0?'A':'Y';};
  const g=raster(W,H,'.',[[foot,'N'],[bowlLow,'B'],[outer,'N'],
@@ -32,17 +32,19 @@ function ramen(){const W=42,H=31,cx=20,rimY=12;
  return str(g);}
 
 function cloudChair(){const W=35,H=33;
- const back=box(17.5,11.4,12.3,10.4,5.4);
+ const back=box(17.5,11.4,13.4,10.4,5.6);
  const armL=box(5,20.2,4.4,6.8,3),armR=box(30,20.2,4.4,6.8,3);
  const seat=box(17.5,24.6,11.4,3.4,1.6);
  const front=box(17.5,27.8,15,2.2,1.2);
  const legs=union(box(5,31.2,1.3,1.6,.3),box(30,31.2,1.3,1.6,.3));
  const g=raster(W,H,'.',[[legs,'E'],[back,'O'],[front,'A'],[seat,'O'],[armL,'A'],[armR,'A']]);
- // the cloud by spans [row, from, to, ...]: four puffs on top with notches between, round sides, a sky-blue shade
- const spans=[[3,12,16],[4,11,17],[5,10,18,21,23],[6,10,18,20,24],[7,10,25],[8,6,8,10,25,27,28],[9,5,8,10,25,27,29],[10,5,29],
-  [11,5,29],[12,5,29],[13,5,29],[14,4,30],[15,4,30],[16,4,30],[17,4,30],[18,5,29],[19,5,29],[20,5,29],[21,6,28],[22,7,27]];
- for(const [y,...r] of spans){for(let i=0;i<r.length;i+=2)for(let x=r[i];x<=r[i+1];x++)g[y][x]=y>=20?'S':'C';
-  const e=r[r.length-1];if(y>=9&&y<20){g[y][e]='S';g[y][e-1]='S';}}
+ // the cloud by spans [row, from, to, ...]: four puffs on top with notches between, round sides, a scalloped
+ // sky-blue belly that rests on the seat
+ const spans=[[3,12,16],[4,11,17],[5,10,18,21,23],[6,10,18,20,24],[7,10,18,20,25],[8,7,8,10,25,27,28],[9,6,8,10,25,27,28],[10,6,28],
+  [11,6,28],[12,6,28],[13,5,29],[14,5,29],[15,5,29],[16,5,29],[17,5,29],[18,5,29],[19,5,29],[20,5,29],[21,6,28],[22,6,10,13,20,23,28],[23,7,9,14,19,24,27]];
+ const belly=[[18,5,6],[18,28,29],[19,5,8],[19,26,29],[20,5,29],[21,6,28],[22,6,28],[23,7,27]];
+ for(const [y,...r] of spans)for(let i=0;i<r.length;i+=2)for(let x=r[i];x<=r[i+1];x++)g[y][x]='C';
+ for(const [y,a,b] of belly)for(let x=a;x<=b;x++)if(g[y][x]==='C')g[y][x]='S';
  put(g,'D',[[11,14],[12,15],[13,15],[14,14],[20,14],[21,15],[22,15],[23,14],[16,17],[17,17],[18,17]]);
  put(g,'K',[[9,16],[10,16],[24,16],[25,16]]);
  return g;}
@@ -54,7 +56,7 @@ function skateboard(){const W=44,H=37,a=-0.6,cx=21.5,cy=18,hh=5.9,L=21;
  const wheels=place(union(...[-14,14].flatMap(u=>[-1,1].map(sv=>circle(u,sv*(hh+1.3),2.7)))));
  const side=(x,y)=>deck(x-.9,y-1.6);
  const bolt=place(poly([[-15,3],[.8,-4.8],[-1.2,-.9],[15.5,-3],[-.8,4.8],[1.2,.9]]));
- const g=raster(W,H,'.',[[wheels,'O'],[side,'D'],[deck,'B'],[rim,'N'],[bolt,'Y']]);
+ const g=raster(W,H,'.',[[side,'D'],[wheels,'O'],[deck,'B'],[rim,'N'],[bolt,'Y']]);
  return str(g);}
 
 function robotFlower(){const W=44,H=37;
@@ -71,13 +73,14 @@ function robotFlower(){const W=44,H=37;
  const drops=union(box(36,13.8,.9,1.1),box(38.6,15.4,.9,1.1),box(34.2,16.4,.9,1.1));
  const pot=poly([[32.6,29.2],[42.4,29.2],[41.2,36.4],[33.8,36.4]]),potRim=box(37.5,29.4,5.4,1.3,.4);
  const stem=box(37.5,25.6,.65,3.6);
- const leafL=ellipse(35,26.4,2.3,1.2),leafR=ellipse(40,25.6,2.3,1.2);
+ const leafL=ellipse(34.8,26.6,2.7,1.3),leafR=ellipse(40.2,25.8,2.7,1.3);
  const P=[0,1,2,3,4].map(i=>{const t=-Math.PI/2+i*2*Math.PI/5;return circle(37.5+Math.cos(t)*2.9,22.4+Math.sin(t)*2.9,2.1);});
  const petals=union(...P),centre=circle(37.5,22.4,1.6);
- const g=draw(W,H,1.05,[[legs,'B'],[antenna,'B'],[bulb,'O'],[ear,'B'],[head,'S'],[meet(head,(x,y)=>x-14+(y-10)*.4>0?-1:1),'B'],
-  [visor,'D'],[neck,'B'],[armL,'B'],[body,'S'],[meet(body,(x,y)=>15.5-x),'B'],[panel,'B'],
+ const g=draw(W,H,1.05,[[legs,'B'],[antenna,'B'],[bulb,'O'],[ear,'B'],[head,'S'],
+  [visor,'D'],[neck,'B'],[armL,'B'],[body,'S'],[panel,'B'],
   [handle,'O'],[spout,'O'],[rose,'O'],[can,'O'],[armR,'B'],
   [drops,'B'],[stem,'G'],[leafL,'G'],[leafR,'G'],[petals,'P'],[centre,'Y'],[pot,'A'],[potRim,'A']]);
+ put(g,'S',[[8,10],[9,10],[13,10],[14,10],[8,11],[9,11],[13,11],[14,11]]);
  return str(g);}
 
 export default {theme:'batch-0011',pictures:[

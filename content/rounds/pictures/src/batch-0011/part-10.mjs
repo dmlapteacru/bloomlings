@@ -63,17 +63,36 @@ function raccoon(){
  const inEars=union(poly([[8.6,7.6],[9,4.4],[11.6,6]]),poly([[23.4,7.6],[23,4.4],[20.4,6]]));
  const body=ellipse(16,29,10.4,9);
  const tailPath=union(seg(25,34.4,30.6,31.4,3),seg(30.6,31.4,32,18.6,3.5),circle(31.8,17.2,3.2));
- const tailCol=(x,y)=>y<17?'D':Math.floor((y-17)/3)%2?'A':'D';
+ const tailCol=(x,y)=>y<16?'D':Math.floor((y-16)/3)%2?'D':'A';
  const scarf=union(box(16,19.8,9.6,1.9,1.4),box(21.6,25.5,2.3,5,.6));
  const scarfCol=(x,y)=>y>=22?(Math.floor(y/2)%2?'R':'Y'):(Math.floor(x/2)%2?'R':'Y');
  const g=raster(38,39,'.',[[tailPath,tailCol],[ears,'A'],[inEars,'K'],[body,shade(body,'A','E',1.8,1,.3)],
   [ellipse(16,31,6.2,6.6),'C'],[ellipse(10.4,37.2,3.2,1.6),'D'],[ellipse(21.6,37.2,3.2,1.6),'D'],
   [head,'A'],[union(ellipse(11.4,9,3.4,1.4),ellipse(20.6,9,3.4,1.4)),'C'],
   [union(ellipse(11.2,12.4,4.2,2.4),ellipse(20.8,12.4,4.2,2.4),box(16,10,1,3)),'D'],
-  [ellipse(16,16.2,5,2.8),'C'],[scarf,scarfCol],[union(ellipse(12.2,27,2,1.5),ellipse(16.2,27.4,2,1.5)),'D']]);
+  [ellipse(16,16.2,5,2.8),'C'],[scarf,scarfCol],[union(ellipse(11.4,27,1.8,1.4),ellipse(17,27,1.8,1.4)),'D']]);
  rows(g,[
   [11,10,'CC'],[12,10,'CD'],[11,20,'CC'],[12,20,'DC'],
   [14,15,'DD'],[15,15,'DD'],[16,14,'D'],[16,17,'D'],[17,15,'DD'],
+ ]);
+ return str(g);}
+
+// 4. «Сердитое облачко с зонтом»: a grumpy rain cloud holds a red umbrella over itself; its own drops fall below.
+function grumpyCloud(){
+ const ribs=[1,9,17,25,33],cy=14;
+ let canopy=meet(ellipse(17,cy,16,11.2),(x,y)=>y-cy);
+ for(let i=0;i<4;i++){const m=(ribs[i]+ribs[i+1])/2;canopy=cut(canopy,circle(m,17.6,5.5));}
+ const panel=(x,y)=>{const t=Math.atan2(x+.5-17,cy+2-(y+.5));return t>-1.12&&t<-.36?'K':'R';};
+ const cloud=union(circle(8.4,27.6,5.2),circle(14.2,23.6,6.2),circle(21.4,23.2,6.4),circle(27.4,27.4,5.2),box(17.6,29.6,13,3.4,3.2));
+ const shaft=union(box(17,10,1,7.6),box(17,2.2,.6,1.4));
+ const drop=(x,y)=>union(circle(x,y,1.9),poly([[x-1.7,y-.7],[x,y-4.4],[x+1.7,y-.7]]));
+ const g=raster(35,41,'.',[[shaft,'D'],[canopy,panel],[cloud,shade(cloud,'S','B',2.2,0,1)],
+  [union(drop(9,37.2),drop(17.6,38.6),drop(26.4,37.2)),'N']]);
+ rows(g,[
+  // grumpy face: brows slanting down to the middle, eyes, a frown
+  [21,10,'DD'],[22,12,'DD'],[21,23,'DD'],[22,21,'DD'],
+  [24,11,'DDD'],[25,11,'DDD'],[24,21,'DDD'],[25,21,'DDD'],
+  [28,15,'DDDDD'],[29,14,'D'],[29,20,'D'],
  ]);
  return str(g);}
 
@@ -83,4 +102,6 @@ export default {theme:'batch-0011',pictures:[
  {title:'Мастерская в ореховой скорлупе',forLevel:57,family:'Кафе и мастерские',direction:'Миниатюрные мастерские',
   subject:'мастерская в половинке грецкого ореха',source:'оригинальный',rows:walnutShop()},
  {title:'Енот в шарфе',forLevel:58,family:'Лесные и горные животные',subject:'енот в полосатом шарфе',source:'оригинальный',rows:raccoon()},
+ {title:'Сердитое облачко с зонтом',forLevel:59,family:'Времена года и погода',direction:'Театр эмоций',
+  subject:'хмурая дождевая тучка под красным зонтом',source:'оригинальный',rows:grumpyCloud()},
 ]};

@@ -64,21 +64,23 @@ function astronaut(){
 
 // 3. An open book with a small round leafy tree growing out of its pages.
 function bookTree(){
- const sx=19;                                   // the spine
- const top=x=>{const t=Math.min(1,Math.abs(x-sx)/16);return 29.2-4.6*t+1.4*t*t;};
- const pages=(x,y)=>Math.abs(x-sx)>16.4?1:Math.max(top(x)-y,y-(top(x)+5.4));
- const cover=(x,y)=>Math.abs(x-sx)>17.5?1:Math.max(top(x)+1.2-y,y-(top(x)+7.4));
- const edges=(x,y)=>Math.abs(x-sx)>16.4||Math.abs(x-sx)<2?1:Math.max(top(x)+5.4-y,y-(top(x)+6.5));
- const gutter=(x,y)=>Math.abs(x-sx)<0.5&&y>top(x)+0.4&&y<top(x)+6?-1:1;
- const crown=circle(sx,11.6,11.6);
- const trunk=poly([[sx-1.9,20],[sx+1.9,20],[sx+2.1,27],[sx+4.4,29.6],[sx-4.4,29.6],[sx-2.1,27]]);
- const apples=union(...[[sx-4.5,8],[sx+5,6.5],[sx+2,13.5],[sx-6.5,15],[sx+7.5,13.5],[sx-1,19]].map(([x,y])=>box(x,y,1,1,0.3)));
- const g=draw(38,38,1.155,[
-  [cover,'N'],[pages,'C'],[edges,'A'],[gutter,'A'],
-  [trunk,'E'],[meet(trunk,(x,y)=>x-(sx-0.7)),'A'],
-  [crown,'G'],[cut(crown,circle(sx-1.7,9.9,11.6)),'M'],[meet(crown,union(circle(sx-5.5,5.5,2.3),circle(sx-8.3,10,1.5),circle(sx-1.5,3,1.5))),'L'],
-  [meet(crown,apples),'R'],
+ const sx=21.5;                                 // the spine (between columns 21 and 22)
+ const T=x=>Math.min(1,Math.abs(x-sx)/19.5);
+ const top=x=>{const t=T(x);return 33.4-6.2*Math.sin(t*Math.PI*0.62)/Math.sin(Math.PI*0.62)+0.3*t;},bot=x=>39.6-2.4*T(x);
+ const inBook=(x,w)=>Math.abs(x-sx)<w;
+ const pages=(x,y)=>inBook(x,19.6)?Math.max(top(x)-y,y-bot(x)):1;
+ const edges=(x,y)=>inBook(x,19.6)?Math.max(bot(x)-y,y-(bot(x)+1.1)):1;
+ const cover=(x,y)=>inBook(x,20.6)?Math.max(top(x)+1.5-y,y-(bot(x)+2.7)):1;
+ const fold=(x,y)=>Math.abs(x-sx)<0.6&&y>top(x)?-1:1;
+ const crown=ellipse(sx,12.2,13.4,12);
+ const stem=poly([[sx-2.2,21],[sx+2.2,21],[sx+2.2,30],[sx+4.6,33.8],[sx-4.6,33.8],[sx-2.2,30]]);
+ const g=raster(44,44,'.',[
+  [cover,'N'],[pages,'C'],[edges,'A'],[fold,'A'],
+  [stem,'E'],[meet(stem,(x,y)=>x-(sx-0.6)),'A'],
+  [crown,'G'],[cut(crown,ellipse(sx-1.8,10.4,13.4,12)),'M'],[meet(crown,union(circle(sx-6.5,5.8,2.5),circle(sx-9.5,11,1.6),circle(sx-1.5,2.8,1.6))),'L'],
  ]);
+ const apples=[[17,9],[28,6],[25,15],[12,16],[31,13],[20,20]];
+ for(const [x,y] of apples)put(g,'R',[[x,y],[x+1,y],[x,y+1],[x+1,y+1]]);
  return str(g);
 }
 
