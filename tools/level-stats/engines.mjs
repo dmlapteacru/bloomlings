@@ -12,7 +12,14 @@ function copy(commit,dir,cf){
  if(cf){const old="if(group.some(p=>!heads.includes(p)))return 'partner-not-exposed';",
   rule="if(group.some(p=>!heads.includes(p)&&!state.level.tray.some((stack,c)=>{const at=stack.indexOf(p);return at>=state.heads[c]&&stack.slice(state.heads[c],at).every(q=>group.includes(q));})))return 'partner-not-exposed';";
   if(a.split(old).length!==2)throw Error('link rule moved');a=a.replace(old,rule);}
- fs.writeFileSync(p,a);return d;}
+ fs.writeFileSync(p,a);
+ // the speed knobs of the calibration (cf-engine has them too); a level without them plays as the pilot does
+ const t=d+'/timeline.cjs';let b=fs.readFileSync(t,'utf8');
+ const knobs=[["gap=tailOf(s)?TAIL.departureGap:PROFILE.departureGap;","gk=s.level.gapScale||1,tk=s.level.tripScale||1,ak=s.level.actScale??tk,gap=(tailOf(s)?TAIL.departureGap:PROFILE.departureGap)*gk;"],
+  ["arrive=start+Math.max(PROFILE.minOut,distance*PROFILE.outPerCell),clear=arrive+PROFILE.act,done=clear+Math.max(PROFILE.minReturn,distance*PROFILE.returnPerCell);","arrive=start+Math.max(PROFILE.minOut,distance*PROFILE.outPerCell)*tk,clear=arrive+PROFILE.act*ak,done=clear+Math.max(PROFILE.minReturn,distance*PROFILE.returnPerCell)*tk;"],
+  ["type:'release',at:this.now+PROFILE.releaseLag,","type:'release',at:this.now+(s.level.releaseLagMs??PROFILE.releaseLag),"]];
+ for(const [x,y] of knobs){if(b.split(x).length!==2)throw Error('timeline moved in '+dir);b=b.replace(x,y);}
+ fs.writeFileSync(t,b);return d;}
 export async function engine(set){
  if(cache.has(set))return cache.get(set);
  const d=set==='v9'?copy(null,'tools/gameplay-pilot-v9',false):set==='CF'?path.join(root,'tools/level-stats/cf-engine'):copy(V8E_COMMIT,'tools/gameplay-pilot-v8e',false);

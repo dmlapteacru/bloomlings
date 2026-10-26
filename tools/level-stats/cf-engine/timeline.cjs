@@ -14,7 +14,8 @@
  const tailOf=s=>R.queueEmpty(s)&&(!s.level.hero||s.bridge>=0);
  const fields=['board','remaining','heads','slots','ages','revealed'];
  const order={clear:0,arrive:1,return:2,release:3,unlock:4,check:5};
- // a level may scale the ants' departures (gapScale) and trips (tripScale), for calibrating against the videos
+ // a level may scale the ants' departures (gapScale), walks (tripScale) and clearing (actScale) and set the slot release
+ // lag (releaseLagMs), for calibrating against the videos
  const UNLOCK=1000; // ms from the key becoming reachable (padlock on top) to the column moving up: 0.25-1 s seen after the key moves
  class Timeline{
   constructor(state,saved=null){
@@ -56,12 +57,12 @@
    s.status=R.topPods(s).some(p=>R.canTap(s,p)===null)||R.unlockReady(s)?'Playing':'Stuck';
   }
   dispatch(){
-   const s=this.state,frontier=R.reach(s).targets,active=Array.from(s.slots).filter(p=>p>=0&&s.remaining[p]>0).sort((a,b)=>s.ages[a]-s.ages[b]),gk=s.level.gapScale||1,tk=s.level.tripScale||1,gap=(tailOf(s)?TAIL.departureGap:PROFILE.departureGap)*gk;
+   const s=this.state,frontier=R.reach(s).targets,active=Array.from(s.slots).filter(p=>p>=0&&s.remaining[p]>0).sort((a,b)=>s.ages[a]-s.ages[b]),gk=s.level.gapScale||1,tk=s.level.tripScale||1,ak=s.level.actScale??tk,gap=(tailOf(s)?TAIL.departureGap:PROFILE.departureGap)*gk;
    for(const pod of active){
     const jar=c=>s.meta.jarOf[c]>=0&&s.objN[s.meta.jarOf[c]]>0,open=c=>jar(c)?this.jarOut[c]<s.objN[s.meta.jarOf[c]]:this.reserved[c]<0;
     const available=frontier.filter(c=>s.board[c]===s.meta.colours[pod]&&open(c));if(!available.length)continue;
     while(s.remaining[pod]>0&&available.length&&this.departReady[pod]<=this.now+1e-7){
-     const cell=available[0];if(!jar(cell)||this.jarOut[cell]+1>=s.objN[s.meta.jarOf[cell]])available.shift();const route=R.routeTo(s,cell),id=++this.serial,distance=route.length-1,start=this.now,arrive=start+Math.max(PROFILE.minOut,distance*PROFILE.outPerCell)*tk,clear=arrive+PROFILE.act*tk,done=clear+Math.max(PROFILE.minReturn,distance*PROFILE.returnPerCell)*tk;
+     const cell=available[0];if(!jar(cell)||this.jarOut[cell]+1>=s.objN[s.meta.jarOf[cell]])available.shift();const route=R.routeTo(s,cell),id=++this.serial,distance=route.length-1,start=this.now,arrive=start+Math.max(PROFILE.minOut,distance*PROFILE.outPerCell)*tk,clear=arrive+PROFILE.act*ak,done=clear+Math.max(PROFILE.minReturn,distance*PROFILE.returnPerCell)*tk;
      for(const c of route.slice(0,-1))if(s.board[c]!==R.OPEN)throw Error('Closed route at dispatch');
      const j={id,pod,cell,assigned:start,start,arrive,clear,done,route,frontier:available.length+1};
      this.jobs.set(id,j);if(jar(cell))this.jarOut[cell]++;else this.reserved[cell]=id;this.inFlight[pod]++;s.remaining[pod]--;this.departReady[pod]=start+gap;
@@ -74,7 +75,7 @@
    // a padlock on top whose key an ant can reach: the column moves up UNLOCK ms later
    s.level.tray.forEach((stack,c)=>{const p=stack[s.heads[c]];if(p!==undefined&&s.level.pods[p].lock&&R.keyReachable(s,p)&&!this.steps.some(e=>e.type==='unlock'&&e.column===c))this.steps.push({type:'unlock',at:this.now+UNLOCK,column:c,pod:p});});
    const seen=new Set();for(const pod of s.slots)if(pod>=0){const group=s.meta.groups[pod],first=group[0];if(seen.has(first))continue;seen.add(first);
-    if(group.every(p=>s.remaining[p]===0)&&!this.steps.some(e=>e.type==='release'&&e.pod===first))this.steps.push({type:'release',at:this.now+PROFILE.releaseLag,pod:first});
+    if(group.every(p=>s.remaining[p]===0)&&!this.steps.some(e=>e.type==='release'&&e.pod===first))this.steps.push({type:'release',at:this.now+(s.level.releaseLagMs??PROFILE.releaseLag),pod:first});
    }
    this.sort();this.updateStatus();
   }
