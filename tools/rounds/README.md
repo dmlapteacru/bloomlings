@@ -32,7 +32,7 @@ node tools/rounds/levels.mjs card 15
 | `lib.mjs` | paths, manifest, palette, the rules' tables (stages, budgets, calendar, introductions, supported mechanics), board around a picture, PNG writer |
 | `themes.json` | the theme catalog's 50 families, 24 directions and meme families (from `product/design/Bloomlings-picture-theme-catalog.md`), for the tag check |
 | `pictures.mjs` | sequential numbering, render, rules check, contact sheet, approve/reject/replace |
-| `engine.mjs` | the round engine: pilot v9 rules/timeline copied with the §8 link rule, boards up to 48×48, 4–5 places |
+| `engine.mjs`, `engine/` | the round engine, our own code grown from the pilot: rules, timeline, palette, clock with the §1 slot positions, the §8 link rule, boards up to 48×48, 4–5 places; the pilot v10 embeds the same files |
 | `measure.mjs` | saved solution (search + live replay), §5 random test with waiting and Wilson 100 → 400, hidden-pod fairness, §11 strategies, §10 rhythm |
 | `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7), build → bank, calendar placement with the §11 variety rules, cards |
 
