@@ -4,8 +4,11 @@
 import numpy as np, json, sys
 from PIL import Image
 im=np.asarray(Image.open(sys.argv[1]).convert('RGB')).astype(float)
-P={4:(30,370,160,540),5:(430,730,150,540),6:(780,1135,170,525),7:(1170,1505,160,545),8:(25,500,628,962),9:(530,1000,612,958),10:(1045,1490,605,975)}
-MASK={5:[(645,760,130,160)],9:[(530,700,595,642)],10:[(1400,1510,600,636),(1030,1240,595,642)]}
+P0={4:(30,370,160,540),5:(430,730,150,540),6:(780,1135,170,525),7:(1170,1505,160,545),8:(25,500,628,962),9:(530,1000,612,958),10:(1045,1490,605,975)}
+MASK0={5:[(645,760,130,160)],9:[(530,700,595,642)],10:[(1400,1510,600,636),(1030,1240,595,642)]}
+# a third argument names a JSON file with this sheet's panels and masks: {"P": {level: [x0,x1,y0,y1]}, "MASK": {...}}
+cfg=json.load(open(sys.argv[3])) if len(sys.argv)>3 else {}
+P={int(k):v for k,v in cfg.get('P',P0).items()};MASK={int(k):v for k,v in cfg.get('MASK',MASK0).items()};GAP=cfg.get('gap',7)
 def seams(br,col,axis):
     # seam score: lighter than the pixels 2 away on both sides, only on colourful pixels
     if axis==1: a=br[:,2:-2]-(br[:,:-4]+br[:,4:])/2; m=col[:,2:-2]; s=(np.clip(a,0,None)*m).sum(0)/(m.sum(0)+1)
@@ -13,7 +16,7 @@ def seams(br,col,axis):
     s=np.convolve(s,[.25,.5,.25],'same'); peaks=[]
     for i in np.argsort(-s):
         if s[i]<s.max()*.18: break
-        if all(abs(i-j)>=7 for j in peaks): peaks.append(i)
+        if all(abs(i-j)>=GAP for j in peaks): peaks.append(i)
     return sorted(p+2 for p in peaks)
 def fill(ps,lo,hi,pitch):
     # fill gaps (outside the colour area or missed seams) with the typical pitch
