@@ -35,7 +35,8 @@ function astronaut(){
  stamp(g,27,14,flower);
   put(g,'C',[[25,14],[25,15],[23,13],[23,14]]);              // falling water drops
  for(const [x,y] of [[3,3],[23,2],[2,20],[33,10],[32,28],[2,29]])star(g,x,y,'Y');
- return str(g);
+ // lift the whole scene one row so the asteroid floats clear of the bottom edge
+ return str([...g.slice(1),Array(W).fill('N')]);
 }
 
 // 2. A penguin skating in a scarf on a rink: winter sky behind, light ice with skate lines below.
