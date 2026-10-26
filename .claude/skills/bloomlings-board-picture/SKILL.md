@@ -82,3 +82,5 @@ Make a visual variant. Give the cell and colour counts in its caption as **targe
 - Passability, the order colours open in, and the level's difficulty are **not** confirmed at this stage. The level
   skill `bloomlings-round-levels` checks them.
 - For several pictures, use the same cell size on the comparison sheet.
+- Once the owner approves a picture, `bloomlings-round-pictures` records it, and it lands in the one approved folder,
+  `content/rounds/approved/` (`locked/` for levels 1–3, `pool/` for all others).

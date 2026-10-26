@@ -1,0 +1,88 @@
+{
+ "id": "P0009",
+ "version": 5,
+ "title": "Акустическая гитара",
+ "theme": "objects",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 41,
+ "N": 552,
+ "colours": 5,
+ "volumes": {
+  "O": {
+   "cells": 221,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 169,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 78,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 52,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 32,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".........AAAAAA.........",
+  "........AAAAAAAA........",
+  ".......YYAAAAAAYY.......",
+  "........AAACCAAA........",
+  "........AAACCAAA........",
+  ".......YYAACCAAYY.......",
+  ".........AACCAA.........",
+  "..........AAAA..........",
+  "..........ECCE..........",
+  "..........ECCE..........",
+  "..........ECCE..........",
+  "..........AAAA..........",
+  "..........ECCE..........",
+  "..........ECCE..........",
+  "..........ECCE..........",
+  "........OOAAAAOO........",
+  ".......OOOOCCOOOO.......",
+  "......OOOOOCCOOOOO......",
+  ".....OOOOOOCCOOOOOO.....",
+  ".....OOOOOOCCOOOOOO.....",
+  "....OOOOOOOCCOOOOOOO....",
+  "....OOOOOOOCCOOOOOOO....",
+  "....OOOOOOCCCCOOOOOO....",
+  "...OOOOOOCECCECOOOOOO...",
+  "..OOOOOOCEECCEECOOOOOO..",
+  "..OOOYYYCEECCEECAAAAAA..",
+  ".OOOOYYYCEECCEECAAAAAAA.",
+  ".OOOYYYYCEECCEECAAAAAAA.",
+  "OOOOYYYYCCECCECCAAAAAAAA",
+  "OOOOYYYYYCCCCCCOAAAAAAAA",
+  "OOOOYYYYYYYCCOOOAAAAAAAA",
+  "OOOOYYYYYYYCCOOOAAAAAAAA",
+  "OOOOYYYYYYOCCOOOAAAAAAAA",
+  ".OOOOYYYAAACCAAAAAAAAAA.",
+  ".OOOOOYYAAACCAAAAAAAAAA.",
+  "..OOOOOOAAAAAAAAAAAAAA..",
+  "..OOOOOOOOOOOOOOAAAAAA..",
+  "...OOOOOOOOOOOOOAAAAA...",
+  "....OOOOOOOOOOOOAAAA....",
+  "......OOOOOOOOOOAA......",
+  ".........OOOOOO........."
+ ]
+}

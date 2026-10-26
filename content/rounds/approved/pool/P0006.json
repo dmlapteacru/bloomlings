@@ -1,0 +1,74 @@
+{
+ "id": "P0006",
+ "version": 5,
+ "title": "Кроссовок",
+ "theme": "objects",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 22,
+ "N": 554,
+ "colours": 6,
+ "volumes": {
+  "B": {
+   "cells": 220,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 146,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 117,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 36,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 23,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".NNNDDDDDDDDDDB....................",
+  ".NNNDDDDDDDDDDB....................",
+  ".NNNNDDDDDDDDBB....................",
+  ".NNNNNNNBBBBBBBB...................",
+  "RRRNNNNNBBBBBBBB...................",
+  "RRRNNNNNBBBBBBBB...................",
+  "RRRNNNNNBBCCCCCCB..................",
+  "RRRNNNNNBBBBBCCCCB.................",
+  ".NNNNNNYYYBBBBBBBBBB...............",
+  ".NNNNNNYYYBBBCCCCCBBBB.............",
+  ".NNNNNNYYYBBBBCCCCCCCCBBBB.........",
+  ".NNNNNNYYYBBBBBBBBBBBBBBBBBBBBBB...",
+  ".NNNNNNYYYBBBBBBCCCCBBBBBBBBBBBBBB.",
+  ".NNNNNNYYYBBBBBBCCCCCCCCCCBBCCCCBB.",
+  ".NNNNNNYYYBBBBBBBBBBBBBBCCCCCCCCCCB",
+  ".NNNNNBBYYBBBBBBBBBBBBBBBCCCCCCCCCC",
+  ".NNBBBBBBBBBBBBBBBBBBBBBBCCCCCCCCC.",
+  "NBBBBBBBBBBBBBBBBBBBBBBBBCCCCCCCCC.",
+  ".BBBBBBBBBBBBBBBBBBBBBBBBBBCCCCCBB.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".NNNNDNNNNNNDNNNNNDNNNNNNDNNNNNNNN.",
+  ".NNNNDNNNNNNDNNNNNDNNNNNNDNNNNNNNNN"
+ ]
+}

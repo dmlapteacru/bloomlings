@@ -1,0 +1,59 @@
+{
+ "id": "P0002",
+ "version": 3,
+ "title": "Божья коровка 2C",
+ "theme": "animals",
+ "locked": 2,
+ "stages": [
+  "L2"
+ ],
+ "w": 17,
+ "h": 20,
+ "N": 240,
+ "colours": 4,
+ "volumes": {
+  "R": {
+   "cells": 120,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 97,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 19,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 4,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "......DDDDD......",
+  ".....DCDDDCD.....",
+  "....DDCDDDCDD....",
+  "....DDDDDDDDD....",
+  "...RRDDDDDDDRR...",
+  "..RRRRDDDDDRRRR..",
+  "..RRDDRRDRRDDRR..",
+  "DDRDDDDRDRDDDDRDD",
+  ".RRDDDDRDRDDDDRR.",
+  ".RRRDDRRDRRDDRRR.",
+  ".RRRRRRRDRRRRRRR.",
+  ".RRRDDRRDRRDDRRR.",
+  "DDRDDDDRDRDDDDRDD",
+  ".RRRDDRRDRRDDRRR.",
+  "..RRRRRRDRRRRRR..",
+  "..RRRRRRDRRRRRR..",
+  "...RRRRRDRRRRRGGG",
+  ".....RRRRRRRGGGGG",
+  "........RGGGGGGG.",
+  ".........GGGG...."
+ ]
+}

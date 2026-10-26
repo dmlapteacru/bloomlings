@@ -90,7 +90,7 @@ function candidate(pic,board,base,cols,recipe,cls,seed,intro){const r=rnd(seed),
 async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),budgetN=+arg('--candidates',64),seed0=+arg('--seed',1);
  for(const id of ids){const pic=picture(id);if(!pic){console.log(id,'нет картинки');continue;}if(pic.status!=='approved'){console.log(id,'не утверждена — пропуск');continue;}
   const m=measure(pic),board=boardOf(pic),hasBridge=!!board.hero,W=m.N;
-  const fixed=pic.forLevel<=3?pic.forLevel:null,base=splitPods(m.volumes,W,fixed);const bankFile=path.join(BANK,id+'.json'),bank=readJSON(bankFile,{picture:id,candidates:[],rejected:[]});
+  const fixed=pic.locked||null,base=splitPods(m.volumes,W,fixed);const bankFile=path.join(BANK,id+'.json'),bank=readJSON(bankFile,{picture:id,candidates:[],rejected:[]});
   if(base.error){bank.rejected.push({reason:base.error});writeJSON(bankFile,bank);console.log(id,'отклонена:',base.error);continue;}
   const P=base.pods.length,recipes=(arg('--recipes')||(fixed?'none':['none','links','hidden','links+hidden',...(hasBridge?['bridge','bridge+links']:[])].join(','))).split(',').filter(x=>x.split('+').every(t=>t==='none'||SUPPORTED.has(t)));
   for(const cls of fixed?['Normal']:classes)for(const recipe of recipes){if(fixed&&recipe!=='none')continue;
@@ -122,7 +122,7 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const window=Object.values(placed).filter(L=>L.level>n-20&&L.level<n+20);
   const ok=pool.filter(c=>!usedPic.has(c.picture)&&c.cls===slot.cls&&fitsStage({N:c.N,colours:c.colours},n)
    &&(slot.intro?(c.intro&&c.recipe===slot.intro):!c.intro&&(c.recipe==='none'||c.recipe.split('+').every(t=>slot.allowed.includes(t))))
-   &&(n>3||picture(c.picture).forLevel===n)
+   &&((picture(c.picture).locked||null)===(n<=3?n:null))
    &&!(prev.length===2&&!slot.intro&&lead(c)!=='none'&&prev.every(L=>lead(L)===lead(c)))
    &&!(prev.length===2&&!slot.intro&&prev.every(L=>L.recipe===c.recipe&&c.recipe!=='none'))
    &&!(c.colours>=10&&window.filter(L=>L.colours>=10).length>=2));

@@ -1,0 +1,53 @@
+{
+ "id": "P0001",
+ "version": 3,
+ "title": "Лисёнок",
+ "theme": "animals",
+ "locked": 1,
+ "stages": [
+  "L1"
+ ],
+ "w": 14,
+ "h": 19,
+ "N": 181,
+ "colours": 3,
+ "volumes": {
+  "O": {
+   "cells": 128,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 48,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 5,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "OO.......OO...",
+  "OOO.OOO.OOO...",
+  "OCOOOOOOOCO...",
+  "OOOOOOOOOOO...",
+  "OOOEOOOEOOO...",
+  "OOOEOOOEOOO...",
+  "OOOOCCCOOOO...",
+  ".OOCCECCOO....",
+  ".OOCCCCCOO....",
+  "...OOCOO....O.",
+  "..OOOOOOO...OO",
+  "..OOOCOOO...OO",
+  ".OOOCCCOOO..OO",
+  ".OOCCCCCOO..OO",
+  ".OOCCCCCOO..OO",
+  "..OCCCCCO..OOO",
+  "..OOCCCOOOOOO.",
+  "...COCOC..OOO.",
+  ".CCCCOCCCC...."
+ ]
+}

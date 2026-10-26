@@ -1,0 +1,81 @@
+{
+ "id": "P0008",
+ "version": 5,
+ "title": "Сундук с сокровищами",
+ "theme": "objects",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 24,
+ "N": 551,
+ "colours": 7,
+ "volumes": {
+  "A": {
+   "cells": 254,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 190,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 53,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 26,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 19,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 6,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 3,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "....AAAAAAAAAAAAAAAA.....",
+  "...YYYYYYYYYYYYYYYYYY....",
+  "..YAAAAAAAAAAAAAAAAAAAY..",
+  ".AYAAAAAAAAAAAAAAAAAAAYA.",
+  ".AYAAAAAAAAAAAAAAAAAAAYA.",
+  ".AYAAAAAAAAAAAAAAAAAAAYA.",
+  "AAYAAAAAYYARRAAAAAAAAAYA.",
+  "AAYYYAAYYYRCRRYYAAAYYAYAA",
+  "DDYYYYYYYRCCRRRYYDYYYYDDD",
+  "DDYYYYDYYRRRRRRYYDYYYYDDD",
+  "DDOOOODYYYRRRROODDYYYYDDD",
+  "YYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYY",
+  "AAYYAAAAAAAAAAAAAAAAAYYAD",
+  "AAYYAAAAAAYYYYYAAAAAAYYAD",
+  ".AYYAAAAAAYYDYYAAAAAAYYA.",
+  ".EYYEEEEEEYYDYYEEEEEEYYE.",
+  ".AYYAAAAAAYYDYYAAAAAAYYA.",
+  ".AYYAAAAAAYYYYYAAAAAAYYA.",
+  ".AYYAAAAAAYYYYYAAAAAAYYA.",
+  ".AYYAAAAAAAAAAAAAAAAAYYA.",
+  ".EYYEEEEEEEEEEEEEEEEEYY..",
+  ".AYYAAAAAAAAAAAAAAAAAYY..",
+  "..EEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}

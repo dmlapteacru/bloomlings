@@ -1,0 +1,85 @@
+{
+ "id": "P0005",
+ "version": 5,
+ "title": "Волшебная лампа",
+ "theme": "objects",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 38,
+ "N": 553,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 301,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 154,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 47,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 26,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 25,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..BB..................................",
+  "..BB..................................",
+  "..BBBBB...............................",
+  ".BBBBBBBB.............................",
+  ".BBB..................................",
+  ".BB...................................",
+  ".BB...................................",
+  "..BBB.................................",
+  "..BBBBBB..............................",
+  "...BBB................................",
+  "..BBB.................................",
+  "..BB..................................",
+  "..BB..............YY..................",
+  ".BB..............YYYY.................",
+  ".BB..............YYYY.........Y.......",
+  "YYY.............YYYYYY.....YYYYYOOO...",
+  "YYYY........YYYYYYYYYYYYYYYYYYYYOOOO..",
+  "YYYYY......AAYYYYYYYYYYYYAAY.....OOOO.",
+  ".YYYYY......AAAAAAAAAAAAAAY.......OOO.",
+  ".YYYYYYY..YYYYYYYYYYYYYYYYYY.......OOO",
+  "..YYYYYYYYYYYYYYYYYYYYYYYYYYYY.....OOO",
+  "..YYYYYYYCCCCCCCCCCCCYYYYYYYYYY....OOO",
+  "...YYYYYCCCCCCCCCCCCCYYYYYYYYYY....OOO",
+  "...YYYYYYYYYYYYYYYYYYYYYYYYYYYYY..OOO.",
+  "....YYYYYYYYYYYYYYYYYYYYYYYYYYYY.OOOO.",
+  ".....YYYYYYYYYYYOOOOOOOOOOOOYYYYOOOO..",
+  ".......YYYYYYOOOOOOOOOOOOOOOOOOYOOO...",
+  "........YYYYOOOOOOOOOOOOOOOOOOYY......",
+  ".........YYYOOOOOOOOOOOOOOOOO.........",
+  "..........YYYOOOOOOOOOOOOOOO..........",
+  ".............YYYYOOOOOOOO.............",
+  ".................AAAA.................",
+  ".................AAAA.................",
+  "...............YYYYYYYY...............",
+  "...........YYYYYYYYYYYYYYYY...........",
+  "..........YYYYYYYYYYYYYYYYYY..........",
+  "..........YYOOOOOOOOOOOOOOYY..........",
+  "............YOOOOOOOOOOOOY............"
+ ]
+}

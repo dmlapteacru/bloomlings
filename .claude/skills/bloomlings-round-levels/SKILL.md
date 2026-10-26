@@ -16,9 +16,14 @@ Read 17 §1, §3, §5–§8, §10, §11 and §14 before building, and the sectio
 [`product/design/Bloomlings-gameplay-mechanics.md`](../../../product/design/Bloomlings-gameplay-mechanics.md). The pictures come from the skill
 `bloomlings-round-pictures` and must be `approved`. Where this skill and 17 differ, 17 wins.
 
+**Where the pictures are.** `content/rounds/approved/` (built by `pictures.mjs publish`):
+- `locked/L0001`–`L0003`: the pictures of levels 1–3, used there and nowhere else.
+- `pool/P####`: every other approved picture. They are interchangeable between rounds. A picture's number, its
+  `forLevel` or the order of the pool never assigns it to a level.
+
 ## Principle
 
-Pictures are not tied to levels.
+Pictures are not tied to levels (except the locked levels 1–3).
 - A picture is built into candidates of every class the rules allow, and the **measured** class decides where a
   candidate may go. A picture that turns out Normal goes to a Normal position, Hard to Hard. The calendar does not
   turn a picture into a class.

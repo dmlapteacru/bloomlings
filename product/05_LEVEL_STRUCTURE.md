@@ -283,7 +283,7 @@ Reject if:
 - **Cells N** = coloured coordinates of the picture (hidden cells, cells under shutters/buds and stack positions count
   once; holes, key/well/bridge/canal areas do not). Work **W = N + E + D** (stack extra units, well deliveries).
 - **Stages (§2):** L1 fox cub 181 / 3 colours (128 / 48 / 5; replaced the crown, owner, 2026-10-26), L2 ladybug 2C 240 / 4, L3 bird 3B 281 / 6; L4–9 500–600 cells, 4–7 colours;
-  L10 500–600, 4–8; L11–24 550–1000, 4–8; L25–60 550–1200, 5–9; L61+ 550–1400, 5–9 (ranges updated by the owner on 2026-10-26: sizes
+  L10–24 550–1000, 4–8; L25–60 550–1200, 5–9; L61+ 550–1400, 5–9 (ranges updated by the owner on 2026-10-26: sizes
   spread toward the middle of a range and at times near its top, never by default at its floor; picture quality first). After L25 compact pictures of 200–399 cells with 3–6
   colours are allowed. Size does not grow with the level number; mix per 30 levels about 6 × 200–499, 15 × 500–999,
   9 × 1000–1400, independent of class. Up to 9 colours; 10–11 colours at most twice in any 20 levels.

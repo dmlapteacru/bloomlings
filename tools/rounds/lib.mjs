@@ -4,7 +4,7 @@
 import fs from 'node:fs';import path from 'node:path';import zlib from 'node:zlib';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';
 export const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 export const ROUNDS=process.env.ROUNDS_DIR?path.resolve(process.env.ROUNDS_DIR):path.join(root,'content/rounds');
-export const PICTURES=path.join(ROUNDS,'pictures'),LEVELS=path.join(ROUNDS,'levels'),BANK=path.join(ROUNDS,'bank');
+export const APPROVED=path.join(ROUNDS,'approved'),PICTURES=path.join(ROUNDS,'pictures'),LEVELS=path.join(ROUNDS,'levels'),BANK=path.join(ROUNDS,'bank');
 const P=createRequire(import.meta.url)(path.join(root,'tools/gameplay-pilot-v9/palette.cjs'));
 export const CODES=P.codes,PALETTE=P.palette('normal');
 export const readJSON=(f,d=null)=>fs.existsSync(f)?JSON.parse(fs.readFileSync(f,'utf8')):d;
@@ -26,7 +26,7 @@ export function measure(pic){const vol={};let n=0;for(const r of pic.rows)for(co
 // stage ranges by level number (§2); compact 200–399 cells / 3–6 colours allowed after L25
 export function stageOf(level){
  if(level===1)return {cells:[181,181],colours:[3,3],fixed:'объёмы §4'};if(level===2)return {cells:[240,240],colours:[4,4],fixed:'объёмы §4'};if(level===3)return {cells:[281,281],colours:[6,6],fixed:'объёмы §4'};
- if(level<=9)return {cells:[500,600],colours:[4,7]};if(level===10)return {cells:[500,600],colours:[4,8]};if(level<=24)return {cells:[550,1000],colours:[4,8]};if(level<=60)return {cells:[550,1200],colours:[5,9],compact:true};return {cells:[550,1400],colours:[5,9],compact:true};}
+ if(level<=9)return {cells:[500,600],colours:[4,7]};if(level<=24)return {cells:[550,1000],colours:[4,8]};if(level<=60)return {cells:[550,1200],colours:[5,9],compact:true};return {cells:[550,1400],colours:[5,9],compact:true};}
 export function fitsStage(m,level){const s=stageOf(level),wide=c=>c>=10&&c<=11;
  if(s.fixed)return m.N===s.cells[0]&&m.colours===s.colours[0];
  if(s.compact&&m.N>=200&&m.N<=399)return (m.colours>=3&&m.colours<=6)||wide(m.colours);

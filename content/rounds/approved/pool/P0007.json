@@ -1,0 +1,78 @@
+{
+ "id": "P0007",
+ "version": 5,
+ "title": "Фотоаппарат",
+ "theme": "objects",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 29,
+ "h": 21,
+ "N": 554,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 209,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 142,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 68,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 57,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 47,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 16,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 15,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "......DDDDDDDD...............",
+  "......DDDDDDDD......RRRRR....",
+  "......DDDDDDDD......RRRRR....",
+  "DCCCCCDDDDDDDDCCCCCCRRRRRCCCD",
+  "DCCCCCCCCCCCCDDDDDDDCCCCCCCCD",
+  "DAAYYYYYCCCDDDNNNNNDDCCCCCCCD",
+  "AAAYYYYYCCDDNNNNNNNNDDCCCCCCD",
+  "AAAYYYYYCCDNNBBBBBBNNDDCCRCCD",
+  "AAAAAACCCDNNBCCCBBBBNNDCCCCCD",
+  "AAAAAACCCDNNBCCCDDBBBNDDCCCCD",
+  "AAAAAACCDDNBBBCDDDDBBNNDCCCCD",
+  "AAAAAACCDDNBBDDDDDDBBNNDCCCCD",
+  "AAAAAACCDDNBBDDDDDDBBNNDCCCCD",
+  "AAAAAACCCDNNBBDDDDDBBNNDCCCCD",
+  "AAAAAACCCDNNBBBDDBCCNNDDCCCCD",
+  "AAAAAACCCDDNNBBBBBBBNNDCCCCCD",
+  "AAAAAACCCCDDNNBBBBNNNDDCCCCCD",
+  "AAAAAACCCCCDDNNNNNNNDDCCCCCCD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  ".DDDDDDDDDDDDDDDDDDDDDDDDDDD."
+ ]
+}

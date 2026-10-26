@@ -33,7 +33,9 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   `bloomlings-round-pictures` draws pictures numbered in sequence (a new batch continues after the last number; a
   rejected picture keeps its number). The owner approves them on a numbered contact sheet.
   How a picture looks and is counted is the skill `bloomlings-board-picture` (the owner's brief: one object, flat
-  colour areas, empty space round the silhouette, a verified matrix checked by `pictures.mjs verify`).
+  colour areas, empty space round the silhouette, a verified matrix checked by `pictures.mjs verify`). Approved pictures
+  live in one place, `content/rounds/approved/` (generated): `locked/` for levels 1–3, `pool/` for all others, which are
+  interchangeable between rounds (a picture's number is no level).
   `bloomlings-round-levels` builds approved pictures into solved levels, measures the class with the §5 random test
   (100 runs, 400 when the Wilson interval crosses a border) and places them by the calendar: every 15th level Super
   Hard, other multiples of 5 Hard, the rest Normal. Leftovers stay in `content/rounds/bank/`; empty positions go to

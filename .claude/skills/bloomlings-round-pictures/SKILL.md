@@ -35,8 +35,7 @@ those rules; where this skill and 17 differ, 17 wins.
 | 2 — ladybug 2C | exactly 240 | 4, volumes 120 / 97 / 19 / 4 |
 | 3 — bird 3B | exactly 281 | 6, volumes 76 / 70 / 69 / 51 / 13 / 2 |
 | 4–9 | 500–600 | 4–7 |
-| 10 | 500–600 | 4–8 |
-| 11–24 | 550–1000 | 4–8 |
+| 10–24 | 550–1000 | 4–8 |
 | 25–60 | 550–1200 | 5–9 |
 | 61+ | 550–1400 | 5–9 |
 
@@ -61,8 +60,10 @@ those rules; where this skill and 17 differ, 17 wins.
 - Pictures are numbered in the order they are made: P0001, P0002, … The next batch continues after the highest number
   (`node tools/rounds/pictures.mjs next`). If 474 pictures exist, the next batch is 475+.
 - **A rejected picture keeps its number** and is redrawn in place (`replace`, version + 1). Nothing is renumbered.
-- **`forLevel`** defaults to the picture's number. It is only the stage the picture is checked against. The level
-  skill may later place the picture on another level of a fitting class and stage.
+- **`forLevel`** defaults to the picture's number. It is only the stage the picture is checked against.
+- **A number is not a level.** Only levels 1–3 are locked to their pictures (17 §4). Every other approved picture is
+  interchangeable between rounds: the level skill places it by its measured class and the stage ranges it fits, so
+  P0007 may end up on level 23 and P0042 on level 6.
 
 ## Steps
 
@@ -100,12 +101,26 @@ those rules; where this skill and 17 differ, 17 wins.
      `node tools/rounds/pictures.mjs replace P0477 <module> [--index k]`, check, and show a new sheet of only the
      redrawn ones.
    - Repeat until the batch is settled. `approve` refuses a picture that fails the rules check.
-7. **Commit** the batch module, the picture JSONs, the manifest and the sheet (content/rounds/pictures/…), then
+   - When the owner sends their own sheet of matrices and picks from it ("4–8 отсюда берём", "2C 3B"), read the
+     picked panels back with `tools/rounds/from-image/` (`known-grid.py` when the captions give the matrix size,
+     else `extract.py` + `quant.py`). Check that the counts match the captions, write them as a module
+     (`content/rounds/pictures/src/owner-*.mjs`), record them with `replace` on their numbers, then `approve`.
+     A pick from the owner's sheet is their decision.
+7. **Where approved pictures go.** There is one place: `content/rounds/approved/`. `approve` (and `reject`,
+   `replace`) rebuild it with `node tools/rounds/pictures.mjs publish`. Never copy pictures there by hand.
+   - `approved/locked/L0001.json` … `L0003.json` (+ `.png`): the pictures locked to levels 1–3. Approving a
+     picture whose `forLevel` is 1–3 locks it to that level, and one level holds one locked picture.
+   - `approved/pool/P####.json` (+ `.png`): every other approved picture, with the stage ranges it fits. They are not
+     ordered by level.
+   - `approved/README.md`: the index (generated).
+   Each JSON holds the matrix, its size, cells, colours and per-material volumes with HEX.
+8. **Commit** the batch module, the picture JSONs, the manifest, the sheet and `content/rounds/approved/`, then
    suggest the next step: `bloomlings-round-levels` for the approved pictures.
 
 ## The first three pictures
 
-L1–L3 are fixed by 17 §4: fox cub 181/3, ladybug 2C 240/4, bird 3B 281/6, with the exact colour volumes above.
+L1–L3 are fixed and locked by 17 §4: fox cub 181/3, ladybug 2C 240/4, bird 3B 281/6, with the exact colour volumes
+above. They are approved (the owner's matrices, 2026-10-26) and live in `content/rounds/approved/locked/`.
 - If the owner gives their matrices, enter them as rows.
 - Otherwise draw them to these exact counts.
 - The level skill rejects them if the volumes differ.

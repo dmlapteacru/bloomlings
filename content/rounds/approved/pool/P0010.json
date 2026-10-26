@@ -1,0 +1,83 @@
+{
+ "id": "P0010",
+ "version": 5,
+ "title": "Дракончик на книге",
+ "theme": "animals",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 32,
+ "N": 778,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 345,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 136,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "C": {
+   "cells": 105,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 91,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 58,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 43,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".......C............................",
+  ".......C.................P..........",
+  ".......CC...............PP..........",
+  "......CCC..............PPPP.........",
+  "......CCCC.............PPPP.........",
+  ".....GCCCCCGG.........PPLPP.........",
+  "...GGGGGGGGGGGG......PPLLPP.........",
+  "..GGGGGGGGGGGGGG....PPLLLPP.........",
+  ".GGGGGGGGGGGGGGGGGG.PLLLLPPP....GGG.",
+  ".GGGGGGGGGGGGGGGGGGPLLLLLPPP...GGGGG",
+  ".GGGGGGGGGGGGGGGGGPLLLLLLPPP...GGGGG",
+  "GGGEEEEEEGGGGGGGGGLLLLLLLPPP...GGGGG",
+  "GGGGGGGEEGGGGGGGGGPPPPPPPPP...GGGGG.",
+  ".GGLLLLLLLGGGGGGGGGPPPPPPGG...GGGGG.",
+  ".LLELLLLLLLLGGGGGGGGPPPPGGGGGGGGGG..",
+  "LLLLLLLLLLLLLGGGGGGGGGPGGGGGGGGGGG..",
+  ".LLLLLLLLLLLGGGGGGGGGGGGGGGGGGGGGG..",
+  "..LLLLLLLLLGGGGGGGGGGGGGGGGGGGGGGG..",
+  ".....GGGGGGGGGGGGGGGGGGGGGGGGGGGG...",
+  "........GGGGGGGGGGGGGGGGGGGGGG......",
+  "........GGGGGGGGGGGGGGGGGGGG........",
+  "........GGGGGGGGGGGGGGGGGGG.........",
+  ".........GGGGGGGGGGGGGLLLLL.........",
+  "..........GGLLLLLLLGGLLLLLLLL.......",
+  "..........LLLLLLLLLLGLLLLLLLL.......",
+  "AAAAAAAAAALLLLLLLLLLGGLLLLLAAAAAAA..",
+  "ACCCCCCCCCCCCLLLLLGGCCCCCCCCCCCCCA..",
+  "ACCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCA..",
+  "ACCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCA..",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}
