@@ -3,6 +3,10 @@ import {circle,ellipse,box,poly,union,cut,meet} from '../../../../../tools/gamep
 import {raster,fit,str,put,ring4,scale,seg} from '../helpers.mjs';
 const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map(([s,c])=>[scale(k,s),typeof c==='function'?(x,y,u)=>c(x/k,y/k,u):c]));
 const ring=(cx,cy,ro,ri)=>cut(circle(cx,cy,ro),circle(cx,cy,ri));
+// drop empty border rows and columns
+const trim=g=>{const H=g.length,W=g[0].length,on=(x,y)=>g[y][x]!=='.';let t=0,b=H-1,l=0,r=W-1;
+ while(g[t].every(v=>v==='.'))t++;while(g[b].every(v=>v==='.'))b--;
+ while(g.every(row=>row[l]==='.'))l++;while(g.every(row=>row[r]==='.'))r--;return g.slice(t,b+1).map(row=>row.slice(l,r+1));};
 
 // 1. A retro bicycle, side view, with a flower basket in front.
 function bicycle(){
@@ -42,31 +46,30 @@ function bicycle(){
 
 // 2. A tiny sailboat floating on tea in a big teacup on a saucer.
 function teacup(){
- const cx=19.5,k=1.1;
- const bowl=meet(ellipse(cx,16,15,14),(x,y)=>y>16?-1:1),cup=union(bowl,ellipse(cx,16,15,3.8));
- const g=draw(40,35,k,[
-  // saucer
-  [ellipse(cx,31.2,18.5,3.4),'S'],
-  [meet(ellipse(cx,31.2,18.5,3.4),(x,y)=>y>32.4?-1:1),'B'],
-  [box(cx,29.6,7,1.4,.6),'B'],
-  // handle
-  [cut(ellipse(33.6,20.6,5.4,5),ellipse(33.6,20.6,2.8,2.4)),'S'],
-  [meet(cut(ellipse(33.6,20.6,5.4,5),ellipse(33.6,20.6,2.8,2.4)),(x,y)=>y>22.4?-1:1),'B'],
-  // cup body with a band and a shade side
+ const cx=21,ty=16.4;
+ const bowl=meet(ellipse(cx,ty,16,16.4),(x,y)=>y>ty?-1:1),cup=union(bowl,ellipse(cx,ty,16,4));
+ const handle=cut(ellipse(36.4,21.4,5.8,5.4),ellipse(36.4,21.4,3,2.6));
+ const g=raster(44,41,'.',[
+  // saucer and the cup's foot
+  [ellipse(cx,35,20.6,3.8),'S'],
+  [meet(ellipse(cx,35,20.6,3.8),(x,y)=>y>36.2?-1:1),'B'],
+  [box(cx,33,7.6,1.8,.6),'B'],
+  // handle, cup body with its shade side and a band
+  [handle,'S'],
   [cup,'S'],
-  [meet(cup,(x,y)=>x>cx+9.6-(y-16)*.32&&y>16?-1:1),'B'],
-  [meet(bowl,(x,y)=>y>19.4&&y<21.6?-1:1),'N'],
-  // tea
-  [ellipse(cx,16,13.2,2.8),'A'],
-  [meet(ellipse(cx,16,13.2,2.8),(x,y)=>y<15.2?-1:1),'E'],
-  // boat
-  [poly([[14,13.2],[25,13.2],[23.2,16],[15.8,16]]),'R'],
-  [box(19.7,8.6,.5,4.8),'E'],
-  [poly([[20.6,4.2],[20.6,12.4],[26,12.4]]),'C'],
-  [poly([[18.8,5.6],[18.8,12.4],[14,12.4]]),'Y'],
-  [poly([[20.2,3],[23.4,3.9],[20.2,4.8]]),'R'],
+  [meet(bowl,(x,y)=>x>cx+10-(y-ty)*.36?-1:1),'B'],
+  [meet(bowl,(x,y)=>y>ty+3.6&&y<ty+6?-1:1),'N'],
+  // tea in the cup, its far edge darker
+  [ellipse(cx,ty,14.2,3),'A'],
+  [meet(ellipse(cx,ty,14.2,3),(x,y)=>y<ty-.8?-1:1),'E'],
+  // the little boat
+  [poly([[15,13.6],[28,13.6],[26,17],[17,17]]),'R'],
+  [box(22,7.6,1,6.4),'E'],
+  [poly([[23,3.2],[23,12.6],[29.6,12.6]]),'C'],
+  [poly([[21,4.8],[21,12.6],[14.6,12.6]]),'Y'],
+  [poly([[23,1],[27.4,2.1],[23,3.2]]),'R'],
  ]);
- return str(g);
+ return str(trim(g));
 }
 
 // 3. A snow globe with a little fir tree on a wooden base.

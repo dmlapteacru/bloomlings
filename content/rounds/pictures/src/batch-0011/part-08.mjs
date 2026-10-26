@@ -90,7 +90,7 @@ function elephant(){
  const near=union(box(11.5,32.5,2.7,3.5,.8),box(25,32,2.7,3.5,.8));
  const ear=ellipse(18,15.5,6.4,7.6);
  const g=draw(44,37,1,[
-  [far,'P'],[body,'K'],[cut(body,ellipse(12.8,23.5,12.2,9)),'P'],[near,'K'],
+  [far,'P'],[body,'K'],[cut(body,ellipse(14.6,23.4,12.8,9.4)),'P'],[near,'K'],
   [box(1.2,23,1.2,.6),'K'],[circle(.8,24.2,1),'P'],                // tail
   [head,'K'],[trunk,'K'],
   [ear,'K'],[ellipse(17.8,15.8,4.5,5.6),'P'],                     // ear and its inside
@@ -99,7 +99,7 @@ function elephant(){
   [circle(40,18.3,1.6),'Y'],
   [box(22,36,22,.9),'G'],                                         // grass strip
  ]);
- put(g,'D',[[26,13],[26,14]]);
+ put(g,'D',[[26,13],[26,14],[25,19],[26,20],[27,20]]);
  const drop=['.B.','BBB','BBB'];                                  // falling drops, tail up
  for(const [ox,oy] of [[37,0],[40,3],[41,7],[39,10]])drop.forEach((r,j)=>[...r].forEach((c,i)=>{if(c==='B')g[oy+j][ox+i]='B';}));
  return str(g);}

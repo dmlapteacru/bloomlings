@@ -30,33 +30,29 @@ function sixSeven(){
  ]);
  return str(g);}
 
-// 2. «Мастерская в ореховой скорлупе»: a half walnut stood on its edge, a tiny workshop inside.
+// 2. «Мастерская в ореховой скорлупе»: a half walnut lying like a bowl, a tiny workshop standing in it.
 function walnutShop(){
- const cx=22,cy=20;
- const outer=meet(union(ellipse(cx,cy,20.6,17.8),poly([[cx-4.5,4.5],[cx,.4],[cx+4.5,4.5]])),(x,y)=>y-37);
- const rim=meet(ellipse(cx,cy+1.4,16.4,14.6),(x,y)=>y-34.8);
- const hollow=meet(ellipse(cx,cy+1.4,15,13.2),(x,y)=>y-33.6);
- // walnut ridges: a wavy groove running round the shell and short grooves across it; light on the upper left
- const shellCol=(x,y)=>{const px=x+.5,py=y+.5,t=Math.atan2(py-cy,px-cx),d=-outer(px,py),w=rim(px,py);
-  const along=Math.abs(d-(w>2.5?2.6:1.9)-.9*Math.sin(t*9));if(along<.55)return 'E';
-  if(Math.cos(t*9+1.4)>.93&&d>1.2)return 'E';
-  return px+py<30&&d<1.7?'O':'A';};
- const floor=meet(hollow,(x,y)=>y-29.5<0?1:-1);
- const g=raster(44,38,'.',[[outer,shellCol],[rim,'O'],[hollow,'C'],[floor,'E']]);
+ const cx=22,ry=24;
+ const bowl=meet(union(ellipse(cx,ry,21.6,14),poly([[cx-3,36],[cx,39.2],[cx+3,36]])),(x,y)=>ry-y);
+ const rimAll=ellipse(cx,ry,21.6,2.7),inner=ellipse(cx,ry+.2,19.6,1.7);
+ // walnut ridges: wavy lobes that run down the shell to its tip; light on the upper left
+ const shellCol=(x,y)=>{const px=x+.5,py=y+.5,hw=21.6*Math.sqrt(Math.max(.02,1-((py-ry)/14)**2)),u=(px-cx)/hw,v=(py-ry)/14;
+  const lobe=Math.abs(((u*3.2+.35*Math.sin(v*11+u*3)+8.5)%1)-.5);if(lobe>.37&&v>.08)return 'E';
+  return u<-.2&&v>.2&&v<.6&&lobe<.22?'O':'A';};
+ const wall=box(22,14,15.6,10,4),frame=cut(wall,box(22,14.5,13.6,9.4,2.8));
+ const g=raster(44,40,'.',[[rimAll,'O'],[inner,'E'],[wall,'C'],[frame,'A'],
+  [box(22,19.5,13.5,.6),'O'],[box(22,21,13.5,1),'A'],[box(11,22.5,1,1.6),'A'],[box(33,22.5,1,1.6),'A'],
+  [cut(bowl,inner),shellCol],[meet(cut(rimAll,inner),(x,y)=>ry-y),'O']]);
  rows(g,[
-  // the hanging lamp: cord, red shade, yellow bulb
-  [8,21,'DD'],[9,21,'DD'],[10,21,'DD'],
-  [11,19,'RRRRRR'],[12,18,'RRRRRRRR'],[13,17,'RRRRRRRRRR'],[14,17,'RRRRRRRRRR'],[15,20,'YYYY'],[16,21,'YY'],
-  // tools on the wall: a saw at the left, a hammer and a wrench at the right
-  [14,7,'AA'],[15,7,'AASSSSSSS'],[16,7,'AASSSSSSS'],[17,7,'AASSSSSSS'],[18,9,'DSDSDSD'],
-  [13,25,'DDDDDD'],[14,25,'DDDDDD'],[15,27,'AA'],[16,27,'AA'],[17,27,'AA'],[18,27,'AA'],[19,27,'AA'],[20,27,'AA'],[21,27,'AA'],
-  [13,31,'DD DD'],[14,31,'DD DD'],[15,31,'DDDDD'],[16,32,'DDD'],[17,32,'DDD'],[18,32,'DDD'],[19,32,'DDD'],[20,31,'DDDDD'],[21,31,'DD DD'],
-  // the workbench with a vise, a little toy block on it, its shadow on the floor
-  [22,30,'DDD'],[23,29,'DDDD'],
-  [24,8,'AAAAAAAAAAAAAAAAAAAAAAAAAAAA'],[25,8,'AAAAAAAAAAAAAAAAAAAAAAAAAAAA'],[26,8,'EEEEEEEEEEEEEEEEEEEEEEEEEEEE'],
-  [22,13,'YYYY'],[23,13,'YYYY'],
-  [27,9,'AA'],[28,9,'AA'],[29,9,'AA'],[30,9,'AA'],[31,9,'AA'],[32,9,'AA'],
-  [27,33,'AA'],[28,33,'AA'],[29,33,'AA'],[30,33,'AA'],[31,33,'AA'],[32,33,'AA'],
+  // tools on the wall: a saw, a hammer, a wrench
+  [9,10,'AAA'],[10,10,'A.ASSSSSS'],[11,10,'AAASSSSSS'],[12,10,'AAASSSSS'],[13,13,'D D D'],
+  [8,19,'DDDDDD'],[9,19,'DDDDDD'],[10,21,'AA'],[11,21,'AA'],[12,21,'AA'],[13,21,'AA'],[14,21,'AA'],[15,21,'AA'],[16,21,'AA'],
+  [8,25,'DD.DD'],[9,25,'DD.DD'],[10,25,'DDDDD'],[11,26,'DDD'],[12,26,'DDD'],[13,26,'DDD'],[14,26,'DDD'],[15,25,'DDDDD'],[16,25,'DD.DD'],
+  // a desk lamp on the bench: base, arm, red shade, yellow bulb
+  [18,32,'DDDDD'],[17,34,'D'],[16,34,'DD'],[15,34,'DD'],[14,35,'DD'],[13,35,'DD'],[12,34,'DD'],[11,33,'DD'],
+  [10,31,'RRR'],[11,30,'RRR'],[12,29,'RRRR'],[13,29,'RRRRR'],[14,30,'YYY'],[15,31,'Y'],
+  // a little yellow block being carved on the bench
+  [17,13,'YYYY'],[18,13,'YYYY'],
  ]);
  return str(g);}
 

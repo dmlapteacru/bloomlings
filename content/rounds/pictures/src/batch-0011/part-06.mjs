@@ -3,6 +3,7 @@ import {circle,ellipse,box,poly,union,cut,meet} from '../../../../../tools/gamep
 import {raster,fit,str,put,ring4,scale,seg} from '../helpers.mjs';
 const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map(([s,c])=>[scale(k,s),typeof c==='function'?(x,y,u)=>c(x/k,y/k,u):c]));
 const R=(W,H,layers)=>raster(W,H,'.',layers);
+const trim=g=>{while(g.length&&g[0].every(c=>c==='.'))g.shift();while(g.length&&g[g.length-1].every(c=>c==='.'))g.pop();return g;};
 
 // 1. Retro table radio: domed wooden body with a dark rim, cream grille with slats, a yellow dial with a needle, two knobs.
 function radio(){
@@ -40,8 +41,8 @@ function medallion(){
  ]);
  put(g,'O',[[9,0],[10,0],[11,0],[12,0],[8,1],[9,1],[12,1],[13,1],[8,2],[9,2],[12,2],[13,2]]); // loop
  put(g,'C',[[10,9],[9,10],[10,10]]);               // gem shine
- for(let y=18;y<28;y++){const t=y-18,L=Math.round(6.2-t*0.5),Rr=Math.round(15.8+t*0.5);
-  for(let d=0;d<5;d++){if(y>=26&&d===2)continue;for(const x of [L-4+d,Rr+d])if(g[y][x]==='.')g[y][x]='N';}}
+ const tail={18:[4,6],19:[4,7],20:[3,7],21:[3,7],22:[2,6],23:[2,6],24:[1,5],25:[1,5],26:[1,5],27:[1,5]};
+ for(const [y,[a,b]] of Object.entries(tail))for(let x=a;x<=b;x++){if(+y>=26&&x===3)continue;for(const u of [x,21-x])if(g[y][u]==='.')g[y][u]='N';}
  return str(g);
 }
 
@@ -94,28 +95,29 @@ function sushiTrain(){
  const W=44,H=33;
  const salmon=(x,y)=>((x+y)%4===0)?'C':'O';
  const ae=(x,y)=>y>=27?'E':'A';
+ // chassis rows 25-27
  const g=R(W,H,[
   // wagon 1: salmon nigiri
-  [box(5.5,20.5,5,5,2),'C'],
-  [box(5.5,12,5.6,4,2),salmon],
+  [box(5.5,18.5,5,6,2),'C'],
+  [box(5.5,9,5.6,4.5,2),salmon],
   // wagon 2: two maki rolls
   [circle(17.5,20.6,5.4),'D'],[circle(17.5,20.6,4.1),'C'],[circle(17.5,20.6,1.9),'R'],
   [circle(17.5,10,5.4),'D'],[circle(17.5,10,4.1),'C'],[circle(17.5,10,1.9),'G'],
   // locomotive
-  [box(37,19,6.5,6.5,1.5),'D'],                    // boiler: lying maki
-  [ellipse(40.3,19,2.7,5),'C'],[ellipse(40.3,19,1.3,2.6),'O'], // cut end: rice and salmon
-  [box(35,9.5,1.5,3,0),'D'],[box(35,6,2.5,1,0.4),'C'], // funnel
-  [box(28,16.5,4,9,1),'C'],                        // cab: rice block
-  [box(28,18.5,4,1,0),'D'],                        // nori belt
-  [box(28,7,4.6,1.8,1),'Y'],                       // tamago roof
-  [box(28,12.5,2,1.8,0),'D'],                      // window
+  [box(37,18,6.5,7.5,1.5),'D'],                    // boiler: lying maki
+  [ellipse(40.3,18,2.7,5.6),'C'],[ellipse(40.3,18,1.3,2.8),'O'], // cut end: rice and salmon
+  [box(35,8,1.5,3,0),'D'],[box(35,4.5,2.5,1,0.4),'C'], // funnel
+  [box(28,15.5,4.5,9.5,1),'C'],                    // cab: rice block
+  [box(28,18.5,4.5,1,0),'D'],                      // nori belt
+  [box(28,6,4.5,2,1),'Y'],                         // tamago roof
+  [box(28,11.5,2,1.8,0),'D'],                      // window
   // chassis with couplers
-  [box(5.5,27,5.5,1,0),ae],[box(17.5,27,5.5,1,0),ae],[box(34,27,10,1,0),ae],
+  [box(5.5,26.5,5.5,1.5,0),ae],[box(17.5,26.5,5.5,1.5,0),ae],[box(34,26.5,10,1.5,0),ae],
   [box(11.5,26.5,0.5,0.6,0),'E'],[box(23.5,26.5,0.5,0.6,0),'E'],
  ]);
  const wheel=['.DDD.','DDDDD','DDCDD','DDDDD','.DDD.'];
  for(const x0 of [0,6,12,18,25,31,37])wheel.forEach((r,dy)=>[...r].forEach((c,dx)=>{if(c!=='.')g[28+dy][x0+dx]=c;}));
- return str(g);
+ return str(trim(g));
 }
 
 export default {theme:'batch-0011',pictures:[

@@ -23,36 +23,36 @@ function honey(){
 }
 
 // 2. Carousel: striped cone roof with a flag, gold poles, two horses, round base.
-const HORSE=[ // facing right, pole through columns 8–9
- '............AC....',
- '...........AACCC..',
- '..........AACCDCCC',
- '..........AACCCCCC',
- '.........AACCCC...',
- '........AACCCC....',
- '.......AACCCC.....',
- 'AA....AACCCCC.....',
- 'AAA.CCCPPPPCCCC...',
- '.AACCCCPPPPCCCCC..',
- '..ACCCCCCCCCCCCC..',
- '...CCC......CCCCC.',
- '..CCC..........CC.',
- '.CC...............'];
+const HORSE=[ // facing right, pole through columns 5–6
+ '...........ACC...',
+ '..........AACCCC.',
+ '..........ACCCDCC',
+ '.........AACCCCCC',
+ '.........ACCCC...',
+ '........AACCC....',
+ 'A.......ACCCC....',
+ 'AA......ACCCC....',
+ 'AACCPPPPCCCCC....',
+ 'AACCPPPPCCCCCC...',
+ '.ACCCCCCCCCCCCC..',
+ '..CCC.....CCCCC..',
+ '.CCC.........CC..',
+ 'CC..........CC...'];
 function carousel(){
  const W=44,cx=22,ap=4,rb=18,half=21;
  const roof=poly([[cx,ap],[cx-half,rb],[cx+half,rb]]);
- const stripe=(x,y)=>{const t=(x+.5-cx)/Math.max(.01,(y+.5-ap)/(rb-ap)*half);return Math.floor((t+1)*4)%2===0?'R':'C';};
- const pw=42/10,pen=(x,y)=>{const u=(x-1)/pw,i=Math.floor(u),t=(u-i)*2-1;return (i<0||i>9)?1:(y-(rb+2)-4.2*(1-Math.abs(t)));};
+ const stripe=(x,y)=>{const t=(x+.5-cx)/Math.max(.01,(y+.5-ap)/(rb-ap)*half);return Math.floor((t+1)*4.5)%2===0?'R':'C';};
+ const pw=42/11,pen=(x,y)=>{const u=(x-1)/pw,i=Math.floor(u),t=(u-i)*2-1;return (i<0||i>10)?1:(y-(rb+2)-4.2*(1-Math.abs(t)));};
  const penCol=x=>Math.floor((x+.5-1)/pw)%2===0?'R':'C';
  const g=raster(W,44,'.',[
   [box(cx,3,1,3),'D'],[poly([[23,0],[29.5,1.7],[23,3.4]]),'Y'],
   [box(cx,29.5,2,9.5),'V'],[box(cx,29.5,1,9.5),'P'],
-  [box(10,29.5,1,9.5),'Y'],[box(34,29.5,1,9.5),'Y'],
+  [box(12,29.5,1,9.5),'Y'],[box(32,29.5,1,9.5),'Y'],
   [meet(pen,(x,y)=>y>rb?-1:1),penCol],[roof,stripe],[box(cx,rb+1,half,1),'Y'],
   [box(cx,40,21,1,0.5),'B'],[poly([[1,41],[43,41],[41,44],[3,44]]),'N'],
  ]);
- const stamp=(x0,y0,flip)=>HORSE.forEach((r,y)=>[...r].forEach((c,x)=>{if(c!=='.')g[y0+y][flip?x0+17-x:x0+x]=c;}));
- stamp(1,24,true);stamp(25,24,false);
+ const stamp=(x0,y0,flip)=>HORSE.forEach((r,y)=>[...r].forEach((c,x)=>{if(c!=='.')g[y0+y][flip?x0+16-x:x0+x]=c;}));
+ stamp(1,24,true);stamp(26,24,false);
  return str(g);
 }
 

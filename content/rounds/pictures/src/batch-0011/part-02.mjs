@@ -47,15 +47,16 @@ function cloudChair(){const W=35,H=33;
  put(g,'K',[[9,16],[10,16],[24,16],[25,16]]);
  return g;}
 
-function skateboard(){const W=44,H=24,a=-0.2,cx=22,cy=11.5,hh=4.2;
- // the board in its own frame (u along, v across; origin at the centre), kicktails bent up at both ends
- const local=union(box(0,0,11,hh,0),rot(box(15.5,0,5,hh,hh),-.36,11,0),rot(box(-15.5,0,5,hh,hh),.36,-11,0));
+function skateboard(){const W=44,H=24,a=-0.12,cx=22,cy=10.5,hh=5,L=19.6;
+ // the board in its own frame (u along, v across; origin at the centre); the ends lift a little (kicktails)
+ const bend=u=>Math.max(0,Math.abs(u)-12)**2*.07;
+ const local=(u,v)=>box(0,0,L,hh,hh)(u,v+bend(u));
  const place=(sh)=>(x,y)=>{const c=Math.cos(a),s=Math.sin(a),dx=x-cx,dy=y-cy;return sh(dx*c+dy*s,-dx*s+dy*c);};
- const deck=place(local),edge=(x,y)=>deck(x,y-1.8);
- const truck=u=>place(box(u,hh+1.6,3.6,1.1,.4));
- const wheel=(u)=>place(box(u,hh+3.6,1.9,2.1,1));
- const bolt=place(poly([[-10.5,1.7],[.2,-3.3],[-.6,-.6],[11,-1.7],[-.2,3.3],[.6,.6]]));
- const g=raster(W,H,'.',[[union(truck(-10),truck(10)),'D'],[union(wheel(-12.4),wheel(-7.6),wheel(7.6),wheel(12.4)),'O'],
+ const deck=place(local),edge=(x,y)=>deck(x,y-2);
+ const truck=u=>place(box(u,hh+1.8,3.4,1,.3));
+ const near=u=>place(box(u-1.6,hh+4,1.9,2.1,1)),far=u=>place(box(u+1.9,hh+3,1.9,2.1,1));
+ const bolt=place(poly([[-13,2.2],[.4,-3.9],[-.6,-.7],[13.5,-2.2],[-.4,3.9],[.6,.7]]));
+ const g=raster(W,H,'.',[[union(far(-12),far(12)),'A'],[union(truck(-12),truck(12)),'D'],[union(near(-12),near(12)),'O'],
   [edge,'N'],[deck,'B'],[bolt,'Y']]);
  return str(g);}
 
