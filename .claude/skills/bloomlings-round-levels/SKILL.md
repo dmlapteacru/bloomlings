@@ -75,14 +75,11 @@ the supported three.
        largest pod is min(60, ceil(volume/2)); the split is near even; the budget of pods follows W. L1–L3 use the
        fixed splits of §4.
      - orders the pods by the real access depth of their cells (a bridge site counts as a path) with class-dependent
-       variation. Hard/Super Hard candidates draw an intensity each for the levers of §6: an early-needed colour moves
-       deeper (§6.1) and one or two deep colours come back early, so their pods wait in a place (§6.2). It deals the
-       pods into 3 or 4 columns by N, with start heights within 1.
-     - **Hard needs a dense picture.** Workers clear from the open ring inwards, so a small object on an empty
-       background gives the random test 90–100 % whatever the queue (measured 2026-10-26: even a reversed or shuffled
-       queue). Hard and Super Hard come from pictures with nested, enclosed colours, mostly full-rectangle
-       environments (sea, sky, night), and from links and hidden pods. Ask the picture skill for such pictures for Hard
-       positions without mechanics (L5, L10).
+       variation. Hard/Super Hard candidates blend that order towards its reverse by a share drawn per candidate (§6.1:
+       outer colours deeper, inner ones earlier, so their pods wait in places and a careless tap jams them). A
+       properly reversed queue makes even an object on an empty background hard (measured 2026-10-26: the owl 40 %,
+       the frog 0 %, both solvable), so the measured class decides. At the start at least one top pod has reachable
+       work (§6). It deals the pods into 3 or 4 columns by N, with start heights within 1.
      - adds the recipe's mechanics at the doses of §7 (one type: full range; two: the additional at its minimum;
        small queue under 16 pods: one type). Introductions use teaching doses: 1 hidden pod, 1 pair, 1 bridge choice.
        Hidden pods start from the second row and are never in a group.
