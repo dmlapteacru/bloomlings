@@ -83,7 +83,7 @@ function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pic
 // one pool that the level skill places by its rules (a picture's number or forLevel is no level assignment) ----
 const BANDS=[['4–9',4],['10–24',10],['25–60',25],['61+',61]];
 function picturePng(p,cs=12){const W=p.w*cs,H=p.h*cs,px=Buffer.alloc(W*H*3,255);
- p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[255,255,255]:rgbOf(PALETTE[c].color);
+ p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[255,255,255]:c==='#'?[150,190,205]:c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);
   for(let j=0;j<cs;j++)for(let i=0;i<cs;i++){const k=((y*cs+j)*W+x*cs+i)*3,edge=c!=='.'&&(i===cs-1||j===cs-1);px[k]=edge?Math.round(col[0]*.85):col[0];px[k+1]=edge?Math.round(col[1]*.85):col[1];px[k+2]=edge?Math.round(col[2]*.85):col[2];}}});
  return png(W,H,px);}
 // usedBy comes from the placed levels; the manifest and picture files are brought in line with them

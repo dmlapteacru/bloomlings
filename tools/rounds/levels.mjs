@@ -36,7 +36,8 @@ export function checkPods(pods,volumes){const errs=[];const sum={};for(const p o
  return errs;}
 
 // ---- access depth of each cell: how many coloured cells stand between it and the entry (0-1 search) ----
-function depths(board){const {w,h,rowsBottomFirst:rows,entries}=board,g=rows.join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];
+// a bridge site counts as a path here (one bridge is built before the far bank opens)
+function depths(board){const {w,h,rowsBottomFirst:rows,entries}=board,sites=new Set((board.hero?board.hero.choices:[]).map(c=>c.cell)),g=[...rows.join('')].map((ch,i)=>sites.has(i)?'.':ch).join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];
  for(const e of entries){d[e]=0;dq.push(e);}
  while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u,ch=g[n];if(ch==='#')continue;
   const cost=CODES.includes(g[c])?1:0,nd=d[c]+cost;if(nd<d[n]){d[n]=nd;cost?dq.push(n):dq.unshift(n);}}}
@@ -61,14 +62,20 @@ export function dosesOk(level,cls){const P=level.pods.length,hidden=level.pods.f
  const max=cls==='Normal'?2:3;if(types.length>max)return `типов ${types.length} больше ${max} для ${cls}`;if(P<16&&types.length>1)return 'очередь меньше 16 подов — только один тип';return null;}
 
 // ---- one candidate: order pods by access depth with noise, deal them into columns, add the recipe's mechanics ----
-function candidate(pic,board,base,cols,recipe,cls,seed,intro){const r=rnd(seed),{d,g}=depths(board),pods=base.map(p=>({...p}));
+export function candidate(pic,board,base,cols,recipe,cls,seed,intro){const r=rnd(seed),{d,g}=depths(board),pods=base.map(p=>({...p}));
  const byColour={};for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byColour[g[i]]=byColour[g[i]]||[]).push(d[i]);
  const maxD=Math.max(1,...Object.values(byColour).flat());
  for(const [c,ds] of Object.entries(byColour)){ds.sort((a,b)=>a-b);const ps=pods.filter(p=>p.color===c);let k=0;for(const p of ps){const slice=ds.slice(k,k+p.count);k+=p.count;p.key=slice.reduce((a,b)=>a+b,0)/slice.length/maxD;}}
  const sigma={Normal:.06,Hard:.16,'Super Hard':.26}[cls];
- // harder classes push some early-needed colour deeper (§6.1) and split returns to a colour (§6.2)
- const deep=cls==='Normal'?null:Object.keys(byColour)[Math.floor(r()*Object.keys(byColour).length)];
- for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key+sigma*z+(p.color===deep&&r()<.5?.25:0);}
+ for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key+sigma*z;}
+ // harder classes, with an intensity drawn per candidate (the measured class decides where a candidate may go):
+ // §6.1 an early-needed colour moves deeper, so a place must be kept for it; §6.2 one or two deep colours come back
+ // early, so those pods wait in a place until their cells open (a careless tap jams the places)
+ if(cls!=='Normal'){const u=cls==='Hard'?.4+1.4*r():.8+1.6*r(),mean=c=>{const ps=pods.filter(p=>p.color===c);return ps.reduce((a,p)=>a+p.key,0)/ps.length;};
+  const cs=Object.keys(byColour).filter(c=>pods.some(p=>p.color===c)).sort((a,b)=>mean(a)-mean(b)),half=Math.ceil(cs.length/2);
+  const early=cs[Math.floor(r()*half)];pods.filter(p=>p.color===early).sort((a,b)=>a.order-b.order).slice(1).forEach(p=>p.order+=.3*u);
+  const deepCs=cs.slice(half).sort(()=>r()-.5).slice(0,cls==='Hard'?1:2);
+  for(const c of deepCs)pods.filter(p=>p.color===c).sort((a,b)=>a.order-b.order).forEach((p,i)=>{if(i%2===0)p.order-=.45*u;});}
  const ord=pods.map((p,i)=>i).sort((a,b)=>pods[a].order-pods[b].order),tray=Array.from({length:cols},()=>[]);
  for(let i=0;i<ord.length;i+=cols){const row=ord.slice(i,i+cols),cs=[...Array(cols).keys()].sort(()=>r()-.5).sort((a,b)=>tray[a].length-tray[b].length);row.forEach((p,j)=>tray[cs[j]].push(p));}
  const types=recipe==='none'?[]:recipe.split('+'),dz=doses(recipe,cls,pods.length,intro);if(dz.error)return {error:dz.error};
