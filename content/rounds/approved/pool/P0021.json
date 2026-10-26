@@ -1,0 +1,92 @@
+{
+ "code": "P0021",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Заводная сова",
+ "theme": "batch-0011-env",
+ "family": "Птицы",
+ "direction": "Заводная сказка",
+ "subject": "сова из латуни и дерева с заводным ключом в спине",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 30,
+ "N": 930,
+ "colours": 7,
+ "volumes": {
+  "N": {
+   "cells": 440,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 136,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 123,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 94,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 61,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 60,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 16,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "NNNNNNNNNNNNNNNNYNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNYYYNNNNNNNNNNNNN",
+  "NNNCCCNNNNNNNNNNYNNNNNNNNNNNNNN",
+  "NNCCCCCCNAANNNNNNNNNNAANNNNYNNN",
+  "NCCCCCCCNAAAAAAAAAAAAAANNNYYYNN",
+  "NCCCCCCCNAAAAAAAAAAAAAANNNNYNNN",
+  "NCCCCCCCAAOOOOOOOOOOOOAANNNNNNN",
+  "NNCCCCCCAOYYYYYOOYYYYYOANNNNNNN",
+  "NNCCCCCNAOYCCCYOOYCCCYOANNNNNNN",
+  "NNNNNNNNAYCDDDCYYCDDDCYANNNNNNN",
+  "NNNNNNNNAYCDDDCYYCDDDCYANNNNNNN",
+  "NNNNNNNNEOYCCCYOOYCCCYOENNNNYNN",
+  "NNNNNNNNEOYYYYYDDYYYYYOENNNYYYN",
+  "NNNNNNNNEEOOOOODDOOOOOEENNNYNYN",
+  "NNNNNNNNNEEAAOOOOOOAAEENNNNYYYN",
+  "NNYNNNNNEEEEYYYYYYYYEEEENNNYYNN",
+  "NYYYNNNNEEEEOOOOOOOOEEEEOOOYYNN",
+  "NNYNNNNNEEEYYYYYYYYYYEEEOOOYYNN",
+  "NNNNNNNNEEEOOOOOOOOOOEEENNNYYNN",
+  "NNNNNNNNNEEYYYYYYYYYYEENNNNYYYN",
+  "NNNNNNNNNEEOOOOOOOOOOEENNNNYNYN",
+  "NNNNNNNNNEEYYYYYYYYYYEENNNNYYYN",
+  "NNNNNNNNNNEAOOOOOOOOAENNNNNNYNN",
+  "NNNNNNNNNNNAYYYYYYYYANNNNNNNNNN",
+  "NNNNNNNNNNNNAOOOOOOANNNNNNNNNNN",
+  "NNNNNNNNNNNNNAAAAAANNNNNNNNNNNN",
+  "EEEEEEEEEEEEOOEEEEOOEEEEEEEENNN",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEN",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEENNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

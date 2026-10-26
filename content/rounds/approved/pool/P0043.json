@@ -1,0 +1,108 @@
+{
+ "code": "P0043",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Книга выращивает дерево",
+ "theme": "batch-0011",
+ "family": "Книги, учёба и открытия",
+ "direction": "Домашняя магия",
+ "subject": "из страниц раскрытой книги растёт дерево",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 1052,
+ "colours": 8,
+ "volumes": {
+  "G": {
+   "cells": 381,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 352,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 85,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 73,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 65,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 38,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "E": {
+   "cells": 34,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 24,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..................GGGGG..................",
+  "..............GGGGLLGGGGGGG..............",
+  ".............GGGGLLLLGGGGGGG.............",
+  "...........GGLLGGGLLGGGGGGGGGG...........",
+  "..........GGLLLLGGGGGGGGGGGGGGM..........",
+  ".........GGGLLLLGGGGGGGGGGGGGGGM.........",
+  ".........GGGLLLLGGGGGGGGGGGRRGGM.........",
+  "........GGGGLLLLGGGGGGGGGGGRRGGGM........",
+  "........GGGGGGGGGGGGGGGGGGGGGGGGM........",
+  ".......GGGLLGGGGRRGGGGGGGGGGGGGGMM.......",
+  ".......GGLLLLGGGRRGGGGGGGGGGGGGGMM.......",
+  ".......GGLLLLGGGGGGGGGGGGGGGGGGGMM.......",
+  ".......GGGLLGGGGGGGGGGGGGGGGGGGGMM.......",
+  ".......GGGGGGGGGGGGGGGGGGGGGGGRRMM.......",
+  ".......GGGGGGGGGGGGGGGGGGGGGGGRRMM.......",
+  "........GGGGGGGGGGGGGGGGRRGGGGGMM........",
+  "........GGGRRGGGGGGGGGGGRRGGGGMMM........",
+  "........GGGRRGGGGGGGGGGGGGGGGGMMM........",
+  ".........GGGGGGGGGGGGGGGGGGGGMMM.........",
+  "..........GGGGGGGGGGGGGGGGGMMMM..........",
+  "...........GGGGGGGGRRGGGGGMMMM...........",
+  "............MMGGGGGRRGGGMMMMM............",
+  "..............MMMMMMMMMMMMM..............",
+  "................MMMMMMMMM................",
+  "..................AAEEE..................",
+  "..................AAEEE..................",
+  "..................AAEEE..................",
+  ".CCCCCCCC.........AAEEE.........CCCCCCCC.",
+  ".CCCCCCCCCCC......AAEEE......CCCCCCCCCCC.",
+  "NCCCCCCCCCCCCC....AAEEE....CCCCCCCCCCCCCN",
+  "NCCCCCCCCCCCCCCC..AAEEE..CCCCCCCCCCCCCCCN",
+  "NCCCCCCCCCCCCCCCCAAAEEEECCCCCCCCCCCCCCCCN",
+  "NCCCCCCCCCCCCCCCCAAAEEEECCCCCCCCCCCCCCCCN",
+  "NCCCCCCCCCCCCCCCAAAAEEEEECCCCCCCCCCCCCCCN",
+  "NCCCCCCCCCCCCCCCCCCCACCCCCCCCCCCCCCCCCCCN",
+  "NCCCCCCCCCCCCCCCCCCCACCCCCCCCCCCCCCCCCCCN",
+  "NCCCCCCCCCCCCCCCCCCCACCCCCCCCCCCCCCCCCCCN",
+  "NAACCCCCCCCCCCCCCCCCACCCCCCCCCCCCCCCCCAAN",
+  "NNNAAAAAAAAACCCCCCCCACCCCCCCCAAAAAAAAANNN",
+  "NNNNNNNNNNNAAAAAAAAAAAAAAAAAAANNNNNNNNNNN",
+  "......NNNNNNNNNNNNNAAANNNNNNNNNNNNN......",
+  "..............NNNNNNNNNNNNN.............."
+ ]
+}

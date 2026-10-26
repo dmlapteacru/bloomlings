@@ -60,8 +60,10 @@
   "A": 80,
   "E": 43
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0011",
  "createdAt": "2026-10-26",
- "history": []
+ "history": [],
+ "note": "Владелец: не принято, регенерировать не надо (2026-10-26)",
+ "decidedAt": "2026-10-26"
 }

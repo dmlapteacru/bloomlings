@@ -1,0 +1,107 @@
+{
+ "code": "P0057",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мастерская в ореховой скорлупе",
+ "theme": "batch-0011",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "subject": "мастерская в половинке грецкого ореха",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 41,
+ "N": 1139,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 449,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 269,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 224,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 76,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 45,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 36,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 34,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 6,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "............................................",
+  "............................................",
+  "............................................",
+  "............................................",
+  ".........EEEEEEEEEEEEEEEEEEEEEEEEEE.........",
+  "........EECCCCCCCCCCCCCCCCCCCCCCCCEE........",
+  ".......EECCCCCCCCCCCDDDDDDDCCCCCCCCEE.......",
+  ".......EEAAAACCCCCCCDDDDDDDCCCCCCCCEE.......",
+  ".......EEA..ASSSSSSSDDDDDDDCCCCCCCCEE.......",
+  ".......EEA..ASSSSSSSSCAAACCRRRCCCCCEE.......",
+  ".......EEAAAASSSSSSSCCAAACRRRRDDCCCEE.......",
+  ".......EECCCCDSDSDSDCCAAACRRRRRDDCCEE.......",
+  ".......EECCCCCCCCCCCCCAAACRRRRRRDDCEE.......",
+  ".......EECCCCCCCCCCCCCAAACCYYYYCCDDEE.......",
+  ".......EERRRRCCCCCCCCCAAACCCYYCCCDDEE.......",
+  ".......EERRRRSSSSSSCCCAAACCCCCCCDDCEE.......",
+  ".......EERRRRSSSSSCCCCAAACCCCCCCDDCEE.......",
+  ".......EERRRRCCCCCCCCCCCCCCCCCDDDDDDE.......",
+  "......OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO......",
+  "......AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA......",
+  "......AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA......",
+  "....OOOOAACCCCCCCCCCCCCCCCCCCCCCCCAAOOOO....",
+  ".OOOEEEEAACCCCCCCCCCCCCCCCCCCCCCCCAAEEEEOOO.",
+  "AOOEEEEEAAEEEEEEEEEEEEEEEEEEEEEEEEAAEEEEEOOA",
+  "AAAAOOOOOAEEEEEEEEEEEEEEEEEEEEEEEEAOOOOOAAAA",
+  ".EAAAAEAAAAEAAOOOOOOOOOOOOOOOOEEEAAAAAAEEAAA",
+  ".AAAAEAAAAEEAAAAEEAAAAAEEAAAAAAAEEAAAAAAEAA.",
+  ".AAAEEAAAAEAAAAAEEAAAAAAEEEAAAAAAEEAAAAEAAA.",
+  ".AAAEAAAAAEEAAAAAEEEAAAAAAEEAAAAEEAAAAEAAA..",
+  ".AAAEEAAAAAEEAAAAAAEEAAAAAEEAAAAEAAAAEAAAE..",
+  "...AAEEAAAAAEEEAAAAAEEAAAAEAAAAEAAAEEAAAE...",
+  "....AAEEAAAAAAEEAAAAEAAAAEAAAEEAAAEAAAAAE...",
+  ".....AAAEEAAAAAEAAAAEAAAEAAAEEAAAEEAAAAA....",
+  "......AAAAEEAAAEAAAEAAAEAAAEEAAAAEEAAAA.....",
+  "......EEAAAEAAAEAAAEAAAEAAAEEAAAAEEAA.......",
+  ".......AEAAAEAAEAAEAAAEAAAAEEAAAAEA.........",
+  "..........EAAAAAAAAEAAEEAAAEEAAAEA..........",
+  ".............AEAAAAEAAAEAAAEAEA.............",
+  ".................EAAAAAEAAEA................",
+  "....................EEA.....................",
+  "............................................"
+ ]
+}

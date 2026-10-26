@@ -1,0 +1,102 @@
+{
+ "code": "P0053",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фургончик-кофейня",
+ "theme": "batch-0011",
+ "family": "Кафе и мастерские",
+ "subject": "ретро-фургон с кофейным окном и чашкой на крыше",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 36,
+ "N": 931,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 251,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 180,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 171,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 144,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 77,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 58,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 44,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 6,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".............CCCCCCCCCCCCRR.................",
+  ".............RRRRRRRRRRRRRRR................",
+  ".............RRRRRRRRRRRR..R................",
+  "..............RRRRRRRRRR...RR...............",
+  "..............RRRRRRRRRR..RR................",
+  "..............RRRRRRRRRRRRRR................",
+  "..............RRRRRRRRRR.R..................",
+  "..............RRRRRRRRRR....................",
+  "............AAAAAAAAAAAAAA..................",
+  "..................AA........................",
+  "..................AA........................",
+  ".....CRRRRRRRRRRRRRRRRRRRRRRCCCCCCCCC.......",
+  "...CCCRRRRRRRRRRRRRRRRRRRRRRCCCCCCCCCCC.....",
+  "...CCCCRRCCCRRRCCCRRRCCCRRRCCCCSSSSSSSC.....",
+  "..CSSSCRRCCCRRRCCCRRRCCCRRRCCCSSSSSSSSSC....",
+  "..CSSSCRRDCCDRRDCCDRRDCCDRRCCCSSSSSSSSSC....",
+  "..CSSSCRRDCCDRRDCCDRRDCCDRRCCCSSSSSSSSSC....",
+  "..CSSSCCCDDDDDDDDDDDDDDDDCCCCCSSSSSSSSSCC...",
+  "..CSSSCCCDDDDDDDDDDDDDDDDCCCCCSSSSSSSSSCC...",
+  "..CSSSCCCDDDDDDDDDDDDDDDDCCCCCCSSSSSSSCCC...",
+  "..BBBBBBBDDDDDDDDDDDDDDDDBBBBBBBBBBBBBBBB...",
+  "..BBBBBAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBB...",
+  "..BBBBBAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBB...",
+  "..BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBYY...",
+  "..BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBYY...",
+  "..BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBYY...",
+  "..BBBBBBDDDDBBBBBBBBBBBBBBBBBBBDDDDBBBBBB...",
+  "...BBBBDDDDDDBBBBBBBBBBBBBBBBBDDDDDDBBBBB...",
+  "...BBBDDDDDDDDBBBBBBBBBBBBBBBDDDDDDDDBBBB...",
+  "..NNNNDDDCCDDDNNNNNNNNNNNNNNNDDDCCDDDNNN....",
+  "..NNNNDDCCCCDDNNNNNNNNNNNNNNNDDCCCCDDNNN....",
+  "......DDDCCDDD...............DDDCCDDD.......",
+  "......DDDDDDDD...............DDDDDDDD.......",
+  ".......DDDDDD.................DDDDDD........",
+  "........DDDD...................DDDD.........",
+  "............................................"
+ ]
+}

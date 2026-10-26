@@ -59,7 +59,7 @@
   "S": 232,
   "N": 38
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0011-env",
  "createdAt": "2026-10-26",
  "history": [
@@ -112,5 +112,7 @@
     "...............SSSSSSSSSSSS......."
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-26"
 }

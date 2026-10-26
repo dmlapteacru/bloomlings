@@ -1,0 +1,67 @@
+{
+ "code": "P0045",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Печенье с шоколадом",
+ "theme": "batch-0011",
+ "family": "Хлеб и выпечка",
+ "subject": "печенье с шоколадной крошкой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 22,
+ "N": 329,
+ "colours": 4,
+ "volumes": {
+  "O": {
+   "cells": 209,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 51,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 40,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 29,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........YYYYA........",
+  ".....YYYYYOOA........",
+  "....YYYOOOOOA........",
+  "...YYOOOOOOOA........",
+  "..YYOEEOOOOOOA.......",
+  ".YYOOEEOOOEEOOAA.....",
+  ".YOOOOOOOOEEOOOA.....",
+  "YYEEOOOOOOOOOOOA.....",
+  "YOEEOOOOOOOOOOOOA....",
+  "YOOOOOOOOOOOOOOOAA...",
+  "YOOOOOOOOEEOOOOOOAAAA",
+  "YOOEEOOOOEEOOOOEEOOOA",
+  "YOOEEOEEOOOOOOOEEOOOA",
+  "YOOOOOEEOOOOEEOOOOOAA",
+  "YOOOOOOOOOOOEEOOOOOAA",
+  ".OOOOOOOOOOOOOOOOOAA.",
+  ".YOOOOEEOOOOOEEOOOAA.",
+  "..OOOOEEOOOOOEEOOAA..",
+  "...OOOOOOOOOOOOAAA...",
+  "....AOOOOOOOOOAAA....",
+  ".....AAAAAAAAAAA.....",
+  "........AAAAA........"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "code": "P0051",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Баночка мёда",
+ "theme": "batch-0011",
+ "family": "Десерты и сладости",
+ "device": "compact",
+ "subject": "баночка мёда с тканевой крышкой и ложкой-веретеном",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 24,
+ "N": 357,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 127,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 88,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 57,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 46,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 27,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 12,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........................",
+  "......RRRRRRRR..........",
+  ".....RRRRRCRRRR.........",
+  "....RRCRRRRRRRCR........",
+  ".....RRRCRRRCRR.....AA..",
+  "...RAAAAAAAAAAAAR...AA..",
+  "...RRRRRRRRRRRRRR...AA..",
+  "..RRCRRRCRRRCRRRCR..AA..",
+  ".RRRRRCRRRCRRRCRRRR.AA..",
+  "..RR.RROORROORR.RR..AA..",
+  ".....OOOOOOOOOO.....AA..",
+  "...YYOOOOOOOOOOYO...AA..",
+  "..YYCYYYYYYYYYYYOO..AA..",
+  "..YYCCYYYYYYYYYYOO..AA..",
+  "..YYCCYYYYYYYYYYOO..AA..",
+  "..YYCCYYYYYYYYYYOO..EE..",
+  "..YYCCYYYYYYYYYYOO.AAAA.",
+  "..YYCCYYYYYYYYYYOO.EEEE.",
+  "..YYYYYYYYYYYYYYOO.AAAA.",
+  "..YYCCYYYYYYYYYYOO.EEEE.",
+  "..YYCCYYYYYYYYYOOO.AAAA.",
+  "...YYYYYYYYYYYOOO...EE..",
+  ".....OOOOOOOOOO.....YY..",
+  ".....................Y.."
+ ]
+}

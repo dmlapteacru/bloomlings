@@ -1,0 +1,110 @@
+{
+ "code": "P0030",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дом в цветочном бутоне",
+ "theme": "batch-0011",
+ "family": "Сказочные жилища",
+ "direction": "Живая архитектура",
+ "subject": "домик в бутоне тюльпана",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 44,
+ "N": 1040,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 497,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 165,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 137,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "K": {
+   "cells": 69,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "C": {
+   "cells": 67,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 61,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 35,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 9,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "............................................",
+  ".....................KK.....................",
+  ".....PP.............KKKK.............RR.....",
+  ".....PPP...........KKKKKK...........PRR.....",
+  ".....PPPP..........KKKKKK..........PPRR.....",
+  ".....PPPPP........KKKKKKKK........PPPRR.....",
+  ".....PPPPPP......KKKKRRKKKK......PPPPRR.....",
+  ".....PPPPPPP....KKKKRRRRKKKK....PPPPPPR.....",
+  ".....PPPPPPP...KKKKRRRRRRKKKK...PPPPPPR.....",
+  "....PPPPPPPPP..KKKRRRRRRRRKKK..PPPPPPPRR....",
+  "....PPPPPPPPPP.KKRRRRRRRRRRKK.PPPPPPPPRR....",
+  "....PPPPPPPPPPKKRRRRRRRRRRRRKKPPPPPPPPRR....",
+  "....PPPPPPPPPPPRRRRRRRRRRRRRRPPPPPPPPPRR....",
+  "....PPPPPPPPPPRRRRRRRRRRRRRRRRPPPPPPPPRR....",
+  "....PPPPPPPPPPPPCCCCCCCCCCCCPPPPPPPPPPRR....",
+  "....PPPPPPPPPPPPCCCCCCCCAAACPPPPPPPPPPRR....",
+  "....PPPPPPPPPPPPCCAAACCASSSAPPPPPPPPPPRR....",
+  ".....PPPPPPPPPPPCCAAACCASSSAPPPPPPPPPPR.....",
+  ".....PPPPPPPPPPPCCAAACCASSSAPPPPPPPPPRR.....",
+  ".....PPPPPPPPPPPCCAAACCCAAACPPPPPPPPPRR.....",
+  ".....PPPPPPPPPPPCCAACCCCCCCCPPPPPPPPPRR.....",
+  "......PPPPPPPPPPCCAAACCCCCCCPPPPPPPPPR......",
+  "......PPPPPPPPPPCCAAACCCCCCCPPPPPPPPRR......",
+  "......PPPPPPPPPPPPAAAKKKKKPPPPPPPPPPRR......",
+  "......PPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR......",
+  "......PPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR......",
+  ".......PPPPPPPPPPPPPPPPPPPPPPPPPPPRRR.......",
+  "........PPPPPPPPPPPPPPPPPPPPPPPPRRRR........",
+  ".........RPPPPPPPPPPPPPPPPPPPPRRRRR.........",
+  "...........RPPPPPPPPPPPPPPPPRRRRR.GGGGGG....",
+  ".............RRRRRRRRRRRRRRRRRR.GGGGGMM.....",
+  "...GGGGGGG.......RRRRRRRRRR...GGGGGMMG......",
+  "....GGMMGGGG........GGMM....GGGGGGMMG.......",
+  ".....GGGMGGGG.......GGMM...GGGGGMMGG........",
+  "......GGGMMGGGG.....GGMM..GGGGGMMGG.........",
+  ".......GGGMMGGGG....GGMM..GGGMMGG...........",
+  "........GGGGMMGGG...GGMM.GGMMGG.............",
+  ".........GGGGMMGGG..GGMMGGMMG...............",
+  "...........GGGGMMG..GGMMMMG.................",
+  "............GGGGMMG.GGMMM...................",
+  "..............GGGGMMGGMM....................",
+  "...................MGGMM....................",
+  "....................GGMM....................",
+  "....................GGMM...................."
+ ]
+}

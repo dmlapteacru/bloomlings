@@ -1,0 +1,81 @@
+{
+ "code": "P0036",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ретро-радио",
+ "theme": "batch-0011",
+ "family": "Ретро-техника и ностальгия",
+ "subject": "ретро-радио",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 25,
+ "N": 706,
+ "colours": 6,
+ "volumes": {
+  "A": {
+   "cells": 264,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 246,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 82,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 45,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 29,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".......EEEEEEEEEEEEEEEEEE.......",
+  "....EEEAAAAAAAAAAAAAAAAAAEEE....",
+  "..EEAAAAAAAAAAAAAAAAAAAAAAAAEE..",
+  ".EEAAAAAAAAAAAAAAAAAAAAOOOAAAEE.",
+  "EEAAEEEEEEEEEEEAAAAAAOOYYYOOAAEE",
+  "EAAEEEECCCCCEEEEAAAAOOYYYYYDOAAE",
+  "EAAEECCCCCCCCCEEAAAAOYYYYYDYOAAE",
+  "EAAEAAAAAAAAAAAEAAAAOYYYYDYYOAAE",
+  "EAAECCCCCCCCCCCEAAAAOYYDDYYYOAAE",
+  "EAAECCCCCCCCCCCEAAAAOYYYYYYYOAAE",
+  "EAAEAAAAAAAAAAAEAAAAOOYYYYYOOAAE",
+  "EAAECCCCCCCCCCCEAAAAAOOYYYOOAAAE",
+  "EAAECCCCCCCCCCCEAAAAAAAOOOAAAAAE",
+  "EAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAE",
+  "EAAECCCCCCCCCCCEAAAADDDAAADDDAAE",
+  "EAAECCCCCCCCCCCEAAADDCDDADDCDDAE",
+  "EAAEAAAAAAAAAAAEAAADDDDDADDDDDAE",
+  "EAAEEEEEEEEEEEEEAAADDDDDADDDDDAE",
+  "EAAAAAAAAAAAAAAAAAAADDDAAADDDAAE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "..EEEEE..................EEEEE..",
+  "..EEEEE..................EEEEE..",
+  "..EEEEE..................EEEEE.."
+ ]
+}

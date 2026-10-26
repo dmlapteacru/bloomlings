@@ -58,7 +58,7 @@
   "G": 12,
   "E": 49
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0011-env",
  "createdAt": "2026-10-26",
  "history": [
@@ -114,5 +114,7 @@
     "..............EEEEEE.............."
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-26"
 }

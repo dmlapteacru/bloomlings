@@ -1,0 +1,94 @@
+{
+ "code": "P0018",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Облако спит в кресле",
+ "theme": "batch-0011",
+ "family": "Мебель и уютные уголки",
+ "direction": "Уютный сюрреализм",
+ "subject": "спящее облако в кресле",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 32,
+ "N": 865,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 311,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 233,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 202,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 92,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 12,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 11,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 4,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "......OOOOOOOOOOOOOOOOOOOOO......",
+  ".....OOOOOOOOOOOOOOOOOOOOOOO.....",
+  "....OOOOOOOCCCCCOOOOOOOOOOOOO....",
+  "....OOOOOOCCCCCCCOOOOOOOOOOOO....",
+  "...OOOOOOCCCCCCCCCOOCCCOOOOOOO...",
+  "...OOOOOOCCCCCCCCCOCCCCCOOOOOO...",
+  "...OOOOOOCCCCCCCCCOCCCCCCOOOOO...",
+  "...OOOCCOCCCCCCCCCCCCCCCCOCCOO...",
+  "...OOCCCOCCCCCCCCCCCCCCCCOCCOO...",
+  "...OOCCCCCCCCCCCCCCCCCCCCCCCOO...",
+  "...OOCCCCCCCCCCCCCCCCCCCCCCCOO...",
+  "...OOCCCCCCCCCCCCCCCCCCCCCCCOO...",
+  "..AACCCCCCCCCCCCCCCCCCCCCCCCCAA..",
+  "AAAACCCCCCDCCDCCCCCDCCDCCCCCCAAAA",
+  "AAAACCCCCCCDDCCCCCCCDDCCCCCCCAAAA",
+  "AAAACCCCKKCCCCCCCCCCCCCKKCCCCAAAA",
+  "AAAACCCCCCCCCCCDDDCCCCCCCCCCCAAAA",
+  "AAAASSCCCCCCCCCCCCCCCCCCCCCSSAAAA",
+  "AAAASSSSCCCCCCCCCCCCCCCCCSSSSAAAA",
+  "AAAASSSSSSSSSSSSSSSSSSSSSSSSSAAAA",
+  "AAAAASSSSSSSSSSSSSSSSSSSSSSSAAAAA",
+  "AAAAASSSSSOOSSSSSSSSOOSSSSSSAAAAA",
+  "AAAAAASSSOOOOSSSSSSOOOOSSSSAAAAAA",
+  "AAAAAAAAOOOOOOOOOOOOOOOOOAAAAAAAA",
+  "AAAAAAAAOOOOOOOOOOOOOOOOOAAAAAAAA",
+  ".AAAAAAOOOOOOOOOOOOOOOOOOOAAAAAA.",
+  "..AAAAOOOOOOOOOOOOOOOOOOOOOAAAA..",
+  "..AAAAAAAAAAAAAAAAAAAAAAAAAAAAA..",
+  "..AAAAAAAAAAAAAAAAAAAAAAAAAAAAA..",
+  "...EE.......................EE...",
+  "...EE.......................EE...",
+  "...EE.......................EE..."
+ ]
+}

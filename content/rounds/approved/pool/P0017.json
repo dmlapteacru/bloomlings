@@ -1,0 +1,95 @@
+{
+ "code": "P0017",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рамен",
+ "theme": "batch-0011",
+ "family": "Блюда и напитки",
+ "subject": "миска рамена с яйцом, нарутомаки и палочками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 29,
+ "N": 770,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 214,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 179,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 128,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 78,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 69,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 67,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 19,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 16,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".......................................EE",
+  ".....................................EEE.",
+  "..................................EEEE...",
+  "................................EEEE..EEE",
+  "............NNNNNNNNNNNNNN....EEEE..EEEE.",
+  "........NNNNNNNNNNNNNNNNNNNNEEEE.EEEE....",
+  ".....NNNNNNAAAAAAAAAAAAAAAEEEEEEEEE......",
+  "...NNNNAAAAAAAAYYYYAAYYAEEEAEEEENNN......",
+  ".NNNNAAACCCCCCCAAYYYYYEEEEEEEAAAANNNN....",
+  "NNNAAAACCPPPPPCCYAAYEEEEEECCCCYYAAANNN...",
+  "NNAAAAYCPCCCCCPCYYYEEEEECOOOOCCYYAAANN...",
+  "NNAAYYYCPCPPPCPCAYEEEYCCOOOOOCCAYYAANN...",
+  "NNAAYYACPCPCCCPCYAAYYACCOOOOOCCYAYAANN...",
+  "NNAAAAYCCCPPPPCCYYYAAYCCCCOOCCYYYAAANN...",
+  "NNNAAYYYCCCCCCCAAYYYYYACCCCCCYAAYAANNN...",
+  "BNNNNAAAYYAYYYAYYAAYYAYYYAYYAAYAANNNNB...",
+  "BBBNNNNAAAAAAAYYYYYAAYYYYYAAAAANNNNBBB...",
+  ".BBBBNNNNNNAAAAAAAAAAAAAAAANNNNNNBBBB....",
+  ".BBBBBBBNNNNNNNNNNNNNNNNNNNNNNBBBBBBB....",
+  "..BBBBBBBBBBNNNNNNNNNNNNNNBBBBBBBBBB.....",
+  "...BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB......",
+  "....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.......",
+  ".....BBBBBBBBBBBBBBBBBBBBBBBBBBBB........",
+  "......BBBBBBBBBBBBBBBBBBBBBBBBBB.........",
+  "........BBBBBBBBBBBBBBBBBBBBBB...........",
+  "...........BBBBBBBBBBBBBBBB..............",
+  "............NNBBBBBBBBBBNN...............",
+  "............NNNNNNNNNNNNNN...............",
+  "............NNNNNNNNNNNNNN..............."
+ ]
+}

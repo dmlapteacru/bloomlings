@@ -63,8 +63,10 @@
   "L": 45,
   "Y": 44
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0011",
  "createdAt": "2026-10-26",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-10-26"
 }

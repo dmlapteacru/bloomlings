@@ -1,0 +1,105 @@
+{
+ "code": "P0020",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Робот поливает цветок",
+ "theme": "batch-0011",
+ "family": "Роботы и механизмы",
+ "direction": "Природа и технология",
+ "subject": "робот с лейкой поливает цветок в горшке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 38,
+ "N": 786,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 317,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 147,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 112,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 75,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 63,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 49,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 14,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 9,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..........O.................................",
+  ".........OOO................................",
+  ".........OOO................................",
+  "........SSSSS...............................",
+  "......SSSSSSSSS.............................",
+  ".....SSSSSSSSSSS............................",
+  "....SSSSSSSSSSSSS...........................",
+  "....SSSSSSSSSSSSS...........................",
+  ".BBSSSSDDDDDDDSSSSBB........................",
+  ".BBSSSDDDDDDDDDSSSBB.....OOO................",
+  ".BBSSDDSSDDDSSDDSSBB....OOOOO....OOOO.......",
+  ".BBSSDDSSDDDSSDDSSBB...OO...O....OOOO.......",
+  ".BBSSSDDDDDDDDDDSSBB...OO...O...OOOOO.......",
+  "....SSDDDDDDDDDSS.....OOOOOOOOO.OO..BB......",
+  "....SSSSSSSSSSSSS....OOOOOOOOOOOOO..BB......",
+  ".....SSSSSSSSSSS.....OOOOOOOOOOOO...BB.B....",
+  "......SSSSSSSSS......OOOOOOOOOOO..BB...B....",
+  "........SSSSS........BBBOOOOOOO...BB........",
+  "........BBBBB.......BBBBOOOOOOO......PP.....",
+  ".....SSSSSSSSSSS...BBBBOOOOOOOO.....PPPP....",
+  "....SSSSSSSSSSSSS.BBBBOOOOOOOOO....PPPPPPP..",
+  "...SSSSSSSSSSSSSSBBBB.............PPPPPPPPP.",
+  "..SSSSSSSSSSSSSSBBBB.............PPPPYYYPPP.",
+  ".BSSSSSSSSSSSSSSBBB..............PPPPYYYPPP.",
+  ".BSSSSSBBBBBBBSSSSS...............PPPYYYPP..",
+  ".BSSSSSBBBBBBBSSSSS...............PPPPPPPP..",
+  ".BSSSSSBBBBBBBSSSSS...............PPPPPPPPGG",
+  ".BSSSSSBBBBBBBSSSSS..............GGPPPGPPPGG",
+  "BBSSSSSBBBBBBBSSSSS..............GGGGGG.....",
+  "BBSSSSSSBBBBBSSSSSS...................G.....",
+  "BBSSSSSSSSSSSSSSSSS..............AAAAAAAAAAA",
+  ".B.SSSSSSSSSSSSSSSS..............AAAAAAAAAAA",
+  "...SSSSSSSSSSSSSSS................AAAAAAAAA.",
+  "....SSSSSSSSSSSSS.................AAAAAAAAA.",
+  "....BBBB.....BBBB.................AAAAAAAAA.",
+  "....BBBB.....BBBB.................AAAAAAAAA.",
+  "....BBBB.....BBBB.................AAAAAAAAA.",
+  "....BBBB.....BBBB.................AAAAAAAA.."
+ ]
+}

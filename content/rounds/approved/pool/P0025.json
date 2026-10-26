@@ -1,0 +1,103 @@
+{
+ "code": "P0025",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Осьминог-дирижёр",
+ "theme": "batch-0011-env",
+ "family": "Морские и пресноводные обитатели",
+ "direction": "Обмен ролями",
+ "subject": "осьминог дирижирует палочкой, одно щупальце поднято",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 32,
+ "N": 1152,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 438,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 341,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 127,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 79,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 52,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 50,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 38,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 15,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBBBBBBBBSSBBBDDBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBSSSSBDCCDBBB",
+  "BBBBBBBBBBBBVVVVVBBBBBBBSSSSDCCDBBBB",
+  "BBBBBBBBBBVVVVVVVVVBBBBBBSSDCCDBBBBB",
+  "BBBSSSBBBVVVVVVVVVVVBBBBBVVCCDBBBBBB",
+  "BBSCSSSBBVVVVVVVVVVVBBBBBVCCDBBBBBBB",
+  "BBSSSSSBVVVVVVVVVVVVVBBBBVVVBBBBBBBB",
+  "BBSSSSSBVVVCCVVVCCCVVBBBBVPVBBBBSSBB",
+  "BBBSSSBBVVCCDVVVCCDVVBBBBVVVBBBSSSSB",
+  "BBBBBBBBVVCCDCVVCCDCVBBBVVVVBBBSSSSB",
+  "BBBBBBBBVVCCCVVVCCCVVBBVVVPVBBBBSSBB",
+  "BBSSBBBBVVVCCVVVVCVVVVVVVPVBBBBBBBBB",
+  "BSSSSBBBBVVVVVVVVVPVVPVVPVVBBBSSBBBB",
+  "BSSSSBVVVVVVVVVVVVVVPVVPVVBBBSSSSBBB",
+  "BBSSBVVPVVPRVVVVVRVPVVVVBBBBSSCSSSBB",
+  "BBBBVVPVVVVRRRDRRRVVVPVVVBBBSSSSSSBB",
+  "BBBBVPVVVVVRRVPVRRVVVVVPVVBBBSSSSBBB",
+  "BBMVPVVBBVPVVVVVVVVPVVVVVVVBBBSSBBBB",
+  "BBMVVVBBBVVVVVVPVVPVVBVVPVVBBBBBBBBB",
+  "BBMVVVBBBVVVBVPVVVVVVBBVVVVBBBBBBBBB",
+  "BMMVPVBBVVPVBVVVVBVPVVBBVPVVBBBBBBBB",
+  "BMMVVVBBVPVVBVVVBBVVVVBBBVVVBBBBBMMB",
+  "BBMVVPVVVVVBBVPVBBBVPVBBBVPVVVVBBMMB",
+  "BBMMVVVVVVVBBVVVBBBVVVVBBBVVPVVBMMBB",
+  "BBMMBVVBVPVVVVVPVVVBVPVVVVBVVVBBMMBB",
+  "BMMMBBBBBVVPVBVVVVVBVVVPVVBBBBBBMMMB",
+  "BMMBBBBBBBBVVBBVVBBBBBVVVBBBBBBBBMMB",
+  "BMMBBBBYYYYYYYBBBBBBBYYYYYYYBBBBBMMY",
+  "YMMYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYMMY",
+  "YMMYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYMMY",
+  "YMMCCYYYYCCCYYYYCCCYYYYCCCYYYYCCCMMY",
+  "YMMMYYYYYYYYYYYYYYYYYYYYYYYYYYYYMMMY"
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "code": "P0023",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Палатка у костра",
+ "theme": "batch-0011-env",
+ "family": "Походы и отдых на природе",
+ "subject": "треугольная палатка с открытым пологом рядом с маленьким костром",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 28,
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 354,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "M": {
+   "cells": 191,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 116,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 109,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 65,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 29,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 24,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 8,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVCVVVVVVVVVVVVVV",
+  "VVCCCCVVVVVVVVVVCCCVVVVVVVVVVCVV",
+  "VCCCCCCVVVVVVVVVVCVVVVVVVVVVCCCV",
+  "VCCCCCCVVDVDVVVVVVVVVVVVVVVVVCVV",
+  "VCCCCCCVVDBDVVVVVVVVVVVVVVVVVVVV",
+  "VVCCCCCVVVBVVVVVVVVVVVCVVVVVVVVV",
+  "VVVCCCVVVBBBVVVVVVVVVCCCVVVVVVVV",
+  "VVVVVVVVVBDBVVVVVVVVVVCVVVVVVVVV",
+  "VVVVVVVVBBDBBVVVVVVVVVVVVVVRVVVV",
+  "VVVVVVVVBCDBBBVVVVVVVVVVVVRRVVVV",
+  "VVCVVVVBBCDBBBVVVVVVVVVVVVRRVVVV",
+  "VCCCVVBBCDDDBBBVVVVVVVVVVRRORVVV",
+  "VVCVVVBBCDDDBBBVVVVVVVVVVRRORVVV",
+  "VVVVVBBCCDDDBBBBVVVVVVVVVROORVVV",
+  "MMMMMBBCCDDDBBBBMMMMMMMMRROOORMM",
+  "MMMMBBBCCDDDDBBBBMMMMMMMRROOORMM",
+  "MMMMBBCCDDDDDBBBBMMMMMMRROYOORRM",
+  "MMMBBBCCDDDDDBBBBBMMMMMRROYYOORM",
+  "MMBBBCCCDDDDDBBBBBBMMMMROOYYOORM",
+  "MMBBBCCCDDDDDBBBBBBMMMMCOOYYOORM",
+  "MBBBCCCDDDDDDDBBBBBBMMCCCCCYCCCC",
+  "MBBBCCCDDDDDDDBBBBBBMMMCCCCCCCCM",
+  "BBBCCCCDDDDDDDBBBBBBBMCCCCCCCCCC",
+  "MMMMMMMMMMMMMMMMMMMMMMCCCCMMCCCC",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+ ]
+}

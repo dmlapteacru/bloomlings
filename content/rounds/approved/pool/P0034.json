@@ -1,0 +1,106 @@
+{
+ "code": "P0034",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Планета-пончик",
+ "theme": "batch-0011",
+ "family": "Десерты и сладости",
+ "direction": "Кулинарная фантастика",
+ "subject": "глазированный пончик-планета с кольцом посыпки и флажком",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 39,
+ "N": 911,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 279,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 202,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 166,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 136,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 93,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 18,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 10,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "L": {
+   "cells": 7,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "......................DDR...................",
+  "......................DDRRRR................",
+  "......................DDRRRR................",
+  "......................DDR...................",
+  "......................DD....................",
+  "......................DD....................",
+  "......................DD....................",
+  "......................DD....................",
+  "......................DD....................",
+  "......YYBBBBBYYYOOOOPYYPAAAA................",
+  "...BBYYBBBBBBYOOPPPPPPPPPPPPAA..............",
+  ".BBBYYYBBBBBOPPPBBPPPPPPPPPLPPPA............",
+  "BBBBYYYBB.OOPPPPPPPPPPPPPPPLPPPPAA..........",
+  "BBBBY....OOPPPPPPPPPPPPPPPPPPPPPPAA.........",
+  "BBBB....OOPPPPPPPPPPPPPPPPPPPPPYYPAA........",
+  "BBBY....OPPPYPPPPPPPPPPPPPPPPPPPPPPA........",
+  "BBBY...OPPPPYPPPPPPOOOOOOPPPPPPPPPPPAY......",
+  "BBBYY.OOPPPPPPPPPOOAAAAAAOOPPPPPPPPPAAB.....",
+  ".BYYYBOPPPPPPPPPOAAAAAAAAAAOPPPPPPPPPABBB...",
+  "..YYYBBPPPPPPPPOOAAAAAAAAAAOOPPPPPBPPABBBB..",
+  "...YYBBBPPPPPPPO............OPPPPPBPPABBBBY.",
+  "....BBBBBBLLPPPO............OPPPPPPPPA.BBBY.",
+  ".....BBBBYYYPPPOO..........OOPPPPPPPPA..BBYY",
+  "......OBBYYYBBBPOO........OOPPPPPPPPPA..BBYY",
+  "......OOBYYYBBBBBPOOOOOOOOPPPPPPPPPPAA..BYYY",
+  "......OOPPYBBBBBBYYBBPPPPPPPLPPPPPPPAA..BYYY",
+  "......OOOPPPLBBBYYYBBBBBBPPPLPPPYYPOAABBBYYB",
+  "......OOOPPOOPPBYYYBBBBBYYYBBBBBYYYBBBBBYYY.",
+  "......OOOOOOOOPPPOYBBBBBYYYBBBBBYYYBBBBBYY..",
+  "......OOOOOOOOOOOOOOOOBBYYBBBBBBYYYBBBBB....",
+  ".......OOOOOOOOOOOOOOOOOOOOOOBBBYYBAA.......",
+  ".......OOOOOOOOOOOOOOOOOOOOOOOOOAAAAA.......",
+  "........AOOOOOOOOOOOOOOOOOOOOOOAAAAA........",
+  ".........AOOOOOOOOOOOOOOOOOOOAAAAAA.........",
+  "..........AAAOOOOOOOOOOOOOOAAAAAAA..........",
+  "...........AAAAAOOOOOOOAAAAAAAAAA...........",
+  ".............AAAAAAAAAAAAAAAAAA.............",
+  "...............AAAAAAAAAAAAAA...............",
+  "....................AAAA...................."
+ ]
+}

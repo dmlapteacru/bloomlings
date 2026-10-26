@@ -1,0 +1,98 @@
+{
+ "code": "P0055",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бонсай",
+ "theme": "batch-0011",
+ "family": "Деревья, листья и плоды",
+ "subject": "бонсай с изогнутым стволом в плоском горшке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 42,
+ "N": 775,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 390,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 119,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "N": {
+   "cells": 94,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 66,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 65,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 41,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...............GGG...GGGG..................",
+  "..............GGGGG.GGGGGG.................",
+  ".............GGGGGGGGGGGGGG................",
+  ".............GGGGGGGGGGGGGG................",
+  ".............GGGGGGGGGGGGGGG...............",
+  "............GGGGGGGGGGGGGGGG...............",
+  "............MGGGGGGGGGGGGGGG...............",
+  ".............MGGGGGGGGGGGGMM.......GGG.....",
+  "..............MMMGGGGGGGMMMGGGG..GGGGGG....",
+  "................MMMMMMMM.GGGGGGG.GGGGGGG...",
+  "......................EEEGGGGGGGGGGGGGGG...",
+  ".......................EGGGGGGGGGGGGGGGGG..",
+  "......................EEGGGGGGGGGGGGGGGGGG.",
+  "...GGGG...GGGGG......EEGGGGGGGGGGGGGGGGGGGG",
+  "..GGGGGG.GGGGGGG...EEEEGGGGGGGGGGGGGGGGGGGM",
+  "..GGGGGGGGGGGGGG.EEEEEEMMGGGGGGGGGGGGGGGGM.",
+  ".GGGGGGGGGGGGGGGGEEEEE..MMGGGGGGGGGGGGGMM..",
+  ".GGGGGGGGGGGGGGGGGEEE.....MMMMMGGGGMMMMM...",
+  "GGGGGGGGGGGGGGGGGGEE..........MMMMMM.......",
+  "MGGGGGGGGGGGGGGGGGE........................",
+  ".MGGGGGGGGGGGGGGGME........................",
+  "..MMGGGGGGGGGGGMME.........................",
+  "...MMMMMMMMMMMMAE..........................",
+  "............AAAAEE.........................",
+  "............AAAAEEEE.......................",
+  ".............AAAEEEEE......................",
+  "..............AAAAAAAEE....................",
+  "................AAAAAEEE...................",
+  ".................AAAAEEE...................",
+  "..................AAAEEE...................",
+  "..................AAAEEE...................",
+  "..................AAAEEEE..................",
+  ".................AAAAEEEE..................",
+  ".......MMMMMMMMMMMMMMMMMMMMMMMMMMMMM.......",
+  ".......MMMMMMMMMMMMMMMMMMMMMMMMMMMMM.......",
+  ".....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.....",
+  ".....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.....",
+  "......NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN......",
+  ".......NNNNNNNNNNNNNNNNNNNNNNNNNNNNN.......",
+  "........NNNNNNNNNNNNNNNNNNNNNNNNNNN........",
+  ".........NNN..................NNNN.........",
+  "..........................................."
+ ]
+}

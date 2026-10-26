@@ -1,0 +1,94 @@
+{
+ "code": "P0049",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кристаллическая друза",
+ "theme": "batch-0011",
+ "family": "Камни, минералы и кристаллы",
+ "direction": "Геометрическая фантазия",
+ "subject": "друза гранёных кристаллов на камне",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 32,
+ "N": 775,
+ "colours": 7,
+ "volumes": {
+  "A": {
+   "cells": 182,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 133,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 131,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 120,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 98,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 57,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "K": {
+   "cells": 54,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "....................B....................",
+  "...................SBN...................",
+  "..................SSBN...................",
+  "..................SSBNN..................",
+  ".................SSBBNNN.................",
+  "................SSSBBBNN.................",
+  "................SSSBBBNNN.......N........",
+  "........S.......SSSBBBNNN.....SSN........",
+  "........SBN.....SSSBBBNNN....SSBN........",
+  "........SBNN....SSSBBBNNN...SSBBNN.......",
+  "........SBBNN...SSSBBBNNN..SSSBBNN.......",
+  ".......SSBBNNN..SSSBBBNNN..SSSBBNN.......",
+  ".......SSBBNNN..SSSBBBNNN..SSBBBNN.......",
+  ".......SSSBBNN..SSSBBBNNN..SSBBNNN.......",
+  "..V....SSSBBNN..SSSBBBNNN.SSSBBNNN...KK..",
+  "..KVVV..SSBBNNN.SSSBBBNNN.SSSBBNN..KKKV..",
+  "..KVVVV.SSBBBNN.SSSBBBNNN.SSBBNNN.KKKVV..",
+  "..KKVVVVSSSBBNN.SSSBBBNNNSSSBBNNNKKKKVV..",
+  ".KKKKVVVSSSBBNNNSSSBBBNNNSSSBBNN.KKKVVV..",
+  "..KKKVVVVSSBBNNNSSSBBBNNNSSBBBNNKKKKVVV..",
+  "..KKKKVVVSSSBBNNSSSBBBNNNSSBBNNNKKKVVVV..",
+  "...KKKVVVSSSBBNNSSSBBBNNNSSBBNNNKKVVVV...",
+  "...KKKKVVVSSBBNNSSSBBBNNNSSBBNNKKKVVV....",
+  "....KKKVVAAAAAAAAAAAAAAAAAAAAAAAKVVVV....",
+  ".....KAAAAAAAAAAAAAAAAAAAAAAAAAAAAAV.....",
+  ".....AAAAAAAAAAAAAAAAAAAAAAAAAAAEEEE.....",
+  "....AAAAAAAAAAAAAAAAAAAAAAAAAEEEEEEEE....",
+  "...AAAAAAAAAAAAAAAAAAAAAAAEEEEEEEEEEEE...",
+  "...AAAAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEE...",
+  "....AAAAAAAAAAAAAAAAEEEEEEEEEEEEEEEEE....",
+  ".....AAAAAAAAAAAEEEEEEEEEEEEEEEEEEEE.....",
+  ".....AAAAAAAAEEEEEEEEEEEEEEEEEEEEEE......"
+ ]
+}

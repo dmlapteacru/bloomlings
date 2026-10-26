@@ -1,0 +1,76 @@
+{
+ "code": "P0037",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Медальон",
+ "theme": "batch-0011",
+ "family": "Фигуры, знаки и эмблемы",
+ "subject": "медальон",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 20,
+ "h": 26,
+ "N": 330,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 116,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 112,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 62,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 37,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 3,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........OOOO........",
+  ".......OO..OO.......",
+  ".......OO..OO.......",
+  ".......OOOOOO.......",
+  ".....OOOOOOOOOO.....",
+  "....OOOYYYYYYOOO....",
+  "...OOOYYYYYYYYOOO...",
+  "..OOOYYYYYYYYYYOOO..",
+  "..OOYYYYYRRYYYYYOO..",
+  ".OOYYYYYRCRRYYYYYOO.",
+  ".OOYYYYRCCRRRYYYYOO.",
+  ".OOYYYRRRRRRRRYYYOO.",
+  ".OOYYYRRRRRRRRYYYOO.",
+  ".OOYYYYRRRRRRYYYYOO.",
+  ".OOYYYYYRRRRYYYYYOO.",
+  "..OOYYYYYRRYYYYYOO..",
+  "..OOOYYYYYYYYYYOOO..",
+  "...OOOYYYYYYYYOOO...",
+  "...NOOOYYYYYYOOON...",
+  "...NNOOOOOOOOOONN...",
+  "..NNNNNOOOOOONNNNN..",
+  "..NNNNN......NNNNN..",
+  ".NNNNN........NNNNN.",
+  ".NNNNN........NNNNN.",
+  "NN.NN..........NN.NN",
+  "NN.NN..........NN.NN"
+ ]
+}

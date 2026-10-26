@@ -1,0 +1,91 @@
+{
+ "code": "P0016",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ананас",
+ "theme": "batch-0011",
+ "family": "Фрукты и ягоды",
+ "subject": "ананас с короной листьев",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 40,
+ "N": 658,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 240,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 128,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 126,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 90,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 74,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...........GG...........",
+  "...........GG...........",
+  "....M.....GGGG.....M....",
+  "....MM....GGGG....MM....",
+  "....MMM..GGGGGG..MMM....",
+  "....MMMM.GGGGGG.MMMM....",
+  "....MMMMMGGGGGGMMMMM....",
+  ".....MMMMGGGGGGMMMM.....",
+  "GG...MMMMGGGGGGMMMM...GG",
+  "GGGGGMMMMGGGGGGMMMMGGGGG",
+  ".GGGGGMMMGGGGGGMMMGGGGG.",
+  "..GGGGMMMGGGGGGMMMGGGG..",
+  "..GGGGGMMGGGGGGMMGGGGG..",
+  "...GGGGMMGYYYAGMMGGGG...",
+  "....GGGYAYYYYYAYOGGG....",
+  ".....GYAYAYYYAYAYOG.....",
+  ".....YAYYYAYAYYYAYA.....",
+  "....YAYYYYYAYYYYYAOO....",
+  "...YAYAYYYAYAYYYAYAOO...",
+  "...AYYYAYAYYYAYAYYYAO...",
+  "..AYYYYYAYYYYYAYYYYOAO..",
+  "..YAYYYAYAYYYAYAYYYAOA..",
+  "..YYAYAYYYAYAYYYAYAOOO..",
+  ".YYYYAYYYYYAYYYYYAYOOOO.",
+  ".YYYAYAYYYAYAYYYAYAOOOA.",
+  ".AYAYYYAYAYYYAYAYYYAOAO.",
+  ".YAYYYYYAYYYYYAYYYYOAOO.",
+  ".AYAYYYAYAYYYAYAYYYAOAO.",
+  ".YYYAYAYYYAYAYYYAYAOOOA.",
+  ".YYYYAYYYYYAYYYYYAOOOOO.",
+  "..YYAYAYYYAYAYYYAYAOOO..",
+  "..YAYYYAYAYYYAYAYOOAOA..",
+  "..AYYYYYAYYYYYAYOOOOAO..",
+  "...AYYYAYAYYYAYAOOOAO...",
+  "...YAYAYYYAYAYOOAOAOO...",
+  "....OAYYYYYAYOOOOAOO....",
+  ".....OAOOOAOAOOOAOA.....",
+  "......OAOAOOOAOAOO......",
+  ".......OAOOOOOAOO.......",
+  "..........OOOA.........."
+ ]
+}

@@ -1,0 +1,103 @@
+{
+ "code": "P0042",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Космонавт поливает цветок на астероиде",
+ "theme": "batch-0011-env",
+ "family": "Космос",
+ "direction": "Космическая повседневность",
+ "subject": "космонавт поливает цветок на астероиде",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 32,
+ "N": 1152,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 571,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 171,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 120,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 104,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 52,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 49,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 43,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 30,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 12,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNYNNNNNNNNNNNN",
+  "NNNYNNNNNNDDDNNNNNNNNNYYYNNNNNPPNNNC",
+  "NNYYYNNNDDCCCDDNNNNNNNNYNNNNNPPPPCCC",
+  "NNNYNNNDCCCCCCCDNNNNNNNNNNNNPPPCCPNN",
+  "NNNNNNDDCCCCCCCDDNOOONNNNNNNPCCPPPNN",
+  "NNNNNNDCCCDDDDDCDNONONNNNNCCCPPPPNNN",
+  "NNNNNNDCCCDDDDDDDOOOOONNNNCNNNPPNNNN",
+  "NNNNNNDCCCDDDDDDDOOOOONNNNNNNNNNNNNN",
+  "NNNNNDDCCCCDDDDCDOOOOOONNNNNNNNNNYNN",
+  "NNNNDCCDCCCCCCCDCCDNNNOOOONNNNNNYYYN",
+  "NNNNDCCDDCCCCCDCCDDNNNNNOONNNNNNNYNN",
+  "NNNNDCCDCDDDDDCCDNNNNNNNNONNNNNNNNNN",
+  "NNNNDCCDCCCCDDCDNNNNNNNCNNNNNNNNNNNN",
+  "NNNNDCCDCCOOOCCDNNNNNNNCNCNNPPNPPNNN",
+  "NNNNDCCDCCOOOCCDNNNNNNNNNCNPPPPPPPNN",
+  "NNNNDCCDCCCCCCCDNNNNNNNNNNNPPOOOPPNN",
+  "NNNNDDDDCCCCCCCDNNNNNNNNNNNNPOOOPNNN",
+  "NNNNNNNDDDDDDDDDNNNNNNNNNNNPPOOOPPNN",
+  "NNYNNNNDCCCDCCCDNNNNNNNNNNNPPPPPPPNN",
+  "NYYYNNNDCCCDCCCDNNNNNNNNNNNNPPNPPNNN",
+  "NNYNAAADDDDDDDDDAAAAAAAANNAAANGGNNNN",
+  "NNNAAAAAAAAAAAAAAAAAAAAAAAAAAAGGGGNN",
+  "NNNAAAAAAAEEAAAAAAAAAAAEEAAAAGGGGNNN",
+  "NNNAAAAAAEEEEAAAAAAAAAAAAAAAAAGGNNNN",
+  "NNNAAAAAAAEEAAAAAAAAAAAAAAAAAEENNNNN",
+  "NNNNAAAAAAAAAAAAAAEEEEAAAAAAAENNNNNN",
+  "NNNNNAAAAAAAAAAAAAEEEEAAAAAEENNNYNNN",
+  "NNYNNNEAAAAAEEEAAAAEEAAAEEEENNNYYYNN",
+  "NYYYNNNNNEEEEAAAAAAEEEEEENNNNNNNYNNN",
+  "NNYNNNNNNNNNNNAAAAEENNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNEEEENNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

@@ -1,0 +1,114 @@
+{
+ "code": "P0060",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Робот-садовник",
+ "theme": "batch-0011",
+ "family": "Роботы и механизмы",
+ "direction": "Доброе будущее",
+ "subject": "робот-садовник с теплицей на спине",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 43,
+ "N": 1012,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 359,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 299,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 98,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 94,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 70,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 37,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 22,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 21,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 12,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "............................................",
+  "................................YY..........",
+  "...............................YYYY.........",
+  "................................YY..........",
+  "................................DD..........",
+  "................................DD..........",
+  "................................DD..........",
+  "............................OOOOOOOOOOOO....",
+  "...........................OOOOOOOOOOOOOA...",
+  "............DDDDDDDD.......OOOOODDDDDDDOA...",
+  "..........DDSSSSSSSSDD.....OOOODSSDDDSSDA...",
+  ".........DSCCSGGGGGSSSD....OOOODSSDDDSSDA...",
+  ".......DDSCCSGGGGGGGSSSDD..OOOODDDDDDDDDA...",
+  ".......DSCSSSGGGGGGMSSSSD..OOOODDDDDDDDDA...",
+  "......DSPPPSSGGGGGMMSYYYSD.OOOODSDDDDDDSA...",
+  ".....DDPPYPPSGGGGMMMYYAYYDDOOOODDSSSSSSDA...",
+  ".....DSSPPPSSMGGMMMMSYYYSSDOOOOODDDDDDDOA...",
+  ".....DSSSMGGSSMMMMMSGGMSSSDOOOOOOOOOOOOAA...",
+  "....DSSGGMSSSSSSASSSSSMGGSSDAAAAAAAAAAAA....",
+  "....DSSSSMSSSSSSASSSSSMSSSSD...DDDD.........",
+  "....DAAAAAAAAAAAAAAAAAAAAAAD...DDDD.........",
+  "....DAAAAAAAAAAAAAAAAAAAAAAD...DDDD.........",
+  "....DAAAAAAAAAAAAAAAAAAAAAAD................",
+  ".....OOOOOOOOOOOOOOOOOOOOOOOOOOOO...........",
+  "....OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+  "....OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+  "....OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+  "....OOOOOOOOOOCCCCCCCCCCOOOOOOOOOO..........",
+  "....OOOOOOOOOOCCCCCCCCCCOOOOOOOOOO..........",
+  "....OOOOOOOOOOCCYYCCPPCCOOOOOOOOOO..........",
+  "....OOOOOOOOOOCCCCCCCCCCOOOOOOOOOO..........",
+  "....OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+  "....OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO..........",
+  "....AOOOOOOOOOOOOOOOOOOOOOOOOOOOOA..........",
+  ".....DDDDDDDDDDDDDDDDDDDDDDDDDDDD...........",
+  "....DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD..........",
+  "....DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD..........",
+  ".....DDDCCCDDD.DDDCCCDDD.DDDCCCDDD..........",
+  ".....DDDCCCCDD.DDDCCCDDD.DDCCCCDDD..........",
+  "......DDCCCDDD.DDDCCCDDD.DDDCCCDD...........",
+  "......DDDDDDDD..DDDDDDD..DDDDDDDD...........",
+  ".......DDDDDD...DDDDDDD...DDDDDD............",
+  "........DDD.......DDD.......DDD............."
+ ]
+}

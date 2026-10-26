@@ -1,0 +1,103 @@
+{
+ "code": "P0013",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лиса-почтальон",
+ "theme": "batch-0011",
+ "family": "Лесные и горные животные",
+ "direction": "Обмен ролями",
+ "subject": "лиса-почтальон с сумкой и письмом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 41,
+ "N": 750,
+ "colours": 7,
+ "volumes": {
+  "O": {
+   "cells": 278,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 182,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 129,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 103,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 48,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 6,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 4,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........O................O.....",
+  "........OO..............OO.....",
+  "........OOO............OOO.....",
+  "........OOCONNNNNNNNNNOCOO.....",
+  "........OOCONNNNNNNNNNOCOO.....",
+  "........OOCCNNNNYYNNNNCCOO.....",
+  "........OOCCNNNNYYNNNNCCOO.....",
+  "........OOCCNNNNNNNNNNCCOO.....",
+  "........OOOODDDDDDDDDDOOOO.....",
+  "........OOOODDDDDDDDDDOOOO.....",
+  "........OOOOOOOOOOOOOOOOOO.....",
+  ".........OOOOOOOOOOOOOOOO......",
+  "........OOOOODOOOOOOODOOOO.....",
+  "........OOOOODOOOOOOODOOOO.....",
+  "........OOOOOOOOOOOOOOOOOO.....",
+  "........CCCCCOOOOOOOOCCCCC.....",
+  ".........CCCCCOOOOOOCCCCC......",
+  ".........OCCCCCCOOCCCCCCO......",
+  "......CCC..CCCCCCCCCCCC........",
+  "....CCCCC...OCCCCCCCCO.........",
+  "...CCCCCC.....CCCCCC...........",
+  "...OOOOO.......CDDC............",
+  "..OOOOOO........CC.............",
+  ".OOOOOO...AA.CCCCCCCC..........",
+  "OOOOOOOO..AAAACCCCCCN..........",
+  "OOOOOOOO....AAAACCCNNN.CCCCCC..",
+  "OOOOOOOO...NNNAAAANNNNNCCCCCC..",
+  ".OOOOOOONNNNNNNNAAAANNNCCRRCC..",
+  ".OOOOOOONNNNNNNNNNAAAANCCRRCC..",
+  "OOOOOOOONNNNNNNNNNNNAAAAAAAAAAA",
+  "OOOOOOOONNNNNNNNNYNNNAAAAAAAAAA",
+  ".OOOOOOONNNNNNNNNNNNNAAAAAAAAAA",
+  ".OOOOOOONNNNNNNNNNNNNAAAAAAAAAA",
+  "..OOOOOONOONNNNNNYNNNAAAAAAAAAA",
+  "....OOOOOOOONNNNNNNNNAAAAAAAAAA",
+  "....OOOOOOONNNNNNNNNNAAAAAAAAAA",
+  ".....OOOOOOONNNNNNNNNAAAAAAAAAA",
+  "........OOOODNNNNNNNND.........",
+  ".........OOODDNNNNNNDD.........",
+  "............DDDD..DDDD.........",
+  "............DDDD..DDDD........."
+ ]
+}

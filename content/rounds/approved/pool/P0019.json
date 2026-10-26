@@ -1,0 +1,86 @@
+{
+ "code": "P0019",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Скейтборд",
+ "theme": "batch-0011",
+ "family": "Спорт и активные игры",
+ "subject": "скейтборд с молнией на деке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 34,
+ "N": 598,
+ "colours": 5,
+ "volumes": {
+  "B": {
+   "cells": 287,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 96,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 83,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 72,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 60,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".........................O............",
+  "........................OOOO..........",
+  ".......................OOOOOO.........",
+  ".......................OOOOONNNNNN....",
+  "........................OONNBBBBBBN...",
+  ".........................NNBBBBBBBBN..",
+  ".......................NNBBBBBBBBBBNN.",
+  "......................NNBBBBYBBBBBBBN.",
+  "....................NNBBBBBYBBBBBBBBND",
+  "...................NNBBBBYYBBBBBBBBBND",
+  "..................NBBBBBYYYBBBBBBBBNND",
+  "................NNBBBBBYYYBBBBBBBBBNDD",
+  "...............NBBBBBBYYYYBBBBBBBBNDD.",
+  ".............NNBYBBBBYYYYBBBBBBBNNOOD.",
+  "............NBBYYBBBYYYYYBBBBBBNNOOOO.",
+  "..........NNBBBYYBBYYYYYBBBBBNNOOOOOO.",
+  "..OO.....NNBBBYYYYYYYYYBBBBBNNDDOOOO..",
+  ".OOOO..NNBBBBBYYYYYYYYYBBBNNDDD..OO...",
+  "OOOOOONNBBBBBYYYYYBBYYBBBNNDDD........",
+  "OOOONNBBBBBBBYYYYBBBYYBBNDDDD.........",
+  ".OONNBBBBBBBYYYYBBBBYBNNDDD...........",
+  "..NBBBBBBBBYYYYBBBBBBNDDDD............",
+  ".NBBBBBBBBBYYYBBBBBNNDDD..............",
+  "NNBBBBBBBBYYYBBBBBNDDDD...............",
+  "NBBBBBBBBBYYBBBBNNDDD.................",
+  "NBBBBBBBBYYBBBBNNDDD..................",
+  "NBBBBBBBBBBBBNNDDD....................",
+  "NNBBBBBBBBBBNNDDD.....................",
+  ".NBBBBBBBBNNDDD.......................",
+  "..NBBBBBBNNOOD........................",
+  "..DNNNNNNOOOOO........................",
+  "...DDDDDOOOOOO........................",
+  ".....DDDDOOOO.........................",
+  "...........O.........................."
+ ]
+}

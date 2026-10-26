@@ -1,0 +1,106 @@
+{
+ "code": "P0027",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Чайник-ракета",
+ "theme": "batch-0011",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Предметные гибриды",
+ "subject": "чайник-ракета",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 44,
+ "N": 975,
+ "colours": 7,
+ "volumes": {
+  "B": {
+   "cells": 387,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 228,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 182,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 76,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 46,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 41,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 15,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".....................YY.....................",
+  ".....................YY.....................",
+  ".....................YY.....................",
+  ".....................RR.....................",
+  "....................RRRR....................",
+  "...................RRRRRR...................",
+  "..................RRRRRRRR..................",
+  ".................RRRRRRRRRR.................",
+  "................RRRRRRRRRRRR................",
+  "..RRR...........RRRRRRRRRRRR................",
+  "..RRR..........RRRRRRRRRRRRRR...............",
+  "..RRRR........RRRRRRRRRRRRRRRR..............",
+  "..BBBB.....NNNNNNNNNNNNNNNNNNNNNN...........",
+  "..BBBBB...BNNNNNNNNNNNNNNNNNNNNNNNNNNNN.....",
+  "...BBBBB..BBBCCBBBBBBBBBBBBBBBBBBBNNNNNN....",
+  "...BBBBB.BBBCCBBBBBBBBBBBBBBBBBBBBNNNNNNN...",
+  "...BBBBBBBBCCBBBBBYYYYYYBBBBBBBBBBNN.NNNN...",
+  "...BBBBBBBBCCBBBBYYYSSYYYBBBBBBBBBBN..NNNN..",
+  "....BBBBBBCCBBBBYYSSSSSSYYBBBBBBBBBN..NNNN..",
+  ".....BBBBBCCBBBBYYSCCSSSYYBBBBBBBBBN...NNN..",
+  "......BBBBBBBBBBYSSCSSSSSYBBBBBBBBBNN..NNN..",
+  "......BBBBBBBBBBYSSSSSSSSYBBBBBBBBBNN..NNN..",
+  ".......BBBBBBBBBYYSSSSSSYYBBBBBBBBBNN.NNNN..",
+  "........BBBBBBBBYYSSSSSSYYBBBBBBBBNN..NNNN..",
+  "........BBBBBBBBBYYYSSYYYBBBBBBBBBNN.NNNN...",
+  "........BBBBBBBBBBYYYYYYBBBBBBBBBNNNNNNNN...",
+  "........BBBBBBBBBBBBBBBBBBBBBBBBBNNNNNNN....",
+  ".........BBBBBBBBBBBBBBBBBBBBBBBNNNNNNN.....",
+  ".........RBBBBBBBBBBBBBBBBBBBBBNNNR.........",
+  "........RRBBBBBBBBBBBBBBBBBBBBNNNNRR........",
+  ".......RRRRBBBBBBBBBBBBBBBBBBNNNNRRRR.......",
+  "......RRRRRRBBBBBBBBBBBBBBBNNNNNRRRRRR......",
+  ".....RRRRRRRRRNNBBBBBBBBBNNNNNRRRRRRRRR.....",
+  "....RRRRRRRRRR..NNNNNNNNNNNN..RRRRRRRRRR....",
+  "....RRRRRRRRR...NNONNNNNNONN...RRRRRRRRR....",
+  "....RRRRRRR.....NNOOYYYYOONN.....RRRRRRR....",
+  "....RRRRRR.......OOOYYYYOOO.......RRRRRR....",
+  "....RRRRR........OOYYYYYYOO........RRRRR....",
+  "....RRRR.........OOOYYYYOOO.........RRRR....",
+  "....RRR..........OOOYYYYOOO..........RRR....",
+  "....R.............OOOYYOOO.............R....",
+  "..................OOOYYOOO..................",
+  "....................OOOO....................",
+  ".....................OO....................."
+ ]
+}

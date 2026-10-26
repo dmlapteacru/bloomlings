@@ -1,0 +1,81 @@
+{
+ "code": "P0054",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Проигрыватель",
+ "theme": "batch-0011",
+ "family": "Музыка",
+ "subject": "проигрыватель с пластинкой в деревянном корпусе",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 25,
+ "N": 744,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 268,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 237,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 142,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 42,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 35,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 20,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  "AAAAAAAAADDDDDDAAAAAAAAAADDAAA",
+  "AAAAAAADDDDDDDDDDAAAAAAAADDAAA",
+  "AAAAADDDDDDDDDDDDDDAAAAAYYYYAA",
+  "AAAADDDDDEEEEEEDDDDDAAAAYCCYAA",
+  "AAADDDDDEDDDDDDEDDDDDAAAYCCYAA",
+  "AAADDDEEDDDDDDDDEEDDDAAAYCCYAA",
+  "AADDDDEDDDDDDDDDDEDDDDAAACCAAA",
+  "AADDDEDDDDRRRRDDDDEDDDAAACCAAA",
+  "AADDDEDDDRRRRRRDDDEDDDAAACCAAA",
+  "AADDDEDDDRRDRRRDDDEDDDAAACCAAA",
+  "AADDDEDDDRRRRRRDDDEDDDAAACCAAA",
+  "AADDDEDDDRRRRRRDDDEDDDAAACCAAA",
+  "AADDDEDDDRRRRRRDDDEDDDAAACCAAA",
+  "AADDDEDDDDDRRDDDDDEDDDAAACCAAA",
+  "AADDDDEDDDDDDDDDDEDDDDAAACCAAA",
+  "AAADDDDEDDDDDDDDEDDDDAACCCAAAA",
+  "AAAADDDDEEDDDDEEDDDDAACCCAAAAA",
+  "AAAADDDDDDEEEEDDDDDCCCCCAAAAAA",
+  "AAAAADDDDDDDDDDDDDDCCCCAAAAAAA",
+  "AAAAAAADDDDDDDDDDAACCCAAAAAAAA",
+  ".EEEEEEEEEDDDDEEEEEEEEEEEEEEE.",
+  "EEEEEEEEEEEEEEEEEEEEEEYYYEYYEE",
+  "EEEEEEEEEEEEEEEEEEEEEEYYYEYYEE",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEE."
+ ]
+}

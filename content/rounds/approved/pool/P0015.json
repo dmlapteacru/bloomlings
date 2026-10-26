@@ -1,0 +1,98 @@
+{
+ "code": "P0015",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Космонавт в аквариуме",
+ "theme": "batch-0011",
+ "family": "Космос",
+ "direction": "Миры внутри предметов",
+ "device": "маленький мир внутри обычного предмета",
+ "subject": "космонавт в круглом аквариуме с большой рыбой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 30,
+ "N": 830,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 317,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 127,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 89,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 88,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 78,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 68,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 35,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 28,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "......DDDDDDDDDDDDDDDDDDDD......",
+  "......DDDDDDDDDDDDDDDDDDDD......",
+  ".....DDSSSSSSSSSSSSSSSSSSDD.....",
+  "....DDSSSSSSSSSSSSSSYSSSSSDD....",
+  "...DDSSSSSSSSSSSSSSYYYSSSSSDD...",
+  "...DSSSSSSSSSSSSSSYYYYYSSSSSD...",
+  "..DBBBBBBBBBBBBBOOOOOOOOBBBBOD..",
+  ".DBBBBBBBBBBBBBOOOOOOOOOOBBOOBD.",
+  ".DBBBBBBBBBBBBOOODOOOOOOOOOOOBD.",
+  "DDBBBBBBBBBBBBOOOOOOOOOOOOOOOBDD",
+  "DBBBBBBBBBBBBBOOOOOOOOOOOOOOOBBD",
+  "DBBBBBBBBBCCCCCOOOOOOOOOOBBOOBBD",
+  "DBBBBBBBBCCCCCCCOOOOOOOOBBBBOBBD",
+  "DBBBBBBBCCNNNNNCCBBBBBBBBBBBBBBD",
+  "DBBBBBBBCNSSNNNNCBDDBBBBBBBBBBBD",
+  "DBBBBBBBCNSNNNNNCBCCBBBBBBBBBBBD",
+  "DBBBBBBBCNNNNNNNCBCCBBGGBBBBBBBD",
+  "DBBBBBBBCCNNNNNCCBCCBBGGBBBBBBBD",
+  "DBBBBBBBBCCCCCCCBCCBBBGGBBBBBBBD",
+  "DBBBBBBCCCCCCCCCCCBBBBGGBBBBBBBD",
+  "DDBBBBCCCCOOCCCCCBBBBBGGBBBBBBDD",
+  ".DBBBBCCBCCCCCCCBBBBBBGGBGGBBBD.",
+  ".DBBBBDDBCCCCCCCBBBBBBGGBGGBBBD.",
+  "..DBBBBBBCCCBCCCBBBBBBGGBGGBBD..",
+  "...DBBBBBCCCBCCCBBBBBBGGBGGBD...",
+  "...DDBBBBDDDBDDDBBBBBBGGBGGDD...",
+  "....DDYYYYYYYYYYYYYYYYGGYGDD....",
+  ".....DDYYYYYYYYYYYYYYYGGYDD.....",
+  ".......DYYYYYYYYYYYYYYYYD.......",
+  "........DDDYYYYYYYYYYDDD........"
+ ]
+}

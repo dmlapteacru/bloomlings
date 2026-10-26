@@ -1,0 +1,101 @@
+{
+ "code": "P0014",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Маяк на скале",
+ "theme": "batch-0011-env",
+ "family": "Дома и архитектура",
+ "subject": "полосатый маяк на скале",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 35,
+ "N": 945,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 436,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 117,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 105,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 82,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 72,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 61,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 59,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 13,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSDSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSDSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSRRRSSSSSSSSSSSS",
+  "SSSSSSSSSSRRRRRRRSSSSSSSSSS",
+  "YYYYYSSSSRRRRRRRRRSSSSYYYYY",
+  "YYYYYYYYYDDDDDDDDDYYYYYYYYY",
+  "YYYYYYYYYDDYYYYYDDYYYYYYYYY",
+  "YYYYYYYYYDDYYYYYDDYYYYYYYYY",
+  "YYYYYYYYYDDYYYYYDDYYYYYYYYY",
+  "YYYYSSSDDDDDDDDDDDDDSSSYYYY",
+  "SSSSSSSDDDDDDDDDDDDDSSSSSSS",
+  "SSSSSSSSSRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSSRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSSRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSSCCCCCCCCCSSSSSSSSS",
+  "SSSSSSSSSCCCCCCCCCSSSSSSSSS",
+  "SSSSSSSSSCCCCDCCCCSSSSSSSSS",
+  "SSSSSSSSRRRRRDRRRRRSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS",
+  "SSSSSSSSCCCCCCCCCCCSSSSSSSS",
+  "SSSSSSSSCCCCCCCCCCCSSSSSSSS",
+  "SSSSSSSSCCCCCDCCCCCSSSSSSSS",
+  "SSSSSSSSRRRRDDDRRRRSSSSSSSS",
+  "SSSSSSSRRRRRDDDRRRRRSSSSSSS",
+  "SSSSSSSRRRRRDDDRRRRRSSSSSSS",
+  "SSSSSSAAAAAAAAAAAAAAAASSSSS",
+  "SSSSSAAAAAAAAAAAAAAAAASSSSS",
+  "BBBBAAAAAAAAAAAAAAAAEEEBBBB",
+  "BBBAAAAAAAAAAAAAAAAAEEEEBCC",
+  "BBBAAAAAAAAAAAAAAAAEEEEEEBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBCCCBBBBCCCBBBBCCCBBBBCCCB"
+ ]
+}

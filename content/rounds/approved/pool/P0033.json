@@ -1,0 +1,78 @@
+{
+ "code": "P0033",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Снежный шар",
+ "theme": "batch-0011",
+ "family": "Времена года и погода",
+ "subject": "снежный шар с ёлочкой на деревянной подставке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 17,
+ "h": 23,
+ "N": 343,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 129,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 64,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 56,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 40,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 32,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 22,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "......SSSSS......",
+  "....SSSSSSSSS....",
+  "..SSSCSSGSSSSSS..",
+  "..SSSSSGGMSSSSS..",
+  ".SSSSSSGGMSSSCSS.",
+  "SSSCSSGGGMMSSSSSS",
+  "SSSSSGGGGMMMSSSSS",
+  "SSSSSSGGGMMSSSSSS",
+  "SSSSSSGGGMMSSSSSS",
+  "SSCSSGGGGMMMSSCSS",
+  "SSSSGGGGGMMMMSSSS",
+  "SSSSGGGGGMMMMSSSS",
+  "SSSSSSSEEESSSSSSS",
+  ".CCCCCCEEECCCCCC.",
+  ".CCCCCCCCCCCCCCC.",
+  "..CCCCCCCCCCCCC..",
+  "...CCCCCCCCCCC...",
+  ".AAAAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAAA.",
+  "EEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEE",
+  "AAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAA"
+ ]
+}

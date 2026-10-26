@@ -1,0 +1,92 @@
+{
+ "code": "P0022",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Корзина урожая",
+ "theme": "batch-0011",
+ "family": "Овощи и урожай",
+ "subject": "плетёная корзина с тыквой, морковью и початком кукурузы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 31,
+ "N": 748,
+ "colours": 7,
+ "volumes": {
+  "E": {
+   "cells": 260,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 182,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 156,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 76,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 27,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 23,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".........GG......................",
+  "......GG.GG......................",
+  "...G..GGGGG.GG...................",
+  "G.GG...GGGGGG...............CYC..",
+  "GGGG.GGGGGGGG......MMMMM...CYCYC.",
+  "GGGGGGG.GGGG.......MMMMM...YCYCY.",
+  ".GGGGG..GGG........MM......CYCYC.",
+  ".GGGGG.OOOOO....AOOOOOOA...YCYCY.",
+  ".GGGG..OOOOO...OAOOOOOOAO..CYCYC.",
+  "..GOOO..OOOO..OOAOOOOOOAOOGYCYCYM",
+  ".OOOOO..OOOO..OOAOOOOOOAOOGCYCYCM",
+  ".OOOOO..OOOO.OOOAOOOOOOAOOOGCYCMM",
+  "..OOOO..OOOO.OOOAOOOOOOAOOOGYCYMM",
+  "..OOOOO.OOOO.OOOAOOOOOOAOOOGGYMMM",
+  "...OOOO..OOO..OOAOOOOOOAOOGGGCMMM",
+  "...OOOO..OOO..OOAOOOOOOAOOGGGYMMM",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "..EEAAEEAAEEAAEEAAEEAAEEAAEEAAEE.",
+  "..EEAAEEAAEEAAEEAAEEAAEEAAEEAAEE.",
+  "..AAEEAAEEAAEEAAEEAAEEAAEEAAEEAA.",
+  "...AEEAAEEAAEEAAEEAAEEAAEEAAEEA..",
+  "...EAAEEAAEEAAEEAAEEAAEEAAEEAAE..",
+  "...EAAEEAAEEAAEEAAEEAAEEAAEEAAE..",
+  "...AEEAAEEAAEEAAEEAAEEAAEEAAEEA..",
+  "....EEAAEEAAEEAAEEAAEEAAEEAAEE...",
+  "....AAEEAAEEAAEEAAEEAAEEAAEEAA...",
+  "....AAEEAAEEAAEEAAEEAAEEAAEEAA...",
+  ".....EAAEEAAEEAAEEAAEEAAEEAAE....",
+  ".....EAAEEAAEEAAEEAAEEAAEEAAE...."
+ ]
+}

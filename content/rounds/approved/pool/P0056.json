@@ -1,0 +1,91 @@
+{
+ "code": "P0056",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "6–7",
+ "theme": "batch-0011",
+ "family": "Числовой и фразовый абсурд",
+ "subject": "цифры 6 и 7 с лицами",
+ "source": "интернет-мем/тренд",
+ "reference": "6–7 / six-seven [T1]",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 34,
+ "N": 747,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 299,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 249,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 97,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 49,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 49,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 4,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "............................................",
+  "............................................",
+  "...............OOOOO........................",
+  "............OOOOOOOOO.....BBBBBBBBBBBBBBBB..",
+  "..........OOOOOOOOOOOA....BBBBBBBBBBBBBBBBN.",
+  ".........OOOOOOOOOOOOA....BBBCDBBBBBCDBBBBN.",
+  "........OOOOOOOOOOOOOA....BBBDDBBBBBDDBBBBN.",
+  ".......OOOOOOOOOOOOOOA....BBBBBBBBBBBBBBBBN.",
+  ".......OOOOOOOOOAAAOOA....BBBBDBBBBBDBBBBBN.",
+  "......OOOOOOOOAAA...AA....BBBBBDDDDDBBBBBBN.",
+  "......OOOOOOOAA...........BBBBBBBBBBBBBBBBN.",
+  ".....OOOOOOOAA.............NNNNNNNBBBBBBBNN.",
+  ".....OODDDOOOODDD.................BBBBBBBN..",
+  ".....OOOOOOOOOOOOO...............BBBBBBBBN..",
+  ".....OOOCDOOOOOCDOO..............BBBBBBBNN..",
+  "DDD...OODDOOOOODDOOO....DDD.....BBBBBBBBN...",
+  "DDD..OOOOOOOOOOOOOOOO...DDD.....BBBBBBBNN...",
+  ".DD..OOOOOOOODDOOOOOOA..DD......BBBBBBBN....",
+  ".DD..OOOOODDDOOOOOOOOA..DD.....BBBBBBBNN....",
+  ".DD.OOOOOOOOOOOOOOOOOOD.DD.....BBBBBBBN.....",
+  ".DDDOOOOOOOOOAOOOOOOOOADDD....BBBBBBBNN.....",
+  ".DDDOOOOOOOAAA.AOOOOOOADDD....BBBBBBBN......",
+  ".DD..OOOOOOA....OOOOOAA.DD...BBBBBBBNN......",
+  ".....OOOOOOA....OOOOOA.......BBBBBBBN.......",
+  ".....OOOOOOA....OOOOOA......BBBBBBBNN.......",
+  "......OOOOOO...OOOOOAA......BBBBBBBN........",
+  ".......OOOOOOOOOOOOAA......BBBBBBBBN........",
+  "........OOOOOOOOOOAA.......BBBBBBBNN........",
+  ".........AOOOOOOAAA........BBBBBBBN.........",
+  ".........DDAAAAAA.........BBBBBBBNN.........",
+  ".........DD....DD..........NNNNNNN..........",
+  ".........DD....DD..........DD..DD...........",
+  "........DDD....DDD........DDD..DDD..........",
+  "............................................"
+ ]
+}

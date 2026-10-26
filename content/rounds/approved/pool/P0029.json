@@ -1,0 +1,73 @@
+{
+ "code": "P0029",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Жёлудь",
+ "theme": "batch-0011",
+ "family": "Грибы и лесные находки",
+ "subject": "жёлудь с листком",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 20,
+ "h": 23,
+ "N": 274,
+ "colours": 5,
+ "volumes": {
+  "O": {
+   "cells": 99,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 76,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 73,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 20,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 6,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........EE..MGGG....",
+  ".........EEGGMGGGG..",
+  ".........EEGGGMMGGG.",
+  ".........EE.GGGGMMG.",
+  ".....AAEEEEAAEE.....",
+  "...EEAAEEAAEEAAEE...",
+  "..AAEEAAEEAAEEAAEE..",
+  ".AAEEAAEEAAEEAAEEAA.",
+  ".EEAAEEAAEEAAEEAAEE.",
+  ".EEAAEEAAEEAAEEAAEE.",
+  "..EEEEEEEEEEEEEEEE..",
+  "...OOOOOOOOOOOAAA...",
+  "...OOOOOOOOOOOAAA...",
+  "...OOOOOOOOOOOAAA...",
+  "...OOOOOOOOOOOAAA...",
+  "...OOOOOOOOOOOAAA...",
+  "...OOOOOOOOOOOAAA...",
+  "....OOOOOOOOOOAA....",
+  ".....OOOOOOOOAAA....",
+  "......OOOOOOOAA.....",
+  ".......OOOOOAA......",
+  "........OOOAA.......",
+  ".........EE........."
+ ]
+}

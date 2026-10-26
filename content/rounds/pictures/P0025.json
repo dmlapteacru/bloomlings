@@ -58,7 +58,7 @@
   "M": 52,
   "Y": 127
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0011-env",
  "createdAt": "2026-10-26",
  "history": [
@@ -108,5 +108,7 @@
     "..................VV........VVV............"
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-26"
 }

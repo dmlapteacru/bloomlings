@@ -65,8 +65,10 @@
   "B": 62,
   "N": 51
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0011",
  "createdAt": "2026-10-26",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-10-26"
 }

@@ -1,0 +1,114 @@
+{
+ "code": "P0052",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Карусель",
+ "theme": "batch-0011",
+ "family": "Ярмарки и праздники",
+ "subject": "карусель с полосатой крышей и лошадками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 44,
+ "N": 1030,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 313,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 210,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 171,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 120,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 84,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 48,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 38,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 36,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 10,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".....................DDYY...................",
+  ".....................DDYYYYYY...............",
+  ".....................DDYYY..................",
+  ".....................DD.....................",
+  "....................YYYY....................",
+  "....................YYYY....................",
+  "..................RCYYYYCR..................",
+  ".................RCCYYYYCCR.................",
+  "...............RRCCRRCCRRCCRR...............",
+  "..............RRCCRRRCCRRRCCRR..............",
+  "............RRRCCCRRRCCRRRCCCRRR............",
+  "...........RRRCCCRRRCCCCRRRCCCRRR...........",
+  ".........RRRRCCCCRRRCCCCRRRCCCCRRRR.........",
+  "........RRRRCCCCRRRRCCCCRRRRCCCCRRRR........",
+  "......RRRRRCCCCRRRRRCCCCRRRRRCCCCRRRRR......",
+  ".....RRRRRCCCCCRRRRRCCCCRRRRRCCCCCRRRRR.....",
+  "...RRRRRRCCCCCRRRRRCCCCCCRRRRRCCCCCRRRRRR...",
+  "..RRRRRRCCCCCRRRRRRCCCCCCRRRRRRCCCCCRRRRRR..",
+  ".YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY.",
+  ".YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY.",
+  ".RRRRCCC.RRRYCCC.RRRCCCCRRRRCCCYRRR.CCCRRRR.",
+  "..RR.CCC.RRRYCCC.RR.VCCV.RR.CCCYRRR.CCC.RR..",
+  "..RR..CC..RYY.C..RR.VCCV.RR..C.YYR...C..RR..",
+  "......C...RYY.C...R.VPPV.....C.YYR...C......",
+  "....CCA....YY.......VPPV.......YY....ACC....",
+  "..CCCCAA...YY.......VPPV.......YY...AACCCC..",
+  ".CCDCCCA...YY.......VPPV.......YY...ACCCDCC.",
+  ".CCCCCCAA..YY.......VPPV.......YY..AACCCCCC.",
+  "....CCCCA..YY.......VPPV.......YY..ACCCC....",
+  ".....CCCAA.YY.......VPPV.......YY.AACCC.....",
+  ".....CCCCA.YY....A..VPPV..A....YY.ACCCC.....",
+  ".....CCCCA.YY...AA..VPPV..AA...YY.ACCCC.....",
+  ".....CCCCCPPPPCCAA..VPPV..AACCPPPPCCCCC.....",
+  "....CCCCCCPPPPCCAA..VPPV..AACCPPPPCCCCCC....",
+  "...CCCCCCCCCCCCCA...VPPV...ACCCCCCCCCCCCC...",
+  "...CCCCC...YYCCC....VPPV....CCCYY...CCCCC...",
+  "...CC......YY.CCC...VPPV...CCC.YY......CC...",
+  "....CC.....YY...CC..VPPV..CC...YY.....CC....",
+  "...........YY.......VPPV.......YY...........",
+  ".BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.",
+  ".BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "..NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..",
+  "...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..."
+ ]
+}

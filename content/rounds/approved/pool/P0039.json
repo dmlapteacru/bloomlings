@@ -1,0 +1,88 @@
+{
+ "code": "P0039",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Привидение с чашкой",
+ "theme": "batch-0011",
+ "family": "Волшебные существа",
+ "direction": "Уютная мистика",
+ "subject": "привидение с чашкой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 31,
+ "N": 745,
+ "colours": 6,
+ "volumes": {
+  "C": {
+   "cells": 549,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 99,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 72,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 13,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 8,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 4,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".........CCCSSS.....................",
+  "......CCCCCCCCCSSS..................",
+  ".....CCCCCCCCCCCSSS.................",
+  "....CCCCCCCCCCCCCSSS................",
+  "...CCCCCCCCCCCCCCCSSS...............",
+  "..CCCCCCCCCCCCCCCCCSSS..............",
+  ".CCCCCCCCCCCCCCCCCCCSSS.............",
+  ".CCCCCCCCCCCCCCCCCCCSSS.............",
+  ".CCCCCCCCCCCCCCCCCCCSSS.............",
+  "CCCCCCCCCCCCCCCCCCCCCSSS..SS........",
+  "CCCCCCCCCCCCCCCCCCCCCSSS.SS.........",
+  "CCCCCCCDDCCCCCDDCCCCCSSS.SS...SS....",
+  "CCCCCCCDDCCCCCDDCCCCCSSS..SS..SS....",
+  "CCCCCCCCCCCCCCCCCCCCCSSS..SS...SS...",
+  "CCCCCKKCCCCCCCCCKKCCCSSS...SS..SS...",
+  "CCCCCCCCCDCCCDCCCCCCCSSS...SS..SS...",
+  "CCCCCCCCCCDDDCCCCCCCCSSS..SS..SS....",
+  "CCCCCCCCCCCCCCCCCCCCCSSS............",
+  "CCCCCCCCCCCCCCCCCCCCCSSS.AAAAAAAA...",
+  "CCCCCCCCCCCCCCCCCCCCCSSS.PPPPPPPP...",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCPPPPPPPPPP.",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCPPPPPPPPPP",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCPPPPPPP..P",
+  "CCCCCCCCCCCCCCCCCCCCCSSCCCPPPPPPPPPP",
+  "CCCCCCCCCCCCCCCCCCCCCSSS.PPPPPPPPPP.",
+  "CCCCCCCCCCCCCCCCCCCCCSSS.PPPPPPPP...",
+  "CCCCCCCCCCCCCCCCCCCCCSSS.PPPPPPPP...",
+  "CCC..CCCCCC..CCCCCC..CCC............",
+  "CC....CCCC....CCCC....CC............",
+  "CC....CCCC....CCCC....CC............",
+  ".......CC......CC..................."
+ ]
+}

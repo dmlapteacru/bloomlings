@@ -1,0 +1,86 @@
+{
+ "code": "P0012",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Чайник со свистком",
+ "theme": "batch-0011",
+ "family": "Посуда и кухонные вещи",
+ "subject": "круглый чайник со свистком",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 30,
+ "N": 644,
+ "colours": 6,
+ "volumes": {
+  "R": {
+   "cells": 372,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 115,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 72,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 42,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "K": {
+   "cells": 28,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 15,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "......S.........................",
+  "SSSSSSSS........DDDD............",
+  "SSSSSSSS.....DDDDDDDDDD.........",
+  "SSSSSSSS...DDDDD....DDDDD.......",
+  ".SSSSS....DDDD...DD....DDD......",
+  ".SSSSS...DDD....DDDD....DDD.....",
+  "SSSS.....DD.....DDDD.....DD.....",
+  ".SSS....DD...CCCCDDCCCC...DD....",
+  "........DD..CCCCCCCCCCCC..DD....",
+  "YYYY....DD..CCCCCCCCCCCC..DD....",
+  "YYYY....DDRRRCCCCCCCCCCRRRDDD...",
+  "YYYY....DRRRKKRCCCCCCRRRRRRDD...",
+  ".RRRR..RRRKKKKRRRRRRRRRRRRRRR...",
+  ".RRRRR.RRKKKKRRRRRRRRRRRRRRRRR..",
+  "..RRRRRRKKKRRRRRRRRRRRRRRRRRRR..",
+  "..RRRRRKKKRRRRRRRRRRRRRRRRRRRRR.",
+  "...RRRKKKRRRRRRRRRRRRCCRRRRRRRR.",
+  "...RRRKKKRRRRRRRRRRRCCCRRRRRRRRR",
+  "....RRKKRRRRRRRRRRRCCCCCRRRRRRRR",
+  "....RRKKRRRRRRRRRRRCCYYCCRRRRRRR",
+  ".....RKKRRRRRRRRRRRCCYCCRRRRRRRR",
+  ".....RRRRRRRRRRRRRRRCCCRRRRRRRR.",
+  ".....RRRRRRRRRRRRRRRCCCRRRRRRRR.",
+  "......RRRRRRRRRRRRRRRRRRRRRRRR..",
+  "......RRRRRRRRRRRRRRRRRRRRRRRR..",
+  ".......RRRRRRRRRRRRRRRRRRRRRR...",
+  "........RRRRRRRRRRRRRRRRRRRR....",
+  "..........RRRRRRRRRRRRRRRR......",
+  "........DDDDDDDDDDDDDDDDDDDDD...",
+  "........DDDDDDDDDDDDDDDDDDDDD..."
+ ]
+}
