@@ -3,32 +3,33 @@ import {circle,ellipse,box,poly,union,cut,meet} from '../../../../../tools/gamep
 import {raster,fit,str,put,ring4,scale,seg} from '../helpers.mjs';
 const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map(([s,c])=>[scale(k,s),typeof c==='function'?(x,y,u)=>c(x/k,y/k,u):c]));
 const R=(W,H,layers)=>raster(W,H,'.',layers);
-const trim=g=>{while(g.length&&g[0].every(c=>c==='.'))g.shift();while(g.length&&g[g.length-1].every(c=>c==='.'))g.pop();return g;};
+const trim=g=>{while(g.length&&g[0].every(c=>c==='.'))g.shift();while(g.length&&g[g.length-1].every(c=>c==='.'))g.pop();
+ while(g.every(r=>r[0]==='.'))g.forEach(r=>r.shift());while(g.every(r=>r[r.length-1]==='.'))g.forEach(r=>r.pop());return g;};
 
 // 1. Retro table radio: domed wooden body with a dark rim, cream grille with slats, a yellow dial with a needle, two knobs.
 function radio(){
  const W=36,H=28;
  const dome=(cx,cy,hw,hh,top,r)=>union(box(cx,cy+top/2,hw,hh-top/2,r),ellipse(cx,cy-hh+top,hw,top));
- const body=dome(18,13,17.5,12,7,3);
- const inner=dome(18,12.6,16,10.6,6,2.5);
- const grille=dome(11.5,13,7.5,8,3,1);
- const cloth=dome(11.5,13.2,6,6.6,2.5,0.5);
+ const body=dome(18,13,16.5,11.5,6.5,3);
+ const inner=dome(18,12.6,15,10.1,5.5,2.5);
+ const grille=dome(11.5,13,7,7.5,3,1);
+ const cloth=dome(11.5,13.2,5.5,6.1,2.5,0.5);
  const g=R(W,H,[
   [body,'E'],
   [inner,'A'],
-  [box(18,23.5,16,1.5,1),'E'],                      // base trim
-  [box(5.5,26.5,2.5,1.5,0),'E'],[box(30.5,26.5,2.5,1.5,0),'E'], // feet
+  [box(18,22.5,15,1.5,1),'E'],                      // base trim
+  [box(6.5,25.5,2.5,1.5,0),'E'],[box(29.5,25.5,2.5,1.5,0),'E'], // feet
   [grille,'E'],                                    // grille frame
   [cloth,'C'],                                     // grille cloth
   [meet(cloth,(x,y)=>(Math.floor(y)%3===0)?-1:1),'A'], // slats
-  [circle(27.5,10,5.3),'O'],                       // dial bezel
-  [circle(27.5,10,4),'Y'],                         // dial face
-  [circle(24.5,19,2.4),'D'],[circle(30.5,19,2.4),'D'], // knobs
+  [circle(26.5,10,4.9),'O'],                       // dial bezel
+  [circle(26.5,10,3.7),'Y'],                       // dial face
+  [circle(23.5,18.5,2.3),'D'],[circle(29.5,18.5,2.3),'D'], // knobs
  ]);
- put(g,'D',[[27,10],[28,9],[29,8],[30,7]]);        // needle
- put(g,'D',[[26,10]]);
- put(g,'C',[[24,18],[30,18]]);                     // knob highlights
- return str(g);
+ put(g,'D',[[26,10],[27,9],[28,8],[29,7]]);        // needle
+ put(g,'D',[[25,10]]);
+ put(g,'C',[[23,17],[29,17]]);                     // knob highlights
+ return str(trim(g));
 }
 
 // 2. Golden medallion: a loop on top, a gold disc with an orange rim, a red gem, two notched ribbon tails behind.
@@ -52,7 +53,7 @@ function cauldron(){
  const g=R(W,H,[
   [seg(28,16,34.5,3,1.4),'A'],                      // spoon handle (behind the rim)
   [ellipse(34.8,2.8,2.1,2.4),'A'],
-  [box(10.5,35,2.5,2.5,0.5),'D'],[box(29.5,35,2.5,2.5,0.5),'D'], // feet
+  [box(9.5,35.5,2.5,2.5,0.5),'D'],[box(30.5,35.5,2.5,2.5,0.5),'D'], // feet
   [ellipse(20,25.5,16.5,10.5),'D'],                // pot
   [meet(cut(ellipse(20,25.5,14.5,8.5),ellipse(22,24.3,14.5,8.5)),(x,y)=>x<16&&y<30?-1:1),'V'], // shine
   [ellipse(20,14.5,16.5,3),'G'],                   // potion surface

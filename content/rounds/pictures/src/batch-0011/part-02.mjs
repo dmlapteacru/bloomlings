@@ -27,7 +27,8 @@ function ramen(){const W=42,H=31,cx=20,rimY=12;
  const swirl=(x,y)=>{const dx=x-12.6,dy=(y-11.4)*1.3,r=Math.hypot(dx,dy),a=Math.atan2(dy,dx);const t=((r-a*0.5)%2.8+2.8)%2.8;return (r<3.6&&r>.4&&t<1.2)||r<.9?-1:1;};
  const noodle=(x,y)=>{const v=((y+Math.round(Math.sin(x*0.85)*0.9))%3+3)%3;return v===0?'A':'Y';};
  const g=raster(W,H,'.',[[foot,'N'],[bowlLow,'B'],[meet(bowlLow,(x,y)=>rimY+9.6-y),'N'],[outer,'N'],
-  [soup,'A'],[bed,noodle],[naruto,'C'],[swirl,'P'],[egg,'C'],[yolk,'O'],[chop1,'E'],[chop2,'E']]);
+  [soup,'A'],[bed,noodle],[egg,'C'],[yolk,'O'],[chop1,'E'],[chop2,'E']]);
+ hand(g,['.CCCCCCC.','CCPPPPPCC','CPCCCCCPC','CPCPPPCPC','CPCPCCCPC','CCCPPPPCC','.CCCCCCC.'],8,8);
  return str(g);}
 
 function cloudChair(){const W=35,H=33;
@@ -37,11 +38,11 @@ function cloudChair(){const W=35,H=33;
  const front=box(17.5,27.8,15,2.2,1.2);
  const legs=union(box(5,31.2,1.3,1.6,.3),box(30,31.2,1.3,1.6,.3));
  const g=raster(W,H,'.',[[legs,'E'],[back,'O'],[front,'A'],[seat,'O'],[armL,'A'],[armR,'A']]);
- // the cloud: a scalloped ring of puffs over a round body, a sky-blue belly shade on the lower right
- const puffs=[circle(7.4,14.6,3.4),circle(10.4,9.8,3.6),circle(17.5,7,4.6),circle(24.6,9.8,3.6),circle(27.6,14.6,3.4),circle(5.6,19.4,3),circle(29.4,19.4,3)];
- const cloud=union(...puffs,box(17.5,16.6,11.6,6,4));
- const cg=raster(W,H,'.',[[cloud,'C'],[meet(cloud,(x,y)=>Math.min(21.2-y,(x-29.2)+(y-14)*.3>0?-1:1)),'S']]);
- cg.forEach((r,y)=>r.forEach((c,x)=>{if(c!=='.')g[y][x]=c;}));
+ // the cloud by spans [row, from, to, ...]: four puffs on top with notches between, round sides, a sky-blue shade
+ const spans=[[3,12,16],[4,11,17],[5,10,18,21,23],[6,10,18,20,24],[7,10,25],[8,6,8,10,25,27,28],[9,5,8,10,25,27,29],[10,5,29],
+  [11,4,30],[12,4,30],[13,4,30],[14,3,31],[15,3,31],[16,3,31],[17,3,31],[18,4,30],[19,4,30],[20,4,30],[21,5,29],[22,7,27]];
+ for(const [y,...r] of spans){for(let i=0;i<r.length;i+=2)for(let x=r[i];x<=r[i+1];x++)g[y][x]=y>=20?'S':'C';
+  const e=r[r.length-1];if(y>=9&&y<20){g[y][e]='S';g[y][e-1]='S';}}
  put(g,'D',[[11,14],[12,15],[13,15],[14,14],[20,14],[21,15],[22,15],[23,14],[16,17],[17,17],[18,17]]);
  put(g,'K',[[9,16],[10,16],[24,16],[25,16]]);
  return g;}
@@ -50,9 +51,9 @@ function skateboard(){const W=44,H=37,a=-0.6,cx=21.5,cy=18,hh=6.3,L=21.4;
  // seen from above, turned on the board: the deck in its own frame (u along, v across), wheels peeking out at its sides
  const place=(sh)=>(x,y)=>{const c=Math.cos(a),s=Math.sin(a),dx=x-cx,dy=y-cy;return sh(dx*c+dy*s,-dx*s+dy*c);};
  const deck=place(box(0,0,L,hh,hh)),rim=(x,y)=>Math.max(deck(x,y),-1-deck(x,y));
- const wheels=place(union(...[-14,14].flatMap(u=>[-1,1].map(sv=>box(u,sv*(hh+1.2),2.6,2.2,1)))));
+ const wheels=place(union(...[-14,14].flatMap(u=>[-1,1].map(sv=>box(u,sv*(hh+1.6),2.8,2.4,1)))));
  const side=(x,y)=>deck(x-.9,y-1.6);
- const bolt=place(poly([[-14.5,2.5],[.4,-4.5],[-.7,-.8],[15,-2.5],[-.4,4.5],[.7,.8]]));
+ const bolt=place(poly([[-15,3],[.8,-4.8],[-1.2,-.9],[15.5,-3],[-.8,4.8],[1.2,.9]]));
  const g=raster(W,H,'.',[[wheels,'O'],[side,'D'],[deck,'B'],[rim,'N'],[bolt,'Y']]);
  return str(g);}
 
@@ -67,12 +68,12 @@ function robotFlower(){const W=44,H=37;
  const armL=seg(3.6,22,2.4,29,1.3),armR=seg(17,22,23,17,1.3);
  const can=box(26,16,4.6,3.8,1.4),handle=cut(circle(26,11.8,3),circle(26,11.8,1.7)),
   spout=seg(29.4,16.4,33.6,11.4,1.05),rose=box(34.4,10.8,1.6,1.6,.5);
- const drops=union(box(35.5,14.4,.6,1),box(37.5,16.6,.6,1),box(34.5,17.6,.6,1));
+ const drops=union(box(36,13.8,.9,1.1),box(38.6,15.4,.9,1.1),box(34.2,16.4,.9,1.1));
  const pot=poly([[32.6,29.2],[42.4,29.2],[41.2,36.4],[33.8,36.4]]),potRim=box(37.5,29.4,5.4,1.3,.4);
  const stem=box(37.5,25.6,.65,3.6);
  const leafL=ellipse(35,26.4,2.3,1.2),leafR=ellipse(40,25.6,2.3,1.2);
- const P=[0,1,2,3,4].map(i=>{const t=-Math.PI/2+i*2*Math.PI/5;return circle(37.5+Math.cos(t)*2.9,21.6+Math.sin(t)*2.9,2.1);});
- const petals=union(...P),centre=circle(37.5,21.6,1.6);
+ const P=[0,1,2,3,4].map(i=>{const t=-Math.PI/2+i*2*Math.PI/5;return circle(37.5+Math.cos(t)*2.9,22.4+Math.sin(t)*2.9,2.1);});
+ const petals=union(...P),centre=circle(37.5,22.4,1.6);
  const g=raster(W,H,'.',[[legs,'B'],[antenna,'B'],[bulb,'O'],[ear,'B'],[head,'S'],[meet(head,(x,y)=>x-14+(y-10)*.4>0?-1:1),'B'],
   [visor,'D'],[neck,'B'],[armL,'B'],[body,'S'],[meet(body,(x,y)=>15.5-x),'B'],[panel,'B'],
   [handle,'O'],[spout,'O'],[rose,'O'],[can,'O'],[armR,'B'],

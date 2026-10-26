@@ -38,7 +38,7 @@ function walnutShop(){
  const rimAll=ellipse(cx,ry,21.6,2.7),inner=ellipse(cx,ry+.2,19.6,1.7);
  // walnut ridges: wavy lobes that run down the shell to its tip
  const shellCol=(x,y)=>{const px=x+.5,py=y+.5,hw=21.6*Math.sqrt(Math.max(.02,1-((py-ry)/dep)**2)),u=(px-cx)/hw,v=(py-ry)/dep;
-  const lobe=Math.abs(((u*3.2+.3*Math.sin(v*10+u*3)+8.5)%1)-.5);if(lobe>.36&&v>.12)return 'E';return lobe<.1&&v>.25&&v<.8&&u<.3?'O':'A';};
+  const lobe=Math.abs(((u*3.2+.3*Math.sin(v*10+u*3)+8.5)%1)-.5);return lobe>.36&&v>.12?'E':'A';};
  const wall=box(22,13.5,15,9.5,4),frame=cut(wall,box(22,14,13,8.9,2.6));
  const g=raster(44,41,'.',[[rimAll,'O'],[inner,'E'],[wall,'C'],[frame,'E'],
   [box(22,18.5,16.4,.6),'O'],[box(22,20,16.4,1),'A'],[box(9,22.5,1,2.4),'A'],[box(35,22.5,1,2.4),'A'],
@@ -54,9 +54,32 @@ function walnutShop(){
  ]);
  return str(g);}
 
+// 3. «Енот в шарфе»: a sitting raccoon with a bandit mask, a ringed tail and a striped scarf.
+function raccoon(){
+ const head=union(ellipse(16,12,9.6,7.4),poly([[7,10],[2.6,15.6],[9,17.4]]),poly([[25,10],[29.4,15.6],[23,17.4]]));
+ const ears=union(poly([[6.6,9.5],[7.6,1.8],[13.4,5.6]]),poly([[25.4,9.5],[24.4,1.8],[18.6,5.6]]));
+ const inEars=union(poly([[8.6,7.6],[9,4.4],[11.6,6]]),poly([[23.4,7.6],[23,4.4],[20.4,6]]));
+ const body=ellipse(16,29,10.4,9);
+ const tailPath=union(seg(22,35.5,29,34,3.2),seg(29,34,33.4,27.5,3.4),seg(33.4,27.5,33,19.5,3.3),circle(32.4,17.6,2.9));
+ const tailCol=(x,y)=>{const t=Math.atan2(y+.5-28,x+.5-25);if(y<16)return 'D';return Math.floor((t+3.2)/.42)%2?'D':'A';};
+ const scarf=union(box(16,19.8,9.6,1.9,1.4),box(21.6,25.5,2.3,5,.6));
+ const scarfCol=(x,y)=>y>=22?(Math.floor(y/2)%2?'R':'Y'):(Math.floor(x/2)%2?'R':'Y');
+ const g=raster(38,39,'.',[[tailPath,tailCol],[ears,'A'],[inEars,'K'],[body,shade(body,'A','E',1.8,1,.3)],
+  [ellipse(16,31,6.2,6.6),'C'],[ellipse(10.4,37.2,3.2,1.6),'D'],[ellipse(21.6,37.2,3.2,1.6),'D'],
+  [head,'A'],[union(ellipse(11.4,9,3.4,1.4),ellipse(20.6,9,3.4,1.4)),'C'],
+  [union(ellipse(11.2,12.4,4.2,2.4),ellipse(20.8,12.4,4.2,2.4),box(16,10,1,3)),'D'],
+  [ellipse(16,16.2,5,2.8),'C'],[scarf,scarfCol],[union(ellipse(12.2,27,2,1.5),ellipse(16.2,27.4,2,1.5)),'D']]);
+ rows(g,[
+  [12,10,'C'],[12,21,'C'],[11,10,'CC'],[11,20,'CC'],
+  [14,15,'DD'],[15,15,'DD'],[16,14,'D'],[16,17,'D'],[17,15,'DD'],
+  [31,20,'YYYYY'],[32,20,'R.R.R'],
+ ]);
+ return str(g);}
+
 export default {theme:'batch-0011',pictures:[
  {title:'6–7',forLevel:56,family:'Числовой и фразовый абсурд',device:'персонаж из предмета',subject:'цифры 6 и 7 с лицами',
   source:'интернет-мем/тренд',reference:'6–7 / six-seven [T1]',rows:sixSeven()},
  {title:'Мастерская в ореховой скорлупе',forLevel:57,family:'Кафе и мастерские',direction:'Миниатюрные мастерские',
   subject:'мастерская в половинке грецкого ореха',source:'оригинальный',rows:walnutShop()},
+ {title:'Енот в шарфе',forLevel:58,family:'Лесные и горные животные',subject:'енот в полосатом шарфе',source:'оригинальный',rows:raccoon()},
 ]};
