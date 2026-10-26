@@ -116,14 +116,14 @@ function upHouse(){
  const W=34,H=38;
  const cols=['R','Y','B','G','P','O'];
  const balloons=[];
- const rowsY=[3.5,7.5,11.5,15.5,19];
+ const rowsY=[2.6,6.6,10.6,14.6,18];
  const span=[[9,25],[5,29],[3,31],[5,29],[10,24]];
  rowsY.forEach((y,r)=>{const [a,b]=span[r],off=r%2?2.25:0;for(let x=a+off;x<=b+.01;x+=4.5)balloons.push([x,y]);});
  const g=draw(W,H,1,[
   [box(W/2,H/2,W/2,H/2),'S'],
   [union(ellipse(5,34,4.2,1.8),circle(3.5,32.6,1.8),circle(6.5,32.3,2.1)),'C'],   // cloud left
   [union(ellipse(29.5,26,4.4,1.9),circle(28,24.4,2),circle(31,24.2,2.2)),'C'],   // cloud right
-  [(x,y)=>{if(y<19||y>24)return 1;let d=9;for(const sx of [11,15,19,23]){const t=(y-19)/(24-19),cx=sx+(22.5-sx)*t;d=Math.min(d,Math.abs(x-cx)-.5);}return d;},'D'],   // strings
+  [(x,y)=>{if(y<18||y>24)return 1;let d=9;for(const sx of [11,15,19,23]){const t=(y-18)/(24-18),cx=sx+(22.5-sx)*t;d=Math.min(d,Math.abs(x-cx)-.5);}return d;},'D'],   // strings
  ]);
  // balloons in order, each a round with its tie
  const order=[0,2,4,1,3,5,2,0,5,3,1,4];
