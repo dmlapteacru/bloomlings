@@ -109,8 +109,8 @@ The document separates implemented mechanics from further feature proposals.
 
 ## Owner amendment · 2026-10-26 — the approved set of 12 types
 
-Level generation rules: [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md). Behaviour follows the full
-Bloomlings mechanic catalog of 26.10.2026 (owner's document); the numbers, calendar and recipes are in 17.
+Level generation rules: [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md). Behaviour of each type: the full
+mechanic catalog of 26.10.2026, [`design/Bloomlings-gameplay-mechanics.md`](design/Bloomlings-gameplay-mechanics.md); the numbers, calendar and recipes are in 17.
 
 | # | Type (17) | Family for the calendar | Hero | Former name here | What it does |
 |---:|---|---|---|---|---|

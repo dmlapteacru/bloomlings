@@ -10,6 +10,7 @@
 - Process §13 is split into two skills: `bloomlings-round-pictures` (pictures numbered in sequence, approved by the
   owner on a numbered contact sheet) and `bloomlings-round-levels` (approved pictures → solved levels → calendar, bank
   for leftovers, needs for empty positions). Tools in `tools/rounds/`, content in `content/rounds/`.
+- The full mechanic catalog of 26.10.2026 is `design/Bloomlings-gameplay-mechanics.md` (12 types); 17 refers to it.
 - Amended with a pointer to 17: 01, 02, 03, 04 (table of the 12 types), 05, 06, 07, 12, 13, 14, 16, the Locked Concept,
   `CLAUDE.md` and spec `001`. Where they differ, 17 wins for new rounds; booster, store, meta and reward unlocks are
   unchanged.

@@ -12,7 +12,8 @@ This is the second half of process §13 of
 [`product/17_LEVEL_GENERATION_RULES.md`](../../../product/17_LEVEL_GENERATION_RULES.md): §13.2–§13.10, plus the
 acceptance and card of §14.
 
-Read 17 §1, §3, §5–§8, §10, §11 and §14 before building. The pictures come from the skill
+Read 17 §1, §3, §5–§8, §10, §11 and §14 before building, and the section of each mechanic you use in the full catalog
+[`product/design/Bloomlings-gameplay-mechanics.md`](../../../product/design/Bloomlings-gameplay-mechanics.md). The pictures come from the skill
 `bloomlings-round-pictures` and must be `approved`. Where this skill and 17 differ, 17 wins.
 
 ## Principle

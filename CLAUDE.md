@@ -36,7 +36,7 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   (100 runs, 400 when the Wilson interval crosses a border) and places them by the calendar: every 15th level Super
   Hard, other multiples of 5 Hard, the rest Normal. Leftovers stay in `content/rounds/bank/`; empty positions go to
   `content/rounds/needs.json` for new pictures. Tools: `tools/rounds/` (`pictures.mjs`, `levels.mjs`, `measure.mjs`,
-  `engine.mjs`: pilot v9 rules with the §8 link rule). Only mechanics the round engine plays may be used. Today these
+  `engine.mjs`: pilot v9 rules with the §8 link rule). The behaviour of the 12 types is in the full catalog `product/design/Bloomlings-gameplay-mechanics.md`. Only mechanics the round engine plays may be used. Today these
   are hidden pods, links and the Sprig bridge; latch + key (L51) and later types need engine and pilot work first.
 - **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): passed on 2026-09-29, all docs are locked. Changes to
   locked docs now go through the product owner.

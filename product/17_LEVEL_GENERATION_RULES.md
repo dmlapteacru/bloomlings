@@ -701,3 +701,4 @@ Core описывает поддержку счётчиков **2–9**, но б
 
 Источники: [отчёт Colony Flow и v8 от 26 октября 2026 года](https://chatgpt.com/library?file_id=libfile_f58f63b8426c819191370f49e8b0e64b&account_id=personal) — наблюдения; [полный каталог механик Bloomlings от 26 октября 2026 года](https://chatgpt.com/library?file_id=libfile_824fd88177488191b1a5d427d8cd6f7c&account_id=personal) — целевое поведение. Первые картинки, календарь сложности, ранний мост, редкие расширенные палитры и возможность четырёх совместимых типов учтены из решений по проекту. Численные рецепты требуют проверки сгенерированных кандидатов в реализованной игре.
 
+В репозитории полный каталог механик лежит в [`design/Bloomlings-gameplay-mechanics.md`](design/Bloomlings-gameplay-mechanics.md); процесс §13 выполняют скилы `bloomlings-round-pictures` и `bloomlings-round-levels` (`.claude/skills/`).
