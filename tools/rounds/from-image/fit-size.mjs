@@ -5,18 +5,16 @@
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
 const [,,src,dst]=process.argv;
 const b=(await import(pathToFileURL(path.resolve(src)).href)).default;
-// the reference's captions, and how its extra shades fold into the stated colour count
-const TARGET={4:{N:320,merge:{O:'A'}},5:{N:380},6:{N:432},7:{N:360},8:{N:484},9:{N:576,merge:{S:'B'}},10:{N:480,merge:{A:'E'}}};
+// the cells (500–600 up to L10, the owner, 2026-10-26) and the captions' colours: extra shades fold into a neighbour
+const TARGET={4:{N:560,merge:{O:'A'}},5:{N:500},6:{N:580},7:{N:520},8:{N:590},9:{N:576,merge:{S:'B'}},10:{N:560,merge:{A:'E'}}};
 const N4=[[1,0],[-1,0],[0,1],[0,-1]];
 // hand fixes after resampling, where a thin detail was lost: whole rows (rows: {index: text}, the picture's last rows
 // cut by cut), single cells ([x, y, material]); the count must still match the target, which the script checks
 const EDITS={
- 4:{cut:1,rows:{0:'.......YYBRCC.......',7:'.RRYYYYBBBRRRCCCBBB.',8:'.RRYYYYBBBRRRCCCBBB.',9:'.RRYYYYBBBRRRCCCBBB.',10:'.RRRYYYBBBRRRCCCBBB.',
-  16:'.....RRYYBRCCBB.....',17:'......AAAAAAAA......',18:'......A......A......',19:'......A......A......',20:'.....AAAAAAAAAA.....',
-  21:'.....AACAACAACA.....',22:'.....CAACAACAAC.....',23:'.....AACAACAACA.....',24:'......AAAAAAAA......'}},
- 6:{cells:[[6,16,'C'],[5,18,'C'],[5,19,'C'],[5,20,'C']]},
- 9:{cells:[...[16,17,18,19,20,21].flatMap(y=>[[8,y,'C'],[20,y,'B'],[21,y,'B'],[22,y,'C'],[23,y,'B'],[24,y,'B'],[25,y,'C']]),
-  ...[6,7,9,10,20,21,23,24].map(x=>[x,18,'C']),[17,19,'C']]}};
+ 4:{rows:{23:'........AAAAAAAAA.........',24:'........A.......A.........',25:'........A.......A.........',26:'........A.......A.........',
+  27:'........A.......A.........',28:'.......AAAAAAAAAAA........',29:'.......AACAACAACAA........',30:'.......CAACAACAACA........',
+  31:'.......AACAACAACAA........',32:'.......CAACAACAACA........',33:'.......AAAAAAAAAAA........'}},
+ 9:{cells:[...[16,17,18,19,20,21].flatMap(y=>[[8,y,'C'],[22,y,'C']]),...[6,7,9,10,20,21,23,24].map(x=>[x,18,'C'])]}};
 // rarer materials weigh more, so thin details (ropes, stripes, crossbars) survive the smaller grid
 function boost(rows,k){const n={};rows.flat().forEach(c=>{if(c!=='.')n[c]=(n[c]||0)+1;});const t=Object.values(n).reduce((a,v)=>a+v,0),w={};
  for(const c in n)w[c]=Math.pow(t/n[c]/Object.keys(n).length,k);return w;}
@@ -37,7 +35,7 @@ function adjust(g,N){const H=g.length,W=g[0].length,at=(x,y)=>g[y]?.[x]??'.';
 const trim=g=>{const ys=g.map((r,j)=>r.some(c=>c!=='.')?j:-1).filter(j=>j>=0),xs=g[0].map((_,i)=>g.some(r=>r[i]!=='.')?i:-1).filter(i=>i>=0);return g.slice(ys[0],ys.at(-1)+1).map(r=>r.slice(xs[0],xs.at(-1)+1));};
 const out=b.pictures.map(p=>{const t=TARGET[p.forLevel];let rows=p.rows.map(r=>[...r].map(c=>t.merge?.[c]||c));
  const n0=count(rows),wt=boost(rows,.6);let best=null;
- for(let f=Math.sqrt(n0/t.N)*.9;f<=Math.sqrt(n0/t.N)*1.1;f+=.01)for(const ox of [0,.25,.5,.75])for(const oy of [0,.25,.5,.75]){
+ for(let f=Math.sqrt(n0/t.N)*.93;f<=Math.sqrt(n0/t.N)*1.07;f+=.005)for(const ox of [0,.25,.5,.75])for(const oy of [0,.25,.5,.75]){
   const g=resample(rows,f,ox*f,oy*f,wt),d=Math.abs(count(g)-t.N);if(!best||d<best.d)best={g,d,f};}
  let g=trim(adjust(best.g,t.N));const e=EDITS[p.forLevel];
  if(e){if(e.cut)g=g.slice(0,g.length-e.cut);for(const [j,r] of Object.entries(e.rows||{}))g[j]=[...r];for(const [x,y,c] of e.cells||[])g[y][x]=c;

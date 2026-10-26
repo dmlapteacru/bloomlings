@@ -34,8 +34,9 @@ those rules; where this skill and 17 differ, 17 wins.
 | 1 — crown | exactly 138 | 3, volumes 63 / 37 / 38 |
 | 2 — ladybug 2C | exactly 240 | 4, volumes 120 / 97 / 19 / 4 |
 | 3 — bird 3B | exactly 281 | 6, volumes 76 / 70 / 69 / 51 / 13 / 2 |
-| 4–9 | 400–650 | 4–7 |
-| 10–24 | 550–1000 | 4–8 |
+| 4–9 | 500–600 | 4–7 |
+| 10 | 500–600 | 4–8 |
+| 11–24 | 550–1000 | 4–8 |
 | 25–60 | 550–1200 | 5–9 |
 | 61+ | 550–1400 | 5–9 |
 
