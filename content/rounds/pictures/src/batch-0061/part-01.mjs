@@ -94,23 +94,23 @@ function giraffe(){
  const W=34,H=37,ground=31;
  // warm blush sky over a strip of grass
  const env=(x,y)=>y>=ground?'G':'K';
- const canopy=union(ellipse(8,7,8.5,2.6),ellipse(4.5,5.4,4.8,2),ellipse(11,5,5.5,2.1),ellipse(2,7.8,3.5,1.6));
- const under=meet(canopy,box(8,9.6,12,1.6));
- const trunk=union(seg(6,33,6.5,16,1.2),seg(6.5,16,3.5,8,.8),seg(6.5,17,10,8,.8));
- const body=ellipse(24.5,21,7.5,4.3);
- const neck=poly([[17,22],[21.5,19],[14.5,6],[11,7]]);
- const head=union(ellipse(12,5.6,3.2,2.1),ellipse(9,6.8,2.4,1.7));
- const horns=union(box(12.3,2.4,.55,1.3),box(14.3,2.7,.55,1.3));
- const ear=poly([[14,4.2],[17,3.2],[16.6,5.2]]);
- const legX=[19,22,27,30];
+ // a flat acacia crown, dark underneath
+ const canopy=union(ellipse(8.5,6.2,8.8,2.4),ellipse(5,4.8,5.5,2),ellipse(12,4.4,5.5,2),ellipse(1.5,6.8,3,1.5));
+ const under=meet(canopy,box(9,8.8,13,1.4));
+ const trunk=union(seg(7,33,7.5,18,1.2),seg(7.5,18,4,7,.8),seg(7.5,19,12,7,.8));
+ const body=ellipse(25.5,21,7,4.2);
+ const neck=poly([[19,21.5],[23.8,18.5],[23.8,5.5],[20.5,6]]);
+ const head=union(ellipse(21.5,5.3,3,2),ellipse(18.3,6.4,2.4,1.7));
+ const horns=union(box(20.5,2.2,.6,1.4),box(22.5,2.4,.6,1.4));
+  const legX=[20,23,28,31];
  const legs=union(...legX.map(x=>box(x,28.5,1,5.6)));
  const hooves=union(...legX.map(x=>box(x,34,1,.6)));
- const tail=seg(31.5,19.5,33,26,.5);
- const gir=union(body,neck,head,legs,ear);
- // patches on a 3-cell lattice
- const spot=(x,y)=>{const i=Math.floor(x/3),j=Math.floor(y/3);return ((i+j)%2===0&&x%3<2&&y%3<2&&y<25&&union(body,neck)(x+.5,y+.5)<-.6)?'A':'Y';};
- const g=raster(W,H,'.',[[all,env],[trunk,'E'],[canopy,'G'],[under,'M'],[tail,'E'],[circle(33,26.5,.9),'E'],[gir,spot],[head,'Y'],[ear,'Y'],[horns,'E'],[hooves,'E']]);
- put(g,'D',[[12,5]]);
+ const tail=seg(32.3,19.5,33.5,26,.5);
+ const gir=union(body,neck,legs);
+ // a net of patches on a 3-cell lattice, away from the edges
+ const spot=(x,y)=>(x%3<2&&y%3<2&&y<25&&gir(x+.5,y+.5)<-.5)?'A':'Y';
+ const g=raster(W,H,'.',[[all,env],[trunk,'E'],[canopy,'G'],[under,'M'],[tail,'E'],[circle(33.5,26.5,.9),'E'],[gir,spot],[head,'Y'],[horns,'E'],[hooves,'E']]);
+ put(g,'Y',[[23,3],[24,3],[25,3],[26,3],[24,4],[25,4]]);put(g,'D',[[21,4]]);
  return str(g);}
 
 function butterfly(){
@@ -122,10 +122,12 @@ function butterfly(){
  const dot=circle(7.5,8.5,2.6);
  const tri=poly([[10,13.5],[13.5,13.5],[11.8,9.8]]);
  const dot2=circle(9,22.5,1.8);
+ const dot3=circle(4.6,12.3,1.3);
+ const tri2=poly([[9.5,19],[13.5,19],[13.5,23]]);
  const body=union(box(cx,18,1,8.5,1),circle(cx,8.5,1.6));
  const ant=union(seg(16.4,7.5,13,2.5,.5),seg(17.6,7.5,21,2.5,.5));
  const tips=union(circle(12.7,2.2,1),circle(21.3,2.2,1));
- const g=draw(34,29,1.15,[[mir(cx,up),'N'],[mir(cx,upIn),'B'],[mir(cx,dot),'Y'],[mir(cx,tri),'P'],[mir(cx,lo),'V'],[mir(cx,loIn),'P'],[mir(cx,dot2),'Y'],[body,'D'],[ant,'D'],[tips,'Y']]);
+ const g=draw(34,29,1.15,[[mir(cx,up),'N'],[mir(cx,upIn),'B'],[mir(cx,dot),'Y'],[mir(cx,tri),'P'],[mir(cx,lo),'V'],[mir(cx,loIn),'P'],[mir(cx,dot2),'Y'],[mir(cx,dot3),'P'],[mir(cx,tri2),'V'],[body,'D'],[ant,'D'],[tips,'Y']]);
  return trim(str(g));}
 
 export default {theme:'batch-0061',pictures:[

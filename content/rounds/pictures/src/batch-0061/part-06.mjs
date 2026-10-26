@@ -5,6 +5,12 @@ const all=()=>-1;
 const below=y0=>(x,y)=>y0-y;   // inside where y > y0
 const above=y0=>(x,y)=>y-y0;   // inside where y < y0
 const draw=(w,h,k,layers)=>raster(Math.round(w*k),Math.round(h*k),'.',layers.map(([s,c])=>[scale(k,s),typeof c==='function'?(x,y,u)=>c(x/k,y/k,u):c]));
+// repaint single cells of the given colours that no 4-neighbour shares with the most common neighbouring colour
+const despeckle=(g,codes,keep=[])=>{const H=g.length,W=g[0].length,fix=[];
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const c=g[y][x];if(!codes.includes(c)||keep.some(([a,b])=>a===x&&b===y))continue;
+  const nb=[[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>g[y+b]?.[x+a]).filter(v=>v!==undefined);if(nb.includes(c))continue;
+  const cnt={};nb.forEach(v=>cnt[v]=(cnt[v]||0)+1);fix.push([x,y,Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0][0]]);}
+ for(const [x,y,c] of fix)g[y][x]=c;return g;};
 const trim=rows=>{const r=rows.filter(l=>/[^.]/.test(l)),xs=r.flatMap(l=>[...l].map((c,i)=>c==='.'?-1:i).filter(i=>i>=0)),a=Math.min(...xs),b=Math.max(...xs);return r.map(l=>l.slice(a,b+1));};
 
 function volcanoDino(){
@@ -16,19 +22,19 @@ function volcanoDino(){
  const glow=box(26,8.2,2.6,0.75);
  const lava=union(seg(23,8.5,19.5,15,1),seg(19.5,15,18.5,19,1),seg(29,8.5,31,14,1),seg(31,14,33.5,21,1),seg(26,9,26.5,12,1));
  const ground=below(27.2);
- const body=ellipse(13.5,21.6,7.6,4.7);
- const neck=union(seg(9,20,6,8,1.8),poly([[6.5,22],[13,19],[9,14.5]]));
+ const body=ellipse(13.5,20.4,7.8,4.6);
+ const neck=union(seg(9,19,6,8,1.8),poly([[6.4,21],[13,17.5],[9,13.5]]));
  const head=ellipse(5,7,3.3,2);
- const tail=union(seg(19.5,21.5,24.5,25,1.9),seg(23.5,24.5,30.5,26.8,1.2),seg(29.5,26.5,33.5,27.3,0.75));
- const legs=union(box(8.5,27.4,1.8,4.2),box(17,27.4,1.8,4.2));
- const farLegs=union(box(11.6,27,1.6,3.9),box(20,27,1.6,3.9));
- const spots=union(circle(11,18.6,1.15),circle(15,18.3,1.2),circle(18.6,19.6,1.05));
- const leaf=(bx,by,ex,ey)=>seg(bx,by,ex,ey,1.05);
- const ferns=union(leaf(2,35,0.5,29),leaf(2,35,4.5,30),
-  leaf(28.5,35,25,30.5),leaf(28.5,35,28.5,29.5),leaf(28.5,35,32,30.5),leaf(36.5,35,35,30),leaf(36.5,35,38.5,30.5));
+ const tail=union(seg(19.5,20,24.5,23.5,1.9),seg(23.5,23,30.5,25.8,1.2),seg(29.5,25.6,33.8,26.6,0.75));
+ const legs=union(box(8.6,26.6,1.9,4.9),box(17,26.6,1.9,4.9));
+ const farLegs=union(box(11.8,26,1.6,4.6),box(20.2,26,1.6,4.6));
+ const spots=union(circle(11,17.4,1.15),circle(15,17.1,1.2),circle(18.6,18.4,1.05));
+ const leaf=(bx,by,ex,ey)=>{const dx=ex-bx,dy=ey-by,n=Math.hypot(dx,dy),px=-dy/n*1.15,py=dx/n*1.15,mx=bx+dx*0.5,my=by+dy*0.5;return poly([[bx-px*0.5,by-py*0.5],[mx-px,my-py],[ex,ey],[mx+px,my+py],[bx+px*0.5,by+py*0.5]]);};
+ const tuft=(bx,by)=>union(leaf(bx,by,bx-6,by-3.6),leaf(bx,by,bx,by-7.5),leaf(bx,by,bx+6,by-3.6));
+ const ferns=union(tuft(3,33.6),tuft(31,33.6),tuft(39,34));
  const g=raster(W,H,'.',[[all,'S'],[smoke,'C'],[volcano,'A'],[shade,'E'],[lava,'R'],[crater,'R'],[glow,'O'],[ground,'L'],
   [tail,'G'],[farLegs,'M'],[body,'G'],[spots,'M'],[legs,'G'],[neck,'G'],[head,'G'],[ferns,'M']]);
- put(g,'E',[[4,6]]);
+ put(g,'E',[[4,6]]);despeckle(g,['S','A','G','L','M','C','R'],[]);
  return str(g);}
 
 function diver(){
@@ -39,24 +45,25 @@ function diver(){
  const hose=union(seg(17,6,20,3,0.9),seg(20,3,21,-1,0.9));
  const bubbles=union(circle(7.5,3.5,1.3),circle(5,0.8,1),circle(9.5,0.6,0.8),circle(25,7,1.1),circle(27.5,3,1.4),circle(25,0.5,0.9));
  const helmet=circle(13,8.5,5.2);
- const shine=meet(helmet,cut(circle(11.5,7,5.2),circle(13.3,8.8,5)));
+ const shine=box(10.6,5.4,1,0.9);
  const port=circle(12.3,9,3.1),glass=circle(12.3,9,2.2);
  const corselet=box(13,14,6.2,1.6,1);
- const suit=union(box(13,18.5,4.6,4,1),seg(9,15.5,7,20.5,1.7),seg(17,15.5,19.5,20,1.7));
- const hands=union(circle(6.6,21.4,1.45),circle(20,20.8,1.45));
- const belt=box(13,21.8,4.7,0.8);
+ const suit=union(box(13,18.5,4,4,1),seg(9,16.2,5.6,21.2,1.6),seg(17,16.2,20.4,21.2,1.6));
+ const hands=union(circle(5,22.4,1.5),circle(21,22.4,1.5));
+ const belt=box(13,21.6,4.1,0.8);
  const legs=union(seg(11,22,9.5,27,1.8),seg(15.5,22,17,27,1.8));
  const boots=union(box(8.8,28.6,2.6,1.3,0.5),box(18,28.6,2.6,1.3,0.5));
- const chest=box(26,25.6,4.2,2.6),lid=poly([[22,21.8],[30.6,21.8],[32,18.6],[23.4,18.6]]),gold=ellipse(26,22.6,3.9,1.9),band=box(26,24.4,4.4,0.6),lock=box(26,25.3,1,1);
+ const chest=box(27.6,25.6,3.8,2.6),lid=poly([[24,21.8],[31.6,21.8],[32.6,18.6],[25.2,18.6]]),gold=ellipse(27.6,22.6,3.5,1.9),band=box(27.6,24.4,4,0.6),lock=box(28,25.3,1,1);
  const g=raster(W,H,'.',[[all,'B'],[bubbles,'S'],[sand,'Y'],[weeds,'G'],[hose,'D'],[lid,'A'],[gold,'Y'],[chest,'A'],[band,'D'],[lock,'Y'],
-  [legs,'C'],[boots,'D'],[suit,'C'],[hands,'D'],[belt,'D'],[corselet,'O'],[helmet,'O'],[shine,'Y'],[port,'D'],[glass,'S']]);
+  [legs,'C'],[boots,'D'],[suit,'C'],[hands,'D'],[belt,'D'],[corselet,'O'],[helmet,'O'],[shine,'Y'],[box(13,13.5,3.6,0.5),'D'],[box(8.5,14.6,0.6,0.6),'Y'],[box(17.5,14.6,0.6,0.6),'Y'],[port,'D'],[glass,'S']]);
+ despeckle(g,['S','B','G']);
  return str(g);}
 
 function unicorn(){
  const RB=['R','O','Y','G','B','V'];
  const rb=(x,y)=>RB[((Math.floor((x+y)/2.2)%6)+6)%6];
  const horn=poly([[8.4,9.2],[11.4,8.2],[6,0.6]]);
- const hornStripe=(x,y)=>(Math.floor((x-y*0.6)*0.8)%2===0)?'O':'Y';
+ const hornStripe=(x,y)=>(Math.floor(((x-9.9)*-0.43+(y-8.7)*-0.9)/1.7)%2===0)?'Y':'O';
  const ear=poly([[12,10],[16.4,10],[15.4,3.2]]);
  const head=(x,y)=>poly([[10,7.6],[14.5,9.5],[15,13.8],[11.5,17],[6,18.2],[3.2,16.8],[3.4,14],[7.4,9.8]])(x,y)-0.6;
  const neck=poly([[13,9],[18.5,11.5],[25,18],[18,26.5],[14.6,21.5],[13.4,16.5]]);
@@ -68,6 +75,7 @@ function unicorn(){
  const hooves=union(box(15.8,35.8,2.1,1.1),box(28.2,35.8,2.1,1.1),box(19.4,35,2,1.1),box(31.8,35,2,1.1));
  const g=draw(40,38,1.17,[[legsFar,'K'],[tail,rb],[body,'C'],[legsNear,'C'],[hooves,'V'],[neck,'C'],[head,'C'],[mane,rb],[ear,'C'],[horn,hornStripe],
   [box(10,12.6,0.85,0.85),'D'],[circle(4.6,16.2,0.7),'K']]);
+ despeckle(g,['R','O','Y','G','B','V','C']);
  return trim(str(g));}
 
 function crystalBall(){
@@ -89,6 +97,7 @@ function crystalBall(){
  const band=box(cx,38.3,8.9,0.65);
  const g=raster(W,H,'.',[[ball,'B'],[inner,'S'],[shine,'C'],[hill,'G'],[wall,'P'],[merlons,'P'],[towerL,'P'],[towerR,'P'],[keep,'P'],[roofs,'V'],[door,'V'],[windows,'V'],[pole,'V'],[flag,'Y'],
   [cup,'A'],[rim,'Y'],[stem,'Y'],[base,'A'],[band,'Y']]);
+ despeckle(g,['A']);
  return trim(str(g));}
 
 function treehouse(){
@@ -110,6 +119,7 @@ function treehouse(){
   [house,'O'],[roof,'R'],[win,'E'],[door,'E'],[platform,'E']]);
  for(let y=21;y<34;y++)for(const x of [25,28])g[y][x]='E';
  for(let y=22;y<34;y+=3)for(const x of [26,27])g[y][x]='E';
+ despeckle(g,['M','A','G']);
  return str(g);}
 
 export default {theme:'batch-0061',pictures:[

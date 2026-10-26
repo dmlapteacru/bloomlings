@@ -16,7 +16,7 @@ function drum(){
  const rimT=band(cx,top,top+2.6,rx+.6,ry),rimB=cut(band(cx,bot-2.6,bot,rx+.6,ry),front(bot-2.6));
  const head=ellipse(cx,top,rx-1.6,ry-1.1);
  // zigzag rope: a polyline between the rims
- const y0=top+2.6+ry+.4,y1=bot-2.6+ry-1.6,pts=[];for(let i=-5;i<=5;i++)pts.push([cx+i*3.2,i%2?y1:y0]);
+ const y0=top+2.6+ry+.4,y1=bot-2.6+ry-1.6,pts=[];for(let i=-4;i<=4;i++)pts.push([cx+i*4,i%2?y1:y0]);
  const rope=union(...pts.slice(1).map((p,i)=>seg(...pts[i],...p,.8)));
  const stickA=seg(4,3.5,26,14.5,1.05),stickB=seg(30,3.5,8,14.5,1.05);
  const g=raster(36,40,'.',[
@@ -44,17 +44,30 @@ function easel(){
   [seg(26,43.5,37,33.5,.95),'E'],[seg(37,33.5,38.8,31.8,1.05),'C'],[seg(38.8,31.8,40.8,30,1.1),'P']]);
  return str(trim(g));}
 
-// 3. A classic football: cream ball, black pentagon patches, a light-blue shadow side, dark outline.
-function football(){
- const c=10.5,R=10.5;
- const pent=(px,py,r,a0)=>poly([0,1,2,3,4].map(i=>[px+r*Math.cos(a0+i*2*Math.PI/5),py+r*Math.sin(a0+i*2*Math.PI/5)]));
- const up=-Math.PI/2,inside=circle(c,c,R-.9),parts=[[circle(c,c,R),'D'],[inside,'C'],[meet(cut(inside,circle(c-1.3,c-1.6,R-1.3)),(x,y)=>x+y>2*c+3?-1:1),'S']];
- parts.push([pent(c,c+.4,3.5,up),'D']);
- for(let i=0;i<5;i++){const a=up+i*2*Math.PI/5;
-  parts.push([meet(seg(c+3*Math.cos(a),c+.4+3*Math.sin(a),c+8*Math.cos(a),c+.4+8*Math.sin(a),.5),inside),'D']);
-  parts.push([meet(pent(c+10.3*Math.cos(a),c+.4+10.3*Math.sin(a),3.9,a+Math.PI),circle(c,c,R)),'D']);}
- const g=raster(21,21,'.',parts);
- return str(trim(g));}
+// 3. A classic football: cream ball, a black pentagon in the middle and five at the rim, a light-blue shadow side.
+function football(){return [
+ '........DDDDD........',
+ '.....DDDDDDDDDDD.....',
+ '....DCCCDDDDDCCCD....',
+ '...DCCCCCDDDCCCCCD...',
+ '..DCCCCCCCDCCCCCCCD..',
+ '.DCCCCCCCCCCCCCCCCCD.',
+ '.DDCCCCCCCCCCCCCCCDD.',
+ '.DDDCCCCCDDDCCCCCDDD.',
+ 'DDDDDCCCDDDDDCCCDDDDD',
+ 'DDDDCCCDDDDDDDCCCDDDD',
+ 'DDDCCCCDDDDDDDCCCCDDD',
+ 'DCCCCCCCDDDDDCCCCSSSD',
+ 'DCCCCCCCCDDDCCCCSSSSD',
+ '.DCCCCCCCCCCCCCSSSSD.',
+ '.DCCCDCCCCCCCCCDSSSD.',
+ '.DCCDDCCCCCCCCSDDSSD.',
+ '..DDDDDCCCCCCCDDDDD..',
+ '...DDDDCCCCCCSDDDD...',
+ '....DCCCCCCCCSSSD....',
+ '.....DDDCCCCSDDD.....',
+ '........DDDDD........',
+];}
 
 // 4. A hedgehog chef in a toque and a neckerchief stirring a red pot with a ladle.
 function hedgehog(){

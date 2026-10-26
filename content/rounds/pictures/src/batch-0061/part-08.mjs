@@ -50,7 +50,6 @@ function moonLine(){
  const sag=x=>4.5+2*Math.sin(Math.PI*(x-2)/32);
  const line=(x,y)=>Math.abs(y-sag(x))-.5;
  const moonO=circle(17.5,15.5,8),moon=cut(moonO,circle(21.5,14.5,7));
- const star=(()=>{const p=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?2.1:4.2;p.push([28.5+r*Math.cos(a),11.8+r*Math.sin(a)]);}return poly(p);})();
  const tiny=(cx,cy)=>union(box(cx,cy,1.5,.5),box(cx,cy,.5,1.5));
  const g=draw(W,H,1,[
   [box(W/2,H/2,W/2,H/2),'N'],
@@ -59,11 +58,13 @@ function moonLine(){
   [union(box(2,14,1,13),box(34,14,1,13)),'A'],[union(box(2,2,2,1),box(34,2,2,1)),'A'],
   [meet(line,box(18,10,15,10)),'C'],
   [moon,'Y'],[meet(moon,cut(moonO,circle(18.7,14.3,8))),'O'],
-  [star,'Y'],
   [union(box(7,10.5,2,3.5),box(5.5,13.5,3.5,1.5,.8)),'R'],[box(7,7.5,2,1),'C'],[box(7,11,2,.5),'C'],   // sock: cuff, stripe
-  [union(box(7,6,1,1.5),box(19.5,7,1,1.5),box(28.5,7,1,1.5)),'A'],                // pegs
+  [union(box(7,6,1,1.5),box(20,7,1,1.5),box(27,7,1,1.5)),'A'],                // pegs
  ]);
  put(g,'A',[[11,15],[12,16],[13,15]]);                                           // sleepy eye
+ ['....YY....','....YY....','...YYYY...','YYYYYYYYYY','.YYYYYYYY.','..YYYYYY..','..YYYYYY..','.YYY..YYY.','.YY....YY.']
+  .forEach((r,j)=>[...r].forEach((c,i)=>{if(c!=='.')g[8+j][22+i]=c;}));      // the pegged star
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(g[y][x]==='O'&&![[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>['O','Y'].includes(g[y+dy]?.[x+dx])))g[y][x]='N';
  return str(g);}
 
 // 4. A big orange fish in the sea holding a fishing rod; the hook dangles a boot above the surface, by a boat's bow.
@@ -72,18 +73,18 @@ function fishFisher(){
  const body=ellipse(14.5,23,10.5,7);
  const g=draw(W,H,1,[
   [box(W/2,H/2,W/2,H/2),(x,y)=>y<sea?'S':'B'],
-  [poly([[27.5,9.4],[34,9.4],[34,14],[30,14]]),'R'],[poly([[27,8.6],[34,8.6],[34,10],[27.8,10]]),'A'],   // boat bow
+  [poly([[30.5,8],[34,8],[34,14],[32.6,14]]),'R'],[poly([[30,7.1],[34,7.1],[34,8.6],[30.6,8.6]]),'A'],   // boat bow
   [(x,y)=>y>=sea&&y<sea+1&&(Math.floor(x)%4)<2?-1:1,'S'],
-  [box(24.5,4.5,.5,1.5),'D'],                                                     // line
-  [union(box(24.5,8,1.5,2),box(23,10.5,3,1,.5)),'D'],                             // boot, toe to the left
+  [box(27.5,3,.5,1.5),'D'],                                                     // line
+  [union(box(27.5,6.5,1.5,2),box(26.5,9,2.5,1,.8)),'D'],[box(27.5,4.5,1.5,.5),'C'],                           // boot, toe to the left
   [poly([[5,22.5],[.5,16.5],[.5,29.5],[5,23.5]]),'R'],                            // tail
   [body,'O'],[meet(body,box(14.5,28.5,13,2.4)),'Y'],
-  [poly([[6,17],[9.5,13.5],[14,16]]),'R'],                                         // dorsal fin
-  [seg(12.5,25,24.5,2.5,.6),'A'],                                                  // rod
+  [poly([[5.5,18.5],[9.5,13.8],[15,17.5]]),'R'],                                         // dorsal fin
+  [seg(12.5,25,27,1.5,.6),'A'],                                                  // rod
   [ellipse(12.5,25,2.8,1.8),'R'],                                                  // fin holding the rod
-  [circle(19.5,20.5,2),'C'],[box(20,20.5,.5,1),'D'],
-  [box(23,24,1.5,.5),'D'],[box(22,23,.5,.5),'D'],                                  // smile
+  [circle(19.5,20.5,2),'C'],[box(20.5,21,.5,1),'D'],
  ]);
+ put(g,'D',[[20,24],[21,25],[22,25],[23,25],[24,24]]);                           // smile
  return str(g);}
 
 // 5. A two-tone chess knight (cream lit side, amber shade) on a stepped base, dark outline.
