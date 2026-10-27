@@ -1,4 +1,23 @@
 {
  "updated": "2026-10-27",
- "needs": []
+ "needs": [
+  {
+   "level": 18,
+   "cls": "Normal",
+   "intro": "bridge",
+   "allowed": [
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1000
+    ],
+    "colours": [
+     4,
+     10
+    ]
+   }
+  }
+ ]
 }

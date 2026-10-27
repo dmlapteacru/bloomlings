@@ -1,7 +1,7 @@
 {
  "code": "P0117",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0009",
  "version": 1,
  "title": "Голова льва",
  "theme": "batch-0116",

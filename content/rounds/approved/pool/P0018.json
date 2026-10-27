@@ -1,7 +1,7 @@
 {
  "code": "P0018",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0010",
  "version": 1,
  "title": "Облако спит в кресле",
  "theme": "batch-0011",

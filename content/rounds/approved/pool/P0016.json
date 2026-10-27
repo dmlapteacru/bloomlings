@@ -1,7 +1,7 @@
 {
  "code": "P0016",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0011",
  "version": 1,
  "title": "Ананас",
  "theme": "batch-0011",

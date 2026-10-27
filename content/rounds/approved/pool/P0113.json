@@ -1,7 +1,7 @@
 {
  "code": "P0113",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0007",
  "version": 1,
  "title": "Сова в дупле",
  "theme": "batch-0113",
