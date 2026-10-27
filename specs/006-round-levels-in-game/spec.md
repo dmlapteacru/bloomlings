@@ -18,6 +18,28 @@ Background: [`product/plans/round-transfer-proposal-2026-10-27.md`](../../produc
 (how round levels are built and checked), [`content/rounds/owner-notes.md`](../../content/rounds/owner-notes.md) (the
 owner's notes from the pilots).
 
+## Clarifications
+
+### Session 2026-10-27
+
+- Q: Icons on the cubes — constitution II asks for "hue and icon"; what now? → A: amend constitution II. On board
+  cubes a variant is identified by its colour from a readability-checked palette. Hero icons on cubes come back as a
+  separate feature. Constitution 1.0.2 → 1.1.0.
+- Q: The tap's time becomes part of the command; how is that written down? → A: clarify constitution III and doc 15. A
+  command carries model time in whole milliseconds; device time stays forbidden in rules. This ships in the same 1.1.0
+  amendment.
+- Q: Readability of the 16 round colours? → A: run the 16 colours through the game's readability tests (normal vision
+  and the three colour-blindness simulations), and keep the pairs that fail out of the same level. The palette itself
+  does not change.
+- Q: What does the game show after the last transferred round level (now L20) until more waves are transferred? →
+  A: round levels only. After the last one, a "new levels soon" screen. One rule set: the old rules and the old levels
+  leave the game builds. Meta at later levels (L40, L50 …) is checked through the tester's level jump.
+- Q: What happens to the game's boosters (Extra Slot, Shuffle, Return, Bloom Burst) and the jam card on round levels
+  with live time? → A: they move to live time in this spec: each booster's effect and when it may be used during work
+  are defined on the live timeline. Levels are still validated without boosters.
+- Q: How do the Bloomlings that walk the board and eat the cubes look for the 16 round colours? → A: as the hero of
+  the material's family, tinted in the material's colour. No new art is needed, and the clearing styles work as now.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - The owner plays L1–L20 in the game exactly as in the pilot (Priority: P1)
@@ -168,6 +190,8 @@ owner sees the same behaviour as in the playtest app.
   transferred, and the path refuses them by name.
 - **A level reaching its last pod while a bridge is still to choose.** Auto does not start until no bridge is left to
   choose, as in the pilot.
+- **A booster used while workers are on the way.** Its effect is defined against the live timeline (FR-012). Work
+  already claimed by a walking worker is never taken from it, so a cell is never cleared twice or left half-done.
 - **Speed changes in the middle of work** (normal speed-up, Auto). They change only how fast the work is shown, never the
   outcome.
 - **A restored attempt** (app closed and reopened during work). It continues from the same moment of the live timeline
@@ -176,8 +200,9 @@ owner sees the same behaviour as in the playtest app.
   on a phone screen.
 - **A hidden pod inside a link** does not occur in round levels (hidden pods never stand in a link), and validation
   refuses it.
-- **Old content after L20.** The game's existing levels from L21 on stay playable as placeholders until a wave replaces
-  them. Nothing marks them as rounds.
+- **After the last transferred level.** The game shows a "new levels soon" screen, and no old level follows. Features
+  unlocked at later level numbers (Store animations at L40, milestone at L50, the Daily Challenge) are checked through the
+  tester's level jump. The Daily Challenge stays off until it has round levels of its own.
 
 ## Requirements *(mandatory)*
 
@@ -223,6 +248,19 @@ owner sees the same behaviour as in the playtest app.
   the places jam: no further action can make progress and nothing is pending.
 - **FR-011**: The end speed-up (Auto) and the normal speed-up MUST be presentation only. Auto starts when the queue is
   empty and no bridge is left to choose, and then shows the rest at 2×. Neither changes any rule event or outcome.
+- **FR-012**: The four boosters and the jam rescue MUST work on round levels with live time. Each is a command with its
+  model time, so its effect is deterministic. While work is in progress:
+  - **Extra Slot** adds a sixth usable place at once, for the rest of the level.
+  - **Return** takes back a waiting pod that has no worker on the way. Its remaining count goes to the top of its
+    column, its place frees, and cleared cells stay cleared. A pod with workers on the way can be returned only after
+    they arrive.
+  - **Shuffle** rearranges only the pods still in the columns. Links stay linked, hidden pods stay hidden, and the result
+    stays winnable whenever any arrangement is.
+  - **Bloom Burst** clears every remaining cell of one revealed material and settles that material's pods, keeping exact
+    accounting. Cells already claimed by a worker on the way stay with that worker.
+
+  The jam card offers the eligible boosters and the limited rescue, as today. Guided booster demos and free first
+  charges work as today. No round level may need a booster to be won.
 
 **Round level, picture and proof data**
 
@@ -278,6 +316,12 @@ owner sees the same behaviour as in the playtest app.
   second introduction shows a short reminder. A hidden pod that has just revealed glows briefly.
 - **FR-046**: The class badge (Hard, Super Hard), the finished picture in the win screen and Collection, and the rewards
   by class MUST work for round levels as for today's levels.
+- **FR-047**: The 16 round colours MUST pass the game's readability tests: normal vision and protanopia, deuteranopia
+  and tritanopia simulations. Pairs that fail MUST NOT appear in the same level. The generator avoids them and validation
+  refuses them.
+- **FR-048**: The walking Bloomlings of every clearing style MUST show the hero of the material's family (each of the 16
+  colours belongs to one of the 4 heroes), tinted in that material's colour. The same holds in the Store's clearing
+  previews.
 
 **Transfer path**
 
@@ -295,8 +339,13 @@ owner sees the same behaviour as in the playtest app.
 
 **Content placement**
 
-- **FR-060**: Round levels MUST replace the game's levels from L1 onward, wave by wave. The first transfer replaces
-  L1–L20. The game's existing levels from L21 on stay playable as placeholders until a wave replaces them.
+- **FR-060**: The game's levels MUST be round levels only. The first transfer gives L1–L20, and each wave adds its
+  levels. After the last transferred level the game shows a "new levels soon" screen. The old levels (curated L1–10, the
+  legacy catalog L11–2500) and the old rules leave the game builds: one rule set plays the game. They stay in the
+  repository as history until the owner retires them.
+- **FR-063**: The Daily Challenge MUST stay switched off until it has round levels of its own (outside this spec).
+  The level tester MUST be able to jump the save to any level number, so meta tied to later levels (L40 Store
+  animations, L50 milestone) can still be checked.
 - **FR-061**: Onboarding tied to level numbers MUST make sense on the round levels:
   - GuideTour's Level 1 entry and forced first tap;
   - Level 2's first out-of-reach pod;
@@ -342,14 +391,19 @@ owner sees the same behaviour as in the playtest app.
   files. A wave that fails an entry check is refused in every case.
 - **SC-007**: For the same level and commands, the outcome and the final state are identical at normal speed, at the
   normal speed-up and under Auto, and before and after an attempt is restored.
+- **SC-008**: Each of the four boosters and the jam rescue can be used on round levels during live work. A booster use
+  replays to the same outcome and state from its recorded command and model time, and per-material accounting
+  reconciles after every use.
+- **SC-009**: The largest round board (48×48 with the frame), with every place working, plays as smoothly on the owner's
+  phone as today's biggest boards. The playtest's frame-time check stays within its present budgets for that level.
 
 ## Assumptions
 
 - **Decision A** (the transfer proposal): the round engine's rules become the game's rules. The owner asked to start
-  this spec on that basis. Today's rules for non-round levels are kept only as long as placeholder levels need them.
+  this spec on that basis. Today's rules leave the game builds with the old levels (FR-060).
 - **Recorded defaults** (the owner may change them):
   - the first transfer target is the full Android playtest app, then the Unity client;
-  - round levels replace the game's levels from L1 wave by wave, and the rest stay placeholders;
+  - the game holds round levels only, from L1, wave by wave (Clarifications);
   - the 16 materials are drawn as palette-coloured cubes now.
 - **Scope of mechanics**: hidden pods, links and the Sprig bridge only. Latch and key, canal, shutters, repair, bud,
   seed, well, hidden cells and stacks need round-engine work first and are out of scope.
@@ -360,15 +414,12 @@ owner sees the same behaviour as in the playtest app.
 - **The unique-art launch plan** (`content/launch-art/plan.json`, 2500 frozen slots) and the legacy catalog are
   superseded position by position as waves replace them. Whether the plan is retired as a whole is the owner's call,
   outside this spec.
-- **Dependencies and conflicts to resolve with the owner before or during planning:**
-  - **Constitution II** requires every variant to be identifiable "by at least hue and icon". Removing icons from cubes
-    (FR-041) needs a constitution amendment (hue alone, with readability-checked palette, until hero icons come). It
-    goes through the constitution's amendment process, which bumps its version.
-  - **Constitution III** speaks of "the same sequence of accepted commands". Under the live timeline, a command's model
-    time is part of the command (FR-003). This is model time, not wall-clock time, so it stays within the principle.
-    The constitution text and doc 15 should say so explicitly.
-  - **Readability**: the 16-colour round palette must pass the game's readability tests (normal vision and the three
-    colour-blindness simulations), or the closest pairs must be kept apart in levels. Constitution IV requires a readable
-    palette.
+- **Decided with the owner on 2026-10-27** (see Clarifications):
+  - **Constitution II** is amended so that a variant on board cubes is identified by hue from the readability-checked
+    palette. Hero icons on cubes come later.
+  - **Constitution III** and doc 15 say explicitly that a command carries model time in whole milliseconds.
+  - Both changes ship in constitution 1.1.0, through its amendment process.
+  - **Readability**: the 16 round colours go through the game's readability tests, and failing pairs never share a
+    level (FR-047). The palette stays.
   - **Locked docs**: doc 01 (rules), 02 (queue and buffer), 03 (tiles and variants) and 15 (architecture) describe
     today's rules. They change through the owner, with this spec as the reason.
