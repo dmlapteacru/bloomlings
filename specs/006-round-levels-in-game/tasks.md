@@ -101,7 +101,7 @@ reads.
 - [X] T010 [P] Create `core/tests/Bloomlings.Content.Tests/Rounds/RoundJsonTests.cs`: round-trip each format, schema
   rejections (bad code, 49-wide board, capacity 4, count 61, missing proof field), and the validator's errors from
   T008.
-- [ ] T011 Create `tools/rounds/export.mjs`, part 1 (contract `pipeline-rounds-cli.md`).
+- [X] T011 Create `tools/rounds/export.mjs`, part 1 (contract `pipeline-rounds-cli.md`).
   - **Entry checks**, each failure named, exit 1:
     - every position from–to placed;
     - `audit.mjs` has no НЕТ, except for a level's named exception;
@@ -114,11 +114,11 @@ reads.
   - **Engine fingerprints**: SHA-256 of `rules.cjs`, `timeline.cjs`, `palette.cjs`, `clock.cjs`.
   - **L18**: carries `exception {rule: "one deciding bridge from the second introduction", reason: "owner kept both
     winning bridges", decidedBy: "owner", decidedAt: "2026-10-27"}`.
-- [ ] T012 [P] Add `confirm <from> <to> --sample <results.json>` to `tools/rounds/rounds.mjs`. It writes
+- [X] T012 [P] Add `confirm <from> <to> --sample <results.json>` to `tools/rounds/rounds.mjs`. It writes
   `content/rounds/runs/L####-L####/confirmed.json` with the wave, the sample levels, the results file and the date.
-- [ ] T013 [P] Add `tools/rounds/test/export.test.mjs` (`node --test`): entry-check refusals (unapproved picture,
+- [X] T013 [P] Add `tools/rounds/test/export.test.mjs` (`node --test`): entry-check refusals (unapproved picture,
   missing confirmation, audit НЕТ) and the shapes of the written files.
-- [ ] T014 Run `node tools/rounds/rounds.mjs confirm 1 20 --sample
+- [X] T014 Run `node tools/rounds/rounds.mjs confirm 1 20 --sample
   product/playtests/pilot-v12-owner-2026-10-27/results.json` and `node tools/rounds/export.mjs 1 20 --out
   content/game/rounds/export/L0001-L0020`. Commit the export (fixtures follow in US3).
 
@@ -260,7 +260,7 @@ level and the first differing event.
   - the §5 policy: settle the moment, list legal actions, add one wait when a step other than arrive or return is
     scheduled, a wait advances to the next such step;
   - per-game seed `seedBase × 7919 + n × 104729 + 1`.
-- [ ] T036 [US3] Create `tools/rounds/conformance.mjs`, a canonical event emitter and signature for the reference
+- [X] T036 [US3] Create `tools/rounds/conformance.mjs`, a canonical event emitter and signature for the reference
   timeline, identical in format to T034. Add part 2 to `tools/rounds/export.mjs`, which writes
   `conformance/L####.json`:
   - solution windows;
@@ -367,7 +367,7 @@ that fails an entry check (SC-006).
   `core/tests/Bloomlings.Pipeline.Tests/RoundPublishTests.cs`.
 - [ ] T053 [US4] Make the playtest read published round packs through the content set (`playtest/android/PlaytestContent.cs`
   and the kit's content reader), with the level and its picture read on first use, as today.
-- [ ] T054 [P] [US4] Create `tools/rounds/transfer-log.mjs`, which appends and updates
+- [X] T054 [P] [US4] Create `tools/rounds/transfer-log.mjs`, which appends and updates
   `content/game/rounds/transfers.jsonl` entries `{wave, levels, exceptions, contentVersion, engine, exportedAt,
   validatedAt, apk, ownerConfirmedAt | null, note}`. States: exported → validated → published → confirmed.
 - [ ] T055 [US4] Run the transfer of L1–L20:
