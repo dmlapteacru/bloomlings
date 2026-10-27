@@ -270,6 +270,13 @@ namespace Bloomlings.Client.UI.Design
                 Shape("symbol." + expansion[i], "Variant symbol: " + expansionNames[i] + " (expansion)", new[] { 7, 8, 9 }, "Tiles; pods; slots; walkers", "tile; pod; slot; small", SizeClass.Icon, readability: true, priority: Later);
             }
 
+            // Spec 006 FR-047: the 16 round materials' symbols, shown only in the symbols mode (RoundLook.SymbolIds).
+            string[] materialNames = { "Leaf ♧", "Petal ✿", "Water ◆", "Amber ●", "Pearl ◇", "Earth ▰", "Plum ✦", "Sun ☀", "Pumpkin ▲", "Lime ✚", "Moss ♣", "Berry ♥", "Blush ❀", "Deep ▼", "Sky ○", "Bark ■" };
+            for (int i = 0; i < RoundLook.SymbolIds.Count; i++)
+            {
+                Shape(RoundLook.SymbolIds[i], "Round material symbol (symbols mode, spec 006 FR-047): " + materialNames[i], new[] { 7, 12, 13 }, "Round levels in the symbols mode: board cubes; pods; places", "cube; pod; place (in the tile's ink, with a thin halo)", SizeClass.Icon, readability: true);
+            }
+
             // ---- Board tiles and overlays ----
             Add("tile.base", "Board tile (a target cell's top layer)", Gameplay, "Board", "normal; mystery; clearing (shrinks and fades)", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the candy tile `tile.candy` (board style) nearly filling its cell, parted from its neighbors by the dark board gap");
             Add("tile.layer_peek", "Layered tile: the next layer peeking", Gameplay, "Board", "2 layers; 3 layers", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a small candy tile of the next layer in a cream ring with a dark rim, in the tile's top-right corner");
@@ -302,6 +309,10 @@ namespace Bloomlings.Client.UI.Design
 
             Add("board.entry.arch", "Garden Entry: a small stone arch set in the border beside each entry cell (spec 005 FR-034; the owner's choice \"B\", 2026-10-05)", Gameplay, "Board (every entry, turned to its side)", "bottom; top; left; right", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.EntryArch: two stone pillars and an arch of keystones round a dark opening with two peeping eyes, ivy, a pink flower on the keystone and a soft warm light; it reaches 0.36 cell over the entry cell");
             Add("board.border.stone", "Stone border around the board", Gameplay, "Board; win picture", "normal; thin (win)", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "GameplaySkin: a continuous rounded cream rim with molded stone blocks and tight seams; dark gaps between board tiles");
+
+            // Spec 006 contracts/presentation.md: a round level's rows inside the frame (RoundBoardLayout).
+            Add("board.water", "Stream: a wall inside a round level's frame is water (spec 006)", Gameplay, "Round levels: the board", "a run of cells; a bridge site before its bridge", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Water: water filling the cell (`water.top` by the banks, `water.deep` in the middle), a dark band and a foam line along each bank, short drifting `water.foam` ripples (four variants along a run)");
+            Add("board.bridge", "Sprig bridge: the built bridge's plank over the stream (spec 006)", Gameplay, "Round levels with a bridge: the board", "built (the site before it shows water)", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a light wooden plank (UiRaster.Plank, `mat.wood.light`) across the site, reaching 0.22 cell onto each bank (RoundBridgeSite.Plank)");
             Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells as the board's soft cubes (`tile.candy`, with the owner's field icons `tile.gem.*`; spec 005 FR-046: \"as in the gameplay, volumetric\") of each role's variant in a thin stone border (spec 005 D14)");
 
             // ---- Specials ----
@@ -318,6 +329,7 @@ namespace Bloomlings.Client.UI.Design
             Add("pod.state.locked", "Locked pod", new[] { 12 }, "Tray", "locked; unlocking", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the wooden frame around a grey panel with a padlock and the softer count");
             Add("pod.state.mystery", "Mystery pod", new[] { 12 }, "Tray; slots", "hidden; revealing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot");
             Add("pod.link", "Connected pods link", new[] { 12 }, "Tray", "pair; triple", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a teal bar with a white rim and a light streak, riveted to each wooden frame of members side by side; on every member the link badge (UiRaster.LinkBadge: a white chain of two woven links on a disc of the group's color in the count badge's white ring) over its frame's top right corner, a smaller one at the \"+N\" disc of a column hiding a member, and a ring of the group's color pulsing round the partner after a tap that waits for it (spec 005 FR-043)");
+            Add("pod.link.tube", "Link tube of a round level's linked pods (spec 006 FR-043)", new[] { 7, 12, 13 }, "Round levels: the columns and the places", "pair in the columns (level or slanted); pair in the places", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.LinkTube: a round glossy hose plugged into each pod's front low on its facing side (LinkTube), its half nearer each pod in that pod's colour, a cream coupling ring in the middle and a collar at each end; drawn under the pods, never over them");
             Add("pod.deck", "Source stack column (owner's visual update, 2026-10-13)", new[] { 7, 8, 9, 12 }, "Tray", "next pods (two on 16:9, three from 19.5:9); more below (+N); sliding up or down a row; emptied stack", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "slightly overlapping pod cards drawn deepest first; exposed pod in front; +N and connected marks at the lower left, counts lower right; existing slide, Return, Shuffle and empty-stack behavior");
             Add("pod.count", "Pod and slot count", new[] { 7, 12, 13 }, "Pods; slots; jam row", "normal; dropping; dimmed", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "small brown digits in a white outline, no \"x\": at a pod's bottom right corner over its icon; plain below a slot's tile");
             Add("slot.empty", "Empty Waiting Slot", new[] { 7, 13 }, "Slots", "empty", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline");
@@ -418,6 +430,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.grid", "Collection glyph (the bottom menu's stand-in)", new[] { 3 }, "Bottom menu (while `Icons/nav-collection.png` is missing)", "normal");
             Shape("ui.sun", "Daily Challenge glyph", new[] { 3 }, "Home Daily Challenge card", "normal; done", SizeClass.Small);
             Shape("ui.person", "Player avatar placeholder", new[] { 5 }, "Leaderboard page; profile", "any tint", SizeClass.Small);
+            Shape("ui.symbols", "Symbols mode glyph (a heart, a diamond and a triangle) of its Settings row (spec 006 FR-047)", new[] { 19 }, "Settings", "normal", SizeClass.Small);
             Shape("ui.lock", "Padlock", new[] { 9, 12, 13, 14 }, "Locked pods, slots and cells; locked boosters", "closed; opening", readability: true);
             Shape("ui.star", "Star (Hard label, badge)", new[] { 8 }, "Difficulty intro; badges", "normal");
             Shape("ui.star2", "Double star (Super Hard label, marker)", new[] { 9 }, "Difficulty intro; markers", "normal");

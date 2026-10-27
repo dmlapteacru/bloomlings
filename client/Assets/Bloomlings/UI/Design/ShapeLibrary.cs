@@ -361,6 +361,11 @@ namespace Bloomlings.Client.UI.Design
                     RoundedBox(x, y, -0.42f, -0.42f, 0.33f, 0.33f, 0.1f), RoundedBox(x, y, 0.42f, -0.42f, 0.33f, 0.33f, 0.1f)),
                 ["ui.sun"] = (x, y) => Min(Length(x, y) - 0.4f, Max(MathF.Abs(Length(x, y) - 0.74f) - 0.14f, (0.5f - MathF.Cos(8f * MathF.Atan2(y, x))) * 0.35f)),
                 ["ui.person"] = (x, y) => Min(Length(x, y - 0.32f) - 0.3f, Max(Length(x, y + 0.9f) - 0.72f, -(y + 0.9f))),
+                // The symbols mode's Settings row (spec 006 FR-047): a heart, a diamond and a triangle.
+                ["ui.symbols"] = (x, y) => Min(
+                    Heart((x + 0.44f) * 1.75f, (y - 0.36f) * 1.75f) / 1.75f,
+                    Rhombus(x - 0.5f, y - 0.36f, 0.32f, 0.5f),
+                    TriangleSdf(x, y, -0.46f, -0.88f, 0.46f, -0.88f, 0f, -0.06f) - 0.03f),
 
                 // ---- UI kit: the Garden look (spec 003) ----
                 // PLAY's rounded triangle, as tall as the letters (FR-010).
@@ -415,6 +420,26 @@ namespace Bloomlings.Client.UI.Design
                 ["symbol.berry"] = (x, y) => Min(Length(x + 0.3f, y - 0.12f) - 0.33f, Length(x - 0.3f, y - 0.12f) - 0.33f, Length(x, y + 0.4f) - 0.33f, RoundedBox(x, y, 0f, 0.62f, 0.06f, 0.2f, 0.03f)),
                 ["symbol.mist"] = (x, y) => Min(RoundedBox(x, y, 0f, 0.45f, 0.8f, 0.1f, 0.1f), RoundedBox(x, y, 0.1f, 0f, 0.7f, 0.1f, 0.1f), RoundedBox(x, y, -0.1f, -0.45f, 0.7f, 0.1f, 0.1f)),
                 ["symbol.bark"] = (x, y) => Max(RoundedBox(x, y, 0f, 0f, 0.6f, 0.85f, 0.15f), -Min(RoundedBox(x, y, -0.25f, 0f, 0.05f, 0.6f, 0.03f), RoundedBox(x, y, 0.2f, 0.1f, 0.05f, 0.5f, 0.03f))),
+
+                // ---- The 16 round materials' symbols (spec 006 FR-047: the symbols mode, off by default) ----
+                // In RoundMaterial's channel order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ (RoundLook.SymbolIds). One hero's
+                // materials differ by silhouette or by fill (♣ and ♧, ◆ and ◇, ✿ and ❀).
+                ["symbol.material.leaf"] = (x, y) => MathF.Abs(Club(x, y)) - 0.075f,
+                ["symbol.material.petal"] = Flower,
+                ["symbol.material.water"] = (x, y) => Rhombus(x, y, 0.62f, 0.9f),
+                ["symbol.material.amber"] = (x, y) => Length(x, y) - 0.66f,
+                ["symbol.material.pearl"] = (x, y) => MathF.Abs(Rhombus(x, y, 0.58f, 0.86f) + 0.08f) - 0.085f,
+                ["symbol.material.earth"] = (x, y) => RoundedBox(x - (0.28f * y), y, 0f, 0f, 0.6f, 0.34f, 0.07f),
+                ["symbol.material.plum"] = (x, y) => Min(Rhombus(x, y, 0.26f, 0.88f), Rhombus(x, y, 0.88f, 0.26f)),
+                ["symbol.material.sun"] = (x, y) => Min(Length(x, y) - 0.4f, Max(MathF.Abs(Length(x, y) - 0.74f) - 0.14f, (0.5f - MathF.Cos(8f * MathF.Atan2(y, x))) * 0.35f)),
+                ["symbol.material.pumpkin"] = (x, y) => TriangleSdf(x, y, -0.76f, -0.6f, 0.76f, -0.6f, 0f, 0.74f) - 0.06f,
+                ["symbol.material.lime"] = (x, y) => Min(RoundedBox(x, y, 0f, 0f, 0.74f, 0.23f, 0.05f), RoundedBox(x, y, 0f, 0f, 0.23f, 0.74f, 0.05f)),
+                ["symbol.material.moss"] = Club,
+                ["symbol.material.berry"] = Heart,
+                ["symbol.material.blush"] = (x, y) => MathF.Abs(PetalFlower(x * 1.1f, y * 1.1f) / 1.1f) - 0.07f,
+                ["symbol.material.deep"] = (x, y) => TriangleSdf(x, y, -0.76f, 0.6f, 0f, -0.74f, 0.76f, 0.6f) - 0.06f,
+                ["symbol.material.sky"] = (x, y) => MathF.Abs(Length(x, y) - 0.56f) - 0.12f,
+                ["symbol.material.bark"] = (x, y) => RoundedBox(x, y, 0f, 0f, 0.6f, 0.6f, 0.08f),
 
                 // ---- Board tiles and overlays ----
                 ["tile.key"] = (x, y) => Min(
@@ -955,6 +980,23 @@ namespace Bloomlings.Client.UI.Design
         }
 
         private static float Flower(float x, float y) => Max(FlowerPetals(x, y), -(Length(x, y) - 0.18f));
+
+        /// <summary>A rhombus of half sizes <paramref name="hx"/> × <paramref name="hy"/> (exact near its edges).</summary>
+        private static float Rhombus(float x, float y, float hx, float hy) =>
+            ((MathF.Abs(x) * hy) + (MathF.Abs(y) * hx) - (hx * hy)) / Length(hx, hy);
+
+        /// <summary>A club (♣): three round leaves over a short flared stem.</summary>
+        private static float Club(float x, float y) => Min(
+            Length(x, y - 0.36f) - 0.31f,
+            Length(x + 0.34f, y + 0.04f) - 0.31f,
+            Length(x - 0.34f, y + 0.04f) - 0.31f,
+            TriangleSdf(x, y, -0.26f, -0.82f, 0.26f, -0.82f, 0f, -0.02f));
+
+        /// <summary>A heart (♥): two round lobes over a point, blended into one smooth outline.</summary>
+        private static float Heart(float x, float y) => SmoothMin(
+            SmoothMin(Length(x + 0.33f, y - 0.26f) - 0.38f, Length(x - 0.33f, y - 0.26f) - 0.38f, 0.1f),
+            TriangleSdf(x, y, -0.67f, 0.12f, 0f, -0.8f, 0.67f, 0.12f),
+            0.1f);
 
         /// <summary>
         /// The flower's five round petals, clearly apart with deep notches between them, without the hole in the middle (the

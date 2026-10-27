@@ -478,7 +478,26 @@ namespace Bloomlings.Client.UI.Design
         public static byte[] TileFace(int size, Rgba color, TileStyle style, TileState state = TileState.Normal) =>
             Tile(size, color, "mystery", style, state, state == TileState.Mystery);
 
-        private static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state, bool withSymbol)
+        /// <summary>
+        /// A round level's tile (spec 006 FR-040, FR-041, FR-047; contracts/presentation.md): the candy tile of
+        /// <paramref name="style"/> in the material's <paramref name="color"/> with no variant icon (a board cube is the soft
+        /// cube, <see cref="RoundLook.CubeStyle"/>; a pod's or place's tile the sticker face, <see cref="RoundLook.PodStyle"/>),
+        /// and, in the symbols mode, the material's symbol <paramref name="symbolId"/> (<see cref="RoundLook.Mark"/>, a
+        /// <c>symbol.material.*</c> shape) on the top's middle in the tile's ink with a thin halo
+        /// (<see cref="RoundLook.SymbolInk"/>, <see cref="RoundLook.SymbolHalo"/>). Null draws the plain tile. A mystery keeps
+        /// its "?" and never shows a symbol.
+        /// </summary>
+        public static byte[] MaterialTile(int size, Rgba color, string? symbolId, TileStyle style, TileState state = TileState.Normal)
+        {
+            bool mystery = state == TileState.Mystery;
+            Func<float, float, float>? mark = symbolId != null && !mystery ? ShapeLibrary.Get(symbolId) : null;
+            return Tile(size, color, "mystery", style, state, mystery, mark);
+        }
+
+        /// <summary>The material symbol's box on a tile, as a share of its side: on a cube's top, or on a sticker face.</summary>
+        public static float MaterialSymbolShare(TileStyle style) => style == TileStyle.Board || style == TileStyle.BoardColor ? 0.5f : 0.56f;
+
+        private static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state, bool withSymbol, Func<float, float, float>? mark = null)
         {
             Check(size, size);
             bool board = style != TileStyle.Sticker;
@@ -516,6 +535,12 @@ namespace Bloomlings.Client.UI.Design
             Rgba beadFlat = col.Darken(0.32f);
             float bandAlpha = board ? 0.18f : 0.16f;
             Rgba dim = C.ParchmentBottom;
+
+            // The material symbol of the symbols mode (spec 006 FR-047), in the shown color's ink.
+            float markUnit = s * MaterialSymbolShare(style) / 2f / ShapeRaster.Margin;
+            Rgba markInk = RoundLook.SymbolInk(col);
+            Rgba markHalo = RoundLook.SymbolHalo(col);
+            float markHaloWidth = Math.Max(0.8f, markUnit * 0.1f);
             var pixels = new byte[size * size * 4];
             for (int py = 0; py < size; py++)
             {
@@ -536,6 +561,11 @@ namespace Bloomlings.Client.UI.Design
                         }
 
                         CubeSymbol(ref c, x, y, sx, sy, unit, symbol, mystery, drawn, gem, small, beadFlat, faceH, s);
+                        if (mark != null)
+                        {
+                            MaterialMark(ref c, x, y, sx, sy, markUnit, mark, markInk, markHalo, markHaloWidth);
+                        }
+
                         if (state == TileState.Dimmed)
                         {
                             c.Mix(dim, 0.45f);
@@ -602,6 +632,11 @@ namespace Bloomlings.Client.UI.Design
                         gem.Draw(ref c, x, y, s / 2f, faceH / 2f, small, beadFlat);
                     }
 
+                    if (mark != null)
+                    {
+                        MaterialMark(ref c, x, y, sx, sy, markUnit, mark, markInk, markHalo, markHaloWidth);
+                    }
+
                     c.Mix(outline, Clamp01(0.5f - (-d - line)));
                     if (state == TileState.Dimmed)
                     {
@@ -616,6 +651,21 @@ namespace Bloomlings.Client.UI.Design
         }
 
         private static bool IsMosaic(TileStyle style) => style == TileStyle.Mosaic || style == TileStyle.MosaicIcon;
+
+        /// <summary>A material symbol (spec 006 FR-047) centered at (<paramref name="sx"/>, <paramref name="sy"/>): its halo, then its ink.</summary>
+        private static void MaterialMark(ref Color c, float x, float y, float sx, float sy, float unit, Func<float, float, float> mark, Rgba ink, Rgba halo, float haloWidth)
+        {
+            float u = (x - sx) / unit;
+            float v = -(y - sy) / unit;
+            if (Math.Abs(u) >= 1.3f || Math.Abs(v) >= 1.3f)
+            {
+                return;
+            }
+
+            float d = mark(u, v) * unit;
+            c.Mix(halo, 0.85f * Coverage(d - haloWidth));
+            c.Mix(ink, Coverage(d));
+        }
 
         /// <summary>The symbol on a soft cube's top: the mystery's white "?", or the gem.</summary>
         private static void CubeSymbol(ref Color c, float x, float y, float sx, float sy, float unit, Func<float, float, float>? symbol, bool mystery, bool drawn, Gem gem, bool small, Rgba beadFlat, float faceH, float s)

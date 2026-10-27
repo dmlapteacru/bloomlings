@@ -259,6 +259,17 @@ namespace Bloomlings.Client.UI.Design
             /// <summary>Win light rays (alpha).</summary>
             public static readonly Rgba RayLight = Rgba.FromHex("#FFF4C8");
 
+            // ---- Round levels (spec 006 contracts/presentation.md): a stream inside the frame is water ----
+
+            /// <summary>The stream's light water near its banks.</summary>
+            public static readonly Rgba WaterTop = Rgba.FromHex("#7ED0E4");
+
+            /// <summary>The stream's deep water in its middle.</summary>
+            public static readonly Rgba WaterDeep = Rgba.FromHex("#3B98BC");
+
+            /// <summary>The stream's ripples and its foam along the banks.</summary>
+            public static readonly Rgba WaterFoam = Rgba.FromHex("#E8F9FC");
+
             /// <summary>Every color token by its contract name (tests and docs).</summary>
             public static IReadOnlyDictionary<string, Rgba> All { get; } = new Dictionary<string, Rgba>(StringComparer.Ordinal)
             {
@@ -397,6 +408,9 @@ namespace Bloomlings.Client.UI.Design
                 ["button.blue"] = ButtonBlue,
                 ["button.orange"] = ButtonOrange,
                 ["ray.light"] = RayLight,
+                ["water.top"] = WaterTop,
+                ["water.deep"] = WaterDeep,
+                ["water.foam"] = WaterFoam,
             };
 
             /// <summary>The medal color of ranks 1–3, or null for other ranks.</summary>

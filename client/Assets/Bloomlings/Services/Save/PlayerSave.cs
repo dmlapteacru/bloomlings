@@ -123,6 +123,7 @@ namespace Bloomlings.Client.Services.Save
             Settings.Sfx = source.Settings.Sfx;
             Settings.Haptics = source.Settings.Haptics;
             Settings.Speed2x = source.Settings.Speed2x;
+            Settings.Symbols = source.Settings.Symbols;
             Settings.Language = source.Settings.Language;
             Profile.Name = source.Profile.Name;
             Profile.JoinedAt = source.Profile.JoinedAt;
@@ -393,6 +394,12 @@ namespace Bloomlings.Client.Services.Save
 
         /// <summary>Default animation speed for new levels (FR-069).</summary>
         public bool Speed2x { get; set; }
+
+        /// <summary>
+        /// The symbols mode (spec 006 FR-047): each round material's symbol on cubes, pods and places, for colour-blind
+        /// players. Off by default; the save writes it only while on (<c>settings.symbols</c>, optional).
+        /// </summary>
+        public bool Symbols { get; set; }
 
         public string Language { get; set; } = "en";
     }

@@ -387,8 +387,9 @@ settings.music_label,Music
 settings.sound_label,Sound
 settings.haptics_label,Haptics
 settings.speed_label,Fast forward
+settings.symbols,Symbols: {0}
+settings.symbols_label,Symbols
 daily_reward.watch_claim,Watch & claim
-purchase.failed,Purchase could not be completed. Try again.
 purchase.price_pending,Price is not available yet.
 settings.privacy_policy,Privacy policy
 settings.privacy_mock,Privacy policy will be added here.
@@ -561,3 +562,19 @@ account.panel.check_wallet,Check wallet
 account.panel.server_pending,Purchases or rewards need an online check. Your progress is saved on this device.
 account.panel.server_detail,Your wallet and owned items are available offline. New purchases need a connection.
 account.panel.connect_to_check,Connect to check
+round.intro.got_it,Got it
+round.intro.hidden.title,Hidden pods
+round.intro.hidden.1,A ? pod keeps its color a secret
+round.intro.hidden.2,It shows its color and count as soon as it is on top of its column
+round.intro.hidden.3,Look ahead: keep a place ready for what it may be
+round.intro.hidden.reminder,"Remember: a ? pod shows its color on top of its column, even when no place is free"
+round.intro.links.title,Linked pods
+round.intro.links.1,A tube joins two linked pods
+round.intro.links.2,"Tap one, and both go out together, a place each"
+round.intro.links.3,Both places free together once the pair has finished
+round.intro.links.reminder,"Remember: linked pods go out together, and each needs a free place"
+round.intro.bridge.title,The bridge
+round.intro.bridge.1,The stream cuts the garden in two
+round.intro.bridge.2,"Clear the way to a bridge site, then tap it to build the bridge. It takes no pod and no place"
+round.intro.bridge.3,Only one bridge can be built. Choose its side well
+round.intro.bridge.reminder,Remember: only one bridge can be built. Choose its side well
