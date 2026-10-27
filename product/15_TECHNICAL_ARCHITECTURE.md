@@ -679,3 +679,14 @@ The current conceptual technical direction is:
 > **Unity 2D + C# client, deterministic data-driven gameplay core, offline generator/solver pipeline, 5000+ versioned level definitions, offline-first gameplay, lightweight backend for meta/cloud/leaderboards, standard mobile services for monetization/config/analytics.**
 
 This is sufficient as the high-level technical foundation before low-level implementation planning.
+
+## Owner amendment · 2026-10-27 — round rules in the core (spec 006)
+
+- **Rules.** The round rules live in the pure core under `Bloomlings.Core.Rounds`, as a port of the JS reference
+  `tools/rounds/engine/`. Model time is integer microseconds, and a command carries its model time (constitution 1.1.0,
+  principle III).
+- **Conformance.** The JS round engine is the reference. Its exporter writes conformance fixtures, which the C# tests
+  and `rounds validate` replay exactly: the saved solution, every random-test game, and the owner's pilot attempts.
+- **Content.** Round content lives in `content/game/rounds/`. It is published with the pipeline's `rounds publish`.
+- **Legacy rules.** The legacy `Simulation` rules stay compiled for the generator, the solver and the legacy pipeline
+  until a follow-up spec retires them. The clients use only the round rules.

@@ -1,5 +1,22 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner decisions · 2026-10-27 — round levels in the game (spec 006)
+
+- The round engine's rules become the game's rules ([`../specs/006-round-levels-in-game/spec.md`](../specs/006-round-levels-in-game/spec.md)).
+  Owner amendment notes are added to docs 01, 02, 03 and 15.
+- Constitution 1.1.0:
+  - II: hue on board cubes plus a symbols mode for colour-blind players;
+  - III: integer model time carried by every command.
+- The game holds round levels only, from L1, wave by wave.
+- Boosters work in live time.
+- Walkers are the family hero tinted in the material colour.
+- Presentation follows the owner's decisions:
+  - frame and cubes as in the game, no icons on cubes;
+  - the clearing animation runs in live time;
+  - link tubes sit on the pods' front, half in each pod's colour;
+  - Auto runs at ×2 and hides the HUD;
+  - the normal speed-up stays.
+
 ## Owner decisions · 2026-10-27 — the round generation flow
 
 - [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §13 gains "Волна и контроль качества", after the pilot

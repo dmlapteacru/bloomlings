@@ -167,3 +167,16 @@ Target variety is expressed through actual Source Pods.
 - Hidden pods reveal material and count as soon as they reach the top, before a tap and regardless of free places; a
   group's hidden members reveal when the whole group is available.
 - Pod numbers 1–60; a colour of 20+ has at least 2 pods; the largest pod is min(60, ceil(volume/2)).
+
+## Owner amendment · 2026-10-27 — round queue and places (spec 006)
+
+The round rules of spec 006 apply to the queue and the places.
+
+- **Places.** There are 5 places. A single pod takes the first free place, and a release leaves a hole. Only an
+  accepted link compacts the occupied places to the left.
+- **Release.** A place frees 300 ms after its pod's last worker leaves. A link's places free together after the whole
+  link has finished.
+- **Hidden pods.** A hidden pod reveals its material and count as soon as it is on top of its column, before any choice.
+- **Links.** A link launches with one tap. It needs a free place for each member, and each partner must be on top of
+  its column or directly under a pod of the same link.
+- **Boosters.** Extra Slot, Return, Shuffle and Bloom Burst work in live time, as defined in spec 006 FR-012.

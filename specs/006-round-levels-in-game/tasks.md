@@ -34,10 +34,10 @@ microseconds (research R2).
 
 **Purpose**: tooling, governance and folders that every later task relies on.
 
-- [ ] T001 Install the .NET 10 SDK pinned by `core/global.json` in the session. Run `dotnet build core/Bloomlings.sln`
+- [X] T001 Install the .NET 10 SDK pinned by `core/global.json` in the session. Run `dotnet build core/Bloomlings.sln`
   and `dotnet test core/Bloomlings.sln`, and record the baseline result (pass counts) in
   `specs/006-round-levels-in-game/checklists/baseline.md`.
-- [ ] T002 Amend the constitution to 1.1.0 with `/speckit-constitution` in `.specify/memory/constitution.md`. The
+- [X] T002 Amend the constitution to 1.1.0 with `/speckit-constitution` in `.specify/memory/constitution.md`. The
   content was approved by the owner on 2026-10-27:
   - principle II: on board cubes a variant is identified by hue, readability-checked under normal vision (smallest
     CIEDE2000 ≥ 10), with a symbols mode for colour-vision deficiencies; icons are not required on cubes;
@@ -45,7 +45,7 @@ microseconds (research R2).
     rules.
 
   Then update the "Design invariants" summary in `CLAUDE.md` to match.
-- [ ] T003 [P] Add owner amendment notes (with spec 006 as the reason) to `product/01_CORE_GAMEPLAY_RULES.md`,
+- [X] T003 [P] Add owner amendment notes (with spec 006 as the reason) to `product/01_CORE_GAMEPLAY_RULES.md`,
   `product/02_QUEUE_AND_BUFFER.md`, `product/03_TILE_SYSTEM.md` and `product/15_TECHNICAL_ARCHITECTURE.md`, plus a
   `product/CHANGELOG_v0.5.md` entry. The notes cover:
   - the live timeline (µs);
@@ -56,9 +56,9 @@ microseconds (research R2).
   - the Sprig bridge;
   - slot positions;
   - boosters in live time.
-- [ ] T004 [P] Create `content/game/rounds/` with `levels/`, `pictures/`, `proofs/`, `conformance/`, `export/` and
+- [X] T004 [P] Create `content/game/rounds/` with `levels/`, `pictures/`, `proofs/`, `conformance/`, `export/` and
   `published/`, and a `README.md` describing each folder and linking `specs/006-round-levels-in-game/contracts/`.
-- [ ] T005 [P] Copy the three JSON schemas into `core/src/Bloomlings.Content/Schemas/` (`round-level.v1.json`,
+- [X] T005 [P] Copy the three JSON schemas into `core/src/Bloomlings.Content/Schemas/` (`round-level.v1.json`,
   `round-picture.v1.json`, `round-proof.v1.json`) as embedded resources, as the existing schemas are.
 
 ---
@@ -70,19 +70,19 @@ reads.
 
 **⚠️ CRITICAL**: no user story work can begin until this phase is complete.
 
-- [ ] T006 [P] Create `core/src/Bloomlings.Core/Rounds/RoundMaterial.cs`: the 16 materials in this order and with
+- [X] T006 [P] Create `core/src/Bloomlings.Core/Rounds/RoundMaterial.cs`: the 16 materials in this order and with
   these data. Codes `GPBACDVYOLMRKNSE`; names Лист, Лепесток, Вода, Янтарь, Жемчуг, Земля, Слива, Солнце, Тыква,
   Лайм, Мох, Ягода, Румянец, Глубина, Небо, Кора; families sprig, bloom, drop, twig, drop, twig, bloom, sprig, twig,
   sprig, sprig, bloom, bloom, drop, drop, twig; normal colours #6DBE45 #EB799C #36B7DA #A45F28 #F5E6BD #334B48
   #7851A5 #F6CB3E #EF8A32 #CDEB5E #2F7D45 #D8394B #F9C6D6 #2C5AA8 #A8E2F5 #6A3A1E; accessible colours from
   `tools/rounds/engine/palette.cjs`; symbols ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■. Code index = channel index of
   `rules.cjs CHANNELS`.
-- [ ] T007 Create `core/src/Bloomlings.Core/Rounds/RoundLevel.cs`, the definition model of `data-model.md` RoundLevel:
+- [X] T007 Create `core/src/Bloomlings.Core/Rounds/RoundLevel.cs`, the definition model of `data-model.md` RoundLevel:
   - number, definitionVersion, class, introduction `{mechanic, second}`, picture `{id, version}`;
   - board `{w, h, rowsBottomFirst, entries, hero?}`, capacity, pods `{code, count, mystery?, group?}`, tray, mechanics,
     exception?, engine fingerprints;
   - `MaxSide = 48`;
-  - a prepared form with neighbours in the order up (`i-w`), left, right, down, the board as sbyte (open = -1,
+  - a prepared form with neighbours in the order `i-w` (row below), left, right, `i+w` (row above), the board as sbyte (open = -1,
     wall = -2, else code index), pod colours, the entries set, and groups. This mirrors `rules.cjs prepare`.
 - [ ] T008 Create `core/src/Bloomlings.Core/Rounds/RoundLevelValidator.cs` (port of `rules.cjs validate` plus
   `data-model.md`). Errors:

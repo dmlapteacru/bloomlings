@@ -1969,7 +1969,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "variants-0114",
-   "note": null
+   "note": null,
+   "usedBy": "L0018"
   },
   {
    "id": "P0116",

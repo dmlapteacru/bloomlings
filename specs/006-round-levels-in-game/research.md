@@ -64,7 +64,7 @@ comes first. Each one gets a rule test.
 
 | Where | Ordering |
 |---|---|
-| Neighbours | up (`i-w`), left, right, down — in this index order |
+| Neighbours | `i-w` (the row below, rows are bottom first), left, right, `i+w` (the row above) — in this index order |
 | Reach | breadth-first from the entries; a target's distance is the nearest open neighbour + 1 (an entry cell is 1); targets sorted by distance, then cell index |
 | Dispatch | active pods by age (oldest first); each takes frontier cells of its exact material, not reserved, in frontier order (`available.shift()`) while its departure time has come; one departure per gap (`departReady = start + gap`) |
 | Route | from the entry to the open neighbour of the target with the smallest distance, first such neighbour in neighbour order; then parents |

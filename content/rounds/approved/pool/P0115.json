@@ -1,7 +1,7 @@
 {
  "code": "P0115",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0018",
  "version": 2,
  "title": "Лесной дух у ручья",
  "theme": "variants-0114",

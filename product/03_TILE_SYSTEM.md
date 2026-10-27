@@ -169,3 +169,13 @@ Shared family design must never reduce puzzle readability.
   neighbour), stacks of one material (heights 2–4; grid not over 24×26). Object areas do not overlap.
 - Layered tiles, Stone, Gate, Chest and environmental objects of this document are not in the approved set of 12 types
   for new rounds (`04_MECHANIC_CATALOG.md`).
+
+## Owner amendment · 2026-10-27 — round materials and cubes (spec 006)
+
+- **Materials.** Round levels use the 16 materials of the round palette, 4 per hero (Лист … Кора), each its own exact
+  target.
+- **Cubes.** Board cubes keep the game's soft cube drawing in the material colour and carry no variant icon.
+- **Readability.** Under normal vision every pair passes CIEDE2000 ≥ 10. Colour-blind players get a symbols mode,
+  off by default, that shows each material's symbol (constitution 1.1.0, principle II).
+- **Sprig bridge.** It crosses a stream: two sites, each buildable once its approach is open. The choice is permanent,
+  and building takes no pod or place.

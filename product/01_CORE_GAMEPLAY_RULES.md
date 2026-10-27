@@ -273,3 +273,17 @@ Must verify:
   occupied places to the left.
 - **A full buffer is not a loss by itself.** A dead end is when mandatory work remains and there is no legal action,
   no launched work and no automatic event that could change the state (17 §1).
+
+## Owner amendment · 2026-10-27 — round rules in the game (spec 006)
+
+The game plays round levels by the rules of the round engine (`tools/rounds/engine/`), ported to the core
+(`Bloomlings.Core.Rounds`). The owner approved this on 2026-10-27; see
+[`specs/006-round-levels-in-game/spec.md`](../specs/006-round-levels-in-game/spec.md).
+
+- **Live work.** Workers walk out (100 ms a cell, at least 650 ms), act 100 ms and walk back (75 ms a cell, at least
+  400 ms). A pod sends one worker every 250 ms. The player can launch pods while work is going on.
+- **Materials.** 16 materials, 4 per hero; exact matching per material.
+- **Boards.** A board is the picture inside a frame ring with one gate at the bottom middle. Work is reachable where it
+  touches the open path, so clearing goes from the outside in.
+- **Win and loss.** A level is won when all work is done and lost when the places jam.
+- **Model time.** Time is an integer number of microseconds, carried by every command.

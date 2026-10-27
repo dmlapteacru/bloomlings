@@ -13,6 +13,9 @@ namespace Bloomlings.Content.Schemas
         public const string BasePicture = "base-picture.schema.json";
         public const string ContentManifest = "content-manifest.schema.json";
         public const string PlayerSave = "player-save.schema.json";
+        public const string RoundLevel = "round-level.schema.json";
+        public const string RoundPicture = "round-picture.schema.json";
+        public const string RoundProof = "round-proof.schema.json";
 
         /// <summary>Returns the schema text, for example <c>Read(SchemaResources.LevelDefinition)</c>.</summary>
         public static string Read(string fileName)
