@@ -399,7 +399,26 @@
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 0
+   "attempt": 0,
+   "checks": {
+    "forced": 0.09,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 16,
+       "revealAt": 9,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0062-Nhidden-1-intro",
@@ -801,7 +820,26 @@
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 1
+   "attempt": 1,
+   "checks": {
+    "forced": 0.07,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 12,
+       "revealAt": 7,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0062-Nlinks-0-intro",
@@ -1197,7 +1235,16 @@
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 0
+   "attempt": 0,
+   "checks": {
+    "forced": 0.21,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0062-Nlinks-1-intro",
@@ -1595,7 +1642,16 @@
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 1
+   "attempt": 1,
+   "checks": {
+    "forced": 0.21,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   }
  ],
  "rejected": [],
