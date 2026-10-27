@@ -688,7 +688,7 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(79,"privacy-policy-mock","Privacy policy: placeholder and return to Settings",(p,data)=>
             {
                 DesignApp app=Progressed(App(data),content,14);CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
-                Expect(!Shows(p,PlaytestText.T("settings.music_label")) && !Shows(p,PlaytestText.T("settings.speed_label")),"only the two requested switches are in Settings");
+                Expect(!Shows(p,PlaytestText.T("settings.music_label")) && !Shows(p,PlaytestText.T("settings.speed_label")),"music and fast forward stay out of Settings (Sound, Haptics and the symbols mode only)");
                 Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("settings.privacy_policy")).Box);Run(app,p,.5f);
                 Expect(app.IsOpen(Overlay.PrivacyPolicy) && Shows(p,PlaytestText.T("settings.privacy_mock")) && !Shows(p,PlaytestText.T("settings.title")),"policy mock replaces the visible settings card");
                 Expect(app.Back() && app.IsOpen(Overlay.Settings),"back returns to retained Settings");Run(app,p,.1f);
@@ -699,11 +699,13 @@ namespace Bloomlings.Playtest.Preview
                 DesignApp app=Progressed(App(data),content,14);CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
                 Expect(!Shows(p,PlaytestText.T("settings.restore")),"Restore Purchases is absent from Settings");
                 Box body=ScreenLayout.Card(p.Width,p.Height,p.Insets,PopupDesign.SettingsContent).Body;
-                Box[] rows=ScreenLayout.Column(new Box(body.Left,body.Top+p.U(12),body.Right,body.Bottom),2,p.U(126),p.U(12));
+                Box[] rows=ScreenLayout.Column(new Box(body.Left,body.Top+p.U(12),body.Right,body.Bottom),PopupDesign.SettingsRows,p.U(126),p.U(12));
                 bool music=app.Meta.Save.Settings.Music,sound=app.Meta.Save.Settings.Sfx,haptics=app.Meta.Save.Settings.Haptics,speed=app.Meta.Save.Settings.Speed2x;
-                for(int i=0;i<2;i++){Tap(p,CardLook.SettingsToggleBox(rows[i],p.Scale));Run(app,p,.1f);}
+                Expect(!app.Meta.Save.Settings.Symbols,"the symbols mode is off by default (spec 006 FR-047)");
+                for(int i=0;i<PopupDesign.SettingsRows;i++){Tap(p,CardLook.SettingsToggleBox(rows[i],p.Scale));Run(app,p,.1f);}
                 DesignApp restored=App(data);
                 Expect(restored.Meta.Save.Settings.Music==music && restored.Meta.Save.Settings.Sfx!=sound && restored.Meta.Save.Settings.Haptics!=haptics && restored.Meta.Save.Settings.Speed2x==speed,"sound and haptics persist; settings no longer change music or HUD speed");
+                Expect(restored.Meta.Save.Settings.Symbols,"the symbols mode persists");
                 int level=app.Meta.CurrentLevel;
                 Tap(p,p.Texts.First(t=>t.Text=="+10").Box);Run(app,p,.1f);Expect(app.Meta.CurrentLevel==level+10,"+10 advances the level");
                 Tap(p,p.Texts.First(t=>t.Text=="−1").Box);Run(app,p,.1f);Expect(app.Meta.CurrentLevel==level+9,"minus returns one level");
@@ -2486,7 +2488,7 @@ namespace Bloomlings.Playtest.Preview
                         Run(app, p, .6f);
                         var card = ScreenLayout.Card(p.Width, p.Height, p.Insets, PopupDesign.SettingsContent);
                         // The new account row is a reachable native button, including on the short phone.
-                        float top = card.Body.Top + p.U(12 + 2*126 + 12 + 20 + DesignTokens.Size.TouchMin + 12 + DesignTokens.Size.TouchMin + 24);
+                        float top = card.Body.Top + p.U(12 + PopupDesign.SettingsRowsHeight + 20 + DesignTokens.Size.TouchMin + 12 + DesignTokens.Size.TouchMin + 24);
                         Tap(p, ScreenLayout.CardButton(card.Body, top, false, p.Scale));
                         Expect(app.IsOpen(Overlay.Account), "Settings opens the real account card");
                         app.Back();

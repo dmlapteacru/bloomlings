@@ -22,7 +22,7 @@ namespace Bloomlings.Client.UI.Screens
 
     public sealed record AccountActions(Func<string> Status, bool CanLinkApple, bool CanLinkGooglePlayGames, Action<LinkProvider, Action<bool>> Link, Action? Open = null);
 
-    /// <summary>Sound and Haptics, optional account/privacy actions and retained level controls on one calm card.</summary>
+    /// <summary>Sound, Haptics and the symbols mode, optional account/privacy actions and retained level controls on one calm card.</summary>
     public sealed class SettingsScreen : MonoBehaviour
     {
         private const float RowUnits = 126f;
@@ -36,6 +36,7 @@ namespace Bloomlings.Client.UI.Screens
         private readonly List<(ToggleView View, Func<bool> On)> _toggles = new List<(ToggleView, Func<bool>)>();
         private TextMeshProUGUI _sfx = null!;
         private TextMeshProUGUI _haptics = null!;
+        private TextMeshProUGUI _symbols = null!;
         private TextMeshProUGUI? _account;
         private Func<string>? _accountStatus;
         private TextMeshProUGUI? _levelLabel;
@@ -59,7 +60,7 @@ namespace Bloomlings.Client.UI.Screens
             PetalActions? petals = null)
         {
             bool links = account != null && (account.CanLinkApple || account.CanLinkGooglePlayGames);
-            float content = 12f + (2f * RowUnits) + RowGapUnits
+            float content = 12f + (PopupDesign.SettingsRows * RowUnits) + ((PopupDesign.SettingsRows - 1) * RowGapUnits)
                 + (account != null ? ButtonGapUnits + StatusUnits : 0f)
                 + (links || account?.Open != null ? 16f + DesignTokens.Size.SecondaryHeight : 0f)
                 + (consent != null && consent.PrivacyOptionsRequired ? ButtonGapUnits + DesignTokens.Size.SecondaryHeight : 0f)
@@ -77,10 +78,12 @@ namespace Bloomlings.Client.UI.Screens
 
             Box body = view.Regions.Body;
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
-            Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), 2, RowUnits * u, RowGapUnits * u);
+            Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), PopupDesign.SettingsRows, RowUnits * u, RowGapUnits * u);
             screen._sfx=Toggle(view.Body,body,lines[0],"Sound","settings.sound",()=>settings.Sfx,()=>settings.Sfx=!settings.Sfx,screen,u);
             screen._haptics=Toggle(view.Body,body,lines[1],"Haptics","settings.haptics",()=>settings.Haptics,()=>settings.Haptics=!settings.Haptics,screen,u);
-            float y=lines[1].Bottom;
+            // The symbols mode (spec 006 FR-047), off by default.
+            screen._symbols=Toggle(view.Body,body,lines[2],"Symbols","settings.symbols",()=>settings.Symbols,()=>settings.Symbols=!settings.Symbols,screen,u);
+            float y=lines[2].Bottom;
 
             if (account != null)
             {
@@ -165,6 +168,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             _sfx.text = Loc.T("settings.sound_label");
             _haptics.text = Loc.T("settings.haptics_label");
+            _symbols.text = Loc.T("settings.symbols_label");
             if(_levelLabel != null && _levels != null) _levelLabel.text="Level "+_levels.Current();
             if(_petalLabel != null && _petals != null) _petalLabel.text=Loc.T("settings.petals_label")+" "+NumberText.Group(_petals.Current());
             foreach ((ToggleView view, Func<bool> on) in _toggles)

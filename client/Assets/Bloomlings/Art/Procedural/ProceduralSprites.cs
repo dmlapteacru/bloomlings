@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 
@@ -357,6 +358,35 @@ namespace Bloomlings.Client.Art
         {
             string key = "tile.face/" + StyleKey(style) + "/" + state + "/" + color.Hex;
             return Picture(key, size, size, (w, h) => UiRaster.TileFace(Math.Min(w, h), color, style, state));
+        }
+
+        /// <summary>
+        /// A round material's tile (spec 006 FR-040, FR-041, FR-047; <see cref="UiRaster.MaterialTile"/>): the cube or the
+        /// sticker face in the material's colour with no variant icon, and its symbol in the symbols mode. The same key as the
+        /// playtest's <c>Kit.MaterialTile</c>.
+        /// </summary>
+        public static Sprite MaterialTile(RoundMaterial material, TileStyle style, bool symbolsMode, TileState state = TileState.Normal, int size = 128)
+        {
+            bool symbol = symbolsMode && state != TileState.Mystery;
+            Rgba color = RoundLook.ColorOf(material);
+            string? mark = symbol ? RoundLook.SymbolOf(material) : null;
+            string key = "tile.round/" + style + "/" + state + "/" + material.Code + (symbol ? "/symbol" : string.Empty);
+            return Picture(key, size, size, (w, h) => UiRaster.MaterialTile(Math.Min(w, h), color, mark, style, state));
+        }
+
+        /// <summary>A stream cell of a round level (<c>board.water</c>, <see cref="UiRaster.Water"/>) for column <paramref name="x"/>.</summary>
+        public static Sprite Water(int x, int size = 64)
+        {
+            int k = UiRaster.WaterSeed(x);
+            return Picture(RoundBoardLayout.WaterSlot + "/" + k, size, size, (w, h) => UiRaster.Water(Math.Min(w, h), k));
+        }
+
+        /// <summary>A link tube's picture (<c>pod.link.tube</c>, <see cref="UiRaster.LinkTube"/>), to show turned by <see cref="LinkTubeShape.Degrees"/>.</summary>
+        public static Sprite LinkTube(LinkTubeShape tube, int width, int height)
+        {
+            Rgba start = tube.StartColor;
+            Rgba end = tube.EndColor;
+            return Picture(tube.PictureKey, width, height, (w, h) => UiRaster.LinkTube(w, h, start, end));
         }
 
         private static string StyleKey(TileStyle style) => style == TileStyle.Board ? "board" : style == TileStyle.Mosaic ? "mosaic" : style == TileStyle.MosaicIcon ? "mosaic-icon" : style == TileStyle.Flat ? "flat" : "sticker";

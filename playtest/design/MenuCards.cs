@@ -36,7 +36,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Settings: sound and haptics, fast forward (spec 001 FR-069, shown On or Off with no number), each a cream row with a garden toggle; the
+        /// Settings: sound, haptics and the symbols mode (spec 006 FR-047, off by default), each a cream row with a garden toggle; the
         /// playtest's dev row under them wherever the card opens (not the product; it lay at Home's bottom before the bottom
         /// menu, spec 005 FR-030; the owner, 2026-10-04: "put the dev level up in Settings").
         /// </summary>
@@ -56,6 +56,12 @@ namespace Bloomlings.Playtest.Design
                 ("settings.haptics", save.Haptics, () =>
                 {
                     save.Haptics = !save.Haptics;
+                    app.Meta.Persist();
+                }),
+                ("settings.symbols", save.Symbols, () =>
+                {
+                    // The symbols mode (spec 006 FR-047): every round material's symbol on cubes, pods and places.
+                    save.Symbols = !save.Symbols;
                     app.Meta.Persist();
                 }),
             };

@@ -5,7 +5,7 @@
   "description": "Local save document, mirrored to Cloud Save (spec FR-087, FR-088; research R15). Written atomically; never mid-level.",
   "type": "object",
   "additionalProperties": false,
-  "dependentRequired": { "serverEconomyOwnerId": ["cloudOwnerId"], "cloudBaseHash": ["cloudOwnerId"] },
+  "dependentRequired": { "cloudBaseHash": ["cloudOwnerId"], "serverEconomyOwnerId": ["cloudOwnerId"] },
   "required": ["schemaVersion", "localPlayerId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings"],
   "properties": {
     "schemaVersion": { "const": 1 },
@@ -13,8 +13,8 @@
     "linkedIdentity": { "enum": ["apple", "google_play_games", null] },
     "deviceId": { "type": "string" },
     "serverEconomyOwnerId": { "type": "string", "minLength": 1, "description": "Sticky authoritative economy owner; must equal cloudOwnerId." },
-    "cloudOwnerId": { "type": "string", "minLength": 1 },
-    "cloudBaseHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "cloudOwnerId": { "type": "string", "minLength": 1, "description": "Stable UGS owner, assigned once; unrelated to display name." },
+    "cloudBaseHash": { "type": "string", "pattern": "^[a-f0-9]{64}$", "description": "Local sync ancestor fingerprint; requires cloudOwnerId." },
     "updatedAt": { "type": "string", "format": "date-time" },
     "progression": {
       "type": "object",
@@ -154,6 +154,7 @@
         "sfx": { "type": "boolean" },
         "haptics": { "type": "boolean" },
         "speed2x": { "type": "boolean" },
+        "symbols": { "type": "boolean", "description": "The symbols mode (spec 006 FR-047): each round material's symbol on cubes, pods and places. Optional, off when missing; written only while on" },
         "homePetals": { "type": "boolean", "description": "Read and ignored (written as on by saves before 2026-10-05; Home's falling petals were removed on 2026-10-06)" },
         "homePetalsOn": { "type": "boolean", "description": "Read and ignored (Home's falling petals and their Settings switch were removed on 2026-10-06)" },
         "language": { "type": "string", "default": "en" }

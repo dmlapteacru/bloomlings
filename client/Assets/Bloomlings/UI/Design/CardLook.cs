@@ -34,12 +34,16 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The card's corner radius for its <paramref name="card"/> box (<c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>
         public static float Radius(Box card, float unit) => Math.Max(DesignTokens.Radius.CardMin * unit, card.Width * DesignTokens.Radius.Card);
 
-        /// <summary>Settings symbols: speaker for Sound, vibrating phone for Haptics, with drawn fallbacks.</summary>
+        /// <summary>
+        /// Settings symbols: speaker for Sound, vibrating phone for Haptics, a heart, a diamond and a triangle for the symbols
+        /// mode (spec 006 FR-047), with drawn fallbacks.
+        /// </summary>
         public static SettingsIcon SettingsIconOf(string key) => key switch
         {
             "settings.sound" => new SettingsIcon(PopupDesign.SoundIcon,null,"ui.sound"),
             "settings.haptics" => new SettingsIcon(PopupDesign.HapticsIcon,null,"ui.haptics"),
             "settings.music" => new SettingsIcon(OwnerPictures.VariantIcon("bud"), null, ShapeLibrary.SymbolId("bud")),
+            "settings.symbols" => new SettingsIcon(null, "ui.symbols", "ui.symbols"),
             _ => new SettingsIcon(null, "ui.fast", "ui.fast"),
         };
 
