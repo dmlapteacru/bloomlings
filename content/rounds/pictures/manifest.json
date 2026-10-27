@@ -1240,8 +1240,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0015"
+   "note": null
   },
   {
    "id": "P0070",
@@ -1689,7 +1688,8 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0015"
   },
   {
    "id": "P0095",
@@ -2048,7 +2048,7 @@
    "status": "approved",
    "batch": "variants-0114",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0016"
   },
   {
    "id": "P0115",
@@ -2066,7 +2066,7 @@
    "status": "approved",
    "batch": "variants-0114",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0018"
   }
  ]
 }

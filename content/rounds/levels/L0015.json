@@ -2,23 +2,23 @@
  "level": 15,
  "cls": "Super Hard",
  "intro": null,
- "picture": "P0069",
- "candidate": "P0069-Snone-5",
- "recipe": "none",
- "N": 896,
- "W": 896,
+ "picture": "P0094",
+ "candidate": "P0094-Shidden-1",
+ "recipe": "hidden",
+ "N": 900,
+ "W": 900,
  "colours": 7,
  "P": 24,
  "columns": 4,
  "linked": 0,
- "hidden": 0,
+ "hidden": 6,
  "random": {
   "runs": 400,
-  "wins": 45,
-  "share": 0.113,
+  "wins": 41,
+  "share": 0.103,
   "wilson95": [
-   0.085,
-   0.147
+   0.076,
+   0.136
   ],
   "cls": "Super Hard",
   "borderline": false,
@@ -37,79 +37,11 @@
    },
    {
     "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 20
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 9
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 12
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 23
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
     "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 13
    },
    {
     "type": "tap",
@@ -117,11 +49,79 @@
    },
    {
     "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
     "pod": 3
    },
    {
     "type": "tap",
-    "pod": 0
+    "pod": 9
    }
   ],
   "forks": 0,
@@ -129,12 +129,15 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 108.5
+   "seconds": 129.1
   }
  },
  "fairness": {
+  "checked": 24,
+  "unfair": 0,
+  "unknown": 0,
   "fair": true,
-  "checked": 0
+  "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
  },
  "strategies": {
   "left-to-right|left": true,
@@ -143,8 +146,8 @@
   "right-to-left|right": true,
   "top-down|left": true,
   "top-down|right": true,
-  "bottom-up|left": false,
-  "bottom-up|right": false,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
   "diagonal|left": false,
   "diagonal|right": false,
   "small-first|left": false,
@@ -159,7 +162,7 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.99,
+    "meanFree": 1.73,
     "minFree": 1,
     "fullShare": 0,
     "maxWaiting": 3
@@ -167,222 +170,226 @@
    {
     "from": 20,
     "to": 40,
-    "meanFree": 3.15,
-    "minFree": 2,
+    "meanFree": 2.05,
+    "minFree": 1,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 3
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 2.49,
-    "minFree": 2,
+    "meanFree": 3.94,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 0
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 2.32,
-    "minFree": 2,
+    "meanFree": 3.69,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 1
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 3.31,
-    "minFree": 2,
+    "meanFree": 4.38,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 3,
-  "lastLaunchAtW": 94,
-  "seconds": 389.4
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 96,
+  "seconds": 368.2
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 15,
-  "title": "Фонарь со светлячками",
-  "subject": "P0069",
-  "w": 32,
-  "h": 36,
+  "title": "Лягушка под листом",
+  "subject": "P0094",
+  "w": 34,
+  "h": 34,
   "rowsBottomFirst": [
-   "################.###############",
-   "#..............................#",
-   "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
-   "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
-   "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
-   "#.NNNMMMMNNNAAAAAAAEMMMNNNMMMM.#",
-   "#.NNNNNNNNNNAAAAAAAENNNNNNNNNN.#",
-   "#.NNNNNNNAAAAAAAAAAEEEENNNNNNN.#",
-   "#.NNNNNNNAAAAAAAAAAEEEENNNNNNN.#",
-   "#.NNNNNNAAAAAAAAAAAEEEEENNNNNN.#",
-   "#.NNNNNNAAABBBBBBBBBBEEENNNNNN.#",
-   "#.NNLNNNAAABBLBBBBBBBEEENNNNNN.#",
-   "#.NLYLNNAAABLYLBBBLLBEEENNNNNN.#",
-   "#.NNLNNNAAABBLBBBLYYLEEENNNNNN.#",
-   "#.NNNNNNAAABBBBBBLYYLEEENNNLNN.#",
-   "#.NNNNNNAAABBBBBBBLLBEEENNLYLN.#",
-   "#.NNNNNNAAABBLLBBBBBBEEENNNLNN.#",
-   "#.NNNNNNAAABLYYLBBBLBEEENNNNNN.#",
-   "#.NNNNNNAAABLYYLBBLYLEEENNNNNN.#",
-   "#.NNNNNNAAABBLLBBBBLBEEENNNNNN.#",
-   "#.NNNLNNAAABBBBBBBBBBEEENNNNNN.#",
-   "#.NNLYLNAAANNNNNNNNNNEEENNLNNN.#",
-   "#.NNNLNNNAAAAAAAAAAAAAANNLYLNN.#",
-   "#.NNNNNNNNAAAAAAAAAEEENNNNLNNN.#",
-   "#.NNNNNNNNAAAAAAAAAEEENNNNNNNN.#",
-   "#.NNNNNNNNNAAAAAAAAEENNNNNNNNN.#",
-   "#.NNNNNNNNNNNAAAAAANNNNNNNNNNN.#",
-   "#.NNNNNNNNNNAANAANAANNNNNNNNNN.#",
-   "#.NNNLNNNNNNAANNNNAANNNNNNLNNN.#",
-   "#.NNLYLNNNNNAANNNNAANNNNNLYLNN.#",
-   "#.NNNLNNNNNNNAANNAANNNNNNNLNNN.#",
-   "#.NNNNNNNNNNNAAAAAANNNLNNNNNNN.#",
-   "#.NNNNNNNNNNNNNAANNNNLYLNNNNNN.#",
-   "#.NNNNNNNNNNNNNNNNNNNNLNNNNNNN.#",
-   "#..............................#",
-   "################################"
+   "#################.################",
+   "#................................#",
+   "#.SSSSSSBBBBBBBBBBBBBBBBBBSSSSBS.#",
+   "#.SSSBBBBBBBBBBBBBBBBBBBBBBBBSBS.#",
+   "#.SBBBBBBBBBBBBBBBBBBBBBBBBBBBBS.#",
+   "#.SBBBBBGGGGBGGLLGGBGGGGBBBBBBBS.#",
+   "#.SBSBBGGGGGGLLLLLLGGGGGGBBBBSSS.#",
+   "#.SBSSSSGGGGLLLLLLLLGGGGBBSSSSSS.#",
+   "#.SSSSSSSSGGLLLLLLLLGGSSSSSSSSSS.#",
+   "#.SSSSSSSSGGGLLLLLLGGGSSSSSSSSSS.#",
+   "#.SSSSSSSSGGGGGGGGGGGGSSSSSSSSBS.#",
+   "#.SSSSSSSSSGGGDDDDDGGSSSSSSSSSBS.#",
+   "#.SSSSSSSSSGGGGGGGGGGSSSSSSSSSSS.#",
+   "#.SSSSSSSSSGGGGGGGGGGSSSSSSSSSSS.#",
+   "#.SBSSSSSSSGGGGGGGGGGSSSSSSSSSSS.#",
+   "#.SBSSSSSSSGCDGGGGGDCSSSSSSSSSSS.#",
+   "#.SSSSSSSSSGCCSSMSGCCSSSSSSSSSSS.#",
+   "#.SSSSSSSSSGGGSSMSGGGSSSSSSSSSSS.#",
+   "#.SSSMSSSSSSSSSSMSSSSSSSSSMSSSBS.#",
+   "#.SSMMMMMMSSSSSMMSSSSSMMMMMMSSBS.#",
+   "#.SMMMMMMMMMMMMMMMMMMMMMMMMMMSSS.#",
+   "#.SMMMMMMMMMMMMMMMMMMMMMMMMMMSSS.#",
+   "#.SMMMMMMGMMMMMMGMMMMMMGMMMMMSSS.#",
+   "#.SMMMMMGMMMMMGMGMGMMMMMGMMMMSSS.#",
+   "#.SSMMMMMMMMMGMMGMMGMMMMMMMMMMSS.#",
+   "#.SSSMMMMMMMGMMMGMMMGMMMMMMMMMSS.#",
+   "#.SSSSMMMMMMMMMMGMMMMMMMMMSMMMMS.#",
+   "#.SSSSBMMMMMMMMMGMMMMMMMMSSSSSMS.#",
+   "#.SSSSSSSSMMMMMMMMMMMMSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SBSSSSSBSSSSSBSSSSSBSSSSSBSSSS.#",
+   "#.SBSSSSSBSSSSSBSSSSSBSSSSSBSSSS.#",
+   "#................................#",
+   "##################################"
   ],
   "entries": [
-   16
+   17
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "N",
-    "count": 50
+    "color": "S",
+    "count": 46,
+    "mystery": "depth"
    },
    {
-    "color": "N",
-    "count": 50
+    "color": "S",
+    "count": 46,
+    "mystery": "depth"
    },
    {
-    "color": "N",
-    "count": 50
+    "color": "S",
+    "count": 46
    },
    {
-    "color": "N",
-    "count": 49
+    "color": "S",
+    "count": 46
    },
    {
-    "color": "N",
-    "count": 49
+    "color": "S",
+    "count": 46
    },
    {
-    "color": "N",
-    "count": 49
+    "color": "S",
+    "count": 46
    },
    {
-    "color": "N",
-    "count": 49
+    "color": "S",
+    "count": 46,
+    "mystery": "depth"
    },
    {
-    "color": "N",
-    "count": 49
+    "color": "S",
+    "count": 45,
+    "mystery": "depth"
    },
    {
-    "color": "N",
-    "count": 49
+    "color": "S",
+    "count": 45
    },
    {
-    "color": "L",
-    "count": 26
+    "color": "B",
+    "count": 38
    },
    {
-    "color": "L",
-    "count": 26
+    "color": "B",
+    "count": 38
    },
    {
-    "color": "A",
+    "color": "B",
+    "count": 37
+   },
+   {
+    "color": "M",
+    "count": 43
+   },
+   {
+    "color": "M",
+    "count": 43
+   },
+   {
+    "color": "M",
+    "count": 43
+   },
+   {
+    "color": "M",
+    "count": 42,
+    "mystery": "depth"
+   },
+   {
+    "color": "M",
+    "count": 42
+   },
+   {
+    "color": "G",
+    "count": 40
+   },
+   {
+    "color": "G",
+    "count": 40
+   },
+   {
+    "color": "G",
     "count": 39
    },
    {
-    "color": "A",
-    "count": 38
+    "color": "C",
+    "count": 6
    },
    {
-    "color": "A",
-    "count": 38
+    "color": "D",
+    "count": 7
    },
    {
-    "color": "A",
-    "count": 38
+    "color": "L",
+    "count": 15,
+    "mystery": "depth"
    },
    {
-    "color": "Y",
-    "count": 17
-   },
-   {
-    "color": "E",
-    "count": 30
-   },
-   {
-    "color": "E",
-    "count": 29
-   },
-   {
-    "color": "B",
-    "count": 26
-   },
-   {
-    "color": "B",
-    "count": 25
-   },
-   {
-    "color": "B",
-    "count": 25
-   },
-   {
-    "color": "M",
-    "count": 32
-   },
-   {
-    "color": "M",
-    "count": 32
-   },
-   {
-    "color": "M",
-    "count": 31
+    "color": "L",
+    "count": 15
    }
   ],
   "tray": [
    [
     19,
     15,
+    7,
     13,
-    6,
-    22,
-    1
+    4,
+    0
    ],
    [
     20,
-    17,
-    16,
-    11,
-    9,
-    21
+    18,
+    22,
+    5,
+    10,
+    1
    ],
    [
-    10,
-    18,
-    12,
-    5,
+    8,
+    21,
     23,
+    17,
+    12,
     2
    ],
    [
+    16,
     14,
-    8,
-    7,
-    4,
+    6,
+    11,
     3,
-    0
+    9
    ]
   ],
-  "recipe": "none",
+  "recipe": "hidden",
   "difficulty": "Super Hard"
  }
 }

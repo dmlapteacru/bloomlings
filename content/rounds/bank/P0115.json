@@ -1,0 +1,870 @@
+{
+ "picture": "P0115",
+ "candidates": [
+  {
+   "id": "P0115-Nbridge-0",
+   "picture": "P0115",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "bridge",
+   "level": {
+    "id": 1,
+    "title": "Лесной дух у ручья",
+    "subject": "P0115",
+    "w": 36,
+    "h": 35,
+    "rowsBottomFirst": [
+     "##################.#################",
+     "#..................................#",
+     "#.MMMMCCCCCCCCCMMMMMMMMMMMMMMMCCMM.#",
+     "#.MMMMMCCCCCCCMMMMMMMMMMMMMMMMMMMM.#",
+     "####################################",
+     "#.EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE.#",
+     "#.EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE.#",
+     "#.EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNCCCCCCCCNNNDDDDDDNEEEE.#",
+     "#.EEEENNNNNCCCCCCCCCCNNDDDDDDNEEEE.#",
+     "#.EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE.#",
+     "#.EEEENNNNCCCCCDDCCCCCNNYOOYNNEDEE.#",
+     "#.EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE.#",
+     "#.EEEENNNNCCCDCCCCDCCCNNYYYYNNEEEE.#",
+     "#.EEDENNNNCCCDCCCCDCCCCNYYYYNNEEEE.#",
+     "#.EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE.#",
+     "#.EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE.#",
+     "#.EEEENNNNNCCCCCCCCCCNNCDCNDNNEEEE.#",
+     "#.EEEENNNNNGCCCCCCCCGNNNCDDNNNEEEE.#",
+     "#.EEEENNNNGGGGNNNNGGGGNNNNNNNNEEEE.#",
+     "#.EEEENNNGGMGGNNNNGGMGGNNNNNNNEEEE.#",
+     "#.EEEENNGGMGGNNNNNNGGMGGNNNNNNEEEE.#",
+     "#.EEEENGGMGGGNNNNNNGGGMGGNNNNNEDEE.#",
+     "#.EEEEGGGGGNNNNNNNNNNGGGGGNNNNEDEE.#",
+     "#.EEEENGNNNNNNNNNNNNNNNNGNNNNNEDEE.#",
+     "#.EEDENNNNNNNNNNNNNNNYNNNNNNNNEEEE.#",
+     "#.EEDENNNNNNNNNNNNNNYYYNNNNNNNEEEE.#",
+     "#.EEDENNNNNNNYNNNNNNNYNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNYYYNNNNNNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNNYNNNNNNNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE.#",
+     "#..................................#",
+     "####################################"
+    ],
+    "entries": [
+     18
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 54
+     },
+     {
+      "color": "N",
+      "count": 54
+     },
+     {
+      "color": "N",
+      "count": 54
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "Y",
+      "count": 12
+     },
+     {
+      "color": "Y",
+      "count": 12
+     },
+     {
+      "color": "D",
+      "count": 23
+     },
+     {
+      "color": "D",
+      "count": 23
+     },
+     {
+      "color": "G",
+      "count": 24
+     },
+     {
+      "color": "G",
+      "count": 24
+     },
+     {
+      "color": "M",
+      "count": 34
+     },
+     {
+      "color": "M",
+      "count": 33
+     },
+     {
+      "color": "M",
+      "count": 33
+     },
+     {
+      "color": "C",
+      "count": 50
+     },
+     {
+      "color": "C",
+      "count": 50
+     },
+     {
+      "color": "C",
+      "count": 50
+     },
+     {
+      "color": "O",
+      "count": 6
+     }
+    ],
+    "tray": [
+     [
+      17,
+      13,
+      0,
+      1,
+      12,
+      2,
+      10,
+      22
+     ],
+     [
+      18,
+      11,
+      6,
+      5,
+      8,
+      15,
+      14,
+      9
+     ],
+     [
+      23,
+      4,
+      20,
+      3,
+      19,
+      7,
+      16,
+      21
+     ]
+    ],
+    "recipe": "bridge",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 154,
+       "anchor": 118,
+       "label": "Левый мостик"
+      },
+      {
+       "cell": 169,
+       "anchor": 133,
+       "label": "Правый мостик"
+      }
+     ]
+    }
+   },
+   "N": 960,
+   "W": 960,
+   "colours": 8,
+   "P": 24,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 0,
+   "random": {
+    "runs": 100,
+    "wins": 85,
+    "share": 0.85,
+    "wilson95": [
+     0.767,
+     0.907
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "bridge",
+      "choice": 1
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     }
+    ],
+    "forks": 1,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 139.8
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": false,
+    "right-to-left|right": false,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": true,
+    "small-first|right": true,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 1.86,
+      "minFree": 0,
+      "fullShare": 0.24,
+      "maxWaiting": 5
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.26,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.84,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.09,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.09,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     }
+    ],
+    "launchesAfter80": 4,
+    "lastLaunchAtW": 95,
+    "seconds": 489.4
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Левый мостик",
+      "win": true,
+      "share": 0.07
+     },
+     {
+      "label": "Правый мостик",
+      "win": true,
+      "share": 0.88
+     }
+    ],
+    "gap": 0.81,
+    "better": 1
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 0
+  },
+  {
+   "id": "P0115-Nbridge-1",
+   "picture": "P0115",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "bridge",
+   "level": {
+    "id": 1,
+    "title": "Лесной дух у ручья",
+    "subject": "P0115",
+    "w": 36,
+    "h": 35,
+    "rowsBottomFirst": [
+     "##################.#################",
+     "#..................................#",
+     "#.MMMMCCCCCCCCCMMMMMMMMMMMMMMMCCMM.#",
+     "#.MMMMMCCCCCCCMMMMMMMMMMMMMMMMMMMM.#",
+     "####################################",
+     "#.EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE.#",
+     "#.EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE.#",
+     "#.EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNCCCCCCCCNNNDDDDDDNEEEE.#",
+     "#.EEEENNNNNCCCCCCCCCCNNDDDDDDNEEEE.#",
+     "#.EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE.#",
+     "#.EEEENNNNCCCCCDDCCCCCNNYOOYNNEDEE.#",
+     "#.EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE.#",
+     "#.EEEENNNNCCCDCCCCDCCCNNYYYYNNEEEE.#",
+     "#.EEDENNNNCCCDCCCCDCCCCNYYYYNNEEEE.#",
+     "#.EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE.#",
+     "#.EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE.#",
+     "#.EEEENNNNNCCCCCCCCCCNNCDCNDNNEEEE.#",
+     "#.EEEENNNNNGCCCCCCCCGNNNCDDNNNEEEE.#",
+     "#.EEEENNNNGGGGNNNNGGGGNNNNNNNNEEEE.#",
+     "#.EEEENNNGGMGGNNNNGGMGGNNNNNNNEEEE.#",
+     "#.EEEENNGGMGGNNNNNNGGMGGNNNNNNEEEE.#",
+     "#.EEEENGGMGGGNNNNNNGGGMGGNNNNNEDEE.#",
+     "#.EEEEGGGGGNNNNNNNNNNGGGGGNNNNEDEE.#",
+     "#.EEEENGNNNNNNNNNNNNNNNNGNNNNNEDEE.#",
+     "#.EEDENNNNNNNNNNNNNNNYNNNNNNNNEEEE.#",
+     "#.EEDENNNNNNNNNNNNNNYYYNNNNNNNEEEE.#",
+     "#.EEDENNNNNNNYNNNNNNNYNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNYYYNNNNNNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNNYNNNNNNNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE.#",
+     "#.EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE.#",
+     "#..................................#",
+     "####################################"
+    ],
+    "entries": [
+     18
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "E",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 54
+     },
+     {
+      "color": "N",
+      "count": 54
+     },
+     {
+      "color": "N",
+      "count": 54
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "N",
+      "count": 53
+     },
+     {
+      "color": "Y",
+      "count": 12
+     },
+     {
+      "color": "Y",
+      "count": 12
+     },
+     {
+      "color": "D",
+      "count": 23
+     },
+     {
+      "color": "D",
+      "count": 23
+     },
+     {
+      "color": "G",
+      "count": 24
+     },
+     {
+      "color": "G",
+      "count": 24
+     },
+     {
+      "color": "M",
+      "count": 34
+     },
+     {
+      "color": "M",
+      "count": 33
+     },
+     {
+      "color": "M",
+      "count": 33
+     },
+     {
+      "color": "C",
+      "count": 50
+     },
+     {
+      "color": "C",
+      "count": 50
+     },
+     {
+      "color": "C",
+      "count": 50
+     },
+     {
+      "color": "O",
+      "count": 6
+     }
+    ],
+    "tray": [
+     [
+      4,
+      5,
+      11,
+      7,
+      10,
+      12
+     ],
+     [
+      20,
+      3,
+      19,
+      23,
+      15,
+      9
+     ],
+     [
+      18,
+      1,
+      13,
+      6,
+      14,
+      16
+     ],
+     [
+      17,
+      0,
+      2,
+      21,
+      8,
+      22
+     ]
+    ],
+    "recipe": "bridge",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 154,
+       "anchor": 118,
+       "label": "Левый мостик"
+      },
+      {
+       "cell": 169,
+       "anchor": 133,
+       "label": "Правый мостик"
+      }
+     ]
+    }
+   },
+   "N": 960,
+   "W": 960,
+   "colours": 8,
+   "P": 24,
+   "columns": 4,
+   "linked": 0,
+   "hidden": 0,
+   "random": {
+    "runs": 100,
+    "wins": 77,
+    "share": 0.77,
+    "wilson95": [
+     0.678,
+     0.842
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "bridge",
+      "choice": 1
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     }
+    ],
+    "forks": 2,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 188.9
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": false,
+    "right-to-left|right": false,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": true,
+    "small-first|right": true,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 1.28,
+      "minFree": 0,
+      "fullShare": 0.23,
+      "maxWaiting": 5
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 4.27,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.67,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.18,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.61,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 95,
+    "seconds": 523.5
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Левый мостик",
+      "win": true,
+      "share": 0.4
+     },
+     {
+      "label": "Правый мостик",
+      "win": true,
+      "share": 0.8
+     }
+    ],
+    "gap": 0.4,
+    "better": 1
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 1
+  }
+ ],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|bridge|",
+   "tried": 2,
+   "found": 2,
+   "reasons": {}
+  },
+  {
+   "combo": "Normal|bridge|intro",
+   "tried": 64,
+   "found": 1,
+   "reasons": {
+    "не тот класс по быстрой оценке": 55,
+    "знакомство ниже 90 %": 8
+   }
+  }
+ ],
+ "placed": [
+  "P0115-Nbridge-4-intro"
+ ]
+}

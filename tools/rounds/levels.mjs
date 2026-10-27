@@ -54,6 +54,8 @@ function doseRange(m,cls,role,P){const i=CLASSES.indexOf(cls);
 // the lower half (§7); the introduction levels use the minimum teaching doses (§9)
 function doses(recipe,cls,P,intro){const types=recipe==='none'?[]:recipe.split('+'),out={};
  types.forEach((m,j)=>{if(m==='bridge'){out.bridge=1;return;}const role=j===0?'lead':'add';let [a,b]=doseRange(m,cls,role,P);
+  // the engine plays at most six hidden (depth) pods
+  if(m==='hidden'){a=Math.min(a,6);b=Math.min(b,6);}
   if(intro){a=b=m==='links'?2:1;}else if(j>0){b=a;}else if(types.length>=3){b=Math.floor((a+b)/2);}
   if(m==='links'){a+=a%2;b-=b%2;}if(a>b)out.error=`нет целых доз ${m} для ${cls} при P=${P}`;out[m]=[a,b];});
  return out;}
@@ -113,6 +115,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+recipes.indexOf(recipe)*131+(intro?17:0),intro);
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
      const errs=checkPods(c.level.pods,m.volumes);if(errs.length){reasons['баланс']=(reasons['баланс']||0)+1;continue;}
+     {const {R}=await engine(),ve=R.validate(c.level);if(ve&&ve.length){const k='движок отклоняет: '+ve[0];reasons[k]=(reasons[k]||0)+1;continue;}}
      const tick=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{};const t0=Date.now();
      if(c.level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(c.level,c.level.capacity||5)).length){reasons['мост доступен сразу — нужен расчищенный подход (§8)']=(reasons['мост доступен сразу — нужен расчищенный подход (§8)']||0)+1;continue;}}
      const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,1],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
