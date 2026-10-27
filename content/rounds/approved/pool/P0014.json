@@ -1,7 +1,7 @@
 {
  "code": "P0014",
- "state": "used",
- "usedBy": "L0010",
+ "state": "free",
+ "usedBy": null,
  "version": 2,
  "title": "Маяк на скале",
  "theme": "batch-0011-env",

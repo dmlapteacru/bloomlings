@@ -1,7 +1,7 @@
 {
  "code": "P0006",
- "state": "used",
- "usedBy": "L0008",
+ "state": "free",
+ "usedBy": null,
  "version": 5,
  "title": "Кроссовок",
  "theme": "objects",

@@ -1,7 +1,7 @@
 {
  "code": "P0116",
- "state": "used",
- "usedBy": "L0004",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Улей с пчёлами",
  "theme": "batch-0116",

@@ -1,7 +1,7 @@
 {
  "code": "P0021",
- "state": "used",
- "usedBy": "L0017",
+ "state": "free",
+ "usedBy": null,
  "version": 2,
  "title": "Заводная сова",
  "theme": "batch-0011-env",

@@ -1,7 +1,7 @@
 {
  "code": "P0119",
- "state": "used",
- "usedBy": "L0005",
+ "state": "free",
+ "usedBy": null,
  "version": 2,
  "title": "Гнездо с птенцами",
  "theme": "batch-0119",

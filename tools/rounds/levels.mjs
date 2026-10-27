@@ -3,13 +3,14 @@
 //
 // node tools/rounds/levels.mjs calendar <from> <to>        class, mechanic introduction and allowed mechanics per level
 // node tools/rounds/levels.mjs build <pictureId…|--approved> [--classes Normal,Hard,"Super Hard"] [--candidates 64]
-//      [--recipes none,links,hidden,links+hidden,bridge] [--seed 1]
+//      [--recipes none,links,hidden,links+hidden,bridge] [--seed 1] [--fresh: search again a combination already searched]
 //      candidates for each picture, recipe and class: balance → queue → saved solution → random test → bank
 // node tools/rounds/levels.mjs place <from> <to>           fill calendar positions from the bank (variety rules),
 //      write levels and cards, list what is still missing in content/rounds/needs.json
 // node tools/rounds/levels.mjs unplace <from> <to>         put placed levels back into the bank (to place again)
 // node tools/rounds/levels.mjs bank                        the bank: candidates by picture and measured class
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
+// node tools/rounds/levels.mjs checks [--shard i/n]         add the checks of the second amendment of 2026-10-27 to banked candidates
 import fs from 'node:fs';import path from 'node:path';
 import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {fitness} from './fitness.mjs';
@@ -124,7 +125,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
   for(const cls of fixed?['Normal']:classes)for(const recipe of recipes){if(fixed&&recipe!=='none')continue;
    for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'?[false,true]:[false]){
     // resumable: a combination already searched (bank.searched) is skipped; the bank is saved after each one
-    const combo=`${cls}|${recipe}|${intro?'intro':''}`;bank.searched=bank.searched||[];if(bank.searched.some(x=>x.combo===combo)){console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
+    const combo=`${cls}|${recipe}|${intro?'intro':''}`;bank.searched=bank.searched||[];if(!flag('--fresh')&&bank.searched.some(x=>x.combo===combo)){console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
     let tried=0,found=0,foundLoss=0;const reasons={};const no=k=>{reasons[k]=(reasons[k]||0)+1;};
     // a Normal also looks for a candidate that "most work now" loses (§5: part of the regular Normals), up to 4 found
     const enough=()=>cls==='Normal'&&!intro&&!fixed?found>=4||(found>=2&&foundLoss>=1):found>=2;
@@ -180,7 +181,7 @@ function greedyOk(c,n){const k=c.checks||{};if(n>=4&&!(k.forced<=.35))return fal
 // bridge level exactly one; a hidden-pod introduction needs a hidden pod that matters
 function mechOk(c,n,slot){const k=c.checks||{},second=slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
  if(c.recipe.includes('bridge'))return slot.intro==='bridge'&&!second?k.bridgeKind==='first':k.bridgeKind==='single';
- if(slot.intro==='hidden')return !!(k.hiddenMatters&&k.hiddenMatters.ok);return true;}
+ if(slot.intro==='hidden')return c.hidden>=2&&c.hidden<=3&&!!(k.hiddenMatters&&k.hiddenMatters.ok);return true;}
 const greedyLost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
 // §2 picture fitness: Hard and Super Hard need 3+ colours hidden at the start; a weak picture carries a Normal only with a mechanic
 const fitCache={};const fitOf=id=>fitCache[id]||(fitCache[id]=fitness(picture(id)));
@@ -257,4 +258,15 @@ else if(cmd==='unplace'){const a=+process.argv[3],b=+process.argv[4],m=manifest(
  saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});}
 else if(cmd==='bank'){for(const f of fs.existsSync(BANK)?fs.readdirSync(BANK):[]){const b=readJSON(path.join(BANK,f));const by={};for(const c of b.candidates){const k=c.cls+(c.intro?' (знакомство)':'');(by[k]=by[k]||[]).push(`${c.recipe} ${Math.round(c.random.share*100)}%`);}console.log(b.picture,JSON.stringify(by),b.rejected.length?'отклонения: '+b.rejected.map(x=>x.reason).join('; '):'');}}
 else if(cmd==='card'){card(+process.argv[3]);}
+else if(cmd==='checks'){
+ // the checks of the owner's second amendment of 2026-10-27 for banked candidates built before it (17 §5, §6, §8, §9);
+ // --shard i/n splits the bank files between processes; a candidate that already has them is kept
+ const [si,sn]=(arg('--shard','0/1')).split('/').map(Number);const files=(fs.existsSync(BANK)?fs.readdirSync(BANK):[]).sort().filter((f,i)=>i%sn===si);
+ for(const f of files){const bf=path.join(BANK,f),b=readJSON(bf);let changed=0;
+  for(const c of b.candidates){if(c.checks)continue;const lv=c.level,st=c.strategies||{};
+   const opening=c.cls==='Normal'?null:await openingTest(lv,c.cls),hm=lv.pods.some(p=>p.mystery)?await hiddenMatters(lv,c.solution.route):null;
+   const bs=lv.hero?await bridgeSingle(lv):null,bc=c.bridge||null;let bridgeKind=null;
+   if(bc){if(c.intro&&bc.each.every(x=>x.win===true)&&bc.gap>=.1&&c.random.share>=.9)bridgeKind='first';else if(bs.ok)bridgeKind='single';}
+   c.checks={forced:await forcedShare(lv),opening,hold:await holdPod(lv),greedyLoses:!st['most-now|left']&&!st['most-now|right'],hiddenMatters:hm,bridgeKind,bridgeSingle:bs};changed++;}
+  if(changed)writeJSON(bf,b);console.log(b.picture,'проверок добавлено',changed);}}
 else if(cmd!=='noop'){console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}
