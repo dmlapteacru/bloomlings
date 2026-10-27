@@ -1,7 +1,7 @@
 {
  "code": "P0082",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0015",
  "version": 1,
  "title": "Мольберт и палитра",
  "theme": "batch-0061",

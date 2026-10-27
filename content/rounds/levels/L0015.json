@@ -2,23 +2,23 @@
  "level": 15,
  "cls": "Super Hard",
  "intro": null,
- "picture": "P0089",
- "candidate": "P0089-Slinks+hidden-33",
+ "picture": "P0082",
+ "candidate": "P0082-Slinks+hidden-29",
  "recipe": "links+hidden",
- "N": 882,
- "W": 882,
- "colours": 8,
+ "N": 871,
+ "W": 871,
+ "colours": 9,
  "P": 24,
  "columns": 4,
  "linked": 12,
  "hidden": 2,
  "random": {
-  "runs": 400,
-  "wins": 46,
-  "share": 0.115,
+  "runs": 100,
+  "wins": 11,
+  "share": 0.11,
   "wilson95": [
-   0.087,
-   0.15
+   0.063,
+   0.186
   ],
   "cls": "Super Hard",
   "borderline": false,
@@ -33,15 +33,7 @@
    },
    {
     "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 9
+    "pod": 12
    },
    {
     "type": "tap",
@@ -49,19 +41,15 @@
    },
    {
     "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
     "pod": 4
    },
    {
     "type": "tap",
-    "pod": 20
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 0
    },
    {
     "type": "tap",
@@ -69,23 +57,15 @@
    },
    {
     "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
     "pod": 15
    },
    {
     "type": "tap",
-    "pod": 3
+    "pod": 22
    },
    {
     "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 12
+    "pod": 6
    },
    {
     "type": "tap",
@@ -93,19 +73,39 @@
    },
    {
     "type": "tap",
-    "pod": 23
+    "pod": 14
    },
    {
     "type": "tap",
-    "pod": 0
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 3
    }
   ],
-  "forks": 7,
-  "singleSafe": 4,
+  "forks": 6,
+  "singleSafe": 6,
   "unknown": 0,
   "fast": {
-   "status": "lost",
-   "seconds": 161.1
+   "status": "won",
+   "seconds": 154.2
   }
  },
  "fairness": {
@@ -116,18 +116,18 @@
   "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
  },
  "strategies": {
-  "left-to-right|left": false,
-  "left-to-right|right": false,
-  "right-to-left|left": true,
-  "right-to-left|right": true,
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
   "top-down|left": false,
   "top-down|right": false,
-  "bottom-up|left": false,
-  "bottom-up|right": false,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
   "diagonal|left": false,
   "diagonal|right": false,
-  "small-first|left": true,
-  "small-first|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
   "most-now|left": false,
   "most-now|right": false,
   "fast-release|left": false,
@@ -138,250 +138,252 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.52,
-    "minFree": 0,
-    "fullShare": 0.25,
+    "meanFree": 1.72,
+    "minFree": 1,
+    "fullShare": 0,
     "maxWaiting": 3
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 2.22,
-    "minFree": 0,
-    "fullShare": 0.15,
+    "meanFree": 2.27,
+    "minFree": 1,
+    "fullShare": 0,
     "maxWaiting": 3
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 2.29,
-    "minFree": 1,
+    "meanFree": 4.06,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 3
+    "maxWaiting": 0
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 2.47,
-    "minFree": 1,
+    "meanFree": 4.2,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 3.86,
-    "minFree": 1,
+    "meanFree": 4.11,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    }
   ],
   "launchesAfter80": 2,
-  "lastLaunchAtW": 91,
-  "seconds": 431.9
+  "lastLaunchAtW": 94,
+  "seconds": 400
  },
- "dosePos": 0.7,
+ "dosePos": 0.6,
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 15,
-  "title": "Хрустальный шар с замком",
-  "subject": "P0089",
-  "w": 34,
-  "h": 44,
+  "title": "Мольберт и палитра",
+  "subject": "P0082",
+  "w": 40,
+  "h": 46,
   "rowsBottomFirst": [
-   "#################.################",
-   "#................................#",
-   "#......AAAAAAAAAAAAAAAAAAAA......#",
-   "#......AAAAAAAAAAAAAAAAAAAA......#",
-   "#.......YYYYYYYYYYYYYYYYYY.......#",
-   "#........AAAAAAAAAAAAAAAA........#",
-   "#.........AAAAAAAAAAAAAA.........#",
-   "#.............YYYYYY.............#",
-   "#.............YYYYYY.............#",
-   "#.............YYYYYY.............#",
-   "#.........AAAAAAAAAAAAAA.........#",
-   "#.........AAAAAAAAAAAAAA.........#",
-   "#........AAAAAAAAAAAAAAAA........#",
-   "#.......AAAAAAAAAAAAAAAAAA.......#",
-   "#.......YYYYYYYYYYYYYYYYYY.......#",
-   "#......BGGGGGGGGGGGGGGGGGGB......#",
-   "#.....BGGGGGGGGGGGGGGGGGGGGB.....#",
-   "#....BGGGGGGGGGGGGGGGGGGGGGGB....#",
-   "#...BSGGGGGGGGGGGGGGGGGGGGGGSB...#",
-   "#..BBSSGPPPPPPPPVVPPPPPPPGGSSBB..#",
-   "#..BSSSSPPPPPPPPVVPPPPPPPSSSSSB..#",
-   "#..BSSSSPPPPPPPPVVPPPPPPPSSSSSB..#",
-   "#.BSSSSSPPPPPPPPVVPPPPPPPSSSSSSB.#",
-   "#.BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB.#",
-   "#.BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB.#",
-   "#.BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB.#",
-   "#.BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB.#",
-   "#.BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB.#",
-   "#.BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB.#",
-   "#.BSCCSSVVVVVSPPPPPPSVVVVVSSSSSB.#",
-   "#.BSCCSSSVVVVSPPPPPPSVVVVSSSSSSB.#",
-   "#.BSCCSSSVVVSVVVVVVVVSVVVSSSSSSB.#",
-   "#..BSCCSSSVVSVVVVVVVVSVVSSSSSSB..#",
-   "#..BSCCCSSVSSSVVVVVVSSSVSSSSSSB..#",
-   "#..BBSCCSSSSSSSVVVVSSSSSSSSSSBB..#",
-   "#...BSSCCSSSSSSVVVVSSSSSSSSSSB...#",
-   "#....BSCCCCSSSSSVVSSSSSSSSSSB....#",
-   "#.....BSSCCCSSSSSVSSSSSSSSSB.....#",
-   "#......BSSCCCCSSSVSSSSSSSSB......#",
-   "#.......BBSSCCSSSVYYSSSSBB.......#",
-   "#........BBBSSSSSSSSSSBBB........#",
-   "#...........BBBBBBBBBB...........#",
-   "#................................#",
-   "##################################"
+   "####################.###################",
+   "#......................................#",
+   "#....................EE.AAAAAAAA.......#",
+   "#..EE................AEEEAAAVVAAAAA....#",
+   "#..EE...............AAAEEEAVVVAAAAAA...#",
+   "#..EE..............A..AAEEEVVVAAGGGAA..#",
+   "#..EEE............A....AAEEEAAAAGGGAAA.#",
+   "#...EE........EE.AAA..AAAAEEEAAAAGGAAA.#",
+   "#...EE........EE.AAAAAAAAAAEEEAAAAAAAA.#",
+   "#...EE........EE.AAAAAAAAAAAEEEAAABBAA.#",
+   "#...EE........EE.AAAAAARRAAAAEEEABBBBA.#",
+   "#...EE........EE.AAAAARRRAAYAAEEEABBA..#",
+   "#...EEEEEEEEEEEEEAAAAARRRAYYYAAACCCA...#",
+   "#...EEEEEEEEEEEEEEAAAAAAAAYYYAAAACPP...#",
+   "#....EE.......EE....AAAEAAAYAAAA..PPP..#",
+   "#....EE.......EE.......EE..........PPP.#",
+   "#....EE.......EE.......EE...........PP.#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEE...........#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEE...........#",
+   "#.....EE......EE......EE...............#",
+   "#..EEEEEEEEEEEEEEEEEEEEEEEE............#",
+   "#..ECCCCCCCCCCGGCCCCCCCCCCE............#",
+   "#..ECCCCCCCCCCGGCCCCCCCCCCE............#",
+   "#..ECCCCCCCCCCGGCCCCCCCCCCE............#",
+   "#..ECCCCCGGGGGGGCGGGGCCCCCE............#",
+   "#..ECCCCCGGGGGGGGGGGGGCCCCE............#",
+   "#..ECCCCCCCCCCGGCGGGGCCCCCE............#",
+   "#..ECCCCCCCCCCGGCCCCCCCCCCE............#",
+   "#..ECCCCCCCCCCGGCCCCCCCCCCE............#",
+   "#..ECCCCCCCPPPPPPPPCCCCCCCE............#",
+   "#..ECCCCCCCPPPPPPPPCCCCCCCE............#",
+   "#..ECCCCCCCPPPPPPPPCCCCCCCE............#",
+   "#..ECCCCCCCPPPYYPPPCCCCCCCE............#",
+   "#..ECCCCCPPPPYYYYPPPPCCCCCE............#",
+   "#..ECCCCCPPPPYYYYPPPPCCCCCE............#",
+   "#..ECCCCCPPPPCYYCPPPPCCCCCE............#",
+   "#..ECCCCCCPPPPPPPPPPCCCCCCE............#",
+   "#..ECCCCCCCCCPPPPCCCCCCCCCE............#",
+   "#..ECCCCCCCCCPPPPCCCCCCCCCE............#",
+   "#..ECCCCCCCCCCPPCCCCCCCCCCE............#",
+   "#..EEEEEEEEEEEEEEEEEEEEEEEE............#",
+   "#.............EE.......................#",
+   "#.............EE.......................#",
+   "#.............EE.......................#",
+   "#......................................#",
+   "########################################"
   ],
   "entries": [
-   17
+   20
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "B",
+    "color": "E",
+    "count": 51
+   },
+   {
+    "color": "E",
+    "count": 51,
+    "group": "B"
+   },
+   {
+    "color": "E",
+    "count": 50,
+    "group": "E"
+   },
+   {
+    "color": "E",
+    "count": 50,
+    "mystery": "depth"
+   },
+   {
+    "color": "E",
+    "count": 50
+   },
+   {
+    "color": "C",
+    "count": 50,
+    "group": "C"
+   },
+   {
+    "color": "C",
+    "count": 50,
+    "mystery": "depth"
+   },
+   {
+    "color": "C",
+    "count": 49
+   },
+   {
+    "color": "C",
+    "count": 49
+   },
+   {
+    "color": "C",
+    "count": 49,
+    "group": "C"
+   },
+   {
+    "color": "C",
+    "count": 49,
+    "group": "D"
+   },
+   {
+    "color": "P",
+    "count": 28,
+    "group": "E"
+   },
+   {
+    "color": "P",
+    "count": 28
+   },
+   {
+    "color": "P",
+    "count": 28,
+    "group": "F"
+   },
+   {
+    "color": "Y",
+    "count": 10
+   },
+   {
+    "color": "Y",
+    "count": 10,
+    "group": "A"
+   },
+   {
+    "color": "G",
     "count": 24,
     "group": "D"
    },
    {
-    "color": "B",
-    "count": 24
-   },
-   {
-    "color": "B",
-    "count": 24
-   },
-   {
-    "color": "S",
-    "count": 54
-   },
-   {
-    "color": "S",
-    "count": 54,
-    "group": "C"
-   },
-   {
-    "color": "S",
-    "count": 54,
-    "group": "B"
-   },
-   {
-    "color": "S",
-    "count": 54,
-    "group": "F"
-   },
-   {
-    "color": "S",
-    "count": 54,
-    "group": "D"
-   },
-   {
-    "color": "C",
-    "count": 14
-   },
-   {
-    "color": "C",
-    "count": 14
-   },
-   {
-    "color": "V",
-    "count": 27
-   },
-   {
-    "color": "V",
-    "count": 27
-   },
-   {
-    "color": "V",
-    "count": 27,
-    "group": "A"
-   },
-   {
-    "color": "Y",
-    "count": 28
-   },
-   {
-    "color": "Y",
-    "count": 28
-   },
-   {
-    "color": "P",
-    "count": 53
-   },
-   {
-    "color": "P",
-    "count": 53,
-    "group": "C"
-   },
-   {
-    "color": "P",
-    "count": 52,
-    "group": "B"
-   },
-   {
     "color": "G",
-    "count": 29,
-    "group": "A"
-   },
-   {
-    "color": "G",
-    "count": 28,
-    "mystery": "depth"
-   },
-   {
-    "color": "G",
-    "count": 28,
-    "group": "E"
-   },
-   {
-    "color": "A",
-    "count": 44,
+    "count": 24,
     "group": "F"
    },
    {
     "color": "A",
-    "count": 44,
-    "group": "E"
+    "count": 49
    },
    {
     "color": "A",
-    "count": 44,
-    "mystery": "depth"
+    "count": 49
+   },
+   {
+    "color": "A",
+    "count": 49,
+    "group": "B"
+   },
+   {
+    "color": "R",
+    "count": 8
+   },
+   {
+    "color": "B",
+    "count": 8
+   },
+   {
+    "color": "V",
+    "count": 8,
+    "group": "A"
    }
   ],
   "tray": [
    [
     10,
-    14,
-    22,
-    13,
-    11,
-    17
-   ],
-   [
-    6,
-    4,
-    20,
-    3,
     12,
-    5
+    19,
+    4,
+    18,
+    0
    ],
    [
-    21,
     16,
     15,
-    2,
-    18,
-    7
+    22,
+    9,
+    14,
+    2
    ],
    [
-    8,
-    9,
-    19,
-    1,
+    17,
     23,
-    0
+    6,
+    5,
+    1,
+    11
+   ],
+   [
+    13,
+    21,
+    7,
+    8,
+    20,
+    3
    ]
   ],
   "recipe": "links+hidden",

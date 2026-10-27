@@ -2,7 +2,7 @@
  "picture": "P0114",
  "candidates": [
   {
-   "id": "P0114-Nbridge-2-intro",
+   "id": "P0114-Nbridge-14-intro",
    "picture": "P0114",
    "requested": "Normal",
    "cls": "Normal",
@@ -156,32 +156,32 @@
     "tray": [
      [
       20,
-      0,
-      12,
-      7,
-      3,
-      13,
-      11,
-      10
-     ],
-     [
-      19,
-      15,
-      23,
       2,
-      8,
-      22,
       1,
+      23,
+      13,
+      4,
+      22,
       5
      ],
      [
       6,
       21,
       17,
+      15,
+      8,
       18,
-      16,
+      10,
+      11
+     ],
+     [
+      19,
+      0,
+      12,
+      7,
+      3,
       9,
-      4,
+      16,
       14
      ]
     ],
@@ -211,11 +211,11 @@
    "hidden": 0,
    "random": {
     "runs": 100,
-    "wins": 90,
-    "share": 0.9,
+    "wins": 92,
+    "share": 0.92,
     "wilson95": [
-     0.826,
-     0.945
+     0.85,
+     0.959
     ],
     "cls": "Normal",
     "borderline": false,
@@ -230,43 +230,11 @@
      },
      {
       "type": "tap",
-      "pod": 0
+      "pod": 2
      },
      {
       "type": "tap",
-      "pod": 12
-     },
-     {
-      "type": "tap",
-      "pod": 7
-     },
-     {
-      "type": "tap",
-      "pod": 3
-     },
-     {
-      "type": "tap",
-      "pod": 19
-     },
-     {
-      "type": "bridge",
-      "choice": 0
-     },
-     {
-      "type": "tap",
-      "pod": 13
-     },
-     {
-      "type": "tap",
-      "pod": 11
-     },
-     {
-      "type": "tap",
-      "pod": 10
-     },
-     {
-      "type": "tap",
-      "pod": 15
+      "pod": 1
      },
      {
       "type": "tap",
@@ -274,19 +242,23 @@
      },
      {
       "type": "tap",
-      "pod": 2
+      "pod": 13
      },
      {
       "type": "tap",
-      "pod": 8
+      "pod": 19
+     },
+     {
+      "type": "bridge",
+      "choice": 1
+     },
+     {
+      "type": "tap",
+      "pod": 4
      },
      {
       "type": "tap",
       "pod": 22
-     },
-     {
-      "type": "tap",
-      "pod": 1
      },
      {
       "type": "tap",
@@ -306,11 +278,39 @@
      },
      {
       "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
       "pod": 18
      },
      {
       "type": "tap",
-      "pod": 16
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 3
      },
      {
       "type": "tap",
@@ -318,7 +318,7 @@
      },
      {
       "type": "tap",
-      "pod": 4
+      "pod": 16
      },
      {
       "type": "tap",
@@ -330,7 +330,7 @@
     "unknown": 0,
     "fast": {
      "status": "won",
-     "seconds": 134.4
+     "seconds": 129.4
     }
    },
    "fairness": {
@@ -360,47 +360,47 @@
      {
       "from": 0,
       "to": 20,
-      "meanFree": 1.62,
+      "meanFree": 1.58,
       "minFree": 0,
-      "fullShare": 0.36,
+      "fullShare": 0.42,
       "maxWaiting": 5
      },
      {
       "from": 20,
       "to": 40,
-      "meanFree": 4.13,
-      "minFree": 2,
+      "meanFree": 3.32,
+      "minFree": 1,
       "fullShare": 0,
-      "maxWaiting": 0
+      "maxWaiting": 1
      },
      {
       "from": 40,
       "to": 60,
-      "meanFree": 2.56,
-      "minFree": 2,
+      "meanFree": 3.92,
+      "minFree": 3,
       "fullShare": 0,
-      "maxWaiting": 2
+      "maxWaiting": 1
      },
      {
       "from": 60,
       "to": 80,
-      "meanFree": 2.97,
-      "minFree": 2,
+      "meanFree": 4.41,
+      "minFree": 4,
       "fullShare": 0,
-      "maxWaiting": 2
+      "maxWaiting": 0
      },
      {
       "from": 80,
       "to": 100,
-      "meanFree": 3.87,
+      "meanFree": 3.92,
       "minFree": 3,
       "fullShare": 0,
       "maxWaiting": 1
      }
     ],
-    "launchesAfter80": 6,
+    "launchesAfter80": 5,
     "lastLaunchAtW": 96,
-    "seconds": 446.8
+    "seconds": 481.8
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
@@ -424,6 +424,6 @@
   }
  ],
  "placed": [
-  "P0114-Nbridge-14-intro"
+  "P0114-Nbridge-2-intro"
  ]
 }

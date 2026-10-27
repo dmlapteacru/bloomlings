@@ -2,7 +2,7 @@
  "picture": "P0006",
  "candidates": [
   {
-   "id": "P0006-Nhidden-0-intro",
+   "id": "P0006-Nhidden-1-intro",
    "picture": "P0006",
    "requested": "Normal",
    "cls": "Normal",
@@ -81,12 +81,12 @@
      },
      {
       "color": "B",
-      "count": 37,
-      "mystery": "depth"
+      "count": 37
      },
      {
       "color": "B",
-      "count": 37
+      "count": 37,
+      "mystery": "depth"
      },
      {
       "color": "B",
@@ -123,28 +123,28 @@
     ],
     "tray": [
      [
-      0,
-      13,
-      12,
+      4,
+      5,
       14,
+      13,
       3,
-      17
+      10
      ],
      [
       6,
-      1,
+      12,
       7,
+      8,
       15,
-      10,
-      16
+      11
      ],
      [
-      5,
-      4,
+      1,
+      0,
       2,
-      8,
       9,
-      11
+      16,
+      17
      ]
     ],
     "recipe": "hidden"
@@ -173,51 +173,7 @@
     "route": [
      {
       "type": "tap",
-      "pod": 0
-     },
-     {
-      "type": "tap",
-      "pod": 13
-     },
-     {
-      "type": "tap",
-      "pod": 12
-     },
-     {
-      "type": "tap",
-      "pod": 14
-     },
-     {
-      "type": "tap",
-      "pod": 3
-     },
-     {
-      "type": "tap",
-      "pod": 17
-     },
-     {
-      "type": "tap",
-      "pod": 6
-     },
-     {
-      "type": "tap",
-      "pod": 1
-     },
-     {
-      "type": "tap",
-      "pod": 7
-     },
-     {
-      "type": "tap",
-      "pod": 15
-     },
-     {
-      "type": "tap",
-      "pod": 10
-     },
-     {
-      "type": "tap",
-      "pod": 16
+      "pod": 4
      },
      {
       "type": "tap",
@@ -225,11 +181,31 @@
      },
      {
       "type": "tap",
-      "pod": 4
+      "pod": 14
      },
      {
       "type": "tap",
-      "pod": 2
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 7
      },
      {
       "type": "tap",
@@ -237,11 +213,35 @@
      },
      {
       "type": "tap",
-      "pod": 9
+      "pod": 15
      },
      {
       "type": "tap",
       "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 17
      }
     ],
     "forks": 0,
@@ -249,7 +249,7 @@
     "unknown": 0,
     "fast": {
      "status": "won",
-     "seconds": 56.8
+     "seconds": 48.2
     }
    },
    "fairness": {
@@ -280,7 +280,7 @@
      {
       "from": 0,
       "to": 20,
-      "meanFree": 4.27,
+      "meanFree": 4.43,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -288,39 +288,39 @@
      {
       "from": 20,
       "to": 40,
-      "meanFree": 3.8,
+      "meanFree": 4.22,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.29,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.99,
       "minFree": 3,
       "fullShare": 0,
       "maxWaiting": 1
      },
      {
-      "from": 40,
-      "to": 60,
-      "meanFree": 3.01,
-      "minFree": 2,
-      "fullShare": 0,
-      "maxWaiting": 2
-     },
-     {
-      "from": 60,
-      "to": 80,
-      "meanFree": 4.31,
-      "minFree": 2,
-      "fullShare": 0,
-      "maxWaiting": 0
-     },
-     {
       "from": 80,
       "to": 100,
-      "meanFree": 4.36,
+      "meanFree": 4.47,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
      }
     ],
-    "launchesAfter80": 3,
-    "lastLaunchAtW": 94,
-    "seconds": 250.6
+    "launchesAfter80": 4,
+    "lastLaunchAtW": 98,
+    "seconds": 239.9
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
@@ -347,6 +347,6 @@
   }
  ],
  "placed": [
-  "P0006-Nhidden-1-intro"
+  "P0006-Nhidden-0-intro"
  ]
 }

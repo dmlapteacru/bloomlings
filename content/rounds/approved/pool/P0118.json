@@ -1,0 +1,94 @@
+{
+ "code": "P0118",
+ "state": "used",
+ "usedBy": "L0007",
+ "version": 1,
+ "title": "Матрёшка",
+ "theme": "batch-0116",
+ "family": "Игрушки и настольные игры",
+ "subject": "матрёшка в красном платке с цветком на фартуке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9"
+ ],
+ "w": 26,
+ "h": 30,
+ "N": 544,
+ "colours": 8,
+ "volumes": {
+  "R": {
+   "cells": 208,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 122,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 102,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 38,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 20,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 6,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 4,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-10-27",
+ "rows": [
+  "..........................",
+  "..........DDDDDD..........",
+  "........DDRRRRRRDD........",
+  ".......DDRRRRRRRRDD.......",
+  "......DDRRRAAAARRRDD......",
+  "......DRRRAAAAAARRRD......",
+  "......DRRAACCCCAARRD......",
+  ".....DRRACCCCCCCCARRD.....",
+  ".....DRRACCCCCCCCARRD.....",
+  ".....DRRACCDCCDCCARRD.....",
+  "......DRRCCCCCCCCRRD......",
+  ".....DDRRCPCCCCPCRRDD.....",
+  "....DRRRRRRCCCCRRRRRRD....",
+  "...DRRRRRRRRRRRRRRRRRRD...",
+  "..DRRRRRRRYYYYYYRRRRRRRD..",
+  ".DRRRRRRYYYYYYYYYYRRRRRRD.",
+  ".DRRRRRRYYYYPPYYYYRRRRRRD.",
+  ".DRRRRRYYYYPPPPYYYYRRRRRD.",
+  "DRRRRRRYYYYYPPYYYYYRRRRRRD",
+  "DRRRRRYYYPPPVVPPPYYYRRRRRD",
+  "DRRRRRYYPPPPVVPPPPYYRRRRRD",
+  ".DRRRRYYYPPYVVYPPYYYRRRRD.",
+  ".DRRRRYYYYYPPPPYYYYYRRRRD.",
+  ".DDRRRRYYYYPPPPYYYYRRRRDD.",
+  "..DRRRRYYYYYPPYYYYYRRRRD..",
+  "...DRRRRYYYYGGYYYYRRRRD...",
+  "....DRRRRYYYGGYYYRRRRD....",
+  "....DDDDDDDDDDDDDDDDDD....",
+  "....DDDDDDDDDDDDDDDDDD....",
+  "....DDDDDDDDDDDDDDDDDD...."
+ ]
+}

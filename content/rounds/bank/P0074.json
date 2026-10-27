@@ -5779,10 +5779,8 @@
     "lastLaunchAtW": 91,
     "seconds": 374.8
    },
-   "dosePos": 0.5,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
-   "seed": 1,
-   "attempt": 30
+   "dosePos": 0.5
   },
   {
    "id": "P0074-Slinks+hidden-9",

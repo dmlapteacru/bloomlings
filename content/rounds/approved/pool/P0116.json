@@ -1,0 +1,89 @@
+{
+ "code": "P0116",
+ "state": "used",
+ "usedBy": "L0004",
+ "version": 1,
+ "title": "Улей с пчёлами",
+ "theme": "batch-0116",
+ "family": "Насекомые и маленькие существа",
+ "subject": "плетёный улей висит на ветке в небе, вокруг летают пчёлы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 22,
+ "N": 594,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 251,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 90,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 79,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 74,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 42,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 34,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 12,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 12,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-27",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "AAAAAAAAAAAAAAGGGGSSDDSDDSS",
+  "AAAGGAAAAAAAAAGGGSSDCCDCCDS",
+  "SSGGGSSSSSAASSSSSSSSDDDDDSS",
+  "SSSSSSSSEEEEEESSSSSDYDYDYDS",
+  "SSSSSSSEEEEEEEESSSSDYDYDYDS",
+  "SSSSSSEEEYYYYEEESSSSDDDDDSS",
+  "SSSSSEEEYOOOOYEEESSSSSSSSSS",
+  "SSSSSEEYYYYYYYYEESSSSDDSDDS",
+  "SSSSEEYOOOOOOOOYEESSDCCDCCD",
+  "SSSSEEYYYYYYYYYYEESSSDDDDDS",
+  "SSSSEEYOOOOOOOOYEESSDYDYDYD",
+  "SSSSEEYYYYYYYYYYEESSDYDYDYD",
+  "SSSSEEYOOOAAOOOYEESSSDDDDDS",
+  "SSSSEEYYAAAAAAYYEESSSSSSSSS",
+  "SSSSEEYOADDDDAOYEESSDDSDDSS",
+  "SSSSEEYYYAAAAYYYEESDCCDCCDS",
+  "SSSSEEYYOOOOOOYYEESSDDDDDSS",
+  "SSSSSEEEEEEEEEEEESSDYDYDYDS",
+  "SSSSSEEEEEEEEEEEESSDYDYDYDS",
+  "SSSSSSSSSSSSSSSSSSSSDDDDDSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSS"
+ ]
+}

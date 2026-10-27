@@ -49,8 +49,11 @@
   "C": 20,
   "G": 98
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0116",
  "createdAt": "2026-10-27",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-10-27",
+ "usedBy": "L0009"
 }

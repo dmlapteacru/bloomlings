@@ -2,7 +2,7 @@
  "picture": "P0005",
  "candidates": [
   {
-   "id": "P0005-Nhidden-1-intro",
+   "id": "P0005-Nhidden-0-intro",
    "picture": "P0005",
    "requested": "Normal",
    "cls": "Normal",
@@ -89,7 +89,8 @@
      },
      {
       "color": "Y",
-      "count": 38
+      "count": 38,
+      "mystery": "depth"
      },
      {
       "color": "Y",
@@ -129,8 +130,7 @@
      },
      {
       "color": "C",
-      "count": 13,
-      "mystery": "depth"
+      "count": 13
      },
      {
       "color": "C",
@@ -139,28 +139,28 @@
     ],
     "tray": [
      [
-      1,
       0,
-      3,
-      6,
-      7,
-      13
-     ],
-     [
-      14,
-      2,
-      10,
-      12,
-      15,
-      9
-     ],
-     [
       11,
-      4,
-      5,
-      16,
-      8,
+      3,
+      12,
+      13,
       17
+     ],
+     [
+      5,
+      1,
+      4,
+      7,
+      15,
+      8
+     ],
+     [
+      10,
+      2,
+      14,
+      6,
+      16,
+      9
      ]
     ],
     "recipe": "hidden"
@@ -189,51 +189,7 @@
     "route": [
      {
       "type": "tap",
-      "pod": 1
-     },
-     {
-      "type": "tap",
       "pod": 0
-     },
-     {
-      "type": "tap",
-      "pod": 3
-     },
-     {
-      "type": "tap",
-      "pod": 6
-     },
-     {
-      "type": "tap",
-      "pod": 7
-     },
-     {
-      "type": "tap",
-      "pod": 13
-     },
-     {
-      "type": "tap",
-      "pod": 14
-     },
-     {
-      "type": "tap",
-      "pod": 2
-     },
-     {
-      "type": "tap",
-      "pod": 10
-     },
-     {
-      "type": "tap",
-      "pod": 12
-     },
-     {
-      "type": "tap",
-      "pod": 15
-     },
-     {
-      "type": "tap",
-      "pod": 9
      },
      {
       "type": "tap",
@@ -241,7 +197,19 @@
      },
      {
       "type": "tap",
-      "pod": 4
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 17
      },
      {
       "type": "tap",
@@ -249,7 +217,19 @@
      },
      {
       "type": "tap",
-      "pod": 16
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 15
      },
      {
       "type": "tap",
@@ -257,7 +237,27 @@
      },
      {
       "type": "tap",
-      "pod": 17
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 9
      }
     ],
     "forks": 0,
@@ -265,7 +265,7 @@
     "unknown": 0,
     "fast": {
      "status": "won",
-     "seconds": 45
+     "seconds": 49.9
     }
    },
    "fairness": {
@@ -296,7 +296,7 @@
      {
       "from": 0,
       "to": 20,
-      "meanFree": 4.43,
+      "meanFree": 4.38,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -304,15 +304,15 @@
      {
       "from": 20,
       "to": 40,
-      "meanFree": 4.36,
-      "minFree": 4,
+      "meanFree": 3.95,
+      "minFree": 3,
       "fullShare": 0,
-      "maxWaiting": 0
+      "maxWaiting": 1
      },
      {
       "from": 40,
       "to": 60,
-      "meanFree": 4.19,
+      "meanFree": 4.41,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -320,7 +320,7 @@
      {
       "from": 60,
       "to": 80,
-      "meanFree": 4.25,
+      "meanFree": 4.32,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -328,15 +328,15 @@
      {
       "from": 80,
       "to": 100,
-      "meanFree": 4.48,
+      "meanFree": 4.47,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
      }
     ],
     "launchesAfter80": 4,
-    "lastLaunchAtW": 98,
-    "seconds": 321.1
+    "lastLaunchAtW": 93,
+    "seconds": 241.1
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
@@ -363,6 +363,6 @@
   }
  ],
  "placed": [
-  "P0005-Nhidden-0-intro"
+  "P0005-Nhidden-1-intro"
  ]
 }

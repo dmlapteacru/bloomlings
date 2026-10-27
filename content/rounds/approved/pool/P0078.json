@@ -1,7 +1,7 @@
 {
  "code": "P0078",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0020",
  "version": 1,
  "title": "Самолётик",
  "theme": "batch-0061",

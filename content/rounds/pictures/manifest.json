@@ -70,8 +70,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "owner-0004-0008",
-   "note": null,
-   "usedBy": "L0004"
+   "note": null
   },
   {
    "id": "P0005",
@@ -193,8 +192,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0012",
@@ -228,8 +226,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0014",
@@ -247,7 +244,7 @@
    "status": "approved",
    "batch": "batch-0011-env",
    "note": null,
-   "usedBy": "L0020"
+   "usedBy": "L0010"
   },
   {
    "id": "P0015",
@@ -299,7 +296,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0019"
   },
   {
    "id": "P0018",
@@ -333,8 +331,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0007"
+   "note": null
   },
   {
    "id": "P0020",
@@ -351,8 +348,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0021",
@@ -370,7 +366,7 @@
    "status": "approved",
    "batch": "batch-0011-env",
    "note": null,
-   "usedBy": "L0010"
+   "usedBy": "L0017"
   },
   {
    "id": "P0022",
@@ -404,8 +400,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0024",
@@ -422,8 +417,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0025",
@@ -440,8 +434,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0026",
@@ -458,8 +451,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0027",
@@ -476,8 +468,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0028",
@@ -494,8 +485,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0029",
@@ -512,8 +502,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0030",
@@ -530,8 +519,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0031",
@@ -548,8 +536,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0032",
@@ -566,8 +553,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0033",
@@ -584,8 +570,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0034",
@@ -602,8 +587,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0035",
@@ -620,8 +604,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0036",
@@ -638,8 +621,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0037",
@@ -656,8 +638,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0038",
@@ -674,8 +655,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0039",
@@ -692,8 +672,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0040",
@@ -710,8 +689,7 @@
    "colours": 7,
    "status": "rejected",
    "batch": "batch-0011",
-   "note": "Владелец: не принято, регенерировать не надо (2026-10-26)",
-   "usedBy": null
+   "note": "Владелец: не принято, регенерировать не надо (2026-10-26)"
   },
   {
    "id": "P0041",
@@ -728,8 +706,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0042",
@@ -746,8 +723,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0043",
@@ -764,8 +740,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0044",
@@ -782,8 +757,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0045",
@@ -800,8 +774,7 @@
    "colours": 4,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0046",
@@ -818,8 +791,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0047",
@@ -836,8 +808,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0048",
@@ -854,8 +825,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0049",
@@ -872,8 +842,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0050",
@@ -890,8 +859,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0051",
@@ -908,8 +876,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0052",
@@ -926,8 +893,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0053",
@@ -944,8 +910,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0054",
@@ -962,8 +927,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0055",
@@ -980,8 +944,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0056",
@@ -998,8 +961,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0057",
@@ -1016,8 +978,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0058",
@@ -1034,8 +995,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0059",
@@ -1052,8 +1012,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0060",
@@ -1070,8 +1029,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0061",
@@ -1088,8 +1046,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0062",
@@ -1106,8 +1063,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0063",
@@ -1124,8 +1080,7 @@
    "colours": 4,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0064",
@@ -1142,8 +1097,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0065",
@@ -1160,8 +1114,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0066",
@@ -1178,8 +1131,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0067",
@@ -1196,8 +1148,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0068",
@@ -1214,8 +1165,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0069",
@@ -1249,8 +1199,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0071",
@@ -1267,8 +1216,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0019"
+   "note": null
   },
   {
    "id": "P0072",
@@ -1285,8 +1233,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0073",
@@ -1303,8 +1250,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0074",
@@ -1338,8 +1284,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0076",
@@ -1356,8 +1301,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0077",
@@ -1374,8 +1318,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0078",
@@ -1392,7 +1335,8 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0020"
   },
   {
    "id": "P0079",
@@ -1409,8 +1353,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0080",
@@ -1445,8 +1388,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0082",
@@ -1464,7 +1406,7 @@
    "status": "approved",
    "batch": "batch-0061",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0015"
   },
   {
    "id": "P0083",
@@ -1481,8 +1423,7 @@
    "colours": 3,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0084",
@@ -1499,8 +1440,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0085",
@@ -1517,8 +1457,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0086",
@@ -1535,8 +1474,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0087",
@@ -1553,8 +1491,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0088",
@@ -1571,8 +1508,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0089",
@@ -1589,8 +1525,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0015"
+   "note": null
   },
   {
    "id": "P0090",
@@ -1607,8 +1542,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0091",
@@ -1625,8 +1559,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0092",
@@ -1660,8 +1593,7 @@
    "colours": 4,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0094",
@@ -1679,7 +1611,7 @@
    "status": "approved",
    "batch": "batch-0061",
    "note": null,
-   "usedBy": "L0017"
+   "usedBy": "L0014"
   },
   {
    "id": "P0095",
@@ -1696,8 +1628,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0096",
@@ -1714,8 +1645,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0097",
@@ -1732,8 +1662,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0098",
@@ -1750,8 +1679,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0014"
+   "note": null
   },
   {
    "id": "P0099",
@@ -1768,8 +1696,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0100",
@@ -1786,8 +1713,7 @@
    "colours": 3,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0101",
@@ -1804,8 +1730,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0102",
@@ -1822,8 +1747,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0103",
@@ -1840,8 +1764,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0104",
@@ -1858,8 +1781,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0105",
@@ -1876,8 +1798,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0106",
@@ -1894,8 +1815,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0107",
@@ -1912,8 +1832,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0108",
@@ -1930,8 +1849,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0109",
@@ -1948,8 +1866,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0110",
@@ -1966,8 +1883,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0111",
@@ -1984,8 +1900,7 @@
    "colours": 7,
    "status": "rejected",
    "batch": "batch-0111",
-   "note": "владелец 2026-10-27: берём варианты с ручьём P0114/P0115, оленя и бобра не надо",
-   "usedBy": null
+   "note": "владелец 2026-10-27: берём варианты с ручьём P0114/P0115, оленя и бобра не надо"
   },
   {
    "id": "P0112",
@@ -2002,8 +1917,7 @@
    "colours": 7,
    "status": "rejected",
    "batch": "batch-0111",
-   "note": "владелец 2026-10-27: берём варианты с ручьём P0114/P0115, оленя и бобра не надо",
-   "usedBy": null
+   "note": "владелец 2026-10-27: берём варианты с ручьём P0114/P0115, оленя и бобра не надо"
   },
   {
    "id": "P0113",
@@ -2018,10 +1932,9 @@
    "h": 24,
    "N": 576,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0113",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0114",
@@ -2072,10 +1985,10 @@
    "h": 22,
    "N": 594,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0116",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0004"
   },
   {
    "id": "P0117",
@@ -2090,10 +2003,10 @@
    "h": 24,
    "N": 576,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0116",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0009"
   },
   {
    "id": "P0118",
@@ -2108,10 +2021,10 @@
    "h": 30,
    "N": 544,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0116",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0007"
   },
   {
    "id": "P0119",
@@ -2126,10 +2039,10 @@
    "h": 25,
    "N": 577,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0119",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0005"
   }
  ]
 }

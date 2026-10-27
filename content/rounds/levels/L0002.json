@@ -3,7 +3,7 @@
  "cls": "Normal",
  "intro": null,
  "picture": "P0002",
- "candidate": "P0002-Nnone-1",
+ "candidate": "P0002-Nnone-0",
  "recipe": "none",
  "N": 240,
  "W": 240,
@@ -29,7 +29,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 3
+    "pod": 6
    },
    {
     "type": "tap",
@@ -37,11 +37,23 @@
    },
    {
     "type": "tap",
-    "pod": 5
+    "pod": 4
    },
    {
     "type": "tap",
     "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 3
    },
    {
     "type": "tap",
@@ -50,18 +62,6 @@
    {
     "type": "tap",
     "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 4
    }
   ],
   "forks": 0,
@@ -69,7 +69,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 23
+   "seconds": 24.8
   }
  },
  "fairness": {
@@ -99,7 +99,7 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 4.28,
+    "meanFree": 4.12,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -107,7 +107,7 @@
    {
     "from": 20,
     "to": 40,
-    "meanFree": 4.12,
+    "meanFree": 4.32,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -115,31 +115,31 @@
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.39,
-    "minFree": 4,
+    "meanFree": 3.68,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.22,
-    "minFree": 4,
+    "meanFree": 3.78,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.52,
+    "meanFree": 4.36,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 3,
-  "lastLaunchAtW": 87,
-  "seconds": 97.1
+  "launchesAfter80": 1,
+  "lastLaunchAtW": 83,
+  "seconds": 84.4
  },
  "dosePos": null,
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -219,19 +219,19 @@
   ],
   "tray": [
    [
-    3,
+    6,
     1,
-    5
+    4
    ],
    [
     0,
-    7,
-    2
+    8,
+    5
    ],
    [
-    6,
-    8,
-    4
+    3,
+    7,
+    2
    ]
   ],
   "recipe": "none",

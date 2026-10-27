@@ -1,0 +1,86 @@
+{
+ "code": "P0113",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сова в дупле",
+ "theme": "batch-0113",
+ "family": "Птицы",
+ "subject": "сова выглядывает из дупла старого дерева ночью",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 24,
+ "N": 576,
+ "colours": 7,
+ "volumes": {
+  "N": {
+   "cells": 174,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 159,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 71,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 54,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 50,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 40,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 28,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-27",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNYNN",
+  "NNCCNNNNNNNNNNNNNNNNYYYN",
+  "NCCCCNNNNANNNNANNNNNNYNN",
+  "NCCCCNNNNAANNAAANAAANNNN",
+  "NNCCNNNNAAAAAAAAAAAAENNN",
+  "NNNNAAAAAAAAAAAAAAAAENNN",
+  "NNNAAAAAAEEEEEEAAAAAENNN",
+  "NNNAAAAAEEDDDDEEAAAAENNN",
+  "NNNAAAAEDDDDDDDDEAAAENNN",
+  "NYNAAAEDOODDDDOODEAAENNN",
+  "YYYAAEEDOOODDOOODEEAENNN",
+  "NYNAAEDOOOOOOOOOODEAENYN",
+  "NNNAAEDOCCCOOCCCODEAEYYY",
+  "NNNAAEDOCDCOOCDCODEAENYN",
+  "NNNAAEDOCCCYYCCCODEAENNN",
+  "NNNAAEDOOOOYYOOOODEAENNN",
+  "NYNAAEDAOOCCCCOOADEAENNN",
+  "YYYAAEDAOCCCCCCOADEAENNN",
+  "NYNAAAEAOCCCCCCOAEAAENNN",
+  "NNNAAAEAOCCCCCCOAEAAENNN",
+  "NNNAAAAEAOCCCCOAEAAEENNN",
+  "NNNAAAAAEYYDDYYEAAAEENNN",
+  "NNAAAAAAAAEEEEAAAAAEEENN",
+  "NAAAAAAAAAAAAAAAAAAEEEEN"
+ ]
+}

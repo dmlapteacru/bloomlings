@@ -1,0 +1,97 @@
+{
+ "code": "P0119",
+ "state": "used",
+ "usedBy": "L0005",
+ "version": 2,
+ "title": "Гнездо с птенцами",
+ "theme": "batch-0119",
+ "family": "Птицы",
+ "subject": "три голодных птенца с открытыми клювами в плетёном гнезде",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 25,
+ "N": 577,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 168,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 161,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 99,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 84,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 30,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 14,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 9,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 6,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "M": {
+   "cells": 6,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-10-27",
+ "rows": [
+  "..............DDDD.............",
+  "..............DYYD.............",
+  "......DD....DDDYYDD.....DD.....",
+  ".....DYYD..DYYYYYYYD...DYYD....",
+  ".....DYYD.DYYYYYYYYYD..DYYD....",
+  "....DDYYD.DYYYYYYYYYD.DDYYD....",
+  "...DYYYYYDDYYDYYYDYYDDYYYYYD...",
+  "..DYYYYYYDYYYDYYYDYYYDYYYYYYD..",
+  ".DYYYYYYYDYYKOOOOOKYYDYYYYYYYD.",
+  ".DYYDYYYDYDYYORRROYYDYDYYYDYYD.",
+  ".DYYDYYYDYDYYYOOOYYYDYDYYYDYYD.",
+  ".DYKOOOOOKYDYYYYYYYDYKOOOOOKYD.",
+  ".DYYORRROYYDDDYYYDDDYYORRROYYD.",
+  "..DYYOOOYYD...DDD...DYYOOOYYD..",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DEEEEEEEEEEEEEEEEEEEEEEEEEEEEED",
+  "DDEEEEEEEEEEEEEEEEEEEEEEEEEEEDD",
+  "DGGDAAAAAAAAAAAAAAAAAAAAAAADGGD",
+  "DGGGDAAEEAAEEAAEAAEEAAEEAADGGGD",
+  "DMGGDAAAAAAAAAAAAAAAAAAAAADGGMD",
+  ".DMMDEEAAEEAAEEAEEAAEEAAEEDMMD.",
+  "..DDDDAAAAAAAAAAAAAAAAAAADDDD..",
+  "......DDEAAEEAAEAAEEAAEDD......",
+  "........DDDDAAAAAAADDDD........",
+  "............DDDDDDD............"
+ ]
+}

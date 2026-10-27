@@ -2,7 +2,7 @@
  "picture": "P0003",
  "candidates": [
   {
-   "id": "P0003-Nnone-0",
+   "id": "P0003-Nnone-1",
    "picture": "P0003",
    "requested": "Normal",
    "cls": "Normal",
@@ -96,22 +96,22 @@
     ],
     "tray": [
      [
-      3,
-      9,
+      0,
       11,
-      2
-     ],
-     [
-      8,
-      10,
-      4,
+      1,
       5
      ],
      [
-      0,
-      1,
-      6,
+      10,
+      9,
+      4,
       7
+     ],
+     [
+      8,
+      3,
+      6,
+      2
      ]
     ],
     "recipe": "none"
@@ -140,11 +140,7 @@
     "route": [
      {
       "type": "tap",
-      "pod": 3
-     },
-     {
-      "type": "tap",
-      "pod": 9
+      "pod": 0
      },
      {
       "type": "tap",
@@ -152,19 +148,7 @@
      },
      {
       "type": "tap",
-      "pod": 2
-     },
-     {
-      "type": "tap",
-      "pod": 8
-     },
-     {
-      "type": "tap",
-      "pod": 10
-     },
-     {
-      "type": "tap",
-      "pod": 4
+      "pod": 1
      },
      {
       "type": "tap",
@@ -172,11 +156,27 @@
      },
      {
       "type": "tap",
-      "pod": 0
+      "pod": 10
      },
      {
       "type": "tap",
-      "pod": 1
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 3
      },
      {
       "type": "tap",
@@ -184,7 +184,7 @@
      },
      {
       "type": "tap",
-      "pod": 7
+      "pod": 2
      }
     ],
     "forks": 0,
@@ -192,7 +192,7 @@
     "unknown": 0,
     "fast": {
      "status": "won",
-     "seconds": 28.9
+     "seconds": 26.9
     }
    },
    "fairness": {
@@ -222,15 +222,15 @@
      {
       "from": 0,
       "to": 20,
-      "meanFree": 4.38,
-      "minFree": 4,
+      "meanFree": 4.06,
+      "minFree": 3,
       "fullShare": 0,
-      "maxWaiting": 0
+      "maxWaiting": 1
      },
      {
       "from": 20,
       "to": 40,
-      "meanFree": 4.33,
+      "meanFree": 4.39,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -238,7 +238,7 @@
      {
       "from": 40,
       "to": 60,
-      "meanFree": 4.35,
+      "meanFree": 4.3,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -246,7 +246,7 @@
      {
       "from": 60,
       "to": 80,
-      "meanFree": 4.35,
+      "meanFree": 4.38,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -254,15 +254,15 @@
      {
       "from": 80,
       "to": 100,
-      "meanFree": 4.29,
+      "meanFree": 4.32,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
      }
     ],
     "launchesAfter80": 1,
-    "lastLaunchAtW": 88,
-    "seconds": 133
+    "lastLaunchAtW": 91,
+    "seconds": 126.6
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
@@ -270,6 +270,6 @@
  "rejected": [],
  "searched": [],
  "placed": [
-  "P0003-Nnone-1"
+  "P0003-Nnone-0"
  ]
 }

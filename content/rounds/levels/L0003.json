@@ -3,7 +3,7 @@
  "cls": "Normal",
  "intro": null,
  "picture": "P0003",
- "candidate": "P0003-Nnone-1",
+ "candidate": "P0003-Nnone-0",
  "recipe": "none",
  "N": 281,
  "W": 281,
@@ -29,23 +29,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 10
+    "pod": 3
    },
    {
     "type": "tap",
@@ -53,11 +37,11 @@
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 11
    },
    {
     "type": "tap",
-    "pod": 7
+    "pod": 2
    },
    {
     "type": "tap",
@@ -65,7 +49,23 @@
    },
    {
     "type": "tap",
-    "pod": 3
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 1
    },
    {
     "type": "tap",
@@ -73,7 +73,7 @@
    },
    {
     "type": "tap",
-    "pod": 2
+    "pod": 7
    }
   ],
   "forks": 0,
@@ -81,7 +81,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 26.9
+   "seconds": 28.9
   }
  },
  "fairness": {
@@ -111,15 +111,15 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 4.06,
-    "minFree": 3,
+    "meanFree": 4.38,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 4.39,
+    "meanFree": 4.33,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -127,7 +127,7 @@
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.3,
+    "meanFree": 4.35,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -135,7 +135,7 @@
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.38,
+    "meanFree": 4.35,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -143,15 +143,15 @@
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.32,
+    "meanFree": 4.29,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
   "launchesAfter80": 1,
-  "lastLaunchAtW": 91,
-  "seconds": 126.6
+  "lastLaunchAtW": 88,
+  "seconds": 133
  },
  "dosePos": null,
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -243,22 +243,22 @@
   ],
   "tray": [
    [
-    0,
-    11,
-    1,
-    5
-   ],
-   [
-    10,
+    3,
     9,
-    4,
-    7
+    11,
+    2
    ],
    [
     8,
-    3,
+    10,
+    4,
+    5
+   ],
+   [
+    0,
+    1,
     6,
-    2
+    7
    ]
   ],
   "recipe": "none",

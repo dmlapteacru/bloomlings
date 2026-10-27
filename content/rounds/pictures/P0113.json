@@ -47,8 +47,10 @@
   "D": 40,
   "O": 50
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0113",
  "createdAt": "2026-10-26",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-10-27"
 }
