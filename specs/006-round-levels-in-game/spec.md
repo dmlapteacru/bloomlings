@@ -23,14 +23,18 @@ owner's notes from the pilots).
 ### Session 2026-10-27
 
 - Q: Icons on the cubes — constitution II asks for "hue and icon"; what now? → A: amend constitution II. On board
-  cubes a variant is identified by its colour from a readability-checked palette. Hero icons on cubes come back as a
-  separate feature. Constitution 1.0.2 → 1.1.0.
+  cubes a variant is identified by its colour, readability-checked under normal vision, plus the symbols mode for
+  colour-blind players. Hero icons on cubes come back as a separate feature. Constitution 1.0.2 → 1.1.0.
 - Q: The tap's time becomes part of the command; how is that written down? → A: clarify constitution III and doc 15. A
-  command carries model time in whole milliseconds; device time stays forbidden in rules. This ships in the same 1.1.0
-  amendment.
-- Q: Readability of the 16 round colours? → A: run the 16 colours through the game's readability tests (normal vision
-  and the three colour-blindness simulations), and keep the pairs that fail out of the same level. The palette itself
-  does not change.
+  command carries model time as a whole number; device time stays forbidden in rules. This ships in the same 1.1.0
+  amendment. The unit is whole microseconds: the pilot's recorded commands carry fractional milliseconds (335 of 407),
+  and microseconds replay them faithfully.
+- Q: Readability of the 16 round colours? → A (revised the same day after measuring): under normal vision all 120
+  pairs pass (smallest CIEDE2000 ≥ 10). Under the protanopia, deuteranopia and tritanopia simulations 11 pairs merge
+  (Слива/Глубина 0.7), and they occur in 11 of the 19 placed levels and 86 of 116 approved pictures. Sixteen colours
+  cannot be told apart by colour alone for colour-blind players, so the game gets a **symbols mode** in Settings: each
+  material's symbol shows on cubes, pods and places. It is off by default, so cubes carry no icons, as the owner decided.
+  The palette and the levels stay as they are.
 - Q: What does the game show after the last transferred round level (now L20) until more waves are transferred? →
   A: round levels only. After the last one, a "new levels soon" screen. One rule set: the old rules and the old levels
   leave the game builds. Meta at later levels (L40, L50 …) is checked through the tester's level jump.
@@ -223,7 +227,7 @@ owner sees the same behaviour as in the playtest app.
   - same-material pods keep independent cadences, and the oldest wins a tie.
 
   The player can launch pods while work is in progress.
-- **FR-003**: Time on the timeline MUST be model time in whole milliseconds, never device time. A command MUST carry the
+- **FR-003**: Time on the timeline MUST be model time in whole microseconds, never device time. A command MUST carry the
   model time at which it was accepted, so the same commands always give the same outcome, at any display speed or frame
   rate.
 - **FR-004**: The game MUST know the 16 materials of the round palette (4 per hero, with their names). Each material is
@@ -305,7 +309,7 @@ owner sees the same behaviour as in the playtest app.
 - **FR-040**: The board MUST use the game's existing frame and the game's existing cube drawing, coloured from the
   round palette.
 - **FR-041**: Board cubes MUST NOT show variant icons (leaves, flowers and the like). Hero icons on cubes are a later
-  feature.
+  feature. The only exception is the symbols mode of FR-047, which the player turns on.
 - **FR-042**: The cubes' clearing ("eating") animation MUST be kept and play at each cell's clear moment on the live
   timeline.
 - **FR-043**: Linked pods MUST be joined by a tube attached to their front faces, in the columns and in the places. Half
@@ -316,9 +320,10 @@ owner sees the same behaviour as in the playtest app.
   second introduction shows a short reminder. A hidden pod that has just revealed glows briefly.
 - **FR-046**: The class badge (Hard, Super Hard), the finished picture in the win screen and Collection, and the rewards
   by class MUST work for round levels as for today's levels.
-- **FR-047**: The 16 round colours MUST pass the game's readability tests: normal vision and protanopia, deuteranopia
-  and tritanopia simulations. Pairs that fail MUST NOT appear in the same level. The generator avoids them and validation
-  refuses them.
+- **FR-047**: Every pair of the 16 round colours MUST pass the game's readability test under normal vision: the
+  smallest CIEDE2000 is at least 10. Settings MUST offer a symbols mode, off by default, that shows each material's
+  symbol on board cubes, pods and places, so colour-blind players can tell materials apart. Levels need not avoid colour
+  pairs.
 - **FR-048**: The walking Bloomlings of every clearing style MUST show the hero of the material's family (each of the 16
   colours belongs to one of the 4 heroes), tinted in that material's colour. The same holds in the Store's clearing
   previews.
@@ -381,7 +386,8 @@ owner sees the same behaviour as in the playtest app.
 - **SC-003**: The owner plays the transferred L1–L20 on the phone and reports no difference in rules or difficulty from
   pilot v12. Presentation remarks are allowed and are handled separately.
 - **SC-004**: Each owner decision of 2026-10-27 is met on 100 % of the round levels:
-  - no variant icons on board cubes;
+  - no variant icons on board cubes while the symbols mode is off, and every material's symbol on cubes, pods and
+    places when it is on;
   - front link tubes with split colours on every link;
   - the HUD hidden whenever Auto runs;
   - introduction popups and reminders on all six introduction levels.
@@ -415,11 +421,11 @@ owner sees the same behaviour as in the playtest app.
   superseded position by position as waves replace them. Whether the plan is retired as a whole is the owner's call,
   outside this spec.
 - **Decided with the owner on 2026-10-27** (see Clarifications):
-  - **Constitution II** is amended so that a variant on board cubes is identified by hue from the readability-checked
-    palette. Hero icons on cubes come later.
-  - **Constitution III** and doc 15 say explicitly that a command carries model time in whole milliseconds.
+  - **Constitution II** is amended so that a variant on board cubes is identified by hue, readability-checked under
+    normal vision, with the symbols mode for colour-blind players. Hero icons on cubes come later.
+  - **Constitution III** and doc 15 say explicitly that a command carries model time in whole microseconds.
   - Both changes ship in constitution 1.1.0, through its amendment process.
-  - **Readability**: the 16 round colours go through the game's readability tests, and failing pairs never share a
-    level (FR-047). The palette stays.
+  - **Readability**: under normal vision the palette passes. Colour-blind players get the symbols mode (FR-047). The
+    palette and the levels stay.
   - **Locked docs**: doc 01 (rules), 02 (queue and buffer), 03 (tiles and variants) and 15 (architecture) describe
     today's rules. They change through the owner, with this spec as the reason.
