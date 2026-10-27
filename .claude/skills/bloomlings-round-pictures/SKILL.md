@@ -12,6 +12,8 @@ This is the first half of process §13 of
 [`product/17_LEVEL_GENERATION_RULES.md`](../../../product/17_LEVEL_GENERATION_RULES.md): accept the picture
 (§13.1). The second half, turning approved pictures into levels, is the skill `bloomlings-round-levels`.
 
+Read the owner's notes log [`content/rounds/owner-notes.md`](../../../content/rounds/owner-notes.md) first: its principles (slot pressure makes a round interesting, difficulty is not just the first tap, mechanics must matter, introductions may be a breather, motif variety) steer what to draw, build and prefer, and new owner notes are added there.
+
 Read 17 §2 (input picture and sizes) and §4 (the first three levels) before drawing. Everything below must follow
 those rules; where this skill and 17 differ, 17 wins.
 
