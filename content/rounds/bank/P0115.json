@@ -403,26 +403,7 @@
     "seconds": 507.5
    },
    "dosePos": null,
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
-   "checks": {
-    "forced": 0.09,
-    "opening": null,
-    "hold": true,
-    "greedyLoses": false,
-    "hiddenMatters": null,
-    "bridgeKind": null,
-    "bridgeSingle": {
-     "each": [
-      true,
-      true
-     ],
-     "offered": [
-      49,
-      11
-     ],
-     "ok": false
-    }
-   }
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
  ],
  "rejected": [],
@@ -440,6 +421,16 @@
    "reasons": {
     "не тот класс по быстрой оценке": 55,
     "знакомство ниже 90 %": 8
+   }
+  },
+  {
+   "combo": "Normal|bridge|",
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 40,
+    "мост: решением должен быть ровно один мост (§8)": 22,
+    "жадная стратегия выигрывает измеренный класс (§5)": 2
    }
   }
  ],
