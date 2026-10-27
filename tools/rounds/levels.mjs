@@ -183,4 +183,4 @@ else if(cmd==='unplace'){const a=+process.argv[3],b=+process.argv[4],m=manifest(
  saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});}
 else if(cmd==='bank'){for(const f of fs.existsSync(BANK)?fs.readdirSync(BANK):[]){const b=readJSON(path.join(BANK,f));const by={};for(const c of b.candidates){const k=c.cls+(c.intro?' (знакомство)':'');(by[k]=by[k]||[]).push(`${c.recipe} ${Math.round(c.random.share*100)}%`);}console.log(b.picture,JSON.stringify(by),b.rejected.length?'отклонения: '+b.rejected.map(x=>x.reason).join('; '):'');}}
 else if(cmd==='card'){card(+process.argv[3]);}
-else{console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}
+else if(cmd!=='noop'){console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}
