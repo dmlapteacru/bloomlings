@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bloomlings.game/schemas/round-content-manifest.v1.json",
+  "title": "round-content-manifest.v1",
+  "description": "One published version of the round content (spec 006 FR-051, research R11), written by `rounds publish`: the levels and pictures it holds and every pack's SHA-256. Packs are gzip JSON Lines (UTF-8, one compact canonical document per line): level packs of round-level.v1 documents for 250 consecutive level numbers, and one pack of the round-picture.v1 documents the levels use. Paths are relative to the manifest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "contentVersion", "engine", "levels", "pictures", "packs"],
+  "properties": {
+    "format": {"const": "round-content-manifest.v1"},
+    "contentVersion": {"type": "integer", "minimum": 1},
+    "engine": {
+      "type": "object", "additionalProperties": false, "required": ["rules", "timeline", "palette", "clock"],
+      "properties": {
+        "rules": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "timeline": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "palette": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "clock": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "levels": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "additionalProperties": false, "required": ["number", "definitionVersion", "class", "picture"],
+      "properties": {
+        "number": {"type": "integer", "minimum": 1},
+        "definitionVersion": {"type": "integer", "minimum": 1},
+        "class": {"enum": ["Normal", "Hard", "Super Hard"]},
+        "picture": {
+          "type": "object", "additionalProperties": false, "required": ["id", "version"],
+          "properties": {"id": {"type": "string", "pattern": "^P[0-9]{4}$"}, "version": {"type": "integer", "minimum": 1}}
+        }
+      }
+    }},
+    "pictures": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "additionalProperties": false, "required": ["id", "version"],
+      "properties": {"id": {"type": "string", "pattern": "^P[0-9]{4}$"}, "version": {"type": "integer", "minimum": 1}}
+    }},
+    "packs": {"type": "array", "minItems": 2, "items": {
+      "type": "object", "additionalProperties": false, "required": ["id", "kind", "path", "sha256", "bytes"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "kind": {"enum": ["levels", "pictures"]},
+        "path": {"type": "string", "pattern": "^(levels|pictures)/[a-z0-9_]+\\.jsonl\\.gz$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "bytes": {"type": "integer", "minimum": 1},
+        "levelRange": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 1}}
+      }
+    }}
+  }
+}

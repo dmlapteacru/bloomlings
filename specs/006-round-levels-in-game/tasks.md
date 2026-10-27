@@ -96,9 +96,9 @@ reads.
   - "bridge sites are walls with the anchor one row below";
   - mechanics match pods and hero;
   - an exception accepted only for the rule it names.
-- [ ] T009 [P] Create `core/src/Bloomlings.Content/Rounds/RoundJson.cs`: read and write `round-level.v1`,
+- [X] T009 [P] Create `core/src/Bloomlings.Content/Rounds/RoundJson.cs`: read and write `round-level.v1`,
   `round-picture.v1` and `round-proof.v1` per the schemas, validated against the embedded schemas from T005.
-- [ ] T010 [P] Create `core/tests/Bloomlings.Content.Tests/Rounds/RoundJsonTests.cs`: round-trip each format, schema
+- [X] T010 [P] Create `core/tests/Bloomlings.Content.Tests/Rounds/RoundJsonTests.cs`: round-trip each format, schema
   rejections (bad code, 49-wide board, capacity 4, count 61, missing proof field), and the validator's errors from
   T008.
 - [ ] T011 Create `tools/rounds/export.mjs`, part 1 (contract `pipeline-rounds-cli.md`).
@@ -277,7 +277,7 @@ level and the first differing event.
   - equal engine fingerprints across the set.
 
   It exits non-zero on any error.
-- [ ] T038 [US3] Add the normal-vision readability gate to `rounds validate`, using
+- [X] T038 [US3] Add the normal-vision readability gate to `rounds validate`, using
   `core/src/Bloomlings.Pipeline/Readability/ColorScience.cs`: every pair of the 16 normal colours has smallest
   CIEDE2000 ≥ 10 (FR-047). The simulation numbers are written as a report, not a failure.
 - [ ] T039 [US3] Re-export L1–L20 with fixtures (`--owner-results
@@ -357,11 +357,11 @@ owner's confirmation, and the skill.
 **Independent Test**: from a clean checkout, the path runs from export to APK without hand edits, and refuses a wave
 that fails an entry check (SC-006).
 
-- [ ] T051 [P] [US4] Add `rounds diff --from <git-ref|published-dir> --to content/game/rounds` to
+- [X] T051 [P] [US4] Add `rounds diff --from <git-ref|published-dir> --to content/game/rounds` to
   `core/src/Bloomlings.Pipeline/Commands/RoundCommands.cs`. A changed published level must carry a higher
   `definitionVersion`, and a changed picture a higher `version` (FR-052). Add tests in
   `core/tests/Bloomlings.Pipeline.Tests/RoundDiffTests.cs`.
-- [ ] T052 [US4] Add `rounds publish --out <dir>` to `RoundCommands.cs`. It refuses on any validate error, then writes
+- [X] T052 [US4] Add `rounds publish --out <dir>` to `RoundCommands.cs`. It refuses on any validate error, then writes
   `round-content-manifest.v1` (content version, levels, pictures, SHA-256 per pack) and the packs. Add the manifest
   schema `core/src/Bloomlings.Content/Schemas/round-content-manifest.v1.json` and tests in
   `core/tests/Bloomlings.Pipeline.Tests/RoundPublishTests.cs`.

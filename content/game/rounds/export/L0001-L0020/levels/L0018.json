@@ -1,0 +1,219 @@
+{
+ "format": "round-level.v1",
+ "number": 18,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "introduction": {
+  "mechanic": "bridge",
+  "second": true
+ },
+ "picture": {
+  "id": "P0115",
+  "version": 2
+ },
+ "board": {
+  "w": 36,
+  "h": 35,
+  "rowsBottomFirst": [
+   "##################.#################",
+   "#..................................#",
+   "#.MMMMCCCCCCCCCMMMMMMMMMMMMMMMCCMM.#",
+   "#.MMMMMCCCCCCCMMMMMMMMMMMMMMMMMMMM.#",
+   "####################################",
+   "#.EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE.#",
+   "#.EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE.#",
+   "#.EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE.#",
+   "#.EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE.#",
+   "#.EEEENNNNNNCCCCCCCCNNNDDDDDDNEEEE.#",
+   "#.EEEENNNNNCCCCCCCCCCNNDDDDDDNEEEE.#",
+   "#.EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE.#",
+   "#.EEEENNNNCCCCCDDCCCCCNNYOOYNNEDEE.#",
+   "#.EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE.#",
+   "#.EEEENNNNCCCDCCCCDCCCNNYYYYNNEEEE.#",
+   "#.EEDENNNNCCCDCCCCDCCCCNYYYYNNEEEE.#",
+   "#.EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE.#",
+   "#.EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE.#",
+   "#.EEEENNNNNCCCCCCCCCCNNCDCNDNNEEEE.#",
+   "#.EEEENNNNNGCCCCCCCCGNNNCDDNNNEEEE.#",
+   "#.EEEENNNNGGGGNNNNGGGGNNNNNNNNEEEE.#",
+   "#.EEEENNNGGMGGNNNNGGMGGNNNNNNNEEEE.#",
+   "#.EEEENNGGMGGNNNNNNGGMGGNNNNNNEEEE.#",
+   "#.EEEENGGMGGGNNNNNNGGGMGGNNNNNEDEE.#",
+   "#.EEEEGGGGGNNNNNNNNNNGGGGGNNNNEDEE.#",
+   "#.EEEENGNNNNNNNNNNNNNNNNGNNNNNEDEE.#",
+   "#.EEDENNNNNNNNNNNNNNNYNNNNNNNNEEEE.#",
+   "#.EEDENNNNNNNNNNNNNNYYYNNNNNNNEEEE.#",
+   "#.EEDENNNNNNNYNNNNNNNYNNNNNNNNEEEE.#",
+   "#.EEEENNNNNNYYYNNNNNNNNNNNNNNNEEEE.#",
+   "#.EEEENNNNNNNYNNNNNNNNNNNNNNNNEEEE.#",
+   "#.EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE.#",
+   "#.EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE.#",
+   "#..................................#",
+   "####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 154,
+     "anchor": 118,
+     "label": "Левый мостик"
+    },
+    {
+     "cell": 169,
+     "anchor": 133,
+     "label": "Правый мостик"
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 53
+  },
+  {
+   "code": "E",
+   "count": 53
+  },
+  {
+   "code": "E",
+   "count": 53
+  },
+  {
+   "code": "E",
+   "count": 53
+  },
+  {
+   "code": "N",
+   "count": 54
+  },
+  {
+   "code": "N",
+   "count": 54
+  },
+  {
+   "code": "N",
+   "count": 54
+  },
+  {
+   "code": "N",
+   "count": 53
+  },
+  {
+   "code": "N",
+   "count": 53
+  },
+  {
+   "code": "N",
+   "count": 53
+  },
+  {
+   "code": "N",
+   "count": 53
+  },
+  {
+   "code": "Y",
+   "count": 12
+  },
+  {
+   "code": "Y",
+   "count": 12
+  },
+  {
+   "code": "D",
+   "count": 23
+  },
+  {
+   "code": "D",
+   "count": 23
+  },
+  {
+   "code": "G",
+   "count": 24
+  },
+  {
+   "code": "G",
+   "count": 24
+  },
+  {
+   "code": "M",
+   "count": 34
+  },
+  {
+   "code": "M",
+   "count": 33
+  },
+  {
+   "code": "M",
+   "count": 33
+  },
+  {
+   "code": "C",
+   "count": 50
+  },
+  {
+   "code": "C",
+   "count": 50
+  },
+  {
+   "code": "C",
+   "count": 50
+  },
+  {
+   "code": "O",
+   "count": 6
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   5,
+   19,
+   11,
+   9,
+   14,
+   10
+  ],
+  [
+   18,
+   6,
+   1,
+   21,
+   7,
+   12,
+   15,
+   22
+  ],
+  [
+   17,
+   20,
+   3,
+   2,
+   13,
+   8,
+   23,
+   16
+  ]
+ ],
+ "mechanics": [
+  "bridge"
+ ],
+ "exception": {
+  "rule": "one deciding bridge from the second introduction",
+  "reason": "owner kept both winning bridges",
+  "decidedBy": "owner",
+  "decidedAt": "2026-10-27"
+ },
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

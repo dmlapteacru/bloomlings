@@ -1,0 +1,55 @@
+{
+  "audit": {
+    "notes": ["layer B: none"],
+    "report": "content/rounds/audit-L0001-L0001.md",
+    "result": "OK"
+  },
+  "checks": {
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "forced": 0.2,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "hold": false,
+    "opening": null,
+    "pressure": {
+      "stuck": 0.24,
+      "tight": 0.59
+    }
+  },
+  "definitionVersion": 1,
+  "engine": {
+    "clock": "4444444444444444444444444444444444444444444444444444444444444444",
+    "palette": "3333333333333333333333333333333333333333333333333333333333333333",
+    "rules": "1111111111111111111111111111111111111111111111111111111111111111",
+    "timeline": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "format": "round-proof.v1",
+  "number": 1,
+  "randomTest": {
+    "borderline": false,
+    "classOfShare": "Normal",
+    "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+    "runs": 100,
+    "seedBase": 1,
+    "share": 1,
+    "wilson95": [0.963, 1],
+    "wins": 100
+  },
+  "solution": {
+    "commands": [
+      {
+        "atUs": 0,
+        "pod": 0,
+        "type": "tap"
+      },
+      {
+        "atUs": 3300000,
+        "pod": 1,
+        "type": "tap"
+      }
+    ],
+    "endUs": 6600000,
+    "outcome": "Won"
+  }
+}
