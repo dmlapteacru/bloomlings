@@ -1,0 +1,183 @@
+{
+ "format": "round-proof.v1",
+ "number": 18,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 10900000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 10900000
+   },
+   {
+    "type": "bridge",
+    "choice": 1,
+    "atUs": 17425000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 63250000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 90700000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 101875000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 128925000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 156600000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 180900000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 197975000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 230925000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 243875000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 258825000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 290525000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 306650000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 336825000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 362225000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 391925000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 407325000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 434800000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 440175000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 457250000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 91,
+  "share": 0.91,
+  "wilson95": [
+   0.838,
+   0.952
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.09,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": "first",
+  "bridgeSingle": {
+   "each": [
+    true,
+    true
+   ],
+   "offered": [
+    26,
+    34
+   ],
+   "ok": false
+  }
+ },
+ "audit": {
+  "result": "OK with exception",
+  "report": "content/rounds/audit-L0001-L0020.md",
+  "notes": [
+   "exception (one deciding bridge from the second introduction): мост: решением должен быть ровно один мост и оба места должны встречаться ([true,true], предложено 26/34; §8)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

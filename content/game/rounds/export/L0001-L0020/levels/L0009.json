@@ -1,0 +1,175 @@
+{
+ "format": "round-level.v1",
+ "number": 9,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0117",
+  "version": 1
+ },
+ "board": {
+  "w": 28,
+  "h": 28,
+  "rowsBottomFirst": [
+   "##############.#############",
+   "#..........................#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGGAAAAAAAAGGGGGGGG.#",
+   "#.GGGGGGAAAAAAAAAAAAGGGGGG.#",
+   "#.GGGGGGAAAOOOOOOAAAGGGGGG.#",
+   "#.GGGGGAAOOOOOOOOOOAAGGGGG.#",
+   "#.SSSSAAOOOYCCCCYOOOAASSSS.#",
+   "#.SSSSAAOOYCCDDCCYOOAASSSS.#",
+   "#.SSSAAOOYCCCCCCCCYOOAASSS.#",
+   "#.SSSAAOOYYCCEECCYYOOAASSS.#",
+   "#.SSSAOOYYYYEEEEYYYYOOASSS.#",
+   "#.SSSAOOYYYDYYYYDYYYOOASSS.#",
+   "#.SSSAOOYYYDYYYYDYYYOOASSS.#",
+   "#.SSSAAOOYYYYYYYYYYOOAASSS.#",
+   "#.SSSAAOOYYYYYYYYYYOOAASSS.#",
+   "#.SSSSAOOOYYYYYYYYOOOASSSS.#",
+   "#.SSSSYYYYOOYYYYOOYYYYSSSS.#",
+   "#.SSSSYKKYYOOOOOOYYKKYSSSS.#",
+   "#.SSSSYKKYYOOOOOOYYKKYSSSS.#",
+   "#.SSSSSYYYAAAAAAAAYYYSSSSS.#",
+   "#.SSSSSSSSSSAAAASSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#..........................#",
+   "############################"
+  ],
+  "entries": [
+   14
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "S",
+   "count": 48
+  },
+  {
+   "code": "S",
+   "count": 48
+  },
+  {
+   "code": "S",
+   "count": 48
+  },
+  {
+   "code": "S",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 25
+  },
+  {
+   "code": "A",
+   "count": 25
+  },
+  {
+   "code": "A",
+   "count": 24
+  },
+  {
+   "code": "Y",
+   "count": 32
+  },
+  {
+   "code": "Y",
+   "count": 32
+  },
+  {
+   "code": "Y",
+   "count": 32
+  },
+  {
+   "code": "K",
+   "count": 8,
+   "mystery": "depth"
+  },
+  {
+   "code": "O",
+   "count": 26
+  },
+  {
+   "code": "O",
+   "count": 25
+  },
+  {
+   "code": "O",
+   "count": 25,
+   "mystery": "depth"
+  },
+  {
+   "code": "D",
+   "count": 6
+  },
+  {
+   "code": "E",
+   "count": 6
+  },
+  {
+   "code": "C",
+   "count": 10
+  },
+  {
+   "code": "C",
+   "count": 10
+  },
+  {
+   "code": "G",
+   "count": 33,
+   "mystery": "depth"
+  },
+  {
+   "code": "G",
+   "count": 33
+  },
+  {
+   "code": "G",
+   "count": 32
+  }
+ ],
+ "tray": [
+  [
+   16,
+   19,
+   18,
+   11,
+   5,
+   13,
+   10
+  ],
+  [
+   3,
+   17,
+   2,
+   1,
+   14,
+   15,
+   12
+  ],
+  [
+   7,
+   0,
+   4,
+   20,
+   8,
+   9,
+   6
+  ]
+ ],
+ "mechanics": [
+  "hidden"
+ ],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

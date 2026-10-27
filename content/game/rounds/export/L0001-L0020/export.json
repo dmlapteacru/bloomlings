@@ -1,0 +1,82 @@
+{
+ "format": "round-export.v1",
+ "wave": [
+  1,
+  20
+ ],
+ "levels": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20
+ ],
+ "pictures": [
+  "P0001",
+  "P0002",
+  "P0003",
+  "P0116",
+  "P0118",
+  "P0005",
+  "P0113",
+  "P0006",
+  "P0117",
+  "P0018",
+  "P0016",
+  "P0080",
+  "P0009",
+  "P0119",
+  "P0017",
+  "P0114",
+  "P0065",
+  "P0115",
+  "P0021",
+  "P0078"
+ ],
+ "exceptions": [
+  {
+   "level": 18,
+   "rule": "one deciding bridge from the second introduction"
+  }
+ ],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ },
+ "counts": {
+  "levels": 20,
+  "pictures": 20,
+  "proofs": 20,
+  "conformance": 20,
+  "randomGames": 4100,
+  "ownerAttempts": 23
+ },
+ "confirmed": "content/rounds/runs/L0001-L0020/confirmed.json",
+ "audit": "content/rounds/audit-L0001-L0020.md",
+ "ownerResults": [
+  {
+   "source": "product/playtests/pilot-v12-owner-2026-10-27/results.json",
+   "attempts": 23,
+   "catalogMatches": true
+  }
+ ],
+ "exportedAt": "2026-10-27T23:45:15.105Z",
+ "fixtureErrors": []
+}

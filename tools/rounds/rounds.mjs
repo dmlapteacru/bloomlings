@@ -13,9 +13,13 @@
 //      the owner's pilot results next to the metrics: ratings, notes, mismatches with quality.json, a draft for
 //      content/rounds/owner-notes.md → content/rounds/reports/<pilot>-review-<date>.md; a compact copy of the results
 //      goes to product/playtests/<pilot>-owner-<date>/results.json
+// node tools/rounds/rounds.mjs confirm <from> <to> --sample <results.json> [--date YYYY-MM-DD]
+//      the owner's confirmation of the wave's sample, played in the pilot on the current engine (spec 006 FR-050):
+//      → content/rounds/runs/L####-L####/confirmed.json, the entry check of tools/rounds/export.mjs
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {spawn,execFileSync} from 'node:child_process';
 import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,usage,motifsOf,boardOf} from './lib.mjs';
 import {fitness} from './fitness.mjs';
+import {fingerprints} from './conformance.mjs';
 const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
 const PILOT=path.join(root,'tools/gameplay-pilot-v12/build.mjs');
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{}},sample:{},mismatch:{noteWords:[]}});
@@ -145,7 +149,24 @@ function review(file){const res=readJSON(file),preview=arg('--preview'),date=(re
   '## Черновик для журнала заметок (`content/rounds/owner-notes.md`)','',notes.length?['| Ур. | Оценка | Заметка | Что берём в генерацию |','|---|---|---|---|',...notes.map(x=>`| ${x.n} | ${x.rating} | «${x.note}» | (дописать) |`)].join('\n'):'Заметок нет.',''].join('\n');
  fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,md);console.log(md);console.log(`→ ${path.relative(root,out)}`);return mis.length?1:0;}
 
+// ---- confirm ----
+// the sample is every level of the wave the results file has attempts on; the results must be played on this engine
+function confirm(a,b,file,date=new Date().toISOString().slice(0,10)){const fail=m=>{console.error(`confirm ${a}–${b} refused: ${m}`);return 1;};
+ if(!(Number.isInteger(a)&&Number.isInteger(b)&&a>=1&&b>=a))return fail('usage: rounds.mjs confirm <from> <to> --sample <results.json>');
+ if(!file)return fail('--sample <results.json> is required');
+ const f=path.resolve(root,file),res=readJSON(f);if(!res||!Array.isArray(res.attempts))return fail(`no pilot results in ${file}`);
+ const sample=[...new Set(res.attempts.map(x=>x.level).filter(n=>n>=a&&n<=b))].sort((x,y)=>x-y);if(!sample.length)return fail(`${file} has no attempt on L${a}–L${b}`);
+ const placed=placedLevels(),open=sample.filter(n=>!placed[n]);if(open.length)return fail(`sample levels not placed: ${open.map(lid).join(', ')}`);
+ const engine=fingerprints(),played={rules:res.rulesHash,timeline:res.timelineHash,palette:res.paletteHash,clock:res.clockHash};
+ const stale=Object.keys(engine).filter(k=>played[k]!==engine[k]);if(stale.length)return fail(`the sample was played on another engine (${stale.join(', ')} differ)`);
+ const attempts=res.attempts.filter(x=>x.level>=a&&x.level<=b);
+ const out={format:'round-confirmation.v1',wave:[a,b],sample,results:path.relative(root,f).split(path.sep).join('/'),pilot:res.pilotVersion||null,resultsExportedAt:res.exportedAt||null,
+  attempts:attempts.length,won:[...new Set(attempts.filter(x=>x.outcome==='won').map(x=>x.level))].sort((x,y)=>x-y),engine,confirmedBy:'owner',date};
+ const dest=path.join(waveDir(a,b),'confirmed.json');writeJSON(dest,out);
+ console.log(`→ ${path.relative(root,dest)}: L${a}–L${b}, sample ${sample.map(n=>'L'+n).join(', ')} (${attempts.length} attempts, ${out.won.length} levels won)`);return 0;}
+
 if(cmd==='plan'){plan(+process.argv[3],+process.argv[4]);}
+else if(cmd==='confirm'){process.exitCode=confirm(+process.argv[3],+process.argv[4],arg('--sample'),arg('--date')||undefined);}
 else if(cmd==='run'){process.exitCode=await runWave(+process.argv[3],+process.argv[4]);}
 else if(cmd==='review'){process.exitCode=review(process.argv[3]);}
 else console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));

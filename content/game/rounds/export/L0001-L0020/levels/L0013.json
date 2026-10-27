@@ -1,0 +1,180 @@
+{
+ "format": "round-level.v1",
+ "number": 13,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "introduction": {
+  "mechanic": "links",
+  "second": true
+ },
+ "picture": {
+  "id": "P0009",
+  "version": 5
+ },
+ "board": {
+  "w": 28,
+  "h": 45,
+  "rowsBottomFirst": [
+   "##############.#############",
+   "#..........................#",
+   "#..........OOOOOO..........#",
+   "#.......OOOOOOOOOOAA.......#",
+   "#.....OOOOOOOOOOOOAAAA.....#",
+   "#....OOOOOOOOOOOOOAAAAA....#",
+   "#...OOOOOOOOOOOOOOAAAAAA...#",
+   "#...OOOOOOAAAAAAAAAAAAAA...#",
+   "#..OOOOOYYAAACCAAAAAAAAAA..#",
+   "#..OOOOYYYAAACCAAAAAAAAAA..#",
+   "#.OOOOYYYYYYOCCOOOAAAAAAAA.#",
+   "#.OOOOYYYYYYYCCOOOAAAAAAAA.#",
+   "#.OOOOYYYYYYYCCOOOAAAAAAAA.#",
+   "#.OOOOYYYYYCCCCCCOAAAAAAAA.#",
+   "#.OOOOYYYYCCECCECCAAAAAAAA.#",
+   "#..OOOYYYYCEECCEECAAAAAAA..#",
+   "#..OOOOYYYCEECCEECAAAAAAA..#",
+   "#...OOOYYYCEECCEECAAAAAA...#",
+   "#...OOOOOOCEECCEECOOOOOO...#",
+   "#....OOOOOOCECCECOOOOOO....#",
+   "#.....OOOOOOCCCCOOOOOO.....#",
+   "#.....OOOOOOOCCOOOOOOO.....#",
+   "#.....OOOOOOOCCOOOOOOO.....#",
+   "#......OOOOOOCCOOOOOO......#",
+   "#......OOOOOOCCOOOOOO......#",
+   "#.......OOOOOCCOOOOO.......#",
+   "#........OOOOCCOOOO........#",
+   "#.........OOAAAAOO.........#",
+   "#...........ECCE...........#",
+   "#...........ECCE...........#",
+   "#...........ECCE...........#",
+   "#...........AAAA...........#",
+   "#...........ECCE...........#",
+   "#...........ECCE...........#",
+   "#...........ECCE...........#",
+   "#...........AAAA...........#",
+   "#..........AACCAA..........#",
+   "#........YYAACCAAYY........#",
+   "#.........AAACCAAA.........#",
+   "#.........AAACCAAA.........#",
+   "#........YYAAAAAAYY........#",
+   "#.........AAAAAAAA.........#",
+   "#..........AAAAAA..........#",
+   "#..........................#",
+   "############################"
+  ],
+  "entries": [
+   14
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "A",
+   "count": 34
+  },
+  {
+   "code": "A",
+   "count": 34,
+   "group": "A"
+  },
+  {
+   "code": "A",
+   "count": 34
+  },
+  {
+   "code": "A",
+   "count": 34
+  },
+  {
+   "code": "A",
+   "count": 33
+  },
+  {
+   "code": "Y",
+   "count": 26
+  },
+  {
+   "code": "Y",
+   "count": 26
+  },
+  {
+   "code": "C",
+   "count": 26
+  },
+  {
+   "code": "C",
+   "count": 26
+  },
+  {
+   "code": "C",
+   "count": 26
+  },
+  {
+   "code": "E",
+   "count": 16
+  },
+  {
+   "code": "E",
+   "count": 16
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "O",
+   "count": 37,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "O",
+   "count": 36
+  }
+ ],
+ "tray": [
+  [
+   12,
+   10,
+   15,
+   7,
+   6,
+   11
+  ],
+  [
+   13,
+   14,
+   2,
+   5,
+   17,
+   9
+  ],
+  [
+   0,
+   1,
+   16,
+   3,
+   4,
+   8
+  ]
+ ],
+ "mechanics": [
+  "links"
+ ],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

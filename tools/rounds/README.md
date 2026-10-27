@@ -30,6 +30,12 @@ node tools/rounds/levels.mjs build --approved --candidates 64
 node tools/rounds/levels.mjs bank
 node tools/rounds/levels.mjs place 1 30
 node tools/rounds/levels.mjs card 15
+# transfer into the game (spec 006): the owner's sample confirmation, then the export with the conformance fixtures
+node tools/rounds/rounds.mjs confirm 1 20 --sample product/playtests/pilot-v12-owner-2026-10-27/results.json
+node tools/rounds/export.mjs 1 20 --out content/game/rounds/export/L0001-L0020 --owner-results product/playtests/pilot-v12-owner-2026-10-27/results.json
+node tools/rounds/transfer-log.mjs exported content/game/rounds/export/L0001-L0020   # then validated / published / confirmed
+node tools/rounds/conformance.mjs solution content/game/rounds/export/L0001-L0020/levels/L0005.json --window 7   # the reference's log of one window
+node --test tools/rounds/test/*.test.mjs
 ```
 
 `ROUNDS_DIR=<folder>` points every command at another content folder, for trial runs.
@@ -46,6 +52,10 @@ node tools/rounds/levels.mjs card 15
 | `svg2cells.mjs`, `svg-palette.mjs` | flat SVG drafts in the palette → cell pictures sized to a target cell count, small patches folded |
 | `audit.mjs` | every placed level recomputed against 17 (layer A) with the layer B notes of `content/rounds/quality.json` |
 | `analysis/` | one-off measures behind the pilot reviews (opening + colours on CF models, forced decisions, slot pressure) |
+| `export.mjs` | spec 006 transfer: entry checks (placed, approved pictures, the owner's confirmation, audit without НЕТ but a named exception), then `round-level.v1`, `round-picture.v1`, `round-proof.v1`, `round-conformance.v1` and `export.json`, checked against the schemas of `specs/006-round-levels-in-game/contracts/` |
+| `conformance.mjs` | the reference side of the conformance gate: canonical event log, extended signature, the §5 random policy game by game, owner attempts at whole µs; engine fingerprints |
+| `schema.mjs` | a dependency-free checker for the keywords the round schemas use |
+| `transfer-log.mjs` | `content/game/rounds/transfers.jsonl`: exported → validated → published → confirmed |
 | `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7), build → bank, calendar placement with the §11 variety rules, cards |
 
 The engine plays hidden pods, linked pairs and the bridge. Latch + key, canal, shutters, repair, bud, seed, well,

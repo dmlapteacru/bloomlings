@@ -1,0 +1,39 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0002",
+ "version": 3,
+ "title": "Божья коровка 2C",
+ "family": "Насекомые и маленькие существа",
+ "subject": "божья коровка",
+ "source": "оригинальный",
+ "w": 17,
+ "h": 20,
+ "rows": [
+  "......DDDDD......",
+  ".....DCDDDCD.....",
+  "....DDCDDDCDD....",
+  "....DDDDDDDDD....",
+  "...RRDDDDDDDRR...",
+  "..RRRRDDDDDRRRR..",
+  "..RRDDRRDRRDDRR..",
+  "DDRDDDDRDRDDDDRDD",
+  ".RRDDDDRDRDDDDRR.",
+  ".RRRDDRRDRRDDRRR.",
+  ".RRRRRRRDRRRRRRR.",
+  ".RRRDDRRDRRDDRRR.",
+  "DDRDDDDRDRDDDDRDD",
+  ".RRRDDRRDRRDDRRR.",
+  "..RRRRRRDRRRRRR..",
+  "..RRRRRRDRRRRRR..",
+  "...RRRRRDRRRRRGGG",
+  ".....RRRRRRRGGGGG",
+  "........RGGGGGGG.",
+  ".........GGGG...."
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-10-26"
+ },
+ "rights": "own"
+}
