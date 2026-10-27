@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bloomlings.game/schemas/round-proof.v1.json",
+  "title": "round-proof.v1",
+  "description": "Why a round level is valid and how hard it is (spec 006 FR-022). Times are model microseconds.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "number", "definitionVersion", "solution", "randomTest", "checks", "audit", "engine"],
+  "properties": {
+    "format": {"const": "round-proof.v1"},
+    "number": {"type": "integer", "minimum": 1},
+    "definitionVersion": {"type": "integer", "minimum": 1},
+    "solution": {
+      "type": "object", "additionalProperties": false, "required": ["commands", "outcome", "endUs"],
+      "properties": {
+        "commands": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/command"}},
+        "outcome": {"const": "Won"},
+        "endUs": {"type": "integer", "minimum": 0}
+      }
+    },
+    "randomTest": {
+      "type": "object", "additionalProperties": false, "required": ["policy", "seedBase", "runs", "wins", "share", "wilson95", "classOfShare"],
+      "properties": {
+        "policy": {"const": "17§5 extended: uniform over legal actions + wait before a state event"},
+        "seedBase": {"type": "integer"},
+        "runs": {"enum": [100, 400]},
+        "wins": {"type": "integer", "minimum": 0},
+        "share": {"type": "number", "minimum": 0, "maximum": 1},
+        "wilson95": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+        "classOfShare": {"enum": ["Normal", "Hard", "Super Hard"]},
+        "borderline": {"type": "boolean"}
+      }
+    },
+    "checks": {"type": "object", "description": "As computed by tools/rounds/measure.mjs: opening, forced, hold, greedyLoses, hiddenMatters, bridgeKind, bridgeSingle, pressure."},
+    "audit": {
+      "type": "object", "additionalProperties": false, "required": ["result", "report"],
+      "properties": {"result": {"enum": ["OK", "OK with exception"]}, "report": {"type": "string"}, "notes": {"type": "array", "items": {"type": "string"}}}
+    },
+    "engine": {"$ref": "round-level.schema.json#/$defs/engine"}
+  },
+  "$defs": {
+    "command": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["type", "pod", "atUs"], "properties": {"type": {"const": "tap"}, "pod": {"type": "integer", "minimum": 0}, "atUs": {"type": "integer", "minimum": 0}}},
+        {"type": "object", "additionalProperties": false, "required": ["type", "choice", "atUs"], "properties": {"type": {"const": "bridge"}, "choice": {"type": "integer", "minimum": 0}, "atUs": {"type": "integer", "minimum": 0}}}
+      ]
+    }
+  }
+}
