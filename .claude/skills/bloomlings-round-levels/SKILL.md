@@ -81,7 +81,7 @@ the supported three.
        the frog 0 %, both solvable), so the measured class decides. At the start at least one top pod has reachable
        work (§6). It deals the pods into 3 or 4 columns by N, with start heights within 1.
      - adds the recipe's mechanics at the doses of §7 (one type: full range; two: the additional at its minimum;
-       small queue under 16 pods: one type). Introductions use teaching doses: 1 hidden pod, 1 pair, 1 bridge choice.
+       small queue under 16 pods: one type). Introductions use teaching doses: 2–3 hidden pods (the first in row 2), 1 pair, 1 bridge choice.
        Hidden pods start from the second row and are never in a group.
      - checks the exact balance of every material and the pod rules.
      - screens with 40 random games, then saves a winning solution: a full-information search, replayed on the live
@@ -101,6 +101,20 @@ the supported three.
      an additional one on Super Hard, a mechanic in two of three regular Normals, 3+ hidden colours for Hard / Super Hard
      pictures, and no weak picture without a mechanic. Build per class: Normal `none,hidden,links,links+hidden`, Hard
      `hidden,links,links+hidden`, Super Hard `links+hidden`.
+   - **The owner's second amendment of 2026-10-27** (after pilot v11; 17 §5, §6, §8, §9):
+     - Hard and Super Hard pass **"opening + colours"** (`openingTest`): no first launch followed by the greedy
+       strategies wins, and at most 35 % of three-launch openings win. This replaces the greedy check from the start.
+     - A Normal search also looks for a candidate that "most work now" loses; `place` keeps about one in three regular
+       Normals on L4–24 (one in two from L25) lost by it.
+     - A Normal candidate moves a deep-colour pod into row 2; `place` requires that holding pod (`holdPod`) in a
+       regular Normal.
+     - Every level from L4 offers a single launch in at most 35 % of decisions (`forcedShare`).
+     - Bridges: the first introduction keeps "both win, one 10+ points better" (`bridgeKind: first`). The second
+       introduction and every later bridge level need exactly one winning bridge, with both sites reached in random
+       games (`bridgeSingle`, `bridgeKind: single`).
+     - Hidden-pod introductions carry 2–3 hidden pods, the first in row 2. One of them must matter (`hiddenMatters`):
+       it reveals in the first half with a new colour and is launched within two launches.
+     - All of these are stored in the candidate's `checks` and recomputed by the audit.
 3. **Read the reasons.**
    - "Не тот класс" or "ниже 5 %": that class did not come out of this picture within the budget. This is normal: it
      stays available for other classes.
