@@ -371,7 +371,7 @@ integration (`.specify/` + `.claude/skills/speckit-*`). Feature work goes throug
 in order:
 
 1. `/speckit-constitution` — project principles → `.specify/memory/constitution.md`
-   (ratified 2026-09-29, current **v1.0.2**; amend only via PR with a version bump — see its Governance).
+   (ratified 2026-09-29, current **v1.1.0**; amend only via PR with a version bump — see its Governance).
 2. `/speckit-specify <description>` — feature spec → `specs/NNN-<name>/spec.md`
 3. `/speckit-clarify` (optional) — resolve ambiguities before planning
 4. `/speckit-plan` — implementation plan, research, data model, contracts
@@ -401,14 +401,18 @@ To upgrade Spec Kit templates/skills: install the CLI with
 
 ## Design invariants to respect in any spec or code
 
-Summary of the constitution (`.specify/memory/constitution.md` v1.0.2, principles I–VII). The
+Summary of the constitution (`.specify/memory/constitution.md` v1.1.0, principles I–VII). The
 constitution is authoritative; it adds the Colony Flow structure, fair monetization (no lives,
 no pay-to-win), simplicity/offline-first and the workflow gates.
 
 - Exact matching: a pod clears only its exact target variant. A family (Sprig, Bloom, Drop,
   Twig) is never a wildcard.
 - Deterministic rules: the same level definition plus the same tap sequence always gives the
-  same outcome, independent of animation, fast forward or device.
+  same outcome, independent of animation, fast forward or device. Under the live timeline a command carries its model
+  time as an integer (microseconds); device time never enters the rules.
+- Readability: on board cubes a variant is told apart by hue (every palette pair passes CIEDE2000 ≥ 10 under normal
+  vision); a symbols mode (off by default) shows each material's symbol for colour-blind players. Icons on cubes are
+  not required.
 - Every gameplay cell is unambiguous: fully one thing, never partially occupied.
 - Difficulty comes from source ordering, dependencies, variants and mechanics, not from tile HP
   or repetitive tapping.

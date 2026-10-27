@@ -36,8 +36,11 @@ owning a distinct identity.
   wildcard.
 - Work accounting is kept per variant, never per family.
 - Every gameplay cell MUST be exactly one thing at any moment and MUST never look partially occupied.
-- Every variant MUST be identifiable by at least hue and icon. Two variants of the same family MUST be as easy to tell
-  apart as two unrelated colors.
+- On board cubes a variant MUST be identifiable by hue. Every pair of the palette MUST pass the readability test under
+  normal vision (smallest CIEDE2000 at least 10). Two variants of the same family MUST be as easy to tell apart as two
+  unrelated colors.
+- For colour-vision deficiencies the game MUST offer a symbols mode, off by default, that shows each material's symbol
+  on cubes, pods and places. Icons on cubes are not required.
 - No pair of variants may share a level before it passes the readability tests.
 
 Rationale: Colony Flow-like depth comes from many exact colors. Readability is what keeps that depth fair.
@@ -46,6 +49,9 @@ Rationale: Colony Flow-like depth comes from many exact colors. Readability is w
 
 - The same level definition plus the same sequence of accepted commands MUST produce the same outcome and state hash
   on every device, platform, animation speed and frame rate.
+- Under the live timeline a command carries the model time at which it was accepted, as an integer (microseconds), and
+  "the same sequence of accepted commands" includes those times. Model time advances only by the rules' own steps and
+  by the times the client passes in. Device time MUST NOT enter the rules.
 - The rules live in **one** pure C# implementation with no engine dependencies. The client, solver, generator,
   pipeline and tests all share it.
 - Rules code MUST NOT use:
@@ -229,4 +235,4 @@ existing content migrates.
 
 Non-compliant changes MUST NOT be merged.
 
-**Version**: 1.0.2 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-01
+**Version**: 1.1.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-27
