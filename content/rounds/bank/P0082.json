@@ -397,7 +397,16 @@
    "dosePos": null,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 6
+   "attempt": 6,
+   "checks": {
+    "forced": 0.08,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nnone-14",
@@ -795,7 +804,16 @@
    "dosePos": null,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 14
+   "attempt": 14,
+   "checks": {
+    "forced": 0.08,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nhidden-7",
@@ -1201,7 +1219,38 @@
    "dosePos": 0.8,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 7
+   "attempt": 7,
+   "checks": {
+    "forced": 0.07,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 5,
+       "revealAt": 1,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 3,
+       "revealAt": 2,
+       "gap": 0,
+       "newColour": false
+      },
+      {
+       "pod": 7,
+       "revealAt": 13,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nhidden-28",
@@ -1605,7 +1654,38 @@
    "dosePos": 1,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 28
+   "attempt": 28,
+   "checks": {
+    "forced": 0.07,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 8,
+       "revealAt": 1,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 16,
+       "revealAt": 11,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 17,
+       "revealAt": 23,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nhidden-0-intro",
@@ -2005,7 +2085,26 @@
    "dosePos": null,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 0
+   "attempt": 0,
+   "checks": {
+    "forced": 0.09,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 18,
+       "revealAt": 7,
+       "gap": 2,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nhidden-1-intro",
@@ -2407,7 +2506,26 @@
    "dosePos": null,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 1
+   "attempt": 1,
+   "checks": {
+    "forced": 0.07,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 11,
+       "revealAt": 7,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nlinks-5",
@@ -2801,7 +2919,16 @@
    "dosePos": 0.6,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 5
+   "attempt": 5,
+   "checks": {
+    "forced": 0.31,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nlinks-12",
@@ -3193,7 +3320,16 @@
    "dosePos": 0.5,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 12
+   "attempt": 12,
+   "checks": {
+    "forced": 0.32,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nlinks-0-intro",
@@ -3589,7 +3725,16 @@
    "dosePos": null,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 0
+   "attempt": 0,
+   "checks": {
+    "forced": 0.29,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nlinks+hidden-1",
@@ -3988,7 +4133,32 @@
    "dosePos": 0.8,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 1
+   "attempt": 1,
+   "checks": {
+    "forced": 0.18,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": false,
+     "pods": [
+      {
+       "pod": 15,
+       "revealAt": 11,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 23,
+       "revealAt": 15,
+       "gap": 3,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nlinks+hidden-3",
@@ -4387,7 +4557,32 @@
    "dosePos": 0.7,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 3
+   "attempt": 3,
+   "checks": {
+    "forced": 0.17,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 20,
+       "revealAt": 1,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 14,
+       "revealAt": 3,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Hhidden-2",
@@ -4792,7 +4987,59 @@
    "dosePos": 0.4,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 2
+   "attempt": 2,
+   "checks": {
+    "forced": 0.01,
+    "opening": {
+     "first": {
+      "openings": 3,
+      "wins": 0
+     },
+     "three": {
+      "openings": 27,
+      "wins": 1,
+      "share": 0.04
+     },
+     "ok": true,
+     "strategies": [
+      "most-now",
+      "fast-release"
+     ]
+    },
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 17,
+       "revealAt": 2,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 7,
+       "revealAt": 7,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 20,
+       "revealAt": 11,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 9,
+       "revealAt": 9,
+       "gap": 8,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Hhidden-31",
@@ -5200,7 +5447,64 @@
    "dosePos": 0.8,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 31
+   "attempt": 31,
+   "checks": {
+    "forced": 0.04,
+    "opening": {
+     "first": {
+      "openings": 4,
+      "wins": 1
+     },
+     "three": {
+      "openings": 64,
+      "wins": 38,
+      "share": 0.59
+     },
+     "ok": false,
+     "strategies": [
+      "most-now"
+     ]
+    },
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 11,
+       "revealAt": 1,
+       "gap": 0,
+       "newColour": false
+      },
+      {
+       "pod": 8,
+       "revealAt": 3,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 1,
+       "revealAt": 6,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 20,
+       "revealAt": 10,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 15,
+       "revealAt": 22,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Hlinks-13",
@@ -5590,7 +5894,31 @@
    "dosePos": 0.8,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 13
+   "attempt": 13,
+   "checks": {
+    "forced": 0.23,
+    "opening": {
+     "first": {
+      "openings": 3,
+      "wins": 0
+     },
+     "three": {
+      "openings": 26,
+      "wins": 7,
+      "share": 0.27
+     },
+     "ok": true,
+     "strategies": [
+      "most-now",
+      "fast-release"
+     ]
+    },
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Hlinks-25",
@@ -5980,7 +6308,31 @@
    "dosePos": 0.8,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 25
+   "attempt": 25,
+   "checks": {
+    "forced": 0.3,
+    "opening": {
+     "first": {
+      "openings": 2,
+      "wins": 0
+     },
+     "three": {
+      "openings": 7,
+      "wins": 1,
+      "share": 0.14
+     },
+     "ok": true,
+     "strategies": [
+      "most-now",
+      "fast-release"
+     ]
+    },
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Hlinks+hidden-28",
@@ -6373,7 +6725,46 @@
    "dosePos": 1,
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
-   "attempt": 28
+   "attempt": 28,
+   "checks": {
+    "forced": 0.6,
+    "opening": {
+     "first": {
+      "openings": 3,
+      "wins": 0
+     },
+     "three": {
+      "openings": 14,
+      "wins": 0,
+      "share": 0
+     },
+     "ok": true,
+     "strategies": [
+      "most-now"
+     ]
+    },
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": {
+     "ok": false,
+     "pods": [
+      {
+       "pod": 23,
+       "revealAt": 12,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 13,
+       "revealAt": 17,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Nlinks-1-intro",
@@ -6768,7 +7159,16 @@
     "lastLaunchAtW": 99,
     "seconds": 465.9
    },
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.23,
+    "opening": null,
+    "hold": false,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   },
   {
    "id": "P0082-Slinks+hidden-29",
@@ -7159,7 +7559,47 @@
     "seconds": 400
    },
    "dosePos": 0.6,
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.15,
+    "opening": {
+     "first": {
+      "openings": 2,
+      "wins": 1
+     },
+     "three": {
+      "openings": 8,
+      "wins": 1,
+      "share": 0.13
+     },
+     "ok": false,
+     "strategies": [
+      "most-now",
+      "fast-release"
+     ]
+    },
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 6,
+       "revealAt": 8,
+       "gap": 1,
+       "newColour": true
+      },
+      {
+       "pod": 3,
+       "revealAt": 16,
+       "gap": 1,
+       "newColour": false
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null
+   }
   }
  ],
  "rejected": [],

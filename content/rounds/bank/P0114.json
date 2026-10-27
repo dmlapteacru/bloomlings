@@ -402,7 +402,26 @@
     "lastLaunchAtW": 96,
     "seconds": 481.8
    },
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.09,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": {
+     "each": [
+      true,
+      true
+     ],
+     "offered": [
+      45,
+      15
+     ],
+     "ok": false
+    }
+   }
   },
   {
    "id": "P0114-Nbridge-2-intro",
@@ -806,7 +825,26 @@
     "seconds": 446.8
    },
    "dosePos": null,
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.11,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": {
+     "each": [
+      true,
+      true
+     ],
+     "offered": [
+      54,
+      6
+     ],
+     "ok": false
+    }
+   }
   }
  ],
  "rejected": [],

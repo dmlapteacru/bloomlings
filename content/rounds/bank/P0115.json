@@ -403,7 +403,26 @@
     "seconds": 507.5
    },
    "dosePos": null,
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.09,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": {
+     "each": [
+      true,
+      true
+     ],
+     "offered": [
+      49,
+      11
+     ],
+     "ok": false
+    }
+   }
   }
  ],
  "rejected": [],
