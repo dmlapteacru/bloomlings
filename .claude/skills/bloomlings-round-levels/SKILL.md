@@ -110,6 +110,12 @@ the supported three.
    - It writes `content/rounds/levels/L####.json`: the definition in the pilot format plus the card data. It marks
      the picture used and lists empty positions in `content/rounds/needs.json`.
 5. **Look at the result** (17 §13.9).
+   - **Audit the placed range against 17** (the owner, 2026-10-27: "в конце перепроверь, что правила были соблюдены"):
+     `node tools/rounds/audit.mjs <from> <to> --out content/rounds/audit-L####-L####.md`. It recomputes every level from
+     its file and picture (stage, balance, pods, columns, the engine's own validation, calendar and introductions, the
+     bridge approach and choices, class and protocol, the saved solution replayed, budget, sequence and motifs) and lists
+     soft notes apart. Any НЕТ is fixed (`unplace`, rebuild, `place`) before the levels are shown; the report goes to the
+     owner with the levels.
    - Check each card with `node tools/rounds/levels.mjs card <n>`.
    - Theme variety (`product/design/Bloomlings-picture-theme-catalog.md` §7, soft): in any 20 levels at least 8 families and 4 directions once the pool is
      large enough, one family at most twice in a row, one subject not again within 20, no run of the same container.
