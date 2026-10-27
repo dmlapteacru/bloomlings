@@ -26,6 +26,7 @@ namespace Bloomlings.Pipeline
             root.Subcommands.Add(CatalogCommands.Publish());
             root.Subcommands.Add(CatalogCommands.Replay());
             root.Subcommands.Add(CatalogCommands.Diff());
+            root.Subcommands.Add(RoundCommands.Create());
 
             ParseResult parse = root.Parse(args);
             if (parse.Errors.Count > 0)

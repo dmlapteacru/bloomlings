@@ -1,0 +1,19 @@
+{
+  "approval": {
+    "by": "owner",
+    "decidedAt": "2026-10-27",
+    "status": "approved"
+  },
+  "direction": "nature",
+  "family": "plants",
+  "format": "round-picture.v1",
+  "h": 4,
+  "id": "P9001",
+  "rights": "own",
+  "rows": ["GGP", "GGP", "PP.", "..."],
+  "source": "hand matrix",
+  "subject": "sprout",
+  "title": "Sprout",
+  "version": 1,
+  "w": 3
+}

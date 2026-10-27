@@ -11,4 +11,5 @@ pipeline's `rounds import`). Formats: [`specs/006-round-levels-in-game/contracts
 | `conformance/L####.json` | `round-conformance.v1`: reference fixtures from the JS round engine. The C# rules must replay them exactly. Never edit by hand; re-export instead |
 | `export/L####-L####/` | the exporter's output for a wave, before `rounds import` |
 | `published/` | `rounds publish` output: manifest and packs for the clients |
+| `readability-report.json` | `rounds validate`: the palette's CIEDE2000 per pair under normal vision (the gate) and simulated colour vision deficiencies (reported only) |
 | `transfers.jsonl` | one entry per transferred wave: exported → validated → published → confirmed |
