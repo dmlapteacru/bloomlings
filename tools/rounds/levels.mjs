@@ -7,11 +7,12 @@
 //      candidates for each picture, recipe and class: balance → queue → saved solution → random test → bank
 // node tools/rounds/levels.mjs place <from> <to>           fill calendar positions from the bank (variety rules),
 //      write levels and cards, list what is still missing in content/rounds/needs.json
+// node tools/rounds/levels.mjs unplace <from> <to>         put placed levels back into the bank (to place again)
 // node tools/rounds/levels.mjs bank                        the bank: candidates by picture and measured class
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
 import fs from 'node:fs';import path from 'node:path';
-import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage} from './lib.mjs';import {execFileSync} from 'node:child_process';
-import {randomTest,quickShare,solve,fairness,strategies,rhythm} from './measure.mjs';
+import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf} from './lib.mjs';import {execFileSync} from 'node:child_process';
+import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin} from './measure.mjs';
 const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
 const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
 
@@ -119,6 +120,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      if(intro&&rt.share<.9){reasons['знакомство ниже 90 %']=(reasons['знакомство ниже 90 %']||0)+1;continue;}
      const dErr=dosesOk(c.level,rt.cls);if(dErr&&!intro){reasons['дозы не подходят фактическому классу: '+dErr]=(reasons['дозы не подходят фактическому классу: '+dErr]||0)+1;continue;}
      const fair=c.level.pods.some(p=>p.mystery)?await fairness(c.level,sol.route):{fair:true,checked:0};if(!fair.fair){reasons['честность скрытых не подтверждена']=(reasons['честность скрытых не подтверждена']||0)+1;continue;}
+     if(intro&&recipe==='bridge'&&!(await bridgeChoicesWin(c.level)).ok){reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']=(reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']||0)+1;continue;}
      const st=await strategies(c.level),rh=rhythm(sol.trace,W);
      bank.candidates.push({id:`${id}-${cls[0]}${recipe}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:rt.cls,intro,recipe,level:c.level,N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
       linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
@@ -138,11 +140,16 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
    &&((picture(c.picture).locked||null)===(n<=3?n:null))
    &&!(prev.length===2&&!slot.intro&&lead(c)!=='none'&&prev.every(L=>lead(L)===lead(c)))
    &&!(prev.length===2&&!slot.intro&&prev.every(L=>L.recipe===c.recipe&&c.recipe!=='none'))
-   &&!(c.colours>=10&&window.filter(L=>L.colours>=10).length>=2));
+   &&!(c.colours>=10&&window.filter(L=>L.colours>=10).length>=2)
+   // motif variety (the owner, 2026-10-26): a motif at most once in any 10 levels
+   &&!motifsOf(picture(c.picture)).some(m=>Object.values(placed).some(L=>Math.abs(L.level-n)<10&&motifsOf(picture(L.picture)).includes(m))));
   // preference: the preferred zone of the class (first Normal after Hard/Super Hard: 75–95 %), then the size mix per 30
   const zone=slot.cls==='Normal'?(prev[0]&&prev[0].cls!=='Normal'?[.75,.95]:[.6,.9]):slot.cls==='Hard'?[.25,.4]:[.07,.15];
   const bins=Object.values(placed).filter(L=>Math.floor((L.level-1)/30)===Math.floor((n-1)/30)).map(L=>sizeBin(L.N)),want={'200–499':6,'500–999':15,'1000–1400':9};
-  const score=c=>{const s=c.random.share;return (s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
+  // a borderline class (the Wilson interval crosses a border, §5) needs a manual decision: taken last
+  // a picture that also has Hard/Super Hard candidates is kept for those scarcer positions when the slot is Normal
+  const scarce=c=>slot.cls==='Normal'&&pool.some(x=>x.picture===c.picture&&x.cls!=='Normal')?.5:0;
+  const score=c=>{const s=c.random.share;return scarce(c)+(c.random.borderline?1:0)+(s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   ok.sort((a,b)=>score(a)-score(b));const c=ok[0];
   if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n)});continue;}
   const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
@@ -159,6 +166,13 @@ function card(n){const L=readJSON(path.join(LEVELS,lid(n)+'.json'));if(!L)return
 if(cmd==='calendar'){const a=+process.argv[3]||1,b=+process.argv[4]||30;for(let n=a;n<=b;n++){const s=slotOf(n);console.log(lid(n),s.cls.padEnd(10),s.intro?('знакомство: '+MECH_RU[s.intro]+(SUPPORTED.has(s.intro)?'':' — НЕ ПОДДЕРЖИВАЕТСЯ ДВИЖКОМ')).padEnd(46):''.padEnd(46),'разрешены:',s.allowed.map(x=>MECH_RU[x]+(SUPPORTED.has(x)?'':' (нет в движке)')).join(', ')||'без допов');}}
 else if(cmd==='build'){const ids=flag('--approved')?(u=>manifest().pictures.filter(p=>p.status==='approved'&&!u[p.id]).map(p=>p.id))(usage()):process.argv.slice(3).filter(a=>/^P\d+$/.test(a));await build(ids);}
 else if(cmd==='place'){place(+process.argv[3],+process.argv[4]);}
+else if(cmd==='unplace'){const a=+process.argv[3],b=+process.argv[4],m=manifest();
+ // puts the placed candidates of levels a–b back into their banks and frees their pictures (to place again)
+ for(let n=a;n<=b;n++){const f=path.join(LEVELS,lid(n)+'.json'),L=readJSON(f);if(!L)continue;const bf=path.join(BANK,L.picture+'.json'),bank=readJSON(bf,{picture:L.picture,candidates:[],rejected:[]});
+  const {id,difficulty,...level}=L.definition;bank.candidates.push({id:L.candidate,picture:L.picture,requested:L.cls,cls:L.cls,intro:!!L.intro,recipe:L.recipe,level:{id:1,...level},N:L.N,W:L.W,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random,solution:L.solution,fairness:L.fairness,strategies:L.strategies,rhythm:L.rhythm,engine:L.engine});
+  bank.placed=(bank.placed||[]).filter(x=>x!==L.candidate);writeJSON(bf,bank);fs.unlinkSync(f);
+  const e=m.pictures.find(p=>p.id===L.picture);if(e)delete e.usedBy;const pf=path.join(PICTURES,L.picture+'.json'),pj=readJSON(pf);delete pj.usedBy;writeJSON(pf,pj);console.log(lid(n),'снят:',L.picture,L.candidate);}
+ saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});}
 else if(cmd==='bank'){for(const f of fs.existsSync(BANK)?fs.readdirSync(BANK):[]){const b=readJSON(path.join(BANK,f));const by={};for(const c of b.candidates){const k=c.cls+(c.intro?' (знакомство)':'');(by[k]=by[k]||[]).push(`${c.recipe} ${Math.round(c.random.share*100)}%`);}console.log(b.picture,JSON.stringify(by),b.rejected.length?'отклонения: '+b.rejected.map(x=>x.reason).join('; '):'');}}
 else if(cmd==='card'){card(+process.argv[3]);}
 else{console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}

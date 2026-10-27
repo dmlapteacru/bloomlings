@@ -76,3 +76,8 @@ export function rhythm(tr,W){const S=tr.samples,end=tr.end,seg=[0,1,2,3,4].map((
  const doneAt=t=>{let d=0;for(const s of S){if(s[0]<=t)d=s[5];else break;}return d;};
  const after80=tr.taps.filter(x=>doneAt(x.t)>=.8*W).length,lastShare=tr.taps.length?Math.round(100*doneAt(tr.taps.at(-1).t)/W):null;
  return {segments:seg.map((s,i)=>({from:i*20,to:i*20+20,meanFree:s.t?Math.round(s.free/s.t*100)/100:null,minFree:s.min===Infinity?null:s.min,fullShare:s.t?Math.round(s.full/s.t*100)/100:null,maxWaiting:s.stalled})),launchesAfter80:after80,lastLaunchAtW:lastShare,seconds:Math.round(end/100)/10};}
+
+// §9: on a bridge introduction every shown bridge keeps a winning continuation (each choice taken first, then solved)
+export async function bridgeChoicesWin(level){const E=await engine(),S=solver(E,200000),out=[];
+ for(let i=0;i<(level.hero?level.hero.choices.length:0);i++){const st=E.idle.step(E.idle.create(level,level.capacity||5),{type:'bridge',choice:i});out.push(st.accepted?S.winnable(st.state):false);}
+ return {each:out,ok:out.length>0&&out.every(x=>x===true)};}

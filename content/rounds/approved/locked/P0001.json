@@ -1,7 +1,7 @@
 {
  "code": "P0001",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0001",
  "version": 3,
  "title": "Лисёнок",
  "theme": "animals",

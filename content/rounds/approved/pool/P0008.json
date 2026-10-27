@@ -1,7 +1,7 @@
 {
  "code": "P0008",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0007",
  "version": 5,
  "title": "Сундук с сокровищами",
  "theme": "objects",

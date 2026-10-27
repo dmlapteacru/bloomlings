@@ -23,16 +23,7 @@
 // reference?, rows:[…top first…]}]} (tags: product/design/Bloomlings-picture-theme-catalog.md); rows use the
 // palette letters GPBACDVYOLMRKNSE, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it.
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
-import {usage,FIXED_VOLUMES,APPROVED,PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag} from './lib.mjs';
-// recurring motifs for the repeat guard (the owner, 2026-10-26: "не сильно повторяться, а то уже сколько рыб"): main or
-// secondary, matched in a picture's title and subject
-const E='(?![а-яё])';const re=x=>new RegExp(x.replace(/\$/g,E));
-const MOTIFS=[['рыбы',re('рыб(?!ак)|кит$|клоун')],['подводный мир',re('под вод|подвод|батискаф|водолаз|осьминог|аквариум|губка боб')],['маяки',re('маяк')],['космонавты и ракеты',re('космонавт|астероид|ракет|инопланет')],
- ['полив цветка',re('полива|лейк')],['роботы',re('робот|валл|бимо')],['чайники',re('чайник')],['чашки и кружки',re('чашк|кружк|какао')],['совы',re('сов[аыу]$')],['пингвины',re('пингвин')],
- ['кошки',re('(^| )(кот|кота|котик|котёнок)$|кошк')],['собаки',re('щен|собак')],['лисы',re('(^| )лис[аиёы]?$|лисён')],['медведи',re('медвед|мишк|тоторо')],['драконы',re('дракон')],['динозавры',re('динозавр')],
- ['привидения и духи',re('привиден|дух$')],['единороги',re('единорог')],['лампы и фонари',re('лампа|лампочк|фонар')],['книги',re('книг')],['ретро-техника',re('ретро|автомат|фотоаппарат|телефон|радио|проигрыват')],
- ['инструменты музыки',re('гитар|барабан|пластинк')],['торты и пончики',re('торт|пончик|капкейк')],['печенье и выпечка',re('печень|круассан|выпечк')],['сундуки',re('сундук')],['зонты',re('зонт')],
- ['воздушные шары',re('воздушн[а-яё]* шар')],['корабли и лодки',re('корабл|лодк|парусник')],['облака с лицом',re('облако спит|облачко')],['цветок в горшке',re('в горшке|горшок')],['домики-сказки',re('домик|дом в|дом на')]];
+import {usage,FIXED_VOLUMES,APPROVED,PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag,motifsOf} from './lib.mjs';
 const cmd=process.argv[2];
 const idsFrom=args=>{const m=manifest(),st=arg('--status');let ids=args.filter((a,i)=>/^P?\d+$/.test(a)&&!(args[i-1]||'').startsWith('--')).map(a=>a.startsWith('P')?a:pid(+a));
  if(!ids.length&&st)ids=m.pictures.filter(p=>p.status===st).map(p=>p.id);if(!ids.length)ids=m.pictures.map(p=>p.id);return ids;};
@@ -142,7 +133,7 @@ else if(cmd==='tag'){const ids=idsFrom(process.argv.slice(3).filter((a,i,all)=>!
   m.pictures=m.pictures.filter(x=>x.id!==id).concat([entryOf(p)]);console.log(id,TAGS.map(k=>p[k]?`${k}=${p[k]}`:'').filter(Boolean).join(' · '));}
  saveManifest(m);publish();}
 else if(cmd==='motifs'){const st=arg('--status','approved'),max=+arg('--max',3),pics=manifest().pictures.filter(e=>!st||st==='all'||e.status===st).map(e=>picture(e.id)).filter(Boolean);
- const hits={};for(const p of pics){const text=`${p.title} ${p.subject||''}`.toLowerCase();for(const [m,re] of MOTIFS)if(re.test(text))(hits[m]=hits[m]||[]).push(p.id);}
+ const hits={};for(const p of pics){const text=`${p.title} ${p.subject||''}`.toLowerCase();for(const m of motifsOf(p))(hits[m]=hits[m]||[]).push(p.id);}
  const rows=Object.entries(hits).sort((a,b)=>b[1].length-a[1].length);for(const [m,ids] of rows)console.log((ids.length>=max?'ХВАТИТ ':'       ')+m.padEnd(18),String(ids.length).padStart(3),ids.join(' '));
  console.log(`${pics.length} картинок (${st}); «ХВАТИТ» — мотив уже есть ${max}+ раз: не рисовать снова ни главным, ни заметной второй деталью, пока владелец не попросит`);}
 else if(cmd==='publish'){console.log('approved/:',publish(),'утверждённых');}

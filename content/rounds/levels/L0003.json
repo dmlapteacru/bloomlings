@@ -1,0 +1,266 @@
+{
+ "level": 3,
+ "cls": "Normal",
+ "intro": null,
+ "picture": "P0003",
+ "candidate": "P0003-Nnone-0",
+ "recipe": "none",
+ "N": 281,
+ "W": 281,
+ "colours": 6,
+ "P": 12,
+ "columns": 3,
+ "linked": 0,
+ "hidden": 0,
+ "random": {
+  "runs": 100,
+  "wins": 100,
+  "share": 1,
+  "wilson95": [
+   0.963,
+   1
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   }
+  ],
+  "forks": 0,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 28.9
+  }
+ },
+ "fairness": {
+  "fair": true,
+  "checked": 0
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": true,
+  "small-first|right": true,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 4.38,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 4.33,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 4.35,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.35,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.29,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 1,
+  "lastLaunchAtW": 88,
+  "seconds": 133
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 3,
+  "title": "Птичка 3B",
+  "subject": "P0003",
+  "w": 25,
+  "h": 24,
+  "rowsBottomFirst": [
+   "############.############",
+   "#.......................#",
+   "#.AAAAAAAAAAAAAAAAAAAAA.#",
+   "#..AAAAAAAAAAAAAAAAAAAA.#",
+   "#.........BBBBBAA.GGGGG.#",
+   "#.......BBBBBCCCB.GGGGG.#",
+   "#....BBBBBBBCCCCCC.GGG..#",
+   "#....BBBSSSCCCCCCCC.....#",
+   "#...BBBSSSSCCCCCCCCB....#",
+   "#...BBSSSSSSCCCCCCCB....#",
+   "#..BBBSSSSSSCCCCCCCB....#",
+   "#..BBBSSSSSSCCCCCCCB....#",
+   "#....BSSSSSSCCCCCCCB....#",
+   "#....BSSSSSSCCCCCCCAA...#",
+   "#....BBSSSSBCCCCCCBAAAA.#",
+   "#.....BBSSBBBCCCBBBAA...#",
+   "#.....BBBBBBBBBBBDBB....#",
+   "#......BBBBBBBBBBDBB....#",
+   "#........SSSSSSSSSSS....#",
+   "#..........SSSSSSSS.....#",
+   "#...........SSSSSS......#",
+   "#.............SS........#",
+   "#.......................#",
+   "#########################"
+  ],
+  "entries": [
+   12
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "B",
+    "count": 26
+   },
+   {
+    "color": "B",
+    "count": 25
+   },
+   {
+    "color": "B",
+    "count": 25
+   },
+   {
+    "color": "S",
+    "count": 24
+   },
+   {
+    "color": "S",
+    "count": 23
+   },
+   {
+    "color": "S",
+    "count": 23
+   },
+   {
+    "color": "C",
+    "count": 35
+   },
+   {
+    "color": "C",
+    "count": 34
+   },
+   {
+    "color": "A",
+    "count": 26
+   },
+   {
+    "color": "A",
+    "count": 25
+   },
+   {
+    "color": "G",
+    "count": 13
+   },
+   {
+    "color": "D",
+    "count": 2
+   }
+  ],
+  "tray": [
+   [
+    3,
+    9,
+    11,
+    2
+   ],
+   [
+    8,
+    10,
+    4,
+    5
+   ],
+   [
+    0,
+    1,
+    6,
+    7
+   ]
+  ],
+  "recipe": "none",
+  "difficulty": "Normal"
+ }
+}

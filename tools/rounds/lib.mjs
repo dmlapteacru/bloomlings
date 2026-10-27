@@ -23,6 +23,18 @@ export const picture=id=>readJSON(path.join(PICTURES,id+'.json'));
 export function usage(){const u={};if(!fs.existsSync(LEVELS))return u;
  for(const f of fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f)).sort()){const L=readJSON(path.join(LEVELS,f));if(L&&L.picture)u[L.picture]=f.replace('.json','');}return u;}
 
+// recurring motifs for the repeat guard (the owner, 2026-10-26: "не сильно повторяться, а то уже сколько рыб"): main or
+// secondary, matched in a picture's title and subject
+const E='(?![а-яё])';const re=x=>new RegExp(x.replace(/\$/g,E));
+export const MOTIFS=[['рыбы',re('рыб(?!ак)|кит$|клоун')],['подводный мир',re('под вод|подвод|батискаф|водолаз|осьминог|аквариум|губка боб')],['маяки',re('маяк')],['космонавты и ракеты',re('космонавт|астероид|ракет|инопланет')],
+ ['полив цветка',re('полива|лейк')],['роботы',re('робот|валл|бимо')],['чайники',re('чайник')],['чашки и кружки',re('чашк|кружк|какао')],['совы',re('сов[аыу]$')],['пингвины',re('пингвин')],
+ ['кошки',re('(^| )(кот|кота|котик|котёнок)$|кошк')],['собаки',re('щен|собак')],['лисы',re('(^| )лис[аиёы]?$|лисён')],['медведи',re('медвед|мишк|тоторо')],['драконы',re('дракон')],['динозавры',re('динозавр')],
+ ['привидения и духи',re('привиден|дух$')],['единороги',re('единорог')],['лампы и фонари',re('лампа|лампочк|фонар')],['книги',re('книг')],['ретро-техника',re('ретро|автомат|фотоаппарат|телефон|радио|проигрыват')],
+ ['инструменты музыки',re('гитар|барабан|пластинк')],['торты и пончики',re('торт|пончик|капкейк')],['печенье и выпечка',re('печень|круассан|выпечк')],['сундуки',re('сундук')],['зонты',re('зонт')],
+ ['воздушные шары',re('воздушн[а-яё]* шар')],['корабли и лодки',re('корабл|лодк|парусник')],['облака с лицом',re('облако спит|облачко')],['цветок в горшке',re('в горшке|горшок')],['домики-сказки',re('домик|дом в|дом на')]];
+// the motifs of one picture (title and subject)
+export const motifsOf=p=>{const text=`${p.title} ${p.subject||''}`.toLowerCase();return MOTIFS.filter(([,re])=>re.test(text)).map(([m])=>m);};
+
 // ---- picture measures (§2): N = coloured coordinates, colours and their volumes ----
 export function measure(pic){const vol={};let n=0;for(const r of pic.rows)for(const c of r)if(CODES.includes(c)){vol[c]=(vol[c]||0)+1;n++;}
  return {N:n,colours:Object.keys(vol).length,volumes:vol};}

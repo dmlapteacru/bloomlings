@@ -1,7 +1,7 @@
 {
  "code": "P0009",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0008",
  "version": 5,
  "title": "Акустическая гитара",
  "theme": "objects",

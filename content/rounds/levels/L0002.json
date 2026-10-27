@@ -1,0 +1,239 @@
+{
+ "level": 2,
+ "cls": "Normal",
+ "intro": null,
+ "picture": "P0002",
+ "candidate": "P0002-Nnone-0",
+ "recipe": "none",
+ "N": 240,
+ "W": 240,
+ "colours": 4,
+ "P": 9,
+ "columns": 3,
+ "linked": 0,
+ "hidden": 0,
+ "random": {
+  "runs": 100,
+  "wins": 100,
+  "share": 1,
+  "wilson95": [
+   0.963,
+   1
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   }
+  ],
+  "forks": 0,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 24.8
+  }
+ },
+ "fairness": {
+  "fair": true,
+  "checked": 0
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": true,
+  "small-first|right": true,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 4.12,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 4.32,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 3.68,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 3.78,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.36,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 1,
+  "lastLaunchAtW": 83,
+  "seconds": 84.4
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 2,
+  "title": "Божья коровка 2C",
+  "subject": "P0002",
+  "w": 21,
+  "h": 24,
+  "rowsBottomFirst": [
+   "##########.##########",
+   "#...................#",
+   "#..........GGGG.....#",
+   "#.........RGGGGGGG..#",
+   "#......RRRRRRRGGGGG.#",
+   "#....RRRRRDRRRRRGGG.#",
+   "#...RRRRRRDRRRRRR...#",
+   "#...RRRRRRDRRRRRR...#",
+   "#..RRRDDRRDRRDDRRR..#",
+   "#.DDRDDDDRDRDDDDRDD.#",
+   "#..RRRDDRRDRRDDRRR..#",
+   "#..RRRRRRRDRRRRRRR..#",
+   "#..RRRDDRRDRRDDRRR..#",
+   "#..RRDDDDRDRDDDDRR..#",
+   "#.DDRDDDDRDRDDDDRDD.#",
+   "#...RRDDRRDRRDDRR...#",
+   "#...RRRRDDDDDRRRR...#",
+   "#....RRDDDDDDDRR....#",
+   "#.....DDDDDDDDD.....#",
+   "#.....DDCDDDCDD.....#",
+   "#......DCDDDCD......#",
+   "#.......DDDDD.......#",
+   "#...................#",
+   "#####################"
+  ],
+  "entries": [
+   10
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "R",
+    "count": 40
+   },
+   {
+    "color": "R",
+    "count": 40
+   },
+   {
+    "color": "R",
+    "count": 40
+   },
+   {
+    "color": "D",
+    "count": 33
+   },
+   {
+    "color": "D",
+    "count": 32
+   },
+   {
+    "color": "D",
+    "count": 32
+   },
+   {
+    "color": "G",
+    "count": 10
+   },
+   {
+    "color": "G",
+    "count": 9
+   },
+   {
+    "color": "C",
+    "count": 4
+   }
+  ],
+  "tray": [
+   [
+    6,
+    1,
+    4
+   ],
+   [
+    0,
+    8,
+    5
+   ],
+   [
+    3,
+    7,
+    2
+   ]
+  ],
+  "recipe": "none",
+  "difficulty": "Normal"
+ }
+}
