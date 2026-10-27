@@ -23,6 +23,14 @@ those rules; where this skill and 17 differ, 17 wins.
 - `.` is an empty cell (not counted, it can be a hole or an island gap), `#` an impassable strip (a stream) and `b` a
   Sprig bridge site on that strip. A bridge picture has exactly two `b`. The cell below each `b` is its anchor on the
   near bank (the entry is at the bottom).
+  - The stream is one row of `#`/`b` across the whole width: the board closes it through the frame, so the far bank
+    opens only by a bridge. Most of the work is on the far bank.
+  - **A bridge is not free at the start** (17 §8; the owner, 2026-10-27: "мосты хоть чуть-чуть должны быть скрыты").
+    The anchor and the approach to it are colour cells of the near bank (grass, stones) that must be cleared first;
+    never an empty path. The check refuses an empty anchor. The two approaches may differ in depth.
+  - First look for an approved picture with ground or water across its bottom and draw its **stream variant** (a new
+    number, the original stays in the pool): the stream through the ground strip, two or three rows of near bank
+    below (`content/rounds/pictures/src/variants-0114.mjs`). Draw a new subject only when no such picture fits.
 - The palette is finite and discrete: no semi-transparent edge shades. The colours of the matrix are the materials of
   the level.
 - **N = coloured cells.** The tool counts N, the number of colours and the volume of each colour.
