@@ -80,3 +80,4 @@ __pycache__/
 
 # Generated only by a complete local launch installation.
 /content/launch-art/installed-assets.props
+.claude/worktrees/
