@@ -154,3 +154,15 @@ export async function bridgeSingle(level,games=60,seed=3){const E=await engine()
    if(br.length||t.state.bridge>=0)break;if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;t.advance(t.steps[0].at-t.now);}}
  const wins=win.filter(x=>x===true).length,loses=win.filter(x=>x===false).length;
  return {each:win,offered:seen,ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}
+
+// slot pressure (layer B of 17 §13, content/rounds/quality.json; the owner's note to v12 L9: full places with cells still
+// deep in the picture make a round interesting): along random games (a launch as soon as one is possible, uniform among
+// launches, else the next event), time-weighted, the mean number of placed pods whose colour has no reachable cell
+// ("stuck") and the share of time with at most one free place ("tight")
+export async function pressure(level,games=30,seed=777){const E=await engine(),{R,T}=E,r=rng(seed);let tight=0,idle=0,total=0;
+ for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5));let k=0;
+  while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;
+   const dt=t.steps[0].at-t.now,s=t.state,free=[...s.slots].filter(x=>x<0).length,reach=new Set(R.reach(s).targets.map(i=>s.board[i]));
+   const stuck=[...s.slots].filter(p=>p>=0&&s.remaining[p]>0&&!reach.has(s.meta.colours[p])).length;
+   if(dt>0){total+=dt;if(free<=1)tight+=dt;idle+=stuck*dt;}t.advance(dt);}}
+ return {stuck:total?Math.round(idle/total*100)/100:0,tight:total?Math.round(tight/total*100)/100:0};}

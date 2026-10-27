@@ -421,7 +421,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.29,
+     "tight": 0.94
+    }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 2,
@@ -847,7 +851,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.91,
+     "tight": 0.9
+    }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 2,
@@ -1264,7 +1272,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.35,
+     "tight": 0.93
+    }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 2,

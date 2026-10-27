@@ -185,7 +185,11 @@
   "greedyLoses": true,
   "hiddenMatters": null,
   "bridgeKind": null,
-  "bridgeSingle": null
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 2.08,
+   "tight": 0.87
+  }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {

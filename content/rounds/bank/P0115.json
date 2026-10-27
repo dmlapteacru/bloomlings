@@ -403,7 +403,30 @@
     "seconds": 507.5
    },
    "dosePos": null,
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.09,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": {
+     "each": [
+      true,
+      true
+     ],
+     "offered": [
+      49,
+      11
+     ],
+     "ok": false
+    },
+    "pressure": {
+     "stuck": 0.6,
+     "tight": 0.86
+    }
+   }
   },
   {
    "id": "P0115-Nbridge-42-intro",
@@ -840,6 +863,10 @@
       34
      ],
      "ok": false
+    },
+    "pressure": {
+     "stuck": 0.67,
+     "tight": 0.85
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1281,6 +1308,10 @@
       11
      ],
      "ok": false
+    },
+    "pressure": {
+     "stuck": 0.86,
+     "tight": 0.87
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1722,6 +1753,10 @@
       11
      ],
      "ok": false
+    },
+    "pressure": {
+     "stuck": 0.63,
+     "tight": 0.85
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",

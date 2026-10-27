@@ -396,7 +396,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.75,
+     "tight": 0.91
+    }
    }
   },
   {
@@ -792,7 +796,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.66,
+     "tight": 0.9
+    }
    }
   },
   {
@@ -1218,7 +1226,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.65,
+     "tight": 0.9
+    }
    }
   },
   {
@@ -1626,7 +1638,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.36,
+     "tight": 0.82
+    }
    }
   },
   {
@@ -2036,7 +2052,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.63,
+     "tight": 0.85
+    }
    }
   },
   {
@@ -2428,7 +2448,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.77,
+     "tight": 0.87
+    }
    }
   },
   {
@@ -2820,7 +2844,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.65,
+     "tight": 0.86
+    }
    }
   },
   {
@@ -3214,7 +3242,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.76,
+     "tight": 0.87
+    }
    }
   },
   {
@@ -3608,7 +3640,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.72,
+     "tight": 0.83
+    }
    }
   },
   {
@@ -4021,7 +4057,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.43,
+     "tight": 0.93
+    }
    }
   },
   {
@@ -4432,7 +4472,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.59,
+     "tight": 0.76
+    }
    }
   },
   {
@@ -4877,7 +4921,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 2.44,
+     "tight": 0.94
+    }
    }
   },
   {
@@ -5332,7 +5380,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 2.41,
+     "tight": 0.96
+    }
    }
   },
   {
@@ -5735,7 +5787,11 @@
     "greedyLoses": true,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 2.42,
+     "tight": 0.98
+    }
    }
   },
   {
@@ -6158,7 +6214,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.92,
+     "tight": 0.94
+    }
    }
   },
   {
@@ -6583,7 +6643,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.56,
+     "tight": 0.96
+    }
    }
   },
   {
@@ -7005,7 +7069,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 2.09,
+     "tight": 0.97
+    }
    }
   },
   {
@@ -7427,7 +7495,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 2.5,
+     "tight": 0.98
+    }
    }
   },
   {
@@ -7827,7 +7899,11 @@
     "greedyLoses": true,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.43,
+     "tight": 0.97
+    }
    }
   }
  ],

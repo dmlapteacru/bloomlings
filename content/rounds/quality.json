@@ -1,0 +1,27 @@
+{
+ "format": "bloomlings-round-quality-1",
+ "updated": "2026-10-27",
+ "note": "Layer B of the round quality (product/17_LEVEL_GENERATION_RULES.md §13, product/plans/round-generation-flow-proposal-2026-10-27.md): metrics of interest with bounds calibrated on the owner's ratings. mode 'soft': a placement preference and a note in the audit; 'hard': the audit fails the level. A bound moves to 'hard' once two owner samples confirm it. Change the numbers here, not in the scripts.",
+ "pressure": {
+  "what": "pods without work: mean number of placed pods whose colour has no reachable cell, over random games (a launch as soon as one is possible), time-weighted (measure.mjs pressure)",
+  "games": 30,
+  "mode": "soft",
+  "min": {"regularNormal": 0.9, "Hard": 1.5, "Super Hard": 2.0},
+  "calibration": "pilot v12: introductions rated boring 0.07-0.17, L1-3 0.13-0.24, Hard L10 rated easy 0.96, levels rated interesting 0.67-2.66 (Hard and Super Hard 2.09-2.66)"
+ },
+ "launchesAfter80": {"mode": "soft", "Normal": [1, 4], "Hard": [1, 4], "Super Hard": [1, 6]},
+ "sample": {
+  "what": "the owner's sample of a wave (rounds.mjs run builds a pilot with it)",
+  "superHard": "all",
+  "hard": 2,
+  "introductions": "all",
+  "normal": 2,
+  "outliers": 2
+ },
+ "mismatch": {
+  "what": "an owner rating that disagrees with the metrics (rounds.mjs review)",
+  "hardRatedEasy": true,
+  "regularNormalRatedBoring": true,
+  "noteWords": ["форс", "не думал", "просто тапал", "ждал много", "не влиял", "скучн"]
+ }
+}

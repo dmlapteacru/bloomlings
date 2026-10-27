@@ -245,7 +245,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.2,
+     "tight": 0.52
+    }
    }
   }
  ],

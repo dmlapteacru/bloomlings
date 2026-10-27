@@ -405,7 +405,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.85,
+     "tight": 0.8
+    }
    }
   },
   {
@@ -812,7 +816,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.16,
+     "tight": 0.87
+    }
    }
   },
   {
@@ -1249,7 +1257,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.73,
+     "tight": 0.83
+    }
    }
   },
   {
@@ -1684,7 +1696,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.73,
+     "tight": 0.86
+    }
    }
   },
   {
@@ -2103,7 +2119,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.74,
+     "tight": 0.82
+    }
    }
   },
   {
@@ -2524,7 +2544,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.86,
+     "tight": 0.85
+    }
    }
   },
   {
@@ -2927,7 +2951,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.9,
+     "tight": 0.82
+    }
    }
   },
   {
@@ -3328,7 +3356,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.69,
+     "tight": 0.9
+    }
    }
   },
   {
@@ -3733,7 +3765,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.34,
+     "tight": 0.83
+    }
    }
   },
   {
@@ -4157,7 +4193,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.57,
+     "tight": 0.93
+    }
    }
   },
   {
@@ -4581,7 +4621,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.57,
+     "tight": 0.9
+    }
    }
   },
   {
@@ -5038,7 +5082,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 2.03,
+     "tight": 0.93
+    }
    }
   },
   {
@@ -5503,7 +5551,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.55,
+     "tight": 0.88
+    }
    }
   },
   {
@@ -5917,7 +5969,11 @@
     "greedyLoses": true,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 2.44,
+     "tight": 0.95
+    }
    }
   },
   {
@@ -6331,7 +6387,11 @@
     "greedyLoses": true,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.83,
+     "tight": 0.93
+    }
    }
   },
   {
@@ -6763,7 +6823,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.63,
+     "tight": 0.97
+    }
    }
   },
   {
@@ -7167,7 +7231,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.75,
+     "tight": 0.86
+    }
    }
   },
   {
@@ -7598,7 +7666,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.63,
+     "tight": 0.91
+    }
    }
   }
  ],

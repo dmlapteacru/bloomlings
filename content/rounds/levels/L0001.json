@@ -235,5 +235,18 @@
   ],
   "recipe": "none",
   "difficulty": "Normal"
+ },
+ "checks": {
+  "forced": 0.2,
+  "opening": null,
+  "hold": false,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.24,
+   "tight": 0.59
+  }
  }
 }

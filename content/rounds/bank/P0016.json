@@ -360,7 +360,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.23,
+     "tight": 0.81
+    }
    }
   },
   {
@@ -722,7 +726,11 @@
      ]
     },
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.14,
+     "tight": 0.8
+    }
    }
   },
   {
@@ -1070,7 +1078,11 @@
     "greedyLoses": false,
     "hiddenMatters": null,
     "bridgeKind": null,
-    "bridgeSingle": null
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.11,
+     "tight": 0.81
+    }
    }
   }
  ],

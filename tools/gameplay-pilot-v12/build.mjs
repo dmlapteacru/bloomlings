@@ -2,23 +2,26 @@
 // offline HTML: this folder's page, UI and style with the round engine (tools/rounds/engine/: rules, timeline, palette,
 // clock), so the page plays exactly what the levels were solved and measured on.
 //
-// node tools/gameplay-pilot-v12/build.mjs [--from 1] [--to 20] [--preview <folder>]
+// node tools/gameplay-pilot-v12/build.mjs [--from 1] [--to 20] [--levels 21,25,30] [--out <folder>] [--name <label>] [--preview <folder>]
+//   --levels: only these levels (a wave's owner sample, tools/rounds/rounds.mjs run); --out: write there instead;
+//   --name: the label on the page and the ZIP's name (default v12)
 //   --preview: a folder of L####.json built the same way from draft pictures (ROUNDS_DIR trial run), used only for
 //   positions content/rounds/levels/ does not fill yet; such levels are marked «ЧЕРНОВИК» in the level menu.
-// Writes product/previews/gameplay-pilot-v12/index.html, Bloomlings-pilot-v12.zip and levels.json (the embedded data).
+// Writes product/previews/gameplay-pilot-v12/index.html, Bloomlings-pilot-<name>.zip and levels.json (the embedded data).
 // Does not install levels into the game.
 import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import zlib from 'node:zlib';
 import {createRequire} from 'node:module';
 import {root,LEVELS,readJSON,lid,arg} from '../rounds/lib.mjs';
-const SRC=path.dirname(new URL(import.meta.url).pathname),ENGINE=path.join(root,'tools/rounds/engine'),OUT=path.join(root,'product/previews/gameplay-pilot-v12');
-const from=+arg('--from',1),to=+arg('--to',20),preview=arg('--preview');
+const SRC=path.dirname(new URL(import.meta.url).pathname),ENGINE=path.join(root,'tools/rounds/engine'),OUT=arg('--out')?path.resolve(arg('--out')):path.join(root,'product/previews/gameplay-pilot-v12');
+const list=arg('--levels')?arg('--levels').split(',').map(Number).sort((a,b)=>a-b):null,from=list?list[0]:+arg('--from',1),to=list?list.at(-1):+arg('--to',20),preview=arg('--preview'),NAME=arg('--name','v12');
+const IDS=list||Array.from({length:to-from+1},(_,i)=>from+i);
 const sha=t=>crypto.createHash('sha256').update(t).digest('hex'),read=f=>fs.readFileSync(f,'utf8');
 const P=createRequire(import.meta.url)(path.join(ENGINE,'palette.cjs')).palette('normal');
 const HERO={sprig:'Sprig',bloom:'Bloom',drop:'Drop',twig:'Twig'};
 
 // ---- levels ----
 const levels=[],cards=[],drafts=[],exceptions=[];
-for(let n=from;n<=to;n++){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft=false;
+for(const n of IDS){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft=false;
  if(!L&&preview){L=readJSON(path.join(preview,lid(n)+'.json'));draft=!!L&&!L.exception;}
  // a preview level may stand in for an open position as an explicit exception to a rule (it says which)
  if(L&&L.exception)exceptions.push({level:n,note:L.exception});
@@ -64,9 +67,9 @@ Object.assign(dataset,{rulesHash:sha(rules),timelineHash:sha(timeline),paletteHa
 const ui=read(path.join(SRC,'ui.js'));
 const intro=cards.filter(c=>c.intro),hard=cards.filter(c=>c.cls!=='Normal');
 const MECH={hidden:'капсулы ?',links:'связки',bridge:'мостик Sprig'};
-const welcome=`<h2>Первые ${levels.length} уровней по правилам 17</h2><div class="welcome-heroes" id="welcomeHeroes"></div><p>Новые раунды: картинки из утверждённого набора, очереди собраны генератором и решены. Класс каждого уровня измерен случайным тестом (100–400 партий): Normal — бот выигрывает от 50 %, Hard — 20–50 %, Super Hard — 5–20 %. Календарь: каждый 5-й уровень Hard, 15-й — Super Hard.</p><p>Что нового в v12 (по вашим заметкам к v11): Hard и Super Hard не проходятся «правильным первым тапом и дальше по цветам»; в части Normal игра «по цветам» проигрывает и есть капсула, которая держит место; со второго мостика решать должен только один мост (для L18 нужна новая картинка с ручьём, пока исключение); скрытых капсул больше, они раньше, а открывшаяся капсула подсвечивается.</p><p>Знакомства: ${[...new Set(intro.map(c=>c.intro))].map(m=>`${MECH[m]} — L${intro.filter(c=>c.intro===m).map(c=>c.level).join(' и L')}`).join('; ')}. Сложные: ${hard.map(c=>`L${c.level} ${c.cls}`).join(', ')}.${exceptions.map(e=>` L${e.level} — исключение: ${e.note}.`).join('')}${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках (ждут утверждения) — в меню «ЧЕРНОВИК».`:''}</p><ol><li>Можно отправить несколько верхних капсул подряд, пока есть пустые места.</li><li>Команда собирает только точный материал своей капсулы.</li><li>Пока работа недоступна, остаток занимает место. Для пары нужны 2 места; оба освободятся после завершения всей пары.</li></ol><p class="subtle">Три ряда, пять мест, автоматическое ускорение ×2,5 в конце — как в v9. Внешний вид временный.</p>`;
+const welcome=`<h2>${list?`Выборка волны: ${list.map(n=>'L'+n).join(', ')}`:`Первые ${levels.length} уровней по правилам 17`}</h2><div class="welcome-heroes" id="welcomeHeroes"></div><p>Новые раунды: картинки из утверждённого набора, очереди собраны генератором и решены. Класс каждого уровня измерен случайным тестом (100–400 партий): Normal — бот выигрывает от 50 %, Hard — 20–50 %, Super Hard — 5–20 %. Календарь: каждый 5-й уровень Hard, 15-й — Super Hard.</p><p>Что нового в v12 (по вашим заметкам к v11): Hard и Super Hard не проходятся «правильным первым тапом и дальше по цветам»; в части Normal игра «по цветам» проигрывает и есть капсула, которая держит место; со второго мостика решать должен только один мост (для L18 нужна новая картинка с ручьём, пока исключение); скрытых капсул больше, они раньше, а открывшаяся капсула подсвечивается.</p><p>Знакомства: ${[...new Set(intro.map(c=>c.intro))].map(m=>`${MECH[m]} — L${intro.filter(c=>c.intro===m).map(c=>c.level).join(' и L')}`).join('; ')}. Сложные: ${hard.map(c=>`L${c.level} ${c.cls}`).join(', ')}.${exceptions.map(e=>` L${e.level} — исключение: ${e.note}.`).join('')}${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках (ждут утверждения) — в меню «ЧЕРНОВИК».`:''}</p><ol><li>Можно отправить несколько верхних капсул подряд, пока есть пустые места.</li><li>Команда собирает только точный материал своей капсулы.</li><li>Пока работа недоступна, остаток занимает место. Для пары нужны 2 места; оба освободятся после завершения всей пары.</li></ol><p class="subtle">Три ряда, пять мест, автоматическое ускорение ×2,5 в конце — как в v9. Внешний вид временный.</p>`;
 let page=read(path.join(SRC,'page.html'));
-for(const [k,v] of Object.entries({'/*__TITLE__*/':`Bloomlings · v12 · первые ${levels.length} раундов`,'/*__LABEL__*/':`V12 · РАУНДЫ · ${levels.length} УРОВНЕЙ`,'/*__FIRST__*/':`ПЕРВЫЕ ${levels.length}`,'/*__WELCOME__*/':welcome})){if(page.split(k).length!==2)throw Error('page.html: '+k);page=page.split(k).join(v);}
+for(const [k,v] of Object.entries({'/*__TITLE__*/':`Bloomlings · ${NAME} · ${levels.length} раундов`,'/*__LABEL__*/':`${NAME.toUpperCase()} · РАУНДЫ · ${levels.length} УРОВНЕЙ`,'/*__FIRST__*/':`ПЕРВЫЕ ${levels.length}`,'/*__WELCOME__*/':welcome})){if(page.split(k).length!==2)throw Error('page.html: '+k);page=page.split(k).join(v);}
 const uri=(f,m)=>`data:${m};base64,`+fs.readFileSync(f).toString('base64'),json=v=>JSON.stringify(v).replace(/</g,'\\u003c');
 const heroes=path.join(root,'client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion'),fonts=path.join(root,'client/Assets/Bloomlings/UI/Fonts/Resources');
 const assets=Object.fromEntries(['sprig','bloom','drop','twig'].map(n=>[n,uri(path.join(heroes,`homehero-${n}-001.png`),'image/png')]));
@@ -83,7 +86,7 @@ const MECH_RU={none:'—',hidden:'скрытые',links:'связки',bridge:'�
 const rows=cards.map(c=>`| ${c.level} | ${c.cls}${c.intro?` · знакомство: ${MECH_RU[c.intro]}`:''} | ${c.picture} «${pics[c.picture]?.title||''}»${c.draft?' (черновик)':''} | ${c.N} / ${c.colours} | ${c.P} / ${c.columns} | ${MECH_RU[c.recipe]||c.recipe}${c.linked?` (связанных ${c.linked})`:''}${c.hidden?` (скрытых ${c.hidden})`:''} | ${Math.round(c.random*100)} % из ${c.runs}${c.borderline?' (на границе)':''} | ${c.seconds} с |`).join('\n');
 fs.writeFileSync(path.join(OUT,'README.md'),`# Bloomlings v12 — первые ${levels.length} уровней раундов
 
-[Скачать ZIP для телефона](Bloomlings-pilot-v12.zip). Распакуй и открой [index.html](index.html). Сеть не нужна, все уровни открыты в меню. После игры: Уровни → Результаты → скачать JSON.
+[Скачать ZIP для телефона](Bloomlings-pilot-${NAME}.zip). Распакуй и открой [index.html](index.html). Сеть не нужна, все уровни открыты в меню. После игры: Уровни → Результаты → скачать JSON.
 
 Уровни построены скилом \`bloomlings-round-levels\` по [правилам 17](../../17_LEVEL_GENERATION_RULES.md) из утверждённых картинок (\`content/rounds/approved/\`) и сыграны в браузере их сохранёнными решениями. Страница играет тем же движком раундов (\`tools/rounds/engine/\`), на котором уровни решены и измерены.${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках, которые ждут утверждения, и помечены в меню «ЧЕРНОВИК».`:''}
 
@@ -107,5 +110,5 @@ for(const [name,body] of files){const data=zlib.deflateRawSync(body,{level:9}),n
  local.push(h,nm,data);const e=Buffer.alloc(46);e.writeUInt32LE(0x02014b50,0);e.writeUInt16LE(0x031e,4);e.writeUInt16LE(20,6);e.writeUInt16LE(0x0800,8);e.writeUInt16LE(8,10);e.writeUInt16LE(DOS_T,12);e.writeUInt16LE(DOS_D,14);e.writeUInt32LE(c,16);e.writeUInt32LE(data.length,20);e.writeUInt32LE(body.length,24);e.writeUInt16LE(nm.length,28);e.writeUInt32LE((0o100644<<16)>>>0,38);e.writeUInt32LE(off,42);
  central.push(e,nm);off+=30+nm.length+data.length;}
 const cd=Buffer.concat(central),end=Buffer.alloc(22);end.writeUInt32LE(0x06054b50,0);end.writeUInt16LE(files.length,8);end.writeUInt16LE(files.length,10);end.writeUInt32LE(cd.length,12);end.writeUInt32LE(off,16);
-fs.writeFileSync(path.join(OUT,'Bloomlings-pilot-v12.zip'),Buffer.concat([...local,cd,end]));
-console.log(`product/previews/gameplay-pilot-v12/index.html: ${fs.statSync(path.join(OUT,'index.html')).size.toLocaleString('en')} bytes, ${levels.length} уровней${drafts.length?`, черновики: ${drafts.join(', ')}`:''}; каталог ${dataset.hash.slice(0,12)}, правила ${dataset.rulesHash.slice(0,12)}`);
+fs.writeFileSync(path.join(OUT,`Bloomlings-pilot-${NAME}.zip`),Buffer.concat([...local,cd,end]));
+console.log(`${path.relative(root,OUT)}/index.html: ${fs.statSync(path.join(OUT,'index.html')).size.toLocaleString('en')} bytes, ${levels.length} уровней${drafts.length?`, черновики: ${drafts.join(', ')}`:''}; каталог ${dataset.hash.slice(0,12)}, правила ${dataset.rulesHash.slice(0,12)}`);

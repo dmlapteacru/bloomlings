@@ -219,7 +219,11 @@
    ]
   },
   "bridgeKind": null,
-  "bridgeSingle": null
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 2.66,
+   "tight": 0.99
+  }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {

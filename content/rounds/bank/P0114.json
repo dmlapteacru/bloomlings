@@ -402,7 +402,30 @@
     "lastLaunchAtW": 96,
     "seconds": 481.8
    },
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.09,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": {
+     "each": [
+      true,
+      true
+     ],
+     "offered": [
+      45,
+      15
+     ],
+     "ok": false
+    },
+    "pressure": {
+     "stuck": 0.97,
+     "tight": 0.87
+    }
+   }
   },
   {
    "id": "P0114-Nbridge-2-intro",
@@ -806,7 +829,30 @@
     "seconds": 446.8
    },
    "dosePos": null,
-   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "checks": {
+    "forced": 0.11,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": {
+     "each": [
+      true,
+      true
+     ],
+     "offered": [
+      54,
+      6
+     ],
+     "ok": false
+    },
+    "pressure": {
+     "stuck": 0.94,
+     "tight": 0.88
+    }
+   }
   },
   {
    "id": "P0114-Nbridge-8-intro",
@@ -1243,6 +1289,10 @@
       6
      ],
      "ok": false
+    },
+    "pressure": {
+     "stuck": 0.9,
+     "tight": 0.84
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1684,6 +1734,10 @@
       35
      ],
      "ok": false
+    },
+    "pressure": {
+     "stuck": 0.87,
+     "tight": 0.85
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -2125,6 +2179,10 @@
       2
      ],
      "ok": false
+    },
+    "pressure": {
+     "stuck": 0.6,
+     "tight": 0.85
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",

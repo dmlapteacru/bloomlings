@@ -239,6 +239,10 @@
     11
    ],
    "ok": false
+  },
+  "pressure": {
+   "stuck": 1.02,
+   "tight": 0.85
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",

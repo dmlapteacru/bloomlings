@@ -41,7 +41,7 @@ const FAMILIES=new Set([...THEMES.groups.flatMap(g=>g.families.map(f=>f.name)),.
 const TAGS=['family','direction','device','subject','source','reference'];
 const tagsOf=(e,b={})=>Object.fromEntries(TAGS.map(k=>[k,e[k]??b[k]??null]).filter(([,v])=>v!==null));
 const entryOf=p=>({id:p.id,seq:p.seq,version:p.version,title:p.title,theme:p.theme,family:p.family||null,direction:p.direction||null,forLevel:p.forLevel,w:p.w,h:p.h,N:p.N,colours:p.colours,status:p.status,batch:p.batch,note:p.note||null,usedBy:p.usedBy||null});
-function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(p);
+export function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(p);
  if(!fitsStage(m,p.forLevel))issues.push(s.fixed?`уровень ${p.forLevel} требует ${s.fixed}: ${s.cells[0]} клеток, ${s.colours[0]} цв.`:`вне диапазона этапа L${p.forLevel}: ${s.cells.join('–')} клеток, ${s.colours.join('–')} цв.${s.compact?' (или компактная 200–399 / 3–6)':''}`);
  if(m.N>1400)issues.push('больше 1400 клеток — расширенный набор');if(m.colours>11)issues.push('больше 11 цветов — расширенный набор');
  if(!s.fixed&&m.N>=s.cells[0]&&m.N<s.cells[0]+(s.cells[1]-s.cells[0])/4)warn.push(`у нижней границы этапа (${s.cells.join('–')}): целиться ближе к середине`);
@@ -140,4 +140,4 @@ else if(cmd==='motifs'){const st=arg('--status','approved'),max=+arg('--max',3),
  console.log(`${pics.length} картинок (${st}); «ХВАТИТ» — мотив уже есть ${max}+ раз: не рисовать снова ни главным, ни заметной второй деталью, пока владелец не попросит`);}
 else if(cmd==='publish'){console.log('approved/:',publish(),'утверждённых');}
 else if(cmd==='list'){const st=arg('--status');for(const p of manifest().pictures.filter(p=>!st||p.status===st))console.log(p.id,p.status.padEnd(8),`L${p.forLevel}`.padEnd(6),`${p.w}×${p.h}`.padEnd(6),String(p.N).padStart(5),'кл.',p.colours,'цв.',p.usedBy?'→ '+p.usedBy:'',p.title);}
-else{console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}
+else if(cmd!=='noop'){console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));}
