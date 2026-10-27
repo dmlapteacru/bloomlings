@@ -4,7 +4,8 @@ using System.Reflection;
 namespace Bloomlings.Content.Schemas
 {
     /// <summary>
-    /// The four contract schemas embedded unchanged from <c>specs/001-core-game-mvp/contracts/</c>. The runtime readers
+    /// The contract schemas embedded unchanged from <c>specs/001-core-game-mvp/contracts/</c> and (the round formats)
+    /// <c>specs/006-round-levels-in-game/contracts/</c>. The runtime readers
     /// validate by hand; tools use these with a JSON Schema validator.
     /// </summary>
     public static class SchemaResources
@@ -16,6 +17,7 @@ namespace Bloomlings.Content.Schemas
         public const string RoundLevel = "round-level.schema.json";
         public const string RoundPicture = "round-picture.schema.json";
         public const string RoundProof = "round-proof.schema.json";
+        public const string RoundContentManifest = "round-content-manifest.schema.json";
 
         /// <summary>Returns the schema text, for example <c>Read(SchemaResources.LevelDefinition)</c>.</summary>
         public static string Read(string fileName)

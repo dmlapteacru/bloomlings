@@ -12,12 +12,24 @@ namespace Bloomlings.Content.Tests
         private static readonly Lazy<JsonSchema> LevelSchema = new Lazy<JsonSchema>(() => Load(SchemaResources.LevelDefinition));
         private static readonly Lazy<JsonSchema> PictureSchema = new Lazy<JsonSchema>(() => Load(SchemaResources.BasePicture));
         private static readonly Lazy<JsonSchema> ManifestSchema = new Lazy<JsonSchema>(() => Load(SchemaResources.ContentManifest));
+        private static readonly Lazy<JsonSchema> RoundLevelSchema = new Lazy<JsonSchema>(() => Load(SchemaResources.RoundLevel));
+        private static readonly Lazy<JsonSchema> RoundPictureSchema = new Lazy<JsonSchema>(() => Load(SchemaResources.RoundPicture));
+        private static readonly Lazy<JsonSchema> RoundProofSchema = new Lazy<JsonSchema>(() => Load(SchemaResources.RoundProof));
+        private static readonly Lazy<JsonSchema> RoundManifestSchema = new Lazy<JsonSchema>(() => Load(SchemaResources.RoundContentManifest));
 
         public static bool IsValidLevel(string json) => IsValid(LevelSchema.Value, json);
 
         public static bool IsValidPicture(string json) => IsValid(PictureSchema.Value, json);
 
         public static bool IsValidManifest(string json) => IsValid(ManifestSchema.Value, json);
+
+        public static bool IsValidRoundLevel(string json) => IsValid(RoundLevelSchema.Value, json);
+
+        public static bool IsValidRoundPicture(string json) => IsValid(RoundPictureSchema.Value, json);
+
+        public static bool IsValidRoundProof(string json) => IsValid(RoundProofSchema.Value, json);
+
+        public static bool IsValidRoundManifest(string json) => IsValid(RoundManifestSchema.Value, json);
 
         public static string Sample(string fileName) =>
             File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Samples", fileName));
