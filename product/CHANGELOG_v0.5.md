@@ -1,5 +1,15 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner amendment · 2026-10-27 — tuning after pilot v10
+
+- [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md), the owner's amendment of 2026-10-27 after pilot v10
+  and the comparison with Colony Flow ([`audits/rules-17-vs-colony-flow-2026-10-27.md`](audits/rules-17-vs-colony-flow-2026-10-27.md)):
+  colours up to 9 on L4–9 and 10 later (11 the rare exception); 5 columns on boards from 1000 cells; Hard and Super Hard
+  must be lost by the greedy strategies; Super Hard always has a lead and an additional mechanic, Hard a mechanic except
+  L5; dose positions follow the cycle 50/80/40/70/100/60 % of the range; the Normal median is 50–60 %; picture fitness
+  (colours hidden at the start) decides which pictures may carry Hard; bridge sites are not free at the start and one
+  bridge is clearly better on the introductions; the extended set up to 50×52 is noted.
+
 ## Owner addition · 2026-10-26 — picture theme catalog
 
 - Added [`design/Bloomlings-picture-theme-catalog.md`](design/Bloomlings-picture-theme-catalog.md) (v0.2, the owner's proposal): 50 theme families, 24 creative directions, a franchise list for a separate catalogue with rights checks, internet culture and memes, budgets by cell range, soft variety rules and the task card. Pictures carry its tags (`family`, `direction`, `device`, `subject`, `source`); the picture skills choose subjects from it.
