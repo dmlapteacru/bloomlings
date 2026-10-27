@@ -76,7 +76,7 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
  const sigma={Normal:.06,Hard:.16,'Super Hard':.26}[cls];
  for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key+sigma*z;}
  // Normal blends a little towards the reverse access order too, so its random test lands in 50–75 % (§5, median 50–60 %)
- if(cls==='Normal'&&!intro){const t=.5*r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ if(cls==='Normal'&&!intro){const t=.8*r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
  // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
  // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
@@ -124,7 +124,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      {const {R}=await engine(),ve=R.validate(c.level);if(ve&&ve.length){const k='движок отклоняет: '+ve[0];reasons[k]=(reasons[k]||0)+1;continue;}}
      const tick=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{};const t0=Date.now();
      if(c.level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(c.level,c.level.capacity||5)).length){reasons['мост доступен сразу — нужен расчищенный подход (§8)']=(reasons['мост доступен сразу — нужен расчищенный подход (§8)']||0)+1;continue;}}
-     const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,1],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
+     const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
      if(q<target[0]-.15||q>target[1]+.15){reasons['не тот класс по быстрой оценке']=(reasons['не тот класс по быстрой оценке']||0)+1;continue;}
      // §5: a Hard or Super Hard that the greedy strategies win is not that class, whatever the random test says
      const gr=cls==='Normal'?null:await greedy(c.level);if(gr&&!greedyBeaten(gr,cls)){reasons['жадная стратегия выигрывает (§5)']=(reasons['жадная стратегия выигрывает (§5)']||0)+1;continue;}
