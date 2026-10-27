@@ -94,6 +94,13 @@ the supported three.
      - runs the simple strategies of §11 (left/right hero choice) and the rhythm by fifths of W of §10.
    - Accepted candidates go to `content/rounds/bank/P####.json` with all measures. A picture whose pods cannot fit
      §3 is recorded with its reason.
+   - **The owner's amendment of 2026-10-27** (17 §2, §5, §7): Normal candidates blend the queue lightly so a regular
+     Normal lands in 50–75 % (median 50–60 %); lead doses follow the cycle 50/80/40/70/100/60 % of the range
+     (`DOSE_CYCLE`, recorded as `dosePos`); Hard and Super Hard candidates that the greedy strategies win ("most work now";
+     for Super Hard also "release a place fastest") are refused. `place` requires a mechanic on Hard (except L5), a lead and
+     an additional one on Super Hard, a mechanic in two of three regular Normals, 3+ hidden colours for Hard / Super Hard
+     pictures, and no weak picture without a mechanic. Build per class: Normal `none,hidden,links,links+hidden`, Hard
+     `hidden,links,links+hidden`, Super Hard `links+hidden`.
 3. **Read the reasons.**
    - "Не тот класс" or "ниже 5 %": that class did not come out of this picture within the budget. This is normal: it
      stays available for other classes.

@@ -108,6 +108,12 @@ those rules; where this skill and 17 differ, 17 wins.
    - For needs: match each need's stage and class. A Hard or Super Hard needs a picture that allows dependencies:
      enclosed areas, colours shielded by other colours. A bridge introduction needs a picture with a stream (`#`) and
      two `b` sites.
+   - **Picture fitness** (17 §2 as amended on 2026-10-27): the picture must leave colours hidden at the start. Check every
+     drawn picture with `node tools/rounds/fitness.mjs <module>` (hidden / visible colours) and
+     `node tools/rounds/potential.mjs <module>` (how hard its queue can get). Weak (0–1 hidden or 6+ visible) carries
+     only a Normal with a mechanic; for Hard and Super Hard draw 4+ hidden colours: an outline round the hero, a frame or
+     container, nested parts, an environment that wraps the subject. A weak approved picture is improved as a new version
+     (outline, environment, inner colour) and measured again.
 2. **Draw the batch as a module**, e.g. `content/rounds/pictures/src/batch-0475.mjs`:
    - `export default {theme, pictures:[{title, theme?, forLevel?, family, direction?, device?, subject?, source?,
      reference?, rows:[...top first...]}]}`. `family` is one of the catalog's families and `direction` one of its
