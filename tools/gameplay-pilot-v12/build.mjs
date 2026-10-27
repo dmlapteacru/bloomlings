@@ -17,15 +17,17 @@ const P=createRequire(import.meta.url)(path.join(ENGINE,'palette.cjs')).palette(
 const HERO={sprig:'Sprig',bloom:'Bloom',drop:'Drop',twig:'Twig'};
 
 // ---- levels ----
-const levels=[],cards=[],drafts=[];
+const levels=[],cards=[],drafts=[],exceptions=[];
 for(let n=from;n<=to;n++){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft=false;
- if(!L&&preview){L=readJSON(path.join(preview,lid(n)+'.json'));draft=!!L;}
+ if(!L&&preview){L=readJSON(path.join(preview,lid(n)+'.json'));draft=!!L&&!L.exception;}
+ // a preview level may stand in for an open position as an explicit exception to a rule (it says which)
+ if(L&&L.exception)exceptions.push({level:n,note:L.exception});
  if(!L)throw Error(`нет уровня ${n}: ни в content/rounds/levels, ни в --preview`);
  const d=L.definition;levels.push({id:n,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{})});
  // a level stands on a draft when its picture is not approved in the repository (a trial folder may approve drafts)
  {const real=readJSON(path.join(root,'content/rounds/pictures',L.picture+'.json'));if(real&&real.status!=='approved')draft=true;}
  if(draft)drafts.push(n);
- cards.push({level:n,cls:L.cls,intro:L.intro,picture:L.picture,recipe:L.recipe,N:L.N,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random.share,runs:L.random.runs,borderline:!!L.random.borderline,seconds:L.rhythm.seconds,draft});}
+ cards.push({level:n,bridgeKind:L.checks&&L.checks.bridgeKind||null,cls:L.cls,intro:L.intro,picture:L.picture,recipe:L.recipe,N:L.N,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random.share,runs:L.random.runs,borderline:!!L.random.borderline,seconds:L.rhythm.seconds,draft});}
 
 // ---- lessons: L1, each new colour, each mechanic's introductions (the second as a reminder), the first Hard and Super Hard ----
 const lessons={},tags={},seen=new Set(),introduced=new Set();
@@ -41,7 +43,7 @@ for(const L of levels){const used=[...new Set(L.pods.map(p=>p.color))],fresh=use
  // v12 (the owner's second amendment of 2026-10-27): the second introduction repeats the mechanic in a short reminder
  if(again==='hidden'){title='Снова скрытые капсулы';hero='drop';swatch=swatch||'B';texts.unshift('Капсула ? откроется, когда станет верхней в своём столбце. Её цвет заранее не узнать: держи место свободным.');}
  if(again==='links'){title='Снова связки';hero='bloom';swatch=swatch||L.pods.find(p=>p.group).color;texts.unshift('Связка уходит вдвоём: нужны два свободных места, и напарник должен быть доступен.');}
- if(again==='bridge'){title='Снова мостик';hero='sprig';swatch=swatch||'G';texts.unshift('Теперь решает выбор: только один мостик ведёт к победе. Посмотри, цвета какого берега нужны ближайшим капсулам.');}
+ if(again==='bridge'){title='Снова мостик';hero='sprig';swatch=swatch||'G';texts.unshift(card.bridgeKind==='single'?'Теперь решает выбор: только один мостик ведёт к победе. Посмотри, цвета какого берега нужны ближайшим капсулам.':'Мест снова два, построить можно один. Посмотри, цвета какого берега нужны ближайшим капсулам: с одним из мостиков пройти заметно легче.');}
  if(intro==='hidden'){title='Скрытая капсула';hero='drop';swatch=swatch||'B';
   texts.unshift('Капсула ? прячет цвет и число, пока не станет верхней в своём столбце; тогда она открывается сама, ещё до выбора. Держи свободное место для команды, которая может понадобиться.');}
  if(intro==='links'){title='Связка';hero='bloom';swatch=swatch||L.pods.find(p=>p.group).color;
@@ -62,7 +64,7 @@ Object.assign(dataset,{rulesHash:sha(rules),timelineHash:sha(timeline),paletteHa
 const ui=read(path.join(SRC,'ui.js'));
 const intro=cards.filter(c=>c.intro),hard=cards.filter(c=>c.cls!=='Normal');
 const MECH={hidden:'капсулы ?',links:'связки',bridge:'мостик Sprig'};
-const welcome=`<h2>Первые ${levels.length} уровней по правилам 17</h2><div class="welcome-heroes" id="welcomeHeroes"></div><p>Новые раунды: картинки из утверждённого набора, очереди собраны генератором и решены. Класс каждого уровня измерен случайным тестом (100–400 партий): Normal — бот выигрывает от 50 %, Hard — 20–50 %, Super Hard — 5–20 %. Календарь: каждый 5-й уровень Hard, 15-й — Super Hard.</p><p>Что нового в v12 (по вашим заметкам к v11): Hard и Super Hard не проходятся «правильным первым тапом и дальше по цветам»; в части Normal игра «по цветам» проигрывает и есть капсула, которая держит место; на втором мостике решает только один мост; скрытых капсул больше, они раньше, а открывшаяся капсула подсвечивается.</p><p>Знакомства: ${[...new Set(intro.map(c=>c.intro))].map(m=>`${MECH[m]} — L${intro.filter(c=>c.intro===m).map(c=>c.level).join(' и L')}`).join('; ')}. Сложные: ${hard.map(c=>`L${c.level} ${c.cls}`).join(', ')}.${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках (ждут утверждения) — в меню «ЧЕРНОВИК».`:''}</p><ol><li>Можно отправить несколько верхних капсул подряд, пока есть пустые места.</li><li>Команда собирает только точный материал своей капсулы.</li><li>Пока работа недоступна, остаток занимает место. Для пары нужны 2 места; оба освободятся после завершения всей пары.</li></ol><p class="subtle">Три ряда, пять мест, автоматическое ускорение ×2,5 в конце — как в v9. Внешний вид временный.</p>`;
+const welcome=`<h2>Первые ${levels.length} уровней по правилам 17</h2><div class="welcome-heroes" id="welcomeHeroes"></div><p>Новые раунды: картинки из утверждённого набора, очереди собраны генератором и решены. Класс каждого уровня измерен случайным тестом (100–400 партий): Normal — бот выигрывает от 50 %, Hard — 20–50 %, Super Hard — 5–20 %. Календарь: каждый 5-й уровень Hard, 15-й — Super Hard.</p><p>Что нового в v12 (по вашим заметкам к v11): Hard и Super Hard не проходятся «правильным первым тапом и дальше по цветам»; в части Normal игра «по цветам» проигрывает и есть капсула, которая держит место; со второго мостика решать должен только один мост (для L18 нужна новая картинка с ручьём, пока исключение); скрытых капсул больше, они раньше, а открывшаяся капсула подсвечивается.</p><p>Знакомства: ${[...new Set(intro.map(c=>c.intro))].map(m=>`${MECH[m]} — L${intro.filter(c=>c.intro===m).map(c=>c.level).join(' и L')}`).join('; ')}. Сложные: ${hard.map(c=>`L${c.level} ${c.cls}`).join(', ')}.${exceptions.map(e=>` L${e.level} — исключение: ${e.note}.`).join('')}${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках (ждут утверждения) — в меню «ЧЕРНОВИК».`:''}</p><ol><li>Можно отправить несколько верхних капсул подряд, пока есть пустые места.</li><li>Команда собирает только точный материал своей капсулы.</li><li>Пока работа недоступна, остаток занимает место. Для пары нужны 2 места; оба освободятся после завершения всей пары.</li></ol><p class="subtle">Три ряда, пять мест, автоматическое ускорение ×2,5 в конце — как в v9. Внешний вид временный.</p>`;
 let page=read(path.join(SRC,'page.html'));
 for(const [k,v] of Object.entries({'/*__TITLE__*/':`Bloomlings · v12 · первые ${levels.length} раундов`,'/*__LABEL__*/':`V12 · РАУНДЫ · ${levels.length} УРОВНЕЙ`,'/*__FIRST__*/':`ПЕРВЫЕ ${levels.length}`,'/*__WELCOME__*/':welcome})){if(page.split(k).length!==2)throw Error('page.html: '+k);page=page.split(k).join(v);}
 const uri=(f,m)=>`data:${m};base64,`+fs.readFileSync(f).toString('base64'),json=v=>JSON.stringify(v).replace(/</g,'\\u003c');
