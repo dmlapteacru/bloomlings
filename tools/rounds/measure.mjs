@@ -10,11 +10,11 @@ const isStateEvent=e=>e.type!=='return'&&e.type!=='arrive';
 // one game of the extended random policy (§5): before each choice the events of the moment are processed; the bot
 // picks uniformly among all legal actions (a pod, a whole group, each bridge place) and, when a state-changing event
 // is scheduled, one extra option: wait until that event. With no action and a scheduled event, time moves on by itself.
-export function randomGame(E,level,seed){const {R,T}=E,t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed);let guard=0;
+export function randomGame(E,level,seed,keep=null){const {R,T}=E,t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed);let guard=0;
  const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)t.advance(0);};
  const waitEvent=()=>{while(t.pending){const e=t.steps[0];t.advance(Math.max(0,e.at-t.now));if(isStateEvent(e))break;}settleNow();};
  while(guard++<200000){settleNow();if(t.state.status==='Won')return true;
-  const moves=R.legal(t.state).filter(a=>!t.check(a)),canWait=t.steps.some(isStateEvent);
+  const moves=R.legal(t.state).filter(a=>!t.check(a)&&(!keep||keep(a))),canWait=t.steps.some(isStateEvent);
   if(!moves.length){if(t.pending){waitEvent();continue;}return false;}
   const k=Math.floor(r()*(moves.length+(canWait?1:0)));
   if(k===moves.length){waitEvent();continue;}
@@ -77,7 +77,14 @@ export function rhythm(tr,W){const S=tr.samples,end=tr.end,seg=[0,1,2,3,4].map((
  const after80=tr.taps.filter(x=>doneAt(x.t)>=.8*W).length,lastShare=tr.taps.length?Math.round(100*doneAt(tr.taps.at(-1).t)/W):null;
  return {segments:seg.map((s,i)=>({from:i*20,to:i*20+20,meanFree:s.t?Math.round(s.free/s.t*100)/100:null,minFree:s.min===Infinity?null:s.min,fullShare:s.t?Math.round(s.full/s.t*100)/100:null,maxWaiting:s.stalled})),launchesAfter80:after80,lastLaunchAtW:lastShare,seconds:Math.round(end/100)/10};}
 
-// §9: on a bridge introduction every shown bridge keeps a winning continuation (each choice taken first, then solved)
+// §9: on a bridge introduction every shown bridge keeps a winning continuation: the level is solved with only that bridge
+// (a bridge needs its approach cleared first, §8, so it cannot simply be taken at the start)
 export async function bridgeChoicesWin(level){const E=await engine(),S=solver(E,200000),out=[];
- for(let i=0;i<(level.hero?level.hero.choices.length:0);i++){const st=E.idle.step(E.idle.create(level,level.capacity||5),{type:'bridge',choice:i});out.push(st.accepted?S.winnable(st.state):false);}
+ for(let i=0;i<(level.hero?level.hero.choices.length:0);i++){const lv={...level,hero:{...level.hero,choices:[level.hero.choices[i]]}};out.push(S.winnable(E.idle.create(lv,level.capacity||5)));}
  return {each:out,ok:out.length>0&&out.every(x=>x===true)};}
+
+// the bridge as a choice (the owner, 2026-10-27: "надо выбрать, какой мост открывать"): for each bridge, whether it keeps a
+// winning continuation and the random test's share when only that bridge may be built; gap = best share − worst share
+export async function bridgeChoices(level,games=60,seed=5){const E=await engine(),win=(await bridgeChoicesWin(level)).each,each=[];
+ for(let i=0;i<win.length;i++){let w=0;for(let g=0;g<games;g++)if(randomGame(E,level,seed*7919+g*104729+i,a=>a.type!=='bridge'||a.choice===i))w++;each.push({label:level.hero.choices[i].label,win:win[i],share:Math.round(w/games*100)/100});}
+ const sh=each.map(x=>x.share);return {each,gap:Math.round((Math.max(...sh)-Math.min(...sh))*100)/100,better:sh.indexOf(Math.max(...sh))};}

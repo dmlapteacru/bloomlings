@@ -1991,9 +1991,9 @@
    "h": 40,
    "N": 796,
    "colours": 7,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0111",
-   "note": null,
+   "note": "владелец 2026-10-27: берём варианты с ручьём P0114/P0115, оленя и бобра не надо",
    "usedBy": null
   },
   {
@@ -2009,9 +2009,9 @@
    "h": 39,
    "N": 878,
    "colours": 7,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0111",
-   "note": null,
+   "note": "владелец 2026-10-27: берём варианты с ручьём P0114/P0115, оленя и бобра не надо",
    "usedBy": null
   },
   {
@@ -2035,7 +2035,7 @@
   {
    "id": "P0114",
    "seq": 114,
-   "version": 1,
+   "version": 2,
    "title": "Палатка у ручья",
    "theme": "variants-0114",
    "family": "Походы и отдых на природе",
@@ -2045,7 +2045,7 @@
    "h": 31,
    "N": 960,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "variants-0114",
    "note": null,
    "usedBy": null
@@ -2053,7 +2053,7 @@
   {
    "id": "P0115",
    "seq": 115,
-   "version": 1,
+   "version": 2,
    "title": "Лесной дух у ручья",
    "theme": "variants-0114",
    "family": "Фольклор и легенды",
@@ -2063,7 +2063,7 @@
    "h": 31,
    "N": 960,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "variants-0114",
    "note": null,
    "usedBy": null

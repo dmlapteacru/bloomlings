@@ -63,7 +63,7 @@
   "G": 354,
   "Y": 12
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0111",
  "createdAt": "2026-10-27",
  "history": [
@@ -115,5 +115,7 @@
     "GGGGGG.GGGGGGGGGGGGGGGGGGGGGG.GGGGGG"
    ]
   }
- ]
+ ],
+ "note": "владелец 2026-10-27: берём варианты с ручьём P0114/P0115, оленя и бобра не надо",
+ "decidedAt": "2026-10-27"
 }

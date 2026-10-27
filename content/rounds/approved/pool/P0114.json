@@ -1,0 +1,97 @@
+{
+ "code": "P0114",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Палатка у ручья",
+ "theme": "variants-0114",
+ "family": "Походы и отдых на природе",
+ "subject": "вариант P0023: палатка и костёр на дальнем берегу ручья, к левому мосту ведут камни, к правому трава",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 31,
+ "N": 960,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 354,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "M": {
+   "cells": 237,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 134,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 109,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 65,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 29,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 24,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 8,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-27",
+ "rows": [
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVCVVVVVVVVVVVVVV",
+  "VVCCCCVVVVVVVVVVCCCVVVVVVVVVVCVV",
+  "VCCCCCCVVVVVVVVVVCVVVVVVVVVVCCCV",
+  "VCCCCCCVVDVDVVVVVVVVVVVVVVVVVCVV",
+  "VCCCCCCVVDBDVVVVVVVVVVVVVVVVVVVV",
+  "VVCCCCCVVVBVVVVVVVVVVVCVVVVVVVVV",
+  "VVVCCCVVVBBBVVVVVVVVVCCCVVVVVVVV",
+  "VVVVVVVVVBDBVVVVVVVVVVCVVVVVVVVV",
+  "VVVVVVVVBBDBBVVVVVVVVVVVVVVRVVVV",
+  "VVVVVVVVBCDBBBVVVVVVVVVVVVRRVVVV",
+  "VVCVVVVBBCDBBBVVVVVVVVVVVVRRVVVV",
+  "VCCCVVBBCDDDBBBVVVVVVVVVVRRORVVV",
+  "VVCVVVBBCDDDBBBVVVVVVVVVVRRORVVV",
+  "VVVVVBBCCDDDBBBBVVVVVVVVVROORVVV",
+  "MMMMMBBCCDDDBBBBMMMMMMMMRROOORMM",
+  "MMMMBBBCCDDDDBBBBMMMMMMMRROOORMM",
+  "MMMMBBCCDDDDDBBBBMMMMMMRROYOORRM",
+  "MMMBBBCCDDDDDBBBBBMMMMMRROYYOORM",
+  "MMBBBCCCDDDDDBBBBBBMMMMROOYYOORM",
+  "MMBBBCCCDDDDDBBBBBBMMMMCOOYYOORM",
+  "MBBBCCCDDDDDDDBBBBBBMMCCCCCYCCCC",
+  "MBBBCCCDDDDDDDBBBBBBMMMCCCCCCCCM",
+  "BBBCCCCDDDDDDDBBBBBBBMCCCCCCCCCC",
+  "MMMMMMMMMMMMMMMMMMMMMMCCCCMMCCCC",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "#########b#############b########",
+  "MMMMMMCCCCCCCMMMMMMMMMMMMMMMMMMM",
+  "MMMMMCCCCCCCCCMMMMMMMMMMMMMMCCMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+ ]
+}

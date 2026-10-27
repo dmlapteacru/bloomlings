@@ -12,7 +12,7 @@
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
 import fs from 'node:fs';import path from 'node:path';
 import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf} from './lib.mjs';import {execFileSync} from 'node:child_process';
-import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin} from './measure.mjs';import {engine} from './engine.mjs';
+import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices} from './measure.mjs';import {engine} from './engine.mjs';
 const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
 const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
 
@@ -37,8 +37,9 @@ export function checkPods(pods,volumes){const errs=[];const sum={};for(const p o
  return errs;}
 
 // ---- access depth of each cell: how many coloured cells stand between it and the entry (0-1 search) ----
-// a bridge site counts as a path here (one bridge is built before the far bank opens)
-function depths(board){const {w,h,rowsBottomFirst:rows,entries}=board,sites=new Set((board.hero?board.hero.choices:[]).map(c=>c.cell)),g=[...rows.join('')].map((ch,i)=>sites.has(i)?'.':ch).join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];
+// a bridge site counts as a path here (one bridge is built before the far bank opens); `only` keeps one bridge, so the
+// queue is ordered for that bridge and the other one opens the far bank in a less handy order (a real choice)
+function depths(board,only=null){const {w,h,rowsBottomFirst:rows,entries}=board,sites=new Set((board.hero?board.hero.choices:[]).filter((c,i)=>only===null||i===only).map(c=>c.cell)),g=[...rows.join('')].map((ch,i)=>sites.has(i)?'.':ch).join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];
  for(const e of entries){d[e]=0;dq.push(e);}
  while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u,ch=g[n];if(ch==='#')continue;
   const cost=CODES.includes(g[c])?1:0,nd=d[c]+cost;if(nd<d[n]){d[n]=nd;cost?dq.push(n):dq.unshift(n);}}}
@@ -63,7 +64,7 @@ export function dosesOk(level,cls){const P=level.pods.length,hidden=level.pods.f
  const max=cls==='Normal'?2:3;if(types.length>max)return `типов ${types.length} больше ${max} для ${cls}`;if(P<16&&types.length>1)return 'очередь меньше 16 подов — только один тип';return null;}
 
 // ---- one candidate: order pods by access depth with noise, deal them into columns, add the recipe's mechanics ----
-export function candidate(pic,board,base,cols,recipe,cls,seed,intro){const r=rnd(seed),{d,g}=depths(board),pods=base.map(p=>({...p}));
+export function candidate(pic,board,base,cols,recipe,cls,seed,intro){const r=rnd(seed),intended=recipe.includes('bridge')&&board.hero?Math.floor(r()*board.hero.choices.length):null,{d,g}=depths(board,intended),pods=base.map(p=>({...p}));
  const byColour={};for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byColour[g[i]]=byColour[g[i]]||[]).push(d[i]);
  const maxD=Math.max(1,...Object.values(byColour).flat());
  for(const [c,ds] of Object.entries(byColour)){ds.sort((a,b)=>a-b);const ps=pods.filter(p=>p.color===c);let k=0;for(const p of ps){const slice=ds.slice(k,k+p.count);k+=p.count;p.key=slice.reduce((a,b)=>a+b,0)/slice.length/maxD;}}
@@ -121,10 +122,13 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      if(intro&&rt.share<.9){reasons['знакомство ниже 90 %']=(reasons['знакомство ниже 90 %']||0)+1;continue;}
      const dErr=dosesOk(c.level,rt.cls);if(dErr&&!intro){reasons['дозы не подходят фактическому классу: '+dErr]=(reasons['дозы не подходят фактическому классу: '+dErr]||0)+1;continue;}
      const fair=c.level.pods.some(p=>p.mystery)?await fairness(c.level,sol.route):{fair:true,checked:0};if(!fair.fair){reasons['честность скрытых не подтверждена']=(reasons['честность скрытых не подтверждена']||0)+1;continue;}
-     if(intro&&recipe==='bridge'&&!(await bridgeChoicesWin(c.level)).ok){reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']=(reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']||0)+1;continue;}
+     // a bridge level measures each bridge; an introduction needs both to win (§9) and one clearly better (the owner)
+     const bc=c.level.hero?await bridgeChoices(c.level):null;
+     if(intro&&recipe==='bridge'&&!bc.each.every(x=>x.win===true)){reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']=(reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']||0)+1;continue;}
+     if(intro&&recipe==='bridge'&&bc.gap<.1){reasons['выбор моста не важен: разница меньше 10 пунктов']=(reasons['выбор моста не важен: разница меньше 10 пунктов']||0)+1;continue;}
      const st=await strategies(c.level),rh=rhythm(sol.trace,W);
      bank.candidates.push({id:`${id}-${cls[0]}${recipe}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:rt.cls,intro,recipe,level:c.level,N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
-      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
+      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,...(bc?{bridge:bc}:{}),engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
      found++;}
     console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
     bank.searched.push({combo,tried,found,reasons});writeJSON(bankFile,bank);}}
@@ -153,7 +157,7 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const score=c=>{const s=c.random.share;return scarce(c)+(c.random.borderline?1:0)+(s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   ok.sort((a,b)=>score(a)-score(b));const c=ok[0];
   if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n)});continue;}
-  const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
+  const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,...(c.bridge?{bridge:c.bridge}:{}),engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
   writeJSON(path.join(LEVELS,lid(n)+'.json'),L);placed[n]=L;usedPic.add(c.picture);
   const e=m.pictures.find(p=>p.id===c.picture);if(e)e.usedBy=lid(n);const pf=path.join(PICTURES,c.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);
   for(const b of banks)if(b.picture===c.picture){b.candidates=b.candidates.filter(x=>x.id!==c.id);b.placed=(b.placed||[]).concat([c.id]);writeJSON(path.join(BANK,b.picture+'.json'),b);}

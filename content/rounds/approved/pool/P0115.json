@@ -1,0 +1,98 @@
+{
+ "code": "P0115",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Лесной дух у ручья",
+ "theme": "variants-0114",
+ "family": "Фольклор и легенды",
+ "direction": "Фольклорная фантазия",
+ "subject": "вариант P0092: лесной дух с фонарём на дальнем берегу лесного ручья, к левому мосту ведут камни, к правому трава",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 31,
+ "N": 960,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 374,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 212,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 150,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 100,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 48,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 46,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 24,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 6,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-10-27",
+ "rows": [
+  "EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE",
+  "EEEENNNNNNNNNNNNNNNNNNNNNNNNEEEE",
+  "EEEENNNNNNNYNNNNNNNNNNNNNNNNEEEE",
+  "EEEENNNNNNYYYNNNNNNNNNNNNNNNEEEE",
+  "EEDENNNNNNNYNNNNNNNYNNNNNNNNEEEE",
+  "EEDENNNNNNNNNNNNNNYYYNNNNNNNEEEE",
+  "EEDENNNNNNNNNNNNNNNYNNNNNNNNEEEE",
+  "EEEENGNNNNNNNNNNNNNNNNGNNNNNEDEE",
+  "EEEEGGGGGNNNNNNNNNNGGGGGNNNNEDEE",
+  "EEEENGGMGGGNNNNNNGGGMGGNNNNNEDEE",
+  "EEEENNGGMGGNNNNNNGGMGGNNNNNNEEEE",
+  "EEEENNNGGMGGNNNNGGMGGNNNNNNNEEEE",
+  "EEEENNNNGGGGNNNNGGGGNNNNNNNNEEEE",
+  "EEEENNNNNGCCCCCCCCGNNNCDDNNNEEEE",
+  "EEEENNNNNCCCCCCCCCCNNCDCNDNNEEEE",
+  "EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE",
+  "EEDENNNNCCCCCCCCCCCCCDDDDDDNEEEE",
+  "EEDENNNNCCCDCCCCDCCCCNYYYYNNEEEE",
+  "EEEENNNNCCCDCCCCDCCCNNYYYYNNEEEE",
+  "EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE",
+  "EEEENNNNCCCCCDDCCCCCNNYOOYNNEDEE",
+  "EEEENNNNCCCCCCCCCCCCNNYOOYNNEDEE",
+  "EEEENNNNNCCCCCCCCCCNNDDDDDDNEEEE",
+  "EEEENNNNNNCCCCCCCCNNNDDDDDDNEEEE",
+  "EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE",
+  "EEEENNNNNNCCCNNCCCNNNNNNNNNNEEEE",
+  "EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE",
+  "EEEEMMMMMMMMMMMMMMMMMMMMMMMMEEEE",
+  "########b##############b########",
+  "MMMMMCCCCCCCMMMMMMMMMMMMMMMMMMMM",
+  "MMMMCCCCCCCCCMMMMMMMMMMMMMMMCCMM"
+ ]
+}
