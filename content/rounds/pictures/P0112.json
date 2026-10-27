@@ -1,7 +1,7 @@
 {
  "id": "P0112",
  "seq": 112,
- "version": 1,
+ "version": 2,
  "title": "Бобр строит плотину",
  "theme": "batch-0111",
  "family": "Лесные и горные животные",
@@ -45,13 +45,13 @@
   "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
   "MMMMMM.MMMMMMMMMMMMMMMMMMMMMMMM.MMMMMM",
   "######b########################b######",
-  "GGGGGG.GGGGGGGGGGGGGGGGGGGGGGGG.GGGGGG",
-  "GMMGGG.GGGGGGGGGGGGGGGGGGGGGGGG.GGMMGG",
-  "GGMGGG.GGGCCGGGGMGGGGGGGGGGGCGG.GGGMGG",
-  "GGGGGG.GGGCCCGGMMGGGGGGMMGGCCCG.GGGGGG",
-  "GGGGGG.GGGGGGGGGGGGGGGGGGGGGGGG.GGGGGG"
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GMMGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGMMGG",
+  "GGMGGGGGGGCCGGGGMGGGGGGGGGGGCGGGGGGMGG",
+  "GGGGGGGGGGCCCGGMMGGGGGGMMGGCCCGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
  ],
- "N": 868,
+ "N": 878,
  "colours": 7,
  "volumes": {
   "M": 92,
@@ -60,10 +60,58 @@
   "D": 49,
   "C": 40,
   "O": 4,
-  "G": 300
+  "G": 310
  },
  "status": "draft",
  "batch": "batch-0111",
- "createdAt": "2026-10-26",
- "history": []
+ "createdAt": "2026-10-27",
+ "history": [
+  {
+   "version": 1,
+   "title": "Бобр строит плотину",
+   "status": "draft",
+   "note": null,
+   "rows": [
+    "......................................",
+    "......................................",
+    "......................................",
+    "......................................",
+    ".................................M....",
+    "....M............................EE...",
+    "....EE...........................EE...",
+    "....EE........EE.................EE.M.",
+    ".M..EE.......EAAAAA..............EE.EE",
+    ".EE.EE......AAAAAAAAA............M..EE",
+    ".EE.M......AAAAAAAAAAA...........M..EE",
+    ".EE.M......AAAAAAAADAAAA.........M..EE",
+    ".EE.M......AAAAAAAAAAACCDD.......M..M.",
+    ".M..M......AAAAAAAAAACCCCDD......M..M.",
+    ".M..M.......AAAAAAAAACCCCC.......M..M.",
+    ".M..M........AAAAAAAAAOOCC.......M..M.",
+    ".M..M.......AAAAAAAAAAOO.........M..M.",
+    ".M..M.....AAAAEEDDEEEEDDEEEE.....M..M.",
+    ".M..M....AAAAAEEDDEEEEDDEEEE.....M..M.",
+    ".M..M....AAAAAAAAAAAAAAAA......CCEEEEE",
+    ".M..M...AAAAAAAAAAAAAAAAAA....CACAAAAA",
+    ".M..M...AAAAAAAAAAAAAAAAAA.....CCEEEEE",
+    ".DDDDD..AAAAAAAAAAAAAAAAAA...CCEEEEEEE",
+    "DDDDDDDDAAAAAAAAAAAAAAAAAA..CACAAAAAAA",
+    "EDDEDDEDDAAAAAAAAAAAAAAAAA...CCEEEEEEE",
+    ".DDDDDDDDAAAAAAAAAAAAAAAA..CCEEEEEEEEE",
+    ".M.DDDDDDDAAAAAAAAAAAAAAA.CACAAAAAAAAA",
+    ".M..M.EDDEAAAAAAAAAAAAAA...CCEEEEEEEEE",
+    "GGGGGGGGGEEEEEEGGGGEEEEEEGGGGGGGGGGGGG",
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+    "MMMMMM.MMMMMMMMMMMMMMMMMMMMMMMM.MMMMMM",
+    "######b########################b######",
+    "GGGGGG.GGGGGGGGGGGGGGGGGGGGGGGG.GGGGGG",
+    "GMMGGG.GGGGGGGGGGGGGGGGGGGGGGGG.GGMMGG",
+    "GGMGGG.GGGCCGGGGMGGGGGGGGGGGCGG.GGGMGG",
+    "GGGGGG.GGGCCCGGMMGGGGGGMMGGCCCG.GGGGGG",
+    "GGGGGG.GGGGGGGGGGGGGGGGGGGGGGGG.GGGGGG"
+   ]
+  }
+ ]
 }

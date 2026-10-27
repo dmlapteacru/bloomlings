@@ -12,7 +12,7 @@
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
 import fs from 'node:fs';import path from 'node:path';
 import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf} from './lib.mjs';import {execFileSync} from 'node:child_process';
-import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin} from './measure.mjs';
+import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin} from './measure.mjs';import {engine} from './engine.mjs';
 const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
 const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
 
@@ -113,6 +113,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
      const errs=checkPods(c.level.pods,m.volumes);if(errs.length){reasons['баланс']=(reasons['баланс']||0)+1;continue;}
      const tick=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{};const t0=Date.now();
+     if(c.level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(c.level,c.level.capacity||5)).length){reasons['мост доступен сразу — нужен расчищенный подход (§8)']=(reasons['мост доступен сразу — нужен расчищенный подход (§8)']||0)+1;continue;}}
      const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,1],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
      if(q<target[0]-.15||q>target[1]+.15){reasons['не тот класс по быстрой оценке']=(reasons['не тот класс по быстрой оценке']||0)+1;continue;}
      const sol=await solve(c.level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won'){reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']=(reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']||0)+1;continue;}

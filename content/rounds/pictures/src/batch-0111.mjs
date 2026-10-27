@@ -98,7 +98,9 @@ function beaver(){const W=38,H=39,SY=33;
  stream(g,SY,[6,31],[col(6,SY+1,H-1),col(31,SY+1,H-1)]);
  return str(g);}
 
+// the owner (2026-10-27, 17 §8): a bridge is not free at the start; the approach on the near bank is grass to clear first
+const approach=rows=>{const s=rows.findIndex(r=>/^[#b]+$/.test(r));return rows.map((r,y)=>y>s?r.replace(/\./g,'G'):r);};
 export default {theme:'batch-0111',pictures:[
- {title:'Олень у ручья',forLevel:16,family:'Лесные и горные животные',subject:'олень с ветвистыми рогами стоит на дальнем берегу ручья, ближний берег с травой и камнями',source:'оригинальный',rows:deer()},
- {title:'Бобр строит плотину',forLevel:18,family:'Лесные и горные животные',subject:'бобр с веткой на берегу ручья у плотины из брёвен',source:'оригинальный',rows:beaver()},
+ {title:'Олень у ручья',forLevel:16,family:'Лесные и горные животные',subject:'олень с ветвистыми рогами стоит на дальнем берегу ручья, ближний берег с травой и камнями',source:'оригинальный',rows:approach(deer())},
+ {title:'Бобр строит плотину',forLevel:18,family:'Лесные и горные животные',subject:'бобр с веткой на берегу ручья у плотины из брёвен',source:'оригинальный',rows:approach(beaver())},
 ]};

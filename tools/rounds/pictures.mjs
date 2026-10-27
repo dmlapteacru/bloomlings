@@ -57,6 +57,8 @@ function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(
  while(q.length){const [x,y]=q.pop();for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=W||v>=H||seen.has(u+','+v))continue;const c=cell(u,v);if(c==='#')continue;seen.add(u+','+v);q.push([u,v]);}}
  let shut=0;for(let y=1;y<=p.h;y++)for(let x=1;x<=p.w;x++)if(CODES.includes(cell(x,y))&&!seen.has(x+','+y))shut++;if(shut)issues.push(`${shut} цветных клеток отрезаны стенами`);
  const sites=p.rows.join('').split('b').length-1;if(sites&&sites!==2)issues.push(`мест моста ${sites}, нужно ровно 2`);
+ // §8 (the owner, 2026-10-27): a bridge is not free at the start; the cell below each site (its approach) is a colour to clear
+ p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++)if(r[x]==='b'&&!(y+1<p.h&&CODES.includes(p.rows[y+1][x])))issues.push(`мост в колонке ${x}: подход под ним пустой — мост открывается сразу (§8)`);});
  return {id:p.id,seq:p.seq,forLevel:p.forLevel,N:m.N,colours:m.colours,size:sizeBin(m.N),ok:!issues.length,issues,warn};}
 function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pics.map(p=>Math.max(p.w,p.h)))));
  const tw=Math.max(...pics.map(p=>p.w))*cs+16,lab=34,th=Math.max(...pics.map(p=>p.h))*cs+lab+16,C=Math.min(cols,pics.length),R=Math.ceil(pics.length/C),Wt=C*tw,Ht=R*th,px=Buffer.alloc(Wt*Ht*3,255);
@@ -65,7 +67,7 @@ function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pic
  const text=(s,x,y,k,c)=>{for(const ch of s){const f=FONT[ch]||FONT[' '];for(let j=0;j<5;j++)for(let i=0;i<3;i++)if(f[j*3+i]==='1')rect(x+i*k,y+j*k,k,k,c);x+=4*k;}};
  pics.forEach((p,n)=>{const ox=(n%C)*tw+8,oy=Math.floor(n/C)*th+8,ink=p.inUse?[150,150,150]:p.status==='approved'?[30,130,60]:p.status==='rejected'?[190,40,40]:[30,30,30];
   const name=String(p.label||p.seq);text(name,ox,oy,4,ink);text(p.inUse?`#${+p.inUse.slice(1)}`:`${p.N}/${p.colours}`,ox+4*4*(name.length+1),oy+8,2,[90,90,90]);
-  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[248,247,243]:c==='#'?[70,70,70]:c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);}});
+  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[248,247,243]:c==='#'?[150,190,205]:c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);}});
   rect(ox-1,oy+lab-1,p.w*cs+2,1,[200,200,200]);rect(ox-1,oy+lab+p.h*cs,p.w*cs+2,1,[200,200,200]);});
  fs.mkdirSync(path.dirname(path.resolve(out)),{recursive:true});fs.writeFileSync(out,png(Wt,Ht,px));
  const md=out.replace(/\.png$/,'.md');fs.writeFileSync(md,`# Картинки на утверждение\n\nНомер на листе — порядковый номер картинки; рядом клетки/цвета. Ответь номерами: какие утвердить, какие переделать (и что поменять).\n\n| № | Название | Тема | Размер | Клеток | Цветов | Объёмы | Для уровня | Статус |\n|---:|---|---|---|---:|---:|---|---:|---|\n`+pics.map(p=>`| ${p.label||p.seq} | ${p.title} | ${p.theme||'—'} | ${p.w}×${p.h} | ${p.N} | ${p.colours} | ${Object.entries(p.volumes||{}).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`${c} ${v}`).join(' · ')} | ${p.forLevel} | ${p.status||'—'} |`).join('\n')+'\n');
