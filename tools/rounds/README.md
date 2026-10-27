@@ -1,10 +1,17 @@
 # Round tools
 
-Tools of the skills `bloomlings-round-pictures` and `bloomlings-round-levels`. The rules are in
+Tools of the skills `bloomlings-round-wave`, `bloomlings-round-pictures` and `bloomlings-round-levels`. The rules are in
 [`product/17_LEVEL_GENERATION_RULES.md`](../../product/17_LEVEL_GENERATION_RULES.md) and the content in
 [`content/rounds`](../../content/rounds/README.md). Node only: no install, PNGs are written without an image library.
 
 ```sh
+# a wave (17 §13): plan → pictures → run → the owner's sample → review
+node tools/rounds/rounds.mjs plan 21 70                  # positions, supply, picture order → content/rounds/runs/L0021-L0070/plan.md
+node tools/rounds/rounds.mjs run 21 70 --jobs 4          # dry place, build what is open, checks, place, audit, summary, sample pilot
+node tools/rounds/rounds.mjs review results.json         # owner's ratings next to the metrics → content/rounds/reports/
+# pictures from SVG drafts and the screen before the sheet (17 §13)
+node tools/rounds/svg2cells.mjs drafts.mjs --out content/rounds/pictures/src/batch-0120.mjs --sheet /tmp/s.png --level 30
+node tools/rounds/screen.mjs content/rounds/pictures/src/batch-0120.mjs --level 30
 # pictures (17 §2)
 node tools/rounds/pictures.mjs next
 node tools/rounds/pictures.mjs verify content/rounds/pictures/src/batch-0031.mjs --out /tmp/check.png   # skill bloomlings-board-picture
@@ -34,6 +41,11 @@ node tools/rounds/levels.mjs card 15
 | `pictures.mjs` | sequential numbering, render, rules check, contact sheet, approve/reject/replace |
 | `engine.mjs`, `engine/` | the round engine, our own code grown from the pilot: rules, timeline, palette, clock with the §1 slot positions, the §8 link rule, boards up to 48×48, 4–5 places; the pilot v10 embeds the same files |
 | `measure.mjs` | saved solution (search + live replay), §5 random test with waiting and Wilson 100 → 400, hidden-pod fairness, §11 strategies, §10 rhythm |
+| `rounds.mjs` | the wave runner: `plan` (positions and picture order), `run` (resumable, parallel build of what is open, checks, placement, audit, summary, the owner's sample pilot), `review` (owner results vs metrics, notes draft) |
+| `screen.mjs` | the screen of pictures before the contact sheet: §2 rules, strength, quick queue test, readability, similarity to approved, motifs |
+| `svg2cells.mjs`, `svg-palette.mjs` | flat SVG drafts in the palette → cell pictures sized to a target cell count, small patches folded |
+| `audit.mjs` | every placed level recomputed against 17 (layer A) with the layer B notes of `content/rounds/quality.json` |
+| `analysis/` | one-off measures behind the pilot reviews (opening + colours on CF models, forced decisions, slot pressure) |
 | `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7), build → bank, calendar placement with the §11 variety rules, cards |
 
 The engine plays hidden pods, linked pairs and the bridge. Latch + key, canal, shutters, repair, bud, seed, well,

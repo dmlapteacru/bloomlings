@@ -41,6 +41,10 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   live in one place, `content/rounds/approved/` (generated): `locked/` for levels 1–3, `pool/` for all others, which are
   interchangeable between rounds (a picture's number is no level). Each picture's code `P####` is free or in a round
   (`usedBy`, read from `content/rounds/levels/`; `pictures.mjs status`).
+  Since 2026-10-27 levels come in waves of 50 led by the skill `bloomlings-round-wave` (`tools/rounds/rounds.mjs plan/run/review`;
+  17 §13: pictures ordered by the wave plan, mostly SVG drafts through `svg2cells.mjs` and `screen.mjs`, every picture
+  approved on a sheet; quality layers A mandatory, B `content/rounds/quality.json`, C the owner's sample of ~10; the owner's
+  notes log `content/rounds/owner-notes.md`).
   `bloomlings-round-levels` builds approved pictures into solved levels, measures the class with the §5 random test
   (100 runs, 400 when the Wilson interval crosses a border) and places them by the calendar: every 15th level Super
   Hard, other multiples of 5 Hard, the rest Normal. Leftovers stay in `content/rounds/bank/`; empty positions go to

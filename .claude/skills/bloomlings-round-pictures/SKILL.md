@@ -17,6 +17,35 @@ Read the owner's notes log [`content/rounds/owner-notes.md`](../../../content/ro
 Read 17 §2 (input picture and sizes) and §4 (the first three levels) before drawing. Everything below must follow
 those rules; where this skill and 17 differ, 17 wins.
 
+## In a wave (the owner's decisions of 2026-10-27, 17 §13)
+
+Pictures are a separate stage **ordered by the wave plan** (`node tools/rounds/rounds.mjs plan <from> <to>`, skill
+`bloomlings-round-wave`): how many pictures of which stage and size, how many strong ones (3+ colours hidden at the
+start) for Hard and Super Hard, how many streams, which motifs to avoid and which theme families to prefer. Draw what the
+order asks for, not a free batch.
+
+- **The mass: flat SVG drafts, converted.**
+  - Write a draft module with `svg` strings whose fills come from `tools/rounds/svg-palette.mjs` (`C.G`, `C.P`, …).
+    Use flat areas, no gradients or strokes thinner than a cell. Transparent means empty.
+  - Give each picture the target `cells` (inside the stage of the positions it is for) and the most `colours`.
+  - Convert: `node tools/rounds/svg2cells.mjs <drafts.mjs> --out content/rounds/pictures/src/batch-NNNN.mjs --sheet
+    <png> --level <n>`.
+  - Details under about 3 cells at the target size are folded away. Draw them bigger, or leave them out.
+  - Keep the drafts next to the batch (`batch-NNNN.svg.mjs`): edit the SVG and convert again rather than editing the
+    converted matrix.
+- **Special pictures stay hand matrices:** L1–3 (exact §4 volumes), streams with bridge sites (`#`, `b`), and the
+  owner's own ideas or matrices.
+- **The screen before the sheet:** `node tools/rounds/screen.mjs <batch.mjs> --level <n>`. It checks:
+  - the §2 rules;
+  - strength;
+  - a quick queue test (a hint only);
+  - readability: tiny fragments, close neighbouring colours, tiny colours;
+  - similarity to approved pictures;
+  - motifs.
+
+  A НЕТ does not go on the sheet: redraw it. «Внимание» goes on the sheet with its note in the `.md` table.
+- Then render, sheet, owner's decision, as in the steps below. **The owner approves every picture.**
+
 ## What a picture is
 
 - A rectangular cell matrix in the pilot palette: 16 colours, 4 per hero (`tools/gameplay-pilot-v9/palette.cjs`).

@@ -1,5 +1,17 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner decisions · 2026-10-27 — the round generation flow
+
+- [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §13 gains "Волна и контроль качества", after the pilot
+  v12 and the owner's choices in [`plans/round-generation-flow-proposal-2026-10-27.md`](plans/round-generation-flow-proposal-2026-10-27.md).
+  - Waves of 50 levels; the owner plays a sample of about 10.
+  - Pictures are a separate stage, ordered by the wave plan. The mass is drawn as flat SVG drafts and converted; L1–3
+    and streams are drawn by hand. The owner approves every picture on a contact sheet.
+  - Three quality layers: A, the mandatory rules; B, metrics of interest in `content/rounds/quality.json`, the main one
+    "pods without work"; C, the owner's sample.
+  - Long runs happen in the cloud session.
+  - Three skills: `bloomlings-round-pictures`, `bloomlings-round-levels` and the new `bloomlings-round-wave`.
+
 ## Owner amendment · 2026-10-27 (second) — tuning after pilot v11
 
 - [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md), the owner accepted all six proposals of the pilot v11

@@ -26,6 +26,25 @@ Read 17 §1, §3, §5–§8, §10, §11 and §14 before building, and the sectio
   codes. `place` marks a code as used by writing its level, then rebuilds the folder. A code becomes free again only when
   its level file is removed or rebuilt with another picture.
 
+## In a wave (the owner's decisions of 2026-10-27, 17 §13)
+
+Build and placement run by script: `node tools/rounds/rounds.mjs run <from> <to> --jobs 4` (skill
+`bloomlings-round-wave` leads the whole wave). It runs, in order:
+- a dry placement on a copy;
+- `levels.mjs build` only for the free pictures and the classes and recipes the open positions need (one process per
+  picture; resumable, a searched combination is skipped);
+- `levels.mjs checks`;
+- `levels.mjs place`;
+- `audit.mjs`;
+- the summary and the owner's sample pilot.
+
+The commands below remain the building blocks. Use them directly only to debug or to do a targeted rebuild
+(`build --fresh --seed N`).
+
+Layer B of the quality is `content/rounds/quality.json`. Its metric "pods without work" is stored per candidate
+(`checks.pressure`, `measure.mjs pressure`). Placement prefers candidates at or above the class's bound; the audit notes
+those below it, and fails them once the bound's mode is `hard`.
+
 ## Principle
 
 Pictures are not tied to levels (except the locked levels 1–3).
