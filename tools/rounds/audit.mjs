@@ -1,7 +1,7 @@
 // Audit of placed round levels against product/17_LEVEL_GENERATION_RULES.md: everything is recomputed from the level
 // file and the picture, nothing is taken on trust from the builder. Mandatory rules (НЕТ fails the level) are kept
 // apart from the soft targets of §5, §10 and §12 (замечания).
-// node tools/rounds/audit.mjs <from> <to> [--out <file.md>] [--preview <folder>]
+// node tools/rounds/audit.mjs <from> <to> [--out <file.md>] [--json <file.json>] [--preview <folder>]
 //   --preview: a folder of L####.json for positions content/rounds/levels/ does not fill (draft pictures).
 import fs from 'node:fs';import path from 'node:path';
 import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf} from './lib.mjs';
@@ -124,4 +124,6 @@ let fails=0;for(const r of rows){if(r.missing){lines.push(`| ${r.n} | — | — 
  const st=r.L.strategies||{},gl=!st['most-now|left']&&!st['most-now|right'],o=r.L._opening;
  lines.push(`| ${r.n} | ${r.L.cls}${r.L.intro?' · знакомство':''} | ${r.L.picture} «${picture(r.L.picture)?.title||''}» | ${r.L._forced!=null?Math.round(r.L._forced*100)+' %':'—'} | ${gl?'проигрывает':'выигрывает'} | ${o?`${o.first.wins} из ${o.first.openings} / ${Math.round(o.three.share*100)} %`:'—'} | ${r.L._pressure!=null?r.L._pressure:'—'} | ${r.bad.length?'НЕТ: '+r.bad.join('; '):'OK'} | ${r.soft.join('; ')||'—'} |`);}
 lines.push('',`Последовательность (§2, §11, мотивы): ${seq.length?seq.join('; '):'OK'}`,'',fails||seq.length?`Итог: нарушений обязательных правил — ${fails} уровней${seq.length?`, последовательность — ${seq.length}`:''}.`:'Итог: все обязательные правила соблюдены.');
-const text=lines.join('\n')+'\n';if(out)fs.writeFileSync(out,text);console.log(text);process.exit(fails||seq.length?1:0);
+const text=lines.join('\n')+'\n';if(out)fs.writeFileSync(out,text);
+// --json <file>: the same verdicts as data, for the exporter's entry check (tools/rounds/export.mjs)
+if(arg('--json'))fs.writeFileSync(arg('--json'),JSON.stringify({from,to,levels:rows.map(r=>r.missing?{level:r.n,missing:true,bad:['нет уровня'],soft:[]}:{level:r.n,bad:r.bad,soft:r.soft}),sequence:seq},null,1)+'\n');console.log(text);process.exit(fails||seq.length?1:0);

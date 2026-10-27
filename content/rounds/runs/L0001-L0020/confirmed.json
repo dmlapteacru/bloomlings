@@ -1,0 +1,63 @@
+{
+ "format": "round-confirmation.v1",
+ "wave": [
+  1,
+  20
+ ],
+ "sample": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20
+ ],
+ "results": "product/playtests/pilot-v12-owner-2026-10-27/results.json",
+ "pilot": "pilot-v12-rounds",
+ "resultsExportedAt": "2026-10-27T21:27:41.109Z",
+ "attempts": 23,
+ "won": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20
+ ],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ },
+ "confirmedBy": "owner",
+ "date": "2026-10-27"
+}

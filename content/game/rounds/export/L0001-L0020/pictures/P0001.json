@@ -1,0 +1,38 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0001",
+ "version": 3,
+ "title": "Лисёнок",
+ "family": "Лесные и горные животные",
+ "subject": "лисёнок",
+ "source": "оригинальный",
+ "w": 14,
+ "h": 19,
+ "rows": [
+  "OO.......OO...",
+  "OOO.OOO.OOO...",
+  "OCOOOOOOOCO...",
+  "OOOOOOOOOOO...",
+  "OOOEOOOEOOO...",
+  "OOOEOOOEOOO...",
+  "OOOOCCCOOOO...",
+  ".OOCCECCOO....",
+  ".OOCCCCCOO....",
+  "...OOCOO....O.",
+  "..OOOOOOO...OO",
+  "..OOOCOOO...OO",
+  ".OOOCCCOOO..OO",
+  ".OOCCCCCOO..OO",
+  ".OOCCCCCOO..OO",
+  "..OCCCCCO..OOO",
+  "..OOCCCOOOOOO.",
+  "...COCOC..OOO.",
+  ".CCCCOCCCC...."
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-10-26"
+ },
+ "rights": "own"
+}

@@ -1,0 +1,197 @@
+{
+ "format": "round-level.v1",
+ "number": 17,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0065",
+  "version": 1
+ },
+ "board": {
+  "w": 41,
+  "h": 35,
+  "rowsBottomFirst": [
+   "####################.####################",
+   "#.......................................#",
+   "#...........VV.............VV...........#",
+   "#.......VVVVVV.............VVVVVV.......#",
+   "#......VVVVPPVV....DDD....VVPPVVVV......#",
+   "#......VVPPPPPVV...DDD...VVPPPPPVV......#",
+   "#.....VVPPYYYPPV...DDD...VVPYYYPPVV.....#",
+   "#.....VVPYYYYPPVV..DDD..VVPPYYYYPVV.....#",
+   "#....VVPPYYYYPPPVV.DDD.VVVPPYYYYPPVV....#",
+   "#....VVVPPYYYPPVVV.DDD.VVVVPYYYPPVVV....#",
+   "#.....VVPPPPPPVVVVVDDDVVPVVVPPPPPVV.....#",
+   "#......VVPPPPVVVVPVDDDVPPVVVVPPPVVV.....#",
+   "#......VVPPPPPPPPPVDDDVPPPPPPPPPVV......#",
+   "#.......VVVVVPPPPPVDDDVPPPPPVVVVV.......#",
+   "#..........VVVVVVPVDDDVPVVVVVV..........#",
+   "#......NNNN.....VVVDDDVVV.....NNNN......#",
+   "#.....NNNNNNNNNNNN.DDD.NNNNNNNNNNNN.....#",
+   "#....NNNBBBBBBBNNNNDDDNNNNBBBBBBBNNN....#",
+   "#..NNNPBBBBBBPPPPBNDDDNBBPPPPBBBBBPNNN..#",
+   "#..NNPPPBBBBBPPPBBNDDDNBBPPPBBBBBPPPNN..#",
+   "#..NNPPPBBBBBPPPBNNDDDNNBBPPBBBBBPPPNN..#",
+   "#..NNBBBYYYBBBPBNN.DDD.NNBPBBBYYYBBBNNN.#",
+   "#..NNBBYYYYYBBPNN...DD..NNPBBYYYYYBBNNN.#",
+   "#.NNNBBYYYYYYBNN...DDD...NNBBYYYYYBBNNN.#",
+   "#.NNNBBYYYYYYN.....DDD.....NYYYYYYBBNNN.#",
+   "#.NNNBBYYYYYN......DDD......NYYYYYBBNNN.#",
+   "#.NNNBBBYYYY......DD.DD......NYYYBBBBNN.#",
+   "#.NNBBBBBNN.......D...D.......NNBBBBBNN.#",
+   "#.NNNBBBNN.......D.....D.......NNBBBNNN.#",
+   "#.NNNNNNN.......DD.....DD.......NNNNNNN.#",
+   "#..NNNNN.......YD.......DY.......NNNNN..#",
+   "#...NN........YYY.......YYY........NN...#",
+   "#..............Y.........Y..............#",
+   "#.......................................#",
+   "#########################################"
+  ],
+  "entries": [
+   20
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "Y",
+   "count": 32,
+   "mystery": "depth"
+  },
+  {
+   "code": "Y",
+   "count": 31,
+   "mystery": "depth"
+  },
+  {
+   "code": "Y",
+   "count": 31
+  },
+  {
+   "code": "N",
+   "count": 33
+  },
+  {
+   "code": "N",
+   "count": 33
+  },
+  {
+   "code": "N",
+   "count": 33
+  },
+  {
+   "code": "N",
+   "count": 33
+  },
+  {
+   "code": "N",
+   "count": 32
+  },
+  {
+   "code": "D",
+   "count": 27
+  },
+  {
+   "code": "D",
+   "count": 26
+  },
+  {
+   "code": "D",
+   "count": 26
+  },
+  {
+   "code": "B",
+   "count": 29
+  },
+  {
+   "code": "B",
+   "count": 29
+  },
+  {
+   "code": "B",
+   "count": 29
+  },
+  {
+   "code": "B",
+   "count": 28
+  },
+  {
+   "code": "P",
+   "count": 33
+  },
+  {
+   "code": "P",
+   "count": 33
+  },
+  {
+   "code": "P",
+   "count": 33
+  },
+  {
+   "code": "P",
+   "count": 33
+  },
+  {
+   "code": "V",
+   "count": 28
+  },
+  {
+   "code": "V",
+   "count": 28
+  },
+  {
+   "code": "V",
+   "count": 28
+  },
+  {
+   "code": "V",
+   "count": 28
+  },
+  {
+   "code": "V",
+   "count": 28,
+   "mystery": "depth"
+  }
+ ],
+ "tray": [
+  [
+   18,
+   1,
+   23,
+   16,
+   22,
+   6,
+   9,
+   4
+  ],
+  [
+   14,
+   10,
+   12,
+   7,
+   0,
+   21,
+   20,
+   19
+  ],
+  [
+   2,
+   13,
+   17,
+   11,
+   15,
+   5,
+   3,
+   8
+  ]
+ ],
+ "mechanics": [
+  "hidden"
+ ],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
