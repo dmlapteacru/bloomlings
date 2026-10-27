@@ -21,6 +21,8 @@ The 9 failures exist before spec 006 and are not caused by it (they concern lega
 - Content: `Level_IsCanonicalAndLoads` for `curated/dev/level-dev-001.json`, `-002`, `-003`;
   `TheEmbeddedSchemas_AreTheContractsUnchanged("player-save.schema.json")` (the embedded schema and spec 001's
   contract differ in `dependentRequired`).
-- Generator: GENERATOR_FAILURES
+- Generator: `ExpansionPictures_AreApproved_AndKeptOutUntilTheirVariantJoins`,
+  `ThePicturePicker_DrawsEverySizeAboutEvenly`, `MissingClassesDoNotMoveTriplePracticeToALaterSuperHard(True)`,
+  `DailyPictures_AreTheChallengesOwn_AndTheLevelsNeverShowThem`.
 
 Spec 006 must not add failures: every later run is compared with this table.
