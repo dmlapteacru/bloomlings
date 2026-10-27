@@ -77,10 +77,15 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
  const byColour={};for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byColour[g[i]]=byColour[g[i]]||[]).push(d[i]);
  const maxD=Math.max(1,...Object.values(byColour).flat());
  for(const [c,ds] of Object.entries(byColour)){ds.sort((a,b)=>a-b);const ps=pods.filter(p=>p.color===c);let k=0;for(const p of ps){const slice=ds.slice(k,k+p.count);k+=p.count;p.key=slice.reduce((a,b)=>a+b,0)/slice.length/maxD;}}
+ // a bridge that alone is the solution (§8, from the second introduction): pods whose cells are near the intended bridge
+ // but far from the other one come earlier, so with the other bridge their pods wait in places without work and jam
+ let lean=0;if(intended!==null&&board.hero.choices.length>1&&r()<.6){lean=.5+2.5*r();const o=depths(board,1-intended).d,byO={};
+  for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byO[g[i]]=byO[g[i]]||[]).push(o[i]);
+  for(const [c,ds] of Object.entries(byO)){ds.sort((a,b)=>a-b);let k=0;for(const p of pods.filter(p=>p.color===c)){const sl=ds.slice(k,k+p.count);k+=p.count;p.keyO=sl.reduce((a,b)=>a+b,0)/sl.length/maxD;}}}
  const sigma={Normal:.06,Hard:.16,'Super Hard':.26}[cls];
- for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key+sigma*z;}
+ for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key-lean*Math.max(0,(p.keyO??p.key)-p.key)+sigma*z;}
  // Normal blends a little towards the reverse access order too, so its random test lands in 50–75 % (§5, median 50–60 %)
- if(cls==='Normal'&&!intro){const t=r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ if(cls==='Normal'&&!intro&&!lean){const t=r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
  // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
  // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
@@ -110,7 +115,7 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
   if(intro){const k=opts.findIndex(([,row])=>row===1);if(k<0)return {error:'нет подходящего места во втором ряду для скрытого'};opts=[opts[k],...opts.filter((_,i)=>i!==k)];}
   if(opts.length<want)return {error:'не хватило подов для скрытых'};opts.slice(0,want).forEach(([p])=>pods[p].mystery='depth');}
  if(types.includes('bridge')&&!board.hero)return {error:'на картинке нет мест моста (b)'};
- const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{})};
+ const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{})};
  return {level};}
 
 // ---- build: candidates for each picture, recipe and class, measured and banked ----

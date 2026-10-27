@@ -1631,6 +1631,14 @@
    "tried": 2,
    "found": 2,
    "reasons": {}
+  },
+  {
+   "combo": "Hard|hidden|",
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 64
+   }
   }
  ]
 }
