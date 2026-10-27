@@ -23,6 +23,12 @@ function achieved(id){const b=readJSON(path.join(BANK,id+'.json'));if(!b)return 
  const nor=cs.filter(c=>c.cls==='Normal'&&!c.intro).map(c=>c.random.share);return {normalMin:nor.length?Math.min(...nor):null,hard:cs.some(c=>c.cls==='Hard'),superHard:cs.some(c=>c.cls==='Super Hard')};}
 // the command line part runs only when this file is the script (fitness() is imported by other tools)
 if(import.meta.url===new URL(process.argv[1],'file://'+process.cwd()+'/').href){
+// a drawing module (*.mjs) is measured straight from its matrices, before the pictures are recorded
+const mod=process.argv.slice(2).find(a=>a.endsWith('.mjs'));
+if(mod){const {pathToFileURL}=await import('node:url'),b=(await import(pathToFileURL(path.resolve(mod)).href)).default;
+ for(const [i,p] of b.pictures.entries()){const pic={id:'#'+(i+1),title:p.title,rows:p.rows,w:p.rows[0].length,h:p.rows.length},f=fitness(pic);
+  console.log(`#${i+1} «${p.title}» ${f.N} кл. ${f.colours} цв.: скрыто на старте ${f.hiddenColours}, видно ${f.visible} — ${f.hiddenColours<=1||f.visible>=6?'слабая':f.hiddenColours>=4?'сильная':'средняя'}`);}
+ process.exit(0);}
 const ids=flag('--approved')?manifest().pictures.filter(p=>p.status==='approved').map(p=>p.id):process.argv.slice(2).filter(a=>/^P\d+$/.test(a));
 const rows=[];for(const id of ids){const p=picture(id),f=fitness(p),a=achieved(id);
   // measured on the 111 approved pictures (2026-10-27, potential.mjs): with ≤1 colour hidden at the start or ≥6 colours

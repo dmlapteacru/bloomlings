@@ -8,6 +8,7 @@ import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,c
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
 import {bridgeChoicesWin} from './measure.mjs';
+import {fitness} from './fitness.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
 const E=await engine(),{R}=E,FIX={1:[[26,26,26,25,25],[16,16,16],[5]],2:[[40,40,40],[33,32,32],[10,9],[4]],3:[[26,25,25],[24,23,23],[35,34],[26,25],[13],[2]]};
 const rows=[],levels={};
@@ -62,6 +63,16 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(d.hero){if(R.bridgeChoices(s0).length)bad.push('мост доступен сразу, без расчищенного подхода (§8)');
   if(slot.intro==='bridge'){const w=await bridgeChoicesWin(d);if(!w.ok)bad.push(`знакомство с мостом: не каждый мост ведёт к победе ${JSON.stringify(w.each)} (§9)`);
    if(L.bridge&&L.bridge.gap<.1)soft.push(`выбор моста почти не важен (разница ${Math.round(L.bridge.gap*100)} пунктов)`);}}
+ // the owner's amendment of 2026-10-27: greedy strategies lose Hard / Super Hard (§5), recipes by class (§7), picture fitness (§2)
+ const st=L.strategies||{},most=!st['most-now|left']&&!st['most-now|right'],quick=!st['fast-release|left']&&!st['fast-release|right'];
+ if(L.cls==='Hard'&&!most)bad.push('Hard выигрывает жадная стратегия «больше работы сейчас» (§5)');
+ if(L.cls==='Super Hard'&&!(most&&quick))bad.push('Super Hard выигрывает жадная стратегия (§5)');
+ if(!slot.intro){if(L.cls==='Super Hard'&&types.length<Math.min(2,slot.allowed.length))bad.push(`Super Hard: типов допов ${types.length}, нужно ведущая и дополнительная (§7)`);
+  if(L.cls==='Hard'&&n!==5&&slot.allowed.length&&!types.length)bad.push('Hard без механики — допустимо только на L5 (§7)');}
+ if(n>3&&pic){const f=fitness(pic),weak=f.hiddenColours<=1||f.visible>=6;
+  if(L.cls!=='Normal'&&f.hiddenColours<3)bad.push(`картинка для ${L.cls}: скрыто цветов на старте ${f.hiddenColours}, нужно 3+ (§2)`);
+  if(L.cls==='Normal'&&weak&&!types.length)bad.push(`слабая картинка (скрыто ${f.hiddenColours}, видно ${f.visible}) без механики (§2)`);}
+ if(!slot.intro&&types.length&&L.dosePos==null)soft.push('место дозы не записано (уровень собран до поправки)');
  // the class (§5): the random test, its protocol, the Wilson interval
  const sh=L.random.share,band={Normal:[.5,1.01],Hard:[.2,.5],'Super Hard':[.05,.2]}[L.cls];
  if(!(sh>=band[0]&&sh<band[1]))bad.push(`случайный тест ${Math.round(sh*100)} % не в классе ${L.cls} (§5)`);
@@ -81,6 +92,10 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  rows.push({n,L,bad,soft});}
 // sequence rules (§11, motif rule of the owner): lead mechanic and recipe at most 2 in a row, motifs once in 10, 10–11 colours
 const seq=[],lead=L=>typesOf(L)[0]||null;
+// §5 Normal median 50–60 % over the regular Normals (not L1–3, not introductions, not the first Normal after a Hard / Super Hard)
+{const reg=[];for(let n=Math.max(4,from);n<=to;n++){const L=levels[n],p=levels[n-1];if(L&&L.cls==='Normal'&&!L.intro&&!(p&&p.cls!=='Normal'))reg.push(L);}
+ if(reg.length>=3){const v=reg.map(L=>L.random.share).sort((a,b)=>a-b),med=v[Math.floor((v.length-1)/2)];if(med<.5||med>.6)seq.push(`медиана обычных Normal ${Math.round(med*100)} % вне 50–60 % (§5)`);
+  for(let i=0;i<reg.length;i++){const win=reg.filter(L=>L.level>reg[i].level-10&&L.level<=reg[i].level&&L.random.share>=.95);if(win.length>1){seq.push(`Normal на 95–100 % больше одного на десять: ${win.map(L=>'L'+L.level).join(', ')} (§5)`);break;}}}}
 for(let n=from+2;n<=to;n++){const a=levels[n-2],b=levels[n-1],c=levels[n];if(!a||!b||!c)continue;
  if(lead(c)&&lead(a)===lead(b)&&lead(b)===lead(c)&&!slotOf(n).intro)seq.push(`L${n-2}–L${n}: одна ведущая механика ${lead(c)} 3 раза подряд (§11)`);}
 for(let n=from;n<=to;n++)for(let k=n+1;k<=Math.min(to,n+9);k++){const a=levels[n],b=levels[k];if(!a||!b)continue;const both=motifsOf(picture(a.picture)).filter(m=>motifsOf(picture(b.picture)).includes(m));if(both.length)seq.push(`L${n} и L${k}: мотив «${both.join(', ')}» ближе 10 уровней`);}

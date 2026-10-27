@@ -88,3 +88,14 @@ export async function bridgeChoicesWin(level){const E=await engine(),S=solver(E,
 export async function bridgeChoices(level,games=60,seed=5){const E=await engine(),win=(await bridgeChoicesWin(level)).each,each=[];
  for(let i=0;i<win.length;i++){let w=0;for(let g=0;g<games;g++)if(randomGame(E,level,seed*7919+g*104729+i,a=>a.type!=='bridge'||a.choice===i))w++;each.push({label:level.hero.choices[i].label,win:win[i],share:Math.round(w/games*100)/100});}
  const sh=each.map(x=>x.share);return {each,gap:Math.round((Math.max(...sh)-Math.min(...sh))*100)/100,better:sh.indexOf(Math.max(...sh))};}
+
+// the greedy strategies of 17 §5 (the owner's amendment of 2026-10-27): "most work now" must lose a Hard, and with
+// "release a place fastest" a Super Hard, at both hero choices; returns which of them win
+export async function greedy(level){const E=await engine(),{R,T}=E,out={};
+ for(const k of ['most-now','fast-release'])for(const side of ['left','right']){const pol=STRATEGIES[k].make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));let g=0;
+  while(g++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a));
+   if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
+   if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
+  out[`${k}|${side}`]=t.state.status==='Won';}
+ return out;}
+export const greedyBeaten=(g,cls)=>cls==='Hard'?!g['most-now|left']&&!g['most-now|right']:cls==='Super Hard'?!Object.values(g).some(Boolean):true;
