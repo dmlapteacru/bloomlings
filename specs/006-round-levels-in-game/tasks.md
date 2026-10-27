@@ -308,13 +308,13 @@ level and the first differing event.
 
 ### Implementation for User Story 2
 
-- [ ] T041 [P] [US2] Create `client/Assets/Bloomlings/UI/Design/RoundBoardLayout.cs`:
+- [X] T041 [P] [US2] Create `client/Assets/Bloomlings/UI/Design/RoundBoardLayout.cs`:
   - from `rowsBottomFirst`, draw the outer ring and wall as the game's existing stone frame and the gate as the
     existing entry arch;
   - a stream `#` inside the frame is water, and a built bridge is a plank;
   - inner cells use the existing soft cubes;
   - fit up to 48×48.
-- [ ] T042 [P] [US2] Create `client/Assets/Bloomlings/UI/Design/LinkTube.cs`, the geometry of a tube attached to the
+- [X] T042 [P] [US2] Create `client/Assets/Bloomlings/UI/Design/LinkTube.cs`, the geometry of a tube attached to the
   front faces of two linked pods, whose half nearer each pod has that pod's colour. Add its picture to
   `client/Assets/Bloomlings/UI/Design/UiRaster` (a new `LinkTube` raster) and register an asset slot in `AssetSlots`.
 - [ ] T043 [US2] Create `client/Assets/Bloomlings/UI/Design/RoundAnimator.cs` (engine-free). Per frame, it gives from a
@@ -327,9 +327,9 @@ level and the first differing event.
 - [ ] T044 [US2] Make `client/Assets/Bloomlings/UI/Design/ClearStyles.cs` and `ClearLook.cs` take each walk's start,
   arrival, clear and done from the timeline instead of `TripSeconds`. The walker is the family hero of the material
   (`RoundMaterial.family`) tinted in the material colour, for every style and in `ClearPreview` (FR-048).
-- [ ] T045 [US2] Draw cubes without the variant icon in the kit's tile drawing (`client/Assets/Bloomlings/UI/Design/`,
+- [X] T045 [US2] Draw cubes without the variant icon in the kit's tile drawing (`client/Assets/Bloomlings/UI/Design/`,
   `UiRaster` Tile board style). When the symbols mode is on, draw the material's symbol on cubes, pods and places.
-- [ ] T046 [US2] Add the Settings switch "symbols mode" (off by default) to the save's settings
+- [X] T046 [US2] Add the Settings switch "symbols mode" (off by default) to the save's settings
   (`client/Assets/Bloomlings/Meta/`, engine-free) and to the playtest Settings screen (`playtest/design/MenuCards.cs`).
   Add its strings to `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv`.
 - [ ] T047 [US2] Speed and Auto in `playtest/design/LevelScreen.cs` and the kit:

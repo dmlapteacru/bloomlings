@@ -26,3 +26,16 @@ The 9 failures exist before spec 006 and are not caused by it (they concern lega
   `DailyPictures_AreTheChallengesOwn_AndTheLevelsNeverShowThem`.
 
 Spec 006 must not add failures: every later run is compared with this table.
+
+## Client check (`client/DotnetCheck`), recorded after stream D (2026-10-27)
+
+Before spec 006: 690 passed, 16 failed. A duplicate `purchase.failed` row in `Strings_en.csv` made `Loc.ParseCsv`
+throw (7 of the 16); stream D removed the older row. After stream D: 713 passed, 9 failed. The 9 failed before spec 006
+too: `ATapOnTheMemberOnTop_WaitsForItsPartner_AndSaysSo`, `Level54_HasAPairApart_EachUnderItsColumnsPlusN`,
+`PodGrid_InTheTrayArea_IsTheReferenceGrid`, `Replays_ShowEveryChangeInTheRulesOrder_AndEndOnTheRulesState`,
+`TheGroups_TakeThePaletteInTheirOrder`, `TheHeroes_StandOnTheFountain_BetweenTheLogoAndThePlaque_OnEveryShape`,
+`TheStoneBorder_RingsTheGrid_WithCornersAndRuns`, `TheWinScreen_StacksSignPictureHeroRewardAndNext`,
+`TwoQuickTaps_ShowOnTwoPlates_AndTheirWavesPlaySideBySide`.
+
+Content: `TheEmbeddedSchemas_AreTheContractsUnchanged(player-save)` passes since stream D (the embedded save schema is
+the contract's copy again), so Content has 3 legacy failures, not 4.
