@@ -13,7 +13,7 @@
 import fs from 'node:fs';import path from 'node:path';
 import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {fitness} from './fitness.mjs';
-import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten} from './measure.mjs';import {engine} from './engine.mjs';
+import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle} from './measure.mjs';import {engine} from './engine.mjs';
 const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
 const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
 
@@ -61,7 +61,8 @@ function doses(recipe,cls,P,intro){const types=recipe==='none'?[]:recipe.split('
  types.forEach((m,j)=>{if(m==='bridge'){out.bridge=1;return;}const role=j===0?'lead':'add';let [a,b]=doseRange(m,cls,role,P);
   // the engine plays at most six hidden (depth) pods
   if(m==='hidden'){a=Math.min(a,6);b=Math.min(b,6);}
-  if(intro){a=b=m==='links'?2:1;}else if(j>0){b=a;}else if(types.length>=3){b=Math.floor((a+b)/2);}
+  // teaching doses (§9): 1 pair of links, 2–3 hidden pods (the owner's second amendment of 2026-10-27)
+  if(intro){if(m==='hidden'){a=2;b=3;}else a=b=m==='links'?2:1;}else if(j>0){b=a;}else if(types.length>=3){b=Math.floor((a+b)/2);}
   if(m==='links'){a+=a%2;b-=b%2;}if(a>b)out.error=`нет целых доз ${m} для ${cls} при P=${P}`;out[m]=[a,b];});
  return out;}
 export function dosesOk(level,cls){const P=level.pods.length,hidden=level.pods.filter(p=>p.mystery).length,linked=level.pods.filter(p=>p.group).length,types=(level.recipe||'none')==='none'?[]:level.recipe.split('+');
@@ -78,7 +79,7 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
  const sigma={Normal:.06,Hard:.16,'Super Hard':.26}[cls];
  for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key+sigma*z;}
  // Normal blends a little towards the reverse access order too, so its random test lands in 50–75 % (§5, median 50–60 %)
- if(cls==='Normal'&&!intro){const t=.8*r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ if(cls==='Normal'&&!intro){const t=r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
  // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
  // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
@@ -89,6 +90,11 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
  const frontier=new Set();for(let i=0;i<g.length;i++)if(CODES.includes(g[i])&&d[i]===0)frontier.add(g[i]);
  if(!tray.some(st=>st.length&&frontier.has(pods[st[0]].color))){const best=ord.filter(i=>frontier.has(pods[i].color)).sort((a,b)=>pods[a].key-pods[b].key)[0];
   if(best!==undefined){const c=Math.floor(r()*cols),[bc,bi]=(()=>{for(let k=0;k<cols;k++){const j=tray[k].indexOf(best);if(j>=0)return [k,j];}})();[tray[c][0],tray[bc][bi]]=[tray[bc][bi],tray[c][0]];}}
+ // §6 (the owner's second amendment of 2026-10-27): a Normal keeps a pod of a deep colour (no reachable cell at the
+ // start) in the first two rows, so it holds a place until its work opens; the shallowest deep pod moves up to row 2
+ if(cls==='Normal'&&!intro&&!pic.locked&&!tray.some(st=>st.slice(0,2).some(p=>!frontier.has(pods[p].color)))){
+  const deep=[];tray.forEach((st,c)=>st.forEach((p,row)=>{if(row>=2&&!frontier.has(pods[p].color))deep.push([c,row]);}));deep.sort((a,b)=>pods[tray[a[0]][a[1]]].key-pods[tray[b[0]][b[1]]].key);
+  const cs=[...Array(cols).keys()].filter(c=>tray[c].length>=2);if(deep.length&&cs.length){const [dc,dr]=deep[0],c=cs[Math.floor(r()*cs.length)];[tray[c][1],tray[dc][dr]]=[tray[dc][dr],tray[c][1]];}}
  const types=recipe==='none'?[]:recipe.split('+'),dz=doses(recipe,cls,pods.length,intro);if(dz.error)return {error:dz.error};
  if(types.includes('links')){const want=pos===null||intro?dz.links[0]+2*Math.floor(r()*((dz.links[1]-dz.links[0])/2+1)):dz.links[0]+2*Math.round(pos*(dz.links[1]-dz.links[0])/2),pairs=[];const used=new Set();
   // pairs of neighbouring columns at the same depth; harder classes prefer a useful-now pod with a later one (§6.3)
@@ -98,7 +104,9 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
   if(pairs.length*2<want)return {error:'не хватило пар соседних подов для дозы связок'};pairs.forEach(([a,b],i)=>{const gname=String.fromCharCode(65+i%26)+(i>=26?String(Math.floor(i/26)):'');pods[a].group=gname;pods[b].group=gname;});}
  if(types.includes('hidden')){const want=pos===null||intro||types[0]!=='hidden'?dz.hidden[0]+Math.floor(r()*(dz.hidden[1]-dz.hidden[0]+1)):dz.hidden[0]+Math.round(pos*(dz.hidden[1]-dz.hidden[0]));
   // from the second row down, never in a group (the engine reveals a pod on reaching the top only)
-  const opts=tray.flatMap(st=>st.map((p,row)=>[p,row])).filter(([p,row])=>row>=1&&!pods[p].group).sort(()=>r()-.5);
+  let opts=tray.flatMap(st=>st.map((p,row)=>[p,row])).filter(([p,row])=>row>=1&&!pods[p].group).sort(()=>r()-.5);
+  // an introduction puts its first hidden pod in the second row, to reveal within the first launches (§8)
+  if(intro){const k=opts.findIndex(([,row])=>row===1);if(k<0)return {error:'нет подходящего места во втором ряду для скрытого'};opts=[opts[k],...opts.filter((_,i)=>i!==k)];}
   if(opts.length<want)return {error:'не хватило подов для скрытых'};opts.slice(0,want).forEach(([p])=>pods[p].mystery='depth');}
  if(types.includes('bridge')&&!board.hero)return {error:'на картинке нет мест моста (b)'};
  const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{})};
@@ -117,8 +125,10 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
    for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'?[false,true]:[false]){
     // resumable: a combination already searched (bank.searched) is skipped; the bank is saved after each one
     const combo=`${cls}|${recipe}|${intro?'intro':''}`;bank.searched=bank.searched||[];if(bank.searched.some(x=>x.combo===combo)){console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
-    let tried=0,found=0;const reasons={};
-    for(let k=0;k<budgetN&&found<2;k++){tried++;const cols=fixed?3:columnsFor(m.N)[k%columnsFor(m.N).length];
+    let tried=0,found=0,foundLoss=0;const reasons={};const no=k=>{reasons[k]=(reasons[k]||0)+1;};
+    // a Normal also looks for a candidate that "most work now" loses (§5: part of the regular Normals), up to 4 found
+    const enough=()=>cls==='Normal'&&!intro&&!fixed?found>=4||(found>=2&&foundLoss>=1):found>=2;
+    for(let k=0;k<budgetN&&!enough();k++){tried++;const cols=fixed?3:columnsFor(m.N)[k%columnsFor(m.N).length];
      const pos=recipe==='none'||intro?null:DOSE_CYCLE[k%DOSE_CYCLE.length];
      const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+recipes.indexOf(recipe)*131+(intro?17:0),intro,pos);
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
@@ -126,24 +136,33 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      {const {R}=await engine(),ve=R.validate(c.level);if(ve&&ve.length){const k='движок отклоняет: '+ve[0];reasons[k]=(reasons[k]||0)+1;continue;}}
      const tick=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{};const t0=Date.now();
      if(c.level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(c.level,c.level.capacity||5)).length){reasons['мост доступен сразу — нужен расчищенный подход (§8)']=(reasons['мост доступен сразу — нужен расчищенный подход (§8)']||0)+1;continue;}}
-     const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
+     // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
+     const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro&&recipe==='bridge'?[.5,1]:intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
      if(q<target[0]-.15||q>target[1]+.15){reasons['не тот класс по быстрой оценке']=(reasons['не тот класс по быстрой оценке']||0)+1;continue;}
      // §5: a Hard or Super Hard that the greedy strategies win is not that class, whatever the random test says
      const gr=cls==='Normal'?null:await greedy(c.level);if(gr&&!greedyBeaten(gr,cls)){reasons['жадная стратегия выигрывает (§5)']=(reasons['жадная стратегия выигрывает (§5)']||0)+1;continue;}
+     // §5: at most 35 % of the decisions may offer a single launch
+     const forced=await forcedShare(c.level);if(!fixed&&forced>.35){no('вынужденных решений больше 35 % (§5)');continue;}
      const sol=await solve(c.level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won'){reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']=(reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']||0)+1;continue;}
      const rt=await randomTest(c.level);tick('случайный тест '+rt.share);if(rt.cls==='too hard'){reasons['ниже 5 %']=(reasons['ниже 5 %']||0)+1;continue;}
      if(rt.cls!=='Normal'){const g2=gr||await greedy(c.level);if(!greedyBeaten(g2,rt.cls)){reasons['жадная стратегия выигрывает измеренный класс (§5)']=(reasons['жадная стратегия выигрывает измеренный класс (§5)']||0)+1;continue;}}
-     if(intro&&rt.share<.9){reasons['знакомство ниже 90 %']=(reasons['знакомство ниже 90 %']||0)+1;continue;}
+     // §5 "opening + colours" (the owner's second amendment of 2026-10-27): no first launch then greedy wins, ≤ 35 % after three
+     const opening=rt.cls==='Normal'?null:await openingTest(c.level,rt.cls);tick('дебют '+JSON.stringify(opening));if(opening&&!opening.ok){no(opening.first.wins?'дебют + цвета: выигрывает после первого запуска (§5)':'дебют + цвета: больше 35 % после трёх запусков (§5)');continue;}
+     if(intro&&recipe!=='bridge'&&rt.share<.9){reasons['знакомство ниже 90 %']=(reasons['знакомство ниже 90 %']||0)+1;continue;}
      const dErr=dosesOk(c.level,rt.cls);if(dErr&&!intro){reasons['дозы не подходят фактическому классу: '+dErr]=(reasons['дозы не подходят фактическому классу: '+dErr]||0)+1;continue;}
      const fair=c.level.pods.some(p=>p.mystery)?await fairness(c.level,sol.route):{fair:true,checked:0};if(!fair.fair){reasons['честность скрытых не подтверждена']=(reasons['честность скрытых не подтверждена']||0)+1;continue;}
-     // a bridge level measures each bridge; an introduction needs both to win (§9) and one clearly better (the owner)
-     const bc=c.level.hero?await bridgeChoices(c.level):null;
-     if(intro&&recipe==='bridge'&&!bc.each.every(x=>x.win===true)){reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']=(reasons['знакомство с мостом: не каждый мост ведёт к победе (§9)']||0)+1;continue;}
-     if(intro&&recipe==='bridge'&&bc.gap<.1){reasons['выбор моста не важен: разница меньше 10 пунктов']=(reasons['выбор моста не важен: разница меньше 10 пунктов']||0)+1;continue;}
-     const st=await strategies(c.level),rh=rhythm(sol.trace,W);
+     // §8: on a hidden-pod introduction one hidden pod matters (reveals early with a new colour and is launched soon)
+     const hm=c.level.pods.some(p=>p.mystery)?await hiddenMatters(c.level,sol.route):null;if(intro&&recipe==='hidden'&&!hm.ok){no('скрытый под не влияет на выбор (§8)');continue;}
+     // a bridge level measures each bridge (§8, §9): the first introduction needs both to win and one clearly better; the
+     // second introduction and every later bridge level need exactly one winning bridge
+     const bc=c.level.hero?await bridgeChoices(c.level):null,bs=c.level.hero?await bridgeSingle(c.level):null;let bridgeKind=null;
+     if(bc){const first=bc.each.every(x=>x.win===true)&&bc.gap>=.1&&rt.share>=.9;
+      if(intro&&first)bridgeKind='first';else if(bs.ok)bridgeKind='single';
+      else{no(intro?'мост: ни «оба выигрывают, один лучше на 10 пунктов при 90 %+», ни «решает ровно один мост» (§8, §9)':'мост: решением должен быть ровно один мост (§8)');continue;}}
+     const st=await strategies(c.level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(c.level);
      bank.candidates.push({id:`${id}-${cls[0]}${recipe}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:rt.cls,intro,recipe,level:c.level,N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
-      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,dosePos:pos,...(bc?{bridge:bc}:{}),engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
-     found++;}
+      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,dosePos:pos,...(bc?{bridge:bc}:{}),checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs},engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
+     found++;if(greedyLoses)foundLoss++;}
     console.log(id,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
     bank.searched.push({combo,tried,found,reasons});writeJSON(bankFile,bank);}}
   writeJSON(bankFile,bank);}}
@@ -154,8 +173,15 @@ const typesOf=c=>(c.recipe||'none')==='none'?[]:c.recipe.split('+');
 // (L5 is built by its queue, §9), a regular Normal a mechanic when needMech
 function recipeOk(c,n,slot,needMech){const t=typesOf(c).length;if(slot.intro)return true;
  if(slot.cls==='Super Hard')return t>=Math.min(2,slot.allowed.length);if(slot.cls==='Hard')return n===5||!slot.allowed.length||t>=1;return !needMech||t>=1;}
-// §5: the greedy strategies lose a Hard ("most work now") and a Super Hard (also "release a place fastest")
-function greedyOk(c){if(c.cls==='Normal')return true;const s=c.strategies||{};const most=!s['most-now|left']&&!s['most-now|right'],fast=!s['fast-release|left']&&!s['fast-release|right'];return c.cls==='Hard'?most:most&&fast;}
+// §5 (the owner's second amendment of 2026-10-27): a Hard or Super Hard passes "opening + colours" (which includes the
+// greedy strategies losing from the start); every level from L4 offers a single launch in at most 35 % of decisions
+function greedyOk(c,n){const k=c.checks||{};if(n>=4&&!(k.forced<=.35))return false;if(c.cls==='Normal')return true;return !!(k.opening&&k.opening.ok);}
+// §8, §9: the bridge introductions (first: both bridges win, one clearly better; second: exactly one wins), every later
+// bridge level exactly one; a hidden-pod introduction needs a hidden pod that matters
+function mechOk(c,n,slot){const k=c.checks||{},second=slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
+ if(c.recipe.includes('bridge'))return slot.intro==='bridge'&&!second?k.bridgeKind==='first':k.bridgeKind==='single';
+ if(slot.intro==='hidden')return !!(k.hiddenMatters&&k.hiddenMatters.ok);return true;}
+const greedyLost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
 // §2 picture fitness: Hard and Super Hard need 3+ colours hidden at the start; a weak picture carries a Normal only with a mechanic
 const fitCache={};const fitOf=id=>fitCache[id]||(fitCache[id]=fitness(picture(id)));
 function fitOk(c,n){if(n<=3)return true;const f=fitOf(c.picture),weak=f.hiddenColours<=1||f.visible>=6;
@@ -170,6 +196,7 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   // Normal after the introductions: a mechanic in two of three (17 §7); a third may go without when the last two had one
   const lastRegular=Object.values(placed).filter(L=>L.level<n&&L.cls==='Normal'&&!L.intro&&slotOf(L.level).allowed.length).sort((a,b)=>b.level-a.level).slice(0,2);
   const needMech=slot.cls==='Normal'&&!slot.intro&&slot.allowed.length>0&&!(lastRegular.length===2&&lastRegular.every(L=>(L.recipe||'none')!=='none'));
+  const regularSlot=slot.cls==='Normal'&&n>3&&!slot.intro&&!(placed[n-1]&&placed[n-1].cls!=='Normal');
   const ok=pool.filter(c=>!usedPic.has(c.picture)&&c.cls===slot.cls&&fitsStage({N:c.N,colours:c.colours},n)
    &&(slot.intro?(c.intro&&c.recipe===slot.intro):!c.intro&&(c.recipe==='none'||c.recipe.split('+').every(t=>slot.allowed.includes(t))))
    &&((picture(c.picture).locked||null)===(n<=3?n:null))
@@ -180,7 +207,9 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
    // motif variety (the owner, 2026-10-26): a motif at most once in any 10 levels
    &&!motifsOf(picture(c.picture)).some(m=>Object.values(placed).some(L=>Math.abs(L.level-n)<10&&motifsOf(picture(L.picture)).includes(m)))
    // the owner's amendment of 2026-10-27: recipes by class (§7), greedy strategies (§5), picture fitness (§2)
-   &&recipeOk(c,n,slot,needMech)&&greedyOk(c)&&fitOk(c,n));
+   &&recipeOk(c,n,slot,needMech)&&greedyOk(c,n)&&fitOk(c,n)&&mechOk(c,n,slot)
+   // §6: a regular Normal holds a place with a deep-colour pod in its first two rows
+   &&!(regularSlot&&!(c.checks&&c.checks.hold)));
   // preference: the preferred zone of the class (first Normal after Hard/Super Hard: 75–95 %), then the size mix per 30
   // Normal: the first after a Hard or Super Hard 75–95 %; otherwise steered so the median of the regular Normals stays 50–60 %
   const afterHard=prev[0]&&prev[0].cls!=='Normal',regular=Object.values(placed).filter(L=>regularNormal(L,placed)).map(L=>L.random.share).sort((a,b)=>a-b);
@@ -196,14 +225,16 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const doseScore=c=>(c.recipe==='none'||slot.intro)?0:c.dosePos==null?.1:Math.abs(c.dosePos-target)*.25;
   // an introduction prefers a weak picture (its mechanic carries the task) and keeps strong ones for regular levels
   const introScore=c=>{if(!slot.intro)return 0;const f=fitOf(c.picture);return f.hiddenColours<=1||f.visible>=6?0:.1;};
-  const normalScore=c=>introScore(c)+(slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0));
+  // §5: "most work now" loses about one in three regular Normals on L4–24 and one in two from L25
+  const regs=Object.values(placed).filter(L=>regularNormal(L,placed)),lostN=regs.filter(greedyLost).length,q=n<25?1/3:1/2,needLoss=regularSlot&&lostN<Math.round(q*(regs.length+1));
+  const normalScore=c=>introScore(c)+(slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0)+(needLoss&&!greedyLost(c)?1:0));
   // a regular Normal aims at 55 % itself (not just anywhere in the zone), so the median lands in 50–60 %
   const aim=slot.cls==='Normal'&&!slot.intro&&!afterHard?(medN>.6?.52:medN<.5?.58:.55):null;
   const score=c=>{const s=c.random.share;return doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(aim!==null?2*Math.abs(s-aim):s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   ok.sort((a,b)=>score(a)-score(b));const c=ok[0];
   if(process.env.ROUNDS_TRACE)console.error(lid(n),'кандидатов',ok.length,ok.slice(0,6).map(c=>`${c.picture} ${c.recipe} ${Math.round(c.random.share*100)}% поз ${c.dosePos??'—'} балл ${score(c).toFixed(2)}`).join(' | '));
   if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n)});continue;}
-  const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge}:{}),engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
+  const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge}:{}),checks:c.checks,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
   writeJSON(path.join(LEVELS,lid(n)+'.json'),L);placed[n]=L;usedPic.add(c.picture);
   const e=m.pictures.find(p=>p.id===c.picture);if(e)e.usedBy=lid(n);const pf=path.join(PICTURES,c.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);
   for(const b of banks)if(b.picture===c.picture){b.candidates=b.candidates.filter(x=>x.id!==c.id);b.placed=(b.placed||[]).concat([c.id]);writeJSON(path.join(BANK,b.picture+'.json'),b);}
@@ -212,7 +243,7 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
  if(needs.length)console.log(`не заполнено ${needs.length}: ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+x.intro+')':''}`).join(', ')} → content/rounds/needs.json`);}
 
 function card(n){const L=readJSON(path.join(LEVELS,lid(n)+'.json'));if(!L)return console.log('нет уровня',n);
- console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden})\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}`);}
+ console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden})\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='first'?'оба выигрывают, один лучше':'решает ровно один'):''}`);}
 
 if(cmd==='calendar'){const a=+process.argv[3]||1,b=+process.argv[4]||30;for(let n=a;n<=b;n++){const s=slotOf(n);console.log(lid(n),s.cls.padEnd(10),s.intro?('знакомство: '+MECH_RU[s.intro]+(SUPPORTED.has(s.intro)?'':' — НЕ ПОДДЕРЖИВАЕТСЯ ДВИЖКОМ')).padEnd(46):''.padEnd(46),'разрешены:',s.allowed.map(x=>MECH_RU[x]+(SUPPORTED.has(x)?'':' (нет в движке)')).join(', ')||'без допов');}}
 else if(cmd==='build'){const ids=flag('--approved')?(u=>manifest().pictures.filter(p=>p.status==='approved'&&!u[p.id]).map(p=>p.id))(usage()):process.argv.slice(3).filter(a=>/^P\d+$/.test(a));await build(ids);}
@@ -220,7 +251,7 @@ else if(cmd==='place'){place(+process.argv[3],+process.argv[4]);}
 else if(cmd==='unplace'){const a=+process.argv[3],b=+process.argv[4],m=manifest();
  // puts the placed candidates of levels a–b back into their banks and frees their pictures (to place again)
  for(let n=a;n<=b;n++){const f=path.join(LEVELS,lid(n)+'.json'),L=readJSON(f);if(!L)continue;const bf=path.join(BANK,L.picture+'.json'),bank=readJSON(bf,{picture:L.picture,candidates:[],rejected:[]});
-  const {id,difficulty,...level}=L.definition;bank.candidates.push({id:L.candidate,picture:L.picture,requested:L.cls,cls:L.cls,intro:!!L.intro,recipe:L.recipe,level:{id:1,...level},N:L.N,W:L.W,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random,solution:L.solution,fairness:L.fairness,strategies:L.strategies,rhythm:L.rhythm,dosePos:L.dosePos??posOf(L.candidate,L.recipe,L.intro),...(L.bridge?{bridge:L.bridge}:{}),engine:L.engine});
+  const {id,difficulty,...level}=L.definition;bank.candidates.push({id:L.candidate,picture:L.picture,requested:L.cls,cls:L.cls,intro:!!L.intro,recipe:L.recipe,level:{id:1,...level},N:L.N,W:L.W,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random,solution:L.solution,fairness:L.fairness,strategies:L.strategies,rhythm:L.rhythm,dosePos:L.dosePos??posOf(L.candidate,L.recipe,L.intro),...(L.bridge?{bridge:L.bridge}:{}),checks:L.checks,engine:L.engine});
   bank.placed=(bank.placed||[]).filter(x=>x!==L.candidate);writeJSON(bf,bank);fs.unlinkSync(f);
   const e=m.pictures.find(p=>p.id===L.picture);if(e)delete e.usedBy;const pf=path.join(PICTURES,L.picture+'.json'),pj=readJSON(pf);delete pj.usedBy;writeJSON(pf,pj);console.log(lid(n),'снят:',L.picture,L.candidate);}
  saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});}

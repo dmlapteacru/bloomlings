@@ -99,3 +99,58 @@ export async function greedy(level){const E=await engine(),{R,T}=E,out={};
   out[`${k}|${side}`]=t.state.status==='Won';}
  return out;}
 export const greedyBeaten=(g,cls)=>cls==='Hard'?!g['most-now|left']&&!g['most-now|right']:cls==='Super Hard'?!Object.values(g).some(Boolean):true;
+
+// ---- the owner's second amendment of 2026-10-27 (after pilot v11) ----
+// "opening + colours" (§5): every opening of k first actions, each taken as soon as one is possible, then the greedy
+// strategies; Hard: "most work now", Super Hard: also "release a place fastest", at both hero choices. No 1-action
+// opening may win; after 3-action openings at most 35 % may win. Distinct action sequences are counted once.
+const asap=(T,t)=>{let g=0;while(g++<100000){if(t.state.status==='Won')return [];const m=E0.R.legal(t.state).filter(a=>!t.check(a));if(m.length)return m;if(!t.pending)return [];t.advance(t.steps[0].at-t.now);}return [];};
+let E0=null;
+function greedyFrom(E,level,opening,k,side){const {R,T}=E,pol=STRATEGIES[k].make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));
+ for(const a of opening){const m=asap(T,t),x=m.find(y=>JSON.stringify(y)===a);if(!x)return false;t.commit(x);}
+ let g=0;while(g++<100000){if(t.state.status==='Won')return true;const m=R.legal(t.state).filter(a=>!t.check(a));
+  if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
+  if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
+ return t.state.status==='Won';}
+export async function openingTest(level,cls,{depth=3,limit=0.35}={}){const E=await engine(),{R,T}=E;E0=E;
+ const strats=cls==='Super Hard'?['most-now','fast-release']:['most-now'],sides=level.hero?['left','right']:['left'];
+ const wins=seq=>strats.some(k=>sides.some(s=>greedyFrom(E,level,seq,k,s)));
+ // all distinct openings of exactly k actions (shorter ones when the game ends earlier)
+ const openings=k=>{let out=[[]];for(let j=0;j<k;j++){const nx=[];for(const s of out){const t=new T.Timeline(R.create(level,level.capacity||5));let ok=true;
+   for(const a of s){const m=asap(T,t),x=m.find(y=>JSON.stringify(y)===a);if(!x){ok=false;break;}t.commit(x);}
+   const m=ok?asap(T,t):[];if(!m.length){nx.push(s);continue;}for(const a of m)nx.push([...s,JSON.stringify(a)]);}out=nx;}return out;};
+ const o1=openings(1),w1=o1.filter(wins).length,o3=openings(depth),w3=o3.filter(wins).length;
+ return {first:{openings:o1.length,wins:w1},three:{openings:o3.length,wins:w3,share:Math.round(w3/o3.length*100)/100},ok:w1===0&&w3/o3.length<=limit,strategies:strats};}
+
+// forced decisions (§5): along random games (a launch as soon as one is possible), the share of decisions where exactly
+// one pod or group can be launched; at most 35 %
+export async function forcedShare(level,games=30,seed=12345){const E=await engine(),{R,T}=E,r=rng(seed);let one=0,all=0;
+ for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5));let k=0;
+  while(k++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a)),taps=m.filter(a=>a.type!=='bridge');
+   if(m.length){if(taps.length){all++;if(taps.length===1)one++;}t.commit(m[Math.floor(r()*m.length)]);continue;}
+   if(!t.pending)break;t.advance(t.steps[0].at-t.now);}}
+ return all?Math.round(one/all*100)/100:0;}
+
+// a pod holds a place (§6): a visible pod in the first two rows of a column whose colour has no reachable cell at the start
+export async function holdPod(level){const {R}=await engine(),s=R.create(level,level.capacity||5),reach=new Set(R.reach(s).targets.map(i=>s.board[i]));
+ return level.tray.some(st=>st.slice(0,2).some(p=>!level.pods[p].mystery&&!reach.has(R.CHANNELS.indexOf(level.pods[p].color))));}
+
+// a hidden pod matters (§8, introductions): on the saved solution some hidden pod reveals in the first half of the
+// launches, brings a colour no other top pod shows at that moment, and is launched with at most two other launches
+// between its reveal and its own launch (a place had to be kept for a colour the player could not plan for)
+export async function hiddenMatters(level,route){const E=await engine(),{idle:R}=E,hid=level.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);
+ if(!hid.length||!route)return {ok:false,pods:[]};let s=R.create(level,level.capacity||5),launches=0;const at={},fresh={},out=[];
+ const total=route.filter(a=>a.type!=='bridge').length;
+ const tops=()=>level.tray.map((st,c)=>st[s.heads[c]]).filter(p=>p!==undefined);
+ const seen=()=>{for(const p of hid)if(s.revealed[p]&&at[p]===undefined){at[p]=launches;fresh[p]=!tops().some(q=>q!==p&&level.pods[q].color===level.pods[p].color);}};seen();
+ for(const a of route){const st=R.step(s,a);if(!st.accepted)break;s=st.state;if(a.type!=='bridge'){const ps=a.pods||[a.pod];launches++;for(const p of ps)if(hid.includes(p)&&at[p]!==undefined)out.push({pod:p,revealAt:at[p],gap:launches-1-at[p],newColour:fresh[p]});}seen();}
+ return {ok:out.some(x=>x.gap<=2&&x.newColour&&x.revealAt<total/2),pods:out};}
+
+// the bridge as a decision (§8, from the second introduction): exactly one bridge keeps a winning continuation, proven
+// for the other, and random games reach each bridge site in some games (else there is no choice)
+export async function bridgeSingle(level,games=60,seed=3){const E=await engine(),{R,T}=E,win=(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
+ for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*977+g);let k=0;
+  while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));const br=m.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
+   if(br.length||t.state.bridge>=0)break;if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;t.advance(t.steps[0].at-t.now);}}
+ const wins=win.filter(x=>x===true).length,loses=win.filter(x=>x===false).length;
+ return {each:win,offered:seen,ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}

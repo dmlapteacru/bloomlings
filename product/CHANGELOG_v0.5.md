@@ -1,5 +1,19 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner amendment · 2026-10-27 (second) — tuning after pilot v11
+
+- [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md), the owner accepted all six proposals of the pilot v11
+  review ([`../content/rounds/reports/pilot-v11-review-2026-10-27.md`](../content/rounds/reports/pilot-v11-review-2026-10-27.md)):
+  - Hard and Super Hard pass the "opening + colours" test. No first launch followed by "most work now" wins (for
+    Super Hard, "release a place fastest" is checked too). After three-launch openings at most 35 % win. This replaces
+    the greedy check from the start only (§5, §11, §14).
+  - "Most work now" loses about one in three regular Normals on L4–24 and one in two from L25 (§5).
+  - The share of decisions with a single possible launch is at most 35 % (§5).
+  - In a regular Normal, a pod of a deep colour stands in the first two rows and holds a place (§6).
+  - From the second bridge introduction on, exactly one bridge is the solution, in any class (§8, §9).
+  - Hidden-pod introductions use 2–3 hidden pods, the first in the second row, and one of them matters for the choice.
+    The explanation shows on both introductions (§8, §9).
+
 ## Owner amendment · 2026-10-27 — tuning after pilot v10
 
 - [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md), the owner's amendment of 2026-10-27 after pilot v10
