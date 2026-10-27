@@ -1,10 +1,10 @@
 // Plays every level of the built pilot v10 in Chromium with its saved solution (content/rounds/levels/L####.json, or
 // the --preview folder for draft levels): opens it from the level menu, taps each action through the page's own buttons
 // and lets the work settle before the next one (the solution's patient model), then expects the win dialog.
-// node tools/gameplay-pilot-v10/browser-check.mjs [--preview <folder>]
+// node tools/gameplay-pilot-v10/browser-check.mjs [--preview <folder>] [--from N]
 import {createRequire} from 'node:module';import http from 'node:http';import fs from 'node:fs';import path from 'node:path';
 import {LEVELS,readJSON,lid,arg,root} from '../rounds/lib.mjs';
-const html=fs.readFileSync(path.join(root,'product/previews/gameplay-pilot-v10/index.html')),preview=arg('--preview');
+const html=fs.readFileSync(path.join(root,'product/previews/gameplay-pilot-v10/index.html')),preview=arg('--preview'),from=+arg('--from',1);
 const data=JSON.parse(fs.readFileSync(path.join(root,'product/previews/gameplay-pilot-v10/levels.json'),'utf8'));
 const server=http.createServer((q,s)=>{s.setHeader('Content-Type','text/html;charset=utf-8');s.end(html);});await new Promise(r=>server.listen(0,'127.0.0.1',r));
 // Playwright: the repository's copy for the heroes if installed, else the machine's
@@ -17,7 +17,7 @@ try{browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage
  const isOpen=id=>page.evaluate(i=>document.getElementById(i).open,id);
  const settle=async()=>{for(let k=0;k<400;k++){const s=await snap();if(s.status!=='Playing'&&!s.pendingTrips)return s;if(!s.pendingTrips&&!s.pendingCells&&!s.pendingBeats)return s;await page.clock.runFor(1000);}return snap();};
  await click('#startButton');
- for(const L of data.levels){const file=readJSON(path.join(LEVELS,lid(L.id)+'.json'))||(preview&&readJSON(path.join(preview,lid(L.id)+'.json')));
+ for(const L of data.levels.filter(l=>l.id>=from)){const file=readJSON(path.join(LEVELS,lid(L.id)+'.json'))||(preview&&readJSON(path.join(preview,lid(L.id)+'.json')));
   if(await isOpen('lessonDialog'))await click('#lessonButton');
   await click('#levelsButton');await click(`[data-level="${L.id}"]`);if(await isOpen('lessonDialog'))await click('#lessonButton');
   let s=await snap();if(s.level!==L.id){console.log(`L${L.id}: не открылся`);failed++;continue;}
