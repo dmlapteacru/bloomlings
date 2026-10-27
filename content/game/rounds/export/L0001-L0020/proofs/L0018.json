@@ -163,6 +163,10 @@
     34
    ],
    "ok": false
+  },
+  "pressure": {
+   "stuck": 0.67,
+   "tight": 0.85
   }
  },
  "audit": {
