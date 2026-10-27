@@ -2,23 +2,23 @@
  "level": 20,
  "cls": "Hard",
  "intro": null,
- "picture": "P0078",
- "candidate": "P0078-Slinks-10",
+ "picture": "P0014",
+ "candidate": "P0014-Hlinks-5",
  "recipe": "links",
- "N": 899,
- "W": 899,
- "colours": 7,
- "P": 24,
- "columns": 3,
- "linked": 10,
+ "N": 945,
+ "W": 945,
+ "colours": 8,
+ "P": 26,
+ "columns": 4,
+ "linked": 8,
  "hidden": 0,
  "random": {
-  "runs": 100,
-  "wins": 31,
-  "share": 0.31,
+  "runs": 400,
+  "wins": 98,
+  "share": 0.245,
   "wilson95": [
-   0.228,
-   0.406
+   0.205,
+   0.289
   ],
   "cls": "Hard",
   "borderline": false,
@@ -29,19 +29,15 @@
   "route": [
    {
     "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
     "pod": 10
    },
    {
     "type": "tap",
-    "pod": 19
-   },
-   {
-    "type": "tap",
-    "pod": 23
-   },
-   {
-    "type": "tap",
-    "pod": 15
+    "pod": 16
    },
    {
     "type": "tap",
@@ -53,11 +49,7 @@
    },
    {
     "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 3
+    "pod": 6
    },
    {
     "type": "tap",
@@ -65,11 +57,11 @@
    },
    {
     "type": "tap",
-    "pod": 21
+    "pod": 5
    },
    {
     "type": "tap",
-    "pod": 20
+    "pod": 21
    },
    {
     "type": "tap",
@@ -81,15 +73,35 @@
    },
    {
     "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
     "pod": 8
    },
    {
     "type": "tap",
-    "pod": 6
+    "pod": 15
    },
    {
     "type": "tap",
-    "pod": 12
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 23
    },
    {
     "type": "tap",
@@ -97,19 +109,19 @@
    },
    {
     "type": "tap",
-    "pod": 0
+    "pod": 2
    },
    {
     "type": "tap",
-    "pod": 2
+    "pod": 0
    }
   ],
-  "forks": 2,
-  "singleSafe": 2,
+  "forks": 8,
+  "singleSafe": 5,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 108.6
+   "seconds": 169.3
   }
  },
  "fairness": {
@@ -121,14 +133,14 @@
   "left-to-right|right": false,
   "right-to-left|left": true,
   "right-to-left|right": true,
-  "top-down|left": true,
-  "top-down|right": true,
-  "bottom-up|left": false,
-  "bottom-up|right": false,
+  "top-down|left": false,
+  "top-down|right": false,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
   "diagonal|left": false,
   "diagonal|right": false,
-  "small-first|left": true,
-  "small-first|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
   "most-now|left": false,
   "most-now|right": false,
   "fast-release|left": false,
@@ -139,232 +151,249 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.2,
+    "meanFree": 1.1,
     "minFree": 0,
-    "fullShare": 0.46,
-    "maxWaiting": 3
+    "fullShare": 0.36,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 2.63,
+    "meanFree": 1.77,
     "minFree": 0,
-    "fullShare": 0,
-    "maxWaiting": 1
+    "fullShare": 0.06,
+    "maxWaiting": 2
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.22,
-    "minFree": 3,
-    "fullShare": 0,
-    "maxWaiting": 1
+    "meanFree": 2.05,
+    "minFree": 0,
+    "fullShare": 0.07,
+    "maxWaiting": 2
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 3.98,
-    "minFree": 3,
+    "meanFree": 3.63,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.2,
-    "minFree": 3,
+    "meanFree": 4.34,
+    "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
   "launchesAfter80": 3,
-  "lastLaunchAtW": 95,
-  "seconds": 341.3
+  "lastLaunchAtW": 94,
+  "seconds": 418.8
  },
+ "dosePos": 0.6,
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 20,
-  "title": "Самолётик",
-  "subject": "P0078",
-  "w": 35,
-  "h": 33,
+  "title": "Маяк на скале",
+  "subject": "P0014",
+  "w": 31,
+  "h": 39,
   "rowsBottomFirst": [
-   "#################.#################",
-   "#.................................#",
-   "#.SCCCCCCCCCCCCSSSSSSSSSSSSSSSSSS.#",
-   "#.CCCCCCCCCCCCCCSSSSSSSSSSSSSSSSS.#",
-   "#.CCCCCCCCCCCCCSSSSSSSSSSSSSSSSSS.#",
-   "#.CCCCCCCCCCCSSSSSSSSSSSSSSSSSSSS.#",
-   "#.SCCCCSCCCSSSSSSSSSSSSSSSSSSSSSS.#",
-   "#.SSCCSSSYYYYYYYYYYSSSSSDDDSSSSSS.#",
-   "#.SSSSSSSSYYYYYYYYYYSSSSDDDSSDDSS.#",
-   "#.SSSSSSSSSYYYYYYYYYYSSSSDSSSDDSS.#",
-   "#.SSSSSSSSSRYYYYYYYYYYRRRRRSSDDSS.#",
-   "#.SSSYYYSSRRRYYYYYYYYYYRRRRYSDDSS.#",
-   "#.SYYYYYYRRRRRYYYYYYYYYYRRRYYDDSS.#",
-   "#.SYYYYYYYRRRRRRRRRRRRRRRRRYYDDSS.#",
-   "#.SSSSSRRRRRRRRRRRRRRRRRRRRYYDDSS.#",
-   "#.SSSSRRRRRRRRRRRRRRRRRRRRRYYDDSS.#",
-   "#.SSSRRRRRRRRRRRRRRRRRRRRRRYSDDSS.#",
-   "#.SSRRRRRRRRCCRDDDDDDDDRRRRSSDDSS.#",
-   "#.SSRRRRRRSSSCCCAKKKKKSSSSSSSDDSS.#",
-   "#.SSRRRRRSSSSSSSAAKKKKSSSSSSSDDSS.#",
-   "#.SSRRRRSSSSSSSSAADDCDSSSSSSSDDSS.#",
-   "#.SSRRRSSSSSSSSSAAAAAASSSSSSSSSSS.#",
-   "#.SSRRSSSSSSSSSSSAAAASSSSSSSSSSSS.#",
-   "#.SSSSSSSSSSSSSSSSSSCCCCCCCCCCCCS.#",
-   "#.SSSSSSSSSSSSSSSSSCCCCCCCCCCCCCC.#",
-   "#.SSSSSSSSSSSSSSSSSCCCCCCCCCCCCCC.#",
-   "#.SSSSSSSSSSSSSSSSSSCCCCCCCCCCCCC.#",
-   "#.SSSSSSSSSSSSSSSSSSSCCCSCCCCCCCC.#",
-   "#.SSSSSSSSSSSSSSSSSSSSSSSCCCCCSCC.#",
-   "#.SSSSSSSSSSSSSSSSSSSSSSSSCCCSSSS.#",
-   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
-   "#.................................#",
-   "###################################"
+   "###############.###############",
+   "#.............................#",
+   "#.BBCCCBBBBCCCBBBBCCCBBBBCCCB.#",
+   "#.BBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.BBBAAAAAAAAAAAAAAAAEEEEEEBB.#",
+   "#.BBBAAAAAAAAAAAAAAAAAEEEEBCC.#",
+   "#.BBBBAAAAAAAAAAAAAAAAEEEBBBB.#",
+   "#.SSSSSAAAAAAAAAAAAAAAAASSSSS.#",
+   "#.SSSSSSAAAAAAAAAAAAAAAASSSSS.#",
+   "#.SSSSSSSRRRRRDDDRRRRRSSSSSSS.#",
+   "#.SSSSSSSRRRRRDDDRRRRRSSSSSSS.#",
+   "#.SSSSSSSSRRRRDDDRRRRSSSSSSSS.#",
+   "#.SSSSSSSSCCCCCDCCCCCSSSSSSSS.#",
+   "#.SSSSSSSSCCCCCCCCCCCSSSSSSSS.#",
+   "#.SSSSSSSSCCCCCCCCCCCSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRRRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRRRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRRRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRDRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSSCCCCDCCCCSSSSSSSSS.#",
+   "#.SSSSSSSSSCCCCCCCCCSSSSSSSSS.#",
+   "#.SSSSSSSSSCCCCCCCCCSSSSSSSSS.#",
+   "#.SSSSSSSSSRRRRRRRRRSSSSSSSSS.#",
+   "#.SSSSSSSSSRRRRRRRRRSSSSSSSSS.#",
+   "#.SSSSSSSSSRRRRRRRRRSSSSSSSSS.#",
+   "#.SSSSSSSDDDDDDDDDDDDDSSSSSSS.#",
+   "#.YYYYSSSDDDDDDDDDDDDDSSSYYYY.#",
+   "#.YYYYYYYYYDDYYYYYDDYYYYYYYYY.#",
+   "#.YYYYYYYYYDDYYYYYDDYYYYYYYYY.#",
+   "#.YYYYYYYYYDDYYYYYDDYYYYYYYYY.#",
+   "#.YYYYYYYYYDDDDDDDDDYYYYYYYYY.#",
+   "#.YYYYYSSSSRRRRRRRRRSSSSYYYYY.#",
+   "#.SSSSSSSSSSRRRRRRRSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSRRRSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSDSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSDSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.............................#",
+   "###############################"
   ],
   "entries": [
-   17
+   15
   ],
   "capacity": 5,
   "pods": [
    {
     "color": "S",
-    "count": 43
+    "count": 55
    },
    {
     "color": "S",
-    "count": 43,
+    "count": 55
+   },
+   {
+    "color": "S",
+    "count": 55
+   },
+   {
+    "color": "S",
+    "count": 55,
     "group": "B"
    },
    {
     "color": "S",
-    "count": 43
+    "count": 54
    },
    {
     "color": "S",
-    "count": 43
+    "count": 54
    },
    {
     "color": "S",
-    "count": 43,
-    "group": "B"
+    "count": 54
    },
    {
     "color": "S",
-    "count": 43
+    "count": 54
    },
    {
-    "color": "S",
-    "count": 43
+    "color": "D",
+    "count": 21
    },
    {
-    "color": "S",
-    "count": 43
-   },
-   {
-    "color": "S",
-    "count": 43
-   },
-   {
-    "color": "S",
-    "count": 43
-   },
-   {
-    "color": "S",
-    "count": 42,
-    "group": "A"
-   },
-   {
-    "color": "C",
-    "count": 47
-   },
-   {
-    "color": "C",
-    "count": 46,
+    "color": "D",
+    "count": 20,
     "group": "D"
    },
    {
+    "color": "D",
+    "count": 20,
+    "group": "C"
+   },
+   {
+    "color": "R",
+    "count": 39
+   },
+   {
+    "color": "R",
+    "count": 39,
+    "group": "D"
+   },
+   {
+    "color": "R",
+    "count": 39
+   },
+   {
+    "color": "Y",
+    "count": 35,
+    "group": "B"
+   },
+   {
+    "color": "Y",
+    "count": 35
+   },
+   {
+    "color": "Y",
+    "count": 35
+   },
+   {
     "color": "C",
-    "count": 46,
-    "group": "C"
-   },
-   {
-    "color": "R",
-    "count": 45,
-    "group": "C"
-   },
-   {
-    "color": "R",
-    "count": 45,
-    "group": "E"
-   },
-   {
-    "color": "R",
-    "count": 44,
+    "count": 24,
     "group": "A"
+   },
+   {
+    "color": "C",
+    "count": 24
+   },
+   {
+    "color": "C",
+    "count": 24,
+    "group": "C"
    },
    {
     "color": "A",
-    "count": 15
-   },
-   {
-    "color": "D",
-    "count": 22,
-    "group": "D"
-   },
-   {
-    "color": "D",
-    "count": 22
-   },
-   {
-    "color": "K",
-    "count": 9
-   },
-   {
-    "color": "Y",
-    "count": 29
-   },
-   {
-    "color": "Y",
-    "count": 29,
-    "group": "E"
-   },
-   {
-    "color": "Y",
     "count": 28
+   },
+   {
+    "color": "A",
+    "count": 27
+   },
+   {
+    "color": "A",
+    "count": 27
+   },
+   {
+    "color": "B",
+    "count": 30
+   },
+   {
+    "color": "B",
+    "count": 29,
+    "group": "A"
+   },
+   {
+    "color": "E",
+    "count": 13
    }
   ],
   "tray": [
    [
-    16,
-    19,
-    15,
-    13,
-    7,
-    5,
+    18,
+    12,
+    22,
+    4,
+    25,
     3,
-    11
+    23
    ],
    [
     10,
-    23,
-    22,
-    14,
-    21,
-    12,
-    4,
-    0
-   ],
-   [
-    20,
-    17,
     9,
     8,
+    15,
+    20,
+    14
+   ],
+   [
+    19,
+    16,
+    11,
+    5,
+    24,
+    1
+   ],
+   [
+    13,
+    7,
     6,
-    18,
-    1,
-    2
+    21,
+    17,
+    2,
+    0
    ]
   ],
   "recipe": "links",

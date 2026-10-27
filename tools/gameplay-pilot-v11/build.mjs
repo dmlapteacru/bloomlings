@@ -22,6 +22,8 @@ for(let n=from;n<=to;n++){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft
  if(!L&&preview){L=readJSON(path.join(preview,lid(n)+'.json'));draft=!!L;}
  if(!L)throw Error(`нет уровня ${n}: ни в content/rounds/levels, ни в --preview`);
  const d=L.definition;levels.push({id:n,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{})});
+ // a level stands on a draft when its picture is not approved in the repository (a trial folder may approve drafts)
+ {const real=readJSON(path.join(root,'content/rounds/pictures',L.picture+'.json'));if(real&&real.status!=='approved')draft=true;}
  if(draft)drafts.push(n);
  cards.push({level:n,cls:L.cls,intro:L.intro,picture:L.picture,recipe:L.recipe,N:L.N,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random.share,runs:L.random.runs,borderline:!!L.random.borderline,seconds:L.rhythm.seconds,draft});}
 

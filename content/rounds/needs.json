@@ -1,4 +1,39 @@
 {
  "updated": "2026-10-27",
- "needs": []
+ "needs": [
+  {
+   "level": 5,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [],
+   "stage": {
+    "cells": [
+     500,
+     600
+    ],
+    "colours": [
+     4,
+     9
+    ]
+   }
+  },
+  {
+   "level": 9,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden"
+   ],
+   "stage": {
+    "cells": [
+     500,
+     600
+    ],
+    "colours": [
+     4,
+     9
+    ]
+   }
+  }
+ ]
 }

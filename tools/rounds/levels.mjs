@@ -55,6 +55,8 @@ function doseRange(m,cls,role,P){const i=CLASSES.indexOf(cls);
 // the lower half (§7); the introduction levels use the minimum teaching doses (§9)
 // the dose cycle of 17 §7 (the owner's amendment of 2026-10-27): the lead dose sits at these places of its range
 export const DOSE_CYCLE=[.5,.8,.4,.7,1,.6];
+// the dose place a banked candidate was built for, read back from its attempt number (P####-…-k)
+export const posOf=(id,recipe,intro)=>{if(intro||(recipe||'none')==='none')return null;const k=+String(id).split('-').pop();return Number.isInteger(k)?DOSE_CYCLE[k%DOSE_CYCLE.length]:null;};
 function doses(recipe,cls,P,intro){const types=recipe==='none'?[]:recipe.split('+'),out={};
  types.forEach((m,j)=>{if(m==='bridge'){out.bridge=1;return;}const role=j===0?'lead':'add';let [a,b]=doseRange(m,cls,role,P);
   // the engine plays at most six hidden (depth) pods
@@ -171,8 +173,9 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const ok=pool.filter(c=>!usedPic.has(c.picture)&&c.cls===slot.cls&&fitsStage({N:c.N,colours:c.colours},n)
    &&(slot.intro?(c.intro&&c.recipe===slot.intro):!c.intro&&(c.recipe==='none'||c.recipe.split('+').every(t=>slot.allowed.includes(t))))
    &&((picture(c.picture).locked||null)===(n<=3?n:null))
-   &&!(prev.length===2&&!slot.intro&&lead(c)!=='none'&&prev.every(L=>lead(L)===lead(c)))
-   &&!(prev.length===2&&!slot.intro&&prev.every(L=>L.recipe===c.recipe&&c.recipe!=='none'))
+   // §11: no lead mechanic or identical recipe 3 times in a row; the two teaching appearances do not count
+   &&!(prev.length===2&&!slot.intro&&lead(c)!=='none'&&prev.every(L=>!L.intro&&lead(L)===lead(c)))
+   &&!(prev.length===2&&!slot.intro&&prev.every(L=>!L.intro&&L.recipe===c.recipe&&c.recipe!=='none'))
    &&!(c.colours>=10&&window.filter(L=>L.colours>=10).length>=2)
    // motif variety (the owner, 2026-10-26): a motif at most once in any 10 levels
    &&!motifsOf(picture(c.picture)).some(m=>Object.values(placed).some(L=>Math.abs(L.level-n)<10&&motifsOf(picture(L.picture)).includes(m)))
@@ -188,11 +191,17 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const bins=Object.values(placed).filter(L=>Math.floor((L.level-1)/30)===Math.floor((n-1)/30)).map(L=>sizeBin(L.N)),want={'200–499':6,'500–999':15,'1000–1400':9};
   // a borderline class (the Wilson interval crosses a border, §5) needs a manual decision: taken last
   // a picture that also has Hard/Super Hard candidates is kept for those scarcer positions when the slot is Normal
-  const scarce=c=>slot.cls==='Normal'&&pool.some(x=>x.picture===c.picture&&x.cls!=='Normal')?.5:0;
-  const doseScore=c=>(c.recipe==='none'||slot.intro)?0:c.dosePos==null?.3:Math.abs(c.dosePos-target)*.5;
-  const normalScore=c=>slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0);
-  const score=c=>{const s=c.random.share;return doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
+  const hardSlots=[...Array(to-n+1).keys()].map(k=>n+k).filter(k=>!placed[k]&&classOf(k)!=='Normal').length,hardPics=new Set(pool.filter(x=>x.cls!=='Normal'&&!usedPic.has(x.picture)).map(x=>x.picture)).size;
+  const scarce=c=>slot.cls==='Normal'&&hardPics<2*hardSlots&&pool.some(x=>x.picture===c.picture&&x.cls!=='Normal')?.15:0;
+  const doseScore=c=>(c.recipe==='none'||slot.intro)?0:c.dosePos==null?.1:Math.abs(c.dosePos-target)*.25;
+  // an introduction prefers a weak picture (its mechanic carries the task) and keeps strong ones for regular levels
+  const introScore=c=>{if(!slot.intro)return 0;const f=fitOf(c.picture);return f.hiddenColours<=1||f.visible>=6?0:.1;};
+  const normalScore=c=>introScore(c)+(slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0));
+  // a regular Normal aims at 55 % itself (not just anywhere in the zone), so the median lands in 50–60 %
+  const aim=slot.cls==='Normal'&&!slot.intro&&!afterHard?(medN>.6?.52:medN<.5?.58:.55):null;
+  const score=c=>{const s=c.random.share;return doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(aim!==null?2*Math.abs(s-aim):s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   ok.sort((a,b)=>score(a)-score(b));const c=ok[0];
+  if(process.env.ROUNDS_TRACE)console.error(lid(n),'кандидатов',ok.length,ok.slice(0,6).map(c=>`${c.picture} ${c.recipe} ${Math.round(c.random.share*100)}% поз ${c.dosePos??'—'} балл ${score(c).toFixed(2)}`).join(' | '));
   if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n)});continue;}
   const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge}:{}),engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
   writeJSON(path.join(LEVELS,lid(n)+'.json'),L);placed[n]=L;usedPic.add(c.picture);
@@ -211,7 +220,7 @@ else if(cmd==='place'){place(+process.argv[3],+process.argv[4]);}
 else if(cmd==='unplace'){const a=+process.argv[3],b=+process.argv[4],m=manifest();
  // puts the placed candidates of levels a–b back into their banks and frees their pictures (to place again)
  for(let n=a;n<=b;n++){const f=path.join(LEVELS,lid(n)+'.json'),L=readJSON(f);if(!L)continue;const bf=path.join(BANK,L.picture+'.json'),bank=readJSON(bf,{picture:L.picture,candidates:[],rejected:[]});
-  const {id,difficulty,...level}=L.definition;bank.candidates.push({id:L.candidate,picture:L.picture,requested:L.cls,cls:L.cls,intro:!!L.intro,recipe:L.recipe,level:{id:1,...level},N:L.N,W:L.W,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random,solution:L.solution,fairness:L.fairness,strategies:L.strategies,rhythm:L.rhythm,engine:L.engine});
+  const {id,difficulty,...level}=L.definition;bank.candidates.push({id:L.candidate,picture:L.picture,requested:L.cls,cls:L.cls,intro:!!L.intro,recipe:L.recipe,level:{id:1,...level},N:L.N,W:L.W,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random,solution:L.solution,fairness:L.fairness,strategies:L.strategies,rhythm:L.rhythm,dosePos:L.dosePos??posOf(L.candidate,L.recipe,L.intro),...(L.bridge?{bridge:L.bridge}:{}),engine:L.engine});
   bank.placed=(bank.placed||[]).filter(x=>x!==L.candidate);writeJSON(bf,bank);fs.unlinkSync(f);
   const e=m.pictures.find(p=>p.id===L.picture);if(e)delete e.usedBy;const pf=path.join(PICTURES,L.picture+'.json'),pj=readJSON(pf);delete pj.usedBy;writeJSON(pf,pj);console.log(lid(n),'снят:',L.picture,L.candidate);}
  saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});}

@@ -97,7 +97,7 @@ const seq=[],lead=L=>typesOf(L)[0]||null;
  if(reg.length>=3){const v=reg.map(L=>L.random.share).sort((a,b)=>a-b),med=v[Math.floor((v.length-1)/2)];if(med<.5||med>.6)seq.push(`медиана обычных Normal ${Math.round(med*100)} % вне 50–60 % (§5)`);
   for(let i=0;i<reg.length;i++){const win=reg.filter(L=>L.level>reg[i].level-10&&L.level<=reg[i].level&&L.random.share>=.95);if(win.length>1){seq.push(`Normal на 95–100 % больше одного на десять: ${win.map(L=>'L'+L.level).join(', ')} (§5)`);break;}}}}
 for(let n=from+2;n<=to;n++){const a=levels[n-2],b=levels[n-1],c=levels[n];if(!a||!b||!c)continue;
- if(lead(c)&&lead(a)===lead(b)&&lead(b)===lead(c)&&!slotOf(n).intro)seq.push(`L${n-2}–L${n}: одна ведущая механика ${lead(c)} 3 раза подряд (§11)`);}
+ if(lead(c)&&lead(a)===lead(b)&&lead(b)===lead(c)&&!slotOf(n).intro&&!a.intro&&!b.intro)seq.push(`L${n-2}–L${n}: одна ведущая механика ${lead(c)} 3 раза подряд (§11)`);}
 for(let n=from;n<=to;n++)for(let k=n+1;k<=Math.min(to,n+9);k++){const a=levels[n],b=levels[k];if(!a||!b)continue;const both=motifsOf(picture(a.picture)).filter(m=>motifsOf(picture(b.picture)).includes(m));if(both.length)seq.push(`L${n} и L${k}: мотив «${both.join(', ')}» ближе 10 уровней`);}
 const wide=Object.values(levels).filter(L=>L&&L.colours>=10).length;if(wide>2)seq.push(`картинок с 10–11 цветами ${wide} > 2 в 20 (§2)`);
 const pics=Object.values(levels).filter(Boolean).map(L=>L.picture);if(new Set(pics).size!==pics.length)seq.push('одна картинка на двух уровнях');

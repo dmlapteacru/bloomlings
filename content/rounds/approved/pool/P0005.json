@@ -1,7 +1,7 @@
 {
  "code": "P0005",
  "state": "used",
- "usedBy": "L0004",
+ "usedBy": "L0006",
  "version": 5,
  "title": "Волшебная лампа",
  "theme": "objects",

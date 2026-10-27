@@ -173,6 +173,7 @@
   "lastLaunchAtW": 93,
   "seconds": 275.3
  },
+ "dosePos": null,
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 11,

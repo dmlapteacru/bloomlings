@@ -2,23 +2,23 @@
  "level": 7,
  "cls": "Normal",
  "intro": null,
- "picture": "P0008",
- "candidate": "P0008-Nnone-1",
+ "picture": "P0019",
+ "candidate": "P0019-Nnone-19",
  "recipe": "none",
- "N": 551,
- "W": 551,
- "colours": 7,
+ "N": 598,
+ "W": 598,
+ "colours": 5,
  "P": 18,
  "columns": 3,
  "linked": 0,
  "hidden": 0,
  "random": {
   "runs": 100,
-  "wins": 100,
-  "share": 1,
+  "wins": 96,
+  "share": 0.96,
   "wilson95": [
-   0.963,
-   1
+   0.902,
+   0.984
   ],
   "cls": "Normal",
   "borderline": false,
@@ -29,23 +29,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 4
-   },
-   {
-    "type": "tap",
-    "pod": 12
+    "pod": 3
    },
    {
     "type": "tap",
@@ -53,11 +37,11 @@
    },
    {
     "type": "tap",
-    "pod": 16
+    "pod": 6
    },
    {
     "type": "tap",
-    "pod": 1
+    "pod": 17
    },
    {
     "type": "tap",
@@ -65,7 +49,11 @@
    },
    {
     "type": "tap",
-    "pod": 3
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 14
    },
    {
     "type": "tap",
@@ -73,7 +61,11 @@
    },
    {
     "type": "tap",
-    "pod": 5
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 16
    },
    {
     "type": "tap",
@@ -85,19 +77,27 @@
    },
    {
     "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 15
-   },
-   {
-    "type": "tap",
     "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 4
    }
   ],
   "forks": 0,
@@ -105,7 +105,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 51.8
+   "seconds": 69.6
   }
  },
  "fairness": {
@@ -135,7 +135,7 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 4.29,
+    "meanFree": 4.4,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -143,179 +143,190 @@
    {
     "from": 20,
     "to": 40,
-    "meanFree": 3.64,
-    "minFree": 3,
+    "meanFree": 4.43,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 3.24,
-    "minFree": 3,
+    "meanFree": 4.41,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 3.42,
-    "minFree": 3,
+    "meanFree": 4.33,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 3.51,
-    "minFree": 3,
+    "meanFree": 4.53,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    }
   ],
   "launchesAfter80": 4,
-  "lastLaunchAtW": 96,
-  "seconds": 227
+  "lastLaunchAtW": 95,
+  "seconds": 360.6
  },
+ "dosePos": null,
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 7,
-  "title": "Сундук с сокровищами",
-  "subject": "P0008",
-  "w": 29,
-  "h": 28,
+  "title": "Скейтборд",
+  "subject": "P0019",
+  "w": 42,
+  "h": 38,
   "rowsBottomFirst": [
-   "##############.##############",
-   "#...........................#",
-   "#...EEEEEEEEEEEEEEEEEEEEE...#",
-   "#..AYYAAAAAAAAAAAAAAAAAYY...#",
-   "#..EYYEEEEEEEEEEEEEEEEEYY...#",
-   "#..AYYAAAAAAAAAAAAAAAAAYYA..#",
-   "#..AYYAAAAAAYYYYYAAAAAAYYA..#",
-   "#..AYYAAAAAAYYYYYAAAAAAYYA..#",
-   "#..AYYAAAAAAYYDYYAAAAAAYYA..#",
-   "#..EYYEEEEEEYYDYYEEEEEEYYE..#",
-   "#..AYYAAAAAAYYDYYAAAAAAYYA..#",
-   "#.AAYYAAAAAAYYYYYAAAAAAYYAD.#",
-   "#.AAYYAAAAAAAAAAAAAAAAAYYAD.#",
-   "#.YYYYYYYYYYYYYYYYYYYYYYYYY.#",
-   "#.YYYYYYYYYYYYYYYYYYYYYYYYY.#",
-   "#.DDOOOODYYYRRRROODDYYYYDDD.#",
-   "#.DDYYYYDYYRRRRRRYYDYYYYDDD.#",
-   "#.DDYYYYYYYRCCRRRYYDYYYYDDD.#",
-   "#.AAYYYAAYYYRCRRYYAAAYYAYAA.#",
-   "#.AAYAAAAAYYARRAAAAAAAAAYA..#",
-   "#..AYAAAAAAAAAAAAAAAAAAAYA..#",
-   "#..AYAAAAAAAAAAAAAAAAAAAYA..#",
-   "#..AYAAAAAAAAAAAAAAAAAAAYA..#",
-   "#...YAAAAAAAAAAAAAAAAAAAY...#",
-   "#....YYYYYYYYYYYYYYYYYY.....#",
-   "#.....AAAAAAAAAAAAAAAA......#",
-   "#...........................#",
-   "#############################"
+   "#####################.####################",
+   "#........................................#",
+   "#............O...........................#",
+   "#......DDDDOOOO..........................#",
+   "#....DDDDDOOOOOO.........................#",
+   "#...DNNNNNNOOOOO.........................#",
+   "#...NBBBBBBNNOOD.........................#",
+   "#..NBBBBBBBBNNDDD........................#",
+   "#.NNBBBBBBBBBBNNDDD......................#",
+   "#.NBBBBBBBBBBBBNNDDD.....................#",
+   "#.NBBBBBBBBYYBBBBNNDDD...................#",
+   "#.NBBBBBBBBBYYBBBBNNDDD..................#",
+   "#.NNBBBBBBBBYYYBBBBBNDDDD................#",
+   "#..NBBBBBBBBBYYYBBBBBNNDDD...............#",
+   "#...NBBBBBBBBYYYYBBBBBBNDDDD.............#",
+   "#..OONNBBBBBBBYYYYBBBBYBNNDDD............#",
+   "#.OOOONNBBBBBBBYYYYBBBYYBBNDDDD..........#",
+   "#.OOOOOONNBBBBBYYYYYBBYYBBBNNDDD.........#",
+   "#..OOOO..NNBBBBBYYYYYYYYYBBBNNDDD..OO....#",
+   "#...OO.....NNBBBYYYYYYYYYBBBBBNNDDOOOO...#",
+   "#...........NNBBBYYBBYYYYYBBBBBNNOOOOOO..#",
+   "#.............NBBYYBBBYYYYYBBBBBBNNOOOO..#",
+   "#..............NNBYBBBBYYYYBBBBBBBNNOOD..#",
+   "#................NBBBBBBYYYYBBBBBBBBNDD..#",
+   "#.................NNBBBBBYYYBBBBBBBBBNDD.#",
+   "#...................NBBBBBYYYBBBBBBBBNND.#",
+   "#....................NNBBBBYYBBBBBBBBBND.#",
+   "#.....................NNBBBBBYBBBBBBBBND.#",
+   "#.......................NNBBBBYBBBBBBBN..#",
+   "#........................NNBBBBBBBBBBNN..#",
+   "#..........................NNBBBBBBBBN...#",
+   "#.........................OONNBBBBBBN....#",
+   "#........................OOOOONNNNNN.....#",
+   "#........................OOOOOO..........#",
+   "#.........................OOOO...........#",
+   "#..........................O.............#",
+   "#........................................#",
+   "##########################################"
   ],
   "entries": [
-   14
+   21
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "A",
-    "count": 43
-   },
-   {
-    "color": "A",
-    "count": 43
-   },
-   {
-    "color": "A",
-    "count": 42
-   },
-   {
-    "color": "A",
-    "count": 42
-   },
-   {
-    "color": "A",
-    "count": 42
-   },
-   {
-    "color": "A",
-    "count": 42
-   },
-   {
-    "color": "Y",
-    "count": 38
-   },
-   {
-    "color": "Y",
-    "count": 38
-   },
-   {
-    "color": "Y",
-    "count": 38
-   },
-   {
-    "color": "Y",
-    "count": 38
-   },
-   {
-    "color": "Y",
-    "count": 38
-   },
-   {
-    "color": "R",
-    "count": 19
-   },
-   {
-    "color": "C",
-    "count": 3
-   },
-   {
-    "color": "D",
-    "count": 13
-   },
-   {
-    "color": "D",
-    "count": 13
+    "color": "O",
+    "count": 24
    },
    {
     "color": "O",
-    "count": 6
+    "count": 24
    },
    {
-    "color": "E",
+    "color": "O",
+    "count": 24
+   },
+   {
+    "color": "N",
+    "count": 32
+   },
+   {
+    "color": "N",
+    "count": 32
+   },
+   {
+    "color": "N",
+    "count": 32
+   },
+   {
+    "color": "B",
+    "count": 48
+   },
+   {
+    "color": "B",
+    "count": 48
+   },
+   {
+    "color": "B",
+    "count": 48
+   },
+   {
+    "color": "B",
+    "count": 48
+   },
+   {
+    "color": "B",
+    "count": 48
+   },
+   {
+    "color": "B",
+    "count": 47
+   },
+   {
+    "color": "Y",
+    "count": 28
+   },
+   {
+    "color": "Y",
+    "count": 28
+   },
+   {
+    "color": "Y",
     "count": 27
    },
    {
-    "color": "E",
-    "count": 26
+    "color": "D",
+    "count": 20
+   },
+   {
+    "color": "D",
+    "count": 20
+   },
+   {
+    "color": "D",
+    "count": 20
    }
   ],
   "tray": [
    [
-    6,
-    2,
-    17,
-    4,
-    12,
-    10
-   ],
-   [
-    16,
-    1,
-    8,
     3,
-    9,
-    5
+    10,
+    6,
+    17,
+    8,
+    15
    ],
    [
-    13,
-    0,
-    7,
     14,
-    15,
-    11
+    9,
+    7,
+    16,
+    13,
+    0
+   ],
+   [
+    11,
+    12,
+    2,
+    1,
+    5,
+    4
    ]
   ],
   "recipe": "none",

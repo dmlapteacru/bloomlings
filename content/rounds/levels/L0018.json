@@ -205,22 +205,7 @@
   "lastLaunchAtW": 94,
   "seconds": 507.5
  },
- "bridge": {
-  "each": [
-   {
-    "label": "Левый мостик",
-    "win": true,
-    "share": 0.75
-   },
-   {
-    "label": "Правый мостик",
-    "win": true,
-    "share": 0.88
-   }
-  ],
-  "gap": 0.13,
-  "better": 1
- },
+ "dosePos": null,
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 18,

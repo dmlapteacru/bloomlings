@@ -2,7 +2,7 @@
  "picture": "P0001",
  "candidates": [
   {
-   "id": "P0001-Nnone-1",
+   "id": "P0001-Nnone-0",
    "picture": "P0001",
    "requested": "Normal",
    "cls": "Normal",
@@ -83,19 +83,19 @@
     ],
     "tray": [
      [
+      5,
+      4,
+      6
+     ],
+     [
       1,
-      6,
-      7
+      2,
+      8
      ],
      [
       0,
       3,
-      8
-     ],
-     [
-      2,
-      5,
-      4
+      7
      ]
     ],
     "recipe": "none"
@@ -124,7 +124,11 @@
     "route": [
      {
       "type": "tap",
-      "pod": 1
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 4
      },
      {
       "type": "tap",
@@ -132,7 +136,15 @@
      },
      {
       "type": "tap",
-      "pod": 7
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 8
      },
      {
       "type": "tap",
@@ -144,19 +156,7 @@
      },
      {
       "type": "tap",
-      "pod": 8
-     },
-     {
-      "type": "tap",
-      "pod": 2
-     },
-     {
-      "type": "tap",
-      "pod": 5
-     },
-     {
-      "type": "tap",
-      "pod": 4
+      "pod": 7
      }
     ],
     "forks": 0,
@@ -164,7 +164,7 @@
     "unknown": 0,
     "fast": {
      "status": "won",
-     "seconds": 19.7
+     "seconds": 19.4
     }
    },
    "fairness": {
@@ -194,15 +194,15 @@
      {
       "from": 0,
       "to": 20,
-      "meanFree": 4.19,
-      "minFree": 4,
+      "meanFree": 3.76,
+      "minFree": 3,
       "fullShare": 0,
-      "maxWaiting": 0
+      "maxWaiting": 1
      },
      {
       "from": 20,
       "to": 40,
-      "meanFree": 4.21,
+      "meanFree": 4.25,
       "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
@@ -218,7 +218,7 @@
      {
       "from": 60,
       "to": 80,
-      "meanFree": 3.62,
+      "meanFree": 3.6,
       "minFree": 3,
       "fullShare": 0,
       "maxWaiting": 1
@@ -226,15 +226,15 @@
      {
       "from": 80,
       "to": 100,
-      "meanFree": 3.79,
+      "meanFree": 3.74,
       "minFree": 3,
       "fullShare": 0,
       "maxWaiting": 1
      }
     ],
     "launchesAfter80": 1,
-    "lastLaunchAtW": 86,
-    "seconds": 73.6
+    "lastLaunchAtW": 91,
+    "seconds": 73
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
@@ -242,6 +242,6 @@
  "rejected": [],
  "searched": [],
  "placed": [
-  "P0001-Nnone-0"
+  "P0001-Nnone-1"
  ]
 }
