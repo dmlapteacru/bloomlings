@@ -7,11 +7,11 @@ namespace Bloomlings.Playtest
 {
     /// <summary>
     /// The files a playtest build carries, by their names (<c>backgrounds/home</c>, <c>icons/leaf.png</c>,
-    /// <c>heromotion/sprig-idle-00</c>, <c>levels/level-0001.json</c>, <c>pictures/burger_01.json</c>; the pictures' names are
+    /// <c>heromotion/sprig-idle-00</c>, <c>rounds/manifest.json</c>, <c>rounds/levels/round_levels_0001_0250.jsonl.gz</c>; the pictures' names are
     /// <c>PainterBase.SpriteResource</c>'s). The preview and the check read them from their embedded resources (the
     /// default); an APK from its assets (<c>AndroidAssetFiles</c>, which the activity sets first). An APK packs its
-    /// assemblies once for every processor it runs on, so the pictures, the levels and the picture library are its assets,
-    /// kept once, and not embedded resources, which it would keep three times. Engine-free.
+    /// assemblies once for every processor it runs on, so the pictures and the round packs are its assets, kept once, and
+    /// not embedded resources, which it would keep three times. Engine-free.
     /// </summary>
     public interface IBundledFiles
     {
@@ -55,6 +55,20 @@ namespace Bloomlings.Playtest
             using var reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
+
+        /// <summary>A file's bytes, or null when the build does not carry it.</summary>
+        public static byte[]? ReadBytes(string name)
+        {
+            using Stream? stream = Open(name);
+            if (stream == null)
+            {
+                return null;
+            }
+
+            using var copy = new MemoryStream();
+            stream.CopyTo(copy);
+            return copy.ToArray();
+        }
     }
 
     /// <summary>An assembly's embedded resources as the build's files (the preview's and the check's).</summary>
@@ -83,5 +97,42 @@ namespace Bloomlings.Playtest
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// A folder on disk as the build's files under one name prefix (<c>rounds/</c> → a published round folder): the
+    /// check, and the preview with <c>--rounds</c>, read a published set from disk as the APK reads its assets.
+    /// </summary>
+    public sealed class FolderFiles : IBundledFiles
+    {
+        private readonly string _prefix;
+        private readonly string _folder;
+
+        public FolderFiles(string prefix, string folder)
+        {
+            _prefix = prefix;
+            _folder = Path.GetFullPath(folder);
+        }
+
+        public bool Has(string name) => PathOf(name) is string path && File.Exists(path);
+
+        public Stream? Open(string name) => Has(name) ? File.OpenRead(PathOf(name)!) : null;
+
+        public IEnumerable<string> Names(string folder)
+        {
+            string? path = folder.StartsWith(_prefix, StringComparison.Ordinal) ? Path.Combine(_folder, folder.Substring(_prefix.Length)) : null;
+            if (path == null || !Directory.Exists(path))
+            {
+                yield break;
+            }
+
+            foreach (string file in Directory.GetFiles(path))
+            {
+                yield return folder + Path.GetFileName(file);
+            }
+        }
+
+        private string? PathOf(string name) =>
+            name.StartsWith(_prefix, StringComparison.Ordinal) ? Path.Combine(_folder, name.Substring(_prefix.Length).Replace('/', Path.DirectorySeparatorChar)) : null;
     }
 }

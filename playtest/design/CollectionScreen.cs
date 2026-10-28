@@ -82,7 +82,8 @@ namespace Bloomlings.Playtest.Design
         private static void Frame(IPainter p, Box box, CollectionEntry entry, DesignApp app)
         {
             Box well = Kit.PictureFrame(p, box);
-            if (app.Content.TryGetLevel(app.Resolve(entry.LevelNumber), out LevelDefinition? definition) && definition != null)
+            // A build with round levels only carries no legacy level to draw an older save's picture from (spec 006 FR-060).
+            if (app.Content.LevelCount > 0 && app.Content.TryGetLevel(app.Resolve(entry.LevelNumber), out LevelDefinition? definition) && definition != null)
             {
                 var picture = app.Content.GetPicture(definition.Picture);
                 Box art = well.Inset(well.Width * .04f);

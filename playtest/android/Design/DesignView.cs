@@ -30,7 +30,9 @@ namespace Bloomlings.Playtest.Droid
             Bloomlings.Client.UI.Design.UiRaster.ParallelRows = false;
             var sound = new PlaytestSound(context);
             var output = new SoundOut(sound);
-            _app = new DesignApp(context.FilesDir!.AbsolutePath, PlaytestContent.Load(), output);
+            // The round levels are the game's only levels (spec 006 FR-060): the APK carries no legacy level, so the legacy
+            // set is empty and only the round packs are played.
+            _app = new DesignApp(context.FilesDir!.AbsolutePath, PlaytestContent.Load(), output, rounds: PlaytestContent.LoadRounds());
             output.App = _app;
             long checkedNetworkAt = -1000;
             bool networkAvailable = false;

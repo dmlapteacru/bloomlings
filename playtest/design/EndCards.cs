@@ -27,7 +27,8 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the jam (frame 10): the centered modal card over the dimmed gameplay (FR-022,
     /// <see cref="ScreenLayout.JamCard"/>): the slot contents in a well and the recoveries as a two-column grid of big
     /// colored choices with their cost pills, and Restart;</description></item>
-    /// <item><description>the demo and unlock cards (frame 21).</description></item>
+    /// <item><description>the demo and unlock cards (frame 21);</description></item>
+    /// <item><description>"new levels soon" after the last round level (spec 006 T028).</description></item>
     /// </list>
     /// </summary>
     public static class EndCards
@@ -316,6 +317,31 @@ namespace Bloomlings.Playtest.Design
             BoosterKind.Return => PlaytestText.T("booster.return"),
             _ => PlaytestText.T("booster.bloom_burst"),
         };
+
+        /// <summary>
+        /// "New levels soon" (spec 006 FR-060, T028), over Home when the player's level is past the last round level: the
+        /// popups' card with the lotus behind its sign, a short note, and OK back to Home. No old level follows the round
+        /// levels; the next wave brings more.
+        /// </summary>
+        public static void NewLevelsSoon(IPainter p, DesignApp app, float since)
+        {
+            const float top = 24f, line = 58f, gap = 30f, bottom = 36f;
+            float content = top + (3 * line) + gap + DesignTokens.Size.CardPrimaryHeight + bottom;
+            CardRegions r = Kit.Card(p, content, PlaytestText.T("round.soon.title"), app.CardClose, Kit.Pop(since), T.Title);
+            int levels = app.Rounds?.LevelCount ?? 0;
+            float width = r.Body.Width * 0.94f;
+            List<string> lines = Lines(p, PlaytestText.F("round.soon.body", levels), T.Body, width, 3);
+            float y = r.Body.Top + p.U(top) + (p.U(line) * (3 - lines.Count) / 2f);
+            foreach (string text in lines)
+            {
+                p.Text(text, r.Body.CenterX, y + p.U(line / 2f), T.Body, C.InkBrown, width);
+                y += p.U(line);
+            }
+
+            float button = r.Body.Top + p.U(top + (3 * line) + gap);
+            Kit.PrimaryButton(p, ScreenLayout.CardButton(r.Body, button, true, p.Scale), PlaytestText.T("common.ok"), app.CloseOverlay);
+            Kit.EndCard(p);
+        }
 
         /// <summary>
         /// A text in at most <paramref name="maxLines"/> lines of <paramref name="width"/>: one line when it fits, else

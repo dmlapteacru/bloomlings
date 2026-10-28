@@ -1,20 +1,29 @@
 <Project>
-  <Import Project="../content/launch.props" />
+  <!--
+    The game's levels (spec 006 FR-060, T025, T053): round levels only, from the published round content, which
+    `rounds publish` writes (contracts/pipeline-rounds-cli.md): manifest.json, levels/*.jsonl.gz and pictures/*.jsonl.gz.
+    Both playtest APKs carry them as assets under rounds/ (Playtest.Shared.props), read by PlaytestContent.LoadRounds.
+    The legacy catalog, the curated levels and the Daily Challenge pool are no longer packed (LegacyCatalog.props keeps the
+    preview's copy).
+
+    RoundContentDir names another published folder, e.g. for local development before the first `rounds publish`:
+      dotnet run --project playtest/check -- --publish-dev content/work/rounds-published
+      dotnet build playtest/android -p:RoundContentDir=$(pwd)/content/work/rounds-published/
+    (content/work is gitignored; never commit a published set made this way.)
+  -->
+  <PropertyGroup>
+    <RoundContentDir Condition="'$(RoundContentDir)' == ''">$(MSBuildThisFileDirectory)../content/game/rounds/published/</RoundContentDir>
+    <RoundContentDir Condition="!HasTrailingSlash('$(RoundContentDir)')">$(RoundContentDir)/</RoundContentDir>
+  </PropertyGroup>
   <ItemGroup>
-    <!-- The unique-art installer deliberately keeps L1–10 in curated, outside catalog/levels. -->
-    <_TutorialSource Include="$(MSBuildThisFileDirectory)../content/curated/level-*.json">
-      <Number>$([System.Int32]::Parse($([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '^level-', ''))))</Number>
-      <Ship Condition="'%(Number)' &lt;= '10' and '%(Number)' &lt;= '$(LaunchLevelCount)'">true</Ship>
-    </_TutorialSource>
-    <_CatalogSource Include="$(MSBuildThisFileDirectory)../content/catalog/levels/*.json">
-      <Number>$([System.Int32]::Parse($([System.Text.RegularExpressions.Regex]::Replace('%(Filename)', '^level-', ''))))</Number>
-      <Ship Condition="'%(Number)' &gt; '10' and '%(Number)' &lt;= '$(LaunchLevelCount)'">true</Ship>
-    </_CatalogSource>
-    <LaunchCatalogLevel Include="@(_TutorialSource->WithMetadataValue('Ship', 'true'))" />
-    <LaunchCatalogLevel Include="@(_CatalogSource->WithMetadataValue('Ship', 'true'))" />
+    <RoundContentManifest Include="$(RoundContentDir)manifest.json" Condition="Exists('$(RoundContentDir)manifest.json')" />
+    <RoundContentLevelPack Include="$(RoundContentDir)levels/*.jsonl.gz" />
+    <RoundContentPicturePack Include="$(RoundContentDir)pictures/*.jsonl.gz" />
   </ItemGroup>
-  <Target Name="CheckLaunchCatalogCount" BeforeTargets="PrepareForBuild">
-    <Error Condition="'@(LaunchCatalogLevel->Count())' != '$(LaunchLevelCount)'"
-           Text="Launch content must contain $(LaunchLevelCount) levels, including curated tutorials L1–10. Found @(LaunchCatalogLevel->Count())." />
+  <Target Name="CheckRoundContent" BeforeTargets="PrepareForBuild">
+    <Error Condition="'@(RoundContentManifest)' == ''"
+           Text="No published round content in $(RoundContentDir) (manifest.json is missing). Publish it with `dotnet run --project core/src/Bloomlings.Pipeline -- rounds publish --out content/game/rounds/published`, or for local development make one from the export with `dotnet run --project playtest/check -- --publish-dev content/work/rounds-published` and build with -p:RoundContentDir=&lt;that folder's full path&gt;/" />
+    <Error Condition="'@(RoundContentManifest)' != '' and ('@(RoundContentLevelPack)' == '' or '@(RoundContentPicturePack)' == '')"
+           Text="The published round content in $(RoundContentDir) has a manifest but no level or picture packs; publish it again with `rounds publish`." />
   </Target>
 </Project>

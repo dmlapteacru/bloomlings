@@ -3,7 +3,9 @@
     Checks the playtest client's engine-free parts without Android: LevelAnimator replays every golden case, every
     showcase solution and a 22x28 big level (with pauses and with rapid taps) and the settled screen must equal the rules
     state; PlaytestMeta
-    runs progression, unlocks, Petals and milestones on the linked client services.
+    runs progression, unlocks, Petals and milestones on the linked client services; the round content the APKs carry
+    (spec 006) reads back through PlaytestContent. With -publish-dev and a folder it only writes a published round set
+    for a local APK build (playtest/Catalog.props).
     Run: dotnet run, project playtest/check (exit code 1 on a failure).
   -->
   <PropertyGroup>
@@ -18,6 +20,8 @@
     <Compile Include="../../playtest/android/LevelAnimator.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ClearStyles.cs" />
     <Compile Include="../../playtest/design/PlaytestMeta.cs" />
+    <Compile Include="../../playtest/android/PlaytestContent.cs" />
+    <Compile Include="../../playtest/android/PlaytestFiles.cs" />
     <Compile Include="../design/PictureWorkQueue.cs" />
     <Compile Include="../design/PictureCache.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" />
