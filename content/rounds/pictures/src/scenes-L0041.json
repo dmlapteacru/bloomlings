@@ -1,0 +1,475 @@
+{
+ "created": "2026-10-28T21:28:20.771Z",
+ "side": "up",
+ "kind": "better",
+ "cls": "Normal",
+ "recipes": [
+  "bridge"
+ ],
+ "level": 41,
+ "results": [
+  {
+   "source": "P0063",
+   "side": "up",
+   "kind": "better",
+   "cls": "Normal",
+   "recipe": "bridge",
+   "found": true,
+   "seconds": 17,
+   "tried": {
+    "scenes": 1,
+    "candidates": 1
+   },
+   "size": "24×35",
+   "N": 337,
+   "colours": 4,
+   "opts": {
+    "side": "up",
+    "x": "G",
+    "y": "R",
+    "w": "C",
+    "v": "M",
+    "z": ".",
+    "strip": 2,
+    "divider": 0,
+    "bedDepth": 2,
+    "bedBreadth": 7,
+    "bedDepthY": 4,
+    "bedBreadthY": 3,
+    "pad": 0,
+    "margin": 2,
+    "ground": null,
+    "shield": 0,
+    "fill": false
+   },
+   "random": {
+    "share": 0.77,
+    "runs": 100,
+    "wilson95": [
+     0.678,
+     0.842
+    ],
+    "cls": "Normal"
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик вверх слева",
+      "win": true,
+      "share": 0.85
+     },
+     {
+      "label": "Мостик вверх справа",
+      "win": true,
+      "share": 0.22
+     }
+    ],
+    "gap": 0.63,
+    "better": 0
+   },
+   "bridgeKind": "better",
+   "bridgeSingle": {
+    "each": [
+     true,
+     true
+    ],
+    "offered": [
+     42,
+     18
+    ],
+    "ok": false
+   },
+   "bridgeLoss": null,
+   "forced": 0.16,
+   "opening": null,
+   "pressure": {
+    "stuck": 1.06,
+    "tight": 0.76
+   },
+   "greedyLoses": true,
+   "pods": 11,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 0,
+   "solution": 12,
+   "level": {
+    "id": 1,
+    "title": "Вишенки",
+    "subject": "P0063",
+    "w": 28,
+    "h": 39,
+    "rowsBottomFirst": [
+     "##############.#############",
+     "#..........................#",
+     "#..........................#",
+     "#..........................#",
+     "#.................CCC......#",
+     "#.................CCC......#",
+     "#....GGGGGGG......CCC......#",
+     "#....GGGGGGG......CCC......#",
+     "############################",
+     "###RRRRRRRRRR##MMMMMMMMMM###",
+     "###RRRRRRRRRR##MMMMMMMMMM###",
+     "###..............RRRRR...###",
+     "###....RRRR....RRRRRRRR..###",
+     "###..RRRRRRRR..RRRRRRRRR.###",
+     "###.RRRRRRRRRRRRRRRRRRRRR###",
+     "###.RRRRRRRRRRRRRRRRRRRRR###",
+     "###.RRRRRRRRRRRRRRRRRRRRR###",
+     "###RRRRRRRRRRRRRCCRRRRRRR###",
+     "###RRRCCRRRRRRRRCCCRRRRRR###",
+     "###.RRCCRRRRRRRRRCRRRRRR.###",
+     "###.RRCCRRRRRR.RRRRRRRRR.###",
+     "###..RRRRRRRRR..RRRRRR...###",
+     "###...RRRRRRR.....MM.....###",
+     "###.....RRM......MM......###",
+     "###.......MM.....MM......###",
+     "###.......MMM....MM......###",
+     "###........MM...MM.......###",
+     "###........MMM..MM.......###",
+     "###.........MM..MM.......###",
+     "###.........MMMMM........###",
+     "###..........MMMM........###",
+     "###..........MMMM........###",
+     "###...........MMMMGGG....###",
+     "###...........MMGGMMMG...###",
+     "###..............GGGMMM..###",
+     "###...............GGGGGG.###",
+     "############################",
+     "#.########################.#",
+     "############################"
+    ],
+    "entries": [
+     14
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "G",
+      "count": 15
+     },
+     {
+      "color": "G",
+      "count": 14
+     },
+     {
+      "color": "M",
+      "count": 24
+     },
+     {
+      "color": "M",
+      "count": 24
+     },
+     {
+      "color": "M",
+      "count": 24
+     },
+     {
+      "color": "R",
+      "count": 53
+     },
+     {
+      "color": "R",
+      "count": 53
+     },
+     {
+      "color": "R",
+      "count": 53
+     },
+     {
+      "color": "R",
+      "count": 53
+     },
+     {
+      "color": "C",
+      "count": 12
+     },
+     {
+      "color": "C",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      5,
+      9,
+      7,
+      8
+     ],
+     [
+      1,
+      6,
+      3,
+      2
+     ],
+     [
+      0,
+      10,
+      4
+     ]
+    ],
+    "recipe": "bridge",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 232,
+       "anchor": 204,
+       "label": "Мостик вверх слева",
+       "dir": "up"
+      },
+      {
+       "cell": 243,
+       "anchor": 215,
+       "label": "Мостик вверх справа",
+       "dir": "up"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "source": "P0029",
+   "side": "up",
+   "kind": "better",
+   "cls": "Normal",
+   "recipe": "bridge",
+   "found": true,
+   "seconds": 36,
+   "tried": {
+    "scenes": 1,
+    "candidates": 2
+   },
+   "size": "20×33",
+   "N": 391,
+   "colours": 6,
+   "opts": {
+    "side": "up",
+    "x": "A",
+    "y": "E",
+    "w": "G",
+    "v": "M",
+    "z": ".",
+    "strip": 2,
+    "divider": 1,
+    "bedDepth": 2,
+    "bedBreadth": 3,
+    "bedDepthY": 3,
+    "bedBreadthY": 3,
+    "pad": 0,
+    "margin": 3,
+    "ground": "L",
+    "shield": 2,
+    "fill": false
+   },
+   "random": {
+    "share": 0.89,
+    "runs": 100,
+    "wilson95": [
+     0.814,
+     0.937
+    ],
+    "cls": "Normal"
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик вверх слева",
+      "win": true,
+      "share": 0.87
+     },
+     {
+      "label": "Мостик вверх справа",
+      "win": true,
+      "share": 0.02
+     }
+    ],
+    "gap": 0.85,
+    "better": 0
+   },
+   "bridgeKind": "better",
+   "bridgeSingle": {
+    "each": [
+     true,
+     true
+    ],
+    "offered": [
+     51,
+     0
+    ],
+    "ok": false
+   },
+   "bridgeLoss": null,
+   "forced": 0.1,
+   "opening": null,
+   "pressure": {
+    "stuck": 0.91,
+    "tight": 0.8
+   },
+   "greedyLoses": false,
+   "pods": 16,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 0,
+   "solution": 17,
+   "level": {
+    "id": 1,
+    "title": "Жёлудь",
+    "subject": "P0029",
+    "w": 24,
+    "h": 37,
+    "rowsBottomFirst": [
+     "############.###########",
+     "#......................#",
+     "#.LLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLL.#",
+     "#............LLGGGLL...#",
+     "#.....AAA....LLGGGLL...#",
+     "#.....AAA....LLGGGLL...#",
+     "########################",
+     "###EEEEEEEE##MMMMMMMM###",
+     "###EEEEEEEE##MMMMMMMM###",
+     "###........##........###",
+     "###.......OOOAA......###",
+     "###......OOOOOAA.....###",
+     "###.....OOOOOOOAA....###",
+     "###....OOOOOOOOAAA...###",
+     "###...OOOOOOOOOOAA...###",
+     "###..OOOOOOOOOOOAAA..###",
+     "###..OOOOOOOOOOOAAA..###",
+     "###..OOOOOOOOOOOAAA..###",
+     "###..OOOOOOOOOOOAAA..###",
+     "###..OOOOOOOOOOOAAA..###",
+     "###..OOOOOOOOOOOAAA..###",
+     "###.EEEEEEEEEEEEEEEE.###",
+     "###EEAAEEAAEEAAEEAAEE###",
+     "###EEAAEEAAEEAAEEAAEE###",
+     "###AAEEAAEEAAEEAAEEAA###",
+     "###.AAEEAAEEAAEEAAEE.###",
+     "###..EEAAEEAAEEAAEE..###",
+     "###....AAEEEEAAEE....###",
+     "###........EE.GGGGMMG###",
+     "###........EEGGGMMGGG###",
+     "###........EEGGMGGGG.###",
+     "###.......EE..MGGG...###",
+     "########################",
+     "#.####################.#",
+     "########################"
+    ],
+    "entries": [
+     12
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "E",
+      "count": 30
+     },
+     {
+      "color": "E",
+      "count": 30
+     },
+     {
+      "color": "E",
+      "count": 30
+     },
+     {
+      "color": "M",
+      "count": 11
+     },
+     {
+      "color": "M",
+      "count": 11
+     },
+     {
+      "color": "G",
+      "count": 15
+     },
+     {
+      "color": "G",
+      "count": 14
+     },
+     {
+      "color": "A",
+      "count": 27
+     },
+     {
+      "color": "A",
+      "count": 26
+     },
+     {
+      "color": "A",
+      "count": 26
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "L",
+      "count": 24
+     },
+     {
+      "color": "L",
+      "count": 24
+     },
+     {
+      "color": "L",
+      "count": 24
+     }
+    ],
+    "tray": [
+     [
+      10,
+      13,
+      1,
+      2,
+      8
+     ],
+     [
+      0,
+      11,
+      7,
+      5,
+      3
+     ],
+     [
+      15,
+      14,
+      9,
+      12,
+      4,
+      6
+     ]
+    ],
+    "recipe": "bridge",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 199,
+       "anchor": 175,
+       "label": "Мостик вверх слева",
+       "dir": "up"
+      },
+      {
+       "cell": 208,
+       "anchor": 184,
+       "label": "Мостик вверх справа",
+       "dir": "up"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

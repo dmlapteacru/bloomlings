@@ -1,0 +1,165 @@
+// scenes-L0041: bridge scenes composed by tools/rounds/bridge-scene.mjs (17 §8): a smaller approved picture on the far side
+// behind a wall with two Sprig sites, crossed strips and near-bank beds; each one passed the builder's checks with the
+// planned bridge kind (evidence in scenes-L0041.json). Drafts for the owner's sheet: pictures.mjs render / sheet / approve.
+export default {
+ "theme": "bridge-scenes",
+ "name": "scenes-L0041",
+ "pictures": [
+  {
+   "title": "Вишенки за мостом",
+   "family": "Фрукты и ягоды",
+   "device": "сцена моста",
+   "subject": "пара вишенок на сросшихся черешках с листиком и бликом",
+   "source": "сцена моста из P0063",
+   "forLevel": 41,
+   "scene": {
+    "from": "P0063",
+    "side": "up",
+    "kind": "better",
+    "cls": "Normal",
+    "recipe": "bridge",
+    "win": [
+     6,
+     28
+    ],
+    "lose": [
+     17,
+     28
+    ],
+    "opts": {
+     "side": "up",
+     "x": "G",
+     "y": "R",
+     "w": "C",
+     "v": "M",
+     "z": ".",
+     "strip": 2,
+     "divider": 0,
+     "bedDepth": 2,
+     "bedBreadth": 7,
+     "bedDepthY": 4,
+     "bedBreadthY": 3,
+     "pad": 0,
+     "margin": 2,
+     "ground": null,
+     "shield": 0,
+     "fill": false
+    }
+   },
+   "rows": [
+    "########################",
+    "#...............GGGGGG.#",
+    "#..............GGGMMM..#",
+    "#...........MMGGMMMG...#",
+    "#...........MMMMGGG....#",
+    "#..........MMMM........#",
+    "#..........MMMM........#",
+    "#.........MMMMM........#",
+    "#.........MM..MM.......#",
+    "#........MMM..MM.......#",
+    "#........MM...MM.......#",
+    "#.......MMM....MM......#",
+    "#.......MM.....MM......#",
+    "#.....RRM......MM......#",
+    "#...RRRRRRR.....MM.....#",
+    "#..RRRRRRRRR..RRRRRR...#",
+    "#.RRCCRRRRRR.RRRRRRRRR.#",
+    "#.RRCCRRRRRRRRRCRRRRRR.#",
+    "#RRRCCRRRRRRRRCCCRRRRRR#",
+    "#RRRRRRRRRRRRRCCRRRRRRR#",
+    "#.RRRRRRRRRRRRRRRRRRRRR#",
+    "#.RRRRRRRRRRRRRRRRRRRRR#",
+    "#.RRRRRRRRRRRRRRRRRRRRR#",
+    "#..RRRRRRRR..RRRRRRRRR.#",
+    "#....RRRR....RRRRRRRR..#",
+    "#..............RRRRR...#",
+    "#RRRRRRRRRR##MMMMMMMMMM#",
+    "#RRRRRRRRRR##MMMMMMMMMM#",
+    "######b##########b######",
+    "...GGGGGGG......CCC.....",
+    "...GGGGGGG......CCC.....",
+    "................CCC.....",
+    "................CCC.....",
+    "........................",
+    "........................"
+   ]
+  },
+  {
+   "title": "Жёлудь за мостом",
+   "family": "Грибы и лесные находки",
+   "device": "сцена моста",
+   "subject": "жёлудь с листком",
+   "source": "сцена моста из P0029",
+   "forLevel": 41,
+   "scene": {
+    "from": "P0029",
+    "side": "up",
+    "kind": "better",
+    "cls": "Normal",
+    "recipe": "bridge",
+    "win": [
+     5,
+     26
+    ],
+    "lose": [
+     14,
+     26
+    ],
+    "opts": {
+     "side": "up",
+     "x": "A",
+     "y": "E",
+     "w": "G",
+     "v": "M",
+     "z": ".",
+     "strip": 2,
+     "divider": 1,
+     "bedDepth": 2,
+     "bedBreadth": 3,
+     "bedDepthY": 3,
+     "bedBreadthY": 3,
+     "pad": 0,
+     "margin": 3,
+     "ground": "L",
+     "shield": 2,
+     "fill": false
+    }
+   },
+   "rows": [
+    "####################",
+    "#.......EE..MGGG...#",
+    "#........EEGGMGGGG.#",
+    "#........EEGGGMMGGG#",
+    "#........EE.GGGGMMG#",
+    "#....AAEEEEAAEE....#",
+    "#..EEAAEEAAEEAAEE..#",
+    "#.AAEEAAEEAAEEAAEE.#",
+    "#AAEEAAEEAAEEAAEEAA#",
+    "#EEAAEEAAEEAAEEAAEE#",
+    "#EEAAEEAAEEAAEEAAEE#",
+    "#.EEEEEEEEEEEEEEEE.#",
+    "#..OOOOOOOOOOOAAA..#",
+    "#..OOOOOOOOOOOAAA..#",
+    "#..OOOOOOOOOOOAAA..#",
+    "#..OOOOOOOOOOOAAA..#",
+    "#..OOOOOOOOOOOAAA..#",
+    "#..OOOOOOOOOOOAAA..#",
+    "#...OOOOOOOOOOAA...#",
+    "#....OOOOOOOOAAA...#",
+    "#.....OOOOOOOAA....#",
+    "#......OOOOOAA.....#",
+    "#.......OOOAA......#",
+    "#........##........#",
+    "#EEEEEEEE##MMMMMMMM#",
+    "#EEEEEEEE##MMMMMMMM#",
+    "#####b########b#####",
+    "....AAA....LLGGGLL..",
+    "....AAA....LLGGGLL..",
+    "...........LLGGGLL..",
+    "LLLLLLLLLLLLLLLLLLLL",
+    "LLLLLLLLLLLLLLLLLLLL",
+    "LLLLLLLLLLLLLLLLLLLL"
+   ]
+  }
+ ]
+};

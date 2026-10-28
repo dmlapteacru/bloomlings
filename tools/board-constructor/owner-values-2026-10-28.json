@@ -1,0 +1,17 @@
+{
+ "screen": "1080x2340",
+ "boardWidthShare": 0.953,
+ "boardHeightShare": 0.44,
+ "boardTopShare": 0.1,
+ "topBarShare": 0.105,
+ "frameShare": 0.042,
+ "padCells": 1,
+ "gapAfterBoardShare": 0.03,
+ "slotsRowShare": 0.085,
+ "boostersRowShare": 0.075,
+ "podCubeShare": 0.15,
+ "podGapShare": 0.02,
+ "podColumns": 3,
+ "podRows": 3,
+ "inactiveLighten": 0.46
+}
