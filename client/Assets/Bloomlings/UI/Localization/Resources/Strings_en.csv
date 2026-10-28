@@ -580,7 +580,6 @@ round.intro.bridge.3,Only one bridge can be built. Choose its side well
 round.intro.bridge.reminder,Remember: only one bridge can be built. Choose its side well
 round.soon.title,New levels soon
 round.soon.body,"You have played all {0} levels. New levels are on the way, come back soon!"
-round.placeholder,"Level {0} shows still for now. Playing it comes with the round rules."
 round.jump.dev,Go
 round.jump.title,Jump to level
 round.jump.invalid,Enter a level number from 1
@@ -591,4 +590,3 @@ round.tester.board,"{0}×{1} board, {2} pods in {3} columns, {4} places"
 round.tester.picture,"Picture {0} v{1}, definition v{2}"
 round.tester.mechanics,Mechanics: {0}
 round.tester.exception,Exception: {0}
-round.tester.not_wired,Round play is not wired yet: the board shows still.
