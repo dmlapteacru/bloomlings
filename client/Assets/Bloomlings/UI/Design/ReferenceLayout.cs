@@ -271,16 +271,20 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// A pod cube's number (spec 006 FR-064, Colony Flow's): big bold white digits in a dark outline of
-        /// <see cref="RoundScreenLook.CountOutlineEm"/>, readable on every material's colour; on a waiting pod half clear
-        /// (<see cref="RoundScreenLook.WaitingCountAlpha"/>).
+        /// A pod cube's number (spec 006 FR-064): the pods' and places' count look of before (<see cref="CountLook"/>, the
+        /// same face, weight and outline, <c>GameplaySkin.PodCount</c>), only centred on the cube's top and bigger; on a
+        /// waiting pod half clear (<see cref="RoundScreenLook.WaitingCountAlpha"/>).
         /// </summary>
         public static TextLook CubeCountLook(bool waiting)
         {
-            float a = waiting ? RoundScreenLook.WaitingCountAlpha : 1f;
-            Rgba ink = DesignTokens.Colors.InkBrown.WithAlpha(waiting ? a * 0.55f : 1f);
-            Rgba fill = Rgba.White.WithAlpha(a);
-            return new TextLook(fill, fill, ink, RoundScreenLook.CountOutlineEm, 0f, 0f);
+            TextLook look = CountLook(waiting);
+            if (!waiting)
+            {
+                return look;
+            }
+
+            float a = RoundScreenLook.WaitingCountAlpha;
+            return look with { FillTop = look.FillTop.WithAlpha(a), FillBottom = look.FillBottom.WithAlpha(a), Outline = look.Outline.WithAlpha(a) };
         }
 
         /// <summary>A connected pod's link badge over the frame's top right corner (spec 005 FR-043, <see cref="PodLinks.BadgeBox"/>).</summary>

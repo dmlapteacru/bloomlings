@@ -224,7 +224,7 @@ namespace Bloomlings.Playtest.Design
             PodCubePicture(p, box, material, RoundPodLook.Placed, symbolsMode, stuck, sideStep);
             if (count.HasValue)
             {
-                CubeCount(p, PodChip.Cube(box).Count, count.Value, false);
+                CubeCount(p, PodChip.Cube(box).Count, count.Value, false, stuck);
             }
         }
 
@@ -272,12 +272,15 @@ namespace Bloomlings.Playtest.Design
             return cube;
         }
 
-        /// <summary>A pod cube's count (<c>pod.count</c>, FR-064): white digits in a dark outline, filling <paramref name="area"/>'s height.</summary>
-        public static void CubeCount(IPainter p, Box area, int count, bool waiting)
+        /// <summary>
+        /// A pod cube's count (<c>pod.count</c>, FR-064): the pods' count look of before (<see cref="PodChip.CubeCountLook"/>),
+        /// filling <paramref name="area"/>'s height; <paramref name="stuck"/> a stuck place's dimmed count, as before.
+        /// </summary>
+        public static void CubeCount(IPainter p, Box area, int count, bool waiting, bool stuck = false)
         {
             p.Mark("pod.count");
             p.Mark("font.shop");
-            TextLook look = PodChip.CubeCountLook(waiting);
+            TextLook look = stuck ? PodChip.CountLook(true) : PodChip.CubeCountLook(waiting);
             p.Text(count.ToString(System.Globalization.CultureInfo.InvariantCulture), area.CenterX, area.CenterY, GameplaySkin.PodCount, look.FillTop, area.Width, area.Height / p.U(GameplaySkin.PodCount.Size), look);
         }
 

@@ -78,8 +78,9 @@ namespace Bloomlings.Client.UI.Design
         public const float BoardRowShare = 0.88f;
 
         /// <summary>
-        /// A board cube's front face under its top, as a share of the column pitch: drawn far rows first, the nearer cube hides
-        /// it, so it shows only on the picture's bottom edge, at steps of the silhouette and where a cube was eaten.
+        /// A board cube's front face under its top, as a share of the cube's width (the owner's choice of 2026-10-28, "выше
+        /// кубики"). Drawn far rows first, the nearer cube hides it, so it shows only on the picture's bottom edge, at steps of
+        /// the silhouette and where a cube was eaten.
         /// </summary>
         public const float BoardFrontShare = 0.38f;
 
@@ -97,18 +98,26 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>How many widths a side face takes on each side of the centre (the side pictures a colour has).</summary>
         public const int SideSteps = 5;
 
+        /// <summary>
+        /// The board cubes' soft light spot at their top's lower right, its strongest alpha (the owner's "softer gloss" of
+        /// 2026-10-28: a small blurred glow fading out); none on the pods and in the places.
+        /// </summary>
+        public const float CubeGloss = 0.32f;
+
         /// <summary>A cube's corner radius, as a share of its width (Colony Flow's soft corners).</summary>
         public const float CubeCornerShare = 0.12f;
 
         /// <summary>
-        /// A pod's front face (its thicker base) under its top, as a share of the pod's height (constructor
-        /// <c>cubeDepthShare</c>, the owner's 0.26 of 2026-10-28: "the cubes must look more like cubes, taller"); the cubes in
-        /// the places alike.
+        /// A pod's front face (its base) under its top, as a share of its height: the pods, the cubes in the places and the
+        /// flights (the owner's choice of 2026-10-28: lower than the board's, "у лотов пониже").
         /// </summary>
         public const float CubeDepthShare = 0.26f;
 
-        /// <summary>A waiting pod's flatter base (rows 2 and 3), as a share of its height.</summary>
-        public const float WaitingDepthShare = 0.18f;
+        /// <summary>How much of <see cref="CubeDepthShare"/> a waiting pod's flatter base keeps (rows 2 and 3).</summary>
+        public const float WaitingFlatten = 0.7f;
+
+        /// <summary>A waiting pod's front face: <see cref="CubeDepthShare"/> × <see cref="WaitingFlatten"/>.</summary>
+        public const float WaitingDepthShare = CubeDepthShare * WaitingFlatten;
 
         /// <summary>The white outline round a top-row pod (the one that takes the tap), as a share of its width.</summary>
         public const float PodRingShare = 0.05f;
@@ -163,9 +172,9 @@ namespace Bloomlings.Client.UI.Design
         // ---- The pods' look ----
 
         /// <summary>
-        /// How far a waiting pod's colour (rows 2 and 3) is lightened toward white (constructor <c>inactiveLighten</c>): Colony
-        /// Flow barely lightens, the waiting cue being the half-clear number and the flatter base; the owner's 0.46 of
-        /// 2026-10-28 is the most allowed.
+        /// How far a waiting pod's colour (rows 2 and 3) is lightened toward white (constructor <c>inactiveLighten</c>): the
+        /// owner's choice of 2026-10-28 (0.12, as Colony Flow barely lightens; the waiting cue is the half-clear number and the
+        /// flatter base), within <see cref="ReadableInactiveLighten"/>.
         /// </summary>
         public const float InactiveLighten = 0.12f;
 
@@ -182,7 +191,5 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The count's type size on a pod cube in the symbols mode (the symbol takes the top's middle), as a share of the side.</summary>
         public const float SymbolCountShare = 0.3f;
 
-        /// <summary>The white count's dark outline, in fractions of its type size.</summary>
-        public const float CountOutlineEm = 0.11f;
     }
 }

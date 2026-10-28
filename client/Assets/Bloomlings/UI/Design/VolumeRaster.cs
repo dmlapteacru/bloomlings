@@ -24,7 +24,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// A square cube tile's front face under its top, as a share of its side (the top's middle is where the icon sits): the
-        /// round pods' and places' depth (<see cref="RoundScreenLook.CubeDepthShare"/>).
+        /// the round pods' and places' depth (<see cref="RoundScreenLook.CubeDepthShare"/>).
         /// </summary>
         public const float CubeSide = RoundScreenLook.CubeDepthShare;
 
@@ -39,7 +39,7 @@ namespace Bloomlings.Client.UI.Design
         /// end. <paramref name="margin"/> px stay clear at the sides and the top (a hairline between neighbours) and
         /// <paramref name="bottom"/> px under the foot. Returns the colour, the coverage and the top face's lower edge.
         /// </summary>
-        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss = 0.75f)
+        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss = RoundScreenLook.CubeGloss)
         {
             float m = margin;
             float foot = h - bottom;
@@ -71,9 +71,10 @@ namespace Bloomlings.Client.UI.Design
                 c.Mix(col.Lighten(0.3f), 0.45f * Clamp01(1f - ((x - m) / edge)));
                 c.Mix(deep.Darken(0.22f), 0.55f * Clamp01(1f - ((w - m - x) / edge)));
 
-                // A small soft specular dot at the top's lower right.
-                float dot = Length(x - (w - m - (w * 0.2f)), y - (topBottom - bevel - (w * 0.09f))) - (w * 0.045f);
-                c.Mix(Rgba.White, gloss * Clamp01(0.5f - (dot / Math.Max(1f, w * 0.035f))));
+                // A soft light spot at the top's lower right (Colony Flow's gloss, the owner's "softer" of 2026-10-28): a small
+                // blurred glow of low alpha fading out, never a sharp dot.
+                float spot = Length(x - (w - m - (w * 0.22f)), y - (topBottom - bevel - (w * 0.1f))) / Math.Max(1f, w * 0.085f);
+                c.Mix(Rgba.White, gloss * (float)Math.Exp(-spot * spot));
 
                 // A thin dark seam round the top, so neighbours read apart without a gap.
                 c.Mix(deep.Darken(0.4f), 0.45f * Clamp01(1f + (top / Math.Max(0.75f, w * 0.02f))));
