@@ -186,6 +186,8 @@ namespace Bloomlings.Client.Tests.EditMode
             }
 
             Assert.That(PodChip.CubeCountLook(true).FillTop.A, Is.LessThan(PodChip.CubeCountLook(false).FillTop.A), "a waiting pod's number is half clear");
+            Assert.That(PodChip.CubeCountLook(false), Is.EqualTo(PodChip.CountLook(false)), "the pods' count look of before: only its place and size are new");
+            Assert.That(PodChip.CubeCountLook(true).OutlineEm, Is.EqualTo(PodChip.CountOutlineEm), "the same outline");
         }
 
         [Test]

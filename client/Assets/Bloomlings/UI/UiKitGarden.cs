@@ -1315,7 +1315,7 @@ namespace Bloomlings.Client.UI
 
             // The pod's cube keeps its number big in the middle of its top (spec 006 FR-064), no corner count.
             _roundCube = true;
-            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CubeCountLook(false));
+            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CountLook(stuck));
             _layout.Apply();
         }
 

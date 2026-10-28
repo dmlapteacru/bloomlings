@@ -193,7 +193,7 @@ namespace Bloomlings.Client.UI.Design
         /// 2D picture <paramref name="width"/> (a column) × <paramref name="height"/> (a row's pitch and the front face below
         /// it, <see cref="RoundBoardLayout.CubeBox"/>) of the oblique cube (<see cref="ObliqueCube"/>) in the material's
         /// <paramref name="color"/>: its top <see cref="RoundScreenLook.BoardRowShare"/> of the width tall, its front
-        /// <see cref="RoundScreenLook.BoardFrontShare"/>, the cubes touching but for the owner's hairline
+        /// <see cref="RoundScreenLook.CubeDepthShare"/>, the cubes touching but for the owner's hairline
         /// (<see cref="RoundScreenLook.BoardCubeFill"/>), and the material's symbol on its top in the symbols mode. Drawn from
         /// the far row to the near one, a nearer cube hides the front of the one behind it.
         /// </summary>
