@@ -478,6 +478,17 @@ namespace Bloomlings.Playtest.Design
             Screen = Screen.RoundLevel;
         }
 
+        /// <summary>Plays a given round level screen (the preview's and the frame-time harness's synthetic boards).</summary>
+        public void ShowRound(RoundLevelScreen screen)
+        {
+            ClearOverlays();
+            Level = null;
+            _firstPreparedLevel = null;
+            _levelPrepared = true;
+            Round = screen;
+            Screen = Screen.RoundLevel;
+        }
+
         /// <summary>A round level's screen from the round source, with its picture when the source carries it.</summary>
         private RoundLevelScreen MakeRound(int number)
         {
