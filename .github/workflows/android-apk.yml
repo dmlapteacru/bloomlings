@@ -4,7 +4,8 @@ name: android-apk
 # artifacts. They need no secrets: the .NET Android workload and the runner's Android SDK are free.
 #   - bloomlings-playtest-apk (playtest/android): the full playtest, with Home, progression, economy, demos, animations;
 #   - bloomlings-tester-apk (playtest/tester): the level tester, with ◀ ▶ between levels, free boosters, instant results.
-# The two install side by side (different application ids).
+# The two install side by side (different application ids). Both are signed with the fixed playtest key from the
+# repository secrets (see "Build the APK"), so each new build installs over the last one as an update.
 # Manual only (Actions → android-apk → Run workflow): it never runs on push, pull request or a schedule, so commits
 # spend no Actions minutes. Only the newest APK of each kind is kept: after a successful upload every older artifact
 # with the same name is deleted, and each artifact also expires after 7 days.
@@ -64,13 +65,36 @@ jobs:
         run: dotnet build -t:InstallAndroidDependencies -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME" -p:AcceptAndroidSDKLicenses=True
 
       - name: Build the APK
-        # Single CPU by default; universal remains an explicit choice. Keep APK signing/output names unchanged.
+        # Single CPU by default; universal remains an explicit choice. Output names stay unchanged.
+        # Signing: both APKs are signed with the playtest key from the repository secrets PLAYTEST_KEYSTORE_BASE64 (the
+        # PKCS12 keystore, base64) and PLAYTEST_KEYSTORE_PASSWORD (alias bloomlings-playtest), so a new APK installs over
+        # the previous one as an update. The key never goes into the repository (it is public). Without the secrets the
+        # build falls back to a fresh debug key, and that APK cannot update an installed one.
         working-directory: ${{ matrix.project }}
+        env:
+          PLAYTEST_KEYSTORE_BASE64: ${{ secrets.PLAYTEST_KEYSTORE_BASE64 }}
+          PLAYTEST_KEYSTORE_PASSWORD: ${{ secrets.PLAYTEST_KEYSTORE_PASSWORD }}
         run: |
           build_code=$(date -u +%s)
           build_label="0.1.0-${GITHUB_SHA:0:8}"
           echo "Building commit $GITHUB_SHA ($build_label)"
-          dotnet publish -c Release -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME" -p:RuntimeIdentifiers="$APK_RUNTIME" -p:AndroidCreatePackagePerAbi=false -p:ApplicationVersion="$build_code" -p:ApplicationDisplayVersion="$build_label"
+          sign=()
+          if [ -n "$PLAYTEST_KEYSTORE_BASE64" ] && [ -n "$PLAYTEST_KEYSTORE_PASSWORD" ]; then
+            printf '%s' "$PLAYTEST_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/playtest.keystore"
+            sign=(-p:AndroidKeyStore=true "-p:AndroidSigningKeyStore=$RUNNER_TEMP/playtest.keystore"
+                  -p:AndroidSigningKeyAlias=bloomlings-playtest
+                  -p:AndroidSigningStorePass=env:PLAYTEST_KEYSTORE_PASSWORD -p:AndroidSigningKeyPass=env:PLAYTEST_KEYSTORE_PASSWORD)
+            echo "Signing with the playtest key."
+          else
+            echo "::warning::No PLAYTEST_KEYSTORE_BASE64 / PLAYTEST_KEYSTORE_PASSWORD secrets: signed with a fresh debug key, so this APK cannot update an installed one."
+          fi
+          dotnet publish -c Release -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME" -p:RuntimeIdentifiers="$APK_RUNTIME" -p:AndroidCreatePackagePerAbi=false -p:ApplicationVersion="$build_code" -p:ApplicationDisplayVersion="$build_label" "${sign[@]}"
+          rm -f "$RUNNER_TEMP/playtest.keystore"
+          for apk in bin/Release/net10.0-android/*-Signed.apk; do
+            echo "Signing certificate of $apk:"
+            apksigner=$(ls -d "$ANDROID_HOME"/build-tools/*/apksigner 2>/dev/null | sort -V | tail -1)
+            [ -n "$apksigner" ] && "$apksigner" verify --print-certs "$apk" | grep -E "DN:|SHA-256" || true
+          done
 
       - name: Report APK size by assets and CPU
         run: |

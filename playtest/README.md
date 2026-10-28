@@ -13,6 +13,13 @@ The same sources build two APKs, which install side by side:
 | **Bloomlings Playtest** (`com.bloomlings.playtest`) | `playtest/android` + `playtest/design` | the game as a player meets it, in the look of the UX design board (spec 002): splash, Home, progression and unlocks, Petals and booster charges, milestones, Daily Reward, Collection, Store, demos, animations |
 | **Bloomlings Tester** (`com.bloomlings.playtest.tester`) | `playtest/tester` (`PLAYTEST_TESTER`) | quick level testing in the first playtest's minimal look (`TesterView`): levels open straight away, ◀ ▶ move between them, every booster is free, a tap shows its result at once, no Home, progression, economy or demos |
 
+Signing: `android-apk.yml` signs both APKs with one fixed playtest key (alias `bloomlings-playtest`) from the repository
+secrets `PLAYTEST_KEYSTORE_BASE64` (the PKCS12 keystore in base64) and `PLAYTEST_KEYSTORE_PASSWORD`, so every new build
+installs over the previous one as an update and the save stays. The key is never committed (the repository is public);
+the owner keeps a copy. Each run prints the signing certificate's SHA-256 in the build step. Without the secrets the
+build signs with a fresh debug key and warns: that APK installs only after the old one is removed. The key is for the
+playtest APKs only, never for the store client.
+
 The tester also carries three complete development-only large-board fixtures: L5001 (24×24 flower), L5002
 (30×32 balloons, with stone), L5003 (36×36 butterfly). Each has its picture, a generated and solver-checked definition,
 and a validation record. Use the `24`, `30×32` and `36` shortcuts in its top bar. The desktop preview includes them too;
