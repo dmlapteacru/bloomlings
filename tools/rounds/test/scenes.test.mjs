@@ -71,6 +71,8 @@ test('placement by the plan\'s bridgeKind: single wants exactly one winning brid
  const slot=L.slotOf(29),c=k=>({recipe:'bridge',checks:{bridgeKind:k,bridgeLoss:{ok:true}}});
  assert.ok(LV.mechOk(c('single'),29,slot,{bridgeKind:'single'}));assert.ok(!LV.mechOk(c('better'),29,slot,{bridgeKind:'single'}));
  assert.ok(LV.mechOk(c('better'),29,slot,{bridgeKind:'better'}));assert.ok(!LV.mechOk(c('single'),29,slot,{bridgeKind:'better'}));
+ assert.ok(LV.mechOk(c('single'),29,slot,{bridgeKind:'any'})&&LV.mechOk(c('better'),29,slot,{bridgeKind:'any'}),'any: either');
+ assert.ok(!LV.mechOk({recipe:'bridge',checks:{bridgeKind:null}},29,slot,{bridgeKind:'any'}));
  assert.ok(LV.mechOk(c('single'),29,slot,null),'no plan: single');assert.ok(!LV.mechOk(c('better'),29,slot,null));
  assert.ok(!LV.mechOk({recipe:'bridge',checks:{bridgeKind:'single',bridgeLoss:{ok:false}}},29,slot,{bridgeKind:'single'}),'the loss comes at the choice');
  // a scene picture's record carries scene.win: the builder leans to that site and keeps the gate deep

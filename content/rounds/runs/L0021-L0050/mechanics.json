@@ -7,7 +7,7 @@
  "approved": "2026-10-28",
  "approvedBy": "owner",
  "plan": "product/plans/wave-L21-L50-mechanics-plan-2026-10-28.md",
- "note": "Per level: the lead mechanic, the additional ones (doses by 17 §7 for the class: lead full range, one additional = minimum dose, three types = lead's lower half), the bridge's side (up, left, right, two = the two sites on different strips) and where its strip comes from (new = a new picture with the strip drawn in, overlay = a straight wall laid by the generator over an approved picture). recipe is the builder's recipe string (lead first). bridgeKind: single = exactly one bridge wins (8 of 11), better = both win and one is at least 10 points better by the random test (3 of 11; the owner, 2026-10-28: 75 % / 25 %).",
+ "note": "Per level: the lead mechanic, the additional ones (doses by 17 §7 for the class: lead full range, one additional = minimum dose, three types = lead's lower half), the bridge's side (up, left, right, two = the two sites on different strips) and where its strip comes from (new = a new picture with the strip drawn in, overlay = a straight wall laid by the generator over an approved picture). recipe is the builder's recipe string (lead first). bridgeKind: any = exactly one bridge wins or both win with one at least 10 points better by the random test (Normal), single = exactly one bridge wins, better = both win and one is at least 10 points better. The owner, 2026-10-28 (second decision, replacing 75 % / 25 %): Normal may have two winning bridges, Hard half and half (L35 better, L50 single), Super Hard exactly one.",
  "levels": [
   {
    "level": 21,
@@ -31,7 +31,7 @@
    "recipe": "bridge",
    "bridgeSide": "up",
    "strip": "new",
-   "bridgeKind": "better"
+   "bridgeKind": "any"
   },
   {
    "level": 24,
@@ -59,7 +59,7 @@
    "recipe": "bridge+links",
    "bridgeSide": "left",
    "strip": "new",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 27,
@@ -85,7 +85,7 @@
    "recipe": "bridge",
    "bridgeSide": "right",
    "strip": "new",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 30,
@@ -124,7 +124,7 @@
    "recipe": "bridge+hidden",
    "bridgeSide": "left",
    "strip": "overlay",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 34,
@@ -143,7 +143,7 @@
    "recipe": "bridge+links",
    "bridgeSide": "right",
    "strip": "new",
-   "bridgeKind": "single"
+   "bridgeKind": "better"
   },
   {
    "level": 36,
@@ -192,7 +192,7 @@
    "recipe": "bridge",
    "bridgeSide": "up",
    "strip": "overlay",
-   "bridgeKind": "better"
+   "bridgeKind": "any"
   },
   {
    "level": 42,
@@ -218,7 +218,7 @@
    "recipe": "hidden+bridge",
    "bridgeSide": "left",
    "strip": "overlay",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 45,
@@ -257,7 +257,7 @@
    "recipe": "bridge+links",
    "bridgeSide": "right",
    "strip": "overlay",
-   "bridgeKind": "better"
+   "bridgeKind": "any"
   },
   {
    "level": 49,

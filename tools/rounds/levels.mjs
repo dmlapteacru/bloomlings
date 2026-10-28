@@ -158,8 +158,9 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
 // strategies, rhythm, bridge, checks. kind (the wave plan's bridgeKind, single | better) asks for that bridge kind and
 // tests it early (the two solver runs come before the random test). A bridge level is 'first' (an introduction: both
 // win, one 10+ points better, 90 %+), 'single' (exactly one bridge wins, proven for the other, and the loss with the
-// other comes later through materials and places, not at the choice: bridgeLoss) or 'better' (not an introduction: both
-// win, one 10+ points better by the random test; the owner, 2026-10-28: a quarter of the wave's bridge levels).
+// other comes later through materials and places, not at the choice: bridgeLoss), 'better' (not an introduction: both
+// win, one 10+ points better by the random test) or 'any' (single or better). The owner, 2026-10-28 (second decision):
+// Normal any, Hard half single and half better, Super Hard single.
 export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tick=()=>{}}){const W=m.N,recipe=level.recipe||'none';
  const errs=checkPods(level.pods,m.volumes);if(errs.length)return {reason:'баланс'};
  {const {R}=await engine(),ve=R.validate(level);if(ve&&ve.length)return {reason:'движок отклоняет: '+ve[0]};}
@@ -169,9 +170,11 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tic
  if(q<target[0]-.15||q>target[1]+.15)return {reason:'не тот класс по быстрой оценке',quick:q};
  // the planned bridge kind first: each bridge alone solved (17 §8)
  let win=null,early=null;if(kind&&level.hero){win=(await bridgeChoicesWin(level)).each;const t=win.filter(x=>x===true).length,f=win.filter(x=>x===false).length;tick('мосты '+JSON.stringify(win));
-  if(kind==='single'&&!(t===1&&f===win.length-1))return {reason:'мост: решает не ровно один (план single)'};
+  const one=t===1&&f===win.length-1;
+  if(kind==='single'&&!one)return {reason:'мост: решает не ровно один (план single)'};
   if(kind==='better'&&t!==win.length)return {reason:'мост: выигрывают не оба (план better)'};
-  if(kind==='single'){early=await bridgeLoss(level,win.indexOf(false));if(!early.ok)return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
+  if(kind==='any'&&!one&&t!==win.length)return {reason:'мост: ни ровно один, ни оба (план any)'};
+  if(kind==='single'||(kind==='any'&&one)){early=await bridgeLoss(level,win.indexOf(false));if(!early.ok)return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
  // §5: a Hard or Super Hard that the greedy strategies win is not that class, whatever the random test says
  const gr=cls==='Normal'?null:await greedy(level);if(gr&&!greedyBeaten(gr,cls))return {reason:'жадная стратегия выигрывает (§5)'};
  // §5: at most 35 % of the decisions may offer a single launch
@@ -193,7 +196,7 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tic
  if(bc){const both=bc.each.every(x=>x.win===true)&&bc.gap>=.1;
   if(intro&&both&&rt.share>=.9)bridgeKind='first';else if(bs.ok)bridgeKind='single';else if(!intro&&both)bridgeKind='better';
   else return {reason:intro?'мост: ни «оба выигрывают, один лучше на 10 пунктов при 90 %+», ни «решает ровно один мост» (§8, §9)':'мост: ни «решает ровно один мост», ни «оба выигрывают, один лучше на 10 пунктов» (§8)'};
-  if(kind&&bridgeKind!==kind)return {reason:`мост: вид ${bridgeKind}, по плану ${kind} (§8)`};
+  if(kind&&kind!=='any'&&bridgeKind!==kind)return {reason:`мост: вид ${bridgeKind}, по плану ${kind} (§8)`};
   // §8: with the other bridge the loss comes later, through materials and places, not at the choice
   if(bridgeKind==='single'){bl=early||await bridgeLoss(level,bs.each.indexOf(false));tick('проигрыш с другим мостом '+JSON.stringify(bl));if(!bl.ok)return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
  const st=await strategies(level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(level);
@@ -257,10 +260,11 @@ function recipeOk(c,n,slot,needMech){const t=typesOf(c).length;if(slot.intro)ret
 function greedyOk(c,n){const k=c.checks||{};if(n>=4&&!(k.forced<=.35))return false;if(c.cls==='Normal')return true;return !!(k.opening&&k.opening.ok);}
 // §8, §9: the bridge introductions (first: both bridges win, one clearly better; second: exactly one wins), every later
 // bridge level the wave plan's bridgeKind (single: exactly one wins and the loss with the other comes later; better: both
-// win, one 10+ points better), single without a plan; a hidden-pod introduction needs a hidden pod that matters
+// win, one 10+ points better; any: either of the two), single without a plan; a hidden-pod introduction needs a hidden pod that matters
 export function mechOk(c,n,slot,plan=null){const k=c.checks||{},second=slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
  if(c.recipe.includes('bridge')){if(slot.intro==='bridge'&&!second)return k.bridgeKind==='first';const want=(!slot.intro&&plan&&plan.bridgeKind)||'single';
-  return k.bridgeKind===want&&(want!=='single'||!k.bridgeLoss||k.bridgeLoss.ok);}
+  const ok=want==='any'?['single','better'].includes(k.bridgeKind):k.bridgeKind===want;
+  return ok&&(k.bridgeKind!=='single'||!k.bridgeLoss||k.bridgeLoss.ok);}
  if(slot.intro==='hidden')return c.hidden>=2&&c.hidden<=3&&!!(k.hiddenMatters&&k.hiddenMatters.ok);return true;}
 const greedyLost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
 // §2 picture fitness: Hard and Super Hard need 3+ colours hidden at the start; a weak picture carries a Normal only with a mechanic

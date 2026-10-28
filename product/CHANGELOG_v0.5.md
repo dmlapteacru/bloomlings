@@ -7,6 +7,9 @@
   right; the two sites of one choice may stand on different strips.
 - §13: the wave plan first assigns the mechanics to every level (lead, additional, doses by §7, the bridge's side) and
   their shares in the wave; pictures are ordered for that breakdown. The owner approves it, placement keeps it.
+- §8, the bridge's choice by class (the owner's second decision of 2026-10-28, replacing three quarters / a quarter):
+  Normal may have two winning bridges (one at least 10 points better) or exactly one deciding bridge; Hard half and
+  half; Super Hard always exactly one deciding bridge.
 - Wave L21–L50: [`plans/wave-L21-L50-mechanics-plan-2026-10-28.md`](plans/wave-L21-L50-mechanics-plan-2026-10-28.md)
   (bridge 11 levels, links 15, hidden 11, no mechanic 7 Normal; bridge pictures: about 6 new with the strip drawn in,
   5 with a wall laid over an approved picture).

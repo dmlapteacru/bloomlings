@@ -32,7 +32,7 @@
 // node tools/rounds/bridge-scene.mjs show <P####> --side up|left|right|two [--x C --y C --z C|. --strip 2 --divider 0
 //      --bedDepth 3 --bedBreadth 3 --bedDepthY n --bedBreadthY n --pad 0 --margin 0 --ground C --fill --shield n --full]
 //      the scene as text, with its measures and board check
-// node tools/rounds/bridge-scene.mjs make --side up|left|right|two --kind single|better --cls Normal|Hard|"Super Hard"
+// node tools/rounds/bridge-scene.mjs make --side up|left|right|two --kind single|better|any --cls Normal|Hard|"Super Hard"
 //      --recipe bridge[,bridge+links…] --pictures P0012,P0048|--free [--level 26] [--count 1] [--scenes 40]
 //      [--candidates 12] [--seed 1] [--minutes 20] [--opts '{…}'] --out content/rounds/pictures/src/scenes-NNNN.mjs [--dry]
 //      searches scenes (parameters drawn by seed, or --opts) and, on each, candidates of the builder (levels.mjs candidate
@@ -220,7 +220,7 @@ export async function search(pic,{side,kind,cls='Normal',recipes=['bridge'],leve
   // the winning bridge is the x bed's (its strip is y); the queue leans to it, and the pods of the gate (the strip behind
   // the other bridge) but the first stand at least `gate` deep (levels.mjs candidate opts)
   const intended=choiceOf(sc,board,sc.win);
-  for(const recipe of recipes)for(let k=0;k<candidates&&Date.now()<deadline;k++){nC++;const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rows=Math.ceil(base.pods.length/cols),gate=kind==='better'?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),delay=Math.floor(r()*4);
+  for(const recipe of recipes)for(let k=0;k<candidates&&Date.now()<deadline;k++){nC++;const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rows=Math.ceil(base.pods.length/cols),gate=kind==='better'||(kind==='any'&&k%2===0)?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),delay=Math.floor(r()*4);
    const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,seed*1000003+s*7919+k*131,false,pos,{gate,intended,delay});if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
    const e=await LV.evaluate(c.level,{m,cls,kind});
    if(!e.reason&&e.random.cls!==cls)e.reason=`класс по случайному тесту ${e.random.cls}`;
@@ -249,7 +249,7 @@ if(cmd==='show'){const id=process.argv[3],p=sourceOf(id),side=arg('--side','up')
  const sc=scene(p,o),ck=checkScene(sc,+arg('--level',26));console.log(show(sc));console.log(JSON.stringify(o));
  console.log(`${sc.rows[0].length}×${sc.rows.length}, ${ck.measure.N} кл., ${ck.measure.colours} цв., скрытых на старте ${fitness(sc).hiddenColours}; ${ck.ok?'борд OK':'НЕТ: '+ck.issues.join('; ')}`);}
 else if(cmd==='make'){const side=arg('--side'),kind=arg('--kind','single'),cls=arg('--cls','Normal'),recipes=arg('--recipe','bridge').split(','),level=+arg('--level',26),count=+arg('--count',1),out=arg('--out');
- if(!SIDES.includes(side))throw Error(`--side ${SIDES.join('|')}`);if(!['single','better'].includes(kind))throw Error('--kind single|better');if(!out&&!flag('--dry'))throw Error('--out <module.mjs> (или --dry)');
+ if(!SIDES.includes(side))throw Error(`--side ${SIDES.join('|')}`);if(!['single','better','any'].includes(kind))throw Error('--kind single|better|any');if(!out&&!flag('--dry'))throw Error('--out <module.mjs> (или --dry)');
  const u=usage(),ids=flag('--free')?manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!['сторонняя вселенная','мем'].includes(p.source)&&!/[#b]/.test(p.rows.join(''))&&measure(p).N>=200&&measure(p).N<=800).sort((a,b)=>measure(a).N-measure(b).N).map(p=>p.id):arg('--pictures','').split(',').filter(Boolean);
  const deadline=Date.now()+60000*+arg('--minutes',20),found=[],log=x=>console.log(x),evidence=[];
  for(const id of ids){if(found.length>=count||Date.now()>deadline)break;const p=sourceOf(id);

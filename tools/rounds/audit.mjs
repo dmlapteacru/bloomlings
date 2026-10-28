@@ -71,8 +71,9 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(d.hero){if(R.bridgeChoices(s0).length)bad.push('мост доступен сразу, без расчищенного подхода (§8)');
   if(slot.intro==='bridge'&&!secondIntro){const w=await bridgeChoicesWin(d);if(!w.ok)bad.push(`первое знакомство с мостом: не каждый мост ведёт к победе ${JSON.stringify(w.each)} (§9)`);
    if(L.bridge&&L.bridge.gap<.1)bad.push(`выбор моста почти не важен (разница ${Math.round(L.bridge.gap*100)} пунктов, §8)`);}
-  // later bridge levels: the wave plan's bridgeKind (the owner, 2026-10-28: three quarters single, a quarter better)
-  else if(!slot.intro&&(planOf(L.level)||{}).bridgeKind==='better'){const w=await bridgeChoicesWin(d);if(!w.ok)bad.push(`мост (план better): должны выигрывать оба моста ${JSON.stringify(w.each)} (§8)`);
+  // later bridge levels: the wave plan's bridgeKind (the owner, 2026-10-28, second decision: Normal any, Hard half single
+  // and half better, Super Hard single); any takes whichever the level measured
+  else if(!slot.intro&&((k=>k==='better'||(k==='any'&&L.checks&&L.checks.bridgeKind==='better'))((planOf(L.level)||{}).bridgeKind))){const w=await bridgeChoicesWin(d);if(!w.ok)bad.push(`мост (план better): должны выигрывать оба моста ${JSON.stringify(w.each)} (§8)`);
    if(!L.bridge||L.bridge.gap<.1)bad.push(`мост (план better): один мост должен быть лучше не меньше чем на 10 пунктов (разница ${L.bridge?Math.round(L.bridge.gap*100):'—'}, §8)`);}
   else{const b=await bridgeSingle(d);if(!b.ok)bad.push(`мост: решением должен быть ровно один мост и оба места должны встречаться (${JSON.stringify(b.each)}, предложено ${b.offered.join('/')}; §8)`);
    const bl=L.checks&&L.checks.bridgeLoss;if(bl&&!bl.ok)bad.push(`мост: с другим мостом проигрыш сразу при выборе (медиана запусков после выбора ${bl.medianLaunchesAfter}; §8)`);}}
