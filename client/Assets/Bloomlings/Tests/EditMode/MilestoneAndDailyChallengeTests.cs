@@ -183,6 +183,23 @@ namespace Bloomlings.Client.Tests
             Assert.That(daily.Complete(daily.BeginAttempt()!), Is.EqualTo(DailyChallengeService.RewardPetals));
         }
 
+        [Test]
+        public void DailyChallenge_StaysOff_WithRoundLevels()
+        {
+            // Spec 006 FR-063: with round levels the challenge is off until it has round levels of its own, whatever the
+            // unlock, the remote flag and the legacy daily pool say.
+            var clock = new FakeClock { UtcNow = new DateTime(2026, 10, 28, 10, 0, 0, DateTimeKind.Utc) };
+            var config = new FlagConfig { DailyChallenge = true };
+            _save.Unlocks.Flags[DailyChallengeService.UnlockId] = true;
+            var off = new DailyChallengeService(_save, clock, config, new CatalogService(WithDailyPool(3)), _economy, () => { }, switchedOff: true);
+            var on = new DailyChallengeService(_save, clock, config, new CatalogService(WithDailyPool(3)), _economy, () => { });
+
+            Assert.That(on.IsAvailable, Is.True, "the same setup without round levels offers it");
+            Assert.That(off.SwitchedOff, Is.True);
+            Assert.That(off.IsAvailable, Is.False);
+            Assert.That(off.BeginAttempt(), Is.Null, "no attempt starts");
+        }
+
         /// <summary>The curated levels, with the first <paramref name="count"/> of them also as the daily pool.</summary>
         private static ContentSet WithDailyPool(int count)
         {

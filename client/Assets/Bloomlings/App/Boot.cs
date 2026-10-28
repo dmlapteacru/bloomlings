@@ -20,6 +20,7 @@ using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Purchases;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Packs;
+using Bloomlings.Content.Rounds;
 using Bloomlings.Core.Progression;
 using Bloomlings.Client.UI.Screens;
 using UnityEngine;
@@ -71,10 +72,30 @@ namespace Bloomlings.Client.App
             services.Register(GameFeedback.Create(save.Settings));
             splash.Loaded(0.15f);
 
+            // The round levels (spec 006 FR-060, T060): with published round content they are the game's only levels, and
+            // the legacy content below is only kept for the code paths that still read it (the Daily Challenge, off; old
+            // Collection entries).
+            RoundContentSet? roundContent = null;
+            Exception? roundError = null;
+            var roundLoader = new RoundContentLoader();
+            yield return roundLoader.Load(loaded => roundContent = loaded, failed => roundError = failed);
+            if (roundError != null)
+            {
+                Debug.LogException(roundError);
+                yield break;
+            }
+
             ContentSet? content = null;
             Exception? error = null;
             var loader = new BundledContentLoader();
             yield return loader.Load(loaded => content = loaded, failed => error = failed);
+            if (content == null && roundContent != null)
+            {
+                // Round builds no longer carry the legacy levels (FR-060): an empty legacy set keeps its readers working.
+                Debug.Log($"[Boot] No legacy content ({error?.Message}); the round levels are the game's levels.");
+                content = new ContentSet(0, LooseContentFolder.DevShuffleNodeBudget, Array.Empty<Bloomlings.Core.Definitions.LevelDefinition>(), Array.Empty<Bloomlings.Core.Definitions.BasePicture>());
+            }
+
             if (content == null)
             {
                 Debug.LogException(error ?? new InvalidOperationException("Content did not load."));
@@ -98,9 +119,16 @@ namespace Bloomlings.Client.App
             // Past the end of the catalog only development builds repeat it; a release build says more levels are coming.
             var catalog = new CatalogService(content, repeatPastEnd: Debug.isDebugBuild);
             services.Register(catalog);
+            RoundCatalogService? rounds = null;
+            if (roundContent != null)
+            {
+                rounds = new RoundCatalogService(roundContent);
+                services.Register(rounds);
+                Debug.Log($"[Boot] Round content v{rounds.ContentVersion}: {rounds.LevelCount} levels ({roundLoader.Source}).");
+            }
 
             // Analytics and crash keys (T147): events wait on the device until consent allows them (FR-090).
-            var analytics = new GameAnalytics(Application.version, () => catalog.ContentVersion, () => save.Progression.CurrentLevel);
+            var analytics = new GameAnalytics(Application.version, () => rounds?.ContentVersion ?? catalog.ContentVersion, () => save.Progression.CurrentLevel);
             services.Register(analytics);
             var updates = new ContentUpdateService(services.Get<IRemoteConfigService>(), catalog, cache, Application.version);
             updates.Activated += activated =>
@@ -175,7 +203,8 @@ namespace Bloomlings.Client.App
             services.Register(adPolicy);
             services.Register(new DailyRewardService(save, clock, remote, economy, saves.Save));
             services.Register(new FreeBoosterAd(save, clock, saves.Save));
-            services.Register(new DailyChallengeService(save, clock, remote, catalog, economy, saves.Save));
+            // The Daily Challenge stays off with round levels until it has round levels of its own (spec 006 FR-063).
+            services.Register(new DailyChallengeService(save, clock, remote, catalog, economy, saves.Save, switchedOff: rounds != null));
 
             // Identity, cloud save and leaderboard (US7): anonymous, in the background, never blocking play (FR-087).
             IAuthService auth = ServiceProviders.Auth?.Invoke() ?? new LocalOnlyAuthService();
@@ -197,7 +226,7 @@ namespace Bloomlings.Client.App
             services.Register(leaderboard);
             services.Register(this);
 
-            var flow = new GameFlow(progression, catalog);
+            var flow = new GameFlow(progression, catalog, rounds);
             flow.LevelWon += _ => adPolicy.OnLevelWon();
             flow.LevelWon += level =>
             {
@@ -206,6 +235,12 @@ namespace Bloomlings.Client.App
                 {
                     collection.Add(attempt.Definition, level);
                     leaderboard.OnLevelWon(attempt.Options.ContentVersion, flow.LastCommandLogHash);
+                }
+                else if (flow.CurrentRoundAttempt is { } round && round.LevelNumber == level)
+                {
+                    // A round level (spec 006): its content version and the winning command log the Gameplay scene hands over
+                    // (T058). The Collection keeps legacy pictures only until it learns round pictures.
+                    leaderboard.OnLevelWon(round.ContentVersion, flow.LastCommandLogHash);
                 }
 
                 // Between levels only, never mid-level (R15).

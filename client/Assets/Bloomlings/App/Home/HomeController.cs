@@ -114,7 +114,7 @@ namespace Bloomlings.Client.App.Home
                     wardrobe.IsAvailable,
                     collection.Count > 0,
                     background,
-                    catalog.HasLevel(progression.CurrentLevel),
+                    flow.CanPlay(progression.CurrentLevel),
                     accent,
                     Theme: band,
                     DailyChallengePetals: DailyChallengeService.RewardPetals,
@@ -401,7 +401,20 @@ namespace Bloomlings.Client.App.Home
                 }),new PetalActions(()=>economy.Petals,delta=>economy.AdjustPetalsForTesting(delta==0?-economy.Petals:delta)));
             store = StoreScreen.Create(root, Navigate, NavLook);
             removeAds = RemoveAdsCard.Create(root, done => purchases.Buy("remove_ads", result => {Refresh();done(result);}), () => ledger.RemoveAds);
+            // "New levels soon" (spec 006 FR-060): past the last round level Play answers with this card over Home, and the
+            // last level's Next comes Home to it.
+            NewLevelsSoonCard soon = NewLevelsSoonCard.Create(root);
+            void ShowNewLevelsSoon()
+            {
+                if (this && flow.TakeNewLevelsSoon())
+                {
+                    soon.Show(flow.Rounds?.LevelCount ?? 0);
+                }
+            }
+
+            flow.NewLevelsSoon += ShowNewLevelsSoon;
             Refresh();
+            ShowNewLevelsSoon();
 
             // Background refresh: a cloud merge, a new rank or a purchase the store delivers later (an order left pending,
             // the owned purchases fetched at start) updates Home when it arrives (never blocking it).
@@ -413,6 +426,7 @@ namespace Bloomlings.Client.App.Home
             ledger.Granted += onGranted;
             _unsubscribe = () =>
             {
+                flow.NewLevelsSoon -= ShowNewLevelsSoon;
                 sync.Merged -= onMerged;
                 leaderboard.Updated -= onRank;
                 ledger.Granted -= onGranted;

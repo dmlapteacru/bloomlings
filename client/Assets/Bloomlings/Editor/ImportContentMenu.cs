@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Bloomlings.Client.Services.Content;
 using Bloomlings.Content.Packs;
+using Bloomlings.Content.Rounds;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -14,12 +15,66 @@ namespace Bloomlings.Client.Editor
     /// command (<c>build/content/</c> at the repository root) into <c>Assets/StreamingAssets/content/</c>, replacing the
     /// previous manifest and packs. The manifest and every pack are verified before anything is replaced. The loose
     /// <c>dev/</c> folder is kept for the Editor; <see cref="ReleaseContentBuildStep"/> leaves it out of release builds.
+    /// "Tools/Bloomlings/Import Round Content" (spec 006 T060) does the same for the round levels: it copies the published
+    /// round content committed at <c>content/game/rounds/published/</c> (<c>rounds publish</c>) into
+    /// <c>Assets/StreamingAssets/rounds/</c>, where player builds read it (<see cref="RoundContentLoader"/>);
+    /// <see cref="CiBuild.Build"/> runs it before every game build.
     /// </summary>
     public static class ImportContentMenu
     {
         public static string PublishedFolder => Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "build", "content"));
 
         public static string StreamingContentFolder => Path.Combine(Application.dataPath, "StreamingAssets", BundledContentLoader.ContentFolder);
+
+        /// <summary>The bundled copy of the round content: <c>Assets/StreamingAssets/rounds/</c>.</summary>
+        public static string StreamingRoundsFolder => Path.Combine(Application.dataPath, "StreamingAssets", RoundContentLoader.StreamingFolder);
+
+        [MenuItem("Tools/Bloomlings/Import Round Content")]
+        public static void ImportRounds()
+        {
+            try
+            {
+                RoundContentManifest manifest = ImportRoundsFrom(RoundContentLoader.RepositoryPublishedFolder, StreamingRoundsFolder);
+                AssetDatabase.Refresh();
+                EditorUtility.DisplayDialog("Bloomlings", $"Imported round content v{manifest.ContentVersion} ({manifest.Levels.Count} levels, {manifest.Packs.Count} packs).", "OK");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+                EditorUtility.DisplayDialog("Bloomlings", "Import failed: " + ex.Message + "\nRun `rounds publish --out content/game/rounds/published` first.", "OK");
+            }
+        }
+
+        /// <summary>
+        /// Verifies the published round content (every pack's SHA-256 and length, the manifest's levels 1..N in their packs,
+        /// every level and picture readable) and replaces the bundled copy with it: the manifest and the packs it lists,
+        /// nothing else. Engine-free.
+        /// </summary>
+        public static RoundContentManifest ImportRoundsFrom(string published, string streamingRounds)
+        {
+            RoundContentSet set = RoundContentLoader.ReadFolder(published);
+            for (int n = 1; n <= set.LevelCount; n++)
+            {
+                set.GetPicture(set.GetLevel(n));
+            }
+
+            RoundContentManifest manifest = set.Manifest;
+            if (Directory.Exists(streamingRounds))
+            {
+                Directory.Delete(streamingRounds, true);
+            }
+
+            Directory.CreateDirectory(streamingRounds);
+            foreach (RoundPackEntry pack in manifest.Packs)
+            {
+                string target = Path.Combine(streamingRounds, pack.Path);
+                Directory.CreateDirectory(Path.GetDirectoryName(target)!);
+                File.Copy(Path.Combine(published, pack.Path), target, true);
+            }
+
+            File.Copy(Path.Combine(published, RoundContentManifest.FileName), Path.Combine(streamingRounds, RoundContentManifest.FileName), true);
+            return manifest;
+        }
 
         [MenuItem("Tools/Bloomlings/Import Published Content")]
         public static void Import()
@@ -105,9 +160,11 @@ namespace Bloomlings.Client.Editor
                 return;
             }
 
-            if (!File.Exists(Path.Combine(ImportContentMenu.StreamingContentFolder, BundledContentLoader.ManifestFile)))
+            // Round builds carry the round content (spec 006 FR-060); older builds the legacy packs.
+            if (!File.Exists(Path.Combine(ImportContentMenu.StreamingRoundsFolder, RoundContentManifest.FileName))
+                && !File.Exists(Path.Combine(ImportContentMenu.StreamingContentFolder, BundledContentLoader.ManifestFile)))
             {
-                throw new BuildFailedException("Release builds need published content: run `publish`, then Tools/Bloomlings/Import Published Content.");
+                throw new BuildFailedException("Release builds need published content: run Tools/Bloomlings/Import Round Content (or `publish`, then Tools/Bloomlings/Import Published Content).");
             }
 
             // The dev levels and the device-test golden corpus never ship in a release build.

@@ -66,12 +66,10 @@ jobs:
         with:
           global-json-file: core/global.json
 
-      # Android reads levels only from published packs. Playtest content: the curated Levels 1–10; publish validates
-      # them first (the release gate), and a build with packs is a release build, so it stops after Level 10 ("More
-      # levels soon") until the catalog grows. Draft pictures are packed as marked previews.
-      - name: Publish playtest content
-        if: inputs.target == 'game'
-        run: dotnet run --project core/src/Bloomlings.Pipeline -c Release -- publish --catalog content/curated --content-version 1 --allow-draft --out build/content
+      # The game's levels are the round levels (spec 006 FR-060): the published round content committed at
+      # content/game/rounds/published (`rounds publish`, validated before it is written). CiBuild.Build verifies it and
+      # copies it into StreamingAssets/rounds; the legacy levels no longer go into the build, and after the last round
+      # level the game shows "New levels soon".
 
       - uses: actions/cache@v4
         with:

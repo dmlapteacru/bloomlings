@@ -59,7 +59,19 @@ dev levels (quickstart §5 steps 1–6) before building on top of them.
 
 ## Content at runtime
 
-`Boot` loads `Assets/StreamingAssets/content/manifest.json` and its packs, verified by SHA-256 (`BundledContentLoader`).
+**Round levels (spec 006 FR-060, T060).** The game's levels are the round levels of the published round content
+committed at `content/game/rounds/published/` (`rounds publish`: `manifest.json`, `levels/*.jsonl.gz`,
+`pictures/*.jsonl.gz`). `CiBuild.Build` (and **Tools/Bloomlings/Import Round Content**) verifies it and copies it into
+`Assets/StreamingAssets/rounds/` (gitignored), which player builds read through `RoundContentLoader` (every pack checked
+against the manifest's SHA-256 before the game starts; levels and pictures parsed on first use) as an
+`IRoundLevelSource`. The Editor reads the repository's published folder directly, so it never plays a stale copy. With
+round content, Level N is round level N (`RoundCatalogService`), every round level starts through
+`GameFlow.StartRoundLevel` (the Gameplay scene plays it on the round rules from T058 on; until then the flow stays on
+Home), past the last level Home shows the "New levels soon" card (`NewLevelsSoonCard`, `round.soon.*`), and the Daily
+Challenge stays off (`DailyChallengeService.SwitchedOff`, FR-063). The legacy packs below are no longer needed in a
+build; when a build carries none, Boot uses an empty legacy set.
+
+**Legacy levels.** `Boot` loads `Assets/StreamingAssets/content/manifest.json` and its packs, verified by SHA-256 (`BundledContentLoader`).
 To bundle a catalog, run the pipeline's `publish` (it writes `build/content/` at the repository root), then
 **Tools/Bloomlings/Import Published Content**, which verifies the packs and copies them into StreamingAssets. For a
 playtest build of levels whose pictures are not approved yet, publish with `--allow-draft`.

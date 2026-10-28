@@ -17,6 +17,8 @@ namespace Bloomlings.Client.Meta.DailyChallenge
     /// since 2026-01-01, modulo the pool size, so every device picks the same puzzle offline. It unlocks at L50
     /// (<c>system.daily_challenge</c>) behind the remote flag <c>feature.dailyChallenge</c>, pays its own reward once per
     /// day, and never changes Level N. Engine-free.
+    /// With round levels (spec 006 FR-063) it is switched off (<see cref="SwitchedOff"/>) until it has round levels of its
+    /// own: Home hides it and no attempt starts; the code and the card stay.
     /// </summary>
     public sealed class DailyChallengeService
     {
@@ -37,8 +39,10 @@ namespace Bloomlings.Client.Meta.DailyChallenge
         private readonly EconomyService _economy;
         private readonly Action _persist;
 
-        public DailyChallengeService(PlayerSave save, IClock clock, IRemoteConfigService config, CatalogService catalog, EconomyService economy, Action persist)
+        /// <param name="switchedOff">True when the game plays round levels (spec 006 FR-063): the challenge stays off.</param>
+        public DailyChallengeService(PlayerSave save, IClock clock, IRemoteConfigService config, CatalogService catalog, EconomyService economy, Action persist, bool switchedOff = false)
         {
+            SwitchedOff = switchedOff;
             _save = save;
             _clock = clock;
             _config = config;
@@ -49,8 +53,14 @@ namespace Bloomlings.Client.Meta.DailyChallenge
 
         public bool IsUnlocked => _save.Unlocks.IsSet(UnlockId);
 
-        /// <summary>Unlocked, enabled remotely, and the content has a daily pool.</summary>
-        public bool IsAvailable => IsUnlocked && _config.Get(RemoteConfigKeys.DailyChallengeEnabled) && Pool.Count > 0;
+        /// <summary>
+        /// Switched off because the game plays round levels and the challenge has none of its own yet (spec 006 FR-063);
+        /// then it is never available, whatever the unlock, the remote flag and the legacy daily pool say.
+        /// </summary>
+        public bool SwitchedOff { get; }
+
+        /// <summary>Not switched off, unlocked, enabled remotely, and the content has a daily pool.</summary>
+        public bool IsAvailable => !SwitchedOff && IsUnlocked && _config.Get(RemoteConfigKeys.DailyChallengeEnabled) && Pool.Count > 0;
 
         public string Today => FormatDate(_clock.UtcToday);
 

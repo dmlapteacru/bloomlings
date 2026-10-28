@@ -17,7 +17,9 @@ namespace Bloomlings.Client.Editor
     /// <item>the TextMeshPro essential resources are imported;</item>
     /// <item>the Android player settings are applied (portrait, IL2CPP ARM64, API 26+, APK) with the owner's app icon;</item>
     /// <item>the Boot, Home and Gameplay scenes are created;</item>
-    /// <item>the packs published to <c>build/content/</c> are imported into StreamingAssets.</item>
+    /// <item>the published round content committed at <c>content/game/rounds/published/</c> (spec 006 FR-060, the game's
+    /// levels) is imported into <c>StreamingAssets/rounds/</c>, verified;</item>
+    /// <item>legacy packs published to <c>build/content/</c>, if any, are imported into StreamingAssets.</item>
     /// </list>
     /// The game is a release build when published content was imported, unless <c>-bloomlingsDevelopment</c> is given.
     /// </summary>
@@ -30,8 +32,9 @@ namespace Bloomlings.Client.Editor
             ImportTmpEssentials();
             ConfigureAndroid();
             SceneSetupMenu.CreateAllScenes();
+            bool rounds = ImportRoundContent();
             bool content = ImportPublishedContent();
-            bool development = HasFlag("-bloomlingsDevelopment") || !content;
+            bool development = HasFlag("-bloomlingsDevelopment") || (!rounds && !content);
             Run(new[] { SceneSetupMenu.BootScenePath, SceneSetupMenu.HomeScenePath, SceneSetupMenu.GameplayScenePath }, development ? BuildOptions.Development : BuildOptions.None);
         }
 
@@ -158,12 +161,30 @@ namespace Bloomlings.Client.Editor
             Debug.LogWarning("[CiBuild] TMP essential resources not found; text may not render.");
         }
 
-        /// <summary>Imports the packs published to <c>build/content/</c>, if any; true when content was imported.</summary>
+        /// <summary>
+        /// Imports the round content published in the repository (<c>content/game/rounds/published/</c>) into
+        /// <c>StreamingAssets/rounds/</c>; true when it was imported. A damaged set fails the build.
+        /// </summary>
+        private static bool ImportRoundContent()
+        {
+            if (!File.Exists(Path.Combine(Services.Content.RoundContentLoader.RepositoryPublishedFolder, Bloomlings.Content.Rounds.RoundContentManifest.FileName)))
+            {
+                Debug.LogWarning("[CiBuild] No published round content in content/game/rounds/published.");
+                return false;
+            }
+
+            var manifest = ImportContentMenu.ImportRoundsFrom(Services.Content.RoundContentLoader.RepositoryPublishedFolder, ImportContentMenu.StreamingRoundsFolder);
+            AssetDatabase.Refresh();
+            Debug.Log($"[CiBuild] Round content v{manifest.ContentVersion} imported ({manifest.Levels.Count} levels, {manifest.Packs.Count} packs).");
+            return true;
+        }
+
+        /// <summary>Imports the legacy packs published to <c>build/content/</c>, if any; true when content was imported.</summary>
         private static bool ImportPublishedContent()
         {
             if (!File.Exists(Path.Combine(ImportContentMenu.PublishedFolder, Services.Content.BundledContentLoader.ManifestFile)))
             {
-                Debug.LogWarning("[CiBuild] No published content in build/content; building a development player without packs.");
+                Debug.LogWarning("[CiBuild] No legacy content in build/content (round builds need none).");
                 return false;
             }
 

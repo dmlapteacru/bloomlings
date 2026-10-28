@@ -51,6 +51,9 @@ client/DotnetCheck/bin/
 content/showcase/rejections.json
 client/Assets/StreamingAssets/golden/
 client/Assets/StreamingAssets/golden.meta
+# The build's copy of content/game/rounds/published (CiBuild, Tools/Bloomlings/Import Round Content).
+client/Assets/StreamingAssets/rounds/
+client/Assets/StreamingAssets/rounds.meta
 
 # Temporary .NET Android playtest client (playtest/android)
 playtest/android/bin/
