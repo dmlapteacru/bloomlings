@@ -88,9 +88,12 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (`UiRaster.Rows`, byte-identical to one thread); the full playtest keeps them in a 64 MiB cache and on disk between
   launches (`PictureStore`) and makes them ahead (`IPictureWarmer`: the splash warms the first screen while its ring
   fills, an idle Home the level, Settings, the profile and the Store page, a level its Pause card). Both APKs carry the
-  pictures, levels and picture library as Android assets, once (`PlaytestFiles`, `AndroidAssetFiles`; embedded
-  resources would be packed once for each of the three processors), and read a level and its library picture on first
-  use (`ContentSet` with a picture reader).
+  pictures and the round levels as Android assets, once (`PlaytestFiles`, `AndroidAssetFiles`; embedded resources would
+  be packed once for each of the three processors). Since spec 006 the APKs carry round levels only: the published set
+  of `content/game/rounds/published/` (`playtest/Catalog.props`, read through `PlaytestContent.LoadRounds` /
+  `RoundContentSet`, each pack on first use); the build fails while it has no `manifest.json` (for a local build make
+  one with `dotnet run --project playtest/check -- --publish-dev content/work/rounds-published` and pass
+  `-p:RoundContentDir=<full path>/`). The legacy catalog stays only in the preview (`playtest/LegacyCatalog.props`).
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
   after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI

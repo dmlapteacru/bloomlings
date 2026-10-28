@@ -2,8 +2,8 @@
   <Import Project="Catalog.props" />
   <!--
     Shared by the two playtest APKs (playtest/android, the full playtest, and playtest/tester, the level tester): the
-    Android settings, the shared core, the Unity client's engine-free logic (linked, never copied), the playtest levels
-    and the picture library. See playtest/README.md.
+    Android settings, the shared core, the Unity client's engine-free logic (linked, never copied) and the round levels
+    (Catalog.props). See playtest/README.md.
   -->
   <PropertyGroup>
     <TargetFramework>net10.0-android</TargetFramework>
@@ -57,12 +57,14 @@
 
   <ItemGroup>
     <!--
-      The launch catalog, L1–2500 (content/launch.props), and the picture library, each file read on first use
-      (PlaytestContent): the APK's assets, kept once and compressed, not embedded resources (PlaytestFiles).
+      The round levels (spec 006 FR-060, Catalog.props): the published manifest and packs under rounds/, the manifest read
+      at start and each pack on first use (PlaytestContent.LoadRounds): the APK's assets, kept once, not embedded resources
+      (PlaytestFiles). The legacy catalog, the curated levels, the picture library and the Daily Challenge pool are no
+      longer packed: one rule set plays the game.
     -->
-    <AndroidAsset Include="@(LaunchCatalogLevel)" Link="Assets/levels/%(Filename)%(Extension)" />
-    <AndroidAsset Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" Link="Assets/pictures/%(Filename)%(Extension)" Condition="'$(LaunchArtInstalled)' != 'true'" />
-    <AndroidAsset Include="@(LaunchInstalledPicture)" Link="Assets/pictures/%(Filename)%(Extension)" Condition="'$(LaunchArtInstalled)' == 'true'" />
+    <AndroidAsset Include="@(RoundContentManifest)" Link="Assets/rounds/manifest.json" />
+    <AndroidAsset Include="@(RoundContentLevelPack)" Link="Assets/rounds/levels/%(Filename)%(Extension)" />
+    <AndroidAsset Include="@(RoundContentPicturePack)" Link="Assets/rounds/pictures/%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
     <!--

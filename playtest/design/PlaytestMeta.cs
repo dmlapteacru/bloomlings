@@ -153,6 +153,33 @@ namespace Bloomlings.Playtest
             Progression.FastForward(highestCompleted);
         }
 
+        /// <summary>
+        /// Tester control (spec 006 FR-063, T029): the save's progress jumps to <paramref name="level"/>, so it is the current
+        /// level; forward with the levels' unlocks and rewards on the way (<see cref="SkipTo"/>), back as
+        /// <see cref="StepBack"/> does (unlocks and Petals stay). It may pass the last round level, so meta tied to later
+        /// levels (the Store's animations at L40, the milestone at L50) can be checked; the game then says "new levels soon".
+        /// </summary>
+        public void JumpTo(int level)
+        {
+            if (Authority != null) return;
+            int completed = Math.Max(0, level - 1);
+            if (completed >= Progression.HighestCompletedLevel)
+            {
+                SkipTo(completed);
+                return;
+            }
+
+            NewUnlocks.Clear();
+            Save.Progression.HighestCompletedLevel = completed;
+            _saves.Save();
+        }
+
+        /// <summary>
+        /// Whether <paramref name="level"/> lies past the last level the build carries (<paramref name="lastLevel"/>; spec 006
+        /// FR-060): no level follows until the next wave, and the game shows "new levels soon" instead of starting one.
+        /// </summary>
+        public static bool BeyondLastLevel(int level, int lastLevel) => level > lastLevel;
+
         /// <summary>Tester control: one level back (unlocks and Petals stay).</summary>
         public void StepBack()
         {

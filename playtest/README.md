@@ -30,19 +30,27 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 
 ## What the full playtest has
 
-- All 2500 launch levels (the boundary in `content/launch.props`): canonical L1–10 from `content/curated/`, then
-  generated L11–2500 from `content/catalog/levels/`. `Catalog.props` combines these sources and rejects a build with
-  an incomplete level count. The tutorial boards remain 11×12–12×12; later sizes follow `content/launch-art/plan.json`,
-  up to 36×36. `PlaytestContent` lists names at startup and reads a level/picture only on first use. Missing in-range
-  levels are errors, never silently substituted with later boards. A catalog installation reaches the next APK without copying files.
+- The round levels only (spec 006 FR-060): the published round content of `content/game/rounds/published/`
+  (`rounds publish`: `manifest.json`, `levels/*.jsonl.gz`, `pictures/*.jsonl.gz`), packed by `Catalog.props` under the
+  APKs' `rounds/` assets and read through `PlaytestContent.LoadRounds` (`RoundContentSet`: the manifest at start, each
+  pack on first use, checked against its SHA-256). The build stops with a clear error while that folder has no
+  manifest. Before the first publish, make a local set from the export with
+  `dotnet run --project playtest/check -- --publish-dev content/work/rounds-published` and build with
+  `-p:RoundContentDir=<its full path>/` (never commit it). After the last round level Play shows "new levels soon";
+  no old level follows, and the Daily Challenge stays off. The legacy catalog, curated levels and Daily pool are no
+  longer packed (`LegacyCatalog.props` keeps the preview's copy for its design board frames). Until the level screen
+  plays the round rules (T026) a round level shows still (`RoundLevelPlaceholder`), and the tester shows its board,
+  columns and summary. Settings' dev row and the tester's level button jump the progress to any level (past the last
+  round level too, for the meta of L40 and L50). `dotnet run --project playtest/preview -- --rounds` renders these
+  screens from a published set.
 
-  The levels, the picture library and every picture are the APKs' assets (`AndroidAsset`, read through `PlaytestFiles`
+  The round packs and every picture are the APKs' assets (`AndroidAsset`, read through `PlaytestFiles`
   and `AndroidAssetFiles`), not embedded resources: an APK carries its assemblies once for each processor it runs on
   (arm64, arm, x64), so the 57 MB of pictures were in it three times (the full playtest was 182 MB). The preview and the
   check still read them from their own embedded resources (`EmbeddedFiles`).
 
-  Past the bundled launch range the playtest repeats its levels. Reserved source levels L2501–5000 do not ship. A level whose data stores the icons look (a big board, over 288 cells) draws no
-  next-layer chip in either APK (FR-036 as amended).
+  In the preview's legacy frames, past the bundled launch range the playtest repeats its levels, and a level whose data
+  stores the icons look (a big board, over 288 cells) draws no next-layer chip (FR-036 as amended).
   A pod tap goes in only when a slot shows no pod on screen (spec 001 FR-014 as amended on 2026-10-05).
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):
@@ -203,8 +211,8 @@ predefined tick from Android 10, a soft pulse where the phone has amplitude cont
   `dotnet publish playtest/android -c Release -f net10.0-android` or the same for `playtest/tester`.
 - `dotnet run --project playtest/check` checks the animator and the meta layer without Android.
 
-The APKs and preview share `Catalog.props`: tutorials from `content/curated/` plus generated levels from
-`content/catalog/levels/`. The installer intentionally retains these as separate sources.
+The APKs pack the round levels of `Catalog.props`; the preview embeds the legacy catalog of `LegacyCatalog.props`
+(tutorials from `content/curated/` plus generated levels from `content/catalog/levels/`) for its design board frames.
 
 `dotnet run -c Release --project playtest/preview -- --audit-launch --out content/work/launch-audit` audits the actual
 bundled catalog against canonical tutorials, the frozen picture/size plan and mechanic/variant availability. It does

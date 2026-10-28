@@ -9,6 +9,8 @@
 // --perf-store <dir> keeps the made pictures there as the APK does between launches: run twice to see a later launch,
 // --perf-allocs lists what the level's frames allocate by type, --perf-warm warms pictures ahead as the APK does: an idle
 // Home makes the next likely screens' pictures on a worker, IPictureWarmer)
+// [--rounds [<published dir>]] (only the round levels as the APKs run them, spec 006: Home, the round level placeholder,
+// the dev row's jump and "new levels soon", from a published round set; RoundsPreview.cs)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +39,8 @@ bool mosaicPilot = false;
 bool auditLaunch = false;
 string? shape = null;
 bool perf = false;
+bool roundsPreview = false;
+string? roundsFolder = null;
 string? csv = null;
 float purchaseSize = ProfileGameDesign.PurchaseScale;
 string? purchaseComparison = null;
@@ -45,6 +49,14 @@ for (int i = 0; i < args.Length; i++)
     if (args[i] == "--audit-launch")
     {
         auditLaunch = true;
+    }
+    else if (args[i] == "--rounds")
+    {
+        roundsPreview = true;
+        if (i + 1 < args.Length && !args[i + 1].StartsWith("--", StringComparison.Ordinal))
+        {
+            roundsFolder = Path.GetFullPath(args[++i]);
+        }
     }
     else if (args[i] == "--out" && i + 1 < args.Length)
     {
@@ -178,6 +190,11 @@ if (sounds)
 {
     SoundExport.Write(outDir);
     return 0;
+}
+
+if (roundsPreview)
+{
+    return RoundsPreview.Write(root, outDir, roundsFolder);
 }
 
 Directory.CreateDirectory(outDir);

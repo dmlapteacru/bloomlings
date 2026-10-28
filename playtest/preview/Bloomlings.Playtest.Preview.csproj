@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="../Catalog.props" />
+  <Import Project="../LegacyCatalog.props" />
   <!--
     Renders the full playtest's designed screens (playtest/design) to PNG without Android, with SkiaSharp in place of
     Android's canvas: one image per design board frame (1-17) at three phone shapes, a contact sheet, and render checks

@@ -10,9 +10,11 @@ using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Packs;
+using Bloomlings.Content.Rounds;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Slots;
 using Bloomlings.Core.Variants;
@@ -25,6 +27,12 @@ namespace Bloomlings.Playtest
     /// look (spec 002 FR-003 keeps it as it was). Levels open straight away and ◀ ▶ move between them. Every booster is
     /// free, and a tap shows its result at once with its sound. There is no Home, progression or economy. The full
     /// playtest draws the design board's screens instead (<c>Droid.DesignView</c>).
+    /// <para>
+    /// With round content (spec 006 FR-060, FR-062, FR-063; the APKs carry nothing else) ◀ ▶ walk the round levels, and
+    /// the level button jumps to any level number, kept as the tester's progress; past the last round level it says "new
+    /// levels soon". Until the round rules drive a level (T026) a round level shows still: its board, its columns and its
+    /// summary (<see cref="DrawRound"/>).
+    /// </para>
     /// </summary>
     public sealed class TesterView : View
     {
@@ -58,6 +66,12 @@ namespace Bloomlings.Playtest
 
         private readonly Context _context;
         private readonly ContentSet _content;
+
+        /// <summary>The round levels, when the build carries them (spec 006): then the legacy set is empty and unused.</summary>
+        private readonly RoundContentSet? _rounds;
+
+        /// <summary>The round level shown, or null past the last one ("new levels soon").</summary>
+        private RoundLevel? _round;
         private readonly ISharedPreferences _prefs;
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias);
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias) { TextAlign = Paint.Align.Center };
@@ -83,6 +97,7 @@ namespace Bloomlings.Playtest
         {
             _context = context;
             _content = PlaytestContent.Load();
+            _rounds = PlaytestContent.HasRounds ? PlaytestContent.LoadRounds() : null;
             _prefs = context.GetSharedPreferences(PrefsName, FileCreationMode.Private)!;
             _text.SetTypeface(Typeface.DefaultBold);
             bool sound = _prefs.GetBoolean("sound", true);
@@ -122,6 +137,12 @@ namespace Bloomlings.Playtest
             base.OnDraw(canvas);
             _hits.Clear();
             canvas.DrawColor(BackgroundColor);
+            if (_rounds != null)
+            {
+                DrawRound(canvas);
+                return;
+            }
+
             long now = SystemClock.UptimeMillis();
             float dt = _lastFrame == 0 ? 0f : Math.Min(0.1f, (now - _lastFrame) / 1000f);
             _lastFrame = now;
@@ -179,6 +200,12 @@ namespace Bloomlings.Playtest
         /// <summary>Plays a level; the tester remembers it, the full playtest follows the progression.</summary>
         private void LoadLevel(int levelNumber)
         {
+            if (_rounds != null)
+            {
+                LoadRound(levelNumber);
+                return;
+            }
+
             _level = Math.Max(1, levelNumber);
             _prefs.Edit()!.PutInt("level", _level)!.Apply();
 
@@ -916,6 +943,224 @@ namespace Bloomlings.Playtest
                 float top = rowTop + ((i / 2) * rowHeight);
                 Button(canvas, new RectF(left, top, left + (card.Width() / 2f) - (w * 0.05f), top + (rowHeight * 0.85f)), label, color, action);
             }
+        }
+
+        // ---- Round levels (spec 006) ----
+
+        /// <summary>
+        /// Shows round level <paramref name="levelNumber"/> and keeps it as the tester's progress (spec 006 FR-063: any
+        /// number, past the last round level too, where "new levels soon" shows).
+        /// </summary>
+        private void LoadRound(int levelNumber)
+        {
+            _level = Math.Max(1, levelNumber);
+            _prefs.Edit()!.PutInt("level", _level)!.Apply();
+            _round = _rounds != null && _rounds.Has(_level) ? _rounds.GetLevel(_level) : null;
+            _toast = null;
+            Invalidate();
+        }
+
+        /// <summary>The tester's level jump (spec 006 FR-063, T029): the system's dialog with a number field.</summary>
+        private void AskJump()
+        {
+            var field = new Android.Widget.EditText(_context)
+            {
+                Text = _level.ToString(CultureInfo.InvariantCulture),
+                InputType = Android.Text.InputTypes.ClassNumber,
+            };
+            field.SetSingleLine(true);
+            field.SetFilters(new Android.Text.IInputFilter[] { new Android.Text.InputFilterLengthFilter(5) });
+            field.SetSelectAllOnFocus(true);
+            var frame = new Android.Widget.FrameLayout(_context);
+            int pad = (int)(20 * _context.Resources!.DisplayMetrics!.Density);
+            frame.SetPadding(pad, pad / 2, pad, 0);
+            frame.AddView(field);
+            Android.App.AlertDialog dialog = new Android.App.AlertDialog.Builder(_context)
+                .SetTitle(PlaytestText.T("round.jump.title"))!
+                .SetView(frame)!
+                .SetPositiveButton(PlaytestText.T("common.ok"), (sender, args) =>
+                {
+                    if (int.TryParse((field.Text ?? string.Empty).Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out int level) && level >= 1)
+                    {
+                        LoadRound(level);
+                    }
+                    else
+                    {
+                        Toast(PlaytestText.T("round.jump.invalid"));
+                        Invalidate();
+                    }
+                })!
+                .SetNegativeButton(PlaytestText.T("common.cancel"), (sender, args) => Invalidate())!
+                .Create()!;
+            dialog.Window?.SetSoftInputMode(SoftInput.StateAlwaysVisible);
+            dialog.Show();
+            field.RequestFocus();
+        }
+
+        /// <summary>
+        /// PLACEHOLDER until the round rules drive a level (T026): the round level as it starts, still. The top bar (◀, the
+        /// sound, the level button that jumps, ▶), the board in the round palette (its frame stone, its gate yellow, the
+        /// stream blue), the level's summary, and its columns, top pod first (a hidden pod shows only once on top, FR-007);
+        /// past the last level the "new levels soon" card.
+        /// </summary>
+        private void DrawRound(Canvas canvas)
+        {
+            float width = Width;
+            float top = _insetTop + (Width * 0.02f);
+            float bottom = Height - _insetBottom - (Width * 0.02f);
+            float usable = bottom - top;
+            float pad = width * 0.03f;
+            var bar = new RectF(pad, top, width - pad, top + (usable * 0.06f));
+            float h = bar.Height();
+            RoundContentSet rounds = _rounds!;
+            int count = rounds.LevelCount;
+            Button(canvas, new RectF(bar.Left, bar.Top, bar.Left + (h * 1.2f), bar.Bottom), "◀", Locked, () => LoadRound(Math.Min(_level - 1, count)));
+            Button(canvas, new RectF(bar.Left + (h * 1.3f), bar.Top, bar.Left + (h * 2.5f), bar.Bottom), _sound.Enabled ? "♪" : "×", _sound.Enabled ? Accent : Locked, ToggleSound);
+            Button(canvas, new RectF(bar.Right - (h * 1.2f), bar.Top, bar.Right, bar.Bottom), "▶", _round != null ? Locked : SlotEmpty, () =>
+            {
+                if (rounds.Has(_level))
+                {
+                    LoadRound(_level + 1);
+                }
+            });
+
+            string title = PlaytestText.F("common.level", _level) + " / " + count;
+            if (_round != null && _round.Class != RoundClass.Normal)
+            {
+                title += " · " + PlaytestText.T(_round.Class == RoundClass.Hard ? "difficulty.hard" : "difficulty.super_hard");
+            }
+
+            // The level button: a tap asks for any level number.
+            var jump = new RectF(bar.Left + (h * 2.7f), bar.Top, bar.Right - (h * 1.4f), bar.Bottom);
+            Fill(canvas, jump, Panel, h * 0.3f);
+            Text(canvas, title, jump.CenterX(), jump.CenterY(), h * 0.4f, _round == null || _round.Class == RoundClass.Normal ? TextColor : Warning);
+            Hit(jump, AskJump);
+
+            if (_round == null)
+            {
+                var card = new RectF(width * 0.08f, top + (usable * 0.3f), width * 0.92f, top + (usable * 0.6f));
+                Fill(canvas, card, Panel, width * 0.04f);
+                Text(canvas, PlaytestText.T("round.soon.title"), card.CenterX(), card.Top + (card.Height() * 0.3f), width * 0.07f, Accent);
+                Text(canvas, PlaytestText.F("round.soon.body", count), card.CenterX(), card.Top + (card.Height() * 0.62f), width * 0.032f, TextColor);
+                DrawToast(canvas, card);
+                return;
+            }
+
+            RoundLevel level = _round;
+            var boardArea = new RectF(pad, top + (usable * 0.07f), width - pad, top + (usable * 0.58f));
+            DrawRoundBoard(canvas, level, boardArea);
+
+            float line = usable * 0.026f;
+            float y = top + (usable * 0.605f);
+            Text(canvas, PlaytestText.F("round.tester.board", level.Width, level.Height, level.Pods.Count, level.Tray.Count, level.Capacity), width / 2f, y, line * 0.72f, TextColor);
+            y += line;
+            Text(canvas, PlaytestText.F("round.tester.picture", level.PictureId ?? "-", level.PictureVersion, level.DefinitionVersion), width / 2f, y, line * 0.72f, TextColor);
+            y += line;
+            string mechanics = level.Mechanics.Count == 0 ? "-" : string.Join(", ", level.Mechanics);
+            if (level.Introduction != null)
+            {
+                mechanics += " (" + level.Introduction.Mechanic + (level.Introduction.Second ? " 2" : " 1") + ")";
+            }
+
+            Text(canvas, PlaytestText.F("round.tester.mechanics", mechanics), width / 2f, y, line * 0.72f, TextColor);
+            if (level.Exception != null)
+            {
+                y += line;
+                Text(canvas, PlaytestText.F("round.tester.exception", level.Exception.Rule), width / 2f, y, line * 0.72f, Warning);
+            }
+
+            y += line;
+            Text(canvas, PlaytestText.T("round.tester.not_wired"), width / 2f, y, line * 0.72f, Locked);
+            DrawRoundTray(canvas, level, new RectF(pad, top + (usable * 0.74f), width - pad, bottom));
+            DrawToast(canvas, boardArea);
+        }
+
+        private void DrawRoundBoard(Canvas canvas, RoundLevel level, RectF area)
+        {
+            int w = level.Width;
+            int h = level.Height;
+            float cell = Math.Min(area.Width() / w, area.Height() / h);
+            float ox = area.CenterX() - (cell * w / 2f);
+            float oy = area.Top + ((area.Height() - (cell * h)) / 2f);
+            var entries = new HashSet<int>(level.Entries);
+            var sites = new HashSet<int>();
+            if (level.Bridge != null)
+            {
+                foreach (RoundBridgeChoice choice in level.Bridge)
+                {
+                    sites.Add(choice.Cell);
+                }
+            }
+
+            for (int y = 0; y < h; y++)
+            {
+                string row = level.RowsBottomFirst[y];
+                for (int x = 0; x < w; x++)
+                {
+                    int index = (y * w) + x;
+                    char c = row[x];
+                    bool edge = x == 0 || y == 0 || x == w - 1 || y == h - 1;
+                    var full = new RectF(ox + (x * cell), oy + ((h - 1 - y) * cell), ox + ((x + 1) * cell), oy + ((h - y) * cell));
+                    Color color = entries.Contains(index) ? EntryColor
+                        : edge ? StoneColor
+                        : sites.Contains(index) ? Color.ParseColor("#C9A46A")
+                        : c == '#' ? Color.ParseColor("#7FB8D8")
+                        : c == '.' ? Ground
+                        : MaterialColor(c);
+                    Fill(canvas, c == '.' || edge ? full : Inset(full, cell * 0.04f), color, 0f);
+                }
+            }
+        }
+
+        private void DrawRoundTray(Canvas canvas, RoundLevel level, RectF area)
+        {
+            int stacks = level.Tray.Count;
+            if (stacks == 0)
+            {
+                return;
+            }
+
+            float columnWidth = area.Width() / stacks;
+            float size = Math.Min(columnWidth * 0.86f, area.Height() / 4f * 0.94f);
+            int visible = Math.Max(1, (int)(area.Height() / (size * 1.04f)));
+            for (int s = 0; s < stacks; s++)
+            {
+                IReadOnlyList<int> stack = level.Tray[s];
+                float cx = area.Left + (columnWidth * (s + 0.5f));
+                for (int i = 0; i < stack.Count && i < visible; i++)
+                {
+                    float y = area.Top + (i * size * 1.04f);
+                    var rect = new RectF(cx - (size / 2f), y, cx + (size / 2f), y + size);
+                    if (i == visible - 1 && stack.Count > visible)
+                    {
+                        Text(canvas, "+" + (stack.Count - i), cx, rect.CenterY(), size * 0.3f, Locked);
+                        break;
+                    }
+
+                    RoundPod pod = level.Pods[stack[i]];
+                    bool hidden = pod.Mystery != RoundMystery.None && i > 0;
+                    Color color = hidden ? Locked : MaterialColor(pod.Code);
+                    if (i > 0)
+                    {
+                        color = Color.Argb(150, color.R, color.G, color.B);
+                    }
+
+                    Fill(canvas, rect, color, size * 0.2f);
+                    Color ink = hidden ? Color.White : Ink(MaterialColor(pod.Code));
+                    Text(canvas, hidden ? "?" : pod.Code.ToString(), rect.CenterX(), rect.Top + (size * 0.36f), size * 0.3f, ink);
+                    Text(canvas, hidden ? "?" : pod.Count.ToString(CultureInfo.InvariantCulture), rect.CenterX(), rect.Top + (size * 0.72f), size * 0.34f, ink);
+                    if (pod.Group != null)
+                    {
+                        Text(canvas, "∞" + pod.Group, rect.Right - (size * 0.18f), rect.Top + (size * 0.18f), size * 0.22f, EntryColor);
+                    }
+                }
+            }
+        }
+
+        private static Color MaterialColor(char code)
+        {
+            int index = RoundMaterial.IndexOf(code);
+            return index >= 0 ? Color.ParseColor(RoundMaterial.All[index].ColorHex) : Color.Gray;
         }
 
         // ---- Colors and primitives ----

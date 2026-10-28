@@ -10,6 +10,7 @@ using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
+using Bloomlings.Content.Rounds;
 
 namespace Bloomlings.Playtest.Design
 {
@@ -30,6 +31,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The profile page (spec 005 FR-037), opened from Home's avatar.</summary>
         Profile,
+
+        /// <summary>
+        /// A round level (spec 006) until the level screen plays the round rules (T026): the board shown still
+        /// (<see cref="RoundLevelPlaceholder"/>). Only a build with round content opens it.
+        /// </summary>
+        RoundLevel,
     }
 
     /// <summary>The cards shown over a screen.</summary>
@@ -51,6 +58,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The purchase confirmation (spec 005 FR-040), over whatever asked: nothing is spent until its Buy.</summary>
         Purchase,
+
+        /// <summary>
+        /// "New levels soon" (spec 006 FR-060, T028), over Home: the player's level is past the last round level, so no
+        /// level follows until the next wave is transferred.
+        /// </summary>
+        NewLevelsSoon,
     }
 
     /// <summary>
@@ -133,10 +146,15 @@ namespace Bloomlings.Playtest.Design
         private readonly List<(Overlay Overlay, float OpenedAt)> _overlays = new List<(Overlay, float)>();
         private readonly bool _firstLaunch;
 
-        public DesignApp(string dataFolder, ContentSet content, ISoundOut sound, bool showSplash = true, IAccountPanelGateway? accountGateway = null, OnlineEconomyClient? serverEconomy = null, bool activateServerEconomy = false)
+        /// <param name="rounds">
+        /// The round levels (spec 006 FR-060): the game builds' only levels; then <paramref name="content"/>'s legacy levels
+        /// are never played. Null for the preview's design board frames, which still play the legacy levels.
+        /// </param>
+        public DesignApp(string dataFolder, ContentSet content, ISoundOut sound, bool showSplash = true, IAccountPanelGateway? accountGateway = null, OnlineEconomyClient? serverEconomy = null, bool activateServerEconomy = false, IRoundLevelSource? rounds = null)
         {
             _dataFolder = dataFolder;
             Content = content;
+            Rounds = rounds;
             Sound = sound;
             ServerClient = serverEconomy;
             _serverEconomy = serverEconomy == null ? null : new ServerEconomy(serverEconomy, OnlineRoutines.Run, activateServerEconomy);
@@ -163,6 +181,28 @@ namespace Bloomlings.Playtest.Design
         }
 
         public ContentSet Content { get; }
+
+        /// <summary>
+        /// The round levels (spec 006 FR-060), when the build carries them (both APKs): levels 1..<see cref="IRoundLevelSource.LevelCount"/>
+        /// open as round levels, and a level past the last one shows "new levels soon" (<see cref="Overlay.NewLevelsSoon"/>).
+        /// Null in the preview's legacy frames.
+        /// </summary>
+        public IRoundLevelSource? Rounds { get; }
+
+        /// <summary>The round level <see cref="Screen.RoundLevel"/> shows (0 when none).</summary>
+        public int RoundLevelNumber { get; private set; }
+
+        /// <summary>Whether Play can start a level: always with round content (past the last one it says "new levels soon").</summary>
+        public bool CanStartLevel => Rounds != null || Content.LevelCount > 0;
+
+        /// <summary>
+        /// Whether Home offers the Daily Challenge: never with round content (spec 006 FR-063: it stays off until it has round
+        /// levels of its own; its card and code stay). The preview's legacy frames keep it.
+        /// </summary>
+        public bool DailyChallengeAvailable => Rounds == null;
+
+        /// <summary>Whether <paramref name="level"/> is past the last round level, so "new levels soon" shows instead (spec 006 T028).</summary>
+        public bool NewLevelsSoon(int level) => Rounds != null && PlaytestMeta.BeyondLastLevel(level, Rounds.LevelCount);
 
         public ISoundOut Sound { get; }
 
@@ -334,7 +374,11 @@ namespace Bloomlings.Playtest.Design
 
         private void AfterSplash()
         {
-            if (_firstLaunch)
+            if (_firstLaunch && Rounds != null)
+            {
+                OpenRound(Meta.CurrentLevel);
+            }
+            else if (_firstLaunch)
             {
                 ClearOverlays();
                 Level = _firstPreparedLevel ?? new LevelScreen(this, Meta.CurrentLevel);
@@ -351,7 +395,8 @@ namespace Bloomlings.Playtest.Design
 
         public void StartLevel()
         {
-            if (_runtimePreparation) NextLevel(); else LoadLevel(Meta.CurrentLevel);
+            if (NewLevelsSoon(Meta.CurrentLevel)) ShowNewLevelsSoon();
+            else if (_runtimePreparation) NextLevel(); else LoadLevel(Meta.CurrentLevel);
         }
 
         /// <summary>
@@ -362,6 +407,13 @@ namespace Bloomlings.Playtest.Design
         {
             if (Transitioning)
             {
+                return;
+            }
+
+            if (NewLevelsSoon(Meta.CurrentLevel))
+            {
+                // The last round level is won: no level follows yet (spec 006 T028).
+                ShowNewLevelsSoon();
                 return;
             }
 
@@ -381,12 +433,54 @@ namespace Bloomlings.Playtest.Design
 
         public void LoadLevel(int levelNumber)
         {
+            if (Rounds != null)
+            {
+                OpenRound(levelNumber);
+                return;
+            }
+
             ClearOverlays();
             Level = _firstPreparedLevel?.Level == levelNumber ? _firstPreparedLevel : new LevelScreen(this, levelNumber);
             Level.RestartIntroAnimation();
             _firstPreparedLevel = null;
             _levelPrepared = false;
             Screen = Screen.Level;
+        }
+
+        /// <summary>
+        /// Opens round level <paramref name="levelNumber"/> (spec 006), or "new levels soon" past the last one. Until the
+        /// level screen plays the round rules (T026) the level shows still (<see cref="Screen.RoundLevel"/>,
+        /// <see cref="RoundLevelPlaceholder"/>): the one place that will start the round level screen instead.
+        /// </summary>
+        private void OpenRound(int levelNumber)
+        {
+            if (Rounds == null || NewLevelsSoon(levelNumber))
+            {
+                ShowNewLevelsSoon();
+                return;
+            }
+
+            ClearOverlays();
+            Level = null;
+            _firstPreparedLevel = null;
+            _levelPrepared = true;
+            RoundLevelNumber = Math.Max(1, levelNumber);
+            Screen = Screen.RoundLevel;
+        }
+
+        /// <summary>Home with the "new levels soon" card over it (spec 006 FR-060, T028).</summary>
+        public void ShowNewLevelsSoon()
+        {
+            if (Screen != Screen.Home)
+            {
+                GoHome();
+            }
+            else
+            {
+                ClearOverlays();
+            }
+
+            OpenOverlay(Overlay.NewLevelsSoon);
         }
 
         public void GoHome()
@@ -399,6 +493,7 @@ namespace Bloomlings.Playtest.Design
 
             ClearOverlays();
             Level = null;
+            RoundLevelNumber = 0;
             Screen = Screen.Home;
             _promoOpenedAt = Now;
 
@@ -602,6 +697,9 @@ namespace Bloomlings.Playtest.Design
                     return true;
                 case Screen.Profile:
                     CloseProfile();
+                    return true;
+                case Screen.RoundLevel:
+                    GoHome();
                     return true;
                 default:
                     return false;
@@ -944,6 +1042,42 @@ namespace Bloomlings.Playtest.Design
             });
         }
 
+        /// <summary>
+        /// Playtest control (spec 006 FR-063, T029): asks for a level number (the host's text entry) and jumps the save's
+        /// progress there (<see cref="PlaytestMeta.JumpTo"/>), past the last round level too, so the meta of later levels
+        /// (the Store's animations at L40, the milestone at L50) can be checked; Play then says "new levels soon".
+        /// </summary>
+        public void AskJumpToLevel()
+        {
+            if (TextPrompt == null || ServerClient != null)
+            {
+                return;
+            }
+
+            Sound.Play(SoundCue.Click);
+            string current = Meta.CurrentLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            TextPrompt.Ask(PlaytestText.T("round.jump.title"), current, 5, text => JumpToLevel(text));
+        }
+
+        /// <summary>The jump's answer: a level number from 1, else a toast and nothing changes.</summary>
+        public bool JumpToLevel(string text)
+        {
+            if (!int.TryParse(text.Trim(), System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out int level) || level < 1)
+            {
+                HomeToast(PlaytestText.T("round.jump.invalid"));
+                return false;
+            }
+
+            Meta.JumpTo(level);
+            if (Screen == Screen.Level || Screen == Screen.RoundLevel)
+            {
+                GoHome();
+            }
+
+            HomeToast(PlaytestText.F("round.jump.done", NumberText.Group(level)));
+            return true;
+        }
+
         /// <summary>Playtest control: a brand-new profile (Level 1, nothing unlocked).</summary>
         public void ResetProfile()
         {
@@ -1045,6 +1179,9 @@ namespace Bloomlings.Playtest.Design
                     Level!.Advance(dt);
                     Level.Draw(p);
                     break;
+                case Screen.RoundLevel:
+                    RoundLevelPlaceholder.Draw(p, this);
+                    break;
             }
 
             for (int i = 0; i < _overlays.Count; i++)
@@ -1086,6 +1223,9 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.Purchase:
                         MetaCards.Purchase(p, this, since);
+                        break;
+                    case Overlay.NewLevelsSoon:
+                        EndCards.NewLevelsSoon(p, this, since);
                         break;
                 }
             }
@@ -1136,7 +1276,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The screen the splash opens on, drawn for its pictures only: Level 1 on a first launch, else Home.</summary>
         private void DrawFirstScreen(IPainter p)
         {
-            if (_firstLaunch)
+            if (_firstLaunch && Rounds != null)
+            {
+                if (!NewLevelsSoon(Meta.CurrentLevel)) RoundLevelPlaceholder.Draw(p, this, Meta.CurrentLevel);
+                else HomeScreen.Draw(p, this);
+            }
+            else if (_firstLaunch)
             {
                 (_firstPreparedLevel ??= new LevelScreen(this, Meta.CurrentLevel)).Draw(p);
             }
@@ -1219,6 +1364,12 @@ namespace Bloomlings.Playtest.Design
                     MenuCards.Settings(p, this, 10f);
                     break;
                 default:
+                    if (Rounds != null)
+                    {
+                        if (!NewLevelsSoon(Meta.CurrentLevel)) RoundLevelPlaceholder.Draw(p, this, Meta.CurrentLevel);
+                        break;
+                    }
+
                     if (_firstPreparedLevel?.Level != Meta.CurrentLevel) _firstPreparedLevel = new LevelScreen(this, Meta.CurrentLevel);
                     _firstPreparedLevel.Draw(p);
                     break;

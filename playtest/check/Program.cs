@@ -17,11 +17,29 @@ using Bloomlings.Core.Slots;
 using Bloomlings.Playtest;
 
 string Root = FindRoot();
+int devPublish = Array.IndexOf(args, "--publish-dev");
+if (devPublish >= 0)
+{
+    // A published round set for a local APK build before the first `rounds publish` (playtest/Catalog.props); never commit it.
+    string folder = Path.GetFullPath(devPublish + 1 < args.Length ? args[devPublish + 1] : Path.Combine(Root, "content/work/rounds-published"));
+    int count = Bloomlings.Playtest.Check.RoundContentChecks.Publish(Root, folder, out string source);
+    Console.WriteLine($"published {count} round levels from {source} to {folder}");
+    Console.WriteLine($"build an APK with it: dotnet build playtest/android -p:RoundContentDir={folder}/");
+    return 0;
+}
+
 int cases = 0, failures = 0;
 foreach (string failure in Bloomlings.Playtest.Check.PictureWorkChecks.Run())
 {
     failures++;
     Console.WriteLine("FAIL resources: " + failure);
+}
+
+// The round content the APKs carry (spec 006 T025, T053), read as they read their assets.
+foreach (string failure in Bloomlings.Playtest.Check.RoundContentChecks.Run(Root))
+{
+    failures++;
+    Console.WriteLine("FAIL round content: " + failure);
 }
 
 var pictures = Directory.GetFiles(Path.Combine(Root, "content/pictures/lib"), "*.json").Select(f => BasePictureJson.Read(File.ReadAllText(f))).Select(p => p with { Review = p.Review with { Status = ReviewStatus.Approved } }).ToDictionary(p => p.Id);
@@ -298,6 +316,13 @@ Check(!reloaded.FirstLaunch && reloaded.CurrentLevel == 41 && reloaded.Economy.P
 Check(reloaded.Wardrobe.Profile.Badge?.Id == "badge.achievement.first_bloom", "the selected achievement badge survives a restart");
 Check(Achievements.Of(reloaded.Save).First(s => s.Def.Id == "natural_talent").Value == 1,
     "achievement progress survives a restart");
+// The tester's level jump (spec 006 FR-063): past the last round level for the meta of later levels, and back.
+reloaded.JumpTo(50);
+Check(reloaded.CurrentLevel == 50 && reloaded.Wardrobe.IsAvailable && PlaytestMeta.BeyondLastLevel(reloaded.CurrentLevel, 20),
+    "a jump sets the save's progress past the last round level (\"new levels soon\")");
+reloaded.JumpTo(3);
+Check(reloaded.CurrentLevel == 3 && reloaded.Wardrobe.IsAvailable && !PlaytestMeta.BeyondLastLevel(reloaded.CurrentLevel, 20),
+    "a jump back keeps the unlocks");
 var fresh = PlaytestMeta.ResetProfile(temp);
 Check(fresh.CurrentLevel == 1 && fresh.Economy.Petals == 0, "reset starts over");
 Directory.Delete(temp, true);

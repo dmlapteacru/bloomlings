@@ -105,8 +105,9 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The playtest's own controls (not the product), in the Settings card: step back, skip one or ten levels, start a
-        /// new profile, after "dev L<i>n</i>" (the current level, so a skip shows at once). Used from a level's pause, a
+        /// The playtest's own controls (not the product), in the Settings card: step back, skip one or ten levels, jump to
+        /// any level (spec 006 FR-063: past the last round level too, for the meta of later levels), start a new profile,
+        /// after "dev L<i>n</i>" (the current level, so a skip shows at once). Used from a level's pause, a
         /// control also returns Home, where the new level waits. Each pill is half the row tall; the whole cell takes the tap.
         /// </summary>
         public static void PrivacyPolicy(IPainter p,DesignApp app,float since)
@@ -135,12 +136,13 @@ namespace Bloomlings.Playtest.Design
         }
         private static void DevRow(IPainter p, DesignApp app, Box row)
         {
-            string[] labels = { "−1", "+1", "+10", "Reset" };
+            string[] labels = { "−1", "+1", "+10", PlaytestText.T("round.jump.dev"), "Reset" };
             Action[] actions =
             {
                 () => app.Meta.StepBack(),
                 () => app.Meta.SkipTo(app.Meta.Progression.HighestCompletedLevel + 1),
                 () => app.Meta.SkipTo(app.Meta.Progression.HighestCompletedLevel + 10),
+                app.AskJumpToLevel,
                 app.ResetProfile,
             };
             string caption = "Level " + app.Meta.CurrentLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -157,7 +159,7 @@ namespace Bloomlings.Playtest.Design
                 p.Hit(cells[i], () =>
                 {
                     action();
-                    if (app.Screen == Screen.Level)
+                    if (app.Screen == Screen.Level || app.Screen == Screen.RoundLevel)
                     {
                         app.GoHome();
                     }

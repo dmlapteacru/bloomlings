@@ -3,6 +3,8 @@
     The level tester APK: the playtest sources (playtest/android) built with PLAYTEST_TESTER. Levels open straight
     away with ◀ ▶ to move between them, every booster is free, and a tap shows its result at once; there is no Home,
     progression or economy. Its own application id, so it installs next to the full playtest. See playtest/README.md.
+    It carries the round levels only (spec 006 FR-060, Catalog.props), as the full playtest: the legacy oversized board
+    prototypes (content/curated/dev, content/pictures/dev) are no longer packed.
   -->
   <Import Project="../Playtest.Shared.props" />
 
@@ -23,14 +25,4 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/Achievements.cs" Link="Shared/Achievements.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- Oversized board prototypes are tester-only and never enter the production level catalog. -->
-    <AndroidAsset Include="../../content/pictures/dev/lib/*.json" Link="Assets/pictures/%(Filename)%(Extension)" />
-    <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-24x24.json" Link="Assets/levels/level-05001.json" />
-    <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-30x32.json" Link="Assets/levels/level-05002.json" />
-    <AndroidAsset Include="../../content/curated/dev/level-dev-mosaic-36x36.json" Link="Assets/levels/level-05003.json" />
-    <AndroidAsset Include="../../content/curated/dev/level-dev-counted-stack-24x24.json" Link="Assets/levels/level-05004.json" />
-    <AndroidAsset Include="../../content/curated/dev/level-dev-large-gate-36x36.json" Link="Assets/levels/level-05005.json" />
-    <AndroidAsset Include="../../content/curated/dev/level-dev-large-fountain-36x36.json" Link="Assets/levels/level-05006.json" />
-  </ItemGroup>
 </Project>

@@ -127,7 +127,7 @@ namespace Bloomlings.Playtest.Design
 
             // The level on its wooden plaque, Play, the milestone teaser.
             Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(level)), T.LevelHome);
-            bool available = app.Content.LevelCount > 0;
+            bool available = app.CanStartLevel;
             TypeStyle play = T.ButtonLarge with { Size = Math.Max(T.ButtonLarge.Size, r.Play.Height * ReferenceHomeRegions.PlayLabelShare / p.Scale) };
             Kit.PrimaryButton(p, r.Play, PlaytestText.T("common.play"), available ? app.StartLevel : (Action?)null, play, decorate: true, playArrow: false, breathe: app.Overlays.Count == 0,hero:true);
             if (look.Teaser && next.HasValue)
@@ -313,7 +313,8 @@ namespace Bloomlings.Playtest.Design
         {
             PlaytestMeta meta = app.Meta;
             bool hasNext = meta.Milestones.Next(meta.Progression.HighestCompletedLevel).HasValue;
-            HomeLook look = HomeLook.From(meta.Progression.IsUnlocked, meta.Collection.Count, hasNext, dailyChallengeAvailable: true, freeBoosterOffer: false);
+            // The Daily Challenge stays off with round content (spec 006 FR-063) until it has round levels of its own.
+            HomeLook look = HomeLook.From(meta.Progression.IsUnlocked, meta.Collection.Count, hasNext, dailyChallengeAvailable: app.DailyChallengeAvailable, freeBoosterOffer: false);
             return look with { Collection = look.Collection || meta.CurrentLevel >= BottomNav.CollectionLevel };
         }
 

@@ -6,18 +6,18 @@ using Android.Content.Res;
 namespace Bloomlings.Playtest
 {
     /// <summary>
-    /// The APK's assets as the build's files (<see cref="IBundledFiles"/>): one copy of every picture, level and library
-    /// picture, whatever processors the APK carries code for. The folders are listed once; a picture is found by its name
-    /// with its extension or without it (the backgrounds, the hero frames and the avatars go by their names alone, as when
-    /// they were embedded, so a PNG or a JPEG works).
+    /// The APK's assets as the build's files (<see cref="IBundledFiles"/>): one copy of every picture and round pack
+    /// (spec 006: the published round content under <c>rounds/</c>), whatever processors the APK carries code for. The
+    /// folders are listed once; a picture is found by its name with its extension or without it (the backgrounds, the hero
+    /// frames and the avatars go by their names alone, as when they were embedded, so a PNG or a JPEG works).
     /// </summary>
     public sealed class AndroidAssetFiles : IBundledFiles
     {
         /// <summary>The asset folders (the csproj's <c>AndroidAsset</c> links).</summary>
         private static readonly string[] Folders =
         {
-            "backgrounds", "brand", "icons", "badges", "decor", "avatars", "heromotion", "characters/2d", "characters/3d", "levels", "pictures",
-            "shop", "navigation", "gameplay",
+            "backgrounds", "brand", "icons", "badges", "decor", "avatars", "heromotion", "characters/2d", "characters/3d",
+            "rounds", "rounds/levels", "rounds/pictures", "shop", "navigation", "gameplay",
         };
 
         private readonly AssetManager _assets;
