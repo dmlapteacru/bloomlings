@@ -3,7 +3,7 @@
   21,
   50
  ],
- "created": "2026-10-28T20:45:14.045Z",
+ "created": "2026-10-28T22:46:28.739Z",
  "positions": [
   {
    "level": 21,
@@ -1048,8 +1048,8 @@
   "stream": 0,
   "bank": {
    "знакомство: hidden": 30,
+   "Normal": 148,
    "знакомство: links": 26,
-   "Normal": 132,
    "Super Hard": 8,
    "Hard": 16
   },
@@ -1120,28 +1120,28 @@
     "level": 23,
     "cls": "Normal",
     "side": "up",
-    "kind": "better",
+    "kind": "any",
     "recipe": "bridge",
     "have": 0,
-    "command": "node tools/rounds/bridge-scene.mjs make --side up --kind better --cls \"Normal\" --recipe bridge --level 23 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+    "command": "node tools/rounds/bridge-scene.mjs make --side up --kind any --cls \"Normal\" --recipe bridge --level 23 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
    },
    {
     "level": 26,
     "cls": "Normal",
     "side": "left",
-    "kind": "single",
+    "kind": "any",
     "recipe": "bridge+links",
     "have": 0,
-    "command": "node tools/rounds/bridge-scene.mjs make --side left --kind single --cls \"Normal\" --recipe bridge+links --level 26 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+    "command": "node tools/rounds/bridge-scene.mjs make --side left --kind any --cls \"Normal\" --recipe bridge+links --level 26 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
    },
    {
     "level": 29,
     "cls": "Normal",
     "side": "right",
-    "kind": "single",
+    "kind": "any",
     "recipe": "bridge",
     "have": 0,
-    "command": "node tools/rounds/bridge-scene.mjs make --side right --kind single --cls \"Normal\" --recipe bridge --level 29 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+    "command": "node tools/rounds/bridge-scene.mjs make --side right --kind any --cls \"Normal\" --recipe bridge --level 29 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
    },
    {
     "level": 30,
@@ -1156,10 +1156,10 @@
     "level": 35,
     "cls": "Hard",
     "side": "right",
-    "kind": "single",
+    "kind": "better",
     "recipe": "bridge+links",
     "have": 0,
-    "command": "node tools/rounds/bridge-scene.mjs make --side right --kind single --cls \"Hard\" --recipe bridge+links --level 35 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+    "command": "node tools/rounds/bridge-scene.mjs make --side right --kind better --cls \"Hard\" --recipe bridge+links --level 35 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
    },
    {
     "level": 45,

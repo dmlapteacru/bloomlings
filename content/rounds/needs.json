@@ -63,7 +63,7 @@
    "recipe": "bridge",
    "bridgeSide": "up",
    "strip": "new",
-   "bridgeKind": "better"
+   "bridgeKind": "any"
   },
   {
    "level": 26,
@@ -88,7 +88,7 @@
    "recipe": "bridge+links",
    "bridgeSide": "left",
    "strip": "new",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 29,
@@ -113,7 +113,7 @@
    "recipe": "bridge",
    "bridgeSide": "right",
    "strip": "new",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 30,
@@ -163,7 +163,7 @@
    "recipe": "bridge+hidden",
    "bridgeSide": "left",
    "strip": "overlay",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 35,
@@ -188,7 +188,7 @@
    "recipe": "bridge+links",
    "bridgeSide": "right",
    "strip": "new",
-   "bridgeKind": "single"
+   "bridgeKind": "better"
   },
   {
    "level": 41,
@@ -213,7 +213,7 @@
    "recipe": "bridge",
    "bridgeSide": "up",
    "strip": "overlay",
-   "bridgeKind": "better"
+   "bridgeKind": "any"
   },
   {
    "level": 44,
@@ -238,7 +238,7 @@
    "recipe": "hidden+bridge",
    "bridgeSide": "left",
    "strip": "overlay",
-   "bridgeKind": "single"
+   "bridgeKind": "any"
   },
   {
    "level": 45,
@@ -288,7 +288,7 @@
    "recipe": "bridge+links",
    "bridgeSide": "right",
    "strip": "overlay",
-   "bridgeKind": "better"
+   "bridgeKind": "any"
   },
   {
    "level": 50,
