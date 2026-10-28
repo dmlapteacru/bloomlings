@@ -43,7 +43,9 @@ export async function solve(level,budget=200000){const E=await engine(),S=solver
 
 // fairness of hidden pods (§8): in every world where the hidden pods carry each other's material and count, following
 // the saved solution until the first differing pod shows must still leave a winning continuation
-export async function fairness(level,route,limit=24){const E=await engine(),{idle:R}=E,S=solver(E,60000),hid=level.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);
+// (a fresh solver for each world: the memo is keyed by a state signature that does not hold the pods' colours, so
+// worlds that swap colours of equal counts would share answers)
+export async function fairness(level,route,limit=24){const E=await engine(),{idle:R}=E,hid=level.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);
  if(hid.length<2||!route)return {checked:0,fair:true,note:hid.length<2?'одна скрытая — нечего переставлять':'нет решения'};
  const vals=hid.map(i=>[level.pods[i].color,level.pods[i].count]),worlds=[];
  const perm=(a,k=0)=>{if(worlds.length>=limit)return;if(k===a.length){if(a.some((v,i)=>v!==i))worlds.push(a.slice());return;}for(let i=k;i<a.length;i++){[a[k],a[i]]=[a[i],a[k]];perm(a,k+1);[a[k],a[i]]=[a[i],a[k]];}};
@@ -55,7 +57,7 @@ export async function fairness(level,route,limit=24){const E=await engine(),{idl
   if([...new Set(vals.map(v=>v[0]))].some(c=>bal(c)!==orig(c)))continue;
   let s=R.create(lv,lv.capacity||5),k=0;
   while(k<route.length&&!diff.some(p=>s.revealed[p])){const st=R.step(s,route[k]);if(!st.accepted){s=null;break;}s=st.state;k++;}
-  if(!s){bad++;continue;}const ok=S.winnable(s);if(ok===false)bad++;else if(ok===null)unknown++;}
+  if(!s){bad++;continue;}const ok=solver(E,60000).winnable(s);if(ok===false)bad++;else if(ok===null)unknown++;}
  return {checked:worlds.length,unfair:bad,unknown,fair:bad===0&&unknown===0,note:'перестановки материала и числа между скрытыми подами с тем же балансом'};}
 
 // the simple strategies of §11, each with the leftmost and the rightmost hero choice, tapping as soon as possible
@@ -79,13 +81,17 @@ export function rhythm(tr,W){const S=tr.samples,end=tr.end,seg=[0,1,2,3,4].map((
 
 // §9: on a bridge introduction every shown bridge keeps a winning continuation: the level is solved with only that bridge
 // (a bridge needs its approach cleared first, §8, so it cannot simply be taken at the start)
-export async function bridgeChoicesWin(level){const E=await engine(),S=solver(E,200000),out=[];
- for(let i=0;i<(level.hero?level.hero.choices.length:0);i++){const lv={...level,hero:{...level.hero,choices:[level.hero.choices[i]]}};out.push(S.winnable(E.idle.create(lv,level.capacity||5)));}
+// a fresh solver for each bridge: the solver memo is keyed by the state signature, which does not say which bridges the
+// level offers, so one memo across the two restricted levels answered the second from the first (before 2026-10-28 every
+// bridge level measured [x, x], and "exactly one bridge wins" could never be found)
+export async function bridgeChoicesWin(level){const E=await engine(),out=[];
+ for(let i=0;i<(level.hero?level.hero.choices.length:0);i++){const lv={...level,hero:{...level.hero,choices:[level.hero.choices[i]]}};out.push(solver(E,200000).winnable(E.idle.create(lv,level.capacity||5)));}
  return {each:out,ok:out.length>0&&out.every(x=>x===true)};}
 
 // the bridge as a choice (the owner, 2026-10-27: "надо выбрать, какой мост открывать"): for each bridge, whether it keeps a
 // winning continuation and the random test's share when only that bridge may be built; gap = best share − worst share
-export async function bridgeChoices(level,games=60,seed=5){const E=await engine(),win=(await bridgeChoicesWin(level)).each,each=[];
+// (win: each bridge's solver verdict when already known)
+export async function bridgeChoices(level,games=60,seed=5,known=null){const E=await engine(),win=known||(await bridgeChoicesWin(level)).each,each=[];
  for(let i=0;i<win.length;i++){let w=0;for(let g=0;g<games;g++)if(randomGame(E,level,seed*7919+g*104729+i,a=>a.type!=='bridge'||a.choice===i))w++;each.push({label:level.hero.choices[i].label,win:win[i],share:Math.round(w/games*100)/100});}
  const sh=each.map(x=>x.share);return {each,gap:Math.round((Math.max(...sh)-Math.min(...sh))*100)/100,better:sh.indexOf(Math.max(...sh))};}
 
@@ -148,12 +154,32 @@ export async function hiddenMatters(level,route){const E=await engine(),{idle:R}
 
 // the bridge as a decision (§8, from the second introduction): exactly one bridge keeps a winning continuation, proven
 // for the other, and random games reach each bridge site in some games (else there is no choice)
-export async function bridgeSingle(level,games=60,seed=3){const E=await engine(),{R,T}=E,win=(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
+export async function bridgeSingle(level,games=60,seed=3,known=null){const E=await engine(),{R,T}=E,win=known||(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
  for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*977+g);let k=0;
   while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));const br=m.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
    if(br.length||t.state.bridge>=0)break;if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;t.advance(t.steps[0].at-t.now);}}
  const wins=win.filter(x=>x===true).length,loses=win.filter(x=>x===false).length;
  return {each:win,offered:seen,ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}
+
+// the loss with the other bridge comes later (17 §8, the owner, 2026-10-28: "проигрыш наступает не сразу при выборе, а
+// позже, через материалы и места"): random games of the extended policy (§5; with restricted, games that may build only
+// that bridge); of the games that build it, the launches still made after the choice until the game ends (chosen: built
+// while another move was open; forced: built as the only move, with full places; won: such games won, 0 for a losing
+// bridge). ok: some game builds it, and at least half of them launch at least `min` pods after the choice (the random
+// policy taps whenever it can, so most bridges are built with full places; the launches after show whether the places
+// still turn over for a while)
+export async function bridgeLoss(level,choice,{games=120,seed=9,min=1,restricted=false}={}){const E=await engine(),{R,T}=E,after=[],forced=[];let won=0;
+ for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*7919+g*104729+1);let k=0,built=false,free=false,n=0;
+  const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)t.advance(0);};
+  const waitEvent=()=>{while(t.pending){const e=t.steps[0];t.advance(Math.max(0,e.at-t.now));if(isStateEvent(e))break;}settleNow();};
+  while(k++<200000){settleNow();if(t.state.status==='Won'){if(built)won++;break;}
+   const moves=R.legal(t.state).filter(a=>!t.check(a)&&(!restricted||a.type!=='bridge'||a.choice===choice)),canWait=t.steps.some(isStateEvent);
+   if(!moves.length){if(t.pending){waitEvent();continue;}break;}
+   const j=Math.floor(r()*(moves.length+(canWait?1:0)));if(j===moves.length){waitEvent();continue;}
+   const a=moves[j];if(a.type==='bridge'){if(a.choice===choice){built=true;free=moves.length>1;}}else if(built)n++;t.commit(a);}
+  if(built)(free?after:forced).push(n);}
+ const all=[...after,...forced].sort((a,b)=>a-b),median=all.length?all[Math.floor((all.length-1)/2)]:null;
+ return {choice,games,built:after.length+forced.length,chosen:after.length,forced:forced.length,won,medianLaunchesAfter:median,instant:all.length?Math.round(all.filter(x=>x===0).length/all.length*100)/100:null,ok:all.length>0&&median>=min};}
 
 // slot pressure (layer B of 17 §13, content/rounds/quality.json; the owner's note to v12 L9: full places with cells still
 // deep in the picture make a round interesting): along random games (a launch as soon as one is possible, uniform among

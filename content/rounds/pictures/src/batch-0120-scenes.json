@@ -1,0 +1,131 @@
+{
+ "created": "2026-10-28T14:06:23.106Z",
+ "from": "content/rounds/pictures/src/batch-0120.mjs",
+ "results": [
+  {
+   "index": 1,
+   "title": "Грибная поляна за ручьём",
+   "side": "up",
+   "kind": "better",
+   "cls": "Normal",
+   "recipe": "bridge",
+   "found": true,
+   "seconds": 35,
+   "opts": {
+    "a": "D",
+    "b": "A",
+    "depth": 3,
+    "win": 1,
+    "border": true
+   },
+   "N": 712,
+   "colours": 8,
+   "random": {
+    "share": 0.507,
+    "cls": "Normal"
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик вверх слева",
+      "win": true,
+      "share": 0.25
+     },
+     {
+      "label": "Мостик вверх справа",
+      "win": true,
+      "share": 0.35
+     }
+    ],
+    "gap": 0.1,
+    "better": 1
+   },
+   "bridgeKind": "better",
+   "bridgeLoss": null,
+   "forced": 0.07,
+   "opening": null
+  },
+  {
+   "index": 2,
+   "title": "Щенок у ручья",
+   "side": "left",
+   "found": false,
+   "tried": {
+    "scenes": 10,
+    "candidates": 40,
+    "reasons": {
+     "не тот класс по быстрой оценке q≈0.1": 6,
+     "мост: решает не ровно один (план single)": 19,
+     "не тот класс по быстрой оценке q≈0.2": 4,
+     "не тот класс по быстрой оценке q≈0.3": 2,
+     "не тот класс по быстрой оценке q≈0.9": 1,
+     "не тот класс по быстрой оценке q≈1": 2,
+     "не тот класс по быстрой оценке q≈0": 6
+    }
+   },
+   "budget": "7 min on a shared 4-core machine"
+  },
+  {
+   "index": 3,
+   "title": "Яблоня за рекой",
+   "side": "right",
+   "found": false,
+   "tried": {
+    "scenes": 10,
+    "candidates": 40,
+    "reasons": {
+     "мост: решает не ровно один (план single)": 18,
+     "не тот класс по быстрой оценке q≈0.3": 2,
+     "не тот класс по быстрой оценке q≈1": 10,
+     "не тот класс по быстрой оценке q≈0.9": 2,
+     "не тот класс по быстрой оценке q≈0.1": 4,
+     "не тот класс по быстрой оценке q≈0.2": 4
+    }
+   },
+   "budget": "7 min on a shared 4-core machine"
+  },
+  {
+   "index": 4,
+   "title": "Пещера с кристаллами",
+   "side": "two",
+   "found": false,
+   "tried": {
+    "scenes": 6,
+    "candidates": 24,
+    "reasons": {
+     "мост: решает не ровно один (план single)": 23,
+     "мост: с другим мостом проигрыш сразу при выборе (§8)": 1
+    }
+   },
+   "budget": "7 min on a shared 4-core machine"
+  },
+  {
+   "index": 5,
+   "title": "Цветочная лавка за каналом",
+   "side": "right",
+   "found": false,
+   "tried": {
+    "scenes": 10,
+    "candidates": 40,
+    "reasons": {
+     "не тот класс по быстрой оценке q≈0": 16,
+     "мост: решает не ровно один (план single)": 8,
+     "не тот класс по быстрой оценке q≈1": 5,
+     "не тот класс по быстрой оценке q≈0.7": 1,
+     "не тот класс по быстрой оценке q≈0.9": 3,
+     "не тот класс по быстрой оценке q≈0.1": 4,
+     "мост: с другим мостом проигрыш сразу при выборе (§8)": 2,
+     "не тот класс по быстрой оценке q≈0.8": 1
+    }
+   },
+   "budget": "7 min on a shared 4-core machine"
+  },
+  {
+   "index": 6,
+   "title": "Полка изобретателя",
+   "side": "two",
+   "found": false,
+   "note": "stopped: one Super Hard candidate evaluation ran past the 60-minute budget (the deadline is checked between candidates only)"
+  }
+ ]
+}

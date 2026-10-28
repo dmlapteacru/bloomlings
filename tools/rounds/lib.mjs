@@ -121,6 +121,8 @@ export function bridgeSide(level){if(!level||!level.hero)return null;const {w,h}
  cs.forEach((c,k)=>{if(comp[c.cell]<0)mark(c.cell,k);});return new Set(cs.map(c=>comp[c.cell])).size>1?'two':dirs[0];}
 // a planned side accepts a level's crossing: 'two' = different directions or different strips, else the same direction
 export const sideMatches=(side,planned)=>!planned||side===planned;
+// the index among a board's bridge choices of the site at picture coordinates [x, y] (top first), or -1
+export const siteChoice=(board,[x,y])=>board.hero?board.hero.choices.findIndex(c=>c.cell===(board.h-1-(y+2))*board.w+x+2):-1;
 
 // ---- the generator's wall over an approved picture (17 §8, plan variant A) ----
 // side 'up': a full-width horizontal wall row, the closed part above it, bridges cross up; 'left' / 'right': a full-height

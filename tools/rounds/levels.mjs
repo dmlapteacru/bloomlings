@@ -19,9 +19,9 @@
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
 // node tools/rounds/levels.mjs checks [--shard i/n] [--levels]  add missing checks (17 §5–§9, §13 layer B) to banked candidates and placed levels
 import fs from 'node:fs';import path from 'node:path';
-import {ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
+import {siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {fitness} from './fitness.mjs';
-import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure} from './measure.mjs';
+import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{},games:30,mode:'soft'}});import {engine} from './engine.mjs';
 const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
@@ -90,7 +90,7 @@ export function dosesOk(level,cls){const P=level.pods.length,hidden=level.pods.f
  const max=cls==='Normal'?2:3;if(types.length>max)return `типов ${types.length} больше ${max} для ${cls}`;if(P<16&&types.length>1)return 'очередь меньше 16 подов — только один тип';return null;}
 
 // ---- one candidate: order pods by access depth with noise, deal them into columns, add the recipe's mechanics ----
-export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){const r=rnd(seed),intended=recipe.includes('bridge')&&board.hero?Math.floor(r()*board.hero.choices.length):null,{d,g}=depths(board,intended),pods=base.map(p=>({...p}));
+export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opts={}){const r=rnd(seed),intended=recipe.includes('bridge')&&board.hero?(k=>Number.isInteger(opts.intended)?opts.intended:k)(Math.floor(r()*board.hero.choices.length)):null,{d,g}=depths(board,intended),pods=base.map(p=>({...p}));
  const byColour={};for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byColour[g[i]]=byColour[g[i]]||[]).push(d[i]);
  const maxD=Math.max(1,...Object.values(byColour).flat());
  for(const [c,ds] of Object.entries(byColour)){ds.sort((a,b)=>a-b);const ps=pods.filter(p=>p.color===c);let k=0;for(const p of ps){const slice=ds.slice(k,k+p.count);k+=p.count;p.key=slice.reduce((a,b)=>a+b,0)/slice.length/maxD;}}
@@ -110,6 +110,20 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
  if(cls!=='Normal'){const t=cls==='Hard'?.25+.65*r():.45+.55*r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  const ord=pods.map((p,i)=>i).sort((a,b)=>pods[a].order-pods[b].order),tray=Array.from({length:cols},()=>[]);
  for(let i=0;i<ord.length;i+=cols){const row=ord.slice(i,i+cols),cs=[...Array(cols).keys()].sort(()=>r()-.5).sort((a,b)=>tray[a].length-tray[b].length);row.forEach((p,j)=>tray[cs[j]].push(p));}
+ // a bridge scene (bridge-scene.mjs; opts.gate = a row of the tray, the owner, 2026-10-28: "подшаманить с лотами в
+ // начале, чтобы был только один выигрышный мост"): the strip right behind the other bridge is a gate of one colour; that
+ // colour's pods (but its first one when the colour also lies on the near bank, where that pod clears its bed) stand at least that deep, so with the other
+ // bridge the places fill with pods that find no work before the gate's pods come up
+ if(opts.gate&&intended!==null&&board.hero.choices.length===2){const o=board.hero.choices[1-intended],gc=g[2*o.cell-o.anchor];
+  if(CODES.includes(gc)){const d0=depths(board,-1).d,nearHas=[...g].some((ch,i)=>ch===gc&&d0[i]<Infinity),late=pods.map((p,i)=>i).filter(i=>pods[i].color===gc).sort((a,b)=>pods[a].key-pods[b].key).slice(nearHas?1:0);
+   for(const i of late){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i);if(k>=opts.gate)continue;
+    const to=[];tray.forEach((st,c2)=>st.forEach((q,k2)=>{if(k2>=opts.gate&&pods[q].color!==gc)to.push([c2,k2]);}));if(!to.length)break;
+    const [c2,k2]=to[Math.floor(r()*to.length)];[tray[c][k],tray[c2][k2]]=[tray[c2][k2],tray[c][k]];}
+   // opts.delay (a row): the pods of the other bridge's approach (its anchor's colour) stand at least that deep, so the
+   // winning bridge tends to be offered first and the other one later, in part of the games
+   const wc=g[o.anchor];if(opts.delay&&CODES.includes(wc)&&wc!==gc)for(const i of pods.map((p,i)=>i).filter(i=>pods[i].color===wc)){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i);if(k>=opts.delay)continue;
+    const to=[];tray.forEach((st,c2)=>st.forEach((q,k2)=>{if(k2>=opts.delay&&k2<opts.gate&&pods[q].color!==gc&&pods[q].color!==wc)to.push([c2,k2]);}));if(!to.length)break;
+    const [c2,k2]=to[Math.floor(r()*to.length)];[tray[c][k],tray[c2][k2]]=[tray[c2][k2],tray[c][k]];}}}
  // §6: at the start at least one visible launch has reachable work; else the shallowest pod swaps with a column's top
  const frontier=new Set();for(let i=0;i<g.length;i++)if(CODES.includes(g[i])&&d[i]===0)frontier.add(g[i]);
  if(!tray.some(st=>st.length&&frontier.has(pods[st[0]].color))){const best=ord.filter(i=>frontier.has(pods[i].color)).sort((a,b)=>pods[a].key-pods[b].key)[0];
@@ -139,6 +153,58 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null){co
  const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{})};
  return {level};}
 
+// ---- the checks of one candidate level (17 §5–§9, §13 layer B), shared by build and the bridge scene search ----
+// Returns {reason} for the first failed check, else the measured parts of a bank entry: random, solution, fairness,
+// strategies, rhythm, bridge, checks. kind (the wave plan's bridgeKind, single | better) asks for that bridge kind and
+// tests it early (the two solver runs come before the random test). A bridge level is 'first' (an introduction: both
+// win, one 10+ points better, 90 %+), 'single' (exactly one bridge wins, proven for the other, and the loss with the
+// other comes later through materials and places, not at the choice: bridgeLoss) or 'better' (not an introduction: both
+// win, one 10+ points better by the random test; the owner, 2026-10-28: a quarter of the wave's bridge levels).
+export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tick=()=>{}}){const W=m.N,recipe=level.recipe||'none';
+ const errs=checkPods(level.pods,m.volumes);if(errs.length)return {reason:'баланс'};
+ {const {R}=await engine(),ve=R.validate(level);if(ve&&ve.length)return {reason:'движок отклоняет: '+ve[0]};}
+ if(level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(level,level.capacity||5)).length)return {reason:'мост доступен сразу — нужен расчищенный подход (§8)'};}
+ // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
+ const q=await quickShare(level,40);tick('быстрая оценка '+q);const target=intro&&recipe==='bridge'?[.5,1]:intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
+ if(q<target[0]-.15||q>target[1]+.15)return {reason:'не тот класс по быстрой оценке',quick:q};
+ // the planned bridge kind first: each bridge alone solved (17 §8)
+ let win=null,early=null;if(kind&&level.hero){win=(await bridgeChoicesWin(level)).each;const t=win.filter(x=>x===true).length,f=win.filter(x=>x===false).length;tick('мосты '+JSON.stringify(win));
+  if(kind==='single'&&!(t===1&&f===win.length-1))return {reason:'мост: решает не ровно один (план single)'};
+  if(kind==='better'&&t!==win.length)return {reason:'мост: выигрывают не оба (план better)'};
+  if(kind==='single'){early=await bridgeLoss(level,win.indexOf(false));if(!early.ok)return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
+ // §5: a Hard or Super Hard that the greedy strategies win is not that class, whatever the random test says
+ const gr=cls==='Normal'?null:await greedy(level);if(gr&&!greedyBeaten(gr,cls))return {reason:'жадная стратегия выигрывает (§5)'};
+ // §5: at most 35 % of the decisions may offer a single launch
+ const forced=await forcedShare(level);if(!fixed&&forced>.35)return {reason:'вынужденных решений больше 35 % (§5)'};
+ const sol=await solve(level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won')return {reason:sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения'};
+ const rt=await randomTest(level);tick('случайный тест '+rt.share);if(rt.cls==='too hard')return {reason:'ниже 5 %'};
+ if(rt.cls!=='Normal'){const g2=gr||await greedy(level);if(!greedyBeaten(g2,rt.cls))return {reason:'жадная стратегия выигрывает измеренный класс (§5)'};}
+ // §5 "opening + colours" (the owner's second amendment of 2026-10-27): no first launch then greedy wins, ≤ 35 % after three
+ const opening=rt.cls==='Normal'?null:await openingTest(level,rt.cls);tick('дебют '+JSON.stringify(opening));if(opening&&!opening.ok)return {reason:opening.first.wins?'дебют + цвета: выигрывает после первого запуска (§5)':'дебют + цвета: больше 35 % после трёх запусков (§5)'};
+ if(intro&&recipe!=='bridge'&&rt.share<.9)return {reason:'знакомство ниже 90 %'};
+ const dErr=dosesOk(level,rt.cls);if(dErr&&!intro)return {reason:'дозы не подходят фактическому классу: '+dErr};
+ const fair=level.pods.some(p=>p.mystery)?await fairness(level,sol.route):{fair:true,checked:0};if(!fair.fair)return {reason:'честность скрытых не подтверждена'};
+ // §8: on a hidden-pod introduction one hidden pod matters (reveals early with a new colour and is launched soon)
+ const hm=level.pods.some(p=>p.mystery)?await hiddenMatters(level,sol.route):null;if(intro&&recipe==='hidden'&&!hm.ok)return {reason:'скрытый под не влияет на выбор (§8)'};
+ // a bridge level measures each bridge (§8, §9): the first introduction needs both to win and one clearly better; the
+ // second introduction and three quarters of the later bridge levels exactly one winning bridge, the rest both winning
+ // with one 10+ points better (the wave plan's bridgeKind decides which a position takes)
+ const bc=level.hero?await bridgeChoices(level,60,5,win):null,bs=level.hero?await bridgeSingle(level,60,3,win||bc.each.map(x=>x.win)):null;let bridgeKind=null,bl=null;
+ if(bc){const both=bc.each.every(x=>x.win===true)&&bc.gap>=.1;
+  if(intro&&both&&rt.share>=.9)bridgeKind='first';else if(bs.ok)bridgeKind='single';else if(!intro&&both)bridgeKind='better';
+  else return {reason:intro?'мост: ни «оба выигрывают, один лучше на 10 пунктов при 90 %+», ни «решает ровно один мост» (§8, §9)':'мост: ни «решает ровно один мост», ни «оба выигрывают, один лучше на 10 пунктов» (§8)'};
+  if(kind&&bridgeKind!==kind)return {reason:`мост: вид ${bridgeKind}, по плану ${kind} (§8)`};
+  // §8: with the other bridge the loss comes later, through materials and places, not at the choice
+  if(bridgeKind==='single'){bl=early||await bridgeLoss(level,bs.each.indexOf(false));tick('проигрыш с другим мостом '+JSON.stringify(bl));if(!bl.ok)return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
+ const st=await strategies(level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(level);
+ return {random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,...(bc?{bridge:bc}:{}),
+  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games)}};}
+
+// a bridge scene (bridge-scene.mjs, a picture whose record carries scene.win): the queue leans to the winning site and
+// the gate of the other strip stands deep (candidate opts), one of the last three rows of the tray by attempt
+export function sceneOpts(pic,board,P,cols,k){if(!pic.scene||!board.hero||!Array.isArray(pic.scene.win))return {};const rows=Math.ceil(P/cols),i=siteChoice(board,pic.scene.win);
+ return {gate:Math.max(3,rows-1-k%3),...(i>=0?{intended:i}:{})};}
+
 // ---- build: candidates for each picture, recipe and class, measured and banked ----
 const SIDES=['up','left','right','two'];
 async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',1),sides=arg('--overlay')?arg('--overlay').split(','):null;
@@ -166,39 +232,13 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
     const enough=()=>cls==='Normal'&&!intro&&!fixed?found>=4||(found>=2&&foundLoss>=1):found>=2;
     for(let k=0;k<budgetN&&!enough();k++){tried++;const cols=fixed?3:columnsFor(m.N)[k%columnsFor(m.N).length];
      const pos=recipe==='none'||intro?null:DOSE_CYCLE[k%DOSE_CYCLE.length];
-     const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+all.indexOf(recipe)*131+(intro?17:0)+(v.overlay?(SIDES.indexOf(v.side)+1)*523:0),intro,pos);
+     const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+all.indexOf(recipe)*131+(intro?17:0)+(v.overlay?(SIDES.indexOf(v.side)+1)*523:0),intro,pos,sceneOpts(pic,board,base.pods.length,cols,k));
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
-     const errs=checkPods(c.level.pods,m.volumes);if(errs.length){reasons['баланс']=(reasons['баланс']||0)+1;continue;}
-     {const {R}=await engine(),ve=R.validate(c.level);if(ve&&ve.length){const k='движок отклоняет: '+ve[0];reasons[k]=(reasons[k]||0)+1;continue;}}
      const tick=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{};const t0=Date.now();
-     if(c.level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(c.level,c.level.capacity||5)).length){reasons['мост доступен сразу — нужен расчищенный подход (§8)']=(reasons['мост доступен сразу — нужен расчищенный подход (§8)']||0)+1;continue;}}
-     // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
-     const q=await quickShare(c.level,40);tick('быстрая оценка '+q);const target=intro&&recipe==='bridge'?[.5,1]:intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
-     if(q<target[0]-.15||q>target[1]+.15){reasons['не тот класс по быстрой оценке']=(reasons['не тот класс по быстрой оценке']||0)+1;continue;}
-     // §5: a Hard or Super Hard that the greedy strategies win is not that class, whatever the random test says
-     const gr=cls==='Normal'?null:await greedy(c.level);if(gr&&!greedyBeaten(gr,cls)){reasons['жадная стратегия выигрывает (§5)']=(reasons['жадная стратегия выигрывает (§5)']||0)+1;continue;}
-     // §5: at most 35 % of the decisions may offer a single launch
-     const forced=await forcedShare(c.level);if(!fixed&&forced>.35){no('вынужденных решений больше 35 % (§5)');continue;}
-     const sol=await solve(c.level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won'){reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']=(reasons[sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения']||0)+1;continue;}
-     const rt=await randomTest(c.level);tick('случайный тест '+rt.share);if(rt.cls==='too hard'){reasons['ниже 5 %']=(reasons['ниже 5 %']||0)+1;continue;}
-     if(rt.cls!=='Normal'){const g2=gr||await greedy(c.level);if(!greedyBeaten(g2,rt.cls)){reasons['жадная стратегия выигрывает измеренный класс (§5)']=(reasons['жадная стратегия выигрывает измеренный класс (§5)']||0)+1;continue;}}
-     // §5 "opening + colours" (the owner's second amendment of 2026-10-27): no first launch then greedy wins, ≤ 35 % after three
-     const opening=rt.cls==='Normal'?null:await openingTest(c.level,rt.cls);tick('дебют '+JSON.stringify(opening));if(opening&&!opening.ok){no(opening.first.wins?'дебют + цвета: выигрывает после первого запуска (§5)':'дебют + цвета: больше 35 % после трёх запусков (§5)');continue;}
-     if(intro&&recipe!=='bridge'&&rt.share<.9){reasons['знакомство ниже 90 %']=(reasons['знакомство ниже 90 %']||0)+1;continue;}
-     const dErr=dosesOk(c.level,rt.cls);if(dErr&&!intro){reasons['дозы не подходят фактическому классу: '+dErr]=(reasons['дозы не подходят фактическому классу: '+dErr]||0)+1;continue;}
-     const fair=c.level.pods.some(p=>p.mystery)?await fairness(c.level,sol.route):{fair:true,checked:0};if(!fair.fair){reasons['честность скрытых не подтверждена']=(reasons['честность скрытых не подтверждена']||0)+1;continue;}
-     // §8: on a hidden-pod introduction one hidden pod matters (reveals early with a new colour and is launched soon)
-     const hm=c.level.pods.some(p=>p.mystery)?await hiddenMatters(c.level,sol.route):null;if(intro&&recipe==='hidden'&&!hm.ok){no('скрытый под не влияет на выбор (§8)');continue;}
-     // a bridge level measures each bridge (§8, §9): the first introduction needs both to win and one clearly better; the
-     // second introduction and every later bridge level need exactly one winning bridge
-     const bc=c.level.hero?await bridgeChoices(c.level):null,bs=c.level.hero?await bridgeSingle(c.level):null;let bridgeKind=null;
-     if(bc){const first=bc.each.every(x=>x.win===true)&&bc.gap>=.1&&rt.share>=.9;
-      if(intro&&first)bridgeKind='first';else if(bs.ok)bridgeKind='single';
-      else{no(intro?'мост: ни «оба выигрывают, один лучше на 10 пунктов при 90 %+», ни «решает ровно один мост» (§8, §9)':'мост: решением должен быть ровно один мост (§8)');continue;}}
-     const st=await strategies(c.level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(c.level);
-     bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:rt.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
-      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,dosePos:pos,...(bc?{bridge:bc}:{}),checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,pressure:await pressure(c.level,QUALITY.pressure.games)},engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
-     found++;if(greedyLoses)foundLoss++;}
+     const e=await evaluate(c.level,{m,cls,intro,fixed,tick});if(e.reason){no(e.reason);continue;}
+     bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
+      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:e.random,solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
+     found++;if(e.checks.greedyLoses)foundLoss++;}
     console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
     bank.searched.push({combo,tried,found,reasons});writeJSON(bankFile,bank);}}}
   writeJSON(bankFile,bank);}}
@@ -213,9 +253,11 @@ function recipeOk(c,n,slot,needMech){const t=typesOf(c).length;if(slot.intro)ret
 // greedy strategies losing from the start); every level from L4 offers a single launch in at most 35 % of decisions
 function greedyOk(c,n){const k=c.checks||{};if(n>=4&&!(k.forced<=.35))return false;if(c.cls==='Normal')return true;return !!(k.opening&&k.opening.ok);}
 // §8, §9: the bridge introductions (first: both bridges win, one clearly better; second: exactly one wins), every later
-// bridge level exactly one; a hidden-pod introduction needs a hidden pod that matters
-function mechOk(c,n,slot){const k=c.checks||{},second=slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
- if(c.recipe.includes('bridge'))return slot.intro==='bridge'&&!second?k.bridgeKind==='first':k.bridgeKind==='single';
+// bridge level the wave plan's bridgeKind (single: exactly one wins and the loss with the other comes later; better: both
+// win, one 10+ points better), single without a plan; a hidden-pod introduction needs a hidden pod that matters
+export function mechOk(c,n,slot,plan=null){const k=c.checks||{},second=slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
+ if(c.recipe.includes('bridge')){if(slot.intro==='bridge'&&!second)return k.bridgeKind==='first';const want=(!slot.intro&&plan&&plan.bridgeKind)||'single';
+  return k.bridgeKind===want&&(want!=='single'||!k.bridgeLoss||k.bridgeLoss.ok);}
  if(slot.intro==='hidden')return c.hidden>=2&&c.hidden<=3&&!!(k.hiddenMatters&&k.hiddenMatters.ok);return true;}
 const greedyLost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
 // §2 picture fitness: Hard and Super Hard need 3+ colours hidden at the start; a weak picture carries a Normal only with a mechanic
@@ -247,7 +289,7 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
    // motif variety (the owner, 2026-10-26): a motif at most once in any 10 levels
    &&!motifsOf(picture(c.picture)).some(m=>Object.values(placed).some(L=>Math.abs(L.level-n)<10&&motifsOf(picture(L.picture)).includes(m)))
    // the owner's amendment of 2026-10-27: recipes by class (§7), greedy strategies (§5), picture fitness (§2)
-   &&recipeOk(c,n,slot,needMech)&&greedyOk(c,n)&&fitOk(c,n)&&mechOk(c,n,slot)
+   &&recipeOk(c,n,slot,needMech)&&greedyOk(c,n)&&fitOk(c,n)&&mechOk(c,n,slot,plan)
    // §6: a regular Normal holds a place with a deep-colour pod in its first two rows
    &&!(regularSlot&&!(c.checks&&c.checks.hold))
    &&fitsPlan(c,plan));
@@ -278,7 +320,7 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   if(QUALITY.pressure.mode==='hard')for(let i=ok.length-1;i>=0;i--)if(pressureLow(ok[i]))ok.splice(i,1);
   ok.sort((a,b)=>score(a)-score(b));const c=ok[0];
   if(process.env.ROUNDS_TRACE)console.error(lid(n),'кандидатов',ok.length,ok.slice(0,6).map(c=>`${c.picture} ${c.recipe} ${Math.round(c.random.share*100)}% поз ${c.dosePos??'—'} балл ${score(c).toFixed(2)}`).join(' | '));
-  if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n),...(plan?{recipe:plan.recipe,...(plan.bridgeSide?{bridgeSide:plan.bridgeSide,strip:plan.strip||null}:{})}:{})});continue;}
+  if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n),...(plan?{recipe:plan.recipe,...(plan.bridgeSide?{bridgeSide:plan.bridgeSide,strip:plan.strip||null,bridgeKind:plan.bridgeKind||'single'}:{})}:{})});continue;}
   const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge,bridgeSide:c.bridgeSide??bridgeSide(c.level)}:{}),checks:c.checks,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
   writeJSON(path.join(LEVELS,lid(n)+'.json'),L);placed[n]=L;usedPic.add(c.picture);
   const e=m.pictures.find(p=>p.id===c.picture);if(e)e.usedBy=lid(n);const pf=path.join(PICTURES,c.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);
@@ -288,7 +330,7 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
  if(needs.length)console.log(`не заполнено ${needs.length}: ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+x.intro+')':''}${x.recipe?' '+x.recipe+(x.bridgeSide?' '+x.bridgeSide+(x.strip?'/'+x.strip:''):''):''}`).join(', ')} → content/rounds/needs.json`);}
 
 function card(n){const L=readJSON(path.join(LEVELS,lid(n)+'.json'));if(!L)return console.log('нет уровня',n);
- console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='first'?'оба выигрывают, один лучше':'решает ровно один'):''}`);}
+ console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='single'?'решает ровно один':'оба выигрывают, один лучше'):''}`);}
 
 if(cmd==='calendar'){const a=+process.argv[3]||1,b=+process.argv[4]||30;for(let n=a;n<=b;n++){const s=slotOf(n);console.log(lid(n),s.cls.padEnd(10),s.intro?('знакомство: '+MECH_RU[s.intro]+(SUPPORTED.has(s.intro)?'':' — НЕ ПОДДЕРЖИВАЕТСЯ ДВИЖКОМ')).padEnd(46):''.padEnd(46),'разрешены:',s.allowed.map(x=>MECH_RU[x]+(SUPPORTED.has(x)?'':' (нет в движке)')).join(', ')||'без допов');}}
 else if(cmd==='build'){const ids=flag('--approved')?(u=>manifest().pictures.filter(p=>p.status==='approved'&&!u[p.id]).map(p=>p.id))(usage()):process.argv.slice(3).filter(a=>/^P\d+$/.test(a));await build(ids);}
@@ -309,8 +351,9 @@ else if(cmd==='checks'){
  const fill=async c=>{const lv=typeof c.level==='object'?c.level:c.definition,st=c.strategies||{};let n=0;
   if(!c.checks){const opening=c.cls==='Normal'?null:await openingTest(lv,c.cls),hm=lv.pods.some(p=>p.mystery)?await hiddenMatters(lv,c.solution.route):null;
    const bs=lv.hero?await bridgeSingle(lv):null,bc=c.bridge||null;let bridgeKind=null;
-   if(bc){if(c.intro&&bc.each.every(x=>x.win===true)&&bc.gap>=.1&&c.random.share>=.9)bridgeKind='first';else if(bs.ok)bridgeKind='single';}
-   c.checks={forced:await forcedShare(lv),opening,hold:await holdPod(lv),greedyLoses:!st['most-now|left']&&!st['most-now|right'],hiddenMatters:hm,bridgeKind,bridgeSingle:bs};n++;}
+   if(bc){const both=bc.each.every(x=>x.win===true)&&bc.gap>=.1;if(c.intro&&both&&c.random.share>=.9)bridgeKind='first';else if(bs.ok)bridgeKind='single';else if(!c.intro&&both)bridgeKind='better';}
+   const bl=bridgeKind==='single'?await bridgeLoss(lv,bs.each.indexOf(false)):null;
+   c.checks={forced:await forcedShare(lv),opening,hold:await holdPod(lv),greedyLoses:!st['most-now|left']&&!st['most-now|right'],hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{})};n++;}
   if(!c.checks.pressure){c.checks.pressure=await pressure(lv,QUALITY.pressure.games);n++;}return n;};
  const files=(fs.existsSync(BANK)?fs.readdirSync(BANK):[]).sort().filter((f,i)=>i%sn===si);
  for(const f of files){const bf=path.join(BANK,f),b=readJSON(bf);let changed=0;for(const c of b.candidates)changed+=await fill(c);if(changed)writeJSON(bf,b);console.log(b.picture,'проверок добавлено',changed);}

@@ -90,8 +90,15 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
  const themes=readJSON(path.join(HERE,'themes.json'),{groups:[]}),famCount={};for(const p of all)if(p.family)famCount[p.family]=(famCount[p.family]||0)+1;
  const families=themes.groups.flatMap(g=>g.families.map(f=>f.name)).sort((x,y)=>(famCount[x]||0)-(famCount[y]||0)).slice(0,12).map(f=>`${f} (${famCount[f]||0})`);
  const stripTotal=strips.reduce((x,e)=>x+e.count,0);
+ // bridge scenes (tools/rounds/bridge-scene.mjs, the main path since 2026-10-28): each new-strip bridge position takes a
+ // scene composed from a smaller free pool picture (the far side behind a wall, crossed strips, near-bank beds) and searched
+ // until its planned bridge kind holds; approved free scene pictures of that side and stage already count
+ const sceneSources=pics.filter(p=>!p.stream&&p.N>=200&&p.N<=800).length;
+ const scenes=open.filter(isNew).map(q=>{const side=q.plan.bridgeSide,kind=q.plan.bridgeKind||'single',have=fitPics.filter(p=>p.stream&&p.pic.scene&&p.side===side&&p.fits.includes(q.level)).length;
+  return {level:q.level,cls:q.cls,side,kind,recipe:q.plan.recipe,have,command:`node tools/rounds/bridge-scene.mjs make --side ${side} --kind ${kind} --cls "${q.cls}" --recipe ${q.plan.recipe} --level ${q.level} --free --out content/rounds/pictures/src/scenes-NNNN.mjs`};});
+ const sceneTotal=scenes.filter(x=>!x.have).length;
  const out={range:[a,b],created:new Date().toISOString(),positions:positions.map(({plan:pl,...p})=>p),open:open.map(p=>p.level),blockers,...(mech?{mechanics:mech}:{}),need,supply:{pictures:have,strong:haveStrong,stream:haveStream,bank,...(mech?{overlay:ovSupply}:{})},
-  order:{total,strong,streams,byStage:orderByStage,sizeMix:Object.fromEntries(Object.entries(mix).map(([k,v])=>[k,Math.round(v*total)])),...(mech?{strips:strips.map(({levels,strongLevels,...e})=>({...e,levels}))}:{}),avoidMotifs:avoid,suggestFamilies:families}};
+  order:{total,strong,streams,byStage:orderByStage,sizeMix:Object.fromEntries(Object.entries(mix).map(([k,v])=>[k,Math.round(v*total)])),...(mech?{strips:strips.map(({levels,strongLevels,...e})=>({...e,levels})),scenes,sceneSources}:{}),avoidMotifs:avoid,suggestFamilies:families}};
  const dir=waveDir(a,b);writeJSON(path.join(dir,'plan.json'),out);
  const mechMd=mech?['## Разбор допов','',`Утверждён владельцем (\`runs/${lid(a)}-${lid(b)}/mechanics.json\`, 17 §13 шаг 1). Расстановка берёт на позицию только кандидата с этим рецептом и, для моста, с этой стороной перехода. Дозы по §7: ведущая — свой диапазон (при трёх типах нижняя половина), дополнительная — минимум; место дозы по кругу §7.`,'',
   '| Ур. | Класс | Ведущая | Дополнительные | Дозы | Мост: сторона | Полоса |','|---|---|---|---|---|---|---|',
@@ -112,6 +119,9 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
   ...(total?[`- По этапам: ${Object.entries(orderByStage).map(([k,v])=>`${k} — ${v}`).join('; ')}.`,`- По размеру (§2, на 30: 6 / 15 / 9): ${Object.entries(out.order.sizeMix).map(([k,v])=>`${k} — ${v}`).join('; ')}.`]:[]),
   ...(strong?[`- Из них сильных (3+ скрытых цвета на старте, под Hard и Super Hard): **${strong}**.`]:[]),
   ...(streams?[`- С ручьём и двумя местами моста: **${streams}**. За каждым местом свой участок дальнего берега, чтобы со второго знакомства решал один мост (§8).`]:[]),
+  ...(scenes.length?[`- **Сцены моста: нужно ${sceneTotal}** из ${scenes.length} позиций (\`bridge-scene.mjs make\`: картинка пула поменьше на дальнем берегу за стеной, две полосы за местами, грядки на ближнем берегу; поиск до вида моста по плану; черновик модуля → лист владельцу; источников в пуле — ${sceneSources}):`,
+   ...scenes.map(x=>`  - L${x.level} ${x.cls}, ${x.recipe}, переход ${SIDE_RU[x.side]}, ${x.kind==='better'?'оба выигрывают, один лучше на 10+':'решает ровно один'}${x.have?` — уже есть ${x.have}`:`: \`${x.command}\``}`),
+   '  - Вместо сцены можно нарисовать картинку с полосой вручную (ниже — сколько их понадобилось бы).']:[]),
   ...(stripTotal?[`- **Новые картинки с полосой и двумя местами моста: ${stripTotal}** (полоса — ручей, забор, стена; опора каждого места на ближнем берегу — цветная клетка; подходы из разных материалов; §8):`,
    ...strips.filter(e=>e.count).map(e=>`  - переход ${SIDE_RU[e.side]}${e.side==='two'?' (два места на разных полосах или в разные стороны)':''}, ${e.stage}: **${e.count}** для L${e.levels.join(', L')}${e.strong?`, из них сильных ${e.strong}`:''}${e.have?` (уже есть ${e.have})`:''}`)]:[]),
   `- Не рисовать (мотив 3+ раз): ${avoid.join(', ')||'—'}.`,`- Реже всего в пуле семьи: ${families.join(', ')}.`,''].join('\n');
@@ -123,6 +133,8 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  const state=readJSON(path.join(dir,'state.json'),{steps:[]}),step=(name,extra={})=>{state.steps.push({name,at:new Date().toISOString(),...extra});writeJSON(path.join(dir,'state.json'),state);console.log(`[${((Date.now()-t0)/60000).toFixed(1)} мин] ${name}`,Object.keys(extra).length?JSON.stringify(extra):'');};
  // positions whose introduction the engine does not play stay open and are reported (17 §14); the rest of the wave runs
  const p=plan(a,b);if(p.blockers.length)step('позиции без поддержки движка остаются открытыми',{blockers:p.blockers});
+ // bridge positions of strip "new" take approved scene pictures (bridge-scene.mjs); those without one stay open until made
+ const noScene=(p.order.scenes||[]).filter(x=>!x.have);if(noScene.length)step('сцены моста ещё не сделаны и не утверждены (bridge-scene.mjs make)',{levels:noScene.map(x=>x.level)});
  // 1. what the bank fills already: a placement on a copy of content/rounds (with the waves' mechanics plans)
  const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-'));fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||fs.statSync(s).isDirectory()});
   await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp});const needs=(readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);fs.rmSync(tmp,{recursive:true,force:true});return needs;};

@@ -8,7 +8,7 @@ import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,c
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
 import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure} from './measure.mjs';
-import {INTRO} from './lib.mjs';
+import {INTRO,planOf} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
 const QUALITY=readJSON(path.join(path.dirname(LEVELS),'quality.json'),{pressure:{min:{},games:30,mode:'soft'},launchesAfter80:{}});
@@ -71,7 +71,11 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(d.hero){if(R.bridgeChoices(s0).length)bad.push('мост доступен сразу, без расчищенного подхода (§8)');
   if(slot.intro==='bridge'&&!secondIntro){const w=await bridgeChoicesWin(d);if(!w.ok)bad.push(`первое знакомство с мостом: не каждый мост ведёт к победе ${JSON.stringify(w.each)} (§9)`);
    if(L.bridge&&L.bridge.gap<.1)bad.push(`выбор моста почти не важен (разница ${Math.round(L.bridge.gap*100)} пунктов, §8)`);}
-  else{const b=await bridgeSingle(d);if(!b.ok)bad.push(`мост: решением должен быть ровно один мост и оба места должны встречаться (${JSON.stringify(b.each)}, предложено ${b.offered.join('/')}; §8)`);}}
+  // later bridge levels: the wave plan's bridgeKind (the owner, 2026-10-28: three quarters single, a quarter better)
+  else if(!slot.intro&&(planOf(L.level)||{}).bridgeKind==='better'){const w=await bridgeChoicesWin(d);if(!w.ok)bad.push(`мост (план better): должны выигрывать оба моста ${JSON.stringify(w.each)} (§8)`);
+   if(!L.bridge||L.bridge.gap<.1)bad.push(`мост (план better): один мост должен быть лучше не меньше чем на 10 пунктов (разница ${L.bridge?Math.round(L.bridge.gap*100):'—'}, §8)`);}
+  else{const b=await bridgeSingle(d);if(!b.ok)bad.push(`мост: решением должен быть ровно один мост и оба места должны встречаться (${JSON.stringify(b.each)}, предложено ${b.offered.join('/')}; §8)`);
+   const bl=L.checks&&L.checks.bridgeLoss;if(bl&&!bl.ok)bad.push(`мост: с другим мостом проигрыш сразу при выборе (медиана запусков после выбора ${bl.medianLaunchesAfter}; §8)`);}}
  // the owner's amendment of 2026-10-27: greedy strategies lose Hard / Super Hard (§5), recipes by class (§7), picture fitness (§2)
  // the owner's second amendment of 2026-10-27: "opening + colours" for Hard / Super Hard, forced decisions ≤ 35 %, a pod
  // holding a place in a regular Normal (§5, §6)

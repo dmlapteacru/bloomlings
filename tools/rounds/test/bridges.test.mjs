@@ -111,7 +111,7 @@ test('doses: one additional at its minimum (links an even count), three types th
  assert.match(LV.candidate(p,L.boardOf(p,ov),LV.splitPods(m.volumes,m.N,null).pods,3,'links','Normal',1,false).error,/нужен рецепт с мостом/);});
 
 test('the mechanics plan: planOf reads the approved mechanics.json, fitsPlan wants its recipe and bridge side',()=>{
- assert.deepEqual(L.planOf(33),{level:33,cls:'Normal',lead:'bridge',add:['hidden'],recipe:'bridge+hidden',bridgeSide:'left',strip:'overlay'});
+ assert.deepEqual(L.planOf(33),{level:33,cls:'Normal',lead:'bridge',add:['hidden'],recipe:'bridge+hidden',bridgeSide:'left',strip:'overlay',bridgeKind:'single'});
  assert.equal(L.planOf(20),null);
  const p=L.picture('P0012'),lvl=side=>{const ov=L.wallOverlay(p,side,1),b=L.boardOf(p,ov);return {w:b.w,h:b.h,rowsBottomFirst:b.rowsBottomFirst,hero:b.hero};};
  const plan={recipe:'bridge+hidden',bridgeSide:'left'};
