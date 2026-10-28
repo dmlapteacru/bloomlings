@@ -25,7 +25,7 @@ namespace Bloomlings.Playtest.Design
             Box[] cells=ScreenLayout.Row(tray,3,0,float.MaxValue,false);
             string[] labels={PlaytestText.T("common.restart"),PlaytestText.T("pause.settings"),PlaytestText.T("pause.home")};
             string[] icons={"ui.restart","ui.settings","ui.star"};
-            Action[] actions={()=>{app.CloseOverlay();app.Level?.Restart();},()=>app.OpenOverlay(Overlay.Settings),app.GoHome};
+            Action[] actions={()=>{app.CloseOverlay();app.Level?.Restart();app.Round?.Restart();},()=>app.OpenOverlay(Overlay.Settings),app.GoHome};
             for(int i=0;i<cells.Length;i++)
             {
                 Box cell=cells[i];Box icon=PopupDesign.CellIcon(cell);

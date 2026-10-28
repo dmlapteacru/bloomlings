@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Core.Boards;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
 
@@ -341,6 +342,207 @@ namespace Bloomlings.Client.UI.Design
             }
 
             return null;
+        }
+
+        // ---- Round levels (spec 006 FR-061, T030) ----
+
+        /// <summary>
+        /// The steps before play on round level <paramref name="level"/> (spec 006 FR-061): Level 1's entry and forced first
+        /// tap on a top pod whose material is within reach; else a booster's demo at its unlock (Extra Slot L3, Shuffle L4,
+        /// Bloom Burst L9; Return waits, <see cref="WhenSettled(Func{string, bool}, Func{BoosterKind, bool}, RoundTimeline)"/>);
+        /// else the blocked-entry spotlight on the first level that starts with a top pod's material out of reach.
+        /// </summary>
+        public static IReadOnlyList<GuideStep> AtStart(int level, Func<string, bool> seen, Func<BoosterKind, bool> unlocked, RoundTimeline timeline)
+        {
+            if (timeline.Status != RoundStatus.Playing)
+            {
+                return Array.Empty<GuideStep>();
+            }
+
+            if (level == 1 && !seen(FirstTapId))
+            {
+                var steps = new List<GuideStep>();
+                if (!seen(EntryId))
+                {
+                    steps.Add(new GuideStep(GuideKind.Entry, EntryId, null, false, "demo.entry"));
+                }
+
+                if (FirstTapPod(timeline) >= 0)
+                {
+                    steps.Add(new GuideStep(GuideKind.FirstTap, FirstTapId, null, true, "demo.first_tap"));
+                }
+
+                return steps;
+            }
+
+            foreach (BoosterKind kind in AtStartBoosters)
+            {
+                if (unlocked(kind) && !seen(BoosterId(kind)) && CanUse(timeline, kind))
+                {
+                    return BoosterSteps(kind);
+                }
+            }
+
+            if (level >= 2 && !seen(BlockedId) && BlockedStart(timeline))
+            {
+                return new[] { new GuideStep(GuideKind.Blocked, BlockedId, null, false, "demo.entry_blocked.1", "demo.entry_blocked.2") };
+            }
+
+            return Array.Empty<GuideStep>();
+        }
+
+        /// <summary>
+        /// Return's demo on a round level: the first moment after Return's unlock (L6) that a pod waits in a place with work
+        /// left and no walker on the way, the only time Return can take it back (FR-012).
+        /// </summary>
+        public static IReadOnlyList<GuideStep> WhenSettled(Func<string, bool> seen, Func<BoosterKind, bool> unlocked, RoundTimeline timeline)
+        {
+            if (timeline.Status == RoundStatus.Won || !unlocked(BoosterKind.Return) || seen(BoosterId(BoosterKind.Return)) || ReturnPod(timeline) < 0)
+            {
+                return Array.Empty<GuideStep>();
+            }
+
+            return BoosterSteps(BoosterKind.Return);
+        }
+
+        /// <summary>Whether a booster would do something on the round level now (its forced demo needs a real effect).</summary>
+        public static bool CanUse(RoundTimeline timeline, BoosterKind kind)
+        {
+            switch (kind)
+            {
+                case BoosterKind.ExtraSlot:
+                    return RoundBoosters.CanExtraSlot(timeline) == RoundRefusal.None;
+                case BoosterKind.Shuffle:
+                    return RoundBoosters.CanShuffle(timeline) == RoundRefusal.None;
+                case BoosterKind.Return:
+                    return ReturnPod(timeline) >= 0;
+                default:
+                    return BurstMaterials(timeline).Count > 0;
+            }
+        }
+
+        /// <summary>The pod of the first place that Return can send back now, or -1.</summary>
+        public static int ReturnPod(RoundTimeline timeline)
+        {
+            int[] slots = timeline.State.Slots;
+            for (int k = 0; k < slots.Length; k++)
+            {
+                if (slots[k] >= 0 && RoundBoosters.CanReturn(timeline, slots[k]) == RoundRefusal.None)
+                {
+                    return slots[k];
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>The materials (<see cref="RoundMaterial.Codes"/>) Bloom Burst can take on the round level now.</summary>
+        public static IReadOnlyList<char> BurstMaterials(RoundTimeline timeline)
+        {
+            var codes = new List<char>();
+            foreach (char code in RoundMaterial.Codes)
+            {
+                if (RoundBoosters.CanBloomBurst(timeline, code) == RoundRefusal.None)
+                {
+                    codes.Add(code);
+                }
+            }
+
+            return codes;
+        }
+
+        /// <summary>A top pod the player can tap whose material is within reach (its walkers set off at once), or -1.</summary>
+        public static int FirstTapPod(RoundTimeline timeline)
+        {
+            RoundState s = timeline.State;
+            bool[] reachable = ReachableMaterials(s);
+            foreach (int pod in RoundRules.TopPods(s))
+            {
+                if (s.Revealed[pod] && reachable[s.Prepared.Colours[pod]] && RoundRules.CanTap(s, pod) == RoundRefusal.None)
+                {
+                    return pod;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>Whether a revealed top pod's material has no cube in reach while another material has: the way is blocked for it.</summary>
+        public static bool BlockedStart(RoundTimeline timeline)
+        {
+            RoundState s = timeline.State;
+            bool[] reachable = ReachableMaterials(s);
+            if (Array.IndexOf(reachable, true) < 0)
+            {
+                return false;
+            }
+
+            foreach (int pod in RoundRules.TopPods(s))
+            {
+                if (s.Revealed[pod] && !reachable[s.Prepared.Colours[pod]])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// The cubes that keep the others out of reach on a round level: every cube in reach, and the cubes of its material
+        /// joined to it side by side (rules' cell indices).
+        /// </summary>
+        public static IReadOnlyList<int> BlockingCells(RoundTimeline timeline)
+        {
+            RoundState s = timeline.State;
+            int[] neighbours = s.Prepared.Neighbours;
+            var cells = new List<int>();
+            var seen = new HashSet<int>();
+            var queue = new Queue<int>();
+            foreach (int start in s.Reach().Targets)
+            {
+                if (seen.Add(start))
+                {
+                    queue.Enqueue(start);
+                }
+            }
+
+            while (queue.Count > 0)
+            {
+                int cell = queue.Dequeue();
+                cells.Add(cell);
+                for (int d = 0; d < 4; d++)
+                {
+                    int next = neighbours[(cell * 4) + d];
+                    if (next >= 0 && s.Board[next] == s.Board[cell] && seen.Add(next))
+                    {
+                        queue.Enqueue(next);
+                    }
+                }
+            }
+
+            return cells;
+        }
+
+        /// <summary>The material of the cubes that block the way (the blocked spotlight's icon): the nearest cube's, or -1.</summary>
+        public static int BlockingMaterial(RoundTimeline timeline)
+        {
+            IReadOnlyList<int> targets = timeline.State.Reach().Targets;
+            return targets.Count > 0 ? timeline.State.Board[targets[0]] : -1;
+        }
+
+        private static bool[] ReachableMaterials(RoundState s)
+        {
+            var reachable = new bool[RoundMaterial.Codes.Length];
+            foreach (int cell in s.Reach().Targets)
+            {
+                if (s.Board[cell] >= 0)
+                {
+                    reachable[s.Board[cell]] = true;
+                }
+            }
+
+            return reachable;
         }
     }
 }

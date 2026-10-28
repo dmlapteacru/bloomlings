@@ -33,8 +33,8 @@ namespace Bloomlings.Playtest.Design
         Profile,
 
         /// <summary>
-        /// A round level (spec 006) until the level screen plays the round rules (T026): the board shown still
-        /// (<see cref="RoundLevelPlaceholder"/>). Only a build with round content opens it.
+        /// A round level (spec 006) on the round rules' live timeline (<see cref="RoundLevelScreen"/>). Only a build with
+        /// round content opens it.
         /// </summary>
         RoundLevel,
     }
@@ -189,8 +189,14 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public IRoundLevelSource? Rounds { get; }
 
-        /// <summary>The round level <see cref="Screen.RoundLevel"/> shows (0 when none).</summary>
-        public int RoundLevelNumber { get; private set; }
+        /// <summary>The round level <see cref="Screen.RoundLevel"/> plays (0 when none).</summary>
+        public int RoundLevelNumber => Round?.Level ?? 0;
+
+        /// <summary>The round level screen (spec 006 T026), while <see cref="Screen.RoundLevel"/> shows.</summary>
+        public RoundLevelScreen? Round { get; private set; }
+
+        /// <summary>A round level made ahead for its pictures (the splash, an idle Home), taken when it opens.</summary>
+        private RoundLevelScreen? _preparedRound;
 
         /// <summary>Whether Play can start a level: always with round content (past the last one it says "new levels soon").</summary>
         public bool CanStartLevel => Rounds != null || Content.LevelCount > 0;
@@ -335,6 +341,7 @@ namespace Bloomlings.Playtest.Design
             || SplashOpening
             || Transitioning
             || (Level != null && Screen == Screen.Level && Level.NeedsFrames)
+            || (Round != null && Screen == Screen.RoundLevel && Round.NeedsFrames)
             || (_overlays.Count > 0 && Now - _overlays[_overlays.Count - 1].OpenedAt < 0.4f)
             || (_homeToastUntil > Now)
             || (Screen == Screen.Home && (_overlays.Count == 0 || HomeMoving))
@@ -354,6 +361,7 @@ namespace Bloomlings.Playtest.Design
             (_overlays.Count == 0 || Now - _overlays[_overlays.Count - 1].OpenedAt >= 0.4f)
             && _homeToastUntil <= Now
             && ((Screen == Screen.Level && Level != null && Level.OnlyCelebrating)
+                || (Screen == Screen.RoundLevel && Round != null && Round.OnlyCelebrating)
                 || (Screen == Screen.Home && _overlays.Count > 0 && !IsOpen(Overlay.DailyReward))
                 || (Screen == Screen.Store && StoreMoving && _overlays.Count == 0));
 
@@ -448,9 +456,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Opens round level <paramref name="levelNumber"/> (spec 006), or "new levels soon" past the last one. Until the
-        /// level screen plays the round rules (T026) the level shows still (<see cref="Screen.RoundLevel"/>,
-        /// <see cref="RoundLevelPlaceholder"/>): the one place that will start the round level screen instead.
+        /// Opens round level <paramref name="levelNumber"/> (spec 006 T026) on the round rules' level screen, or "new levels
+        /// soon" past the last one: the one place every round level starts.
         /// </summary>
         private void OpenRound(int levelNumber)
         {
@@ -464,8 +471,50 @@ namespace Bloomlings.Playtest.Design
             Level = null;
             _firstPreparedLevel = null;
             _levelPrepared = true;
-            RoundLevelNumber = Math.Max(1, levelNumber);
+            int number = Math.Max(1, levelNumber);
+            Round = _preparedRound?.Level == number ? _preparedRound : MakeRound(number);
+            _preparedRound = null;
+            Round.RestartIntroAnimation();
             Screen = Screen.RoundLevel;
+        }
+
+        /// <summary>Plays a given round level screen (the preview's and the frame-time harness's synthetic boards).</summary>
+        public void ShowRound(RoundLevelScreen screen)
+        {
+            ClearOverlays();
+            Level = null;
+            _firstPreparedLevel = null;
+            _levelPrepared = true;
+            Round = screen;
+            Screen = Screen.RoundLevel;
+        }
+
+        /// <summary>A round level's screen from the round source, with its picture when the source carries it.</summary>
+        private RoundLevelScreen MakeRound(int number)
+        {
+            Bloomlings.Core.Rounds.RoundLevel level = Rounds!.GetLevel(number);
+            RoundPicture? picture = null;
+            try
+            {
+                picture = Rounds.GetPicture(level);
+            }
+            catch (Exception error) when (error is ContentIntegrityException || error is KeyNotFoundException || error is InvalidOperationException)
+            {
+                // The win then shows the level's own rows as its finished picture.
+            }
+
+            return new RoundLevelScreen(this, number, level, picture);
+        }
+
+        /// <summary>Draws round level <paramref name="number"/> ahead for its pictures (the splash, an idle Home).</summary>
+        private void WarmRound(IPainter p, int number)
+        {
+            if (_preparedRound?.Level != number)
+            {
+                _preparedRound = MakeRound(number);
+            }
+
+            _preparedRound.Draw(p);
         }
 
         /// <summary>Home with the "new levels soon" card over it (spec 006 FR-060, T028).</summary>
@@ -493,7 +542,7 @@ namespace Bloomlings.Playtest.Design
 
             ClearOverlays();
             Level = null;
-            RoundLevelNumber = 0;
+            Round = null;
             Screen = Screen.Home;
             _promoOpenedAt = Now;
 
@@ -1180,7 +1229,8 @@ namespace Bloomlings.Playtest.Design
                     Level.Draw(p);
                     break;
                 case Screen.RoundLevel:
-                    RoundLevelPlaceholder.Draw(p, this);
+                    Round!.Advance(dt);
+                    Round.Draw(p);
                     break;
             }
 
@@ -1278,7 +1328,7 @@ namespace Bloomlings.Playtest.Design
         {
             if (_firstLaunch && Rounds != null)
             {
-                if (!NewLevelsSoon(Meta.CurrentLevel)) RoundLevelPlaceholder.Draw(p, this, Meta.CurrentLevel);
+                if (!NewLevelsSoon(Meta.CurrentLevel)) WarmRound(p, Meta.CurrentLevel);
                 else HomeScreen.Draw(p, this);
             }
             else if (_firstLaunch)
@@ -1366,7 +1416,7 @@ namespace Bloomlings.Playtest.Design
                 default:
                     if (Rounds != null)
                     {
-                        if (!NewLevelsSoon(Meta.CurrentLevel)) RoundLevelPlaceholder.Draw(p, this, Meta.CurrentLevel);
+                        if (!NewLevelsSoon(Meta.CurrentLevel)) WarmRound(p, Meta.CurrentLevel);
                         break;
                     }
 

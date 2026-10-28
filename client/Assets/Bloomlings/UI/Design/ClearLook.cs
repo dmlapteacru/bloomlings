@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 
 namespace Bloomlings.Client.UI.Design
@@ -14,13 +15,33 @@ namespace Bloomlings.Client.UI.Design
     public readonly struct ClearWalk
     {
         public ClearWalk(IReadOnlyList<(float X, float Y)> points, VariantId variant, float start, float arrival, Box? seat)
+            : this(points, variant, start, arrival, seat, -1, float.NaN, float.NaN, float.NaN)
+        {
+        }
+
+        private ClearWalk(IReadOnlyList<(float X, float Y)> points, VariantId variant, float start, float arrival, Box? seat, int material, float arriveAt, float clearAt, float doneAt)
         {
             Points = points;
             Variant = variant;
             Start = start;
             Arrival = arrival;
             Seat = seat;
+            Material = material;
+            ArriveAt = arriveAt;
+            ClearAt = clearAt;
+            DoneAt = doneAt;
         }
+
+        /// <summary>
+        /// A round level's walk on the live timeline (spec 006 FR-042, FR-048, contracts/presentation.md): it sets off at
+        /// <paramref name="start"/>, reaches its cell at <paramref name="arrive"/>, acts until the rules clear the cell at
+        /// <paramref name="clear"/> and walks back until <paramref name="done"/> (the timeline's depart, arrive, clear and
+        /// return, in seconds of the host's clock). Its tiles and its walker are of the round <paramref name="material"/>
+        /// (<see cref="RoundMaterial.Index"/>): the plain cube, and the hero of the material's family tinted in its colour.
+        /// <paramref name="variant"/> is a variant of that family, for hosts that draw only variants.
+        /// </summary>
+        public static ClearWalk Live(IReadOnlyList<(float X, float Y)> points, int material, VariantId variant, float start, float arrive, float clear, float done, Box? seat) =>
+            new ClearWalk(points, variant, start, clear - start, seat, material, arrive, clear, done);
 
         public IReadOnlyList<(float X, float Y)> Points { get; }
 
@@ -32,6 +53,21 @@ namespace Bloomlings.Client.UI.Design
 
         public Box? Seat { get; }
 
+        /// <summary>The round material of a live walk (<see cref="Live"/>), or -1.</summary>
+        public int Material { get; }
+
+        /// <summary>A live walk's arrival at its cell (NaN for a legacy walk).</summary>
+        public float ArriveAt { get; }
+
+        /// <summary>A live walk's clear: the rules clear its cell (NaN for a legacy walk).</summary>
+        public float ClearAt { get; }
+
+        /// <summary>A live walk's return home (NaN for a legacy walk).</summary>
+        public float DoneAt { get; }
+
+        /// <summary>Whether the walk's legs come from the live timeline (<see cref="Live"/>) instead of <see cref="ClearStyles.LegsOf"/>.</summary>
+        public bool IsLive => !float.IsNaN(ClearAt);
+
         /// <summary>The route's cells (the door is not one).</summary>
         public int Cells => Math.Max(1, Points.Count - 1);
 
@@ -41,13 +77,17 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>A tile the rules just cleared at <see cref="Start"/>: its cell's center, its variant and its slot's seat.</summary>
     public readonly struct ClearFade
     {
-        public ClearFade((float X, float Y) center, VariantId variant, float start, Box? seat)
+        public ClearFade((float X, float Y) center, VariantId variant, float start, Box? seat, int material = -1)
         {
             Center = center;
             Variant = variant;
             Start = start;
             Seat = seat;
+            Material = material;
         }
+
+        /// <summary>The round material of a round level's cleared cube (spec 006), or -1.</summary>
+        public int Material { get; }
 
         public (float X, float Y) Center { get; }
 
@@ -99,6 +139,12 @@ namespace Bloomlings.Client.UI.Design
         public static bool Holds(ClearStyle style, in ClearWalk walk, float now)
         {
             Spot spot = Locate(style, walk, now);
+            if (walk.IsLive)
+            {
+                // Live: the cube is the look's from the arrival to the rules' clear; then the board shows the cleared cell.
+                return spot.Leg == Leg.Act;
+            }
+
             return spot.Leg == Leg.Act || spot.Leg == Leg.Back || spot.Leg == Leg.Fin;
         }
 
@@ -112,6 +158,15 @@ namespace Bloomlings.Client.UI.Design
             }
 
             list.Slot = SlotOf(style);
+            list.Material = walk.Material;
+            if (walk.IsLive && spot.Leg == Leg.Back && style != ClearStyle.Munchers && style != ClearStyle.Pushers)
+            {
+                LiveReturn(list, style, walk, spot, now);
+                list.Material = -1;
+                list.Layer = FxLayer.Board;
+                return;
+            }
+
             switch (style)
             {
                 case ClearStyle.Munchers:
@@ -137,7 +192,42 @@ namespace Bloomlings.Client.UI.Design
                     break;
             }
 
+            list.Material = -1;
             list.Layer = FxLayer.Board;
+        }
+
+        /// <summary>
+        /// A live walk's way back (spec 006 contracts/presentation.md: the walkers "return until done") in a style without a
+        /// walk home of its own: the style's last leg plays at the cell (Fireflies' swarm, Bubbles' bubble, Fireworks'
+        /// sparkles, flying to the pod's place), and the walker walks back along its route, fading in as the style's own
+        /// figure at the cell fades out.
+        /// </summary>
+        private static void LiveReturn(FxList list, ClearStyle style, in ClearWalk walk, Spot spot, float now)
+        {
+            if (style == ClearStyle.Fireflies || style == ClearStyle.Bubbles || style == ClearStyle.Fireworks)
+            {
+                Spot fin = spot;
+                fin.Leg = Leg.Fin;
+                fin.Walking = false;
+                (fin.X, fin.Y) = walk.Target;
+                if (style == ClearStyle.Fireflies)
+                {
+                    Fireflies(list, walk, fin, now);
+                }
+                else if (style == ClearStyle.Bubbles)
+                {
+                    Bubbles(list, walk, fin, now);
+                }
+                else
+                {
+                    Fireworks(list, walk, fin);
+                }
+            }
+
+            list.Layer = FxLayer.Board;
+            list.PushAlpha(Smooth(spot.U / 0.3f));
+            Walking(list, walk, spot, style == ClearStyle.Parade ? ParadeSize : WalkerSize);
+            list.Pop();
         }
 
         /// <summary>A just-cleared tile's items: Blossom's flower fading into the picture, the Parade's confetti, the slot's ring.</summary>
@@ -152,7 +242,7 @@ namespace Bloomlings.Client.UI.Design
             list.Slot = SlotOf(style);
             list.Layer = FxLayer.Board;
             (float x, float y) = fade.Center;
-            Rgba color = ColorOf(fade.Variant);
+            Rgba color = fade.Material >= 0 ? RoundLook.ColorOf(fade.Material) : ColorOf(fade.Variant);
             if (style == ClearStyle.Blossom)
             {
                 float k = t / 0.9f;
@@ -163,7 +253,7 @@ namespace Bloomlings.Client.UI.Design
                     Flower(list, x, y, 1.15f * (1f - (0.35f * fadeOut)), 40f + (6f * (float)Math.Sin(k * Math.PI * 3f)), color);
                     list.Pop();
                     float sp = Clamp01(k / 0.8f);
-                    if (IsDrop(fade.Variant))
+                    if (fade.Material >= 0 ? RoundMaterial.All[fade.Material].Family == Family.Drop : IsDrop(fade.Variant))
                     {
                         // The Drop family's tiles splash two droplets instead (fx.droplet).
                         Rgba splash = color.Lighten(0.72f).WithAlpha(1f - sp);
@@ -247,7 +337,7 @@ namespace Bloomlings.Client.UI.Design
             float g = Clamp01((u - 0.3f) / 0.6f);
             if (g > 0f)
             {
-                Flower(list, tile.CenterX, tile.CenterY, 1.15f * Back(g), g * 40f, ColorOf(walk.Variant));
+                Flower(list, tile.CenterX, tile.CenterY, 1.15f * Back(g), g * 40f, ColorOf(walk));
             }
 
             // The Bloomling hops once on its tile and sinks into it.
@@ -286,7 +376,7 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     Body(list, spot.X, y, WalkerSize, 0f, 0f, 1f + (0.08f * chew) + (0.16f * gulp), 1f - (0.08f * chew) - (0.06f * gulp), 1f, walk.Variant);
-                    Crumbs(list, tile, u, walk.Variant);
+                    Crumbs(list, tile, u, ColorOf(walk));
                     return;
                 }
 
@@ -466,7 +556,7 @@ namespace Bloomlings.Client.UI.Design
         private static void Fireworks(FxList list, in ClearWalk walk, Spot spot)
         {
             Box tile = TileAt(walk.Target);
-            Rgba color = ColorOf(walk.Variant);
+            Rgba color = ColorOf(walk);
             switch (spot.Leg)
             {
                 case Leg.Out:
@@ -540,7 +630,7 @@ namespace Bloomlings.Client.UI.Design
             Box tile = TileAt(walk.Target);
             if (spot.Leg == Leg.Out)
             {
-                Rgba tint = ColorOf(walk.Variant).Lighten(0.3f);
+                Rgba tint = ColorOf(walk).Lighten(0.3f);
                 for (int d = 1; d <= 3; d++)
                 {
                     Spot back = Locate(ClearStyle.Parade, walk, now - (d * 0.16f));
@@ -645,9 +735,8 @@ namespace Bloomlings.Client.UI.Design
             return Lerp(left, 0f, Smooth((u - 0.8f) / 0.07f));
         }
 
-        private static void Crumbs(FxList list, Box tile, float u, VariantId variant)
+        private static void Crumbs(FxList list, Box tile, float u, Rgba color)
         {
-            Rgba color = ColorOf(variant);
             float[] at = { 0.32f, 0.56f, 0.8f };
             for (int b = 0; b < at.Length; b++)
             {
@@ -831,6 +920,11 @@ namespace Bloomlings.Client.UI.Design
 
         private static Spot Locate(ClearStyle style, in ClearWalk walk, float now)
         {
+            if (walk.IsLive)
+            {
+                return LocateLive(walk, now);
+            }
+
             ClearLegs legs = ClearStyles.LegsOf(style, walk.Cells);
             float total = legs.Total;
             float t = (now - walk.Start) * total / Math.Max(0.05f, walk.Arrival);
@@ -876,6 +970,53 @@ namespace Bloomlings.Client.UI.Design
             else
             {
                 at = Along(walk.Points, legs.Back > 0f ? 0f : 1f);
+                spot.Leg = Leg.Done;
+                spot.U = 1f;
+            }
+
+            spot.X = at.X;
+            spot.Y = at.Y;
+            return spot;
+        }
+
+        // A live walk: out from its start to its arrival, its act until the clear, back until it is home (the timeline's times).
+        private static Spot LocateLive(in ClearWalk walk, float now)
+        {
+            int segments = Math.Max(1, walk.Points.Count - 1);
+            var spot = new Spot();
+            (float X, float Y) at;
+            if (now < walk.Start)
+            {
+                spot.Leg = Leg.Before;
+                at = Along(walk.Points, 0f);
+            }
+            else if (now < walk.ArriveAt)
+            {
+                float progress = Clamp01((now - walk.Start) / Math.Max(1e-4f, walk.ArriveAt - walk.Start));
+                at = Along(walk.Points, progress);
+                spot.Leg = Leg.Out;
+                spot.U = progress;
+                spot.Hops = progress * segments * HopsPerCell;
+                spot.Walking = progress < 1f;
+            }
+            else if (now < walk.ClearAt)
+            {
+                at = Along(walk.Points, 1f);
+                spot.Leg = Leg.Act;
+                spot.U = Clamp01((now - walk.ArriveAt) / Math.Max(1e-4f, walk.ClearAt - walk.ArriveAt));
+                spot.Hops = segments * HopsPerCell;
+            }
+            else if (now < walk.DoneAt)
+            {
+                spot.Leg = Leg.Back;
+                spot.U = Clamp01((now - walk.ClearAt) / Math.Max(1e-4f, walk.DoneAt - walk.ClearAt));
+                at = Along(walk.Points, 1f - spot.U);
+                spot.Hops = (segments * HopsPerCell) + (spot.U * segments * HopsPerCell);
+                spot.Walking = true;
+            }
+            else
+            {
+                at = Along(walk.Points, 0f);
                 spot.Leg = Leg.Done;
                 spot.U = 1f;
             }
@@ -939,6 +1080,9 @@ namespace Bloomlings.Client.UI.Design
 
         private static bool IsDrop(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) && info.Family == Family.Drop;
+
+        // A walk's colour: its round material's, else its variant's.
+        private static Rgba ColorOf(in ClearWalk walk) => walk.Material >= 0 ? RoundLook.ColorOf(walk.Material) : ColorOf(walk.Variant);
 
         private static Rgba ColorOf(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : DesignTokens.Colors.InkBrown;

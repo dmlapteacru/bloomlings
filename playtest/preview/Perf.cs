@@ -431,6 +431,27 @@ namespace Bloomlings.Playtest.Preview
             journey.Play(jam.Trace, jam.Trace.Count);
             journey.Settle();
             journey.Run(1.5f);
+
+            // The largest round board (spec 006 SC-009): 48 x 48 with its frame, every place working on the live timeline.
+            var round = new RoundLevelScreen(app, 21, RoundPlayPreview.BigLevel(), null);
+            app.ShowRound(round);
+            journey.Begin("Round 48x48 board: open");
+            journey.Run(0.5f);
+            journey.Begin("Round 48x48 board: five places working (8 s)");
+            for (int k = 0; k < 6; k++)
+            {
+                foreach (int top in Bloomlings.Core.Rounds.RoundRules.TopPods(round.Play.Timeline.State))
+                {
+                    if (round.Play.Check(Bloomlings.Core.Rounds.RoundAction.Tap(top)) == Bloomlings.Core.Rounds.RoundRefusal.None)
+                    {
+                        round.Tap(top);
+                    }
+                }
+
+                journey.Run(0.25f);
+            }
+
+            journey.Run(6.5f);
             journey.End();
             PaintStats.OnRaster = null;
             if (SkiaPainter.Store != null && !SkiaPainter.Store.Flush(TimeSpan.FromMinutes(2)))

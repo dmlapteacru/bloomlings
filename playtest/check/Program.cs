@@ -42,6 +42,26 @@ foreach (string failure in Bloomlings.Playtest.Check.RoundContentChecks.Run(Root
     Console.WriteLine("FAIL round content: " + failure);
 }
 
+// The round level screen's clock and animator replay every round level's saved solution (spec 006 T031).
+int roundFailures = 0;
+IEnumerable<string> roundAnimator = Bloomlings.Playtest.Check.RoundAnimatorChecks.Run(Root, out int roundLevels);
+foreach (string failure in roundAnimator)
+{
+    failures++;
+    roundFailures++;
+    Console.WriteLine("FAIL round animator: " + failure);
+}
+
+IEnumerable<string> guideScan = Bloomlings.Playtest.Check.RoundAnimatorChecks.GuideScan(Root, out string guideSummary);
+foreach (string failure in guideScan)
+{
+    failures++;
+    Console.WriteLine("FAIL round guide: " + failure);
+}
+
+Console.WriteLine("round guide: " + guideSummary);
+Console.WriteLine($"round animator: {roundLevels} round levels' solutions played frame by frame at x1, x2 and uneven frames" + (roundFailures == 0 ? ", each won on the reference's state" : string.Empty));
+
 var pictures = Directory.GetFiles(Path.Combine(Root, "content/pictures/lib"), "*.json").Select(f => BasePictureJson.Read(File.ReadAllText(f))).Select(p => p with { Review = p.Review with { Status = ReviewStatus.Approved } }).ToDictionary(p => p.Id);
 // Showcase replays retain their own fixture art when a launch installation replaces the runtime library.
 foreach (string file in Directory.GetFiles(Path.Combine(Root, "content/showcase/pictures"), "*.json"))

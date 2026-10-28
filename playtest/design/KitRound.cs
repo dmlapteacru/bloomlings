@@ -102,6 +102,116 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
+        private static readonly string[] ClearedKeys = MakeMaterials(m => "tile.ground/round/" + RoundMaterial.All[m].Code);
+
+        private static readonly Func<int, int, byte[]>[] ClearedPictures = MakeMaterials<Func<int, int, byte[]>>(m =>
+        {
+            Rgba color = RoundLook.ColorOf(m).Lighten(0.55f);
+            return (w, h) => UiRaster.ClearedCell(w, h, color);
+        });
+
+        private static readonly Dictionary<(int Material, bool Waiting, bool Locked), (string, Func<int, int, byte[]>)> RoundPods =
+            new Dictionary<(int, bool, bool), (string, Func<int, int, byte[]>)>();
+
+        /// <summary>
+        /// A round level's cleared cell filling <paramref name="full"/> (<c>tile.ground</c>, spec 006 T049): the finished
+        /// picture as the game's pale flat cell in the material's colour, one cached picture a material.
+        /// </summary>
+        public static void ClearedCell(IPainter p, Box full, int material)
+        {
+            p.Mark("tile.ground");
+            p.Picture(ClearedKeys[material], full, ClearedPictures[material]);
+        }
+
+        /// <summary>
+        /// A round level's pod in <paramref name="chip"/> (spec 006 T049, contracts/presentation.md): the game's wooden pod
+        /// tinted by the material (<see cref="GameplaySkin.Pod(int, int, Rgba?, bool, bool)"/>), the material's plain tile
+        /// (its symbol only in the symbols mode) and its count; a hidden pod (<paramref name="material"/> null) shows the
+        /// lilac "?" and no count until it reveals (FR-007). Returns the tile's box.
+        /// </summary>
+        public static Box RoundPod(IPainter p, PodChip chip, RoundMaterial? material, int count, PodLook look, bool waiting, bool symbolsMode)
+        {
+            p.Mark("pod.card");
+            bool locked = look == PodLook.Locked;
+            float sink = look == PodLook.Pressed ? chip.Frame.Height * 0.04f : 0f;
+            Box frame = chip.Frame.Offset(0f, sink);
+            (string key, Func<int, int, byte[]> render) = Recipe(RoundPods, (Material: material?.Index ?? -1, Waiting: waiting, Locked: locked), k =>
+            {
+                Rgba? color = k.Material >= 0 ? RoundLook.ColorOf(k.Material) : (Rgba?)null;
+                string name = k.Material >= 0 ? RoundMaterial.All[k.Material].Code.ToString() : "mystery";
+                return ("gameplay.pod.round/" + name + "/" + k.Waiting + "/" + k.Locked, (w, h) => GameplaySkin.Pod(w, h, color, k.Waiting, k.Locked));
+            });
+            p.Picture(key, frame, render);
+            Box tile = chip.Tile.Offset(0f, sink);
+            if (material == null)
+            {
+                p.Mark("pod.state.mystery");
+                TextLook mystery = PodChip.CountLook(false);
+                p.Text("?", tile.CenterX, tile.CenterY, GameplaySkin.PodCount, mystery.FillTop, tile.Width, tile.Height * 0.90f / p.U(GameplaySkin.PodCount.Size), mystery);
+                return tile;
+            }
+
+            MaterialTile(p, tile, material, RoundLook.PodStyle, symbolsMode, waiting ? TileState.Dimmed : TileState.Normal);
+            PodCount(p, chip.Count.Offset(0f, sink), count, waiting || locked);
+            return tile;
+        }
+
+        /// <summary>
+        /// A link tube (<see cref="LinkTubePicture"/>) whose length is rounded up to whole steps of 8 px about its middle, so
+        /// a tube between sliding pods reuses its cached picture instead of rendering a new length every frame (its ends tuck
+        /// under the pods, which hide the step).
+        /// </summary>
+        public static void LinkTubeStepped(IPainter p, LinkTubeShape tube)
+        {
+            float length = tube.Length;
+            if (length < 1f)
+            {
+                p.Mark(LinkTube.Slot);
+                return;
+            }
+
+            float stepped = (float)Math.Ceiling(length / 8f) * 8f;
+            float k = stepped / length / 2f;
+            (float mx, float my) = tube.Middle;
+            float dx = (tube.End.X - tube.Start.X) * k;
+            float dy = (tube.End.Y - tube.Start.Y) * k;
+            LinkTubePicture(p, new LinkTubeShape((mx - dx, my - dy), tube.StartColor, (mx + dx, my + dy), tube.EndColor, (float)Math.Round(tube.Thickness)));
+        }
+
+        /// <summary>
+        /// The glow round a pod that has just revealed (<c>pod.reveal.glow</c>, spec 006 FR-045): soft rings of the garden's
+        /// glow round <paramref name="frame"/> at <paramref name="strength"/> (<see cref="RoundLook.RevealGlow"/>).
+        /// </summary>
+        public static void RevealGlow(IPainter p, Box frame, float strength)
+        {
+            if (strength <= 0f)
+            {
+                return;
+            }
+
+            p.Mark(RoundLook.RevealGlowSlot);
+            float s = Math.Min(frame.Width, frame.Height);
+            float radius = s * 0.22f;
+            for (int ring = 3; ring >= 1; ring--)
+            {
+                float grow = s * 0.14f * ring / 3f;
+                p.FillRound(frame.Inset(-grow), radius + grow, DesignTokens.Colors.GardenGlow.WithAlpha(0.3f * strength));
+            }
+
+            p.StrokeRound(frame.Inset(-s * 0.03f), radius + (s * 0.03f), s * 0.035f, DesignTokens.Colors.GardenGlow.WithAlpha(strength));
+        }
+
+        private static T[] MakeMaterials<T>(Func<int, T> make)
+        {
+            var items = new T[RoundMaterial.Codes.Length];
+            for (int m = 0; m < items.Length; m++)
+            {
+                items[m] = make(m);
+            }
+
+            return items;
+        }
+
         private static T[] MakeWater<T>(Func<int, T> make)
         {
             var items = new T[UiRaster.WaterVariants];

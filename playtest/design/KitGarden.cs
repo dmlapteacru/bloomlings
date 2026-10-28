@@ -543,7 +543,7 @@ namespace Bloomlings.Playtest.Design
         /// its middle (a mystery tile turning over) and <paramref name="countBump"/> scales the count about its baseline
         /// (a Bloomling landing). Returns the plate's face.
         /// </summary>
-        public static Box SlotPlate(IPainter p, Box box, SlotPlateState state, VariantId? variant = null, int count = 0, bool extra = false, float tileFlip = 1f, float countBump = 1f)
+        public static Box SlotPlate(IPainter p, Box box, SlotPlateState state, VariantId? variant = null, int count = 0, bool extra = false, float tileFlip = 1f, float countBump = 1f, Action<Box, bool>? tile = null)
         {
             float s = Math.Min(box.Width, box.Height);
             float radius = s * 0.2f;
@@ -595,7 +595,7 @@ namespace Bloomlings.Playtest.Design
                 {
                     bool stuck = state == SlotPlateState.Stuck;
                     p.Mark(stuck ? "slot.state.stuck" : "slot.state.working");
-                    if (!variant.HasValue)
+                    if (!variant.HasValue && tile == null)
                     {
                         p.Mark("pod.state.mystery");
                     }
@@ -603,7 +603,16 @@ namespace Bloomlings.Playtest.Design
                     // Square occupied slot: large sticker with the outlined number over its lower-right corner.
                     Box tileBox = ReferenceGameplayRegions.SlotTile(box);
                     p.PushSquash(tileFlip, 1f, tileBox.CenterX, tileBox.CenterY);
-                    CandyTile(p, tileBox, variant, TileStyle.Sticker, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
+                    if (tile != null)
+                    {
+                        // A round level's material tile (spec 006), greyed while stuck.
+                        tile(tileBox, stuck);
+                    }
+                    else
+                    {
+                        CandyTile(p, tileBox, variant, TileStyle.Sticker, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
+                    }
+
                     p.PopTransform();
                     Box countArea = ReferenceGameplayRegions.SlotCount(box);
                     p.PushTransform(0f, 0f, countBump, countArea.CenterX, countArea.Bottom);

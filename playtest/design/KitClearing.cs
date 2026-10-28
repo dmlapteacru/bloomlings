@@ -62,8 +62,8 @@ namespace Bloomlings.Playtest.Design
 
             var list = new FxList();
             preview.Draw(list, t);
-            ClearPainter.DrawItems(p, list.Items, FxLayer.Board, ox, oy, cell,catalog);
-            ClearPainter.DrawItems(p, list.Items, FxLayer.Over, ox, oy, cell,catalog);
+            ClearPainter.DrawItems(p, list.Items, FxLayer.Board, ox, oy, cell, catalog, heroWalkers: true);
+            ClearPainter.DrawItems(p, list.Items, FxLayer.Over, ox, oy, cell, catalog, heroWalkers: true);
         }
 
         /// <summary>

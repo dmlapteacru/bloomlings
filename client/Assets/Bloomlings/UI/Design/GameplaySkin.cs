@@ -67,8 +67,34 @@ namespace Bloomlings.Client.UI.Design
         public static byte[] Pod(int w, int h, VariantId? variant, bool waiting, bool locked)
         {
             Rgba color = locked ? Rgba.FromHex("#83978C") : variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : Rgba.FromHex("#B99ACC");
-            Rgba tint = color;
             bool cool = variant.HasValue && (variant.Value.Key == "leaf" || variant.Value.Key == "moss" || variant.Value.Key == "vine" || variant.Value.Key == "water" || variant.Value.Key == "dew");
+            return PodSurface(w, h, color, cool, waiting, locked);
+        }
+
+        /// <summary>
+        /// A round level's pod (spec 006): the same wooden pod in a material's palette <paramref name="color"/> (null: the
+        /// hidden pod's lilac). Greens and blues are deepened a little more, as the variants' are.
+        /// </summary>
+        public static byte[] Pod(int w, int h, Rgba? color, bool waiting, bool locked)
+        {
+            Rgba c = locked ? Rgba.FromHex("#83978C") : color ?? Rgba.FromHex("#B99ACC");
+            return PodSurface(w, h, c, color.HasValue && IsCool(color.Value), waiting, locked);
+        }
+
+        /// <summary>Whether a colour is a green or a blue (hue from 70° to 250°), deepened more on a pod.</summary>
+        public static bool IsCool(Rgba color)
+        {
+            float r = color.R / 255f, g = color.G / 255f, b = color.B / 255f;
+            float max = Math.Max(r, Math.Max(g, b)), min = Math.Min(r, Math.Min(g, b));
+            if (max - min < 0.08f) return false;
+            float hue = max == r ? 60f * (((g - b) / (max - min)) % 6f) : max == g ? 60f * (((b - r) / (max - min)) + 2f) : 60f * (((r - g) / (max - min)) + 4f);
+            if (hue < 0f) hue += 360f;
+            return hue >= 70f && hue <= 250f;
+        }
+
+        private static byte[] PodSurface(int w, int h, Rgba color, bool cool, bool waiting, bool locked)
+        {
+            Rgba tint = color;
             if (!locked) color = UiRaster.Vivid(color, 1.06f).Darken(cool ? 0.18f : 0.10f);
             Rgba top = locked ? color.Lighten(0.88f) : Rgba.FromHex("#FFF4DE").Mix(tint, 0.055f);
             Rgba bottom = locked ? color.Lighten(0.75f) : Rgba.FromHex("#FBE6C7").Mix(tint, 0.11f);

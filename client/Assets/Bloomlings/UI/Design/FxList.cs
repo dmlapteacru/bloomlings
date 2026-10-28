@@ -44,8 +44,9 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public readonly struct FxItem
     {
-        public FxItem(FxKind kind, FxLayer layer, string slot, float x, float y, float w, float h, float sx, float sy, float turn, float alpha, Rgba color, VariantId variant, CharacterMood mood, string? shape, float radius, float line)
+        public FxItem(FxKind kind, FxLayer layer, string slot, float x, float y, float w, float h, float sx, float sy, float turn, float alpha, Rgba color, VariantId variant, CharacterMood mood, string? shape, float radius, float line, int material = -1)
         {
+            Material = material;
             Kind = kind;
             Layer = layer;
             Slot = slot;
@@ -102,6 +103,13 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>An outline's width, in cell units.</summary>
         public float Line { get; }
 
+        /// <summary>
+        /// The round material (<c>RoundMaterial.Index</c>, spec 006) of a <see cref="FxKind.Tile"/> or
+        /// <see cref="FxKind.Character"/> item, or -1 for a legacy variant's: a round tile is the material's plain cube, a round
+        /// walker the hero of the material's family tinted in its colour (FR-048).
+        /// </summary>
+        public int Material { get; }
+
         public Box Box => Box.FromCenter(X, Y, W, H);
     }
 
@@ -133,6 +141,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The slot the next items stand for (<see cref="AssetSlots"/>).</summary>
         public string Slot { get; set; } = "fx.clear";
 
+        /// <summary>The round material the next tiles and characters carry (<see cref="FxItem.Material"/>), or -1.</summary>
+        public int Material { get; set; } = -1;
+
         public void Clear()
         {
             _items.Clear();
@@ -145,6 +156,7 @@ namespace Bloomlings.Client.UI.Design
             _ty = 0f;
             _alpha = 1f;
             Layer = FxLayer.Board;
+            Material = -1;
         }
 
         /// <summary>Turns what follows by <paramref name="degrees"/> clockwise about (<paramref name="px"/>, <paramref name="py"/>).</summary>
@@ -249,7 +261,7 @@ namespace Bloomlings.Client.UI.Design
                 sy = _d;
             }
 
-            _items.Add(new FxItem(kind, Layer, Slot, x, y, box.Width, box.Height, sx, sy, turn * 180f / (float)Math.PI, _alpha, color, variant, mood, shape, radius, line));
+            _items.Add(new FxItem(kind, Layer, Slot, x, y, box.Width, box.Height, sx, sy, turn * 180f / (float)Math.PI, _alpha, color, variant, mood, shape, radius, line, kind == FxKind.Tile || kind == FxKind.Character ? Material : -1));
         }
     }
 }

@@ -11,9 +11,10 @@ namespace Bloomlings.Playtest.Preview
     /// <summary>
     /// <c>--rounds [dir]</c> (spec 006 T025, T028, T029): the full playtest as the APKs run it, on a published round set
     /// (default <c>content/work/rounds-published</c>, from <c>playtest/check -- --publish-dev</c>, else
-    /// <c>content/game/rounds/published</c>): Home without the Daily Challenge, Play opening round level 1 (the placeholder
-    /// until the level screen plays round levels), a few round levels, the dev row's jump past the last level and the "new
-    /// levels soon" card. Writes <c>rounds-*.png</c> and checks the navigation; a quick look, not part of the board.
+    /// <c>content/game/rounds/published</c>): Home without the Daily Challenge, Play opening round level 1, a few round
+    /// levels, the dev row's jump past the last level and the "new levels soon" card (<c>rounds-*.png</c>, the navigation
+    /// checks); then the round levels in play with the presentation checks of spec 006 (<see cref="RoundPlayPreview"/>,
+    /// <c>rounds-play-*.png</c>). A quick look, not part of the board.
     /// </summary>
     public static class RoundsPreview
     {
@@ -85,6 +86,9 @@ namespace Bloomlings.Playtest.Preview
                 app.LoadLevel(rounds.LevelCount + 1);
                 Expect(app.Screen == Screen.Home && app.IsOpen(Overlay.NewLevelsSoon), "no level follows the last round level");
                 app.Dispose();
+
+                // The round levels in play: the presentation checks of contracts/presentation.md (spec 006 T040).
+                RoundPlayPreview.Run(root, rounds, empty, outDir, Expect);
             }
             finally
             {

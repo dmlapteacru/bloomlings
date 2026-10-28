@@ -30,8 +30,7 @@ namespace Bloomlings.Playtest
     /// <para>
     /// With round content (spec 006 FR-060, FR-062, FR-063; the APKs carry nothing else) ◀ ▶ walk the round levels, and
     /// the level button jumps to any level number, kept as the tester's progress; past the last round level it says "new
-    /// levels soon". Until the round rules drive a level (T026) a round level shows still: its board, its columns and its
-    /// summary (<see cref="DrawRound"/>).
+    /// levels soon". A round level plays on the round rules' live timeline (<see cref="DrawRound"/>), its boosters free.
     /// </para>
     /// </summary>
     public sealed class TesterView : View
@@ -72,6 +71,9 @@ namespace Bloomlings.Playtest
 
         /// <summary>The round level shown, or null past the last one ("new levels soon").</summary>
         private RoundLevel? _round;
+
+        /// <summary>The round level played on the live timeline (spec 006 T026), with its display clock and animator.</summary>
+        private Bloomlings.Client.UI.Design.RoundPlay? _play;
         private readonly ISharedPreferences _prefs;
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias);
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias) { TextAlign = Paint.Align.Center };
@@ -956,6 +958,8 @@ namespace Bloomlings.Playtest
             _level = Math.Max(1, levelNumber);
             _prefs.Edit()!.PutInt("level", _level)!.Apply();
             _round = _rounds != null && _rounds.Has(_level) ? _rounds.GetLevel(_level) : null;
+            _play = _round != null ? new Bloomlings.Client.UI.Design.RoundPlay(_round) : null;
+            _lastFrame = 0;
             _toast = null;
             Invalidate();
         }
@@ -998,10 +1002,13 @@ namespace Bloomlings.Playtest
         }
 
         /// <summary>
-        /// PLACEHOLDER until the round rules drive a level (T026): the round level as it starts, still. The top bar (◀, the
-        /// sound, the level button that jumps, ▶), the board in the round palette (its frame stone, its gate yellow, the
-        /// stream blue), the level's summary, and its columns, top pod first (a hidden pod shows only once on top, FR-007);
-        /// past the last level the "new levels soon" card.
+        /// A round level played on the round rules' live timeline (spec 006 T026, FR-062), in the tester's minimal look: the
+        /// top bar (◀, the sound, the level button that jumps, ▶), the board in the round palette (its frame stone, its gate
+        /// yellow, the stream blue, cleared cells as ground, the walkers as dots of their material on their couriers'
+        /// routes), the level's summary and its state, the places, the four boosters (free, as every tester booster) with
+        /// Restart, and the columns, top pod first (a hidden pod shows "?" until it is on top, FR-007); a tap on a top pod or
+        /// on a buildable bridge site commits it at the current model time. The clock runs at ×2 (the tester's quick loop),
+        /// Auto too. Past the last level the "new levels soon" card.
         /// </summary>
         private void DrawRound(Canvas canvas)
         {
@@ -1036,7 +1043,7 @@ namespace Bloomlings.Playtest
             Text(canvas, title, jump.CenterX(), jump.CenterY(), h * 0.4f, _round == null || _round.Class == RoundClass.Normal ? TextColor : Warning);
             Hit(jump, AskJump);
 
-            if (_round == null)
+            if (_round == null || _play == null)
             {
                 var card = new RectF(width * 0.08f, top + (usable * 0.3f), width * 0.92f, top + (usable * 0.6f));
                 Fill(canvas, card, Panel, width * 0.04f);
@@ -1046,15 +1053,30 @@ namespace Bloomlings.Playtest
                 return;
             }
 
+            // The live clock: real time × 2, as whole µs (the rules never see the frame rate).
+            long now = SystemClock.UptimeMillis();
+            float dt = _lastFrame == 0 ? 0f : Math.Min(0.1f, (now - _lastFrame) / 1000f);
+            _lastFrame = now;
+            foreach (RoundEvent e in _play.Advance(dt, _play.Speed(true)))
+            {
+                if (e.Type == RoundEventType.Complete)
+                {
+                    _sound.Play(SoundCue.PodDone);
+                }
+                else if (e.Type == RoundEventType.Clear && now - _lastClearSound > 60)
+                {
+                    _lastClearSound = now;
+                    _sound.Play(SoundCue.Clear);
+                }
+            }
+
             RoundLevel level = _round;
-            var boardArea = new RectF(pad, top + (usable * 0.07f), width - pad, top + (usable * 0.58f));
+            var boardArea = new RectF(pad, top + (usable * 0.07f), width - pad, top + (usable * 0.52f));
             DrawRoundBoard(canvas, level, boardArea);
 
-            float line = usable * 0.026f;
-            float y = top + (usable * 0.605f);
+            float line = usable * 0.024f;
+            float y = top + (usable * 0.545f);
             Text(canvas, PlaytestText.F("round.tester.board", level.Width, level.Height, level.Pods.Count, level.Tray.Count, level.Capacity), width / 2f, y, line * 0.72f, TextColor);
-            y += line;
-            Text(canvas, PlaytestText.F("round.tester.picture", level.PictureId ?? "-", level.PictureVersion, level.DefinitionVersion), width / 2f, y, line * 0.72f, TextColor);
             y += line;
             string mechanics = level.Mechanics.Count == 0 ? "-" : string.Join(", ", level.Mechanics);
             if (level.Introduction != null)
@@ -1062,7 +1084,7 @@ namespace Bloomlings.Playtest
                 mechanics += " (" + level.Introduction.Mechanic + (level.Introduction.Second ? " 2" : " 1") + ")";
             }
 
-            Text(canvas, PlaytestText.F("round.tester.mechanics", mechanics), width / 2f, y, line * 0.72f, TextColor);
+            Text(canvas, PlaytestText.F("round.tester.picture", level.PictureId ?? "-", level.PictureVersion, level.DefinitionVersion) + " · " + PlaytestText.F("round.tester.mechanics", mechanics), width / 2f, y, line * 0.72f, level.Exception != null ? Warning : TextColor);
             if (level.Exception != null)
             {
                 y += line;
@@ -1070,28 +1092,111 @@ namespace Bloomlings.Playtest
             }
 
             y += line;
-            Text(canvas, PlaytestText.T("round.tester.not_wired"), width / 2f, y, line * 0.72f, Locked);
-            DrawRoundTray(canvas, level, new RectF(pad, top + (usable * 0.74f), width - pad, bottom));
+            RoundStatus status = _play.Status;
+            string state = status == RoundStatus.Won ? PlaytestText.T("win.title")
+                : status == RoundStatus.Jammed ? PlaytestText.T("jam.title")
+                : status == RoundStatus.Stuck ? PlaytestText.T("jam.stuck")
+                : string.Empty;
+            if (state.Length > 0)
+            {
+                Text(canvas, state, width / 2f, y, line * 0.9f, status == RoundStatus.Won ? Accent : Warning);
+            }
+
+            DrawRoundPlaces(canvas, new RectF(pad, top + (usable * 0.60f), width - pad, top + (usable * 0.67f)));
+            DrawRoundBoosters(canvas, new RectF(pad, top + (usable * 0.685f), width - pad, top + (usable * 0.735f)));
+            DrawRoundTray(canvas, new RectF(pad, top + (usable * 0.75f), width - pad, bottom));
             DrawToast(canvas, boardArea);
+            if (_play.Timeline.Pending || _play.Animator.Busy)
+            {
+                PostInvalidateOnAnimation();
+            }
+            else
+            {
+                _lastFrame = 0;
+            }
+        }
+
+        /// <summary>A command of the round level at the current model time; a refusal shows the rules' reason.</summary>
+        private void CommitRound(RoundAction action)
+        {
+            if (_play == null)
+            {
+                return;
+            }
+
+            RoundCommitResult result = _play.Commit(action);
+            if (!result.Accepted)
+            {
+                _sound.Play(SoundCue.Refused);
+                if (result.Refusal != RoundRefusal.Finished)
+                {
+                    Toast(Bloomlings.Playtest.Design.RoundLevelScreen.RefusalText(result.Refusal));
+                }
+
+                return;
+            }
+
+            _sound.Play(SoundCue.Tap);
+            Invalidate();
+        }
+
+        /// <summary>A free booster of the tester on the round rules (FR-012): Return and Bloom Burst take the first target the rules accept.</summary>
+        private void RoundBooster(BoosterKind kind)
+        {
+            if (_play == null)
+            {
+                return;
+            }
+
+            RoundInput? command = null;
+            switch (kind)
+            {
+                case BoosterKind.ExtraSlot:
+                    command = RoundInput.ExtraSlot(0);
+                    break;
+                case BoosterKind.Shuffle:
+                    command = RoundInput.Shuffle(0);
+                    break;
+                case BoosterKind.Return:
+                    int pod = Bloomlings.Client.UI.Design.GuideTour.ReturnPod(_play.Timeline);
+                    command = pod >= 0 ? RoundInput.Return(pod, 0) : (RoundInput?)null;
+                    break;
+                default:
+                    IReadOnlyList<char> codes = Bloomlings.Client.UI.Design.GuideTour.BurstMaterials(_play.Timeline);
+                    command = codes.Count > 0 ? RoundInput.BloomBurst(codes[0], 0) : (RoundInput?)null;
+                    break;
+            }
+
+            if (command == null || !_play.Apply(command.Value).Accepted)
+            {
+                _sound.Play(SoundCue.Refused);
+                Toast(PlaytestText.T("gameplay.booster_useless"));
+                return;
+            }
+
+            _sound.Play(SoundCue.Booster);
+            Invalidate();
         }
 
         private void DrawRoundBoard(Canvas canvas, RoundLevel level, RectF area)
         {
+            var a = _play!.Animator;
             int w = level.Width;
             int h = level.Height;
             float cell = Math.Min(area.Width() / w, area.Height() / h);
             float ox = area.CenterX() - (cell * w / 2f);
             float oy = area.Top + ((area.Height() - (cell * h)) / 2f);
             var entries = new HashSet<int>(level.Entries);
-            var sites = new HashSet<int>();
+            var sites = new Dictionary<int, int>();
             if (level.Bridge != null)
             {
-                foreach (RoundBridgeChoice choice in level.Bridge)
+                for (int i = 0; i < level.Bridge.Count; i++)
                 {
-                    sites.Add(choice.Cell);
+                    sites[level.Bridge[i].Cell] = i;
                 }
             }
 
+            List<int> buildable = RoundRules.BridgeChoices(_play.Timeline.State);
             for (int y = 0; y < h; y++)
             {
                 string row = level.RowsBottomFirst[y];
@@ -1101,20 +1206,84 @@ namespace Bloomlings.Playtest
                     char c = row[x];
                     bool edge = x == 0 || y == 0 || x == w - 1 || y == h - 1;
                     var full = new RectF(ox + (x * cell), oy + ((h - 1 - y) * cell), ox + ((x + 1) * cell), oy + ((h - y) * cell));
+                    int shown = a.MaterialAt(index);
+                    bool site = sites.TryGetValue(index, out int choice);
                     Color color = entries.Contains(index) ? EntryColor
                         : edge ? StoneColor
-                        : sites.Contains(index) ? Color.ParseColor("#C9A46A")
+                        : site && a.Bridge == choice ? Color.ParseColor("#A87A45")
+                        : site ? (buildable.Contains(choice) ? EntryColor : Color.ParseColor("#C9A46A"))
                         : c == '#' ? Color.ParseColor("#7FB8D8")
-                        : c == '.' ? Ground
-                        : MaterialColor(c);
-                    Fill(canvas, c == '.' || edge ? full : Inset(full, cell * 0.04f), color, 0f);
+                        : shown >= 0 ? MaterialColor(RoundMaterial.Codes[shown])
+                        : Ground;
+                    Fill(canvas, shown < 0 || edge ? full : Inset(full, cell * 0.04f), color, 0f);
+                    if (site && buildable.Contains(choice))
+                    {
+                        int built = choice;
+                        Hit(Inset(full, -cell), () => CommitRound(RoundAction.BuildBridge(built)));
+                    }
                 }
+            }
+
+            // The walkers: a dot of their material where the timeline puts each courier now.
+            _paint.SetStyle(Paint.Style.Fill);
+            foreach (RoundCourier courier in _play.Timeline.Couriers)
+            {
+                RoundCourierPose pose = _play.Timeline.PoseOf(courier, _play.Timeline.Now);
+                float cx = ox + (((float)pose.X + 0.5f) * cell);
+                float cy = oy + ((h - 1 - (float)pose.Y + 0.5f) * cell);
+                _paint.Color = Color.White;
+                canvas.DrawCircle(cx, cy, cell * 0.36f, _paint);
+                _paint.Color = MaterialColor(level.Pods[courier.Pod].Code);
+                canvas.DrawCircle(cx, cy, cell * 0.28f, _paint);
             }
         }
 
-        private void DrawRoundTray(Canvas canvas, RoundLevel level, RectF area)
+        private void DrawRoundPlaces(Canvas canvas, RectF area)
         {
-            int stacks = level.Tray.Count;
+            var a = _play!.Animator;
+            int places = a.PlaceCount;
+            float size = Math.Min(area.Height(), area.Width() / places * 0.9f);
+            float gap = (area.Width() - (size * places)) / Math.Max(1, places + 1);
+            for (int k = 0; k < places; k++)
+            {
+                float left = area.Left + gap + (k * (size + gap));
+                var rect = new RectF(left, area.CenterY() - (size / 2f), left + size, area.CenterY() + (size / 2f));
+                int pod = a.PodIn(k);
+                if (pod < 0)
+                {
+                    Fill(canvas, rect, SlotEmpty, size * 0.2f);
+                    continue;
+                }
+
+                Color color = MaterialColor(_round!.Pods[pod].Code);
+                Fill(canvas, rect, color, size * 0.2f);
+                Text(canvas, a.Remaining(pod).ToString(CultureInfo.InvariantCulture), rect.CenterX(), rect.CenterY(), size * 0.4f, Ink(color));
+            }
+        }
+
+        private void DrawRoundBoosters(Canvas canvas, RectF area)
+        {
+            float w = area.Width() / 5f;
+            int i = 0;
+            foreach ((BoosterKind kind, Recovery _, string id) in Boosters)
+            {
+                BoosterKind used = kind;
+                var rect = new RectF(area.Left + (i * w) + (w * 0.05f), area.Top, area.Left + ((i + 1) * w) - (w * 0.05f), area.Bottom);
+                Button(canvas, rect, PlaytestText.T(id), Accent, () => RoundBooster(used));
+                i++;
+            }
+
+            Button(canvas, new RectF(area.Left + (4 * w) + (w * 0.05f), area.Top, area.Right, area.Bottom), PlaytestText.T("common.restart"), Locked, () =>
+            {
+                LoadRound(_level);
+            });
+        }
+
+        private void DrawRoundTray(Canvas canvas, RectF area)
+        {
+            var a = _play!.Animator;
+            RoundLevel level = _round!;
+            int stacks = a.ColumnCount;
             if (stacks == 0)
             {
                 return;
@@ -1125,20 +1294,21 @@ namespace Bloomlings.Playtest
             int visible = Math.Max(1, (int)(area.Height() / (size * 1.04f)));
             for (int s = 0; s < stacks; s++)
             {
-                IReadOnlyList<int> stack = level.Tray[s];
+                int waiting = a.Waiting(s);
                 float cx = area.Left + (columnWidth * (s + 0.5f));
-                for (int i = 0; i < stack.Count && i < visible; i++)
+                for (int i = 0; i < waiting && i < visible; i++)
                 {
                     float y = area.Top + (i * size * 1.04f);
                     var rect = new RectF(cx - (size / 2f), y, cx + (size / 2f), y + size);
-                    if (i == visible - 1 && stack.Count > visible)
+                    if (i == visible - 1 && waiting > visible)
                     {
-                        Text(canvas, "+" + (stack.Count - i), cx, rect.CenterY(), size * 0.3f, Locked);
+                        Text(canvas, "+" + (waiting - i), cx, rect.CenterY(), size * 0.3f, Locked);
                         break;
                     }
 
-                    RoundPod pod = level.Pods[stack[i]];
-                    bool hidden = pod.Mystery != RoundMystery.None && i > 0;
+                    int index = a.At(s, i);
+                    RoundPod pod = level.Pods[index];
+                    bool hidden = !a.Revealed(index);
                     Color color = hidden ? Locked : MaterialColor(pod.Code);
                     if (i > 0)
                     {
@@ -1148,10 +1318,16 @@ namespace Bloomlings.Playtest
                     Fill(canvas, rect, color, size * 0.2f);
                     Color ink = hidden ? Color.White : Ink(MaterialColor(pod.Code));
                     Text(canvas, hidden ? "?" : pod.Code.ToString(), rect.CenterX(), rect.Top + (size * 0.36f), size * 0.3f, ink);
-                    Text(canvas, hidden ? "?" : pod.Count.ToString(CultureInfo.InvariantCulture), rect.CenterX(), rect.Top + (size * 0.72f), size * 0.34f, ink);
+                    Text(canvas, hidden ? "?" : a.Remaining(index).ToString(CultureInfo.InvariantCulture), rect.CenterX(), rect.Top + (size * 0.72f), size * 0.34f, ink);
                     if (pod.Group != null)
                     {
                         Text(canvas, "∞" + pod.Group, rect.Right - (size * 0.18f), rect.Top + (size * 0.18f), size * 0.22f, EntryColor);
+                    }
+
+                    if (i == 0)
+                    {
+                        int tapped = index;
+                        Hit(rect, () => CommitRound(RoundAction.Tap(tapped)));
                     }
                 }
             }

@@ -30,7 +30,7 @@ namespace Bloomlings.Playtest.Design
     /// </list>
     /// It holds no rules: it draws <see cref="LevelView"/> and calls <see cref="PlaytestMeta"/>. Engine-free.
     /// </summary>
-    public sealed class LevelScreen
+    public sealed class LevelScreen : ILevelEnd
     {
         public static readonly (BoosterKind Kind, Recovery Recovery, string Id)[] Boosters =
         {
@@ -1079,6 +1079,28 @@ namespace Bloomlings.Playtest.Design
             return true;
         }
 
-        internal DesignApp App => _app;
+        public DesignApp App => _app;
+
+        public (int Width, int Height) PictureSize => (Session.Picture.Width, Session.Picture.Height);
+
+        public void DrawPicture(IPainter p, Box box) => BoardPainter.Picture(p, box, Session.Definition, Session.Picture);
+
+        public IReadOnlyList<Rgba> ConfettiColors
+        {
+            get
+            {
+                var colors = new List<Rgba>();
+                foreach (PodDef pod in Session.Definition.Pods)
+                {
+                    Rgba c = Visuals.ColorOf(pod.Variant);
+                    if (!colors.Contains(c))
+                    {
+                        colors.Add(c);
+                    }
+                }
+
+                return colors;
+            }
+        }
     }
 }

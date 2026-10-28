@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Simulation;
 
 namespace Bloomlings.Playtest.Design
@@ -72,14 +73,17 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>Draws <paramref name="items"/> of <paramref name="layer"/>, cell (0, 0)'s top left at (ox, oy), a cell <paramref name="cell"/> wide.</summary>
-        public static void DrawItems(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons = false)
+        /// <param name="symbols">A round level's symbols mode (spec 006 FR-047): its held cubes show their symbol.</param>
+        /// <param name="heroWalkers">The walkers are the family hero tinted in their colour (spec 006 FR-048: round levels and
+        /// the Store's previews); a round item (<see cref="FxItem.Material"/>) always is.</param>
+        public static void DrawItems(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons = false, bool symbols = false, bool heroWalkers = false)
         {
             if (p is ITransientPictures transient)
-                transient.Transient(() => DrawEffects(p, items, layer, ox, oy, cell, icons));
-            else DrawEffects(p, items, layer, ox, oy, cell, icons);
+                transient.Transient(() => DrawEffects(p, items, layer, ox, oy, cell, icons, symbols, heroWalkers));
+            else DrawEffects(p, items, layer, ox, oy, cell, icons, symbols, heroWalkers);
         }
 
-        private static void DrawEffects(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons)
+        private static void DrawEffects(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons, bool symbols, bool heroWalkers)
         {
             string? marked = null;
             foreach (FxItem item in items)
@@ -116,11 +120,14 @@ namespace Bloomlings.Playtest.Design
                 switch (item.Kind)
                 {
                     case FxKind.Character:
-                        if(icons)Visuals.Hero(p,box.Inset(-box.Width*.25f),Visuals.FamilyOf(item.Variant),null);
+                        if (item.Material >= 0) Visuals.Walker(p, box, RoundMaterial.All[item.Material].Family, RoundLook.ColorOf(item.Material));
+                        else if(icons)Visuals.Hero(p,box.Inset(-box.Width*.25f),Visuals.FamilyOf(item.Variant),null);
+                        else if (heroWalkers) Visuals.Walker(p, box, Visuals.FamilyOf(item.Variant), Visuals.ColorOf(item.Variant));
                         else Visuals.Character(p, box, item.Variant, item.Mood);
                         break;
                     case FxKind.Tile:
-                        Kit.CandyTile(p, box, item.Variant, icons ? TileStyle.MosaicIcon : TileStyle.Mosaic);
+                        if (item.Material >= 0) Kit.MaterialTile(p, box, RoundMaterial.All[item.Material], RoundLook.CubeStyle, symbols);
+                        else Kit.CandyTile(p, box, item.Variant, icons ? TileStyle.MosaicIcon : TileStyle.Mosaic);
                         break;
                     case FxKind.Circle:
                         if (Math.Abs(w - h) < 0.5f)
