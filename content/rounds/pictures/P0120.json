@@ -1,0 +1,83 @@
+{
+ "id": "P0120",
+ "seq": 120,
+ "version": 1,
+ "title": "Грибная поляна за ручьём",
+ "theme": "мосты волны L21–L50",
+ "family": "Грибы и лесные находки",
+ "device": "ручей поперёк, мосты вверх; полосы за местами (bridge-scene.mjs adapt)",
+ "subject": "мухомор и подберёзовик на дальнем берегу лесного ручья; к левому мосту ведут камни, к правому мох",
+ "source": "оригинальный",
+ "forLevel": 23,
+ "w": 28,
+ "h": 29,
+ "rows": [
+  "############################",
+  "#GGGGGGGGGGLLGGGGGGGGGGGGGL#",
+  "#GLLGGGGGGGLLGGGLLGGGGGGGGG#",
+  "#GGGGGDDDDDDGGGGGGGGGGGGGGG#",
+  "#GGDDDRRRRRCCDDGGGGGGGGGGGG#",
+  "#GDRRCCRRRRCCRRDGGGGGGGGGGG#",
+  "#DRRRCCRRRRRRRRRDGGGGGGGGGG#",
+  "#DRRRRRRCCCRRRCRDGGGGGGGGGG#",
+  "#DRCCEEECCCEEECEDGGGGGGGGGG#",
+  "#DDDDDDDDDDDDDDDDGDDDDDDGGG#",
+  "#GGGGGGDCCDGGGGGDDAAAAAADDG#",
+  "#GGGGGDCCCADGGGGDAAAAAAAADG#",
+  "#GGGGGDCCCADGGGGDDDDDDDDDDG#",
+  "#GGGGGDCCCADGGGGGGGDCCDGGGG#",
+  "#GGGGGDCCCADGGGGGGGDCADGGGG#",
+  "#GGGGGDCCCADGGGGGGGDCADGGGG#",
+  "#GGGGGDCCCADGGGGGGGDCADGGGG#",
+  "#AAAAAAAAAAAA##DDDDDDDDDDDD#",
+  "#AAAAAAAAAAAA##DDDDDDDDDDDD#",
+  "#AAAAAAAAAAAA##DDDDDDDDDDDD#",
+  "######b##############b######",
+  "MMMMCCCCCMMMMMMMMMMLLLLLMMMM",
+  "MMMMCCCCCMMMMMMMMMMLLLLLMMMM",
+  "MMMMMCCCMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMGGMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMGGMMMMMMMMMGGMMMMMMMM",
+  "MMMMMMMGGMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMGGMMMMMMMMMMMMMMMMMM",
+  "MMMGGMMMMMMMMMMMMMMMMMMMMMMM"
+ ],
+ "scene": {
+  "from": "batch-0120.mjs #1",
+  "side": "up",
+  "kind": "better",
+  "cls": "Normal",
+  "recipe": "bridge",
+  "win": [
+   21,
+   20
+  ],
+  "lose": [
+   6,
+   20
+  ],
+  "opts": {
+   "a": "D",
+   "b": "A",
+   "depth": 3,
+   "win": 1,
+   "border": true
+  }
+ },
+ "N": 712,
+ "colours": 8,
+ "volumes": {
+  "G": 231,
+  "L": 19,
+  "D": 115,
+  "R": 36,
+  "C": 56,
+  "E": 7,
+  "A": 59,
+  "M": 189
+ },
+ "status": "draft",
+ "batch": "batch-0120-bridges",
+ "createdAt": "2026-10-28",
+ "history": []
+}
