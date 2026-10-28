@@ -39,6 +39,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private RectTransform _grid = null!;
         private RectTransform _cells = null!;
         private RectTransform _cubes = null!;
+        private RectTransform _decor = null!;
         private RectTransform _over = null!;
         private Image _touch = null!;
         private StoneBorderView? _border;
@@ -74,8 +75,13 @@ namespace Bloomlings.Client.Gameplay.Board
             var view = layer.gameObject.AddComponent<RoundBoardView>();
             view._root = layer;
             view._grid = UiFactory.CreateRect("RoundGrid", layer);
+            // The ground and the cubes batch on canvases of their own (up to 46 × 46 cells), so the walkers moving every
+            // frame and a cube cleared now and then never make Unity batch the other layer again. Neither takes taps.
             view._cells = UiFactory.Stretch(UiFactory.CreateRect("Ground", view._grid));
+            view._cells.gameObject.AddComponent<Canvas>();
             view._cubes = UiFactory.Stretch(UiFactory.CreateRect("Cubes", view._grid));
+            view._cubes.gameObject.AddComponent<Canvas>();
+            view._decor = UiFactory.Stretch(UiFactory.CreateRect("Decor", view._grid));
             view._over = UiFactory.Stretch(UiFactory.CreateRect("Over", view._grid));
 
             // Bloom Burst's target: a clear touch layer over the grid, live only while the booster waits.
@@ -89,7 +95,8 @@ namespace Bloomlings.Client.Gameplay.Board
         public void Build(RoundLevel level, RoundBoardLayout layout, bool symbols)
         {
             int cells = level.CellCount;
-            foreach (Transform child in new[] { _cells, _cubes })
+            // Cells, cubes, arches, bridges and Bloom Burst's rings of an earlier build go.
+            foreach (Transform child in new[] { _cells, _cubes, _decor })
             {
                 for (int i = child.childCount - 1; i >= 0; i--)
                 {
@@ -97,19 +104,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 }
             }
 
-            foreach ((Image image, RoundGate _) in _arches)
-            {
-                Destroy(image.gameObject);
-            }
-
             _arches.Clear();
-            foreach ((Image plank, Image glow, Button touch, RoundBridgeSite _) in _sites)
-            {
-                Destroy(plank.gameObject);
-                Destroy(glow.gameObject);
-                Destroy(touch.gameObject);
-            }
-
             _sites.Clear();
             _ringed.Clear();
             _puffs.Clear();
@@ -156,9 +151,9 @@ namespace Bloomlings.Client.Gameplay.Board
 
             foreach (RoundBridgeSite site in layout.Bridges)
             {
-                Image plank = UiFactory.CreateImage("Bridge", _cubes, null, Color.white);
-                Image glow = UiKit.RoundRing("BridgeGlow", _cubes, UiTheme.Of(C.GardenGlow), b => Mathf.Min(b.Width, b.Height) * 0.25f, b => Mathf.Max(1.5f, Mathf.Min(b.Width, b.Height) * 0.1f));
-                Image touchImage = UiFactory.CreateImage("BridgeTouch", _cubes, null, Color.clear, raycast: true);
+                Image plank = UiFactory.CreateImage("Bridge", _decor, null, Color.white);
+                Image glow = UiKit.RoundRing("BridgeGlow", _decor, UiTheme.Of(C.GardenGlow), b => Mathf.Min(b.Width, b.Height) * 0.25f, b => Mathf.Max(1.5f, Mathf.Min(b.Width, b.Height) * 0.1f));
+                Image touchImage = UiFactory.CreateImage("BridgeTouch", _decor, null, Color.clear, raycast: true);
                 Button touch = touchImage.gameObject.AddComponent<Button>();
                 touch.transition = Selectable.Transition.None;
                 touch.targetGraphic = touchImage;
@@ -169,13 +164,14 @@ namespace Bloomlings.Client.Gameplay.Board
 
             foreach (RoundGate gate in layout.Gates)
             {
-                Image arch = UiFactory.CreateImage("EntryArch", _cubes, null, Color.white);
+                Image arch = UiFactory.CreateImage("EntryArch", _decor, null, Color.white);
                 arch.raycastTarget = false;
                 _arches.Add((arch, gate));
             }
 
             PlaceDecor();
             ApplyPictures(force: true);
+            _decor.SetAsLastSibling();
             _over.SetAsLastSibling();
             _touch.transform.SetAsLastSibling();
         }
@@ -376,7 +372,7 @@ namespace Bloomlings.Client.Gameplay.Board
 
                 if (ring == null)
                 {
-                    ring = UiKit.RoundRing("BurstTarget", _cubes, color, b => b.Width * 0.16f, b => Mathf.Max(1f, b.Width * 0.08f));
+                    ring = UiKit.RoundRing("BurstTarget", _decor, color, b => b.Width * 0.16f, b => Mathf.Max(1f, b.Width * 0.08f));
                     ring.raycastTarget = false;
                     PlaceInGrid(ring.rectTransform, _layout!.CellBox(cell).Inset(_layout.Cell * 0.06f));
                     _rings[cell] = ring;

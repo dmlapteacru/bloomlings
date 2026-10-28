@@ -111,7 +111,10 @@ namespace Bloomlings.Client.Gameplay.Slots
                 _tubes[i].gameObject.SetActive(false);
             }
 
-            _back.SetAsFirstSibling();
+            if (_back.GetSiblingIndex() != 0)
+            {
+                _back.SetAsFirstSibling();
+            }
         }
 
         /// <summary>One place: its empty plate, the pod's plate over it (fading in), the puff of a finished pod and Return's glow.</summary>
@@ -200,7 +203,12 @@ namespace Bloomlings.Client.Gameplay.Slots
                 }
 
                 Pod.gameObject.SetActive(true);
-                _podFade.alpha = Mathf.Clamp01(alpha);
+                float fade = Mathf.Clamp01(alpha);
+                if (Mathf.Abs(_podFade.alpha - fade) > 0.001f)
+                {
+                    _podFade.alpha = fade;
+                }
+
                 var pod = (material, count, stuck, extra, symbols);
                 if (!_pod.HasValue || !_pod.Value.Equals(pod))
                 {
@@ -228,18 +236,18 @@ namespace Bloomlings.Client.Gameplay.Slots
 
                 _puff.color = new Color(1f, 1f, 1f, 1f - q);
                 _puff.rectTransform.localScale = Vector3.one * (1f + (0.3f * q));
-                _puff.transform.SetAsLastSibling();
             }
 
             /// <summary>Return's glow round a place it can take back, and its touch while the HUD takes taps.</summary>
             public void SetTarget(bool glow, bool tappable)
             {
                 _glow.gameObject.SetActive(glow);
-                _touch.gameObject.SetActive(tappable);
-                if (tappable)
+                if (tappable && !_touch.gameObject.activeSelf)
                 {
                     _touch.transform.SetAsLastSibling();
                 }
+
+                _touch.gameObject.SetActive(tappable);
             }
 
             public void Hide()

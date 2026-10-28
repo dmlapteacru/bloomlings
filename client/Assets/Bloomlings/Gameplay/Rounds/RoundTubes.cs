@@ -20,6 +20,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             Image image = UiFactory.CreateImage(name, parent, null, Color.white);
             image.raycastTarget = false;
             image.preserveAspect = false;
+            image.gameObject.AddComponent<Shown>();
             return image;
         }
 
@@ -37,11 +38,31 @@ namespace Bloomlings.Client.Gameplay.Rounds
             int steppedPx = Mathf.Max(8, Mathf.CeilToInt(lengthPx / 8f) * 8);
             int thicknessPx = Mathf.Max(4, Mathf.RoundToInt(tube.Thickness * ppu));
             (float mx, float my) = tube.Middle;
-            BoxLayout.Place(image.rectTransform, Box.FromCenter(mx, my, steppedPx / ppu, thicknessPx / ppu));
+            var box = Box.FromCenter(mx, my, steppedPx / ppu, thicknessPx / ppu);
+            Shown? shown = image.GetComponent<Shown>();
+            var state = (box, tube.Degrees, tube.PictureKey, steppedPx, thicknessPx);
+            image.gameObject.SetActive(true);
+            if (shown != null && shown.State.HasValue && shown.State.Value.Equals(state))
+            {
+                // Unchanged: leave the canvas alone.
+                return;
+            }
+
+            if (shown != null)
+            {
+                shown.State = state;
+            }
+
+            BoxLayout.Place(image.rectTransform, box);
             image.rectTransform.localEulerAngles = new Vector3(0f, 0f, -tube.Degrees);
             image.sprite = RoundSprites.LinkTube(tube, steppedPx, thicknessPx);
             image.type = Image.Type.Simple;
-            image.gameObject.SetActive(true);
+        }
+
+        /// <summary>What a tube image shows now, so an unchanged tube is not placed again.</summary>
+        private sealed class Shown : MonoBehaviour
+        {
+            public (Box Box, float Degrees, string Key, int Width, int Height)? State { get; set; }
         }
     }
 }

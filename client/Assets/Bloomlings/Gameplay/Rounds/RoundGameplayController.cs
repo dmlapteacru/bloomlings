@@ -78,6 +78,9 @@ namespace Bloomlings.Client.Gameplay.Rounds
         private RoundAttempt? _attempt;
         private RoundLevelCore? _core;
         private ReferenceGameplayRegions? _regions;
+        private ReferenceGameplayRegions? _podGrid;
+        private IReadOnlyList<Box> _placeCells = Array.Empty<Box>();
+        private readonly List<Box> _placeTiles = new List<Box>();
         private RoundBoardLayout? _layout;
         private (float W, float H, int Places, bool Boosters, bool Badge) _layoutKey;
         private bool _labelled;
@@ -86,6 +89,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         private GuideStep? _shownStep;
         private int _boosterSignature = int.MinValue;
         private bool _appPaused;
+        private bool _autoShown;
 
         private LevelReward? _reward;
         private MilestoneGrant? _milestone;
@@ -286,6 +290,23 @@ namespace Bloomlings.Client.Gameplay.Rounds
             ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, Math.Max(1, core.Round.Tray.Count), places, _hasBoosters, _labelled);
             RoundBoardLayout board = RoundBoardLayout.In(r, core.Round);
             _regions = r.AlignControls(board.Board);
+
+            if (resized && _layout != null)
+            {
+                // A new screen size: the HUD places its areas again first.
+                _hud.Layout(_labelled, _hasBoosters, Math.Max(1, core.Round.Tray.Count), core.Round.Width - 2, core.Round.Height - 2);
+            }
+
+            // The tray's grid and the places in their areas' units, and the places' tiles on the screen: the same objects
+            // until the layout changes, so the views place nothing again from frame to frame.
+            _podGrid = _hud.PodGrid(Math.Max(1, core.Round.Tray.Count));
+            _placeCells = _hud.SlotCells(places);
+            _placeTiles.Clear();
+            for (int k = 0; k < places && k < _regions.Slots.Count; k++)
+            {
+                _placeTiles.Add(ReferenceGameplayRegions.SlotTile(_regions.Slots[k]));
+            }
+
             if (_layout == null || force)
             {
                 _layout = board;
@@ -331,7 +352,12 @@ namespace Bloomlings.Client.Gameplay.Rounds
             SyncCards();
             SyncEnd();
             _hud.SetChromeAlpha(core.HudAlpha);
-            _hud.ShowAutoSpeed(core.Auto);
+            if (core.Auto != _autoShown)
+            {
+                _autoShown = core.Auto;
+                _hud.ShowAutoSpeed(core.Auto);
+            }
+
             RefreshBoosters();
         }
 
@@ -346,21 +372,13 @@ namespace Bloomlings.Client.Gameplay.Rounds
 
             Relayout();
             RoundBoardLayout layout = _layout;
-            ReferenceGameplayRegions r = _regions!;
             _fx.Build(core.Animator, layout, core.Style, core.Play.ClockUs, Seat);
             _board.Sync(core, _fx, core.BuildableBridges(), core.UiNow);
             RenderFx(layout);
 
-            int placeCount = core.Animator.PlaceCount;
-            _places.Show(core, _hud.SlotCells(placeCount));
-            _tray.ShowRound(core, _hud.PodGrid(Math.Max(1, core.Round.Tray.Count)), core.HudLive && !core.Targeting.HasValue);
-            var tiles = new List<Box>(placeCount);
-            for (int k = 0; k < placeCount && k < r.Slots.Count; k++)
-            {
-                tiles.Add(ReferenceGameplayRegions.SlotTile(r.Slots[k]));
-            }
-
-            _flights.Show(core, tiles, _launch);
+            _places.Show(core, _placeCells);
+            _tray.ShowRound(core, _podGrid!, core.HudLive && !core.Targeting.HasValue);
+            _flights.Show(core, _placeTiles, _launch);
         }
 
         /// <summary>Where a pod's tiles go in its place (the plate's tile), in cell units of the grid; null when in none.</summary>
@@ -1069,7 +1087,9 @@ namespace Bloomlings.Client.Gameplay.Rounds
             _winShown = false;
             _boosterSignature = int.MinValue;
             Service<AdPolicy>()?.OnAttemptStarted();
-            Relayout(force: true);
+
+            // The board stays built: it shows the fresh attempt from the animator on the next frame.
+            Relayout();
             BeginAttemptAnalytics();
         }
 

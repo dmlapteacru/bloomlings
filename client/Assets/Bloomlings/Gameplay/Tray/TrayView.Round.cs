@@ -28,6 +28,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         private RectTransform? _roundBack;
         private RectTransform? _roundFront;
         private ReferenceGameplayRegions? _roundGrid;
+        private readonly Dictionary<int, (bool Empty, int More, int Rows)> _roundColumns = new Dictionary<int, (bool, int, int)>();
 
         /// <summary>A shown round pod's tile box in the tray area's top-down canvas units (its flight to a place starts there).</summary>
         public Box? RoundTileBox(int pod) =>
@@ -53,22 +54,34 @@ namespace Bloomlings.Client.Gameplay.Tray
             float touchMin = UiKit.Units(DesignTokens.Size.TouchMin);
             int columns = Mathf.Min(a.ColumnCount, grid.Columns.Count);
             _roundShown.Clear();
-            foreach (Image disc in _moreDiscs)
+            if (force)
             {
-                disc.gameObject.SetActive(false);
+                _roundColumns.Clear();
             }
 
             for (int s = 0; s < columns; s++)
             {
                 int waiting = a.Waiting(s);
+                int shownRows = Mathf.Min(waiting, grid.PodRows);
+                var column = (waiting == 0, Mathf.Max(0, waiting - grid.PodRows), shownRows);
+                bool changed = !_roundColumns.TryGetValue(s, out (bool Empty, int More, int Rows) before) || !before.Equals(column);
+                _roundColumns[s] = column;
                 Image? well = s < _wells.Count ? _wells[s] : null;
                 if (waiting == 0)
                 {
-                    Box front = grid.Pod(s, 0);
-                    Box empty = front.Inset(front.Height * 0.06f);
-                    well = Well(s, empty.Height);
-                    BoxLayout.Place(well.rectTransform, empty);
-                    well.gameObject.SetActive(true);
+                    if (changed)
+                    {
+                        Box front = grid.Pod(s, 0);
+                        Box empty = front.Inset(front.Height * 0.06f);
+                        well = Well(s, empty.Height);
+                        BoxLayout.Place(well.rectTransform, empty);
+                        well.gameObject.SetActive(true);
+                        if (s < _moreDiscs.Count)
+                        {
+                            _moreDiscs[s].gameObject.SetActive(false);
+                        }
+                    }
+
                     continue;
                 }
 
@@ -114,7 +127,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                 }
 
                 int more = waiting - rows;
-                if (more > 0)
+                if (more > 0 && (changed || s >= _moreDiscs.Count || !_moreDiscs[s].gameObject.activeSelf))
                 {
                     TMPro.TextMeshProUGUI label = More(s);
                     label.text = "+" + more.ToString(CultureInfo.InvariantCulture);
@@ -122,6 +135,10 @@ namespace Bloomlings.Client.Gameplay.Tray
                     float size = badge.Height * 1.26f;
                     BoxLayout.Place(_moreDiscs[s].rectTransform, Box.FromCenter(badge.CenterX, badge.CenterY, size, size));
                     _moreDiscs[s].transform.SetAsLastSibling();
+                }
+                else if (more <= 0 && s < _moreDiscs.Count)
+                {
+                    _moreDiscs[s].gameObject.SetActive(false);
                 }
             }
 
@@ -141,6 +158,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         public void ResetRound()
         {
             _roundPlaced.Clear();
+            _roundColumns.Clear();
             foreach (PodView view in _pods.Values)
             {
                 if (view.IsShown)
