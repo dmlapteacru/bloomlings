@@ -2,23 +2,23 @@
  "level": 46,
  "cls": "Normal",
  "intro": null,
- "picture": "P0032",
- "candidate": "P0032-Nlinks-13",
+ "picture": "P0027",
+ "candidate": "P0027-Nlinks-24",
  "recipe": "links",
- "N": 874,
- "W": 874,
- "colours": 8,
- "P": 26,
- "columns": 4,
+ "N": 975,
+ "W": 975,
+ "colours": 7,
+ "P": 24,
+ "columns": 3,
  "linked": 6,
  "hidden": 0,
  "random": {
-  "runs": 400,
-  "wins": 239,
-  "share": 0.598,
+  "runs": 100,
+  "wins": 66,
+  "share": 0.66,
   "wilson95": [
-   0.549,
-   0.644
+   0.563,
+   0.745
   ],
   "cls": "Normal",
   "borderline": false,
@@ -29,63 +29,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 9
-   },
-   {
-    "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 4
-   },
-   {
-    "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
     "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 25
-   },
-   {
-    "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 23
    },
    {
     "type": "tap",
@@ -93,19 +37,19 @@
    },
    {
     "type": "tap",
-    "pod": 13
+    "pod": 11
    },
    {
     "type": "tap",
-    "pod": 6
+    "pod": 18
    },
    {
     "type": "tap",
-    "pod": 5
+    "pod": 17
    },
    {
     "type": "tap",
-    "pod": 7
+    "pod": 16
    },
    {
     "type": "tap",
@@ -113,19 +57,67 @@
    },
    {
     "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
     "pod": 15
    },
    {
     "type": "tap",
-    "pod": 20
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 22
    }
   ],
-  "forks": 0,
-  "singleSafe": 0,
+  "forks": 2,
+  "singleSafe": 2,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 234
+   "seconds": 131.7
   }
  },
  "fairness": {
@@ -133,45 +125,45 @@
   "checked": 0
  },
  "strategies": {
-  "left-to-right|left": true,
-  "left-to-right|right": true,
+  "left-to-right|left": false,
+  "left-to-right|right": false,
   "right-to-left|left": true,
   "right-to-left|right": true,
   "top-down|left": true,
   "top-down|right": true,
-  "bottom-up|left": false,
-  "bottom-up|right": false,
-  "diagonal|left": false,
-  "diagonal|right": false,
-  "small-first|left": true,
-  "small-first|right": true,
-  "most-now|left": true,
-  "most-now|right": true,
-  "fast-release|left": true,
-  "fast-release|right": true
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
  },
  "rhythm": {
   "segments": [
    {
     "from": 0,
     "to": 20,
-    "meanFree": 2.82,
-    "minFree": 0,
-    "fullShare": 0.16,
+    "meanFree": 1.7,
+    "minFree": 1,
+    "fullShare": 0,
     "maxWaiting": 3
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 1.2,
+    "meanFree": 1.4,
     "minFree": 0,
-    "fullShare": 0.26,
-    "maxWaiting": 3
+    "fullShare": 0.15,
+    "maxWaiting": 4
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.05,
+    "meanFree": 3.36,
     "minFree": 2,
     "fullShare": 0,
     "maxWaiting": 1
@@ -179,239 +171,233 @@
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.33,
-    "minFree": 3,
+    "meanFree": 3.85,
+    "minFree": 2,
     "fullShare": 0,
     "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.31,
-    "minFree": 3,
+    "meanFree": 4.42,
+    "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 3,
-  "lastLaunchAtW": 94,
-  "seconds": 619.3
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 98,
+  "seconds": 399.7
  },
- "dosePos": 0.8,
+ "dosePos": 0.5,
  "checks": {
   "forced": 0.27,
   "opening": null,
   "hold": true,
-  "greedyLoses": false,
+  "greedyLoses": true,
   "hiddenMatters": null,
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.09,
-   "tight": 0.95
+   "stuck": 1.43,
+   "tight": 0.93
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 46,
-  "title": "Лодка в чашке",
-  "subject": "P0032",
-  "w": 45,
-  "h": 42,
+  "title": "Чайник-ракета",
+  "subject": "P0027",
+  "w": 48,
+  "h": 48,
   "rowsBottomFirst": [
-   "######################.######################",
-   "#...........................................#",
-   "#.............BBBBBBBBBBBBBBBB..............#",
-   "#.....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB......#",
-   "#..BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB...#",
-   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS..#",
-   "#.SSSSSSSSSSSSBBBBBBBBBBBBBBBBSSSSSSSSSSSS..#",
-   "#..SSSSSSSSSSSBBBBBBBBBBBBBBBBSSSSSSSSSSS...#",
-   "#.....SSSSSSSSBBBBBSSSSSSBBBBBSSSSSSSS......#",
-   "#.............BBSSSSSSSSSSSBBB..............#",
-   "#.............SSSSSSSSSSSSSBBB..............#",
-   "#...........SSSSSSSSSSSSSSSBBBBB............#",
-   "#..........SSSSSSSSSSSSSSSSSBBBBB...........#",
-   "#.........SSSSSSSSSSSSSSSSSSBBBBBB..........#",
-   "#........SSSSSSSSSSSSSSSSSSSBBBBBBBSSSS.....#",
-   "#........SSSSSSSSSSSSSSSSSSSSBBBBBBSSSSSS...#",
-   "#.......SSSSSSSSSSSSSSSSSSSSSBBBBBBBSSSSSS..#",
-   "#.......SSSSSSSSSSSSSSSSSSSSSBBBBBBB...SSSS.#",
-   "#......SSSSSSSSSSSSSSSSSSSSSSSBBBBBBB...SSS.#",
-   "#......NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...SSS.#",
-   "#......NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...SSS.#",
-   "#.....SSSSSSSSSSSSSSSSSSSSSSSSSBBBBBBB.SSSS.#",
-   "#.....SSSSSSAAAAAAAAAAAAAAAAAAAABBBBBBSSSS..#",
-   "#.....SSSAAAAAAAAAAAAAAAAAAAAAAAAAABBBSSS...#",
-   "#.....SSAAAAAAAAAARRRRRRRRRAAAAAAAAABBSS....#",
-   "#.....SSEEEEEEEEERRRRRRRRRRREEEEEEEESS......#",
-   "#.......SSSEEEEEERRRRRRRRRRREEEEESSS........#",
-   "#..........SSSSSSSEEEEEEEESSSSSSS...........#",
-   "#...............YYYYYYEECCCCCCC.............#",
-   "#................YYYYYEECCCCCC..............#",
-   "#................YYYYYEECCCCC...............#",
-   "#.................YYYYEECCCC................#",
-   "#..................YYYEECCCC................#",
-   "#...................YYEECCC.................#",
-   "#....................YEECC..................#",
-   "#....................YEECC..................#",
-   "#.....................EEC...................#",
-   "#.....................EE....................#",
-   "#.....................EERRR.................#",
-   "#.....................EERR..................#",
-   "#...........................................#",
-   "#############################################"
+   "########################.#######################",
+   "#..............................................#",
+   "#......................OO......................#",
+   "#.....................OOOO.....................#",
+   "#...................OOOYYOOO...................#",
+   "#.....R.............OOOYYOOO.............R.....#",
+   "#.....RRR..........OOOYYYYOOO..........RRR.....#",
+   "#.....RRRR.........OOOYYYYOOO.........RRRR.....#",
+   "#.....RRRRR........OOYYYYYYOO........RRRRR.....#",
+   "#.....RRRRRR.......OOOYYYYOOO.......RRRRRR.....#",
+   "#.....RRRRRRR.....NNOOYYYYOONN.....RRRRRRR.....#",
+   "#.....RRRRRRRRR...NNONNNNNNONN...RRRRRRRRR.....#",
+   "#.....RRRRRRRRRR..NNNNNNNNNNNN..RRRRRRRRRR.....#",
+   "#......RRRRRRRRRNNBBBBBBBBBNNNNNRRRRRRRRR......#",
+   "#.......RRRRRRBBBBBBBBBBBBBBBNNNNNRRRRRR.......#",
+   "#........RRRRBBBBBBBBBBBBBBBBBBNNNNRRRR........#",
+   "#.........RRBBBBBBBBBBBBBBBBBBBBNNNNRR.........#",
+   "#..........RBBBBBBBBBBBBBBBBBBBBBNNNR..........#",
+   "#..........BBBBBBBBBBBBBBBBBBBBBBBNNNNNNN......#",
+   "#.........BBBBBBBBBBBBBBBBBBBBBBBBBNNNNNNN.....#",
+   "#.........BBBBBBBBBBYYYYYYBBBBBBBBBNNNNNNNN....#",
+   "#.........BBBBBBBBBYYYSSYYYBBBBBBBBBNN.NNNN....#",
+   "#.........BBBBBBBBYYSSSSSSYYBBBBBBBBNN..NNNN...#",
+   "#........BBBBBBBBBYYSSSSSSYYBBBBBBBBBNN.NNNN...#",
+   "#.......BBBBBBBBBBYSSSSSSSSYBBBBBBBBBNN..NNN...#",
+   "#.......BBBBBBBBBBYSSCSSSSSYBBBBBBBBBNN..NNN...#",
+   "#......BBBBBCCBBBBYYSCCSSSYYBBBBBBBBBN...NNN...#",
+   "#.....BBBBBBCCBBBBYYSSSSSSYYBBBBBBBBBN..NNNN...#",
+   "#....BBBBBBBBCCBBBBYYYSSYYYBBBBBBBBBBN..NNNN...#",
+   "#....BBBBBBBBCCBBBBBYYYYYYBBBBBBBBBBNN.NNNN....#",
+   "#....BBBBB.BBBCCBBBBBBBBBBBBBBBBBBBBNNNNNNN....#",
+   "#....BBBBB..BBBCCBBBBBBBBBBBBBBBBBBBNNNNNN.....#",
+   "#...BBBBB...BNNNNNNNNNNNNNNNNNNNNNNNNNNNN......#",
+   "#...BBBB.....NNNNNNNNNNNNNNNNNNNNNN............#",
+   "#...RRRR........RRRRRRRRRRRRRRRR...............#",
+   "#...RRR..........RRRRRRRRRRRRRR................#",
+   "#...RRR...........RRRRRRRRRRRR.................#",
+   "#.................RRRRRRRRRRRR.................#",
+   "#..................RRRRRRRRRR..................#",
+   "#...................RRRRRRRR...................#",
+   "#....................RRRRRR....................#",
+   "#.....................RRRR.....................#",
+   "#......................RR......................#",
+   "#......................YY......................#",
+   "#......................YY......................#",
+   "#......................YY......................#",
+   "#..............................................#",
+   "################################################"
   ],
   "entries": [
-   22
+   24
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "E",
-    "count": 20,
-    "group": "B"
-   },
-   {
-    "color": "E",
-    "count": 20
-   },
-   {
-    "color": "E",
-    "count": 20
-   },
-   {
-    "color": "R",
-    "count": 18
-   },
-   {
-    "color": "R",
-    "count": 18
-   },
-   {
-    "color": "C",
-    "count": 17
-   },
-   {
-    "color": "C",
-    "count": 17
-   },
-   {
     "color": "Y",
-    "count": 14,
+    "count": 26,
     "group": "A"
    },
    {
     "color": "Y",
-    "count": 13
+    "count": 25
    },
    {
-    "color": "S",
-    "count": 56
-   },
-   {
-    "color": "S",
-    "count": 56,
-    "group": "A"
-   },
-   {
-    "color": "S",
-    "count": 56,
+    "color": "Y",
+    "count": 25,
     "group": "C"
    },
    {
-    "color": "S",
-    "count": 55,
-    "group": "C"
+    "color": "R",
+    "count": 46
    },
    {
-    "color": "S",
-    "count": 55
+    "color": "R",
+    "count": 46
    },
    {
-    "color": "S",
-    "count": 55
+    "color": "R",
+    "count": 46,
+    "group": "B"
    },
    {
-    "color": "S",
-    "count": 55
+    "color": "R",
+    "count": 45
    },
    {
-    "color": "A",
-    "count": 22
-   },
-   {
-    "color": "A",
-    "count": 22
-   },
-   {
-    "color": "A",
-    "count": 21
+    "color": "R",
+    "count": 45
    },
    {
     "color": "B",
-    "count": 51,
+    "count": 56,
     "group": "B"
    },
    {
     "color": "B",
-    "count": 51
+    "count": 56,
+    "group": "A"
    },
    {
     "color": "B",
-    "count": 51
+    "count": 55
    },
    {
     "color": "B",
-    "count": 51
+    "count": 55
+   },
+   {
+    "color": "B",
+    "count": 55
+   },
+   {
+    "color": "B",
+    "count": 55
+   },
+   {
+    "color": "B",
+    "count": 55
    },
    {
     "color": "N",
-    "count": 20
+    "count": 46
    },
    {
     "color": "N",
-    "count": 20
+    "count": 46
    },
    {
     "color": "N",
+    "count": 45
+   },
+   {
+    "color": "N",
+    "count": 45
+   },
+   {
+    "color": "C",
+    "count": 15
+   },
+   {
+    "color": "S",
+    "count": 21,
+    "group": "C"
+   },
+   {
+    "color": "S",
     "count": 20
+   },
+   {
+    "color": "O",
+    "count": 23
+   },
+   {
+    "color": "O",
+    "count": 23
    }
   ],
   "tray": [
    [
-    9,
-    16,
-    8,
-    22,
-    17,
-    4
-   ],
-   [
-    0,
+    20,
+    1,
     11,
-    2,
-    21,
-    3,
     18,
-    25
-   ],
-   [
-    19,
-    12,
-    24,
-    23,
-    10,
-    14,
+    17,
+    16,
+    5,
     15
    ],
    [
-    1,
-    13,
-    6,
-    5,
+    2,
+    14,
+    19,
     7,
-    20
+    9,
+    23,
+    8,
+    3
+   ],
+   [
+    21,
+    13,
+    12,
+    10,
+    0,
+    6,
+    4,
+    22
    ]
   ],
   "recipe": "links",

@@ -3,7 +3,7 @@
   21,
   50
  ],
- "created": "2026-10-28T22:46:28.739Z",
+ "created": "2026-10-28T23:39:12.570Z",
  "positions": [
   {
    "level": 21,
@@ -46,8 +46,8 @@
      10
     ]
    },
-   "placed": true,
-   "picture": "P0019"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 23,
@@ -90,8 +90,8 @@
      10
     ]
    },
-   "placed": true,
-   "picture": "P0036"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 25,
@@ -113,8 +113,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0094"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 26,
@@ -159,8 +159,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0015"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 28,
@@ -182,8 +182,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0008"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 29,
@@ -251,8 +251,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0089"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 32,
@@ -274,8 +274,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0098"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 33,
@@ -320,8 +320,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0054"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 35,
@@ -366,8 +366,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0071"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 37,
@@ -389,8 +389,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0014"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 38,
@@ -412,8 +412,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0012"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 39,
@@ -435,8 +435,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0074"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 40,
@@ -458,8 +458,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0042"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 41,
@@ -504,8 +504,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0013"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 43,
@@ -527,8 +527,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0082"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 44,
@@ -596,8 +596,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0032"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 47,
@@ -619,8 +619,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0004"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 48,
@@ -665,8 +665,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0033"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 50,
@@ -694,16 +694,34 @@
  ],
  "open": [
   21,
+  22,
   23,
+  24,
+  25,
   26,
+  27,
+  28,
   29,
   30,
+  31,
+  32,
   33,
+  34,
   35,
+  36,
+  37,
+  38,
+  39,
+  40,
   41,
+  42,
+  43,
   44,
   45,
+  46,
+  47,
   48,
+  49,
   50
  ],
  "blockers": [],
@@ -1036,29 +1054,29 @@
   }
  },
  "need": {
-  "Normal": 5,
-  "Hard": 1,
+  "Normal": 21,
+  "Hard": 3,
   "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 61,
-  "strong": 23,
+  "pictures": 79,
+  "strong": 36,
   "stream": 0,
   "bank": {
-   "знакомство: hidden": 30,
-   "Normal": 148,
-   "знакомство: links": 26,
-   "Super Hard": 8,
-   "Hard": 16
+   "знакомство: hidden": 71,
+   "Normal": 341,
+   "Hard": 59,
+   "знакомство: links": 52,
+   "Super Hard": 31
   },
   "overlay": {
-   "L33 влево": 61,
-   "L41 вверх": 61,
-   "L44 влево": 61,
-   "L48 вправо": 60,
-   "L50 вверх": 40
+   "L33 влево": 77,
+   "L41 вверх": 77,
+   "L44 влево": 77,
+   "L48 вправо": 76,
+   "L50 вверх": 53
   }
  },
  "order": {
@@ -1171,7 +1189,7 @@
     "command": "node tools/rounds/bridge-scene.mjs make --side two --kind single --cls \"Super Hard\" --recipe bridge+links+hidden --level 45 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
    }
   ],
-  "sceneSources": 31,
+  "sceneSources": 39,
   "avoidMotifs": [
    "ретро-техника (8)",
    "лампы и фонари (5)",

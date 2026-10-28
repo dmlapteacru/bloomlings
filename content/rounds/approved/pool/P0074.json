@@ -1,7 +1,7 @@
 {
  "code": "P0074",
- "state": "used",
- "usedBy": "L0039",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Фонтан в парке",
  "theme": "batch-0061",

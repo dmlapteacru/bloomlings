@@ -1,7 +1,7 @@
 {
  "code": "P0082",
  "state": "used",
- "usedBy": "L0043",
+ "usedBy": "L0024",
  "version": 1,
  "title": "Мольберт и палитра",
  "theme": "batch-0061",

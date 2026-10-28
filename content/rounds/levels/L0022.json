@@ -2,23 +2,23 @@
  "level": 22,
  "cls": "Normal",
  "intro": null,
- "picture": "P0019",
- "candidate": "P0019-Nnone-10",
+ "picture": "P0089",
+ "candidate": "P0089-Nnone-st1-8",
  "recipe": "none",
- "N": 598,
- "W": 598,
- "colours": 5,
- "P": 18,
+ "N": 882,
+ "W": 882,
+ "colours": 8,
+ "P": 24,
  "columns": 3,
  "linked": 0,
  "hidden": 0,
  "random": {
   "runs": 100,
-  "wins": 92,
-  "share": 0.92,
+  "wins": 89,
+  "share": 0.89,
   "wilson95": [
-   0.85,
-   0.959
+   0.814,
+   0.937
   ],
   "cls": "Normal",
   "borderline": false,
@@ -29,7 +29,31 @@
   "route": [
    {
     "type": "tap",
-    "pod": 13
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 15
    },
    {
     "type": "tap",
@@ -41,19 +65,11 @@
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 1
    },
    {
     "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 11
+    "pod": 23
    },
    {
     "type": "tap",
@@ -61,23 +77,11 @@
    },
    {
     "type": "tap",
-    "pod": 8
+    "pod": 16
    },
    {
     "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 3
+    "pod": 22
    },
    {
     "type": "tap",
@@ -85,7 +89,19 @@
    },
    {
     "type": "tap",
-    "pod": 7
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 20
    },
    {
     "type": "tap",
@@ -93,19 +109,27 @@
    },
    {
     "type": "tap",
-    "pod": 16
+    "pod": 19
    },
    {
     "type": "tap",
-    "pod": 15
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 4
    }
   ],
-  "forks": 0,
-  "singleSafe": 0,
+  "forks": 2,
+  "singleSafe": 2,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 81.6
+   "seconds": 147.1
   }
  },
  "fairness": {
@@ -113,18 +137,18 @@
   "checked": 0
  },
  "strategies": {
-  "left-to-right|left": true,
-  "left-to-right|right": true,
+  "left-to-right|left": false,
+  "left-to-right|right": false,
   "right-to-left|left": true,
   "right-to-left|right": true,
-  "top-down|left": false,
-  "top-down|right": false,
-  "bottom-up|left": true,
-  "bottom-up|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": false,
+  "bottom-up|right": false,
   "diagonal|left": true,
   "diagonal|right": true,
-  "small-first|left": false,
-  "small-first|right": false,
+  "small-first|left": true,
+  "small-first|right": true,
   "most-now|left": false,
   "most-now|right": false,
   "fast-release|left": false,
@@ -135,51 +159,51 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.98,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 3
+    "meanFree": 1.44,
+    "minFree": 0,
+    "fullShare": 0.12,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 2.72,
-    "minFree": 1,
+    "meanFree": 3.73,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 3
+    "maxWaiting": 1
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 3.5,
-    "minFree": 3,
+    "meanFree": 4.35,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 3.08,
-    "minFree": 2,
+    "meanFree": 4.24,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.31,
-    "minFree": 3,
+    "meanFree": 4.44,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    }
   ],
   "launchesAfter80": 4,
-  "lastLaunchAtW": 97,
-  "seconds": 414
+  "lastLaunchAtW": 94,
+  "seconds": 500.1
  },
  "dosePos": null,
  "checks": {
-  "forced": 0.1,
+  "forced": 0.07,
   "opening": null,
   "hold": true,
   "greedyLoses": true,
@@ -187,159 +211,195 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.55,
-   "tight": 0.84
+   "stuck": 1.61,
+   "tight": 0.9
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 22,
-  "title": "Скейтборд",
-  "subject": "P0019",
-  "w": 42,
-  "h": 38,
+  "title": "Хрустальный шар с замком",
+  "subject": "P0089",
+  "w": 34,
+  "h": 44,
   "rowsBottomFirst": [
-   "#####################.####################",
-   "#........................................#",
-   "#............O...........................#",
-   "#......DDDDOOOO..........................#",
-   "#....DDDDDOOOOOO.........................#",
-   "#...DNNNNNNOOOOO.........................#",
-   "#...NBBBBBBNNOOD.........................#",
-   "#..NBBBBBBBBNNDDD........................#",
-   "#.NNBBBBBBBBBBNNDDD......................#",
-   "#.NBBBBBBBBBBBBNNDDD.....................#",
-   "#.NBBBBBBBBYYBBBBNNDDD...................#",
-   "#.NBBBBBBBBBYYBBBBNNDDD..................#",
-   "#.NNBBBBBBBBYYYBBBBBNDDDD................#",
-   "#..NBBBBBBBBBYYYBBBBBNNDDD...............#",
-   "#...NBBBBBBBBYYYYBBBBBBNDDDD.............#",
-   "#..OONNBBBBBBBYYYYBBBBYBNNDDD............#",
-   "#.OOOONNBBBBBBBYYYYBBBYYBBNDDDD..........#",
-   "#.OOOOOONNBBBBBYYYYYBBYYBBBNNDDD.........#",
-   "#..OOOO..NNBBBBBYYYYYYYYYBBBNNDDD..OO....#",
-   "#...OO.....NNBBBYYYYYYYYYBBBBBNNDDOOOO...#",
-   "#...........NNBBBYYBBYYYYYBBBBBNNOOOOOO..#",
-   "#.............NBBYYBBBYYYYYBBBBBBNNOOOO..#",
-   "#..............NNBYBBBBYYYYBBBBBBBNNOOD..#",
-   "#................NBBBBBBYYYYBBBBBBBBNDD..#",
-   "#.................NNBBBBBYYYBBBBBBBBBNDD.#",
-   "#...................NBBBBBYYYBBBBBBBBNND.#",
-   "#....................NNBBBBYYBBBBBBBBBND.#",
-   "#.....................NNBBBBBYBBBBBBBBND.#",
-   "#.......................NNBBBBYBBBBBBBN..#",
-   "#........................NNBBBBBBBBBBNN..#",
-   "#..........................NNBBBBBBBBN...#",
-   "#.........................OONNBBBBBBN....#",
-   "#........................OOOOONNNNNN.....#",
-   "#........................OOOOOO..........#",
-   "#.........................OOOO...........#",
-   "#..........................O.............#",
-   "#........................................#",
-   "##########################################"
+   "#################.################",
+   "#................................#",
+   "#......AAAAAAAAAAAAAAAAAAAA......#",
+   "#......AAAAAAAAAAAAAAAAAAAA......#",
+   "#.......YYYYYYYYYYYYYYYYYY.......#",
+   "#........AAAAAAAAAAAAAAAA........#",
+   "#.........AAAAAAAAAAAAAA.........#",
+   "#.............YYYYYY.............#",
+   "#.............YYYYYY.............#",
+   "#.............YYYYYY.............#",
+   "#.........AAAAAAAAAAAAAA.........#",
+   "#.........AAAAAAAAAAAAAA.........#",
+   "#........AAAAAAAAAAAAAAAA........#",
+   "#.......AAAAAAAAAAAAAAAAAA.......#",
+   "#.......YYYYYYYYYYYYYYYYYY.......#",
+   "#......BGGGGGGGGGGGGGGGGGGB......#",
+   "#.....BGGGGGGGGGGGGGGGGGGGGB.....#",
+   "#....BGGGGGGGGGGGGGGGGGGGGGGB....#",
+   "#...BSGGGGGGGGGGGGGGGGGGGGGGSB...#",
+   "#..BBSSGPPPPPPPPVVPPPPPPPGGSSBB..#",
+   "#..BSSSSPPPPPPPPVVPPPPPPPSSSSSB..#",
+   "#..BSSSSPPPPPPPPVVPPPPPPPSSSSSB..#",
+   "#.BSSSSSPPPPPPPPVVPPPPPPPSSSSSSB.#",
+   "#.BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB.#",
+   "#.BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB.#",
+   "#.BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB.#",
+   "#.BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB.#",
+   "#.BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB.#",
+   "#.BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB.#",
+   "#.BSCCSSVVVVVSPPPPPPSVVVVVSSSSSB.#",
+   "#.BSCCSSSVVVVSPPPPPPSVVVVSSSSSSB.#",
+   "#.BSCCSSSVVVSVVVVVVVVSVVVSSSSSSB.#",
+   "#..BSCCSSSVVSVVVVVVVVSVVSSSSSSB..#",
+   "#..BSCCCSSVSSSVVVVVVSSSVSSSSSSB..#",
+   "#..BBSCCSSSSSSSVVVVSSSSSSSSSSBB..#",
+   "#...BSSCCSSSSSSVVVVSSSSSSSSSSB...#",
+   "#....BSCCCCSSSSSVVSSSSSSSSSSB....#",
+   "#.....BSSCCCSSSSSVSSSSSSSSSB.....#",
+   "#......BSSCCCCSSSVSSSSSSSSB......#",
+   "#.......BBSSCCSSSVYYSSSSBB.......#",
+   "#........BBBSSSSSSSSSSBBB........#",
+   "#...........BBBBBBBBBB...........#",
+   "#................................#",
+   "##################################"
   ],
   "entries": [
-   21
+   17
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "O",
+    "color": "B",
     "count": 24
    },
    {
-    "color": "O",
+    "color": "B",
     "count": 24
    },
    {
-    "color": "O",
+    "color": "B",
     "count": 24
    },
    {
-    "color": "N",
-    "count": 32
+    "color": "S",
+    "count": 54
    },
    {
-    "color": "N",
-    "count": 32
+    "color": "S",
+    "count": 54
    },
    {
-    "color": "N",
-    "count": 32
+    "color": "S",
+    "count": 54
    },
    {
-    "color": "B",
-    "count": 48
+    "color": "S",
+    "count": 54
    },
    {
-    "color": "B",
-    "count": 48
+    "color": "S",
+    "count": 54
    },
    {
-    "color": "B",
-    "count": 48
+    "color": "C",
+    "count": 14
    },
    {
-    "color": "B",
-    "count": 48
+    "color": "C",
+    "count": 14
    },
    {
-    "color": "B",
-    "count": 48
-   },
-   {
-    "color": "B",
-    "count": 47
-   },
-   {
-    "color": "Y",
-    "count": 28
-   },
-   {
-    "color": "Y",
-    "count": 28
-   },
-   {
-    "color": "Y",
+    "color": "V",
     "count": 27
    },
    {
-    "color": "D",
-    "count": 20
+    "color": "V",
+    "count": 27
    },
    {
-    "color": "D",
-    "count": 20
+    "color": "V",
+    "count": 27
    },
    {
-    "color": "D",
-    "count": 20
+    "color": "Y",
+    "count": 28
+   },
+   {
+    "color": "Y",
+    "count": 28
+   },
+   {
+    "color": "P",
+    "count": 53
+   },
+   {
+    "color": "P",
+    "count": 53
+   },
+   {
+    "color": "P",
+    "count": 52
+   },
+   {
+    "color": "G",
+    "count": 29
+   },
+   {
+    "color": "G",
+    "count": 28
+   },
+   {
+    "color": "G",
+    "count": 28
+   },
+   {
+    "color": "A",
+    "count": 44
+   },
+   {
+    "color": "A",
+    "count": 44
+   },
+   {
+    "color": "A",
+    "count": 44
    }
   ],
   "tray": [
    [
-    13,
+    17,
+    11,
+    14,
+    6,
+    15,
     12,
     5,
-    4,
-    6,
-    14
-   ],
-   [
-    11,
-    9,
-    8,
-    1,
-    17,
-    0
+    1
    ],
    [
     3,
-    10,
-    7,
-    2,
+    0,
+    23,
+    9,
     16,
-    15
+    22,
+    10,
+    21
+   ],
+   [
+    13,
+    8,
+    20,
+    2,
+    19,
+    7,
+    18,
+    4
    ]
   ],
   "recipe": "none",

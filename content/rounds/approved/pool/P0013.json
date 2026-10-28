@@ -1,7 +1,7 @@
 {
  "code": "P0013",
- "state": "used",
- "usedBy": "L0042",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Лиса-почтальон",
  "theme": "batch-0011",

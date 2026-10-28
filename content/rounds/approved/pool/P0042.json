@@ -1,7 +1,7 @@
 {
  "code": "P0042",
  "state": "used",
- "usedBy": "L0040",
+ "usedBy": "L0036",
  "version": 2,
  "title": "Космонавт поливает цветок на астероиде",
  "theme": "batch-0011-env",

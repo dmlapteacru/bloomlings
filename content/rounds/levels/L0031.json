@@ -2,23 +2,23 @@
  "level": 31,
  "cls": "Normal",
  "intro": null,
- "picture": "P0089",
- "candidate": "P0089-Nlinks-8",
+ "picture": "P0007",
+ "candidate": "P0007-Nlinks-5",
  "recipe": "links",
- "N": 882,
- "W": 882,
- "colours": 8,
- "P": 24,
+ "N": 554,
+ "W": 554,
+ "colours": 7,
+ "P": 18,
  "columns": 3,
  "linked": 4,
  "hidden": 0,
  "random": {
-  "runs": 100,
-  "wins": 63,
-  "share": 0.63,
+  "runs": 400,
+  "wins": 222,
+  "share": 0.555,
   "wilson95": [
-   0.532,
-   0.718
+   0.506,
+   0.603
   ],
   "cls": "Normal",
   "borderline": false,
@@ -29,11 +29,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 12
+    "pod": 4
    },
    {
     "type": "tap",
@@ -41,51 +37,11 @@
    },
    {
     "type": "tap",
-    "pod": 15
+    "pod": 3
    },
    {
     "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 20
-   },
-   {
-    "type": "tap",
-    "pod": 19
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 23
-   },
-   {
-    "type": "tap",
-    "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 17
+    "pod": 14
    },
    {
     "type": "tap",
@@ -93,7 +49,35 @@
    },
    {
     "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
     "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 13
    },
    {
     "type": "tap",
@@ -101,27 +85,19 @@
    },
    {
     "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
     "pod": 7
    },
    {
     "type": "tap",
-    "pod": 4
-   },
-   {
-    "type": "tap",
-    "pod": 21
+    "pod": 5
    }
   ],
-  "forks": 3,
-  "singleSafe": 3,
+  "forks": 0,
+  "singleSafe": 0,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 206.3
+   "seconds": 48.4
   }
  },
  "fairness": {
@@ -129,273 +105,224 @@
   "checked": 0
  },
  "strategies": {
-  "left-to-right|left": false,
-  "left-to-right|right": false,
-  "right-to-left|left": false,
-  "right-to-left|right": false,
-  "top-down|left": false,
-  "top-down|right": false,
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
   "bottom-up|left": false,
   "bottom-up|right": false,
-  "diagonal|left": false,
-  "diagonal|right": false,
-  "small-first|left": false,
-  "small-first|right": false,
-  "most-now|left": false,
-  "most-now|right": false,
-  "fast-release|left": false,
-  "fast-release|right": false
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": true,
+  "small-first|right": true,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
  },
  "rhythm": {
   "segments": [
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.42,
-    "minFree": 0,
-    "fullShare": 0.28,
-    "maxWaiting": 4
+    "meanFree": 2.12,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 1
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 2.39,
-    "minFree": 1,
+    "meanFree": 4.19,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 0
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 0.66,
-    "minFree": 0,
-    "fullShare": 0.52,
-    "maxWaiting": 3
+    "meanFree": 4.27,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 1.06,
-    "minFree": 0,
-    "fullShare": 0.44,
-    "maxWaiting": 3
+    "meanFree": 4.37,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 3.86,
-    "minFree": 3,
+    "meanFree": 4.44,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 3,
-  "lastLaunchAtW": 95,
-  "seconds": 466.1
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 97,
+  "seconds": 221.4
  },
- "dosePos": 0.4,
+ "dosePos": 0.6,
  "checks": {
-  "forced": 0.23,
+  "forced": 0.24,
   "opening": null,
   "hold": true,
-  "greedyLoses": true,
+  "greedyLoses": false,
   "hiddenMatters": null,
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.33,
-   "tight": 0.94
+   "stuck": 1.04,
+   "tight": 0.87
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 31,
-  "title": "Хрустальный шар с замком",
-  "subject": "P0089",
-  "w": 34,
-  "h": 44,
+  "title": "Фотоаппарат",
+  "subject": "P0007",
+  "w": 33,
+  "h": 25,
   "rowsBottomFirst": [
-   "#################.################",
-   "#................................#",
-   "#......AAAAAAAAAAAAAAAAAAAA......#",
-   "#......AAAAAAAAAAAAAAAAAAAA......#",
-   "#.......YYYYYYYYYYYYYYYYYY.......#",
-   "#........AAAAAAAAAAAAAAAA........#",
-   "#.........AAAAAAAAAAAAAA.........#",
-   "#.............YYYYYY.............#",
-   "#.............YYYYYY.............#",
-   "#.............YYYYYY.............#",
-   "#.........AAAAAAAAAAAAAA.........#",
-   "#.........AAAAAAAAAAAAAA.........#",
-   "#........AAAAAAAAAAAAAAAA........#",
-   "#.......AAAAAAAAAAAAAAAAAA.......#",
-   "#.......YYYYYYYYYYYYYYYYYY.......#",
-   "#......BGGGGGGGGGGGGGGGGGGB......#",
-   "#.....BGGGGGGGGGGGGGGGGGGGGB.....#",
-   "#....BGGGGGGGGGGGGGGGGGGGGGGB....#",
-   "#...BSGGGGGGGGGGGGGGGGGGGGGGSB...#",
-   "#..BBSSGPPPPPPPPVVPPPPPPPGGSSBB..#",
-   "#..BSSSSPPPPPPPPVVPPPPPPPSSSSSB..#",
-   "#..BSSSSPPPPPPPPVVPPPPPPPSSSSSB..#",
-   "#.BSSSSSPPPPPPPPVVPPPPPPPSSSSSSB.#",
-   "#.BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB.#",
-   "#.BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB.#",
-   "#.BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB.#",
-   "#.BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB.#",
-   "#.BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB.#",
-   "#.BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB.#",
-   "#.BSCCSSVVVVVSPPPPPPSVVVVVSSSSSB.#",
-   "#.BSCCSSSVVVVSPPPPPPSVVVVSSSSSSB.#",
-   "#.BSCCSSSVVVSVVVVVVVVSVVVSSSSSSB.#",
-   "#..BSCCSSSVVSVVVVVVVVSVVSSSSSSB..#",
-   "#..BSCCCSSVSSSVVVVVVSSSVSSSSSSB..#",
-   "#..BBSCCSSSSSSSVVVVSSSSSSSSSSBB..#",
-   "#...BSSCCSSSSSSVVVVSSSSSSSSSSB...#",
-   "#....BSCCCCSSSSSVVSSSSSSSSSSB....#",
-   "#.....BSSCCCSSSSSVSSSSSSSSSB.....#",
-   "#......BSSCCCCSSSVSSSSSSSSB......#",
-   "#.......BBSSCCSSSVYYSSSSBB.......#",
-   "#........BBBSSSSSSSSSSBBB........#",
-   "#...........BBBBBBBBBB...........#",
-   "#................................#",
-   "##################################"
+   "################.################",
+   "#...............................#",
+   "#..DDDDDDDDDDDDDDDDDDDDDDDDDDD..#",
+   "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+   "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+   "#.AAAAAACCCCCDDNNNNNNNDDCCCCCCD.#",
+   "#.AAAAAACCCCDDNNBBBBNNNDDCCCCCD.#",
+   "#.AAAAAACCCDDNNBBBBBBBNNDCCCCCD.#",
+   "#.AAAAAACCCDNNBBBDDBCCNNDDCCCCD.#",
+   "#.AAAAAACCCDNNBBDDDDDBBNNDCCCCD.#",
+   "#.AAAAAACCDDNBBDDDDDDBBNNDCCCCD.#",
+   "#.AAAAAACCDDNBBDDDDDDBBNNDCCCCD.#",
+   "#.AAAAAACCDDNBBBCDDDDBBNNDCCCCD.#",
+   "#.AAAAAACCCDNNBCCCDDBBBNDDCCCCD.#",
+   "#.AAAAAACCCDNNBCCCBBBBNNDCCCCCD.#",
+   "#.AAAYYYYYCCDNNBBBBBBNNDDCCRCCD.#",
+   "#.AAAYYYYYCCDDNNNNNNNNDDCCCCCCD.#",
+   "#.DAAYYYYYCCCDDDNNNNNDDCCCCCCCD.#",
+   "#.DCCCCCCCCCCCCDDDDDDDCCCCCCCCD.#",
+   "#.DCCCCCDDDDDDDDCCCCCCRRRRRCCCD.#",
+   "#.......DDDDDDDD......RRRRR.....#",
+   "#.......DDDDDDDD......RRRRR.....#",
+   "#.......DDDDDDDD................#",
+   "#...............................#",
+   "#################################"
   ],
   "entries": [
-   17
+   16
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "B",
-    "count": 24
+    "color": "D",
+    "count": 42
    },
    {
-    "color": "B",
-    "count": 24
+    "color": "D",
+    "count": 42
    },
    {
-    "color": "B",
-    "count": 24,
+    "color": "D",
+    "count": 42
+   },
+   {
+    "color": "D",
+    "count": 42
+   },
+   {
+    "color": "D",
+    "count": 41,
     "group": "A"
    },
    {
-    "color": "S",
-    "count": 54
-   },
-   {
-    "color": "S",
-    "count": 54
-   },
-   {
-    "color": "S",
-    "count": 54,
-    "group": "B"
-   },
-   {
-    "color": "S",
-    "count": 54
-   },
-   {
-    "color": "S",
-    "count": 54
+    "color": "R",
+    "count": 16
    },
    {
     "color": "C",
-    "count": 14
+    "count": 36
    },
    {
     "color": "C",
-    "count": 14
+    "count": 36
    },
    {
-    "color": "V",
-    "count": 27
+    "color": "C",
+    "count": 35
    },
    {
-    "color": "V",
-    "count": 27
-   },
-   {
-    "color": "V",
-    "count": 27
-   },
-   {
-    "color": "Y",
-    "count": 28,
-    "group": "A"
-   },
-   {
-    "color": "Y",
-    "count": 28,
+    "color": "C",
+    "count": 35,
     "group": "B"
    },
    {
-    "color": "P",
-    "count": 53
+    "color": "A",
+    "count": 23
    },
    {
-    "color": "P",
-    "count": 53
+    "color": "A",
+    "count": 23
    },
    {
-    "color": "P",
-    "count": 52
+    "color": "A",
+    "count": 22
    },
    {
-    "color": "G",
+    "color": "Y",
+    "count": 15
+   },
+   {
+    "color": "N",
     "count": 29
    },
    {
-    "color": "G",
-    "count": 28
+    "color": "N",
+    "count": 28,
+    "group": "B"
    },
    {
-    "color": "G",
-    "count": 28
+    "color": "B",
+    "count": 24
    },
    {
-    "color": "A",
-    "count": 44
-   },
-   {
-    "color": "A",
-    "count": 44
-   },
-   {
-    "color": "A",
-    "count": 44
+    "color": "B",
+    "count": 23,
+    "group": "A"
    }
   ],
   "tray": [
    [
-    0,
-    12,
+    4,
     9,
+    3,
+    14,
+    11,
+    0
+   ],
+   [
+    17,
     15,
     8,
-    14,
     2,
+    6,
     1
    ],
    [
     16,
-    20,
-    19,
-    23,
-    18,
-    5,
+    12,
     13,
-    22
-   ],
-   [
-    17,
-    11,
-    6,
     10,
-    3,
     7,
-    4,
-    21
+    5
    ]
   ],
   "recipe": "links",

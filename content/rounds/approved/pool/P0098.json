@@ -1,7 +1,7 @@
 {
  "code": "P0098",
- "state": "used",
- "usedBy": "L0032",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Луна на бельевой верёвке",
  "theme": "batch-0061",

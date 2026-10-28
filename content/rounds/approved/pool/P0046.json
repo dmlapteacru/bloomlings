@@ -1,7 +1,7 @@
 {
  "code": "P0046",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0027",
  "version": 2,
  "title": "Батискаф",
  "theme": "batch-0011-env",
