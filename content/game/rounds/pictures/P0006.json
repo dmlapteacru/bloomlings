@@ -1,0 +1,41 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0006",
+ "version": 5,
+ "title": "Кроссовок",
+ "family": "Одежда и аксессуары",
+ "subject": "кроссовок",
+ "source": "оригинальный",
+ "w": 35,
+ "h": 22,
+ "rows": [
+  ".NNNDDDDDDDDDDB....................",
+  ".NNNDDDDDDDDDDB....................",
+  ".NNNNDDDDDDDDBB....................",
+  ".NNNNNNNBBBBBBBB...................",
+  "RRRNNNNNBBBBBBBB...................",
+  "RRRNNNNNBBBBBBBB...................",
+  "RRRNNNNNBBCCCCCCB..................",
+  "RRRNNNNNBBBBBCCCCB.................",
+  ".NNNNNNYYYBBBBBBBBBB...............",
+  ".NNNNNNYYYBBBCCCCCBBBB.............",
+  ".NNNNNNYYYBBBBCCCCCCCCBBBB.........",
+  ".NNNNNNYYYBBBBBBBBBBBBBBBBBBBBBB...",
+  ".NNNNNNYYYBBBBBBCCCCBBBBBBBBBBBBBB.",
+  ".NNNNNNYYYBBBBBBCCCCCCCCCCBBCCCCBB.",
+  ".NNNNNNYYYBBBBBBBBBBBBBBCCCCCCCCCCB",
+  ".NNNNNBBYYBBBBBBBBBBBBBBBCCCCCCCCCC",
+  ".NNBBBBBBBBBBBBBBBBBBBBBBCCCCCCCCC.",
+  "NBBBBBBBBBBBBBBBBBBBBBBBBCCCCCCCCC.",
+  ".BBBBBBBBBBBBBBBBBBBBBBBBBBCCCCCBB.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".NNNNDNNNNNNDNNNNNDNNNNNNDNNNNNNNN.",
+  ".NNNNDNNNNNNDNNNNNDNNNNNNDNNNNNNNNN"
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-10-26"
+ },
+ "rights": "own"
+}

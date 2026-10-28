@@ -1,0 +1,1575 @@
+{
+  "mergingSimulatedPairs": 11,
+  "pairs": [
+    {
+      "a": "G",
+      "b": "P",
+      "deltaE2000": {
+        "deuteranopia": 18.57,
+        "normal": 68.86,
+        "protanopia": 35.24,
+        "tritanopia": 57.06
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Лепесток",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "B",
+      "deltaE2000": {
+        "deuteranopia": 45.96,
+        "normal": 43.93,
+        "protanopia": 44.83,
+        "tritanopia": 9.45
+      },
+      "mergesSimulated": true,
+      "names": "Лист / Вода",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "A",
+      "deltaE2000": {
+        "deuteranopia": 17.09,
+        "normal": 47.16,
+        "protanopia": 26.41,
+        "tritanopia": 54.54
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Янтарь",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "C",
+      "deltaE2000": {
+        "deuteranopia": 18.96,
+        "normal": 26.69,
+        "protanopia": 19.07,
+        "tritanopia": 39.2
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Жемчуг",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "D",
+      "deltaE2000": {
+        "deuteranopia": 46.9,
+        "normal": 47.32,
+        "protanopia": 47.83,
+        "tritanopia": 40.63
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Земля",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "V",
+      "deltaE2000": {
+        "deuteranopia": 55,
+        "normal": 58.22,
+        "protanopia": 60.03,
+        "tritanopia": 42.39
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Слива",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "Y",
+      "deltaE2000": {
+        "deuteranopia": 13.08,
+        "normal": 28.31,
+        "protanopia": 7.61,
+        "tritanopia": 43.75
+      },
+      "mergesSimulated": true,
+      "names": "Лист / Солнце",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 4.28,
+        "normal": 46.41,
+        "protanopia": 7.82,
+        "tritanopia": 55.27
+      },
+      "mergesSimulated": true,
+      "names": "Лист / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 14.35,
+        "normal": 16.05,
+        "protanopia": 12.16,
+        "tritanopia": 20.76
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 23.91,
+        "normal": 23.26,
+        "protanopia": 22.96,
+        "tritanopia": 21.06
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 13.4,
+        "normal": 71.74,
+        "protanopia": 33.58,
+        "tritanopia": 63.62
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 25.49,
+        "normal": 53.37,
+        "protanopia": 32.04,
+        "tritanopia": 46.03
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 61.15,
+        "normal": 62.81,
+        "protanopia": 60.82,
+        "tritanopia": 29.03
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 40.25,
+        "normal": 39.2,
+        "protanopia": 39.92,
+        "tritanopia": 14.27
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "G",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 37.87,
+        "normal": 57.34,
+        "protanopia": 46.12,
+        "tritanopia": 61.17
+      },
+      "mergesSimulated": false,
+      "names": "Лист / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "B",
+      "deltaE2000": {
+        "deuteranopia": 25.77,
+        "normal": 58.93,
+        "protanopia": 13.97,
+        "tritanopia": 71.94
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Вода",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "A",
+      "deltaE2000": {
+        "deuteranopia": 23.85,
+        "normal": 34.12,
+        "protanopia": 33.24,
+        "tritanopia": 17.68
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Янтарь",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "C",
+      "deltaE2000": {
+        "deuteranopia": 19.37,
+        "normal": 40.74,
+        "protanopia": 31.81,
+        "tritanopia": 26.42
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Жемчуг",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "D",
+      "deltaE2000": {
+        "deuteranopia": 39,
+        "normal": 42.73,
+        "protanopia": 28.43,
+        "tritanopia": 54.87
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Земля",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "V",
+      "deltaE2000": {
+        "deuteranopia": 37.07,
+        "normal": 30.54,
+        "protanopia": 23.91,
+        "tritanopia": 30.73
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Слива",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "Y",
+      "deltaE2000": {
+        "deuteranopia": 26.37,
+        "normal": 52.21,
+        "protanopia": 39.64,
+        "tritanopia": 17.75
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Солнце",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 21.9,
+        "normal": 34.45,
+        "protanopia": 33.31,
+        "tritanopia": 4.89
+      },
+      "mergesSimulated": true,
+      "names": "Лепесток / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 25.97,
+        "normal": 64.73,
+        "protanopia": 41.4,
+        "tritanopia": 40.14
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 22.54,
+        "normal": 64.93,
+        "protanopia": 27.88,
+        "tritanopia": 59.75
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 18.56,
+        "normal": 18.74,
+        "protanopia": 25.95,
+        "tritanopia": 16.12
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 13.83,
+        "normal": 18.21,
+        "protanopia": 17.77,
+        "tritanopia": 19
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 43.19,
+        "normal": 42.12,
+        "protanopia": 24.45,
+        "tritanopia": 60.75
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 23.04,
+        "normal": 47.36,
+        "protanopia": 21.56,
+        "tritanopia": 60.1
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "P",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 38.11,
+        "normal": 41.69,
+        "protanopia": 38.11,
+        "tritanopia": 35.56
+      },
+      "mergesSimulated": false,
+      "names": "Лепесток / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "A",
+      "deltaE2000": {
+        "deuteranopia": 47.31,
+        "normal": 48.63,
+        "protanopia": 47.48,
+        "tritanopia": 58.58
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Янтарь",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "C",
+      "deltaE2000": {
+        "deuteranopia": 40.41,
+        "normal": 37.68,
+        "protanopia": 34.75,
+        "tritanopia": 39.26
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Жемчуг",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "D",
+      "deltaE2000": {
+        "deuteranopia": 40.74,
+        "normal": 42.51,
+        "protanopia": 44.43,
+        "tritanopia": 43.42
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Земля",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "V",
+      "deltaE2000": {
+        "deuteranopia": 23.41,
+        "normal": 42.18,
+        "protanopia": 29,
+        "tritanopia": 47.22
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Слива",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "Y",
+      "deltaE2000": {
+        "deuteranopia": 52.36,
+        "normal": 49.38,
+        "protanopia": 47.57,
+        "tritanopia": 46.16
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Солнце",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 49.27,
+        "normal": 48.31,
+        "protanopia": 44.93,
+        "tritanopia": 59.16
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 51.3,
+        "normal": 48.73,
+        "protanopia": 47.8,
+        "tritanopia": 24.8
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 40.88,
+        "normal": 39.39,
+        "protanopia": 41.63,
+        "tritanopia": 23.42
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 42.95,
+        "normal": 66.22,
+        "protanopia": 40.29,
+        "tritanopia": 67.36
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 23.98,
+        "normal": 49.47,
+        "protanopia": 13.64,
+        "tritanopia": 59.23
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 29.73,
+        "normal": 35.19,
+        "protanopia": 29.39,
+        "tritanopia": 29.03
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 14.82,
+        "normal": 14.04,
+        "protanopia": 12.4,
+        "tritanopia": 11.9
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "B",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 52.47,
+        "normal": 56.13,
+        "protanopia": 56.47,
+        "tritanopia": 64.86
+      },
+      "mergesSimulated": false,
+      "names": "Вода / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "C",
+      "deltaE2000": {
+        "deuteranopia": 33.71,
+        "normal": 38.69,
+        "protanopia": 38.61,
+        "tritanopia": 37.76
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Жемчуг",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "D",
+      "deltaE2000": {
+        "deuteranopia": 30.32,
+        "normal": 35.05,
+        "protanopia": 23.29,
+        "tritanopia": 42.11
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Земля",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "V",
+      "deltaE2000": {
+        "deuteranopia": 48.3,
+        "normal": 43.05,
+        "protanopia": 47.58,
+        "tritanopia": 21.28
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Слива",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "Y",
+      "deltaE2000": {
+        "deuteranopia": 29.2,
+        "normal": 35.48,
+        "protanopia": 33.44,
+        "tritanopia": 29.59
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Солнце",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 19.01,
+        "normal": 19.02,
+        "protanopia": 18.89,
+        "tritanopia": 17.9
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 30.85,
+        "normal": 47.82,
+        "protanopia": 37.8,
+        "tritanopia": 46.43
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 10.16,
+        "normal": 41.18,
+        "protanopia": 6.21,
+        "tritanopia": 50.97
+      },
+      "mergesSimulated": true,
+      "names": "Янтарь / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 5.78,
+        "normal": 23.22,
+        "protanopia": 12.15,
+        "tritanopia": 10.68
+      },
+      "mergesSimulated": true,
+      "names": "Янтарь / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 35.87,
+        "normal": 39.78,
+        "protanopia": 42.29,
+        "tritanopia": 32.07
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 52.72,
+        "normal": 44.86,
+        "protanopia": 48.3,
+        "tritanopia": 53.46
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 46.94,
+        "normal": 49.62,
+        "protanopia": 49.38,
+        "tritanopia": 58.22
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "A",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 17.08,
+        "normal": 16.36,
+        "protanopia": 15.07,
+        "tritanopia": 15.49
+      },
+      "mergesSimulated": false,
+      "names": "Янтарь / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "D",
+      "deltaE2000": {
+        "deuteranopia": 57.36,
+        "normal": 56.8,
+        "protanopia": 54.1,
+        "tritanopia": 60.48
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Земля",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "V",
+      "deltaE2000": {
+        "deuteranopia": 55.84,
+        "normal": 59.14,
+        "protanopia": 56.22,
+        "tritanopia": 40.29
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Слива",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "Y",
+      "deltaE2000": {
+        "deuteranopia": 16.27,
+        "normal": 16.99,
+        "protanopia": 18.16,
+        "tritanopia": 11.38
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Солнце",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 20.33,
+        "normal": 27.45,
+        "protanopia": 24.48,
+        "tritanopia": 25.71
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 13.58,
+        "normal": 18.42,
+        "protanopia": 15.99,
+        "tritanopia": 20.98
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 36.72,
+        "normal": 40.86,
+        "protanopia": 33.16,
+        "tritanopia": 50.66
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 28.73,
+        "normal": 47.25,
+        "protanopia": 40.85,
+        "tritanopia": 39.3
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 14.62,
+        "normal": 28.93,
+        "protanopia": 20.3,
+        "tritanopia": 9.95
+      },
+      "mergesSimulated": true,
+      "names": "Жемчуг / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 62.14,
+        "normal": 59.73,
+        "protanopia": 56.84,
+        "tritanopia": 57.67
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 29.91,
+        "normal": 28.19,
+        "protanopia": 26.42,
+        "tritanopia": 35.51
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "C",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 51.99,
+        "normal": 56.1,
+        "protanopia": 56.93,
+        "tritanopia": 55.08
+      },
+      "mergesSimulated": false,
+      "names": "Жемчуг / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "V",
+      "deltaE2000": {
+        "deuteranopia": 21.94,
+        "normal": 27.61,
+        "protanopia": 24.17,
+        "tritanopia": 28.28
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Слива",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "Y",
+      "deltaE2000": {
+        "deuteranopia": 59.02,
+        "normal": 58.22,
+        "protanopia": 54.39,
+        "tritanopia": 60.35
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Солнце",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 49.86,
+        "normal": 50.73,
+        "protanopia": 38.89,
+        "tritanopia": 54.86
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 59.9,
+        "normal": 58.88,
+        "protanopia": 57.83,
+        "tritanopia": 52.93
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 21.57,
+        "normal": 23.21,
+        "protanopia": 23.16,
+        "tritanopia": 17.21
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 31.38,
+        "normal": 44.61,
+        "protanopia": 13.09,
+        "tritanopia": 49.52
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 51.55,
+        "normal": 58.68,
+        "protanopia": 48.21,
+        "tritanopia": 61.48
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 22.52,
+        "normal": 26.09,
+        "protanopia": 24.61,
+        "tritanopia": 13.08
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 52.27,
+        "normal": 52.09,
+        "protanopia": 52.14,
+        "tritanopia": 52.03
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "D",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 19.76,
+        "normal": 30.63,
+        "protanopia": 15.39,
+        "tritanopia": 38.26
+      },
+      "mergesSimulated": false,
+      "names": "Земля / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "Y",
+      "deltaE2000": {
+        "deuteranopia": 64.74,
+        "normal": 69.75,
+        "protanopia": 65.38,
+        "tritanopia": 37.27
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Солнце",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 58.54,
+        "normal": 52.88,
+        "protanopia": 56.22,
+        "tritanopia": 32.48
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 64.45,
+        "normal": 79.57,
+        "protanopia": 67.34,
+        "tritanopia": 44.61
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 38.53,
+        "normal": 44.88,
+        "protanopia": 43.99,
+        "tritanopia": 35.7
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 46.05,
+        "normal": 31.98,
+        "protanopia": 34.79,
+        "tritanopia": 29.07
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 42.35,
+        "normal": 40.49,
+        "protanopia": 39.3,
+        "tritanopia": 36.86
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 5.45,
+        "normal": 16.95,
+        "protanopia": 0.68,
+        "tritanopia": 34.65
+      },
+      "mergesSimulated": true,
+      "names": "Слива / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 36.9,
+        "normal": 43.37,
+        "protanopia": 40.32,
+        "tritanopia": 51.15
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "V",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 42.79,
+        "normal": 37.71,
+        "protanopia": 42.54,
+        "tritanopia": 20.68
+      },
+      "mergesSimulated": false,
+      "names": "Слива / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "O",
+      "deltaE2000": {
+        "deuteranopia": 10.57,
+        "normal": 23.37,
+        "protanopia": 15.13,
+        "tritanopia": 16.13
+      },
+      "mergesSimulated": false,
+      "names": "Солнце / Тыква",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 3.41,
+        "normal": 18.13,
+        "protanopia": 5.36,
+        "tritanopia": 29.41
+      },
+      "mergesSimulated": true,
+      "names": "Солнце / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 36.25,
+        "normal": 42.45,
+        "protanopia": 30.23,
+        "tritanopia": 52.18
+      },
+      "mergesSimulated": false,
+      "names": "Солнце / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 26.16,
+        "normal": 52.63,
+        "protanopia": 40.41,
+        "tritanopia": 30.6
+      },
+      "mergesSimulated": false,
+      "names": "Солнце / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 26.63,
+        "normal": 40.79,
+        "protanopia": 33.26,
+        "tritanopia": 7.38
+      },
+      "mergesSimulated": true,
+      "names": "Солнце / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 71.27,
+        "normal": 67.97,
+        "protanopia": 66.18,
+        "tritanopia": 58.87
+      },
+      "mergesSimulated": false,
+      "names": "Солнце / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 42.91,
+        "normal": 41.48,
+        "protanopia": 40.74,
+        "tritanopia": 41.94
+      },
+      "mergesSimulated": false,
+      "names": "Солнце / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "Y",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 49.87,
+        "normal": 54.31,
+        "protanopia": 54.21,
+        "tritanopia": 48.81
+      },
+      "mergesSimulated": false,
+      "names": "Солнце / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "O",
+      "b": "L",
+      "deltaE2000": {
+        "deuteranopia": 12.7,
+        "normal": 40.7,
+        "protanopia": 19.86,
+        "tritanopia": 38.82
+      },
+      "mergesSimulated": false,
+      "names": "Тыква / Лайм",
+      "passesNormal": true
+    },
+    {
+      "a": "O",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 26.78,
+        "normal": 49.05,
+        "protanopia": 16.02,
+        "tritanopia": 58.3
+      },
+      "mergesSimulated": false,
+      "names": "Тыква / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "O",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 16.3,
+        "normal": 30.4,
+        "protanopia": 26.88,
+        "tritanopia": 15.64
+      },
+      "mergesSimulated": false,
+      "names": "Тыква / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "O",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 27.58,
+        "normal": 33.09,
+        "protanopia": 34.23,
+        "tritanopia": 19.26
+      },
+      "mergesSimulated": false,
+      "names": "Тыква / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "O",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 64.8,
+        "normal": 55.48,
+        "protanopia": 57.01,
+        "tritanopia": 61.88
+      },
+      "mergesSimulated": false,
+      "names": "Тыква / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "O",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 42.85,
+        "normal": 44.15,
+        "protanopia": 42.22,
+        "tritanopia": 54.77
+      },
+      "mergesSimulated": false,
+      "names": "Тыква / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "O",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 40.21,
+        "normal": 38.82,
+        "protanopia": 34.75,
+        "tritanopia": 36.52
+      },
+      "mergesSimulated": false,
+      "names": "Тыква / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "L",
+      "b": "M",
+      "deltaE2000": {
+        "deuteranopia": 37.33,
+        "normal": 37.31,
+        "protanopia": 34.28,
+        "tritanopia": 37.61
+      },
+      "mergesSimulated": false,
+      "names": "Лайм / Мох",
+      "passesNormal": true
+    },
+    {
+      "a": "L",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 27.4,
+        "normal": 68.14,
+        "protanopia": 44.14,
+        "tritanopia": 49.93
+      },
+      "mergesSimulated": false,
+      "names": "Лайм / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "L",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 25.04,
+        "normal": 48.43,
+        "protanopia": 32.75,
+        "tritanopia": 30.52
+      },
+      "mergesSimulated": false,
+      "names": "Лайм / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "L",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 70.95,
+        "normal": 73.58,
+        "protanopia": 68.12,
+        "tritanopia": 43.05
+      },
+      "mergesSimulated": false,
+      "names": "Лайм / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "L",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 41.31,
+        "normal": 39.73,
+        "protanopia": 39.72,
+        "tritanopia": 18.5
+      },
+      "mergesSimulated": false,
+      "names": "Лайм / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "L",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 51.21,
+        "normal": 62.63,
+        "protanopia": 57.95,
+        "tritanopia": 61
+      },
+      "mergesSimulated": false,
+      "names": "Лайм / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "M",
+      "b": "R",
+      "deltaE2000": {
+        "deuteranopia": 10.64,
+        "normal": 64.62,
+        "protanopia": 10.66,
+        "tritanopia": 61.38
+      },
+      "mergesSimulated": false,
+      "names": "Мох / Ягода",
+      "passesNormal": true
+    },
+    {
+      "a": "M",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 35.68,
+        "normal": 56.82,
+        "protanopia": 36.27,
+        "tritanopia": 54.62
+      },
+      "mergesSimulated": false,
+      "names": "Мох / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "M",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 42.32,
+        "normal": 44.94,
+        "protanopia": 44.69,
+        "tritanopia": 11.41
+      },
+      "mergesSimulated": false,
+      "names": "Мох / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "M",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 43.64,
+        "normal": 42.81,
+        "protanopia": 43.4,
+        "tritanopia": 33.06
+      },
+      "mergesSimulated": false,
+      "names": "Мох / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "M",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 12.32,
+        "normal": 41.51,
+        "protanopia": 18.29,
+        "tritanopia": 48.99
+      },
+      "mergesSimulated": false,
+      "names": "Мох / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "R",
+      "b": "K",
+      "deltaE2000": {
+        "deuteranopia": 30.7,
+        "normal": 33.76,
+        "protanopia": 39.06,
+        "tritanopia": 33.5
+      },
+      "mergesSimulated": false,
+      "names": "Ягода / Румянец",
+      "passesNormal": true
+    },
+    {
+      "a": "R",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 50.74,
+        "normal": 41.63,
+        "protanopia": 35.4,
+        "tritanopia": 63.93
+      },
+      "mergesSimulated": false,
+      "names": "Ягода / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "R",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 41.99,
+        "normal": 59.61,
+        "protanopia": 44.95,
+        "tritanopia": 64.73
+      },
+      "mergesSimulated": false,
+      "names": "Ягода / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "R",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 20.94,
+        "normal": 26.01,
+        "protanopia": 12.5,
+        "tritanopia": 22.77
+      },
+      "mergesSimulated": false,
+      "names": "Ягода / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "K",
+      "b": "N",
+      "deltaE2000": {
+        "deuteranopia": 48.63,
+        "normal": 47.58,
+        "protanopia": 39.75,
+        "tritanopia": 59.96
+      },
+      "mergesSimulated": false,
+      "names": "Румянец / Глубина",
+      "passesNormal": true
+    },
+    {
+      "a": "K",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 13.65,
+        "normal": 40.03,
+        "protanopia": 7.03,
+        "tritanopia": 50.34
+      },
+      "mergesSimulated": true,
+      "names": "Румянец / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "K",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 51.3,
+        "normal": 53.6,
+        "protanopia": 56.75,
+        "tritanopia": 50.59
+      },
+      "mergesSimulated": false,
+      "names": "Румянец / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "N",
+      "b": "S",
+      "deltaE2000": {
+        "deuteranopia": 43.16,
+        "normal": 43.46,
+        "protanopia": 40.72,
+        "tritanopia": 38.14
+      },
+      "mergesSimulated": false,
+      "names": "Глубина / Небо",
+      "passesNormal": true
+    },
+    {
+      "a": "N",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 45.43,
+        "normal": 39.36,
+        "protanopia": 43.12,
+        "tritanopia": 50.89
+      },
+      "mergesSimulated": false,
+      "names": "Глубина / Кора",
+      "passesNormal": true
+    },
+    {
+      "a": "S",
+      "b": "E",
+      "deltaE2000": {
+        "deuteranopia": 57.94,
+        "normal": 61.9,
+        "protanopia": 62.14,
+        "tritanopia": 68.42
+      },
+      "mergesSimulated": false,
+      "names": "Небо / Кора",
+      "passesNormal": true
+    }
+  ],
+  "passes": true,
+  "smallestNormal": {
+    "a": "B",
+    "b": "S",
+    "deltaE2000": 14.04
+  },
+  "thresholds": {
+    "minDeltaE2000Normal": 10
+  },
+  "what": "Round palette readability (spec 006 FR-047): the gate is normal vision; simulated deficiencies are reported only (the symbols mode covers them)."
+}

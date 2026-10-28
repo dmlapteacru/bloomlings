@@ -1,0 +1,179 @@
+{
+ "format": "round-level.v1",
+ "number": 11,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "introduction": {
+  "mechanic": "links",
+  "second": false
+ },
+ "picture": {
+  "id": "P0016",
+  "version": 1
+ },
+ "board": {
+  "w": 28,
+  "h": 44,
+  "rowsBottomFirst": [
+   "##############.#############",
+   "#..........................#",
+   "#...........OOOA...........#",
+   "#........OAOOOOOAOO........#",
+   "#.......OAOAOOOAOAOO.......#",
+   "#......OAOOOAOAOOOAOA......#",
+   "#.....OAYYYYYAYOOOOAOO.....#",
+   "#....YAYAYYYAYAYOOAOAOO....#",
+   "#....AYYYAYAYYYAYAOOOAO....#",
+   "#...AYYYYYAYYYYYAYOOOOAO...#",
+   "#...YAYYYAYAYYYAYAYOOAOA...#",
+   "#...YYAYAYYYAYAYYYAYAOOO...#",
+   "#..YYYYAYYYYYAYYYYYAOOOOO..#",
+   "#..YYYAYAYYYAYAYYYAYAOOOA..#",
+   "#..AYAYYYAYAYYYAYAYYYAOAO..#",
+   "#..YAYYYYYAYYYYYAYYYYOAOO..#",
+   "#..AYAYYYAYAYYYAYAYYYAOAO..#",
+   "#..YYYAYAYYYAYAYYYAYAOOOA..#",
+   "#..YYYYAYYYYYAYYYYYAYOOOO..#",
+   "#...YYAYAYYYAYAYYYAYAOOO...#",
+   "#...YAYYYAYAYYYAYAYYYAOA...#",
+   "#...AYYYYYAYYYYYAYYYYOAO...#",
+   "#....AYYYAYAYYYAYAYYYAO....#",
+   "#....YAYAYYYAYAYYYAYAOO....#",
+   "#.....YAYYYYYAYYYYYAOO.....#",
+   "#......YAYYYAYAYYYAYA......#",
+   "#......GYAYAYYYAYAYOG......#",
+   "#.....GGGYAYYYYYAYOGGG.....#",
+   "#....GGGGMMGYYYAGMMGGGG....#",
+   "#...GGGGGMMGGGGGGMMGGGGG...#",
+   "#...GGGGMMMGGGGGGMMMGGGG...#",
+   "#..GGGGGMMMGGGGGGMMMGGGGG..#",
+   "#.GGGGGMMMMGGGGGGMMMMGGGGG.#",
+   "#.GG...MMMMGGGGGGMMMM...GG.#",
+   "#......MMMMGGGGGGMMMM......#",
+   "#.....MMMMMGGGGGGMMMMM.....#",
+   "#.....MMMM.GGGGGG.MMMM.....#",
+   "#.....MMM..GGGGGG..MMM.....#",
+   "#.....MM....GGGG....MM.....#",
+   "#.....M.....GGGG.....M.....#",
+   "#............GG............#",
+   "#............GG............#",
+   "#..........................#",
+   "############################"
+  ],
+  "entries": [
+   14
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "G",
+   "count": 42,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 42
+  },
+  {
+   "code": "G",
+   "count": 42
+  },
+  {
+   "code": "M",
+   "count": 25
+  },
+  {
+   "code": "M",
+   "count": 25
+  },
+  {
+   "code": "M",
+   "count": 24
+  },
+  {
+   "code": "Y",
+   "count": 40
+  },
+  {
+   "code": "Y",
+   "count": 40
+  },
+  {
+   "code": "Y",
+   "count": 40
+  },
+  {
+   "code": "Y",
+   "count": 40
+  },
+  {
+   "code": "Y",
+   "count": 40
+  },
+  {
+   "code": "Y",
+   "count": 40
+  },
+  {
+   "code": "A",
+   "count": 43
+  },
+  {
+   "code": "A",
+   "count": 43
+  },
+  {
+   "code": "A",
+   "count": 42
+  },
+  {
+   "code": "O",
+   "count": 30,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 30
+  },
+  {
+   "code": "O",
+   "count": 30
+  }
+ ],
+ "tray": [
+  [
+   3,
+   0,
+   7,
+   17,
+   8,
+   10
+  ],
+  [
+   6,
+   15,
+   12,
+   5,
+   2,
+   14
+  ],
+  [
+   1,
+   16,
+   4,
+   13,
+   9,
+   11
+  ]
+ ],
+ "mechanics": [
+  "links"
+ ],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

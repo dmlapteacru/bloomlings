@@ -1,0 +1,106 @@
+{
+ "format": "round-level.v1",
+ "number": 2,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0002",
+  "version": 3
+ },
+ "board": {
+  "w": 21,
+  "h": 24,
+  "rowsBottomFirst": [
+   "##########.##########",
+   "#...................#",
+   "#..........GGGG.....#",
+   "#.........RGGGGGGG..#",
+   "#......RRRRRRRGGGGG.#",
+   "#....RRRRRDRRRRRGGG.#",
+   "#...RRRRRRDRRRRRR...#",
+   "#...RRRRRRDRRRRRR...#",
+   "#..RRRDDRRDRRDDRRR..#",
+   "#.DDRDDDDRDRDDDDRDD.#",
+   "#..RRRDDRRDRRDDRRR..#",
+   "#..RRRRRRRDRRRRRRR..#",
+   "#..RRRDDRRDRRDDRRR..#",
+   "#..RRDDDDRDRDDDDRR..#",
+   "#.DDRDDDDRDRDDDDRDD.#",
+   "#...RRDDRRDRRDDRR...#",
+   "#...RRRRDDDDDRRRR...#",
+   "#....RRDDDDDDDRR....#",
+   "#.....DDDDDDDDD.....#",
+   "#.....DDCDDDCDD.....#",
+   "#......DCDDDCD......#",
+   "#.......DDDDD.......#",
+   "#...................#",
+   "#####################"
+  ],
+  "entries": [
+   10
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "R",
+   "count": 40
+  },
+  {
+   "code": "R",
+   "count": 40
+  },
+  {
+   "code": "R",
+   "count": 40
+  },
+  {
+   "code": "D",
+   "count": 33
+  },
+  {
+   "code": "D",
+   "count": 32
+  },
+  {
+   "code": "D",
+   "count": 32
+  },
+  {
+   "code": "G",
+   "count": 10
+  },
+  {
+   "code": "G",
+   "count": 9
+  },
+  {
+   "code": "C",
+   "count": 4
+  }
+ ],
+ "tray": [
+  [
+   6,
+   1,
+   4
+  ],
+  [
+   0,
+   8,
+   5
+  ],
+  [
+   3,
+   7,
+   2
+  ]
+ ],
+ "mechanics": [],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

@@ -1,0 +1,180 @@
+{
+ "format": "round-proof.v1",
+ "number": 20,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 11925000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 11925000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 20875000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 38675000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 53000000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 68875000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 82100000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 115925000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 129850000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 169575000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 180825000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 195625000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 210775000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 226275000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 247750000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 263600000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 280850000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 305550000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 323325000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 343750000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 31,
+  "share": 0.31,
+  "wilson95": [
+   0.228,
+   0.406
+  ],
+  "classOfShare": "Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.34,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 12,
+    "wins": 4,
+    "share": 0.33
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 5,
+     "revealAt": 6,
+     "gap": 0,
+     "newColour": false
+    },
+    {
+     "pod": 4,
+     "revealAt": 18,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.5,
+   "tight": 0.9
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0001-L0020.md",
+  "notes": [
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

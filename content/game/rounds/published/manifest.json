@@ -1,0 +1,291 @@
+{
+  "contentVersion": 1,
+  "engine": {
+    "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e",
+    "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+    "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+    "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d"
+  },
+  "format": "round-content-manifest.v1",
+  "levels": [
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 1,
+      "picture": {
+        "id": "P0001",
+        "version": 3
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 2,
+      "picture": {
+        "id": "P0002",
+        "version": 3
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 3,
+      "picture": {
+        "id": "P0003",
+        "version": 3
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 4,
+      "picture": {
+        "id": "P0116",
+        "version": 1
+      }
+    },
+    {
+      "class": "Hard",
+      "definitionVersion": 1,
+      "number": 5,
+      "picture": {
+        "id": "P0118",
+        "version": 1
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 6,
+      "picture": {
+        "id": "P0005",
+        "version": 5
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 7,
+      "picture": {
+        "id": "P0113",
+        "version": 1
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 8,
+      "picture": {
+        "id": "P0006",
+        "version": 5
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 9,
+      "picture": {
+        "id": "P0117",
+        "version": 1
+      }
+    },
+    {
+      "class": "Hard",
+      "definitionVersion": 1,
+      "number": 10,
+      "picture": {
+        "id": "P0018",
+        "version": 1
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 11,
+      "picture": {
+        "id": "P0016",
+        "version": 1
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 12,
+      "picture": {
+        "id": "P0080",
+        "version": 1
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 13,
+      "picture": {
+        "id": "P0009",
+        "version": 5
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 14,
+      "picture": {
+        "id": "P0119",
+        "version": 2
+      }
+    },
+    {
+      "class": "Super Hard",
+      "definitionVersion": 1,
+      "number": 15,
+      "picture": {
+        "id": "P0017",
+        "version": 1
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 16,
+      "picture": {
+        "id": "P0114",
+        "version": 2
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 17,
+      "picture": {
+        "id": "P0065",
+        "version": 1
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 18,
+      "picture": {
+        "id": "P0115",
+        "version": 2
+      }
+    },
+    {
+      "class": "Normal",
+      "definitionVersion": 1,
+      "number": 19,
+      "picture": {
+        "id": "P0021",
+        "version": 2
+      }
+    },
+    {
+      "class": "Hard",
+      "definitionVersion": 1,
+      "number": 20,
+      "picture": {
+        "id": "P0078",
+        "version": 1
+      }
+    }
+  ],
+  "packs": [
+    {
+      "bytes": 6658,
+      "id": "round_levels_0001_0020",
+      "kind": "levels",
+      "levelRange": [1, 20],
+      "path": "levels/round_levels_0001_0020.jsonl.gz",
+      "sha256": "776623cb93914e1255c2aad2c18bf0ac73f4ca257777e0efa450fee37523a60a"
+    },
+    {
+      "bytes": 5242,
+      "id": "round_pictures",
+      "kind": "pictures",
+      "path": "pictures/round_pictures.jsonl.gz",
+      "sha256": "54628c0d4f4f7ddd98edbc2518085086f8889c5f0f6a1919c56ca13d8e5c5221"
+    }
+  ],
+  "pictures": [
+    {
+      "id": "P0001",
+      "version": 3
+    },
+    {
+      "id": "P0002",
+      "version": 3
+    },
+    {
+      "id": "P0003",
+      "version": 3
+    },
+    {
+      "id": "P0005",
+      "version": 5
+    },
+    {
+      "id": "P0006",
+      "version": 5
+    },
+    {
+      "id": "P0009",
+      "version": 5
+    },
+    {
+      "id": "P0016",
+      "version": 1
+    },
+    {
+      "id": "P0017",
+      "version": 1
+    },
+    {
+      "id": "P0018",
+      "version": 1
+    },
+    {
+      "id": "P0021",
+      "version": 2
+    },
+    {
+      "id": "P0065",
+      "version": 1
+    },
+    {
+      "id": "P0078",
+      "version": 1
+    },
+    {
+      "id": "P0080",
+      "version": 1
+    },
+    {
+      "id": "P0113",
+      "version": 1
+    },
+    {
+      "id": "P0114",
+      "version": 2
+    },
+    {
+      "id": "P0115",
+      "version": 2
+    },
+    {
+      "id": "P0116",
+      "version": 1
+    },
+    {
+      "id": "P0117",
+      "version": 1
+    },
+    {
+      "id": "P0118",
+      "version": 1
+    },
+    {
+      "id": "P0119",
+      "version": 2
+    }
+  ]
+}

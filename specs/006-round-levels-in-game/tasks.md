@@ -84,7 +84,7 @@ reads.
   - `MaxSide = 48`;
   - a prepared form with neighbours in the order `i-w` (row below), left, right, `i+w` (row above), the board as sbyte (open = -1,
     wall = -2, else code index), pod colours, the entries set, and groups. This mirrors `rules.cjs prepare`.
-- [ ] T008 Create `core/src/Bloomlings.Core/Rounds/RoundLevelValidator.cs` (port of `rules.cjs validate` plus
+- [X] T008 Create `core/src/Bloomlings.Core/Rounds/RoundLevelValidator.cs` (port of `rules.cjs validate` plus
   `data-model.md`). Errors:
   - "board 7–48 wide, 8–48 high";
   - row length and characters `[GPBACDVYOLMRKNSE.#]`;
@@ -136,7 +136,7 @@ level's saved solution to a win in the rules' state.
 
 ### Tests for User Story 1 ⚠️ (write first, they must fail)
 
-- [ ] T015 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundRulesOrderTests.cs`. It covers every row of
+- [X] T015 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundRulesOrderTests.cs`. It covers every row of
   research R3:
   - neighbour order;
   - reach (entry distance 1, a target's distance is the nearest open neighbour + 1, sort by distance then index);
@@ -146,7 +146,7 @@ level's saved solution to a win in the rules' state.
   - `compactSlots` only for an accepted group;
   - reveal of tops after a commit (depth mode) and on commit (sealed);
   - status Won / Playing (bridge buildable) / Jammed / Stuck.
-- [ ] T016 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundTimelineTests.cs`:
+- [X] T016 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundTimelineTests.cs`:
   - the profile in µs verbatim: out 100 000 per cell (min 650 000), return 75 000 per cell (min 400 000), act 100 000,
     departure gap 250 000, release lag 300 000;
   - dispatch by age, frontier order, one departure per gap;
@@ -154,10 +154,10 @@ level's saved solution to a win in the rules' state.
   - group release at now + 300 000 after all members reach 0;
   - the tail flag when all columns are empty and no bridge is left to choose;
   - the conservation invariants of `data-model.md`.
-- [ ] T017 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundDeterminismTests.cs`. The same commands give
+- [X] T017 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundDeterminismTests.cs`. The same commands give
   the same final signature when advanced in steps of ×1, ×2 and Auto ×2, and before and after a
   `Snapshot()` / `Restore()` in the middle of work (SC-007).
-- [ ] T018 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundBoostersTests.cs`. It covers the table of
+- [X] T018 [P] [US1] Create `core/tests/Bloomlings.Core.Tests/Rounds/RoundBoostersTests.cs`. It covers the table of
   `data-model.md`:
   - **Extra Slot**: "capacity becomes 6 at once; the new slot is last", once per level.
   - **Return**: refused while a courier is in flight; "the pod goes to the top of its original column with its
@@ -170,16 +170,16 @@ level's saved solution to a win in the rules' state.
 
 ### Implementation for User Story 1
 
-- [ ] T019 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundState.cs`:
+- [X] T019 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundState.cs`:
   - board, remaining, columns (a mutable copy of the tray), heads, slots (5, or 6 after Extra Slot), ages, revealed,
     bridge, status, serial;
   - `Clone`;
   - `Signature()` exactly as `rules.cjs signature` (board letters with `.`/`#`, remaining, heads, slots, active by age,
     revealed, bridge, status), joined by `|`.
-- [ ] T020 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundRules.cs`, the port of `rules.cjs`: reach, routeTo,
+- [X] T020 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundRules.cs`, the port of `rules.cjs`: reach, routeTo,
   bridgeChoices, topPods, status, compactSlots, canTap, legal (one tap per group, its first member; then bridge
   choices), check, revealTops. Use no hash-ordered collections (constitution III).
-- [ ] T021 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundTimeline.cs`, the port of `timeline.cjs` with `long`
+- [X] T021 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundTimeline.cs`, the port of `timeline.cjs` with `long`
   µs:
   - the profile and tail;
   - steps, jobs, reserved, inFlight, departReady;
@@ -190,15 +190,15 @@ level's saved solution to a win in the rules' state.
   - `Snapshot()` / `Restore()`.
 
   Display speed is not a rules input: the client multiplies the real time it passes.
-- [ ] T022 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundSolver.cs`: the patient search of `idle-rules.cjs`
+- [X] T022 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundSolver.cs`: the patient search of `idle-rules.cjs`
   (commit, then advance until nothing is pending) with a node budget. It is used by Shuffle's winnability check.
-- [ ] T023 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundBoosters.cs` with the four booster commands of
+- [X] T023 [US1] Create `core/src/Bloomlings.Core/Rounds/RoundBoosters.cs` with the four booster commands of
   `data-model.md` as `RoundTimeline` commands carrying µs time. Shuffle uses the level's seeded PRNG (the existing
   `core/src/Bloomlings.Core/Random`).
-- [ ] T024 [P] [US1] Add golden replays for round levels with and without boosters in
+- [X] T024 [P] [US1] Add golden replays for round levels with and without boosters in
   `core/tests/golden/rounds-*.golden.json` and `*.events.txt`, and register them in the existing golden replay test.
   Document regeneration in `core/tests/golden/README.md`.
-- [ ] T025 [US1] Make the full playtest load only round content. In `playtest/android/PlaytestContent.cs`,
+- [X] T025 [US1] Make the full playtest load only round content. In `playtest/android/PlaytestContent.cs`,
   `playtest/android/PlaytestFiles.cs` and `playtest/Catalog.props`, pack `content/game/rounds/levels` and `pictures`
   as Android assets once, and stop packing the legacy catalog, curated levels and daily pool.
 - [ ] T026 [US1] Run the level screen on `RoundTimeline` in `playtest/design/LevelScreen.cs` and
@@ -209,10 +209,10 @@ level's saved solution to a win in the rules' state.
 - [ ] T027 [US1] Wire the jam card and the booster bar to `RoundBoosters` in `playtest/design/EndCards.cs` and
   `playtest/design/BoosterBarPainter.cs`. Guided booster demos and free first charges stay as in spec 005
   (`client/Assets/Bloomlings/UI/Design/GuideTour.cs`).
-- [ ] T028 [US1] After the last round level show a "new levels soon" card, and keep the Daily Challenge off. Files:
+- [X] T028 [US1] After the last round level show a "new levels soon" card, and keep the Daily Challenge off. Files:
   `playtest/design/EndCards.cs`, `playtest/design/PlaytestMeta.cs`, a new string in
   `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv`.
-- [ ] T029 [US1] Make the level tester's ◀ ▶ walk the round levels, and add a "jump to level N" that sets the save's
+- [X] T029 [US1] Make the level tester's ◀ ▶ walk the round levels, and add a "jump to level N" that sets the save's
   progress, for meta checks at L40 and L50. File: `playtest/android/TesterView.cs`.
 - [ ] T030 [US1] Check GuideTour's steps against the round levels in `client/Assets/Bloomlings/UI/Design/GuideTour.cs`:
   - Level 1: entry and forced first tap on a top pod with reachable work;
@@ -236,25 +236,25 @@ level and the first differing event.
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T032 [P] [US3] Create `core/tests/Bloomlings.Content.Tests/Rounds/ConformanceTests.cs`. For every
+- [X] T032 [P] [US3] Create `core/tests/Bloomlings.Content.Tests/Rounds/ConformanceTests.cs`. For every
   `content/game/rounds/conformance/L####.json`:
   - the solution windows (events hash and signature hash per command), outcome and `endUs`;
   - every random game's outcome, `endUs` and final signature, and the win count equal to the proof's;
   - every owner attempt's outcome, end time and final signature;
   - on a mismatch, the report format of `contracts/conformance-fixture.md`.
-- [ ] T033 [P] [US3] Create `core/tests/Bloomlings.Content.Tests/Rounds/ConformanceBreakTests.cs`. With the release lag
+- [X] T033 [P] [US3] Create `core/tests/Bloomlings.Content.Tests/Rounds/ConformanceBreakTests.cs`. With the release lag
   set to 299 000 µs in a test copy of the profile, conformance fails on at least one of L1–L20 and names the level and
   the first differing event (SC-005).
 
 ### Implementation for User Story 3
 
-- [ ] T034 [P] [US3] Create `core/src/Bloomlings.Core/Rounds/RoundEvents.cs`:
+- [X] T034 [P] [US3] Create `core/src/Bloomlings.Core/Rounds/RoundEvents.cs`:
   - the canonical event lines verbatim from `contracts/conformance-fixture.md`: commit, reveal, bridge, depart, arrive,
     clear, return, complete, with times in µs and no assign;
   - the per-window SHA-256;
   - the extended signature `board|remaining|heads|slots|activeByAge|revealed|bridge|status|now|steps` with `steps` as
     `at:type:id-or-pod`, and its SHA-256.
-- [ ] T035 [P] [US3] Create `core/src/Bloomlings.Core/Rounds/RoundRandomPolicy.cs`:
+- [X] T035 [P] [US3] Create `core/src/Bloomlings.Core/Rounds/RoundRandomPolicy.cs`:
   - xorshift32 (`s ^= s << 13; s ^= s >> 17; s ^= s << 5`, seed 0 → 1);
   - choice index `(ulong)s * n >> 32`;
   - the §5 policy: settle the moment, list legal actions, add one wait when a step other than arrive or return is
@@ -267,7 +267,7 @@ level and the first differing event.
   - every random game of the proof's run count with its seed;
   - owner attempts from `--owner-results` files with `atUs = round(modelTimeMs × 1000)`, replayed by the reference
     with those µs times; a changed outcome versus the results file is reported as a fixture error.
-- [ ] T037 [US3] Create `core/src/Bloomlings.Pipeline/Commands/RoundCommands.cs` with `rounds import <export-dir>` and
+- [X] T037 [US3] Create `core/src/Bloomlings.Pipeline/Commands/RoundCommands.cs` with `rounds import <export-dir>` and
   `rounds validate [--rounds content/game/rounds]`, registered in `core/src/Bloomlings.Pipeline/Commands/Cli.cs`.
   `validate` checks:
   - schemas, the validator of T008;
@@ -280,7 +280,7 @@ level and the first differing event.
 - [X] T038 [US3] Add the normal-vision readability gate to `rounds validate`, using
   `core/src/Bloomlings.Pipeline/Readability/ColorScience.cs`: every pair of the 16 normal colours has smallest
   CIEDE2000 ≥ 10 (FR-047). The simulation numbers are written as a report, not a failure.
-- [ ] T039 [US3] Re-export L1–L20 with fixtures (`--owner-results
+- [X] T039 [US3] Re-export L1–L20 with fixtures (`--owner-results
   product/playtests/pilot-v12-owner-2026-10-27/results.json`), then `rounds import` and `rounds validate`. Commit
   `content/game/rounds/` (levels, pictures, proofs, conformance) when 20 solutions, all random games and 23 owner
   attempts match (SC-001, SC-002).
@@ -365,7 +365,7 @@ that fails an entry check (SC-006).
   `round-content-manifest.v1` (content version, levels, pictures, SHA-256 per pack) and the packs. Add the manifest
   schema `core/src/Bloomlings.Content/Schemas/round-content-manifest.v1.json` and tests in
   `core/tests/Bloomlings.Pipeline.Tests/RoundPublishTests.cs`.
-- [ ] T053 [US4] Make the playtest read published round packs through the content set (`playtest/android/PlaytestContent.cs`
+- [X] T053 [US4] Make the playtest read published round packs through the content set (`playtest/android/PlaytestContent.cs`
   and the kit's content reader), with the level and its picture read on first use, as today.
 - [X] T054 [P] [US4] Create `tools/rounds/transfer-log.mjs`, which appends and updates
   `content/game/rounds/transfers.jsonl` entries `{wave, levels, exceptions, contentVersion, engine, exportedAt,

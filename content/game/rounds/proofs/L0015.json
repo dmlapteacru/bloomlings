@@ -1,0 +1,172 @@
+{
+ "format": "round-proof.v1",
+ "number": 15,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 15500000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 32825000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 32825000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 148100000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 167425000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 383200000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 395550000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 408600000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 421475000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 434975000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 449775000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 464750000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 486150000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 507400000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 521125000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 535850000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 555350000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 572000000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 12,
+  "share": 0.12,
+  "wilson95": [
+   0.07,
+   0.198
+  ],
+  "classOfShare": "Super Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.21,
+  "opening": {
+   "first": {
+    "openings": 3,
+    "wins": 0
+   },
+   "three": {
+    "openings": 10,
+    "wins": 2,
+    "share": 0.2
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": true,
+   "pods": [
+    {
+     "pod": 21,
+     "revealAt": 6,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 9,
+     "revealAt": 13,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 2.66,
+   "tight": 0.99
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0001-L0020.md",
+  "notes": [
+   "последний запуск при 93 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 199.3 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

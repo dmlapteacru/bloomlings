@@ -42,16 +42,13 @@ namespace Bloomlings.Pipeline.Rounds
     }
 
     /// <summary>
-    /// The pluggable parts of <c>rounds validate</c>, <c>import</c> and <c>publish</c>.
-    /// TODO(after merging T008 and T032–T035): set the defaults to the real implementations, e.g.
-    /// <c>DefinitionRules = new RoundLevelValidatorRules()</c> (wrapping <c>RoundLevelValidator</c>) and
-    /// <c>Conformance = new RoundReplayConformance()</c> (wrapping <c>RoundTimeline</c> / <c>RoundEvents</c> /
-    /// <c>RoundRandomPolicy</c>).
+    /// The pluggable parts of <c>rounds validate</c>, <c>import</c> and <c>publish</c>: <see cref="RoundLevelValidatorRules"/>
+    /// and <see cref="RoundReplayConformance"/> by default; the unwired stand-ins remain for tests of the command flow.
     /// </summary>
     public static class RoundSeams
     {
-        public static IRoundConformance Conformance { get; set; } = new UnwiredRoundConformance();
+        public static IRoundConformance Conformance { get; set; } = new RoundReplayConformance();
 
-        public static IRoundDefinitionRules DefinitionRules { get; set; } = new UnwiredRoundDefinitionRules();
+        public static IRoundDefinitionRules DefinitionRules { get; set; } = new RoundLevelValidatorRules();
     }
 }

@@ -1,0 +1,39 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0003",
+ "version": 3,
+ "title": "Птичка 3B",
+ "family": "Птицы",
+ "subject": "птичка на ветке",
+ "source": "оригинальный",
+ "w": 21,
+ "h": 20,
+ "rows": [
+  "............SS.......",
+  "..........SSSSSS.....",
+  ".........SSSSSSSS....",
+  ".......SSSSSSSSSSS...",
+  ".....BBBBBBBBBBDBB...",
+  "....BBBBBBBBBBBDBB...",
+  "....BBSSBBBCCCBBBAA..",
+  "...BBSSSSBCCCCCCBAAAA",
+  "...BSSSSSSCCCCCCCAA..",
+  "...BSSSSSSCCCCCCCB...",
+  ".BBBSSSSSSCCCCCCCB...",
+  ".BBBSSSSSSCCCCCCCB...",
+  "..BBSSSSSSCCCCCCCB...",
+  "..BBBSSSSCCCCCCCCB...",
+  "...BBBSSSCCCCCCCC....",
+  "...BBBBBBBCCCCCC.GGG.",
+  "......BBBBBCCCB.GGGGG",
+  "........BBBBBAA.GGGGG",
+  ".AAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAA"
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-10-26"
+ },
+ "rights": "own"
+}

@@ -1,0 +1,178 @@
+{
+ "format": "round-level.v1",
+ "number": 6,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "introduction": {
+  "mechanic": "hidden",
+  "second": false
+ },
+ "picture": {
+  "id": "P0005",
+  "version": 5
+ },
+ "board": {
+  "w": 42,
+  "h": 42,
+  "rowsBottomFirst": [
+   "#####################.####################",
+   "#........................................#",
+   "#.............YOOOOOOOOOOOOY.............#",
+   "#...........YYOOOOOOOOOOOOOOYY...........#",
+   "#...........YYYYYYYYYYYYYYYYYY...........#",
+   "#............YYYYYYYYYYYYYYYY............#",
+   "#................YYYYYYYY................#",
+   "#..................AAAA..................#",
+   "#..................AAAA..................#",
+   "#..............YYYYOOOOOOOO..............#",
+   "#...........YYYOOOOOOOOOOOOOOO...........#",
+   "#..........YYYOOOOOOOOOOOOOOOOO..........#",
+   "#.........YYYYOOOOOOOOOOOOOOOOOOYY.......#",
+   "#........YYYYYYOOOOOOOOOOOOOOOOOOYOOO....#",
+   "#......YYYYYYYYYYYOOOOOOOOOOOOYYYYOOOO...#",
+   "#.....YYYYYYYYYYYYYYYYYYYYYYYYYYYY.OOOO..#",
+   "#....YYYYYYYYYYYYYYYYYYYYYYYYYYYYY..OOO..#",
+   "#....YYYYYCCCCCCCCCCCCCYYYYYYYYYY....OOO.#",
+   "#...YYYYYYYCCCCCCCCCCCCYYYYYYYYYY....OOO.#",
+   "#...YYYYYYYYYYYYYYYYYYYYYYYYYYYY.....OOO.#",
+   "#..YYYYYYY..YYYYYYYYYYYYYYYYYY.......OOO.#",
+   "#..YYYYY......AAAAAAAAAAAAAAY.......OOO..#",
+   "#.YYYYY......AAYYYYYYYYYYYYAAY.....OOOO..#",
+   "#.YYYY........YYYYYYYYYYYYYYYYYYYYOOOO...#",
+   "#.YYY.............YYYYYY.....YYYYYOOO....#",
+   "#..BB..............YYYY.........Y........#",
+   "#..BB..............YYYY..................#",
+   "#...BB..............YY...................#",
+   "#...BB...................................#",
+   "#...BBB..................................#",
+   "#....BBB.................................#",
+   "#...BBBBBB...............................#",
+   "#...BBB..................................#",
+   "#..BB....................................#",
+   "#..BB....................................#",
+   "#..BBB...................................#",
+   "#..BBBBBBBB..............................#",
+   "#...BBBBB................................#",
+   "#...BB...................................#",
+   "#...BB...................................#",
+   "#........................................#",
+   "##########################################"
+  ],
+  "entries": [
+   21
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "B",
+   "count": 24
+  },
+  {
+   "code": "B",
+   "count": 23
+  },
+  {
+   "code": "Y",
+   "count": 38,
+   "mystery": "depth"
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 37
+  },
+  {
+   "code": "Y",
+   "count": 37
+  },
+  {
+   "code": "Y",
+   "count": 37
+  },
+  {
+   "code": "O",
+   "count": 39
+  },
+  {
+   "code": "O",
+   "count": 39
+  },
+  {
+   "code": "O",
+   "count": 38
+  },
+  {
+   "code": "O",
+   "count": 38
+  },
+  {
+   "code": "A",
+   "count": 13,
+   "mystery": "depth"
+  },
+  {
+   "code": "A",
+   "count": 13
+  },
+  {
+   "code": "C",
+   "count": 13,
+   "mystery": "depth"
+  },
+  {
+   "code": "C",
+   "count": 12
+  }
+ ],
+ "tray": [
+  [
+   0,
+   2,
+   12,
+   5,
+   16,
+   17
+  ],
+  [
+   3,
+   10,
+   4,
+   6,
+   7,
+   8
+  ],
+  [
+   11,
+   14,
+   1,
+   15,
+   13,
+   9
+  ]
+ ],
+ "mechanics": [
+  "hidden"
+ ],
+ "engine": {
+  "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
