@@ -29,6 +29,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>How long a just-revealed hidden pod glows, in seconds of real time (FR-045: "about 1.6 s").</summary>
         public const float RevealGlowSeconds = 1.6f;
 
+        /// <summary>The reveal glow's asset slot (soft rings round a just-revealed pod's frame).</summary>
+        public const string RevealGlowSlot = "pod.reveal.glow";
+
         /// <summary>How fast the glow rises to its full strength, in seconds.</summary>
         public const float RevealGlowRise = 0.18f;
 

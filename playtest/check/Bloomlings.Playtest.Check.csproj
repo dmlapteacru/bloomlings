@@ -21,6 +21,7 @@
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ClearStyles.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundAnimator.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundPlay.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/GuideTour.cs" />
     <Compile Include="../../playtest/design/PlaytestMeta.cs" />
     <Compile Include="../../playtest/android/PlaytestContent.cs" />
     <Compile Include="../../playtest/android/PlaytestFiles.cs" />

@@ -189,7 +189,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            p.Mark("pod.reveal.glow");
+            p.Mark(RoundLook.RevealGlowSlot);
             float s = Math.Min(frame.Width, frame.Height);
             float radius = s * 0.22f;
             for (int ring = 3; ring >= 1; ring--)

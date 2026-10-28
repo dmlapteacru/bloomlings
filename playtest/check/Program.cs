@@ -52,6 +52,14 @@ foreach (string failure in roundAnimator)
     Console.WriteLine("FAIL round animator: " + failure);
 }
 
+IEnumerable<string> guideScan = Bloomlings.Playtest.Check.RoundAnimatorChecks.GuideScan(Root, out string guideSummary);
+foreach (string failure in guideScan)
+{
+    failures++;
+    Console.WriteLine("FAIL round guide: " + failure);
+}
+
+Console.WriteLine("round guide: " + guideSummary);
 Console.WriteLine($"round animator: {roundLevels} round levels' solutions played frame by frame at x1, x2 and uneven frames" + (roundFailures == 0 ? ", each won on the reference's state" : string.Empty));
 
 var pictures = Directory.GetFiles(Path.Combine(Root, "content/pictures/lib"), "*.json").Select(f => BasePictureJson.Read(File.ReadAllText(f))).Select(p => p with { Review = p.Review with { Status = ReviewStatus.Approved } }).ToDictionary(p => p.Id);

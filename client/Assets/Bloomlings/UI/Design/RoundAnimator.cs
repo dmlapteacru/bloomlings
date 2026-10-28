@@ -442,14 +442,14 @@ namespace Bloomlings.Client.UI.Design
             {
                 if (_shown[c] != s.Board[c])
                 {
-                    difference = "cell " + c + " shows " + _shown[c] + ", the rules hold " + s.Board[c];
+                    difference = Diagnostic("cell {0} shows {1}, the rules hold {2}", c, _shown[c], s.Board[c]);
                     return false;
                 }
             }
 
             if (_slots.Length != s.Slots.Length)
             {
-                difference = "places " + _slots.Length + " != " + s.Slots.Length;
+                difference = Diagnostic("{0} places shown, the rules hold {1}", _slots.Length, s.Slots.Length);
                 return false;
             }
 
@@ -457,7 +457,7 @@ namespace Bloomlings.Client.UI.Design
             {
                 if (_slots[k] != s.Slots[k])
                 {
-                    difference = "place " + k + " shows pod " + _slots[k] + ", the rules hold " + s.Slots[k];
+                    difference = Diagnostic("place {0} shows pod {1}, the rules hold {2}", k, _slots[k], s.Slots[k]);
                     return false;
                 }
             }
@@ -466,7 +466,7 @@ namespace Bloomlings.Client.UI.Design
             {
                 if (_remaining[p] != s.Remaining[p] || _revealed[p] != s.Revealed[p])
                 {
-                    difference = "pod " + p + " differs";
+                    difference = Diagnostic("pod {0} differs", p);
                     return false;
                 }
             }
@@ -475,20 +475,24 @@ namespace Bloomlings.Client.UI.Design
             {
                 if (_heads[c] != s.Heads[c])
                 {
-                    difference = "column " + c + " head differs";
+                    difference = Diagnostic("column {0}: its head differs", c);
                     return false;
                 }
             }
 
             if (_walkers.Count != timeline.Couriers.Count)
             {
-                difference = _walkers.Count + " walkers shown, " + timeline.Couriers.Count + " couriers on the way";
+                difference = Diagnostic("{0} walkers shown, {1} couriers on the way", _walkers.Count, timeline.Couriers.Count);
                 return false;
             }
 
             difference = string.Empty;
             return true;
         }
+
+        // A check's diagnostic for developers (never shown to players).
+        private static string Diagnostic(string format, params object[] values) =>
+            string.Format(System.Globalization.CultureInfo.InvariantCulture, format, values);
 
         private void EnsureLeaving(int count)
         {
