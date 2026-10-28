@@ -21,6 +21,10 @@
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ClearStyles.cs" Link="Shared/Design/ClearStyles.cs" />
     <!-- Which tap waits for a connected partner, for the refusal's message (spec 005 FR-043; the rules only, no pictures). -->
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/PodLinkRules.cs" Link="Shared/Design/PodLinkRules.cs" />
+    <!-- Round levels (spec 006): the live clock and the animator over the round rules, and the guide's booster targets. -->
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundPlay.cs" Link="Shared/Design/RoundPlay.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundAnimator.cs" Link="Shared/Design/RoundAnimator.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/GuideTour.cs" Link="Shared/Design/GuideTour.cs" />
     <!-- CosmeticCatalog resolves achievement badge names; the tester shares that catalog, without profile UI. -->
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/Achievements.cs" Link="Shared/Achievements.cs" />
   </ItemGroup>
