@@ -7,7 +7,8 @@
     preview's copy).
 
     RoundContentDir names another published folder, e.g. for local development before the first `rounds publish`:
-      dotnet run --project playtest/check -- --publish-dev content/work/rounds-published
+      make one with playtest/check's publish-dev mode into content/work/rounds-published (command in playtest/README.md),
+      then
       dotnet build playtest/android -p:RoundContentDir=$(pwd)/content/work/rounds-published/
     (content/work is gitignored; never commit a published set made this way.)
   -->
