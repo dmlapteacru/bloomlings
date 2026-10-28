@@ -3,7 +3,7 @@
   21,
   50
  ],
- "created": "2026-10-28T13:04:29.833Z",
+ "created": "2026-10-28T13:23:39.363Z",
  "positions": [
   {
    "level": 21,
@@ -46,8 +46,8 @@
      10
     ]
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0019"
   },
   {
    "level": 23,
@@ -90,8 +90,8 @@
      10
     ]
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0036"
   },
   {
    "level": 25,
@@ -113,8 +113,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0094"
   },
   {
    "level": 26,
@@ -159,8 +159,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0015"
   },
   {
    "level": 28,
@@ -182,8 +182,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0008"
   },
   {
    "level": 29,
@@ -251,8 +251,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0089"
   },
   {
    "level": 32,
@@ -274,8 +274,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0098"
   },
   {
    "level": 33,
@@ -320,8 +320,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0054"
   },
   {
    "level": 35,
@@ -366,8 +366,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0071"
   },
   {
    "level": 37,
@@ -389,8 +389,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0014"
   },
   {
    "level": 38,
@@ -412,8 +412,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0012"
   },
   {
    "level": 39,
@@ -435,8 +435,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0074"
   },
   {
    "level": 40,
@@ -458,8 +458,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0042"
   },
   {
    "level": 41,
@@ -504,8 +504,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0013"
   },
   {
    "level": 43,
@@ -527,8 +527,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0082"
   },
   {
    "level": 44,
@@ -596,8 +596,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0032"
   },
   {
    "level": 47,
@@ -619,8 +619,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0004"
   },
   {
    "level": 48,
@@ -665,8 +665,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0033"
   },
   {
    "level": 50,
@@ -694,34 +694,16 @@
  ],
  "open": [
   21,
-  22,
   23,
-  24,
-  25,
   26,
-  27,
-  28,
   29,
   30,
-  31,
-  32,
   33,
-  34,
   35,
-  36,
-  37,
-  38,
-  39,
-  40,
   41,
-  42,
-  43,
   44,
   45,
-  46,
-  47,
   48,
-  49,
   50
  ],
  "blockers": [],
@@ -1054,29 +1036,29 @@
   }
  },
  "need": {
-  "Normal": 21,
-  "Hard": 3,
+  "Normal": 5,
+  "Hard": 1,
   "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 79,
-  "strong": 36,
+  "pictures": 61,
+  "strong": 23,
   "stream": 0,
   "bank": {
-   "знакомство: hidden": 71,
-   "Normal": 125,
-   "Hard": 44,
-   "знакомство: links": 52,
-   "Super Hard": 28
+   "знакомство: hidden": 30,
+   "знакомство: links": 26,
+   "Normal": 12,
+   "Hard": 3,
+   "Super Hard": 6
   },
   "overlay": {
-   "L33 влево": 77,
-   "L41 вверх": 77,
-   "L44 влево": 77,
-   "L48 вправо": 76,
-   "L50 вверх": 53
+   "L33 влево": 61,
+   "L41 вверх": 61,
+   "L44 влево": 61,
+   "L48 вправо": 60,
+   "L50 вверх": 40
   }
  },
  "order": {
