@@ -18,16 +18,18 @@ namespace Bloomlings.Client.Gameplay.Board
     /// A round level's board in the Unity client (spec 006 T059, contracts/presentation.md; the playtest's
     /// <c>RoundPainter.Board</c>), laid out by the kit's <see cref="RoundBoardLayout"/> in screen pixels:
     /// <list type="bullet">
-    /// <item><description>the rows' outer ring and wall as the game's stone border (<see cref="UiKit.StoneBorder"/>), each gate as
-    /// the game's entry arch turned to its side (FR-040);</description></item>
-    /// <item><description>inside the frame: grass on the path, water on the stream (<see cref="RoundSprites.Water"/>), a stone
-    /// wall where the level's overlay laid one (<see cref="RoundSprites.Wall"/>), the built bridge's plank turned to its
-    /// crossing (a buildable site glows toward its near bank and takes the tap, FR-009), the cubes as the game's soft cubes in the material's
-    /// colour with no icon (the symbol only in the symbols mode, FR-041, FR-047), and a cleared cube as the game's pale
-    /// restored cell;</description></item>
-    /// <item><description>a cube the clearing style holds (<see cref="RoundFx.Holds"/>) shows its ground, the style drawing it
-    /// eaten (FR-042); a cube Bloom Burst took swells and fades; while Bloom Burst waits for its target the cubes it can take
-    /// carry a pulsing ring and a tap on the grid picks the material.</description></item>
+    /// <item><description>the owner's board of 2026-10-28: one fixed box on every level (<see cref="RoundBoardLayout.Outer"/>),
+    /// its stone frame always the same thickness (<see cref="UiKit.StoneFrame"/>), each gate as the game's entry arch in the
+    /// frame turned to its side (FR-040), and inside it one solid neutral surface (<see cref="RoundSprites.Surface"/>): no grid,
+    /// no grass;</description></item>
+    /// <item><description>on the surface: water on the stream (<see cref="RoundSprites.Water"/>), a stone wall where the level's
+    /// overlay laid one (<see cref="RoundSprites.Wall"/>), both carried on to the frame where they close the ring
+    /// (<see cref="RoundBoardLayout.StripPieces"/>), the built bridge's plank turned to its crossing (a buildable site glows
+    /// toward its near bank and takes the tap, FR-009), and the cubes as the game's soft cubes in the material's colour with
+    /// no icon (the symbol only in the symbols mode, FR-041, FR-047) at the cube size the picture fits the surface with;</description></item>
+    /// <item><description>an eaten cube, or one the clearing style holds (<see cref="RoundFx.Holds"/>, the style drawing it eaten,
+    /// FR-042), leaves the surface bare, no imprint; a cube Bloom Burst took swells and fades; while Bloom Burst waits for its
+    /// target the cubes it can take carry a pulsing ring and a tap on the grid picks the material.</description></item>
     /// </list>
     /// Every cell is placed once relative to the grid, so a new screen size only moves the grid, its arches and planks. It
     /// reads the animator each frame (<see cref="Sync"/>) and changes only what changed. Presentation only.
@@ -37,19 +39,21 @@ namespace Bloomlings.Client.Gameplay.Board
         private readonly List<(Image Image, RoundGate Gate)> _arches = new List<(Image, RoundGate)>();
         private readonly List<(Image Plank, Image Glow, Button Touch, RoundBridgeSite Site)> _sites = new List<(Image, Image, Button, RoundBridgeSite)>();
         private RectTransform _root = null!;
+        private RectTransform _frame = null!;
+        private Image _surface = null!;
+        private StoneBorderView _border = null!;
         private RectTransform _grid = null!;
         private RectTransform _cells = null!;
         private RectTransform _cubes = null!;
         private RectTransform _decor = null!;
         private RectTransform _over = null!;
         private Image _touch = null!;
-        private StoneBorderView? _border;
         private RoundBoardLayout? _layout;
         private Image?[] _ground = Array.Empty<Image?>();
+        private readonly List<(Image Image, RoundStripPiece Piece)> _pieces = new List<(Image, RoundStripPiece)>();
         private Image?[] _cube = Array.Empty<Image?>();
         private Image?[] _rings = Array.Empty<Image?>();
         private sbyte[] _shownCube = Array.Empty<sbyte>();
-        private sbyte[] _shownGround = Array.Empty<sbyte>();
         private readonly List<int> _ringed = new List<int>();
         private readonly List<int> _puffs = new List<int>();
         private int _pixels;
@@ -75,8 +79,15 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             var view = layer.gameObject.AddComponent<RoundBoardView>();
             view._root = layer;
+
+            // The fixed frame and the solid neutral surface under the grid (the owner's board of 2026-10-28).
+            view._frame = UiFactory.CreateRect("RoundFrame", layer);
+            view._border = UiKit.StoneFrame(view._frame, 0.05f);
+            view._surface = UiFactory.CreateImage("Surface", view._frame, null, Color.white);
+            view._surface.raycastTarget = false;
+            UiFactory.Stretch(view._surface.rectTransform);
             view._grid = UiFactory.CreateRect("RoundGrid", layer);
-            // The ground and the cubes batch on canvases of their own (up to 46 × 46 cells), so the walkers moving every
+            // The strips and the cubes batch on canvases of their own (up to 46 × 46 cells), so the walkers moving every
             // frame and a cube cleared now and then never make Unity batch the other layer again. Neither takes taps.
             view._cells = UiFactory.Stretch(UiFactory.CreateRect("Ground", view._grid));
             view._cells.gameObject.AddComponent<Canvas>();
@@ -107,6 +118,7 @@ namespace Bloomlings.Client.Gameplay.Board
 
             _arches.Clear();
             _sites.Clear();
+            _pieces.Clear();
             _ringed.Clear();
             _puffs.Clear();
             _layout = layout;
@@ -115,32 +127,26 @@ namespace Bloomlings.Client.Gameplay.Board
             _cube = new Image?[cells];
             _rings = new Image?[cells];
             _shownCube = new sbyte[cells];
-            _shownGround = new sbyte[cells];
             PlaceGrid();
             _pixels = CellPixels();
 
-            int inner = layout.Width - 2;
-            int rows = layout.Height - 2;
-            if (_border == null)
-            {
-                _border = UiKit.StoneBorder(_grid, inner, rows);
-            }
-            else
-            {
-                _border.SetGrid(inner, rows);
-            }
-
-            _border.transform.SetAsFirstSibling();
+            // Only the strips have ground pictures: the walkway ring, the picture's background and an eaten cube are the
+            // surface itself.
             for (int y = 1; y < layout.Height - 1; y++)
             {
                 for (int x = 1; x < layout.Width - 1; x++)
                 {
                     int cell = (y * layout.Width) + x;
-                    Image ground = UiFactory.CreateImage("Cell", _cells, null, Color.white);
-                    PlaceInGrid(ground.rectTransform, layout.CellBox(cell));
-                    _ground[cell] = ground;
-                    _shownGround[cell] = sbyte.MinValue;
-                    if (layout.KindOf(cell) == RoundCellKind.Material)
+                    RoundCellKind kind = layout.KindOf(cell);
+                    if (kind == RoundCellKind.Stream || kind == RoundCellKind.Wall || kind == RoundCellKind.BridgeSite)
+                    {
+                        Image ground = UiFactory.CreateImage("Strip", _cells, null, Color.white);
+                        ground.raycastTarget = false;
+                        PlaceInGrid(ground.rectTransform, layout.CellBox(cell));
+                        _ground[cell] = ground;
+                    }
+
+                    if (kind == RoundCellKind.Material)
                     {
                         Image cube = UiFactory.CreateImage("Cube", _cubes, null, Color.white);
                         PlaceInGrid(cube.rectTransform, layout.CubeBox(cell));
@@ -148,6 +154,14 @@ namespace Bloomlings.Client.Gameplay.Board
                         _shownCube[cell] = sbyte.MinValue;
                     }
                 }
+            }
+
+            foreach (RoundStripPiece piece in layout.StripPieces)
+            {
+                Image image = UiFactory.CreateImage("StripReach", _cells, null, Color.white);
+                image.raycastTarget = false;
+                PlaceInGrid(image.rectTransform, piece.Box);
+                _pieces.Add((image, piece));
             }
 
             foreach (RoundBridgeSite site in layout.Bridges)
@@ -187,6 +201,11 @@ namespace Bloomlings.Client.Gameplay.Board
 
             _layout = layout;
             PlaceGrid();
+            foreach ((Image image, RoundStripPiece piece) in _pieces)
+            {
+                PlaceInGrid(image.rectTransform, piece.Box);
+            }
+
             PlaceDecor();
             int pixels = CellPixels();
             if (Mathf.Abs(pixels - _pixels) > _pixels / 4)
@@ -245,13 +264,6 @@ namespace Bloomlings.Client.Gameplay.Board
                 int m = a.MaterialAt(cell);
                 bool held = fx.Holds(cell);
                 int original = Math.Max(0, a.OriginalMaterial(cell));
-                sbyte ground = (sbyte)(m >= 0 && !held ? -1 : original);
-                if (ground != _shownGround[cell])
-                {
-                    _shownGround[cell] = ground;
-                    SetGround(cell, layout);
-                }
-
                 long since = now - a.ClearedAt(cell);
                 bool puff = m < 0 && a.Burst(cell) && a.ClearedAt(cell) >= 0 && since >= 0 && since < RoundAnimator.BurstUs;
                 sbyte shown = (sbyte)(puff ? original : m >= 0 && !held ? m : -1);
@@ -397,11 +409,10 @@ namespace Bloomlings.Client.Gameplay.Board
             float tx = screenPosition.x;
             float ty = h - screenPosition.y;
             RoundBoardLayout layout = _layout;
-            int cx = 1 + Mathf.FloorToInt((tx - layout.Grid.Left) / layout.Cell);
-            int cy = layout.Height - 2 - Mathf.FloorToInt((ty - layout.Grid.Top) / layout.Cell);
-            if (cx >= 1 && cy >= 1 && cx < layout.Width - 1 && cy < layout.Height - 1)
+            int cell = layout.CellAt(tx, ty);
+            if (cell >= 0)
             {
-                CellTapped?.Invoke((cy * layout.Width) + cx);
+                CellTapped?.Invoke(cell);
             }
         }
 
@@ -424,7 +435,13 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             if (_layout != null)
             {
-                UiKit.PlaceScreen(_grid, _layout.Grid);
+                RoundBoardLayout layout = _layout;
+                UiKit.PlaceScreen(_frame, layout.Surface);
+                float side = Mathf.Max(1f, Mathf.Min(layout.Surface.Width, layout.Surface.Height));
+                _border.SetUnitShare(layout.Unit / side);
+                float radius = layout.Unit * RoundBoardLayout.SurfaceRadius / side;
+                PictureFit.On(_surface, (w, h) => RoundSprites.Surface(w, h, radius));
+                UiKit.PlaceScreen(_grid, layout.Grid);
             }
         }
 
@@ -480,6 +497,12 @@ namespace Bloomlings.Client.Gameplay.Board
                     _shownCube[cell] = sbyte.MinValue;
                 }
             }
+
+            foreach ((Image image, RoundStripPiece piece) in _pieces)
+            {
+                image.sprite = layout.IsStone(piece.Cell) ? RoundSprites.Wall(piece.X, piece.Y, _pixels) : RoundSprites.Water(piece.X, _pixels);
+                image.type = Image.Type.Simple;
+            }
         }
 
         private void SetGround(int cell, RoundBoardLayout layout)
@@ -495,22 +518,8 @@ namespace Bloomlings.Client.Gameplay.Board
                 case RoundCellKind.Wall:
                     ground.sprite = RoundSprites.Wall(x, y, _pixels);
                     break;
-                case RoundCellKind.BridgeSite:
-                    ground.sprite = layout.IsStone(cell) ? RoundSprites.Wall(x, y, _pixels) : RoundSprites.Water(x, _pixels);
-                    break;
-                case RoundCellKind.Material:
-                    sbyte cleared = _shownGround[cell];
-                    if (cleared >= 0)
-                    {
-                        ground.sprite = RoundSprites.Cleared(cleared, _pixels);
-                        break;
-                    }
-
-                    // Under a standing cube: grass (hidden by the cube; a held or puffing cube shows its cleared cell).
-                    ground.sprite = ProceduralSprites.Grass(UiRaster.GrassSeed(x, y), _pixels, _pixels);
-                    break;
                 default:
-                    ground.sprite = ProceduralSprites.Grass(UiRaster.GrassSeed(x, y), _pixels, _pixels);
+                    ground.sprite = layout.IsStone(cell) ? RoundSprites.Wall(x, y, _pixels) : RoundSprites.Water(x, _pixels);
                     break;
             }
 

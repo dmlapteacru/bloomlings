@@ -15,11 +15,13 @@ namespace Bloomlings.Playtest.Design
     /// Draws a round level (spec 006 T049, contracts/presentation.md) in the game's look, from <see cref="RoundAnimator"/>
     /// and <see cref="RoundBoardLayout"/>; it holds no rules.
     /// <list type="bullet">
-    /// <item><description>The board: the game's stone border and entry arch, grass on the path, water on the stream, a
-    /// stone wall where the level's overlay laid one, the built bridge's plank turned to its crossing (a buildable site
-    /// glows toward its near bank and takes the tap), the cubes in the round palette without icons (the
-    /// symbol only in the symbols mode), a cleared cube as the game's pale restored cell; the clearing style's walkers
-    /// follow their couriers on the live timeline, the family hero tinted in the material's colour (FR-042, FR-048).</description></item>
+    /// <item><description>The board (the owner's board of 2026-10-28): one fixed box on every level, its stone frame the
+    /// same thickness whatever the picture, the entry arch in the frame; inside it one solid neutral surface (no grid, no
+    /// grass); water on the stream (carried on to the frame), a stone wall where the level's overlay laid one, the built
+    /// bridge's plank turned to its crossing (a buildable site glows toward its near bank and takes the tap), the cubes in
+    /// the round palette without icons (the symbol only in the symbols mode) at the largest size the picture fits the
+    /// surface with, and nothing where a cube was eaten; the clearing style's walkers follow their couriers on the live
+    /// timeline, the family hero tinted in the material's colour (FR-042, FR-048), scaled with the cubes.</description></item>
     /// <item><description>The tray: the places' cream plates with the material tile and the count, the columns of wooden
     /// pods (three or four rows and "+N"), a hidden pod's "?" until it reveals and its glow then (FR-045), and the link
     /// tubes on the pods' front faces, under the pods, in the columns and in the places (FR-043).</description></item>
@@ -65,7 +67,7 @@ namespace Bloomlings.Playtest.Design
                 ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, Math.Max(1, s.Round.Tray.Count), s.Animator.PlaceCount, hasBoosters, hasBadge);
                 RoundBoardLayout board = RoundBoardLayout.In(r, s.Round);
                 cache.Key = key;
-                cache.Regions = r.AlignControls(board.Board);
+                cache.Regions = r.AlignControls(board.Outer);
                 cache.Board = board;
                 cache.Held = new bool[s.Round.CellCount];
                 cache.HeldCells.Clear();
@@ -226,15 +228,28 @@ namespace Bloomlings.Playtest.Design
         // ---- The board ----
 
         /// <summary>
-        /// The board (FR-040 to FR-042): the stone border, each cell inside the frame as grass, water, a cube or a cleared
-        /// cell, the bridge and its sites, the entry arches, then the clearing style's walkers over the cubes.
+        /// The board (FR-040 to FR-042, the owner's board of 2026-10-28): the fixed stone frame and the neutral surface, the
+        /// strips carried on to the frame, each strip cell as water or stone and each standing cube (an eaten one leaves the
+        /// surface bare), the bridge and its sites, the entry arches, then the clearing style's walkers over the cubes.
         /// </summary>
         public static void Board(IPainter p, RoundLevelScreen s, LayoutCache cache)
         {
             RoundBoardLayout board = cache.Board;
             RoundAnimator a = s.Animator;
             bool symbols = s.Symbols;
-            Kit.StoneBorder(p, board.Grid, board.Cell);
+            Kit.RoundBoardFrame(p, board);
+            foreach (RoundStripPiece piece in board.StripPieces)
+            {
+                if (board.IsStone(piece.Cell))
+                {
+                    Kit.Wall(p, piece.Box, piece.X, piece.Y);
+                }
+                else
+                {
+                    Kit.Water(p, piece.Box, piece.X);
+                }
+            }
+
             BuildFx(s, cache);
             bool[] held = cache.Held;
             long now = s.Play.ClockUs;
@@ -278,20 +293,17 @@ namespace Bloomlings.Playtest.Design
                                     p.StrokeRound(full.Inset(board.Cell * 0.06f), board.Cell * 0.16f, Math.Max(1f, board.Cell * 0.08f), C.GardenGlow.WithAlpha(0.5f + (0.5f * pulse)));
                                 }
                             }
-                            else
+                            else if (m < 0 && a.Burst(cell))
                             {
-                                Kit.ClearedCell(p, full, Math.Max(0, a.OriginalMaterial(cell)));
-                                if (m < 0 && a.Burst(cell))
-                                {
-                                    BurstPuff(p, board, cell, a.OriginalMaterial(cell), now - a.ClearedAt(cell));
-                                }
+                                // An eaten cube leaves the neutral surface bare: no imprint (the owner, 2026-10-28).
+                                BurstPuff(p, board, cell, a.OriginalMaterial(cell), now - a.ClearedAt(cell));
                             }
 
                             break;
                         }
 
                         default:
-                            Kit.GrassCell(p, full, UiRaster.GrassSeed(x, y));
+                            // The walkway ring and the picture's background: the surface shows through.
                             break;
                     }
                 }
@@ -334,11 +346,10 @@ namespace Bloomlings.Playtest.Design
                 p.Hit(board.Grid, () =>
                 {
                     (float tx, float ty) = p.TapPoint;
-                    int cx = 1 + (int)Math.Floor((tx - board.Grid.Left) / board.Cell);
-                    int cy = board.Height - 2 - (int)Math.Floor((ty - board.Grid.Top) / board.Cell);
-                    if (cx >= 1 && cy >= 1 && cx < board.Width - 1 && cy < board.Height - 1)
+                    int cell = board.CellAt(tx, ty);
+                    if (cell >= 0)
                     {
-                        s.BurstCell((cy * board.Width) + cx);
+                        s.BurstCell(cell);
                     }
                 });
             }
@@ -920,14 +931,11 @@ namespace Bloomlings.Playtest.Design
                     float cell = h * 0.34f;
                     int cells = 6;
                     float left = area.CenterX - (cell * cells / 2f);
+                    var banks = new Box(left, area.CenterY - (cell * 1.5f), left + (cell * cells), area.CenterY + (cell * 1.5f));
+                    Kit.BoardSurface(p, banks, cell * 0.12f);
                     for (int x = 0; x < cells; x++)
                     {
-                        var above = new Box(left + (x * cell), area.CenterY - (cell * 1.5f), left + ((x + 1) * cell), area.CenterY - (cell * 0.5f));
-                        var water = new Box(above.Left, above.Bottom, above.Right, above.Bottom + cell);
-                        var below = new Box(above.Left, water.Bottom, above.Right, water.Bottom + cell);
-                        Kit.GrassCell(p, above, x);
-                        Kit.Water(p, water, x);
-                        Kit.GrassCell(p, below, x + 3);
+                        Kit.Water(p, new Box(left + (x * cell), area.CenterY - (cell * 0.5f), left + ((x + 1) * cell), area.CenterY + (cell * 0.5f)), x);
                     }
 
                     Box site = Box.FromCenter(area.CenterX + (cell * 0.5f), area.CenterY, cell, cell);
@@ -945,7 +953,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The finished picture on the win (FR-046): the approved picture's cells as the board's cubes in a thin stone frame
-        /// (empty cells as grass, the stream as water), as large as fits in <paramref name="box"/>.
+        /// on the board's neutral surface (empty cells show the surface, the stream as water), as large as fits in
+        /// <paramref name="box"/>.
         /// </summary>
         public static void FinishedPicture(IPainter p, Box box, RoundLevelScreen s)
         {
@@ -960,6 +969,7 @@ namespace Bloomlings.Playtest.Design
             float oy = box.CenterY - (cell * h / 2f);
             var grid = new Box(ox, oy, ox + (cell * w), oy + (cell * h));
             Kit.StoneBorder(p, grid, cell, thin);
+            Kit.BoardSurface(p, grid, cell * BoardLayout.Gap * 2f);
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -974,10 +984,6 @@ namespace Bloomlings.Playtest.Design
                     else if (c == '#' || c == 'b')
                     {
                         Kit.Water(p, full, x);
-                    }
-                    else
-                    {
-                        Kit.GrassCell(p, full, UiRaster.GrassSeed(x, y));
                     }
                 }
             }

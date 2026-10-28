@@ -137,16 +137,17 @@ namespace Bloomlings.Client.UI.Tutorial
                     const int cells = 6;
                     float x0 = local.CenterX - (cell * cells / 2f);
                     int pixels = UiRaster.Quantize(Mathf.Max(8f, cell * UiKit.PixelsPerUnit));
+                    // The banks are the board's neutral surface (the owner's board of 2026-10-28), the stream across it.
+                    Image banks = UiFactory.CreateImage("Surface", holder, null, Color.white);
+                    banks.raycastTarget = false;
+                    BoxLayout.Place(banks.rectTransform, new Box(x0, local.CenterY - (cell * 1.5f), x0 + (cell * cells), local.CenterY + (cell * 1.5f)));
+                    PictureFit.On(banks, (w, ph) => RoundSprites.Surface(w, ph, 0.04f));
                     for (int x = 0; x < cells; x++)
                     {
-                        var above = new Box(x0 + (x * cell), local.CenterY - (cell * 1.5f), x0 + ((x + 1) * cell), local.CenterY - (cell * 0.5f));
-                        var water = new Box(above.Left, above.Bottom, above.Right, above.Bottom + cell);
-                        var below = new Box(above.Left, water.Bottom, above.Right, water.Bottom + cell);
-                        BoxLayout.Place(UiKit.GrassCell("Grass", holder, x).rectTransform, above);
+                        var water = new Box(x0 + (x * cell), local.CenterY - (cell * 0.5f), x0 + ((x + 1) * cell), local.CenterY + (cell * 0.5f));
                         Image stream = UiFactory.CreateImage("Water", holder, RoundSprites.Water(x, pixels), Color.white);
                         stream.raycastTarget = false;
                         BoxLayout.Place(stream.rectTransform, water);
-                        BoxLayout.Place(UiKit.GrassCell("Grass", holder, x + 3).rectTransform, below);
                     }
 
                     Box site = Box.FromCenter(local.CenterX + (cell * 0.5f), local.CenterY, cell, cell);

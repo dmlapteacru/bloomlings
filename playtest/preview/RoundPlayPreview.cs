@@ -251,6 +251,55 @@ namespace Bloomlings.Playtest.Preview
                 Console.WriteLine($"rounds 48x48: cell {cache.Board.Cell:0.0} px, {working} places working, {screen.Animator.Walkers.Count} walkers; frame median {times[times.Count / 2]:0.0} ms, p95 {times[(int)(times.Count * 0.95)]:0.0} ms (preview painter, first frames render the pictures)");
                 expect(working >= 5 && screen.Animator.Walkers.Count > 0, "the 48 x 48 board plays with five places working");
 
+                // ---- The owner's board of 2026-10-28: one fixed box, a solid neutral surface, the cube size from the matrix ----
+                Box? fixedBox = null;
+                float lastCell = float.MaxValue;
+                foreach (int sideCells in new[] { 12, 32, 48 })
+                {
+                    var screenOf = new RoundLevelScreen(app, 21, BigLevel(sideCells), null);
+                    screenOf.SkipGuide();
+                    for (int k = 0; k < 3; k++)
+                    {
+                        foreach (int top in RoundRules.TopPods(screenOf.Play.Timeline.State))
+                        {
+                            if (screenOf.Play.Check(RoundAction.Tap(top)) == RoundRefusal.None)
+                            {
+                                screenOf.Tap(top);
+                            }
+                        }
+                    }
+
+                    // Mid-clear: some cubes eaten, the surface bare where they stood.
+                    int cubes = Enumerable.Range(0, screenOf.Round.CellCount).Count(c => screenOf.Animator.OriginalMaterial(c) >= 0);
+                    int Eaten() => Enumerable.Range(0, screenOf.Round.CellCount).Count(c => screenOf.Animator.OriginalMaterial(c) >= 0 && screenOf.Animator.MaterialAt(c) < 0);
+                    for (int f = 0; f < 300 && (f < 30 || Eaten() < Math.Min(cubes / 3, 120)); f++)
+                    {
+                        painter.Now += 1f / 30f;
+                        painter.BeginFrame();
+                        screenOf.Advance(1f / 30f);
+                        screenOf.Draw(painter);
+                    }
+
+                    painter.Slots.Clear();
+                    painter.Now += 1f / 60f;
+                    painter.BeginFrame();
+                    screenOf.Advance(1f / 60f);
+                    screenOf.Draw(painter);
+                    File.WriteAllBytes(Path.Combine(outDir, $"rounds-play-board-{sideCells}x{sideCells}.png"), painter.Png());
+                    var boardSlots = new HashSet<string>(painter.Slots, StringComparer.Ordinal);
+                    RoundBoardLayout fitted = RoundPainter.Layout(painter, screenOf, true, false).Board;
+                    int eaten = Enumerable.Range(0, screenOf.Round.CellCount).Count(c => fitted.KindOf(c) == RoundCellKind.Material && screenOf.Animator.MaterialAt(c) < 0);
+                    expect(boardSlots.Contains(RoundBoardLayout.SurfaceSlot) && boardSlots.Contains("board.border.stone") && !boardSlots.Contains("tile.grass") && !boardSlots.Contains("tile.ground"),
+                        $"the {sideCells} x {sideCells} board is one neutral surface in the stone frame: no grass cells, no imprint of {eaten} eaten cubes");
+                    expect(eaten > 0, $"the {sideCells} x {sideCells} board is caught mid-clear");
+                    fixedBox ??= fitted.Outer;
+                    expect(fitted.Outer.Equals(fixedBox.Value) && fitted.Grid.Within(fitted.Surface) && fitted.Cell < lastCell,
+                        $"the {sideCells} x {sideCells} board stands in the same box {fitted.Outer} with cubes of {fitted.Cell:0.0} px, smaller than a smaller matrix's");
+                    lastCell = fitted.Cell;
+                }
+
+                SideBySide(Path.Combine(outDir, "rounds-play-board-12x12.png"), Path.Combine(outDir, "rounds-play-board-48x48.png"), Path.Combine(outDir, "rounds-play-board-small-big.png"));
+
                 // ---- Bridges on two strips of a wall laid over the picture (17 §8 as amended on 2026-10-28) ----
                 RoundLevel fenced = SideBridgeLevel();
                 var side = new RoundLevelScreen(app, 21, fenced, null);
@@ -396,14 +445,31 @@ namespace Bloomlings.Playtest.Preview
             return hit;
         }
 
-        /// <summary>
-        /// A 48 × 48 board, the frame included (the largest round board): the wall, the open ring, a 44 × 44 picture of the
-        /// 16 materials in bands, the gate in the middle of the bottom, and pods of up to 60 cubes in three columns, so the
-        /// exact accounting holds.
-        /// </summary>
-        public static RoundLevel BigLevel()
+        /// <summary>Two frames side by side in one picture (the small and the big board for the owner's review).</summary>
+        private static void SideBySide(string left, string right, string into)
         {
-            const int side = 48;
+            using SkiaSharp.SKBitmap a = SkiaSharp.SKBitmap.Decode(left);
+            using SkiaSharp.SKBitmap b = SkiaSharp.SKBitmap.Decode(right);
+            int gap = 24;
+            using var both = new SkiaSharp.SKBitmap(a.Width + gap + b.Width, Math.Max(a.Height, b.Height));
+            using (var canvas = new SkiaSharp.SKCanvas(both))
+            {
+                canvas.Clear(SkiaSharp.SKColors.White);
+                canvas.DrawBitmap(a, 0f, 0f);
+                canvas.DrawBitmap(b, a.Width + gap, 0f);
+            }
+
+            using SkiaSharp.SKData png = both.Encode(SkiaSharp.SKEncodedImageFormat.Png, 90);
+            File.WriteAllBytes(into, png.ToArray());
+        }
+
+        /// <summary>
+        /// A <paramref name="side"/> × <paramref name="side"/> board, the frame included (48: the largest round board): the
+        /// wall, the open ring, a picture of the 16 materials in bands, the gate in the middle of the bottom, and pods of up
+        /// to 60 cubes in three columns, so the exact accounting holds.
+        /// </summary>
+        public static RoundLevel BigLevel(int side = 48)
+        {
             var rows = new string[side];
             var counts = new int[RoundMaterial.Codes.Length];
             for (int y = 0; y < side; y++)

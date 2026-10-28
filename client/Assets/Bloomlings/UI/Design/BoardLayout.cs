@@ -101,10 +101,18 @@ namespace Bloomlings.Client.UI.Design
         /// board, and the clockwise turn that points the picture's top (its opening) into the board: 0° at the bottom,
         /// 180° at the top, 90° on the left, -90° on the right. Draw the picture upright in the box, turned about its middle.
         /// </summary>
-        public static (Box Box, float Degrees) ArchOf(Box cell, EntrySide side)
+        public static (Box Box, float Degrees) ArchOf(Box cell, EntrySide side) => ArchAt(DoorOf(cell, side), side, cell.Width);
+
+        /// <summary>
+        /// The arch picture of an entry on <paramref name="side"/> whose walkers set off from <paramref name="door"/>, at a
+        /// size of <paramref name="unit"/> pixels a cell: <see cref="ArchWidth"/> × <see cref="ArchHeight"/> units round the
+        /// door, <see cref="ArchInset"/> toward the board, turned as <see cref="ArchOf"/> turns it. A round level's fixed frame
+        /// sizes its arches by the frame's unit, not by its cubes (<see cref="RoundBoardLayout"/>).
+        /// </summary>
+        public static (Box Box, float Degrees) ArchAt((float X, float Y) door, EntrySide side, float unit)
         {
-            (float x, float y) = DoorOf(cell, side);
-            float c = cell.Width;
+            (float x, float y) = door;
+            float c = unit;
             (float ix, float iy, float degrees) = side switch
             {
                 EntrySide.Top => (0f, 1f, 180f),

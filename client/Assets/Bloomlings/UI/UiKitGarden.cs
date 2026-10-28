@@ -361,6 +361,19 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
+        /// A round level's fixed stone frame (the owner's board of 2026-10-28; the playtest's <c>Kit.RoundBoardFrame</c>), as
+        /// the first child of <paramref name="surface"/> (a rect on the board's surface): the same border as
+        /// <see cref="StoneBorder(RectTransform, int, int, float)"/>, its unit <paramref name="unitShare"/> of the surface's
+        /// shorter side instead of a cell, so it is the same thickness whatever the picture's size.
+        /// </summary>
+        public static StoneBorderView StoneFrame(RectTransform surface, float unitShare)
+        {
+            StoneBorderView view = StoneBorder(surface, 1, 1);
+            view.SetUnitShare(unitShare);
+            return view;
+        }
+
+        /// <summary>
         /// The stone pedestal the heroes stand on (§3.6, <c>ui.pedestal</c>; win, milestone, Home, Wardrobe): an
         /// ellipse-topped stone drum filling the rect over a soft ground shadow. Put the heroes on <see cref="PedestalTop"/>.
         /// </summary>
@@ -1476,6 +1489,7 @@ namespace Bloomlings.Client.UI
         private int _columns = 1;
         private int _rows = 1;
         private float _thickness = BoardLayout.Stone;
+        private float _unitShare;
         private float _shadowRadius;
         private float _gapRadius;
 
@@ -1493,6 +1507,17 @@ namespace Bloomlings.Client.UI
             _columns = Math.Max(1, columns);
             _rows = Math.Max(1, rows);
             _thickness = thickness;
+            _unitShare = 0f;
+            Lay();
+        }
+
+        /// <summary>
+        /// A fixed unit instead of a cell (a round level's frame): the unit is <paramref name="share"/> of the rect's shorter
+        /// side, whatever its columns and rows.
+        /// </summary>
+        public void SetUnitShare(float share)
+        {
+            _unitShare = Math.Max(0f, share);
             Lay();
         }
 
@@ -1525,7 +1550,7 @@ namespace Bloomlings.Client.UI
             }
 
             var grid = new Box(0f, 0f, rect.width, rect.height);
-            float cell = Mathf.Min(rect.width / _columns, rect.height / _rows);
+            float cell = _unitShare > 0f ? Mathf.Min(rect.width, rect.height) * _unitShare : Mathf.Min(rect.width / _columns, rect.height / _rows);
             float gap = cell * 0.04f;
             float t = cell * _thickness;
             Box inner = grid.Inset(-gap);

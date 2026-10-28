@@ -7,8 +7,8 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The round levels' pieces (spec 006 contracts/presentation.md), drawn from the kit as cached <see cref="UiRaster"/>
-    /// pictures: material tiles without a variant icon (the material's symbol only in the symbols mode), the stream's
-    /// water, the built bridge's plank and the link tube. Each marks its asset slots; the level screen only calls them.
+    /// pictures: the board's fixed stone frame and solid neutral surface, material tiles without a variant icon (the
+    /// material's symbol only in the symbols mode), the stream's water, the built bridge's plank and the link tube. Each marks its asset slots; the level screen only calls them.
     /// </summary>
     public static partial class Kit
     {
@@ -117,25 +117,29 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        private static readonly string[] ClearedKeys = MakeMaterials(m => "tile.ground/round/" + RoundMaterial.All[m].Code);
-
-        private static readonly Func<int, int, byte[]>[] ClearedPictures = MakeMaterials<Func<int, int, byte[]>>(m =>
-        {
-            Rgba color = RoundLook.ColorOf(m).Lighten(0.55f);
-            return (w, h) => UiRaster.ClearedCell(w, h, color);
-        });
-
         private static readonly Dictionary<(int Material, bool Waiting, bool Locked), (string, Func<int, int, byte[]>)> RoundPods =
             new Dictionary<(int, bool, bool), (string, Func<int, int, byte[]>)>();
 
         /// <summary>
-        /// A round level's cleared cell filling <paramref name="full"/> (<c>tile.ground</c>, spec 006 T049): the finished
-        /// picture as the game's pale flat cell in the material's colour, one cached picture a material.
+        /// A round board's solid neutral surface filling <paramref name="box"/> (<c>board.surface</c>, the owner's board of
+        /// 2026-10-28): one cached picture a size (<see cref="UiRaster.BoardSurface"/>), corners rounded by
+        /// <paramref name="radius"/> pixels. Nothing is drawn per cell under the picture.
         /// </summary>
-        public static void ClearedCell(IPainter p, Box full, int material)
+        public static void BoardSurface(IPainter p, Box box, float radius)
         {
-            p.Mark("tile.ground");
-            p.Picture(ClearedKeys[material], full, ClearedPictures[material]);
+            p.Mark(RoundBoardLayout.SurfaceSlot);
+            float share = (float)Math.Round(radius / Math.Max(1f, Math.Min(box.Width, box.Height)), 4);
+            p.Picture(RoundBoardLayout.SurfaceSlot + "/" + share.ToString(System.Globalization.CultureInfo.InvariantCulture), box, (w, h) => UiRaster.BoardSurface(w, h, share));
+        }
+
+        /// <summary>
+        /// A round level's fixed board (the owner's board of 2026-10-28): the stone frame round <see cref="RoundBoardLayout.Surface"/>
+        /// at the frame's unit, so it is the same thickness on every level, then the neutral surface inside it.
+        /// </summary>
+        public static void RoundBoardFrame(IPainter p, RoundBoardLayout board)
+        {
+            StoneBorder(p, board.Surface, board.Unit);
+            BoardSurface(p, board.Surface, board.Unit * RoundBoardLayout.SurfaceRadius);
         }
 
         /// <summary>
@@ -214,17 +218,6 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.StrokeRound(frame.Inset(-s * 0.03f), radius + (s * 0.03f), s * 0.035f, DesignTokens.Colors.GardenGlow.WithAlpha(strength));
-        }
-
-        private static T[] MakeMaterials<T>(Func<int, T> make)
-        {
-            var items = new T[RoundMaterial.Codes.Length];
-            for (int m = 0; m < items.Length; m++)
-            {
-                items[m] = make(m);
-            }
-
-            return items;
         }
 
         private static T[] MakeWall<T>(Func<int, T> make)
