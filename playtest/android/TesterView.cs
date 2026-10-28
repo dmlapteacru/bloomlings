@@ -429,6 +429,17 @@ namespace Bloomlings.Playtest
             _ => "Not now",
         };
 
+        // The round rules' refusals, as the full playtest words them (RoundLevelScreen.RefusalText; the tester does not
+        // link the design screens).
+        private static string RoundRefusalText(RoundRefusal refusal) => refusal switch
+        {
+            RoundRefusal.NotExposed => PlaytestText.T("refusal.not_exposed"),
+            RoundRefusal.PartnerNotExposed => PlaytestText.T("refusal.partner_buried"),
+            RoundRefusal.PairNeedsTwoSlots => PlaytestText.T("refusal.group"),
+            RoundRefusal.BridgeNotReady => PlaytestText.T("round.bridge_not_ready"),
+            _ => PlaytestText.T("refusal.no_free_slot"),
+        };
+
         private static string ShortName(BoosterKind kind) => kind switch
         {
             BoosterKind.ExtraSlot => "+Slot",
@@ -1130,7 +1141,7 @@ namespace Bloomlings.Playtest
                 _sound.Play(SoundCue.Refused);
                 if (result.Refusal != RoundRefusal.Finished)
                 {
-                    Toast(Bloomlings.Playtest.Design.RoundLevelScreen.RefusalText(result.Refusal));
+                    Toast(RoundRefusalText(result.Refusal));
                 }
 
                 return;
