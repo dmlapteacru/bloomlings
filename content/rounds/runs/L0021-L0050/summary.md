@@ -1,6 +1,6 @@
 # Волна L21–L50
 
-Прогон 6 мин. Итог: нарушений обязательных правил — 12 уровней, последовательность — 2.
+Прогон 2 мин. Итог: нарушений обязательных правил — 12 уровней, последовательность — 2.
 
 **Не заполнено 12:** L21 Normal, L23 Normal, L26 Normal, L29 Normal, L30 Super Hard, L33 Normal, L35 Hard, L41 Normal, L44 Normal, L45 Super Hard, L48 Normal, L50 Hard → заказ картинок (`rounds.mjs plan 21 50`).
 
@@ -35,6 +35,6 @@
 
 ## Выборка для владельца
 
-L22, L24, L25, L27, L40, L47 — пилот `content/rounds/runs/L0021-L0050/sample/index.html`. После игры: `node tools/rounds/rounds.mjs review <results.json>`.
+—
 
 Проверка правил: [audit.md](audit.md). Лог расстановки: place.log, сборки: build/.
