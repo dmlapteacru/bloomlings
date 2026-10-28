@@ -25,6 +25,8 @@
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundPlay.cs" Link="Shared/Design/RoundPlay.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundAnimator.cs" Link="Shared/Design/RoundAnimator.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/GuideTour.cs" Link="Shared/Design/GuideTour.cs" />
+    <!-- The round screen's queue (spec 006 FR-064): three rows of pods and their waiting colour; the file needs nothing else. -->
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundScreenLook.cs" Link="Shared/Design/RoundScreenLook.cs" />
     <!-- CosmeticCatalog resolves achievement badge names; the tester shares that catalog, without profile UI. -->
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/Achievements.cs" Link="Shared/Achievements.cs" />
   </ItemGroup>

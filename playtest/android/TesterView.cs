@@ -1351,36 +1351,36 @@ namespace Bloomlings.Playtest
                 return;
             }
 
+            // As the game (spec 006 FR-064): exactly the first three pods of a column, one after another, as colour cubes (a
+            // darker front face under the top), the waiting ones only a little lighter; no "+N" for the rest.
+            int visible = Bloomlings.Client.UI.Design.RoundScreenLook.PodRows;
             float columnWidth = area.Width() / stacks;
-            float size = Math.Min(columnWidth * 0.86f, area.Height() / 4f * 0.94f);
-            int visible = Math.Max(1, (int)(area.Height() / (size * 1.04f)));
+            float gap = 0.12f;
+            float size = Math.Min(columnWidth * 0.86f, area.Height() / (visible + ((visible - 1) * gap)));
             for (int s = 0; s < stacks; s++)
             {
                 int waiting = a.Waiting(s);
                 float cx = area.Left + (columnWidth * (s + 0.5f));
                 for (int i = 0; i < waiting && i < visible; i++)
                 {
-                    float y = area.Top + (i * size * 1.04f);
+                    float y = area.Top + (i * size * (1f + gap));
                     var rect = new RectF(cx - (size / 2f), y, cx + (size / 2f), y + size);
-                    if (i == visible - 1 && waiting > visible)
-                    {
-                        Text(canvas, "+" + (waiting - i), cx, rect.CenterY(), size * 0.3f, Locked);
-                        break;
-                    }
-
                     int index = a.At(s, i);
                     RoundPod pod = level.Pods[index];
                     bool hidden = !a.Revealed(index);
                     Color color = hidden ? Locked : MaterialColor(pod.Code);
                     if (i > 0)
                     {
-                        color = Color.Argb(150, color.R, color.G, color.B);
+                        float k = Bloomlings.Client.UI.Design.RoundScreenLook.InactiveLighten;
+                        color = Color.Argb(255, (int)(color.R + ((255 - color.R) * k)), (int)(color.G + ((255 - color.G) * k)), (int)(color.B + ((255 - color.B) * k)));
                     }
 
-                    Fill(canvas, rect, color, size * 0.2f);
+                    Fill(canvas, rect, Color.Argb(255, color.R * 7 / 10, color.G * 7 / 10, color.B * 7 / 10), size * 0.2f);
+                    var top = new RectF(rect.Left, rect.Top, rect.Right, rect.Bottom - (size * 0.12f));
+                    Fill(canvas, top, color, size * 0.2f);
                     Color ink = hidden ? Color.White : Ink(MaterialColor(pod.Code));
-                    Text(canvas, hidden ? "?" : pod.Code.ToString(), rect.CenterX(), rect.Top + (size * 0.36f), size * 0.3f, ink);
-                    Text(canvas, hidden ? "?" : a.Remaining(index).ToString(CultureInfo.InvariantCulture), rect.CenterX(), rect.Top + (size * 0.72f), size * 0.34f, ink);
+                    Text(canvas, hidden ? "?" : pod.Code.ToString(), top.CenterX(), top.Top + (size * 0.32f), size * 0.3f, ink);
+                    Text(canvas, hidden ? "?" : a.Remaining(index).ToString(CultureInfo.InvariantCulture), top.CenterX(), top.Top + (size * 0.66f), size * 0.34f, ink);
                     if (pod.Group != null)
                     {
                         Text(canvas, "∞" + pod.Group, rect.Right - (size * 0.18f), rect.Top + (size * 0.18f), size * 0.22f, EntryColor);

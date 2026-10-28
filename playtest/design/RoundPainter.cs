@@ -22,9 +22,11 @@ namespace Bloomlings.Playtest.Design
     /// the round palette without icons (the symbol only in the symbols mode) at the largest size the picture fits the
     /// surface with, and nothing where a cube was eaten; the clearing style's walkers follow their couriers on the live
     /// timeline, the family hero tinted in the material's colour (FR-042, FR-048), scaled with the cubes.</description></item>
-    /// <item><description>The tray: the places' cream plates with the material tile and the count, the columns of wooden
-    /// pods (three or four rows and "+N"), a hidden pod's "?" until it reveals and its glow then (FR-045), and the link
-    /// tubes on the pods' front faces, under the pods, in the columns and in the places (FR-043).</description></item>
+    /// <item><description>The tray (FR-064, the owner's pods of 2026-10-28): the places' cream plates with the material's
+    /// cube and the count, the columns of pods as soft cubes with no frame (exactly three rows, one after another with a
+    /// small gap, no "+N"; the rows under the top one only a little lighter), a hidden pod's "?" cube until it reveals and
+    /// its glow then (FR-045), and the link tubes on the cubes' front faces, under the pods, in the columns and in the
+    /// places (FR-043).</description></item>
     /// <item><description>The HUD (top bar, tray, boosters) fades away under Auto, leaving the board (FR-044).</description></item>
     /// </list>
     /// </summary>
@@ -64,10 +66,10 @@ namespace Bloomlings.Playtest.Design
             var key = (p.Width, p.Height, p.Insets, s.Animator.PlaceCount, hasBoosters, hasBadge);
             if (cache.Regions == null || !cache.Key.Equals(key))
             {
-                ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, Math.Max(1, s.Round.Tray.Count), s.Animator.PlaceCount, hasBoosters, hasBadge);
+                ReferenceGameplayRegions r = ScreenLayout.RoundGameplay(p.Width, p.Height, p.Insets, Math.Max(1, s.Round.Tray.Count), s.Animator.PlaceCount, hasBoosters, hasBadge);
                 RoundBoardLayout board = RoundBoardLayout.In(r, s.Round);
                 cache.Key = key;
-                cache.Regions = r.AlignControls(board.Outer);
+                cache.Regions = ScreenLayout.AlignRound(r, board.Outer);
                 cache.Board = board;
                 cache.Held = new bool[s.Round.CellCount];
                 cache.HeldCells.Clear();
@@ -280,31 +282,56 @@ namespace Bloomlings.Playtest.Design
                             }
 
                             break;
-                        case RoundCellKind.Material:
-                        {
-                            int m = a.MaterialAt(cell);
-                            if (m >= 0 && !held[cell])
-                            {
-                                Kit.MaterialTile(p, board.CubeBox(cell), RoundMaterial.All[m], RoundLook.CubeStyle, symbols);
-                                if (bursting && RoundBoosters.CanBloomBurst(s.Play.Timeline, RoundMaterial.All[m].Code) == RoundRefusal.None)
-                                {
-                                    p.Mark("fx.burst");
-                                    float pulse = 0.5f + (0.5f * (float)Math.Sin(p.Now * 6f));
-                                    p.StrokeRound(full.Inset(board.Cell * 0.06f), board.Cell * 0.16f, Math.Max(1f, board.Cell * 0.08f), C.GardenGlow.WithAlpha(0.5f + (0.5f * pulse)));
-                                }
-                            }
-                            else if (m < 0 && a.Burst(cell))
-                            {
-                                // An eaten cube leaves the neutral surface bare: no imprint (the owner, 2026-10-28).
-                                BurstPuff(p, board, cell, a.OriginalMaterial(cell), now - a.ClearedAt(cell));
-                            }
-
+                        default:
+                            // The walkway ring, the picture's background and the cubes' cells: the surface shows through.
                             break;
+                    }
+                }
+            }
+
+            // The cubes, the far (top) row first: each nearer cube hides the front face of the one behind it, so a front shows
+            // only on the picture's bottom edge, at its steps and where a cube was eaten (the owner's oblique cubes, FR-064).
+            for (int y = board.Height - 2; y >= 1; y--)
+            {
+                for (int x = 1; x < w - 1; x++)
+                {
+                    int cell = (y * w) + x;
+                    if (board.KindOf(cell) != RoundCellKind.Material)
+                    {
+                        continue;
+                    }
+
+                    int m = a.MaterialAt(cell);
+                    if (m >= 0 && !held[cell])
+                    {
+                        // Its side face where the neighbour on the side it faces is empty (constitution 1.2.0 VII).
+                        int beside = board.SideNeighbour(cell);
+                        if (beside >= 0 && (board.KindOf(beside) != RoundCellKind.Material || a.MaterialAt(beside) < 0 || held[beside]))
+                        {
+                            Kit.SideFace(p, board.SideBox(cell), RoundMaterial.All[m], board.SideStepOf(cell) < 0, RoundBoardLayout.TopShare);
                         }
 
-                        default:
-                            // The walkway ring and the picture's background: the surface shows through.
-                            break;
+                        Kit.BoardCube(p, board.CubeBox(cell), RoundMaterial.All[m], symbols);
+                    }
+                    else if (m < 0 && a.Burst(cell))
+                    {
+                        // An eaten cube leaves the neutral surface bare: no imprint (the owner, 2026-10-28).
+                        BurstPuff(p, board, cell, a.OriginalMaterial(cell), now - a.ClearedAt(cell));
+                    }
+                }
+            }
+
+            if (bursting)
+            {
+                // Bloom Burst's targets glow on their tops, over every cube.
+                float pulse = 0.5f + (0.5f * (float)Math.Sin(p.Now * 6f));
+                for (int cell = 0; cell < board.Width * board.Height; cell++)
+                {
+                    int m = board.KindOf(cell) == RoundCellKind.Material ? a.MaterialAt(cell) : -1;
+                    if (m >= 0 && !held[cell] && RoundBoosters.CanBloomBurst(s.Play.Timeline, RoundMaterial.All[m].Code) == RoundRefusal.None)
+                    {
+                        p.Mark("fx.burst");
+                        p.StrokeRound(board.CellBox(cell).Inset(board.Cell * 0.06f), board.Cell * 0.16f, Math.Max(1f, board.Cell * 0.08f), C.GardenGlow.WithAlpha(0.5f + (0.5f * pulse)));
                     }
                 }
             }
@@ -368,7 +395,7 @@ namespace Bloomlings.Playtest.Design
             Box cube = board.CubeBox(cell);
             p.PushAlpha(1f - k);
             p.PushTransform(0f, 0f, 1f + (0.35f * k), cube.CenterX, cube.CenterY);
-            Kit.MaterialTile(p, cube, RoundMaterial.All[material], RoundLook.CubeStyle, false);
+            Kit.BoardCube(p, cube, RoundMaterial.All[material], false);
             p.PopTransform();
             p.StrokeCircle(cube.CenterX, cube.CenterY, cube.Width * (0.4f + (0.5f * k)), Math.Max(1f, cube.Width * 0.08f), Rgba.White);
             p.PopAlpha();
@@ -538,7 +565,7 @@ namespace Bloomlings.Playtest.Design
                         Box tile = ReferenceGameplayRegions.SlotTile(plate);
                         p.PushAlpha(1f - q);
                         p.PushTransform(0f, 0f, 1f + (0.3f * q), tile.CenterX, tile.CenterY);
-                        Kit.MaterialTile(p, tile, RoundMaterial.All[a.MaterialOf(left)], RoundLook.PodStyle, s.Symbols);
+                        Kit.PlacedCube(p, tile, RoundMaterial.All[a.MaterialOf(left)], null, false, s.Symbols);
                         p.PopTransform();
                         p.PopAlpha();
                     }
@@ -563,7 +590,7 @@ namespace Bloomlings.Playtest.Design
 
                 bool symbols = s.Symbols;
                 Kit.SlotPlate(p, plate, working ? SlotPlateState.Working : SlotPlateState.Stuck, null, a.Remaining(pod), extra, tile: (box, stuck) =>
-                    Kit.MaterialTile(p, box, material, RoundLook.PodStyle, symbols, stuck ? TileState.Grey : TileState.Normal));
+                    Kit.PlacedCube(p, box, material, a.Remaining(pod), stuck, symbols, ScreenSide(p, box)));
                 if (arrival < 1f)
                 {
                     p.PopAlpha();
@@ -576,6 +603,9 @@ namespace Bloomlings.Playtest.Design
                 }
             }
         }
+
+        /// <summary>The side face's step of a pod or place at <paramref name="box"/>, by its distance from the screen's middle (constitution 1.2.0 VII).</summary>
+        private static int ScreenSide(IPainter p, Box box) => RoundLook.SideStep(box.CenterX - (p.Width / 2f), p.Width / 2f);
 
         /// <summary>The materials with a cube in reach now (a place whose material has none waits, greyed).</summary>
         private static void ReachableMaterials(RoundTimeline t, bool[] into)
@@ -621,7 +651,7 @@ namespace Bloomlings.Playtest.Design
                 Kit.SoftShadow(p, box.Offset(0f, size * (0.06f + (0.12f * lift))), size * 0.2f, 0.25f * (1f - (0.5f * lift)));
                 float rest = to.Width;
                 p.PushTransform(0f, 0f, size / Math.Max(1f, rest), x, y);
-                Kit.MaterialTile(p, Box.FromCenter(x, y, rest, rest), RoundMaterial.All[a.MaterialOf(pod)], RoundLook.PodStyle, s.Symbols);
+                Kit.PlacedCube(p, Box.FromCenter(x, y, rest, rest), RoundMaterial.All[a.MaterialOf(pod)], null, false, s.Symbols);
                 p.PopTransform();
             }
         }
@@ -629,10 +659,12 @@ namespace Bloomlings.Playtest.Design
         // ---- The columns ----
 
         /// <summary>
-        /// The columns of pods (spec 005 FR-021: frames wider than tall, one column per stack, the exposed pod in front, the
-        /// next ones under it, "+N" for the rest): every shown pod's box first (sliding between rows, <see cref="TrayMotion"/>),
-        /// then the link tubes between linked pods' front faces, then the pods over them, a reveal glow behind a pod that has
-        /// just revealed, and the pulse round a partner a refused tap waits for.
+        /// The columns of pods (spec 006 FR-064, the owner's pods of 2026-10-28, as in Colony Flow): one column per stack, its
+        /// first <see cref="ReferenceGameplayRegions.PodRows"/> pods as cubes one after another, the top one taking the tap,
+        /// nothing for the rest (no "+N"): every shown pod's box first (sliding up a row as the top one leaves, the next one
+        /// rising into the last row, <see cref="TrayMotion"/>), then the link tubes between linked cubes' front faces, then
+        /// the pods over them, a reveal glow behind a pod that has just revealed, and the pulse round a partner a refused tap
+        /// waits for.
         /// </summary>
         private static void Columns(IPainter p, RoundLevelScreen s, LayoutCache cache)
         {
@@ -676,7 +708,7 @@ namespace Bloomlings.Playtest.Design
                     pods.Add((pod, st, depth, layout, slide.Box, fade));
                     if (shown)
                     {
-                        PodChip chip = PodChip.In(slide.Box, depth > 0);
+                        PodChip chip = PodChip.Cube(slide.Box, depth > 0);
                         cache.FrameOf[pod] = chip.Frame;
                         s.PodBoxes[pod] = chip.Tile;
                     }
@@ -688,7 +720,7 @@ namespace Bloomlings.Playtest.Design
             {
                 if (tube.Place == RoundTubePlace.Columns && cache.FrameOf[tube.First].HasValue && cache.FrameOf[tube.Second].HasValue)
                 {
-                    Kit.LinkTubeStepped(p, LinkTube.Between(cache.FrameOf[tube.First]!.Value, RoundLook.ColorOf(a.MaterialOf(tube.First)), cache.FrameOf[tube.Second]!.Value, RoundLook.ColorOf(a.MaterialOf(tube.Second))));
+                    Kit.LinkTubeStepped(p, LinkTube.BetweenCubes(cache.FrameOf[tube.First]!.Value, RoundLook.ColorOf(a.MaterialOf(tube.First)), cache.FrameOf[tube.Second]!.Value, RoundLook.ColorOf(a.MaterialOf(tube.Second))));
                 }
             }
 
@@ -720,11 +752,11 @@ namespace Bloomlings.Playtest.Design
                     p.PushAlpha(fade);
                 }
 
-                PodChip chip = PodChip.In(layout, depth > 0);
+                PodChip chip = PodChip.Cube(layout, depth > 0);
                 float glow = s.RevealGlow(pod);
                 if (glow > 0f)
                 {
-                    Kit.RevealGlow(p, PodChip.In(drawn, depth > 0).Frame, glow);
+                    Kit.RevealGlow(p, PodChip.Cube(drawn).Frame, glow);
                 }
 
                 float press = exposed && interactive ? Kit.Press(p, touch, true) : 0f;
@@ -733,7 +765,7 @@ namespace Bloomlings.Playtest.Design
                 p.PushSquash(drawn.Width / Math.Max(1f, layout.Width), drawn.Height / Math.Max(1f, layout.Height), layout.Left, layout.Top);
                 Kit.Squash(p, layout, press, tile: true);
                 RoundMaterial? material = a.Revealed(pod) ? RoundMaterial.All[a.MaterialOf(pod)] : null;
-                Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols);
+                Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols, ScreenSide(p, layout));
                 p.PopTransform();
                 p.PopTransform();
                 p.PopTransform();
@@ -743,19 +775,13 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            for (int st = 0; st < columns; st++)
-            {
-                int more = a.Waiting(st) - r.PodRows;
-                if (more > 0)
-                {
-                    PodPainter.MoreBadge(p, r.Chip(st, r.PodRows - 1), more);
-                }
-            }
-
             Hint(p, s, cache);
         }
 
-        /// <summary>The pulse round the link partner a refused tap waits for (or round the "+N" that hides it).</summary>
+        /// <summary>
+        /// The pulse round the link partner a refused tap waits for, or, while it waits deeper than the rows show, round its
+        /// column's last shown pod (where the queue goes on).
+        /// </summary>
         private static void Hint(IPainter p, RoundLevelScreen s, LayoutCache cache)
         {
             if (!s.LinkHint.HasValue)
@@ -786,8 +812,7 @@ namespace Bloomlings.Playtest.Design
                 }
                 else if (a.ColumnOf(member) >= 0 && a.ColumnOf(member) < r.Columns.Count)
                 {
-                    Box badge = r.Chip(a.ColumnOf(member), r.PodRows - 1).Badge;
-                    ring = Box.FromCenter(badge.CenterX, badge.CenterY, badge.Height * 1.5f, badge.Height * 1.5f);
+                    ring = r.Pod(a.ColumnOf(member), r.PodRows - 1);
                 }
                 else
                 {
@@ -843,7 +868,7 @@ namespace Bloomlings.Playtest.Design
             RoundAnimator a = s.Animator;
             for (int n = 0; n < a.PlaceCount; n++)
             {
-                (Box tile, Box count) = r.WellCell(n, a.PlaceCount);
+                (Box tile, _) = r.WellCell(n, a.PlaceCount);
                 int pod = a.PodIn(n);
                 if (pod < 0)
                 {
@@ -851,8 +876,7 @@ namespace Bloomlings.Playtest.Design
                 }
                 else
                 {
-                    Kit.MaterialTile(p, tile, RoundMaterial.All[a.MaterialOf(pod)], RoundLook.PodStyle, s.Symbols);
-                    Kit.CountBelow(p, count, a.Remaining(pod), false);
+                    Kit.PlacedCube(p, tile, RoundMaterial.All[a.MaterialOf(pod)], a.Remaining(pod), false, s.Symbols);
                 }
             }
         }
@@ -900,7 +924,7 @@ namespace Bloomlings.Playtest.Design
         private static void IntroPicture(IPainter p, RoundIntroPicture picture, Box area, float since)
         {
             float h = area.Height;
-            float podW = h * 0.62f * PodChip.Aspect;
+            float podW = h * 0.62f;
             float gap = h * 0.5f;
             switch (picture)
             {
@@ -908,9 +932,9 @@ namespace Bloomlings.Playtest.Design
                 {
                     var left = Box.FromCenter(area.CenterX - ((podW + gap) / 2f), area.CenterY, podW, h * 0.62f);
                     var right = Box.FromCenter(area.CenterX + ((podW + gap) / 2f), area.CenterY, podW, h * 0.62f);
-                    Kit.RoundPod(p, PodChip.In(left), null, 0, PodLook.Exposed, false, false);
+                    Kit.RoundPod(p, PodChip.Cube(left), null, 0, PodLook.Exposed, false, false);
                     p.Shape("ui.chevron", Box.FromCenter(area.CenterX, area.CenterY, h * 0.28f, h * 0.28f), C.InkBrownSoft);
-                    PodChip revealed = PodChip.In(right);
+                    PodChip revealed = PodChip.Cube(right);
                     Kit.RevealGlow(p, revealed.Frame, 0.4f + (0.6f * GardenLook.Glow(p.Now)));
                     Kit.RoundPod(p, revealed, RoundMaterial.All[1], 12, PodLook.Exposed, false, false);
                     break;
@@ -918,9 +942,9 @@ namespace Bloomlings.Playtest.Design
 
                 case RoundIntroPicture.LinkedPair:
                 {
-                    PodChip a = PodChip.In(Box.FromCenter(area.CenterX - ((podW + gap) / 2f), area.CenterY, podW, h * 0.62f));
-                    PodChip b = PodChip.In(Box.FromCenter(area.CenterX + ((podW + gap) / 2f), area.CenterY, podW, h * 0.62f));
-                    Kit.LinkTubeStepped(p, LinkTube.BetweenPods(a, RoundLook.ColorOf(0), b, RoundLook.ColorOf(8)));
+                    PodChip a = PodChip.Cube(Box.FromCenter(area.CenterX - ((podW + gap) / 2f), area.CenterY, podW, h * 0.62f));
+                    PodChip b = PodChip.Cube(Box.FromCenter(area.CenterX + ((podW + gap) / 2f), area.CenterY, podW, h * 0.62f));
+                    Kit.LinkTubeStepped(p, LinkTube.BetweenCubes(a.Frame, RoundLook.ColorOf(0), b.Frame, RoundLook.ColorOf(8)));
                     Kit.RoundPod(p, a, RoundMaterial.All[0], 20, PodLook.Exposed, false, false);
                     Kit.RoundPod(p, b, RoundMaterial.All[8], 14, PodLook.Exposed, false, false);
                     break;

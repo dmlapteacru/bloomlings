@@ -235,15 +235,28 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The fixed box's shorter side in frame units (<see cref="Unit"/>): the stone frame is <see cref="BoardLayout.Rim"/>
-        /// units thick and its blocks about a unit long, on every level.
+        /// units thick and its blocks about a unit long, on every level: the frame is <see cref="RoundScreenLook.FrameShare"/>
+        /// of the box's shorter side (the owner's 0.042 of 2026-10-28).
         /// </summary>
-        public const float FrameUnits = 22f;
+        public const float FrameUnits = BoardLayout.Rim / RoundScreenLook.FrameShare;
 
         /// <summary>The surface's corner radius in frame units (the frame's dark gap round it is <see cref="BoardLayout.Gap"/>).</summary>
         public const float SurfaceRadius = 0.12f;
 
-        /// <summary>How much a cube is inset into its cell (each side, in cells): the cubes nearly touch, as on the game's board.</summary>
-        public const float CubeInset = 0.008f;
+        /// <summary>How much a cube picture is inset into its column (each side, in cells): none, the cubes touch (the picture keeps the owner's hairline, <see cref="RoundScreenLook.BoardCubeFill"/>).</summary>
+        public const float CubeInset = 0f;
+
+        /// <summary>A row's pitch as a share of the column pitch (<see cref="RoundScreenLook.BoardRowShare"/>).</summary>
+        public const float RowShare = RoundScreenLook.BoardRowShare;
+
+        /// <summary>A cube's front face as a share of the column pitch (<see cref="RoundScreenLook.BoardFrontShare"/>).</summary>
+        public const float FrontShare = RoundScreenLook.BoardFrontShare;
+
+        /// <summary>
+        /// The cells of surface on each side of the rows' open ring (<see cref="RoundScreenLook.PadCells"/> less the ring the
+        /// rows carry), counted when the cube size is fitted.
+        /// </summary>
+        public const int ExtraPad = RoundScreenLook.PadCells > 1 ? RoundScreenLook.PadCells - 1 : 0;
 
         /// <summary>How far a built bridge's plank reaches beyond its site onto each bank, in cells.</summary>
         public const float PlankReach = 0.22f;
@@ -259,9 +272,11 @@ namespace Bloomlings.Client.UI.Design
         private readonly int[] _entries;
         private readonly IReadOnlyList<RoundBridgeChoice> _bridge;
         private readonly bool[] _stone;
+        private readonly float _maxCell;
 
-        private RoundBoardLayout(Box outer, int width, int height, RoundCellKind[] kinds, sbyte[] materials, int[] entries, IReadOnlyList<RoundBridgeChoice> bridge, bool[] stone)
+        private RoundBoardLayout(Box outer, int width, int height, RoundCellKind[] kinds, sbyte[] materials, int[] entries, IReadOnlyList<RoundBridgeChoice> bridge, bool[] stone, float maxCell)
         {
+            _maxCell = maxCell;
             Outer = outer;
             Width = width;
             Height = height;
@@ -275,8 +290,11 @@ namespace Bloomlings.Client.UI.Design
             Surface = outer.Inset(BoardLayout.Rim * Unit);
             int columns = width - 2;
             int rows = height - 2;
-            Cell = Math.Max(1f, Math.Min(Surface.Width / columns, Surface.Height / rows));
-            Grid = Box.FromCenter(Surface.CenterX, Surface.CenterY, Cell * columns, Cell * rows);
+            // The oblique cubes (FR-064, the owner's cubes of 2026-10-28): a column pitch of Cell, a row pitch of
+            // RowShare cells, and the nearest row's front face below the last row.
+            float tall = ((rows + (2 * ExtraPad)) * RowShare) + FrontShare;
+            Cell = Math.Max(1f, Math.Min(maxCell, Math.Min(Surface.Width / (columns + (2 * ExtraPad)), Surface.Height / tall)));
+            Grid = Box.FromCenter(Surface.CenterX, Surface.CenterY, Cell * columns, (Cell * RowShare * rows) + (Cell * FrontShare));
 
             var gates = new List<RoundGate>();
             foreach (int cell in entries)
@@ -341,6 +359,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>One cell's side (the cube size), in pixels: the largest that fits the cells inside the wall on <see cref="Surface"/>.</summary>
         public float Cell { get; }
 
+        /// <summary>One row's pitch on screen, in pixels: <see cref="RowShare"/> of <see cref="Cell"/> (a cube's top is wider than tall).</summary>
+        public float RowPitch => Cell * RowShare;
+
+        /// <summary>A cube's front face under its top, in pixels: <see cref="FrontShare"/> of <see cref="Cell"/>.</summary>
+        public float Front => Cell * FrontShare;
+
         /// <summary>The cells inside the wall, centred on <see cref="Surface"/>.</summary>
         public Box Grid { get; }
 
@@ -361,8 +385,8 @@ namespace Bloomlings.Client.UI.Design
         /// Lays out <paramref name="level"/>'s board in the fixed board box <paramref name="box"/>: the stone frame on its edge,
         /// the surface inside it, and the cells inside the wall at the largest cube that fits, centred.
         /// </summary>
-        public static RoundBoardLayout Fit(Box box, RoundLevel level) =>
-            Fit(box, level.Width, level.Height, level.RowsBottomFirst, level.Entries, level.Bridge, level.OverlayCells());
+        public static RoundBoardLayout Fit(Box box, RoundLevel level, float maxCell = float.MaxValue) =>
+            Fit(box, level.Width, level.Height, level.RowsBottomFirst, level.Entries, level.Bridge, level.OverlayCells(), maxCell);
 
         /// <summary>
         /// Lays out a round board of <paramref name="width"/> × <paramref name="height"/> cells (the wall included) from its
@@ -370,7 +394,7 @@ namespace Bloomlings.Client.UI.Design
         /// <paramref name="box"/>. The walls among <paramref name="overlay"/>'s cells (the level's overlay,
         /// <see cref="RoundLevel.OverlayCells"/>) are a stone wall instead of water.
         /// </summary>
-        public static RoundBoardLayout Fit(Box box, int width, int height, IReadOnlyList<string> rowsBottomFirst, IReadOnlyList<int> entries, IReadOnlyList<RoundBridgeChoice>? bridge, IReadOnlyList<int>? overlay = null)
+        public static RoundBoardLayout Fit(Box box, int width, int height, IReadOnlyList<string> rowsBottomFirst, IReadOnlyList<int> entries, IReadOnlyList<RoundBridgeChoice>? bridge, IReadOnlyList<int>? overlay = null, float maxCell = float.MaxValue)
         {
             if (width < 3 || height < 3 || width > MaxSide || height > MaxSide)
             {
@@ -441,18 +465,25 @@ namespace Bloomlings.Client.UI.Design
                 entryCells[e] = entries[e];
             }
 
-            return new RoundBoardLayout(box, width, height, kinds, materials, entryCells, bridge ?? Array.Empty<RoundBridgeChoice>(), stone);
+            return new RoundBoardLayout(box, width, height, kinds, materials, entryCells, bridge ?? Array.Empty<RoundBridgeChoice>(), stone, maxCell);
         }
 
         /// <summary>
         /// The board in the reference gameplay regions: in the fixed board box (<see cref="ReferenceGameplayRegions.RoundBoard"/>),
         /// the same on every level of the screen whatever its picture, badge or boosters.
         /// </summary>
-        public static RoundBoardLayout In(ReferenceGameplayRegions regions, RoundLevel level) => Fit(regions.RoundBoard, level);
+        public static RoundBoardLayout In(ReferenceGameplayRegions regions, RoundLevel level) => Fit(regions.RoundBoard, level, MaxCell(regions.W));
+
+        /// <summary>
+        /// The largest cell on a screen <paramref name="width"/> wide: <see cref="RoundScreenLook.BoardCubeMax"/> (pixels of a
+        /// 1080-wide screen) scaled to it, over <see cref="RoundScreenLook.BoardCubeFill"/>; no cap while that is 0.
+        /// </summary>
+        public static float MaxCell(float width) =>
+            RoundScreenLook.BoardCubeMax > 0f ? RoundScreenLook.BoardCubeMax * width / RoundScreenLook.ReferenceWidth / RoundScreenLook.BoardCubeFill : float.MaxValue;
 
         /// <summary>The same board moved so its frame's bottom is on <paramref name="bottom"/> (the cube size kept).</summary>
         public RoundBoardLayout DockBottom(float bottom) =>
-            new RoundBoardLayout(Outer.Offset(0f, bottom - Outer.Bottom), Width, Height, _kinds, _materials, _entries, _bridge, _stone);
+            new RoundBoardLayout(Outer.Offset(0f, bottom - Outer.Bottom), Width, Height, _kinds, _materials, _entries, _bridge, _stone, _maxCell);
 
         /// <summary>Whether (<paramref name="x"/>, <paramref name="y"/>) is inside the frame (row 0 at the bottom).</summary>
         public bool IsInner(int x, int y) => x > 0 && y > 0 && x < Width - 1 && y < Height - 1;
@@ -478,12 +509,43 @@ namespace Bloomlings.Client.UI.Design
         public Box CellBox(int x, int y)
         {
             float left = Grid.Left + ((x - 1) * Cell);
-            float top = Grid.Top + ((Height - 2 - y) * Cell);
-            return new Box(left, top, left + Cell, top + Cell);
+            float top = Grid.Top + ((Height - 2 - y) * RowPitch);
+            return new Box(left, top, left + Cell, top + RowPitch);
         }
 
         /// <summary>A cube's box in its cell (<see cref="CubeInset"/>).</summary>
-        public Box CubeBox(int cell) => CellBox(cell).Inset(Cell * CubeInset);
+        public Box CubeBox(int cell)
+        {
+            Box top = CellBox(cell);
+            return new Box(top.Left + (Cell * CubeInset), top.Top, top.Right - (Cell * CubeInset), top.Bottom + Front);
+        }
+
+        /// <summary>The share of a cube picture's height that is its top face (the rest its front).</summary>
+        public const float TopShare = RowShare / (RowShare + FrontShare);
+
+        /// <summary>A cube's body in its picture box: <see cref="CubeBox"/> less the owner's hairline at its sides (<see cref="RoundScreenLook.BoardCubeFill"/>).</summary>
+        public Box CubeBody(int cell)
+        {
+            Box box = CubeBox(cell);
+            float hair = box.Width * (1f - RoundScreenLook.BoardCubeFill) / 2f;
+            return new Box(box.Left + hair, box.Top + hair, box.Right - hair, box.Bottom);
+        }
+
+        /// <summary>
+        /// The side face's step of a cube in cell <paramref name="cell"/> (constitution 1.2.0 VII, <see cref="RoundLook.SideStep"/>):
+        /// by its column's distance from the grid's middle, the outermost columns at the full width; negative on the left.
+        /// </summary>
+        public int SideStepOf(int cell) => RoundLook.SideStep((cell % Width) - ((Width - 1) / 2f), (Width - 3) / 2f);
+
+        /// <summary>The cell whose emptiness shows a cube's side face (its neighbour on the side it faces), or -1 at the middle.</summary>
+        public int SideNeighbour(int cell)
+        {
+            int step = SideStepOf(cell);
+            return step == 0 ? -1 : cell + Math.Sign(step);
+        }
+
+        /// <summary>Where the side face of the cube in <paramref name="cell"/> stands (empty at the middle, <see cref="RoundLook.SideBox"/>).</summary>
+        public Box SideBox(int cell) => RoundLook.SideBox(CubeBody(cell), SideStepOf(cell));
 
         /// <summary>
         /// Where a walker stands on cell <paramref name="cell"/> of its route: the middle of a cell inside the wall, or in the
@@ -507,7 +569,7 @@ namespace Bloomlings.Client.UI.Design
         public int CellAt(float px, float py)
         {
             int x = 1 + (int)Math.Floor((px - Grid.Left) / Cell);
-            int y = Height - 2 - (int)Math.Floor((py - Grid.Top) / Cell);
+            int y = Height - 2 - (int)Math.Floor((py - Grid.Top) / RowPitch);
             return IsInner(x, y) ? (y * Width) + x : -1;
         }
 
@@ -551,8 +613,8 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     Box box = CellBox(x, y);
-                    Steps(across, box.Left, x == 1 ? Surface.Left : x == Width - 2 ? Surface.Right : box.Left, x == 1 ? -1 : 1);
-                    Steps(down, box.Top, y == 1 ? Surface.Bottom : y == Height - 2 ? Surface.Top : box.Top, y == 1 ? 1 : -1);
+                    Steps(across, box.Left, x == 1 ? Surface.Left : x == Width - 2 ? Surface.Right : box.Left, x == 1 ? -1 : 1, Cell);
+                    Steps(down, box.Top, y == 1 ? Surface.Bottom : y == Height - 2 ? Surface.Top : box.Top, y == 1 ? 1 : -1, RowPitch);
                     int cell = (y * Width) + x;
                     foreach ((int sx, float left) in across)
                     {
@@ -560,7 +622,7 @@ namespace Bloomlings.Client.UI.Design
                         {
                             if (sx != 0 || sy != 0)
                             {
-                                pieces.Add(new RoundStripPiece(cell, x + sx, y - sy, new Box(left, top, left + Cell, top + Cell)));
+                                pieces.Add(new RoundStripPiece(cell, x + sx, y - sy, new Box(left, top, left + Cell, top + RowPitch)));
                             }
                         }
                     }
@@ -575,21 +637,21 @@ namespace Bloomlings.Client.UI.Design
         /// <paramref name="edge"/> (<paramref name="direction"/> -1 toward smaller coordinates): the cell itself (step 0),
         /// then whole cells, the last laid against the edge.
         /// </summary>
-        private void Steps(List<(int Step, float Start)> into, float start, float edge, int direction)
+        private static void Steps(List<(int Step, float Start)> into, float start, float edge, int direction, float pitch)
         {
             into.Clear();
             into.Add((0, start));
-            float room = direction < 0 ? start - edge : edge - (start + Cell);
+            float room = direction < 0 ? start - edge : edge - (start + pitch);
             if (room < 0.5f)
             {
                 return;
             }
 
-            int count = (int)Math.Ceiling((room / Cell) - 0.01f);
+            int count = (int)Math.Ceiling((room / pitch) - 0.01f);
             for (int k = 1; k <= count; k++)
             {
-                float at = start + (direction * k * Cell);
-                at = direction < 0 ? Math.Max(at, edge) : Math.Min(at, edge - Cell);
+                float at = start + (direction * k * pitch);
+                at = direction < 0 ? Math.Max(at, edge) : Math.Min(at, edge - pitch);
                 into.Add((direction * k, at));
             }
         }

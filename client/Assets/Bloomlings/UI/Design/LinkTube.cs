@@ -86,24 +86,48 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>How far each end reaches under its pod's edge, as a share of the pod's height.</summary>
         public const float TuckShare = 0.03f;
 
-        /// <summary>The height on <paramref name="body"/> (a pod's frame or a place's plate) where the tube plugs in.</summary>
-        public static float FrontY(Box body) => body.Bottom - (body.Height * FrontShare);
+        /// <summary>
+        /// How high on a pod cube's front face the tube plugs in, from the cube's bottom, as a share of its side (FR-064): the
+        /// middle of the cube's front face under its top (<see cref="UiRaster.CubeSide"/>, inside its margin).
+        /// </summary>
+        public const float CubeFrontShare = UiRaster.CubeMargin + (UiRaster.CubeSide * 0.5f);
 
-        /// <summary>Where the tube plugs into <paramref name="body"/>: on its right side or its left one, at <see cref="FrontY"/>, tucked in.</summary>
-        public static (float X, float Y) Anchor(Box body, bool rightSide)
+        /// <summary>The tube's thickness between pod cubes, as a share of the smaller cube's side: about the front face's height.</summary>
+        public const float CubeThicknessShare = 0.15f;
+
+        /// <summary>The height on <paramref name="body"/> (a pod's frame or a place's plate) where the tube plugs in.</summary>
+        public static float FrontY(Box body) => FrontY(body, FrontShare);
+
+        /// <summary>The height <paramref name="share"/> of <paramref name="body"/>'s height above its bottom.</summary>
+        public static float FrontY(Box body, float share) => body.Bottom - (body.Height * share);
+
+        /// <summary>Where the tube plugs into <paramref name="body"/>: on its right side or its left one, at <see cref="FrontY(Box)"/>, tucked in.</summary>
+        public static (float X, float Y) Anchor(Box body, bool rightSide) => Anchor(body, rightSide, FrontShare);
+
+        /// <summary>Where the tube plugs into <paramref name="body"/>, <paramref name="front"/> of its height above its bottom.</summary>
+        public static (float X, float Y) Anchor(Box body, bool rightSide, float front)
         {
             float tuck = body.Height * TuckShare;
-            return (rightSide ? body.Right - tuck : body.Left + tuck, FrontY(body));
+            return (rightSide ? body.Right - tuck : body.Left + tuck, FrontY(body, front));
         }
+
+        /// <summary>
+        /// The tube between two linked pod cubes (spec 006 FR-064: a round level's pods, and the cubes in the places), plugged
+        /// into the middle of each cube's front face (<see cref="CubeFrontShare"/>), <see cref="CubeThicknessShare"/> of a cube thick.
+        /// </summary>
+        public static LinkTubeShape BetweenCubes(Box a, Rgba colorA, Box b, Rgba colorB) =>
+            Between(a, colorA, b, colorB, CubeFrontShare, CubeThicknessShare);
 
         /// <summary>
         /// The tube between two linked bodies (pods' frames, or places' plates) <paramref name="a"/> in
         /// <paramref name="colorA"/> and <paramref name="b"/> in <paramref name="colorB"/>, from the side of each that faces
         /// the other; its <see cref="LinkTubeShape.Start"/> is the left one.
         /// </summary>
-        public static LinkTubeShape Between(Box a, Rgba colorA, Box b, Rgba colorB)
+        public static LinkTubeShape Between(Box a, Rgba colorA, Box b, Rgba colorB) => Between(a, colorA, b, colorB, FrontShare, ThicknessShare);
+
+        private static LinkTubeShape Between(Box a, Rgba colorA, Box b, Rgba colorB, float front, float thicknessShare)
         {
-            float thickness = Math.Max(1f, Math.Min(a.Height, b.Height) * ThicknessShare);
+            float thickness = Math.Max(1f, Math.Min(a.Height, b.Height) * thicknessShare);
             bool overlap = a.Left < b.Right && b.Left < a.Right;
             if (overlap)
             {
@@ -111,13 +135,13 @@ namespace Bloomlings.Client.UI.Design
                 bool aFirst = a.Top <= b.Top;
                 Box first = aFirst ? a : b;
                 Box second = aFirst ? b : a;
-                return new LinkTubeShape(Anchor(first, true), aFirst ? colorA : colorB, Anchor(second, true), aFirst ? colorB : colorA, thickness);
+                return new LinkTubeShape(Anchor(first, true, front), aFirst ? colorA : colorB, Anchor(second, true, front), aFirst ? colorB : colorA, thickness);
             }
 
             bool aLeft = a.CenterX <= b.CenterX;
             Box leftBody = aLeft ? a : b;
             Box rightBody = aLeft ? b : a;
-            return new LinkTubeShape(Anchor(leftBody, true), aLeft ? colorA : colorB, Anchor(rightBody, false), aLeft ? colorB : colorA, thickness);
+            return new LinkTubeShape(Anchor(leftBody, true, front), aLeft ? colorA : colorB, Anchor(rightBody, false, front), aLeft ? colorB : colorA, thickness);
         }
 
         /// <summary>The tube between two linked pods in the columns, attached to their frames (<see cref="PodChip.Frame"/>).</summary>

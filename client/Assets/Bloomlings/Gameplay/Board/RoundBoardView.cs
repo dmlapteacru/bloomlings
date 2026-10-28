@@ -57,6 +57,8 @@ namespace Bloomlings.Client.Gameplay.Board
         private readonly List<int> _ringed = new List<int>();
         private readonly List<int> _puffs = new List<int>();
         private int _pixels;
+        private Image?[] _side = Array.Empty<Image?>();
+        private sbyte[] _sideShown = new sbyte[0];
         private bool _symbols;
         private bool _bursting;
 
@@ -125,6 +127,8 @@ namespace Bloomlings.Client.Gameplay.Board
             _symbols = symbols;
             _ground = new Image?[cells];
             _cube = new Image?[cells];
+            _side = new Image?[cells];
+            _sideShown = new sbyte[cells];
             _rings = new Image?[cells];
             _shownCube = new sbyte[cells];
             PlaceGrid();
@@ -145,9 +149,29 @@ namespace Bloomlings.Client.Gameplay.Board
                         PlaceInGrid(ground.rectTransform, layout.CellBox(cell));
                         _ground[cell] = ground;
                     }
+                }
+            }
 
-                    if (kind == RoundCellKind.Material)
+            // The oblique cubes (spec 006 FR-064), the far (top) row first: each nearer cube, a later sibling, hides the front
+            // face of the one behind it, so a front shows only on the picture's bottom edge, at its steps and where a cube was
+            // eaten.
+            for (int y = layout.Height - 2; y >= 1; y--)
+            {
+                for (int x = 1; x < layout.Width - 1; x++)
+                {
+                    int cell = (y * layout.Width) + x;
+                    if (layout.KindOf(cell) == RoundCellKind.Material)
                     {
+                        if (layout.SideStepOf(cell) != 0)
+                        {
+                            // Its side face, under it, shown where the neighbour it faces is empty (constitution 1.2.0 VII).
+                            Image side = UiFactory.CreateImage("Side", _cubes, null, Color.white);
+                            side.raycastTarget = false;
+                            PlaceInGrid(side.rectTransform, layout.SideBox(cell));
+                            side.enabled = false;
+                            _side[cell] = side;
+                        }
+
                         Image cube = UiFactory.CreateImage("Cube", _cubes, null, Color.white);
                         PlaceInGrid(cube.rectTransform, layout.CubeBox(cell));
                         _cube[cell] = cube;
@@ -273,7 +297,7 @@ namespace Bloomlings.Client.Gameplay.Board
                     cube.enabled = shown >= 0;
                     if (shown >= 0)
                     {
-                        cube.sprite = RoundSprites.MaterialTile(shown, RoundLook.CubeStyle, _symbols, _pixels);
+                        cube.sprite = RoundSprites.BoardCube(shown, _symbols, _pixels, CubePixelsTall());
                     }
 
                     if (!puff)
@@ -311,8 +335,36 @@ namespace Bloomlings.Client.Gameplay.Board
                 }
             }
 
+            SyncSides();
             SyncBridges(core, buildable, uiNow);
             SyncTargets(core, uiNow);
+        }
+
+        /// <summary>Each shown cube's side face where the neighbour it faces shows no cube (an edge, a hole, a cube eaten now).</summary>
+        private void SyncSides()
+        {
+            RoundBoardLayout layout = _layout!;
+            for (int cell = 0; cell < _side.Length; cell++)
+            {
+                Image? side = _side[cell];
+                if (side == null)
+                {
+                    continue;
+                }
+
+                int beside = layout.SideNeighbour(cell);
+                bool covered = beside >= 0 && _cube[beside] != null && _shownCube[beside] >= 0;
+                sbyte shown = _shownCube[cell];
+                bool on = shown >= 0 && !covered && !_puffs.Contains(cell);
+                if (on && (side.sprite == null || _sideShown[cell] != shown))
+                {
+                    Box box = layout.SideBox(cell);
+                    side.sprite = RoundSprites.SideFace(shown, layout.SideStepOf(cell) < 0, RoundBoardLayout.TopShare, UiRaster.Quantize(Mathf.Max(2f, box.Width)), CubePixelsTall());
+                    _sideShown[cell] = shown;
+                }
+
+                side.enabled = on;
+            }
         }
 
         private void SyncBridges(RoundLevelCore core, IReadOnlyList<int> buildable, float uiNow)
@@ -430,6 +482,9 @@ namespace Bloomlings.Client.Gameplay.Board
         }
 
         private int CellPixels() => _layout == null ? 64 : UiRaster.Quantize(Mathf.Max(8f, _layout.Cell));
+
+        /// <summary>A board cube picture's height for <see cref="CellPixels"/> wide: a row's pitch and the front face.</summary>
+        private int CubePixelsTall() => Mathf.Max(8, Mathf.RoundToInt(_pixels * (RoundBoardLayout.RowShare + RoundBoardLayout.FrontShare)));
 
         private void PlaceGrid()
         {

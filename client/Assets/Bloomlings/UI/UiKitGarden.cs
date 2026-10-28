@@ -1146,6 +1146,9 @@ namespace Bloomlings.Client.UI
         private float _ringWidth;
         private Image? _material;
         private int _materialKey = -1;
+        private bool _roundCube;
+        private int _sideStep;
+        private Image? _side;
 
         /// <summary>The slot's state.</summary>
         public SlotPlateState State { get; private set; }
@@ -1221,6 +1224,12 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public void Show(SlotPlateState state, VariantId? variant = null, int count = 0, bool extra = false)
         {
+            _roundCube = false;
+            if (_side != null)
+            {
+                _side.gameObject.SetActive(false);
+            }
+
             State = state;
             Extra = extra;
             CountValue = count;
@@ -1261,9 +1270,10 @@ namespace Bloomlings.Client.UI
         /// (greyed while it waits, its symbol only in the symbols mode, FR-047) and its count; the other states as
         /// <see cref="Show"/>.
         /// </summary>
-        public void ShowMaterial(SlotPlateState state, int material, int count, bool extra, bool symbolsMode)
+        public void ShowMaterial(SlotPlateState state, int material, int count, bool extra, bool symbolsMode, int sideStep = 0)
         {
             Show(state, null, count, extra);
+            _sideStep = sideStep;
             bool filled = (state == SlotPlateState.Working || state == SlotPlateState.Stuck) && material >= 0;
             if (!filled)
             {
@@ -1285,9 +1295,28 @@ namespace Bloomlings.Client.UI
             if (key != _materialKey)
             {
                 _materialKey = key;
-                TileState look = stuck ? TileState.Grey : TileState.Normal;
-                PictureFit.On(_material, (w, h) => RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbolsMode, Math.Min(w, h), look), square: true);
+                PictureFit.On(_material, (w, h) => RoundSprites.PodCube(material, RoundPodLook.Placed, symbolsMode, Math.Min(w, h), stuck), square: true);
             }
+
+            // Its side face by its place across the screen (constitution 1.2.0 VII).
+            if (_side == null)
+            {
+                _side = UiFactory.CreateImage("Side", _filled.transform, null, Color.white);
+                _side.raycastTarget = false;
+                _side.transform.SetSiblingIndex(_material.transform.GetSiblingIndex());
+            }
+
+            _side.gameObject.SetActive(sideStep != 0);
+            if (sideStep != 0)
+            {
+                bool left = sideStep < 0;
+                PictureFit.On(_side, (w, h) => RoundSprites.SideFace(material, left, 1f - RoundScreenLook.CubeDepthShare, w, h, stuck));
+            }
+
+            // The pod's cube keeps its number big in the middle of its top (spec 006 FR-064), no corner count.
+            _roundCube = true;
+            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CubeCountLook(false));
+            _layout.Apply();
         }
 
         private void Lay(Box box)
@@ -1322,7 +1351,12 @@ namespace Bloomlings.Client.UI
                 BoxLayout.Place(_material.rectTransform, tileBox);
             }
 
-            Box countBox = ReferenceGameplayRegions.SlotCount(box);
+            if (_side != null && _sideStep != 0)
+            {
+                BoxLayout.Place(_side.rectTransform, RoundLook.SideBox(RoundLook.PodBody(tileBox), _sideStep));
+            }
+
+            Box countBox = _roundCube ? PodChip.Cube(tileBox).Count : ReferenceGameplayRegions.SlotCount(box);
             KitText.Place(_count, GameplaySkin.PodCount, countBox.CenterX, countBox.CenterY, countBox.Height, countBox.Width);
 
             float b = s * 0.17f;

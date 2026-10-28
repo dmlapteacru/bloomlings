@@ -11,11 +11,13 @@ using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
-    /// The tray's columns on a round level (spec 006 T059, contracts/presentation.md; the playtest's
-    /// <c>RoundPainter.Columns</c>): the game's wooden pods one after another in a column per stack, the top pod the only one
-    /// that takes the tap, "+N" for the rest; a pod's frame tinted by its material with its plain tile and count, a hidden pod's
-    /// "?" until it reveals and its glow then (FR-045); the link tubes on linked pods' front faces, under the pods (FR-043);
-    /// and the pulse round the partner a refused tap waits for. A pod slides to its new row when its column moves.
+    /// The tray's columns on a round level (spec 006 FR-064, contracts/presentation.md; the playtest's
+    /// <c>RoundPainter.Columns</c>; the owner's pods of 2026-10-28, as in Colony Flow): a column per stack showing its first
+    /// three pods as soft cubes one after another, never under each other, the top pod the only one that takes the tap and
+    /// nothing for the rest (no "+N"); a pod's cube in its material's colour with its count, the waiting ones only a little
+    /// lighter, a hidden pod's "?" cube until it reveals and its glow then (FR-045); the link tubes on linked cubes' front
+    /// faces, under the pods (FR-043); and the pulse round the partner a refused tap waits for. The pods slide up a row
+    /// when the top one leaves.
     /// </summary>
     public sealed partial class TrayView
     {
@@ -28,12 +30,12 @@ namespace Bloomlings.Client.Gameplay.Tray
         private RectTransform? _roundBack;
         private RectTransform? _roundFront;
         private ReferenceGameplayRegions? _roundGrid;
-        private readonly Dictionary<int, (bool Empty, int More, int Rows)> _roundColumns = new Dictionary<int, (bool, int, int)>();
+        private readonly Dictionary<int, (bool Empty, int Rows)> _roundColumns = new Dictionary<int, (bool, int)>();
 
         /// <summary>A shown round pod's tile box in the tray area's top-down canvas units (its flight to a place starts there).</summary>
         public Box? RoundTileBox(int pod) =>
             _pods.TryGetValue(Key(pod), out PodView? view) && view.IsShown && _roundPlaced.ContainsKey(pod)
-                ? PodChip.In(view.Visual, _roundPlaced[pod].Depth > 0).Tile
+                ? PodChip.Cube(view.Visual).Tile
                 : (Box?)null;
 
         /// <summary>The rect of a shown round pod (the guided first tap's hole), or null.</summary>
@@ -63,8 +65,8 @@ namespace Bloomlings.Client.Gameplay.Tray
             {
                 int waiting = a.Waiting(s);
                 int shownRows = Mathf.Min(waiting, grid.PodRows);
-                var column = (waiting == 0, Mathf.Max(0, waiting - grid.PodRows), shownRows);
-                bool changed = !_roundColumns.TryGetValue(s, out (bool Empty, int More, int Rows) before) || !before.Equals(column);
+                var column = (waiting == 0, shownRows);
+                bool changed = !_roundColumns.TryGetValue(s, out (bool Empty, int Rows) before) || !before.Equals(column);
                 _roundColumns[s] = column;
                 Image? well = s < _wells.Count ? _wells[s] : null;
                 if (waiting == 0)
@@ -98,7 +100,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     bool wasShown = view.IsShown;
                     int material = a.Revealed(pod) ? a.MaterialOf(pod) : -1;
                     bool exposed = depth == 0;
-                    view.ShowRound(pod, material, a.Remaining(pod), interactive && exposed, !exposed, symbols);
+                    view.ShowRound(pod, material, a.Remaining(pod), interactive && exposed, !exposed, symbols, RoundSide(grid, s));
                     Box box = grid.Pod(s, depth);
                     bool moved = !_roundPlaced.TryGetValue(pod, out (int Stack, int Depth, Box Box) placed) || placed.Stack != s || placed.Depth != depth;
                     if (force || moved || !wasShown)
@@ -126,17 +128,8 @@ namespace Bloomlings.Client.Gameplay.Tray
                     _roundShown.Add(pod);
                 }
 
-                int more = waiting - rows;
-                if (more > 0 && (changed || s >= _moreDiscs.Count || !_moreDiscs[s].gameObject.activeSelf))
-                {
-                    TMPro.TextMeshProUGUI label = More(s);
-                    label.text = "+" + more.ToString(CultureInfo.InvariantCulture);
-                    Box badge = grid.Chip(s, rows - 1).Badge;
-                    float size = badge.Height * 1.26f;
-                    BoxLayout.Place(_moreDiscs[s].rectTransform, Box.FromCenter(badge.CenterX, badge.CenterY, size, size));
-                    _moreDiscs[s].transform.SetAsLastSibling();
-                }
-                else if (more <= 0 && s < _moreDiscs.Count)
+                // No "+N" for the pods past the third row (the owner, 2026-10-28).
+                if (s < _moreDiscs.Count)
                 {
                     _moreDiscs[s].gameObject.SetActive(false);
                 }
@@ -175,9 +168,9 @@ namespace Bloomlings.Client.Gameplay.Tray
             _roundFrames.Clear();
             foreach (int pod in _roundShown)
             {
-                if (_pods.TryGetValue(Key(pod), out PodView? view) && _roundPlaced.TryGetValue(pod, out (int Stack, int Depth, Box Box) placed))
+                if (_pods.TryGetValue(Key(pod), out PodView? view) && _roundPlaced.ContainsKey(pod))
                 {
-                    _roundFrames[pod] = PodChip.In(view.Visual, placed.Depth > 0).Frame;
+                    _roundFrames[pod] = PodChip.Cube(view.Visual).Frame;
                 }
             }
 
@@ -195,7 +188,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     _roundTubes.Add(RoundTubes.Create("LinkTube", _roundBack!));
                 }
 
-                RoundTubes.Show(_roundTubes[used++], LinkTube.Between(first, RoundLook.ColorOf(a.MaterialOf(tube.First)), second, RoundLook.ColorOf(a.MaterialOf(tube.Second))));
+                RoundTubes.Show(_roundTubes[used++], LinkTube.BetweenCubes(first, RoundLook.ColorOf(a.MaterialOf(tube.First)), second, RoundLook.ColorOf(a.MaterialOf(tube.Second))));
             }
 
             for (int i = used; i < _roundTubes.Count; i++)
@@ -240,7 +233,8 @@ namespace Bloomlings.Client.Gameplay.Tray
                 parts.Ring.gameObject.SetActive(true);
             }
 
-            // The pulse round the partner a refused tap waits for, or round the "+N" that hides it (FR-008).
+            // The pulse round the partner a refused tap waits for, or, while it waits deeper than the rows show, round its
+            // column's last shown pod (FR-008).
             int hints = 0;
             float k = core.LinkPulse;
             if (k > 0f && core.LinkHint.HasValue)
@@ -260,8 +254,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     }
                     else if (a.ColumnOf(member) >= 0 && a.ColumnOf(member) < grid.Columns.Count)
                     {
-                        Box badge = grid.Chip(a.ColumnOf(member), grid.PodRows - 1).Badge;
-                        ring = Box.FromCenter(badge.CenterX, badge.CenterY, badge.Height * 1.5f, badge.Height * 1.5f);
+                        ring = grid.Pod(a.ColumnOf(member), grid.PodRows - 1);
                     }
                     else
                     {
@@ -292,6 +285,18 @@ namespace Bloomlings.Client.Gameplay.Tray
         }
 
         private static string Key(int pod) => pod.ToString(CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// The side face's step of column <paramref name="stack"/> (constitution 1.2.0 VII): by its distance from the screen's
+        /// middle, which the columns are centred on, half the screen's width being the full step.
+        /// </summary>
+        private static int RoundSide(ReferenceGameplayRegions grid, int stack)
+        {
+            Box first = grid.Columns[0];
+            Box last = grid.Columns[grid.Columns.Count - 1];
+            float middle = (first.Left + last.Right) / 2f;
+            return RoundLook.SideStep(grid.Columns[stack].CenterX - middle, grid.W / 2f);
+        }
 
         /// <summary>The layer under the pods (tubes, glows) and the marker the pods are kept before (the pulse goes over them).</summary>
         private void EnsureRoundLayers()

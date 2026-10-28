@@ -66,7 +66,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
 
                 Image tile = _tiles[used++];
                 UiKit.PlaceScreen(tile.rectTransform, Box.FromCenter(x, y, size, size));
-                tile.sprite = RoundSprites.MaterialTile(a.MaterialOf(pod), RoundLook.PodStyle, core.Symbols, UiRaster.Quantize(Mathf.Max(8f, to.Width)));
+                tile.sprite = RoundSprites.PodCube(a.MaterialOf(pod), RoundPodLook.Placed, core.Symbols, UiRaster.Quantize(Mathf.Max(8f, to.Width)));
                 tile.gameObject.SetActive(true);
             }
 

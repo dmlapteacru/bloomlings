@@ -614,10 +614,15 @@ namespace Bloomlings.Playtest.Design
                     }
 
                     p.PopTransform();
-                    Box countArea = ReferenceGameplayRegions.SlotCount(box);
-                    p.PushTransform(0f, 0f, countBump, countArea.CenterX, countArea.Bottom);
-                    PodCount(p, countArea, count, stuck);
-                    p.PopTransform();
+                    if (tile == null)
+                    {
+                        // A round level's cube carries its number in its middle (spec 006 FR-064); the corner count is the
+                        // legacy tile's.
+                        Box countArea = ReferenceGameplayRegions.SlotCount(box);
+                        p.PushTransform(0f, 0f, countBump, countArea.CenterX, countArea.Bottom);
+                        PodCount(p, countArea, count, stuck);
+                        p.PopTransform();
+                    }
                     if (stuck && count > 0)
                     {
                         float b = s * 0.17f;

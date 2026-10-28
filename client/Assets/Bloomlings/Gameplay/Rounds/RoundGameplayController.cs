@@ -287,9 +287,9 @@ namespace Bloomlings.Client.Gameplay.Rounds
 
             bool resized = _layout == null || key.w != _layoutKey.W || key.h != _layoutKey.H;
             _layoutKey = key;
-            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, Math.Max(1, core.Round.Tray.Count), places, _hasBoosters, _labelled);
+            ReferenceGameplayRegions r = ScreenLayout.RoundGameplay(w, h, insets, Math.Max(1, core.Round.Tray.Count), places, _hasBoosters, _labelled);
             RoundBoardLayout board = RoundBoardLayout.In(r, core.Round);
-            _regions = r.AlignControls(board.Outer);
+            _regions = ScreenLayout.AlignRound(r, board.Outer);
 
             if (resized && _layout != null)
             {
@@ -398,7 +398,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         {
             float ppu = Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
             float cell = layout.Cell / ppu;
-            int rows = layout.Height - 2;
+            float rows = layout.Grid.Height / Mathf.Max(0.0001f, layout.Cell); // the grid's height in column pitches (oblique rows, FR-064)
             _fxBoard.Symbols = _core!.Symbols;
             _fxOver.Symbols = _core.Symbols;
             _fxBoard.Cell = cell;
@@ -471,7 +471,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             bool symbols = Symbols;
             return slot =>
             {
-                UnityEngine.UI.Image tile = UiFactory.CreateImage("Tile", slot, RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbols, 128), Color.white);
+                UnityEngine.UI.Image tile = UiFactory.CreateImage("Tile", slot, RoundSprites.PodCube(material, RoundPodLook.Placed, symbols, 128), Color.white);
                 tile.preserveAspect = true;
                 UiFactory.Stretch(tile.rectTransform);
             };

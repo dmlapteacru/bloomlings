@@ -82,7 +82,11 @@ namespace Bloomlings.Client.Gameplay.Slots
 
                 place.Puff(-1, 1f, core.Symbols);
                 float arrival = core.Arrival(pod);
-                place.ShowPod(a.MaterialOf(pod), a.Remaining(pod), look == RoundPlaceLook.Stuck, extra, core.Symbols, 0.25f + (0.75f * arrival * arrival));
+                // The side face by the place across the bar, which is centred on the screen and nearly as wide (constitution 1.2.0 VII).
+                float middle = (cells[0].Left + cells[count - 1].Right) / 2f;
+                float reach = (cells[count - 1].Right - cells[0].Left) / 2f / RoundScreenLook.BoardWidthShare;
+                int side = RoundLook.SideStep(cells[k].CenterX - middle, reach);
+                place.ShowPod(a.MaterialOf(pod), a.Remaining(pod), look == RoundPlaceLook.Stuck, extra, core.Symbols, 0.25f + (0.75f * arrival * arrival), side);
                 bool target = returning && core.CanReturn(pod);
                 place.SetTarget(target, target && core.HudLive);
             }
@@ -126,7 +130,7 @@ namespace Bloomlings.Client.Gameplay.Slots
             private readonly Button _touch;
             private Box _box;
             private (bool Danger, bool Extra)? _empty;
-            private (int Material, int Count, bool Stuck, bool Extra, bool Symbols)? _pod;
+            private (int Material, int Count, bool Stuck, bool Extra, bool Symbols, int Side)? _pod;
             private int _puffKey = -1;
 
             private Place(SlotPlateView basePlate, SlotPlateView podPlate, CanvasGroup podFade, Image glow, Image puff, Button touch)
@@ -193,7 +197,7 @@ namespace Bloomlings.Client.Gameplay.Slots
                 }
             }
 
-            public void ShowPod(int material, int count, bool stuck, bool extra, bool symbols, float alpha)
+            public void ShowPod(int material, int count, bool stuck, bool extra, bool symbols, float alpha, int side = 0)
             {
                 Base.gameObject.SetActive(alpha < 1f);
                 if (alpha < 1f && (!_empty.HasValue || _empty.Value.Danger || _empty.Value.Extra != extra))
@@ -209,11 +213,11 @@ namespace Bloomlings.Client.Gameplay.Slots
                     _podFade.alpha = fade;
                 }
 
-                var pod = (material, count, stuck, extra, symbols);
+                var pod = (material, count, stuck, extra, symbols, side);
                 if (!_pod.HasValue || !_pod.Value.Equals(pod))
                 {
                     _pod = pod;
-                    Pod.ShowMaterial(stuck ? SlotPlateState.Stuck : SlotPlateState.Working, material, count, extra, symbols);
+                    Pod.ShowMaterial(stuck ? SlotPlateState.Stuck : SlotPlateState.Working, material, count, extra, symbols, side);
                 }
             }
 
@@ -231,7 +235,7 @@ namespace Bloomlings.Client.Gameplay.Slots
                 if (key != _puffKey)
                 {
                     _puffKey = key;
-                    PictureFit.On(_puff, (w, h) => RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbols, Math.Min(w, h)), square: true);
+                    PictureFit.On(_puff, (w, h) => RoundSprites.PodCube(material, RoundPodLook.Placed, symbols, Math.Min(w, h)), square: true);
                 }
 
                 _puff.color = new Color(1f, 1f, 1f, 1f - q);

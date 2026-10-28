@@ -196,8 +196,11 @@ namespace Bloomlings.Client.UI.Screens
         private ReferenceGameplayRegions Compute(int slotCount)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, _stackCount, slotCount, _hasBoosters, _hasBadge);
-            return _roundBoard ? r.AlignControls(r.RoundBoard)
+            // A round level's screen has its own tray (spec 006 FR-064: three rows of pod cubes) and its bigger fixed board box.
+            ReferenceGameplayRegions r = _roundBoard
+                ? ScreenLayout.RoundGameplay(w, h, insets, _stackCount, slotCount, _hasBoosters, _hasBadge)
+                : ScreenLayout.ReferenceGameplay(w, h, insets, _stackCount, slotCount, _hasBoosters, _hasBadge);
+            return _roundBoard ? ScreenLayout.AlignRound(r, r.RoundBoard)
                 : _boardWidth > 0 && _boardHeight > 0 ? r.AlignControls(r.FitBoard(_boardWidth, _boardHeight)) : r;
         }
 

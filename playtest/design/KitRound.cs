@@ -17,11 +17,11 @@ namespace Bloomlings.Playtest.Design
 
         private static readonly string[] WaterKeys = MakeWater(k => RoundBoardLayout.WaterSlot + "/" + k);
 
-        private static readonly Func<int, int, byte[]>[] WaterPictures = MakeWater<Func<int, int, byte[]>>(k => (w, h) => UiRaster.Water(Math.Min(w, h), k));
+        private static readonly Func<int, int, byte[]>[] WaterPictures = MakeWater<Func<int, int, byte[]>>(k => (w, h) => UiRaster.Water(w, h, k));
 
         private static readonly string[] WallKeys = MakeWall(k => RoundBoardLayout.WallSlot + "/" + k);
 
-        private static readonly Func<int, int, byte[]>[] WallPictures = MakeWall<Func<int, int, byte[]>>(k => (w, h) => UiRaster.WallStone(Math.Min(w, h), k));
+        private static readonly Func<int, int, byte[]>[] WallPictures = MakeWall<Func<int, int, byte[]>>(k => (w, h) => UiRaster.WallStone(w, h, k));
 
         /// <summary>
         /// A round material's tile filling the square in <paramref name="box"/> (spec 006 FR-040, FR-041, FR-047): a board
@@ -117,8 +117,116 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        private static readonly Dictionary<(int Material, bool Waiting, bool Locked), (string, Func<int, int, byte[]>)> RoundPods =
-            new Dictionary<(int, bool, bool), (string, Func<int, int, byte[]>)>();
+        private static readonly Dictionary<(int Material, RoundPodLook Look, bool Symbol, bool Grey), (string, Func<int, int, byte[]>)> RoundPods =
+            new Dictionary<(int, RoundPodLook, bool, bool), (string, Func<int, int, byte[]>)>();
+
+        private static readonly Dictionary<(int Material, bool Symbol), (string, Func<int, int, byte[]>)> BoardCubes =
+            new Dictionary<(int, bool), (string, Func<int, int, byte[]>)>();
+
+        /// <summary>
+        /// A round board's cube (spec 006 FR-064, the owner's "like Colony Flow" of 2026-10-28) in its picture box
+        /// <paramref name="box"/> (<see cref="RoundBoardLayout.CubeBox"/>: a column wide, a row's pitch and the front face
+        /// tall): the oblique cube in the material's colour (<see cref="UiRaster.BoardCube"/>), its symbol on its top in the
+        /// symbols mode. Draw the far rows first: a nearer cube hides the front of the one behind it.
+        /// </summary>
+        public static void BoardCube(IPainter p, Box box, RoundMaterial material, bool symbolsMode)
+        {
+            p.Mark("tile.candy");
+            if (symbolsMode)
+            {
+                p.Mark(RoundLook.SymbolOf(material));
+            }
+
+            (string key, Func<int, int, byte[]> render) = Recipe(BoardCubes, (Material: material.Index, Symbol: symbolsMode), k =>
+            {
+                RoundMaterial m = RoundMaterial.All[k.Material];
+                Rgba color = RoundLook.ColorOf(m);
+                string? mark = k.Symbol ? RoundLook.SymbolOf(m) : null;
+                return (UiRaster.BoardCubeKey(m.Code, k.Symbol), (w, h) => UiRaster.BoardCube(w, h, color, mark));
+            });
+            p.Picture(key, box, render);
+        }
+
+        private static readonly Dictionary<(char Code, bool Left, int Top, bool Grey), (string, Func<int, int, byte[]>)> SideFaces =
+            new Dictionary<(char, bool, int, bool), (string, Func<int, int, byte[]>)>();
+
+        /// <summary>
+        /// A cube's side face in <paramref name="box"/> (<c>pod.cube.side</c>, constitution 1.2.0 VII, <see cref="UiRaster.SideFace"/>):
+        /// <paramref name="material"/> null is a hidden pod's; <paramref name="topShare"/> of it stands beside the top face.
+        /// Draw it before its cube.
+        /// </summary>
+        public static void SideFace(IPainter p, Box box, RoundMaterial? material, bool left, float topShare, bool grey = false)
+        {
+            if (box.Width < 0.5f)
+            {
+                return;
+            }
+
+            p.Mark(RoundLook.SideSlot);
+            int top = (int)Math.Round(topShare * 100f);
+            (string key, Func<int, int, byte[]> render) = Recipe(SideFaces, (Code: material?.Code ?? '?', Left: left, Top: top, Grey: grey), k =>
+            {
+                Rgba color = k.Code == '?' ? DesignTokens.Colors.TileMystery : RoundLook.ColorOf(k.Code);
+                if (k.Grey)
+                {
+                    color = color.Grey();
+                }
+
+                float share = k.Top / 100f;
+                return (UiRaster.SideFaceKey(k.Code, k.Left, share, k.Grey), (w, h) => UiRaster.SideFace(w, h, color, k.Left, share));
+            });
+            p.Picture(key, box, render);
+        }
+
+        /// <summary>
+        /// A round pod's cube picture filling the square in <paramref name="box"/> (<see cref="UiRaster.PodCube"/>,
+        /// <c>pod.cube</c>): <paramref name="material"/> null is the hidden "?" cube; <paramref name="grey"/> a stuck place's.
+        /// </summary>
+        public static void PodCubePicture(IPainter p, Box box, RoundMaterial? material, RoundPodLook look, bool symbolsMode, bool grey = false, int sideStep = 0)
+        {
+            if (sideStep != 0)
+            {
+                float depth = look == RoundPodLook.Waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare;
+                SideFace(p, RoundLook.SideBox(RoundLook.PodBody(box), sideStep), material, sideStep < 0, 1f - depth, grey);
+            }
+
+            p.Mark(RoundLook.PodCubeSlot);
+            bool hidden = material == null;
+            bool symbol = symbolsMode && !hidden;
+            if (hidden)
+            {
+                p.Mark("pod.state.mystery");
+            }
+            else if (symbol)
+            {
+                p.Mark(RoundLook.SymbolOf(material!));
+            }
+
+            (string key, Func<int, int, byte[]> render) = Recipe(RoundPods, (Material: material?.Index ?? -1, Look: look, Symbol: symbol, Grey: grey), k =>
+            {
+                RoundMaterial m = RoundMaterial.All[Math.Max(0, k.Material)];
+                Rgba color = k.Grey ? RoundLook.ColorOf(m).Grey() : RoundLook.ColorOf(m);
+                string? mark = k.Symbol ? RoundLook.SymbolOf(m) : null;
+                bool none = k.Material < 0;
+                return (UiRaster.PodCubeKey(m.Code, none, k.Look, k.Symbol, k.Grey), (w, h) => UiRaster.PodCube(Math.Min(w, h), color, mark, none, k.Look));
+            });
+            float s = Math.Min(box.Width, box.Height);
+            p.Picture(key, Box.FromCenter(box.CenterX, box.CenterY, s, s), render);
+        }
+
+        /// <summary>
+        /// A round pod's cube in a place, in flight or on a card (spec 006 FR-064, Colony Flow's): the top row's cube without
+        /// its outline filling the square in <paramref name="box"/>, its number big in the middle of its top when
+        /// <paramref name="count"/> is given (no corner count), greyed while stuck.
+        /// </summary>
+        public static void PlacedCube(IPainter p, Box box, RoundMaterial material, int? count, bool stuck, bool symbolsMode, int sideStep = 0)
+        {
+            PodCubePicture(p, box, material, RoundPodLook.Placed, symbolsMode, stuck, sideStep);
+            if (count.HasValue)
+            {
+                CubeCount(p, PodChip.Cube(box).Count, count.Value, false);
+            }
+        }
 
         /// <summary>
         /// A round board's solid neutral surface filling <paramref name="box"/> (<c>board.surface</c>, the owner's board of
@@ -143,36 +251,34 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A round level's pod in <paramref name="chip"/> (spec 006 T049, contracts/presentation.md): the game's wooden pod
-        /// tinted by the material (<see cref="GameplaySkin.Pod(int, int, Rgba?, bool, bool)"/>), the material's plain tile
-        /// (its symbol only in the symbols mode) and its count; a hidden pod (<paramref name="material"/> null) shows the
-        /// lilac "?" and no count until it reveals (FR-007). Returns the tile's box.
+        /// A round level's pod in <paramref name="chip"/> (spec 006 FR-064, contracts/presentation.md; the owner's pods of
+        /// 2026-10-28, as Colony Flow's): no frame or box round it, one oblique cube (<see cref="UiRaster.PodCube"/>,
+        /// <c>pod.cube</c>) in the material's colour, the top row's in a white outline, a waiting pod's
+        /// (<paramref name="waiting"/>, rows 2 and 3) barely lighter on a flatter base with its number half clear, the
+        /// material's symbol small on its top in the symbols mode, and its number big in the middle of its top
+        /// (<see cref="PodChip.Cube"/>, <see cref="PodChip.CubeCountLook"/>); a hidden pod (<paramref name="material"/> null)
+        /// is the neutral "?" cube with no number until it reveals (FR-007). A pressed pod sinks a little. Returns its box.
         /// </summary>
-        public static Box RoundPod(IPainter p, PodChip chip, RoundMaterial? material, int count, PodLook look, bool waiting, bool symbolsMode)
+        public static Box RoundPod(IPainter p, PodChip chip, RoundMaterial? material, int count, PodLook look, bool waiting, bool symbolsMode, int sideStep = 0)
         {
-            p.Mark("pod.card");
-            bool locked = look == PodLook.Locked;
             float sink = look == PodLook.Pressed ? chip.Frame.Height * 0.04f : 0f;
-            Box frame = chip.Frame.Offset(0f, sink);
-            (string key, Func<int, int, byte[]> render) = Recipe(RoundPods, (Material: material?.Index ?? -1, Waiting: waiting, Locked: locked), k =>
+            Box cube = chip.Frame.Offset(0f, sink);
+            PodCubePicture(p, cube, material, waiting ? RoundPodLook.Waiting : RoundPodLook.Top, symbolsMode, false, sideStep);
+            if (material != null)
             {
-                Rgba? color = k.Material >= 0 ? RoundLook.ColorOf(k.Material) : (Rgba?)null;
-                string name = k.Material >= 0 ? RoundMaterial.All[k.Material].Code.ToString() : "mystery";
-                return ("gameplay.pod.round/" + name + "/" + k.Waiting + "/" + k.Locked, (w, h) => GameplaySkin.Pod(w, h, color, k.Waiting, k.Locked));
-            });
-            p.Picture(key, frame, render);
-            Box tile = chip.Tile.Offset(0f, sink);
-            if (material == null)
-            {
-                p.Mark("pod.state.mystery");
-                TextLook mystery = PodChip.CountLook(false);
-                p.Text("?", tile.CenterX, tile.CenterY, GameplaySkin.PodCount, mystery.FillTop, tile.Width, tile.Height * 0.90f / p.U(GameplaySkin.PodCount.Size), mystery);
-                return tile;
+                CubeCount(p, chip.Count.Offset(0f, sink), count, waiting);
             }
 
-            MaterialTile(p, tile, material, RoundLook.PodStyle, symbolsMode, waiting ? TileState.Dimmed : TileState.Normal);
-            PodCount(p, chip.Count.Offset(0f, sink), count, waiting || locked);
-            return tile;
+            return cube;
+        }
+
+        /// <summary>A pod cube's count (<c>pod.count</c>, FR-064): white digits in a dark outline, filling <paramref name="area"/>'s height.</summary>
+        public static void CubeCount(IPainter p, Box area, int count, bool waiting)
+        {
+            p.Mark("pod.count");
+            p.Mark("font.shop");
+            TextLook look = PodChip.CubeCountLook(waiting);
+            p.Text(count.ToString(System.Globalization.CultureInfo.InvariantCulture), area.CenterX, area.CenterY, GameplaySkin.PodCount, look.FillTop, area.Width, area.Height / p.U(GameplaySkin.PodCount.Size), look);
         }
 
         /// <summary>

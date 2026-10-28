@@ -102,7 +102,7 @@ namespace Bloomlings.Playtest.Design
                     return false;
                 }
 
-                Kit.MaterialTile(p, box, Bloomlings.Core.Rounds.RoundMaterial.All[material], RoundLook.PodStyle, s.Symbols);
+                Kit.PlacedCube(p, box, Bloomlings.Core.Rounds.RoundMaterial.All[material], null, false, s.Symbols);
                 return true;
             });
             if (step.Forced)

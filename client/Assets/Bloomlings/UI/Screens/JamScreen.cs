@@ -221,7 +221,7 @@ namespace Bloomlings.Client.UI.Screens
                         bool symbols = slot.Symbols;
                         Image round = UiFactory.CreateImage("Tile" + index, well, null, Color.white);
                         UiKit.PlaceBox(round.rectTransform, tileBox, r.Well);
-                        PictureFit.On(round, (w, h) => RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbols, Math.Min(w, h)), square: true);
+                        PictureFit.On(round, (w, h) => RoundSprites.PodCube(material, RoundPodLook.Placed, symbols, Math.Min(w, h)), square: true);
                     }
                     else
                     {

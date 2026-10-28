@@ -22,73 +22,84 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A board tile's clear margin round its body, as a share of its side: the ground shows between the cubes.</summary>
         public const float CubeMargin = 0.010f;
 
-        /// <summary>A board tile's front face under its top, as a share of its side (the top's middle is where the icon sits).</summary>
-        public const float CubeSide = 0.1f;
+        /// <summary>
+        /// A square cube tile's front face under its top, as a share of its side (the top's middle is where the icon sits): the
+        /// round pods' and places' depth (<see cref="RoundScreenLook.CubeDepthShare"/>).
+        /// </summary>
+        public const float CubeSide = RoundScreenLook.CubeDepthShare;
 
         /// <summary>
-        /// The soft cube of a board tile (the owner, 2026-10-08: "volumetric like cubes, but not cubes: the top must feel like
-        /// the top of a cube"): a rounded square top (radius 17% of the side) whose edges round down over a bevel of 12% of
-        /// the side, lit from the upper left (lighter where the bevel faces the light, deeper where it turns away, a soft
-        /// highlight along the top left edge and a short white gloss dash in its corner), over a front face of
-        /// <see cref="CubeSide"/> in the color darkened, all inside a clear margin of <see cref="CubeMargin"/>, with a
-        /// soft deep edge where it meets the ground. Returns the color at (x, y) and its coverage, the top's middle for the
-        /// symbol being (s / 2, (s − side) / 2).
+        /// The cube of the owner's look of 2026-10-28 ("like Colony Flow"; spec 006 FR-064) at (<paramref name="x"/>,
+        /// <paramref name="y"/>) of a picture <paramref name="w"/> × <paramref name="h"/>, flat 2D seen from the front at a
+        /// tilt (an oblique drawing, no vanishing point): a top face (corners <see cref="RoundScreenLook.CubeCornerShare"/> of
+        /// the width) of nearly flat colour a little lighter than <paramref name="col"/>, a thin light rim along its top and
+        /// left edges, a thin darker right side, a small soft specular dot at its lower right, and a rounded bevel of
+        /// <paramref name="bevel"/> px turning down along its lower edge; under it a front face of <paramref name="front"/>
+        /// of the height in a deeper, more saturated shade of the same hue (never grey), darker toward its foot and its right
+        /// end. <paramref name="margin"/> px stay clear at the sides and the top (a hairline between neighbours) and
+        /// <paramref name="bottom"/> px under the foot. Returns the colour, the coverage and the top face's lower edge.
         /// </summary>
-        private static (Color Color, float Cover) Cube(float x, float y, float s, Rgba col)
+        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss = 0.75f)
         {
-            float m = s * CubeMargin;
-            float side = s * CubeSide;
-            float r = s * 0.17f;
-            float bevel = Math.Max(1.5f, s * 0.12f);
-            float body = RoundRect(x, y, m, m, s - m, s - m, r);
+            float m = margin;
+            float foot = h - bottom;
+            float r = Math.Max(1f, w * RoundScreenLook.CubeCornerShare);
+            float topBottom = foot - ((h - m - bottom) * front);
+            float body = RoundRect(x, y, m, m, w - m, foot, r);
             float cover = Coverage(body);
             if (cover <= 0f)
             {
-                return (default, 0f);
+                return (default, 0f, topBottom);
             }
 
-            float topBottom = s - m - side;
-            float top = RoundRect(x, y, m, m, s - m, topBottom, r);
+            Rgba deep = Vivid(col, 1.25f);
+            float edge = Math.Max(1f, w * 0.05f);
+            float top = RoundRect(x, y, m, m, w - m, topBottom, r * 0.8f);
             Color c;
             if (top < 0.5f)
             {
-                // The top: lighter at its top, a little deeper at its bottom, then the bevel's light and shade.
-                float t = Clamp01((y - m) / Math.Max(1f, topBottom - m));
-                c = new Color(col.Lighten(0.12f).Mix(col.Darken(0.04f), t));
-                float tilt = 1f - Clamp01(-top / bevel);
-                if (tilt > 0f)
-                {
-                    // Only the bevel is lit: on the flat top (no tilt) the light changes nothing (Shade of a flat normal).
-                    (float gx, float gy) = RoundRectGradient(x, y, m, m, s - m, topBottom, r);
-                    (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
-                    Shade(ref c, col, nx, ny, nz, 1.25f, 0.7f, 0.75f);
-                }
+                // Nearly flat, a little lighter than the hue, a faint lift toward the upper left where the light comes from.
+                float diagonal = Clamp01((((x - m) / Math.Max(1f, w - (2f * m))) + ((y - m) / Math.Max(1f, topBottom - m))) / 2f);
+                c = new Color(col.Lighten(0.1f).Mix(col.Lighten(0.03f), diagonal));
 
-                // A cushion: the top's middle a little lighter.
-                float dome = EllipseDistance(x - (s / 2f), y - ((m + topBottom) * 0.46f), s * 0.3f, s * 0.26f);
-                c.Mix(col.Lighten(0.35f), 0.18f * (1f - Smooth(Clamp01((dome + (s * 0.04f)) / (s * 0.22f)))));
+                // The rounded bevel turning down along the top's lower edge.
+                float b = Clamp01((y - (topBottom - bevel)) / Math.Max(1f, bevel));
+                c.Mix(deep.Darken(0.2f), 0.6f * b * b);
 
-                // The gloss: a short white dash in the top left corner, along the edge.
-                float gx0 = m + (s * 0.24f);
-                float gy0 = m + (s * 0.13f);
-                float dash = Segment(x, y, gx0 - (s * 0.08f), gy0 + (s * 0.02f), gx0 + (s * 0.05f), gy0 - (s * 0.012f)) - (s * 0.028f);
-                c.Mix(Rgba.White, 0.55f * Clamp01(0.5f - (dash / Math.Max(1f, s * 0.02f))));
+                // The light rim along the top and the left, the darker side on the right.
+                c.Mix(col.Lighten(0.42f), 0.6f * Clamp01(1f - ((y - m) / edge)));
+                c.Mix(col.Lighten(0.3f), 0.45f * Clamp01(1f - ((x - m) / edge)));
+                c.Mix(deep.Darken(0.22f), 0.55f * Clamp01(1f - ((w - m - x) / edge)));
 
-                // Where the top meets the front face, the bevel's lowest pixels blend into it.
-                c.Mix(col.Darken(0.24f), Clamp01(top + 0.5f) * 0.5f);
+                // A small soft specular dot at the top's lower right.
+                float dot = Length(x - (w - m - (w * 0.2f)), y - (topBottom - bevel - (w * 0.09f))) - (w * 0.045f);
+                c.Mix(Rgba.White, gloss * Clamp01(0.5f - (dot / Math.Max(1f, w * 0.035f))));
+
+                // A thin dark seam round the top, so neighbours read apart without a gap.
+                c.Mix(deep.Darken(0.4f), 0.45f * Clamp01(1f + (top / Math.Max(0.75f, w * 0.02f))));
             }
             else
             {
-                // The front face: deeper downward, rounder at its ends, its top edge lit by the bevel above it.
-                float t = Clamp01((y - (topBottom - r)) / Math.Max(1f, (s - m) - (topBottom - r)));
-                c = new Color(col.Darken(0.2f).Mix(col.Darken(0.36f), t));
-                float sideX = Clamp01((x - m) / Math.Max(1f, s - (2f * m)));
-                c.Mix(col.Lighten(0.1f), 0.18f * Clamp01(1f - (sideX * 3f)));
-                c.Mix(col.Darken(0.55f), 0.25f * Clamp01((sideX - 0.7f) * 3.3f));
+                float t = Clamp01((y - topBottom) / Math.Max(1f, foot - topBottom));
+                c = new Color(deep.Darken(0.12f).Mix(deep.Darken(0.32f), Smooth(t)));
+                c.Mix(deep.Darken(0.45f), 0.5f * Clamp01(1f - ((w - m - x) / edge)));
+                c.Mix(col.Lighten(0.1f), 0.2f * Clamp01(1f - ((x - m) / edge)));
             }
 
-            // A soft, deep edge where the cube meets the ground.
-            c.Mix(col.Darken(0.55f), 0.55f * Clamp01(1f + (body / Math.Max(1f, s * 0.02f))));
+            // A soft deep edge round the body.
+            c.Mix(deep.Darken(0.5f), 0.45f * Clamp01(1f + (body / Math.Max(0.75f, w * 0.02f))));
+            return (c, cover, topBottom);
+        }
+
+        /// <summary>
+        /// The square cube tile (board style; the round pods' and places' tiles, the finished picture): the owner's cube of
+        /// 2026-10-28 (<see cref="ObliqueCube"/>) in a square of side <paramref name="s"/>, its front face
+        /// <see cref="CubeSide"/> of it, inside a clear margin of <see cref="CubeMargin"/>. Returns the colour at (x, y) and
+        /// its coverage, the top's middle for the symbol being about (s / 2, (s − side) / 2).
+        /// </summary>
+        private static (Color Color, float Cover) Cube(float x, float y, float s, Rgba col)
+        {
+            (Color c, float cover, float _) = ObliqueCube(x, y, s, s, col, CubeSide, s * CubeMargin, s * CubeMargin, s * RoundScreenLook.BoardBevelShare * 0.8f);
             return (c, cover);
         }
 

@@ -65,7 +65,11 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   shows each material's symbol for colour-blind players. The board is the owner's of 2026-10-28 (spec 006 FR-049,
   `contracts/presentation.md`): one fixed box on every level (`ReferenceGameplayRegions.RoundBoard`) with a frame of
   one thickness, a solid neutral surface (`board.surface`, no grass, no grid, no imprint of eaten cubes), and the cube
-  size fitted to the picture (`RoundBoardLayout.Cell`). The legacy `Bloomlings.Core.Simulation` path still builds
+  size fitted to the picture (`RoundBoardLayout.Cell`). The level screen is the owner's of 2026-10-28 (spec 006 FR-064): every size is a
+  constant of `RoundScreenLook` (the board constructor's values), laid out by `ScreenLayout.RoundGameplay`; the board's
+  cubes, pods and places are oblique cubes from one fixed viewpoint (`UiRaster.BoardCube`, `PodCube`, `SideFace`; rows
+  `BoardRowShare` of a column, fronts and side faces only beside empty cells); three pods a column, no "+N", the number
+  in the middle of the cube. The legacy `Bloomlings.Core.Simulation` path still builds
   for the generator, solver and their tests (`specs/006-round-levels-in-game/legacy-references.md`).
 - **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): passed on 2026-09-29, all docs are locked. Changes to
   locked docs now go through the product owner.

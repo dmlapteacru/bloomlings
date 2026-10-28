@@ -72,7 +72,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The widest the round board's fixed box may be for its height (the owner's board of 2026-10-28: "roughly square"): on
-        /// a short screen the box is a little wider than tall, never more.
+        /// a short screen the box is a little wider than tall, never more (the owner's box of 2026-10-28, <see cref="RoundScreenLook.BoardWidthShare"/> W by <see cref="RoundScreenLook.BoardHeightShare"/> H, is about square).
         /// </summary>
         public const float RoundBoardMaxAspect = 1.12f;
 
@@ -123,8 +123,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The box of the pod at <paramref name="depth"/> (0 = exposed) of Source stack <paramref name="stack"/>: the
         /// exposed pod at the column's top, <see cref="FrontHeight"/> tall, and each next one under the one before it,
-        /// <see cref="QueueHeight"/> tall, with the negative <see cref="PodGap"/> making a shallow overlap. Depths from
-        /// <see cref="PodRows"/> on fall under the pod row (the tray does not show them).
+        /// <see cref="QueueHeight"/> tall, <see cref="PodGap"/> apart: a negative gap makes the legacy screen's shallow
+        /// overlap, a positive one the round screen's cubes one after another (<see cref="ScreenLayout.RoundGameplay"/>).
+        /// Depths from <see cref="PodRows"/> on fall under the pod row (the tray does not show them).
         /// </summary>
         public Box Pod(int stack, int depth)
         {
@@ -247,6 +248,39 @@ namespace Bloomlings.Client.UI.Design
             float badge = h * BadgeShare;
             Box badgeBox = Box.FromCenter(frame.Left + (h * 0.12f), frame.Bottom - (h * 0.16f), badge, badge);
             return new PodChip(frame, inner, tile, icon, count, badgeBox);
+        }
+
+        /// <summary>
+        /// A round level's pod (spec 006 FR-064, the owner's pods of 2026-10-28, as Colony Flow's): no frame or box round it,
+        /// the pod is one cube picture filling the square in its <paramref name="place"/> (<see cref="Frame"/>,
+        /// <see cref="Inner"/>, <see cref="Tile"/> and <see cref="Icon"/> are that square; <c>UiRaster.PodCube</c>), its
+        /// number big in the middle of the cube's top face (<see cref="RoundScreenLook.CountShare"/> of its side; the top
+        /// face is a little lower on a waiting pod's flatter base, <paramref name="waiting"/>). No corner count and no "+N":
+        /// <see cref="Badge"/> is empty.
+        /// </summary>
+        public static PodChip Cube(Box place, bool waiting = false)
+        {
+            float s = Math.Min(place.Width, place.Height);
+            Box cube = Box.FromCenter(place.CenterX, place.CenterY, s, s);
+            float m = s * RoundScreenLook.PodRingShare;
+            float front = waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare;
+            float topBottom = (s - m) - ((s - (2f * m)) * front);
+            Box count = Box.FromCenter(cube.CenterX, cube.Top + ((m + topBottom) / 2f), (s - (2f * m)) * 0.9f, s * RoundScreenLook.CountShare);
+            var none = new Box(cube.Left, cube.Bottom, cube.Left, cube.Bottom);
+            return new PodChip(cube, cube, cube, cube, count, none);
+        }
+
+        /// <summary>
+        /// A pod cube's number (spec 006 FR-064, Colony Flow's): big bold white digits in a dark outline of
+        /// <see cref="RoundScreenLook.CountOutlineEm"/>, readable on every material's colour; on a waiting pod half clear
+        /// (<see cref="RoundScreenLook.WaitingCountAlpha"/>).
+        /// </summary>
+        public static TextLook CubeCountLook(bool waiting)
+        {
+            float a = waiting ? RoundScreenLook.WaitingCountAlpha : 1f;
+            Rgba ink = DesignTokens.Colors.InkBrown.WithAlpha(waiting ? a * 0.55f : 1f);
+            Rgba fill = Rgba.White.WithAlpha(a);
+            return new TextLook(fill, fill, ink, RoundScreenLook.CountOutlineEm, 0f, 0f);
         }
 
         /// <summary>A connected pod's link badge over the frame's top right corner (spec 005 FR-043, <see cref="PodLinks.BadgeBox"/>).</summary>
@@ -939,25 +973,7 @@ namespace Bloomlings.Client.UI.Design
             bool hasBadge = false)
         {
             ReferenceGameplayRegions regions = BuildReferenceGameplay(width, height, insets, stackCount, slotCount, hasBoosters, hasBadge);
-            return regions with { RoundBoard = RoundBoardBox(BuildReferenceGameplay(width, height, insets, 1, 5, true, true)) };
-        }
-
-        /// <summary>
-        /// The round board's fixed box on this screen (the owner's decision of 2026-10-28: "the place for the board the same,
-        /// roughly a square"): the board area of the fullest layout (a badge, the booster row, the tallest pods), less 0.02 W at
-        /// each side, a square at most <see cref="ReferenceGameplayRegions.MaxBoardShare"/> × W wide (on a short screen
-        /// up to <see cref="ReferenceGameplayRegions.RoundBoardMaxAspect"/> times as wide as tall), centred, its bottom on
-        /// that area's bottom. So it is the same on every level of the screen, whatever the level's picture, columns, badge
-        /// or boosters.
-        /// </summary>
-        private static Box RoundBoardBox(ReferenceGameplayRegions fullest)
-        {
-            Box area = fullest.BoardArea;
-            float w = fullest.W;
-            float width = Math.Min(ReferenceGameplayRegions.MaxBoardShare * w, area.Width - (0.04f * w));
-            float height = Math.Max(1f, Math.Min(width, area.Height));
-            width = Math.Min(width, height * ReferenceGameplayRegions.RoundBoardMaxAspect);
-            return new Box(area.CenterX - (width / 2f), area.Bottom - height, area.CenterX + (width / 2f), area.Bottom);
+            return regions with { RoundBoard = RoundGameplay(width, height, insets, 1, 5).RoundBoard };
         }
 
         private static ReferenceGameplayRegions BuildReferenceGameplay(

@@ -9,7 +9,7 @@ namespace Bloomlings.Client.Art
     /// The round levels' pictures as cached sprites (spec 006 contracts/presentation.md; the playtest's <c>KitRound</c>),
     /// rendered from the kit's engine-free <see cref="UiRaster"/> with the same keys: material tiles without a variant
     /// icon (the material's symbol only in the symbols mode), the board's neutral surface, the stream's water, an overlay's stone wall, the round pod's
-    /// wooden frame tinted by its material and the link tube. Each picture is cached by key and pixel size.
+    /// cube (spec 006 FR-064) and the link tube. Each picture is cached by key and pixel size.
     /// </summary>
     public static class RoundSprites
     {
@@ -59,12 +59,50 @@ namespace Bloomlings.Client.Art
             return ProceduralSprites.Picture(key, Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.BoardSurface(w, h, share));
         }
 
-        /// <summary>A round pod's wooden frame tinted by its material (null: a hidden pod, <see cref="GameplaySkin.Pod(int, int, Rgba?, bool, bool)"/>).</summary>
-        public static Sprite Pod(int material, bool waiting, bool locked, int width, int height)
+        /// <summary>
+        /// A round pod (<c>pod.cube</c>, spec 006 FR-064; the playtest's <c>Kit.PodCubePicture</c>): the oblique cube in its
+        /// material's colour with no frame round it, in <paramref name="look"/> (the top row's white outline, a waiting pod's
+        /// flatter base, a place's), its symbol in the symbols mode; -1 is the hidden pod's neutral "?" cube; greyed while a
+        /// place is stuck (<see cref="UiRaster.PodCube"/>, the same key as the playtest's).
+        /// </summary>
+        public static Sprite PodCube(int material, RoundPodLook look, bool symbolsMode, int size, bool grey = false)
         {
-            Rgba? color = material >= 0 ? RoundLook.ColorOf(material) : (Rgba?)null;
-            string name = material >= 0 ? RoundMaterial.All[material].Code.ToString() : "mystery";
-            return ProceduralSprites.Picture("gameplay.pod.round/" + name + "/" + waiting + "/" + locked, Math.Max(1, width), Math.Max(1, height), (w, h) => GameplaySkin.Pod(w, h, color, waiting, locked));
+            bool hidden = material < 0;
+            RoundMaterial m = RoundMaterial.All[Math.Max(0, material)];
+            bool symbol = symbolsMode && !hidden;
+            Rgba color = grey ? RoundLook.ColorOf(m).Grey() : RoundLook.ColorOf(m);
+            string? mark = symbol ? RoundLook.SymbolOf(m) : null;
+            int s = Math.Max(1, size);
+            return ProceduralSprites.Picture(UiRaster.PodCubeKey(m.Code, hidden, look, symbol, grey), s, s, (w, h) => UiRaster.PodCube(Math.Min(w, h), color, mark, hidden, look));
+        }
+
+        /// <summary>
+        /// A cube's side face (<c>pod.cube.side</c>, constitution 1.2.0 VII; the playtest's <c>Kit.SideFace</c>): material -1
+        /// is a hidden pod's; <paramref name="topShare"/> of it stands beside the top face (<see cref="UiRaster.SideFace"/>).
+        /// </summary>
+        public static Sprite SideFace(int material, bool left, float topShare, int width, int height, bool grey = false)
+        {
+            char code = material >= 0 ? RoundMaterial.All[material].Code : '?';
+            Rgba color = material >= 0 ? RoundLook.ColorOf(material) : DesignTokens.Colors.TileMystery;
+            if (grey)
+            {
+                color = color.Grey();
+            }
+
+            float share = (float)Math.Round(topShare * 100f) / 100f;
+            return ProceduralSprites.Picture(UiRaster.SideFaceKey(code, left, share, grey), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.SideFace(w, h, color, left, share));
+        }
+
+        /// <summary>
+        /// A round board's oblique cube (spec 006 FR-064; the playtest's <c>Kit.BoardCube</c>) at a pixel size of a column wide
+        /// and a row's pitch with the front face tall (<see cref="RoundBoardLayout.CubeBox"/>; <see cref="UiRaster.BoardCube"/>).
+        /// </summary>
+        public static Sprite BoardCube(int material, bool symbolsMode, int width, int height)
+        {
+            RoundMaterial m = RoundMaterial.All[material];
+            Rgba color = RoundLook.ColorOf(m);
+            string? mark = symbolsMode ? RoundLook.SymbolOf(m) : null;
+            return ProceduralSprites.Picture(UiRaster.BoardCubeKey(m.Code, symbolsMode), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.BoardCube(w, h, color, mark));
         }
 
         /// <summary>The link tube's picture (<see cref="UiRaster.LinkTube"/>) of <paramref name="shape"/>'s colours at a pixel size.</summary>

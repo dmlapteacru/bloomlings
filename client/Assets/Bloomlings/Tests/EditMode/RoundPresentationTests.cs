@@ -97,7 +97,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(gate.Side, Is.EqualTo(EntrySide.Bottom));
             Box inner = layout.CellBox(level.Width / 2, 1);
             Assert.That(gate.InnerCell.Left, Is.EqualTo(inner.Left).Within(1e-3));
-            Assert.That(inner.Bottom, Is.EqualTo(layout.Grid.Bottom).Within(1e-3), "the inside cell is in the grid's bottom row");
+            Assert.That(inner.Bottom + layout.Front, Is.EqualTo(layout.Grid.Bottom).Within(1e-3), "the inside cell is in the grid's bottom row, its cube's front under it (FR-064)");
             (float x, float y) = layout.Point(gate.Cell);
             Assert.That(x, Is.EqualTo(gate.Door.X).Within(1e-3));
             Assert.That(y, Is.EqualTo(gate.Door.Y).Within(1e-3));
@@ -244,14 +244,14 @@ namespace Bloomlings.Client.Tests
             {
                 foreach (int stacks in new[] { 2, 3, 6 })
                 {
-                    ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, new Insets(h * 0.03f, h * 0.02f), stacks, 5);
+                    ReferenceGameplayRegions r = ScreenLayout.RoundGameplay(w, h, new Insets(h * 0.03f, h * 0.02f), stacks, 5);
                     RoundBoardLayout layout = RoundBoardLayout.In(r, level);
                     string at = w + "x" + h + ", " + stacks + " stacks";
                     Assert.That(layout.Outer, Is.EqualTo(r.RoundBoard), at + ": the fixed box");
                     Assert.That(layout.Outer.Within(r.BoardArea), Is.True, at + ": " + layout.Outer + " in " + r.BoardArea);
-                    Assert.That(layout.Outer.Width, Is.LessThanOrEqualTo((r.W * ReferenceGameplayRegions.MaxBoardShare) + 0.5f), at);
-                    ReferenceGameplayRegions fullest = ScreenLayout.ReferenceGameplay(w, h, new Insets(h * 0.03f, h * 0.02f), 1, 5, true, true);
-                    Assert.That(layout.Outer.Bottom, Is.EqualTo(fullest.BoardArea.Bottom).Within(0.5f), at + ": docked on the fullest layout's board area");
+                    Assert.That(layout.Outer.Width, Is.LessThanOrEqualTo((r.W * RoundScreenLook.BoardWidthShare) + 0.5f), at);
+                    ReferenceGameplayRegions fullest = ScreenLayout.RoundGameplay(w, h, new Insets(h * 0.03f, h * 0.02f), 1, 5, true, true);
+                    Assert.That(layout.Outer, Is.EqualTo(fullest.RoundBoard), at + ": the fullest layout's box");
                     Assert.That(layout.Cell, Is.GreaterThanOrEqualTo(r.W * 0.012f), at + ": " + layout.Cell + " px a cell");
                     Box corner = layout.CellBox(level.Width - 2, level.Height - 2);
                     Assert.That(corner.Within(layout.Grid), Is.True, at);
@@ -270,7 +270,8 @@ namespace Bloomlings.Client.Tests
             foreach ((float w, float h) in new[] { (1080f, 1920f), (1080f, 2340f), (720f, 1600f) })
             {
                 var insets = new Insets(h * 0.03f, h * 0.02f);
-                Box box = ScreenLayout.ReferenceGameplay(w, h, insets, 3, 5).RoundBoard;
+                Box box = ScreenLayout.RoundGameplay(w, h, insets, 3, 5).RoundBoard;
+                Assert.That(ScreenLayout.ReferenceGameplay(w, h, insets, 3, 5).RoundBoard, Is.EqualTo(box), "the legacy regions name the same box");
                 Assert.That(box.IsEmpty, Is.False);
                 Assert.That(box.Width / box.Height, Is.InRange(1f - 1e-3f, ReferenceGameplayRegions.RoundBoardMaxAspect + 1e-3f), "roughly square");
                 foreach (int stacks in new[] { 1, 2, 4, 6 })
@@ -279,7 +280,7 @@ namespace Bloomlings.Client.Tests
                     {
                         foreach (bool badge in new[] { false, true })
                         {
-                            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, stacks, 6, boosters, badge);
+                            ReferenceGameplayRegions r = ScreenLayout.RoundGameplay(w, h, insets, stacks, 6, boosters, badge);
                             Assert.That(r.RoundBoard, Is.EqualTo(box), $"{w}x{h}, {stacks} stacks, boosters {boosters}, badge {badge}");
                             Assert.That(r.RoundBoard.Bottom, Is.LessThanOrEqualTo(r.Slots[0].Top), "above the places");
                             Assert.That(r.RoundBoard.Top, Is.GreaterThanOrEqualTo(r.Board.Top - 0.5f), "under the top bar and badge");
@@ -287,7 +288,7 @@ namespace Bloomlings.Client.Tests
                     }
                 }
 
-                ReferenceGameplayRegions regions = ScreenLayout.ReferenceGameplay(w, h, insets, 3, 5);
+                ReferenceGameplayRegions regions = ScreenLayout.RoundGameplay(w, h, insets, 3, 5);
                 RoundBoardLayout first = RoundBoardLayout.In(regions, Square(12));
                 foreach (RoundLevel level in new[] { Square(32), Square(48), BoardOf(BridgePicture), Fenced() })
                 {
@@ -303,7 +304,7 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void TheCubeSize_FitsThePictureToTheBox_SmallerForABiggerMatrix_Centred()
         {
-            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2340f, new Insets(110f, 63f), 3, 5);
+            ReferenceGameplayRegions r = ScreenLayout.RoundGameplay(1080f, 2340f, new Insets(110f, 63f), 3, 5);
             float last = float.MaxValue;
             foreach (int side in new[] { 12, 32, 48 })
             {
@@ -313,13 +314,16 @@ namespace Bloomlings.Client.Tests
                 Assert.That(layout.Grid.Within(layout.Surface), Is.True, at + ": the picture fits the surface");
                 float fill = Math.Max(layout.Grid.Width / layout.Surface.Width, layout.Grid.Height / layout.Surface.Height);
                 Assert.That(fill, Is.EqualTo(1f).Within(1e-3), at + ": as large as fits");
-                Assert.That(layout.Cell, Is.EqualTo(Math.Min(layout.Surface.Width, layout.Surface.Height) / (side - 2)).Within(1e-3), at);
+                // The oblique rows (FR-064): a row's pitch is BoardRowShare of a column, the nearest front under the last row.
+                float rowsTall = ((side - 2) * RoundBoardLayout.RowShare) + RoundBoardLayout.FrontShare;
+                Assert.That(layout.Cell, Is.EqualTo(Math.Min(layout.Surface.Width / (side - 2), layout.Surface.Height / rowsTall)).Within(1e-3), at);
                 Assert.That(layout.Cell, Is.LessThan(last), at + ": a bigger matrix takes smaller cubes");
                 last = layout.Cell;
                 Assert.That(layout.Grid.CenterX, Is.EqualTo(layout.Surface.CenterX).Within(1e-3), at + ": centred");
                 Assert.That(layout.Grid.CenterY, Is.EqualTo(layout.Surface.CenterY).Within(1e-3), at + ": centred");
                 Box cube = layout.CubeBox(level(side));
                 Assert.That(cube.Width, Is.EqualTo(layout.Cell * (1f - (2f * RoundBoardLayout.CubeInset))).Within(1e-3), at + ": the cube follows the cell");
+                Assert.That(cube.Height, Is.EqualTo(layout.RowPitch + layout.Front).Within(1e-3), at + ": its top and its front");
             }
 
             static int level(int side) => (2 * side) + 2;
@@ -327,7 +331,7 @@ namespace Bloomlings.Client.Tests
             // A tall picture keeps its proportions: the height fills the surface, the width is centred in it.
             RoundBoardLayout tall = RoundBoardLayout.In(r, BoardOf(Enumerable.Repeat(new string('G', 20), 40).ToArray()));
             Assert.That(tall.Grid.Height, Is.EqualTo(tall.Surface.Height).Within(1e-3));
-            Assert.That(tall.Grid.Width / tall.Grid.Height, Is.EqualTo(22f / 42f).Within(1e-3));
+            Assert.That(tall.Grid.Width / tall.Grid.Height, Is.EqualTo(22f / ((42f * RoundBoardLayout.RowShare) + RoundBoardLayout.FrontShare)).Within(1e-3));
             Assert.That(tall.Grid.CenterX, Is.EqualTo(tall.Surface.CenterX).Within(1e-3));
         }
 
@@ -344,7 +348,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(pieces, Is.Not.Empty);
             Assert.That(pieces.All(piece => layout.KindOf(piece.Cell) == RoundCellKind.Stream), Is.True);
             Assert.That(pieces.All(piece => piece.Box.Within(layout.Surface)), Is.True, "never over the frame");
-            Assert.That(pieces.All(piece => Math.Abs(piece.Box.Width - layout.Cell) < 1e-3 && Math.Abs(piece.Box.Height - layout.Cell) < 1e-3), Is.True, "one cell each");
+            Assert.That(pieces.All(piece => Math.Abs(piece.Box.Width - layout.Cell) < 1e-3 && Math.Abs(piece.Box.Height - layout.RowPitch) < 1e-3), Is.True, "one cell each");
             Assert.That(pieces.Min(piece => piece.Box.Left), Is.EqualTo(layout.Surface.Left).Within(1e-3), "to the left frame");
             Assert.That(pieces.Max(piece => piece.Box.Right), Is.EqualTo(layout.Surface.Right).Within(1e-3), "to the right frame");
             Assert.That(pieces.Select(piece => piece.Box.Top).Distinct().Count(), Is.EqualTo(1), "along its row only");

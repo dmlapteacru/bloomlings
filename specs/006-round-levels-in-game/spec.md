@@ -333,6 +333,21 @@ owner sees the same behaviour as in the playtest app.
   picture stays the game's cubes; the cube size MUST adapt so the whole picture fits the box as large as possible,
   centred and in proportion (a big matrix smaller cubes, a small one bigger cubes), and everything on the board scales
   with it.
+- **FR-064** (the owner's level screen, 2026-10-28: "a bigger board and picture; pods without their extra box, volumetric
+  like cubes, 3 rows one after another, no indicator of how many more; as in Colony Flow"; constitution 1.2.0 VII):
+  - The level screen MUST take the owner's sizes from the board constructor (`RoundScreenLook`, one named constant each:
+    the board box 0.953 W × 0.44 H from 0.1 H, frame 0.042, places row 0.085 H after a 0.03 H gap, boosters 0.075 H,
+    pod cubes 0.15 W with 0.02 W gaps; H is the 1080 × 2340 reference phone's), the box the same on every level. Where a
+    phone is shorter, everything MUST shrink by one factor until it fits.
+  - The board's cubes, the pods and the cubes in the places MUST be drawn as seen from one fixed tilted viewpoint, as flat
+    pictures: tops wider than tall (rows 0.88 of a column), the cubes touching, a front face in a deeper shade of the hue
+    only where the cell in front is empty, and a side face (at most 0.10 of a cube at the outermost column, none in the
+    middle) only where the neighbour on the side facing away from the middle is empty. Hit areas follow the tops; the
+    rules keep their flat grid.
+  - Each column MUST show exactly its first three pods, one after another and never overlapping, and no "+N" for the
+    rest. A pod is a cube with no frame or box round it: the top row's in a white outline, its number big in the middle
+    of its top (no corner count anywhere: pods, places, flights). Waiting pods MUST keep their colour clearly
+    recognisable (barely lighter, a flatter base, the number half clear); a hidden pod is the neutral "?" cube.
 
 **Transfer path**
 

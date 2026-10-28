@@ -282,6 +282,9 @@ namespace Bloomlings.Client.UI
         private VariantId? _variant;
         private Image? _material;
         private int _round = -2;
+        private bool _cube;
+        private int _sideStep;
+        private Image? _side;
 
         /// <summary>The pod's state.</summary>
         public PodLook Look { get; private set; }
@@ -335,6 +338,14 @@ namespace Bloomlings.Client.UI
         public void Show(VariantId? variant, int count, PodLook look, bool waiting = false)
         {
             _round = -2;
+            _cube = false;
+            if (_side != null)
+            {
+                _side.gameObject.SetActive(false);
+            }
+
+            _frame.gameObject.SetActive(true);
+            _shadow.gameObject.SetActive(true);
             if (_material != null)
             {
                 _material.gameObject.SetActive(false);
@@ -392,28 +403,29 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// Shows a round level's pod (spec 006 T059, contracts/presentation.md; the playtest's <c>Kit.RoundPod</c>): the
-        /// wooden frame tinted by its material (<see cref="RoundSprites.Pod"/>), the material's plain tile with no variant
-        /// icon (its symbol only in the symbols mode) and its count; a hidden pod (<paramref name="material"/> -1) shows the
-        /// "?" and no count until it reveals (FR-007).
+        /// Shows a round level's pod (spec 006 FR-064, contracts/presentation.md; the playtest's <c>Kit.RoundPod</c>): no frame
+        /// or box round it, one soft cube in its material's colour (<see cref="RoundSprites.PodCube"/>), a waiting pod's a
+        /// little lighter, its symbol in the symbols mode, and its count in white on the cube (<see cref="PodChip.Cube"/>); a
+        /// hidden pod (<paramref name="material"/> -1) is the neutral "?" cube with no count until it reveals (FR-007).
         /// </summary>
-        public void ShowRound(int material, int count, PodLook look, bool waiting, bool symbolsMode)
+        public void ShowRound(int material, int count, PodLook look, bool waiting, bool symbolsMode, int sideStep = 0)
         {
             Look = look;
             _variant = null;
+            _cube = true;
+            bool sideChanged = sideStep != _sideStep;
+            _sideStep = sideStep;
             Waiting = waiting || look == PodLook.Next;
-            bool locked = look == PodLook.Locked;
-            bool dim = Waiting;
-            PictureFit.On(_frame, (w, h) => RoundSprites.Pod(material, dim, locked, w, h));
-            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.025f : 0.06f));
+            _frame.gameObject.SetActive(false);
+            _shadow.gameObject.SetActive(false);
             _veil.gameObject.SetActive(false);
-            _shade.gameObject.SetActive(look == PodLook.Pressed);
+            _shade.gameObject.SetActive(false);
             _lock.gameObject.SetActive(false);
             _icon.gameObject.SetActive(false);
             _tile.gameObject.SetActive(false);
             _tileVeil.gameObject.SetActive(false);
+            _mystery.gameObject.SetActive(false);
             bool hidden = material < 0;
-            _mystery.gameObject.SetActive(hidden);
             _count.gameObject.SetActive(!hidden);
             if (_material == null)
             {
@@ -422,22 +434,54 @@ namespace Bloomlings.Client.UI
                 _material.transform.SetSiblingIndex(_tile.transform.GetSiblingIndex());
             }
 
-            _material.gameObject.SetActive(!hidden);
-            int key = hidden ? -1 : (material * 8) + (symbolsMode ? 4 : 0) + (Waiting ? 2 : 0);
-            if (!hidden && key != _round)
+            _material.gameObject.SetActive(true);
+            if (_side == null)
             {
-                TileState state = Waiting ? TileState.Dimmed : TileState.Normal;
-                PictureFit.On(_material, (w, h) => RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbolsMode, System.Math.Min(w, h), state), square: true);
+                _side = UiFactory.CreateImage("Side", _layout.transform, null, Color.white);
+                _side.raycastTarget = false;
+                _side.transform.SetSiblingIndex(_material.transform.GetSiblingIndex());
+            }
+
+            _side.gameObject.SetActive(sideStep != 0);
+            int key = ((material + 1) * 8) + (symbolsMode ? 4 : 0) + (Waiting ? 2 : 0);
+            if (key != _round || sideChanged)
+            {
+                bool left = sideStep < 0;
+                float topShare = 1f - (Waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare);
+                PictureFit.On(_side, (w, h) => RoundSprites.SideFace(material, left, topShare, w, h));
+                bool dim = Waiting;
+                RoundPodLook cubeLook = dim ? RoundPodLook.Waiting : RoundPodLook.Top;
+                PictureFit.On(_material, (w, h) => RoundSprites.PodCube(material, cubeLook, symbolsMode, System.Math.Min(w, h)), square: true);
             }
 
             _round = key;
             _count.text = count.ToString(CultureInfo.InvariantCulture);
-            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CountLook(Waiting || locked));
+            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CubeCountLook(Waiting));
             _layout.Apply();
         }
 
         private void Lay(Box box)
         {
+            if (_cube)
+            {
+                // A round pod (FR-064): the cube fills its square place, its count on its top, sinking a little when pressed.
+                PodChip cube = PodChip.Cube(box, Waiting);
+                float down = Look == PodLook.Pressed ? cube.Frame.Height * 0.04f : 0f;
+                if (_material != null)
+                {
+                    BoxLayout.Place(_material.rectTransform, cube.Frame.Offset(0f, down));
+                }
+
+                if (_side != null && _sideStep != 0)
+                {
+                    BoxLayout.Place(_side.rectTransform, RoundLook.SideBox(RoundLook.PodBody(cube.Frame.Offset(0f, down)), _sideStep));
+                }
+
+                Box at = cube.Count.Offset(0f, down);
+                KitText.Place(_count, GameplaySkin.PodCount, at.CenterX, at.CenterY, at.Height, at.Width);
+                return;
+            }
+
             // The frame stands in the middle of its place (PodChip.Aspect of its height wide), its parts in it (§6.1).
             PodChip chip = PodChip.In(box, Waiting);
             float h = box.Height;

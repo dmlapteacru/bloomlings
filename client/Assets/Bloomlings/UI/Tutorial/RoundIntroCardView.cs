@@ -100,7 +100,7 @@ namespace Bloomlings.Client.UI.Tutorial
             Box local = UiKit.ToLocal(area, area);
             float h = local.Height;
             float podH = h * 0.62f;
-            float podW = podH * PodChip.Aspect;
+            float podW = podH;
             float gap = h * 0.5f;
             var left = Box.FromCenter(local.CenterX - ((podW + gap) / 2f), local.CenterY, podW, podH);
             var right = Box.FromCenter(local.CenterX + ((podW + gap) / 2f), local.CenterY, podW, podH);
@@ -111,7 +111,7 @@ namespace Bloomlings.Client.UI.Tutorial
                     Pod(holder, left, -1, 0);
                     Image arrow = UiKit.ShapeImage("Arrow", holder, "ui.chevron", C.InkBrownSoft);
                     BoxLayout.Place(arrow.rectTransform, Box.FromCenter(local.CenterX, local.CenterY, h * 0.28f, h * 0.28f));
-                    Box frame = PodChip.In(right).Frame;
+                    Box frame = PodChip.Cube(right).Frame;
                     float s = Mathf.Min(frame.Width, frame.Height);
                     Color glow = UiTheme.Of(C.GardenGlow);
                     Image fill = UiKit.RoundRect("RevealGlow", holder, new Color(glow.r, glow.g, glow.b, 0.4f), b => Mathf.Min(b.Width, b.Height) * 0.3f);
@@ -125,7 +125,7 @@ namespace Bloomlings.Client.UI.Tutorial
                 case RoundIntroPicture.LinkedPair:
                 {
                     Image tube = RoundTubes.Create("LinkTube", holder);
-                    RoundTubes.Show(tube, LinkTube.Between(PodChip.In(left).Frame, RoundLook.ColorOf(0), PodChip.In(right).Frame, RoundLook.ColorOf(8)));
+                    RoundTubes.Show(tube, LinkTube.BetweenCubes(PodChip.Cube(left).Frame, RoundLook.ColorOf(0), PodChip.Cube(right).Frame, RoundLook.ColorOf(8)));
                     Pod(holder, left, 0, 20);
                     Pod(holder, right, 8, 14);
                     break;

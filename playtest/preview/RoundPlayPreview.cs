@@ -148,7 +148,7 @@ namespace Bloomlings.Playtest.Preview
                 s.SkipGuide();
                 s.CloseIntro();
                 slots = Shot("11-tube-columns");
-                expect(s.Animator.Tubes(4).Any(t => t.Place == RoundTubePlace.Columns) && slots.Contains("pod.link.tube"), "a linked pair in the columns is joined by the tube (FR-043)");
+                expect(s.Animator.Tubes(RoundScreenLook.PodRows).Any(t => t.Place == RoundTubePlace.Columns) && slots.Contains("pod.link.tube"), "a linked pair in the columns is joined by the tube (FR-043)");
                 bool refused = false;
                 bool placed = PlayUntil(s, proofs[11], Run, () =>
                 {
@@ -161,7 +161,7 @@ namespace Bloomlings.Playtest.Preview
                         }
                     }
 
-                    return s.Animator.Tubes(4).Any(t => t.Place == RoundTubePlace.Places);
+                    return s.Animator.Tubes(RoundScreenLook.PodRows).Any(t => t.Place == RoundTubePlace.Places);
                 });
                 Run(0.6f);
                 slots = Shot("11-tube-places");
@@ -250,6 +250,60 @@ namespace Bloomlings.Playtest.Preview
                 times.Sort();
                 Console.WriteLine($"rounds 48x48: cell {cache.Board.Cell:0.0} px, {working} places working, {screen.Animator.Walkers.Count} walkers; frame median {times[times.Count / 2]:0.0} ms, p95 {times[(int)(times.Count * 0.95)]:0.0} ms (preview painter, first frames render the pictures)");
                 expect(working >= 5 && screen.Animator.Walkers.Count > 0, "the 48 x 48 board plays with five places working");
+
+                // ---- Deep columns (the owner's pods of 2026-10-28, FR-064): three cubes a column, one after another, no "+N" ----
+                var deep = new RoundLevelScreen(app, 21, DeepLevel(), null);
+                deep.SkipGuide();
+                RoundPainter.LayoutCache deepCache = RoundPainter.Layout(painter, deep, true, false);
+                HashSet<string> DeepShot(string name, float seconds)
+                {
+                    for (float t = 0f; t < seconds; t += 1f / 30f)
+                    {
+                        painter.Now += 1f / 30f;
+                        painter.BeginFrame();
+                        deep.Advance(1f / 30f);
+                        deep.Draw(painter);
+                    }
+
+                    painter.Slots.Clear();
+                    painter.Now += 1f / 60f;
+                    painter.BeginFrame();
+                    deep.Advance(1f / 60f);
+                    deep.Draw(painter);
+                    File.WriteAllBytes(Path.Combine(outDir, "rounds-play-" + name + ".png"), painter.Png());
+                    return new HashSet<string>(painter.Slots, StringComparer.Ordinal);
+                }
+
+                void CheckColumns(string when)
+                {
+                    ReferenceGameplayRegions dr = deepCache.Regions;
+                    var drawn = deepCache.Pods.Where(e => e.Fade >= 1f).ToList();
+                    bool threeRows = dr.PodRows == RoundScreenLook.PodRows && Enumerable.Range(0, deep.Animator.ColumnCount).All(c => drawn.Count(e => e.Column == c) == Math.Min(RoundScreenLook.PodRows, deep.Animator.Waiting(c)));
+                    bool apart = drawn.All(e => drawn.All(o => e.Pod == o.Pod || !(e.Layout.Left < o.Layout.Right - 0.5f && o.Layout.Left < e.Layout.Right - 0.5f && e.Layout.Top < o.Layout.Bottom - 0.5f && o.Layout.Top < e.Layout.Bottom - 0.5f)));
+                    bool ordered = drawn.All(e => e.Depth == 0 || e.Layout.Top > dr.Pod(e.Column, e.Depth - 1).Bottom);
+                    bool noMore = !painter.Texts.Any(t => t.Text.StartsWith("+", StringComparison.Ordinal) && t.Box.Top >= dr.PodRow.Top - 1f);
+                    expect(threeRows && apart && ordered && noMore && deep.Animator.Waiting(0) > RoundScreenLook.PodRows,
+                        $"deep columns {when}: each column shows its first three pods as cubes, one after another, apart, and no \"+N\" ({string.Join(" ", Enumerable.Range(0, deep.Animator.ColumnCount).Select(c => deep.Animator.Waiting(c)))} waiting)");
+                }
+
+                HashSet<string> deepSlots = DeepShot("deep-columns", 0.2f);
+                expect(deepSlots.Contains(RoundLook.PodCubeSlot) && !deepSlots.Contains("pod.card") && deepSlots.Contains("pod.state.mystery"),
+                    "the pods are cubes with no wooden frame (pod.cube), a hidden one the \"?\" cube");
+                CheckColumns("at the start");
+                int[] nextUp = Enumerable.Range(0, deep.Animator.ColumnCount).Select(c => deep.Animator.At(c, 1)).ToArray();
+                for (int c = 0; c < deep.Animator.ColumnCount; c++)
+                {
+                    int top = deep.Animator.At(c, 0);
+                    if (top >= 0 && deep.Play.Check(RoundAction.Tap(top)) == RoundRefusal.None)
+                    {
+                        deep.Tap(top);
+                        break;
+                    }
+                }
+
+                DeepShot("deep-columns-slid", 0.6f);
+                expect(Enumerable.Range(0, deep.Animator.ColumnCount).Any(c => deep.Animator.At(c, 0) == nextUp[c]), "the top pod leaves and the one under it comes up to the top row");
+                CheckColumns("after a tap");
 
                 // ---- The owner's board of 2026-10-28: one fixed box, a solid neutral surface, the cube size from the matrix ----
                 Box? fixedBox = null;
@@ -517,6 +571,65 @@ namespace Bloomlings.Playtest.Preview
             }
 
             return new RoundLevel(21, side, side, rows, pods, tray, new[] { side / 2 });
+        }
+
+        /// <summary>
+        /// Deep columns (FR-064): a 20 × 20 board (the frame included) of the 16 materials in bands, its pods of at most 8
+        /// cubes dealt over six columns, so each column holds five or six pods; the second pod of the first column is hidden.
+        /// </summary>
+        public static RoundLevel DeepLevel()
+        {
+            const int side = 20;
+            var counts = new int[RoundMaterial.Codes.Length];
+            var rows = new string[side];
+            for (int y = 0; y < side; y++)
+            {
+                var row = new char[side];
+                for (int x = 0; x < side; x++)
+                {
+                    bool wall = x == 0 || y == 0 || x == side - 1 || y == side - 1;
+                    bool ring = x == 1 || y == 1 || x == side - 2 || y == side - 2;
+                    if (wall)
+                    {
+                        row[x] = '#';
+                    }
+                    else if (ring)
+                    {
+                        row[x] = '.';
+                    }
+                    else
+                    {
+                        int m = (((x - 2) / 4) + (((y - 2) / 4) * 4)) % counts.Length;
+                        row[x] = RoundMaterial.Codes[m];
+                        counts[m]++;
+                    }
+                }
+
+                rows[y] = new string(row);
+            }
+
+            rows[0] = rows[0].Substring(0, side / 2) + "." + rows[0].Substring((side / 2) + 1);
+            var pods = new List<RoundPod>();
+            for (int m = 0; m < counts.Length; m++)
+            {
+                for (int left = counts[m]; left > 0; left -= 8)
+                {
+                    pods.Add(new RoundPod(RoundMaterial.Codes[m], Math.Min(8, left), pods.Count == 6 ? RoundMystery.Depth : RoundMystery.None));
+                }
+            }
+
+            var tray = new List<int>[6];
+            for (int c = 0; c < tray.Length; c++)
+            {
+                tray[c] = new List<int>();
+            }
+
+            for (int p = 0; p < pods.Count; p++)
+            {
+                tray[p % tray.Length].Add(p);
+            }
+
+            return new RoundLevel(21, side, side, rows, pods, tray, new[] { side / 2 }, mechanics: new[] { "hidden" });
         }
 
         /// <summary>

@@ -50,6 +50,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         private Box _visual;
         private Vector2 _shake;
         private (int Material, int Count, bool Symbols)? _round;
+        private int _sideStep;
 
         public string PodId { get; private set; } = string.Empty;
 
@@ -120,13 +121,15 @@ namespace Bloomlings.Client.Gameplay.Tray
         /// is hidden: the "?"), its count, whether it takes the tap (the column's top pod, FR-011) and whether it waits under
         /// the top pod; the symbols mode puts the material's symbol on its tile (FR-047). Redraws only what changed.
         /// </summary>
-        public void ShowRound(int pod, int material, int count, bool interactive, bool waiting, bool symbolsMode)
+        public void ShowRound(int pod, int material, int count, bool interactive, bool waiting, bool symbolsMode, int sideStep = 0)
         {
+            bool sideChanged = sideStep != _sideStep;
+            _sideStep = sideStep;
             gameObject.SetActive(true);
             _button.interactable = interactive;
             _touch.raycastTarget = interactive;
             var round = (material, count, symbolsMode);
-            if (RoundPod == pod && _round.HasValue && _round.Value.Equals(round) && _waiting == waiting)
+            if (RoundPod == pod && _round.HasValue && _round.Value.Equals(round) && _waiting == waiting && !sideChanged)
             {
                 return;
             }
@@ -214,7 +217,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         {
             if (_round.HasValue)
             {
-                _pod.ShowRound(_round.Value.Material, _count, Look, _waiting, _round.Value.Symbols);
+                _pod.ShowRound(_round.Value.Material, _count, Look, _waiting, _round.Value.Symbols, _sideStep);
             }
             else
             {
