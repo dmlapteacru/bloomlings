@@ -29,12 +29,12 @@ How to read the columns:
 | Brand | 3 | 1 | 4 |
 | Backgrounds | 21 | 0 | 21 |
 | Bloomling characters | 22 | 8 | 30 |
-| Variant symbols | 8 | 4 | 12 |
-| Board tiles and overlays | 29 | 8 | 37 |
+| Variant symbols | 24 | 4 | 28 |
+| Board tiles and overlays | 31 | 8 | 39 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 15 | 0 | 15 |
+| Pods and slots | 17 | 0 | 17 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 97 | 1 | 98 |
+| UI kit | 101 | 0 | 101 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **261** | **41** | **302** |
+| **All** | **285** | **40** | **325** |
 
 ## Brand
 
@@ -135,6 +135,22 @@ the fallback when a picture is missing.
 | `symbol.berry` | Variant symbol: Berry (expansion) | 7, 8, 9 | Tiles; pods; slots; walkers | tile; pod; slot; small | Icon | yes | Later | shape `symbol.berry` |
 | `symbol.mist` | Variant symbol: Mist (expansion) | 7, 8, 9 | Tiles; pods; slots; walkers | tile; pod; slot; small | Icon | yes | Later | shape `symbol.mist` |
 | `symbol.bark` | Variant symbol: Bark (expansion) | 7, 8, 9 | Tiles; pods; slots; walkers | tile; pod; slot; small | Icon | yes | Later | shape `symbol.bark` |
+| `symbol.material.leaf` | Round material symbol (symbols mode, spec 006 FR-047): Leaf ♧ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.leaf` |
+| `symbol.material.petal` | Round material symbol (symbols mode, spec 006 FR-047): Petal ✿ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.petal` |
+| `symbol.material.water` | Round material symbol (symbols mode, spec 006 FR-047): Water ◆ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.water` |
+| `symbol.material.amber` | Round material symbol (symbols mode, spec 006 FR-047): Amber ● | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.amber` |
+| `symbol.material.pearl` | Round material symbol (symbols mode, spec 006 FR-047): Pearl ◇ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.pearl` |
+| `symbol.material.earth` | Round material symbol (symbols mode, spec 006 FR-047): Earth ▰ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.earth` |
+| `symbol.material.plum` | Round material symbol (symbols mode, spec 006 FR-047): Plum ✦ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.plum` |
+| `symbol.material.sun` | Round material symbol (symbols mode, spec 006 FR-047): Sun ☀ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.sun` |
+| `symbol.material.pumpkin` | Round material symbol (symbols mode, spec 006 FR-047): Pumpkin ▲ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.pumpkin` |
+| `symbol.material.lime` | Round material symbol (symbols mode, spec 006 FR-047): Lime ✚ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.lime` |
+| `symbol.material.moss` | Round material symbol (symbols mode, spec 006 FR-047): Moss ♣ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.moss` |
+| `symbol.material.berry` | Round material symbol (symbols mode, spec 006 FR-047): Berry ♥ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.berry` |
+| `symbol.material.blush` | Round material symbol (symbols mode, spec 006 FR-047): Blush ❀ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.blush` |
+| `symbol.material.deep` | Round material symbol (symbols mode, spec 006 FR-047): Deep ▼ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.deep` |
+| `symbol.material.sky` | Round material symbol (symbols mode, spec 006 FR-047): Sky ○ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.sky` |
+| `symbol.material.bark` | Round material symbol (symbols mode, spec 006 FR-047): Bark ■ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.bark` |
 
 ## Board tiles and overlays
 
@@ -176,6 +192,8 @@ the fallback when a picture is missing.
 | `tile.gem.bark` | Variant icon, simplified for the board: Bark (expansion; the owner's picture `Icons/field-bark.png`, the same picture as the detailed one, spec 005 pictures.md G32) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Later | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
 | `board.entry.arch` | Garden Entry: a small stone arch set in the border beside each entry cell (spec 005 FR-034; the owner's choice "B", 2026-10-05) | 7, 8, 9 | Board (every entry, turned to its side) | bottom; top; left; right | Small | yes | Launch | UiRaster.EntryArch: two stone pillars and an arch of keystones round a dark opening with two peeping eyes, ivy, a pink flower on the keystone and a soft warm light; it reaches 0.36 cell over the entry cell |
 | `board.border.stone` | Stone border around the board | 7, 8, 9 | Board; win picture | normal; thin (win) | Large | yes | Launch | GameplaySkin: a continuous rounded cream rim with molded stone blocks and tight seams; dark gaps between board tiles |
+| `board.water` | Stream: a wall inside a round level's frame is water (spec 006) | 7, 8, 9 | Round levels: the board | a run of cells; a bridge site before its bridge | Small | yes | Launch | UiRaster.Water: water filling the cell (`water.top` by the banks, `water.deep` in the middle), a dark band and a foam line along each bank, short drifting `water.foam` ripples (four variants along a run) |
+| `board.bridge` | Sprig bridge: the built bridge's plank over the stream (spec 006) | 7, 8, 9 | Round levels with a bridge: the board | built (the site before it shows water) | Small | yes | Launch | a light wooden plank (UiRaster.Plank, `mat.wood.light`) across the site, reaching 0.22 cell onto each bank (RoundBridgeSite.Plank) |
 | `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells as the board's soft cubes (`tile.candy`, with the owner's field icons `tile.gem.*`; spec 005 FR-046: "as in the gameplay, volumetric") of each role's variant in a thin stone border (spec 005 D14) |
 
 ## Specials
@@ -198,6 +216,8 @@ the fallback when a picture is missing.
 | `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | the wooden frame around a grey panel with a padlock and the softer count |
 | `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
 | `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame of members side by side; on every member the link badge (UiRaster.LinkBadge: a white chain of two woven links on a disc of the group's color in the count badge's white ring) over its frame's top right corner, a smaller one at the "+N" disc of a column hiding a member, and a ring of the group's color pulsing round the partner after a tap that waits for it (spec 005 FR-043) |
+| `pod.link.tube` | Link tube of a round level's linked pods (spec 006 FR-043) | 7, 12, 13 | Round levels: the columns and the places | pair in the columns (level or slanted); pair in the places | Small | yes | Launch | UiRaster.LinkTube: a round glossy hose plugged into each pod's front low on its facing side (LinkTube), its half nearer each pod in that pod's colour, a cream coupling ring in the middle and a collar at each end; drawn under the pods, never over them |
+| `pod.reveal.glow` | Reveal glow of a round level's hidden pod (spec 006 FR-045) | 7, 12 | Round levels: the columns | rising; fading (about 1.6 s) | Small | yes | Launch | soft rings of `garden.glow` round the pod's frame and a bright outline, rising over 0.18 s and fading by 1.6 s (RoundLook.RevealGlow) |
 | `pod.deck` | Source stack column (owner's visual update, 2026-10-13) | 7, 8, 9, 12 | Tray | next pods (two on 16:9, three from 19.5:9); more below (+N); sliding up or down a row; emptied stack | Small | yes | Launch | slightly overlapping pod cards drawn deepest first; exposed pod in front; +N and connected marks at the lower left, counts lower right; existing slide, Return, Shuffle and empty-stack behavior |
 | `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | small brown digits in a white outline, no "x": at a pod's bottom right corner over its icon; plain below a slot's tile |
 | `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline |
@@ -260,6 +280,8 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.row` | List row (the Settings card, the Store and Leaderboard pages) | 5, 11, 17 | Settings; Store page; Leaderboard page | normal; highlighted (You); unavailable | Medium | no | Launch | a raised cream slab (`ui.row.raised`); the own row green-tinted in a green rim with flowers over its top corners (spec 005 FR-047); a Leaderboard row's portrait a white face raised on its wooden plate with the `ui.person` glyph, and its name and score while offline light wood grooves pressed into it (`UiRaster.Groove`, spec 005 FR-048) |
 | `ui.row.raised` | Raised cream slab of a row, a pill or a card | 5, 11, 17 | Settings rows; the dev row's pills; Store and Leaderboard rows; cost pills; toasts; the profile card; Home's teaser | normal; the own row's green | Medium | no | Launch | UiRaster.RaisedRow (spec 005 FR-045, FR-047): the buttons' raised face without its plate in the light row cream (`set.row`, the own row `set.row.you`), its front side 6% of its height |
 | `ui.tile.framed` | Tile in a thin wooden rim | 6, 17 | Profile stats and achievements; outfit cards (Store cosmetics, Wardrobe); the Collection's frames | normal; pressed | Medium | no | Launch | UiRaster.ButtonPlate with a rim of `GardenLook.TileRimShare` (spec 005 FR-047, the owner's references of 2026-10-08) and the raised face in the row cream |
+| `ui.account` | Account and progress | 240 | Settings | local, pending, cloud, unavailable, conflict | Large | no | Launch | Existing popup kit with profile summary, save status and one main action |
+| `ui.account.restore` | Cloud restoration comparison | 244 | Settings / Account | explicit confirmation | Large | no | Launch | Device and cloud profiles shown separately; restore or keep device |
 | `ui.settings.icon` | Settings row icon | 11 | Settings: Sound, Haptics | normal | Icon | no | Launch | Recognizable speaker and vibrating phone from Navigation/settings-controls-v1.png; semantic ui.sound / ui.haptics placeholders when art is absent |
 | `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | pills raised on their wooden plates (spec 005 FR-047): selected glossy green, the others light wood (`set.tan`) |
 | `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | UiRaster.ToggleTrack and ToggleKnob (spec 005 FR-048, the owner's Settings mockup): a track with round ends pressed into the row, deeper under its upper edge and catching the light along its lower one (on: green, `set.green`, with a faint lighter check in a lighter disc in its left end; off: deeper wood, `set.tan.deep`, with a faint leaf pressed into its right end) and a round cream button, flat on top with its edge rounded off, 0.98 of the track's height over a soft shadow at the track's right end when on, its left end when off; in Settings 160 × 82 units (`CardLook.SettingsToggleBox`) |
@@ -303,6 +325,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.grid` | Collection glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-collection.png` is missing) | normal | Icon | no | Launch | shape `ui.grid` |
 | `ui.sun` | Daily Challenge glyph | 3 | Home Daily Challenge card | normal; done | Small | no | Launch | shape `ui.sun` |
 | `ui.person` | Player avatar placeholder | 5 | Leaderboard page; profile | any tint | Small | no | Launch | shape `ui.person` |
+| `ui.symbols` | Symbols mode glyph (a heart, a diamond and a triangle) of its Settings row (spec 006 FR-047) | 19 | Settings | normal | Small | no | Launch | shape `ui.symbols` |
 | `ui.lock` | Padlock | 9, 12, 13, 14 | Locked pods, slots and cells; locked boosters | closed; opening | Icon | yes | Launch | shape `ui.lock` |
 | `ui.star` | Star (Hard label, badge) | 8 | Difficulty intro; badges | normal | Icon | no | Launch | shape `ui.star` |
 | `ui.star2` | Double star (Super Hard label, marker) | 9 | Difficulty intro; markers | normal | Icon | no | Launch | shape `ui.star2` |
@@ -320,7 +343,6 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.nav.lock` | Bottom menu: the padlock badge of a locked place | 2, 5, 6, 17 | Bottom menu (a locked place's icon on the plank); locked notice | locked; pressed (squashes with its icon) | Icon | no | Launch | the outfit cards' padlock badge (`Kit.LockBadge`): the switches' round cream button (`UiRaster.ToggleKnob`, spec 005 FR-048) in a `cream.line` ring with the brown `ui.lock`, over a soft shadow, 0.34 of the icon's side at its lower right inside the plank's band |
 | `ui.locked.notice` | Locked notice: "Available from level N" on a locked place's page | 5, 6, 17 | The Store, Wardrobe, Leaderboard and Collection pages (before their unlock) | Shop; Wardrobe; Leaderboard; Collection | Large | no | Launch | the place's owner icon (or its stand-in glyph) 0.4 of the area's width with the padlock badge on its lower right, then "Available from level N" in `type.title` `ink.brown` and "Keep playing to unlock it!" in `type.body` `ink.brown_soft`, centered, in the pages' wooden card frame with the corner flowers (spec 005 FR-049) |
 | `ui.avatar` | Profile avatar picture (the owner's `Avatars/*.jpg`, pictures.md I; spec 005 FR-037): it fills the avatar's whole disc inside a thin `cream.line` ring, on the cream lip (`AvatarLook`; the owner, 2026-10-06) | 2, 3, 5 | Home's avatar button; the profile page; its edit card; the player's own leaderboard row | each of the 14 avatars; owned; for sale (price pill); picked (check) | Small | no | Launch | the profile hero (`char.hero3d.bloom`) on the soft green middle while the picture is missing |
-| `ui.hero_lab` | Playtest hero animation lab | 106 | Settings; Hero lab | four clips; half speed; head attachment | Large | no | Later | HeroLab palette frames, baked from the owner’s Sprig rig by tools/heroanim/author-lab.py and bake-lab.mjs |
 | `ui.achievement` | Achievement tile (spec 005 FR-037) | 2 | The profile page's 3 × 3 Achievements grid | before bronze (padlock); bronze; silver; gold (check) | Small | no | Launch | a cream tile in a thin wooden rim (`ui.tile.framed`, spec 005 FR-047; no flowers since FR-049) filled by the achievement's illustrated badge (faded before bronze), with the count toward the next tier over its foot and the name under it |
 | `ui.promo.no_ads` | Home promo scene: No Ads (the owner's layers `Decor/promo-noads-*.png`: the short stand, Sprig, the crossed AD sign) | 2, 3 | Home (left, under the logo, until Remove Ads is owned); the Remove Ads card | idle; attention (Sprig shoves and tumbles the sign off the stand, hops, then resets); pressed | Medium | no | Launch | the label "No Ads" on a wooden sign (`ui.sign.wood`) until the pictures exist |
 | `ui.promo.daily` | Home promo scene: the Daily Reward (the owner's layers `Decor/promo-daily-*.png`: the stand, the album closed and open, the physical stamp, its lotus imprint, one warm glint) | 3 | Home (right, under the logo, from the Daily Reward's unlock) | idle; attention while the reward waits (the album opens, a large stamp presses and lifts to reveal its mark, the album closes); pressed | Medium | no | Launch | the label "Daily" on a wooden sign (`ui.sign.wood`) until the pictures exist |
@@ -330,6 +352,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.shop.rewardbox` | Garden store rewardbox | 17, 53, 54 | Store body | normal; pressed | Large | no | Launch | Shared ShopBodyDesign surface |
 | `ui.shop.button` | Illustrated nine-slice price button | 17, 53, 54 | Store body | normal; pressed | Large | yes | Launch | Shop/price-button.png, separate text |
 | `ui.wardrobe.illustrations` | Wardrobe arch and open shelves | 27 | Wardrobe | fixed; scrolling | Large | no | Launch | Shop/meta-wardrobe-stage-v1.png; meta-shelf-atlas-v1.png |
+| `ui.leaderboard.rules` | Ranking rules card | 260 | Leaderboard | progress and weekly proposal | Large | no | Launch | Existing cream popup and green button; weekly competition remains disabled |
 | `ui.leaderboard.illustrations` | Leaderboard podium and ranking planks | 5 | Leaderboard | online; cached | Large | no | Launch | Shop/meta-leaderboard-podium-v1.png; meta-shelf-atlas-v1.png |
 | `ui.shop.illustrations` | Garden offer illustrations and booster coins | 17, 53, 54 | Store body | offer | Large | no | Launch | Shop/offer-atlas.png; hero-card-v2.png; noads-basket-v2.png; booster-atlas-v2.png |
 | `ui.nav.illustrations` | Illustrated game navigation kit | 2, 3, 7, 8, 9, 17, 39, 54, 55, 56, 60 | Shared controls, bottom navigation, wallet and Home profile | normal; selected; locked | Medium | no | Launch | Navigation/controls-v3.png; wood-console-v1.png; wood-selected-v1.png; header-parts-v3.png; profile-rims-v3.png; Icons/nav-*.png |
