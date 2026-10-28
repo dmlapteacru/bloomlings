@@ -1,5 +1,16 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner decisions · 2026-10-28 — bridges on any strip, the wave plan sets the mechanics first
+
+- [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §8: a Sprig bridge stands on any impassable strip, a
+  stream or a wall laid over an approved picture (cells under the wall are not work). The crossing goes up, left or
+  right; the two sites of one choice may stand on different strips.
+- §13: the wave plan first assigns the mechanics to every level (lead, additional, doses by §7, the bridge's side) and
+  their shares in the wave; pictures are ordered for that breakdown. The owner approves it, placement keeps it.
+- Wave L21–L50: [`plans/wave-L21-L50-mechanics-plan-2026-10-28.md`](plans/wave-L21-L50-mechanics-plan-2026-10-28.md)
+  (bridge 11 levels, links 15, hidden 11, no mechanic 7 Normal; bridge pictures: about 6 new with the strip drawn in,
+  5 with a wall laid over an approved picture).
+
 ## Owner decisions · 2026-10-27 — round levels in the game (spec 006)
 
 - The round engine's rules become the game's rules ([`../specs/006-round-levels-in-game/spec.md`](../specs/006-round-levels-in-game/spec.md)).

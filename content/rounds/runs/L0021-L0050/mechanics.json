@@ -1,0 +1,271 @@
+{
+ "format": "bloomlings-wave-mechanics-1",
+ "wave": [
+  21,
+  50
+ ],
+ "approved": "2026-10-28",
+ "approvedBy": "owner",
+ "plan": "product/plans/wave-L21-L50-mechanics-plan-2026-10-28.md",
+ "note": "Per level: the lead mechanic, the additional ones (doses by 17 §7 for the class: lead full range, one additional = minimum dose, three types = lead's lower half), the bridge's side (up, left, right, two = the two sites on different strips) and where its strip comes from (new = a new picture with the strip drawn in, overlay = a straight wall laid by the generator over an approved picture). recipe is the builder's recipe string (lead first).",
+ "levels": [
+  {
+   "level": 21,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 22,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 23,
+   "cls": "Normal",
+   "lead": "bridge",
+   "add": [],
+   "recipe": "bridge",
+   "bridgeSide": "up",
+   "strip": "new"
+  },
+  {
+   "level": 24,
+   "cls": "Normal",
+   "lead": "hidden",
+   "add": [],
+   "recipe": "hidden"
+  },
+  {
+   "level": 25,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 26,
+   "cls": "Normal",
+   "lead": "bridge",
+   "add": [
+    "links"
+   ],
+   "recipe": "bridge+links",
+   "bridgeSide": "left",
+   "strip": "new"
+  },
+  {
+   "level": 27,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 28,
+   "cls": "Normal",
+   "lead": "hidden",
+   "add": [
+    "links"
+   ],
+   "recipe": "hidden+links"
+  },
+  {
+   "level": 29,
+   "cls": "Normal",
+   "lead": "bridge",
+   "add": [],
+   "recipe": "bridge",
+   "bridgeSide": "right",
+   "strip": "new"
+  },
+  {
+   "level": 30,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "bridge",
+    "hidden"
+   ],
+   "recipe": "links+bridge+hidden",
+   "bridgeSide": "two",
+   "strip": "new"
+  },
+  {
+   "level": 31,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 32,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 33,
+   "cls": "Normal",
+   "lead": "bridge",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "bridge+hidden",
+   "bridgeSide": "left",
+   "strip": "overlay"
+  },
+  {
+   "level": 34,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 35,
+   "cls": "Hard",
+   "lead": "bridge",
+   "add": [
+    "links"
+   ],
+   "recipe": "bridge+links",
+   "bridgeSide": "right",
+   "strip": "new"
+  },
+  {
+   "level": 36,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 37,
+   "cls": "Normal",
+   "lead": "hidden",
+   "add": [],
+   "recipe": "hidden"
+  },
+  {
+   "level": 38,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 39,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 40,
+   "cls": "Hard",
+   "lead": "hidden",
+   "add": [
+    "links"
+   ],
+   "recipe": "hidden+links"
+  },
+  {
+   "level": 41,
+   "cls": "Normal",
+   "lead": "bridge",
+   "add": [],
+   "recipe": "bridge",
+   "bridgeSide": "up",
+   "strip": "overlay"
+  },
+  {
+   "level": 42,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 43,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 44,
+   "cls": "Normal",
+   "lead": "hidden",
+   "add": [
+    "bridge"
+   ],
+   "recipe": "hidden+bridge",
+   "bridgeSide": "left",
+   "strip": "overlay"
+  },
+  {
+   "level": 45,
+   "cls": "Super Hard",
+   "lead": "bridge",
+   "add": [
+    "links",
+    "hidden"
+   ],
+   "recipe": "bridge+links+hidden",
+   "bridgeSide": "two",
+   "strip": "new"
+  },
+  {
+   "level": 46,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 47,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 48,
+   "cls": "Normal",
+   "lead": "bridge",
+   "add": [
+    "links"
+   ],
+   "recipe": "bridge+links",
+   "bridgeSide": "right",
+   "strip": "overlay"
+  },
+  {
+   "level": 49,
+   "cls": "Normal",
+   "lead": "hidden",
+   "add": [],
+   "recipe": "hidden"
+  },
+  {
+   "level": 50,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "bridge"
+   ],
+   "recipe": "links+bridge",
+   "bridgeSide": "up",
+   "strip": "overlay"
+  }
+ ]
+}
