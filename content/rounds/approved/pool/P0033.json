@@ -1,7 +1,7 @@
 {
  "code": "P0033",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0049",
  "version": 1,
  "title": "Снежный шар",
  "theme": "batch-0011",

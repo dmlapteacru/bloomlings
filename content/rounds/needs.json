@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-10-28",
  "needs": [
   {
    "level": 18,
@@ -19,6 +19,290 @@
     ]
    },
    "placedException": "L0018 placed with the owner's exception (2026-10-27, both bridges win); replace when a picture with one deciding bridge exists"
+  },
+  {
+   "level": 21,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1000
+    ],
+    "colours": [
+     4,
+     10
+    ]
+   },
+   "recipe": "links"
+  },
+  {
+   "level": 23,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1000
+    ],
+    "colours": [
+     4,
+     10
+    ]
+   },
+   "recipe": "bridge",
+   "bridgeSide": "up",
+   "strip": "new"
+  },
+  {
+   "level": 26,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "bridge+links",
+   "bridgeSide": "left",
+   "strip": "new"
+  },
+  {
+   "level": 29,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "bridge",
+   "bridgeSide": "right",
+   "strip": "new"
+  },
+  {
+   "level": 30,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "links+bridge+hidden",
+   "bridgeSide": "two",
+   "strip": "new"
+  },
+  {
+   "level": 33,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "bridge+hidden",
+   "bridgeSide": "left",
+   "strip": "overlay"
+  },
+  {
+   "level": 35,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "bridge+links",
+   "bridgeSide": "right",
+   "strip": "new"
+  },
+  {
+   "level": 41,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "bridge",
+   "bridgeSide": "up",
+   "strip": "overlay"
+  },
+  {
+   "level": 44,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "hidden+bridge",
+   "bridgeSide": "left",
+   "strip": "overlay"
+  },
+  {
+   "level": 45,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "bridge+links+hidden",
+   "bridgeSide": "two",
+   "strip": "new"
+  },
+  {
+   "level": 48,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "bridge+links",
+   "bridgeSide": "right",
+   "strip": "overlay"
+  },
+  {
+   "level": 50,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "links+bridge",
+   "bridgeSide": "up",
+   "strip": "overlay"
   }
  ]
 }

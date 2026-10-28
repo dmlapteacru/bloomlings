@@ -1,7 +1,7 @@
 {
  "code": "P0054",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0034",
  "version": 1,
  "title": "Проигрыватель",
  "theme": "batch-0011",

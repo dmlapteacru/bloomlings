@@ -1,0 +1,423 @@
+{
+ "level": 24,
+ "cls": "Normal",
+ "intro": null,
+ "picture": "P0036",
+ "candidate": "P0036-Nhidden-11",
+ "recipe": "hidden",
+ "N": 706,
+ "W": 706,
+ "colours": 6,
+ "P": 24,
+ "columns": 4,
+ "linked": 0,
+ "hidden": 3,
+ "random": {
+  "runs": 100,
+  "wins": 64,
+  "share": 0.64,
+  "wilson95": [
+   0.542,
+   0.727
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   }
+  ],
+  "forks": 1,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 76.6
+  }
+ },
+ "fairness": {
+  "checked": 5,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
+  "top-down|left": false,
+  "top-down|right": false,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 1.21,
+    "minFree": 0,
+    "fullShare": 0.26,
+    "maxWaiting": 4
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 4.15,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 4.31,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.35,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.3,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   }
+  ],
+  "launchesAfter80": 5,
+  "lastLaunchAtW": 95,
+  "seconds": 295.8
+ },
+ "dosePos": 0.6,
+ "checks": {
+  "forced": 0.07,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 15,
+     "revealAt": 2,
+     "gap": 0,
+     "newColour": false
+    },
+    {
+     "pod": 2,
+     "revealAt": 5,
+     "gap": 0,
+     "newColour": false
+    },
+    {
+     "pod": 9,
+     "revealAt": 22,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.23,
+   "tight": 0.87
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 24,
+  "title": "Ретро-радио",
+  "subject": "P0036",
+  "w": 36,
+  "h": 29,
+  "rowsBottomFirst": [
+   "##################.#################",
+   "#..................................#",
+   "#...EEEEE..................EEEEE...#",
+   "#...EEEEE..................EEEEE...#",
+   "#...EEEEE..................EEEEE...#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.EAAAAAAAAAAAAAAAAAAADDDAAADDDAAE.#",
+   "#.EAAEEEEEEEEEEEEEAAADDDDDADDDDDAE.#",
+   "#.EAAEAAAAAAAAAAAEAAADDDDDADDDDDAE.#",
+   "#.EAAECCCCCCCCCCCEAAADDCDDADDCDDAE.#",
+   "#.EAAECCCCCCCCCCCEAAAADDDAAADDDAAE.#",
+   "#.EAAEAAAAAAAAAAAEAAAAAAAAAAAAAAAE.#",
+   "#.EAAECCCCCCCCCCCEAAAAAAAOOOAAAAAE.#",
+   "#.EAAECCCCCCCCCCCEAAAAAOOYYYOOAAAE.#",
+   "#.EAAEAAAAAAAAAAAEAAAAOOYYYYYOOAAE.#",
+   "#.EAAECCCCCCCCCCCEAAAAOYYYYYYYOAAE.#",
+   "#.EAAECCCCCCCCCCCEAAAAOYYDDYYYOAAE.#",
+   "#.EAAEAAAAAAAAAAAEAAAAOYYYYDYYOAAE.#",
+   "#.EAAEECCCCCCCCCEEAAAAOYYYYYDYOAAE.#",
+   "#.EAAEEEECCCCCEEEEAAAAOOYYYYYDOAAE.#",
+   "#.EEAAEEEEEEEEEEEAAAAAAOOYYYOOAAEE.#",
+   "#..EEAAAAAAAAAAAAAAAAAAAAOOOAAAEE..#",
+   "#...EEAAAAAAAAAAAAAAAAAAAAAAAAEE...#",
+   "#.....EEEAAAAAAAAAAAAAAAAAAEEE.....#",
+   "#........EEEEEEEEEEEEEEEEEE........#",
+   "#..................................#",
+   "####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "E",
+    "count": 36
+   },
+   {
+    "color": "E",
+    "count": 35
+   },
+   {
+    "color": "E",
+    "count": 35,
+    "mystery": "depth"
+   },
+   {
+    "color": "E",
+    "count": 35
+   },
+   {
+    "color": "E",
+    "count": 35
+   },
+   {
+    "color": "E",
+    "count": 35
+   },
+   {
+    "color": "E",
+    "count": 35
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33,
+    "mystery": "depth"
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "O",
+    "count": 15,
+    "mystery": "depth"
+   },
+   {
+    "color": "O",
+    "count": 14
+   },
+   {
+    "color": "Y",
+    "count": 20
+   },
+   {
+    "color": "Y",
+    "count": 20
+   },
+   {
+    "color": "C",
+    "count": 28
+   },
+   {
+    "color": "C",
+    "count": 27
+   },
+   {
+    "color": "C",
+    "count": 27
+   },
+   {
+    "color": "D",
+    "count": 23
+   },
+   {
+    "color": "D",
+    "count": 22
+   }
+  ],
+  "tray": [
+   [
+    14,
+    12,
+    15,
+    10,
+    3,
+    2
+   ],
+   [
+    21,
+    13,
+    17,
+    5,
+    8,
+    0
+   ],
+   [
+    1,
+    20,
+    6,
+    11,
+    4,
+    18
+   ],
+   [
+    16,
+    23,
+    19,
+    22,
+    9,
+    7
+   ]
+  ],
+  "recipe": "hidden",
+  "difficulty": "Normal"
+ }
+}

@@ -1,7 +1,7 @@
 {
  "code": "P0089",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0031",
  "version": 1,
  "title": "Хрустальный шар с замком",
  "theme": "batch-0061",

@@ -8,7 +8,7 @@
 //      (per level lead, additional, doses, bridge side and strip; shares per mechanic), then the order for what it needs:
 //      new strip pictures by crossing side and size stage, pool pictures for the rest (an overlay level takes a free
 //      pool picture with the generator's wall)
-// node tools/rounds/rounds.mjs run <from> <to> [--jobs 4] [--candidates 64] [--no-build] [--no-sample] [--no-bridge] [--per-position N]
+// node tools/rounds/rounds.mjs run <from> <to> [--jobs 4] [--candidates 64] [--no-build] [--no-sample] [--no-bridge] [--per-position N] [--all]
 //      dry placement on a copy; candidates only for what stays open (one process per picture, resumable: a combination
 //      already searched is skipped; under a mechanics plan only each position's planned recipe, on a wall of the planned
 //      side for an overlay position, on pictures with their own strip of that side for a new-strip one); missing checks;
@@ -127,6 +127,10 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-'));fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||fs.statSync(s).isDirectory()});
   await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp});const needs=(readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);fs.rmSync(tmp,{recursive:true,force:true});return needs;};
  let needs=await dry();step('пробная расстановка',{open:needs.map(x=>x.level)});
+ // --all: candidates for every planned position, not only the open ones (when the wave's sequence checks fail on what
+ // the bank already holds, e.g. the Normal median or the greedy quota, fresh candidates give the placement a choice)
+ if(flag('--all')){const plan=readJSON(path.join(dir,'mechanics.json'),null);if(plan)for(const e of plan.levels){if(e.level<a||e.level>b||needs.some(x=>x.level===e.level))continue;
+  needs.push({level:e.level,cls:e.cls,recipe:e.recipe,...(e.bridgeSide?{bridgeSide:e.bridgeSide,strip:e.strip}:{}),stage:null});}}
  // 2. candidates only for what stays open: free pictures of those stages, the classes and recipes those positions need;
  // a position of the mechanics plan only its planned recipe: a bridge on a wall of the planned side over a free pool
  // picture (strip "overlay") or on a picture with its own strip crossing to that side (strip "new"). One build process

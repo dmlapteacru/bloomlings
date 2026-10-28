@@ -1,7 +1,7 @@
 {
  "code": "P0071",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0036",
  "version": 1,
  "title": "Плюшевый мишка",
  "theme": "batch-0061",
