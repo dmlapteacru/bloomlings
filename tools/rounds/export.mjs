@@ -50,7 +50,9 @@ export function levelV1(L,engine,definitionVersion=1){const d=L.definition,n=L.l
  return {format:'round-level.v1',number:n,definitionVersion,class:L.cls,
   ...(intro?{introduction:{mechanic:L.intro,second:intro[2]===n}}:{}),
   picture:{id:L.picture,version:null},
-  board:{w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,...(d.hero?{hero:{id:d.hero.id,choices:d.hero.choices.map(c=>({cell:c.cell,anchor:c.anchor,label:c.label}))}}:{})},
+  board:{w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,...(d.hero?{hero:{id:d.hero.id,choices:d.hero.choices.map(c=>({cell:c.cell,anchor:c.anchor,label:c.label}))}}:{}),
+   // the generator's wall over the approved picture (17 §8), picture coordinates: the board is that picture plus this
+   ...(d.overlay?{overlay:{walls:d.overlay.walls.map(c=>[c[0],c[1]]),sites:d.overlay.sites.map(c=>[c[0],c[1]])}}:{})},
   capacity:d.capacity??5,
   pods:d.pods.map(p=>({code:p.color,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),
   tray:d.tray,mechanics:MECHANICS.filter(m=>recipe.includes(m)),...(ex?{exception:ex}:{}),engine};}
@@ -69,7 +71,7 @@ export function entryChecks(from,to){const failures=[],levels={},pictures={};
   else{if(pic.status!=='approved')failures.push(`picture not approved: ${L.picture} of ${lid(n)} (${pic.status})`);
    if(FRANCHISE.has(pic.source))failures.push(`picture is a franchise reference: ${L.picture} of ${lid(n)} (${pic.source})`);
    if(!Number.isInteger(pic.version)||pic.version<1)failures.push(`picture without a version: ${L.picture}`);
-   if(boardOf(pic).rowsBottomFirst.join('\n')!==L.definition.rowsBottomFirst.join('\n'))failures.push(`board does not match its picture: ${lid(n)} / ${L.picture}`);
+   if(boardOf(pic,L.definition.overlay).rowsBottomFirst.join('\n')!==L.definition.rowsBottomFirst.join('\n'))failures.push(`board does not match its picture: ${lid(n)} / ${L.picture}`);
    pictures[L.picture]=pic;}
   const ex=exceptionOf(L);
   if(ex===undefined)failures.push(`unknown exception: ${lid(n)} carries «${L.exception}» but no owner decision is recorded for it (export.mjs OWNER_EXCEPTIONS)`);

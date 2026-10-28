@@ -23,6 +23,8 @@
  try{const saved=localStorage.getItem(KEY);if(saved){const s=JSON.parse(saved);if(s.schema!==9||!s.presentations||!Array.isArray(s.attempts)||!['normal','accessible'].includes(s.settings?.palette))throw Error('Invalid save');store=s;}}catch(error){storageProblem='Сохранение недоступно. Скачай результаты перед закрытием.';}
  let state,visual,timeline,attempt,lastCheckpoint=performance.now(),drawing=null,needsRender=false;const activity=new window.BloomPilotClock.ActiveClock(performance.now());
  let topCards=[],backCards=[],columns=[],slotCards=[],bridgeCards=[],entryMarkers=[];
+ // board cells of the generator's wall per level (build.mjs: data.stone), drawn as stone
+ const stoneSets=new Map(),stoneOf=id=>{if(!stoneSets.has(id))stoneSets.set(id,new Set((data.stone&&data.stone[id])||[]));return stoneSets.get(id);};
  const VISIBLE_ROWS=3; // v9 (the owner, 2026-10-24): 3 rows, the top one included, and nothing of the 4th
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),dialogs=Array.from(document.querySelectorAll('dialog'));
  const pictures={};for(const name of ['sprig','bloom','drop','twig']){const img=new Image();img.src=assets[name];img.onload=()=>draw();pictures[name]=img;}
@@ -140,7 +142,7 @@
    if(node.childNodes.length!==nodes.length||nodes.some((n,i)=>node.childNodes[i]!==n))node.replaceChildren(...nodes);const n=left.length-1;if(n){const css=getComputedStyle(node),height=topCards[left[0]].node.getBoundingClientRect().height,margin=parseFloat(getComputedStyle(backCards[left[1]].node).marginTop);node.style.setProperty('--peek-height',Math.max(15,Math.min(20,Math.floor((node.clientHeight-parseFloat(css.paddingTop)-height-n*margin)/n)))+'px');}
   });
   drawTubes(level,s);
-  const ready=timeline.bridgeChoices().map(c=>c.choice);bridgeCards.forEach((b,i)=>{const used=state.bridge>=0,chosen=state.bridge===i;b.disabled=used||!ready.includes(i)||state.status!=='Playing';b.classList.toggle('chosen',chosen);b.textContent=chosen?'Мостик вырос ✓':used?'Второй недоступен':`Мостик${bridgeCards.length>1?i===0?' слева':' справа':''}${ready.includes(i)?' · готов':' · дойди до берега'}`;});
+  const ready=timeline.bridgeChoices().map(c=>c.choice);bridgeCards.forEach((b,i)=>{const used=state.bridge>=0,chosen=state.bridge===i;b.disabled=used||!ready.includes(i)||state.status!=='Playing';b.classList.toggle('chosen',chosen);b.textContent=chosen?'Мостик вырос ✓':used?'Второй недоступен':`${state.level.hero.choices[i].label||`Мостик${bridgeCards.length>1?i===0?' слева':' справа':''}`}${ready.includes(i)?' · готов':' · дойди до берега'}`;});
   $('statusLine').textContent=storageProblem||(attempt.elapsedMs<revealUntil?revealNotice:null)||(timeline.pending?(free?'Команды работают. Можно выбрать следующую.':'Места заняты, команды ещё работают.'):state.status==='Won'?'Картинка собрана!':state.status==='Jammed'?'Работа остановилась, все места заняты.':state.status==='Stuck'?'Следующей паре не хватает мест.':`${attempt.capacity-free} мест занято. Выбери верхнюю капсулу.`);
   $('board').setAttribute('aria-label',`${level.title}, поле ${level.w} на ${level.h}, осталось ${s.board.reduce((n,c)=>n+(c>=0),0)} клеток. Муравьи заходят через ворота и обходят картинку по дорожке.`);draw();
  }
@@ -226,7 +228,9 @@
     const ctx=canvas.getContext('2d');ctx.setTransform(scale,0,0,scale,0,0);ctx.clearRect(0,0,width,height);
     const cell=Math.min((width-8)/l.w,(height-10)/l.h),ox=(width-l.w*cell)/2,oy=(height-l.h*cell)/2,depth=Math.max(.8,cell*.14),gap=Math.max(.35,cell*.035);
     if(!finished)entryMarkers.forEach((node,i)=>{node.style.left=`${ox+((l.entries[i]%l.w)+.5)*cell}px`;});
-    const original=s.meta.board;
+    const original=s.meta.board,stone=stoneOf(l.id);
+    // the built bridge (17 §8, 2026-10-28): a plank across the strip in its crossing direction (up/down or sideways)
+    const built=!finished&&s.bridge>=0?l.hero.choices[s.bridge]:null,across=built&&Math.abs(built.cell-built.anchor)===1;
     for(let y=l.h-1;y>=0;y--)for(let x=0;x<l.w;x++){
       const index=y*l.w+x,code=finished?original[index]:s.board[index],px=ox+x*cell,py=oy+(l.h-1-y)*cell;
       // v9 garden: the fence (board edge, and the top row where the path is closed) and the path are drawn as solid
@@ -236,11 +240,15 @@
       if(original[index]===R.OPEN&&!finished){ctx.fillStyle='#eadcb5';ctx.fillRect(px-.3,py-.3,cell+.6,cell+.6);
         if(l.entries.includes(index)){ctx.fillStyle='#3d5a37';ctx.beginPath();const r=cell*.42;ctx.arc(px+cell/2,py+cell*(y===0?.85:.5),r,0,Math.PI*2);ctx.fill();}
         continue;}
+      // the generator's wall over the picture (and the ring cells it closes) is stone; a strip drawn in the picture stays water
+      if(code===R.WALL&&stone.has(index)){ctx.fillStyle='#a39d90';ctx.fillRect(px,py,cell+.1,cell+.1);ctx.fillStyle='#8a8476';ctx.fillRect(px,py+cell*.47,cell+.1,Math.max(.6,cell*.07));ctx.fillRect(px+((x+y)%2?cell*.25:cell*.7),py,Math.max(.6,cell*.07),cell*.47);ctx.fillRect(px+((x+y)%2?cell*.7:cell*.25),py+cell*.53,Math.max(.6,cell*.07),cell*.47);continue;}
       if(code===R.WALL){ctx.fillStyle='#b6d6cc';ctx.fillRect(px,py,cell+.1,cell+.1);ctx.strokeStyle='#d6ece2';ctx.lineWidth=Math.max(.7,cell*.08);ctx.beginPath();ctx.moveTo(px+cell*.15,py+cell*.55);ctx.quadraticCurveTo(px+cell*.55,py+cell*.25,px+cell*.88,py+cell*.55);ctx.stroke();continue;}
       if(code===R.OPEN){
         // v9: cells that were open from the start (round an object-only picture) are not drawn: the card shows through.
         if(original[index]>=0){ctx.fillStyle=palette[R.CHANNELS[original[index]]].color+'22';ctx.fillRect(px+gap,py+gap,cell-gap*2,cell-gap*2);}
-        if(!finished&&s.bridge>=0&&index===l.hero.choices[s.bridge].cell){ctx.fillStyle='#8eac62';ctx.fillRect(px+gap,py,cell-gap*2,cell);ctx.strokeStyle='#5b7d46';ctx.lineWidth=Math.max(.7,cell*.07);for(let k=1;k<4;k++){ctx.beginPath();ctx.moveTo(px+gap,py+cell*k/4);ctx.lineTo(px+cell-gap,py+cell*k/4);ctx.stroke();}}
+        if(built&&index===built.cell){ctx.fillStyle='#8eac62';ctx.strokeStyle='#5b7d46';ctx.lineWidth=Math.max(.7,cell*.07);
+          if(across){ctx.fillRect(px,py+gap,cell,cell-gap*2);for(let k=1;k<4;k++){ctx.beginPath();ctx.moveTo(px+cell*k/4,py+gap);ctx.lineTo(px+cell*k/4,py+cell-gap);ctx.stroke();}}
+          else{ctx.fillRect(px+gap,py,cell-gap*2,cell);for(let k=1;k<4;k++){ctx.beginPath();ctx.moveTo(px+gap,py+cell*k/4);ctx.lineTo(px+cell-gap,py+cell*k/4);ctx.stroke();}}}
         continue;
       }
       const p=palette[R.CHANNELS[code]];

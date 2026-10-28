@@ -21,9 +21,11 @@
 //   count and check a module's matrices without recording them (skill bloomlings-board-picture), sheet from the matrices
 // A batch module: export default {theme, pictures:[{title, theme?, forLevel?, family, direction?, device?, subject?, source?,
 // reference?, rows:[…top first…]}]} (tags: product/design/Bloomlings-picture-theme-catalog.md); rows use the
-// palette letters GPBACDVYOLMRKNSE, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it.
+// palette letters GPBACDVYOLMRKNSE, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it. A strip
+// may run in any direction (17 §8, 2026-10-28): a stream across, a fence or wall along; each site's anchor is its one
+// neighbour on the near bank (below, left or right), a colour cell, and exactly two sites make the choice.
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
-import {usage,FIXED_VOLUMES,APPROVED,PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag,motifsOf} from './lib.mjs';
+import {usage,FIXED_VOLUMES,APPROVED,PICTURES,CODES,PALETTE,manifest,saveManifest,nextSeq,pid,picture,writeJSON,measure,stageOf,fitsStage,sizeBin,png,FONT,rgbOf,arg,flag,motifsOf,boardOf,DIR_RU} from './lib.mjs';
 const cmd=process.argv[2];
 const idsFrom=args=>{const m=manifest(),st=arg('--status');let ids=args.filter((a,i)=>/^P?\d+$/.test(a)&&!(args[i-1]||'').startsWith('--')).map(a=>a.startsWith('P')?a:pid(+a));
  if(!ids.length&&st)ids=m.pictures.filter(p=>p.status===st).map(p=>p.id);if(!ids.length)ids=m.pictures.map(p=>p.id);return ids;};
@@ -51,14 +53,16 @@ export function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=m
  if(m.colours>=10)warn.push('10–11 цветов: не больше 2 в любых 20 уровнях, цвет должен улучшать читаемость');
  for(const [c,v] of Object.entries(m.volumes))if(v<3)warn.push(`цвет ${c} (${PALETTE[c].name}): ${v} кл. — очень маленькая деталь`);
  if(p.w+4>48||p.h+4>48)issues.push('поле с рамкой больше 48×48');
- // every coloured cell can be opened: it is joined to the frame through cells that are not walls
- // a stream row across the whole width closes the ring too (boardOf); a bridge site counts as passable, since one is built
- const W=p.w+2,H=p.h+2,stream=y=>y>=1&&y<=p.h&&/^[#b]+$/.test(p.rows[y-1]),cell=(x,y)=>x<1||y<1||x>p.w||y>p.h?(stream(y)?'#':'.'):p.rows[y-1][x-1],start=(p.h+1)+'',seen=new Set(['0,'+start]),q=[[0,p.h+1]];
- while(q.length){const [x,y]=q.pop();for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=W||v>=H||seen.has(u+','+v))continue;const c=cell(u,v);if(c==='#')continue;seen.add(u+','+v);q.push([u,v]);}}
- let shut=0;for(let y=1;y<=p.h;y++)for(let x=1;x<=p.w;x++)if(CODES.includes(cell(x,y))&&!seen.has(x+','+y))shut++;if(shut)issues.push(`${shut} цветных клеток отрезаны стенами`);
+ // every coloured cell can be opened: joined to the entry through cells that are not walls once both bridges stand
+ // (boardOf: strips of any direction, the ring closed outward of each strip cell on the picture's edge, anchors resolved)
+ let board=null;try{board=boardOf(p);}catch(e){if(e.name!=='BridgeAnchorError')throw e;issues.push(e.message);}
+ if(board){const {w,h,rowsBottomFirst:rb,entries}=board,g=rb.join(''),bridges=new Set((board.hero?board.hero.choices:[]).map(c=>c.cell)),seen=new Uint8Array(w*h),q=[...entries];for(const i of q)seen[i]=1;
+  while(q.length){const i=q.pop(),x=i%w,y=Math.floor(i/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy,j=v*w+u;if(u<0||v<0||u>=w||v>=h||seen[j]||(g[j]==='#'&&!bridges.has(j)))continue;seen[j]=1;q.push(j);}}
+  let shut=0;for(let i=0;i<g.length;i++)if(CODES.includes(g[i])&&!seen[i])shut++;if(shut)issues.push(`${shut} цветных клеток отрезаны стенами`);
+  // §8 (the owner, 2026-10-27): a bridge is not free at the start; its anchor (the near-bank neighbour on any side) is a
+  // colour to clear first
+  if(board.hero)for(const c of board.hero.choices)if(!CODES.includes(g[c.anchor]))issues.push(`мост (${c.cell%w-2}, ${h-3-Math.floor(c.cell/w)}) ${DIR_RU[c.dir]}: подход пустой — мост открывается сразу (§8)`);}
  const sites=p.rows.join('').split('b').length-1;if(sites&&sites!==2)issues.push(`мест моста ${sites}, нужно ровно 2`);
- // §8 (the owner, 2026-10-27): a bridge is not free at the start; the cell below each site (its approach) is a colour to clear
- p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++)if(r[x]==='b'&&!(y+1<p.h&&CODES.includes(p.rows[y+1][x])))issues.push(`мост в колонке ${x}: подход под ним пустой — мост открывается сразу (§8)`);});
  return {id:p.id,seq:p.seq,forLevel:p.forLevel,N:m.N,colours:m.colours,size:sizeBin(m.N),ok:!issues.length,issues,warn};}
 function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pics.map(p=>Math.max(p.w,p.h)))));
  const tw=Math.max(...pics.map(p=>p.w))*cs+16,lab=34,th=Math.max(...pics.map(p=>p.h))*cs+lab+16,C=Math.min(cols,pics.length),R=Math.ceil(pics.length/C),Wt=C*tw,Ht=R*th,px=Buffer.alloc(Wt*Ht*3,255);

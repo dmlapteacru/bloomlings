@@ -1,6 +1,7 @@
 // The automatic screen of pictures before the owner's contact sheet (17 §13, the owner's decision of 2026-10-27: every
 // picture is still approved on the sheet, but only screened ones reach it). Each picture gets:
-//   rules  — the §2 check of pictures.mjs (stage range, colours, cut-off cells, bridge sites); a failure stops it;
+//   rules  — the §2 check of pictures.mjs (stage range, colours, cut-off cells, strips of any direction with two bridge
+//     sites whose anchors resolve to colour cells on the near bank, §8); a failure stops it;
 //   strength — colours hidden at the start (fitness.mjs): weak pictures carry introductions only, strong ones Hard;
 //   potential — a quick queue test with no mechanics: can it give a Normal of 50–75 % and a Hard under 50 %;
 //   readability — tiny patches (cells of a colour cut off in pieces under 3 cells; over 7 % of the cells, the top tenth
@@ -39,9 +40,10 @@ const reduce=p=>{const H=p.rows.length,W=p.rows[0].length,G=12,out=[];for(let j=
  out.push(Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0][0]);}return out;};
 const sim=(a,b)=>{let s=0;for(let i=0;i<a.length;i++){if(a[i]===b[i])s++;else if((a[i]==='.')===(b[i]==='.'))s+=.5;}return s/a.length;};
 
-// potential: four Normal and four Hard queues without mechanics, a quick random test of each
+// potential: four Normal and four Hard queues without mechanics (a picture with a strip of any direction: with its bridge
+// group only), a quick random test of each
 async function potential(p,games){const m=measure(p),board=boardOf(p),base=splitPods(m.volumes,m.N,null);if(base.error)return {error:base.error};const out={Normal:[],Hard:[]};
- for(let k=0;k<8;k++){const cls=k<4?'Normal':'Hard',c=candidate(p,board,base.pods,columnsFor(m.N)[k%columnsFor(m.N).length],'none',cls,k*7919+303,false);if(c.error)continue;out[cls].push(await quickShare(c.level,games));}
+ for(let k=0;k<8;k++){const cls=k<4?'Normal':'Hard',c=candidate(p,board,base.pods,columnsFor(m.N)[k%columnsFor(m.N).length],board.hero?'bridge':'none',cls,k*7919+303,false);if(c.error)continue;out[cls].push(await quickShare(c.level,games));}
  return {normalZone:out.Normal.concat(out.Hard).some(s=>s>=.5&&s<=.75),hard:out.Hard.some(s=>s>=.15&&s<.5),shares:out};}
 
 const levelArg=arg('--level')?+arg('--level'):null,games=+arg('--games',20);

@@ -26,12 +26,26 @@ Before anything, read:
 
 ## Steps
 
-1. **Plan.**
-   - Run `node tools/rounds/rounds.mjs plan <from> <to>`. It writes `content/rounds/runs/L####-L####/plan.md`.
+1. **Mechanics breakdown first, then the plan** (17 §13 step 1, the owner's amendment of 2026-10-28).
+   - Before any picture, draft the wave's mechanics breakdown for the owner: per level the lead mechanic, the additional
+     ones and their doses by §7 (the lead its range, one additional its minimum, three types the lead in its lower half),
+     the bridge's crossing side (`up`, `left`, `right`, `two` = two sites crossing different ways or on different
+     strips) and where the strip comes from (`new`: a picture with the strip drawn in; `overlay`: a straight wall the
+     generator lays over an approved picture), and the share of each open mechanic in the wave. Every open mechanic is
+     used and combined (§7, §9, §11); a Normal without mechanics at most about one in three. Example:
+     `product/plans/wave-L21-L50-mechanics-plan-2026-10-28.md`.
+   - When the owner approves it, save the machine copy `content/rounds/runs/L####-L####/mechanics.json`
+     (`format: bloomlings-wave-mechanics-1`, `approved`, `approvedBy: owner`, `levels: [{level, cls, lead, add, recipe,
+     bridgeSide?, strip?}]`, recipe lead first). Placement holds it: a planned position takes only its recipe and, for
+     a bridge, its crossing side.
+   - Run `node tools/rounds/rounds.mjs plan <from> <to>`. It writes `content/rounds/runs/L####-L####/plan.md`: the
+     breakdown with shares, the positions, the supply (how many free pool pictures take the wall of each overlay
+     position) and the picture order for what the plan needs (new strip pictures by crossing side and size stage, pool
+     pictures for the rest).
    - Tell the owner which positions the engine cannot fill yet (an introduction of an unsupported mechanic, 17 §14).
      They stay open and the rest of the wave runs; never fake one mechanic with another.
 2. **Pictures**, only if the plan orders any. Skill `bloomlings-round-pictures` with the plan's order: counts by stage
-   and size, strong pictures, streams, motifs to avoid, families to prefer.
+   and size, strong pictures, strip pictures by crossing side, motifs to avoid, families to prefer.
    - The mass is SVG drafts plus `svg2cells.mjs`.
    - Special pictures are hand matrices.
    - Everything passes `screen.mjs`, then goes on a numbered contact sheet.
@@ -40,7 +54,9 @@ Before anything, read:
    - It is resumable: run it again after an interruption.
    - It does, in order:
      - a dry placement;
-     - candidates for open positions only;
+     - candidates for open positions only (under the mechanics plan only each position's planned recipe: on the
+       generator's wall of the planned side for an overlay position, on a picture with its own strip of that side for
+       a new-strip one);
      - missing checks;
      - placement;
      - `audit.mjs`;

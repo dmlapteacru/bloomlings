@@ -15,13 +15,18 @@ const T=await import('../transfer-log.mjs');
 const readJSON=f=>JSON.parse(fs.readFileSync(f,'utf8'));
 const level=n=>readJSON(path.join(ROOT,'content/rounds/levels',`L${String(n).padStart(4,'0')}.json`));
 
-// a fresh copy of what the exporter reads
+// a fresh copy of what the exporter reads, and the owner's pilot results as if played on the current engine (the
+// sandbox's results.json: the engine changes between pilots, e.g. the sideways bridge anchor of 2026-10-28, while these
+// tests are about the exporter; refusing another engine is tested on its own below)
 function sandbox(){const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-export-'));
  for(const p of ['levels','pictures'])fs.cpSync(path.join(ROOT,'content/rounds',p),path.join(dir,p),{recursive:true});
- fs.copyFileSync(path.join(ROOT,'content/rounds/quality.json'),path.join(dir,'quality.json'));return dir;}
+ fs.copyFileSync(path.join(ROOT,'content/rounds/quality.json'),path.join(dir,'quality.json'));
+ const res=readJSON(path.join(ROOT,RESULTS)),fp=C.fingerprints();Object.assign(res,{rulesHash:fp.rules,timelineHash:fp.timeline,paletteHash:fp.palette,clockHash:fp.clock});
+ fs.writeFileSync(path.join(dir,'results-now.json'),JSON.stringify(res));return dir;}
+const now=dir=>path.join(dir,'results-now.json'),relNow=dir=>path.relative(ROOT,now(dir)).split(path.sep).join('/');
 const node=(dir,args)=>spawnSync(process.execPath,args,{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});
 const exportCli=(dir,from,to,extra=[])=>node(dir,[path.join(TOOLS,'export.mjs'),String(from),String(to),'--out',path.join(dir,'out'),'--game',path.join(dir,'game'),...extra]);
-const confirmCli=(dir,from,to,sample=RESULTS)=>node(dir,[path.join(TOOLS,'rounds.mjs'),'confirm',String(from),String(to),'--sample',sample]);
+const confirmCli=(dir,from,to,sample=now(dir))=>node(dir,[path.join(TOOLS,'rounds.mjs'),'confirm',String(from),String(to),'--sample',sample]);
 
 test('refuses without the owner confirmation, and writes nothing',()=>{const dir=sandbox();
  const r=exportCli(dir,1,2);assert.equal(r.status,1);assert.match(r.stderr,/no owner confirmation: .*runs\/L0001-L0002\/confirmed\.json/);
@@ -50,8 +55,8 @@ test('confirm refuses results played on another engine',()=>{const dir=sandbox()
 
 test('exports L1–L2 in the v1 formats with fixtures',()=>{const dir=sandbox();
  const c=confirmCli(dir,1,2);assert.equal(c.status,0,c.stderr);const conf=readJSON(path.join(dir,'runs','L0001-L0002','confirmed.json'));
- assert.deepEqual(conf.wave,[1,2]);assert.deepEqual(conf.sample,[1,2]);assert.equal(conf.results,RESULTS);assert.match(conf.date,/^\d{4}-\d{2}-\d{2}$/);
- const r=exportCli(dir,1,2,['--owner-results',RESULTS]);assert.equal(r.status,0,r.stderr+r.stdout);
+ assert.deepEqual(conf.wave,[1,2]);assert.deepEqual(conf.sample,[1,2]);assert.equal(conf.results,relNow(dir));assert.match(conf.date,/^\d{4}-\d{2}-\d{2}$/);
+ const r=exportCli(dir,1,2,['--owner-results',now(dir)]);assert.equal(r.status,0,r.stderr+r.stdout);
  const out=path.join(dir,'out'),m=readJSON(path.join(out,'export.json')),fp=C.fingerprints();
  assert.equal(m.format,'round-export.v1');assert.deepEqual(m.wave,[1,2]);assert.deepEqual(m.levels,[1,2]);assert.deepEqual(m.engine,fp);assert.deepEqual(m.fixtureErrors,[]);
  assert.deepEqual(m.counts,{levels:2,pictures:2,proofs:2,conformance:2,randomGames:200,ownerAttempts:2});
@@ -68,7 +73,7 @@ test('exports L1–L2 in the v1 formats with fixtures',()=>{const dir=sandbox();
   assert.deepEqual(fx.solution.windows.map(w=>w.command),pf.solution.commands);assert.equal(fx.solution.endUs,pf.solution.endUs);
   assert.equal(fx.random.games.length,pf.randomTest.runs);assert.equal(fx.random.wins,pf.randomTest.wins);assert.equal(fx.random.games.filter(g=>g.outcome==='Won').length,fx.random.wins);
   assert.deepEqual(fx.random.games.slice(0,3).map(g=>g.seed),[7920,112649,217378]);
-  assert.equal(fx.owner.length,1);assert.equal(fx.owner[0].outcome,'won');assert.equal(fx.owner[0].source,RESULTS);}
+  assert.equal(fx.owner.length,1);assert.equal(fx.owner[0].outcome,'won');assert.equal(fx.owner[0].source,relNow(dir));}
  // the transfer log takes the export, then its stages in order
  const log=path.join(dir,'transfers.jsonl');
  assert.equal(T.stateOf(T.record('exported',{exportDir:out,file:log})),'exported');
