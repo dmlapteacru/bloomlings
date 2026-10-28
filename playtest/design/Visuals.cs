@@ -52,6 +52,44 @@ namespace Bloomlings.Playtest.Design
             p.Shape(SymbolOf(variant), Box.FromCenter(box.CenterX, box.Top + (box.Height * 0.62f), s, s), color.Ink);
         }
 
+        /// <summary>How strongly a walker's picture is washed with its material's colour (spec 006 FR-048).</summary>
+        public const float WalkerTint = 0.55f;
+
+        private static readonly (string Slot, string Name)[] WalkerPictures = MakeWalkers();
+
+        /// <summary>
+        /// A walking Bloomling of a round level and of the Store's clearing previews (spec 006 FR-048): the 2D character of
+        /// <paramref name="family"/>'s hero (its leaf, flower, drop or log, flat 2D as every in-level picture) washed with
+        /// <paramref name="tint"/>, the material's colour, at <see cref="WalkerTint"/>. Without the picture it is the family
+        /// silhouette in the tint. No new art: the variants' own pictures, recoloured.
+        /// </summary>
+        public static void Walker(IPainter p, Box box, Family family, Rgba tint)
+        {
+            p.Mark(ShapeLibrary.SilhouetteId(family));
+            (string slot, string name) = WalkerPictures[(int)family];
+            p.Mark(slot);
+            if (p.HasSprite(name))
+            {
+                p.Sprite(name, box);
+                p.SpriteTint(name, box, tint.WithAlpha(WalkerTint));
+                return;
+            }
+
+            p.Shape(ShapeLibrary.SilhouetteId(family), box, tint);
+        }
+
+        private static (string, string)[] MakeWalkers()
+        {
+            var pictures = new (string, string)[4];
+            foreach (Family family in new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig })
+            {
+                string icon = VariantCatalog.Default.TryGet(HeroVariant(family), out VariantInfo info) ? info.IconId : "leaf";
+                pictures[(int)family] = (CharacterArt.Slot2D(icon), CharacterArt.Picture2D(icon, CharacterMood.Happy));
+            }
+
+            return pictures;
+        }
+
         /// <summary>A soft flat shadow under a character standing in <paramref name="box"/> (part of the character's look).</summary>
         public static void GroundShadow(IPainter p, Box box)
         {

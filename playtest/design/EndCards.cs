@@ -6,6 +6,7 @@ using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Slots;
 using Bloomlings.Core.Variants;
@@ -14,6 +15,37 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Playtest.Design
 {
+    /// <summary>
+    /// What the win and milestone screens need from a level screen of either rule set (<see cref="LevelScreen"/>, the round
+    /// <see cref="RoundLevelScreen"/>, spec 006 FR-046): the level, its payout, the finished picture and its colours.
+    /// </summary>
+    public interface ILevelEnd
+    {
+        int Level { get; }
+
+        WinPayout? Payout { get; }
+
+        PlaytestMeta Meta { get; }
+
+        DesignApp App { get; }
+
+        /// <summary>Whether the win's last frame showed the animated hero (the screen keeps redrawing).</summary>
+        bool HeroMoving { get; set; }
+
+        /// <summary>The finished picture's size in cells.</summary>
+        (int Width, int Height) PictureSize { get; }
+
+        /// <summary>The finished picture in its thin stone frame, filling <paramref name="box"/>.</summary>
+        void DrawPicture(IPainter p, Box box);
+
+        /// <summary>The level's colours, for the win's confetti.</summary>
+        IReadOnlyList<Rgba> ConfettiColors { get; }
+
+        void Next();
+
+        void Restart();
+    }
+
     /// <summary>
     /// The screens at a level's end and the cards before it (spec 002 FR-019 to FR-021) in the reference look and the
     /// reference layouts of spec 005 (<c>specs/005-reference-look/contracts/look.md</c> §4.3, §4.4, §6.2, §6.3):
@@ -47,7 +79,7 @@ namespace Bloomlings.Playtest.Design
         /// have, so it is never offered here (the Unity client shows it at <see cref="WinRegions.Double"/>). The spec 001
         /// sequence stays: reveal, then reward, then Next.
         /// </summary>
-        public static void Win(IPainter p, LevelScreen s, float since)
+        public static void Win(IPainter p, ILevelEnd s, float since)
         {
             LevelReward? reward = s.Payout?.Reward;
             WinRegions r = ScreenLayout.WinScreen(p.Width, p.Height, p.Insets);
@@ -60,9 +92,9 @@ namespace Bloomlings.Playtest.Design
             // The finished picture, its cells in full color in a thin stone frame (BoardPainter.Picture), as large as its
             // region allows from under the sign; it pops in and a light band sweeps it once.
             p.Mark("fx.win_shine");
-            Box picture = PictureBox(r.Picture, s.Session.Picture);
+            Box picture = PictureBox(r.Picture, s.PictureSize);
             p.PushTransform(0f, 0f, Kit.Pop(since - 0.05f), picture.CenterX, picture.CenterY);
-            BoardPainter.Picture(p, picture, s.Session.Definition, s.Session.Picture);
+            s.DrawPicture(p, picture);
             if (since < 1.3f)
             {
                 float band = picture.Left + ((picture.Width + p.U(200f)) * Visuals.Clamp01((since - 0.1f) / 1.2f)) - p.U(100f);
@@ -111,7 +143,7 @@ namespace Bloomlings.Playtest.Design
         /// tile's bottom edge), the celebrating hero on the pedestal in the rays and petals, "Milestone reached!" with the
         /// gold medal in the pill on the pedestal's front, and Continue.
         /// </summary>
-        public static void Milestone(IPainter p, LevelScreen s, float since)
+        public static void Milestone(IPainter p, ILevelEnd s, float since)
         {
             MilestoneGrant grant = s.Payout!.Milestone!;
             var items = new List<(Action<Box> Icon, string Amount)>();
@@ -207,7 +239,42 @@ namespace Bloomlings.Playtest.Design
                 choices.Add((IdOf(rescue.Value.Kind), GardenLook.Green, BoosterName(rescue.Value.Kind), Cost.Free, s.UseRescue));
             }
 
-            bool stuck = s.Session.Status == LevelStatus.Stuck;
+            JamCard(p, choices, s.Session.Status == LevelStatus.Stuck, r => SlotContents(p, r, s), s.Restart, since);
+        }
+
+        /// <summary>
+        /// The jam card of a round level (spec 006 FR-012, T027): the same card, its choices the boosters the round rules
+        /// accept now (unlocked and affordable), each pressed as on the booster bar, then the free rescue once per attempt;
+        /// the well shows the places' material tiles and counts.
+        /// </summary>
+        public static void Jam(IPainter p, RoundLevelScreen s, float since)
+        {
+            var choices = new List<(string Id, ColorSet Set, string Label, Cost Cost, Action Action)>();
+            foreach (BoosterKind kind in s.JamBoosters())
+            {
+                int charges = s.Meta.Economy.Charges(kind);
+                Cost cost = charges > 0 ? Cost.Charges(charges) : Cost.Petals(s.Meta.Economy.Price(kind));
+                BoosterKind used = kind;
+                string id = IdOf(kind);
+                string label = charges == 0
+                    ? PlaytestText.F("store.booster_quantity", BoosterName(kind), Client.Services.Economy.EconomyService.PurchaseQuantity(kind))
+                    : BoosterName(kind);
+                choices.Add((id, ChoiceSet(id), label, cost, () => s.PressBooster(used)));
+            }
+
+            (BoosterKind Kind, RoundInput Command)? rescue = s.RescueOffer();
+            if (rescue.HasValue)
+            {
+                choices.Add((IdOf(rescue.Value.Kind), GardenLook.Green, BoosterName(rescue.Value.Kind), Cost.Free, s.UseRescue));
+            }
+
+            JamCard(p, choices, s.Play.Status == RoundStatus.Stuck, r => RoundPainter.JamWell(p, r, s), s.Restart, since);
+        }
+
+        /// <summary>The jam card itself, for a level of either rule set: its <paramref name="choices"/>, the places' well
+        /// (<paramref name="slots"/>) and Restart.</summary>
+        private static void JamCard(IPainter p, List<(string Id, ColorSet Set, string Label, Cost Cost, Action Action)> choices, bool stuck, Action<JamCardRegions> slots, Action restart, float since)
+        {
             JamCardRegions r = ScreenLayout.JamCard(p.Width, p.Height, p.Insets, choices.Count, hasClose: false);
 
             // The warm scrim (surface.scrim, alpha 0.5) fades in; below the top bar it takes every tap the card does not.
@@ -232,7 +299,7 @@ namespace Bloomlings.Playtest.Design
                 p.Text(subtitle[i], r.Subtitle.CenterX, first + (i * line), T.Body, C.InkBrownSoft, r.Subtitle.Width, bodyScale);
             }
 
-            SlotContents(p, r, s);
+            slots(r);
             for(int i=0;i<choices.Count;i++)
             {
                 (string id,ColorSet set,string label,Cost cost,Action action)=choices[i];Box cell=r.Choices[i];
@@ -243,7 +310,7 @@ namespace Bloomlings.Playtest.Design
                 Kit.CostPill(p,cost.Kind==CostKind.Petals ? ProfileGameDesign.PurchaseFace(r.CostPills[i]) : r.CostPills[i],cost,chargeIcon:GardenLook.BoosterIcon(id),button:true);p.PopTransform();p.Hit(cell,action);
             }
 
-            Kit.SecondaryButton(p, r.Restart, PlaytestText.T("common.restart"), s.Restart, "ui.restart", PrimaryActionDesign.Type(T.Button));
+            Kit.SecondaryButton(p, r.Restart, PlaytestText.T("common.restart"), restart, "ui.restart", PrimaryActionDesign.Type(T.Button));
             p.PopTransform();
         }
 
@@ -525,7 +592,7 @@ namespace Bloomlings.Playtest.Design
         /// stone disc to lie under the layout's pedestal (<see cref="OwnerPictures.TopAnchored"/>): the disc is then the
         /// stage, and no drawn pedestal stands on it (<see cref="PaintedStage"/>).
         /// </summary>
-        private static void Garden(IPainter p, LevelScreen s, WinRegions r, float since)
+        private static void Garden(IPainter p, ILevelEnd s, WinRegions r, float since)
         {
             var screen = new Box(0f, 0f, p.Width, p.Height);
             float stage = HomeStage.PedestalTop(r.Pedestal).CenterY;
@@ -550,7 +617,7 @@ namespace Bloomlings.Playtest.Design
         /// rising a little and settling). The animated hero reacts as it lands and then idles (<see cref="CelebrationPose"/>),
         /// and the screen keeps redrawing for it (<see cref="LevelScreen.HeroMoving"/>).
         /// </summary>
-        private static void Stand(IPainter p, LevelScreen s, WinRegions r, Celebrant hero, Family family, float since)
+        private static void Stand(IPainter p, ILevelEnd s, WinRegions r, Celebrant hero, Family family, float since)
         {
             if (!PaintedStage(p))
             {
@@ -583,10 +650,10 @@ namespace Bloomlings.Playtest.Design
         /// The finished picture's box in <paramref name="area"/>: its stone frame's outer edge (<see cref="BoardPainter.Picture"/>:
         /// the grid, the gap and a 0.3 cell border), as large as fits, centered across and hanging from the area's top.
         /// </summary>
-        private static Box PictureBox(Box area, BasePicture picture)
+        private static Box PictureBox(Box area, (int Width, int Height) size)
         {
-            int w = Math.Max(1, picture.Width);
-            int h = Math.Max(1, picture.Height);
+            int w = Math.Max(1, size.Width);
+            int h = Math.Max(1, size.Height);
             float rim = 2f * (BoardLayout.Gap + 0.3f);
             float cell = Math.Min(area.Width / (w + rim), area.Height / (h + rim));
             float width = cell * (w + rim);
@@ -644,7 +711,7 @@ namespace Bloomlings.Playtest.Design
         /// (FR-023), but Pause stays usable over it (FR-016), so Home, Restart and Settings stay reachable. It takes taps
         /// once <paramref name="active"/>.
         /// </summary>
-        private static void PauseButton(IPainter p, LevelScreen s, WinRegions r, bool active)
+        private static void PauseButton(IPainter p, ILevelEnd s, WinRegions r, bool active)
         {
             p.Mark("ui.pause");
             Box pause = r.Pause;
@@ -856,7 +923,7 @@ namespace Bloomlings.Playtest.Design
         /// A light sprinkle of confetti in the level's variant colors for the first seconds of a win (fx.confetti), falling
         /// through <paramref name="area"/> behind the celebration, so the picture, the reward and Next stay clean.
         /// </summary>
-        private static void Confetti(IPainter p, LevelScreen s, Box area, float since)
+        private static void Confetti(IPainter p, ILevelEnd s, Box area, float since)
         {
             if (since > 2.2f)
             {
@@ -864,16 +931,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.Mark("fx.confetti");
-            var colors = new List<Rgba>();
-            foreach (PodDef pod in s.Session.Definition.Pods)
-            {
-                Rgba c = Visuals.ColorOf(pod.Variant);
-                if (!colors.Contains(c))
-                {
-                    colors.Add(c);
-                }
-            }
-
+            var colors = new List<Rgba>(s.ConfettiColors);
             colors.Add(C.LotusFill);
             colors.Add(C.PetalCenter);
             for (int i = 0; i < 24; i++)

@@ -120,5 +120,41 @@ namespace Bloomlings.Client.UI.Design
 
             return pixels;
         }
+
+        /// <summary>
+        /// A round level's cleared cell (<c>tile.ground</c>, spec 006 T049), as the game's restored cells: the finished
+        /// picture as a pale flat cell in <paramref name="color"/> (the material's colour lightened), a slightly deeper rim
+        /// round it and a faint shadow along its top, filling <paramref name="width"/> × <paramref name="height"/>. One
+        /// cached picture a material, so a cleared board costs one picture a cell.
+        /// </summary>
+        public static byte[] ClearedCell(int width, int height, Rgba color)
+        {
+            Check(width, height);
+            float s = Math.Min(width, height);
+            float inset = s * 0.025f;
+            float r = (s - (2f * inset)) * 0.1f;
+            Rgba rim = color.Darken(0.12f);
+            var pixels = new byte[width * height * 4];
+            for (int py = 0; py < height; py++)
+            {
+                float y = py + 0.5f;
+                for (int px = 0; px < width; px++)
+                {
+                    float x = px + 0.5f;
+                    var c = new Color(rim);
+                    float face = Coverage(RoundRect(x, y, inset, inset, width - inset, height - inset, r));
+                    if (face > 0f)
+                    {
+                        var g = new Color(color);
+                        g.Mix(C.GardenShadow, 0.12f * Clamp01(1f - ((y - inset) / (height * 0.24f))));
+                        c.Mix(g.ToRgba(), face);
+                    }
+
+                    Put(pixels, width, px, py, c, 1f);
+                }
+            }
+
+            return pixels;
+        }
     }
 }

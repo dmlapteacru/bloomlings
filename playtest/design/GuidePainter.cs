@@ -45,7 +45,16 @@ namespace Bloomlings.Playtest.Design
             // The ring breathes round the lit place (round the arch only when the lit place is many tiles).
             Box ringed = holes[0];
             Ring(p, ringed, Math.Min(p.U(radius), Math.Min(ringed.Width, ringed.Height) / 2f), t);
-            Bubble(p, layout, step, lines, s);
+            Bubble(p, layout, step, lines, box =>
+            {
+                if (step.Kind == GuideKind.Blocked && GuideTour.BlockingVariant(s.Session.View) is VariantId variant)
+                {
+                    Kit.CandyTile(p, box, variant, TileStyle.Sticker);
+                    return true;
+                }
+
+                return false;
+            });
             if (step.Forced)
             {
                 Box hand = Spotlight.HandAt(layout, t);
@@ -60,6 +69,167 @@ namespace Bloomlings.Playtest.Design
             if (step.Forced)
             {
                 LitTargets(p, s, step, board);
+            }
+        }
+
+        /// <summary>
+        /// The guided spotlight over a round level (spec 006 FR-061, T030): the same scrim, ring, bubble and hand, lighting the
+        /// gate's arch, the cubes that block the way, the guided pod, a booster, Return's places or the board.
+        /// </summary>
+        public static void Draw(IPainter p, RoundLevelScreen s, RoundBoardLayout board, ReferenceGameplayRegions r)
+        {
+            GuideStep step = s.Guide!;
+            List<Box> holes = Holes(p, s, step, board);
+            if (holes.Count == 0)
+            {
+                return;
+            }
+
+            float t = s.UiNow - s.GuideOpenedAt;
+            bool icon = Icon(step) != null || step.Kind == GuideKind.Blocked;
+            (string Text, bool Strong)[] lines = Lines(p, step, icon);
+            SpotlightLayout layout = Spotlight.Layout(p.Width, p.Height, p.Insets, Spotlight.Union(holes), lines.Length, icon, !step.Forced, step.Forced);
+            float radius = step.Kind == GuideKind.Blocked ? Spotlight.CellRadiusUnits : Spotlight.RadiusUnits;
+            p.PushAlpha(Visuals.Clamp01(t / FadeSeconds));
+            Scrim(p, holes, radius);
+            Box ringed = holes[0];
+            Ring(p, ringed, Math.Min(p.U(radius), Math.Min(ringed.Width, ringed.Height) / 2f), t);
+            Bubble(p, layout, step, lines, box =>
+            {
+                int material = step.Kind == GuideKind.Blocked ? GuideTour.BlockingMaterial(s.Play.Timeline) : -1;
+                if (material < 0)
+                {
+                    return false;
+                }
+
+                Kit.MaterialTile(p, box, Bloomlings.Core.Rounds.RoundMaterial.All[material], RoundLook.PodStyle, s.Symbols);
+                return true;
+            });
+            if (step.Forced)
+            {
+                Box hand = Spotlight.HandAt(layout, t);
+                p.Shape("ui.pointer", hand.Inset(-p.U(5f)), C.InkBrown);
+                p.Shape("ui.pointer", hand, Rgba.White);
+            }
+
+            p.PopAlpha();
+            p.Hit(new Box(0f, 0f, p.Width, p.Height), step.Forced ? () => { } : (Action)s.NextGuideStep);
+            if (step.Forced)
+            {
+                LitTargets(p, s, step, board);
+            }
+        }
+
+        /// <summary>The lit holes of a round level's step (empty while its place is not drawn yet).</summary>
+        public static List<Box> Holes(IPainter p, RoundLevelScreen s, GuideStep step, RoundBoardLayout board)
+        {
+            var holes = new List<Box>();
+            void Lit(Box? box)
+            {
+                if (box.HasValue)
+                {
+                    holes.Add(Spotlight.HoleAround(box.Value, p.Scale));
+                }
+            }
+
+            var arches = new List<Box>();
+            foreach (RoundGate gate in board.Gates)
+            {
+                arches.Add(BoardLayout.ArchBounds(gate.Arch));
+            }
+
+            switch (step.Kind)
+            {
+                case GuideKind.Entry:
+                    Lit(Union(arches));
+                    break;
+                case GuideKind.Blocked:
+                    Lit(Union(arches));
+                    foreach (int cell in GuideTour.BlockingCells(s.Play.Timeline))
+                    {
+                        holes.Add(board.CellBox(cell).Inset(-p.U(2f)));
+                    }
+
+                    break;
+                case GuideKind.FirstTap:
+                    Lit(s.GuidePod >= 0 && s.PodBoxes[s.GuidePod].HasValue ? Kit.Touch(p, s.PodBoxes[s.GuidePod]!.Value) : (Box?)null);
+                    break;
+                case GuideKind.BoosterTarget when step.Booster == BoosterKind.Return:
+                    var plates = new List<Box>();
+                    foreach ((Box box, int _) in ReturnPlates(s))
+                    {
+                        plates.Add(box);
+                    }
+
+                    Lit(Union(plates));
+                    break;
+                case GuideKind.BoosterTarget:
+                    Lit(board.Grid);
+                    break;
+                default:
+                    Lit(step.Booster.HasValue && s.BoosterBoxes.TryGetValue(step.Booster.Value, out Box booster) ? booster : (Box?)null);
+                    break;
+            }
+
+            return holes;
+        }
+
+        /// <summary>The places whose pod Return can take back now (FR-012), with that pod.</summary>
+        public static List<(Box Box, int Pod)> ReturnPlates(RoundLevelScreen s)
+        {
+            var plates = new List<(Box, int)>();
+            for (int k = 0; k < s.PlaceBoxes.Count && k < s.Animator.PlaceCount; k++)
+            {
+                int pod = s.Animator.PodIn(k);
+                if (pod >= 0 && Bloomlings.Core.Rounds.RoundBoosters.CanReturn(s.Play.Timeline, pod) == Bloomlings.Core.Rounds.RoundRefusal.None)
+                {
+                    plates.Add((s.PlaceBoxes[k], pod));
+                }
+            }
+
+            return plates;
+        }
+
+        private static void LitTargets(IPainter p, RoundLevelScreen s, GuideStep step, RoundBoardLayout board)
+        {
+            switch (step.Kind)
+            {
+                case GuideKind.FirstTap:
+                    if (s.GuidePod >= 0 && s.PodBoxes[s.GuidePod].HasValue)
+                    {
+                        int pod = s.GuidePod;
+                        p.Hit(Kit.Touch(p, s.PodBoxes[pod]!.Value), () => s.Tap(pod));
+                    }
+
+                    break;
+                case GuideKind.Booster:
+                    if (step.Booster.HasValue && s.BoosterBoxes.TryGetValue(step.Booster.Value, out Box button))
+                    {
+                        BoosterKind kind = step.Booster.Value;
+                        p.Hit(Kit.Touch(p, button), () => s.PressBooster(kind));
+                    }
+
+                    break;
+                case GuideKind.BoosterTarget when step.Booster == BoosterKind.Return:
+                    foreach ((Box box, int pod) in ReturnPlates(s))
+                    {
+                        p.Hit(Kit.Touch(p, box), () => s.ReturnPod(pod));
+                    }
+
+                    break;
+                case GuideKind.BoosterTarget:
+                    p.Hit(board.Grid, () =>
+                    {
+                        (float tx, float ty) = p.TapPoint;
+                        int cx = 1 + (int)Math.Floor((tx - board.Grid.Left) / board.Cell);
+                        int cy = board.Height - 2 - (int)Math.Floor((ty - board.Grid.Top) / board.Cell);
+                        if (cx >= 1 && cy >= 1 && cx < board.Width - 1 && cy < board.Height - 1)
+                        {
+                            s.BurstCell((cy * board.Width) + cx);
+                        }
+                    });
+
+                    break;
             }
         }
 
@@ -189,7 +359,7 @@ namespace Bloomlings.Playtest.Design
             p.StrokeRound(hole.Inset(-grow), radius + grow, p.U(6f), C.GardenGlow.WithAlpha(0.95f - (0.45f * pulse)));
         }
 
-        private static void Bubble(IPainter p, SpotlightLayout layout, GuideStep step, (string Text, bool Strong)[] lines, LevelScreen s)
+        private static void Bubble(IPainter p, SpotlightLayout layout, GuideStep step, (string Text, bool Strong)[] lines, Func<Box, bool> tileIcon)
         {
             Box b = layout.Bubble;
             float pad = p.U(Spotlight.BubblePadUnits);
@@ -214,9 +384,8 @@ namespace Bloomlings.Playtest.Design
                 Kit.BoosterIcon(p, booster, Box.FromCenter(face.CenterX, face.CenterY, iconSide * 0.80f, iconSide * 0.80f));
                 hasIcon = true;
             }
-            else if (step.Kind == GuideKind.Blocked && GuideTour.BlockingVariant(s.Session.View) is VariantId variant)
+            else if (tileIcon(iconBox))
             {
-                Kit.CandyTile(p, iconBox, variant, TileStyle.Sticker);
                 hasIcon = true;
             }
 

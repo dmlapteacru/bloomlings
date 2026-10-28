@@ -585,6 +585,8 @@ round.jump.dev,Go
 round.jump.title,Jump to level
 round.jump.invalid,Enter a level number from 1
 round.jump.done,Progress set to level {0}
+round.hint_burst,Tap a cube to clear its color everywhere
+round.bridge_not_ready,Clear the way to this bridge site first
 round.tester.board,"{0}×{1} board, {2} pods in {3} columns, {4} places"
 round.tester.picture,"Picture {0} v{1}, definition v{2}"
 round.tester.mechanics,Mechanics: {0}
