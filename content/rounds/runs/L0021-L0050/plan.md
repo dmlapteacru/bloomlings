@@ -1,6 +1,6 @@
 # План волны L21–L50
 
-Создан 2026-10-28 13:23. Правила: 17 §13. Позиций 30, открыто 12.
+Создан 2026-10-28 20:38. Правила: 17 §13. Позиций 30, открыто 12.
 
 Все механики открытых позиций движок поддерживает.
 
@@ -83,13 +83,21 @@
 ## Что уже есть
 
 - Свободных утверждённых картинок под этапы волны: 61 (без полосы 61, из них сильных 23; с полосой 0).
-- Кандидаты в банке на свободных картинках: знакомство: hidden — 30; знакомство: links — 26; Normal — 12; Hard — 3; Super Hard — 6.
+- Кандидаты в банке на свободных картинках: знакомство: hidden — 30; знакомство: links — 26; Normal — 132; Super Hard — 8; Hard — 16.
 - Открытые позиции на картинках пула: Normal 5, Hard 1, Super Hard 0, знакомства 0 (мост 0).
 - Стена поверх картинки пула (сколько свободных картинок её берут и подходят этапу; Hard/SH — сильные с ней): L33 влево — 61; L41 вверх — 61; L44 влево — 61; L48 вправо — 60; L50 вверх — 40.
 
 ## Заказ картинок
 
 - Картинок пула хватает.
+- **Сцены моста: нужно 6** из 6 позиций (`bridge-scene.mjs make`: картинка пула поменьше на дальнем берегу за стеной, две полосы за местами, грядки на ближнем берегу; поиск до вида моста по плану; черновик модуля → лист владельцу; источников в пуле — 31):
+  - L23 Normal, bridge, переход вверх, оба выигрывают, один лучше на 10+: `node tools/rounds/bridge-scene.mjs make --side up --kind better --cls "Normal" --recipe bridge --level 23 --free --out content/rounds/pictures/src/scenes-NNNN.mjs`
+  - L26 Normal, bridge+links, переход влево, решает ровно один: `node tools/rounds/bridge-scene.mjs make --side left --kind single --cls "Normal" --recipe bridge+links --level 26 --free --out content/rounds/pictures/src/scenes-NNNN.mjs`
+  - L29 Normal, bridge, переход вправо, решает ровно один: `node tools/rounds/bridge-scene.mjs make --side right --kind single --cls "Normal" --recipe bridge --level 29 --free --out content/rounds/pictures/src/scenes-NNNN.mjs`
+  - L30 Super Hard, links+bridge+hidden, переход две стороны, решает ровно один: `node tools/rounds/bridge-scene.mjs make --side two --kind single --cls "Super Hard" --recipe links+bridge+hidden --level 30 --free --out content/rounds/pictures/src/scenes-NNNN.mjs`
+  - L35 Hard, bridge+links, переход вправо, решает ровно один: `node tools/rounds/bridge-scene.mjs make --side right --kind single --cls "Hard" --recipe bridge+links --level 35 --free --out content/rounds/pictures/src/scenes-NNNN.mjs`
+  - L45 Super Hard, bridge+links+hidden, переход две стороны, решает ровно один: `node tools/rounds/bridge-scene.mjs make --side two --kind single --cls "Super Hard" --recipe bridge+links+hidden --level 45 --free --out content/rounds/pictures/src/scenes-NNNN.mjs`
+  - Вместо сцены можно нарисовать картинку с полосой вручную (ниже — сколько их понадобилось бы).
 - **Новые картинки с полосой и двумя местами моста: 12** (полоса — ручей, забор, стена; опора каждого места на ближнем берегу — цветная клетка; подходы из разных материалов; §8):
   - переход вверх, 550–1000 клеток, 4–10 цветов: **2** для L23
   - переход влево, 550–1200 клеток, 5–10 цветов (или компактная 200–399 / 3–6): **2** для L26

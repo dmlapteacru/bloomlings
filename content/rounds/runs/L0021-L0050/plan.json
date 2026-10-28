@@ -3,7 +3,7 @@
   21,
   50
  ],
- "created": "2026-10-28T13:23:39.363Z",
+ "created": "2026-10-28T20:38:40.821Z",
  "positions": [
   {
    "level": 21,
@@ -1049,9 +1049,9 @@
   "bank": {
    "знакомство: hidden": 30,
    "знакомство: links": 26,
-   "Normal": 12,
-   "Hard": 3,
-   "Super Hard": 6
+   "Normal": 132,
+   "Super Hard": 8,
+   "Hard": 16
   },
   "overlay": {
    "L33 влево": 61,
@@ -1115,6 +1115,63 @@
     ]
    }
   ],
+  "scenes": [
+   {
+    "level": 23,
+    "cls": "Normal",
+    "side": "up",
+    "kind": "better",
+    "recipe": "bridge",
+    "have": 0,
+    "command": "node tools/rounds/bridge-scene.mjs make --side up --kind better --cls \"Normal\" --recipe bridge --level 23 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+   },
+   {
+    "level": 26,
+    "cls": "Normal",
+    "side": "left",
+    "kind": "single",
+    "recipe": "bridge+links",
+    "have": 0,
+    "command": "node tools/rounds/bridge-scene.mjs make --side left --kind single --cls \"Normal\" --recipe bridge+links --level 26 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+   },
+   {
+    "level": 29,
+    "cls": "Normal",
+    "side": "right",
+    "kind": "single",
+    "recipe": "bridge",
+    "have": 0,
+    "command": "node tools/rounds/bridge-scene.mjs make --side right --kind single --cls \"Normal\" --recipe bridge --level 29 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+   },
+   {
+    "level": 30,
+    "cls": "Super Hard",
+    "side": "two",
+    "kind": "single",
+    "recipe": "links+bridge+hidden",
+    "have": 0,
+    "command": "node tools/rounds/bridge-scene.mjs make --side two --kind single --cls \"Super Hard\" --recipe links+bridge+hidden --level 30 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+   },
+   {
+    "level": 35,
+    "cls": "Hard",
+    "side": "right",
+    "kind": "single",
+    "recipe": "bridge+links",
+    "have": 0,
+    "command": "node tools/rounds/bridge-scene.mjs make --side right --kind single --cls \"Hard\" --recipe bridge+links --level 35 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+   },
+   {
+    "level": 45,
+    "cls": "Super Hard",
+    "side": "two",
+    "kind": "single",
+    "recipe": "bridge+links+hidden",
+    "have": 0,
+    "command": "node tools/rounds/bridge-scene.mjs make --side two --kind single --cls \"Super Hard\" --recipe bridge+links+hidden --level 45 --free --out content/rounds/pictures/src/scenes-NNNN.mjs"
+   }
+  ],
+  "sceneSources": 31,
   "avoidMotifs": [
    "ретро-техника (8)",
    "лампы и фонари (5)",
