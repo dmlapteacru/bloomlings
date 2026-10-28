@@ -51,6 +51,19 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   `content/rounds/needs.json` for new pictures. Tools: `tools/rounds/` (`pictures.mjs`, `levels.mjs`, `measure.mjs`,
   `engine.mjs`: pilot v9 rules with the §8 link rule). The behaviour of the 12 types is in the full catalog `product/design/Bloomlings-gameplay-mechanics.md`. Only mechanics the round engine plays may be used. Today these
   are hidden pods, links and the Sprig bridge; latch + key (L51) and later types need engine and pilot work first.
+- **Round levels in the game (spec 006, `specs/006-round-levels-in-game/`).** The game's rules are the round engine's,
+  ported to `core/src/Bloomlings.Core/Rounds/` (`RoundTimeline` with integer µs model time, `RoundRules`,
+  `RoundBoosters` in live time, `RoundEvents`, `RoundRandomPolicy`, `RoundSolver`, `RoundLevelValidator`); the JS
+  engine in `tools/rounds/engine/` stays the reference and is fingerprinted in every level. A confirmed wave moves in
+  with the skill `bloomlings-round-transfer`: `rounds.mjs confirm`, `tools/rounds/export.mjs` (levels, pictures,
+  proofs and reference conformance fixtures), then `rounds import / validate / diff / publish` in the pipeline.
+  `rounds validate` replays every saved solution, random game and owner attempt in C# against the fixtures and refuses
+  any difference; never edit a fixture by hand. The game's round content is `content/game/rounds/` (`levels`,
+  `pictures`, `proofs`, `conformance`, `published` for the clients, `transfers.jsonl`). The playtest and Unity play
+  round levels only (`RoundPlay`, `RoundAnimator`, `RoundBoardLayout`, `LinkTube` in the kit; Daily off, "new levels
+  soon" after the last level). Cubes have no variant icon; Settings' symbols mode (off by default, `settings.symbols`)
+  shows each material's symbol for colour-blind players. The legacy `Bloomlings.Core.Simulation` path still builds
+  for the generator, solver and their tests (`specs/006-round-levels-in-game/legacy-references.md`).
 - **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): passed on 2026-09-29, all docs are locked. Changes to
   locked docs now go through the product owner.
 - **Technical direction** (doc 15, locked): Unity + C#, a deterministic data-driven

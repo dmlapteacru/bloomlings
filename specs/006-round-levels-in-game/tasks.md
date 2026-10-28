@@ -413,9 +413,9 @@ owner sees the same behaviour as in the playtest.
 
 ## Phase 8: Polish & Cross-Cutting Concerns
 
-- [ ] T061 [P] Update `CLAUDE.md` (round rules in the core, `content/game/rounds/`, the transfer skill, symbols mode)
+- [X] T061 [P] Update `CLAUDE.md` (round rules in the core, `content/game/rounds/`, the transfer skill, symbols mode)
   and `tools/rounds/README.md` (`export.mjs`, `conformance.mjs`, `confirm`, `transfer-log.mjs`).
-- [ ] T062 [P] List what still uses the legacy `Bloomlings.Core.Simulation` path (generator, solver, legacy pipeline
+- [X] T062 [P] List what still uses the legacy `Bloomlings.Core.Simulation` path (generator, solver, legacy pipeline
   commands, tests) in `specs/006-round-levels-in-game/legacy-references.md`, as the input for a follow-up retirement
   spec.
 - [ ] T063 Run `specs/006-round-levels-in-game/quickstart.md` end to end:
