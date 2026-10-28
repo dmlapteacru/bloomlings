@@ -399,10 +399,10 @@ owner sees the same behaviour as in the playtest.
 
 - [X] T057 [P] [US5] Extend `client/DotnetCheck` (and `client/DotnetCheck/UnityStubs.cs` as needed) with tests that
   play every round level's saved solution through the client's engine-free services to a win.
-- [ ] T058 [US5] Move `client/Assets/Bloomlings/Gameplay/GameplayController.cs` and
+- [X] T058 [US5] Move `client/Assets/Bloomlings/Gameplay/GameplayController.cs` and
   `Gameplay/Timeline/EventTimeline.cs` / `TimelinePlayer.cs` to `RoundTimeline` and `RoundAnimator`, with model time
   in µs × speed and Auto ×2 with the HUD hidden.
-- [ ] T059 [US5] Update the Unity views `Gameplay/Board/BoardView.cs`, `TileView.cs`, `Gameplay/Tray/TrayView.cs`,
+- [X] T059 [US5] Update the Unity views `Gameplay/Board/BoardView.cs`, `TileView.cs`, `Gameplay/Tray/TrayView.cs`,
   `PodView.cs`, `Gameplay/Slots/SlotRowView.cs`, `Gameplay/Workers/WorkerPool.cs`, `BloomlingFigure.cs` and
   `Gameplay/Effects/ClearFxView.cs` per `contracts/presentation.md`: frame, cubes without icons, symbols mode, link
   tubes, walkers as tinted family heroes, introduction cards, reveal glow.
@@ -418,7 +418,7 @@ owner sees the same behaviour as in the playtest.
 - [X] T062 [P] List what still uses the legacy `Bloomlings.Core.Simulation` path (generator, solver, legacy pipeline
   commands, tests) in `specs/006-round-levels-in-game/legacy-references.md`, as the input for a follow-up retirement
   spec.
-- [ ] T063 Run `specs/006-round-levels-in-game/quickstart.md` end to end:
+- [X] T063 Run `specs/006-round-levels-in-game/quickstart.md` end to end:
   - `dotnet test core/Bloomlings.sln`;
   - `dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj`;
   - `node --test tools/rounds/test/*.test.mjs`;
