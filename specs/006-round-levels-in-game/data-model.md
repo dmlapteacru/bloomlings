@@ -35,7 +35,7 @@ Validation:
 - the matrix is rectangular;
 - codes are known;
 - every coloured cell is reachable through non-wall cells;
-- a bridge picture has exactly 2 `b` sites, each with a coloured cell below it;
+- a bridge picture (with its level's overlay) has exactly 2 `b` sites, each with exactly one orthogonal neighbour the entry reaches (its anchor: below, above or beside it);
 - `source` is not a franchise or meme reference.
 
 ## RoundLevel (definition)
@@ -47,7 +47,7 @@ Validation:
 | `class` | Normal, Hard, Super Hard (calendar of 17 §5) |
 | `introduction` | none, hidden, links, bridge; plus `second: true` on the second meeting |
 | `picture` | `{id, version}` of an approved RoundPicture |
-| `board` | `{w, h, rowsBottomFirst, entries, hero?}`: rows with the frame ring and wall, bottom first; `entries` cell indices (one gate, bottom middle); `hero.choices[] = {cell, anchor, label}` for the Sprig bridge |
+| `board` | `{w, h, rowsBottomFirst, entries, hero?, overlay?}`: rows with the frame ring and wall, bottom first; `entries` cell indices (one gate, bottom middle); `hero.choices[] = {cell, anchor, label}` for the Sprig bridge; `overlay = {walls: [[x, y]…], sites: [[x, y]…]}` in picture coordinates (x from the left, y from the top): a strip laid over the picture (17 §8 "Где стоит мост", 2026-10-28), its walls `#`, its sites `b` |
 | `capacity` | 5 |
 | `pods[]` | `{code, count ≥ 1, mystery?: "depth", group?: "A".."Z…"}` |
 | `tray[]` | columns (2–6) of pod indices, top first |
@@ -61,11 +61,11 @@ Validation (all must hold; reference `rules.cjs validate` plus 17):
 - exact accounting: cells of each code equal the sum of counts;
 - groups are pairs in different columns at equal start depth;
 - hidden pods are at most 6, never in a group, never in the first row on an introduction;
-- bridge sites are walls with the anchor one row below;
+- bridge sites are walls with an orthogonal neighbour as anchor (`|cell − anchor| == w`, or `== 1` in the same row; 17 §8 as amended on 2026-10-28);
 - `mechanics` match the pods and hero;
 - `class` matches the calendar;
 - introductions follow 17 §9;
-- the picture's matrix equals the board's inner rows;
+- the board is the picture's board (`boardOf`) with the overlay laid: every strip cell on the picture's edge closes the ring cell outward, each site's anchor is its one neighbour the entry reaches while every site is a wall, sites in reading order;
 - the proof exists and passes (below).
 
 ## RoundState (runtime, rules only)

@@ -8,7 +8,7 @@ namespace Bloomlings.Client.Art
     /// <summary>
     /// The round levels' pictures as cached sprites (spec 006 contracts/presentation.md; the playtest's <c>KitRound</c>),
     /// rendered from the kit's engine-free <see cref="UiRaster"/> with the same keys: material tiles without a variant
-    /// icon (the material's symbol only in the symbols mode), the stream's water, the cleared cell, the round pod's
+    /// icon (the material's symbol only in the symbols mode), the stream's water, an overlay's stone wall, the cleared cell, the round pod's
     /// wooden frame tinted by its material and the link tube. Each picture is cached by key and pixel size.
     /// </summary>
     public static class RoundSprites
@@ -35,6 +35,17 @@ namespace Bloomlings.Client.Art
             int k = UiRaster.WaterSeed(x);
             int s = Math.Max(1, size);
             return ProceduralSprites.Picture(RoundBoardLayout.WaterSlot + "/" + k, s, s, (w, h) => UiRaster.Water(Math.Min(w, h), k));
+        }
+
+        /// <summary>
+        /// A cell of a wall laid over the picture (<c>board.wall</c>, 17 §8 as amended on 2026-10-28), its picture by its place
+        /// (<see cref="UiRaster.WallSeed"/>).
+        /// </summary>
+        public static Sprite Wall(int x, int y, int size)
+        {
+            int k = UiRaster.WallSeed(x, y);
+            int s = Math.Max(1, size);
+            return ProceduralSprites.Picture(RoundBoardLayout.WallSlot + "/" + k, s, s, (w, h) => UiRaster.WallStone(Math.Min(w, h), k));
         }
 
         /// <summary>A cleared cell (<c>tile.ground</c>): the material's colour lightened, as the game's restored cells.</summary>

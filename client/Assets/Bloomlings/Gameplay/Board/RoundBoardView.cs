@@ -20,8 +20,9 @@ namespace Bloomlings.Client.Gameplay.Board
     /// <list type="bullet">
     /// <item><description>the rows' outer ring and wall as the game's stone border (<see cref="UiKit.StoneBorder"/>), each gate as
     /// the game's entry arch turned to its side (FR-040);</description></item>
-    /// <item><description>inside the frame: grass on the path, water on the stream (<see cref="RoundSprites.Water"/>), the built
-    /// bridge's plank (a buildable site glows and takes the tap, FR-009), the cubes as the game's soft cubes in the material's
+    /// <item><description>inside the frame: grass on the path, water on the stream (<see cref="RoundSprites.Water"/>), a stone
+    /// wall where the level's overlay laid one (<see cref="RoundSprites.Wall"/>), the built bridge's plank turned to its
+    /// crossing (a buildable site glows toward its near bank and takes the tap, FR-009), the cubes as the game's soft cubes in the material's
     /// colour with no icon (the symbol only in the symbols mode, FR-041, FR-047), and a cleared cube as the game's pale
     /// restored cell;</description></item>
     /// <item><description>a cube the clearing style holds (<see cref="RoundFx.Holds"/>) shows its ground, the style drawing it
@@ -452,7 +453,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 plank.transform.localEulerAngles = new Vector3(0f, 0f, -site.PlankDegrees);
                 int seed = site.Cell;
                 PictureFit.On(plank, (w, h) => ProceduralSprites.Plank(WoodTone.Light, w, h, 0.3f, 0.025f, seed), sliced: true);
-                PlaceInGrid(ring.rectTransform, site.Site.Inset(-layout.Cell * 0.08f));
+                PlaceInGrid(ring.rectTransform, site.Glow.Inset(-layout.Cell * 0.08f));
                 Box bounds = site.PlankBounds;
                 PlaceInGrid((RectTransform)touch.transform, Box.FromCenter(bounds.CenterX, bounds.CenterY, Mathf.Max(bounds.Width, min), Mathf.Max(bounds.Height, min)));
             }
@@ -489,8 +490,13 @@ namespace Bloomlings.Client.Gameplay.Board
             switch (layout.KindOf(cell))
             {
                 case RoundCellKind.Stream:
-                case RoundCellKind.BridgeSite:
                     ground.sprite = RoundSprites.Water(x, _pixels);
+                    break;
+                case RoundCellKind.Wall:
+                    ground.sprite = RoundSprites.Wall(x, y, _pixels);
+                    break;
+                case RoundCellKind.BridgeSite:
+                    ground.sprite = layout.IsStone(cell) ? RoundSprites.Wall(x, y, _pixels) : RoundSprites.Water(x, _pixels);
                     break;
                 case RoundCellKind.Material:
                     sbyte cleared = _shownGround[cell];

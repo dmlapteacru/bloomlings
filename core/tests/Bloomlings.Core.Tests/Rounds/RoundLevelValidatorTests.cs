@@ -104,7 +104,7 @@ namespace Bloomlings.Core.Tests.Rounds
         }
 
         [Test]
-        public void BridgeSitesAreWallsWithTheAnchorOneRowBelow()
+        public void BridgeSitesAreWallsWithAnOrthogonalNeighbourAsAnchor()
         {
             string[] rows = { "###.###", "#.....#", "#GGGGG#", "#PPPPP#", "#GGGGG#", "#######", "#.....#", "#######" };
             int w = 7;
@@ -112,10 +112,36 @@ namespace Bloomlings.Core.Tests.Rounds
             var good = new[] { new RoundBridgeChoice(stream, stream - w, "left"), new RoundBridgeChoice(stream + 1, stream + 1 - w, "right") };
             string[] withBridge = { "hidden", "links", "bridge" };
             Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: good, mechanics: withBridge)), Is.Empty);
-            var wrongAnchor = new[] { new RoundBridgeChoice(stream, stream + w, "up"), good[1] };
-            Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: wrongAnchor, mechanics: withBridge)), Does.Contain(RoundLevelValidator.BridgeSites));
+
+            // 17 §8 as amended on 2026-10-28: the anchor may be above or beside the site too.
+            var above = new[] { new RoundBridgeChoice(stream, stream + w, "down"), good[1] };
+            Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: above, mechanics: withBridge)), Is.Empty);
+            var beside = new[] { new RoundBridgeChoice(stream, stream - 1, "right"), new RoundBridgeChoice(stream + 1, stream + 2, "left") };
+            Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: beside, mechanics: withBridge)), Is.Empty);
+
+            var diagonal = new[] { new RoundBridgeChoice(stream, stream - w - 1, "diagonal"), good[1] };
+            Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: diagonal, mechanics: withBridge)), Does.Contain(RoundLevelValidator.BridgeSites));
+            var distant = new[] { new RoundBridgeChoice(stream, stream - (2 * w), "two rows"), good[1] };
+            Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: distant, mechanics: withBridge)), Does.Contain(RoundLevelValidator.BridgeSites));
+            var twoAside = new[] { new RoundBridgeChoice(stream, stream + 2, "two aside"), good[1] };
+            Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: twoAside, mechanics: withBridge)), Does.Contain(RoundLevelValidator.BridgeSites));
             var notWall = new[] { new RoundBridgeChoice(stream - w, stream - 2 * w, "open"), good[1] };
             Assert.That(RoundLevelValidator.ValidateDefinition(Make(rows: rows, bridge: notWall, mechanics: withBridge)), Does.Contain(RoundLevelValidator.BridgeSites));
+        }
+
+        [Test]
+        public void ASideAnchor_MustBeInTheSameRow()
+        {
+            // The last cell of a row and the first of the next differ by one, but they are not neighbours.
+            Assert.Multiple(() =>
+            {
+                Assert.That(RoundLevelValidator.Orthogonal(13, 12, 7), Is.True, "beside, same row");
+                Assert.That(RoundLevelValidator.Orthogonal(13, 14, 7), Is.False, "the end of row 1 and the start of row 2");
+                Assert.That(RoundLevelValidator.Orthogonal(14, 13, 7), Is.False);
+                Assert.That(RoundLevelValidator.Orthogonal(10, 3, 7), Is.True, "below");
+                Assert.That(RoundLevelValidator.Orthogonal(10, 17, 7), Is.True, "above");
+                Assert.That(RoundLevelValidator.Orthogonal(10, 10, 7), Is.False, "the site itself");
+            });
         }
 
         [Test]

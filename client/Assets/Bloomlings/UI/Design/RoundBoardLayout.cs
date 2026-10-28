@@ -17,10 +17,19 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>An open cell inside the frame (the walkway ring and the picture's background): grass.</summary>
         Path,
 
-        /// <summary>A wall inside the frame: the stream's water.</summary>
+        /// <summary>A wall inside the frame that is the picture's own strip: the stream's water.</summary>
         Stream,
 
-        /// <summary>A bridge site of the Sprig bridge: water until its bridge is built, then a plank.</summary>
+        /// <summary>
+        /// A wall laid over the picture (the level's <see cref="RoundLevel.Overlay"/>, 17 §8 as amended on 2026-10-28): a stone
+        /// wall (<see cref="RoundBoardLayout.WallSlot"/>).
+        /// </summary>
+        Wall,
+
+        /// <summary>
+        /// A bridge site of the Sprig bridge: its strip's ground (water, or stone on an overlay wall,
+        /// <see cref="RoundBridgeSite.OnWall"/>) until its bridge is built, then a plank.
+        /// </summary>
         BridgeSite,
 
         /// <summary>A material cell: the game's soft cube in the material's colour (<see cref="RoundLook"/>).</summary>
@@ -53,10 +62,26 @@ namespace Bloomlings.Client.UI.Design
         public (Box Box, float Degrees) Arch => BoardLayout.ArchOf(InnerCell, Side);
     }
 
-    /// <summary>A site of the Sprig bridge: the stream cell it opens, its anchor on the near bank, and its plank.</summary>
+    /// <summary>Which way a Sprig bridge crosses its strip on screen, from its anchor on the near bank through its site.</summary>
+    public enum RoundCrossing
+    {
+        /// <summary>The anchor is the cell below the site (a strip across the board).</summary>
+        Up,
+
+        /// <summary>The anchor is the cell above the site.</summary>
+        Down,
+
+        /// <summary>The anchor is the cell right of the site (a strip along the board, the far bank on the left).</summary>
+        Left,
+
+        /// <summary>The anchor is the cell left of the site (the far bank on the right).</summary>
+        Right,
+    }
+
+    /// <summary>A site of the Sprig bridge: the strip cell it opens, its anchor on the near bank, and its plank.</summary>
     public sealed class RoundBridgeSite
     {
-        internal RoundBridgeSite(int index, int cell, int anchor, string label, Box site, Box anchorCell, bool across)
+        internal RoundBridgeSite(int index, int cell, int anchor, string label, Box site, Box anchorCell, RoundCrossing crossing, bool onWall)
         {
             Index = index;
             Cell = cell;
@@ -64,7 +89,8 @@ namespace Bloomlings.Client.UI.Design
             Label = label;
             Site = site;
             AnchorCell = anchorCell;
-            Across = across;
+            Crossing = crossing;
+            OnWall = onWall;
         }
 
         /// <summary>The choice's index in the level's bridge (the rules' <c>choice</c>).</summary>
@@ -82,8 +108,36 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The anchor cell's box (the near bank the approach must reach).</summary>
         public Box AnchorCell { get; }
 
+        /// <summary>
+        /// Which way the bridge crosses (17 §8 as amended on 2026-10-28: up, or left or right over a strip along the board;
+        /// down for an anchor above the site).
+        /// </summary>
+        public RoundCrossing Crossing { get; }
+
         /// <summary>Whether the plank runs up and down (the anchor is a row below or above the site), else left to right.</summary>
-        public bool Across { get; }
+        public bool Across => Crossing == RoundCrossing.Up || Crossing == RoundCrossing.Down;
+
+        /// <summary>Whether the site is in a wall laid over the picture: its ground is stone, not water.</summary>
+        public bool OnWall { get; }
+
+        /// <summary>
+        /// Where a buildable site glows: the site with <see cref="RoundBoardLayout.GlowReach"/> of a cell onto its own near
+        /// bank, toward its anchor, so the glow shows the side the bridge is built from.
+        /// </summary>
+        public Box Glow
+        {
+            get
+            {
+                float r = Site.Width * RoundBoardLayout.GlowReach;
+                return Crossing switch
+                {
+                    RoundCrossing.Up => new Box(Site.Left, Site.Top, Site.Right, Site.Bottom + r),
+                    RoundCrossing.Down => new Box(Site.Left, Site.Top - r, Site.Right, Site.Bottom),
+                    RoundCrossing.Left => new Box(Site.Left, Site.Top, Site.Right + r, Site.Bottom),
+                    _ => new Box(Site.Left - r, Site.Top, Site.Right, Site.Bottom),
+                };
+            }
+        }
 
         /// <summary>
         /// The built bridge's plank before it is turned: <see cref="RoundBoardLayout.PlankReach"/> beyond the site onto each
@@ -91,7 +145,11 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public Box Plank => Box.FromCenter(Site.CenterX, Site.CenterY, Site.Width * (1f + (2f * RoundBoardLayout.PlankReach)), Site.Width * RoundBoardLayout.PlankWidth);
 
-        /// <summary>The plank picture's clockwise turn: 90° across a stream that runs left to right.</summary>
+        /// <summary>
+        /// The plank picture's clockwise turn to its crossing: 90° for a bridge up or down (over a strip across the board),
+        /// 0° for one left or right (over a strip along it). The plank is the same at both ends, so a crossing and its
+        /// opposite share a turn and the plank keeps the light from the upper left.
+        /// </summary>
         public float PlankDegrees => Across ? 90f : 0f;
 
         /// <summary>The plank's screen bounds once turned.</summary>
@@ -102,8 +160,9 @@ namespace Bloomlings.Client.UI.Design
     /// Where a round level's board goes on screen (spec 006 FR-040, research R7, contracts/presentation.md), from its
     /// <c>rowsBottomFirst</c> exactly as the rules read them: the rows' outer wall (the frame) and its gate are drawn as the
     /// game's existing stone border and entry arch, so the cells inside the wall are the game's grid (<see cref="Board"/>, a
-    /// <see cref="BoardLayout"/> of (w − 2) × (h − 2) cells). Inside the frame a <c>#</c> is the stream's water, a bridge
-    /// site is water until its bridge is built and then a plank, an open cell is grass, and a material cell is the game's
+    /// <see cref="BoardLayout"/> of (w − 2) × (h − 2) cells). Inside the frame a <c>#</c> is the stream's water (a stone
+    /// wall where the level's overlay laid it), a bridge site is its strip's ground until its bridge is built and then a
+    /// plank turned to its crossing (up, down, left or right), an open cell is grass, and a material cell is the game's
     /// soft cube (<see cref="RoundLook"/>). Boards fit up to <see cref="MaxSide"/> × <see cref="MaxSide"/> with the frame.
     /// Cell indices are the rules' (<c>y × w + x</c>, row 0 at the bottom). Engine-free; presentation only.
     /// </summary>
@@ -114,6 +173,9 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The built bridge's asset slot (its plank, <see cref="RoundBridgeSite.Plank"/>).</summary>
         public const string BridgeSlot = "board.bridge";
+
+        /// <summary>A wall laid over the picture's asset slot (<see cref="UiRaster.WallStone"/>, <see cref="RoundCellKind.Wall"/>).</summary>
+        public const string WallSlot = "board.wall";
 
         /// <summary>The largest board side with the frame (<see cref="RoundLevel.MaxSide"/>).</summary>
         public const int MaxSide = RoundLevel.MaxSide;
@@ -127,12 +189,17 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A built bridge's plank width, in cells.</summary>
         public const float PlankWidth = 0.78f;
 
+        /// <summary>How far a buildable site's glow reaches onto its near bank, in cells (<see cref="RoundBridgeSite.Glow"/>).</summary>
+        public const float GlowReach = 0.25f;
+
         private readonly RoundCellKind[] _kinds;
         private readonly sbyte[] _materials;
         private readonly int[] _entries;
         private readonly IReadOnlyList<RoundBridgeChoice> _bridge;
 
-        private RoundBoardLayout(BoardLayout board, int width, int height, RoundCellKind[] kinds, sbyte[] materials, int[] entries, IReadOnlyList<RoundBridgeChoice> bridge)
+        private readonly bool[] _stone;
+
+        private RoundBoardLayout(BoardLayout board, int width, int height, RoundCellKind[] kinds, sbyte[] materials, int[] entries, IReadOnlyList<RoundBridgeChoice> bridge, bool[] stone)
         {
             Board = board;
             Width = width;
@@ -141,6 +208,7 @@ namespace Bloomlings.Client.UI.Design
             _materials = materials;
             _entries = entries;
             _bridge = bridge;
+            _stone = stone;
 
             var gates = new List<RoundGate>();
             foreach (int cell in entries)
@@ -166,8 +234,10 @@ namespace Bloomlings.Client.UI.Design
             for (int i = 0; i < bridge.Count; i++)
             {
                 RoundBridgeChoice choice = bridge[i];
-                bool across = Math.Abs(choice.Anchor - choice.Cell) == width;
-                sites.Add(new RoundBridgeSite(i, choice.Cell, choice.Anchor, choice.Label, CellBox(choice.Cell), CellBox(choice.Anchor), across));
+                int d = choice.Cell - choice.Anchor;
+                RoundCrossing crossing = d == width ? RoundCrossing.Up : d == -width ? RoundCrossing.Down : d == -1 ? RoundCrossing.Left : RoundCrossing.Right;
+                bool onWall = choice.Cell >= 0 && choice.Cell < stone.Length && stone[choice.Cell];
+                sites.Add(new RoundBridgeSite(i, choice.Cell, choice.Anchor, choice.Label, CellBox(choice.Cell), CellBox(choice.Anchor), crossing, onWall));
             }
 
             Bridges = sites;
@@ -202,14 +272,15 @@ namespace Bloomlings.Client.UI.Design
         /// inside the frame), the stone border at most <paramref name="maxOuterWidth"/> wide.
         /// </summary>
         public static RoundBoardLayout Fit(Box area, RoundLevel level, float maxOuterWidth = float.MaxValue) =>
-            Fit(area, level.Width, level.Height, level.RowsBottomFirst, level.Entries, level.Bridge, maxOuterWidth);
+            Fit(area, level.Width, level.Height, level.RowsBottomFirst, level.Entries, level.Bridge, maxOuterWidth, level.OverlayCells());
 
         /// <summary>
         /// Lays out a round board of <paramref name="width"/> × <paramref name="height"/> cells (the frame included) from its
         /// <paramref name="rowsBottomFirst"/>, its gates (<paramref name="entries"/>) and its bridge sites, inside
-        /// <paramref name="area"/>.
+        /// <paramref name="area"/>. The walls among <paramref name="overlay"/>'s cells (the level's overlay,
+        /// <see cref="RoundLevel.OverlayCells"/>) are a stone wall instead of water.
         /// </summary>
-        public static RoundBoardLayout Fit(Box area, int width, int height, IReadOnlyList<string> rowsBottomFirst, IReadOnlyList<int> entries, IReadOnlyList<RoundBridgeChoice>? bridge, float maxOuterWidth = float.MaxValue)
+        public static RoundBoardLayout Fit(Box area, int width, int height, IReadOnlyList<string> rowsBottomFirst, IReadOnlyList<int> entries, IReadOnlyList<RoundBridgeChoice>? bridge, float maxOuterWidth = float.MaxValue, IReadOnlyList<int>? overlay = null)
         {
             if (width < 3 || height < 3 || width > MaxSide || height > MaxSide)
             {
@@ -228,6 +299,18 @@ namespace Bloomlings.Client.UI.Design
                 foreach (RoundBridgeChoice choice in bridge)
                 {
                     siteSet.Add(choice.Cell);
+                }
+            }
+
+            var stone = new bool[width * height];
+            if (overlay != null)
+            {
+                foreach (int cell in overlay)
+                {
+                    if (cell >= 0 && cell < stone.Length)
+                    {
+                        stone[cell] = true;
+                    }
                 }
             }
 
@@ -256,7 +339,7 @@ namespace Bloomlings.Client.UI.Design
                     kinds[i] = entrySet.Contains(i) && edge ? RoundCellKind.Gate
                         : edge ? RoundCellKind.Frame
                         : siteSet.Contains(i) ? RoundCellKind.BridgeSite
-                        : c == '#' ? RoundCellKind.Stream
+                        : c == '#' ? (stone[i] ? RoundCellKind.Wall : RoundCellKind.Stream)
                         : material >= 0 ? RoundCellKind.Material
                         : RoundCellKind.Path;
                 }
@@ -269,7 +352,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             BoardLayout board = BoardLayout.Fit(area, width - 2, height - 2, maxOuterWidth);
-            return new RoundBoardLayout(board, width, height, kinds, materials, entryCells, bridge ?? Array.Empty<RoundBridgeChoice>());
+            return new RoundBoardLayout(board, width, height, kinds, materials, entryCells, bridge ?? Array.Empty<RoundBridgeChoice>(), stone);
         }
 
         /// <summary>
@@ -281,7 +364,7 @@ namespace Bloomlings.Client.UI.Design
             Fit(regions.BoardArea.Inset(regions.W * 0.02f, 0f), level, regions.W * ReferenceGameplayRegions.MaxBoardShare).DockBottom(regions.BoardArea.Bottom);
 
         /// <summary>The same board with its stone border's bottom on <paramref name="bottom"/> (<see cref="BoardLayout.DockBottom"/>).</summary>
-        public RoundBoardLayout DockBottom(float bottom) => new RoundBoardLayout(Board.DockBottom(bottom), Width, Height, _kinds, _materials, _entries, _bridge);
+        public RoundBoardLayout DockBottom(float bottom) => new RoundBoardLayout(Board.DockBottom(bottom), Width, Height, _kinds, _materials, _entries, _bridge, _stone);
 
         /// <summary>Whether (<paramref name="x"/>, <paramref name="y"/>) is inside the frame (row 0 at the bottom).</summary>
         public bool IsInner(int x, int y) => x > 0 && y > 0 && x < Width - 1 && y < Height - 1;
@@ -290,6 +373,9 @@ namespace Bloomlings.Client.UI.Design
         public RoundCellKind KindOf(int cell) => _kinds[cell];
 
         public RoundCellKind KindOf(int x, int y) => _kinds[(y * Width) + x];
+
+        /// <summary>Whether a cell's ground is the stone wall laid over the picture (an overlay wall or site), not water.</summary>
+        public bool IsStone(int cell) => _stone[cell];
 
         /// <summary>The material index of a cell in the rows (<see cref="RoundMaterial.Index"/>), or -1 for a cell without one.</summary>
         public int MaterialOf(int cell) => _materials[cell];

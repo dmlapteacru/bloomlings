@@ -44,7 +44,10 @@ namespace Bloomlings.Core.Rounds
         public string? Group { get; }
     }
 
-    /// <summary>One site of the Sprig bridge: the wall cell it opens and its anchor on the near bank (one row below).</summary>
+    /// <summary>
+    /// One site of the Sprig bridge: the wall cell it opens and its anchor, the orthogonal neighbour on the near bank (below,
+    /// above or beside it; 17 §8 as amended on 2026-10-28). The crossing goes from the anchor through the cell.
+    /// </summary>
     public sealed class RoundBridgeChoice
     {
         public RoundBridgeChoice(int cell, int anchor, string label)
@@ -59,6 +62,26 @@ namespace Bloomlings.Core.Rounds
         public int Anchor { get; }
 
         public string Label { get; }
+    }
+
+    /// <summary>
+    /// A strip laid over an approved picture (17 §8 "Где стоит мост", 2026-10-28; <c>board.overlay</c> of
+    /// <c>round-level.v1</c>): cells in picture coordinates (x from the left, y from the top) that become walls, and the
+    /// bridge sites among or beside them. The cells under it are no work: the board's rows already hold the wall.
+    /// </summary>
+    public sealed class RoundOverlay
+    {
+        public RoundOverlay(IReadOnlyList<(int X, int Y)> walls, IReadOnlyList<(int X, int Y)> sites)
+        {
+            Walls = walls ?? throw new ArgumentNullException(nameof(walls));
+            Sites = sites ?? throw new ArgumentNullException(nameof(sites));
+        }
+
+        /// <summary>Picture cells that become a wall ('#').</summary>
+        public IReadOnlyList<(int X, int Y)> Walls { get; }
+
+        /// <summary>Picture cells that become a bridge site ('b': a wall the bridge may open).</summary>
+        public IReadOnlyList<(int X, int Y)> Sites { get; }
     }
 
     /// <summary>The mechanic a level introduces, and whether it is its second meeting (spec 006 FR-045).</summary>
@@ -149,7 +172,8 @@ namespace Bloomlings.Core.Rounds
             int pictureVersion = 1,
             IReadOnlyList<string>? mechanics = null,
             RoundException? exception = null,
-            RoundEngineVersion? engine = null)
+            RoundEngineVersion? engine = null,
+            RoundOverlay? overlay = null)
         {
             Number = number;
             Width = width;
@@ -168,6 +192,7 @@ namespace Bloomlings.Core.Rounds
             Mechanics = mechanics ?? Array.Empty<string>();
             Exception = exception;
             Engine = engine;
+            Overlay = overlay;
         }
 
         public int Number { get; }
@@ -206,6 +231,67 @@ namespace Bloomlings.Core.Rounds
         public RoundException? Exception { get; }
 
         public RoundEngineVersion? Engine { get; }
+
+        /// <summary>The strip laid over the picture (walls and sites in picture coordinates), or null.</summary>
+        public RoundOverlay? Overlay { get; }
+
+        /// <summary>
+        /// The board cell of a picture cell (x from the left, y from the top): the picture sits inside a wall frame and an
+        /// open ring, so (x, y) is column x + 2 of row y + 2 from the top.
+        /// </summary>
+        public int PictureCell(int x, int y) => ((Height - 1 - (y + 2)) * Width) + x + 2;
+
+        /// <summary>
+        /// The board cells the overlay lays (presentation: they are drawn as a stone wall): each wall and site, and where it
+        /// stands on the picture's edge the ring cell it closes outward (a corner both), as the reference's <c>boardOf</c>
+        /// closes them. Empty without an overlay.
+        /// </summary>
+        public IReadOnlyList<int> OverlayCells()
+        {
+            if (Overlay == null)
+            {
+                return Array.Empty<int>();
+            }
+
+            int pw = Width - 4;
+            int ph = Height - 4;
+            var cells = new List<int>(Overlay.Walls.Count + Overlay.Sites.Count);
+            void Add(int x, int y)
+            {
+                cells.Add(PictureCell(x, y));
+                if (x == 0)
+                {
+                    cells.Add(PictureCell(-1, y));
+                }
+
+                if (x == pw - 1)
+                {
+                    cells.Add(PictureCell(pw, y));
+                }
+
+                if (y == 0)
+                {
+                    cells.Add(PictureCell(x, -1));
+                }
+
+                if (y == ph - 1)
+                {
+                    cells.Add(PictureCell(x, ph));
+                }
+            }
+
+            foreach ((int x, int y) in Overlay.Walls)
+            {
+                Add(x, y);
+            }
+
+            foreach ((int x, int y) in Overlay.Sites)
+            {
+                Add(x, y);
+            }
+
+            return cells;
+        }
 
         public int CellCount => Width * Height;
 

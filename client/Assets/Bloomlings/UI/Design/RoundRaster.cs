@@ -62,6 +62,65 @@ namespace Bloomlings.Client.UI.Design
             return pixels;
         }
 
+        /// <summary>How many wall pictures a wall laid over a picture cycles through (<see cref="WallSeed"/>).</summary>
+        public const int WallVariants = 4;
+
+        /// <summary>The wall picture of a cell at (<paramref name="x"/>, <paramref name="y"/>), so a wall does not repeat one tile.</summary>
+        public static int WallSeed(int x, int y) => ((((x * 3) + (y * 5)) % WallVariants) + WallVariants) % WallVariants;
+
+        /// <summary>
+        /// One cell of a wall laid over a round level's picture (<c>board.wall</c>, 17 §8 as amended on 2026-10-28): a dry
+        /// stone wall filling the whole square, so cells join into one wall whichever way it runs. Two courses of blocks, the
+        /// lower one offset by a quarter cell, so the joints line up across neighbouring cells; each block a rounded slab from
+        /// <c>stone.top</c> to <c>stone.face</c> (its tone nudged per block by <paramref name="seed"/>), lit along its top,
+        /// a <c>stone.lip</c> band along its foot, in deep mortar joints of <c>stone.line</c>.
+        /// </summary>
+        public static byte[] WallStone(int size, int seed)
+        {
+            Check(size, size);
+            var pixels = new byte[size * size * 4];
+            float s = size;
+            float half = s / 2f;
+            float gap = Math.Max(1f, s * 0.05f);
+            float radius = s * 0.09f;
+            float bevel = Math.Max(1f, s * 0.04f);
+            float lip = s * 0.08f;
+            Rgba mortar = C.StoneLine.Mix(C.StoneLip, 0.35f);
+            for (int py = 0; py < size; py++)
+            {
+                float y = py + 0.5f;
+                int course = y < half ? 0 : 1;
+                float offset = course == 0 ? 0f : s * 0.25f;
+                float top = course * half;
+                for (int px = 0; px < size; px++)
+                {
+                    float x = px + 0.5f;
+                    int block = (int)Math.Floor((x + offset) / half);
+                    float left = (block * half) - offset;
+                    float l = left + (gap / 2f);
+                    float t = top + (gap / 2f);
+                    float r = left + half - (gap / 2f);
+                    float b = top + half - (gap / 2f);
+                    float d = RoundRect(x, y, l, t, r, b, radius);
+                    var c = new Color(mortar);
+                    float cover = Coverage(d);
+                    if (cover > 0f)
+                    {
+                        float tone = 0.95f + (0.09f * Hash(block + (course * 7), course, seed + 41));
+                        var face = new Color(C.StoneTop.Mix(C.StoneFace, Smooth(Clamp01((y - t) / (b - t)))));
+                        face.Scale(tone);
+                        face.Mix(C.StoneLip, Outside(RoundRect(x, y + lip, l, t, r, b, radius), 1.5f));
+                        face.Mix(C.StoneTop.Lighten(0.5f), 0.7f * Outside(RoundRect(x, y - bevel, l, t, r, b, radius), 1f));
+                        c.Mix(face.ToRgba(), cover);
+                    }
+
+                    Put(pixels, size, px, py, c, 1f);
+                }
+            }
+
+            return pixels;
+        }
+
         /// <summary>
         /// The link tube between two linked pods (<c>pod.link.tube</c>, spec 006 FR-043) as a horizontal
         /// picture <paramref name="width"/> long and <paramref name="height"/> thick, drawn rotated between the pods' front

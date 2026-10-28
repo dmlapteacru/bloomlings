@@ -151,7 +151,7 @@ namespace Bloomlings.Playtest.Check
                 RoundPicture picture = rounds.GetPicture(level);
                 RoundManifestLevel listed = rounds.Listed(n);
                 expect(level.Number == n && listed.Class == level.Class && picture.Id == level.PictureId, $"{name}: L{n} reads with its picture");
-                RoundBoardShape board = RoundPictureBoard.Of(picture);
+                RoundBoardShape board = RoundPictureBoard.Of(picture, level.Overlay);
                 expect(board.Width == level.Width && board.Height == level.Height && board.RowsBottomFirst.SequenceEqual(level.RowsBottomFirst),
                     $"{name}: L{n}'s board is its picture {picture.Key}'s board");
             }

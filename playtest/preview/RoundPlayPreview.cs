@@ -250,6 +250,55 @@ namespace Bloomlings.Playtest.Preview
                 times.Sort();
                 Console.WriteLine($"rounds 48x48: cell {cache.Board.Cell:0.0} px, {working} places working, {screen.Animator.Walkers.Count} walkers; frame median {times[times.Count / 2]:0.0} ms, p95 {times[(int)(times.Count * 0.95)]:0.0} ms (preview painter, first frames render the pictures)");
                 expect(working >= 5 && screen.Animator.Walkers.Count > 0, "the 48 x 48 board plays with five places working");
+
+                // ---- Bridges on two strips of a wall laid over the picture (17 §8 as amended on 2026-10-28) ----
+                RoundLevel fenced = SideBridgeLevel();
+                var side = new RoundLevelScreen(app, 21, fenced, null);
+                side.SkipGuide();
+                HashSet<string> SideShot(string name, float seconds)
+                {
+                    for (float t = 0f; t < seconds; t += 1f / 30f)
+                    {
+                        painter.Now += 1f / 30f;
+                        painter.BeginFrame();
+                        side.Advance(1f / 30f);
+                        side.Draw(painter);
+                    }
+
+                    painter.Slots.Clear();
+                    painter.Now += 1f / 60f;
+                    painter.BeginFrame();
+                    side.Advance(1f / 60f);
+                    side.Draw(painter);
+                    File.WriteAllBytes(Path.Combine(outDir, "rounds-play-" + name + ".png"), painter.Png());
+                    return new HashSet<string>(painter.Slots, StringComparer.Ordinal);
+                }
+
+                HashSet<string> fence = SideShot("side-bridge-start", 0.2f);
+                expect(fence.Contains(RoundBoardLayout.WallSlot) && fence.Contains(RoundBoardLayout.WaterSlot) == false && side.BuildableBridges().Count == 0,
+                    "an overlay's wall is drawn as stone (board.wall), and no site is buildable before its approach is cleared");
+                for (int k = 0; k < 4; k++)
+                {
+                    foreach (int top in RoundRules.TopPods(side.Play.Timeline.State))
+                    {
+                        if (fenced.Pods[top].Code != 'G' && side.Play.Check(RoundAction.Tap(top)) == RoundRefusal.None)
+                        {
+                            side.Tap(top);
+                        }
+                    }
+
+                    SideShot("side-bridge-clearing", 3f);
+                }
+
+                fence = SideShot("side-bridge-sites", 0.5f);
+                RoundBoardLayout fencedBoard = RoundPainter.Layout(painter, side, true, false).Board;
+                expect(side.BuildableBridges().Count == 2 && fence.Contains(RoundBoardLayout.BridgeSlot)
+                    && fencedBoard.Bridges[0].Crossing == RoundCrossing.Left && fencedBoard.Bridges[1].Crossing == RoundCrossing.Up,
+                    "once both approaches are cleared both sites glow on their near banks: one crossing left, one up");
+                side.BuildBridge(0);
+                fence = SideShot("side-bridge-built", 0.5f);
+                expect(side.Animator.Bridge == 0 && fence.Contains(RoundBoardLayout.BridgeSlot) && side.BuildableBridges().Count == 0,
+                    "the bridge crossing left is built, its plank laid left to right, and the other site is gone");
                 app.Dispose();
             }
             finally
@@ -402,6 +451,21 @@ namespace Bloomlings.Playtest.Preview
             }
 
             return new RoundLevel(21, side, side, rows, pods, tray, new[] { side / 2 });
+        }
+
+        /// <summary>
+        /// A board with a wall laid over its picture (17 §8 as amended on 2026-10-28): an L of stone fences the top left
+        /// corner's G, its site at (3, 1) crossing left from the P, the one at (1, 3) crossing up from the B.
+        /// </summary>
+        public static RoundLevel SideBridgeLevel()
+        {
+            var picture = new RoundPicture("P9100", 1, "Fenced corner", 8, 6, new[] { "GGGGPPPP", "GGGGPPPP", "GGGGPPPP", "GGGGPPPP", "BBBBBBBB", "BBBBBBBB" }, "2026-10-28");
+            var overlay = new RoundOverlay(new[] { (3, 0), (3, 1), (3, 2), (3, 3), (0, 3), (1, 3), (2, 3) }, new[] { (3, 1), (1, 3) });
+            RoundBoardShape board = RoundPictureBoard.Of(picture, overlay);
+            var pods = new[] { new RoundPod('B', 8), new RoundPod('B', 8), new RoundPod('P', 8), new RoundPod('P', 8), new RoundPod('G', 9) };
+            var tray = new IReadOnlyList<int>[] { new[] { 0, 2 }, new[] { 1, 3 }, new[] { 4 } };
+            return new RoundLevel(21, board.Width, board.Height, board.RowsBottomFirst, pods, tray, board.Entries, board.Bridge,
+                mechanics: new[] { "bridge" }, overlay: overlay);
         }
     }
 }

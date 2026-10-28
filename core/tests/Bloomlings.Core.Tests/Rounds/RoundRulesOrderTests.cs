@@ -211,6 +211,25 @@ namespace Bloomlings.Core.Tests.Rounds
             Assert.That(RoundRules.StatusOf(b), Is.EqualTo(RoundStatus.Playing));
             Assert.That(RoundRules.BridgeChoices(b), Is.EqualTo(new[] { 0 }));
 
+            // 17 §8 as amended on 2026-10-28: a site in a wall along the board, its anchor beside it, crossing left.
+            RoundLevel side = RoundTestLevels.Board(
+                new[] { "G#..", "G#..", "G#.." },
+                new[] { new RoundPod('G', 3) },
+                new[] { new[] { 0 }, new int[0] },
+                entryX: 3,
+                bridge: new[] { new RoundBridgeChoice(5, 6, "left") });
+            Assert.That(RoundLevelValidator.Orthogonal(5, 6, side.Width), Is.True);
+            RoundState l = RoundRules.Create(side);
+            Assert.That(RoundRules.BridgeChoices(l), Is.EqualTo(new[] { 0 }), "the anchor beside the site is reached");
+            Assert.That(RoundRules.Legal(l).Last(), Is.EqualTo(RoundAction.BuildBridge(0)));
+            RoundLevel farAnchor = RoundTestLevels.Board(
+                new[] { "G#..", "G#..", "G#.." },
+                new[] { new RoundPod('G', 3) },
+                new[] { new[] { 0 }, new int[0] },
+                entryX: 3,
+                bridge: new[] { new RoundBridgeChoice(5, 4, "right") });
+            Assert.That(RoundRules.BridgeChoices(RoundRules.Create(farAnchor)), Is.Empty, "an anchor on the far bank is never reached");
+
             RoundLevel walled = LinkBoard();
             RoundState s = RoundRules.Create(walled);
             s.Slots[0] = s.Slots[1] = s.Slots[2] = s.Slots[3] = s.Slots[4] = 0;

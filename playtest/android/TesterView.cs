@@ -1207,7 +1207,11 @@ namespace Bloomlings.Playtest
                 }
             }
 
+            // A wall laid over the picture (the level's overlay) is grey stone; the picture's own strip stays water.
+            var stone = new HashSet<int>(level.OverlayCells());
+
             List<int> buildable = RoundRules.BridgeChoices(_play.Timeline.State);
+            RectF? plank = null;
             for (int y = 0; y < h; y++)
             {
                 string row = level.RowsBottomFirst[y];
@@ -1219,20 +1223,37 @@ namespace Bloomlings.Playtest
                     var full = new RectF(ox + (x * cell), oy + ((h - 1 - y) * cell), ox + ((x + 1) * cell), oy + ((h - y) * cell));
                     int shown = a.MaterialAt(index);
                     bool site = sites.TryGetValue(index, out int choice);
+                    Color strip = stone.Contains(index) ? Color.ParseColor("#9A9488") : Color.ParseColor("#7FB8D8");
                     Color color = entries.Contains(index) ? EntryColor
                         : edge ? StoneColor
-                        : site && a.Bridge == choice ? Color.ParseColor("#A87A45")
+                        : site && a.Bridge == choice ? strip
                         : site ? (buildable.Contains(choice) ? EntryColor : Color.ParseColor("#C9A46A"))
-                        : c == '#' ? Color.ParseColor("#7FB8D8")
+                        : c == '#' ? strip
                         : shown >= 0 ? MaterialColor(RoundMaterial.Codes[shown])
                         : Ground;
                     Fill(canvas, shown < 0 || edge ? full : Inset(full, cell * 0.04f), color, 0f);
+                    if (site && a.Bridge == choice)
+                    {
+                        // The built bridge: a plank along its crossing (up or down, left or right), onto both banks.
+                        bool across = Math.Abs(level.Bridge![choice].Cell - level.Bridge[choice].Anchor) == w;
+                        float reach = cell * 0.22f;
+                        float side = cell * 0.11f;
+                        plank = across
+                            ? new RectF(full.Left + side, full.Top - reach, full.Right - side, full.Bottom + reach)
+                            : new RectF(full.Left - reach, full.Top + side, full.Right + reach, full.Bottom - side);
+                    }
+
                     if (site && buildable.Contains(choice))
                     {
                         int built = choice;
                         Hit(Inset(full, -cell), () => CommitRound(RoundAction.BuildBridge(built)));
                     }
                 }
+            }
+
+            if (plank != null)
+            {
+                Fill(canvas, plank, Color.ParseColor("#A87A45"), 0f);
             }
 
             // The walkers: a dot of their material where the timeline puts each courier now.

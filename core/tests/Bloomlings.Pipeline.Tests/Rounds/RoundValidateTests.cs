@@ -103,6 +103,33 @@ namespace Bloomlings.Pipeline.Tests.Rounds
         }
 
         [Test]
+        public void ABoardWithAnOverlay_IsItsPictureWithTheOverlayLaid()
+        {
+            // 17 §8 as amended on 2026-10-28: a wall down the picture's column 1 with a site crossing left at (1, 1).
+            var picture = new RoundPicture("P9100", 1, "Fence", 5, 4, new[] { "GGPPP", "GGPPP", "GGPPP", "GGPPP" }, "2026-10-28");
+            var overlay = new RoundOverlay(new[] { (1, 0), (1, 1), (1, 2), (1, 3) }, new[] { (1, 1) });
+            RoundBoardShape board = RoundPictureBoard.Of(picture, overlay);
+            RoundLevel Level(RoundOverlay? laid, IReadOnlyList<RoundBridgeChoice>? bridge) => new RoundLevel(
+                16, board.Width, board.Height, board.RowsBottomFirst, new[] { new RoundPod('G', 4) }, new[] { new[] { 0 } }, board.Entries, bridge,
+                pictureId: "P9100", overlay: laid);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(board.Bridge!.Select(c => (c.Cell, c.Anchor)), Is.EqualTo(new[] { (39, 40) }));
+                Assert.That(RoundSetValidator.PictureBoard("L0016", Level(overlay, board.Bridge), picture), Is.Empty);
+                Assert.That(RoundSetValidator.PictureBoard("L0016", Level(null, board.Bridge), picture).Select(i => i.ToString()), Is.EqualTo(new[]
+                {
+                    "error L0016 picture-board: row 1 (bottom first) is '#..#....#', picture P9100 v1 makes '#.......#'",
+                }), "without its overlay the board is not the picture's");
+                var stray = new RoundOverlay(new[] { (3, 1) }, new[] { (3, 1) });
+                Assert.That(RoundSetValidator.PictureBoard("L0016", Level(stray, board.Bridge), picture).Select(i => i.ToString()), Is.EqualTo(new[]
+                {
+                    "error L0016 picture-board: picture P9100@1: bridge site (3,1) has 4 neighbours the entry reaches; exactly one is its anchor.",
+                }));
+            });
+        }
+
+        [Test]
         public void AMissingOrOtherPictureVersion_IsAnError()
         {
             using var content = new RoundTestContent();

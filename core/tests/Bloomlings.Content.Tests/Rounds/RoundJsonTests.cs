@@ -100,8 +100,8 @@ namespace Bloomlings.Content.Tests.Rounds
                     Assert.That(choice.Anchor, Is.EqualTo(choice.Cell - w));
                 }
 
-                Assert.That(board.Bridge![0].Label, Is.EqualTo("Левый мостик"));
-                Assert.That(board.Bridge![1].Label, Is.EqualTo("Правый мостик"));
+                Assert.That(board.Bridge![0].Label, Is.EqualTo("Мостик вверх слева"));
+                Assert.That(board.Bridge![1].Label, Is.EqualTo("Мостик вверх справа"));
             });
         }
 
@@ -143,6 +143,74 @@ namespace Bloomlings.Content.Tests.Rounds
                 Assert.That(back.Exception!.Rule, Is.EqualTo("one deciding bridge from the second introduction"));
                 Assert.That(json, Does.Contain("\"Super Hard\""));
             });
+        }
+
+        [Test]
+        public void Level_WithAnOverlay_RoundTrips()
+        {
+            // 17 §8 as amended on 2026-10-28: board.overlay lays walls and sites over the picture, in picture coordinates.
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["overlay"] = new JObject
+            {
+                ["walls"] = new JArray(new JArray(0, 1), new JArray(1, 1), new JArray(2, 1)),
+                ["sites"] = new JArray(new JArray(0, 1), new JArray(2, 1)),
+            };
+            string json = root.ToString();
+
+            RoundLevel level = RoundJson.ReadLevel(json);
+            string written = RoundJson.WriteLevel(level);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(level.Overlay!.Walls, Is.EqualTo(new[] { (0, 1), (1, 1), (2, 1) }));
+                Assert.That(level.Overlay.Sites, Is.EqualTo(new[] { (0, 1), (2, 1) }));
+                Assert.That(level.PictureCell(1, 1), Is.EqualTo(((level.Height - 4) * level.Width) + 3), "picture (1, 1) is board column 3, row 3 from the top");
+                Assert.That(RoundJson.WriteLevel(RoundJson.ReadLevel(written)), Is.EqualTo(written));
+                Assert.That(JObject.Parse(written)["board"]!["overlay"]!.ToString(Newtonsoft.Json.Formatting.None), Is.EqualTo("{\"sites\":[[0,1],[2,1]],\"walls\":[[0,1],[1,1],[2,1]]}"));
+                if (SchemaResources.Read(SchemaResources.RoundLevel).Contains("\"overlay\""))
+                {
+                    // The schema gains board.overlay with the JS side's change of the same day.
+                    Assert.That(ContractSchemas.IsValidRoundLevel(written), Is.True);
+                }
+            });
+        }
+
+        [TestCase("[[3,0]]", "board.overlay.walls[0][0]", TestName = "OverlayWallRightOfThePicture_IsRejected")]
+        [TestCase("[[0,4]]", "board.overlay.walls[0][1]", TestName = "OverlayWallBelowThePicture_IsRejected")]
+        [TestCase("[[-1,0]]", "board.overlay.walls[0][0]", TestName = "OverlayWallLeftOfThePicture_IsRejected")]
+        [TestCase("[[0,1,2]]", "board.overlay.walls[0]", TestName = "OverlayCellOfThreeNumbers_IsRejected")]
+        public void Level_OverlayCellOutsideThePicture_IsRejected(string walls, string path)
+        {
+            // The sample's board is 7 × 8: its picture is 3 × 4.
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["overlay"] = new JObject { ["walls"] = JArray.Parse(walls), ["sites"] = new JArray(new JArray(0, 0), new JArray(1, 0)) };
+
+            var ex = Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(root.ToString()));
+
+            Assert.That(ex!.Path, Is.EqualTo(path));
+        }
+
+        [TestCase("[[0,1]]", TestName = "OverlayWithOneSite_IsRejected")]
+        [TestCase("[[0,1],[1,1],[2,1]]", TestName = "OverlayWithThreeSites_IsRejected")]
+        public void Level_OverlayWithoutTwoSites_IsRejected(string sites)
+        {
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["overlay"] = new JObject { ["walls"] = new JArray(), ["sites"] = JArray.Parse(sites) };
+
+            var ex = Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(root.ToString()));
+
+            Assert.That(ex!.Path, Is.EqualTo("board.overlay.sites"));
+        }
+
+        [Test]
+        public void Level_OverlayWithoutSites_IsRejected()
+        {
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["overlay"] = new JObject { ["walls"] = new JArray() };
+
+            var ex = Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(root.ToString()));
+
+            Assert.That(ex!.Path, Is.EqualTo("board.overlay.sites"));
         }
 
         [Test]
@@ -376,7 +444,7 @@ namespace Bloomlings.Content.Tests.Rounds
         //   "board 7–48 wide, 8–48 high"; row length and characters; "tray is a partition of the pods", 2–6 columns,
         //   capacity 5; pod count 1–60; "exact accounting: cells of each code equal the sum of counts" (the level of
         //   DefinitionRules_AreTheValidatorsJob); "groups are pairs in different columns at equal start depth"; "hidden pods
-        //   are at most 6, never in a group"; "bridge sites are walls with the anchor one row below"; mechanics match pods
+        //   are at most 6, never in a group"; "bridge sites are walls with an orthogonal neighbour as anchor"; mechanics match pods
         //   and hero; an exception accepted only for the rule it names.
         [Test]
         [Ignore("T008: RoundLevelValidator is written in parallel; assert its errors here after the merge.")]

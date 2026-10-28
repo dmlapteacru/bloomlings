@@ -30,7 +30,7 @@ How to read the columns:
 | Backgrounds | 21 | 0 | 21 |
 | Bloomling characters | 22 | 8 | 30 |
 | Variant symbols | 24 | 4 | 28 |
-| Board tiles and overlays | 31 | 8 | 39 |
+| Board tiles and overlays | 32 | 8 | 40 |
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 17 | 0 | 17 |
 | Booster icons | 11 | 0 | 11 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **285** | **40** | **325** |
+| **All** | **286** | **40** | **326** |
 
 ## Brand
 
@@ -193,7 +193,8 @@ the fallback when a picture is missing.
 | `board.entry.arch` | Garden Entry: a small stone arch set in the border beside each entry cell (spec 005 FR-034; the owner's choice "B", 2026-10-05) | 7, 8, 9 | Board (every entry, turned to its side) | bottom; top; left; right | Small | yes | Launch | UiRaster.EntryArch: two stone pillars and an arch of keystones round a dark opening with two peeping eyes, ivy, a pink flower on the keystone and a soft warm light; it reaches 0.36 cell over the entry cell |
 | `board.border.stone` | Stone border around the board | 7, 8, 9 | Board; win picture | normal; thin (win) | Large | yes | Launch | GameplaySkin: a continuous rounded cream rim with molded stone blocks and tight seams; dark gaps between board tiles |
 | `board.water` | Stream: a wall inside a round level's frame is water (spec 006) | 7, 8, 9 | Round levels: the board | a run of cells; a bridge site before its bridge | Small | yes | Launch | UiRaster.Water: water filling the cell (`water.top` by the banks, `water.deep` in the middle), a dark band and a foam line along each bank, short drifting `water.foam` ripples (four variants along a run) |
-| `board.bridge` | Sprig bridge: the built bridge's plank over the stream (spec 006) | 7, 8, 9 | Round levels with a bridge: the board | built (the site before it shows water) | Small | yes | Launch | a light wooden plank (UiRaster.Plank, `mat.wood.light`) across the site, reaching 0.22 cell onto each bank (RoundBridgeSite.Plank) |
+| `board.bridge` | Sprig bridge: the built bridge's plank over the stream (spec 006) | 7, 8, 9 | Round levels with a bridge: the board | built (the site before it shows water) | Small | yes | Launch | a light wooden plank (UiRaster.Plank, `mat.wood.light`) across the site, turned to its crossing (up, down, left or right), reaching 0.22 cell onto each bank (RoundBridgeSite.Plank); a buildable site glows toward its near bank (RoundBridgeSite.Glow) |
+| `board.wall` | A wall laid over the picture: a strip the level's overlay lays is a stone wall (spec 006, 17 §8 as amended on 2026-10-28) | 7, 8, 9 | Round levels with an overlay: the board | a run of cells, across or along the board; a bridge site in it before its bridge | Small | yes | Launch | UiRaster.WallStone: a dry stone wall filling the cell, two courses of rounded `stone.top` to `stone.face` blocks (a `stone.lip` foot, lit along the top) offset by a quarter cell in deep `stone.line` joints (four variants) |
 | `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells as the board's soft cubes (`tile.candy`, with the owner's field icons `tile.gem.*`; spec 005 FR-046: "as in the gameplay, volumetric") of each role's variant in a thin stone border (spec 005 D14) |
 
 ## Specials

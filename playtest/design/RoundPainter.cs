@@ -15,8 +15,9 @@ namespace Bloomlings.Playtest.Design
     /// Draws a round level (spec 006 T049, contracts/presentation.md) in the game's look, from <see cref="RoundAnimator"/>
     /// and <see cref="RoundBoardLayout"/>; it holds no rules.
     /// <list type="bullet">
-    /// <item><description>The board: the game's stone border and entry arch, grass on the path, water on the stream, the
-    /// built bridge's plank (a buildable site glows and takes the tap), the cubes in the round palette without icons (the
+    /// <item><description>The board: the game's stone border and entry arch, grass on the path, water on the stream, a
+    /// stone wall where the level's overlay laid one, the built bridge's plank turned to its crossing (a buildable site
+    /// glows toward its near bank and takes the tap), the cubes in the round palette without icons (the
     /// symbol only in the symbols mode), a cleared cube as the game's pale restored cell; the clearing style's walkers
     /// follow their couriers on the live timeline, the family hero tinted in the material's colour (FR-042, FR-048).</description></item>
     /// <item><description>The tray: the places' cream plates with the material tile and the count, the columns of wooden
@@ -248,8 +249,21 @@ namespace Bloomlings.Playtest.Design
                     switch (board.KindOf(cell))
                     {
                         case RoundCellKind.Stream:
-                        case RoundCellKind.BridgeSite:
                             Kit.Water(p, full, x);
+                            break;
+                        case RoundCellKind.Wall:
+                            Kit.Wall(p, full, x, y);
+                            break;
+                        case RoundCellKind.BridgeSite:
+                            if (board.IsStone(cell))
+                            {
+                                Kit.Wall(p, full, x, y);
+                            }
+                            else
+                            {
+                                Kit.Water(p, full, x);
+                            }
+
                             break;
                         case RoundCellKind.Material:
                         {
@@ -292,13 +306,13 @@ namespace Bloomlings.Playtest.Design
                 }
                 else if (buildable.Contains(site.Index))
                 {
-                    // A site whose approach is open glows and takes the tap (FR-009).
+                    // A site whose approach is open glows toward its near bank and takes the tap (FR-009).
                     p.Mark(RoundBoardLayout.BridgeSlot);
                     float glow = GardenLook.Glow(p.Now);
                     p.PushAlpha(0.45f + (0.4f * glow));
                     Kit.BridgePlank(p, site);
                     p.PopAlpha();
-                    p.StrokeRound(site.Site.Inset(-board.Cell * 0.08f), board.Cell * 0.2f, Math.Max(1.5f, board.Cell * 0.1f), C.GardenGlow.WithAlpha(0.6f + (0.4f * glow)));
+                    p.StrokeRound(site.Glow.Inset(-board.Cell * 0.08f), board.Cell * 0.2f, Math.Max(1.5f, board.Cell * 0.1f), C.GardenGlow.WithAlpha(0.6f + (0.4f * glow)));
                     int choice = site.Index;
                     if (s.HudAlpha >= 1f)
                     {

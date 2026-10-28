@@ -19,6 +19,10 @@ namespace Bloomlings.Playtest.Design
 
         private static readonly Func<int, int, byte[]>[] WaterPictures = MakeWater<Func<int, int, byte[]>>(k => (w, h) => UiRaster.Water(Math.Min(w, h), k));
 
+        private static readonly string[] WallKeys = MakeWall(k => RoundBoardLayout.WallSlot + "/" + k);
+
+        private static readonly Func<int, int, byte[]>[] WallPictures = MakeWall<Func<int, int, byte[]>>(k => (w, h) => UiRaster.WallStone(Math.Min(w, h), k));
+
         /// <summary>
         /// A round material's tile filling the square in <paramref name="box"/> (spec 006 FR-040, FR-041, FR-047): a board
         /// cube (<see cref="RoundLook.CubeStyle"/>) or a pod's or place's tile (<see cref="RoundLook.PodStyle"/>) in the
@@ -56,7 +60,18 @@ namespace Bloomlings.Playtest.Design
             p.Picture(WaterKeys[k], full, WaterPictures[k]);
         }
 
-        /// <summary>A built bridge (<c>board.bridge</c>): a light wooden plank across its site, turned to cross the stream.</summary>
+        /// <summary>
+        /// A cell of a wall laid over the picture filling <paramref name="full"/> (<c>board.wall</c>, 17 §8 as amended on
+        /// 2026-10-28), its picture by its place (<see cref="UiRaster.WallSeed"/>).
+        /// </summary>
+        public static void Wall(IPainter p, Box full, int x, int y)
+        {
+            p.Mark(RoundBoardLayout.WallSlot);
+            int k = UiRaster.WallSeed(x, y);
+            p.Picture(WallKeys[k], full, WallPictures[k]);
+        }
+
+        /// <summary>A built bridge (<c>board.bridge</c>): a light wooden plank across its site, turned to its crossing (up, down, left or right).</summary>
         public static void BridgePlank(IPainter p, RoundBridgeSite site)
         {
             p.Mark(RoundBoardLayout.BridgeSlot);
@@ -207,6 +222,17 @@ namespace Bloomlings.Playtest.Design
             for (int m = 0; m < items.Length; m++)
             {
                 items[m] = make(m);
+            }
+
+            return items;
+        }
+
+        private static T[] MakeWall<T>(Func<int, T> make)
+        {
+            var items = new T[UiRaster.WallVariants];
+            for (int k = 0; k < items.Length; k++)
+            {
+                items[k] = make(k);
             }
 
             return items;
