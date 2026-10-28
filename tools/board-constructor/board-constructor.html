@@ -1,0 +1,161 @@
+<title>Конструктор борда Bloomlings</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: controls in a left rail, the phone preview right, five small phones (one per sample grid) below. */
+:root{
+ --bg:#eef1ea; --panel:#ffffff; --fg:#22302b; --muted:#5f6d66; --line:#d6ddd4; --accent:#2f7d45; --accent-ink:#ffffff; --warn:#b4432f; --chip:#e3eadf;
+ --font-ui:"Nunito",ui-rounded,"Segoe UI",system-ui,sans-serif; --font-data:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#161c19;--panel:#1f2723;--fg:#e4ece6;--muted:#9fb0a7;--line:#33403a;--accent:#6dbe45;--accent-ink:#10160f;--warn:#ff8a70;--chip:#2a3530;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161c19;--panel:#1f2723;--fg:#e4ece6;--muted:#9fb0a7;--line:#33403a;--accent:#6dbe45;--accent-ink:#10160f;--warn:#ff8a70;--chip:#2a3530;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-ui);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px}
+h1{font-size:1.5rem;margin:0 0 4px;font-weight:800;text-wrap:balance}
+.lead{color:var(--muted);margin:0 0 18px;max-width:70ch;line-height:1.45}
+.wrap{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:820px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:14px;min-width:0}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:9px}
+legend{font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 64px;gap:8px;align-items:center}
+.row label{font-size:.92rem}
+.row input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--accent)}
+.val{font-family:var(--font-data);font-size:.85rem;text-align:right;font-variant-numeric:tabular-nums}
+select,button{font:inherit}
+select{background:var(--chip);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%}
+.check{display:flex;gap:8px;align-items:center;font-size:.92rem}
+.stage{display:grid;gap:14px;min-width:0}
+.main{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+canvas{display:block;border-radius:22px;box-shadow:0 2px 0 var(--line),0 8px 24px rgba(0,0,0,.12);max-width:100%}
+#big{width:min(360px,100%);height:auto}
+.readout{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0;flex:1 1 240px;display:grid;gap:8px}
+.readout table{border-collapse:collapse;font-size:.9rem;width:100%}
+.readout td{padding:3px 0;border-bottom:1px solid var(--line)}
+.readout td:last-child{text-align:right;font-family:var(--font-data);font-variant-numeric:tabular-nums}
+.warn{color:var(--warn);font-weight:700}
+.thumbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.thumbs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.thumb{display:grid;gap:6px;justify-items:center;font-size:.82rem;color:var(--muted);cursor:pointer;background:none;border:0;padding:0;color:inherit}
+.thumb canvas{width:100%;height:auto;border-radius:12px}
+.thumb[aria-pressed="true"] span{color:var(--accent);font-weight:800}
+.thumb:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:12px}
+pre{background:var(--chip);border-radius:8px;padding:10px;font-family:var(--font-data);font-size:.8rem;overflow-x:auto;margin:0}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:8px 12px;font-weight:800;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.ghost{background:var(--chip);color:var(--fg)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<h1>Конструктор борда</h1>
+<p class="lead">Двигайте ползунки: размер места под борд, толщину рамки, места и лоты-кубики. Справа — экран телефона с выбранной картинкой, внизу те же настройки на пяти картинках от 14×19 до 44×44. Когда понравится, нажмите «Скопировать значения» и пришлите их мне.</p>
+
+<div class="wrap">
+ <div class="panel" id="controls">
+  <fieldset><legend>Экран</legend>
+   <select id="aspect" aria-label="Пропорции экрана">
+    <option value="2340">1080 × 2340 (19,5:9)</option><option value="2400">1080 × 2400 (20:9)</option><option value="2268">1080 × 2268 (21:10)</option><option value="1920">1080 × 1920 (16:9)</option></select>
+  </fieldset>
+  <fieldset id="f-board"><legend>Место под борд</legend></fieldset>
+  <fieldset id="f-pods"><legend>Места и лоты</legend></fieldset>
+  <fieldset><legend>Пример</legend>
+   <label class="check"><input type="checkbox" id="boosters" checked> Ряд бустеров (с L3)</label>
+   <label class="check"><input type="checkbox" id="square" checked> Борд квадратный</label>
+  </fieldset>
+ </div>
+ <div class="stage">
+  <div class="main">
+   <canvas id="big" width="540" height="1170" aria-label="Экран уровня с выбранной картинкой"></canvas>
+   <div class="readout">
+    <strong id="pictitle"></strong>
+    <table id="facts"></table>
+    <div id="fit"></div>
+    <pre id="out"></pre>
+    <div class="btns"><button class="btn" id="copy" type="button">Скопировать значения</button><button class="btn ghost" id="reset" type="button">Как в игре сейчас</button></div>
+    <div id="copied" class="val" aria-live="polite"></div>
+   </div>
+  </div>
+  <div class="thumbs" id="thumbs"></div>
+ </div>
+</div>
+
+<script>
+const PAL={"G": "#6DBE45", "P": "#EB799C", "B": "#36B7DA", "A": "#A45F28", "C": "#F5E6BD", "D": "#334B48", "V": "#7851A5", "Y": "#F6CB3E", "O": "#EF8A32", "L": "#CDEB5E", "M": "#2F7D45", "R": "#D8394B", "K": "#F9C6D6", "N": "#2C5AA8", "S": "#A8E2F5", "E": "#6A3A1E"};
+const SAMPLES={"P0001": {"title": "Лисёнок", "rows": ["OO.......OO...", "OOO.OOO.OOO...", "OCOOOOOOOCO...", "OOOOOOOOOOO...", "OOOEOOOEOOO...", "OOOEOOOEOOO...", "OOOOCCCOOOO...", ".OOCCECCOO....", ".OOCCCCCOO....", "...OOCOO....O.", "..OOOOOOO...OO", "..OOOCOOO...OO", ".OOOCCCOOO..OO", ".OOCCCCCOO..OO", ".OOCCCCCOO..OO", "..OCCCCCO..OOO", "..OOCCCOOOOOO.", "...COCOC..OOO.", ".CCCCOCCCC...."]}, "P0083": {"title": "Футбольный мяч", "rows": ["........DDDDD........", ".....DDDDDDDDDDD.....", "....DCCCDDDDDCCCD....", "...DCCCCCDDDCCCCCD...", "..DCCCCCCCDCCCCCCCD..", ".DCCCCCCCCCCCCCCCCCD.", ".DDCCCCCCCCCCCCCCCDD.", ".DDDCCCCCDDDCCCCCDDD.", "DDDDDCCCDDDDDCCCDDDDD", "DDDDCCCDDDDDDDCCCDDDD", "DDDCCCCDDDDDDDCCCCDDD", "DCCCCCCCDDDDDCCCCSSSD", "DCCCCCCCCDDDCCCCSSSSD", ".DCCCCCCCCCCCCCSSSSD.", ".DCCCDCCCCCCCCCDSSSD.", ".DCCDDCCCCCCCCSDDSSD.", "..DDDDDCCCCCCCDDDDD..", "...DDDDCCCCCCSDDDD...", "....DCCCCCCCCSSSD....", ".....DDDCCCCSDDD.....", "........DDDDD........"]}, "P0021": {"title": "Заводная сова", "rows": ["NNNNNNNNNNNNNNNNYNNNNNNNNNNNNNN", "NNNNNNNNNNNNNNNYYYNNNNNNNNNNNNN", "NNNCCCNNNNNNNNNNYNNNNNNNNNNNNNN", "NNCCCCCCNAANNNNNNNNNNAANNNNYNNN", "NCCCCCCCNAAAAAAAAAAAAAANNNYYYNN", "NCCCCCCCNAAAAAAAAAAAAAANNNNYNNN", "NCCCCCCCAAOOOOOOOOOOOOAANNNNNNN", "NNCCCCCCAOYYYYYOOYYYYYOANNNNNNN", "NNCCCCCNAOYCCCYOOYCCCYOANNNNNNN", "NNNNNNNNAYCDDDCYYCDDDCYANNNNNNN", "NNNNNNNNAYCDDDCYYCDDDCYANNNNNNN", "NNNNNNNNEOYCCCYOOYCCCYOENNNNYNN", "NNNNNNNNEOYYYYYDDYYYYYOENNNYYYN", "NNNNNNNNEEOOOOODDOOOOOEENNNYNYN", "NNNNNNNNNEEAAOOOOOOAAEENNNNYYYN", "NNYNNNNNEEEEYYYYYYYYEEEENNNYYNN", "NYYYNNNNEEEEOOOOOOOOEEEEOOOYYNN", "NNYNNNNNEEEYYYYYYYYYYEEEOOOYYNN", "NNNNNNNNEEEOOOOOOOOOOEEENNNYYNN", "NNNNNNNNNEEYYYYYYYYYYEENNNNYYYN", "NNNNNNNNNEEOOOOOOOOOOEENNNNYNYN", "NNNNNNNNNEEYYYYYYYYYYEENNNNYYYN", "NNNNNNNNNNEAOOOOOOOOAENNNNNNYNN", "NNNNNNNNNNNAYYYYYYYYANNNNNNNNNN", "NNNNNNNNNNNNAOOOOOOANNNNNNNNNNN", "NNNNNNNNNNNNNAAAAAANNNNNNNNNNNN", "EEEEEEEEEEEEOOEEEEOOEEEEEEEENNN", "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEN", "EEEEEEEEEEEEEEEEEEEEEEEEEEEENNN", "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"]}, "P0097": {"title": "Летающий ретроавтобус", "rows": ["BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBCCBBBBBBBBBBBBBBBBBBBBBBBBBCCBBB", "BBCCBCCCCBBBBBBBBBBBBBBBBBBBBBCCCCCCBB", "BCCCCCCCCBBBBBBBBBBBBBBBBBBBBCCCCCCCBB", "BCCCCCCCCBBBBBBBBBBBBBBBBBBBBBCCCCCCBB", "BBCCCCCCCBAAAAAABBDDBBAAAAAABBCCCCCCBB", "BBCCCCCCAAAAAAAAAADDAAAAAAAAAABBBBBBBB", "BBBBCCCBBBAAAAAABBDDBBAAAAAABBBBBBBBBB", "BBBBBBBBBBBBBBBBBBDDBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBBBBBBDDBBBBBBBBBBBBBBBBBB", "BRBBBBBBBBBBBBBBBBDDBBBBBBBBBBBBBBBBBB", "BRRRBBYYYYYYYYYYYYYYYYYYYYYYYYBBBBBBBB", "BRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYBBBBBBB", "BRRRRRYYSSSSYYSSSSYYSSSSYYYSSSSYBBBBBB", "BBORRRYYSSSSYYSSSSYYSSSSYYYSSSSYYBBBBB", "BBBOORYYSSSSYYSSSSYYSSSSYYYSSSSYYBBBBB", "BBBBBOYYSSSSYYSSSSYYSSSSYYYSSSSYYBBBBB", "BBBBBBYYYYYYYYYYYYYYYYYYYYYYYYYYYBBBBB", "BBBBBBYYYYYYYYYYYYYYYYYYYYYYYYYYYBBBBB", "BBBBBBYYYYYYYYYYYYYYYYYYYYYYYYYYYBBBBB", "BBBBBBRRRRRRRRRRRRRRRRRRRRRRRRRRRBBBBB", "BBBBBBOOOOOOOOOOOOOOOOOOOOOOOOOCCBBBBB", "BBBBBBOOOOOOOOOOOOOOOOOOOOOOOOOCCBBBBB", "BBBBBBOODDDDOOOOOOOOOOOOODDDOOOBCBBBBB", "BBBBBBODDDDDDOOOOOOOOOOODDDDDOBBBBBBBB", "BBBBBCBDDCCDDBBBBBBBBBBBDDCDDBBBBBBBBB", "BBBBCCCDDCCDDBBBBBBBBBBBDDCDDBBCCCBBBB", "CCCCCCCDDDDDDBBBBBBBBBBBDDDDDCCCCCCBBB", "CCCCCCCCDDDDBBBBBBBBBBBBBDDDCCCCCCCBBB", "CCCCCCCCCBBBBBBBBBBBBBBBBBCCCCCCCCCBBB", "CCCCCCCCCBBBBBBBBBBBBBBBBBCCCCCCCCCCBB", "BCCCCCCCBBBBBBBBBBBBBBBBBBCCCCCCCCCCBB", "BBBBBBBBBBBBBBBBBBBBBBBBBBBCCCCCCCCBBB"]}, "P0027": {"title": "Чайник-ракета", "rows": [".....................YY.....................", ".....................YY.....................", ".....................YY.....................", ".....................RR.....................", "....................RRRR....................", "...................RRRRRR...................", "..................RRRRRRRR..................", ".................RRRRRRRRRR.................", "................RRRRRRRRRRRR................", "..RRR...........RRRRRRRRRRRR................", "..RRR..........RRRRRRRRRRRRRR...............", "..RRRR........RRRRRRRRRRRRRRRR..............", "..BBBB.....NNNNNNNNNNNNNNNNNNNNNN...........", "..BBBBB...BNNNNNNNNNNNNNNNNNNNNNNNNNNNN.....", "...BBBBB..BBBCCBBBBBBBBBBBBBBBBBBBNNNNNN....", "...BBBBB.BBBCCBBBBBBBBBBBBBBBBBBBBNNNNNNN...", "...BBBBBBBBCCBBBBBYYYYYYBBBBBBBBBBNN.NNNN...", "...BBBBBBBBCCBBBBYYYSSYYYBBBBBBBBBBN..NNNN..", "....BBBBBBCCBBBBYYSSSSSSYYBBBBBBBBBN..NNNN..", ".....BBBBBCCBBBBYYSCCSSSYYBBBBBBBBBN...NNN..", "......BBBBBBBBBBYSSCSSSSSYBBBBBBBBBNN..NNN..", "......BBBBBBBBBBYSSSSSSSSYBBBBBBBBBNN..NNN..", ".......BBBBBBBBBYYSSSSSSYYBBBBBBBBBNN.NNNN..", "........BBBBBBBBYYSSSSSSYYBBBBBBBBNN..NNNN..", "........BBBBBBBBBYYYSSYYYBBBBBBBBBNN.NNNN...", "........BBBBBBBBBBYYYYYYBBBBBBBBBNNNNNNNN...", "........BBBBBBBBBBBBBBBBBBBBBBBBBNNNNNNN....", ".........BBBBBBBBBBBBBBBBBBBBBBBNNNNNNN.....", ".........RBBBBBBBBBBBBBBBBBBBBBNNNR.........", "........RRBBBBBBBBBBBBBBBBBBBBNNNNRR........", ".......RRRRBBBBBBBBBBBBBBBBBBNNNNRRRR.......", "......RRRRRRBBBBBBBBBBBBBBBNNNNNRRRRRR......", ".....RRRRRRRRRNNBBBBBBBBBNNNNNRRRRRRRRR.....", "....RRRRRRRRRR..NNNNNNNNNNNN..RRRRRRRRRR....", "....RRRRRRRRR...NNONNNNNNONN...RRRRRRRRR....", "....RRRRRRR.....NNOOYYYYOONN.....RRRRRRR....", "....RRRRRR.......OOOYYYYOOO.......RRRRRR....", "....RRRRR........OOYYYYYYOO........RRRRR....", "....RRRR.........OOOYYYYOOO.........RRRR....", "....RRR..........OOOYYYYOOO..........RRR....", "....R.............OOOYYOOO.............R....", "..................OOOYYOOO..................", "....................OOOO....................", ".....................OO....................."]}};
+// the game's values of 2026-10-28 (fixed board box, frame 1/22, pods behind the places) as the starting point
+const DEFAULTS={topBar:10.5,boardTop:18.6,boardWidth:86,boardHeight:39.4,frame:4.5,padCells:1,slotsH:6.6,gapAfterBoard:1,boostersH:7.5,podCube:12,podGap:1.6,podCols:3,inactive:40};
+const CONTROLS=[
+ ['f-board','boardWidth','Ширина борда, % ширины экрана',60,100,.5],
+ ['f-board','boardHeight','Высота борда, % высоты экрана',30,60,.2],
+ ['f-board','boardTop','Верх борда, % высоты экрана',8,25,.2],
+ ['f-board','topBar','Верхняя панель, % высоты',6,14,.1],
+ ['f-board','frame','Толщина рамки, % стороны борда',0,8,.1],
+ ['f-board','padCells','Поле вокруг картинки, кубиков',0,3,1],
+ ['f-pods','gapAfterBoard','Отступ под бордом, % высоты',0,4,.1],
+ ['f-pods','slotsH','Ряд мест, % высоты',4,10,.1],
+ ['f-pods','boostersH','Ряд бустеров, % высоты',4,10,.1],
+ ['f-pods','podCube','Лот-кубик, % ширины экрана',7,18,.2],
+ ['f-pods','podGap','Зазор между лотами, % ширины',0,4,.1],
+ ['f-pods','podCols','Колонок лотов',2,5,1],
+ ['f-pods','inactive','Осветление нижних лотов, %',0,60,1]];
+let S={...DEFAULTS},cur='P0021';
+try{const k=localStorage.getItem('bloomlings-board-constructor');if(k)S={...S,...JSON.parse(k)};}catch(e){}
+const $=id=>document.getElementById(id);
+for(const [fs,key,label,min,max,step] of CONTROLS){const d=document.createElement('div');d.className='row';
+ d.innerHTML=`<label for="c-${key}">${label}</label><span class="val" id="v-${key}"></span><input type="range" id="c-${key}" min="${min}" max="${max}" step="${step}">`;$(fs).appendChild(d);
+ const inp=d.querySelector('input');inp.value=S[key];inp.addEventListener('input',()=>{S[key]=+inp.value;if($('square').checked&&key==='boardWidth')S.boardHeight=Math.min(60,S.boardWidth*1080/H());if($('square').checked&&key==='boardHeight')S.boardWidth=Math.min(100,S.boardHeight*H()/1080);sync();draw();});}
+const H=()=>+$('aspect').value;
+function sync(){for(const [,key] of CONTROLS){$('c-'+key).value=S[key];$('v-'+key).textContent=(+S[key]).toFixed(String(CONTROLS.find(c=>c[1]===key)[5]).includes('.')?1:0);}
+ try{localStorage.setItem('bloomlings-board-constructor',JSON.stringify(S));}catch(e){}}
+$('aspect').addEventListener('change',draw);$('boosters').addEventListener('change',draw);$('square').addEventListener('change',()=>{if($('square').checked){S.boardHeight=Math.min(60,S.boardWidth*1080/H());sync();}draw();});
+$('reset').addEventListener('click',()=>{S={...DEFAULTS};sync();draw();});
+$('copy').addEventListener('click',()=>{const t=$('out').textContent;navigator.clipboard.writeText(t).then(()=>{$('copied').textContent='Скопировано';},()=>{const r=document.createRange();r.selectNodeContents($('out'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('copied').textContent='Выделено: скопируйте вручную';});});
+
+const shade=(hex,f)=>{const n=parseInt(hex.slice(1),16),c=[n>>16,n>>8&255,n&255].map(v=>Math.round(f>0?v+(255-v)*f:v*(1+f)));return `rgb(${c.join(',')})`;};
+function cube(g,x,y,s,hex,dim=0){const r=s*.18,col=dim?shade(hex,dim):hex;
+ g.fillStyle=shade(dim?shade2(hex,dim):hex,-.28);rr(g,x,y,s,s,r);g.fill();               // front face (shadow side)
+ g.fillStyle=col;rr(g,x,y,s,s*.86,r);g.fill();                                             // rounded top
+ g.fillStyle='rgba(255,255,255,.28)';rr(g,x+s*.12,y+s*.1,s*.5,s*.16,s*.08);g.fill();}       // light from the upper left
+function shade2(hex,f){const n=parseInt(hex.slice(1),16),c=[n>>16,n>>8&255,n&255].map(v=>Math.round(v+(255-v)*f));return '#'+c.map(v=>v.toString(16).padStart(2,'0')).join('');}
+function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();}
+
+// one level screen at 1080 × H logical pixels, scaled into the canvas; returns the measures
+function screen(cv,id){const g=cv.getContext('2d'),W=1080,HH=H(),k=cv.width/W;cv.height=Math.round(HH*k);g.setTransform(k,0,0,k,0,0);
+ const P=SAMPLES[id],pw=P.rows[0].length,ph=P.rows.length;
+ // backdrop (the garden picture stands behind in the game)
+ const bg=g.createLinearGradient(0,0,0,HH);bg.addColorStop(0,'#3f8f6a');bg.addColorStop(.6,'#2f6f55');bg.addColorStop(1,'#c9b48f');g.fillStyle=bg;g.fillRect(0,0,W,HH);
+ // top bar: pause, level sign, speed
+ const tb=S.topBar/100*HH;g.fillStyle='#f6e7c3';rr(g,40,tb*.35,110,110,24);g.fill();rr(g,W-190,tb*.35,150,110,24);g.fill();
+ g.fillStyle='#b9793f';rr(g,W/2-180,tb*.4,360,96,30);g.fill();g.fillStyle='#fff8e8';g.font='800 56px Nunito, sans-serif';g.textAlign='center';g.fillText('Level 21',W/2,tb*.4+68);
+ // the board box: frame + neutral surface, the picture's grid (picture + the walkway ring) fitted inside
+ const bw=S.boardWidth/100*W,bh=S.boardHeight/100*HH,bx=(W-bw)/2,by=S.boardTop/100*HH,fr=S.frame/100*Math.min(bw,bh);
+ g.fillStyle='#e9d6ae';rr(g,bx,by,bw,bh,fr*1.2+6);g.fill();g.fillStyle='#c7a873';rr(g,bx+fr*.35,by+fr*.35,bw-fr*.7,bh-fr*.7,fr+4);g.fill();
+ const sx=bx+fr,sy=by+fr,sw=bw-2*fr,sh=bh-2*fr;g.fillStyle='#DCD3C4';rr(g,sx,sy,sw,sh,Math.max(4,fr*.6));g.fill();
+ const gw=pw+2*S.padCells,gh=ph+2*S.padCells,cell=Math.min(sw/gw,sh/gh),ox=sx+(sw-gw*cell)/2,oy=sy+(sh-gh*cell)/2;
+ P.rows.forEach((row,y)=>[...row].forEach((c,x)=>{if(PAL[c])cube(g,ox+(x+S.padCells)*cell+cell*.04,oy+(y+S.padCells)*cell+cell*.04,cell*.92,PAL[c]);}));
+ // the gate under the board
+ g.fillStyle='#8a8f87';rr(g,W/2-cell*1.2,by+bh-fr*.9,cell*2.4,fr*1.4,cell);g.fill();
+ // places
+ let y=by+bh+S.gapAfterBoard/100*HH;const sH=S.slotsH/100*HH;g.fillStyle='#f6e7c3';rr(g,bx,y,bw,sH,22);g.fill();
+ const mats=[...new Set(P.rows.join('').split('').filter(c=>PAL[c]))];const slotS=Math.min(sH*.78,(bw-60)/5-14);
+ for(let i=0;i<5;i++){const x=bx+30+i*((bw-60)/5)+((bw-60)/5-slotS)/2;g.fillStyle='#fffaf0';rr(g,x,y+(sH-slotS)/2,slotS,slotS,16);g.fill();if(i<2)cube(g,x+slotS*.12,y+(sH-slotS)/2+slotS*.12,slotS*.76,PAL[mats[i%mats.length]]);}
+ y+=sH;
+ // boosters
+ if($('boosters').checked){const bH=S.boostersH/100*HH;for(let i=0;i<4;i++){const s=Math.min(bH*.86,170),x=bx+i*(bw/4)+(bw/4-s)/2;g.fillStyle='rgba(246,231,195,.9)';rr(g,x,y+(bH-s)/2+8,s,s,26);g.fill();}y+=S.boostersH/100*HH;}
+ // pods: 3 rows of cubes per column, one after another, no "+N"; the rows below the top one lightened
+ const pc=S.podCube/100*W,pg=S.podGap/100*W,cols=S.podCols,colW=pc,totalW=cols*colW+(cols-1)*pc*.7,px0=(W-totalW)/2;y+=pg*1.5;
+ for(let c=0;c<cols;c++)for(let r=0;r<3;r++){const m=mats[(c*3+r*2+1)%mats.length],x=px0+c*(colW+pc*.7),yy=y+r*(pc+pg);cube(g,x,yy,pc,PAL[m],r===0?0:S.inactive/100);
+  g.fillStyle=r===0?'#ffffff':'rgba(255,255,255,.9)';g.font=`800 ${Math.round(pc*.32)}px Nunito, sans-serif`;g.textAlign='right';g.strokeStyle='rgba(40,30,20,.7)';g.lineWidth=pc*.06;const t=String([12,25,8,30,16,20,9][(c+r)%7]);g.strokeText(t,x+pc*.92,yy+pc*.8);g.fillText(t,x+pc*.92,yy+pc*.8);}
+ const bottom=y+3*pc+2*pg;
+ return {cell,gw,gh,bw,bh,bottom,HH,fr};}
+
+function draw(){const big=$('big');big.width=540;const m=screen(big,cur);const P=SAMPLES[cur];
+ $('pictitle').textContent=`${cur} «${P.title}», ${P.rows[0].length}×${P.rows.length}`;
+ const mm=v=>(v/1080*68).toFixed(1); // a 6.5" phone ≈ 68 mm wide
+ $('facts').innerHTML=`<tr><td>Борд</td><td>${Math.round(m.bw)} × ${Math.round(m.bh)} px</td></tr><tr><td>Рамка</td><td>${m.fr.toFixed(0)} px</td></tr><tr><td>Кубик картинки</td><td>${m.cell.toFixed(1)} px ≈ ${mm(m.cell)} мм</td></tr><tr><td>Лот-кубик</td><td>${(S.podCube/100*1080).toFixed(0)} px ≈ ${mm(S.podCube/100*1080)} мм</td></tr>`;
+ const over=m.bottom-m.HH*.985;$('fit').innerHTML=over>0?`<span class="warn">Лоты не помещаются на экран: не хватает ${Math.round(over)} px</span>`:`<span class="val">Свободно внизу: ${Math.round(m.HH-m.bottom)} px</span>`;
+ const out={screen:`1080x${H()}`,boardWidthShare:+(S.boardWidth/100).toFixed(3),boardHeightShare:+(S.boardHeight/100).toFixed(3),boardTopShare:+(S.boardTop/100).toFixed(3),topBarShare:+(S.topBar/100).toFixed(3),frameShare:+(S.frame/100).toFixed(3),padCells:S.padCells,gapAfterBoardShare:+(S.gapAfterBoard/100).toFixed(3),slotsRowShare:+(S.slotsH/100).toFixed(3),boostersRowShare:+(S.boostersH/100).toFixed(3),podCubeShare:+(S.podCube/100).toFixed(3),podGapShare:+(S.podGap/100).toFixed(3),podColumns:S.podCols,podRows:3,inactiveLighten:+(S.inactive/100).toFixed(2)};
+ $('out').textContent=JSON.stringify(out,null,1);
+ const th=$('thumbs');th.innerHTML='';for(const id of Object.keys(SAMPLES)){const b=document.createElement('button');b.type='button';b.className='thumb';b.setAttribute('aria-pressed',id===cur);const c=document.createElement('canvas');c.width=220;c.height=470;b.appendChild(c);const s=document.createElement('span');const p=SAMPLES[id];s.textContent=`${p.rows[0].length}×${p.rows.length} · ${p.title}`;b.appendChild(s);b.addEventListener('click',()=>{cur=id;draw();});th.appendChild(b);screen(c,id);}}
+sync();document.fonts&&document.fonts.ready.then(draw);draw();
+</script>
