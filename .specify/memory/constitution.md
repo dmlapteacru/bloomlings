@@ -131,8 +131,14 @@ Rationale: A long-run, relaxing puzzle keeps players through trust, not pressure
 ### VII. Simplicity, Readability and Offline-First
 
 - The product MUST stay strictly flat 2D, calm, minimal and board-dominant. Flat 2D means that what the player plays
-  and navigates has no 3D scene, camera, perspective or isometric view, and gameplay is drawn in 2D. Depth drawn in
-  the plane (outlines, lips, gloss, shadows) is flat 2D.
+  and navigates is drawn from flat 2D pictures at runtime: no 3D scene, camera, model or runtime perspective
+  projection, and no free camera, rotation or zoom-dependent perspective. Depth drawn in the plane (outlines, lips,
+  gloss, shadows) is flat 2D.
+- The board's cubes, the pods and the pieces in the Waiting Slots MAY be drawn as volumetric pictures seen from one
+  fixed tilted viewpoint, as in Colony Flow: foreshortened top faces, front faces where the cell in front is empty,
+  and side faces whose width follows the column's position (left of centre shows the left side, right of centre the
+  right side). The board stays a flat grid of cells for the rules, and hit areas follow the drawn top faces.
+  Navigation screens keep their flat layouts.
 - Pre-rendered 3D illustrations, shown as flat pictures, MAY appear on meta screens only: Home, the win and milestone
   screens, the Wardrobe and the profile. They MUST NOT appear inside a level.
 - Gameplay uses one-tap input: the player taps pods and never taps target cells.
@@ -235,4 +241,4 @@ existing content migrates.
 
 Non-compliant changes MUST NOT be merged.
 
-**Version**: 1.1.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-27
+**Version**: 1.2.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-28

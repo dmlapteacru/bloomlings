@@ -390,7 +390,7 @@ integration (`.specify/` + `.claude/skills/speckit-*`). Feature work goes throug
 in order:
 
 1. `/speckit-constitution` — project principles → `.specify/memory/constitution.md`
-   (ratified 2026-09-29, current **v1.1.0**; amend only via PR with a version bump — see its Governance).
+   (ratified 2026-09-29, current **v1.2.0**; amend only via PR with a version bump — see its Governance).
 2. `/speckit-specify <description>` — feature spec → `specs/NNN-<name>/spec.md`
 3. `/speckit-clarify` (optional) — resolve ambiguities before planning
 4. `/speckit-plan` — implementation plan, research, data model, contracts
@@ -420,7 +420,7 @@ To upgrade Spec Kit templates/skills: install the CLI with
 
 ## Design invariants to respect in any spec or code
 
-Summary of the constitution (`.specify/memory/constitution.md` v1.1.0, principles I–VII). The
+Summary of the constitution (`.specify/memory/constitution.md` v1.2.0, principles I–VII). The
 constitution is authoritative; it adds the Colony Flow structure, fair monetization (no lives,
 no pay-to-win), simplicity/offline-first and the workflow gates.
 
@@ -438,6 +438,9 @@ no pay-to-win), simplicity/offline-first and the workflow gates.
 - Every shipped level is solver-validated, winnable without boosters, and has an exact
   per-variant work accounting.
 - There are no gameplay power upgrades; progression rewards are cosmetic or convenience only.
-- Flat 2D: what the player plays and navigates has no 3D scene, camera or perspective view. Pre-rendered 3D
+- Flat 2D: what the player plays and navigates is drawn from flat 2D pictures at runtime, with no 3D scene, camera,
+  model or runtime perspective projection. The board's cubes, pods and slot pieces may be drawn as seen from one fixed
+  tilted viewpoint, as in Colony Flow (foreshortened tops, front faces where the cell in front is empty, side faces by
+  the column's position; constitution 1.2.0, the owner, 2026-10-28); the rules keep a flat grid. Pre-rendered 3D
   illustrations may appear as flat pictures on meta screens only (Home, win and milestone, Wardrobe, profile), never
   inside a level.

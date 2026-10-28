@@ -7,6 +7,10 @@
   right; the two sites of one choice may stand on different strips.
 - §13: the wave plan first assigns the mechanics to every level (lead, additional, doses by §7, the bridge's side) and
   their shares in the wave; pictures are ordered for that breakdown. The owner approves it, placement keeps it.
+- Constitution 1.2.0, principle VII: the board's cubes, the pods and the slot pieces may be drawn as seen from one fixed
+  tilted viewpoint, as in Colony Flow (foreshortened tops, front faces where the cell in front is empty, side faces by
+  the column's position); the runtime stays 2D pictures with no 3D scene, camera or runtime projection, and the rules
+  keep a flat grid ("и с боковыми гранями").
 - §8, the bridge's choice by class (the owner's second decision of 2026-10-28, replacing three quarters / a quarter):
   Normal may have two winning bridges (one at least 10 points better) or exactly one deciding bridge; Hard half and
   half; Super Hard always exactly one deciding bridge.
