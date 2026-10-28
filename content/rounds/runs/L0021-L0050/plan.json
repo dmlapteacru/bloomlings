@@ -1,0 +1,787 @@
+{
+ "range": [
+  21,
+  50
+ ],
+ "created": "2026-10-28T09:27:51.516Z",
+ "positions": [
+  {
+   "level": 21,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1000
+    ],
+    "colours": [
+     4,
+     10
+    ]
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 22,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1000
+    ],
+    "colours": [
+     4,
+     10
+    ]
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 23,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1000
+    ],
+    "colours": [
+     4,
+     10
+    ]
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 24,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1000
+    ],
+    "colours": [
+     4,
+     10
+    ]
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 25,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 26,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 27,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 28,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 29,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 30,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 31,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 32,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 33,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 34,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 35,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 36,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 37,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 38,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 39,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 40,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 41,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 42,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 43,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 44,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 45,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 46,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 47,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 48,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 49,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 50,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  }
+ ],
+ "open": [
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41,
+  42,
+  43,
+  44,
+  45,
+  46,
+  47,
+  48,
+  49,
+  50
+ ],
+ "blockers": [],
+ "need": {
+  "Normal": 24,
+  "Hard": 4,
+  "Super Hard": 2,
+  "intro": 0,
+  "bridge": 0
+ },
+ "supply": {
+  "pictures": 79,
+  "strong": 36,
+  "stream": 0,
+  "bank": {
+   "знакомство: hidden": 71,
+   "Normal": 104,
+   "знакомство: links": 52,
+   "Hard": 43,
+   "Super Hard": 28
+  }
+ },
+ "order": {
+  "total": 0,
+  "strong": 0,
+  "streams": 0,
+  "byStage": {},
+  "sizeMix": {
+   "200–499": 0,
+   "500–999": 0,
+   "1000–1400": 0
+  },
+  "avoidMotifs": [
+   "ретро-техника (8)",
+   "лампы и фонари (5)",
+   "инструменты музыки (3)",
+   "книги (3)",
+   "рыбы (5)",
+   "подводный мир (6)",
+   "космонавты и ракеты (4)",
+   "полив цветка (4)",
+   "роботы (4)",
+   "чашки и кружки (4)",
+   "домики-сказки (4)",
+   "корабли и лодки (3)",
+   "привидения и духи (3)"
+  ],
+  "suggestFamilies": [
+   "Герои и мир Bloomlings (0)",
+   "Домашние животные (1)",
+   "Цветы и букеты (1)",
+   "Деревья, листья и плоды (1)",
+   "Грибы и лесные находки (1)",
+   "Камни, минералы и кристаллы (1)",
+   "Блюда и напитки (1)",
+   "Магазины и витрины (1)",
+   "Городские пространства (1)",
+   "Водный транспорт (1)",
+   "Профессии и увлечения (1)",
+   "Лаборатории и изобретения (1)"
+  ]
+ }
+}
