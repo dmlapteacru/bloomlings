@@ -88,7 +88,19 @@ the supported three.
 2. **Build candidates.**
    - Command: `node tools/rounds/levels.mjs build --approved` (or a list of `P####` ids). Options:
      `--classes Normal,Hard,"Super Hard"`, `--recipes none,links,hidden,links+hidden[,bridge,bridge+links]`,
-     `--candidates 64` (the start budget per picture and class, 17 §13.5), `--seed`.
+     `--candidates 64` (the start budget per picture and class, 17 §13.5), `--seed`, `--overlay up,left,right,two`
+     (build on the generator's wall over the picture; `none` = its own board), `--pairs Normal:links,Hard:bridge+links@up`
+     (only these class:recipe pairs, `@side` for a wall), `--no-intro`.
+   - **Recipes put the lead first** (17 §7): `none`, `links`, `hidden`, `bridge`, `links+hidden`, `hidden+links`,
+     `bridge+links`, `bridge+hidden`, `hidden+bridge`, `links+bridge`, `links+bridge+hidden`, `bridge+links+hidden`.
+     A board with a strip takes bridge recipes only (its far part needs a bridge), a board without one no bridge recipe.
+   - **Bridges on any strip** (17 §8 "Где стоит мост", 2026-10-28). The crossing is up (a stream across), left or right
+     (a wall from top to bottom), or `two` (two sites crossing different ways, an L wall, or on different strips). A
+     wave plan's `strip: overlay` position is built on a free pool picture with the generator's straight wall
+     (`wallOverlay`: 25–45 % of the colour cells behind it, two sites with colour approaches, the entry on the open side);
+     the level stores it as `definition.overlay` (`{walls, sites}`, picture coordinates), N and W count the board with
+     the wall, the audit rebuilds the board from the picture plus the overlay, and the exporter writes `board.overlay`.
+     A `strip: new` position needs a picture with its own strip of the planned side.
    - Run it in the background for big batches; it logs per picture/class/recipe how many candidates were found and
      the reasons for the rest.
    - For each candidate the tool:
@@ -101,8 +113,9 @@ the supported three.
        properly reversed queue makes even an object on an empty background hard (measured 2026-10-26: the owl 40 %,
        the frog 0 %, both solvable), so the measured class decides. At the start at least one top pod has reachable
        work (§6). It deals the pods into 3 or 4 columns by N, with start heights within 1.
-     - adds the recipe's mechanics at the doses of §7 (one type: full range; two: the additional at its minimum;
-       small queue under 16 pods: one type). Introductions use teaching doses: 2–3 hidden pods (the first in row 2), 1 pair, 1 bridge choice.
+     - adds the recipe's mechanics at the doses of §7 (one type: full range; two: the additional at its minimum
+       admissible dose, links an even count; three: the lead in the lower half of its range, the others at minimum;
+       the lead's dose at the place of the §7 cycle; small queue under 16 pods: one type). Introductions use teaching doses: 2–3 hidden pods (the first in row 2), 1 pair, 1 bridge choice.
        Hidden pods start from the second row and are never in a group.
      - checks the exact balance of every material and the pod rules.
      - screens with 40 random games, then saves a winning solution: a full-information search, replayed on the live
@@ -146,6 +159,9 @@ the supported three.
    - It fills each empty position with a banked candidate of exactly that class whose picture fits the level's stage
      (§2). Only allowed types are used, introductions only by their own introduction candidates, L1–L3 only by their
      fixed pictures.
+   - A position of an approved wave plan (`content/rounds/runs/<wave>/mechanics.json`) takes only a candidate with its
+     planned recipe and, for a bridge, its planned crossing side; an open one is listed in `needs.json` with the recipe,
+     side and strip it needs.
    - It keeps the §11 variety rules (no lead mechanic or identical recipe more than 2 levels in a row), at most 2
      pictures with 10–11 colours in any 20, and prefers the class's preferred zone (75–95 % for the first Normal after
      a Hard or Super Hard) and the size mix per 30.

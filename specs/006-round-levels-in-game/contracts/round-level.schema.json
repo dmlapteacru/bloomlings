@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://bloomlings.game/schemas/round-level.v1.json",
   "title": "round-level.v1",
-  "description": "A round level in the game (spec 006 FR-020). Rows are the reference engine's input: bottom first, '.' open, '#' wall, a material code otherwise; the frame ring and wall are part of the rows.",
+  "description": "A round level in the game (spec 006 FR-020). Rows are the reference engine's input: bottom first, '.' open, '#' wall, a material code otherwise; the frame ring and wall are part of the rows. A bridge choice's anchor is an orthogonal neighbour of its cell (17 §8, 2026-10-28). board.overlay, when present, is the generator's wall laid over the approved picture, in picture coordinates ([x, y], x from the left, y from the top): the rows are that picture with each wall cell '#', each site a bridge site, and the ring closed outward of every strip cell on the picture's edge.",
   "type": "object",
   "additionalProperties": false,
   "required": ["format", "number", "definitionVersion", "class", "picture", "board", "capacity", "pods", "tray", "mechanics", "engine"],
@@ -34,6 +34,13 @@
               "type": "object", "additionalProperties": false, "required": ["cell", "anchor", "label"],
               "properties": {"cell": {"type": "integer", "minimum": 0}, "anchor": {"type": "integer", "minimum": 0}, "label": {"type": "string"}}
             }}
+          }
+        },
+        "overlay": {
+          "type": "object", "additionalProperties": false, "required": ["walls", "sites"],
+          "properties": {
+            "walls": {"type": "array", "items": {"type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 2, "maxItems": 2}},
+            "sites": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "array", "items": {"type": "integer", "minimum": 0}, "minItems": 2, "maxItems": 2}}
           }
         }
       }

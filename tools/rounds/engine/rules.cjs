@@ -1,4 +1,4 @@
-/* The round engine rules (tools/rounds/engine.mjs, product/17_LEVEL_GENERATION_RULES.md): grown from the pilot rules below, changed for 17 §1/§2/§8. */
+/* The round engine rules (tools/rounds/engine.mjs, product/17_LEVEL_GENERATION_RULES.md): grown from the pilot rules below, changed for 17 §1/§2/§8; a bridge anchor is any orthogonal neighbour of its site (§8, 2026-10-28). */
 /* Pilot v9 (v8 rules; v8D widened the depth-mystery domain in validate, v9 has 16 colours, 4 per hero). Grid helpers and v5 settled reference rules (not the live v6 engine). Native exact-colour work and atomic admission, with explicit test
  * adapters: 3/4/5 places, pair co-reservation, reveal on reaching the top, bridge.
  * No DOM, timing or runtime randomness. Presentation is in timeline.cjs.
@@ -242,7 +242,7 @@
     if ((level.entries || [Math.floor(level.w / 2)]).some(i => !Number.isInteger(i) || i < 0 || i >= n)) errors.push('entry');
     if (level.hero) for (const choice of level.hero.choices) {
       const grid = level.rowsBottomFirst.join('');
-      if (!Number.isInteger(choice.cell) || !Number.isInteger(choice.anchor) || choice.cell < 0 || choice.cell >= n || choice.anchor < 0 || choice.anchor >= n || grid[choice.cell] !== '#' || Math.abs(choice.cell - choice.anchor) !== level.w) errors.push('bridge');
+      if (!Number.isInteger(choice.cell) || !Number.isInteger(choice.anchor) || choice.cell < 0 || choice.cell >= n || choice.anchor < 0 || choice.anchor >= n || grid[choice.cell] !== '#' || !(Math.abs(choice.cell - choice.anchor) === level.w || (Math.abs(choice.cell - choice.anchor) === 1 && Math.floor(choice.cell / level.w) === Math.floor(choice.anchor / level.w)))) errors.push('bridge');
     }
     return errors;
   }

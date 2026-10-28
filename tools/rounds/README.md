@@ -6,7 +6,7 @@ Tools of the skills `bloomlings-round-wave`, `bloomlings-round-pictures` and `bl
 
 ```sh
 # a wave (17 §13): plan → pictures → run → the owner's sample → review
-node tools/rounds/rounds.mjs plan 21 70                  # positions, supply, picture order → content/rounds/runs/L0021-L0070/plan.md
+node tools/rounds/rounds.mjs plan 21 70                  # mechanics breakdown (runs/…/mechanics.json), positions, supply, picture order → runs/L0021-L0070/plan.md
 node tools/rounds/rounds.mjs run 21 70 --jobs 4          # dry place, build what is open, checks, place, audit, summary, sample pilot
 node tools/rounds/rounds.mjs review results.json         # owner's ratings next to the metrics → content/rounds/reports/
 # pictures from SVG drafts and the screen before the sheet (17 §13)
@@ -27,6 +27,7 @@ node tools/rounds/pictures.mjs replace P0034 content/rounds/pictures/src/batch-0
 # levels (17 §3–§14)
 node tools/rounds/levels.mjs calendar 1 60
 node tools/rounds/levels.mjs build --approved --candidates 64
+node tools/rounds/levels.mjs build P0012 --overlay up,left --recipes bridge,bridge+links --classes Normal --no-intro   # on the generator's wall
 node tools/rounds/levels.mjs bank
 node tools/rounds/levels.mjs place 1 30
 node tools/rounds/levels.mjs card 15
@@ -40,9 +41,33 @@ node --test tools/rounds/test/*.test.mjs
 
 `ROUNDS_DIR=<folder>` points every command at another content folder, for trial runs.
 
+**Bridges on any strip** (17 §8 "Где стоит мост", amendment of 2026-10-28). A picture's `#` strip may run in any
+direction; `b` marks a bridge site on it. `boardOf(pic, overlay?)` builds the board: each `#`/`b` cell on the picture's
+outer edge closes the ring cell directly outward (a full-width stream row closes both sides, a full-height wall column
+the top and the bottom, an L its two edge ends), so the far part needs a bridge; each site's anchor is its one orthogonal
+neighbour reachable from the entry while all sites are walls (else `BridgeAnchorError`), and its choice carries
+`dir` (`up`, `left`, `right`, `down`: the crossing) and a label (`Мостик вверх слева`, `Мостик влево снизу` …). The engine
+accepts an anchor above, below or beside the site in the same row. `wallOverlay(pic, side, seed)` lays the generator's
+wall over an approved picture (`up`: a full-width row; `left`/`right`: a full-height column, the entry on the open side;
+`two`: an L closing a top corner): 25–45 % of the colour cells behind it, two sites at least 3 apart whose near-bank
+anchors are colour cells. A level built on it stores `definition.overlay` = `{walls, sites}` in picture coordinates
+(x from the left, y from the top); the exporter writes it as `board.overlay` of `round-level.v1`, the audit rebuilds the
+board from the approved picture plus the overlay, N and W count the board with the wall, and the pilot draws it as
+stone. `bridgeSide(level)` is the crossing of the group: the common direction, or `two` for different directions or
+strips.
+
+**The wave's mechanics plan.** `content/rounds/runs/<wave>/mechanics.json` (approved by the owner, 17 §13 step 1): per
+level `recipe` (lead first), `lead`, `add`, `bridgeSide` and `strip` (`new`: a picture with its own strip; `overlay`: the
+generator's wall). `rounds.mjs plan` prints its breakdown and orders pictures only for what it needs; `rounds.mjs run`
+builds only each open position's planned recipe (`levels.mjs build --pairs cls:recipe@side --overlay …`); `levels.mjs
+place` accepts a candidate on a planned position only with that recipe and, for a bridge, that crossing side. Recipes:
+`none`, `links`, `hidden`, `bridge`, `links+hidden`, `hidden+links`, `bridge+links`, `bridge+hidden`, `hidden+bridge`,
+`links+bridge`, `links+bridge+hidden`, `bridge+links+hidden`; doses by §7 (the lead its range with the dose place cycle,
+an additional one its minimum admissible dose, three types the lead in its lower half).
+
 | File | What |
 |---|---|
-| `lib.mjs` | paths, manifest, palette, the rules' tables (stages, budgets, calendar, introductions, supported mechanics), board around a picture, PNG writer |
+| `lib.mjs` | paths, manifest, palette, the rules' tables (stages, budgets, calendar, introductions, supported mechanics), board around a picture (overlay, ring closure, anchors, crossing side), the generator's wall `wallOverlay`, the wave's mechanics plan (`planOf`, `fitsPlan`), PNG writer |
 | `themes.json` | the theme catalog's 50 families, 24 directions and meme families (from `product/design/Bloomlings-picture-theme-catalog.md`), for the tag check |
 | `pictures.mjs` | sequential numbering, render, rules check, contact sheet, approve/reject/replace |
 | `engine.mjs`, `engine/` | the round engine, our own code grown from the pilot: rules, timeline, palette, clock with the §1 slot positions, the §8 link rule, boards up to 48×48, 4–5 places; the pilot v10 embeds the same files |

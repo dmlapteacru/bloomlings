@@ -51,17 +51,28 @@ order asks for, not a free batch.
 - A rectangular cell matrix in the pilot palette: 16 colours, 4 per hero (`tools/gameplay-pilot-v9/palette.cjs`).
   The codes are `G P B A C D V Y O L M R K N S E`: Лист, Лепесток, Вода, Янтарь, Жемчуг, Земля, Слива, Солнце, Тыква,
   Лайм, Мох, Ягода, Румянец, Глубина, Небо, Кора. Two shades of one hero are different materials.
-- `.` is an empty cell (not counted, it can be a hole or an island gap), `#` an impassable strip (a stream) and `b` a
-  Sprig bridge site on that strip. A bridge picture has exactly two `b`. The cell below each `b` is its anchor on the
-  near bank (the entry is at the bottom).
-  - The stream is one row of `#`/`b` across the whole width: the board closes it through the frame, so the far bank
-    opens only by a bridge. Most of the work is on the far bank.
+- `.` is an empty cell (not counted, it can be a hole or an island gap), `#` an impassable strip (a stream, a fence, a
+  stone wall) and `b` a Sprig bridge site on that strip. A bridge picture has exactly two `b`.
+  - **The strip may run in any direction** (17 §8 "Где стоит мост", the owner's amendment of 2026-10-28): a stream across
+    the picture (the bridges cross **up**), a fence or wall from top to bottom with the closed part on the left or the
+    right (they cross **left** / **right**), or two strips / an L, one site on each, crossing different ways (**two**,
+    for Super Hard). The wave plan orders strip pictures by this crossing side.
+  - The strip runs from edge to edge of the picture: every `#`/`b` cell on the picture's edge closes the open ring round
+    the picture there, so the closed part opens only by a bridge. The Garden Entry is at the bottom middle, so a vertical
+    strip must not cut it off: the closed side is the one away from the entry.
+  - Each site's **anchor** is its one neighbour on the near bank (below for a stream, beside it for a vertical wall):
+    the only neighbour reachable from the entry while both sites are walls. A site with no or two such neighbours fails
+    the check (`BridgeAnchorError`). Across each site, the far cell is a colour or an empty cell, ideally deep in the
+    subject, and the two sites stand apart so that each opens the far part in its own order.
+  - Most of the work is on the far side; every colour cell must be reachable once the bridges are counted.
   - **A bridge is not free at the start** (17 §8; the owner, 2026-10-27: "мосты хоть чуть-чуть должны быть скрыты").
     The anchor and the approach to it are colour cells of the near bank (grass, stones) that must be cleared first;
     never an empty path. The check refuses an empty anchor. The two approaches may differ in depth.
   - First look for an approved picture with ground or water across its bottom and draw its **stream variant** (a new
     number, the original stays in the pool): the stream through the ground strip, two or three rows of near bank
     below (`content/rounds/pictures/src/variants-0114.mjs`). Draw a new subject only when no such picture fits.
+  - A level that only needs a straight wall over an existing picture (the plan's `strip: overlay`) needs no new
+    picture: the level skill lays the wall (`lib.mjs wallOverlay`). Draw strip pictures only for `strip: new`.
 - The palette is finite and discrete: no semi-transparent edge shades. The colours of the matrix are the materials of
   the level.
 - **N = coloured cells.** The tool counts N, the number of colours and the volume of each colour.

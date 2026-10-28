@@ -4,7 +4,7 @@
 // node tools/rounds/audit.mjs <from> <to> [--out <file.md>] [--json <file.json>] [--preview <folder>]
 //   --preview: a folder of L####.json for positions content/rounds/levels/ does not fill (draft pictures).
 import fs from 'node:fs';import path from 'node:path';
-import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf} from './lib.mjs';
+import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
 import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure} from './measure.mjs';
@@ -20,11 +20,13 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(!L){rows.push({n,missing:true});continue;}
  const d=L.definition,pic=picture(L.picture),slot=slotOf(n),pods=d.pods,P=pods.length,types=typesOf(L);
  // picture (§2, §13.1): approved, the stage range, locked pictures only on L1–3; the matrix on the board is the picture's
+ // (with the generator's wall, definition.overlay, 17 §8: N is counted on the board with the wall)
+ const opic=pic&&overlaid(pic,d.overlay);
  if(!pic)bad.push('нет картинки');else{
   if(pic.status!=='approved')bad.push(`картинка ${L.picture} не утверждена (${pic.status})`);
-  const m=measure(pic);if(!fitsStage(m,n))bad.push(`картинка вне диапазона этапа §2 (${m.N} кл., ${m.colours} цв.; ${JSON.stringify(stageOf(n))})`);
+  const m=measure(opic);if(!fitsStage(m,n))bad.push(`картинка вне диапазона этапа §2 (${m.N} кл., ${m.colours} цв.; ${JSON.stringify(stageOf(n))})`);
   if((pic.locked||null)!==(n<=3?n:null))bad.push('закреплённая картинка не на своём уровне');
-  const b=boardOf(pic);if(b.rowsBottomFirst.join('')!==d.rowsBottomFirst.join(''))bad.push('поле уровня не совпадает с картинкой');
+  const b=boardOf(pic,d.overlay);if(b.rowsBottomFirst.join('')!==d.rowsBottomFirst.join(''))bad.push('поле уровня не совпадает с картинкой');
   if(['сторонняя вселенная','мем'].includes(pic.source))bad.push('картинка по сторонней вселенной: не для выпуска без прав');}
  // balance (§3): work of each material on the board = the sum of its pods
  const work={};for(const ch of d.rowsBottomFirst.join(''))if(CODES.includes(ch))work[ch]=(work[ch]||0)+1;const W=Object.values(work).reduce((a,b)=>a+b,0);
@@ -83,7 +85,7 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
   if(pm!=null){const pr=await pressure(d,QUALITY.pressure.games);L._pressure=pr.stuck;if(pr.stuck<pm)(QUALITY.pressure.mode==='hard'?bad:soft).push(`слой Б: стоят без работы ${pr.stuck} < ${pm} (§13, quality.json)`);}}
  if(!slot.intro){if(L.cls==='Super Hard'&&types.length<Math.min(2,slot.allowed.length))bad.push(`Super Hard: типов допов ${types.length}, нужно ведущая и дополнительная (§7)`);
   if(L.cls==='Hard'&&n!==5&&slot.allowed.length&&!types.length)bad.push('Hard без механики — допустимо только на L5 (§7)');}
- if(n>3&&pic){const f=fitness(pic),weak=f.hiddenColours<=1||f.visible>=6;
+ if(n>3&&pic){const f=fitness(opic),weak=f.hiddenColours<=1||f.visible>=6;
   if(L.cls!=='Normal'&&f.hiddenColours<3)bad.push(`картинка для ${L.cls}: скрыто цветов на старте ${f.hiddenColours}, нужно 3+ (§2)`);
   if(L.cls==='Normal'&&weak&&!types.length)bad.push(`слабая картинка (скрыто ${f.hiddenColours}, видно ${f.visible}) без механики (§2)`);}
  if(!slot.intro&&types.length&&L.dosePos==null)soft.push('место дозы не записано (уровень собран до поправки)');
