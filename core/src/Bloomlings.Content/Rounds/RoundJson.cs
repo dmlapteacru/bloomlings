@@ -77,7 +77,7 @@ namespace Bloomlings.Content.Rounds
 
             string boardPath = JsonDoc.Join(path, "board");
             JObject board = JsonDoc.Object(JsonDoc.Required(root, path, "board"), boardPath);
-            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero");
+            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero", "overlay");
             int w = JsonDoc.Int(JsonDoc.Required(board, boardPath, "w"), JsonDoc.Join(boardPath, "w"), 7, RoundLevel.MaxSide);
             int h = JsonDoc.Int(JsonDoc.Required(board, boardPath, "h"), JsonDoc.Join(boardPath, "h"), 8, RoundLevel.MaxSide);
             string rowsPath = JsonDoc.Join(boardPath, "rowsBottomFirst");
@@ -112,6 +112,18 @@ namespace Bloomlings.Content.Rounds
                         Cell(JsonDoc.Required(choice, at, "anchor"), JsonDoc.Join(at, "anchor"), w * h),
                         JsonDoc.String(JsonDoc.Required(choice, at, "label"), JsonDoc.Join(at, "label"))));
                 }
+            }
+
+            RoundOverlay? overlay = null;
+            JToken? overlayToken = JsonDoc.Optional(board, "overlay");
+            if (overlayToken != null)
+            {
+                string overlayPath = JsonDoc.Join(boardPath, "overlay");
+                JObject overlayObject = JsonDoc.Object(overlayToken, overlayPath);
+                JsonDoc.AllowOnly(overlayObject, overlayPath, "walls", "sites");
+                overlay = new RoundOverlay(
+                    PictureCells(JsonDoc.Required(overlayObject, overlayPath, "walls"), JsonDoc.Join(overlayPath, "walls"), w - 4, h - 4),
+                    PictureCells(JsonDoc.Required(overlayObject, overlayPath, "sites"), JsonDoc.Join(overlayPath, "sites"), w - 4, h - 4, 2, 2));
             }
 
             int capacity = JsonDoc.Int(JsonDoc.Required(root, path, "capacity"), JsonDoc.Join(path, "capacity"));
@@ -206,7 +218,8 @@ namespace Bloomlings.Content.Rounds
                 pictureVersion,
                 mechanics,
                 exception,
-                engine);
+                engine,
+                overlay);
         }
 
         public static string WriteLevel(RoundLevel level, bool indented = true) => CanonicalJson.Write(ToJObject(level), indented);
@@ -239,6 +252,11 @@ namespace Bloomlings.Content.Rounds
                 }
 
                 board["hero"] = new JObject { ["id"] = HeroId, ["choices"] = choices };
+            }
+
+            if (level.Overlay != null)
+            {
+                board["overlay"] = new JObject { ["walls"] = PictureCells(level.Overlay.Walls), ["sites"] = PictureCells(level.Overlay.Sites) };
             }
 
             var pods = new JArray();
@@ -649,6 +667,35 @@ namespace Bloomlings.Content.Rounds
             }
 
             return value;
+        }
+
+        // An overlay's cells: [x, y] pairs in picture coordinates (x from the left, y from the top) inside the picture (its
+        // sites are exactly two, the bridge's choice group).
+        private static List<(int X, int Y)> PictureCells(JToken token, string path, int pictureWidth, int pictureHeight, int minItems = 0, int maxItems = int.MaxValue)
+        {
+            JArray array = JsonDoc.Array(token, path, minItems, maxItems);
+            var cells = new List<(int X, int Y)>(array.Count);
+            for (int i = 0; i < array.Count; i++)
+            {
+                string at = JsonDoc.Index(path, i);
+                JArray pair = JsonDoc.Array(array[i], at, 2, 2);
+                int x = JsonDoc.Int(pair[0], JsonDoc.Index(at, 0), 0, pictureWidth - 1);
+                int y = JsonDoc.Int(pair[1], JsonDoc.Index(at, 1), 0, pictureHeight - 1);
+                cells.Add((x, y));
+            }
+
+            return cells;
+        }
+
+        private static JArray PictureCells(IReadOnlyList<(int X, int Y)> cells)
+        {
+            var array = new JArray();
+            foreach ((int x, int y) in cells)
+            {
+                array.Add(new JArray(x, y));
+            }
+
+            return array;
         }
 
         private static int Cell(JToken token, string path, int cells)

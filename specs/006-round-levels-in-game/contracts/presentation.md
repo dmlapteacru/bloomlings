@@ -6,7 +6,7 @@ reads the timeline's state, events and courier positions.
 
 | Element | Contract |
 |---|---|
-| Frame and gate | The rows' outer ring and wall are drawn as the game's existing stone frame. The gate (`entries`) is the existing entry arch. A stream (`#` inside the frame) is water; a built bridge is a plank over it. |
+| Frame and gate | The rows' outer ring and wall are drawn as the game's existing stone frame. The gate (`entries`) is the existing entry arch. A stream (`#` inside the frame) is water; a wall the level's overlay laid over the picture (`board.overlay`) is a stone wall (`board.wall`), and so is the ring cell it closes. A built bridge is a plank over its site turned to its crossing (up and down, or left and right); a buildable site glows toward its near bank. |
 | Cubes | The game's existing soft cube drawing (`UiRaster.Cube`), filled with the material's normal colour. No icon on the cube, unless the symbols mode is on (then the material's symbol, centred). |
 | Clearing | Each cube plays the existing clear ("eating") animation at its `clear` event time. The clearing style's walkers follow their courier route from `depart` to `arrive`, act until `clear`, and return until `done`. |
 | Walkers | The family hero of the pod's material, tinted in the material's colour, for every clearing style and in the Store previews. |

@@ -129,6 +129,108 @@ namespace Bloomlings.Client.Tests
             Assert.That(bounds.Width, Is.LessThan(site.Site.Width));
         }
 
+        // ---- Bridges on any strip and walls laid over a picture (17 §8 as amended on 2026-10-28) ----
+
+        private static RoundLevel Laid(string[] pictureTopFirst, RoundOverlay? overlay)
+        {
+            var picture = new Bloomlings.Content.Rounds.RoundPicture("P9100", 1, "Test", pictureTopFirst[0].Length, pictureTopFirst.Length, pictureTopFirst, "2026-10-28");
+            Bloomlings.Content.Rounds.RoundBoardShape board = Bloomlings.Content.Rounds.RoundPictureBoard.Of(picture, overlay);
+            return new RoundLevel(1, board.Width, board.Height, board.RowsBottomFirst, new[] { new RoundPod('G', 1) }, new[] { new[] { 0 } }, board.Entries, board.Bridge, overlay: overlay);
+        }
+
+        // An L-shaped wall fences the top left corner: its site at (3, 1) crosses left, the one at (1, 2) crosses up.
+        private static RoundLevel Fenced() => Laid(
+            new[] { "PPPPPP", "PPPPPP", "GGGGGG", "GGGGGG", "GGGGGG" },
+            new RoundOverlay(new[] { (0, 2), (1, 2), (2, 2), (3, 2), (3, 0), (3, 1) }, new[] { (1, 2), (3, 1) }));
+
+        [Test]
+        public void AnOverlaysWall_IsStone_AndThePicturesStream_StaysWater()
+        {
+            RoundLevel level = Fenced();
+            RoundBoardLayout layout = RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), level);
+            int wall = level.PictureCell(0, 2);
+            int site = level.PictureCell(1, 2);
+            Assert.That(layout.KindOf(wall), Is.EqualTo(RoundCellKind.Wall));
+            Assert.That(layout.IsStone(wall), Is.True);
+            Assert.That(layout.KindOf(site), Is.EqualTo(RoundCellKind.BridgeSite));
+            Assert.That(layout.IsStone(site), Is.True);
+            Assert.That(layout.Bridges.All(b => b.OnWall), Is.True);
+            Assert.That(layout.KindOf(1, level.Height - 1 - 4), Is.EqualTo(RoundCellKind.Wall), "the ring cell the wall closes runs on in stone");
+            Assert.That(layout.KindOf(5, level.Height - 2), Is.EqualTo(RoundCellKind.Wall), "above the wall's top end too");
+
+            RoundBoardLayout stream = RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), BoardOf(BridgePicture));
+            Assert.That(stream.KindOf(2, 3), Is.EqualTo(RoundCellKind.Stream));
+            Assert.That(stream.Bridges.Any(b => b.OnWall), Is.False);
+            Assert.That(stream.Bridges.All(b => b.Crossing == RoundCrossing.Up), Is.True);
+        }
+
+        [Test]
+        public void ABridgeLeft_LaysItsPlankLeftToRight_AndGlowsOnItsNearBank()
+        {
+            RoundLevel level = Fenced();
+            RoundBoardLayout layout = RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), level);
+            Assert.That(layout.Bridges.Count, Is.EqualTo(2));
+            RoundBridgeSite left = layout.Bridges[0];
+            Assert.That(left.Cell, Is.EqualTo(level.PictureCell(3, 1)), "reading order: the upper site first");
+            Assert.That(left.Anchor, Is.EqualTo(left.Cell + 1));
+            Assert.That(left.Crossing, Is.EqualTo(RoundCrossing.Left));
+            Assert.That(left.Across, Is.False);
+            Assert.That(left.PlankDegrees, Is.EqualTo(0f));
+            Assert.That(left.AnchorCell.Left, Is.EqualTo(left.Site.Right).Within(1e-3), "the anchor is the cell right of the site");
+            Box bounds = left.PlankBounds;
+            Assert.That(bounds.Left, Is.LessThan(left.Site.Left), "onto the far bank");
+            Assert.That(bounds.Right, Is.GreaterThan(left.Site.Right), "onto the near bank");
+            Assert.That(bounds.Height, Is.LessThan(left.Site.Height));
+            Assert.That(left.Glow.Left, Is.EqualTo(left.Site.Left).Within(1e-3));
+            Assert.That(left.Glow.Right, Is.EqualTo(left.Site.Right + (left.Site.Width * RoundBoardLayout.GlowReach)).Within(1e-3), "the glow leans toward the anchor");
+            Assert.That(left.Glow.Top, Is.EqualTo(left.Site.Top).Within(1e-3));
+
+            RoundBridgeSite up = layout.Bridges[1];
+            Assert.That(up.Crossing, Is.EqualTo(RoundCrossing.Up));
+            Assert.That(up.PlankDegrees, Is.EqualTo(90f));
+            Assert.That(up.Glow.Bottom, Is.GreaterThan(up.Site.Bottom), "the near bank is below");
+            Assert.That(up.Glow.Top, Is.EqualTo(up.Site.Top).Within(1e-3));
+        }
+
+        [Test]
+        public void ABridgeRight_AndABridgeDown_TurnTheirPlanksAndGlowsToo()
+        {
+            // A wall down column 3, its far bank on the right.
+            RoundLevel rightward = Laid(new[] { "PPPPG", "PPPPG", "PPPPG", "PPPPG" }, new RoundOverlay(new[] { (3, 0), (3, 1), (3, 2), (3, 3) }, new[] { (3, 1) }));
+            RoundBridgeSite right = RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), rightward).Bridges.Single();
+            Assert.That(right.Crossing, Is.EqualTo(RoundCrossing.Right));
+            Assert.That(right.Anchor, Is.EqualTo(right.Cell - 1));
+            Assert.That(right.PlankDegrees, Is.EqualTo(0f));
+            Assert.That(right.Glow.Left, Is.LessThan(right.Site.Left));
+            Assert.That(right.Glow.Right, Is.EqualTo(right.Site.Right).Within(1e-3));
+
+            // A pocket in the bottom right corner, reached from above.
+            RoundLevel downward = Laid(new[] { "GGGGGGG", "GGGGGGG", "GGGGGGG", "GGGGGGG" }, new RoundOverlay(new[] { (4, 2), (5, 2), (6, 2), (4, 3) }, new[] { (5, 2) }));
+            RoundBridgeSite down = RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), downward).Bridges.Single();
+            Assert.That(down.Crossing, Is.EqualTo(RoundCrossing.Down));
+            Assert.That(down.Anchor, Is.EqualTo(down.Cell + downward.Width));
+            Assert.That(down.PlankDegrees, Is.EqualTo(90f));
+            Assert.That(down.AnchorCell.Bottom, Is.EqualTo(down.Site.Top).Within(1e-3), "the anchor is the cell above the site");
+            Assert.That(down.Glow.Top, Is.LessThan(down.Site.Top));
+            Assert.That(down.Glow.Bottom, Is.EqualTo(down.Site.Bottom).Within(1e-3));
+        }
+
+        [Test]
+        public void TheWall_IsRegistered_AndItsPictureFillsTheCell()
+        {
+            Assert.That(AssetSlots.Has(RoundBoardLayout.WallSlot), Is.True);
+            byte[] wall = UiRaster.WallStone(32, 1);
+            Assert.That(wall.Length, Is.EqualTo(32 * 32 * 4));
+            for (int i = 3; i < wall.Length; i += 4)
+            {
+                Assert.That(wall[i], Is.EqualTo(255), "a wall fills its cell, so cells join into one wall");
+            }
+
+            Assert.That(UiRaster.WallStone(32, 1), Is.EqualTo(wall), "deterministic");
+            Assert.That(UiRaster.WallStone(32, 2), Is.Not.EqualTo(wall), "the variants differ");
+            Assert.That(Enumerable.Range(0, 20).Select(x => UiRaster.WallSeed(x, 3)).Distinct().Count(), Is.EqualTo(UiRaster.WallVariants));
+        }
+
         [Test]
         public void ABoardOf48By48_FitsThePhoneFrame_WithItsStoneBorder()
         {

@@ -176,13 +176,27 @@ namespace Bloomlings.Pipeline.Rounds
         }
 
         /// <summary>
-        /// The picture ↔ board check: the level's board is exactly the reference's <c>boardOf</c> of its picture (size,
-        /// rows, the entry, the bridge sites and anchors).
+        /// The picture ↔ board check: the level's board is exactly the reference's <c>boardOf</c> of its picture and its
+        /// overlay, if any (size, rows, the entry, the bridge sites and anchors).
         /// </summary>
         public static IEnumerable<RoundIssue> PictureBoard(string where, RoundLevel level, RoundPicture picture)
         {
-            RoundBoardShape board = RoundPictureBoard.Of(picture);
-            string what = $"picture {picture.Id} v{picture.Version}";
+            RoundBoardShape board;
+            try
+            {
+                board = RoundPictureBoard.Of(picture, level.Overlay);
+            }
+            catch (ArgumentException e)
+            {
+                return new[] { new RoundIssue(where, "picture-board", e.Message) };
+            }
+
+            return PictureBoard(where, level, picture, board);
+        }
+
+        private static IEnumerable<RoundIssue> PictureBoard(string where, RoundLevel level, RoundPicture picture, RoundBoardShape board)
+        {
+            string what = level.Overlay == null ? $"picture {picture.Id} v{picture.Version}" : $"picture {picture.Id} v{picture.Version} with its overlay";
             if (board.Width != level.Width || board.Height != level.Height)
             {
                 yield return new RoundIssue(where, "picture-board", $"board {level.Width}×{level.Height}, but {what} ({picture.Width}×{picture.Height}) makes {board.Width}×{board.Height}");

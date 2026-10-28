@@ -28,7 +28,7 @@ namespace Bloomlings.Core.Rounds
         public const string Hidden = "hidden pods are at most 6, never in a group";
         public const string HiddenMode = "hidden pods reveal in depth mode";
         public const string Entries = "entries are cells of the board";
-        public const string BridgeSites = "bridge sites are walls with the anchor one row below";
+        public const string BridgeSites = "bridge sites are walls with an orthogonal neighbour as anchor";
         public const string Mechanics = "mechanics match pods and hero";
         public const string UnknownMechanic = "mechanics are hidden, links or bridge";
 
@@ -327,7 +327,7 @@ namespace Bloomlings.Core.Rounds
                 foreach (RoundBridgeChoice site in level.Bridge)
                 {
                     bool inside = site.Cell >= 0 && site.Cell < cellCount && site.Anchor >= 0 && site.Anchor < cellCount;
-                    if (!inside || !rowsOk || grid[site.Cell] != '#' || site.Anchor != site.Cell - w)
+                    if (!inside || !rowsOk || grid[site.Cell] != '#' || !Orthogonal(site.Cell, site.Anchor, w))
                     {
                         Add(errors, BridgeSites);
                     }
@@ -351,6 +351,17 @@ namespace Bloomlings.Core.Rounds
             }
 
             return errors;
+        }
+
+        /// <summary>
+        /// Whether <paramref name="anchor"/> is an orthogonal neighbour of <paramref name="cell"/> on a board
+        /// <paramref name="w"/> wide (17 §8 as amended on 2026-10-28; reference <c>rules.cjs validate</c>): the row below
+        /// or above (<c>|cell − anchor| == w</c>), or the cell beside it in the same row (<c>|cell − anchor| == 1</c>).
+        /// </summary>
+        public static bool Orthogonal(int cell, int anchor, int w)
+        {
+            int d = Math.Abs(cell - anchor);
+            return d == w || (d == 1 && cell / w == anchor / w);
         }
 
         private static (int Column, int Depth) Place(RoundLevel level, int pod)
