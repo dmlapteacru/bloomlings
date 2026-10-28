@@ -16,11 +16,12 @@ const grid=b=>b.rowsBottomFirst.slice().reverse();
 function reach(b,open=[]){const {w,h}=b,g=b.rowsBottomFirst.join(''),seen=new Set(b.entries),q=[...b.entries];
  while(q.length){const i=q.pop(),x=i%w,y=Math.floor(i/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy,j=v*w+u;if(u<0||v<0||u>=w||v>=h||seen.has(j)||(g[j]==='#'&&!open.includes(j)))continue;seen.add(j);q.push(j);}}return seen;}
 const P=L.picture('P0012');
-// the scene the proof found for "up" (Normal, single); the queue below is the one the test checks
+// the scene the proof found for "up" (Normal, single); the queue below is the one the test checks (its D strip touches
+// the teapot's D base, so the geometry tests skip the strip contrast check, tested on its own below)
 const UP={x:'K',y:'S',w:'C',v:'D',z:'.',strip:2,divider:1,ground:'L',fill:true,margin:2,bedDepth:1,bedBreadth:3,bedDepthY:3,bedBreadthY:5};
 
 test('scene composition: every side gives a board with two sites on that side, a shut far side and colour anchors',()=>{
- for(const side of BS.SIDES)for(const z of ['.','L']){const sc=BS.scene(P,{...UP,side,z,ground:z==='.'?'L':'L'}),ck=BS.checkScene(sc,null);
+ for(const side of BS.SIDES)for(const z of ['.','L']){const sc=BS.scene(P,{...UP,side,z,ground:'L'}),ck=BS.checkScene(sc,null,{contrast:false});
   assert.ok(ck.ok,`${side} z=${z}: ${ck.issues.join('; ')}`);const b=ck.board,g=b.rowsBottomFirst.join('');
   assert.equal(b.hero.choices.length,2);assert.equal(L.bridgeSide(b),side);
   assert.equal(b.entries[0],Math.floor(b.w/2),'entry in the bottom middle');
@@ -40,7 +41,7 @@ test('scene composition: every side gives a board with two sites on that side, a
  const rt=BS.scene(P,{...UP,side:'right'});assert.ok(rt.rows.some(r=>r.includes(P.rows[1].replace(/^\.+|\.+$/g,''))));});
 
 test('scene sizes: the proof scene fits the stage of L26 with at most 9 colours, the environment fill and crop',()=>{
- const sc=BS.scene(P,{...UP,side:'up'}),ck=BS.checkScene(sc,26);assert.ok(ck.ok,ck.issues.join('; '));
+ const sc=BS.scene(P,{...UP,side:'up'}),ck=BS.checkScene(sc,26,{contrast:false});assert.ok(ck.ok,ck.issues.join('; '));
  assert.ok(ck.measure.N>=550&&ck.measure.N<=1200&&ck.measure.colours<=9);
  // a filled environment: the outer empty space takes z, enclosed holes stay empty, the crop drops empty rows
  const far=BS.farPicture({rows:['.....','.RRR.','.R.R.','.RRR.','.....']},{z:'S'});assert.deepEqual(far.map(r=>r.join('')),['RRR','R.R','RRR']);
@@ -87,3 +88,9 @@ test('the wave plan lists the bridge scenes to make for the new-strip positions,
 test('search: the up proof scene passes the builder with exactly one winning bridge (slow, ROUNDS_SLOW=1)',{skip:!process.env.ROUNDS_SLOW},async()=>{
  const r=await BS.search(P,{side:'up',kind:'single',cls:'Normal',recipes:['bridge'],level:26,scenes:1,candidates:8,seed:7,opts:UP});
  assert.ok(r&&!r.fail,JSON.stringify(r&&r.tried));assert.equal(r.eval.checks.bridgeKind,'single');assert.equal(r.eval.random.cls,'Normal');assert.ok(r.eval.checks.bridgeLoss.ok);});
+
+test('strip contrast: a strip of the colour of the picture cells it touches is refused, a contrasting one passes (2026-10-28)',()=>{
+ const bad=BS.checkScene(BS.scene(P,{...UP,side:'up'}),null);
+ assert.ok(bad.issues.some(i=>i.includes('сливается')),'the D strip under the teapot\'s D base merges');
+ const good=BS.checkScene(BS.scene(P,{...UP,side:'up',w:'C',v:'K',x:'Y'}),null);
+ assert.ok(!good.issues.some(i=>i.includes('сливается')),good.issues.join('; '));});

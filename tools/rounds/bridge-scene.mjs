@@ -43,6 +43,7 @@
 // node tools/rounds/bridge-scene.mjs adapt <module.mjs> --out <module.mjs> [--index 0,2] [--minutes 20] [--per 8]
 //      a hand-drawn strip module (each picture's forLevel names its wave plan position): strips laid behind the sites
 //      (stripsOver) and searched like make; writes the passing pictures as an adapted copy, the evidence beside it.
+import {deltaE} from './colour-distance.mjs';
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
 import {siteChoice,CODES,PALETTE,measure,fitsStage,stageOf,boardOf,bridgeSide,BridgeAnchorError,picture,manifest,usage,arg,flag,columnsFor,root,DIR_RU,planOf} from './lib.mjs';
 import {fitness} from './fitness.mjs';
@@ -86,12 +87,12 @@ export function scene(pic,o){const side=o.side,S=o.strip??2,dv=o.divider??0,mg=o
  if(!X||!Y||!Z||X===Y||[X,Y,W,V].includes(Z)||![X,Y,W,V].every(c=>CODES.includes(c))||!(Z==='.'||CODES.includes(Z)))throw Error('цвета: x, y (и w, v) — материалы палитры, x ≠ y, z — другой материал или пустота');
  if([bX,bY].some(b=>b<3||b%2===0)||[dX,dY].some(d=>d<1))throw Error('грядка: ширина нечётная от 3, глубина от 1');
  if(side==='right'){const m=scene({...pic,rows:pic.rows.map(r=>[...r].reverse().join(''))},{...o,side:'left'});
-  const rows=m.rows.map(r=>[...r].reverse().join('')),w=rows[0].length;const mir=([x,y])=>[w-1-x,y];return {...m,side:'right',opts:{...o},rows,sites:m.sites.map(mir),win:mir(m.win),lose:mir(m.lose)};}
- const P=farPicture(pic,{z:Z,pad:o.pad??0}),pb=P[0].length,ph=P.length;let g,sites,near,bedY;
+  const rows=m.rows.map(r=>[...r].reverse().join('')),w=rows[0].length;const mir=([x,y])=>[w-1-x,y];return {...m,side:'right',opts:{...o},rows,sites:m.sites.map(mir),win:mir(m.win),lose:mir(m.lose),strips:m.strips.map(([x0,y0,x1,y1,c])=>[w-1-x1,y0,w-1-x0,y1,c])};}
+ const P=farPicture(pic,{z:Z,pad:o.pad??0}),pb=P[0].length,ph=P.length;let g,sites,near,bedY,strips;
  const apart=([a0,a1],[b0,b1],lo,hi)=>{if(a0<lo||b1>hi||a1+1>=b0)throw Error('грядки не помещаются у стены');};
  if(side==='up'){const pw=pb+2,yw=ph+S+1,H=yw+1+D+mg;g=grid(pw,H);
   box(g,0,0,pw-1,yw-1,'#');blit(g,P,1,1);
-  const cL=Math.floor(pw/2)-1;box(g,1,ph+1,cL-1,ph+S,Y);box(g,cL+2,ph+1,pw-2,ph+S,V);box(g,cL,ph+1-dv,cL+1,ph+S,'#');
+  const cL=Math.floor(pw/2)-1;box(g,1,ph+1,cL-1,ph+S,Y);box(g,cL+2,ph+1,pw-2,ph+S,V);strips=[[1,ph+1,cL-1,ph+S,Y],[cL+2,ph+1,pw-2,ph+S,V]];box(g,cL,ph+1-dv,cL+1,ph+S,'#');
   const xL=Math.max(1+Math.floor((B-1)/2),Math.round((pw-1)/4)),xR=pw-1-xL;if(xL>=cL-1)throw Error('картинка слишком узкая для двух мест');
   box(g,0,yw,pw-1,yw,'#');sites=[[xL,yw],[xR,yw]];
   const a=span(xL,bX),b=span(xR,bY);apart(a,b,0,pw-1);box(g,a[0],yw+1,a[1],yw+dX,X);box(g,b[0],yw+1,b[1],yw+dY,W);bedY=[b[0],yw+1,b[1],yw+dY];
@@ -102,7 +103,7 @@ export function scene(pic,o){const side=o.side,S=o.strip??2,dv=o.divider??0,mg=o
   // so the board stays compact; full: the wall runs the whole height and the near bank must be wider than the far side
   const band=1+mg;let pw=xw+1+D+1+mg,H=F+band;if(o.full){H=F;while(Math.floor((pw+4)/2)-2<=xw+mg+1)pw++;}g=grid(pw,H);
   box(g,0,0,xw,F-1,'#');blit(g,P,1,1);
-  const rD=Math.floor(F/2)-1;box(g,pb+1,1,pb+S,rD-1,V);box(g,pb+1,rD+2,pb+S,F-2,Y);box(g,pb+1-dv,rD,pb+S,rD+1,'#');
+  const rD=Math.floor(F/2)-1;box(g,pb+1,1,pb+S,rD-1,V);box(g,pb+1,rD+2,pb+S,F-2,Y);strips=[[pb+1,1,pb+S,rD-1,V],[pb+1,rD+2,pb+S,F-2,Y]];box(g,pb+1-dv,rD,pb+S,rD+1,'#');
   const yU=Math.max(1+Math.floor((B-1)/2),Math.round((F-1)/4)),yD=F-1-yU;if(yU>=rD-1)throw Error('картинка слишком низкая для двух мест');
   if(o.full)box(g,xw,F,xw,H-1,'#');sites=[[xw,yD],[xw,yU]];
   // the winning site is the lower one, nearer the entry (its bed is reached first), the other the upper one
@@ -111,7 +112,7 @@ export function scene(pic,o){const side=o.side,S=o.strip??2,dv=o.divider??0,mg=o
  else{// two: the far box in the top-left corner, an L wall (a horizontal leg crossing up, a vertical leg crossing left)
   const xw=1+pb+S,yw=1+ph+S,pw=xw+1+D+1+mg,H=yw+1+D+1+mg;g=grid(pw,H);
   box(g,0,0,xw,yw,'#');blit(g,P,1,1);
-  box(g,1,ph+1,pb,ph+S,Y);box(g,pb+1,1,pb+S,ph,V);
+  box(g,1,ph+1,pb,ph+S,Y);box(g,pb+1,1,pb+S,ph,V);strips=[[1,ph+1,pb,ph+S,Y],[pb+1,1,pb+S,ph,V]];
   const xA=Math.max(1+Math.floor((bX-1)/2),Math.round(pb/2)),yB=Math.max(1+Math.floor((bY-1)/2),Math.round(ph/2));
   if(xA>pb-1||yB>ph-1)throw Error('картинка слишком мала для двух мест');
   if(dv)box(g,pb+1-dv,ph+1-dv,pb,ph,'#');
@@ -127,7 +128,7 @@ export function scene(pic,o){const side=o.side,S=o.strip??2,dv=o.divider??0,mg=o
  if(o.ground&&o.shield){const t=o.shield,[x0,y0,x1,y1]=bedY;g.forEach((r,y)=>r.forEach((c,x)=>{if(c==='.'&&near(x,y)&&x>=x0-t&&x<=x1+t&&y>=y0-t&&y<=y1+t)r[x]=G0;}));}
  for(const [x,y] of sites)g[y][x]='b';
  // win: the site of the x bed (its bridge leads to the y strip, the colour the early pods bring); lose: the other one
- return {rows:g.map(r=>r.join('')),side,opts:{...o},sites,win:sites[0],lose:sites[1]};}
+ return {rows:g.map(r=>r.join('')),side,opts:{...o},sites,win:sites[0],lose:sites[1],strips};}
 // the index of a scene's site among the board's bridge choices (boardOf lists them in reading order)
 export const choiceOf=(sc,board,site)=>siteChoice(board,site);
 
@@ -154,10 +155,18 @@ export function stripsOver(pic,o){const rows=pic.rows.map(r=>[...r]),pw=rows[0].
 
 // ---- the board check of a scene: boardOf accepts it, two sites on the planned side, every colour cell reachable once
 // a bridge stands (each bridge alone), anchors are colour cells, nothing reachable on the far side before a bridge ----
-export function checkScene(sc,level=null,{maxColours=9}={}){const issues=[];let b=null;
+// the smallest CIEDE2000 between a strip and the picture cells beside it (2026-10-28; the palette's closest pair is 14)
+export const STRIP_CONTRAST=20;
+export function checkScene(sc,level=null,{maxColours=9,contrast=true}={}){const issues=[];let b=null;
  try{b=boardOf(sc);}catch(e){if(e instanceof BridgeAnchorError)return {ok:false,issues:[e.message]};throw e;}
  if(!b.hero||b.hero.choices.length!==2)issues.push('нужно ровно два места моста');
  const m=measure(sc);if(m.colours>maxColours)issues.push(`цветов ${m.colours} > ${maxColours}`);
+ // a strip stands out from the picture cells it touches (the owner, 2026-10-28: a strip never merges with the picture
+ // part next to it): every colour cell beside it, outside the strips, is at least STRIP_CONTRAST away in CIEDE2000
+ for(const [x0,y0,x1,y1,c] of contrast?sc.strips||[]:[]){let worst=Infinity,near=null;const inStrip=(x,y)=>(sc.strips||[]).some(([a,b,e,f])=>x>=a&&x<=e&&y>=b&&y<=f);
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy,k=sc.rows[v]?.[u];
+   if(!k||!CODES.includes(k)||inStrip(u,v))continue;const d=deltaE(c,k);if(d<worst){worst=d;near=k;}}
+  if(worst<STRIP_CONTRAST)issues.push(`полоса ${c} сливается с картинкой рядом (${near}, ΔE ${worst.toFixed(1)} < ${STRIP_CONTRAST})`);}
  if(level&&!fitsStage(m,level))issues.push(`вне этапа L${level}: ${m.N} кл., ${m.colours} цв. (${stageOf(level).cells.join('–')})`);
  if(b.w>48||b.h>48)issues.push(`поле ${b.w}×${b.h} больше 48×48`);
  if(b.hero){const side=bridgeSide(b);if(side!==sc.side)issues.push(`сторона борда ${side}, нужна ${sc.side}`);
