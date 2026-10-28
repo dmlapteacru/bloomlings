@@ -100,10 +100,10 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  let lean=0;if(intended!==null&&board.hero.choices.length>1&&(r()<.6||!intro)){lean=.5+2.5*r();const o=depths(board,1-intended).d,byO={};
   for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byO[g[i]]=byO[g[i]]||[]).push(o[i]);
   for(const [c,ds] of Object.entries(byO)){ds.sort((a,b)=>a-b);let k=0;for(const p of pods.filter(p=>p.color===c)){const sl=ds.slice(k,k+p.count);k+=p.count;p.keyO=sl.reduce((a,b)=>a+b,0)/sl.length/maxD;}}}
- const sigma={Normal:.06,Hard:.16,'Super Hard':.26}[cls];
+ const sigma=opts.sigma??{Normal:.06,Hard:.16,'Super Hard':.26}[cls];
  for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key-lean*Math.max(0,(p.keyO??p.key)-p.key)+sigma*z;}
  // Normal blends a little towards the reverse access order too, so its random test lands in 50–75 % (§5, median 50–60 %)
- if(cls==='Normal'&&!intro&&!lean){const t=r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ if(cls==='Normal'&&!intro&&!lean){const t0=r(),t=opts.t??t0;for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
  // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
  // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
@@ -229,8 +229,15 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
   for(const cls of fixed?['Normal']:classes)for(const recipe of recipes){if(fixed&&recipe!=='none')continue;if(pairs&&!pairs.has(`${cls}:${recipe}${v.overlay?'@'+v.side:''}`))continue;
    for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'&&!flag('--no-intro')?[false,true]:[false]){
     // resumable: a combination already searched (bank.searched) is skipped; the bank is saved after each one
-    const combo=`${cls}|${recipe}|${intro?'intro':''}${v.overlay?'|'+v.side:''}`;bank.searched=bank.searched||[];if(!flag('--fresh')&&!process.env.ROUNDS_FRESH&&bank.searched.some(x=>x.combo===combo)){console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
-    let tried=0,found=0,foundLoss=0;const reasons={};const no=k=>{reasons[k]=(reasons[k]||0)+1;};
+    // ROUNDS_FRESH=1 (or --fresh) searches again; ROUNDS_FRESH=<tag> searches again once per tag (a resumable re-search)
+    const fresh=process.env.ROUNDS_FRESH,runTag=fresh&&fresh!=='1'?fresh:null;
+    const combo=`${cls}|${recipe}|${intro?'intro':''}${v.overlay?'|'+v.side:''}`;bank.searched=bank.searched||[];if(runTag?bank.searched.some(x=>x.combo===combo&&x.tag===runTag):!flag('--fresh')&&!fresh&&bank.searched.some(x=>x.combo===combo)){console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
+    let tried=0,found=0,foundLoss=0;const reasons={};
+    // a regular Normal steers its blend t towards the reverse access order (candidate opts.t) by the shares measured on
+    // this picture and recipe so far, aiming at the middle of the median band (17 §5: Normal 50–75 %, median 50–60 %).
+    // On most pictures the share falls steeply with t (the access order ≈ 100 %, half way a random order, the reverse
+    // often below 50 %), so a t drawn uniformly spent most attempts on 95–100 % or on Hard; ROUNDS_STEER=0 keeps that
+    const steer=cls==='Normal'&&!intro&&!fixed&&!recipe.includes('bridge')&&process.env.ROUNDS_STEER!=='0'?{t:+(process.env.ROUNDS_T0||.55),aim:+(process.env.ROUNDS_AIM||.56),n:0}:null;const no=k=>{reasons[k]=(reasons[k]||0)+1;};
     // a Normal also looks for a candidate that "most work now" loses (§5: part of the regular Normals), up to 4 found;
     // ROUNDS_WANT_LOSS=n keeps a regular Normal search going until n such candidates (or ROUNDS_MAX_FOUND found, or the
     // budget), for a wave whose greedy quota fails on what the bank holds
@@ -238,15 +245,21 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
     const enough=()=>cls==='Normal'&&!intro&&!fixed?(process.env.ROUNDS_WANT_LOSS?foundLoss>=wantLoss||found>=maxFound:found>=4||(found>=2&&foundLoss>=1)):found>=2;
     for(let k=0;k<budgetN&&!enough();k++){tried++;const cols=fixed?3:columnsFor(m.N)[k%columnsFor(m.N).length];
      const pos=recipe==='none'||intro?null:DOSE_CYCLE[k%DOSE_CYCLE.length];
-     const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+all.indexOf(recipe)*131+(intro?17:0)+(v.overlay?(SIDES.indexOf(v.side)+1)*523:0),intro,pos,sceneOpts(pic,board,base.pods.length,cols,k));
+     const cseed=seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+all.indexOf(recipe)*131+(intro?17:0)+(v.overlay?(SIDES.indexOf(v.side)+1)*523:0);
+     const blend=steer?Math.min(1,Math.max(0,steer.t+(rnd(cseed^0x5bd1e995)()-.5)*.12)):null;
+     const c=candidate(pic,board,base.pods,cols,recipe,cls,cseed,intro,pos,{...sceneOpts(pic,board,base.pods.length,cols,k),...(blend!==null?{t:blend}:{})});
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
-     const tick=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{};const t0=Date.now();
-     const e=await evaluate(c.level,{m,cls,intro,fixed,tick});if(e.reason){no(e.reason);continue;}
-     bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
-      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:e.random,solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
+     let quick=null;const trace=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k}${blend!==null?' t '+blend.toFixed(2):''} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{},t0=Date.now();
+     const tick=l=>{const q=/^быстрая оценка ([\d.]+)/.exec(l);if(q)quick=+q[1];trace(l);};
+     const e=await evaluate(c.level,{m,cls,intro,fixed,tick});
+     // the steering step shrinks with the attempts (a noisy share: the same t gives 10–90 % on some pictures)
+     if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(1,Math.max(.3,steer.t+.45/Math.sqrt(steer.n)*(q-steer.aim)));}}
+     if(e.reason){no(e.reason);continue;}
+     bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}${runTag?'-'+runTag:''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
+      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:e.random,solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(blend!==null?{blend:Math.round(blend*1000)/1000}:{}),...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
      found++;if(e.checks.greedyLoses)foundLoss++;}
     console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
-    bank.searched.push({combo,tried,found,reasons});writeJSON(bankFile,bank);}}}
+    bank.searched.push({combo,...(runTag?{tag:runTag}:{}),...(steer?{steer:{t:Math.round(steer.t*1000)/1000,aim:steer.aim}}:{}),tried,found,reasons});writeJSON(bankFile,bank);}}}
   writeJSON(bankFile,bank);}}
 
 // ---- place: calendar positions from the bank, with the variety rules of §11 and the windows of §2/§13 ----
