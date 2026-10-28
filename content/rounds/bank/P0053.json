@@ -1,0 +1,16 @@
+{
+ "picture": "P0053",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links|",
+   "tried": 32,
+   "found": 0,
+   "reasons": {
+    "вынужденных решений больше 35 % (§5)": 1,
+    "не тот класс по быстрой оценке": 31
+   }
+  }
+ ]
+}
