@@ -3,7 +3,7 @@
   21,
   50
  ],
- "created": "2026-10-28T09:27:51.516Z",
+ "created": "2026-10-28T11:04:06.446Z",
  "positions": [
   {
    "level": 21,
@@ -725,10 +725,338 @@
   50
  ],
  "blockers": [],
+ "mechanics": {
+  "levels": [
+   {
+    "level": 21,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 22,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 23,
+    "cls": "Normal",
+    "lead": "bridge",
+    "add": [],
+    "recipe": "bridge",
+    "doses": "мост: 1 выбор из 2 мест",
+    "bridgeSide": "up",
+    "strip": "new"
+   },
+   {
+    "level": 24,
+    "cls": "Normal",
+    "lead": "hidden",
+    "add": [],
+    "recipe": "hidden",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24)"
+   },
+   {
+    "level": 25,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 26,
+    "cls": "Normal",
+    "lead": "bridge",
+    "add": [
+     "links"
+    ],
+    "recipe": "bridge+links",
+    "doses": "мост: 1 выбор из 2 мест; связки доп. 5 % P (2 при P = 24)",
+    "bridgeSide": "left",
+    "strip": "new"
+   },
+   {
+    "level": 27,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 28,
+    "cls": "Normal",
+    "lead": "hidden",
+    "add": [
+     "links"
+    ],
+    "recipe": "hidden+links",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 29,
+    "cls": "Normal",
+    "lead": "bridge",
+    "add": [],
+    "recipe": "bridge",
+    "doses": "мост: 1 выбор из 2 мест",
+    "bridgeSide": "right",
+    "strip": "new"
+   },
+   {
+    "level": 30,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "bridge",
+     "hidden"
+    ],
+    "recipe": "links+bridge+hidden",
+    "doses": "связки 35–47.5 % P (10 при P = 24); мост: 1 выбор из 2 мест; скрытые доп. 5 % P (2 при P = 24)",
+    "bridgeSide": "two",
+    "strip": "new"
+   },
+   {
+    "level": 31,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 32,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 33,
+    "cls": "Normal",
+    "lead": "bridge",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "bridge+hidden",
+    "doses": "мост: 1 выбор из 2 мест; скрытые доп. 5 % P (2 при P = 24)",
+    "bridgeSide": "left",
+    "strip": "overlay"
+   },
+   {
+    "level": 34,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 35,
+    "cls": "Hard",
+    "lead": "bridge",
+    "add": [
+     "links"
+    ],
+    "recipe": "bridge+links",
+    "doses": "мост: 1 выбор из 2 мест; связки доп. 10 % P (4 при P = 24)",
+    "bridgeSide": "right",
+    "strip": "new"
+   },
+   {
+    "level": 36,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 37,
+    "cls": "Normal",
+    "lead": "hidden",
+    "add": [],
+    "recipe": "hidden",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24)"
+   },
+   {
+    "level": 38,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 39,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 40,
+    "cls": "Hard",
+    "lead": "hidden",
+    "add": [
+     "links"
+    ],
+    "recipe": "hidden+links",
+    "doses": "скрытые 10–25 % P (3–6 при P = 24); связки доп. 10 % P (4 при P = 24)"
+   },
+   {
+    "level": 41,
+    "cls": "Normal",
+    "lead": "bridge",
+    "add": [],
+    "recipe": "bridge",
+    "doses": "мост: 1 выбор из 2 мест",
+    "bridgeSide": "up",
+    "strip": "overlay"
+   },
+   {
+    "level": 42,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 43,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 44,
+    "cls": "Normal",
+    "lead": "hidden",
+    "add": [
+     "bridge"
+    ],
+    "recipe": "hidden+bridge",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24); мост: 1 выбор из 2 мест",
+    "bridgeSide": "left",
+    "strip": "overlay"
+   },
+   {
+    "level": 45,
+    "cls": "Super Hard",
+    "lead": "bridge",
+    "add": [
+     "links",
+     "hidden"
+    ],
+    "recipe": "bridge+links+hidden",
+    "doses": "мост: 1 выбор из 2 мест; связки доп. 15 % P (4 при P = 24); скрытые доп. 5 % P (2 при P = 24)",
+    "bridgeSide": "two",
+    "strip": "new"
+   },
+   {
+    "level": 46,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 47,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 48,
+    "cls": "Normal",
+    "lead": "bridge",
+    "add": [
+     "links"
+    ],
+    "recipe": "bridge+links",
+    "doses": "мост: 1 выбор из 2 мест; связки доп. 5 % P (2 при P = 24)",
+    "bridgeSide": "right",
+    "strip": "overlay"
+   },
+   {
+    "level": 49,
+    "cls": "Normal",
+    "lead": "hidden",
+    "add": [],
+    "recipe": "hidden",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24)"
+   },
+   {
+    "level": 50,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "bridge"
+    ],
+    "recipe": "links+bridge",
+    "doses": "связки 20–45 % P (6–10 при P = 24); мост: 1 выбор из 2 мест",
+    "bridgeSide": "up",
+    "strip": "overlay"
+   }
+  ],
+  "shares": {
+   "bridge": {
+    "levels": 11,
+    "share": 0.37,
+    "lead": 8
+   },
+   "links": {
+    "levels": 15,
+    "share": 0.5,
+    "lead": 9
+   },
+   "hidden": {
+    "levels": 11,
+    "share": 0.37,
+    "lead": 6
+   },
+   "none": {
+    "levels": 7,
+    "share": 0.23
+   }
+  },
+  "normalWithMechanic": [
+   17,
+   24
+  ],
+  "types": {
+   "one": 11,
+   "two": 10,
+   "three": 2
+  },
+  "sides": {
+   "up": 3,
+   "left": 3,
+   "right": 3,
+   "two": 2
+  }
+ },
  "need": {
-  "Normal": 24,
-  "Hard": 4,
-  "Super Hard": 2,
+  "Normal": 21,
+  "Hard": 3,
+  "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
@@ -742,6 +1070,13 @@
    "знакомство: links": 52,
    "Hard": 43,
    "Super Hard": 28
+  },
+  "overlay": {
+   "L33 влево": 77,
+   "L41 вверх": 77,
+   "L44 влево": 77,
+   "L48 вправо": 76,
+   "L50 вверх": 53
   }
  },
  "order": {
@@ -754,6 +1089,50 @@
    "500–999": 0,
    "1000–1400": 0
   },
+  "strips": [
+   {
+    "side": "up",
+    "stage": "550–1000 клеток, 4–10 цветов",
+    "have": 0,
+    "count": 2,
+    "strong": 0,
+    "levels": [
+     23
+    ]
+   },
+   {
+    "side": "left",
+    "stage": "550–1200 клеток, 5–10 цветов (или компактная 200–399 / 3–6)",
+    "have": 0,
+    "count": 2,
+    "strong": 0,
+    "levels": [
+     26
+    ]
+   },
+   {
+    "side": "right",
+    "stage": "550–1200 клеток, 5–10 цветов (или компактная 200–399 / 3–6)",
+    "have": 0,
+    "count": 4,
+    "strong": 2,
+    "levels": [
+     29,
+     35
+    ]
+   },
+   {
+    "side": "two",
+    "stage": "550–1200 клеток, 5–10 цветов (или компактная 200–399 / 3–6)",
+    "have": 0,
+    "count": 4,
+    "strong": 4,
+    "levels": [
+     30,
+     45
+    ]
+   }
+  ],
   "avoidMotifs": [
    "ретро-техника (8)",
    "лампы и фонари (5)",

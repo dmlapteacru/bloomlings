@@ -1458,6 +1458,30 @@
    "reasons": {
     "не тот класс по быстрой оценке": 64
    }
+  },
+  {
+   "combo": "Normal|links|",
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 64
+   }
+  },
+  {
+   "combo": "Normal|hidden+links|",
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 64
+   }
+  },
+  {
+   "combo": "Hard|hidden+links|",
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 64
+   }
   }
  ],
  "placed": []
