@@ -40,7 +40,8 @@ namespace Bloomlings.Client.UI.Design
         int PodRows,
         float FrontHeight,
         float QueueHeight,
-        float PodGap)
+        float PodGap,
+        Box RoundBoard = default)
     {
         /// <summary>The fewest pods of a stack the tray shows (the exposed one and the next two), on shorter screens.</summary>
         public const int MinPodRows = 3;
@@ -68,6 +69,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The entry strip's height, the lawn between the board region and the tray, as a share of <see cref="W"/> (times <see cref="K"/>).</summary>
         public const float EntryStripShare = 0.04f;
+
+        /// <summary>
+        /// The widest the round board's fixed box may be for its height (the owner's board of 2026-10-28: "roughly square"): on
+        /// a short screen the box is a little wider than tall, never more.
+        /// </summary>
+        public const float RoundBoardMaxAspect = 1.12f;
 
         /// <summary>
         /// The lawn from the board's top to the entry strip's bottom across the safe width: the area the board is fitted
@@ -135,9 +142,14 @@ namespace Bloomlings.Client.UI.Design
         public PodChip Chip(int stack, int depth) => PodChip.In(Pod(stack, depth), depth > 0);
 
         /// <summary>Align the booster row to the actual stone fence, and keep waiting-slot plates close together.</summary>
-        public ReferenceGameplayRegions AlignControls(BoardLayout board)
+        public ReferenceGameplayRegions AlignControls(BoardLayout board) => AlignControls(board.Outer);
+
+        /// <summary>
+        /// Align the booster row to a board's frame box <paramref name="outer"/> (a round level's fixed box,
+        /// <see cref="RoundBoard"/>), and keep waiting-slot plates close together.
+        /// </summary>
+        public ReferenceGameplayRegions AlignControls(Box outer)
         {
-            Box outer = board.Outer;
             var boosts = new Box[Boosters.Count];
             float side = Math.Min(BoosterRow.Height, (outer.Width - W * 0.014f * 3) / 4);
             float gap = (outer.Width - side * 4) / 3;
@@ -925,6 +937,37 @@ namespace Bloomlings.Client.UI.Design
             int slotCount,
             bool hasBoosters = true,
             bool hasBadge = false)
+        {
+            ReferenceGameplayRegions regions = BuildReferenceGameplay(width, height, insets, stackCount, slotCount, hasBoosters, hasBadge);
+            return regions with { RoundBoard = RoundBoardBox(BuildReferenceGameplay(width, height, insets, 1, 5, true, true)) };
+        }
+
+        /// <summary>
+        /// The round board's fixed box on this screen (the owner's decision of 2026-10-28: "the place for the board the same,
+        /// roughly a square"): the board area of the fullest layout (a badge, the booster row, the tallest pods), less 0.02 W at
+        /// each side, a square at most <see cref="ReferenceGameplayRegions.MaxBoardShare"/> × W wide (on a short screen
+        /// up to <see cref="ReferenceGameplayRegions.RoundBoardMaxAspect"/> times as wide as tall), centred, its bottom on
+        /// that area's bottom. So it is the same on every level of the screen, whatever the level's picture, columns, badge
+        /// or boosters.
+        /// </summary>
+        private static Box RoundBoardBox(ReferenceGameplayRegions fullest)
+        {
+            Box area = fullest.BoardArea;
+            float w = fullest.W;
+            float width = Math.Min(ReferenceGameplayRegions.MaxBoardShare * w, area.Width - (0.04f * w));
+            float height = Math.Max(1f, Math.Min(width, area.Height));
+            width = Math.Min(width, height * ReferenceGameplayRegions.RoundBoardMaxAspect);
+            return new Box(area.CenterX - (width / 2f), area.Bottom - height, area.CenterX + (width / 2f), area.Bottom);
+        }
+
+        private static ReferenceGameplayRegions BuildReferenceGameplay(
+            float width,
+            float height,
+            Insets insets,
+            int stackCount,
+            int slotCount,
+            bool hasBoosters,
+            bool hasBadge)
         {
             Box safe = SafeArea(width, height, insets);
             float w = safe.Width;

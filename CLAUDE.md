@@ -62,7 +62,10 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   `pictures`, `proofs`, `conformance`, `published` for the clients, `transfers.jsonl`). The playtest and Unity play
   round levels only (`RoundPlay`, `RoundAnimator`, `RoundBoardLayout`, `LinkTube` in the kit; Daily off, "new levels
   soon" after the last level). Cubes have no variant icon; Settings' symbols mode (off by default, `settings.symbols`)
-  shows each material's symbol for colour-blind players. The legacy `Bloomlings.Core.Simulation` path still builds
+  shows each material's symbol for colour-blind players. The board is the owner's of 2026-10-28 (spec 006 FR-049,
+  `contracts/presentation.md`): one fixed box on every level (`ReferenceGameplayRegions.RoundBoard`) with a frame of
+  one thickness, a solid neutral surface (`board.surface`, no grass, no grid, no imprint of eaten cubes), and the cube
+  size fitted to the picture (`RoundBoardLayout.Cell`). The legacy `Bloomlings.Core.Simulation` path still builds
   for the generator, solver and their tests (`specs/006-round-levels-in-game/legacy-references.md`).
 - **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): passed on 2026-09-29, all docs are locked. Changes to
   locked docs now go through the product owner.

@@ -8,7 +8,7 @@ namespace Bloomlings.Client.Art
     /// <summary>
     /// The round levels' pictures as cached sprites (spec 006 contracts/presentation.md; the playtest's <c>KitRound</c>),
     /// rendered from the kit's engine-free <see cref="UiRaster"/> with the same keys: material tiles without a variant
-    /// icon (the material's symbol only in the symbols mode), the stream's water, an overlay's stone wall, the cleared cell, the round pod's
+    /// icon (the material's symbol only in the symbols mode), the board's neutral surface, the stream's water, an overlay's stone wall, the round pod's
     /// wooden frame tinted by its material and the link tube. Each picture is cached by key and pixel size.
     /// </summary>
     public static class RoundSprites
@@ -48,12 +48,15 @@ namespace Bloomlings.Client.Art
             return ProceduralSprites.Picture(RoundBoardLayout.WallSlot + "/" + k, s, s, (w, h) => UiRaster.WallStone(Math.Min(w, h), k));
         }
 
-        /// <summary>A cleared cell (<c>tile.ground</c>): the material's colour lightened, as the game's restored cells.</summary>
-        public static Sprite Cleared(int material, int size)
+        /// <summary>
+        /// A round board's solid neutral surface (<c>board.surface</c>, the owner's board of 2026-10-28) at a pixel size, its
+        /// corners rounded by <paramref name="radiusShare"/> of its shorter side; the same key as the playtest's <c>Kit.BoardSurface</c>.
+        /// </summary>
+        public static Sprite Surface(int width, int height, float radiusShare)
         {
-            Rgba color = RoundLook.ColorOf(material).Lighten(0.55f);
-            int s = Math.Max(1, size);
-            return ProceduralSprites.Picture("tile.ground/round/" + RoundMaterial.All[material].Code, s, s, (w, h) => UiRaster.ClearedCell(w, h, color));
+            float share = (float)Math.Round(radiusShare, 4);
+            string key = RoundBoardLayout.SurfaceSlot + "/" + share.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            return ProceduralSprites.Picture(key, Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.BoardSurface(w, h, share));
         }
 
         /// <summary>A round pod's wooden frame tinted by its material (null: a hidden pod, <see cref="GameplaySkin.Pod(int, int, Rgba?, bool, bool)"/>).</summary>

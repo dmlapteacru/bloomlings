@@ -181,35 +181,41 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// A round level's cleared cell (<c>tile.ground</c>, spec 006 T049), as the game's restored cells: the finished
-        /// picture as a pale flat cell in <paramref name="color"/> (the material's colour lightened), a slightly deeper rim
-        /// round it and a faint shadow along its top, filling <paramref name="width"/> × <paramref name="height"/>. One
-        /// cached picture a material, so a cleared board costs one picture a cell.
+        /// A round level's board surface (<c>board.surface</c>, the owner's board of 2026-10-28, "like Colony Flow"): one
+        /// solid neutral panel filling <paramref name="width"/> × <paramref name="height"/> inside the stone frame, never a
+        /// grid of cells. Flat <c>board.surface</c>, set a little into the frame: a soft <c>board.surface_shade</c> along its
+        /// top (4.5% of its shorter side) and left edge (2.5%), the light coming from the upper left, and a faint lighter lip
+        /// along its bottom; its corners rounded by <paramref name="radiusShare"/> of its shorter side. Opaque inside its
+        /// corners. Hosts cache it by size: one picture a screen.
         /// </summary>
-        public static byte[] ClearedCell(int width, int height, Rgba color)
+        public static byte[] BoardSurface(int width, int height, float radiusShare)
         {
             Check(width, height);
-            float s = Math.Min(width, height);
-            float inset = s * 0.025f;
-            float r = (s - (2f * inset)) * 0.1f;
-            Rgba rim = color.Darken(0.12f);
             var pixels = new byte[width * height * 4];
+            float s = Math.Min(width, height);
+            float radius = Math.Max(0f, s * radiusShare);
+            float top = Math.Max(1f, s * 0.045f);
+            float side = Math.Max(1f, s * 0.025f);
+            Rgba lip = C.BoardSurface.Lighten(0.35f);
             for (int py = 0; py < height; py++)
             {
                 float y = py + 0.5f;
+                float shadeTop = Clamp01(1f - (y / top));
+                float lipBottom = Clamp01(1f - ((height - y) / side));
                 for (int px = 0; px < width; px++)
                 {
                     float x = px + 0.5f;
-                    var c = new Color(rim);
-                    float face = Coverage(RoundRect(x, y, inset, inset, width - inset, height - inset, r));
-                    if (face > 0f)
+                    float cover = Coverage(RoundRect(x, y, 0f, 0f, width, height, radius));
+                    if (cover <= 0f)
                     {
-                        var g = new Color(color);
-                        g.Mix(C.GardenShadow, 0.12f * Clamp01(1f - ((y - inset) / (height * 0.24f))));
-                        c.Mix(g.ToRgba(), face);
+                        continue;
                     }
 
-                    Put(pixels, width, px, py, c, 1f);
+                    float shadeLeft = Clamp01(1f - (x / side));
+                    var c = new Color(C.BoardSurface);
+                    c.Mix(C.BoardSurfaceShade, Clamp01((0.6f * shadeTop * shadeTop) + (0.35f * shadeLeft * shadeLeft)));
+                    c.Mix(lip, 0.3f * lipBottom * lipBottom);
+                    Put(pixels, width, px, py, c, cover);
                 }
             }
 

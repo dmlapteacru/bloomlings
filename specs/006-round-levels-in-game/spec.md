@@ -327,6 +327,12 @@ owner sees the same behaviour as in the playtest app.
 - **FR-048**: The walking Bloomlings of every clearing style MUST show the hero of the material's family (each of the 16
   colours belongs to one of the 4 heroes), tinted in that material's colour. The same holds in the Store's clearing
   previews.
+- **FR-049** (the owner's board, 2026-10-28): The board MUST stand in one fixed, roughly square box, the same position and
+  size on every level, its frame always the same thickness. Inside the frame the board MUST be one solid neutral surface
+  (no grass, no grid of cells under the picture), and an eaten cube MUST leave only that surface (no imprint). The
+  picture stays the game's cubes; the cube size MUST adapt so the whole picture fits the box as large as possible,
+  centred and in proportion (a big matrix smaller cubes, a small one bigger cubes), and everything on the board scales
+  with it.
 
 **Transfer path**
 

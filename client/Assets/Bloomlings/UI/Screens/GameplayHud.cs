@@ -52,6 +52,7 @@ namespace Bloomlings.Client.UI.Screens
         private int _stackCount = 4;
         private int _boardWidth;
         private int _boardHeight;
+        private bool _roundBoard;
         private bool _hasBadge;
         private bool _hasBoosters = true;
         private Box _boardBox;
@@ -153,7 +154,7 @@ namespace Bloomlings.Client.UI.Screens
             _hasBadge = hasBadge;
             _hasBoosters = hasBoosters;
             _stackCount = Mathf.Max(0, stackCount);
-            if (boardWidth > 0 && boardHeight > 0) { _boardWidth = boardWidth; _boardHeight = boardHeight; }
+            if (boardWidth > 0 && boardHeight > 0) { _boardWidth = boardWidth; _boardHeight = boardHeight; _roundBoard = false; }
             ReferenceGameplayRegions r = Compute(WaitingSlots.DefaultCount);
             _regions = r;
             (float w, float h, Insets _) = UiKit.ScreenFrame();
@@ -180,12 +181,24 @@ namespace Bloomlings.Client.UI.Screens
             LayToast();
         }
 
+        /// <summary>
+        /// Places every region for a round level (spec 006): as <see cref="Layout(bool, bool, int, int, int)"/>, the slots and
+        /// boosters aligned to the round board's fixed box (<see cref="ReferenceGameplayRegions.RoundBoard"/>, the owner's
+        /// board of 2026-10-28), whatever the level's picture.
+        /// </summary>
+        public void LayoutRound(bool hasBadge, bool hasBoosters, int stackCount)
+        {
+            _roundBoard = true;
+            Layout(hasBadge, hasBoosters, stackCount);
+        }
+
         /// <summary>The reference regions for this level's badge, boosters and stacks with <paramref name="slotCount"/> Waiting Slots.</summary>
         private ReferenceGameplayRegions Compute(int slotCount)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
             ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, _stackCount, slotCount, _hasBoosters, _hasBadge);
-            return _boardWidth > 0 && _boardHeight > 0 ? r.AlignControls(r.FitBoard(_boardWidth, _boardHeight)) : r;
+            return _roundBoard ? r.AlignControls(r.RoundBoard)
+                : _boardWidth > 0 && _boardHeight > 0 ? r.AlignControls(r.FitBoard(_boardWidth, _boardHeight)) : r;
         }
 
         /// <summary>

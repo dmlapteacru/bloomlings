@@ -267,7 +267,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
                 _hasBoosters |= economy != null && economy.IsUnlocked(kind);
             }
 
-            _hud.Layout(_labelled, _hasBoosters, Math.Max(1, level.Tray.Count), level.Width - 2, level.Height - 2);
+            _hud.LayoutRound(_labelled, _hasBoosters, Math.Max(1, level.Tray.Count));
             _hud.SetDifficulty(difficulty, _labelled);
             Canvas.ForceUpdateCanvases();
             Relayout(force: true);
@@ -289,12 +289,12 @@ namespace Bloomlings.Client.Gameplay.Rounds
             _layoutKey = key;
             ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, Math.Max(1, core.Round.Tray.Count), places, _hasBoosters, _labelled);
             RoundBoardLayout board = RoundBoardLayout.In(r, core.Round);
-            _regions = r.AlignControls(board.Board);
+            _regions = r.AlignControls(board.Outer);
 
             if (resized && _layout != null)
             {
                 // A new screen size: the HUD places its areas again first.
-                _hud.Layout(_labelled, _hasBoosters, Math.Max(1, core.Round.Tray.Count), core.Round.Width - 2, core.Round.Height - 2);
+                _hud.LayoutRound(_labelled, _hasBoosters, Math.Max(1, core.Round.Tray.Count));
             }
 
             // The tray's grid and the places in their areas' units, and the places' tiles on the screen: the same objects

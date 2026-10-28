@@ -135,8 +135,8 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>
         /// Builds a round level's finished picture (spec 006 FR-046; the playtest's <c>RoundPainter.FinishedPicture</c>):
         /// each cell of <paramref name="rowsTopFirst"/> as the board's soft cube in its material's colour (no variant icon;
-        /// its symbol only in the symbols mode), the stream as water, empty cells as grass, in the same thin stone frame
-        /// and placement as <see cref="Show"/>.
+        /// its symbol only in the symbols mode), the stream as water, empty cells as the board's neutral surface, in the
+        /// same thin stone frame and placement as <see cref="Show"/>.
         /// </summary>
         public void ShowRound(IReadOnlyList<string> rowsTopFirst, int width, int height, bool symbolsMode, Box box, Box parent, float scale, bool alignTop = false)
         {
@@ -169,6 +169,12 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.StoneBorder(_grid, w, h, Thin);
             }
 
+            // The board's neutral surface under the picture (the owner's board of 2026-10-28): empty cells show it.
+            Image surface = UiFactory.CreateImage("Surface", _grid, null, Color.white);
+            surface.raycastTarget = false;
+            UiFactory.Stretch(surface.rectTransform);
+            float radius = BoardLayout.Gap * 2f / Mathf.Max(1, Mathf.Min(w, h));
+            PictureFit.On(surface, (pw, ph) => RoundSprites.Surface(pw, ph, radius));
             int pixels = UiRaster.Quantize(Mathf.Max(8f, cell));
             for (int y = 0; y < h; y++)
             {
@@ -191,8 +197,7 @@ namespace Bloomlings.Client.UI.Screens
                     }
                     else
                     {
-                        image = UiKit.GrassCell("Ground", _grid, UiRaster.GrassSeed(x, y));
-                        UiKit.PlaceBox(image.rectTransform, full, _gridBox);
+                        continue;
                     }
 
                     image.raycastTarget = false;

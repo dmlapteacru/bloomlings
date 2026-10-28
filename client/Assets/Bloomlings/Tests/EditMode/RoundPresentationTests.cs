@@ -72,8 +72,8 @@ namespace Bloomlings.Client.Tests
             int w = level.Width;
             Assert.That(layout.Width, Is.EqualTo(8));
             Assert.That(layout.Height, Is.EqualTo(7));
-            Assert.That(layout.Board.Width, Is.EqualTo(6), "the game's grid is the cells inside the wall");
-            Assert.That(layout.Board.Height, Is.EqualTo(5));
+            Assert.That(layout.Columns, Is.EqualTo(6), "the grid is the cells inside the wall");
+            Assert.That(layout.Rows, Is.EqualTo(5));
             Assert.That(layout.KindOf(0, 0), Is.EqualTo(RoundCellKind.Frame));
             Assert.That(layout.KindOf(w / 2, 0), Is.EqualTo(RoundCellKind.Gate));
             Assert.That(layout.KindOf(1, 1), Is.EqualTo(RoundCellKind.Path), "the walkway ring");
@@ -101,7 +101,9 @@ namespace Bloomlings.Client.Tests
             (float x, float y) = layout.Point(gate.Cell);
             Assert.That(x, Is.EqualTo(gate.Door.X).Within(1e-3));
             Assert.That(y, Is.EqualTo(gate.Door.Y).Within(1e-3));
-            Assert.That(y, Is.GreaterThan(layout.Grid.Bottom).And.LessThan(layout.Outer.Bottom), "on the stone border");
+            Assert.That(y, Is.GreaterThan(layout.Surface.Bottom).And.LessThan(layout.Outer.Bottom), "in the middle of the stone frame");
+            Assert.That(y, Is.EqualTo(layout.Outer.Bottom - (BoardLayout.Stone / 2f * layout.Unit)).Within(1e-3));
+            Assert.That(gate.Arch.Box.Width, Is.EqualTo(BoardLayout.ArchWidth * layout.Unit).Within(1e-3), "the arch is sized by the frame, not the cubes");
             Assert.That(gate.Arch.Degrees, Is.EqualTo(0f), "a bottom arch opens upward");
 
             (float cx, float cy) = layout.Point(2 + (2 * level.Width));
@@ -232,7 +234,7 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void ABoardOf48By48_FitsThePhoneFrame_WithItsStoneBorder()
+        public void ABoardOf48By48_FitsThePhoneFrame_InTheFixedBox()
         {
             string row = new string('G', 44);
             RoundLevel level = BoardOf(Enumerable.Repeat(row, 44).ToArray());
@@ -245,13 +247,128 @@ namespace Bloomlings.Client.Tests
                     ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, new Insets(h * 0.03f, h * 0.02f), stacks, 5);
                     RoundBoardLayout layout = RoundBoardLayout.In(r, level);
                     string at = w + "x" + h + ", " + stacks + " stacks";
+                    Assert.That(layout.Outer, Is.EqualTo(r.RoundBoard), at + ": the fixed box");
                     Assert.That(layout.Outer.Within(r.BoardArea), Is.True, at + ": " + layout.Outer + " in " + r.BoardArea);
                     Assert.That(layout.Outer.Width, Is.LessThanOrEqualTo((r.W * ReferenceGameplayRegions.MaxBoardShare) + 0.5f), at);
-                    Assert.That(layout.Outer.Bottom, Is.EqualTo(r.BoardArea.Bottom).Within(0.5f), at + ": docked on the board area");
+                    ReferenceGameplayRegions fullest = ScreenLayout.ReferenceGameplay(w, h, new Insets(h * 0.03f, h * 0.02f), 1, 5, true, true);
+                    Assert.That(layout.Outer.Bottom, Is.EqualTo(fullest.BoardArea.Bottom).Within(0.5f), at + ": docked on the fullest layout's board area");
                     Assert.That(layout.Cell, Is.GreaterThanOrEqualTo(r.W * 0.012f), at + ": " + layout.Cell + " px a cell");
                     Box corner = layout.CellBox(level.Width - 2, level.Height - 2);
                     Assert.That(corner.Within(layout.Grid), Is.True, at);
+                    Assert.That(layout.Grid.Within(layout.Surface), Is.True, at);
                 }
+            }
+        }
+
+        // ---- The owner's board of 2026-10-28: one fixed box, a frame of one thickness, the cube size from the picture ----
+
+        private static RoundLevel Square(int side) => BoardOf(Enumerable.Repeat(new string('G', side - 4), side - 4).ToArray());
+
+        [Test]
+        public void TheBoardBox_IsTheSameOnEveryLevel_WhateverItsPictureColumnsBadgeOrBoosters()
+        {
+            foreach ((float w, float h) in new[] { (1080f, 1920f), (1080f, 2340f), (720f, 1600f) })
+            {
+                var insets = new Insets(h * 0.03f, h * 0.02f);
+                Box box = ScreenLayout.ReferenceGameplay(w, h, insets, 3, 5).RoundBoard;
+                Assert.That(box.IsEmpty, Is.False);
+                Assert.That(box.Width / box.Height, Is.InRange(1f - 1e-3f, ReferenceGameplayRegions.RoundBoardMaxAspect + 1e-3f), "roughly square");
+                foreach (int stacks in new[] { 1, 2, 4, 6 })
+                {
+                    foreach (bool boosters in new[] { false, true })
+                    {
+                        foreach (bool badge in new[] { false, true })
+                        {
+                            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, stacks, 6, boosters, badge);
+                            Assert.That(r.RoundBoard, Is.EqualTo(box), $"{w}x{h}, {stacks} stacks, boosters {boosters}, badge {badge}");
+                            Assert.That(r.RoundBoard.Bottom, Is.LessThanOrEqualTo(r.Slots[0].Top), "above the places");
+                            Assert.That(r.RoundBoard.Top, Is.GreaterThanOrEqualTo(r.Board.Top - 0.5f), "under the top bar and badge");
+                        }
+                    }
+                }
+
+                ReferenceGameplayRegions regions = ScreenLayout.ReferenceGameplay(w, h, insets, 3, 5);
+                RoundBoardLayout first = RoundBoardLayout.In(regions, Square(12));
+                foreach (RoundLevel level in new[] { Square(32), Square(48), BoardOf(BridgePicture), Fenced() })
+                {
+                    RoundBoardLayout layout = RoundBoardLayout.In(regions, level);
+                    Assert.That(layout.Outer, Is.EqualTo(first.Outer), "one board box");
+                    Assert.That(layout.Surface, Is.EqualTo(first.Surface), "one surface");
+                    Assert.That(layout.FrameThickness, Is.EqualTo(first.FrameThickness), "the frame is never small on one level and big on another");
+                    Assert.That(layout.Gates[0].Arch.Box.Width, Is.EqualTo(first.Gates[0].Arch.Box.Width).Within(1e-3), "nor its arch");
+                }
+            }
+        }
+
+        [Test]
+        public void TheCubeSize_FitsThePictureToTheBox_SmallerForABiggerMatrix_Centred()
+        {
+            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2340f, new Insets(110f, 63f), 3, 5);
+            float last = float.MaxValue;
+            foreach (int side in new[] { 12, 32, 48 })
+            {
+                RoundBoardLayout layout = RoundBoardLayout.In(r, Square(side));
+                string at = side + "x" + side;
+                Assert.That(layout.Outer, Is.EqualTo(r.RoundBoard), at);
+                Assert.That(layout.Grid.Within(layout.Surface), Is.True, at + ": the picture fits the surface");
+                float fill = Math.Max(layout.Grid.Width / layout.Surface.Width, layout.Grid.Height / layout.Surface.Height);
+                Assert.That(fill, Is.EqualTo(1f).Within(1e-3), at + ": as large as fits");
+                Assert.That(layout.Cell, Is.EqualTo(Math.Min(layout.Surface.Width, layout.Surface.Height) / (side - 2)).Within(1e-3), at);
+                Assert.That(layout.Cell, Is.LessThan(last), at + ": a bigger matrix takes smaller cubes");
+                last = layout.Cell;
+                Assert.That(layout.Grid.CenterX, Is.EqualTo(layout.Surface.CenterX).Within(1e-3), at + ": centred");
+                Assert.That(layout.Grid.CenterY, Is.EqualTo(layout.Surface.CenterY).Within(1e-3), at + ": centred");
+                Box cube = layout.CubeBox(level(side));
+                Assert.That(cube.Width, Is.EqualTo(layout.Cell * (1f - (2f * RoundBoardLayout.CubeInset))).Within(1e-3), at + ": the cube follows the cell");
+            }
+
+            static int level(int side) => (2 * side) + 2;
+
+            // A tall picture keeps its proportions: the height fills the surface, the width is centred in it.
+            RoundBoardLayout tall = RoundBoardLayout.In(r, BoardOf(Enumerable.Repeat(new string('G', 20), 40).ToArray()));
+            Assert.That(tall.Grid.Height, Is.EqualTo(tall.Surface.Height).Within(1e-3));
+            Assert.That(tall.Grid.Width / tall.Grid.Height, Is.EqualTo(22f / 42f).Within(1e-3));
+            Assert.That(tall.Grid.CenterX, Is.EqualTo(tall.Surface.CenterX).Within(1e-3));
+        }
+
+        [Test]
+        public void AStripOnTheRing_RunsOnToTheFrame_InCellSizedPieces()
+        {
+            // A tall picture with a stream across it: the stream's ring cells carry on over the surface to the frame.
+            var picture = Enumerable.Repeat(new string('G', 6), 9).ToList();
+            picture.Insert(4, new string('#', 6));
+            RoundLevel level = BoardOf(picture.ToArray());
+            RoundBoardLayout layout = RoundBoardLayout.Fit(new Box(0f, 0f, 900f, 900f), level);
+            Assert.That(layout.Grid.Left, Is.GreaterThan(layout.Surface.Left + layout.Cell), "a narrow picture leaves the surface beside it");
+            List<RoundStripPiece> pieces = layout.StripPieces.ToList();
+            Assert.That(pieces, Is.Not.Empty);
+            Assert.That(pieces.All(piece => layout.KindOf(piece.Cell) == RoundCellKind.Stream), Is.True);
+            Assert.That(pieces.All(piece => piece.Box.Within(layout.Surface)), Is.True, "never over the frame");
+            Assert.That(pieces.All(piece => Math.Abs(piece.Box.Width - layout.Cell) < 1e-3 && Math.Abs(piece.Box.Height - layout.Cell) < 1e-3), Is.True, "one cell each");
+            Assert.That(pieces.Min(piece => piece.Box.Left), Is.EqualTo(layout.Surface.Left).Within(1e-3), "to the left frame");
+            Assert.That(pieces.Max(piece => piece.Box.Right), Is.EqualTo(layout.Surface.Right).Within(1e-3), "to the right frame");
+            Assert.That(pieces.Select(piece => piece.Box.Top).Distinct().Count(), Is.EqualTo(1), "along its row only");
+            Assert.That(RoundBoardLayout.Fit(new Box(0f, 0f, 900f, 900f), Square(12)).StripPieces, Is.Empty, "a board without strips has none");
+        }
+
+        [Test]
+        public void TheSurface_IsOneSolidNeutralPicture_AndRegistered()
+        {
+            Assert.That(AssetSlots.Has(RoundBoardLayout.SurfaceSlot), Is.True);
+            Assert.That(DesignTokens.Colors.All.ContainsKey("board.surface"), Is.True);
+            byte[] surface = UiRaster.BoardSurface(120, 100, 0.02f);
+            Assert.That(surface.Length, Is.EqualTo(120 * 100 * 4));
+            Assert.That(UiRaster.BoardSurface(120, 100, 0.02f), Is.EqualTo(surface), "deterministic");
+            int Pixel(int x, int y) => ((y * 120) + x) * 4;
+            int middle = Pixel(60, 50);
+            Rgba token = DesignTokens.Colors.BoardSurface;
+            Assert.That(surface[middle + 3], Is.EqualTo(255), "opaque");
+            Assert.That(Math.Abs(surface[middle] - token.R) + Math.Abs(surface[middle + 1] - token.G) + Math.Abs(surface[middle + 2] - token.B), Is.LessThanOrEqualTo(3), "flat board.surface in the middle");
+            Assert.That(surface[Pixel(60, 0)], Is.LessThan(surface[middle]), "set into the frame: shaded along the top");
+            for (int x = 20; x < 100; x++)
+            {
+                // No grid: along a row in the middle the surface never changes.
+                Assert.That(surface[Pixel(x, 50)], Is.EqualTo(surface[middle]));
             }
         }
 

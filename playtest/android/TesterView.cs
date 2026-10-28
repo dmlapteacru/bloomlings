@@ -1014,8 +1014,8 @@ namespace Bloomlings.Playtest
 
         /// <summary>
         /// A round level played on the round rules' live timeline (spec 006 T026, FR-062), in the tester's minimal look: the
-        /// top bar (◀, the sound, the level button that jumps, ▶), the board in the round palette (its frame stone, its gate
-        /// yellow, the stream blue, cleared cells as ground, the walkers as dots of their material on their couriers'
+        /// top bar (◀, the sound, the level button that jumps, ▶), the board in the round palette (a fixed box, its frame
+        /// stone, its gate yellow, a solid neutral surface, the stream blue, nothing where a cube was eaten, the walkers as dots of their material on their couriers'
         /// routes), the level's summary and its state, the places, the four boosters (free, as every tester booster) with
         /// Restart, and the columns, top pod first (a hidden pod shows "?" until it is on top, FR-007); a tap on a top pod or
         /// on a buildable bridge site commits it at the current model time. The clock runs at ×2 (the tester's quick loop),
@@ -1189,15 +1189,27 @@ namespace Bloomlings.Playtest
             Invalidate();
         }
 
+        /// <summary>
+        /// A round level's board in the tester's minimal look, after the owner's board of 2026-10-28: one fixed square box in
+        /// <paramref name="area"/> on every level, its stone frame always the same thickness (the gate a yellow notch in it),
+        /// one solid neutral surface inside (no cells drawn under the picture, nothing left where a cube was eaten), and the
+        /// cells inside the wall at the largest size that fits the surface, centred.
+        /// </summary>
         private void DrawRoundBoard(Canvas canvas, RoundLevel level, RectF area)
         {
             var a = _play!.Animator;
             int w = level.Width;
             int h = level.Height;
-            float cell = Math.Min(area.Width() / w, area.Height() / h);
-            float ox = area.CenterX() - (cell * w / 2f);
-            float oy = area.Top + ((area.Height() - (cell * h)) / 2f);
-            var entries = new HashSet<int>(level.Entries);
+            float side = Math.Min(area.Width(), area.Height());
+            var box = new RectF(area.CenterX() - (side / 2f), area.Top + ((area.Height() - side) / 2f), area.CenterX() + (side / 2f), area.Top + ((area.Height() + side) / 2f));
+            float frame = side * 0.025f;
+            Fill(canvas, box, StoneColor, frame);
+            RectF surface = Inset(box, frame);
+            Fill(canvas, surface, Ground, frame * 0.3f);
+            float cell = Math.Min(surface.Width() / (w - 2), surface.Height() / (h - 2));
+            // The rows' cell (x, y) at ox + x × cell, oy + (h − 1 − y) × cell: the wall falls a cell outside the grid.
+            float ox = surface.CenterX() - (cell * w / 2f);
+            float oy = surface.CenterY() - (cell * h / 2f);
             var sites = new Dictionary<int, int>();
             if (level.Bridge != null)
             {
@@ -1207,40 +1219,58 @@ namespace Bloomlings.Playtest
                 }
             }
 
+            foreach (int entry in level.Entries)
+            {
+                // The gate: a yellow notch in the frame in line with its cell.
+                int ex = entry % w;
+                int ey = entry / w;
+                float cx = ox + ((Math.Max(1, Math.Min(w - 2, ex)) + 0.5f) * cell);
+                float cy = oy + ((h - 1 - Math.Max(1, Math.Min(h - 2, ey)) + 0.5f) * cell);
+                float half = Math.Max(cell, frame * 1.6f) / 2f;
+                RectF notch = ey == 0 ? new RectF(cx - half, surface.Bottom, cx + half, box.Bottom)
+                    : ey == h - 1 ? new RectF(cx - half, box.Top, cx + half, surface.Top)
+                    : ex == 0 ? new RectF(box.Left, cy - half, surface.Left, cy + half)
+                    : new RectF(surface.Right, cy - half, box.Right, cy + half);
+                Fill(canvas, notch, EntryColor, 0f);
+            }
+
             // A wall laid over the picture (the level's overlay) is grey stone; the picture's own strip stays water.
             var stone = new HashSet<int>(level.OverlayCells());
 
             List<int> buildable = RoundRules.BridgeChoices(_play.Timeline.State);
             RectF? plank = null;
-            for (int y = 0; y < h; y++)
+            for (int y = 1; y < h - 1; y++)
             {
                 string row = level.RowsBottomFirst[y];
-                for (int x = 0; x < w; x++)
+                for (int x = 1; x < w - 1; x++)
                 {
                     int index = (y * w) + x;
                     char c = row[x];
-                    bool edge = x == 0 || y == 0 || x == w - 1 || y == h - 1;
                     var full = new RectF(ox + (x * cell), oy + ((h - 1 - y) * cell), ox + ((x + 1) * cell), oy + ((h - y) * cell));
                     int shown = a.MaterialAt(index);
                     bool site = sites.TryGetValue(index, out int choice);
                     Color strip = stone.Contains(index) ? Color.ParseColor("#9A9488") : Color.ParseColor("#7FB8D8");
-                    Color color = entries.Contains(index) ? EntryColor
-                        : edge ? StoneColor
-                        : site && a.Bridge == choice ? strip
-                        : site ? (buildable.Contains(choice) ? EntryColor : Color.ParseColor("#C9A46A"))
-                        : c == '#' ? strip
-                        : shown >= 0 ? MaterialColor(RoundMaterial.Codes[shown])
-                        : Ground;
-                    Fill(canvas, shown < 0 || edge ? full : Inset(full, cell * 0.04f), color, 0f);
+                    if (c == '#' || site)
+                    {
+                        // A strip on the walkway ring runs on to the frame.
+                        RectF run = new RectF(x == 1 ? surface.Left : full.Left, y == h - 2 ? surface.Top : full.Top, x == w - 2 ? surface.Right : full.Right, y == 1 ? surface.Bottom : full.Bottom);
+                        Color ground = site && a.Bridge != choice ? (buildable.Contains(choice) ? EntryColor : Color.ParseColor("#C9A46A")) : strip;
+                        Fill(canvas, site ? full : run, ground, 0f);
+                    }
+                    else if (shown >= 0)
+                    {
+                        Fill(canvas, Inset(full, cell * 0.04f), MaterialColor(RoundMaterial.Codes[shown]), 0f);
+                    }
+
                     if (site && a.Bridge == choice)
                     {
                         // The built bridge: a plank along its crossing (up or down, left or right), onto both banks.
                         bool across = Math.Abs(level.Bridge![choice].Cell - level.Bridge[choice].Anchor) == w;
                         float reach = cell * 0.22f;
-                        float side = cell * 0.11f;
+                        float edge = cell * 0.11f;
                         plank = across
-                            ? new RectF(full.Left + side, full.Top - reach, full.Right - side, full.Bottom + reach)
-                            : new RectF(full.Left - reach, full.Top + side, full.Right + reach, full.Bottom - side);
+                            ? new RectF(full.Left + edge, full.Top - reach, full.Right - edge, full.Bottom + reach)
+                            : new RectF(full.Left - reach, full.Top + edge, full.Right + reach, full.Bottom - edge);
                     }
 
                     if (site && buildable.Contains(choice))

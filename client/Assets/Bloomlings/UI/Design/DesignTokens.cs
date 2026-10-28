@@ -270,6 +270,14 @@ namespace Bloomlings.Client.UI.Design
             /// <summary>The stream's ripples and its foam along the banks.</summary>
             public static readonly Rgba WaterFoam = Rgba.FromHex("#E8F9FC");
 
+            // ---- Round levels: the board's solid neutral surface (the owner's board of 2026-10-28, "like Colony Flow") ----
+
+            /// <summary>The round board's neutral surface inside the stone frame: a calm warm stone grey the cubes stand out on.</summary>
+            public static readonly Rgba BoardSurface = Rgba.FromHex("#DCD3C4");
+
+            /// <summary>The surface's soft shade along the frame's top and left edges.</summary>
+            public static readonly Rgba BoardSurfaceShade = Rgba.FromHex("#BFB3A0");
+
             /// <summary>Every color token by its contract name (tests and docs).</summary>
             public static IReadOnlyDictionary<string, Rgba> All { get; } = new Dictionary<string, Rgba>(StringComparer.Ordinal)
             {
@@ -411,6 +419,8 @@ namespace Bloomlings.Client.UI.Design
                 ["water.top"] = WaterTop,
                 ["water.deep"] = WaterDeep,
                 ["water.foam"] = WaterFoam,
+                ["board.surface"] = BoardSurface,
+                ["board.surface_shade"] = BoardSurfaceShade,
             };
 
             /// <summary>The medal color of ranks 1–3, or null for other ranks.</summary>

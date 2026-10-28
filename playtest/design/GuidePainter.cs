@@ -221,11 +221,10 @@ namespace Bloomlings.Playtest.Design
                     p.Hit(board.Grid, () =>
                     {
                         (float tx, float ty) = p.TapPoint;
-                        int cx = 1 + (int)Math.Floor((tx - board.Grid.Left) / board.Cell);
-                        int cy = board.Height - 2 - (int)Math.Floor((ty - board.Grid.Top) / board.Cell);
-                        if (cx >= 1 && cy >= 1 && cx < board.Width - 1 && cy < board.Height - 1)
+                        int cell = board.CellAt(tx, ty);
+                        if (cell >= 0)
                         {
-                            s.BurstCell((cy * board.Width) + cx);
+                            s.BurstCell(cell);
                         }
                     });
 
