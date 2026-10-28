@@ -1,9 +1,9 @@
 {
-  "contentVersion": 1,
+  "contentVersion": 2,
   "engine": {
     "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e",
     "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
-    "rules": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+    "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
     "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d"
   },
   "format": "round-content-manifest.v1",
@@ -191,12 +191,12 @@
   ],
   "packs": [
     {
-      "bytes": 6658,
+      "bytes": 6656,
       "id": "round_levels_0001_0020",
       "kind": "levels",
       "levelRange": [1, 20],
       "path": "levels/round_levels_0001_0020.jsonl.gz",
-      "sha256": "776623cb93914e1255c2aad2c18bf0ac73f4ca257777e0efa450fee37523a60a"
+      "sha256": "15436aae914bcd3fcf54780325b507086beaf7ceab94326dd8ed1c5d7b0b8401"
     },
     {
       "bytes": 5242,

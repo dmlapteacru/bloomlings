@@ -208,7 +208,7 @@ namespace Bloomlings.Pipeline.Rounds
                     continue;
                 }
 
-                if (RoundJson.WriteLevel(old) == RoundJson.WriteLevel(current))
+                if (Comparable(old) == Comparable(current))
                 {
                     continue;
                 }
@@ -251,6 +251,15 @@ namespace Bloomlings.Pipeline.Rounds
         }
 
         /// <summary>A picture's content without its approval record: approving again is not a change to it.</summary>
+        // A level's play is its definition: the engine fingerprints record what it was proven on (conformance checks them),
+        // so a re-export on an equivalent engine (content/rounds/engine-equivalence.json) is not a change.
+        internal static string Comparable(RoundLevel level)
+        {
+            JObject json = RoundJson.ToJObject(level);
+            json.Remove("engine");
+            return json.ToString(Newtonsoft.Json.Formatting.None);
+        }
+
         private static string Comparable(RoundPicture picture)
         {
             JObject json = RoundJson.ToJObject(picture);

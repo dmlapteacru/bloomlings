@@ -103,7 +103,7 @@ namespace Bloomlings.Pipeline.Rounds
             foreach (KeyValuePair<int, RoundFile<RoundLevel>> pair in export.Levels)
             {
                 if (current.Levels.TryGetValue(pair.Key, out RoundFile<RoundLevel>? old) && old.Value != null && pair.Value.Value != null
-                    && RoundJson.WriteLevel(old.Value) != RoundJson.WriteLevel(pair.Value.Value)
+                    && RoundDiff.Comparable(old.Value) != RoundDiff.Comparable(pair.Value.Value)
                     && pair.Value.Value.DefinitionVersion <= old.Value.DefinitionVersion)
                 {
                     notes.Add(new RoundIssue(RoundContent.Where(pair.Key), "import", $"replaces a different level of the same definitionVersion {old.Value.DefinitionVersion}; a published level needs a higher one (rounds diff)", IsError: false));
