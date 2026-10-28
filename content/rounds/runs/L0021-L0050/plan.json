@@ -3,7 +3,7 @@
   21,
   50
  ],
- "created": "2026-10-28T11:04:06.446Z",
+ "created": "2026-10-28T13:04:29.833Z",
  "positions": [
   {
    "level": 21,
@@ -1066,9 +1066,9 @@
   "stream": 0,
   "bank": {
    "знакомство: hidden": 71,
-   "Normal": 104,
+   "Normal": 125,
+   "Hard": 44,
    "знакомство: links": 52,
-   "Hard": 43,
    "Super Hard": 28
   },
   "overlay": {
