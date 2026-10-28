@@ -76,6 +76,10 @@ namespace Bloomlings.Client.Gameplay.Effects
             _fxOver.Outfits = outfits;
             _fxBoard.CatalogIcons = _catalog;
             _fxOver.CatalogIcons = _catalog;
+
+            // The walkers are the family hero tinted in their colour, as on the round levels (spec 006 FR-048).
+            _fxBoard.HeroWalkers = true;
+            _fxOver.HeroWalkers = true;
         }
 
         private void Update()

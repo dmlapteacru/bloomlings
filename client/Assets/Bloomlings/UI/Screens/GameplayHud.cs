@@ -56,6 +56,9 @@ namespace Bloomlings.Client.UI.Screens
         private bool _hasBoosters = true;
         private Box _boardBox;
         private float _toastUntil;
+        private RectTransform _badgeHolder = null!;
+        private CanvasGroup[]? _chrome;
+        private float _chromeAlpha = 1f;
 
         /// <summary>
         /// The top bar (Pause, the level sign and the speed pill). It stays live under the win card: the card's shade lets
@@ -103,6 +106,7 @@ namespace Bloomlings.Client.UI.Screens
 
             // The badge sits in a holder over the whole screen that takes no taps.
             RectTransform badgeHolder = UiFactory.Stretch(UiFactory.CreateRect("BadgeHolder", root));
+            hud._badgeHolder = badgeHolder;
             hud._badgeLabel = UiKit.Badge("Badge", badgeHolder, string.Empty, GardenLook.Red, out hud._badge);
             hud._badge.gameObject.SetActive(false);
             badgeHolder.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
@@ -318,6 +322,47 @@ namespace Bloomlings.Client.UI.Screens
             {
                 _badge.SetColors(super ? GardenLook.Purple : GardenLook.Red);
                 _badgeLabel.text = super ? Loc.T("difficulty.super_hard") : Loc.T("difficulty.hard");
+            }
+        }
+
+        /// <summary>
+        /// The HUD's chrome at <paramref name="alpha"/> (spec 006 FR-044: when Auto starts the whole HUD fades away and leaves
+        /// the board): the top bar, the badge, the slot panel, the slots, the boosters and the pod row; under 1 none of them
+        /// takes a tap. The backdrop, the board's area and the toast stay.
+        /// </summary>
+        public void SetChromeAlpha(float alpha)
+        {
+            alpha = Mathf.Clamp01(alpha);
+            if (_chrome == null)
+            {
+                var groups = new List<CanvasGroup>();
+                foreach (Component part in new Component[] { _topBar, _badgeHolder, _tray, SlotArea, BoosterArea, TrayArea })
+                {
+                    CanvasGroup group = part.GetComponent<CanvasGroup>();
+                    if (group == null)
+                    {
+                        group = part.gameObject.AddComponent<CanvasGroup>();
+                    }
+
+                    groups.Add(group);
+                }
+
+                _chrome = groups.ToArray();
+            }
+            else if (Mathf.Abs(alpha - _chromeAlpha) < 0.0001f)
+            {
+                return;
+            }
+
+            _chromeAlpha = alpha;
+            bool live = alpha >= 1f;
+            for (int i = 0; i < _chrome.Length; i++)
+            {
+                _chrome[i].alpha = alpha;
+                _chrome[i].interactable = live;
+
+                // The badge holder and the slot panel never take taps.
+                _chrome[i].blocksRaycasts = live && i != 1 && i != 2;
             }
         }
 

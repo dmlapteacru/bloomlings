@@ -49,8 +49,12 @@ namespace Bloomlings.Client.Gameplay.Tray
         private Box _box;
         private Box _visual;
         private Vector2 _shake;
+        private (int Material, int Count, bool Symbols)? _round;
 
         public string PodId { get; private set; } = string.Empty;
+
+        /// <summary>A round level's pod index (spec 006), or -1 for a legacy pod.</summary>
+        public int RoundPod { get; private set; } = -1;
 
         /// <summary>The pod's place (its final row; taps, keys and tutorial pointers aim there).</summary>
         public RectTransform Rect => (RectTransform)transform;
@@ -96,6 +100,8 @@ namespace Bloomlings.Client.Gameplay.Tray
         /// <param name="lockShown">The lock is drawn (locked, or its key is still in flight).</param>
         public void Show(PodInfo pod, bool interactive, bool waiting, bool lockShown)
         {
+            _round = null;
+            RoundPod = -1;
             PodId = pod.Id;
             gameObject.SetActive(true);
             _button.interactable = interactive;
@@ -107,6 +113,33 @@ namespace Bloomlings.Client.Gameplay.Tray
             _pressedShown = false;
             Redraw();
             _pod.Lock.transform.localScale = Vector3.one;
+        }
+
+        /// <summary>
+        /// Shows a round level's pod (spec 006 T059): pod <paramref name="pod"/> of <paramref name="material"/> (-1 while it
+        /// is hidden: the "?"), its count, whether it takes the tap (the column's top pod, FR-011) and whether it waits under
+        /// the top pod; the symbols mode puts the material's symbol on its tile (FR-047). Redraws only what changed.
+        /// </summary>
+        public void ShowRound(int pod, int material, int count, bool interactive, bool waiting, bool symbolsMode)
+        {
+            gameObject.SetActive(true);
+            _button.interactable = interactive;
+            _touch.raycastTarget = interactive;
+            var round = (material, count, symbolsMode);
+            if (RoundPod == pod && _round.HasValue && _round.Value.Equals(round) && _waiting == waiting)
+            {
+                return;
+            }
+
+            RoundPod = pod;
+            PodId = pod.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            _round = round;
+            _variant = null;
+            _count = count;
+            _waiting = waiting;
+            _locked = false;
+            _pressedShown = false;
+            Redraw();
         }
 
         /// <summary>
@@ -177,7 +210,17 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         private PodLook Look => _locked ? PodLook.Locked : _waiting ? PodLook.Next : _pressedShown ? PodLook.Pressed : PodLook.Exposed;
 
-        private void Redraw() => _pod.Show(_variant, _count, Look, _waiting);
+        private void Redraw()
+        {
+            if (_round.HasValue)
+            {
+                _pod.ShowRound(_round.Value.Material, _count, Look, _waiting, _round.Value.Symbols);
+            }
+            else
+            {
+                _pod.Show(_variant, _count, Look, _waiting);
+            }
+        }
 
         private void Update()
         {
@@ -200,6 +243,8 @@ namespace Bloomlings.Client.Gameplay.Tray
 
             _shake = Vector2.zero;
             Stack = -1;
+            RoundPod = -1;
+            _round = null;
             gameObject.SetActive(false);
         }
 

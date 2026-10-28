@@ -1131,6 +1131,8 @@ namespace Bloomlings.Client.UI
         private float _radius;
         private float _lineWidth;
         private float _ringWidth;
+        private Image? _material;
+        private int _materialKey = -1;
 
         /// <summary>The slot's state.</summary>
         public SlotPlateState State { get; private set; }
@@ -1224,6 +1226,11 @@ namespace Bloomlings.Client.UI
             _lock.gameObject.SetActive(locked);
             _tile.gameObject.SetActive(!empty && !locked);
             _count.gameObject.SetActive(!empty && !locked);
+            if (_material != null)
+            {
+                _material.gameObject.SetActive(false);
+            }
+
             if (!empty && !locked)
             {
                 _tile.Show(variant, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
@@ -1234,6 +1241,40 @@ namespace Bloomlings.Client.UI
             _hourglass.SetActive(stuck && count > 0);
             _extra.SetActive(extra);
             _layout.Apply();
+        }
+
+        /// <summary>
+        /// Shows a round level's place (spec 006 T059): a filled place holds the pod's material tile with no variant icon
+        /// (greyed while it waits, its symbol only in the symbols mode, FR-047) and its count; the other states as
+        /// <see cref="Show"/>.
+        /// </summary>
+        public void ShowMaterial(SlotPlateState state, int material, int count, bool extra, bool symbolsMode)
+        {
+            Show(state, null, count, extra);
+            bool filled = (state == SlotPlateState.Working || state == SlotPlateState.Stuck) && material >= 0;
+            if (!filled)
+            {
+                return;
+            }
+
+            _tile.gameObject.SetActive(false);
+            if (_material == null)
+            {
+                _material = UiFactory.CreateImage("Material", _filled.transform, null, Color.white);
+                _material.raycastTarget = false;
+                _material.transform.SetSiblingIndex(_tile.transform.GetSiblingIndex());
+                _layout.Apply();
+            }
+
+            _material.gameObject.SetActive(true);
+            bool stuck = state == SlotPlateState.Stuck;
+            int key = (material * 4) + (stuck ? 2 : 0) + (symbolsMode ? 1 : 0);
+            if (key != _materialKey)
+            {
+                _materialKey = key;
+                TileState look = stuck ? TileState.Grey : TileState.Normal;
+                PictureFit.On(_material, (w, h) => RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbolsMode, Math.Min(w, h), look), square: true);
+            }
         }
 
         private void Lay(Box box)
@@ -1263,6 +1304,11 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(face.CenterX, face.CenterY, s * 0.44f, s * 0.44f));
             Box tileBox = ReferenceGameplayRegions.SlotTile(box);
             BoxLayout.Place((RectTransform)_tile.transform, tileBox);
+            if (_material != null)
+            {
+                BoxLayout.Place(_material.rectTransform, tileBox);
+            }
+
             Box countBox = ReferenceGameplayRegions.SlotCount(box);
             KitText.Place(_count, GameplaySkin.PodCount, countBox.CenterX, countBox.CenterY, countBox.Height, countBox.Width);
 

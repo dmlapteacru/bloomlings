@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Effects;
 using Bloomlings.Client.Gameplay.Themes;
@@ -42,6 +43,9 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed class WinScreen : MonoBehaviour
     {
+        // The won round level's picture (spec 006 FR-046), while the celebration shows one.
+        private RoundWinPicture? _round;
+
         public Func<Family, Bloomlings.Client.Meta.Wardrobe.Outfit>? OutfitOf { get; set; }
         private const float RevealSeconds = 1.2f;
 
@@ -147,7 +151,8 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="countUp">Counts the earned Petals up from 0 (spec 003 FR-020); null shows the amount at once.</param>
         /// <param name="reward">The reward: the Petals on the lotus plate, a dropped booster beside it.</param>
         /// <param name="session">The won level, whose finished picture shows; its celebrant celebrates it (<see cref="CharacterArt.CelebrantOf"/>).</param>
-        public void Show(MonoBehaviour host, string rewardText, Action<Action<string>>? doubleReward = null, bool milestone = false, (long Petals, Func<long, string> Format)? countUp = null, LevelReward? reward = null, LevelSession? session = null)
+        /// <param name="round">A won round level (spec 006 FR-046): its finished picture and confetti, in place of <paramref name="session"/>'s.</param>
+        public void Show(MonoBehaviour host, string rewardText, Action<Action<string>>? doubleReward = null, bool milestone = false, (long Petals, Func<long, string> Format)? countUp = null, LevelReward? reward = null, LevelSession? session = null, RoundWinPicture? round = null)
         {
             if (_backdrop == null)
             {
@@ -198,15 +203,21 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.SetBoosterIcon(_dropIcon, BoosterId(drop.Value), false);
             }
 
-            int won = session?.Definition.LevelNumber ?? 0;
-            Family? celebrant = session != null ? CharacterArt.CelebrantOf(won) : (Family?)null;
+            int won = session?.Definition.LevelNumber ?? round?.LevelNumber ?? 0;
+            bool level = session != null || round != null;
+            Family? celebrant = level ? CharacterArt.CelebrantOf(won) : (Family?)null;
             _celebration.ShowHero(celebrant, CharacterArt.CelebrationTurn(won), celebrant.HasValue ? OutfitOf?.Invoke(celebrant.Value) : null);
-            _confettiClip.gameObject.SetActive(session != null);
+            _confettiClip.gameObject.SetActive(level);
             if (session != null)
             {
                 _confetti.SetColors(ConfettiView.ColorsOf(session.Definition.Pods));
             }
+            else if (round != null)
+            {
+                _confetti.SetColors(round.Confetti);
+            }
 
+            _round = round;
             Layout(session);
             host.StartCoroutine(ShowAfterReveal(++_shows));
         }
@@ -234,11 +245,16 @@ namespace Bloomlings.Client.UI.Screens
             _celebration.Place(r, screen, pedestal: !painted);
 
             // The finished picture in full color, its frame on the region's top edge.
-            _picture.Rect.gameObject.SetActive(session != null);
+            _picture.Rect.gameObject.SetActive(session != null || _round != null);
             Box frame = new Box(r.Picture.Left, r.Picture.Top, r.Picture.Right, r.Picture.Top);
             if (session != null)
             {
                 _picture.Show(session.Definition, session.Picture, r.Picture, screen, u, alignTop: true);
+                frame = _picture.Frame;
+            }
+            else if (_round != null)
+            {
+                _picture.ShowRound(_round.RowsTopFirst, _round.Width, _round.Height, _round.Symbols, r.Picture, screen, u, alignTop: true);
                 frame = _picture.Frame;
             }
 
@@ -324,4 +340,11 @@ namespace Bloomlings.Client.UI.Screens
             _ => "bloom_burst",
         };
     }
+
+    /// <summary>
+    /// A won round level as the win screen shows it (spec 006 FR-046): its number (the celebrant), its finished picture's
+    /// cells (material codes, <c>.</c> for grass and <c>#</c> for water, the top row first), the confetti's colours (its
+    /// materials') and the symbols mode.
+    /// </summary>
+    public sealed record RoundWinPicture(int LevelNumber, int Width, int Height, IReadOnlyList<string> RowsTopFirst, IReadOnlyList<Rgba> Confetti, bool Symbols);
 }
