@@ -1,7 +1,7 @@
 {
- "created": "2026-10-28T22:12:21.510Z",
+ "created": "2026-10-28T22:26:05.048Z",
  "side": "left",
- "kind": "single",
+ "kind": "any",
  "cls": "Normal",
  "recipes": [
   "hidden+bridge"
@@ -11,170 +11,505 @@
   {
    "source": "P0063",
    "side": "left",
-   "kind": "single",
+   "kind": "any",
    "cls": "Normal",
-   "found": false,
+   "recipe": "hidden+bridge",
+   "found": true,
+   "seconds": 65,
    "tried": {
-    "scenes": 12,
-    "candidates": 144,
-    "reasons": {
-     "мост: решает не ровно один (план single)": 88,
-     "не тот класс по быстрой оценке q≈0.9": 13,
-     "не тот класс по быстрой оценке q≈1": 30,
-     "полоса C сливается с картинкой рядом (L, ΔE n.n < n)": 1,
-     "вне этапа Ln: n кл., n цв. (n–n)": 15,
-     "полоса G сливается с картинкой рядом (L, ΔE n.n < n)": 1,
-     "полоса R сливается с картинкой рядом (R, ΔE n.n < n)": 11,
-     "не тот класс по быстрой оценке q≈0.3": 4,
-     "не тот класс по быстрой оценке q≈0.2": 4,
-     "не тот класс по быстрой оценке q≈0.1": 1,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 4
-    }
+    "scenes": 2,
+    "candidates": 13
    },
-   "seconds": 459
+   "size": "32×31",
+   "N": 607,
+   "colours": 5,
+   "opts": {
+    "side": "left",
+    "x": "C",
+    "y": "G",
+    "w": "R",
+    "v": "M",
+    "z": ".",
+    "strip": 2,
+    "divider": 0,
+    "bedDepth": 2,
+    "bedBreadth": 3,
+    "bedDepthY": 2,
+    "bedBreadthY": 5,
+    "pad": 0,
+    "margin": 3,
+    "ground": "L",
+    "shield": 0,
+    "fill": true
+   },
+   "random": {
+    "share": 0.68,
+    "runs": 100,
+    "wilson95": [
+     0.583,
+     0.763
+    ],
+    "cls": "Normal"
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик влево сверху",
+      "win": true,
+      "share": 0.38
+     },
+     {
+      "label": "Мостик влево в центре",
+      "win": true,
+      "share": 0.55
+     }
+    ],
+    "gap": 0.17,
+    "better": 1
+   },
+   "bridgeKind": "better",
+   "bridgeSingle": {
+    "each": [
+     true,
+     true
+    ],
+    "offered": [
+     13,
+     23
+    ],
+    "ok": false
+   },
+   "bridgeLoss": null,
+   "forced": 0.1,
+   "opening": null,
+   "pressure": {
+    "stuck": 1.26,
+    "tight": 0.76
+   },
+   "greedyLoses": true,
+   "pods": 18,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 2,
+   "solution": 19,
+   "level": {
+    "id": 1,
+    "title": "Вишенки",
+    "subject": "P0063",
+    "w": 36,
+    "h": 35,
+    "rowsBottomFirst": [
+     "##################.#################",
+     "#..................................#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "############################LLLLLL.#",
+     "###..............RRRRR...GG#LLLLLL.#",
+     "###....RRRR....RRRRRRRR..GG#LLLLLL.#",
+     "###..RRRRRRRR..RRRRRRRRR.GG#LLLLLL.#",
+     "###.RRRRRRRRRRRRRRRRRRRRRGG#LLLLLL.#",
+     "###.RRRRRRRRRRRRRRRRRRRRRGG#LLLLLL.#",
+     "###.RRRRRRRRRRRRRRRRRRRRRGG#CCLLLL.#",
+     "###RRRRRRRRRRRRRCCRRRRRRRGG#CCLLLL.#",
+     "###RRRCCRRRRRRRRCCCRRRRRRGG#CCLLLL.#",
+     "###.RRCCRRRRRRRRRCRRRRRR.GG#LLLLLL.#",
+     "###.RRCCRRRRRR.RRRRRRRRR.GG#LLLLLL.#",
+     "###..RRRRRRRRR..RRRRRR...GG#LLLLLL.#",
+     "###...RRRRRRR.....MM.....GG#LLLLLL.#",
+     "###.....RRM......MM......###LLLLLL.#",
+     "###.......MM.....MM......###LLLLLL.#",
+     "###.......MMM....MM......MM#LLLLLL.#",
+     "###........MM...MM.......MM#LLLLLL.#",
+     "###........MMM..MM.......MM#RRLLLL.#",
+     "###.........MM..MM.......MM#RRLLLL.#",
+     "###.........MMMMM........MM#RRLLLL.#",
+     "###..........MMMM........MM#RRLLLL.#",
+     "###..........MMMM........MM#RRLLLL.#",
+     "###...........MMMMGGG....MM#LLLLLL.#",
+     "###...........MMGGMMMG...MM#LLLLLL.#",
+     "###..............GGGMMM..MM#LLLLLL.#",
+     "###...............GGGGGG.MM#LLLLLL.#",
+     "############################LLLLLL.#",
+     "#.##########################.......#",
+     "####################################"
+    ],
+    "entries": [
+     18
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "L",
+      "count": 40
+     },
+     {
+      "color": "L",
+      "count": 39
+     },
+     {
+      "color": "L",
+      "count": 39
+     },
+     {
+      "color": "L",
+      "count": 39
+     },
+     {
+      "color": "L",
+      "count": 39
+     },
+     {
+      "color": "L",
+      "count": 39
+     },
+     {
+      "color": "L",
+      "count": 39,
+      "mystery": "depth"
+     },
+     {
+      "color": "G",
+      "count": 20
+     },
+     {
+      "color": "G",
+      "count": 19,
+      "mystery": "depth"
+     },
+     {
+      "color": "M",
+      "count": 25
+     },
+     {
+      "color": "M",
+      "count": 25
+     },
+     {
+      "color": "M",
+      "count": 24
+     },
+     {
+      "color": "R",
+      "count": 41
+     },
+     {
+      "color": "R",
+      "count": 41
+     },
+     {
+      "color": "R",
+      "count": 40
+     },
+     {
+      "color": "R",
+      "count": 40
+     },
+     {
+      "color": "R",
+      "count": 40
+     },
+     {
+      "color": "C",
+      "count": 18
+     }
+    ],
+    "tray": [
+     [
+      0,
+      4,
+      5,
+      9,
+      10,
+      15
+     ],
+     [
+      1,
+      6,
+      12,
+      8,
+      11,
+      14
+     ],
+     [
+      3,
+      7,
+      2,
+      17,
+      13,
+      16
+     ]
+    ],
+    "recipe": "hidden+bridge",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 927,
+       "anchor": 928,
+       "label": "Мостик влево сверху",
+       "dir": "left"
+      },
+      {
+       "cell": 495,
+       "anchor": 496,
+       "label": "Мостик влево в центре",
+       "dir": "left"
+      }
+     ]
+    }
+   }
   },
   {
    "source": "P0029",
    "side": "left",
-   "kind": "single",
+   "kind": "any",
    "cls": "Normal",
-   "found": false,
+   "recipe": "hidden+bridge",
+   "found": true,
+   "seconds": 78,
    "tried": {
     "scenes": 2,
-    "candidates": 24,
-    "reasons": {
-     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 8,
-     "полоса G сливается с картинкой рядом (G, ΔE n.n < n)": 9,
-     "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 4,
-     "вне этапа Ln: n кл., n цв. (n–n)": 7,
-     "полоса E сливается с картинкой рядом (E, ΔE n.n < n)": 10,
-     "мост: решает не ровно один (план single)": 17,
-     "не тот класс по быстрой оценке q≈0.9": 2,
-     "не тот класс по быстрой оценке q≈0.3": 1,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 2,
-     "не тот класс по быстрой оценке q≈1": 2
-    }
+    "candidates": 18
    },
-   "seconds": 43
-  },
-  {
-   "source": "P0079",
-   "side": "left",
-   "kind": "single",
-   "cls": "Normal",
-   "found": false,
-   "tried": {
-    "scenes": 11,
-    "candidates": 132,
-    "reasons": {
-     "не тот класс по быстрой оценке q≈0.1": 7,
-     "мост: решает не ровно один (план single)": 85,
-     "полоса C сливается с картинкой рядом (Y, ΔE n.n < n)": 11,
-     "не тот класс по быстрой оценке q≈1": 2,
-     "полоса O сливается с картинкой рядом (O, ΔE n.n < n)": 9,
-     "полоса Y сливается с картинкой рядом (Y, ΔE n.n < n)": 2,
-     "вне этапа Ln: n кл., n цв. (n–n)": 7,
-     "не тот класс по быстрой оценке q≈0.3": 19,
-     "не тот класс по быстрой оценке q≈0.2": 15,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 3,
-     "не тот класс по быстрой оценке q≈0.9": 1
-    }
+   "size": "28×28",
+   "N": 550,
+   "colours": 6,
+   "opts": {
+    "side": "left",
+    "x": "A",
+    "y": "O",
+    "w": "E",
+    "v": "M",
+    "z": ".",
+    "strip": 2,
+    "divider": 1,
+    "bedDepth": 1,
+    "bedBreadth": 3,
+    "bedDepthY": 3,
+    "bedBreadthY": 7,
+    "pad": 0,
+    "margin": 2,
+    "ground": "L",
+    "shield": 0,
+    "fill": true
    },
-   "seconds": 283
-  },
-  {
-   "source": "P0045",
-   "side": "left",
-   "kind": "single",
-   "cls": "Normal",
-   "found": false,
-   "tried": {
-    "scenes": 3,
-    "candidates": 36,
-    "reasons": {
-     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 12,
-     "полоса E сливается с картинкой рядом (A, ΔE n.n < n)": 10,
-     "не тот класс по быстрой оценке q≈0.9": 1,
-     "мост: решает не ровно один (план single)": 29,
-     "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 6,
-     "вне этапа Ln: n кл., n цв. (n–n)": 6,
-     "не тот класс по быстрой оценке q≈0.2": 1,
-     "не тот класс по быстрой оценке q≈0.3": 3,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 1,
-     "не тот класс по быстрой оценке q≈0.1": 1,
-     "полоса Y сливается с картинкой рядом (L, ΔE n.n < n)": 2,
-     "полоса Y сливается с картинкой рядом (C, ΔE n.n < n)": 1
-    }
+   "random": {
+    "share": 0.81,
+    "runs": 100,
+    "wilson95": [
+     0.722,
+     0.875
+    ],
+    "cls": "Normal"
    },
-   "seconds": 128
-  },
-  {
-   "source": "P0037",
-   "side": "left",
-   "kind": "single",
-   "cls": "Normal",
-   "found": false,
-   "tried": {
-    "scenes": 21,
-    "candidates": 252,
-    "reasons": {
-     "вне этапа Ln: n кл., n цв. (n–n)": 10,
-     "полоса N сливается с картинкой рядом (N, ΔE n.n < n)": 8,
-     "мост: решает не ровно один (план single)": 173,
-     "не тот класс по быстрой оценке q≈1": 39,
-     "не тот класс по быстрой оценке q≈0.9": 18,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 3,
-     "не тот класс по быстрой оценке q≈0.2": 7,
-     "не тот класс по быстрой оценке q≈0.3": 10,
-     "не тот класс по быстрой оценке q≈0.1": 2,
-     "полоса Y сливается с картинкой рядом (L, ΔE n.n < n)": 1
-    }
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик влево сверху",
+      "win": true,
+      "share": 0.12
+     },
+     {
+      "label": "Мостик влево в центре",
+      "win": true,
+      "share": 0.88
+     }
+    ],
+    "gap": 0.76,
+    "better": 1
    },
-   "seconds": 647
-  },
-  {
-   "source": "P0041",
-   "side": "left",
-   "kind": "single",
-   "cls": "Normal",
-   "found": false,
-   "tried": {
-    "scenes": 13,
-    "candidates": 156,
-    "reasons": {
-     "полоса B сливается с картинкой рядом (B, ΔE n.n < n)": 10,
-     "вне этапа Ln: n кл., n цв. (n–n)": 9,
-     "не тот класс по быстрой оценке q≈1": 30,
-     "не тот класс по быстрой оценке q≈0.9": 18,
-     "мост: решает не ровно один (план single)": 89,
-     "полоса Y сливается с картинкой рядом (L, ΔE n.n < n)": 2,
-     "полоса Y сливается с картинкой рядом (C, ΔE n.n < n)": 2,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 4,
-     "не тот класс по быстрой оценке q≈0.3": 3,
-     "полоса S сливается с картинкой рядом (B, ΔE n.n < n)": 4,
-     "не тот класс по быстрой оценке q≈0": 12
-    }
+   "bridgeKind": "better",
+   "bridgeSingle": {
+    "each": [
+     true,
+     true
+    ],
+    "offered": [
+     3,
+     54
+    ],
+    "ok": false
    },
-   "seconds": 1053
-  },
-  {
-   "source": "P0026",
-   "side": "left",
-   "kind": "single",
-   "cls": "Normal",
-   "found": false,
-   "tried": {
-    "scenes": 2,
-    "candidates": 21,
-    "reasons": {
-     "вне этапа Ln: n кл., n цв. (n–n)": 1,
-     "полоса N сливается с картинкой рядом (N, ΔE n.n < n)": 1,
-     "не тот класс по быстрой оценке q≈1": 9,
-     "мост: решает не ровно один (план single)": 10,
-     "не тот класс по быстрой оценке q≈0.9": 2
-    }
+   "bridgeLoss": null,
+   "forced": 0.09,
+   "opening": null,
+   "pressure": {
+    "stuck": 1.04,
+    "tight": 0.87
    },
-   "seconds": 87
+   "greedyLoses": false,
+   "pods": 18,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 2,
+   "solution": 19,
+   "level": {
+    "id": 1,
+    "title": "Жёлудь",
+    "subject": "P0029",
+    "w": 32,
+    "h": 32,
+    "rowsBottomFirst": [
+     "################.###############",
+     "#..............................#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "########################LLLLLL.#",
+     "###........EE........OO#LLLLLL.#",
+     "###.......OOOAA......OO#LLLLLL.#",
+     "###......OOOOOAA.....OO#LLLLLL.#",
+     "###.....OOOOOOOAA....OO#LLLLLL.#",
+     "###....OOOOOOOOAAA...OO#ALLLLL.#",
+     "###...OOOOOOOOOOAA...OO#ALLLLL.#",
+     "###..OOOOOOOOOOOAAA..OO#ALLLLL.#",
+     "###..OOOOOOOOOOOAAA..OO#LLLLLL.#",
+     "###..OOOOOOOOOOOAAA..OO#LLLLLL.#",
+     "###..OOOOOOOOOOOAAA..OO#LLLLLL.#",
+     "###..OOOOOOOOOOOAAA..OO#LLLLLL.#",
+     "###..OOOOOOOOOOOAAA.####LLLLLL.#",
+     "###.EEEEEEEEEEEEEEEE####LLLLLL.#",
+     "###EEAAEEAAEEAAEEAAEEMM#LLLLLL.#",
+     "###EEAAEEAAEEAAEEAAEEMM#EEELLL.#",
+     "###AAEEAAEEAAEEAAEEAAMM#EEELLL.#",
+     "###.AAEEAAEEAAEEAAEE.MM#EEELLL.#",
+     "###..EEAAEEAAEEAAEE..MM#EEELLL.#",
+     "###....AAEEEEAAEE....MM#EEELLL.#",
+     "###........EE.GGGGMMGMM#EEELLL.#",
+     "###........EEGGGMMGGGMM#EEELLL.#",
+     "###........EEGGMGGGG.MM#LLLLLL.#",
+     "###.......EE..MGGG...MM#LLLLLL.#",
+     "########################LLLLLL.#",
+     "#.######################.......#",
+     "################################"
+    ],
+    "entries": [
+     16
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "L",
+      "count": 42
+     },
+     {
+      "color": "L",
+      "count": 42
+     },
+     {
+      "color": "L",
+      "count": 42
+     },
+     {
+      "color": "L",
+      "count": 42
+     },
+     {
+      "color": "L",
+      "count": 42,
+      "mystery": "depth"
+     },
+     {
+      "color": "E",
+      "count": 33
+     },
+     {
+      "color": "E",
+      "count": 32
+     },
+     {
+      "color": "E",
+      "count": 32
+     },
+     {
+      "color": "M",
+      "count": 13
+     },
+     {
+      "color": "M",
+      "count": 13
+     },
+     {
+      "color": "G",
+      "count": 10
+     },
+     {
+      "color": "G",
+      "count": 10
+     },
+     {
+      "color": "A",
+      "count": 26,
+      "mystery": "depth"
+     },
+     {
+      "color": "A",
+      "count": 25
+     },
+     {
+      "color": "A",
+      "count": 25
+     },
+     {
+      "color": "O",
+      "count": 41
+     },
+     {
+      "color": "O",
+      "count": 40
+     },
+     {
+      "color": "O",
+      "count": 40
+     }
+    ],
+    "tray": [
+     [
+      3,
+      2,
+      12,
+      6,
+      10,
+      14
+     ],
+     [
+      1,
+      15,
+      17,
+      13,
+      8,
+      7
+     ],
+     [
+      0,
+      16,
+      4,
+      5,
+      9,
+      11
+     ]
+    ],
+    "recipe": "hidden+bridge",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 759,
+       "anchor": 760,
+       "label": "Мостик влево сверху",
+       "dir": "left"
+      },
+      {
+       "cell": 375,
+       "anchor": 376,
+       "label": "Мостик влево в центре",
+       "dir": "left"
+      }
+     ]
+    }
+   }
   }
  ]
 }

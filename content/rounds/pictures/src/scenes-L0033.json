@@ -1,0 +1,426 @@
+{
+ "created": "2026-10-28T22:23:36.741Z",
+ "side": "left",
+ "kind": "single",
+ "cls": "Normal",
+ "recipes": [
+  "bridge+hidden"
+ ],
+ "level": 33,
+ "results": [
+  {
+   "source": "P0063",
+   "side": "left",
+   "kind": "single",
+   "cls": "Normal",
+   "found": false,
+   "tried": {
+    "scenes": 14,
+    "candidates": 168,
+    "reasons": {
+     "полоса R сливается с картинкой рядом (R, ΔE n.n < n)": 15,
+     "вне этапа Ln: n кл., n цв. (n–n)": 8,
+     "мост: решает не ровно один (план single)": 111,
+     "не тот класс по быстрой оценке q≈0.9": 14,
+     "не тот класс по быстрой оценке q≈1": 22,
+     "мост: с другим мостом проигрыш сразу при выборе (§8)": 7,
+     "не тот класс по быстрой оценке q≈0.2": 4,
+     "полоса G сливается с картинкой рядом (L, ΔE n.n < n)": 3,
+     "не тот класс по быстрой оценке q≈0.3": 6,
+     "не тот класс по быстрой оценке q≈0": 3,
+     "не тот класс по быстрой оценке q≈0.1": 1
+    }
+   },
+   "seconds": 478
+  },
+  {
+   "source": "P0029",
+   "side": "left",
+   "kind": "single",
+   "cls": "Normal",
+   "found": false,
+   "tried": {
+    "scenes": 3,
+    "candidates": 36,
+    "reasons": {
+     "не тот класс по быстрой оценке q≈0.3": 3,
+     "не тот класс по быстрой оценке q≈0.2": 6,
+     "не тот класс по быстрой оценке q≈0.1": 5,
+     "не тот класс по быстрой оценке q≈0": 5,
+     "полоса E сливается с картинкой рядом (E, ΔE n.n < n)": 8,
+     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 8,
+     "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 11,
+     "полоса G сливается с картинкой рядом (G, ΔE n.n < n)": 6,
+     "мост: решает не ровно один (план single)": 9,
+     "вне этапа Ln: n кл., n цв. (n–n)": 4,
+     "не тот класс по быстрой оценке q≈1": 5,
+     "мост: с другим мостом проигрыш сразу при выборе (§8)": 1,
+     "не тот класс по быстрой оценке q≈0.9": 2
+    }
+   },
+   "seconds": 49
+  },
+  {
+   "source": "P0079",
+   "side": "left",
+   "kind": "single",
+   "cls": "Normal",
+   "found": false,
+   "tried": {
+    "scenes": 10,
+    "candidates": 120,
+    "reasons": {
+     "полоса Y сливается с картинкой рядом (Y, ΔE n.n < n)": 10,
+     "полоса O сливается с картинкой рядом (O, ΔE n.n < n)": 8,
+     "полоса C сливается с картинкой рядом (Y, ΔE n.n < n)": 5,
+     "не тот класс по быстрой оценке q≈0.1": 20,
+     "не тот класс по быстрой оценке q≈0.2": 22,
+     "мост: решает не ровно один (план single)": 53,
+     "не тот класс по быстрой оценке q≈0.9": 1,
+     "мост: с другим мостом проигрыш сразу при выборе (§8)": 8,
+     "не тот класс по быстрой оценке q≈0": 3,
+     "не тот класс по быстрой оценке q≈0.3": 13,
+     "вне этапа Ln: n кл., n цв. (n–n)": 7
+    }
+   },
+   "seconds": 204
+  },
+  {
+   "source": "P0045",
+   "side": "left",
+   "kind": "single",
+   "cls": "Normal",
+   "found": false,
+   "tried": {
+    "scenes": 5,
+    "candidates": 60,
+    "reasons": {
+     "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 9,
+     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 10,
+     "полоса E сливается с картинкой рядом (A, ΔE n.n < n)": 12,
+     "мост: решает не ровно один (план single)": 43,
+     "не тот класс по быстрой оценке q≈0.3": 3,
+     "не тот класс по быстрой оценке q≈0.2": 2,
+     "не тот класс по быстрой оценке q≈0.1": 1,
+     "вне этапа Ln: n кл., n цв. (n–n)": 3,
+     "не тот класс по быстрой оценке q≈1": 5,
+     "не тот класс по быстрой оценке q≈0.9": 6,
+     "полоса Y сливается с картинкой рядом (C, ΔE n.n < n)": 1
+    }
+   },
+   "seconds": 149
+  },
+  {
+   "source": "P0037",
+   "side": "left",
+   "kind": "single",
+   "cls": "Normal",
+   "recipe": "bridge+hidden",
+   "found": true,
+   "seconds": 370,
+   "tried": {
+    "scenes": 9,
+    "candidates": 101
+   },
+   "size": "30×31",
+   "N": 634,
+   "colours": 6,
+   "opts": {
+    "side": "left",
+    "x": "N",
+    "y": "R",
+    "w": "O",
+    "v": "Y",
+    "z": ".",
+    "strip": 2,
+    "divider": 2,
+    "bedDepth": 2,
+    "bedBreadth": 3,
+    "bedDepthY": 3,
+    "bedBreadthY": 3,
+    "pad": 0,
+    "margin": 2,
+    "ground": "L",
+    "shield": 0,
+    "fill": true
+   },
+   "random": {
+    "share": 0.63,
+    "runs": 100,
+    "wilson95": [
+     0.532,
+     0.718
+    ],
+    "cls": "Normal"
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик влево сверху",
+      "win": false,
+      "share": 0
+     },
+     {
+      "label": "Мостик влево в центре",
+      "win": true,
+      "share": 0.55
+     }
+    ],
+    "gap": 0.55,
+    "better": 1
+   },
+   "bridgeKind": "single",
+   "bridgeSingle": {
+    "each": [
+     false,
+     true
+    ],
+    "offered": [
+     1,
+     49
+    ],
+    "ok": true
+   },
+   "bridgeLoss": {
+    "choice": 0,
+    "games": 120,
+    "built": 1,
+    "chosen": 0,
+    "forced": 1,
+    "won": 1,
+    "medianLaunchesAfter": 9,
+    "instant": 0,
+    "ok": true
+   },
+   "forced": 0.08,
+   "opening": null,
+   "pressure": {
+    "stuck": 1.77,
+    "tight": 0.84
+   },
+   "greedyLoses": false,
+   "pods": 18,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 1,
+   "solution": 19,
+   "level": {
+    "id": 1,
+    "title": "Медальон",
+    "subject": "P0037",
+    "w": 34,
+    "h": 35,
+    "rowsBottomFirst": [
+     "#################.################",
+     "#................................#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "##########################LLLLLL.#",
+     "###NN.NN..........NN.NNRR#LLLLLL.#",
+     "###NN.NN..........NN.NNRR#LLLLLL.#",
+     "###.NNNNN........NNNNN.RR#LLLLLL.#",
+     "###.NNNNN........NNNNN.RR#LLLLLL.#",
+     "###..NNNNN......NNNNN..RR#LLLLLL.#",
+     "###..NNNNNOOOOOONNNNN..RR#NNLLLL.#",
+     "###...NNOOOOOOOOOONN...RR#NNLLLL.#",
+     "###...NOOOYYYYYYOOON...RR#NNLLLL.#",
+     "###...OOOYYYYYYYYOOO...RR#LLLLLL.#",
+     "###..OOOYYYYYYYYYYOOO..RR#LLLLLL.#",
+     "###..OOYYYYYRRYYYYYOO..RR#LLLLLL.#",
+     "###.OOYYYYYRRRRYYYYYOO.RR#LLLLLL.#",
+     "###.OOYYYYRRRRRRYYYYO#####LLLLLL.#",
+     "###.OOYYYRRRRRRRRYYYO#####LLLLLL.#",
+     "###.OOYYYRRRRRRRRYYYOO.YY#LLLLLL.#",
+     "###.OOYYYYRCCRRRYYYYOO.YY#LLLLLL.#",
+     "###.OOYYYYYRCRRYYYYYOO.YY#LLLLLL.#",
+     "###..OOYYYYYRRYYYYYOO..YY#LLLLLL.#",
+     "###..OOOYYYYYYYYYYOOO..YY#OOOLLL.#",
+     "###...OOOYYYYYYYYOOO...YY#OOOLLL.#",
+     "###....OOOYYYYYYOOO....YY#OOOLLL.#",
+     "###.....OOOOOOOOOO.....YY#LLLLLL.#",
+     "###.......OOOOOO.......YY#LLLLLL.#",
+     "###.......OO..OO.......YY#LLLLLL.#",
+     "###.......OO..OO.......YY#LLLLLL.#",
+     "###........OOOO........YY#LLLLLL.#",
+     "##########################LLLLLL.#",
+     "#.########################.......#",
+     "##################################"
+    ],
+    "entries": [
+     17
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "L",
+      "count": 49
+     },
+     {
+      "color": "L",
+      "count": 49
+     },
+     {
+      "color": "L",
+      "count": 49
+     },
+     {
+      "color": "L",
+      "count": 48
+     },
+     {
+      "color": "L",
+      "count": 48
+     },
+     {
+      "color": "O",
+      "count": 40
+     },
+     {
+      "color": "O",
+      "count": 40
+     },
+     {
+      "color": "O",
+      "count": 39
+     },
+     {
+      "color": "Y",
+      "count": 47,
+      "mystery": "depth"
+     },
+     {
+      "color": "Y",
+      "count": 47
+     },
+     {
+      "color": "Y",
+      "count": 46
+     },
+     {
+      "color": "R",
+      "count": 21
+     },
+     {
+      "color": "R",
+      "count": 20
+     },
+     {
+      "color": "R",
+      "count": 20
+     },
+     {
+      "color": "C",
+      "count": 3
+     },
+     {
+      "color": "N",
+      "count": 23
+     },
+     {
+      "color": "N",
+      "count": 23
+     },
+     {
+      "color": "N",
+      "count": 22
+     }
+    ],
+    "tray": [
+     [
+      11,
+      1,
+      12,
+      5,
+      6,
+      8
+     ],
+     [
+      0,
+      3,
+      4,
+      13,
+      9,
+      10
+     ],
+     [
+      15,
+      16,
+      2,
+      17,
+      7,
+      14
+     ]
+    ],
+    "recipe": "bridge+hidden",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 875,
+       "anchor": 876,
+       "label": "Мостик влево сверху",
+       "dir": "left"
+      },
+      {
+       "cell": 433,
+       "anchor": 434,
+       "label": "Мостик влево в центре",
+       "dir": "left"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "source": "P0041",
+   "side": "left",
+   "kind": "single",
+   "cls": "Normal",
+   "found": false,
+   "tried": {
+    "scenes": 10,
+    "candidates": 120,
+    "reasons": {
+     "полоса B сливается с картинкой рядом (B, ΔE n.n < n)": 8,
+     "вне этапа Ln: n кл., n цв. (n–n)": 12,
+     "мост: решает не ровно один (план single)": 85,
+     "не тот класс по быстрой оценке q≈0.3": 6,
+     "не тот класс по быстрой оценке q≈0.2": 2,
+     "не тот класс по быстрой оценке q≈1": 15,
+     "полоса S сливается с картинкой рядом (B, ΔE n.n < n)": 9,
+     "мост: с другим мостом проигрыш сразу при выборе (§8)": 10,
+     "не тот класс по быстрой оценке q≈0.9": 1,
+     "полоса Y сливается с картинкой рядом (L, ΔE n.n < n)": 1,
+     "не тот класс по быстрой оценке q≈0.1": 1
+    }
+   },
+   "seconds": 617
+  },
+  {
+   "source": "P0026",
+   "side": "left",
+   "kind": "single",
+   "cls": "Normal",
+   "found": false,
+   "tried": {
+    "scenes": 19,
+    "candidates": 226,
+    "reasons": {
+     "полоса C сливается с картинкой рядом (L, ΔE n.n < n)": 1,
+     "вне этапа Ln: n кл., n цв. (n–n)": 11,
+     "полоса N сливается с картинкой рядом (N, ΔE n.n < n)": 8,
+     "не тот класс по быстрой оценке q≈0.9": 6,
+     "мост: решает не ровно один (план single)": 133,
+     "не тот класс по быстрой оценке q≈1": 15,
+     "не тот класс по быстрой оценке q≈0.2": 16,
+     "не тот класс по быстрой оценке q≈0": 12,
+     "не тот класс по быстрой оценке q≈0.1": 17,
+     "не тот класс по быстрой оценке q≈0.3": 17,
+     "мост: с другим мостом проигрыш сразу при выборе (§8)": 10
+    }
+   },
+   "seconds": 835
+  }
+ ]
+}
