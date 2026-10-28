@@ -201,12 +201,12 @@ level's saved solution to a win in the rules' state.
 - [X] T025 [US1] Make the full playtest load only round content. In `playtest/android/PlaytestContent.cs`,
   `playtest/android/PlaytestFiles.cs` and `playtest/Catalog.props`, pack `content/game/rounds/levels` and `pictures`
   as Android assets once, and stop packing the legacy catalog, curated levels and daily pool.
-- [ ] T026 [US1] Run the level screen on `RoundTimeline` in `playtest/design/LevelScreen.cs` and
+- [X] T026 [US1] Run the level screen on `RoundTimeline` in `playtest/design/LevelScreen.cs` and
   `playtest/android/LevelAnimator.cs`:
   - the model clock accumulates real elapsed time × speed (1, 2; Auto 2) as integer µs;
   - taps and bridge choices are committed with the current µs;
   - jam and win come from the rules' status.
-- [ ] T027 [US1] Wire the jam card and the booster bar to `RoundBoosters` in `playtest/design/EndCards.cs` and
+- [X] T027 [US1] Wire the jam card and the booster bar to `RoundBoosters` in `playtest/design/EndCards.cs` and
   `playtest/design/BoosterBarPainter.cs`. Guided booster demos and free first charges stay as in spec 005
   (`client/Assets/Bloomlings/UI/Design/GuideTour.cs`).
 - [X] T028 [US1] After the last round level show a "new levels soon" card, and keep the Daily Challenge off. Files:
@@ -214,13 +214,13 @@ level's saved solution to a win in the rules' state.
   `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv`.
 - [X] T029 [US1] Make the level tester's ◀ ▶ walk the round levels, and add a "jump to level N" that sets the save's
   progress, for meta checks at L40 and L50. File: `playtest/android/TesterView.cs`.
-- [ ] T030 [US1] Check GuideTour's steps against the round levels in `client/Assets/Bloomlings/UI/Design/GuideTour.cs`:
+- [X] T030 [US1] Check GuideTour's steps against the round levels in `client/Assets/Bloomlings/UI/Design/GuideTour.cs`:
   - Level 1: entry and forced first tap on a top pod with reachable work;
   - the first level with a pod out of reach at the start, found by scanning round levels;
   - booster demos at L3, L4, L6, L9.
 
   Adapt any step that does not fit.
-- [ ] T031 [US1] Extend `playtest/check/Program.cs` so the animator replays every round level's saved solution from
+- [X] T031 [US1] Extend `playtest/check/Program.cs` so the animator replays every round level's saved solution from
   `content/game/rounds/proofs/` and ends on the rules' state.
 
 **Checkpoint**: L1–L20 play in the playtest by the round rules, and boosters work in live time.
@@ -297,7 +297,7 @@ level and the first differing event.
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T040 [P] [US2] Add `--rounds` to `playtest/preview` (`playtest/preview/Program.cs`). Its frames and checks:
+- [X] T040 [P] [US2] Add `--rounds` to `playtest/preview` (`playtest/preview/Program.cs`). Its frames and checks:
   - no icon on cubes with symbols off, symbols on cubes with symbols on;
   - a link tube on a linked pair in the columns and in the places;
   - HUD absent under Auto;
@@ -317,14 +317,14 @@ level and the first differing event.
 - [X] T042 [P] [US2] Create `client/Assets/Bloomlings/UI/Design/LinkTube.cs`, the geometry of a tube attached to the
   front faces of two linked pods, whose half nearer each pod has that pod's colour. Add its picture to
   `client/Assets/Bloomlings/UI/Design/UiRaster` (a new `LinkTube` raster) and register an asset slot in `AssetSlots`.
-- [ ] T043 [US2] Create `client/Assets/Bloomlings/UI/Design/RoundAnimator.cs` (engine-free). Per frame, it gives from a
+- [X] T043 [US2] Create `client/Assets/Bloomlings/UI/Design/RoundAnimator.cs` (engine-free). Per frame, it gives from a
   `RoundTimeline`:
   - courier positions;
   - each cube's clear moment;
   - slot fills and releases;
   - reveal glows (about 1.6 s);
   - link tubes in columns and places.
-- [ ] T044 [US2] Make `client/Assets/Bloomlings/UI/Design/ClearStyles.cs` and `ClearLook.cs` take each walk's start,
+- [X] T044 [US2] Make `client/Assets/Bloomlings/UI/Design/ClearStyles.cs` and `ClearLook.cs` take each walk's start,
   arrival, clear and done from the timeline instead of `TripSeconds`. The walker is the family hero of the material
   (`RoundMaterial.family`) tinted in the material colour, for every style and in `ClearPreview` (FR-048).
 - [X] T045 [US2] Draw cubes without the variant icon in the kit's tile drawing (`client/Assets/Bloomlings/UI/Design/`,
@@ -332,17 +332,17 @@ level and the first differing event.
 - [X] T046 [US2] Add the Settings switch "symbols mode" (off by default) to the save's settings
   (`client/Assets/Bloomlings/Meta/`, engine-free) and to the playtest Settings screen (`playtest/design/MenuCards.cs`).
   Add its strings to `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv`.
-- [ ] T047 [US2] Speed and Auto in `playtest/design/LevelScreen.cs` and the kit:
+- [X] T047 [US2] Speed and Auto in `playtest/design/LevelScreen.cs` and the kit:
   - the speed-up control ×1 / ×2;
   - Auto starts on the timeline's tail flag, shows ×2 and hides the whole HUD (top bar, buttons, column chrome, booster
     bar), leaving the board.
-- [ ] T048 [US2] Introduction cards: the first meeting shows the explanation card, the second (L8, L13, L18) a short
+- [X] T048 [US2] Introduction cards: the first meeting shows the explanation card, the second (L8, L13, L18) a short
   reminder, and a just-revealed hidden pod glows. Files: `playtest/design/MetaCards.cs`, `playtest/design/PodPainter.cs`,
   strings in `Strings_en.csv`.
-- [ ] T049 [US2] Draw the round level in the playtest: `playtest/design/BoardPainter.cs`, `PodPainter.cs` and
+- [X] T049 [US2] Draw the round level in the playtest: `playtest/design/BoardPainter.cs`, `PodPainter.cs` and
   `ClearPainter.cs` use `RoundBoardLayout`, `RoundAnimator` and `LinkTube`, with the round palette colours from
   `RoundMaterial`.
-- [ ] T050 [US2] Run the localization tests (`client/DotnetCheck`, `LocalizationTests`) and `playtest/preview --
+- [X] T050 [US2] Run the localization tests (`client/DotnetCheck`, `LocalizationTests`) and `playtest/preview --
   --rounds`, and fix any failure.
 
 **Checkpoint**: every owner decision of 2026-10-27 is visible in the playtest (SC-004).
