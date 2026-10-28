@@ -33,7 +33,7 @@ async function load(file){return (await import(pathToFileURL(path.resolve(file))
 function validRows(rows){if(!Array.isArray(rows)||!rows.length)return 'нет строк';const w=rows[0].length;if(rows.some(r=>r.length!==w))return 'строки разной длины';
  const bad=new Set(rows.join('').replace(new RegExp('['+CODES+'.#b]','g'),''));return bad.size?'чужие символы: '+[...bad].join(''):null;}
 function record(entry,seq,batch,version=1,history=[]){const err=validRows(entry.rows);if(err)throw Error(`#${seq} «${entry.title}»: ${err}`);
- const pic={id:pid(seq),seq,version,title:entry.title,theme:entry.theme||batch.theme||null,...tagsOf(entry,batch),forLevel:entry.forLevel||seq,w:entry.rows[0].length,h:entry.rows.length,rows:entry.rows,...measure(entry),status:'draft',batch:batch.name||null,createdAt:new Date().toISOString().slice(0,10),history};
+ const pic={id:pid(seq),seq,version,title:entry.title,theme:entry.theme||batch.theme||null,...tagsOf(entry,batch),forLevel:entry.forLevel||seq,w:entry.rows[0].length,h:entry.rows.length,rows:entry.rows,...(entry.scene?{scene:entry.scene}:{}),...measure(entry),status:'draft',batch:batch.name||null,createdAt:new Date().toISOString().slice(0,10),history};
  writeJSON(path.join(PICTURES,pic.id+'.json'),pic);return pic;}
 // the theme catalog's tags (product/design/Bloomlings-picture-theme-catalog.md): family (one main theme family),
 // direction (creative direction), device (composition device), subject, source (оригинальный / Bloomlings / сторонняя

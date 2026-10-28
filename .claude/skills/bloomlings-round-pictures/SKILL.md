@@ -72,7 +72,17 @@ order asks for, not a free batch.
     number, the original stays in the pool): the stream through the ground strip, two or three rows of near bank
     below (`content/rounds/pictures/src/variants-0114.mjs`). Draw a new subject only when no such picture fits.
   - A level that only needs a straight wall over an existing picture (the plan's `strip: overlay`) needs no new
-    picture: the level skill lays the wall (`lib.mjs wallOverlay`). Draw strip pictures only for `strip: new`.
+    picture: the level skill lays the wall (`lib.mjs wallOverlay`).
+  - **Bridge scenes** (the main path for `strip: new` since 2026-10-28; the owner: "взять картинку поменьше и вокруг неё
+    строить мосты и стены, и там добавлять уже кубики, которые нам нужны"): `tools/rounds/bridge-scene.mjs make`
+    (the wave plan prints the command per position) composes the picture from a smaller approved pool picture and
+    searches it until exactly one bridge wins (or, for `better`, both win and one is clearly better). Its module is a
+    normal draft batch: number it after the last picture (`pictures.mjs render`), `check`, look at it, and put it on
+    the owner's contact sheet with the others; it carries `title: "<picture> за мостом"`, the source's family,
+    `device: сцена моста`, `source: сцена моста из P####` and `scene` (`from`, `side`, `kind`, `win`, `lose`,
+    `opts`), which the record keeps for the builder. Do not redraw a scene by hand: change its source or options and
+    search again (`--opts '{…}'`). Draw strip pictures by hand only when no scene fits or the owner asks for one.
+    `stripsOver` lays the two strips behind the sites of a hand-drawn strip picture (e.g. `batch-0120-scenes.mjs`).
 - The palette is finite and discrete: no semi-transparent edge shades. The colours of the matrix are the materials of
   the level.
 - **N = coloured cells.** The tool counts N, the number of colours and the volume of each colour.

@@ -100,7 +100,15 @@ the supported three.
      (`wallOverlay`: 25–45 % of the colour cells behind it, two sites with colour approaches, the entry on the open side);
      the level stores it as `definition.overlay` (`{walls, sites}`, picture coordinates), N and W count the board with
      the wall, the audit rebuilds the board from the picture plus the overlay, and the exporter writes `board.overlay`.
-     A `strip: new` position needs a picture with its own strip of the planned side.
+     A `strip: new` position needs a picture with its own strip of the planned side: since 2026-10-28 mostly a
+     **bridge scene** (`tools/rounds/bridge-scene.mjs`, the owner: "взять картинку поменьше и вокруг неё строить мосты
+     и стены"). `make --side … --kind single|better --cls … --recipe … --level n --free --out <module>` composes a
+     scene from a smaller free pool picture (the far side behind a wall framed by `#`, a strip behind each site with a
+     `#` divider, a bed before each site and a meadow on the near bank), runs the builder's candidates through
+     `levels.mjs evaluate` (the checks of `build`, the planned kind tested first) and writes the passing scenes as a
+     draft picture module with the evidence (`<out>.json`); the owner approves them on the sheet. On an approved scene
+     the builder leans the queue to the winning site (the record's `scene.win`) and keeps every pod of the other strip's
+     colour (the gate) in the last rows (`sceneOpts`, `candidate` opts `gate`, `intended`, `delay`).
    - Run it in the background for big batches; it logs per picture/class/recipe how many candidates were found and
      the reasons for the rest.
    - For each candidate the tool:
@@ -144,8 +152,13 @@ the supported three.
        regular Normal.
      - Every level from L4 offers a single launch in at most 35 % of decisions (`forcedShare`).
      - Bridges: the first introduction keeps "both win, one 10+ points better" (`bridgeKind: first`). The second
-       introduction and every later bridge level need exactly one winning bridge, with both sites reached in random
-       games (`bridgeSingle`, `bridgeKind: single`).
+       introduction needs exactly one winning bridge, with both sites reached in random games (`bridgeSingle`,
+       `bridgeKind: single`), and with the other bridge random games still launch pods after the choice (the median at
+       least one: `bridgeLoss`, "проигрыш наступает не сразу при выборе"). Later bridge levels take the wave plan's
+       `bridgeKind`: `single` as above (three quarters), `better` both winning and one 10+ points better by the
+       random test (a quarter; without a plan, single). Each bridge is solved with a fresh solver memo
+       (`bridgeChoicesWin`): before 2026-10-28 one memo served both and every bridge level measured [x, x], so no
+       candidate could ever be `single`.
      - Hidden-pod introductions carry 2–3 hidden pods, the first in row 2. One of them must matter (`hiddenMatters`):
        it reveals in the first half with a new colour and is launched within two launches.
      - All of these are stored in the candidate's `checks` and recomputed by the audit.
@@ -160,8 +173,8 @@ the supported three.
      (§2). Only allowed types are used, introductions only by their own introduction candidates, L1–L3 only by their
      fixed pictures.
    - A position of an approved wave plan (`content/rounds/runs/<wave>/mechanics.json`) takes only a candidate with its
-     planned recipe and, for a bridge, its planned crossing side; an open one is listed in `needs.json` with the recipe,
-     side and strip it needs.
+     planned recipe and, for a bridge, its planned crossing side and bridge kind; an open one is listed in `needs.json`
+     with the recipe, side and strip it needs.
    - It keeps the §11 variety rules (no lead mechanic or identical recipe more than 2 levels in a row), at most 2
      pictures with 10–11 colours in any 20, and prefers the class's preferred zone (75–95 % for the first Normal after
      a Hard or Super Hard) and the size mix per 30.

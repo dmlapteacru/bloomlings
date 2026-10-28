@@ -30,6 +30,10 @@ node tools/rounds/levels.mjs build --approved --candidates 64
 node tools/rounds/levels.mjs build P0012 --overlay up,left --recipes bridge,bridge+links --classes Normal --no-intro   # on the generator's wall
 node tools/rounds/levels.mjs bank
 node tools/rounds/levels.mjs place 1 30
+# bridge scenes (17 §8): a smaller free pool picture behind a wall, searched until exactly one bridge wins; drafts for the sheet
+node tools/rounds/bridge-scene.mjs show P0012 --side left --x K --y S --z . --ground L --fill
+node tools/rounds/bridge-scene.mjs make --side up --kind single --cls Normal --recipe bridge --level 26 --free --minutes 30 --out content/rounds/pictures/src/scenes-0130.mjs
+node tools/rounds/pictures.mjs verify content/rounds/pictures/src/scenes-0130.mjs --out content/rounds/pictures/sheets/scenes-0130.png
 node tools/rounds/levels.mjs card 15
 # transfer into the game (spec 006): the owner's sample confirmation, then the export with the conformance fixtures
 node tools/rounds/rounds.mjs confirm 1 20 --sample product/playtests/pilot-v12-owner-2026-10-27/results.json
@@ -56,11 +60,34 @@ board from the approved picture plus the overlay, N and W count the board with t
 stone. `bridgeSide(level)` is the crossing of the group: the common direction, or `two` for different directions or
 strips.
 
+**Bridge scenes** (`bridge-scene.mjs`, the owner, 2026-10-28: "взять картинку поменьше и вокруг неё строить мосты и
+стены … чтобы был только один выигрышный мост"). The main path for a planned bridge position. `scene(pic, opts)` composes
+a new picture from a smaller approved one: the picture is the far side, cropped to its silhouette (its empty space kept,
+`z: '.'`, or filled with one environment colour), framed by `#` on every edge that faces the ring; a wall with two `b`
+sites (`up`: a full-width row; `left`/`right`: the far side in a top corner, both sites on its vertical wall, a band of
+open ground below it so the entry stays in the bottom middle; `two`: an L, one site crossing up, one crossing left);
+behind each site a strip (`strip` rows deep) of its own colour, a `#` divider between them; on the near bank a bed
+before each site (its approach) and a meadow of the one extra colour (`ground`, `fill`, or only round the other bed:
+`shield`). The winning site is the `x` bed's, its strip is `y`; the other site's bed is `w` and its strip `v` (without
+`w`, `v` the pilots' crossing: `y` and `x`). The builder's queue (`levels.mjs candidate` with `opts`) leans to the winning
+site, keeps every pod of the gate `v` at least `gate` rows deep (but the first when `v` also lies on the near bank) and,
+with `delay`, the other bed's pods a little deeper; with the other bridge the places fill before the gate's pods come.
+`make` draws scene parameters by seed, runs candidates through `levels.mjs evaluate` (the same checks as `build`, the
+planned `--kind` first: `single` = with the other bridge the solver proves a loss and random games still launch pods
+after the choice, `bridgeLoss`; `better` = both win, one 10+ points better) until `--count` scenes pass, and writes them as
+a draft module (`<title> за мостом`, the source's family, `source: сцена моста из P####`, `scene: {from, side, kind, win,
+lose, opts}`) plus the evidence `<out>.json`; the owner approves them on the sheet like any picture, and `build` reads the
+record's `scene.win` (`sceneOpts`). `stripsOver(pic, {a, b, depth, win, border})` lays the two strips behind the sites
+of a picture that already has its wall (a drawn strip picture or a wall overlay). `rounds.mjs plan` lists the scenes a
+wave needs (side, kind, class, recipe and the `make` command), `run` takes approved free scene pictures for those
+positions, and `levels.mjs place` checks the plan's `bridgeKind`. A scene is found in about 1–20 minutes on one core
+(each candidate 2–10 s); `--opts '{…}'` repeats a known scene.
+
 **The wave's mechanics plan.** `content/rounds/runs/<wave>/mechanics.json` (approved by the owner, 17 §13 step 1): per
-level `recipe` (lead first), `lead`, `add`, `bridgeSide` and `strip` (`new`: a picture with its own strip; `overlay`: the
-generator's wall). `rounds.mjs plan` prints its breakdown and orders pictures only for what it needs; `rounds.mjs run`
+level `recipe` (lead first), `lead`, `add`, `bridgeSide` and `strip` (`new`: a picture with its own strip, made as a bridge scene; `overlay`: the
+generator's wall) and `bridgeKind` (`single`: exactly one bridge wins; `better`: both win, one 10+ points better; 75 % / 25 %). `rounds.mjs plan` prints its breakdown and orders pictures only for what it needs; `rounds.mjs run`
 builds only each open position's planned recipe (`levels.mjs build --pairs cls:recipe@side --overlay …`); `levels.mjs
-place` accepts a candidate on a planned position only with that recipe and, for a bridge, that crossing side. Recipes:
+place` accepts a candidate on a planned position only with that recipe and, for a bridge, that crossing side and bridge kind. Recipes:
 `none`, `links`, `hidden`, `bridge`, `links+hidden`, `hidden+links`, `bridge+links`, `bridge+hidden`, `hidden+bridge`,
 `links+bridge`, `links+bridge+hidden`, `bridge+links+hidden`; doses by §7 (the lead its range with the dose place cycle,
 an additional one its minimum admissible dose, three types the lead in its lower half).
@@ -71,7 +98,7 @@ an additional one its minimum admissible dose, three types the lead in its lower
 | `themes.json` | the theme catalog's 50 families, 24 directions and meme families (from `product/design/Bloomlings-picture-theme-catalog.md`), for the tag check |
 | `pictures.mjs` | sequential numbering, render, rules check, contact sheet, approve/reject/replace |
 | `engine.mjs`, `engine/` | the round engine, our own code grown from the pilot: rules, timeline, palette, clock with the §1 slot positions, the §8 link rule, boards up to 48×48, 4–5 places; the pilot v10 embeds the same files |
-| `measure.mjs` | saved solution (search + live replay), §5 random test with waiting and Wilson 100 → 400, hidden-pod fairness, §11 strategies, §10 rhythm |
+| `measure.mjs` | saved solution (search + live replay), §5 random test with waiting and Wilson 100 → 400, hidden-pod fairness, §11 strategies, §10 rhythm, the bridge measures (`bridgeChoicesWin` with a fresh solver per bridge, `bridgeChoices`, `bridgeSingle`, `bridgeLoss`) |
 | `rounds.mjs` | the wave runner: `plan` (positions and picture order), `run` (resumable, parallel build of what is open, checks, placement, audit, summary, the owner's sample pilot), `review` (owner results vs metrics, notes draft) |
 | `screen.mjs` | the screen of pictures before the contact sheet: §2 rules, strength, quick queue test, readability, similarity to approved, motifs |
 | `svg2cells.mjs`, `svg-palette.mjs` | flat SVG drafts in the palette → cell pictures sized to a target cell count, small patches folded |
@@ -81,7 +108,8 @@ an additional one its minimum admissible dose, three types the lead in its lower
 | `conformance.mjs` | the reference side of the conformance gate: canonical event log, extended signature, the §5 random policy game by game, owner attempts at whole µs; engine fingerprints |
 | `schema.mjs` | a dependency-free checker for the keywords the round schemas use |
 | `transfer-log.mjs` | `content/game/rounds/transfers.jsonl`: exported → validated → published → confirmed |
-| `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7), build → bank, calendar placement with the §11 variety rules, cards |
+| `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7; a scene's gate and lean), `evaluate` (the checks of one candidate, shared with the scene search), build → bank, calendar placement with the §11 variety rules and the plan's bridge kind, cards |
+| `bridge-scene.mjs` | bridge scenes: `scene` (a smaller picture behind a wall with two sites, strips and beds), `stripsOver`, `checkScene`, the search `make` → a draft picture module with the evidence |
 
 The engine plays hidden pods, linked pairs and the bridge. Latch + key, canal, shutters, repair, bud, seed, well,
 hidden cells and stacks need engine and pilot work first (`SUPPORTED` in `lib.mjs`). The search behind the saved
