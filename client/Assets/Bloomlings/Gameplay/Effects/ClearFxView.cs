@@ -6,6 +6,7 @@ using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,13 +18,16 @@ namespace Bloomlings.Client.Gameplay.Effects
     /// the playtest draws) with pooled Bloomling figures (the walkers, in their family's outfit) and images: candy tiles,
     /// circles, rings, rounded boxes and the shape library's shapes. Each item is placed by its center, turned and
     /// squashed about it; the items keep the list's order. <see cref="Map"/> turns the kit's cell units into this
-    /// layer's coordinates (from its bottom left), <see cref="Cell"/> is a cell's size in them.
+    /// layer's coordinates (from its bottom left), <see cref="Cell"/> is a cell's size in them. A round level's items
+    /// (<see cref="FxItem.Material"/>, spec 006 FR-048) are the material's plain cube (its symbol only in the symbols mode,
+    /// <see cref="Symbols"/>) and the hero of the material's family tinted in its colour; with <see cref="HeroWalkers"/>
+    /// (the Store's previews) a variant's walker is its family's hero tinted in the variant's colour too.
     /// </summary>
     public sealed class ClearFxView : MonoBehaviour
     {
         public bool CatalogIcons { get; set; }
         private readonly List<Image> _images = new List<Image>();
-        private readonly List<(BloomlingFigure Figure, CanvasGroup Group, VariantId? Shown)> _figures = new List<(BloomlingFigure, CanvasGroup, VariantId?)>();
+        private readonly List<(BloomlingFigure Figure, CanvasGroup Group, (VariantId Variant, int Material, bool Hero)? Shown)> _figures = new List<(BloomlingFigure, CanvasGroup, (VariantId, int, bool)?)>();
         private RectTransform _layer = null!;
 
         /// <summary>A point in cell units (y down) to this layer's coordinates from its bottom left.</summary>
@@ -34,6 +38,15 @@ namespace Bloomlings.Client.Gameplay.Effects
 
         /// <summary>What each family wears (the Wardrobe, FR-063); presentation only.</summary>
         public Func<Family, Outfit>? Outfits { get; set; }
+
+        /// <summary>
+        /// The walkers are the family hero tinted in their colour (spec 006 FR-048: round levels and the Store's previews); a
+        /// round item (<see cref="FxItem.Material"/>) always is.
+        /// </summary>
+        public bool HeroWalkers { get; set; }
+
+        /// <summary>A round level's symbols mode (spec 006 FR-047): the held cubes show their material's symbol.</summary>
+        public bool Symbols { get; set; }
 
         public static ClearFxView Create(Transform parent, string name)
         {
@@ -59,7 +72,7 @@ namespace Bloomlings.Client.Gameplay.Effects
                 Vector2 center = Map(item.X, item.Y);
                 if (item.Kind == FxKind.Character)
                 {
-                    RectTransform figure = Figure(figures++, item.Variant, item.Alpha);
+                    RectTransform figure = Figure(figures++, item.Variant, item.Material, item.Alpha);
                     Place(figure, center, item.W * Cell*(CatalogIcons ? 1.5f : 1), item.H * Cell*(CatalogIcons ? 1.5f : 1), item);
                     figure.SetSiblingIndex(order++);
                     continue;
@@ -110,7 +123,9 @@ namespace Bloomlings.Client.Gameplay.Effects
             switch (item.Kind)
             {
                 case FxKind.Tile:
-                    return (ProceduralSprites.CandyTile(item.Variant, CatalogIcons ? TileStyle.MosaicIcon : TileStyle.Mosaic), 0f);
+                    return (item.Material >= 0
+                        ? RoundSprites.MaterialTile(item.Material, RoundLook.CubeStyle, Symbols, 128)
+                        : ProceduralSprites.CandyTile(item.Variant, CatalogIcons ? TileStyle.MosaicIcon : TileStyle.Mosaic), 0f);
                 case FxKind.Ring:
                     return (Ring(item.Line / Math.Max(0.001f, item.W / 2f)), 0f);
                 case FxKind.Round:
@@ -166,7 +181,7 @@ namespace Bloomlings.Client.Gameplay.Effects
             return found;
         }
 
-        private RectTransform Figure(int index, VariantId variant, float alpha)
+        private RectTransform Figure(int index, VariantId variant, int material, float alpha)
         {
             if (index >= _figures.Count)
             {
@@ -177,13 +192,32 @@ namespace Bloomlings.Client.Gameplay.Effects
                 _figures.Add((created, group, null));
             }
 
-            (BloomlingFigure figure, CanvasGroup canvas, VariantId? shown) = _figures[index];
-            if (!shown.HasValue || !shown.Value.Equals(variant))
+            (BloomlingFigure figure, CanvasGroup canvas, (VariantId Variant, int Material, bool Hero)? shown) = _figures[index];
+            bool hero = material < 0 && HeroWalkers && !CatalogIcons;
+            var wanted = (variant, material, hero);
+            if (!shown.HasValue || !shown.Value.Equals(wanted))
             {
-                Family family = VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.Family : Family.Sprig;
-                if(CatalogIcons)figure.ShowHero(family,Outfits?.Invoke(family));
-                else figure.ShowCharacter(variant, Outfits?.Invoke(family));
-                _figures[index] = (figure, canvas, variant);
+                bool known = VariantCatalog.Default.TryGet(variant, out VariantInfo info);
+                Family family = known ? info.Family : Family.Sprig;
+                if (material >= 0)
+                {
+                    // A round walker: the hero of the material's family in the material's colour (FR-048).
+                    figure.ShowWalker(RoundMaterial.All[material].Family, RoundLook.ColorOf(material));
+                }
+                else if (CatalogIcons)
+                {
+                    figure.ShowHero(family, Outfits?.Invoke(family));
+                }
+                else if (hero)
+                {
+                    figure.ShowWalker(family, known ? Rgba.FromHex(info.ColorHex) : Rgba.White);
+                }
+                else
+                {
+                    figure.ShowCharacter(variant, Outfits?.Invoke(family));
+                }
+
+                _figures[index] = (figure, canvas, wanted);
             }
 
             canvas.alpha = alpha;

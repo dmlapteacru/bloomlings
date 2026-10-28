@@ -280,6 +280,8 @@ namespace Bloomlings.Client.UI
         private float _panelRadius;
         private float _tileRadius;
         private VariantId? _variant;
+        private Image? _material;
+        private int _round = -2;
 
         /// <summary>The pod's state.</summary>
         public PodLook Look { get; private set; }
@@ -332,6 +334,13 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public void Show(VariantId? variant, int count, PodLook look, bool waiting = false)
         {
+            _round = -2;
+            if (_material != null)
+            {
+                _material.gameObject.SetActive(false);
+            }
+
+            _count.gameObject.SetActive(true);
             Look = look;
             _variant = variant;
             Waiting = waiting || look == PodLook.Next;
@@ -382,6 +391,51 @@ namespace Bloomlings.Client.UI
             _layout.Apply();
         }
 
+        /// <summary>
+        /// Shows a round level's pod (spec 006 T059, contracts/presentation.md; the playtest's <c>Kit.RoundPod</c>): the
+        /// wooden frame tinted by its material (<see cref="RoundSprites.Pod"/>), the material's plain tile with no variant
+        /// icon (its symbol only in the symbols mode) and its count; a hidden pod (<paramref name="material"/> -1) shows the
+        /// "?" and no count until it reveals (FR-007).
+        /// </summary>
+        public void ShowRound(int material, int count, PodLook look, bool waiting, bool symbolsMode)
+        {
+            Look = look;
+            _variant = null;
+            Waiting = waiting || look == PodLook.Next;
+            bool locked = look == PodLook.Locked;
+            bool dim = Waiting;
+            PictureFit.On(_frame, (w, h) => RoundSprites.Pod(material, dim, locked, w, h));
+            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.025f : 0.06f));
+            _veil.gameObject.SetActive(false);
+            _shade.gameObject.SetActive(look == PodLook.Pressed);
+            _lock.gameObject.SetActive(false);
+            _icon.gameObject.SetActive(false);
+            _tile.gameObject.SetActive(false);
+            _tileVeil.gameObject.SetActive(false);
+            bool hidden = material < 0;
+            _mystery.gameObject.SetActive(hidden);
+            _count.gameObject.SetActive(!hidden);
+            if (_material == null)
+            {
+                _material = UiFactory.CreateImage("Material", _layout.transform, null, Color.white);
+                _material.raycastTarget = false;
+                _material.transform.SetSiblingIndex(_tile.transform.GetSiblingIndex());
+            }
+
+            _material.gameObject.SetActive(!hidden);
+            int key = hidden ? -1 : (material * 8) + (symbolsMode ? 4 : 0) + (Waiting ? 2 : 0);
+            if (!hidden && key != _round)
+            {
+                TileState state = Waiting ? TileState.Dimmed : TileState.Normal;
+                PictureFit.On(_material, (w, h) => RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbolsMode, System.Math.Min(w, h), state), square: true);
+            }
+
+            _round = key;
+            _count.text = count.ToString(CultureInfo.InvariantCulture);
+            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CountLook(Waiting || locked));
+            _layout.Apply();
+        }
+
         private void Lay(Box box)
         {
             // The frame stands in the middle of its place (PodChip.Aspect of its height wide), its parts in it (§6.1).
@@ -402,6 +456,11 @@ namespace Bloomlings.Client.UI
             // The icon (or the tile) over the panel's middle and the count at its bottom right, sinking with the frame.
             Box tile = chip.Tile.Offset(0f, sink);
             KitText.Place(_mystery, GameplaySkin.PodCount, tile.CenterX, tile.CenterY, tile.Height * 0.90f, tile.Width);
+            if (_material != null)
+            {
+                BoxLayout.Place(_material.rectTransform, tile);
+            }
+
             BoxLayout.Place(_icon.rectTransform, chip.Icon.Offset(0f, sink));
             BoxLayout.Place((RectTransform)_tile.transform, tile);
             _tileRadius = tile.Width * 0.2f;

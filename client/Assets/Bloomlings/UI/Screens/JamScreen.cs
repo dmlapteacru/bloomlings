@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Simulation;
@@ -20,7 +21,9 @@ namespace Bloomlings.Client.UI.Screens
     /// (<see cref="SlotPlateState.Working"/>; a null variant is a mystery pod), a free slot
     /// (<see cref="SlotPlateState.Empty"/>) or a locked one (<see cref="SlotPlateState.Locked"/>).
     /// </summary>
-    public sealed record JamSlot(SlotPlateState State, VariantId? Variant, int Count);
+    /// <param name="Material">A round level's pod material (spec 006, <c>RoundMaterial.Index</c>): its plain tile shows
+    /// instead of the variant's, with its symbol when <paramref name="Symbols"/>; -1 for a legacy pod.</param>
+    public sealed record JamSlot(SlotPlateState State, VariantId? Variant, int Count, int Material = -1, bool Symbols = false);
 
     /// <summary>Compact jam window: actual slot snapshot, eligible recoveries on one divided tray, secondary Restart.</summary>
     public sealed class JamScreen : MonoBehaviour
@@ -211,8 +214,21 @@ namespace Bloomlings.Client.UI.Screens
                 (Box tileBox, Box countBox) = r.WellCell(i, slots.Count);
                 if (slot.State == SlotPlateState.Working)
                 {
-                    CandyTileView tile = UiKit.CandyTile("Tile" + index, well, slot.Variant, TileStyle.Sticker);
-                    UiKit.PlaceBox((RectTransform)tile.transform, tileBox, r.Well);
+                    if (slot.Material >= 0)
+                    {
+                        // A round pod: its material's plain tile (spec 006 FR-041, FR-047).
+                        int material = slot.Material;
+                        bool symbols = slot.Symbols;
+                        Image round = UiFactory.CreateImage("Tile" + index, well, null, Color.white);
+                        UiKit.PlaceBox(round.rectTransform, tileBox, r.Well);
+                        PictureFit.On(round, (w, h) => RoundSprites.MaterialTile(material, RoundLook.PodStyle, symbols, Math.Min(w, h)), square: true);
+                    }
+                    else
+                    {
+                        CandyTileView tile = UiKit.CandyTile("Tile" + index, well, slot.Variant, TileStyle.Sticker);
+                        UiKit.PlaceBox((RectTransform)tile.transform, tileBox, r.Well);
+                    }
+
                     TextMeshProUGUI count = UiKit.KitLabel("Count" + index, well, slot.Count.ToString(CultureInfo.InvariantCulture), T.Count, TextLook.Plain(C.InkBrown));
                     Box local = UiKit.ToLocal(countBox, r.Well);
                     float digits = Mathf.Min(local.Height * 0.9f, UiKit.ToLocal(tileBox, r.Well).Height * 0.42f);

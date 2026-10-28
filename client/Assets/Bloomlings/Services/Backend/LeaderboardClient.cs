@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Save;
@@ -74,6 +75,21 @@ namespace Bloomlings.Client.Services.Backend
             foreach (Command command in commands)
             {
                 text.Append(CommandText.Format(command)).Append('\n');
+            }
+
+            return PackIntegrity.ComputeSha256Hex(Encoding.UTF8.GetBytes(text.ToString()));
+        }
+
+        /// <summary>
+        /// The SHA-256 of a winning round attempt's commands (spec 006 T058): one <see cref="RoundInput"/> line per command
+        /// (<c>tap pod=3 at=0</c>, <c>bridge choice=1 at=…</c>, a booster's line), each with its model time in µs.
+        /// </summary>
+        public static string CommandLogHash(IEnumerable<RoundInput> commands)
+        {
+            var text = new StringBuilder();
+            foreach (RoundInput command in commands)
+            {
+                text.Append(command.ToString()).Append('\n');
             }
 
             return PackIntegrity.ComputeSha256Hex(Encoding.UTF8.GetBytes(text.ToString()));

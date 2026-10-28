@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -116,6 +118,84 @@ namespace Bloomlings.Client.UI.Screens
                         Image ground = UiKit.GrassCell("Ground", _grid, UiRaster.GrassSeed(x, y));
                         UiKit.PlaceBox(ground.rectTransform, full, _gridBox);
                     }
+                }
+            }
+
+            UiKit.PlaceBox(_sweepClip, _gridBox, box);
+            _sweepClip.SetAsLastSibling();
+            _unit = scale;
+            if (isActiveAndEnabled)
+            {
+                _shownAt = Time.unscaledTime;
+            }
+
+            Sweep(Time.unscaledTime - _shownAt);
+        }
+
+        /// <summary>
+        /// Builds a round level's finished picture (spec 006 FR-046; the playtest's <c>RoundPainter.FinishedPicture</c>):
+        /// each cell of <paramref name="rowsTopFirst"/> as the board's soft cube in its material's colour (no variant icon;
+        /// its symbol only in the symbols mode), the stream as water, empty cells as grass, in the same thin stone frame
+        /// and placement as <see cref="Show"/>.
+        /// </summary>
+        public void ShowRound(IReadOnlyList<string> rowsTopFirst, int width, int height, bool symbolsMode, Box box, Box parent, float scale, bool alignTop = false)
+        {
+            UiKit.PlaceBox(_root, box, parent);
+            if (_grid != null)
+            {
+                Destroy(_grid.gameObject);
+            }
+
+            int w = Mathf.Max(1, width);
+            int h = Mathf.Max(1, height);
+            float rim = BoardLayout.Gap + Thin;
+            float cell = Mathf.Min(box.Width / (w + (2f * rim)), box.Height / (h + (2f * rim)));
+            bool framed = cell >= 16f * scale;
+            if (!framed)
+            {
+                cell = Mathf.Min(box.Width / w, box.Height / h);
+            }
+
+            float frame = framed ? cell * rim : 0f;
+            float ox = box.CenterX - (cell * w / 2f);
+            float oy = alignTop ? box.Top + frame : box.CenterY - (cell * h / 2f);
+            _gridBox = new Box(ox, oy, ox + (cell * w), oy + (cell * h));
+            Frame = _gridBox.Inset(-frame);
+            _grid = UiFactory.CreateRect("Grid", _root);
+            _grid.SetAsFirstSibling();
+            UiKit.PlaceBox(_grid, _gridBox, box);
+            if (framed)
+            {
+                UiKit.StoneBorder(_grid, w, h, Thin);
+            }
+
+            int pixels = UiRaster.Quantize(Mathf.Max(8f, cell));
+            for (int y = 0; y < h; y++)
+            {
+                string row = y < rowsTopFirst.Count ? rowsTopFirst[y] : string.Empty;
+                for (int x = 0; x < w; x++)
+                {
+                    char c = x < row.Length ? row[x] : '.';
+                    var full = new Box(ox + (x * cell), oy + (y * cell), ox + ((x + 1) * cell), oy + ((y + 1) * cell));
+                    int material = RoundMaterial.IndexOf(c);
+                    Image image;
+                    if (material >= 0)
+                    {
+                        image = UiFactory.CreateImage("Cube", _grid, RoundSprites.MaterialTile(material, RoundLook.CubeStyle, symbolsMode, pixels), Color.white);
+                        UiKit.PlaceBox(image.rectTransform, full.Inset(cell * TileInset), _gridBox);
+                    }
+                    else if (c == '#' || c == 'b')
+                    {
+                        image = UiFactory.CreateImage("Water", _grid, RoundSprites.Water(x, pixels), Color.white);
+                        UiKit.PlaceBox(image.rectTransform, full, _gridBox);
+                    }
+                    else
+                    {
+                        image = UiKit.GrassCell("Ground", _grid, UiRaster.GrassSeed(x, y));
+                        UiKit.PlaceBox(image.rectTransform, full, _gridBox);
+                    }
+
+                    image.raycastTarget = false;
                 }
             }
 

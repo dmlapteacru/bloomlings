@@ -88,6 +88,36 @@ namespace Bloomlings.Client.Gameplay.Workers
             Show(picture, family, color, outfit, face, 1f);
         }
 
+        /// <summary>How strongly a walker's picture takes its material's colour (the playtest's <c>Visuals.WalkerTint</c>).</summary>
+        public const float WalkerTint = 0.55f;
+
+        /// <summary>
+        /// A round level's walker (spec 006 FR-048, the playtest's <c>Visuals.Walker</c>): the hero of
+        /// <paramref name="family"/> (its 2D character, happy) tinted in <paramref name="tint"/>, the material's colour, at
+        /// <see cref="WalkerTint"/>: the picture masks a flat fill of the colour laid over it. No outfit: the material, not a
+        /// cosmetic, tells walkers apart. Without the picture, the family body in the colour.
+        /// </summary>
+        public void ShowWalker(Family family, Rgba tint)
+        {
+            VariantId hero = family switch
+            {
+                Family.Bloom => VariantId.Flower,
+                Family.Drop => VariantId.Water,
+                Family.Twig => VariantId.Wood,
+                _ => VariantId.Leaf,
+            };
+            Sprite? picture = CharacterSprites.Character(hero, CharacterMood.Happy);
+            (float X, float Y) face = VariantCatalog.Default.TryGet(hero, out VariantInfo info) ? CharacterArt.FaceCenter2D(info.IconId) : (0.5f, 0.6f);
+            Show(picture, family, UiTheme.Of(tint), null, face, 1f);
+            if (picture != null)
+            {
+                // The flat colour under the picture's mask (the skin's mask, with no pattern).
+                _skin.sprite = null;
+                _skin.color = UiTheme.Of(tint.WithAlpha(WalkerTint));
+                _skinMask.gameObject.SetActive(true);
+            }
+        }
+
         /// <summary>
         /// A family's 3D hero (meta screens only; size the rect to 512:576) wearing <paramref name="outfit"/>: a worn hat
         /// sits on the hero's head in full color (<see cref="CharacterArt.HatOnHero"/>, the playtest's <c>Visuals.Hero</c>).

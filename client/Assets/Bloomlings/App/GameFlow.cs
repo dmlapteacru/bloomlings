@@ -122,19 +122,17 @@ namespace Bloomlings.Client.App
         }
 
         /// <summary>
-        /// THE ROUND LEVEL ENTRY POINT (spec 006 T060, replaced by T058): every round level the game starts comes through
-        /// here, from Home's Play, the first launch and the win's Next. T058 moves the Gameplay scene to the round rules
-        /// (<c>RoundTimeline</c>, <c>RoundAnimator</c>): its <c>GameplayController</c> plays <see cref="CurrentRoundAttempt"/>,
-        /// and this body becomes <c>Load(GameplayScene)</c>. Until then the Gameplay scene can only play legacy
-        /// definitions (without an attempt it would fall back to the Editor's dev level), so the attempt is kept and the
-        /// game stays on Home.
+        /// THE ROUND LEVEL ENTRY POINT (spec 006 T060, T058): every round level the game starts comes through here, from
+        /// Home's Play, the first launch and the win's Next. The Gameplay scene plays <see cref="CurrentRoundAttempt"/> on the
+        /// round rules (<c>GameplayController</c> hands it to <c>RoundGameplayController</c>, which plays it on the kit's
+        /// <c>RoundPlay</c>: <c>RoundTimeline</c> and <c>RoundAnimator</c>); a round attempt never falls back to a legacy or dev
+        /// level (<c>GameplayRouting</c>).
         /// </summary>
         private void StartRoundLevel(RoundAttempt attempt)
         {
             CurrentAttempt = null;
             CurrentRoundAttempt = attempt;
-            Debug.LogWarning($"[GameFlow] Round level {attempt.LevelNumber} (content v{attempt.ContentVersion}) is ready; the Gameplay scene plays round levels from T058 on.");
-            GoHome();
+            Load(GameplayScene);
         }
 
         /// <summary>

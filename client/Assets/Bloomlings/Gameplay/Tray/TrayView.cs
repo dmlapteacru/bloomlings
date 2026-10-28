@@ -41,7 +41,7 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// lock until the key lands. Taps are forwarded to the controller; a tap that waits for a partner pulses the partner,
     /// or the "+N" that hides it (<see cref="ShowPartners"/>).
     /// </summary>
-    public sealed class TrayView : MonoBehaviour
+    public sealed partial class TrayView : MonoBehaviour
     {
         private readonly Dictionary<string, PodView> _pods = new Dictionary<string, PodView>(StringComparer.Ordinal);
         private readonly HashSet<string> _shown = new HashSet<string>(StringComparer.Ordinal);

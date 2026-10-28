@@ -6,6 +6,7 @@ using Bloomlings.Client.App;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Board;
 using Bloomlings.Client.Gameplay.Effects;
+using Bloomlings.Client.Gameplay.Rounds;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Slots;
 using Bloomlings.Client.Gameplay.Timeline;
@@ -45,7 +46,8 @@ namespace Bloomlings.Client.Gameplay
     /// Runs one level (T047). It owns the <see cref="LevelSession"/>: a tap is checked and applied at once against
     /// the logical state, with feedback in the same frame even while the timeline is behind (SC-008); the events go to
     /// the <see cref="EventTimeline"/>, which drives the board, slots and workers (R4). Won, Jammed and Stuck open
-    /// their screens when their wave plays. There is no mid-level save: a killed app restarts the level.
+    /// their screens when their wave plays. There is no mid-level save: a killed app restarts the level. A round attempt
+    /// (spec 006) is handed to <see cref="RoundGameplayController"/> at once, on the round rules (<see cref="GameplayRouting"/>).
     /// </summary>
     public sealed class GameplayController : MonoBehaviour, ITimelineSink
     {
@@ -125,6 +127,15 @@ namespace Bloomlings.Client.Gameplay
 
         private IEnumerator Start()
         {
+            // A round attempt plays on the round rules (spec 006 T058): the round controller takes the scene over, and this
+            // one builds nothing (it never falls back to the dev level for a round attempt).
+            if (GameplayRouting.For(Flow?.CurrentRoundAttempt, Flow?.CurrentAttempt) == GameplayRoute.Round)
+            {
+                gameObject.AddComponent<RoundGameplayController>();
+                enabled = false;
+                yield break;
+            }
+
             Canvas canvas = UiFactory.CreateCanvas("GameplayCanvas", 0);
             canvas.transform.SetParent(transform, false);
             var root = (RectTransform)canvas.transform;
@@ -1994,6 +2005,12 @@ namespace Bloomlings.Client.Gameplay
 
         private static (LevelDefinition, BasePicture, SessionOptions) ResolveLevel()
         {
+            if (Flow?.CurrentRoundAttempt != null)
+            {
+                // Never the dev level in place of a round level: the round controller plays it (GameplayRouting).
+                throw new System.InvalidOperationException("A round attempt plays on the round rules, not as a legacy level.");
+            }
+
             LevelAttempt? attempt = Flow?.CurrentAttempt;
             if (attempt != null)
             {
