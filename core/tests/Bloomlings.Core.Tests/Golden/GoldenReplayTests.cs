@@ -45,6 +45,43 @@ namespace Bloomlings.Core.Tests.Golden
             Assert.That(Cases(), Is.Not.Empty);
         }
 
+        // Round level cases (spec 006) live in golden/rounds/, so the legacy readers of golden/*.golden.json (the Unity
+        // EditMode tests, the playtest check) never meet a format they do not know.
+        private static string[] RoundCases() => Directory.Exists(Rounds.RoundGolden.Folder)
+            ? Directory.GetFiles(Rounds.RoundGolden.Folder, "rounds-*.golden.json").Select(f => Path.GetFileName(f)!).OrderBy(name => name, StringComparer.Ordinal).ToArray()
+            : Array.Empty<string>();
+
+        [Test]
+        public void RoundCasesExist()
+        {
+            Assert.That(RoundCases(), Is.Not.Empty);
+        }
+
+        [TestCaseSource(nameof(RoundCases))]
+        public void ReplayRound(string fileName)
+        {
+            string path = Path.Combine(Rounds.RoundGolden.Folder, fileName);
+            string text = File.ReadAllText(path);
+            Rounds.RoundGolden golden = Rounds.RoundGolden.Read(text);
+            Rounds.RoundGolden.Outcome outcome = golden.Run();
+
+            if (Regenerate)
+            {
+                File.WriteAllText(path, golden.WithOutcome(outcome));
+                File.WriteAllText(path.Replace(".golden.json", ".events.txt"), outcome.Log);
+                Assert.Pass("Regenerated " + fileName);
+            }
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(golden.Write(), Is.EqualTo(text), "Golden files are stored in canonical form.");
+                Assert.That(outcome.Status, Is.EqualTo(golden.ExpectedStatus), "status");
+                Assert.That(outcome.EndUs, Is.EqualTo(golden.ExpectedEndUs), "end time");
+                Assert.That(outcome.State, Is.EqualTo(golden.ExpectedState), "state signature");
+                Assert.That(outcome.Events, Is.EqualTo(golden.ExpectedEvents), "events digest");
+            });
+        }
+
         [TestCaseSource(nameof(Cases))]
         public void Replay(string fileName)
         {

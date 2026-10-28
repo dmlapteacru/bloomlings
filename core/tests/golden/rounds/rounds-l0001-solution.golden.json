@@ -1,0 +1,110 @@
+{
+  "format": "bloomlings-round-golden-1",
+  "name": "l0001-solution",
+  "description": "L1 (three materials): the saved solution replayed patiently, each tap once all work has settled.",
+  "source": "content/rounds/levels/L0001.json",
+  "number": 1,
+  "definition": {
+    "w": 18,
+    "h": 23,
+    "rowsBottomFirst": [
+      "#########.########",
+      "#................#",
+      "#..CCCCOCCCC.....#",
+      "#....COCOC..OOO..#",
+      "#...OOCCCOOOOOO..#",
+      "#...OCCCCCO..OOO.#",
+      "#..OOCCCCCOO..OO.#",
+      "#..OOCCCCCOO..OO.#",
+      "#..OOOCCCOOO..OO.#",
+      "#...OOOCOOO...OO.#",
+      "#...OOOOOOO...OO.#",
+      "#....OOCOO....O..#",
+      "#..OOCCCCCOO.....#",
+      "#..OOCCECCOO.....#",
+      "#.OOOOCCCOOOO....#",
+      "#.OOOEOOOEOOO....#",
+      "#.OOOEOOOEOOO....#",
+      "#.OOOOOOOOOOO....#",
+      "#.OCOOOOOOOCO....#",
+      "#.OOO.OOO.OOO....#",
+      "#.OO.......OO....#",
+      "#................#",
+      "##################"
+    ],
+    "entries": [
+      9
+    ],
+    "capacity": 5,
+    "pods": [
+      {
+        "color": "O",
+        "count": 26
+      },
+      {
+        "color": "O",
+        "count": 26
+      },
+      {
+        "color": "O",
+        "count": 26
+      },
+      {
+        "color": "O",
+        "count": 25
+      },
+      {
+        "color": "O",
+        "count": 25
+      },
+      {
+        "color": "C",
+        "count": 16
+      },
+      {
+        "color": "C",
+        "count": 16
+      },
+      {
+        "color": "C",
+        "count": 16
+      },
+      {
+        "color": "E",
+        "count": 5
+      }
+    ],
+    "tray": [
+      [
+        5,
+        4,
+        6
+      ],
+      [
+        1,
+        2,
+        8
+      ],
+      [
+        0,
+        3,
+        7
+      ]
+    ]
+  },
+  "commands": [
+    "tap pod=5 at=0",
+    "tap pod=4 at=3575000",
+    "tap pod=6 at=11425000",
+    "tap pod=1 at=17550000",
+    "tap pod=2 at=26350000",
+    "tap pod=8 at=36125000",
+    "tap pod=0 at=41175000",
+    "tap pod=3 at=52175000",
+    "tap pod=7 at=64900000"
+  ],
+  "expectedStatus": "Won",
+  "expectedEndUs": 72950000,
+  "expectedSignatureSha256": "sha256:5204c0019772be1810b6aa3c7488c607c180a569a07fbf650d10c61f38c3f4a2",
+  "expectedEventsSha256": "sha256:207b147926b4ed10689db9a9becf2917c709826b05a2bddcc10b45b312c02b03"
+}

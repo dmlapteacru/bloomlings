@@ -1,0 +1,228 @@
+{
+  "format": "bloomlings-round-golden-1",
+  "name": "l0016-bridge",
+  "description": "L16, the introduction of the Sprig bridge: the saved solution with its bridge choice.",
+  "source": "content/rounds/levels/L0016.json",
+  "number": 16,
+  "definition": {
+    "w": 36,
+    "h": 35,
+    "rowsBottomFirst": [
+      "##################.#################",
+      "#..................................#",
+      "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+      "#.MMMMMCCCCCCCCCMMMMMMMMMMMMMMCCMM.#",
+      "#.MMMMMMCCCCCCCMMMMMMMMMMMMMMMMMMM.#",
+      "####################################",
+      "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+      "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+      "#.MMMMMMMMMMMMMMMMMMMMMMCCCCMMCCCC.#",
+      "#.BBBCCCCDDDDDDDBBBBBBBMCCCCCCCCCC.#",
+      "#.MBBBCCCDDDDDDDBBBBBBMMMCCCCCCCCM.#",
+      "#.MBBBCCCDDDDDDDBBBBBBMMCCCCCYCCCC.#",
+      "#.MMBBBCCCDDDDDBBBBBBMMMMCOOYYOORM.#",
+      "#.MMBBBCCCDDDDDBBBBBBMMMMROOYYOORM.#",
+      "#.MMMBBBCCDDDDDBBBBBMMMMMRROYYOORM.#",
+      "#.MMMMBBCCDDDDDBBBBMMMMMMRROYOORRM.#",
+      "#.MMMMBBBCCDDDDBBBBMMMMMMMRROOORMM.#",
+      "#.MMMMMBBCCDDDBBBBMMMMMMMMRROOORMM.#",
+      "#.VVVVVBBCCDDDBBBBVVVVVVVVVROORVVV.#",
+      "#.VVCVVVBBCDDDBBBVVVVVVVVVVRRORVVV.#",
+      "#.VCCCVVBBCDDDBBBVVVVVVVVVVRRORVVV.#",
+      "#.VVCVVVVBBCDBBBVVVVVVVVVVVVRRVVVV.#",
+      "#.VVVVVVVVBCDBBBVVVVVVVVVVVVRRVVVV.#",
+      "#.VVVVVVVVBBDBBVVVVVVVVVVVVVVRVVVV.#",
+      "#.VVVVVVVVVBDBVVVVVVVVVVCVVVVVVVVV.#",
+      "#.VVVCCCVVVBBBVVVVVVVVVCCCVVVVVVVV.#",
+      "#.VVCCCCCVVVBVVVVVVVVVVVCVVVVVVVVV.#",
+      "#.VCCCCCCVVDBDVVVVVVVVVVVVVVVVVVVV.#",
+      "#.VCCCCCCVVDVDVVVVVVVVVVVVVVVVVCVV.#",
+      "#.VCCCCCCVVVVVVVVVVCVVVVVVVVVVCCCV.#",
+      "#.VVCCCCVVVVVVVVVVCCCVVVVVVVVVVCVV.#",
+      "#.VVVVVVVVVVVVVVVVVCVVVVVVVVVVVVVV.#",
+      "#.VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV.#",
+      "#..................................#",
+      "####################################"
+    ],
+    "entries": [
+      18
+    ],
+    "capacity": 5,
+    "pods": [
+      {
+        "color": "V",
+        "count": 59
+      },
+      {
+        "color": "V",
+        "count": 59
+      },
+      {
+        "color": "V",
+        "count": 59
+      },
+      {
+        "color": "V",
+        "count": 59
+      },
+      {
+        "color": "V",
+        "count": 59
+      },
+      {
+        "color": "V",
+        "count": 59
+      },
+      {
+        "color": "C",
+        "count": 45
+      },
+      {
+        "color": "C",
+        "count": 45
+      },
+      {
+        "color": "C",
+        "count": 44
+      },
+      {
+        "color": "D",
+        "count": 22
+      },
+      {
+        "color": "D",
+        "count": 22
+      },
+      {
+        "color": "D",
+        "count": 21
+      },
+      {
+        "color": "B",
+        "count": 37
+      },
+      {
+        "color": "B",
+        "count": 36
+      },
+      {
+        "color": "B",
+        "count": 36
+      },
+      {
+        "color": "R",
+        "count": 15
+      },
+      {
+        "color": "R",
+        "count": 14
+      },
+      {
+        "color": "O",
+        "count": 12
+      },
+      {
+        "color": "O",
+        "count": 12
+      },
+      {
+        "color": "M",
+        "count": 60
+      },
+      {
+        "color": "M",
+        "count": 59
+      },
+      {
+        "color": "M",
+        "count": 59
+      },
+      {
+        "color": "M",
+        "count": 59
+      },
+      {
+        "color": "Y",
+        "count": 8
+      }
+    ],
+    "tray": [
+      [
+        19,
+        6,
+        0,
+        2,
+        23,
+        3,
+        16,
+        4
+      ],
+      [
+        20,
+        1,
+        12,
+        11,
+        17,
+        7,
+        18,
+        5
+      ],
+      [
+        9,
+        10,
+        21,
+        15,
+        8,
+        13,
+        22,
+        14
+      ]
+    ],
+    "hero": {
+      "id": "sprig-bridge",
+      "choices": [
+        {
+          "cell": 191,
+          "anchor": 155,
+          "label": "Левый мостик"
+        },
+        {
+          "cell": 205,
+          "anchor": 169,
+          "label": "Правый мостик"
+        }
+      ]
+    }
+  },
+  "commands": [
+    "tap pod=19 at=0",
+    "tap pod=6 at=17650000",
+    "tap pod=0 at=24550000",
+    "tap pod=2 at=24550000",
+    "tap pod=23 at=24550000",
+    "tap pod=20 at=24550000",
+    "bridge choice=0 at=32625000",
+    "tap pod=3 at=80400000",
+    "tap pod=9 at=80400000",
+    "tap pod=10 at=89950000",
+    "tap pod=21 at=100325000",
+    "tap pod=16 at=145200000",
+    "tap pod=4 at=193450000",
+    "tap pod=1 at=237400000",
+    "tap pod=12 at=275625000",
+    "tap pod=11 at=289275000",
+    "tap pod=17 at=311475000",
+    "tap pod=7 at=335600000",
+    "tap pod=18 at=356550000",
+    "tap pod=5 at=408750000",
+    "tap pod=15 at=462675000",
+    "tap pod=8 at=488500000",
+    "tap pod=13 at=511750000",
+    "tap pod=22 at=525675000",
+    "tap pod=14 at=547650000"
+  ],
+  "expectedStatus": "Won",
+  "expectedEndUs": 563850000,
+  "expectedSignatureSha256": "sha256:5c506993bf38cf99087b2e599279c0428e629de1f8543014185b6ad0470991b0",
+  "expectedEventsSha256": "sha256:82ba9b2de2cf9b4a35ceb648d7e0c748ada7679b8209eb67db447bacc804977b"
+}
