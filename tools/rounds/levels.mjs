@@ -207,7 +207,7 @@ export function sceneOpts(pic,board,P,cols,k){if(!pic.scene||!board.hero||!Array
 
 // ---- build: candidates for each picture, recipe and class, measured and banked ----
 const SIDES=['up','left','right','two'];
-async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',1),sides=arg('--overlay')?arg('--overlay').split(','):null;
+async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',+(process.env.ROUNDS_SEED||1)),sides=arg('--overlay')?arg('--overlay').split(','):null;
  if(sides&&sides.some(x=>x!=='none'&&!SIDES.includes(x)))throw Error(`--overlay: стороны none, ${SIDES.join(', ')}`);
  // --pairs (rounds.mjs run under a mechanics plan): only the planned class:recipe pairs, @side for a wall's side
  const pairs=arg('--pairs')?new Set(arg('--pairs').split(',')):null;
@@ -226,10 +226,13 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
   for(const cls of fixed?['Normal']:classes)for(const recipe of recipes){if(fixed&&recipe!=='none')continue;if(pairs&&!pairs.has(`${cls}:${recipe}${v.overlay?'@'+v.side:''}`))continue;
    for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'&&!flag('--no-intro')?[false,true]:[false]){
     // resumable: a combination already searched (bank.searched) is skipped; the bank is saved after each one
-    const combo=`${cls}|${recipe}|${intro?'intro':''}${v.overlay?'|'+v.side:''}`;bank.searched=bank.searched||[];if(!flag('--fresh')&&bank.searched.some(x=>x.combo===combo)){console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
+    const combo=`${cls}|${recipe}|${intro?'intro':''}${v.overlay?'|'+v.side:''}`;bank.searched=bank.searched||[];if(!flag('--fresh')&&!process.env.ROUNDS_FRESH&&bank.searched.some(x=>x.combo===combo)){console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
     let tried=0,found=0,foundLoss=0;const reasons={};const no=k=>{reasons[k]=(reasons[k]||0)+1;};
-    // a Normal also looks for a candidate that "most work now" loses (§5: part of the regular Normals), up to 4 found
-    const enough=()=>cls==='Normal'&&!intro&&!fixed?found>=4||(found>=2&&foundLoss>=1):found>=2;
+    // a Normal also looks for a candidate that "most work now" loses (§5: part of the regular Normals), up to 4 found;
+    // ROUNDS_WANT_LOSS=n keeps a regular Normal search going until n such candidates (or ROUNDS_MAX_FOUND found, or the
+    // budget), for a wave whose greedy quota fails on what the bank holds
+    const wantLoss=+(process.env.ROUNDS_WANT_LOSS||1),maxFound=+(process.env.ROUNDS_MAX_FOUND||4);
+    const enough=()=>cls==='Normal'&&!intro&&!fixed?(process.env.ROUNDS_WANT_LOSS?foundLoss>=wantLoss||found>=maxFound:found>=4||(found>=2&&foundLoss>=1)):found>=2;
     for(let k=0;k<budgetN&&!enough();k++){tried++;const cols=fixed?3:columnsFor(m.N)[k%columnsFor(m.N).length];
      const pos=recipe==='none'||intro?null:DOSE_CYCLE[k%DOSE_CYCLE.length];
      const c=candidate(pic,board,base.pods,cols,recipe,cls,seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+all.indexOf(recipe)*131+(intro?17:0)+(v.overlay?(SIDES.indexOf(v.side)+1)*523:0),intro,pos,sceneOpts(pic,board,base.pods.length,cols,k));
