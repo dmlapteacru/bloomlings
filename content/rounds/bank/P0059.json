@@ -1,0 +1,23 @@
+{
+ "picture": "P0059",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|none|",
+   "tried": 32,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 32
+   }
+  },
+  {
+   "combo": "Normal|hidden|",
+   "tried": 32,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 32
+   }
+  }
+ ]
+}
