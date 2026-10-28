@@ -1,0 +1,599 @@
+{
+ "created": "2026-10-28T22:22:21.305Z",
+ "side": "right",
+ "kind": "better",
+ "cls": "Hard",
+ "recipes": [
+  "bridge+links"
+ ],
+ "level": 35,
+ "results": [
+  {
+   "source": "P0063",
+   "side": "right",
+   "kind": "better",
+   "cls": "Hard",
+   "recipe": "bridge+links",
+   "found": true,
+   "seconds": 65,
+   "tried": {
+    "scenes": 3,
+    "candidates": 27
+   },
+   "size": "32×30",
+   "N": 575,
+   "colours": 5,
+   "opts": {
+    "side": "right",
+    "x": "C",
+    "y": "M",
+    "w": "R",
+    "v": "G",
+    "z": ".",
+    "strip": 2,
+    "divider": 0,
+    "bedDepth": 2,
+    "bedBreadth": 3,
+    "bedDepthY": 3,
+    "bedBreadthY": 3,
+    "pad": 0,
+    "margin": 2,
+    "ground": "L",
+    "shield": 0,
+    "fill": true
+   },
+   "random": {
+    "share": 0.29,
+    "runs": 100,
+    "wilson95": [
+     0.21,
+     0.385
+    ],
+    "cls": "Hard"
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик вправо сверху",
+      "win": true,
+      "share": 0.27
+     },
+     {
+      "label": "Мостик вправо в центре",
+      "win": true,
+      "share": 0.08
+     }
+    ],
+    "gap": 0.19,
+    "better": 0
+   },
+   "bridgeKind": "better",
+   "bridgeSingle": {
+    "each": [
+     true,
+     true
+    ],
+    "offered": [
+     11,
+     8
+    ],
+    "ok": false
+   },
+   "bridgeLoss": null,
+   "forced": 0.09,
+   "opening": {
+    "first": {
+     "openings": 3,
+     "wins": 0
+    },
+    "three": {
+     "openings": 27,
+     "wins": 4,
+     "share": 0.15
+    },
+    "ok": true,
+    "strategies": [
+     "most-now"
+    ]
+   },
+   "pressure": {
+    "stuck": 1.8,
+    "tight": 0.79
+   },
+   "greedyLoses": true,
+   "pods": 18,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "solution": 18,
+   "level": {
+    "id": 1,
+    "title": "Вишенки",
+    "subject": "P0063",
+    "w": 36,
+    "h": 34,
+    "rowsBottomFirst": [
+     "##################.#################",
+     "#..................................#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLL############################",
+     "#.LLLLLL#MM..............RRRRR...###",
+     "#.LLLLLL#MM....RRRR....RRRRRRRR..###",
+     "#.LLLLLL#MM..RRRRRRRR..RRRRRRRRR.###",
+     "#.LLLLLL#MM.RRRRRRRRRRRRRRRRRRRRR###",
+     "#.LLLLLL#MM.RRRRRRRRRRRRRRRRRRRRR###",
+     "#.LLLLCC#MM.RRRRRRRRRRRRRRRRRRRRR###",
+     "#.LLLLCC#MMRRRRRRRRRRRRRCCRRRRRRR###",
+     "#.LLLLCC#MMRRRCCRRRRRRRRCCCRRRRRR###",
+     "#.LLLLLL#MM.RRCCRRRRRRRRRCRRRRRR.###",
+     "#.LLLLLL#MM.RRCCRRRRRR.RRRRRRRRR.###",
+     "#.LLLLLL#MM..RRRRRRRRR..RRRRRR...###",
+     "#.LLLLLL#MM...RRRRRRR.....MM.....###",
+     "#.LLLLLL###.....RRM......MM......###",
+     "#.LLLLLL###.......MM.....MM......###",
+     "#.LLLLLL#GG.......MMM....MM......###",
+     "#.LLLLLL#GG........MM...MM.......###",
+     "#.LLLLLL#GG........MMM..MM.......###",
+     "#.LLLRRR#GG.........MM..MM.......###",
+     "#.LLLRRR#GG.........MMMMM........###",
+     "#.LLLRRR#GG..........MMMM........###",
+     "#.LLLLLL#GG..........MMMM........###",
+     "#.LLLLLL#GG...........MMMMGGG....###",
+     "#.LLLLLL#GG...........MMGGMMMG...###",
+     "#.LLLLLL#GG..............GGGMMM..###",
+     "#.LLLLLL#GG...............GGGGGG.###",
+     "#.LLLLLL############################",
+     "#.......##########################.#",
+     "####################################"
+    ],
+    "entries": [
+     18
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "L",
+      "count": 35
+     },
+     {
+      "color": "L",
+      "count": 35
+     },
+     {
+      "color": "L",
+      "count": 35,
+      "group": "A"
+     },
+     {
+      "color": "L",
+      "count": 35
+     },
+     {
+      "color": "L",
+      "count": 35
+     },
+     {
+      "color": "L",
+      "count": 34
+     },
+     {
+      "color": "L",
+      "count": 34
+     },
+     {
+      "color": "G",
+      "count": 19
+     },
+     {
+      "color": "G",
+      "count": 18
+     },
+     {
+      "color": "M",
+      "count": 26
+     },
+     {
+      "color": "M",
+      "count": 25
+     },
+     {
+      "color": "M",
+      "count": 25
+     },
+     {
+      "color": "R",
+      "count": 41
+     },
+     {
+      "color": "R",
+      "count": 40
+     },
+     {
+      "color": "R",
+      "count": 40
+     },
+     {
+      "color": "R",
+      "count": 40,
+      "group": "A"
+     },
+     {
+      "color": "R",
+      "count": 40
+     },
+     {
+      "color": "C",
+      "count": 18
+     }
+    ],
+    "tray": [
+     [
+      13,
+      1,
+      5,
+      7,
+      17,
+      12
+     ],
+     [
+      3,
+      4,
+      11,
+      8,
+      2,
+      9
+     ],
+     [
+      10,
+      6,
+      14,
+      0,
+      15,
+      16
+     ]
+    ],
+    "recipe": "bridge+links",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 872,
+       "anchor": 871,
+       "label": "Мостик вправо сверху",
+       "dir": "right"
+      },
+      {
+       "cell": 440,
+       "anchor": 439,
+       "label": "Мостик вправо в центре",
+       "dir": "right"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "source": "P0029",
+   "side": "right",
+   "kind": "better",
+   "cls": "Hard",
+   "found": false,
+   "tried": {
+    "scenes": 6,
+    "candidates": 72,
+    "reasons": {
+     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 10,
+     "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 7,
+     "вне этапа Ln: n кл., n цв. (n–n)": 13,
+     "полоса E сливается с картинкой рядом (E, ΔE n.n < n)": 4,
+     "дозы не подходят фактическому классу: связанных 4 вне 2–2 для Normal": 1,
+     "не тот класс по быстрой оценке q≈1": 7,
+     "мост: выигрывают не оба (план better)": 16,
+     "не тот класс по быстрой оценке q≈0": 27,
+     "не тот класс по быстрой оценке q≈0.1": 3,
+     "вынужденных решений больше 35 % (§5)": 2,
+     "дозы не подходят фактическому классу: очередь меньше 16 подов — только один тип": 2,
+     "не тот класс по быстрой оценке q≈0.7": 6,
+     "не тот класс по быстрой оценке q≈0.8": 2,
+     "жадная стратегия выигрывает (§5)": 3,
+     "не тот класс по быстрой оценке q≈0.9": 3
+    }
+   },
+   "seconds": 76
+  },
+  {
+   "source": "P0079",
+   "side": "right",
+   "kind": "better",
+   "cls": "Hard",
+   "found": false,
+   "tried": {
+    "scenes": 8,
+    "candidates": 96,
+    "reasons": {
+     "вне этапа Ln: n кл., n цв. (n–n)": 8,
+     "полоса C сливается с картинкой рядом (Y, ΔE n.n < n)": 9,
+     "жадная стратегия выигрывает (§5)": 9,
+     "не тот класс по быстрой оценке q≈0": 39,
+     "мост: выигрывают не оба (план better)": 20,
+     "дебют + цвета: выигрывает после первого запуска (§5)": 4,
+     "не тот класс по быстрой оценке q≈0.1": 6,
+     "полоса Y сливается с картинкой рядом (Y, ΔE n.n < n)": 15,
+     "ниже 5 %": 2,
+     "дозы не подходят фактическому классу: связанных 2 вне 4–4 для Super Hard": 2,
+     "не тот класс по быстрой оценке q≈1": 3,
+     "не тот класс по быстрой оценке q≈0.7": 5,
+     "не тот класс по быстрой оценке q≈0.8": 3,
+     "не тот класс по быстрой оценке q≈0.9": 1,
+     "класс по случайному тесту Normal": 1,
+     "мост: ни «решает ровно один мост», ни «оба выигрывают, один лучше на 10 пунктов» (§8)": 1
+    }
+   },
+   "seconds": 273
+  },
+  {
+   "source": "P0045",
+   "side": "right",
+   "kind": "better",
+   "cls": "Hard",
+   "recipe": "bridge+links",
+   "found": true,
+   "seconds": 51,
+   "tried": {
+    "scenes": 1,
+    "candidates": 6
+   },
+   "size": "31×26",
+   "N": 571,
+   "colours": 5,
+   "opts": {
+    "side": "right",
+    "x": "E",
+    "y": "O",
+    "w": "Y",
+    "v": "A",
+    "z": ".",
+    "strip": 2,
+    "divider": 2,
+    "bedDepth": 4,
+    "bedBreadth": 5,
+    "bedDepthY": 3,
+    "bedBreadthY": 9,
+    "pad": 0,
+    "margin": 1,
+    "ground": "L",
+    "shield": 0,
+    "fill": true
+   },
+   "random": {
+    "share": 0.365,
+    "runs": 400,
+    "wilson95": [
+     0.319,
+     0.413
+    ],
+    "cls": "Hard"
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик вправо сверху",
+      "win": true,
+      "share": 0
+     },
+     {
+      "label": "Мостик вправо снизу",
+      "win": true,
+      "share": 0.98
+     }
+    ],
+    "gap": 0.98,
+    "better": 1
+   },
+   "bridgeKind": "better",
+   "bridgeSingle": {
+    "each": [
+     true,
+     true
+    ],
+    "offered": [
+     30,
+     27
+    ],
+    "ok": false
+   },
+   "bridgeLoss": null,
+   "forced": 0.3,
+   "opening": {
+    "first": {
+     "openings": 3,
+     "wins": 0
+    },
+    "three": {
+     "openings": 15,
+     "wins": 2,
+     "share": 0.13
+    },
+    "ok": true,
+    "strategies": [
+     "most-now"
+    ]
+   },
+   "pressure": {
+    "stuck": 1.45,
+    "tight": 0.88
+   },
+   "greedyLoses": true,
+   "pods": 18,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "solution": 18,
+   "level": {
+    "id": 1,
+    "title": "Печенье с шоколадом",
+    "subject": "P0045",
+    "w": 35,
+    "h": 30,
+    "rowsBottomFirst": [
+     "#################.#################",
+     "#.................................#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+     "#.LLLLLL###########################",
+     "#.LLLLLL#OO........AAAAA........###",
+     "#.LLLLLL#OO.....AAAAAAAAAAA.....###",
+     "#.LLLLLL#OO....AOOOOOOOOOAAA....###",
+     "#.LLEEEE#OO...OOOOOOOOOOOOAAA...###",
+     "#.LLEEEE#OO..OOOOEEOOOOOEEOOAA..###",
+     "#.LLEEEE#OO.YOOOOEEOOOOOEEOOOAA.###",
+     "#.LLEEEE#OO.OOOOOOOOOOOOOOOOOAA.###",
+     "#.LLEEEE#OOYOOOOOOOOOOOEEOOOOOAA###",
+     "#.LLLLLL#OOYOOOOOEEOOOOEEOOOOOAA###",
+     "#.LLLLLL#OOYOOEEOEEOOOOOOOEEOOOA###",
+     "#.LLLLLL#####OEEOOOOEEOOOOEEOOOA###",
+     "#.LLLLLL#####OOOOOOOEEOOOOOOAAAA###",
+     "#.LLLYYY#AAYOOOOOOOOOOOOOOOAA...###",
+     "#.LLLYYY#AAYOEEOOOOOOOOOOOOA....###",
+     "#.LLLYYY#AAYYEEOOOOOOOOOOOA.....###",
+     "#.LLLYYY#AA.YOOOOOOOOEEOOOA.....###",
+     "#.LLLYYY#AA.YYOOEEOOOEEOOAA.....###",
+     "#.LLLYYY#AA..YYOEEOOOOOOA.......###",
+     "#.LLLYYY#AA...YYOOOOOOOA........###",
+     "#.LLLYYY#AA....YYYOOOOOA........###",
+     "#.LLLYYY#AA.....YYYYYOOA........###",
+     "#.LLLLLL#AA........YYYYA........###",
+     "#.LLLLLL###########################",
+     "#.......#########################.#",
+     "###################################"
+    ],
+    "entries": [
+     17
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "L",
+      "count": 40
+     },
+     {
+      "color": "L",
+      "count": 40
+     },
+     {
+      "color": "L",
+      "count": 40
+     },
+     {
+      "color": "L",
+      "count": 39
+     },
+     {
+      "color": "A",
+      "count": 24
+     },
+     {
+      "color": "A",
+      "count": 24
+     },
+     {
+      "color": "A",
+      "count": 23
+     },
+     {
+      "color": "Y",
+      "count": 27
+     },
+     {
+      "color": "Y",
+      "count": 27
+     },
+     {
+      "color": "O",
+      "count": 38
+     },
+     {
+      "color": "O",
+      "count": 38,
+      "group": "A"
+     },
+     {
+      "color": "O",
+      "count": 38
+     },
+     {
+      "color": "O",
+      "count": 38
+     },
+     {
+      "color": "O",
+      "count": 38
+     },
+     {
+      "color": "O",
+      "count": 37
+     },
+     {
+      "color": "E",
+      "count": 20,
+      "group": "A"
+     },
+     {
+      "color": "E",
+      "count": 20
+     },
+     {
+      "color": "E",
+      "count": 20
+     }
+    ],
+    "tray": [
+     [
+      1,
+      10,
+      12,
+      5,
+      9,
+      17
+     ],
+     [
+      2,
+      15,
+      4,
+      16,
+      8,
+      6
+     ],
+     [
+      3,
+      0,
+      7,
+      14,
+      11,
+      13
+     ]
+    ],
+    "recipe": "bridge+links",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 743,
+       "anchor": 742,
+       "label": "Мостик вправо сверху",
+       "dir": "right"
+      },
+      {
+       "cell": 358,
+       "anchor": 357,
+       "label": "Мостик вправо снизу",
+       "dir": "right"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
