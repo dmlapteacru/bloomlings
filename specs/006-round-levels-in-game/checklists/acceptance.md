@@ -14,7 +14,7 @@ Run on 2026-10-28 on `claude/great-darwin-6qrpj8` (after the Unity merge ef828ca
 | `rounds validate` | 20 levels, 20 pictures, 0 errors, 0 warnings |
 | `dotnet run --project playtest/check` | ALL OK (every round solution played frame by frame at ×1, ×2 and uneven frames, ending on the rules' state) |
 | `playtest/preview -- --rounds` | all checks pass (run by the level-screen stream; frames `rounds-*.png`) |
-| `android-apk.yml` (manual) | full playtest APK built (run 40615801583); tester APK: see T055 |
+| `android-apk.yml` (manual) | full playtest APK built (run 40615801583), tester APK built (run 40618676898) |
 
 ## Success criteria
 
