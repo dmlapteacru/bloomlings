@@ -397,7 +397,7 @@ that fails an entry check (SC-006).
 **Independent Test**: the `DotnetCheck` engine-free tests play L1–L20 from published content. On a device build the
 owner sees the same behaviour as in the playtest.
 
-- [ ] T057 [P] [US5] Extend `client/DotnetCheck` (and `client/DotnetCheck/UnityStubs.cs` as needed) with tests that
+- [X] T057 [P] [US5] Extend `client/DotnetCheck` (and `client/DotnetCheck/UnityStubs.cs` as needed) with tests that
   play every round level's saved solution through the client's engine-free services to a win.
 - [ ] T058 [US5] Move `client/Assets/Bloomlings/Gameplay/GameplayController.cs` and
   `Gameplay/Timeline/EventTimeline.cs` / `TimelinePlayer.cs` to `RoundTimeline` and `RoundAnimator`, with model time
@@ -406,7 +406,7 @@ owner sees the same behaviour as in the playtest.
   `PodView.cs`, `Gameplay/Slots/SlotRowView.cs`, `Gameplay/Workers/WorkerPool.cs`, `BloomlingFigure.cs` and
   `Gameplay/Effects/ClearFxView.cs` per `contracts/presentation.md`: frame, cubes without icons, symbols mode, link
   tubes, walkers as tinted family heroes, introduction cards, reveal glow.
-- [ ] T060 [US5] Make the Unity client load published round packs (`client/Assets/Bloomlings/Services/`), keep Daily
+- [X] T060 [US5] Make the Unity client load published round packs (`client/Assets/Bloomlings/Services/`), keep Daily
   off, and show "new levels soon" after the last level. Build with the manual `unity-apk.yml` for the owner's check.
 
 ---
