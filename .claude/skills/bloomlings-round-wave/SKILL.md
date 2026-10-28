@@ -63,6 +63,8 @@ Before anything, read:
      preference by running `rounds.mjs run` again (no rebuild needed).
    - Copy the owner's notes into the log `content/rounds/owner-notes.md` with what each one leads to.
    - A layer B bound becomes `"mode": "hard"` after two samples in a row confirm it.
+   - When the owner confirms the wave, move it into the game with the skill `bloomlings-round-transfer` (it starts
+     with `rounds.mjs confirm`).
 6. **Drift.** Every 100 levels, compare the summaries of the waves: class shares, Normal median, doses and recipes,
    sizes, families and motifs, durations, open positions. Report any sharp shift to the owner before the next wave.
 
