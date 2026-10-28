@@ -1,0 +1,186 @@
+{
+  "format": "bloomlings-round-golden-1",
+  "name": "l0006-hidden",
+  "description": "L6, the introduction of hidden pods: the saved solution; hidden pods reveal on reaching the top.",
+  "source": "content/rounds/levels/L0006.json",
+  "number": 6,
+  "definition": {
+    "w": 42,
+    "h": 42,
+    "rowsBottomFirst": [
+      "#####################.####################",
+      "#........................................#",
+      "#.............YOOOOOOOOOOOOY.............#",
+      "#...........YYOOOOOOOOOOOOOOYY...........#",
+      "#...........YYYYYYYYYYYYYYYYYY...........#",
+      "#............YYYYYYYYYYYYYYYY............#",
+      "#................YYYYYYYY................#",
+      "#..................AAAA..................#",
+      "#..................AAAA..................#",
+      "#..............YYYYOOOOOOOO..............#",
+      "#...........YYYOOOOOOOOOOOOOOO...........#",
+      "#..........YYYOOOOOOOOOOOOOOOOO..........#",
+      "#.........YYYYOOOOOOOOOOOOOOOOOOYY.......#",
+      "#........YYYYYYOOOOOOOOOOOOOOOOOOYOOO....#",
+      "#......YYYYYYYYYYYOOOOOOOOOOOOYYYYOOOO...#",
+      "#.....YYYYYYYYYYYYYYYYYYYYYYYYYYYY.OOOO..#",
+      "#....YYYYYYYYYYYYYYYYYYYYYYYYYYYYY..OOO..#",
+      "#....YYYYYCCCCCCCCCCCCCYYYYYYYYYY....OOO.#",
+      "#...YYYYYYYCCCCCCCCCCCCYYYYYYYYYY....OOO.#",
+      "#...YYYYYYYYYYYYYYYYYYYYYYYYYYYY.....OOO.#",
+      "#..YYYYYYY..YYYYYYYYYYYYYYYYYY.......OOO.#",
+      "#..YYYYY......AAAAAAAAAAAAAAY.......OOO..#",
+      "#.YYYYY......AAYYYYYYYYYYYYAAY.....OOOO..#",
+      "#.YYYY........YYYYYYYYYYYYYYYYYYYYOOOO...#",
+      "#.YYY.............YYYYYY.....YYYYYOOO....#",
+      "#..BB..............YYYY.........Y........#",
+      "#..BB..............YYYY..................#",
+      "#...BB..............YY...................#",
+      "#...BB...................................#",
+      "#...BBB..................................#",
+      "#....BBB.................................#",
+      "#...BBBBBB...............................#",
+      "#...BBB..................................#",
+      "#..BB....................................#",
+      "#..BB....................................#",
+      "#..BBB...................................#",
+      "#..BBBBBBBB..............................#",
+      "#...BBBBB................................#",
+      "#...BB...................................#",
+      "#...BB...................................#",
+      "#........................................#",
+      "##########################################"
+    ],
+    "entries": [
+      21
+    ],
+    "capacity": 5,
+    "pods": [
+      {
+        "color": "B",
+        "count": 24
+      },
+      {
+        "color": "B",
+        "count": 23
+      },
+      {
+        "color": "Y",
+        "count": 38,
+        "mystery": "depth"
+      },
+      {
+        "color": "Y",
+        "count": 38
+      },
+      {
+        "color": "Y",
+        "count": 38
+      },
+      {
+        "color": "Y",
+        "count": 38
+      },
+      {
+        "color": "Y",
+        "count": 38
+      },
+      {
+        "color": "Y",
+        "count": 37
+      },
+      {
+        "color": "Y",
+        "count": 37
+      },
+      {
+        "color": "Y",
+        "count": 37
+      },
+      {
+        "color": "O",
+        "count": 39
+      },
+      {
+        "color": "O",
+        "count": 39
+      },
+      {
+        "color": "O",
+        "count": 38
+      },
+      {
+        "color": "O",
+        "count": 38
+      },
+      {
+        "color": "A",
+        "count": 13,
+        "mystery": "depth"
+      },
+      {
+        "color": "A",
+        "count": 13
+      },
+      {
+        "color": "C",
+        "count": 13,
+        "mystery": "depth"
+      },
+      {
+        "color": "C",
+        "count": 12
+      }
+    ],
+    "tray": [
+      [
+        0,
+        2,
+        12,
+        5,
+        16,
+        17
+      ],
+      [
+        3,
+        10,
+        4,
+        6,
+        7,
+        8
+      ],
+      [
+        11,
+        14,
+        1,
+        15,
+        13,
+        9
+      ]
+    ]
+  },
+  "commands": [
+    "tap pod=0 at=0",
+    "tap pod=2 at=18200000",
+    "tap pod=12 at=30625000",
+    "tap pod=5 at=42525000",
+    "tap pod=16 at=57000000",
+    "tap pod=17 at=57000000",
+    "tap pod=3 at=57000000",
+    "tap pod=10 at=101725000",
+    "tap pod=4 at=114300000",
+    "tap pod=6 at=127325000",
+    "tap pod=7 at=141225000",
+    "tap pod=8 at=156100000",
+    "tap pod=11 at=171850000",
+    "tap pod=14 at=186175000",
+    "tap pod=1 at=193300000",
+    "tap pod=15 at=211700000",
+    "tap pod=13 at=220925000",
+    "tap pod=9 at=238725000"
+  ],
+  "expectedStatus": "Won",
+  "expectedEndUs": 255700000,
+  "expectedSignatureSha256": "sha256:337ac254e0ccc3966bd9d4a81dd04a4890a39e470d6de895a10ea3e682124dc8",
+  "expectedEventsSha256": "sha256:3b5a554f6844bf2fdf6734a9178ba2ec6e9c8625579a2b79b9c7cf82e9c067bd"
+}

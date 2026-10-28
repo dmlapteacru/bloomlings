@@ -5,7 +5,7 @@ using System.Globalization;
 namespace Bloomlings.Core.Rounds
 {
     /// <summary>The kinds of recorded round commands: the two player actions and the four boosters.</summary>
-    public enum RoundCommandType
+    public enum RoundInputType
     {
         Tap,
         Bridge,
@@ -20,9 +20,9 @@ namespace Bloomlings.Core.Rounds
     /// text is <c>tap pod=3 at=0</c>, <c>bridge choice=1 at=…</c>, <c>extra-slot at=…</c>, <c>return pod=4 at=…</c>,
     /// <c>shuffle at=…</c> or <c>burst code=G at=…</c>.
     /// </summary>
-    public readonly struct RoundCommand
+    public readonly struct RoundInput
     {
-        private RoundCommand(RoundCommandType type, long atUs, int value = -1, char code = '\0')
+        private RoundInput(RoundInputType type, long atUs, int value = -1, char code = '\0')
         {
             Type = type;
             AtUs = atUs;
@@ -30,7 +30,7 @@ namespace Bloomlings.Core.Rounds
             Code = code;
         }
 
-        public RoundCommandType Type { get; }
+        public RoundInputType Type { get; }
 
         public long AtUs { get; }
 
@@ -40,24 +40,24 @@ namespace Bloomlings.Core.Rounds
         /// <summary>The material of a Bloom Burst.</summary>
         public char Code { get; }
 
-        public static RoundCommand Tap(int pod, long atUs) => new RoundCommand(RoundCommandType.Tap, atUs, pod);
+        public static RoundInput Tap(int pod, long atUs) => new RoundInput(RoundInputType.Tap, atUs, pod);
 
-        public static RoundCommand Bridge(int choice, long atUs) => new RoundCommand(RoundCommandType.Bridge, atUs, choice);
+        public static RoundInput Bridge(int choice, long atUs) => new RoundInput(RoundInputType.Bridge, atUs, choice);
 
-        public static RoundCommand ExtraSlot(long atUs) => new RoundCommand(RoundCommandType.ExtraSlot, atUs);
+        public static RoundInput ExtraSlot(long atUs) => new RoundInput(RoundInputType.ExtraSlot, atUs);
 
-        public static RoundCommand Return(int pod, long atUs) => new RoundCommand(RoundCommandType.Return, atUs, pod);
+        public static RoundInput Return(int pod, long atUs) => new RoundInput(RoundInputType.Return, atUs, pod);
 
-        public static RoundCommand Shuffle(long atUs) => new RoundCommand(RoundCommandType.Shuffle, atUs);
+        public static RoundInput Shuffle(long atUs) => new RoundInput(RoundInputType.Shuffle, atUs);
 
-        public static RoundCommand BloomBurst(char code, long atUs) => new RoundCommand(RoundCommandType.BloomBurst, atUs, code: code);
+        public static RoundInput BloomBurst(char code, long atUs) => new RoundInput(RoundInputType.BloomBurst, atUs, code: code);
 
         /// <summary>The command of a player action at a time.</summary>
-        public static RoundCommand Of(RoundAction action, long atUs) =>
+        public static RoundInput Of(RoundAction action, long atUs) =>
             action.Type == RoundActionType.Tap ? Tap(action.Pod, atUs) : Bridge(action.Choice, atUs);
 
         /// <summary>The same command at another time.</summary>
-        public RoundCommand At(long atUs) => new RoundCommand(Type, atUs, Value, Code);
+        public RoundInput At(long atUs) => new RoundInput(Type, atUs, Value, Code);
 
         public override string ToString()
         {
@@ -65,17 +65,17 @@ namespace Bloomlings.Core.Rounds
             string value = Value.ToString(CultureInfo.InvariantCulture);
             return Type switch
             {
-                RoundCommandType.Tap => "tap pod=" + value + at,
-                RoundCommandType.Bridge => "bridge choice=" + value + at,
-                RoundCommandType.ExtraSlot => "extra-slot" + at,
-                RoundCommandType.Return => "return pod=" + value + at,
-                RoundCommandType.Shuffle => "shuffle" + at,
+                RoundInputType.Tap => "tap pod=" + value + at,
+                RoundInputType.Bridge => "bridge choice=" + value + at,
+                RoundInputType.ExtraSlot => "extra-slot" + at,
+                RoundInputType.Return => "return pod=" + value + at,
+                RoundInputType.Shuffle => "shuffle" + at,
                 _ => "burst code=" + Code + at,
             };
         }
 
         /// <summary>Parses the text written by <see cref="ToString"/>.</summary>
-        public static RoundCommand Parse(string text)
+        public static RoundInput Parse(string text)
         {
             if (text == null)
             {
@@ -127,10 +127,14 @@ namespace Bloomlings.Core.Rounds
     }
 
     /// <summary>
-    /// Replays recorded commands on a <see cref="RoundTimeline"/> on one running clock, as the reference's trace
-    /// (<c>level-stats/trace.mjs run</c>): the timeline's model time stands still while nothing is pending, so the time
-    /// that passes then is kept apart in <see cref="IdleUs"/>, and <see cref="ClockUs"/> = model time + idle is the clock
-    /// the commands were recorded on. With an <see cref="RoundEventLog"/> it collects the canonical log.
+    /// Replays recorded commands on a <see cref="RoundTimeline"/>. The timeline's model time stands still while nothing
+    /// is pending, as in the reference, which gives two clocks a recording may use:
+    /// - the timeline's own clock (the default; the conformance fixtures and the pilot's <c>modelTimeMs</c>): a command
+    ///   given while nothing is pending commits at the time of the last processed step;
+    /// - a running clock (<c>idleClock: true</c>, the reference's trace, <c>level-stats/trace.mjs run</c>): the time that
+    ///   passes while nothing is pending is kept apart in <see cref="IdleUs"/>, and <see cref="ClockUs"/> = model time +
+    ///   idle.
+    /// With an <see cref="RoundEventLog"/> it collects the canonical log.
     /// </summary>
     public sealed class RoundReplay
     {
@@ -139,20 +143,24 @@ namespace Bloomlings.Core.Rounds
 
         public const long WaitChunkUs = 100_000;
 
-        public RoundReplay(RoundTimeline timeline, RoundEventLog? log = null)
+        public RoundReplay(RoundTimeline timeline, RoundEventLog? log = null, bool idleClock = false)
         {
             Timeline = timeline ?? throw new ArgumentNullException(nameof(timeline));
             Log = log;
+            IdleClock = idleClock;
         }
+
+        /// <summary>Whether time passing while nothing is pending counts on the recording clock (<see cref="IdleUs"/>).</summary>
+        public bool IdleClock { get; }
 
         public RoundTimeline Timeline { get; }
 
         public RoundEventLog? Log { get; }
 
-        /// <summary>Time that passed while nothing was pending, in µs.</summary>
+        /// <summary>Time that passed while nothing was pending, in µs (always 0 without <see cref="IdleClock"/>).</summary>
         public long IdleUs { get; private set; }
 
-        /// <summary>The recording clock: model time plus idle time.</summary>
+        /// <summary>The recording clock: model time plus idle time (just model time without <see cref="IdleClock"/>).</summary>
         public long ClockUs => Timeline.Now + IdleUs;
 
         /// <summary>The clock time of the next scheduled step (only while something is pending).</summary>
@@ -160,7 +168,8 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>
         /// Moves the clock to <paramref name="clockUs"/> (reference trace <c>advanceTo</c>): every step due by then runs,
-        /// one step's moment at a time; the rest of the time advances the timeline while work is pending, else it is idle.
+        /// one step's moment at a time; the rest of the time advances the timeline while work is pending, else it is idle time
+        /// (counted only with <see cref="IdleClock"/>).
         /// </summary>
         public void AdvanceTo(long clockUs)
         {
@@ -178,7 +187,7 @@ namespace Bloomlings.Core.Rounds
                     t.Advance(clockUs - ClockUs);
                     Log?.Add(t.LastEvents);
                 }
-                else
+                else if (IdleClock)
                 {
                     IdleUs += clockUs - ClockUs;
                 }
@@ -195,12 +204,12 @@ namespace Bloomlings.Core.Rounds
         }
 
         /// <summary>
-        /// Executes a recorded command at its time: the clock moves to <see cref="RoundCommand.AtUs"/> first (never back).
+        /// Executes a recorded command at its time: the clock moves to <see cref="RoundInput.AtUs"/> first (never back).
         /// With <paramref name="patient"/>, all work settles first (the reference's saved-solution replay). With
         /// <paramref name="waitUntilAccepted"/>, a refused player action waits in 100 ms chunks while work is pending, as
         /// the reference's trace does for recorded taps.
         /// </summary>
-        public RoundCommitResult Execute(RoundCommand command, bool patient = false, bool waitUntilAccepted = false)
+        public RoundCommitResult Execute(RoundInput command, bool patient = false, bool waitUntilAccepted = false)
         {
             if (command.AtUs > ClockUs)
             {
@@ -212,9 +221,9 @@ namespace Bloomlings.Core.Rounds
                 Finish();
             }
 
-            if (waitUntilAccepted && (command.Type == RoundCommandType.Tap || command.Type == RoundCommandType.Bridge))
+            if (waitUntilAccepted && (command.Type == RoundInputType.Tap || command.Type == RoundInputType.Bridge))
             {
-                RoundAction action = command.Type == RoundCommandType.Tap ? RoundAction.Tap(command.Value) : RoundAction.BuildBridge(command.Value);
+                RoundAction action = command.Type == RoundInputType.Tap ? RoundAction.Tap(command.Value) : RoundAction.BuildBridge(command.Value);
                 for (int guard = 0; guard < WaitGuard && Timeline.Check(action) != RoundRefusal.None && Timeline.Pending; guard++)
                 {
                     AdvanceTo(Math.Min(NextAtUs, ClockUs + WaitChunkUs));
@@ -231,13 +240,13 @@ namespace Bloomlings.Core.Rounds
         }
 
         /// <summary>Applies a command at the timeline's current model time (no clock movement).</summary>
-        public static RoundCommitResult Apply(RoundTimeline timeline, RoundCommand command) => command.Type switch
+        public static RoundCommitResult Apply(RoundTimeline timeline, RoundInput command) => command.Type switch
         {
-            RoundCommandType.Tap => timeline.Commit(RoundAction.Tap(command.Value)),
-            RoundCommandType.Bridge => timeline.Commit(RoundAction.BuildBridge(command.Value)),
-            RoundCommandType.ExtraSlot => RoundBoosters.ExtraSlot(timeline),
-            RoundCommandType.Return => RoundBoosters.Return(timeline, command.Value),
-            RoundCommandType.Shuffle => RoundBoosters.Shuffle(timeline),
+            RoundInputType.Tap => timeline.Commit(RoundAction.Tap(command.Value)),
+            RoundInputType.Bridge => timeline.Commit(RoundAction.BuildBridge(command.Value)),
+            RoundInputType.ExtraSlot => RoundBoosters.ExtraSlot(timeline),
+            RoundInputType.Return => RoundBoosters.Return(timeline, command.Value),
+            RoundInputType.Shuffle => RoundBoosters.Shuffle(timeline),
             _ => RoundBoosters.BloomBurst(timeline, command.Code),
         };
     }

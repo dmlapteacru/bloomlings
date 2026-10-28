@@ -72,9 +72,9 @@ namespace Bloomlings.Core.Rounds
     }
 
     /// <summary>The record of a random test: the games, wins, share, the 95 % Wilson interval and the class of the share.</summary>
-    public sealed class RoundRandomTest
+    public sealed class RoundRandomRun
     {
-        internal RoundRandomTest(long seedBase, IReadOnlyList<RoundRandomGame> games, int wins)
+        internal RoundRandomRun(long seedBase, IReadOnlyList<RoundRandomGame> games, int wins)
         {
             SeedBase = seedBase;
             Games = games;
@@ -174,7 +174,7 @@ namespace Bloomlings.Core.Rounds
         /// Plays a random test (reference <c>randomTest</c>): <paramref name="first"/> games, widened to
         /// <paramref name="max"/> in total when the Wilson interval crosses a class border.
         /// </summary>
-        public static RoundRandomTest Test(RoundLevel level, long seedBase = 1, int first = 100, int max = 400, RoundProfile? profile = null)
+        public static RoundRandomRun Test(RoundLevel level, long seedBase = 1, int first = 100, int max = 400, RoundProfile? profile = null)
         {
             var games = new List<RoundRandomGame>(max);
             int wins = 0;
@@ -198,7 +198,7 @@ namespace Bloomlings.Core.Rounds
                 PlayMore(max - first);
             }
 
-            return new RoundRandomTest(seedBase, games, wins);
+            return new RoundRandomRun(seedBase, games, wins);
         }
 
         /// <summary>The 95 % Wilson interval of <paramref name="wins"/> in <paramref name="runs"/> (reference <c>wilson</c>).</summary>

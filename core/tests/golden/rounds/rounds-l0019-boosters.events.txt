@@ -1,0 +1,2979 @@
+> tap pod=0 at=0
+0 commit pod=0 slot=0
+0 reveal pod=14 mode=depth
+0 depart id=1 pod=0 cell=87 arrive=650000 clear=750000 done=1150000 route=3
+> tap pod=14 at=0
+0 commit pod=14 slot=1
+250000 depart id=2 pod=0 cell=86 arrive=900000 clear=1000000 done=1400000 route=4
+> extra-slot at=400000
+400000 extra-slot slot=5
+> tap pod=4 at=400000
+400000 commit pod=4 slot=2
+400000 depart id=3 pod=4 cell=88 arrive=1050000 clear=1150000 done=1550000 route=4
+> tap pod=12 at=400000
+400000 commit pod=12 slot=3
+500000 depart id=4 pod=0 cell=85 arrive=1150000 clear=1250000 done=1650000 route=5
+650000 arrive id=1
+650000 depart id=5 pod=4 cell=89 arrive=1300000 clear=1400000 done=1800000 route=5
+750000 clear id=1 cell=87
+750000 depart id=6 pod=0 cell=84 arrive=1400000 clear=1500000 done=1900000 route=6
+900000 arrive id=2
+900000 depart id=7 pod=4 cell=90 arrive=1550000 clear=1650000 done=2050000 route=6
+1000000 clear id=2 cell=86
+1000000 depart id=8 pod=0 cell=83 arrive=1650000 clear=1750000 done=2200000 route=7
+1050000 arrive id=3
+1150000 clear id=3 cell=88
+1150000 arrive id=4
+1150000 return id=1
+1150000 depart id=9 pod=4 cell=91 arrive=1800000 clear=1900000 done=2350000 route=7
+1250000 clear id=4 cell=85
+1250000 depart id=10 pod=0 cell=82 arrive=1950000 clear=2050000 done=2575000 route=8
+1300000 arrive id=5
+1400000 clear id=5 cell=89
+1400000 arrive id=6
+1400000 return id=2
+1400000 depart id=11 pod=4 cell=92 arrive=2100000 clear=2200000 done=2725000 route=8
+> shuffle at=1400000
+1400000 shuffle changed=1
+> tap pod=2 at=1400000
+1400000 commit pod=2 slot=4
+1400000 depart id=12 pod=2 cell=81 arrive=2200000 clear=2300000 done=2900000 route=9
+> return pod=14 at=1400000
+1400000 recall pod=14 slot=1 column=0
+1500000 clear id=6 cell=84
+1500000 depart id=13 pod=0 cell=93 arrive=2300000 clear=2400000 done=3000000 route=9
+1550000 arrive id=7
+1550000 return id=3
+1650000 clear id=7 cell=90
+1650000 arrive id=8
+1650000 return id=4
+1650000 depart id=14 pod=4 cell=80 arrive=2550000 clear=2650000 done=3325000 route=10
+1650000 depart id=15 pod=2 cell=94 arrive=2550000 clear=2650000 done=3325000 route=10
+1750000 clear id=8 cell=83
+1750000 depart id=16 pod=0 cell=79 arrive=2750000 clear=2850000 done=3600000 route=11
+1800000 arrive id=9
+1800000 return id=5
+1900000 clear id=9 cell=91
+1900000 return id=6
+1900000 depart id=17 pod=4 cell=95 arrive=2900000 clear=3000000 done=3750000 route=11
+1900000 depart id=18 pod=2 cell=78 arrive=3000000 clear=3100000 done=3925000 route=12
+1950000 arrive id=10
+2000000 depart id=19 pod=0 cell=96 arrive=3100000 clear=3200000 done=4025000 route=12
+2050000 clear id=10 cell=82
+2050000 return id=7
+2100000 arrive id=11
+2150000 depart id=20 pod=4 cell=77 arrive=3350000 clear=3450000 done=4350000 route=13
+2150000 depart id=21 pod=2 cell=97 arrive=3350000 clear=3450000 done=4350000 route=13
+2200000 clear id=11 cell=92
+2200000 arrive id=12
+2200000 return id=8
+2250000 depart id=22 pod=0 cell=76 arrive=3550000 clear=3650000 done=4625000 route=14
+2300000 clear id=12 cell=81
+2300000 arrive id=13
+2350000 return id=9
+2400000 clear id=13 cell=93
+2400000 depart id=23 pod=4 cell=98 arrive=3700000 clear=3800000 done=4775000 route=14
+2400000 depart id=24 pod=2 cell=75 arrive=3800000 clear=3900000 done=4950000 route=15
+2500000 depart id=25 pod=0 cell=99 arrive=3900000 clear=4000000 done=5050000 route=15
+2550000 arrive id=14
+2550000 arrive id=15
+2575000 return id=10
+2650000 clear id=14 cell=80
+2650000 clear id=15 cell=94
+2650000 depart id=26 pod=4 cell=74 arrive=4150000 clear=4250000 done=5375000 route=16
+2650000 depart id=27 pod=2 cell=100 arrive=4150000 clear=4250000 done=5375000 route=16
+2725000 return id=11
+2750000 arrive id=16
+2750000 depart id=28 pod=0 cell=73 arrive=4350000 clear=4450000 done=5650000 route=17
+2850000 clear id=16 cell=79
+2900000 arrive id=17
+2900000 return id=12
+2900000 depart id=29 pod=4 cell=101 arrive=4500000 clear=4600000 done=5800000 route=17
+2900000 depart id=30 pod=2 cell=72 arrive=4600000 clear=4700000 done=5975000 route=18
+3000000 clear id=17 cell=95
+3000000 arrive id=18
+3000000 return id=13
+3000000 depart id=31 pod=0 cell=102 arrive=4700000 clear=4800000 done=6075000 route=18
+3100000 clear id=18 cell=78
+3100000 arrive id=19
+3150000 depart id=32 pod=4 cell=137 arrive=5150000 clear=5250000 done=6750000 route=21
+3150000 depart id=33 pod=2 cell=172 arrive=5250000 clear=5350000 done=6925000 route=22
+3200000 clear id=19 cell=96
+3250000 depart id=34 pod=0 cell=207 arrive=5450000 clear=5550000 done=7200000 route=23
+3325000 return id=14
+3325000 return id=15
+3350000 arrive id=20
+3350000 arrive id=21
+3400000 depart id=35 pod=4 cell=212 arrive=5700000 clear=5800000 done=7525000 route=24
+3400000 depart id=36 pod=2 cell=242 arrive=5700000 clear=5800000 done=7525000 route=24
+3450000 clear id=20 cell=77
+3450000 clear id=21 cell=97
+3500000 depart id=37 pod=0 cell=247 arrive=5900000 clear=6000000 done=7800000 route=25
+3550000 arrive id=22
+3600000 return id=16
+3650000 clear id=22 cell=76
+3650000 depart id=38 pod=4 cell=277 arrive=6050000 clear=6150000 done=7950000 route=25
+3650000 depart id=39 pod=2 cell=282 arrive=6150000 clear=6250000 done=8125000 route=26
+3700000 arrive id=23
+3750000 return id=17
+3750000 depart id=40 pod=0 cell=312 arrive=6250000 clear=6350000 done=8225000 route=26
+3800000 clear id=23 cell=98
+3800000 arrive id=24
+3900000 clear id=24 cell=75
+3900000 arrive id=25
+3900000 depart id=41 pod=4 cell=317 arrive=6500000 clear=6600000 done=8550000 route=27
+3900000 depart id=42 pod=2 cell=347 arrive=6500000 clear=6600000 done=8550000 route=27
+3925000 return id=18
+4000000 clear id=25 cell=99
+4000000 depart id=43 pod=0 cell=352 arrive=6700000 clear=6800000 done=8825000 route=28
+4025000 return id=19
+4150000 arrive id=26
+4150000 arrive id=27
+4150000 depart id=44 pod=4 cell=382 arrive=6850000 clear=6950000 done=8975000 route=28
+4150000 depart id=45 pod=2 cell=387 arrive=6950000 clear=7050000 done=9150000 route=29
+4250000 clear id=26 cell=74
+4250000 clear id=27 cell=100
+4250000 depart id=46 pod=0 cell=135 arrive=5850000 clear=5950000 done=7150000 route=17
+4350000 arrive id=28
+4350000 return id=20
+4350000 return id=21
+4400000 depart id=47 pod=4 cell=417 arrive=7200000 clear=7300000 done=9400000 route=29
+4400000 depart id=48 pod=2 cell=422 arrive=7300000 clear=7400000 done=9575000 route=30
+4450000 clear id=28 cell=73
+4500000 arrive id=29
+4500000 depart id=49 pod=0 cell=452 arrive=7400000 clear=7500000 done=9675000 route=30
+4600000 clear id=29 cell=101
+4600000 arrive id=30
+4625000 return id=22
+4650000 depart id=50 pod=4 cell=136 arrive=6350000 clear=6450000 done=7725000 route=18
+4650000 depart id=51 pod=2 cell=457 arrive=7650000 clear=7750000 done=10000000 route=31
+4700000 clear id=30 cell=72
+4700000 arrive id=31
+4750000 depart id=52 pod=0 cell=487 arrive=7750000 clear=7850000 done=10100000 route=31
+4775000 return id=23
+4800000 clear id=31 cell=102
+4900000 depart id=53 pod=4 cell=492 arrive=8000000 clear=8100000 done=10425000 route=32
+4900000 depart id=54 pod=2 cell=522 arrive=8000000 clear=8100000 done=10425000 route=32
+4950000 return id=24
+5000000 depart id=55 pod=0 cell=527 arrive=8200000 clear=8300000 done=10700000 route=33
+5050000 return id=25
+5150000 arrive id=32
+5150000 depart id=56 pod=4 cell=557 arrive=8350000 clear=8450000 done=10850000 route=33
+5150000 depart id=57 pod=2 cell=562 arrive=8450000 clear=8550000 done=11025000 route=34
+5250000 clear id=32 cell=137
+5250000 arrive id=33
+5250000 depart id=58 pod=0 cell=592 arrive=8550000 clear=8650000 done=11125000 route=34
+5350000 clear id=33 cell=172
+5375000 return id=26
+5375000 return id=27
+5400000 depart id=59 pod=4 cell=597 arrive=8800000 clear=8900000 done=11450000 route=35
+5400000 depart id=60 pod=2 cell=627 arrive=8800000 clear=8900000 done=11450000 route=35
+5450000 arrive id=34
+5500000 depart id=61 pod=0 cell=632 arrive=9000000 clear=9100000 done=11725000 route=36
+5550000 clear id=34 cell=207
+5650000 return id=28
+5650000 depart id=62 pod=4 cell=206 arrive=7750000 clear=7850000 done=9425000 route=22
+5650000 depart id=63 pod=2 cell=662 arrive=9150000 clear=9250000 done=11875000 route=36
+5700000 arrive id=35
+5700000 arrive id=36
+5750000 depart id=64 pod=0 cell=667 arrive=9350000 clear=9450000 done=12150000 route=37
+5800000 clear id=35 cell=212
+5800000 clear id=36 cell=242
+5800000 return id=29
+5850000 arrive id=46
+5900000 arrive id=37
+5900000 depart id=65 pod=4 cell=241 arrive=8100000 clear=8200000 done=9850000 route=23
+5900000 depart id=66 pod=2 cell=213 arrive=8300000 clear=8400000 done=10200000 route=25
+5950000 clear id=46 cell=135
+5975000 return id=30
+6000000 clear id=37 cell=247
+6000000 depart id=67 pod=0 cell=248 arrive=8500000 clear=8600000 done=10475000 route=26
+6050000 arrive id=38
+6075000 return id=31
+6150000 clear id=38 cell=277
+6150000 arrive id=39
+6150000 depart id=68 pod=4 cell=276 arrive=8450000 clear=8550000 done=10275000 route=24
+6150000 depart id=69 pod=2 cell=697 arrive=9750000 clear=9850000 done=12550000 route=37
+6250000 clear id=39 cell=282
+6250000 arrive id=40
+6250000 depart id=70 pod=0 cell=283 arrive=8850000 clear=8950000 done=10900000 route=27
+6350000 clear id=40 cell=312
+6350000 arrive id=50
+6400000 depart id=71 pod=4 cell=311 arrive=8800000 clear=8900000 done=10700000 route=25
+6400000 depart id=72 pod=2 cell=702 arrive=10100000 clear=10200000 done=12975000 route=38
+6450000 clear id=50 cell=136
+6500000 arrive id=41
+6500000 arrive id=42
+6500000 depart id=73 pod=0 cell=732 arrive=10200000 clear=10300000 done=13075000 route=38
+6600000 clear id=41 cell=317
+6600000 clear id=42 cell=347
+6650000 depart id=74 pod=4 cell=346 arrive=9150000 clear=9250000 done=11125000 route=26
+6650000 depart id=75 pod=2 cell=318 arrive=9350000 clear=9450000 done=11475000 route=28
+6700000 arrive id=43
+6750000 return id=32
+6750000 depart id=76 pod=0 cell=737 arrive=10550000 clear=10650000 done=13500000 route=39
+6800000 clear id=43 cell=352
+6850000 arrive id=44
+6900000 depart id=77 pod=4 cell=353 arrive=9700000 clear=9800000 done=11900000 route=29
+6900000 depart id=78 pod=2 cell=767 arrive=10700000 clear=10800000 done=13650000 route=39
+6925000 return id=33
+6950000 clear id=44 cell=382
+6950000 arrive id=45
+7000000 depart id=79 pod=0 cell=772 arrive=10900000 clear=11000000 done=13925000 route=40
+7050000 clear id=45 cell=387
+7150000 return id=46
+7150000 depart id=80 pod=4 cell=388 arrive=10050000 clear=10150000 done=12325000 route=30
+7150000 depart id=81 pod=2 cell=802 arrive=11050000 clear=11150000 done=14075000 route=40
+7200000 arrive id=47
+7200000 return id=34
+7250000 depart id=82 pod=0 cell=807 arrive=11250000 clear=11350000 done=14350000 route=41
+7300000 clear id=47 cell=417
+7300000 arrive id=48
+7400000 clear id=48 cell=422
+7400000 arrive id=49
+7400000 depart id=83 pod=4 cell=423 arrive=10400000 clear=10500000 done=12750000 route=31
+7400000 depart id=84 pod=2 cell=837 arrive=11400000 clear=11500000 done=14500000 route=41
+7500000 clear id=49 cell=452
+7500000 depart id=85 pod=0 cell=842 arrive=11600000 clear=11700000 done=14775000 route=42
+7525000 return id=35
+7525000 return id=36
+7650000 arrive id=51
+7650000 depart id=86 pod=4 cell=872 arrive=11750000 clear=11850000 done=14925000 route=42
+7650000 depart id=87 pod=2 cell=877 arrive=11850000 clear=11950000 done=15100000 route=43
+7725000 return id=50
+7750000 clear id=51 cell=457
+7750000 arrive id=52
+7750000 arrive id=62
+7750000 depart id=88 pod=0 cell=458 arrive=10850000 clear=10950000 done=13275000 route=32
+7800000 return id=37
+7850000 clear id=52 cell=487
+7850000 clear id=62 cell=206
+7900000 depart id=89 pod=4 cell=205 arrive=10100000 clear=10200000 done=11850000 route=23
+7900000 depart id=90 pod=2 cell=486 arrive=10800000 clear=10900000 done=13075000 route=30
+7950000 return id=38
+8000000 arrive id=53
+8000000 arrive id=54
+8000000 depart id=91 pod=0 cell=907 arrive=12200000 clear=12300000 done=15450000 route=43
+8100000 clear id=53 cell=492
+8100000 clear id=54 cell=522
+8100000 arrive id=65
+8125000 return id=39
+8150000 depart id=92 pod=4 cell=521 arrive=11150000 clear=11250000 done=13500000 route=31
+8150000 depart id=93 pod=2 cell=493 arrive=11350000 clear=11450000 done=13850000 route=33
+8200000 clear id=65 cell=241
+8200000 arrive id=55
+8225000 return id=40
+8250000 depart id=94 pod=0 cell=240 arrive=10550000 clear=10650000 done=12375000 route=24
+8300000 clear id=55 cell=527
+8300000 arrive id=66
+8350000 arrive id=56
+8400000 clear id=66 cell=213
+8400000 depart id=95 pod=4 cell=214 arrive=10900000 clear=11000000 done=12875000 route=26
+8400000 depart id=96 pod=2 cell=912 arrive=12700000 clear=12800000 done=16025000 route=44
+8450000 clear id=56 cell=557
+8450000 arrive id=57
+8450000 arrive id=68
+8500000 arrive id=67
+8500000 depart id=97 pod=0 cell=556 arrive=11600000 clear=11700000 done=14025000 route=32
+8550000 clear id=57 cell=562
+8550000 clear id=68 cell=276
+8550000 arrive id=58
+8550000 return id=41
+8550000 return id=42
+8600000 clear id=67 cell=248
+8650000 clear id=58 cell=592
+8650000 depart id=98 pod=4 cell=275 arrive=11050000 clear=11150000 done=12950000 route=25
+8650000 depart id=99 pod=2 cell=249 arrive=11250000 clear=11350000 done=13300000 route=27
+8750000 depart id=100 pod=0 cell=591 arrive=11950000 clear=12050000 done=14450000 route=33
+8800000 arrive id=59
+8800000 arrive id=60
+8800000 arrive id=71
+8825000 return id=43
+8850000 arrive id=70
+8900000 clear id=59 cell=597
+8900000 clear id=60 cell=627
+8900000 clear id=71 cell=311
+8900000 depart id=101 pod=4 cell=310 arrive=11400000 clear=11500000 done=13375000 route=26
+8900000 depart id=102 pod=2 cell=563 arrive=12300000 clear=12400000 done=14950000 route=35
+8950000 clear id=70 cell=283
+8975000 return id=44
+9000000 arrive id=61
+9000000 depart id=103 pod=0 cell=284 arrive=11700000 clear=11800000 done=13825000 route=28
+9100000 clear id=61 cell=632
+9150000 arrive id=63
+9150000 arrive id=74
+9150000 return id=45
+9150000 depart id=104 pod=4 cell=598 arrive=12650000 clear=12750000 done=15375000 route=36
+9150000 depart id=105 pod=2 cell=633 arrive=12750000 clear=12850000 done=15550000 route=37
+9250000 clear id=63 cell=662
+9250000 clear id=74 cell=346
+9250000 depart id=106 pod=0 cell=942 arrive=13550000 clear=13650000 done=16875000 route=44
+9350000 arrive id=64
+9350000 arrive id=75
+9400000 return id=47
+9400000 depart id=107 pod=4 cell=947 arrive=13800000 clear=13900000 done=17200000 route=45
+9400000 depart id=108 pod=2 cell=977 arrive=13800000 clear=13900000 done=17200000 route=45
+9425000 return id=62
+9450000 clear id=64 cell=667
+9450000 clear id=75 cell=318
+9500000 depart id=109 pod=0 cell=319 arrive=12300000 clear=12400000 done=14500000 route=29
+9575000 return id=48
+9650000 depart id=110 pod=4 cell=668 arrive=13350000 clear=13450000 done=16225000 route=38
+9650000 depart id=111 pod=2 cell=982 arrive=14150000 clear=14250000 done=17625000 route=46
+9675000 return id=49
+9700000 arrive id=77
+9750000 arrive id=69
+9750000 depart id=112 pod=0 cell=1012 arrive=14250000 clear=14350000 done=17725000 route=46
+9800000 clear id=77 cell=353
+9850000 clear id=69 cell=697
+9850000 return id=65
+9900000 depart id=113 pod=4 cell=354 arrive=12800000 clear=12900000 done=15075000 route=30
+9900000 depart id=114 pod=2 cell=1017 arrive=14500000 clear=14600000 done=18050000 route=47
+10000000 return id=51
+10000000 depart id=115 pod=0 cell=1047 arrive=14600000 clear=14700000 done=18150000 route=47
+10050000 arrive id=80
+10100000 arrive id=72
+10100000 arrive id=89
+10100000 return id=52
+10150000 clear id=80 cell=388
+10150000 depart id=116 pod=4 cell=389 arrive=13150000 clear=13250000 done=15500000 route=31
+10150000 depart id=117 pod=2 cell=1052 arrive=14850000 clear=14950000 done=18475000 route=48
+10200000 clear id=72 cell=702
+10200000 clear id=89 cell=205
+10200000 arrive id=73
+10200000 return id=66
+10250000 depart id=118 pod=0 cell=703 arrive=14050000 clear=14150000 done=17000000 route=39
+10275000 return id=68
+10300000 clear id=73 cell=732
+10400000 arrive id=83
+10400000 depart id=119 pod=4 cell=731 arrive=14000000 clear=14100000 done=16800000 route=37
+10400000 depart id=120 pod=2 cell=1082 arrive=15100000 clear=15200000 done=18725000 route=48
+10425000 return id=53
+10425000 return id=54
+10475000 return id=67
+10500000 clear id=83 cell=423
+10500000 depart id=121 pod=0 cell=424 arrive=13600000 clear=13700000 done=16025000 route=32
+10550000 arrive id=76
+10550000 arrive id=94
+10650000 clear id=76 cell=737
+10650000 clear id=94 cell=240
+10650000 depart id=122 pod=4 cell=239 arrive=13050000 clear=13150000 done=14950000 route=25
+10650000 depart id=123 pod=2 cell=738 arrive=14550000 clear=14650000 done=17575000 route=40
+10700000 arrive id=78
+10700000 return id=55
+10700000 return id=71
+10750000 depart id=124 pod=0 cell=1087 arrive=15550000 clear=15650000 done=19250000 route=49
+10800000 clear id=78 cell=767
+10800000 arrive id=90
+10850000 arrive id=88
+10850000 return id=56
+10900000 clear id=90 cell=486
+10900000 arrive id=79
+10900000 arrive id=95
+10900000 return id=70
+10900000 depart id=125 pod=4 cell=766 arrive=14600000 clear=14700000 done=17475000 route=38
+10900000 depart id=126 pod=2 cell=1117 arrive=15700000 clear=15800000 done=19400000 route=49
+10950000 clear id=88 cell=458
+11000000 clear id=79 cell=772
+11000000 clear id=95 cell=214
+11000000 depart id=127 pod=0 cell=215 arrive=13600000 clear=13700000 done=15650000 route=27
+11025000 return id=57
+11050000 arrive id=81
+11050000 arrive id=98
+11125000 return id=58
+11125000 return id=74
+11150000 clear id=81 cell=802
+11150000 clear id=98 cell=275
+11150000 arrive id=92
+11150000 depart id=128 pod=4 cell=274 arrive=13650000 clear=13750000 done=15625000 route=26
+11150000 depart id=129 pod=2 cell=459 arrive=14350000 clear=14450000 done=16850000 route=33
+11250000 clear id=92 cell=521
+11250000 arrive id=82
+11250000 arrive id=99
+11250000 depart id=130 pod=0 cell=801 arrive=15050000 clear=15150000 done=18000000 route=39
+11350000 clear id=82 cell=807
+11350000 clear id=99 cell=249
+11350000 arrive id=93
+11400000 arrive id=84
+11400000 arrive id=101
+11400000 depart id=131 pod=4 cell=250 arrive=14100000 clear=14200000 done=16225000 route=28
+11400000 depart id=132 pod=2 cell=773 arrive=15400000 clear=15500000 done=18500000 route=41
+11450000 clear id=93 cell=493
+11450000 return id=59
+11450000 return id=60
+11475000 return id=75
+11500000 clear id=84 cell=837
+11500000 clear id=101 cell=310
+11500000 depart id=133 pod=0 cell=309 arrive=14100000 clear=14200000 done=16150000 route=27
+11600000 arrive id=85
+11600000 arrive id=97
+11650000 depart id=134 pod=4 cell=836 arrive=15550000 clear=15650000 done=18575000 route=40
+11650000 depart id=135 pod=2 cell=808 arrive=15750000 clear=15850000 done=18925000 route=42
+11700000 clear id=85 cell=842
+11700000 clear id=97 cell=556
+11700000 arrive id=103
+11725000 return id=61
+11750000 arrive id=86
+11750000 depart id=136 pod=0 cell=843 arrive=15950000 clear=16050000 done=19200000 route=43
+11800000 clear id=103 cell=284
+11850000 clear id=86 cell=872
+11850000 arrive id=87
+11850000 return id=89
+11875000 return id=63
+11900000 return id=77
+11900000 depart id=137 pod=4 cell=285 arrive=14700000 clear=14800000 done=16900000 route=29
+11900000 depart id=138 pod=2 cell=871 arrive=15900000 clear=16000000 done=19000000 route=41
+11950000 clear id=87 cell=877
+11950000 arrive id=100
+11950000 depart id=139 pod=12 cell=878 arrive=16250000 clear=16350000 done=19575000 route=44
+12000000 depart id=140 pod=0 cell=1088 arrive=17100000 clear=17200000 done=21025000 route=52
+12050000 clear id=100 cell=591
+12150000 return id=64
+12150000 depart id=141 pod=4 cell=1116 arrive=17250000 clear=17350000 done=21175000 route=52
+12150000 depart id=142 pod=2 cell=1089 arrive=17350000 clear=17450000 done=21350000 route=53
+12200000 arrive id=91
+12250000 depart id=143 pod=0 cell=1115 arrive=17450000 clear=17550000 done=21450000 route=53
+12300000 clear id=91 cell=907
+12300000 arrive id=102
+12300000 arrive id=109
+12325000 return id=80
+12375000 return id=94
+12400000 clear id=102 cell=563
+12400000 clear id=109 cell=319
+12400000 depart id=144 pod=4 cell=320 arrive=15300000 clear=15400000 done=17575000 route=30
+12400000 depart id=145 pod=2 cell=906 arrive=16500000 clear=16600000 done=19675000 route=42
+12500000 depart id=146 pod=0 cell=1090 arrive=17800000 clear=17900000 done=21875000 route=54
+12550000 return id=69
+12650000 arrive id=104
+12650000 depart id=147 pod=4 cell=1114 arrive=17950000 clear=18050000 done=22025000 route=54
+12650000 depart id=148 pod=2 cell=1091 arrive=18050000 clear=18150000 done=22200000 route=55
+12700000 arrive id=96
+12750000 clear id=104 cell=598
+12750000 arrive id=105
+12750000 return id=83
+12750000 depart id=149 pod=0 cell=599 arrive=16350000 clear=16450000 done=19150000 route=37
+12800000 clear id=96 cell=912
+12800000 arrive id=113
+12800000 depart id=150 pod=12 cell=913 arrive=17200000 clear=17300000 done=20600000 route=45
+12850000 clear id=105 cell=633
+12875000 return id=95
+12900000 clear id=113 cell=354
+12900000 depart id=151 pod=4 cell=355 arrive=15900000 clear=16000000 done=18250000 route=31
+12900000 depart id=152 pod=2 cell=634 arrive=16600000 clear=16700000 done=19475000 route=38
+12950000 return id=98
+12975000 return id=72
+13000000 depart id=153 pod=0 cell=1113 arrive=18400000 clear=18500000 done=22550000 route=55
+13050000 arrive id=122
+13075000 return id=73
+13075000 return id=90
+13150000 clear id=122 cell=239
+13150000 arrive id=116
+13150000 depart id=154 pod=4 cell=238 arrive=15650000 clear=15750000 done=17625000 route=26
+13150000 depart id=155 pod=2 cell=1092 arrive=18650000 clear=18750000 done=22875000 route=56
+13250000 clear id=116 cell=389
+13250000 depart id=156 pod=0 cell=390 arrive=16350000 clear=16450000 done=18775000 route=32
+13275000 return id=88
+13300000 return id=99
+13350000 arrive id=110
+13375000 return id=101
+13400000 depart id=157 pod=4 cell=1112 arrive=18900000 clear=19000000 done=23125000 route=56
+13400000 depart id=158 pod=2 cell=1093 arrive=19000000 clear=19100000 done=23300000 route=57
+13450000 clear id=110 cell=668
+13500000 return id=76
+13500000 return id=92
+13500000 depart id=159 pod=0 cell=669 arrive=17300000 clear=17400000 done=20250000 route=39
+13550000 arrive id=106
+13600000 arrive id=121
+13600000 arrive id=127
+13650000 clear id=106 cell=942
+13650000 arrive id=128
+13650000 return id=78
+13650000 depart id=160 pod=4 cell=941 arrive=17850000 clear=17950000 done=21100000 route=43
+13650000 depart id=161 pod=2 cell=1111 arrive=19250000 clear=19350000 done=23550000 route=57
+13700000 clear id=121 cell=424
+13700000 clear id=127 cell=215
+13750000 clear id=128 cell=274
+13800000 arrive id=107
+13800000 arrive id=108
+13800000 complete pod=0
+13825000 return id=103
+13850000 return id=93
+13900000 clear id=107 cell=947
+13900000 clear id=108 cell=977
+13900000 depart id=162 pod=4 cell=273 arrive=16500000 clear=16600000 done=18550000 route=27
+13900000 depart id=163 pod=12 cell=948 arrive=18400000 clear=18500000 done=21875000 route=46
+13900000 depart id=164 pod=2 cell=216 arrive=16600000 clear=16700000 done=18725000 route=28
+13925000 return id=79
+14000000 arrive id=119
+14025000 return id=97
+14050000 arrive id=118
+14075000 return id=81
+14100000 clear id=119 cell=731
+14100000 arrive id=131
+14100000 arrive id=133
+14150000 clear id=118 cell=703
+14150000 arrive id=111
+14150000 depart id=165 pod=2 cell=425 arrive=17350000 clear=17450000 done=19850000 route=33
+14200000 clear id=131 cell=250
+14200000 clear id=133 cell=309
+14200000 complete pod=4
+14250000 clear id=111 cell=982
+14250000 arrive id=112
+14350000 clear id=112 cell=1012
+14350000 arrive id=129
+14350000 return id=82
+14400000 depart id=166 pod=2 cell=308 arrive=17100000 clear=17200000 done=19225000 route=28
+14450000 clear id=129 cell=459
+14450000 return id=100
+14500000 arrive id=114
+14500000 return id=84
+14500000 return id=109
+14550000 arrive id=123
+14600000 clear id=114 cell=1017
+14600000 arrive id=115
+14600000 arrive id=125
+14650000 clear id=123 cell=738
+14650000 depart id=167 pod=2 cell=344 arrive=17350000 clear=17450000 done=19475000 route=28
+14700000 clear id=115 cell=1047
+14700000 clear id=125 cell=766
+14700000 arrive id=137
+14775000 return id=85
+14800000 clear id=137 cell=285
+14850000 arrive id=117
+14900000 depart id=168 pod=2 cell=251 arrive=17700000 clear=17800000 done=19900000 route=29
+14925000 return id=86
+14950000 clear id=117 cell=1052
+14950000 return id=102
+14950000 return id=122
+15050000 arrive id=130
+15075000 return id=113
+15100000 arrive id=120
+15100000 return id=87
+15150000 clear id=130 cell=801
+15200000 clear id=120 cell=1082
+15200000 complete pod=2
+15300000 arrive id=144
+15375000 return id=104
+15400000 clear id=144 cell=320
+15400000 arrive id=132
+15450000 return id=91
+15500000 clear id=132 cell=773
+15500000 return id=116
+15550000 arrive id=124
+15550000 arrive id=134
+15550000 return id=105
+15625000 return id=128
+15650000 clear id=124 cell=1087
+15650000 clear id=134 cell=836
+15650000 arrive id=154
+15650000 return id=127
+15700000 arrive id=126
+15750000 clear id=154 cell=238
+15750000 arrive id=135
+15800000 clear id=126 cell=1117
+15850000 clear id=135 cell=808
+15850000 depart id=169 pod=12 cell=809 arrive=20050000 clear=20150000 done=23300000 route=43
+15900000 arrive id=138
+15900000 arrive id=151
+15950000 arrive id=136
+16000000 clear id=138 cell=871
+16000000 clear id=151 cell=355
+16025000 return id=96
+16025000 return id=121
+16050000 clear id=136 cell=843
+16100000 depart id=170 pod=12 cell=844 arrive=20400000 clear=20500000 done=23725000 route=44
+16150000 return id=133
+16225000 return id=110
+16225000 return id=131
+16250000 arrive id=139
+16350000 clear id=139 cell=878
+16350000 arrive id=149
+16350000 arrive id=156
+16350000 depart id=171 pod=12 cell=879 arrive=20750000 clear=20850000 done=24150000 route=45
+16450000 clear id=149 cell=599
+16450000 clear id=156 cell=390
+16500000 arrive id=145
+16500000 arrive id=162
+16600000 clear id=145 cell=906
+16600000 clear id=162 cell=273
+16600000 arrive id=152
+16600000 arrive id=164
+16700000 clear id=152 cell=634
+16700000 clear id=164 cell=216
+16800000 return id=119
+16850000 return id=129
+16875000 return id=106
+16900000 return id=137
+17000000 return id=118
+17100000 arrive id=140
+17100000 arrive id=166
+17200000 clear id=140 cell=1088
+17200000 clear id=166 cell=308
+17200000 arrive id=150
+17200000 return id=107
+17200000 return id=108
+17250000 arrive id=141
+17300000 clear id=150 cell=913
+17300000 arrive id=159
+17300000 depart id=172 pod=12 cell=914 arrive=21800000 clear=21900000 done=25275000 route=46
+17350000 clear id=141 cell=1116
+17350000 arrive id=142
+17350000 arrive id=165
+17350000 arrive id=167
+17400000 clear id=159 cell=669
+17450000 clear id=142 cell=1089
+17450000 clear id=165 cell=425
+17450000 clear id=167 cell=344
+17450000 arrive id=143
+17475000 return id=125
+17550000 clear id=143 cell=1115
+17575000 return id=123
+17575000 return id=144
+17625000 return id=111
+17625000 return id=154
+17700000 arrive id=168
+17725000 return id=112
+17800000 clear id=168 cell=251
+17800000 arrive id=146
+17850000 arrive id=160
+17900000 clear id=146 cell=1090
+17950000 clear id=160 cell=941
+17950000 arrive id=147
+18000000 return id=130
+18050000 clear id=147 cell=1114
+18050000 arrive id=148
+18050000 return id=114
+18150000 clear id=148 cell=1091
+18150000 return id=115
+18250000 return id=151
+18400000 arrive id=153
+18400000 arrive id=163
+18475000 return id=117
+18500000 clear id=153 cell=1113
+18500000 clear id=163 cell=948
+18500000 return id=132
+18500000 depart id=173 pod=12 cell=949 arrive=23100000 clear=23200000 done=26650000 route=47
+18550000 return id=162
+18575000 return id=134
+18650000 arrive id=155
+18725000 return id=120
+18725000 return id=164
+18750000 clear id=155 cell=1092
+18775000 return id=156
+18900000 arrive id=157
+18925000 return id=135
+19000000 clear id=157 cell=1112
+19000000 arrive id=158
+19000000 return id=138
+19100000 clear id=158 cell=1093
+19150000 return id=149
+19200000 return id=136
+19225000 return id=166
+19250000 arrive id=161
+19250000 return id=124
+19350000 clear id=161 cell=1111
+19400000 return id=126
+19475000 return id=152
+19475000 return id=167
+19575000 return id=139
+19675000 return id=145
+19850000 return id=165
+19900000 return id=168
+20050000 arrive id=169
+20150000 clear id=169 cell=809
+20150000 depart id=174 pod=12 cell=810 arrive=24450000 clear=24550000 done=27775000 route=44
+20250000 return id=159
+20400000 arrive id=170
+20500000 clear id=170 cell=844
+20500000 depart id=175 pod=12 cell=845 arrive=24900000 clear=25000000 done=28300000 route=45
+20600000 return id=150
+20750000 arrive id=171
+20850000 clear id=171 cell=879
+20850000 depart id=176 pod=12 cell=880 arrive=25350000 clear=25450000 done=28825000 route=46
+21025000 return id=140
+21100000 return id=160
+21175000 return id=141
+21350000 return id=142
+21450000 return id=143
+21800000 arrive id=172
+21875000 return id=146
+21875000 return id=163
+21900000 clear id=172 cell=914
+21900000 depart id=177 pod=12 cell=915 arrive=26500000 clear=26600000 done=30050000 route=47
+22025000 return id=147
+22200000 return id=148
+22550000 return id=153
+22875000 return id=155
+23100000 arrive id=173
+23125000 return id=157
+23200000 clear id=173 cell=949
+23200000 depart id=178 pod=12 cell=950 arrive=27900000 clear=28000000 done=31525000 route=48
+23300000 return id=158
+23300000 return id=169
+23450000 depart id=179 pod=12 cell=984 arrive=28150000 clear=28250000 done=31775000 route=48
+23550000 return id=161
+23725000 return id=170
+24150000 return id=171
+24450000 arrive id=174
+24550000 clear id=174 cell=810
+24550000 depart id=180 pod=12 cell=811 arrive=28950000 clear=29050000 done=32350000 route=45
+24900000 arrive id=175
+25000000 clear id=175 cell=845
+25000000 depart id=181 pod=12 cell=846 arrive=29500000 clear=29600000 done=32975000 route=46
+25275000 return id=172
+25350000 arrive id=176
+25450000 clear id=176 cell=880
+25450000 depart id=182 pod=12 cell=881 arrive=30050000 clear=30150000 done=33600000 route=47
+26500000 arrive id=177
+26600000 clear id=177 cell=915
+26600000 depart id=183 pod=12 cell=916 arrive=31300000 clear=31400000 done=34925000 route=48
+26650000 return id=173
+27775000 return id=174
+27900000 arrive id=178
+28000000 clear id=178 cell=950
+28000000 depart id=184 pod=12 cell=951 arrive=32800000 clear=32900000 done=36500000 route=49
+28150000 arrive id=179
+28250000 clear id=179 cell=984
+28250000 depart id=185 pod=12 cell=985 arrive=33050000 clear=33150000 done=36750000 route=49
+28300000 return id=175
+28550000 complete pod=12
+28825000 return id=176
+28950000 arrive id=180
+29050000 clear id=180 cell=811
+29500000 arrive id=181
+29600000 clear id=181 cell=846
+30050000 arrive id=182
+30050000 return id=177
+30150000 clear id=182 cell=881
+31300000 arrive id=183
+31400000 clear id=183 cell=916
+31525000 return id=178
+31775000 return id=179
+32350000 return id=180
+32800000 arrive id=184
+32900000 clear id=184 cell=951
+32975000 return id=181
+33050000 arrive id=185
+33150000 clear id=185 cell=985
+33600000 return id=182
+34925000 return id=183
+36500000 return id=184
+36750000 return id=185
+> tap pod=22 at=36750000
+36750000 commit pod=22 slot=0
+36750000 depart id=186 pod=22 cell=122 arrive=37400000 clear=37500000 done=37900000 route=4
+37000000 depart id=187 pod=22 cell=121 arrive=37650000 clear=37750000 done=38150000 route=5
+37250000 depart id=188 pod=22 cell=123 arrive=37900000 clear=38000000 done=38400000 route=5
+37400000 arrive id=186
+37500000 clear id=186 cell=122
+37500000 depart id=189 pod=22 cell=157 arrive=38150000 clear=38250000 done=38650000 route=5
+37650000 arrive id=187
+37750000 clear id=187 cell=121
+37750000 depart id=190 pod=22 cell=120 arrive=38400000 clear=38500000 done=38900000 route=6
+37900000 arrive id=188
+37900000 return id=186
+38000000 clear id=188 cell=123
+38000000 depart id=191 pod=22 cell=124 arrive=38650000 clear=38750000 done=39150000 route=6
+38150000 arrive id=189
+38150000 return id=187
+38250000 clear id=189 cell=157
+38250000 depart id=192 pod=22 cell=156 arrive=38900000 clear=39000000 done=39400000 route=6
+38400000 arrive id=190
+38400000 return id=188
+38500000 clear id=190 cell=120
+38500000 depart id=193 pod=22 cell=158 arrive=39150000 clear=39250000 done=39650000 route=6
+38650000 arrive id=191
+38650000 return id=189
+38750000 clear id=191 cell=124
+38750000 depart id=194 pod=22 cell=192 arrive=39400000 clear=39500000 done=39900000 route=6
+38900000 arrive id=192
+38900000 return id=190
+39000000 clear id=192 cell=156
+39000000 depart id=195 pod=22 cell=119 arrive=39650000 clear=39750000 done=40200000 route=7
+39150000 arrive id=193
+39150000 return id=191
+39250000 clear id=193 cell=158
+39250000 depart id=196 pod=22 cell=125 arrive=39900000 clear=40000000 done=40450000 route=7
+39400000 arrive id=194
+39400000 return id=192
+39500000 clear id=194 cell=192
+39500000 depart id=197 pod=22 cell=155 arrive=40150000 clear=40250000 done=40700000 route=7
+39650000 arrive id=195
+39650000 return id=193
+39750000 clear id=195 cell=119
+39750000 depart id=198 pod=22 cell=159 arrive=40400000 clear=40500000 done=40950000 route=7
+39900000 arrive id=196
+39900000 return id=194
+40000000 clear id=196 cell=125
+40000000 depart id=199 pod=22 cell=191 arrive=40650000 clear=40750000 done=41200000 route=7
+40150000 arrive id=197
+40200000 return id=195
+40250000 clear id=197 cell=155
+40250000 depart id=200 pod=22 cell=193 arrive=40900000 clear=41000000 done=41450000 route=7
+40400000 arrive id=198
+40450000 return id=196
+40500000 clear id=198 cell=159
+40500000 depart id=201 pod=22 cell=118 arrive=41200000 clear=41300000 done=41825000 route=8
+40650000 arrive id=199
+40700000 return id=197
+40750000 clear id=199 cell=191
+40750000 depart id=202 pod=22 cell=126 arrive=41450000 clear=41550000 done=42075000 route=8
+40900000 arrive id=200
+40950000 return id=198
+41000000 clear id=200 cell=193
+41000000 depart id=203 pod=22 cell=154 arrive=41700000 clear=41800000 done=42325000 route=8
+41200000 arrive id=201
+41200000 return id=199
+41250000 depart id=204 pod=22 cell=160 arrive=41950000 clear=42050000 done=42575000 route=8
+41300000 clear id=201 cell=118
+41450000 arrive id=202
+41450000 return id=200
+41500000 depart id=205 pod=22 cell=194 arrive=42200000 clear=42300000 done=42825000 route=8
+41550000 clear id=202 cell=126
+41700000 arrive id=203
+41750000 depart id=206 pod=22 cell=117 arrive=42550000 clear=42650000 done=43250000 route=9
+41800000 clear id=203 cell=154
+41825000 return id=201
+41950000 arrive id=204
+42000000 depart id=207 pod=22 cell=127 arrive=42800000 clear=42900000 done=43500000 route=9
+42050000 clear id=204 cell=160
+42075000 return id=202
+42200000 arrive id=205
+42250000 depart id=208 pod=22 cell=153 arrive=43050000 clear=43150000 done=43750000 route=9
+42300000 clear id=205 cell=194
+42325000 return id=203
+42500000 depart id=209 pod=22 cell=161 arrive=43300000 clear=43400000 done=44000000 route=9
+42550000 arrive id=206
+42575000 return id=204
+42650000 clear id=206 cell=117
+42750000 depart id=210 pod=22 cell=116 arrive=43650000 clear=43750000 done=44425000 route=10
+42800000 arrive id=207
+42825000 return id=205
+42900000 clear id=207 cell=127
+43000000 depart id=211 pod=22 cell=128 arrive=43900000 clear=44000000 done=44675000 route=10
+43050000 arrive id=208
+43150000 clear id=208 cell=153
+43250000 return id=206
+43250000 depart id=212 pod=22 cell=152 arrive=44150000 clear=44250000 done=44925000 route=10
+43300000 arrive id=209
+43400000 clear id=209 cell=161
+43500000 return id=207
+43500000 depart id=213 pod=22 cell=162 arrive=44400000 clear=44500000 done=45175000 route=10
+43650000 arrive id=210
+43750000 clear id=210 cell=116
+43750000 return id=208
+43750000 depart id=214 pod=22 cell=188 arrive=44650000 clear=44750000 done=45425000 route=10
+43900000 arrive id=211
+44000000 clear id=211 cell=128
+44000000 return id=209
+44000000 depart id=215 pod=22 cell=115 arrive=45000000 clear=45100000 done=45850000 route=11
+44150000 arrive id=212
+44250000 clear id=212 cell=152
+44250000 depart id=216 pod=22 cell=129 arrive=45250000 clear=45350000 done=46100000 route=11
+44400000 arrive id=213
+44425000 return id=210
+44500000 clear id=213 cell=162
+44500000 depart id=217 pod=22 cell=151 arrive=45500000 clear=45600000 done=46350000 route=11
+44650000 arrive id=214
+44675000 return id=211
+44750000 clear id=214 cell=188
+44750000 depart id=218 pod=22 cell=163 arrive=45750000 clear=45850000 done=46600000 route=11
+44925000 return id=212
+45000000 arrive id=215
+45000000 depart id=219 pod=22 cell=187 arrive=46000000 clear=46100000 done=46850000 route=11
+45100000 clear id=215 cell=115
+45175000 return id=213
+45250000 arrive id=216
+45250000 depart id=220 pod=22 cell=197 arrive=46250000 clear=46350000 done=47100000 route=11
+45350000 clear id=216 cell=129
+45425000 return id=214
+45500000 arrive id=217
+45500000 depart id=221 pod=22 cell=114 arrive=46600000 clear=46700000 done=47525000 route=12
+45600000 clear id=217 cell=151
+45750000 arrive id=218
+45750000 depart id=222 pod=22 cell=130 arrive=46850000 clear=46950000 done=47775000 route=12
+45850000 clear id=218 cell=163
+45850000 return id=215
+46000000 arrive id=219
+46000000 depart id=223 pod=22 cell=150 arrive=47100000 clear=47200000 done=48025000 route=12
+46100000 clear id=219 cell=187
+46100000 return id=216
+46250000 arrive id=220
+46250000 depart id=224 pod=22 cell=164 arrive=47350000 clear=47450000 done=48275000 route=12
+46350000 clear id=220 cell=197
+46350000 return id=217
+46500000 depart id=225 pod=22 cell=186 arrive=47600000 clear=47700000 done=48525000 route=12
+46600000 arrive id=221
+46600000 return id=218
+46700000 clear id=221 cell=114
+46750000 depart id=226 pod=22 cell=198 arrive=47850000 clear=47950000 done=48775000 route=12
+46850000 arrive id=222
+46850000 return id=219
+46950000 clear id=222 cell=130
+47000000 depart id=227 pod=22 cell=113 arrive=48200000 clear=48300000 done=49200000 route=13
+47100000 arrive id=223
+47100000 return id=220
+47200000 clear id=223 cell=150
+47250000 depart id=228 pod=22 cell=131 arrive=48450000 clear=48550000 done=49450000 route=13
+47350000 arrive id=224
+47450000 clear id=224 cell=164
+47500000 depart id=229 pod=22 cell=149 arrive=48700000 clear=48800000 done=49700000 route=13
+47525000 return id=221
+47600000 arrive id=225
+47700000 clear id=225 cell=186
+47750000 depart id=230 pod=22 cell=165 arrive=48950000 clear=49050000 done=49950000 route=13
+47775000 return id=222
+47850000 arrive id=226
+47950000 clear id=226 cell=198
+48025000 return id=223
+48050000 complete pod=22
+48200000 arrive id=227
+48275000 return id=224
+48300000 clear id=227 cell=113
+48450000 arrive id=228
+48525000 return id=225
+48550000 clear id=228 cell=131
+48700000 arrive id=229
+48775000 return id=226
+48800000 clear id=229 cell=149
+48950000 arrive id=230
+49050000 clear id=230 cell=165
+49200000 return id=227
+49450000 return id=228
+49700000 return id=229
+49950000 return id=230
+> tap pod=3 at=49950000
+49950000 commit pod=3 slot=0
+49950000 commit pod=21 slot=1
+49950000 depart id=231 pod=3 cell=223 arrive=50950000 clear=51050000 done=51800000 route=11
+49950000 depart id=232 pod=21 cell=185 arrive=51150000 clear=51250000 done=52150000 route=13
+> burst code=N at=49950000
+49950000 burst code=N cells=274
+49950000 burst-clear cell=217
+49950000 burst-clear cell=218
+49950000 burst-clear cell=219
+49950000 burst-clear cell=220
+49950000 burst-clear cell=221
+49950000 burst-clear cell=222
+49950000 burst-clear cell=224
+49950000 burst-clear cell=231
+49950000 burst-clear cell=232
+49950000 burst-clear cell=233
+49950000 burst-clear cell=234
+49950000 burst-clear cell=235
+49950000 burst-clear cell=236
+49950000 burst-clear cell=237
+49950000 burst-clear cell=252
+49950000 burst-clear cell=253
+49950000 burst-clear cell=254
+49950000 burst-clear cell=255
+49950000 burst-clear cell=256
+49950000 burst-clear cell=257
+49950000 burst-clear cell=258
+49950000 burst-clear cell=267
+49950000 burst-clear cell=268
+49950000 burst-clear cell=269
+49950000 burst-clear cell=270
+49950000 burst-clear cell=271
+49950000 burst-clear cell=272
+49950000 burst-clear cell=286
+49950000 burst-clear cell=287
+49950000 burst-clear cell=288
+49950000 burst-clear cell=289
+49950000 burst-clear cell=290
+49950000 burst-clear cell=291
+49950000 burst-clear cell=292
+49950000 burst-clear cell=303
+49950000 burst-clear cell=304
+49950000 burst-clear cell=305
+49950000 burst-clear cell=306
+49950000 burst-clear cell=307
+49950000 burst-clear cell=321
+49950000 burst-clear cell=322
+49950000 burst-clear cell=323
+49950000 burst-clear cell=324
+49950000 burst-clear cell=325
+49950000 burst-clear cell=326
+49950000 burst-clear cell=339
+49950000 burst-clear cell=340
+49950000 burst-clear cell=341
+49950000 burst-clear cell=342
+49950000 burst-clear cell=343
+49950000 burst-clear cell=356
+49950000 burst-clear cell=357
+49950000 burst-clear cell=358
+49950000 burst-clear cell=359
+49950000 burst-clear cell=360
+49950000 burst-clear cell=375
+49950000 burst-clear cell=376
+49950000 burst-clear cell=377
+49950000 burst-clear cell=378
+49950000 burst-clear cell=391
+49950000 burst-clear cell=392
+49950000 burst-clear cell=393
+49950000 burst-clear cell=394
+49950000 burst-clear cell=395
+49950000 burst-clear cell=410
+49950000 burst-clear cell=411
+49950000 burst-clear cell=412
+49950000 burst-clear cell=413
+49950000 burst-clear cell=415
+49950000 burst-clear cell=426
+49950000 burst-clear cell=427
+49950000 burst-clear cell=428
+49950000 burst-clear cell=429
+49950000 burst-clear cell=430
+49950000 burst-clear cell=445
+49950000 burst-clear cell=446
+49950000 burst-clear cell=447
+49950000 burst-clear cell=448
+49950000 burst-clear cell=460
+49950000 burst-clear cell=461
+49950000 burst-clear cell=462
+49950000 burst-clear cell=463
+49950000 burst-clear cell=464
+49950000 burst-clear cell=481
+49950000 burst-clear cell=482
+49950000 burst-clear cell=483
+49950000 burst-clear cell=495
+49950000 burst-clear cell=496
+49950000 burst-clear cell=497
+49950000 burst-clear cell=498
+49950000 burst-clear cell=499
+49950000 burst-clear cell=531
+49950000 burst-clear cell=532
+49950000 burst-clear cell=533
+49950000 burst-clear cell=534
+49950000 burst-clear cell=565
+49950000 burst-clear cell=566
+49950000 burst-clear cell=567
+49950000 burst-clear cell=568
+49950000 burst-clear cell=569
+49950000 burst-clear cell=586
+49950000 burst-clear cell=587
+49950000 burst-clear cell=588
+49950000 burst-clear cell=600
+49950000 burst-clear cell=601
+49950000 burst-clear cell=602
+49950000 burst-clear cell=603
+49950000 burst-clear cell=604
+49950000 burst-clear cell=605
+49950000 burst-clear cell=620
+49950000 burst-clear cell=621
+49950000 burst-clear cell=622
+49950000 burst-clear cell=623
+49950000 burst-clear cell=635
+49950000 burst-clear cell=636
+49950000 burst-clear cell=637
+49950000 burst-clear cell=638
+49950000 burst-clear cell=639
+49950000 burst-clear cell=656
+49950000 burst-clear cell=657
+49950000 burst-clear cell=658
+49950000 burst-clear cell=660
+49950000 burst-clear cell=670
+49950000 burst-clear cell=671
+49950000 burst-clear cell=672
+49950000 burst-clear cell=673
+49950000 burst-clear cell=674
+49950000 burst-clear cell=691
+49950000 burst-clear cell=692
+49950000 burst-clear cell=693
+49950000 burst-clear cell=704
+49950000 burst-clear cell=705
+49950000 burst-clear cell=706
+49950000 burst-clear cell=707
+49950000 burst-clear cell=708
+49950000 burst-clear cell=709
+49950000 burst-clear cell=726
+49950000 burst-clear cell=727
+49950000 burst-clear cell=728
+49950000 burst-clear cell=729
+49950000 burst-clear cell=739
+49950000 burst-clear cell=740
+49950000 burst-clear cell=741
+49950000 burst-clear cell=742
+49950000 burst-clear cell=743
+49950000 burst-clear cell=744
+49950000 burst-clear cell=761
+49950000 burst-clear cell=762
+49950000 burst-clear cell=763
+49950000 burst-clear cell=764
+49950000 burst-clear cell=765
+49950000 burst-clear cell=774
+49950000 burst-clear cell=775
+49950000 burst-clear cell=776
+49950000 burst-clear cell=777
+49950000 burst-clear cell=778
+49950000 burst-clear cell=779
+49950000 burst-clear cell=796
+49950000 burst-clear cell=797
+49950000 burst-clear cell=798
+49950000 burst-clear cell=799
+49950000 burst-clear cell=800
+49950000 burst-clear cell=814
+49950000 burst-clear cell=831
+49950000 burst-clear cell=832
+49950000 burst-clear cell=833
+49950000 burst-clear cell=834
+49950000 burst-clear cell=835
+49950000 burst-clear cell=866
+49950000 burst-clear cell=867
+49950000 burst-clear cell=868
+49950000 burst-clear cell=869
+49950000 burst-clear cell=870
+49950000 burst-clear cell=901
+49950000 burst-clear cell=902
+49950000 burst-clear cell=903
+49950000 burst-clear cell=904
+49950000 burst-clear cell=905
+49950000 burst-clear cell=920
+49950000 burst-clear cell=935
+49950000 burst-clear cell=936
+49950000 burst-clear cell=937
+49950000 burst-clear cell=938
+49950000 burst-clear cell=940
+49950000 burst-clear cell=955
+49950000 burst-clear cell=970
+49950000 burst-clear cell=971
+49950000 burst-clear cell=972
+49950000 burst-clear cell=976
+49950000 burst-clear cell=983
+49950000 burst-clear cell=990
+49950000 burst-clear cell=993
+49950000 burst-clear cell=994
+49950000 burst-clear cell=995
+49950000 burst-clear cell=996
+49950000 burst-clear cell=997
+49950000 burst-clear cell=998
+49950000 burst-clear cell=999
+49950000 burst-clear cell=1000
+49950000 burst-clear cell=1001
+49950000 burst-clear cell=1002
+49950000 burst-clear cell=1005
+49950000 burst-clear cell=1006
+49950000 burst-clear cell=1007
+49950000 burst-clear cell=1008
+49950000 burst-clear cell=1010
+49950000 burst-clear cell=1011
+49950000 burst-clear cell=1018
+49950000 burst-clear cell=1019
+49950000 burst-clear cell=1023
+49950000 burst-clear cell=1024
+49950000 burst-clear cell=1025
+49950000 burst-clear cell=1026
+49950000 burst-clear cell=1027
+49950000 burst-clear cell=1028
+49950000 burst-clear cell=1029
+49950000 burst-clear cell=1030
+49950000 burst-clear cell=1031
+49950000 burst-clear cell=1032
+49950000 burst-clear cell=1034
+49950000 burst-clear cell=1035
+49950000 burst-clear cell=1036
+49950000 burst-clear cell=1037
+49950000 burst-clear cell=1038
+49950000 burst-clear cell=1039
+49950000 burst-clear cell=1040
+49950000 burst-clear cell=1041
+49950000 burst-clear cell=1042
+49950000 burst-clear cell=1043
+49950000 burst-clear cell=1044
+49950000 burst-clear cell=1045
+49950000 burst-clear cell=1046
+49950000 burst-clear cell=1053
+49950000 burst-clear cell=1054
+49950000 burst-clear cell=1055
+49950000 burst-clear cell=1056
+49950000 burst-clear cell=1057
+49950000 burst-clear cell=1058
+49950000 burst-clear cell=1059
+49950000 burst-clear cell=1060
+49950000 burst-clear cell=1061
+49950000 burst-clear cell=1062
+49950000 burst-clear cell=1063
+49950000 burst-clear cell=1064
+49950000 burst-clear cell=1065
+49950000 burst-clear cell=1066
+49950000 burst-clear cell=1070
+49950000 burst-clear cell=1071
+49950000 burst-clear cell=1072
+49950000 burst-clear cell=1073
+49950000 burst-clear cell=1074
+49950000 burst-clear cell=1075
+49950000 burst-clear cell=1076
+49950000 burst-clear cell=1077
+49950000 burst-clear cell=1078
+49950000 burst-clear cell=1079
+49950000 burst-clear cell=1080
+49950000 burst-clear cell=1081
+49950000 burst-clear cell=1094
+49950000 burst-clear cell=1095
+49950000 burst-clear cell=1096
+49950000 burst-clear cell=1097
+49950000 burst-clear cell=1098
+49950000 burst-clear cell=1099
+49950000 burst-clear cell=1100
+49950000 burst-clear cell=1101
+49950000 burst-clear cell=1102
+49950000 burst-clear cell=1104
+49950000 burst-clear cell=1105
+49950000 burst-clear cell=1106
+49950000 burst-clear cell=1107
+49950000 burst-clear cell=1108
+49950000 burst-clear cell=1109
+49950000 burst-clear cell=1110
+50200000 depart id=233 pod=21 cell=199 arrive=51400000 clear=51500000 done=52400000 route=13
+50450000 depart id=234 pod=21 cell=112 arrive=51750000 clear=51850000 done=52825000 route=14
+50700000 depart id=235 pod=21 cell=132 arrive=52000000 clear=52100000 done=53075000 route=14
+50950000 arrive id=231
+50950000 depart id=236 pod=21 cell=148 arrive=52250000 clear=52350000 done=53325000 route=14
+51050000 clear id=231 cell=223
+51150000 arrive id=232
+51200000 depart id=237 pod=21 cell=166 arrive=52500000 clear=52600000 done=53575000 route=14
+51250000 clear id=232 cell=185
+51400000 arrive id=233
+51450000 depart id=238 pod=21 cell=184 arrive=52750000 clear=52850000 done=53825000 route=14
+51500000 clear id=233 cell=199
+51700000 depart id=239 pod=21 cell=200 arrive=53000000 clear=53100000 done=54075000 route=14
+51750000 arrive id=234
+51800000 return id=231
+51850000 clear id=234 cell=112
+51950000 depart id=240 pod=21 cell=111 arrive=53350000 clear=53450000 done=54500000 route=15
+52000000 arrive id=235
+52100000 clear id=235 cell=132
+52150000 return id=232
+52200000 depart id=241 pod=21 cell=133 arrive=53600000 clear=53700000 done=54750000 route=15
+52250000 arrive id=236
+52350000 clear id=236 cell=148
+52400000 return id=233
+52450000 depart id=242 pod=21 cell=147 arrive=53850000 clear=53950000 done=55000000 route=15
+52500000 arrive id=237
+52600000 clear id=237 cell=166
+52700000 depart id=243 pod=21 cell=167 arrive=54100000 clear=54200000 done=55250000 route=15
+52750000 arrive id=238
+52825000 return id=234
+52850000 clear id=238 cell=184
+52950000 depart id=244 pod=21 cell=183 arrive=54350000 clear=54450000 done=55500000 route=15
+53000000 arrive id=239
+53075000 return id=235
+53100000 clear id=239 cell=200
+53200000 depart id=245 pod=21 cell=201 arrive=54600000 clear=54700000 done=55750000 route=15
+53325000 return id=236
+53350000 arrive id=240
+53450000 clear id=240 cell=111
+53450000 depart id=246 pod=21 cell=327 arrive=54850000 clear=54950000 done=56000000 route=15
+53575000 return id=237
+53600000 arrive id=241
+53700000 clear id=241 cell=133
+53700000 depart id=247 pod=21 cell=110 arrive=55200000 clear=55300000 done=56425000 route=16
+53825000 return id=238
+53850000 arrive id=242
+53950000 clear id=242 cell=147
+53950000 depart id=248 pod=21 cell=134 arrive=55450000 clear=55550000 done=56675000 route=16
+54075000 return id=239
+54100000 arrive id=243
+54200000 clear id=243 cell=167
+54200000 depart id=249 pod=21 cell=146 arrive=55700000 clear=55800000 done=56925000 route=16
+54350000 arrive id=244
+54450000 clear id=244 cell=183
+54450000 depart id=250 pod=21 cell=168 arrive=55950000 clear=56050000 done=57175000 route=16
+54500000 return id=240
+54600000 arrive id=245
+54700000 clear id=245 cell=201
+54700000 depart id=251 pod=21 cell=182 arrive=56200000 clear=56300000 done=57425000 route=16
+54750000 return id=241
+54850000 arrive id=246
+54950000 clear id=246 cell=327
+54950000 depart id=252 pod=21 cell=202 arrive=56450000 clear=56550000 done=57675000 route=16
+55000000 return id=242
+55200000 arrive id=247
+55200000 depart id=253 pod=21 cell=338 arrive=56700000 clear=56800000 done=57925000 route=16
+55250000 return id=243
+55300000 clear id=247 cell=110
+55450000 arrive id=248
+55450000 depart id=254 pod=21 cell=362 arrive=56950000 clear=57050000 done=58175000 route=16
+55500000 return id=244
+55550000 clear id=248 cell=134
+55700000 arrive id=249
+55700000 depart id=255 pod=21 cell=109 arrive=57300000 clear=57400000 done=58600000 route=17
+55750000 return id=245
+55800000 clear id=249 cell=146
+55950000 arrive id=250
+55950000 depart id=256 pod=21 cell=145 arrive=57550000 clear=57650000 done=58850000 route=17
+56000000 return id=246
+56050000 clear id=250 cell=168
+56200000 arrive id=251
+56200000 depart id=257 pod=21 cell=169 arrive=57800000 clear=57900000 done=59100000 route=17
+56300000 clear id=251 cell=182
+56425000 return id=247
+56450000 arrive id=252
+56450000 depart id=258 pod=21 cell=181 arrive=58050000 clear=58150000 done=59350000 route=17
+56550000 clear id=252 cell=202
+56675000 return id=248
+56700000 arrive id=253
+56700000 depart id=259 pod=21 cell=203 arrive=58300000 clear=58400000 done=59600000 route=17
+56800000 clear id=253 cell=338
+56925000 return id=249
+56950000 arrive id=254
+56950000 depart id=260 pod=21 cell=361 arrive=58550000 clear=58650000 done=59850000 route=17
+57050000 clear id=254 cell=362
+57175000 return id=250
+57200000 depart id=261 pod=21 cell=373 arrive=58800000 clear=58900000 done=60100000 route=17
+57300000 arrive id=255
+57400000 clear id=255 cell=109
+57425000 return id=251
+57450000 depart id=262 pod=21 cell=397 arrive=59050000 clear=59150000 done=60350000 route=17
+57550000 arrive id=256
+57650000 clear id=256 cell=145
+57675000 return id=252
+57700000 depart id=263 pod=21 cell=108 arrive=59400000 clear=59500000 done=60775000 route=18
+57800000 arrive id=257
+57900000 clear id=257 cell=169
+57925000 return id=253
+57950000 depart id=264 pod=21 cell=144 arrive=59650000 clear=59750000 done=61025000 route=18
+58050000 arrive id=258
+58150000 clear id=258 cell=181
+58175000 return id=254
+58200000 depart id=265 pod=21 cell=170 arrive=59900000 clear=60000000 done=61275000 route=18
+58300000 arrive id=259
+58400000 clear id=259 cell=203
+58450000 depart id=266 pod=21 cell=180 arrive=60150000 clear=60250000 done=61525000 route=18
+58550000 arrive id=260
+58600000 return id=255
+58650000 clear id=260 cell=361
+58700000 depart id=267 pod=21 cell=204 arrive=60400000 clear=60500000 done=61775000 route=18
+58800000 arrive id=261
+58850000 return id=256
+58900000 clear id=261 cell=373
+58950000 depart id=268 pod=21 cell=374 arrive=60650000 clear=60750000 done=62025000 route=18
+59050000 arrive id=262
+59100000 return id=257
+59150000 clear id=262 cell=397
+59200000 depart id=269 pod=21 cell=396 arrive=60900000 clear=61000000 done=62275000 route=18
+59350000 return id=258
+59400000 arrive id=263
+59450000 depart id=270 pod=21 cell=408 arrive=61150000 clear=61250000 done=62525000 route=18
+59500000 clear id=263 cell=108
+59600000 return id=259
+59650000 arrive id=264
+59700000 depart id=271 pod=21 cell=432 arrive=61400000 clear=61500000 done=62775000 route=18
+59750000 clear id=264 cell=144
+59850000 return id=260
+59900000 arrive id=265
+59950000 depart id=272 pod=21 cell=107 arrive=61750000 clear=61850000 done=63200000 route=19
+60000000 clear id=265 cell=170
+60100000 return id=261
+60150000 arrive id=266
+60200000 depart id=273 pod=21 cell=143 arrive=62000000 clear=62100000 done=63450000 route=19
+60250000 clear id=266 cell=180
+60350000 return id=262
+60400000 arrive id=267
+60450000 depart id=274 pod=21 cell=171 arrive=62250000 clear=62350000 done=63700000 route=19
+60500000 clear id=267 cell=204
+60650000 arrive id=268
+60700000 depart id=275 pod=21 cell=179 arrive=62500000 clear=62600000 done=63950000 route=19
+60750000 clear id=268 cell=374
+60775000 return id=263
+60900000 arrive id=269
+60950000 depart id=276 pod=21 cell=409 arrive=62750000 clear=62850000 done=64200000 route=19
+61000000 clear id=269 cell=396
+61025000 return id=264
+61150000 arrive id=270
+61200000 depart id=277 pod=21 cell=431 arrive=63000000 clear=63100000 done=64450000 route=19
+61250000 clear id=270 cell=408
+61275000 return id=265
+61400000 arrive id=271
+61500000 clear id=271 cell=432
+61500000 complete pod=3
+61500000 complete pod=21
+61525000 return id=266
+61750000 arrive id=272
+61775000 return id=267
+61850000 clear id=272 cell=107
+62000000 arrive id=273
+62025000 return id=268
+62100000 clear id=273 cell=143
+62250000 arrive id=274
+62275000 return id=269
+62350000 clear id=274 cell=171
+62500000 arrive id=275
+62525000 return id=270
+62600000 clear id=275 cell=179
+62750000 arrive id=276
+62775000 return id=271
+62850000 clear id=276 cell=409
+63000000 arrive id=277
+63100000 clear id=277 cell=431
+63200000 return id=272
+63450000 return id=273
+63700000 return id=274
+63950000 return id=275
+64200000 return id=276
+64450000 return id=277
+> tap pod=23 at=64450000
+64450000 commit pod=23 slot=0
+64450000 depart id=278 pod=23 cell=443 arrive=66250000 clear=66350000 done=67700000 route=19
+64700000 depart id=279 pod=23 cell=467 arrive=66500000 clear=66600000 done=67950000 route=19
+64950000 depart id=280 pod=23 cell=142 arrive=66850000 clear=66950000 done=68375000 route=20
+65200000 depart id=281 pod=23 cell=178 arrive=67100000 clear=67200000 done=68625000 route=20
+65450000 depart id=282 pod=23 cell=444 arrive=67350000 clear=67450000 done=68875000 route=20
+65700000 depart id=283 pod=23 cell=466 arrive=67600000 clear=67700000 done=69125000 route=20
+65950000 depart id=284 pod=23 cell=465 arrive=67950000 clear=68050000 done=69550000 route=21
+66200000 depart id=285 pod=23 cell=480 arrive=68300000 clear=68400000 done=69975000 route=22
+66250000 arrive id=278
+66350000 clear id=278 cell=443
+66450000 depart id=286 pod=23 cell=478 arrive=68350000 clear=68450000 done=69875000 route=20
+66500000 arrive id=279
+66600000 clear id=279 cell=467
+66700000 depart id=287 pod=23 cell=502 arrive=68600000 clear=68700000 done=70125000 route=20
+66850000 arrive id=280
+66950000 clear id=280 cell=142
+66950000 depart id=288 pod=23 cell=177 arrive=68950000 clear=69050000 done=70550000 route=21
+67100000 arrive id=281
+67200000 clear id=281 cell=178
+67200000 depart id=289 pod=23 cell=500 arrive=69500000 clear=69600000 done=71325000 route=24
+67350000 arrive id=282
+67450000 clear id=282 cell=444
+67450000 depart id=290 pod=23 cell=479 arrive=69450000 clear=69550000 done=71050000 route=21
+67600000 arrive id=283
+67700000 clear id=283 cell=466
+67700000 return id=278
+67700000 depart id=291 pod=23 cell=501 arrive=69700000 clear=69800000 done=71300000 route=21
+67950000 arrive id=284
+67950000 return id=279
+67950000 depart id=292 pod=23 cell=535 arrive=70350000 clear=70450000 done=72250000 route=25
+68050000 clear id=284 cell=465
+68200000 depart id=293 pod=23 cell=570 arrive=70700000 clear=70800000 done=72675000 route=26
+68300000 arrive id=285
+68350000 arrive id=286
+68375000 return id=280
+68400000 clear id=285 cell=480
+68450000 clear id=286 cell=478
+68450000 depart id=294 pod=23 cell=513 arrive=70450000 clear=70550000 done=72050000 route=21
+68600000 arrive id=287
+68625000 return id=281
+68700000 clear id=287 cell=502
+68700000 depart id=295 pod=23 cell=537 arrive=70700000 clear=70800000 done=72300000 route=21
+68875000 return id=282
+68950000 arrive id=288
+68950000 depart id=296 pod=23 cell=515 arrive=71150000 clear=71250000 done=72900000 route=23
+69050000 clear id=288 cell=177
+69125000 return id=283
+69200000 depart id=297 pod=23 cell=606 arrive=71900000 clear=72000000 done=74025000 route=28
+69450000 arrive id=290
+69450000 depart id=298 pod=23 cell=640 arrive=72150000 clear=72250000 done=74275000 route=28
+69500000 arrive id=289
+69550000 clear id=290 cell=479
+69550000 return id=284
+69600000 clear id=289 cell=500
+69700000 arrive id=291
+69700000 depart id=299 pod=23 cell=514 arrive=71800000 clear=71900000 done=73475000 route=22
+69800000 clear id=291 cell=501
+69875000 return id=286
+69950000 depart id=300 pod=23 cell=536 arrive=72050000 clear=72150000 done=73725000 route=22
+69975000 return id=285
+70125000 return id=287
+70200000 depart id=301 pod=23 cell=675 arrive=73000000 clear=73100000 done=75200000 route=29
+70350000 arrive id=292
+70450000 clear id=292 cell=535
+70450000 arrive id=294
+70450000 depart id=302 pod=23 cell=710 arrive=73350000 clear=73450000 done=75625000 route=30
+70550000 clear id=294 cell=513
+70550000 return id=288
+70700000 arrive id=293
+70700000 arrive id=295
+70700000 depart id=303 pod=23 cell=548 arrive=72800000 clear=72900000 done=74475000 route=22
+70800000 clear id=293 cell=570
+70800000 clear id=295 cell=537
+70950000 depart id=304 pod=23 cell=538 arrive=73050000 clear=73150000 done=74725000 route=22
+71050000 return id=290
+71150000 arrive id=296
+71200000 depart id=305 pod=23 cell=572 arrive=73300000 clear=73400000 done=74975000 route=22
+71250000 clear id=296 cell=515
+71300000 return id=291
+71325000 return id=289
+71450000 depart id=306 pod=23 cell=550 arrive=73750000 clear=73850000 done=75575000 route=24
+71700000 depart id=307 pod=23 cell=571 arrive=74100000 clear=74200000 done=76000000 route=25
+71800000 arrive id=299
+71900000 clear id=299 cell=514
+71900000 arrive id=297
+71950000 depart id=308 pod=23 cell=549 arrive=74150000 clear=74250000 done=75900000 route=23
+72000000 clear id=297 cell=606
+72050000 arrive id=300
+72050000 return id=294
+72150000 clear id=300 cell=536
+72150000 arrive id=298
+72200000 depart id=309 pod=23 cell=607 arrive=74800000 clear=74900000 done=76850000 route=27
+72250000 clear id=298 cell=640
+72250000 return id=292
+72300000 return id=295
+72450000 depart id=310 pod=23 cell=641 arrive=75050000 clear=75150000 done=77100000 route=27
+72675000 return id=293
+72700000 depart id=311 pod=23 cell=725 arrive=77100000 clear=77200000 done=80500000 route=45
+72800000 arrive id=303
+72900000 clear id=303 cell=548
+72900000 return id=296
+72950000 depart id=312 pod=23 cell=547 arrive=75150000 clear=75250000 done=76900000 route=23
+73000000 arrive id=301
+73050000 arrive id=304
+73100000 clear id=301 cell=675
+73150000 clear id=304 cell=538
+73200000 depart id=313 pod=23 cell=573 arrive=75400000 clear=75500000 done=77150000 route=23
+73300000 arrive id=305
+73350000 arrive id=302
+73400000 clear id=305 cell=572
+73450000 clear id=302 cell=710
+73450000 depart id=314 pod=23 cell=583 arrive=75650000 clear=75750000 done=77400000 route=23
+73475000 return id=299
+73700000 depart id=315 pod=23 cell=690 arrive=78200000 clear=78300000 done=81675000 route=46
+73725000 return id=300
+73750000 arrive id=306
+73850000 clear id=306 cell=550
+73950000 depart id=316 pod=23 cell=585 arrive=76350000 clear=76450000 done=78250000 route=25
+74025000 return id=297
+74100000 arrive id=307
+74150000 arrive id=308
+74200000 clear id=307 cell=571
+74200000 depart id=317 pod=23 cell=655 arrive=78800000 clear=78900000 done=82350000 route=47
+74250000 clear id=308 cell=549
+74275000 return id=298
+74450000 depart id=318 pod=23 cell=584 arrive=76750000 clear=76850000 done=78575000 route=24
+74475000 return id=303
+74700000 depart id=319 pod=23 cell=619 arrive=79500000 clear=79600000 done=83200000 route=49
+74725000 return id=304
+74800000 arrive id=309
+74900000 clear id=309 cell=607
+74975000 return id=305
+75050000 arrive id=310
+75150000 clear id=310 cell=641
+75150000 arrive id=312
+75200000 return id=301
+75250000 clear id=312 cell=547
+75250000 depart id=320 pod=23 cell=582 arrive=77550000 clear=77650000 done=79375000 route=24
+75400000 arrive id=313
+75500000 clear id=313 cell=573
+75575000 return id=306
+75625000 return id=302
+75650000 arrive id=314
+75750000 clear id=314 cell=583
+75750000 depart id=321 pod=23 cell=618 arrive=78050000 clear=78150000 done=79875000 route=24
+75900000 return id=308
+76000000 return id=307
+76350000 arrive id=316
+76450000 clear id=316 cell=585
+76750000 arrive id=318
+76850000 clear id=318 cell=584
+76850000 return id=309
+76900000 return id=312
+77100000 arrive id=311
+77100000 return id=310
+77150000 return id=313
+77200000 clear id=311 cell=725
+77400000 return id=314
+77550000 arrive id=320
+77650000 clear id=320 cell=582
+78050000 arrive id=321
+78150000 clear id=321 cell=618
+78200000 arrive id=315
+78250000 return id=316
+78300000 clear id=315 cell=690
+78575000 return id=318
+78800000 arrive id=317
+78900000 clear id=317 cell=655
+78900000 depart id=322 pod=23 cell=654 arrive=81600000 clear=81700000 done=83725000 route=28
+79200000 complete pod=23
+79375000 return id=320
+79500000 arrive id=319
+79600000 clear id=319 cell=619
+79875000 return id=321
+80500000 return id=311
+81600000 arrive id=322
+81675000 return id=315
+81700000 clear id=322 cell=654
+82350000 return id=317
+83200000 return id=319
+83725000 return id=322
+> tap pod=17 at=83725000
+83725000 commit pod=17 slot=0
+83725000 depart id=323 pod=17 cell=190 arrive=84425000 clear=84525000 done=85050000 route=8
+83975000 depart id=324 pod=17 cell=189 arrive=84775000 clear=84875000 done=85475000 route=9
+84225000 depart id=325 pod=17 cell=195 arrive=85025000 clear=85125000 done=85725000 route=9
+84425000 arrive id=323
+84475000 depart id=326 pod=17 cell=196 arrive=85375000 clear=85475000 done=86150000 route=10
+84525000 clear id=323 cell=190
+84725000 depart id=327 pod=17 cell=398 arrive=86425000 clear=86525000 done=87800000 route=18
+84775000 arrive id=324
+84875000 clear id=324 cell=189
+84975000 depart id=328 pod=17 cell=407 arrive=86775000 clear=86875000 done=88225000 route=19
+85025000 arrive id=325
+85050000 return id=323
+85125000 clear id=325 cell=195
+85225000 depart id=329 pod=17 cell=468 arrive=87125000 clear=87225000 done=88650000 route=20
+85375000 arrive id=326
+85475000 clear id=326 cell=196
+85475000 return id=324
+85475000 depart id=330 pod=17 cell=477 arrive=87475000 clear=87575000 done=89075000 route=21
+85725000 return id=325
+85725000 depart id=331 pod=17 cell=539 arrive=87925000 clear=88025000 done=89675000 route=23
+85975000 depart id=332 pod=17 cell=516 arrive=88275000 clear=88375000 done=90100000 route=24
+86150000 return id=326
+86225000 depart id=333 pod=17 cell=546 arrive=88525000 clear=88625000 done=90350000 route=24
+86425000 arrive id=327
+86475000 depart id=334 pod=17 cell=642 arrive=88775000 clear=88875000 done=90600000 route=24
+86525000 clear id=327 cell=398
+86725000 depart id=335 pod=17 cell=399 arrive=88525000 clear=88625000 done=89975000 route=19
+86775000 arrive id=328
+86875000 clear id=328 cell=407
+86975000 depart id=336 pod=17 cell=406 arrive=88875000 clear=88975000 done=90400000 route=20
+87125000 arrive id=329
+87225000 clear id=329 cell=468
+87225000 depart id=337 pod=17 cell=469 arrive=89225000 clear=89325000 done=90825000 route=21
+87475000 arrive id=330
+87475000 depart id=338 pod=17 cell=517 arrive=89875000 clear=89975000 done=91775000 route=25
+87575000 clear id=330 cell=477
+87725000 depart id=339 pod=17 cell=476 arrive=89825000 clear=89925000 done=91500000 route=22
+87800000 return id=327
+87925000 arrive id=331
+87975000 depart id=340 pod=17 cell=551 arrive=90375000 clear=90475000 done=92275000 route=25
+88025000 clear id=331 cell=539
+88225000 return id=328
+88225000 depart id=341 pod=17 cell=540 arrive=90525000 clear=90625000 done=92350000 route=24
+88275000 arrive id=332
+88375000 clear id=332 cell=516
+88475000 depart id=342 pod=17 cell=653 arrive=90875000 clear=90975000 done=92775000 route=25
+88525000 arrive id=333
+88525000 arrive id=335
+88625000 clear id=333 cell=546
+88625000 clear id=335 cell=399
+88650000 return id=329
+88725000 depart id=343 pod=17 cell=400 arrive=90625000 clear=90725000 done=92150000 route=20
+88775000 arrive id=334
+88875000 clear id=334 cell=642
+88875000 arrive id=336
+88975000 clear id=336 cell=406
+88975000 depart id=344 pod=17 cell=405 arrive=90975000 clear=91075000 done=92575000 route=21
+89075000 return id=330
+89225000 arrive id=337
+89225000 depart id=345 pod=17 cell=545 arrive=91625000 clear=91725000 done=93525000 route=25
+89325000 clear id=337 cell=469
+89475000 depart id=346 pod=17 cell=470 arrive=91575000 clear=91675000 done=93250000 route=22
+89675000 return id=331
+89725000 depart id=347 pod=17 cell=643 arrive=92125000 clear=92225000 done=94025000 route=25
+89825000 arrive id=339
+89875000 arrive id=338
+89925000 clear id=339 cell=476
+89975000 clear id=338 cell=517
+89975000 return id=335
+89975000 depart id=348 pod=17 cell=475 arrive=92175000 clear=92275000 done=93925000 route=23
+90100000 return id=332
+90225000 depart id=349 pod=17 cell=518 arrive=92725000 clear=92825000 done=94700000 route=26
+90350000 return id=333
+90375000 arrive id=340
+90400000 return id=336
+90475000 clear id=340 cell=551
+90475000 depart id=350 pod=17 cell=552 arrive=92975000 clear=93075000 done=94950000 route=26
+90525000 arrive id=341
+90600000 return id=334
+90625000 clear id=341 cell=540
+90625000 arrive id=343
+90725000 clear id=343 cell=400
+90725000 depart id=351 pod=17 cell=401 arrive=92725000 clear=92825000 done=94325000 route=21
+90825000 return id=337
+90875000 arrive id=342
+90975000 clear id=342 cell=653
+90975000 arrive id=344
+90975000 depart id=352 pod=17 cell=541 arrive=93375000 clear=93475000 done=95275000 route=25
+91075000 clear id=344 cell=405
+91225000 depart id=353 pod=17 cell=404 arrive=93325000 clear=93425000 done=95000000 route=22
+91475000 depart id=354 pod=17 cell=652 arrive=93975000 clear=94075000 done=95950000 route=26
+91500000 return id=339
+91575000 arrive id=346
+91625000 arrive id=345
+91675000 clear id=346 cell=470
+91725000 clear id=345 cell=545
+91775000 return id=338
+91775000 complete pod=17
+92125000 arrive id=347
+92150000 return id=343
+92175000 arrive id=348
+92225000 clear id=347 cell=643
+92275000 clear id=348 cell=475
+92275000 return id=340
+92350000 return id=341
+92575000 return id=344
+92725000 arrive id=349
+92725000 arrive id=351
+92775000 return id=342
+92825000 clear id=349 cell=518
+92825000 clear id=351 cell=401
+92975000 arrive id=350
+93075000 clear id=350 cell=552
+93250000 return id=346
+93325000 arrive id=353
+93375000 arrive id=352
+93425000 clear id=353 cell=404
+93475000 clear id=352 cell=541
+93525000 return id=345
+93925000 return id=348
+93975000 arrive id=354
+94025000 return id=347
+94075000 clear id=354 cell=652
+94325000 return id=351
+94700000 return id=349
+94950000 return id=350
+95000000 return id=353
+95275000 return id=352
+95950000 return id=354
+> tap pod=10 at=95950000
+95950000 commit pod=10 slot=0
+95950000 depart id=355 pod=10 cell=363 arrive=97550000 clear=97650000 done=98850000 route=17
+> tap pod=14 at=95950000
+95950000 commit pod=14 slot=1
+95950000 depart id=356 pod=14 cell=227 arrive=96600000 clear=96700000 done=97150000 route=7
+> tap pod=19 at=95950000
+95950000 commit pod=19 slot=2
+95950000 depart id=357 pod=19 cell=402 arrive=98050000 clear=98150000 done=99725000 route=22
+> tap pod=5 at=95950000
+95950000 commit pod=5 slot=3
+> tap pod=13 at=95950000
+95950000 commit pod=13 slot=4
+95950000 commit pod=18 slot=5
+95950000 depart id=358 pod=13 cell=813 arrive=99150000 clear=99250000 done=101650000 route=33
+95950000 depart id=359 pod=18 cell=403 arrive=98150000 clear=98250000 done=99900000 route=23
+96200000 depart id=360 pod=10 cell=372 arrive=97900000 clear=98000000 done=99275000 route=18
+96200000 depart id=361 pod=14 cell=226 arrive=96900000 clear=97000000 done=97525000 route=8
+96200000 depart id=362 pod=19 cell=471 arrive=98400000 clear=98500000 done=100150000 route=23
+96200000 depart id=363 pod=13 cell=849 arrive=99400000 clear=99500000 done=101900000 route=33
+96200000 depart id=364 pod=18 cell=474 arrive=98500000 clear=98600000 done=100325000 route=24
+96250000 complete pod=5
+> tap pod=15 at=96250000
+96250000 commit pod=15 slot=3
+96250000 depart id=365 pod=15 cell=228 arrive=96950000 clear=97050000 done=97575000 route=8
+96450000 depart id=366 pod=10 cell=433 arrive=98250000 clear=98350000 done=99700000 route=19
+96450000 depart id=367 pod=14 cell=225 arrive=97250000 clear=97350000 done=97950000 route=9
+96450000 depart id=368 pod=19 cell=542 arrive=98950000 clear=99050000 done=100925000 route=26
+96450000 depart id=369 pod=13 cell=812 arrive=99750000 clear=99850000 done=102325000 route=34
+96450000 depart id=370 pod=18 cell=544 arrive=98950000 clear=99050000 done=100925000 route=26
+96500000 depart id=371 pod=15 cell=229 arrive=97300000 clear=97400000 done=98000000 route=9
+96600000 arrive id=356
+96700000 clear id=356 cell=227
+96700000 depart id=372 pod=10 cell=364 arrive=98600000 clear=98700000 done=100125000 route=20
+96700000 depart id=373 pod=14 cell=230 arrive=97600000 clear=97700000 done=98375000 route=10
+96700000 depart id=374 pod=19 cell=262 arrive=97400000 clear=97500000 done=98025000 route=8
+96700000 depart id=375 pod=13 cell=847 arrive=100300000 clear=100400000 done=103100000 route=37
+96700000 depart id=376 pod=18 cell=644 arrive=99200000 clear=99300000 done=101175000 route=26
+96750000 depart id=377 pod=15 cell=259 arrive=97750000 clear=97850000 done=98600000 route=11
+96900000 arrive id=361
+96950000 arrive id=365
+96950000 depart id=378 pod=10 cell=434 arrive=98850000 clear=98950000 done=100375000 route=20
+96950000 depart id=379 pod=14 cell=266 arrive=98050000 clear=98150000 done=98975000 route=12
+96950000 depart id=380 pod=19 cell=676 arrive=99450000 clear=99550000 done=101425000 route=26
+96950000 depart id=381 pod=13 cell=882 arrive=100650000 clear=100750000 done=103525000 route=38
+96950000 depart id=382 pod=18 cell=553 arrive=99550000 clear=99650000 done=101600000 route=27
+97000000 clear id=361 cell=226
+97000000 depart id=383 pod=15 cell=293 arrive=98200000 clear=98300000 done=99200000 route=13
+97050000 clear id=365 cell=228
+97150000 return id=356
+97200000 depart id=384 pod=10 cell=442 arrive=99100000 clear=99200000 done=100625000 route=20
+97200000 depart id=385 pod=14 cell=302 arrive=98500000 clear=98600000 done=99575000 route=14
+97200000 depart id=386 pod=19 cell=261 arrive=98000000 clear=98100000 done=98700000 route=9
+97200000 depart id=387 pod=13 cell=917 arrive=101000000 clear=101100000 done=103950000 route=39
+97200000 depart id=388 pod=18 cell=263 arrive=98000000 clear=98100000 done=98700000 route=9
+97250000 arrive id=367
+97250000 depart id=389 pod=15 cell=328 arrive=98750000 clear=98850000 done=99975000 route=16
+97300000 arrive id=371
+97350000 clear id=367 cell=225
+97400000 clear id=371 cell=229
+97400000 arrive id=374
+97450000 depart id=390 pod=10 cell=365 arrive=99450000 clear=99550000 done=101050000 route=21
+97450000 depart id=391 pod=14 cell=337 arrive=99050000 clear=99150000 done=100350000 route=17
+97450000 depart id=392 pod=19 cell=260 arrive=98350000 clear=98450000 done=99125000 route=10
+97450000 depart id=393 pod=13 cell=952 arrive=101350000 clear=101450000 done=104375000 route=40
+97450000 depart id=394 pod=18 cell=264 arrive=98350000 clear=98450000 done=99125000 route=10
+97500000 clear id=374 cell=262
+97500000 depart id=395 pod=15 cell=608 arrive=99800000 clear=99900000 done=101625000 route=24
+97525000 return id=361
+97550000 arrive id=355
+97575000 return id=365
+97600000 arrive id=373
+97650000 clear id=355 cell=363
+97700000 clear id=373 cell=230
+97700000 depart id=396 pod=10 cell=297 arrive=98500000 clear=98600000 done=99200000 route=9
+97700000 depart id=397 pod=14 cell=617 arrive=100100000 clear=100200000 done=102000000 route=25
+97700000 depart id=398 pod=19 cell=265 arrive=98700000 clear=98800000 done=99550000 route=11
+97700000 depart id=399 pod=13 cell=986 arrive=101600000 clear=101700000 done=104625000 route=40
+97700000 depart id=400 pod=18 cell=651 arrive=100300000 clear=100400000 done=102350000 route=27
+97750000 arrive id=377
+97750000 depart id=401 pod=15 cell=745 arrive=100550000 clear=100650000 done=102750000 route=29
+97850000 clear id=377 cell=259
+97900000 arrive id=360
+97950000 return id=367
+97950000 depart id=402 pod=10 cell=294 arrive=99050000 clear=99150000 done=99975000 route=12
+97950000 depart id=403 pod=14 cell=760 arrive=100850000 clear=100950000 done=103125000 route=30
+97950000 depart id=404 pod=19 cell=689 arrive=100550000 clear=100650000 done=102600000 route=27
+97950000 depart id=405 pod=13 cell=1020 arrive=102050000 clear=102150000 done=105225000 route=42
+97950000 depart id=406 pod=18 cell=711 arrive=100750000 clear=100850000 done=102950000 route=29
+98000000 clear id=360 cell=372
+98000000 arrive id=386
+98000000 arrive id=388
+98000000 return id=371
+98000000 depart id=407 pod=15 cell=780 arrive=101100000 clear=101200000 done=103525000 route=32
+98025000 return id=374
+98050000 arrive id=357
+98050000 arrive id=379
+98100000 clear id=386 cell=261
+98100000 clear id=388 cell=263
+98150000 clear id=357 cell=402
+98150000 clear id=379 cell=266
+98150000 arrive id=359
+98200000 arrive id=383
+98200000 depart id=408 pod=10 cell=296 arrive=99100000 clear=99200000 done=99875000 route=10
+98200000 depart id=409 pod=14 cell=795 arrive=101400000 clear=101500000 done=103900000 route=33
+98200000 depart id=410 pod=19 cell=724 arrive=101100000 clear=101200000 done=103375000 route=30
+98200000 depart id=411 pod=13 cell=1021 arrive=102800000 clear=102900000 done=106350000 route=47
+98250000 clear id=359 cell=403
+98250000 arrive id=366
+98250000 depart id=412 pod=15 cell=815 arrive=101450000 clear=101550000 done=103950000 route=33
+98300000 clear id=383 cell=293
+98350000 clear id=366 cell=433
+98350000 arrive id=392
+98350000 arrive id=394
+98375000 return id=373
+98400000 arrive id=362
+98450000 clear id=392 cell=260
+98450000 clear id=394 cell=264
+98450000 depart id=413 pod=10 cell=298 arrive=99350000 clear=99450000 done=100125000 route=10
+98450000 depart id=414 pod=14 cell=830 arrive=101750000 clear=101850000 done=104325000 route=34
+98450000 depart id=415 pod=13 cell=1022 arrive=103150000 clear=103250000 done=106775000 route=48
+98500000 clear id=362 cell=471
+98500000 arrive id=364
+98500000 arrive id=385
+98500000 arrive id=396
+98500000 depart id=416 pod=19 cell=472 arrive=100800000 clear=100900000 done=102625000 route=24
+98500000 depart id=417 pod=15 cell=865 arrive=101900000 clear=102000000 done=104550000 route=35
+98600000 clear id=364 cell=474
+98600000 clear id=385 cell=302
+98600000 clear id=396 cell=297
+98600000 arrive id=372
+98600000 return id=377
+98600000 depart id=418 pod=18 cell=332 arrive=99500000 clear=99600000 done=100275000 route=10
+98700000 clear id=372 cell=364
+98700000 arrive id=398
+98700000 return id=386
+98700000 return id=388
+98700000 depart id=419 pod=10 cell=295 arrive=99700000 clear=99800000 done=100550000 route=11
+98700000 depart id=420 pod=14 cell=900 arrive=102200000 clear=102300000 done=104925000 route=36
+98700000 depart id=421 pod=13 cell=988 arrive=103600000 clear=103700000 done=107375000 route=50
+98750000 arrive id=389
+98750000 depart id=422 pod=19 cell=329 arrive=100550000 clear=100650000 done=102000000 route=19
+98750000 depart id=423 pod=15 cell=934 arrive=102450000 clear=102550000 done=105325000 route=38
+98800000 clear id=398 cell=265
+98850000 clear id=389 cell=328
+98850000 arrive id=378
+98850000 return id=355
+98850000 depart id=424 pod=18 cell=473 arrive=101250000 clear=101350000 done=103150000 route=25
+98950000 clear id=378 cell=434
+98950000 arrive id=368
+98950000 arrive id=370
+98950000 depart id=425 pod=10 cell=299 arrive=99950000 clear=100050000 done=100800000 route=11
+98950000 depart id=426 pod=14 cell=969 arrive=102750000 clear=102850000 done=105700000 route=39
+98950000 depart id=427 pod=13 cell=989 arrive=103950000 clear=104050000 done=107800000 route=51
+98975000 return id=379
+99000000 depart id=428 pod=15 cell=1004 arrive=102900000 clear=103000000 done=105925000 route=40
+99050000 clear id=368 cell=542
+99050000 clear id=370 cell=544
+99050000 arrive id=391
+99050000 arrive id=402
+99050000 depart id=429 pod=19 cell=543 arrive=101650000 clear=101750000 done=103700000 route=27
+99100000 arrive id=384
+99100000 arrive id=408
+99125000 return id=392
+99125000 return id=394
+99150000 clear id=391 cell=337
+99150000 clear id=402 cell=294
+99150000 arrive id=358
+99150000 depart id=430 pod=18 cell=336 arrive=100650000 clear=100750000 done=101875000 route=16
+99200000 clear id=384 cell=442
+99200000 clear id=408 cell=296
+99200000 arrive id=376
+99200000 return id=383
+99200000 return id=396
+99200000 depart id=431 pod=10 cell=300 arrive=100300000 clear=100400000 done=101225000 route=12
+99200000 depart id=432 pod=14 cell=1003 arrive=103400000 clear=103500000 done=106650000 route=43
+99200000 depart id=433 pod=13 cell=954 arrive=104500000 clear=104600000 done=108575000 route=54
+99250000 clear id=358 cell=813
+99250000 depart id=434 pod=15 cell=967 arrive=103650000 clear=103750000 done=107050000 route=45
+99275000 return id=360
+99300000 clear id=376 cell=644
+99300000 depart id=435 pod=19 cell=331 arrive=100300000 clear=100400000 done=101150000 route=11
+99350000 arrive id=413
+99400000 arrive id=363
+99400000 depart id=436 pod=18 cell=645 arrive=102000000 clear=102100000 done=104050000 route=27
+99450000 clear id=413 cell=298
+99450000 arrive id=380
+99450000 arrive id=390
+99450000 depart id=437 pod=10 cell=301 arrive=100650000 clear=100750000 done=101650000 route=13
+99450000 depart id=438 pod=14 cell=609 arrive=102050000 clear=102150000 done=104100000 route=27
+99450000 depart id=439 pod=13 cell=848 arrive=102750000 clear=102850000 done=105325000 route=34
+99500000 clear id=363 cell=849
+99500000 arrive id=418
+99500000 depart id=440 pod=15 cell=850 arrive=102800000 clear=102900000 done=105375000 route=34
+99550000 clear id=380 cell=676
+99550000 clear id=390 cell=365
+99550000 arrive id=382
+99550000 return id=398
+99550000 depart id=441 pod=19 cell=333 arrive=100550000 clear=100650000 done=101400000 route=11
+99575000 return id=385
+99600000 clear id=418 cell=332
+99650000 clear id=382 cell=553
+99650000 depart id=442 pod=18 cell=330 arrive=101350000 clear=101450000 done=102725000 route=18
+99700000 arrive id=419
+99700000 return id=366
+99700000 depart id=443 pod=10 cell=367 arrive=100700000 clear=100800000 done=101550000 route=11
+99700000 depart id=444 pod=14 cell=966 arrive=104200000 clear=104300000 done=107675000 route=46
+99700000 depart id=445 pod=13 cell=884 arrive=103000000 clear=103100000 done=105575000 route=34
+99725000 return id=357
+99750000 arrive id=369
+99750000 depart id=446 pod=15 cell=965 arrive=104350000 clear=104450000 done=107900000 route=47
+99800000 clear id=419 cell=295
+99800000 arrive id=395
+99850000 clear id=369 cell=812
+99875000 return id=408
+99900000 clear id=395 cell=608
+99900000 return id=359
+99950000 arrive id=425
+99950000 depart id=447 pod=10 cell=371 arrive=101550000 clear=101650000 done=102850000 route=17
+99950000 depart id=448 pod=14 cell=964 arrive=104650000 clear=104750000 done=108275000 route=48
+99950000 depart id=449 pod=13 cell=919 arrive=105350000 clear=105450000 done=109500000 route=55
+99975000 return id=389
+99975000 return id=402
+100000000 depart id=450 pod=15 cell=963 arrive=104800000 clear=104900000 done=108500000 route=49
+100050000 clear id=425 cell=299
+100050000 depart id=451 pod=19 cell=334 arrive=101150000 clear=101250000 done=102075000 route=12
+100100000 arrive id=397
+100125000 return id=372
+100125000 return id=413
+100150000 return id=362
+100200000 clear id=397 cell=617
+100200000 depart id=452 pod=10 cell=366 arrive=101900000 clear=102000000 done=103275000 route=18
+100200000 depart id=453 pod=14 cell=616 arrive=102700000 clear=102800000 done=104675000 route=26
+100250000 depart id=454 pod=15 cell=962 arrive=105150000 clear=105250000 done=108925000 route=50
+100275000 return id=418
+100300000 arrive id=375
+100300000 arrive id=400
+100300000 arrive id=431
+100300000 arrive id=435
+100325000 return id=364
+100350000 return id=391
+100375000 return id=378
+100400000 clear id=375 cell=847
+100400000 clear id=400 cell=651
+100400000 clear id=431 cell=300
+100400000 clear id=435 cell=331
+100400000 depart id=455 pod=19 cell=335 arrive=101600000 clear=101700000 done=102600000 route=13
+100400000 depart id=456 pod=18 cell=650 arrive=103100000 clear=103200000 done=105225000 route=28
+100450000 depart id=457 pod=10 cell=435 arrive=102250000 clear=102350000 done=103700000 route=19
+100450000 depart id=458 pod=14 cell=961 arrive=105450000 clear=105550000 done=109300000 route=51
+100500000 depart id=459 pod=15 cell=960 arrive=105600000 clear=105700000 done=109525000 route=52
+100550000 arrive id=401
+100550000 arrive id=404
+100550000 arrive id=422
+100550000 arrive id=441
+100550000 return id=419
+100625000 return id=384
+100650000 clear id=401 cell=745
+100650000 clear id=404 cell=689
+100650000 clear id=422 cell=329
+100650000 clear id=441 cell=333
+100650000 arrive id=381
+100650000 arrive id=430
+100650000 arrive id=437
+100700000 arrive id=443
+100700000 depart id=460 pod=10 cell=368 arrive=101800000 clear=101900000 done=102725000 route=12
+100700000 depart id=461 pod=14 cell=959 arrive=105900000 clear=106000000 done=109900000 route=53
+100750000 clear id=381 cell=882
+100750000 clear id=430 cell=336
+100750000 clear id=437 cell=301
+100750000 arrive id=406
+100750000 depart id=462 pod=13 cell=883 arrive=104350000 clear=104450000 done=107150000 route=37
+100750000 depart id=463 pod=15 cell=991 arrive=105950000 clear=106050000 done=109950000 route=53
+100800000 clear id=443 cell=367
+100800000 arrive id=416
+100800000 return id=425
+100850000 clear id=406 cell=711
+100850000 arrive id=403
+100900000 clear id=416 cell=472
+100925000 return id=368
+100925000 return id=370
+100950000 clear id=403 cell=760
+100950000 depart id=464 pod=10 cell=437 arrive=102150000 clear=102250000 done=103150000 route=13
+101000000 arrive id=387
+101000000 complete pod=14
+101000000 depart id=465 pod=15 cell=956 arrive=106300000 clear=106400000 done=110375000 route=54
+101050000 return id=390
+> tap pod=6 at=101050000
+101050000 commit pod=6 slot=1
+101100000 clear id=387 cell=917
+101100000 arrive id=407
+101100000 arrive id=410
+101100000 depart id=466 pod=13 cell=918 arrive=104800000 clear=104900000 done=107675000 route=38
+101150000 arrive id=451
+101150000 return id=435
+101175000 return id=376
+101200000 clear id=407 cell=780
+101200000 clear id=410 cell=724
+101200000 depart id=467 pod=10 cell=436 arrive=102500000 clear=102600000 done=103575000 route=14
+101225000 return id=431
+101250000 clear id=451 cell=334
+101250000 arrive id=424
+101300000 complete pod=15
+101350000 clear id=424 cell=473
+101350000 arrive id=393
+101350000 arrive id=442
+101350000 complete pod=6
+> tap pod=8 at=101350000
+101350000 commit pod=8 slot=1
+101350000 depart id=468 pod=8 cell=369 arrive=102550000 clear=102650000 done=103550000 route=13
+101400000 arrive id=409
+101400000 return id=441
+101425000 return id=380
+101450000 clear id=393 cell=952
+101450000 clear id=442 cell=330
+101450000 arrive id=412
+101450000 depart id=469 pod=10 cell=438 arrive=102750000 clear=102850000 done=103825000 route=14
+101450000 depart id=470 pod=13 cell=953 arrive=105250000 clear=105350000 done=108200000 route=39
+101500000 clear id=409 cell=795
+101550000 clear id=412 cell=815
+101550000 arrive id=447
+101550000 return id=443
+101550000 depart id=471 pod=19 cell=816 arrive=104650000 clear=104750000 done=107075000 route=32
+101600000 arrive id=399
+101600000 arrive id=455
+101600000 return id=382
+101600000 depart id=472 pod=8 cell=439 arrive=103000000 clear=103100000 done=104150000 route=15
+101625000 return id=395
+101650000 clear id=447 cell=371
+101650000 arrive id=429
+101650000 return id=358
+101650000 return id=437
+101700000 clear id=399 cell=986
+101700000 clear id=455 cell=335
+101700000 depart id=473 pod=10 cell=370 arrive=103000000 clear=103100000 done=104075000 route=14
+101750000 clear id=429 cell=543
+101750000 arrive id=414
+101800000 arrive id=460
+101850000 clear id=414 cell=830
+101850000 depart id=474 pod=19 cell=829 arrive=105050000 clear=105150000 done=107550000 route=33
+101850000 depart id=475 pod=8 cell=440 arrive=103350000 clear=103450000 done=104575000 route=16
+101875000 return id=430
+101900000 clear id=460 cell=368
+101900000 arrive id=417
+101900000 arrive id=452
+101900000 return id=363
+101950000 depart id=476 pod=10 cell=441 arrive=103550000 clear=103650000 done=104850000 route=17
+102000000 clear id=417 cell=865
+102000000 clear id=452 cell=366
+102000000 arrive id=436
+102000000 return id=397
+102000000 return id=422
+102000000 depart id=477 pod=18 cell=864 arrive=105300000 clear=105400000 done=107875000 route=34
+102050000 arrive id=405
+102050000 arrive id=438
+102075000 return id=451
+102100000 clear id=436 cell=645
+102100000 depart id=478 pod=19 cell=610 arrive=104800000 clear=104900000 done=106925000 route=28
+102100000 depart id=479 pod=8 cell=504 arrive=103800000 clear=103900000 done=105175000 route=18
+102150000 clear id=405 cell=1020
+102150000 clear id=438 cell=609
+102150000 arrive id=464
+102200000 arrive id=420
+102200000 depart id=480 pod=10 cell=503 arrive=104000000 clear=104100000 done=105450000 route=19
+102250000 clear id=464 cell=437
+102250000 arrive id=457
+102250000 depart id=481 pod=18 cell=646 arrive=104950000 clear=105050000 done=107075000 route=28
+102300000 clear id=420 cell=900
+102325000 return id=369
+102350000 clear id=457 cell=435
+102350000 return id=400
+102350000 depart id=482 pod=8 cell=507 arrive=103750000 clear=103850000 done=104900000 route=15
+102450000 arrive id=423
+102450000 depart id=483 pod=10 cell=506 arrive=103950000 clear=104050000 done=105175000 route=16
+102500000 arrive id=467
+102550000 clear id=423 cell=934
+102550000 arrive id=468
+102600000 clear id=467 cell=436
+102600000 return id=404
+102600000 return id=455
+102600000 depart id=484 pod=8 cell=508 arrive=104100000 clear=104200000 done=105325000 route=16
+102625000 return id=416
+102650000 clear id=468 cell=369
+102700000 arrive id=453
+102700000 depart id=485 pod=10 cell=505 arrive=104300000 clear=104400000 done=105600000 route=17
+102725000 return id=442
+102725000 return id=460
+102750000 arrive id=426
+102750000 arrive id=439
+102750000 arrive id=469
+102750000 return id=401
+102800000 clear id=453 cell=616
+102800000 arrive id=411
+102800000 arrive id=440
+102800000 depart id=486 pod=19 cell=615 arrive=105400000 clear=105500000 done=107450000 route=27
+102850000 clear id=426 cell=969
+102850000 clear id=439 cell=848
+102850000 clear id=469 cell=438
+102850000 return id=447
+102850000 depart id=487 pod=8 cell=509 arrive=104450000 clear=104550000 done=105750000 route=17
+102900000 clear id=411 cell=1021
+102900000 clear id=440 cell=850
+102900000 arrive id=428
+102900000 depart id=488 pod=18 cell=851 arrive=106100000 clear=106200000 done=108600000 route=33
+102950000 return id=406
+102950000 depart id=489 pod=10 cell=510 arrive=104650000 clear=104750000 done=106025000 route=18
+103000000 clear id=428 cell=1004
+103000000 arrive id=445
+103000000 arrive id=472
+103000000 arrive id=473
+103100000 clear id=445 cell=884
+103100000 clear id=472 cell=439
+103100000 clear id=473 cell=370
+103100000 arrive id=456
+103100000 return id=375
+103100000 depart id=490 pod=8 cell=511 arrive=104900000 clear=105000000 done=106350000 route=19
+103125000 return id=403
+103150000 arrive id=415
+103150000 return id=424
+103150000 return id=464
+103200000 clear id=456 cell=650
+103200000 depart id=491 pod=10 cell=512 arrive=105100000 clear=105200000 done=106625000 route=20
+103200000 depart id=492 pod=19 cell=649 arrive=106000000 clear=106100000 done=108200000 route=29
+103250000 clear id=415 cell=1022
+103275000 return id=452
+103350000 arrive id=475
+103350000 depart id=493 pod=8 cell=345 arrive=105550000 clear=105650000 done=107300000 route=23
+103375000 return id=410
+103400000 arrive id=432
+103450000 clear id=475 cell=440
+103450000 depart id=494 pod=10 cell=379 arrive=105650000 clear=105750000 done=107400000 route=23
+103500000 clear id=432 cell=1003
+103525000 return id=381
+103525000 return id=407
+103550000 arrive id=476
+103550000 return id=468
+103575000 return id=467
+103600000 arrive id=421
+103600000 depart id=495 pod=8 cell=414 arrive=105900000 clear=106000000 done=107725000 route=24
+103650000 clear id=476 cell=441
+103650000 arrive id=434
+103700000 clear id=421 cell=988
+103700000 return id=429
+103700000 return id=457
+103700000 depart id=496 pod=10 cell=574 arrive=106000000 clear=106100000 done=107825000 route=24
+103750000 clear id=434 cell=967
+103750000 arrive id=482
+103800000 arrive id=479
+103825000 return id=469
+103850000 clear id=482 cell=507
+103850000 depart id=497 pod=8 cell=577 arrive=105450000 clear=105550000 done=106750000 route=17
+103900000 clear id=479 cell=504
+103900000 return id=409
+103950000 arrive id=427
+103950000 arrive id=483
+103950000 return id=387
+103950000 return id=412
+103950000 depart id=498 pod=10 cell=576 arrive=105650000 clear=105750000 done=107025000 route=18
+104000000 arrive id=480
+104050000 clear id=427 cell=989
+104050000 clear id=483 cell=506
+104050000 return id=436
+104075000 return id=473
+104100000 clear id=480 cell=503
+104100000 arrive id=484
+104100000 return id=438
+104100000 depart id=499 pod=8 cell=578 arrive=105800000 clear=105900000 done=107175000 route=18
+104150000 return id=472
+104200000 clear id=484 cell=508
+104200000 arrive id=444
+104200000 depart id=500 pod=10 cell=575 arrive=106000000 clear=106100000 done=107450000 route=19
+104300000 clear id=444 cell=966
+104300000 arrive id=485
+104325000 return id=414
+104350000 arrive id=446
+104350000 arrive id=462
+104350000 depart id=501 pod=8 cell=579 arrive=106150000 clear=106250000 done=107600000 route=19
+104375000 return id=393
+104400000 clear id=485 cell=505
+104450000 clear id=446 cell=965
+104450000 clear id=462 cell=883
+104450000 arrive id=487
+104450000 depart id=502 pod=10 cell=580 arrive=106350000 clear=106450000 done=107875000 route=20
+104500000 arrive id=433
+104550000 clear id=487 cell=509
+104550000 return id=417
+104575000 return id=475
+104600000 clear id=433 cell=954
+104600000 depart id=503 pod=8 cell=581 arrive=106600000 clear=106700000 done=108200000 route=21
+104625000 return id=399
+104650000 arrive id=448
+104650000 arrive id=471
+104650000 arrive id=489
+104675000 return id=453
+104700000 depart id=504 pod=10 cell=678 arrive=107000000 clear=107100000 done=108825000 route=24
+104750000 clear id=448 cell=964
+104750000 clear id=471 cell=816
+104750000 clear id=489 cell=510
+104800000 arrive id=450
+104800000 arrive id=466
+104800000 arrive id=478
+104850000 return id=476
+104850000 depart id=505 pod=8 cell=381 arrive=107250000 clear=107350000 done=109150000 route=25
+104900000 clear id=450 cell=963
+104900000 clear id=466 cell=918
+104900000 clear id=478 cell=610
+104900000 arrive id=490
+104900000 return id=482
+104900000 depart id=506 pod=19 cell=611 arrive=107300000 clear=107400000 done=109200000 route=25
+104925000 return id=420
+104950000 arrive id=481
+104950000 depart id=507 pod=10 cell=449 arrive=107350000 clear=107450000 done=109250000 route=25
+105000000 clear id=490 cell=511
+105050000 clear id=481 cell=646
+105050000 arrive id=474
+105100000 arrive id=491
+105100000 depart id=508 pod=8 cell=677 arrive=107500000 clear=107600000 done=109400000 route=25
+105150000 clear id=474 cell=829
+105150000 arrive id=454
+105175000 return id=479
+105175000 return id=483
+105200000 clear id=491 cell=512
+105200000 depart id=509 pod=10 cell=679 arrive=107600000 clear=107700000 done=109500000 route=25
+105225000 return id=405
+105225000 return id=456
+105250000 clear id=454 cell=962
+105250000 arrive id=470
+105300000 arrive id=477
+105325000 return id=423
+105325000 return id=439
+105325000 return id=484
+105350000 clear id=470 cell=953
+105350000 arrive id=449
+105350000 depart id=510 pod=8 cell=687 arrive=107750000 clear=107850000 done=109650000 route=25
+105375000 return id=440
+105400000 clear id=477 cell=864
+105400000 arrive id=486
+105450000 clear id=449 cell=919
+105450000 arrive id=458
+105450000 arrive id=497
+105450000 return id=480
+105450000 depart id=511 pod=10 cell=484 arrive=107950000 clear=108050000 done=109925000 route=26
+105500000 clear id=486 cell=615
+105500000 depart id=512 pod=19 cell=614 arrive=108000000 clear=108100000 done=109975000 route=26
+105550000 clear id=458 cell=961
+105550000 clear id=497 cell=577
+105550000 arrive id=493
+105550000 depart id=513 pod=18 cell=612 arrive=107250000 clear=107350000 done=108625000 route=18
+105575000 return id=445
+105600000 arrive id=459
+105600000 return id=485
+105600000 depart id=514 pod=8 cell=680 arrive=108100000 clear=108200000 done=110075000 route=26
+105650000 clear id=493 cell=345
+105650000 arrive id=494
+105650000 arrive id=498
+105700000 clear id=459 cell=960
+105700000 return id=426
+105700000 depart id=515 pod=10 cell=380 arrive=108000000 clear=108100000 done=109825000 route=24
+105750000 clear id=494 cell=379
+105750000 clear id=498 cell=576
+105750000 return id=487
+105800000 arrive id=499
+105850000 depart id=516 pod=8 cell=686 arrive=108350000 clear=108450000 done=110325000 route=26
+105900000 clear id=499 cell=578
+105900000 arrive id=461
+105900000 arrive id=495
+105900000 depart id=517 pod=19 cell=613 arrive=107700000 clear=107800000 done=109150000 route=19
+105925000 return id=428
+105950000 arrive id=463
+105950000 depart id=518 pod=10 cell=688 arrive=108450000 clear=108550000 done=110425000 route=26
+106000000 clear id=461 cell=959
+106000000 clear id=495 cell=414
+106000000 arrive id=492
+106000000 arrive id=496
+106000000 arrive id=500
+106025000 return id=489
+106050000 clear id=463 cell=991
+106100000 clear id=492 cell=649
+106100000 clear id=496 cell=574
+106100000 clear id=500 cell=575
+106100000 arrive id=488
+106100000 depart id=519 pod=8 cell=681 arrive=108300000 clear=108400000 done=110050000 route=23
+106150000 arrive id=501
+106200000 clear id=488 cell=851
+106250000 clear id=501 cell=579
+106250000 complete pod=10
+> tap pod=9 at=106250000
+106250000 commit pod=9 slot=4
+106250000 commit pod=16 slot=5
+106250000 reveal pod=7 mode=depth
+106250000 depart id=520 pod=9 cell=416 arrive=108750000 clear=108850000 done=110725000 route=26
+106250000 depart id=521 pod=16 cell=885 arrive=109450000 clear=109550000 done=111950000 route=33
+106300000 arrive id=465
+106350000 arrive id=502
+106350000 return id=411
+106350000 return id=490
+106350000 depart id=522 pod=8 cell=450 arrive=108850000 clear=108950000 done=110825000 route=26
+106400000 clear id=465 cell=956
+106450000 clear id=502 cell=580
+106500000 depart id=523 pod=9 cell=685 arrive=108700000 clear=108800000 done=110450000 route=23
+106500000 depart id=524 pod=16 cell=886 arrive=109800000 clear=109900000 done=112375000 route=34
+106600000 arrive id=503
+106600000 depart id=525 pod=8 cell=684 arrive=108900000 clear=109000000 done=110725000 route=24
+106625000 return id=491
+106650000 return id=432
+106700000 clear id=503 cell=581
+106750000 return id=497
+106750000 depart id=526 pod=9 cell=519 arrive=109350000 clear=109450000 done=111400000 route=27
+106750000 depart id=527 pod=16 cell=899 arrive=110150000 clear=110250000 done=112800000 route=35
+106775000 return id=415
+106850000 depart id=528 pod=8 cell=494 arrive=109550000 clear=109650000 done=111675000 route=28
+106925000 return id=478
+107000000 arrive id=504
+107000000 depart id=529 pod=9 cell=530 arrive=109700000 clear=109800000 done=111825000 route=28
+107000000 depart id=530 pod=16 cell=921 arrive=110600000 clear=110700000 done=113400000 route=37
+107025000 return id=498
+107050000 return id=434
+107075000 return id=471
+107075000 return id=481
+107100000 clear id=504 cell=678
+107100000 depart id=531 pod=8 cell=554 arrive=109800000 clear=109900000 done=111925000 route=28
+107150000 return id=462
+107175000 return id=499
+107250000 arrive id=505
+107250000 arrive id=513
+107250000 depart id=532 pod=9 cell=712 arrive=109950000 clear=110050000 done=112075000 route=28
+107250000 depart id=533 pod=16 cell=933 arrive=110850000 clear=110950000 done=113650000 route=37
+107300000 arrive id=506
+107300000 return id=493
+107350000 clear id=505 cell=381
+107350000 clear id=513 cell=612
+107350000 arrive id=507
+107350000 depart id=534 pod=8 cell=746 arrive=110050000 clear=110150000 done=112175000 route=28
+107375000 return id=421
+107400000 clear id=506 cell=611
+107400000 return id=494
+107450000 clear id=507 cell=449
+107450000 return id=486
+107450000 return id=500
+107500000 arrive id=508
+107500000 depart id=535 pod=9 cell=451 arrive=110300000 clear=110400000 done=112500000 route=29
+107500000 depart id=536 pod=16 cell=968 arrive=111200000 clear=111300000 done=114075000 route=38
+107550000 return id=474
+107600000 clear id=508 cell=677
+107600000 arrive id=509
+107600000 return id=501
+107600000 depart id=537 pod=8 cell=589 arrive=110400000 clear=110500000 done=112600000 route=29
+107675000 return id=444
+107675000 return id=466
+107700000 clear id=509 cell=679
+107700000 arrive id=517
+107725000 return id=495
+107750000 arrive id=510
+107750000 depart id=538 pod=9 cell=723 arrive=110550000 clear=110650000 done=112750000 route=29
+107750000 depart id=539 pod=16 cell=957 arrive=111550000 clear=111650000 done=114500000 route=39
+107800000 clear id=517 cell=613
+107800000 return id=427
+107825000 return id=496
+107850000 clear id=510 cell=687
+107850000 depart id=540 pod=8 cell=759 arrive=110650000 clear=110750000 done=112850000 route=29
+107875000 return id=477
+107875000 return id=502
+107900000 return id=446
+107950000 arrive id=511
+108000000 arrive id=512
+108000000 arrive id=515
+108000000 depart id=541 pod=9 cell=528 arrive=110900000 clear=111000000 done=113175000 route=30
+108000000 depart id=542 pod=16 cell=992 arrive=111900000 clear=112000000 done=114925000 route=40
+108050000 clear id=511 cell=484
+108100000 clear id=512 cell=614
+108100000 clear id=515 cell=380
+108100000 arrive id=514
+108100000 depart id=543 pod=8 cell=485 arrive=110700000 clear=110800000 done=112750000 route=27
+108200000 clear id=514 cell=680
+108200000 return id=470
+108200000 return id=492
+108200000 return id=503
+108250000 depart id=544 pod=9 cell=564 arrive=111150000 clear=111250000 done=113425000 route=30
+108250000 depart id=545 pod=16 cell=932 arrive=112350000 clear=112450000 done=115525000 route=42
+108275000 return id=448
+108300000 arrive id=519
+108350000 arrive id=516
+108350000 depart id=546 pod=8 cell=624 arrive=111250000 clear=111350000 done=113525000 route=30
+108400000 clear id=519 cell=681
+108450000 clear id=516 cell=686
+108450000 arrive id=518
+108500000 return id=450
+108500000 depart id=547 pod=9 cell=716 arrive=110600000 clear=110700000 done=112275000 route=22
+108500000 depart id=548 pod=16 cell=931 arrive=112700000 clear=112800000 done=115950000 route=43
+108550000 clear id=518 cell=688
+108575000 return id=433
+108600000 return id=488
+108600000 depart id=549 pod=8 cell=659 arrive=111600000 clear=111700000 done=113950000 route=31
+108625000 return id=513
+108700000 arrive id=523
+108750000 arrive id=520
+108750000 depart id=550 pod=9 cell=781 arrive=111750000 clear=111850000 done=114100000 route=31
+108750000 depart id=551 pod=16 cell=930 arrive=113050000 clear=113150000 done=116375000 route=44
+108800000 clear id=523 cell=685
+108825000 return id=504
+108850000 clear id=520 cell=416
+108850000 arrive id=522
+108850000 depart id=552 pod=8 cell=520 arrive=111950000 clear=112050000 done=114375000 route=32
+108900000 arrive id=525
+108925000 return id=454
+108950000 clear id=522 cell=450
+109000000 clear id=525 cell=684
+109000000 depart id=553 pod=9 cell=719 arrive=111200000 clear=111300000 done=112950000 route=23
+109000000 depart id=554 pod=16 cell=958 arrive=113300000 clear=113400000 done=116625000 route=44
+109100000 depart id=555 pod=8 cell=694 arrive=112200000 clear=112300000 done=114625000 route=32
+109150000 return id=505
+109150000 return id=517
+109200000 return id=506
+109250000 return id=507
+109250000 depart id=556 pod=9 cell=794 arrive=112350000 clear=112450000 done=114775000 route=32
+109250000 depart id=557 pod=16 cell=929 arrive=113650000 clear=113750000 done=117050000 route=45
+109300000 return id=458
+109350000 arrive id=526
+109350000 depart id=558 pod=8 cell=555 arrive=112550000 clear=112650000 done=115050000 route=33
+109400000 return id=508
+109450000 clear id=526 cell=519
+109450000 arrive id=521
+109500000 return id=449
+109500000 return id=509
+109500000 depart id=559 pod=9 cell=817 arrive=112700000 clear=112800000 done=115200000 route=33
+109500000 depart id=560 pod=16 cell=924 arrive=114000000 clear=114100000 done=117475000 route=46
+109525000 return id=459
+109550000 clear id=521 cell=885
+109550000 arrive id=528
+109600000 depart id=561 pod=8 cell=590 arrive=112900000 clear=113000000 done=115475000 route=34
+109650000 clear id=528 cell=494
+109650000 return id=510
+109700000 arrive id=529
+109750000 depart id=562 pod=9 cell=529 arrive=112550000 clear=112650000 done=114750000 route=29
+109750000 depart id=563 pod=16 cell=925 arrive=114150000 clear=114250000 done=117550000 route=45
+109800000 clear id=529 cell=530
+109800000 arrive id=524
+109800000 arrive id=531
+109825000 return id=515
+109850000 depart id=564 pod=8 cell=626 arrive=113150000 clear=113250000 done=115725000 route=34
+109900000 clear id=524 cell=886
+109900000 clear id=531 cell=554
+109900000 return id=461
+109900000 depart id=565 pod=19 cell=887 arrive=113300000 clear=113400000 done=115950000 route=35
+109925000 return id=511
+109950000 arrive id=532
+109950000 return id=463
+109975000 return id=512
+110000000 depart id=566 pod=9 cell=730 arrive=113300000 clear=113400000 done=115875000 route=34
+110000000 depart id=567 pod=16 cell=926 arrive=114500000 clear=114600000 done=117975000 route=46
+110050000 clear id=532 cell=712
+110050000 arrive id=534
+110050000 return id=519
+110075000 return id=514
+110100000 depart id=568 pod=8 cell=828 arrive=113400000 clear=113500000 done=115975000 route=34
+110150000 clear id=534 cell=746
+110150000 arrive id=527
+110250000 clear id=527 cell=899
+110250000 depart id=569 pod=19 cell=898 arrive=113750000 clear=113850000 done=116475000 route=36
+110250000 depart id=570 pod=9 cell=852 arrive=113550000 clear=113650000 done=116125000 route=34
+110250000 depart id=571 pod=16 cell=928 arrive=114750000 clear=114850000 done=118225000 route=46
+110300000 arrive id=535
+110325000 return id=516
+110350000 depart id=572 pod=8 cell=661 arrive=113750000 clear=113850000 done=116400000 route=35
+110375000 return id=465
+110400000 clear id=535 cell=451
+110400000 arrive id=537
+110425000 return id=518
+110450000 return id=523
+110500000 clear id=537 cell=589
+110500000 depart id=573 pod=9 cell=863 arrive=113900000 clear=114000000 done=116550000 route=35
+110500000 depart id=574 pod=16 cell=927 arrive=115100000 clear=115200000 done=118650000 route=47
+110550000 arrive id=538
+110600000 arrive id=530
+110600000 arrive id=547
+110600000 depart id=575 pod=8 cell=696 arrive=114100000 clear=114200000 done=116825000 route=36
+110650000 clear id=538 cell=723
+110650000 arrive id=540
+110700000 clear id=530 cell=921
+110700000 clear id=547 cell=716
+110700000 arrive id=543
+110700000 depart id=576 pod=19 cell=717 arrive=112900000 clear=113000000 done=114650000 route=23
+110725000 return id=520
+110725000 return id=525
+110750000 clear id=540 cell=759
+110750000 depart id=577 pod=9 cell=939 arrive=114550000 clear=114650000 done=117500000 route=39
+110750000 depart id=578 pod=16 cell=922 arrive=114250000 clear=114350000 done=116975000 route=36
+110800000 clear id=543 cell=485
+110825000 return id=522
+110850000 arrive id=533
+110850000 depart id=579 pod=8 cell=973 arrive=114650000 clear=114750000 done=117600000 route=39
+110900000 arrive id=541
+110950000 clear id=533 cell=933
+111000000 clear id=541 cell=528
+111000000 depart id=580 pod=9 cell=975 arrive=115000000 clear=115100000 done=118100000 route=41
+111100000 depart id=581 pod=8 cell=1009 arrive=115100000 clear=115200000 done=118200000 route=41
+111150000 arrive id=544
+111200000 arrive id=536
+111200000 arrive id=553
+111250000 clear id=544 cell=564
+111250000 arrive id=546
+111250000 depart id=582 pod=9 cell=1033 arrive=115650000 clear=115750000 done=119050000 route=45
+111300000 clear id=536 cell=968
+111300000 clear id=553 cell=719
+111300000 depart id=583 pod=19 cell=718 arrive=113600000 clear=113700000 done=115425000 route=24
+111350000 clear id=546 cell=624
+111350000 depart id=584 pod=8 cell=625 arrive=114350000 clear=114450000 done=116700000 route=31
+111400000 return id=526
+111500000 depart id=585 pod=9 cell=1067 arrive=115900000 clear=116000000 done=119300000 route=45
+111550000 arrive id=539
+111600000 arrive id=549
+111650000 clear id=539 cell=957
+111650000 complete pod=8
+> tap pod=11 at=111650000
+111650000 commit pod=11 slot=0
+111650000 depart id=586 pod=11 cell=715 arrive=113850000 clear=113950000 done=115600000 route=23
+111675000 return id=528
+111700000 clear id=549 cell=659
+111750000 arrive id=550
+111750000 depart id=587 pod=9 cell=695 arrive=114950000 clear=115050000 done=117450000 route=33
+111825000 return id=529
+111850000 clear id=550 cell=781
+111900000 arrive id=542
+111900000 depart id=588 pod=11 cell=751 arrive=114100000 clear=114200000 done=115850000 route=23
+111925000 return id=531
+111950000 arrive id=552
+111950000 return id=521
+112000000 clear id=542 cell=992
+112000000 depart id=589 pod=9 cell=1069 arrive=116400000 clear=116500000 done=119800000 route=45
+112050000 clear id=552 cell=520
+112075000 return id=532
+112150000 depart id=590 pod=11 cell=714 arrive=114450000 clear=114550000 done=116275000 route=24
+112175000 return id=534
+112200000 arrive id=555
+112250000 depart id=591 pod=9 cell=1103 arrive=116650000 clear=116750000 done=120050000 route=45
+112275000 return id=547
+112300000 clear id=555 cell=694
+112350000 arrive id=545
+112350000 arrive id=556
+112375000 return id=524
+112400000 depart id=592 pod=11 cell=720 arrive=114700000 clear=114800000 done=116525000 route=24
+112450000 clear id=545 cell=932
+112450000 clear id=556 cell=794
+112450000 depart id=593 pod=19 cell=897 arrive=116050000 clear=116150000 done=118850000 route=37
+112500000 return id=535
+112550000 arrive id=558
+112550000 arrive id=562
+112600000 return id=537
+112650000 clear id=558 cell=555
+112650000 clear id=562 cell=529
+112650000 depart id=594 pod=11 cell=754 arrive=114950000 clear=115050000 done=116775000 route=24
+112700000 arrive id=548
+112700000 arrive id=559
+112750000 return id=538
+112750000 return id=543
+112800000 clear id=548 cell=931
+112800000 clear id=559 cell=817
+112800000 return id=527
+112800000 depart id=595 pod=19 cell=896 arrive=116500000 clear=116600000 done=119375000 route=38
+112850000 return id=540
+112900000 arrive id=561
+112900000 arrive id=576
+112900000 depart id=596 pod=11 cell=713 arrive=115300000 clear=115400000 done=117200000 route=25
+112950000 return id=553
+113000000 clear id=561 cell=590
+113000000 clear id=576 cell=717
+113000000 depart id=597 pod=9 cell=752 arrive=115300000 clear=115400000 done=117125000 route=24
+113050000 arrive id=551
+113100000 complete pod=19
+113150000 clear id=551 cell=930
+113150000 arrive id=564
+113150000 depart id=598 pod=18 cell=895 arrive=116950000 clear=117050000 done=119900000 route=39
+113150000 depart id=599 pod=11 cell=721 arrive=115550000 clear=115650000 done=117450000 route=25
+> tap pod=20 at=113150000
+113150000 commit pod=20 slot=1
+113150000 depart id=600 pod=20 cell=647 arrive=114950000 clear=115050000 done=116400000 route=19
+113175000 return id=541
+113250000 clear id=564 cell=626
+113300000 arrive id=554
+113300000 arrive id=565
+113300000 arrive id=566
+113400000 clear id=554 cell=958
+113400000 clear id=565 cell=887
+113400000 clear id=566 cell=730
+113400000 arrive id=568
+113400000 return id=530
+113400000 depart id=601 pod=18 cell=888 arrive=116700000 clear=116800000 done=119275000 route=34
+113400000 depart id=602 pod=16 cell=923 arrive=117000000 clear=117100000 done=119800000 route=37
+113400000 depart id=603 pod=11 cell=722 arrive=115900000 clear=116000000 done=117875000 route=26
+113400000 depart id=604 pod=20 cell=648 arrive=115300000 clear=115400000 done=116825000 route=20
+113425000 return id=544
+113500000 clear id=568 cell=828
+113525000 return id=546
+113550000 arrive id=570
+113600000 arrive id=583
+113650000 clear id=570 cell=852
+113650000 arrive id=557
+113650000 return id=533
+113650000 depart id=605 pod=9 cell=853 arrive=116850000 clear=116950000 done=119350000 route=33
+113650000 depart id=606 pod=11 cell=747 arrive=116250000 clear=116350000 done=118300000 route=27
+113650000 depart id=607 pod=20 cell=682 arrive=115750000 clear=115850000 done=117425000 route=22
+113700000 clear id=583 cell=718
+113750000 clear id=557 cell=929
+113750000 arrive id=569
+113750000 arrive id=572
+113750000 depart id=608 pod=18 cell=894 arrive=117650000 clear=117750000 done=120675000 route=40
+113850000 clear id=569 cell=898
+113850000 clear id=572 cell=661
+113850000 arrive id=586
+113900000 arrive id=573
+113900000 depart id=609 pod=9 cell=753 arrive=116300000 clear=116400000 done=118200000 route=25
+113900000 depart id=610 pod=11 cell=758 arrive=116600000 clear=116700000 done=118725000 route=28
+113900000 depart id=611 pod=20 cell=683 arrive=116100000 clear=116200000 done=117850000 route=23
+113950000 clear id=586 cell=715
+113950000 return id=549
+114000000 clear id=573 cell=863
+114000000 arrive id=560
+114075000 return id=536
+114100000 clear id=560 cell=924
+114100000 arrive id=575
+114100000 arrive id=588
+114100000 return id=550
+114100000 depart id=612 pod=18 cell=889 arrive=117900000 clear=118000000 done=120850000 route=39
+114150000 arrive id=563
+114150000 depart id=613 pod=9 cell=862 arrive=117450000 clear=117550000 done=120025000 route=34
+114150000 depart id=614 pod=11 cell=782 arrive=117050000 clear=117150000 done=119325000 route=30
+114150000 depart id=615 pod=20 cell=750 arrive=116450000 clear=116550000 done=118275000 route=24
+114200000 clear id=575 cell=696
+114200000 clear id=588 cell=751
+114250000 clear id=563 cell=925
+114250000 arrive id=578
+114350000 clear id=578 cell=922
+114350000 arrive id=584
+114350000 depart id=616 pod=18 cell=890 arrive=118250000 clear=118350000 done=121275000 route=40
+114375000 return id=552
+114400000 depart id=617 pod=11 cell=786 arrive=116700000 clear=116800000 done=118525000 route=24
+114450000 clear id=584 cell=625
+114450000 arrive id=590
+114500000 arrive id=567
+114500000 return id=539
+114550000 clear id=590 cell=714
+114550000 arrive id=577
+114550000 depart id=618 pod=20 cell=749 arrive=116950000 clear=117050000 done=118850000 route=25
+114600000 clear id=567 cell=926
+114600000 depart id=619 pod=18 cell=891 arrive=118600000 clear=118700000 done=121700000 route=41
+114625000 return id=555
+114650000 clear id=577 cell=939
+114650000 arrive id=579
+114650000 return id=576
+114650000 depart id=620 pod=9 cell=974 arrive=118550000 clear=118650000 done=121575000 route=40
+114650000 depart id=621 pod=11 cell=793 arrive=117650000 clear=117750000 done=120000000 route=31
+114700000 arrive id=592
+114750000 clear id=579 cell=973
+114750000 arrive id=571
+114750000 return id=562
+114775000 return id=556
+114800000 clear id=592 cell=720
+114800000 depart id=622 pod=20 cell=755 arrive=117200000 clear=117300000 done=119100000 route=25
+114850000 clear id=571 cell=928
+114850000 depart id=623 pod=18 cell=893 arrive=118850000 clear=118950000 done=121950000 route=41
+114900000 depart id=624 pod=11 cell=818 arrive=118000000 clear=118100000 done=120425000 route=32
+114925000 return id=542
+114950000 arrive id=587
+114950000 arrive id=594
+114950000 arrive id=600
+115000000 arrive id=580
+115050000 clear id=587 cell=695
+115050000 clear id=594 cell=754
+115050000 clear id=600 cell=647
+115050000 return id=558
+115100000 clear id=580 cell=975
+115100000 arrive id=574
+115100000 arrive id=581
+115150000 depart id=625 pod=11 cell=789 arrive=117550000 clear=117650000 done=119450000 route=25
+115200000 clear id=574 cell=927
+115200000 clear id=581 cell=1009
+115200000 return id=559
+115200000 depart id=626 pod=18 cell=892 arrive=119300000 clear=119400000 done=122475000 route=42
+115300000 arrive id=596
+115300000 arrive id=597
+115300000 arrive id=604
+115400000 clear id=596 cell=713
+115400000 clear id=597 cell=752
+115400000 clear id=604 cell=648
+115400000 depart id=627 pod=9 cell=787 arrive=117800000 clear=117900000 done=119700000 route=25
+115400000 depart id=628 pod=11 cell=827 arrive=118600000 clear=118700000 done=121100000 route=33
+115400000 depart id=629 pod=20 cell=748 arrive=117900000 clear=118000000 done=119875000 route=26
+115425000 return id=583
+115475000 return id=561
+115525000 return id=545
+115550000 arrive id=599
+115600000 return id=586
+115650000 clear id=599 cell=721
+115650000 arrive id=582
+115650000 depart id=630 pod=11 cell=987 arrive=119450000 clear=119550000 done=122400000 route=39
+115650000 depart id=631 pod=20 cell=756 arrive=118150000 clear=118250000 done=120125000 route=26
+115725000 return id=564
+115750000 clear id=582 cell=1033
+115750000 arrive id=607
+115750000 depart id=632 pod=9 cell=1068 arrive=120050000 clear=120150000 done=123375000 route=44
+115850000 clear id=607 cell=682
+115850000 return id=588
+115875000 return id=566
+115900000 arrive id=585
+115900000 arrive id=603
+115950000 return id=548
+115950000 return id=565
+115975000 return id=568
+116000000 clear id=585 cell=1067
+116000000 clear id=603 cell=722
+116000000 depart id=633 pod=20 cell=757 arrive=118600000 clear=118700000 done=120650000 route=27
+116050000 arrive id=593
+116100000 arrive id=611
+116125000 return id=570
+116150000 clear id=593 cell=897
+116200000 clear id=611 cell=683
+116250000 arrive id=606
+116275000 return id=590
+116300000 arrive id=609
+116350000 clear id=606 cell=747
+116375000 return id=551
+116400000 clear id=609 cell=753
+116400000 arrive id=589
+116400000 return id=572
+116400000 return id=600
+116400000 depart id=634 pod=9 cell=788 arrive=118700000 clear=118800000 done=120525000 route=24
+116450000 arrive id=615
+116475000 return id=569
+116500000 clear id=589 cell=1069
+116500000 arrive id=595
+116525000 return id=592
+116550000 clear id=615 cell=750
+116550000 return id=573
+116550000 depart id=635 pod=20 cell=785 arrive=118950000 clear=119050000 done=120850000 route=25
+116600000 clear id=595 cell=896
+116600000 arrive id=610
+116625000 return id=554
+116650000 arrive id=591
+116650000 depart id=636 pod=9 cell=861 arrive=120250000 clear=120350000 done=123050000 route=37
+116700000 clear id=610 cell=758
+116700000 arrive id=601
+116700000 arrive id=617
+116700000 return id=584
+116750000 clear id=591 cell=1103
+116775000 return id=594
+116800000 clear id=601 cell=888
+116800000 clear id=617 cell=786
+116825000 return id=575
+116825000 return id=604
+116850000 arrive id=605
+116900000 depart id=637 pod=9 cell=821 arrive=119300000 clear=119400000 done=121200000 route=25
+116950000 clear id=605 cell=853
+116950000 arrive id=598
+116950000 arrive id=618
+116975000 return id=578
+117000000 arrive id=602
+117050000 clear id=598 cell=895
+117050000 clear id=618 cell=749
+117050000 arrive id=614
+117050000 return id=557
+117050000 depart id=638 pod=20 cell=784 arrive=119550000 clear=119650000 done=121525000 route=26
+117100000 clear id=602 cell=923
+117125000 return id=597
+117150000 clear id=614 cell=782
+117150000 depart id=639 pod=9 cell=854 arrive=120250000 clear=120350000 done=122675000 route=32
+117200000 arrive id=622
+117200000 return id=596
+117300000 clear id=622 cell=755
+117300000 depart id=640 pod=20 cell=790 arrive=119800000 clear=119900000 done=121775000 route=26
+117400000 depart id=641 pod=9 cell=860 arrive=121100000 clear=121200000 done=123975000 route=38
+117425000 return id=607
+117450000 arrive id=613
+117450000 return id=587
+117450000 return id=599
+117475000 return id=560
+117500000 return id=577
+117550000 clear id=613 cell=862
+117550000 arrive id=625
+117550000 return id=563
+117550000 depart id=642 pod=20 cell=783 arrive=120350000 clear=120450000 done=122550000 route=29
+117600000 return id=579
+117650000 clear id=625 cell=789
+117650000 arrive id=608
+117650000 arrive id=621
+117650000 depart id=643 pod=9 cell=824 arrive=120150000 clear=120250000 done=122125000 route=26
+117750000 clear id=608 cell=894
+117750000 clear id=621 cell=793
+117800000 arrive id=627
+117800000 depart id=644 pod=20 cell=792 arrive=120700000 clear=120800000 done=122975000 route=30
+117850000 return id=611
+117875000 return id=603
+117900000 clear id=627 cell=787
+117900000 arrive id=612
+117900000 arrive id=629
+117900000 depart id=645 pod=18 cell=822 arrive=120200000 clear=120300000 done=122025000 route=24
+117900000 depart id=646 pod=9 cell=859 arrive=121500000 clear=121600000 done=124300000 route=37
+117975000 return id=567
+118000000 clear id=612 cell=889
+118000000 clear id=629 cell=748
+118000000 arrive id=624
+118100000 clear id=624 cell=818
+118100000 return id=580
+118100000 depart id=647 pod=11 cell=819 arrive=121100000 clear=121200000 done=123450000 route=31
+118150000 arrive id=631
+118200000 return id=581
+118200000 return id=609
+118225000 return id=571
+118250000 clear id=631 cell=756
+118250000 arrive id=616
+118250000 depart id=648 pod=20 cell=791 arrive=120850000 clear=120950000 done=122900000 route=27
+118275000 return id=615
+118300000 return id=606
+118350000 clear id=616 cell=890
+118350000 depart id=649 pod=9 cell=855 arrive=121750000 clear=121850000 done=124400000 route=35
+118525000 return id=617
+118550000 arrive id=620
+118550000 complete pod=20
+> tap pod=7 at=118550000
+118550000 commit pod=7 slot=1
+118600000 arrive id=619
+118600000 arrive id=628
+118600000 arrive id=633
+118650000 clear id=620 cell=974
+118650000 return id=574
+118700000 clear id=619 cell=891
+118700000 clear id=628 cell=827
+118700000 clear id=633 cell=757
+118700000 arrive id=634
+118700000 depart id=650 pod=9 cell=856 arrive=122200000 clear=122300000 done=124925000 route=36
+118700000 depart id=651 pod=11 cell=826 arrive=121800000 clear=121900000 done=124225000 route=32
+118725000 return id=610
+118800000 clear id=634 cell=788
+118800000 depart id=652 pod=18 cell=823 arrive=121200000 clear=121300000 done=123100000 route=25
+118850000 arrive id=623
+118850000 return id=593
+118850000 return id=618
+118850000 complete pod=7
+> tap pod=1 at=118850000
+118850000 commit pod=1 slot=1
+118950000 clear id=623 cell=893
+118950000 arrive id=635
+119000000 complete pod=9
+119000000 complete pod=16
+119050000 clear id=635 cell=785
+119050000 return id=582
+119050000 depart id=653 pod=18 cell=858 arrive=122750000 clear=122850000 done=125625000 route=38
+119050000 depart id=654 pod=11 cell=820 arrive=121550000 clear=121650000 done=123525000 route=26
+119100000 return id=622
+119150000 complete pod=1
+119275000 return id=601
+119300000 arrive id=626
+119300000 arrive id=637
+119300000 return id=585
+119325000 return id=614
+119350000 return id=605
+119375000 return id=595
+119400000 clear id=626 cell=892
+119400000 clear id=637 cell=821
+119400000 depart id=655 pod=18 cell=857 arrive=123000000 clear=123100000 done=125800000 route=37
+119450000 arrive id=630
+119450000 return id=625
+119550000 clear id=630 cell=987
+119550000 arrive id=638
+119650000 clear id=638 cell=784
+119700000 return id=627
+119700000 complete pod=13
+119700000 complete pod=18
+119800000 arrive id=640
+119800000 return id=589
+119800000 return id=602
+119875000 return id=629
+119900000 clear id=640 cell=790
+119900000 return id=598
+119900000 depart id=656 pod=11 cell=825 arrive=122500000 clear=122600000 done=124550000 route=27
+120000000 return id=621
+120025000 return id=613
+120050000 arrive id=632
+120050000 return id=591
+120125000 return id=631
+120150000 clear id=632 cell=1068
+120150000 arrive id=643
+120200000 arrive id=645
+120200000 complete pod=11
+120250000 clear id=643 cell=824
+120250000 arrive id=636
+120250000 arrive id=639
+120300000 clear id=645 cell=822
+120350000 clear id=636 cell=861
+120350000 clear id=639 cell=854
+120350000 arrive id=642
+120425000 return id=624
+120450000 clear id=642 cell=783
+120525000 return id=634
+120650000 return id=633
+120675000 return id=608
+120700000 arrive id=644
+120800000 clear id=644 cell=792
+120850000 arrive id=648
+120850000 return id=612
+120850000 return id=635
+120950000 clear id=648 cell=791
+121100000 arrive id=641
+121100000 arrive id=647
+121100000 return id=628
+121200000 clear id=641 cell=860
+121200000 clear id=647 cell=819
+121200000 arrive id=652
+121200000 return id=637
+121275000 return id=616
+121300000 clear id=652 cell=823
+121500000 arrive id=646
+121525000 return id=638
+121550000 arrive id=654
+121575000 return id=620
+121600000 clear id=646 cell=859
+121650000 clear id=654 cell=820
+121700000 return id=619
+121750000 arrive id=649
+121775000 return id=640
+121800000 arrive id=651
+121850000 clear id=649 cell=855
+121900000 clear id=651 cell=826
+121950000 return id=623
+122025000 return id=645
+122125000 return id=643
+122200000 arrive id=650
+122300000 clear id=650 cell=856
+122400000 return id=630
+122475000 return id=626
+122500000 arrive id=656
+122550000 return id=642
+122600000 clear id=656 cell=825
+122675000 return id=639
+122750000 arrive id=653
+122850000 clear id=653 cell=858
+122900000 return id=648
+122975000 return id=644
+123000000 arrive id=655
+123050000 return id=636
+123100000 clear id=655 cell=857
+123100000 return id=652
+123375000 return id=632
+123450000 return id=647
+123525000 return id=654
+123975000 return id=641
+124225000 return id=651
+124300000 return id=646
+124400000 return id=649
+124550000 return id=656
+124925000 return id=650
+125625000 return id=653
+125800000 return id=655

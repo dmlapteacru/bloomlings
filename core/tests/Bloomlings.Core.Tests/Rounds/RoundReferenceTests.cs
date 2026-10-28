@@ -62,7 +62,7 @@ namespace Bloomlings.Core.Tests.Rounds
             var replay = new RoundReplay(t, log);
             var texts = new List<string>();
             var signatures = new List<string>();
-            var commands = new List<RoundCommand>();
+            var commands = new List<RoundInput>();
             foreach (JsonElement a in fixture.GetProperty("route").EnumerateArray())
             {
                 replay.Finish();
@@ -71,7 +71,7 @@ namespace Bloomlings.Core.Tests.Rounds
                     texts.Add(log.Take());
                 }
 
-                RoundCommand command = RoundCommand.Of(RoundTestLevels.Action(a), t.Now);
+                RoundInput command = RoundInput.Of(RoundTestLevels.Action(a), t.Now);
                 RoundCommitResult result = replay.Execute(command);
                 Assert.That(result.Accepted, Is.True, $"L{number} refused {command}: {result.Reason}");
                 commands.Add(command);
@@ -111,7 +111,7 @@ namespace Bloomlings.Core.Tests.Rounds
 
             var t = new RoundTimeline(level);
             var log = new RoundEventLog();
-            var replay = new RoundReplay(t, log);
+            var replay = new RoundReplay(t, log, idleClock: true);
             var texts = new List<string>();
             long at = 0;
             int refused = 0;
@@ -119,7 +119,7 @@ namespace Bloomlings.Core.Tests.Rounds
             foreach (JsonElement a in fixture.GetProperty("route").EnumerateArray())
             {
                 at += delays[k++];
-                RoundCommand command = RoundCommand.Of(RoundTestLevels.Action(a), at);
+                RoundInput command = RoundInput.Of(RoundTestLevels.Action(a), at);
                 if (command.AtUs > replay.ClockUs)
                 {
                     replay.AdvanceTo(command.AtUs);
@@ -193,6 +193,57 @@ namespace Bloomlings.Core.Tests.Rounds
             Assert.That(wins, Is.EqualTo(random.GetProperty("wins").GetInt32()), "wins");
         }
 
+        /// <summary>
+        /// The owner's pilot attempts in the JS exporter's conformance fixtures (<c>content/game/rounds/export/*/
+        /// conformance/</c>, written by <c>tools/rounds/export.mjs</c>): commands on the timeline's own clock, refused ones
+        /// kept, then everything settles; the outcome, end time and final signature must match.
+        /// </summary>
+        [TestCaseSource(nameof(Levels))]
+        public void TheOwnersRecordedAttemptsEndTheSame(int number)
+        {
+            string exports = Path.Combine(RoundTestLevels.RepoRoot, "content", "game", "rounds", "export");
+            string? file = Directory.Exists(exports)
+                ? Directory.GetFiles(exports, "L" + number.ToString("0000") + ".json", SearchOption.AllDirectories)
+                    .Where(f => Path.GetFileName(Path.GetDirectoryName(f)) == "conformance").OrderBy(f => f, StringComparer.Ordinal).LastOrDefault()
+                : null;
+            if (file == null)
+            {
+                Assert.Ignore("No exported conformance fixture for L" + number);
+            }
+
+            RoundLevel level = RoundTestLevels.FromReference(RoundTestLevels.ReferenceLevel(number));
+            using JsonDocument doc = JsonDocument.Parse(File.ReadAllText(file!));
+            JsonElement root = doc.RootElement;
+            Assert.That(root.GetProperty("solution").GetProperty("finalSignature").GetString(),
+                Is.EqualTo(RoundTestLevels.ReferenceLevel(number).GetProperty("solution").GetProperty("finalSignature").GetString()), "the export agrees with this fixture");
+            if (!root.TryGetProperty("owner", out JsonElement owner) || owner.GetArrayLength() == 0)
+            {
+                Assert.Pass("No owner attempts for L" + number);
+            }
+
+            foreach (JsonElement attempt in owner.EnumerateArray())
+            {
+                var t = new RoundTimeline(level);
+                var replay = new RoundReplay(t);
+                foreach (JsonElement c in attempt.GetProperty("commands").EnumerateArray())
+                {
+                    long at = c.GetProperty("atUs").GetInt64();
+                    RoundInput command = c.GetProperty("type").GetString() == "tap"
+                        ? RoundInput.Tap(c.GetProperty("pod").GetInt32(), at)
+                        : RoundInput.Bridge(c.GetProperty("choice").GetInt32(), at);
+                    RoundCommitResult result = replay.Execute(command);
+                    string? refused = c.TryGetProperty("refused", out JsonElement r) ? r.GetString() : null;
+                    Assert.That(result.Reason, Is.EqualTo(refused), $"L{number} attempt {attempt.GetProperty("attempt")}: {command}");
+                }
+
+                replay.Finish();
+                string id = attempt.GetProperty("attempt").ToString();
+                Assert.That(RoundState.StatusText(t.State.Status).ToLowerInvariant(), Is.EqualTo(attempt.GetProperty("outcome").GetString()), $"L{number} attempt {id}: outcome");
+                Assert.That(t.Now, Is.EqualTo(attempt.GetProperty("endUs").GetInt64()), $"L{number} attempt {id}: end time");
+                Assert.That(RoundEvents.SignatureHash(t), Is.EqualTo(attempt.GetProperty("finalSignature").GetString()), $"L{number} attempt {id}: final signature");
+            }
+        }
+
         [TestCaseSource(nameof(Levels))]
         public void ThePatientSolverFindsTheSavedRoute(int number)
         {
@@ -210,10 +261,10 @@ namespace Bloomlings.Core.Tests.Rounds
         public void TheRandomTestWidensAsTheReference()
         {
             // L1 wins all 100 games (no widening); L4's first 100 cross the 50 % border, so it plays 400.
-            RoundRandomTest easy = RoundRandomPolicy.Test(RoundTestLevels.FromReference(RoundTestLevels.ReferenceLevel(1)));
+            RoundRandomRun easy = RoundRandomPolicy.Test(RoundTestLevels.FromReference(RoundTestLevels.ReferenceLevel(1)));
             Assert.That((easy.Runs, easy.Wins, easy.ClassOfShare), Is.EqualTo((100, 100, (RoundClass?)RoundClass.Normal)));
             JsonElement l4 = RoundTestLevels.ReferenceLevel(4);
-            RoundRandomTest wide = RoundRandomPolicy.Test(RoundTestLevels.FromReference(l4));
+            RoundRandomRun wide = RoundRandomPolicy.Test(RoundTestLevels.FromReference(l4));
             Assert.That(wide.Runs, Is.EqualTo(l4.GetProperty("random").GetProperty("runs").GetInt32()));
             Assert.That(wide.Wins, Is.EqualTo(l4.GetProperty("random").GetProperty("wins").GetInt32()));
         }

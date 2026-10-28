@@ -32,3 +32,20 @@ A failing golden case means the rules changed. If the change is intended:
 3. Commit them together with the rules change.
 
 Never regenerate to make an unexplained failure go away.
+
+## Round level cases (spec 006)
+
+`rounds/rounds-*.golden.json` pin replays on the round rules (`Bloomlings.Core.Rounds`): saved solutions, a hasty
+route with overlapping work, and play with all four boosters in live time. They live in `rounds/` so that the readers
+of `*.golden.json` above (the Unity EditMode tests, `playtest/check`) never meet them. Each holds the reference engine
+definition it was made from (`source`), the commands with their model time in µs on the timeline's own clock
+(`tap pod=3 at=0`, `bridge choice=1 at=…`, `extra-slot at=…`, `return pod=4 at=…`, `shuffle at=…`,
+`burst code=G at=…`) and the expected `expectedStatus`, `expectedEndUs`, `expectedSignatureSha256` (the extended
+signature of `RoundEvents.Signature`) and `expectedEventsSha256` (the replay log). The matching
+`rounds-*.events.txt` is that log: the canonical event lines of `contracts/conformance-fixture.md` (plus the booster
+lines `extra-slot`, `recall`, `shuffle`, `burst`, `burst-clear`) and one `> command` line per command.
+
+`GoldenReplayTests.ReplayRound` runs them, and the same `BLOOMLINGS_GOLDEN_REGEN=1` command rewrites their expected
+values and logs. Without boosters a change here also shows in the conformance tests against the reference engine
+(`core/tests/Bloomlings.Core.Tests/Rounds/RoundReferenceTests.cs`); a rules change that moves away from the reference is a
+bug, not a reason to regenerate.

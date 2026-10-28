@@ -1,0 +1,184 @@
+{
+  "format": "bloomlings-round-golden-1",
+  "name": "l0004-boosters",
+  "description": "L4 with all four boosters in live time: Extra Slot, Shuffle, Return and Bloom Burst between taps, then the first legal action until won.",
+  "source": "content/rounds/levels/L0004.json",
+  "number": 4,
+  "definition": {
+    "w": 31,
+    "h": 26,
+    "rowsBottomFirst": [
+      "###############.###############",
+      "#.............................#",
+      "#.SSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+      "#.SSSSSSSSSSSSSSSSSSSSDDDDDSS.#",
+      "#.SSSSSEEEEEEEEEEEESSDYDYDYDS.#",
+      "#.SSSSSEEEEEEEEEEEESSDYDYDYDS.#",
+      "#.SSSSEEYYOOOOOOYYEESSDDDDDSS.#",
+      "#.SSSSEEYYYAAAAYYYEESDCCDCCDS.#",
+      "#.SSSSEEYOADDDDAOYEESSDDSDDSS.#",
+      "#.SSSSEEYYAAAAAAYYEESSSSSSSSS.#",
+      "#.SSSSEEYOOOAAOOOYEESSSDDDDDS.#",
+      "#.SSSSEEYYYYYYYYYYEESSDYDYDYD.#",
+      "#.SSSSEEYOOOOOOOOYEESSDYDYDYD.#",
+      "#.SSSSEEYYYYYYYYYYEESSSDDDDDS.#",
+      "#.SSSSEEYOOOOOOOOYEESSDCCDCCD.#",
+      "#.SSSSSEEYYYYYYYYEESSSSDDSDDS.#",
+      "#.SSSSSEEEYOOOOYEEESSSSSSSSSS.#",
+      "#.SSSSSSEEEYYYYEEESSSSDDDDDSS.#",
+      "#.SSSSSSSEEEEEEEESSSSDYDYDYDS.#",
+      "#.SSSSSSSSEEEEEESSSSSDYDYDYDS.#",
+      "#.SSGGGSSSSSAASSSSSSSSDDDDDSS.#",
+      "#.AAAGGAAAAAAAAAGGGSSDCCDCCDS.#",
+      "#.AAAAAAAAAAAAAAGGGGSSDDSDDSS.#",
+      "#.SSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+      "#.............................#",
+      "###############################"
+    ],
+    "entries": [
+      15
+    ],
+    "capacity": 5,
+    "pods": [
+      {
+        "color": "S",
+        "count": 51
+      },
+      {
+        "color": "S",
+        "count": 50
+      },
+      {
+        "color": "S",
+        "count": 50
+      },
+      {
+        "color": "S",
+        "count": 50
+      },
+      {
+        "color": "S",
+        "count": 50
+      },
+      {
+        "color": "A",
+        "count": 21
+      },
+      {
+        "color": "A",
+        "count": 21
+      },
+      {
+        "color": "G",
+        "count": 12
+      },
+      {
+        "color": "D",
+        "count": 27
+      },
+      {
+        "color": "D",
+        "count": 26
+      },
+      {
+        "color": "D",
+        "count": 26
+      },
+      {
+        "color": "C",
+        "count": 12
+      },
+      {
+        "color": "E",
+        "count": 30
+      },
+      {
+        "color": "E",
+        "count": 30
+      },
+      {
+        "color": "E",
+        "count": 30
+      },
+      {
+        "color": "Y",
+        "count": 25
+      },
+      {
+        "color": "Y",
+        "count": 25
+      },
+      {
+        "color": "Y",
+        "count": 24
+      },
+      {
+        "color": "O",
+        "count": 17
+      },
+      {
+        "color": "O",
+        "count": 17
+      }
+    ],
+    "tray": [
+      [
+        17,
+        4,
+        10,
+        15,
+        7,
+        8,
+        1
+      ],
+      [
+        19,
+        18,
+        6,
+        11,
+        12,
+        2,
+        14
+      ],
+      [
+        0,
+        16,
+        13,
+        3,
+        9,
+        5
+      ]
+    ]
+  },
+  "commands": [
+    "tap pod=17 at=0",
+    "tap pod=4 at=0",
+    "extra-slot at=400000",
+    "tap pod=10 at=400000",
+    "tap pod=15 at=400000",
+    "shuffle at=1400000",
+    "tap pod=13 at=22250000",
+    "return pod=17 at=22250000",
+    "tap pod=11 at=39625000",
+    "tap pod=2 at=45900000",
+    "burst code=C at=45900000",
+    "tap pod=9 at=61750000",
+    "tap pod=5 at=61750000",
+    "tap pod=17 at=61750000",
+    "tap pod=18 at=61750000",
+    "tap pod=7 at=61750000",
+    "tap pod=3 at=61750000",
+    "tap pod=8 at=66050000",
+    "tap pod=12 at=67650000",
+    "tap pod=0 at=74050000",
+    "tap pod=14 at=74350000",
+    "tap pod=6 at=75350000",
+    "tap pod=16 at=76550000",
+    "tap pod=1 at=86850000",
+    "tap pod=19 at=87950000"
+  ],
+  "expectedStatus": "Won",
+  "expectedEndUs": 105850000,
+  "expectedSignatureSha256": "sha256:bd236255cefdb684cb6b9faa612a8618b9195ade86ac3b74def1a04450a51e78",
+  "expectedEventsSha256": "sha256:fcd0f7bed66756853a2cc13e2acf97b814573da56fc6b260a05edfbf9b7435bb"
+}

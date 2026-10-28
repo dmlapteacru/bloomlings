@@ -81,10 +81,6 @@ namespace Bloomlings.Core.Tests.Rounds
             Assert.That(r.Events.Count(e => e.Type == RoundEventType.Depart), Is.EqualTo(1));
             Assert.That(t.Steps.Count(s => s.Type == RoundStepType.Check), Is.EqualTo(1));
             Assert.That(t.Steps.First(s => s.Type == RoundStepType.Check).At, Is.EqualTo(250_000));
-            t.Advance(250_000);
-            t.Advance(250_000);
-            t.Advance(250_000);
-            var departs = new List<long>();
             var tl = new RoundTimeline(level);
             var log = new List<RoundEvent>(tl.Commit(RoundAction.Tap(0)).Events);
             while (tl.Pending)
@@ -94,8 +90,9 @@ namespace Bloomlings.Core.Tests.Rounds
             }
 
             Assert.That(log.Where(e => e.Type == RoundEventType.Depart).Select(e => e.At), Is.EqualTo(new long[] { 0, 250_000, 500_000, 750_000 }));
-            // Frontier order: by distance, then cell index.
-            Assert.That(log.Where(e => e.Type == RoundEventType.Depart).Select(e => e.Cell).First(), Is.EqualTo(tl.Level.Width * 1 + 2));
+            // Frontier order: by distance (the cell above the approach first), then cell index.
+            int w = tl.Level.Width;
+            Assert.That(log.Where(e => e.Type == RoundEventType.Depart).Select(e => e.Cell), Is.EqualTo(new[] { 2 * w + 2, 2 * w + 1, 2 * w + 3, 2 * w + 4 }));
         }
 
         [Test]
@@ -162,11 +159,23 @@ namespace Bloomlings.Core.Tests.Rounds
         [Test]
         public void TheTailStartsWhenTheColumnsAreEmptyAndNoBridgeIsLeft()
         {
-            RoundLevel level = Corridor(2, new RoundPod('G', 1), new RoundPod('G', 1));
+            RoundLevel level = RoundTestLevels.Board(new[] { "##G##", "##G##", "##.##" }, new[] { new RoundPod('G', 1), new RoundPod('G', 1) },
+                new[] { new[] { 0, 1 }, new int[0] }, entryX: 2);
             var t = new RoundTimeline(level);
             Assert.That(t.Tail, Is.False);
             t.Commit(RoundAction.Tap(0));
-            Assert.That(t.Tail, Is.True, "column 0 held both pods? no: one column each below");
+            Assert.That(t.Tail, Is.False, "pod 1 still waits in the column");
+            t.Commit(RoundAction.Tap(1));
+            Assert.That(t.Tail, Is.True);
+
+            // With a bridge still to choose, the tail waits for it.
+            RoundLevel bridged = RoundTestLevels.Board(new[] { "GGG", "###", "G..", "#.#" }, new[] { new RoundPod('G', 4) },
+                new[] { new[] { 0 }, new int[0] }, entryX: 1, bridge: new[] { new RoundBridgeChoice(7, 4, "middle") });
+            var b = new RoundTimeline(bridged);
+            b.Commit(RoundAction.Tap(0));
+            Assert.That(b.Tail, Is.False);
+            b.Commit(RoundAction.BuildBridge(0));
+            Assert.That(b.Tail, Is.True);
         }
 
         [Test]

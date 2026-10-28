@@ -291,12 +291,9 @@ namespace Bloomlings.Core.Rounds
             int n = board.Length;
             var distance = new int[n];
             var parent = new int[n];
-            var queue = new int[n];
-            for (int i = 0; i < n; i++)
-            {
-                distance[i] = -1;
-                parent[i] = -1;
-            }
+            Array.Fill(distance, -1);
+            Array.Fill(parent, -1);
+            int[] queue = Scratch(n);
 
             int head = 0;
             int tail = 0;
@@ -325,7 +322,9 @@ namespace Bloomlings.Core.Rounds
                 }
             }
 
-            var targets = new List<int>();
+            // Each target is keyed by distance × n + index: sorting the keys gives distance order, ties by index.
+            int[] keys = queue;
+            int count = 0;
             var targetDistance = new int[n];
             for (int i = 0; i < n; i++)
             {
@@ -346,15 +345,33 @@ namespace Bloomlings.Core.Rounds
 
                 if (best < int.MaxValue)
                 {
-                    targets.Add(i);
+                    keys[count++] = best * n + i;
                     targetDistance[i] = best;
                 }
             }
 
-            // Targets were collected in index order; the comparison breaks distance ties by index, so the order is total.
-            int[] sorted = targets.ToArray();
-            Array.Sort(sorted, (a, b) => targetDistance[a] != targetDistance[b] ? targetDistance[a].CompareTo(targetDistance[b]) : a.CompareTo(b));
+            Array.Sort(keys, 0, count);
+            var sorted = new int[count];
+            for (int k = 0; k < count; k++)
+            {
+                sorted[k] = keys[k] % n;
+            }
+
             return new RoundReach(sorted, distance, targetDistance, parent);
+        }
+
+        // A reusable work array per thread (the breadth-first queue, then the target keys); never kept in a result.
+        [ThreadStatic]
+        private static int[]? _scratch;
+
+        private static int[] Scratch(int n)
+        {
+            if (_scratch == null || _scratch.Length < n)
+            {
+                _scratch = new int[n];
+            }
+
+            return _scratch;
         }
     }
 }
