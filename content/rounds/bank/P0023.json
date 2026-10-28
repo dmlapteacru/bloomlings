@@ -1719,6 +1719,45 @@
    "reasons": {
     "не тот класс по быстрой оценке": 48
    }
+  },
+  {
+   "combo": "Normal|none|",
+   "tag": "st1",
+   "steer": {
+    "t": 1,
+    "aim": 0.56
+   },
+   "tried": 20,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 20
+   }
+  },
+  {
+   "combo": "Normal|hidden|",
+   "tag": "st1",
+   "steer": {
+    "t": 1,
+    "aim": 0.56
+   },
+   "tried": 20,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 20
+   }
+  },
+  {
+   "combo": "Normal|links|",
+   "tag": "st1",
+   "steer": {
+    "t": 1,
+    "aim": 0.56
+   },
+   "tried": 20,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 20
+   }
   }
  ]
 }
