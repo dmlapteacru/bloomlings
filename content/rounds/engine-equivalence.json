@@ -1,0 +1,15 @@
+{
+ "format": "bloomlings-engine-equivalence-1",
+ "note": "Engine fingerprints that play the listed levels identically. rounds.mjs confirm and export.mjs accept owner results played on the 'from' fingerprint when the current one is 'to' and every level of the wave is inside 'levels'. The exporter still replays every owner attempt and random game on the current engine and refuses any changed outcome, so a record never hides a difference; it only says the results were not played on a different game. Add a record only on the owner's decision.",
+ "entries": [
+  {
+   "part": "rules",
+   "from": "f55e48ac20d0e520321a740d7af88814b962c816bbd5d4c0fc92f883211dd3ce",
+   "to": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+   "levels": [1, 20],
+   "reason": "17 §8 amendment of 2026-10-28: validate also accepts a bridge anchor beside its site (crossing left or right). Only level validation changed; L1-L20 have no side bridge.",
+   "decidedBy": "owner",
+   "decidedAt": "2026-10-28"
+  }
+ ]
+}

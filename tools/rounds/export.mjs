@@ -19,7 +19,7 @@
 // --game: the game's current round content; a level whose definition changed against it gets definitionVersion + 1.
 import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath,pathToFileURL} from 'node:url';
 import {root,ROUNDS,LEVELS,PICTURES,readJSON,lid,boardOf,INTRO,CODES} from './lib.mjs';
-import {fingerprints,solutionFixture,randomFixture,ownerFixture,engineLevel,sha256} from './conformance.mjs';
+import {fingerprints,sameEngine,solutionFixture,randomFixture,ownerFixture,engineLevel,sha256} from './conformance.mjs';
 import {validate} from './schema.mjs';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url));
@@ -109,7 +109,7 @@ export async function exportWave(from,to,{out,ownerResults=[],game=path.join(roo
  const engine=fingerprints(),errors=[],dirs=['levels','pictures','proofs','conformance'];
  for(const d of dirs)fs.rmSync(path.join(out,d),{recursive:true,force:true});
  // the owner's results: same engine, same definitions as the pilot played
- for(const o of owner){const r=o.res,same=r.rulesHash===engine.rules&&r.timelineHash===engine.timeline&&r.paletteHash===engine.palette&&r.clockHash===engine.clock;
+ for(const o of owner){const r=o.res,same=!sameEngine({rules:r.rulesHash,timeline:r.timelineHash,palette:r.paletteHash,clock:r.clockHash},engine,from,to).length;
   if(!same)errors.push(`owner results ${rel(o.file)}: played on another engine (rules ${String(r.rulesHash).slice(0,12)} …)`);
   const played=[...new Set(r.attempts.map(a=>a.level))].sort((a,b)=>a-b),all=Array.from({length:to-from+1},(_,i)=>from+i);
   o.catalogMatches=JSON.stringify(played)===JSON.stringify(all)?pilotCatalogHash(all.map(n=>entry.levels[n]))===r.catalogHash:null;

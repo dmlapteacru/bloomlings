@@ -24,6 +24,9 @@ const HERE=path.dirname(fileURLToPath(import.meta.url));
 export const ENGINE_FILES={rules:'engine/rules.cjs',timeline:'engine/timeline.cjs',palette:'engine/palette.cjs',clock:'engine/clock.cjs'};
 export const sha256=x=>crypto.createHash('sha256').update(x).digest('hex');
 // the reference fingerprints (research R12): SHA-256 of each engine file's bytes
+// engine fingerprints the owner recorded as playing the listed levels identically (content/rounds/engine-equivalence.json)
+export function sameEngine(played,current,from,to){const rec=(()=>{try{return JSON.parse(fs.readFileSync(path.join(HERE,'../../content/rounds/engine-equivalence.json'),'utf8')).entries||[];}catch{return [];}})();
+ return Object.keys(current).filter(k=>played[k]!==current[k]&&!rec.some(e=>e.part===k&&e.from===played[k]&&e.to===current[k]&&e.levels[0]<=from&&to<=e.levels[1]));}
 export function fingerprints(){return Object.fromEntries(Object.entries(ENGINE_FILES).map(([k,f])=>[k,sha256(fs.readFileSync(path.join(HERE,f)))]));}
 
 // model ms (double) → integer µs; a value that is not within 1 ns of a whole µs means a time was not fed as whole µs
