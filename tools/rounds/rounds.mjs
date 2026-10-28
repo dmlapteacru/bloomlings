@@ -8,7 +8,7 @@
 //      (per level lead, additional, doses, bridge side and strip; shares per mechanic), then the order for what it needs:
 //      new strip pictures by crossing side and size stage, pool pictures for the rest (an overlay level takes a free
 //      pool picture with the generator's wall)
-// node tools/rounds/rounds.mjs run <from> <to> [--jobs 4] [--candidates 64] [--no-build] [--no-sample]
+// node tools/rounds/rounds.mjs run <from> <to> [--jobs 4] [--candidates 64] [--no-build] [--no-sample] [--no-bridge] [--per-position N]
 //      dry placement on a copy; candidates only for what stays open (one process per picture, resumable: a combination
 //      already searched is skipped; under a mechanics plan only each position's planned recipe, on a wall of the planned
 //      side for an overlay position, on pictures with their own strip of that side for a new-strip one); missing checks;
@@ -134,8 +134,14 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  if(needs.length&&!flag('--no-build')){const pics=freePictures().map(pc=>{const board=boardOf(pc);return {pc,m:measure(pc),f:fitness(pc),stream:!!board.hero,side:bridgeSide(board)};}),byPic=new Map();
   const add=(id,variant,cls,recipe)=>{let t=byPic.get(id);if(!t)byPic.set(id,t={id,variants:new Set(),pairs:new Set(),classes:new Set(),recipes:new Set()});t.variants.add(variant);t.pairs.add(`${cls}:${recipe}${variant==='none'?'':'@'+variant}`);t.classes.add(cls);t.recipes.add(recipe);};
   const strong=(x,f)=>x.cls==='Normal'||f.hiddenColours>=3;
-  for(const x of needs.filter(x=>x.recipe)){const bridge=x.recipe.split('+').includes('bridge');
-   for(const {pc,m,f,stream,side} of pics){
+  // --no-bridge leaves the planned bridge positions for later (they need scene pictures); --per-position N tries at most
+  // N pictures per planned position (the strongest first for Hard and Super Hard, else spread by the level number)
+  const perPos=+arg('--per-position','0'),noBridge=flag('--no-bridge');
+  for(const x of needs.filter(x=>x.recipe)){const bridge=x.recipe.split('+').includes('bridge');if(bridge&&noBridge)continue;
+   let pool=pics;if(perPos>0){pool=pics.filter(q=>bridge?true:!q.stream&&fitsStage(q.m,x.level)&&strong(x,q.f));
+    pool=x.cls==='Normal'?pool.map((q,k)=>({q,k:(k*7919+x.level*104729)%9973})).sort((u,v)=>u.k-v.k).map(u=>u.q):pool.slice().sort((u,v)=>v.f.hiddenColours-u.f.hiddenColours);
+    if(!bridge)pool=pool.slice(0,perPos);}
+   for(const {pc,m,f,stream,side} of pool){
     if(bridge&&x.strip==='overlay'){if(stream)continue;const ov=overlayOf(pc,x.bridgeSide);if(!ov)continue;const op=overlaid(pc,ov);if(!fitsStage(measure(op),x.level)||!strong(x,fitness(op)))continue;add(pc.id,x.bridgeSide,x.cls,x.recipe);}
     else{if(bridge?!(stream&&side===x.bridgeSide):stream)continue;if(!fitsStage(m,x.level)||!strong(x,f))continue;add(pc.id,'none',x.cls,x.recipe);}}}
   // positions without a plan: as before, every allowed recipe of the classes those positions need
