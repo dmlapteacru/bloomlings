@@ -2224,6 +2224,42 @@
    "batch": "batch-0120-bridges",
    "note": null,
    "usedBy": null
+  },
+  {
+   "id": "P0129",
+   "seq": 129,
+   "version": 1,
+   "title": "Медальон за мостом",
+   "theme": "мосты волны L21–L50",
+   "family": "Фигуры, знаки и эмблемы",
+   "direction": null,
+   "forLevel": 30,
+   "w": 31,
+   "h": 37,
+   "N": 1034,
+   "colours": 6,
+   "status": "draft",
+   "batch": "batch-0129-bridges",
+   "note": null,
+   "usedBy": null
+  },
+  {
+   "id": "P0130",
+   "seq": 130,
+   "version": 1,
+   "title": "Клубок с вязанием за мостом",
+   "theme": "мосты волны L21–L50",
+   "family": "Рисование и ремёсла",
+   "direction": null,
+   "forLevel": 45,
+   "w": 36,
+   "h": 39,
+   "N": 1038,
+   "colours": 6,
+   "status": "draft",
+   "batch": "batch-0129-bridges",
+   "note": null,
+   "usedBy": null
   }
  ]
 }

@@ -1,5 +1,5 @@
 {
- "created": "2026-10-29T01:53:21.858Z",
+ "created": "2026-10-29T03:10:32.032Z",
  "side": "two",
  "kind": "single",
  "cls": "Super Hard",
@@ -15,24 +15,26 @@
    "cls": "Super Hard",
    "found": false,
    "tried": {
-    "scenes": 9,
-    "candidates": 108,
+    "scenes": 8,
+    "candidates": 96,
     "reasons": {
-     "полоса R сливается с картинкой рядом (R, ΔE n.n < n)": 24,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 25,
-     "мост: решает не ровно один (план single)": 56,
+     "полоса R сливается с картинкой рядом (R, ΔE n.n < n)": 28,
      "не тот класс по быстрой оценке q≈0.5": 8,
-     "не тот класс по быстрой оценке q≈0.9": 6,
-     "не тот класс по быстрой оценке q≈0.6": 2,
-     "не тот класс по быстрой оценке q≈1": 7,
+     "не тот класс по быстрой оценке q≈1": 24,
+     "мост: решает не ровно один (план single)": 30,
+     "жадная стратегия выигрывает (§5)": 12,
+     "не тот класс по быстрой оценке q≈0.8": 6,
      "не тот класс по быстрой оценке q≈0.4": 1,
-     "вне этапа Ln: n кл., n цв. (n–n)": 2,
-     "Hard/SH: меньше 3 скрытых цветов": 5,
-     "не тот класс по быстрой оценке q≈0.8": 1,
-     "не тот класс по быстрой оценке q≈0.7": 2
+     "не тот класс по быстрой оценке q≈0.7": 2,
+     "дозы не подходят фактическому классу: связанных 8 вне 4–6 для Hard": 1,
+     "ниже 5 %": 4,
+     "мост: ни «решает ровно один мост», ни «оба выигрывают, один лучше на 10 пунктов» (§8)": 1,
+     "Hard/SH: меньше 3 скрытых цветов": 4,
+     "не тот класс по быстрой оценке q≈0.9": 5,
+     "не тот класс по быстрой оценке q≈0.6": 2
     }
    },
-   "seconds": 310
+   "seconds": 161
   },
   {
    "source": "P0029",
@@ -41,26 +43,28 @@
    "cls": "Super Hard",
    "found": false,
    "tried": {
-    "scenes": 2,
-    "candidates": 24,
+    "scenes": 3,
+    "candidates": 36,
     "reasons": {
-     "полоса A сливается с картинкой рядом (E, ΔE n.n < n)": 13,
-     "полоса E сливается с картинкой рядом (E, ΔE n.n < n)": 12,
-     "полоса G сливается с картинкой рядом (G, ΔE n.n < n)": 3,
-     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 5,
-     "не тот класс по быстрой оценке q≈1": 3,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 7,
-     "не тот класс по быстрой оценке q≈0.6": 3,
-     "не тот класс по быстрой оценке q≈0.7": 5,
-     "мост: решает не ровно один (план single)": 1,
-     "не тот класс по быстрой оценке q≈0.9": 2,
+     "полоса E сливается с картинкой рядом (E, ΔE n.n < n)": 11,
      "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 4,
-     "не тот класс по быстрой оценке q≈0.4": 2,
-     "не тот класс по быстрой оценке q≈0.5": 1,
-     "вне этапа Ln: n кл., n цв. (n–n)": 1
+     "полоса G сливается с картинкой рядом (G, ΔE n.n < n)": 3,
+     "полоса A сливается с картинкой рядом (E, ΔE n.n < n)": 10,
+     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 7,
+     "не тот класс по быстрой оценке q≈1": 8,
+     "дозы не подходят фактическому классу: скрытых 3 вне 2–2 для Hard": 2,
+     "не тот класс по быстрой оценке q≈0.5": 3,
+     "не тот класс по быстрой оценке q≈0.9": 4,
+     "мост: решает не ровно один (план single)": 12,
+     "не тот класс по быстрой оценке q≈0.7": 4,
+     "не тот класс по быстрой оценке q≈0.4": 1,
+     "не тот класс по быстрой оценке q≈0.8": 1,
+     "вне этапа Ln: n кл., n цв. (n–n)": 1,
+     "полоса G сливается с картинкой рядом (L, ΔE n.n < n)": 1,
+     "ниже 5 %": 1
     }
    },
-   "seconds": 65
+   "seconds": 27
   },
   {
    "source": "P0079",
@@ -69,16 +73,25 @@
    "cls": "Super Hard",
    "found": false,
    "tried": {
-    "scenes": 0,
-    "candidates": 0,
+    "scenes": 2,
+    "candidates": 24,
     "reasons": {
-     "полоса C сливается с картинкой рядом (Y, ΔE n.n < n)": 9,
      "полоса O сливается с картинкой рядом (O, ΔE n.n < n)": 16,
-     "полоса Y сливается с картинкой рядом (Y, ΔE n.n < n)": 14,
+     "полоса Y сливается с картинкой рядом (Y, ΔE n.n < n)": 11,
+     "не тот класс по быстрой оценке q≈0.5": 4,
+     "не тот класс по быстрой оценке q≈0.7": 1,
+     "вынужденных решений больше 35 % (§5)": 2,
+     "жадная стратегия выигрывает (§5)": 2,
+     "дебют + цвета: выигрывает после первого запуска (§5)": 1,
+     "не тот класс по быстрой оценке q≈0.4": 2,
+     "ниже 5 %": 3,
+     "не тот класс по быстрой оценке q≈0.9": 3,
+     "мост: решает не ровно один (план single)": 6,
+     "полоса C сливается с картинкой рядом (Y, ΔE n.n < n)": 10,
      "вне этапа Ln: n кл., n цв. (n–n)": 1
     }
    },
-   "seconds": 0
+   "seconds": 35
   },
   {
    "source": "P0045",
@@ -90,10 +103,9 @@
     "scenes": 0,
     "candidates": 0,
     "reasons": {
-     "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 14,
-     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 14,
-     "полоса E сливается с картинкой рядом (A, ΔE n.n < n)": 11,
-     "полоса Y сливается с картинкой рядом (C, ΔE n.n < n)": 1
+     "полоса O сливается с картинкой рядом (A, ΔE n.n < n)": 17,
+     "полоса A сливается с картинкой рядом (A, ΔE n.n < n)": 11,
+     "полоса E сливается с картинкой рядом (A, ΔE n.n < n)": 12
     }
    },
    "seconds": 0
@@ -103,81 +115,362 @@
    "side": "two",
    "kind": "single",
    "cls": "Super Hard",
-   "found": false,
+   "recipe": "links+bridge+hidden",
+   "found": true,
+   "seconds": 442,
    "tried": {
-    "scenes": 18,
-    "candidates": 216,
-    "reasons": {
-     "не тот класс по быстрой оценке q≈0.4": 10,
-     "не тот класс по быстрой оценке q≈0.9": 12,
-     "мост: решает не ровно один (план single)": 66,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 46,
-     "не тот класс по быстрой оценке q≈0.5": 19,
-     "не тот класс по быстрой оценке q≈0.6": 18,
-     "не тот класс по быстрой оценке q≈0.7": 9,
-     "вне этапа Ln: n кл., n цв. (n–n)": 6,
-     "полоса N сливается с картинкой рядом (N, ΔE n.n < n)": 16,
-     "не тот класс по быстрой оценке q≈1": 22,
-     "не тот класс по быстрой оценке q≈0.8": 14
-    }
+    "scenes": 19,
+    "candidates": 218
    },
-   "seconds": 579
-  },
-  {
-   "source": "P0041",
-   "side": "two",
-   "kind": "single",
-   "cls": "Super Hard",
-   "found": false,
-   "tried": {
-    "scenes": 16,
-    "candidates": 192,
-    "reasons": {
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 34,
-     "мост: решает не ровно один (план single)": 83,
-     "не тот класс по быстрой оценке q≈0.8": 4,
-     "не тот класс по быстрой оценке q≈0.5": 11,
-     "не тот класс по быстрой оценке q≈1": 34,
-     "не тот класс по быстрой оценке q≈0.6": 6,
-     "полоса S сливается с картинкой рядом (B, ΔE n.n < n)": 2,
-     "полоса N сливается с картинкой рядом (N, ΔE n.n < n)": 6,
-     "полоса Y сливается с картинкой рядом (L, ΔE n.n < n)": 1,
-     "не тот класс по быстрой оценке q≈0.9": 12,
-     "не тот класс по быстрой оценке q≈0.7": 5,
-     "полоса B сливается с картинкой рядом (B, ΔE n.n < n)": 11,
-     "не тот класс по быстрой оценке q≈0.4": 3,
-     "вне этапа Ln: n кл., n цв. (n–n)": 3,
-     "полоса Y сливается с картинкой рядом (C, ΔE n.n < n)": 1
-    }
+   "size": "31×37",
+   "N": 1034,
+   "colours": 6,
+   "opts": {
+    "side": "two",
+    "x": "N",
+    "y": "Y",
+    "w": "R",
+    "v": "O",
+    "z": "S",
+    "strip": 2,
+    "divider": 1,
+    "bedDepth": 2,
+    "bedBreadth": 3,
+    "bedDepthY": 4,
+    "bedBreadthY": 5,
+    "pad": 0,
+    "margin": 2,
+    "ground": "S",
+    "shield": 0,
+    "fill": true
    },
-   "seconds": 556
-  },
-  {
-   "source": "P0026",
-   "side": "two",
-   "kind": "single",
-   "cls": "Super Hard",
-   "found": false,
-   "tried": {
-    "scenes": 12,
-    "candidates": 133,
-    "reasons": {
-     "полоса N сливается с картинкой рядом (N, ΔE n.n < n)": 10,
-     "вне этапа Ln: n кл., n цв. (n–n)": 2,
-     "полоса C сливается с картинкой рядом (L, ΔE n.n < n)": 2,
-     "мост: с другим мостом проигрыш сразу при выборе (§8)": 30,
-     "не тот класс по быстрой оценке q≈0.4": 6,
-     "мост: решает не ровно один (план single)": 52,
-     "не тот класс по быстрой оценке q≈0.5": 8,
-     "не тот класс по быстрой оценке q≈0.7": 8,
-     "не тот класс по быстрой оценке q≈1": 8,
-     "не тот класс по быстрой оценке q≈0.6": 10,
-     "не тот класс по быстрой оценке q≈0.9": 6,
-     "не тот класс по быстрой оценке q≈0.8": 4,
-     "ниже 5 %": 1
-    }
+   "random": {
+    "share": 0.125,
+    "runs": 400,
+    "wilson95": [
+     0.096,
+     0.161
+    ],
+    "cls": "Super Hard"
    },
-   "seconds": 293
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик влево в центре",
+      "win": false,
+      "share": 0
+     },
+     {
+      "label": "Мостик вверх в центре",
+      "win": true,
+      "share": 0.12
+     }
+    ],
+    "gap": 0.12,
+    "better": 1
+   },
+   "bridgeKind": "single",
+   "bridgeSingle": {
+    "each": [
+     false,
+     true
+    ],
+    "offered": [
+     4,
+     40
+    ],
+    "ok": true
+   },
+   "bridgeLoss": {
+    "choice": 0,
+    "games": 120,
+    "built": 6,
+    "chosen": 0,
+    "forced": 6,
+    "won": 0,
+    "medianLaunchesAfter": 0,
+    "instant": 1,
+    "ok": false
+   },
+   "forced": 0.04,
+   "opening": {
+    "first": {
+     "openings": 3,
+     "wins": 0
+    },
+    "three": {
+     "openings": 32,
+     "wins": 0,
+     "share": 0
+    },
+    "ok": true,
+    "strategies": [
+     "most-now",
+     "fast-release"
+    ]
+   },
+   "pressure": {
+    "stuck": 1.35,
+    "tight": 0.91
+   },
+   "greedyLoses": true,
+   "pods": 30,
+   "columns": 5,
+   "linked": 14,
+   "hidden": 2,
+   "solution": 24,
+   "level": {
+    "id": 1,
+    "title": "Медальон",
+    "subject": "P0037",
+    "w": 35,
+    "h": 41,
+    "rowsBottomFirst": [
+     "#################.#################",
+     "#.................................#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSNNNSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSNNNSSSSSSSSSSSSSSSSSSS.#",
+     "##########################SSSSSSS.#",
+     "###YYYYYYYYYYYYYYYYYYYY###SSSSSSS.#",
+     "###YYYYYYYYYYYYYYYYYYYY###SSSSSSS.#",
+     "###NNSNNSSSSSSSSSSNNSN#OO#SSSSSSS.#",
+     "###NNSNNSSSSSSSSSSNNSNNOO#SSSSSSS.#",
+     "###SNNNNNSSSSSSSSNNNNNSOO#SSSSSSS.#",
+     "###SNNNNNSSSSSSSSNNNNNSOO#SSSSSSS.#",
+     "###SSNNNNNSSSSSSNNNNNSSOO#SSSSSSS.#",
+     "###SSNNNNNOOOOOONNNNNSSOO#SSSSSSS.#",
+     "###SSSNNOOOOOOOOOONNSSSOO#SSSSSSS.#",
+     "###SSSNOOOYYYYYYOOONSSSOO#SSSSSSS.#",
+     "###SSSOOOYYYYYYYYOOOSSSOO#SSSSSSS.#",
+     "###SSOOOYYYYYYYYYYOOOSSOO#SSSSSSS.#",
+     "###SSOOYYYYYRRYYYYYOOSSOO#SSSSSSS.#",
+     "###SOOYYYYYRRRRYYYYYOOSOO#RRRRSSS.#",
+     "###SOOYYYYRRRRRRYYYYOOSOO#RRRRSSS.#",
+     "###SOOYYYRRRRRRRRYYYOOSOO#RRRRSSS.#",
+     "###SOOYYYRRRRRRRRYYYOOSOO#RRRRSSS.#",
+     "###SOOYYYYRCCRRRYYYYOOSOO#RRRRSSS.#",
+     "###SOOYYYYYRCRRYYYYYOOSOO#SSSSSSS.#",
+     "###SSOOYYYYYRRYYYYYOOSSOO#SSSSSSS.#",
+     "###SSOOOYYYYYYYYYYOOOSSOO#SSSSSSS.#",
+     "###SSSOOOYYYYYYYYOOOSSSOO#SSSSSSS.#",
+     "###SSSSOOOYYYYYYOOOSSSSOO#SSSSSSS.#",
+     "###SSSSSOOOOOOOOOOSSSSSOO#SSSSSSS.#",
+     "###SSSSSSSOOOOOOSSSSSSSOO#SSSSSSS.#",
+     "###SSSSSSSOO..OOSSSSSSSOO#SSSSSSS.#",
+     "###SSSSSSSOO..OOSSSSSSSOO#SSSSSSS.#",
+     "###SSSSSSSSOOOOSSSSSSSSOO#SSSSSSS.#",
+     "##########################SSSSSSS.#",
+     "#.########################........#",
+     "###################################"
+    ],
+    "entries": [
+     17
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "S",
+      "count": 40,
+      "group": "F"
+     },
+     {
+      "color": "S",
+      "count": 40,
+      "group": "E"
+     },
+     {
+      "color": "S",
+      "count": 39
+     },
+     {
+      "color": "S",
+      "count": 39
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "group": "G"
+     },
+     {
+      "color": "S",
+      "count": 39
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "group": "C"
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "group": "A"
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "group": "B"
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "group": "D"
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "mystery": "depth"
+     },
+     {
+      "color": "S",
+      "count": 39
+     },
+     {
+      "color": "S",
+      "count": 39
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "group": "D"
+     },
+     {
+      "color": "S",
+      "count": 39,
+      "group": "B"
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33,
+      "group": "E"
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33,
+      "group": "C"
+     },
+     {
+      "color": "O",
+      "count": 32,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 39
+     },
+     {
+      "color": "Y",
+      "count": 39
+     },
+     {
+      "color": "Y",
+      "count": 39
+     },
+     {
+      "color": "Y",
+      "count": 39
+     },
+     {
+      "color": "R",
+      "count": 29
+     },
+     {
+      "color": "R",
+      "count": 28,
+      "group": "G"
+     },
+     {
+      "color": "C",
+      "count": 3,
+      "group": "F"
+     },
+     {
+      "color": "N",
+      "count": 23,
+      "mystery": "depth"
+     },
+     {
+      "color": "N",
+      "count": 22
+     },
+     {
+      "color": "N",
+      "count": 22
+     }
+    ],
+    "tray": [
+     [
+      9,
+      4,
+      21,
+      28,
+      7,
+      1
+     ],
+     [
+      13,
+      25,
+      0,
+      10,
+      19,
+      16
+     ],
+     [
+      14,
+      23,
+      26,
+      27,
+      18,
+      3
+     ],
+     [
+      8,
+      12,
+      29,
+      20,
+      6,
+      2
+     ],
+     [
+      5,
+      22,
+      11,
+      24,
+      17,
+      15
+     ]
+    ],
+    "recipe": "links+bridge+hidden",
+    "hero": {
+     "id": "sprig-bridge",
+     "choices": [
+      {
+       "cell": 900,
+       "anchor": 901,
+       "label": "Мостик влево в центре",
+       "dir": "left"
+      },
+      {
+       "cell": 327,
+       "anchor": 292,
+       "label": "Мостик вверх в центре",
+       "dir": "up"
+      }
+     ]
+    }
+   }
   }
  ]
 }
