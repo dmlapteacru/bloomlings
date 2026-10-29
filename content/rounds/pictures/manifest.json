@@ -70,7 +70,8 @@
    "colours": 6,
    "status": "approved",
    "batch": "owner-0004-0008",
-   "note": null
+   "note": null,
+   "usedBy": "L0021"
   },
   {
    "id": "P0005",

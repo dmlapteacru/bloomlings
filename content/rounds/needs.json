@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-28",
+ "updated": "2026-10-29",
  "needs": [
   {
    "level": 18,
@@ -19,27 +19,6 @@
     ]
    },
    "placedException": "L0018 placed with the owner's exception (2026-10-27, both bridges win); replace when a picture with one deciding bridge exists"
-  },
-  {
-   "level": 21,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge"
-   ],
-   "stage": {
-    "cells": [
-     550,
-     1000
-    ],
-    "colours": [
-     4,
-     10
-    ]
-   },
-   "recipe": "links"
   },
   {
    "level": 23,
