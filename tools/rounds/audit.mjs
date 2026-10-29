@@ -76,7 +76,7 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
   else if(!slot.intro&&((k=>k==='better'||(k==='any'&&L.checks&&L.checks.bridgeKind==='better'))((planOf(L.level)||{}).bridgeKind))){const w=await bridgeChoicesWin(d);if(!w.ok)bad.push(`мост (план better): должны выигрывать оба моста ${JSON.stringify(w.each)} (§8)`);
    if(!L.bridge||L.bridge.gap<.1)bad.push(`мост (план better): один мост должен быть лучше не меньше чем на 10 пунктов (разница ${L.bridge?Math.round(L.bridge.gap*100):'—'}, §8)`);}
   else{const b=await bridgeSingle(d);if(!b.ok)bad.push(`мост: решением должен быть ровно один мост и оба места должны встречаться (${JSON.stringify(b.each)}, предложено ${b.offered.join('/')}; §8)`);
-   const bl=L.checks&&L.checks.bridgeLoss;if(bl&&!bl.ok)bad.push(`мост: с другим мостом проигрыш сразу при выборе (медиана запусков после выбора ${bl.medianLaunchesAfter}; §8)`);}}
+   const bl=L.checks&&L.checks.bridgeLoss;if(bl&&!bl.ok&&L.cls!=='Super Hard')bad.push(`мост: с другим мостом проигрыш сразу при выборе (медиана запусков после выбора ${bl.medianLaunchesAfter}; §8)`);}}
  // the owner's amendment of 2026-10-27: greedy strategies lose Hard / Super Hard (§5), recipes by class (§7), picture fitness (§2)
  // the owner's second amendment of 2026-10-27: "opening + colours" for Hard / Super Hard, forced decisions ≤ 35 %, a pod
  // holding a place in a regular Normal (§5, §6)

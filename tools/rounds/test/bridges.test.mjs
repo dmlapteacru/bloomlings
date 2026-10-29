@@ -26,7 +26,8 @@ test('boardOf keeps the boards of every placed level byte-identical, and the bri
   assert.equal(b.rowsBottomFirst.join('\n'),lv.definition.rowsBottomFirst.join('\n'),`L${lv.level}`);assert.deepEqual(b.entries,lv.definition.entries);
   if(lv.definition.hero)assert.deepEqual(b.hero.choices.map(c=>[c.cell,c.anchor,c.dir]),lv.definition.hero.choices.map(c=>[c.cell,c.anchor,'up']),`L${lv.level} bridges`);}
  // every approved picture with a strip: the full-width stream closes the ring on both sides, as before
- for(const e of L.manifest().pictures){const p=L.picture(e.id);if(!/[#b]/.test(p.rows.join('')))continue;const b=L.boardOf(p);
+ // (bridge scenes of the scene generator carry their own crossing side and are checked in scenes.test.mjs)
+ for(const e of L.manifest().pictures){const p=L.picture(e.id);if(!/[#b]/.test(p.rows.join(''))||p.scene)continue;const b=L.boardOf(p);
   p.rows.forEach((r,y)=>{if(/^[#b]+$/.test(r)){assert.equal(at(b,1,y+2),'#');assert.equal(at(b,b.w-2,y+2),'#');}});
   assert.equal(L.bridgeSide(b),'up');}});
 

@@ -12,9 +12,10 @@
   {
    "level": 21,
    "cls": "Normal",
-   "lead": "links",
+   "lead": "hidden",
    "add": [],
-   "recipe": "links"
+   "recipe": "hidden",
+   "ownerChange": "2026-10-29: hidden instead of links (17 §11, L19 and L20 lead with links)"
   },
   {
    "level": 22,
