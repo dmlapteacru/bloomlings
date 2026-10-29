@@ -31,9 +31,9 @@ Before anything, read:
      ones and their doses by §7 (the lead its range, one additional its minimum, three types the lead in its lower half),
      the bridge's crossing side (`up`, `left`, `right`, `two` = two sites crossing different ways or on different
      strips), where the strip comes from (`new`: a bridge scene, below, or a picture with the strip drawn in; `overlay`:
-     a straight wall the generator lays over an approved picture) and the bridge kind (`single`: exactly one bridge
-     wins, three quarters of the wave's bridge levels; `better`: both win, one 10+ points better by the random test,
-     the rest; the owner, 2026-10-28), and the share of each open mechanic in the wave. Every open mechanic is
+     a straight wall the generator lays over an approved picture) and the bridge kind (`single`: exactly one bridge wins; `better`: both win, one 10+ points better by the random test;
+     `any`: either kind, allowed on Normal. Hard bridge levels split equally between single and better;
+     Super Hard always single, with immediate loss on the wrong bridge allowed by the owner on 2026-10-29), and the share of each open mechanic in the wave. Every open mechanic is
      used and combined (§7, §9, §11); a Normal without mechanics at most about one in three. Example:
      `product/plans/wave-L21-L50-mechanics-plan-2026-10-28.md`.
    - When the owner approves it, save the machine copy `content/rounds/runs/L####-L####/mechanics.json`
@@ -62,7 +62,12 @@ Before anything, read:
    - Everything passes `screen.mjs`, then goes on a numbered contact sheet.
    - The owner approves every picture. Wait for the decision, never approve on the owner's behalf.
 4. **Build and place.** Run `node tools/rounds/rounds.mjs run <from> <to> --jobs 4` in the background.
-   - It is resumable: run it again after an interruption.
+   - It is resumable: run it again after an interruption. A request to regenerate from scratch needs a new isolated
+     `ROUNDS_DIR`, an empty candidate bank and empty target positions, plus a new recorded seed; rerunning a resumable
+     wave over the old bank does not regenerate it. Preserve levels outside the requested range and picture approvals.
+   - An explicitly requested technical preview may use draft pictures only with `--allow-draft` in an isolated
+     `ROUNDS_DIR`. Record pending owner approval, build the reviewable pilot, and keep strict production acceptance.
+     This does not approve pictures or authorize transfer into the game.
    - It does, in order:
      - a dry placement;
      - candidates for open positions only (under the mechanics plan only each position's planned recipe: on the

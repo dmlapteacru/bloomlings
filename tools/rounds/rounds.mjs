@@ -25,9 +25,12 @@
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {spawn,execFileSync} from 'node:child_process';
 import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf} from './lib.mjs';
 import {fitness} from './fitness.mjs';
+import {median} from './audit-rules.mjs';
+import {pathToFileURL} from 'node:url';
 import {fingerprints,sameEngine} from './conformance.mjs';
-const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
-process.argv.splice(2,0,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1);
+const isMain=!!process.argv[1]&&import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href;
+const cmd=isMain?process.argv[2]:'noop',HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
+const LV=await import('./levels.mjs');
 const PILOT=path.join(root,'tools/gameplay-pilot-v12/build.mjs');
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{}},sample:{},mismatch:{noteWords:[]}});
 const pct=x=>x==null?'—':Math.round(x*100)+' %';
@@ -35,10 +38,11 @@ const waveDir=(a,b)=>path.join(ROUNDS,'runs',`${lid(a)}-${lid(b)}`);
 const placedLevels=()=>{const o={};if(fs.existsSync(LEVELS))for(const f of fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f))){const L=readJSON(path.join(LEVELS,f));o[L.level]=L;}return o;};
 const FRANCHISE=new Set(['сторонняя вселенная','мем']);
 // a picture usable for rounds: approved, not locked to L1–3, not a franchise reference, not yet in a round
-function freePictures(){const u=usage();return manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!FRANCHISE.has(p.source));}
+function freePictures(){const u=usage(),excluded=new Set((arg('--exclude-pictures',process.env.ROUNDS_EXCLUDE||'')).split(',').filter(Boolean));return manifest().pictures.filter(e=>(e.status==='approved'||flag('--allow-draft')&&e.status==='draft')&&!u[e.id]&&!excluded.has(e.id)).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!FRANCHISE.has(p.source));}
 const weakOf=f=>f.hiddenColours<=1||f.visible>=6;
 const regularAt=(n,placed)=>classOf(n)==='Normal'&&n>3&&!slotOf(n).intro&&classOf(n-1)==='Normal';
-const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,env:{...process.env,...env},stdio:['ignore','pipe','pipe']});let out='';p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>out+=d);p.on('close',code=>res({code,out}));});
+const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,env:{...process.env,...env},stdio:['ignore','pipe','pipe']});let out='';p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>out+=d);p.on('error',e=>res({code:-1,out:out+e.message}));p.on('close',code=>res({code,out}));});
+const requireSuccess=(result,operation)=>{if(result.code!==0)throw Error(`${operation} failed (${result.code}): ${result.out.slice(-4000)}`);return result;};
 
 // ---- plan ----
 // the mechanics breakdown (17 §13 step 1, amendment of 2026-10-28): the owner-approved content/rounds/runs/<wave>/mechanics.json
@@ -126,10 +130,11 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
    ...strips.filter(e=>e.count).map(e=>`  - переход ${SIDE_RU[e.side]}${e.side==='two'?' (два места на разных полосах или в разные стороны)':''}, ${e.stage}: **${e.count}** для L${e.levels.join(', L')}${e.strong?`, из них сильных ${e.strong}`:''}${e.have?` (уже есть ${e.have})`:''}`)]:[]),
   `- Не рисовать (мотив 3+ раз): ${avoid.join(', ')||'—'}.`,`- Реже всего в пуле семьи: ${families.join(', ')}.`,''].join('\n');
  fs.writeFileSync(path.join(dir,'plan.md'),md);console.log(md);return out;}
-const ovCache=new Map();const overlayOf=(p,side)=>{const k=p.id+'|'+side;if(!ovCache.has(k))ovCache.set(k,wallOverlay(p,side,1));return ovCache.get(k);};
+const ovCache=new Map();const overlayOf=(p,side)=>{const seed=+arg('--seed',process.env.ROUNDS_SEED||1),k=p.id+'|'+side+'|'+seed;if(!ovCache.has(k))ovCache.set(k,wallOverlay(p,side,seed));return ovCache.get(k);};
 
 // ---- run ----
 async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1,Math.min(4,os.cpus().length))),t0=Date.now();fs.mkdirSync(path.join(dir,'build'),{recursive:true});
+ const draftArgs=flag('--allow-draft')?['--allow-draft']:[];if(draftArgs.length&&path.resolve(ROUNDS)===path.join(root,'content/rounds'))throw Error('--allow-draft requires an isolated ROUNDS_DIR');
  const state=readJSON(path.join(dir,'state.json'),{steps:[]}),step=(name,extra={})=>{state.steps.push({name,at:new Date().toISOString(),...extra});writeJSON(path.join(dir,'state.json'),state);console.log(`[${((Date.now()-t0)/60000).toFixed(1)} мин] ${name}`,Object.keys(extra).length?JSON.stringify(extra):'');};
  // positions whose introduction the engine does not play stay open and are reported (17 §14); the rest of the wave runs
  const p=plan(a,b);if(p.blockers.length)step('позиции без поддержки движка остаются открытыми',{blockers:p.blockers});
@@ -137,7 +142,7 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  const noScene=(p.order.scenes||[]).filter(x=>!x.have);if(noScene.length)step('сцены моста ещё не сделаны и не утверждены (bridge-scene.mjs make)',{levels:noScene.map(x=>x.level)});
  // 1. what the bank fills already: a placement on a copy of content/rounds (with the waves' mechanics plans)
  const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-'));fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||fs.statSync(s).isDirectory()});
-  await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp});const needs=(readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);fs.rmSync(tmp,{recursive:true,force:true});return needs;};
+  requireSuccess(await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b),...draftArgs],{ROUNDS_DIR:tmp}),'dry placement');const needs=(readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);fs.rmSync(tmp,{recursive:true,force:true});return needs;};
  let needs=await dry();step('пробная расстановка',{open:needs.map(x=>x.level)});
  // --all: candidates for every planned position, not only the open ones (when the wave's sequence checks fail on what
  // the bank already holds, e.g. the Normal median or the greedy quota, fresh candidates give the placement a choice)
@@ -148,7 +153,7 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  // picture (strip "overlay") or on a picture with its own strip crossing to that side (strip "new"). One build process
  // per picture (its bank file), with the exact class:recipe(@side) pairs
  if(needs.length&&!flag('--no-build')){const pics=freePictures().map(pc=>{const board=boardOf(pc);return {pc,m:measure(pc),f:fitness(pc),stream:!!board.hero,side:bridgeSide(board)};}),byPic=new Map();
-  const add=(id,variant,cls,recipe)=>{let t=byPic.get(id);if(!t)byPic.set(id,t={id,variants:new Set(),pairs:new Set(),classes:new Set(),recipes:new Set()});t.variants.add(variant);t.pairs.add(`${cls}:${recipe}${variant==='none'?'':'@'+variant}`);t.classes.add(cls);t.recipes.add(recipe);};
+  const add=(id,variant,cls,recipe,target=null)=>{let t=byPic.get(id);if(!t)byPic.set(id,t={id,variants:new Set(),pairs:new Set(),classes:new Set(),recipes:new Set(),targets:new Map()});if(target)t.targets.set(target.level,LV.targetAt(target.level));t.variants.add(variant);t.pairs.add(`${cls}:${recipe}${variant==='none'?'':'@'+variant}`);t.classes.add(cls);t.recipes.add(recipe);};
   const strong=(x,f)=>x.cls==='Normal'||f.hiddenColours>=3;
   // --no-bridge leaves the planned bridge positions for later (they need scene pictures); --per-position N tries at most
   // N pictures per planned position (the strongest first for Hard and Super Hard, else spread by the level number)
@@ -158,8 +163,8 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
     pool=x.cls==='Normal'?pool.map((q,k)=>({q,k:(k*7919+x.level*104729)%9973})).sort((u,v)=>u.k-v.k).map(u=>u.q):pool.slice().sort((u,v)=>v.f.hiddenColours-u.f.hiddenColours);
     if(!bridge)pool=pool.slice(0,perPos);}
    for(const {pc,m,f,stream,side} of pool){
-    if(bridge&&x.strip==='overlay'){if(stream)continue;const ov=overlayOf(pc,x.bridgeSide);if(!ov)continue;const op=overlaid(pc,ov);if(!fitsStage(measure(op),x.level)||!strong(x,fitness(op)))continue;add(pc.id,x.bridgeSide,x.cls,x.recipe);}
-    else{if(bridge?!(stream&&side===x.bridgeSide):stream)continue;if(!fitsStage(m,x.level)||!strong(x,f))continue;add(pc.id,'none',x.cls,x.recipe);}}}
+    if(bridge&&x.strip==='overlay'){if(stream)continue;const ov=overlayOf(pc,x.bridgeSide);if(!ov)continue;const op=overlaid(pc,ov);if(!fitsStage(measure(op),x.level)||!strong(x,fitness(op)))continue;add(pc.id,x.bridgeSide,x.cls,x.recipe,x);}
+    else{if(bridge?!(stream&&side===x.bridgeSide):stream)continue;if(!fitsStage(m,x.level)||!strong(x,f))continue;add(pc.id,'none',x.cls,x.recipe,x);}}}
   // positions without a plan: as before, every allowed recipe of the classes those positions need
   for(const {pc,m,f,stream} of pics){const mine=needs.filter(x=>!x.recipe&&fitsStage(m,x.level)&&strong(x,f)&&(x.intro!=='bridge'||stream));if(!mine.length)continue;
    const classes=[...new Set(mine.map(x=>x.cls))],allowed=new Set(mine.flatMap(x=>x.intro?[x.intro]:x.allowed));
@@ -168,20 +173,22 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
   const tasks=[...byPic.values()],noIntro=!needs.some(x=>x.intro);
   step('сборка кандидатов',{pictures:tasks.length,jobs});let i=0,done=0;
   await Promise.all(Array.from({length:jobs},async()=>{while(i<tasks.length){const t=tasks[i++],ov=[...t.variants];
-   const r=await run1([path.join(HERE,'levels.mjs'),'build',t.id,'--classes',[...t.classes].join(','),'--recipes',[...t.recipes].join(','),'--pairs',[...t.pairs].join(','),...(ov.some(v=>v!=='none')?['--overlay',ov.join(',')]:[]),...(noIntro?['--no-intro']:[]),'--candidates',arg('--candidates','64')]);
-   fs.writeFileSync(path.join(dir,'build',t.id+'.log'),r.out);done++;if(done%5===0||done===tasks.length)console.log(`  собрано ${done}/${tasks.length}`);}}));
+   const r=await run1([path.join(HERE,'levels.mjs'),'build',t.id,'--classes',[...t.classes].join(','),'--recipes',[...t.recipes].join(','),'--pairs',[...t.pairs].join(','),...(ov.some(v=>v!=='none')?['--overlay',ov.join(',')]:[]),...(noIntro?['--no-intro']:[]),'--candidates',arg('--candidates','64'),'--seed',arg('--seed',process.env.ROUNDS_SEED||'1'),...(t.targets.size?['--targets',JSON.stringify([...t.targets.values()])]:[]),...draftArgs,...(flag('--fresh')?['--fresh']:[])]);
+   fs.writeFileSync(path.join(dir,'build',t.id+'.log'),r.out);requireSuccess(r,`build ${t.id}`);done++;if(done%5===0||done===tasks.length)console.log(`  собрано ${done}/${tasks.length}`);}}));
   step('сборка готова');}
  // 3. checks missing on older candidates, then 4. the placement
- await Promise.all(Array.from({length:jobs},(_,k)=>run1([path.join(HERE,'levels.mjs'),'checks','--shard',`${k}/${jobs}`])));step('проверки кандидатов');
- const pl=await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)]);fs.writeFileSync(path.join(dir,'place.log'),pl.out);
+ for(const r of await Promise.all(Array.from({length:jobs},(_,k)=>run1([path.join(HERE,'levels.mjs'),'checks','--shard',`${k}/${jobs}`,'--from',String(a),'--to',String(b)]))))requireSuccess(r,'candidate checks');step('проверки кандидатов');
+ const pl=await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b),...draftArgs]);fs.writeFileSync(path.join(dir,'place.log'),pl.out);requireSuccess(pl,'placement');
  needs=(readJSON(path.join(ROUNDS,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);step('расстановка',{open:needs.map(x=>x.level)});
  // 5. the audit of everything placed in the wave (17 §14)
- const au=await run1([path.join(HERE,'audit.mjs'),String(a),String(b),'--out',path.join(dir,'audit.md')]);fs.copyFileSync(path.join(dir,'audit.md'),path.join(ROUNDS,`audit-${lid(a)}-${lid(b)}.md`));
- const failed=(au.out.match(/\| НЕТ: /g)||[]).length+(/Последовательность[^\n]*: OK/.test(au.out)?0:1);step('проверка правил',{failed});
+ const auditJson=path.join(dir,'audit.json'),au=await run1([path.join(HERE,'audit.mjs'),String(a),String(b),'--out',path.join(dir,'audit.md'),'--json',auditJson,...draftArgs]);
+ const verdict=readJSON(auditJson);if(![0,1].includes(au.code)||!verdict?.levels||!Array.isArray(verdict.sequence))throw Error(`audit failed (${au.code}): ${au.out.slice(-4000)}`);
+ fs.copyFileSync(path.join(dir,'audit.md'),path.join(ROUNDS,`audit-${lid(a)}-${lid(b)}.md`));
+ const failed=verdict.levels.filter(l=>l.missing||l.bad.length).length+verdict.sequence.length;step('проверка правил',{failed,pendingApproval:verdict.pending?.map(l=>l.level)||[]});
  // 6. the summary and 7. the owner's sample
  const placed=placedLevels(),rows=[];for(let n=a;n<=b;n++)if(placed[n])rows.push(placed[n]);
  const sample=flag('--no-sample')?[]:pickSample(rows,placed);
- if(sample.length){const r=await run1([PILOT,'--levels',sample.join(','),'--out',path.join(dir,'sample'),'--name',`wave-${a}-${b}`]);fs.writeFileSync(path.join(dir,'sample.log'),r.out);step('выборка',{levels:sample});}
+ if(sample.length){const r=await run1([PILOT,'--levels',sample.join(','),'--out',path.join(dir,'sample'),'--name',`wave-${a}-${b}`]);fs.writeFileSync(path.join(dir,'sample.log'),r.out);requireSuccess(r,'sample pilot');step('выборка',{levels:sample});}
  fs.writeFileSync(path.join(dir,'summary.md'),summary(a,b,rows,needs,au.out,sample,placed,(Date.now()-t0)/60000));
  step('готово',{minutes:Math.round((Date.now()-t0)/60000)});console.log(fs.readFileSync(path.join(dir,'summary.md'),'utf8'));
  return needs.length||failed?1:0;}
@@ -190,13 +197,13 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
 // and the two levels closest to a bound of the metrics (outliers); a fixed seed so a rerun picks the same
 function pickSample(rows,placed){const S=QUALITY.sample||{},out=new Set(),rnd=(()=>{let s=rows.length*7919+(rows[0]?.level||1);return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return (s>>>0)/4294967296;};})();
  const take=(list,k)=>{const l=list.filter(L=>!out.has(L.level));for(let i=0;i<k&&l.length;i++)out.add(l.splice(Math.floor(rnd()*l.length),1)[0].level);};
- const margin=L=>{const pm=L.cls==='Normal'?QUALITY.pressure.min.regularNormal:QUALITY.pressure.min[L.cls],st=L.checks?.pressure?.stuck;return pm&&st!=null?(st-pm)/pm:9;};
+ const margin=L=>{const pm=L.cls==='Normal'?QUALITY.pressure.min.regularNormal:QUALITY.pressure.min[L.cls],st=L.checks?.pressure?.stuck;return pm&&st!=null?Math.abs(st-pm)/pm:9;};
  if(S.superHard==='all')rows.filter(L=>L.cls==='Super Hard').forEach(L=>out.add(L.level));take(rows.filter(L=>L.cls==='Hard'),S.hard??2);
  if(S.introductions==='all')rows.filter(L=>L.intro).forEach(L=>out.add(L.level));take(rows.filter(L=>regularAt(L.level,placed)),S.normal??2);
  rows.filter(L=>!L.intro&&!out.has(L.level)&&(L.cls!=='Normal'||regularAt(L.level,placed))).sort((x,y)=>margin(x)-margin(y)).slice(0,S.outliers??2).forEach(L=>out.add(L.level));
  return [...out].sort((x,y)=>x-y);}
 
-function summary(a,b,rows,needs,audit,sample,placed,minutes){const reg=rows.filter(L=>regularAt(L.level,placed)),v=reg.map(L=>L.random.share).sort((x,y)=>x-y),med=v.length?v[Math.floor((v.length-1)/2)]:null;
+function summary(a,b,rows,needs,audit,sample,placed,minutes){const reg=rows.filter(L=>regularAt(L.level,placed)),med=median(reg.map(L=>L.random.share));
  const cnt=f=>{const o={};for(const L of rows){const k=f(L);o[k]=(o[k]||0)+1;}return Object.entries(o).map(([k,n])=>`${k} — ${n}`).join('; ');};
  const lost=reg.filter(L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];}).length,itog=(audit.match(/Итог:[^\n]*/)||['Итог: —'])[0];
  return [`# Волна L${a}–L${b}`,'',`Прогон ${minutes.toFixed(0)} мин. ${itog}`,'',needs.length?`**Не заполнено ${needs.length}:** ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+MECH_RU[x.intro]+')':''}`).join(', ')} → заказ картинок (\`rounds.mjs plan ${a} ${b}\`).`:'Все позиции заполнены.','',
@@ -248,4 +255,4 @@ if(cmd==='plan'){plan(+process.argv[3],+process.argv[4]);}
 else if(cmd==='confirm'){process.exitCode=confirm(+process.argv[3],+process.argv[4],arg('--sample'),arg('--date')||undefined);}
 else if(cmd==='run'){process.exitCode=await runWave(+process.argv[3],+process.argv[4]);}
 else if(cmd==='review'){process.exitCode=review(process.argv[3]);}
-else console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));
+else if(isMain)console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));

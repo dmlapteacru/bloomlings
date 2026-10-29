@@ -18,7 +18,8 @@
  const LESSONS=data.lessons; // built from the levels by build.mjs: L1, new colours, first introductions, first Hard and Super Hard
 
  const KEY=`bloomlings-pilot-v12:${data.hash}:${data.rulesHash}:${data.timelineHash}:${data.paletteHash}:${data.clockHash}`;
- const fresh=()=>({schema:9,catalogHash:data.hash,rulesHash:data.rulesHash,timelineHash:data.timelineHash,current:1,started:false,lessons:[],settings:{fast:false,symbols:false,palette:'normal'},attempts:[],activeByLevel:{},presentations:{},serial:0});
+ const nextLevel=id=>data.levels[data.levels.findIndex(level=>level.id===id)+1];
+ const fresh=()=>({schema:9,catalogHash:data.hash,rulesHash:data.rulesHash,timelineHash:data.timelineHash,current:data.levels[0].id,started:false,lessons:[],settings:{fast:false,symbols:false,palette:'normal'},attempts:[],activeByLevel:{},presentations:{},serial:0});
  let store=fresh(),storageProblem='',revealNotice='',revealUntil=0,revealSeen=new Set(),revealReady=false;
  try{const saved=localStorage.getItem(KEY);if(saved){const s=JSON.parse(saved);if(s.schema!==9||!s.presentations||!Array.isArray(s.attempts)||!['normal','accessible'].includes(s.settings?.palette))throw Error('Invalid save');store=s;}}catch(error){storageProblem='Сохранение недоступно. Скачай результаты перед закрытием.';}
  let state,visual,timeline,attempt,lastCheckpoint=performance.now(),drawing=null,needsRender=false;const activity=new window.BloomPilotClock.ActiveClock(performance.now());
@@ -180,9 +181,9 @@
   function showEnd(){
     if(timeline.pending||$('endDialog').open)return;
     const won=state.status==='Won';$('endTag').textContent=`L${state.level.id} · ${won?'ПРОЙДЕН':'ПОПЫТКА'}`;$('endTitle').textContent=won?'Отлично получилось!':state.status==='Stuck'?'Паре не хватает места':'Места закончились';
-    $('endDescription').textContent=won?`${state.level.title}. ${attempt.commands.filter(a=>a.type==='tap').length} тапов. ${state.level.id===data.levels.length?`Все ${data.levels.length} доступны в выборе уровней.`+' Расскажи, как ощущается развитие.':'Можно оценить уровень и перейти дальше.'}`:'Остатки ждут закрытые клетки: '+Array.from(state.slots).filter(p=>p>=0&&state.remaining[p]>0).map(p=>palette[state.level.pods[p].color].name+' '+state.remaining[p]).join(', ')+'. Оставь место для команды, которая откроет путь. Ретрай бесплатный.';
+    $('endDescription').textContent=won?`${state.level.title}. ${attempt.commands.filter(a=>a.type==='tap').length} тапов. ${!nextLevel(state.level.id)?`Все ${data.levels.length} доступны в выборе уровней.`+' Расскажи, как ощущается развитие.':'Можно оценить уровень и перейти дальше.'}`:'Остатки ждут закрытые клетки: '+Array.from(state.slots).filter(p=>p>=0&&state.remaining[p]>0).map(p=>palette[state.level.pods[p].color].name+' '+state.remaining[p]).join(', ')+'. Оставь место для команды, которая откроет путь. Ретрай бесплатный.';
     $('finishedPicture').hidden=!won;if(won)drawPicture($('finishedPicture'),true);
-    $('nextButton').hidden=!won;$('nextButton').textContent=state.level.id===data.levels.length?'Посмотреть результаты':'Следующий уровень';
+    $('nextButton').hidden=!won;$('nextButton').textContent=!nextLevel(state.level.id)?'Посмотреть результаты':'Следующий уровень';
     $('uncertaintyFeedback').hidden=!state.level.pods.some(p=>p.mystery);$('levelNote').value=attempt.note||'';syncFeedback();modal('endDialog');save();
   }
   function syncFeedback(){for(const field of ['rating','interest','art','planning','depthNeed','pace','waiting','uncertainty'])document.querySelectorAll(`[data-${field.replace(/[A-Z]/g,c=>'-'+c.toLowerCase())}]`).forEach(b=>{const selected=b.dataset[field]===attempt[field];b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected));});}
@@ -273,7 +274,7 @@
   $('confirmRetryButton').addEventListener('click',()=>loadLevel(state.level.id,{restart:true,lesson:false}));
   $('endRetryButton').addEventListener('click',()=>loadLevel(state.level.id,{restart:true,lesson:false}));
   $('endMapButton').addEventListener('click',showLevels);
-  $('nextButton').addEventListener('click',()=>state.level.id===data.levels.length?showResults():loadLevel(state.level.id+1));
+  $('nextButton').addEventListener('click',()=>!nextLevel(state.level.id)?showResults():loadLevel(nextLevel(state.level.id).id));
   $('speedButton').addEventListener('click',()=>{syncTime();const from=speed();store.settings.fast=!store.settings.fast;event('manual-speed',{manualFast:store.settings.fast,effectiveSpeed:speed()});if(from!==(speed()))event('effective-speed',{from,to:speed(),reason:'manual'});save();render();});
   $('resultsButton').addEventListener('click',showResults);$('exportButton').addEventListener('click',exportResults);
   $('helpButton').addEventListener('click',()=>{closeAll();modal('welcomeDialog');});

@@ -120,7 +120,7 @@ the supported three.
        outer colours deeper, inner ones earlier, so their pods wait in places and a careless tap jams them). A
        properly reversed queue makes even an object on an empty background hard (measured 2026-10-26: the owl 40 %,
        the frog 0 %, both solvable), so the measured class decides. At the start at least one top pod has reachable
-       work (§6). It deals the pods into 3 or 4 columns by N, with start heights within 1.
+       work (§6). It deals the pods into 3, 4 or 5 columns by N (5 only from 1000 cells), with start heights within 2.
      - adds the recipe's mechanics at the doses of §7 (one type: full range; two: the additional at its minimum
        admissible dose, links an even count; three: the lead in the lower half of its range, the others at minimum;
        the lead's dose at the place of the §7 cycle; small queue under 16 pods: one type). Introductions use teaching doses: 2–3 hidden pods (the first in row 2), 1 pair, 1 bridge choice.
@@ -155,8 +155,8 @@ the supported three.
        introduction needs exactly one winning bridge, with both sites reached in random games (`bridgeSingle`,
        `bridgeKind: single`), and with the other bridge random games still launch pods after the choice (the median at
        least one: `bridgeLoss`, "проигрыш наступает не сразу при выборе"). Later bridge levels take the wave plan's
-       `bridgeKind`: `single` as above (three quarters), `better` both winning and one 10+ points better by the
-       random test (a quarter; without a plan, single). Each bridge is solved with a fresh solver memo
+       `bridgeKind`: Normal `any` (single or both winning with one 10+ points better), Hard split evenly between
+       `single` and `better`, Super Hard `single`. A wrong Super Hard bridge may lose immediately (owner, 2026-10-29). Each bridge is solved with a fresh solver memo
        (`bridgeChoicesWin`): before 2026-10-28 one memo served both and every bridge level measured [x, x], so no
        candidate could ever be `single`.
      - Hidden-pod introductions carry 2–3 hidden pods, the first in row 2. One of them must matter (`hiddenMatters`):
@@ -176,7 +176,7 @@ the supported three.
      planned recipe and, for a bridge, its planned crossing side and bridge kind; an open one is listed in `needs.json`
      with the recipe, side and strip it needs.
    - It keeps the §11 variety rules (no lead mechanic or identical recipe more than 2 levels in a row), at most 2
-     pictures with 10–11 colours in any 20, and prefers the class's preferred zone (75–95 % for the first Normal after
+     pictures with 11 colours in any 20 (10 is ordinary), and prefers the class's preferred zone (75–95 % for the first Normal after
      a Hard or Super Hard) and the size mix per 30.
    - It writes `content/rounds/levels/L####.json`: the definition in the pilot format plus the card data. It marks
      the picture used and lists empty positions in `content/rounds/needs.json`.
@@ -214,10 +214,16 @@ the supported three.
 - **Solution:** a complete solution without boosters at the real places (5; 4 → 5 once repair exists), replayed by the
   engine.
 - **Fairness:** no forced guessing of hidden values; no short time window.
-- **Class:** confirmed by the single random test, or a borderline case (`borderline: true`) shown to the owner.
+- **Class:** confirmed by the single random test. A remaining borderline case needs a recorded owner decision
+  (`classDecision`: class, `decidedBy: owner`, date, reason and source), not merely a warning. The explicit §8
+  exception accepts a Normal with exactly one winning bridge at ≥50% in 400 games; no other class inherits it.
 - **Introductions:** the introduction order is respected.
 - **Card:** carries everything §14 lists: picture, number, class, N and W, materials, P, columns, recipe and doses,
   random test, saved solution, buffer by fifths, simple strategies, launches after 80 % W, time.
+
+For a fresh wave use an isolated `ROUNDS_DIR`, empty the target positions and bank there, and record a new seed.
+Do not reuse old candidates as fresh generation. `--allow-draft` is only for an explicitly requested technical
+preview in that isolated directory; every draft stays pending owner approval and production gates stay strict.
 
 After any change of movement, slot release or bot policy, re-run the random test of the placed levels (17 §5). A level
 whose class moves is re-placed.

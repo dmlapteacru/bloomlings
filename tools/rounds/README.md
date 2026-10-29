@@ -43,7 +43,19 @@ node tools/rounds/conformance.mjs solution content/game/rounds/export/L0001-L002
 node --test tools/rounds/test/*.test.mjs
 ```
 
-`ROUNDS_DIR=<folder>` points every command at another content folder, for trial runs.
+`ROUNDS_DIR=<folder>` points every command at another content folder, for trial runs. A fresh generation uses an empty
+bank and empty requested level positions there, preserves the already approved pictures and preceding levels, and
+records a new seed. Resuming the old bank is not fresh generation.
+
+An explicitly requested preview may use `--allow-draft` in an isolated `ROUNDS_DIR`; it never changes picture approval.
+`audit.mjs --allow-draft` reports pending picture approval separately from technical failures, and cannot run that mode
+against `content/rounds`. The default audit and production exporter still require approved pictures.
+
+The auditor rechecks doses, the mechanics plan (including the actual bridge side and strip source), rolling windows
+across wave boundaries (11-colour rarity and regular Normal median), and hidden-state fairness. A borderline class
+requires a recorded `classDecision` by the owner (class, date, reason and source), except the owner's §8 decision for a
+Normal with one winning bridge and at least 50% in 400 games. A warning alone is not acceptance. Cached metrics do not
+replace replay and fresh validation after changes to definitions or the engine.
 
 **Bridges on any strip** (17 §8 "Где стоит мост", amendment of 2026-10-28). A picture's `#` strip may run in any
 direction; `b` marks a bridge site on it. `boardOf(pic, overlay?)` builds the board: each `#`/`b` cell on the picture's
@@ -85,7 +97,7 @@ positions, and `levels.mjs place` checks the plan's `bridgeKind`. A scene is fou
 
 **The wave's mechanics plan.** `content/rounds/runs/<wave>/mechanics.json` (approved by the owner, 17 §13 step 1): per
 level `recipe` (lead first), `lead`, `add`, `bridgeSide` and `strip` (`new`: a picture with its own strip, made as a bridge scene; `overlay`: the
-generator's wall) and `bridgeKind` (`single`: exactly one bridge wins; `better`: both win, one 10+ points better; 75 % / 25 %). `rounds.mjs plan` prints its breakdown and orders pictures only for what it needs; `rounds.mjs run`
+generator's wall) and `bridgeKind` (`single`: exactly one bridge wins; `better`: both win, one 10+ points better; `any`: either). Normal allows `any`; Hard splits equally between `single` and `better`; Super Hard requires `single` (immediate loss with the wrong bridge is allowed). `rounds.mjs plan` prints its breakdown and orders pictures only for what it needs; `rounds.mjs run`
 builds only each open position's planned recipe (`levels.mjs build --pairs cls:recipe@side --overlay …`); `levels.mjs
 place` accepts a candidate on a planned position only with that recipe and, for a bridge, that crossing side and bridge kind. Recipes:
 `none`, `links`, `hidden`, `bridge`, `links+hidden`, `hidden+links`, `bridge+links`, `bridge+hidden`, `hidden+bridge`,

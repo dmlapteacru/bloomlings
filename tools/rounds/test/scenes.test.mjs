@@ -88,9 +88,16 @@ test('the wave plan lists the bridge scenes to make for the new-strip positions,
  for(const s of plan.order.scenes){const m=mech.find(l=>l.level===s.level);assert.equal(s.side,m.bridgeSide);assert.equal(s.kind,m.bridgeKind);assert.match(s.command,new RegExp(`--side ${m.bridgeSide} --kind ${m.bridgeKind}`));}
  assert.match(fs.readFileSync(path.join(dir,'runs/L0021-L0050/plan.md'),'utf8'),/Сцены моста/);});
 
-test('search: the up proof scene passes the builder with exactly one winning bridge (slow, ROUNDS_SLOW=1)',{skip:!process.env.ROUNDS_SLOW},async()=>{
- const r=await BS.search(P,{side:'up',kind:'single',cls:'Normal',recipes:['bridge'],level:26,scenes:1,candidates:8,seed:7,opts:UP});
- assert.ok(r&&!r.fail,JSON.stringify(r&&r.tried));assert.equal(r.eval.checks.bridgeKind,'single');assert.equal(r.eval.random.cls,'Normal');assert.ok(r.eval.checks.bridgeLoss.ok);});
+// The former slow fixture reused UP above, whose D strip intentionally fails the current contrast rule, and asked
+// for a regular-Normal queue at relief position L26. This fresh L23 fixture has contrasting strips and the right zone.
+test('search: a contrasting bridge scene reaches its planned Normal target and retains the exact queue (slow, ROUNDS_SLOW=1)',{skip:!process.env.ROUNDS_SLOW},async()=>{
+ const opts={side:'up',x:'E',y:'G',w:'Y',v:'N',z:'.',strip:2,divider:0,bedDepth:2,bedBreadth:3,bedDepthY:2,bedBreadthY:3,pad:0,margin:0,ground:null,fill:false};
+ const r=await BS.search(L.picture('P0024'),{side:'up',kind:'any',cls:'Normal',recipes:['bridge'],level:23,scenes:1,candidates:8,seed:2026102923,opts});
+ assert.ok(r&&!r.fail,JSON.stringify(r&&r.tried));assert.equal(r.eval.checks.bridgeKind,'better');assert.equal(r.eval.random.cls,'Normal');
+ assert.ok(r.eval.random.share>=.5&&r.eval.random.share<=.75);assert.equal(r.eval.random.borderline,false);
+ const b=L.boardOf(r.scene),m=L.measure(r.scene),pods=LV.splitPods(m.volumes,m.N,null,{minPods:r.generation.minPods}).pods,g=r.generation;
+ const replay=LV.candidate({id:'P0024',title:L.picture('P0024').title,rows:r.scene.rows,locked:null},b,pods,g.columns,g.recipe,g.cls,g.seed,false,g.dosePos,g.opts);
+ assert.deepEqual(replay.level,r.level);});
 
 test('strip contrast: a strip of the colour of the picture cells it touches is refused, a contrasting one passes (2026-10-28)',()=>{
  const bad=BS.checkScene(BS.scene(P,{...UP,side:'up'}),null);

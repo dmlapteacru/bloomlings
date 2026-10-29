@@ -210,30 +210,31 @@ export function fitBeds(pic,o,tol=.2){let cur={...o};
 // ---- search: scenes × candidates until one passes the builder's checks and the bridge kind ----
 // returns {scene, opts, level, eval, tried:{scenes, candidates}, seconds} or null
 export async function search(pic,{side,kind,cls='Normal',recipes=['bridge'],level=26,scenes=40,candidates=12,seed=1,deadline=Infinity,log=()=>{},opts=null,compose=null,maxColours=9}){const r=rngOf(seed*2654435761+side.length*97+pic.id.length),t0=Date.now();let nS=0,nC=0;const reasons={};
- const strong=cls!=='Normal';
+ const strong=cls!=='Normal',target=LV.targetAt(level),shareTarget=target.shareTarget;
  for(let s=0;s<scenes&&Date.now()<deadline;s++){let o,sc;
   try{if(compose){[o,sc]=compose(r);if(!o)return null;}else{o=opts?{side,...opts}:paramsFor(pic,side,r);if(!o)return null;if(!opts&&r()<.1)o=fitBeds(pic,o)||o;sc=scene(pic,o);}}catch(e){reasons['сцена: '+e.message]=(reasons['сцена: '+e.message]||0)+1;continue;}
   const ck=checkScene(sc,level,{maxColours});if(!ck.ok){const k=ck.issues[0].replace(/\d+/g,'n');reasons[k]=(reasons[k]||0)+1;continue;}
   if(strong&&fitness(sc).hiddenColours<3){reasons['Hard/SH: меньше 3 скрытых цветов']=(reasons['Hard/SH: меньше 3 скрытых цветов']||0)+1;continue;}
-  nS++;const m=ck.measure,board=ck.board,base=LV.splitPods(m.volumes,m.N,null);if(base.error){reasons[base.error]=(reasons[base.error]||0)+1;continue;}
+  nS++;const m=ck.measure,board=ck.board,base=LV.splitPods(m.volumes,m.N,null,{minPods:recipes.some(r=>r.includes('+'))?16:0});if(base.error){reasons[base.error]=(reasons[base.error]||0)+1;continue;}
   const scPic={id:pic.id,title:pic.title,rows:sc.rows,locked:null};
   // the winning bridge is the x bed's (its strip is y); the queue leans to it, and the pods of the gate (the strip behind
   // the other bridge) but the first stand at least `gate` deep (levels.mjs candidate opts)
   const intended=choiceOf(sc,board,sc.win);
-  for(const recipe of recipes)for(let k=0;k<candidates&&Date.now()<deadline;k++){nC++;const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rows=Math.ceil(base.pods.length/cols),gate=kind==='better'||(kind==='any'&&k%2===0)?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),delay=Math.floor(r()*4);
-   const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,seed*1000003+s*7919+k*131,false,pos,{gate,intended,delay});if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
-   const e=await LV.evaluate(c.level,{m,cls,kind});
-   if(!e.reason&&e.random.cls!==cls)e.reason=`класс по случайному тесту ${e.random.cls}`;
+  for(const recipe of recipes)for(let k=0;k<candidates&&Date.now()<deadline;k++){nC++;const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=target.dosePos,rows=Math.ceil(base.pods.length/cols),gate=kind==='better'||(kind==='any'&&k%2===0)?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),delay=Math.floor(r()*4);
+   const queueSeed=seed*1000003+s*7919+k*131,queueOpts={gate,intended,delay};
+   const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,queueSeed,false,pos,queueOpts);if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
+   const e=await LV.evaluate(c.level,{m,cls,kind,shareTarget});
+   if(!e.reason&&!LV.matchesSearchTarget(e,{cls,bridgeKind:kind,shareTarget}))e.reason=`не попал в цель L${level}: ${e.random.cls} ${e.random.share}${e.random.borderline?' (Wilson)':''}`;
    if(e.reason){const k=e.reason+(e.quick!=null?' q≈'+Math.round(e.quick*10)/10:'');reasons[k]=(reasons[k]||0)+1;continue;}
    log(`  ${pic.id} ${side}: сцена ${s+1}, кандидат ${k+1} прошёл (${Math.round(e.random.share*100)} %)`);
-   return {scene:sc,opts:o,level:c.level,recipe,cols,eval:e,N:m.N,colours:m.colours,tried:{scenes:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)};}}
+   return {scene:sc,opts:o,generation:{seed:queueSeed,columns:cols,minPods:base.pods.length,dosePos:pos,opts:queueOpts,cls,recipe},level:c.level,recipe,cols,eval:e,N:m.N,colours:m.colours,tried:{scenes:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)};}}
  log(`  ${pic.id} ${side}: не найдено (сцен ${nS}, кандидатов ${nC}) ${JSON.stringify(reasons)}`);
  return {fail:true,tried:{scenes:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)};}
 
 // ---- the draft module of found scenes (bloomlings-round-pictures format) ----
 export function moduleText(found,{name}){const pics=found.map(f=>({title:`${f.source.title} за мостом`,...(f.source.family?{family:f.source.family}:{}),...(f.source.direction?{direction:f.source.direction}:{}),
   device:'сцена моста',subject:f.source.subject||f.source.title,source:`сцена моста из ${f.source.id}`,forLevel:f.forLevel,
-  scene:{from:f.source.id,side:f.scene.side,kind:f.kind,cls:f.cls,recipe:f.recipe,win:f.scene.win,lose:f.scene.lose,opts:f.opts},rows:f.scene.rows}));
+  scene:{from:f.source.id,side:f.scene.side,kind:f.kind,cls:f.cls,recipe:f.recipe,win:f.scene.win,lose:f.scene.lose,opts:f.opts,generation:f.generation},rows:f.scene.rows}));
  return `// ${name}: bridge scenes composed by tools/rounds/bridge-scene.mjs (17 §8): a smaller approved picture on the far side
 // behind a wall with two Sprig sites, crossed strips and near-bank beds; each one passed the builder's checks with the
 // planned bridge kind (evidence in ${name}.json). Drafts for the owner's sheet: pictures.mjs render / sheet / approve.
@@ -255,10 +256,10 @@ else if(cmd==='make'){const side=arg('--side'),kind=arg('--kind','single'),cls=a
  for(const id of ids){if(found.length>=count||Date.now()>deadline)break;const p=sourceOf(id);
   const r=await search(p,{side,kind,cls,recipes,level,scenes:+arg('--scenes',40),candidates:+arg('--candidates',12),seed:+arg('--seed',1),deadline,log,opts:arg('--opts')?JSON.parse(arg('--opts')):null});
   if(!r||r.fail){evidence.push({source:id,side,kind,cls,found:false,...(r?{tried:r.tried,seconds:r.seconds}:{})});continue;}
-  const e=r.eval,k=e.checks;found.push({source:p,scene:r.scene,opts:r.opts,kind,cls,recipe:r.recipe,forLevel:level});
+  const e=r.eval,k=e.checks;found.push({source:p,scene:r.scene,opts:r.opts,generation:r.generation,kind,cls,recipe:r.recipe,forLevel:level});
   evidence.push({source:id,side,kind,cls,recipe:r.recipe,found:true,seconds:r.seconds,tried:{scenes:r.tried.scenes,candidates:r.tried.candidates},size:`${r.scene.rows[0].length}×${r.scene.rows.length}`,N:r.N,colours:r.colours,opts:r.opts,
    random:{share:e.random.share,runs:e.random.runs,wilson95:e.random.wilson95,cls:e.random.cls},bridge:e.bridge,bridgeKind:k.bridgeKind,bridgeSingle:k.bridgeSingle,bridgeLoss:k.bridgeLoss||null,forced:k.forced,opening:k.opening,pressure:k.pressure,greedyLoses:k.greedyLoses,
-   pods:r.level.pods.length,columns:r.cols,linked:r.level.pods.filter(x=>x.group).length,hidden:r.level.pods.filter(x=>x.mystery).length,solution:e.solution.route.length,level:r.level});
+   pods:r.level.pods.length,columns:r.cols,linked:r.level.pods.filter(x=>x.group).length,hidden:r.level.pods.filter(x=>x.mystery).length,solution:e.solution.route.length,generation:r.generation,evaluation:e,level:r.level});
   console.log(show(r.scene));console.log(`${id} → сцена ${side}, ${r.N} кл., ${r.colours} цв.; ${cls} ${r.recipe}: бот ${Math.round(e.random.share*100)} %, мост ${k.bridgeKind} ${JSON.stringify(e.bridge.each)}${k.bridgeLoss?`, проигрыш с другим мостом через ${k.bridgeLoss.medianLaunchesAfter} запусков (медиана)`:''}; ${r.seconds} с`);}
  if(out&&!flag('--dry')){const name=path.basename(out,'.mjs');fs.mkdirSync(path.dirname(path.resolve(out)),{recursive:true});
   if(found.length)fs.writeFileSync(out,moduleText(found,{name}));fs.writeFileSync(out.replace(/\.mjs$/,'.json'),JSON.stringify({created:new Date().toISOString(),side,kind,cls,recipes,level,results:evidence},null,1)+'\n');
@@ -272,7 +273,7 @@ else if(cmd==='adapt'){// strips over the pictures of a hand-drawn strip module 
   const compose=r=>{const pick=a=>a[Math.floor(r()*a.length)],a=pick(cols),b=pick(cols.filter(c=>c!==a)),o={a,b,depth:2+Math.floor(r()*2),win:Math.floor(r()*2),border:r()<.5};return [o,stripsOver(p,o)];};
   const r=await search(p,{side,kind,cls,recipes,level:p0.forLevel,scenes:+arg('--scenes',12),candidates:+arg('--candidates',5),seed:+arg('--seed',1),deadline:Math.min(deadline,Date.now()+60000*+arg('--per',8)),log,compose,maxColours:10});
   if(!r||r.fail){evidence.push({index:k+1,title:p0.title,side,kind,cls,found:false,...(r?{tried:r.tried,seconds:r.seconds}:{})});continue;}
-  const e=r.eval;found.push({...p0,title:p0.title,device:`${p0.device||''}; полосы за местами (bridge-scene.mjs adapt)`.replace(/^; /,''),scene:{from:`${path.basename(file)} #${k+1}`,side,kind,cls,recipe:r.recipe,win:r.scene.win,lose:r.scene.lose,opts:r.opts},rows:r.scene.rows});
+  const e=r.eval;found.push({...p0,title:p0.title,device:`${p0.device||''}; полосы за местами (bridge-scene.mjs adapt)`.replace(/^; /,''),scene:{from:`${path.basename(file)} #${k+1}`,side,kind,cls,recipe:r.recipe,win:r.scene.win,lose:r.scene.lose,opts:r.opts,generation:r.generation},rows:r.scene.rows});
   evidence.push({index:k+1,title:p0.title,side,kind,cls,recipe:r.recipe,found:true,seconds:r.seconds,opts:r.opts,N:r.N,colours:r.colours,random:{share:e.random.share,cls:e.random.cls},bridge:e.bridge,bridgeKind:e.checks.bridgeKind,bridgeLoss:e.checks.bridgeLoss||null,forced:e.checks.forced,opening:e.checks.opening});
   console.log(show(r.scene));console.log(`#${k+1} «${p0.title}» → ${side}, ${cls} ${r.recipe}: бот ${Math.round(e.random.share*100)} %, мост ${e.checks.bridgeKind} ${JSON.stringify(e.bridge.each)}; ${r.seconds} с`);}
  if(out){const name=path.basename(out,'.mjs');if(found.length)fs.writeFileSync(out,`// ${name}: ${path.basename(file)} with a strip laid behind each bridge site and a divider between them (bridge-scene.mjs adapt,\n// 17 §8): each one passed the builder's checks with its wave position's bridge kind (evidence in ${name}.json). Drafts.\nexport default ${JSON.stringify({theme:mod.theme,name,pictures:found},null,1)};\n`);

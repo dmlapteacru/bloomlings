@@ -71,7 +71,7 @@ function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pic
  const text=(s,x,y,k,c)=>{for(const ch of s){const f=FONT[ch]||FONT[' '];for(let j=0;j<5;j++)for(let i=0;i<3;i++)if(f[j*3+i]==='1')rect(x+i*k,y+j*k,k,k,c);x+=4*k;}};
  pics.forEach((p,n)=>{const ox=(n%C)*tw+8,oy=Math.floor(n/C)*th+8,ink=p.inUse?[150,150,150]:p.status==='approved'?[30,130,60]:p.status==='rejected'?[190,40,40]:[30,30,30];
   const name=String(p.label||p.seq);text(name,ox,oy,4,ink);text(p.inUse?`#${+p.inUse.slice(1)}`:`${p.N}/${p.colours}`,ox+4*4*(name.length+1),oy+8,2,[90,90,90]);
-  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[248,247,243]:c==='#'?[150,190,205]:c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);}});
+  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[248,247,243]:c==='#'?(p.scene?[163,157,144]:[150,190,205]):c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);}});
   rect(ox-1,oy+lab-1,p.w*cs+2,1,[200,200,200]);rect(ox-1,oy+lab+p.h*cs,p.w*cs+2,1,[200,200,200]);});
  fs.mkdirSync(path.dirname(path.resolve(out)),{recursive:true});fs.writeFileSync(out,png(Wt,Ht,px));
  const md=out.replace(/\.png$/,'.md');fs.writeFileSync(md,`# Картинки на утверждение\n\nНомер на листе — порядковый номер картинки; рядом клетки/цвета. Ответь номерами: какие утвердить, какие переделать (и что поменять).\n\n| № | Название | Тема | Размер | Клеток | Цветов | Объёмы | Для уровня | Статус |\n|---:|---|---|---|---:|---:|---|---:|---|\n`+pics.map(p=>`| ${p.label||p.seq} | ${p.title} | ${p.theme||'—'} | ${p.w}×${p.h} | ${p.N} | ${p.colours} | ${Object.entries(p.volumes||{}).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`${c} ${v}`).join(' · ')} | ${p.forLevel} | ${p.status||'—'} |`).join('\n')+'\n');
@@ -80,7 +80,7 @@ function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pic
 // one pool that the level skill places by its rules (a picture's number or forLevel is no level assignment) ----
 const BANDS=[['4–9',4],['10–24',10],['25–60',25],['61+',61]];
 function picturePng(p,cs=12){const W=p.w*cs,H=p.h*cs,px=Buffer.alloc(W*H*3,255);
- p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[255,255,255]:c==='#'?[150,190,205]:c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);
+ p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[255,255,255]:c==='#'?(p.scene?[163,157,144]:[150,190,205]):c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);
   for(let j=0;j<cs;j++)for(let i=0;i<cs;i++){const k=((y*cs+j)*W+x*cs+i)*3,edge=c!=='.'&&(i===cs-1||j===cs-1);px[k]=edge?Math.round(col[0]*.85):col[0];px[k+1]=edge?Math.round(col[1]*.85):col[1];px[k+2]=edge?Math.round(col[2]*.85):col[2];}}});
  return png(W,H,px);}
 // usedBy comes from the placed levels; the manifest and picture files are brought in line with them

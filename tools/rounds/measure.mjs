@@ -5,6 +5,8 @@ import {engine} from './engine.mjs';
 import {solver} from '../level-stats/solve.mjs';
 import {run} from '../level-stats/trace.mjs';
 import {STRATEGIES,rng} from '../level-stats/strategies.mjs';
+import {createHash} from 'node:crypto';
+import {bridgeLiveVerdict} from './live-proof.mjs';
 
 const isStateEvent=e=>e.type!=='return'&&e.type!=='arrive';
 // one game of the extended random policy (§5): before each choice the events of the moment are processed; the bot
@@ -19,11 +21,13 @@ export function randomGame(E,level,seed,keep=null){const {R,T}=E,t=new T.Timelin
   const k=Math.floor(r()*(moves.length+(canWait?1:0)));
   if(k===moves.length){waitEvent();continue;}
   t.commit(moves[k]);}
- return false;}
+ throw Error('random policy exceeded its event budget; outcome is unknown');}
 export function wilson(w,n,z=1.96){if(!n)return [0,1];const p=w/n,d=1+z*z/n,c=p+z*z/(2*n),h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n));return [Math.max(0,(c-h)/d),Math.min(1,(c+h)/d)];}
 export const classOfShare=p=>p>=.5?'Normal':p>=.2?'Hard':p>=.05?'Super Hard':'too hard';
 // 100 games; widened to 400 in total when the 95 % Wilson interval crosses a class border (§5)
-export async function randomTest(level,{seed=1,first=100,max=400}={}){const E=await engine();let wins=0,n=0;
+export async function randomTest(level,{seed=1,first=100,max=400}={}){
+ if(!Number.isSafeInteger(seed)||!Number.isInteger(first)||!Number.isInteger(max)||first<1||max<first)throw Error('random test requires an integer seed and 1 <= first <= max');
+ const E=await engine();let wins=0,n=0;
  const play=k=>{for(let i=0;i<k;i++){if(randomGame(E,level,seed*7919+n*104729+1))wins++;n++;}};
  play(first);let ci=wilson(wins,n);const crosses=([a,b])=>[.05,.2,.5].some(x=>a<x&&b>=x);
  if(crosses(ci)&&max>first){play(max-first);ci=wilson(wins,n);}
@@ -41,33 +45,57 @@ export async function solve(level,budget=200000){const E=await engine(),S=solver
  const fast=run(E,level,{commands:r.route.map(a=>({t:0,action:a}))});
  return {win:true,route:r.route,nodes:r.nodes,replay:tr.status,trace:tr,fast:{status:fast.status,seconds:Math.round(fast.end/100)/10},decisions:{forks:dec.risky,single:dec.tight,unknown:dec.unknown}};}
 
-// fairness of hidden pods (§8): in every world where the hidden pods carry each other's material and count, following
-// the saved solution until the first differing pod shows must still leave a winning continuation
-// (a fresh solver for each world: the memo is keyed by a state signature that does not hold the pods' colours, so
-// worlds that swap colours of equal counts would share answers)
-export async function fairness(level,route,limit=24){const E=await engine(),{idle:R}=E,hid=level.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);
- if(hid.length<2||!route)return {checked:0,fair:true,note:hid.length<2?'одна скрытая — нечего переставлять':'нет решения'};
- const vals=hid.map(i=>[level.pods[i].color,level.pods[i].count]),worlds=[];
- const perm=(a,k=0)=>{if(worlds.length>=limit)return;if(k===a.length){if(a.some((v,i)=>v!==i))worlds.push(a.slice());return;}for(let i=k;i<a.length;i++){[a[k],a[i]]=[a[i],a[k]];perm(a,k+1);[a[k],a[i]]=[a[i],a[k]];}};
- perm(hid.map((_,i)=>i));let bad=0,unknown=0;
- for(const w of worlds){const pods=level.pods.map(p=>({...p}));w.forEach((src,j)=>{pods[hid[j]].color=vals[src][0];pods[hid[j]].count=vals[src][1];});
-  const lv={...level,pods},diff=hid.filter((_,j)=>w[j]!==j&&(vals[w[j]][0]!==vals[j][0]||vals[w[j]][1]!==vals[j][1]));if(!diff.length)continue;
-  // the world must keep the materials' balance; a swap between different colours changes it, so such worlds are not consistent
-  const bal=c=>pods.filter(p=>p.color===c).reduce((n,p)=>n+p.count,0),orig=c=>level.pods.filter(p=>p.color===c).reduce((n,p)=>n+p.count,0);
-  if([...new Set(vals.map(v=>v[0]))].some(c=>bal(c)!==orig(c)))continue;
-  let s=R.create(lv,lv.capacity||5),k=0;
-  while(k<route.length&&!diff.some(p=>s.revealed[p])){const st=R.step(s,route[k]);if(!st.accepted){s=null;break;}s=st.state;k++;}
-  if(!s){bad++;continue;}const ok=solver(E,60000).winnable(s);if(ok===false)bad++;else if(ok===null)unknown++;}
- return {checked:worlds.length,unfair:bad,unknown,fair:bad===0&&unknown===0,note:'перестановки материала и числа между скрытыми подами с тем же балансом'};}
+// The public rule view exposes remaining[] even for hidden pods. Mask both material AND count for this proof.
+export function fairnessObservation(R,s){const v=R.view(s);return JSON.stringify({...v,
+ remaining:v.remaining.map((n,p)=>s.revealed[p]?n:null),colours:v.colours.map((c,p)=>s.revealed[p]?c:null)});}
+export function fairnessDefinitionHash(level){const {id,difficulty,...definition}=level;return createHash('sha256').update(JSON.stringify(definition)).digest('hex');}
+
+// A common policy for each information set, including later revelations. Each step settles on the actual timeline,
+// so true is a playable patient-policy witness; false only means no patient policy, not a proof of live impossibility.
+// Worlds are never merged by state signature alone: that signature omits their hidden colour assignments.
+export function observationPolicy(R,initial,{budget=60000,preferred=[],observe=s=>fairnessObservation(R,s)}={}){
+ const memo=new Map(),rank=new Map(preferred.map((a,i)=>[JSON.stringify(a),i]));let nodes=0;
+ const LIMIT=Symbol('policy budget');
+ const go=belief=>{
+  if(belief.every(w=>w.state.status==='Won'))return true;
+  if(belief.some(w=>w.state.status!=='Playing'&&w.state.status!=='Won'))return false;
+  const key=belief.map(w=>`${w.world}:${R.signature(w.state)}`).join('\n');if(memo.has(key))return memo.get(key);
+  if(++nodes>budget)throw LIMIT;
+  const groups=new Map();for(const w of belief){const k=observe(w.state);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(w);}
+  // Different visible information may choose different continuations; identical observations must share an action.
+  if(groups.size>1){for(const group of groups.values())if(!go(group)){memo.set(key,false);return false;}memo.set(key,true);return true;}
+  const moves=R.legal(belief[0].state).filter(a=>belief.every(w=>R.legal(w.state).some(b=>JSON.stringify(a)===JSON.stringify(b))));
+  moves.sort((a,b)=>(rank.get(JSON.stringify(a))??Infinity)-(rank.get(JSON.stringify(b))??Infinity));
+  for(const a of moves){const next=[];for(const w of belief){const step=R.step(w.state,a);if(!step.accepted)break;next.push({world:w.world,state:step.state});}
+   if(next.length===belief.length&&go(next)){memo.set(key,true);return true;}}
+  memo.set(key,false);return false;};
+ try{return {win:go(initial),nodes,complete:true};}catch(e){if(e!==LIMIT)throw e;return {win:null,nodes,complete:false};}}
+
+// §8 fairness: enumerate every DISTINCT permutation of (material,count), conserving the exact balance. Prove one
+// observation-based policy over the whole domain, rather than checking 24 worlds only until their first difference.
+export async function fairness(level,route,options={}){const E=await engine(),{idle:R}=E,hid=level.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);
+ const {budget=60000,worldLimit=720}=typeof options==='number'?{worldLimit:options}:options;
+ const base={proofVersion:2,definitionHash:fairnessDefinitionHash(level),method:'complete hidden-permutation observation policy on live-settled steps'};
+ if(!Array.isArray(route))return {...base,checked:0,worlds:0,complete:false,unknown:1,fair:false,note:'нет подтверждённого решения'};
+ const vals=hid.map(i=>[level.pods[i].color,level.pods[i].count]),worlds=[];let truncated=false;
+ const perm=(a,k=0)=>{if(k===a.length){if(worlds.length>=worldLimit){truncated=true;return;}worlds.push(a.map(v=>v.slice()));return;}
+  const seen=new Set();for(let i=k;i<a.length;i++){const key=JSON.stringify(a[i]);if(seen.has(key))continue;seen.add(key);[a[k],a[i]]=[a[i],a[k]];perm(a,k+1);[a[k],a[i]]=[a[i],a[k]];}};
+ perm(vals.slice());
+ if(truncated)return {...base,checked:0,worlds:worlds.length,complete:false,unknown:1,fair:false,note:'домен скрытых перестановок превышает бюджет; честность не проверена'};
+ const initial=worlds.map((values,world)=>{const pods=level.pods.map(p=>({...p}));values.forEach(([color,count],i)=>Object.assign(pods[hid[i]],{color,count}));
+  return {world,state:R.create({...level,pods},level.capacity||5)};});
+ const proof=observationPolicy(R,initial,{budget,preferred:route});
+ return {...base,checked:worlds.length,worlds:worlds.length,complete:proof.complete,nodes:proof.nodes,
+  unknown:proof.win===null?1:0,fair:proof.win===true,note:proof.win===true?'единая безопасная стратегия при каждой одинаковой видимой информации':proof.win===null?'бюджет стратегии исчерпан; честность не проверена':'безопасная стратегия с ожиданием не найдена'};}
 
 // the simple strategies of §11, each with the leftmost and the rightmost hero choice, tapping as soon as possible
 export async function strategies(level){const E=await engine(),{R,T}=E,out={};
  for(const [k,st] of Object.entries(STRATEGIES)){if(st.random||k==='planner'||k==='big-first')continue;
-  for(const side of ['left','right']){const pol=st.make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));let g=0;
+  for(const side of level.hero?['left','right']:['left']){const pol=st.make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));let g=0;
    while(g++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a));
     if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
     if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
-   out[`${k}|${side}`]=t.state.status==='Won';}}
+   out[`${k}|${side}`]=t.state.status==='Won';}if(!level.hero)out[`${k}|right`]=out[`${k}|left`];}
  return out;}
 
 // the rhythm on the saved solution (§10): per fifth of done work W, mean and minimum free places (time-weighted),
@@ -81,12 +109,11 @@ export function rhythm(tr,W){const S=tr.samples,end=tr.end,seg=[0,1,2,3,4].map((
 
 // §9: on a bridge introduction every shown bridge keeps a winning continuation: the level is solved with only that bridge
 // (a bridge needs its approach cleared first, §8, so it cannot simply be taken at the start)
-// a fresh solver for each bridge: the solver memo is keyed by the state signature, which does not say which bridges the
-// level offers, so one memo across the two restricted levels answered the second from the first (before 2026-10-28 every
-// bridge level measured [x, x], and "exactly one bridge wins" could never be found)
-export async function bridgeChoicesWin(level){const E=await engine(),out=[];
- for(let i=0;i<(level.hero?level.hero.choices.length:0);i++){const lv={...level,hero:{...level.hero,choices:[level.hero.choices[i]]}};out.push(solver(E,200000).winnable(E.idle.create(lv,level.capacity||5)));}
- return {each:out,ok:out.length>0&&out.every(x=>x===true)};}
+// Each true has a live-replayed witness; each false has a schedule-independent cut certificate. A failed patient
+// search or exhausted budget is UNKNOWN, because overlapping live actions can win when patient actions cannot.
+export async function bridgeChoicesWin(level){const proofs=[];
+ for(let i=0;i<(level.hero?level.hero.choices.length:0);i++)proofs.push(await bridgeLiveVerdict(level,i));
+ const each=proofs.map(p=>p.win);return {each,proofs,ok:each.length>0&&each.every(x=>x===true)};}
 
 // the bridge as a choice (the owner, 2026-10-27: "надо выбрать, какой мост открывать"): for each bridge, whether it keeps a
 // winning continuation and the random test's share when only that bridge may be built; gap = best share − worst share
@@ -97,14 +124,15 @@ export async function bridgeChoices(level,games=60,seed=5,known=null){const E=aw
 
 // the greedy strategies of 17 §5 (the owner's amendment of 2026-10-27): "most work now" must lose a Hard, and with
 // "release a place fastest" a Super Hard, at both hero choices; returns which of them win
-export async function greedy(level){const E=await engine(),{R,T}=E,out={};
- for(const k of ['most-now','fast-release'])for(const side of ['left','right']){const pol=STRATEGIES[k].make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));let g=0;
+export async function greedy(level,cls=null){const E=await engine(),{R,T}=E,out={};
+ for(const k of cls==='Hard'?['most-now']:['most-now','fast-release']){for(const side of level.hero?['left','right']:['left']){const pol=STRATEGIES[k].make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));let g=0;
   while(g++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a));
    if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
    if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
-  out[`${k}|${side}`]=t.state.status==='Won';}
+  out[`${k}|${side}`]=t.state.status==='Won';}if(!level.hero)out[`${k}|right`]=out[`${k}|left`];}
  return out;}
-export const greedyBeaten=(g,cls)=>cls==='Hard'?!g['most-now|left']&&!g['most-now|right']:cls==='Super Hard'?!Object.values(g).some(Boolean):true;
+export const greedyBeaten=(g,cls)=>cls==='Hard'?['most-now|left','most-now|right'].every(k=>g[k]===false):
+ cls==='Super Hard'?['most-now|left','most-now|right','fast-release|left','fast-release|right'].every(k=>g[k]===false):true;
 
 // ---- the owner's second amendment of 2026-10-27 (after pilot v11) ----
 // "opening + colours" (§5): every opening of k first actions, each taken as soon as one is possible, then the greedy
@@ -152,14 +180,22 @@ export async function hiddenMatters(level,route){const E=await engine(),{idle:R}
  for(const a of route){const st=R.step(s,a);if(!st.accepted)break;s=st.state;if(a.type!=='bridge'){const ps=a.pods||[a.pod];launches++;for(const p of ps)if(hid.includes(p)&&at[p]!==undefined)out.push({pod:p,revealAt:at[p],gap:launches-1-at[p],newColour:fresh[p]});}seen();}
  return {ok:out.some(x=>x.gap<=2&&x.newColour&&x.revealAt<total/2),pods:out};}
 
-// the bridge as a decision (§8, from the second introduction): exactly one bridge keeps a winning continuation, proven
-// for the other, and random games reach each bridge site in some games (else there is no choice)
+// The bridge as a decision (§8): exactly one bridge has a live winning witness and the other a loss certificate;
+// each site must actually be offered in some §5 random games BEFORE a bridge is chosen. A legal bridge is optional:
+// waiting or launching another pod can expose its alternative later, so first appearance is not the end of the trial.
 export async function bridgeSingle(level,games=60,seed=3,known=null){const E=await engine(),{R,T}=E,win=known||(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
- for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*977+g);let k=0;
-  while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));const br=m.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
-   if(br.length||t.state.bridge>=0)break;if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;t.advance(t.steps[0].at-t.now);}}
+ for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*977+g),offered=new Set();let k=0;
+  const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)t.advance(0);};
+  const waitEvent=()=>{while(t.pending){const e=t.steps[0];t.advance(Math.max(0,e.at-t.now));if(isStateEvent(e))break;}settleNow();};
+  while(k++<200000){settleNow();if(t.state.status==='Won'||t.state.bridge>=0)break;
+   const moves=R.legal(t.state).filter(a=>!t.check(a)),canWait=t.steps.some(isStateEvent);
+   for(const a of moves)if(a.type==='bridge')offered.add(a.choice);
+   if(!moves.length){if(t.pending){waitEvent();continue;}break;}
+   const j=Math.floor(r()*(moves.length+(canWait?1:0)));if(j===moves.length){waitEvent();continue;}t.commit(moves[j]);}
+  if(k>=200000)throw Error('bridge observation policy exceeded its event budget; outcome is unknown');
+  for(const i of offered)seen[i]++;}
  const wins=win.filter(x=>x===true).length,loses=win.filter(x=>x===false).length;
- return {each:win,offered:seen,ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}
+ return {each:win,offered:seen,games,seed,protocol:'§5 extended policy; games offering each site before an actual bridge choice',ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}
 
 // the loss with the other bridge comes later (17 §8, the owner, 2026-10-28: "проигрыш наступает не сразу при выборе, а
 // позже, через материалы и места"): random games of the extended policy (§5; with restricted, games that may build only
