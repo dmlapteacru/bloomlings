@@ -1,7 +1,7 @@
 {
  "code": "P0030",
- "state": "used",
- "usedBy": "L0039",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Дом в цветочном бутоне",
  "theme": "batch-0011",

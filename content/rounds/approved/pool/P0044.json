@@ -1,7 +1,7 @@
 {
  "code": "P0044",
- "state": "used",
- "usedBy": "L0034",
+ "state": "free",
+ "usedBy": null,
  "version": 2,
  "title": "Пингвин на коньках",
  "theme": "batch-0011-env",

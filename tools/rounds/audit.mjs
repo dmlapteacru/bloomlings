@@ -8,7 +8,7 @@ import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,c
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
 import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure} from './measure.mjs';
-import {INTRO,planOf} from './lib.mjs';
+import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
 const QUALITY=readJSON(path.join(path.dirname(LEVELS),'quality.json'),{pressure:{min:{},games:30,mode:'soft'},launchesAfter80:{}});
@@ -121,8 +121,12 @@ const seq=[],lead=L=>typesOf(L)[0]||null;
  const lost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
  for(const [a,b,q] of [[4,24,1/3],[25,1e9,1/2]]){const r=reg.filter(L=>L.level>=a&&L.level<=b);if(r.length>=3){const k=r.filter(lost).length;if(k<Math.floor(q*r.length))seq.push(`«больше работы сейчас» проигрывает ${k} из ${r.length} обычных Normal L${Math.max(a,from)}–${Math.min(b,to)}, нужно не меньше ${Math.floor(q*r.length)} (§5)`);}}}
 for(let n=from+2;n<=to;n++){const a=levels[n-2],b=levels[n-1],c=levels[n];if(!a||!b||!c)continue;
- if(lead(c)&&lead(a)===lead(b)&&lead(b)===lead(c)&&!slotOf(n).intro&&!a.intro&&!b.intro)seq.push(`L${n-2}–L${n}: одна ведущая механика ${lead(c)} 3 раза подряд (§11)`);}
+ if(lead(c)&&lead(c)!=='links'&&lead(a)===lead(b)&&lead(b)===lead(c)&&!slotOf(n).intro&&!a.intro&&!b.intro)seq.push(`L${n-2}–L${n}: одна ведущая механика ${lead(c)} 3 раза подряд (§11)`);}
 for(let n=from;n<=to;n++)for(let k=n+1;k<=Math.min(to,n+9);k++){const a=levels[n],b=levels[k];if(!a||!b)continue;const both=motifsOf(picture(a.picture)).filter(m=>motifsOf(picture(b.picture)).includes(m));if(both.length)seq.push(`L${n} и L${k}: мотив «${both.join(', ')}» ближе 10 уровней`);}
+const placedAt=k=>k>=from&&k<=to?levels[k]:readJSON(path.join(LEVELS,lid(k)+'.json'));
+// picture repeats (the owner, 2026-10-29): a theme family or a motif once per wave and not in the 20 levels before it
+for(let n=from;n<=to;n++){const a=levels[n];if(!a)continue;const [lo,hi]=repeatWindow(n),pa=picture(a.picture);for(let k=Math.max(1,lo);k<n;k++){const b=placedAt(k);if(!b||k>hi)continue;const pb=picture(b.picture);
+ if(pa.family&&pb.family===pa.family)seq.push(`L${k} и L${n}: одно семейство тем «${pa.family}» (§11, 29.10)`);else{const m=motifsOf(pa).filter(x=>motifsOf(pb).includes(x));if(m.length&&n-k>=10)seq.push(`L${k} и L${n}: мотив «${m.join(', ')}» в одной волне (§11, 29.10)`);}}}
 const wide=Object.values(levels).filter(L=>L&&L.colours>=10).length;if(wide>2)seq.push(`картинок с 10–11 цветами ${wide} > 2 в 20 (§2)`);
 const pics=Object.values(levels).filter(Boolean).map(L=>L.picture);if(new Set(pics).size!==pics.length)seq.push('одна картинка на двух уровнях');
 // report

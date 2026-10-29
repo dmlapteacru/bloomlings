@@ -70,8 +70,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "owner-0004-0008",
-   "note": null,
-   "usedBy": "L0021"
+   "note": null
   },
   {
    "id": "P0005",
@@ -124,8 +123,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "owner-0004-0008",
-   "note": null,
-   "usedBy": "L0031"
+   "note": null
   },
   {
    "id": "P0008",
@@ -142,8 +140,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "owner-0004-0008",
-   "note": null,
-   "usedBy": "L0028"
+   "note": null
   },
   {
    "id": "P0009",
@@ -246,8 +243,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": "L0049"
+   "note": null
   },
   {
    "id": "P0015",
@@ -438,8 +434,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": "L0040"
+   "note": null
   },
   {
    "id": "P0026",
@@ -473,8 +468,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0046"
+   "note": null
   },
   {
    "id": "P0028",
@@ -525,8 +519,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0039"
+   "note": null
   },
   {
    "id": "P0031",
@@ -730,8 +723,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": "L0036"
+   "note": null
   },
   {
    "id": "P0043",
@@ -765,8 +757,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": "L0034"
+   "note": null
   },
   {
    "id": "P0045",
@@ -800,8 +791,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": "L0027"
+   "note": null
   },
   {
    "id": "P0047",
@@ -818,8 +808,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0032"
+   "note": null
   },
   {
    "id": "P0048",
@@ -938,8 +927,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0042"
+   "note": null
   },
   {
    "id": "P0055",
@@ -990,8 +978,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0047"
+   "note": null
   },
   {
    "id": "P0058",
@@ -1008,8 +995,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null,
-   "usedBy": "L0038"
+   "note": null
   },
   {
    "id": "P0059",
@@ -1043,8 +1029,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0037"
+   "note": null
   },
   {
    "id": "P0061",
@@ -1421,8 +1406,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0024"
+   "note": null
   },
   {
    "id": "P0083",
@@ -1541,8 +1525,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0022"
+   "note": null
   },
   {
    "id": "P0090",
@@ -1593,8 +1576,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0043"
+   "note": null
   },
   {
    "id": "P0093",
@@ -1628,8 +1610,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0025"
+   "note": null
   },
   {
    "id": "P0095",
@@ -2076,9 +2057,9 @@
    "h": 29,
    "N": 712,
    "colours": 8,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2094,9 +2075,9 @@
    "h": 29,
    "N": 680,
    "colours": 5,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2112,9 +2093,9 @@
    "h": 29,
    "N": 335,
    "colours": 5,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2130,9 +2111,9 @@
    "h": 31,
    "N": 634,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2148,9 +2129,9 @@
    "h": 26,
    "N": 571,
    "colours": 5,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2166,9 +2147,9 @@
    "h": 35,
    "N": 337,
    "colours": 4,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2184,9 +2165,9 @@
    "h": 28,
    "N": 550,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2202,9 +2183,9 @@
    "h": 29,
    "N": 762,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2220,9 +2201,9 @@
    "h": 38,
    "N": 907,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0120-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2238,9 +2219,9 @@
    "h": 37,
    "N": 1034,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0129-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   },
   {
@@ -2256,9 +2237,9 @@
    "h": 39,
    "N": 1038,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0129-bridges",
-   "note": null,
+   "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
    "usedBy": null
   }
  ]

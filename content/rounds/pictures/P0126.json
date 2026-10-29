@@ -85,7 +85,7 @@
   "A": 76,
   "O": 121
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0120-bridges",
  "createdAt": "2026-10-28",
  "history": [
@@ -165,5 +165,7 @@
     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
    ]
   }
- ]
+ ],
+ "note": "superseded by the owner's bridge design of 2026-10-29: one whole picture split by a neutral strip, not a small picture behind a bridge",
+ "decidedAt": "2026-10-29"
 }

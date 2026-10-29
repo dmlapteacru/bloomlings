@@ -1,7 +1,7 @@
 {
  "code": "P0027",
- "state": "used",
- "usedBy": "L0046",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Чайник-ракета",
  "theme": "batch-0011",

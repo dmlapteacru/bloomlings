@@ -7,6 +7,10 @@
   right; the two sites of one choice may stand on different strips.
 - §13: the wave plan first assigns the mechanics to every level (lead, additional, doses by §7, the bridge's side) and
   their shares in the wave; pictures are ordered for that breakdown. The owner approves it, placement keeps it.
+- Rules 17 (the owner, 2026-10-29, after the Colony Flow screenshot statistics): links dominate; hidden pods are never the
+  lead; links lead or are additional; a bridge only leads (§7, §8); links may lead any number of levels in a row (§11); a
+  wave's pictures repeat no theme family within the wave or the 20 levels before it (§11); a bridge stands on one whole
+  picture split by a neutral strip (§8). Wave L21–L50 re-planned: `plans/wave-L21-L50-mechanics-plan-2026-10-29.md`.
 - §8 (the owner, 2026-10-29): on a Super Hard the wrong bridge may lose right at the choice; the wave plan's L21 leads
   with hidden pods instead of links (§11: L19 and L20 already lead with links).
 - Constitution 1.2.0, principle VII: the board's cubes, the pods and the slot pieces may be drawn as seen from one fixed

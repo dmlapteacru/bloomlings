@@ -177,6 +177,9 @@ export function wallOverlay(pic,side,seed=1){const rows=pic.rows,pw=rows[0].leng
 // strip (new: a picture with its own strip; overlay: a wall over an approved picture). Only an approved plan counts.
 export function mechanicsPlans(){const dir=path.join(ROUNDS,'runs');if(!fs.existsSync(dir))return [];
  return fs.readdirSync(dir).sort().map(d=>readJSON(path.join(dir,d,'mechanics.json'))).filter(p=>p&&p.approved&&Array.isArray(p.wave)&&Array.isArray(p.levels));}
+// picture repeats (the owner, 2026-10-29): a theme family, and a motif, at most once in a wave and not in the 20 levels
+// before it; the levels a picture at n is compared with (a level outside any wave plan: the 20 levels on either side)
+export function repeatWindow(n,plans=mechanicsPlans()){for(const p of plans)if(n>=p.wave[0]&&n<=p.wave[1])return [p.wave[0]-20,p.wave[1]];return [n-20,n+20];}
 export function planOf(n,plans=mechanicsPlans()){for(const p of plans)if(n>=p.wave[0]&&n<=p.wave[1])return p.levels.find(l=>l.level===n)||null;return null;}
 // a candidate fits a planned position: the same recipe and, for a bridge, the planned crossing side
 export const fitsPlan=(c,plan)=>!plan||((c.recipe||'none')===plan.recipe&&(!plan.bridgeSide||sideMatches(c.bridgeSide??bridgeSide(c.level||c.definition),plan.bridgeSide)));

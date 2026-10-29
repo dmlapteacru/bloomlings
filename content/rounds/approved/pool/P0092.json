@@ -1,7 +1,7 @@
 {
  "code": "P0092",
- "state": "used",
- "usedBy": "L0043",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Лесной дух с фонарём",
  "theme": "batch-0061",
