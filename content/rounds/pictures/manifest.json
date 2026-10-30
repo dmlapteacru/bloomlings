@@ -2619,6 +2619,24 @@
    "batch": "batch-0152-castle",
    "note": null,
    "usedBy": null
+  },
+  {
+   "id": "P0153",
+   "seq": 153,
+   "version": 2,
+   "title": "Японский сад за прудом",
+   "theme": "bridge-v8-recipe",
+   "family": "Дома и архитектура",
+   "direction": null,
+   "forLevel": 30,
+   "w": 32,
+   "h": 32,
+   "N": 968,
+   "colours": 10,
+   "status": "draft",
+   "batch": "batch-0153-garden",
+   "note": null,
+   "usedBy": null
   }
  ]
 }
