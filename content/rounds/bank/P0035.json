@@ -1,0 +1,19 @@
+{
+ "picture": "P0035",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+hidden|",
+   "steer": {
+    "t": 1,
+    "aim": 0.56
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 64
+   }
+  }
+ ]
+}

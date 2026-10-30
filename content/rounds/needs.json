@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29",
+ "updated": "2026-10-30",
  "needs": [
   {
    "level": 18,
@@ -21,31 +21,7 @@
    "placedException": "L0018 placed with the owner's exception (2026-10-27, both bridges win); replace when a picture with one deciding bridge exists"
   },
   {
-   "level": 23,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge"
-   ],
-   "stage": {
-    "cells": [
-     550,
-     1000
-    ],
-    "colours": [
-     4,
-     10
-    ]
-   },
-   "recipe": "bridge",
-   "bridgeSide": "up",
-   "strip": "new",
-   "bridgeKind": "any"
-  },
-  {
-   "level": 26,
+   "level": 38,
    "cls": "Normal",
    "intro": null,
    "allowed": [
@@ -64,13 +40,10 @@
     ],
     "compact": true
    },
-   "recipe": "bridge+links",
-   "bridgeSide": "left",
-   "strip": "new",
-   "bridgeKind": "any"
+   "recipe": "links+hidden"
   },
   {
-   "level": 29,
+   "level": 39,
    "cls": "Normal",
    "intro": null,
    "allowed": [
@@ -89,63 +62,10 @@
     ],
     "compact": true
    },
-   "recipe": "bridge",
-   "bridgeSide": "right",
-   "strip": "new",
-   "bridgeKind": "any"
+   "recipe": "links+hidden"
   },
   {
-   "level": 30,
-   "cls": "Super Hard",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge"
-   ],
-   "stage": {
-    "cells": [
-     550,
-     1200
-    ],
-    "colours": [
-     5,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "links+bridge+hidden",
-   "bridgeSide": "two",
-   "strip": "new",
-   "bridgeKind": "single"
-  },
-  {
-   "level": 33,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge"
-   ],
-   "stage": {
-    "cells": [
-     550,
-     1200
-    ],
-    "colours": [
-     5,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "bridge+hidden",
-   "bridgeSide": "left",
-   "strip": "overlay",
-   "bridgeKind": "any"
-  },
-  {
-   "level": 35,
+   "level": 40,
    "cls": "Hard",
    "intro": null,
    "allowed": [
@@ -164,10 +84,7 @@
     ],
     "compact": true
    },
-   "recipe": "bridge+links",
-   "bridgeSide": "right",
-   "strip": "new",
-   "bridgeKind": "better"
+   "recipe": "links+hidden"
   },
   {
    "level": 41,
@@ -189,10 +106,29 @@
     ],
     "compact": true
    },
-   "recipe": "bridge",
-   "bridgeSide": "up",
-   "strip": "overlay",
-   "bridgeKind": "any"
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 42,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "links+hidden"
   },
   {
    "level": 44,
@@ -214,14 +150,11 @@
     ],
     "compact": true
    },
-   "recipe": "hidden+bridge",
-   "bridgeSide": "left",
-   "strip": "overlay",
-   "bridgeKind": "any"
+   "recipe": "links+hidden"
   },
   {
-   "level": 45,
-   "cls": "Super Hard",
+   "level": 46,
+   "cls": "Normal",
    "intro": null,
    "allowed": [
     "hidden",
@@ -239,10 +172,29 @@
     ],
     "compact": true
    },
-   "recipe": "bridge+links+hidden",
-   "bridgeSide": "two",
-   "strip": "new",
-   "bridgeKind": "single"
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 47,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "none"
   },
   {
    "level": 48,
@@ -264,14 +216,11 @@
     ],
     "compact": true
    },
-   "recipe": "bridge+links",
-   "bridgeSide": "right",
-   "strip": "overlay",
-   "bridgeKind": "any"
+   "recipe": "links+hidden"
   },
   {
-   "level": 50,
-   "cls": "Hard",
+   "level": 49,
+   "cls": "Normal",
    "intro": null,
    "allowed": [
     "hidden",
@@ -289,10 +238,7 @@
     ],
     "compact": true
    },
-   "recipe": "links+bridge",
-   "bridgeSide": "up",
-   "strip": "overlay",
-   "bridgeKind": "single"
+   "recipe": "links+hidden"
   }
  ]
 }

@@ -1,7 +1,7 @@
 {
  "code": "P0060",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0027",
  "version": 1,
  "title": "Робот-садовник",
  "theme": "batch-0011",

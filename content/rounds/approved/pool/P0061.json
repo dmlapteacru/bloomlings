@@ -1,7 +1,7 @@
 {
  "code": "P0061",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0037",
  "version": 1,
  "title": "Щенок с косточкой",
  "theme": "batch-0061",

@@ -1,7 +1,7 @@
 {
  "code": "P0012",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0032",
  "version": 1,
  "title": "Чайник со свистком",
  "theme": "batch-0011",
