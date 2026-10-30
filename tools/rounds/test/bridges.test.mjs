@@ -24,10 +24,11 @@ const idx=(b,x,y)=>(b.h-1-y)*b.w+x;// board top-first (x, y) → bottom-first in
 test('boardOf keeps the boards of every placed level byte-identical, and the bridge cells and anchors of L16 and L18',()=>{
  for(const lv of placed){const b=L.boardOf(L.picture(lv.picture),lv.definition.overlay);
   assert.equal(b.rowsBottomFirst.join('\n'),lv.definition.rowsBottomFirst.join('\n'),`L${lv.level}`);assert.deepEqual(b.entries,lv.definition.entries);
-  if(lv.definition.hero)assert.deepEqual(b.hero.choices.map(c=>[c.cell,c.anchor,c.dir]),lv.definition.hero.choices.map(c=>[c.cell,c.anchor,'up']),`L${lv.level} bridges`);}
+  if(lv.definition.hero)assert.deepEqual(b.hero.choices.map(c=>[c.cell,c.anchor,c.dir]),lv.definition.hero.choices.map(c=>[c.cell,c.anchor,c.dir||'up']),`L${lv.level} bridges`);}
  // every approved picture with a strip: the full-width stream closes the ring on both sides, as before
  // (bridge scenes of the scene generator carry their own crossing side and are checked in scenes.test.mjs)
- for(const e of L.manifest().pictures){const p=L.picture(e.id);if(!/[#b]/.test(p.rows.join(''))||p.scene)continue;const b=L.boardOf(p);
+ // (a contour round a subject or a box to start from, 17 §8 as amended on 2026-10-30, has no full-width row: skipped)
+ for(const e of L.manifest().pictures){const p=L.picture(e.id);if(!/[#b]/.test(p.rows.join(''))||p.scene||!p.rows.some(r=>/^[#b]+$/.test(r)))continue;const b=L.boardOf(p);
   p.rows.forEach((r,y)=>{if(/^[#b]+$/.test(r)){assert.equal(at(b,1,y+2),'#');assert.equal(at(b,b.w-2,y+2),'#');}});
   assert.equal(L.bridgeSide(b),'up');}});
 

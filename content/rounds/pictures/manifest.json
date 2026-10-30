@@ -2633,26 +2633,26 @@
    "h": 32,
    "N": 867,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0153-island",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0030"
   },
   {
    "id": "P0154",
    "seq": 154,
-   "version": 2,
-   "title": "Ночная ярмарка за каналом",
+   "version": 3,
+   "title": "Ночная ярмарка",
    "theme": "bridge-v8-recipe",
    "family": "Ярмарки и праздники",
    "direction": null,
    "forLevel": 45,
-   "w": 32,
+   "w": 30,
    "h": 32,
-   "N": 936,
+   "N": 933,
    "colours": 9,
    "status": "draft",
-   "batch": "batch-0154-fair-whole",
+   "batch": "batch-0154-fair-box",
    "note": null,
    "usedBy": null
   }

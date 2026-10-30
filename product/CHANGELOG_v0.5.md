@@ -16,6 +16,11 @@
   Hard the generator does not manage are built by hand, with the same checks, their scripts and notes kept in
   `content/rounds/experiments/`; the owner plays every Super Hard. Skills `bloomlings-round-wave` (step 5) and
   `bloomlings-round-levels` follow.
+- §8 and §13, the same day ("Вот именно так я хочу… Именно супер харды"): a Super Hard with a bridge is one big
+  meaningful picture split by a neutral contour of any shape: an outline round the subject (L30 «Пагода на острове»), a
+  box the team starts from (L45 «Ночная ярмарка»), or other contours, traps and passages, as long as there is no way
+  round the bridges; the queue decides which bridge wins. `levels.mjs adopt` places a hand-built level on its position
+  and so locks it; P0153 approved and L30 locked on the owner's word.
 
 ## Owner decisions · 2026-10-28 — bridges on any strip, the wave plan sets the mechanics first
 

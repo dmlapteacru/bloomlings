@@ -1,0 +1,104 @@
+{
+ "code": "P0153",
+ "state": "used",
+ "usedBy": "L0030",
+ "version": 6,
+ "title": "Пагода на острове",
+ "theme": "bridge-v8-recipe",
+ "family": "Дома и архитектура",
+ "device": "сцена с переправой",
+ "subject": "большая трёхъярусная пагода с сосновой рощей на острове посреди пруда, сакура на берегу; остров с пагодой обведён нейтральной линией, к нему ведут два мостика",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 867,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 276,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 129,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "L": {
+   "cells": 113,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "B": {
+   "cells": 84,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "M": {
+   "cells": 74,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 65,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 61,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 53,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSS#SSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSS#Y#SSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSS#Y#SSSSSSSSSS",
+  "SSSSSSSSSSSSSS####Y####SSSSSSS",
+  "SSSSSSSSSSSSS#DDDDDDDDD#SSSSSS",
+  "SSSSSSSSSSSSSS##RYRRY##SSSSSSS",
+  "SSSSSSSSSSSSSSS#RRRRR#SSSSSSSS",
+  "SSSSSSSSSSSS####RRRRR####SSSSS",
+  "SSSSSSSS####DDDDDDDDDDDDD#SSSS",
+  "SPPPSSS#MMMM##RRYRRYRRY##SSSSS",
+  "PPPPPSS#MMMMM#RRRRRRRRR#SSSSSS",
+  "PPPPPSS#MMMMMMRRRRRRRRR#SSSSSS",
+  "PPPPPP#MMMMMMMRRRRRRRRR###SSSS",
+  "SPPPPP#MMMMDDDDDDDDDDDDDDD#SSS",
+  "SPPPPP#MMMMMRRRRRRRRRRRRR#SSSS",
+  "PPPPPP#MMMMMRRRYRYRRRYRYR#SSSS",
+  "PPPPPP#MMMMMRRRRRRRRRRRRR#SSSS",
+  "PPPPPPbMMMMMRRRRRRRDRRRRR#SSSS",
+  "BPPPPP#MMMMMRRRRRRRDRRRRR#BBBB",
+  "BBDDPB#MMMMMRRRRRRRDRRRRR#BBBB",
+  "BBDDBB#MMMMMRRRRRRRDRRRRR#BBBB",
+  "BBDDBB#MMMMMMLLLLLLLLLLLLL#BBB",
+  "BBDDBBB#LMMMMLLLLLLLLLLLLLL#BB",
+  "BBDDBB#LLMMMLLLLLLLLLLLLLLLL#B",
+  "BBDDBB#LLLLLLLLLLLLLLLLLLLLL#B",
+  "BBDDBBB#LLLLLLLLLLLLLLLLLLL#BB",
+  "BBDDBBBB#LLLLLLLLLLLLLLLLL#BBB",
+  "BBDDBBBBB###LLLLLLLLLL##b#BBBB",
+  "BBDDBBBBBBBB##########GGGGGBBB",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

@@ -58,7 +58,7 @@
   "L": 113,
   "G": 65
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0153-island",
  "createdAt": "2026-10-30",
  "history": [
@@ -262,5 +262,8 @@
     "BBBBBBBBBBBBBBBBBBBBBBBBBB"
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-30",
+ "usedBy": "L0030"
 }

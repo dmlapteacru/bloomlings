@@ -15,6 +15,9 @@
 //      write levels and cards, list what is still missing in content/rounds/needs.json; a position of an approved
 //      mechanics plan (content/rounds/runs/<wave>/mechanics.json) takes only its planned recipe and bridge side
 // node tools/rounds/levels.mjs unplace <from> <to>         put placed levels back into the bank (to place again)
+// node tools/rounds/levels.mjs adopt <level> <preview.json> place a hand-built level (17 §13 «Кто строит уровни»: the
+//      experiment's full.mjs output, checked by evaluate) on its calendar position and so lock it: place keeps it; its
+//      picture must be approved, its class the calendar's and its recipe and bridge side the mechanics plan's
 // node tools/rounds/levels.mjs bank                        the bank: candidates by picture and measured class
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
 // node tools/rounds/levels.mjs checks [--shard i/n] [--levels]  add missing checks (17 §5–§9, §13 layer B) to banked candidates and placed levels
@@ -396,6 +399,17 @@ else if(cmd==='unplace'){const a=+process.argv[3],b=+process.argv[4],m=manifest(
   bank.placed=(bank.placed||[]).filter(x=>x!==L.candidate);writeJSON(bf,bank);fs.unlinkSync(f);
   const e=m.pictures.find(p=>p.id===L.picture);if(e)delete e.usedBy;const pf=path.join(PICTURES,L.picture+'.json'),pj=readJSON(pf);delete pj.usedBy;writeJSON(pf,pj);console.log(lid(n),'снят:',L.picture,L.candidate);}
  saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});}
+else if(cmd==='adopt'){const n=+process.argv[3],src=readJSON(path.resolve(process.argv[4]));if(!src||!src.definition)throw new Error('нужен уровень full.mjs (definition, random, checks)');
+ const slot=slotOf(n),plan=planOf(n,mechanicsPlans()),pic=manifest().pictures.find(p=>p.id===src.picture),f=path.join(LEVELS,lid(n)+'.json'),errs=[];
+ if(!pic||pic.status!=='approved')errs.push(`картинка ${src.picture} не утверждена`);if(pic&&pic.usedBy&&pic.usedBy!==lid(n))errs.push(`картинка ${src.picture} уже в ${pic.usedBy}`);
+ if(src.random.cls!==slot.cls)errs.push(`класс ${src.random.cls}, по календарю ${slot.cls}`);if(fs.existsSync(f))errs.push(`${lid(n)} уже поставлен (сначала unplace)`);
+ const side=src.definition.hero?bridgeSide(src.definition):null;if(plan&&!fitsPlan({recipe:src.recipe,bridgeSide:side,level:src.definition},plan))errs.push(`рецепт ${src.recipe}/${side} не по плану ${plan.recipe}/${plan.bridgeSide}`);
+ if(errs.length){console.error('НЕТ:',errs.join('; '));process.exit(1);}
+ const {level:_l,cls:_c,intro:_i,definition,...rest}=src,{id:_id,difficulty:_d,...def}=definition;
+ const L={level:n,cls:slot.cls,intro:slot.intro,...rest,dosePos:null,...(side?{bridgeSide:side}:{}),hand:true,definition:{...def,id:n,difficulty:slot.cls}};
+ writeJSON(f,L);const m=manifest(),e=m.pictures.find(p=>p.id===src.picture);e.usedBy=lid(n);const pf=path.join(PICTURES,src.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);saveManifest(m);
+ execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});
+ console.log(lid(n),slot.cls,'вручную:',src.picture,src.recipe,side?'мост '+side:'',`случайный тест ${Math.round(src.random.share*100)} %${src.random.bridge!=null?' (с решающим мостом)':''}`);}
 else if(cmd==='bank'){for(const f of fs.existsSync(BANK)?fs.readdirSync(BANK):[]){const b=readJSON(path.join(BANK,f));const by={};for(const c of b.candidates){const k=c.cls+(c.intro?' (знакомство)':'');(by[k]=by[k]||[]).push(`${c.recipe} ${Math.round(c.random.share*100)}%`);}console.log(b.picture,JSON.stringify(by),b.rejected.length?'отклонения: '+b.rejected.map(x=>x.reason).join('; '):'');}}
 else if(cmd==='card'){card(+process.argv[3]);}
 else if(cmd==='checks'){
