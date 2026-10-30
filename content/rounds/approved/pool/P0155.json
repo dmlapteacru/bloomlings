@@ -1,7 +1,7 @@
 {
  "code": "P0155",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0023",
  "version": 2,
  "title": "Фонтан на площади",
  "theme": "strong-L21-L50",
