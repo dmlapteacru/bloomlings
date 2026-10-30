@@ -2685,9 +2685,9 @@
    "h": 30,
    "N": 816,
    "colours": 9,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0155-contour-bridges",
-   "note": null,
+   "note": "владелец 30.10.2026: не утверждена (сквер с беседкой); L23 — новая картинка",
    "usedBy": null
   },
   {
@@ -2703,7 +2703,7 @@
    "h": 28,
    "N": 811,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
    "usedBy": null
@@ -2721,7 +2721,7 @@
    "h": 30,
    "N": 888,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
    "usedBy": null
@@ -2739,7 +2739,7 @@
    "h": 28,
    "N": 876,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
    "usedBy": null
@@ -2757,7 +2757,7 @@
    "h": 36,
    "N": 1010,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
    "usedBy": null
@@ -2775,9 +2775,9 @@
    "h": 28,
    "N": 840,
    "colours": 8,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0160-strong",
-   "note": null,
+   "note": "владелец 30.10.2026: не утверждена; жеоды больше никогда не делать",
    "usedBy": null
   },
   {
@@ -2793,7 +2793,7 @@
    "h": 28,
    "N": 896,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0160-strong",
    "note": null,
    "usedBy": null
@@ -2811,7 +2811,7 @@
    "h": 32,
    "N": 960,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0160-strong",
    "note": null,
    "usedBy": null
@@ -2829,7 +2829,7 @@
    "h": 28,
    "N": 896,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0160-strong",
    "note": null,
    "usedBy": null
@@ -2847,7 +2847,7 @@
    "h": 32,
    "N": 896,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0164-strong",
    "note": null,
    "usedBy": null
@@ -2865,7 +2865,7 @@
    "h": 26,
    "N": 884,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0164-strong",
    "note": null,
    "usedBy": null
@@ -2883,7 +2883,7 @@
    "h": 30,
    "N": 900,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0164-strong",
    "note": null,
    "usedBy": null

@@ -1,0 +1,102 @@
+{
+ "code": "P0157",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Теплица с тюльпанами",
+ "theme": "bridge-contour",
+ "family": "Цветы и букеты",
+ "device": "сцена с переправой",
+ "subject": "стеклянная теплица с красными, жёлтыми и розовыми тюльпанами на грядках; стеклянные стены — нейтральный контур, гравийная дорожка ведёт к левой двери (за ней светлый проход), газон — к правой (за ней грядка)",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 30,
+ "N": 888,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 274,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 239,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 122,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 101,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 36,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 36,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 29,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 27,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 24,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSS####SSSSSSSSSSSSSS",
+  "SSSSSSSSSSSS##CCDC##SSSSSSSSSSSS",
+  "SSSSSSSSSSS#CCCCDCCC#SSSSSSSSSSS",
+  "SSSSSSSSS##DCCCCDCCCC##SSSSSSSSS",
+  "SSSSSSSS#CCDCCCCDCCCCDC#SSSSSSSS",
+  "SSSSSS##CCCDCCCCDCCCCDCC##SSSSSS",
+  "SSSSS#DCCCCDCCCCDCCCCDCCCC#SSSSS",
+  "SSSSS#DDDDDDDDDDDDDDDDDDDD#SSSSS",
+  "SSSSS#DDDDDDDDDDDDDDDDDDDD#SSSSS",
+  "SSSSS#DRCCRDYCCYDPCCPDRCCR#SSSSS",
+  "SSSSS#DRRRRDYYYYDPPPPDRRRR#SSSSS",
+  "SSSSS#DRRRRDYYYYDPPPPDRRRR#SSSSS",
+  "SSSSS#DCRRCDCYYCDCPPCDCRRC#SSSSS",
+  "SSSSS#DCGGCDCGGCDCGGCDCGGC#SSSSS",
+  "SSSSS#DDGGDDDGGDDDGGDDDGGD#SSSSS",
+  "GGGGG#DDDDDDDDDDDDDDDDDDDD#GGGGG",
+  "GGGGG#DYCCYDPCCPDRCCRDYCCY#GGGGG",
+  "GGGGG#DYYYYDPPPPDRRRRDYYYY#GGGGG",
+  "GGGGG#DYYYYDPPPPDRRRRDYYYY#GGGGG",
+  "GGGGG#DCYYCDCPPCDCRRCDCYYC#GGGGG",
+  "GGGGG#EEGGCEEGGEEEGGEEEGGE#GGGGG",
+  "GGGGG#EEECCEEEEEEEEEEEEEEE#GGGGG",
+  "GGGGGG####b###########b###GGGGGG",
+  "GGGGGGGGAAAAGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGAAAAAGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGAAAAAGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGAAAAAAGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGAAAAAAAGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

@@ -1,0 +1,108 @@
+{
+ "code": "P0159",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Роза собора",
+ "theme": "bridge-contour",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Геометрическая фантазия",
+ "device": "сцена с переправой",
+ "subject": "круглое витражное окно-роза в светлой стене собора: свинцовый переплёт, золотая середина, красные лепестки, синие и сливовые доли; каменное кольцо окна — нейтральный контур, к нему поднимаются плющ и деревянная лестница реставратора, внизу дверь собора",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 36,
+ "N": 1010,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 410,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 140,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 92,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 88,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 88,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 77,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 52,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 39,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 24,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "SSSSSSSSCCCCCCCCCCCCCCSSSSSSSS",
+  "SSSSSSCCCCCCCCCCCCCCCCCCSSSSSS",
+  "SSSSSCCCCCCCC####CCCCCCCCSSSSS",
+  "SSSSCCCCCC###BDDV###CCCCCCSSSS",
+  "SSCCCCCC##BBBBDDVVVV##CCCCCCSS",
+  "SCCCCCC#VDBBBBDDVVVVDB#CCCCCCS",
+  "CCCCCC#VVDDBBBDDVVVDDBB#CCCCCC",
+  "CCCCC#VVVVDBBDDDDVVDBBBB#CCCCC",
+  "CCCC#VVVVVVDDRRRRDDBBBBBB#CCCC",
+  "CCCC#DDVVDDRDRRRRDRDDBBDD#CCCC",
+  "CCC#BBDDVDRRRDRRDRRRDBDDVV#CCC",
+  "CCC#BBBBDRRRRDRRDRRRRDVVVV#CCC",
+  "CCC#BBBBDDRRRDYYDRRRDDVVVV#CCC",
+  "CC#BBBBDRRDDDYYYYDDDRRDVVVV#CC",
+  "CC#DDDDDRRRRYYYYYYRRRRDDDDD#CC",
+  "CC#DDDDDRRRRYYYYYYRRRRDDDDD#CC",
+  "CC#VVVVDRRDDDYYYYDDDRRDBBBB#CC",
+  "CCC#VVVVDDRRRDYYDRRRDDBBBB#CCC",
+  "CCC#VVVVDRRRRDRRDRRRRDBBBB#CCC",
+  "CCC#VVDDBDRRRDRRDRRRDVDDBB#CCC",
+  "CCCC#DDBBDDRDRRRRDRDDVVDD#CCCC",
+  "CCCC#BBBBBBDDRRRRDDVVVVVV#CCCC",
+  "CCCCC#BBBBDVVDDDDBBDVVVV#CCCCC",
+  "CCCCMM#BBDDVVVDDBBBDDVV#CCCCCC",
+  "CCCCMMM#BDVVVVDDBBBBDV#CCCCCCC",
+  "CCCCMMM#b#VVVVDDBBBB#b#CCCCCCC",
+  "CCCCMMMMMM###VDDB###CECCCECCCC",
+  "CCCMMMCCCCCCC####CCCCEEEEECCCC",
+  "CCMMMCCCCCCCCCEECCCCCCECCECCCC",
+  "CCMMMCCCCCCCCEEEECCCCCEEEEECCC",
+  "CCMMMCCCCCCCEEEEEECCCCECCCECCC",
+  "CMMMCCCCCCCCEEEEEECCCCCEEEECCC",
+  "MMMCCCCCCCCCEEEEEECCCCCECCEECC",
+  "MMMMCCCCCCCCEEEEEECCCCCEEEEECC",
+  "CCCMMCCCCCCCEEEEEECCCCCEECCECC",
+  "CCCCCMCCCCCCEEEEEECCCCCCEEEECC"
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "code": "P0161",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Колбы алхимика",
+ "theme": "strong-L21-L50",
+ "family": "Лаборатории и изобретения",
+ "subject": "три стеклянные колбы с пробками на деревянной полке: круглая с салатовым зельем, коническая с розовым, круглая с голубым, в зельях пузырьки; тёмно-синяя стена",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 28,
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 432,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 153,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 96,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 64,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 53,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "L": {
+   "cells": 45,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "B": {
+   "cells": 31,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 22,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNOOONNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNOOONNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNCCCNNNNNNNNNNNNNN",
+  "NNNNNOOOONNNNNNCCCNNNNNNNNNNNNNN",
+  "NNNNNOOOONNNNNNCCCNNNNNNOOOONNNN",
+  "NNNNNNCCNNNNNNNCCCNNNNNNOOOONNNN",
+  "NNNNNNCCNNNNNNNCCCNNNNNNNCCNNNNN",
+  "NNNNNNCCNNNNNNNCCCNNNNNNNCCNNNNN",
+  "NNNNNNCCNNNNNNNCCCNNNNNNNCCNNNNN",
+  "NNNNNNCCNNNNNNNCCCNNNNNNNCCNNNNN",
+  "NNNNCCCCCCNNNNCPPPCNNNNNNCCNNNNN",
+  "NNNCCCCCCCCNNNCPPPCNNNNNCCCCNNNN",
+  "NNCLLLLLLLLCNCCCPPPCNNCCCCCCCCNN",
+  "NNCLLLLLLLLCNCPPPCCCNNCBBBBBBCNN",
+  "NNCLLCLLLLLCCPPPCPPPCCCBBBBBBCCN",
+  "NNCLLLLLCLLCCPPPCPPPCCBBCBBBBBCN",
+  "NNCLLLLLCLLCPPPPPPPPPCCBBBBCBCNN",
+  "NNNCLLCCLLCCPPPPPPPPPCCBBBBCBCNN",
+  "NNNCCLLLLCCPPPPPPPPPPPCCBCCBCNNN",
+  "NNNNNCCCCNCCCCCCCCCCCCCNCCCCNNNN",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "code": "P0166",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Камин с часами",
+ "theme": "strong-L21-L50",
+ "family": "Свет и домашний декор",
+ "subject": "кирпичный камин в полосатой комнате: за решёткой очага горит огонь над поленьями, на светлой полке часы и две свечи",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 260,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 158,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 124,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 101,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 89,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 79,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 67,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 22,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "OAAAAAOAAAAAOAAAAAOAAAAAOAAAAA",
+  "OAAAAAOAAAAAOAAAAAOAAAAAOAAAAA",
+  "OAAAAYYAAAAAOEEEEAOAAAAYYAAAAA",
+  "OAAAAAOAAAAAECCCCEOAAAAAOAAAAA",
+  "OAAAACCAAAAAECCNCEOAAAACCAAAAA",
+  "OAAAACCAAAAAECCCCEOAAAACCAAAAA",
+  "OAAAACCAAAAAOECCEAOAAAACCAAAAA",
+  "OACCCCCCCCCCCCEECCCCCCCCCCCCAA",
+  "OACCCCCCCCCCCCCCCCCCCCCCCCCCAA",
+  "OACCCCCCCCCCCCCCCCCCCCCCCCCCAA",
+  "OAAARRRRRKRRRRRKRRRRRKRRRRAAAA",
+  "OAAARRRRRKRRRRRKRRRRRKRRRRAAAA",
+  "OAAAKKKKKKKKKKKKKKKKKKKKKKKAAA",
+  "OAAARRKRRRRRKNNNNRKRRRRRKRAAAA",
+  "OAAARRKRRRRNNNNNNNNRRRRRKRAAAA",
+  "OAAAKKKKKNNNNNNNNNNNNKKKKKKAAA",
+  "OAAARRRRRNNNNNOONNNNNKRRRRAAAA",
+  "OAAARRRRRNNNNNOONNNNNKRRRRAAAA",
+  "OAAAKKKKKNNNNOOOONNNNKKKKKKAAA",
+  "OAAARRKRRNNNNOYYONNNNRRRKRAAAA",
+  "OAAARRKRRNNNOOYYOONNNRRRKRAAAA",
+  "OAAAKKKKKNNNOYYYYONNNKKKKKKAAA",
+  "OAAARRRRRNNOOYYYYOONNKRRRRAAAA",
+  "OAAARRRRRNOOYYYYYYOONKRRRRAAAA",
+  "OAAAKKKKKEEEEEEEEEEEEKKKKKKAAA",
+  "OAAARRKRREEEEEEEEEEEERRRKRAAAA",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+ ]
+}

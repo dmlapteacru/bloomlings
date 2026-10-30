@@ -57,8 +57,10 @@
   "G": 169,
   "A": 12
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0160-strong",
  "createdAt": "2026-10-30",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-10-30"
 }

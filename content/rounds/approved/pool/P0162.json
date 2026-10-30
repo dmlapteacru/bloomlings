@@ -1,0 +1,103 @@
+{
+ "code": "P0162",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Яблоня с яблоками",
+ "theme": "strong-L21-L50",
+ "family": "Деревья, листья и плоды",
+ "subject": "яблоня на лужайке: тёмная кайма кроны, светлая листва внутри, красные и жёлтые яблоки среди листьев, несколько розовых цветков по краю, корзинка с упавшими яблоками у ствола",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 960,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 400,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 169,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 152,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "M": {
+   "cells": 120,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 52,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 31,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 16,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 12,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSMMMMMMMMSSSSSSSSSSS",
+  "SSSSSSSSSMMMMMMMMMMMMSSSSSSSSS",
+  "SSSSSSSSMMKKLRRLLLKKMMSSSSSSSS",
+  "SSSSSSSSMMLLLRRLYYLLMMSSSSSSSS",
+  "SSSSSSMMMMLLLRRLYYLLMMMMSSSSSS",
+  "SSSSSMMMLLLLLLRRLLLLLLMMMSSSSS",
+  "SSSSSMMLLLLLLLRRLLLLLLLMMSSSSS",
+  "SSSSMMLLLRRLLLLLLLLYYLLLMMSSSS",
+  "SSSSMMLLLRRLLLLLLLLYYLLLMMSSSS",
+  "SSSMMKKLLLLLLLYYLLLLLLLKKMMSSS",
+  "SSSMMMLLLLLLLLYYLRRLLLLLMMMSSS",
+  "SSMMMLLLLLLYYLLLLRRLLLLLLMMMSS",
+  "SSMMMLLRRLLYYLLLLRRLLRRLLMMMSS",
+  "SSSMMMLRRLLLLLLLLLLLLRRLMMMSSS",
+  "SSSMMMMLLLLMMLLLLMMLLLLMMMMSSS",
+  "SSSSMMMMMMMMMMMMMMMMMMMMMMSSSS",
+  "SSSSSSSMMSEESEEEESSSSMMSSSSSSS",
+  "SSSSSSSSSSSEEEEEESSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSEEEESSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSEEEESSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSEEEESSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSEEEESSSSSSSSSSSSS",
+  "SSSSSSSSSSSSEEEEEESSSSSSSSSSSS",
+  "SSSSSSSSSSSSEEEEEESSSSSSSSSSSS",
+  "SSSSSSSSGGGGEEEEEESSSSSSGGGGGG",
+  "GGGGGGGGGGGGEEEEEEGARRRAGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGAAAAAGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGAAAAAGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

@@ -49,6 +49,8 @@ export function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=m
  if(!s.fixed&&m.N>=s.cells[0]&&m.N<s.cells[0]+(s.cells[1]-s.cells[0])/4)warn.push(`у нижней границы этапа (${s.cells.join('–')}): целиться ближе к середине`);
  if(!p.family)warn.push('нет семейства каталога тем (family)');else if(!FAMILIES.has(p.family))warn.push(`семейство «${p.family}» не из каталога тем`);
  if(p.direction&&!DIRECTIONS.has(p.direction))warn.push(`направление «${p.direction}» не из каталога тем`);
+ // subjects the owner has banned (themes.json banned: a geode, 2026-10-30) never pass, whatever the drawing
+ for(const b of THEMES.banned||[])if(new RegExp(b.match,'i').test(`${p.title} ${p.subject||''}`))issues.push(`запрещённый сюжет «${b.subject}» (${b.note})`);
  if(p.source&&/сторонн|мем|тренд/.test(p.source)&&!p.reference)warn.push('сторонний источник или мем без reference: нужна проверка прав (каталог тем §4, §10)');
  if(m.colours>=10)warn.push('10–11 цветов: не больше 2 в любых 20 уровнях, цвет должен улучшать читаемость');
  for(const [c,v] of Object.entries(m.volumes))if(v<3)warn.push(`цвет ${c} (${PALETTE[c].name}): ${v} кл. — очень маленькая деталь`);

@@ -56,8 +56,10 @@
   "D": 64,
   "Y": 56
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0155-contour-bridges",
  "createdAt": "2026-10-30",
- "history": []
+ "history": [],
+ "note": "владелец 30.10.2026: не утверждена (сквер с беседкой); L23 — новая картинка",
+ "decidedAt": "2026-10-30"
 }

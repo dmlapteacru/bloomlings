@@ -36,6 +36,7 @@ Make an attractive silhouette that reads at once, for a calm casual game.
   palette. The outer contour is stepped.
 - **Use:** one main object; large, clear details; solid colour areas; well separated colours; a clean silhouette that
   reads at game scale.
+- **Never draw a banned subject** (`tools/rounds/themes.json` `banned`): a geode (the owner, 2026-10-30).
 - **Do not add:** gradients, textures or random shades inside areas; smooth outlines over the grid; unrelated background
   decor or sparkle clutter; text or frames inside the board; game mechanics, pods, the queue or slots.
 - **Empty by default, environment where it belongs** (the owner, 2026-10-26). By default the space round the silhouette

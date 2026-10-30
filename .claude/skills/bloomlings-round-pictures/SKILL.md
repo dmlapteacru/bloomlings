@@ -240,6 +240,8 @@ above. They are approved (the owner's matrices, 2026-10-26) and live in `content
 
 ## Do not
 
+- Do not draw a banned subject: `tools/rounds/themes.json` `banned` (a geode: the owner, 2026-10-30, «жеоды никогда не
+  делай больше»). `pictures.mjs check` refuses one by its title or subject.
 - Do not number out of sequence or reuse a number for a different picture.
 - Do not tie a picture to a difficulty: Hard on 500 cells and Normal on 1100 are both fine (17 intro, §5).
 - Do not add mechanics' objects other than the stream and bridge sites: the level skill places objects.

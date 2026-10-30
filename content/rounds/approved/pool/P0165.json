@@ -1,0 +1,97 @@
+{
+ "code": "P0165",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фургон с мороженым",
+ "theme": "strong-L21-L50",
+ "family": "Наземный транспорт",
+ "subject": "розовый фургон мороженщика со сливовой полосой и рожком на крыше едет по дороге: в окне выдачи рожки с жёлтым, красным, сливовым и красным мороженым, синие колёса",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 26,
+ "N": 884,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 302,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 146,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 137,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 122,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 91,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 40,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 21,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 16,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 9,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS",
+  "SSSSVVVVVVVOOVVVVVVVSSSSSSSSSSSSSS",
+  "SSSSVVVVVVVVVVVVVVVVSSSSSSSSSSSSSS",
+  "SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS",
+  "SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS",
+  "SSSPPCCCCCCCCCCCCCCPPPPPPSSSSSSSSS",
+  "SSSPPCYYCCRRCVVCCRRPPPPPPSSSSSSSSS",
+  "SSSPPCYYCRRRCVVCCRRPPPPPPPPPPPPSSS",
+  "SSSPPCOOCOOOCOOCCOOPPPPPPPSSSSPSSS",
+  "SSSPPCOOCCOCCOOCCOOPPPPPPPSSSSPSSS",
+  "SSSPPCCCCCOCCCOCCOCPPPPPPPSSSSPSSS",
+  "SSSPPCCCCCCCCCCCCCCPPPPPPPPPPPPSSS",
+  "SSSPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSS",
+  "SSSVVVVVVVVVVVVVVVVVVVVVVVVVVVVSSS",
+  "SSSVVVVVNNVVVVVVVVVVVVVVNNVVVVVSSS",
+  "SSSVVVVNNNNVVVVVVVVVVVVNNNNVVVVSSS",
+  "SSSVVVNNCCNNVVVVVVVVVVNNCCNNVVVSSS",
+  "SSSSSSNNCCNNSSSSSSSSSSNNCCNNSSSSSS",
+  "DDDDDDDNNNNDDDDDDDDDDDDNNNNDDDDDDD",
+  "DDDDDDDDNNDDDDDDDDDDDDDDNNDDDDDDDD",
+  "CCCDDCCCDDCCCDDCCCDDCCCDDCCCDDCCCD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+ ]
+}

@@ -55,7 +55,7 @@
   "K": 25,
   "A": 27
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0155-contour-bridges",
  "createdAt": "2026-10-30",
  "history": [
@@ -131,5 +131,7 @@
     "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-30"
 }

@@ -1,0 +1,104 @@
+{
+ "code": "P0164",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мухомор в банке",
+ "theme": "strong-L21-L50",
+ "family": "Грибы и лесные находки",
+ "direction": "Миры внутри предметов",
+ "subject": "стеклянная банка-террариум с пробковой крышкой на столе: внутри красный мухомор с белыми пятнами и маленький мухомор рядом, папоротник, мох на земле и ягоды черники",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 9,
+ "volumes": {
+  "K": {
+   "cells": 372,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "S": {
+   "cells": 171,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 122,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 98,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 56,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 28,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 21,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 19,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 9,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "KKKKKKKAAAAAAAAAAAAAAKKKKKKK",
+  "KKKKKKKAAAAAAAAAAAAAAKKKKKKK",
+  "KKKKKKKKCSSSSSSSSSSCKKKKKKKK",
+  "KKKKKKKKCSSSSSSSSSSCKKKKKKKK",
+  "KKKKKKKKCSSSSSSSSSSCKKKKKKKK",
+  "KKKKKKKKCSSSSSSSSSSCKKKKKKKK",
+  "KKKKKKKCCSSSSSSSSSSCCKKKKKKK",
+  "KKKKKKCCSSSSSSSSSSSSCCKKKKKK",
+  "KKKKKCCSSSRRCCRRSSSSSCCKKKKK",
+  "KKKKCCSSRRRRCCRRRRSSSSCCKKKK",
+  "KKKKCSSRRCCRRRRCCRRSSSSCKKKK",
+  "KKKKCSRRRRRRRRRRRRRRSSSCKKKK",
+  "KKKCSSRRRRRRRRRRRRRRSSSSCKKK",
+  "KKKCSSGSSSSSCCSSSSSSSSSSCKKK",
+  "KKKCGGGGGSSSCCSSSSSSSSSSCKKK",
+  "KKKCGGGGGSSCCCCSSSRRRSSSCKKK",
+  "KKKCSSGSSSSSCCSSSRRRRRSSCKKK",
+  "KKKKCGGGSSSSCCSSSSSCSSSCKKKK",
+  "KKKKCGGGSSSSCCSSSSSCSSSCKKKK",
+  "KKKKCCGMMSSSCCMMMMSCSBCCKKKK",
+  "KKKKKCCMBBMMCCMMBBMCMCCKKKKK",
+  "KKKKKKCCBBMMMMMMBBMMCCKKKKKK",
+  "KKKKKKKCCEEEEEEEEEECCKKKKKKK",
+  "KKKKKKKKKCCCCCCCCCCKKKKKKKKK",
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+ ]
+}

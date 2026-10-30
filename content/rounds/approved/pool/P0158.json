@@ -1,0 +1,100 @@
+{
+ "code": "P0158",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Диплодок в озере",
+ "theme": "bridge-contour",
+ "family": "Доисторический мир",
+ "device": "сцена с переправой",
+ "subject": "длинношеий динозавр стоит в озере, за ним дымит тёмный вулкан, хвост тянется к левому берегу; динозавр обведён нейтральной линией, на него ведут мостки с папоротников на кончик хвоста и с каменного уступа на спину",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 28,
+ "N": 876,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 308,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 227,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 132,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 51,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 47,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 39,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 37,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "L": {
+   "cells": 26,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "O": {
+   "cells": 9,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "SSSSSSSSSSSSSSSCCCSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSCCCCCSSSSSSSSS##SSSSS",
+  "SSSSSSSSSSSSCCCCSSSSSSSSSS#GG##SSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSS#GGGGG#SS",
+  "SSSSSSSSSSSSSOOOOSSSSSSSS#GGGD#SSS",
+  "SSSSSSSSSSSSDDDODDSSSSSSS#GGS#SSSS",
+  "SSSSSSSSSSSDDDDDODDSSSSSS#GG#SSSSS",
+  "SSSSSSSSSSDDDDDDOODDSSSS#GG#SSSSSS",
+  "SSSSSSSSSSDDDDDDDODDSSS#GG#SSSSSSS",
+  "AAASSSSSSDDDDDDDDDDDDSS#GG#SSSSSSS",
+  "AAASSSSSDDDDD##########GG#SSSSSSSS",
+  "EEEEEEEEEESS#GGGGGGGGGGG#SSSSSSSSS",
+  "EEEEEEEEEE##GGGGGGGGGGGG#SSSSSSSSS",
+  "EEEEEEEEEEbGGGGGGGGGGGGGG#SSSSSSSS",
+  "EEEEEEEEE#GGGGGGGGGGGGGGG#SSSSSSSS",
+  "AAAAASS##GGGGGGGGGGGGGGGG#SSSSSSSS",
+  "AAAAA##GGCCCCCCCCCCCCCCC#SSSSSSSSS",
+  "AAA##CGCCCCCGCCCCCCCCCCG#SSBBBBSSS",
+  "LLLbCCCC###BGGGGCCCCGBGG#BBBBBBBBB",
+  "LLL#####BBB#GGGGGGBGGBGG#BBBBBBBBB",
+  "LLLLLBBBBBB#GGGGGGBGGBGG#BBBBBBBBB",
+  "LLLLLBBBBBB#GGGGGG#GG#GG#BBBBBBBBB",
+  "LLLLLBBBBBBB######B##B##BBBBBBBBBB",
+  "LLLLLBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "AAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "AAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "AAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "AAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+ ]
+}

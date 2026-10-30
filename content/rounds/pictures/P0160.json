@@ -53,8 +53,10 @@
   "N": 37,
   "Y": 7
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0160-strong",
  "createdAt": "2026-10-30",
- "history": []
+ "history": [],
+ "note": "владелец 30.10.2026: не утверждена; жеоды больше никогда не делать",
+ "decidedAt": "2026-10-30"
 }
