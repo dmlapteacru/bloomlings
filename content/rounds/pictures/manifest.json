@@ -2637,6 +2637,24 @@
    "batch": "batch-0153-garden",
    "note": null,
    "usedBy": null
+  },
+  {
+   "id": "P0154",
+   "seq": 154,
+   "version": 1,
+   "title": "Ночная ярмарка за каналом",
+   "theme": "bridge-v8-recipe",
+   "family": "Ярмарки и праздники",
+   "direction": null,
+   "forLevel": 45,
+   "w": 32,
+   "h": 32,
+   "N": 968,
+   "colours": 9,
+   "status": "draft",
+   "batch": "batch-0154-fair",
+   "note": null,
+   "usedBy": null
   }
  ]
 }
