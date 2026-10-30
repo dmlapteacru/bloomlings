@@ -289,6 +289,7 @@ function fitOk(c,n){if(n<=3)return true;const f=fitOf(c),weak=f.hiddenColours<=1
 // a regular Normal for the median of §5: not L1–3, not an introduction, not the first Normal after a Hard or Super Hard
 function regularNormal(L,placed){const p=placed[L.level-1];return L.cls==='Normal'&&L.level>3&&!L.intro&&!(p&&p.cls!=='Normal');}
 const lead=c=>(c.recipe||'none').split('+')[0];
+export function reservedFamily(id,n){const w=mechanicsPlans().find(p=>n>=p.wave[0]&&n<=p.wave[1]);return !!(w&&(w.bridgeFamilies||[]).includes(picture(id).family));}
 export function repeats(id,n,placed){const p=picture(id),[lo,hi]=repeatWindow(n),mo=motifsOf(p);
  return Object.values(placed).some(L=>L.level!==n&&L.level>=lo&&L.level<=hi&&L.picture!==id&&(()=>{const q=picture(L.picture);return (p.family&&q.family===p.family)||motifsOf(q).some(m=>mo.includes(m));})());}
 function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f)):[]){const L=readJSON(path.join(LEVELS,f));placed[L.level]=L;}
@@ -311,6 +312,8 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
    &&!(prev.length===2&&!slot.intro&&c.recipe!=='links+hidden'&&prev.every(L=>!L.intro&&L.recipe===c.recipe&&c.recipe!=='none'))
    // picture repeats (the owner, 2026-10-29): family and motif once per wave and not in the 20 levels before it
    &&!repeats(c.picture,n,placed)
+   // the wave plan keeps some families for its bridge levels (bridgeFamilies): other positions leave them
+   &&!(plan&&!plan.bridgeSide&&reservedFamily(c.picture,n))
    &&!(c.colours>=10&&window.filter(L=>L.colours>=10).length>=2)
    // motif variety (the owner, 2026-10-26): a motif at most once in any 10 levels
    &&!motifsOf(picture(c.picture)).some(m=>Object.values(placed).some(L=>Math.abs(L.level-n)<10&&motifsOf(picture(L.picture)).includes(m)))

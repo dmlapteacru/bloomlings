@@ -7,7 +7,7 @@
  "approved": "2026-10-29",
  "approvedBy": "owner",
  "plan": "product/plans/wave-L21-L50-mechanics-plan-2026-10-29.md",
- "note": "The owner's breakdown of 2026-10-29: links dominate; hidden pods are never the lead; links may lead or be additional; a bridge is only the lead. Normal: 3 without extras (one in each ten: L22, L36, L47), 3 bridge + hidden with both bridges winning (L23, L33, L43), all others links + hidden. Hard: L25, L40 links + hidden; L35, L50 bridge + links + hidden with both bridges winning. Super Hard L30, L45: bridge (exactly one wins) + links + a couple of hidden pods. recipe is the builder's recipe string (lead first). strip 'gap': one whole picture split by a neutral strip in the board's colour, the bridges on the strip (owner, 2026-10-29). bridgeKind: single = exactly one bridge wins, better = both win and one is at least 10 points better by the random test.",
+ "note": "The owner's breakdown of 2026-10-29: links dominate; hidden pods are never the lead; links may lead or be additional; a bridge is only the lead. Normal: 3 without extras (one in each ten: L22, L36, L47), 3 bridge + hidden with both bridges winning (L23, L33, L43), all others links + hidden. Hard: L25, L40 links + hidden; L35, L50 bridge + links + hidden with both bridges winning. Super Hard L30, L45: bridge (exactly one wins) + links + a couple of hidden pods. recipe is the builder's recipe string (lead first). strip 'gap': one whole picture split by a neutral strip in the board's colour, the bridges on the strip (owner, 2026-10-29). bridgeKind: single = exactly one bridge wins, better = both win and one is at least 10 points better by the random test. bridgeFamilies: the theme families kept for the bridge levels' split pictures; other positions do not take them.",
  "levels": [
   {
    "level": 21,
@@ -301,5 +301,14 @@
    "bridgeKind": "better"
   }
  ],
- "supersedes": "product/plans/wave-L21-L50-mechanics-plan-2026-10-28.md"
+ "supersedes": "product/plans/wave-L21-L50-mechanics-plan-2026-10-28.md",
+ "bridgeFamilies": [
+  "Городские пространства",
+  "Цветы и букеты",
+  "Морские и пресноводные обитатели",
+  "Ярмарки и праздники",
+  "Доисторический мир",
+  "Дома и архитектура",
+  "Сказочные жилища"
+ ]
 }
