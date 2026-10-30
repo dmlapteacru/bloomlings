@@ -40,12 +40,25 @@
 //      scenes pass; writes them as a draft picture module ("<title> за мостом", the source's family, source "сцена моста
 //      из P####", forLevel, scene) for the owner's sheet (pictures.mjs render / sheet / approve). Never approves.
 //      Evidence → <out>.json.
+// node tools/rounds/bridge-scene.mjs make --mode split --from P####[,P####…] --side up|left|right|two --kind single|better|any
+//      --cls Normal|Hard|"Super Hard" --recipe bridge[+links][+hidden] --level n --out content/rounds/pictures/src/split-L####.mjs
+//      [--minutes 35] [--candidates 8] [--per 3] [--seed 1] [--zone a,b] [--share 0.25,0.45] [--gap-tolerance 0] [--no-hold] [--worse-min f] [--restart]
+//      [--again] [--dry]
+//      the owner's design of 2026-10-29 (17 §8 «Одна цельная картинка», below at "split"): one whole free approved picture
+//      split by an inserted neutral strip; searches split positions × site pairs × candidate queues until levels.mjs
+//      evaluate passes with the planned bridge kind and class; writes the draft module ("<title> — мост", the source's
+//      family and tags, scene {from, mode: 'split', side, at, sites, kind, win, lose, …}) and the evidence <out>.json
+//      with the found candidate level. Resumable: the evidence keeps every split tried and a rerun skips them, so run
+//      it in chunks; --share / --gap-tolerance / --no-hold (a Normal without the holding pod of §6, for a picture
+//      with no deep colour) are explicit exceptions, recorded in the scene (rules). Never approves.
+// node tools/rounds/bridge-scene.mjs preview <split module.mjs…> --out <dir>
+//      the found level of each module on its rendered draft picture, in the placed-level shape the pilot's --preview reads
 // node tools/rounds/bridge-scene.mjs adapt <module.mjs> --out <module.mjs> [--index 0,2] [--minutes 20] [--per 8]
 //      a hand-drawn strip module (each picture's forLevel names its wave plan position): strips laid behind the sites
 //      (stripsOver) and searched like make; writes the passing pictures as an adapted copy, the evidence beside it.
-import {deltaE} from './colour-distance.mjs';
+import {deltaE,deltaEHex} from './colour-distance.mjs';
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
-import {siteChoice,CODES,PALETTE,measure,fitsStage,stageOf,boardOf,bridgeSide,BridgeAnchorError,picture,manifest,usage,arg,flag,columnsFor,root,DIR_RU,planOf} from './lib.mjs';
+import {siteChoice,CODES,PALETTE,measure,fitsStage,stageOf,boardOf,bridgeSide,BridgeAnchorError,picture,manifest,usage,arg,flag,columnsFor,root,DIR_RU,planOf,lid} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 const saved=process.argv.slice(2);process.argv.splice(2,process.argv.length,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1,...saved);
 
@@ -230,6 +243,215 @@ export async function search(pic,{side,kind,cls='Normal',recipes=['bridge'],leve
  log(`  ${pic.id} ${side}: не найдено (сцен ${nS}, кандидатов ${nC}) ${JSON.stringify(reasons)}`);
  return {fail:true,tried:{scenes:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)};}
 
+// ---- split (17 §8 «Одна цельная картинка», the owner, 2026-10-29: «сделать одну большую картинку и просто в рандомных
+// местах разделить её и поставить мосты … они должны быть одним большим целым, просто разделённым чем-то (хоть линией,
+// полоской нейтральной в цвет фона)»): one whole approved picture split by an INSERTED strip line, so no picture cell is
+// overwritten: the part beyond the line moves one cell away. The strip is impassable ('#') with exactly two Sprig sites
+// ('b') on it and runs through the whole picture to the walkway ring, where boardOf closes the ring at its ends (as for a
+// full-width stream or a full-height wall). The level marks it definition.strip = 'gap' (lib.mjs boardOf reads the
+// picture's scene.mode 'split'), so renderers draw it as a neutral line in the board's surface colour, not as water or
+// stone. The round engine plays it as any strip.
+//
+//   up: a row inserted           left: a column inserted          two: an L; the top-left block (corner tl, or the
+//   (the far part above)         (the far part on the left;       top-right one, tr) moved one cell out diagonally
+//   ...AAAA...                   right: on the right)             AAA#......
+//   ..AAAAAA..                   ..AA#BB..                        AAA#BBBBBB
+//   #b#####b##                   .AAAbBBB.                        AAAbBBBBBB   (a site crossing left)
+//   ..BBBBBB..                   .AAA#BBB.                        #b##BBBBBB   (a site crossing up)
+//   ...BBBB...                   ..AAbBB..                        .CCCDDDDDD
+//
+// The far part holds 25–45 % of the picture's cells. Each site's anchor is its near-bank neighbour (below for up, beside it
+// for left / right) and a colour cell (the approach to clear first, §8); its far neighbour is a colour or empty cell. The
+// gap contrast (the strip contrast of 2026-10-28 for the gap look): every colour cell beside the strip is at least
+// GAP_CONTRAST away in CIEDE2000 from the board's surface (the game's board.surface and the pilot's ground), else the split
+// cannot be read there and that position is not used (in the palette only Жемчуг C falls below: 9.2 / 2.3).
+export const GAP_SURFACES={'board.surface':'#DCD3C4','земля пилота v12':'#EADCB5'},GAP_CONTRAST=15,GAP_SHARE=[.25,.45];
+const D4=[[1,0],[-1,0],[0,1],[0,-1]],GAP_DE=Object.fromEntries(CODES.split('').map(c=>[c,Math.min(...Object.values(GAP_SURFACES).map(h=>deltaEHex(c,h)))]));
+const mirrorRows=rows=>rows.map(r=>[...r].reverse().join(''));
+// how a split grows the picture: up a row, left / right a column, two both; a board is the picture with the ring and the
+// frame (+4), at most 48×48 (the engine)
+export const growth=side=>({dw:side==='up'?0:1,dh:side==='left'||side==='right'?0:1});
+// the source's empty edge rows and columns trimmed, only as many as the board with the strip needs (no colour cell goes);
+// {rows, left, top} or null when a colour cell would go
+export function trimmed(rows,side,max=44){const {dw,dh}=growth(side);let left=0,top=0;rows=rows.slice();
+ const empty=(r)=>!/[^.]/.test(r),col=(k)=>rows.every(r=>r[k]==='.');
+ while(rows[0].length+dw>max){const a=col(0),b=col(rows[0].length-1);if(!a&&!b)return null;
+  const la=(()=>{let k=0;while(k<rows[0].length&&col(k))k++;return k;})(),lb=(()=>{let k=0;while(k<rows[0].length&&col(rows[0].length-1-k))k++;return k;})();
+  if(la>=lb){rows=rows.map(r=>r.slice(1));left++;}else rows=rows.map(r=>r.slice(0,-1));}
+ while(rows.length+dh>max){const a=empty(rows[0]),b=empty(rows.at(-1));if(!a&&!b)return null;
+  const ta=(()=>{let k=0;while(k<rows.length&&empty(rows[k]))k++;return k;})(),tb=(()=>{let k=0;while(k<rows.length&&empty(rows[rows.length-1-k]))k++;return k;})();
+  if(ta>=tb){rows=rows.slice(1);top++;}else rows=rows.slice(0,-1);}
+ return {rows,left,top};}
+
+// the split picture of a source without a strip. up: a row inserted before row `at`; left / right: a column inserted before
+// column `at`; two: at = [x0, y0], the vertical leg in column x0 (of the split) from the top to row y0, the horizontal leg
+// in row y0 from column x0 to the picture's left (tl) or right (tr) edge, the corner block moved one cell out. sites:
+// positions along the strip (up: x; left / right: y; two: [x on the horizontal leg, y on the vertical leg]); without sites
+// the strip is all '#'. Returns {rows, side, at, corner, sites (split coordinates), strip (its cells), far(x, y), map(x, y)
+// (a source cell's place in the split), arm(x, y) (the step from a strip cell to its near-bank neighbour)}.
+export function splitOf(src,{side,at,sites=null,corner='tl'}){const rows=src.rows,pw=rows[0].length,ph=rows.length,S=sites||[];
+ if(/[#b]/.test(rows.join('')))throw Error('у картинки уже есть полоса — разделяется картинка без полосы');
+ if(side==='up'){if(!(Number.isInteger(at)&&at>=1&&at<=ph-1))throw Error(`up: строка разреза ${at} вне 1–${ph-1}`);
+  const s=[...'#'.repeat(pw)];for(const x of S)s[x]='b';
+  return {rows:[...rows.slice(0,at),s.join(''),...rows.slice(at)],side,at,sites:S.map(x=>[x,at]),strip:[...Array(pw).keys()].map(x=>[x,at]),far:(x,y)=>y<at,map:(x,y)=>[x,y<at?y:y+1],arm:()=>[0,1]};}
+ if(side==='left'||side==='right'){if(!(Number.isInteger(at)&&at>=1&&at<=pw-1))throw Error(`${side}: столбец разреза ${at} вне 1–${pw-1}`);
+  return {rows:rows.map((r,y)=>r.slice(0,at)+(S.includes(y)?'b':'#')+r.slice(at)),side,at,sites:S.map(y=>[at,y]),strip:[...Array(ph).keys()].map(y=>[at,y]),
+   far:side==='left'?(x,y)=>x<at:(x,y)=>x>at,map:(x,y)=>[x<at?x:x+1,y],arm:()=>side==='left'?[1,0]:[-1,0]};}
+ if(side!=='two')throw Error(`сторона: up, left, right, two`);
+ if(corner==='tr'){const W=pw+1,mir=([x,y])=>[W-1-x,y],m=splitOf({rows:mirrorRows(rows)},{side,at:[W-1-at[0],at[1]],sites:sites&&[W-1-sites[0],sites[1]],corner:'tl'});
+  return {...m,rows:mirrorRows(m.rows),at,corner,sites:m.sites.map(mir),strip:m.strip.map(mir),far:(x,y)=>m.far(W-1-x,y),map:(x,y)=>mir(m.map(pw-1-x,y)),arm:(x,y)=>{const [dx,dy]=m.arm(W-1-x,y);return [-dx,dy];}};}
+ const [x0,y0]=at;if(!(x0>=2&&x0<=pw-1&&y0>=2&&y0<=ph-1))throw Error(`two: угол разреза ${JSON.stringify(at)} вне картинки ${pw}×${ph}`);
+ const g=Array.from({length:ph+1},()=>Array(pw+1).fill('.')),inC=(x,y)=>x<x0&&y<y0;
+ for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){const t=inC(x,y);g[t?y:y+1][t?x:x+1]=rows[y][x];}
+ const strip=[];for(let y=0;y<=y0;y++)strip.push([x0,y]);for(let x=0;x<x0;x++)strip.push([x,y0]);for(const [x,y] of strip)g[y][x]='#';
+ const st=sites?[[sites[0],y0],[x0,sites[1]]]:[];for(const [x,y] of st)g[y][x]='b';
+ return {rows:g.map(r=>r.join('')),side,at,corner,sites:st,strip,far:(x,y)=>x<x0&&y<y0,map:(x,y)=>inC(x,y)?[x,y]:[x+1,y+1],arm:(x,y)=>y===y0&&x<x0?[0,1]:[1,0]};}
+
+// the share of the picture's colour cells beyond the strip
+export function farShare(sp){let far=0,all=0;sp.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++)if(CODES.includes(r[x])){all++;if(sp.far(x,y))far++;}});return all?far/all:0;}
+// the gap contrast: the colour cell beside the strip closest to the board's surface (worst, code; Infinity without one),
+// how many distinct colour cells stand beside the strip (cells) and how many of them fall below GAP_CONTRAST (low)
+export function gapContrast(sp){const on=new Set(sp.strip.map(([x,y])=>x+','+y)),seen=new Set();let worst=Infinity,code=null,low=0;
+ for(const [x,y] of sp.strip)for(const [dx,dy] of D4){const k=sp.rows[y+dy]?.[x+dx],key=(x+dx)+','+(y+dy);if(!k||!CODES.includes(k)||on.has(key)||seen.has(key))continue;seen.add(key);
+  if(GAP_DE[k]<GAP_CONTRAST)low++;if(GAP_DE[k]<worst){worst=GAP_DE[k];code=k;}}
+ return {worst,code,low,cells:seen.size};}
+// a split's gap contrast passes: no colour cell beside the strip near the board's colour, or (an explicit, recorded
+// exception, make --gap-tolerance f) at most that share of them
+export const gapOk=(gc,tolerance=0)=>gc.worst>=GAP_CONTRAST||(tolerance>0&&gc.low<=tolerance*gc.cells);
+// strip cells that may carry a site: not on the picture's edge nor the L's corner, a colour anchor (near neighbour) and a
+// colour or empty far neighbour; leg 0 = the horizontal leg of an L (or the only strip), 1 = its vertical leg
+function siteCells(sp){const rows=sp.rows,W=rows[0].length,H=rows.length,at=(x,y)=>x<0||y<0||x>=W||y>=H?null:rows[y][x],out=[];
+ for(const [x,y] of sp.strip){if(x===0||y===0||x===W-1||y===H-1)continue;if(sp.side==='two'&&x===sp.at[0]&&y===sp.at[1])continue;
+  const [dx,dy]=sp.arm(x,y),near=at(x+dx,y+dy),far=at(x-dx,y-dy);if(!CODES.includes(near)||far===null||far==='#'||far==='b')continue;
+  const leg=sp.side==='two'?(dy?0:1):0;out.push({x,y,leg,s:sp.side==='up'||(sp.side==='two'&&leg===0)?x:y,near,far,fx:x-dx,fy:y-dy});}
+ return out;}
+// colour depth of the far part from its own edge (the ring beyond the strip belongs to it), up to 3: a site landing deep in
+// the subject opens its own front, one landing on open background reaches the ring at once and both bridges play alike
+function farDepth(sp){const rows=sp.rows,W=rows[0].length,H=rows.length,d=new Float64Array(W*H).fill(Infinity),dq=[],ok=(x,y)=>x>=0&&y>=0&&x<W&&y<H&&sp.far(x,y)&&rows[y][x]!=='#'&&rows[y][x]!=='b';
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(ok(x,y)&&(x===0||y===0||x===W-1||y===H-1)){const c=CODES.includes(rows[y][x])?1:0;if(c<d[y*W+x]){d[y*W+x]=c;c?dq.push([x,y]):dq.unshift([x,y]);}}
+ while(dq.length){const [x,y]=dq.shift();for(const [dx,dy] of D4){const u=x+dx,v=y+dy;if(!ok(u,v))continue;const c=CODES.includes(rows[v][u])?1:0,nd=d[y*W+x]+c;if(nd<d[v*W+u]){d[v*W+u]=nd;c?dq.push([u,v]):dq.unshift([u,v]);}}}
+ return (x,y)=>Math.min(3,d[y*W+x]);}
+
+// every split of a source for a side, best first: positions with 25–45 % beyond the strip, the gap contrast kept and the
+// entry (bottom middle of the board) on the near side; per position the `per` best site pairs, then round robin over the
+// positions by rank, so the search moves through different places early. A pair is better with anchors of different
+// materials, far cells of different materials deep in the subject, a share near 35 %, the sites apart and a strip that
+// runs through the subject rather than through empty space. Deterministic by seed (it breaks near ties).
+export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_SHARE,tolerance=0,first=false}={}){const r=rngOf(seed*7919+side.length*31+1),rows=src.rows,pw=rows[0].length,ph=rows.length,N=measure(src).N;
+ const colour=c=>CODES.includes(c),cum=Array.from({length:ph+1},()=>new Int32Array(pw+1));
+ for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)cum[y+1][x+1]=cum[y][x+1]+cum[y+1][x]-cum[y][x]+(colour(rows[y][x])?1:0);
+ const box=(x0,y0,x1,y1)=>x1<x0||y1<y0?0:cum[y1+1][x1+1]-cum[y0][x1+1]-cum[y1+1][x0]+cum[y0][x0];// colour cells in a source box
+ const {dw}=growth(side),e=Math.floor((pw+dw+4)/2)-2,pos=[];
+ if(side==='up')for(let at=1;at<ph;at++)pos.push({at,far:box(0,0,pw-1,at-1)});
+ if(side==='left')for(let at=1;at<pw&&at<e;at++)pos.push({at,far:box(0,0,at-1,ph-1)});
+ if(side==='right')for(let at=Math.max(1,e+1);at<pw;at++)pos.push({at,far:box(at,0,pw-1,ph-1)});
+ if(side==='two')for(let y0=2;y0<ph;y0++){for(let x0=2;x0<pw;x0++)pos.push({at:[x0,y0],corner:'tl',far:box(0,0,x0-1,y0-1)});for(let x0=1;x0<=pw-2;x0++)pos.push({at:[x0,y0],corner:'tr',far:box(x0,0,pw-1,y0-1)});}
+ // first: only the first position that carries a pair, positions taken by a share nearest 35 % (a quick "can it split")
+ if(first)pos.sort((a,b)=>Math.abs(a.far/N-.35)-Math.abs(b.far/N-.35));
+ const byPos=[];
+ for(const p of pos){if(first&&byPos.length)break;const share=p.far/N;if(share<range[0]||share>range[1])continue;let sp;try{sp=splitOf(src,{side,at:p.at,corner:p.corner});}catch{continue;}
+  const gc=gapContrast(sp);if(!gapOk(gc,tolerance))continue;
+  const cells=siteCells(sp);if(!cells.length)continue;const dep=farDepth(sp),len=sp.strip.length;
+  // the strip through the subject: the share of strip cells without a colour neighbour
+  const bare=sp.strip.filter(([x,y])=>!D4.some(([dx,dy])=>colour(sp.rows[y+dy]?.[x+dx]))).length/len;
+  // each cell alone: a colour far cell deep in the subject; the best 14 per leg take part in the pairs
+  const one=c=>(colour(c.far)?.4*(3-dep(c.fx,c.fy)):1.6),legs=[0,1].map(l=>cells.filter(c=>c.leg===l).sort((a,b)=>one(a)-one(b)).slice(0,14));
+  const pairs=[];if(side==='two'){for(const a of legs[0])for(const b of legs[1])pairs.push([a,b]);}else{const l=legs[0];for(let i=0;i<l.length;i++)for(let j=i+1;j<l.length;j++)pairs.push(l[i].s<l[j].s?[l[i],l[j]]:[l[j],l[i]]);}
+  const scored=[];for(const [a,b] of pairs){const sep=Math.abs(a.x-b.x)+Math.abs(a.y-b.y);if(sep<3)continue;
+   const score=(a.near===b.near?1:0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.15*r();
+   scored.push({score,sites:[a.s,b.s]});}
+  scored.sort((a,b)=>a.score-b.score);
+  // the `per` best pairs of this position, each moving a site at least 3 cells from the ones already taken
+  const take=[];for(const q of scored){if(take.length>=per)break;if(take.some(t=>Math.abs(t.sites[0]-q.sites[0])+Math.abs(t.sites[1]-q.sites[1])<3))continue;take.push(q);}
+  if(take.length)byPos.push({p,share,take});}
+ byPos.sort((a,b)=>a.take[0].score-b.take[0].score);
+ // spread: positions in waves, each wave taking only positions at least 3 cells from those it already holds (neighbouring
+ // cuts play alike), the best first in each wave
+ const near=(a,b)=>Math.max(...[].concat(a.p.at).map((v,i)=>Math.abs(v-[].concat(b.p.at)[i])))<3&&a.p.corner===b.p.corner,waves=[];let rest=byPos;
+ while(rest.length){const wave=[],left=[];for(const b of rest)(wave.some(w=>near(w,b))?left:wave).push(b);waves.push(...wave);rest=left;}
+ const ordered=waves;
+ const out=[];for(let k=0;k<per&&out.length<limit;k++)for(const b of ordered){if(out.length>=limit)break;const q=b.take[k];if(!q)continue;
+  out.push({key:`${side}:${b.p.corner?b.p.corner+':':''}${[].concat(b.p.at).join(',')}:${q.sites.join(',')}`,side,at:b.p.at,...(b.p.corner?{corner:b.p.corner}:{}),sites:q.sites,share:Math.round(b.share*1000)/1000,score:Math.round(q.score*1000)/1000});}
+ return out;}
+
+// a quick "can this picture split to this side": the first valid split (trimmed to 48×48 when needed) with the colours
+// hidden at the start on its board, or null
+export function splittable(src,side,opts={}){const tr=trimmed(src.rows,side);if(!tr)return null;const t={...src,rows:tr.rows},[s]=splitsFor(t,side,{...opts,per:1,first:true});
+ if(!s)return null;const sp=splitOf(t,s);return {split:s,hiddenColours:fitness({rows:sp.rows}).hiddenColours};}
+
+// the board check of a split: the scene checks (boardOf, two sites on the planned side, colour anchors, each bridge alone
+// opens every colour cell, the far side shut while both sites are walls, stage, 48×48), no picture cell lost or moved but
+// as the split moves it, the far part 25–45 %, nothing beyond the strip reachable without a bridge, and the gap contrast
+export function checkSplit(sp,src,level=null,{maxColours=11,share:range=GAP_SHARE,tolerance=0}={}){const sc={rows:sp.rows,side:sp.side,scene:{mode:'split'}},ck=checkScene(sc,level,{maxColours,contrast:false}),issues=[...ck.issues];
+ const sm=measure(src),m=ck.measure||measure(sc);let moved=0;
+ src.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++)if(CODES.includes(r[x])){const [u,v]=sp.map(x,y);if(sp.rows[v]?.[u]!==r[x])moved++;}});
+ if(moved||m.N!==sm.N)issues.push(`клетки картинки потеряны или сдвинуты не так: ${moved}, N ${m.N} ≠ ${sm.N}`);
+ const share=farShare(sp);if(share<range[0]||share>range[1])issues.push(`за полосой ${Math.round(share*100)} % клеток, нужно ${range.map(x=>Math.round(x*100)).join('–')} %`);
+ const gc=gapContrast(sp);if(!gapOk(gc,tolerance))issues.push(`у полосы клеток почти цвета фона ${gc.low} из ${gc.cells} (${gc.code}, ΔE ${gc.worst.toFixed(1)} < ${GAP_CONTRAST})`);
+ if(ck.board&&ck.board.hero){const b=ck.board,g=b.rowsBottomFirst.join(''),{w,h}=b,seen=new Uint8Array(w*h),q=[...b.entries];for(const i of q)seen[i]=1;
+  while(q.length){const i=q.pop(),x=i%w,y=Math.floor(i/w);for(const [dx,dy] of D4){const u=x+dx,v=y+dy,j=v*w+u;if(u<0||v<0||u>=w||v>=h||seen[j]||g[j]==='#')continue;seen[j]=1;q.push(j);}}
+  let open=0;sp.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++)if(sp.far(x,y)&&r[x]!=='#'&&r[x]!=='b'&&seen[(h-3-y)*w+x+2])open++;});if(open)issues.push(`за полосой ${open} клеток доступны без моста`);}
+ return {...ck,ok:!issues.length,issues,share,contrast:gc};}
+
+// the picture coordinates of a board's bridge choice
+const siteOf=(b,c)=>[c.cell%b.w-2,b.h-3-Math.floor(c.cell/b.w)];
+// search: splits × candidates of the builder (levels.mjs candidate + evaluate, the planned bridge kind tested first) until
+// one passes. The queue leans to one site (intended, alternating) with the gate (the colour right behind the other site
+// stands deep) and delay; each bridge is solved with a fresh solver (bridgeChoicesWin); a Super Hard may lose at the
+// choice (evaluate). done: keys of splits already tried (a resumed search skips them); onSplit(record) after each split.
+// Returns {split, sp, level, recipe, cols, eval, N, colours, win, lose, tried} or {fail, tried}
+// zone: the random test's share the search accepts (default: Normal its preferred 50–75 % of §5, Hard and Super Hard their
+// class); a Normal also needs the holding pod (§6, checks.hold: placement wants it in a regular Normal) and steers the
+// queue's blend towards the reverse access order (candidate opts.t) by the shares measured so far, aiming at 62 %, as
+// levels.mjs build steers its Normals
+export const ZONES={Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]};
+export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge'],level=26,candidates=8,seed=1,deadline=Infinity,log=()=>{},done=new Set(),onSplit=()=>{},per=3,splits=null,title=null,share=GAP_SHARE,tolerance=0,zone=ZONES[cls],needHold=cls==='Normal',worseMin=0}){
+ const t0=Date.now(),strong=cls!=='Normal',r=rngOf(seed*2654435761+side.length*97+level*13),list=splits||splitsFor(src,side,{per,seed,share,tolerance});let nS=0,nC=0;const reasons={};
+ const steer=cls==='Normal'?{t:.3,aim:.62,n:0}:null;
+ for(const [n,s] of list.entries()){if(Date.now()>=deadline)break;if(done.has(s.key))continue;nS++;
+  const rec={key:s.key,at:s.at,...(s.corner?{corner:s.corner}:{}),sites:s.sites,share:s.share,score:s.score,candidates:0,reasons:{}},ts=Date.now(),no=k=>{rec.reasons[k]=(rec.reasons[k]||0)+1;reasons[k]=(reasons[k]||0)+1;};
+  const fin=x=>{rec.seconds=Math.round((Date.now()-ts)/1000);onSplit(rec);return x;};
+  const sp=splitOf(src,s),ck=checkSplit(sp,src,level,{share,tolerance});
+  if(!ck.ok){no(ck.issues[0].replace(/\d+(\.\d+)?/g,'n'));fin();continue;}
+  if(strong&&fitness({rows:sp.rows}).hiddenColours<3){no('Hard/SH: меньше 3 скрытых цветов');fin();continue;}
+  const m=ck.measure,board=ck.board,base=LV.splitPods(m.volumes,m.N,null);if(base.error){no(base.error);fin();continue;}
+  const scPic={id:src.id,title:title||src.title,rows:sp.rows,locked:null};
+  for(const recipe of recipes)for(let k=0;k<candidates&&Date.now()<deadline;k++){nC++;rec.candidates++;
+   const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rows=Math.ceil(base.pods.length/cols),intended=k%2;
+   const gate=kind==='better'?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),delay=Math.floor(r()*4);
+   const cseed=seed*1000003+n*7919+k*131,blend=steer?Math.min(.9,Math.max(0,steer.t+(rngOf(cseed^0x5bd1e995)()-.5)*.12)):null;
+   const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,cseed,false,pos,{gate,intended,delay,...(blend!==null?{t:blend}:{})});if(c.error){no(c.error);continue;}
+   // ROUNDS_TRACE=1: each check's time on stderr (a slow solver branch shows which candidate and stage)
+   let quick=null,verdicts=null,tl=Date.now();const trace=process.env.ROUNDS_TRACE?l=>{const t=Date.now();console.error(`  ${src.id} ${s.key} #${k} +${((t-tl)/1000).toFixed(1)} s ${l}`);tl=t;}:()=>{};
+   const e=await LV.evaluate(c.level,{m,cls,kind,tick:l=>{const q=/^быстрая оценка ([\d.]+)/.exec(l);if(q)quick=+q[1];const v=/^мосты (\[.*\])/.exec(l);if(v)verdicts=v[1];trace(l);}});trace(e.reason||'прошёл');
+   // the solver's verdict per bridge goes with a bridge reason (both win, or neither: a different fix)
+   if(e.reason&&/^мост: (решает не ровно|выигрывают не оба)/.test(e.reason)&&verdicts)e.reason+=' '+verdicts;
+   if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(.9,Math.max(0,steer.t+.45/Math.sqrt(steer.n)*(q-steer.aim)));}}
+   if(!e.reason&&e.random.cls!==cls)e.reason=`класс по случайному тесту ${e.random.cls}`;
+   if(!e.reason&&(e.random.share<zone[0]||e.random.share>zone[1]))e.reason=`вне зоны ${zone.map(x=>Math.round(x*100)).join('–')} % (q≈${Math.round(e.random.share*10)/10})`;
+   if(!e.reason&&needHold&&!e.checks.hold)e.reason='нет удерживающего пода (§6)';
+   // worseMin (planned better): the worse bridge's random share at least this, so both bridges win for a player too
+   if(!e.reason&&kind==='better'&&worseMin>0&&Math.min(...e.bridge.each.map(x=>x.share))<worseMin)e.reason=`мост: худший ниже ${Math.round(worseMin*100)} % по случайному тесту`;
+   if(e.reason){no(e.reason+(e.quick!=null?' q≈'+Math.round(e.quick*10)/10:''));continue;}
+   const ch=board.hero.choices,wi=e.checks.bridgeKind==='single'?e.checks.bridgeSingle.each.indexOf(true):e.bridge.better;
+   rec.found=true;log(`  ${src.id} ${side}: разрез ${rec.key}, кандидат ${k+1} прошёл (${Math.round(e.random.share*100)} %, мосты ${e.bridge.each.map(x=>Math.round(x.share*100)+' %').join(' / ')})`);
+   return fin({split:s,sp,level:c.level,recipe,cols,gate,delay,intended,attempt:k,dosePos:pos,blend,eval:e,N:m.N,colours:m.colours,win:siteOf(board,ch[wi]),lose:siteOf(board,ch[1-wi]),tried:{splits:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)});}
+  fin();}
+ log(`  ${src.id} ${side}: не найдено (разрезов ${nS}, кандидатов ${nC}) ${JSON.stringify(reasons)}`);
+ return {fail:true,tried:{splits:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)};}
+
+// the draft module of found splits: "<title> — мост", the source's family and tags, scene {from, mode: 'split', …}
+export function splitModuleText(found,{name}){const tags=['family','direction','device','subject','source','reference'];
+ const pics=found.map(f=>({title:`${f.source.title} — мост`,...Object.fromEntries(tags.filter(k=>f.source[k]).map(k=>[k,f.source[k]])),forLevel:f.forLevel,
+  scene:{from:f.source.id,mode:'split',side:f.split.side,...(f.split.corner?{corner:f.split.corner}:{}),at:f.split.at,sites:f.sp.sites,share:f.split.share,...(f.trim&&(f.trim.left||f.trim.top||f.trim.cut)?{trim:f.trim}:{}),
+   kind:f.kind,cls:f.cls,recipe:f.recipe,win:f.win,lose:f.lose,queue:{gate:f.gate,delay:f.delay},...(f.rules&&Object.keys(f.rules).length?{rules:f.rules}:{})},rows:f.sp.rows}));
+ return `// ${name}: one whole approved picture split by an inserted neutral strip (tools/rounds/bridge-scene.mjs make --mode split,
+// 17 §8 «Одна цельная картинка», the owner, 2026-10-29): no picture cell lost, two Sprig sites on the strip, the level's
+// strip drawn as the board's surface (definition.strip 'gap'); each one passed the builder's checks with the planned bridge
+// kind (evidence with the found candidate level in ${name}.json). Drafts for the owner's sheet: pictures.mjs render / sheet.
+export default ${JSON.stringify({theme:'bridge-splits',name,pictures:pics},null,1)};
+`;}
+
 // ---- the draft module of found scenes (bloomlings-round-pictures format) ----
 export function moduleText(found,{name}){const pics=found.map(f=>({title:`${f.source.title} за мостом`,...(f.source.family?{family:f.source.family}:{}),...(f.source.direction?{direction:f.source.direction}:{}),
   device:'сцена моста',subject:f.source.subject||f.source.title,source:`сцена моста из ${f.source.id}`,forLevel:f.forLevel,
@@ -248,6 +470,50 @@ if(cmd==='show'){const id=process.argv[3],p=sourceOf(id),side=arg('--side','up')
  const env=[...ENV].filter(c=>!vol[c]);const o={side,x:arg('--x',cols[1]||cols[0]),y:arg('--y',cols[2]||cols[1]),z:arg('--z',env[0]),strip:+arg('--strip',2),divider:+arg('--divider',0),bedDepth:+arg('--bedDepth',3),bedBreadth:+arg('--bedBreadth',3),pad:+arg('--pad',0),margin:+arg('--margin',0),ground:arg('--ground'),shield:+arg('--shield',0),fill:flag('--fill'),full:flag('--full'),...(arg('--bedDepthY')?{bedDepthY:+arg('--bedDepthY')}:{}),...(arg('--bedBreadthY')?{bedBreadthY:+arg('--bedBreadthY')}:{})};
  const sc=scene(p,o),ck=checkScene(sc,+arg('--level',26));console.log(show(sc));console.log(JSON.stringify(o));
  console.log(`${sc.rows[0].length}×${sc.rows.length}, ${ck.measure.N} кл., ${ck.measure.colours} цв., скрытых на старте ${fitness(sc).hiddenColours}; ${ck.ok?'борд OK':'НЕТ: '+ck.issues.join('; ')}`);}
+else if(cmd==='make'&&arg('--mode')==='split'){
+ // one whole picture split by a gap strip (17 §8 «Одна цельная картинка», 2026-10-29); resumable: the evidence file keeps
+ // every split tried (a rerun with the same parameters skips them), so the search runs in chunks of --minutes
+ const side=arg('--side'),kind=arg('--kind','single'),cls=arg('--cls','Normal'),recipes=arg('--recipe','bridge').split(','),level=+arg('--level',26),out=arg('--out'),seed=+arg('--seed',1),candidates=+arg('--candidates',8),per=+arg('--per',3);
+ const share=arg('--share')?arg('--share').split(',').map(Number):GAP_SHARE,tolerance=+arg('--gap-tolerance',0),froms=(arg('--from')||'').split(',').filter(Boolean),zone=arg('--zone')?arg('--zone').split(',').map(Number):ZONES[cls],noHold=flag('--no-hold'),worseMin=+arg('--worse-min',0);
+ if(!SIDES.includes(side))throw Error(`--side ${SIDES.join('|')}`);if(!['single','better','any'].includes(kind))throw Error('--kind single|better|any');if(!froms.length)throw Error('--from P####[,P####…]: утверждённые свободные картинки без полосы');
+ if(!out&&!flag('--dry'))throw Error('--out <module.mjs> (или --dry)');if(share.length!==2||!(share[0]<share[1]))throw Error('--share a,b (доли, например 0.25,0.45)');
+ const evFile=out?out.replace(/\.mjs$/,'.json'):null,params={from:froms,side,kind,cls,recipes,level,seed,candidates,per,share,gapTolerance:tolerance,zone,...(noHold?{noHold}:{}),...(worseMin?{worseMin}:{})};
+ let ev=evFile&&fs.existsSync(evFile)?JSON.parse(fs.readFileSync(evFile,'utf8')):null;
+ if(ev&&(ev.format!=='bloomlings-split-search-1'||JSON.stringify(ev.params)!==JSON.stringify(params))){if(!flag('--restart'))throw Error(`${evFile}: поиск с другими параметрами — --restart начинает заново`);ev=null;}
+ ev=ev||{format:'bloomlings-split-search-1',params,created:new Date().toISOString(),runs:[],tried:[],found:null};
+ const save=()=>{if(!evFile)return;ev.updated=new Date().toISOString();fs.mkdirSync(path.dirname(path.resolve(evFile)),{recursive:true});fs.writeFileSync(evFile+'.tmp',JSON.stringify(ev,null,1)+'\n');fs.renameSync(evFile+'.tmp',evFile);};
+ const u=usage(),srcOf=id=>{const p=sourceOf(id);if(u[id])throw Error(`${id} уже в раунде ${u[id]}`);if(p.locked)throw Error(`${id} закреплена за L${p.locked}`);const tr=trimmed(p.rows,side);return {p,tr,src:tr&&{id,title:p.title,rows:tr.rows}};};
+ const writeModule=f=>{if(!out||flag('--dry'))return;const {p,tr}=srcOf(f.from),sp=splitOf({rows:tr.rows},f.split),name=path.basename(out,'.mjs');
+  const rules={...(share[0]!==GAP_SHARE[0]||share[1]!==GAP_SHARE[1]?{share}:{}),...(tolerance?{gapTolerance:tolerance,gapLow:[f.gap.low,f.gap.cells]}:{}),...(noHold&&cls==='Normal'?{noHold:true}:{})};
+  fs.writeFileSync(out,splitModuleText([{source:p,sp,split:f.split,kind,cls,recipe:f.recipe,forLevel:level,win:f.win,lose:f.lose,gate:f.queue.gate,delay:f.queue.delay,trim:{left:tr.left,top:tr.top,cut:p.w-tr.rows[0].length+p.h-tr.rows.length},rules}],{name}));
+  console.log(`→ ${out} (черновик; дальше pictures.mjs render ${out})`);};
+ if(ev.found&&!flag('--again')){console.log(`уже найдено: ${ev.found.from} ${ev.found.key} (бот ${Math.round(ev.found.random.share*100)} %)`);writeModule(ev.found);process.exit(0);}
+ const minutes=+arg('--minutes',35),deadline=Date.now()+60000*minutes,log=x=>console.log(x);ev.runs.push({started:new Date().toISOString(),minutes});ev.found=null;save();
+ for(const id of froms){if(Date.now()>=deadline)break;const {p,tr,src}=srcOf(id);if(!tr){console.log(`${id}: не помещается в 48×48 и с обрезкой пустых краёв`);continue;}
+  const done=new Set(ev.tried.filter(t=>t.from===id).map(t=>t.key));
+  const r=await searchSplit(src,{side,kind,cls,recipes,level,candidates,seed,deadline,log,done,per,share,tolerance,zone,needHold:cls==='Normal'&&!noHold,worseMin,title:`${p.title} — мост`,onSplit:rec=>{ev.tried.push({from:id,...rec});save();}});
+  if(r.fail)continue;
+  const e=r.eval,k=e.checks,f=fitness({rows:r.sp.rows});
+  ev.found={from:id,key:r.split.key,split:r.split,trim:{left:tr.left,top:tr.top},size:`${r.sp.rows[0].length}×${r.sp.rows.length}`,N:r.N,colours:r.colours,hiddenColours:f.hiddenColours,visible:f.visible,gap:gapContrast(r.sp),
+   recipe:r.recipe,columns:r.cols,attempt:r.attempt,dosePos:r.dosePos,queue:{gate:r.gate,delay:r.delay,intended:r.intended,...(r.blend!=null?{blend:Math.round(r.blend*1000)/1000}:{})},win:r.win,lose:r.lose,
+   random:{share:e.random.share,runs:e.random.runs,wilson95:e.random.wilson95,cls:e.random.cls,borderline:!!e.random.borderline},bridge:e.bridge,bridgeKind:k.bridgeKind,bridgeLoss:k.bridgeLoss||null,forced:k.forced,opening:k.opening,greedyLoses:k.greedyLoses,
+   pods:r.level.pods.length,linked:r.level.pods.filter(x=>x.group).length,hidden:r.level.pods.filter(x=>x.mystery).length,seconds:r.seconds,
+   level:r.level,eval:{random:e.random,solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,bridge:e.bridge,checks:e.checks}};
+  save();console.log(r.sp.rows.join('\n'));
+  console.log(`${id} → разрез ${r.split.key} (${Math.round(r.split.share*100)} % за полосой), ${r.N} кл., ${r.colours} цв.; ${cls} ${r.recipe}: бот ${Math.round(e.random.share*100)} %, мосты ${k.bridgeKind} ${e.bridge.each.map(x=>`${x.label} ${x.win?'выигрыш':'проигрыш'} ${Math.round(x.share*100)} %`).join(' / ')}; ${r.seconds} с`);
+  writeModule(ev.found);break;}
+ if(!ev.found){const t=ev.tried.length;console.log(`пока не найдено: опробовано разрезов ${t}${evFile?`; продолжить той же командой (${evFile})`:''}`);process.exitCode=1;}}
+// preview levels for the pilot (gameplay-pilot-v12/build.mjs --preview <dir>): the found candidate of each split module,
+// on the rendered draft picture with the same rows, in the placed-level shape (never content/rounds/levels/)
+else if(cmd==='preview'){const out=arg('--out');if(!out)throw Error('--out <папка>');const files=process.argv.slice(3).filter(a=>a.endsWith('.mjs'));
+ const m=manifest();fs.mkdirSync(out,{recursive:true});
+ for(const file of [...new Set(files)]){const mod=(await import(pathToFileURL(path.resolve(file)).href)).default,ev=JSON.parse(fs.readFileSync(file.replace(/\.mjs$/,'.json'),'utf8')),f=ev.found;if(!f){console.log(file,'— не найдено');continue;}
+  const pm=mod.pictures[0],e=m.pictures.find(x=>{const q=picture(x.id);return q&&q.rows.join('\n')===pm.rows.join('\n');});if(!e)throw Error(`${file}: картинка не записана — сначала pictures.mjs render`);
+  const pic=picture(e.id),n=pm.forLevel,lv=f.level,id=e.id;
+  const L={level:n,cls:ev.params.cls,intro:null,picture:id,candidate:`${id}-split-${f.key}`,recipe:f.recipe,N:f.N,W:f.N,colours:f.colours,P:lv.pods.length,columns:f.columns,linked:f.linked,hidden:f.hidden,
+   random:f.eval.random,solution:f.eval.solution,fairness:f.eval.fairness,strategies:f.eval.strategies,rhythm:f.eval.rhythm,dosePos:f.dosePos??null,bridge:f.eval.bridge,bridgeSide:bridgeSide(lv),checks:f.eval.checks,
+   engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',preview:`черновик разделённой картинки ${id} (${pic.status}), bridge-scene.mjs make --mode split`,definition:{...lv,id:n,title:pic.title,subject:id,difficulty:ev.params.cls}};
+  fs.writeFileSync(path.join(out,lid(n)+'.json'),JSON.stringify(L,null,1)+'\n');console.log(`${lid(n)} ← ${id} «${pic.title}» ${ev.params.cls} ${f.recipe}, бот ${Math.round(f.random.share*100)} %`);}}
 else if(cmd==='make'){const side=arg('--side'),kind=arg('--kind','single'),cls=arg('--cls','Normal'),recipes=arg('--recipe','bridge').split(','),level=+arg('--level',26),count=+arg('--count',1),out=arg('--out');
  if(!SIDES.includes(side))throw Error(`--side ${SIDES.join('|')}`);if(!['single','better','any'].includes(kind))throw Error('--kind single|better|any');if(!out&&!flag('--dry'))throw Error('--out <module.mjs> (или --dry)');
  const u=usage(),ids=flag('--free')?manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!['сторонняя вселенная','мем'].includes(p.source)&&!/[#b]/.test(p.rows.join(''))&&measure(p).N>=200&&measure(p).N<=800).sort((a,b)=>measure(a).N-measure(b).N).map(p=>p.id):arg('--pictures','').split(',').filter(Boolean);

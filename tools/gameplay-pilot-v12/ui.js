@@ -25,6 +25,9 @@
  let topCards=[],backCards=[],columns=[],slotCards=[],bridgeCards=[],entryMarkers=[];
  // board cells of the generator's wall per level (build.mjs: data.stone), drawn as stone
  const stoneSets=new Map(),stoneOf=id=>{if(!stoneSets.has(id))stoneSets.set(id,new Set((data.stone&&data.stone[id])||[]));return stoneSets.get(id);};
+// a split picture's strip (build.mjs: data.gap, 17 §8 «Одна цельная картинка», 2026-10-29): every wall inside the fence is
+// a gap in the board's surface colour with a subtle edge, the bridges drawn over it
+const GAP_SURFACE='#eadcb5',GAP_EDGE='rgba(118,96,58,.2)',gapOf=id=>!!(data.gap&&data.gap[id]);
  const VISIBLE_ROWS=3; // v9 (the owner, 2026-10-24): 3 rows, the top one included, and nothing of the 4th
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),dialogs=Array.from(document.querySelectorAll('dialog'));
  const pictures={};for(const name of ['sprig','bloom','drop','twig']){const img=new Image();img.src=assets[name];img.onload=()=>draw();pictures[name]=img;}
@@ -228,7 +231,7 @@
     const ctx=canvas.getContext('2d');ctx.setTransform(scale,0,0,scale,0,0);ctx.clearRect(0,0,width,height);
     const cell=Math.min((width-8)/l.w,(height-10)/l.h),ox=(width-l.w*cell)/2,oy=(height-l.h*cell)/2,depth=Math.max(.8,cell*.14),gap=Math.max(.35,cell*.035);
     if(!finished)entryMarkers.forEach((node,i)=>{node.style.left=`${ox+((l.entries[i]%l.w)+.5)*cell}px`;});
-    const original=s.meta.board,stone=stoneOf(l.id);
+    const original=s.meta.board,stone=stoneOf(l.id),gapLevel=gapOf(l.id),wallAt=(x,y)=>x>=0&&y>=0&&x<l.w&&y<l.h&&original[y*l.w+x]===R.WALL;
     // the built bridge (17 §8, 2026-10-28): a plank across the strip in its crossing direction (up/down or sideways)
     const built=!finished&&s.bridge>=0?l.hero.choices[s.bridge]:null,across=built&&Math.abs(built.cell-built.anchor)===1;
     for(let y=l.h-1;y>=0;y--)for(let x=0;x<l.w;x++){
@@ -240,13 +243,18 @@
       if(original[index]===R.OPEN&&!finished){ctx.fillStyle='#eadcb5';ctx.fillRect(px-.3,py-.3,cell+.6,cell+.6);
         if(l.entries.includes(index)){ctx.fillStyle='#3d5a37';ctx.beginPath();const r=cell*.42;ctx.arc(px+cell/2,py+cell*(y===0?.85:.5),r,0,Math.PI*2);ctx.fill();}
         continue;}
+      // a split picture's gap: the board's surface (as the walkway and the picture's empty cells), a thin darker edge where
+      // it meets a cell that is not a wall; nothing on the finished picture, so it shows the whole picture split by a line
+      if(code===R.WALL&&gapLevel){if(!finished){ctx.fillStyle=GAP_SURFACE;ctx.fillRect(px-.3,py-.3,cell+.6,cell+.6);ctx.fillStyle=GAP_EDGE;const t=Math.max(.6,cell*.07);
+        if(!wallAt(x,y+1))ctx.fillRect(px,py,cell,t);if(!wallAt(x,y-1))ctx.fillRect(px,py+cell-t,cell,t);if(!wallAt(x-1,y))ctx.fillRect(px,py,t,cell);if(!wallAt(x+1,y))ctx.fillRect(px+cell-t,py,t,cell);}
+        continue;}
       // the generator's wall over the picture (and the ring cells it closes) is stone; a strip drawn in the picture stays water
       if(code===R.WALL&&stone.has(index)){ctx.fillStyle='#a39d90';ctx.fillRect(px,py,cell+.1,cell+.1);ctx.fillStyle='#8a8476';ctx.fillRect(px,py+cell*.47,cell+.1,Math.max(.6,cell*.07));ctx.fillRect(px+((x+y)%2?cell*.25:cell*.7),py,Math.max(.6,cell*.07),cell*.47);ctx.fillRect(px+((x+y)%2?cell*.7:cell*.25),py+cell*.53,Math.max(.6,cell*.07),cell*.47);continue;}
       if(code===R.WALL){ctx.fillStyle='#b6d6cc';ctx.fillRect(px,py,cell+.1,cell+.1);ctx.strokeStyle='#d6ece2';ctx.lineWidth=Math.max(.7,cell*.08);ctx.beginPath();ctx.moveTo(px+cell*.15,py+cell*.55);ctx.quadraticCurveTo(px+cell*.55,py+cell*.25,px+cell*.88,py+cell*.55);ctx.stroke();continue;}
       if(code===R.OPEN){
         // v9: cells that were open from the start (round an object-only picture) are not drawn: the card shows through.
         if(original[index]>=0){ctx.fillStyle=palette[R.CHANNELS[original[index]]].color+'22';ctx.fillRect(px+gap,py+gap,cell-gap*2,cell-gap*2);}
-        if(built&&index===built.cell){ctx.fillStyle='#8eac62';ctx.strokeStyle='#5b7d46';ctx.lineWidth=Math.max(.7,cell*.07);
+        if(built&&index===built.cell){if(gapLevel){ctx.fillStyle=GAP_SURFACE;ctx.fillRect(px-.3,py-.3,cell+.6,cell+.6);}ctx.fillStyle='#8eac62';ctx.strokeStyle='#5b7d46';ctx.lineWidth=Math.max(.7,cell*.07);
           if(across){ctx.fillRect(px,py+gap,cell,cell-gap*2);for(let k=1;k<4;k++){ctx.beginPath();ctx.moveTo(px+cell*k/4,py+gap);ctx.lineTo(px+cell*k/4,py+cell-gap);ctx.stroke();}}
           else{ctx.fillRect(px+gap,py,cell-gap*2,cell);for(let k=1;k<4;k++){ctx.beginPath();ctx.moveTo(px+gap,py+cell*k/4);ctx.lineTo(px+cell-gap,py+cell*k/4);ctx.stroke();}}}
         continue;

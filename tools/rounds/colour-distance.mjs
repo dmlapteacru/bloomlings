@@ -17,3 +17,5 @@ export function de2000([L1,a1,b1],[L2,a2,b2]){const c1=Math.hypot(a1,b1),c2=Math
  return Math.sqrt((dL/Sl)**2+(dC/Sc)**2+(dH/Sh)**2+Rt*(dC/Sc)*(dH/Sh));}
 // the distance between two material codes under normal vision
 export const deltaE=(a,b)=>de2000(lab(hex(PAL[a].color)),lab(hex(PAL[b].color)));
+// the distance between a material code and a colour given as #RRGGBB (a split's gap strip in the board's colour, 2026-10-29)
+export const deltaEHex=(a,h)=>de2000(lab(hex(PAL[a].color)),lab(hex(h)));

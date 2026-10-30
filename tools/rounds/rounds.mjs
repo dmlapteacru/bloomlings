@@ -7,7 +7,8 @@
 //      With the owner-approved mechanics breakdown runs/L####-L####/mechanics.json (17 §13 step 1): the breakdown first
 //      (per level lead, additional, doses, bridge side and strip; shares per mechanic), then the order for what it needs:
 //      new strip pictures by crossing side and size stage, pool pictures for the rest (an overlay level takes a free
-//      pool picture with the generator's wall)
+//      pool picture with the generator's wall; a gap level a split of a free pool picture, bridge-scene.mjs make --mode
+//      split, listed with its command and suggested sources)
 // node tools/rounds/rounds.mjs run <from> <to> [--jobs 4] [--candidates 64] [--no-build] [--no-sample] [--no-bridge] [--per-position N] [--all]
 //      dry placement on a copy; candidates only for what stays open (one process per picture, resumable: a combination
 //      already searched is skipped; under a mechanics plan only each position's planned recipe, on a wall of the planned
@@ -27,7 +28,7 @@ import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture
 import {fitness} from './fitness.mjs';
 import {fingerprints,sameEngine} from './conformance.mjs';
 const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
-process.argv.splice(2,0,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1);
+process.argv.splice(2,0,'noop');const LV=await import('./levels.mjs');const BS=await import('./bridge-scene.mjs');process.argv.splice(2,1);
 const PILOT=path.join(root,'tools/gameplay-pilot-v12/build.mjs');
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{}},sample:{},mismatch:{noteWords:[]}});
 const pct=x=>x==null?'—':Math.round(x*100)+' %';
@@ -42,7 +43,7 @@ const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,en
 
 // ---- plan ----
 // the mechanics breakdown (17 §13 step 1, amendment of 2026-10-28): the owner-approved content/rounds/runs/<wave>/mechanics.json
-const MRU={none:'без допов',links:'связки',hidden:'скрытые',bridge:'мост'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',two:'две стороны'},STRIP_RU={new:'новая картинка с полосой',overlay:'стена поверх утверждённой'};
+const MRU={none:'без допов',links:'связки',hidden:'скрытые',bridge:'мост'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',two:'две стороны'},STRIP_RU={new:'новая картинка с полосой',overlay:'стена поверх утверждённой',gap:'разделённая картинка (полоса в цвет фона)'};
 const pr=x=>+(x*100).toFixed(1),pctR=([a,b])=>a===b?`${pr(a)} %`:`${pr(a)}–${pr(b)} %`;
 function doseText(recipe,cls){if(recipe==='none')return 'без допов';const d=LV.doses(recipe,cls,24,false),n=k=>d[k][0]===d[k][1]?d[k][0]:d[k].join('–');
  return LV.doseShares(recipe,cls).map(x=>x.choice?'мост: 1 выбор из 2 мест':`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} P (${n(x.m)} при P = 24)`).join('; ');}
@@ -61,8 +62,9 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
  const open=positions.filter(p=>!p.placed),pics=freePictures().map(p=>{const m=measure(p),f=fitness(p),board=boardOf(p);return {id:p.id,title:p.title,pic:p,N:m.N,colours:m.colours,bin:sizeBin(m.N),strong:f.hiddenColours>=3&&!weakOf(f),weak:weakOf(f),stream:!!board.hero,side:bridgeSide(board),family:p.family||null,motifs:motifsOf(p),fits:open.filter(q=>fitsStage(m,q.level)).map(q=>q.level)};});
  // under a mechanics plan: a bridge position of strip "new" needs a picture with its own strip crossing to the planned
  // side; an overlay position takes a free pool picture with the generator's wall; the rest take free pool pictures
- const isNew=q=>q.plan&&q.plan.bridgeSide&&q.plan.strip!=='overlay',isOverlay=q=>q.plan&&q.plan.bridgeSide&&q.plan.strip==='overlay';
- const poolOpen=open.filter(q=>!isNew(q)),poolPics=pics.filter(p=>!p.stream&&p.fits.length);
+ // a gap position (17 §8 «Одна цельная картинка», 2026-10-29) a split of one whole free pool picture
+ const isNew=q=>q.plan&&q.plan.bridgeSide&&q.plan.strip!=='overlay'&&q.plan.strip!=='gap',isOverlay=q=>q.plan&&q.plan.bridgeSide&&q.plan.strip==='overlay',isGap=q=>q.plan&&q.plan.bridgeSide&&q.plan.strip==='gap';
+ const poolOpen=open.filter(q=>!isNew(q)&&!isGap(q)),poolPics=pics.filter(p=>!p.stream&&p.fits.length);
  const fitPics=pics.filter(p=>p.fits.length);
  // overlay supply per side: free pool pictures where the wall lies and the board with it fits the position's stage
  // (Hard and Super Hard: 3+ colours hidden at the start on that board)
@@ -94,11 +96,23 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
  // scene composed from a smaller free pool picture (the far side behind a wall, crossed strips, near-bank beds) and searched
  // until its planned bridge kind holds; approved free scene pictures of that side and stage already count
  const sceneSources=pics.filter(p=>!p.stream&&p.N>=200&&p.N<=800).length;
- const scenes=open.filter(isNew).map(q=>{const side=q.plan.bridgeSide,kind=q.plan.bridgeKind||'single',have=fitPics.filter(p=>p.stream&&p.pic.scene&&p.side===side&&p.fits.includes(q.level)).length;
+ const scenes=open.filter(isNew).map(q=>{const side=q.plan.bridgeSide,kind=q.plan.bridgeKind||'single',have=fitPics.filter(p=>p.stream&&p.pic.scene&&p.pic.scene.mode!=='split'&&p.side===side&&p.fits.includes(q.level)).length;
   return {level:q.level,cls:q.cls,side,kind,recipe:q.plan.recipe,have,command:`node tools/rounds/bridge-scene.mjs make --side ${side} --kind ${kind} --cls "${q.cls}" --recipe ${q.plan.recipe} --level ${q.level} --free --out content/rounds/pictures/src/scenes-NNNN.mjs`};});
  const sceneTotal=scenes.filter(x=>!x.have).length;
+ // split pictures (bridge-scene.mjs make --mode split, the owner, 2026-10-29): each gap position takes one whole free pool
+ // picture of its stage, split by a neutral strip on the planned side and searched until its bridge kind holds. Suggested
+ // sources: free pool pictures without a strip that fit the stage and split to that side (Hard and Super Hard: 3+ colours
+ // hidden at the start on the split board), up to three, a family not yet first choice of another gap position first;
+ // approved free split pictures of that side and stage already count
+ const firstFam=new Set(),splitCache=new Map(),canSplit=(p,side)=>{const k=p.id+'|'+side;if(!splitCache.has(k))splitCache.set(k,BS.splittable(p.pic,side));return splitCache.get(k);};
+ const splits=open.filter(isGap).map(q=>{const side=q.plan.bridgeSide,kind=q.plan.bridgeKind||'single',strongNeed=q.cls!=='Normal',have=fitPics.filter(p=>p.stream&&p.pic.scene&&p.pic.scene.mode==='split'&&p.side===side&&p.fits.includes(q.level)).length;
+  const fit=pics.filter(p=>!p.stream&&p.fits.includes(q.level)).sort((x,y)=>(firstFam.has(x.family)?1:0)-(firstFam.has(y.family)?1:0)||x.id.localeCompare(y.id)),sources=[];
+  for(const p of fit){if(sources.length>=3)break;const sp=canSplit(p,side);if(!sp||(strongNeed&&sp.hiddenColours<3))continue;sources.push(p);}
+  if(sources[0]&&sources[0].family)firstFam.add(sources[0].family);
+  return {level:q.level,cls:q.cls,side,kind,recipe:q.plan.recipe,have,sources:sources.map(p=>p.id),command:`node tools/rounds/bridge-scene.mjs make --mode split --from ${sources.map(p=>p.id).join(',')||'P####'} --side ${side} --kind ${kind} --cls "${q.cls}" --recipe ${q.plan.recipe} --level ${q.level} --out content/rounds/pictures/src/split-${lid(q.level)}.mjs`};});
+ const splitTotal=splits.filter(x=>!x.have).length;
  const out={range:[a,b],created:new Date().toISOString(),positions:positions.map(({plan:pl,...p})=>p),open:open.map(p=>p.level),blockers,...(mech?{mechanics:mech}:{}),need,supply:{pictures:have,strong:haveStrong,stream:haveStream,bank,...(mech?{overlay:ovSupply}:{})},
-  order:{total,strong,streams,byStage:orderByStage,sizeMix:Object.fromEntries(Object.entries(mix).map(([k,v])=>[k,Math.round(v*total)])),...(mech?{strips:strips.map(({levels,strongLevels,...e})=>({...e,levels})),scenes,sceneSources}:{}),avoidMotifs:avoid,suggestFamilies:families}};
+  order:{total,strong,streams,byStage:orderByStage,sizeMix:Object.fromEntries(Object.entries(mix).map(([k,v])=>[k,Math.round(v*total)])),...(mech?{strips:strips.map(({levels,strongLevels,...e})=>({...e,levels})),scenes,sceneSources,splits}:{}),avoidMotifs:avoid,suggestFamilies:families}};
  const dir=waveDir(a,b);writeJSON(path.join(dir,'plan.json'),out);
  const mechMd=mech?['## Разбор допов','',`Утверждён владельцем (\`runs/${lid(a)}-${lid(b)}/mechanics.json\`, 17 §13 шаг 1). Расстановка берёт на позицию только кандидата с этим рецептом и, для моста, с этой стороной перехода. Дозы по §7: ведущая — свой диапазон (при трёх типах нижняя половина), дополнительная — минимум; место дозы по кругу §7.`,'',
   '| Ур. | Класс | Ведущая | Дополнительные | Дозы | Мост: сторона | Полоса |','|---|---|---|---|---|---|---|',
@@ -115,13 +129,15 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
   `- Кандидаты в банке на свободных картинках: ${Object.entries(bank).map(([k,v])=>`${k} — ${v}`).join('; ')||'нет'}.`,
   `- Открытые позиции на картинках пула: Normal ${need.Normal}, Hard ${need.Hard}, Super Hard ${need['Super Hard']}, знакомства ${need.intro} (мост ${need.bridge}).`,
   ...(mech&&Object.keys(ovSupply).length?[`- Стена поверх картинки пула (сколько свободных картинок её берут и подходят этапу; Hard/SH — сильные с ней): ${Object.entries(ovSupply).map(([k,v])=>`${k} — ${v}`).join('; ')}.`]:[]),
-  '','## Заказ картинок','',total+strong+streams+stripTotal?(total?`- Картинки пула: **${total}** (ориентир 1,75 на позицию).`:'- Картинок пула хватает.'):'- Заказ не нужен: картинок хватает.',
+  '','## Заказ картинок','',total+strong+streams+stripTotal+splitTotal?(total?`- Картинки пула: **${total}** (ориентир 1,75 на позицию).`:'- Картинок пула хватает.'):'- Заказ не нужен: картинок хватает.',
   ...(total?[`- По этапам: ${Object.entries(orderByStage).map(([k,v])=>`${k} — ${v}`).join('; ')}.`,`- По размеру (§2, на 30: 6 / 15 / 9): ${Object.entries(out.order.sizeMix).map(([k,v])=>`${k} — ${v}`).join('; ')}.`]:[]),
   ...(strong?[`- Из них сильных (3+ скрытых цвета на старте, под Hard и Super Hard): **${strong}**.`]:[]),
   ...(streams?[`- С ручьём и двумя местами моста: **${streams}**. За каждым местом свой участок дальнего берега, чтобы со второго знакомства решал один мост (§8).`]:[]),
   ...(scenes.length?[`- **Сцены моста: нужно ${sceneTotal}** из ${scenes.length} позиций (\`bridge-scene.mjs make\`: картинка пула поменьше на дальнем берегу за стеной, две полосы за местами, грядки на ближнем берегу; поиск до вида моста по плану; черновик модуля → лист владельцу; источников в пуле — ${sceneSources}):`,
    ...scenes.map(x=>`  - L${x.level} ${x.cls}, ${x.recipe}, переход ${SIDE_RU[x.side]}, ${x.kind==='better'?'оба выигрывают, один лучше на 10+':x.kind==='any'?'ровно один или оба (один лучше на 10+)':'решает ровно один'}${x.have?` — уже есть ${x.have}`:`: \`${x.command}\``}`),
    '  - Вместо сцены можно нарисовать картинку с полосой вручную (ниже — сколько их понадобилось бы).']:[]),
+  ...(splits.length?[`- **Разделённые картинки: нужно ${splitTotal}** из ${splits.length} позиций (\`bridge-scene.mjs make --mode split\`: одна цельная картинка пула, разделённая вставленной полосой в цвет фона, два места моста на полосе, клетки картинки не теряются; поиск разреза и очереди до вида моста по плану; черновик модуля → лист владельцу; 17 §8 «Одна цельная картинка»):`,
+   ...splits.map(x=>`  - L${x.level} ${x.cls}, ${x.recipe}, переход ${SIDE_RU[x.side]}, ${x.kind==='better'?'оба выигрывают, один лучше на 10+':x.kind==='any'?'ровно один или оба (один лучше на 10+)':'решает ровно один'}${x.have?` — уже есть ${x.have}`:`${x.sources.length?'':' (подходящей свободной картинки пула нет)'}: \`${x.command}\``}`)]:[]),
   ...(stripTotal?[`- **Новые картинки с полосой и двумя местами моста: ${stripTotal}** (полоса — ручей, забор, стена; опора каждого места на ближнем берегу — цветная клетка; подходы из разных материалов; §8):`,
    ...strips.filter(e=>e.count).map(e=>`  - переход ${SIDE_RU[e.side]}${e.side==='two'?' (два места на разных полосах или в разные стороны)':''}, ${e.stage}: **${e.count}** для L${e.levels.join(', L')}${e.strong?`, из них сильных ${e.strong}`:''}${e.have?` (уже есть ${e.have})`:''}`)]:[]),
   `- Не рисовать (мотив 3+ раз): ${avoid.join(', ')||'—'}.`,`- Реже всего в пуле семьи: ${families.join(', ')}.`,''].join('\n');
@@ -135,6 +151,8 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  const p=plan(a,b);if(p.blockers.length)step('позиции без поддержки движка остаются открытыми',{blockers:p.blockers});
  // bridge positions of strip "new" take approved scene pictures (bridge-scene.mjs); those without one stay open until made
  const noScene=(p.order.scenes||[]).filter(x=>!x.have);if(noScene.length)step('сцены моста ещё не сделаны и не утверждены (bridge-scene.mjs make)',{levels:noScene.map(x=>x.level)});
+ // gap positions take approved split pictures (bridge-scene.mjs make --mode split); those without one stay open until made
+ const noSplit=(p.order.splits||[]).filter(x=>!x.have);if(noSplit.length)step('разделённые картинки ещё не сделаны и не утверждены (bridge-scene.mjs make --mode split)',{levels:noSplit.map(x=>x.level)});
  // 1. what the bank fills already: a placement on a copy of content/rounds (with the waves' mechanics plans)
  const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-'));fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||fs.statSync(s).isDirectory()});
   await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp});const needs=(readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);fs.rmSync(tmp,{recursive:true,force:true});return needs;};
@@ -159,7 +177,7 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
     if(!bridge)pool=pool.slice(0,perPos);}
    for(const {pc,m,f,stream,side} of pool){
     if(bridge&&x.strip==='overlay'){if(stream)continue;const ov=overlayOf(pc,x.bridgeSide);if(!ov)continue;const op=overlaid(pc,ov);if(!fitsStage(measure(op),x.level)||!strong(x,fitness(op)))continue;add(pc.id,x.bridgeSide,x.cls,x.recipe);}
-    else{if(bridge?!(stream&&side===x.bridgeSide):stream)continue;if(!fitsStage(m,x.level)||!strong(x,f))continue;add(pc.id,'none',x.cls,x.recipe);}}}
+    else{if(bridge?!(stream&&side===x.bridgeSide):stream)continue;if(bridge&&x.strip==='gap'&&!(pc.scene&&pc.scene.mode==='split'))continue;if(!fitsStage(m,x.level)||!strong(x,f))continue;add(pc.id,'none',x.cls,x.recipe);}}}
   // positions without a plan: as before, every allowed recipe of the classes those positions need
   for(const {pc,m,f,stream} of pics){const mine=needs.filter(x=>!x.recipe&&fitsStage(m,x.level)&&strong(x,f)&&(x.intro!=='bridge'||stream));if(!mine.length)continue;
    const classes=[...new Set(mine.map(x=>x.cls))],allowed=new Set(mine.flatMap(x=>x.intro?[x.intro]:x.allowed));

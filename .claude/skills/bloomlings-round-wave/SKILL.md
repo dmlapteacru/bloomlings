@@ -42,11 +42,20 @@ Before anything, read:
      recipe and, for a bridge, its crossing side and bridge kind.
    - Run `node tools/rounds/rounds.mjs plan <from> <to>`. It writes `content/rounds/runs/L####-L####/plan.md`: the
      breakdown with shares, the positions, the supply (how many free pool pictures take the wall of each overlay
-     position) and the picture order for what the plan needs: **the bridge scenes** for the new-strip positions (side,
-     kind, class, recipe and the `bridge-scene.mjs make` command each), pool pictures for the rest.
+     position) and the picture order for what the plan needs: **the split pictures** for the gap positions (side, kind,
+     class, recipe, suggested free sources and the `bridge-scene.mjs make --mode split` command each), the bridge scenes
+     for the new-strip positions, pool pictures for the rest.
    - Tell the owner which positions the engine cannot fill yet (an introduction of an unsupported mechanic, 17 §14).
      They stay open and the rest of the wave runs; never fake one mechanic with another.
-2. **Bridge scenes** (17 §8, the owner, 2026-10-28: "взять картинку поменьше и вокруг неё строить мосты и стены … чтобы
+2. **Split pictures** (17 §8 «Одна цельная картинка», the owner, 2026-10-29; the plan's `strip: gap`). For each split the
+   plan lists, run its command in the background in chunks (`--minutes 35`, at most two processes; rerun the same command
+   to resume: the evidence `<out>.json` keeps every split tried), e.g.
+   `node tools/rounds/bridge-scene.mjs make --mode split --from P0074 --side up --kind better --cls Normal --recipe bridge+hidden --level 23 --out content/rounds/pictures/src/split-L0023.mjs`.
+   When a source cannot work, the next free picture of the same family that fits the stage (`--from P1,P2`). Then
+   `pictures.mjs render` each module, `check --status draft`, the sheet, the owner's decision; never approve. For the
+   owner to play them before approval: `bridge-scene.mjs preview <modules…> --out content/work/<folder>` and the pilot's
+   `--preview`.
+   **Bridge scenes** (superseded by split pictures on 2026-10-29; 17 §8, the owner, 2026-10-28: "взять картинку поменьше и вокруг неё строить мосты и стены … чтобы
    был только один выигрышный мост"). For each scene the plan lists, run its command (one process per scene, in the
    background, `--minutes 30`; several scenes of one side and kind: `--count n`), e.g.
    `node tools/rounds/bridge-scene.mjs make --side left --kind single --cls Normal --recipe bridge+links --level 26 --free --out content/rounds/pictures/src/scenes-NNNN.mjs`.

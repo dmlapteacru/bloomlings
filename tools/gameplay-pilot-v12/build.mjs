@@ -20,7 +20,7 @@ const P=createRequire(import.meta.url)(path.join(ENGINE,'palette.cjs')).palette(
 const HERO={sprig:'Sprig',bloom:'Bloom',drop:'Drop',twig:'Twig'};
 
 // ---- levels ----
-const levels=[],cards=[],drafts=[],exceptions=[],stone={};
+const levels=[],cards=[],drafts=[],exceptions=[],stone={},gap={};
 for(const n of IDS){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft=false;
  if(!L&&preview){L=readJSON(path.join(preview,lid(n)+'.json'));draft=!!L&&!L.exception;}
  // a preview level may stand in for an open position as an explicit exception to a rule (it says which)
@@ -30,11 +30,14 @@ for(const n of IDS){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft=false
  // a level on the generator's wall (definition.overlay, 17 §8): its board cells, drawn as stone (kept out of the level
  // objects, whose shape the exporter's catalog hash reads)
  if(d.overlay)stone[n]=boardOf(readJSON(path.join(root,'content/rounds/pictures',L.picture+'.json')),d.overlay).stone;
+ // a split picture's strip (definition.strip 'gap', 17 §8 «Одна цельная картинка», 2026-10-29): drawn as the board's
+ // surface with a subtle edge, not as water (kept out of the level objects too)
+ if(d.strip==='gap')gap[n]=true;
  levels.push({id:n,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{})});
  // a level stands on a draft when its picture is not approved in the repository (a trial folder may approve drafts)
  {const real=readJSON(path.join(root,'content/rounds/pictures',L.picture+'.json'));if(real&&real.status!=='approved')draft=true;}
  if(draft)drafts.push(n);
- cards.push({level:n,bridgeKind:L.checks&&L.checks.bridgeKind||null,bridgeSide:L.bridgeSide||null,overlay:!!d.overlay,cls:L.cls,intro:L.intro,picture:L.picture,recipe:L.recipe,N:L.N,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random.share,runs:L.random.runs,borderline:!!L.random.borderline,seconds:L.rhythm.seconds,draft});}
+ cards.push({level:n,bridgeKind:L.checks&&L.checks.bridgeKind||null,bridgeSide:L.bridgeSide||null,overlay:!!d.overlay,gap:d.strip==='gap',cls:L.cls,intro:L.intro,picture:L.picture,recipe:L.recipe,N:L.N,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random.share,runs:L.random.runs,borderline:!!L.random.borderline,seconds:L.rhythm.seconds,draft});}
 
 // ---- lessons: L1, each new colour, each mechanic's introductions (the second as a reminder), the first Hard and Super Hard ----
 const lessons={},tags={},seen=new Set(),introduced=new Set();
@@ -62,7 +65,7 @@ for(const L of levels){const used=[...new Set(L.pods.map(p=>p.color))],fresh=use
  if(firstOf('Super Hard')){tags[L.id]='ПЕРВЫЙ SUPER HARD';title=title||'Первый Super Hard';texts.push('Самый трудный тип уровня: очередь и места нужно планировать заранее. Ретрай бесплатный.');}
  if(title){hero=hero||P[used[0]].hero;swatch=swatch||used[0];lessons[L.id]=[title,hero,swatch,texts.join(' ')];}}
 
-const dataset={version:'pilot-v12-rounds',baseVersion:'pilot v9 UI · round engine (tools/rounds/engine.mjs)',changedLevels:drafts,levels,lessons,lessonTags:tags,cards,stone};
+const dataset={version:'pilot-v12-rounds',baseVersion:'pilot v9 UI · round engine (tools/rounds/engine.mjs)',changedLevels:drafts,levels,lessons,lessonTags:tags,cards,stone,gap};
 dataset.hash=sha(JSON.stringify(levels));
 const [rules,timeline,palette,clock]=['rules','timeline','palette','clock'].map(n=>read(path.join(ENGINE,n+'.cjs')));
 Object.assign(dataset,{rulesHash:sha(rules),timelineHash:sha(timeline),paletteHash:sha(palette),clockHash:sha(clock)});
@@ -88,7 +91,7 @@ fs.writeFileSync(path.join(OUT,'levels.json'),JSON.stringify(dataset,null,1)+'\n
 const pics=Object.fromEntries(cards.map(c=>[c.picture,readJSON(path.join(root,'content/rounds/pictures',c.picture+'.json'))]));
 const MECH_ONE={none:'—',hidden:'скрытые',links:'связки',bridge:'мост'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',down:'вниз',two:'две стороны'};
 const MECH_RU=new Proxy({},{get:(_,r)=>String(r).split('+').map(m=>MECH_ONE[m]||m).join(' + ')});
-const rows=cards.map(c=>`| ${c.level} | ${c.cls}${c.intro?` · знакомство: ${MECH_RU[c.intro]}`:''} | ${c.picture} «${pics[c.picture]?.title||''}»${c.draft?' (черновик)':''} | ${c.N} / ${c.colours} | ${c.P} / ${c.columns} | ${MECH_RU[c.recipe]||c.recipe}${c.bridgeSide?` (${SIDE_RU[c.bridgeSide]||c.bridgeSide}${c.overlay?', стена':''})`:''}${c.linked?` (связанных ${c.linked})`:''}${c.hidden?` (скрытых ${c.hidden})`:''} | ${Math.round(c.random*100)} % из ${c.runs}${c.borderline?' (на границе)':''} | ${c.seconds} с |`).join('\n');
+const rows=cards.map(c=>`| ${c.level} | ${c.cls}${c.intro?` · знакомство: ${MECH_RU[c.intro]}`:''} | ${c.picture} «${pics[c.picture]?.title||''}»${c.draft?' (черновик)':''} | ${c.N} / ${c.colours} | ${c.P} / ${c.columns} | ${MECH_RU[c.recipe]||c.recipe}${c.bridgeSide?` (${SIDE_RU[c.bridgeSide]||c.bridgeSide}${c.overlay?', стена':''}${c.gap?', разделённая картинка':''})`:''}${c.linked?` (связанных ${c.linked})`:''}${c.hidden?` (скрытых ${c.hidden})`:''} | ${Math.round(c.random*100)} % из ${c.runs}${c.borderline?' (на границе)':''} | ${c.seconds} с |`).join('\n');
 fs.writeFileSync(path.join(OUT,'README.md'),`# Bloomlings v12 — первые ${levels.length} уровней раундов
 
 [Скачать ZIP для телефона](Bloomlings-pilot-${NAME}.zip). Распакуй и открой [index.html](index.html). Сеть не нужна, все уровни открыты в меню. После игры: Уровни → Результаты → скачать JSON.

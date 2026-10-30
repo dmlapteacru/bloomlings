@@ -100,6 +100,12 @@ the supported three.
      (`wallOverlay`: 25–45 % of the colour cells behind it, two sites with colour approaches, the entry on the open side);
      the level stores it as `definition.overlay` (`{walls, sites}`, picture coordinates), N and W count the board with
      the wall, the audit rebuilds the board from the picture plus the overlay, and the exporter writes `board.overlay`.
+     A `strip: gap` position (the owner, 2026-10-29: 17 §8 «Одна цельная картинка») takes only a level on an approved
+     **split picture** (`bridge-scene.mjs make --mode split`: one whole pool picture with an inserted neutral strip and
+     two sites; its record's `scene.mode: 'split'`): `boardOf` gives such a board `strip: 'gap'`, the candidate's
+     definition carries `strip: 'gap'` for renderers, and `fitsPlan` refuses any other bridge level for the position. The
+     split search writes the found candidate level into its evidence (`<out>.json`); `bridge-scene.mjs preview <module>
+     --out <dir>` turns it into a preview level for the pilot (`build.mjs --preview <dir>`) once the picture is rendered.
      A `strip: new` position needs a picture with its own strip of the planned side: since 2026-10-28 mostly a
      **bridge scene** (`tools/rounds/bridge-scene.mjs`, the owner: "взять картинку поменьше и вокруг неё строить мосты
      и стены"). `make --side … --kind single|better --cls … --recipe … --level n --free --out <module>` composes a
