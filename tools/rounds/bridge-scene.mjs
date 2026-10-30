@@ -370,7 +370,10 @@ export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_
    // (a single choice: also approaches of small colours, which one pod clears, and close to the entry, eaten early)
    const da=nd(a.x+a.arm[0],a.y+a.arm[1]),db=nd(b.x+b.arm[0],b.y+b.arm[1]),depthGap=Math.min(4,Math.abs(da-db));
    const shallow=kind==='single'?.5*Math.min(6,Math.max(da,db)-1)+.4*Math.min(3,vols[a.near]/40)+.4*Math.min(3,vols[b.near]/40)+.03*Math.min(60,Math.max(nw(a.x+a.arm[0],a.y+a.arm[1]),nw(b.x+b.arm[0],b.y+b.arm[1]))):0;
-   const score=(a.near===b.near?(kind==='single'?-.5:1):0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len*(kind==='single'?.5:1)+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.3*depthGap+shallow+.15*r();
+   // (a single choice on an L: both sites near its corner, so the two approaches are about as far from the entry; a site
+   // high on the vertical leg is reached long after the horizontal one, and the random games never offer it first)
+   const corner=kind==='single'&&side==='two'?.08*Math.min(20,Math.abs(a.x-sp.at[0]))+.3*Math.min(20,Math.abs(b.y-sp.at[1])):0;
+   const score=(a.near===b.near?(kind==='single'?-.5:1):0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len*(kind==='single'?(side==='two'?0:.5):1)+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.3*depthGap+shallow+corner+.15*r();
    scored.push({score,sites:[a.s,b.s]});}
   scored.sort((a,b)=>a.score-b.score);
   // the `per` best pairs of this position, each moving a site at least 3 cells from the ones already taken

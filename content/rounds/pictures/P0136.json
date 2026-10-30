@@ -1,0 +1,103 @@
+{
+ "id": "P0136",
+ "seq": 136,
+ "version": 1,
+ "title": "Маяк на скале — мост",
+ "theme": "bridge-splits",
+ "family": "Дома и архитектура",
+ "subject": "полосатый маяк на скале",
+ "source": "оригинальный",
+ "forLevel": 30,
+ "w": 28,
+ "h": 36,
+ "rows": [
+  "........#SSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSS#SSSSSDSSSSSSSSSSSSS",
+  "SSSSSSSS#SSSSSDSSSSSSSSSSSSS",
+  "SSSSSSSS#SSSSRRRSSSSSSSSSSSS",
+  "SSSSSSSS#SSRRRRRRRSSSSSSSSSS",
+  "SSSSSSSS#SRRRRRRRRRSSSSYYYYY",
+  "YYYYYSSS#YDDDDDDDDDYYYYYYYYY",
+  "YYYYYYYY#YDDYYYYYDDYYYYYYYYY",
+  "YYYYYYYY#YDDYYYYYDDYYYYYYYYY",
+  "YYYYYYYY#YDDYYYYYDDYYYYYYYYY",
+  "YYYYYYYY#DDDDDDDDDDDDSSSYYYY",
+  "YYYYSSSD#DDDDDDDDDDDDSSSSSSS",
+  "SSSSSSSD#SRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSbSRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSS##########b#########",
+  "SSSSSSSSSRRRRRRRRRSSSSSSSSS.",
+  "SSSSSSSSSCCCCCCCCCSSSSSSSSS.",
+  "SSSSSSSSSCCCCCCCCCSSSSSSSSS.",
+  "SSSSSSSSSCCCCDCCCCSSSSSSSSS.",
+  "SSSSSSSSRRRRRDRRRRRSSSSSSSS.",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS.",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS.",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS.",
+  "SSSSSSSSCCCCCCCCCCCSSSSSSSS.",
+  "SSSSSSSSCCCCCCCCCCCSSSSSSSS.",
+  "SSSSSSSSCCCCCDCCCCCSSSSSSSS.",
+  "SSSSSSSSRRRRDDDRRRRSSSSSSSS.",
+  "SSSSSSSRRRRRDDDRRRRRSSSSSSS.",
+  "SSSSSSSRRRRRDDDRRRRRSSSSSSS.",
+  "SSSSSSAAAAAAAAAAAAAAAASSSSS.",
+  "SSSSSAAAAAAAAAAAAAAAAASSSSS.",
+  "BBBBAAAAAAAAAAAAAAAAEEEBBBB.",
+  "BBBAAAAAAAAAAAAAAAAAEEEEBCC.",
+  "BBBAAAAAAAAAAAAAAAAEEEEEEBB.",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBB.",
+  "BBCCCBBBBCCCBBBBCCCBBBBCCCB."
+ ],
+ "scene": {
+  "from": "P0014",
+  "mode": "split",
+  "side": "two",
+  "corner": "tr",
+  "at": [
+   8,
+   14
+  ],
+  "sites": [
+   [
+    18,
+    14
+   ],
+   [
+    8,
+    13
+   ]
+  ],
+  "share": 0.281,
+  "kind": "single",
+  "cls": "Super Hard",
+  "recipe": "bridge+links+hidden",
+  "win": [
+   8,
+   13
+  ],
+  "lose": [
+   18,
+   14
+  ],
+  "queue": {
+   "gate": 8,
+   "delay": 0
+  }
+ },
+ "N": 945,
+ "colours": 8,
+ "volumes": {
+  "S": 436,
+  "D": 61,
+  "R": 117,
+  "Y": 105,
+  "C": 72,
+  "A": 82,
+  "B": 59,
+  "E": 13
+ },
+ "status": "draft",
+ "batch": "split-L0030",
+ "createdAt": "2026-10-30",
+ "history": []
+}
