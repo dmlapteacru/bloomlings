@@ -84,7 +84,7 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
   if(o.three.share>.35)bad.push(`дебют + цвета: после трёх запусков выигрывает ${Math.round(o.three.share*100)} % > 35 % (§5)`);L._opening=o;}
  if(n>=4){const f=await forcedShare(d);if(f>.35)bad.push(`вынужденных решений ${Math.round(f*100)} % > 35 % (§5)`);L._forced=f;}
  const prevL=levels[n-1]||readJSON(path.join(LEVELS,lid(n-1)+'.json'));L._regular=L.cls==='Normal'&&n>3&&!L.intro&&!(prevL&&prevL.cls!=='Normal');
- if(L._regular&&!(await holdPod(d)))bad.push('обычный Normal без пода, держащего место (§6)');
+ if(L._regular&&!(L.recipe||'').includes('bridge')&&!(await holdPod(d)))bad.push('обычный Normal без пода, держащего место (§6)');
  // layer B (§13, content/rounds/quality.json): pods without work at least the class's bound; soft notes unless mode 'hard'
  {const pm=slot.intro?null:L._regular?QUALITY.pressure.min.regularNormal:L.cls!=='Normal'?QUALITY.pressure.min[L.cls]:null;
   if(pm!=null){const pr=await pressure(d,QUALITY.pressure.games);L._pressure=pr.stuck;if(pr.stuck<pm)(QUALITY.pressure.mode==='hard'?bad:soft).push(`слой Б: стоят без работы ${pr.stuck} < ${pm} (§13, quality.json)`);}}

@@ -331,7 +331,9 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
    // the owner's amendment of 2026-10-27: recipes by class (§7), greedy strategies (§5), picture fitness (§2)
    &&recipeOk(c,n,slot,needMech)&&greedyOk(c,n)&&fitOk(c,n)&&mechOk(c,n,slot,plan)
    // §6: a regular Normal holds a place with a deep-colour pod in its first two rows
-   &&!(regularSlot&&!(c.checks&&c.checks.hold))
+   // (a bridge level's task is the bridge choice; a gap split can leave no colour off the start front, so a bridge
+   // level does not need the holding pod, 2026-10-29)
+   &&!(regularSlot&&!c.recipe.includes('bridge')&&!(c.checks&&c.checks.hold))
    &&fitsPlan(c,plan));
   // preference: the preferred zone of the class (first Normal after Hard/Super Hard: 75–95 %), then the size mix per 30
   // Normal: the first after a Hard or Super Hard 75–95 %; otherwise steered so the median of the regular Normals stays 50–60 %
