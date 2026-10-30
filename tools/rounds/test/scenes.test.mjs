@@ -87,8 +87,9 @@ test('the wave plan lists the bridge scenes (strip new) and the split pictures (
  const mech=levels.filter(l=>l.bridgeSide&&l.strip==='new'&&!placed.has(l.level)),gap=levels.filter(l=>l.bridgeSide&&l.strip==='gap'&&!placed.has(l.level));
  assert.deepEqual(plan.order.scenes.map(s=>s.level),mech.map(l=>l.level));
  for(const s of plan.order.scenes){const m=mech.find(l=>l.level===s.level);assert.equal(s.side,m.bridgeSide);assert.equal(s.kind,m.bridgeKind);assert.match(s.command,new RegExp(`--side ${m.bridgeSide} --kind ${m.bridgeKind}`));}
- // the owner's plan of 2026-10-29: every bridge position is a gap (one whole picture split by a neutral strip)
- assert.ok(gap.length>=1,'the wave plan has gap positions');assert.deepEqual(plan.order.splits.map(s=>s.level),gap.map(l=>l.level));
+ // the owner's plan of 2026-10-29: every bridge position is a gap (one whole picture split by a neutral strip); once the
+ // hand-built bridge levels are all adopted (2026-10-30) no gap position is open and the plan lists no split to make
+ assert.ok(levels.some(l=>l.bridgeSide&&l.strip==='gap'),'the wave plan has gap positions');assert.deepEqual(plan.order.splits.map(s=>s.level),gap.map(l=>l.level));
  for(const s of plan.order.splits){const m=gap.find(l=>l.level===s.level);assert.equal(s.side,m.bridgeSide);assert.equal(s.kind,m.bridgeKind);assert.equal(s.recipe,m.recipe);
   assert.match(s.command,new RegExp(`make --mode split --from \\S+ --side ${m.bridgeSide} --kind ${m.bridgeKind} --cls "${m.cls}" --recipe ${m.recipe.replace(/\+/g,'\\+')} --level ${m.level} `));
   // each suggested source is a free pool picture without a strip that splits to that side

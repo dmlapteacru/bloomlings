@@ -11,7 +11,7 @@
 //      the lead first (17 §7): none, links, hidden, bridge, links+hidden, hidden+links, bridge+links, bridge+hidden,
 //      hidden+bridge, links+bridge, links+bridge+hidden, bridge+links+hidden; a board with a strip takes bridge recipes only,
 //      a board without one the others
-// node tools/rounds/levels.mjs place <from> <to>           fill calendar positions from the bank (variety rules),
+// node tools/rounds/levels.mjs place <from> <to> [--pick <level>:<candidate>,…]  fill calendar positions from the bank (variety rules),
 //      write levels and cards, list what is still missing in content/rounds/needs.json; a position of an approved
 //      mechanics plan (content/rounds/runs/<wave>/mechanics.json) takes only its planned recipe and bridge side
 // node tools/rounds/levels.mjs unplace <from> <to>         put placed levels back into the bank (to place again)
@@ -317,6 +317,7 @@ const lead=c=>(c.recipe||'none').split('+')[0];
 export function reservedFamily(id,n){const w=mechanicsPlans().find(p=>n>=p.wave[0]&&n<=p.wave[1]);return !!(w&&(w.bridgeFamilies||[]).includes(picture(id).family));}
 export function repeats(id,n,placed){const p=picture(id),[lo,hi]=repeatWindow(n),mo=motifsOf(p);
  return Object.values(placed).some(L=>L.level!==n&&L.level>=lo&&L.level<=hi&&L.picture!==id&&(()=>{const q=picture(L.picture);return (p.family&&q.family===p.family)||motifsOf(q).some(m=>mo.includes(m));})());}
+const PICKS=new Map(String(arg('--pick','')).split(',').filter(Boolean).map(x=>{const [n,id]=x.split(':');return [+n,id];}));
 function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f)):[]){const L=readJSON(path.join(LEVELS,f));placed[L.level]=L;}
  const banks=fs.existsSync(BANK)?fs.readdirSync(BANK).map(f=>readJSON(path.join(BANK,f))):[];const pool=banks.flatMap(b=>b.candidates);const m=manifest(),usedPic=new Set(Object.keys(usage()));const needs=[];
  const plans=mechanicsPlans();
@@ -379,7 +380,11 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const aim=slot.cls==='Normal'&&!slot.intro&&!afterHard?(medN>.6?.52:medN<.5?.58:.55):null;
   const score=c=>{const s=c.random.share;return doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(aim!==null?2*Math.abs(s-aim):s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   if(QUALITY.pressure.mode==='hard')for(let i=ok.length-1;i>=0;i--)if(pressureLow(ok[i]))ok.splice(i,1);
-  ok.sort((a,b)=>score(a)-score(b));const c=ok[0];
+  ok.sort((a,b)=>score(a)-score(b));
+  // --pick n:id takes that candidate at position n when it passes every filter above (a sequence rule of §5 that the
+  // score cannot meet, e.g. the Normal median with the greedy quota); a pick that fails a filter leaves the position open
+  const pick=PICKS.get(n);if(pick&&!ok.some(x=>x.id===pick))console.log(lid(n),'--pick',pick,'не проходит фильтры позиции');
+  const c=pick?ok.find(x=>x.id===pick):ok[0];
   if(process.env.ROUNDS_TRACE)console.error(lid(n),'кандидатов',ok.length,ok.slice(0,6).map(c=>`${c.picture} ${c.recipe} ${Math.round(c.random.share*100)}% поз ${c.dosePos??'—'} балл ${score(c).toFixed(2)}`).join(' | '));
   if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n),...(plan?{recipe:plan.recipe,...(plan.bridgeSide?{bridgeSide:plan.bridgeSide,strip:plan.strip||null,bridgeKind:plan.bridgeKind||'single'}:{})}:{})});continue;}
   const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,...(c.randomAll?{randomAll:c.randomAll}:{}),solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge,bridgeSide:c.bridgeSide??bridgeSide(c.level)}:{}),checks:c.checks,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
