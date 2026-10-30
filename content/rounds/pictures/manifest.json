@@ -2777,7 +2777,7 @@
    "status": "approved",
    "batch": "batch-0155-0160-redraw",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0038"
   },
   {
    "id": "P0161",
@@ -2903,7 +2903,7 @@
    "status": "approved",
    "batch": "batch-0167-strong",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0049"
   }
  ]
 }

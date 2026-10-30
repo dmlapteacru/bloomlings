@@ -1,7 +1,7 @@
 {
  "code": "P0160",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0038",
  "version": 2,
  "title": "Вагонетка с самоцветами",
  "theme": "strong-L21-L50",
