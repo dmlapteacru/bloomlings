@@ -118,7 +118,7 @@ test('doses: one additional at its minimum (links an even count), three types th
  assert.match(LV.candidate(p,L.boardOf(p,ov),LV.splitPods(m.volumes,m.N,null).pods,3,'links','Normal',1,false).error,/нужен рецепт с мостом/);});
 
 test('the mechanics plan: planOf reads the approved mechanics.json, fitsPlan wants its recipe and bridge side',()=>{
- assert.deepEqual(L.planOf(33),{level:33,cls:'Normal',lead:'bridge',add:['hidden'],recipe:'bridge+hidden',bridgeSide:'left',strip:'gap',bridgeKind:'better'});
+ assert.deepEqual(L.planOf(33),{level:33,cls:'Normal',lead:'bridge',add:['hidden'],recipe:'bridge+hidden',bridgeSide:'left',strip:'gap',bridgeKind:'better',by:'hand'});
  assert.equal(L.planOf(20),null);
  const p=L.picture('P0012'),lvl=side=>{const ov=L.wallOverlay(p,side,1),b=L.boardOf(p,ov);return {w:b.w,h:b.h,rowsBottomFirst:b.rowsBottomFirst,hero:b.hero};};
  const plan={recipe:'bridge+hidden',bridgeSide:'left'};
@@ -128,12 +128,13 @@ test('the mechanics plan: planOf reads the approved mechanics.json, fitsPlan wan
  assert.ok(L.fitsPlan({recipe:'links+bridge+hidden',level:lvl('two')},{recipe:'links+bridge+hidden',bridgeSide:'two'}));
  assert.ok(L.fitsPlan({recipe:'links'},{recipe:'links'}));assert.ok(L.fitsPlan({recipe:'links'},null));});
 
-test('placement under the plan takes only the planned recipe, and the open positions say what they need',()=>{
+test('placement under the plan takes only the planned recipe, the open positions say what they need, and a hand position is left to adopt',()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-plan-'));fs.cpSync(path.join(ROOT,'content/rounds'),dir,{recursive:true,filter:s=>!s.includes(`${path.sep}approved${path.sep}`)});
  const r=spawnSync(process.execPath,[path.join(TOOLS,'levels.mjs'),'place','21','30'],{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});assert.equal(r.status,0,r.stderr);
  const plans=readJSON(path.join(dir,'runs/L0021-L0050/mechanics.json')).levels;
  for(let n=21;n<=30;n++){const f=path.join(dir,'levels',`L${String(n).padStart(4,'0')}.json`),want=plans.find(x=>x.level===n);
   if(fs.existsSync(f)){const lv=readJSON(f);assert.equal(lv.recipe,want.recipe,`L${n}`);if(want.bridgeSide)assert.equal(L.bridgeSide(lv.definition),want.bridgeSide);}
+  else if(want.by==='hand'){assert.ok(!readJSON(path.join(dir,'needs.json')).needs.some(x=>x.level===n),`L${n} by hand: not a need`);}
   else{const need=readJSON(path.join(dir,'needs.json')).needs.find(x=>x.level===n);assert.ok(need,`L${n} in needs`);assert.equal(need.recipe,want.recipe);if(want.bridgeSide){assert.equal(need.bridgeSide,want.bridgeSide);assert.equal(need.strip,want.strip);}}}});
 
 test('round-level.v1 carries the overlay in board.overlay, and the schema checks its shape',()=>{
