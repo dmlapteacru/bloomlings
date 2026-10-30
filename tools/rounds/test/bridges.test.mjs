@@ -89,15 +89,20 @@ test('wallOverlay: deterministic by seed, a straight or L wall with the closed p
   assert.deepEqual(R.bridgeChoices(R.create({...lv,pods:[{color:'G',count:1}],tray:[[0]]})),[]);}
  assert.equal(L.wallOverlay(L.picture('P0114'),'up',1),null,'a picture with its own sites');});
 
-test('doses: one additional at its minimum (links an even count), three types the lead in its lower half',()=>{
+test('doses: one additional at its minimum (links an even count), three types the lead in its lower half; a bridge takes no part',()=>{
  const d=(r,c)=>LV.doses(r,c,24,false);
- assert.deepEqual(d('bridge+links','Normal'),{bridge:1,links:[2,2]});
  assert.deepEqual(d('hidden+links','Hard'),{hidden:[3,6],links:[4,4]},'10 % of 24 = 2.4 → 3 → 4 participants');
+ assert.deepEqual(d('links+hidden','Super Hard'),{links:[10,14],hidden:[2,2]});
+ // the difficulty is the pods' (17 §7, the owner, 2026-10-30): a bridge recipe has the doses of the recipe without the
+ // bridge, links as the lead, hidden never the lead
+ assert.deepEqual(d('bridge+links','Normal'),{bridge:1,links:[4,6]});
  assert.deepEqual(d('links+bridge','Hard'),{links:[6,10],bridge:1});
- assert.deepEqual(d('links+bridge+hidden','Super Hard'),{links:[10,10],bridge:1,hidden:[2,2]});
- assert.deepEqual(d('bridge+links+hidden','Super Hard'),{bridge:1,links:[4,4],hidden:[2,2]});
- assert.deepEqual(d('hidden+bridge','Normal'),{hidden:[2,3],bridge:1});
- assert.deepEqual(LV.doseShares('links+bridge+hidden','Super Hard').map(x=>x.range||x.choice),[[.35,.475],1,[.05,.05]]);
+ assert.deepEqual(d('links+bridge+hidden','Super Hard'),{links:[10,14],bridge:1,hidden:[2,2]});
+ assert.deepEqual(d('bridge+links+hidden','Super Hard'),{bridge:1,links:[10,14],hidden:[2,2]});
+ assert.deepEqual(d('bridge+hidden','Normal'),{bridge:1,hidden:[2,2]});
+ assert.deepEqual(LV.doses('bridge+hidden','Normal',30,false),{bridge:1,hidden:[2,3]},'alone after a bridge: its additional range');
+ assert.deepEqual(LV.doseShares('links+bridge+hidden','Super Hard').map(x=>x.range||x.choice),[[.35,.6],1,[.05,.05]]);
+ assert.deepEqual(LV.doseShares('bridge+hidden','Normal').map(x=>x.range||x.choice),[1,[.05,.1]]);
  // every recipe of the plan builds a candidate (overlay board for the bridge ones) with doses inside its range
  const p=L.picture('P0012'),ov=L.wallOverlay(p,'up',1),m=L.measure(L.overlaid(p,ov)),m0=L.measure(p);
  for(const recipe of ['none','links','hidden','bridge','links+hidden','hidden+links','bridge+links','bridge+hidden','hidden+bridge','links+bridge','links+bridge+hidden','bridge+links+hidden']){

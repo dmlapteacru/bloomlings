@@ -1,5 +1,14 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner decision · 2026-10-30 — the difficulty is the pods'
+
+- [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §7: the difficulty is built by the pods (the queue's
+  order, links, hidden pods and waiting for places); a mechanic on the board (the bridge, other field objects) adds a
+  choice and ties the queue's task to the picture, not difficulty of its own, so Hard and Super Hard are built around
+  the pod mechanics. In a bridge recipe the pod mechanics take the doses of the recipe without the bridge: "bridge +
+  links + hidden" gets the doses of "links + hidden" (links in the lead range); the bridge still counts as a type.
+  `tools/rounds/levels.mjs` `doses` and `doseShares` follow; the wave plan L21–L50 notes it.
+
 ## Owner decisions · 2026-10-28 — bridges on any strip, the wave plan sets the mechanics first
 
 - [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §8: a Sprig bridge stands on any impassable strip, a

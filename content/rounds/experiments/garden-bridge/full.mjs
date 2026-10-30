@@ -7,7 +7,8 @@ const L=await import('/home/user/bloomlings/tools/rounds/lib.mjs');
 const [lvFile,cls,n,out]=process.argv.slice(3);
 const level=JSON.parse(fs.readFileSync(lvFile));const pic=L.picture(process.env.PIC||'P0152'),m=L.measure(pic);
 // ALLOW_LINKS=1: the owner asked for more links than §7's minimum dose for an additional mechanic; the links are then
-// left out of the dose check only (everything else is checked as usual)
+// left out of the dose check only (everything else is checked as usual). Since 17 §7 as amended on 2026-10-30 a bridge
+// recipe's links take the lead range, so v2 passes without it
 const probe=process.env.ALLOW_LINKS?{...level,recipe:level.recipe.split('+').filter(t=>t!=='links').join('+')}:level;
 const e=await LV.evaluate(probe,{m,cls,kind:'single',tick:s=>process.stderr.write('  '+s+'\n')});
 if(e.reason){console.log('REFUSED',e.reason);process.exit(1);}

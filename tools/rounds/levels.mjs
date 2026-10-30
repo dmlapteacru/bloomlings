@@ -62,10 +62,15 @@ function doseRange(m,cls,role,P){const i=CLASSES.indexOf(cls);
  if(P<16)return m==='hidden'?[[1,2],[2,3],[3,4]][i]:m==='links'?[[2,2],[4,4],[4,6]][i]:[1,1];
  const T=DOSE_T;
  if(!T[m])return [1,1];const [a,b]=T[m][role][i];return [Math.ceil(a*P),Math.floor(b*P)];}
+// the roles of a recipe's pod mechanics (17 §7): the difficulty is the pods' (the owner, 2026-10-30), so a bridge takes no
+// part: the pod mechanics get the doses of the recipe without it (links lead, hidden never leads after a bridge)
+function podRoles(types){const pod=types.filter(m=>m!=='bridge'),bridge=pod.length<types.length;
+ return {count:pod.length,role:m=>(bridge&&m==='hidden')||pod.indexOf(m)>0?'add':'lead',first:m=>pod.indexOf(m)===0};}
 // the doses of a recipe as shares of P (17 §7, a queue of 16+ pods), for the wave plan's breakdown: the lead its range
-// (three types: its lower half), an additional one its minimum, a bridge one choice of two sites
-export function doseShares(recipe,cls){const types=recipe==='none'?[]:recipe.split('+'),i=CLASSES.indexOf(cls);
- return types.map((m,j)=>{const role=j?'add':'lead';if(!DOSE_T[m])return {m,role,choice:1};let [a,b]=DOSE_T[m][role][i];if(j>0)b=a;else if(types.length>=3)b=(a+b)/2;return {m,role,range:[a,b]};});}
+// (three pod types: its lower half), an additional one its minimum (alone after a bridge: its range), a bridge one choice
+// of two sites
+export function doseShares(recipe,cls){const types=recipe==='none'?[]:recipe.split('+'),i=CLASSES.indexOf(cls),pr=podRoles(types);
+ return types.map(m=>{if(!DOSE_T[m])return {m,role:'lead',choice:1};const role=pr.role(m);let [a,b]=DOSE_T[m][role][i];if(!pr.first(m))b=a;else if(role==='lead'&&pr.count>=3)b=(a+b)/2;return {m,role,range:[a,b]};});}
 export {doses};
 // recipe → concrete doses: one type uses its full range, two types: the additional at its minimum, three: the lead in
 // the lower half (§7); the introduction levels use the minimum teaching doses (§9)
@@ -73,14 +78,14 @@ export {doses};
 export const DOSE_CYCLE=[.5,.8,.4,.7,1,.6];
 // the dose place a banked candidate was built for, read back from its attempt number (P####-…-k)
 export const posOf=(id,recipe,intro)=>{if(intro||(recipe||'none')==='none')return null;const k=+String(id).split('-').pop();return Number.isInteger(k)?DOSE_CYCLE[k%DOSE_CYCLE.length]:null;};
-function doses(recipe,cls,P,intro){const types=recipe==='none'?[]:recipe.split('+'),out={};
- types.forEach((m,j)=>{if(m==='bridge'){out.bridge=1;return;}const role=j===0?'lead':'add';let [a,b]=doseRange(m,cls,role,P);
+function doses(recipe,cls,P,intro){const types=recipe==='none'?[]:recipe.split('+'),out={},pr=podRoles(types);
+ types.forEach(m=>{if(m==='bridge'){out.bridge=1;return;}const role=pr.role(m),j=pr.first(m)?0:1;let [a,b]=doseRange(m,cls,role,P);
   // the engine plays at most six hidden (depth) pods
   if(m==='hidden'){a=Math.min(a,6);b=Math.min(b,6);}
   // teaching doses (§9): 1 pair of links, 2–3 hidden pods (the owner's second amendment of 2026-10-27)
   // an additional mechanic takes the minimum admissible dose of its range: for links the smallest even count in it (pairs,
   // §7: 10 % of 24 pods is 2.4 → 3 → 4 participants, still inside 10–20 %)
-  if(intro){if(m==='hidden'){a=2;b=3;}else a=b=m==='links'?2:1;}else if(j>0){if(m==='links')a+=a%2;b=a<=b?a:b;}else if(types.length>=3){b=Math.floor((a+b)/2);}
+  if(intro){if(m==='hidden'){a=2;b=3;}else a=b=m==='links'?2:1;}else if(j>0){if(m==='links')a+=a%2;b=a<=b?a:b;}else if(role==='lead'&&pr.count>=3){b=Math.floor((a+b)/2);}
   if(m==='links'){a+=a%2;b-=b%2;}if(a>b)out.error=`нет целых доз ${m} для ${cls} при P=${P}`;out[m]=[a,b];});
  return out;}
 export function dosesOk(level,cls){const P=level.pods.length,hidden=level.pods.filter(p=>p.mystery).length,linked=level.pods.filter(p=>p.group).length,types=(level.recipe||'none')==='none'?[]:level.recipe.split('+');
