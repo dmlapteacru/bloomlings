@@ -1,0 +1,104 @@
+{
+ "code": "P0154",
+ "state": "used",
+ "usedBy": "L0045",
+ "version": 3,
+ "title": "Ночная ярмарка",
+ "theme": "bridge-v8-recipe",
+ "family": "Ярмарки и праздники",
+ "device": "сцена с переправой",
+ "subject": "колесо обозрения с огнями и полосатый шатёр под луной; старт на огороженной входной площадке с кассой, из неё два мостика на ярмарку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 933,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 310,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 202,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 126,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 98,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 72,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 57,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 34,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 19,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 15,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNYNNNNNNN",
+  "NNYNNNNNNNNNNNYNNNNNNNDOOCNNNN",
+  "NNNNNNNRRNNNNNNNNNNNNNDONCNNNN",
+  "NNNNNYYRRYYNNNNNNNNYNNDNNCCCNN",
+  "NNOOYNNNCNNYOONNNNNNNNDNNNCNNN",
+  "NNOOCNNNCNNNOONNNNNNNCRCNNNNNN",
+  "NNYNCNNNCNCNNYNNNNNNNRRRNNNNNN",
+  "NYNNNNCNCNCNNNYNNNNNRCRCRNNNNY",
+  "NYNNNNCYYNNNNNYNNNNCRCRCRCNNNN",
+  "RRCNCNCYYNCNCNRRNNCRCCRCCRCNNN",
+  "RRNNNNCDDNNNNNRRNCRRCCRCCRRCNN",
+  "NYNNNNCDDNCNNNYNCRRCCRRCCRRCCN",
+  "NNYNCNDNCDCNNYNNCRRCCRRCCRRCCN",
+  "NNYYCDNNCNDNCYNNCRRCCRRCCRRCCN",
+  "NNOOYDNNCNDYOONNCRRCCRNCCRRCCN",
+  "NNOODYYNNYYDOONNCRRCCNNNCRRCCN",
+  "NNNNDNNRRNNDNNNNCRRCCNNNCRRCCN",
+  "NNNDNNNRRNNNDNNNCRRCNNNNNRRCCN",
+  "DDDDDDDDDDDDDDDDCRRNNNNNNNRCCD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "MMMDDDDMMMDDDDDDDDDDMMMDDDDMMM",
+  "MMMMMMMMMMDDDDDDDDDDMMMMMDMMMM",
+  "MMMMMMMMMM#######b###MMMMMMMMM",
+  "MMMMMMMMMM#EEEEEEEEE#MMMMMMMMM",
+  "MMMMMMMMMM#KKKEEEEEE#MMMMMMMMM",
+  "MMMMMMMMMM#KKKEEEEEE#MMMMMMMMM",
+  "MMMMMMMMMMbKKKEEEEEE#MMMMMMMMM",
+  "MMMMMMMMMM#KKKEEEEEE#MMMMMMMMM",
+  "MMMMMMMMMM#KKKEEEEEE#MMMMMMMMM",
+  "MMMMMMMMMM#EEEEEEEEE#MMMMMMMMM",
+  "MMMMMMMMMM#EEEEEEEEE#MMMMMMMMM"
+ ]
+}

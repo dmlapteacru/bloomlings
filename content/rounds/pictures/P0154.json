@@ -58,7 +58,7 @@
   "E": 57,
   "K": 15
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0154-fair-box",
  "createdAt": "2026-10-30",
  "history": [
@@ -142,5 +142,8 @@
     "MMMMMMMMMMMMMMMCCKKKKKKKKKKKKKKK"
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-30",
+ "usedBy": "L0045"
 }
