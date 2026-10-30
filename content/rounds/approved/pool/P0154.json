@@ -1,0 +1,109 @@
+{
+ "code": "P0154",
+ "state": "used",
+ "usedBy": "L0045",
+ "version": 4,
+ "title": "Ярмарка на пирсе",
+ "theme": "bridge-v8-recipe",
+ "family": "Ярмарки и праздники",
+ "device": "сцена с переправой",
+ "subject": "колесо обозрения и полосатый шатёр на деревянном пирсе над ночным морем; пирс обведён нейтральной линией, на него ведут сходни с пляжа и с лодки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 928,
+ "colours": 10,
+ "volumes": {
+  "N": {
+   "cells": 306,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 129,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 127,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 108,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 86,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 68,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "L": {
+   "cells": 40,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "O": {
+   "cells": 18,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "V": {
+   "cells": 6,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNN###NNNNNN",
+  "NNNNNN#######NNNNNNNNN#EOO#NNNNN",
+  "NNNNN#YYOOYYY#NNNNNNNN#EO#NNNNNN",
+  "NNNN#YYNNCNNYY#NNNNNNN#E#NNNNNNN",
+  "NNN#RRNNNCNNNRR#NNNNN#RR#NNNNNNN",
+  "NN#YYNCNNCNNCNYY#NNN#CCCC#NNNNNN",
+  "NN#YNNNCNCNCNNNY#NN#CRCCRC#NNNNN",
+  "NN#YNNNNCCCNNNNY#NN#RCRRCR#NNNNN",
+  "NN#YCCCCYYYCCCCY#N#RRCRRCRR#NNNN",
+  "NN#ONNNNYYYNNNNON#CRCCRRCCRC#NNN",
+  "NN#YNNNCNCNCNNNYNCRRCCRRCCRRC#NN",
+  "NN#YNNCNNCNNCNNYNCRRCCRRCCRRC#NN",
+  "NNN#YCNNNCNNNCYNNCRRCCRRCCRRC#NN",
+  "NNN#RRNNNCNNNRRNNCRRCCRRCCRRC#NN",
+  "NNNN#RYYECEYYRNNNCRRCCOOCCRRC#NN",
+  "NNNNN#NYYYYYNNNNNCRRCONNOCRRC#NN",
+  "BBBBB#EEOOOEENNNNCRRONNNNORRC#BB",
+  "BBB##EEEEEEEEENNNCRRONNNNORRC#BB",
+  "BB#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB",
+  "VV#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB",
+  "VVbLLLLLLLLEEEEEEEEEEEEEEEEEE#BB",
+  "VV#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB",
+  "BB#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB",
+  "BBB##############b###########BBB",
+  "BBBBBBBBBBBBBBBAAAAABBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBAAAAABBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBAAAAABBBBBBBBBBBB",
+  "BBBBAAAAABBBBAAAAAAABBAAAAABBBBA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

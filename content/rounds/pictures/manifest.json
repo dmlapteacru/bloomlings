@@ -2651,10 +2651,10 @@
    "h": 32,
    "N": 928,
    "colours": 10,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0154-fair-pier",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0045"
   }
  ]
 }

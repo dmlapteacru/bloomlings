@@ -1,0 +1,590 @@
+{
+ "level": 45,
+ "cls": "Super Hard",
+ "intro": null,
+ "picture": "P0154",
+ "candidate": "P0154-hand",
+ "recipe": "bridge+links+hidden",
+ "N": 928,
+ "W": 928,
+ "colours": 10,
+ "P": 34,
+ "columns": 4,
+ "linked": 14,
+ "hidden": 2,
+ "random": {
+  "runs": 100,
+  "wins": 11,
+  "share": 0.11,
+  "wilson95": [
+   0.063,
+   0.186
+  ],
+  "cls": "Super Hard",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1,
+  "bridge": 1
+ },
+ "randomAll": {
+  "runs": 400,
+  "wins": 20,
+  "share": 0.05,
+  "wilson95": [
+   0.033,
+   0.076
+  ],
+  "cls": "Super Hard",
+  "borderline": true,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "bridge",
+    "choice": 1
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 28
+   },
+   {
+    "type": "tap",
+    "pod": 32
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 29
+   },
+   {
+    "type": "tap",
+    "pod": 33
+   },
+   {
+    "type": "tap",
+    "pod": 30
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 27
+   },
+   {
+    "type": "tap",
+    "pod": 31
+   }
+  ],
+  "forks": 8,
+  "singleSafe": 3,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 172.2
+  }
+ },
+ "fairness": {
+  "checked": 1,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+ },
+ "strategies": {
+  "left-to-right|left": false,
+  "left-to-right|right": false,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
+  "top-down|left": false,
+  "top-down|right": false,
+  "bottom-up|left": false,
+  "bottom-up|right": false,
+  "diagonal|left": false,
+  "diagonal|right": false,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 2.35,
+    "minFree": 0,
+    "fullShare": 0.19,
+    "maxWaiting": 4
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 3.86,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 2.32,
+    "minFree": 0,
+    "fullShare": 0.05,
+    "maxWaiting": 4
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 2.6,
+    "minFree": 0,
+    "fullShare": 0.29,
+    "maxWaiting": 3
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.3,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 6,
+  "lastLaunchAtW": 97,
+  "seconds": 482.7
+ },
+ "bridge": {
+  "each": [
+   {
+    "label": "Мостик вправо снизу",
+    "win": false,
+    "share": 0
+   },
+   {
+    "label": "Мостик вверх в центре",
+    "win": true,
+    "share": 0.07
+   }
+  ],
+  "gap": 0.07,
+  "better": 1
+ },
+ "checks": {
+  "forced": 0.15,
+  "opening": {
+   "first": {
+    "openings": 3,
+    "wins": 0
+   },
+   "three": {
+    "openings": 10,
+    "wins": 0,
+    "share": 0
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 10,
+     "revealAt": 13,
+     "gap": 0,
+     "newColour": false
+    },
+    {
+     "pod": 33,
+     "revealAt": 21,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": "single",
+  "bridgeSingle": {
+   "each": [
+    false,
+    true
+   ],
+   "offered": [
+    21,
+    39
+   ],
+   "policy": "random",
+   "ok": true
+  },
+  "bridgeLoss": {
+   "choice": 0,
+   "games": 120,
+   "built": 26,
+   "chosen": 7,
+   "forced": 19,
+   "won": 0,
+   "medianLaunchesAfter": 2,
+   "instant": 0,
+   "ok": true
+  },
+  "pressure": {
+   "stuck": 2.23,
+   "tight": 1
+  }
+ },
+ "engine": "tools/rounds/engine.mjs",
+ "dosePos": null,
+ "bridgeSide": "two",
+ "hand": true,
+ "definition": {
+  "title": "Ярмарка на пирсе",
+  "subject": "P0154",
+  "w": 36,
+  "h": 36,
+  "rowsBottomFirst": [
+   "##################.#################",
+   "#..................................#",
+   "#.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
+   "#.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
+   "#.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
+   "#.BBBBAAAAABBBBAAAAAAABBAAAAABBBBA.#",
+   "#.BBBBBBBBBBBBBBBAAAAABBBBBBBBBBBB.#",
+   "#.BBBBBBBBBBBBBBBAAAAABBBBBBBBBBBB.#",
+   "#.BBBBBBBBBBBBBBBAAAAABBBBBBBBBBBB.#",
+   "#.BBB##########################BBB.#",
+   "#.BB#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB.#",
+   "#.VV#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB.#",
+   "#.VV#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB.#",
+   "#.VV#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB.#",
+   "#.BB#LLLLLLLLEEEEEEEEEEEEEEEEEE#BB.#",
+   "#.BBB##EEEEEEEEENNNCRRONNNNORRC#BB.#",
+   "#.BBBBB#EEOOOEENNNNCRRONNNNORRC#BB.#",
+   "#.NNNNN#NYYYYYNNNNNCRRCONNOCRRC#NN.#",
+   "#.NNNN#RYYECEYYRNNNCRRCCOOCCRRC#NN.#",
+   "#.NNN#RRNNNCNNNRRNNCRRCCRRCCRRC#NN.#",
+   "#.NNN#YCNNNCNNNCYNNCRRCCRRCCRRC#NN.#",
+   "#.NN#YNNCNNCNNCNNYNCRRCCRRCCRRC#NN.#",
+   "#.NN#YNNNCNCNCNNNYNCRRCCRRCCRRC#NN.#",
+   "#.NN#ONNNNYYYNNNNON#CRCCRRCCRC#NNN.#",
+   "#.NN#YCCCCYYYCCCCY#N#RRCRRCRR#NNNN.#",
+   "#.NN#YNNNNCCCNNNNY#NN#RCRRCR#NNNNN.#",
+   "#.NN#YNNNCNCNCNNNY#NN#CRCCRC#NNNNN.#",
+   "#.NN#YYNCNNCNNCNYY#NNN#CCCC#NNNNNN.#",
+   "#.NNN#RRNNNCNNNRR#NNNNN#RR#NNNNNNN.#",
+   "#.NNNN#YYNNCNNYY#NNNNNNN#E#NNNNNNN.#",
+   "#.NNNNN#YYOOYYY#NNNNNNNN#EO#NNNNNN.#",
+   "#.NNNNNN#######NNNNNNNNN#EOO#NNNNN.#",
+   "#.NNNNNNNNNNNNNNNNNNNNNNN###NNNNNN.#",
+   "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
+   "#..................................#",
+   "####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "V",
+    "count": 6
+   },
+   {
+    "color": "A",
+    "count": 43,
+    "group": "A"
+   },
+   {
+    "color": "A",
+    "count": 43,
+    "group": "A"
+   },
+   {
+    "color": "A",
+    "count": 43
+   },
+   {
+    "color": "R",
+    "count": 22,
+    "group": "C"
+   },
+   {
+    "color": "C",
+    "count": 21,
+    "group": "C"
+   },
+   {
+    "color": "O",
+    "count": 18,
+    "group": "B"
+   },
+   {
+    "color": "R",
+    "count": 23,
+    "group": "B"
+   },
+   {
+    "color": "E",
+    "count": 18
+   },
+   {
+    "color": "E",
+    "count": 18
+   },
+   {
+    "color": "E",
+    "count": 18,
+    "mystery": "depth"
+   },
+   {
+    "color": "E",
+    "count": 18
+   },
+   {
+    "color": "E",
+    "count": 18,
+    "group": "D"
+   },
+   {
+    "color": "E",
+    "count": 18,
+    "group": "D"
+   },
+   {
+    "color": "C",
+    "count": 22
+   },
+   {
+    "color": "Y",
+    "count": 20
+   },
+   {
+    "color": "R",
+    "count": 23,
+    "group": "F"
+   },
+   {
+    "color": "C",
+    "count": 22,
+    "group": "F"
+   },
+   {
+    "color": "C",
+    "count": 21
+   },
+   {
+    "color": "Y",
+    "count": 20
+   },
+   {
+    "color": "L",
+    "count": 20
+   },
+   {
+    "color": "L",
+    "count": 20,
+    "group": "E"
+   },
+   {
+    "color": "N",
+    "count": 38,
+    "group": "E"
+   },
+   {
+    "color": "B",
+    "count": 31
+   },
+   {
+    "color": "N",
+    "count": 38
+   },
+   {
+    "color": "N",
+    "count": 38,
+    "group": "G"
+   },
+   {
+    "color": "N",
+    "count": 38,
+    "group": "G"
+   },
+   {
+    "color": "B",
+    "count": 32
+   },
+   {
+    "color": "N",
+    "count": 39
+   },
+   {
+    "color": "N",
+    "count": 38
+   },
+   {
+    "color": "N",
+    "count": 38
+   },
+   {
+    "color": "B",
+    "count": 32
+   },
+   {
+    "color": "N",
+    "count": 39
+   },
+   {
+    "color": "B",
+    "count": 32,
+    "mystery": "depth"
+   }
+  ],
+  "tray": [
+   [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    28,
+    32
+   ],
+   [
+    1,
+    5,
+    9,
+    13,
+    17,
+    21,
+    25,
+    29,
+    33
+   ],
+   [
+    2,
+    6,
+    10,
+    14,
+    18,
+    22,
+    26,
+    30
+   ],
+   [
+    3,
+    7,
+    11,
+    15,
+    19,
+    23,
+    27,
+    31
+   ]
+  ],
+  "recipe": "bridge+links+hidden",
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 436,
+     "anchor": 435,
+     "label": "Мостик вправо снизу",
+     "dir": "right"
+    },
+    {
+     "cell": 343,
+     "anchor": 307,
+     "label": "Мостик вверх в центре",
+     "dir": "up"
+    }
+   ]
+  },
+  "strip": "gap",
+  "id": 45,
+  "difficulty": "Super Hard"
+ }
+}

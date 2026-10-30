@@ -59,7 +59,7 @@
   "V": 6,
   "A": 129
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0154-fair-pier",
  "createdAt": "2026-10-30",
  "history": [
@@ -183,5 +183,8 @@
     "MMMMMMMMMM#EEEEEEEEE#MMMMMMMMM"
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-30",
+ "usedBy": "L0045"
 }
