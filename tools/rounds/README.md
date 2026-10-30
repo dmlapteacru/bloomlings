@@ -84,9 +84,10 @@ it as its ground with a faint edge, the bridges over it. `--share` and `--gap-to
 recorded in the scene. `preview <modules> --out <dir>` writes the found levels in the placed-level shape for the pilot.
 The search steers each class's queue blend by the shares it measures, stops a Super Hard with no quick win before the
 per-bridge solver (minutes on a 48×48 board), and for a single deciding bridge prefers shallow approaches near the entry
-and exposes the other approach colour early (`candidate` opts `expose`): `bridgeSingle` counts which site random games
-that tap whenever they can offer first, and on a Super Hard queue those games jam early (2026-10-30: the L30 and L45
-searches found Super Hard single-bridge candidates refused only there, `первым предложен [0,n]` in the evidence).
+and exposes the other approach colour early (`candidate` opts `expose`). `bridgeSingle` counts which site is buildable at
+the first bridge moment in the games of the §5 random test (with waiting; the coordinator's decision of 2026-10-30, 17 §8
+"в части партий случайного теста"); its older games tapped whenever they could and jammed early on a Super Hard queue
+(`policy: 'tap'`, kept for comparison; the placed L16 and L18 measure the same under both).
 `ROUNDS_TRACE=1` logs each check's time; `--retry <regex>` tries matching splits once more after a change.
 
 **Bridge scenes** (superseded on 2026-10-29; `bridge-scene.mjs`, the owner, 2026-10-28: "взять картинку поменьше и вокруг неё строить мосты и
