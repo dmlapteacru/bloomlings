@@ -1,7 +1,7 @@
 {
  "code": "P0166",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0048",
  "version": 1,
  "title": "Камин с часами",
  "theme": "strong-L21-L50",

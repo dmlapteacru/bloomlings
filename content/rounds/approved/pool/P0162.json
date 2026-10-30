@@ -1,7 +1,7 @@
 {
  "code": "P0162",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0042",
  "version": 1,
  "title": "Яблоня с яблоками",
  "theme": "strong-L21-L50",

@@ -1,0 +1,1688 @@
+{
+ "picture": "P0165",
+ "candidates": [
+  {
+   "id": "P0165-Nlinks+hidden-2",
+   "picture": "P0165",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links+hidden",
+   "level": {
+    "id": 1,
+    "title": "Фургон с мороженым",
+    "subject": "P0165",
+    "w": 38,
+    "h": 30,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.CCCDDCCCDDCCCDDCCCDDCCCDDCCCDDCCCD.#",
+     "#.DDDDDDDDNNDDDDDDDDDDDDDDNNDDDDDDDD.#",
+     "#.DDDDDDDNNNNDDDDDDDDDDDDNNNNDDDDDDD.#",
+     "#.SSSSSSNNCCNNSSSSSSSSSSNNCCNNSSSSSS.#",
+     "#.SSSVVVNNCCNNVVVVVVVVVVNNCCNNVVVSSS.#",
+     "#.SSSVVVVNNNNVVVVVVVVVVVVNNNNVVVVSSS.#",
+     "#.SSSVVVVVNNVVVVVVVVVVVVVVNNVVVVVSSS.#",
+     "#.SSSVVVVVVVVVVVVVVVVVVVVVVVVVVVVSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCOCCCOCCOCPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCCOCCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCOOOCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCYYCRRRCVVCCRRPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCYYCCRRCVVCCRRPPPPPPSSSSSSSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSSVVVVVVVVVVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSVVVVVVVOOVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "S",
+      "count": 51,
+      "mystery": "depth"
+     },
+     {
+      "color": "S",
+      "count": 51
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "mystery": "depth"
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "group": "A"
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "Y",
+      "count": 16
+     },
+     {
+      "color": "V",
+      "count": 41
+     },
+     {
+      "color": "V",
+      "count": 41
+     },
+     {
+      "color": "V",
+      "count": 40
+     },
+     {
+      "color": "O",
+      "count": 11
+     },
+     {
+      "color": "O",
+      "count": 10
+     },
+     {
+      "color": "P",
+      "count": 49
+     },
+     {
+      "color": "P",
+      "count": 49
+     },
+     {
+      "color": "P",
+      "count": 48,
+      "group": "B"
+     },
+     {
+      "color": "C",
+      "count": 31,
+      "group": "A"
+     },
+     {
+      "color": "C",
+      "count": 30
+     },
+     {
+      "color": "C",
+      "count": 30,
+      "group": "B"
+     },
+     {
+      "color": "R",
+      "count": 9
+     },
+     {
+      "color": "N",
+      "count": 20
+     },
+     {
+      "color": "N",
+      "count": 20
+     },
+     {
+      "color": "D",
+      "count": 46
+     },
+     {
+      "color": "D",
+      "count": 46
+     },
+     {
+      "color": "D",
+      "count": 45
+     }
+    ],
+    "tray": [
+     [
+      1,
+      2,
+      0,
+      23,
+      21,
+      7,
+      3,
+      17
+     ],
+     [
+      6,
+      19,
+      20,
+      18,
+      9,
+      13,
+      15,
+      14
+     ],
+     [
+      22,
+      5,
+      8,
+      4,
+      16,
+      12,
+      11,
+      10
+     ]
+    ],
+    "recipe": "links+hidden"
+   },
+   "N": 884,
+   "W": 884,
+   "colours": 9,
+   "P": 24,
+   "columns": 3,
+   "linked": 4,
+   "hidden": 2,
+   "random": {
+    "runs": 100,
+    "wins": 78,
+    "share": 0.78,
+    "wilson95": [
+     0.689,
+     0.85
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 90.3
+    }
+   },
+   "fairness": {
+    "checked": 1,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+   },
+   "strategies": {
+    "left-to-right|left": true,
+    "left-to-right|right": true,
+    "right-to-left|left": true,
+    "right-to-left|right": true,
+    "top-down|left": true,
+    "top-down|right": true,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": false,
+    "diagonal|right": false,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 4.32,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.79,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 1.89,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.06,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.87,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     }
+    ],
+    "launchesAfter80": 5,
+    "lastLaunchAtW": 99,
+    "seconds": 352.5
+   },
+   "dosePos": 0.4,
+   "blend": 0.459,
+   "checks": {
+    "forced": 0.18,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 2,
+       "revealAt": 1,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 0,
+       "revealAt": 2,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.7,
+     "tight": 0.91
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 2
+  },
+  {
+   "id": "P0165-Nlinks+hidden-14",
+   "picture": "P0165",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links+hidden",
+   "level": {
+    "id": 1,
+    "title": "Фургон с мороженым",
+    "subject": "P0165",
+    "w": 38,
+    "h": 30,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.CCCDDCCCDDCCCDDCCCDDCCCDDCCCDDCCCD.#",
+     "#.DDDDDDDDNNDDDDDDDDDDDDDDNNDDDDDDDD.#",
+     "#.DDDDDDDNNNNDDDDDDDDDDDDNNNNDDDDDDD.#",
+     "#.SSSSSSNNCCNNSSSSSSSSSSNNCCNNSSSSSS.#",
+     "#.SSSVVVNNCCNNVVVVVVVVVVNNCCNNVVVSSS.#",
+     "#.SSSVVVVNNNNVVVVVVVVVVVVNNNNVVVVSSS.#",
+     "#.SSSVVVVVNNVVVVVVVVVVVVVVNNVVVVVSSS.#",
+     "#.SSSVVVVVVVVVVVVVVVVVVVVVVVVVVVVSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCOCCCOCCOCPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCCOCCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCOOOCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCYYCRRRCVVCCRRPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCYYCCRRCVVCCRRPPPPPPSSSSSSSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSSVVVVVVVVVVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSVVVVVVVOOVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "S",
+      "count": 51
+     },
+     {
+      "color": "S",
+      "count": 51
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "group": "A"
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "Y",
+      "count": 16
+     },
+     {
+      "color": "V",
+      "count": 41,
+      "group": "A"
+     },
+     {
+      "color": "V",
+      "count": 41
+     },
+     {
+      "color": "V",
+      "count": 40
+     },
+     {
+      "color": "O",
+      "count": 11
+     },
+     {
+      "color": "O",
+      "count": 10
+     },
+     {
+      "color": "P",
+      "count": 49
+     },
+     {
+      "color": "P",
+      "count": 49
+     },
+     {
+      "color": "P",
+      "count": 48,
+      "group": "B"
+     },
+     {
+      "color": "C",
+      "count": 31
+     },
+     {
+      "color": "C",
+      "count": 30
+     },
+     {
+      "color": "C",
+      "count": 30,
+      "group": "B"
+     },
+     {
+      "color": "R",
+      "count": 9,
+      "mystery": "depth"
+     },
+     {
+      "color": "N",
+      "count": 20,
+      "mystery": "depth"
+     },
+     {
+      "color": "N",
+      "count": 20
+     },
+     {
+      "color": "D",
+      "count": 46
+     },
+     {
+      "color": "D",
+      "count": 46
+     },
+     {
+      "color": "D",
+      "count": 45
+     }
+    ],
+    "tray": [
+     [
+      21,
+      3,
+      23,
+      18,
+      7,
+      11,
+      17,
+      16
+     ],
+     [
+      6,
+      22,
+      13,
+      19,
+      4,
+      2,
+      14,
+      20
+     ],
+     [
+      0,
+      15,
+      8,
+      1,
+      5,
+      12,
+      9,
+      10
+     ]
+    ],
+    "recipe": "links+hidden"
+   },
+   "N": 884,
+   "W": 884,
+   "colours": 9,
+   "P": 24,
+   "columns": 3,
+   "linked": 4,
+   "hidden": 2,
+   "random": {
+    "runs": 400,
+    "wins": 229,
+    "share": 0.573,
+    "wilson95": [
+     0.524,
+     0.62
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 102
+    }
+   },
+   "fairness": {
+    "checked": 1,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": false,
+    "right-to-left|right": false,
+    "top-down|left": true,
+    "top-down|right": true,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.78,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 1.63,
+      "minFree": 0,
+      "fullShare": 0.29,
+      "maxWaiting": 3
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 1.49,
+      "minFree": 0,
+      "fullShare": 0.21,
+      "maxWaiting": 3
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 2.82,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.33,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     }
+    ],
+    "launchesAfter80": 4,
+    "lastLaunchAtW": 99,
+    "seconds": 323.2
+   },
+   "dosePos": 0.4,
+   "blend": 0.439,
+   "checks": {
+    "forced": 0.32,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 18,
+       "revealAt": 3,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 19,
+       "revealAt": 7,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.87,
+     "tight": 0.95
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 14
+  },
+  {
+   "id": "P0165-Nlinks+hidden-19",
+   "picture": "P0165",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links+hidden",
+   "level": {
+    "id": 1,
+    "title": "Фургон с мороженым",
+    "subject": "P0165",
+    "w": 38,
+    "h": 30,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.CCCDDCCCDDCCCDDCCCDDCCCDDCCCDDCCCD.#",
+     "#.DDDDDDDDNNDDDDDDDDDDDDDDNNDDDDDDDD.#",
+     "#.DDDDDDDNNNNDDDDDDDDDDDDNNNNDDDDDDD.#",
+     "#.SSSSSSNNCCNNSSSSSSSSSSNNCCNNSSSSSS.#",
+     "#.SSSVVVNNCCNNVVVVVVVVVVNNCCNNVVVSSS.#",
+     "#.SSSVVVVNNNNVVVVVVVVVVVVNNNNVVVVSSS.#",
+     "#.SSSVVVVVNNVVVVVVVVVVVVVVNNVVVVVSSS.#",
+     "#.SSSVVVVVVVVVVVVVVVVVVVVVVVVVVVVSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCOCCCOCCOCPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCCOCCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCOOOCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCYYCRRRCVVCCRRPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCYYCCRRCVVCCRRPPPPPPSSSSSSSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSSVVVVVVVVVVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSVVVVVVVOOVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "S",
+      "count": 51,
+      "mystery": "depth"
+     },
+     {
+      "color": "S",
+      "count": 51,
+      "group": "A"
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "group": "A"
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "S",
+      "count": 50
+     },
+     {
+      "color": "Y",
+      "count": 16,
+      "mystery": "depth"
+     },
+     {
+      "color": "V",
+      "count": 41
+     },
+     {
+      "color": "V",
+      "count": 41
+     },
+     {
+      "color": "V",
+      "count": 40,
+      "group": "C"
+     },
+     {
+      "color": "O",
+      "count": 11
+     },
+     {
+      "color": "O",
+      "count": 10
+     },
+     {
+      "color": "P",
+      "count": 49,
+      "group": "B"
+     },
+     {
+      "color": "P",
+      "count": 49
+     },
+     {
+      "color": "P",
+      "count": 48
+     },
+     {
+      "color": "C",
+      "count": 31
+     },
+     {
+      "color": "C",
+      "count": 30
+     },
+     {
+      "color": "C",
+      "count": 30
+     },
+     {
+      "color": "R",
+      "count": 9,
+      "group": "C"
+     },
+     {
+      "color": "N",
+      "count": 20,
+      "group": "B"
+     },
+     {
+      "color": "N",
+      "count": 20
+     },
+     {
+      "color": "D",
+      "count": 46
+     },
+     {
+      "color": "D",
+      "count": 46
+     },
+     {
+      "color": "D",
+      "count": 45
+     }
+    ],
+    "tray": [
+     [
+      21,
+      6,
+      16,
+      20,
+      10,
+      11
+     ],
+     [
+      3,
+      13,
+      0,
+      19,
+      17,
+      15
+     ],
+     [
+      1,
+      22,
+      4,
+      12,
+      9,
+      5
+     ],
+     [
+      2,
+      23,
+      14,
+      7,
+      18,
+      8
+     ]
+    ],
+    "recipe": "links+hidden"
+   },
+   "N": 884,
+   "W": 884,
+   "colours": 9,
+   "P": 24,
+   "columns": 4,
+   "linked": 6,
+   "hidden": 2,
+   "random": {
+    "runs": 100,
+    "wins": 81,
+    "share": 0.81,
+    "wilson95": [
+     0.722,
+     0.875
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     }
+    ],
+    "forks": 3,
+    "singleSafe": 2,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 137.2
+    }
+   },
+   "fairness": {
+    "checked": 1,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": true,
+    "right-to-left|right": true,
+    "top-down|left": true,
+    "top-down|right": true,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 1.83,
+      "minFree": 0,
+      "fullShare": 0.43,
+      "maxWaiting": 4
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 1.42,
+      "minFree": 0,
+      "fullShare": 0.27,
+      "maxWaiting": 3
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 2.19,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.86,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.12,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 95,
+    "seconds": 361.6
+   },
+   "dosePos": 0.8,
+   "blend": 0.453,
+   "checks": {
+    "forced": 0.32,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 6,
+       "revealAt": 1,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 0,
+       "revealAt": 7,
+       "gap": 0,
+       "newColour": false
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.84,
+     "tight": 0.88
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 19
+  },
+  {
+   "id": "P0165-Nlinks+hidden-21",
+   "picture": "P0165",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links+hidden",
+   "level": {
+    "id": 1,
+    "title": "Фургон с мороженым",
+    "subject": "P0165",
+    "w": 38,
+    "h": 30,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+     "#.CCCDDCCCDDCCCDDCCCDDCCCDDCCCDDCCCD.#",
+     "#.DDDDDDDDNNDDDDDDDDDDDDDDNNDDDDDDDD.#",
+     "#.DDDDDDDNNNNDDDDDDDDDDDDNNNNDDDDDDD.#",
+     "#.SSSSSSNNCCNNSSSSSSSSSSNNCCNNSSSSSS.#",
+     "#.SSSVVVNNCCNNVVVVVVVVVVNNCCNNVVVSSS.#",
+     "#.SSSVVVVNNNNVVVVVVVVVVVVNNNNVVVVSSS.#",
+     "#.SSSVVVVVNNVVVVVVVVVVVVVVNNVVVVVSSS.#",
+     "#.SSSVVVVVVVVVVVVVVVVVVVVVVVVVVVVSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCCCCCOCCCOCCOCPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCCOCCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCOOCOOOCOOCCOOPPPPPPPSSSSPSSS.#",
+     "#.SSSPPCYYCRRRCVVCCRRPPPPPPPPPPPPSSS.#",
+     "#.SSSPPCYYCCRRCVVCCRRPPPPPPSSSSSSSSS.#",
+     "#.SSSPPCCCCCCCCCCCCCCPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSPPPPPPPPPPPPPPPPPPPPPPSSSSSSSSS.#",
+     "#.SSSSVVVVVVVVVVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSVVVVVVVOOVVVVVVVSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSYYYYSSSSSSSSSSSSSSSSSSSS.#",
+     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "S",
+      "count": 51
+     },
+     {
+      "color": "S",
+      "count": 51
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "group": "B"
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "mystery": "depth"
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "mystery": "depth"
+     },
+     {
+      "color": "S",
+      "count": 50,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 16
+     },
+     {
+      "color": "V",
+      "count": 41
+     },
+     {
+      "color": "V",
+      "count": 41,
+      "group": "A"
+     },
+     {
+      "color": "V",
+      "count": 40
+     },
+     {
+      "color": "O",
+      "count": 11
+     },
+     {
+      "color": "O",
+      "count": 10
+     },
+     {
+      "color": "P",
+      "count": 49
+     },
+     {
+      "color": "P",
+      "count": 49
+     },
+     {
+      "color": "P",
+      "count": 48
+     },
+     {
+      "color": "C",
+      "count": 31
+     },
+     {
+      "color": "C",
+      "count": 30,
+      "group": "C"
+     },
+     {
+      "color": "C",
+      "count": 30
+     },
+     {
+      "color": "R",
+      "count": 9,
+      "group": "C"
+     },
+     {
+      "color": "N",
+      "count": 20
+     },
+     {
+      "color": "N",
+      "count": 20
+     },
+     {
+      "color": "D",
+      "count": 46,
+      "group": "B"
+     },
+     {
+      "color": "D",
+      "count": 46
+     },
+     {
+      "color": "D",
+      "count": 45
+     }
+    ],
+    "tray": [
+     [
+      0,
+      7,
+      15,
+      3,
+      21,
+      19
+     ],
+     [
+      18,
+      14,
+      9,
+      11,
+      2,
+      10
+     ],
+     [
+      16,
+      13,
+      4,
+      23,
+      12,
+      5
+     ],
+     [
+      17,
+      1,
+      22,
+      20,
+      6,
+      8
+     ]
+    ],
+    "recipe": "links+hidden"
+   },
+   "N": 884,
+   "W": 884,
+   "colours": 9,
+   "P": 24,
+   "columns": 4,
+   "linked": 6,
+   "hidden": 2,
+   "random": {
+    "runs": 100,
+    "wins": 77,
+    "share": 0.77,
+    "wilson95": [
+     0.678,
+     0.842
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 122.9
+    }
+   },
+   "fairness": {
+    "checked": 1,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": false,
+    "right-to-left|right": false,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": false,
+    "bottom-up|right": false,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": false,
+    "fast-release|right": false
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.66,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.43,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.74,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 2.98,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 2.55,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 2
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 88,
+    "seconds": 410.2
+   },
+   "dosePos": 0.7,
+   "blend": 0.52,
+   "checks": {
+    "forced": 0.16,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 3,
+       "revealAt": 3,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 4,
+       "revealAt": 12,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.27,
+     "tight": 0.92
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 21
+  }
+ ],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+hidden|",
+   "steer": {
+    "t": 0.518,
+    "aim": 0.56
+   },
+   "tried": 22,
+   "found": 4,
+   "reasons": {
+    "не тот класс по быстрой оценке": 16,
+    "честность скрытых не подтверждена": 2
+   }
+  },
+  {
+   "combo": "Hard|links+hidden|",
+   "tried": 40,
+   "found": 1,
+   "reasons": {
+    "не тот класс по быстрой оценке": 27,
+    "дозы не подходят фактическому классу: связанных 8 вне 10–14 для Super Hard": 2,
+    "жадная стратегия выигрывает (§5)": 8,
+    "вынужденных решений больше 35 % (§5)": 1,
+    "ниже 5 %": 1
+   }
+  }
+ ],
+ "placed": [
+  "P0165-Hlinks+hidden-39"
+ ]
+}

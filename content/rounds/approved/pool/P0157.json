@@ -1,7 +1,7 @@
 {
  "code": "P0157",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0035",
  "version": 2,
  "title": "Теплица с тюльпанами",
  "theme": "bridge-contour",

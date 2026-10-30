@@ -1,7 +1,7 @@
 {
  "code": "P0161",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0041",
  "version": 1,
  "title": "Колбы алхимика",
  "theme": "strong-L21-L50",

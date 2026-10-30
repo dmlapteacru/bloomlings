@@ -7,7 +7,7 @@
  "approved": "2026-10-29",
  "approvedBy": "owner",
  "plan": "product/plans/wave-L21-L50-mechanics-plan-2026-10-29.md",
- "note": "The owner's breakdown of 2026-10-29: links dominate; hidden pods are never the lead; links may lead or be additional; a bridge is only the lead. Normal: 3 without extras (one in each ten: L22, L36, L47), 3 bridge + hidden with both bridges winning (L23, L33, L43), all others links + hidden. Hard: L25, L40 links + hidden; L35, L50 bridge + links + hidden with both bridges winning. Super Hard L30, L45: bridge (exactly one wins) + links + a couple of hidden pods. recipe is the builder's recipe string (lead first). strip 'gap': one whole picture split by a neutral strip in the board's colour, the bridges on the strip (owner, 2026-10-29). bridgeKind: single = exactly one bridge wins, better = both win and one is at least 10 points better by the random test. bridgeFamilies: the theme families kept for the bridge levels' split pictures; other positions do not take them.",
+ "note": "The owner's breakdown of 2026-10-29: links dominate; hidden pods are never the lead; links may lead or be additional; a bridge is only the lead. Normal: 3 without extras (one in each ten: L22, L36, L47), 3 bridge + hidden with both bridges winning (L23, L33, L43), all others links + hidden. Hard: L25, L40 links + hidden; L35, L50 bridge + links + hidden with both bridges winning. Super Hard L30, L45: bridge (exactly one wins) + links + a couple of hidden pods. recipe is the builder's recipe string (lead first). strip 'gap': one whole picture split by a neutral strip in the board's colour, the bridges on the strip (owner, 2026-10-29). bridgeKind: single = exactly one bridge wins, better = both win and one is at least 10 points better by the random test. bridgeFamilies: the theme families kept for the bridge levels' split pictures; other positions do not take them. 2026-10-30: the bridge sides of L23 and L35 swapped (L35, the greenhouse, has its doors in front: bridges up; L23 gets a new picture with bridges to the right), still two up and two right in the wave.",
  "levels": [
   {
    "level": 21,
@@ -33,7 +33,7 @@
     "hidden"
    ],
    "recipe": "bridge+hidden",
-   "bridgeSide": "up",
+   "bridgeSide": "right",
    "strip": "gap",
    "bridgeKind": "better",
    "by": "hand"
@@ -156,7 +156,7 @@
     "hidden"
    ],
    "recipe": "bridge+links+hidden",
-   "bridgeSide": "right",
+   "bridgeSide": "up",
    "strip": "gap",
    "bridgeKind": "better",
    "by": "hand"

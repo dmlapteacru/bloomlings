@@ -1,7 +1,7 @@
 {
  "code": "P0163",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0039",
  "version": 1,
  "title": "Шкатулка для рукоделия",
  "theme": "strong-L21-L50",

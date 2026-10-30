@@ -333,6 +333,8 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const ok=pool.filter(c=>!usedPic.has(c.picture)&&c.cls===slot.cls&&fitsStage({N:c.N,colours:c.colours},n)
    &&(slot.intro?(c.intro&&c.recipe===slot.intro):!c.intro&&(c.recipe==='none'||c.recipe.split('+').every(t=>slot.allowed.includes(t))))
    &&((picture(c.picture).locked||null)===(n<=3?n:null))
+   // a third-party universe or a meme is not for release without rights (the audit's mandatory rule, theme catalog §4)
+   &&!['сторонняя вселенная','мем'].includes(picture(c.picture).source)
    // §11: no lead mechanic or identical recipe 3 times in a row; the two teaching appearances do not count
    // (the owner, 2026-10-29: links dominate, so a links lead and links+hidden may repeat any number of times)
    &&!(prev.length===2&&!slot.intro&&lead(c)!=='none'&&lead(c)!=='links'&&prev.every(L=>!L.intro&&lead(L)===lead(c)))

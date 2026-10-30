@@ -1829,8 +1829,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0038"
+   "note": null
   },
   {
    "id": "P0107",
@@ -2706,7 +2705,7 @@
    "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0033"
   },
   {
    "id": "P0157",
@@ -2724,7 +2723,7 @@
    "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0035"
   },
   {
    "id": "P0158",
@@ -2742,7 +2741,7 @@
    "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0043"
   },
   {
    "id": "P0159",
@@ -2760,7 +2759,7 @@
    "status": "approved",
    "batch": "batch-0155-contour-bridges",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0050"
   },
   {
    "id": "P0160",
@@ -2796,7 +2795,7 @@
    "status": "approved",
    "batch": "batch-0160-strong",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0041"
   },
   {
    "id": "P0162",
@@ -2814,7 +2813,7 @@
    "status": "approved",
    "batch": "batch-0160-strong",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0042"
   },
   {
    "id": "P0163",
@@ -2832,7 +2831,7 @@
    "status": "approved",
    "batch": "batch-0160-strong",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0039"
   },
   {
    "id": "P0164",
@@ -2850,7 +2849,7 @@
    "status": "approved",
    "batch": "batch-0164-strong",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0044"
   },
   {
    "id": "P0165",
@@ -2868,7 +2867,7 @@
    "status": "approved",
    "batch": "batch-0164-strong",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0040"
   },
   {
    "id": "P0166",
@@ -2886,7 +2885,7 @@
    "status": "approved",
    "batch": "batch-0164-strong",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0048"
   }
  ]
 }

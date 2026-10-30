@@ -1,7 +1,7 @@
 {
  "code": "P0159",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0050",
  "version": 2,
  "title": "Роза собора",
  "theme": "bridge-contour",

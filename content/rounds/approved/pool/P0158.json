@@ -1,7 +1,7 @@
 {
  "code": "P0158",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0043",
  "version": 2,
  "title": "Диплодок в озере",
  "theme": "bridge-contour",
