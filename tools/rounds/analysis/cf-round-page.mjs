@@ -53,37 +53,56 @@ const panel=`
 #cfp .chip.link{background:#e9dcf7;border-color:#a98bd0}
 #cfp .chip.done{background:#cfe8c6;border-color:#8cbf7c;color:#3d6b30}
 #cfp .chip.cur{background:#f6cb3e;border-color:#b8901b;font-weight:700}
-#cfp .more{display:none;padding:6px 8px 8px;border-top:1px solid #e8dcc4;max-height:62vh;overflow:auto}
+#cfp .more{display:none;padding:6px 8px 8px;border-top:1px solid #e8dcc4;max-height:46vh;overflow:auto}
 #cfp.open .more{display:block}
 #cfp .list{display:grid;gap:4px;margin:6px 0}
-#cfp .list button{text-align:left;padding:5px 7px;border-radius:8px;border:1px solid #d9c9a6;background:#fff;font:12px/1.3 ui-monospace,monospace;color:#2b2118;cursor:pointer}
-#cfp .list button.sel{background:#fff3c4;border-color:#b8901b}
+#cfp .list button{display:flex;gap:6px;align-items:flex-start;text-align:left;padding:4px 6px;border-radius:8px;border:1px solid #d9c9a6;background:#fff;font:12px/1.3 system-ui,sans-serif;color:#2b2118;cursor:pointer}
+#cfp .list button.sel{background:#fff3c4;border-color:#b8901b;box-shadow:inset 3px 0 0 #b8901b}
+#cfp .list button.off{opacity:.38}
+#cfp .list .num{font-weight:700;min-width:22px;padding-top:1px}
+#cfp .list .row{display:flex;flex-wrap:wrap;gap:2px}
+#cfp .list .chip{min-width:16px;padding:0 3px;font-size:11px}
+#cfp .list .note{color:#6b5d4f;font-size:11px;padding-top:1px}
 #cfp .warn{color:#b3261e}#cfp .ok{color:#2e7d32}
 #cfp small{color:#6b5d4f;display:block;margin-top:4px}
 </style>
 <div id="cfp"><div class="bar"><span id="cfpNext" class="next"></span><span id="cfpStep" class="step"></span><button id="cfpMore" class="btn">Паттерны ▾</button></div>
 <div id="cfpChips" class="chips"></div>
 <div class="more"><div id="cfpList" class="list"></div>
+<small>По мере тапов в каждом паттерне, который начинается ровно с твоих тапов, пройденные шаги зелёные, следующий — жёлтый; паттерны, от которых ты отошёл, бледнеют. Подходящие паттерны всегда сверху списка. Нажми паттерн, чтобы вести его в строке сверху.</small>
 <small>Цифра — колонка слева направо (номера исходные, даже когда колонка опустела). «2-3» — связка: нажми любую из двух капсул. Перед следующим тапом дождись, пока поле успокоится (муравьи вернулись) — так паттерн выигрывает всегда. Начать заново — кнопка игры «Заново».</small>
 <small>Всего выигрышных паттернов у раунда: ${all.length.toLocaleString('ru-RU')} (при спокойной игре выигрывает любой порядок). Здесь ${picks.length}.</small></div></div>
 <script>
 (function(){const P=${JSON.stringify(picks.map(x=>({p:x.pattern.split(' '),note:x.note})))},COLS=${level.tray.length};
-let sel=0;const $=id=>document.getElementById(id);
+let sel=0,last='';const $=id=>document.getElementById(id);
 const exp=P.map(x=>{const h=[Array(COLS).fill(0)];for(const t of x.p){const n=h[h.length-1].slice();for(const c of t.split('-'))n[+c-1]++;h.push(n);}return h;});
-function list(){$('cfpList').innerHTML=P.map((x,i)=>'<button data-i="'+i+'" class="'+(i===sel?'sel':'')+'">'+(i+1)+'. '+x.p.join(' ')+(x.note?' — '+x.note:'')+'</button>').join('');
- for(const b of $('cfpList').querySelectorAll('button'))b.onclick=()=>{sel=+b.dataset.i;list();$('cfp').classList.remove('open');$('cfpMore').textContent='Паттерны ▾';tick();};}
-$('cfpMore').onclick=()=>{const o=$('cfp').classList.toggle('open');$('cfpMore').textContent=o?'Скрыть ▴':'Паттерны ▾';};
-function tick(){let snap=null;try{snap=window.bloomlingsPilot&&window.bloomlingsPilot.snapshot();}catch(e){}
- const x=P[sel],e=exp[sel];let k=-1;const h=snap?snap.visual.heads:Array(COLS).fill(0);
- for(let i=e.length-1;i>=0;i--)if(e[i].every((v,j)=>v===h[j])){k=i;break;}
- const st=snap?snap.status:'';
- $('cfpChips').innerHTML=x.p.map((t,i)=>'<span class="chip'+(t.includes('-')?' link':'')+(k>=0&&i<k?' done':'')+(i===k?' cur':'')+'">'+t+'</span>').join('');
+// the taps made so far, in order, read from the page's column heads: each change is one tap ("2", a link "2-3", a pair
+// stacked in one column "2-2"); a restart (all heads back to 0) clears it
+let hist=[],prev=Array(COLS).fill(0),prevCmd=0;
+function track(h,cmd){if(h.every(v=>v===0)){hist=[];prev=h.slice();prevCmd=cmd;return;}
+ const inc=[];h.forEach((v,c)=>{for(let k=prev[c];k<v;k++)inc.push(c+1);});
+ if(inc.length){const taps=Math.max(1,cmd-prevCmd);if(taps===1)hist.push(inc.sort((a,b)=>a-b).join('-'));else for(const c of inc)hist.push(String(c));}
+ prev=h.slice();prevCmd=cmd;}
+// the step each pattern has reached: its first taps equal the taps made (-1: the taps left it)
+const stepOf=i=>{const p=P[i].p;if(hist.length>p.length)return -1;for(let j=0;j<hist.length;j++)if(p[j]!==hist[j])return -1;return hist.length;};
+const chips=(p,k)=>p.map((t,i)=>'<span class="chip'+(t.includes('-')?' link':'')+(k>=0&&i<k?' done':'')+(k>=0&&i===k?' cur':'')+'">'+t+'</span>').join('');
+function render(h,st){const ks=P.map((x,i)=>stepOf(i));
+ // the patterns that still fit come first (their numbers stay)
+ const order=P.map((x,i)=>i).sort((a,b)=>(ks[a]<0)-(ks[b]<0)||a-b);
+ $('cfpList').innerHTML=order.map(i=>{const x=P[i];return '<button data-i="'+i+'" class="'+(i===sel?'sel':'')+(ks[i]<0?' off':'')+'"><span class="num">'+(i+1)+'.</span><span><span class="row">'+chips(x.p,ks[i])+'</span>'+(x.note?'<span class="note">'+x.note+'</span>':'')+'</span></button>';}).join('');
+ for(const b of $('cfpList').querySelectorAll('button'))b.onclick=()=>{sel=+b.dataset.i;last='';tick();};
+ const x=P[sel],k=ks[sel];
+ $('cfpChips').innerHTML=chips(x.p,k);
  $('cfpStep').textContent='№'+(sel+1)+' · '+(k<0?'?':Math.min(k+1,x.p.length))+'/'+x.p.length;
  if(st==='Won'){$('cfpNext').innerHTML='<span class="ok">Победа</span>';return;}
  if(st&&st!=='Playing'){$('cfpNext').innerHTML='<span class="warn">Проигрыш — «Заново», спокойнее</span>';return;}
- if(k<0){$('cfpNext').innerHTML='<span class="warn">Не по паттерну — «Заново»</span>';return;}
+ if(k<0){const fit=ks.map((v,i)=>v>=0?i+1:0).filter(Boolean);$('cfpNext').innerHTML='<span class="warn">Не по №'+(sel+1)+(fit.length?' — подходят №'+fit.join(', '):' — «Заново»')+'</span>';return;}
  const t=x.p[k];$('cfpNext').textContent=k>=x.p.length?'Все тапы сделаны':(t.includes('-')?'Связка: '+t.replace('-',' и '):'Колонка '+t);}
-list();tick();setInterval(tick,200);})();
+$('cfpMore').onclick=()=>{const o=$('cfp').classList.toggle('open');$('cfpMore').textContent=o?'Скрыть ▴':'Паттерны ▾';};
+function tick(){let snap=null;try{snap=window.bloomlingsPilot&&window.bloomlingsPilot.snapshot();}catch(e){}
+ const h=snap?snap.visual.heads:Array(COLS).fill(0),st=snap?snap.status:'',cmd=snap?snap.commands:0,sig=h.join(',')+'|'+st+'|'+sel;
+ if(sig===last)return;track(h,cmd);last=sig;render(h,st);}
+tick();setInterval(tick,60);})();
 </script>`;
 html=html.replace(/<\/body>/,panel+'\n</body>');
 const out=arg('--out',path.join(DIR,`L${rec.level}.html`));fs.writeFileSync(out,html);
