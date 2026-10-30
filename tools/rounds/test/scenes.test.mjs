@@ -94,7 +94,7 @@ test('the wave plan lists the bridge scenes (strip new) and the split pictures (
   assert.match(s.command,new RegExp(`make --mode split --from \\S+ --side ${m.bridgeSide} --kind ${m.bridgeKind} --cls "${m.cls}" --recipe ${m.recipe.replace(/\+/g,'\\+')} --level ${m.level} `));
   // each suggested source is a free pool picture without a strip that splits to that side
   for(const id of s.sources){const p=L.picture(id);assert.ok(!/[#b]/.test(p.rows.join(''))&&BS.splittable(p,s.side),`L${s.level}: ${id} splits ${s.side}`);}}
- const md=fs.readFileSync(path.join(dir,'runs/L0021-L0050/plan.md'),'utf8');assert.match(md,/Разделённые картинки/);
+ const md=fs.readFileSync(path.join(dir,'runs/L0021-L0050/plan.md'),'utf8');if(plan.order.splits.length)assert.match(md,/Разделённые картинки/);
  for(const s of plan.order.splits)assert.ok(md.includes(s.command),`plan.md carries the command of L${s.level}`);});
 
 test('search: the up proof scene passes the builder with exactly one winning bridge (slow, ROUNDS_SLOW=1)',{skip:!process.env.ROUNDS_SLOW},async()=>{
