@@ -337,12 +337,13 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
   const doseScore=c=>(c.recipe==='none'||slot.intro)?0:c.dosePos==null?.1:Math.abs(c.dosePos-target)*.25;
   // an introduction prefers a weak picture (its mechanic carries the task) and keeps strong ones for regular levels
   const introScore=c=>{if(!slot.intro)return 0;const f=fitOf(c);return f.hiddenColours<=1||f.visible>=6?0:.1;};
-  // §5: "most work now" loses about one in three regular Normals on L4–24 and one in two from L25
+  // §5: "most work now" loses about one in three regular Normals on L4–24 and one in two from L25 (a preference of 0.6,
+  // about 25 share points: a greedy-losing candidate far above the aim would push the Normal median out of 50–60 %)
   const regs=Object.values(placed).filter(L=>regularNormal(L,placed)),lostN=regs.filter(greedyLost).length,q=n<25?1/3:1/2,needLoss=regularSlot&&lostN<Math.round(q*(regs.length+1));
   // layer B (17 §13, quality.json): pods without work at least the class's bound; soft: a preference, hard: a filter
   const pMin=slot.intro?null:regularSlot?QUALITY.pressure.min.regularNormal:slot.cls!=='Normal'?QUALITY.pressure.min[slot.cls]:null;
   const pressureLow=c=>pMin!=null&&!(c.checks&&c.checks.pressure&&c.checks.pressure.stuck>=pMin);
-  const normalScore=c=>introScore(c)+(pressureLow(c)?.5:0)+(slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0)+(needLoss&&!greedyLost(c)?1:0));
+  const normalScore=c=>introScore(c)+(pressureLow(c)?.5:0)+(slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0)+(needLoss&&!greedyLost(c)?.6:0));
   // a regular Normal aims at 55 % itself (not just anywhere in the zone), so the median lands in 50–60 %
   const aim=slot.cls==='Normal'&&!slot.intro&&!afterHard?(medN>.6?.52:medN<.5?.58:.55):null;
   const score=c=>{const s=c.random.share;return doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(aim!==null?2*Math.abs(s-aim):s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
