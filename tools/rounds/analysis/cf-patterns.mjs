@@ -6,9 +6,10 @@
 // States are memoised, so the count is exact (BigInt) without walking every sequence; it suits small rounds only (L20,
 // L25, L26 have 1e11–1e15 winning patterns and millions of states: for them see cf-pattern-tree.mjs).
 // node tools/rounds/analysis/cf-patterns.mjs <CF-key> [--list N] [--out <dir>]
-//   writes <dir>/<key>.json (counts, the winning first moves, the forced moves, the list when it has at most N patterns)
+//   writes <dir>/<key>.json (counts, the winning first moves, the forced moves, the first patterns) and, when there are at
+//   most N patterns, all of them to <dir>/<key>-patterns.txt.gz (one a line)
 const ROOT=new URL('../../../',import.meta.url).pathname;
-const fs=await import('node:fs'),path=await import('node:path'),crypto=await import('node:crypto');
+const fs=await import('node:fs'),path=await import('node:path'),crypto=await import('node:crypto'),zlib=await import('node:zlib');
 const {allRecords}=await import(ROOT+'tools/level-stats/levels.mjs');const {engine}=await import(ROOT+'tools/level-stats/engines.mjs');
 const E=await engine('CF'),R=E.R,STEP=E.idle.step;
 const arg=(k,d)=>{const i=process.argv.indexOf(k);return i>0?process.argv[i+1]:d;};
@@ -40,6 +41,8 @@ const firsts=memo.get(sig0).kids.map(([lab,,k])=>({tap:lab,patterns:String(k)}))
 const taps=patterns?patterns.map(p=>p.split(' ').length):null;
 const res={key,level:rec.level,difficulty:rec.difficulty,model:'CF engine, idle (the player waits for the board to settle)',capacity:cap,columns:level.tray.length,pods:level.pods.length,
  linked:level.pods.filter(p=>p.group).length,hidden:level.pods.filter(p=>p.mystery).length,winningPatterns:String(total),statesWithWin:[...memo.values()].filter(v=>v.n>0n).length,statesVisited:visited,
- decisions:{forced,choice},firstTaps:firsts,tapsPerPattern:taps?{min:Math.min(...taps),max:Math.max(...taps)}:null,seconds:Math.round((Date.now()-t0)/1000),patterns};
+ allSequencesWin:[...memo.values()].every(v=>v.n>0n),decisions:{forced,choice},firstTaps:firsts,tapsPerPattern:taps?{min:taps.reduce((a,b)=>Math.min(a,b)),max:taps.reduce((a,b)=>Math.max(a,b))}:null,seconds:Math.round((Date.now()-t0)/1000),
+ patternsFile:patterns?key+'-patterns.txt.gz':null,firstPatterns:patterns?patterns.slice(0,50):null};
 fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,key+'.json'),JSON.stringify(res,null,1));
-console.log(JSON.stringify({...res,patterns:patterns?patterns.length+' listed':'not listed (more than '+LIST+')'},null,1));
+if(patterns)fs.writeFileSync(path.join(OUT,key+'-patterns.txt.gz'),zlib.gzipSync(patterns.join('\n')+'\n'));
+console.log(JSON.stringify({...res,firstPatterns:undefined,listed:patterns?patterns.length:'not listed (more than '+LIST+')'},null,1));
