@@ -1,7 +1,7 @@
 {
  "code": "P0095",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0047",
  "version": 1,
  "title": "Карнавальная маска",
  "theme": "batch-0061",

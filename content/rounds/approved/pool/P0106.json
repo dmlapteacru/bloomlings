@@ -1,7 +1,7 @@
 {
  "code": "P0106",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0038",
  "version": 1,
  "title": "Майк Вазовски",
  "theme": "batch-0061",

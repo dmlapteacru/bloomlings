@@ -388,7 +388,8 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0046"
   },
   {
    "id": "P0023",
@@ -1639,7 +1640,8 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0047"
   },
   {
    "id": "P0096",
@@ -1827,7 +1829,8 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0038"
   },
   {
    "id": "P0107",
@@ -2828,6 +2831,60 @@
    "colours": 9,
    "status": "draft",
    "batch": "batch-0160-strong",
+   "note": null,
+   "usedBy": null
+  },
+  {
+   "id": "P0164",
+   "seq": 164,
+   "version": 1,
+   "title": "Мухомор в банке",
+   "theme": "strong-L21-L50",
+   "family": "Грибы и лесные находки",
+   "direction": "Миры внутри предметов",
+   "forLevel": 40,
+   "w": 28,
+   "h": 32,
+   "N": 896,
+   "colours": 9,
+   "status": "draft",
+   "batch": "batch-0164-strong",
+   "note": null,
+   "usedBy": null
+  },
+  {
+   "id": "P0165",
+   "seq": 165,
+   "version": 1,
+   "title": "Фургон с мороженым",
+   "theme": "strong-L21-L50",
+   "family": "Наземный транспорт",
+   "direction": null,
+   "forLevel": 40,
+   "w": 34,
+   "h": 26,
+   "N": 884,
+   "colours": 9,
+   "status": "draft",
+   "batch": "batch-0164-strong",
+   "note": null,
+   "usedBy": null
+  },
+  {
+   "id": "P0166",
+   "seq": 166,
+   "version": 1,
+   "title": "Камин с часами",
+   "theme": "strong-L21-L50",
+   "family": "Свет и домашний декор",
+   "direction": null,
+   "forLevel": 40,
+   "w": 30,
+   "h": 30,
+   "N": 900,
+   "colours": 8,
+   "status": "draft",
+   "batch": "batch-0164-strong",
    "note": null,
    "usedBy": null
   }

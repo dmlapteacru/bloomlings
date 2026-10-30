@@ -21,28 +21,6 @@
    "placedException": "L0018 placed with the owner's exception (2026-10-27, both bridges win); replace when a picture with one deciding bridge exists"
   },
   {
-   "level": 38,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge"
-   ],
-   "stage": {
-    "cells": [
-     550,
-     1200
-    ],
-    "colours": [
-     5,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "links+hidden"
-  },
-  {
    "level": 39,
    "cls": "Normal",
    "intro": null,
@@ -151,50 +129,6 @@
     "compact": true
    },
    "recipe": "links+hidden"
-  },
-  {
-   "level": 46,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge"
-   ],
-   "stage": {
-    "cells": [
-     550,
-     1200
-    ],
-    "colours": [
-     5,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "links+hidden"
-  },
-  {
-   "level": 47,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge"
-   ],
-   "stage": {
-    "cells": [
-     550,
-     1200
-    ],
-    "colours": [
-     5,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "none"
   },
   {
    "level": 48,
