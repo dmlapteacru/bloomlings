@@ -23,13 +23,16 @@ export function randomGame(E,level,seed,keep=null){const {R,T}=E,t=new T.Timelin
 export function wilson(w,n,z=1.96){if(!n)return [0,1];const p=w/n,d=1+z*z/n,c=p+z*z/(2*n),h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n));return [Math.max(0,(c-h)/d),Math.min(1,(c+h)/d)];}
 export const classOfShare=p=>p>=.5?'Normal':p>=.2?'Hard':p>=.05?'Super Hard':'too hard';
 // 100 games; widened to 400 in total when the 95 % Wilson interval crosses a class border (§5)
-export async function randomTest(level,{seed=1,first=100,max=400}={}){const E=await engine();let wins=0,n=0;
- const play=k=>{for(let i=0;i<k;i++){if(randomGame(E,level,seed*7919+n*104729+1))wins++;n++;}};
+// bridge: the class of a bridge level is measured with its best bridge only (17 §5, the owner, 2026-10-30: the bridge adds
+// a choice, not difficulty; a player who loses with the wrong one takes the right one after the free retry)
+export async function randomTest(level,{seed=1,first=100,max=400,bridge=null}={}){const E=await engine();let wins=0,n=0;
+ const keep=bridge===null?null:a=>a.type!=='bridge'||a.choice===bridge;
+ const play=k=>{for(let i=0;i<k;i++){if(randomGame(E,level,seed*7919+n*104729+1,keep))wins++;n++;}};
  play(first);let ci=wilson(wins,n);const crosses=([a,b])=>[.05,.2,.5].some(x=>a<x&&b>=x);
  if(crosses(ci)&&max>first){play(max-first);ci=wilson(wins,n);}
- return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),cls:classOfShare(wins/n),borderline:crosses(ci),protocol:'§5 extended: uniform over legal actions + wait before a scheduled event, ×1',seedBase:seed};}
+ return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),cls:classOfShare(wins/n),borderline:crosses(ci),protocol:'§5 extended: uniform over legal actions + wait before a scheduled event, ×1',seedBase:seed,...(bridge===null?{}:{bridge})};}
 // a quick estimate for screening candidates before the full test
-export async function quickShare(level,games=40,seed=11){const E=await engine();let w=0;for(let i=0;i<games;i++)if(randomGame(E,level,seed*31+i*977))w++;return w/games;}
+export async function quickShare(level,games=40,seed=11,bridge=null){const E=await engine(),keep=bridge===null?null:a=>a.type!=='bridge'||a.choice===bridge;let w=0;for(let i=0;i<games;i++)if(randomGame(E,level,seed*31+i*977,keep))w++;return w/games;}
 
 // the saved winning solution: full-information search on the patient model, replayed on the live timeline (§1, §13.7)
 export async function solve(level,budget=200000){const E=await engine(),S=solver(E,budget),cap=level.capacity||5;

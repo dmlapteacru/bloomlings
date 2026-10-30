@@ -127,6 +127,9 @@ export async function exportWave(from,to,{out,ownerResults=[],game=path.join(roo
   if(sol.outcome!=='Won')errors.push(`${lid(n)}: the saved solution ends ${sol.outcome}`);
   for(const x of sol.nearTies)errors.push(`${lid(n)} solution: near-tie of model times ${x}`);
   const rt=L.random;
+  // a bridge level's class test plays the best bridge only (17 §5 as amended on 2026-10-30); the proof format and the C#
+  // random policy replay unrestricted games, so such a level waits for round-proof support of the restriction
+  if(rt.bridge!=null){errors.push(`${lid(n)}: the random test plays one bridge only (17 §5, 30.10); round-proof.v1 cannot carry it yet`);continue;}
   const proof={format:'round-proof.v1',number:n,definitionVersion:lv.definitionVersion,
    solution:{commands:sol.commands,outcome:'Won',endUs:sol.endUs},
    randomTest:{policy:POLICY,seedBase:rt.seedBase,runs:rt.runs,wins:rt.wins,share:rt.share,wilson95:rt.wilson95,classOfShare:rt.cls,...(rt.borderline!=null?{borderline:rt.borderline}:{})},

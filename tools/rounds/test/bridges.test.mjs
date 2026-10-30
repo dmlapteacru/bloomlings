@@ -148,3 +148,10 @@ test('round-level.v1 carries the overlay in board.overlay, and the schema checks
  const extra={...out,board:{...out.board,overlay:{...out.board.overlay,side:'up'}}};assert.ok(validate('round-level',extra).some(e=>/unexpected side/.test(e)));
  // the schema copy embedded in the game is byte-identical
  assert.equal(fs.readFileSync(path.join(ROOT,'core/src/Bloomlings.Content/Schemas/round-level.schema.json'),'utf8'),fs.readFileSync(path.join(ROOT,'specs/006-round-levels-in-game/contracts/round-level.schema.json'),'utf8'));});
+
+test('a bridge level\'s class test plays its best bridge only (17 §5, the owner, 2026-10-30)',async()=>{
+ const M=await import('../measure.mjs'),lv=readJSON(path.join(ROOT,'content/rounds/experiments/garden-bridge/level-v2.json'));
+ // the garden v2: only the right bridge wins, so games kept to the left one never win
+ assert.equal(await M.quickShare(lv,12,11,0),0);
+ const rt=await M.randomTest(lv,{bridge:0,first:12,max:12});assert.equal(rt.wins,0);assert.equal(rt.bridge,0);
+ assert.equal((await M.randomTest(lv,{first:4,max:4})).bridge,undefined,'unrestricted: no bridge field');});

@@ -1,6 +1,6 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
-## Owner decision · 2026-10-30 — the difficulty is the pods'
+## Owner decisions · 2026-10-30 — the difficulty is the pods'; Super Hard and bridge levels by hand
 
 - [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §7: the difficulty is built by the pods (the queue's
   order, links, hidden pods and waiting for places); a mechanic on the board (the bridge, other field objects) adds a
@@ -8,6 +8,14 @@
   the pod mechanics. In a bridge recipe the pod mechanics take the doses of the recipe without the bridge: "bridge +
   links + hidden" gets the doses of "links + hidden" (links in the lead range); the bridge still counts as a type.
   `tools/rounds/levels.mjs` `doses` and `doseShares` follow; the wave plan L21–L50 notes it.
+- §5, the same day: a bridge level's class is the random test with its best bridge only (the deciding one, or the one
+  the random games win more often when both win); the test over both bridges is kept as `randomAll`. New levels from
+  wave L21–L50; L1–L20 keep their class. `measure.mjs` `randomTest`/`quickShare` take the bridge, `levels.mjs evaluate`
+  measures with it; `export.mjs` refuses such a level until `round-proof` and the C# random policy carry the restriction.
+- §13, the same day: the generator builds Normal and the Hard levels that pass; every Super Hard, every bridge level and a
+  Hard the generator does not manage are built by hand, with the same checks, their scripts and notes kept in
+  `content/rounds/experiments/`; the owner plays every Super Hard. Skills `bloomlings-round-wave` (step 5) and
+  `bloomlings-round-levels` follow.
 
 ## Owner decisions · 2026-10-28 — bridges on any strip, the wave plan sets the mechanics first
 

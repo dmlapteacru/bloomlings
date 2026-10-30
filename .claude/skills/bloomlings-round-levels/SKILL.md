@@ -41,6 +41,15 @@ Build and placement run by script: `node tools/rounds/rounds.mjs run <from> <to>
 The commands below remain the building blocks. Use them directly only to debug or to do a targeted rebuild
 (`build --fresh --seed N`).
 
+**What the generator builds** (17 §13 «Кто строит уровни», the owner, 2026-10-30): Normal levels and the Hard levels that
+pass every check and your look. Every Super Hard, every bridge level and a Hard the generator does not manage are built
+by hand (skill `bloomlings-round-wave`, step «Hand-built positions»): do not spend generator runs on them.
+
+**A bridge level's class** (17 §5, the owner, 2026-10-30) is the random test with its best bridge only: the deciding one,
+or the one the random games win more often when both win. `evaluate` records it as `random` (with `bridge`) and the
+test over both bridges as `randomAll`; the card shows both. The export refuses such a level until the proof format
+carries the restriction.
+
 Layer B of the quality is `content/rounds/quality.json`. Its metric "pods without work" is stored per candidate
 (`checks.pressure`, `measure.mjs pressure`). Placement prefers candidates at or above the class's bound; the audit notes
 those below it, and fails them once the bound's mode is `hard`.

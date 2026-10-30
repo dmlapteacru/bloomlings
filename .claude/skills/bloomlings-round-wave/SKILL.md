@@ -19,6 +19,8 @@ The wave is run by scripts. Your part:
 
 Do not re-do by hand what a script does: no manual tables of levels, no ad-hoc analysis when `rounds.mjs` already
 reports it.
+The exception are the hand-built positions (17 §13 «Кто строит уровни», the owner, 2026-10-30): every Super Hard, every
+bridge level and a Hard the generator does not manage are yours to build, step 5 below.
 
 Before anything, read:
 - the owner's notes log [`content/rounds/owner-notes.md`](../../../content/rounds/owner-notes.md);
@@ -85,11 +87,24 @@ Before anything, read:
    - Exit code 1 means a position stayed open or a mandatory rule failed. For an open position, re-plan and order
      pictures (back to step 1). For a failed rule, read `audit.md`, fix the cause in the tools or rules, rerun.
    - Commit `content/rounds/` (levels, bank, needs, runs) periodically; the bank changes during builds.
-5. **Hand over.** Send the owner:
+5. **Hand-built positions** (17 §13 «Кто строит уровни»). Every Super Hard, every bridge level, and a Hard that step 4
+   left open. Work them one at a time, in the scratchpad first:
+   - Pick or order a picture that can carry the task (for a bridge: one whole picture, a full-width strip, near-bank beds
+     before each site, pockets behind it closed at the picture's edges; `content/rounds/experiments/garden-bridge/`).
+   - Write a small search for the queue: the skeleton that makes the task (for a single deciding bridge: the right bed's
+     pods first, the far pocket's colour of the wrong bridge early, the other pocket's colour last), the rest searched;
+     the doses of 17 §7 (a bridge recipe's links take the lead range).
+   - Screen on what fails most (the class with the deciding bridge, forced decisions, "opening + colours"), read why a
+     candidate fails and change the structure, not only the seed.
+   - Check the chosen one with `levels.mjs evaluate` (the experiment's `full.mjs`), build a one-level pilot with
+     `--preview` and look at it.
+   - Commit the scripts, the level, its preview and a README to `content/rounds/experiments/<name>/`. The owner plays
+     every Super Hard.
+6. **Hand over.** Send the owner:
    - `summary.md`, the sample pilot (`index.html` and its ZIP) and `audit.md`;
    - which levels are in the sample and why: every Super Hard, 2 Hard, every introduction, 2 random regular Normals,
      2 outliers closest to a metric's bound.
-6. **Review** when the owner sends results.
+7. **Review** when the owner sends results.
    - Run `node tools/rounds/rounds.mjs review <results.json>`. It writes
      `content/rounds/reports/<pilot>-review-<date>.md` and a compact copy under `product/playtests/`.
    - For each mismatch, find the metric that missed it and propose a new bound in `content/rounds/quality.json`.
@@ -101,7 +116,7 @@ Before anything, read:
    - A layer B bound becomes `"mode": "hard"` after two samples in a row confirm it.
    - When the owner confirms the wave, move it into the game with the skill `bloomlings-round-transfer` (it starts
      with `rounds.mjs confirm`).
-7. **Drift.** Every 100 levels, compare the summaries of the waves: class shares, Normal median, doses and recipes,
+8. **Drift.** Every 100 levels, compare the summaries of the waves: class shares, Normal median, doses and recipes,
    sizes, families and motifs, durations, open positions. Report any sharp shift to the owner before the next wave.
 
 ## Quality, in short (17 §13)
