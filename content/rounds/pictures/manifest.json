@@ -2641,20 +2641,20 @@
   {
    "id": "P0154",
    "seq": 154,
-   "version": 3,
-   "title": "Ночная ярмарка",
+   "version": 4,
+   "title": "Ярмарка на пирсе",
    "theme": "bridge-v8-recipe",
    "family": "Ярмарки и праздники",
    "direction": null,
    "forLevel": 45,
-   "w": 30,
+   "w": 32,
    "h": 32,
-   "N": 933,
-   "colours": 9,
-   "status": "approved",
-   "batch": "batch-0154-fair-box",
+   "N": 928,
+   "colours": 10,
+   "status": "draft",
+   "batch": "batch-0154-fair-pier",
    "note": null,
-   "usedBy": "L0045"
+   "usedBy": null
   }
  ]
 }

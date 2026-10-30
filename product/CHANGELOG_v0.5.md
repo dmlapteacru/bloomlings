@@ -18,8 +18,9 @@
   `bloomlings-round-levels` follow.
 - §8 and §13, the same day ("Вот именно так я хочу… Именно супер харды"): a Super Hard with a bridge is one big
   meaningful picture split by a neutral contour of any shape: an outline round the subject (L30 «Пагода на острове»), a
-  box the team starts from (L45 «Ночная ярмарка»), or other contours, traps and passages, as long as there is no way
-  round the bridges; the queue decides which bridge wins. `levels.mjs adopt` places a hand-built level on its position
+  box the team starts from (one option when the picture suits it), or other contours, traps and passages, as long as
+  there is no way round the bridges; the contour comes from the picture's own meaning; the queue decides which bridge
+  wins. L45 is «Ярмарка на пирсе» (the pier with the wheel and the big top outlined, gangways from the beach and a boat). `levels.mjs adopt` places a hand-built level on its position
   and so locks it; P0153 approved and L30 locked on the owner's word.
 
 ## Owner decisions · 2026-10-28 — bridges on any strip, the wave plan sets the mechanics first
