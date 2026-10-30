@@ -1,11 +1,14 @@
 // one whole picture with a divider (the owner, 2026-10-30): the far region is an outlined subject that touches no edge
 // (an island with its pagoda), the near region everything round it. The queue's skeleton makes exactly one bridge decide:
-// the near region's pods (OUT) first with noise and a partly reversed order, the deciding bridge's landing colour
-// (ENTRY) from a cut inside them, the subject's colours (MID) after it, the colour where the other bridge lands (LAST)
-// at the end. Links take the lead dose of a Super Hard (17 §7 as amended on 2026-10-30): 3 pairs in the first three rows,
-// the rest through the middle; 2 hidden pods. A candidate is kept when only the deciding bridge (WIN_DIR, its crossing
-// direction) wins, alone it gives 6-20 % (17 §5 as amended on 2026-10-30), §5's forced-decision and opening checks pass,
-// both bridges are offered first now and then, and pods without work reach PMIN.
+// the pods of the two approaches (APPROACH, the colours before each bridge's anchor) first in a random colour order, so
+// either bridge may be offered first; a few of the subject's pods (MID, up to EARLYN) and then the deciding bridge's
+// landing colour (ENTRY); the rest of the subject; the colour where the other bridge lands (LAST); the background (OUT)
+// last. The subject's colours are split finer (FARSIZE cells a pod, 17 §3) so that with the other bridge more of them
+// stand before LAST than there are places. Links take the lead dose of a Super Hard (17 §7 as amended on 2026-10-30): 3
+// pairs in the first three rows, the rest through the middle; 2 hidden pods. A candidate is kept when only the deciding
+// bridge (WIN_DIR, its crossing direction) wins, alone it is in ALO-AHI by QG random games (17 §5 as amended on
+// 2026-10-30), §5's forced-decision and opening checks pass, both bridges are offered first now and then, and pods
+// without work reach PMIN.
 process.env.ROUNDS_DIR=process.env.ROUNDS_DIR||'/tmp/claude-0/-home-user-bloomlings/17da13b7-11ad-5226-8b0f-bc66792e8f73/scratchpad/rounds-trial3';
 process.argv.splice(2,0,'noop');
 const fs=await import('node:fs');
@@ -50,9 +53,9 @@ for(let k=0;k<N;k++){
  const level={...geo,pods,tray,recipe:'bridge+links+hidden',strip:'gap'};
  {const ce=LV.checkPods(pods,v);if(ce.length){console.log(k,'balance',JSON.stringify(ce).slice(0,160));continue;}}
  const w=(await M.bridgeChoicesWin(level)).each;if(!(w[WIN]===true&&w[1-WIN]===false)){console.log(k,'bridges',JSON.stringify(w));continue;}
- const alone=await M.quickShare(level,60,11,WIN),off=(await M.bridgeSingle(level,60,3,w)).offered;
+ const alone=await M.quickShare(level,+(process.env.QG||60),11,WIN),off=(await M.bridgeSingle(level,60,3,w)).offered;
  console.log(k,'offered',JSON.stringify(off),'pods',pods.length,'links',g,'alone',Math.round(alone*100));
- if(!(alone>=.06&&alone<=.2)||Math.min(...off)<12)continue;
+ if(!(alone>=+(process.env.ALO||.06)&&alone<=+(process.env.AHI||.2))||Math.min(...off)<12)continue;
  const fo=await M.forcedShare(level),op=await M.openingTest(level,'Super Hard');console.log(k,'  forced',Math.round(fo*100),'opening',op.first.wins+'/'+op.first.openings,Math.round(op.three.share*100),op.ok?'OK':'');
  if(fo>.35||!op.ok)continue;const pr=await M.pressure(level);console.log(k,'  pressure',pr.stuck);if(pr.stuck<PMIN)continue;
  const f=`${outDir}/cand-${seedArg}-${k}.json`;fs.writeFileSync(f,JSON.stringify(level));found.push({f,alone,off,P:pods.length,links:g,pressure:pr.stuck});}
