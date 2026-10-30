@@ -82,6 +82,12 @@ module (`<title> — мост`, `scene.mode: 'split'`) plus the evidence with th
 `boardOf` gives a split picture's board `strip: 'gap'`, the level carries `definition.strip = 'gap'`, and the pilot draws
 it as its ground with a faint edge, the bridges over it. `--share` and `--gap-tolerance` are explicit exceptions,
 recorded in the scene. `preview <modules> --out <dir>` writes the found levels in the placed-level shape for the pilot.
+The search steers each class's queue blend by the shares it measures, stops a Super Hard with no quick win before the
+per-bridge solver (minutes on a 48×48 board), and for a single deciding bridge prefers shallow approaches near the entry
+and exposes the other approach colour early (`candidate` opts `expose`): `bridgeSingle` counts which site random games
+that tap whenever they can offer first, and on a Super Hard queue those games jam early (2026-10-30: the L30 and L45
+searches found Super Hard single-bridge candidates refused only there, `первым предложен [0,n]` in the evidence).
+`ROUNDS_TRACE=1` logs each check's time; `--retry <regex>` tries matching splits once more after a change.
 
 **Bridge scenes** (superseded on 2026-10-29; `bridge-scene.mjs`, the owner, 2026-10-28: "взять картинку поменьше и вокруг неё строить мосты и
 стены … чтобы был только один выигрышный мост"). The main path for a planned bridge position. `scene(pic, opts)` composes

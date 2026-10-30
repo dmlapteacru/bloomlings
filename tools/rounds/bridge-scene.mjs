@@ -42,7 +42,7 @@
 //      Evidence → <out>.json.
 // node tools/rounds/bridge-scene.mjs make --mode split --from P####[,P####…] --side up|left|right|two --kind single|better|any
 //      --cls Normal|Hard|"Super Hard" --recipe bridge[+links][+hidden] --level n --out content/rounds/pictures/src/split-L####.mjs
-//      [--minutes 35] [--candidates 8] [--per 3] [--seed 1] [--zone a,b] [--share 0.25,0.45] [--gap-tolerance 0] [--no-hold] [--worse-min f] [--restart]
+//      [--minutes 35] [--candidates 8] [--per 3] [--seed 1] [--zone a,b] [--share 0.25,0.45] [--gap-tolerance 0] [--no-hold] [--worse-min f] [--retry regex] [--restart]
 //      [--again] [--dry]
 //      the owner's design of 2026-10-29 (17 §8 «Одна цельная картинка», below at "split"): one whole free approved picture
 //      split by an inserted neutral strip; searches split positions × site pairs × candidate queues until levels.mjs
@@ -59,7 +59,7 @@
 import {deltaE,deltaEHex} from './colour-distance.mjs';
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
 import {siteChoice,CODES,PALETTE,measure,fitsStage,stageOf,boardOf,bridgeSide,BridgeAnchorError,picture,manifest,usage,arg,flag,columnsFor,root,DIR_RU,planOf,lid} from './lib.mjs';
-import {fitness} from './fitness.mjs';import {quickShare} from './measure.mjs';
+import {fitness} from './fitness.mjs';import {quickShare,bridgeSingle} from './measure.mjs';
 const saved=process.argv.slice(2);process.argv.splice(2,process.argv.length,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1,...saved);
 
 export const SIDES=['up','left','right','two'];
@@ -333,16 +333,17 @@ function farDepth(sp){const rows=sp.rows,W=rows[0].length,H=rows.length,d=new Fl
  return (x,y)=>Math.min(3,d[y*W+x]);}
 
 // colour depth of the near bank from the Garden Entry (0-1 search on the board, colour cells cost 1, the strip a wall)
-function nearDepth(sp){const b=boardOf({rows:sp.rows.map(r=>r.replace(/b/g,'#'))}),{w,h}=b,g=b.rowsBottomFirst.join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];
+// (walk: the plain number of steps instead, colour cells passable: how far a team walks to that cell)
+function nearDepth(sp,walk=false){const b=boardOf({rows:sp.rows.map(r=>r.replace(/b/g,'#'))}),{w,h}=b,g=b.rowsBottomFirst.join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];
  for(const e of b.entries){d[e]=0;dq.push(e);}
- while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of D4){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u;if(g[n]==='#')continue;const cost=CODES.includes(g[n])?1:0,nv=d[c]+cost;if(nv<d[n]){d[n]=nv;cost?dq.push(n):dq.unshift(n);}}}
+ while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of D4){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u;if(g[n]==='#')continue;const cost=walk||CODES.includes(g[n])?1:0,nv=d[c]+cost;if(nv<d[n]){d[n]=nv;cost?dq.push(n):dq.unshift(n);}}}
  return (x,y)=>{const v=d[(h-3-y)*w+x+2];return Number.isFinite(v)?v:99;};}
 // every split of a source for a side, best first: positions with 25–45 % beyond the strip, the gap contrast kept and the
 // entry (bottom middle of the board) on the near side; per position the `per` best site pairs, then round robin over the
 // positions by rank, so the search moves through different places early. A pair is better with anchors of different
 // materials, far cells of different materials deep in the subject, a share near 35 %, the sites apart and a strip that
 // runs through the subject rather than through empty space. Deterministic by seed (it breaks near ties).
-export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_SHARE,tolerance=0,first=false,kind=null}={}){const r=rngOf(seed*7919+side.length*31+1),rows=src.rows,pw=rows[0].length,ph=rows.length,N=measure(src).N;
+export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_SHARE,tolerance=0,first=false,kind=null}={}){const r=rngOf(seed*7919+side.length*31+1),rows=src.rows,pw=rows[0].length,ph=rows.length,{N,volumes:vols}=measure(src);
  const colour=c=>CODES.includes(c),cum=Array.from({length:ph+1},()=>new Int32Array(pw+1));
  for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)cum[y+1][x+1]=cum[y][x+1]+cum[y+1][x]-cum[y][x]+(colour(rows[y][x])?1:0);
  const box=(x0,y0,x1,y1)=>x1<x0||y1<y0?0:cum[y1+1][x1+1]-cum[y0][x1+1]-cum[y1+1][x0]+cum[y0][x0];// colour cells in a source box
@@ -356,7 +357,7 @@ export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_
  const byPos=[];
  for(const p of pos){if(first&&byPos.length)break;const share=p.far/N;if(share<range[0]||share>range[1])continue;let sp;try{sp=splitOf(src,{side,at:p.at,corner:p.corner});}catch{continue;}
   const gc=gapContrast(sp);if(!gapOk(gc,tolerance))continue;
-  const cells=siteCells(sp);if(!cells.length)continue;const dep=farDepth(sp),len=sp.strip.length,nd=nearDepth(sp);
+  const cells=siteCells(sp);if(!cells.length)continue;const dep=farDepth(sp),len=sp.strip.length,nd=nearDepth(sp),nw=kind==='single'?nearDepth(sp,true):null;
   // the strip through the subject: the share of strip cells without a colour neighbour
   const bare=sp.strip.filter(([x,y])=>!D4.some(([dx,dy])=>colour(sp.rows[y+dy]?.[x+dx]))).length/len;
   // each cell alone: a colour far cell deep in the subject; the best 14 per leg take part in the pairs
@@ -364,9 +365,13 @@ export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_
   const pairs=[];if(side==='two'){for(const a of legs[0])for(const b of legs[1])pairs.push([a,b]);}else{const l=legs[0];for(let i=0;i<l.length;i++)for(let j=i+1;j<l.length;j++)pairs.push(l[i].s<l[j].s?[l[i],l[j]]:[l[j],l[i]]);}
   const scored=[];for(const [a,b] of pairs){const sep=Math.abs(a.x-b.x)+Math.abs(a.y-b.y);if(sep<3)continue;
    // both approaches about as deep from the entry, so either bridge can be the first one offered (17 §8: both sites
-   // reachable at the choice in part of the random games; bridgeSingle); a single choice prefers one anchor material
+   // reachable at the choice in part of the random games; bridgeSingle); a single choice prefers one anchor material and
+   // shallow approaches: bridgeSingle's random games tap whenever they can, and on a Super Hard they jam early, so an
+   // approach deeper than the first layers is never cleared there
+   // (a single choice: also approaches of small colours, which one pod clears, and close to the entry, eaten early)
    const da=nd(a.x+a.arm[0],a.y+a.arm[1]),db=nd(b.x+b.arm[0],b.y+b.arm[1]),depthGap=Math.min(4,Math.abs(da-db));
-   const score=(a.near===b.near?(kind==='single'?-.5:1):0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len*(kind==='single'?.5:1)+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.3*depthGap+.15*r();
+   const shallow=kind==='single'?.5*Math.min(6,Math.max(da,db)-1)+.4*Math.min(3,vols[a.near]/40)+.4*Math.min(3,vols[b.near]/40)+.03*Math.min(60,Math.max(nw(a.x+a.arm[0],a.y+a.arm[1]),nw(b.x+b.arm[0],b.y+b.arm[1]))):0;
+   const score=(a.near===b.near?(kind==='single'?-.5:1):0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len*(kind==='single'?.5:1)+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.3*depthGap+shallow+.15*r();
    scored.push({score,sites:[a.s,b.s]});}
   scored.sort((a,b)=>a.score-b.score);
   // the `per` best pairs of this position, each moving a site at least 3 cells from the ones already taken
@@ -433,7 +438,9 @@ export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge']
    // in part of the random games)
    const gate=kind==='better'?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),dr=r(),delay=kind==='single'?(dr<.75?0:1):Math.floor(dr*4);
    const cseed=seed*1000003+n*7919+k*131,hi=cls==='Normal'?.9:1,blend=steer?Math.min(hi,Math.max(0,steer.t+(rngOf(cseed^0x5bd1e995)()-.5)*.12)):null;
-   const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,cseed,false,pos,{gate,intended,delay,...(blend!==null?(cls==='Normal'?{t:blend}:{tStrong:blend}):{})});if(c.error){no(c.error);continue;}
+   // a single choice exposes the other approach in most attempts (candidate opts.expose)
+   const expose=kind==='single'&&k%4!==3;
+   const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,cseed,false,pos,{gate,intended,delay,...(expose?{expose}:{}),...(blend!==null?(cls==='Normal'?{t:blend}:{tStrong:blend}):{})});if(c.error){no(c.error);continue;}
    // ROUNDS_TRACE=1: each check's time on stderr (a slow solver branch shows which candidate and stage)
    let quick=null,verdicts=null,tl=Date.now();const trace=process.env.ROUNDS_TRACE?l=>{const t=Date.now();console.error(`  ${src.id} ${s.key} #${k} +${((t-tl)/1000).toFixed(1)} s ${l}`);tl=t;}:()=>{};
    // a Super Hard with no win in the 40 quick games (the same games evaluate plays first) is almost surely below 5 %: it
@@ -442,6 +449,8 @@ export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge']
    const e=await LV.evaluate(c.level,{m,cls,kind,tick:l=>{const q=/^быстрая оценка ([\d.]+)/.exec(l);if(q)quick=+q[1];const v=/^мосты (\[.*\])/.exec(l);if(v)verdicts=v[1];trace(l);}});trace(e.reason||'прошёл');
    // the solver's verdict per bridge goes with a bridge reason (both win, or neither: a different fix)
    if(e.reason&&/^мост: (решает не ровно|выигрывают не оба)/.test(e.reason)&&verdicts)e.reason+=' '+verdicts;
+   // one bridge wins but bridgeSingle refused: which site random games offer first (both must be, in some games)
+   if(e.reason&&/^мост: ни/.test(e.reason)&&verdicts){const bs=await bridgeSingle(c.level,60,3,JSON.parse(verdicts));e.reason+=` ${verdicts} первым предложен ${JSON.stringify(bs.offered)}`;trace(e.reason);}
    if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(hi,Math.max(0,steer.t+step(steer,q)));}}
    if(!e.reason&&e.random.cls!==cls)e.reason=`класс по случайному тесту ${e.random.cls}`;
    if(!e.reason&&(e.random.share<zone[0]||e.random.share>zone[1]))e.reason=`вне зоны ${zone.map(x=>Math.round(x*100)).join('–')} % (q≈${Math.round(e.random.share*10)/10})`;
@@ -451,7 +460,7 @@ export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge']
    if(e.reason){no(e.reason+(e.quick!=null?' q≈'+Math.round(e.quick*10)/10:''));continue;}
    const ch=board.hero.choices,wi=e.checks.bridgeKind==='single'?e.checks.bridgeSingle.each.indexOf(true):e.bridge.better;
    rec.found=true;log(`  ${src.id} ${side}: разрез ${rec.key}, кандидат ${k+1} прошёл (${Math.round(e.random.share*100)} %, мосты ${e.bridge.each.map(x=>Math.round(x.share*100)+' %').join(' / ')})`);
-   return fin({split:s,sp,level:c.level,recipe,cols,gate,delay,intended,attempt:k,dosePos:pos,blend,eval:e,N:m.N,colours:m.colours,win:siteOf(board,ch[wi]),lose:siteOf(board,ch[1-wi]),tried:{splits:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)});}
+   return fin({split:s,sp,level:c.level,recipe,cols,gate,delay,intended,expose,attempt:k,dosePos:pos,blend,eval:e,N:m.N,colours:m.colours,win:siteOf(board,ch[wi]),lose:siteOf(board,ch[1-wi]),tried:{splits:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)});}
   fin();}
  log(`  ${src.id} ${side}: не найдено (разрезов ${nS}, кандидатов ${nC}) ${JSON.stringify(reasons)}`);
  return {fail:true,tried:{splits:nS,candidates:nC,reasons},seconds:Math.round((Date.now()-t0)/1000)};}
@@ -506,12 +515,15 @@ else if(cmd==='make'&&arg('--mode')==='split'){
  if(ev.found&&!flag('--again')){console.log(`уже найдено: ${ev.found.from} ${ev.found.key} (бот ${Math.round(ev.found.random.share*100)} %)`);writeModule(ev.found);process.exit(0);}
  const minutes=+arg('--minutes',35),deadline=Date.now()+60000*minutes,log=x=>console.log(x);ev.runs.push({started:new Date().toISOString(),minutes});ev.found=null;save();
  for(const id of froms){if(Date.now()>=deadline)break;const {p,tr,src}=srcOf(id);if(!tr){console.log(`${id}: не помещается в 48×48 и с обрезкой пустых краёв`);continue;}
-  const done=new Set(ev.tried.filter(t=>t.from===id).map(t=>t.key));
-  const r=await searchSplit(src,{side,kind,cls,recipes,level,candidates,seed,deadline,log,done,per,share,tolerance,zone,needHold:cls==='Normal'&&!noHold,worseMin,title:`${p.title} — мост`,onSplit:rec=>{ev.tried.push({from:id,...rec});save();}});
+  // --retry <regex>: a tried split whose reasons match is tried once more (after a change of the search; the new record
+  // carries the regex, so it is not retried again)
+  const retry=arg('--retry'),rx=retry?new RegExp(retry):null,again=t=>rx&&Object.keys(t.reasons).some(k=>rx.test(k))&&!ev.tried.some(u=>u.from===id&&u.key===t.key&&u.retry===retry);
+  const done=new Set(ev.tried.filter(t=>t.from===id&&!again(t)).map(t=>t.key));
+  const r=await searchSplit(src,{side,kind,cls,recipes,level,candidates,seed,deadline,log,done,per,share,tolerance,zone,needHold:cls==='Normal'&&!noHold,worseMin,title:`${p.title} — мост`,onSplit:rec=>{ev.tried.push({from:id,...rec,...(retry?{retry}:{})});save();}});
   if(r.fail)continue;
   const e=r.eval,k=e.checks,f=fitness({rows:r.sp.rows});
   ev.found={from:id,key:r.split.key,split:r.split,trim:{left:tr.left,top:tr.top},size:`${r.sp.rows[0].length}×${r.sp.rows.length}`,N:r.N,colours:r.colours,hiddenColours:f.hiddenColours,visible:f.visible,gap:gapContrast(r.sp),
-   recipe:r.recipe,columns:r.cols,attempt:r.attempt,dosePos:r.dosePos,queue:{gate:r.gate,delay:r.delay,intended:r.intended,...(r.blend!=null?{blend:Math.round(r.blend*1000)/1000}:{})},win:r.win,lose:r.lose,
+   recipe:r.recipe,columns:r.cols,attempt:r.attempt,dosePos:r.dosePos,queue:{gate:r.gate,delay:r.delay,intended:r.intended,...(r.expose?{expose:true}:{}),...(r.blend!=null?{blend:Math.round(r.blend*1000)/1000}:{})},win:r.win,lose:r.lose,
    random:{share:e.random.share,runs:e.random.runs,wilson95:e.random.wilson95,cls:e.random.cls,borderline:!!e.random.borderline},bridge:e.bridge,bridgeKind:k.bridgeKind,bridgeLoss:k.bridgeLoss||null,forced:k.forced,opening:k.opening,greedyLoses:k.greedyLoses,
    pods:r.level.pods.length,linked:r.level.pods.filter(x=>x.group).length,hidden:r.level.pods.filter(x=>x.mystery).length,seconds:r.seconds,
    level:r.level,eval:{random:e.random,solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,bridge:e.bridge,checks:e.checks}};

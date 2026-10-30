@@ -102,13 +102,14 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
  // split pictures (bridge-scene.mjs make --mode split, the owner, 2026-10-29): each gap position takes one whole free pool
  // picture of its stage, split by a neutral strip on the planned side and searched until its bridge kind holds. Suggested
  // sources: free pool pictures without a strip that fit the stage and split to that side (Hard and Super Hard: 3+ colours
- // hidden at the start on the split board), up to three, a family not yet first choice of another gap position first;
+ // hidden at the start on the split board), up to three, a family and motifs not yet first choice of another gap position
+ // first (the owner, 2026-10-29: a family or motif once per wave);
  // approved free split pictures of that side and stage already count
- const firstFam=new Set(),splitCache=new Map(),canSplit=(p,side)=>{const k=p.id+'|'+side;if(!splitCache.has(k))splitCache.set(k,BS.splittable(p.pic,side));return splitCache.get(k);};
+ const firstFam=new Set(),firstMotif=new Set(),splitCache=new Map(),canSplit=(p,side)=>{const k=p.id+'|'+side;if(!splitCache.has(k))splitCache.set(k,BS.splittable(p.pic,side));return splitCache.get(k);};
  const splits=open.filter(isGap).map(q=>{const side=q.plan.bridgeSide,kind=q.plan.bridgeKind||'single',strongNeed=q.cls!=='Normal',have=fitPics.filter(p=>p.stream&&p.pic.scene&&p.pic.scene.mode==='split'&&p.side===side&&p.fits.includes(q.level)).length;
-  const fit=pics.filter(p=>!p.stream&&p.fits.includes(q.level)).sort((x,y)=>(firstFam.has(x.family)?1:0)-(firstFam.has(y.family)?1:0)||x.id.localeCompare(y.id)),sources=[];
+  const taken=p=>(firstFam.has(p.family)?1:0)+(p.motifs.some(m=>firstMotif.has(m))?1:0),fit=pics.filter(p=>!p.stream&&p.fits.includes(q.level)).sort((x,y)=>taken(x)-taken(y)||x.id.localeCompare(y.id)),sources=[];
   for(const p of fit){if(sources.length>=3)break;const sp=canSplit(p,side);if(!sp||(strongNeed&&sp.hiddenColours<3))continue;sources.push(p);}
-  if(sources[0]&&sources[0].family)firstFam.add(sources[0].family);
+  if(sources[0]){if(sources[0].family)firstFam.add(sources[0].family);for(const m of sources[0].motifs)firstMotif.add(m);}
   return {level:q.level,cls:q.cls,side,kind,recipe:q.plan.recipe,have,sources:sources.map(p=>p.id),command:`node tools/rounds/bridge-scene.mjs make --mode split --from ${sources.map(p=>p.id).join(',')||'P####'} --side ${side} --kind ${kind} --cls "${q.cls}" --recipe ${q.plan.recipe} --level ${q.level} --out content/rounds/pictures/src/split-${lid(q.level)}.mjs`};});
  const splitTotal=splits.filter(x=>!x.have).length;
  const out={range:[a,b],created:new Date().toISOString(),positions:positions.map(({plan:pl,...p})=>p),open:open.map(p=>p.level),blockers,...(mech?{mechanics:mech}:{}),need,supply:{pictures:have,strong:haveStrong,stream:haveStream,bank,...(mech?{overlay:ovSupply}:{})},

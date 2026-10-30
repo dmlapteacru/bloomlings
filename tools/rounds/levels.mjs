@@ -126,6 +126,12 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
    const wc=g[o.anchor];if(opts.delay&&CODES.includes(wc)&&wc!==gc)for(const i of pods.map((p,i)=>i).filter(i=>pods[i].color===wc)){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i);if(k>=opts.delay)continue;
     const to=[];tray.forEach((st,c2)=>st.forEach((q,k2)=>{if(k2>=opts.delay&&k2<opts.gate&&pods[q].color!==gc&&pods[q].color!==wc)to.push([c2,k2]);}));if(!to.length)break;
     const [c2,k2]=to[Math.floor(r()*to.length)];[tray[c][k],tray[c2][k2]]=[tray[c2][k2],tray[c][k]];}}}
+ // opts.expose (a split search for a single deciding bridge, bridge-scene.mjs): a pod of the other bridge's approach colour
+ // stands in the second row, so random games also clear that approach first in part of the games (17 §8: both sites
+ // reachable at the choice; measure.mjs bridgeSingle)
+ if(opts.expose&&intended!==null&&board.hero.choices.length===2){const o=board.hero.choices[1-intended],wc=g[o.anchor],gc=g[2*o.cell-o.anchor];
+  if(CODES.includes(wc)&&wc!==gc&&!tray.some(st=>st.slice(0,2).some(p=>pods[p].color===wc))){const i=pods.map((p,i)=>i).filter(i=>pods[i].color===wc).sort((a,b)=>pods[a].key-pods[b].key)[0];
+   const cs=[...Array(cols).keys()].filter(c=>tray[c].length>=2);if(i!==undefined&&cs.length){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i),c2=cs[Math.floor(r()*cs.length)];[tray[c2][1],tray[c][k]]=[tray[c][k],tray[c2][1]];}}}
  // §6: at the start at least one visible launch has reachable work; else the shallowest pod swaps with a column's top
  const frontier=new Set();for(let i=0;i<g.length;i++)if(CODES.includes(g[i])&&d[i]===0)frontier.add(g[i]);
  if(!tray.some(st=>st.length&&frontier.has(pods[st[0]].color))){const best=ord.filter(i=>frontier.has(pods[i].color)).sort((a,b)=>pods[a].key-pods[b].key)[0];

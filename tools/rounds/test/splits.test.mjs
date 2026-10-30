@@ -104,3 +104,14 @@ test('the level of a split picture carries strip gap; a gap position of the plan
  assert.ok(L.fitsPlan({recipe:'bridge+hidden',level:c.level},plan));
  assert.ok(!L.fitsPlan({recipe:'bridge+hidden',level:{...c.level,strip:undefined}},plan),'a level on a stream is not a gap');
  assert.ok(L.fitsPlan({recipe:'bridge+hidden',level:{...c.level,strip:undefined}},{recipe:'bridge+hidden',bridgeSide:'up'}),'without strip gap in the plan any strip');});
+
+test('candidate options of the split search: expose puts the other approach colour in the first two rows; tStrong and sceneOpts',()=>{
+ const sp=BS.splitOf(SYN,{side:'up',at:6,sites:[3,11]}),pic={id:'T',title:'t',rows:sp.rows,scene:{mode:'split',kind:'better',win:[3,6]}},b=L.boardOf(pic),m=L.measure(pic),base=LV.splitPods(m.volumes,m.N,null),g=b.rowsBottomFirst.join('');
+ for(const intended of [0,1]){const o=b.hero.choices[1-intended],wc=g[o.anchor];
+  for(let k=0;k<6;k++){const c=LV.candidate(pic,b,base.pods,3,'bridge','Super Hard',300+k,false,null,{intended,expose:true,tStrong:.8});assert.ok(c.level,c.error);
+   if(wc!==g[2*o.cell-o.anchor])assert.ok(c.level.tray.some(st=>st.slice(0,2).some(p=>c.level.pods[p].color===wc)),`the other approach (${wc}) in the first two rows`);}}
+ // without the options a candidate is the one it always was (the same random draws)
+ const a=LV.candidate(pic,b,base.pods,3,'bridge','Hard',77,false,null,{}),z=LV.candidate(pic,b,base.pods,3,'bridge','Hard',77,false,null,{});assert.deepEqual(a.level.tray,z.level.tray);
+ // a split picture planned better: the gate only in every other attempt; a scene keeps its deep gate
+ const rows=Math.ceil(24/3);assert.equal(LV.sceneOpts(pic,b,24,3,1).gate,undefined);assert.equal(LV.sceneOpts(pic,b,24,3,0).gate,rows-4);assert.equal(LV.sceneOpts(pic,b,24,3,0).intended,L.siteChoice(b,[3,6]));
+ assert.equal(LV.sceneOpts({...pic,scene:{...pic.scene,mode:undefined}},b,24,3,1).gate,rows-2);});
