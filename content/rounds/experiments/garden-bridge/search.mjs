@@ -23,14 +23,14 @@ for(let k=0;k<N;k++){
  const per=Object.fromEntries(castle.map(c=>[c,Math.max(v[c]>=20?2:1,Math.ceil(v[c]/60),Math.round(v[c]/(32+r()*14)))]));
  let mid=castle.flatMap((c,i)=>split(c,per[c]).map(p=>({...p,key:i+r()*1.2})));
  const t=.15+.5*r();mid.forEach(p=>p.key=(1-t)*p.key+t*(castle.length-p.key)+(r()-.5));mid.sort((a,b)=>a.key-b.key);mid=mid.map(({key,...p})=>p);
- const nO=2+Math.floor(r()*2);
+ const nO=Math.max(2+Math.floor(r()*2),Math.ceil(RP/55));
  // skeleton A: the moss and pumpkin bed pods side by side in the top row; B: the top row is the moss pods and castle
  // pods (waiting), the pumpkins a row later, so the right bridge is offered first more often
  const sk=r()<.65?'B':'A',top=sk==='B'?cols-2:0;
  let order=[...split(BED_R,2,RB),...mid.slice(0,top),...split(BED_L,2,LB),...split(BED_L,nO,RP)];
  // some castle pods slip in among the pumpkins (they wait in places until the right pocket opens)
  const early=Math.floor(r()*3);order=[...order,...mid.slice(top,top+early)];const rest=mid.slice(top+early);
- order=[...order,...rest.slice(0,Math.floor(rest.length*.7)),...split(BED_R,2,LP),...rest.slice(Math.floor(rest.length*.7))];
+ order=[...order,...rest.slice(0,Math.floor(rest.length*.7)),...split(BED_R,Math.max(2,Math.ceil(LP/55)),LP),...rest.slice(Math.floor(rest.length*.7))];
  const tray=Array.from({length:cols},()=>[]);order.forEach((p,i)=>tray[i%cols].push(i));
  const pods=order.map(p=>({...p}));
  // links: pairs in neighbouring columns at the same row, rows 1+ (the skeleton's top row stays free), 2-4 pairs
