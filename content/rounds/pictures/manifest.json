@@ -2684,7 +2684,7 @@
    "h": 30,
    "N": 881,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0155-0160-redraw",
    "note": null,
    "usedBy": null
@@ -2774,7 +2774,7 @@
    "h": 28,
    "N": 896,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0155-0160-redraw",
    "note": null,
    "usedBy": null
@@ -2900,7 +2900,7 @@
    "h": 30,
    "N": 900,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0167-strong",
    "note": null,
    "usedBy": null

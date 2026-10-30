@@ -53,7 +53,7 @@
   "A": 110,
   "D": 174
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0155-0160-redraw",
  "createdAt": "2026-10-30",
  "history": [
@@ -93,5 +93,7 @@
     "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-10-30"
 }

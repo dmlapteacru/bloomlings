@@ -1,0 +1,102 @@
+{
+ "code": "P0155",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Фонтан на площади",
+ "theme": "strong-L21-L50",
+ "family": "Городские пространства",
+ "device": "сцена с переправой",
+ "subject": "ярусный городской фонтан на площади: каменная чаша с водой и монетками, колонна, верхняя чаша и струя с золотым навершием; силуэт фонтана обведён нейтральной линией, на него ведут мостки с гравийной дорожки к воде нижней чаши и с кроны дерева к верхней чаше; газон с клумбами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 30,
+ "N": 881,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 391,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 164,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 112,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 90,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 52,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 34,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 18,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 10,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 10,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSS####SSSSSSSSSS",
+  "SSSSSSMMMSSSSSSSS#SYYS#SSSSSSSSS",
+  "SSSSMMMMMMMMSSSSSS#SS#SSSSSSSSSS",
+  "SSMMMMMMMMMMMMSSSS#SS#SSSSSSSSSS",
+  "SSMMMMMMMMMMMMSSSS#SS#SSSSSSSSSS",
+  "SMMMMMMMMMMMMMSSSS#SS#SSSSSSSSSS",
+  "SMMMMMMMMMMMMM####SSSS####SSSSSS",
+  "SMMMMMMMMMMMM#BBBBBBBBBBBB#SSSSS",
+  "SMMMMMMMMMMMMMbCCCCCCCCCC#SSSSSS",
+  "SSMMMMMMMMMMMM##CCCCCCCC#SSSSSSS",
+  "SSSMMMMMMMMMSSSS#SCCCCS#SSSSSSSS",
+  "SSSSSMMMMMSSSSSSS#CCCC#SSSSSSSSS",
+  "SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS",
+  "SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS",
+  "SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS",
+  "SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS",
+  "GGGGGEEGGGGGGGGGG#CCCC#GGGGGGGGG",
+  "GGGGGGGGGGGG#####GCCCCG#####GGGG",
+  "GGGGGGGGGAA#BBBBBBBBBBBBBBBB#GGG",
+  "GGGGGGGAAAAbBBYYBBBBBBYYBBBB#GGG",
+  "GGGGGGAAAAA#BBBBBYYBBBBBBYYB#GGG",
+  "GGGGAAAAGGG#CCCCCCCCCCCCCCCC#GGG",
+  "GGAAAAAGGGGG#CCACCACCACCACC#GGGG",
+  "GAAAARGGGGGG#CCCCCCCCCCCCCC#RRGG",
+  "AAAARRRGGGGGG##############RRRRG",
+  "AARRRRGGGGGGGGGGGGGGGGGGGGRRRRGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

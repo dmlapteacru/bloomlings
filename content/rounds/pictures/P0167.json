@@ -55,8 +55,10 @@
   "A": 50,
   "E": 50
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0167-strong",
  "createdAt": "2026-10-30",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-10-30"
 }

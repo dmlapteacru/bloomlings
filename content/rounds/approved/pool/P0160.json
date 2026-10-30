@@ -1,0 +1,99 @@
+{
+ "code": "P0160",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Вагонетка с самоцветами",
+ "theme": "strong-L21-L50",
+ "family": "Камни, минералы и кристаллы",
+ "subject": "деревянная шахтёрская вагонетка на рельсах, полная красных, синих, сливовых и жёлтых самоцветов, в тёмной штольне с деревянными крепями и тёплым огоньком на шнуре",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 28,
+ "N": 896,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 357,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 174,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 130,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 110,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 68,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 19,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 17,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 13,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 8,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NEEEEEEEEEEEEEEEEEEEEEEEEEEEEENN",
+  "NEEEEEEEEEEEEEEEEEEEEEEEEEEEEENN",
+  "NNEENNNNNNNNNNNNNNNNNNNNNNNEENNN",
+  "NNEENNNNNNNNNNNNNNNNNNNNNNNEENNN",
+  "NNEENNNNNNNNNNNNNNNNNNNNNNNEENNN",
+  "NNEENNYCCCCCBCRRRRYCCCCCCNNEENNN",
+  "NNEENNYCCCCBBBCRRYYYCCCCCNNEENNN",
+  "NNEENNYCRRRCBCVVVCYCRRRCCNNEENNN",
+  "NNEENNNCRRRRCYYVBBCVVRBBCNNEENNN",
+  "NNEENNNCCCRRYYYBBBBVVBBBBNNEENNN",
+  "NNEENNNAAAAAAAAAAAAAAAAAANNEENNN",
+  "NNEENNNAAAAAAAAAAAAAAAAAANNEENNN",
+  "NNEENNNAAAAAAAAAAAAAAAAAANNEENNN",
+  "NNEENNNDDDDDDDDDDDDDDDDDDNNEENNN",
+  "NNEENNNAAAAAAAAAAAAAAAAAANNEENNN",
+  "NNEENNNAAAAAAAAAAAAAAAAAANNEENNN",
+  "NNEENNNNADDAAAAAAAAAADDANNNEENNN",
+  "NNEENNNNDDDDAAAAAAAADDDDNNNEENNN",
+  "NNEENNNNDCCDNNNNNNNNDCCDNNNEENNN",
+  "NNEENNNNDDDDNNNNNNNNDDDDNNNEENNN",
+  "CCCCCCCCCDDCCCCCCCCCCDDCCCCCCCCC",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+ ]
+}

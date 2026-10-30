@@ -1,0 +1,101 @@
+{
+ "code": "P0167",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Феникс в гнезде",
+ "theme": "strong-L21-L50",
+ "family": "Волшебные существа",
+ "subject": "огненная птица феникс с крыльями из пламени и огненным хохолком сидит в гнезде из веток с тремя светлыми яйцами, за ней бледная луна на сливовом вечернем небе",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 9,
+ "volumes": {
+  "V": {
+   "cells": 576,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "O": {
+   "cells": 68,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 53,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 50,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 50,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 30,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 26,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 26,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 21,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-10-30",
+ "rows": [
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVYVVYVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVKYOOYKVVVVVVVVVVVV",
+  "VVVVOVVVVVKKKYOOYKKKVVVVVOVVVV",
+  "VVVVOOVVVVKKKRRRRKKKVVVVOOVVVV",
+  "VVVVVOOOVKKKKRRDRYYKKVOOOVVVVV",
+  "VVVVVVYOOOKKKRRRRKKKOOOYVVVVVV",
+  "VVVVVVYYYOOOKRRRRKOOOYYYVVVVVV",
+  "VVVVVVVRYYYORRRRRROYYYRVVVVVVV",
+  "VVVVVVVRRRYYRROORRYYRRRVVVVVVV",
+  "VVVVVVVVORRRROOOORRRROVVVVVVVV",
+  "VVVVVVVVOOKRROOOORRKOOVVVVVVVV",
+  "VVVVVVVVVOOOROOOOROOOVVVVVVVVV",
+  "VVVVVVVVVVVOROOOOROVVVVVVVVVVV",
+  "VVVVVVVVVVVVROOOORVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVROORVVVVVVVVVVVVV",
+  "VVVVVVVVVVVCVVVVVVCVVVVVVVVVVV",
+  "VVVVVVVVVVCCCDCCDCCCVVVVVVVVVV",
+  "VVVVVVAEDDCCCDCCDCCCDDEEVVVVVV",
+  "VVVVVEEEDDCCCDCCDCCCDDEEEVVVVV",
+  "VVVVAAAAAEEEDDDDDDEEAAAAAEVVVV",
+  "VVVVAAAAEEEEEEAAAAAAAAAAEEVVVV",
+  "VVVVVEEEEAAAAAEEEEEEEEEEAVVVVV",
+  "VVVVVVAAEEEEEEAAAAAAAAAAVVVVVV",
+  "VVVVVVVVEEEEEAAAAAEEAAVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
+ ]
+}
