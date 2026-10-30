@@ -115,3 +115,13 @@ test('candidate options of the split search: expose puts the other approach colo
  // a split picture planned better: the gate only in every other attempt; a scene keeps its deep gate
  const rows=Math.ceil(24/3);assert.equal(LV.sceneOpts(pic,b,24,3,1).gate,undefined);assert.equal(LV.sceneOpts(pic,b,24,3,0).gate,rows-4);assert.equal(LV.sceneOpts(pic,b,24,3,0).intended,L.siteChoice(b,[3,6]));
  assert.equal(LV.sceneOpts({...pic,scene:{...pic.scene,mode:undefined}},b,24,3,1).gate,rows-2);});
+
+test('bridgeSingle plays the games of the §5 random test (with waiting) by default; the older tap policy stays for comparison',async()=>{
+ const M=await import('../measure.mjs'),sp=BS.splitOf(SYN,{side:'up',at:6,sites:[3,11]}),pic={id:'T',title:'t',rows:sp.rows,scene:{mode:'split'}},b=L.boardOf(pic),m=L.measure(pic),base=LV.splitPods(m.volumes,m.N,null);
+ const c=LV.candidate(pic,b,base.pods,3,'bridge','Normal',5,false,null,{intended:0});assert.ok(c.level,c.error);
+ const a=await M.bridgeSingle(c.level,20,3,[true,false]),t=await M.bridgeSingle(c.level,20,3,[true,false],{policy:'tap'});
+ assert.equal(a.policy,'random');assert.equal(t.policy,'tap');assert.equal(a.offered.length,2);
+ assert.ok(a.offered.every(x=>x>=0&&x<=20)&&a.offered.some(x=>x>0),'random games reach a bridge');
+ assert.deepEqual((await M.bridgeSingle(c.level,20,3,[true,false])).offered,a.offered,'deterministic');
+ assert.equal(a.ok,a.offered.every(x=>x>0),'ok: one winning bridge and both sites offered');
+ assert.equal((await M.bridgeSingle(c.level,20,3,[true,true])).ok,false,'two winning bridges are no single choice');});

@@ -2333,6 +2333,24 @@
    "usedBy": null
   },
   {
+   "id": "P0136",
+   "seq": 136,
+   "version": 1,
+   "title": "Маяк на скале — мост",
+   "theme": "bridge-splits",
+   "family": "Дома и архитектура",
+   "direction": null,
+   "forLevel": 30,
+   "w": 28,
+   "h": 36,
+   "N": 945,
+   "colours": 8,
+   "status": "draft",
+   "batch": "split-L0030",
+   "note": null,
+   "usedBy": null
+  },
+  {
    "id": "P0138",
    "seq": 138,
    "version": 1,

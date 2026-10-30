@@ -366,12 +366,14 @@ export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_
   const scored=[];for(const [a,b] of pairs){const sep=Math.abs(a.x-b.x)+Math.abs(a.y-b.y);if(sep<3)continue;
    // both approaches about as deep from the entry, so either bridge can be the first one offered (17 §8: both sites
    // reachable at the choice in part of the random games; bridgeSingle); a single choice prefers one anchor material and
-   // shallow approaches: bridgeSingle's random games tap whenever they can, and on a Super Hard they jam early, so an
-   // approach deeper than the first layers is never cleared there
+   // shallow approaches near the entry, cleared early in the random games of a Super Hard
    // (a single choice: also approaches of small colours, which one pod clears, and close to the entry, eaten early)
    const da=nd(a.x+a.arm[0],a.y+a.arm[1]),db=nd(b.x+b.arm[0],b.y+b.arm[1]),depthGap=Math.min(4,Math.abs(da-db));
    const shallow=kind==='single'?.5*Math.min(6,Math.max(da,db)-1)+.4*Math.min(3,vols[a.near]/40)+.4*Math.min(3,vols[b.near]/40)+.03*Math.min(60,Math.max(nw(a.x+a.arm[0],a.y+a.arm[1]),nw(b.x+b.arm[0],b.y+b.arm[1]))):0;
-   const score=(a.near===b.near?(kind==='single'?-.5:1):0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len*(kind==='single'?.5:1)+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.3*depthGap+shallow+.15*r();
+   // (a single choice on an L: both sites near its corner, so the two approaches are about as far from the entry; a site
+   // high on the vertical leg is reached long after the horizontal one, and the random games never offer it first)
+   const corner=kind==='single'&&side==='two'?.08*Math.min(20,Math.abs(a.x-sp.at[0]))+.3*Math.min(20,Math.abs(b.y-sp.at[1])):0;
+   const score=(a.near===b.near?(kind==='single'?-.5:1):0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len*(kind==='single'?(side==='two'?0:.5):1)+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.3*depthGap+shallow+corner+.15*r();
    scored.push({score,sites:[a.s,b.s]});}
   scored.sort((a,b)=>a.score-b.score);
   // the `per` best pairs of this position, each moving a site at least 3 cells from the ones already taken
@@ -406,8 +408,8 @@ export function checkSplit(sp,src,level=null,{maxColours=11,share:range=GAP_SHAR
   let open=0;sp.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++)if(sp.far(x,y)&&r[x]!=='#'&&r[x]!=='b'&&seen[(h-3-y)*w+x+2])open++;});if(open)issues.push(`за полосой ${open} клеток доступны без моста`);}
  return {...ck,ok:!issues.length,issues,share,contrast:gc};}
 
-// the picture coordinates of a board's bridge choice
-const siteOf=(b,c)=>[c.cell%b.w-2,b.h-3-Math.floor(c.cell/b.w)];
+// the picture coordinates of a board's bridge choice, and of its anchor
+const siteOf=(b,c)=>[c.cell%b.w-2,b.h-3-Math.floor(c.cell/b.w)],anchorOf=(b,c)=>[c.anchor%b.w-2,b.h-3-Math.floor(c.anchor/b.w)];
 // search: splits × candidates of the builder (levels.mjs candidate + evaluate, the planned bridge kind tested first) until
 // one passes. The queue leans to one site (intended, alternating) with the gate (the colour right behind the other site
 // stands deep) and delay; each bridge is solved with a fresh solver (bridgeChoicesWin); a Super Hard may lose at the
@@ -432,14 +434,18 @@ export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge']
   if(strong&&fitness({rows:sp.rows}).hiddenColours<3){no('Hard/SH: меньше 3 скрытых цветов');fin();continue;}
   const m=ck.measure,board=ck.board,base=LV.splitPods(m.volumes,m.N,null);if(base.error){no(base.error);fin();continue;}
   const scPic={id:src.id,title:title||src.title,rows:sp.rows,locked:null};
+  // a single choice leans to the site whose approach is farther from the entry (walking), so the other, losing approach
+  // is the nearer one and random games clear it first in part of the games (bridgeSingle: both sites offered); one
+  // attempt in four the other way round
+  const far=kind==='single'?(()=>{const w=nearDepth(sp,true),d=board.hero.choices.map(c=>w(...anchorOf(board,c)));return d[1]>d[0]?1:0;})():null;
   for(const recipe of recipes)for(let k=0;k<candidates&&Date.now()<deadline;k++){nC++;rec.candidates++;
-   const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rows=Math.ceil(base.pods.length/cols),intended=k%2;
+   const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rows=Math.ceil(base.pods.length/cols),intended=far===null?k%2:(k%4===3?1-far:far);
    // delay pushes the other site's approach deep; a single choice keeps it low (bridgeSingle wants either site offered first
    // in part of the random games)
    const gate=kind==='better'?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),dr=r(),delay=kind==='single'?(dr<.75?0:1):Math.floor(dr*4);
    const cseed=seed*1000003+n*7919+k*131,hi=cls==='Normal'?.9:1,blend=steer?Math.min(hi,Math.max(0,steer.t+(rngOf(cseed^0x5bd1e995)()-.5)*.12)):null;
    // a single choice exposes the other approach in most attempts (candidate opts.expose)
-   const expose=kind==='single'&&k%4!==3;
+   const expose=kind==='single';
    const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,cseed,false,pos,{gate,intended,delay,...(expose?{expose}:{}),...(blend!==null?(cls==='Normal'?{t:blend}:{tStrong:blend}):{})});if(c.error){no(c.error);continue;}
    // ROUNDS_TRACE=1: each check's time on stderr (a slow solver branch shows which candidate and stage)
    let quick=null,verdicts=null,tl=Date.now();const trace=process.env.ROUNDS_TRACE?l=>{const t=Date.now();console.error(`  ${src.id} ${s.key} #${k} +${((t-tl)/1000).toFixed(1)} s ${l}`);tl=t;}:()=>{};
@@ -449,7 +455,7 @@ export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge']
    const e=await LV.evaluate(c.level,{m,cls,kind,tick:l=>{const q=/^быстрая оценка ([\d.]+)/.exec(l);if(q)quick=+q[1];const v=/^мосты (\[.*\])/.exec(l);if(v)verdicts=v[1];trace(l);}});trace(e.reason||'прошёл');
    // the solver's verdict per bridge goes with a bridge reason (both win, or neither: a different fix)
    if(e.reason&&/^мост: (решает не ровно|выигрывают не оба)/.test(e.reason)&&verdicts)e.reason+=' '+verdicts;
-   // one bridge wins but bridgeSingle refused: which site random games offer first (both must be, in some games)
+   // one bridge wins but bridgeSingle refused: which site the random games (§5) offer first (both must be, in some games)
    if(e.reason&&/^мост: ни/.test(e.reason)&&verdicts){const bs=await bridgeSingle(c.level,60,3,JSON.parse(verdicts));e.reason+=` ${verdicts} первым предложен ${JSON.stringify(bs.offered)}`;trace(e.reason);}
    if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(hi,Math.max(0,steer.t+step(steer,q)));}}
    if(!e.reason&&e.random.cls!==cls)e.reason=`класс по случайному тесту ${e.random.cls}`;

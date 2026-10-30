@@ -153,13 +153,24 @@ export async function hiddenMatters(level,route){const E=await engine(),{idle:R}
  return {ok:out.some(x=>x.gap<=2&&x.newColour&&x.revealAt<total/2),pods:out};}
 
 // the bridge as a decision (§8, from the second introduction): exactly one bridge keeps a winning continuation, proven
-// for the other, and random games reach each bridge site in some games (else there is no choice)
-export async function bridgeSingle(level,games=60,seed=3,known=null){const E=await engine(),{R,T}=E,win=known||(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
+// for the other, and random games reach each bridge site in some games (else there is no choice): offered counts, per
+// bridge, the games where it is buildable at the first moment any bridge is. The games are those of the random test
+// (§5, policy 'random': uniform over legal actions plus waiting before a scheduled event; the coordinator's decision of
+// 2026-10-30, 17 §8 "в части партий случайного теста"). policy 'tap' is the older measure (launch whenever possible,
+// no waiting), kept for comparison: on a Super Hard queue its games jam before either approach is cleared
+export async function bridgeSingle(level,games=60,seed=3,known=null,{policy='random'}={}){const E=await engine(),{R,T}=E,win=known||(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
  for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*977+g);let k=0;
-  while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));const br=m.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
-   if(br.length||t.state.bridge>=0)break;if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;t.advance(t.steps[0].at-t.now);}}
+  if(policy==='tap'){while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));const br=m.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
+   if(br.length||t.state.bridge>=0)break;if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;t.advance(t.steps[0].at-t.now);}continue;}
+  const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)t.advance(0);};
+  const waitEvent=()=>{while(t.pending){const e=t.steps[0];t.advance(Math.max(0,e.at-t.now));if(isStateEvent(e))break;}settleNow();};
+  while(k++<200000){settleNow();if(t.state.status==='Won')break;
+   const moves=R.legal(t.state).filter(a=>!t.check(a)),br=moves.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
+   if(br.length||t.state.bridge>=0)break;
+   const canWait=t.steps.some(isStateEvent);if(!moves.length){if(t.pending){waitEvent();continue;}break;}
+   const j=Math.floor(r()*(moves.length+(canWait?1:0)));if(j===moves.length){waitEvent();continue;}t.commit(moves[j]);}}
  const wins=win.filter(x=>x===true).length,loses=win.filter(x=>x===false).length;
- return {each:win,offered:seen,ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}
+ return {each:win,offered:seen,policy,ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}
 
 // the loss with the other bridge comes later (17 §8, the owner, 2026-10-28: "проигрыш наступает не сразу при выборе, а
 // позже, через материалы и места"): random games of the extended policy (§5; with restricted, games that may build only
