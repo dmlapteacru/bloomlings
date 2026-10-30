@@ -3,7 +3,7 @@
   21,
   50
  ],
- "created": "2026-10-30T12:28:38.484Z",
+ "created": "2026-10-30T15:27:53.027Z",
  "positions": [
   {
    "level": 21,
@@ -24,8 +24,8 @@
      10
     ]
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0004"
   },
   {
    "level": 22,
@@ -46,8 +46,8 @@
      10
     ]
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0015"
   },
   {
    "level": 23,
@@ -68,8 +68,8 @@
      10
     ]
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0155"
   },
   {
    "level": 24,
@@ -90,8 +90,8 @@
      10
     ]
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0098"
   },
   {
    "level": 25,
@@ -113,8 +113,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0030"
   },
   {
    "level": 26,
@@ -136,8 +136,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0057"
   },
   {
    "level": 27,
@@ -159,8 +159,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0060"
   },
   {
    "level": 28,
@@ -182,8 +182,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0082"
   },
   {
    "level": 29,
@@ -205,8 +205,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0019"
   },
   {
    "level": 30,
@@ -251,8 +251,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0008"
   },
   {
    "level": 32,
@@ -274,8 +274,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0012"
   },
   {
    "level": 33,
@@ -297,8 +297,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0156"
   },
   {
    "level": 34,
@@ -320,8 +320,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0043"
   },
   {
    "level": 35,
@@ -343,8 +343,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0157"
   },
   {
    "level": 36,
@@ -366,8 +366,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0079"
   },
   {
    "level": 37,
@@ -389,8 +389,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0061"
   },
   {
    "level": 38,
@@ -412,8 +412,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0160"
   },
   {
    "level": 39,
@@ -435,8 +435,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0163"
   },
   {
    "level": 40,
@@ -458,8 +458,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0165"
   },
   {
    "level": 41,
@@ -481,8 +481,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0161"
   },
   {
    "level": 42,
@@ -504,8 +504,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0162"
   },
   {
    "level": 43,
@@ -527,8 +527,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0158"
   },
   {
    "level": 44,
@@ -550,8 +550,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0164"
   },
   {
    "level": 45,
@@ -596,8 +596,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0022"
   },
   {
    "level": 47,
@@ -619,8 +619,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0095"
   },
   {
    "level": 48,
@@ -642,8 +642,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0166"
   },
   {
    "level": 49,
@@ -665,8 +665,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0167"
   },
   {
    "level": 50,
@@ -688,40 +688,11 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0159"
   }
  ],
- "open": [
-  21,
-  22,
-  23,
-  24,
-  25,
-  26,
-  27,
-  28,
-  29,
-  31,
-  32,
-  33,
-  34,
-  35,
-  36,
-  37,
-  38,
-  39,
-  40,
-  41,
-  42,
-  43,
-  44,
-  46,
-  47,
-  48,
-  49,
-  50
- ],
+ "open": [],
  "blockers": [],
  "mechanics": {
   "levels": [
@@ -752,7 +723,7 @@
     ],
     "recipe": "bridge+hidden",
     "doses": "мост: 1 выбор из 2 мест; скрытые доп. 5–10 % P (2 при P = 24)",
-    "bridgeSide": "up",
+    "bridgeSide": "right",
     "strip": "gap"
    },
    {
@@ -880,7 +851,7 @@
     ],
     "recipe": "bridge+links+hidden",
     "doses": "мост: 1 выбор из 2 мест; связки 20–45 % P (6–10 при P = 24); скрытые доп. 5 % P (2 при P = 24)",
-    "bridgeSide": "right",
+    "bridgeSide": "up",
     "strip": "gap"
    },
    {
@@ -1069,30 +1040,24 @@
    "three": 4
   },
   "sides": {
-   "up": 2,
+   "right": 2,
    "two": 2,
    "left": 1,
-   "right": 2
+   "up": 2
   }
  },
  "need": {
-  "Normal": 21,
-  "Hard": 2,
+  "Normal": 0,
+  "Hard": 0,
   "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 79,
-  "strong": 36,
+  "pictures": 0,
+  "strong": 0,
   "stream": 0,
-  "bank": {
-   "знакомство: hidden": 71,
-   "Normal": 528,
-   "Hard": 63,
-   "знакомство: links": 52,
-   "Super Hard": 31
-  },
+  "bank": {},
   "overlay": {}
  },
  "order": {
@@ -1107,79 +1072,8 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 39,
-  "splits": [
-   {
-    "level": 23,
-    "cls": "Normal",
-    "side": "up",
-    "kind": "better",
-    "recipe": "bridge+hidden",
-    "have": 0,
-    "sources": [
-     "P0008",
-     "P0010",
-     "P0011"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0008,P0010,P0011 --side up --kind better --cls \"Normal\" --recipe bridge+hidden --level 23 --out content/rounds/pictures/src/split-L0023.mjs"
-   },
-   {
-    "level": 33,
-    "cls": "Normal",
-    "side": "left",
-    "kind": "better",
-    "recipe": "bridge+hidden",
-    "have": 0,
-    "sources": [
-     "P0012",
-     "P0014",
-     "P0019"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0012,P0014,P0019 --side left --kind better --cls \"Normal\" --recipe bridge+hidden --level 33 --out content/rounds/pictures/src/split-L0033.mjs"
-   },
-   {
-    "level": 35,
-    "cls": "Hard",
-    "side": "right",
-    "kind": "better",
-    "recipe": "bridge+links+hidden",
-    "have": 0,
-    "sources": [
-     "P0011",
-     "P0014",
-     "P0015"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0011,P0014,P0015 --side right --kind better --cls \"Hard\" --recipe bridge+links+hidden --level 35 --out content/rounds/pictures/src/split-L0035.mjs"
-   },
-   {
-    "level": 43,
-    "cls": "Normal",
-    "side": "right",
-    "kind": "better",
-    "recipe": "bridge+hidden",
-    "have": 0,
-    "sources": [
-     "P0014",
-     "P0019",
-     "P0022"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0014,P0019,P0022 --side right --kind better --cls \"Normal\" --recipe bridge+hidden --level 43 --out content/rounds/pictures/src/split-L0043.mjs"
-   },
-   {
-    "level": 50,
-    "cls": "Hard",
-    "side": "up",
-    "kind": "better",
-    "recipe": "bridge+links+hidden",
-    "have": 0,
-    "sources": [
-     "P0022",
-     "P0030",
-     "P0031"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0022,P0030,P0031 --side up --kind better --cls \"Hard\" --recipe bridge+links+hidden --level 50 --out content/rounds/pictures/src/split-L0050.mjs"
-   }
-  ],
+  "sceneSources": 32,
+  "splits": [],
   "avoidMotifs": [
    "ретро-техника (8)",
    "лампы и фонари (5)",
@@ -1191,6 +1085,7 @@
    "полив цветка (4)",
    "роботы (4)",
    "чашки и кружки (4)",
+   "динозавры (3)",
    "домики-сказки (4)",
    "корабли и лодки (4)",
    "привидения и духи (3)"
@@ -1198,16 +1093,16 @@
   "suggestFamilies": [
    "Герои и мир Bloomlings (0)",
    "Домашние животные (1)",
-   "Цветы и букеты (1)",
-   "Деревья, листья и плоды (1)",
-   "Грибы и лесные находки (1)",
-   "Камни, минералы и кристаллы (1)",
    "Блюда и напитки (1)",
    "Магазины и витрины (1)",
-   "Городские пространства (1)",
    "Водный транспорт (1)",
-   "Профессии и увлечения (1)",
-   "Лаборатории и изобретения (1)"
+   "Маски и костюмы (1)",
+   "Цветы и букеты (2)",
+   "Деревья, листья и плоды (2)",
+   "Грибы и лесные находки (2)",
+   "Камни, минералы и кристаллы (2)",
+   "Фрукты и ягоды (2)",
+   "Овощи и урожай (2)"
   ]
  }
 }
