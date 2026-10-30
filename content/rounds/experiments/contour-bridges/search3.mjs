@@ -55,6 +55,8 @@ for(let k=0;k<N;k++){
  const level={...geo,pods,tray,recipe:E.RECIPE||'bridge+hidden',strip:'gap'};
  {const ce=LV.checkPods(pods,v);if(ce.length){console.log(k,'balance',JSON.stringify(ce).slice(0,160));continue;}}
  {const de=LV.dosesOk(level,CLS);if(de){console.log(k,'doses',de);continue;}}
+ // §3: the pod budget by W (the audit's mandatory check)
+ {const [blo,bhi]=L.budget(m.N);if(pods.length<blo||pods.length>bhi){console.log(k,'budget',pods.length,blo+'-'+bhi);continue;}}
  const w=(await M.bridgeChoicesWin(level)).each;if(!(w[0]===true&&w[1]===true)){console.log(k,'bridges',JSON.stringify(w));continue;}
  const QG=+(E.QG||60),qs=[await M.quickShare(level,QG,11,0),await M.quickShare(level,QG,11,1)],best=qs[0]>=qs[1]?0:1,gap=Math.abs(qs[0]-qs[1]);
  console.log(k,'pods',pods.length,'links',g,'shares',qs.map(x=>Math.round(x*100)).join('/'),'better',best);
