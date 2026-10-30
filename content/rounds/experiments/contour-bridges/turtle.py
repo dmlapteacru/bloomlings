@@ -1,6 +1,6 @@
 # L33 «Черепаха-остров» (Морские и пресноводные обитатели, motif: черепахи): a giant sea turtle swimming left with a tiny
 # island on its shell — a sand mound and a palm tree. The turtle with its island is outlined (17 §8); the bridges are
-# planks from the right, from a pink coral reef and from a sandbank, onto the turtle's back (both cross left).
+# planks from the right, from a pink coral reef onto the shell and from a sandbank onto the rear flipper (both cross left).
 import math,json,sys
 sys.path.insert(0,'.')
 from contour import finish,edge_site
@@ -36,7 +36,7 @@ fill(lambda x,y:trunk(x,y),'E',far)
 fill(lambda x,y:leaves(x,y),'G',far)
 # eye and smile
 for (x,y) in [(4,14),(3,16),(4,16)]: g[y][x]='M'
-rows,anchors=finish(g,far,[('right',12),('right',19)],fill=None)
+rows,anchors=finish(g,far,[('right',12),('right',20)],fill=None)
 # approaches: a pink coral reef round the upper anchor, a sandbank round the lower one
 rows=[list(r) for r in rows]
 (ax1,ay1),(ax2,ay2)=anchors

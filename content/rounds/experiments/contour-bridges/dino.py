@@ -33,6 +33,7 @@ for y in range(H):
         if body(X,Y) or neck(X,Y) or head(X,Y) or tail(X,Y) or legs(X,Y): far[y][x]=True
 fill(lambda x,y:True,'G',far)
 fill(lambda x,y:body(x,y) and y>=15.6,'C',far)                      # pale belly
+fill(lambda x,y:tail(x,y) and not body(x,y) and (y>=15.5+(12-x)*.42-.1 or x<=6.2),'C',far)   # and the tail's underside, pale to the tip
 g[4][29]='D'                                                       # the eye
 rows,anchors=finish(g,far,[('left',18),('left',13)],fill=None)
 json.dump({'rows':rows},sys.stdout)

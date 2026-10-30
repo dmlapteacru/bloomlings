@@ -22,7 +22,7 @@ for y in range(H):
         if house(x+.5,y+.5) or roof(x+.5,y+.5): far[y][x]=True
 fill(lambda x,y:True,'C',far)                          # the glass panes (pale)
 fill(lambda x,y:abs((x-6)%5)<=.5 or abs(y-10)<=.5 or abs(y-17)<=.5,'D',far)   # the frame bars
-fill(lambda x,y:y>=22.5,'E',far)                       # soil
+fill(lambda x,y:y>=22.5 and not 9<=x<=11,'E',far)      # soil, a pale aisle under the left door
 # tulips, one in each pane: a cup with a notch over a two-cell stem; heads red, yellow and pink
 TUL=['X..X','XXXX','XXXX','.XX.']
 def tulip(x0,y0,c,stem):

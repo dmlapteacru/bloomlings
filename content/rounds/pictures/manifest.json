@@ -70,7 +70,8 @@
    "colours": 6,
    "status": "approved",
    "batch": "owner-0004-0008",
-   "note": null
+   "note": null,
+   "usedBy": "L0021"
   },
   {
    "id": "P0005",
@@ -140,7 +141,8 @@
    "colours": 7,
    "status": "approved",
    "batch": "owner-0004-0008",
-   "note": null
+   "note": null,
+   "usedBy": "L0031"
   },
   {
    "id": "P0009",
@@ -209,7 +211,8 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0032"
   },
   {
    "id": "P0013",
@@ -260,7 +263,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0022"
   },
   {
    "id": "P0016",
@@ -331,7 +335,8 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0029"
   },
   {
    "id": "P0020",
@@ -519,7 +524,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0025"
   },
   {
    "id": "P0031",
@@ -740,7 +746,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0034"
   },
   {
    "id": "P0044",
@@ -978,7 +985,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0026"
   },
   {
    "id": "P0058",
@@ -1029,7 +1037,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0027"
   },
   {
    "id": "P0061",
@@ -1046,7 +1055,8 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0037"
   },
   {
    "id": "P0062",
@@ -1354,7 +1364,8 @@
    "colours": 5,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0036"
   },
   {
    "id": "P0080",
@@ -1406,7 +1417,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0028"
   },
   {
    "id": "P0083",
@@ -1678,7 +1690,8 @@
    "colours": 7,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0024"
   },
   {
    "id": "P0099",
@@ -2677,7 +2690,7 @@
   {
    "id": "P0156",
    "seq": 156,
-   "version": 1,
+   "version": 2,
    "title": "Черепаха-остров",
    "theme": "bridge-contour",
    "family": "Морские и пресноводные обитатели",
@@ -2685,7 +2698,7 @@
    "forLevel": 33,
    "w": 32,
    "h": 28,
-   "N": 812,
+   "N": 811,
    "colours": 9,
    "status": "draft",
    "batch": "batch-0155-contour-bridges",
@@ -2695,7 +2708,7 @@
   {
    "id": "P0157",
    "seq": 157,
-   "version": 1,
+   "version": 2,
    "title": "Теплица с тюльпанами",
    "theme": "bridge-contour",
    "family": "Цветы и букеты",
@@ -2713,7 +2726,7 @@
   {
    "id": "P0158",
    "seq": 158,
-   "version": 1,
+   "version": 2,
    "title": "Диплодок в озере",
    "theme": "bridge-contour",
    "family": "Доисторический мир",
@@ -2731,7 +2744,7 @@
   {
    "id": "P0159",
    "seq": 159,
-   "version": 1,
+   "version": 2,
    "title": "Роза собора",
    "theme": "bridge-contour",
    "family": "Фигуры, знаки и эмблемы",
